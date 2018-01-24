@@ -25,9 +25,17 @@ public class Way extends OsmElement implements BoundedObject {
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294266L;
+    private static final long serialVersionUID = 1104911642016294267L;
 
     final ArrayList<Node> nodes;
+
+    /**
+     * Cache of bounding box
+     */
+    private int left = Integer.MIN_VALUE;
+    private int bottom;
+    private int right;
+    private int top;
 
     public static final String NAME = "way";
 
@@ -466,12 +474,15 @@ public class Way extends OsmElement implements BoundedObject {
     }
 
     /**
-     * Returns a bounding box covering the way FIXME results should be cached in some intelligent way
+     * Returns a bounding box covering the wayy
      * 
      * @return the bounding box of the way
      */
     public BoundingBox getBounds() {
         BoundingBox result = null;
+        if (left != Integer.MIN_VALUE) {
+            return new BoundingBox(left, bottom, right, top);
+        }
         boolean first = true;
         for (Node n : getNodes()) {
             if (first) {
@@ -481,16 +492,38 @@ public class Way extends OsmElement implements BoundedObject {
                 result.union(n.lon, n.lat);
             }
         }
+        setBoundingBoxCache(result);
         return result;
     }
 
+    private void setBoundingBoxCache(@Nullable BoundingBox result) {
+        if (result == null) {
+            return;
+        }
+        left = result.getLeft();
+        bottom = result.getBottom();
+        right = result.getRight();
+        top = result.getTop();
+    }
+
     /**
-     * Returns a bounding box covering the way FIXME results should be cached in some intelligent way
+     * Called if geometry has changed and caced bbox is invalid
+     */
+    public void invalidateBoundingBox() {
+        left = Integer.MIN_VALUE;
+    }
+
+    /**
+     * Returns a bounding box covering the way
      * 
      * @param result a bounding box to use for producing the result, avoids creating an object instance
      * @return the bounding box of the way
      */
     public BoundingBox getBounds(BoundingBox result) {
+        if (left != Integer.MIN_VALUE) {
+            result.set(left, bottom, right, top);
+            return result;
+        }
         boolean first = true;
         for (Node n : getNodes()) {
             if (first) {
@@ -500,6 +533,7 @@ public class Way extends OsmElement implements BoundedObject {
                 result.union(n.lon, n.lat);
             }
         }
+        setBoundingBoxCache(result);
         return result;
     }
 

@@ -127,7 +127,7 @@ public class BackgroundProperties extends DialogFragment {
                 Preferences prefs = new Preferences(getActivity());
                 Map map = ((Main) getActivity()).getMap();
                 float contrast = progress / 127.5f - 1f; // range from -1 to +1
-                map.getOpenStreetMapTilesOverlay().setContrast(contrast);
+                map.getBackgroundLayer().setContrast(contrast);
                 map.invalidate();
                 prefs.setContrastValue(contrast);
             }

@@ -19,6 +19,7 @@ buildscript {
 plugins {
 	id "de.undercouch.download" version "3.1.1"
 	id "org.sonarqube" version "2.6.1"
+    id "net.ltgt.apt" version "0.13"
 }
 import de.undercouch.gradle.tasks.download.Download
 
@@ -38,9 +39,15 @@ allprojects {
 // Project level build file starts here
 apply plugin: 'eclipse'
 apply plugin: 'com.android.application'
+apply plugin: "net.ltgt.apt"
 apply plugin: 'org.kordamp.gradle.markdown'
 apply plugin: 'jacoco'
 // apply plugin: 'jacoco-everywhere'
+
+ext {
+    adb = android.getAdbExe().toString()
+}
+
 
 // note this is currently processed by a slightly modified version of the 
 // org.kordamp.gradle.markdown plugin with support for a html template and 
@@ -77,14 +84,13 @@ updatePreset.description = 'Update the default preset from http://simonpoole.git
 
 task updateImagery(type: Download) {
 	acceptAnyCertificate true
-    src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_tms_minified.json'
-    dest new File(projectDir.getPath() + '/src/main/assets/imagery.json')
+    src 'https://raw.githubusercontent.com/simonpoole/osm-layer-index/gh-pages/imagery_minified.geojson'
+    dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
 }
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
 
 task updateTaginfoJson(type: Exec) {
-	def adb = android.getAdbExe().toString()
 	commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
 }
 updateTaginfoJson.group = 'vespucci'
@@ -131,8 +137,7 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
 
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.osm.ApiTest#dataDownloadElementTimeout"
-		def adb = android.getAdbExe().toString()
+		def toRun = "de.blau.android.resources.TileLayerServerTest"
 		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
 		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 		finalizedBy uninstallDebugAndroidTest,uninstallDebug
@@ -141,7 +146,9 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
 	runSingleConnectedTest.description = 'Run a single test method on device (configuration needs to be edited)'
 	
 	// while we are at it make sure we remove any existing installation before we run the tests
-	connectedDebugAndroidTest.dependsOn uninstallDebug
+	// currently this conflicts with installDebug which we need to be able to set the mock location permission
+	// connectedDebugAndroidTest.dependsOn uninstallDebug
+	connectedDebugAndroidTest.dependsOn installDebug
 }
 
 apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android'
@@ -224,6 +231,23 @@ android.applicationVariants.all { variant ->
   }
 }
 
+// this adds some code to set the mock location permission on devices with 6.0 and later
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('install')) {
+        task.doLast {
+            android.applicationVariants.all { variant ->
+                "${adb} devices".execute().text.eachLine {
+                    if (it.endsWith("device")) {
+                        def device = it.split()[0]
+                        println "Granting test permissions on device ${device}\n"
+                        "${adb} shell appops set ${variant.applicationId} 58 allow".execute()
+                    }
+                }
+            }
+        }
+    }
+}
+
 ext {
     okHttpVersion = "3.9.1"
     signpostVersion = "1.2.1.2"
@@ -252,6 +276,7 @@ dependencies {
     compile "com.drewnoakes:metadata-extractor:2.10.1"
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
+    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.11.0"
     compile "ch.poole:ConditionalRestrictionParser:0.2.2"

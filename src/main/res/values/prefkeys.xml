@@ -62,7 +62,9 @@
     <string name="config_osmPreferredDir_key">osmPreferredDir</string>
     <string name="config_notesPreferredDir_key">notesPreferredDir</string>
     <string name="config_scriptsPreferredDir_key">scriptsPreferredDir</string>
+    <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_validatorprefs_key">validatorprefs</string>
+    <string name="config_customlayers_key">customLayers</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>

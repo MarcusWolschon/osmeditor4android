@@ -29,9 +29,9 @@ import de.blau.android.util.SearchIndexUtils;
 @LargeTest
 public class PresetTest {
 
-    Main main;
+    Main     main;
     Preset[] presets;
-    
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
@@ -70,7 +70,7 @@ public class PresetTest {
         Assert.assertTrue(result.contains("left"));
         Assert.assertTrue(result.contains("right"));
     }
-    
+
     @Test
     public void deprecation() {
         // deprecated items should not be in the search index

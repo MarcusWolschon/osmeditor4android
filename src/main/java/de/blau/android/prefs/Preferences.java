@@ -50,7 +50,7 @@ public class Preferences {
 
     private String backgroundLayer;
 
-    private final String overlayLayer;
+    private String overlayLayer;
 
     private final String scaleLayer;
 
@@ -180,8 +180,8 @@ public class Preferences {
         enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
-        backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), null);
-        overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), null);
+        backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), "MAPNIK");
+        overlayLayer = prefs.getString(r.getString(R.string.config_overlayLayer_key), "NOOVERLAY");
         scaleLayer = prefs.getString(r.getString(R.string.config_scale_key), "SCALE_METRIC");
         String tempMapProfile = prefs.getString(r.getString(R.string.config_mapProfile_key), null);
         // check if we actually still have the profile
@@ -343,22 +343,37 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * @return the id of the current background layer
      */
     public String backgroundLayer() {
         return backgroundLayer;
     }
 
-    public void setBackGroundLayer(String name) {
-        backgroundLayer = name;
-        prefs.edit().putString(r.getString(R.string.config_backgroundLayer_key), name).commit();
+    /**
+     * Set the id of the background layer
+     * 
+     * @param id id to set
+     */
+    public void setBackGroundLayer(String id) {
+        backgroundLayer = id;
+        prefs.edit().putString(r.getString(R.string.config_backgroundLayer_key), id).commit();
     }
 
     /**
-     * @return
+     * @return the id of the current overlay layer
      */
     public String overlayLayer() {
         return overlayLayer;
+    }
+    
+    /**
+     * Set the id of the overlay layer
+     * 
+     * @param id id to set
+     */
+    public void setOverlayLayer(String id) {
+        overlayLayer = id;
+        prefs.edit().putString(r.getString(R.string.config_overlayLayer_key), id).commit();
     }
 
     /**

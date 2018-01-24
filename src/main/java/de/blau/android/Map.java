@@ -27,6 +27,7 @@ import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -35,6 +36,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.exception.OsmException;
 import de.blau.android.filter.Filter;
+import de.blau.android.imageryoffset.ImageryOffset;
+import de.blau.android.imageryoffset.Offset;
+import de.blau.android.imageryoffset.ImageryOffsetUtils;
+import de.blau.android.imageryoffset.ImageryOffsetDatabase;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.GeoPoint.InterruptibleGeoPoint;
@@ -43,6 +48,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -53,15 +59,15 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.validation.Validator;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.MapOverlayTilesOverlay;
-import de.blau.android.views.overlay.MapTilesOverlay;
-import de.blau.android.views.overlay.MapViewOverlay;
+import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
+import de.blau.android.views.layers.MapViewLayer;
 
 /**
  * Paints all data provided previously by {@link Logic}.<br/>
@@ -93,7 +99,7 @@ public class Map extends View implements IMapView {
      */
     private static final int SHOW_ICONS_LIMIT = 15;
 
-    private static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+    public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
 
     /** half the width/height of a node icon in px */
     private final int iconRadius;
@@ -113,17 +119,22 @@ public class Map extends View implements IMapView {
 
     /**
      * List of Overlays we are showing.<br/>
-     * This list is initialized to contain only one {@link MapTilesOverlay} at construction-time but can be changed to
+     * This list is initialized to contain only one {@link MapTilesLayer} at construction-time but can be changed to
      * contain additional overlays later.
      * 
      * @see #getOverlays()
      */
-    final List<MapViewOverlay> mOverlays = Collections.synchronizedList(new ArrayList<MapViewOverlay>());
+    final List<MapViewLayer>          mOverlays       = Collections.synchronizedList(new ArrayList<MapViewLayer>());
+    MapTilesLayer                     backgroundLayer = null;
+    MapTilesOverlayLayer              overlayLayer    = null;
+    de.blau.android.photos.MapOverlay photoLayer      = null;
+    de.blau.android.tasks.MapOverlay  taskLayer       = null;
+    de.blau.android.gpx.MapOverlay    gpxLayer        = null;
 
     /**
      * The visible area in decimal-degree (WGS84) -space.
      */
-    private BoundingBox myViewBox;
+    private ViewBox myViewBox;
 
     private StorageDelegator delegator;
 
@@ -218,8 +229,6 @@ public class Map extends View implements IMapView {
     private Location displayLocation = null;
     private boolean  isFollowingGPS  = false;
 
-    private TrackerService tracker;
-
     private Paint textPaint;
 
     /**
@@ -247,6 +256,12 @@ public class Map extends View implements IMapView {
 
     private Paint labelBackground;
 
+    private float[][] coord = null;
+
+    private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
+
+    private TrackerService tracker = null;
+
     @SuppressLint("NewApi")
     public Map(final Context context) {
         super(context);
@@ -273,23 +288,41 @@ public class Map extends View implements IMapView {
         validator = App.getDefaultValidator(context);
     }
 
+    /**
+     * Create the stack of layers
+     * 
+     * Current the order is static
+     * 
+     * @param ctx Android Context
+     */
     public void createOverlays(Context ctx) {
         // create an overlay that displays pre-rendered tiles from the internet.
         synchronized (mOverlays) {
             if (mOverlays.isEmpty()) // only set once
             {
-                if (prefs == null) // just to be safe
-                    mOverlays.add(new MapTilesOverlay(this, TileLayerServer.getDefault(ctx, true), null));
-                else {
-                    // mOverlays.add(new OpenStreetMapTilesOverlay(this, OpenStreetMapTileServer.get(getResources(),
-                    // prefs.backgroundLayer(), true), null));
-                    MapTilesOverlay osmto = new MapTilesOverlay(this, TileLayerServer.get(ctx, prefs.backgroundLayer(), true), null);
-                    // Log.d("Map","background tile renderer " + osmto.getRendererInfo().toString());
-                    mOverlays.add(osmto);
-                    mOverlays.add(new MapOverlayTilesOverlay(this));
-                    mOverlays.add(new de.blau.android.tasks.MapOverlay(this));
-                    mOverlays.add(new de.blau.android.photos.MapOverlay(this));
+                if (prefs == null) { // just to be safe
+                    backgroundLayer = new MapTilesLayer(this, TileLayerServer.getDefault(ctx, true), null);
+                    mOverlays.add(backgroundLayer);
+                } else {
+                    mOverlays.clear();
+                    TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+                    backgroundLayer = new MapTilesLayer(this, ts != null ? ts : TileLayerServer.getDefault(ctx, true), null);
+                    if (ts != null) {
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, ts, getViewBox());
+                    }
+                    mOverlays.add(backgroundLayer);
+                    if (activeOverlay(prefs.overlayLayer())) {
+                        overlayLayer = new MapTilesOverlayLayer(this);
+                        mOverlays.add(overlayLayer);
+                    }
+                    photoLayer = new de.blau.android.photos.MapOverlay(this);
+                    mOverlays.add(photoLayer);
                     mOverlays.add(new de.blau.android.grid.MapOverlay(this));
+                    mOverlays.add(null); // placeholder for data layer
+                    gpxLayer = new de.blau.android.gpx.MapOverlay(this);
+                    mOverlays.add(gpxLayer);
+                    taskLayer = new de.blau.android.tasks.MapOverlay(this);
+                    mOverlays.add(taskLayer);
                 }
             }
         }
@@ -301,15 +334,8 @@ public class Map extends View implements IMapView {
      * @return the current background layer or null if none is configured
      */
     @Nullable
-    public MapTilesOverlay getOpenStreetMapTilesOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if ((osmvo instanceof MapTilesOverlay) && !(osmvo instanceof MapOverlayTilesOverlay)) {
-                    return (MapTilesOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    public MapTilesLayer getBackgroundLayer() {
+        return backgroundLayer;
     }
 
     /**
@@ -318,47 +344,33 @@ public class Map extends View implements IMapView {
      * @return the current overlay layer or null if none is configured
      */
     @Nullable
-    public MapOverlayTilesOverlay getOpenStreetMapOverlayTilesOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof MapOverlayTilesOverlay) {
-                    return (MapOverlayTilesOverlay) osmvo;
-                }
-            }
-        }
-        return null;
-
+    public MapTilesOverlayLayer getOverlayLayer() {
+        return overlayLayer;
     }
 
-    public de.blau.android.tasks.MapOverlay getOpenStreetBugsOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof de.blau.android.tasks.MapOverlay) {
-                    return (de.blau.android.tasks.MapOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    @Nullable
+    public de.blau.android.photos.MapOverlay getPhotoLayer() {
+        return photoLayer;
     }
 
-    public de.blau.android.photos.MapOverlay getPhotosOverlay() {
-        synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof de.blau.android.photos.MapOverlay) {
-                    return (de.blau.android.photos.MapOverlay) osmvo;
-                }
-            }
-        }
-        return null;
+    @Nullable
+    public de.blau.android.gpx.MapOverlay getGpxLayer() {
+        return gpxLayer;
+    }
+
+    @Nullable
+    public de.blau.android.tasks.MapOverlay getTaskLayer() {
+        return taskLayer;
     }
 
     public void onDestroy() {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                osmvo.onDestroy();
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null) {
+                    osmvo.onDestroy();
+                }
             }
         }
-        tracker = null;
         synchronized (iconCache) {
             iconCache.clear();
         }
@@ -373,8 +385,10 @@ public class Map extends View implements IMapView {
 
     public void onLowMemory() {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                osmvo.onLowMemory();
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null) {
+                    osmvo.onLowMemory();
+                }
             }
         }
     }
@@ -401,28 +415,25 @@ public class Map extends View implements IMapView {
         tmpPresets = App.getCurrentPresets(context);
         tmpLocked = logic.isLocked();
 
-        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-
-        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
-        textPaint = fs.getPaint();
-
         inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
 
         // Draw our Overlays.
         canvas.getClipBounds(canvasBounds);
-        MapTilesOverlay.resetAttributionArea(canvasBounds, 0);
+
+        int attributionOffset = 2;
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (!(osmvo instanceof de.blau.android.tasks.MapOverlay)) {
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo == null) {
+                    if (zoomLevel > SHOW_DATA_LIMIT) {
+                        paintOsmData(canvas);
+                    }
+                } else {
+                    osmvo.setAttributionOffset(attributionOffset);
                     osmvo.onManagedDraw(canvas, this);
+                    attributionOffset = osmvo.getAttributionOffset();
                 }
             }
         }
-
-        if (zoomLevel > SHOW_DATA_LIMIT) {
-            paintOsmData(canvas);
-        }
-        getOpenStreetBugsOverlay().onManagedDraw(canvas, this); // draw bugs on top of data
 
         if (zoomLevel > 10) {
             if (tmpDrawingEditMode != Mode.MODE_ALIGN_BACKGROUND) {
@@ -431,7 +442,6 @@ public class Map extends View implements IMapView {
                 boundingBoxes.addAll(delegator.getBoundingBoxes());
                 paintStorageBox(canvas, boundingBoxes);
             }
-            paintGpsTrack(canvas);
         }
         paintGpsPos(canvas);
         if (tmpDrawingInEditRange)
@@ -463,8 +473,8 @@ public class Map extends View implements IMapView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onTouchEvent(event, this)) {
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null && osmvo.onTouchEvent(event, this)) {
                     return true;
                 }
             }
@@ -475,8 +485,8 @@ public class Map extends View implements IMapView {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onKeyDown(keyCode, event, this)) {
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null && osmvo.onKeyDown(keyCode, event, this)) {
                     return true;
                 }
             }
@@ -487,8 +497,8 @@ public class Map extends View implements IMapView {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onKeyUp(keyCode, event, this)) {
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null && osmvo.onKeyUp(keyCode, event, this)) {
                     return true;
                 }
             }
@@ -499,8 +509,8 @@ public class Map extends View implements IMapView {
     @Override
     public boolean onTrackballEvent(MotionEvent event) {
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo.onTrackballEvent(event, this)) {
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null && osmvo.onTrackballEvent(event, this)) {
                     return true;
                 }
             }
@@ -560,15 +570,8 @@ public class Map extends View implements IMapView {
     private void drawCrosshairs(Canvas canvas, float x, float y, Paint paint) {
         canvas.save();
         canvas.translate(x, y);
-        canvas.drawPath(DataStyle.getCurrent().crosshairs_path, paint);
+        canvas.drawPath(DataStyle.getCurrent().getCrosshairsPath(), paint);
         canvas.restore();
-    }
-
-    private void paintGpsTrack(Canvas canvas) {
-        if (tracker == null)
-            return;
-        float[] linePoints = pointListToLinePointsArray(new ArrayList<Float>(), tracker.getTrackPoints());
-        canvas.drawLines(linePoints, DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
     }
 
     /**
@@ -579,7 +582,7 @@ public class Map extends View implements IMapView {
     private void paintGpsPos(final Canvas canvas) {
         if (displayLocation == null)
             return;
-        BoundingBox viewBox = getViewBox();
+        ViewBox viewBox = getViewBox();
         float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int) (displayLocation.getLongitude() * 1E7));
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int) (displayLocation.getLatitude() * 1E7));
 
@@ -609,7 +612,7 @@ public class Map extends View implements IMapView {
             canvas.save();
             canvas.translate(x, y);
             canvas.rotate(o);
-            canvas.drawPath(DataStyle.getCurrent().orientation_path, paint);
+            canvas.drawPath(DataStyle.getCurrent().getOrientationPath(), paint);
             canvas.restore();
         }
         if (displayLocation.hasAccuracy()) {
@@ -659,9 +662,9 @@ public class Map extends View implements IMapView {
      */
     private void paintZoomAndOffset(final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = getOpenStreetMapTilesOverlay().getRendererInfo().getOffset(zoomLevel);
-        String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.lon) : "0.00000",
-                o != null ? String.format(Locale.US, "%.5f", o.lat) : "0.00000");
+        Offset o = getBackgroundLayer().getRendererInfo().getOffset(zoomLevel);
+        String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
+                o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
         float textSize = textPaint.getTextSize();
         float textWidth = textPaint.measureText(text);
         FontMetrics fm = textPaint.getFontMetrics();
@@ -676,9 +679,7 @@ public class Map extends View implements IMapView {
      * @param canvas Canvas, where the data shall be painted on.
      */
     private void paintOsmData(final Canvas canvas) {
-        ArrayList<Float> points = new ArrayList<>(); // allocate this just once
-
-        // first find all nodes that we need to display (for density calculations)
+        // first find all nodes that we need to display
 
         List<Node> paintNodes = delegator.getCurrentStorage().getNodes(getViewBox());
 
@@ -706,39 +707,76 @@ public class Map extends View implements IMapView {
 
         boolean filterMode = tmpFilter != null; // we have an active filter
 
-        /*
-         * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the
-         * later
-         */
-        tmpHiddenWays.clear();
-        tmpStyledWays.clear();
-        for (Way w : ways) {
-            if (filterMode) {
+        List<Way> waysToDraw = ways;
+        if (filterMode) {
+            /*
+             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for
+             * the later
+             */
+            tmpHiddenWays.clear();
+            tmpStyledWays.clear();
+            for (Way w : ways) {
                 if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(w))) {
                     tmpStyledWays.add(w);
                 } else {
                     tmpHiddenWays.add(w);
                 }
-            } else {
-                tmpStyledWays.add(w);
             }
-        }
-        // draw hidden ways first
-        for (Way w : tmpHiddenWays) {
-            paintHiddenWay(points, canvas, w);
+            // draw hidden ways first
+            for (Way w : tmpHiddenWays) {
+                paintHiddenWay(canvas, w);
+            }
+            waysToDraw = tmpStyledWays;
         }
 
         boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
                 && tmpDrawingEditMode.elementsGeomEditiable();
-        Collections.sort(tmpStyledWays, layerComparator);
-        for (Way w : tmpStyledWays) {
-            paintWay(points, canvas, w, displayHandles, drawTolerance);
+        Collections.sort(waysToDraw, layerComparator);
+        for (Way w : waysToDraw) {
+            paintWay(canvas, w, displayHandles, drawTolerance);
         }
 
         // Paint nodes
         Boolean hwAccelarationWorkaround = myIsHardwareAccelerated(canvas) && Build.VERSION.SDK_INT < 19;
+
+        ViewBox viewBox = getViewBox();
+        int coordSize = 0;
+        float r = wayTolerancePaint.getStrokeWidth() / 2;
+        float r2 = r * r;
+        if (drawTolerance) {
+            if (coord == null || coord.length < paintNodes.size()) {
+                coord = new float[paintNodes.size()][2];
+            }
+        }
         for (Node n : paintNodes) {
-            paintNode(canvas, n, hwAccelarationWorkaround, drawTolerance);
+            boolean noTolerance = false;
+            int lat = n.getLat();
+            float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
+            int lon = n.getLon();
+            float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
+            if (drawTolerance) {
+                // this reduces the number of tolerance fields drawn
+                // while it rather expensive traversing the array is
+                // still reasonably cheap
+                if (coordSize != 0) {
+                    for (int i = 0; i < coordSize; i++) {
+                        float x1 = coord[i][0];
+                        float y1 = coord[i][1];
+                        float d2 = (x1 - x) * (x1 - x) + (y1 - y) * (y1 - y);
+                        if (d2 < r2) {
+                            noTolerance = true;
+                            break;
+                        }
+                    }
+                }
+                if (!noTolerance) {
+                    coord[coordSize][0] = x;
+                    coord[coordSize][1] = y;
+                    coordSize++;
+                }
+            }
+            paintNode(canvas, n, x, y, hwAccelarationWorkaround,
+                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)));
         }
         paintHandles(canvas);
     }
@@ -780,16 +818,6 @@ public class Map extends View implements IMapView {
     };
 
     /**
-     * 
-     * @return true if too many nodes are on screen for editing
-     */
-    public boolean tooManyNodes() {
-        return false;
-        // TODO code is currently disabled because it is not quite satisfactory
-        // return nodesOnScreenCount>(maxOnScreenNodes-unusedNodeSpace);
-    }
-
-    /**
      * Dim everything that hasn't been downloaded
      * 
      * @param canvas the canvas we are drawing on
@@ -809,7 +837,7 @@ public class Map extends View implements IMapView {
             }
             int screenWidth = getWidth();
             int screenHeight = getHeight();
-            BoundingBox viewBox = getViewBox();
+            ViewBox viewBox = getViewBox();
             path.reset();
             RectF screen = new RectF(0, 0, getWidth(), getHeight());
             for (BoundingBox bb : list) {
@@ -844,14 +872,10 @@ public class Map extends View implements IMapView {
      * @param hwAccelarationWorkaround use a workaround for operatons that are not supported when HW accelation is used
      * @param drawTolerance draw the touch halo
      */
-    private void paintNode(final Canvas canvas, final Node node, boolean hwAccelarationWorkaround, boolean drawTolerance) {
-        int lat = node.getLat();
-        int lon = node.getLon();
-        boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
+    private void paintNode(final Canvas canvas, final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
+            final boolean drawTolerance) {
 
-        BoundingBox viewBox = getViewBox();
-        float x = GeoMath.lonE7ToX(getWidth(), viewBox, lon);
-        float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, lat);
+        boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
 
         boolean isTagged = node.isTagged();
         boolean hasProblem = false;
@@ -865,9 +889,9 @@ public class Map extends View implements IMapView {
         // draw tolerance
         if (drawTolerance && (!filterMode || (filterMode && filteredObject))) {
             if (prefs.isToleranceVisible() && tmpClickableElements == null) {
-                drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y, nodeTolerancePaint);
+                drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint);
             } else if (tmpClickableElements != null && tmpClickableElements.contains(node)) {
-                drawNodeTolerance(canvas, node.getState(), lat, lon, isTagged, x, y, nodeTolerancePaint2);
+                drawNodeTolerance(canvas, isTagged, x, y, nodeTolerancePaint2);
             }
         }
 
@@ -887,13 +911,8 @@ public class Map extends View implements IMapView {
             featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
             // style for small label text
             featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) { // don't
-                                                                                                                                                                // draw
-                                                                                                                                                                // large
-                                                                                                                                                                // areas
-                                                                                                                                                                // in
-                                                                                                                                                                // multi-select
-                                                                                                                                                                // mode
+            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
+                // don't draw large areas in multi-select mode
                 canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
         } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
@@ -1001,7 +1020,7 @@ public class Map extends View implements IMapView {
      * @param featureKeyThin style to use for the label
      * @param e the OsmElement
      * @param strokeWidth current stroke scaling factor
-     * @param e the node we are drawing the label for
+     * @param withIcon offset the label so that we don't overlap an icon
      */
     private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth,
             final boolean withIcon) {
@@ -1037,6 +1056,8 @@ public class Map extends View implements IMapView {
         canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth, yOffset - paint.getTextSize() + fm.bottom, labelBackground);
         canvas.drawText(label, x - halfTextWidth, yOffset, paint);
     }
+
+    static final Bitmap NOICON = Bitmap.createBitmap(2, 2, Config.ARGB_8888);
 
     /**
      * Retrieve icon for the element, caching it if it isn't in the cache
@@ -1077,12 +1098,14 @@ public class Map extends View implements IMapView {
                     // icon.eraseColor(Color.WHITE); // replace nothing with white?
                     iconDrawable.draw(new Canvas(icon));
                 }
+            } else {
+                icon = NOICON;
             }
             synchronized (tempCache) {
                 tempCache.put(tags, icon);
             }
         }
-        return icon;
+        return icon != NOICON ? icon : null;
     }
 
     /**
@@ -1113,19 +1136,13 @@ public class Map extends View implements IMapView {
      * Paint the tolerance halo for a node
      * 
      * @param canvas the canvas we are drawing on
-     * @param nodeState state of the node
-     * @param lat node latitude
-     * @param lon node longitude
      * @param isTagged true if the node has any tags
      * @param x screen x
      * @param y screen y
      * @param paint the parameters to use for the colour
      */
-    private void drawNodeTolerance(final Canvas canvas, final Byte nodeState, final int lat, final int lon, boolean isTagged, final float x, final float y,
-            Paint paint) {
-        if (nodeState != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)) {
-            canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth() / 2, paint);
-        }
+    private void drawNodeTolerance(final Canvas canvas, final boolean isTagged, final float x, final float y, final Paint paint) {
+        canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth() / 2, paint);
     }
 
     /**
@@ -1136,8 +1153,10 @@ public class Map extends View implements IMapView {
      * @param displayHandles draw geometry improvement handles
      * @param drawTolerance if true draw the halo
      */
-    private void paintWay(ArrayList<Float> points, final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
-        float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
+    private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
+        pointListToLinePointsArray(points, way.getNodes());
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
         Paint paint;
         String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
         String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
@@ -1150,9 +1169,9 @@ public class Map extends View implements IMapView {
         // draw way tolerance
         if (drawTolerance) {
             if (prefs.isToleranceVisible() && tmpClickableElements == null) {
-                canvas.drawLines(linePoints, wayTolerancePaint);
+                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint);
             } else if (tmpClickableElements != null && tmpClickableElements.contains(way)) {
-                canvas.drawLines(linePoints, wayTolerancePaint2);
+                canvas.drawLines(linePoints, 0, pointsSize, wayTolerancePaint2);
             }
         }
 
@@ -1169,35 +1188,35 @@ public class Map extends View implements IMapView {
             FeatureStyle selectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_WAY);
             paint = selectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
-            canvas.drawLines(linePoints, paint);
+            canvas.drawLines(linePoints, 0, pointsSize, paint);
             paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-            drawWayArrows(canvas, linePoints, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
             labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
         } else if (isMemberOfSelectedRelation) {
             FeatureStyle relationSelectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY);
             paint = relationSelectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
-            canvas.drawLines(linePoints, paint);
+            canvas.drawLines(linePoints, 0, pointsSize, paint);
         }
 
         int onewayCode = way.getOneway();
         if (onewayCode != 0) {
             FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, (onewayCode == -1), directionArrows.getPaint(), false);
+            drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), directionArrows.getPaint(), false);
         } else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
             FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, false, directionArrows.getPaint(), false);
+            drawWayArrows(canvas, linePoints, pointsSize, false, directionArrows.getPaint(), false);
         }
 
         //
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
-        if (linePoints.length > 2) {
+        if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < (linePoints.length); i = i + 4) {
+            for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, fp.getPaint());
@@ -1205,7 +1224,7 @@ public class Map extends View implements IMapView {
 
         // display icons on closed ways
         if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
-            int vs = linePoints.length;
+            int vs = pointsSize;
             if (vs < way.nodeCount() * 2) {
                 return;
             }
@@ -1255,18 +1274,20 @@ public class Map extends View implements IMapView {
      * @param canvas Canvas, where the node shall be painted on.
      * @param way way which shall be painted.
      */
-    private void paintHiddenWay(ArrayList<Float> points, final Canvas canvas, final Way way) {
-        float[] linePoints = pointListToLinePointsArray(points, way.getNodes());
+    private void paintHiddenWay(final Canvas canvas, final Way way) {
+        pointListToLinePointsArray(points, way.getNodes());
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
 
         //
         FeatureStyle fp = DataStyle.getCurrent(DataStyle.HIDDEN_WAY);
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
-        if (linePoints.length > 2) {
+        if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
-            for (int i = 0; i < (linePoints.length); i = i + 4) {
+            for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
             canvas.drawPath(path, fp.getPaint());
@@ -1373,15 +1394,12 @@ public class Map extends View implements IMapView {
             float lastY = 0;
             for (long l : handles.values()) {
                 // draw handle
-                // canvas.drawCircle(x0 + xDelta/2, y0 + yDelta/2, 5, Profile.getCurrent(Profile.HANDLE).getPaint());
-                // canvas.drawPoint(x0 + xDelta/2, y0 + yDelta/2, Profile.getCurrent(Profile.HANDLE).getPaint());
-
                 float X = Float.intBitsToFloat((int) (l >>> 32));
                 float Y = Float.intBitsToFloat((int) (l));
                 canvas.translate(X - lastX, Y - lastY);
                 lastX = X;
                 lastY = Y;
-                canvas.drawPath(DataStyle.getCurrent().x_path, DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
+                canvas.drawPath(DataStyle.getCurrent().getXPath(), DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
             }
             canvas.restore();
             handles.clear(); // this is hopefully faster than allocating a new set
@@ -1397,10 +1415,10 @@ public class Map extends View implements IMapView {
      * @param paint the paint to use for drawing the arrows
      * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
-    private void drawWayArrows(Canvas canvas, float[] linePoints, boolean reverse, Paint paint, boolean addHandles) {
+    private void drawWayArrows(Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, Paint paint, boolean addHandles) {
         double minLen = DataStyle.getCurrent().getMinLenForHandle();
         int ptr = 0;
-        while (ptr < linePoints.length) {
+        while (ptr < linePointsSize) {
 
             float x1 = linePoints[ptr++];
             float y1 = linePoints[ptr++];
@@ -1454,83 +1472,86 @@ public class Map extends View implements IMapView {
      * 
      * Only segments that are inside the ViewBox are included.
      * 
-     * @param points list to (re-)use for projected points
+     * @param points list to (re-)use for projected points in the format expected by
+     *            {@link Canvas#drawLines(float[], Paint)
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a
      *            GPS track)
-     * @return an array of floats in the format expected by {@link Canvas#drawLines(float[], Paint)}.
      */
-    private float[] pointListToLinePointsArray(final ArrayList<Float> points, final List<? extends GeoPoint> nodes) {
+    public void pointListToLinePointsArray(@NonNull final FloatPrimitiveList points, @NonNull final List<? extends GeoPoint> nodes) {
         points.clear(); // reset
-        BoundingBox box = getViewBox();
+        ViewBox box = getViewBox();
         boolean testInterrupted = false;
         // loop over all nodes
         GeoPoint prevNode = null;
         GeoPoint lastDrawnNode = null;
+        int lastDrawnNodeLon = 0;
+        int lastDrawnNodeLat = 0;
         float prevX = 0f;
         float prevY = 0f;
         int w = getWidth();
         int h = getHeight();
         boolean thisIntersects = false;
         boolean nextIntersects = false;
-        for (int i = 0; i < nodes.size(); i++) {
-            GeoPoint node = nodes.get(i);
-            int nodeLon = node.getLon();
-            int nodeLat = node.getLat();
-            boolean interrupted = false;
-            if (i == 0) { // just do this once
-                testInterrupted = node instanceof InterruptibleGeoPoint;
-            }
-            if (testInterrupted) {
-                interrupted = ((InterruptibleGeoPoint) node).isInterrupted();
-            }
-            nextIntersects = true;
-            GeoPoint nextNode = null;
-            int nextNodeLat = 0;
-            int nextNodeLon = 0;
-            if (i < nodes.size() - 1) {
-                nextNode = nodes.get(i + 1);
-                nextNodeLat = nextNode.getLat();
-                nextNodeLon = nextNode.getLon();
-                nextIntersects = box.intersects(nextNodeLat, nextNodeLon, nodeLat, nodeLon);
-            }
+        int nodesSize = nodes.size();
+        if (nodesSize > 0) {
+            GeoPoint nextNode = nodes.get(0);
+            int nextNodeLat = nextNode.getLat();
+            int nextNodeLon = nextNode.getLon();
             float X = -Float.MAX_VALUE;
             float Y = -Float.MAX_VALUE;
-            if (!interrupted && prevNode != null) {
-                if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
-                        || box.intersects(nextNodeLat, nextNodeLon, lastDrawnNode.getLat(), lastDrawnNode.getLon()))) {
-                    X = GeoMath.lonE7ToX(w, box, nodeLon);
-                    Y = GeoMath.latE7ToY(h, w, box, nodeLat);
-                    if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
-                        prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
-                        prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
-                    }
-                    // Line segment needs to be drawn
-                    points.add(prevX);
-                    points.add(prevY);
-                    points.add(X);
-                    points.add(Y);
-                    lastDrawnNode = node;
+            for (int i = 0; i < nodesSize; i++) {
+                GeoPoint node = nextNode;
+                int nodeLon = nextNodeLon;
+                int nodeLat = nextNodeLat;
+                boolean interrupted = false;
+                if (i == 0) { // just do this once
+                    testInterrupted = node instanceof InterruptibleGeoPoint;
                 }
+                if (testInterrupted && node != null) {
+                    interrupted = ((InterruptibleGeoPoint) node).isInterrupted();
+                }
+                nextIntersects = true;
+                if (i < nodesSize - 1) {
+                    nextNode = nodes.get(i + 1);
+                    nextNodeLat = nextNode.getLat();
+                    nextNodeLon = nextNode.getLon();
+                    nextIntersects = box.isIntersectionPossible(nextNodeLon, nextNodeLat, nodeLon, nodeLat);
+                } else {
+                    nextNode = null;
+                }
+                X = -Float.MAX_VALUE; // misuse this as a flag
+                if (!interrupted && prevNode != null) {
+                    if (thisIntersects || nextIntersects || (!(nextNode != null && lastDrawnNode != null)
+                            || box.isIntersectionPossible(nextNodeLon, nextNodeLat, lastDrawnNodeLon, lastDrawnNodeLat))) {
+                        X = GeoMath.lonE7ToX(w, box, nodeLon);
+                        Y = GeoMath.latE7ToY(h, w, box, nodeLat);
+                        if (prevX == -Float.MAX_VALUE) { // last segment didn't intersect
+                            prevX = GeoMath.lonE7ToX(w, box, prevNode.getLon());
+                            prevY = GeoMath.latE7ToY(h, w, box, prevNode.getLat());
+                        }
+                        // Line segment needs to be drawn
+                        points.add(prevX);
+                        points.add(prevY);
+                        points.add(X);
+                        points.add(Y);
+                        lastDrawnNode = node;
+                        lastDrawnNodeLat = nodeLat;
+                        lastDrawnNodeLon = nodeLon;
+                    }
+                }
+                prevNode = node;
+                prevX = X;
+                prevY = Y;
+                thisIntersects = nextIntersects;
             }
-            prevNode = node;
-            prevX = X;
-            prevY = Y;
-            thisIntersects = nextIntersects;
         }
-
-        // convert from ArrayList<Float> to float[]
-        float[] result = new float[points.size()];
-        int i = 0;
-        for (Float f : points)
-            result[i++] = f;
-        return result;
     }
 
     /**
      * ${@inheritDoc}.
      */
     @Override
-    public BoundingBox getViewBox() {
+    public ViewBox getViewBox() {
         return myViewBox;
     }
 
@@ -1549,21 +1570,42 @@ public class Map extends View implements IMapView {
         tmpDrawingSelectedWays = aSelectedWays;
     }
 
+    /**
+     * Get our current Preferences object
+     * 
+     * @return a Preferences instance
+     */
     public Preferences getPrefs() {
         return prefs;
     }
 
+    /**
+     * Set the current Preferences object for this Map and any thing that needs changing
+     * 
+     * @param ctx Android Context
+     * @param aPreference the new Preferences
+     */
     public void setPrefs(Context ctx, final Preferences aPreference) {
         prefs = aPreference;
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if (osmvo instanceof MapTilesOverlay && !(osmvo instanceof MapOverlayTilesOverlay)) {
-                    final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
-                    ((MapTilesOverlay) osmvo).setRendererInfo(backgroundTS);
-                } else if (osmvo instanceof MapOverlayTilesOverlay) {
-                    final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
-                    ((MapOverlayTilesOverlay) osmvo).setRendererInfo(overlayTS);
+            if (mOverlays.size() > 1) { // createOverlays hasn't run yet if 1 or less
+                final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+                if (backgroundLayer != null) {
+                    backgroundLayer.setRendererInfo(backgroundTS);
+                    ImageryOffsetUtils.applyImagerOffsets(ctx, backgroundTS, getViewBox());
+                }
+                final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
+                if (overlayTS != null) {
+                    if (overlayLayer != null) {
+                        overlayLayer.setRendererInfo(overlayTS);
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
+                    } else if (activeOverlay(overlayTS.getId())) {
+                        overlayLayer = new MapTilesOverlayLayer(this);
+                        overlayLayer.setRendererInfo(overlayTS);
+                        mOverlays.add(1, overlayLayer);
+                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
+                    }
                 }
             }
         }
@@ -1574,12 +1616,25 @@ public class Map extends View implements IMapView {
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
     }
 
+    /**
+     * Check for a overlay that we actually have to display
+     * 
+     * @param layerId the layer id
+     * @return true if we should allocate a layer
+     */
+    private boolean activeOverlay(String layerId) {
+        return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
+    }
+
     public void updateProfile() {
         // changes when profile changes
         nodeTolerancePaint = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE).getPaint();
         nodeTolerancePaint2 = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE_2).getPaint();
         wayTolerancePaint = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE).getPaint();
         wayTolerancePaint2 = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE_2).getPaint();
+        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        textPaint = fs.getPaint();
     }
 
     void setOrientation(final float orientation) {
@@ -1590,15 +1645,11 @@ public class Map extends View implements IMapView {
         displayLocation = location;
     }
 
-    void setTracker(TrackerService tracker) {
-        this.tracker = tracker;
-    }
-
     void setDelegator(final StorageDelegator delegator) {
         this.delegator = delegator;
     }
 
-    public void setViewBox(final BoundingBox viewBox) {
+    public void setViewBox(final ViewBox viewBox) {
         myViewBox = viewBox;
         try {
             myViewBox.setRatio(this, (float) getWidth() / getHeight(), false);
@@ -1619,10 +1670,10 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * You can add/remove/reorder your Overlays using the List of {@link MapViewOverlay}. The first (index 0) Overlay
-     * gets drawn first, the one with the highest as the last one.
+     * You can add/remove/reorder your Overlays using the List of {@link MapViewLayer}. The first (index 0) Overlay gets
+     * drawn first, the one with the highest as the last one.
      */
-    public List<MapViewOverlay> getOverlays() {
+    public List<MapViewLayer> getOverlays() {
         return mOverlays;
     }
 
@@ -1641,9 +1692,10 @@ public class Map extends View implements IMapView {
      * @return the tile zoom level
      */
     private int calcZoomLevel(Canvas canvas) {
-        final TileLayerServer s = getOpenStreetMapTilesOverlay().getRendererInfo();
-        if (!s.isMetadataLoaded()) // protection on startup
+        final TileLayerServer s = getBackgroundLayer().getRendererInfo();
+        if (s == null || !s.isMetadataLoaded()) {// protection on startup
             return 0;
+        }
 
         // Calculate lat/lon of view extents
         final double latBottom = getViewBox().getBottom() / 1E7; // GeoMath.yToLatE7(viewPort.height(), getViewBox(),
@@ -1690,17 +1742,32 @@ public class Map extends View implements IMapView {
     /**
      * Return a list of the names of the currently used layers
      * 
-     * @return
+     * @return a List containg the currently in use imagery names
      */
-    public ArrayList<String> getImageryNames() {
-        ArrayList<String> result = new ArrayList<>();
+    public List<String> getImageryNames() {
+        List<String> result = new ArrayList<>();
         synchronized (mOverlays) {
-            for (MapViewOverlay osmvo : mOverlays) {
-                if ((osmvo instanceof MapTilesOverlay)) {
-                    result.add(((MapTilesOverlay) osmvo).getRendererInfo().getName());
+            for (MapViewLayer osmvo : mOverlays) {
+                if (osmvo != null && osmvo instanceof MapTilesLayer) {
+                    result.add(((MapTilesLayer) osmvo).getRendererInfo().getName());
                 }
             }
         }
         return result;
+    }
+
+    /**
+     * @return the iconRadius
+     */
+    public int getIconRadius() {
+        return iconRadius;
+    }
+
+    void setTracker(TrackerService tracker) {
+        this.tracker = tracker;
+    }
+
+    public TrackerService getTracker() {
+        return this.tracker;
     }
 }

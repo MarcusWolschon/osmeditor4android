@@ -106,12 +106,7 @@ public class LongHashSet implements Serializable {
         m_threshold = set.m_threshold;
         m_size = set.m_size;
         m_hasFreeKey = set.m_hasFreeKey;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            m_data = Arrays.copyOf(set.m_data, set.m_data.length);
-        } else { // sigh
-            m_data = new long[set.m_data.length];
-            System.arraycopy(set.m_data, 0, m_data, 0, m_data.length);
-        }
+        m_data = Arrays.copyOf(set.m_data, set.m_data.length);
     }
 
     /**

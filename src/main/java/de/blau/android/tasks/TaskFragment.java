@@ -244,50 +244,47 @@ public class TaskFragment extends DialogFragment {
 
         state.setEnabled(!bug.isNew()); // new bugs always open
         AppCompatDialog d = builder.create();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
-                @Override
-                public void onShow(DialogInterface dialog) { //
-                    final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                    if ((bug instanceof Note && bug.isNew() && ((Note) bug).count() == 1 && !App.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
-                        save.setEnabled(false);
-                    }
-                    final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                    if (!bug.hasBeenChanged()) {
-                        upload.setEnabled(false);
-                    }
-                    state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                            save.setEnabled(true);
-                            upload.setEnabled(true);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                        }
-                    });
-                    EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
-                    comment.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void afterTextChanged(Editable arg0) {
-                        }
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            save.setEnabled(true);
-                            upload.setEnabled(true);
-                            state.setSelection(State.OPEN.ordinal());
-                        }
-                    });
+        d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
+            @Override
+            public void onShow(DialogInterface dialog) { //
+                final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                if ((bug instanceof Note && bug.isNew() && ((Note) bug).count() == 1 && !App.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
+                    save.setEnabled(false);
                 }
-            });
-        }
+                final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
+                if (!bug.hasBeenChanged()) {
+                    upload.setEnabled(false);
+                }
+                state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                        save.setEnabled(true);
+                        upload.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+                });
+                EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
+                comment.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void afterTextChanged(Editable arg0) {
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        save.setEnabled(true);
+                        upload.setEnabled(true);
+                        state.setSelection(State.OPEN.ordinal());
+                    }
+                });
+            }
+        });
         // d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); // not a good idea on
         // small screens
         return d;
@@ -313,7 +310,7 @@ public class TaskFragment extends DialogFragment {
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
         try {
-            mListener = (UpdateViewListener)context;
+            mListener = (UpdateViewListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }

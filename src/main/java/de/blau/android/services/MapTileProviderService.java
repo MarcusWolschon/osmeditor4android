@@ -17,6 +17,7 @@ import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileFilesystemProvider;
@@ -44,10 +45,10 @@ public class MapTileProviderService extends Service {
         init();
     }
 
-    @SuppressLint("NewApi")
     /**
      * Tries to put the tile cache on a removable sd card if present and we haven't already created the cache
      */
+    @SuppressLint("NewApi")
     private void init() {
         Preferences prefs = new Preferences(this);
         int tileCacheSize = 100; // just in case we can't read the prefs
@@ -101,7 +102,9 @@ public class MapTileProviderService extends Service {
         if (mountPoint != null && mountPointWriteable) {
             Log.d(DEBUG_TAG, "Setting cache size to " + tileCacheSize + " on " + mountPoint.getPath());
             try {
-                mFileSystemProvider = new MapTileFilesystemProvider(getBaseContext(), mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                mFileSystemProvider = new MapTileFilesystemProvider(this, mountPoint, tileCacheSize * 1024 * 1024); // FSCache
+                // try to get BING layer early so the meta-data is already loaded
+                TileLayerServer.get(this, TileLayerServer.LAYER_BING, false);
                 return;
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
@@ -113,10 +116,6 @@ public class MapTileProviderService extends Service {
             return;
         }
         Snack.toastTopError(this, getString(R.string.toast_storage_error, mountPoint));
-        // FIXME potentially we should set both background and overlay
-        // preferences to NONE here or simply zap what we are currently are
-        // using.
-        // don't terminate, simply ignore requests
     }
 
     @Override
@@ -136,10 +135,6 @@ public class MapTileProviderService extends Service {
      * The IRemoteInterface is defined through IDL
      */
     private final IMapTileProviderService.Stub mBinder = new IMapTileProviderService.Stub() {
-        // @Override
-        public String[] getTileProviders() throws RemoteException {
-            return TileLayerServer.getIds(null, false);
-        }
 
         // @Override
         public void getMapTile(String rendererID, int zoomLevel, int tileX, int tileY, IMapTileProviderCallback callback) throws RemoteException {
@@ -156,6 +151,11 @@ public class MapTileProviderService extends Service {
 
         public void flushQueue(String rendererId, int zoomLevel) {
             mFileSystemProvider.flushQueue(rendererId, zoomLevel);
+        }
+
+        public void update() {
+            TileLayerDatabase db = new TileLayerDatabase(MapTileProviderService.this);
+            TileLayerServer.getListsLocked(MapTileProviderService.this, db.getReadableDatabase(), false);
         }
     };
 }

@@ -98,9 +98,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private static final String TAGS_KEY = "tags";
 
-    private static final String HTTP_PREFIX  = "http://";
-    private static final String HTTPS_PREFIX = "https://";
-
     private SavingHelper<LinkedHashMap<String, String>> savingHelper = new SavingHelper<>();
 
     private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
@@ -783,15 +780,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 adapter = nameAdapters.getStreetNameAdapter(hasTagValues ? row.tagValues : null);
             } else if (isPlaceName(key, usedKeys)) {
                 adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
-            } else if (key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
+            } else if (!hasTagValues && key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                ArrayList<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
+                List<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
                 if (values != null && !values.isEmpty()) {
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
                 }
             } else {
-                HashMap<String, Integer> counter = new HashMap<>();
+                Map<String, Integer> counter = new HashMap<>();
                 ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
                 if (hasTagValues) {
                     for (String t : row.tagValues) {
@@ -804,11 +801,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             counter.put(t, 1);
                         }
                     }
-                    ArrayList<String> keys = new ArrayList<>(counter.keySet());
+                    List<String> keys = new ArrayList<>(counter.keySet());
                     Collections.sort(keys);
                     for (String t : keys) {
-                        ValueWithCount v = new ValueWithCount(t, counter.get(t)); // FIXME determine
-                                                                                             // description in some way
+                        // FIXME determine description in some way
+                        ValueWithCount v = new ValueWithCount(t, counter.get(t));                                                   
                         adapter2.add(v);
                     }
                 }
@@ -816,7 +813,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                     if (values != null && !values.isEmpty()) {
-                        ArrayList<StringWithDescription> result = new ArrayList<>(values);
+                        List<StringWithDescription> result = new ArrayList<>(values);
                         if (preset.sortIt(key)) {
                             Collections.sort(result);
                         }
@@ -951,6 +948,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     }
                     if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key))) {
                         initWebsite(row.valueEdit);
+                    } else if (Tags.isSpeedKey(key)) {
+                        initMPHSpeed(getActivity(),row.valueEdit,((PropertyEditor)getActivity()).getElement());
                     }
                     if (PropertyEditor.running) {
                         if (row.valueEdit.getText().length() == 0)
@@ -2112,18 +2111,42 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param value string containing the value
      * @return true if value and key isn't empty and isn't the HTTP/HTTPS prefix
      */
-    private boolean saveTag(String key, String value) {
-        PresetItem pi = getPreset(key);
-        return !"".equals(value) && !((Tags.isWebsiteKey(key) || (pi != null && ValueType.WEBSITE == pi.getValueType(key)))
-                && (HTTP_PREFIX.equals(value) || HTTPS_PREFIX.equals(value)));
+    private boolean saveTag(String key, String value) {        
+        return !"".equals(value) && !onlyWebsitePrefix(key, value) && !onlyMphSuffix(key, value);
     }
-
+    
+    /**
+     * Check if this is a website tag with open the protocol prefix it it
+     * 
+     * @param key   key of the tag  
+     * @param value value of the tag
+     * @return true if this is only http:// or https://
+     */
+    boolean onlyWebsitePrefix(String key, String value) {
+        PresetItem pi = getPreset(key);
+        return (Tags.isWebsiteKey(key) || (pi != null && ValueType.WEBSITE == pi.getValueType(key)))
+                && (Tags.HTTP_PREFIX.equalsIgnoreCase(value) || Tags.HTTPS_PREFIX.equalsIgnoreCase(value));
+    }
+    
+    /**
+     * Check if this is a speed tag that only contains MPH
+     * 
+     * @param key   key of the tag  
+     * @param value value of the tag
+     * @return true if this is only MPH
+     */
+    boolean onlyMphSuffix(String key, String value) {
+        return Tags.isSpeedKey(key) && Tags.MPH.trim().equalsIgnoreCase(value);
+    }
+    
     /**
      * Add tag if it doesn't exist
      * 
-     * @param layout
-     * @param key
-     * @param value
+     * @param rowLayout  layout holding the rows
+     * @param key        key of the tag
+     * @param value      value of the tag
+     * @param replace    if true replace existing key values, otherwise don't
+     * @param update     if true update the the best matched presets
      */
     private void addTag(LinearLayout rowLayout, String key, String value, boolean replace, boolean update) {
         Log.d(DEBUG_TAG, "adding tag " + key + "=" + value);
@@ -2190,13 +2213,28 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Add http:// to empty EditTexts that are supposed to contain a website and set input mode
      * 
-     * @param valueEdit
+     * @param valueEdit the EditTExt holding the value
      */
     public static void initWebsite(final EditText valueEdit) {
         valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
         if (valueEdit.getText().length() == 0) {
-            valueEdit.setText(HTTP_PREFIX);
-            valueEdit.setSelection(HTTP_PREFIX.length());
+            valueEdit.setText(Tags.HTTP_PREFIX);
+            valueEdit.setSelection(Tags.HTTP_PREFIX.length());
+        }
+    }
+    
+    /**
+     * Add mph to empty EditTexts that are supposed to contain speed and are in relevant country and set input mode
+     * 
+     * @param ctx        Android Context
+     * @param valueEdit  the EditTExt holding the value
+     * @param e          the associated OsmElement
+     */
+    public static void initMPHSpeed(Context ctx, final EditText valueEdit, OsmElement e) {
+        valueEdit.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_URI);
+        if (valueEdit.getText().length() == 0 && App.getGeoContext(ctx).imperial(e)) { // in the case of multi-select there is no guarantee that this makes sense
+            valueEdit.setText(Tags.MPH);
+            valueEdit.setSelection(0);
         }
     }
 

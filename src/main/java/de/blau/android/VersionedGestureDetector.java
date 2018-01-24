@@ -2,7 +2,6 @@ package de.blau.android;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -41,15 +40,8 @@ public abstract class VersionedGestureDetector {
     }
 
     public static VersionedGestureDetector newInstance(Context context, OnGestureListener listener) {
-        final int sdkVersion = Build.VERSION.SDK_INT;
         VersionedGestureDetector detector = null;
-        if (sdkVersion < Build.VERSION_CODES.ECLAIR) {
-            detector = new CupcakeDetector();
-        } else if (sdkVersion < Build.VERSION_CODES.FROYO) {
-            detector = new EclairDetector();
-        } else {
-            detector = new FroyoDetector(context);
-        }
+        detector = new FroyoDetector(context);
 
         detector.mListener = listener;
 

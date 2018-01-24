@@ -58,6 +58,7 @@ public class BaseValidator implements Validator {
         SQLiteDatabase db = (new ValidatorRulesDatabaseHelper(ctx)).getReadableDatabase();
         resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
         checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
+        db.close();
     }
 
     /**
@@ -124,6 +125,16 @@ public class BaseValidator implements Validator {
             // unsurveyed road
             result = result | Validator.HIGHWAY_ROAD;
         }
+        boolean imperial = App.getGeoContext().imperial(w);
+        if (imperial) {
+            SortedMap<String, String> tags = w.getTags();
+            Set<String> keys = w.getTags().keySet();
+            for (String key : keys) {
+                if (Tags.isSpeedKey(key) && !tags.get(key).endsWith(Tags.MPH)) {
+                    return result | Validator.IMPERIAL_UNITS;
+                }
+            }
+        }
         return result;
     }
 
@@ -183,10 +194,14 @@ public class BaseValidator implements Validator {
         return result;
     }
 
-    ArrayList<String> describeProblemHighway(Way w, String highway) {
+    ArrayList<String> describeProblemHighway(Context ctx, Way w, String highway) {
         ArrayList<String> wayProblems = new ArrayList<>();
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
+        }
+        //
+        if ((w.getCachedProblems() & Validator.IMPERIAL_UNITS) != 0) {
+            wayProblems.add(ctx.getString(R.string.toast_imperial_units));
         }
         return wayProblems;
     }
@@ -267,7 +282,7 @@ public class BaseValidator implements Validator {
         }
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
-            result.addAll(describeProblemHighway(way, highway));
+            result.addAll(describeProblemHighway(ctx, way, highway));
         }
         String[] resultArray = result.toArray(new String[result.size()]);
         return resultArray;

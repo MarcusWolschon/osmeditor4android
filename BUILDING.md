@@ -2,9 +2,10 @@
 # Building Vespucci 0.9.9 and later
 
 The code has been re-factored to use the compatibility libraries from Google instead of 
-the ActionBarSherlock library. This has been tested with the Google v7 support library 23.2.X.
+the ActionBarSherlock library. 
+
 Given that Google randomly makes incompatible changes to these and regularly drops existing 
-functionality, you are on your own if you use any other version. 
+functionality, you are on your own if you use any other version than what is configured for gradle. 
 
 
 ## Building with gradle (Eclipse or commandline)

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 10.1 BETA Highlights</h1><h2>Under the hood</h2><p>This release is mainly a clean up release with no major new functionality, but inclusion of projects that were started a while back and some general improvements. There have been some modest performance improvements in both data rendering and with respect to tile retrieval and rendering.</p><h2>GPX Waypoints</h2><p>An imported GPX track can now include GPX way points. These can be selected and converted in to OSM Nodes either via manual selection of a preset, or via an automatic search of the term in the GPX "type" fiels in the presets.</p><h2>Imagery database, custom imagery and MBTiles</h2><p>As you may know we use the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> for our background and overlay imagery configuration. Previously we re-read and re-parsed the configuration file on every start of vespucci, we now on initial start up and after upgrades store the configuration in a database. This improves start up time considerably.</p><p>Storing this information in a database was a prerequisite to creating a simple UI to allow custom imagery to be added (there is still a facility to include imagery configuration via a file). While we were at it, we've added support for layers in MBTile format for enhanced offline editing.</p><h2>Geo-location sensitive validation</h2><p>We've done some initial work on providing support for location sensitive validation, currently this is limited to missing "mph" units in speed tags in countries that use such units.</p><h2>Miscellaneous</h2>
+<ul>
+  <li>In many situations when an empty relation can be created a dialog is shown asking how to proceed.</li>
+  <li>In high density areas node touch halos will be reduced as you zoom out.</li>
+</ul><p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p><h1>Known problems</h1><h1>Upgrading from previous versions</h1>
+<ul>
+  <li><p>The saved editing state file format has changed, please complete any edits before upgrading.</p></li>
+  <li><p>Custom imagery files now need to follow the new geojson format and be named <em>imagery.geojson</em> .</p></li>
+  <li><p>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></p></li>
+</ul>
+</body>
+</html>

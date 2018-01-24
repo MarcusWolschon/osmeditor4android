@@ -1,9 +1,9 @@
 package de.blau.android.tasks;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -34,10 +34,6 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.tasks.Note;
-import de.blau.android.tasks.OsmoseBug;
-import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TransferTasks;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -59,6 +55,7 @@ public class OsmoseTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/en/api/0.2/");
@@ -105,7 +102,7 @@ public class OsmoseTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        ArrayList<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = App.getTaskStorage().getTasks();
         //
         Assert.assertEquals(92, tasks.size());
         try {

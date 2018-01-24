@@ -40,13 +40,21 @@ MultiSelectListPreference is Copyright (C) 2015 The Android Open Source Project 
 
 The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2.
 
-The parser for .PO files was written by Simon Poole and is available under a MIT style licence https://github.com/simonpoole/PoParser .
+Following software was written by Simon Poole and is available under MIT style licenses:
+
+- The parser for .PO files https://github.com/simonpoole/PoParser .
+- The conditional restriction parser https://github.com/simonpoole/CoditionalRestrictionParser .
+- The opening_hours parser https://github.com/simonpoole/OpeningHoursParser .
+- The opening_hours Fragment https://github.com/simonpoole/OpeningHoursFragment .
+- THe NumberPickerPreference was adapted from code by vanniktech https://github.com/simonpoole/NumberPickerPreference .
+- and some misc. other stuff
+
 
 The OkHttp and associated libraries are Copyright 2016 Square, Inc. licensed under the Apache License, version 2.
 
 The NoNonsense Filepicker is licensed under the Mozilla Public License, v. 2.0.
 
-The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms (see the source directory).
+The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms.
 
 The google gson library is licensed under the Apache License, version 2.
 

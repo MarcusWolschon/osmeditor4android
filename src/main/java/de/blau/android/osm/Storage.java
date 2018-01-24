@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
@@ -35,13 +36,9 @@ public class Storage implements Serializable {
         nodes = new LongOsmElementMap<>(1000);
         ways = new LongOsmElementMap<>();
         relations = new LongOsmElementMap<>();
-        try {
-            bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
-            // a default entry may not make sense
-            bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
-        } catch (OsmException e) {
-            Log.e("Vespucci", "Problem with bounding box", e);
-        }
+        bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
+        // a default entry may not make sense
+        bboxes.add(new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7));
     }
 
     /**
@@ -112,15 +109,19 @@ public class Storage implements Serializable {
     /**
      * Return all nodes in a bounding box
      * 
-     * Note: currently this does a sequential scan of all nodes
+     * Notes: - currently this does a sequential scan of all nodes - zsing a for loop instead of for each is twice as
+     * fast
      * 
      * @param box bounding box to search in
      * @return a list of all nodes in box
      */
     public List<Node> getNodes(BoundingBox box) {
         ArrayList<Node> result = new ArrayList<>(nodes.size());
-        for (Node n : nodes) {
-            if (box.isIn(n.getLat(), n.getLon())) {
+        List<Node> list = nodes.values();
+        int listSize = list.size();
+        for (int i = 0; i < listSize; i++) {
+            Node n = list.get(i);
+            if (box.isIn(n.getLon(), n.getLat())) {
                 result.add(n);
             }
         }
@@ -147,7 +148,10 @@ public class Storage implements Serializable {
     public List<Way> getWays(BoundingBox box) {
         ArrayList<Way> result = new ArrayList<>(ways.size());
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
-        for (Way w : ways) {
+        List<Way> list = ways.values();
+        int listSize = list.size();
+        for (int i = 0; i < listSize; i++) {
+            Way w = list.get(i);
             BoundingBox wayBox = w.getBounds(newBox);
             if (wayBox.intersects(box)) {
                 result.add(w);
@@ -383,16 +387,19 @@ public class Storage implements Serializable {
 
     /**
      * Get all ways that node is a vertex of
-     * <p>
+     * 
      * This method currently does a sequential scan of all ways in storage and should be avoided
      * 
      * @param node node to search for
      * @return list containing all ways containing node
      */
-    public List<Way> getWays(final Node node) {
+    @NonNull
+    public List<Way> getWays(@NonNull final Node node) {
         ArrayList<Way> mWays = new ArrayList<>();
+        // BoundingBox box = new BoundingBox();
         for (Way way : ways) {
-            if (way.hasNode(node)) {
+            // box = way.getBounds(box);
+            if (/* box.contains(node.getLon(), node.getLat()) && */way.hasNode(node)) {
                 mWays.add(way);
             }
         }

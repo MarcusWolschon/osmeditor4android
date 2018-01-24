@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,13 +29,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.geocode.Search;
+import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.geocode.SearchItemSelectedCallback;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.util.Search;
-import de.blau.android.util.Search.SearchResult;
-import de.blau.android.util.SearchItemFoundCallback;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -48,13 +49,16 @@ public class SearchForm extends DialogFragment {
 
     private static final String TAG = "fragment_search_form";
 
-    private BoundingBox             bbox;
-    private SearchItemFoundCallback callback;
+    private ViewBox                    bbox;
+    private SearchItemSelectedCallback callback;
 
     /**
-     *
+     * Display a dialog asking for a search term and allowing selection of geocoers
+     * 
+     * @param activity the calling FragmentActivity
+     * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      */
-    static public void showDialog(AppCompatActivity activity, final BoundingBox bbox) {
+    static public void showDialog(@NonNull AppCompatActivity activity, @Nullable final ViewBox bbox) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -65,7 +69,12 @@ public class SearchForm extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(AppCompatActivity activity) {
+    /**
+     * Dismiss the Dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull AppCompatActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -80,8 +89,12 @@ public class SearchForm extends DialogFragment {
     }
 
     /**
+     * Create new instance of this object
+     * 
+     * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
+     * @return a SearchForm instance
      */
-    static private SearchForm newInstance(final BoundingBox bbox) {
+    static private SearchForm newInstance(@Nullable final ViewBox bbox) {
         SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();
@@ -98,7 +111,7 @@ public class SearchForm extends DialogFragment {
         super.onCreate(savedInstanceState);
         setCancelable(true);
 
-        bbox = (BoundingBox) getArguments().getSerializable(BBOX_KEY);
+        bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
     }
 
     @Override
@@ -106,7 +119,7 @@ public class SearchForm extends DialogFragment {
         Log.d(DEBUG_TAG, "onAttach");
         super.onAttach(context);
         try {
-            callback = (SearchItemFoundCallback)context;
+            callback = (SearchItemSelectedCallback) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement ");
         }
@@ -128,6 +141,7 @@ public class SearchForm extends DialogFragment {
         final EditText searchEdit = (EditText) searchLayout.findViewById(R.id.location_search_edit);
         searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 
+        // FIXME the following shares a lot of code with BoxPicker, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) searchLayout.findViewById(R.id.location_search_geocoder);
         AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
         final Geocoder[] geocoders = db.getActiveGeocoders();
@@ -139,7 +153,13 @@ public class SearchForm extends DialogFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchGeocoder.setAdapter(adapter);
         final Preferences prefs = new Preferences(getActivity());
-        searchGeocoder.setSelection(prefs.getGeocoder());
+        int geocoderIndex = prefs.getGeocoder();
+        // if a non-active geocoder is selected revert to default
+        if (geocoderIndex > adapter.getCount() - 1) {
+            geocoderIndex = 0;
+            prefs.setGeocoder(geocoderIndex);
+        }
+        searchGeocoder.setSelection(geocoderIndex);
         searchGeocoder.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
@@ -162,11 +182,8 @@ public class SearchForm extends DialogFragment {
                 positive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER)); // emulate
-                                                                                                                 // pressing
-                                                                                                                 // the
-                                                                                                                 // enter
-                                                                                                                 // button
+                        // emulate pressing the enter button
+                        searchEdit.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                     }
                 });
             }
@@ -175,13 +192,13 @@ public class SearchForm extends DialogFragment {
         /*
          * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
          */
-        final SearchItemFoundCallback realCallback = new SearchItemFoundCallback() {
+        final SearchItemSelectedCallback realCallback = new SearchItemSelectedCallback() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public void onItemFound(SearchResult sr) {
+            public void onItemSelected(SearchResult sr) {
                 searchDialog.dismiss();
-                callback.onItemFound(sr);
+                callback.onItemSelected(sr);
             }
         };
 

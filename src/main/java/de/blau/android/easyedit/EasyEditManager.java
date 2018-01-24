@@ -54,7 +54,6 @@ import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.EmptyRelation;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.names.Names.NameAndTags;
-import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -62,6 +61,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -280,7 +280,7 @@ public class EasyEditManager {
             }
         }
     }
-    
+
     /**
      * Start adding elements to an existing empty relation
      * 
@@ -2152,7 +2152,7 @@ public class EasyEditManager {
                     }
                     break;
                 case MENUITEM_SHARE_POSITION:
-                    BoundingBox box = element.getBounds();
+                    ViewBox box = new ViewBox(element.getBounds());
                     Util.sharePosition(main, box.getCenter()); // the center of the box is only a rough value
                     break;
                 default:
@@ -2245,11 +2245,11 @@ public class EasyEditManager {
     }
 
     private class RestrictionFromElementActionModeCallback extends EasyEditActionModeCallback {
-        private static final String    DEBUG11_TAG = "RestrictionFromElement.";
-        private Way             fromWay;
-        private Set<OsmElement> viaElements;
-        private boolean         viaSelected = false;
-        private int             titleId     = R.string.actionmode_restriction_via;
+        private static final String DEBUG11_TAG = "RestrictionFromElement.";
+        private Way                 fromWay;
+        private Set<OsmElement>     viaElements;
+        private boolean             viaSelected = false;
+        private int                 titleId     = R.string.actionmode_restriction_via;
 
         public RestrictionFromElementActionModeCallback(Way way, Set<OsmElement> vias) {
             super();
@@ -2345,12 +2345,12 @@ public class EasyEditManager {
     }
 
     private class RestrictionViaElementActionModeCallback extends EasyEditActionModeCallback {
-        private static final String    DEBUG12_TAG = "RestrictionViaElement..";
-        private Way             fromWay;
-        private OsmElement      viaElement;
-        private Set<OsmElement> cachedToElements;
-        private boolean         toSelected  = false;
-        private int             titleId     = R.string.actionmode_restriction_to;
+        private static final String DEBUG12_TAG = "RestrictionViaElement..";
+        private Way                 fromWay;
+        private OsmElement          viaElement;
+        private Set<OsmElement>     cachedToElements;
+        private boolean             toSelected  = false;
+        private int                 titleId     = R.string.actionmode_restriction_to;
 
         public RestrictionViaElementActionModeCallback(Way from, OsmElement via) {
             super();

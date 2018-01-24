@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElementFactory;
@@ -105,24 +104,15 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Create a shallow copy of the specified map
      * 
-     * @param map
+     * @param map the map to copy
      */
-    @SuppressLint("NewApi")
     public LongOsmElementMap(LongOsmElementMap<? extends V> map) {
         m_mask = map.m_mask;
         m_fillFactor = map.m_fillFactor;
         m_threshold = map.m_threshold;
         m_size = map.m_size;
         removedKey = map.removedKey;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            m_data = Arrays.copyOf(map.m_data, map.m_data.length);
-        } else { // sigh
-            m_data = new OsmElement[map.m_data.length];
-            // noinspection ManualArrayCopy
-            for (int i = 0; i < m_data.length; i++) {
-                m_data[i] = map.m_data[i];
-            }
-        }
+        m_data = Arrays.copyOf(map.m_data, map.m_data.length);
     }
 
     /**

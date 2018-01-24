@@ -1,4 +1,3 @@
-// Created by plusminus on 21:46:22 - 25.09.2008
 package de.blau.android.views.util;
 
 import java.util.Collections;
@@ -11,7 +10,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -34,6 +32,7 @@ import de.blau.android.services.util.MapTile;
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
+ * Created by plusminus on 21:46:22 - 25.09.2008
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * 
@@ -80,18 +79,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
 
     public MapTileProvider(final Context ctx, final Handler aDownloadFinishedListener) {
         mCtx = ctx;
-        Resources r = ctx.getResources();
-        synchronized (staticTilesLock) {
-            if (mNoTilesTile == null) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-                mNoTilesTile = BitmapFactory.decodeResource(r, R.drawable.no_tiles, options);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
-                }
-                // mLoadingMapTile = BitmapFactory.decodeResource(r,R.drawable.no_tiles);
-            }
-        }
         mTileCache = new MapTileCache();
 
         smallHeap = Runtime.getRuntime().maxMemory() <= 32L * 1024L * 1024L; // less than 32MB
@@ -146,16 +133,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     }
 
     /**
-     * Determine if the specified tile is available from local storage.
-     * 
-     * @param aTile The tile to find.
-     * @return true if the tile is in local storage.
-     */
-    public boolean isTileAvailable(final MapTile aTile) {
-        return mTileCache.containsTile(aTile);
-    }
-
-    /**
      * Attempt to return a tile from cache otherwise ask for it from remote
      * 
      * @param aTile tile spec
@@ -166,9 +143,6 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
     public Bitmap getMapTile(@NonNull final MapTile aTile, long owner) {
         Bitmap tile = mTileCache.getMapTile(aTile);
         if (tile != null) {
-            // from cache
-            // if (DEBUGMODE)
-            // Log.i(DEBUGTAG, "MapTileCache succeeded for: " + aTile.toString());
             return tile;
         } else {
             // from service
@@ -211,36 +185,43 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
      *            all zooms
      */
     public void flushQueue(String rendererId, int zoomLevel) {
-        try {
-            mTileService.flushQueue(rendererId, zoomLevel);
-            // remove the same from pending
+        if (mTileService != null) {
+            try {
+                mTileService.flushQueue(rendererId, zoomLevel);
+                // remove the same from pending
 
-            Set<String> keys;
-            synchronized (pending) {
-                keys = new HashSet<>(pending.keySet());
-            }
-            if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
-                String id = Integer.toString(zoomLevel) + rendererId;
-                for (String key : keys) {
-                    if (key.startsWith(id)) {
-                        pending.remove(key);
+                Set<String> keys;
+                synchronized (pending) {
+                    keys = new HashSet<>(pending.keySet());
+                }
+                if (zoomLevel != MapAsyncTileProvider.ALLZOOMS) {
+                    String id = Integer.toString(zoomLevel) + rendererId;
+                    for (String key : keys) {
+                        if (key.startsWith(id)) {
+                            pending.remove(key);
+                        }
+                    }
+                } else {
+                    for (String key : keys) {
+                        if (key.contains(rendererId)) {
+                            pending.remove(key);
+                        }
                     }
                 }
-            } else {
-                for (String key : keys) {
-                    if (key.contains(rendererId)) {
-                        pending.remove(key);
-                    }
-                }
+            } catch (RemoteException e) {
+                Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
+            } catch (Exception e) {
+                Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
             }
-        } catch (RemoteException e) {
-            Log.e(DEBUG_TAG, "RemoteException in flushQUeue()", e);
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Exception in flushQueue()", e);
         }
     }
 
-    public void flushCache(String rendererId) {
+    /**
+     * Flush the tile cache for a specific provider
+     * 
+     * @param rendererId the provider to flush or if null all
+     */
+    public void flushCache(@Nullable String rendererId) {
         try {
             mTileService.flushCache(rendererId);
         } catch (RemoteException e) {
@@ -249,6 +230,19 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             Log.e(DEBUG_TAG, "Exception in flushCache()", e);
         }
         mTileCache.clear(); // zap everything in in memory cache
+    }
+    
+    /**
+     * Tell the tile provider service to reread the database of TileLayerServers
+     */
+    public void update() {
+        try {
+            mTileService.update();
+        } catch (RemoteException e) {
+            Log.e(DEBUG_TAG, "RemoteException in update()", e);
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Exception in in update()", e);
+        }
     }
 
     // ===========================================================
@@ -270,41 +264,45 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             }
 
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
-
+            String id = t.toId();
             try {
-                // long start = System.currentTimeMillis();
                 Bitmap tileBitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-                // long duration = System.currentTimeMillis() - start;
                 if (tileBitmap == null) {
                     Log.d(DEBUG_TAG, "decoded tile is null");
                     throw new RemoteException();
                 }
-                // Log.d(DEBUGTAG, "raw data size " + data.length + " decoded bitmap size " +
-                // aTile.getRowBytes()*aTile.getHeight());
-                String id = t.toId();
                 Long l = pending.get(t.toId());
                 if (l != null) {
-                    mTileCache.putTile(t, tileBitmap, l);
-                    pending.remove(id);
+                    mTileCache.putTile(t, tileBitmap, l);           
                 } // else wasn't in pending queue just ignore
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
                 // Log.d(DEBUGTAG, "Sending tile success message");
             } catch (StorageException e) {
                 // unable to cache tile
-                Log.d(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
-                if (!smallHeap) { // reduce tile size to half
-                    smallHeap = true;
-                    mTileCache.clear();
-                    // should toast this
-                } else {
-                    // FIXME this should show a toast ... or a special tile
-                }
+                Log.w(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
+                setSmallHeapMode();
             } catch (NullPointerException npe) {
                 Log.d(DEBUG_TAG, "Exception in mapTileLoaded callback " + npe);
                 throw new RemoteException();
+            } finally {
+                pending.remove(id);
             }
-            if (DEBUGMODE)
+            if (DEBUGMODE) {
                 Log.i(DEBUG_TAG, "MapTile download success." + t.toString());
+            }
+        }
+
+        /**
+         * Switch to "small heap mode" which uses tiles with slightly less quality
+         */
+        public void setSmallHeapMode() {
+            if (!smallHeap) { // reduce tile size to half
+                smallHeap = true;
+                mTileCache.clear();
+                // should toast this
+            } else {
+                Log.e(DEBUG_TAG, "already in small heap mode");
+            }
         }
 
         // @Override
@@ -312,24 +310,43 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
             if (reason == MapAsyncTileProvider.DOESNOTEXIST) {// only show error tile if we have no chance of getting
                                                               // the proper one
-                TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, false);
+                TileLayerServer osmts = TileLayerServer.get(mCtx, rendererID, true);
                 if (zoomLevel < Math.max(0, osmts.getMinZoomLevel() - 1)) {
                     try {
-                        mTileCache.putTile(t, mNoTilesTile, false, 0);
+                        Long l = pending.get(t.toId());
+                        if (l != null) {
+                            mTileCache.putTile(t, getNoTilesTile(), false, l);           
+                        }                       
                     } catch (StorageException e) {
-                        // TODO Auto-generated catch block
-                        // e.printStackTrace();
+                        Log.w(DEBUG_TAG, "mapTileFailed got " + e.getMessage());
+                        setSmallHeapMode();
                     }
                 }
             }
-            pending.remove(t.toString());
-            // if (DEBUGMODE) {
-            // Log.e(DEBUGTAG, "MapTile download error " + t.toString());
-            // }
+            pending.remove(t.toId());
             // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
         }
     };
-
+    
+    /**
+     * Get the "No Tiles" tile, creating it if necessary
+     * 
+     * @return a Bitmap with the tile
+     */
+    private Bitmap getNoTilesTile() {
+        synchronized (staticTilesLock) {
+            if (mNoTilesTile == null) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                mNoTilesTile = BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.no_tiles, options);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                    Log.d(DEBUG_TAG, "Notiles tile uses " + mNoTilesTile.getByteCount());
+                }
+            }
+        }
+        return mNoTilesTile;
+    }
+    
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();
     }

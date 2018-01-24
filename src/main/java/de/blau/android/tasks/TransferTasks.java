@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -40,7 +41,6 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
@@ -91,11 +91,7 @@ public class TransferTasks {
         final TaskStorage bugs = App.getTaskStorage();
         final Preferences prefs = new Preferences(context);
 
-        try {
-            box.makeValidForApi();
-        } catch (OsmException e1) {
-            Log.e(DEBUG_TAG, "downloadBox got " + e1.getMessage());
-        } // TODO remove this? and replace with better error messaging
+        box.makeValidForApi();
 
         new AsyncTask<Void, Void, Collection<Task>>() {
             @Override
@@ -133,6 +129,7 @@ public class TransferTasks {
                     bugs.reset();
                 }
                 bugs.add(box);
+                Preferences prefs = new Preferences(context);
                 long now = System.currentTimeMillis();
                 for (Task b : result) {
                     Log.d(DEBUG_TAG, "got bug " + b.getDescription() + " " + bugs.toString());
@@ -140,8 +137,8 @@ public class TransferTasks {
                     if (!bugs.contains(b) && (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE)) {
                         bugs.add(b);
                         Log.d(DEBUG_TAG, "adding bug " + b.getDescription());
-                        if (!b.isClosed()) {
-                            IssueAlert.alert(context, b);
+                        if (!b.isClosed() && prefs.generateAlerts()) {
+                            IssueAlert.alert(context, prefs, b);
                         }
                     }
                 }
@@ -163,7 +160,7 @@ public class TransferTasks {
         final String PROGRESS_TAG = "tasks";
 
         if (server != null) {
-            final ArrayList<Task> queryResult = App.getTaskStorage().getTasks();
+            final List<Task> queryResult = App.getTaskStorage().getTasks();
             // check if we need to oAuth first
             for (Task b : queryResult) {
                 if (b.changed && b instanceof Note) {
@@ -295,7 +292,7 @@ public class TransferTasks {
             return a.get();
         } catch (InterruptedException | ExecutionException e) {
             Log.e(DEBUG_TAG, "uploadOsmoseBug got " + e.getMessage());
-        } 
+        }
         return false;
     }
 
@@ -409,7 +406,7 @@ public class TransferTasks {
             } catch (InterruptedException | ExecutionException e) {
                 Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
                 return false;
-            } 
+            }
         }
         return false;
     }
@@ -448,7 +445,7 @@ public class TransferTasks {
 
             @Override
             protected Integer doInBackground(Void... arg) {
-                final ArrayList<Task> queryResult = App.getTaskStorage().getTasks();
+                final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try {
                     File outfile = FileUtil.openFileForWriting(fileName);
@@ -646,7 +643,7 @@ public class TransferTasks {
 
             @Override
             protected Integer doInBackground(Void... arg) {
-                final ArrayList<Task> queryResult = App.getTaskStorage().getTasks();
+                final List<Task> queryResult = App.getTaskStorage().getTasks();
                 int result = 0;
                 try {
                     File outfile = FileUtil.openFileForWriting(fileName);

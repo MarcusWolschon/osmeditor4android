@@ -25,6 +25,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.tasks.TaskStorage;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
@@ -59,22 +60,31 @@ public class App extends android.app.Application {
     private static final Object                     presetSearchIndexLock           = new Object();
     private static MultiHashMap<String, PresetItem> translatedPresetSearchIndex     = null;
     private static final Object                     translatedPresetSearchIndexLock = new Object();
+
     /**
      * Synonym list
      */
-    private static Synonyms                         synonyms;
-    private static final Object                     synonymsLock                    = new Object();
+    private static Synonyms     synonyms;
+    private static final Object synonymsLock = new Object();
+
     /**
      * name index related stuff
      */
-    private static Names                            names                           = null;
-    private static final Object                     namesLock                       = new Object();
-    private static Map<String, NameAndTags>         namesSearchIndex                = null;
-    private static final Object                     namesSearchIndexLock            = new Object();
+    private static Names                    names                = null;
+    private static final Object             namesLock            = new Object();
+    private static Map<String, NameAndTags> namesSearchIndex     = null;
+    private static final Object             namesSearchIndexLock = new Object();
+
     /**
      * Geo index to on device photos
      */
-    private static RTree                            photoIndex;
+    private static RTree photoIndex;
+
+    /**
+     * Various attributes that are regional
+     */
+    private static GeoContext   geoContext     = null;
+    private static final Object geoContextLock = new Object();
 
     /**
      * Cache of recent notifications for tasks
@@ -201,7 +211,7 @@ public class App extends android.app.Application {
      * 
      * Caches the object returned
      * 
-     * @param ctx
+     * @param ctx Android Context
      * @return a Synonyms instance
      */
     @NonNull
@@ -226,6 +236,12 @@ public class App extends android.app.Application {
         }
     }
 
+    /**
+     * Return the object containing the canonical name data
+     * 
+     * @param ctx Android context
+     * @return an instance of Names
+     */
     @NonNull
     public static Names getNames(@NonNull Context ctx) {
         synchronized (namesLock) {
@@ -240,14 +256,52 @@ public class App extends android.app.Application {
     /**
      * Returns the current in-memory index, use resetPhotoIndex to initialize/reset
      * 
-     * @return
+     * @return a RTree with the index
      */
     public static RTree getPhotoIndex() {
         return photoIndex;
     }
 
+    /**
+     * Empty the index
+     */
     public static void resetPhotoIndex() {
         photoIndex = new RTree(20, 50);
+    }
+
+    /**
+     * Set up the GeoCOntext object
+     * 
+     * @param ctx Android Context
+     */
+    public static void initGeoContext(@NonNull Context ctx) {
+        synchronized (geoContextLock) {
+            if (geoContext == null) {
+                geoContext = new GeoContext(ctx);
+            }
+        }
+    }
+
+    /**
+     * Get the GeoContext object
+     * 
+     * @param ctx Android Context
+     * @return the current GeoContext object
+     */
+    @NonNull
+    public static GeoContext getGeoContext(@NonNull Context ctx) {
+        initGeoContext(ctx);
+        return geoContext;
+    }
+
+    /**
+     * Get the GeoContext object
+     * 
+     * @return the GeoCOntext object or null if it hasn't been created yet
+     */
+    @Nullable
+    public static GeoContext getGeoContext() {
+        return geoContext;
     }
 
     /**
@@ -275,6 +329,7 @@ public class App extends android.app.Application {
     /**
      * Return the cache for task notifications, allocate if necessary
      * 
+     * @param ctx Android Context
      * @return the notification cache
      */
     public static NotificationCache getTaskNotifications(Context ctx) {
@@ -289,9 +344,10 @@ public class App extends android.app.Application {
     /**
      * If the cache is empty replace it
      * 
-     * @param cache
+     * @param ctx Android Context
+     * @param cache a NotificationCache object
      */
-    public static void setTaskNotifications(Context ctx, NotificationCache cache) {
+    public static void setTaskNotifications(@NonNull Context ctx, @NonNull NotificationCache cache) {
         synchronized (taskNotificationsLock) {
             if (taskNotifications == null || taskNotifications.isEmpty()) {
                 taskNotifications = cache;
@@ -303,9 +359,11 @@ public class App extends android.app.Application {
     /**
      * Return the cache for osm data notifications, allocate if necessary
      * 
-     * @return
+     * @param ctx Android Context
+     * @return the current NotificationCache object
      */
-    public static NotificationCache getOsmDataNotifications(Context ctx) {
+    @NonNull
+    public static NotificationCache getOsmDataNotifications(@NonNull Context ctx) {
         synchronized (osmDataNotificationsLock) {
             if (osmDataNotifications == null) {
                 osmDataNotifications = new NotificationCache(ctx);
@@ -317,9 +375,10 @@ public class App extends android.app.Application {
     /**
      * If the cache is empty replace it
      * 
-     * @param cache
+     * @param ctx Android Context
+     * @param cache a NotificationCache object
      */
-    public static void setOsmDataNotifications(Context ctx, NotificationCache cache) {
+    public static void setOsmDataNotifications(@NonNull Context ctx, @NonNull NotificationCache cache) {
         synchronized (osmDataNotificationsLock) {
             if (osmDataNotifications == null || osmDataNotifications.isEmpty()) {
                 osmDataNotifications = cache;
@@ -375,6 +434,7 @@ public class App extends android.app.Application {
     /**
      * Return the cache for task notifications, allocate if necessary
      * 
+     * @param ctx Android Context
      * @return the notification cache
      */
     public static Validator getDefaultValidator(Context ctx) {

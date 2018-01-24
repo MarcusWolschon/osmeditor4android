@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -27,9 +26,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.filters.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -41,10 +40,6 @@ import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.tasks.CustomBug;
-import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TaskStorage;
-import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.FileUtil;
 import okhttp3.HttpUrl;
 
@@ -68,6 +63,7 @@ public class ReadSaveTasks {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
@@ -163,7 +159,7 @@ public class ReadSaveTasks {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        ArrayList<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
         Assert.assertEquals(59, tasks.size());
         final CountDownLatch signal1 = new CountDownLatch(1);

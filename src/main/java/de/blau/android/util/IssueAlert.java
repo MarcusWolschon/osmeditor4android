@@ -25,6 +25,8 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
@@ -38,22 +40,28 @@ import de.blau.android.validation.Validator;
  *
  */
 public class IssueAlert {
-    final static String DEBUG_TAG = "IssueAlert";
+    static final String DEBUG_TAG = "IssueAlert";
 
-    private final static String GROUP_DATA   = "Data";
-    private final static String GROUP_NOTES  = "Notes";
-    private final static String GROUP_OSMOSE = "Osmose";
+    private static final String GROUP_DATA   = "Data";
+    private static final String GROUP_NOTES  = "Notes";
+    private static final String GROUP_OSMOSE = "Osmose";
 
-    private final static int[] bearings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
+    private static final int[] bearings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
             R.string.bearing_w, R.string.bearing_nw, R.string.bearing_n };
+    
+    /**
+     * Private constructor to avoid instantiation of the class
+     */
+    private IssueAlert() {
+    }
 
     /**
      * Generate an alert/notification if something is problematic about the OSM object
      * 
-     * @param context
-     * @param e
+     * @param context Android Context
+     * @param e OsmElement we are generating an alert for
      */
-    public static void alert(Context context, OsmElement e) {
+    public static void alert(@NonNull Context context, @NonNull OsmElement e) {
 
         Preferences prefs = new Preferences(context);
 
@@ -70,10 +78,10 @@ public class IssueAlert {
         }
         double eLon;
         double eLat;
-        if ("node".equals(e.getName())) {
+        if (Node.NAME.equals(e.getName())) {
             eLon = ((Node) e).getLon() / 1E7D;
             eLat = ((Node) e).getLat() / 1E7D;
-        } else if ("way".equals(e.getName())) {
+        } else if (Way.NAME.equals(e.getName())) {
             double[] result = Logic.centroidLonLat((Way) e);
             if (result == null) {
                 Log.d(DEBUG_TAG, "couldn't determine center for " + e);
@@ -81,12 +89,8 @@ public class IssueAlert {
             }
             eLon = result[0];
             eLat = result[1];
-        } else if ("relation".equals(e.getName())) {
-            BoundingBox box = e.getBounds();
-            if (box == null) {
-                Log.d(DEBUG_TAG, "couldn't determine center for " + e);
-                return;
-            }
+        } else if (Relation.NAME.equals(e.getName())) {
+            ViewBox box = new ViewBox(e.getBounds());
             double[] result = box.getCenter();
             eLon = result[0];
             eLat = result[1];
@@ -96,7 +100,7 @@ public class IssueAlert {
         }
         String title = context.getString(R.string.alert_data_issue);
         String ticker = title;
-        String message = "";
+        StringBuilder message = new StringBuilder("");
         if (location != null) {
             // if we know where we are we can provide better information
             long distance = 0;
@@ -120,16 +124,16 @@ public class IssueAlert {
             index = index / 45;
 
             // message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
-            message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
+            message.append(context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n");
             ticker = ticker + " " + message;
         }
         Validator validator = App.getDefaultValidator(context);
         for (String p : validator.describeProblem(context, e)) {
-            message = message + p;
+            message.append(p);
         }
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
+            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message.toString())
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA);
             mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
         } catch (RuntimeException re) {
@@ -150,7 +154,7 @@ public class IssueAlert {
             Uri rc = Uri.parse("http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft() / 1E7D + "&right=" + box.getRight() / 1E7D + "&top="
                     + box.getTop() / 1E7D + "&bottom=" + box.getBottom() / 1E7D + "&select=" + e.getName() + e.getOsmId());
 
-            Log.d("IssueAlert", rc.toString());
+            Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
             // Adds the back stack for the Intent (but not the Intent itself)
@@ -170,11 +174,23 @@ public class IssueAlert {
         }
     }
 
-    private static int id(OsmElement e) {
+    /**
+     * Generate an unique id for an OsmElement
+     * 
+     * @param e the OsmElement
+     * @return an unique id
+     */
+    private static int id(@NonNull OsmElement e) {
         return (e.getName() + e.getOsmId()).hashCode();
     }
 
-    public static void cancel(Context context, OsmElement e) {
+    /**
+     * Cancel a notification for a specific OsmElement
+     * 
+     * @param context Android Context
+     * @param e the OsmElement
+     */
+    public static void cancel(@NonNull Context context, @NonNull OsmElement e) {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         App.getOsmDataNotifications(context).remove(mNotificationManager, id(e));
     }
@@ -182,17 +198,31 @@ public class IssueAlert {
     /**
      * Generate an alert/notification if we found a task object nearby.
      * 
-     * @param context
-     * @param b
+     * Will not generate an alert if the corresponding preference is not set
+     * 
+     * @param context Android Context
+     * @param b the Task
      */
-    public static void alert(Context context, Task b) {
+    public static void alert(@NonNull Context context, @NonNull Task b) {
         Log.d("IssueAlert", "generating alert for " + b.getDescription());
         Preferences prefs = new Preferences(context);
 
         if (!prefs.generateAlerts()) { // don't generate alerts
             return;
         }
+        alert(context, prefs, b);
+    }
 
+    /**
+     * Generate an alert/notification if we found a task object nearby.
+     * 
+     * Always generates an alert regardless of the preference setting
+     * 
+     * @param context Android Context
+     * @param prefs a Preference instance
+     * @param b the Task
+     */
+    public static void alert(@NonNull Context context, @NonNull Preferences prefs, @NonNull Task b) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
         try {
@@ -211,9 +241,8 @@ public class IssueAlert {
             long distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
 
             // filter
-            if (distance > Math.sqrt(8 * prefs.getBugDownloadRadius() * prefs.getBugDownloadRadius())) { // diagonal of
-                                                                                                         // auto
-                                                                                                         // download box
+            if (distance > Math.sqrt(8D * prefs.getBugDownloadRadius() * prefs.getBugDownloadRadius())) { 
+                // diagonal of auto download box
                 return;
             }
 
@@ -262,7 +291,13 @@ public class IssueAlert {
         App.getTaskNotifications(context).save(mNotificationManager, id);
     }
 
-    private static int id(Task b) {
+    /**
+     * Generate an unique id for a Task
+     * 
+     * @param b the Task
+     * @return an unique id
+     */
+    private static int id(@NonNull Task b) {
         return (b.getClass().getSimpleName() + b.getId()).hashCode();
     }
 
@@ -285,7 +320,7 @@ public class IssueAlert {
         double lon;
     }
 
-    private static ClosestPoint getClosestDistance(double lon, double lat, Way w) {
+    private static ClosestPoint getClosestDistance(double lon, double lat, @NonNull Way w) {
         ClosestPoint closest = new IssueAlert.ClosestPoint();
 
         double ny = GeoMath.latToMercator(lat);

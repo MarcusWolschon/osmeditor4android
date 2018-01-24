@@ -13,12 +13,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
-import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.MapViewOverlay;
+import de.blau.android.views.layers.MapViewLayer;
 
 /**
  * implement a geo-referenced photo overlay, code stolen from the OSB implementation
@@ -26,7 +26,7 @@ import de.blau.android.views.overlay.MapViewOverlay;
  * @author simon
  *
  */
-public class MapOverlay extends MapViewOverlay {
+public class MapOverlay extends MapViewLayer {
 
     private final static String DEBUG_TAG = "PhotoOverlay";
 
@@ -121,13 +121,13 @@ public class MapOverlay extends MapViewOverlay {
     @Override
     public boolean isReadyToDraw() {
         enabled = map.getPrefs().isPhotoLayerEnabled();
-        return !enabled || map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+        return !enabled || map.getBackgroundLayer().isReadyToDraw();
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
         if (enabled) {
-            BoundingBox bb = osmv.getViewBox();
+            ViewBox bb = osmv.getViewBox();
 
             if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
                 return;
@@ -177,7 +177,7 @@ public class MapOverlay extends MapViewOverlay {
      * @param viewBox Map view box.
      * @return List of photos close to given location.
      */
-    public List<Photo> getClickedPhotos(final float x, final float y, final BoundingBox viewBox) {
+    public List<Photo> getClickedPhotos(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
         Log.d("photos.MapOverlay", "getClickedPhotos");
         if (map.getPrefs().isPhotoLayerEnabled()) {

@@ -1,13 +1,19 @@
 package de.blau.android.prefs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import de.blau.android.R;
+import de.blau.android.photos.PhotoIndex;
+import de.blau.android.util.SelectFile;
+import de.blau.android.voice.Commands;
 
 public class AdvancedPrefEditor extends AppCompatActivity {
+
+    private static final String DEBUG_TAG = "AdvancedPrefEditor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,4 +41,16 @@ public class AdvancedPrefEditor extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        Log.d(DEBUG_TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                && resultCode == RESULT_OK) {
+            SelectFile.handleResult(requestCode, data);
+        }
+    }
 }

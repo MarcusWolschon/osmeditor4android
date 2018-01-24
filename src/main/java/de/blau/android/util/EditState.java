@@ -22,22 +22,19 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Task;
 
 /**
- * Save the edit state accros pause / resume cycles
+ * Save the edit state across pause / resume cycles
  * 
  * @author simon
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 19L;
+    private static final long       serialVersionUID = 20L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Node>        savedNodes;
     private final List<Way>         savedWays;
     private final List<Relation>    savedRelations;
     private final Task              savedBug;
-    private final String            savedTileServerID;
-    private final Offset[]          savedOffsets;
-    private final int               savedMinZoom;
     private final String            savedImageFileName;
     private final BoundingBox       savedBox;
     private final ArrayList<String> savedLastComments;
@@ -54,9 +51,6 @@ public class EditState implements Serializable {
         savedWays = logic.getSelectedWays();
         savedRelations = logic.getSelectedRelations();
         savedBug = logic.getSelectedBug();
-        savedTileServerID = osmts.getId();
-        savedOffsets = osmts.getOffsets();
-        savedMinZoom = osmts.getMinZoomLevel();
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
@@ -124,18 +118,5 @@ public class EditState implements Serializable {
         map.setViewBox(logic.getViewBox());
         DataStyle.updateStrokes(logic.strokeWidth(logic.getViewBox().getWidth()));
         map.invalidate();
-    }
-
-    public void setOffset(TileLayerServer osmts) {
-        Log.d("EditState", "setOffset saved id " + savedTileServerID + " current id " + osmts.getId());
-        if (osmts.getId().equals(savedTileServerID)) {
-            Log.d("EditState", "restoring offset");
-            if (savedOffsets.length == osmts.getOffsets().length && savedMinZoom == osmts.getMinZoomLevel()) { // check
-                                                                                                               // for
-                                                                                                               // config
-                                                                                                               // change
-                osmts.setOffsets(savedOffsets);
-            }
-        }
     }
 }

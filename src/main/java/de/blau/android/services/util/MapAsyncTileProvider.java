@@ -25,17 +25,19 @@ public abstract class MapAsyncTileProvider {
     public static final int IOERR        = 1;
     public static final int DOESNOTEXIST = 2;
     public static final int NONETWORK    = 3;
+    public static final int RETRY        = 4;
 
     public static final int ALLZOOMS = -1;
 
     ThreadPoolExecutor                  mThreadPool;
     private final Map<String, Runnable> mPending = Collections.synchronizedMap(new HashMap<String, Runnable>());
 
-    public void loadMapTileAsync(final MapTile aTile, final IMapTileProviderCallback aCallback) {
+    public synchronized void loadMapTileAsync(final MapTile aTile, final IMapTileProviderCallback aCallback) {
         final String tileId = aTile.toId();
 
-        if (mPending.containsKey(tileId))
+        if (mPending.containsKey(tileId)) {
             return;
+        }
 
         Runnable r = getTileLoader(aTile, aCallback);
         mPending.put(tileId, r);
@@ -99,5 +101,4 @@ public abstract class MapAsyncTileProvider {
             mPending.remove(mTile.toId());
         }
     }
-
 }

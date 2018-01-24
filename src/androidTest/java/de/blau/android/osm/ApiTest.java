@@ -40,7 +40,6 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
-import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -71,6 +70,7 @@ public class ApiTest {
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
+        prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
@@ -113,11 +113,8 @@ public class ApiTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new SignalHandler(signal));
+
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -153,11 +150,7 @@ public class ApiTest {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download2");
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3865200D, 47.3883000D, 8.3838500D, 47.3898500D), true, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3838500D, 47.3883000D, 8.3865200D, 47.3898500D), true, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -275,7 +268,7 @@ public class ApiTest {
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, r.getState());
         Assert.assertEquals(4L, r.getOsmVersion());
     }
-    
+
     @Test
     public void dataUploadUnchanged() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -294,12 +287,12 @@ public class ApiTest {
         Assert.assertNotNull(n);
         Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
         n.setState(OsmElement.STATE_UNCHANGED);
-        
+
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
         mockServer.enqueue("upload7");
         mockServer.enqueue("close_changeset");
- 
+
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
             App.getDelegator().uploadToServer(s, "TEST", "none", true);
@@ -312,7 +305,7 @@ public class ApiTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        
+
     }
 
     @Test
@@ -482,11 +475,7 @@ public class ApiTest {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("" + code);
         Logic logic = App.getLogic();
-        try {
-            logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
-        } catch (OsmException e) {
-            Assert.fail(e.getMessage());
-        }
+        logic.downloadBox(main, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -508,7 +497,7 @@ public class ApiTest {
             Set<String> set = new HashSet<String>(Arrays.asList(notesSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
             Assert.assertTrue(new Preferences(context).taskFilter().contains(notesSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3844600D, 47.3892400D, 8.3879800D, 47.3911300D), false, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -517,11 +506,11 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        ArrayList<Task> tasks = App.getTaskStorage().getTasks();
+        List<Task> tasks = App.getTaskStorage().getTasks();
         // note the fixture contains 100 notes, however 41 of them are closed and expired
         Assert.assertEquals(59, tasks.size());
         try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(-0.0917, 51.532, -0.0918, 51.533));
+            tasks = App.getTaskStorage().getTasks(new BoundingBox(-0.0918, 51.532, -0.0917, 51.533));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -548,7 +537,7 @@ public class ApiTest {
             Assert.fail(e.getMessage());
         }
         try {
-            ArrayList<Task> tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
+            List<Task> tasks = App.getTaskStorage().getTasks(new BoundingBox(0.099, 50.99, 0.111, 51.01));
             Assert.assertEquals(1, tasks.size());
             Note n = (Note) tasks.get(0);
             Assert.assertEquals("<p>ThisIsANote</p>", n.getLastComment().getText());

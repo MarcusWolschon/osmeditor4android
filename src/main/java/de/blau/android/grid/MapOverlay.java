@@ -12,9 +12,9 @@ import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.overlay.MapViewOverlay;
+import de.blau.android.views.layers.MapViewLayer;
 
-public class MapOverlay extends MapViewOverlay {
+public class MapOverlay extends MapViewLayer {
 
     private static final String SCALE_NONE       = "SCALE_NONE";
     private static final String DEBUG_TAG        = MapOverlay.class.getName();
@@ -61,7 +61,7 @@ public class MapOverlay extends MapViewOverlay {
     public boolean isReadyToDraw() {
         mode = map.getPrefs().scaleLayer();
         enabled = !SCALE_NONE.equals(mode);
-        return enabled && map.getOpenStreetMapTilesOverlay().isReadyToDraw();
+        return enabled && map.getBackgroundLayer().isReadyToDraw();
     }
 
     @Override

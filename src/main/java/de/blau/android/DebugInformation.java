@@ -18,9 +18,9 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
-import de.blau.android.views.overlay.MapOverlayTilesOverlay;
-import de.blau.android.views.overlay.MapTilesOverlay;
-import de.blau.android.views.overlay.MapViewOverlay;
+import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
+import de.blau.android.views.layers.MapViewLayer;
 
 public class DebugInformation extends AppCompatActivity {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -66,10 +66,10 @@ public class DebugInformation extends AppCompatActivity {
             Map map = logic.getMap();
             if (map != null) {
                 synchronized (map.mOverlays) {
-                    for (MapViewOverlay ov : map.mOverlays) {
-                        if (ov instanceof MapTilesOverlay || ov instanceof MapOverlayTilesOverlay) {
-                            builder.append("Tile Cache " + ((MapTilesOverlay) ov).getRendererInfo().getId() + " usage "
-                                    + ((MapTilesOverlay) ov).getTileProvider().getCacheUsageInfo() + eol);
+                    for (MapViewLayer ov : map.mOverlays) {
+                        if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
+                            builder.append("Tile Cache " + ((MapTilesLayer) ov).getRendererInfo().getId() + " usage "
+                                    + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }
                 }

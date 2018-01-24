@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="307"
+	android:versionCode="400"
 	android:installLocation="auto"
 	>
 	
@@ -25,6 +25,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
+	
 	
 	<application
 		android:name="de.blau.android.App"

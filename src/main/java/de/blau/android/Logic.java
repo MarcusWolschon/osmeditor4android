@@ -63,6 +63,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -78,6 +79,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.UndoStorage;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
@@ -87,7 +89,6 @@ import de.blau.android.tasks.Task;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
-import de.blau.android.util.Offset;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
@@ -265,7 +266,7 @@ public class Logic {
     /**
      * The viewBox for the map. All changes on this Object are made in here or in {@link Tracker}.
      */
-    private final BoundingBox viewBox;
+    private final ViewBox viewBox;
 
     /**
      * An instance of the map. Value set by Main via constructor.
@@ -299,7 +300,7 @@ public class Logic {
      * 
      */
     Logic() {
-        viewBox = getDelegator().getLastBox();
+        viewBox = new ViewBox(getDelegator().getLastBox());
         mode = Mode.MODE_EASYEDIT;
         setLocked(true);
     }
@@ -422,7 +423,7 @@ public class Logic {
      * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
      */
     public boolean isInEditZoomRange() {
-        return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH) && !map.tooManyNodes();
+        return (viewBox.getWidth() < TOLERANCE_MIN_VIEWBOX_WIDTH) && (viewBox.getHeight() < TOLERANCE_MIN_VIEWBOX_WIDTH);
     }
 
     /**
@@ -502,7 +503,7 @@ public class Logic {
      * Set the zoom to a specific tile zoom level.
      * 
      * @param map the current Map object
-     * @param z   The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
+     * @param z The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
      */
     public void setZoom(Map map, int z) {
         viewBox.setZoom(map, z);
@@ -634,10 +635,10 @@ public class Logic {
      * @param activity activity that called us
      * @param box the new empty map-box. Don't mess up with the viewBox!
      */
-    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull BoundingBox box) {
+    void newEmptyMap(@NonNull FragmentActivity activity, @NonNull ViewBox box) {
         Log.d(DEBUG_TAG, "newEmptyMap");
         if (box == null) { // probably should do a more general check if the BB is valid
-            box = BoundingBox.getMaxMercatorExtent();
+            box = ViewBox.getMaxMercatorExtent();
         }
 
         // not checking will zap edits, given that this method will only be called when we are not downloading, not a
@@ -1251,7 +1252,7 @@ public class Logic {
                         }
                         if (handleNode != null) {
                             setSelectedNode(null); // performAddOnWay sets this, need to undo
-                            getDelegator().updateLatLon(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
+                            getDelegator().moveNode(handleNode, yToLatE7(absoluteY), xToLonE7(absoluteX));
                         }
                     } catch (OsmIllegalOperationException e) {
                         Snack.barError(main, e.getMessage());
@@ -1268,7 +1269,7 @@ public class Logic {
                         lat = yToLatE7(absoluteY);
                         lon = xToLonE7(absoluteX);
                     }
-                    getDelegator().updateLatLon(selectedNodes.get(0), lat, lon);
+                    getDelegator().moveNode(selectedNodes.get(0), lat, lon);
                 }
             } else { // way dragging and multi-select
                 lat = yToLatE7(absoluteY);
@@ -1392,13 +1393,13 @@ public class Logic {
         int lat = yToLatE7(height - screenTransY);
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
-        TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());
         if (o != null) {
-            lonOffset = o.lon;
-            latOffset = o.lat;
+            lonOffset = o.getDeltaLon();
+            latOffset = o.getDeltaLat();
         }
         osmts.setOffset(map.getZoomLevel(), lonOffset - relativeLon / 1E7d, latOffset - relativeLat / 1E7d);
     }
@@ -1561,7 +1562,7 @@ public class Logic {
             createCheckpoint(activity, R.string.undo_action_movenode);
             int lonE7 = (int) (lon * 1E7d);
             int latE7 = (int) (lat * 1E7d);
-            getDelegator().updateLatLon(node, latE7, lonE7);
+            getDelegator().moveNode(node, latE7, lonE7);
             viewBox.moveTo(map, lonE7, latE7);
             invalidateMap();
             displayAttachedObjectWarning(activity, node);
@@ -1894,7 +1895,7 @@ public class Logic {
                     if (node == null) {
                         displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
                         // move the existing node onto the way and insert it into the way
-                        getDelegator().updateLatLon(nodeToJoin, lat, lon);
+                        getDelegator().moveNode(nodeToJoin, lat, lon);
                         getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
                     } else {
                         displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
@@ -2199,13 +2200,8 @@ public class Logic {
     public synchronized void downloadBox(@NonNull final FragmentActivity activity, @NonNull final BoundingBox mapBox, final boolean add,
             @Nullable final PostAsyncActionHandler postLoadHandler) {
         final Validator validator = App.getDefaultValidator(activity);
-        try {
-            mapBox.makeValidForApi();
-        } catch (OsmException e1) {
-            Log.e(DEBUG_TAG, "downloadBox invalid download box");
-            ErrorAlert.showDialog(activity, ErrorCodes.INVALID_BOUNDING_BOX);
-            return;
-        }
+
+        mapBox.makeValidForApi();
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
@@ -2273,7 +2269,7 @@ public class Logic {
                         Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                         if (map != null) {
                             // set to current or previous
-                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox()); 
+                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
                         }
                     } finally {
                         SavingHelper.close(in);
@@ -2341,7 +2337,7 @@ public class Logic {
                         result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
                         break;
                     default:
-                    } 
+                    }
                     try {
                         if (!activity.isFinishing()) {
                             ErrorAlert.showDialog(activity, result);
@@ -2378,12 +2374,8 @@ public class Logic {
      * @param mapBox Box defining the area to be loaded.
      */
     public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {
-        try {
-            mapBox.makeValidForApi();
-        } catch (OsmException e1) {
-            Log.d(DEBUG_TAG, "Invalid bounding box");
-            return;
-        }
+
+        mapBox.makeValidForApi();
 
         final PostMergeHandler postMerge = new PostMergeHandler() {
             @Override
@@ -2567,7 +2559,7 @@ public class Logic {
             return loader.get(20, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             return null;
-        } 
+        }
     }
 
     /**
@@ -2666,7 +2658,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } 
+            }
         } else {
             return 0;
         }
@@ -2798,7 +2790,7 @@ public class Logic {
                 return loader.get(20, TimeUnit.SECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 return -1;
-            } 
+            }
         } else {
             return 0;
         }
@@ -3073,7 +3065,7 @@ public class Logic {
      * Saves the current editing state (selected objects, editing mode, etc) to file.
      */
     void saveEditingState(Main main) {
-        TileLayerServer osmts = map.getOpenStreetMapTilesOverlay().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
         EditState editState = new EditState(main, this, osmts, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }
@@ -3087,7 +3079,6 @@ public class Logic {
     void loadEditingState(Main main, boolean setViewBox) {
         EditState editState = new SavingHelper<EditState>().load(main, EDITSTATE_FILENAME, false);
         if (editState != null) { //
-            editState.setOffset(map.getOpenStreetMapTilesOverlay().getRendererInfo());
             editState.setMiscState(main, this);
             editState.setSelected(main, this);
             if (setViewBox) {
@@ -3150,12 +3141,9 @@ public class Logic {
                         try {
                             viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                         } catch (Exception e) {
-                            // invalid dimensions of similar error
-                            try {
-                                viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-                            } catch (OsmException e1) {
-                                Log.d(DEBUG_TAG, "loadStateFromFile got " + e.getMessage());
-                            }
+                            // invalid dimensions or similar error
+                            viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
+
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -3266,12 +3254,8 @@ public class Logic {
                 try {
                     viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
                 } catch (Exception e) {
-                    // invalid dimensions of similar error
-                    try {
-                        viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-                    } catch (OsmException e1) {
-                        Log.d(DEBUG_TAG, "syncLoadFromFile got " + e.getMessage());
-                    }
+                    // invalid dimensions or similar error
+                    viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
                 }
                 DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth());
                 loadEditingState((Main) activity, true);
@@ -4348,7 +4332,7 @@ public class Logic {
      * @param way
      * @return WS84 coordinates of centroid
      */
-    private static int[] centroid(int w, int h, BoundingBox v, final Way way) {
+    private static int[] centroid(int w, int h, @NonNull ViewBox v, final Way way) {
         float XY[] = centroidXY(w, h, v, way);
         if (XY == null) {
             return null;
@@ -4369,7 +4353,7 @@ public class Logic {
      *         return the coordinates of the first node
      */
     @Nullable
-    private static float[] centroidXY(int w, int h, @NonNull BoundingBox v, @NonNull final Way way) {
+    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }
@@ -4572,7 +4556,7 @@ public class Logic {
     /**
      * @return the viewBox
      */
-    public BoundingBox getViewBox() {
+    public ViewBox getViewBox() {
         return viewBox;
     }
 

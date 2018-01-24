@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -21,6 +19,10 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.util.NetworkStatus;
+import okhttp3.Call;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * The OpenStreetMapTileDownloader loads tiles from a server and passes them to a
@@ -47,6 +49,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     private final Context                   mCtx;
     private final MapTileFilesystemProvider mMapTileFSProvider;
     private final NetworkStatus             networkStatus;
+
 
     // ===========================================================
     // Constructors
@@ -78,9 +81,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private String buildURL(final MapTile tile) {
         TileLayerServer renderer = TileLayerServer.get(mCtx, tile.rendererID, false);
-        // Log.d("OpenStreetMapTileDownloader","metadata loaded "+ renderer.isMetadataLoaded() + " " +
-        // renderer.getTileURLString(tile));
-        return renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
+        return renderer != null && renderer.isMetadataLoaded() ? renderer.getTileURLString(tile) : "";
     }
 
     // ===========================================================
@@ -108,24 +109,31 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
             InputStream in = null;
             OutputStream out = null;
-
-            String tileURLString = buildURL(mTile);
+            ResponseBody responseBody = null;
+            InputStream inputStream = null;
+            final String tileURLString = buildURL(mTile);
             try {
                 if (tileURLString.length() > 0) {
                     if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
                         Log.d(DEBUGTAG, "Downloading Maptile from url: " + tileURLString);
                     }
-                    URLConnection conn = new URL(tileURLString).openConnection();
-                    conn.setRequestProperty("User-Agent", App.getUserAgent());
-                    if ("BING".equals(mTile.rendererID)) {
+
+                    Request request = new Request.Builder().url(tileURLString).build();
+                    Call searchCall = App.getHttpClient().newCall(request);
+                    Response searchCallResponse = searchCall.execute();
+                    if (searchCallResponse.isSuccessful()) {
+                        responseBody = searchCallResponse.body();
+                        inputStream = responseBody.byteStream();
+                    }
+
+                    if (TileLayerServer.LAYER_BING.equals(mTile.rendererID)) {
                         // this is fairly expensive so only do it is we are actually querying bing
-                        if ("no-tile".equals(conn.getHeaderField("X-VE-Tile-Info"))) {
+                        if ("no-tile".equals(searchCallResponse.header("X-VE-Tile-Info"))) {
                             // handle special Bing header that indicates no tile is available
                             throw new FileNotFoundException("tile not available");
                         }
                     }
-                    in = new BufferedInputStream(conn.getInputStream(), StreamUtils.IO_BUFFER_SIZE);
-
+                    in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);
                     final ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
                     out = new BufferedOutputStream(dataStream, StreamUtils.IO_BUFFER_SIZE);
                     StreamUtils.copy(in, out);
@@ -137,11 +145,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         throw new IOException("no tile data");
                     }
                     mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
-
                     MapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
-                    if (Log.isLoggable(DEBUGTAG, Log.DEBUG)) {
-                        Log.d(DEBUGTAG, "Maptile " + tileURLString + " saved");
-                    }
                 }
             } catch (IOException ioe) {
                 try {
