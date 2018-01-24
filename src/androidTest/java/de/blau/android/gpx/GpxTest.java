@@ -73,8 +73,7 @@ public class GpxTest {
         TestUtils.dismissStartUpDialogs(main);
         Preferences prefs = new Preferences(context);
         // allow downloading tiles here
-        // prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
-        prefs.setOverlayLayer("qa_no_address");
+        prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
     }
 
