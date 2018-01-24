@@ -58,6 +58,7 @@ public class BaseValidator implements Validator {
         SQLiteDatabase db = (new ValidatorRulesDatabaseHelper(ctx)).getReadableDatabase();
         resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
         checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
+        db.close();
     }
 
     /**
