@@ -1,8 +1,10 @@
 site_name: Vespucci 
 site_dir: /var/www/site
 site_description: 'Main site for Vespucci the Android OpenStreetMap Editor'
-theme_dir: 'flatly-custom'
-site_favicon: favicon.ico
+theme:
+  name: flatly
+  custom_dir: flatly-custom
+  favicon: favicon.ico
 extra:
   version: 10.0.0
   project: Vespucci
