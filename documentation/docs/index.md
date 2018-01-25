@@ -3,11 +3,13 @@ notoc: true
 ---
 
 <img src="180px-Amerigo_Vespucci.jpg" style="padding-top:30px;padding-left:20px;float:right">
-[<img src="badge-f-droid.png" style="padding-top:10px;padding-left:20px;float:right">](https://f-droid.org/app/de.blau.android)
-[<img src="badge-amazon-appstore.png" style="padding-top:10px;padding-left:20px;float:right">](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
-[<img src="badge-google-play.png" style="padding-top:10px;padding-left:20px;float:right">](https://play.google.com/store/apps/details?id=de.blau.android)
+[<img src="badge-f-droid.png" style="padding-top:30px;padding-left:20px;float:right">](https://f-droid.org/app/de.blau.android)
+[<img src="badge-amazon-appstore.png" style="padding-top:30px;padding-left:20px;float:right">](http://www.amazon.com/Simon-Poole-vespucci/dp/B00P71C3AW)
+[<img src="badge-google-play.png" style="padding-top:30px;padding-left:20px;float:right">](https://play.google.com/store/apps/details?id=de.blau.android)
 
 # Welcome to Vespucci 
+
+<br></br>
 Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, Codename "Vespucci", continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
 
 Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and [name based POI creation](markdown/tutorials/name_suggestions.md).
