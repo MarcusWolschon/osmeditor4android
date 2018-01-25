@@ -1675,6 +1675,7 @@ public class TileLayerServer {
                     case "zoom":
                         builder.append(Integer.toString(aTile.zoomLevel));
                         break;
+                    case "ty":
                     case "-y":
                         int ymax = 1 << aTile.zoomLevel;
                         int y = ymax - aTile.y - 1;
