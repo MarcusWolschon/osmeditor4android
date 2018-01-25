@@ -27,7 +27,7 @@ The files are found in the documentation directory, layout:
 
 The static website is produced with [mkdocs](http://mkdocs.org).
 
-You can serve a local version on your machine by running:
+You can serve a local version on your machine by running (you will need to install the [bootswatch themes](https://github.com/mkdocs/mkdocs-bootswatch)):
 
     mkdocs serve
 
