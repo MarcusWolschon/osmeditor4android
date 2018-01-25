@@ -61,8 +61,12 @@
 
         <div class="container">
             {%- block content %}
-                <div class="col-md-3">{% include "toc.html" %}</div>
-                <div class="col-md-9" role="main">{% include "content.html" %}</div>
+                {% if not page.meta.notoc %}
+                    <div class="col-md-3">{% include "toc.html" %}</div>
+                    <div class="col-md-9" role="main">{% include "content.html" %}</div>
+                {% else %}
+                    <div class="col-md-12" role="main">{% include "content.html" %}</div>
+                {% endif %}
             {%- endblock %}
         </div>
 
@@ -72,7 +76,7 @@
             {%- if config.copyright %}
                 <p>{{ config.copyright }}</p>
             {%- endif %}
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for {{ config.extra.project}} {{ config.extra.version }} </p>
           {%- endblock %}
         </footer>
 

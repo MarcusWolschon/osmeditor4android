@@ -1,5 +1,5 @@
 ---
-notoc:
+notoc: true
 ---
 
 <img src="180px-Amerigo_Vespucci.jpg" style="padding-top:30px;padding-left:20px;float:right">
