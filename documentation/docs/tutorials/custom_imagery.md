@@ -71,7 +71,8 @@ Notes:
 
 * The MBTiles format does not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.
 * Vespucci currently supports png and jpg contents.
-
+* You can adjust all values in the form before saving if necessary with exception of the URL field that contains the path to the file.
+ 
 ![MBTiles configuration](images/custom_imagery_mbtiles.png)
 
 __Happy mapping!__ 
