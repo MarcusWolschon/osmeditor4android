@@ -36,6 +36,7 @@ pages:
     - 'Preset based filter': 'help/en/Preset filter.md'
     - 'Opening hours': 'help/en/Opening hours.md'           
 - Tutorials and Posts:
+    - 'Custom imagery': 'tutorials/custom_imagery.md'
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
     - 'Tag-only editing':  'tutorials/tag_only.md'
