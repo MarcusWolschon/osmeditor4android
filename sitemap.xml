@@ -158,6 +158,12 @@
     
         
     <url>
+     <loc>/tutorials/custom_imagery/</loc>
+     <lastmod>2018-01-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/tutorials/name_suggestions/</loc>
      <lastmod>2018-01-25</lastmod>
      <changefreq>daily</changefreq>
