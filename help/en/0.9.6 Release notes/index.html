@@ -7,23 +7,21 @@
         
         
         
-        <link rel="shortcut icon" href="favicon.ico">
-        
-
-	<title>0.9.6 Release notes - Vespucci</title>
-
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>0.9.6 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="../../../css/highlight.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 
-        
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
     </head>
 
     <body>
@@ -40,217 +38,187 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
-            <!-- Main title 
+<!--
             <a class="navbar-brand" href="../../..">Vespucci</a>
 -->
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-            
-            
-                <li >
-                    <a href="../../..">Vespucci</a>
-                </li>
-            
-            
-            
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        <li >
-                            <a href="../Introduction/">Introduction</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../0.9.7 Release notes/">0.9.7 Release notes</a>
-                        </li>
-                    
-                        <li class="active">
-                            <a href="./">0.9.6 Release notes</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
-                        </li>
-                    
-                    </ul>
-                </li>
-            
-            
-            
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        <li >
-                            <a href="../Main map display/">Main map display</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Creating new objects/">Creating new objects</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Node selected/">Node selected</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Way selected/">Way selected</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Relation selected/">Relation selected</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Property editor/">Property editor</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Multiselect/">Multiselect</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Conflict resolution/">Conflict resolution</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Presets/">Presets</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Aligning background imagery/">Aligning background imagery</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Keyboard/">Keyboard and mouse</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../GPS sources/">GPS sources</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Tag filter/">Tag based filter</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Preset filter/">Preset based filter</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../Opening hours/">Opening hours</a>
-                        </li>
-                    
-                    </ul>
-                </li>
-            
-            
-            
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        <li >
-                            <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../../../tutorials/tag_only/">Tag-only editing</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../../../tutorials/presets/">Vespucci presets</a>
-                        </li>
-                    
-                        <li >
-                            <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
-                        </li>
-                    
-                    </ul>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../../../tutorials/screenshots/">Screenshots</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../../../tutorials/faq/">FAQ</a>
-                </li>
-            
-            
-            </ul>
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Vespucci</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../Introduction/">Introduction</a>
+</li>
+                            
+<li >
+    <a href="../10.1.0 Release notes/">10.1.0 BETA Release notes</a>
+</li>
+                            
+<li >
+    <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../0.9.7 Release notes/">0.9.7 Release notes</a>
+</li>
+                            
+<li class="active">
+    <a href="./">0.9.6 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../Main map display/">Main map display</a>
+</li>
+                            
+<li >
+    <a href="../Creating new objects/">Creating new objects</a>
+</li>
+                            
+<li >
+    <a href="../Node selected/">Node selected</a>
+</li>
+                            
+<li >
+    <a href="../Way selected/">Way selected</a>
+</li>
+                            
+<li >
+    <a href="../Relation selected/">Relation selected</a>
+</li>
+                            
+<li >
+    <a href="../Property editor/">Property editor</a>
+</li>
+                            
+<li >
+    <a href="../Multiselect/">Multiselect</a>
+</li>
+                            
+<li >
+    <a href="../Conflict resolution/">Conflict resolution</a>
+</li>
+                            
+<li >
+    <a href="../Presets/">Presets</a>
+</li>
+                            
+<li >
+    <a href="../Aligning background imagery/">Aligning background imagery</a>
+</li>
+                            
+<li >
+    <a href="../Keyboard/">Keyboard and mouse</a>
+</li>
+                            
+<li >
+    <a href="../GPS sources/">GPS sources</a>
+</li>
+                            
+<li >
+    <a href="../Tag filter/">Tag based filter</a>
+</li>
+                            
+<li >
+    <a href="../Preset filter/">Preset based filter</a>
+</li>
+                            
+<li >
+    <a href="../Opening hours/">Opening hours</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/tag_only/">Tag-only editing</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/presets/">Vespucci presets</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../../tutorials/screenshots/">Screenshots</a>
+                    </li>
+                    <li >
+                        <a href="../../../tutorials/faq/">FAQ</a>
+                    </li>
+                </ul>
 
-            <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                <li >
-                    <a rel="next" href="../0.9.7 Release notes/">
-                        <i class="fa fa-arrow-left"></i> Previous
-                    </a>
-                </li>
-                <li >
-                    <a rel="prev" href="../../../tutorials/old_release_notes/">
-                        Next <i class="fa fa-arrow-right"></i>
-                    </a>
-                </li>
-                
+                    <li >
+                        <a rel="next" href="../0.9.7 Release notes/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../../tutorials/old_release_notes/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-	    
-            	<div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+                
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
         <li class="main active"><a href="#vespucci-096-highlights">Vespucci 0.9.6 Highlights</a></li>
-        
             <li><a href="#multi-select-mode-currently-supports">Multi-Select mode, currently supports</a></li>
-        
             <li><a href="#restyled-tag-editing-with-split-pane-layout-on-tablets">Restyled tag editing with split pane layout on tablets.</a></li>
-        
             <li><a href="#relation-editing-improvements">Relation editing improvements</a></li>
-        
             <li><a href="#other-improvements">Other improvements</a></li>
-        
-    
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous Versions</a></li>
-        
-    
     </ul>
 </div></div>
-            	<div class="col-md-9" role="main">
+                    <div class="col-md-9" role="main">
 
 <h2 id="vespucci-096-highlights">Vespucci 0.9.6 Highlights</h2>
 <p>2015-06-23</p>
@@ -294,46 +262,82 @@
 <li>The light theme is now the default for post Honeycomb devices.</li>
 </ul>
 <p>For known problems please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">https://github.com/MarcusWolschon/osmeditor4android/issues</a></p></div>
-	    
+                
         </div>
 
         <footer class="col-md-12">
             <hr>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 10.0.0 </center>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 10.0.0 </p>
         </footer>
-
-        <script src="../../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../../js/highlight.pack.js"></script>
+        <script>var base_url = '../../..';</script>
         <script src="../../../js/base.js"></script>
-	<script>var base_url = '../../..';</script>
-        <script data-main="../../../mkdocs/js/search.js" src="../../../mkdocs/js/require.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-
-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 
     </body>
 </html>
