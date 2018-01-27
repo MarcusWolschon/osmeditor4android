@@ -185,7 +185,7 @@
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
-    <string name="toast_min_zoom">Minumum zoom must be less than maximum</string>
+    <string name="toast_min_zoom">Minimum zoom must be less than maximum</string>
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
     <string name="clear_anyway">Clear anyway?</string>
