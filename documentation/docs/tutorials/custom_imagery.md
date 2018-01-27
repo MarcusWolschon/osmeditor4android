@@ -67,7 +67,7 @@ You can query the OAM catalog by going to _Tools_ and selecting _Add imagery fro
 
 ![oam imagery form](images/custom_imagery_oam.png) 
 
-Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct. 
+Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct before saving. 
 
 
 ## MBTiles
