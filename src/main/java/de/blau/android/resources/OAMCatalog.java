@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -16,10 +18,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmParser;
 import de.blau.android.util.SavingHelper;
 
 /**
  * Interface to the OAM API
+ * 
+ * THe OAM API documentation essentially has nothing to do with the current version, have a look at the fixture oam.json
+ * for actual output
  * 
  * @author Simon Poole
  *
@@ -33,9 +39,13 @@ public class OAMCatalog {
     private static final int    TIMEOUT   = 45 * 1000;
 
     public class Entry {
+        String      id;
         String      title;
         String      tileUrl;
         BoundingBox box;
+        double      gsd;
+        long        startDate = -1;
+        long        endDate   = -1;
 
         @Override
         public String toString() {
@@ -47,7 +57,7 @@ public class OAMCatalog {
     private int found = 0;
 
     /**
-     * Query the OAM API for a list of imagery 
+     * Query the OAM API for a list of imagery
      * 
      * @param oamServer URL for the OAM API server
      * @param box if not null limit the query to this BoundingBox
@@ -154,6 +164,15 @@ public class OAMCatalog {
                                 }
                                 reader.endObject();
                                 break;
+                            case "acquisition_start":
+                                entry.startDate = parseAcquisitionDate(reader);
+                                break;
+                            case "acquisition_end":
+                                entry.endDate = parseAcquisitionDate(reader);
+                                break;
+                            case "gsd":
+                                entry.gsd = reader.nextDouble();
+                                break;
                             default:
                                 reader.skipValue();
                                 break;
@@ -177,6 +196,22 @@ public class OAMCatalog {
             SavingHelper.close(reader);
         }
         return result;
+    }
+
+    /**
+     * Parse a acquisition date
+     * 
+     * @param reader the Jsonreader
+     * @return the time since the epoch in milliseconds
+     * @throws IOException
+     */
+    public long parseAcquisitionDate(JsonReader reader) throws IOException {
+        try {
+            return new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
+        } catch (ParseException e) {
+
+            return -1;
+        }
     }
 
     /**

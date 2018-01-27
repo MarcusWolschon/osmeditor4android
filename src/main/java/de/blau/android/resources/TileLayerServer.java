@@ -387,10 +387,10 @@ public class TileLayerServer {
     private final Queue<String> subdomains   = new LinkedList<>();
     private int                 defaultAlpha;
     private List<Provider>      providers    = new ArrayList<>();
-    
-    private boolean             readOnly = false;
-    private String              imageryOffsetId; // cached id for offset DB
-    private Offset[]            offsets;
+
+    private boolean  readOnly = false;
+    private String   imageryOffsetId; // cached id for offset DB
+    private Offset[] offsets;
 
     private static Map<String, TileLayerServer> backgroundServerList = null;
     private static Map<String, TileLayerServer> overlayServerList    = null;
@@ -480,7 +480,7 @@ public class TileLayerServer {
                     if ("ZoomMax".equals(tagName) && parser.next() == XmlPullParser.TEXT) {
                         // hack for bing
                         if (!metadataUrl.contains("virtualearth")) {
-                            zoomLevelMax = Integer.parseInt(parser.getText().trim());
+                            setMaxZoom(Integer.parseInt(parser.getText().trim()));
                         }
                     }
                     if ("ImageryProvider".equals(tagName)) {
@@ -588,7 +588,7 @@ public class TileLayerServer {
         this.overlay = overlay;
         this.defaultLayer = defaultLayer;
         this.zoomLevelMin = zoomLevelMin;
-        this.zoomLevelMax = zoomLevelMax;
+        this.setMaxZoom(zoomLevelMax);
         this.maxOverZoom = maxOverZoom;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
@@ -616,7 +616,7 @@ public class TileLayerServer {
         }
         //
         this.id = this.id.toUpperCase(Locale.US);
-        
+
         if (originalUrl.startsWith("file:")) { // mbtiles no further processing needed
             readOnly = true;
         }
@@ -1075,7 +1075,7 @@ public class TileLayerServer {
             background = TileLayerDatabase.getLayer(ctx, db, LAYER_MAPNIK);
             overlayServerList.put(LAYER_MAPNIK, background);
         }
-        Log.d(DEBUG_TAG,"Generating TileLayer lists took " + (System.currentTimeMillis() - start)/1000);
+        Log.d(DEBUG_TAG, "Generating TileLayer lists took " + (System.currentTimeMillis() - start) / 1000);
     }
 
     /**
@@ -1196,7 +1196,7 @@ public class TileLayerServer {
         // Log.d("OpenStreetMapTileServer","Provider " + p.getAttribution() + " max zoom " + zoomLevelMax);
         // }
         // }
-        return zoomLevelMax;
+        return getlMaxZoom();
     }
 
     /**
@@ -1288,8 +1288,8 @@ public class TileLayerServer {
         if (zoomLevel < zoomLevelMin) {
             return null;
         }
-        if (zoomLevel > zoomLevelMax) {
-            return offsets[zoomLevelMax - zoomLevelMin];
+        if (zoomLevel > getlMaxZoom()) {
+            return offsets[getlMaxZoom() - zoomLevelMin];
         }
         return offsets[zoomLevel - zoomLevelMin];
     }
@@ -1302,9 +1302,9 @@ public class TileLayerServer {
      * @param offsetLat offset in lat direction in WGS84
      */
     public void setOffset(int zoomLevel, double offsetLon, double offsetLat) {
-        Log.d("OpenStreetMapTileServer","setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
+        Log.d("OpenStreetMapTileServer", "setOffset " + zoomLevel + " " + offsetLon + " " + offsetLat);
         zoomLevel = Math.max(zoomLevel, zoomLevelMin); // clamp to min/max values
-        zoomLevel = Math.min(zoomLevel, zoomLevelMax);
+        zoomLevel = Math.min(zoomLevel, getlMaxZoom());
         if (offsets[zoomLevel - zoomLevelMin] == null) {
             offsets[zoomLevel - zoomLevelMin] = new Offset();
         }
@@ -1367,7 +1367,7 @@ public class TileLayerServer {
     public void setName(@NonNull String name) {
         this.name = name;
     }
-    
+
     /**
      * Check if this layer is "read only" aka a mbtiles file
      * 
@@ -1416,14 +1416,14 @@ public class TileLayerServer {
                 } else if (t1.preference > t2.preference) {
                     return -1;
                 }
-                if (t1.endDate == t2.endDate) {
+                if (t1.endDate == t2.endDate || (t1.endDate < 0 && t2.endDate < 0)) {
                     if (t1.defaultLayer != t2.defaultLayer) {
                         return t2.defaultLayer ? 1 : -1;
                     }
                     return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
                 } else {
                     // assumption no end date == ongoing
-                    return t1.endDate != -1 && (t1.endDate > t2.endDate || t2.endDate == -1) ? -1 : 1;
+                    return t1.endDate > 0 && (t1.endDate < t2.endDate || t2.endDate < 0) ? -1 : 1;
                 }
             }
         });
@@ -1848,7 +1848,7 @@ public class TileLayerServer {
             url = url.substring(1);
         }
         imageryOffsetId = url + query;
-        
+
         return imageryOffsetId;
     }
 
@@ -2027,7 +2027,7 @@ public class TileLayerServer {
 
     @Override
     public String toString() {
-        return "ID: " + id + " Name " + name + " maxZoom " + zoomLevelMax + " Tile URL " + tileUrl;
+        return "ID: " + id + " Name " + name + " maxZoom " + getlMaxZoom() + " Tile URL " + tileUrl;
     }
 
     /**
@@ -2059,15 +2059,43 @@ public class TileLayerServer {
             return ViewBox.getMaxMercatorExtent();
         }
         BoundingBox box = null;
-        for (Provider provider:providers) {
-            for (CoverageArea coverage:provider.coverageAreas) {
+        for (Provider provider : providers) {
+            for (CoverageArea coverage : provider.coverageAreas) {
                 if (box == null) {
                     box = new BoundingBox(coverage.bbox);
                 } else {
                     box.union(coverage.bbox);
-                }        
+                }
             }
         }
         return box;
+    }
+
+    /**
+     * @return the zoomLevelMin
+     */
+    public int getMinZoom() {
+        return zoomLevelMin;
+    }
+
+    /**
+     * @param zoomLevelMin the zoomLevelMin to set
+     */
+    public void setMinZoom(int zoomLevelMin) {
+        this.zoomLevelMin = zoomLevelMin;
+    }
+
+    /**
+     * @return the zoomLevelMax
+     */
+    public int getlMaxZoom() {
+        return zoomLevelMax;
+    }
+
+    /**
+     * @param zoomLevelMax the zoomLevelMax to set
+     */
+    public void setMaxZoom(int zoomLevelMax) {
+        this.zoomLevelMax = zoomLevelMax;
     }
 }

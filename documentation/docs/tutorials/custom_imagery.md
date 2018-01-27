@@ -1,8 +1,8 @@
 # Custom imagery
 _by Simon Poole_
 
-For Vespucci 10.1 we've added three long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
-OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
+For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
+OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913), support for layers from [OAM](https://openaerialmap.org/) and support for imagery layers in [MBTiles](https://github.com/mapbox/mbtiles-spec) format.
 
 ## Adding a custom imagery source
 
@@ -61,6 +61,13 @@ WMS server example:
 
     https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=sn_dop_020&STYLES=&SRS=EPSG:3857&WIDTH={width}&HEIGHT={height}&BBOX={bbox}
     
+## OAM
+
+You can query the OAM catalog by going to _Tools_ and selecting _Add imagery from OAM_, this will query the OAM servers for layers in the current view:
+
+![oam imagery form](images/custom_imagery_oam.png) 
+
+Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct. 
 
 
 ## MBTiles

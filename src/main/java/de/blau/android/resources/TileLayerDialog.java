@@ -25,6 +25,7 @@ import de.blau.android.resources.OAMCatalog.Entry;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MBTileProviderDataBase;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
@@ -106,6 +107,9 @@ public class TileLayerDialog {
         TileLayerServer layer = null;
         String attribution = null;
 
+        long startDate = -1;
+        long endDate = -1;
+
         if (existing || oamEntry != null) {
             fileButton.setVisibility(View.GONE);
 
@@ -127,9 +131,20 @@ public class TileLayerDialog {
             } else {
                 nameEdit.setText(oamEntry.title);
                 urlEdit.setText(oamEntry.tileUrl);
+                minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
+                int maxZoom = TileLayerServer.DEFAULT_MAX_ZOOM;
                 if (oamEntry.box != null) {
                     setBoundingBoxFields(templateView, oamEntry.box);
+                    try {
+                        double centerLat = (oamEntry.box.getBottom() + oamEntry.box.getHeight() / 2D) / 1E7D;
+                        maxZoom = GeoMath.resolutionToZoom(oamEntry.gsd, centerLat);
+                    } catch (IllegalArgumentException iaex) {
+                        Log.e(DEBUG_TAG, "Got " + iaex.getMessage());
+                    }
                 }
+                maxZoomPicker.setValue(maxZoom);
+                startDate = oamEntry.startDate;
+                endDate = oamEntry.endDate;
             }
 
             alertDialog.setTitle(R.string.edit_layer_title);
@@ -145,7 +160,7 @@ public class TileLayerDialog {
             });
         } else {
             minZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
-            maxZoomPicker.setValue(TileLayerServer.DEFAULT_MIN_ZOOM);
+            maxZoomPicker.setValue(TileLayerServer.DEFAULT_MAX_ZOOM);
             alertDialog.setTitle(R.string.add_layer_title);
 
             fileButton.setOnClickListener(new OnClickListener() {
@@ -198,6 +213,8 @@ public class TileLayerDialog {
             }
         });
         final TileLayerServer existingLayer = layer;
+        final long finalStartDate = startDate;
+        final long finalEndDate = endDate;
         final AlertDialog dialog = alertDialog.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
@@ -212,7 +229,6 @@ public class TileLayerDialog {
                 int maxZoom = maxZoomPicker.getValue();
                 boolean moan = false;
                 if (!("".equals(leftText) || "".equals(bottomText) || "".equals(rightText) || "".equals(topText))) {
-                    Log.d(DEBUG_TAG, "left >" + leftText + "<");
                     BoundingBox box = null;
                     try {
                         box = new BoundingBox(Double.parseDouble(leftText), Double.parseDouble(bottomText), Double.parseDouble(rightText),
@@ -238,7 +254,7 @@ public class TileLayerDialog {
                     Snack.toastTopError(activity, R.string.toast_url_empty);
                     moan = true;
                 }
-                if (minZoom >= maxZoom) {
+                if (minZoom > maxZoom) {
                     Snack.toastTopError(activity, R.string.toast_min_zoom);
                     moan = true;
                 }
@@ -258,13 +274,15 @@ public class TileLayerDialog {
                 String id = name.toUpperCase();
                 if (!existing) {
                     TileLayerServer layer = new TileLayerServer(activity, id, name, tileUrl, "tms", overlayCheck.isChecked(), false, provider, null, null, null,
-                            null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, Long.MIN_VALUE, Long.MAX_VALUE, true);
+                            null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, true);
                     TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_CUSTOM, layer);
                 } else {
                     existingLayer.setProvider(provider);
                     existingLayer.setName(name);
                     existingLayer.setOriginalTileUrl(tileUrl);
                     existingLayer.setOverlay(overlayCheck.isChecked());
+                    existingLayer.setMinZoom(minZoom);
+                    existingLayer.setMaxZoom(maxZoom);
                     TileLayerDatabase.updateLayer(db, existingLayer);
                 }
                 if (onUpdate != null) {
