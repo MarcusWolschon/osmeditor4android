@@ -560,7 +560,6 @@ public class Logic {
      * @param activity activity we were called from
      * @param e element to change the tags on
      * @param tags Tag-List to be set.
-     * @return false if the element wasn't in storage and the tags were not applied
      * @throws OsmIllegalOperationException if the e isn't in storage
      */
     public synchronized void setTags(@Nullable Activity activity, @NonNull final OsmElement e, @Nullable final java.util.Map<String, String> tags)
@@ -575,7 +574,7 @@ public class Logic {
      * @param type type of the element for the Tag-list.
      * @param osmId OSM-ID of the element.
      * @param tags Tag-List to be set.
-     * @return false if no element exists for the given osmId/type.
+     * @throws OsmIllegalOperationException if the e isn't in storage
      */
     public synchronized void setTags(@Nullable Activity activity, final String type, final long osmId, @Nullable final java.util.Map<String, String> tags)
             throws OsmIllegalOperationException {
@@ -595,7 +594,7 @@ public class Logic {
      * @param activity activity we were called from
      * @param type type of the element for the Tag-list.
      * @param osmId OSM-ID of the element.
-     * @param tags Tag-List to be set.
+     * @param parents new parent relations
      * @return false if no element exists for the given osmId/type.
      */
     public synchronized boolean updateParentRelations(@Nullable Activity activity, final String type, final long osmId, final HashMap<Long, String> parents) {
@@ -616,8 +615,9 @@ public class Logic {
      * @param activity activity we were called from
      * @param osmId The OSM ID of the relation to change.
      * @param members The new list of members to set for the given relation.
+     * @return true if the members was updated
      */
-    public synchronized boolean updateRelation(@Nullable Activity activity, long osmId, ArrayList<RelationMemberDescription> members) {
+    public synchronized boolean updateRelation(@Nullable Activity activity, long osmId, List<RelationMemberDescription> members) {
         OsmElement osmElement = getDelegator().getOsmElement(Relation.NAME, osmId);
         if (osmElement == null) {
             Log.e(DEBUG_TAG, "Attempted to update non-existing relation #" + osmId);
@@ -1913,7 +1913,6 @@ public class Logic {
     /**
      * Unjoin ways joined by the given node.
      * 
-     * @param activity activity this was called from, if null no warnings will be displayed
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param node Node that is joining the ways to be unjoined.
      */
@@ -4087,6 +4086,8 @@ public class Logic {
      * Adds the list of elements to the given relation with an empty role set for each new member.
      * 
      * @param activity activity we were called from
+     * @param relation Relation we want to add the members to
+     * @param members List of members to add
      */
     public void addMembers(@Nullable Activity activity, Relation relation, List<OsmElement> members) {
         createCheckpoint(activity, R.string.undo_action_update_relations);
@@ -4097,7 +4098,7 @@ public class Logic {
      * Sets the set of ways that belong to a relation and should be highlighted. If set to null, the map will use
      * default behaviour. If set to a non-null value, the map will highlight only elements in the list.
      * 
-     * @param set of elements to which highlighting should be limited, or null to remove the limitation
+     * @param ways set of elements to which highlighting should be limited, or null to remove the limitation
      */
     public void setSelectedRelationWays(List<Way> ways) {
         selectedRelationWays = ways;
@@ -4150,7 +4151,7 @@ public class Logic {
      * Sets the set of nodes that belong to a relation and should be highlighted. If set to null, the map will use
      * default behaviour. If set to a non-null value, the map will highlight only elements in the list.
      * 
-     * @param set of elements to which highlighting should be limited, or null to remove the limitation
+     * @param nodes set of elements to which highlighting should be limited, or null to remove the limitation
      */
     public void setSelectedRelationNodes(List<Node> nodes) {
         selectedRelationNodes = nodes;
@@ -4177,7 +4178,7 @@ public class Logic {
      * Sets the set of relations that belong to a relation and should be highlighted. If set to null, the map will use
      * default behaviour. If set to a non-null value, the map will highlight only elements in the list.
      * 
-     * @param set of elements to which highlighting should be limited, or null to remove the limitation
+     * @param relations set of elements to which highlighting should be limited, or null to remove the limitation
      */
     public void setSelectedRelationRelations(List<Relation> relations) {
         selectedRelationRelations = relations;
@@ -4345,9 +4346,9 @@ public class Logic {
     /**
      * Calculate the centroid of a way
      * 
-     * @param viewvBox display bounding box
      * @param h viewbox height
      * @param w viewbox width
+     * @param v current display bounding box
      * @param way way to caculate centroid of
      * @return screen coordinates of centroid, null if the way has problems and if the way has length or area zero
      *         return the coordinates of the first node

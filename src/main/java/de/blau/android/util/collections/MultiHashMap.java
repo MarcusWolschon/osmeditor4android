@@ -51,7 +51,7 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * Check for key in map
      * 
-     * @param key
+     * @param key the key for the entry
      * @return true if key exists in map
      */
     public boolean containsKey(K key) {
@@ -61,7 +61,9 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * Adds item to the set of values associated with the key (null items are not added)
      * 
-     * @returns true if the element was added, false if it was already in the set or null
+     * @param key key for the item to add
+     * @param item the item to add
+     * @return true if the element was added, false if it was already in the set or null
      */
     public boolean add(K key, V item) {
         Set<V> values = map.get(key);
@@ -105,7 +107,7 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * Removes the item from the set associated with the given key
      * 
-     * @param key
+     * @param key key of the item we want to remove
      * @param item the item to remove
      * @return true if the item was in the set
      */
@@ -119,7 +121,7 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * Completely removes all values associated with a key
      * 
-     * @param key
+     * @param key key of the values we want to remove
      */
     public void removeKey(K key) {
         map.remove(key);
@@ -128,7 +130,7 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * Gets the list of items associated with a key.
      * 
-     * @param key
+     * @param key the key to use
      * @return a unmodifiable list of the items associated with the key, may be empty but never null
      */
     public Set<V> get(K key) {
@@ -145,14 +147,19 @@ public class MultiHashMap<K, V> implements Serializable {
         map.clear();
     }
 
+    /**
+     * Get a Set containing all keys of the Map
+     * 
+     * @return a Set of the keys
+     */
     public Set<K> getKeys() {
         return map.keySet();
     }
 
     /**
-     * return all values
+     * Get a Set containing all values of the Map
      * 
-     * @return
+     * @return a Set of the values
      */
     public Set<V> getValues() {
         Set<V> retval = new LinkedHashSet<>();
@@ -165,7 +172,7 @@ public class MultiHashMap<K, V> implements Serializable {
     /**
      * add all key/values from source to this Map
      * 
-     * @param source
+     * @param source a MultiHashMap from which to add keys and values
      */
     public void addAll(MultiHashMap<K, V> source) {
         for (K key : source.getKeys()) {

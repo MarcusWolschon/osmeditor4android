@@ -152,15 +152,13 @@ public class Server {
      * Server path component for "notes/" as in "http://api.openstreetmap.org/api/0.6/notes/".
      */
     private static final String SERVER_NOTES_PATH = "notes/";
-
+ 
     /**
      * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
      * 
-     * @param apiurl The OSM API URL to use (e.g. "http://api.openstreetmap.org/api/0.6/").
-     * @param username
-     * @param password
-     * @param oauth
-     * @param generator the name of the editor.
+     * @param context Android Context
+     * @param api an API object containing the current settings
+     * @param generator how we identify ourself for APIs
      */
     public Server(Context context, final API api, final String generator) {
         Log.d(DEBUG_TAG, "constructor");
@@ -483,12 +481,11 @@ public class Server {
     }
 
     /**
-     * Get a single element from the API
+     * Get a multiple elements of the same type from the API
      * 
      * @param context Android context
-     * @param mode "full" or null
      * @param type type (node, way, relation) of the object
-     * @param id the OSM id of the object
+     * @param ids array containing the OSM ids of the objects
      * @return the stream
      * @throws OsmServerException
      * @throws IOException
@@ -1659,7 +1656,6 @@ public class Server {
      * 
      * @param bug The bug to add the comment to.
      * @param comment The comment to add to the bug.
-     * @return true if the comment was successfully added.
      * @throws IOException
      * @throws OsmServerException
      * @throws XmlPullParserException
@@ -1713,7 +1709,6 @@ public class Server {
      * 
      * @param bug The bug to add.
      * @param comment The first comment for the bug.
-     * @return true if the bug was successfully added.
      * @throws IOException
      * @throws OsmServerException
      * @throws XmlPullParserException
@@ -1750,7 +1745,6 @@ public class Server {
      * Blocks until the request is complete. If the note is already closed the error is ignored.
      * 
      * @param bug The bug to close.
-     * @return true if the bug was successfully closed.
      * @throws IOException
      * @throws OsmServerException
      * @throws XmlPullParserException
@@ -1793,7 +1787,6 @@ public class Server {
      * Blocks until the request is complete. If the note is already open the error is ignored.
      * 
      * @param bug The bug to close.
-     * @return true if the bug was successfully closed.
      * @throws IOException
      * @throws OsmServerException
      * @throws XmlPullParserException
