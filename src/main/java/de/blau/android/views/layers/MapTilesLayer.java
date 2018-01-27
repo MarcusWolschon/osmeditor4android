@@ -175,11 +175,11 @@ public class MapTilesLayer extends MapViewLayer {
     }
 
     /**
-     * Get the current displayed tile layer information
+     * Get the current displayed tile layer configuration
      * 
      * @return a TileLayerServer object
      */
-    public TileLayerServer getRendererInfo() {
+    public TileLayerServer getTileLayerConfiguration() {
         return myRendererInfo;
     }
 

@@ -57,10 +57,18 @@
   </ul></li>
 </ul><h3><img src="../images/menu_config.png" alt="Preferences" /> Preferences</h3><p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p><h3><img src="../images/menu_tools.png" alt="Tools" /> Tools</h3>
 <ul>
-  <li><strong>Flush background tile cache</strong> - empty the on device cache for the current background <em>(may take a significant amount of time)</em></li>
-  <li><strong>Flush overlay tile cache</strong> - empty the on device cache for the current overlay <em>(may take a significant amount of time)</em></li>
+  <li><strong>Zoom to background layer extent</strong> - zoom to the bounding box of the current background layer</li>
   <li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
+  <li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer</li>
   <li><strong>Background properties</strong> - adjust properties of the background layer, currently only a combined contrast/brightness control <em>(non-persistent)</em></li>
+  <li><strong>Add imagery from OAM</strong> - query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
+  <li><strong>More imagery tools</strong>
+  <ul>
+    <li><strong>Flush background tile cache</strong> - empty the on device cache for the current background</li>
+    <li><strong>Flush overlay tile cache</strong> - empty the on device cache for the current overlay</li>
+    <li>**Flush all tile caches"" - empty all on device tile caches
+</li>
+  </ul></li>
   <li><strong>Reset OAuth</strong> - reset the OAuth tokens, This will force reauthorisation the next time you upload.</li>
   <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
 </ul><h3><img src="../images/ic_menu_search_holo_light.png" alt="Find" /> Find</h3><p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p><h3>Tag-Filter <em>(checkbox)</em></h3><p>Enable the tag based filter, the filter can be configured by tapping the filter button on the map display.</p><h3>Preset-Filter <em>(checkbox)</em></h3><p>Enable the preset based filter, the filter can be configured by tapping the filter button on the map display.</p><h3>Share position</h3><p>Share the current position (center of the displayed map) with other apps on the device.</p><h3><img src="../images/menu_help.png" alt="Help" /> Help</h3><p>Start the on device help browser.</p>

@@ -63,7 +63,9 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoContext;
@@ -2045,5 +2047,27 @@ public class TileLayerServer {
     public void setProvider(Provider provider) {
         providers.clear();
         providers.add(provider);
+    }
+
+    /**
+     * Get a BoundingBox that covers all of the layers CoverageAreas
+     * 
+     * @return a BoundingBox covering all CoverageAreas
+     */
+    public BoundingBox getOverallCoverage() {
+        if (providers.isEmpty() || providers.get(0).coverageAreas == null || providers.get(0).coverageAreas.isEmpty()) {
+            return ViewBox.getMaxMercatorExtent();
+        }
+        BoundingBox box = null;
+        for (Provider provider:providers) {
+            for (CoverageArea coverage:provider.coverageAreas) {
+                if (box == null) {
+                    box = new BoundingBox(coverage.bbox);
+                } else {
+                    box.union(coverage.bbox);
+                }        
+            }
+        }
+        return box;
     }
 }

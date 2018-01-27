@@ -660,7 +660,7 @@ public class Map extends View implements IMapView {
      */
     private void paintZoomAndOffset(final Canvas canvas) {
         int pos = ThemeUtils.getActionBarHeight(context) + 5 + (int) de.blau.android.grid.MapOverlay.LONGTICKS_DP * 3;
-        Offset o = getBackgroundLayer().getRendererInfo().getOffset(zoomLevel);
+        Offset o = getBackgroundLayer().getTileLayerConfiguration().getOffset(zoomLevel);
         String text = context.getString(R.string.zoom_and_offset, zoomLevel, o != null ? String.format(Locale.US, "%.5f", o.getDeltaLon()) : "0.00000",
                 o != null ? String.format(Locale.US, "%.5f", o.getDeltaLat()) : "0.00000");
         float textSize = textPaint.getTextSize();
@@ -1690,7 +1690,7 @@ public class Map extends View implements IMapView {
      * @return the tile zoom level
      */
     private int calcZoomLevel(Canvas canvas) {
-        final TileLayerServer s = getBackgroundLayer().getRendererInfo();
+        final TileLayerServer s = getBackgroundLayer().getTileLayerConfiguration();
         if (s == null || !s.isMetadataLoaded()) {// protection on startup
             return 0;
         }
@@ -1747,7 +1747,7 @@ public class Map extends View implements IMapView {
         synchronized (mOverlays) {
             for (MapViewLayer osmvo : mOverlays) {
                 if (osmvo != null && osmvo instanceof MapTilesLayer) {
-                    result.add(((MapTilesLayer) osmvo).getRendererInfo().getName());
+                    result.add(((MapTilesLayer) osmvo).getTileLayerConfiguration().getName());
                 }
             }
         }

@@ -1874,6 +1874,17 @@ public class Main extends FullScreenAppCompatActivity
             });
             return true;
 
+        case R.id.menu_tools_zoom_to_layer_extent:
+            MapTilesLayer backgroundLayer = map.getBackgroundLayer();
+            if (backgroundLayer != null) {
+                TileLayerServer osmts = backgroundLayer.getTileLayerConfiguration();
+                if (osmts != null) {
+                    map.getViewBox().setBorders(getMap(), osmts.getOverallCoverage(), false);
+                    map.invalidate();
+                }
+            }
+            return true;
+            
         case R.id.menu_tools_background_align:
             // protect against weird state
             Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
@@ -1883,7 +1894,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_tools_apply_local_offset:
-            ImageryOffsetUtils.applyImagerOffsets(this, map.getBackgroundLayer().getRendererInfo(), null);
+            ImageryOffsetUtils.applyImagerOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
             return true;
 
         case R.id.menu_tools_background_properties:

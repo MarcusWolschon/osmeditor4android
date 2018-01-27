@@ -68,7 +68,7 @@ public class DebugInformation extends AppCompatActivity {
                 synchronized (map.mOverlays) {
                     for (MapViewLayer ov : map.mOverlays) {
                         if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                            builder.append("Tile Cache " + ((MapTilesLayer) ov).getRendererInfo().getId() + " usage "
+                            builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
                                     + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }

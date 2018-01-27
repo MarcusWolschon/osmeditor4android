@@ -21,7 +21,7 @@ public class MapTilesOverlayLayer extends MapTilesLayer {
 
     @Override
     public boolean isReadyToDraw() {
-        TileLayerServer layer = getRendererInfo();
+        TileLayerServer layer = getTileLayerConfiguration();
         if (layer == null) {
             enabled = false;
         } else {

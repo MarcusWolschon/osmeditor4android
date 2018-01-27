@@ -75,7 +75,7 @@ public class TileLayerServerTest {
         prefs.setBackGroundLayer("BING");
         main.getMap().setPrefs(main, prefs);
 
-        final TileLayerServer t = map.getBackgroundLayer().getRendererInfo();
+        final TileLayerServer t = map.getBackgroundLayer().getTileLayerConfiguration();
         Assert.assertNotNull(t);
         if (!t.isMetadataLoaded()) {
             final CountDownLatch signal = new CountDownLatch(1);
@@ -117,7 +117,7 @@ public class TileLayerServerTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
  
-        TileLayerServer t2 = map.getBackgroundLayer().getRendererInfo();
+        TileLayerServer t2 = map.getBackgroundLayer().getTileLayerConfiguration();
         System.out.println(t2.toString());
 
         s = t2.getTileURLString(mapTile);

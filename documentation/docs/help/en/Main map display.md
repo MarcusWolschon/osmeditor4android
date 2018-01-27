@@ -99,10 +99,15 @@ Show the user preference screens. The settings are split into two sets: the firs
 
 ### ![Tools](../images/menu_tools.png) Tools
 
- * **Flush background tile cache** - empty the on device cache for the current background *(may take a significant amount of time)*
- * **Flush overlay tile cache** - empty the on device cache for the current overlay *(may take a significant amount of time)*
+ * **Zoom to background layer extent** - zoom to the bounding box of the current background layer
  * **Align background** - align the current background layer, this can be done manually or from the image alignment database *(requires network connectivity)*
+ * **Apply stored offset to imagery** - apply stored offset, if it exists, for the current background layer 
  * **Background properties** - adjust properties of the background layer, currently only a combined contrast/brightness control *(non-persistent)*
+ * **Add imagery from OAM** - query OAM for layers in the current map view and display a list allowing to add them to the local configuration
+ * **More imagery tools**
+    * **Flush background tile cache** - empty the on device cache for the current background
+    * **Flush overlay tile cache** - empty the on device cache for the current overlay
+    * **Flush all tile caches"" - empty all on device tile caches 
  * **Reset OAuth** - reset the OAuth tokens, This will force reauthorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
 

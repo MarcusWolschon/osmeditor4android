@@ -85,7 +85,7 @@ public class OffsetTest {
         }
         final Map map = main.getMap();
         ImageryOffset offset = new ImageryOffset();
-        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         offset.imageryId = osmts.getImageryOffsetId();
         offset.setLon(8.21598D);
         offset.setLat(47.40804D);

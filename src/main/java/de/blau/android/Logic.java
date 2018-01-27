@@ -1393,7 +1393,7 @@ public class Logic {
         int lat = yToLatE7(height - screenTransY);
         int relativeLon = lon - viewBox.getLeft();
         int relativeLat = lat - viewBox.getBottom();
-        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         double lonOffset = 0d;
         double latOffset = 0d;
         Offset o = osmts.getOffset(map.getZoomLevel());
@@ -3065,7 +3065,7 @@ public class Logic {
      * Saves the current editing state (selected objects, editing mode, etc) to file.
      */
     void saveEditingState(Main main) {
-        TileLayerServer osmts = map.getBackgroundLayer().getRendererInfo();
+        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         EditState editState = new EditState(main, this, osmts, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }

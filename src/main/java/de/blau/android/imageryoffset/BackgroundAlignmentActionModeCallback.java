@@ -90,7 +90,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
-        osmts = map.getBackgroundLayer().getRendererInfo();
+        osmts = map.getBackgroundLayer().getTileLayerConfiguration();
         oldOffsets = osmts.getOffsets().clone();
         prefs = new Preferences(main);
         String offsetServer = prefs.getOffsetServer();
