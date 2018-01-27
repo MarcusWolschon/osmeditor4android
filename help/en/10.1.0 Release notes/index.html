@@ -220,7 +220,7 @@
         <li class="main active"><a href="#vespucci-101-beta-highlights">Vespucci 10.1 BETA Highlights</a></li>
             <li><a href="#under-the-hood">Under the hood</a></li>
             <li><a href="#gpx-waypoints">GPX Waypoints</a></li>
-            <li><a href="#imagery-database-custom-imagery-and-mbtiles">Imagery database, custom imagery and MBTiles</a></li>
+            <li><a href="#imagery-database-custom-imagery-oam-and-mbtiles">Imagery database, custom imagery, OAM and MBTiles</a></li>
             <li><a href="#geo-location-sensitive-validation">Geo-location sensitive validation</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -234,12 +234,16 @@
 <p>This release is mainly a clean up release with no major new functionality, but inclusion of projects that were started a while back and some general improvements. There have been some modest performance improvements in both data rendering and with respect to tile retrieval and rendering.</p>
 <h2 id="gpx-waypoints">GPX Waypoints</h2>
 <p>An imported GPX track can now include GPX way points. These can be selected and converted in to OSM Nodes either via manual selection of a preset, or via an automatic search of the term in the GPX "type" fields in the presets.</p>
-<h2 id="imagery-database-custom-imagery-and-mbtiles">Imagery database, custom imagery and MBTiles</h2>
-<p>As you may know we use the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> for our background and overlay imagery configuration. Previously we re-read and re-parsed the configuration file on every start of vespucci, we now on initial start up and after upgrades store the configuration in a database. This improves start up time considerably. We've further added a method to download updated 
-configuration directly from the Editor Layer Index site.</p>
+<h2 id="imagery-database-custom-imagery-oam-and-mbtiles">Imagery database, custom imagery, OAM and MBTiles</h2>
+<p>As you may know we use the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> for our background and overlay imagery configuration. Previously we re-read and re-parsed the configuration file on every start of vespucci, we now on initial start up and after upgrades store the configuration in a database. This improves start up time considerably. We've further added a method to download updated configuration directly from the Editor Layer Index site.</p>
 <p>Storing this information in a database was a prerequisite to creating a simple UI to allow custom imagery to be added (there is still a facility to include imagery configuration via a file). While we were at it, we've added support for layers in MBTile format for enhanced offline editing.</p>
+<p>More information on the topic can be found on <a href="http://vespucci.io/tutorials/custom_imagery/">vespucci.io</a>.</p>
 <h3 id="wms-server-support">WMS server support</h3>
 <p>10.1 adds limited support for WMS servers that support "web-mercator" projection (EPSG:3857 or EPSG:900913). The requested tiles are 512px x 512px in size to reduce the load on the target servers a bit, still this should likely be used with restraint.</p>
+<h3 id="oam-support">OAM Support</h3>
+<p>Layers provided via OAM can be added to the imagery configuration via a query to the OAM catalog.</p>
+<h3 id="mbtiles">MBTiles</h3>
+<p>MBTile files containing jpen og png imagery can now be used as custom imagery sources on device.</p>
 <h3 id="imagery-offsets">Imagery offsets</h3>
 <p>The way how we handle local offsets (contrary to such stored in the <a href="http://offsets.textual.ru/">imagery offset database</a>) has changed. While 
 these were always a bit persistent, it wasn't really clear when and how they would be re-applied or vanish. We now store per adjusted layer one set of offsets permanently, if the app is started with a view near (100m) the location of such an adjustment it will be automatically applied and a warning displayed, the same on background layer changes. This results in non-surprising behaviour: app restarts and pausing in the same location will not suddenly change imagery alignment, but doing so further away from the location will show the layer as is.</p>

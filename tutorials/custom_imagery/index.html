@@ -219,6 +219,7 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#custom-imagery">Custom imagery</a></li>
             <li><a href="#adding-a-custom-imagery-source">Adding a custom imagery source</a></li>
+            <li><a href="#oam">OAM</a></li>
             <li><a href="#mbtiles">MBTiles</a></li>
     </ul>
 </div></div>
@@ -226,8 +227,8 @@
 
 <h1 id="custom-imagery">Custom imagery</h1>
 <p><em>by Simon Poole</em></p>
-<p>For Vespucci 10.1 we've added three long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
-OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913) and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
+<p>For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
+OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913), support for layers from <a href="https://openaerialmap.org/">OAM</a> and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
 <h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
 <p><img alt="custom imagery form" src="../images/custom_imagery_empty.png" /> </p>
 <p>To add a custom layer goto the <em>Advanced preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer. In the form you can set</p>
@@ -265,6 +266,10 @@ OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913) and support for ima
 <p>WMS server example:</p>
 <pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
 </code></pre>
+<h2 id="oam">OAM</h2>
+<p>You can query the OAM catalog by going to <em>Tools</em> and selecting <em>Add imagery from OAM</em>, this will query the OAM servers for layers in the current view:</p>
+<p><img alt="oam imagery form" src="../images/custom_imagery_oam.png" /> </p>
+<p>Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct. </p>
 <h2 id="mbtiles">MBTiles</h2>
 <p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
 <p>Notes:</p>

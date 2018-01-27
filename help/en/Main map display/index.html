@@ -312,10 +312,17 @@ directory, however this depends on the specific camera app.</p>
 <p>Show the user preference screens. The settings are split into two sets: the first screen contains the more commonly used preferences, the "Advanced preferences" contains the less used ones. </p>
 <h3 id="tools"><img alt="Tools" src="../../images/menu_tools.png" /> Tools</h3>
 <ul>
-<li><strong>Flush background tile cache</strong> - empty the on device cache for the current background <em>(may take a significant amount of time)</em></li>
-<li><strong>Flush overlay tile cache</strong> - empty the on device cache for the current overlay <em>(may take a significant amount of time)</em></li>
+<li><strong>Zoom to background layer extent</strong> - zoom to the bounding box of the current background layer</li>
 <li><strong>Align background</strong> - align the current background layer, this can be done manually or from the image alignment database <em>(requires network connectivity)</em></li>
+<li><strong>Apply stored offset to imagery</strong> - apply stored offset, if it exists, for the current background layer </li>
 <li><strong>Background properties</strong> - adjust properties of the background layer, currently only a combined contrast/brightness control <em>(non-persistent)</em></li>
+<li><strong>Add imagery from OAM</strong> - query OAM for layers in the current map view and display a list allowing to add them to the local configuration</li>
+<li><strong>More imagery tools</strong><ul>
+<li><strong>Flush background tile cache</strong> - empty the on device cache for the current background</li>
+<li><strong>Flush overlay tile cache</strong> - empty the on device cache for the current overlay</li>
+<li>**Flush all tile caches"" - empty all on device tile caches </li>
+</ul>
+</li>
 <li><strong>Reset OAuth</strong> - reset the OAuth tokens, This will force reauthorisation the next time you upload.</li>
 <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
 </ul>
