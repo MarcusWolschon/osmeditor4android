@@ -3,7 +3,6 @@ package de.blau.android.views.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;

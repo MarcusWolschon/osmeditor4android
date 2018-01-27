@@ -8,6 +8,8 @@ import java.util.List;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
@@ -23,6 +25,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
 
     private static final long serialVersionUID = -2708721312405863618L;
 
+    private static final String DEBUG_TAG = "BoundingBox";
+    
     /**
      * left border of the bounding box, multiplied by 1E7
      */
@@ -189,6 +193,37 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     public String toApiString() {
         return Double.toString(left / 1E7D) + STRING_DELIMITER + Double.toString(bottom / 1E7D) + STRING_DELIMITER + Double.toString(right / 1E7D)
                 + STRING_DELIMITER + Double.toString(top / 1E7D);
+    }
+    
+    /**
+     * Construct a BoundingBox from a String in the format L, B, R, T possibly enclosed in square brackets
+     * 
+     * @param boxString the String to parse
+     * @return a BoundingBox or null if it couldn't be parsed
+     */
+    @Nullable
+    public static BoundingBox fromString(@NonNull String boxString) {
+        String[] corners = boxString.trim().split(",",4);
+        if (corners.length == 4) {
+            if (corners[0].startsWith("[")) {
+                corners[0] = corners[0].substring(1, corners[0].length());
+            }
+            if (corners[3].endsWith("]")) {
+                corners[3] = corners[3].substring(1, corners[3].length());
+            }
+            BoundingBox box = new BoundingBox();
+            try {
+                box.left = Integer.parseInt(corners[0]);
+                box.bottom = Integer.parseInt(corners[1]);
+                box.right = Integer.parseInt(corners[2]);
+                box.top = Integer.parseInt(corners[3]);
+                return box;
+            } catch (NumberFormatException e) {
+                // fall off the bottom
+            }
+        }
+        Log.e(DEBUG_TAG, "Could not convert " + boxString + " to a valid BoundingBox");
+        return null;
     }
 
     /**

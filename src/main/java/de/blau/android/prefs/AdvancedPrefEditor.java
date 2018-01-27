@@ -7,9 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import de.blau.android.R;
-import de.blau.android.photos.PhotoIndex;
 import de.blau.android.util.SelectFile;
-import de.blau.android.voice.Commands;
 
 public class AdvancedPrefEditor extends AppCompatActivity {
 

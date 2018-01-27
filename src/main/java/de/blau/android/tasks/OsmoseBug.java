@@ -39,7 +39,7 @@ public class OsmoseBug extends Bug implements Serializable {
     private String username;
 
     public static List<OsmoseBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
-        ArrayList<OsmoseBug> result = new ArrayList<>();
+        List<OsmoseBug> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));
         try {
             // key object
@@ -47,9 +47,9 @@ public class OsmoseBug extends Bug implements Serializable {
             reader.beginObject();
             while (reader.hasNext()) {
                 key = reader.nextName(); //
-                if (key.equals("description")) {
+                if ("description".equals(key)) {
                     reader.skipValue();
-                } else if (key.equals("errors")) {
+                } else if ("errors".equals(key)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
                         OsmoseBug bug = new OsmoseBug();

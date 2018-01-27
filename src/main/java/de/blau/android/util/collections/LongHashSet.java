@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 
 /**
  * long HashSet

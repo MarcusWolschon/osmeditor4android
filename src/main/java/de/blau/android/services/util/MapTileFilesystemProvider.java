@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
