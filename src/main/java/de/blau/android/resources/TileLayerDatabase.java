@@ -252,6 +252,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
             if (haveEntry) {
+                initLayerFieldIndices(dbresult);
                 layer = getLayerFromCursor(context, provider, dbresult);
             }
         }
@@ -278,6 +279,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
             if (haveEntry) {
+                initLayerFieldIndices(dbresult);
                 layer = getLayerFromCursor(context, provider, dbresult);
             }
         }
@@ -296,6 +298,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (cursor.getCount() >= 1) {
             Log.d(DEBUG_TAG, "Got 1 or more coverage areas");
             boolean haveEntry = cursor.moveToFirst();
+            initCoverageFieldIndices(cursor);
             while (haveEntry) {
                 CoverageArea ca = getCoverageFromCursor(cursor);
                 provider.addCoverageArea(ca);
@@ -331,22 +334,48 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
     }
 
+    private static int idFieldIndex = -1;
+    private static int leftFieldIndex = -1;
+    private static int bottomFieldIndex = -1;
+    private static int rightFieldIndex = -1;
+    private static int topFieldIndex = -1;
+    private static int zoomMinFieldIndex = -1;
+    private static int zoomMaxFieldIndex = -1;
     /**
      * Create a CoverageArea from a Cursor
      * 
+     * Uses pre-computed field indices 
      * @param cursor the Cursor
      * @return a CoverageArea instance
      */
     private static CoverageArea getCoverageFromCursor(Cursor cursor) {
-        int left = cursor.getInt(cursor.getColumnIndex(LEFT_FIELD));
-        int bottom = cursor.getInt(cursor.getColumnIndex(BOTTOM_FIELD));
-        int right = cursor.getInt(cursor.getColumnIndex(RIGHT_FIELD));
-        int top = cursor.getInt(cursor.getColumnIndex(TOP_FIELD));
+        if (idFieldIndex == -1) {
+            throw new IllegalStateException("Coverage field indices not initialized");
+        }
+        int left = cursor.getInt(leftFieldIndex);
+        int bottom = cursor.getInt(bottomFieldIndex);
+        int right = cursor.getInt(rightFieldIndex);
+        int top = cursor.getInt(topFieldIndex);
         BoundingBox box = new BoundingBox(left, bottom, right, top);
-        int zoomMin = cursor.getInt(cursor.getColumnIndex(ZOOM_MIN_FIELD));
-        int zoomMax = cursor.getInt(cursor.getColumnIndex(ZOOM_MAX_FIELD));
+        int zoomMin = cursor.getInt(zoomMinFieldIndex);
+        int zoomMax = cursor.getInt(zoomMaxFieldIndex);
         CoverageArea ca = new CoverageArea(zoomMin, zoomMax, box);
         return ca;
+    }
+
+    /**
+     * Init the field indices for a Coverage Cursor 
+     * 
+     * @param cursor the Cursor
+     */
+    private static void initCoverageFieldIndices(Cursor cursor) {
+        idFieldIndex = cursor.getColumnIndex(ID_FIELD);
+        leftFieldIndex = cursor.getColumnIndex(LEFT_FIELD);
+        bottomFieldIndex = cursor.getColumnIndex(BOTTOM_FIELD);
+        rightFieldIndex = cursor.getColumnIndex(RIGHT_FIELD);
+        topFieldIndex = cursor.getColumnIndex(TOP_FIELD);
+        zoomMinFieldIndex = cursor.getColumnIndex(ZOOM_MIN_FIELD);
+        zoomMaxFieldIndex = cursor.getColumnIndex(ZOOM_MAX_FIELD);
     }
 
     /**
@@ -385,9 +414,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                 "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE overlay=?",
                 new String[] { overlay ? "1" : "0" });
         if (dbresult.getCount() >= 1) {
+            initCoverageFieldIndices(dbresult);
             boolean haveEntry = dbresult.moveToFirst();
             while (haveEntry) {
-                String id = dbresult.getString(dbresult.getColumnIndex(ID_FIELD));
+                String id = dbresult.getString(idFieldIndex);
                 CoverageArea ca = getCoverageFromCursor(dbresult);
                 coverages.add(id, ca);
                 haveEntry = dbresult.moveToNext();
@@ -398,8 +428,9 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         dbresult = db.query(LAYERS_TABLE, null, OVERLAY_FIELD + "=" + (overlay ? 1 : 0), null, null, null, null);
         if (dbresult.getCount() >= 1) {
             boolean haveEntry = dbresult.moveToFirst();
+            initLayerFieldIndices(dbresult);
             while (haveEntry) {
-                String id = dbresult.getString(dbresult.getColumnIndex(ID_FIELD));
+                String id = dbresult.getString(idLayerFieldIndex);
                 Provider provider = new Provider();
                 for (CoverageArea ca : coverages.get(id)) {
                     provider.addCoverageArea(ca);
@@ -414,38 +445,89 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         return layers;
     }
 
+    static int idLayerFieldIndex = -1;
+    static int nameFieldIndex = -1;
+    static int typeFieldIndex = -1;
+    static int tileUrlFieldIndex = -1;
+    static int touUrlFieldIndex = -1;
+    static int attributionFieldIndex = -1;
+    static int overlayFieldIndex = -1;
+    static int defaultLayerFieldIndex = -1;
+    static int zoomMinLayerFieldIndex = -1;
+    static int zoomMaxLayerFieldIndex = -1;
+    static int tileWidthFieldIndex = -1;
+    static int tileHeightFieldIndex = -1;
+    static int projFieldIndex = -1;
+    static int preferenceFieldIndex = -1;
+    static int startDateFieldIndex = -1;
+    static int endDateIFieldndex = -1;
+    static int overZoomMaxFieldIndex = -1;
+    static int logoUrlFieldIndex = -1;
+    static int logoFieldIndex = -1;
+    
     /**
      * Create a TileLayerServer from a database entry
      * 
+     * Uses pre-computed field indices
      * @param context Android Context
      * @param provider Provider object holding coverage and attribution
      * @param cursor the Cursor
      * @return a TileLayerServer instance
      */
     private static TileLayerServer getLayerFromCursor(Context context, Provider provider, Cursor cursor) {
-        String id = cursor.getString(cursor.getColumnIndex(ID_FIELD));
-        String name = cursor.getString(cursor.getColumnIndex(NAME_FIELD));
-        String type = cursor.getString(cursor.getColumnIndex(TYPE_FIELD));
-        String tileUrl = cursor.getString(cursor.getColumnIndex(TILE_URL_FIELD));
-        String touUri = cursor.getString(cursor.getColumnIndex(TOU_URI_FIELD));
-        String attribution = cursor.getString(cursor.getColumnIndex(ATTRIBUTION_FIELD));
+        if (idLayerFieldIndex == -1) {
+            throw new IllegalStateException("Layer field indices not initialized");
+        }
+        String id = cursor.getString(idLayerFieldIndex);
+        String name = cursor.getString(nameFieldIndex);
+        String type = cursor.getString(typeFieldIndex);
+        String tileUrl = cursor.getString(tileUrlFieldIndex);
+        String touUri = cursor.getString(touUrlFieldIndex);
+        String attribution = cursor.getString(attributionFieldIndex);
         provider.setAttribution(attribution);
-        boolean overlay = cursor.getInt(cursor.getColumnIndex(OVERLAY_FIELD)) == 1;
-        boolean defaultLayer = cursor.getInt(cursor.getColumnIndex(DEFAULTLAYER_FIELD)) == 1;
-        int zoomLevelMin = cursor.getInt(cursor.getColumnIndex(ZOOM_MIN_FIELD));
-        int zoomLevelMax = cursor.getInt(cursor.getColumnIndex(ZOOM_MAX_FIELD));
-        int tileWidth = cursor.getInt(cursor.getColumnIndex(TILE_WIDTH_FIELD));
-        int tileHeight = cursor.getInt(cursor.getColumnIndex(TILE_HEIGHT_FIELD));
-        String proj = cursor.getString(cursor.getColumnIndex(PROJ_FIELD));
-        int preference = cursor.getInt(cursor.getColumnIndex(PREFERENCE_FIELD));
-        long startDate = cursor.getLong(cursor.getColumnIndex(START_DATE_FIELD));
-        long endDate = cursor.getLong(cursor.getColumnIndex(END_DATE_FIELD));
-        int maxOverZoom = cursor.getInt(cursor.getColumnIndex(OVER_ZOOM_MAX_FIELD));
-        String logoUrl = cursor.getString(cursor.getColumnIndex(LOGO_URL_FIELD));
-        byte[] logoBytes = cursor.getBlob(cursor.getColumnIndex(LOGO_FIELD));
+        boolean overlay = cursor.getInt(overlayFieldIndex) == 1;
+        boolean defaultLayer = cursor.getInt(defaultLayerFieldIndex) == 1;
+        int zoomLevelMin = cursor.getInt(zoomMinLayerFieldIndex);
+        int zoomLevelMax = cursor.getInt(zoomMaxLayerFieldIndex);
+        int tileWidth = cursor.getInt(tileWidthFieldIndex);
+        int tileHeight = cursor.getInt(tileHeightFieldIndex);
+        String proj = cursor.getString(projFieldIndex);
+        int preference = cursor.getInt(preferenceFieldIndex);
+        long startDate = cursor.getLong(startDateFieldIndex);
+        long endDate = cursor.getLong(endDateIFieldndex);
+        int maxOverZoom = cursor.getInt(overZoomMaxFieldIndex);
+        String logoUrl = cursor.getString(logoUrlFieldIndex);
+        byte[] logoBytes = cursor.getBlob(logoFieldIndex);
 
         return new TileLayerServer(context, id, name, tileUrl, type, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
                 zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, true);
+    }
+    
+    /**
+     * Init the field indices for a Layer Cursor 
+     * 
+     * @param cursor the Cursor
+     */
+    private static void initLayerFieldIndices(Cursor cursor) {
+        idLayerFieldIndex = cursor.getColumnIndex(ID_FIELD);
+        nameFieldIndex = cursor.getColumnIndex(NAME_FIELD);
+        typeFieldIndex = cursor.getColumnIndex(TYPE_FIELD);
+        tileUrlFieldIndex = cursor.getColumnIndex(TILE_URL_FIELD);
+        touUrlFieldIndex = cursor.getColumnIndex(TOU_URI_FIELD);
+        attributionFieldIndex = cursor.getColumnIndex(ATTRIBUTION_FIELD);
+        overlayFieldIndex = cursor.getColumnIndex(OVERLAY_FIELD);
+        defaultLayerFieldIndex = cursor.getColumnIndex(DEFAULTLAYER_FIELD);
+        zoomMinLayerFieldIndex = cursor.getColumnIndex(ZOOM_MIN_FIELD);
+        zoomMaxLayerFieldIndex = cursor.getColumnIndex(ZOOM_MAX_FIELD);
+        tileWidthFieldIndex = cursor.getColumnIndex(TILE_WIDTH_FIELD);
+        tileHeightFieldIndex = cursor.getColumnIndex(TILE_HEIGHT_FIELD);
+        projFieldIndex = cursor.getColumnIndex(PROJ_FIELD);
+        preferenceFieldIndex = cursor.getColumnIndex(PREFERENCE_FIELD);
+        startDateFieldIndex = cursor.getColumnIndex(START_DATE_FIELD);
+        endDateIFieldndex = cursor.getColumnIndex(END_DATE_FIELD);
+        overZoomMaxFieldIndex = cursor.getColumnIndex(OVER_ZOOM_MAX_FIELD);
+        logoUrlFieldIndex = cursor.getColumnIndex(LOGO_URL_FIELD);
+        logoFieldIndex = cursor.getColumnIndex(LOGO_FIELD);
     }
 
     /**
