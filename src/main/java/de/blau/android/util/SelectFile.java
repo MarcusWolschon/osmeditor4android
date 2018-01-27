@@ -4,6 +4,7 @@ package de.blau.android.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
@@ -22,7 +23,7 @@ import de.blau.android.prefs.Preferences;
 /**
  * Helper class that tries to provide some minimal file selector functionality for all supported Android versions
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class SelectFile {
@@ -34,11 +35,18 @@ public class SelectFile {
     public static final int READ_FILE_OLD = 9341;
 
     private static SaveFile     saveCallback;
-    private final static Object saveCallbackLock = new Object();
+    private static final Object saveCallbackLock = new Object();
 
     private static ReadFile         readCallback;
-    private final static Object     readCallbackLock = new Object();
+    private static final Object     readCallbackLock = new Object();
     private static FragmentActivity activity         = null;
+
+    /**
+     * Unused default constructor
+     */
+    private SelectFile() {
+        // hide default constructor
+    }
 
     /**
      * Save a file
@@ -118,28 +126,34 @@ public class SelectFile {
      * @param data the returned intent
      */
     public static void handleResult(int code, Intent data) {
-        // for now this doesn't do anything when multiple files are selected
         if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false)) {
+            if (code == READ_FILE) {
+            List<Uri>uris = new ArrayList<>();
             // For JellyBean and above
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 ClipData clip = data.getClipData();
-
                 if (clip != null) {
                     for (int i = 0; i < clip.getItemCount(); i++) {
-                        Uri uri = clip.getItemAt(i).getUri();
-                        // Do something with the URI
+                        uris.add(clip.getItemAt(i).getUri());
                     }
                 }
                 // For Ice Cream Sandwich
             } else {
                 ArrayList<String> paths = data.getStringArrayListExtra(FilePickerActivity.EXTRA_PATHS);
-
                 if (paths != null) {
                     for (String path : paths) {
-                        Uri uri = Uri.parse(path);
-                        // Do something with the URI
+                        uris.add(Uri.parse(path));
                     }
                 }
+            }
+            synchronized (saveCallbackLock) {
+                if (saveCallback != null) {
+                    Log.d(DEBUG_TAG, "saving");
+                    readCallback.read(uris);
+                }
+            }
+            } else {
+                throw new IllegalArgumentException("Multiple files do not make sense for saving");
             }
         } else {
             final Uri uri = data.getData();
