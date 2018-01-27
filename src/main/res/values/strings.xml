@@ -68,6 +68,8 @@
     <string name="progress_preset_message">Downloading preset…</string>
     <string name="progress_running_message">Running…</string>
     <string name="progress_oauth">Loading your account on openstreetmap.org for OAuth authorisation…</string>
+    <string name="progress_building_imagery_database">Building imagery database...</string>
+    <string name="progress_query_oam">Querying OAM...</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="upload_close_changeset_label">Close changeset:</string>
@@ -168,7 +170,8 @@
     <string name="create_osm_object">Create OSM Object</string>
     <string name="create_osm_object_search">Create OSM Object from preset search</string>
     <!-- Custom imagery dialogs  -->
-    <string name="custom_layer_title">Custom imagery layers</string>
+    <string name="custom_layer_title">Custom imagery</string>
+    <string name="oam_layer_title">OAM imagery</string>
     <string name="edit_layer_title">Edit layer entry</string>
     <string name="add_layer_title">Add layer entry</string>
     <string name="overlay">Overlay</string>
@@ -179,11 +182,10 @@
     <string name="coverage_bottom">Bottom</string>
     <string name="preferred">Preferred</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
+    <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
-    <string name="toast_building_imagery_database">Building imagery database.</string>
     <string name="toast_min_zoom">Minumum zoom must be less than maximum</string>
-    <!-- Toaster -->
     <string name="toast_no_changes">You have not changed anything yet…</string>
     <string name="toast_unsaved_changes">You have unsaved changes, please upload them first.</string>
     <string name="clear_anyway">Clear anyway?</string>
@@ -267,6 +269,7 @@
     <string name="toast_flus_all_caches">This will flush all tile caches!</string>
     <string name="toast_applied_offset">Automatically applied imagery offset</string>
     <string name="toast_unsupported_format">Unsupported format: %1$s</string>
+    <string name="toast_returning_less_than_found">Returning %1$d of %2$d found entries</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -443,6 +446,8 @@
     <string name="menu_set_name">Set name</string>
     <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
     <string name="menu_tools">Tools</string>
+    <string name="menu_tools_imagery">More imagery tools</string>
+    <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
     <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
     <string name="menu_tools_flush_all_tile_caches">Flush all tile caches</string>
@@ -456,7 +461,7 @@
     <string name="menu_tools_background_align_save_db">Save to DB</string>
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
-    <string name="menu_tools_apply_local_offset">Apply offset to imagery</string>
+    <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>

@@ -56,7 +56,11 @@ public class ProgressDialog {
             break;
         case Progress.PROGRESS_BUILDING_IMAGERY_DATABASE:
             titleId = R.string.progress_general_title;
-            messageId = R.string.toast_building_imagery_database;
+            messageId = R.string.progress_building_imagery_database;
+            break;
+        case Progress.PROGRESS_QUERY_OAM:
+            titleId = R.string.progress_general_title;
+            messageId = R.string.progress_query_oam;
             break;
         default:
             return null;

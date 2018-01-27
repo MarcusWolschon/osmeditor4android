@@ -196,6 +196,10 @@
 					android:title="@string/menu_tools_background_properties"
 				/>
 				<item
+                    android:id="@+id/menu_tools_add_imagery_from_oam"
+                    android:title="@string/menu_tools_add_imagery_from_oam"
+                />
+				<item
                     android:id="@+id/menu_tools_update_imagery_configuration"
                     android:title="@string/menu_tools_update_imagery_configuration"
                 />

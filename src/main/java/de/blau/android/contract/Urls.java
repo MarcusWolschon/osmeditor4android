@@ -26,4 +26,6 @@ public interface Urls {
     String OSM_LOGIN = "https://www.openstreetmap.org/login";
     
     String ELI = "https://raw.githubusercontent.com/osmlab/editor-layer-index/gh-pages/imagery.geojson";
+    
+    String OAM_SERVER = "https://api.openaerialmap.org/";
 }

@@ -42,6 +42,8 @@ public class Progress extends DialogFragment {
     public static final int PROGRESS_RUNNING = 9;
 
     public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
+    
+    public static final int PROGRESS_QUERY_OAM = 11;
 
     private int dialogType;
 
@@ -100,6 +102,7 @@ public class Progress extends DialogFragment {
         dismissDialog(activity, PROGRESS_PRESET);
         dismissDialog(activity, PROGRESS_RUNNING);
         dismissDialog(activity, PROGRESS_BUILDING_IMAGERY_DATABASE);
+        dismissDialog(activity, PROGRESS_QUERY_OAM);
     }
 
     private static String getTag(int dialogType) {
@@ -124,6 +127,8 @@ public class Progress extends DialogFragment {
             return "dialog_progress_running";
         case PROGRESS_BUILDING_IMAGERY_DATABASE:
             return "dialog_progress_building_imagery_database";
+        case PROGRESS_QUERY_OAM:
+            return "dialog_progress_query_oam";
         }
         return null;
     }

@@ -96,6 +96,7 @@ import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
+import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.BackgroundProperties;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DataLossActivity;
@@ -142,6 +143,8 @@ import de.blau.android.propertyeditor.Address;
 import de.blau.android.propertyeditor.PropertyEditor;
 import de.blau.android.propertyeditor.PropertyEditorData;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.resources.OAMCatalog;
+import de.blau.android.resources.OAMCatalogView;
 import de.blau.android.resources.TileLayerDatabase;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.TrackerService;
@@ -1882,9 +1885,45 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_apply_local_offset:
             ImageryOffsetUtils.applyImagerOffsets(this, map.getBackgroundLayer().getRendererInfo(), null);
             return true;
-            
+
         case R.id.menu_tools_background_properties:
             BackgroundProperties.showDialog(this);
+            return true;
+
+        case R.id.menu_tools_add_imagery_from_oam:
+            new AsyncTask<Void, Void, List<OAMCatalog.Entry>>() {
+                @Override
+                protected void onPreExecute() {
+                    Progress.showDialog(Main.this, Progress.PROGRESS_QUERY_OAM);
+                }
+
+                @Override
+                protected List<OAMCatalog.Entry> doInBackground(Void... params) {
+                    OAMCatalog catalog = new OAMCatalog();
+                    List<OAMCatalog.Entry> list = catalog.getEntries(Urls.OAM_SERVER, map.getViewBox());
+                    final int found = catalog.getFound();
+                    final int limit = catalog.getLimit();
+                    if (found > limit) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_returning_less_than_found, limit, found));
+                            }
+                        });
+                    }
+                    return list;
+                }
+
+                @Override
+                protected void onPostExecute(List<OAMCatalog.Entry> catalog) {
+                    Progress.dismissDialog(Main.this, Progress.PROGRESS_QUERY_OAM);
+                    if (catalog != null && !catalog.isEmpty()) {
+                        OAMCatalogView.displayLayers(Main.this, catalog, map.getViewBox());
+                    } else {
+                        Snack.toastTopInfo(Main.this, R.string.toast_nothing_found);
+                    }
+                }
+            }.execute();
             return true;
 
         case R.id.menu_tools_update_imagery_configuration:
@@ -1909,9 +1948,11 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }.execute();
             return true;
+
         case R.id.tag_menu_reset_address_prediction:
             Address.resetLastAddresses(this);
             return true;
+
         case R.id.menu_tools_oauth_reset: // reset the current OAuth tokens
             if (server.getOAuth()) {
                 AdvancedPrefDatabase prefdb = new AdvancedPrefDatabase(this);

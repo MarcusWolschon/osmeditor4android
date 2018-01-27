@@ -13,7 +13,7 @@ import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
-import de.blau.android.resources.TileLayerDatabaseUI;
+import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
@@ -72,7 +72,7 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
-                TileLayerDatabaseUI ui = new TileLayerDatabaseUI();
+                TileLayerDatabaseView ui = new TileLayerDatabaseView();
                 ui.manageLayers(getActivity());
                 return true;
             }
