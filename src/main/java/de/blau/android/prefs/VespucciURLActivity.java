@@ -31,8 +31,9 @@ import oauth.signpost.exception.OAuthException;
  * apiname - name for the API (if it gets added)<br>
  * apiuser, apipass - login data for the API (if it gets added)<br>
  * apipreseturl - preset URL to be set for the API after adding (only if present!)<br>
- * apiicons - set to 1 if icons should be shown<br>
- * Note the above are no longer used. preseturl - preset URL to add to the preset list<br>
+ * Note the above are no longer used.
+ * 
+ * preseturl - preset URL to add to the preset list<br>
  * presetname - name for the preset (if it gets added)<br>
  * oauth_token = oauth token, used during retrieving oauth access tokens<br>
  * oauth_verifier - oauth verifier, used during retrieving oauth access tokens<br>
@@ -46,11 +47,17 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
     private static final int    REQUEST_APIEDIT    = 1;
 
     private String               command;
-    private String               apiurl, apiname, apiuser, apipass, apipreseturl, apiicons, apioauth;
-    private String               preseturl, presetname;
+    private String               apiurl;
+    private String               apiname;
+    private String               apiuser;
+    private String               apipass;
+    private String               apipreseturl;
+    private String               preseturl;
+    private String               presetname;
     private PresetInfo           existingPreset    = null;
     private PresetInfo           apiPresetInfo     = null;
-    private String               oauth_token, oauth_verifier;
+    private String               oauth_token;
+    private String               oauth_verifier;
     private AdvancedPrefDatabase prefdb;
     private boolean              downloadSucessful = false;
 
@@ -82,8 +89,6 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
                 apiuser = data.getQueryParameter("apiuser");
                 apipass = data.getQueryParameter("apipass");
                 apipreseturl = data.getQueryParameter("apipreset");
-                apiicons = data.getQueryParameter("apiicons");
-                apioauth = data.getQueryParameter("apioauth");
                 preseturl = data.getQueryParameter("preseturl");
                 presetname = data.getQueryParameter("presetname");
                 oauth_token = data.getQueryParameter("oauth_token");
@@ -112,8 +117,6 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
                 oAuthHandshake(oauth_verifier);
             } catch (OAuthException e) {
                 errorMessage = OAuthHelper.getErrorMessage(this, e);
-            } catch (InterruptedException e) {
-                errorMessage = getString(R.string.toast_oauth_communication);
             } catch (ExecutionException e) {
                 errorMessage = getString(R.string.toast_oauth_communication);
             } catch (TimeoutException e) {
@@ -207,9 +210,9 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
         }
     }
 
-    private void oAuthHandshake(String verifier) throws OAuthException, InterruptedException, ExecutionException, TimeoutException {
+    private void oAuthHandshake(String verifier) throws OAuthException, TimeoutException, ExecutionException {
         String[] s = { verifier };
-        class MyTask extends AsyncTask<String, Void, Boolean> {
+        class OAuthAccessTokenTask extends AsyncTask<String, Void, Boolean> {
             private OAuthException ex = null;
 
             @Override
@@ -234,18 +237,28 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
                 startActivity(intent);
             }
 
+            /**
+             * Get the any OAuthException that was thrown
+             * 
+             * @return the exception
+             */
             OAuthException getException() {
                 return ex;
             }
         }
 
-        MyTask loader = new MyTask();
-        loader.execute(s);
-        if (!loader.get(60, TimeUnit.SECONDS)) {
-            OAuthException ex = loader.getException();
-            if (ex != null) {
-                throw ex;
+        OAuthAccessTokenTask requester = new OAuthAccessTokenTask();
+        requester.execute(s);
+        try {
+            if (!requester.get(60, TimeUnit.SECONDS)) {
+                OAuthException ex = requester.getException();
+                if (ex != null) {
+                    throw ex;
+                }
             }
+        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
+            requester.cancel(true);
+            throw new TimeoutException(e.getMessage());
         }
     }
 }

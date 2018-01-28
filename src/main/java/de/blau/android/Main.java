@@ -1884,7 +1884,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
             }
             return true;
-            
+
         case R.id.menu_tools_background_align:
             // protect against weird state
             Mode oldMode = logic.getMode() != Mode.MODE_ALIGN_BACKGROUND ? logic.getMode() : Mode.MODE_EASYEDIT;
@@ -2600,8 +2600,6 @@ public class Main extends FullScreenAppCompatActivity
             authUrl = oa.getRequestToken();
         } catch (OAuthException e) {
             errorMessage = OAuthHelper.getErrorMessage(this, e);
-        } catch (InterruptedException e) {
-            errorMessage = getString(R.string.toast_oauth_communication);
         } catch (ExecutionException e) {
             errorMessage = getString(R.string.toast_oauth_communication);
         } catch (TimeoutException e) {
@@ -2623,7 +2621,7 @@ public class Main extends FullScreenAppCompatActivity
             oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
             oAuthWebView.requestFocus(View.FOCUS_DOWN);
-            class MyWebViewClient extends WebViewClient {
+            class OAuthWebViewClient extends WebViewClient {
                 Object   progressLock  = new Object();
                 boolean  progressShown = false;
                 Runnable dismiss       = new Runnable() {
@@ -2635,11 +2633,14 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    if (!url.contains("vespucci")) {
+                    if (url.contains("google.com")) {
+                        Snack.toastTopError(Main.this, R.string.toast_oauth_login_with_google_not_possible);
+                    } else if (!url.contains("vespucci")) {
                         // load in in this webview
                         view.loadUrl(url);
                     } else {
-                        // vespucci URL
+                        // vespucci URL 
+                        // or the OSM signup page which we want to open in a normal browser
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                     }
@@ -2680,10 +2681,23 @@ public class Main extends FullScreenAppCompatActivity
                 public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
                     // Redirect to deprecated method, so you can use it in all SDK versions
                     onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
-                }
+                }          
             }
-
-            oAuthWebView.setWebViewClient(new MyWebViewClient());
+            oAuthWebView.setOnKeyListener( new View.OnKeyListener() {
+                @Override
+                    public boolean onKey( View v, int keyCode, KeyEvent event ) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            if (oAuthWebView.canGoBack()) {
+                                oAuthWebView.goBack();  
+                            } else {
+                                finishOAuth();
+                            }
+                            return true;
+                        }
+                        return false;
+                    }
+            });            
+            oAuthWebView.setWebViewClient(new OAuthWebViewClient());
             oAuthWebView.loadUrl(authUrl);
         }
     }

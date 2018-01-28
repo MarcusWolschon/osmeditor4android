@@ -8,6 +8,8 @@ import java.util.concurrent.TimeoutException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -73,14 +75,13 @@ public class OAuthHelper {
      * this constructor is for access to the singletons
      */
     public OAuthHelper() {
-
     }
 
     /**
      * Returns an OAuthConsumer initialized with the consumer keys for the API in question
      * 
      * @param osmBaseUrl
-     * @return
+     * @return an initialized OAuthConsumer
      */
     public OAuthConsumer getConsumer(String osmBaseUrl) {
         Resources r = App.resources();
@@ -99,12 +100,16 @@ public class OAuthHelper {
     }
 
     /**
+     * Get the request token
      * 
-     * @return null if fails
+     * @return the token or null
+     * @throws OAuthException if an error happened during the OAuth handshake
+     * @throws TimeoutException if we waited too long for a response
+     * @throws ExecutionException 
      */
-    public String getRequestToken() throws OAuthException, InterruptedException, ExecutionException, TimeoutException {
+    public String getRequestToken() throws OAuthException, TimeoutException, ExecutionException {
         Log.d("OAuthHelper", "getRequestToken");
-        class MyTask extends AsyncTask<Void, Void, String> {
+        class RequestTokenTask extends AsyncTask<Void, Void, String> {
             private OAuthException ex = null;
 
             @Override
@@ -118,15 +123,26 @@ public class OAuthHelper {
                 return null;
             }
 
+            /**
+             * Get the any OAuthException that was thrown
+             * 
+             * @return the exception
+             */
             OAuthException getException() {
                 return ex;
             }
         }
-        MyTask loader = new MyTask();
-        loader.execute();
-        String result = loader.get(10, TimeUnit.SECONDS);
+        RequestTokenTask requester = new RequestTokenTask();
+        requester.execute();
+        String result = null;
+        try {
+            result = requester.get(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question          
+            requester.cancel(true);
+            throw new TimeoutException(e.getMessage());
+        }
         if (result == null) {
-            OAuthException ex = loader.getException();
+            OAuthException ex = requester.getException();
             if (ex != null) {
                 throw ex;
             }
@@ -134,16 +150,37 @@ public class OAuthHelper {
         return result;
     }
 
+    /**
+     * Queries the service provider for an access token. 
+     * 
+     * @param verifier
+     * @return
+     * @throws OAuthMessageSignerException
+     * @throws OAuthNotAuthorizedException
+     * @throws OAuthExpectationFailedException
+     * @throws OAuthCommunicationException
+     */
     public String[] getAccessToken(String verifier)
             throws OAuthMessageSignerException, OAuthNotAuthorizedException, OAuthExpectationFailedException, OAuthCommunicationException {
         Log.d("OAuthHelper", "verifier: " + verifier);
-        if (mProvider == null || mConsumer == null)
+        if (mProvider == null || mConsumer == null) {
             throw new OAuthExpectationFailedException("OAuthHelper not initialized!");
+        }
         mProvider.retrieveAccessToken(mConsumer, verifier);
         return new String[] { mConsumer.getToken(), mConsumer.getTokenSecret() };
     }
 
-    public static String getErrorMessage(Context context, OAuthException e) {
+    /**
+     * Get a fitting error message for an OAuthException
+     * 
+     * @param context Android Context
+     * @param e the OAuthException or null
+     * @return a String containing an error message
+     */
+    public static String getErrorMessage(@NonNull Context context, @Nullable OAuthException e) {
+        if (e == null) {
+            return context.getString(R.string.toast_oauth_communication);
+        }
         if (e instanceof OAuthMessageSignerException) {
             return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
         } else if (e instanceof OAuthNotAuthorizedException) {
