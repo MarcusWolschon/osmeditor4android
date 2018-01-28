@@ -192,7 +192,7 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
         if (preference instanceof MultiSelectListPreference) {
             fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
-            fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
+            fragment.show(getChildFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
         } else
             super.onDisplayPreferenceDialog(preference);
     }

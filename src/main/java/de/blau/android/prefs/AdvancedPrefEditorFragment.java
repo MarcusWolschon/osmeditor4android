@@ -120,15 +120,15 @@ public class AdvancedPrefEditorFragment extends PreferenceFragmentCompat {
         if (preference instanceof LoginDataPreference) {
             fragment = LoginDataPreferenceFragment.newInstance(preference);
             fragment.setTargetFragment(this, 0);
-            fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.LOGINDATA");
+            fragment.show(getChildFragmentManager(), "android.support.v7.preference.PreferenceFragment.LOGINDATA");
         } else if (preference instanceof MultiSelectListPreference) {
             fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
-            fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
+            fragment.show(getChildFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
         } else if (preference instanceof NumberPickerPreference) {
             fragment = NumberPickerPreferenceFragment.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
-            fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.NUMBERPICKER");
+            fragment.show(getChildFragmentManager(), "android.support.v7.preference.PreferenceFragment.NUMBERPICKER");
         } else
             super.onDisplayPreferenceDialog(preference);
     }
