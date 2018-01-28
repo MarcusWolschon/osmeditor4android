@@ -1229,11 +1229,11 @@ public class TileLayerServer {
                     protected Void doInBackground(String... params) {
                         synchronized (TileLayerServer.this) {
                             Drawable cached = logoCache.get(logoUrl);
-                            if (cached != NOLOGO) {
+                            if (cached != NOLOGO && logoUrl != null) { // recheck logoURl
                                 if (cached != null) {
                                     logoDrawable = cached;
                                 } else {
-                                    Log.d(DEBUG_TAG, "logoUrl " + logoUrl);
+                                    Log.d(DEBUG_TAG, "getLogoDrawable logoUrl " + logoUrl);
                                     logoDrawable = getLogoFromUrl(logoUrl);
                                     if (logoDrawable == null) {
                                         logoCache.put(logoUrl, NOLOGO);
@@ -1857,7 +1857,7 @@ public class TileLayerServer {
     /**
      * Remove all background and overlay entries that match the supplied blacklist
      * 
-     * @param blacklist list of servers that sould be removed
+     * @param blacklist list of servers that should be removed
      */
     public static void applyBlacklist(List<String> blacklist) {
         // first compile the regexs
