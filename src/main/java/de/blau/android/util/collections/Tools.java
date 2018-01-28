@@ -1,11 +1,16 @@
 package de.blau.android.util.collections;
 
 /**
- * Common methods
+ * Common methods Taken from FastUtil implementation
  */
 class Tools {
 
-    /** Taken from FastUtil implementation */
+    /**
+     * Default constructor
+     */
+    private Tools() {
+        // hide the default constructor
+    }
 
     /**
      * Return the least power of two greater than or equal to the specified value.
@@ -39,8 +44,9 @@ class Tools {
      */
     public static int arraySize(final int expected, final float f) {
         final long s = Math.max(2, nextPowerOfTwo((long) Math.ceil(expected / f)));
-        if (s > (1 << 30))
+        if (s > (1 << 30)) {
             throw new IllegalArgumentException("Too large (" + expected + " expected elements with load factor " + f + ")");
+        }
         return (int) s;
     }
 
