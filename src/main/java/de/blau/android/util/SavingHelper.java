@@ -50,6 +50,7 @@ public class SavingHelper<T extends Serializable> {
      * 
      * Original version was running out of stack, fixed by moving to a thread
      * 
+     * @param context Android Context
      * @param filename filename of the save file
      * @param object object to save
      * @param compress true if the output should be gzip-compressed, false if it should be written without compression
@@ -248,9 +249,9 @@ public class SavingHelper<T extends Serializable> {
      * Rename existing file in same directory if target file exists, delete Code nicked from
      * http://stackoverflow.com/users/325442/mr-bungle
      * 
-     * @param context
-     * @param originalFileName
-     * @param newFileName
+     * @param context Android Context
+     * @param originalFileName the original filename
+     * @param newFileName the new filename
      */
     private static void rename(Context context, String originalFileName, String newFileName) {
         File originalFile = context.getFileStreamPath(originalFileName);
@@ -360,7 +361,7 @@ public class SavingHelper<T extends Serializable> {
          * @param outputStream the stream to write to
          * @throws Exception thrown on a write error
          */
-        void export(OutputStream outputStream) throws Exception;
+        void export(OutputStream outputStream) throws Exception; // NOSONAR this needs to generic
 
         /** @return the extension to be used for exports */
         String exportExtension();

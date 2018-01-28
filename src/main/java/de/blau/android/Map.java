@@ -1240,8 +1240,8 @@ public class Map extends View implements IMapView {
                 Y = Y + (y1 + y2) * d;
             }
             if (Util.notZero(A)) {
-                Y = Y / (3 * A);
-                X = X / (3 * A);
+                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                X = X / (3 * A); // NOSONAR nonZero tests for zero
                 boolean iconDrawn = false;
                 if (tmpPresets != null) {
                     iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? DataStyle.SELECTED_NODE_TAGGED : null);

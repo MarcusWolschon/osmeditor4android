@@ -61,7 +61,9 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import ch.poole.poparser.ParseException;
 import ch.poole.poparser.Po;
+import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
@@ -338,9 +340,9 @@ public class Preset implements Serializable {
                     if (poFileStream != null) {
                         try {
                             po = new Po(poFileStream);
-                        } catch (Exception ignored) {
+                        } catch (ParseException ignored) {
                             Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-                        } catch (Error ignored) {
+                        } catch (TokenMgrError ignored) {
                             Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
                         }
                     }
@@ -388,10 +390,10 @@ public class Preset implements Serializable {
                         if (poFileStream != null) {
                             try {
                                 po = new Po(poFileStream);
-                            } catch (Exception ignored) {
+                            } catch (ParseException ignored) {
                                 Log.e(DEBUG_TAG,
                                         "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-                            } catch (Error ignored) {
+                            } catch (TokenMgrError ignored) {
                                 Log.e(DEBUG_TAG,
                                         "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
                             }
@@ -448,7 +450,7 @@ public class Preset implements Serializable {
         if (elements != null && !elements.isEmpty()) {
             name = elements.get(0).getName();
         } else {
-            Log.e(DEBUG_TAG,"List of PresetElements was null");
+            Log.e(DEBUG_TAG, "List of PresetElements was null");
             return;
         }
         rootGroup = new PresetGroup(null, name, null);

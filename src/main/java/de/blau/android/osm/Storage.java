@@ -208,7 +208,7 @@ public class Storage implements Serializable {
     void insertNodeUnsafe(final Node node) throws StorageException {
         try {
             nodes.put(node.getOsmId(), node);
-        } catch (Error err) { // should really only be OutOfMemory
+        } catch (OutOfMemoryError err) {
             throw new StorageException(StorageException.OOM);
         }
 
@@ -223,7 +223,7 @@ public class Storage implements Serializable {
     void insertWayUnsafe(final Way way) throws StorageException {
         try {
             ways.put(way.getOsmId(), way);
-        } catch (Error err) { // should really only be OutOfMemory
+        } catch (OutOfMemoryError err) {
             throw new StorageException(StorageException.OOM);
         }
     }
@@ -237,7 +237,7 @@ public class Storage implements Serializable {
     void insertRelationUnsafe(final Relation relation) throws StorageException {
         try {
             relations.put(relation.getOsmId(), relation);
-        } catch (Error err) { // should really only be OutOfMemory
+        } catch (OutOfMemoryError err) {
             throw new StorageException(StorageException.OOM);
         }
     }

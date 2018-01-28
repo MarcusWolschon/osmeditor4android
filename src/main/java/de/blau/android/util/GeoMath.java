@@ -459,7 +459,7 @@ public class GeoMath {
      */
     public static int resolutionToZoom(double resolution, double lat) {
         if (Util.notZero(resolution)) {
-            return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8);
+            return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR nonZero tests for zero
         }
         throw new IllegalArgumentException("Resolution can't be zero");
     }

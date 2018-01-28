@@ -775,8 +775,8 @@ public class Logic {
                 node1Y = node2Y;
             }
             if (Util.notZero(A) && showWayIcons && !added && areaHasIcon(way)) {
-                Y = Y / (3 * A);
-                X = X / (3 * A);
+                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                X = X / (3 * A); // NOSONAR nonZero tests for zero
                 double distance = Math.hypot(x - X, y - Y);
                 if (distance < DataStyle.getCurrent().getNodeToleranceValue()) {
                     result.put(way, distance);
@@ -4376,9 +4376,9 @@ public class Logic {
                 X = X + (x1 + x2) * d;
                 Y = Y + (y1 + y2) * d;
             }
-            if (Util.notZero(A)) {
-                Y = Y / (3 * A);
-                X = X / (3 * A);
+            if (Util.notZero(A)) { 
+                Y = Y / (3 * A); // NOSONAR nonZero tests for zero
+                X = X / (3 * A); // NOSONAR nonZero tests for zero
                 return new float[] { (float) X, (float) Y };
             } else {
                 // area zero -> we can choose any node
@@ -4401,8 +4401,8 @@ public class Logic {
                 Y = Y + len * (y1 + y2) / 2;
             }
             if (Util.notZero(L)) {
-                Y = Y / L;
-                X = X / L;
+                Y = Y / L; // NOSONAR nonZero tests for zero
+                X = X / L; // NOSONAR nonZero tests for zero
                 return new float[] { (float) X, (float) Y };
             } else {
                 // length zero -> we can choose any node
@@ -4442,8 +4442,8 @@ public class Logic {
                 Y = Y + (y1 + y2) * (x1 * y2 - x2 * y1);
             }
             if (Util.notZero(A)) {
-                Y = GeoMath.mercatorToLat(Y / (3 * A));
-                X = X / (3 * A);
+                Y = GeoMath.mercatorToLat(Y / (3 * A)); // NOSONAR nonZero tests for zero
+                X = X / (3 * A); // NOSONAR nonZero tests for zero
                 return new double[] { X, Y };
             } else {
                 // area zero -> we can choose any node
@@ -4466,8 +4466,8 @@ public class Logic {
                 Y = Y + len * (y1 + y2) / 2;
             }
             if (Util.notZero(L)) {
-                Y = GeoMath.mercatorToLat(Y / L);
-                X = X / L;
+                Y = GeoMath.mercatorToLat(Y / L); // NOSONAR nonZero tests for zero
+                X = X / L; // NOSONAR nonZero tests for zero
                 return new double[] { X, Y };
             } else {
                 // length zero -> we can choose any node
