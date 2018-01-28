@@ -1227,20 +1227,22 @@ public class TileLayerServer {
                 new AsyncTask<String, Void, Void>() {
                     @Override
                     protected Void doInBackground(String... params) {
-                        Drawable cached = logoCache.get(logoUrl);
-                        if (cached != NOLOGO) {
-                            if (cached != null) {
-                                logoDrawable = cached;
-                            } else {
-                                Log.d(DEBUG_TAG, "logoUrl " + logoUrl);
-                                logoDrawable = getLogoFromUrl(logoUrl);
-                                if (logoDrawable == null) {
-                                    logoCache.put(logoUrl, NOLOGO);
+                        synchronized (TileLayerServer.this) {
+                            Drawable cached = logoCache.get(logoUrl);
+                            if (cached != NOLOGO) {
+                                if (cached != null) {
+                                    logoDrawable = cached;
                                 } else {
-                                    logoCache.put(logoUrl, logoDrawable);
+                                    Log.d(DEBUG_TAG, "logoUrl " + logoUrl);
+                                    logoDrawable = getLogoFromUrl(logoUrl);
+                                    if (logoDrawable == null) {
+                                        logoCache.put(logoUrl, NOLOGO);
+                                    } else {
+                                        logoCache.put(logoUrl, logoDrawable);
+                                    }
                                 }
+                                logoUrl = null;
                             }
-                            logoUrl = null;
                         }
                         return null;
                     }
@@ -1597,7 +1599,7 @@ public class TileLayerServer {
      * @param value value to replace param with
      * @return the string with the parameter replaced
      */
-    private static String replaceParameter(final String s, final String param, final String value) {
+    private static String replaceParameter(@NonNull final String s, @NonNull final String param, @NonNull final String value) {
         String result = s;
         // replace "${param}"
         // not used in imagery index result = result.replaceFirst("\\$\\{" + param + "\\}", value);
@@ -1609,12 +1611,12 @@ public class TileLayerServer {
     }
 
     /**
-     * Replace some specific parameters that we use Currently culture and bingapikey
+     * Replace some specific parameters that we use. Currently culture and bingapikey
      * 
      * @param s the input string
      * @return the string with replaced parameters
      */
-    private String replaceGeneralParameters(final String s) {
+    private String replaceGeneralParameters(@NonNull final String s) {
         Resources r = ctx.getResources();
         final Locale l = r.getConfiguration().locale;
         String result = s;
