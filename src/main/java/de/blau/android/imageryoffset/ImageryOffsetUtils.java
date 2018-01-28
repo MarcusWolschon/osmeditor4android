@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class ImageryOffsetUtils {
      * @param tileServerConfig a TileLayerServer object
      * @param bbox the current ViewBox if null the offsets will be applied unconditionally
      */
-    public static void applyImagerOffsets(@NonNull Context ctx, @NonNull final TileLayerServer tileServerConfig, @Nullable ViewBox bbox) {
+    public static void applyImageryOffsets(@NonNull Context ctx, @NonNull final TileLayerServer tileServerConfig, @Nullable ViewBox bbox) {
         Log.d(DEBUG_TAG, "applyImageryOffsets");
         if (tileServerConfig == null) {
             Log.d(DEBUG_TAG, "applyImageryOffsets tileServerConfig is null");
@@ -70,7 +71,9 @@ public class ImageryOffsetUtils {
         }
         offsetDb.close();
         if (bbox != null && appliedOffset) {
-            Snack.toastTopInfo(ctx, R.string.toast_applied_offset);
+            if (Looper.myLooper() != null) {
+                Snack.toastTopInfo(ctx, R.string.toast_applied_offset);
+            }
         }
     }
     

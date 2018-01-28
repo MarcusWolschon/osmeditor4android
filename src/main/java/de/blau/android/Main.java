@@ -1894,7 +1894,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_tools_apply_local_offset:
-            ImageryOffsetUtils.applyImagerOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
+            ImageryOffsetUtils.applyImageryOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
             return true;
 
         case R.id.menu_tools_background_properties:

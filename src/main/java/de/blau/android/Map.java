@@ -306,7 +306,7 @@ public class Map extends View implements IMapView {
                     TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
                     backgroundLayer = new MapTilesLayer(this, ts != null ? ts : TileLayerServer.getDefault(ctx, true), null);
                     if (ts != null) {
-                        ImageryOffsetUtils.applyImagerOffsets(ctx, ts, getViewBox());
+                        ImageryOffsetUtils.applyImageryOffsets(ctx, ts, getViewBox());
                     }
                     mOverlays.add(backgroundLayer);
                     if (activeOverlay(prefs.overlayLayer())) {
@@ -1591,18 +1591,18 @@ public class Map extends View implements IMapView {
                 final TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
                 if (backgroundLayer != null) {
                     backgroundLayer.setRendererInfo(backgroundTS);
-                    ImageryOffsetUtils.applyImagerOffsets(ctx, backgroundTS, getViewBox());
+                    ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
                 }
                 final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
                 if (overlayTS != null) {
                     if (overlayLayer != null) {
                         overlayLayer.setRendererInfo(overlayTS);
-                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
+                        ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
                     } else if (activeOverlay(overlayTS.getId())) {
                         overlayLayer = new MapTilesOverlayLayer(this);
                         overlayLayer.setRendererInfo(overlayTS);
                         mOverlays.add(1, overlayLayer);
-                        ImageryOffsetUtils.applyImagerOffsets(ctx, overlayTS, getViewBox());
+                        ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
                     }
                 }
             }
