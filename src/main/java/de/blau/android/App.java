@@ -147,17 +147,17 @@ public class App extends android.app.Application {
         return currentInstance.getResources();
     }
 
+    /**
+     * Get the OkHttpClient singleton
+     * 
+     * @return the OkHttpClient for this app
+     */
     @NonNull
     public static OkHttpClient getHttpClient() {
         synchronized (httpClientLock) {
             if (httpClient == null) {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
                 builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
-                if (BuildConfig.DEBUG) {
-                    HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-                    httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-                    builder.addNetworkInterceptor(httpLoggingInterceptor);
-                }
                 httpClient = builder.build();
             }
             return httpClient;
