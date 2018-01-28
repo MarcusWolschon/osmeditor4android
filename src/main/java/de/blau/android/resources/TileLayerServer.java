@@ -1865,21 +1865,27 @@ public class TileLayerServer {
         for (String regex : blacklist) {
             patterns.add(Pattern.compile(regex));
         }
-        for (Pattern p : patterns) {
-            for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
-                TileLayerServer osmts = backgroundServerList.get(key);
-                Matcher m = p.matcher(osmts.tileUrl);
-                if (m.find()) {
-                    backgroundServerList.remove(key);
-                    Log.d(DEBUG_TAG, "Removed background tile layer " + key);
+        synchronized (serverListLock) {
+            for (Pattern p : patterns) {
+                if (backgroundServerList != null) {
+                    for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
+                        TileLayerServer osmts = backgroundServerList.get(key);
+                        Matcher m = p.matcher(osmts.tileUrl);
+                        if (m.find()) {
+                            backgroundServerList.remove(key);
+                            Log.d(DEBUG_TAG, "Removed background tile layer " + key);
+                        }
+                    }
                 }
-            }
-            for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
-                TileLayerServer osmts = overlayServerList.get(key);
-                Matcher m = p.matcher(osmts.tileUrl);
-                if (m.find()) {
-                    overlayServerList.remove(key);
-                    Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
+                if (overlayServerList != null) {
+                    for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
+                        TileLayerServer osmts = overlayServerList.get(key);
+                        Matcher m = p.matcher(osmts.tileUrl);
+                        if (m.find()) {
+                            overlayServerList.remove(key);
+                            Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
+                        }
+                    }
                 }
             }
         }
