@@ -117,9 +117,14 @@
   <string name="attached_object_warning_continue">OK fortsätt att visa detta meddelande</string>
   <string name="attached_object_warning_stop">OK, sluta visa detta meddelande</string>
   <string name="send_debug_information">Skicka felsökningsinformation</string>
+  <!--JS console dialog-->
   <string name="evaluate">Utvärdera</string>
   <string name="js_console_msg_live">Live-läge!</string>
   <string name="js_console_msg_debug">Felsökningsläge!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -144,7 +149,6 @@
   <string name="toast_missing_filemanager">Vänligen installera en filhanterare.</string>
   <string name="toast_outside_of_download">Du redigerar utanför hämtad data.</string>
   <string name="toast_file_not_found">%1$s hittades inte.</string>
-  <string name="toast_imported_track_points">Importerade %1$s spårpunkter.</string>
   <string name="toast_unknown_voice_command">Tyvärr för nuvarande förstås inte \"%1$s\"</string>
   <string name="toast_camera_error">Fel vid start av kameraapp: %1$s</string>
   <string name="toast_rmpty_relation">Tom relation, skapar kraschrapport.</string>

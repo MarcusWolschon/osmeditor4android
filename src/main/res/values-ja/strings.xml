@@ -122,6 +122,11 @@
   <string name="warning">警告</string>
   <string name="minor_issue">軽微な問題</string>
   <string name="unknown_error_level">エラーレベル不明</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_unsaved_changes">変更が保存されていません。先にアップロードしてください。</string>
@@ -154,7 +159,6 @@
   <string name="toast_missing_filemanager">ファイル管理ソフトをインストールしてください。</string>
   <string name="toast_outside_of_download">ダウンロードされたデータを外部アプリケーションで編集します。</string>
   <string name="toast_file_not_found">%1$s が見つかりません。</string>
-  <string name="toast_imported_track_points">インポートされた %1$s のトラックポイント</string>
   <string name="toast_inconsistent_state">エラーが発生しました。改善のため、エラーレポートを送付ください。</string>
   <!--Some generic labels/buttons-->
   <string name="yes">はい</string>

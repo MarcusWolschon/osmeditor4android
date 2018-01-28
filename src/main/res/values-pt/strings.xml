@@ -35,6 +35,8 @@
   <string name="data_conflict_message">Os dados que está a tentar descarregar contêm dados que entram em conflito com as suas alterações. Tente primeiro enviar as suas alteraçõess antes de tentar descarregar novamente.</string>
   <string name="invalid_bounding_box_title">Caixa de Limites Inválida</string>
   <string name="invalid_bounding_box_message">A área selecionada não obedece às restrições da API, por favor escolha uma área diferente.</string>
+  <string name="bounding_box_too_large_title">A área para download é demasiado grande</string>
+  <string name="bounding_box_too_large_message">A área que está a tentar descarregar é demasiado grande ou contém demasiada informação.\n\nPor  favor aproxime mais e tente novamente.</string>
   <string name="api_offline_title">API Offline</string>
   <string name="api_offline_message">A API está atualmente offline e não permite envios ou descarregamentos.</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
@@ -48,6 +50,7 @@
   <string name="file_write_failed_message">Não foi possível gravar no ficheiro escolhido.</string>
   <string name="welcome_title">Bem-vindo(a)!</string>
   <string name="welcome_message">Obrigado por usar o Vespucci.\n\nPara começar tem de conhecer duas coisas:\n\n* carregando no ícone do cadeado no canto superior esquerdo irá mudar entre o modo bloqueado (não editável) e desbloqueado\n\n* para adicionar um novo objeto: carregue prolongadamente no local para adicionar um nó, carregando novamente começa uma linha.\n\nNão se esqueça de descarregar primeiro a área que quer editar.\n\nDivirta-se!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci detetou que possui um dispositivo com \"soft keys\" e ocultou-as. Arraste o dedo desde a parte inferior para cima para visualizá-las.</string>
   <string name="read_introduction">Ler as instruções agora</string>
   <string name="upgrade_title">Bem-vindo(a) à nova versão do Vespucci!</string>
   <string name="upgrade_message">Isto é uma nova versão do Vespucci com novas funcionalidades e comportamentos. É melhor ler a informação sobre esta nova versão.</string>
@@ -63,6 +66,8 @@
   <string name="progress_preset_message">A descarregar modelos de etiquetas…</string>
   <string name="progress_running_message">A executar...</string>
   <string name="progress_oauth">A carregar a sua conta no openstreetmap.org para obter a autorização OAuth...</string>
+  <string name="progress_building_imagery_database">Camada de imagens de edifícios</string>
+  <string name="progress_query_oam">A filtrar OAM...</string>
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Fechar o conjunto de alterações:</string>
@@ -133,9 +138,11 @@
   <string name="attached_object_warning_continue">OK, continuar a mostrar esta mensagem</string>
   <string name="attached_object_warning_stop">OK, parar de mostrar esta mensagem</string>
   <string name="send_debug_information">Enviar informação de depuração</string>
+  <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo ao vivo!</string>
   <string name="js_console_msg_debug">Modo depuração de erros!</string>
+  <!--Validator dialogs-->
   <string name="validator_title">Validade de regras%1$s</string>
   <string name="edit_resurvey_title">Editar o levantamento submetido</string>
   <string name="add_resurvey_title">Adicionar o levantamento submetido</string>
@@ -147,7 +154,36 @@
   <string name="check_optional">Validar opções</string>
   <string name="add_resurvey_entry">Adicionar o levantamento submetido</string>
   <string name="add_check_entry">Adicionar a validação submetida</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Relação vazia</string>
+  <string name="empty_relation_message">A relação %1$s não tem mebros.\n\nSe a deixar assim não poderá editá-la no Vespucci.</string>
+  <string name="add_members">Adicionar membros</string>
+  <string name="leave_empty">Deixar vazio</string>
+  <!--GPX way point dialog-->
+  <string name="waypoint_title">Ponto GPX</string>
+  <string name="waypoint_description">WPT: %1$s</string>
+  <string name="description">Descrição</string>
+  <string name="created">Criado</string>
+  <string name="altitude">Altitude</string>
+  <string name="create_osm_object">Criar objeto OSM</string>
+  <string name="create_osm_object_search">Criar objeto OSM a partir da etiqueta de procura</string>
+  <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Imagem personalizada</string>
+  <string name="oam_layer_title">Imagem OAM</string>
+  <string name="edit_layer_title">Editar camada</string>
+  <string name="add_layer_title">Adicionar camada</string>
+  <string name="overlay">Camada superior</string>
+  <string name="coverage">Cobertura</string>
+  <string name="coverage_top">Topo</string>
+  <string name="coverage_left">Esquerda</string>
+  <string name="coverage_right">Direita</string>
+  <string name="coverage_bottom">Fundo</string>
+  <string name="preferred">Preferido</string>
+  <string name="toast_invalid_box">Caixa de limites inválida ou incompleta</string>
   <!--Toaster-->
+  <string name="toast_name_empty">O nome tem de estar preenchido</string>
+  <string name="toast_url_empty">O URL tem de ser preenchicdo</string>
+  <string name="toast_min_zoom">A aproximação mínima tem que ser menor que a máxima</string>
   <string name="toast_no_changes">Ainda não alterou nada…</string>
   <string name="toast_unsaved_changes">Tem alterações por gravar, por favor envie-as primeiro.</string>
   <string name="clear_anyway">Eliminar de qualquer maneira?</string>
@@ -190,13 +226,14 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_missing_filemanager">Por favor instale um Gestor de Ficheiros.</string>
   <string name="toast_outside_of_download">Está a tentar editar fora da área descarregada.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
-  <string name="toast_imported_track_points">Importados %1$s pontos de trilhos GPS.</string>
+  <string name="toast_imported_track_points">Importado %1$s linhas de pontos e %2$s pontos.</string>
+  <string name="toast_imported_track_points_single_way_point">Importado %1$s linhas de pontos e 1 ponto.</string>
   <string name="toast_unknown_voice_command">Desculpe, atualmente \"%1$s\" não é compreensível</string>
   <string name="toast_inconsistent_state">Detetado um estado inconsistente, por favor envie um relatório de erro!</string>
   <string name="toast_camera_error">Erro ao iniciar a app da câmara: %1$s</string>
   <string name="toast_no_voice">Não foram detetadas funcionalidades de reconhecimento de voz</string>
   <string name="toast_storage_error">%1$snão é gravável pelo Vespucci.\nIsto pode ser uma questão de permissões ou problema técnico do seu dispositivo.</string>
-  <string name="toast_no_suitable_storage">O sistema não devolveu uma localização adequada para a base de dados de telas.</string>
+  <string name="toast_no_suitable_storage">O sistema não devolveu uma localização adequada para a base de dados de moisaicos.</string>
   <string name="toast_min_one_preset">Tem de ser selecionado pelo menos um modelo de etiquetas!</string>
   <string name="toast_min_one_geocoder">Tem de estar selecionado pelo menos um geo-codificador!</string>
   <string name="toast_used_backup">O ficheiro de estado está corrompido. A usar o ficheiro de cópia de segurança!</string>
@@ -226,6 +263,12 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
   <string name="toast_illegal_operation">Operação ilegal: %1$s</string>
   <string name="toast_preset_creation_failed">Criação da definição \"%1$s\" falhou com: %2$s</string>
+  <string name="toast_imperial_units">Unidades imperiais em falta</string>
+  <string name="toast_server_connection_failed">Ligação ao servidor falhou com: %1$s</string>
+  <string name="toast_flus_all_caches">Isto irá limpar a cache de moisaicos</string>
+  <string name="toast_applied_offset">Alinhamento da imagem  aplicado automaticamente</string>
+  <string name="toast_unsupported_format">Formato não suportado: %1$s</string>
+  <string name="toast_returning_less_than_found">Resultado %1$d de %2$d encontrados</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -249,6 +292,8 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="overwrite">Sobrescrever</string>
   <string name="share">Partilhar</string>
   <string name="share_position">Partilhar posição</string>
+  <string name="min">Min.</string>
+  <string name="max">Max.</string>
   <!--Dialog for back button-->
   <string name="exit_title">Quer mesmo sair?</string>
   <string name="exit_text">Tem certeza de que quer sair?</string>
@@ -294,7 +339,7 @@ sem gravar</string>
   <string name="tag_menu_download">Descarregar</string>
   <string name="tag_menu_js_console">Consola JavaScript</string>
   <string name="menu_up">Cima</string>
-  <string name="menu_top">Abaixo</string>
+  <string name="menu_top">Topo</string>
   <string name="menu_select_all">Selecionar tudo</string>
   <string name="menu_deselect_all">Desselecionar tudo</string>
   <string name="menu_preset_help">Ajuda do modelo de etiquetas</string>
@@ -403,9 +448,14 @@ há %3$s %4$s</string>
   <string name="menu_set_name">Definir nome</string>
   <string name="tag_form_unknown_element">Elemento desconhecido (nenhum modelo de etiquetas encontrado)</string>
   <string name="menu_tools">Ferramentas</string>
-  <string name="menu_tools_flush_background_tile_cache">Eliminar imagens de fundo temporárias</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Eliminar camadas de cima temporárias</string>
+  <string name="menu_tools_imagery">Mais ferramentas de imagens</string>
+  <string name="menu_tools_add_imagery_from_oam">Adicionar imagem de OAM</string>
+  <string name="menu_tools_flush_background_tile_cache">Eliminar cache do mosaico de fundo</string>
+  <string name="menu_tools_flush_overlay_tile_cache">Eliminar cache do mosaico superior</string>
+  <string name="menu_tools_flush_all_tile_caches">Limpar toda a cache de mosaicos</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
+  <string name="menu_tools_update_imagery_configuration">Atualizar configuração da cama de imagem</string>
+  <string name="menu_tools_zoom_to_layer_extent">Aproximar o fundo à extensão da camada</string>
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Repôr</string>
   <string name="menu_tools_background_align_zero">Zero</string>
@@ -414,6 +464,7 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_align_save_db">Gravar na Base de Dados</string>
   <string name="menu_tools_background_align_save_device">Gravar no Dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
+  <string name="menu_tools_apply_local_offset">Aplicar ajuste guardado à camada</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Repôr OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
@@ -573,10 +624,10 @@ há %3$s %4$s</string>
   <string name="config_maxInlineValues_current">%1$d Valores</string>
   <string name="config_category_layers">Transferência da camada e armazenamento</string>
   <string name="config_maxTileDownloadThreads_title">Nº máx. tarefas de descarregamento</string>
-  <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de telas</string>
+  <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de mosaico</string>
   <string name="config_downLoadThreads_current">%1$d linhas de execução</string>
-  <string name="config_tileCacheSize_title">Tamanho dos ficheiros temporários de telas</string>
-  <string name="config_tileCacheSize_summary">Tamanho total dos ficheiros temporários das telas em MB</string>
+  <string name="config_tileCacheSize_title">Tamanho da cache dos mosaicos</string>
+  <string name="config_tileCacheSize_summary">Tamanho total da cache dos mosaicos em MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <string name="config_notificationCacheSize_title">Nº máx. notificações mostradas</string>
   <string name="config_notificationCacheSize_summary">Número máximo de notificações por tipo (min 1)</string>
@@ -591,6 +642,7 @@ há %3$s %4$s</string>
   <string name="config_js_console_title">Ativar consola JavaScript</string>
   <string name="config_js_console_summary">Disponibilizar a consola JavaScript no modo \"ao vivo\"</string>
   <string name="config_validatorprefs_title">Validação de preferências</string>
+  <string name="config_customlayers_title">Camadas personalizadas</string>
   <string name="manage_apis">Gerir APIs</string>
   <string name="manage_presets">Gerir modelos de etiquetas</string>
   <string name="manage_geocoders">Gerir geo-codificadores</string>
@@ -673,6 +725,8 @@ há %3$s %4$s</string>
   <!--ACRA-->
   <string name="crash_dialog_text">O Vespucci bloqueou ou encontrou um problema grave da última vez que foi aberto.\n\nPor favor ajude-nos, enviando um relatório de erro. Tudo o que tem a fazer é clicar em \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Acrescente qualquer informação adicional que possa ajudar-nos e o endereço de email (opcional) se quiser saber o progresso da correção.\n\nObrigado!</string>
+  <string name="report_success">Relatório enviado com sucesso!</string>
+  <string name="report_failure">O envio do relatório falhou!</string>
   <string name="config_category_acra">Relatório de Erro</string>
   <string name="pref_enable_acra">Reportar erros de bloqueio da aplicação</string>
   <string name="pref_acra_enabled">Reporte de erros ativado</string>

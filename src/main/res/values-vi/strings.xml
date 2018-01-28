@@ -35,6 +35,8 @@
   <string name="data_conflict_message">Không thể tải về dữ liệu này vì nó mâu thuẫn với các sửa đổi của bạn. Xin vui lòng thử tải lên dữ liệu của bạn trước khi thử lại.</string>
   <string name="invalid_bounding_box_title">Hộp bao không hợp lệ</string>
   <string name="invalid_bounding_box_message">Khu vực được chọn không tuân theo các hạn chế API. Xin hãy chọn khu vực khác.</string>
+  <string name="bounding_box_too_large_title">Khu vực tải về quá lớn</string>
+  <string name="bounding_box_too_large_message">Khu vực bạn muốn tải về quá lớn hoặc chứa quá nhiều dữ liệu.\n\nXin vui lòng phóng to hơn và thử lại.</string>
   <string name="api_offline_title">API Ngoại tuyến</string>
   <string name="api_offline_message">API hiện đang ngoại tuyến nên không thể lấy hoặc ghi dữ liệu.</string>
   <string name="out_of_memory_title">Hết Bộ nhớ</string>
@@ -48,6 +50,7 @@
   <string name="file_write_failed_message">Không thể ghi vào tập tin đã chọn.</string>
   <string name="welcome_title">Chào mừng!</string>
   <string name="welcome_message">Cám ơn bạn vì sử dụng Vespucci.\n\nĐể bắt đầu, hãy nhớ:\n\n* chạm vào hình ổ khóa ở phía trên bên trái để bật/tắt chế độ khóa (không sửa đổi)\n\n* để thêm một đối tượng mới, chạm lâu, rồi chạm lần nữa cùng chỗ để tạo nốt, hoặc chạm xa hơn để bắt đầu vẽ lối\n\nNhớ tải về khu vực muốn sửa đổi.\n\nChúc vui vẻ!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci đã ẩn bàn phím ảo của thiết bị này. Để mở lại bàn phím, vuốt từ cạnh dưới của màn hình.</string>
   <string name="read_introduction">Đọc hướng dẫn</string>
   <string name="upgrade_title">Chào mừng đã đến với phiên bản mới của Vespucci!</string>
   <string name="upgrade_message">Đây là phiên bản mới của Vespucci có tính năng mới. Hãy dành một chút để đọc các thông tin về việc nâng cấp thiết bị.</string>
@@ -63,6 +66,8 @@
   <string name="progress_preset_message">Đang tải về thẻ đặt trước…</string>
   <string name="progress_running_message">Đang chạy…</string>
   <string name="progress_oauth">Đang tải tài khoản của bạn trên openstreetmap.org để cấp phép qua OAuth…</string>
+  <string name="progress_building_imagery_database">Đang xây dựng cơ sở dữ liệu hình ảnh…</string>
+  <string name="progress_query_oam">Đang truy vấn OAM…</string>
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
@@ -133,18 +138,51 @@
   <string name="attached_object_warning_continue">OK, tiếp tục hiển thị thông báo này</string>
   <string name="attached_object_warning_stop">OK, ngừng hiển thị thông báo này</string>
   <string name="send_debug_information">Gửi thông tin gỡ lỗi</string>
+  <!--JS console dialog-->
   <string name="evaluate">Đánh giá</string>
   <string name="js_console_msg_live">Chế độ trực tiếp!</string>
   <string name="js_console_msg_debug">Chế độ gỡ lỗi!</string>
+  <!--Validator dialogs-->
+  <string name="validator_title">Bộ quy tắc kiểm tra %1$s</string>
   <string name="edit_resurvey_title">Sửa mục khảo sát lại</string>
   <string name="add_resurvey_title">Thêm mục khảo sát lại</string>
   <string name="edit_check_title">Sửa đổi mục kiểm tra</string>
   <string name="add_check_title">Thêm mục kiểm tra</string>
   <string name="max_age">Tuổi tối đa</string>
   <string name="age">Tuổi</string>
+  <string name="check_opt">Kiểm tra tùy chọn</string>
+  <string name="check_optional">Kiểm tra tùy chọn</string>
   <string name="add_resurvey_entry">Thêm mục khảo sát lại</string>
   <string name="add_check_entry">Thêm mục kiểm tra</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Quan hệ trống</string>
+  <string name="empty_relation_message">Quan hệ %1$s không có thành viên.\n\nNếu để trống thì không thể sửa đổi nó trong Vespucci.</string>
+  <string name="add_members">Thêm thành viên</string>
+  <string name="leave_empty">Để trống</string>
+  <!--GPX way point dialog-->
+  <string name="waypoint_title">Tọa độ điểm GPX</string>
+  <string name="waypoint_description">WPT: %1$s</string>
+  <string name="description">Miêu tả</string>
+  <string name="created">Ngày tạo</string>
+  <string name="altitude">Độ cao</string>
+  <string name="create_osm_object">Tạo đối tượng OSM</string>
+  <string name="create_osm_object_search">Tạo đối tượng OSM bằng cách tìm kiếm thẻ đặt trước</string>
+  <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Hình ảnh tùy biến</string>
+  <string name="oam_layer_title">Hình ảnh OAM</string>
+  <string name="edit_layer_title">Sửa đổi mục lớp</string>
+  <string name="add_layer_title">Thêm mục lớp</string>
+  <string name="overlay">Lớp phủ</string>
+  <string name="coverage">Phạm vi</string>
+  <string name="coverage_top">Trên</string>
+  <string name="coverage_left">Trái</string>
+  <string name="coverage_right">Phải</string>
+  <string name="coverage_bottom">Dưới</string>
+  <string name="preferred">Ưa thích</string>
+  <string name="toast_invalid_box">Hộp bao không hợp lệ hoặc chưa đầy đủ</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Không thể để trống tên</string>
+  <string name="toast_url_empty">Không thể để trống URL</string>
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_unsaved_changes">Bạn đã thực hiện một số thay đổi chưa được lưu. Xin vui lòng tải chúng lên trước tiên.</string>
   <string name="clear_anyway">Cứ xóa sạch?</string>
@@ -186,7 +224,8 @@
   <string name="toast_missing_filemanager">Vui lòng cài đặt một Trình quản lý Tập tin.</string>
   <string name="toast_outside_of_download">Bạn đang sửa đổi ở ngoài khu vực đã được tải về.</string>
   <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
-  <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường.</string>
+  <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường và %2$s tọa độ điểm.</string>
+  <string name="toast_imported_track_points_single_way_point">Đã nhập %1$s điểm tuyến đường và 1 tọa độ điểm.</string>
   <string name="toast_unknown_voice_command">Rất tiếc, hiện tại không hiểu “%1$s”</string>
   <string name="toast_inconsistent_state">Đã nhận ra mâu thuẫn. Xin vui lòng báo cáo lỗi.</string>
   <string name="toast_camera_error">Lỗi khi khởi động ứng dụng máy ảnh: %1$s</string>
@@ -222,6 +261,12 @@
   <string name="toast_string_too_long">Chuỗi quá dài (%1$d ký tự) nên bị cắt cụt!</string>
   <string name="toast_illegal_operation">Tác vụ không hợp lệ: %1$s</string>
   <string name="toast_preset_creation_failed">Thất bại khi tạo thẻ đặt trước: “%1$s”: %2$s</string>
+  <string name="toast_imperial_units">Thiếu đơn vị hệ Anh</string>
+  <string name="toast_server_connection_failed">Thất bại khi kết nối với máy chủ với lý do: %1$s</string>
+  <string name="toast_flus_all_caches">Điều này sẽ xóa sạch tất cả các bộ nhớ đệm mảnh!</string>
+  <string name="toast_applied_offset">Đã tự động áp dụng độ lệch hình ảnh</string>
+  <string name="toast_unsupported_format">Định dạng không được hỗ trợ: %1$s</string>
+  <string name="toast_returning_less_than_found">Trả về mục %1$d trên tổng số %2$d</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -245,6 +290,8 @@
   <string name="overwrite">Ghi đè</string>
   <string name="share">Chia sẻ</string>
   <string name="share_position">Chia sẻ vị trí</string>
+  <string name="min">Tối thiểu</string>
+  <string name="max">Tối đa</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -397,9 +444,14 @@
   <string name="menu_set_name">Đặt tên</string>
   <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
   <string name="menu_tools">Công cụ</string>
+  <string name="menu_tools_imagery">Thêm công cụ hình ảnh</string>
+  <string name="menu_tools_add_imagery_from_oam">Thêm hình ảnh OAM</string>
   <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
   <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
+  <string name="menu_tools_flush_all_tile_caches">Xóa sạch tất cả các bộ nhớ đệm mảnh</string>
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
+  <string name="menu_tools_update_imagery_configuration">Cập nhật thiết lập lớp hình ảnh</string>
+  <string name="menu_tools_zoom_to_layer_extent">Thu phóng vừa lớp nền</string>
   <string name="menu_tools_background_align">Điều chỉnh hình nền</string>
   <string name="menu_tools_background_align_reset">Đặt lại</string>
   <string name="menu_tools_background_align_zero">Không</string>
@@ -408,6 +460,7 @@
   <string name="menu_tools_background_align_save_db">Lưu vào CSDL</string>
   <string name="menu_tools_background_align_save_device">Lưu vào Thiết bị</string>
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
+  <string name="menu_tools_apply_local_offset">Áp dụng độ chệch đã lưu vào hình ảnh</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
   <string name="menu_tools_oauth_reset">Đặt lại OAuth</string>
   <string name="menu_tools_oauth_authorisation">Cấp phép qua OAuth</string>
@@ -584,6 +637,8 @@
   <string name="config_geocoderbutton_summary">Thêm, sửa, xóa các bộ mã hóa địa lý được sử dụng trong bộ tìm kiếm</string>
   <string name="config_js_console_title">Bật bảng điều khiển JavaScript</string>
   <string name="config_js_console_summary">Kích hoạt bảng điều khiển JavaScript trong chế độ “trực tiếp”</string>
+  <string name="config_validatorprefs_title">Tùy chỉnh kiểm tra</string>
+  <string name="config_customlayers_title">Lớp tùy biến</string>
   <string name="manage_apis">Quản lý API</string>
   <string name="manage_presets">Quản lý thẻ đặt trước</string>
   <string name="manage_geocoders">Quản lý bộ mã hóa địa lý</string>
@@ -666,6 +721,8 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci đã bị sự cố hoặc gặp một vấn đề đáng kể lần mở vừa rồi.\n\nXin vui lòng giúp đỡ chúng tôi bằng cách báo cáo lỗi, chỉ việc bấm “OK”.\n</string>
   <string name="crash_dialog_comment_prompt">Bổ sung thông tin nào mà bạn nghĩ có thể giúp đỡ cũng như (tùy chọn) địa chỉ thư điện tử của bạn nếu bạn muốn nhận được thông tin phản hồi.\n\nCám ơn!</string>
+  <string name="report_success">Đã gửi báo cáo thành công!</string>
+  <string name="report_failure">Thất bại khi gửi báo cáo!</string>
   <string name="config_category_acra">Báo cáo Sự cố</string>
   <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
   <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>

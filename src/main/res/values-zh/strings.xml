@@ -92,6 +92,11 @@
   <string name="length_m">长度 (米)</string>
   <string name="not_downloaded">未下载</string>
   <string name="empty_role">空的角色</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">你还没有改变什么…</string>
   <string name="toast_upload_success">上传OSM服务器完成。</string>
@@ -124,7 +129,6 @@
   <string name="toast_missing_filemanager">请安装一个文件管理器。</string>
   <string name="toast_outside_of_download">您正在编辑已下载区域之外的数据</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
-  <string name="toast_imported_track_points">已导入 %1$s个轨迹点.</string>
   <string name="toast_inconsistent_state">检测不一致的状态，请发送错误报告！</string>
   <string name="toast_camera_error">启动相机的应用错误：%1$s</string>
   <!--Some generic labels/buttons-->

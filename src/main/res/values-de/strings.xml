@@ -35,6 +35,7 @@
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
   <string name="invalid_bounding_box_message">Der ausgewählter Bereich entspricht nicht den API Beschränkungen, bitte einen anderen auswählen.</string>
+  <string name="bounding_box_too_large_message">Das angeforderte Gebiet ist zu groß oder enthält zu viele Daten. Versuchen Sie ein kleineres Gebiet herunterzuladen.</string>
   <string name="api_offline_title">API nicht verfügbar</string>
   <string name="api_offline_message">Die API ist im Augenblick nicht verfügbar. Daten können weder gelesen noch geschrieben werden.</string>
   <string name="out_of_memory_title">Kein freier Speicher mehr.</string>
@@ -134,9 +135,11 @@
   <string name="attached_object_warning_continue">OK, diese Meldung weiter anzeigen</string>
   <string name="attached_object_warning_stop">OK, diese Meldung nicht mehr anzeigen</string>
   <string name="send_debug_information">Informationen zur Problembehebung senden</string>
+  <!--JS console dialog-->
   <string name="evaluate">Auswerten</string>
   <string name="js_console_msg_live">Live Modus!</string>
   <string name="js_console_msg_debug">Debug Modus!</string>
+  <!--Validator dialogs-->
   <string name="validator_title">Validationsregeln %1$s</string>
   <string name="edit_resurvey_title">Überprüfungstest hinzufügen</string>
   <string name="add_resurvey_title">Überprüfungstest bearbeiten</string>
@@ -148,7 +151,33 @@
   <string name="check_optional">Optionale Tags überprüfen</string>
   <string name="add_resurvey_entry">Überprüfungstest hinzufügen</string>
   <string name="add_check_entry">Fehlenden Tag-Test hinzufügen</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Leere Relation</string>
+  <string name="empty_relation_message">Die Relation %1$s hat keine Mitglieder.\n\nIm jetzigen Zustand kann es nicht mehr in Vespucci ausgewählt und editiert werden.</string>
+  <string name="add_members">Mitglieder hinzufügen</string>
+  <string name="leave_empty">Leer lassen</string>
+  <!--GPX way point dialog-->
+  <string name="waypoint_title">GPX Wegpunkt</string>
+  <string name="waypoint_description">Wegpkt: %1$s</string>
+  <string name="description">Beschreibung</string>
+  <string name="created">Erstellt</string>
+  <string name="altitude">Höhe</string>
+  <string name="create_osm_object">OSM Objekt erstellen</string>
+  <string name="create_osm_object_search">OSM Objekt aus Vorlagensuche erstellen</string>
+  <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
+  <string name="oam_layer_title">Hintergründe von OAM</string>
+  <string name="coverage">Abdeckung</string>
+  <string name="coverage_top">Oben</string>
+  <string name="coverage_left">Links</string>
+  <string name="coverage_right">Rechts</string>
+  <string name="coverage_bottom">Unten</string>
+  <string name="preferred">Bevorzugt</string>
+  <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Name darf nicht leer sein</string>
+  <string name="toast_url_empty">URL darf nicht leer sein</string>
+  <string name="toast_min_zoom">Minimaler Zoom muss kleiner sein als der maximale Zoom.</string>
   <string name="toast_no_changes">Sie haben noch nichts geändert…</string>
   <string name="toast_unsaved_changes">Sie haben ungespeicherte Änderungen, bitte zuerst hochladen.</string>
   <string name="clear_anyway">Trotzdem löschen?</string>
@@ -190,7 +219,6 @@
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
-  <string name="toast_imported_track_points">%1$s Trackpunkte importiert.</string>
   <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
@@ -249,6 +277,8 @@
   <string name="overwrite">Überschreiben</string>
   <string name="share">Teilen</string>
   <string name="share_position">Position teilen</string>
+  <string name="min">Min.</string>
+  <string name="max">Max.</string>
   <!--Dialog for back button-->
   <string name="exit_title">Wirklich Vespucci verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schliessen und verlassen?</string>
@@ -400,8 +430,11 @@
   <string name="menu_set_name">Namen festlegen</string>
   <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
   <string name="menu_tools">Werkzeuge</string>
+  <string name="menu_tools_imagery">Mehr Hintergrundtools</string>
+  <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
   <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
+  <string name="menu_tools_flush_all_tile_caches">Alle Tile Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
   <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
@@ -588,6 +621,7 @@
   <string name="config_js_console_title">JS Konsole freischalten</string>
   <string name="config_js_console_summary">Den \"live\" Modus der JS Konsole freischalten</string>
   <string name="config_validatorprefs_title">Validations Einstellungen</string>
+  <string name="config_customlayers_title">Benutzerdefinierter Hintergründe</string>
   <string name="manage_apis">APIs verwalten</string>
   <string name="manage_presets">Vorlagen verwalten</string>
   <string name="manage_geocoders">Geocoder verwalten</string>

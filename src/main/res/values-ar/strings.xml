@@ -11,6 +11,11 @@
   <string name="imagery_offset_zoom">تقريب</string>
   <string name="search">بحث</string>
   <string name="version">الإصدار</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">نعم</string>

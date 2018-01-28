@@ -68,6 +68,11 @@
   <string name="last_edited">Senest rettet</string>
   <string name="error">fejl</string>
   <string name="warning">advarsel</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>

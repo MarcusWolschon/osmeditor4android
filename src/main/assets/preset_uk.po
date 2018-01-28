@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-25 18:56+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -1182,7 +1182,7 @@ msgstr ""
 
 #: master_preset.xml:3448(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Шпурбус"
 
 #: master_preset.xml:4445(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -2185,7 +2185,7 @@ msgstr ""
 #: master_preset.xml:1822(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5083(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "Напрямок"
 
 #: master_preset.xml:8787(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -3736,7 +3736,7 @@ msgstr ""
 #: master_preset.xml:2335(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:653(combo:text|key:kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "Бордюр"
 
 #: master_preset.xml:659(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -10449,7 +10449,7 @@ msgstr ""
 #: master_preset.xml:8146(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr ""
+msgstr "Бунгало"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11384,7 +11384,7 @@ msgstr ""
 #: master_preset.xml:6919(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Нотатки"
 
 #: master_preset.xml:7154(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"

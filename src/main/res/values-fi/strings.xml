@@ -126,9 +126,14 @@
   <string name="attached_object_warning_continue">Selvä, näytä tämä viesti jatkossakin</string>
   <string name="attached_object_warning_stop">Selvä, älä näytä tätä viestiä enää</string>
   <string name="send_debug_information">Lähetä tietoa virheestä</string>
+  <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
   <string name="js_console_msg_debug">Testaustila!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
   <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>
@@ -170,7 +175,6 @@
   <string name="toast_missing_filemanager">Asenna tiedostonhallintasovellus.</string>
   <string name="toast_outside_of_download">Yrität muokata ladatun alueen ulkopuolella.</string>
   <string name="toast_file_not_found">Tiedostoa %1$s ei löytynyt.</string>
-  <string name="toast_imported_track_points">Tuotiin %1$s jälkipistettä.</string>
   <string name="toast_unknown_voice_command">Komentoa \"%1$s\" ei toistaiseksi ymmärretä</string>
   <string name="toast_inconsistent_state">Epäjohdonmukainen tila. Ilmoita virheestä, kiitos!</string>
   <string name="toast_camera_error">Virhe kamerasovellusta avattaessa: %1$s</string>

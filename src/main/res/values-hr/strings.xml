@@ -52,6 +52,11 @@
   <string name="search_results_title">Rezultati traženja</string>
   <string name="search">Pretraži</string>
   <string name="closed">Zatvoren</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>

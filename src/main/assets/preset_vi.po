@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2018-01-07 19:01+0000\n"
+"PO-Revision-Date: 2018-01-27 22:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -6663,7 +6663,7 @@ msgstr ""
 #: master_preset.xml:1449(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1467(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Phải"
 
 #: master_preset.xml:1422(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1448(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)

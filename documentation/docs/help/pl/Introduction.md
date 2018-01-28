@@ -185,7 +185,7 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-<a id="c-mode"></a>
+1
 
 ## C-Mode
 

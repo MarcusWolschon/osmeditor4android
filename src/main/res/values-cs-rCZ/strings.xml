@@ -20,6 +20,7 @@
   <string name="use_local_version">Použít místní verzi</string>
   <string name="use_server_version">Použít verzi na serveru</string>
   <string name="no_login_data_title">Ověření se nezdařilo</string>
+  <string name="no_login_data_message">Pokud používáte OAuth, jedná se nejspíš o chybu, zašlete prosím hlášení o problému. Pokud používáte přihlašovací jméno a heslo (nedoporučuje se), zkontrolujte, zda jsou zadány správně.</string>
   <string name="no_connection_title">Neúspěšné připojení k serveru</string>
   <string name="no_connection_message">Nemohu se připojit k OSM serveru. Prosím ověřte své Internetové připojení a zkuste to znovu.</string>
   <string name="wrong_login_data_title">Ověření se nezdařilo</string>
@@ -30,6 +31,7 @@
   <string name="out_of_memory_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Restartujte ho, prosím, a zkuste načíst menší plochu.</string>
   <string name="out_of_memory_dirty_message">Vespucci nemá dost paměti pro načtení požadovaných dat. Zkuste, prosím, uložit vaše úpravy, restartujte ho a zkuste načíst menší plochu.</string>
   <string name="invalid_data_received_title">Přijata neplatná data</string>
+  <string name="invalid_data_received_message">Vespucci obdržel ze serveru neplatná data. Pokud si myslíte, že to, co jste snažili udělat, je správné, vyplňte prosím chybové hlášení.</string>
   <string name="invalid_data_read_title">Neplatná Data</string>
   <string name="invalid_data_read_message">Soubor obsahoval neplatná data. Pokud si myslíte, že to, co jste se snažili udělat, je správné, vytvořte prosím chybové hlášení.</string>
   <string name="file_write_failed_title">Zápis souboru se nezdařil</string>
@@ -115,12 +117,25 @@
   <string name="attached_object_warning_continue">OK nadále zobrazovat tuto zprávu</string>
   <string name="attached_object_warning_stop">OK nezobrazovat tuto zprávu</string>
   <string name="send_debug_information">Poslat ladicí informace</string>
+  <!--JS console dialog-->
   <string name="evaluate">Spustit</string>
+  <!--Validator dialogs-->
+  <string name="validator_title">Pravidla validátoru %1$s</string>
   <string name="max_age">Max. stáří</string>
   <string name="age">Stáří</string>
+  <string name="check_opt">Kontr. volit.</string>
+  <string name="check_optional">Kontrolovat volitelné</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Prázdná relace</string>
+  <string name="empty_relation_message">Relace %1$s nemá žádné členy.\n\nNecháte-li ji prázdnou, nebude ji již možné ve Vespucci upravit.</string>
+  <string name="add_members">Přidat členy</string>
+  <string name="leave_empty">Nechat prázdnou</string>
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatím jste nic nezměnil…</string>
   <string name="toast_unsaved_changes">Máte neuložené změny, nejdříve je prosím nahrajte.</string>
+  <string name="clear_anyway">Přesto smazat?</string>
   <string name="toast_upload_success">Nahrávání na OSM server dokončeno.</string>
   <string name="toast_not_in_edit_range">Prosím přibližte mapu pro editaci (Hlasitost nahoru/dolů nebo Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Pro editaci odemkněte</string>
@@ -140,6 +155,7 @@
   <string name="toast_download_failed">Stahování se nezdařilo s kódem chyby %1$d, %2$s</string>
   <string name="toast_notype">Relaci chybí typ</string>
   <string name="toast_oauth">Povolte prosím OAuth přístup k vašemu OSM účtu.</string>
+  <string name="toast_no_oauth">Pro aktuální API není OAuth konfigurace dostupná, nastavte prosím uživatelské jméno a heslo.</string>
   <string name="toast_oauth_not_enabled">OAuth není povolen pro současné API.</string>
   <string name="toast_oauth_timeout">Vypršel časový limit pro navázání spojení, zkuste to prosím znovu.</string>
   <string name="toast_oauth_communication">Chyba komunikace během navazování spojení, zkuste to prosím znovu.</string>
@@ -149,9 +165,9 @@
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
-  <string name="toast_imported_track_points">Importováno %1$s bodů trasy.</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
+  <string name="toast_rmpty_relation">Prázdná relace, vytvářím chybové hlášení.</string>
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
@@ -267,7 +283,7 @@
   <string name="menu_erase">Smazat uzel</string>
   <string name="menu_set_position">Poloha</string>
   <string name="menu_split">Rozdělit</string>
-  <string name="menu_extract">Rozpojit uzel</string>
+  <string name="menu_extract">Odpojit uzel</string>
   <string name="menu_append">Přidat</string>
   <string name="menu_relation">Vytvořit relaci</string>
   <string name="menu_add_relation_member">Přidat objekty</string>
@@ -308,8 +324,10 @@
   <string name="menu_transfer_autodownload_long">Stahovat chyby automaticky</string>
   <string name="menu_transfer_save_notes_all">Uložit všechny poznámky...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Uložit nové a upravené poznámky...</string>
+  <string name="menu_transfer_read_custom_bugs">Načíst vlastní úkoly...</string>
   <string name="menu_save">Uložit do souboru</string>
   <string name="menu_join">Spojit</string>
+  <string name="menu_unjoin">Rozpojit</string>
   <string name="menu_copy">Kopírovat</string>
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
@@ -321,6 +339,7 @@
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
   <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
   <string name="menu_extend_selection">Rozšířit výběr</string>
+  <string name="menu_information">Vlastnosti</string>
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
@@ -526,7 +545,7 @@
   <string name="delete">Smazat</string>
   <string name="name">Název</string>
   <string name="url">URL</string>
-  <string name="default_">Standard</string>
+  <string name="default_">Výchozí</string>
   <string name="regular_expression">Regulární výraz</string>
   <!---->
   <string name="empty_list">Žádné položky</string>
@@ -540,6 +559,7 @@
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
   <string name="undo_nothing">není co vracet</string>
+  <string name="tracking_active_title">Vespucci - aktivní služba na pozadí</string>
   <string name="tracking_active_text">Vespucci nahrává GPS stopu nebo automaticky stahuje</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--element description-->
@@ -557,6 +577,8 @@
   <string name="undo_action_merge_ways">spojit cesty</string>
   <string name="undo_action_reverse_way">obrátit cestu</string>
   <string name="undo_action_set_tags">nastavit tagy</string>
+  <string name="undo_action_join">spojit</string>
+  <string name="undo_action_unjoin_ways">rozpojit cesty</string>
   <string name="undo_action_create_relation">vytvořit relaci</string>
   <string name="undo_action_delete_relation">smazat relaci</string>
   <string name="undo_action_update_relations">upravit relace</string>
@@ -565,7 +587,7 @@
   <string name="undo_action_rotateway">otočit cestu</string>
   <string name="undo_action_orthogonalize">narovnat cestu</string>
   <string name="undo_action_circulize">uspořádat do kruhu</string>
-  <string name="undo_action_extract_node">rozpojit uzel</string>
+  <string name="undo_action_extract_node">odpojit uzel</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci během posledního spuštění havaroval nebo zaznamenal vážnou chybu.\n\nProsím pomozte nám zasláním chybového hlášení, stačí kliknout na tlačítko \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohli pomoci a (volitelně) vaši e-mailovou adresu abychom vás mohli kontaktovat.\n\nDěkujeme!</string>

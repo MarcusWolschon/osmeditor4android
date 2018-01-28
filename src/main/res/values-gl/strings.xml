@@ -126,9 +126,14 @@
   <string name="attached_object_warning_continue">Aceptar continúa a amosar esta mensaxe</string>
   <string name="attached_object_warning_stop">Aceptar deixar de mostrar esta mensaxe</string>
   <string name="send_debug_information">Enviar información do erro</string>
+  <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
   <string name="js_console_msg_live">Modo en directo!</string>
   <string name="js_console_msg_debug">Modo correxir erros!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Aínda non cambiaches nada</string>
   <string name="toast_unsaved_changes">Tes os cambios sen gardar, dalle outra cárgaos primeiro.</string>
@@ -170,7 +175,6 @@
   <string name="toast_missing_filemanager">Por favor instala File Manager.</string>
   <string name="toast_outside_of_download">Estás a editar fora da zona baixada.</string>
   <string name="toast_file_not_found">%1$s non atopado.</string>
-  <string name="toast_imported_track_points">Importados %1$s puntos da pista.</string>
   <string name="toast_unknown_voice_command">Sentímolo \"%1$s\" non se entende</string>
   <string name="toast_inconsistent_state">Estado inconsistente detectado, por favor envíe reporte do erro!</string>
   <string name="toast_camera_error">Erro iniciando aplicación da cámara: %1$s</string>

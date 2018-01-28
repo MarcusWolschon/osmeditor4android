@@ -36,6 +36,8 @@
 請在重試之前，先試著上傳您的資料。</string>
   <string name="invalid_bounding_box_title">無效的邊界框</string>
   <string name="invalid_bounding_box_message">選擇的區域無法符合API限制，請選擇另一個地方。</string>
+  <string name="bounding_box_too_large_title">下載的區域太大</string>
+  <string name="bounding_box_too_large_message">你想下載的範圍太大，或是資料太多。\n\n請放更大然後再試一次。</string>
   <string name="api_offline_title">API 離線</string>
   <string name="api_offline_message">該 API 目前離線，不允許恢復或寫入資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
@@ -49,6 +51,7 @@
   <string name="file_write_failed_message">無法寫入到所選定的檔案。</string>
   <string name="welcome_title">歡迎！</string>
   <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n*要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n不要忘記下載您想要編輯的區域。\n\n玩得愉快！</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci 偵測到你的裝置有\"虛擬鍵\"而且已經隱藏。從底部滑動會再次顯示。</string>
   <string name="read_introduction">現在閱讀入門介紹</string>
   <string name="upgrade_title">歡迎使用 Vespucci 的新版本！</string>
   <string name="upgrade_message">這是新版本 Vespucci 的新功能和性能。它將會最好的快速讀取在裝置上的升級資訊。</string>
@@ -64,6 +67,8 @@
   <string name="progress_preset_message">下載預設組合</string>
   <string name="progress_running_message">運作中...</string>
   <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
+  <string name="progress_building_imagery_database">構建圖像資料庫...</string>
+  <string name="progress_query_oam">正在查詢 OAM ...</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
@@ -134,9 +139,11 @@
   <string name="attached_object_warning_continue">好，繼續顯示這個訊息。</string>
   <string name="attached_object_warning_stop">好，停止顯示這個訊息</string>
   <string name="send_debug_information">傳送 debug 資訊</string>
+  <!--JS console dialog-->
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
   <string name="js_console_msg_debug">Debug 模式</string>
+  <!--Validator dialogs-->
   <string name="validator_title">驗證器規則集 %1$s</string>
   <string name="edit_resurvey_title">編輯重新踏查輸入值</string>
   <string name="add_resurvey_title">新增重新踏查輸入值</string>
@@ -148,7 +155,36 @@
   <string name="check_optional">檢查其他選擇</string>
   <string name="add_resurvey_entry">新增重新踏察輸入值</string>
   <string name="add_check_entry">新增檢查輸入值</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">缺少關聯</string>
+  <string name="empty_relation_message">關係 %1$s 並沒有成員。\n\n如果繼續的話則無法在 Vespucci 編輯。</string>
+  <string name="add_members">增加成員</string>
+  <string name="leave_empty">留空</string>
+  <!--GPX way point dialog-->
+  <string name="waypoint_title">GPX 航點</string>
+  <string name="waypoint_description">WPT：%1$s</string>
+  <string name="description">記述</string>
+  <string name="created">已建立</string>
+  <string name="altitude">海拔</string>
+  <string name="create_osm_object">新建 OSM 物件</string>
+  <string name="create_osm_object_search">從預設組合新建 OSM 物件</string>
+  <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">客製化影像</string>
+  <string name="oam_layer_title">OAM 影像</string>
+  <string name="edit_layer_title">編輯圖層選項</string>
+  <string name="add_layer_title">新增圖層選項</string>
+  <string name="overlay">疊合</string>
+  <string name="coverage">覆蓋範圍</string>
+  <string name="coverage_top">頂端</string>
+  <string name="coverage_left">左邊</string>
+  <string name="coverage_right">右邊</string>
+  <string name="coverage_bottom">底部</string>
+  <string name="preferred">偏好</string>
+  <string name="toast_invalid_box">無效或不完整的邊界框</string>
   <!--Toaster-->
+  <string name="toast_name_empty">名稱欄位不能為空白</string>
+  <string name="toast_url_empty">網址不能為空白</string>
+  <string name="toast_min_zoom">最小縮放必須比比最大值小</string>
   <string name="toast_no_changes">您還沒有變更什麼…</string>
   <string name="toast_unsaved_changes">您有未存儲的變更，請先上傳它們。</string>
   <string name="clear_anyway">清除了嗎？</string>
@@ -190,7 +226,8 @@
   <string name="toast_missing_filemanager">請安裝檔案管理。</string>
   <string name="toast_outside_of_download">您正在編輯已下載之外的資料</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
-  <string name="toast_imported_track_points">已匯入 %1$s 軌跡標點</string>
+  <string name="toast_imported_track_points">匯入 %1$s 路徑的點和 %2$s線段的點。</string>
+  <string name="toast_imported_track_points_single_way_point">匯入 %1$s 路徑的點和一個線段點。</string>
   <string name="toast_unknown_voice_command">抱歉目前的\"%1$s\"不能理解</string>
   <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告！</string>
   <string name="toast_camera_error">啟動相機的 app 錯誤：%1$s</string>
@@ -226,6 +263,12 @@
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
   <string name="toast_illegal_operation">非法操作：%1$s</string>
   <string name="toast_preset_creation_failed">創建預設組合 \"%1$s\" 失敗：%2$s</string>
+  <string name="toast_imperial_units">移失的英制單位</string>
+  <string name="toast_server_connection_failed">連線到伺服器失敗：%1$s</string>
+  <string name="toast_flus_all_caches">這會更新所有圖磚暫存檔！</string>
+  <string name="toast_applied_offset">自動套用影像偏移值</string>
+  <string name="toast_unsupported_format">不支援的格式：%1$s</string>
+  <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -249,6 +292,8 @@
   <string name="overwrite">覆寫</string>
   <string name="share">分享</string>
   <string name="share_position">分享位置</string>
+  <string name="min">最小值</string>
+  <string name="max">最大值</string>
   <!--Dialog for back button-->
   <string name="exit_title">真要退出嗎？</string>
   <string name="exit_text">您確定要退出嗎？</string>
@@ -401,9 +446,14 @@
   <string name="menu_set_name">設定名稱</string>
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
   <string name="menu_tools">工具</string>
+  <string name="menu_tools_imagery">更多影像工具</string>
+  <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_background_tile_cache">清理背景圖磚快取</string>
   <string name="menu_tools_flush_overlay_tile_cache">清理覆疊層圖磚快取</string>
+  <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
   <string name="menu_tools_background_properties">背景屬性</string>
+  <string name="menu_tools_update_imagery_configuration">更新影像圖層設定</string>
+  <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
   <string name="menu_tools_background_align">校直背景</string>
   <string name="menu_tools_background_align_reset">重置</string>
   <string name="menu_tools_background_align_zero">零</string>
@@ -412,6 +462,7 @@
   <string name="menu_tools_background_align_save_db">儲存到資料庫</string>
   <string name="menu_tools_background_align_save_device">儲存到裝置</string>
   <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
+  <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
   <string name="menu_tools_oauth_reset">重置 OAuth</string>
   <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
@@ -590,6 +641,7 @@
   <string name="config_js_console_title">啟用 JS 主控台</string>
   <string name="config_js_console_summary">讓 JS 主控台在 live 模式啟用</string>
   <string name="config_validatorprefs_title">驗證器選項</string>
+  <string name="config_customlayers_title">客制圖層</string>
   <string name="manage_apis">管理 APIs</string>
   <string name="manage_presets">管理預置</string>
   <string name="manage_geocoders">管理 geocoders</string>
@@ -672,6 +724,8 @@
   <!--ACRA-->
   <string name="crash_dialog_text">上次執行的時候，Vespucci 當機，或是發現嚴動的執行問題。\n\n請傳送錯誤報告幫助我們，你只要按\'OK\'就好。\n</string>
   <string name="crash_dialog_comment_prompt">增加其他你覺得可能幫上忙的的進一步資訊，如果需要回饋則附上你的電子郵件位址(選擇)。\n\n謝謝你！</string>
+  <string name="report_success">回報成功！</string>
+  <string name="report_failure">回報失敗！</string>
   <string name="config_category_acra">錯誤回報</string>
   <string name="pref_enable_acra">回報應用程式錯誤</string>
   <string name="pref_acra_enabled">已啟用錯誤回報</string>

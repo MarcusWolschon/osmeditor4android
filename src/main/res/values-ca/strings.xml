@@ -119,11 +119,19 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="attached_object_warning_continue">OK continua mostrant aquest missatge</string>
   <string name="attached_object_warning_stop">OK para de mostrar aquest missatge</string>
   <string name="send_debug_information">Envia informació de depuració</string>
+  <!--JS console dialog-->
   <string name="evaluate">Avaluar</string>
   <string name="js_console_msg_debug">Mode depuració!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <string name="add_members">Afegeix-hi membres</string>
+  <string name="leave_empty">Deixa-ho buit</string>
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_unsaved_changes">Tens canvis sense desar, si us plau, puja\'ls primer</string>
+  <string name="clear_anyway">Voleu buidar-ho igualment?</string>
   <string name="toast_upload_success">Ha finalitzat la pujada al servidor OSM.</string>
   <string name="toast_unlock_to_edit">Desbloqueu per a editar</string>
   <string name="toast_edit_outside_downloaded_area">No podeu editar fora de l\'àrea baixada</string>
@@ -140,13 +148,17 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="toast_missing_filemanager">Si us plau, instal·la un gestor de fitxers.</string>
   <string name="toast_outside_of_download">Estàs editant fora de l\'àrea de les dades descarregades.</string>
   <string name="toast_file_not_found">No s\'ha trobat %1$s.</string>
+  <string name="toast_invalid_apiurl">L\'URL de l\'API no és vàlida</string>
   <string name="toast_file_exists">El fitxer %1$s existeix.</string>
   <string name="toast_needs_resurvey">L\'objecte pot ser que estigui desactualitzat</string>
+  <string name="toast_missing_key">Manca la clau %1$s</string>
+  <string name="toast_illegal_operation">Operació no permesa: %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">D\'acord</string>
   <string name="cancel">Cancel·la</string>
+  <string name="done">Fet</string>
   <string name="locked">Blocat</string>
   <string name="next">Següent</string>
   <string name="apply">Aplicar</string>
@@ -171,19 +183,39 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="Value">Valor</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Ca:Map_Features</string>
   <string name="tag_menu_address">Afegir etiquetes de direcció</string>
-  <string name="tag_menu_preset">Predefinicions</string>
+  <string name="tag_menu_preset">Preconfiguració</string>
+  <string name="tag_menu_apply_preset">Aplica la millor preconfiguració</string>
   <string name="tag_menu_repeat">Repeteix etiquetes</string>
   <string name="tag_menu_revert">Reverteix</string>
   <string name="tag_menu_addtorelation">Afegeix a la relació</string>
-  <string name="tag_menu_resetMRU">Selecciona predefinicions</string>
+  <string name="tag_menu_resetMRU">Restableix les predefinicions</string>
   <string name="tag_menu_exit_no_save">Sortir\nsense desar</string>
+  <string name="tag_menu_top">Desplaça a la part superior</string>
+  <string name="tag_menu_bottom">Desplaça a la part inferior</string>
   <string name="tag_value_hint">Escriu un valor</string>
+  <string name="tag_autocomplete_value_hint">Escriviu o toqueu per a triar un valor</string>
+  <string name="tag_autocomplete_name_hint">Escriviu o toqueu per a triar un nom suggerit</string>
+  <string name="tag_tap_to_edit_hint">Toqueu per a editar</string>
+  <string name="tag_multi_value_hint">Valors múltiples</string>
+  <string name="tag_dialog_value_hint">Toqueu per a triar valor</string>
+  <string name="tag_action_tag_title">Etiquetes seleccionades</string>
+  <string name="tag_action_members_title">Membres seleccionats</string>
+  <string name="tag_action_parents_title">Relacions seleccionades</string>
   <string name="tag_additional_properties">Propietats addicionals</string>
   <string name="tag_details">Detalls</string>
+  <string name="tag_menu_move_up">Mou amunt</string>
+  <string name="tag_menu_move_top">Mou a la part superior</string>
+  <string name="tag_menu_move_down">Mou avall</string>
+  <string name="tag_menu_move_bottom">Mou a la part inferior</string>
   <string name="tag_menu_sort">Ordenar</string>
+  <string name="tag_menu_reverse_order">Inverteix l\'ordre</string>
   <string name="tag_menu_download">Descarregar</string>
   <string name="tag_menu_js_console">Consola JS</string>
   <string name="menu_up">Amunt</string>
+  <string name="menu_select_all">Selecciona-ho tot</string>
+  <string name="menu_deselect_all">No seleccionis res</string>
+  <string name="menu_preset_help">Ajuda per a les preconfiguracions</string>
+  <string name="tag_menu_i8n">Afegeix etiquetes per a %1$s</string>
   <string name="tag_restriction_header">Valor</string>
   <string name="tag_restriction_when">quan</string>
   <string name="tag_restriction_and">i</string>
@@ -209,6 +241,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Cercar:</string>
   <string name="location_load_button">Carrega</string>
+  <string name="location_load_dismiss">Vés al mapa</string>
   <string name="location_nan_title">Entrada incorrecta!</string>
   <string name="location_nan_message">Si us plau, indiqueu les coordenades en format decimal (p.ex. \"52.333572\",\"8.741185\"). La latitud ha d\'estar entre -85.0 i +85.0 i la longitud entre -175.0 i +175.0.</string>
   <!--Menu-->
@@ -243,23 +276,49 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_gps_autodownload">Descàrrega automàtica</string>
   <string name="menu_transfer">Transfereix...</string>
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
+  <string name="menu_transfer_download_current_add">Afegeix la visualització actual per a baixar</string>
+  <string name="menu_transfer_download_other">Baixa una altra ubicació</string>
   <string name="menu_transfer_upload">Puja les dades al servidor OSM</string>
+  <string name="menu_transfer_close_changeset">Tanca el conjunt de canvis actual</string>
   <string name="menu_transfer_file">Fitxer...</string>
+  <string name="menu_transfer_export">Exporta els canvis a un fitxer OSC</string>
+  <string name="menu_transfer_read_file">Llegeix des d\'un fitxer JOSM...</string>
+  <string name="menu_transfer_save_file">Desa a un fitxer JOSM...</string>
+  <string name="menu_transfer_bugs">Notes o errors...</string>
+  <string name="menu_transfer_bugs_download_current">Baixa errors per a la visualització actual</string>
+  <string name="menu_transfer_bugs_upload">Puja-ho tot</string>
+  <string name="menu_transfer_bugs_upload_long">Puja tots els errors</string>
   <string name="menu_transfer_bugs_clear">Netejar</string>
+  <string name="menu_transfer_bugs_clear_long">Neteja els errors</string>
+  <string name="menu_transfer_autodownload_long">Baixa automàticament els errors</string>
+  <string name="menu_transfer_save_notes_all">Desa totes les notes...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Desa les notes noves i canviades...</string>
+  <string name="menu_transfer_read_custom_bugs">Carrega les tasques personalitzades...</string>
+  <string name="menu_transfer_write_custom_bugs">Desa les tasques personalitzades obertes...</string>
   <string name="menu_save">Desa al fitxer</string>
   <string name="menu_join">Uneix</string>
   <string name="menu_unjoin">Desconnectar</string>
   <string name="menu_copy">Copia</string>
   <string name="menu_cut">Retalla</string>
   <string name="menu_paste">Enganxa</string>
+  <string name="menu_paste_from_clipboard">Enganxa del porta-retalls</string>
   <string name="menu_rotate">Gira</string>
   <string name="menu_orthogonalize">Ortogonalitza</string>
+  <string name="menu_split_polygon">Divideix en polígons</string>
   <string name="menu_newnode_gps">Nou node a la posició GPS</string>
+  <string name="menu_extend_selection">Amplia la selecció</string>
   <string name="menu_information">Informació</string>
+  <string name="menu_voice_commands">Ordres de veu</string>
+  <string name="menu_set_name">Estableix un nom</string>
+  <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <string name="menu_tools">Eines</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
   <string name="menu_tools_background_align_reset">Reiniciar</string>
   <string name="menu_tools_background_align_zero">Zero</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Des de la base de dades</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Des del dispositiu</string>
+  <string name="menu_tools_background_align_save_db">Desa a la base de dades</string>
+  <string name="menu_tools_background_align_save_device">Desa al dispositiu</string>
   <string name="menu_tools_background_contrast">Contrast</string>
   <string name="menu_enable_tagfilter">Filtrar Etiquetes</string>
   <string name="menu_enable_presetfilter">Filtrar Preselecció</string>
@@ -281,7 +340,11 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_one_object">1 objecte</string>
   <!--Preferences-->
+  <string name="config_generateAlerts_title">Genera notificacions</string>
+  <string name="config_voiceCommandsEnabled_title">Habilita les ordres de veu</string>
+  <string name="config_maxAlertDistance_current">%1$d</string>
   <string name="config_maxStrokeWidth_title">Amplada màxima de la línia</string>
+  <string name="config_maxStrokeWidth_current">%1$dpx</string>
   <string name="config_showStats_title">Mostra les estadístiques</string>
   <string name="config_showStats_summary">Mostra les dades estadístiques i els marcs/segon a la cantonada inferior esquerra.</string>
   <string name="config_showTolerance_title">Mostra la tolerància</string>
@@ -305,12 +368,14 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="config_osmoseServer_summary">URL del servidor osmose</string>
   <string name="config_presetbutton_title">Predefinicions</string>
   <string name="config_iconbutton_title">Mostra les icones de node</string>
+  <string name="config_showWayIcons_title">Mostra les icones de PDI en els edificis</string>
   <string name="config_loginbutton_title">Compte d\'usuari</string>
   <string name="config_username_title">Nom d\'usuari de l\'OSM</string>
   <string name="config_password_title">Contrasenya de l\'OSM</string>
   <string name="config_category_gps">Paràmetres del GPS</string>
   <string name="config_gps_distance_title">Distància GPS mínima</string>
   <string name="config_gps_interval_title">Interval GPS mínim</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_category_info">Quant a...</string>
   <string name="config_advancedprefs">Preferències avançades</string>
   <string name="config_forceContextMenu_title">Usa sempre el menú contextual</string>
@@ -318,16 +383,28 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="config_licensebutton_title">Autors i llicències</string>
   <string name="config_licensebutton_summary">Mostra els autors i la informació de llicència</string>
   <string name="config_use_back_for_undo_title">Usa la tecla retrocès per a desfer</string>
+  <string name="config_downloadSpeed_current">%1$dkm/h</string>
   <string name="config_gps_source_title">Font GPS</string>
+  <string name="config_enableLightTheme_title">Habilita el tema clar</string>
+  <string name="config_category_misc">Miscel·lània</string>
+  <string name="config_address_tags">Etiquetes d\'adreces</string>
+  <string name="config_address_tags_summary">Etiquetes usades per la predicció d\'adreces</string>
+  <string name="config_moreprefs">Més paràmetres...</string>
   <string name="config_tileCacheSize_title">Mida de la memòria cau per les tessel·les</string>
   <string name="config_tileCacheSize_summary">Mida total en MB de la memòria cau per les tessel·les</string>
+  <string name="config_notificationCacheSize_current">%1$d notificacions</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="manage_presets">Gestiona les preconfiguracions</string>
   <!--preset downloader messages-->
+  <string name="preset_update">Actualitza la preconfiguració</string>
   <!--changes-->
   <string name="changes_deleted">S\'ha suprmit \"%1$s\"</string>
   <string name="changes_changed">S\'ha canviat \"%1$s\"</string>
   <string name="changes_created">S\'ha creat \"%1$s\"</string>
   <string name="confirm_upload_title">Voleu pujar-ho?</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">Afegeix una preconfiguració</string>
+  <string name="urldialog_preset_exists">Aquesta preconfiguració ja existeix</string>
   <string name="urldialog_add_api">Afegeix una API</string>
   <string name="urldialog_nodata_text">L\'URL de configuració no conté dades vàlides.</string>
   <!--common terms-->
@@ -342,6 +419,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="api_name">Nom de l\'API</string>
   <string name="api_url">URL de l\'API</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="preset">Preconfiguració</string>
   <string name="api">API</string>
   <string name="undo">Desfés</string>
   <string name="redo">Refés</string>

@@ -4,7 +4,7 @@
     <item>Номер дома (addr:housenumber)</item>
     <item>Улица (addr:street)</item>
     <item>Почтовый индекс (addr:postcode)</item>
-    <item>Город/пгт/деревня/.. (addr:city)</item>
+    <item>Город/посёлок/деревня/.. (addr:city)</item>
     <item>Страна (addr:country)</item>
     <item>Полный адрес (addr:full)</item>
     <item>Территория без улиц (addr:place)</item>
@@ -15,7 +15,7 @@
     <item>Провинция (addr:province)</item>
     <item>Штат (addr:state)</item>
     <item>Диапазон квартир (addr:flats)</item>
-    <item>Door (addr:door)</item>
-    <item>Unit (addr:unit)</item>
+    <item>Номер комнаты/офиса (addr:door)</item>
+    <item>Номер лестницы/подъезда/... (addr:unit)</item>
   </string-array>
 </resources>

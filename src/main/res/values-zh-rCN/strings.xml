@@ -11,6 +11,11 @@
   <string name="imagery_offset_zoom">缩放</string>
   <string name="search">搜索</string>
   <string name="version">版本</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>

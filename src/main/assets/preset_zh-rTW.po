@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2018-01-04 17:49+0000\n"
+"PO-Revision-Date: 2018-01-28 07:35+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1183,7 +1183,7 @@ msgstr "巴士/公車"
 
 #: master_preset.xml:3448(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "導向公車道"
 
 #: master_preset.xml:4445(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -3737,7 +3737,7 @@ msgstr ""
 #: master_preset.xml:2335(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:653(combo:text|key:kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "路緣"
 
 #: master_preset.xml:659(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -3871,7 +3871,7 @@ msgstr ""
 #: master_preset.xml:1441(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:1459(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr ""
+msgstr "左邊"
 
 #: master_preset.xml:1416(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: master_preset.xml:1442(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -6665,7 +6665,7 @@ msgstr ""
 #: master_preset.xml:1449(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1467(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "右邊"
 
 #: master_preset.xml:1422(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1448(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2018-01-08 11:02+0000\n"
+"PO-Revision-Date: 2018-01-26 08:46+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -232,7 +232,7 @@ msgstr ""
 
 #: master_preset.xml:12447(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
-msgstr ""
+msgstr "住所（[日本の住所表記](https://docs.google.com/spreadsheets/d/1eAE72mjCLoJVGZo5qRhCYK22UxVQ8bpbQSU9ZLHq40o/edit#gid=0)）"
 
 #: master_preset.xml:12484(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
@@ -550,7 +550,7 @@ msgstr ""
 
 #: master_preset.xml:5797(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
-msgstr ""
+msgstr "芸術作品（屋外）"
 
 #: master_preset.xml:466(text:text|key:ascent)
 msgid "Ascent (m)"
@@ -1180,7 +1180,7 @@ msgstr ""
 
 #: master_preset.xml:3448(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "バスガイドウェイ"
 
 #: master_preset.xml:4445(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -2934,7 +2934,7 @@ msgstr ""
 
 #: master_preset.xml:12309(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
-msgstr ""
+msgstr "集合車庫（建物）"
 
 #: master_preset.xml:12119(item:name|group:Land_use|preset:Garden)
 msgid "Garden"
@@ -3108,7 +3108,7 @@ msgstr ""
 
 #: master_preset.xml:12220(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
-msgstr ""
+msgstr "墓地（宗教施設内など、小）"
 
 #: master_preset.xml:7108(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
@@ -3734,7 +3734,7 @@ msgstr ""
 #: master_preset.xml:2335(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:653(combo:text|key:kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "縁石"
 
 #: master_preset.xml:659(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -3882,7 +3882,7 @@ msgstr ""
 
 #: master_preset.xml:5230(group:name|group:Leisure)
 msgid "Leisure"
-msgstr ""
+msgstr "レジャー施設全般"
 
 #: master_preset.xml:13094(text:text|preset:Bridge|key:length)
 #: master_preset.xml:13109(text:text|preset:Tunnel|key:length)
@@ -4014,7 +4014,7 @@ msgstr ""
 #: master_preset.xml:10894(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:13367(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "鍵屋（専門店）"
 
 #: master_preset.xml:14068(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -5382,7 +5382,7 @@ msgstr ""
 #: master_preset.xml:10609(item:name|group:For_the_body|preset:Optician)
 #: master_preset.xml:13731(item:name|group:Crafts|preset:Optician)
 msgid "Optician"
-msgstr ""
+msgstr "メガネ店"
 
 #: master_preset.xml:1773(optional:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Optional crossing attributes:"
@@ -5574,7 +5574,7 @@ msgstr ""
 
 #: master_preset.xml:3750(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr ""
+msgstr "駐車区画（1台ごとの）"
 
 #: master_preset.xml:1275(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking aisle"
@@ -5698,7 +5698,7 @@ msgstr ""
 
 #: master_preset.xml:6359(item:name|group:Health|preset:Pharmacy)
 msgid "Pharmacy"
-msgstr ""
+msgstr "薬局・ドラッグストア"
 
 #: master_preset.xml:568(combo:text|key:phases)
 msgid "Phases"
@@ -5736,7 +5736,7 @@ msgstr ""
 
 #: master_preset.xml:13662(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr ""
+msgstr "写真館"
 
 #: master_preset.xml:13423(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
@@ -6613,7 +6613,7 @@ msgstr ""
 
 #: master_preset.xml:1743(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
-msgstr ""
+msgstr "パーキングエリア（休憩所）"
 
 #: master_preset.xml:4858(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
@@ -8442,7 +8442,7 @@ msgstr ""
 
 #: master_preset.xml:11010(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
-msgstr ""
+msgstr "雑貨店, 100円ショップ, バラエティストア"
 
 #: master_preset.xml:9409(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Vault"
@@ -8711,7 +8711,7 @@ msgstr ""
 
 #: master_preset.xml:9483(item:name|group:Historic_Places_&_Objects|preset:Wayside_Shrine)
 msgid "Wayside Shrine"
-msgstr ""
+msgstr "路傍の神仏"
 
 #: master_preset.xml:11129(item:name|group:Other|preset:Weapons)
 msgid "Weapons"
@@ -10452,7 +10452,7 @@ msgstr "バンガロー"
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Cabin"
-msgstr ""
+msgstr "ログハウス（建物）"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10589,12 +10589,12 @@ msgstr ""
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Garage"
-msgstr ""
+msgstr "車庫（建物）"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Garages"
-msgstr ""
+msgstr "集合車庫（建物）"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10675,7 +10675,7 @@ msgstr ""
 #: master_preset.xml:783(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Leisure"
-msgstr ""
+msgstr "レジャー施設全般"
 
 #: master_preset.xml:776(combo:text|key:building:levels)
 msgctxt "building"

@@ -1,51 +1,51 @@
 # Введение в Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci — полнофункциональный редактор OpenStreetMap, который поддерживает большинство операций, доступных в редакторах для настольных компьютеров. Его работа успешно проверена на Google-версиях ОС Android от 2.3 до 7.0 и различных AOSP-вариантах платформы. Предупредим заранее: хотя по возможностям мобильные устройства уже "догнали" настольные компьютеры, оперативная память старых устройств невелика, и приложение обычно работает на них весьма неспешно. Помните об этом и старайтесь экономить память: например, не стоит загружать в Vespucci слишком большие области для редактирования.  
 
 ## Первое использование
 
-После запуска Vespucci показывает диалог "Скачать другое место"/"Загрузить область". Если у вас отображаются координаты, и вы желаете начать загрузку немедленно, вы можете выбрать соответствующую опцию и установить радиус загружаемой области. На медленных устройствах выбирайте небольшие участки. 
+После запуска Vespucci показывает диалог "Загрузить другое место"/"Загрузить область". Если у вас отображаются координаты, и вы желаете начать загрузку немедленно, вы можете выбрать соответствующую опцию и установить радиус загружаемой области. На медленных устройствах выбирайте небольшие участки. 
 
 Кроме того, вы можете проигнорировать диалог, нажав на кнопку "Перейти к карте", и при помощи перетаскивания и масштабирования карты переместиться к нужному месту на ней, а затем скачать его для редактирования. (См. ниже: "Редактирование в Vespucci")
 
 ## Редактирование в Vespucci
 
-В зависимости от размера экрана и возраста вашего устройства редактировать можно при помощи значков на верхней панели, ниспадающего меню справа на этой панели, при помощи нижней панели (если есть) или посредством кнопки меню.
+В зависимости от размера экрана и возраста вашего устройства редактировать можно при помощи значков на верхней панели, выпадающего меню справа на этой панели, при помощи нижней панели (если есть) или посредством кнопки меню.
 
 <a id="download"></a>
 
 ### Загрузка OSM-данных
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Выберите значок передачи ![Transfer](../images/menu_transfer.png) или меню "Передать". Будет предложено семь вариантов:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Загрузить текущее место** - загрузить видимую область на экране и заменить предыдущие данные *(требуется соединение с Интернетом)*
+* **Добавить текущее место для загрузки** - загрузить видимую область на экране и объединить с ранее загруженными данными *(требуется соединение с Интернетом)*
+* **Загрузить другое место** - показывает форму, где можно ввести координаты, найти место по названию, или использовать текущее местоположение и затем загрузить область вокруг этого места *(требуется соединение с Интернетом)*
+* **Передать данные на сервер OSM** - передать несохранённые изменения на сервер OpenStreetMap *(требуется авторизация)* *(требуется соединение с Интернетом)*
+* **Автозагрузка** - скачать область вокруг текущего местоположения автоматически *(требуется соединение с Интернетом)* *(требуется GPS)*
+* **Файл...** - сохранение и загрузка данных с файлов устройства.
+* **Заметки/Ошибки...** - загрузить (автоматически или вручную) заметки и "ошибки" OSM из валидаторов (сейчас только OSMOSE) *(требуется соединение с Интернетом)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб движением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
 
 ### Редактирование
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Блокировка, разблокировка, переключение режимов
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Для предотвращения случайных изменений Vespucci сначала запускается в "заблокированном" режиме, где разрешено только перемещаться по карте. Нажмите на значок ![Locked](../images/locked.png), чтобы разблокировать экран. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Долгое нажатие на значке блокировки покажет меню с 4-мя элементами:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Нормальный** - режим редактирования по умолчанию, новые объекты могут быть добавлены, существующие - отредактированы, перемещены или удалены. Будет отображаться простой белый значок режима.
+* **Только теги** - выбор существующего объекта запустит редактор свойств, долгое нажатие на экран будет добавлять новые объекты, но другие операции изменения геометрии ну будут работать. Будет отображаться белый значок с буквой "T".
+* **План помещения** - включает редактирование внутри помещений, см. [План помещения](#indoor). Будет отображаться белый значок с буквой "I".
+* **Только конфликты** - включает режим C-Mode, на карте будут видны только объекты, имеющие замечания или ошибки, см. [C-Mode](#c-mode). Будет отображаться белый значок с буквой "C".
 
-#### Single tap, double tap, and long press
+#### Простое, двойное и долгое нажатие
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+По умолчанию, выделяемые линии и точки имеют вокруг себя оранжевую область, означающую, где нужно прикоснуться, чтобы выбрать объект. У Вас есть три возможности:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 

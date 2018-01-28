@@ -128,9 +128,14 @@
   <string name="attached_object_warning_continue">OK continúa mostrando este mensaje</string>
   <string name="attached_object_warning_stop">OK deja de mostrar este mensaje</string>
   <string name="send_debug_information">Enviar información de depuración</string>
+  <!--JS console dialog-->
   <string name="evaluate">Evaluar</string>
   <string name="js_console_msg_live">¡Modo en directo!</string>
   <string name="js_console_msg_debug">¡Modo de depuración!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">No cambió nada aún…</string>
   <string name="toast_unsaved_changes">Tiene cambios sin guardar, súbalos primero.</string>
@@ -172,7 +177,6 @@
   <string name="toast_missing_filemanager">Instale un gestor de archivos.</string>
   <string name="toast_outside_of_download">Está editando fuera del área descargada.</string>
   <string name="toast_file_not_found">%1$s no encontrado.</string>
-  <string name="toast_imported_track_points">Importados %1$s puntos de traza.</string>
   <string name="toast_unknown_voice_command">Lo sentimos en este momento no se entiende \"%1$s\"</string>
   <string name="toast_inconsistent_state">¡Detectado un estado inconsistente, envíe el informe de error!</string>
   <string name="toast_camera_error">Error al iniciar la aplicación de la cámara: %1$s</string>

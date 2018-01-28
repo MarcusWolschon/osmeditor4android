@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-22 22:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2186,7 +2186,7 @@ msgstr ""
 #: master_preset.xml:1822(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5083(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "Direction"
 
 #: master_preset.xml:8787(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -3141,7 +3141,7 @@ msgstr ""
 
 #: master_preset.xml:12052(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
-msgstr ""
+msgstr "Serre d'horticulture"
 
 #: master_preset.xml:750(combo:display_values|key:roof:colour)
 #: master_preset.xml:786(combo:display_values|key:building:colour)
@@ -6388,7 +6388,7 @@ msgstr ""
 
 #: master_preset.xml:6990(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "Conteneur de recyclage"
 
 #: master_preset.xml:750(combo:display_values|key:roof:colour)
 #: master_preset.xml:786(combo:display_values|key:building:colour)
@@ -10450,7 +10450,7 @@ msgstr ""
 #: master_preset.xml:8146(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr ""
+msgstr "Bungalow"
 
 #: master_preset.xml:8120(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10683,7 +10683,7 @@ msgstr ""
 #: master_preset.xml:776(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Nombre de niveau(x)"
 
 #: master_preset.xml:766(combo:display_values|key:building:frame:material)
 #: master_preset.xml:770(combo:display_values|key:building:wall:material)

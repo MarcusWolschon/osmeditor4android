@@ -105,6 +105,11 @@
   <string name="warning">uyarı</string>
   <string name="minor_issue">küçük sorun</string>
   <string name="unknown_error_level">bilinmeyen hata seviyesi</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
   <string name="toast_unsaved_changes">Kaydedilmemiş değişiklikleriniz var, lütfen önce yükleyin.</string>
@@ -138,7 +143,6 @@
   <string name="toast_missing_filemanager">Lütfen bir Dosya Yöneticisi yükleyin.</string>
   <string name="toast_outside_of_download">İndirdiğiniz alan dışında bir yeri düzenliyorsunuz.</string>
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
-  <string name="toast_imported_track_points">%1$s rota noktası içe aktarıldı.</string>
   <string name="toast_inconsistent_state">Tutarsız durum algılandı, lütfen bir hata raporu gönderin!</string>
   <string name="toast_camera_error">Kamera uygulaması başlatılırken hata oluştu: %1$s</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>

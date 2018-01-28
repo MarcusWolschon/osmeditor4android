@@ -59,6 +59,11 @@
   <string name="find_message">ورود متن جستجو</string>
   <string name="search">جستجو</string>
   <string name="closed">بسته شده</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_upload_success">آبلود به سرور OSM پایان یافت. </string>

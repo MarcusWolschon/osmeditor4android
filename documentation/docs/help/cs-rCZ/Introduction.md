@@ -71,21 +71,21 @@ Po provedení výběru se zobrazí seznam podporovaných operací (buď jako tla
 
 #### Zvolené objekty: Úprava tagů
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Druhé klepnutí na zvolený objekt otevře editor tagů, ve kterém můžete upravovat tagy přiřazené k objektu.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.
 
-#### Selected objects: Moving a Node or Way
+#### Zvolené objekty: Posun Uzlu nebo Cesty
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Přidání nového Uzlu/Bodu nebo Cesty (dlouhé stisknutí)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol "zaměřovače". 
+* Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty.
+* Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.
 
-Once you can see the crosshair symbol, you have these options:
+Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).

@@ -21,6 +21,11 @@
   <string name="unsaved_data_title">Åtvaring!</string>
   <string name="unsaved_data_message">Du har ulagra endringar som vil bli skrota om du går vidare.</string>
   <string name="unsaved_data_proceed">Skrot og gå vidare</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>

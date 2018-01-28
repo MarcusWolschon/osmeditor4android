@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Звичайно</string>
+  <string name="mode_tag_only">Тільки теґи</string>
   <string name="mode_indoor">План приміщення</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
@@ -48,6 +49,7 @@
   <string name="file_write_failed_message">Не вдалося записати в обраний файл.</string>
   <string name="welcome_title">Ласкаво просимо!</string>
   <string name="welcome_message">Дякуємо вам за вибір Веспуччі.\n\nДля того щоб розпочати, вам треба знати дві речі:\n\n* натискання на значок замка у куті зверху ліворуч дозволяє перемикатись між режимами перегляду та редагування\n\n* для додавання нового об’єкта: довге натискання - для додавання точки, подальше натискання на екрані для креслення лінії.\n\nНе забувайте завантажувати з сервера дані для ділянки, яку ви бажаєте змінити.\n\nНасолоджуйтесь!</string>
+  <string name="welcome_message_fullscreen">\n\nВеспучі визначив що використовуєте пристрій із програмними  кнопками на екрані та приховав їх. Щоб показати їх, витягніть їх від нижнього краю екрану.</string>
   <string name="read_introduction">Прочитати вступ</string>
   <string name="upgrade_title">Вітаємо у новій версії Веспуччі!</string>
   <string name="upgrade_message">Це нова версія Веспуччі з новими можливостями та принципами роботи. Радимо швиденько прочитати інформацію про оновлення на вашому пристрої. </string>
@@ -82,6 +84,8 @@
   <string name="openstreetbug_commit_fail">Неможливо зберегти зміни помилок</string>
   <string name="openstreetbug_not_downloaded">не отримано</string>
   <string name="openstreetbug_last_updated">в останнє оновлено</string>
+  <string name="openstreetbug_unknown_task_type">Невідомий тип завжання</string>
+  <string name="openstreetbug_not_supported">%1$s не підтримується</string>
   <string name="unsaved_data_title">Увага!</string>
   <string name="unsaved_data_message">У Вас є незбережені зміни, які будуть втрачені якщо Ви продовжите.</string>
   <string name="unsaved_data_proceed">Скасувати й продовжити</string>
@@ -93,11 +97,13 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
+  <string name="zoom_and_offset">Z %1$s Зміщення %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="tag_editor_name_suggestion">Пропозиція назви</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Пропозиції можуть замінювати значення деяких теґів на більш поширені.</string>
   <string name="search_results_title">Результати пошуку</string>
   <string name="find_message">Введіть рядок пошуку</string>
+  <string name="geocoder_prompt">з</string>
   <string name="preset_search_hint">Пошук заготовок</string>
   <string name="search">Пошук</string>
   <string name="no_valid_preset">Немає відповідної заготовки! </string>
@@ -126,12 +132,26 @@
   <string name="unknown_error_level">помилка невідомого рівня</string>
   <string name="attached_object_warning_title">Ця операціє впливає на відфільтровані приєднанні обʼєкти!</string>
   <string name="attached_object_warning_message">Змінений обʼєкт приєднано до прихованого елемента, який також буде змінений.</string>
+  <string name="attached_object_warning_continue">Так, продовжувати показувати це повідомлення</string>
+  <string name="attached_object_warning_stop">Так, перестати показувати це повідомлення</string>
+  <string name="send_debug_information">Надіслати інформацію для відлагодженя</string>
+  <!--JS console dialog-->
   <string name="evaluate">Оцінка</string>
   <string name="js_console_msg_live">Наживо!</string>
   <string name="js_console_msg_debug">Зневадження!</string>
+  <!--Validator dialogs-->
+  <string name="validator_title">Правила валідації %1$s</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Порожній зв\'язок</string>
+  <string name="empty_relation_message">Зв\'язок %1$s не має членів.\n\nЗалишаючи його в такому вигляді ви робите його не придатним  для редагування у Веспуччі.</string>
+  <string name="add_members">Додати членів</string>
+  <string name="leave_empty">Залишити порожнім</string>
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>
+  <string name="clear_anyway">Очистити?</string>
   <string name="toast_upload_success">Надсилання на сервер OpenStreetMap завершене.</string>
   <string name="toast_not_in_edit_range">Будь ласка, збільшіть масштаб щоб редагувати (Гучність +/-  або Рушій масштабу)</string>
   <string name="toast_unlock_to_edit">Розблокуйте для редагування</string>
@@ -165,7 +185,6 @@
   <string name="toast_missing_filemanager">Встановіть менеджер файлів.</string>
   <string name="toast_outside_of_download">Ви редагуєте за межами звантажених даних.</string>
   <string name="toast_file_not_found">%1$s не знайдено.</string>
-  <string name="toast_imported_track_points">Імпортовано %1$s точок треку.</string>
   <string name="toast_unknown_voice_command">Вибачте, \"%1$s\" зараз не підтримується</string>
   <string name="toast_inconsistent_state">Виявленно неузгоджений стан, будь ласка надішліть звіт про помилку!</string>
   <string name="toast_camera_error">Помилка запуску камери: %1$s</string>
@@ -173,12 +192,21 @@
   <string name="toast_min_one_preset">Треба вибрати, принаймні, одну заготовку!</string>
   <string name="toast_used_backup">Файл стану пошкоджений, використовую резервний!</string>
   <string name="toast_used_bug_backup">Файл стану помилок пошкоджений, використовую резервний!</string>
+  <string name="toast_rmpty_relation">Порожній зв\'язок, створюємо звіт про збій.</string>
   <string name="toast_no_voice_recognition">Немає можливості розпізнавання голосу</string>
+  <string name="toast_needs_resurvey">Об\'єкт може бути застарілим</string>
+  <string name="toast_missing_key">Відсутній ключ %1$s</string>
+  <string name="toast_exit_multiselect">Тицьніть двічі на порожньому місці або натисніть кнопку повернення для виходу</string>
+  <string name="toast_exit_actionmode">Натисніть кнопку повернення для збереження та виходу</string>
+  <string name="toast_abort_actionmode">Натисніть кнопку повернення для припинення</string>
+  <string name="toast_null_island">Будь ласка, не додавайте об\'єкти в точці з координатами 0º/0º (Null Island)</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
   <string name="no">Ні</string>
   <string name="okay">Гаразд</string>
   <string name="cancel">Відміна</string>
+  <string name="dismiss">Відхилити</string>
+  <string name="done">Готово</string>
   <string name="locked">Перегляд</string>
   <string name="next">Далі</string>
   <string name="apply">Застосувати</string>
@@ -188,8 +216,10 @@
   <string name="back">Назад</string>
   <string name="forward">За напрямком лінії</string>
   <string name="keep">Залишити</string>
+  <string name="enable">Увімкнено</string>
   <string name="clear">Очистити</string>
   <string name="retry">Повторити</string>
+  <string name="share_position">Поділитись місцем</string>
   <!--Dialog for back button-->
   <string name="exit_title">Дійсно вийти?</string>
   <string name="exit_text">Ви впевнені, що хочете вийти?</string>
@@ -210,16 +240,31 @@
   <string name="tag_menu_resetMRU">Скинути заготовки</string>
   <string name="tag_menu_reset_address_prediction">Скинути прогнозування адрес</string>
   <string name="tag_menu_exit_no_save">Вийти\nбез збереження</string>
+  <string name="tag_menu_delete_unassociated_tags">Вилучити непов\'язані теґи</string>
+  <string name="tag_menu_top">Вгору</string>
+  <string name="tag_menu_bottom">Вниз</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
   <string name="tag_dialog_value_hint">Натсніть для вибору значень</string>
   <string name="tag_details">Подробиці</string>
+  <string name="tag_not_set">Не встановлено</string>
   <string name="tag_menu_move_up">Вгору</string>
   <string name="tag_menu_move_down">Вниз</string>
+  <string name="tag_menu_download">Завантажити</string>
+  <string name="tag_menu_js_console"> JS консоль</string>
   <string name="menu_up">Вгору</string>
   <string name="menu_top">Верх</string>
+  <string name="menu_select_all">Виділити все</string>
+  <string name="menu_deselect_all">Скинути виділення</string>
   <string name="menu_preset_help">Довідка заготовки</string>
+  <string name="tag_menu_i8n">Додати теґи для %1$s</string>
   <string name="tag_restriction_header">Значення</string>
+  <string name="tag_restriction_when">коли</string>
+  <string name="tag_restriction_and">та</string>
   <string name="tag_restriction_add_restriction">Додати обмеження</string>
+  <string name="tag_restriction_add_simple_condition">Додати прості умови</string>
+  <string name="tag_restriction_add_expression">Додати вираз</string>
+  <string name="tag_restriction_add_opening_hours">Додати час роботи</string>
+  <string name="tag_restriction_value_hint">умовні обмеження</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Ділянка для звантаження</string>
   <string name="location_choose_radius">Виберіть радіус: </string>
@@ -253,6 +298,7 @@
   <string name="menu_extract">виокремити точку</string>
   <string name="menu_append">Додати</string>
   <string name="menu_relation">Створити зв’язок</string>
+  <string name="menu_edit_relation">Редагувати зв\'язок</string>
   <string name="menu_add_relation_member">Додати члена</string>
   <string name="menu_select_relation_members">Виділити членів</string>
   <string name="menu_tag">Редагувати теґи</string>
@@ -275,9 +321,13 @@
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Звантажити дані для поточного місця</string>
   <string name="menu_transfer_download_current_add">Додати поточний вид для звантаження</string>
+  <string name="menu_transfer_download_other">Завантажити інше місце</string>
   <string name="menu_transfer_upload">Надіслати дані на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрити поточний набір змін</string>
   <string name="menu_transfer_file">Файл…</string>
+  <string name="menu_transfer_export">Експортувати зміни в OSC-файл</string>
+  <string name="menu_transfer_read_file">Відкрити з файлу JOSM…</string>
+  <string name="menu_transfer_save_file">Зберегти у файл JOSM…</string>
   <string name="menu_transfer_bugs">Нотатки/Помилки…</string>
   <string name="menu_transfer_bugs_download_current">Завантажити нотатки для поточного місця</string>
   <string name="menu_transfer_bugs_upload">Надіслати все</string>
@@ -285,6 +335,8 @@
   <string name="menu_transfer_bugs_clear">Очистити</string>
   <string name="menu_transfer_bugs_clear_long">Очистити повідомлення про помилки</string>
   <string name="menu_transfer_autodownload_long">Авто-завантаження повідомлень про помилки</string>
+  <string name="menu_transfer_save_notes_all">Зберегти всі Нотатки</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Зберегти нові та змінені Нотатки…</string>
   <string name="menu_save">Зберегти в файл</string>
   <string name="menu_join">Об’єднати</string>
   <string name="menu_unjoin">Роз’єднати</string>
@@ -342,6 +394,8 @@
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Розбити замкнену лінію, 1-ша точка</string>
   <string name="actionmode_closed_way_split_2">Розбити замкнуту лінію, 2-га точка</string>
+  <string name="actionmode_one_object">1 об\'єкт</string>
+  <string name="actionmode_object_count">%1$d об\'єкти(ів)</string>
   <!--Preferences-->
   <string name="config_category_view">Налаштування зовнішнього вигляду</string>
   <string name="config_showCameraAction_title">Показати камеру</string>
@@ -382,6 +436,8 @@
   <string name="listedit_enable_oauth">Включити OAuth</string>
   <string name="config_offsetServer_title">Сервер зміщень</string>
   <string name="config_offsetServer_summary">URL сервера зміщень</string>
+  <string name="config_osmoseServer_title">Сервер OSMOSE</string>
+  <string name="config_osmoseServer_summary">Посилання до сервера osmose</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Додати та задіяти сумісні з JOSM заготовки</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
@@ -440,10 +496,15 @@
   <string name="config_address_tags">Теґи адреси</string>
   <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
   <string name="config_moreprefs">Додаткові налаштування…</string>
+  <string name="config_fullscreenMode_title">Повноекранний режим</string>
+  <string name="config_fullscreenMode_summary">Поведінка на пристроях з програмними кнопками.</string>
   <string name="config_tileCacheSize_title">Розмір кешу</string>
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">При встановленні не завантажені області будуть затінені в режимі перегляду</string>
+  <string name="config_js_console_title">Відкрити JS консоль</string>
+  <string name="config_js_console_summary">Зробити JS консоль доступною в \"live\" режимі</string>
+  <string name="config_validatorprefs_title">Налаштування валідатора</string>
   <string name="manage_presets">Керування заготовками</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
@@ -465,6 +526,7 @@
   <string name="urldialog_api_install_successful">API успішно встановлено!</string>
   <string name="urldialog_add_api">Додати API</string>
   <string name="urldialog_nodata_text">Конфігураційний URL не містить коректних даних.</string>
+  <string name="urldialog_add_geocoder">Додати геокодер</string>
   <!--common terms-->
   <string name="add">Додати</string>
   <string name="edit">Редагувати</string>
@@ -472,6 +534,7 @@
   <string name="name">Назва</string>
   <string name="url">URL</string>
   <string name="default_">Типово</string>
+  <string name="regular_expression">Регулярні вирази</string>
   <!---->
   <string name="api_name">Назва API</string>
   <string name="api_url">URL для API</string>

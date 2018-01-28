@@ -35,6 +35,8 @@
   <string name="data_conflict_message">I dati che stai cercando di scaricare contengono elementi che vanno in conflitto con le tue modifiche. Carica i tuoi dati prima di riprovare.</string>
   <string name="invalid_bounding_box_title">Riquadro di selezione non valido</string>
   <string name="invalid_bounding_box_message">L\'area selezionata non rispetta i limiti delle API, scegline una differente.</string>
+  <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
+  <string name="bounding_box_too_large_message">L\'area che stai tentando di scaricare è troppo grande o contiene troppi elementi.\n\nPer favore utilizza un livello di zoom superiore o riprova.</string>
   <string name="api_offline_title">API Offline</string>
   <string name="api_offline_message">Le API sono attualmente offline e non permettono la lettura o scrittua dei dati.</string>
   <string name="out_of_memory_title">Memoria esaurita</string>
@@ -132,9 +134,11 @@
   <string name="attached_object_warning_continue">OK continua a mostrare questo messaggio</string>
   <string name="attached_object_warning_stop">OK smetti di mostrare questo messaggio</string>
   <string name="send_debug_information">Invia informazioni di debug</string>
+  <!--JS console dialog-->
   <string name="evaluate">Valuta</string>
   <string name="js_console_msg_live">Modalità live!</string>
   <string name="js_console_msg_debug">Modalità debug!</string>
+  <!--Validator dialogs-->
   <string name="edit_resurvey_title">Modifica dati sopralluogo</string>
   <string name="add_resurvey_title">Aggiungi dati sopralluogo</string>
   <string name="edit_check_title">Modifica controllo inserimenti</string>
@@ -143,7 +147,29 @@
   <string name="age">Età</string>
   <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
   <string name="add_check_entry">Aggiungi controllo inserimenti</string>
+  <!--Empty relation dialog-->
+  <string name="empty_relation_title">Relazione vuota</string>
+  <string name="empty_relation_message">La relazione %1$s risulta vuota.\n\nLasciarla così la renderà non modificabile in Vespucci</string>
+  <string name="add_members">Aggiungi membri</string>
+  <string name="leave_empty">Lascia vuoto</string>
+  <!--GPX way point dialog-->
+  <string name="description">Descrizione</string>
+  <string name="created">Creato</string>
+  <string name="altitude">Altitudine</string>
+  <string name="create_osm_object">Crea oggetto OSM</string>
+  <string name="create_osm_object_search">Crea oggetto OSM, utilizzando la ricerca preset</string>
+  <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Livello immagini personalizzato</string>
+  <string name="coverage">Copertura</string>
+  <string name="coverage_top">In alto</string>
+  <string name="coverage_left">Sinistra</string>
+  <string name="coverage_right">Destra</string>
+  <string name="coverage_bottom">In basso</string>
+  <string name="preferred">Preferito</string>
+  <string name="toast_invalid_box">Riquadro di selezione non valido</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
+  <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_unsaved_changes">Hai delle modifiche non salvate, caricale prima di proseguire.</string>
   <string name="clear_anyway">Cancella comunque?</string>
@@ -185,7 +211,6 @@
   <string name="toast_missing_filemanager">Installa un file manager</string>
   <string name="toast_outside_of_download">Stai modificando all\'esterno dell\'area scaricata.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
-  <string name="toast_imported_track_points">È stata importata una traccia con %1$s punti.</string>
   <string name="toast_unknown_voice_command">Mi dispiace ma al momento \"%1$s\" non è riconosciuto</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
@@ -220,6 +245,11 @@
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
+  <string name="toast_imperial_units">Manca la misura</string>
+  <string name="toast_server_connection_failed">Connessione al server fallita con: %1$s</string>
+  <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
+  <string name="toast_applied_offset">Allineamento applicato automaticamente alle immagini</string>
+  <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -243,6 +273,8 @@
   <string name="overwrite">Sovrascrivi</string>
   <string name="share">Condividi</string>
   <string name="share_position">Condividi posizione</string>
+  <string name="min">Min.</string>
+  <string name="max">Max.</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
   <string name="exit_text">Sei sicuro di voler uscire?</string>
@@ -396,7 +428,9 @@
   <string name="menu_tools">Strumenti</string>
   <string name="menu_tools_flush_background_tile_cache">Svuota la cache dei tasselli dello sfondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Svuota la cache dei tasselli sovrapposti</string>
+  <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
+  <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
   <string name="menu_tools_background_align_zero">Azzera</string>
@@ -582,6 +616,7 @@
   <string name="config_js_console_title">Attiva console JS</string>
   <string name="config_js_console_summary">Rendi la console JS disponibile in modalità \"live\"</string>
   <string name="config_validatorprefs_title">Impostazioni validatore</string>
+  <string name="config_customlayers_title">Livelli personalizzati</string>
   <string name="manage_apis">Gestisci API</string>
   <string name="manage_presets">Gestisci i preset</string>
   <string name="manage_geocoders">Gestisci geo-codificatori</string>
@@ -663,6 +698,8 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci si è interrotto improvvisamente o ha avuto un problema grave durante l\'ultima esecuzione\nAiutaci inviando un rapporto di errore, devi solo premere \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Aggiungi ulteriori informazioni utili e (facoltativo) il tuo indirizzo e-mail se vuoi ricevere un riscontro.\n\n\Grazie!</string>
+  <string name="report_success">Report correttamente trasmesso.</string>
+  <string name="report_failure">Errore di consegna del report.</string>
   <string name="config_category_acra">Segnalazione crash</string>
   <string name="pref_enable_acra">Segnala i crash dell\'applicazione</string>
   <string name="pref_acra_enabled">Segnalazione crash abilitata</string>

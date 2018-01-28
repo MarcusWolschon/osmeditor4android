@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2017-12-21 21:24+0100\n"
-"PO-Revision-Date: 2017-12-21 20:27+0000\n"
+"PO-Revision-Date: 2018-01-28 11:18+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -6669,7 +6669,7 @@ msgstr "Produkcja ożaglowania"
 #: master_preset.xml:1449(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1467(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Prawo"
 
 #: master_preset.xml:1422(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1448(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)

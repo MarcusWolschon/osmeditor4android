@@ -126,9 +126,14 @@
   <string name="attached_object_warning_continue">OK, folytassa ezen üzenet megjelenítését</string>
   <string name="attached_object_warning_stop">OK, hagyja abba ezen üzenet megjelenítését</string>
   <string name="send_debug_information">Hibakeresési információk elküldése</string>
+  <!--JS console dialog-->
   <string name="evaluate">Kiértékelés</string>
   <string name="js_console_msg_live">Éles mód!</string>
   <string name="js_console_msg_debug">Hibakereső mód!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Még nem módosított semmit…</string>
   <string name="toast_unsaved_changes">Mentetlen változtatásai vannak, előbb töltse fel őket.</string>
@@ -170,7 +175,6 @@
   <string name="toast_missing_filemanager">Kérjük telepítsen egy fájlkezelőt.</string>
   <string name="toast_outside_of_download">A letöltött adatokon kívül szerkeszt.</string>
   <string name="toast_file_not_found">%1$s nem található.</string>
-  <string name="toast_imported_track_points">%1$s nyomvonalpont importálva.</string>
   <string name="toast_unknown_voice_command">Sajnáljuk, a(z) „%1$s” jelenleg nem értelmezhető</string>
   <string name="toast_inconsistent_state">Inkonzisztens állapot észlelve, küldje be a hibajelentésben!</string>
   <string name="toast_camera_error">Hiba a kameraalkalmazás indításakor: %1$s</string>

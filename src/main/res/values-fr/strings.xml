@@ -134,9 +134,14 @@ Amusez-vous bien !</string>
   <string name="attached_object_warning_continue">OK continuer à regarder ce message</string>
   <string name="attached_object_warning_stop">Ok arréter de regarder ce message</string>
   <string name="send_debug_information">Envoyer l\'information de débogage</string>
+  <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
   <string name="js_console_msg_live">Mode direct</string>
   <string name="js_console_msg_debug">Mode débogage</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_unsaved_changes">Vous avez des modifications non sauvegardées, veuillez d\'abord les envoyer.</string>
@@ -174,7 +179,6 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="toast_missing_filemanager">Merci d\'installer un gestionnaire de fichiers</string>
   <string name="toast_outside_of_download">Impossible d\'éditer en dehors de la zone où sont disponibles les données</string>
   <string name="toast_file_not_found">%1$s introuvable.</string>
-  <string name="toast_imported_track_points">%1$s points importés</string>
   <string name="toast_unknown_voice_command">Désolé actuellement \"%1$s\" n\'est pas compris</string>
   <string name="toast_inconsistent_state">État instable détecté, merci d\'envoyer un rapport d\'erreur!</string>
   <string name="toast_camera_error">Erreur en lançant l\'appli caméra : %1$s</string>
@@ -437,7 +441,7 @@ il y a %3$s %4$s</string>
   <string name="config_offsetServer_summary">URL du serveur de décalage de l\'imagerie</string>
   <string name="config_osmoseServer_title">Serveur Osmose</string>
   <string name="config_osmoseServer_summary">URL pour le serveur osmose</string>
-  <string name="config_presetbutton_title">Modèles d\'attributs</string>
+  <string name="config_presetbutton_title">Modèles d\\'attributs</string>
   <string name="config_presetbutton_summary">Ajouter et activer des modèles d\'attributs de JOSM</string>
   <string name="config_iconbutton_title">Afficher les icônes sur les nœuds</string>
   <string name="config_iconbutton_summary">Afficher sur les nœuds l\'icône du modèle d\'attributs le plus proche.</string>

@@ -90,6 +90,11 @@
   <string name="last_updated">τελευταία ενημερώθηκε στις</string>
   <string name="error">σφάλμα</string>
   <string name="warning">προειδοποίηση</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
@@ -121,7 +126,6 @@
   <string name="toast_missing_filemanager">Παρακαλώ εγκαταστήστε ένα πρόγραμμα διαχείρισης αρχείων.</string>
   <string name="toast_outside_of_download">Επεξεργάζεστε εκτός της ληφθείσας περιοχής.</string>
   <string name="toast_file_not_found">%1$s δεν βρέθηκε.</string>
-  <string name="toast_imported_track_points">Εισήχθησαν %1$s σημεία παρακολούθησης.</string>
   <string name="toast_inconsistent_state">Ανιχνεύθηκε ασυνεπής κατάσταση, παρακαλούμε στείλτε το στην αναφορά σφάλματος!</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>

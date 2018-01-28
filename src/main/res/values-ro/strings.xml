@@ -37,6 +37,11 @@
   <string name="search_results_title">Rezultatele căutării</string>
   <string name="search">Caută</string>
   <string name="version">Versiune</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_upload_success">Încărcat către server-ul OSM. </string>

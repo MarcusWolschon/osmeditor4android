@@ -113,8 +113,13 @@
   <string name="unknown_error_level">neznáma úroveň chyby</string>
   <string name="attached_object_warning_continue">V poriadku, pokračovať v zobrazovaní tejto správy</string>
   <string name="attached_object_warning_stop">V poriadku, zastaviť zobrazovanie tejto správy</string>
+  <!--JS console dialog-->
   <string name="js_console_msg_live">Režim naživo!</string>
   <string name="js_console_msg_debug">Režim ladenia!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
   <string name="toast_unsaved_changes">Máte neuložené zmeny. Prosím, najskôr ich odovzdajte.</string>
@@ -142,7 +147,6 @@
   <string name="toast_missing_filemanager">Prosím, nainštalujte správcu súborov.</string>
   <string name="toast_outside_of_download">Upravujete mimo prevzatých údajov.</string>
   <string name="toast_file_not_found">Súbor %1$s sa nenašiel.</string>
-  <string name="toast_imported_track_points">Importovaných %1$s bodov stopy.</string>
   <string name="toast_unknown_voice_command">Prepáčte, povelu „%1$s“ sa zatiaľ nerozumie</string>
   <string name="toast_camera_error">Chyba pri spúšťaní aplikácie fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musí byť vybraná aspoň jedna predvoľba!</string>

@@ -28,6 +28,11 @@
   <string name="unsaved_data_message">Aurrera jarraitzen baduzu, gorde gabe dituzun aldaketak baztertuko dira.</string>
   <string name="unsaved_data_proceed">Baztertu &amp; aurrera jarraitu</string>
   <string name="closed">Itxia</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Oraindik ez duzu ezer aldatu...</string>
   <string name="toast_upload_success">OSM Zerbitzarira igoera bukatu da.</string>

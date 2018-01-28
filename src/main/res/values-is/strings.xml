@@ -91,6 +91,11 @@
   <string name="length_m">Lengd (m)</string>
   <string name="not_downloaded">Ekki niðurhalað</string>
   <string name="empty_role">tómt hlutverk</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
   <string name="toast_upload_success">Uppfærslu til OSM lokið.</string>
@@ -122,7 +127,6 @@
   <string name="toast_missing_filemanager">Vinsamlegast setjið upp skráastjóra.</string>
   <string name="toast_outside_of_download">Þú ert að breyta utan svæðis sem sótt var.</string>
   <string name="toast_file_not_found">%1$s fannst ekki.</string>
-  <string name="toast_imported_track_points">Flutti inn %1$s ferlapunkta.</string>
   <string name="toast_inconsistent_state">Óstöðugt ástand, vinsamlegast sendið villutilkynningu!</string>
   <string name="toast_camera_error">Villa í myndavél: %1$s</string>
   <!--Some generic labels/buttons-->

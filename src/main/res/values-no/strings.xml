@@ -28,6 +28,11 @@
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="search">Søk</string>
   <string name="version">Versjon</string>
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
