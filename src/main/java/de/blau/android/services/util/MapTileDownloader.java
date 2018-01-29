@@ -167,7 +167,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                 if (!(ioe instanceof FileNotFoundException)) {
                     // FileNotFound is an expected exception, any other IOException should be logged
                     if (Log.isLoggable(DEBUGTAG, Log.ERROR)) {
-                        Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString, ioe);
+                        Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
                     }
                 }
                 /*
