@@ -1329,7 +1329,11 @@ public class Main extends FullScreenAppCompatActivity
         if (menu.size() == 0) {
             menu.clear();
             final MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.main_menu, menu);
+            if (getBottomBar() != null && Util.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                inflater.inflate(R.menu.main_menu_nosubmenus, menu);
+            } else {
+                inflater.inflate(R.menu.main_menu, menu);
+            }
         }
 
         boolean networkConnected = isConnected();
