@@ -252,7 +252,7 @@ ext {
     okHttpVersion = "3.9.1"
     signpostVersion = "1.2.1.2"
     supportLibVersion = "25.3.1"
-    acraVersion = "5.0.0"
+    acraVersion = "5.0.2"
 }
 
 dependencies {
