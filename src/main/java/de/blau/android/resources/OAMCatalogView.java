@@ -50,11 +50,11 @@ public class OAMCatalogView {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OAMCatalog.Entry entry = (OAMCatalog.Entry) catalog.get(position);
-
                 TileLayerDialog.showLayerDialog(activity, db.getWritableDatabase(), entry, new TileLayerDialog.OnUpdateListener() {
                     @Override
                     public void update() {
                         dialog.dismiss();
+                        TileLayerDatabaseView.resetLayer(activity, db.getReadableDatabase());
                     }
                 });
             }

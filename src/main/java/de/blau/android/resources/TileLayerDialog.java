@@ -93,6 +93,7 @@ public class TileLayerDialog {
     static void showLayerDialog(@NonNull final FragmentActivity activity, @NonNull final SQLiteDatabase db, final int id, @Nullable Entry oamEntry,
             @Nullable final OnUpdateListener onUpdate) {
         final boolean existing = id > 0;
+        final Preferences prefs = new Preferences(activity);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         final View templateView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_item, null);
         alertDialog.setView(templateView);
@@ -202,7 +203,7 @@ public class TileLayerDialog {
                                     minZoomPicker.setValue(zooms[0]);
                                     maxZoomPicker.setValue(zooms[1]);
                                 }
-                                SelectFile.savePref(new Preferences(activity), R.string.config_mbtilesPreferredDir_key, fileUri);
+                                SelectFile.savePref(prefs, R.string.config_mbtilesPreferredDir_key, fileUri);
                                 return true;
                             } catch (SQLiteException sqex) {
                                 Log.e(DEBUG_TAG, "Not a SQLite database " + fileUri + " " + sqex.getMessage());
@@ -214,20 +215,28 @@ public class TileLayerDialog {
                 }
             });
         }
-        alertDialog.setNegativeButton(R.string.Cancel, null);
+        alertDialog.setNeutralButton(R.string.Cancel, null);
 
-        alertDialog.setPositiveButton(R.string.Save, new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.save, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // dummy
+            }
+        });
+        alertDialog.setPositiveButton(R.string.save_and_set, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // dummy
             }
         });
         final TileLayerServer existingLayer = layer;
+        final String name = nameEdit.getText().toString().trim();
+        final String layerId = layer == null ? name.toUpperCase() : layer.getId();
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
+        final boolean isOverlay = overlayCheck.isChecked();
         final AlertDialog dialog = alertDialog.create();
-        dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        final OnClickListener saveListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Provider provider = new Provider();
@@ -254,7 +263,6 @@ public class TileLayerDialog {
                         provider.addCoverageArea(ca);
                     }
                 }
-                String name = nameEdit.getText().toString().trim();
                 if ("".equals(name)) {
                     Snack.toastTopError(activity, R.string.toast_name_empty);
                     moan = true;
@@ -281,10 +289,9 @@ public class TileLayerDialog {
                     proj = TileLayerServer.EPSG_900913;
                     tileSize = TileLayerServer.WMS_TILE_SIZE;
                 }
-                String id = name.toUpperCase();
                 if (!existing) {
-                    TileLayerServer layer = new TileLayerServer(activity, id, name, tileUrl, "tms", overlayCheck.isChecked(), false, provider, null, null, null,
-                            null, minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, true);
+                    TileLayerServer layer = new TileLayerServer(activity, layerId, name, tileUrl, "tms", isOverlay, false, provider, null, null, null, null,
+                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, true);
                     TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
                 } else {
                     existingLayer.setProvider(provider);
@@ -299,6 +306,22 @@ public class TileLayerDialog {
                     onUpdate.update();
                 }
                 dialog.dismiss();
+            }
+        };
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(saveListener);
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveListener.onClick(v);
+                TileLayerServer savedLayer = TileLayerDatabase.getLayer(activity, db, layerId);
+                if (savedLayer != null) {
+                    if (isOverlay) {
+                        prefs.setOverlayLayer(layerId);
+                    } else {
+                        prefs.setBackGroundLayer(layerId);
+                    }
+                }
             }
         });
     }

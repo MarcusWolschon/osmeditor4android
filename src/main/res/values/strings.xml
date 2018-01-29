@@ -285,6 +285,7 @@
     <string name="set">Set</string>
     <string name="replace">Replace</string>
     <string name="save">Save</string>
+    <string name="save_and_set">Save and set</string>
     <string name="back">Back</string>
     <string name="forward">Forward</string>
     <string name="keep">Keep</string>
