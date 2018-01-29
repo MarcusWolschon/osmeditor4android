@@ -18,6 +18,7 @@
     <string name="help_tagfilter">Címkeszűrő</string>
     <string name="help_presetfilter">Előbeállításszűrő</string>
     <string name="help_opening_hours">Nyitva tartás</string>
+    <string name="help_upgrade">Kiadási megjegyzések</string>
     <string name="help_upgrade_099">0.9.9 kiadási megjegyzések</string>
     <string name="help_upgrade_098">0.9.8 kiadási megjegyzések</string>
     <string name="help_upgrade_097">0.9.7 kiadási megjegyzések</string>

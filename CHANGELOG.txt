@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.1.0-4: Add button to save imagery and use it, fix layer list refresh after adding OAM layer, update translations, imagery and presets.
+
 10.1.0-3: Fix SQL error that was causing far too many coverage records to be returned.
 
 10.1.0-2: Numerous bug fixes, support OAM layers, update translations, update ACRA.

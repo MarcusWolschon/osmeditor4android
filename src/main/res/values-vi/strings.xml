@@ -183,6 +183,7 @@
   <!--Toaster-->
   <string name="toast_name_empty">Không thể để trống tên</string>
   <string name="toast_url_empty">Không thể để trống URL</string>
+  <string name="toast_min_zoom">Mức thu phóng tối thiểu cần phải ít hơn mức tối đa</string>
   <string name="toast_no_changes">Bạn chưa thay đổi gì…</string>
   <string name="toast_unsaved_changes">Bạn đã thực hiện một số thay đổi chưa được lưu. Xin vui lòng tải chúng lên trước tiên.</string>
   <string name="clear_anyway">Cứ xóa sạch?</string>

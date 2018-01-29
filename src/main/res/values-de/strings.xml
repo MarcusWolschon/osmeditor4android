@@ -35,6 +35,7 @@
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
   <string name="invalid_bounding_box_title">Ungültiges Begrenzungsrechteck</string>
   <string name="invalid_bounding_box_message">Der ausgewählter Bereich entspricht nicht den API Beschränkungen, bitte einen anderen auswählen.</string>
+  <string name="bounding_box_too_large_title">Zu grosses Gebiet zum herunterladen</string>
   <string name="bounding_box_too_large_message">Das angeforderte Gebiet ist zu groß oder enthält zu viele Daten. Versuchen Sie ein kleineres Gebiet herunterzuladen.</string>
   <string name="api_offline_title">API nicht verfügbar</string>
   <string name="api_offline_message">Die API ist im Augenblick nicht verfügbar. Daten können weder gelesen noch geschrieben werden.</string>
@@ -65,6 +66,8 @@
   <string name="progress_preset_message">Vorlage wird heruntergeladen...</string>
   <string name="progress_running_message">Am Ausführen...</string>
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth Autorisierung...</string>
+  <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt</string>
+  <string name="progress_query_oam">Abfrage von OAM</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schliessen</string>
@@ -167,6 +170,9 @@
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Benutzerdefinierter Hintergrund</string>
   <string name="oam_layer_title">Hintergründe von OAM</string>
+  <string name="edit_layer_title">Hintergrundbildeintrag bearbeiten</string>
+  <string name="add_layer_title">Hintergrundbildeintrag hinzufügen</string>
+  <string name="overlay">Overlay</string>
   <string name="coverage">Abdeckung</string>
   <string name="coverage_top">Oben</string>
   <string name="coverage_left">Links</string>
@@ -212,6 +218,7 @@
   <string name="toast_oauth_timeout">Timeout während der Authentifizierung, bitte nochmals versuchen.</string>
   <string name="toast_oauth_communication">Kommunikationsfehler während der Authentifizierung, bitte nochmals versuchen.</string>
   <string name="toast_oauth_handshake_failed">OAuth Verhandlung ist fehlgeschlagen: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Login mit google ist im Augenblick nicht unterstützt</string>
   <string name="toast_timeout">Zeitüberschreitung</string>
   <string name="coordinates_out_of_range">Der Längengrad muss zwischen -180° und +180° sein, der Breitengrad zwischen -85° und 85°</string>
   <string name="toast_nothing_found">Nichts gefunden</string>
@@ -219,6 +226,8 @@
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <string name="toast_outside_of_download">Du editierst ausserhalb des heruntergeladenen Bereiches</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
+  <string name="toast_imported_track_points">%1$s Trackpunkte und %2$s Wegpunkte importiert.</string>
+  <string name="toast_imported_track_points_single_way_point">%1$s Trackpunkte und 1 Wegpunkt importiert.</string>
   <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera App: %1$s</string>
@@ -254,6 +263,13 @@
   <string name="toast_string_too_long">Text ist zu lang (%1$d Zeichen), gekürzt!</string>
   <string name="toast_illegal_operation">Unzulässige Operation: %1$s</string>
   <string name="toast_preset_creation_failed">Vorlage \"%1$s\" konnte nicht erstellt werden mit Fehler: %2$s</string>
+  <string name="toast_imperial_units">Fehlende britische Einheiten </string>
+  <string name="toast_server_connection_failed">Verbindung zum Server schlug fehl mit:  %1$s</string>
+  <string name="toast_flus_all_caches">Dies wird alle gespeicherten Hintergrundbilder löschen!</string>
+  <string name="toast_applied_offset">Hintergrundversatzkorrektur automatisch angewendet</string>
+  <string name="toast_unsupported_format">Format nicht unterstützt %1$s</string>
+  <string name="toast_returning_less_than_found">Anzeige von %1$d von %2$d total gefundenen Einträgen</string>
+  <string name="toast_not_mbtiles">Die Datei ist nicht im MBTiles Format</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -267,6 +283,7 @@
   <string name="set">Setzen</string>
   <string name="replace">Ersetzen</string>
   <string name="save">Speichern</string>
+  <string name="save_and_set">Speichern und verwenden</string>
   <string name="back">Zurück</string>
   <string name="forward">Vorwärts</string>
   <string name="keep">Behalten</string>
@@ -436,6 +453,8 @@
   <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
+  <string name="menu_tools_update_imagery_configuration">Hintergrundbilderkonfiguration updaten</string>
+  <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
   <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
   <string name="menu_tools_background_align_zero">Auf Null setzen</string>
@@ -444,6 +463,7 @@
   <string name="menu_tools_background_align_save_db">In DB speichern</string>
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
+  <string name="menu_tools_apply_local_offset">Gespeicherter Hintergrundbildversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>

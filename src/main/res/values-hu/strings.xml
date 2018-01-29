@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normális</string>
+  <string name="mode_tag_only">Csak címke</string>
   <string name="mode_indoor">Beltéri</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Vigyázat!</string>
@@ -17,6 +18,8 @@
   <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$s \nés törölve lett a kiszolgálón</string>
   <string name="upload_conflict_message_referential">%1$s \nhelyben törölve lett \nde van rá hivatkozás a kiszolgálón</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón</string>
+  <string name="use_local_version">Helyi verzió használata</string>
+  <string name="use_server_version">Szerveren futó verzió használata</string>
   <string name="no_login_data_title">A hitelesítés sikertelen</string>
   <string name="no_login_data_message">OAuth használata esetén ez valószínűleg hiba, küldjön hibajelentést. Ha felhasználónevet és jelszót adott meg (nem javasolt), ellenőrizze, hogy helyes-e.</string>
   <string name="no_connection_title">Nincs kapcsolat a kiszolgálóval</string>
@@ -31,6 +34,8 @@
   <string name="data_conflict_message">Az adatok, amelyeket megpróbál letölteni, ütköznek a szerkesztéseivel. Kérjük, próbálja meg feltölteni az adatait az újrapróbálkozás előtt.</string>
   <string name="invalid_bounding_box_title">Érvénytelen határoló doboz</string>
   <string name="invalid_bounding_box_message">A kijelölt terület nem tartja be az API-korlátozásokat, válasszon egy másikat.</string>
+  <string name="bounding_box_too_large_title">Túl nagy a letöltendő terület</string>
+  <string name="bounding_box_too_large_message">A letölteni próbált terület túl nagy vagy túl sok adatot tartalmaz.\n\nNagyítson, és próbálja meg újra.</string>
   <string name="api_offline_title">API offline</string>
   <string name="api_offline_message">Az API jelenleg offline, és nem engedi az adatok lekérését vagy írását.</string>
   <string name="out_of_memory_title">Nincs elég memória</string>
@@ -44,6 +49,7 @@
   <string name="file_write_failed_message">Nem sikerült a kijelölt fájlba írni.</string>
   <string name="welcome_title">Üdvözöljük!</string>
   <string name="welcome_message">Köszönjük, hogy a Vespuccit használja.\n\nA kezdéshez két dolgot kell tudnia.\n\n* a zárolás ikonra kattintva válhat a zárt (nincs szerkesztés) és a nyitott mód között\n\n* új objektum hozzáadásához: nyomja hosszan, ugyanabba a pontba érintve egy új jegyzetet ad hozzá, távolabbra kattintva pedig egy új vonalat.\n\nNe felejtse el letölteni a területet, amelyet szerkeszteni akar.\n\nÉrezze jól magát!</string>
+  <string name="welcome_message_fullscreen">\n\nA Vespucci érzékelte, hogy a készülékén szoftvergombok vannak, és elrejtette őket. Ha az ujját a felhúzza a kijelző aljáról, akkor újra megjelennek.</string>
   <string name="read_introduction">Olvassa el a bevezetést most</string>
   <string name="upgrade_title">Üdvözöljük a Vespucci új verziójában!</string>
   <string name="upgrade_message">Ez a Vespucci egy új verziója, új funkciókkal és viselkedéssel. Tanácsos gyorsan elolvasnia a frissítési információkat.</string>
@@ -59,6 +65,8 @@
   <string name="progress_preset_message">Előbeállítás letöltése…</string>
   <string name="progress_running_message">Futtatás…</string>
   <string name="progress_oauth">Az openstreetmap.org fiókjának betöltése, OAuth engedélyezéshez…</string>
+  <string name="progress_building_imagery_database">Képadatbázis felépítése…</string>
+  <string name="progress_query_oam">OpenAerialMap lekérdezése…</string>
   <string name="upload_comment_label">Megjegyzés:</string>
   <string name="upload_source_label">Forrás:</string>
   <string name="upload_close_changeset_label">Módosításkészlet bezárása:</string>
@@ -78,6 +86,8 @@
   <string name="openstreetbug_commit_fail">A hiba módosítások nem menthetőek</string>
   <string name="openstreetbug_not_downloaded">nincs letöltve</string>
   <string name="openstreetbug_last_updated">legutóbb frissítve</string>
+  <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
+  <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">Mentetlen változtatásai vannak, amelyek el lesznek vetve, ha folytatja.</string>
   <string name="unsaved_data_proceed">Elvetés és folytatás</string>
@@ -131,12 +141,49 @@
   <string name="js_console_msg_live">Éles mód!</string>
   <string name="js_console_msg_debug">Hibakereső mód!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">%1$s érvényességellenőrző szabálykészlet </string>
+  <string name="edit_resurvey_title">Újbóli felmérés bejegyzésének szerkesztése</string>
+  <string name="add_resurvey_title">Újbóli felmérés bejegyzésének hozzáadása</string>
+  <string name="edit_check_title">Ellenőrzési bejegyzés szerkesztése</string>
+  <string name="add_check_title">Ellenőrzési bejegyzés hozzáadása</string>
+  <string name="max_age">Legnagyobb kor</string>
+  <string name="age">Kor</string>
+  <string name="check_opt">Ellenőrzési opció</string>
+  <string name="check_optional">Ellenőrzés nem kötelező</string>
+  <string name="add_resurvey_entry">Újbóli felmérés bejegyzésének hozzáadása</string>
+  <string name="add_check_entry">Ellenőrzési bejegyzés hozzáadása</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Üres kapcsolat</string>
+  <string name="empty_relation_message">A(z) %1$s kapcsolatnak nincs tagja.\n\nHa így marad, akkor a Vespuccival később nem lehet szerkeszteni.</string>
+  <string name="add_members">Tagok hozzáadása</string>
+  <string name="leave_empty">Üresen hagyás</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_title">GPX útpont</string>
+  <string name="waypoint_description">Útpont: %1$s</string>
+  <string name="description">Leírás</string>
+  <string name="created">Létrehozva</string>
+  <string name="altitude">Magasság</string>
+  <string name="create_osm_object">OSM-objektum létrehozása</string>
+  <string name="create_osm_object_search">OSM-objektum létrehozása előbeállítás keresésével</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Egyéni képek</string>
+  <string name="oam_layer_title">OpenAerialMap (OAM) képek</string>
+  <string name="edit_layer_title">Rétegbejegyzés szerkesztése</string>
+  <string name="add_layer_title">Rétegbejegyzés hozzáadása</string>
+  <string name="coverage">Lefedettség</string>
+  <string name="coverage_top">Fel</string>
+  <string name="coverage_left">Balra</string>
+  <string name="coverage_right">Jobbra</string>
+  <string name="coverage_bottom">Le</string>
+  <string name="preferred">Előnyben részesített</string>
+  <string name="toast_invalid_box">Érvénytelen vagy hiányos határolókeret</string>
   <!--Toaster-->
+  <string name="toast_name_empty">A név nem lehet üres</string>
+  <string name="toast_url_empty">Az URL nem lehet üres</string>
+  <string name="toast_min_zoom">A legkisebb nagyításnak kisebbnek kell lennie, mint a legnagyobbnak</string>
   <string name="toast_no_changes">Még nem módosított semmit…</string>
   <string name="toast_unsaved_changes">Mentetlen változtatásai vannak, előbb töltse fel őket.</string>
+  <string name="clear_anyway">Mindenképpen törlődjék?</string>
   <string name="toast_upload_success">Feltöltés az OSM szerverre kész.</string>
   <string name="toast_not_in_edit_range">Közelítsen a szerkesztéshez (Hangerő fel/le vagy Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Kinyitás a szerkesztéshez</string>
