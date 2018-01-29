@@ -45,7 +45,7 @@ public class Version {
      * @param v the version string
      */
     private void parse(String v) {
-        String[]numbers = v.split(v,4);
+        String[]numbers = v.split("\\.",4);
         
         if (numbers.length < 3) {
             Log.e(DEBUG_TAG, "Invalid version string " + v);
