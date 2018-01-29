@@ -23,17 +23,18 @@ import de.blau.android.util.collections.MultiHashMap;
 
 public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "TileLayerDatabase";
-    public static final String DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 1;
+    public static final String  DATABASE_NAME    = "tilelayers";
+    private static final int    DATABASE_VERSION = 2;
 
     public static final String SOURCE_ELI    = "eli";    // editor-layer-index
-    public static final String SOURCE_CUSTOM = "custom"; // user add tile layer
+    public static final String SOURCE_CUSTOM = "custom"; // user added tile layers from file
+    public static final String SOURCE_MANUAL = "manual"; // user added tile layer
 
     private static final String SOURCES_TABLE = "sources";
     static final String         NAME_FIELD    = "name";
     private static final String UPDATED_FIELD = "updated";
 
-    private static final String LAYERS_TABLE        = "layers";
+    public static final String  LAYERS_TABLE        = "layers";
     private static final String ID_FIELD            = "id";
     private static final String TYPE_FIELD          = "server_type";
     private static final String SOURCE_FIELD        = "source";
@@ -54,7 +55,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String LOGO_URL_FIELD      = "logo_url";
     private static final String LOGO_FIELD          = "logo";
 
-    private static final String COVERAGES_TABLE = "coverages";
+    public static final String  COVERAGES_TABLE = "coverages";
     private static final String LEFT_FIELD      = "left";
     private static final String BOTTOM_FIELD    = "bottom";
     private static final String RIGHT_FIELD     = "right";
@@ -77,6 +78,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE sources (name TEXT NOT NULL PRIMARY KEY, updated INTEGER)");
             addSource(db, SOURCE_ELI);
             addSource(db, SOURCE_CUSTOM);
+            addSource(db, SOURCE_MANUAL);
 
             db.execSQL(
                     "CREATE TABLE layers (id TEXT NOT NULL PRIMARY KEY, name TEXT NOT NULL, server_type TEXT NOT NULL, source TEXT NOT NULL, url TEXT NOT NULL,"
@@ -99,6 +101,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(DEBUG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
+        addSource(db, SOURCE_MANUAL);
     }
 
     @Override
@@ -236,6 +239,16 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
+     * Deletes all layers with a specific source which will delete all coverages for the layers
+     * 
+     * @param db writable database
+     * @param source name of the source
+     */
+    public static void deleteLayers(final SQLiteDatabase db, @NonNull String source) {
+        db.delete(LAYERS_TABLE, SOURCE_FIELD + "=?", new String[] { source });
+    }
+
+    /**
      * Retrieve a single layer identified by its id
      * 
      * @param context Androic Context
@@ -334,17 +347,19 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         db.delete(LAYERS_TABLE, "layers.rowid=?", new String[] { Integer.toString(rowId) });
     }
 
-    private static int idFieldIndex = -1;
-    private static int leftFieldIndex = -1;
-    private static int bottomFieldIndex = -1;
-    private static int rightFieldIndex = -1;
-    private static int topFieldIndex = -1;
+    private static int idFieldIndex      = -1;
+    private static int leftFieldIndex    = -1;
+    private static int bottomFieldIndex  = -1;
+    private static int rightFieldIndex   = -1;
+    private static int topFieldIndex     = -1;
     private static int zoomMinFieldIndex = -1;
     private static int zoomMaxFieldIndex = -1;
+
     /**
      * Create a CoverageArea from a Cursor
      * 
-     * Uses pre-computed field indices 
+     * Uses pre-computed field indices
+     * 
      * @param cursor the Cursor
      * @return a CoverageArea instance
      */
@@ -364,11 +379,11 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Init the field indices for a Coverage Cursor 
+     * Init the field indices for a Coverage Cursor
      * 
      * @param cursor the Cursor
      */
-    private static void initCoverageFieldIndices(Cursor cursor) {
+    private static synchronized void initCoverageFieldIndices(Cursor cursor) {
         idFieldIndex = cursor.getColumnIndex(ID_FIELD);
         leftFieldIndex = cursor.getColumnIndex(LEFT_FIELD);
         bottomFieldIndex = cursor.getColumnIndex(BOTTOM_FIELD);
@@ -409,9 +424,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static Map<String, TileLayerServer> getAllLayers(@NonNull Context context, @NonNull SQLiteDatabase db, boolean overlay) {
         Map<String, TileLayerServer> layers = new HashMap<>();
         MultiHashMap<String, CoverageArea> coverages = new MultiHashMap<>();
-
         Cursor dbresult = db.rawQuery(
-                "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE overlay=?",
+                "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE coverages.id=layers.id AND overlay=?",
                 new String[] { overlay ? "1" : "0" });
         if (dbresult.getCount() >= 1) {
             initCoverageFieldIndices(dbresult);
@@ -445,30 +459,31 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         return layers;
     }
 
-    static int idLayerFieldIndex = -1;
-    static int nameFieldIndex = -1;
-    static int typeFieldIndex = -1;
-    static int tileUrlFieldIndex = -1;
-    static int touUrlFieldIndex = -1;
-    static int attributionFieldIndex = -1;
-    static int overlayFieldIndex = -1;
+    static int idLayerFieldIndex      = -1;
+    static int nameFieldIndex         = -1;
+    static int typeFieldIndex         = -1;
+    static int tileUrlFieldIndex      = -1;
+    static int touUrlFieldIndex       = -1;
+    static int attributionFieldIndex  = -1;
+    static int overlayFieldIndex      = -1;
     static int defaultLayerFieldIndex = -1;
     static int zoomMinLayerFieldIndex = -1;
     static int zoomMaxLayerFieldIndex = -1;
-    static int tileWidthFieldIndex = -1;
-    static int tileHeightFieldIndex = -1;
-    static int projFieldIndex = -1;
-    static int preferenceFieldIndex = -1;
-    static int startDateFieldIndex = -1;
-    static int endDateIFieldndex = -1;
-    static int overZoomMaxFieldIndex = -1;
-    static int logoUrlFieldIndex = -1;
-    static int logoFieldIndex = -1;
-    
+    static int tileWidthFieldIndex    = -1;
+    static int tileHeightFieldIndex   = -1;
+    static int projFieldIndex         = -1;
+    static int preferenceFieldIndex   = -1;
+    static int startDateFieldIndex    = -1;
+    static int endDateIFieldndex      = -1;
+    static int overZoomMaxFieldIndex  = -1;
+    static int logoUrlFieldIndex      = -1;
+    static int logoFieldIndex         = -1;
+
     /**
      * Create a TileLayerServer from a database entry
      * 
      * Uses pre-computed field indices
+     * 
      * @param context Android Context
      * @param provider Provider object holding coverage and attribution
      * @param cursor the Cursor
@@ -502,13 +517,13 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         return new TileLayerServer(context, id, name, tileUrl, type, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
                 zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, true);
     }
-    
+
     /**
-     * Init the field indices for a Layer Cursor 
+     * Init the field indices for a Layer Cursor
      * 
      * @param cursor the Cursor
      */
-    private static void initLayerFieldIndices(Cursor cursor) {
+    private static synchronized void initLayerFieldIndices(Cursor cursor) {
         idLayerFieldIndex = cursor.getColumnIndex(ID_FIELD);
         nameFieldIndex = cursor.getColumnIndex(NAME_FIELD);
         typeFieldIndex = cursor.getColumnIndex(TYPE_FIELD);

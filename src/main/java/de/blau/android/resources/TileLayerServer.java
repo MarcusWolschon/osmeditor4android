@@ -963,7 +963,7 @@ public class TileLayerServer {
      * Read a file from the Vespucci directory containing custom layer configurations and add them to the database
      * 
      * @param ctx Android Context
-     * @param writeableDb a writeable SQLiteDatabase
+     * @param writeableDb a writable SQLiteDatabase
      * @param async set this to true if running in the foreground or similar
      */
     public static void createOrUpdateCustomSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, final boolean async) {
@@ -1001,7 +1001,7 @@ public class TileLayerServer {
      * Read a file from the editor layer index containing layer configurations and update the database with them
      * 
      * @param ctx Android Context
-     * @param writeableDb a writeable SQLiteDatabase
+     * @param writeableDb a writable SQLiteDatabase
      */
     public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) {
         Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
@@ -1011,7 +1011,7 @@ public class TileLayerServer {
             // delete old
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
             TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
-
+  
             // still need to read out base config first
             try {
                 InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
