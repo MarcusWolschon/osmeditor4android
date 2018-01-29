@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -171,34 +172,43 @@ public class TileLayerDialog {
 
                         @Override
                         public boolean read(Uri fileUri) {
-                            MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri);
-                            Map<String, String> metadata = db.getMetadata();
-                            int[] zooms = db.getMinMaxZoom();
-                            db.close();
-                            final String format = metadata.get("format");
-                            if (!("png".equals(format) || "jpg".equals(format))) {
-                                Snack.barError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
-                                return true;
-                            }
-                            urlEdit.setText(fileUri.toString());
-                            String name = metadata.get("name");
-                            if (name != null) {
-                                nameEdit.setText(metadata.get("name"));
-                            }
-                            overlayCheck.setChecked("overlay".equals(metadata.get("type")));
-                            String bounds = metadata.get("bounds");
-                            if (bounds != null) {
-                                String[] corners = bounds.split(",", 4);
-                                if (corners.length == 4) {
-                                    setBoundingBoxFields(templateView, corners[0], corners[1], corners[2], corners[3]);
+                            try {
+                                MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri);
+                                Map<String, String> metadata = db.getMetadata();
+                                if (metadata.isEmpty()) {
+                                    throw new SQLiteException("metadata missing");
                                 }
+                                int[] zooms = db.getMinMaxZoom();
+                                db.close();
+                                final String format = metadata.get("format");
+                                if (!("png".equals(format) || "jpg".equals(format))) {
+                                    Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
+                                    return true;
+                                }
+                                urlEdit.setText(fileUri.toString());
+                                String name = metadata.get("name");
+                                if (name != null) {
+                                    nameEdit.setText(metadata.get("name"));
+                                }
+                                overlayCheck.setChecked("overlay".equals(metadata.get("type")));
+                                String bounds = metadata.get("bounds");
+                                if (bounds != null) {
+                                    String[] corners = bounds.split(",", 4);
+                                    if (corners.length == 4) {
+                                        setBoundingBoxFields(templateView, corners[0], corners[1], corners[2], corners[3]);
+                                    }
+                                }
+                                if (zooms != null && zooms.length == 2) {
+                                    minZoomPicker.setValue(zooms[0]);
+                                    maxZoomPicker.setValue(zooms[1]);
+                                }
+                                SelectFile.savePref(new Preferences(activity), R.string.config_mbtilesPreferredDir_key, fileUri);
+                                return true;
+                            } catch (SQLiteException sqex) {
+                                Log.e(DEBUG_TAG, "Not a SQLite database " + fileUri + " " + sqex.getMessage());
+                                Snack.toastTopError(activity, R.string.toast_not_mbtiles);
+                                return false;
                             }
-                            if (zooms != null && zooms.length == 2) {
-                                minZoomPicker.setValue(zooms[0]);
-                                maxZoomPicker.setValue(zooms[1]);
-                            }
-                            SelectFile.savePref(new Preferences(activity), R.string.config_mbtilesPreferredDir_key, fileUri);
-                            return true;
                         }
                     });
                 }
