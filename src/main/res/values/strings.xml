@@ -408,6 +408,7 @@
     <string name="menu_gps_export">Export GPS track</string>
     <string name="menu_gps_import">Import GPS track</string>
     <string name="menu_gps_goto_start">Goto start of track</string>
+    <string name="menu_gps_goto_first_waypoint">Goto first waypoint</string>
     <string name="menu_gps_autodownload">Auto download</string>
     <string name="menu_transfer">Transfer…</string>
     <string name="menu_transfer_download_current">Download current view</string>

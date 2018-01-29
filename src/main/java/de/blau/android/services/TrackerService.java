@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,6 +55,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
@@ -330,6 +332,15 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      */
     public List<TrackPoint> getTrackPoints() {
         return track.getTrackPoints();
+    }
+    
+    /**
+     * Get the list of WayPoints
+     * 
+     * @return a List of WayPoint
+     */
+    public List<WayPoint> getWayPoints() {
+        return Arrays.asList(track.getWayPoints());
     }
 
     /**

@@ -62,6 +62,9 @@
             <item
                 android:id="@+id/menu_gps_goto_start"
                 android:title="@string/menu_gps_goto_start" />
+            <item
+                android:id="@+id/menu_gps_goto_first_waypoint"
+                android:title="@string/menu_gps_goto_first_waypoint" />
         </menu>
     </item>
     <item

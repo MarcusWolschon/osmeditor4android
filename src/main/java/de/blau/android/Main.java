@@ -1360,6 +1360,7 @@ public class Main extends FullScreenAppCompatActivity
         boolean trackerHasPoints = getTracker() != null && getTracker().getTrackPoints() != null && !getTracker().getTrackPoints().isEmpty();
         menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasPoints);
         menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasPoints);
+        menu.findItem(R.id.menu_gps_goto_first_waypoint).setEnabled(getTracker() != null && getTracker().getWayPoints() != null && !getTracker().getWayPoints().isEmpty());
         menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
         menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasPoints && networkConnected);
 
@@ -1668,12 +1669,14 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_goto_start:
             List<TrackPoint> l = tracker.getTrackPoints();
             if (l != null && !l.isEmpty()) {
-                Log.d(DEBUG_TAG, "Going to start of track");
-                setFollowGPS(false);
-                map.setFollowGPS(false);
-                logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
-                map.getViewBox().moveTo(getMap(), l.get(0).getLon(), l.get(0).getLat());
-                map.invalidate();
+                gotoTrackPoint(logic, l.get(0));
+            }
+            return true;
+
+        case R.id.menu_gps_goto_first_waypoint:
+            List<WayPoint> w = tracker.getWayPoints();
+            if (w != null && !w.isEmpty()) {
+                gotoTrackPoint(logic, w.get(0));
             }
             return true;
 
@@ -1989,6 +1992,21 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         }
         return false;
+    }
+
+    /**
+     * Zoom to the GPS TrackPoint
+     * 
+     * @param logic the current Login instance
+     * @param trackPoint the TrackPoint
+     */
+    public void gotoTrackPoint(final Logic logic, TrackPoint trackPoint) {
+        Log.d(DEBUG_TAG, "Going to first waypoint");
+        setFollowGPS(false);
+        map.setFollowGPS(false);
+        logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
+        map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
+        map.invalidate();
     }
 
     /**
@@ -2643,7 +2661,7 @@ public class Main extends FullScreenAppCompatActivity
                         // load in in this webview
                         view.loadUrl(url);
                     } else {
-                        // vespucci URL 
+                        // vespucci URL
                         // or the OSM signup page which we want to open in a normal browser
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
@@ -2685,22 +2703,22 @@ public class Main extends FullScreenAppCompatActivity
                 public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
                     // Redirect to deprecated method, so you can use it in all SDK versions
                     onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
-                }          
+                }
             }
-            oAuthWebView.setOnKeyListener( new View.OnKeyListener() {
+            oAuthWebView.setOnKeyListener(new View.OnKeyListener() {
                 @Override
-                    public boolean onKey( View v, int keyCode, KeyEvent event ) {
-                        if (keyCode == KeyEvent.KEYCODE_BACK) {
-                            if (oAuthWebView.canGoBack()) {
-                                oAuthWebView.goBack();  
-                            } else {
-                                finishOAuth();
-                            }
-                            return true;
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        if (oAuthWebView.canGoBack()) {
+                            oAuthWebView.goBack();
+                        } else {
+                            finishOAuth();
                         }
-                        return false;
+                        return true;
                     }
-            });            
+                    return false;
+                }
+            });
             oAuthWebView.setWebViewClient(new OAuthWebViewClient());
             oAuthWebView.loadUrl(authUrl);
         }
