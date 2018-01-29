@@ -1425,7 +1425,7 @@ public class TileLayerServer {
                     return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
                 } else {
                     // assumption no end date == ongoing
-                    return t1.endDate > 0 && (t1.endDate < t2.endDate || t2.endDate < 0) ? -1 : 1;
+                    return t1.endDate > 0 && (t1.endDate < t2.endDate || t2.endDate < 0) ? 1 : -1;
                 }
             }
         });
