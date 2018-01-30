@@ -590,7 +590,7 @@ public class Server {
         }
     }
 
-    class DownloadErrorToast implements Runnable {
+    public class DownloadErrorToast implements Runnable {
         final int     code;
         final String  message;
         final Context context;
@@ -1926,7 +1926,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
-    private void throwOsmServerException(@NonNull final HttpURLConnection connection) throws IOException, OsmServerException {
+    public static void throwOsmServerException(@NonNull final HttpURLConnection connection) throws IOException, OsmServerException {
         throwOsmServerException(connection, null, connection.getResponseCode());
     }
 
@@ -1939,7 +1939,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
-    private void throwOsmServerException(@NonNull final HttpURLConnection connection, @Nullable final OsmElement e, int responsecode) throws IOException, OsmServerException {
+    public static void throwOsmServerException(@NonNull final HttpURLConnection connection, @Nullable final OsmElement e, int responsecode) throws IOException, OsmServerException {
         String responseMessage = connection.getResponseMessage();
         if (responseMessage == null) {
             responseMessage = "";
@@ -1952,5 +1952,4 @@ public class Server {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
         }
     }
-
 }

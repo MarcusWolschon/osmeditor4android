@@ -1009,8 +1009,9 @@ public class TileLayerServer {
      * 
      * @param ctx Android Context
      * @param writeableDb a writable SQLiteDatabase
+     * @throws IOException
      */
-    public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) {
+    public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
         Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
         AssetManager assetManager = ctx.getAssets();
         try {
@@ -1038,8 +1039,6 @@ public class TileLayerServer {
                 if (layer != null) {
                     layer.getTileProvider().update();
                 }
-            } catch (IOException e) {
-                Log.e(DEBUG_TAG, "downloading from github got " + e.getMessage());
             } finally {
                 SavingHelper.close(is);
             }

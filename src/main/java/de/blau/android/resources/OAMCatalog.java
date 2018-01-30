@@ -19,6 +19,7 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.Server;
 import de.blau.android.util.SavingHelper;
 
 /**
@@ -62,44 +63,39 @@ public class OAMCatalog {
      * @param oamServer URL for the OAM API server
      * @param box if not null limit the query to this BoundingBox
      * @return a List of OAMCatalog.Entry
+     * @throws IOException
      */
-    public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) {
-        try {
-            URL url;
+    public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
+        URL url = new URL(oamServer + "meta" + (box != null
+                ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&" : "?")
+                + "has_tiled=true");
 
-            url = new URL(oamServer + "meta" + (box != null
-                    ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&" : "?")
-                    + "has_tiled=true");
+        Log.d(DEBUG_TAG, "query: " + url.toString());
 
-            Log.d(DEBUG_TAG, "query: " + url.toString());
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        boolean isServerGzipEnabled = false;
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled = false;
+        // --Start: header not yet sent
+        con.setReadTimeout(TIMEOUT);
+        con.setConnectTimeout(TIMEOUT);
+        con.setRequestProperty("Accept-Encoding", "gzip");
+        con.setRequestProperty("User-Agent", App.getUserAgent());
 
-            // --Start: header not yet sent
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
+        // --Start: got response header
+        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
 
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                return null;
-            }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
-            }
-            return parseEntries(is);
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "getEntries got exception " + e.getMessage());
+        if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            Server.throwOsmServerException(con);
+            ;
         }
-        return null;
+
+        InputStream is;
+        if (isServerGzipEnabled) {
+            is = new GZIPInputStream(con.getInputStream());
+        } else {
+            is = con.getInputStream();
+        }
+        return parseEntries(is);
     }
 
     /**

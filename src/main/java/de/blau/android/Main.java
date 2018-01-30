@@ -113,6 +113,7 @@ import de.blau.android.dialogs.ViewWayPoint;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.exception.OsmServerException;
 import de.blau.android.filter.Filter;
 import de.blau.android.filter.PresetFilter;
 import de.blau.android.filter.TagFilter;
@@ -1919,16 +1920,22 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 protected List<OAMCatalog.Entry> doInBackground(Void... params) {
                     OAMCatalog catalog = new OAMCatalog();
-                    List<OAMCatalog.Entry> list = catalog.getEntries(Urls.OAM_SERVER, map.getViewBox());
-                    final int found = catalog.getFound();
-                    final int limit = catalog.getLimit();
-                    if (found > limit) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_returning_less_than_found, limit, found));
-                            }
-                        });
+                    List<OAMCatalog.Entry> list = null;
+                    try {
+                        list = catalog.getEntries(Urls.OAM_SERVER, map.getViewBox());
+                        final int found = catalog.getFound();
+                        final int limit = catalog.getLimit();
+                        if (found > limit) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_returning_less_than_found, limit, found));
+                                }
+                            });
+                        }
+                    } catch (final IOException iox) {
+                        Log.e(DEBUG_TAG, "Add imagery from oam " + iox.getMessage());
+                        toastDowloadError(iox);
                     }
                     return list;
                 }
@@ -1956,8 +1963,14 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 protected Void doInBackground(Void... params) {
-                    TileLayerServer.updateFromEli(Main.this, db.getWritableDatabase());
-                    db.close();
+                    try {
+                        TileLayerServer.updateFromEli(Main.this, db.getWritableDatabase());
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Update imagery conf. " + e.getMessage());
+                        toastDowloadError(e);
+                    } finally {
+                        db.close();
+                    }
                     return null;
                 }
 
@@ -1993,6 +2006,25 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         }
         return false;
+    }
+
+    /**
+     * Display a toast if we got an IOException downloading
+     * 
+     * @param iox the IOException
+     */
+    public void toastDowloadError(final IOException iox) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (iox instanceof OsmServerException) {
+                    Snack.toastTopWarning(Main.this,
+                            Main.this.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
+                } else {
+                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_server_connection_failed, iox.getMessage()));
+                }
+            }
+        });
     }
 
     /**
