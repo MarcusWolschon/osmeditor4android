@@ -1,194 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:paddingLeft="?attr/dialogPreferredPadding" 
-    android:paddingRight="?attr/dialogPreferredPadding"
-    >
-   <RelativeLayout
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
         android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_marginTop="5dp"
-    	android:layout_marginBottom="1dp" 
-    	android:orientation="vertical" >
-    	<TextView android:id="@+id/name_legend"
-            android:layout_width="wrap_content" 
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignParentLeft="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/name" />
-        <LinearLayout
-            android:id="@+id/name_container"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/name" />
+            <LinearLayout
+                android:id="@+id/name_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/name_legend"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="32dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:maxLines="2" />
+                <ImageButton
+                    android:id="@+id/file_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@android:color/transparent"
+                    android:tint="?attr/colorAccent"
+                    android:src="@drawable/ic_sd_storage_black_36dp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/url_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/name_container"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/url" />
+            <EditText
+                android:id="@+id/url"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/url_legend"
+                android:minHeight="32dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/overlay_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/url"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/overlay" />
+            <CheckBox
+                android:id="@+id/overlay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/overlay_legend"
+                android:layout_alignBaseline="@id/overlay_legend"
+                android:minHeight="32dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/coverage_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/overlay_legend"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/coverage" />
+            <EditText
+                android:id="@+id/top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:minEms="6"
+                android:gravity="right"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/coverage_legend"
+                android:hint="@string/coverage_top"
+                android:minHeight="32dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:minEms="6"
+                android:gravity="right"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/top"
+                android:hint="@string/coverage_left"
+                android:minHeight="32dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:minEms="6"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/top"
+                android:hint="@string/coverage_right"
+                android:minHeight="32dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <EditText
+                android:id="@+id/bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned|numberDecimal"
+                android:minEms="6"
+                android:gravity="right"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/left"
+                android:hint="@string/coverage_bottom"
+                android:minHeight="32dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/zoom_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/bottom"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/imagery_offset_zoom" />
+            <TextView
+                android:id="@+id/zoom_min_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/zoom_legend"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/min" />
+            <ch.poole.android.numberpicker.library.NumberPicker
+                android:id="@+id/zoom_min"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/zoom_min_legend"
+                android:layout_toRightOf="@id/zoom_min_legend"
+                numberpicker:min="0"
+                numberpicker:max="30"
+                numberpicker:unit="1"
+                numberpicker:repeat="1"
+                numberpicker:focusable="true"
+                numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+            <TextView
+                android:id="@+id/zoom_max_legend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_alignTop="@id/zoom_min"
+                android:layout_toRightOf="@id/zoom_min"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/max" />
+            <ch.poole.android.numberpicker.library.NumberPicker
+                android:id="@+id/zoom_max"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/zoom_max_legend"
+                android:layout_toRightOf="@id/zoom_max_legend"
+                numberpicker:min="0"
+                numberpicker:max="30"
+                numberpicker:unit="1"
+                numberpicker:repeat="1"
+                numberpicker:focusable="true"
+                numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
+        </RelativeLayout>
+        <View
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" 
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/name_legend" 
-            android:orientation="horizontal">
-		<EditText
-        	android:id="@+id/name"
-    	    android:layout_width="fill_parent"
-       	 	android:layout_height="wrap_content" 
-       	 	android:layout_weight="1"      	 	
-       	 	android:minHeight="32dp"
-        	android:paddingLeft="5dp"
-	    	android:paddingRight="5dp"
-        	android:textAppearance="?android:attr/textAppearanceSmall"
-			android:maxLines="2" />
-	    <ImageButton
-	        android:id="@+id/file_button"
-	        android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@android:color/transparent"
-            android:tint="?attr/colorAccent"
-			android:src="@drawable/ic_sd_storage_black_36dp"
-			/>
-		</LinearLayout>
-		<TextView android:id="@+id/url_legend"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/name_container"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/url" />
-		<EditText
-        	android:id="@+id/url"
-    	    android:layout_width="fill_parent"
-       	 	android:layout_height="wrap_content"
-       	 	android:layout_alignParentLeft="true"
-       	 	android:layout_below="@id/url_legend"
-       	 	android:minHeight="32dp" 	 	
-        	android:textAppearance="?android:attr/textAppearanceSmall"/>
-	    <TextView android:id="@+id/overlay_legend"
-		    android:layout_width="wrap_content" 
-		    android:layout_height="wrap_content"
-		    android:paddingTop="10dp" 
-		    android:layout_alignParentLeft="true"
-		    android:layout_below="@id/url"
-		    android:textAppearance="?android:attr/textAppearanceMedium"
-		    android:text="@string/overlay" />
-        <CheckBox
-            android:id="@+id/overlay"
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/overlay_legend"
-            android:layout_alignBaseline="@id/overlay_legend"
-            android:minHeight="32dp"        
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        <TextView android:id="@+id/coverage_legend"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/overlay_legend"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/coverage" />
-         <EditText
-            android:id="@+id/top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned|numberDecimal"
-            android:minEms="6"
-            android:gravity="right"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/coverage_legend"
-            android:hint="@string/coverage_top"
-            android:minHeight="32dp"        
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-         <EditText
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned|numberDecimal"
-            android:minEms="6"
-            android:gravity="right"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/top"
-            android:hint="@string/coverage_left"
-            android:minHeight="32dp"       
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-         <EditText
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned|numberDecimal"
-            android:minEms="6"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/top"
-            android:hint="@string/coverage_right"
-            android:minHeight="32dp"        
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-         <EditText
-            android:id="@+id/bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned|numberDecimal"
-            android:minEms="6"
-            android:gravity="right"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/left"
-            android:hint="@string/coverage_bottom"
-            android:minHeight="32dp"        
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
-         <TextView android:id="@+id/zoom_legend"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/bottom"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/imagery_offset_zoom" />
-         <TextView android:id="@+id/zoom_min_legend"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/zoom_legend"
-            android:textAppearance="?android:attr/textAppearanceSmall" 
-            android:text="@string/min" />
-         <ch.poole.android.numberpicker.library.NumberPicker
-            android:id="@+id/zoom_min"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/zoom_min_legend"
-            android:layout_toRightOf="@id/zoom_min_legend"
-            numberpicker:min="0"
-            numberpicker:max="30"
-            numberpicker:unit="1"
-            numberpicker:repeat="1"
-            numberpicker:focusable="true"
-            numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
-         <TextView android:id="@+id/zoom_max_legend"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp" 
-            android:layout_alignTop="@id/zoom_min"
-            android:layout_toRightOf="@id/zoom_min"
-            android:textAppearance="?android:attr/textAppearanceSmall" 
-            android:text="@string/max" />
-         <ch.poole.android.numberpicker.library.NumberPicker
-            android:id="@+id/zoom_max"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/zoom_max_legend"
-            android:layout_toRightOf="@id/zoom_max_legend"
-            numberpicker:min="0"
-            numberpicker:max="30"
-            numberpicker:unit="1"
-            numberpicker:repeat="1"
-            numberpicker:focusable="true"
-            numberpicker:custom_layout="@layout/number_picker_custom_small_layout" />
-     </RelativeLayout>
-     <View xmlns:android="http://schemas.android.com/apk/res/android"   
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#b2dfdb" />
-</LinearLayout>
+            android:layout_height="1dp"
+            android:background="#b2dfdb" />
+    </LinearLayout>
+</ScrollView>

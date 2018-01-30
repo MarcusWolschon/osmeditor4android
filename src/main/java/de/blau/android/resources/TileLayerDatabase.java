@@ -284,7 +284,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     public static TileLayerServer getLayerWithRowId(@NonNull Context context, @NonNull SQLiteDatabase db, @NonNull int rowId) {
         TileLayerServer layer = null;
         Cursor dbresult = db.rawQuery(
-                "SELECT left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
+                "SELECT coverages.id as id,left,bottom,right,top,coverages.zoom_min as zoom_min,coverages.zoom_max as zoom_max FROM layers,coverages WHERE layers.rowid=? AND layers.id=coverages.id",
                 new String[] { Integer.toString(rowId) });
         Provider provider = getProviderFromCursor(dbresult);
 
@@ -410,7 +410,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @return a Cursor pointing to all custom imagery layers
      */
     static Cursor getAllCustomLayers(@NonNull SQLiteDatabase db) {
-        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE source=?", new String[] { SOURCE_CUSTOM });
+        return db.rawQuery("SELECT layers.rowid as _id, name FROM layers WHERE source=? OR source=?", new String[] { SOURCE_CUSTOM, SOURCE_MANUAL });
     }
 
     /**
