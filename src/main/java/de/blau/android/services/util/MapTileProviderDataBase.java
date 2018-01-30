@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -83,7 +84,10 @@ public class MapTileProviderDataBase implements MapViewConstants {
     private static final String T_FSCACHE_WHERE_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X
             + SQL_ARG + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + "=0";
 
-    private static final String T_FSCACHE_SELECT_OLDEST     = "SELECT " + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + ","
+    private static final String T_FSCACHE_WHERE_NOT_INVALID = T_FSCACHE_RENDERER_ID + SQL_ARG + AND + T_FSCACHE_ZOOM_LEVEL + SQL_ARG + AND + T_FSCACHE_TILE_X
+            + SQL_ARG + AND + T_FSCACHE_TILE_Y + SQL_ARG + AND + T_FSCACHE_FILESIZE + ">0";
+
+    private static final String T_FSCACHE_SELECT_OLDEST = "SELECT " + T_FSCACHE_RENDERER_ID + "," + T_FSCACHE_ZOOM_LEVEL + "," + T_FSCACHE_TILE_X + ","
             + T_FSCACHE_TILE_Y + "," + T_FSCACHE_FILESIZE + " FROM " + T_FSCACHE + " WHERE " + T_FSCACHE_FILESIZE + " > 0 ORDER BY " + T_FSCACHE_TIMESTAMP
             + " ASC";
 
@@ -91,9 +95,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
     // ===========================================================
     // Fields
     // ===========================================================
-    
-    private final SQLiteDatabase  mDatabase;
- 
+
+    private final SQLiteDatabase mDatabase;
+
     private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
     // ===========================================================
@@ -224,35 +228,47 @@ public class MapTileProviderDataBase implements MapViewConstants {
         }
         try {
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
-                ParcelFileDescriptor pfd = null;
-                try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        Log.e(DEBUG_TAG, "statement null");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    SQLiteStatement get = null;
+                    ParcelFileDescriptor pfd = null;
+                    try {
+                        get = getStatements.acquire();
+                        if (get == null) {
+                            Log.e(DEBUG_TAG, "statement null");
+                            return null;
+                        }
+                        get.bindString(1, aTile.rendererID);
+                        get.bindLong(2, aTile.zoomLevel);
+                        get.bindLong(3, aTile.x);
+                        get.bindLong(4, aTile.y);
+                        pfd = get.simpleQueryForBlobFileDescriptor();
+
+                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = acis.read(buffer)) != -1) {
+                            bos.write(buffer, 0, bytesRead);
+                        }
+                        acis.close();
+                        return bos.toByteArray();
+                    } catch (SQLiteDoneException sde) {
+                        // nothing found
                         return null;
+                    } finally {
+                        getStatements.release(get);
                     }
-                    get.bindString(1, aTile.rendererID);
-                    get.bindLong(2, aTile.zoomLevel);
-                    get.bindLong(3, aTile.x);
-                    get.bindLong(4, aTile.y);
-                    pfd = get.simpleQueryForBlobFileDescriptor();
-
-                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = acis.read(buffer)) != -1) {
-                        bos.write(buffer, 0, bytesRead);
+                } else { // old and slow
+                    final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null, null, null);
+                    try {
+                        if (c.moveToFirst()) {
+                            byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
+                            return tile_data;
+                        } 
+                    } finally {
+                        c.close();
                     }
-                    acis.close();
-                    return bos.toByteArray();
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
-                    return null;
-                } finally {
-                    getStatements.release(get);
                 }
             }
         } catch (SQLiteDiskIOException sioex) { // handle these exceptions the same

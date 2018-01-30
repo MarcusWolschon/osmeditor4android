@@ -13,8 +13,10 @@ import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pools;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
@@ -76,8 +78,14 @@ public class MBTileProviderDataBase {
         }
     }
 
-    public MBTileProviderDataBase(@NonNull final Context context, @NonNull String mbTilesUrl) {
-        this(context, Uri.parse(mbTilesUrl));
+    /**
+     * Construct a new database tile storage provider
+     * 
+     * @param context Android Context
+     * @param mbTilesUri Uri for the mbtiles file as a String
+     */
+    public MBTileProviderDataBase(@NonNull final Context context, @NonNull String mbTilesUri) {
+        this(context, Uri.parse(mbTilesUri));
     }
 
     /**
@@ -93,36 +101,50 @@ public class MBTileProviderDataBase {
         }
         try {
             if (mDatabase.isOpen()) {
-                SQLiteStatement get = null;
-                ParcelFileDescriptor pfd = null;
-                try {
-                    get = getStatements.acquire();
-                    if (get == null) {
-                        Log.e(DEBUG_TAG, "statement null");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    SQLiteStatement get = null;
+                    ParcelFileDescriptor pfd = null;
+                    try {
+                        get = getStatements.acquire();
+                        if (get == null) {
+                            Log.e(DEBUG_TAG, "statement null");
+                            return null;
+                        }
+                        int ymax = 1 << aTile.zoomLevel; // TMS scheme
+                        int y = ymax - aTile.y - 1;
+                        get.bindLong(1, aTile.zoomLevel);
+                        get.bindLong(2, aTile.x);
+                        get.bindLong(3, y);
+                        pfd = get.simpleQueryForBlobFileDescriptor();
+
+                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = acis.read(buffer)) != -1) {
+                            bos.write(buffer, 0, bytesRead);
+                        }
+                        acis.close();
+                        return bos.toByteArray();
+                    } catch (SQLiteDoneException sde) {
+                        // nothing found
                         return null;
+                    } finally {
+                        getStatements.release(get);
                     }
-                    int ymax = 1 << aTile.zoomLevel; // TMS scheme
-                    int y = ymax - aTile.y - 1;
-                    get.bindLong(1, aTile.zoomLevel);
-                    get.bindLong(2, aTile.x);
-                    get.bindLong(3, y);
-                    pfd = get.simpleQueryForBlobFileDescriptor();
-
-                    ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = acis.read(buffer)) != -1) {
-                        bos.write(buffer, 0, bytesRead);
+                } else { // old and slow
+                    final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
+                            new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null,
+                            null, null);
+                    try {
+                        if (c.moveToFirst()) {
+                            byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
+                            return tile_data;
+                        }
+                    } finally {
+                        c.close();
                     }
-                    acis.close();
-                    return bos.toByteArray();
-                } catch (SQLiteDoneException sde) {
-                    // nothing found
-                    return null;
-                } finally {
-                    getStatements.release(get);
                 }
             }
         } catch (SQLiteDiskIOException sioex) { // handle these exceptions the same
@@ -136,6 +158,12 @@ public class MBTileProviderDataBase {
         return null;
     }
 
+    /**
+     * Get meta data from the file
+     * 
+     * @return a Map containing all key-value pairs from the meta data of null if none
+     */
+    @Nullable
     public Map<String, String> getMetadata() {
         Map<String, String> result = null;
         if (mDatabase.isOpen()) {
@@ -159,6 +187,13 @@ public class MBTileProviderDataBase {
         return null;
     }
 
+    /**
+     * Get min and max zoom from the existing tiles
+     * 
+     * THis is likely rather expensive for a large number of tiles
+     * @return an int array holding the min zoom in the first, max zoom in the second element or null
+     */
+    @Nullable
     public int[] getMinMaxZoom() {
         int[] result = null;
         if (mDatabase.isOpen()) {

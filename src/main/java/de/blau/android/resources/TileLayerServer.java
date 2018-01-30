@@ -49,6 +49,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -924,37 +925,43 @@ public class TileLayerServer {
      * Read a file from assets containing layer configurations and add them to the database
      * 
      * @param ctx Android Context
-     * @param writeableDb a writeable SQLiteDatabase
+     * @param writableDb a writable SQLiteDatabase
      * @param newConfig set to true if we are updating an existing database
      * @param async set this to true if running in the foreground or similar
      */
-    public static void createOrUpdateFromAssetsSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, boolean newConfig, final boolean async) {
+    public static void createOrUpdateFromAssetsSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writableDb, boolean newConfig, final boolean async) {
         Log.d(DEBUG_TAG, "DB not initalized, parsing configuration files");
         AssetManager assetManager = ctx.getAssets();
         long start = System.currentTimeMillis();
         try {
-            writeableDb.beginTransaction();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                writableDb.beginTransaction();
+            }
             // entries in earlier files will not be overwritten by later ones
             if (newConfig) {
                 // delete old
-                TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
-                TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
+                TileLayerDatabase.deleteSource(writableDb, TileLayerDatabase.SOURCE_ELI);
+                TileLayerDatabase.addSource(writableDb, TileLayerDatabase.SOURCE_ELI);
             }
             String[] imageryFiles = { Files.FILE_NAME_VESPUCCI_IMAGERY, Files.FILE_NAME_USER_IMAGERY };
             for (String fn : imageryFiles) {
                 try {
                     InputStream is = assetManager.open(fn);
-                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, async);
+                    parseImageryFile(ctx, writableDb, TileLayerDatabase.SOURCE_ELI, is, async);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "reading conf file " + fn + " got " + e.getMessage());
                     throw e;
                 }
             }
-            writeableDb.setTransactionSuccessful();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                writableDb.setTransactionSuccessful();
+            }
         } catch (IOException e) {
             // already logged
         } finally {
-            writeableDb.endTransaction();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                writableDb.endTransaction();
+            }
         }
         Log.d(DEBUG_TAG, " elapsed time " + (System.currentTimeMillis() - start) / 1000);
     }
