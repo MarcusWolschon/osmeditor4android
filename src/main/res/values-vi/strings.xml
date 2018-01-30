@@ -398,7 +398,6 @@
   <string name="menu_gps_goto">Đi đến vị trí GPS</string>
   <string name="menu_gps_start">Bắt đầu tuyến GPS</string>
   <string name="menu_gps_pause">Tạm dừng tuyến GPS</string>
-  <string name="menu_gps_clear">Dọn dẹp tuyến GPS</string>
   <string name="menu_gps_track_managment">Quản lý tuyến…</string>
   <string name="menu_gps_upload">Tải lên tuyến GPS</string>
   <string name="menu_gps_export">Xuất tuyến GPS</string>

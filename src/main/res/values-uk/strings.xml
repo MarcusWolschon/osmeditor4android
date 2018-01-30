@@ -311,7 +311,6 @@
   <string name="menu_gps_goto">Перейти до позиції GPS</string>
   <string name="menu_gps_start">Почати GPS-трек</string>
   <string name="menu_gps_pause">Призупинити GPS-трек</string>
-  <string name="menu_gps_clear">Вилучити GPS-трек</string>
   <string name="menu_gps_track_managment">Керування треками…</string>
   <string name="menu_gps_upload">Надіслати GPS-трек на сервер</string>
   <string name="menu_gps_export">Експортувати GPS-трек</string>

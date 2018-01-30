@@ -270,7 +270,6 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_gps_goto">Anar a la posició GPS</string>
   <string name="menu_gps_start">Inicia la traça GPS</string>
   <string name="menu_gps_pause">Pausa la traça GPS</string>
-  <string name="menu_gps_clear">Buida la traça GPS</string>
   <string name="menu_gps_upload">Puja la traça GPS</string>
   <string name="menu_gps_export">Exporta la traça GPS</string>
   <string name="menu_gps_autodownload">Descàrrega automàtica</string>

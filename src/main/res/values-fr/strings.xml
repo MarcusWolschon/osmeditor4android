@@ -320,7 +320,6 @@ il y a %3$s %4$s</string>
   <string name="menu_gps_goto">Aller à la position GPS</string>
   <string name="menu_gps_start">Démarrer la trace GPS</string>
   <string name="menu_gps_pause">Mettre en pause la trace GPS</string>
-  <string name="menu_gps_clear">Effacer la trace GPS</string>
   <string name="menu_gps_track_managment">Gestion des traces...</string>
   <string name="menu_gps_upload">Envoi de la trace GPS</string>
   <string name="menu_gps_export">Export de la trace GPS</string>

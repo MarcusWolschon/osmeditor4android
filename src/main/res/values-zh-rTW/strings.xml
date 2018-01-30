@@ -399,7 +399,6 @@
   <string name="menu_gps_goto">前往 GPS 位置</string>
   <string name="menu_gps_start">開始 GPS 軌跡</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡</string>
-  <string name="menu_gps_clear">清除 GPS 軌跡</string>
   <string name="menu_gps_track_managment">軌跡管理...</string>
   <string name="menu_gps_upload">上傳 GPS 軌跡</string>
   <string name="menu_gps_export">匯出 GPS 軌跡</string>

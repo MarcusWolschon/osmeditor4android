@@ -218,6 +218,7 @@
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_handshake_failed">Falhou o handshake do OAuth: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Autenticação com o Google não é suportada</string>
   <string name="toast_timeout">A tentativa de ligação ao servidor excedeu o  tempo</string>
   <string name="coordinates_out_of_range">A longitude deve estar entre -180º e +180º, a latitude entre -85º e +85º</string>
   <string name="toast_nothing_found">Não foi encontrado nada</string>
@@ -269,6 +270,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_applied_offset">Alinhamento da imagem  aplicado automaticamente</string>
   <string name="toast_unsupported_format">Formato não suportado: %1$s</string>
   <string name="toast_returning_less_than_found">Resultado %1$d de %2$d encontrados</string>
+  <string name="toast_not_mbtiles">Não é um formato MBTiles</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -282,6 +284,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="set">Definir</string>
   <string name="replace">Substituir</string>
   <string name="save">Gravar</string>
+  <string name="save_and_set">Guardar e definir</string>
   <string name="back">Regressar</string>
   <string name="forward">Em frente</string>
   <string name="keep">Manter</string>
@@ -401,7 +404,6 @@ há %3$s %4$s</string>
   <string name="menu_gps_goto">Ir para posição GPS</string>
   <string name="menu_gps_start">Iniciar trilho GPS</string>
   <string name="menu_gps_pause">Pausar trilho GPS</string>
-  <string name="menu_gps_clear">Limpar trilho GPS</string>
   <string name="menu_gps_track_managment">Gestão de trilhos...</string>
   <string name="menu_gps_upload">Enviar trilho GPS</string>
   <string name="menu_gps_export">Exportar trilho GPS</string>

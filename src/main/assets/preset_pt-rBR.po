@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
+"PO-Revision-Date: 2018-01-30 16:32+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -7231,7 +7231,7 @@ msgstr ""
 #: master_preset.xml:12751(item:name|group:Relations|preset:Site)
 #: master_preset.xml:5145(combo:display_values|group:Tourism|preset:Map|key:map_size)
 msgid "Site"
-msgstr ""
+msgstr "Grupo de Elementos"
 
 #: master_preset.xml:12755(text:text|group:Relations|preset:Site|key:name)
 msgid "Site name"

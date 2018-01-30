@@ -277,7 +277,6 @@
   <string name="menu_gps_goto">Gå till GPS-positionen</string>
   <string name="menu_gps_start">Starta GPS-spår</string>
   <string name="menu_gps_pause">Pausa GPS-spår</string>
-  <string name="menu_gps_clear">Rensa GPS-spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
   <string name="menu_gps_upload">Ladda upp GPS-spår</string>
   <string name="menu_gps_export">Exportera GPS-spår</string>

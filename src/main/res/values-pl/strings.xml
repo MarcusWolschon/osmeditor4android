@@ -364,7 +364,6 @@
   <string name="menu_gps_goto">Wyświetl aktualne położenie</string>
   <string name="menu_gps_start">Rozpocznij rejestrowanie śladu</string>
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu</string>
-  <string name="menu_gps_clear">Wyczyść ślad</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami...</string>
   <string name="menu_gps_upload">Wyślij ślad</string>
   <string name="menu_gps_export">Wyeksportuj ślad</string>

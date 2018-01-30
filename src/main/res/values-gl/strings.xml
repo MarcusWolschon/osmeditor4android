@@ -332,7 +332,6 @@
   <string name="menu_gps_goto">Ir a posición GPS</string>
   <string name="menu_gps_start">Iniciar pista GPS</string>
   <string name="menu_gps_pause">Pausar pista GPS</string>
-  <string name="menu_gps_clear">Borrar pista GPS</string>
   <string name="menu_gps_track_managment">Xestión da pista…</string>
   <string name="menu_gps_upload">Subir pista GPS</string>
   <string name="menu_gps_export">Exportar pista GPS</string>

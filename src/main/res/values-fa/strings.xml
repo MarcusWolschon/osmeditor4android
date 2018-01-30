@@ -134,7 +134,6 @@
   <string name="menu_gps_follow">دنبال کردن موقعیت  GPS</string>
   <string name="menu_gps_start">شروع پیگیری جی پی اس</string>
   <string name="menu_gps_pause">توقف پیگیری جی پی اس</string>
-  <string name="menu_gps_clear">پاک کردن پیگیری جی پی اس</string>
   <string name="menu_gps_upload">آپلود پیگیری جی پی اس</string>
   <string name="menu_gps_export">خارج سازی پیگیری جی پی اس</string>
   <string name="menu_transfer">انتقال...</string>

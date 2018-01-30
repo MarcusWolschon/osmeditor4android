@@ -236,7 +236,6 @@
   <string name="menu_gps_goto">GPS konumuna git</string>
   <string name="menu_gps_start">GPS izini başlat</string>
   <string name="menu_gps_pause">GPS izini duraklat</string>
-  <string name="menu_gps_clear">GPS izini temizle</string>
   <string name="menu_gps_track_managment">İz yönetimi...</string>
   <string name="menu_gps_upload">GPS izini yükle</string>
   <string name="menu_gps_export">GPS izini dışa aktar</string>

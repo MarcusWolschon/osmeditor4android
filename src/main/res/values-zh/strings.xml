@@ -217,7 +217,6 @@
   <string name="menu_gps_goto">前往GPS位置</string>
   <string name="menu_gps_start">启动GPS轨迹</string>
   <string name="menu_gps_pause">暂停GPS轨迹</string>
-  <string name="menu_gps_clear">清楚GPS轨迹</string>
   <string name="menu_gps_upload">上传GPS轨迹</string>
   <string name="menu_gps_export">导出GPS轨迹</string>
   <string name="menu_gps_import">导入GPS轨迹</string>

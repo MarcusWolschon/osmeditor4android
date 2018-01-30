@@ -335,7 +335,6 @@
   <string name="menu_gps_goto">Ir a posición GPS</string>
   <string name="menu_gps_start">Iniciar traza GPS</string>
   <string name="menu_gps_pause">Pausar traza GPS</string>
-  <string name="menu_gps_clear">Limpiar traza GPS</string>
   <string name="menu_gps_track_managment">Gestión de trazas...</string>
   <string name="menu_gps_upload">Subir traza GPS</string>
   <string name="menu_gps_export">Exportar traza GPS</string>

@@ -215,7 +215,6 @@
   <string name="menu_gps_goto">Μετάβαση στη θέση GPS</string>
   <string name="menu_gps_start">Έναρξη ίχνους </string>
   <string name="menu_gps_pause">Παύση ίχνους </string>
-  <string name="menu_gps_clear">Καθαρισμός ίχνους </string>
   <string name="menu_gps_upload">Αποστολή ίχνους </string>
   <string name="menu_gps_export">Εξαγωγή ίχνους </string>
   <string name="menu_gps_import">Εισαγωγή ίχνους GPS</string>

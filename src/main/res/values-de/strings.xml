@@ -400,12 +400,13 @@
   <string name="menu_gps_goto">Gehe zu GPS Position</string>
   <string name="menu_gps_start">GPS-Track starten</string>
   <string name="menu_gps_pause">GPS-Track pausieren</string>
-  <string name="menu_gps_clear">GPS-Track löschen</string>
+  <string name="menu_gps_clear">GPS-Track und Wegpunkte löschen</string>
   <string name="menu_gps_track_managment">Trackverwaltung</string>
   <string name="menu_gps_upload">GPS-Track hochladen</string>
   <string name="menu_gps_export">GPS-Track exportieren</string>
   <string name="menu_gps_import">GPS Track importieren</string>
   <string name="menu_gps_goto_start">An den Anfang des Tracks</string>
+  <string name="menu_gps_goto_first_waypoint">Zum ersten Wegpunkt zoomen</string>
   <string name="menu_gps_autodownload">Automatischer Download</string>
   <string name="menu_transfer">Übertragung…</string>
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>

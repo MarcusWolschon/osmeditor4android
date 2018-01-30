@@ -170,6 +170,7 @@
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
+  <string name="toast_min_zoom">Il livello minimo di ingrandimento deve essere inferiore a quello massimo</string>
   <string name="toast_no_changes">Non hai ancora modificato niente…</string>
   <string name="toast_unsaved_changes">Hai delle modifiche non salvate, caricale prima di proseguire.</string>
   <string name="clear_anyway">Cancella comunque?</string>
@@ -204,6 +205,7 @@
   <string name="toast_oauth_timeout">Tempo scaduto durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_communication">Errore di comunicazione durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_handshake_failed">connessione OAuth fallita: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Il login tramite google non è al momento supportato</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
@@ -263,6 +265,7 @@
   <string name="set">Imposta</string>
   <string name="replace">Sostituisci</string>
   <string name="save">Salva</string>
+  <string name="save_and_set">Salva e imposta</string>
   <string name="back">Indietro</string>
   <string name="forward">Avanti</string>
   <string name="keep">Mantieni</string>
@@ -380,12 +383,13 @@
   <string name="menu_gps_goto">Vai alla posizione GPS</string>
   <string name="menu_gps_start">Inizia traccia GPS</string>
   <string name="menu_gps_pause">Pausa traccia GPS</string>
-  <string name="menu_gps_clear">Cancella traccia GPS</string>
+  <string name="menu_gps_clear">Cancella traccia gps</string>
   <string name="menu_gps_track_managment">Gestione delle tracce...</string>
   <string name="menu_gps_upload">Carica traccia GPS</string>
   <string name="menu_gps_export">Esporta traccia GPS</string>
   <string name="menu_gps_import">Importa traccia GPS</string>
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia</string>
+  <string name="menu_gps_goto_first_waypoint">Vai alla prima coordinata</string>
   <string name="menu_gps_autodownload">Scarica automaticamente</string>
   <string name="menu_transfer">Trasferimento…</string>
   <string name="menu_transfer_download_current">Scarica vista corrente</string>

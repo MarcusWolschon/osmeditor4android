@@ -126,7 +126,6 @@
   <string name="menu_gps_follow">Prati GPS poziciju</string>
   <string name="menu_gps_start">Pokreni GPS trag</string>
   <string name="menu_gps_pause">Pauziraj GPS trag</string>
-  <string name="menu_gps_clear">Obriši GPS trag</string>
   <string name="menu_gps_upload">Pošalji GPS trag</string>
   <string name="menu_gps_export">Izvezi GPS trag</string>
   <string name="menu_transfer">Prijenos…</string>

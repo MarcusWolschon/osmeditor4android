@@ -380,7 +380,6 @@
   <string name="menu_gps_goto">Ugrás GPS pozícióra</string>
   <string name="menu_gps_start">GPS nyomvonal indítása</string>
   <string name="menu_gps_pause">GPS nyomvonal szüneteltetése</string>
-  <string name="menu_gps_clear">GPS nyomvonal törlése</string>
   <string name="menu_gps_track_managment">Nyomvonal kezelése</string>
   <string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
   <string name="menu_gps_export">GPS nyomvonal exportálása</string>

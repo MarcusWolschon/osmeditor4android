@@ -78,7 +78,6 @@
   <string name="menu_gps_follow">Følj GPS-posisjon</string>
   <string name="menu_gps_start">Start GPS-spor</string>
   <string name="menu_gps_pause">Sett GPS-sporing på pause</string>
-  <string name="menu_gps_clear">Fjern GPS-spor</string>
   <string name="menu_gps_upload">Last opp GPS-spor</string>
   <string name="menu_gps_export">Eksporter GPS-spor</string>
   <string name="menu_transfer">Overfør…</string>

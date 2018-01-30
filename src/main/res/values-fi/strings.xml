@@ -327,7 +327,6 @@
   <string name="menu_gps_goto">Siirry GPS-sijaintiin</string>
   <string name="menu_gps_start">Aloita GPS-jälki</string>
   <string name="menu_gps_pause">Pysäytä GPS-jälki</string>
-  <string name="menu_gps_clear">Nollaa GPS-jälki</string>
   <string name="menu_gps_track_managment">Jälkien hallinta...</string>
   <string name="menu_gps_upload">Lähetä GPS-jälki</string>
   <string name="menu_gps_export">Vie GPS-jälki</string>

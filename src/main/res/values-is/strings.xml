@@ -213,7 +213,6 @@
   <string name="menu_gps_goto">Fara á GPS-staðsetningu</string>
   <string name="menu_gps_start">Hefja GPS-slóð</string>
   <string name="menu_gps_pause">Pása GPS-upptöku</string>
-  <string name="menu_gps_clear">Hreinsa GPS-slóð</string>
   <string name="menu_gps_upload">Upphlaða GPS-slóð</string>
   <string name="menu_gps_export">Flytja GPS-slóð út</string>
   <string name="menu_gps_import">Flytja GPS-slóð inn</string>

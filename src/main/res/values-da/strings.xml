@@ -176,7 +176,6 @@
   <string name="menu_gps_goto">Gå til GPS position</string>
   <string name="menu_gps_start">Start GPS spor</string>
   <string name="menu_gps_pause">Pause GPS spor</string>
-  <string name="menu_gps_clear">Slet GPS spor</string>
   <string name="menu_gps_upload">Upload GPS track</string>
   <string name="menu_gps_export">Eksporter GPS spor</string>
   <string name="menu_gps_import">Importer GPS spor</string>

@@ -132,7 +132,6 @@
   <string name="menu_gps_goto">Ir para a posição do GPS</string>
   <string name="menu_gps_start">Iniciar trilha GPS</string>
   <string name="menu_gps_pause">Pausar trilha GPS</string>
-  <string name="menu_gps_clear">Limpar trilha GPS</string>
   <string name="menu_gps_upload">Enviar trilha GPS</string>
   <string name="menu_gps_export">Exportar trilha GPS</string>
   <string name="menu_gps_import">Importar trilha GPS</string>

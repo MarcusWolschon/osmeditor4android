@@ -241,7 +241,6 @@
   <string name="menu_gps_goto">GPS位置へ移動</string>
   <string name="menu_gps_start">GPSトラッキング開始</string>
   <string name="menu_gps_pause">GPSトラッキングを一時停止</string>
-  <string name="menu_gps_clear">GPSトラッキング結果をクリア</string>
   <string name="menu_gps_upload">GPSトラックをアップロード</string>
   <string name="menu_gps_export">GPSトラッキング結果を出力</string>
   <string name="menu_gps_import">GPSトラックをインポートする</string>

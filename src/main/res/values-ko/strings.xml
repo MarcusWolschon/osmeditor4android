@@ -299,7 +299,6 @@
   <string name="menu_gps_goto">GPS 위치로 가기</string>
   <string name="menu_gps_start">GPS 트랙 시작</string>
   <string name="menu_gps_pause">GPS 트랙 일시 정지</string>
-  <string name="menu_gps_clear">GPS 트랙 지우기</string>
   <string name="menu_gps_track_managment">트랙 관리...</string>
   <string name="menu_gps_upload">GPS 트랙 업로드</string>
   <string name="menu_gps_export">GPS 트랙 내보내기</string>

@@ -264,7 +264,6 @@
   <string name="menu_gps_goto">Prejsť na pozíciu GPS</string>
   <string name="menu_gps_start">Začať stopu GPS</string>
   <string name="menu_gps_pause">Pozastaviť stopu GPS</string>
-  <string name="menu_gps_clear">Vymazať stopu GPS</string>
   <string name="menu_gps_track_managment">Správa stôp...</string>
   <string name="menu_gps_upload">Odovzdať stopu GPS</string>
   <string name="menu_gps_export">Exportovať stopu GPS</string>

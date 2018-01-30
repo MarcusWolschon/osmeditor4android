@@ -94,7 +94,6 @@
   <string name="menu_gps_follow">Jarraitu GPSaren kokapena</string>
   <string name="menu_gps_start">Hasi GPS bidea</string>
   <string name="menu_gps_pause">GPS bidea pausatu</string>
-  <string name="menu_gps_clear">Garbitu GPS bidea</string>
   <string name="menu_gps_upload">Igo GPS bidea</string>
   <string name="menu_gps_export">GPS bidea esportatu</string>
   <string name="menu_transfer">Transferitu...</string>

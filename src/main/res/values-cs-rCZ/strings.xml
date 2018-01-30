@@ -298,7 +298,6 @@
   <string name="menu_gps_goto">Jít na GPS pozici</string>
   <string name="menu_gps_start">Spustit GPS stopu</string>
   <string name="menu_gps_pause">Pozastavit GPS stopu</string>
-  <string name="menu_gps_clear">Smazat GPS stopu</string>
   <string name="menu_gps_track_managment">Spravovat stopu...</string>
   <string name="menu_gps_upload">Nahrát GPS stopu na server</string>
   <string name="menu_gps_export">Exportovat GPS stopu</string>
