@@ -1357,12 +1357,13 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && gpsProviderEnabled && networkConnected)
                 .setChecked(bugAutoDownload());
 
-        boolean trackerHasPoints = getTracker() != null && getTracker().getTrackPoints() != null && !getTracker().getTrackPoints().isEmpty();
-        menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasPoints);
-        menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasPoints);
-        menu.findItem(R.id.menu_gps_goto_first_waypoint).setEnabled(getTracker() != null && getTracker().getWayPoints() != null && !getTracker().getWayPoints().isEmpty());
+        boolean trackerHasTrackPoints = getTracker() != null && getTracker().hasTrackPoints();
+        boolean trackerHasWayPoints = getTracker() != null && getTracker().hasWayPoints();
+        menu.findItem(R.id.menu_gps_clear).setEnabled(trackerHasTrackPoints || trackerHasWayPoints);
+        menu.findItem(R.id.menu_gps_goto_start).setEnabled(trackerHasTrackPoints);
+        menu.findItem(R.id.menu_gps_goto_first_waypoint).setEnabled(trackerHasWayPoints);
         menu.findItem(R.id.menu_gps_import).setEnabled(getTracker() != null);
-        menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasPoints && networkConnected);
+        menu.findItem(R.id.menu_gps_upload).setEnabled(trackerHasTrackPoints && networkConnected);
 
         final Logic logic = App.getLogic();
         MenuItem undo = menu.findItem(R.id.menu_undo);

@@ -344,6 +344,33 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
+     * Check if we've stored any GPX elements
+     * 
+     * @return true is we have a track or way point stored
+     */
+    public boolean isEMpty() {
+        return track == null || track.isEmpty();
+    }
+    
+    /**
+     * Check if we have any TrackPoints
+     * 
+     * @return true is TrackPoints are stored
+     */
+    public boolean hasTrackPoints() {
+        return track != null && track.getTrackPoints() != null && !track.getTrackPoints().isEmpty();
+    }
+    
+    /**
+     * Check if we have any WayPoints
+     * 
+     * @return true is WayPoints are stored
+     */
+    public boolean hasWayPoints() {
+        return track != null && track.getWayPoints() != null && track.getWayPoints().length > 0;
+    }
+    
+    /**
      * Exports the GPX data
      */
     @Override

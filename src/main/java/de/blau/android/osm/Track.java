@@ -159,6 +159,15 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         currentTrack.clear();
         currentWayPoints.clear();
     }
+    
+    /**
+     * Check if we have any stored elements
+     * 
+     * @return true if there are neither track or way points stored
+     */
+    public boolean isEmpty() {
+        return (currentTrack == null || currentTrack.isEmpty()) && (currentWayPoints == null || currentWayPoints.isEmpty());
+    }
 
     /**
      * Create and add a TrackPoint from an Android Location

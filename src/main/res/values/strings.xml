@@ -402,7 +402,7 @@
     <string name="menu_gps_goto">Goto GPS position</string>
     <string name="menu_gps_start">Start GPS track</string>
     <string name="menu_gps_pause">Pause GPS track</string>
-    <string name="menu_gps_clear">Clear GPS track</string>
+    <string name="menu_gps_clear">Clear GPS track and waypoints</string>
     <string name="menu_gps_track_managment">Track management...</string>
     <string name="menu_gps_upload">Upload GPS track</string>
     <string name="menu_gps_export">Export GPS track</string>
