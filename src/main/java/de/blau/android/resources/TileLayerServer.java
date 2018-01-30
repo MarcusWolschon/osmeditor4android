@@ -1015,11 +1015,13 @@ public class TileLayerServer {
         Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
         AssetManager assetManager = ctx.getAssets();
         try {
-            writeableDb.beginTransaction();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                writeableDb.beginTransaction();
+            }
             // delete old
             TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
             TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_ELI);
-  
+
             // still need to read out base config first
             try {
                 InputStream is = assetManager.open(Files.FILE_NAME_VESPUCCI_IMAGERY);
@@ -1033,7 +1035,9 @@ public class TileLayerServer {
                 conn.setRequestProperty("User-Agent", App.getUserAgent());
                 is = conn.getInputStream();
                 parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
-                writeableDb.setTransactionSuccessful();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    writeableDb.setTransactionSuccessful();
+                }
                 getListsLocked(ctx, writeableDb, true);
                 MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
                 if (layer != null) {
@@ -1043,7 +1047,9 @@ public class TileLayerServer {
                 SavingHelper.close(is);
             }
         } finally {
-            writeableDb.endTransaction();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                writeableDb.endTransaction();
+            }
         }
     }
 
