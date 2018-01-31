@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.1.0-7: Fix dialog layouts, add way to delete a custom imagery layer. 
+
 10.1.0-6: Some fixes for pre-Honeycomb devices, allow deleting of waypoints, updated translations.
 
 10.1.0-5: Workaround sub-menu Android bug on tablets running Android 7.0 and later, fix issue with layer ordering on date, add goto 1st waypoint method.
