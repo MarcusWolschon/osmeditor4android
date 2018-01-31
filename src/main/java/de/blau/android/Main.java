@@ -414,6 +414,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private boolean saveSync = false; // save synchronously instead of async
 
+    private boolean haveCamera = false; // true if we have a camera
+
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
      */
@@ -599,6 +601,8 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         easyEditManager = new EasyEditManager(this);
+        
+        haveCamera = checkForCamera(); // we recall this in onResume just to be safe
 
         // show welcome dialog
         if (newInstall) {
@@ -694,6 +698,8 @@ public class Main extends FullScreenAppCompatActivity
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         connectivityChangedReceiver = new ConnectivityChangedReceiver();
         registerReceiver(connectivityChangedReceiver, filter);
+        
+        haveCamera = checkForCamera();
 
         PostAsyncActionHandler postLoadData = new PostAsyncActionHandler() {
             private static final long serialVersionUID = 1L;
@@ -798,6 +804,18 @@ public class Main extends FullScreenAppCompatActivity
             logic.setFilter(new TagFilter(this));
             logic.getFilter().addControls(getMapLayout(), updater);
         }
+    }
+
+    /**
+     * Ceck if this device has an active camera
+     * 
+     * @return true is a camera is present
+     */
+    private boolean checkForCamera() {
+        // determine if we have a camera
+        PackageManager pm = getPackageManager();
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null;
     }
 
     /**
@@ -1425,9 +1443,7 @@ public class Main extends FullScreenAppCompatActivity
 
         menuUtil.setShowAlways(menu);
         // only show camera icon if we have a camera, and a camera app is installed
-        PackageManager pm = getPackageManager();
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null) {
+        if (haveCamera) {
             MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),
                     prefs.showCameraAction() ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS : MenuItemCompat.SHOW_AS_ACTION_NEVER);
         } else {
