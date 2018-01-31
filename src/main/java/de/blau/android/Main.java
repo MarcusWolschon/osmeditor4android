@@ -1434,7 +1434,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters())
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false); // will run out of memory on old Android versions
         }
         
