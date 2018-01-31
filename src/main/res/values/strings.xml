@@ -182,6 +182,7 @@
     <string name="coverage_bottom">Bottom</string>
     <string name="preferred">Preferred</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
+    <string name="delete_layer">Delete layer?</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>

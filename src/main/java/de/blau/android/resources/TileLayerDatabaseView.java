@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.App;
@@ -53,6 +56,29 @@ public class TileLayerDatabaseView {
             public void onDismiss(DialogInterface dialog) {
                 layerCursor.close();
                 writableDb.close();
+            }
+        });
+
+        layerList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long _id) {
+                final Integer id = (Integer) view.getTag();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+                alertDialog.setTitle(R.string.delete_layer);
+                alertDialog.setNeutralButton(R.string.cancel, null);
+                alertDialog.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        TileLayerDatabase.deleteLayerWithRowId(writableDb, id);
+                        newLayerCursor(writableDb);
+                        resetLayer(activity, writableDb);
+                    }
+
+                });
+                alertDialog.show();
+                return true;
             }
         });
         final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
@@ -97,7 +123,7 @@ public class TileLayerDatabaseView {
 
             TextView nameView = (TextView) view.findViewById(R.id.name);
             nameView.setText(name);
-
+            view.setLongClickable(true);
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
