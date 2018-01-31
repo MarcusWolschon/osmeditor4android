@@ -680,6 +680,7 @@
     <string name="url">URL</string>
     <string name="default_">Default</string>
     <string name="regular_expression">Regular expression</string>
+    <string name="state">State</string>
     <!--   -->
     <string name="empty_list">No entries</string>
     <string name="api_name">API Name</string>

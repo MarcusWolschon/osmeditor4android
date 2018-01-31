@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="?attr/dialogPreferredPadding">
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:padding="?attr/dialogPreferredPadding" >
-
-        <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp">
+        <TextView
+            android:id="@+id/openstreetbug_title"
+            android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:text="" />
+        <TextView
+            android:id="@+id/openstreetbug_state_legend"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/openstreetbug_title"
+            android:layout_alignParentLeft="true"
+            android:text="@string/state" />
+        <Spinner
+            android:id="@+id/openstreetbug_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/openstreetbug_state_legend"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/openstreetbug_comments"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/openstreetbug_state_legend"
             android:layout_marginTop="10dp"
-            android:paddingBottom="20dp" >
-
-              <TextView
-                android:id="@+id/openstreetbug_title"
-                android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="" />
-              
-            <Spinner
-                android:id="@+id/openstreetbug_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/openstreetbug_title"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp" />
-
-            <TextView
-                android:id="@+id/openstreetbug_comments"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/openstreetbug_title"
-                android:layout_marginTop="10dp"
-                android:text="" />
-
-			<LinearLayout
-			    android:id="@+id/openstreetbug_element_layout"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_below="@id/openstreetbug_comments"
-			    android:layout_marginTop="10dp"
-			    android:orientation="vertical" >
-			</LinearLayout>
-            <TextView
-                android:id="@+id/openstreetbug_comment_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/openstreetbug_comments"
-                android:text="@string/openstreetbug_comment_label" />
-            <EditText
-                android:id="@+id/openstreetbug_comment"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/openstreetbug_comment_label"
-                android:layout_alignParentLeft="true"
-                android:inputType="textMultiLine" />
-        </RelativeLayout>
-    </ScrollView>
+            android:text="" />
+        <LinearLayout
+            android:id="@+id/openstreetbug_element_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/openstreetbug_comments"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+        </LinearLayout>
+        <TextView
+            android:id="@+id/openstreetbug_comment_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/openstreetbug_comments"
+            android:text="@string/openstreetbug_comment_label" />
+        <EditText
+            android:id="@+id/openstreetbug_comment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/openstreetbug_comment_label"
+            android:layout_alignParentLeft="true"
+            android:inputType="textMultiLine" />
+    </RelativeLayout>
+</ScrollView>
