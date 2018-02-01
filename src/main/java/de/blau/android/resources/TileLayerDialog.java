@@ -230,8 +230,7 @@ public class TileLayerDialog {
             }
         });
         final TileLayerServer existingLayer = layer;
-        final String name = nameEdit.getText().toString().trim();
-        final String layerId = layer == null ? name.toUpperCase() : layer.getId();
+
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
         final boolean isOverlay = overlayCheck.isChecked();
@@ -239,6 +238,8 @@ public class TileLayerDialog {
         final OnClickListener saveListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = nameEdit.getText().toString().trim();
+                String layerId = existingLayer == null ? name.toUpperCase() : existingLayer.getId();
                 Provider provider = new Provider();
                 String leftText = ((EditText) templateView.findViewById(R.id.left)).getText().toString().trim();
                 String bottomText = ((EditText) templateView.findViewById(R.id.bottom)).getText().toString().trim();
@@ -314,6 +315,8 @@ public class TileLayerDialog {
             @Override
             public void onClick(View v) {
                 saveListener.onClick(v);
+                String name = nameEdit.getText().toString().trim(); // necessary code duplication
+                String layerId = existingLayer == null ? name.toUpperCase() : existingLayer.getId(); 
                 TileLayerServer savedLayer = TileLayerDatabase.getLayer(activity, db, layerId);
                 if (savedLayer != null) {
                     if (isOverlay) {
