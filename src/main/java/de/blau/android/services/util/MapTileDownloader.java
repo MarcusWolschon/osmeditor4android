@@ -175,10 +175,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                  * blocks it for the whole existence of this TileDownloader. -> we remove it and the application has to
                  * re-request it.
                  */
-            } catch (RemoteException re) {
-                Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + re);
-            } catch (NullPointerException npe) {
-                Log.e(DEBUGTAG, "Error calling mapTileLoaded for MapTile. Exception: " + npe);
+            } catch (RemoteException | NullPointerException | IllegalArgumentException e) {
+                Log.e(DEBUGTAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
             } finally {
                 StreamUtils.closeStream(in);
                 StreamUtils.closeStream(out);
