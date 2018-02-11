@@ -68,7 +68,12 @@ public class OAMTest {
     public void oamCatalog() {
         mockServer.enqueue("oam");
         OAMCatalog catalog = new OAMCatalog();
-        List<OAMCatalog.Entry> list = catalog.getEntries(mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
+        List<OAMCatalog.Entry> list = null;
+        try {
+            list = catalog.getEntries(mockServerString, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D));
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
         Assert.assertEquals(100, list.size());
         Assert.assertEquals(100, catalog.getLimit());
         OAMCatalog.Entry entry = list.get(12);

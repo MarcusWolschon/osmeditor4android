@@ -211,10 +211,8 @@ public class TransferTasks {
                                 if (nc != null && nc.isNew()) {
                                     uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
                                 } else {
-                                    uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; // just
-                                                                                                                                 // a
-                                                                                                                                 // state
-                                                                                                                                 // change
+                                    // just a state change
+                                    uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; 
                                 }
                             } else if (b instanceof OsmoseBug) {
                                 uploadFailed = uploadOsmoseBug(main, (OsmoseBug) b, false, null) || uploadFailed;
