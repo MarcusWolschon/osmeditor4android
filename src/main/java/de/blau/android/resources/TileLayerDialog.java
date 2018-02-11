@@ -259,7 +259,7 @@ public class TileLayerDialog {
             @Override
             public void onClick(View v) {
                 String name = nameEdit.getText().toString().trim();
-                layerId = existingLayer == null ? TileLayerServer.nameToId(name) : existingLayer.getId();
+                layerId = existing ? existingLayer.getId() : TileLayerServer.nameToId(name);
                 isOverlay = overlayCheck.isChecked();
                 Provider provider = new Provider();
                 String leftText = ((EditText) templateView.findViewById(R.id.left)).getText().toString().trim();
