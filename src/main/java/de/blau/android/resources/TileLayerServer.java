@@ -613,7 +613,7 @@ public class TileLayerServer {
         }
         if (this.id == null) {
             // generate id from name
-            this.id = this.name.replaceAll("[\\W\\_]", "");
+            this.id = nameToId(this.name);
         }
         //
         this.id = this.id.toUpperCase(Locale.US);
@@ -686,6 +686,16 @@ public class TileLayerServer {
                 tileUrl = t.replace(switchPos, switchEnd + 1, "{subdomain}").toString();
             }
         }
+    }
+
+    /**
+     * Munge a name in to something id like
+     * 
+     * @param name input name String
+     * @return a String with an id
+     */
+    public static String nameToId(final String name) {
+        return name.replaceAll("[\\W\\_]", "").toUpperCase(Locale.US);
     }
 
     /**
