@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
+"PO-Revision-Date: 2018-02-03 20:06+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/openstreetmap/presets/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -2185,7 +2185,7 @@ msgstr ""
 #: master_preset.xml:1826(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5110(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "Direcció"
 
 #: master_preset.xml:8829(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"

@@ -166,7 +166,7 @@ Vespucci 擁有簡單的衝突解決器。然後如果你懷疑你的編輯有�
 
 ## 備註和錯誤
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci 支援下載、回應和關閉 OSM 註解 (先前的 OSM 臭蟲)，以及相等功能由 [OSMOSE 品質監控工具](http://osmose.openstreetmap.fr/en/map/)產生的"臭蟲"。兩者都能完整下載下來，或者你可以使用自動下載功能，馬下輔助你取得所在區域的物件。一旦編輯或關閉，你可以馬上上傳臭蟲或是註解，或是全部一次上傳。
 
 註解和臭蟲會以小蟲子圖示  ![Bug](../images/bug_open.png) 顯示在地圖上面，綠色代表關閉/解決，藍色代表被新增或是由你編輯過，而黃色表示仍然有效還沒有變動。 
 
@@ -207,12 +207,12 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 重新踏察列表擁有以下內容：
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **鍵** - 感興趣標籤的鍵。
+* **值** - 感興趣標籤應該要的值，如果是空白的話則標籤的值會被忽略。
+* **年齡** - 離上次元素變動的時間過了多少天了，代表可能需要重新踏察。如果有 check_date 欄位則會用到，不然就是依據現在版本是那一天創建的。設為零則會簡單檢查鍵和值。
+* **正規表示式** - 如果檢查 **值**則會假定是 JAVA 的正規表示式。 
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**鍵** 和 **值** 會與問題物件 _existing_ tags 相比檢查。
 
 #### 檢查選項
 
@@ -237,13 +237,12 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 ### 設定，當您可能想要更改
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* 背景圖層
+* 地圖覆疊層。增加覆疊可能會替較舊或是記憶體較少的裝置造成問題。預設：無。
+* 註解/臭蟲顯示。開啟註解和臭蟲，並且以黃色蟲子圖示表示，關閉的則是相同圖示綠色顯示。預設：開啟。
+* 圖片圖層。顯示有地理參照的圖片，並且以紅色照相機圖示顯示，如果有方向資訊的話，圖示會旋轉。預設：關閉。* 節點圖示。預設：開啟。
+* 保持螢幕開啟。預設：關閉。
+* 大的節點拖曳區域。在觸控裝置上移動節點是相當大的問題，而且你的手指會遮住目前位置。開啟這個功能可以中心外的拖拉相當大的區域 (選擇和其他操作仍然使用相當的觸控容許區域)。預設：關閉。 
 
 進階參數選項
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
+"PO-Revision-Date: 2018-02-09 20:25+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/openstreetmap/presets/language/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -10459,7 +10459,7 @@ msgstr "Materiał ścian budynku"
 #: master_preset.xml:8181(combo:display_values|group:Buildings|preset:Residential_Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr ""
+msgstr "Bungalow"
 
 #: master_preset.xml:8155(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"

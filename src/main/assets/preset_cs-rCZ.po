@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
+"PO-Revision-Date: 2018-02-05 10:11+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -1669,7 +1669,7 @@ msgstr "Firma"
 
 #: master_preset.xml:7304(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
-msgstr ""
+msgstr "Stlačený vzduch"
 
 #: master_preset.xml:10052(item:name|group:Electronics|preset:Computer)
 msgid "Computer"
@@ -3644,7 +3644,7 @@ msgstr ""
 
 #: master_preset.xml:11726(item:name|group:Geography|preset:Islet)
 msgid "Islet"
-msgstr ""
+msgstr "Ostrůvek"
 
 #: master_preset.xml:363(combo:display_values|key:smoking)
 msgid "Isolated"
@@ -3871,7 +3871,7 @@ msgstr ""
 #: master_preset.xml:1445(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:1463(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr ""
+msgstr "Vlevo"
 
 #: master_preset.xml:1420(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: master_preset.xml:1446(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -4662,7 +4662,7 @@ msgstr ""
 
 #: master_preset.xml:6310(item:name|group:Education|preset:Music_School)
 msgid "Music School"
-msgstr ""
+msgstr "Hudební škola"
 
 #: master_preset.xml:5704(item:name|group:Culture|preset:Music_theatres)
 msgid "Music theatres"
@@ -5699,7 +5699,7 @@ msgstr ""
 
 #: master_preset.xml:570(combo:text|key:phases)
 msgid "Phases"
-msgstr ""
+msgstr "Fáze"
 
 #: master_preset.xml:12570(text:text|group:Addresses_and_Contact|preset:Contact|key:phone)
 #: master_preset.xml:12591(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:phone)
@@ -6668,7 +6668,7 @@ msgstr ""
 #: master_preset.xml:1453(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1471(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Vpravo"
 
 #: master_preset.xml:1426(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1452(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)
@@ -8550,7 +8550,7 @@ msgstr ""
 
 #: master_preset.xml:3875(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
-msgstr ""
+msgstr "Napětí"
 
 #: master_preset.xml:116(combo:text|key:voltage)
 #: master_preset.xml:496(combo:text|key:voltage)
@@ -11674,7 +11674,7 @@ msgstr "Ostrov"
 #: master_preset.xml:11410(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
-msgstr ""
+msgstr "Stav"
 
 #: master_preset.xml:11842(combo:text|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
@@ -11814,7 +11814,7 @@ msgstr ""
 #: master_preset.xml:12535(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr ""
+msgstr "Stav"
 
 #: master_preset.xml:12612(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"

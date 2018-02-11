@@ -4,6 +4,7 @@
   <string name="mode_indoor">داخلي</string>
   <!--Dialogs-->
   <string name="transfer_download_current_upload">رفع</string>
+  <string name="welcome_title">مرحبًا</string>
   <string name="upload_gpx_description_label">الوصف</string>
   <string name="upload_gpx_visibility_label">الرؤية</string>
   <string name="imagery_offset_description">الوصف</string>

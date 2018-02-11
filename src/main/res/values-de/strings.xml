@@ -180,6 +180,7 @@
   <string name="coverage_bottom">Unten</string>
   <string name="preferred">Bevorzugt</string>
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
+  <string name="delete_layer">Hintergrund löschen?</string>
   <!--Toaster-->
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
@@ -642,7 +643,7 @@
   <string name="config_js_console_title">JS Konsole freischalten</string>
   <string name="config_js_console_summary">Den \"live\" Modus der JS Konsole freischalten</string>
   <string name="config_validatorprefs_title">Validations Einstellungen</string>
-  <string name="config_customlayers_title">Benutzerdefinierter Hintergründe</string>
+  <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
   <string name="manage_apis">APIs verwalten</string>
   <string name="manage_presets">Vorlagen verwalten</string>
   <string name="manage_geocoders">Geocoder verwalten</string>
@@ -677,6 +678,7 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <string name="regular_expression">Regulärer Ausdruck</string>
+  <string name="state">Status</string>
   <!---->
   <string name="empty_list">Keine Einträge</string>
   <string name="api_name">API Namen</string>

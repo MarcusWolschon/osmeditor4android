@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
+"PO-Revision-Date: 2018-02-04 00:24+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1399,7 +1399,7 @@ msgstr ""
 
 #: master_preset.xml:11694(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
-msgstr ""
+msgstr "出入口（洞窟）"
 
 #: master_preset.xml:12289(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
@@ -2507,7 +2507,7 @@ msgstr ""
 #: master_preset.xml:12747(role:text|group:Relations|preset:Building|key:entrance)
 #: master_preset.xml:8302(item:name|preset:Entrance)
 msgid "Entrance"
-msgstr ""
+msgstr "出入口（柵などの）"
 
 #: master_preset.xml:2359(item:name|group:Barriers|preset:Entrance_(Barrier_Opening))
 msgid "Entrance (Barrier Opening)"
@@ -3558,7 +3558,7 @@ msgstr ""
 
 #: master_preset.xml:5157(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
-msgstr ""
+msgstr "観光情報掲示板"
 
 #: master_preset.xml:5116(item:name|group:Tourism|preset:Information_Office)
 msgid "Information Office"
@@ -7620,7 +7620,7 @@ msgstr ""
 #: master_preset.xml:4233(role:text|group:Public_Transport|preset:Stop_Area|key:)
 #: master_preset.xml:4323(item:name|group:Public_Transport|preset:Subway_Entrance)
 msgid "Subway Entrance"
-msgstr ""
+msgstr "出入口（地下鉄）"
 
 #: master_preset.xml:7138(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:pump-out)
 msgid "Suction pumpout"
@@ -11512,7 +11512,7 @@ msgstr ""
 #: master_preset.xml:8314(combo:text|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Entrance"
-msgstr ""
+msgstr "出入口（柵などの）"
 
 #: master_preset.xml:8314(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"

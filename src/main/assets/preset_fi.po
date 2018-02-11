@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Mika Laari <laari@iki.fi>, 2017
+# Mika Laari <laari@iki.fi>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-01-29 13:24+0100\n"
-"PO-Revision-Date: 2018-01-29 12:25+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-02-06 13:41+0000\n"
+"Last-Translator: Mika Laari <laari@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -208,7 +208,7 @@ msgstr ""
 
 #: master_preset.xml:12555(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:inclusion)
 msgid "Accuracy"
-msgstr ""
+msgstr "Tarkkuus"
 
 #: master_preset.xml:761(list_entry:display_value|value:across)
 #: master_preset.xml:809(list_entry:display_value|value:across)
@@ -1066,7 +1066,7 @@ msgstr ""
 #: master_preset.xml:3819(combo:text|group:Car|preset:Fuel|key:brand)
 #: master_preset.xml:4153(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 msgid "Brand"
-msgstr ""
+msgstr "Merkki"
 
 #: master_preset.xml:2950(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -2012,11 +2012,11 @@ msgstr ""
 #: master_preset.xml:205(list_entry:short_description|value:designated)
 #: master_preset.xml:217(list_entry:short_description|value:designated)
 msgid "Dedicated facilities"
-msgstr "Pyörätuolivarustus"
+msgstr "Erilliset tilat"
 
 #: master_preset.xml:193(list_entry:short_description|value:room)
 msgid "Dedicated room"
-msgstr "Oma huone"
+msgstr "Erillinen huone"
 
 #: master_preset.xml:7699(check:text|group:Sport|preset:Climbing|key:climbing:deepwater)
 msgid "Deep-Water-Soloing"
@@ -2086,7 +2086,7 @@ msgstr "Kuvaus"
 #: master_preset.xml:1610(combo:display_values|group:Ways|preset:Dedicated_Cycleway|key:foot)
 #: master_preset.xml:1665(combo:display_values|group:Ways|preset:Dedicated_Footway|key:bicycle)
 msgid "Designated"
-msgstr "Tarkoitettu"
+msgstr "Erillinen"
 
 #: master_preset.xml:12981(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:860(text:text|group:Streets|preset:Motorway|key:destination)
@@ -2184,7 +2184,7 @@ msgstr ""
 #: master_preset.xml:1826(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5110(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr ""
+msgstr "Suunta"
 
 #: master_preset.xml:8829(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -5140,7 +5140,7 @@ msgstr ""
 
 #: master_preset.xml:235(text:text|key:wheelchair:places)
 msgid "Number of wheelchair seating places"
-msgstr ""
+msgstr "Pyörätuoli-istuinpaikkojen määrä"
 
 #: master_preset.xml:12553(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Numbering scheme"
@@ -5274,7 +5274,7 @@ msgstr "Yksisuuntainen polkupyörille"
 #: master_preset.xml:9929(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
 #: master_preset.xml:9973(combo:display_values|group:Clothes|preset:Shoes|key:second_hand)
 msgid "Only"
-msgstr ""
+msgstr "Ainoastaan"
 
 #: master_preset.xml:12778(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
@@ -5399,7 +5399,7 @@ msgstr ""
 
 #: master_preset.xml:326(combo:text|key:organic)
 msgid "Organic"
-msgstr ""
+msgstr "Luomu"
 
 #: master_preset.xml:9841(item:name|group:Food|preset:Organic_(deprecated))
 msgid "Organic (deprecated)"
@@ -7969,11 +7969,11 @@ msgstr ""
 
 #: master_preset.xml:213(combo:text|key:toilets:access)
 msgid "Toilet access"
-msgstr ""
+msgstr "Pääsy WC:hen"
 
 #: master_preset.xml:202(check:text|key:toilets)
 msgid "Toilets"
-msgstr ""
+msgstr "WC"
 
 #: master_preset.xml:6856(item:name|group:Facilities|preset:Toilets/Restrooms)
 msgid "Toilets/Restrooms"
@@ -8754,7 +8754,7 @@ msgstr ""
 
 #: master_preset.xml:223(text:text|key:wheelchair:description)
 msgid "Wheelchair access details"
-msgstr ""
+msgstr "Pyörätuolipääsyn yksityiskohdat"
 
 #: master_preset.xml:1696(combo:text|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Wheelchair ramp"
@@ -8762,7 +8762,7 @@ msgstr ""
 
 #: master_preset.xml:204(combo:text|key:toilets:wheelchair)
 msgid "Wheelchair toilets"
-msgstr ""
+msgstr "Inva-WC"
 
 #: master_preset.xml:216(combo:text|key:wheelchair)
 msgid "Wheelchairs"
@@ -11588,7 +11588,7 @@ msgstr "Kyllä"
 #: master_preset.xml:8467(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr ""
+msgstr "Sisältö"
 
 #: master_preset.xml:8717(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
