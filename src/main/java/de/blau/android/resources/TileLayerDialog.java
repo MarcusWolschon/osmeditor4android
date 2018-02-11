@@ -179,8 +179,23 @@ public class TileLayerDialog {
                                 if (metadata.isEmpty()) {
                                     throw new SQLiteException("metadata missing");
                                 }
-                                int[] zooms = db.getMinMaxZoom();
+                                int[] zooms = null;
+                                if (metadata.containsKey("minzoom") && metadata.containsKey("maxzoom")) {
+                                    // MBTiles 1.3 support
+                                    zooms = new int[2];
+                                    try {
+                                        zooms[0] = Integer.parseInt(metadata.get("minzoom"));
+                                        zooms[1] = Integer.parseInt(metadata.get("maxzoom"));
+                                    } catch (NumberFormatException e) {
+                                        Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
+                                        zooms = null;
+                                    }
+                                }
+                                if (zooms == null) { // extract min/max zoom from existing tiles
+                                    zooms = db.getMinMaxZoom();
+                                }
                                 db.close();
+
                                 final String format = metadata.get("format");
                                 if (!("png".equals(format) || "jpg".equals(format))) {
                                     Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
@@ -233,13 +248,19 @@ public class TileLayerDialog {
 
         final long finalStartDate = startDate;
         final long finalEndDate = endDate;
-        final boolean isOverlay = overlayCheck.isChecked();
+
         final AlertDialog dialog = alertDialog.create();
-        final OnClickListener saveListener = new View.OnClickListener() {
+
+        class SaveListener implements View.OnClickListener {
+            String  layerId   = null;
+            boolean isOverlay = false;
+            boolean saved     = false;
+
             @Override
             public void onClick(View v) {
                 String name = nameEdit.getText().toString().trim();
-                String layerId = existingLayer == null ? name.toUpperCase() : existingLayer.getId();
+                layerId = existingLayer == null ? TileLayerServer.nameToId(name) : existingLayer.getId();
+                isOverlay = overlayCheck.isChecked();
                 Provider provider = new Provider();
                 String leftText = ((EditText) templateView.findViewById(R.id.left)).getText().toString().trim();
                 String bottomText = ((EditText) templateView.findViewById(R.id.bottom)).getText().toString().trim();
@@ -307,18 +328,18 @@ public class TileLayerDialog {
                     onUpdate.update();
                 }
                 dialog.dismiss();
+                saved = true;
             }
-        };
+        }
+        ;
+        final OnClickListener saveListener = new SaveListener();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(saveListener);
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new OnClickListener() {
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new SaveListener() {
             @Override
             public void onClick(View v) {
-                saveListener.onClick(v);
-                String name = nameEdit.getText().toString().trim(); // necessary code duplication
-                String layerId = existingLayer == null ? name.toUpperCase() : existingLayer.getId(); 
-                TileLayerServer savedLayer = TileLayerDatabase.getLayer(activity, db, layerId);
-                if (savedLayer != null) {
+                super.onClick(v);
+                if (saved) {
                     if (isOverlay) {
                         prefs.setOverlayLayer(layerId);
                     } else {
