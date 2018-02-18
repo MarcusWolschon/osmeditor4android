@@ -66,58 +66,58 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
 
-    private static final String TCPSERVER = "tcpserver";
+    private static final String     TCPSERVER                   = "tcpserver";
 
-    private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
+    private static final float      TRACK_LOCATION_MIN_ACCURACY = 200f;
 
-    private static final String TAG = "TrackerService";
+    private static final String     TAG                         = "TrackerService";
 
-    private static final int LOCATION_UPDATE   = 0;
-    private static final int CONNECTION_FAILED = 1;
+    private static final int        LOCATION_UPDATE             = 0;
+    private static final int        CONNECTION_FAILED           = 1;
 
-    private static final String AUTODOWNLOAD = "autodownload";
+    private static final String     AUTODOWNLOAD                = "autodownload";
 
-    private static final String BUGAUTODOWNLOAD = "bugautodownload";
+    private static final String     BUGAUTODOWNLOAD             = "bugautodownload";
 
-    private static final String TRACK = "track";
+    private static final String     TRACK                       = "track";
 
-    private final TrackerBinder mBinder = new TrackerBinder();
+    private final TrackerBinder     mBinder                     = new TrackerBinder();
 
-    private LocationManager locationManager = null;
+    private LocationManager         locationManager             = null;
 
-    private boolean tracking = false;
+    private boolean                 tracking                    = false;
 
-    private boolean downloading = false;
+    private boolean                 downloading                 = false;
 
-    private boolean downloadingBugs = false;
+    private boolean                 downloadingBugs             = false;
 
-    private Track track;
+    private Track                   track;
 
-    private TrackerLocationListener externalListener = null;
+    private TrackerLocationListener externalListener            = null;
 
-    private boolean listenerNeedsGPS = false;
+    private boolean                 listenerNeedsGPS            = false;
 
-    private Location lastLocation        = null;
-    private Location previousLocation    = null;
-    private Location previousBugLocation = null;
+    private Location                lastLocation                = null;
+    private Location                previousLocation            = null;
+    private Location                previousBugLocation         = null;
 
-    private boolean gpsEnabled = false;
+    private boolean                 gpsEnabled                  = false;
 
-    private Preferences prefs = null;
+    private Preferences             prefs                       = null;
 
-    private Location nmeaLocation = new Location(NMEA);
+    private Location                nmeaLocation                = new Location(NMEA);
 
-    private Handler mHandler = null;
+    private Handler                 mHandler                    = null;
 
-    private NmeaTcpClient tcpClient = null;
+    private NmeaTcpClient           tcpClient                   = null;
 
-    private NmeaTcpClientServer tcpServer = null;
+    private NmeaTcpClientServer     tcpServer                   = null;
 
     private enum GpsSource {
         INTERNAL, NMEA, TCP
     }
 
-    private GpsSource source = GpsSource.INTERNAL;
+    private GpsSource           source    = GpsSource.INTERNAL;
 
     private static final String INTERNAL  = "internal";
     private static final String NMEA      = "nmea";
@@ -125,7 +125,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
     private ConnectivityManager connectivityManager;
 
-    private Validator validator;
+    private Validator           validator;
 
     @Override
     public void onCreate() {
@@ -149,8 +149,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
-            Log.e(TAG, "Received null intent"); // 
-            return START_STICKY; //NOTE not clear how or if we should return an error here
+            Log.e(TAG, "Received null intent"); //
+            return START_STICKY; // NOTE not clear how or if we should return an
+                                 // error here
         }
         if (intent.getBooleanExtra(TRACK, false)) {
             startTrackingInternal();
@@ -166,9 +167,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
-     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
-     * this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
+     * actual work. To start tracking, bind the service, then call this.
      */
     public void startTracking() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -177,9 +177,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
-     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
-     * this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
+     * actual work. To start tracking, bind the service, then call this.
      */
     public void startAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -188,9 +187,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
-     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
-     * this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
+     * actual work. To start tracking, bind the service, then call this.
      */
     public void startBugAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -199,8 +197,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
-     * See {@link #startTracking()} for the public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
+     * public method to call when tracking should be started.
      */
     private void startTrackingInternal() {
         if (tracking) {
@@ -217,8 +215,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
-     * See {@link #startTracking()} for the public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
+     * public method to call when tracking should be started.
      */
     private void startAutoDownloadInternal() {
         if (downloading)
@@ -232,8 +230,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
-     * See {@link #startTracking()} for the public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
+     * public method to call when tracking should be started.
      */
     private void startBugAutoDownloadInternal() {
         if (downloadingBugs)
@@ -247,8 +245,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
-     * See {@link #startTracking()} for the public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
+     * public method to call when tracking should be started.
      */
     private void startInternal() {
         if (tracking || downloading || downloadingBugs)
@@ -257,10 +255,12 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         Resources res = getResources();
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-                .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName()))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
-        notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title)).setContentText(res.getString(R.string.tracking_active_text))
-                .setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
+        notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title))
+                .setContentText(res.getString(R.string.tracking_active_text)).setSmallIcon(R.drawable.logo_simplified)
+                .setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
         notificationBuilder.setColor(ContextCompat.getColor(this, R.color.osm_green));
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
@@ -268,7 +268,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Stops tracking
      * 
-     * @param deleteTrack true if the track should be deleted, false if it should be kept
+     * @param deleteTrack
+     *            true if the track should be deleted, false if it should be kept
      */
     public void stopTracking(boolean deleteTrack) {
         Log.d(TAG, "Stop tracking");
@@ -333,7 +334,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     public List<TrackPoint> getTrackPoints() {
         return track.getTrackPoints();
     }
-    
+
     /**
      * Get the list of WayPoints
      * 
@@ -351,7 +352,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     public boolean isEMpty() {
         return track == null || track.isEmpty();
     }
-    
+
     /**
      * Check if we have any TrackPoints
      * 
@@ -360,7 +361,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     public boolean hasTrackPoints() {
         return track != null && track.getTrackPoints() != null && !track.getTrackPoints().isEmpty();
     }
-    
+
     /**
      * Check if we have any WayPoints
      * 
@@ -369,7 +370,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     public boolean hasWayPoints() {
         return track != null && track.getWayPoints() != null && track.getWayPoints().length > 0;
     }
-    
+
     /**
      * Exports the GPX data
      */
@@ -406,8 +407,15 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
             }
         }
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only attempt to download if
-                                                                                        // we have a network
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only
+                                                                                        // attempt
+                                                                                        // to
+                                                                                        // download
+                                                                                        // if
+                                                                                        // we
+                                                                                        // have
+                                                                                        // a
+                                                                                        // network
             if (downloading) {
                 autoDownload(location, validator);
             }
@@ -495,16 +503,25 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     }
                 } else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
                     source = GpsSource.INTERNAL;
-                    // internal NMEA resource only works if normal updates are turned on
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), this);
-                    if (prefs.getGpsSource().equals(NMEA)) {
-                        source = GpsSource.NMEA;
-                        locationManager.addNmeaListener(this);
+                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+
+                        // internal NMEA resource only works if normal updates
+                        // are turned on
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
+                                prefs.getGpsDistance(), this);
+                        if (prefs.getGpsSource().equals(NMEA)) {
+                            source = GpsSource.NMEA;
+                            locationManager.addNmeaListener(this);
+                        }
+                    } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(),
+                                prefs.getGpsDistance(), this);
                     }
                 }
                 gpsEnabled = true;
             } catch (SecurityException sex) {
-                // note there is no way we can ask for permission here so we do that in the main
+                // note there is no way we can ask for permission here so we do
+                // that in the main
                 // activity before actually creating this service
                 Log.e(TAG, "Failed to enable GPS", sex);
                 Snack.toastTopError(this, R.string.gps_failure);
@@ -544,8 +561,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Read a file in GPX format from device
      * 
-     * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
-     *            updated
+     * @param activity
+     *            activity this was called from, if null no messages will be displayed, and menus will not be updated
      * @param fileName
      * @throws FileNotFoundException
      */
@@ -594,9 +611,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
                         int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
                         int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
-                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount, wayPointCount);
+                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount,
+                                wayPointCount);
                         if (wayPointCount == 1) {
-                            message = activity.getString(R.string.toast_imported_track_points_single_way_point, trackPointCount);
+                            message = activity.getString(R.string.toast_imported_track_points_single_way_point,
+                                    trackPointCount);
                         }
                         Snack.barInfo(activity, message);
                         activity.supportInvalidateOptionsMenu();
@@ -666,12 +685,15 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         double height = Double.NaN;
 
                         if (s.equals("GNS")) {
-                            String[] values = withoutChecksum.split(",", -12); // java magic
+                            String[] values = withoutChecksum.split(",", -12); // java
+                                                                               // magic
                             if (values.length == 13) {
                                 try {
                                     String value6 = values[6].toUpperCase(Locale.US);
-                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
-                                        // at least one "good" system needs a fix
+                                    if ((!value6.startsWith("NN") || !value6.equals("N"))
+                                            && Integer.parseInt(values[7]) >= 4) {
+                                        // at least one "good" system needs a
+                                        // fix
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
                                         lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
                                         // hdop = Double.parseDouble(values[8]);
@@ -687,10 +709,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                 return;
                             }
                         } else if (s.equals("GGA")) {
-                            String[] values = withoutChecksum.split(",", -14); // java magic
+                            String[] values = withoutChecksum.split(",", -14); // java
+                                                                               // magic
                             if (values.length == 15) {
                                 try {
-                                    if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we need a fix
+                                    if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we
+                                                                                                      // need
+                                                                                                      // a
+                                                                                                      // fix
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
                                         lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
                                         // hdop = Double.parseDouble(values[8]);
@@ -706,7 +732,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                 return;
                             }
                         } else if (s.equals("VTG")) {
-                            String[] values = withoutChecksum.split(",", -11); // java magic
+                            String[] values = withoutChecksum.split(",", -11); // java
+                                                                               // magic
                             if (values.length == 12) {
                                 try {
                                     if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
@@ -727,9 +754,12 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                             // unsupported sentence
                             return;
                         }
-                        // Log.d("TrackerService","Got from NMEA " + lat + " " + lon + " " + hdop + " " + height);
-                        // the following assumes that the behaviour of the GPS receiver will not change
-                        // and assume multiple systems are better than GPS which in turn is better the GLONASS ... this
+                        // Log.d("TrackerService","Got from NMEA " + lat + " " +
+                        // lon + " " + hdop + " " + height);
+                        // the following assumes that the behaviour of the GPS
+                        // receiver will not change
+                        // and assume multiple systems are better than GPS which
+                        // in turn is better the GLONASS ... this
                         // naturally may not be really true
                         if (system == GnssSystem.NONE) { // take whatever we get
                             switch (talker) {
@@ -743,7 +773,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                 system = GnssSystem.MULTIPLE;
                                 break;
                             default:
-                                // new system we don't know about? BEIDOU probably best ignored for now
+                                // new system we don't know about? BEIDOU
+                                // probably best ignored for now
                                 return;
                             }
                         } else if (system == GnssSystem.GLONASS) {
@@ -769,7 +800,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                             nmeaLocation.setAltitude(height);
                             nmeaLocation.setLatitude(lat);
                             nmeaLocation.setLongitude(lon);
-                            // can't call something on the UI thread directly need to send a message
+                            // can't call something on the UI thread directly
+                            // need to send a message
                             Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
                             // Log.d("TrackerService","Update " + l);
                             newLocation.sendToTarget();
@@ -781,8 +813,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                                                                                             // attempt
                                                                                                             // to
                                                                                                             // download
-                                                                                                            // if we
-                                                                                                            // have a
+                                                                                                            // if
+                                                                                                            // we
+                                                                                                            // have
+                                                                                                            // a
                                                                                                             // network
                                 if (downloading) {
                                     autoDownload(new Location(nmeaLocation), validator);
@@ -797,7 +831,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     }
                     // Log.d(TAG,"Checksum failed " + sentence);
                 }
-                // Log.d(TAG,"Misformed sentence " + sentence + " star " + star + " length " + sentence.length());
+                // Log.d(TAG,"Misformed sentence " + sentence + " star " + star
+                // + " length " + sentence.length());
             }
             // Log.d(TAG,"Misformed sentence " + sentence);
         } catch (Exception e) {
@@ -925,7 +960,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                 serverSocket = new ServerSocket(port);
                 while (!canceled) {
                     Socket socket = serverSocket.accept();
-                    Log.d("TrackerService", "Incoming connection from " + socket.getRemoteSocketAddress().toString() + " ...");
+                    Log.d("TrackerService",
+                            "Incoming connection from " + socket.getRemoteSocketAddress().toString() + " ...");
                     dos = new DataOutputStream(socket.getOutputStream());
 
                     InputStreamReader isr = new InputStreamReader(socket.getInputStream());
@@ -964,7 +1000,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         // some heuristics for now to keep downloading to a minimum
         // speed needs to be <= 6km/h (aka brisk walking speed)
         int radius = prefs.getDownloadRadius();
-        if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f) && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
+        if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f)
+                && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
             StorageDelegator storageDelegator = App.getDelegator();
             ArrayList<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
             BoundingBox newBox = getNextBox(bbList, previousLocation, location, radius);
@@ -973,11 +1010,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
                     for (BoundingBox b : bboxes) {
                         if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                            // ignore super small bb likely due to rounding errors
+                            // ignore super small bb likely due to rounding
+                            // errors
                             Log.d(TAG, "getNextCenter very small bb " + b.toString());
                             continue;
                         }
-                        storageDelegator.addBoundingBox(b); // will be filled once download is complete
+                        storageDelegator.addBoundingBox(b); // will be filled
+                                                            // once download is
+                                                            // complete
                         Log.d(TAG, "getNextCenter loading " + b.toString());
                         App.getLogic().autoDownloadBox(this, prefs.getServer(), validator, b);
                     }
@@ -999,11 +1039,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Return a suitable next bounding box, simply creates a raster of the download radius size
      * 
-     * @param location current location
+     * @param location
+     *            current location
      * @return the next bounding box
      */
     @Nullable
-    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
+    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location,
+            int radius) {
         double lon = location.getLongitude();
         double lat = location.getLatitude();
         double mlat = GeoMath.latToMercator(lat);
@@ -1014,7 +1056,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
         int widthE7 = (int) (width * 1E7);
 
-        BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
+        BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7,
+                currentBottomE7 + widthE7);
 
         if (!bbLoaded(bbs, (int) (lon * 1E7D), (int) (lat * 1E7D))) {
             return b;
@@ -1064,11 +1107,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, newBox);
                     for (BoundingBox b : bboxes) {
                         if (b.getWidth() <= 1 || b.getHeight() <= 1) {
-                            // ignore super small bb likely due to rounding errors
+                            // ignore super small bb likely due to rounding
+                            // errors
                             Log.d(TAG, "bugAutoDownload very small bb " + b.toString());
                             continue;
                         }
-                        App.getTaskStorage().add(b); // will be filled once download is complete
+                        App.getTaskStorage().add(b); // will be filled once
+                                                     // download is complete
                         Log.d(TAG, "bugAutoDownloads loading " + b.toString());
                         TransferTasks.downloadBox(this, prefs.getServer(), b, true, null);
                     }

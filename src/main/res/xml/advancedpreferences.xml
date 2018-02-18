@@ -177,6 +177,11 @@
             android:key="@string/config_leaveGpsDisabled_key"
             android:summary="@string/config_leaveGpsDisabled_summary"
             android:title="@string/config_leaveGpsDisabled_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/config_gps_network_key"
+            android:summary="@string/config_gps_network_summary"
+            android:title="@string/config_gps_network_title" />
     </android.support.v7.preference.PreferenceCategory>
     <android.support.v7.preference.PreferenceCategory android:title="@string/config_category_server" >
         <android.support.v7.preference.Preference

@@ -79,7 +79,8 @@
     <string name="config_tileCacheSize_key">tileCacheSizeInt</string>
     <string name="config_maxStrokeWidth_key">maxStrokeWidthInt</string> 
     <string name="config_gps_distance_key">distanceInt</string>
-    <string name="config_gps_interval_key">intervalInt</string>   
+    <string name="config_gps_interval_key">intervalInt</string>  
+    <string name="config_gps_network_key">gpsNetwork</string>
 
     <string-array name="gps_source_keys">
 	<item>internal</item>
