@@ -538,19 +538,10 @@ public class Server {
 
         // retry if we have no response-code or a redirect
         int responseCode = con.getResponseCode();
-        if (responseCode == -1 || responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+        if (responseCode == -1 || responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
             Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
-            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
-                // this should only happen once for http->https, normal redirects work as is
-                // and we don't want to support down grading
-                boolean wasHttps = "https".equals(url.getProtocol());
-                String newUrl = con.getHeaderField("Location");
-                url = new URL(newUrl);
-                if (wasHttps && "http".equals(url.getProtocol())) {
-                    Log.w(DEBUG_TAG, "openConnectiion redirect to non-https URL " + newUrl);
-                    throw new OsmServerException(responseCode, "Cannot downgrade from https to http");
-                }
-                Log.w(DEBUG_TAG, "openConnection redirecting to " + newUrl);
+            if (responseCode != -1) {
+                url = getRedirectToHttpsUrl(url, con, responseCode);
             }
             con = (HttpURLConnection) url.openConnection();
             // --Start: header not yet sent
@@ -589,6 +580,21 @@ public class Server {
             return con.getInputStream();
         }
     }
+
+	public static URL getRedirectToHttpsUrl(URL url, HttpURLConnection con, int responseCode)
+			throws MalformedURLException, OsmServerException {
+		// this should only happen once for http->https, normal redirects work as is
+		// and we don't want to support downgrading
+		boolean wasHttps = "https".equals(url.getProtocol());
+		String newUrl = con.getHeaderField("Location");
+		url = new URL(newUrl);
+		if (wasHttps && "http".equals(url.getProtocol())) {
+		    Log.w(DEBUG_TAG, "openConnectiion redirect to non-https URL " + newUrl);
+		    throw new OsmServerException(responseCode, "Cannot downgrade from https to http");
+		}
+		Log.w(DEBUG_TAG, "openConnection redirecting to " + newUrl);
+		return url;
+	}
 
     public class DownloadErrorToast implements Runnable {
         final int     code;

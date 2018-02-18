@@ -81,7 +81,6 @@ public class PresetEditorTest {
         // MockWebServerPLus currently doesn't handle non-text bodies properly
         // so we do this manually
         MockResponse response = new MockResponse();
-        ;
         response.setHeader("Content-type", "application/zip");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = loader.getResourceAsStream("fixtures/military.zip");

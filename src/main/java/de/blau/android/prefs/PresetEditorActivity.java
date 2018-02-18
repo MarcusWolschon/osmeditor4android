@@ -29,6 +29,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
@@ -243,11 +244,21 @@ public class PresetEditorActivity extends URLListEditActivity {
                 OutputStream fileStream = null;
                 try {
                     Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
-                    HttpURLConnection conn = (HttpURLConnection) ((new URL(url)).openConnection());
+                    URL presetUrl = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) (presetUrl.openConnection());
                     conn.setInstanceFollowRedirects(true);
+                    int responseCode = conn.getResponseCode();
                     if (conn.getResponseCode() != 200) {
-                        Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
-                        return DOWNLOADED_PRESET_ERROR;
+                        Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
+                        if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
+                            URL redirectUrl = Server.getRedirectToHttpsUrl(presetUrl, conn, responseCode);
+                            conn = (HttpURLConnection) redirectUrl.openConnection();
+                            conn.setInstanceFollowRedirects(true);
+                        } 
+                        if (conn.getResponseCode() != 200) {
+                        	Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
+                        	return DOWNLOADED_PRESET_ERROR;
+                        }
                     }
                     String contentType = conn.getContentType();
                     boolean zip = (contentType != null && contentType.equalsIgnoreCase("application/zip")) || url.toLowerCase().endsWith(".zip");
