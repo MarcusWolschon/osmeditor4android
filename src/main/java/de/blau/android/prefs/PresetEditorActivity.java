@@ -254,10 +254,10 @@ public class PresetEditorActivity extends URLListEditActivity {
                             URL redirectUrl = Server.getRedirectToHttpsUrl(presetUrl, conn, responseCode);
                             conn = (HttpURLConnection) redirectUrl.openConnection();
                             conn.setInstanceFollowRedirects(true);
-                        } 
+                        }
                         if (conn.getResponseCode() != 200) {
-                        	Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
-                        	return DOWNLOADED_PRESET_ERROR;
+                            Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
+                            return DOWNLOADED_PRESET_ERROR;
                         }
                     }
                     String contentType = conn.getContentType();
