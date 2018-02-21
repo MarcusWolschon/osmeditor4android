@@ -12,7 +12,7 @@ pages:
 - Vespucci: 'index.md'
 - Introduction: 
     - 'Introduction': 'help/en/Introduction.md'
-    - '10.1.0 BETA Release notes': 'help/en/10.1.0 Release notes.md'
+    - '10.1.0 Release notes': 'help/en/10.1.0 Release notes.md'
     - '10.0.0 Release notes': 'help/en/10.0.0 Release notes.md'
     - '0.9.9 Release notes': 'help/en/0.9.9 Release notes.md'
     - '0.9.8 Release notes': 'help/en/0.9.8 Release notes.md'
