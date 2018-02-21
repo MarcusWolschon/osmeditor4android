@@ -180,6 +180,7 @@
   <string name="coverage_bottom">Fundo</string>
   <string name="preferred">Preferido</string>
   <string name="toast_invalid_box">Caixa de limites inválida ou incompleta</string>
+  <string name="delete_layer">Eliminar camada?</string>
   <!--Toaster-->
   <string name="toast_name_empty">O nome tem de estar preenchido</string>
   <string name="toast_url_empty">O URL tem de ser preenchicdo</string>
@@ -404,11 +405,13 @@ há %3$s %4$s</string>
   <string name="menu_gps_goto">Ir para posição GPS</string>
   <string name="menu_gps_start">Iniciar trilho GPS</string>
   <string name="menu_gps_pause">Pausar trilho GPS</string>
+  <string name="menu_gps_clear">Eliminar registo e marcadores GPS</string>
   <string name="menu_gps_track_managment">Gestão de trilhos...</string>
   <string name="menu_gps_upload">Enviar trilho GPS</string>
   <string name="menu_gps_export">Exportar trilho GPS</string>
   <string name="menu_gps_import">Importar trilho GPS</string>
   <string name="menu_gps_goto_start">Ir para o início do trilho</string>
+  <string name="menu_gps_goto_first_waypoint">Ir para primeiro marcador</string>
   <string name="menu_gps_autodownload">Descarregar automaticamente</string>
   <string name="menu_transfer">Transferir…</string>
   <string name="menu_transfer_download_current">Descarregar a vista atual</string>
@@ -679,6 +682,7 @@ há %3$s %4$s</string>
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
   <string name="regular_expression">Expressão regular</string>
+  <string name="state">Estado</string>
   <!---->
   <string name="empty_list">Sem entradas</string>
   <string name="api_name">Nome da API</string>

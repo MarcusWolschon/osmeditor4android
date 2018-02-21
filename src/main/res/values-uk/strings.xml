@@ -36,6 +36,8 @@
   <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
   <string name="invalid_bounding_box_title">Неприпустима обмежувальна рамка</string>
   <string name="invalid_bounding_box_message">Обрана область не відповідає вимогам API, виберіть іншу</string>
+  <string name="bounding_box_too_large_title">Ділянка для завантаження завелика</string>
+  <string name="bounding_box_too_large_message">Ділянка, яку ви намагаєтесь завантажити завелика або містить забагато даних.\n\n Наблизьтесь та спробуйте ще раз.</string>
   <string name="api_offline_title">Немає з’єднання з API</string>
   <string name="api_offline_message">Зараз немає зв’язку з API, тому а ні отримати, а ні надіслати дані неможливо.</string>
   <string name="out_of_memory_title">Недостатньо пам’яті</string>
@@ -147,6 +149,9 @@
   <string name="add_members">Додати членів</string>
   <string name="leave_empty">Залишити порожнім</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_description">WPT: %1$s</string>
+  <string name="description">Опис</string>
+  <string name="created">Створено</string>
   <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
