@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci version is 10.0.
+The current Vespucci version is 10.1.
 
 #### Is Vespucci available for other mobile platforms?
 
@@ -194,3 +194,13 @@ However you can add a file 'imagery.json' containing custom sources in the legac
 The google play store allows only one reply to a review with a maximum length of just 350 characters. If you believe that what you are experiencing is a clear malfunction please open a new issue on [github](https://github.com/MarcusWolschon/osmeditor4android/issues), if you have questions or can't find how do a specific operation you can ask on the [OpenStreetMap help site](http://help.openstreetmap.org) or one of the other OpenStreetMap communication channels. 
 
 350 characters is 100 characters less than the text above.
+
+#### On startup Vespucci complains that it can't write to a directory 
+
+Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.
+
+If the app can't write to the database it will show a message asking you to submit a crash dump and will not display any background layer. The exact reasons why this happens, even if the installation was able to create and write to the database previously and for example you just rebooted, are not clear. However in some cases is seems to be linked to Vespucci being moved to removable storage. If this happens to you try moving the app back to the regular on device storage. 
+
+To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).
+
+ 
