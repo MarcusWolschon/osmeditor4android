@@ -185,9 +185,10 @@ Recommended practice, if you no longer need the previously loaded data and have 
 
 #### How can I add a custom (aerial/satellite) imagery layer
 
-The preferred method is to add your imagery source to [the editor layer index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors.
+The preferred method is to add your imagery source to [the editor layer index](https://github.com/osmlab/editor-layer-index) so that it can be used by all OpenStreetMap editors. 
 
-However you can add a file 'imagery.json' containing custom sources in the legacy editor-layer-index format in the Vespucci folder on your device. See [sample file on google drive](https://drive.google.com/file/d/0B9pKLmh8s1h8Ti12THZRaDJPdmc/view?usp=sharing).  
+From 10.1 on, the "Advanced preferences" contain an option to add custom imagery via a form. However adding to the editor layer index is still preferred, in 10.1 you can update the complete configuration at any time by selecting the corresponding menu entry in the "Tools" menu.
+
 
 #### Why can't you provide technical support on the google play store review section
 
