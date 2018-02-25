@@ -179,54 +179,54 @@ import oauth.signpost.exception.OAuthException;
  * 
  * @author mb
  */
-public class Main extends FullScreenAppCompatActivity implements ServiceConnection, TrackerLocationListener,
-        UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback {
+public class Main extends FullScreenAppCompatActivity
+        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback {
 
-    private static final int    ZOOM_FOR_ZOOMTO                       = 22;
+    private static final int ZOOM_FOR_ZOOMTO = 22;
 
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG                             = Main.class.getName();
+    private static final String DEBUG_TAG = Main.class.getName();
 
     /**
      * Requests a {@link BoundingBox} as an activity-result.
      */
-    public static final int     REQUEST_BOUNDING_BOX                  = 0;
+    public static final int REQUEST_BOUNDING_BOX = 0;
 
     /**
      * Requests a list of {@link Tag Tags} as an activity-result.
      */
-    private static final int    REQUEST_EDIT_TAG                      = 1;
+    private static final int REQUEST_EDIT_TAG = 1;
 
     /**
      * Requests an activity-result.
      */
-    private static final int    REQUEST_IMAGE_CAPTURE                 = 2;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     /**
      * Requests voice recognition.
      */
-    public static final int     VOICE_RECOGNITION_REQUEST_CODE        = 3;
+    public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    private static final double DEFAULT_BOUNDING_BOX_RADIUS           = 4000000.0D;
+    private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
 
-    public static final String  ACTION_FINISH_OAUTH                   = "de.blau.android.FINISH_OAUTH";
+    public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
      */
-    public static final float   FABALPHA                              = 0.90f;
+    public static final float FABALPHA = 0.90f;
 
     /**
      * Date pattern used for the image file name.
      */
-    private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART     = "yyyyMMdd_HHmmss";
+    private static final String DATE_PATTERN_IMAGE_FILE_NAME_PART = "yyyyMMdd_HHmmss";
 
     /**
      * Id for requesting permissions
      */
-    private static final int    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
+    private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
 
     private class ConnectivityChangedReceiver extends BroadcastReceiver {
         @Override
@@ -242,248 +242,224 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
     }
 
-    private ConnectivityChangedReceiver              connectivityChangedReceiver;
+    private ConnectivityChangedReceiver connectivityChangedReceiver;
 
     /** Objects to handle showing device orientation. */
-    private SensorManager                            sensorManager;
-    private Sensor                                   magnetometer;
-    private Sensor                                   accelerometer;
-    private Sensor                                   rotation;
+    private SensorManager sensorManager;
+    private Sensor        magnetometer;
+    private Sensor        accelerometer;
+    private Sensor        rotation;
 
     /**
      * @see http://www.codingforandroid.com/2011/01/using-orientation-sensors-simple.html and
      *      http://www.journal.deviantdev.com/android-compass-azimuth-calculating/
      */
-    private final SensorEventListener                sensorListener                        = new SensorEventListener() {
-                                                                                               float   lastAzimut = -9999;
-                                                                                               float[] acceleration;
-                                                                                               float[] geomagnetic;
-                                                                                               float[] truncatedRotationVector;
+    private final SensorEventListener sensorListener = new SensorEventListener() {
+        float   lastAzimut = -9999;
+        float[] acceleration;
+        float[] geomagnetic;
+        float[] truncatedRotationVector;
 
-                                                                                               @Override
-                                                                                               public void onAccuracyChanged(
-                                                                                                       Sensor sensor,
-                                                                                                       int accuracy) {
-                                                                                               }
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
 
-                                                                                               @Override
-                                                                                               public void onSensorChanged(
-                                                                                                       SensorEvent event) {
-                                                                                                   float orientation[] = new float[3];
-                                                                                                   float R[] = new float[9];
-                                                                                                   if (event.sensor
-                                                                                                           .getType() == Sensor.TYPE_ROTATION_VECTOR) {
-                                                                                                       if (event.values.length > 4) {
-                                                                                                           // See
-                                                                                                           // https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
-                                                                                                           // for more information
-                                                                                                           // on this
-                                                                                                           //
-                                                                                                           // On some Samsung devices
-                                                                                                           // SensorManager.getRotationMatrixFromVector
-                                                                                                           // appears to throw an exception if rotation vector
-                                                                                                           // has
-                                                                                                           // length > 4.
-                                                                                                           // For the purposes of this class the first 4 values
-                                                                                                           // of the
-                                                                                                           // rotation vector are sufficient (see
-                                                                                                           // crbug.com/335298 for
-                                                                                                           // details).
-                                                                                                           if (truncatedRotationVector == null) {
-                                                                                                               truncatedRotationVector = new float[4];
-                                                                                                           }
-                                                                                                           System.arraycopy(
-                                                                                                                   event.values,
-                                                                                                                   0,
-                                                                                                                   truncatedRotationVector,
-                                                                                                                   0,
-                                                                                                                   4);
-                                                                                                           SensorManager
-                                                                                                                   .getRotationMatrixFromVector(
-                                                                                                                           R,
-                                                                                                                           truncatedRotationVector);
-                                                                                                       } else {
-                                                                                                           // calculate the rotation matrix
-                                                                                                           SensorManager
-                                                                                                                   .getRotationMatrixFromVector(
-                                                                                                                           R,
-                                                                                                                           event.values);
-                                                                                                       }
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float orientation[] = new float[3];
+            float R[] = new float[9];
+            if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+                if (event.values.length > 4) {
+                    // See
+                    // https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
+                    // for more information
+                    // on this
+                    //
+                    // On some Samsung devices
+                    // SensorManager.getRotationMatrixFromVector
+                    // appears to throw an exception if rotation vector
+                    // has
+                    // length > 4.
+                    // For the purposes of this class the first 4 values
+                    // of the
+                    // rotation vector are sufficient (see
+                    // crbug.com/335298 for
+                    // details).
+                    if (truncatedRotationVector == null) {
+                        truncatedRotationVector = new float[4];
+                    }
+                    System.arraycopy(event.values, 0, truncatedRotationVector, 0, 4);
+                    SensorManager.getRotationMatrixFromVector(R, truncatedRotationVector);
+                } else {
+                    // calculate the rotation matrix
+                    SensorManager.getRotationMatrixFromVector(R, event.values);
+                }
 
-                                                                                                   }
-                                                                                                   SensorManager
-                                                                                                           .getOrientation(
-                                                                                                                   R,
-                                                                                                                   orientation);
-                                                                                                   float azimut = (int) (Math
-                                                                                                           .toDegrees(
-                                                                                                                   SensorManager
-                                                                                                                           .getOrientation(
-                                                                                                                                   R,
-                                                                                                                                   orientation)[0])
-                                                                                                           + 360) % 360;
-                                                                                                   map.setOrientation(
-                                                                                                           azimut);
-                                                                                                   // Repaint map only if orientation changed by at least 1
-                                                                                                   // degree
-                                                                                                   // since last
-                                                                                                   // repaint
-                                                                                                   if (Math.abs(azimut
-                                                                                                           - lastAzimut) > 1) {
-                                                                                                       lastAzimut = azimut;
-                                                                                                       map.invalidate();
-                                                                                                   }
-                                                                                               }
-                                                                                           };
+            }
+            SensorManager.getOrientation(R, orientation);
+            float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(R, orientation)[0]) + 360) % 360;
+            map.setOrientation(azimut);
+            // Repaint map only if orientation changed by at least 1
+            // degree
+            // since last
+            // repaint
+            if (Math.abs(azimut - lastAzimut) > 1) {
+                lastAzimut = azimut;
+                map.invalidate();
+            }
+        }
+    };
 
     /**
      * webview for logging in and authorizing OAuth
      */
-    private WebView                                  oAuthWebView;
-    private Object                                   oAuthWebViewLock                      = new Object();
+    private WebView oAuthWebView;
+    private Object  oAuthWebViewLock = new Object();
 
     /**
      * our map layout
      */
-    private RelativeLayout                           mapLayout;
+    private RelativeLayout mapLayout;
 
     /** The map View. */
-    private Map                                      map;
+    private Map                                map;
     /** Detector for taps, drags, and scaling. */
-    private VersionedGestureDetector                 mDetector;
+    private VersionedGestureDetector           mDetector;
     /** Onscreen map zoom controls. */
-    private de.blau.android.views.ZoomControls       zoomControls;
+    private de.blau.android.views.ZoomControls zoomControls;
     /**
      * Our user-preferences.
      */
-    private Preferences                              prefs;
+    private Preferences                        prefs;
 
     /**
      * The manager for the EasyEdit mode
      */
-    private EasyEditManager                          easyEditManager;
+    private EasyEditManager easyEditManager;
 
     /**
      * Flag indicating whether the map will be re-downloaded once the activity resumes
      */
-    private static boolean                           redownloadOnResume;
+    private static boolean redownloadOnResume;
 
     /**
-     * Flag indicating whether data should be loaded from a file when the activity resumes. Lock is needed because we potentially are processing results of
-     * intents before onResume runs Set by {@link #onCreate(Bundle)}. Overridden by {@link #redownloadOnResume}.
+     * Flag indicating whether data should be loaded from a file when the activity resumes. Lock is needed because we
+     * potentially are processing results of intents before onResume runs Set by {@link #onCreate(Bundle)}. Overridden
+     * by {@link #redownloadOnResume}.
      */
-    private boolean                                  loadOnResume;
-    private final Object                             loadOnResumeLock                      = new Object();
+    private boolean      loadOnResume;
+    private final Object loadOnResumeLock = new Object();
 
     /**
-     * Flag indicating if we should set the view box bounding box in onResume Again we may be already setting the view box by an intent and don't want to
-     * overwrite it
+     * Flag indicating if we should set the view box bounding box in onResume Again we may be already setting the view
+     * box by an intent and don't want to overwrite it
      */
-    private boolean                                  setViewBox                            = true;
-    private final Object                             setViewBoxLock                        = new Object();
+    private boolean      setViewBox     = true;
+    private final Object setViewBoxLock = new Object();
 
-    private boolean                                  showGPS;
-    private boolean                                  followGPS;
+    private boolean showGPS;
+    private boolean followGPS;
 
     /**
-     * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}. Will be automatically given to the tracker service on connect.
+     * a local copy of the desired value for {@link TrackerService#setListenerNeedsGPS(boolean)}. Will be automatically
+     * given to the tracker service on connect.
      */
-    private boolean                                  wantLocationUpdates                   = false;
+    private boolean wantLocationUpdates = false;
 
-    private GeoUrlData                               geoData                               = null;
-    private final Object                             geoDataLock                           = new Object();
-    private RemoteControlUrlData                     rcData                                = null;
-    private final Object                             rcDataLock                            = new Object();
+    private GeoUrlData           geoData     = null;
+    private final Object         geoDataLock = new Object();
+    private RemoteControlUrlData rcData      = null;
+    private final Object         rcDataLock  = new Object();
 
     /**
      * Optional bottom toolbar
      */
-    private android.support.v7.widget.ActionMenuView bottomBar                             = null;
+    private android.support.v7.widget.ActionMenuView bottomBar = null;
 
     /**
      * GPS FAB
      */
-    private FloatingActionButton                     follow;
+    private FloatingActionButton follow;
 
     /**
      * The current instance of the tracker service
      */
-    private TrackerService                           tracker                               = null;
+    private TrackerService tracker = null;
 
-    private UndoListener                             undoListener;
+    private UndoListener undoListener;
 
-    private BackgroundAlignmentActionModeCallback    backgroundAlignmentActionModeCallback = null;                                                     // hack
-                                                                                                                                                       // to
-                                                                                                                                                       // protect
-                                                                                                                                                       // against
-                                                                                                                                                       // weird
-                                                                                                                                                       // state
+    private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack
+                                                                                                // to
+                                                                                                // protect
+                                                                                                // against
+                                                                                                // weird
+                                                                                                // state
 
-    private Location                                 lastLocation                          = null;
+    private Location lastLocation = null;
 
-    private Location                                 locationForIntent                     = null;
+    private Location locationForIntent = null;
 
-    private boolean                                  controlsHidden                        = false;
-    private Object                                   controlsHiddenLock                    = new Object();
+    private boolean controlsHidden     = false;
+    private Object  controlsHiddenLock = new Object();
 
     /**
      * Status of permissions
      */
-    private boolean                                  locationPermissionGranted             = false;
-    private boolean                                  askedForLocationPermission            = false;
-    private final Object                             locationPermissionLock                = new Object();
+    private boolean      locationPermissionGranted  = false;
+    private boolean      askedForLocationPermission = false;
+    private final Object locationPermissionLock     = new Object();
 
-    private boolean                                  storagePermissionGranted              = false;
-    private boolean                                  askedForStoragePermission             = false;
-    private final Object                             storagePermissionLock                 = new Object();
+    private boolean      storagePermissionGranted  = false;
+    private boolean      askedForStoragePermission = false;
+    private final Object storagePermissionLock     = new Object();
 
     /**
      * 
      */
-    transient private NetworkStatus                  networkStatus;
+    transient private NetworkStatus networkStatus;
 
     /**
      * file we asked the camera app to create (ugly)
      */
-    private File                                     imageFile                             = null;
+    private File imageFile = null;
 
-    private PostAsyncActionHandler                   restart;                                                                                          // if set
-                                                                                                                                                       // this
-                                                                                                                                                       // is
-                                                                                                                                                       // called
-                                                                                                                                                       // to
-                                                                                                                                                       // restart
-                                                                                                                                                       // post
-                                                                                                                                                       // authentication
+    private PostAsyncActionHandler restart; // if set
+                                            // this
+                                            // is
+                                            // called
+                                            // to
+                                            // restart
+                                            // post
+                                            // authentication
 
-    private boolean                                  gpsChecked                            = false;                                                    // flag
-                                                                                                                                                       // to
-                                                                                                                                                       // ensure
-                                                                                                                                                       // that
-                                                                                                                                                       // we
-                                                                                                                                                       // only
-                                                                                                                                                       // check
-                                                                                                                                                       // once
-                                                                                                                                                       // per
-                                                                                                                                                       // activity
-                                                                                                                                                       // life
-                                                                                                                                                       // cycle
+    private boolean gpsChecked = false; // flag
+                                        // to
+                                        // ensure
+                                        // that
+                                        // we
+                                        // only
+                                        // check
+                                        // once
+                                        // per
+                                        // activity
+                                        // life
+                                        // cycle
 
-    private boolean                                  saveSync                              = false;                                                    // save
-                                                                                                                                                       // synchronously
-                                                                                                                                                       // instead
-                                                                                                                                                       // of
-                                                                                                                                                       // async
+    private boolean saveSync = false; // save
+                                      // synchronously
+                                      // instead
+                                      // of
+                                      // async
 
-    private boolean                                  haveCamera                            = false;                                                    // true
-                                                                                                                                                       // if we
-                                                                                                                                                       // have a
-                                                                                                                                                       // camera
+    private boolean haveCamera = false; // true
+                                        // if we
+                                        // have a
+                                        // camera
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
      */
-    private static Main                              runningInstance;
+    private static Main runningInstance;
 
     /**
      * {@inheritDoc}
@@ -592,8 +568,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
         Util.setAlpha(follow, Main.FABALPHA);
 
-        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(
-                android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mapLayout.addView(zoomControls, rlp);
@@ -644,8 +620,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 BoundingBox box = null;
                 if (loc != null) {
                     try {
-                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(),
-                                DEFAULT_BOUNDING_BOX_RADIUS, true);
+                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
                     } catch (OsmException e) {
                         ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                         ACRA.getErrorReporter().handleException(e);
@@ -700,8 +675,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         for (String provider : providers) {
             try {
                 Location location = locationManager.getLastKnownLocation(provider);
-                if (bestLocation == null || !bestLocation.hasAccuracy() || (location != null && location.hasAccuracy()
-                        && location.getAccuracy() < bestLocation.getAccuracy())) {
+                if (bestLocation == null || !bestLocation.hasAccuracy()
+                        || (location != null && location.hasAccuracy() && location.getAccuracy() < bestLocation.getAccuracy())) {
                     bestLocation = location;
                 }
             } catch (IllegalArgumentException e) {
@@ -719,9 +694,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         Log.d(DEBUG_TAG, "onStart");
         super.onStart();
 
-        if (prefs == null) {
-            prefs = new Preferences(this);
-        }
+        // always re-allocate as we may have changed preferences
+        prefs = new Preferences(this); 
+        
         App.getLogic().setPrefs(prefs);
 
         // if we have been stopped delegator and viewbox will not be set if our
@@ -890,8 +865,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         // determine if we have a camera
         PackageManager pm = getPackageManager();
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
-                && cameraIntent.resolveActivity(getPackageManager()) != null;
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) && cameraIntent.resolveActivity(getPackageManager()) != null;
     }
 
     /**
@@ -900,13 +874,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     private void checkPermissions() {
         final List<String> permissionsList = new ArrayList<>();
         synchronized (locationPermissionLock) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 locationPermissionGranted = false;
                 if (askedForLocationPermission) {
                     // Should we show an explanation?
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                         // for now we just repeat the request (max once)
                         permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
                     }
@@ -920,13 +892,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             }
         }
         synchronized (storagePermissionLock) {
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 storagePermissionGranted = false;
                 // Should we show an explanation?
                 if (askedForStoragePermission) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         // for now we just repeat the request (max once)
                         permissionsList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     }
@@ -939,8 +909,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             }
         }
         if (!permissionsList.isEmpty()) {
-            ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]),
-                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
         }
     }
 
@@ -958,13 +927,12 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         final Logic logic = App.getLogic();
         synchronized (geoDataLock) {
             if (geoData != null) {
-                Log.d(DEBUG_TAG, "got position from geo: url " + geoData.getLat() + "/" + geoData.getLon()
-                        + " storage dirty is " + App.getDelegator().isDirty());
+                Log.d(DEBUG_TAG,
+                        "got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
                 if (prefs.getDownloadRadius() != 0) { // download
                     BoundingBox bbox;
                     try {
-                        bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(),
-                                prefs.getDownloadRadius(), true);
+                        bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
                         List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
                         List<BoundingBox> bboxes = null;
                         if (App.getDelegator().isEmpty()) {
@@ -977,19 +945,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                             logic.downloadBox(this, bbox, true, null);
                             if (prefs.areBugsEnabled()) { // always adds bugs
                                                           // for now
-                                TransferTasks.downloadBox(this, prefs.getServer(), bbox, true,
-                                        new PostAsyncActionHandler() {
-                                            private static final long serialVersionUID = 1L;
+                                TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+                                    private static final long serialVersionUID = 1L;
 
-                                            @Override
-                                            public void onSuccess() {
-                                                getMap().invalidate();
-                                            }
+                                    @Override
+                                    public void onSuccess() {
+                                        getMap().invalidate();
+                                    }
 
-                                            @Override
-                                            public void onError() {
-                                            }
-                                        });
+                                    @Override
+                                    public void onError() {
+                                    }
+                                });
                             }
                         } else {
                             Log.d(DEBUG_TAG, "no bbox to download");
@@ -1018,29 +985,28 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                         List<BoundingBox> bboxes = BoundingBox.newBoxes(bbList, loadBox);
                         if (bboxes != null && (!bboxes.isEmpty() || delegator.isEmpty())) {
                             // only download if we haven't yet
-                            logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */,
-                                    new PostAsyncActionHandler() {
+                            logic.downloadBox(this, rcData.getBox(), true /* logic.delegator.isDirty() */, new PostAsyncActionHandler() {
 
-                                        private static final long serialVersionUID = 1L;
+                                private static final long serialVersionUID = 1L;
 
-                                        @Override
-                                        public void onSuccess() {
-                                            synchronized (rcDataLock) {
-                                                if (rcData != null) {
-                                                    rcDataEdit(rcData);
-                                                    rcData = null; // zap to
-                                                                   // stop
-                                                                   // repeated
-                                                                   // downloads
-                                                }
-                                            }
+                                @Override
+                                public void onSuccess() {
+                                    synchronized (rcDataLock) {
+                                        if (rcData != null) {
+                                            rcDataEdit(rcData);
+                                            rcData = null; // zap to
+                                                           // stop
+                                                           // repeated
+                                                           // downloads
                                         }
+                                    }
+                                }
 
-                                        @Override
-                                        public void onError() {
-                                        }
+                                @Override
+                                public void onError() {
+                                }
 
-                                    });
+                            });
                         } else {
                             rcDataEdit(rcData);
                             rcData = null; // zap to stop repeated downloads
@@ -1070,8 +1036,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
      * 
-     * @param rcData
-     *            Data of a remote control data URL.
+     * @param rcData Data of a remote control data URL.
      */
     private void rcDataEdit(RemoteControlUrlData rcData) {
         BoundingBox box = rcData.getBox();
@@ -1155,8 +1120,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         // pre-honeycomb devices
         // on honeycomb and later, onStop is also guaranteed to be called, so we
         // can defer saving.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             saveData();
+        }
 
         super.onPause();
     }
@@ -1227,23 +1193,20 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(DEBUG_TAG, "onRequestPermissionsResult");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
         case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
             for (int i = 0; i < permissions.length; i++) {
-                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)
-                        && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
                     bindService(new Intent(this, TrackerService.class), this, BIND_AUTO_CREATE);
                     synchronized (locationPermissionLock) {
                         locationPermissionGranted = true;
                     }
                 } // if not granted do nothing for now
-                if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted :)
                     synchronized (storagePermissionLock) {
                         storagePermissionGranted = true;
@@ -1256,7 +1219,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     }
 
     /**
-     * Sets up the Action Bar.
+     * Sets up the Action Bar and the "follow" button
      */
     private void showActionBar() {
         Log.d(DEBUG_TAG, "showActionBar");
@@ -1272,8 +1235,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
         FloatingActionButton follow = getFollowButton();
         if (follow != null) {
-            String locationProvider = getEnabledLocationProvider();
-            if (locationProvider != null) {
+            String[] locationProviders = getEnabledLocationProviders();
+            if (locationProviders != null) {
                 RelativeLayout.LayoutParams params = (LayoutParams) follow.getLayoutParams();
                 if (getString(R.string.follow_GPS_left).equals(prefs.followGPSbuttonPosition())) {
                     params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
@@ -1285,15 +1248,21 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                     follow.hide();
                 }
                 follow.setLayoutParams(params);
-                int buttonRes = R.drawable.ic_gps_fixed_black_36dp;
-                if (LocationManager.NETWORK_PROVIDER.equals(locationProvider)) {
-                    buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
-                }
-                follow.setImageResource(buttonRes);
+                // only show GPS symbol if we only have GPS
+                setFollowImage(locationProviders.length==1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]));
             } else {
                 follow.hide();
             }
         }
+    }
+    
+    private void setFollowImage(boolean gps) {
+        FloatingActionButton follow = getFollowButton();
+        int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
+        if (gps) {
+            buttonRes = R.drawable.ic_gps_fixed_black_36dp;
+        }
+        follow.setImageResource(buttonRes);
     }
 
     /**
@@ -1313,8 +1282,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         lock.setTag(mode.tag());
 
         StateListDrawable states = new StateListDrawable();
-        states.addState(new int[] { android.R.attr.state_pressed },
-                ContextCompat.getDrawable(this, mode.iconResourceId()));
+        states.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(this, mode.iconResourceId()));
         states.addState(new int[] { 0 }, ContextCompat.getDrawable(this, R.drawable.locked_opaque));
         lock.setImageDrawable(states);
 
@@ -1324,8 +1292,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             public void onClick(View b) {
                 Log.d(DEBUG_TAG, "Lock pressed " + b.getClass().getName());
                 int[] drawableState = ((FloatingActionButton) b).getDrawableState();
-                Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " "
-                        + (drawableState.length == 1 ? Integer.toHexString(drawableState[0]) : ""));
+                Log.d(DEBUG_TAG, "Lock state length " + drawableState.length + " " + (drawableState.length == 1 ? Integer.toHexString(drawableState[0]) : ""));
                 if (drawableState.length == 0 || drawableState[0] != android.R.attr.state_pressed) {
                     Mode mode = Mode.modeForTag((String) b.getTag());
                     logic.setMode(Main.this, mode);
@@ -1357,10 +1324,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                     if (newMode.isSubModeOf() == null && newMode.isEnabled()) {
                         SpannableString s = new SpannableString(newMode.getName(Main.this));
                         if (mode == newMode) {
-                            s.setSpan(
-                                    new ForegroundColorSpan(
-                                            ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)),
-                                    0, s.length(), 0);
+                            s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
                         }
                         MenuItem item = popup.getMenu().add(s);
                         item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -1369,16 +1333,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                                 logic.setMode(Main.this, newMode);
                                 b.setTag(newMode.tag());
                                 StateListDrawable states = new StateListDrawable();
-                                states.addState(new int[] { android.R.attr.state_pressed },
-                                        ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
-                                states.addState(new int[] {},
-                                        ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
+                                states.addState(new int[] { android.R.attr.state_pressed }, ContextCompat.getDrawable(Main.this, newMode.iconResourceId()));
+                                states.addState(new int[] {}, ContextCompat.getDrawable(Main.this, R.drawable.locked_opaque));
                                 lock.setImageDrawable(states);
                                 if (logic.isLocked()) {
                                     ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
                                 } else {
-                                    ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed },
-                                            false);
+                                    ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
                                 }
                                 onEditModeChanged();
                                 return true;
@@ -1404,8 +1365,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Set lock button to locked or unlocked depending on the edit mode
      * 
-     * @param mode
-     *            Program mode.
+     * @param mode Program mode.
      * @return Button to display checked/unchecked states.
      */
     private FloatingActionButton setLock(Mode mode) {
@@ -1459,7 +1419,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      * Creates the menu from the XML file "main_menu.xml".<br>
      * {@inheritDoc}
      * 
-     * Note for not entirely clear reasons *:setShowAsAction doesn't work in the menu definition and has to be done programmatically here.
+     * Note for not entirely clear reasons *:setShowAsAction doesn't work in the menu definition and has to be done
+     * programmatically here.
      */
     @SuppressLint("InflateParams")
     @Override
@@ -1483,12 +1444,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
 
         boolean networkConnected = isConnected();
-        String locationProvider = getEnabledLocationProvider();
-        boolean gpsProviderEnabled = locationProvider != null && LocationManager.GPS_PROVIDER.equals(locationProvider)
-                && locationPermissionGranted;
-        boolean locationProviderEnabled = gpsProviderEnabled
-                || (locationProvider != null && LocationManager.NETWORK_PROVIDER.equals(locationProvider)
-                        && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
+        String[] locationProviders = getEnabledLocationProviders();
+        boolean gpsProviderEnabled = haveLocationProvider(locationProviders, LocationManager.GPS_PROVIDER) && locationPermissionGranted;
+        boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
+                && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
         // just as good as any other place to check this
         synchronized (controlsHiddenLock) {
             if (!controlsHidden) {
@@ -1502,15 +1461,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         menu.findItem(R.id.menu_gps_show).setEnabled(locationProviderEnabled).setChecked(showGPS);
         menu.findItem(R.id.menu_gps_follow).setEnabled(locationProviderEnabled).setChecked(followGPS);
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
-        menu.findItem(R.id.menu_gps_start)
-                .setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_pause)
-                .setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload)
-                .setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
-                .setChecked(autoDownload());
-        menu.findItem(R.id.menu_transfer_bugs_autodownload)
-                .setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
+        menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
+        menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
+        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected).setChecked(autoDownload());
+        menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
                 .setChecked(bugAutoDownload());
 
         boolean trackerHasTrackPoints = getTracker() != null && getTracker().hasTrackPoints();
@@ -1529,10 +1483,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                                 // Android, we could probably simply always
                                 // do the following
             Log.d(DEBUG_TAG, "undoView null");
-            Context context = new ContextThemeWrapper(this,
-                    prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
-            undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-                    .inflate(R.layout.undo_action_view, null);
+            Context context = new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+            undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
         }
         undoView.setOnClickListener(undoListener);
         undoView.setOnLongClickListener(undoListener);
@@ -1549,8 +1501,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
-        menu.findItem(R.id.menu_transfer_upload)
-                .setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty());
+        menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty());
         menu.findItem(R.id.menu_transfer_bugs_download_current).setEnabled(networkConnected);
         menu.findItem(R.id.menu_transfer_bugs_upload).setEnabled(networkConnected && App.getTaskStorage().hasChanges());
         menu.findItem(R.id.menu_voice).setVisible(false); // don't display
@@ -1591,8 +1542,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         // only show camera icon if we have a camera, and a camera app is
         // installed
         if (haveCamera) {
-            MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera), prefs.showCameraAction()
-                    ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS : MenuItemCompat.SHOW_AS_ACTION_NEVER);
+            MenuItemCompat.setShowAsAction(menu.findItem(R.id.menu_camera),
+                    prefs.showCameraAction() ? MenuItemCompat.SHOW_AS_ACTION_ALWAYS : MenuItemCompat.SHOW_AS_ACTION_NEVER);
         } else {
             MenuItem mi = menu.findItem(R.id.menu_camera).setVisible(false);
             MenuItemCompat.setShowAsAction(mi, MenuItemCompat.SHOW_AS_ACTION_NEVER);
@@ -1603,6 +1554,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
 
         return true;
+    }
+    
+    private boolean haveLocationProvider(@Nullable String[] providers, @Nullable String provider) {
+        if (providers != null) {
+            for (String p:providers) {
+                if (p != null && p.equals(provider)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -1710,8 +1672,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             Intent startCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             try {
                 imageFile = getImageFile();
-                Uri photoUri = FileProvider.getUriForFile(this, "de.blau.android.osmeditor4android.provider",
-                        imageFile);
+                Uri photoUri = FileProvider.getUriForFile(this, "de.blau.android.osmeditor4android.provider", imageFile);
                 if (photoUri != null) {
                     startCamera.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     startCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
@@ -1738,28 +1699,27 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             Location gotoLoc = null;
             if (getTracker() != null) {
                 gotoLoc = getTracker().getLastLocation();
-            } else if (getEnabledLocationProvider() != null) {
+            } else if (getEnabledLocationProviders() != null) {
                 gotoLoc = getLastLocation();
             } // else moan? without GPS enabled this shouldn't be selectable
               // currently
             if (gotoLoc != null) {
                 logic.setZoom(getMap(), 19);
-                map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d),
-                        (int) (gotoLoc.getLatitude() * 1E7d));
+                map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
                 map.setLocation(gotoLoc);
                 map.invalidate();
             }
             return true;
 
         case R.id.menu_gps_start:
-            if (getTracker() != null && LocationManager.GPS_PROVIDER.equals(getEnabledLocationProvider())) {
+            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(),LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
             return true;
 
         case R.id.menu_gps_pause:
-            if (getTracker() != null && LocationManager.GPS_PROVIDER.equals(getEnabledLocationProvider())) {
+            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(),LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
                 triggerMenuInvalidation();
             }
@@ -1824,8 +1784,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                                 getTracker().importGPXFile(Main.this, fileUri);
                             } catch (FileNotFoundException e) {
                                 try {
-                                    Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found,
-                                            fileUri.toString()));
+                                    Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
                                 } catch (Exception ex) {
                                     // protect against translation errors
                                     Log.d(DEBUG_TAG, "read got " + e.getMessage());
@@ -1915,8 +1874,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                         logic.readOsmFile(Main.this, fileUri, false);
                     } catch (FileNotFoundException e) {
                         try {
-                            Snack.barError(Main.this,
-                                    getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+                            Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
                         } catch (Exception ex) {
                             // protect against translation errors
                         }
@@ -1943,19 +1901,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             return true;
 
         case R.id.menu_transfer_bugs_download_current:
-            TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true,
-                    new PostAsyncActionHandler() {
-                        private static final long serialVersionUID = 1L;
+            TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+                private static final long serialVersionUID = 1L;
 
-                        @Override
-                        public void onSuccess() {
-                            map.invalidate();
-                        }
+                @Override
+                public void onSuccess() {
+                    map.invalidate();
+                }
 
-                        @Override
-                        public void onError() {
-                        }
-                    });
+                @Override
+                public void onError() {
+                }
+            });
             return true;
 
         case R.id.menu_transfer_bugs_upload:
@@ -1996,8 +1953,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
                 @Override
                 public boolean save(Uri fileUri) {
-                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all,
-                            fileUri.getPath(), null);
+                    TransferTasks.writeOsnFile(Main.this, item.getItemId() == R.id.menu_transfer_save_notes_all, fileUri.getPath(), null);
                     SelectFile.savePref(prefs, R.string.config_notesPreferredDir_key, fileUri);
                     return true;
                 }
@@ -2109,8 +2065,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Snack.toastTopWarning(Main.this, Main.this
-                                            .getString(R.string.toast_returning_less_than_found, limit, found));
+                                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_returning_less_than_found, limit, found));
                                 }
                             });
                         }
@@ -2194,19 +2149,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Display a toast if we got an IOException downloading
      * 
-     * @param iox
-     *            the IOException
+     * @param iox the IOException
      */
     public void toastDowloadError(final IOException iox) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (iox instanceof OsmServerException) {
-                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_download_failed,
-                            ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
-                } else {
                     Snack.toastTopWarning(Main.this,
-                            Main.this.getString(R.string.toast_server_connection_failed, iox.getMessage()));
+                            Main.this.getString(R.string.toast_download_failed, ((OsmServerException) iox).getErrorCode(), iox.getMessage()));
+                } else {
+                    Snack.toastTopWarning(Main.this, Main.this.getString(R.string.toast_server_connection_failed, iox.getMessage()));
                 }
             }
         });
@@ -2215,10 +2168,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Zoom to the GPS TrackPoint
      * 
-     * @param logic
-     *            the current Login instance
-     * @param trackPoint
-     *            the TrackPoint
+     * @param logic the current Login instance
+     * @param trackPoint the TrackPoint
      */
     public void gotoTrackPoint(final Logic logic, TrackPoint trackPoint) {
         Log.d(DEBUG_TAG, "Going to first waypoint");
@@ -2232,10 +2183,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * flush a layers cache
      * 
-     * @param activity
-     *            calling activity if null no progress dialog will be displayed
-     * @param layer
-     *            layer we want to flush the cache for
+     * @param activity calling activity if null no progress dialog will be displayed
+     * @param layer layer we want to flush the cache for
      */
     private static void flushLayer(@Nullable FragmentActivity activity, @Nullable MapTilesLayer layer) {
         if (layer != null) {
@@ -2301,7 +2250,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
     private void startStopAutoDownload() {
         Log.d(DEBUG_TAG, "autoDownload");
-        if (getTracker() != null && getEnabledLocationProvider() != null) {
+        if (getTracker() != null && getEnabledLocationProviders() != null) {
             if (autoDownload()) {
                 getTracker().startAutoDownload();
             } else {
@@ -2316,7 +2265,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
 
     private void startStopBugAutoDownload() {
         Log.d(DEBUG_TAG, "bugAutoDownload");
-        if (getTracker() != null && getEnabledLocationProvider() != null) {
+        if (getTracker() != null && getEnabledLocationProviders() != null) {
             if (bugAutoDownload()) {
                 getTracker().startBugAutoDownload();
             } else {
@@ -2332,11 +2281,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * If show is true start locations updates and start following the GPS position otherwise turn location updates off
      * 
-     * @param show
-     *            turn location updates on or off
+     * @param show turn location updates on or off
      */
     private void setShowGPS(boolean show) {
-        if (show && getEnabledLocationProvider() == null) {
+        if (show && getEnabledLocationProviders() == null) {
             show = false;
         }
         showGPS = show;
@@ -2362,17 +2310,22 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      * 
      * @return the provider if a usable on is enabled, null if not
      */
-    private String getEnabledLocationProvider() {
+    private String[] getEnabledLocationProviders() {
+        List<String> temp = new ArrayList<>();
         try {
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 gpsChecked = false;
-                return LocationManager.GPS_PROVIDER;
-            } else if (prefs.isNetworkLocationFallbackAllowed()
-                    && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                temp.add(LocationManager.GPS_PROVIDER);
+            } 
+            if (prefs.isNetworkLocationFallbackAllowed() && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 gpsChecked = false;
-                return LocationManager.NETWORK_PROVIDER;
-            } else if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
+                temp.add(LocationManager.NETWORK_PROVIDER);
+            } 
+            if (!temp.isEmpty()) {
+                return temp.toArray(new String[temp.size()]);
+            }
+            if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) {
                 // check if there is a GPS provider at all
                 if (!gpsChecked && !prefs.leaveGpsDisabled()) {
                     gpsChecked = true;
@@ -2409,8 +2362,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         FloatingActionButton followButton = getFollowButton();
         if (followButton != null) {
             Location mapLocation = map.getLocation();
-            boolean onScreen = mapLocation != null
-                    && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
+            boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
             followButton.setEnabled(!follow || !onScreen);
         }
         if (follow && lastLocation != null) { // update if we are returning from
@@ -2443,19 +2395,22 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
         }
         wantLocationUpdates = true;
-        if (getTracker() != null)
+        if (getTracker() != null) {
             getTracker().setListenerNeedsGPS(true);
+        }
     }
 
     private void disableLocationUpdates() {
         // noinspection PointlessBooleanExpression
         if (wantLocationUpdates == false)
             return;
-        if (sensorManager != null)
+        if (sensorManager != null) {
             sensorManager.unregisterListener(sensorListener);
+        }
         wantLocationUpdates = false;
-        if (getTracker() != null)
+        if (getTracker() != null) {
             getTracker().setListenerNeedsGPS(false);
+        }
     }
 
     /**
@@ -2464,8 +2419,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      * When the user made some changes, {@link #DIALOG_TRANSFER_DOWNLOAD_CURRENT_WITH_CHANGES} will be shown.<br>
      * Otherwise the current viewBox will be re-downloaded from the server.
      * 
-     * @param add
-     *            Boolean flag indicating to handle changes (true) or not (false).
+     * @param add Boolean flag indicating to handle changes (true) or not (false).
      */
     private void onMenuDownloadCurrent(boolean add) {
         Log.d(DEBUG_TAG, "onMenuDownloadCurrent");
@@ -2506,18 +2460,17 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 locationForIntent = null;
                 map.invalidate();
             }
-        } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD
-                || requestCode == SelectFile.SAVE_FILE) && resultCode == RESULT_OK) {
+        } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                && resultCode == RESULT_OK) {
             SelectFile.handleResult(requestCode, data);
         }
         scheduleAutoLock();
     }
 
     /**
-     * @param resultCode
-     *            The integer result code returned by the child activity through its setResult().
-     * @param data
-     *            An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     * @param resultCode The integer result code returned by the child activity through its setResult().
+     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
+     *            "extras").
      */
     private void handleBoxPickerResult(final int resultCode, final Intent data) {
         Bundle b = data.getExtras();
@@ -2541,16 +2494,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Handle the result of the property editor
      * 
-     * @param data
-     *            An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
+     *            "extras").
      */
     private void handlePropertyEditorResult(final Intent data) {
         final Logic logic = App.getLogic();
         Bundle b = data.getExtras();
         if (b != null && b.containsKey(PropertyEditor.TAGEDIT_DATA)) {
             // Read data from extras
-            PropertyEditorData[] result = PropertyEditorData
-                    .deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
+            PropertyEditorData[] result = PropertyEditorData.deserializeArray(b.getSerializable(PropertyEditor.TAGEDIT_DATA));
             // FIXME Problem saved data may not be read at this point, load
             // here, probably we should load editing state
             // too
@@ -2588,8 +2540,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             // changed the dirty flag wont be set and
             // the save wont actually happen
         }
-        if ((logic.getMode().elementsGeomEditiable() && easyEditManager != null
-                && !easyEditManager.isProcessingAction()) || logic.getMode() == Mode.MODE_TAG_EDIT) {
+        if ((logic.getMode().elementsGeomEditiable() && easyEditManager != null && !easyEditManager.isProcessingAction())
+                || logic.getMode() == Mode.MODE_TAG_EDIT) {
             // not in an easy edit mode, de-select objects avoids inconsistent
             // visual state
             logic.deselectAll();
@@ -2609,8 +2561,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Restore the file name for a photograph
      * 
-     * @param savedImageFileName
-     *            Image file name.
+     * @param savedImageFileName Image file name.
      */
     public void setImageFileName(String savedImageFileName) {
         if (savedImageFileName != null) {
@@ -2660,19 +2611,18 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         Preferences prefs = main.prefs;
         if (prefs.areBugsEnabled()) { // always adds bugs for now
             final Map map = main.getMap();
-            TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true,
-                    new PostAsyncActionHandler() {
-                        private static final long serialVersionUID = 1L;
+            TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
+                private static final long serialVersionUID = 1L;
 
-                        @Override
-                        public void onSuccess() {
-                            map.invalidate();
-                        }
+                @Override
+                public void onSuccess() {
+                    map.invalidate();
+                }
 
-                        @Override
-                        public void onError() {
-                        }
-                    });
+                @Override
+                public void onError() {
+                }
+            });
         }
     }
 
@@ -2687,12 +2637,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Upload changes to the OSM data and tasks to the API, if there are changes
      * 
-     * @param comment
-     *            Textual comment associated with the change set.
-     * @param source
-     *            Source of the change.
-     * @param closeChangeset
-     *            Boolean flag indicating whether the change set should be closed or kept open.
+     * @param comment Textual comment associated with the change set.
+     * @param source Source of the change.
+     * @param closeChangeset Boolean flag indicating whether the change set should be closed or kept open.
      */
     public void performUpload(final String comment, final String source, final boolean closeChangeset) {
         final Logic logic = App.getLogic();
@@ -2720,12 +2667,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Check login parameters and start the track upload
      * 
-     * @param description
-     *            OSM GPX API description value
-     * @param tags
-     *            OSM GPX API tags
-     * @param visibility
-     *            OSM GPX API visibility value
+     * @param description OSM GPX API description value
+     * @param tags OSM GPX API tags
+     * @param visibility OSM GPX API visibility value
      */
     public void performTrackUpload(final String description, final String tags, final Visibility visibility) {
 
@@ -2843,10 +2787,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     }
 
     /**
-     * @param server
-     *            Server properties.
-     * @param restart
-     *            Handler to be executed after asynchronous action have been performed.
+     * @param server Server properties.
+     * @param restart Handler to be executed after asynchronous action have been performed.
      */
     @SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
     public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
@@ -2954,8 +2896,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
                     // Redirect to deprecated method, so you can use it in all
                     // SDK versions
-                    onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(),
-                            req.getUrl().toString());
+                    onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
                 }
             }
             oAuthWebView.setOnKeyListener(new View.OnKeyListener() {
@@ -3023,19 +2964,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Start the PropertyEditor for the element in question, single element version
      * 
-     * @param selectedElement
-     *            Selected OpenStreetMap element.
-     * @param focusOn
-     *            if not null focus on the value field of this key.
-     * @param applyLastAddressTags
-     *            add address tags to the object being edited.
-     * @param showPresets
-     *            show the preset tab on start up.
-     * @param askForName
-     *            ask for a value for the name tag
+     * @param selectedElement Selected OpenStreetMap element.
+     * @param focusOn if not null focus on the value field of this key.
+     * @param applyLastAddressTags add address tags to the object being edited.
+     * @param showPresets show the preset tab on start up.
+     * @param askForName ask for a value for the name tag
      */
-    public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags,
-            boolean showPresets, boolean askForName) {
+    public void performTagEdit(final OsmElement selectedElement, String focusOn, boolean applyLastAddressTags, boolean showPresets, boolean askForName) {
         descheduleAutoLock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
@@ -3052,8 +2987,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             if (storageDelegator.getOsmElement(selectedElement.getName(), selectedElement.getOsmId()) != null) {
                 PropertyEditorData[] single = new PropertyEditorData[1];
                 single[0] = new PropertyEditorData(selectedElement, focusOn);
-                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, askForName,
-                        logic.getMode().getExtraTags(logic, selectedElement),
+                PropertyEditor.startForResult(this, single, applyLastAddressTags, showPresets, askForName, logic.getMode().getExtraTags(logic, selectedElement),
                         logic.getMode().getPresetItems(this, selectedElement), REQUEST_EDIT_TAG);
             }
         }
@@ -3062,17 +2996,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Start the PropertyEditor for the element in question, single element version
      * 
-     * @param selectedElement
-     *            Selected OpenStreetMap element.
-     * @param presetPath
-     *            path to preset to apply
-     * @param tags
-     *            any existing tags to apply
-     * @param showPresets
-     *            show the preset tab on start up.
+     * @param selectedElement Selected OpenStreetMap element.
+     * @param presetPath path to preset to apply
+     * @param tags any existing tags to apply
+     * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(final OsmElement selectedElement, @Nullable PresetElementPath presetPath,
-            @Nullable HashMap<String, String> tags, boolean showPresets) {
+    public void performTagEdit(final OsmElement selectedElement, @Nullable PresetElementPath presetPath, @Nullable HashMap<String, String> tags,
+            boolean showPresets) {
         descheduleAutoLock();
         final Logic logic = App.getLogic();
         logic.deselectAll();
@@ -3093,8 +3023,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 if (presetPath != null) {
                     presetPathList.add(presetPath);
                 }
-                PropertyEditor.startForResult(this, single, false, showPresets, false, tags, presetPathList,
-                        REQUEST_EDIT_TAG);
+                PropertyEditor.startForResult(this, single, false, showPresets, false, tags, presetPathList, REQUEST_EDIT_TAG);
             }
         }
     }
@@ -3102,15 +3031,11 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Start the PropertyEditor for the element in question, multiple element version
      * 
-     * @param selection
-     *            list of selected elements
-     * @param applyLastAddressTags
-     *            add address tags to the object being edited.
-     * @param showPresets
-     *            show the preset tab on start up.
+     * @param selection list of selected elements
+     * @param applyLastAddressTags add address tags to the object being edited.
+     * @param showPresets show the preset tab on start up.
      */
-    public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags,
-            boolean showPresets) {
+    public void performTagEdit(final ArrayList<OsmElement> selection, boolean applyLastAddressTags, boolean showPresets) {
         descheduleAutoLock();
         ArrayList<PropertyEditorData> multiple = new ArrayList<>();
         StorageDelegator storageDelegator = App.getDelegator();
@@ -3124,15 +3049,13 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             return;
         }
         PropertyEditorData[] multipleArray = multiple.toArray(new PropertyEditorData[multiple.size()]);
-        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, false, null, null,
-                REQUEST_EDIT_TAG);
+        PropertyEditor.startForResult(this, multipleArray, applyLastAddressTags, showPresets, false, null, null, REQUEST_EDIT_TAG);
     }
 
     /**
      * Edit an OpenStreetBug (now called a Task)
      * 
-     * @param bug
-     *            The bug to edit.
+     * @param bug The bug to edit.
      */
     private void performBugEdit(@NonNull final Task bug) {
         Log.d(DEBUG_TAG, "editing bug:" + bug);
@@ -3189,8 +3112,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      * pop up a dialog asking for confirmation and exit
      */
     private void exitOnBackPressed() {
-        new AlertDialog.Builder(this).setTitle(R.string.exit_title).setMessage(R.string.exit_text)
-                .setNegativeButton(R.string.no, null)
+        new AlertDialog.Builder(this).setTitle(R.string.exit_title).setMessage(R.string.exit_text).setNegativeButton(R.string.no, null)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
@@ -3281,15 +3203,15 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      * 
      * @author mb
      */
-    private class MapTouchListener implements OnTouchListener, VersionedGestureDetector.OnGestureListener,
-            OnCreateContextMenuListener, OnMenuItemClickListener {
+    private class MapTouchListener
+            implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
         private List<OsmElement> clickedNodesAndWays;
         private List<Task>       clickedBugs;
         private List<Photo>      clickedPhotos;
         private List<WayPoint>   clickedWayPoints;
 
-        private boolean          doubleTap = false;
+        private boolean doubleTap = false;
 
         @Override
         public boolean onTouch(final View v, final MotionEvent m) {
@@ -3347,8 +3269,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 }
                 map.invalidate();
             } else {
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size())
-                        + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
+                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
                         + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
                 case 0:
                     if (!isInEditZoomRange && !logic.isLocked()) {
@@ -3397,8 +3318,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                     }
                     // TODO may need a map.invalidate() here
                 } else {
-                    Snack.barError(Main.this,
-                            Main.this.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
+                    Snack.barError(Main.this, Main.this.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
                 }
             } catch (Exception ex) {
                 Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
@@ -3478,14 +3398,10 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         /**
          * Perform edit touch processing.
          * 
-         * @param mode
-         *            mode we are in, either EASYEDIT or TAG_EDIT
-         * @param v
-         *            View affected by the touch event.
-         * @param x
-         *            the click-position on the display.
-         * @param y
-         *            the click-position on the display.
+         * @param mode mode we are in, either EASYEDIT or TAG_EDIT
+         * @param v View affected by the touch event.
+         * @param x the click-position on the display.
+         * @param y the click-position on the display.
          */
         public void performEdit(Mode mode, final View v, final float x, final float y) {
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
@@ -3496,8 +3412,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
                 }
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size()
-                        + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
+                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
                         + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
                 case 0:
                     // no elements were touched
@@ -3544,8 +3459,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
          * 
          * NOTE expensive for a large number of elements
          * 
-         * @param elements
-         *            List of elements to filter
+         * @param elements List of elements to filter
          * @return List of elements that have passed the filter
          */
         private ArrayList<OsmElement> filterElements(List<OsmElement> elements) {
@@ -3580,8 +3494,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                 for (Photo p : new ArrayList<>(clickedPhotos)) {
                     Uri photoUri = p.getRefUri(Main.this);
                     if (photoUri != null) {
-                        menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment())
-                                .setOnMenuItemClickListener(this);
+                        menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment()).setOnMenuItemClickListener(this);
                     } else {
                         // remove photos with failed Uri generation from the
                         // list
@@ -3596,8 +3509,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
             }
             if (clickedWayPoints != null) {
                 for (WayPoint wp : clickedWayPoints) {
-                    menu.add(Menu.NONE, id++, Menu.NONE, wp.getShortDescription(Main.this))
-                            .setOnMenuItemClickListener(this);
+                    menu.add(Menu.NONE, id++, Menu.NONE, wp.getShortDescription(Main.this)).setOnMenuItemClickListener(this);
                 }
             }
             if (clickedNodesAndWays != null) {
@@ -3645,10 +3557,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
                     }
                     if (logic.isSelected(e)) {
                         SpannableString s = new SpannableString(description);
-                        s.setSpan(
-                                new ForegroundColorSpan(
-                                        ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)),
-                                0, s.length(), 0);
+                        s.setSpan(new ForegroundColorSpan(ThemeUtils.getStyleAttribColorValue(Main.this, R.attr.colorAccent, 0)), 0, s.length(), 0);
                         menu.add(Menu.NONE, id++, Menu.NONE, s).setOnMenuItemClickListener(this);
                     } else {
                         menu.add(Menu.NONE, id++, Menu.NONE, description).setOnMenuItemClickListener(this);
@@ -3661,10 +3570,8 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
          * Check if this is the last member of a list
          * 
          * @param <T>
-         * @param l
-         *            the list
-         * @param o
-         *            the member we are checking
+         * @param l the list
+         * @param o the member we are checking
          * @return true if it is the last item in the list
          */
         private <T> boolean lastMember(@NonNull List<T> l, @NonNull T o) {
@@ -3672,8 +3579,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
         }
 
         /**
-         * Checks if a menu should be shown based on clickedNodesAndWays and clickedBugs. ClickedNodesAndWays needs to contain nodes first, then ways, ordered
-         * by distance from the click. Assumes multiple elements have been clicked, i.e. a choice is necessary unless heuristics work.
+         * Checks if a menu should be shown based on clickedNodesAndWays and clickedBugs. ClickedNodesAndWays needs to
+         * contain nodes first, then ways, ordered by distance from the click. Assumes multiple elements have been
+         * clicked, i.e. a choice is necessary unless heuristics work.
          * 
          * @return true if a selection menu should be shown
          */
@@ -4049,8 +3957,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     }
 
     /**
-     * @param tracker
-     *            the tracker to set
+     * @param tracker the tracker to set
      */
     private void setTracker(TrackerService tracker) {
         this.tracker = tracker;
@@ -4093,12 +4000,9 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Zoom to the coordinates and try and set the viewbox size to something reasonable
      * 
-     * @param lonE7
-     *            longitude * 10E/
-     * @param latE7
-     *            latitude " 10E/
-     * @param e
-     *            OsmElement we want to show
+     * @param lonE7 longitude * 10E/
+     * @param latE7 latitude " 10E/
+     * @param e OsmElement we want to show
      */
     private void zoomTo(int lonE7, int latE7, OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
@@ -4116,8 +4020,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     /**
      * Zoom to the element and try and set the viewbox size to something reasonable
      * 
-     * @param e
-     *            OsmElement we want to show
+     * @param e OsmElement we want to show
      */
     public void zoomTo(OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
@@ -4162,8 +4065,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
     }
 
     /**
-     * @param bottomBar
-     *            the bottomToolbar to set
+     * @param bottomBar the bottomToolbar to set
      */
     private void setBottomBar(android.support.v7.widget.ActionMenuView bottomBar) {
         MenuUtil.setupBottomBar(this, bottomBar, isFullScreen(), prefs.lightThemeEnabled());
@@ -4199,8 +4101,7 @@ public class Main extends FullScreenAppCompatActivity implements ServiceConnecti
      */
     private void showFollowButton() {
         FloatingActionButton follow = getFollowButton();
-        if (follow != null && getEnabledLocationProvider() != null && locationPermissionGranted
-                && !"NONE".equals(prefs.followGPSbuttonPosition())) {
+        if (follow != null && getEnabledLocationProviders() != null && locationPermissionGranted && !"NONE".equals(prefs.followGPSbuttonPosition())) {
             follow.show();
         }
     }
