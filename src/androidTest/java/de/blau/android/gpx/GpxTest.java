@@ -17,6 +17,7 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.location.Criteria;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -95,7 +96,7 @@ public class GpxTest {
         track.importFromGPX(is);
         main.getTracker().getTrack().reset(); // clear out anything saved
         final CountDownLatch signal = new CountDownLatch(1);
-        TestUtils.injectLocation(main, track.getTrack(), 1000, new SignalHandler(signal));
+        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
@@ -157,6 +158,32 @@ public class GpxTest {
         TestUtils.clickText(device, true, "Create osm object from", true);
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
+    
+    @Test
+    public void followNetworkLocation() {
+        TestUtils.zoomToLevel(main, 19);
+        TestUtils.clickButton("de.blau.android:id/follow", false);
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
+        Track track = new Track(main);
+        track.importFromGPX(is);
+        main.getTracker().getTrack().reset(); // clear out anything saved
+        final CountDownLatch signal = new CountDownLatch(1);
+        TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_COARSE, 1000, new SignalHandler(signal));
+        try {
+            signal.await(TIMEOUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true);
+        TestUtils.clickText(device, false, "Pause GPS track", true);
+        // compare roughly with last location
+        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size()-1);
+        ViewBox box = main.getMap().getViewBox();
+        Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.0001);
+        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight())/2 + box.getRight())/1E7D, 0.0001);
+    }
+
 
     boolean doubleEquals(double d1, double d2) {
         double epsilon = 0.0000001D;

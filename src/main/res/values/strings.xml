@@ -273,6 +273,9 @@
     <string name="toast_unsupported_format">Unsupported format: %1$s</string>
     <string name="toast_returning_less_than_found">Returning %1$d of %2$d found entries</string>
     <string name="toast_not_mbtiles">Not a MBTiles format file</string>
+    <string name="toast_using_network_location">Using network location</string>
+    <string name="toast_using_gps_location">Using GPS location</string>
+    <string name="toast_using_gps_disabled_tracking_stopped">GPS disabled, tracking stopped</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

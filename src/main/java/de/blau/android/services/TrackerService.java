@@ -1,17 +1,11 @@
 package de.blau.android.services;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +13,6 @@ import java.util.Locale;
 
 import org.acra.ACRA;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -31,11 +24,13 @@ import android.location.GpsStatus.NmeaListener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.OnNmeaMessageListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -57,6 +52,8 @@ import de.blau.android.osm.Track;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.services.util.NmeaTcpClient;
+import de.blau.android.services.util.NmeaTcpClientServer;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -64,60 +61,60 @@ import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.validation.Validator;
 
-public class TrackerService extends Service implements LocationListener, NmeaListener, Exportable {
+public class TrackerService extends Service implements Exportable {
 
-    private static final String     TCPSERVER                   = "tcpserver";
+    private static final String TCPSERVER = "tcpserver";
 
-    private static final float      TRACK_LOCATION_MIN_ACCURACY = 200f;
+    private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
-    private static final String     TAG                         = "TrackerService";
+    private static final String DEBUG_TAG = "TrackerService";
 
-    private static final int        LOCATION_UPDATE             = 0;
-    private static final int        CONNECTION_FAILED           = 1;
+    private static final int LOCATION_UPDATE   = 0;
+    public static final int  CONNECTION_FAILED = 1;
 
-    private static final String     AUTODOWNLOAD                = "autodownload";
+    private static final String AUTODOWNLOAD = "autodownload";
 
-    private static final String     BUGAUTODOWNLOAD             = "bugautodownload";
+    private static final String BUGAUTODOWNLOAD = "bugautodownload";
 
-    private static final String     TRACK                       = "track";
+    private static final String TRACK = "track";
 
-    private final TrackerBinder     mBinder                     = new TrackerBinder();
+    private final TrackerBinder mBinder = new TrackerBinder();
 
-    private LocationManager         locationManager             = null;
+    private LocationManager locationManager = null;
 
-    private boolean                 tracking                    = false;
+    private boolean tracking = false;
 
-    private boolean                 downloading                 = false;
+    private boolean downloading = false;
 
-    private boolean                 downloadingBugs             = false;
+    private boolean downloadingBugs = false;
 
-    private Track                   track;
+    private Track track;
 
-    private TrackerLocationListener externalListener            = null;
+    private TrackerLocationListener externalListener = null;
 
-    private boolean                 listenerNeedsGPS            = false;
+    private boolean listenerNeedsGPS = false;
 
-    private Location                lastLocation                = null;
-    private Location                previousLocation            = null;
-    private Location                previousBugLocation         = null;
+    private Location lastLocation        = null;
+    private Location previousLocation    = null;
+    private Location previousBugLocation = null;
 
-    private boolean                 gpsEnabled                  = false;
+    private boolean gpsEnabled = false;
 
-    private Preferences             prefs                       = null;
+    private Preferences prefs = null;
 
-    private Location                nmeaLocation                = new Location(NMEA);
+    private Location nmeaLocation = new Location(NMEA);
 
-    private Handler                 mHandler                    = null;
+    private Handler mHandler = null;
 
-    private NmeaTcpClient           tcpClient                   = null;
+    private NmeaTcpClient tcpClient = null;
 
-    private NmeaTcpClientServer     tcpServer                   = null;
+    private NmeaTcpClientServer tcpServer = null;
 
     private enum GpsSource {
         INTERNAL, NMEA, TCP
     }
 
-    private GpsSource           source    = GpsSource.INTERNAL;
+    private GpsSource source = GpsSource.INTERNAL;
 
     private static final String INTERNAL  = "internal";
     private static final String NMEA      = "nmea";
@@ -125,22 +122,38 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
     private ConnectivityManager connectivityManager;
 
-    private Validator           validator;
+    private Validator validator;
+
+    Handler handler = new Handler(Looper.getMainLooper());
+
+    /**
+     * For no apparent sane reason google has deprecated the NmeaListener interface
+     */
+    OldNmeaListener oldNmeaListener = null;
+    NewNmeaListener newNmeaListener = null;
+
+    private long staleGPS = 5000000L; // 5 seconds
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate");
+        Log.d(DEBUG_TAG, "onCreate");
         track = new Track(this);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         prefs = new Preferences(this);
         validator = App.getDefaultValidator(this);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            oldNmeaListener = new OldNmeaListener();
+        } else {
+            newNmeaListener = new NewNmeaListener();
+        }
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        Log.d(DEBUG_TAG, "onDestroy");
         stopTracking(false);
         track.close();
         super.onDestroy();
@@ -149,7 +162,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
-            Log.e(TAG, "Received null intent"); //
+            Log.e(DEBUG_TAG, "Received null intent"); //
             return START_STICKY; // NOTE not clear how or if we should return an
                                  // error here
         }
@@ -160,15 +173,16 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         } else if (intent.getBooleanExtra(BUGAUTODOWNLOAD, false)) {
             startBugAutoDownloadInternal();
         } else {
-            Log.d(TAG, "Received intent with unknown meaning");
+            Log.d(DEBUG_TAG, "Received intent with unknown meaning");
         }
 
         return START_STICKY;
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
-     * actual work. To start tracking, bind the service, then call this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
+     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
+     * this.
      */
     public void startTracking() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -177,8 +191,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
-     * actual work. To start tracking, bind the service, then call this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
+     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
+     * this.
      */
     public void startAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -187,8 +202,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes {@link #startTrackingInternal()}, which does the
-     * actual work. To start tracking, bind the service, then call this.
+     * Starts the tracker service (which invokes {@link #onStartCommand(Intent, int, int)}, which invokes
+     * {@link #startTrackingInternal()}, which does the actual work. To start tracking, bind the service, then call
+     * this.
      */
     public void startBugAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
@@ -197,8 +213,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
-     * public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+     * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startTrackingInternal() {
         if (tracking) {
@@ -215,8 +231,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
-     * public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+     * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startAutoDownloadInternal() {
         if (downloading)
@@ -230,8 +246,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
-     * public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+     * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startBugAutoDownloadInternal() {
         if (downloadingBugs)
@@ -245,8 +261,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     }
 
     /**
-     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started. See {@link #startTracking()} for the
-     * public method to call when tracking should be started.
+     * Actually starts tracking. Gets called by {@link #onStartCommand(Intent, int, int)} when the service is started.
+     * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startInternal() {
         if (tracking || downloading || downloadingBugs)
@@ -255,12 +271,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         Resources res = getResources();
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-                .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName()))
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
-        notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title))
-                .setContentText(res.getString(R.string.tracking_active_text)).setSmallIcon(R.drawable.logo_simplified)
-                .setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
+        notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title)).setContentText(res.getString(R.string.tracking_active_text))
+                .setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
         notificationBuilder.setColor(ContextCompat.getColor(this, R.color.osm_green));
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
@@ -268,11 +282,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Stops tracking
      * 
-     * @param deleteTrack
-     *            true if the track should be deleted, false if it should be kept
+     * @param deleteTrack true if the track should be deleted, false if it should be kept
      */
     public void stopTracking(boolean deleteTrack) {
-        Log.d(TAG, "Stop tracking");
+        Log.d(DEBUG_TAG, "Stop tracking");
         if (!tracking) {
             if (deleteTrack)
                 track.reset();
@@ -291,7 +304,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      * Stops autodownloading OSM data
      */
     public void stopAutoDownload() {
-        Log.d(TAG, "Stop auto-download");
+        Log.d(DEBUG_TAG, "Stop auto-download");
         downloading = false;
         stop();
     }
@@ -300,14 +313,14 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      * Stops autodownloading bugs
      */
     public void stopBugAutoDownload() {
-        Log.d(TAG, "Stop auto-download");
+        Log.d(DEBUG_TAG, "Stop auto-download");
         downloadingBugs = false;
         stop();
     }
 
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
-            Log.d(TAG, "Stopping auto-service");
+            Log.d(DEBUG_TAG, "Stopping auto-service");
             updateGPSState();
             stopForeground(true);
             stopSelf();
@@ -395,62 +408,67 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        if (source != GpsSource.INTERNAL) {
-            return; // ignore updates from device
+    LocationListener gpsListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            if (source != GpsSource.INTERNAL) {
+                return; // ignore updates from device
+            }
+
+            // Only use GPS provided locations for generating tracks
+            if (tracking) {
+                if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
+                    track.addTrackPoint(location);
+                }
+            }
+            if (lastLocation != null) {
+                if (LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
+                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
+                }
+            }
+            updateLocation(location);
         }
-        // Only use GPS provided locations for generating tracks
-        if (tracking && LocationManager.GPS_PROVIDER.equals(location.getProvider())) {
-            if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
-                track.addTrackPoint(location);
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+            if (tracking) {
+                stopTracking(false);
+                Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_disabled_tracking_stopped);
             }
         }
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only
-                                                                                        // attempt
-                                                                                        // to
-                                                                                        // download
-                                                                                        // if
-                                                                                        // we
-                                                                                        // have
-                                                                                        // a
-                                                                                        // network
-            if (downloading) {
-                autoDownload(location, validator);
+    };
+
+    LocationListener networkListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            if (source != GpsSource.INTERNAL) {
+                return; // ignore updates from device
             }
-            if (downloadingBugs) {
-                bugAutoDownload(location);
+            if (lastLocation != null) {
+                boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
+                if (lastIsGpsLocation) {
+                    if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPS) {
+                        return; // ignore - last GPS time is still reasonably current
+                    } else {
+                        Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
+                    }
+                }
             }
+            updateLocation(location);
         }
-        if (externalListener != null) {
-            externalListener.onLocationChanged(location);
-        }
-        lastLocation = location;
-    }
 
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.d(TAG, "Provider disabled: " + provider);
-        gpsEnabled = false;
-        try {
-            locationManager.removeUpdates(this);
-        } catch (SecurityException sex) {
-            // can be safely ignored
+        public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-        locationManager.removeNmeaListener(this);
-        if (tcpClient != null) {
-            tcpClient.cancel();
+
+        public void onProviderEnabled(String provider) {
         }
-    }
 
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+        public void onProviderDisabled(String provider) {
+        }
+    };
 
     public interface TrackerLocationListener {
         void onLocationChanged(Location location);
@@ -458,22 +476,26 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         void onStateChanged();
     }
 
+    @SuppressWarnings("deprecation")
     private void updateGPSState() {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         if (needed && !gpsEnabled) {
-            Log.d(TAG, "Enabling GPS updates");
+            Log.d(DEBUG_TAG, "Enabling GPS updates");
             Preferences prefs = new Preferences(this);
             nmeaLocation.removeSpeed(); // be sure that these are not set
             nmeaLocation.removeBearing();
             try {
                 Location last = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if (last != null) {
-                    onLocationChanged(last);
+                if (last == null && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    last = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (last != null) {
+                        networkListener.onLocationChanged(last);
+                    }
+                } else {
+                    gpsListener.onLocationChanged(last);
                 }
-            } catch (SecurityException sex) {
+            } catch (SecurityException | IllegalArgumentException ex) {
             } // Ignore
-            catch (IllegalArgumentException iaex) {
-            } // Ignore too
             try {
                 // used to pass updates to UI thread
                 mHandler = new Handler(Looper.getMainLooper()) {
@@ -482,7 +504,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         switch (inputMessage.what) {
                         case LOCATION_UPDATE:
                             Location l = (Location) inputMessage.obj;
-                            onLocationChanged(l);
+                            gpsListener.onLocationChanged(l);
                             break;
                         case CONNECTION_FAILED:
                             Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
@@ -493,29 +515,35 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                 if (prefs.getGpsSource().equals(TCPCLIENT) || prefs.getGpsSource().equals(TCPSERVER)) {
                     source = GpsSource.TCP;
                     if (prefs.getGpsSource().equals(TCPCLIENT) && tcpClient == null) {
-                        tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource());
+                        tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
                         Thread t = new Thread(null, tcpClient, "TcpClient");
                         t.start();
                     } else if (tcpServer == null) {
-                        tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource());
+                        tcpServer = new NmeaTcpClientServer(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
                         Thread t = new Thread(null, tcpServer, "TcpClientServer");
                         t.start();
                     }
                 } else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
                     source = GpsSource.INTERNAL;
-                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                        // internal NMEA resource only works if normal updates
-                        // are turned on
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(),
-                                prefs.getGpsDistance(), this);
+                    staleGPS = prefs.getGpsInterval() * 5 * 1000; // 5 times the intended interval and convert to
+                                                                  // nanoseconds
+                    if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
+                        // internal NMEA resource only works if normal updates are turned on
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
                         if (prefs.getGpsSource().equals(NMEA)) {
                             source = GpsSource.NMEA;
-                            locationManager.addNmeaListener(this);
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                                locationManager.addNmeaListener(oldNmeaListener);
+                            } else {
+                                locationManager.addNmeaListener(newNmeaListener);
+                            }
                         }
-                    } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(),
-                                prefs.getGpsDistance(), this);
+                    }
+                    if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null) {
+                        // if the network provider is available listen there
+                        Log.d(DEBUG_TAG, "Listening for NETWORK_PROVIDER");
+                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(),
+                                networkListener);
                     }
                 }
                 gpsEnabled = true;
@@ -523,21 +551,23 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                 // note there is no way we can ask for permission here so we do
                 // that in the main
                 // activity before actually creating this service
-                Log.e(TAG, "Failed to enable GPS", sex);
-                Snack.toastTopError(this, R.string.gps_failure);
-            } catch (IllegalArgumentException iaex) {
-                Log.e(TAG, "Failed to enable GPS", iaex);
+                Log.e(DEBUG_TAG, "Permission missing for location service ", sex);
                 Snack.toastTopError(this, R.string.gps_failure);
             } catch (RuntimeException rex) {
-                Log.e(TAG, "Failed to enable GPS", rex);
+                Log.e(DEBUG_TAG, "Failed to enable location service", rex);
                 Snack.toastTopError(this, R.string.gps_failure);
             }
         } else if (!needed && gpsEnabled) {
-            Log.d(TAG, "Disabling GPS updates");
+            Log.d(DEBUG_TAG, "Disabling GPS updates");
             try {
-                locationManager.removeUpdates(this);
+                locationManager.removeUpdates(gpsListener);
             } catch (SecurityException sex) {
                 // can be safely ignored
+            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                locationManager.removeNmeaListener(oldNmeaListener);
+            } else {
+                locationManager.removeNmeaListener(newNmeaListener);
             }
             gpsEnabled = false;
         }
@@ -561,8 +591,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Read a file in GPX format from device
      * 
-     * @param activity
-     *            activity this was called from, if null no messages will be displayed, and menus will not be updated
+     * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
+     *            updated
      * @param fileName
      * @throws FileNotFoundException
      */
@@ -595,7 +625,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     in = new BufferedInputStream(is);
                     track.importFromGPX(in);
                 } catch (FileNotFoundException e) {
-                    Log.e(TAG, "File not found: ", e);
+                    Log.e(DEBUG_TAG, "File not found: ", e);
                     result = FILENOTFOUND;
                 } finally {
                     SavingHelper.close(in);
@@ -611,11 +641,9 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
                         int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
                         int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
-                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount,
-                                wayPointCount);
+                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount, wayPointCount);
                         if (wayPointCount == 1) {
-                            message = activity.getString(R.string.toast_imported_track_points_single_way_point,
-                                    trackPointCount);
+                            message = activity.getString(R.string.toast_imported_track_points_single_way_point, trackPointCount);
                         }
                         Snack.barInfo(activity, message);
                         activity.supportInvalidateOptionsMenu();
@@ -625,7 +653,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                     }
                 } catch (IllegalStateException e) {
                     // Avoid crash if activity is paused
-                    Log.e(TAG, "onPostExecute", e);
+                    Log.e(DEBUG_TAG, "onPostExecute", e);
                 }
             }
 
@@ -639,11 +667,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
      */
     public Track getTrack() {
         return track;
-    }
-
-    @Override
-    public void onNmeaReceived(long timestamp, String nmea) {
-        processNmeaSentance(nmea);
     }
 
     /**
@@ -661,7 +684,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Minimal parsing of two NMEA 0183 sentences TODO add fix type filtering TODO do something with the hdop value
      * 
-     * @param sentence
+     * @param sentence the NMEA sentence including checksum
      */
     private void processNmeaSentance(String sentence) {
         boolean posUpdate = false;
@@ -690,8 +713,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                             if (values.length == 13) {
                                 try {
                                     String value6 = values[6].toUpperCase(Locale.US);
-                                    if ((!value6.startsWith("NN") || !value6.equals("N"))
-                                            && Integer.parseInt(values[7]) >= 4) {
+                                    if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
                                         // at least one "good" system needs a
                                         // fix
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
@@ -713,10 +735,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                                                                // magic
                             if (values.length == 15) {
                                 try {
-                                    if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) { // we
-                                                                                                      // need
-                                                                                                      // a
-                                                                                                      // fix
+                                    // we need a fix
+                                    if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) {
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
                                         lon = nmeaLonToDecimal(values[4]) * (values[5].equalsIgnoreCase("E") ? 1 : -1);
                                         // hdop = Double.parseDouble(values[8]);
@@ -809,15 +829,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                                 track.addTrackPoint(nmeaLocation);
                             }
                             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-                            if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) { // only
-                                                                                                            // attempt
-                                                                                                            // to
-                                                                                                            // download
-                                                                                                            // if
-                                                                                                            // we
-                                                                                                            // have
-                                                                                                            // a
-                                                                                                            // network
+                            // only attempt to download if we have a network
+                            if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
                                 if (downloading) {
                                     autoDownload(new Location(nmeaLocation), validator);
                                 }
@@ -836,7 +849,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
             }
             // Log.d(TAG,"Misformed sentence " + sentence);
         } catch (Exception e) {
-            Log.e(TAG, "NMEA sentance " + sentence + " caused exception " + e);
+            Log.e(DEBUG_TAG, "NMEA sentance " + sentence + " caused exception " + e);
             ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
             ACRA.getErrorReporter().handleException(e);
         }
@@ -868,140 +881,10 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         return deg + min / 60d;
     }
 
-    public class NmeaTcpClient implements Runnable {
-
-        private static final String DEBUG_TAG = "TrackerService";
-        String                      host;
-        int                         port;
-        boolean                     canceled  = false;
-
-        NmeaTcpClient(String hostAndPort) {
-            int doubleColon = hostAndPort.indexOf(':');
-            if (doubleColon > 0) {
-                host = hostAndPort.substring(0, doubleColon);
-                port = Integer.parseInt(hostAndPort.substring(doubleColon + 1));
-            } // otherwise crash and burn?
-        }
-
-        public void cancel() {
-            canceled = true;
-        }
-
-        @Override
-        @TargetApi(19)
-        public void run() {
-            Socket socket = null;
-            DataOutputStream dos = null;
-            BufferedReader input = null;
-            try {
-                Log.d(DEBUG_TAG, "Connecting to " + host + ":" + port + " ...");
-
-                socket = new Socket(host, port);
-                dos = new DataOutputStream(socket.getOutputStream());
-
-                InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-                input = new BufferedReader(isr);
-
-                while (!canceled) {
-                    processNmeaSentance(input.readLine());
-                }
-
-            } catch (Exception e) {
-                Log.e(DEBUG_TAG, "failed to open/read " + host + ":" + port, e);
-                Message failed = mHandler.obtainMessage(CONNECTION_FAILED, e.getMessage());
-                failed.sendToTarget();
-            } catch (Error e) {
-                Message failed = mHandler.obtainMessage(CONNECTION_FAILED, e.getMessage());
-                failed.sendToTarget();
-            } finally {
-                SavingHelper.close(dos);
-                // see https://code.google.com/p/android/issues/detail?id=62909
-                // fow why we can't use helper methods here
-                if (socket != null) {
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        Log.e(DEBUG_TAG, "Closing socket threw " + e.getMessage());
-                    }
-                }
-                SavingHelper.close(input);
-            }
-        }
-    }
-
-    /**
-     * The current android RTKLIB port doesn't support TCP servers. just clients ... so we run one
-     * 
-     * @author simon
-     *
-     */
-    public class NmeaTcpClientServer implements Runnable {
-        boolean canceled = false;
-        int     port     = 1959;
-
-        NmeaTcpClientServer(String hostAndPort) {
-            // only use the port string
-            int doubleColon = hostAndPort.indexOf(':');
-            if (doubleColon > 0) {
-                port = Integer.parseInt(hostAndPort.substring(doubleColon + 1));
-            }
-        }
-
-        public void cancel() {
-            canceled = true;
-        }
-
-        @Override
-        public void run() {
-            DataOutputStream dos = null;
-            BufferedReader input = null;
-            ServerSocket serverSocket = null;
-            try {
-                serverSocket = new ServerSocket(port);
-                while (!canceled) {
-                    Socket socket = serverSocket.accept();
-                    Log.d("TrackerService",
-                            "Incoming connection from " + socket.getRemoteSocketAddress().toString() + " ...");
-                    dos = new DataOutputStream(socket.getOutputStream());
-
-                    InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-                    input = new BufferedReader(isr);
-                    try {
-                        while (!canceled) {
-                            processNmeaSentance(input.readLine());
-                        }
-                    } catch (IOException ioex) {
-                        // happens if client closes the socket
-                        SavingHelper.close(dos);
-                        SavingHelper.close(input);
-                    }
-                }
-            } catch (Exception e) {
-                Message failed = mHandler.obtainMessage(CONNECTION_FAILED, e.getMessage());
-                failed.sendToTarget();
-            } catch (Error e) {
-                Message failed = mHandler.obtainMessage(CONNECTION_FAILED, e.getMessage());
-                failed.sendToTarget();
-            } finally {
-                SavingHelper.close(dos);
-                SavingHelper.close(input);
-                if (serverSocket != null) {
-                    try {
-                        serverSocket.close();
-                    } catch (IOException e) {
-                        // ignore
-                    }
-                }
-            }
-        }
-    }
-
     private void autoDownload(@NonNull Location location, Validator validator) {
         // some heuristics for now to keep downloading to a minimum
-        // speed needs to be <= 6km/h (aka brisk walking speed)
         int radius = prefs.getDownloadRadius();
-        if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f)
-                && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
+        if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f) && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
             StorageDelegator storageDelegator = App.getDelegator();
             ArrayList<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
             BoundingBox newBox = getNextBox(bbList, previousLocation, location, radius);
@@ -1012,13 +895,13 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         if (b.getWidth() <= 1 || b.getHeight() <= 1) {
                             // ignore super small bb likely due to rounding
                             // errors
-                            Log.d(TAG, "getNextCenter very small bb " + b.toString());
+                            Log.d(DEBUG_TAG, "getNextCenter very small bb " + b.toString());
                             continue;
                         }
                         storageDelegator.addBoundingBox(b); // will be filled
                                                             // once download is
                                                             // complete
-                        Log.d(TAG, "getNextCenter loading " + b.toString());
+                        Log.d(DEBUG_TAG, "getNextCenter loading " + b.toString());
                         App.getLogic().autoDownloadBox(this, prefs.getServer(), validator, b);
                     }
                 }
@@ -1039,13 +922,11 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
     /**
      * Return a suitable next bounding box, simply creates a raster of the download radius size
      * 
-     * @param location
-     *            current location
+     * @param location current location
      * @return the next bounding box
      */
     @Nullable
-    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location,
-            int radius) {
+    private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
         double lon = location.getLongitude();
         double lat = location.getLatitude();
         double mlat = GeoMath.latToMercator(lat);
@@ -1056,8 +937,7 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         int currentBottomE7 = (int) (GeoMath.mercatorToLat(currentMBottom) * 1E7);
         int widthE7 = (int) (width * 1E7);
 
-        BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7,
-                currentBottomE7 + widthE7);
+        BoundingBox b = new BoundingBox(currentLeftE7, currentBottomE7, currentLeftE7 + widthE7, currentBottomE7 + widthE7);
 
         if (!bbLoaded(bbs, (int) (lon * 1E7D), (int) (lat * 1E7D))) {
             return b;
@@ -1073,8 +953,8 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
         double dTop = mBottom + mHeight - mlat;
         double dBottom = mlat - mBottom;
 
-        Log.d(TAG, "getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
-        Log.d(TAG, "getNextCenter " + b.toString());
+        Log.d(DEBUG_TAG, "getNextCenter dLeft " + dLeft + " dRight " + dRight + " dTop " + dTop + " dBottom " + dBottom);
+        Log.d(DEBUG_TAG, "getNextCenter " + b.toString());
 
         BoundingBox result;
         // top or bottom is closest
@@ -1096,7 +976,6 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
 
     private void bugAutoDownload(@NonNull Location location) {
         // some heuristics for now to keep downloading to a minimum
-        // speed needs to be <= 6km/h (aka brisk walking speed)
         int radius = prefs.getBugDownloadRadius();
         if ((location.getSpeed() < prefs.getMaxBugDownloadSpeed() / 3.6f)
                 && (previousBugLocation == null || location.distanceTo(previousBugLocation) > radius / 8)) {
@@ -1109,24 +988,59 @@ public class TrackerService extends Service implements LocationListener, NmeaLis
                         if (b.getWidth() <= 1 || b.getHeight() <= 1) {
                             // ignore super small bb likely due to rounding
                             // errors
-                            Log.d(TAG, "bugAutoDownload very small bb " + b.toString());
+                            Log.d(DEBUG_TAG, "bugAutoDownload very small bb " + b.toString());
                             continue;
                         }
                         App.getTaskStorage().add(b); // will be filled once
                                                      // download is complete
-                        Log.d(TAG, "bugAutoDownloads loading " + b.toString());
+                        Log.d(DEBUG_TAG, "bugAutoDownloads loading " + b.toString());
                         TransferTasks.downloadBox(this, prefs.getServer(), b, true, null);
                     }
                 }
                 previousBugLocation = location;
             } else {
-                Log.d(TAG, "bugAutoDownload no bb");
+                Log.d(DEBUG_TAG, "bugAutoDownload no bb");
             }
-
         }
     }
 
     public Location getLastLocation() {
         return lastLocation;
+    }
+
+    /**
+     * @param location
+     */
+    public void updateLocation(Location location) {
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        // only attempt to download if we have a network
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
+            if (downloading) {
+                autoDownload(location, validator);
+            }
+            if (downloadingBugs) {
+                bugAutoDownload(location);
+            }
+        }
+        if (externalListener != null) {
+            externalListener.onLocationChanged(location);
+        }
+        lastLocation = location;
+    }
+
+    class OldNmeaListener implements NmeaListener {
+
+        @Override
+        public void onNmeaReceived(long timestamp, String nmea) {
+            processNmeaSentance(nmea);
+        }
+    }
+
+    class NewNmeaListener implements OnNmeaMessageListener {
+
+        @Override
+        public void onNmeaMessage(String message, long timestamp) {
+            processNmeaSentance(message);
+        }
     }
 }

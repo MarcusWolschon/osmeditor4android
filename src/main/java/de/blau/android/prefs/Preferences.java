@@ -435,7 +435,7 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * @return interval between GPS location fixes in miliseconds
      */
     public int getGpsInterval() {
         return gpsInterval;
