@@ -215,7 +215,7 @@ public class TransferTasks {
                                     uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; 
                                 }
                             } else if (b instanceof OsmoseBug) {
-                                uploadFailed = uploadOsmoseBug(main, (OsmoseBug) b, false, null) || uploadFailed;
+                                uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b)|| uploadFailed;
                             }
                         }
                     }
