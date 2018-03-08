@@ -200,10 +200,6 @@ public class TransferTasks {
                     boolean uploadFailed = false;
                     for (Task b : queryResult) {
                         if (b.changed) {
-                            try {
-                                Thread.sleep(100); // attempt at workaround of Osmose issues
-                            } catch (InterruptedException e) {
-                            }
                             Log.d(DEBUG_TAG, b.getDescription());
                             if (b instanceof Note) {
                                 Note n = (Note) b;
