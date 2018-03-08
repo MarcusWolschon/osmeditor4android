@@ -10,13 +10,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.GZIPInputStream;
 
 import android.content.Context;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import okhttp3.Call;
@@ -100,7 +98,6 @@ class OsmoseServer {
             URL url;
             url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.state == State.CLOSED ? "done" : "false"));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
-
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .build();

@@ -62,7 +62,7 @@ public class Server {
     /**
      * Timeout for connections in milliseconds.
      */
-    private static final int TIMEOUT = 45 * 1000;
+    public static final int TIMEOUT = 45 * 1000;
 
     /**
      * Location of OSM API
