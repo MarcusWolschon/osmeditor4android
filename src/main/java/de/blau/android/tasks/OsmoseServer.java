@@ -9,14 +9,21 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 import android.content.Context;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 class OsmoseServer {
 
@@ -41,6 +48,7 @@ class OsmoseServer {
      * 
      * @param context the Android context
      * @param area Latitude/longitude *1E7 of area to download.
+     * @param limit unused
      * @return All the bugs in the given area.
      */
     public static Collection<OsmoseBug> getBugsForBox(Context context, BoundingBox area, long limit) {
@@ -53,30 +61,22 @@ class OsmoseServer {
             url = new URL(getServerURL(context) + "errors?" + "bbox=" + area.getLeft() / 1E7d + "," + area.getBottom() / 1E7d + "," + area.getRight() / 1E7d
                     + "," + area.getTop() / 1E7d + "&full=true");
             Log.d(DEBUG_TAG, "query: " + url.toString());
+            ResponseBody responseBody = null;
+            InputStream inputStream = null;
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled = false;
-
-            // --Start: header not yet sent
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build();
+            Call osmoseCall = client.newCall(request);
+            Response osmoseCallResponse = osmoseCall.execute();
+            if (osmoseCallResponse.isSuccessful()) {
+                responseBody = osmoseCallResponse.body();
+                inputStream = responseBody.byteStream();
+            } else {
                 return new ArrayList<>();
             }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
-            }
-            result = OsmoseBug.parseBugs(is);
+            
+            result = OsmoseBug.parseBugs(inputStream);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
         } 
@@ -84,7 +84,7 @@ class OsmoseServer {
     }
 
     /**
-     * Change the state of the big on the server
+     * Change the state of the bug on the server
      * 
      * @param context the Android context
      * @param bug bug with the state the server side bug should be changed to
@@ -101,21 +101,20 @@ class OsmoseServer {
             url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.state == State.CLOSED ? "done" : "false"));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
 
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-            // --Start: header not yet sent
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-            int responseCode = con.getResponseCode();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build();
+            Call osmoseCall = client.newCall(request);
+            Response osmoseCallResponse = osmoseCall.execute();
+            if (!osmoseCallResponse.isSuccessful()) {
+                int responseCode = osmoseCallResponse.code();
                 Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);
                 if (responseCode == HttpURLConnection.HTTP_GONE) {
                     bug.changed = false; // don't retry
                     App.getTaskStorage().setDirty();
                 }
                 return false;
-            }
+            }            
             bug.changed = false;
             App.getTaskStorage().setDirty();
         } catch (IOException e) {

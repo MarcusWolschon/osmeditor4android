@@ -50,6 +50,7 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+import okhttp3.Response;
 
 /**
  * @author mb
@@ -1957,5 +1958,13 @@ public class Server {
         } else {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
         }
+    }
+
+    public static void throwOsmServerException(Response callResponse) throws OsmServerException, IOException {
+        String responseMessage = callResponse.message();
+        if (responseMessage == null) {
+            responseMessage = "";
+        }
+        throw new OsmServerException(callResponse.code(), callResponse.body().string());
     }
 }

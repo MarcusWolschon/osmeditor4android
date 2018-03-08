@@ -532,5 +532,4 @@ public class Util {
         };
         listPref.setOnPreferenceChangeListener(p);
     }
-
 }

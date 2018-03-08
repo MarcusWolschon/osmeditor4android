@@ -3,13 +3,12 @@ package de.blau.android.resources;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.stream.JsonReader;
 
@@ -21,6 +20,11 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.util.SavingHelper;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Interface to the OAM API
@@ -71,31 +75,22 @@ public class OAMCatalog {
                 + "has_tiled=true");
 
         Log.d(DEBUG_TAG, "query: " + url.toString());
+        ResponseBody responseBody = null;
+        InputStream inputStream = null;
 
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        boolean isServerGzipEnabled = false;
-
-        // --Start: header not yet sent
-        con.setReadTimeout(TIMEOUT);
-        con.setConnectTimeout(TIMEOUT);
-        con.setRequestProperty("Accept-Encoding", "gzip");
-        con.setRequestProperty("User-Agent", App.getUserAgent());
-
-        // --Start: got response header
-        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-        if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-            Server.throwOsmServerException(con);
-            ;
-        }
-
-        InputStream is;
-        if (isServerGzipEnabled) {
-            is = new GZIPInputStream(con.getInputStream());
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
+        Call catalogCall = client.newCall(request);
+        Response catalogCallResponse = catalogCall.execute();
+        if (catalogCallResponse.isSuccessful()) {
+            responseBody = catalogCallResponse.body();
+            inputStream = responseBody.byteStream();
         } else {
-            is = con.getInputStream();
+            Server.throwOsmServerException(catalogCallResponse);
         }
-        return parseEntries(is);
+
+        return parseEntries(inputStream);
     }
 
     /**
