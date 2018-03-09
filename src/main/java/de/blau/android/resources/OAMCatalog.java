@@ -75,16 +75,17 @@ public class OAMCatalog {
                 + "has_tiled=true");
 
         Log.d(DEBUG_TAG, "query: " + url.toString());
-        ResponseBody responseBody = null;
         InputStream inputStream = null;
 
         Request request = new Request.Builder().url(url).build();
-        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        OkHttpClient client = App.getHttpClient().newBuilder()
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
         Call catalogCall = client.newCall(request);
         Response catalogCallResponse = catalogCall.execute();
         if (catalogCallResponse.isSuccessful()) {
-            responseBody = catalogCallResponse.body();
+            ResponseBody responseBody = catalogCallResponse.body();
             inputStream = responseBody.byteStream();
         } else {
             Server.throwOsmServerException(catalogCallResponse);

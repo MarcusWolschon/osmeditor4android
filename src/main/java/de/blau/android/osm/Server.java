@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -50,7 +51,13 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
 /**
  * @author mb
@@ -522,64 +529,44 @@ public class Server {
      * @throws OsmServerException
      */
     private InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        boolean isServerGzipEnabled;
-
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 
-        // --Start: header not yet send
-        con.setReadTimeout(TIMEOUT);
-        con.setConnectTimeout(TIMEOUT);
-        con.setRequestProperty("Accept-Encoding", "gzip");
-        con.setRequestProperty("User-Agent", App.getUserAgent());
-        con.setInstanceFollowRedirects(true);
-
-        // --Start: got response header
-        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-        // retry if we have no response-code or a redirect
-        int responseCode = con.getResponseCode();
-        if (responseCode == -1 || responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
-            Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
-            if (responseCode != -1) {
-                url = getRedirectToHttpsUrl(url, con, responseCode);
-            }
-            con = (HttpURLConnection) url.openConnection();
-            // --Start: header not yet sent
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-            con.setInstanceFollowRedirects(true);
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-            responseCode = con.getResponseCode();
-        }
-
-        if (responseCode != HttpURLConnection.HTTP_OK) {
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient.Builder builder = App.getHttpClient().newBuilder()
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS);
+//        if (oauth) {
+//            OAuthHelper oa = new OAuthHelper();
+//            OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
+//            if (consumer != null) {
+//                consumer.setTokenWithSecret(accesstoken, accesstokensecret);
+//                builder.addInterceptor(new SigningInterceptor(consumer));
+//            }
+//        }
+        OkHttpClient client = builder.build();
+        Call readCall = client.newCall(request);
+        Response readCallResponse = readCall.execute();
+        if (readCallResponse.isSuccessful()) {
+            ResponseBody responseBody = readCallResponse.body();
+            return responseBody.byteStream();
+        } else {
             if (context != null && context instanceof Activity) {
-                final int finalResponseCode = responseCode;
-                final String responseMessage = con.getResponseMessage();
+                final int responseCode = readCallResponse.code();
+                final String responseMessage =  readCallResponse.message();
                 if (responseCode == 400) {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, finalResponseCode, responseMessage));
+                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
                         }
                     });
                 } else {
-                    ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, con.getResponseMessage()));
+                    ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
                 }
             }
-            throwOsmServerException(con);
+            throwOsmServerException(readCallResponse);
         }
-
-        if (isServerGzipEnabled) {
-            return new GZIPInputStream(con.getInputStream());
-        } else {
-            return con.getInputStream();
-        }
+        return null;
     }
 
 	public static URL getRedirectToHttpsUrl(URL url, HttpURLConnection con, int responseCode)
@@ -1121,6 +1108,7 @@ public class Server {
             .compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern
             .compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
+    public static final Pattern ERROR_MESSAGE_BAD_OAUTH_REQUEST              = Pattern.compile("(?i)Bad OAuth request.*");
 
     /**
      * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data

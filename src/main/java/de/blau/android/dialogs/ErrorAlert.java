@@ -102,6 +102,8 @@ public class ErrorAlert extends DialogFragment {
             return "invalid_bounding_box";
         case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
             return "bounding_box_too_large";
+        case ErrorCodes.INVALID_LOGIN:
+            return "invalid_login";
         }
         return null;
     }
@@ -138,6 +140,8 @@ public class ErrorAlert extends DialogFragment {
             return createNewInstance(R.string.invalid_bounding_box_title, R.string.invalid_bounding_box_message, msg);
         case ErrorCodes.BOUNDING_BOX_TOO_LARGE:
             return createNewInstance(R.string.bounding_box_too_large_title, R.string.bounding_box_too_large_message, msg);
+        case ErrorCodes.INVALID_LOGIN:
+            return createNewInstance(R.string.wrong_login_data_title, R.string.wrong_login_data_message, msg);
         }
         return null;
     }

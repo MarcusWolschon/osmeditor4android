@@ -27,6 +27,7 @@ import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Matcher;
 
 import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -2296,6 +2297,15 @@ public class Logic {
                 } catch (OsmServerException e) {
                     result = e.getErrorCode();
                     Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
+                    if (result == HttpURLConnection.HTTP_BAD_REQUEST) {
+                        // check error messages
+                        Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
+                        if (m.matches()) {
+                            result = ErrorCodes.INVALID_LOGIN;
+                        } else {
+                            result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
+                        }
+                    }
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
@@ -2331,9 +2341,6 @@ public class Logic {
                         if (getDelegator().isDirty()) {
                             result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
                         }
-                        break;
-                    case HttpURLConnection.HTTP_BAD_REQUEST:
-                        result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
                         break;
                     default:
                     }
