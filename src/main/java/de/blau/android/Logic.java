@@ -3450,7 +3450,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, "", e);
                     ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                     ACRA.getErrorReporter().handleException(e);
-                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                } catch (IllegalArgumentException | IllegalStateException e) {
                     result = ErrorCodes.UPLOAD_PROBLEM;
                 }
                 return result;

@@ -58,12 +58,15 @@ import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Challenge;
 import okhttp3.Credentials;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.Route;
+import okio.BufferedSink;
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
@@ -1838,44 +1841,31 @@ public class Server {
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws IOException
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws XmlPullParserException
      */
-    public void uploadTrack(@NonNull Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
-            throws MalformedURLException, ProtocolException, IOException, IllegalArgumentException, IllegalStateException, XmlPullParserException {
-        HttpURLConnection connection = null;
-        try {
-            //
-            String boundary = "*VESPUCCI*";
-            String separator = "--" + boundary + "\r\n";
-            connection = openConnectionForWriteAccess(getUploadTrackUrl(), "POST", "multipart/form-data;boundary=" + boundary);
-            OutputStream os = connection.getOutputStream();
-            OutputStreamWriter out = new OutputStreamWriter(os, Charset.defaultCharset());
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"description\"\r\n\r\n");
-            out.write(description + "\r\n");
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"tags\"\r\n\r\n");
-            out.write(tags + "\r\n");
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
-            out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
-            out.write(separator);
-            String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
-            out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
-            out.write("Content-Type: application/gpx+xml\r\n\r\n");
-            out.flush();
-            track.exportToGPX(os);
-            os.flush();
-            out.write("\r\n");
-            out.write("--" + boundary + "--\r\n");
-            out.flush();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throwOsmServerException(connection);
+    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
+            throws MalformedURLException, ProtocolException, IOException {
+        RequestBody gpxBody = new RequestBody() {
+            @Override
+            public MediaType contentType() {
+                return MediaType.parse("application/gpx+xm");
             }
-        } finally {
-            disconnect(connection);
+
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                try {
+                    track.exportToGPX(sink.outputStream());
+                } catch (IllegalArgumentException | IllegalStateException  | XmlPullParserException e) {
+                    throw new IOException(e);
+                } 
+            }
+        };
+        String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("description", description)
+                .addFormDataPart("tags", tags).addFormDataPart("visibility", visibility.name().toLowerCase(Locale.US))
+                .addFormDataPart("file", fileNamePart + ".gpx", gpxBody).build();
+        Response response = openConnectionForWriteAccess(getUploadTrackUrl(), requestBody);
+        if (!response.isSuccessful()) {
+            throwOsmServerException(response);
         }
     }
 
@@ -1944,6 +1934,6 @@ public class Server {
         if (responseMessage == null) {
             responseMessage = "";
         }
-        throw new OsmServerException(callResponse.code(), callResponse.body().string());
+        throw new OsmServerException(callResponse.code(), (!"".equals(responseMessage) ? responseMessage + ": ":"") + callResponse.body().string());
     }
 }
