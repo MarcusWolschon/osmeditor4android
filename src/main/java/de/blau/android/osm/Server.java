@@ -569,21 +569,6 @@ public class Server {
         return null;
     }
 
-	public static URL getRedirectToHttpsUrl(URL url, HttpURLConnection con, int responseCode)
-			throws MalformedURLException, OsmServerException {
-		// this should only happen once for http->https, normal redirects work as is
-		// and we don't want to support downgrading
-		boolean wasHttps = "https".equals(url.getProtocol());
-		String newUrl = con.getHeaderField("Location");
-		url = new URL(newUrl);
-		if (wasHttps && "http".equals(url.getProtocol())) {
-		    Log.w(DEBUG_TAG, "openConnectiion redirect to non-https URL " + newUrl);
-		    throw new OsmServerException(responseCode, "Cannot downgrade from https to http");
-		}
-		Log.w(DEBUG_TAG, "openConnection redirecting to " + newUrl);
-		return url;
-	}
-
     public class DownloadErrorToast implements Runnable {
         final int     code;
         final String  message;
@@ -1493,7 +1478,8 @@ public class Server {
      * complete.
      * 
      * @param area Latitude/longitude *1E7 of area to download.
-     * @return All the bugs in the given area.
+     * @param limit  maximum number of Notes to return, value of between 1 and 10000 is valid
+     * @return All the Notes in the given area.
      */
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         Collection<Note> result = new ArrayList<>();
@@ -1501,29 +1487,12 @@ public class Server {
         try {
             Log.d(DEBUG_TAG, "getNotesForBox");
             URL url = getNotesForBox(limit, area);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled;
+            InputStream is = openConnection(null, url);           
 
-            // --Start: header not yet send
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            if (is == null) {
                 return new ArrayList<>(); // TODO Return empty list ... this is better than throwing an uncatched
                                           // exception, but we should provide some user feedback
                 // throw new UnexpectedRequestException(con);
-            }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
             }
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
@@ -1567,8 +1536,8 @@ public class Server {
     /**
      * Retrieve a single note
      * 
-     * @param id
-     * @return
+     * @param id the id of the Note to retrieve 
+     * @return the Note, null if not found or other error
      */
     public Note getNote(long id) {
         Note result = null;
@@ -1576,29 +1545,11 @@ public class Server {
         try {
             Log.d(DEBUG_TAG, "getNote");
             URL url = getNoteUrl(Long.toString(id));
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled;
-
-            // --Start: header not yet send
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            InputStream is = openConnection(null, url);       
+            if (is == null) {
                 return null; // TODO Return empty list ... this is better than throwing an uncatched exception, but we
                              // should provide some user feedback
                 // throw new UnexpectedRequestException(con);
-            }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
             }
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
