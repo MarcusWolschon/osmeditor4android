@@ -268,7 +268,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().maxStringLength;
+        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         this.inflater = inflater;
         rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, container, false);
@@ -805,7 +805,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Collections.sort(keys);
                     for (String t : keys) {
                         // FIXME determine description in some way
-                        ValueWithCount v = new ValueWithCount(t, counter.get(t));                                                   
+                        ValueWithCount v = new ValueWithCount(t, counter.get(t));
                         adapter2.add(v);
                     }
                 }
@@ -949,7 +949,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key))) {
                         initWebsite(row.valueEdit);
                     } else if (Tags.isSpeedKey(key)) {
-                        initMPHSpeed(getActivity(),row.valueEdit,((PropertyEditor)getActivity()).getElement());
+                        initMPHSpeed(getActivity(), row.valueEdit, ((PropertyEditor) getActivity()).getElement());
                     }
                     if (PropertyEditor.running) {
                         if (row.valueEdit.getText().length() == 0)
@@ -2111,14 +2111,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param value string containing the value
      * @return true if value and key isn't empty and isn't the HTTP/HTTPS prefix
      */
-    private boolean saveTag(String key, String value) {        
+    private boolean saveTag(String key, String value) {
         return !"".equals(value) && !onlyWebsitePrefix(key, value) && !onlyMphSuffix(key, value);
     }
-    
+
     /**
      * Check if this is a website tag with open the protocol prefix it it
      * 
-     * @param key   key of the tag  
+     * @param key key of the tag
      * @param value value of the tag
      * @return true if this is only http:// or https://
      */
@@ -2127,26 +2127,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return (Tags.isWebsiteKey(key) || (pi != null && ValueType.WEBSITE == pi.getValueType(key)))
                 && (Tags.HTTP_PREFIX.equalsIgnoreCase(value) || Tags.HTTPS_PREFIX.equalsIgnoreCase(value));
     }
-    
+
     /**
      * Check if this is a speed tag that only contains MPH
      * 
-     * @param key   key of the tag  
+     * @param key key of the tag
      * @param value value of the tag
      * @return true if this is only MPH
      */
     boolean onlyMphSuffix(String key, String value) {
         return Tags.isSpeedKey(key) && Tags.MPH.trim().equalsIgnoreCase(value);
     }
-    
+
     /**
      * Add tag if it doesn't exist
      * 
-     * @param rowLayout  layout holding the rows
-     * @param key        key of the tag
-     * @param value      value of the tag
-     * @param replace    if true replace existing key values, otherwise don't
-     * @param update     if true update the the best matched presets
+     * @param rowLayout layout holding the rows
+     * @param key key of the tag
+     * @param value value of the tag
+     * @param replace if true replace existing key values, otherwise don't
+     * @param update if true update the the best matched presets
      */
     private void addTag(LinearLayout rowLayout, String key, String value, boolean replace, boolean update) {
         Log.d(DEBUG_TAG, "adding tag " + key + "=" + value);
@@ -2222,17 +2222,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             valueEdit.setSelection(Tags.HTTP_PREFIX.length());
         }
     }
-    
+
     /**
      * Add mph to empty EditTexts that are supposed to contain speed and are in relevant country and set input mode
      * 
-     * @param ctx        Android Context
-     * @param valueEdit  the EditTExt holding the value
-     * @param e          the associated OsmElement
+     * @param ctx Android Context
+     * @param valueEdit the EditTExt holding the value
+     * @param e the associated OsmElement
      */
     public static void initMPHSpeed(Context ctx, final EditText valueEdit, OsmElement e) {
-        valueEdit.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_URI);
-        if (valueEdit.getText().length() == 0 && App.getGeoContext(ctx).imperial(e)) { // in the case of multi-select there is no guarantee that this makes sense
+        valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+        if (valueEdit.getText().length() == 0 && App.getGeoContext(ctx).imperial(e)) { // in the case of multi-select
+                                                                                       // there is no guarantee that
+                                                                                       // this makes sense
             valueEdit.setText(Tags.MPH);
             valueEdit.setSelection(0);
         }

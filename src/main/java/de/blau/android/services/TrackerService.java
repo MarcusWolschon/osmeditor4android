@@ -525,8 +525,8 @@ public class TrackerService extends Service implements Exportable {
                     }
                 } else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
                     source = GpsSource.INTERNAL;
-                    staleGPS = prefs.getGpsInterval() * 5 * 1000; // 5 times the intended interval and convert to
-                                                                  // nanoseconds
+                    staleGPS = prefs.getGpsInterval() * 5000L; // 5 times the intended interval and convert to
+                                                               // nanoseconds
                     if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
                         // internal NMEA resource only works if normal updates are turned on
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);

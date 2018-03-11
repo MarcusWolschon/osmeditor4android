@@ -15,9 +15,79 @@ public class UploadResult implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    public int                error            = ErrorCodes.OK;
-    public int                httpError        = 0;
-    public String             elementType;
-    public long               osmId;
-    public String             message;
+    private int               error            = ErrorCodes.OK;
+    private int               httpError        = 0;
+    private String            elementType;
+    private long              osmId;
+    private String            message;
+
+    /**
+     * @return the error
+     */
+    public int getError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(int error) {
+        this.error = error;
+    }
+
+    /**
+     * @return the httpError
+     */
+    public int getHttpError() {
+        return httpError;
+    }
+
+    /**
+     * @param httpError the httpError to set
+     */
+    public void setHttpError(int httpError) {
+        this.httpError = httpError;
+    }
+
+    /**
+     * @return the elementType
+     */
+    public String getElementType() {
+        return elementType;
+    }
+
+    /**
+     * @param elementType the elementType to set
+     */
+    public void setElementType(String elementType) {
+        this.elementType = elementType;
+    }
+
+    /**
+     * @return the osmId
+     */
+    public long getOsmId() {
+        return osmId;
+    }
+
+    /**
+     * @param osmId the osmId to set
+     */
+    public void setOsmId(long osmId) {
+        this.osmId = osmId;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

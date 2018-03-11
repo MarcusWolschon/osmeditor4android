@@ -41,16 +41,11 @@ import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
-import de.blau.android.util.Base64;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -73,6 +68,8 @@ public class Server {
     private static final String HTTP_POST = "POST";
 
     private static final String HTTP_GET = "GET";
+
+    private static final MediaType TEXTXML = MediaType.parse("text/xml");
 
     private static final String DEBUG_TAG = Server.class.getName();
 
@@ -139,9 +136,9 @@ public class Server {
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
      */
-    private static final String version = "0.6";
+    private static final String API_VERSION = "0.6";
 
-    private final String osmChangeVersion = "0.3";
+    private static final String OSMCHANGE_VERSION = "0.3";
 
     private long changesetId = -1;
 
@@ -217,10 +214,66 @@ public class Server {
      *
      */
     public class UserDetails {
-        public String display_name = "unknown";
-        public int    received     = 0;
-        public int    unread       = 0;
-        public int    sent         = 0;
+        private String display_name = "unknown";
+        private int    received     = 0;
+        private int    unread       = 0;
+        private int    sent         = 0;
+
+        /**
+         * @return the display_name
+         */
+        public String getDisplayName() {
+            return display_name;
+        }
+
+        /**
+         * @param display_name the display_name to set
+         */
+        public void setDisplayName(String display_name) {
+            this.display_name = display_name;
+        }
+
+        /**
+         * @return the received
+         */
+        public int getReceivedMessages() {
+            return received;
+        }
+
+        /**
+         * @param received the received to set
+         */
+        public void setReceivedMessages(int received) {
+            this.received = received;
+        }
+
+        /**
+         * @return the unread
+         */
+        public int getUnreadMessages() {
+            return unread;
+        }
+
+        /**
+         * @param unread the unread to set
+         */
+        public void setUnreadMessages(int unread) {
+            this.unread = unread;
+        }
+
+        /**
+         * @return the sent
+         */
+        public int getSentMessages() {
+            return sent;
+        }
+
+        /**
+         * @param sent the sent to set
+         */
+        public void setSentMessages(int sent) {
+            this.sent = sent;
+        }
     }
 
     /**
@@ -243,8 +296,8 @@ public class Server {
                 while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
                     String tagName = parser.getName();
                     if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
-                        result.display_name = parser.getAttributeValue(null, "display_name");
-                        Log.d(DEBUG_TAG, "getUserDetails display name " + result.display_name);
+                        result.setDisplayName(parser.getAttributeValue(null, "display_name"));
+                        Log.d(DEBUG_TAG, "getUserDetails display name " + result.getDisplayName());
                     }
                     if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
                         messages = true;
@@ -254,14 +307,14 @@ public class Server {
                     }
                     if (messages) {
                         if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
-                            result.received = Integer.parseInt(parser.getAttributeValue(null, "count"));
-                            Log.d(DEBUG_TAG, "getUserDetails received " + result.received);
-                            result.unread = Integer.parseInt(parser.getAttributeValue(null, "unread"));
-                            Log.d(DEBUG_TAG, "getUserDetails unread " + result.unread);
+                            result.setReceivedMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                            Log.d(DEBUG_TAG, "getUserDetails received " + result.getReceivedMessages());
+                            result.setUnreadMessages(Integer.parseInt(parser.getAttributeValue(null, "unread")));
+                            Log.d(DEBUG_TAG, "getUserDetails unread " + result.getUnreadMessages());
                         }
                         if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
-                            result.sent = Integer.parseInt(parser.getAttributeValue(null, "count"));
-                            Log.d(DEBUG_TAG, "getUserDetails sent " + result.sent);
+                            result.setSentMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                            Log.d(DEBUG_TAG, "getUserDetails sent " + result.getSentMessages());
                         }
                     }
                 }
@@ -269,11 +322,7 @@ public class Server {
                 Log.e(DEBUG_TAG, "Problem parsing user details", e);
             } catch (MalformedURLException e) {
                 Log.e(DEBUG_TAG, "Problem retrieving user details", e);
-            } catch (ProtocolException e) {
-                Log.e(DEBUG_TAG, "Problem accessing user details", e);
-            } catch (IOException e) {
-                Log.e(DEBUG_TAG, "Problem accessing user details", e);
-            } catch (NumberFormatException e) {
+            } catch (IOException | NumberFormatException e) {
                 Log.e(DEBUG_TAG, "Problem accessing user details", e);
             }
             return result;
@@ -368,50 +417,50 @@ public class Server {
                 try {
                     String tagName = parser.getName();
                     if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
-                        result.minVersion = parser.getAttributeValue(null, "minimum");
-                        result.maxVersion = parser.getAttributeValue(null, "maximum");
-                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
+                        result.setMinVersion(parser.getAttributeValue(null, "minimum"));
+                        result.setMaxVersion(parser.getAttributeValue(null, "maximum"));
+                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.getMinVersion() + "/" + result.getMaxVersion());
                     }
                     if (eventType == XmlPullParser.START_TAG && "area".equals(tagName)) {
                         String maxArea = parser.getAttributeValue(null, "maximum");
                         if (maxArea != null) {
-                            result.areaMax = Float.parseFloat(maxArea);
+                            result.setAreaMax(Float.parseFloat(maxArea));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
                     }
                     if (eventType == XmlPullParser.START_TAG && "tracepoints".equals(tagName)) {
                         String perPage = parser.getAttributeValue(null, "per_page");
                         if (perPage != null) {
-                            result.maxTracepointsPerPage = Integer.parseInt(perPage);
+                            result.setMaxTracepointsPerPage(Integer.parseInt(perPage));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #tracepoints per page " + perPage);
                     }
                     if (eventType == XmlPullParser.START_TAG && "waynodes".equals(tagName)) {
                         String maximumWayNodes = parser.getAttributeValue(null, "maximum");
                         if (maximumWayNodes != null) {
-                            result.maxWayNodes = Integer.parseInt(maximumWayNodes);
+                            result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
                     }
                     if (eventType == XmlPullParser.START_TAG && "changesets".equals(tagName)) {
                         String maximumElements = parser.getAttributeValue(null, "maximum_elements");
                         if (maximumElements != null) {
-                            result.maxElementsInChangeset = Integer.parseInt(maximumElements);
+                            result.setMaxElementsInChangeset(Integer.parseInt(maximumElements));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum elements in changesets " + maximumElements);
                     }
                     if (eventType == XmlPullParser.START_TAG && "timeout".equals(tagName)) {
                         String seconds = parser.getAttributeValue(null, "seconds");
                         if (seconds != null) {
-                            result.timeout = Integer.parseInt(seconds);
+                            result.setTimeout(Integer.parseInt(seconds));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities timeout seconds " + seconds);
                     }
                     if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
-                        result.dbStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "database"));
-                        result.apiStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "api"));
-                        result.gpxStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx"));
-                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "database")));
+                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "api")));
+                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx")));
+                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX " + result.getGpxStatus());
                     }
                     if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
                         if (result.getImageryBlacklist() == null) {
@@ -430,8 +479,6 @@ public class Server {
             return result;
         } catch (XmlPullParserException e) {
             Log.e(DEBUG_TAG, "Problem parsing capabilities", e);
-        } catch (ProtocolException e) {
-            Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
         } finally {
@@ -440,24 +487,39 @@ public class Server {
         return null;
     }
 
+    /**
+     * @return true if the api is at least available for reading
+     */
     public boolean apiAvailable() {
-        return capabilities.apiStatus.equals(Capabilities.Status.ONLINE) || capabilities.apiStatus.equals(Capabilities.Status.READONLY);
+        return capabilities.getApiStatus().equals(Capabilities.Status.ONLINE) || capabilities.getApiStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database is at least available for reading
+     */
     public boolean readableDB() {
-        return capabilities.dbStatus.equals(Capabilities.Status.ONLINE) || capabilities.dbStatus.equals(Capabilities.Status.READONLY);
+        return capabilities.getDbStatus().equals(Capabilities.Status.ONLINE) || capabilities.getDbStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database is available for writing
+     */
     public boolean writableDB() {
-        return capabilities.dbStatus.equals(Capabilities.Status.ONLINE);
+        return capabilities.getDbStatus().equals(Capabilities.Status.ONLINE);
     }
 
+    /**
+     * @return true if the read only api entry isavailable for reading
+     */
     public boolean readOnlyApiAvailable() {
-        return readOnlyCapabilities.apiStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.apiStatus.equals(Capabilities.Status.READONLY);
+        return readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database of read only api entry is available for reading
+     */
     public boolean readOnlyReadableDB() {
-        return readOnlyCapabilities.dbStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.dbStatus.equals(Capabilities.Status.READONLY);
+        return readOnlyCapabilities.getDbStatus().equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.getDbStatus().equals(Capabilities.Status.READONLY);
     }
 
     /**
@@ -609,12 +671,11 @@ public class Server {
      * @throws IOException
      */
     public boolean deleteElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-        // elem.addOrUpdateTag(createdByTag, createdByKey);
         Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
         RequestBody body = new RequestBody() {
             @Override
             public MediaType contentType() {
-                return MediaType.parse("text/xml");
+                return TEXTXML;
             }
 
             @Override
@@ -634,7 +695,7 @@ public class Server {
                 }
             }
         };
-        Response response = openConnectionForAuthenicatedAccess(getDeleteUrl(elem), HTTP_POST, body);
+        Response response = openConnectionForAuthenicatedAccess(getDeleteUrl(), HTTP_POST, body);
         checkResponseCode(response, elem);
         return true;
     }
@@ -642,19 +703,10 @@ public class Server {
     /**
      * Return true if either login/pass is set or if oAuth is enabled
      * 
-     * @return
+     * @return true if either oauth is set or we have login information
      */
     public boolean isLoginSet() {
         return (username != null && (password != null && !username.equals("") && !password.equals(""))) || oauth;
-    }
-
-    /**
-     * @param connection
-     */
-    private static void disconnect(@Nullable final HttpURLConnection connection) {
-        if (connection != null) {
-            connection.disconnect();
-        }
     }
 
     /**
@@ -679,7 +731,7 @@ public class Server {
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
-                    return MediaType.parse("text/xml");
+                    return TEXTXML;
                 }
 
                 @Override
@@ -710,23 +762,6 @@ public class Server {
             SavingHelper.close(in);
         }
         return osmVersion;
-    }
-
-    /**
-     * Send a XmlSerializable Object over a HttpUrlConnection
-     * 
-     * @param connection the connection
-     * @param xmlSerializable the object
-     * @param changeSetId changeset id to use
-     * @throws OsmIOException thrown if a write or other error occurs
-     */
-    private void sendPayload(@NonNull final HttpURLConnection connection, @NonNull final XmlSerializable xmlSerializable, long changeSetId)
-            throws OsmIOException {
-        try {
-            sendPayload(connection.getOutputStream(), xmlSerializable, changeSetId);
-        } catch (IOException e) {
-            throw new OsmIOException("Could not send data to server", e);
-        }
     }
 
     /**
@@ -819,7 +854,7 @@ public class Server {
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
-                    return MediaType.parse("text/xml");
+                    return TEXTXML;
                 }
 
                 @Override
@@ -898,7 +933,7 @@ public class Server {
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
-                    return MediaType.parse("text/xml");
+                    return TEXTXML;
                 }
 
                 @Override
@@ -990,8 +1025,8 @@ public class Server {
      * @author simon
      *
      */
-    public class Changeset {
-        public boolean open = false;
+    class Changeset {
+        boolean open = false;
     }
 
     /**
@@ -1044,7 +1079,7 @@ public class Server {
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
-                    return MediaType.parse("text/xml");
+                    return TEXTXML;
                 }
 
                 @Override
@@ -1097,7 +1132,6 @@ public class Server {
                 return;
             }
             throwOsmServerException(response, e, responsecode);
-            // TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
         }
     }
 
@@ -1120,13 +1154,13 @@ public class Server {
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
-                    return MediaType.parse("text/xml");
+                    return TEXTXML;
                 }
 
                 @Override
                 public void writeTo(BufferedSink sink) throws IOException {
                     try {
-                        delegator.writeOsmChange(sink.outputStream(), changesetId, getCachedCapabilities().maxElementsInChangeset);
+                        delegator.writeOsmChange(sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         throw new IOException(e);
                     }
@@ -1250,11 +1284,7 @@ public class Server {
                         apiStorage.rehash();
                     }
                 }
-            } catch (XmlPullParserException e) {
-                throw new OsmException(e.toString());
-            } catch (NumberFormatException e) {
-                throw new OsmException(e.toString());
-            } catch (IOException e) {
+            } catch (XmlPullParserException | NumberFormatException | IOException e) {
                 throw new OsmException(e.toString());
             }
         } else {
@@ -1362,7 +1392,7 @@ public class Server {
     private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osm");
-        xmlSerializer.attribute("", "version", version);
+        xmlSerializer.attribute("", "version", API_VERSION);
         xmlSerializer.attribute("", "generator", generator);
     }
 
@@ -1375,10 +1405,10 @@ public class Server {
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osmChange");
-        xmlSerializer.attribute("", "version", osmChangeVersion);
+        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
         xmlSerializer.attribute("", "generator", generator);
         xmlSerializer.startTag("", action);
-        xmlSerializer.attribute("", "version", osmChangeVersion);
+        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
         xmlSerializer.attribute("", "generator", generator);
     }
 
@@ -1416,7 +1446,10 @@ public class Server {
     }
 
     private URL getDeleteUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        // return getUpdateUrl(elem);
+        return getDeleteUrl();
+    }
+
+    private URL getDeleteUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/upload");
     }
 
@@ -1555,7 +1588,6 @@ public class Server {
             if (is == null) {
                 return new ArrayList<>(); // TODO Return empty list ... this is better than throwing an uncatched
                                           // exception, but we should provide some user feedback
-                // throw new UnexpectedRequestException(con);
             }
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
@@ -1566,30 +1598,15 @@ public class Server {
                 if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
                     try {
                         result.add(new Note(parser));
-                    } catch (IOException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (XmlPullParserException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (NumberFormatException e) {
+                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
                         // if the bug doesn't parse correctly, there's nothing
                         // we can do about it - move on
                         Log.e(DEBUG_TAG, "Problem parsing bug", e);
                     }
                 }
             }
-        } catch (XmlPullParserException e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return new ArrayList<>(); // empty list
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return new ArrayList<>(); // empty list
-        } catch (OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            // TODO ask the user to exit
             return new ArrayList<>(); // empty list
         }
         Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
@@ -1623,30 +1640,15 @@ public class Server {
                 if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
                     try {
                         result = new Note(parser);
-                    } catch (IOException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (XmlPullParserException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (NumberFormatException e) {
+                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
                         // if the bug doesn't parse correctly, there's nothing
                         // we can do about it - move on
                         Log.e(DEBUG_TAG, "Problem parsing bug", e);
                     }
                 }
             }
-        } catch (XmlPullParserException e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
-        } catch (OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            // TODO ask the user to exit
             return null; // empty list
         }
         return result;

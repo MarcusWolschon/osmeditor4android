@@ -26,113 +26,112 @@ import de.blau.android.resources.DataStyle;
  * @author mb
  */
 public class Preferences {
-    private static String              DEBUG_TAG           = "Preferences";
+    private static String DEBUG_TAG = "Preferences";
 
     private final AdvancedPrefDatabase advancedPrefs;
 
-    private final boolean              isStatsVisible;
+    private final boolean isStatsVisible;
 
-    private final boolean              isToleranceVisible;
+    private final boolean isToleranceVisible;
 
-    private final boolean              isAntiAliasingEnabled;
+    private final boolean isAntiAliasingEnabled;
 
-    private final boolean              isOpenStreetBugsEnabled;
+    private final boolean isOpenStreetBugsEnabled;
 
-    private final boolean              isPhotoLayerEnabled;
+    private final boolean isPhotoLayerEnabled;
 
-    private final boolean              isKeepScreenOnEnabled;
+    private final boolean isKeepScreenOnEnabled;
 
-    private final boolean              useBackForUndo;
+    private final boolean useBackForUndo;
 
-    private final boolean              largeDragArea;
+    private final boolean largeDragArea;
 
-    private final boolean              tagFormEnabled;
+    private final boolean tagFormEnabled;
 
-    private String                     backgroundLayer;
+    private String backgroundLayer;
 
-    private String                     overlayLayer;
+    private String overlayLayer;
 
-    private final String               scaleLayer;
+    private final String scaleLayer;
 
-    private final String               mapProfile;
+    private final String mapProfile;
 
-    private final String               followGPSbutton;
+    private final String followGPSbutton;
 
-    private final String               fullscreenMode;
+    private final String fullscreenMode;
 
-    private int                        gpsInterval;
+    private int gpsInterval;
 
-    private float                      gpsDistance;
+    private float gpsDistance;
 
-    private float                      maxStrokeWidth;
+    private float maxStrokeWidth;
 
-    private int                        tileCacheSize;                            // in MB
+    private int tileCacheSize; // in MB
 
-    private int                        downloadRadius;                           // in m
-    private float                      maxDownloadSpeed;                         // in km/h
-    private int                        bugDownloadRadius;
-    private float                      maxBugDownloadSpeed;                      // in km/h
-    private Set<String>                taskFilter;                               // can't be final
+    private int         downloadRadius;      // in m
+    private float       maxDownloadSpeed;    // in km/h
+    private int         bugDownloadRadius;
+    private float       maxBugDownloadSpeed; // in km/h
+    private Set<String> taskFilter;          // can't be final
 
-    private final boolean              forceContextMenu;
+    private final boolean forceContextMenu;
 
-    private final boolean              enableNameSuggestions;
+    private final boolean enableNameSuggestions;
 
-    private final boolean              enableAutoPreset;
+    private final boolean enableAutoPreset;
 
-    private final boolean              closeChangesetOnSave;
+    private final boolean closeChangesetOnSave;
 
-    private final boolean              splitActionBarEnabled;
+    private final boolean splitActionBarEnabled;
 
-    private final String               gpsSource;
-    private final String               gpsTcpSource;
+    private final String gpsSource;
+    private final String gpsTcpSource;
 
-    private final String               offsetServer;
+    private final String offsetServer;
 
-    private final String               osmoseServer;
+    private final String osmoseServer;
 
-    private final boolean              showCameraAction;
+    private final boolean showCameraAction;
 
-    private final boolean              generateAlerts;
+    private final boolean generateAlerts;
 
-    private int                        maxAlertDistance;
+    private int maxAlertDistance;
 
-    private final boolean              lightThemeEnabled;
+    private final boolean lightThemeEnabled;
 
-    private Set<String>                addressTags;                              // can't be final
+    private Set<String> addressTags; // can't be final
 
-    private final boolean              voiceCommandsEnabled;
+    private final boolean voiceCommandsEnabled;
 
-    private final boolean              leaveGpsDisabled;
+    private final boolean leaveGpsDisabled;
 
-    private final boolean              allowFallbackToNetworkLocation;
+    private final boolean allowFallbackToNetworkLocation;
 
-    private final boolean              showIcons;
+    private final boolean showIcons;
 
-    private final boolean              showWayIcons;
+    private final boolean showWayIcons;
 
-    private int                        maxInlineValues;
+    private int maxInlineValues;
 
-    private int                        maxTileDownloadThreads;
+    private int maxTileDownloadThreads;
 
-    private int                        notificationCacheSize;
+    private int notificationCacheSize;
 
-    private int                        autoLockDelay;
+    private int autoLockDelay;
 
-    private final boolean              alwaysDrawBoundingBoxes;
+    private final boolean alwaysDrawBoundingBoxes;
 
-    private final boolean              jsConsoleEnabled;
+    private final boolean jsConsoleEnabled;
 
-    private final static String        DEFAULT_MAP_PROFILE = "Color Round Nodes";
+    private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
-    private final SharedPreferences    prefs;
+    private final SharedPreferences prefs;
 
-    private final Resources            r;
+    private final Resources r;
 
     /**
      * 
-     * @param ctx
-     *            Android context
+     * @param ctx Android context
      * @throws IllegalArgumentException
      * @throws NotFoundException
      */
@@ -190,8 +189,7 @@ public class Preferences {
         // check if we actually still have the profile
         if (DataStyle.getStyle(tempMapProfile) == null) {
             if (DataStyle.getStyle(DEFAULT_MAP_PROFILE) == null) {
-                Log.w(DEBUG_TAG,
-                        "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
+                Log.w(DEBUG_TAG, "Using builtin default profile instead of " + tempMapProfile + " and " + DEFAULT_MAP_PROFILE);
                 mapProfile = DataStyle.getBuiltinStyleName(); // built-in fall back
             } else {
                 Log.w(DEBUG_TAG, "Using default profile");
@@ -235,8 +233,7 @@ public class Preferences {
         followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
 
         fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key),
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto)
-                        : r.getString(R.string.full_screen_never));
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
 
         maxInlineValues = getIntPref(R.string.config_maxInlineValues_key, 4);
 
@@ -306,8 +303,7 @@ public class Preferences {
     /**
      * Set the status of the tasks/bugs display
      * 
-     * @param on
-     *            if true enable
+     * @param on if true enable
      */
     public void setBugsEnabled(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), on).commit();
@@ -359,8 +355,7 @@ public class Preferences {
     /**
      * Set the id of the background layer
      * 
-     * @param id
-     *            id to set
+     * @param id id to set
      */
     public void setBackGroundLayer(String id) {
         backgroundLayer = id;
@@ -377,8 +372,7 @@ public class Preferences {
     /**
      * Set the id of the overlay layer
      * 
-     * @param id
-     *            id to set
+     * @param id id to set
      */
     public void setOverlayLayer(String id) {
         overlayLayer = id;
@@ -668,8 +662,7 @@ public class Preferences {
     /**
      * Get a string from shared preferences
      * 
-     * @param prefKey
-     *            preference key as a string resource
+     * @param prefKey preference key as a string resource
      * @return the strings or null if nothing was found
      */
     @Nullable
@@ -686,10 +679,8 @@ public class Preferences {
     /**
      * Save a string to shared preferences
      * 
-     * @param prefKey
-     *            preference key as a string resource
-     * @param s
-     *            string value to save
+     * @param prefKey preference key as a string resource
+     * @param s string value to save
      */
     public void putString(int prefKey, @NonNull String s) {
         try {

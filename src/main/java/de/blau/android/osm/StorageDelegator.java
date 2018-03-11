@@ -2393,7 +2393,7 @@ public class StorageDelegator implements Serializable, Exportable {
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();
         // upload methods set dirty flag too, in case the file is saved during an upload
-        boolean split = getApiElementCount() > server.getCapabilities().maxElementsInChangeset;
+        boolean split = getApiElementCount() > server.getCapabilities().getMaxElementsInChangeset();
         int part = 1;
         int elementCount = getApiElementCount();
         while (elementCount > 0) {

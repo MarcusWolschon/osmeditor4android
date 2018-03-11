@@ -695,8 +695,8 @@ public class Main extends FullScreenAppCompatActivity
         super.onStart();
 
         // always re-allocate as we may have changed preferences
-        prefs = new Preferences(this); 
-        
+        prefs = new Preferences(this);
+
         App.getLogic().setPrefs(prefs);
 
         // if we have been stopped delegator and viewbox will not be set if our
@@ -1249,13 +1249,13 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 follow.setLayoutParams(params);
                 // only show GPS symbol if we only have GPS
-                setFollowImage(locationProviders.length==1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]));
+                setFollowImage(locationProviders.length == 1 && LocationManager.GPS_PROVIDER.equals(locationProviders[0]));
             } else {
                 follow.hide();
             }
         }
     }
-    
+
     private void setFollowImage(boolean gps) {
         FloatingActionButton follow = getFollowButton();
         int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
@@ -1555,10 +1555,10 @@ public class Main extends FullScreenAppCompatActivity
 
         return true;
     }
-    
+
     private boolean haveLocationProvider(@Nullable String[] providers, @Nullable String provider) {
         if (providers != null) {
-            for (String p:providers) {
+            for (String p : providers) {
                 if (p != null && p.equals(provider)) {
                     return true;
                 }
@@ -1712,14 +1712,14 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_start:
-            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(),LocationManager.GPS_PROVIDER)) {
+            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().startTracking();
                 setFollowGPS(true);
             }
             return true;
 
         case R.id.menu_gps_pause:
-            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(),LocationManager.GPS_PROVIDER)) {
+            if (getTracker() != null && haveLocationProvider(getEnabledLocationProviders(), LocationManager.GPS_PROVIDER)) {
                 getTracker().stopTracking(false);
                 triggerMenuInvalidation();
             }
@@ -2317,11 +2317,11 @@ public class Main extends FullScreenAppCompatActivity
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 gpsChecked = false;
                 temp.add(LocationManager.GPS_PROVIDER);
-            } 
+            }
             if (prefs.isNetworkLocationFallbackAllowed() && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 gpsChecked = false;
                 temp.add(LocationManager.NETWORK_PROVIDER);
-            } 
+            }
             if (!temp.isEmpty()) {
                 return temp.toArray(new String[temp.size()]);
             }

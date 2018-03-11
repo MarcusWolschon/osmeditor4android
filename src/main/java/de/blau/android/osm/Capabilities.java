@@ -17,17 +17,17 @@ public class Capabilities {
     }
 
     // API related
-    public String minVersion             = "0.6";
-    public String maxVersion             = "0.6";
-    float         areaMax                = 0.25f;
-    int           maxTracepointsPerPage  = 5000;
-    int           maxWayNodes            = 2000;
-    int           maxElementsInChangeset = 10000;
-    public int    maxStringLength        = 255;           // this is not provided by the API yet
-    int           timeout                = 300;
-    public Status dbStatus               = Status.OFFLINE;
-    public Status apiStatus              = Status.OFFLINE;
-    public Status gpxStatus              = Status.OFFLINE;
+    private String minVersion             = "0.6";
+    private String maxVersion             = "0.6";
+    private float  areaMax                = 0.25f;
+    private int    maxTracepointsPerPage  = 5000;
+    private int    maxWayNodes            = 2000;
+    private int    maxElementsInChangeset = 10000;
+    private int    maxStringLength        = 255;           // this is not provided by the API yet
+    private int    timeout                = 300;
+    private Status dbStatus               = Status.OFFLINE;
+    private Status apiStatus              = Status.OFFLINE;
+    private Status gpxStatus              = Status.OFFLINE;
     // policy
     private List<String> imageryBlacklist = new ArrayList<>();
 
@@ -36,12 +36,12 @@ public class Capabilities {
             return Status.OFFLINE;
         }
         switch (s) {
-            case "online":
-                return Status.ONLINE;
-            case "readonly":
-                return Status.READONLY;
-            default:
-                return Status.OFFLINE;
+        case "online":
+            return Status.ONLINE;
+        case "readonly":
+            return Status.READONLY;
+        default:
+            return Status.OFFLINE;
         }
     }
 
@@ -58,9 +58,9 @@ public class Capabilities {
         d.imageryBlacklist.addAll(defaultBlacklist());
         // this is wishful thinking
         // TODO add unknown status
-        d.dbStatus = Status.ONLINE;
-        d.apiStatus = Status.ONLINE;
-        d.gpxStatus = Status.ONLINE;
+        d.setDbStatus(Status.ONLINE);
+        d.setApiStatus(Status.ONLINE);
+        d.setGpxStatus(Status.ONLINE);
         return d;
     }
 
@@ -69,9 +69,9 @@ public class Capabilities {
         d.imageryBlacklist.addAll(defaultBlacklist());
         // this is wishful thinking
         // TODO add unknown status
-        d.dbStatus = Status.READONLY;
-        d.apiStatus = Status.READONLY;
-        d.gpxStatus = Status.READONLY;
+        d.setDbStatus(Status.READONLY);
+        d.setApiStatus(Status.READONLY);
+        d.setGpxStatus(Status.READONLY);
         return d;
     }
 
@@ -81,7 +81,7 @@ public class Capabilities {
      * Note: likely it would be better for these places to refer to a static version of the values here
      */
     public void updateLimits() {
-        Way.setMaxWayNodes(maxWayNodes);
+        Way.setMaxWayNodes(getMaxWayNodes());
     }
 
     public List<String> getImageryBlacklist() {
@@ -90,5 +90,159 @@ public class Capabilities {
 
     public void setImageryBlacklist(List<String> imageryBlacklist) {
         this.imageryBlacklist = imageryBlacklist;
+    }
+
+    /**
+     * @return the minVersion
+     */
+    public String getMinVersion() {
+        return minVersion;
+    }
+
+    /**
+     * @param minVersion the minVersion to set
+     */
+    public void setMinVersion(String minVersion) {
+        this.minVersion = minVersion;
+    }
+
+    /**
+     * @return the maxVersion
+     */
+    public String getMaxVersion() {
+        return maxVersion;
+    }
+
+    /**
+     * @param maxVersion the maxVersion to set
+     */
+    public void setMaxVersion(String maxVersion) {
+        this.maxVersion = maxVersion;
+    }
+
+    /**
+     * @return the areaMax
+     */
+    float getAreaMax() {
+        return areaMax;
+    }
+
+    /**
+     * @param areaMax the areaMax to set
+     */
+    void setAreaMax(float areaMax) {
+        this.areaMax = areaMax;
+    }
+
+    /**
+     * @return the maxTracepointsPerPage
+     */
+    int getMaxTracepointsPerPage() {
+        return maxTracepointsPerPage;
+    }
+
+    /**
+     * @param maxTracepointsPerPage the maxTracepointsPerPage to set
+     */
+    void setMaxTracepointsPerPage(int maxTracepointsPerPage) {
+        this.maxTracepointsPerPage = maxTracepointsPerPage;
+    }
+
+    /**
+     * @return the maxWayNodes
+     */
+    int getMaxWayNodes() {
+        return maxWayNodes;
+    }
+
+    /**
+     * @param maxWayNodes the maxWayNodes to set
+     */
+    void setMaxWayNodes(int maxWayNodes) {
+        this.maxWayNodes = maxWayNodes;
+    }
+
+    /**
+     * @return the maxElementsInChangeset
+     */
+    int getMaxElementsInChangeset() {
+        return maxElementsInChangeset;
+    }
+
+    /**
+     * @param maxElementsInChangeset the maxElementsInChangeset to set
+     */
+    void setMaxElementsInChangeset(int maxElementsInChangeset) {
+        this.maxElementsInChangeset = maxElementsInChangeset;
+    }
+
+    /**
+     * @return the maxStringLength
+     */
+    public int getMaxStringLength() {
+        return maxStringLength;
+    }
+
+    /**
+     * @param maxStringLength the maxStringLength to set
+     */
+    public void setMaxStringLength(int maxStringLength) {
+        this.maxStringLength = maxStringLength;
+    }
+
+    /**
+     * @return the timeout
+     */
+    int getTimeout() {
+        return timeout;
+    }
+
+    /**
+     * @param timeout the timeout to set
+     */
+    void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
+     * @return the dbStatus
+     */
+    public Status getDbStatus() {
+        return dbStatus;
+    }
+
+    /**
+     * @param dbStatus the dbStatus to set
+     */
+    public void setDbStatus(Status dbStatus) {
+        this.dbStatus = dbStatus;
+    }
+
+    /**
+     * @return the apiStatus
+     */
+    public Status getApiStatus() {
+        return apiStatus;
+    }
+
+    /**
+     * @param apiStatus the apiStatus to set
+     */
+    public void setApiStatus(Status apiStatus) {
+        this.apiStatus = apiStatus;
+    }
+
+    /**
+     * @return the gpxStatus
+     */
+    public Status getGpxStatus() {
+        return gpxStatus;
+    }
+
+    /**
+     * @param gpxStatus the gpxStatus to set
+     */
+    public void setGpxStatus(Status gpxStatus) {
+        this.gpxStatus = gpxStatus;
     }
 }

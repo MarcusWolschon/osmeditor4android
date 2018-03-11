@@ -137,7 +137,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         Preferences prefs = new Preferences(getActivity());
         Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().maxStringLength;
+        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         loadMembers(membersVerticalLayout, members);
 

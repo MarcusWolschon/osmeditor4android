@@ -40,10 +40,10 @@ public class OAuthHelper {
 
     public OAuthHelper(String osmBaseUrl) throws OsmException {
         Resources r = App.resources();
-        String urls[] = r.getStringArray(R.array.api_urls);
-        String keys[] = r.getStringArray(R.array.api_consumer_keys);
-        String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
-        String oauth_urls[] = r.getStringArray(R.array.api_oauth_urls);
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
+        String[] oauth_urls = r.getStringArray(R.array.api_oauth_urls);
         synchronized (lock) {
             for (int i = 0; i < urls.length; i++) {
                 if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
@@ -86,9 +86,9 @@ public class OAuthHelper {
     public OAuthConsumer getConsumer(String osmBaseUrl) {
         Resources r = App.resources();
 
-        String urls[] = r.getStringArray(R.array.api_urls);
-        String keys[] = r.getStringArray(R.array.api_consumer_keys);
-        String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
         for (int i = 0; i < urls.length; i++) {
             if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
                 return new DefaultOAuthConsumer(keys[i], secrets[i]);
@@ -98,7 +98,7 @@ public class OAuthHelper {
         // TODO protect against failure
         return null;
     }
-    
+
     /**
      * Returns an OAuthConsumer initialized with the consumer keys for the API in question
      * 
@@ -108,9 +108,9 @@ public class OAuthHelper {
     public OkHttpOAuthConsumer getOkHttpConsumer(String osmBaseUrl) {
         Resources r = App.resources();
 
-        String urls[] = r.getStringArray(R.array.api_urls);
-        String keys[] = r.getStringArray(R.array.api_consumer_keys);
-        String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
         for (int i = 0; i < urls.length; i++) {
             if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
                 return new OkHttpOAuthConsumer(keys[i], secrets[i]);
@@ -127,7 +127,7 @@ public class OAuthHelper {
      * @return the token or null
      * @throws OAuthException if an error happened during the OAuth handshake
      * @throws TimeoutException if we waited too long for a response
-     * @throws ExecutionException 
+     * @throws ExecutionException
      */
     public String getRequestToken() throws OAuthException, TimeoutException, ExecutionException {
         Log.d("OAuthHelper", "getRequestToken");
@@ -159,7 +159,7 @@ public class OAuthHelper {
         String result = null;
         try {
             result = requester.get(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question          
+        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
             requester.cancel(true);
             throw new TimeoutException(e.getMessage());
         }
@@ -173,7 +173,7 @@ public class OAuthHelper {
     }
 
     /**
-     * Queries the service provider for an access token. 
+     * Queries the service provider for an access token.
      * 
      * @param verifier
      * @return

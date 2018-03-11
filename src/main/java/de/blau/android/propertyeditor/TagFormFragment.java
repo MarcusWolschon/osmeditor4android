@@ -203,7 +203,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         maxInlineValues = prefs.getMaxInlineValues();
 
         Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().maxStringLength;
+        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         if (displayMRUpresets) {
             Log.d(DEBUG_TAG, "Adding MRU prests");

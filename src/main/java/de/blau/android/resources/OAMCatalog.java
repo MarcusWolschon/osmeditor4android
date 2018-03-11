@@ -69,29 +69,26 @@ public class OAMCatalog {
      * @return a List of OAMCatalog.Entry
      * @throws IOException
      */
+    @Nullable
     public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
         URL url = new URL(oamServer + "meta" + (box != null
                 ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&" : "?")
                 + "has_tiled=true");
-
         Log.d(DEBUG_TAG, "query: " + url.toString());
-        InputStream inputStream = null;
 
         Request request = new Request.Builder().url(url).build();
-        OkHttpClient client = App.getHttpClient().newBuilder()
-                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .build();
         Call catalogCall = client.newCall(request);
         Response catalogCallResponse = catalogCall.execute();
         if (catalogCallResponse.isSuccessful()) {
             ResponseBody responseBody = catalogCallResponse.body();
-            inputStream = responseBody.byteStream();
+            InputStream inputStream = responseBody.byteStream();
+            return parseEntries(inputStream);
         } else {
             Server.throwOsmServerException(catalogCallResponse);
         }
-
-        return parseEntries(inputStream);
+        return null;
     }
 
     /**
@@ -102,6 +99,7 @@ public class OAMCatalog {
      * @throws IOException
      * @throws NumberFormatException
      */
+    @NonNull
     private List<Entry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
         List<Entry> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));

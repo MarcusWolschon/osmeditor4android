@@ -73,11 +73,11 @@ class OsmoseServer {
             } else {
                 return new ArrayList<>();
             }
-            
+
             result = OsmoseBug.parseBugs(inputStream);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getBugsForBox got exception " + e.getMessage());
-        } 
+        }
         return result;
     }
 
@@ -111,13 +111,13 @@ class OsmoseServer {
                     App.getTaskStorage().setDirty();
                 }
                 return false;
-            }            
+            }
             bug.changed = false;
             App.getTaskStorage().setDirty();
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
             return false;
-        } 
+        }
         Log.d(DEBUG_TAG, "changeState sucess");
         return true;
     }

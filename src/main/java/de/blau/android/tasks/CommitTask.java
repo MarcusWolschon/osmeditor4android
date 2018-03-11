@@ -74,34 +74,34 @@ class CommitTask extends AsyncTask<Server, Void, UploadResult> {
                 }
             }
         } catch (final OsmServerException e) {
-            result.httpError = e.getErrorCode();
-            result.message = e.getMessage();
+            result.setHttpError(e.getErrorCode());
+            result.setMessage(e.getMessage());
             switch (e.getErrorCode()) {
             case HttpURLConnection.HTTP_FORBIDDEN:
-                result.error = ErrorCodes.FORBIDDEN;
+                result.setError(ErrorCodes.FORBIDDEN);
                 break;
             case HttpURLConnection.HTTP_UNAUTHORIZED:
-                result.error = ErrorCodes.INVALID_LOGIN;
+                result.setError(ErrorCodes.INVALID_LOGIN);
                 break;
             case HttpURLConnection.HTTP_BAD_REQUEST:
             case HttpURLConnection.HTTP_NOT_FOUND:
             case HttpURLConnection.HTTP_INTERNAL_ERROR:
             case HttpURLConnection.HTTP_BAD_GATEWAY:
             case HttpURLConnection.HTTP_UNAVAILABLE:
-                result.error = ErrorCodes.UPLOAD_PROBLEM;
+                result.setError(ErrorCodes.UPLOAD_PROBLEM);
                 break;
             // TODO: implement other state handling
             default:
                 Log.e(DEBUG_TAG, "", e);
                 ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                 ACRA.getErrorReporter().handleException(e);
-                result.error = ErrorCodes.UPLOAD_PROBLEM; // use this as generic error
+                result.setError(ErrorCodes.UPLOAD_PROBLEM); // use this as generic error
                 break;
             }
         } catch (XmlPullParserException e) {
-            result.error = ErrorCodes.INVALID_DATA_RECEIVED;
+            result.setError(ErrorCodes.INVALID_DATA_RECEIVED);
         } catch (IOException e) {
-            result.error = ErrorCodes.NO_CONNECTION;
+            result.setError(ErrorCodes.NO_CONNECTION);
         }
         return result;
     }

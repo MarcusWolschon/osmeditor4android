@@ -3306,7 +3306,7 @@ public class Logic {
                 try {
                     server.getCapabilities(); // update status
                     if (!(server.apiAvailable() && server.writableDB())) {
-                        result.error = ErrorCodes.API_OFFLINE;
+                        result.setError(ErrorCodes.API_OFFLINE);
                         return result;
                     }
                     getDelegator().uploadToServer(server, comment, source, closeChangeset);
@@ -3315,31 +3315,31 @@ public class Logic {
                     ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
                     ACRA.getErrorReporter().handleException(e);
                 } catch (final OsmServerException e) {
-                    result.httpError = e.getErrorCode();
-                    result.message = e.getMessageWithDescription();
+                    result.setHttpError(e.getErrorCode());
+                    result.setMessage(e.getMessageWithDescription());
                     switch (e.getErrorCode()) {
                     case HttpURLConnection.HTTP_FORBIDDEN:
-                        result.error = ErrorCodes.FORBIDDEN;
+                        result.setError(ErrorCodes.FORBIDDEN);
                         break;
                     case HttpURLConnection.HTTP_UNAUTHORIZED:
-                        result.error = ErrorCodes.INVALID_LOGIN;
+                        result.setError(ErrorCodes.INVALID_LOGIN);
                         break;
                     case HttpURLConnection.HTTP_GONE:
                     case HttpURLConnection.HTTP_CONFLICT:
                     case HttpURLConnection.HTTP_PRECON_FAILED:
-                        result.error = ErrorCodes.UPLOAD_CONFLICT;
-                        result.elementType = e.getElementType();
-                        result.osmId = e.getElementId();
+                        result.setError(ErrorCodes.UPLOAD_CONFLICT);
+                        result.setElementType(e.getElementType());
+                        result.setOsmId(e.getElementId());
                         break;
                     case HttpURLConnection.HTTP_BAD_REQUEST:
-                        result.error = ErrorCodes.BAD_REQUEST;
-                        result.message = e.getMessage();
+                        result.setError(ErrorCodes.BAD_REQUEST);
+                        result.setMessage(e.getMessage());
                         break;
                     case HttpURLConnection.HTTP_NOT_FOUND:
                     case HttpURLConnection.HTTP_INTERNAL_ERROR:
                     case HttpURLConnection.HTTP_BAD_GATEWAY:
                     case HttpURLConnection.HTTP_UNAVAILABLE:
-                        result.error = ErrorCodes.UPLOAD_PROBLEM;
+                        result.setError(ErrorCodes.UPLOAD_PROBLEM);
                         break;
                     // TODO: implement other state handling
                     default:
@@ -3349,7 +3349,7 @@ public class Logic {
                         break;
                     }
                 } catch (final IOException e) {
-                    result.error = ErrorCodes.NO_CONNECTION;
+                    result.setError(ErrorCodes.NO_CONNECTION);
                     Log.e(DEBUG_TAG, "", e);
                 } catch (final NullPointerException e) {
                     Log.e(DEBUG_TAG, "", e);
@@ -3362,7 +3362,7 @@ public class Logic {
             @Override
             protected void onPostExecute(UploadResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                if (result.error == 0) {
+                if (result.getError() == 0) {
                     save(activity); // save now to avoid problems if it doesn't succeed later on, FIXME async or sync
                     Snack.barInfo(activity, R.string.toast_upload_success);
                     getDelegator().clearUndo(); // only clear on successful upload
@@ -3370,21 +3370,21 @@ public class Logic {
                 }
                 activity.getCurrentFocus().invalidate();
                 if (!activity.isFinishing()) {
-                    if (result.error == ErrorCodes.UPLOAD_CONFLICT) {
-                        if (result.osmId > 0) {
+                    if (result.getError() == ErrorCodes.UPLOAD_CONFLICT) {
+                        if (result.getOsmId() > 0) {
                             UploadConflict.showDialog(activity, result);
                         } else {
                             Log.e(DEBUG_TAG, "No OSM element found for conflict");
                             ErrorAlert.showDialog(activity, ErrorCodes.UPLOAD_PROBLEM);
                         }
-                    } else if (result.error == ErrorCodes.INVALID_LOGIN) {
+                    } else if (result.getError() == ErrorCodes.INVALID_LOGIN) {
                         InvalidLogin.showDialog(activity);
-                    } else if (result.error == ErrorCodes.FORBIDDEN) {
-                        ForbiddenLogin.showDialog(activity, result.message);
-                    } else if (result.error == ErrorCodes.BAD_REQUEST) {
-                        ErrorAlert.showDialog(activity, result.error, result.message);
-                    } else if (result.error != 0) {
-                        ErrorAlert.showDialog(activity, result.error);
+                    } else if (result.getError() == ErrorCodes.FORBIDDEN) {
+                        ForbiddenLogin.showDialog(activity, result.getMessage());
+                    } else if (result.getError() == ErrorCodes.BAD_REQUEST) {
+                        ErrorAlert.showDialog(activity, result.getError(), result.getMessage());
+                    } else if (result.getError() != 0) {
+                        ErrorAlert.showDialog(activity, result.getError());
                     }
                 }
             }
@@ -3496,7 +3496,7 @@ public class Logic {
 
                 UserDetails userDetails = server.getUserDetails();
                 if (userDetails != null) {
-                    result = userDetails.unread;
+                    result = userDetails.getUnreadMessages();
                 }
                 return result;
             }
@@ -4383,7 +4383,7 @@ public class Logic {
                 X = X + (x1 + x2) * d;
                 Y = Y + (y1 + y2) * d;
             }
-            if (Util.notZero(A)) { 
+            if (Util.notZero(A)) {
                 Y = Y / (3 * A); // NOSONAR nonZero tests for zero
                 X = X / (3 * A); // NOSONAR nonZero tests for zero
                 return new float[] { (float) X, (float) Y };

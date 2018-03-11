@@ -363,7 +363,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 ImageryOffset offset = params[0];
                 String urlString = offset.toSaveUrl(offsetServerUri);
                 Log.d(DEBUG_TAG, "urlString " + urlString);
-                RequestBody reqbody = RequestBody.create(null, "");  
+                RequestBody reqbody = RequestBody.create(null, "");
                 Request request = new Request.Builder().url(urlString).post(reqbody).build();
                 OkHttpClient client = App.getHttpClient().newBuilder()
                         .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
@@ -464,7 +464,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
 
                     if (user != null) {
-                        author = user.display_name;
+                        author = user.getDisplayName();
                     } else {
                         author = server.getDisplayName(); // maybe it has been configured
                     }
