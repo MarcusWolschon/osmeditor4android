@@ -100,10 +100,10 @@ public class ApiTest {
         Capabilities result = s.getCapabilities();
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.minVersion, "0.6");
-        Assert.assertEquals(result.gpxStatus, Capabilities.Status.ONLINE);
-        Assert.assertEquals(result.apiStatus, Capabilities.Status.ONLINE);
-        Assert.assertEquals(result.dbStatus, Capabilities.Status.ONLINE);
+        Assert.assertEquals(result.getMinVersion(), "0.6");
+        Assert.assertEquals(result.getGpxStatus(), Capabilities.Status.ONLINE);
+        Assert.assertEquals(result.getApiStatus(), Capabilities.Status.ONLINE);
+        Assert.assertEquals(result.getDbStatus(), Capabilities.Status.ONLINE);
         Assert.assertEquals(Way.maxWayNodes, 2001);
     }
 
@@ -259,7 +259,7 @@ public class ApiTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(50000, s.getCachedCapabilities().maxElementsInChangeset);
+        Assert.assertEquals(50000, s.getCachedCapabilities().getMaxElementsInChangeset());
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());
@@ -361,7 +361,7 @@ public class ApiTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(11, s.getCachedCapabilities().maxElementsInChangeset);
+        Assert.assertEquals(11, s.getCachedCapabilities().getMaxElementsInChangeset());
         n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, n.getState());

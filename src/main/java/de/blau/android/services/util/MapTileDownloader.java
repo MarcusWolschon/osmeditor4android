@@ -119,16 +119,16 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     }
 
                     Request request = new Request.Builder().url(tileURLString).build();
-                    Call searchCall = App.getHttpClient().newCall(request);
-                    Response searchCallResponse = searchCall.execute();
-                    if (searchCallResponse.isSuccessful()) {
-                        responseBody = searchCallResponse.body();
+                    Call tileCall = App.getHttpClient().newCall(request);
+                    Response tileCallResponse = tileCall.execute();
+                    if (tileCallResponse.isSuccessful()) {
+                        responseBody = tileCallResponse.body();
                         inputStream = responseBody.byteStream();
                     }
 
                     if (TileLayerServer.LAYER_BING.equals(mTile.rendererID)) {
                         // this is fairly expensive so only do it is we are actually querying bing
-                        if ("no-tile".equals(searchCallResponse.header("X-VE-Tile-Info"))) {
+                        if ("no-tile".equals(tileCallResponse.header("X-VE-Tile-Info"))) {
                             // handle special Bing header that indicates no tile is available
                             throw new FileNotFoundException("tile not available");
                         }

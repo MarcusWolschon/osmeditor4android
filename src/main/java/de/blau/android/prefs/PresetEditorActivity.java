@@ -7,9 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -36,6 +35,11 @@ import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -244,30 +248,28 @@ public class PresetEditorActivity extends URLListEditActivity {
                 OutputStream fileStream = null;
                 try {
                     Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
-                    URL presetUrl = new URL(url);
-                    HttpURLConnection conn = (HttpURLConnection) (presetUrl.openConnection());
-                    conn.setInstanceFollowRedirects(true);
-                    int responseCode = conn.getResponseCode();
-                    if (conn.getResponseCode() != 200) {
-                        Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
-                        if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
-                            URL redirectUrl = Server.getRedirectToHttpsUrl(presetUrl, conn, responseCode);
-                            conn = (HttpURLConnection) redirectUrl.openConnection();
-                            conn.setInstanceFollowRedirects(true);
-                        }
-                        if (conn.getResponseCode() != 200) {
-                            Log.w("PresetDownloader", "Could not download file " + url + " respose code " + conn.getResponseCode());
-                            return DOWNLOADED_PRESET_ERROR;
-                        }
-                    }
-                    String contentType = conn.getContentType();
-                    boolean zip = (contentType != null && contentType.equalsIgnoreCase("application/zip")) || url.toLowerCase().endsWith(".zip");
                     final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
-                    if (zip) {
-                        Log.d(DEBUG_TAG, "detected zip file");
-                        filename = FILE_NAME_TEMPORARY_ARCHIVE;
+                    boolean zip = false;
+                    
+                    Request request = new Request.Builder().url(url).build();
+                    OkHttpClient client = App.getHttpClient().newBuilder()
+                            .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                            .build();
+                    Call presetCall = client.newCall(request);
+                    Response presetCallResponse = presetCall.execute();
+                    if (presetCallResponse.isSuccessful()) {
+                        ResponseBody responseBody = presetCallResponse.body();
+                        downloadStream = responseBody.byteStream();
+                        String contentType = responseBody.contentType().toString();
+                        zip = (contentType != null && contentType.equalsIgnoreCase("application/zip")) || url.toLowerCase().endsWith(".zip");
+                        if (zip) {
+                            Log.d(DEBUG_TAG, "detected zip file");
+                            filename = FILE_NAME_TEMPORARY_ARCHIVE;
+                        }
+                    } else {
+                        Log.w("PresetDownloader", "Could not download file " + url + " respose code " + presetCallResponse.code());
+                        return DOWNLOADED_PRESET_ERROR;
                     }
-                    downloadStream = conn.getInputStream();
                     fileStream = new FileOutputStream(new File(presetDir, filename));
                     StreamUtils.copy(downloadStream, fileStream);
 

@@ -200,10 +200,6 @@ public class TransferTasks {
                     boolean uploadFailed = false;
                     for (Task b : queryResult) {
                         if (b.changed) {
-                            try {
-                                Thread.sleep(100); // attempt at workaround of Osmose issues
-                            } catch (InterruptedException e) {
-                            }
                             Log.d(DEBUG_TAG, b.getDescription());
                             if (b instanceof Note) {
                                 Note n = (Note) b;
@@ -212,10 +208,10 @@ public class TransferTasks {
                                     uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
                                 } else {
                                     // just a state change
-                                    uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed; 
+                                    uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed;
                                 }
                             } else if (b instanceof OsmoseBug) {
-                                uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b)|| uploadFailed;
+                                uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
                             }
                         }
                     }
@@ -366,7 +362,7 @@ public class TransferTasks {
                     if (newBug && !App.getTaskStorage().contains(bug)) {
                         App.getTaskStorage().add(bug);
                     }
-                    if (result.error == ErrorCodes.OK) {
+                    if (result.getError() == ErrorCodes.OK) {
                         // upload successful
                         bug.changed = false;
                         if (postUploadHandler != null) {
@@ -378,12 +374,12 @@ public class TransferTasks {
                         // Toast.makeText(context, result ? R.string.openstreetbug_commit_ok :
                         // R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
                         if (!activity.isFinishing()) {
-                            if (result.error == ErrorCodes.INVALID_LOGIN) {
+                            if (result.getError() == ErrorCodes.INVALID_LOGIN) {
                                 InvalidLogin.showDialog(activity);
-                            } else if (result.error == ErrorCodes.FORBIDDEN) {
-                                ForbiddenLogin.showDialog(activity, result.message);
-                            } else if (result.error != ErrorCodes.OK) {
-                                ErrorAlert.showDialog(activity, result.error);
+                            } else if (result.getError() == ErrorCodes.FORBIDDEN) {
+                                ForbiddenLogin.showDialog(activity, result.getMessage());
+                            } else if (result.getError() != ErrorCodes.OK) {
+                                ErrorAlert.showDialog(activity, result.getError());
                             } else { // no error
                                 Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
                             }
@@ -400,7 +396,7 @@ public class TransferTasks {
                 ct.execute();
             }
             try {
-                return ct.get().error == ErrorCodes.OK;
+                return ct.get().getError() == ErrorCodes.OK;
             } catch (InterruptedException | ExecutionException e) {
                 Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
                 return false;

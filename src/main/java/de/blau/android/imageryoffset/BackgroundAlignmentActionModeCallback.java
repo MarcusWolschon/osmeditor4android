@@ -1,10 +1,9 @@
 package de.blau.android.imageryoffset;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +57,12 @@ import de.blau.android.util.MenuUtil;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 
@@ -239,12 +244,25 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             String urlString = uriBuilder.build().toString();
             try {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
-                URL url = new URL(urlString);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("User-Agent", App.getUserAgent());
+                InputStream inputStream = null;
+
+                Request request = new Request.Builder().url(urlString).build();
+                OkHttpClient client = App.getHttpClient().newBuilder()
+                        .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .build();
+                Call offsetListCall = client.newCall(request);
+                Response offestListCallResponse = offsetListCall.execute();
+                if (offestListCallResponse.isSuccessful()) {
+                    ResponseBody responseBody = offestListCallResponse.body();
+                    inputStream = responseBody.byteStream();
+                } else {
+                    Server.throwOsmServerException(offestListCallResponse);
+                }
+                
                 JsonReader reader = null;
                 try {
-                    reader = new JsonReader(new InputStreamReader(conn.getInputStream()));
+                    reader = new JsonReader(new InputStreamReader(inputStream));
                     ArrayList<ImageryOffset> result = new ArrayList<>();
                     try {
                         JsonToken token = reader.peek();
@@ -345,11 +363,18 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 ImageryOffset offset = params[0];
                 String urlString = offset.toSaveUrl(offsetServerUri);
                 Log.d(DEBUG_TAG, "urlString " + urlString);
-                URL url = new URL(urlString);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("User-Agent", App.getUserAgent());
-                return conn.getResponseCode();
+                RequestBody reqbody = RequestBody.create(null, "");
+                Request request = new Request.Builder().url(urlString).post(reqbody).build();
+                OkHttpClient client = App.getHttpClient().newBuilder()
+                        .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .build();
+                Call offsetListCall = client.newCall(request);
+                Response offestListCallResponse = offsetListCall.execute();
+                if (!offestListCallResponse.isSuccessful()) {
+                    Server.throwOsmServerException(offestListCallResponse);
+                }
+                return offestListCallResponse.code();
             } catch (MalformedURLException e) {
                 error = e.getMessage();
                 return -2;
@@ -439,7 +464,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
 
                     if (user != null) {
-                        author = user.display_name;
+                        author = user.getDisplayName();
                     } else {
                         author = server.getDisplayName(); // maybe it has been configured
                     }

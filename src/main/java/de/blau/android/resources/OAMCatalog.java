@@ -3,13 +3,12 @@ package de.blau.android.resources;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.stream.JsonReader;
 
@@ -21,6 +20,11 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.util.SavingHelper;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Interface to the OAM API
@@ -65,37 +69,26 @@ public class OAMCatalog {
      * @return a List of OAMCatalog.Entry
      * @throws IOException
      */
+    @Nullable
     public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
         URL url = new URL(oamServer + "meta" + (box != null
                 ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&" : "?")
                 + "has_tiled=true");
-
         Log.d(DEBUG_TAG, "query: " + url.toString());
 
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        boolean isServerGzipEnabled = false;
-
-        // --Start: header not yet sent
-        con.setReadTimeout(TIMEOUT);
-        con.setConnectTimeout(TIMEOUT);
-        con.setRequestProperty("Accept-Encoding", "gzip");
-        con.setRequestProperty("User-Agent", App.getUserAgent());
-
-        // --Start: got response header
-        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-        if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-            Server.throwOsmServerException(con);
-            ;
-        }
-
-        InputStream is;
-        if (isServerGzipEnabled) {
-            is = new GZIPInputStream(con.getInputStream());
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
+        Call catalogCall = client.newCall(request);
+        Response catalogCallResponse = catalogCall.execute();
+        if (catalogCallResponse.isSuccessful()) {
+            ResponseBody responseBody = catalogCallResponse.body();
+            InputStream inputStream = responseBody.byteStream();
+            return parseEntries(inputStream);
         } else {
-            is = con.getInputStream();
+            Server.throwOsmServerException(catalogCallResponse);
         }
-        return parseEntries(is);
+        return null;
     }
 
     /**
@@ -106,6 +99,7 @@ public class OAMCatalog {
      * @throws IOException
      * @throws NumberFormatException
      */
+    @NonNull
     private List<Entry> parseEntries(@NonNull InputStream is) throws IOException, NumberFormatException {
         List<Entry> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));

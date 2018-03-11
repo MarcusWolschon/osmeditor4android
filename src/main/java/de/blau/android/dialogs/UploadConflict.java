@@ -106,8 +106,8 @@ public class UploadConflict extends DialogFragment {
         builder.setTitle(R.string.upload_conflict_title);
         Resources res = getActivity().getResources();
         final Logic logic = App.getLogic();
-        final OsmElement elementOnServer = logic.getElement(getActivity(), result.elementType, result.osmId);
-        final OsmElement elementLocal = App.getDelegator().getOsmElement(result.elementType, result.osmId);
+        final OsmElement elementOnServer = logic.getElement(getActivity(), result.getElementType(), result.getOsmId());
+        final OsmElement elementLocal = App.getDelegator().getOsmElement(result.getElementType(), result.getOsmId());
         final long newVersion;
         try {
             boolean useServerOnly = false;

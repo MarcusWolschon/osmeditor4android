@@ -27,12 +27,12 @@ import de.blau.android.presets.Synonyms;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
+import de.blau.android.util.OkHttpTlsCompat;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.validation.BaseValidator;
 import de.blau.android.validation.Validator;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure)
 @AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "http://acralyzer.vespucci.io/acraproxy")
@@ -156,7 +156,7 @@ public class App extends android.app.Application {
     public static OkHttpClient getHttpClient() {
         synchronized (httpClientLock) {
             if (httpClient == null) {
-                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                OkHttpClient.Builder builder = OkHttpTlsCompat.enableTls12IfNeeded(new OkHttpClient.Builder());
                 builder.addNetworkInterceptor(new UserAgentInterceptor(userAgent));
                 httpClient = builder.build();
             }

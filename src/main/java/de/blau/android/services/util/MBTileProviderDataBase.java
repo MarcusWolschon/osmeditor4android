@@ -191,6 +191,7 @@ public class MBTileProviderDataBase {
      * Get min and max zoom from the existing tiles
      * 
      * This is likely rather expensive for a large number of tiles
+     * 
      * @return an int array holding the min zoom in the first, max zoom in the second element or null
      */
     @Nullable

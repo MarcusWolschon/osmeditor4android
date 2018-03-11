@@ -14,8 +14,6 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.exception.OsmException;
-import de.blau.android.util.signpost.CommonsHttpOAuthConsumer;
-import de.blau.android.util.signpost.CommonsHttpOAuthProvider;
 import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
@@ -25,6 +23,8 @@ import oauth.signpost.exception.OAuthException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
 
 /**
  * Helper class for signpost oAuth more or less based on text below
@@ -40,17 +40,17 @@ public class OAuthHelper {
 
     public OAuthHelper(String osmBaseUrl) throws OsmException {
         Resources r = App.resources();
-        String urls[] = r.getStringArray(R.array.api_urls);
-        String keys[] = r.getStringArray(R.array.api_consumer_keys);
-        String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
-        String oauth_urls[] = r.getStringArray(R.array.api_oauth_urls);
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
+        String[] oauth_urls = r.getStringArray(R.array.api_oauth_urls);
         synchronized (lock) {
             for (int i = 0; i < urls.length; i++) {
                 if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
-                    mConsumer = new CommonsHttpOAuthConsumer(keys[i], secrets[i]);
+                    mConsumer = new OkHttpOAuthConsumer(keys[i], secrets[i]);
                     Log.d("OAuthHelper", "Using " + osmBaseUrl + "oauth/request_token " + osmBaseUrl + "oauth/access_token " + osmBaseUrl + "oauth/authorize");
                     Log.d("OAuthHelper", "With key " + keys[i] + " secret " + secrets[i]);
-                    mProvider = new CommonsHttpOAuthProvider(oauth_urls[i] + "oauth/request_token", oauth_urls[i] + "oauth/access_token",
+                    mProvider = new OkHttpOAuthProvider(oauth_urls[i] + "oauth/request_token", oauth_urls[i] + "oauth/access_token",
                             oauth_urls[i] + "oauth/authorize");
                     mProvider.setOAuth10a(true);
                     mCallbackUrl = "vespucci:/oauth/"; // OAuth.OUT_OF_BAND; //
@@ -64,8 +64,8 @@ public class OAuthHelper {
 
     public OAuthHelper(String osmBaseUrl, String consumerKey, String consumerSecret, String callbackUrl) throws UnsupportedEncodingException {
         synchronized (lock) {
-            mConsumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
-            mProvider = new CommonsHttpOAuthProvider(osmBaseUrl + "oauth/request_token", osmBaseUrl + "oauth/access_token", osmBaseUrl + "oauth/authorize");
+            mConsumer = new OkHttpOAuthConsumer(consumerKey, consumerSecret);
+            mProvider = new OkHttpOAuthProvider(osmBaseUrl + "oauth/request_token", osmBaseUrl + "oauth/access_token", osmBaseUrl + "oauth/authorize");
             mProvider.setOAuth10a(true);
             mCallbackUrl = (callbackUrl == null ? OAuth.OUT_OF_BAND : callbackUrl);
         }
@@ -86,12 +86,34 @@ public class OAuthHelper {
     public OAuthConsumer getConsumer(String osmBaseUrl) {
         Resources r = App.resources();
 
-        String urls[] = r.getStringArray(R.array.api_urls);
-        String keys[] = r.getStringArray(R.array.api_consumer_keys);
-        String secrets[] = r.getStringArray(R.array.api_consumer_secrets);
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
         for (int i = 0; i < urls.length; i++) {
             if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
                 return new DefaultOAuthConsumer(keys[i], secrets[i]);
+            }
+        }
+        Log.d("OAuthHelper", "No matching API for " + osmBaseUrl + "found");
+        // TODO protect against failure
+        return null;
+    }
+
+    /**
+     * Returns an OAuthConsumer initialized with the consumer keys for the API in question
+     * 
+     * @param osmBaseUrl
+     * @return an initialized OAuthConsumer
+     */
+    public OkHttpOAuthConsumer getOkHttpConsumer(String osmBaseUrl) {
+        Resources r = App.resources();
+
+        String[] urls = r.getStringArray(R.array.api_urls);
+        String[] keys = r.getStringArray(R.array.api_consumer_keys);
+        String[] secrets = r.getStringArray(R.array.api_consumer_secrets);
+        for (int i = 0; i < urls.length; i++) {
+            if (urls[i].equalsIgnoreCase(osmBaseUrl)) {
+                return new OkHttpOAuthConsumer(keys[i], secrets[i]);
             }
         }
         Log.d("OAuthHelper", "No matching API for " + osmBaseUrl + "found");
@@ -105,7 +127,7 @@ public class OAuthHelper {
      * @return the token or null
      * @throws OAuthException if an error happened during the OAuth handshake
      * @throws TimeoutException if we waited too long for a response
-     * @throws ExecutionException 
+     * @throws ExecutionException
      */
     public String getRequestToken() throws OAuthException, TimeoutException, ExecutionException {
         Log.d("OAuthHelper", "getRequestToken");
@@ -137,7 +159,7 @@ public class OAuthHelper {
         String result = null;
         try {
             result = requester.get(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question          
+        } catch (InterruptedException e) { // NOSONAR cancel does interrupt the thread in question
             requester.cancel(true);
             throw new TimeoutException(e.getMessage());
         }
@@ -151,7 +173,7 @@ public class OAuthHelper {
     }
 
     /**
-     * Queries the service provider for an access token. 
+     * Queries the service provider for an access token.
      * 
      * @param verifier
      * @return

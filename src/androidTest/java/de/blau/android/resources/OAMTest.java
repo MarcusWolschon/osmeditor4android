@@ -74,14 +74,15 @@ public class OAMTest {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
+        Assert.assertNotNull(list);
         Assert.assertEquals(100, list.size());
         Assert.assertEquals(100, catalog.getLimit());
         OAMCatalog.Entry entry = list.get(12);
         Assert.assertEquals("Bricenio Ecuador Earthquake", entry.title);
         Assert.assertEquals("http://tiles.openaerialmap.org/572b2552cd0663bb003c32a2/0/572b25b72b67227a79b4fbef/{z}/{x}/{y}.png", entry.tileUrl);
-        Assert.assertEquals(-80.29468433281558D, entry.box.getLeft()/1E7D, 0.0000001);
-        Assert.assertEquals(-0.43514940868965246D, entry.box.getBottom()/1E7D, 0.0000001);
-        Assert.assertEquals(-80.29117135958357D, entry.box.getRight()/1E7D, 0.0000001);
-        Assert.assertEquals(-0.4300190885506524D, entry.box.getTop()/1E7D, 0.0000001);
+        Assert.assertEquals(-80.29468433281558D, entry.box.getLeft() / 1E7D, 0.0000001);
+        Assert.assertEquals(-0.43514940868965246D, entry.box.getBottom() / 1E7D, 0.0000001);
+        Assert.assertEquals(-80.29117135958357D, entry.box.getRight() / 1E7D, 0.0000001);
+        Assert.assertEquals(-0.4300190885506524D, entry.box.getTop() / 1E7D, 0.0000001);
     }
 }

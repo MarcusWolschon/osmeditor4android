@@ -117,7 +117,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
         Preferences prefs = new Preferences(getActivity());
         Server server = prefs.getServer();
-        maxStringLength = server.getCachedCapabilities().maxStringLength;
+        maxStringLength = server.getCachedCapabilities().getMaxStringLength();
 
         loadParents(membershipVerticalLayout, parents);
 

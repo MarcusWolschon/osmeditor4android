@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +24,7 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +63,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
@@ -73,6 +73,11 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.layers.MapTilesLayer;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * The OpenStreetMapRendererInfo stores information about available tile servers.
@@ -425,12 +430,19 @@ public class TileLayerServer {
                 is = r.openRawResource(resid);
             } else {
                 // assume Internet URL
-                URLConnection conn = new URL(replaceGeneralParameters(metadataUrl)).openConnection();
-                conn.setRequestProperty("User-Agent", App.getUserAgent());
-                is = conn.getInputStream();
+                Request request = new Request.Builder().url(replaceGeneralParameters(metadataUrl)).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                Call metadataCall = client.newCall(request);
+                Response metadataCallResponse = metadataCall.execute();
+                if (metadataCallResponse.isSuccessful()) {
+                    ResponseBody responseBody = metadataCallResponse.body();
+                    is = responseBody.byteStream();
+                } else {
+                    throw new IOException(metadataCallResponse.message());
+                }
             }
             parser.setInput(is, null);
-
             int eventType;
             while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
                 String tagName = parser.getName();
@@ -518,17 +530,25 @@ public class TileLayerServer {
     private BitmapDrawable getLogoFromUrl(@NonNull String brandLogoUri) {
         InputStream bis = null;
         try {
-            URLConnection conn = new URL(replaceGeneralParameters(brandLogoUri)).openConnection();
-            conn.setRequestProperty("User-Agent", App.getUserAgent());
-            bis = conn.getInputStream();
-            Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
-            return scaledBitmap(brandLogoBitmap);
+            Request request = new Request.Builder().url(replaceGeneralParameters(brandLogoUri)).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+            Call logoCall = client.newCall(request);
+            Response logoCallResponse = logoCall.execute();
+            if (logoCallResponse.isSuccessful()) {
+                ResponseBody responseBody = logoCallResponse.body();
+                bis = responseBody.byteStream();
+                Bitmap brandLogoBitmap = BitmapFactory.decodeStream(bis);
+                return scaledBitmap(brandLogoBitmap);
+            } else {
+                throw new IOException(logoCallResponse.message());
+            }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "getLogoFromUrl using " + brandLogoUri + " got " + e.getMessage());
-            return null;
         } finally {
             SavingHelper.close(bis);
         }
+        return null;
     }
 
     /**
@@ -1041,17 +1061,21 @@ public class TileLayerServer {
             }
             InputStream is = null;
             try {
-                URLConnection conn = new URL(Urls.ELI).openConnection();
-                conn.setRequestProperty("User-Agent", App.getUserAgent());
-                is = conn.getInputStream();
-                parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    writeableDb.setTransactionSuccessful();
-                }
-                getListsLocked(ctx, writeableDb, true);
-                MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
-                if (layer != null) {
-                    layer.getTileProvider().update();
+                Request request = new Request.Builder().url(Urls.ELI).build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
+                Call eliCall = client.newCall(request);
+                Response eliCallResponse = eliCall.execute();
+                if (eliCallResponse.isSuccessful()) {
+                    ResponseBody responseBody = eliCallResponse.body();
+                    is = responseBody.byteStream();
+                    parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_ELI, is, true);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        writeableDb.setTransactionSuccessful();
+                    }
+                    getListsLocked(ctx, writeableDb, true);
+                } else {
+                    throw new IOException(eliCallResponse.message());
                 }
             } finally {
                 SavingHelper.close(is);
@@ -1060,6 +1084,10 @@ public class TileLayerServer {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 writeableDb.endTransaction();
             }
+        }
+        MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
+        if (layer != null) {
+            layer.getTileProvider().update();
         }
     }
 

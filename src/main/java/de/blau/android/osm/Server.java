@@ -16,9 +16,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
 
 import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParser;
@@ -41,27 +41,42 @@ import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
-import de.blau.android.util.Base64;
+import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
 /**
  * @author mb
  */
 public class Server {
 
+    private static final String HTTP_PUT = "PUT";
+
+    private static final String HTTP_POST = "POST";
+
+    private static final String HTTP_GET = "GET";
+
+    private static final MediaType TEXTXML = MediaType.parse("text/xml");
+
     private static final String DEBUG_TAG = Server.class.getName();
 
     /**
      * Timeout for connections in milliseconds.
      */
-    private static final int TIMEOUT = 45 * 1000;
+    public static final int TIMEOUT = 45 * 1000;
 
     /**
      * Location of OSM API
@@ -121,9 +136,9 @@ public class Server {
     /**
      * <a href="http://wiki.openstreetmap.org/wiki/API">API</a>-Version.
      */
-    private static final String version = "0.6";
+    private static final String API_VERSION = "0.6";
 
-    private final String osmChangeVersion = "0.3";
+    private static final String OSMCHANGE_VERSION = "0.3";
 
     private long changesetId = -1;
 
@@ -152,7 +167,7 @@ public class Server {
      * Server path component for "notes/" as in "http://api.openstreetmap.org/api/0.6/notes/".
      */
     private static final String SERVER_NOTES_PATH = "notes/";
- 
+
     /**
      * Constructor. Sets {@link #rootOpen} and {@link #createdByTag}.
      * 
@@ -199,10 +214,66 @@ public class Server {
      *
      */
     public class UserDetails {
-        public String display_name = "unknown";
-        public int    received     = 0;
-        public int    unread       = 0;
-        public int    sent         = 0;
+        private String display_name = "unknown";
+        private int    received     = 0;
+        private int    unread       = 0;
+        private int    sent         = 0;
+
+        /**
+         * @return the display_name
+         */
+        public String getDisplayName() {
+            return display_name;
+        }
+
+        /**
+         * @param display_name the display_name to set
+         */
+        public void setDisplayName(String display_name) {
+            this.display_name = display_name;
+        }
+
+        /**
+         * @return the received
+         */
+        public int getReceivedMessages() {
+            return received;
+        }
+
+        /**
+         * @param received the received to set
+         */
+        public void setReceivedMessages(int received) {
+            this.received = received;
+        }
+
+        /**
+         * @return the unread
+         */
+        public int getUnreadMessages() {
+            return unread;
+        }
+
+        /**
+         * @param unread the unread to set
+         */
+        public void setUnreadMessages(int unread) {
+            this.unread = unread;
+        }
+
+        /**
+         * @return the sent
+         */
+        public int getSentMessages() {
+            return sent;
+        }
+
+        /**
+         * @param sent the sent to set
+         */
+        public void setSentMessages(int sent) {
+            this.sent = sent;
+        }
     }
 
     /**
@@ -215,52 +286,43 @@ public class Server {
         if (userDetails == null) {
             // Haven't retrieved the details from OSM - try to
             try {
-                HttpURLConnection connection = openConnectionForWriteAccess(getUserDetailsUrl(), "GET");
-                try {
-                    // connection.getOutputStream().close(); GET doesn't have an outputstream
-                    checkResponseCode(connection);
-                    XmlPullParser parser = xmlParserFactory.newPullParser();
-                    parser.setInput(connection.getInputStream(), null);
-                    int eventType;
-                    result = new UserDetails();
-                    boolean messages = false;
-                    while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
-                        String tagName = parser.getName();
-                        if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
-                            result.display_name = parser.getAttributeValue(null, "display_name");
-                            Log.d(DEBUG_TAG, "getUserDetails display name " + result.display_name);
+                Response response = openConnectionForAuthenicatedAccess(getUserDetailsUrl(), HTTP_GET, (RequestBody) null);
+                checkResponseCode(response);
+                XmlPullParser parser = xmlParserFactory.newPullParser();
+                parser.setInput(response.body().byteStream(), null);
+                int eventType;
+                result = new UserDetails();
+                boolean messages = false;
+                while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+                    String tagName = parser.getName();
+                    if (eventType == XmlPullParser.START_TAG && "user".equals(tagName)) {
+                        result.setDisplayName(parser.getAttributeValue(null, "display_name"));
+                        Log.d(DEBUG_TAG, "getUserDetails display name " + result.getDisplayName());
+                    }
+                    if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
+                        messages = true;
+                    }
+                    if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
+                        messages = false;
+                    }
+                    if (messages) {
+                        if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
+                            result.setReceivedMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                            Log.d(DEBUG_TAG, "getUserDetails received " + result.getReceivedMessages());
+                            result.setUnreadMessages(Integer.parseInt(parser.getAttributeValue(null, "unread")));
+                            Log.d(DEBUG_TAG, "getUserDetails unread " + result.getUnreadMessages());
                         }
-                        if (eventType == XmlPullParser.START_TAG && "messages".equals(tagName)) {
-                            messages = true;
-                        }
-                        if (eventType == XmlPullParser.END_TAG && "messages".equals(tagName)) {
-                            messages = false;
-                        }
-                        if (messages) {
-                            if (eventType == XmlPullParser.START_TAG && "received".equals(tagName)) {
-                                result.received = Integer.parseInt(parser.getAttributeValue(null, "count"));
-                                Log.d(DEBUG_TAG, "getUserDetails received " + result.received);
-                                result.unread = Integer.parseInt(parser.getAttributeValue(null, "unread"));
-                                Log.d(DEBUG_TAG, "getUserDetails unread " + result.unread);
-                            }
-                            if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
-                                result.sent = Integer.parseInt(parser.getAttributeValue(null, "count"));
-                                Log.d(DEBUG_TAG, "getUserDetails sent " + result.sent);
-                            }
+                        if (eventType == XmlPullParser.START_TAG && "sent".equals(tagName)) {
+                            result.setSentMessages(Integer.parseInt(parser.getAttributeValue(null, "count")));
+                            Log.d(DEBUG_TAG, "getUserDetails sent " + result.getSentMessages());
                         }
                     }
-                } finally {
-                    disconnect(connection);
                 }
             } catch (XmlPullParserException e) {
                 Log.e(DEBUG_TAG, "Problem parsing user details", e);
             } catch (MalformedURLException e) {
                 Log.e(DEBUG_TAG, "Problem retrieving user details", e);
-            } catch (ProtocolException e) {
-                Log.e(DEBUG_TAG, "Problem accessing user details", e);
-            } catch (IOException e) {
-                Log.e(DEBUG_TAG, "Problem accessing user details", e);
-            } catch (NumberFormatException e) {
+            } catch (IOException | NumberFormatException e) {
                 Log.e(DEBUG_TAG, "Problem accessing user details", e);
             }
             return result;
@@ -345,7 +407,7 @@ public class Server {
         try {
             Log.d(DEBUG_TAG, "getCapabilities using " + capabilitiesURL.toString());
             is = openConnection(null, capabilitiesURL);
-            
+
             XmlPullParser parser = xmlParserFactory.newPullParser();
             parser.setInput(is, null);
             int eventType;
@@ -355,50 +417,50 @@ public class Server {
                 try {
                     String tagName = parser.getName();
                     if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
-                        result.minVersion = parser.getAttributeValue(null, "minimum");
-                        result.maxVersion = parser.getAttributeValue(null, "maximum");
-                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.minVersion + "/" + result.maxVersion);
+                        result.setMinVersion(parser.getAttributeValue(null, "minimum"));
+                        result.setMaxVersion(parser.getAttributeValue(null, "maximum"));
+                        Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.getMinVersion() + "/" + result.getMaxVersion());
                     }
                     if (eventType == XmlPullParser.START_TAG && "area".equals(tagName)) {
                         String maxArea = parser.getAttributeValue(null, "maximum");
                         if (maxArea != null) {
-                            result.areaMax = Float.parseFloat(maxArea);
+                            result.setAreaMax(Float.parseFloat(maxArea));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
                     }
                     if (eventType == XmlPullParser.START_TAG && "tracepoints".equals(tagName)) {
                         String perPage = parser.getAttributeValue(null, "per_page");
                         if (perPage != null) {
-                            result.maxTracepointsPerPage = Integer.parseInt(perPage);
+                            result.setMaxTracepointsPerPage(Integer.parseInt(perPage));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #tracepoints per page " + perPage);
                     }
                     if (eventType == XmlPullParser.START_TAG && "waynodes".equals(tagName)) {
                         String maximumWayNodes = parser.getAttributeValue(null, "maximum");
                         if (maximumWayNodes != null) {
-                            result.maxWayNodes = Integer.parseInt(maximumWayNodes);
+                            result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
                     }
                     if (eventType == XmlPullParser.START_TAG && "changesets".equals(tagName)) {
                         String maximumElements = parser.getAttributeValue(null, "maximum_elements");
                         if (maximumElements != null) {
-                            result.maxElementsInChangeset = Integer.parseInt(maximumElements);
+                            result.setMaxElementsInChangeset(Integer.parseInt(maximumElements));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum elements in changesets " + maximumElements);
                     }
                     if (eventType == XmlPullParser.START_TAG && "timeout".equals(tagName)) {
                         String seconds = parser.getAttributeValue(null, "seconds");
                         if (seconds != null) {
-                            result.timeout = Integer.parseInt(seconds);
+                            result.setTimeout(Integer.parseInt(seconds));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities timeout seconds " + seconds);
                     }
                     if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
-                        result.dbStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "database"));
-                        result.apiStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "api"));
-                        result.gpxStatus = Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx"));
-                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.dbStatus + " API " + result.apiStatus + " GPX " + result.gpxStatus);
+                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "database")));
+                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "api")));
+                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx")));
+                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX " + result.getGpxStatus());
                     }
                     if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
                         if (result.getImageryBlacklist() == null) {
@@ -417,8 +479,6 @@ public class Server {
             return result;
         } catch (XmlPullParserException e) {
             Log.e(DEBUG_TAG, "Problem parsing capabilities", e);
-        } catch (ProtocolException e) {
-            Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem accessing capabilities", e);
         } finally {
@@ -427,24 +487,39 @@ public class Server {
         return null;
     }
 
+    /**
+     * @return true if the api is at least available for reading
+     */
     public boolean apiAvailable() {
-        return capabilities.apiStatus.equals(Capabilities.Status.ONLINE) || capabilities.apiStatus.equals(Capabilities.Status.READONLY);
+        return capabilities.getApiStatus().equals(Capabilities.Status.ONLINE) || capabilities.getApiStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database is at least available for reading
+     */
     public boolean readableDB() {
-        return capabilities.dbStatus.equals(Capabilities.Status.ONLINE) || capabilities.dbStatus.equals(Capabilities.Status.READONLY);
+        return capabilities.getDbStatus().equals(Capabilities.Status.ONLINE) || capabilities.getDbStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database is available for writing
+     */
     public boolean writableDB() {
-        return capabilities.dbStatus.equals(Capabilities.Status.ONLINE);
+        return capabilities.getDbStatus().equals(Capabilities.Status.ONLINE);
     }
 
+    /**
+     * @return true if the read only api entry isavailable for reading
+     */
     public boolean readOnlyApiAvailable() {
-        return readOnlyCapabilities.apiStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.apiStatus.equals(Capabilities.Status.READONLY);
+        return readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.READONLY);
     }
 
+    /**
+     * @return true if the database of read only api entry is available for reading
+     */
     public boolean readOnlyReadableDB() {
-        return readOnlyCapabilities.dbStatus.equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.dbStatus.equals(Capabilities.Status.READONLY);
+        return readOnlyCapabilities.getDbStatus().equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.getDbStatus().equals(Capabilities.Status.READONLY);
     }
 
     /**
@@ -521,80 +596,44 @@ public class Server {
      * @throws OsmServerException
      */
     private InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        boolean isServerGzipEnabled;
-
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 
-        // --Start: header not yet send
-        con.setReadTimeout(TIMEOUT);
-        con.setConnectTimeout(TIMEOUT);
-        con.setRequestProperty("Accept-Encoding", "gzip");
-        con.setRequestProperty("User-Agent", App.getUserAgent());
-        con.setInstanceFollowRedirects(true);
-
-        // --Start: got response header
-        isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-        // retry if we have no response-code or a redirect
-        int responseCode = con.getResponseCode();
-        if (responseCode == -1 || responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
-            Log.w(DEBUG_TAG, "openConnection no valid http response-code or redirect, trying again");
-            if (responseCode != -1) {
-                url = getRedirectToHttpsUrl(url, con, responseCode);
-            }
-            con = (HttpURLConnection) url.openConnection();
-            // --Start: header not yet sent
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-            con.setInstanceFollowRedirects(true);
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-            responseCode = con.getResponseCode();
-        }
-
-        if (responseCode != HttpURLConnection.HTTP_OK) {
+        Request request = new Request.Builder().url(url).build();
+        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
+                TimeUnit.MILLISECONDS);
+        // if (oauth) {
+        // OAuthHelper oa = new OAuthHelper();
+        // OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
+        // if (consumer != null) {
+        // consumer.setTokenWithSecret(accesstoken, accesstokensecret);
+        // builder.addInterceptor(new SigningInterceptor(consumer));
+        // }
+        // }
+        OkHttpClient client = builder.build();
+        Call readCall = client.newCall(request);
+        Response readCallResponse = readCall.execute();
+        if (readCallResponse.isSuccessful()) {
+            ResponseBody responseBody = readCallResponse.body();
+            return responseBody.byteStream();
+        } else {
             if (context != null && context instanceof Activity) {
-                final int finalResponseCode = responseCode;
-                final String responseMessage = con.getResponseMessage();
+                final int responseCode = readCallResponse.code();
+                final String responseMessage = readCallResponse.message();
                 if (responseCode == 400) {
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, finalResponseCode, responseMessage));
+                            Snack.barError((Activity) context, context.getString(R.string.toast_download_failed, responseCode, responseMessage));
                         }
                     });
                 } else {
-                    ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, con.getResponseMessage()));
+                    ((Activity) context).runOnUiThread(new DownloadErrorToast(context, responseCode, responseMessage));
                 }
             }
-            throwOsmServerException(con);
+            throwOsmServerException(readCallResponse);
         }
-
-        if (isServerGzipEnabled) {
-            return new GZIPInputStream(con.getInputStream());
-        } else {
-            return con.getInputStream();
-        }
+        return null;
     }
-
-	public static URL getRedirectToHttpsUrl(URL url, HttpURLConnection con, int responseCode)
-			throws MalformedURLException, OsmServerException {
-		// this should only happen once for http->https, normal redirects work as is
-		// and we don't want to support downgrading
-		boolean wasHttps = "https".equals(url.getProtocol());
-		String newUrl = con.getHeaderField("Location");
-		url = new URL(newUrl);
-		if (wasHttps && "http".equals(url.getProtocol())) {
-		    Log.w(DEBUG_TAG, "openConnectiion redirect to non-https URL " + newUrl);
-		    throw new OsmServerException(responseCode, "Cannot downgrade from https to http");
-		}
-		Log.w(DEBUG_TAG, "openConnection redirecting to " + newUrl);
-		return url;
-	}
 
     public class DownloadErrorToast implements Runnable {
         final int     code;
@@ -632,49 +671,48 @@ public class Server {
      * @throws IOException
      */
     public boolean deleteElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
-        HttpURLConnection connection = null;
-        // elem.addOrUpdateTag(createdByTag, createdByKey);
         Log.d(DEBUG_TAG, "Deleting " + elem.getName() + " #" + elem.getOsmId());
-        try {
-            connection = openConnectionForWriteAccess(getDeleteUrl(elem), "POST");
-            sendPayload(connection, new XmlSerializable() {
-                @Override
-                public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                    final String action = "delete";
-                    startChangeXml(serializer, action);
-                    elem.toXml(serializer, changeSetId);
-                    endChangeXml(serializer, action);
+        RequestBody body = new RequestBody() {
+            @Override
+            public MediaType contentType() {
+                return TEXTXML;
+            }
+
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                try {
+                    sendPayload(sink.outputStream(), new XmlSerializable() {
+                        @Override
+                        public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+                            final String action = "delete";
+                            startChangeXml(serializer, action);
+                            elem.toXml(serializer, changeSetId);
+                            endChangeXml(serializer, action);
+                        }
+                    }, changesetId);
+                } catch (IllegalArgumentException | IllegalStateException e) {
+                    throw new IOException(e);
                 }
-            }, changesetId);
-            checkResponseCode(connection, elem);
-        } finally {
-            disconnect(connection);
-        }
+            }
+        };
+        Response response = openConnectionForAuthenicatedAccess(getDeleteUrl(), HTTP_POST, body);
+        checkResponseCode(response, elem);
         return true;
     }
 
     /**
      * Return true if either login/pass is set or if oAuth is enabled
      * 
-     * @return
+     * @return true if either oauth is set or we have login information
      */
     public boolean isLoginSet() {
         return (username != null && (password != null && !username.equals("") && !password.equals(""))) || oauth;
     }
 
     /**
-     * @param connection
-     */
-    private static void disconnect(@Nullable final HttpURLConnection connection) {
-        if (connection != null) {
-            connection.disconnect();
-        }
-    }
-
-    /**
-     * Update an individual elelemt on the server
+     * Update an individual element on the server
      * 
-     * @param elem the OsmELement to update
+     * @param elem the OsmElement to update
      * @return the new version number
      * @throws MalformedURLException
      * @throws ProtocolException
@@ -682,31 +720,45 @@ public class Server {
      */
     public long updateElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         long osmVersion = -1;
-        HttpURLConnection connection = null;
         InputStream in = null;
         try {
             URL updateElementUrl = getUpdateUrl(elem);
             Log.d(DEBUG_TAG, "Updating " + elem.getName() + " #" + elem.getOsmId() + " " + updateElementUrl);
-            connection = openConnectionForWriteAccess(updateElementUrl, "PUT");
+
             // remove redundant tags
             discardedTags.remove(elem);
-            sendPayload(connection, new XmlSerializable() {
+
+            RequestBody body = new RequestBody() {
                 @Override
-                public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                    startXml(serializer);
-                    elem.toXml(serializer, changeSetId);
-                    endXml(serializer);
+                public MediaType contentType() {
+                    return TEXTXML;
                 }
-            }, changesetId);
-            checkResponseCode(connection, elem);
-            in = connection.getInputStream();
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    try {
+                        sendPayload(sink.outputStream(), new XmlSerializable() {
+                            @Override
+                            public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+                                startXml(serializer);
+                                elem.toXml(serializer, changeSetId);
+                                endXml(serializer);
+                            }
+                        }, changesetId);
+                    } catch (IllegalArgumentException | IllegalStateException e) {
+                        throw new IOException(e);
+                    }
+                }
+            };
+            Response response = openConnectionForAuthenicatedAccess(updateElementUrl, HTTP_PUT, body);
+            checkResponseCode(response, elem);
+            in = response.body().byteStream();
             try {
                 osmVersion = Long.parseLong(readLine(in));
             } catch (NumberFormatException e) {
                 throw new OsmServerException(-1, "Server returned illegal element version " + e.getMessage());
             }
         } finally {
-            disconnect(connection);
             SavingHelper.close(in);
         }
         return osmVersion;
@@ -715,16 +767,16 @@ public class Server {
     /**
      * Send a XmlSerializable Object over a HttpUrlConnection
      * 
-     * @param connection the connection
+     * @param outputStream OutputStream to write to
      * @param xmlSerializable the object
      * @param changeSetId changeset id to use
      * @throws OsmIOException thrown if a write or other error occurs
      */
-    private void sendPayload(@NonNull final HttpURLConnection connection, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
+    private void sendPayload(@NonNull final OutputStream outputStream, @NonNull final XmlSerializable xmlSerializable, long changeSetId) throws OsmIOException {
         OutputStreamWriter out = null;
         try {
             XmlSerializer xmlSerializer = getXmlSerializer();
-            out = new OutputStreamWriter(connection.getOutputStream(), Charset.defaultCharset());
+            out = new OutputStreamWriter(outputStream, Charset.defaultCharset());
             xmlSerializer.setOutput(out);
             xmlSerializable.toXml(xmlSerializer, changeSetId);
         } catch (IOException e) {
@@ -739,60 +791,50 @@ public class Server {
     }
 
     /**
-     * Open a connection for writing to the API authenticating either with OAuth or basic authentication
+     * Open a connection to the API authenticating either with OAuth or basic authentication
      * 
-     * This assumes a content type of "text/xml"
-     * @param url           URL we want to open
+     * @param url URL we want to open
      * @param requestMethod the request method
-     * @return a HttpURLCOnnection
+     * @param body the RequestBody or null for a get
+     * @return a Response object
      * @throws IOException
      * @throws MalformedURLException
      * @throws ProtocolException
      */
-    private HttpURLConnection openConnectionForWriteAccess(@NonNull final URL url, @NonNull final String requestMethod)
-            throws IOException, MalformedURLException, ProtocolException {
-        return openConnectionForWriteAccess(url, requestMethod, "text/xml");
-    }
-
-    /**
-     * Open a connection for writing to the API authenticating either with OAuth or basic authentication
-     * 
-     * @param url           URL we want to open
-     * @param requestMethod the request method
-     * @param contentType   content time (mime string)
-     * @return a HttpURLCOnnection
-     * @throws IOException
-     * @throws MalformedURLException
-     * @throws ProtocolException
-     */
-    private HttpURLConnection openConnectionForWriteAccess(@NonNull final URL url, @NonNull final String requestMethod, @NonNull final String contentType)
+    private Response openConnectionForAuthenicatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
             throws IOException, MalformedURLException, ProtocolException {
         Log.d(DEBUG_TAG, "openConnectionForWriteAccess url " + url);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("Content-Type", "" + contentType + "; charset=utf-8");
-        connection.setRequestProperty("User-Agent", App.getUserAgent());
-        connection.setConnectTimeout(TIMEOUT);
-        connection.setReadTimeout(TIMEOUT);
-        connection.setRequestMethod(requestMethod);
 
+        Request.Builder requestBuilder = new Request.Builder().url(url);
+        if (body != null) {
+            if (HTTP_POST.equals(requestMethod)) {
+                requestBuilder.post(body);
+            } else if (HTTP_PUT.equals(requestMethod)) {
+                requestBuilder.put(body);
+            }
+        }
+        Request request = requestBuilder.build();
+
+        OkHttpClient.Builder builder = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT,
+                TimeUnit.MILLISECONDS);
         if (oauth) {
             OAuthHelper oa = new OAuthHelper();
-            OAuthConsumer consumer = oa.getConsumer(getBaseUrl(getReadWriteUrl()));
-            consumer.setTokenWithSecret(accesstoken, accesstokensecret);
-            // sign the request
-            try {
-                consumer.sign(connection);
-                // HttpParameters h = consumer.getRequestParameters();
-            } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException e) { // user will get error when we actually try to write
-                Log.e(DEBUG_TAG, "OAuth fail", e);
-            } 
+            OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
+            if (consumer != null) {
+                consumer.setTokenWithSecret(accesstoken, accesstokensecret);
+                builder.addInterceptor(new SigningInterceptor(consumer));
+            }
         } else {
-            connection.setRequestProperty("Authorization", "Basic " + Base64.encode(username + ":" + password));
+            builder.addInterceptor(new BasicAuthInterceptor(username, password));
         }
 
-        connection.setDoOutput(!"GET".equals(requestMethod));
-        connection.setDoInput(true);
-        return connection;
+        OkHttpClient client = builder.build();
+
+        Call call = client.newCall(request);
+
+        Response response = call.execute();
+
+        return response;
     }
 
     /**
@@ -806,29 +848,40 @@ public class Server {
      */
     public long createElement(@NonNull final OsmElement elem) throws MalformedURLException, ProtocolException, IOException {
         long osmId = -1;
-        HttpURLConnection connection = null;
         InputStream in = null;
-        // elem.addOrUpdateTag(createdByTag, createdByKey);
 
         try {
-            connection = openConnectionForWriteAccess(getCreationUrl(elem), "PUT");
-            sendPayload(connection, new XmlSerializable() {
+            RequestBody body = new RequestBody() {
                 @Override
-                public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-                    startXml(serializer);
-                    elem.toXml(serializer, changeSetId);
-                    endXml(serializer);
+                public MediaType contentType() {
+                    return TEXTXML;
                 }
-            }, changesetId);
-            checkResponseCode(connection);
-            in = connection.getInputStream();
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    try {
+                        sendPayload(sink.outputStream(), new XmlSerializable() {
+                            @Override
+                            public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
+                                startXml(serializer);
+                                elem.toXml(serializer, changeSetId);
+                                endXml(serializer);
+                            }
+                        }, changesetId);
+                    } catch (IllegalArgumentException | IllegalStateException e) {
+                        throw new IOException(e);
+                    }
+                }
+            };
+            Response response = openConnectionForAuthenicatedAccess(getCreationUrl(elem), HTTP_PUT, body);
+            checkResponseCode(response);
+            in = response.body().byteStream();
             try {
                 osmId = Long.parseLong(readLine(in));
             } catch (NumberFormatException e) {
                 throw new OsmServerException(-1, "Server returned illegal element id " + e.getMessage());
             }
         } finally {
-            disconnect(connection);
             SavingHelper.close(in);
         }
         return osmId;
@@ -837,7 +890,7 @@ public class Server {
     /**
      * Test if changeset is at least potentially still open.
      * 
-     * @return
+     * @return true if there is a potentially open changeset
      */
     public boolean hasOpenChangeset() {
         return changesetId != -1;
@@ -853,16 +906,16 @@ public class Server {
     /**
      * Open a new changeset.
      * 
-     * @param comment   value for the comment tag
-     * @param source    value for the source tag
-     * @param imagery   value for the imagery_used tag 
+     * @param comment value for the comment tag
+     * @param source value for the source tag
+     * @param imagery value for the imagery_used tag
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws IOException
      */
-    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery) throws MalformedURLException, ProtocolException, IOException {
+    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
+            throws MalformedURLException, ProtocolException, IOException {
         long newChangesetId = -1;
-        HttpURLConnection connection = null;
         InputStream in = null;
 
         if (changesetId != -1) { // potentially still open, check if really the case
@@ -876,24 +929,28 @@ public class Server {
             }
         }
         try {
-            XmlSerializable xmlData = changeSetTags(comment, source, imagery);
-            connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-            sendPayload(connection, xmlData, changesetId);
-            if (connection.getResponseCode() == -1) {
-                // sometimes we get an invalid response-code the first time.
-                disconnect(connection);
-                connection = openConnectionForWriteAccess(getCreateChangesetUrl(), "PUT");
-                sendPayload(connection, xmlData, changesetId);
-            }
-            checkResponseCode(connection);
-            in = connection.getInputStream();
+            final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
+            RequestBody body = new RequestBody() {
+                @Override
+                public MediaType contentType() {
+                    return TEXTXML;
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    sendPayload(sink.outputStream(), xmlData, changesetId);
+                }
+            };
+            Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+
+            checkResponseCode(response);
+            in = response.body().byteStream();
             try {
                 newChangesetId = Long.parseLong(readLine(in));
             } catch (NumberFormatException e) {
                 throw new OsmServerException(-1, "Server returned illegal changeset id " + e.getMessage());
             }
         } finally {
-            disconnect(connection);
             SavingHelper.close(in);
         }
         changesetId = newChangesetId;
@@ -902,9 +959,9 @@ public class Server {
     /**
      * Generate xml for the changeset tags
      * 
-     * @param comment   value for the comment tag
-     * @param source    value for the source tag
-     * @param imagery   value for the imagery_used tag 
+     * @param comment value for the comment tag
+     * @param source value for the source tag
+     * @param imagery value for the imagery_used tag
      * @return an XmlSerializable for the tags
      */
     private XmlSerializable changeSetTags(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery) {
@@ -954,13 +1011,10 @@ public class Server {
      * @throws IOException
      */
     public void closeChangeset() throws MalformedURLException, ProtocolException, IOException {
-        HttpURLConnection connection = null;
-
         try {
-            connection = openConnectionForWriteAccess(getCloseChangesetUrl(changesetId), "PUT");
-            checkResponseCode(connection);
+            Response response = openConnectionForAuthenicatedAccess(getCloseChangesetUrl(changesetId), HTTP_PUT, RequestBody.create(null, ""));
+            checkResponseCode(response);
         } finally {
-            disconnect(connection);
             changesetId = -1;
         }
     }
@@ -971,26 +1025,25 @@ public class Server {
      * @author simon
      *
      */
-    public class Changeset {
-        public boolean open = false;
+    class Changeset {
+        boolean open = false;
     }
 
     /**
      * Retrieve information for a specific changeset
      * 
-     * @param id    id of the changeset
+     * @param id id of the changeset
      * @return a Changeset object
      */
     @Nullable
     private Changeset getChangeset(long id) {
         Changeset result = null;
-        HttpURLConnection connection = null;
         try {
-            connection = openConnectionForWriteAccess(getChangesetUrl(changesetId), "GET");
-            checkResponseCode(connection);
+            Response response = openConnectionForAuthenicatedAccess(getChangesetUrl(changesetId), HTTP_GET, (RequestBody) null);
+            checkResponseCode(response);
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
-            parser.setInput(connection.getInputStream(), null);
+            parser.setInput(response.body().byteStream(), null);
             int eventType;
             result = new Changeset();
 
@@ -1003,8 +1056,6 @@ public class Server {
             }
         } catch (IOException | XmlPullParserException e) {
             Log.d(DEBUG_TAG, "getChangeset got " + e.getMessage());
-        }  finally {
-            disconnect(connection);
         }
         return result;
     }
@@ -1012,70 +1063,75 @@ public class Server {
     /**
      * Update an existing changeset
      * 
-     * @param changesetId   the id of the changeset
-     * @param comment       value for the comment tag
-     * @param source        value for the source tag
-     * @param imagery       value for the imagery_used tag 
+     * @param changesetId the id of the changeset
+     * @param comment value for the comment tag
+     * @param source value for the source tag
+     * @param imagery value for the imagery_used tag
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws IOException
      */
     private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
             throws MalformedURLException, ProtocolException, IOException {
-
-        HttpURLConnection connection = null;
         InputStream in = null;
-
         try {
-            XmlSerializable xmlData = changeSetTags(comment, source, imagery);
-            connection = openConnectionForWriteAccess(getChangesetUrl(changesetId), "PUT");
-            sendPayload(connection, xmlData, changesetId);
-            checkResponseCode(connection);
+            final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
+            RequestBody body = new RequestBody() {
+                @Override
+                public MediaType contentType() {
+                    return TEXTXML;
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    sendPayload(sink.outputStream(), xmlData, changesetId);
+                }
+            };
+            Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+            checkResponseCode(response);
             // ignore response for now
         } finally {
-            disconnect(connection);
             SavingHelper.close(in);
         }
-    }
-
-   /**
-    * Check the response code from a HttpURLConnection and if not OK throw an exception
-    * 
-    * @param connection the HttpURLConnection
-    * @throws IOException
-    * @throws OsmException
-    */
-    private void checkResponseCode(@Nullable final HttpURLConnection connection) throws IOException, OsmException {
-        checkResponseCode(connection, null);
     }
 
     /**
      * Check the response code from a HttpURLConnection and if not OK throw an exception
      * 
-     * @param connection the HttpURLConnection
-     * @param e          an OsmElement associated with the problem or null
+     * @param response response from the server connection
      * @throws IOException
      * @throws OsmException
      */
-    private void checkResponseCode(@Nullable final HttpURLConnection connection, @Nullable final OsmElement e) throws IOException, OsmException {
+    private void checkResponseCode(@Nullable final Response response) throws IOException, OsmException {
+        checkResponseCode(response, null);
+    }
+
+    /**
+     * Check the response code from a HttpURLConnection and if not OK throw an exception
+     * 
+     * @param response response from the server connection
+     * @param e an OsmElement associated with the problem or null
+     * @throws IOException
+     * @throws OsmException
+     */
+    private void checkResponseCode(@Nullable final Response response, @Nullable final OsmElement e) throws IOException, OsmException {
         int responsecode = -1;
-        if (connection == null) {
+        if (response == null) {
             throw new OsmServerException(responsecode, "Unknown error");
         }
-        responsecode = connection.getResponseCode();
+        responsecode = response.code();
         Log.d(DEBUG_TAG, "response code " + responsecode);
         if (responsecode == -1) {
             throw new IOException("Invalid response from server");
         }
         if (responsecode != HttpURLConnection.HTTP_OK) {
-            if (responsecode == HttpURLConnection.HTTP_GONE && e.getState() == OsmElement.STATE_DELETED) {
+            if (responsecode == HttpURLConnection.HTTP_GONE && e != null && e.getState() == OsmElement.STATE_DELETED) {
                 // FIXME we tried to delete an already deleted element: log, but ignore, maybe it would be better to ask
                 // user
                 Log.d(DEBUG_TAG, e.getOsmId() + " already deleted on server");
                 return;
             }
-            throwOsmServerException(connection, e, responsecode);
-            // TODO: happens the first time on some uploads. responseMessage=ErrorMessage="", works the second time
+            throwOsmServerException(response, e, responsecode);
         }
     }
 
@@ -1087,22 +1143,34 @@ public class Server {
      * @throws ProtocolException
      * @throws IOException
      */
-    public void diffUpload(StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
-        HttpURLConnection connection = null;
+    public void diffUpload(final StorageDelegator delegator) throws MalformedURLException, ProtocolException, IOException {
         InputStream in = null;
         try {
-            connection = openConnectionForWriteAccess(getDiffUploadUrl(changesetId), "POST");
             for (OsmElement elem : delegator.getApiStorage().getElements()) {
                 if (elem.state != OsmElement.STATE_DELETED) {
                     discardedTags.remove(elem);
                 }
             }
-            delegator.writeOsmChange(connection.getOutputStream(), changesetId, getCachedCapabilities().maxElementsInChangeset);
-            processDiffUploadResult(delegator, connection, xmlParserFactory.newPullParser());
+            RequestBody body = new RequestBody() {
+                @Override
+                public MediaType contentType() {
+                    return TEXTXML;
+                }
+
+                @Override
+                public void writeTo(BufferedSink sink) throws IOException {
+                    try {
+                        delegator.writeOsmChange(sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset());
+                    } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                        throw new IOException(e);
+                    }
+                }
+            };
+            Response response = openConnectionForAuthenicatedAccess(getDiffUploadUrl(changesetId), HTTP_POST, body);
+            processDiffUploadResult(delegator, response, xmlParserFactory.newPullParser());
         } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e1) {
             throw new OsmException(e1.getMessage());
-        }  finally {
-            disconnect(connection);
+        } finally {
             SavingHelper.close(in);
         }
     }
@@ -1120,6 +1188,7 @@ public class Server {
             .compile("(?i)Precondition failed: (Node|Way) ([0-9]+) is still used by (way|relation)[s]? ([0-9]+).*");
     private static final Pattern ERROR_MESSAGE_PRECONDITION_RELATION_RELATION = Pattern
             .compile("(?i)Precondition failed: The relation ([0-9]+) is used in relation ([0-9]+).");
+    public static final Pattern  ERROR_MESSAGE_BAD_OAUTH_REQUEST              = Pattern.compile("(?i)Bad OAuth request.*");
 
     /**
      * Process the results of uploading a diff to the API, here because it needs to manipulate the stored data
@@ -1128,18 +1197,18 @@ public class Server {
      * successfully uploaded to the API, the caller needs to assure that we do not get recalled on the non fatal errors.
      * 
      * @param delegator the StorageDelegator containing to data to update
-     * @param connection connection to the API
+     * @param response Response from the API
      * @param parser parser instance
      * @throws IOException on an error processing the data
      */
-    private void processDiffUploadResult(StorageDelegator delegator, HttpURLConnection connection, XmlPullParser parser) throws IOException {
+    private void processDiffUploadResult(StorageDelegator delegator, Response response, XmlPullParser parser) throws IOException {
         Storage apiStorage = delegator.getApiStorage();
-        int code = connection.getResponseCode();
+        int code = response.code();
         if (code == HttpURLConnection.HTTP_OK) {
             boolean rehash = false; // if ids are changed we need to rehash
                                     // storage
             try {
-                parser.setInput(new BufferedInputStream(connection.getInputStream(), StreamUtils.IO_BUFFER_SIZE), null);
+                parser.setInput(new BufferedInputStream(response.body().byteStream(), StreamUtils.IO_BUFFER_SIZE), null);
                 int eventType;
                 boolean inResponse = false;
                 while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
@@ -1215,16 +1284,12 @@ public class Server {
                         apiStorage.rehash();
                     }
                 }
-            } catch (XmlPullParserException e) {
-                throw new OsmException(e.toString());
-            } catch (NumberFormatException e) {
-                throw new OsmException(e.toString());
-            } catch (IOException e) {
+            } catch (XmlPullParserException | NumberFormatException | IOException e) {
                 throw new OsmException(e.toString());
             }
         } else {
-            String message = Server.readStream(connection.getErrorStream());
-            String responseMessage = connection.getResponseMessage();
+            String message = Server.readStream(response.body().byteStream());
+            String responseMessage = response.message();
             Log.d(DEBUG_TAG, "Error code: " + code + " response: " + responseMessage + " message: " + message);
             if (code == HttpURLConnection.HTTP_CONFLICT) {
                 // got conflict , possible messages see
@@ -1327,7 +1392,7 @@ public class Server {
     private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osm");
-        xmlSerializer.attribute("", "version", version);
+        xmlSerializer.attribute("", "version", API_VERSION);
         xmlSerializer.attribute("", "generator", generator);
     }
 
@@ -1336,17 +1401,19 @@ public class Server {
         xmlSerializer.endDocument();
     }
 
-    private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
+            throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.startDocument("UTF-8", null);
         xmlSerializer.startTag("", "osmChange");
-        xmlSerializer.attribute("", "version", osmChangeVersion);
+        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
         xmlSerializer.attribute("", "generator", generator);
         xmlSerializer.startTag("", action);
-        xmlSerializer.attribute("", "version", osmChangeVersion);
+        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
         xmlSerializer.attribute("", "generator", generator);
     }
 
-    private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action) throws IllegalArgumentException, IllegalStateException, IOException {
+    private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
+            throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", action);
         xmlSerializer.endTag("", "osmChange");
         xmlSerializer.endDocument();
@@ -1379,7 +1446,10 @@ public class Server {
     }
 
     private URL getDeleteUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        // return getUpdateUrl(elem);
+        return getDeleteUrl();
+    }
+
+    private URL getDeleteUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/upload");
     }
 
@@ -1504,7 +1574,8 @@ public class Server {
      * complete.
      * 
      * @param area Latitude/longitude *1E7 of area to download.
-     * @return All the bugs in the given area.
+     * @param limit maximum number of Notes to return, value of between 1 and 10000 is valid
+     * @return All the Notes in the given area.
      */
     public Collection<Note> getNotesForBox(@NonNull BoundingBox area, long limit) {
         Collection<Note> result = new ArrayList<>();
@@ -1512,29 +1583,11 @@ public class Server {
         try {
             Log.d(DEBUG_TAG, "getNotesForBox");
             URL url = getNotesForBox(limit, area);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled;
+            InputStream is = openConnection(null, url);
 
-            // --Start: header not yet send
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            if (is == null) {
                 return new ArrayList<>(); // TODO Return empty list ... this is better than throwing an uncatched
                                           // exception, but we should provide some user feedback
-                // throw new UnexpectedRequestException(con);
-            }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
             }
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
@@ -1545,30 +1598,15 @@ public class Server {
                 if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
                     try {
                         result.add(new Note(parser));
-                    } catch (IOException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (XmlPullParserException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (NumberFormatException e) {
+                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
                         // if the bug doesn't parse correctly, there's nothing
                         // we can do about it - move on
                         Log.e(DEBUG_TAG, "Problem parsing bug", e);
                     }
                 }
             }
-        } catch (XmlPullParserException e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return new ArrayList<>(); // empty list
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return new ArrayList<>(); // empty list
-        } catch (OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            // TODO ask the user to exit
             return new ArrayList<>(); // empty list
         }
         Log.d(DEBUG_TAG, "Read " + result.size() + " notes from input");
@@ -1578,8 +1616,8 @@ public class Server {
     /**
      * Retrieve a single note
      * 
-     * @param id
-     * @return
+     * @param id the id of the Note to retrieve
+     * @return the Note, null if not found or other error
      */
     public Note getNote(long id) {
         Note result = null;
@@ -1587,29 +1625,11 @@ public class Server {
         try {
             Log.d(DEBUG_TAG, "getNote");
             URL url = getNoteUrl(Long.toString(id));
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            boolean isServerGzipEnabled;
-
-            // --Start: header not yet send
-            con.setReadTimeout(TIMEOUT);
-            con.setConnectTimeout(TIMEOUT);
-            con.setRequestProperty("Accept-Encoding", "gzip");
-            con.setRequestProperty("User-Agent", App.getUserAgent());
-
-            // --Start: got response header
-            isServerGzipEnabled = "gzip".equals(con.getHeaderField("Content-encoding"));
-
-            if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            InputStream is = openConnection(null, url);
+            if (is == null) {
                 return null; // TODO Return empty list ... this is better than throwing an uncatched exception, but we
                              // should provide some user feedback
                 // throw new UnexpectedRequestException(con);
-            }
-
-            InputStream is;
-            if (isServerGzipEnabled) {
-                is = new GZIPInputStream(con.getInputStream());
-            } else {
-                is = con.getInputStream();
             }
 
             XmlPullParser parser = xmlParserFactory.newPullParser();
@@ -1620,30 +1640,15 @@ public class Server {
                 if (eventType == XmlPullParser.START_TAG && "note".equals(tagName)) {
                     try {
                         result = new Note(parser);
-                    } catch (IOException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (XmlPullParserException e) {
-                        // if the bug doesn't parse correctly, there's nothing
-                        // we can do about it - move on
-                        Log.e(DEBUG_TAG, "Problem parsing bug", e);
-                    } catch (NumberFormatException e) {
+                    } catch (IOException | XmlPullParserException | NumberFormatException e) {
                         // if the bug doesn't parse correctly, there's nothing
                         // we can do about it - move on
                         Log.e(DEBUG_TAG, "Problem parsing bug", e);
                     }
                 }
             }
-        } catch (XmlPullParserException e) {
+        } catch (XmlPullParserException | IOException | OutOfMemoryError e) {
             Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
-        } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            return null; // empty list
-        } catch (OutOfMemoryError e) {
-            Log.e(DEBUG_TAG, "Server.getNotesForBox:Exception", e);
-            // TODO ask the user to exit
             return null; // empty list
         }
         return result;
@@ -1670,40 +1675,34 @@ public class Server {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "adding note comment " + bug.getId());
             // http://openstreetbugs.schokokeks.org/api/0.1/editPOIexec?id=<Bug ID>&text=<Comment with author and date>
-            HttpURLConnection connection = null;
-            try {
-                // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
-                // which will fail
-                String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
-                URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
-                connection = openConnectionForWriteAccess(addCommentUrl, "POST", "text/url");
-                OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset.defaultCharset());
 
-                // out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8")+ "\r\n");
-                out.flush();
-                int responseCode = connection.getResponseCode();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = connection.getErrorStream();
-                        String message = readStream(errorStream);
-                        Log.d(DEBUG_TAG, "409: " + message);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
-                            reopenNote(bug);
-                            addComment(bug, comment);
-                            return;
-                        }
-                        throwOsmServerException(connection);
-                    } else {
-                        throwOsmServerException(connection);
+            // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
+            // which will fail
+            String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+            URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
+
+            Response response = openConnectionForAuthenicatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
+
+            int responseCode = response.code();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                    InputStream errorStream = response.body().byteStream();
+                    String message = readStream(errorStream);
+                    Log.d(DEBUG_TAG, "409: " + message);
+                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+                    if (m.matches()) {
+                        String idStr = m.group(1);
+                        Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                        reopenNote(bug);
+                        addComment(bug, comment);
+                        return;
                     }
+                    throwOsmServerException(response);
+                } else {
+                    throwOsmServerException(response);
                 }
-                parseBug(bug, connection.getInputStream());
-            } finally {
-                disconnect(connection);
             }
+            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1724,23 +1723,15 @@ public class Server {
             Log.d(DEBUG_TAG, "adding note");
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
             // description with author and date>&format=<Output format>
-            HttpURLConnection connection = null;
-            try {
-                // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
-                // which will fail
-                String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
-                URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
-                connection = openConnectionForWriteAccess(addNoteUrl, "POST", "text/xml");
-                OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), Charset.defaultCharset());
-                // out.write("text="+URLEncoder.encode(comment.getText(), "UTF-8") + "\r\n");
-                out.flush();
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    throwOsmServerException(connection);
-                }
-                parseBug(bug, connection.getInputStream());
-            } finally {
-                disconnect(connection);
+
+            String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+            URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
+
+            Response response = openConnectionForAuthenicatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+            if (!response.isSuccessful()) {
+                throwOsmServerException(response);
             }
+            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1758,32 +1749,26 @@ public class Server {
     public void closeNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "closing note " + bug.getId());
-            HttpURLConnection connection = null;
-            try {
-                // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
-                // which will fail
-                URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
-                connection = openConnectionForWriteAccess(closeNoteUrl, "POST", "text/xml");
-                int responseCode = connection.getResponseCode();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = connection.getErrorStream();
-                        String message = readStream(errorStream);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
-                            return;
-                        }
-                        throwOsmServerException(connection);
-                    } else {
-                        throwOsmServerException(connection);
+            URL closeNoteUrl = getCloseNoteUrl(Long.toString(bug.getId()));
+            Response response = openConnectionForAuthenicatedAccess(closeNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+
+            int responseCode = response.code();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                    InputStream errorStream = response.body().byteStream();
+                    String message = readStream(errorStream);
+                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_CLOSED.matcher(message);
+                    if (m.matches()) {
+                        String idStr = m.group(1);
+                        Log.d(DEBUG_TAG, "Note " + idStr + " was already closed");
+                        return;
                     }
+                    throwOsmServerException(response);
+                } else {
+                    throwOsmServerException(response);
                 }
-                parseBug(bug, connection.getInputStream());
-            } finally {
-                disconnect(connection);
             }
+            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1800,30 +1785,25 @@ public class Server {
     public void reopenNote(@NonNull Note bug) throws OsmServerException, IOException, XmlPullParserException {
         if (!bug.isNew()) {
             Log.d(DEBUG_TAG, "reopen note " + bug.getId());
-            HttpURLConnection connection = null;
-            try {
-                URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
-                connection = openConnectionForWriteAccess(reopenNoteUrl, "POST", "text/xml");
-                int responseCode = connection.getResponseCode();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
-                        InputStream errorStream = connection.getErrorStream();
-                        String message = readStream(errorStream);
-                        Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
-                        if (m.matches()) {
-                            String idStr = m.group(1);
-                            Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
-                            return;
-                        }
-                        throwOsmServerException(connection);
-                    } else {
-                        throwOsmServerException(connection);
+            URL reopenNoteUrl = getReopenNoteUrl(Long.toString(bug.getId()));
+            Response response = openConnectionForAuthenicatedAccess(reopenNoteUrl, HTTP_POST, RequestBody.create(null, ""));
+            int responseCode = response.code();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                if (responseCode == HttpURLConnection.HTTP_CONFLICT) {
+                    InputStream errorStream = response.body().byteStream();
+                    String message = readStream(errorStream);
+                    Matcher m = ERROR_MESSAGE_NOTE_ALREADY_OPENED.matcher(message);
+                    if (m.matches()) {
+                        String idStr = m.group(1);
+                        Log.d(DEBUG_TAG, "Note " + idStr + " was already open");
+                        return;
                     }
+                    throwOsmServerException(response);
+                } else {
+                    throwOsmServerException(response);
                 }
-                parseBug(bug, connection.getInputStream());
-            } finally {
-                disconnect(connection);
             }
+            parseBug(bug, response.body().byteStream());
         }
     }
 
@@ -1859,44 +1839,31 @@ public class Server {
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws IOException
-     * @throws IllegalArgumentException
-     * @throws IllegalStateException
-     * @throws XmlPullParserException
      */
-    public void uploadTrack(@NonNull Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
-            throws MalformedURLException, ProtocolException, IOException, IllegalArgumentException, IllegalStateException, XmlPullParserException {
-        HttpURLConnection connection = null;
-        try {
-            //
-            String boundary = "*VESPUCCI*";
-            String separator = "--" + boundary + "\r\n";
-            connection = openConnectionForWriteAccess(getUploadTrackUrl(), "POST", "multipart/form-data;boundary=" + boundary);
-            OutputStream os = connection.getOutputStream();
-            OutputStreamWriter out = new OutputStreamWriter(os, Charset.defaultCharset());
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"description\"\r\n\r\n");
-            out.write(description + "\r\n");
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"tags\"\r\n\r\n");
-            out.write(tags + "\r\n");
-            out.write(separator);
-            out.write("Content-Disposition: form-data; name=\"visibility\"\r\n\r\n");
-            out.write(visibility.name().toLowerCase(Locale.US) + "\r\n");
-            out.write(separator);
-            String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
-            out.write("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileNamePart + ".gpx\"\r\n");
-            out.write("Content-Type: application/gpx+xml\r\n\r\n");
-            out.flush();
-            track.exportToGPX(os);
-            os.flush();
-            out.write("\r\n");
-            out.write("--" + boundary + "--\r\n");
-            out.flush();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throwOsmServerException(connection);
+    public void uploadTrack(@NonNull final Track track, @NonNull String description, @NonNull String tags, @NonNull Visibility visibility)
+            throws MalformedURLException, ProtocolException, IOException {
+        RequestBody gpxBody = new RequestBody() {
+            @Override
+            public MediaType contentType() {
+                return MediaType.parse("application/gpx+xm");
             }
-        } finally {
-            disconnect(connection);
+
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                try {
+                    track.exportToGPX(sink.outputStream());
+                } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
+                    throw new IOException(e);
+                }
+            }
+        };
+        String fileNamePart = DateFormatter.getFormattedString(DATE_PATTERN_GPX_TRACK_UPLOAD_SUGGESTED_FILE_NAME_PART);
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("description", description)
+                .addFormDataPart("tags", tags).addFormDataPart("visibility", visibility.name().toLowerCase(Locale.US))
+                .addFormDataPart("file", fileNamePart + ".gpx", gpxBody).build();
+        Response response = openConnectionForAuthenicatedAccess(getUploadTrackUrl(), HTTP_POST, requestBody);
+        if (!response.isSuccessful()) {
+            throwOsmServerException(response);
         }
     }
 
@@ -1928,31 +1895,32 @@ public class Server {
     /**
      * Construct and throw an OsmServerException from the connection to the server
      * 
-     * @param connection connection to server
+     * @param response response from server
      * @throws IOException
      * @throws OsmServerException
      */
-    public static void throwOsmServerException(@NonNull final HttpURLConnection connection) throws IOException, OsmServerException {
-        throwOsmServerException(connection, null, connection.getResponseCode());
+    public static void throwOsmServerException(Response response) throws OsmServerException, IOException {
+        throwOsmServerException(response, null, response.code());
     }
 
     /**
      * Construct and throw an OsmServerException from the connection to the server
      * 
-     * @param connection connection connection to server
+     * @param response response from server
      * @param e the OSM element that the error was caused by
-     * @param responsecode code returen from server
+     * @param responsecode code returned from server
      * @throws IOException
      * @throws OsmServerException
      */
-    public static void throwOsmServerException(@NonNull final HttpURLConnection connection, @Nullable final OsmElement e, int responsecode) throws IOException, OsmServerException {
-        String responseMessage = connection.getResponseMessage();
+    public static void throwOsmServerException(@NonNull final Response response, @Nullable final OsmElement e, int responsecode)
+            throws IOException, OsmServerException {
+        String responseMessage = response.message();
         if (responseMessage == null) {
             responseMessage = "";
         }
-        InputStream in = connection.getErrorStream();
+        InputStream in = response.body().byteStream();
         if (e == null) {
-            Log.d(DEBUG_TAG, "respone code " + responsecode + "response message " + responseMessage);
+            Log.d(DEBUG_TAG, "response code " + responsecode + "response message " + responseMessage);
             throw new OsmServerException(responsecode, readStream(in));
         } else {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
