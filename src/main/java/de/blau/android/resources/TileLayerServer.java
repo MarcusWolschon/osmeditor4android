@@ -92,6 +92,7 @@ import okhttp3.ResponseBody;
 public class TileLayerServer {
     static final String         EPSG_900913     = "EPSG:900913";
     static final String         EPSG_3857       = "EPSG:3857";
+    static final String         EPSG_4326       = "EPSG:4326";
     static final String         TYPE_BING       = "bing";
     static final String         TYPE_TMS        = "tms";
     static final String         TYPE_WMS        = "wms";
@@ -869,11 +870,19 @@ public class TileLayerServer {
             if (projections != null) {
                 for (JsonElement p : projections) {
                     String supportedProj = p.getAsString();
-                    if (EPSG_3857.equals(supportedProj) || EPSG_900913.equals(supportedProj)) {
+                    boolean latLon = EPSG_4326.equals(supportedProj);
+                    if (EPSG_3857.equals(supportedProj) || EPSG_900913.equals(supportedProj) || latLon) {
                         proj = supportedProj;
-                        tileWidth = WMS_TILE_SIZE;
-                        tileHeight = WMS_TILE_SIZE;
-                        break;
+                        if (latLon) {
+                            // small tiles keep errors small since we don't actually reproject tiles
+                            tileWidth = DEFAULT_TILE_SIZE;
+                            tileHeight = DEFAULT_TILE_SIZE;
+                            // continue on searching for web mercator
+                        } else {
+                            tileWidth = WMS_TILE_SIZE;
+                            tileHeight = WMS_TILE_SIZE;
+                            break; // found web mercator compatible projection
+                        }
                     }
                 }
             }
@@ -1552,15 +1561,25 @@ public class TileLayerServer {
      */
     @NonNull
     public static String[] getNames(@Nullable BoundingBox box, boolean filtered) {
+        return getNames(backgroundServerList, box, filtered);
+    }
+
+    /**
+     * Get all the available tile layer names.
+     * 
+     * @param map Map containing the layers to filter
+     * @param box bounding box to test coverage against
+     * @param filtered only return servers that overlap/intersect with the bounding box
+     * @return available tile layer names.
+     */
+    @NonNull
+    public static String[] getNames(Map<String, TileLayerServer> map, @Nullable BoundingBox box, boolean filtered) {
         ArrayList<String> names = new ArrayList<>();
         for (String key : getIds(box, filtered)) {
-            TileLayerServer osmts = backgroundServerList.get(key);
+            TileLayerServer osmts = map.get(key);
             names.add(osmts.name);
         }
-        String[] result = new String[names.size()];
-        for (int i = 0; i < result.length; i++)
-            result[i] = names.get(i);
-        return result;
+        return names.toArray(new String[names.size()]);
     }
 
     /**
@@ -1569,16 +1588,26 @@ public class TileLayerServer {
      * @param ids array containing the ids
      * @return array containing the names
      */
+    @NonNull
     public static String[] getNames(String[] ids) {
-        ArrayList<String> names = new ArrayList<>();
+        return getNames(backgroundServerList, ids);
+    }
+
+    /**
+     * Get tile server names from list of ids
+     * 
+     * @param map Map containing with id to layer mapping
+     * @param ids array containing the ids
+     * @return array containing the names
+     */
+    @NonNull
+    public static String[] getNames(Map<String, TileLayerServer> map, String[] ids) {
+        List<String> names = new ArrayList<>();
         for (String key : ids) {
-            TileLayerServer osmts = backgroundServerList.get(key);
-            names.add(osmts.name);
+            TileLayerServer osmts = map.get(key);
+            names.add(osmts.name + ("wms".equals(osmts.type) ? " [wms]" : ""));
         }
-        String[] result = new String[names.size()];
-        for (int i = 0; i < result.length; i++)
-            result[i] = names.get(i);
-        return result;
+        return names.toArray(new String[names.size()]);
     }
 
     /**
@@ -1595,9 +1624,7 @@ public class TileLayerServer {
         for (TileLayerServer t : list) {
             ids.add(t.id);
         }
-        String[] idArray = new String[ids.size()];
-        ids.toArray(idArray);
-        return idArray;
+        return ids.toArray(new String[ids.size()]);
     }
 
     /**
@@ -1609,15 +1636,7 @@ public class TileLayerServer {
      */
     @NonNull
     public static String[] getOverlayNames(@Nullable BoundingBox box, boolean filtered) {
-        ArrayList<String> names = new ArrayList<>();
-        for (String key : getIds(box, filtered)) {
-            TileLayerServer osmts = overlayServerList.get(key);
-            names.add(osmts.name);
-        }
-        String[] result = new String[names.size()];
-        for (int i = 0; i < result.length; i++)
-            result[i] = names.get(i);
-        return result;
+        return getNames(overlayServerList, box, filtered);
     }
 
     /**
@@ -1628,15 +1647,7 @@ public class TileLayerServer {
      */
     @NonNull
     public static String[] getOverlayNames(@NonNull String[] ids) {
-        ArrayList<String> names = new ArrayList<>();
-        for (String key : ids) {
-            TileLayerServer osmts = overlayServerList.get(key);
-            names.add(osmts.name);
-        }
-        String[] result = new String[names.size()];
-        for (int i = 0; i < result.length; i++)
-            result[i] = names.get(i);
-        return result;
+        return getNames(overlayServerList, ids);
     }
 
     /**
@@ -1799,16 +1810,33 @@ public class TileLayerServer {
      * @return a WMS bounding box string
      */
     String wmsBox(final MapTile aTile) {
-        int ymax = 1 << aTile.zoomLevel;
-        int y = ymax - aTile.y - 1;
         boxBuilder.setLength(0);
-        boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel));
-        boxBuilder.append(',');
-        boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel));
-        boxBuilder.append(',');
-        boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel));
-        boxBuilder.append(',');
-        boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
+        switch (proj) {
+        case EPSG_3857:
+        case EPSG_900913:
+            int ymax = 1 << aTile.zoomLevel;
+            int y = ymax - aTile.y - 1;
+            boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
+            break;
+        case EPSG_4326:
+            // note this is hack that simply squashes the vertical axis to fit to square tiles
+            boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
+            boxBuilder.append(',');
+            boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
+            break;
+        default:
+            Log.e(DEBUG_TAG, "Unsupported projection " + proj);
+        }
         return boxBuilder.toString();
     }
 

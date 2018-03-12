@@ -393,13 +393,27 @@ public class GeoMath {
         return Math.round(bearing);
     }
 
+    /**
+     * Return the longitude value for a tile number (google convention)
+     * 
+     * @param x x number of the tile
+     * @param z z zoom level
+     * @return WGD84 coordinate in degrees
+     */
     public static double tile2lon(int x, int z) {
         return x / Math.pow(2.0, z) * 360.0 - 180;
     }
 
+    /**
+     * Return the latitude value for a tile number (google convention)
+     * 
+     * @param y y number of the tile
+     * @param z z zoom level
+     * @return WGD84 coordinate in degrees
+     */
     public static double tile2lat(int y, int z) {
-        double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
-        return Math.toDegrees(Math.atan(Math.sinh(n)));
+        double n = Math.pow(2.0, z);
+        return Math.toDegrees(Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n))));
     }
 
     /**
@@ -415,7 +429,7 @@ public class GeoMath {
     }
 
     /**
-     * Covert a tiles y number to a web mercator coordinate
+     * Covert a tiles y number (TMS convention) to a web mercator coordinate
      * 
      * @param tileHeight height of a tile in pixels
      * @param y y number of the tiles
@@ -459,7 +473,11 @@ public class GeoMath {
      */
     public static int resolutionToZoom(double resolution, double lat) {
         if (Util.notZero(resolution)) {
-            return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR nonZero tests for zero
+            return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR
+                                                                                                                                                  // nonZero
+                                                                                                                                                  // tests
+                                                                                                                                                  // for
+                                                                                                                                                  // zero
         }
         throw new IllegalArgumentException("Resolution can't be zero");
     }

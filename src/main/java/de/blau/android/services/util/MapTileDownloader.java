@@ -12,6 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.App;
@@ -20,6 +23,7 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.util.NetworkStatus;
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -49,7 +53,6 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     private final Context                   mCtx;
     private final MapTileFilesystemProvider mMapTileFSProvider;
     private final NetworkStatus             networkStatus;
-
 
     // ===========================================================
     // Constructors
@@ -110,6 +113,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
             InputStream in = null;
             OutputStream out = null;
             ResponseBody responseBody = null;
+            MediaType format = null;
             InputStream inputStream = null;
             final String tileURLString = buildURL(mTile);
             try {
@@ -124,6 +128,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     if (tileCallResponse.isSuccessful()) {
                         responseBody = tileCallResponse.body();
                         inputStream = responseBody.byteStream();
+                        format = responseBody.contentType();
+                    } else {
+                        throw new IOException(tileCallResponse.message());
                     }
 
                     if (TileLayerServer.LAYER_BING.equals(mTile.rendererID)) {
@@ -139,10 +146,17 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     StreamUtils.copy(in, out);
                     out.flush();
 
-                    final byte[] data = dataStream.toByteArray();
+                    byte[] data = dataStream.toByteArray();
 
                     if (data.length == 0) {
                         throw new IOException("no tile data");
+                    }
+                    // if tile is in BMP format, compress
+                    if (format != null && "BMP".equalsIgnoreCase(format.subtype())) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, null);
+                        dataStream.reset();
+                        bitmap.compress(CompressFormat.PNG, 100, dataStream);
+                        data = dataStream.toByteArray();
                     }
                     mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                     MapTileDownloader.this.mMapTileFSProvider.saveFile(mTile, data);
@@ -167,7 +181,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                 if (!(ioe instanceof FileNotFoundException)) {
                     // FileNotFound is an expected exception, any other IOException should be logged
                     if (Log.isLoggable(DEBUGTAG, Log.ERROR)) {
-                        Log.e(DEBUGTAG, "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
+                        Log.e(DEBUGTAG,
+                                "Error Downloading MapTile. Exception: " + ioe.getClass().getSimpleName() + " " + tileURLString + " " + ioe.getMessage());
                     }
                 }
                 /*

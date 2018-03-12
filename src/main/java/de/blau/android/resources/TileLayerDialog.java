@@ -310,6 +310,9 @@ public class TileLayerDialog {
                 } else if (tileUrl.contains(TileLayerServer.EPSG_900913)) {
                     proj = TileLayerServer.EPSG_900913;
                     tileSize = TileLayerServer.WMS_TILE_SIZE;
+                } else if (tileUrl.contains(TileLayerServer.EPSG_4326)) {
+                    proj = TileLayerServer.EPSG_4326;
+                    tileSize = TileLayerServer.DEFAULT_TILE_SIZE;
                 }
                 if (!existing) {
                     TileLayerServer layer = new TileLayerServer(activity, layerId, name, tileUrl, "tms", isOverlay, false, provider, null, null, null, null,

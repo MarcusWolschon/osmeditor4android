@@ -251,8 +251,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     /**
      * Retrieve a single layer identified by its id
      * 
-     * @param context Androic Context
-     * @param db readable SWLiteDatabase
+     * @param context Android Context
+     * @param db readable SQLiteDatabase
      * @param id the layer id
      * @return a TileLayerServer instance of null if none could be found
      */
