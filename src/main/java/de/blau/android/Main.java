@@ -3239,14 +3239,15 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onClick(View v, float x, float y) {
+            boolean elementsOnly = App.getLogic().getClickableElements() != null;
             de.blau.android.tasks.MapOverlay taskLayer = map.getTaskLayer();
-            clickedBugs = (taskLayer != null) ? taskLayer.getClickedTasks(x, y, map.getViewBox()) : null;
+            clickedBugs = !elementsOnly && taskLayer != null ? taskLayer.getClickedTasks(x, y, map.getViewBox()) : null;
 
             de.blau.android.photos.MapOverlay photoLayer = map.getPhotoLayer();
-            clickedPhotos = (photoLayer != null) ? photoLayer.getClickedPhotos(x, y, map.getViewBox()) : null;
+            clickedPhotos = !elementsOnly && photoLayer != null ? photoLayer.getClickedPhotos(x, y, map.getViewBox()) : null;
 
             de.blau.android.gpx.MapOverlay gpxLayer = map.getGpxLayer();
-            clickedWayPoints = (gpxLayer != null) ? gpxLayer.getClicked(x, y, map.getViewBox()) : null;
+            clickedWayPoints = !elementsOnly && gpxLayer != null ? gpxLayer.getClicked(x, y, map.getViewBox()) : null;
 
             final Logic logic = App.getLogic();
             Mode mode = logic.getMode();
