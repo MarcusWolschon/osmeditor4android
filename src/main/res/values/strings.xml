@@ -700,8 +700,10 @@
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
     <string name="undo_nothing">nothing to undo</string>
-    <string name="tracking_active_title">Vespucci background service active</string>
-    <string name="tracking_active_text">Vespucci is recording a GPS track or auto-downloading</string>
+    <string name="tracking_active_title">Vespucci background service</string>
+    <string name="tracking_active_title_short">Background service active</string>
+    <string name="tracking_active_text">Recording a GPS track or auto-downloading</string>
+    <string name="tracking_long_text">Vespucci is recording a GPS track or auto-downloading. To completly exit pause track recording if enabled and then exit the app by pressing the back button.</string>
     <string name="gps_failure">Failed to enable GPS</string>
     <!-- element description -->
     <string name="address_housenumber">Address %1$s</string>

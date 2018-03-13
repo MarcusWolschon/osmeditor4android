@@ -268,14 +268,19 @@ public class TrackerService extends Service implements Exportable {
         if (tracking || downloading || downloadingBugs)
             return; // all ready running
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
-        Resources res = getResources();
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
-        notificationBuilder.setContentTitle(res.getString(R.string.tracking_active_title)).setContentText(res.getString(R.string.tracking_active_text))
-                .setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent);
-        notificationBuilder.setColor(ContextCompat.getColor(this, R.color.osm_green));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title))
+                .setContentText(getString(R.string.tracking_active_text));
+        } else {
+            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title_short))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text))); 
+        }
+        notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
+            .setColor(ContextCompat.getColor(this, R.color.osm_green));
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
 
