@@ -1,76 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-  <RelativeLayout
-      android:id="@+id/upload_comment_controls"
-      android:layout_marginRight="?attr/dialogPreferredPadding"
-      android:layout_marginLeft="?attr/dialogPreferredPadding"
-      android:layout_width="fill_parent"
-	  android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true">
-	    <TextView
-	      android:id="@+id/upload_comment_label"
-	      android:layout_width="wrap_content"
-	      android:layout_height="48dp"
-	      android:gravity="center_vertical"
-	      android:text="@string/upload_comment_label"/>
-	    <AutoCompleteTextView
-	      android:id="@+id/upload_comment"
-	      android:layout_below="@id/upload_comment_label"
-	      android:layout_alignLeft="@id/upload_comment_label"
-	      android:layout_width="fill_parent"
-	      android:layout_height="wrap_content"
-	      android:inputType="text"
-	      />
-	
-	  <TextView
-	      android:id="@+id/upload_source_label"
-	      android:layout_width="wrap_content"
-	      android:layout_height="36dp"
-	      android:gravity="center_vertical"
-	      android:layout_below="@id/upload_comment"
-	      android:text="@string/upload_source_label"/>
-	   <AutoCompleteTextView
-	      android:id="@+id/upload_source"
-	      android:layout_below="@id/upload_source_label"
-	      android:layout_width="fill_parent"
-	      android:layout_height="wrap_content"
-	      android:layout_alignLeft="@id/upload_source_label"
-	      android:inputType="text"/>
-		<TextView
-	      android:id="@+id/upload_close_changeset_label"
-	      android:layout_width="wrap_content"
-	      android:layout_height="36dp"
-	      android:gravity="center_vertical"
-	      android:layout_below="@id/upload_source"
-	      android:text="@string/upload_close_changeset_label"/>
-	   <CheckBox
-	       android:id="@+id/upload_close_changeset"
-	       android:layout_width="wrap_content"
-	       android:layout_height="48dp"
-	       android:gravity="center_vertical"
-	       android:layout_below="@id/upload_source"
-	       android:layout_alignRight="@id/upload_source"
-	       android:layout_alignBottom="@id/upload_close_changeset_label"
-	       android:layout_alignTop="@id/upload_close_changeset_label"
-	       android:text=""
-	     />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding">
 
-	</RelativeLayout>
- 
-  <ScrollView
-    android:layout_alignParentTop="true"
-    android:layout_above="@id/upload_comment_controls"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="?attr/dialogPreferredPadding"
-    android:paddingRight="?attr/dialogPreferredPadding" >
-    <TextView
-      android:id="@+id/upload_changes"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text=""/>
-  </ScrollView>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/upload_changes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            tools:text="@string/confirm_multiple_upload_text" />
+
+        <RelativeLayout
+            android:id="@+id/upload_comment_controls"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="bottom">
+
+            <TextView
+                android:id="@+id/upload_comment_label"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:text="@string/upload_comment_label" />
+
+            <AutoCompleteTextView
+                android:id="@+id/upload_comment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/upload_comment_label"
+                android:layout_alignStart="@id/upload_comment_label"
+                android:layout_below="@id/upload_comment_label"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/upload_source_label"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@id/upload_comment"
+                android:gravity="center_vertical"
+                android:text="@string/upload_source_label" />
+
+            <AutoCompleteTextView
+                android:id="@+id/upload_source"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/upload_source_label"
+                android:layout_alignStart="@id/upload_source_label"
+                android:layout_below="@id/upload_source_label"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/upload_close_changeset_label"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@id/upload_source"
+                android:gravity="center_vertical"
+                android:text="@string/upload_close_changeset_label" />
+
+            <CheckBox
+                android:id="@+id/upload_close_changeset"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignBottom="@id/upload_close_changeset_label"
+                android:layout_alignEnd="@id/upload_source"
+                android:layout_alignRight="@id/upload_source"
+                android:layout_alignTop="@id/upload_close_changeset_label"
+                android:layout_below="@id/upload_source"
+                android:gravity="center_vertical"
+                android:text="" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,10 +1,12 @@
 package de.blau.android.dialogs;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.acra.ACRA;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,6 +37,8 @@ import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.validation.NotEmptyValidator;
+import de.blau.android.validation.FormValidation;
 
 /**
  * Dialog for final review of changes and adding comment and source tags before upload
@@ -42,11 +46,15 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class ConfirmUpload extends DialogFragment {
+public class ConfirmUpload extends DialogFragment
+{
 
     private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
 
     private static final String TAG = "fragment_confirm_upload";
+
+	private static final char LINE_DELIMITER = '\n';
+	private static final String LINE_PREFIX = "- ";
 
     static public void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
@@ -87,16 +95,17 @@ public class ConfirmUpload extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Content content) {
+        super.onAttach(content);
         Log.d(DEBUG_TAG, "onAttach");
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
+       }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setCancelable(true);
     }
@@ -104,7 +113,8 @@ public class ConfirmUpload extends DialogFragment {
     @NonNull
     @SuppressLint("InflateParams")
     @Override
-    public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
+    public AppCompatDialog onCreateDialog(Bundle savedInstanceState)
+    {
         FragmentActivity activity = getActivity();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
@@ -126,8 +136,8 @@ public class ConfirmUpload extends DialogFragment {
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
         AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
-        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line,
-                App.getLogic().getLastComments());
+        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity,
+                android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastComments());
         comment.setAdapter(commentAdapter);
         String lastComment = App.getLogic().getLastComment();
         comment.setText(lastComment == null ? "" : lastComment);
@@ -144,8 +154,8 @@ public class ConfirmUpload extends DialogFragment {
         comment.setOnKeyListener(new MyKeyListener());
 
         AutoCompleteTextView source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
-        FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line,
-                App.getLogic().getLastSources());
+		FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity,
+                android.R.layout.simple_dropdown_item_1line, App.getLogic().getLastSources());
         source.setAdapter(sourceAdapter);
         String lastSource = App.getLogic().getLastSource();
         source.setText(lastSource == null ? "" : lastSource);
@@ -153,27 +163,36 @@ public class ConfirmUpload extends DialogFragment {
         source.setThreshold(1);
         source.setOnKeyListener(new MyKeyListener());
 
-        builder.setPositiveButton(R.string.transfer_download_current_upload, new UploadListener((Main) activity, comment, source, closeChangeset));
+		FormValidation commentValidator = new NotEmptyValidator(comment,
+				getString(R.string.upload_validation_error_empty_comment));
+		FormValidation sourceValidator = new NotEmptyValidator(source,
+				getString(R.string.upload_validation_error_empty_source));
+		List<FormValidation> validators = Arrays.asList(commentValidator, sourceValidator);
+
+		builder.setPositiveButton(R.string.transfer_download_current_upload, null);
         builder.setNegativeButton(R.string.no, doNothingListener);
 
-        return builder.create();
+		AlertDialog dialog = builder.create();
+		dialog.setOnShowListener(new UploadListener((Main) activity,
+				comment, source, closeChangeset, validators));
+		return dialog;
     }
 
     /**
      * @return a list of all pending changes to upload (contains newlines)
      */
-    public String getPendingChanges(Context ctx) {
+	private String getPendingChanges(Context ctx) {
         List<String> changes = App.getLogic().getPendingChanges(ctx);
-        StringBuilder retval = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
         for (String change : changes) {
-            retval.append(change).append('\n');
+			builder.append(LINE_PREFIX).append(change).append(LINE_DELIMITER);
         }
-        return retval.toString();
+		return builder.toString();
     }
 
     /**
-     * For whatever reason the softkeyboard doesn't work as expected with AutoCompleteTextViews This listener simply
-     * moves focus to the next view below on enter being pressed or dismisses the keyboard
+	 * For whatever reason the softkeyboard doesn't work as expected with AutoCompleteTextViews
+	 * This listener simply moves focus to the next view below on enter being pressed or dismisses the keyboard
      */
     private class MyKeyListener implements OnKeyListener {
         @Override

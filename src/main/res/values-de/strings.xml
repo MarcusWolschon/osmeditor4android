@@ -74,6 +74,8 @@
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
+  <string name="upload_validation_error_empty_comment">Kommentar kann nicht leer sein</string>
+  <string name="upload_validation_error_empty_source">Quelle kann nicht leer sein</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
   <string name="openstreetbug_bug_title">Problem</string>
@@ -658,7 +660,7 @@
   <string name="changes_changed">\"%1$s\" verändert</string>
   <string name="changes_created">\"%1$s\" angelegt</string>
   <string name="confirm_upload_title">Hochladen?</string>
-  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n%1$s</string>
+  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n\n%1$s</string>
   <string name="confirm_multiple_upload_text">Sollen folgende %1$d Änderungen hochgeladen werden?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
