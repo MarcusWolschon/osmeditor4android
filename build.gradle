@@ -280,7 +280,7 @@ dependencies {
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.11.0"
     compile "ch.poole:ConditionalRestrictionParser:0.2.2"
-    compile "ch.poole:OpeningHoursFragment:0.3.4"    
+    compile "ch.poole:OpeningHoursFragment:0.3.5"    
     compile 'ch.poole.android:numberpicker:1.0.8'
     compile 'ch.poole.android:numberpickerpreference:1.0.1'
     // for temp stuff during dev 
