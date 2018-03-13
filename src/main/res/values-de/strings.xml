@@ -289,7 +289,7 @@
   <string name="forward">Vorwärts</string>
   <string name="keep">Behalten</string>
   <string name="enable">Aktivieren</string>
-  <string name="clear">Zurücksetzten</string>
+  <string name="clear">Zurücksetzen</string>
   <string name="retry">Wiederholen</string>
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -562,7 +562,7 @@
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
   <string name="config_password_title">OSM-Passwort</string>
-  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzten und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
+  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzen und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
   <string name="config_category_gps">GPS-Einstellungen</string>
   <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
   <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>

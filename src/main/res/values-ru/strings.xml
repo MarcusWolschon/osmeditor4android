@@ -70,7 +70,7 @@
   <string name="progress_preset_message">Загружается заготовка…</string>
   <string name="progress_running_message">В процессе...</string>
   <string name="progress_oauth">Загружаю вашу учётную запись на openstreetmap.org для авторизации через OAuth...</string>
-  <string name="progress_building_imagery_database">Построение базы снимков...</string>
+  <string name="progress_building_imagery_database">Подготовка базы снимков...</string>
   <string name="progress_query_oam">Выполняется запрос к OAM...</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
@@ -110,6 +110,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
+  <string name="geocoder_prompt">через</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="search">Поиск</string>
   <string name="no_valid_preset">Нет подходящей заготовки!</string>

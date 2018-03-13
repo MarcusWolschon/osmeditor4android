@@ -98,7 +98,7 @@ Também pode usar o menu: ver [Criar novos objetos](../en/Creating%20new%20objec
 
 #### Adicionar uma Área
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+O OpenStreetMap neste momento não tem um tipo de objeto definido como "área" ao contrário de outros sistemas de geo-dados. O editor "iD" tenta criar uma abstração de área a partir dos elementos OpenStreetMap subjacentes, o que funciona bem em algumas circunstâncias, mas não noutras. O Vespucci neste momento não faz isso, por isso necessita de saber um pouco como é que as áreas são representadas:
 
 * _linhas fechadas (*polígonos")_: a variante mais simples e mais comum, são linhas que têm um nó que definem o início e fim da linha formando um "anel" fechado (por exemplo, a maioria dos edifícios usam este tipo). Estas são muito fáceis de criar no Vespucci, simplesmente termine a linha clicando no nó inicial. Nota: a interpretação da linha fechada depende das etiquetas desta: por exemplo, se uma linha fechada tiver a etiqueta de edifício será considerada uma área, se tiver a etiqueta de rotunda não será considerada uma área. Em algumas situações ambas as interpretações podem ser válidas, por isso pode ser adicionada uma etiqueta "area" para clarificar.
 * _multi-polígonos_: algumas áreas têm várias partes, buracos e anéis que não possam ser representados apenas com uma linha. O OpenStreetMap usa um tipo específico de relação (o objeto de uso genérico que pode modelar relações entre elementos) para contornar o problema, um multi-polígono. Um multi-polígono pode ter vários anéis "exteriores" e "interiores". Cada um dos anéis podem ser uma linha fechada como descrito acima ou várias linhas individuais que tenham nós em comum. Enquanto que multi-polígonos grandes podem ser difíceis de lidar, os pequenos não são complicados de criar no Vespucci. 
@@ -162,7 +162,7 @@ Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou edit
 
 ## Notas e Erros Reportados
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
 
 As Notas e Erros Reportados são mostrados no mapa com um pequeno ícone ![Erro](../images/bug_open.png), os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
@@ -187,9 +187,9 @@ O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modo-C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+No Modo-C apenas são mostrados os objetos que têm uma bandeira de aviso definida, o que torna fácil detetar objetos que têm problemas específicos ou que correspondam a verificações configuráveis. Se for selecionado um objeto e o Editor de Propriedades iniciado no Modo-C, será aplicado automaticamente o modelo de melhor correspondência.
 
 O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
 
@@ -199,7 +199,7 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### entradas de levantamentos
+#### Entradas de novos levantamentos
 
 O levantamento possui as seguintes propriedades:
 
