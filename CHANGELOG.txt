@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.1.1: Fix upload status when uploading multiple OSMOSE bugs, update presets, update OH fragment, update translations
+
 10.1.0: Support redirects to https when downloading presets, update translations, update imagery, update release notes. 
 
 10.1.0-10: Support MBTiles 1.3 minzoom and maxzoom values, update translations.
