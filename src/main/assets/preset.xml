@@ -40,6 +40,12 @@
         <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" />
         <combo key="lanes:forward" text="Lanes →" long_text="Number of lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
         <combo key="lanes:backward" text="Lanes ←" long_text="Number of lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none" />
+        <combo key="lanes:psv:forward" text="PSV Lanes →" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:psv:backward" text="PSV Lanes ←" long_text="Number of PSV lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:bus" text="Bus lanes" values="1,2,3,4,5,6" length="3" match="none" />
+        <combo key="lanes:bus:forward" text="Bus lanes →" long_text="Number of bus lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+        <combo key="lanes:bus:backward" text="Bus lanes ←" long_text="Number of bus lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
     </chunk>
     <chunk id="maxspeed">
         <text key="maxspeed" text="Max speed" long_text="Maximum speed specified in km/h" />
@@ -411,7 +417,7 @@
             display_values="Multiple,Archery,Athletics,American football,Australian football,Baseball,Basketball,Beach volleyball,Billiards,Boules,Bowls,Canadian football,Canoe,Climbing,Cricket,Croquet,Cycling,Dog racing,Equestrian,Field hockey,Gaelic games,Golf,Gymnastics,Handball,Horse racing,Ice hockey,Karting,Martial arts,Model aerodrome,Motocross,Motor,Pelota,Racquet,RC car,Rugby league,Rugby union,Running,Safety training,Shooting,Skateboard,Skating,Roller skating,Ice skating,Soccer,Swimming,Table tennis,Tennis,Volleyball,9pin,10pin" values_context="sport" />
     </chunk>
     <chunk id="bin">
-        <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" />
+        <combo key="bin" text="Bin" values="yes,no" display_values="Yes,No" default="" />
     </chunk>
     <chunk id="fee">
         <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none" />
@@ -3847,7 +3853,7 @@
                 </checkgroup>
                 <space />
                 <label text="Additives:" />
-                <check key="fuel:adblue" text="Diesel Exhaust Fluid (AdBlue/AUS32)" />
+                <check key="fuel:adblue" text="Diesel Exhaust Fluid (AdBlue/AUS32)" disable_off="true" />
                 <space />
                 <label text="Fuel cards:" />
                 <checkgroup columns="3">
@@ -4274,7 +4280,7 @@
             <text key="name" text="Name" />
             <check key="bench" text="Bench" disable_off="true" />
             <check key="shelter" text="Shelter" disable_off="true" />
-            <check key="bin" text="Waste Basket/Trash Can" />
+            <reference ref="bin" />
             <check key="covered" text="Covered" disable_off="true" />
             <reference ref="wheelchair" />
             <reference ref="tactile_paving" />
@@ -5434,7 +5440,7 @@
                   pt_BR.href="http://wiki.openstreetmap.org/wiki/Pt-br:Tag:amenity=sauna"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=sauna" />
             <space />
-            <key key="leisure" value="tanning_studio" />
+            <key key="leisure" value="tanning_salon" />
             <check key="self-service" text="Self-service" disable_off="true" />
             <reference ref="name_operator_oh_wheelchair" />
             <reference ref="facility_access" />
@@ -5610,6 +5616,18 @@
             <space />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Casino -->
+        <item name="Love Hotel" icon="icons/png/amenity_love_hotel.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=love_hotel"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=love_hotel"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:amenity=love_hotel"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:amenity=love_hotel"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:amenity=love_hotel"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=love_hotel" />
+            <space />
+            <key key="amenity" value="love_hotel" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Night Club -->
         <item name="Strip Club" icon="icons/png/amenity_stripclub_12255.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=stripclub"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=stripclub"
@@ -5874,7 +5892,10 @@
             <key key="religion" value="christian" />
             <text key="name" text="Name" />
             <combo key="building" text="Building type" values="basilica,cathedral,chapel,church,temple" values_searchable="true" />
-            <combo key="denomination" text="Denomination" values="anglican,baptist,catholic,evangelical,greek_catholic,greek_orthodox,jehovahs_witness,lutheran,methodist,mormon,new_apostolic,orthodox,pentecostal,presbyterian,protestant,quaker,roman_catholic,russian_orthodox,seventh_day_adventist,spiritist" values_context="christian" values_searchable="true" /> 
+            <combo key="denomination" text="Denomination" 
+                values="anglican,baptist,catholic,evangelical,greek_catholic,greek_orthodox,jehovahs_witness,lutheran,methodist,mormon,new_apostolic,orthodox,pentecostal,presbyterian,protestant,quaker,roman_catholic,russian_orthodox,seventh_day_adventist,spiritist" 
+                display_values="Anglican,Baptist,Catholic,Evangelical,Greek catholic,Greek orthodox,Jehovahs witness,Lutheran,Methodist,Mormon,New apostolic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Roman catholic,Russian orthodox,Seventh day adventist,Spiritist" 
+                values_context="christian" values_searchable="true" /> 
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -5898,7 +5919,7 @@
             <key key="religion" value="muslim" />
             <text key="name" text="Name" />
             <combo key="building" text="Building type" values="mosque" values_searchable="true"  />
-            <combo key="denomination" text="Denomination" values="ibadi,shia,sunni" values_searchable="true" />
+            <combo key="denomination" text="Denomination" values="ibadi,shia,sunni" display_values="Ibadi,Shia,Sunni" values_searchable="true" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -5922,7 +5943,7 @@
             <key key="religion" value="jewish" />
             <text key="name" text="Name" />
             <combo key="building" text="Building type" values="synagogue" values_searchable="true" />
-            <combo key="denomination" text="Denomination" values="orthodox,conservative,reform" values_context="jewish" values_searchable="true" />
+            <combo key="denomination" text="Denomination" values="orthodox,conservative,reform" display_values="Orthodox,Conservative,Reform" values_context="jewish" values_searchable="true" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -5945,7 +5966,7 @@
             <key key="amenity" value="place_of_worship" />
             <key key="religion" value="buddhist" />
             <text key="name" text="Name" />
-            <combo key="denomination" text="Denomination" values="theravada,mahayana,vajrayana" values_searchable="true" />
+            <combo key="denomination" text="Denomination" values="theravada,mahayana,vajrayana" display_values="Theravada,Mahayana,Vajrayana" values_searchable="true" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -5968,7 +5989,7 @@
             <key key="amenity" value="place_of_worship" />
             <key key="religion" value="hindu" />
             <text key="name" text="Name" />
-            <combo key="denomination" text="Denomination" values="vaishnavism,shaivism,shaktism,smartism" values_searchable="true" />
+            <combo key="denomination" text="Denomination" values="vaishnavism,shaivism,shaktism,smartism" display_values="Vaishnavism,Shaivism,Shaktism,Smartism" values_searchable="true" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -6012,7 +6033,7 @@
             <space />
             <key key="amenity" value="place_of_worship" />
             <text key="name" text="Name" />
-            <combo key="religion" text="Religion" values="bahai,jain,sikh,spiritualist,taoist,unitarian,zoroastrian" match="keyvalue!" values_searchable="true" />
+            <reference ref="religious" />
             <reference ref="service_times" />
             <reference ref="oh_wheelchair" />
             <reference ref="link_contact_address" />
@@ -7436,7 +7457,7 @@
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Tag:leisure=pitch" />
             <space />
             <key key="leisure" value="pitch" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <reference ref="sport" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Pitch -->
@@ -8149,39 +8170,101 @@
 				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
 			<space />
 			<combo key="building" text="Building"
-				values="yes,roof,garage,garages,industrial,school,hangar,commercial,service,train_station,barn,stable,cabin,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
-				display_values="Yes,Roof,Garage,Garages,Industrial,School,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins"
+				values="yes,house,garage,apartments,industrial,residential,detached,terrace,bungalow,hut,roof,garages,school,dormitory,hotel,hangar,commercial,service,train_station,barn,stable,cabin,farm,farm_auxiliary,transportation,greenhouse,office,university,college,hospital,kindergarten,manufacture,warehouse,retail,shed,storage_tank,supermarket,gasometer,cowshed,construction,basilica,cathedral,chapel,church,temple,mosque,synagogue,transformer_tower,public,ruins"
+				display_values="Yes,House,Garage,Apartments,Industrial,Residential,Detached,Terrace,Bungalow,Hut,Roof,Garages,School,Dormitory,Hotel,Hangar,Commercial,Service,Train station,Barn,Stable,Cabin,Farm,Farm auxiliary,Transportation,Greenhouse,Office,University,College,Hospital,Kindergarten,Manufacture,Warehouse,Retail,Shed,Storage tank,Supermarket,Gasometer,Cowshed,Construction,Basilica,Cathedral,Chapel,Church,Temple,Mosque,Synagogue,Transformer tower,Public,Ruins"
 				values_context="building" default="yes" match="keyvalue!"
 				values_searchable="true" />
 			<reference ref="additional_building_tags" />
 			<preset_link preset_name="Address" />
 		</item> <!-- Building -->
-		<item name="Residential Building" icon="icons/png/man_made_house_sp.png"
-			type="node,closedway,multipolygon" preset_name_label="true">
-			<link href="http://wiki.openstreetmap.org/wiki/Key:building"
-				bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
-				cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
-				de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
-				es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
-				fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
-				hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
-				it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
-				ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
-				nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
-				no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
-				pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
-				pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
-				ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
-				uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
-			<space />
-			<combo key="building" text="Building"
-				values="residential,apartments,house,hotel,hut,bungalow,dormitory,terrace,detached,farm"
-				display_values="Residential,Apartments,House,Hotel,Hut,Bungalow,Dormitory,Terrace,Detached,Farm"
-				default="residential" match="keyvalue!" values_context="building"
-				values_searchable="true" />
-			<reference ref="additional_building_tags" />
-			<preset_link preset_name="Address" />
-		</item> <!-- Residential Building -->
+        <item name="Apartments" icon="icons/png/man_made_apartments.png"
+            type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
+                bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+                cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+                de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+                es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+                fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+                hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+                it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+                ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+                nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+                no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+                pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+                ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+                uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+            <space />
+            <key key="building" text="Apartments" value="apartments" values_context="building" />
+            <reference ref="additional_building_tags" />
+            <preset_link preset_name="Address" />
+        </item> <!-- Apartments -->
+        <item name="House" icon="icons/png/man_made_house_sp.png"
+            type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
+                bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+                cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+                de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+                es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+                fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+                hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+                it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+                ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+                nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+                no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+                pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+                ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+                uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+            <space />
+            <key key="building" text="House" value="house" values_context="building" />
+            <reference ref="additional_building_tags" />
+            <preset_link preset_name="Address" />
+        </item> <!-- House -->
+        <item name="Garage" icon="icons/png/man_made_garage.png"
+            type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
+                bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+                cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+                de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+                es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+                fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+                hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+                it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+                ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+                nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+                no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+                pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+                ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+                uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+            <space />
+            <key key="building" text="Garage" value="garage" values_context="building" />
+            <reference ref="additional_building_tags" />
+            <preset_link preset_name="Address" />
+        </item> <!-- House -->
+        <item name="Industrial" icon="icons/png/man_made_works_22087.png"
+            type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:building"
+                bg.href="http://wiki.openstreetmap.org/wiki/Bg:Key:building"
+                cs.href="http://wiki.openstreetmap.org/wiki/Cs:Key:building"
+                de.href="http://wiki.openstreetmap.org/wiki/DE:Key:building"
+                es.href="http://wiki.openstreetmap.org/wiki/ES:Key:building"
+                fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:building"
+                hu.href="http://wiki.openstreetmap.org/wiki/Hu:Key:building"
+                it.href="http://wiki.openstreetmap.org/wiki/IT:Key:building"
+                ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:building"
+                nl.href="http://wiki.openstreetmap.org/wiki/NL:Key:building"
+                no.href="http://wiki.openstreetmap.org/wiki/No:Key:building"
+                pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:building"
+                pt.href="http://wiki.openstreetmap.org/wiki/Pt:Key:building"
+                ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:building"
+                uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:building" />
+            <space />
+            <key key="building" text="Industrial" value="industrial" values_context="building" />
+            <reference ref="additional_building_tags" />
+            <preset_link preset_name="Address" />
+        </item> <!-- Industrial -->
 		<item name="Building part" icon="styles/standard/misc/landmark/building.png"
 			type="closedway,multipolygon" preset_name_label="true">
 			<link href="http://wiki.openstreetmap.org/wiki/Key:building:part"
@@ -9953,7 +10036,7 @@
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=fashion"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=fashion" />
             <space />
-            <key key="shop" value="fashio" />
+            <key key="shop" value="fashion" />
             <reference ref="name_operator_oh_wheelchair_level_toilets" />
             <reference ref="clothes" />
             <reference ref="link_contact_address_payment" />
