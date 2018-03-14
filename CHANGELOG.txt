@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.2.0-1: Re-factor networking code to use OkHttp, support network location providers, support EPSG:4326 WMS servers, update OH fragment, fix wrong status after uploading multiple OSMOSE bugs, split upload dialog in to two pages, update preset, imagery and translations.
+
 10.1.0: Support redirects to https when downloading presets, update translations, update imagery, update release notes. 
 
 10.1.0-10: Support MBTiles 1.3 minzoom and maxzoom values, update translations.
