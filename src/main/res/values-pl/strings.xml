@@ -360,14 +360,9 @@
   <string name="menu_camera">Aparat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Znacznik położenia</string>
-  <string name="menu_gps_follow">Podążanie za aktualnym położeniem</string>
-  <string name="menu_gps_goto">Wyświetl aktualne położenie</string>
   <string name="menu_gps_start">Rozpocznij rejestrowanie śladu</string>
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami...</string>
-  <string name="menu_gps_upload">Wyślij ślad</string>
-  <string name="menu_gps_export">Wyeksportuj ślad</string>
-  <string name="menu_gps_import">Importuj ślad</string>
   <string name="menu_gps_goto_start">Przejdź na początek śladu</string>
   <string name="menu_gps_autodownload">Automatyczne pobieranie</string>
   <string name="menu_transfer">Transfer…</string>
@@ -515,7 +510,6 @@
   <string name="config_username_summary">Konfiguracja danych konta potrzebna do wysyłania danych na OSM dla osób nie korzystających z OAuth. Jeśli nie posiadasz konta załóż teraz na  http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Hasło konta OSM</string>
   <string name="config_password_summary">Pamiętaj: Hasło jest przechowywane i wysyłane w postaci czystego tekstu!</string>
-  <string name="config_category_gps">GPS</string>
   <string name="config_gps_distance_title">Najmniejsza odległość GPS</string>
   <string name="config_gps_distance_summary">Minimalny dystans pomiędzy zapisami pozycji GPS, w metrach. Im mniejsza wartość, tym większe zużycie baterii.</string>
   <string name="config_gps_distance_current">%1$d metrów</string>
@@ -607,8 +601,6 @@
   <string name="changes_deleted">Usunięto „%1$s”</string>
   <string name="changes_changed">Zmieniono „%1$s”</string>
   <string name="changes_created">Utworzono „%1$s”</string>
-  <string name="confirm_upload_title">Wysłać?</string>
-  <string name="confirm_one_upload_text">Wysłać tą zmianę?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -640,8 +632,6 @@
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
-  <string name="tracking_active_title">Działanie Vespucci w tle aktywne</string>
-  <string name="tracking_active_text">Vespucci nagrywa ścieżkę GPS lub automatycznie pobiera dane</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--element description-->
   <string name="address_housenumber">Adres%1$s</string>

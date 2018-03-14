@@ -181,6 +181,7 @@
   <string name="coverage_bottom">底部</string>
   <string name="preferred">偏好</string>
   <string name="toast_invalid_box">無效或不完整的邊界框</string>
+  <string name="delete_layer">刪除圖層？</string>
   <!--Toaster-->
   <string name="toast_name_empty">名稱欄位不能為空白</string>
   <string name="toast_url_empty">網址不能為空白</string>
@@ -219,6 +220,7 @@
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">握手驗証時發生通信錯誤，請重試。</string>
   <string name="toast_oauth_handshake_failed">OAuth 握手失敗： %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">目前並不支援以 google 登入</string>
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
@@ -269,6 +271,7 @@
   <string name="toast_applied_offset">自動套用影像偏移值</string>
   <string name="toast_unsupported_format">不支援的格式：%1$s</string>
   <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
+  <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -282,6 +285,7 @@
   <string name="set">設定</string>
   <string name="replace">更新</string>
   <string name="save">儲存</string>
+  <string name="save_and_set">儲存和設定</string>
   <string name="back">返回</string>
   <string name="forward">往前</string>
   <string name="keep">保留</string>
@@ -395,15 +399,12 @@
   <string name="menu_camera">照相機</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">顯示位置</string>
-  <string name="menu_gps_follow">追隨 GPS 位置</string>
-  <string name="menu_gps_goto">前往 GPS 位置</string>
   <string name="menu_gps_start">開始 GPS 軌跡</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡</string>
+  <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
   <string name="menu_gps_track_managment">軌跡管理...</string>
-  <string name="menu_gps_upload">上傳 GPS 軌跡</string>
-  <string name="menu_gps_export">匯出 GPS 軌跡</string>
-  <string name="menu_gps_import">匯入 GPS 軌跡</string>
   <string name="menu_gps_goto_start">前往起始的軌跡</string>
+  <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
   <string name="menu_gps_autodownload">自動下載</string>
   <string name="menu_transfer">傳輸…</string>
   <string name="menu_transfer_download_current">下載目前的檢視</string>
@@ -560,7 +561,6 @@
 帳號可在這申請 http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM 密碼</string>
   <string name="config_password_summary">不要誤認為是維基密碼。請記住：它是以純文字存儲和傳輸！</string>
-  <string name="config_category_gps">GPS 設定</string>
   <string name="config_gps_distance_title">GPS 的最小距離</string>
   <string name="config_gps_distance_summary">GPS 接收通知，以公尺 (可以有小數) 為單位的最小距離間隔 。較低的值使電池更加耗電。</string>
   <string name="config_gps_distance_current">%1$d 公尺</string>
@@ -654,9 +654,6 @@
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
   <string name="changes_created">\"%1$s\" 已建立</string>
-  <string name="confirm_upload_title">上傳嗎？</string>
-  <string name="confirm_one_upload_text">上傳下列變更 change?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">上傳以下變更%1$dchanges?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -675,6 +672,7 @@
   <string name="url">URL</string>
   <string name="default_">預設</string>
   <string name="regular_expression">正規表示式</string>
+  <string name="state">狀態</string>
   <!---->
   <string name="empty_list">無輸入</string>
   <string name="api_name">API 名稱</string>
@@ -688,8 +686,6 @@
   <string name="undo">復原</string>
   <string name="redo">取消復原</string>
   <string name="undo_nothing">沒什麼可復原</string>
-  <string name="tracking_active_title">Vespucci背景服務啟動</string>
-  <string name="tracking_active_text">Vespucci 在錄制 GPS 軌跡或是自動下載</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>

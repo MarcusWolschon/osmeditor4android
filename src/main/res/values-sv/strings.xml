@@ -273,14 +273,9 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
-  <string name="menu_gps_follow">Följ GPS-positionen</string>
-  <string name="menu_gps_goto">Gå till GPS-positionen</string>
   <string name="menu_gps_start">Starta GPS-spår</string>
   <string name="menu_gps_pause">Pausa GPS-spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
-  <string name="menu_gps_upload">Ladda upp GPS-spår</string>
-  <string name="menu_gps_export">Exportera GPS-spår</string>
-  <string name="menu_gps_import">Importera GPS-spår</string>
   <string name="menu_gps_goto_start">Gå till GPS-spår</string>
   <string name="menu_gps_autodownload">Hämta automatiskt</string>
   <string name="menu_transfer">Överför...</string>
@@ -397,7 +392,6 @@
   <string name="config_loginbutton_title">Användarkonto</string>
   <string name="config_username_title">OSM Användarnamn</string>
   <string name="config_password_title">OSM lösenord</string>
-  <string name="config_category_gps">GPS Inställning</string>
   <string name="config_gps_distance_title">Minsta GPS-Distans</string>
   <string name="config_gps_interval_title">Minsta GPS-Intervall</string>
   <string name="config_category_info">Om</string>
@@ -432,7 +426,6 @@
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
   <string name="changes_created">\"%1$s\" skapad</string>
-  <string name="confirm_upload_title">Ladda upp?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_add_api">Lägg till API</string>

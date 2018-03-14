@@ -376,14 +376,9 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Pozíció megjelenítése</string>
-  <string name="menu_gps_follow">GPS pozíció követése</string>
-  <string name="menu_gps_goto">Ugrás GPS pozícióra</string>
   <string name="menu_gps_start">GPS nyomvonal indítása</string>
   <string name="menu_gps_pause">GPS nyomvonal szüneteltetése</string>
   <string name="menu_gps_track_managment">Nyomvonal kezelése</string>
-  <string name="menu_gps_upload">GPS nyomvonal feltöltése</string>
-  <string name="menu_gps_export">GPS nyomvonal exportálása</string>
-  <string name="menu_gps_import">GPS nyomvonal importálása</string>
   <string name="menu_gps_goto_start">Ugrás a nyomvonal elejére</string>
   <string name="menu_gps_autodownload">Automatikus letöltés</string>
   <string name="menu_transfer">Átvitel…</string>
@@ -527,7 +522,6 @@
   <string name="config_username_summary">Csak akkor szükséges megadni az OSM adatok feltöltéséhez, ha nem használ OAuth-ot. Regisztráció: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM jelszó</string>
   <string name="config_password_summary">Ne tévessze össze a Wiki jelszóval. Ne feledje: egyszerű szövegként kerül tárolásra és átvitelre!</string>
-  <string name="config_category_gps">GPS beállítások</string>
   <string name="config_gps_distance_title">Minimális GPS távolság</string>
   <string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (lebegőpontos). Az alacsonyabb érték nagyobb akkumulátorhasználatot okoz.</string>
   <string name="config_gps_interval_title">Minimális GPS időköz</string>
@@ -609,9 +603,6 @@
   <string name="changes_deleted">„%1$s” törölve</string>
   <string name="changes_changed">„%1$s” módosítva</string>
   <string name="changes_created">„%1$s” létrehozva</string>
-  <string name="confirm_upload_title">Feltölti?</string>
-  <string name="confirm_one_upload_text">Feltölti az alábbi változást?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Feltölti az alábbi %1$d változást?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Előbeállítás hozzáadása</string>
   <string name="urldialog_preset_exists">Ez az előbeállítás már létezik</string>
@@ -642,8 +633,6 @@
   <string name="undo">Visszavonás</string>
   <string name="redo">Újra</string>
   <string name="undo_nothing">nincs mit visszavonni</string>
-  <string name="tracking_active_title">Vespucci háttérszolgáltatás aktív</string>
-  <string name="tracking_active_text">A Vespucci GPS nyomvonalat rögzít vagy automatikusan letölt</string>
   <string name="gps_failure">Nem sikerült engedélyezni a GPS-t</string>
   <!--element description-->
   <string name="address_housenumber">Cím: %1$s</string>

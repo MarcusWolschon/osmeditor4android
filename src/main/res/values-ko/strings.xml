@@ -295,14 +295,9 @@
   <string name="menu_camera">카메라</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">위치 보이기</string>
-  <string name="menu_gps_follow">GPS 위치 따르기</string>
-  <string name="menu_gps_goto">GPS 위치로 가기</string>
   <string name="menu_gps_start">GPS 트랙 시작</string>
   <string name="menu_gps_pause">GPS 트랙 일시 정지</string>
   <string name="menu_gps_track_managment">트랙 관리...</string>
-  <string name="menu_gps_upload">GPS 트랙 업로드</string>
-  <string name="menu_gps_export">GPS 트랙 내보내기</string>
-  <string name="menu_gps_import">GPS 트랙 가져오기</string>
   <string name="menu_gps_goto_start">트랙의 시작으로 가기</string>
   <string name="menu_gps_autodownload">자동 다운로드</string>
   <string name="menu_transfer">이송…</string>
@@ -423,7 +418,6 @@
   <string name="config_username_title">OSM 사용자 이름</string>
   <string name="config_username_summary">환경 설정은 OAuth를 사용하고 있지 않을 경우에만 OSM-데이터를 업로드하는 데 필요합니다. 계정은 http://www.openstreetmap.org/user/new 에서 사용할 수 있습니다</string>
   <string name="config_password_title">OSM 비밀번호</string>
-  <string name="config_category_gps">GPS 설정</string>
   <string name="config_gps_distance_title">최소 GPS 거리</string>
   <string name="config_gps_interval_title">최소 GPS 간격</string>
   <string name="config_category_info">정보</string>
@@ -475,8 +469,6 @@
   <string name="changes_deleted">\"%1$s\" 삭제됨</string>
   <string name="changes_changed">\"%1$s\" 변경됨</string>
   <string name="changes_created">\"%1$s\" 만듦</string>
-  <string name="confirm_upload_title">업로드하겠습니까?</string>
-  <string name="confirm_one_upload_text">다음 변경을 업로드하겠습니까?\n%1$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">프리셋 추가</string>
   <string name="urldialog_preset_exists">이 프리셋은 이미 존재합니다</string>

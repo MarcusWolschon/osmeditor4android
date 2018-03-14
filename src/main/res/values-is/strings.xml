@@ -209,13 +209,8 @@
   <string name="menu_camera">Myndavél</string>
   <string name="menu_gps">GPS....</string>
   <string name="menu_gps_show">Sýna staðsetningu</string>
-  <string name="menu_gps_follow">Fylgja GPS-staðsetningu</string>
-  <string name="menu_gps_goto">Fara á GPS-staðsetningu</string>
   <string name="menu_gps_start">Hefja GPS-slóð</string>
   <string name="menu_gps_pause">Pása GPS-upptöku</string>
-  <string name="menu_gps_upload">Upphlaða GPS-slóð</string>
-  <string name="menu_gps_export">Flytja GPS-slóð út</string>
-  <string name="menu_gps_import">Flytja GPS-slóð inn</string>
   <string name="menu_gps_goto_start">Fara á upphaf slóðar</string>
   <string name="menu_gps_autodownload">Sjálfvirkt niðurhal</string>
   <string name="menu_transfer">Færi gögn...</string>
@@ -315,7 +310,6 @@
 </string>
   <string name="config_password_title">OSM lykilorð</string>
   <string name="config_password_summary">Ekki rugla saman við wiki-lykilorðið. Mundu: Það er geymt og flutt sem ódulkóðaður texti!</string>
-  <string name="config_category_gps">GPS-stillingar</string>
   <string name="config_gps_distance_title">Lágmarks GPS fjarlægð</string>
   <string name="config_gps_distance_summary">Minnsta vegalengd milli GPS hnita, í metrum (rauntala). Lægra gildi eyðir rafhlöðu hraðar. </string>
   <string name="config_gps_interval_title">Lágmarks GPS bil</string>
@@ -359,7 +353,6 @@
   <string name="changes_deleted">\"%1$s\" eytt</string>
   <string name="changes_changed">\"%1$s\" breytt</string>
   <string name="changes_created">Bjó til \"%1$s\"</string>
-  <string name="confirm_upload_title">Upphlaða? </string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
   <string name="urldialog_preset_exists">Þessi forstilling er þegar til</string>

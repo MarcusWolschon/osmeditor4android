@@ -316,14 +316,9 @@ il y a %3$s %4$s</string>
   <string name="menu_camera">Caméra</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Afficher ma position</string>
-  <string name="menu_gps_follow">Recentrer sur ma position</string>
-  <string name="menu_gps_goto">Aller à la position GPS</string>
   <string name="menu_gps_start">Démarrer la trace GPS</string>
   <string name="menu_gps_pause">Mettre en pause la trace GPS</string>
   <string name="menu_gps_track_managment">Gestion des traces...</string>
-  <string name="menu_gps_upload">Envoi de la trace GPS</string>
-  <string name="menu_gps_export">Export de la trace GPS</string>
-  <string name="menu_gps_import">Importer une trace GPS</string>
   <string name="menu_gps_goto_start">Aller au début de la trace</string>
   <string name="menu_gps_autodownload">Téléchargement automatique</string>
   <string name="menu_transfer">Transfert des données…</string>
@@ -451,7 +446,6 @@ il y a %3$s %4$s</string>
   <string name="config_username_summary">Obligatoire si vous voulez envoyer les données vers OSM sans OAuth. Vous pouvez créer un compte sur http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Mot de passe OSM</string>
   <string name="config_password_summary">Ne pas confondre avec le mot de passe Wiki. Attention : stocké et transmis en clair !</string>
-  <string name="config_category_gps">Paramètres de géolocalisation</string>
   <string name="config_gps_distance_title">Distance minimale</string>
   <string name="config_gps_distance_summary">Distance minimale avant mise à jour, en mètres (float). Les petites valeurs consomment davantage d\'énergie.</string>
   <string name="config_gps_interval_title">Intervalle de temps minimal</string>
@@ -524,8 +518,6 @@ il y a %3$s %4$s</string>
   <string name="changes_deleted">\"%1$s\" supprimé</string>
   <string name="changes_changed">\"%1$s\" modifié</string>
   <string name="changes_created">\"%1$s\" créé</string>
-  <string name="confirm_upload_title">Envoyer ?</string>
-  <string name="confirm_multiple_upload_text">Envoyer les modifications suivantes %1$d ?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Ajouter un modèle d\'attributs</string>
   <string name="urldialog_preset_exists">Ce modèle d\'attributs existe déjà</string>
@@ -555,8 +547,6 @@ il y a %3$s %4$s</string>
   <string name="undo">Annuler</string>
   <string name="redo">Refaire</string>
   <string name="undo_nothing">Plus rien à annuler</string>
-  <string name="tracking_active_title">Le service d\'arrière-plan de Vespucci est activé.</string>
-  <string name="tracking_active_text">Vespucci est en train d\'enregistrer une trace GPS ou de télécharger automatiquement</string>
   <string name="gps_failure">Échec de l\'activation du GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresse%1$s</string>

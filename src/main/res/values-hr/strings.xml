@@ -123,11 +123,8 @@
   <string name="menu_easyedit">MultiAlat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Prikaži lokaciju</string>
-  <string name="menu_gps_follow">Prati GPS poziciju</string>
   <string name="menu_gps_start">Pokreni GPS trag</string>
   <string name="menu_gps_pause">Pauziraj GPS trag</string>
-  <string name="menu_gps_upload">Pošalji GPS trag</string>
-  <string name="menu_gps_export">Izvezi GPS trag</string>
   <string name="menu_transfer">Prijenos…</string>
   <string name="menu_transfer_download_current">Skini trenutni pogled</string>
   <string name="menu_transfer_download_current_add">Dodaj trenutni pogled skinutim</string>
@@ -180,7 +177,6 @@
   <string name="config_username_title">OSM korisničko ime</string>
   <string name="config_password_title">OSM lozinka</string>
   <string name="config_password_summary">Nemojte ju zamjeniti sa Wiki lozinkom. Upamtite: Lozinka se čuva u formatu običnog teksta!</string>
-  <string name="config_category_gps">GPS postavke</string>
   <string name="config_gps_distance_title">Minimalna GPS udaljenost</string>
   <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
   <string name="config_gps_interval_title">Minimalni GPS interval</string>
@@ -193,7 +189,6 @@
   <string name="changes_deleted">\"%1$s\" obrisano</string>
   <string name="changes_changed">\"%1$s\" promjenjeno</string>
   <string name="changes_created">\"%1$s\" stvoreno</string>
-  <string name="confirm_upload_title">Poslati?</string>
   <!--url handler activity-->
   <!--common terms-->
   <string name="add">Dodaj</string>

@@ -266,12 +266,8 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_camera">Càmera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostra la ubicació</string>
-  <string name="menu_gps_follow">Segueix la posició del GPS</string>
-  <string name="menu_gps_goto">Anar a la posició GPS</string>
   <string name="menu_gps_start">Inicia la traça GPS</string>
   <string name="menu_gps_pause">Pausa la traça GPS</string>
-  <string name="menu_gps_upload">Puja la traça GPS</string>
-  <string name="menu_gps_export">Exporta la traça GPS</string>
   <string name="menu_gps_autodownload">Descàrrega automàtica</string>
   <string name="menu_transfer">Transfereix...</string>
   <string name="menu_transfer_download_current">Baixa la visualització actual</string>
@@ -371,7 +367,6 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="config_loginbutton_title">Compte d\'usuari</string>
   <string name="config_username_title">Nom d\'usuari de l\'OSM</string>
   <string name="config_password_title">Contrasenya de l\'OSM</string>
-  <string name="config_category_gps">Paràmetres del GPS</string>
   <string name="config_gps_distance_title">Distància GPS mínima</string>
   <string name="config_gps_interval_title">Interval GPS mínim</string>
   <string name="config_gps_interval_current">%1$d ms</string>
@@ -400,7 +395,6 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="changes_deleted">S\'ha suprmit \"%1$s\"</string>
   <string name="changes_changed">S\'ha canviat \"%1$s\"</string>
   <string name="changes_created">S\'ha creat \"%1$s\"</string>
-  <string name="confirm_upload_title">Voleu pujar-ho?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Afegeix una preconfiguració</string>
   <string name="urldialog_preset_exists">Aquesta preconfiguració ja existeix</string>

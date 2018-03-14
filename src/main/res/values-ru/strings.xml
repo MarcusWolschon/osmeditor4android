@@ -70,7 +70,7 @@
   <string name="progress_preset_message">Загружается заготовка…</string>
   <string name="progress_running_message">В процессе...</string>
   <string name="progress_oauth">Загружаю вашу учётную запись на openstreetmap.org для авторизации через OAuth...</string>
-  <string name="progress_building_imagery_database">Построение базы снимков...</string>
+  <string name="progress_building_imagery_database">Подготовка базы снимков...</string>
   <string name="progress_query_oam">Выполняется запрос к OAM...</string>
   <string name="upload_comment_label">Комментарий:</string>
   <string name="upload_source_label">Источник:</string>
@@ -110,6 +110,7 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
+  <string name="geocoder_prompt">через</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="search">Поиск</string>
   <string name="no_valid_preset">Нет подходящей заготовки!</string>
@@ -396,15 +397,10 @@
   <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
-  <string name="menu_gps_follow">Следовать за GPS</string>
-  <string name="menu_gps_goto">Перейти к позиции GPS</string>
   <string name="menu_gps_start">Начать GPS-трек</string>
   <string name="menu_gps_pause">Приостановить GPS-трек</string>
   <string name="menu_gps_clear">Очистить трек GPS и путевые точки</string>
   <string name="menu_gps_track_managment">Управление треками...</string>
-  <string name="menu_gps_upload">Передать GPS-трек на сервер</string>
-  <string name="menu_gps_export">Экспорт GPS-трека</string>
-  <string name="menu_gps_import">Импортировать GPS-трек</string>
   <string name="menu_gps_goto_start">Перейти к началу трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
   <string name="menu_gps_autodownload">Автозагрузка</string>
@@ -562,7 +558,6 @@
   <string name="config_username_summary">Настройка необходима для передачи OSM-данных на сервер, только если вы не используете OAuth. Аккаунты доступны на http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Пароль на сервер OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
-  <string name="config_category_gps">Настройки GPS</string>
   <string name="config_gps_distance_title">Радиус опроса GPS</string>
   <string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
   <string name="config_gps_distance_current">%1$d метров</string>
@@ -655,11 +650,6 @@
   <string name="changes_deleted">\"%1$s\" удалено</string>
   <string name="changes_changed">\"%1$s\" изменено</string>
   <string name="changes_created">\"%1$s\" создано</string>
-  <string name="confirm_upload_title">Передать?</string>
-  <string name="confirm_one_upload_text">Передать следующее изменение?
-%1$s</string>
-  <string name="confirm_multiple_upload_text">Передать следующие %1$d изменений?
-%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Добавить заготовку</string>
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
@@ -692,8 +682,6 @@
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нечего отменять</string>
-  <string name="tracking_active_title">Фоновый сервис Vespucci активен</string>
-  <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--element description-->
   <string name="address_housenumber">Адрес %1$s</string>

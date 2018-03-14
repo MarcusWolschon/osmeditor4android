@@ -131,11 +131,8 @@
   <string name="menu_camera">دوربین</string>
   <string name="menu_gps">جي پي اس ...</string>
   <string name="menu_gps_show">نمایش مکان</string>
-  <string name="menu_gps_follow">دنبال کردن موقعیت  GPS</string>
   <string name="menu_gps_start">شروع پیگیری جی پی اس</string>
   <string name="menu_gps_pause">توقف پیگیری جی پی اس</string>
-  <string name="menu_gps_upload">آپلود پیگیری جی پی اس</string>
-  <string name="menu_gps_export">خارج سازی پیگیری جی پی اس</string>
   <string name="menu_transfer">انتقال...</string>
   <string name="menu_transfer_download_current">دانلود نمای فعلی</string>
   <string name="menu_transfer_upload">آپلود داده ها در سرور OSM</string>
@@ -180,7 +177,6 @@
   <string name="config_username_summary">پیکربندی برای آپلود داده ها به OSM نیاز است تنها اگر از OAuth استفاده نمیکنید. حساب ها در آدرس http://www.openstreetmap.org/user/new در دسترس هستند</string>
   <string name="config_password_title">کلمه ی عبور OSM </string>
   <string name="config_password_summary">این را با کلمه ی عبور ویکی اشتباه نگیرید. به خاطر داشته باشید: این ذخیره میشود و در یک متن رمزگذاری شده ارسال میشود!</string>
-  <string name="config_category_gps">تنظیمات جی پی اس</string>
   <string name="config_gps_distance_title">کمترین فاصله ی جی پی اس</string>
   <string name="config_gps_distance_summary">کمترین فاصله مقداری است برای اطلاعیه های جی پی اس، در متر(شناور). مقدار کمتر مصرف بیشتر باطری را همراه دارد.</string>
   <string name="config_gps_interval_title">کمترین وقفه جی پی اس</string>
@@ -201,7 +197,6 @@
   <string name="changes_deleted">\"%1$s\" حذف شد</string>
   <string name="changes_changed">\"%1$s\" تغییر کرد</string>
   <string name="changes_created">\"%1$s\" ایجاد شد</string>
-  <string name="confirm_upload_title">آپلود؟</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">افزودن پیش تنظیم</string>
   <string name="urldialog_preset_exists">این پیش تنظیم از قبل وجود دارد</string>

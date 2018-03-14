@@ -232,14 +232,9 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Konumu göster</string>
-  <string name="menu_gps_follow">GPS konumunu izle</string>
-  <string name="menu_gps_goto">GPS konumuna git</string>
   <string name="menu_gps_start">GPS izini başlat</string>
   <string name="menu_gps_pause">GPS izini duraklat</string>
   <string name="menu_gps_track_managment">İz yönetimi...</string>
-  <string name="menu_gps_upload">GPS izini yükle</string>
-  <string name="menu_gps_export">GPS izini dışa aktar</string>
-  <string name="menu_gps_import">GPS izini içe aktar</string>
   <string name="menu_gps_goto_start">İzin başlangıcına git</string>
   <string name="menu_gps_autodownload">Otomatik indir</string>
   <string name="menu_transfer">Aktarma...</string>
@@ -347,7 +342,6 @@
   <string name="config_username_summary">Eğer OAuth kullanmıyorsanız OSM-veri yüklemek için ayarlama gerekir, hesap burada mevcuttur </string>
   <string name="config_password_title">OSM parola</string>
   <string name="config_password_summary">Viki parolasını karıştırmayın. Unutmayın: bu düz metin dosyasında saklanır ve aktarılır!</string>
-  <string name="config_category_gps">GPS Ayarları</string>
   <string name="config_gps_distance_title">Minimum GPS-Mesafesi</string>
   <string name="config_gps_distance_summary">GPS bildirimleri için minımum mesafe aralığı metre olarak. Düşük değer daha fazla batarya kullanır.</string>
   <string name="config_gps_interval_title">Minimum GPS-Aralığı</string>
@@ -402,7 +396,6 @@
   <string name="changes_deleted">\"%1$s\" silindi</string>
   <string name="changes_changed">\"%1$s\" değiştirildi</string>
   <string name="changes_created">\"%1$s\" oluşturuldu</string>
-  <string name="confirm_upload_title">Yükle?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Öntanımlı ekle</string>
   <string name="urldialog_preset_exists">Öntanımlı zaten var</string>
@@ -428,7 +421,6 @@
   <string name="undo">Geri al</string>
   <string name="redo">Yinele</string>
   <string name="undo_nothing">geri alınacak bir şey yok</string>
-  <string name="tracking_active_text">Vespucci GPS izini otomatik kaydediyor veya otomatik indiriyor</string>
   <string name="gps_failure">GPS etkinleştirme başarısız</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->

@@ -96,8 +96,6 @@
   <string name="menu_camera">Cameră</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Arată locaţia</string>
-  <string name="menu_gps_follow">Urmărește poziţia GPS</string>
-  <string name="menu_gps_goto">Mergi la poziţie GPS</string>
   <string name="menu_transfer">Transfer...</string>
   <string name="menu_transfer_download_current">Descarcă conţinutul curent</string>
   <string name="menu_save">Salvează în fișier</string>
@@ -126,7 +124,6 @@
   <string name="config_loginbutton_title">Cont utilizator</string>
   <string name="config_username_title">Nume utilizator OSM</string>
   <string name="config_password_title">Parolă OSM</string>
-  <string name="config_category_gps">Setări GPS</string>
   <string name="config_category_info">Despre</string>
   <string name="config_advancedprefs">Setări avansate</string>
   <string name="config_forceContextMenu_title">Folosește întotdeauna meniu contextual</string>

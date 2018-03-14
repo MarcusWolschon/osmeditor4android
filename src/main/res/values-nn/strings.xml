@@ -75,11 +75,8 @@
   <string name="menu_tag">Endre tagger</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
-  <string name="menu_gps_follow">Følj GPS-posisjon</string>
   <string name="menu_gps_start">Start GPS-spor</string>
   <string name="menu_gps_pause">Sett GPS-sporing på pause</string>
-  <string name="menu_gps_upload">Last opp GPS-spor</string>
-  <string name="menu_gps_export">Eksporter GPS-spor</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned noverande utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
@@ -114,7 +111,6 @@
   <string name="config_username_title">OpenStreetMap-brukarnamn</string>
   <string name="config_password_title">OpenStreetMap-passord</string>
   <string name="config_password_summary">Må ikkje forvekslast med Wiki-passordet. Obs: Det blir lagra og sendt som lesbar tekst!</string>
-  <string name="config_category_gps">GPS-instillingar</string>
   <string name="config_gps_distance_title">Minimum GPS-avstand</string>
   <string name="config_gps_distance_summary">Kortaste avstand mellom GPS-målingar, i meter (med komma). Lågare verdi gjev kortare batteritid.</string>
   <string name="config_gps_interval_title">Minimum GPS-intervall</string>
@@ -135,7 +131,6 @@
   <string name="changes_deleted">«%1$s» sletta</string>
   <string name="changes_changed">«%1$s» endra</string>
   <string name="changes_created">«%1$s» oppretta</string>
-  <string name="confirm_upload_title">Last opp?</string>
   <!--url handler activity-->
   <string name="urldialog_api_exists">Ein API med denne URLen finst allereie, men du kan leggja til ein til (t.d. for å lett skifte konto).</string>
   <string name="urldialog_add_api">Legg til API</string>

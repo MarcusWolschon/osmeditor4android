@@ -74,8 +74,8 @@
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
-  <string name="upload_validation_error_empty_comment">Kommentar kann nicht leer sein</string>
-  <string name="upload_validation_error_empty_source">Quelle kann nicht leer sein</string>
+  <string name="upload_validation_error_empty_comment">Kommentar sollte nicht leer sein</string>
+  <string name="upload_validation_error_empty_source">Quelle sollte nicht leer sein</string>
   <string name="openstreetbug_new_title">Neue Notiz</string>
   <string name="openstreetbug_new_bug">Fehler melden</string>
   <string name="openstreetbug_bug_title">Problem</string>
@@ -273,6 +273,9 @@
   <string name="toast_unsupported_format">Format nicht unterstützt %1$s</string>
   <string name="toast_returning_less_than_found">Anzeige von %1$d von %2$d total gefundenen Einträgen</string>
   <string name="toast_not_mbtiles">Die Datei ist nicht im MBTiles Format</string>
+  <string name="toast_using_network_location">Netzwerkstandort</string>
+  <string name="toast_using_gps_location">GPS-Standort</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS abgeschaltet, Aufzeichnung gestoppt</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -291,7 +294,7 @@
   <string name="forward">Vorwärts</string>
   <string name="keep">Behalten</string>
   <string name="enable">Aktivieren</string>
-  <string name="clear">Zurücksetzten</string>
+  <string name="clear">Zurücksetzen</string>
   <string name="retry">Wiederholen</string>
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -399,15 +402,15 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">GPS-Position anzeigen</string>
-  <string name="menu_gps_follow">GPS-Position folgen</string>
-  <string name="menu_gps_goto">Gehe zu GPS Position</string>
+  <string name="menu_gps_follow">Standort folgen</string>
+  <string name="menu_gps_goto">Gehe zum aktuellen Standort</string>
   <string name="menu_gps_start">GPS-Track starten</string>
   <string name="menu_gps_pause">GPS-Track pausieren</string>
   <string name="menu_gps_clear">GPS-Track und Wegpunkte löschen</string>
   <string name="menu_gps_track_managment">Trackverwaltung</string>
-  <string name="menu_gps_upload">GPS-Track hochladen</string>
-  <string name="menu_gps_export">GPS-Track exportieren</string>
-  <string name="menu_gps_import">GPS Track importieren</string>
+  <string name="menu_gps_upload">GPX-Track hochladen</string>
+  <string name="menu_gps_export">GPX-Track exportieren</string>
+  <string name="menu_gps_import">GPX Track importieren</string>
   <string name="menu_gps_goto_start">An den Anfang des Tracks</string>
   <string name="menu_gps_goto_first_waypoint">Zum ersten Wegpunkt zoomen</string>
   <string name="menu_gps_autodownload">Automatischer Download</string>
@@ -564,14 +567,16 @@
   <string name="config_username_title">OSM-Benutzername</string>
   <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
   <string name="config_password_title">OSM-Passwort</string>
-  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzten und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
-  <string name="config_category_gps">GPS-Einstellungen</string>
+  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzen und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
+  <string name="config_category_gps">Standorteinstellungen</string>
   <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
   <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
   <string name="config_gps_distance_current">%1$d Meter</string>
   <string name="config_gps_interval_title">Minimaler GPS-Interval</string>
   <string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_network_title">Netzwerkstandort  verwenden</string>
+  <string name="config_gps_network_summary">Falls kein GPS vorhanden ist, oder abgeschaltet, Netzwerkstandort verwenden</string>
   <string name="config_category_info">Informationen</string>
   <string name="config_advancedprefs">Erweiterte Einstellungen</string>
   <string name="config_forceContextMenu_title">Immer Kontext Menü benutzen</string>
@@ -659,9 +664,10 @@
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
   <string name="changes_created">\"%1$s\" angelegt</string>
-  <string name="confirm_upload_title">Hochladen?</string>
-  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n\n%1$s</string>
+  <string name="confirm_upload_title">Änderungen hochladen?</string>
+  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n%1$s</string>
   <string name="confirm_multiple_upload_text">Sollen folgende %1$d Änderungen hochgeladen werden?\n%2$s</string>
+  <string name="confirm_upload_edits_page">Änderungen</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -694,8 +700,10 @@
   <string name="undo">Rückgängig</string>
   <string name="redo">Wiederholen</string>
   <string name="undo_nothing">Nichts rückgängig zu machen</string>
-  <string name="tracking_active_title">Vespucci Hintergrunddienst aktiv</string>
-  <string name="tracking_active_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter</string>
+  <string name="tracking_active_title">Vespucci Hintergrunddienst</string>
+  <string name="tracking_active_title_short">Hintergrunddienst aktiv</string>
+  <string name="tracking_active_text">Ein GPS-Track wird aufgezeichnet oder Daten automatisch heruntergeladen</string>
+  <string name="tracking_long_text">Vespucci zeichnet einen GPS-Track auf oder lädt Daten automatisch herunter. Um vollständig  die App zu beenden: die Aufzeichnung pausieren falls gestartet und dann mit der Zurücktaste die App verlassen. </string>
   <string name="gps_failure">Konnte GPS nicht aktivieren</string>
   <!--element description-->
   <string name="address_housenumber">Adresse %1$s</string>

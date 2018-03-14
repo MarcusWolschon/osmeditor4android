@@ -213,13 +213,8 @@
   <string name="menu_camera">相机</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">显示位置</string>
-  <string name="menu_gps_follow">跟随GPS位置</string>
-  <string name="menu_gps_goto">前往GPS位置</string>
   <string name="menu_gps_start">启动GPS轨迹</string>
   <string name="menu_gps_pause">暂停GPS轨迹</string>
-  <string name="menu_gps_upload">上传GPS轨迹</string>
-  <string name="menu_gps_export">导出GPS轨迹</string>
-  <string name="menu_gps_import">导入GPS轨迹</string>
   <string name="menu_gps_goto_start">前往起始的轨迹</string>
   <string name="menu_gps_autodownload">自动下载</string>
   <string name="menu_transfer">传输...</string>
@@ -320,7 +315,6 @@
   <string name="config_username_summary">如果您不使用OAuth，才要设定上传OSM 资料用的帐号。帐号可在这申请http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM密码</string>
   <string name="config_password_summary">不要误认为是维基密码。请记住：它是以纯文字存储和传输！</string>
-  <string name="config_category_gps">GPS设置</string>
   <string name="config_gps_distance_title">GPS的最小距离</string>
   <string name="config_gps_distance_summary">GPS接收通知，以米（可以有小数）为单位的最小距离间隔。较低的值使电池更加耗电。</string>
   <string name="config_gps_interval_title">GPS的最小时间间隔</string>
@@ -364,7 +358,6 @@
   <string name="changes_deleted">\"%1$s\" 已删除</string>
   <string name="changes_changed">\"%1$s\" 已修改</string>
   <string name="changes_created">\"%1$s\" 已创建</string>
-  <string name="confirm_upload_title">上传？</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">添加预设</string>
   <string name="urldialog_preset_exists">这种预设已经存在</string>

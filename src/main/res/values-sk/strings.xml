@@ -260,14 +260,9 @@
   <string name="menu_camera">Fotoaparát</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Zobraziť umiestnenie</string>
-  <string name="menu_gps_follow">Nasledovať pozíciu GPS</string>
-  <string name="menu_gps_goto">Prejsť na pozíciu GPS</string>
   <string name="menu_gps_start">Začať stopu GPS</string>
   <string name="menu_gps_pause">Pozastaviť stopu GPS</string>
   <string name="menu_gps_track_managment">Správa stôp...</string>
-  <string name="menu_gps_upload">Odovzdať stopu GPS</string>
-  <string name="menu_gps_export">Exportovať stopu GPS</string>
-  <string name="menu_gps_import">Importovať stopu GPS</string>
   <string name="menu_gps_goto_start">Prejsť na začiatok stopy</string>
   <string name="menu_gps_autodownload">Automatické prevzatie</string>
   <string name="menu_transfer">Prenos…</string>
@@ -374,7 +369,6 @@
   <string name="config_loginbutton_title">Používateľský účet</string>
   <string name="config_username_title">Používateľské meno OSM</string>
   <string name="config_password_title">Heslo OSM</string>
-  <string name="config_category_gps">Nastavenia GPS</string>
   <string name="config_gps_distance_title">Minimálna vzdialenosť GPS</string>
   <string name="config_category_info">O aplikácii</string>
   <string name="config_advancedprefs">Pokročilé predvoľby</string>
@@ -407,9 +401,6 @@
   <string name="preset_download_parse_failed">Súbor predvoľby nie je platný. Predvoľba nebude fungovať.</string>
   <string name="preset_download_missing_images">Súbor predvoľby bol úspešne prevzatý. Napriek tomu sa nepodarilo prevziať niektoré ikony a budú chýbať.</string>
   <!--changes-->
-  <string name="confirm_upload_title">Odovzdať?</string>
-  <string name="confirm_one_upload_text">Odovzdať nasledovnú zmenu?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Odovzdať nasledovné/-ých %1$d zmeny/zmien?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Pridať predvoľbu</string>
   <string name="urldialog_preset_exists">Predvoľba už existuje</string>
@@ -429,8 +420,6 @@
   <string name="undo">Vrátiť späť</string>
   <string name="redo">Zopakovať</string>
   <string name="undo_nothing">nič na vrátenie späť</string>
-  <string name="tracking_active_title">Služba na pozadí aplikácie Vespucci je aktívna</string>
-  <string name="tracking_active_text">Aplikácia Vespucci zaznamenáva stopu GPS alebo vykonáva automatické preberanie</string>
   <string name="gps_failure">Zlyhalo povolenie GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>

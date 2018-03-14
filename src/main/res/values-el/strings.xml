@@ -211,13 +211,8 @@
   <string name="menu_camera">Κάμερα</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Προβολή τοποθεσίας</string>
-  <string name="menu_gps_follow">Ακολουθήστε την θέση GPS</string>
-  <string name="menu_gps_goto">Μετάβαση στη θέση GPS</string>
   <string name="menu_gps_start">Έναρξη ίχνους </string>
   <string name="menu_gps_pause">Παύση ίχνους </string>
-  <string name="menu_gps_upload">Αποστολή ίχνους </string>
-  <string name="menu_gps_export">Εξαγωγή ίχνους </string>
-  <string name="menu_gps_import">Εισαγωγή ίχνους GPS</string>
   <string name="menu_gps_goto_start">Μετάβαση στην έναρξη της τροχιάς</string>
   <string name="menu_gps_autodownload">Αυτόματη λήψη</string>
   <string name="menu_transfer">Γίνεται μεταφορά…</string>
@@ -323,7 +318,6 @@
   <string name="config_username_summary">Ρύθμιση που απαιτείται για τη μεταφόρτωση δεδομένων OSM μόνο αν δεν χρησιμοποιείτε το OAuth. Οι Λογαριασμοί είναι διαθέσιμοι στο http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Κωδικός OSM</string>
   <string name="config_password_summary">Μην το συγχέετε με τον κωδικό του Wiki. Θυμηθείτε: Είναι αποθηκεύμενος και διαβιβασμενος σε μορφή απλού κειμένου!</string>
-  <string name="config_category_gps">Ρυθμίσεις GPS</string>
   <string name="config_gps_distance_title">Ελάχιστη απόσταση </string>
   <string name="config_gps_distance_summary">Το μικρότερο διάστημα απόστασης για τις ανανεώσεις GPS, σε μέτρα (float). Μικρότερη τιμή προκαλεί μεγαλύτερη κατανάλωση της μπαταρίας.</string>
   <string name="config_gps_interval_title">Ελάχιστο GPS-Χρονικό διάστημα</string>
@@ -372,7 +366,6 @@
   <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
   <string name="changes_changed">\"%1$s\" άλλαξε</string>
   <string name="changes_created">\"%1$s\" δημιουργήθηκε</string>
-  <string name="confirm_upload_title">Αποστολή;</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Προσθήκη Προκαθορισμένου</string>
   <string name="urldialog_preset_exists">Αυτή η προκαθορισμένη ρύθμιση υπάρχει ήδη</string>

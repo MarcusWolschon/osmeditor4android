@@ -128,13 +128,8 @@
   <string name="menu_camera">Câmera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Mostrar localização</string>
-  <string name="menu_gps_follow">Seguir a posição do GPS</string>
-  <string name="menu_gps_goto">Ir para a posição do GPS</string>
   <string name="menu_gps_start">Iniciar trilha GPS</string>
   <string name="menu_gps_pause">Pausar trilha GPS</string>
-  <string name="menu_gps_upload">Enviar trilha GPS</string>
-  <string name="menu_gps_export">Exportar trilha GPS</string>
-  <string name="menu_gps_import">Importar trilha GPS</string>
   <string name="menu_gps_goto_start">Ir para o começo da trilha</string>
   <string name="menu_transfer">Transferir...</string>
   <string name="menu_transfer_download_current">Baixar vista atual</string>

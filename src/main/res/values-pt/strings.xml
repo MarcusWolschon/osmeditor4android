@@ -401,15 +401,10 @@ há %3$s %4$s</string>
   <string name="menu_camera">Câmara</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ver localização</string>
-  <string name="menu_gps_follow">Seguir posição GPS</string>
-  <string name="menu_gps_goto">Ir para posição GPS</string>
   <string name="menu_gps_start">Iniciar trilho GPS</string>
   <string name="menu_gps_pause">Pausar trilho GPS</string>
   <string name="menu_gps_clear">Eliminar registo e marcadores GPS</string>
   <string name="menu_gps_track_managment">Gestão de trilhos...</string>
-  <string name="menu_gps_upload">Enviar trilho GPS</string>
-  <string name="menu_gps_export">Exportar trilho GPS</string>
-  <string name="menu_gps_import">Importar trilho GPS</string>
   <string name="menu_gps_goto_start">Ir para o início do trilho</string>
   <string name="menu_gps_goto_first_waypoint">Ir para primeiro marcador</string>
   <string name="menu_gps_autodownload">Descarregar automaticamente</string>
@@ -567,7 +562,6 @@ há %3$s %4$s</string>
   <string name="config_username_summary">É necesso a configuração para o envio dos dados OSM apenas se não utilizar o OAuth. É possível criar uma conta em http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Palavra-chave OSM</string>
   <string name="config_password_summary">Não confunda com a palavra-chave da Wiki do OSM. Tenha em conta que esta é armazenada e transmitida em texto simples não encriptado!</string>
-  <string name="config_category_gps">Configurações do GPS</string>
   <string name="config_gps_distance_title">Distância Mínima do GPS</string>
   <string name="config_gps_distance_summary">Intervalo de distância mínima para notificações GPS, em metros (decimal). Valores baixos gastam mais bateria.</string>
   <string name="config_gps_distance_current">%1$d Metro</string>
@@ -661,9 +655,6 @@ há %3$s %4$s</string>
   <string name="changes_deleted">\"%1$s\" eliminados(as)</string>
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
-  <string name="confirm_upload_title">Enviar?</string>
-  <string name="confirm_one_upload_text">Enviar a seguinte alteração?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Enviar as seguintes %1$d alterações?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -696,8 +687,6 @@ há %3$s %4$s</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
-  <string name="tracking_active_title">Serviço em segundo plano Vespucci ativo</string>
-  <string name="tracking_active_text">O Vespucci está a gravar um trilho GPS ou a descarregar automaticamente</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
   <!--element description-->
   <string name="address_housenumber">Endereço %1$s</string>

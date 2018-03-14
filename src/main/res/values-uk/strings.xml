@@ -312,14 +312,9 @@
   <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показати розташування</string>
-  <string name="menu_gps_follow">Слідувати за GPS</string>
-  <string name="menu_gps_goto">Перейти до позиції GPS</string>
   <string name="menu_gps_start">Почати GPS-трек</string>
   <string name="menu_gps_pause">Призупинити GPS-трек</string>
   <string name="menu_gps_track_managment">Керування треками…</string>
-  <string name="menu_gps_upload">Надіслати GPS-трек на сервер</string>
-  <string name="menu_gps_export">Експортувати GPS-трек</string>
-  <string name="menu_gps_import">Імпортувати GPS-трек</string>
   <string name="menu_gps_goto_start">Перейти на початок треку</string>
   <string name="menu_gps_autodownload">Авто-завантаження</string>
   <string name="menu_transfer">Передача…</string>
@@ -453,7 +448,6 @@
   <string name="config_username_summary">Потібно для передачі змін на сервер OpenStreetMap, тільки якщо ви не використовуєте OAuth. Зареєструватись можна за адресою http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Пароль на сервері OpenStreetMap</string>
   <string name="config_password_summary">Не переплутайте його з паролем для Wiki. Пам’ятайте: він зберігається і передається незашифрованим!</string>
-  <string name="config_category_gps">Налаштування GPS</string>
   <string name="config_gps_distance_title">Відстань опитування GPS</string>
   <string name="config_gps_distance_summary">Мінімальна відстань для опитування GPS в метрах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
   <string name="config_gps_interval_title">Інтервал опитування GPS</string>
@@ -520,7 +514,6 @@
   <string name="changes_deleted">„%1$s“ вилучено</string>
   <string name="changes_changed">„%1$s“ змінено</string>
   <string name="changes_created">„%1$s“ створено</string>
-  <string name="confirm_upload_title">Надіслати?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
@@ -548,8 +541,6 @@
   <string name="undo">Відмінити</string>
   <string name="redo">Повторити</string>
   <string name="undo_nothing">немає змін для відміни</string>
-  <string name="tracking_active_title">Фонову службу Веспуччі активовано</string>
-  <string name="tracking_active_text">Веспуччі записує GPS-трек чи здійснює авто-завантаження</string>
   <string name="gps_failure">Не вдалося включити GPS</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->

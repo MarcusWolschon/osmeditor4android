@@ -394,14 +394,9 @@
   <string name="menu_camera">Máy ảnh</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Hiện vị trí</string>
-  <string name="menu_gps_follow">Theo dõi vị trí GPS</string>
-  <string name="menu_gps_goto">Đi đến vị trí GPS</string>
   <string name="menu_gps_start">Bắt đầu tuyến GPS</string>
   <string name="menu_gps_pause">Tạm dừng tuyến GPS</string>
   <string name="menu_gps_track_managment">Quản lý tuyến…</string>
-  <string name="menu_gps_upload">Tải lên tuyến GPS</string>
-  <string name="menu_gps_export">Xuất tuyến GPS</string>
-  <string name="menu_gps_import">Nhập tuyến đường GPS</string>
   <string name="menu_gps_goto_start">Đi đến đầu tuyến đường</string>
   <string name="menu_gps_autodownload">Tải về tự động</string>
   <string name="menu_transfer">Truyền đổi…</string>
@@ -558,7 +553,6 @@
   <string name="config_username_summary">Nếu bạn không sử dụng OAuth, bạn cần mở tài khoản để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Mật khẩu OSM</string>
   <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
-  <string name="config_category_gps">Thiết lập GPS</string>
   <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
   <string name="config_gps_distance_summary">Khoảng cách tối thiểu giữa các tín hiệu GPS đo bằng mét (số kiểu float). Giá trị càng thấp càng tốn pin.</string>
   <string name="config_gps_distance_current">%1$d mét</string>
@@ -652,9 +646,6 @@
   <string name="changes_deleted">Đã xóa “%1$s”</string>
   <string name="changes_changed">Đã thay đổi “%1$s”</string>
   <string name="changes_created">Đã tạo “%1$s”</string>
-  <string name="confirm_upload_title">Tải lên?</string>
-  <string name="confirm_one_upload_text">Tải lên thay đổi sau?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Tải lên %1$d thay đổi sau?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Gắn thẻ đặt trước</string>
   <string name="urldialog_preset_exists">Thẻ đặt trước này đã tồn tại</string>
@@ -686,8 +677,6 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
-  <string name="tracking_active_title">Dịch vụ nền Vespucci được kích hoạt</string>
-  <string name="tracking_active_text">Vespucci đang thu một tuyến GPS hoặc tải về tự động</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--element description-->
   <string name="address_housenumber">Địa chỉ số %1$s</string>

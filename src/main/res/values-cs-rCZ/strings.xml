@@ -354,15 +354,10 @@
   <string name="menu_camera">Fotoaparát</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ukazovat polohu GPS</string>
-  <string name="menu_gps_follow">Následovat polohu GPS</string>
-  <string name="menu_gps_goto">Jít na GPS pozici</string>
   <string name="menu_gps_start">Spustit GPS stopu</string>
   <string name="menu_gps_pause">Pozastavit GPS stopu</string>
   <string name="menu_gps_clear">Smazat GPS stopu a waypointy</string>
   <string name="menu_gps_track_managment">Spravovat stopu...</string>
-  <string name="menu_gps_upload">Nahrát GPS stopu na server</string>
-  <string name="menu_gps_export">Exportovat GPS stopu</string>
-  <string name="menu_gps_import">Importovat GPS stopu</string>
   <string name="menu_gps_goto_start">Jít na začátek stopy</string>
   <string name="menu_gps_goto_first_waypoint">Jít na první waypoint</string>
   <string name="menu_gps_autodownload">Stahovat automaticky</string>
@@ -518,7 +513,6 @@
   <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM heslo</string>
   <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
-  <string name="config_category_gps">Nastavení GPS</string>
   <string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
   <string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
   <string name="config_gps_distance_current">%1$d metr</string>
@@ -603,9 +597,6 @@
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
-  <string name="confirm_upload_title">Odeslat?</string>
-  <string name="confirm_one_upload_text">Nahrát následující změnu?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Nahrát následujících %1$d změn?\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
   <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
@@ -636,8 +627,6 @@
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
   <string name="undo_nothing">není co vracet</string>
-  <string name="tracking_active_title">Vespucci - aktivní služba na pozadí</string>
-  <string name="tracking_active_text">Vespucci nahrává GPS stopu nebo automaticky stahuje</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>

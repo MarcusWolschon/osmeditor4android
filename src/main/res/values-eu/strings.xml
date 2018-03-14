@@ -91,11 +91,8 @@
   <string name="menu_easyedit">EdizioErraza</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Kokapena erakutsi</string>
-  <string name="menu_gps_follow">Jarraitu GPSaren kokapena</string>
   <string name="menu_gps_start">Hasi GPS bidea</string>
   <string name="menu_gps_pause">GPS bidea pausatu</string>
-  <string name="menu_gps_upload">Igo GPS bidea</string>
-  <string name="menu_gps_export">GPS bidea esportatu</string>
   <string name="menu_transfer">Transferitu...</string>
   <string name="menu_transfer_download_current">Uneko ikuspegia deskargatu</string>
   <string name="menu_transfer_upload">Datuak OSM zerbitzarira igo</string>
@@ -149,7 +146,6 @@
   <string name="config_username_title">OSM Erabiltzailea</string>
   <string name="config_password_title">OSM Pasahitza</string>
   <string name="config_password_summary">Ez nahastu Wikiko pasahitzarekin. Gogoratu: testu planoan gordea eta transmititua da.</string>
-  <string name="config_category_gps">GPSaren Ezarpenak</string>
   <string name="config_gps_distance_title">GPSaren Distantzia Minimoa</string>
   <string name="config_gps_distance_summary">GPS oharren arteko distantzia txikiena, metrotan (flotatzen). Balio txikiagoek bateria erabilpen handiagoa sortzen dute.</string>
   <string name="config_gps_interval_title">GPSaren Tarte Minimoa</string>
@@ -172,7 +168,6 @@
   <string name="changes_deleted">\"%1$s\" ezabatua</string>
   <string name="changes_changed">\"%1$s\" aldatua</string>
   <string name="changes_created">\"%1$s\" sortua</string>
-  <string name="confirm_upload_title">Igo?</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aurrezarpena gehitu</string>
   <string name="urldialog_preset_exists">Aurrezarpen hau dagoeneko badago</string>

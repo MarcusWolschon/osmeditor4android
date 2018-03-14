@@ -328,14 +328,9 @@
   <string name="menu_camera">Cámara</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostrar localización</string>
-  <string name="menu_gps_follow">Seguir posición GPS</string>
-  <string name="menu_gps_goto">Ir a posición GPS</string>
   <string name="menu_gps_start">Iniciar pista GPS</string>
   <string name="menu_gps_pause">Pausar pista GPS</string>
   <string name="menu_gps_track_managment">Xestión da pista…</string>
-  <string name="menu_gps_upload">Subir pista GPS</string>
-  <string name="menu_gps_export">Exportar pista GPS</string>
-  <string name="menu_gps_import">Importar pista GPS</string>
   <string name="menu_gps_goto_start">Ir ao inicio da pista</string>
   <string name="menu_gps_autodownload">Descarga automática</string>
   <string name="menu_transfer">Transferir...</string>
@@ -479,7 +474,6 @@
   <string name="config_username_summary">Necesítase configuración para subir os datos de OSM só se non estás usando OAuth. Podes conseguir unha conta en http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Contrasinal de OSM</string>
   <string name="config_password_summary">Non o confundas co contrasinal da Wiki. Recorda: almacénase e transmítese en texto plano!</string>
-  <string name="config_category_gps">Axustes GPS</string>
   <string name="config_gps_distance_title">Mínima distancia GPS</string>
   <string name="config_gps_distance_summary">O intervalo de distancia mínimo para notificacións GPS, en metros (decimal). Valores baixos causarán maior uso de batería.</string>
   <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
@@ -561,9 +555,6 @@
   <string name="changes_deleted">\"%1$s\" borrado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
-  <string name="confirm_upload_title">Subir?</string>
-  <string name="confirm_one_upload_text">Cargar a seguinte modificación?\n\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Subir os seguintes %1$d trocos?\n\n%2$s</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Engadir preaxuste</string>
   <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
@@ -594,8 +585,6 @@
   <string name="undo">Desfacer</string>
   <string name="redo">Refacer</string>
   <string name="undo_nothing">nada para desfacer</string>
-  <string name="tracking_active_title">Vespucci servizo de fondo activo</string>
-  <string name="tracking_active_text">Vespucci está gravando unha pista GPS ou descargando automáticamente</string>
   <string name="gps_failure">Fallo ao habilitar o GPS</string>
   <!--element description-->
   <string name="address_housenumber">Enderezos %1$s</string>

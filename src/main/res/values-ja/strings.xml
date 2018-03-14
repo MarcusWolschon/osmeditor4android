@@ -237,13 +237,8 @@
   <string name="menu_camera">カメラ</string>
   <string name="menu_gps">GPS操作…</string>
   <string name="menu_gps_show">現在地を表示</string>
-  <string name="menu_gps_follow">GPS測地位置へ移動</string>
-  <string name="menu_gps_goto">GPS位置へ移動</string>
   <string name="menu_gps_start">GPSトラッキング開始</string>
   <string name="menu_gps_pause">GPSトラッキングを一時停止</string>
-  <string name="menu_gps_upload">GPSトラックをアップロード</string>
-  <string name="menu_gps_export">GPSトラッキング結果を出力</string>
-  <string name="menu_gps_import">GPSトラックをインポートする</string>
   <string name="menu_gps_goto_start">トラック開始地点に移動する</string>
   <string name="menu_gps_autodownload">自動ダウンロード</string>
   <string name="menu_transfer">データ変換…</string>
@@ -335,7 +330,6 @@
   <string name="config_username_summary">OAuth を利用せずにOSM-Dataをアップロードするにはアカウントの設定が必要です。アカウント作成は次のリンクから行えます。http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSMパスワード</string>
   <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
-  <string name="config_category_gps">GPS 設定</string>
   <string name="config_gps_distance_title">最小GPS-距離</string>
   <string name="config_gps_distance_summary">GPS通知用の最小距離間隔、メートル単位(float)。 値が小さいほどバッテリーを消費します。</string>
   <string name="config_gps_interval_title">最小GPS-間隔</string>
@@ -377,7 +371,6 @@
   <string name="changes_deleted">\"%1$s\" の削除</string>
   <string name="changes_changed">\"%1$s\" の変更</string>
   <string name="changes_created">\"%1$s\" の作成</string>
-  <string name="confirm_upload_title">アップロード？</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">プリセットを追加</string>
   <string name="urldialog_preset_exists">プリセットは既に存在しています</string>
