@@ -52,5 +52,4 @@ abstract class EditTextValidator implements TextWatcher, FormValidation {
     private void clearError() {
         editText.setError(null);
     }
-
 }
