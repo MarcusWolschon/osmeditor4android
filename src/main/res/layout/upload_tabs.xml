@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <de.blau.android.views.ExtendedViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <de.blau.android.views.ExtendedPagerTabStrip
+            android:id="@+id/pager_header"
+            style="?attr/PagerTabStrip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding"
+            />
+            <LinearLayout
+                android:id="@+id/review_page"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                <ScrollView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="?attr/dialogPreferredPadding"
+                        android:paddingRight="?attr/dialogPreferredPadding">
+                        <TextView
+                            android:id="@+id/upload_changes"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            tools:text="@string/confirm_multiple_upload_text" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/tags_page"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="?attr/dialogPreferredPadding"
+                android:paddingRight="?attr/dialogPreferredPadding">
+                <RelativeLayout
+                    android:id="@+id/upload_comment_controls"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="top">
+                    <TextView
+                        android:id="@+id/upload_comment_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/upload_comment_label" />
+                    <AutoCompleteTextView
+                        android:id="@+id/upload_comment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/upload_comment_label"
+                        android:layout_alignStart="@id/upload_comment_label"
+                        android:layout_below="@id/upload_comment_label"
+                        android:inputType="text" />
+                    <TextView
+                        android:id="@+id/upload_source_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_below="@id/upload_comment"
+                        android:gravity="center_vertical"
+                        android:text="@string/upload_source_label" />
+                    <AutoCompleteTextView
+                        android:id="@+id/upload_source"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/upload_source_label"
+                        android:layout_alignStart="@id/upload_source_label"
+                        android:layout_below="@id/upload_source_label"
+                        android:inputType="text" />
+                    <TextView
+                        android:id="@+id/upload_close_changeset_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_below="@id/upload_source"
+                        android:gravity="center_vertical"
+                        android:text="@string/upload_close_changeset_label" />
+                    <CheckBox
+                        android:id="@+id/upload_close_changeset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/upload_close_changeset_label"
+                        android:layout_alignEnd="@id/upload_source"
+                        android:layout_alignRight="@id/upload_source"
+                        android:layout_alignTop="@id/upload_close_changeset_label"
+                        android:layout_below="@id/upload_source"
+                        android:gravity="center_vertical"
+                        android:text="" />
+                </RelativeLayout>
+            </LinearLayout>
+    </de.blau.android.views.ExtendedViewPager>
+</LinearLayout>
