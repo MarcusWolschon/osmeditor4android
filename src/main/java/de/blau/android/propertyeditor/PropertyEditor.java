@@ -635,6 +635,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             restoring = true;
             Log.d(DEBUG_TAG, "restoreState done");
         }
+        
+        @Override
+        public Parcelable saveState() {
+            Log.d(DEBUG_TAG, "saveState");
+            Bundle bundle = (Bundle) super.saveState();
+            Log.d(DEBUG_TAG, "saveState done");
+            return bundle;
+        }
     }
 
     private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
