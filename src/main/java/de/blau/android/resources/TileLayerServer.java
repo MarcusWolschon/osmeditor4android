@@ -1543,9 +1543,11 @@ public class TileLayerServer {
     @NonNull
     public static String[] getIds(@Nullable BoundingBox box, boolean filtered) {
         List<String> ids = new ArrayList<>();
-        List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
-        for (TileLayerServer t : list) {
-            ids.add(t.id);
+        if (backgroundServerList != null) {
+            List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
+            for (TileLayerServer t : list) {
+                ids.add(t.id);
+            }
         }
         String[] idArray = new String[ids.size()];
         ids.toArray(idArray);
@@ -1573,11 +1575,13 @@ public class TileLayerServer {
      * @return available tile layer names.
      */
     @NonNull
-    public static String[] getNames(Map<String, TileLayerServer> map, @Nullable BoundingBox box, boolean filtered) {
+    public static String[] getNames(@Nullable Map<String, TileLayerServer> map, @Nullable BoundingBox box, boolean filtered) {
         ArrayList<String> names = new ArrayList<>();
-        for (String key : getIds(box, filtered)) {
-            TileLayerServer osmts = map.get(key);
-            names.add(osmts.name);
+        if (map != null) {
+            for (String key : getIds(box, filtered)) {
+                TileLayerServer osmts = map.get(key);
+                names.add(osmts.name);
+            }
         }
         return names.toArray(new String[names.size()]);
     }
@@ -1601,11 +1605,13 @@ public class TileLayerServer {
      * @return array containing the names
      */
     @NonNull
-    public static String[] getNames(Map<String, TileLayerServer> map, String[] ids) {
+    public static String[] getNames(@Nullable Map<String, TileLayerServer> map, @NonNull String[] ids) {
         List<String> names = new ArrayList<>();
-        for (String key : ids) {
-            TileLayerServer osmts = map.get(key);
-            names.add(osmts.name + ("wms".equals(osmts.type) ? " [wms]" : ""));
+        if (map != null) {
+            for (String key : ids) {
+                TileLayerServer osmts = map.get(key);
+                names.add(osmts.name + ("wms".equals(osmts.type) ? " [wms]" : ""));
+            }
         }
         return names.toArray(new String[names.size()]);
     }
