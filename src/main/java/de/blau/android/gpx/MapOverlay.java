@@ -114,18 +114,19 @@ public class MapOverlay extends MapViewLayer {
     public List<WayPoint> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<WayPoint> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
-
-        WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
-        if (wayPoints != null && wayPoints.length != 0) {
-            final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
-            for (WayPoint wpp : wayPoints) {
-                int lat = wpp.getLat();
-                int lon = wpp.getLon();
-                float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
-                float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
-                if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
-                    if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                        result.add(wpp);
+        if (tracker != null && tracker.getTrack() != null) {
+            WayPoint[] wayPoints = tracker.getTrack().getWayPoints();
+            if (wayPoints != null && wayPoints.length != 0) {
+                final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
+                for (WayPoint wpp : wayPoints) {
+                    int lat = wpp.getLat();
+                    int lon = wpp.getLon();
+                    float differenceX = Math.abs(GeoMath.lonE7ToX(map.getWidth(), viewBox, lon) - x);
+                    float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
+                    if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
+                        if (Math.hypot(differenceX, differenceY) <= tolerance) {
+                            result.add(wpp);
+                        }
                     }
                 }
             }
