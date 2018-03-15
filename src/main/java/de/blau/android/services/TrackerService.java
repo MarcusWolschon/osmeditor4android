@@ -235,8 +235,10 @@ public class TrackerService extends Service implements Exportable {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startAutoDownloadInternal() {
-        if (downloading)
+        Log.d(DEBUG_TAG, "Start auto download");
+        if (downloading) {
             return;
+        }
         startInternal();
         downloading = true;
         updateGPSState();
@@ -250,8 +252,9 @@ public class TrackerService extends Service implements Exportable {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startBugAutoDownloadInternal() {
-        if (downloadingBugs)
+        if (downloadingBugs) {
             return;
+        }
         startInternal();
         downloadingBugs = true;
         updateGPSState();

@@ -462,10 +462,20 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * @return the maximum speed for autodownloads
      */
     public float getMaxDownloadSpeed() {
         return maxDownloadSpeed;
+    }
+
+    /**
+     * Set maximum speed for autodownloads
+     * 
+     * @param maxDownloadSpeed max speed in km/h to set
+     */
+    public void setMaxDownloadSpeed(float maxDownloadSpeed) {
+        this.maxDownloadSpeed = maxDownloadSpeed;
+        prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int)maxDownloadSpeed).commit();
     }
 
     public int getBugDownloadRadius() {

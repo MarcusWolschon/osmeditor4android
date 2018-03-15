@@ -2377,6 +2377,8 @@ public class Logic {
      * FIXME try to reduce the code duplication here
      * 
      * @param context android context
+     * @param server the Server object we are using
+     * @param validator the Validator to apply to downloaded data
      * @param mapBox Box defining the area to be loaded.
      */
     public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {

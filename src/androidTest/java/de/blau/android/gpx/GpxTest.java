@@ -75,6 +75,8 @@ public class GpxTest {
         Preferences prefs = new Preferences(context);
         // allow downloading tiles here
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
+        // prefs.setAutoDownload(true);
+        // prefs.setMaxDownloadSpeed(100.0f);
         main.getMap().setPrefs(main, prefs);
     }
 
