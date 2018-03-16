@@ -248,7 +248,8 @@
     <string name="toast_split_via">Splitted "via" way</string>
     <string name="toast_split_from_and_via">Splitted "from" and "via" ways</string>
     <string name="toast_split_to">Splitted "to" way</string>
-    <string name="toast_tile_database_full">Map tile database or disk full!\nExit, delete database or make more space available.</string>
+    <string name="toast_tile_database_issue_short">Tile database issue</string>
+    <string name="toast_tile_database_issue">Serious issue with the map tile database\n"%1$s"\nPlease consult our FAQ at http://vespucci.io/</string>
     <string name="toast_invalid_apiurl">Invalid API URL</string>
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid Notes API URL</string>

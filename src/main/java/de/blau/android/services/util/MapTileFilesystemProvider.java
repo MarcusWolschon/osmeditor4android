@@ -1,4 +1,3 @@
-// Created by plusminus on 21:46:41 - 25.09.2008
 package de.blau.android.services.util;
 
 import java.io.File;
@@ -8,17 +7,24 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import de.blau.android.R;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
+import de.blau.android.util.Snack;
 
 /**
  * 
@@ -26,8 +32,10 @@ import de.blau.android.util.CustomDatabaseContext;
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
+ * @author Created by plusminus on 21:46:41 - 25.09.2008
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Simon Poole
  *
  */
 public class MapTileFilesystemProvider extends MapAsyncTileProvider {
@@ -45,6 +53,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     private final MapTileProviderDataBase mDatabase;
     private final int                     mMaxFSCacheByteSize;
     private int                           mCurrentCacheByteSize;
+    private boolean                       errorDisplayed = false;
 
     private final Map<String, MBTileProviderDataBase> mbTileDatabases = new HashMap<>();
 
@@ -231,7 +240,6 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                         }
                         download = true;
                         mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
-
                     } else { // success!
                         mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                     }
@@ -242,6 +250,28 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
             } catch (IOException | RemoteException | NullPointerException | IllegalStateException e) {
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
                     Log.d(DEBUG_TAG, "Tile loading failed", e);
+                }
+                if (!download && !errorDisplayed) {
+                    // something is seriously wrong with the database, show a toast once
+                    final String message = mCtx.getString(R.string.toast_tile_database_issue, e.getLocalizedMessage());
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Snack.toastTopError(mCtx, message);
+                        }
+                    });
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
+                            .setContentTitle( mCtx.getString(R.string.toast_tile_database_issue_short));
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                        builder.setContentText(e.getLocalizedMessage());
+                    } else {
+                        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message)).setPriority(NotificationCompat.PRIORITY_MAX);
+                    }
+
+                    NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
+                    nManager.notify((int)(Math.random()*Integer.MAX_VALUE), builder.build());
+                    errorDisplayed = true;
                 }
             } finally {
                 if (!download) {

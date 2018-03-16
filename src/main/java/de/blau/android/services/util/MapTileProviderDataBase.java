@@ -16,6 +16,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteDoneException;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -183,8 +184,6 @@ public class MapTileProviderDataBase implements MapViewConstants {
                 return tile_data != null ? tile_data.length : 0;
             }
             return 0;
-        } catch (SQLiteFullException | SQLiteDiskIOException sex) { // handle these the same
-            throw new IOException(sex.getMessage());
         } catch (SQLiteConstraintException scex) {
             if (tile_data != null && isInvalid(aTile)) {
                 Log.w(DEBUG_TAG, "Formerly invalid tile has become available " + aTile);
@@ -201,7 +200,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
             } else {
                 Log.w(DEBUG_TAG, "Constraint violated inserting tile " + aTile);
                 return 0; // file was already inserted
-            }
+            }       
+        } catch (SQLiteException  sex) { // handle these the same
+            throw new IOException(sex.getMessage());
         }
     }
 
@@ -271,11 +272,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
                     }
                 }
             }
-        } catch (SQLiteDiskIOException sioex) { // handle these exceptions the same
-            throw new IOException(sioex.getMessage());
-        } catch (SQLiteFullException sdfex) {
-            throw new IOException(sdfex.getMessage());
-        }
+        } catch (SQLiteException sex) { // handle these exceptions the same
+            throw new IOException(sex.getMessage());
+        } 
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
         }

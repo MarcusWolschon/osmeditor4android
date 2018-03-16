@@ -8,9 +8,8 @@ import java.util.Map;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteDoneException;
-import android.database.sqlite.SQLiteFullException;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.os.Build;
@@ -147,10 +146,8 @@ public class MBTileProviderDataBase {
                     }
                 }
             }
-        } catch (SQLiteDiskIOException sioex) { // handle these exceptions the same
-            throw new IOException(sioex.getMessage());
-        } catch (SQLiteFullException sdfex) {
-            throw new IOException(sdfex.getMessage());
+        } catch (SQLiteException sex) { // handle these exceptions the same
+            throw new IOException(sex.getMessage());
         }
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
