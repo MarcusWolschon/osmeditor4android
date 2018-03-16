@@ -670,7 +670,7 @@
     <string name="changes_created">"%1$s" created</string>
     <string name="confirm_upload_title">Upload changes?</string>
     <string name="confirm_one_upload_text">Upload the following change?\n\n%1$s</string>
-    <string name="confirm_multiple_upload_text">Upload the following %1$d changess?\n\n%2$s</string>
+    <string name="confirm_multiple_upload_text">Upload the following %1$d changes?\n\n%2$s</string>
     <string name="confirm_upload_edits_page">Changes</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
