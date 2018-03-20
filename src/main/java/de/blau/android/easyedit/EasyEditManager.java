@@ -35,7 +35,6 @@ import android.support.v7.view.ActionMode.Callback;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1322,8 +1321,7 @@ public class EasyEditManager {
             if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android, we could probably simply
                                     // always do the following
                 Log.d(DEBUG4_TAG, "undoView null");
-                Preferences prefs = new Preferences(main);
-                Context context = new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+                Context context = ThemeUtils.getThemedContext(main, R.style.Theme_customMain_Light, R.style.Theme_customMain);
                 undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
             }
             undoView.setOnClickListener(undoListener);
@@ -2752,8 +2750,7 @@ public class EasyEditManager {
             }
             View undoView = MenuItemCompat.getActionView(undo);
             if (undoView == null) { // FIXME this is a temp workaround for pre-11 Android
-                Preferences prefs = new Preferences(main);
-                Context context = new ContextThemeWrapper(main, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+                Context context = ThemeUtils.getThemedContext(main, R.style.Theme_customMain_Light, R.style.Theme_customMain);
                 undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
             }
             undoView.setOnClickListener(undoListener);

@@ -171,9 +171,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateView");
-        final Preferences prefs = new Preferences(getActivity());
-        Context context = new ContextThemeWrapper(getActivity(),
-                prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert);
+        Context context = ThemeUtils.getThemedContext(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert, R.style.Theme_AppCompat_Dialog_Alert);
         this.inflater = ThemeUtils.getLayoutInflater(context);
 
         LinearLayout conditionalRestrictionLayout = (LinearLayout) inflater.inflate(R.layout.conditionalrestriction, null);

@@ -84,10 +84,28 @@ public final class ThemeUtils {
         return 0;
     }
 
+    /**
+     * Get an inflater for dialogs that has been themed
+     * 
+     * @param caller Android Context
+     * @return a themed Inflater
+     */
     public static LayoutInflater getLayoutInflater(Context caller) {
-        Preferences prefs = new Preferences(caller);
-        Context context = new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? R.style.Theme_DialogLight : R.style.Theme_DialogDark);
+        Context context = getThemedContext(caller, R.style.Theme_DialogLight, R.style.Theme_DialogDark);
         return (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    /**
+     * Get a Context that uses our current Theme
+     * 
+     * @param caller calling Context
+     * @param lightTheme resource id for the light theme
+     * @param darkTheme resource id for the dark theme
+     * @return a themed Context
+     */
+    public static ContextThemeWrapper getThemedContext(Context caller, int lightTheme, int darkTheme) {
+        Preferences prefs = new Preferences(caller);
+        return new ContextThemeWrapper(caller, prefs.lightThemeEnabled() ? lightTheme : darkTheme);
     }
 
     /**

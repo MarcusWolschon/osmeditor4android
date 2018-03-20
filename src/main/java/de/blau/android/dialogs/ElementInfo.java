@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import org.acra.ACRA;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
-import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.Validator;
 
 /**
@@ -94,18 +95,24 @@ public class ElementInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Preferences prefs = new Preferences(getActivity());
-        if (prefs.lightThemeEnabled()) {
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogLight);
-        } else {
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogDark);
-        }
+        // Preferences prefs = new Preferences(getActivity());
+        // if (prefs.lightThemeEnabled()) {
+        // setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogLight);
+        // } else {
+        // setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogDark);
+        // }
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(ThemeUtils.getThemedContext(getActivity(), R.style.Theme_DialogLight, R.style.Theme_DialogDark));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
+        inflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
@@ -123,12 +130,15 @@ public class ElementInfo extends DialogFragment {
             tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(e.getOsmVersion()), tp));
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited,
+                        new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
             }
 
             if (e.getName().equals(Node.NAME)) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", ((Node) e).getLon() / 1E7d) + "°", tp));
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", ((Node) e).getLat() / 1E7d) + "°", tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", ((Node) e).getLon() / 1E7d) + "°",
+                        tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", ((Node) e).getLat() / 1E7d) + "°",
+                        tp));
             } else if (e.getName().equals(Way.NAME)) {
                 tl.addView(TableLayoutUtils.divider(activity));
                 boolean isClosed = ((Way) e).isClosed();
@@ -177,9 +187,11 @@ public class ElementInfo extends DialogFragment {
                     // special handling for some stuff
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(value));
-                        tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, k,
+                                Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                        tl.addView(TableLayoutUtils.createRow(activity, k,
+                                Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
                             URL url = new URL(value);
@@ -217,9 +229,7 @@ public class ElementInfo extends DialogFragment {
                 }
             }
         }
-
         getDialog().setTitle(R.string.element_information);
-
         return sv;
     }
 

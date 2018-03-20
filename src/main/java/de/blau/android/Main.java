@@ -68,7 +68,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.ContextThemeWrapper;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -1483,7 +1482,7 @@ public class Main extends FullScreenAppCompatActivity
                                 // Android, we could probably simply always
                                 // do the following
             Log.d(DEBUG_TAG, "undoView null");
-            Context context = new ContextThemeWrapper(this, prefs.lightThemeEnabled() ? R.style.Theme_customMain_Light : R.style.Theme_customMain);
+            Context context = ThemeUtils.getThemedContext(this, R.style.Theme_customMain_Light, R.style.Theme_customMain);
             undoView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.undo_action_view, null);
         }
         undoView.setOnClickListener(undoListener);
