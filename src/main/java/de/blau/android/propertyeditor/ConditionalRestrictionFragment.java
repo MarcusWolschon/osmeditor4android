@@ -145,7 +145,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         super.onAttach(context);
         Log.d(DEBUG_TAG, "onAttach");
         try {
-            saveListener = (OnSaveListener)context;
+            saveListener = (OnSaveListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnSaveListener");
         }
@@ -155,6 +155,15 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        }
     }
 
     @NonNull
