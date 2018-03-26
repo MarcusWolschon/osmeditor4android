@@ -11,7 +11,7 @@
     <string name="help_wayselection">Chemin sélectionné</string>
     <string name="help_aligningbackgroundiamgery">Aligner l\'imagerie d\'arrière plan</string>
     <string name="help_propertyeditor">Editeur de propriété</string>
-    <string name="help_presets">Modèles d'attributs</string>
+    <string name="help_presets">Modèles d\'attributs</string>
     <string name="help_conflictresolution">Résolution de conflit</string>
     <string name="help_gpssources">Source GPS</string>
     <string name="help_keyboard">Clavier</string>
