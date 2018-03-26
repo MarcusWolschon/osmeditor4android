@@ -18,41 +18,46 @@
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
             android:paddingLeft="?attr/dialogPreferredPadding"
-            android:paddingRight="?attr/dialogPreferredPadding"
-            />
-            <LinearLayout
-                android:id="@+id/review_page"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-                <ScrollView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fillViewport="true">
-                    <LinearLayout
+            android:paddingRight="?attr/dialogPreferredPadding" />
+        <LinearLayout
+            android:id="@+id/review_page"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="?attr/dialogPreferredPadding"
+                    android:paddingRight="?attr/dialogPreferredPadding">
+                    <TextView
+                        android:id="@+id/upload_changes"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="?attr/dialogPreferredPadding"
-                        android:paddingRight="?attr/dialogPreferredPadding">
-                        <TextView
-                            android:id="@+id/upload_changes"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            tools:text="@string/confirm_multiple_upload_text" />
-                    </LinearLayout>
-                </ScrollView>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/tags_page"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="?attr/dialogPreferredPadding"
-                android:paddingRight="?attr/dialogPreferredPadding">
+                        android:text=""
+                        tools:text="@string/confirm_multiple_upload_text" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/tags_page"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding">
+            <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
                 <RelativeLayout
                     android:id="@+id/upload_comment_controls"
                     android:layout_width="fill_parent"
@@ -106,6 +111,7 @@
                         android:gravity="center_vertical"
                         android:text="" />
                 </RelativeLayout>
-            </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
     </de.blau.android.views.ExtendedViewPager>
 </LinearLayout>
