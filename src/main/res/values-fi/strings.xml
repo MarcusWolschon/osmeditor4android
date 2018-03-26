@@ -190,7 +190,6 @@
   <string name="toast_split_via">Via-viiva jaettiin kahtia</string>
   <string name="toast_split_from_and_via">From- ja via-viivat jaettiin kahtia</string>
   <string name="toast_split_to">To-viiva jaettiin kahtia</string>
-  <string name="toast_tile_database_full">Karttalaattatietokanta tai massamuisti täynnä!\nSulje sovellus, ja poista tietokanta tai tee lisää vapaata tilaa.</string>
   <string name="toast_invalid_apiurl">APIn URL on virheellinen</string>
   <string name="toast_invalid_readonlyurl">APIn ReadOnly-URL on virheellinen</string>
   <string name="toast_invalid_notesurl">APIn Notes-URL on virheellinen</string>

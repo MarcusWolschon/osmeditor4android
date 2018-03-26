@@ -98,7 +98,7 @@ Também pode usar o menu: ver [Criar novos objetos](../en/Creating%20new%20objec
 
 #### Adicionar uma Área
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+O OpenStreetMap neste momento não tem um tipo de objeto definido como "área" ao contrário de outros sistemas de geo-dados. O editor "iD" tenta criar uma abstração de área a partir dos elementos OpenStreetMap subjacentes, o que funciona bem em algumas circunstâncias, mas não noutras. O Vespucci neste momento não faz isso, por isso necessita de saber um pouco como é que as áreas são representadas:
 
 * _linhas fechadas (*polígonos")_: a variante mais simples e mais comum, são linhas que têm um nó que definem o início e fim da linha formando um "anel" fechado (por exemplo, a maioria dos edifícios usam este tipo). Estas são muito fáceis de criar no Vespucci, simplesmente termine a linha clicando no nó inicial. Nota: a interpretação da linha fechada depende das etiquetas desta: por exemplo, se uma linha fechada tiver a etiqueta de edifício será considerada uma área, se tiver a etiqueta de rotunda não será considerada uma área. Em algumas situações ambas as interpretações podem ser válidas, por isso pode ser adicionada uma etiqueta "area" para clarificar.
 * _multi-polígonos_: algumas áreas têm várias partes, buracos e anéis que não possam ser representados apenas com uma linha. O OpenStreetMap usa um tipo específico de relação (o objeto de uso genérico que pode modelar relações entre elementos) para contornar o problema, um multi-polígono. Um multi-polígono pode ter vários anéis "exteriores" e "interiores". Cada um dos anéis podem ser uma linha fechada como descrito acima ou várias linhas individuais que tenham nós em comum. Enquanto que multi-polígonos grandes podem ser difíceis de lidar, os pequenos não são complicados de criar no Vespucci. 
@@ -162,7 +162,7 @@ Se tiver ativado o Seguir posição GPS, se deslocar o ecrã manualmente ou edit
 
 ## Notas e Erros Reportados
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+O Vespucci permite descarregar, comentar e fechar erros reportados no OpenStreetMap assim como os erros da [ferramenta gestão da de qualidade OSMOSE](http://osmose.openstreetmap.fr/en/map/). Ambos têm de ser descarregados à parte ou utilizando a funcionalidade de descarregar automaticamente, para que sejam mostrados os erros na área que se está a editar. Após editar ou fechar esses erros, pode-se enviar as alterações imediatamente ou todos eles.
 
 As Notas e Erros Reportados são mostrados no mapa com um pequeno ícone ![Erro](../images/bug_open.png), os verdes são erros fechados/resolvidos, os azuis são os criados ou editados por si e os amarelos são aqueles que ainda estão abertos/por resolver. 
 
@@ -187,37 +187,37 @@ O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modo-C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+No Modo-C apenas são mostrados os objetos que têm uma bandeira de aviso definida, o que torna fácil detetar objetos que têm problemas específicos ou que correspondam a verificações configuráveis. Se for selecionado um objeto e o Editor de Propriedades iniciado no Modo-C, será aplicado automaticamente o modelo de melhor correspondência.
 
 O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
 
-### Configurar confirmações
+### Configurar verificações
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Neste momento existem duas verificações configuráveis (existe uma verificação para etiquetas FIXME e um teste para tipos de etiquetas que faltam em relações que não são neste momento configuráveis). Ambas podem ser configuráveis selecionando "Preferências do Verificador" em "Preferências". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+A lista de entradas está dividida em duas, a primeira metade mostra entradas de "novos levantamentos" e a segunda metade "entradas" de verificação. As entradas podem ser editadas clicando nelas. O botão do menu verde permite adicionar entradas.
 
-#### entradas de levantamentos
+#### Entradas de novos levantamentos
 
 O levantamento possui as seguintes propriedades:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Chave** - Chave da etiqueta de interesse.
+* **Valor** - Valor que a etiqueta de interesse deve ter, se estiver vazia o valor da chave será ignorado.
+* **Idade** - quantos dias, após a última alteração ao elemento, devem passar para que o elemento seja novamente verificado no terreno. Se estiver presente o campo check_date este será utilizado, caso contrário será a data da versão atual. Definir o valor a zero irá levar a que a verificação simplesmente corresponda com a chave e o valor.
+* **Expressão regular** - se **Valor** estiver ativo, é asumido que seja uma expressão regular em JAVA.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Chave** e **Valor** são verificados de acordo com as etiquetas _existentes_ do objeto em questão.
 
 #### Verificar entradas
 
-Verifique o levantamento que possuí as seguintes duas propriedades:
+A verificação de entradas tem as seguintes duas propriedades:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Chave** - Chave que deve estar presente no objeto de acordo com o modelo correspondente.
+* **Verificação opcional** - Verifica as etiquetas opcionais do modelo correspondente.
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a **Chave** é uma chave "recomendada" kpara esse objeto de acordo com o modelo, **Verificação opcional** irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.
 
 ## Filtros
 
@@ -233,13 +233,13 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 ### Configurações que poderá querer alterar
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Camada de fundo
+* Camada superior. Adicionar uma camada superior pode causar problemas com dispositivos antigos assim como aqueles com memória RAM limitada. Padrão: nenhuma.
+* Visualização de erros reportados. Os erros reportados que estejam abertos serão mostrados com um ícone de um inseto amarelo. Os erros reportados fechados serão mostrados a verde. Padrão: ativo.
+* Camada de fotos. Mostra fotografias geo-referenciadas com um ícone de uma máquina fotográfica vermelha. Se estiver disponível a direção em que foi tirada, o ícone será rodado. Padrão: desativado.
+* Ícones dos nós. Padrão: ativo.
+* Manter ecrã ligado. Padrão: desativado.
+* Área grande de arrasto. Mover nós num dispositivo com ecrã sensível ao toque é problemático uma vez que os dedos irão tapar a posição atual no ecrã. Ao ativar esta opção irá poder usar uma área grande de toque descentrada (a seleção e outras operações continuam a usar a área normal de tolerância). Padrão: desativado.
 
 #### Preferências avançadas
 

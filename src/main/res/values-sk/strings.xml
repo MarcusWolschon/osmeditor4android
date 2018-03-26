@@ -155,7 +155,6 @@
   <string name="toast_split_via">Rozdelená cesta so značkou „cez“</string>
   <string name="toast_split_from_and_via">Rozdelené cesty so značkami „z“ a „cez“</string>
   <string name="toast_split_to">Rozdelená cesta so značkou „do“</string>
-  <string name="toast_tile_database_full">Databáza dlaždíc mapy alebo disk je plný!\nUkončite aplikáciu, odstráňte databázu, alebo uvoľnite viac miesta.</string>
   <string name="toast_error_accessing_photo">Nedá sa získať prístup k fotografii %1$s</string>
   <string name="toast_file_exists">Súbor %1$s existuje.</string>
   <string name="toast_needs_resurvey">Objekt môže byť neaktuálny</string>

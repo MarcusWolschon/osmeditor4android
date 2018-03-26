@@ -71,6 +71,8 @@
   <string name="upload_gpx_description_label">Popis</string>
   <string name="upload_gpx_tags_label">Tagy</string>
   <string name="upload_gpx_visibility_label">Viditelnost</string>
+  <string name="upload_validation_error_empty_comment">Komentář by neměl být prázdný</string>
+  <string name="upload_validation_error_empty_source">Zdroj by neměl být prázdný</string>
   <string name="openstreetbug_new_title">Nová poznámka</string>
   <string name="openstreetbug_new_bug">Nahlásit problém</string>
   <string name="openstreetbug_bug_title">Problém</string>
@@ -211,7 +213,10 @@
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
   <string name="toast_rmpty_relation">Prázdná relace, vytvářím chybové hlášení.</string>
-  <string name="toast_tile_database_full">Databáze dlaždic mapy nebo disk je plný!\nUkončete aplikaci, smažte databázi nebo uvolněte více místa.</string>
+  <string name="toast_split_from">Rozdělena cesta \"odkud\"</string>
+  <string name="toast_split_via">Rozdělena cesta \"přes\"</string>
+  <string name="toast_split_from_and_via">Rozděleny cesty \"odkud\" a \"přes\"</string>
+  <string name="toast_split_to">Rozdělena cesta \"kam\"</string>
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
@@ -230,6 +235,9 @@
   <string name="toast_flus_all_caches">Vyčistí veškerou mezipaměť dlaždic!</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
+  <string name="toast_using_network_location">Použita poloha sítě</string>
+  <string name="toast_using_gps_location">Použita GPS poloha</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS vypnuto, trasování zastaveno</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -346,6 +354,7 @@
   <string name="menu_extract">Odpojit uzel</string>
   <string name="menu_append">Přidat</string>
   <string name="menu_relation">Vytvořit relaci</string>
+  <string name="menu_edit_relation">Upravit relaci</string>
   <string name="menu_add_relation_member">Přidat objekty</string>
   <string name="menu_select_relation_members">Zvolit členy</string>
   <string name="menu_tag">Upravit tagy</string>
@@ -354,10 +363,15 @@
   <string name="menu_camera">Fotoaparát</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ukazovat polohu GPS</string>
+  <string name="menu_gps_follow">Sledovat polohu</string>
+  <string name="menu_gps_goto">Na aktuální polohu</string>
   <string name="menu_gps_start">Spustit GPS stopu</string>
   <string name="menu_gps_pause">Pozastavit GPS stopu</string>
   <string name="menu_gps_clear">Smazat GPS stopu a waypointy</string>
   <string name="menu_gps_track_managment">Spravovat stopu...</string>
+  <string name="menu_gps_upload">Nahrát GPX stopu</string>
+  <string name="menu_gps_export">Exportovat GPX stopu</string>
+  <string name="menu_gps_import">Importovat GPX stopu</string>
   <string name="menu_gps_goto_start">Jít na začátek stopy</string>
   <string name="menu_gps_goto_first_waypoint">Jít na první waypoint</string>
   <string name="menu_gps_autodownload">Stahovat automaticky</string>
@@ -513,12 +527,15 @@
   <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM heslo</string>
   <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
+  <string name="config_category_gps">Nastavení umístění</string>
   <string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
   <string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
   <string name="config_gps_distance_current">%1$d metr</string>
   <string name="config_gps_interval_title">Minimální GPS interval</string>
   <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_network_title">Použít polohu sítě</string>
+  <string name="config_gps_network_summary">Pokud není GPS povolený nebo aktuální, použít umístění ze sítě</string>
   <string name="config_category_info">Informace</string>
   <string name="config_advancedprefs">Rozšířená nastavení</string>
   <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
@@ -597,6 +614,10 @@
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
+  <string name="confirm_upload_title">Nahrát změny?</string>
+  <string name="confirm_one_upload_text">Nahrát následující změnu?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Nahrát následujících %1$d změn?\n\n%2$s</string>
+  <string name="confirm_upload_edits_page">Změny</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
   <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
@@ -627,6 +648,10 @@
   <string name="undo">Zpět</string>
   <string name="redo">Vpřed</string>
   <string name="undo_nothing">není co vracet</string>
+  <string name="tracking_active_title">Vespucci služba na pozadí</string>
+  <string name="tracking_active_title_short">Aktivní služba na pozadí</string>
+  <string name="tracking_active_text">Nahrává se GPS stopa nebo je zapnuto automatické stahování</string>
+  <string name="tracking_long_text">Vespucci nahrává GPS stopu nebo je zapnuto Automatické stahování. Pro úplné ukončení pozastavte záznam stopy a ukončete aplikaci stiskem tlačítka zpět.</string>
   <string name="gps_failure">Nepovedlo se zapnout GPS</string>
   <!--element description-->
   <string name="address_housenumber">Adresa %1$s</string>

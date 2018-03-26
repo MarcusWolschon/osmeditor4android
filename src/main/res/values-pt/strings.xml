@@ -74,6 +74,8 @@
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
+  <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
+  <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
   <string name="openstreetbug_new_title">Novo Erro Reportado</string>
   <string name="openstreetbug_new_bug">Reportar Erro</string>
   <string name="openstreetbug_bug_title">Erro</string>
@@ -245,7 +247,8 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_split_via">Linha \"via\" (através de) dividida</string>
   <string name="toast_split_from_and_via">Linha \"from\" (de) e \"via\" (através de) divididas</string>
   <string name="toast_split_to">Linha \"to\" (para) dividida</string>
-  <string name="toast_tile_database_full">A base de dados das telas do mapa ou o disco está cheio!\nSaia, elimine a base de dados ou disponibilize mais espaço de armazenamento.</string>
+  <string name="toast_tile_database_issue_short">Problema na base de dados das telas</string>
+  <string name="toast_tile_database_issue">Ocorreu um erro grave na base de dados de telas do mapa\n\"%1$s\"\nPor favor consulte as perguntas frequentes em http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL da API inválido</string>
   <string name="toast_invalid_readonlyurl">URL de leitura da API inválido</string>
   <string name="toast_invalid_notesurl">URL da API para erros reportados inválido</string>
@@ -272,6 +275,9 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_unsupported_format">Formato não suportado: %1$s</string>
   <string name="toast_returning_less_than_found">Resultado %1$d de %2$d encontrados</string>
   <string name="toast_not_mbtiles">Não é um formato MBTiles</string>
+  <string name="toast_using_network_location">A usar a localização da rede de telemóveis</string>
+  <string name="toast_using_gps_location">A usar a localização GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS desativado, localização interrompida</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -401,10 +407,15 @@ há %3$s %4$s</string>
   <string name="menu_camera">Câmara</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Ver localização</string>
+  <string name="menu_gps_follow">Seguir localização</string>
+  <string name="menu_gps_goto">Ir para a localização atual</string>
   <string name="menu_gps_start">Iniciar trilho GPS</string>
   <string name="menu_gps_pause">Pausar trilho GPS</string>
   <string name="menu_gps_clear">Eliminar registo e marcadores GPS</string>
   <string name="menu_gps_track_managment">Gestão de trilhos...</string>
+  <string name="menu_gps_upload">Enviar trilho GPX</string>
+  <string name="menu_gps_export">Exportar trilho GPX</string>
+  <string name="menu_gps_import">Importar trilho GPX</string>
   <string name="menu_gps_goto_start">Ir para o início do trilho</string>
   <string name="menu_gps_goto_first_waypoint">Ir para primeiro marcador</string>
   <string name="menu_gps_autodownload">Descarregar automaticamente</string>
@@ -562,12 +573,15 @@ há %3$s %4$s</string>
   <string name="config_username_summary">É necesso a configuração para o envio dos dados OSM apenas se não utilizar o OAuth. É possível criar uma conta em http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Palavra-chave OSM</string>
   <string name="config_password_summary">Não confunda com a palavra-chave da Wiki do OSM. Tenha em conta que esta é armazenada e transmitida em texto simples não encriptado!</string>
+  <string name="config_category_gps">Definições de Localização</string>
   <string name="config_gps_distance_title">Distância Mínima do GPS</string>
   <string name="config_gps_distance_summary">Intervalo de distância mínima para notificações GPS, em metros (decimal). Valores baixos gastam mais bateria.</string>
   <string name="config_gps_distance_current">%1$d Metro</string>
   <string name="config_gps_interval_title">Intervalo Mínimo do GPS</string>
   <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificações GPS, em milisegundos. Valores baixos gastam mais bateria.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_network_title">Recurso alternativo para localização da rede de telemóveis</string>
+  <string name="config_gps_network_summary">Se o GPS não estiver presente ou ativado, usar a rede de telemóveis</string>
   <string name="config_category_info">Sobre</string>
   <string name="config_advancedprefs">Configurações avançadas</string>
   <string name="config_forceContextMenu_title">Usar menus de contexto</string>
@@ -640,7 +654,7 @@ há %3$s %4$s</string>
   <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura</string>
   <string name="config_js_console_title">Ativar consola JavaScript</string>
   <string name="config_js_console_summary">Disponibilizar a consola JavaScript no modo \"ao vivo\"</string>
-  <string name="config_validatorprefs_title">Validação de preferências</string>
+  <string name="config_validatorprefs_title">Preferências do verificador</string>
   <string name="config_customlayers_title">Camadas personalizadas</string>
   <string name="manage_apis">Gerir APIs</string>
   <string name="manage_presets">Gerir modelos de etiquetas</string>
@@ -655,6 +669,10 @@ há %3$s %4$s</string>
   <string name="changes_deleted">\"%1$s\" eliminados(as)</string>
   <string name="changes_changed">\"%1$s\" alterados(as)</string>
   <string name="changes_created">\"%1$s\" criados(as)</string>
+  <string name="confirm_upload_title">Enviar alterações?</string>
+  <string name="confirm_one_upload_text">Enviar a seguinte alteração?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Enviar as seguintes %1$d alterações?\n\n%2$s</string>
+  <string name="confirm_upload_edits_page">Alterações</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Adicionar modelo de etiquetas</string>
   <string name="urldialog_preset_exists">Este modelo de etiquetas já existe</string>
@@ -687,6 +705,10 @@ há %3$s %4$s</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
+  <string name="tracking_active_title">Serviço em segundo plano Vespucci</string>
+  <string name="tracking_active_title_short">Serviço em segundo planto ativo</string>
+  <string name="tracking_active_text">A gravar um trilho GPS ou a auto-descarregar</string>
+  <string name="tracking_long_text">O Vespucci está a gravar um trilho GPS ou a descarregar automaticamente. Para sair completamente pause a gravação do trilho se estiver ativo e saia da aplicação pressionando o botão de voltar.</string>
   <string name="gps_failure">Não foi possível ativar o GPS</string>
   <!--element description-->
   <string name="address_housenumber">Endereço %1$s</string>

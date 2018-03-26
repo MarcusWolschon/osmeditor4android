@@ -192,7 +192,6 @@
   <string name="toast_split_via">Vía dividida «via»</string>
   <string name="toast_split_from_and_via">Vías divididas «from» y «via»</string>
   <string name="toast_split_to">Vía dividida «to»</string>
-  <string name="toast_tile_database_full">¡La base de datos de teselas del mapa o disco está lleno!\nSalga, borre la base de datos o haga más espacio disponible.</string>
   <string name="toast_invalid_apiurl">URL API inválida</string>
   <string name="toast_invalid_readonlyurl">URL de la API de ReadOnly no válida</string>
   <string name="toast_invalid_notesurl">URL de la API de Notas no válida</string>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>Husnummer (addr:housenumber)</item>
+    <item>Gate (addr:street)</item>
+    <item>Postnummer  (addr:postcode)</item>
+    <item>By/Landsby/..  (addr:city)</item>
+    <item>Land (addr:country)</item>
+    <item>Full adresse (addr:full)</item>
+    <item>Sted (addr:place)</item>
+    <item>Grend (addr:hamlet)</item>
+    <item>Forstad (addr:suburb)</item>
+    <item>Underdistrikt (addr:subdistrict)</item>
+    <item>Distrikt (addr:district)</item>
+    <item>Provins (addr:province)</item>
+    <item>Stat (addr:state)</item>
+    <item>Leilighet (addr:flats)</item>
+    <item>Dør (addr:door)</item>
+    <item>Del (addr:unit)</item>
+  </string-array>
+</resources>

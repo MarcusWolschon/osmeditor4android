@@ -78,6 +78,8 @@
   <string name="upload_gpx_description_label">Описание</string>
   <string name="upload_gpx_tags_label">Теги</string>
   <string name="upload_gpx_visibility_label">Видимость</string>
+  <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
+  <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
   <string name="openstreetbug_new_title">Новая заметка</string>
   <string name="openstreetbug_new_bug">Сообщить об ошибке</string>
   <string name="openstreetbug_bug_title">Проблема</string>
@@ -143,6 +145,7 @@
   <string name="attached_object_warning_stop">Понятно, больше не показывать это сообщение</string>
   <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
+  <string name="js_console_msg_live">\"Живой\" режим!</string>
   <string name="js_console_msg_debug">Режим отладки!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Набор проверок \"%1$s\"</string>
@@ -163,6 +166,7 @@
   <string name="leave_empty">Оставить пустым</string>
   <!--GPX way point dialog-->
   <string name="waypoint_title">Путевая точка GPX</string>
+  <string name="waypoint_description">\"%1$s\"</string>
   <string name="description">Описание</string>
   <string name="created">Создано</string>
   <string name="altitude">Высота</string>
@@ -241,7 +245,8 @@
   <string name="toast_split_via">Разделенный \"via\" путь</string>
   <string name="toast_split_from_and_via">Разделенные \"from\" и \"via\" пути</string>
   <string name="toast_split_to">Разделенный \"to\" путь</string>
-  <string name="toast_tile_database_full">База данных подложки или диск заполнены!\nЗакройте приложение и удалите базу или освободите память другим способом.</string>
+  <string name="toast_tile_database_issue_short">Ошибка базы подложек карты</string>
+  <string name="toast_tile_database_issue">Серьёзная ошибка базы подложки карты:\n\"%1$s\"\nПожалуйста, обратитесь к нашему руководству на http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Неправильный API URL</string>
   <string name="toast_invalid_readonlyurl">Неправильный ReadOnly API URL</string>
   <string name="toast_invalid_notesurl">Неправильный Notes API URL</string>
@@ -268,6 +273,9 @@
   <string name="toast_unsupported_format">Неподдерживаемый формат: %1$s</string>
   <string name="toast_returning_less_than_found">Возвращено %1$d из %2$d найденных записей</string>
   <string name="toast_not_mbtiles">Файл не формата MBTiles</string>
+  <string name="toast_using_network_location">Определять положение по сети</string>
+  <string name="toast_using_gps_location">Определять положение по GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS запрещен, запись трека остановлена</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -397,10 +405,15 @@
   <string name="menu_camera">Камера</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Показывать положение</string>
+  <string name="menu_gps_follow">Следовать за местоположением</string>
+  <string name="menu_gps_goto">Перейти к текущему местоположению</string>
   <string name="menu_gps_start">Начать GPS-трек</string>
   <string name="menu_gps_pause">Приостановить GPS-трек</string>
   <string name="menu_gps_clear">Очистить трек GPS и путевые точки</string>
   <string name="menu_gps_track_managment">Управление треками...</string>
+  <string name="menu_gps_upload">Передать GPS-трек</string>
+  <string name="menu_gps_export">Экспорт GPS-трека</string>
+  <string name="menu_gps_import">Импорт GPS-трека</string>
   <string name="menu_gps_goto_start">Перейти к началу трека</string>
   <string name="menu_gps_goto_first_waypoint">Перейти к первой путевой точке</string>
   <string name="menu_gps_autodownload">Автозагрузка</string>
@@ -422,7 +435,7 @@
   <string name="menu_transfer_bugs_clear_long">Очистить ошибки</string>
   <string name="menu_transfer_autodownload_long">Загружать ошибки автоматически</string>
   <string name="menu_transfer_save_notes_all">Сохранить все заметки...</string>
-  <string name="menu_transfer_save_notes_new_and_changed">Сохранить все заметки...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Сохранить новые и изменённые заметки...</string>
   <string name="menu_transfer_read_custom_bugs">Загрузить пакет ошибок...</string>
   <string name="menu_transfer_write_custom_bugs">Сохранить пакет ошибок...</string>
   <string name="menu_save">Сохранить в файл</string>
@@ -523,7 +536,7 @@
   <string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент.</string>
   <string name="config_enableAntiAliasing_title">Включить сглаживание</string>
   <string name="config_enableAntiAliasing_summary">Сглаживает линии.</string>
-  <string name="config_enableOpenStreetBugs_title">Показывать ошибки и заметки</string>
+  <string name="config_enableOpenStreetBugs_title">Ошибки и заметки</string>
   <string name="config_enableOpenStreetBugs_summary">Показывать, редактировать и создавать заметки/ошибки.</string>
   <string name="config_enablePhotoLayer_title">Включить слой фото</string>
   <string name="config_enablePhotoLayer_summary">Показывать геопривязанные фото</string>
@@ -549,21 +562,24 @@
   <string name="config_osmoseServer_summary">URL для сервера Osmose</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
-  <string name="config_iconbutton_title">Показывать иконки точек</string>
+  <string name="config_iconbutton_title">Значки точек</string>
   <string name="config_iconbutton_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
-  <string name="config_showWayIcons_title">Показывать значки POI на зданиях</string>
+  <string name="config_showWayIcons_title">Значки POI на зданиях</string>
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_loginbutton_title">Учётная запись</string>
   <string name="config_username_title">Логин на сервер OSM</string>
   <string name="config_username_summary">Настройка необходима для передачи OSM-данных на сервер, только если вы не используете OAuth. Аккаунты доступны на http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Пароль на сервер OSM</string>
   <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
+  <string name="config_category_gps">Настройки местоположения</string>
   <string name="config_gps_distance_title">Радиус опроса GPS</string>
   <string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
   <string name="config_gps_distance_current">%1$d метров</string>
   <string name="config_gps_interval_title">Интервал опроса GPS</string>
   <string name="config_gps_interval_summary">Минимальный интервал частоты опроса GPS в миллисекундах. Меньшее значение приводит к большему расходу аккумулятора.</string>
   <string name="config_gps_interval_current">%1$d мс</string>
+  <string name="config_gps_network_title">Резервное местоположение по сети</string>
+  <string name="config_gps_network_summary">Если GPS не доступен или не разрешен, пробовать определять приблизительное местоположение по сотовой сети</string>
   <string name="config_category_info">О программе</string>
   <string name="config_advancedprefs">Расширенные настройки</string>
   <string name="config_forceContextMenu_title">Всегда использовать контекстное меню</string>
@@ -635,6 +651,7 @@
   <string name="config_geocoderbutton_title">Настройки геокодирования</string>
   <string name="config_geocoderbutton_summary">Добавить, изменить или удалить геокодер для поиска местоположений</string>
   <string name="config_js_console_title">Включить консоль JS</string>
+  <string name="config_js_console_summary">Разрешить консоль JS в \"живом\" режиме</string>
   <string name="config_validatorprefs_title">Настройки проверок</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
   <string name="manage_apis">Управление API</string>
@@ -650,6 +667,10 @@
   <string name="changes_deleted">\"%1$s\" удалено</string>
   <string name="changes_changed">\"%1$s\" изменено</string>
   <string name="changes_created">\"%1$s\" создано</string>
+  <string name="confirm_upload_title">Передать изменения?</string>
+  <string name="confirm_one_upload_text">Передать следующее изменение?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Передать следующие %1$d изменений?\n\n%2$s</string>
+  <string name="confirm_upload_edits_page">Изменения</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Добавить заготовку</string>
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
@@ -682,6 +703,10 @@
   <string name="undo">Отменить изменение</string>
   <string name="redo">Повторить изменение</string>
   <string name="undo_nothing">нечего отменять</string>
+  <string name="tracking_active_title">Фоновый сервис Vespucci</string>
+  <string name="tracking_active_title_short">Фоновый сервис активен</string>
+  <string name="tracking_active_text">Vespucci записывает GPS-трек или занят автозагрузкой</string>
+  <string name="tracking_long_text">Vespucci записывает GPS-трек или занят автозагрузкой. Остановите запись трека, если она запущена, а затем нажмите кнопку Назад для завершения приложения.</string>
   <string name="gps_failure">Не удалось включить GPS</string>
   <!--element description-->
   <string name="address_housenumber">Адрес %1$s</string>

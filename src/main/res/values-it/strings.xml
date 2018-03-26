@@ -50,6 +50,7 @@
   <string name="file_write_failed_message">Impossibile scrivere sul file selezionato.</string>
   <string name="welcome_title">Benvenuto!</string>
   <string name="welcome_message">Grazie per aver scelto Vespucci.\n\nPer iniziare devi solamente sapere due cose:\n\n* toccando il simbolo del lucchetto nell\'angolo in alto a sinistra puoi passare dalla modalità bloccata (nella quale nessuna modifica può essere effettuata) a quella sbloccata\n\n* per creare un nuovo oggetto: premi a lungo, se premi ancora sullo stesso punto crei un nodo, se premi in altri punti crei un percorso.\n\nNon dimenticarti di scaricare l\'area che vuoi modificare.\n\nDivertiti!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci ha rilevato la presenza di tasti software e li ha nascosti. Verranno mostrati nuovamente effettuando uno swipe dal basso.</string>
   <string name="read_introduction">Leggi l\'introduzione adesso</string>
   <string name="upgrade_title">Benvenuto alla nuova versione di Vespucci!</string>
   <string name="upgrade_message">Questa nuova versione di Vespucci aggiunge ulteriori funzionalità e modi d\'uso. È consigliato leggere brevemente le informazioni di aggiornamento disponibili.</string>
@@ -65,12 +66,16 @@
   <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
   <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
+  <string name="progress_building_imagery_database">Sto costruendo il database delle immagini...</string>
+  <string name="progress_query_oam">Ricerca su OAM in corso...</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
   <string name="upload_gpx_description_label">Descrizione</string>
   <string name="upload_gpx_tags_label">Etichette</string>
   <string name="upload_gpx_visibility_label">Visibilità</string>
+  <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
+  <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
@@ -84,7 +89,7 @@
   <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche al bug</string>
   <string name="openstreetbug_not_downloaded">non scaricato</string>
   <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
-  <string name="openstreetbug_unknown_task_type">Tipo di lavoro sconosciuto</string>
+  <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$snon supportato</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
@@ -97,6 +102,7 @@
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
+  <string name="zoom_and_offset">Z %1$s Scostamento %2$s/%3$s</string>
   <string name="set_position_datum_label">datum geodetico</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
@@ -139,12 +145,15 @@
   <string name="js_console_msg_live">Modalità live!</string>
   <string name="js_console_msg_debug">Modalità debug!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Insieme di regole di validazione %1$s</string>
   <string name="edit_resurvey_title">Modifica dati sopralluogo</string>
   <string name="add_resurvey_title">Aggiungi dati sopralluogo</string>
   <string name="edit_check_title">Modifica controllo inserimenti</string>
   <string name="add_check_title">Aggiungi controllo inserimenti</string>
   <string name="max_age">Età massima</string>
   <string name="age">Età</string>
+  <string name="check_opt">Controllo opz.</string>
+  <string name="check_optional">Controllo opzionale</string>
   <string name="add_resurvey_entry">Aggiungi dati sopralluogo</string>
   <string name="add_check_entry">Aggiungi controllo inserimenti</string>
   <!--Empty relation dialog-->
@@ -153,6 +162,8 @@
   <string name="add_members">Aggiungi membri</string>
   <string name="leave_empty">Lascia vuoto</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_title">Waypoint GPX</string>
+  <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Descrizione</string>
   <string name="created">Creato</string>
   <string name="altitude">Altitudine</string>
@@ -160,6 +171,10 @@
   <string name="create_osm_object_search">Crea oggetto OSM, utilizzando la ricerca preset</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Livello immagini personalizzato</string>
+  <string name="oam_layer_title">Immagini OAM</string>
+  <string name="edit_layer_title">Modifica livello</string>
+  <string name="add_layer_title">Aggiungi livello</string>
+  <string name="overlay">Sovraimpresso</string>
   <string name="coverage">Copertura</string>
   <string name="coverage_top">In alto</string>
   <string name="coverage_left">Sinistra</string>
@@ -167,6 +182,7 @@
   <string name="coverage_bottom">In basso</string>
   <string name="preferred">Preferito</string>
   <string name="toast_invalid_box">Riquadro di selezione non valido</string>
+  <string name="delete_layer">Eliminare il livello?</string>
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
@@ -213,6 +229,8 @@
   <string name="toast_missing_filemanager">Installa un file manager</string>
   <string name="toast_outside_of_download">Stai modificando all\'esterno dell\'area scaricata.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
+  <string name="toast_imported_track_points">Ho importato %1$spunti traccia e %2$swaypoint.</string>
+  <string name="toast_imported_track_points_single_way_point">Ho importato %1$spunti traccia e 1 waypoint.</string>
   <string name="toast_unknown_voice_command">Mi dispiace ma al momento \"%1$s\" non è riconosciuto</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
@@ -228,7 +246,8 @@
   <string name="toast_split_via">Percorso \"via\" diviso</string>
   <string name="toast_split_from_and_via">Percorsi \"da\" e \"via\" divisi</string>
   <string name="toast_split_to">Percorso \"verso\" diviso</string>
-  <string name="toast_tile_database_full">Il database dei tasselli oppure il disco sono pieni!\nEsci, elimina il database oppure libera un po\' di spazio disponibile.</string>
+  <string name="toast_tile_database_issue_short">Problema nel database dei tasselli</string>
+  <string name="toast_tile_database_issue">È avvenuto un problema grave nel database dei tasselli\n\"%1$s\"\nConsultare le nostre FAQ su http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL dell\'API non valida</string>
   <string name="toast_invalid_readonlyurl">URL invalido per le API in sola lettura</string>
   <string name="toast_invalid_notesurl">URL invalido per le API delle note</string>
@@ -247,11 +266,17 @@
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
   <string name="toast_illegal_operation">Operazione non consentita: %1$s</string>
+  <string name="toast_preset_creation_failed">Creazione del predefinito \"%1$s\" fallita con errore: %2$s</string>
   <string name="toast_imperial_units">Manca la misura</string>
   <string name="toast_server_connection_failed">Connessione al server fallita con: %1$s</string>
   <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
   <string name="toast_applied_offset">Allineamento applicato automaticamente alle immagini</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
+  <string name="toast_returning_less_than_found">Ho trovato %1$dvoci di %2$d</string>
+  <string name="toast_not_mbtiles">Non è file in formato MBTiles</string>
+  <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
+  <string name="toast_using_gps_location">Sto usando la localizzazione GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">Il GPS è disabilitato, l\'inseguimento è stato interrotto</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -379,10 +404,15 @@
   <string name="menu_camera">Fotocamera</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostra posizione</string>
+  <string name="menu_gps_follow">Segui la posizione</string>
+  <string name="menu_gps_goto">Vai alla posizione attuale</string>
   <string name="menu_gps_start">Inizia traccia GPS</string>
   <string name="menu_gps_pause">Pausa traccia GPS</string>
   <string name="menu_gps_clear">Cancella traccia gps</string>
   <string name="menu_gps_track_managment">Gestione delle tracce...</string>
+  <string name="menu_gps_upload">Carica la traccia GPX sul server</string>
+  <string name="menu_gps_export">Esporta la traccia GPX</string>
+  <string name="menu_gps_import">Importa la traccia GPX</string>
   <string name="menu_gps_goto_start">Vai all\'inizio della traccia</string>
   <string name="menu_gps_goto_first_waypoint">Vai alla prima coordinata</string>
   <string name="menu_gps_autodownload">Scarica automaticamente</string>
@@ -406,6 +436,7 @@
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
   <string name="menu_transfer_read_custom_bugs">Carica obiettivi personalizzati</string>
+  <string name="menu_transfer_write_custom_bugs">Salva obiettivi personalizzati aperti...</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -425,11 +456,14 @@
   <string name="menu_set_name">Imposta un nome</string>
   <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
   <string name="menu_tools">Strumenti</string>
+  <string name="menu_tools_imagery">Ulteriori strumenti per le immagini</string>
+  <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_background_tile_cache">Svuota la cache dei tasselli dello sfondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Svuota la cache dei tasselli sovrapposti</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
   <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
+  <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
   <string name="menu_tools_background_align_zero">Azzera</string>
@@ -438,6 +472,7 @@
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
+  <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
   <string name="menu_tools_oauth_reset">Resetta OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizza OAuth</string>
@@ -535,12 +570,15 @@
   <string name="config_username_summary">La configurazione è necessaria per caricare dati su OSM solo se non usi OAuth. Puoi creare un account al link http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">Password OSM</string>
   <string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
+  <string name="config_category_gps">Impostazioni della posizione</string>
   <string name="config_gps_distance_title">Distanza minima GPS</string>
   <string name="config_gps_distance_summary">L\'intervallo minimo della distanza per le notifiche GPS, in metri (float). Valori bassi comportano maggior uso della batteria.</string>
   <string name="config_gps_distance_current">%1$d metro</string>
   <string name="config_gps_interval_title">Intervallo minimo GPS</string>
   <string name="config_gps_interval_summary">L\'intervallo minimo di tempo per le notifiche GPS, in millisecondi. Valori bassi comportano maggior uso della batteria.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_network_title">Ritorna alla localizzazione di rete</string>
+  <string name="config_gps_network_summary">Se non è presente o non è attivo il GPS, ritorna alla localizzazione attraverso il gestore della rete dati</string>
   <string name="config_category_info">Informazioni</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
   <string name="config_forceContextMenu_title">Usa sempre menu contestuale</string>
@@ -598,6 +636,7 @@
   <string name="config_category_layers">Memorizzazione e download livello</string>
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
+  <string name="config_downLoadThreads_current">%1$d Processi</string>
   <string name="config_tileCacheSize_title">Dimensione della cache dei tasselli</string>
   <string name="config_tileCacheSize_summary">Dimensione totale della cache dei tasselli in MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
@@ -628,6 +667,10 @@
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
+  <string name="confirm_upload_title">Caricare le modifiche sul server?</string>
+  <string name="confirm_one_upload_text">Caricare le seguenti modifiche sul server?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Caricare sul server le seguenti %1$d modifiche?\n\n%2$s</string>
+  <string name="confirm_upload_edits_page">Modifiche</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -645,6 +688,8 @@
   <string name="name">Nome</string>
   <string name="url">URL</string>
   <string name="default_">Predefinito</string>
+  <string name="regular_expression">Espressione regolare</string>
+  <string name="state">Stato</string>
   <!---->
   <string name="empty_list">Nessuna voce inserita</string>
   <string name="api_name">Nome API</string>
@@ -658,6 +703,10 @@
   <string name="undo">Annulla</string>
   <string name="redo">Rifai</string>
   <string name="undo_nothing">niente da annullare</string>
+  <string name="tracking_active_title">Servizio in background di Vespucci</string>
+  <string name="tracking_active_title_short">Servizio in background attivo</string>
+  <string name="tracking_active_text">Sto registrando una traccia GPS oppure sto scaricando automaticamente i dati</string>
+  <string name="tracking_long_text">Vespucci sta registrando una traccia GPS oppure è in modalità scaricamento automatico. Per uscire completamente, mettere in pausa la registrazione della traccia se abilitata e quindi uscire dalla app premendo il tasto indietro.</string>
   <string name="gps_failure">Impossibile abilitare il GPS</string>
   <!--element description-->
   <string name="address_housenumber">Indirizzo %1$s</string>

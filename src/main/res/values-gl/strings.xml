@@ -190,7 +190,6 @@
   <string name="toast_split_via">Dividir \"via\" camiño</string>
   <string name="toast_split_from_and_via">Dividir \"dende\" a \"via\" camiños</string>
   <string name="toast_split_to">Dividir \"a\" vía</string>
-  <string name="toast_tile_database_full">A base de datos de mapeado de teselas está chea full!\nExit, borra a base de datos ou fai máis espazo dispoñible.</string>
   <string name="toast_invalid_apiurl">Inválida API URL</string>
   <string name="toast_invalid_readonlyurl">Invalida só lectura API URL</string>
   <string name="toast_invalid_notesurl">Notas Inválidas API URL</string>

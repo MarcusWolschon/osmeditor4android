@@ -237,7 +237,6 @@
   <string name="toast_split_via">Felosztott „via” vonal</string>
   <string name="toast_split_from_and_via">Felosztott „from” és „via” vonalak</string>
   <string name="toast_split_to">Felosztott „to” vonal</string>
-  <string name="toast_tile_database_full">A térképcsempe adatbázis vagy a lemez megtelt!\nLépjen ki, törölje az adatbázist vagy csináljon több szabad helyet.</string>
   <string name="toast_invalid_apiurl">Érvénytelen API URL</string>
   <string name="toast_invalid_readonlyurl">Érvénytelen csak olvasható API URL</string>
   <string name="toast_invalid_notesurl">Érvénytelen jegyzet API URL</string>

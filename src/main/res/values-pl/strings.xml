@@ -219,7 +219,6 @@
   <string name="toast_split_via">Oddzielona linia \"via\"</string>
   <string name="toast_split_from_and_via">Oddzielonp linie \"from\" oraz \"via\"</string>
   <string name="toast_split_to">Oddzielona linia \"to\"</string>
-  <string name="toast_tile_database_full">Pełna baza danych kafli lub niewystarczająca ilość pamięci!\nProszę zakończyć działanie programu i usunąć bazę danych lub zwolnić pamięć.</string>
   <string name="toast_invalid_apiurl">Błędny URL dla API</string>
   <string name="toast_invalid_readonlyurl">Błędny URL do ReadOnly API</string>
   <string name="toast_invalid_notesurl">Błędny URL do API Uwag</string>
@@ -363,6 +362,9 @@
   <string name="menu_gps_start">Rozpocznij rejestrowanie śladu</string>
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami...</string>
+  <string name="menu_gps_upload">Wyślij ślad GPX</string>
+  <string name="menu_gps_export">Wyeksportuj ślad GPX</string>
+  <string name="menu_gps_import">Importuj ślad GPX</string>
   <string name="menu_gps_goto_start">Przejdź na początek śladu</string>
   <string name="menu_gps_autodownload">Automatyczne pobieranie</string>
   <string name="menu_transfer">Transfer…</string>
@@ -601,6 +603,7 @@
   <string name="changes_deleted">Usunięto „%1$s”</string>
   <string name="changes_changed">Zmieniono „%1$s”</string>
   <string name="changes_created">Utworzono „%1$s”</string>
+  <string name="confirm_upload_edits_page">Zmiany</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>

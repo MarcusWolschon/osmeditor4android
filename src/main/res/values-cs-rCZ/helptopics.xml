@@ -19,6 +19,8 @@
     <string name="help_presetfilter">Filtr předvoleb</string>
     <string name="help_opening_hours">Otevírací hodiny</string>
     <string name="help_upgrade">Poznámky k vydání</string>
+    <string name="help_upgrade_101">10.1 Poznámky k vydání</string>
+    <string name="help_upgrade_100">10.0 Poznámky k vydání</string>
     <string name="help_upgrade_099">0.9.9 Poznámky k vydání</string>
     <string name="help_upgrade_098">0.9.8 Poznámky k vydání</string>
     <string name="help_upgrade_097">0.9.7 Poznámky k vydání</string>
@@ -41,6 +43,8 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_101</item>
+    	<item>@string/help_upgrade_100</item>
     	<item>@string/help_upgrade_099</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
@@ -64,6 +68,8 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>10.2.0 Release notes</item>
+    	<item>10.1.0 Release notes</item>
     	<item>10.0.0 Release notes</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>

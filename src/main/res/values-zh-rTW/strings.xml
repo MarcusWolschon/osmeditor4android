@@ -245,7 +245,6 @@
   <string name="toast_split_via">分離\"經過\"路徑</string>
   <string name="toast_split_from_and_via">分離\"從\"和\"經過\"路徑</string>
   <string name="toast_split_to">分離\"到\"路徑</string>
-  <string name="toast_tile_database_full">地圖圖磚資料庫或磁碟已滿！\n離開、刪除資料庫或是弄更多空間。</string>
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>

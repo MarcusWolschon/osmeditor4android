@@ -3,7 +3,7 @@
     <string name="help_introduction">Введение</string>
     <string name="help_main">Основной экран карты</string>
     <string name="help_addrelationmember">Выделенное отношение</string>
-    <string name="help_multiselect">Мультивыбор</string>
+    <string name="help_multiselect">Множественное выделение</string>
     <string name="help_longclick">Создание новых объектов</string>
     <string name="help_nodeselection">Выделенная точка</string>
     <string name="help_pathcreation">Создание новых объектов</string>
@@ -17,6 +17,10 @@
     <string name="help_keyboard">Клавиатура</string>
     <string name="help_tagfilter">Фильтр тегов</string>
     <string name="help_presetfilter">Фильтр заготовок</string>
+    <string name="help_opening_hours">Время работы</string>
+    <string name="help_upgrade">Примечания к версии</string>
+    <string name="help_upgrade_101">Примечания к версии 10.1</string>
+    <string name="help_upgrade_100">Примечания к версии 10.0</string>
     <string name="help_upgrade_099">Примечания к версии 0.9.9</string>
     <string name="help_upgrade_098">Примечания к версии 0.9.8</string>
     <string name="help_upgrade_097">Примечания к версии 0.9.7</string>
@@ -39,6 +43,8 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_101</item>
+    	<item>@string/help_upgrade_100</item>
     	<item>@string/help_upgrade_099</item>
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
@@ -62,6 +68,8 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>10.2.0 Release notes</item>
+    	<item>10.1.0 Release notes</item>
     	<item>10.0.0 Release notes</item>
     	<item>0.9.9 Release notes</item>
     	<item>0.9.8 Release notes</item>

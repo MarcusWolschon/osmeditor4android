@@ -242,7 +242,6 @@
   <string name="toast_split_via">Đã chia lối “qua”</string>
   <string name="toast_split_from_and_via">Đã chia các lối “từ” và “qua”</string>
   <string name="toast_split_to">Đã chia lối “đến”</string>
-  <string name="toast_tile_database_full">Cơ sở dữ liệu mảnh bản đồ hoặc đĩa đã đầy!\nHãy thoát, xóa cơ sở dữ liệu, hoặc kiếm thêm dung lượng.</string>
   <string name="toast_invalid_apiurl">URL API không hợp lệ</string>
   <string name="toast_invalid_readonlyurl">URL API ChỉĐọc không hợp lệ</string>
   <string name="toast_invalid_notesurl">URL API Ghi chú không hợp lệ</string>

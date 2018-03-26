@@ -189,7 +189,6 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="toast_used_backup">Le fichier est corrompu. Utilisation du fichier de sauvegarde !</string>
   <string name="toast_used_bug_backup">Le fichier des bugs est corrompu. Utilisation du fichier de sauvegarde !</string>
   <string name="toast_rmpty_relation">Relation vide, création d\'un rapport de plantage</string>
-  <string name="toast_tile_database_full">La base de données des tuiles de carte ou le disque sont plein !\nFermez l\'application, puis supprimer la base de données ou libérez de l\'espace.</string>
   <string name="toast_invalid_apiurl">URL API invalide</string>
   <string name="toast_invalid_readonlyurl">URL API en lecture seule invalide</string>
   <string name="toast_no_voice_recognition">Pas de système de reconaissance vocale trouvé</string>

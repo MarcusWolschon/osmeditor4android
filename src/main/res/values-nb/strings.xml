@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_indoor">Innendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort endringer. Vil du laste dem opp i stedet for å avbryte?</string>
@@ -8,34 +10,107 @@
   <string name="transfer_download_current_download">Avbryt og last ned</string>
   <string name="transfer_download_current_back">Gå tilbake</string>
   <string name="upload_problem_title">Problem med opplasting</string>
+  <string name="upload_problem_message">Noe eller intet av innholdet ble opplastet. Prøv å laste opp senere hvis dette er et midlertidig problem.</string>
   <string name="upload_conflict_title">Last opp konflikt</string>
+  <string name="upload_conflict_message_version">%1$s \nhar lokal versjon %2$s \nog på serveren %3$s </string>
+  <string name="upload_conflict_message_deleted">%1$s \nhar lokal versjon %2$s \nog ble slettet fra server</string>
+  <string name="upload_conflict_message_referential">%1$s \nble slettet lokalt \nmen har referanser på serveren</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nvar allerede slettet fra serveren</string>
+  <string name="use_local_version">Bruk lokal versjon</string>
+  <string name="use_server_version">Bruk versjon på server</string>
+  <string name="no_login_data_title">Autentisering mislyktes</string>
+  <string name="no_login_data_message">Hvis du bruker OAuth er dette trolig en bug, vennligst send en problem-rapport, hvis du bruker innlogging med passord (ikke anbefalt) vennligst sjekk at de er angitt korrekt.</string>
   <string name="no_connection_title">Intet samband med teneren</string>
   <string name="no_connection_message">Kunne ikke koble til OSM-teneren. Sjekk internettforbindelsen din eller prøv igjen senere.</string>
+  <string name="wrong_login_data_title">Autentisering mislyktes</string>
+  <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
+  <string name="data_conflict_title">Konflikt mellom kartversjoner</string>
+  <string name="bounding_box_too_large_title">Området du har valgt er for stort</string>
   <string name="api_offline_title">API Offline</string>
+  <string name="invalid_data_read_title">Ugyldig Data</string>
+  <string name="welcome_title">Velkommen!</string>
+  <string name="welcome_message">Takk for at du bruker Vespucci.\n\nFør du kommer i gang må du vite to ting:\n\n* et trykk på lås-ikonet øverst til venstre vil bytte mellom låst (ingen redigering) og ulåst.\n\n* for å legge til et nytt objekt; hold inne på kartet, og ved å trykke på samme sted vil du opprette et punkt. Trykker du lengre unna vil du starte en linje.\n\nIkke gløm å laste ned området du vil redigere.\n\nHa det gøy!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci oppdaget at enheten din har skjermknapper, og har skjult dem. Ved å dra opp fra bunnen av skjermen vil de vises igjen.</string>
+  <string name="read_introduction">Les introduksjonen nå</string>
+  <string name="upgrade_title">Velkommen til en ny versjon av Vespucci!</string>
+  <string name="upgrade_message">Dette er en ny versjon av Vespucci med nye funksjoner. Det er best å lese kjapt igjennom oppdaterings-informasjonen.</string>
+  <string name="read_upgrade">Les om den nye versjonen</string>
   <string name="progress_title">Leser</string>
   <string name="progress_message">Leser inn i minne…</string>
   <string name="progress_download_message">Laster ned data fra teneren…</string>
+  <string name="progress_general_title">Vennligst vent</string>
+  <string name="progress_deleting_message">Sletter...</string>
+  <string name="progress_searching_message">Søker...</string>
+  <string name="progress_saving_message">Lagrer...</string>
+  <string name="progress_uploading_message">Laster opp...</string>
+  <string name="progress_running_message">Kjører...</string>
   <string name="upload_comment_label">Kommentar:</string>
-  <string name="upload_gpx_tags_label">Tagger</string>
+  <string name="upload_source_label">Kilde:</string>
+  <string name="upload_gpx_description_label">Beskrivelse</string>
+  <string name="upload_gpx_tags_label">Egenskaper</string>
+  <string name="upload_validation_error_empty_comment">Kommentar burde ikke være tom</string>
+  <string name="upload_validation_error_empty_source">Kilde burde ikke være tom</string>
+  <string name="openstreetbug_new_title">Ny Notat</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
+  <string name="openstreetbug_edit_title">Rediger Notat</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="openstreetbug_not_downloaded">ikke lastet ned</string>
+  <string name="openstreetbug_last_updated">sist oppdatert</string>
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
+  <string name="imagery_offset_description">Beskrivelse</string>
+  <string name="imagery_offset_zoom">Zoom</string>
+  <string name="imagery_offset_distance">Distanse</string>
+  <string name="tag_editor_name_suggestion">Navneforslag</string>
+  <string name="search_results_title">Søkeresultater</string>
+  <string name="search">Søk</string>
+  <string name="read_file">Velg fil å lese</string>
+  <string name="save_file">Velg fil å lagre til</string>
+  <string name="delete_tags">Vil du virkelig slette alle egenskapene til objektet \"%1$s\"?</string>
+  <string name="nodes">Punkter</string>
+  <string name="relation_membership">Relasjon medlemskap </string>
+  <string name="members">Medlemmer</string>
+  <string name="version">Versjon</string>
+  <string name="length_m">Lengde (m)</string>
+  <string name="not_downloaded">Ikke lastet ned</string>
+  <string name="empty_role">tom rolle</string>
+  <string name="element">element</string>
+  <string name="last_updated">sist oppdatert</string>
+  <string name="last_edited">Sist endret</string>
+  <string name="error">feil</string>
+  <string name="warning">advarsel</string>
+  <string name="minor_issue">mindre feil</string>
   <!--JS console dialog-->
+  <string name="evaluate">Evaluer</string>
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Tom Relasjon</string>
+  <string name="add_members">Legg til medlemmer</string>
+  <string name="leave_empty">La være tom</string>
   <!--GPX way point dialog-->
+  <string name="description">Beskrivelse</string>
+  <string name="created">Laget</string>
+  <string name="create_osm_object">Lag OSM-objekt</string>
   <!--Custom imagery dialogs-->
+  <string name="delete_layer">Slette lag?</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Navn kan ikke stå tomt</string>
+  <string name="toast_url_empty">URL-feltet kan ikke stå tomt</string>
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
   <string name="toast_not_in_edit_range">Zoom inn for å endra (volum opp / ned eller lens/shift)</string>
+  <string name="toast_unlock_to_edit">Lås opp for å redigere</string>
+  <string name="toast_edit_outside_downloaded_area">Du kan ikke redigere utenfor den nedlastede området</string>
   <string name="toast_save_done">Lagring lykkes</string>
+  <string name="toast_save_failed">Lagring feilet</string>
   <string name="toast_not_in_bug_range">Zoom inn for å legge til feilrapport (volum opp/ned eller lens/shift)</string>
   <string name="toast_export_failed">Eksport feila</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
+  <string name="toast_oneway_reversed">Du snudde en enveisgate eller en linje med egenskaper avhengig av retningen. Vennligst sjekk egenskapene og fiks dem hvis det trengs.</string>
+  <string name="toast_unread_mail">Du har %1$d uleste OSM-meldinger</string>
+  <string name="toast_one_unread_mail">Du har en ulest OSM-melding</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
@@ -46,10 +121,13 @@
   <string name="key">nøkkel</string>
   <string name="value">verdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
+  <string name="tag_menu_address">Legg til adresse-egenskaper</string>
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
   <string name="tag_menu_preset">Knapper</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
+  <string name="tag_action_tag_title">Egenskap(er) valgt</string>
+  <string name="tag_menu_i8n">Legg til egenskaper for %1$s</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Les inn område</string>
   <string name="location_choose_radius">Velg radius:</string>
@@ -74,7 +152,7 @@
   <string name="menu_erase">Slett node</string>
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Fortsett</string>
-  <string name="menu_tag">Endre tagger</string>
+  <string name="menu_tag">Endre egenskaper</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_gps_start">Start GPS-spor</string>
@@ -84,11 +162,14 @@
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
+  <string name="menu_enable_tagfilter">Egenskapsfilter</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
+  <string name="notreversable_description">Linjen er merket med egenskaper som er avhengig av retningen og kan ikke bli snudd. Å snu denne linjen vil ødelegge merkingen.</string>
+  <string name="deleteway_description">Du skal til å slette en linje.\n\nDu kan enten beholde alle punkter, eller slette punkter som bare tilhører denne linja og som ikke har noen egenskaper.</string>
   <string name="deleteway_wayonly">Slett bare vegen</string>
   <string name="deleteway_wayandnodes">Slett veg og noder</string>
   <!--EasyEdit action mode titles-->
@@ -123,6 +204,7 @@
   <string name="config_forceContextMenu_summary">Vis alltid hurtigmeny i EasyEdit-modus dersom valget er tvetydig.</string>
   <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
   <string name="config_licensebutton_summary">Vis informasjon om opphavsmenn og lisenser</string>
+  <string name="config_address_tags">Adresse-egenskaper</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
   <string name="preset_download_successful">Knappene ble lasta ned.</string>
@@ -161,7 +243,7 @@
   <string name="undo_action_split_way">kløyv veg</string>
   <string name="undo_action_merge_ways">slå saman vegar</string>
   <string name="undo_action_reverse_way">snu vegar</string>
-  <string name="undo_action_set_tags">legg til taggar</string>
+  <string name="undo_action_set_tags">angi egenskaper</string>
   <!--ACRA-->
   <string name="config_category_acra">Krasj-rapportering</string>
   <string name="pref_enable_acra">Rapporter program-krasjer</string>
