@@ -133,6 +133,7 @@
     <string name="element">element</string>
     <string name="last_updated">last updated</string>
     <string name="last_edited">Last edited</string>
+    <string name="feature_information">GeoJSON Feature information</string>
     <string name="error">error</string>
     <string name="warning">warning</string>
     <string name="minor_issue">minor issue</string>
@@ -305,6 +306,7 @@
     <string name="share_position">Share position</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
+    <string name="geojson_object">GeoJSON %1$s</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>
@@ -437,7 +439,7 @@
     <string name="menu_transfer_save_notes_all">Save all Notes...</string>
     <string name="menu_transfer_save_notes_new_and_changed">Save new and changed Notes...</string>
     <string name="menu_transfer_read_custom_bugs">Load custom tasks...</string>
-    <string name="menu_transfer_write_custom_bugs">Save open custom tasks...</string>
+    <string name="menu_transfer_write_custom_bugs">Save open custom tasks…</string>
     <string name="menu_save">Save to file</string>
     <string name="menu_join">Join</string>
     <string name="menu_unjoin">Unjoin</string>
@@ -456,7 +458,7 @@
     <string name="menu_voice_commands">Voice commands</string>
     <string name="menu_set_name">Set name</string>
     <string name="tag_form_unknown_element">Unknown element (no preset found)</string>
-    <string name="menu_tools">Tools</string>
+    <string name="menu_tools">Tools…</string>
     <string name="menu_tools_imagery">More imagery tools</string>
     <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>
     <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
@@ -477,6 +479,8 @@
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
+    <string name="menu_layers">Layers…</string>
+    <string name="menu_layers_add_geojson">Add GeoJSON layer</string>
     <string name="menu_enable_tagfilter">Tag filter</string>
     <string name="menu_enable_presetfilter">Preset filter</string>
     <string name="preset_menu_waynodes">Include way nodes</string>

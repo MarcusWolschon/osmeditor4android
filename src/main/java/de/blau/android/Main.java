@@ -15,6 +15,8 @@ import java.util.concurrent.TimeoutException;
 
 import org.acra.ACRA;
 
+import com.mapbox.services.commons.geojson.Feature;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -102,6 +104,7 @@ import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
 import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
+import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.dialogs.GpxUpload;
 import de.blau.android.dialogs.ImportTrack;
 import de.blau.android.dialogs.NewVersion;
@@ -817,6 +820,7 @@ public class Main extends FullScreenAppCompatActivity
                 };
                 logic.loadStateFromFile(this, postLoadData);
                 logic.loadBugsFromFile(this, postLoadTasks);
+                logic.loadLayerState(this, null);
             } else { // loadFromFile already does this
                 synchronized (setViewBoxLock) {
                     App.getLogic().loadEditingState(this, setViewBox);
@@ -1110,8 +1114,9 @@ public class Main extends FullScreenAppCompatActivity
             // register earlier, but that may not help
         }
         disableLocationUpdates();
-        if (getTracker() != null)
+        if (getTracker() != null) {
             getTracker().setListener(null);
+        }
 
         // always save editing state
         App.getLogic().saveEditingState(this);
@@ -1133,8 +1138,9 @@ public class Main extends FullScreenAppCompatActivity
 
         // On devices with Android versions before Honeycomb, we already save
         // data in onPause
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             saveData();
+        }
 
         super.onStop();
     }
@@ -1982,6 +1988,26 @@ public class Main extends FullScreenAppCompatActivity
                 public boolean save(Uri fileUri) {
                     TransferTasks.writeCustomBugFile(Main.this, fileUri.getPath(), null);
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    return true;
+                }
+            });
+            return true;
+        case R.id.menu_layers_add_geojson:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    de.blau.android.layer.geojson.MapOverlay geojsonLayer = map.getGeojsonLayer();
+                    try {
+                        geojsonLayer.loadGeoJsonFile(Main.this, fileUri);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    map.invalidate();
                     return true;
                 }
             });
@@ -3207,8 +3233,13 @@ public class Main extends FullScreenAppCompatActivity
 
         private List<OsmElement> clickedNodesAndWays;
         private List<Task>       clickedBugs;
+        private int              bugCount      = 0;
         private List<Photo>      clickedPhotos;
+        private int              photoCount    = 0;
         private List<WayPoint>   clickedWayPoints;
+        private int              wayPointCount = 0;
+        private List<Feature>    clickedFeatures;
+        private int              featureCount  = 0;
 
         private boolean doubleTap = false;
 
@@ -3219,9 +3250,14 @@ public class Main extends FullScreenAppCompatActivity
             if (m.getAction() == MotionEvent.ACTION_DOWN) {
                 // Log.d("MapTouchListener", "onTouch ACTION_DOWN");
                 clickedBugs = null;
+                bugCount = 0;
                 clickedPhotos = null;
+                photoCount = 0;
                 clickedNodesAndWays = null;
                 clickedWayPoints = null;
+                wayPointCount = 0;
+                clickedFeatures = null;
+                featureCount = 0;
                 App.getLogic().handleTouchEventDown(Main.this, m.getX(), m.getY());
             }
             if (m.getAction() == MotionEvent.ACTION_UP) {
@@ -3239,14 +3275,10 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void onClick(View v, float x, float y) {
             boolean elementsOnly = App.getLogic().getClickableElements() != null;
-            de.blau.android.tasks.MapOverlay taskLayer = map.getTaskLayer();
-            clickedBugs = !elementsOnly && taskLayer != null ? taskLayer.getClickedTasks(x, y, map.getViewBox()) : null;
 
-            de.blau.android.photos.MapOverlay photoLayer = map.getPhotoLayer();
-            clickedPhotos = !elementsOnly && photoLayer != null ? photoLayer.getClickedPhotos(x, y, map.getViewBox()) : null;
-
-            de.blau.android.gpx.MapOverlay gpxLayer = map.getGpxLayer();
-            clickedWayPoints = !elementsOnly && gpxLayer != null ? gpxLayer.getClicked(x, y, map.getViewBox()) : null;
+            if (!elementsOnly) {
+                getClickedObjects(x, y);
+            }
 
             final Logic logic = App.getLogic();
             Mode mode = logic.getMode();
@@ -3269,20 +3301,22 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 map.invalidate();
             } else {
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
-                        + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
+                int itemCount = bugCount + photoCount + wayPointCount + featureCount;
+                switch (itemCount) {
                 case 0:
                     if (!isInEditZoomRange && !logic.isLocked()) {
                         Snack.barInfoShort(v, R.string.toast_not_in_edit_range);
                     }
                     break;
                 case 1:
-                    if ((clickedBugs != null) && !clickedBugs.isEmpty()) {
+                    if (bugCount == 1) {
                         performBugEdit(clickedBugs.get(0));
-                    } else if ((clickedPhotos != null) && !clickedPhotos.isEmpty()) {
+                    } else if (photoCount == 1) {
                         viewPhoto(clickedPhotos.get(0));
-                    } else if ((clickedWayPoints != null) && !clickedWayPoints.isEmpty()) {
+                    } else if (wayPointCount == 1) {
                         ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
+                    } else if (featureCount == 1) {
+                        FeatureInfo.showDialog(Main.this, clickedFeatures.get(0));
                     }
                     break;
                 default:
@@ -3305,12 +3339,8 @@ public class Main extends FullScreenAppCompatActivity
                 myIntent.setFlags(flags);
                 Uri photoUri = photo.getRefUri(Main.this);
                 if (photoUri != null) {
-                    myIntent.setDataAndType(photoUri, "image/jpeg"); // black
-                                                                     // magic
-                                                                     // only
-                                                                     // works
-                                                                     // this
-                                                                     // way
+                    // black magic only works this way
+                    myIntent.setDataAndType(photoUri, "image/jpeg");
                     startActivity(myIntent);
                     de.blau.android.photos.MapOverlay photoLayer = map.getPhotoLayer();
                     if (photoLayer != null) {
@@ -3340,16 +3370,11 @@ public class Main extends FullScreenAppCompatActivity
             if (logic.isLocked()) {
                 if (logic.getMode().elementsGeomEditiable()) {
                     // display context menu
-                    de.blau.android.tasks.MapOverlay osbo = map.getTaskLayer();
-                    clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
-                    de.blau.android.photos.MapOverlay photos = map.getPhotoLayer();
-                    clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+                    getClickedObjects(x, y);
+
                     clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-                    int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
-                    int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
-                    int wayPointCount = clickedWayPoints != null ? clickedWayPoints.size() : 0;
                     int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
-                    int itemCount = bugCount + photoCount + wayPointCount + elementCount;
+                    int itemCount = bugCount + photoCount + wayPointCount + featureCount + elementCount;
                     if (itemCount == 1) {
                         if (photoCount == 1) {
                             viewPhoto(clickedPhotos.get(0));
@@ -3357,6 +3382,8 @@ public class Main extends FullScreenAppCompatActivity
                             performBugEdit(clickedBugs.get(0));
                         } else if (wayPointCount == 1) {
                             ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
+                        } else if (featureCount == 1) {
+                            FeatureInfo.showDialog(Main.this, clickedFeatures.get(0));
                         } else if (elementCount == 1) {
                             ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                         }
@@ -3379,6 +3406,29 @@ public class Main extends FullScreenAppCompatActivity
             }
 
             return true; // long click handled
+        }
+
+        /**
+         * Get clicked objects from layers (with the exception of the data layer)
+         * 
+         * Sets counters of objects clicked per layer too. Rather ugly but avoids code duplication
+         * 
+         * @param x screen x coordinate of click position
+         * @param y screen y coordinate of click position
+         */
+        private void getClickedObjects(final float x, final float y) {
+            de.blau.android.tasks.MapOverlay osbo = map.getTaskLayer();
+            clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
+            de.blau.android.photos.MapOverlay photos = map.getPhotoLayer();
+            clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
+            de.blau.android.gpx.MapOverlay gpxLayer = map.getGpxLayer();
+            clickedWayPoints = gpxLayer != null ? gpxLayer.getClicked(x, y, map.getViewBox()) : null;
+            de.blau.android.layer.geojson.MapOverlay geojsonLayer = map.getGeojsonLayer();
+            clickedFeatures = geojsonLayer != null ? geojsonLayer.getClicked(x, y, map.getViewBox()) : null;
+            bugCount = clickedBugs != null ? clickedBugs.size() : 0;
+            photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
+            wayPointCount = clickedWayPoints != null ? clickedWayPoints.size() : 0;
+            featureCount = clickedFeatures != null ? clickedFeatures.size() : 0;
         }
 
         @Override
@@ -3406,14 +3456,15 @@ public class Main extends FullScreenAppCompatActivity
         public void performEdit(Mode mode, final View v, final float x, final float y) {
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
                 clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
+                int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
+                int itemCount = bugCount + photoCount + wayPointCount + featureCount + elementCount;
                 Logic logic = App.getLogic();
                 Filter filter = logic.getFilter();
                 if (filter != null) { // filter elements
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
                 }
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
-                        + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
+                switch (itemCount) {
                 case 0:
                     // no elements were touched
                     if (inEasyEditMode) {
@@ -3422,12 +3473,14 @@ public class Main extends FullScreenAppCompatActivity
                     break;
                 case 1:
                     // exactly one element touched
-                    if (clickedBugs != null && clickedBugs.size() == 1) {
+                    if (bugCount == 1) {
                         performBugEdit(clickedBugs.get(0));
-                    } else if (clickedPhotos != null && clickedPhotos.size() == 1) {
+                    } else if (photoCount == 1) {
                         viewPhoto(clickedPhotos.get(0));
-                    } else if (clickedWayPoints != null && clickedWayPoints.size() == 1) {
+                    } else if (wayPointCount == 1) {
                         ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
+                    } else if (featureCount == 1) {
+                        FeatureInfo.showDialog(Main.this, clickedFeatures.get(0));
                     } else {
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
@@ -3486,7 +3539,7 @@ public class Main extends FullScreenAppCompatActivity
         /**
          * Creates a context menu with the objects near where the screen was touched
          * 
-         * @param menu
+         * @param menu Menu object to add our entries to
          */
         public void onCreateDefaultContextMenu(final ContextMenu menu) {
             int id = 0;
@@ -3510,6 +3563,11 @@ public class Main extends FullScreenAppCompatActivity
             if (clickedWayPoints != null) {
                 for (WayPoint wp : clickedWayPoints) {
                     menu.add(Menu.NONE, id++, Menu.NONE, wp.getShortDescription(Main.this)).setOnMenuItemClickListener(this);
+                }
+            }
+            if (clickedFeatures != null) {
+                for (Feature f : clickedFeatures) {
+                    menu.add(Menu.NONE, id++, Menu.NONE, getString(R.string.geojson_object, f.getGeometry().getType())).setOnMenuItemClickListener(this);
                 }
             }
             if (clickedNodesAndWays != null) {
@@ -3569,7 +3627,7 @@ public class Main extends FullScreenAppCompatActivity
         /**
          * Check if this is the last member of a list
          * 
-         * @param <T>
+         * @param <T> type of the List member
          * @param l the list
          * @param o the member we are checking
          * @return true if it is the last item in the list
@@ -3591,18 +3649,8 @@ public class Main extends FullScreenAppCompatActivity
             if (prefs.getForceContextMenu())
                 return true;
 
-            // If bugs are clicked, user should always choose
-            if (clickedBugs != null && !clickedBugs.isEmpty()) {
-                return true;
-            }
-
-            // If photos are clicked, user should always choose
-            if (clickedPhotos != null && !clickedPhotos.isEmpty()) {
-                return true;
-            }
-
-            // If way points are clicked, user should always choose
-            if (clickedWayPoints != null && !clickedWayPoints.isEmpty()) {
+            // If any object on a layer is clicked always show menu
+            if (bugCount > 0 || photoCount > 0 || wayPointCount > 0 || featureCount > 0) {
                 return true;
             }
 
@@ -3651,17 +3699,20 @@ public class Main extends FullScreenAppCompatActivity
             int photoCount = clickedPhotos == null ? 0 : clickedPhotos.size();
             int bugsCount = clickedBugs == null ? 0 : clickedBugs.size();
             int wayPointCount = clickedWayPoints == null ? 0 : clickedWayPoints.size();
+            int featureCount = clickedFeatures != null ? clickedFeatures.size() : 0;
             int bugsItemId = itemId - photoCount;
             int wayPointItemId = itemId - (photoCount + bugsCount);
+            int featureItemId = itemId - (photoCount + bugsCount - wayPointCount);
             if ((clickedPhotos != null) && (itemId < clickedPhotos.size())) {
                 viewPhoto(clickedPhotos.get(itemId));
             } else if (clickedBugs != null && bugsItemId >= 0 && bugsItemId < clickedBugs.size()) {
                 performBugEdit(clickedBugs.get(bugsItemId));
             } else if (clickedWayPoints != null && wayPointItemId >= 0 && wayPointItemId < clickedWayPoints.size()) {
                 ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(wayPointItemId));
+            } else if (clickedFeatures != null && featureItemId >= 0 && featureItemId < clickedFeatures.size()) {
+                FeatureInfo.showDialog(Main.this, clickedFeatures.get(featureItemId));
             } else {
-                itemId -= (bugsCount + photoCount + wayPointCount);
-
+                itemId -= (bugsCount + photoCount + wayPointCount + featureCount);
                 if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
                     final OsmElement element = clickedNodesAndWays.get(itemId);
                     if (App.getLogic().isLocked()) {
@@ -3694,10 +3745,8 @@ public class Main extends FullScreenAppCompatActivity
                 case 0:
                     // no elements were touched
                     if (inEasyEditMode) {
-                        getEasyEditManager().nothingTouched(true); // short cut
-                                                                   // to
-                                                                   // finishing
-                                                                   // multi-select
+                        // short cut to finishing multi-select
+                        getEasyEditManager().nothingTouched(true);
                     }
                     break;
                 case 1:

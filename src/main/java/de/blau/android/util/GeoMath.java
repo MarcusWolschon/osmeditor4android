@@ -250,6 +250,16 @@ public class GeoMath {
     public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
         return (float) ((double) (lonE7 - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
     }
+    
+    /**
+     * Non-scaled version. Calculates the screen-coordinate to the given longitude.
+     * 
+     * @param lon the longitude
+     * @return the x screen-coordinate for this longitude value.
+     */
+    public static float lonToX(final int screenWidth, final BoundingBox viewBox, final double lon) {
+        return (float) ((double) (lon*1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
+    }
 
     /**
      * Calculates the latitude value for the given y screen coordinate.
@@ -265,7 +275,9 @@ public class GeoMath {
 
     /**
      * Calculates the longitude value for the given x screen coordinate.
-     * 
+     *
+     * @param screenWidth current screen width in screen coordinates
+     * @param viewBox the current VireBox
      * @param x the x-coordinate from the screen
      * @return longitude representing by the given x-value, multiplied by 1E7
      */

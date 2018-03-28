@@ -122,12 +122,13 @@ public class Map extends View implements IMapView {
      * 
      * @see #getOverlays()
      */
-    final List<MapViewLayer>          mOverlays       = Collections.synchronizedList(new ArrayList<MapViewLayer>());
-    MapTilesLayer                     backgroundLayer = null;
-    MapTilesOverlayLayer              overlayLayer    = null;
-    de.blau.android.photos.MapOverlay photoLayer      = null;
-    de.blau.android.tasks.MapOverlay  taskLayer       = null;
-    de.blau.android.gpx.MapOverlay    gpxLayer        = null;
+    final List<MapViewLayer>                 mOverlays       = Collections.synchronizedList(new ArrayList<MapViewLayer>());
+    MapTilesLayer                            backgroundLayer = null;
+    MapTilesOverlayLayer                     overlayLayer    = null;
+    de.blau.android.photos.MapOverlay        photoLayer      = null;
+    de.blau.android.tasks.MapOverlay         taskLayer       = null;
+    de.blau.android.gpx.MapOverlay           gpxLayer        = null;
+    de.blau.android.layer.geojson.MapOverlay geojsonLayer    = null;
 
     /**
      * The visible area in decimal-degree (WGS84) -space.
@@ -321,9 +322,20 @@ public class Map extends View implements IMapView {
                     mOverlays.add(gpxLayer);
                     taskLayer = new de.blau.android.tasks.MapOverlay(this);
                     mOverlays.add(taskLayer);
+                    geojsonLayer = new de.blau.android.layer.geojson.MapOverlay(this);
+                    mOverlays.add(geojsonLayer);
                 }
             }
         }
+    }
+
+    /**
+     * Get the list of configured layers
+     * 
+     * @return a List of MapViewLayers
+     */
+    protected List<MapViewLayer> getLayers() {
+        return mOverlays;
     }
 
     /**
@@ -359,6 +371,11 @@ public class Map extends View implements IMapView {
     @Nullable
     public de.blau.android.tasks.MapOverlay getTaskLayer() {
         return taskLayer;
+    }
+
+    @Nullable
+    public de.blau.android.layer.geojson.MapOverlay getGeojsonLayer() {
+        return geojsonLayer;
     }
 
     public void onDestroy() {

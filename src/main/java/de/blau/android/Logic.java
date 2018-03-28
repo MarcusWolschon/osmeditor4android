@@ -95,6 +95,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MRUList;
 import de.blau.android.validation.Validator;
+import de.blau.android.views.layers.MapViewLayer;
 
 /**
  * Logic is the gatekeeper to actual object storage and provides higher level operations.
@@ -2153,7 +2154,7 @@ public class Logic {
      * @param node2Y screen Y coordinate of node2
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
-    private double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
+    public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
         float tolerance = DataStyle.getCurrent().getWayToleranceValue() / 2f;
         // noinspection SuspiciousNameCombination
         if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
@@ -3045,6 +3046,11 @@ public class Logic {
         try {
             getDelegator().writeToFile(activity);
             App.getTaskStorage().writeToFile(activity);
+            for (MapViewLayer layer : map.getLayers()) {
+                if (layer != null) {
+                    layer.onSaveState(activity);
+                }
+            }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
         }
@@ -3188,8 +3194,9 @@ public class Logic {
      * Loads the saved task state from a file in the background.
      * 
      * @param activity the activity calling this method
+     * @param postLoad if not null call this after loading
      */
-    void loadBugsFromFile(@NonNull final Activity activity, final PostAsyncActionHandler postLoad) {
+    void loadBugsFromFile(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
@@ -3236,8 +3243,61 @@ public class Logic {
     }
 
     /**
+     * Loads the saved task state from a file in the background.
+     * 
+     * @param activity the activity calling this method
+     * @param postLoad if not null call this after loading
+     */
+    void loadLayerState(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
+
+        final int READ_FAILED = 0;
+        final int READ_OK = 1;
+
+        AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
+
+            @Override
+            protected void onPreExecute() {
+                Log.d(DEBUG_TAG, "loadLayerState onPreExecute");
+            }
+
+            @Override
+            protected Integer doInBackground(Void... v) {
+                boolean result = true;
+                for (MapViewLayer layer : map.getLayers()) {
+                    if (layer != null) {
+                        result = result && layer.onRestoreState(activity);
+                    }
+                }
+                return result ? READ_OK : READ_FAILED;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
+                if (result != READ_FAILED) {
+                    Log.d(DEBUG_TAG, "loadBugsfromFile: state loaded correctly");
+
+                    // FIXME if no bbox exists from data, ty to use one from bugs
+                    if (postLoad != null) {
+                        postLoad.onSuccess();
+                    }
+
+                } else {
+                    Log.d(DEBUG_TAG, "loadLayerState: state load failed");
+                    if (postLoad != null) {
+                        postLoad.onError();
+                    }
+                }
+                map.invalidate();
+            }
+        };
+        loader.execute();
+    }
+
+    /**
      * Loads data from a file
      * 
+     * @param activity the activity calling this method
      */
     public void syncLoadFromFile(@NonNull FragmentActivity activity) {
 

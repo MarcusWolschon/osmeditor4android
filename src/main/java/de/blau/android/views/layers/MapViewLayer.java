@@ -1,8 +1,12 @@
 // Created by plusminus on 20:32:01 - 27.09.2008
 package de.blau.android.views.layers;
 
+import java.io.IOException;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -22,8 +26,8 @@ public abstract class MapViewLayer {
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = MapViewLayer.class.getName();
-    protected int attributionOffset = 0;
+    private static final String DEBUG_TAG         = MapViewLayer.class.getName();
+    protected int               attributionOffset = 0;
 
     // ===========================================================
     // Constants
@@ -67,20 +71,18 @@ public abstract class MapViewLayer {
     /**
      * Called to draw the contents
      * 
-     * @param c     Canvas to draw on
-     * @param osmv  IMapView holding us
+     * @param c Canvas to draw on
+     * @param osmv IMapView holding us
      */
     protected abstract void onDraw(final Canvas c, final IMapView osmv);
 
     /**
      * Called after drawing is completed
      * 
-     * @param c     Canvas to draw on
-     * @param osmv  IMapView holding us
+     * @param c Canvas to draw on
+     * @param osmv IMapView holding us
      */
     protected abstract void onDrawFinished(final Canvas c, final IMapView osmv);
-    
-    
 
     // ===========================================================
     // Methods
@@ -194,6 +196,43 @@ public abstract class MapViewLayer {
         return false;
     }
 
+    /**
+     * Save state for this layer if necessary
+     * 
+     * @param ctx Android Context
+     * @throws IOException
+     */
+    public void onSaveState(@NonNull Context ctx) throws IOException {
+    }
+
+    /**
+     * Restore state for this layer if necessary
+     * 
+     * @param ctx Android Context
+     * @return true if successful
+     */
+    public boolean onRestoreState(@NonNull Context ctx) {
+        return true;
+    }
+
+    /**
+     * Set the vertical position for attribution
+     * 
+     * @param attributionOffset the vertical offset in pixels
+     */
+    public void setAttributionOffset(int attributionOffset) {
+        this.attributionOffset = attributionOffset;
+    }
+
+    /**
+     * Get the vertical attribution offset
+     * 
+     * @return vertical offset in pixels
+     */
+    public int getAttributionOffset() {
+        return attributionOffset;
+    }
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
@@ -217,13 +256,5 @@ public abstract class MapViewLayer {
          * @return Whether or not to snap to the interesting point.
          */
         boolean onSnapToItem(int x, int y, android.graphics.Point snapPoint, IMapView mapView);
-    }
-
-    public void setAttributionOffset(int attributionOffset) {
-        this.attributionOffset  = attributionOffset;
-    }
-
-    public int getAttributionOffset() {
-        return attributionOffset;
     }
 }
