@@ -3,6 +3,7 @@ package de.blau.android.dialogs;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
@@ -20,6 +21,11 @@ public class TableLayoutUtils {
 
     @SuppressLint("NewApi")
     public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+        return createRow(activity, cell1, cell2, false, tp);
+    }
+
+    @SuppressLint("NewApi")
+    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, boolean isUrl, TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setSingleLine();
@@ -30,6 +36,9 @@ public class TableLayoutUtils {
             cell.setTypeface(null, Typeface.BOLD);
         }
         cell.setEllipsize(TruncateAt.MARQUEE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            cell.setTextIsSelectable(true);
+        }
         tr.addView(cell);
         cell = new TextView(activity);
         if (cell2 != null) {
@@ -42,11 +51,11 @@ public class TableLayoutUtils {
             cell.setMovementMethod(LinkMovementMethod.getInstance());
             cell.setPadding(5, 0, 0, 0);
             cell.setEllipsize(TruncateAt.MARQUEE);
-            // This stops links from working
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // cell.setTextIsSelectable(true);
-            // }
+            if (!isUrl && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                cell.setTextIsSelectable(true);
+            }
             tr.addView(cell);
+            
         }
         tr.setLayoutParams(tp);
         return tr;
@@ -54,6 +63,11 @@ public class TableLayoutUtils {
 
     @SuppressLint("NewApi")
     public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+        return createRow(activity, cell1, cell2, false, tp);
+    }
+
+    @SuppressLint("NewApi")
+    public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, boolean isUrl, TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setMinEms(FIRST_CELL_WIDTH);
@@ -64,6 +78,9 @@ public class TableLayoutUtils {
             cell.setTypeface(null, Typeface.BOLD);
         }
         cell.setEllipsize(TruncateAt.MARQUEE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            cell.setTextIsSelectable(true);
+        }
         tr.addView(cell);
         cell = new TextView(activity);
         if (cell2 != null) {
@@ -73,10 +90,9 @@ public class TableLayoutUtils {
             cell.setMovementMethod(LinkMovementMethod.getInstance());
             cell.setPadding(5, 0, 0, 0);
             cell.setEllipsize(TruncateAt.MARQUEE);
-            // This stops links from working
-            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // cell.setTextIsSelectable(true);
-            // }
+            if (!isUrl && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                cell.setTextIsSelectable(true);
+            }
             tr.addView(cell);
         }
         tr.setLayoutParams(tp);

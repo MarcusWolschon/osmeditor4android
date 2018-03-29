@@ -188,15 +188,15 @@ public class ElementInfo extends DialogFragment {
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(value));
                         tl.addView(TableLayoutUtils.createRow(activity, k,
-                                Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                                Html.fromHtml("<a href=\"" + Urls.WIKIPEDIA + encodeHttpPath(value) + "\">" + value + "</a>"), true, tp));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
                         tl.addView(TableLayoutUtils.createRow(activity, k,
-                                Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), tp));
+                                Html.fromHtml("<a href=\"" + Urls.WIKIDATA + encodeHttpPath(value) + "\">" + value + "</a>"), true, tp));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
                             URL url = new URL(value);
                             URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-                            tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>"), tp));
+                            tl.addView(TableLayoutUtils.createRow(activity, k, Html.fromHtml("<a href=\"" + uri.toURL() + "\">" + value + "</a>"), true, tp));
                         } catch (MalformedURLException e1) {
                             Log.d(DEBUG_TAG, "Value " + value + " caused " + e);
                             tl.addView(TableLayoutUtils.createRow(activity, k, value, tp));
