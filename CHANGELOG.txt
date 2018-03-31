@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.2.0: Further small bug fixes, update preset and translations.
+
 10.2.0-4: Update OH fragment, wrap tags in upload dialog in a ScrollView, widen conditional restrictions editor.
 
 10.2.0-3: Improve messaging when tile DB is not usable.
