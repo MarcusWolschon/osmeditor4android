@@ -43,11 +43,11 @@ import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
 
 /**
- * Activity in which the user can pick a Location and a radius (more precisely: a square with "radius" as half of the edge
- * length. 
+ * Activity in which the user can pick a Location and a radius (more precisely: a square with "radius" as half of the
+ * edge length.
  * 
- * This class will return valid geo boundaries for a {@link BoundingBox} as extra data. ResultType will be
- * RESULT_OK when the {@link BoundingBox} should be loaded from a OSM Server, otherwise RESULT_CANCEL.<br>
+ * This class will return valid geo boundaries for a {@link BoundingBox} as extra data. ResultType will be RESULT_OK
+ * when the {@link BoundingBox} should be loaded from a OSM Server, otherwise RESULT_CANCEL.<br>
  * This class acts as its own LocationListener: We will offers the best location to the user.
  * 
  * @author mb
@@ -150,7 +150,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         searchGeocoder.setAdapter(adapter);
         int geocoderIndex = prefs.getGeocoder();
         // if a non-active geocoder is selected revert to default
-        if (geocoderIndex > adapter.getCount()-1) {
+        if (geocoderIndex > adapter.getCount() - 1) {
             geocoderIndex = 0;
             prefs.setGeocoder(geocoderIndex);
         }
@@ -245,7 +245,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
                 }
             } catch (IllegalArgumentException | SecurityException e) {
                 Log.d(DEBUG_TAG, "registerLocationListener got " + e.getMessage());
-            } 
+            }
         }
         return bestLocation;
     }
@@ -375,11 +375,15 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     private BoundingBox createBoxForCurrentLocation() {
         BoundingBox box = null;
-        try {
-            box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(), currentLocation.getLongitude(), currentRadius, true);
-        } catch (OsmException e) {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e);
+        if (currentLocation != null) {
+            try {
+                box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(), currentLocation.getLongitude(), currentRadius, true);
+            } catch (OsmException e) {
+                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+                ACRA.getErrorReporter().handleException(e);
+            }
+        } else {
+            ACRA.getErrorReporter().handleException(null);
         }
         return box;
     }
@@ -389,11 +393,15 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     private BoundingBox createBoxForLastLocation() {
         BoundingBox box = null;
-        try {
-            box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(), lastLocation.getLongitude(), currentRadius, true);
-        } catch (OsmException e) {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e);
+        if (lastLocation != null) {
+            try {
+                box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(), lastLocation.getLongitude(), currentRadius, true);
+            } catch (OsmException e) {
+                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+                ACRA.getErrorReporter().handleException(e);
+            }
+        } else {
+            ACRA.getErrorReporter().handleException(null);
         }
         return box;
     }
@@ -413,7 +421,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             box = GeoMath.createBoundingBoxForCoordinates(userLat, userLon, currentRadius, true);
         } catch (NumberFormatException | OsmException e) {
             ErrorAlert.showDialog(this, ErrorCodes.NAN);
-        } 
+        }
         return box;
     }
 
@@ -442,8 +450,8 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     public void onLocationChanged(final Location newLocation) {
         Log.w(DEBUG_TAG, "Got location: " + newLocation);
         if (newLocation != null && isNewLocationMoreAccurate(newLocation)) {
-            setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
             currentLocation = newLocation;
+            setLocationRadioButton(R.id.location_current, R.string.location_current_text_parameterized, newLocation, null);
             if (lastLocation != null) {
                 setLocationRadioButton(R.id.location_last, R.string.location_last_text_parameterized, newLocation, lastLocation);
             }
@@ -513,7 +521,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     @Override
     public void onProviderDisabled(final String provider) {
-     // required by LocationListener but not needed
+        // required by LocationListener but not needed
     }
 
     /**
@@ -521,7 +529,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     @Override
     public void onProviderEnabled(final String provider) {
-     // required by LocationListener but not needed
+        // required by LocationListener but not needed
     }
 
     /**
