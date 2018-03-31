@@ -112,8 +112,8 @@ public class ElementInfo extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
-        inflater = ThemeUtils.getLayoutInflater(activity);
-        ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, container, false);
+        LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
+        ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
         OsmElement e = (OsmElement) getArguments().getSerializable(ELEMENT);
