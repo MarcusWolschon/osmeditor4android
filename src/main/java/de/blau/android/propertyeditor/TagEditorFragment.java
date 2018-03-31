@@ -1332,11 +1332,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             int i = rowLayout.getChildCount();
             while (--i >= 0) {
                 TagEditRow row = (TagEditRow) rowLayout.getChildAt(i);
-                boolean isEmpty = row.isEmpty();
-                if (ret == null) {
-                    ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<String>(), -1);
-                } else if (isEmpty) {
-                    row.deleteRow(rowLayout);
+                if (row != null) {
+                    boolean isEmpty = row.isEmpty();
+                    if (ret == null) {
+                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<String>(), -1);
+                    } else if (isEmpty) {
+                        row.deleteRow(rowLayout);
+                    }
+                } else {
+                    Log.e(DEBUG_TAG,"ensureEmptyRow no row at position " + i);
                 }
             }
             if (ret == null) {
