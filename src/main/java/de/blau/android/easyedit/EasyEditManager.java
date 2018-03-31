@@ -1922,19 +1922,22 @@ public class EasyEditManager {
         public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
                                                                 // clicked
             super.handleElementClick(element);
-            Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
-            if (result != null && result.length == 2) {
-                logic.setSelectedNode(null);
-                logic.setSelectedRelation(null);
-                logic.setSelectedWay(result[0]);
-                logic.addSelectedWay(result[1]);
-                ArrayList<OsmElement> selection = new ArrayList<>();
-                selection.addAll(logic.getSelectedWays());
-                main.startSupportActionMode(new ExtendSelectionActionModeCallback(selection));
-            } else { // FIXME toast here?
-                Log.d(DEBUG_TAG, "split failed");
-                currentActionMode.finish();
+            if (element instanceof Node) {
+                Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);
+                if (result != null && result.length == 2) {
+                    logic.setSelectedNode(null);
+                    logic.setSelectedRelation(null);
+                    logic.setSelectedWay(result[0]);
+                    logic.addSelectedWay(result[1]);
+                    ArrayList<OsmElement> selection = new ArrayList<>();
+                    selection.addAll(logic.getSelectedWays());
+                    main.startSupportActionMode(new ExtendSelectionActionModeCallback(selection));
+                    return true;
+                }
             }
+            // FIXME toast here?
+            Log.d(DEBUG_TAG, "split failed at element " + (element != null ? element : "null"));
+            currentActionMode.finish();
             return true;
         }
 
