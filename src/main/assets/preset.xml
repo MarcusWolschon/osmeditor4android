@@ -2559,7 +2559,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:covered" 
                   uk.href="http://wiki.openstreetmap.org/wiki/UK:Key:covered" />
             <space />
-            <key key="covered" value="arcade" match="none" />
+            <key key="covered" text="Covered" value="arcade" match="none" />
             <check key="arcade:left" value_on="open" text="Open on left side" disable_off="true" match="none" />
             <check key="arcade:right" value_on="open" text="Open on right side" disable_off="true" match="none" />
             <optional>
@@ -2576,7 +2576,7 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:covered"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:covered" />
             <space />
-            <key key="covered" value="colonnade" match="none" />
+            <key key="covered" text="Covered" value="colonnade" match="none" />
             <check key="colonnade:left" value_on="open" text="Open on left side" disable_off="true" match="none" />
             <check key="colonnade:right" value_on="open" text="Open on right side" disable_off="true" match="none" />
             <optional>
@@ -5602,6 +5602,33 @@
             <reference ref="name_ref_operator" />
         </item> <!-- Bird Hide -->
         <separator/>
+        <item name="Amusement arcade" icon="icons/png/amenity_video_games_29201.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=amusement_arcade"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=amusement_arcade"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=amusement_arcade"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=amusement_arcade" />
+            <space />
+            <key key="leisure" value="amusement_arcade" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <space />
+            <reference ref="internet_smoking" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Amusement arcade -->
+        <item name="Adult gaming centre" icon="icons/png/amenity_slot_machine.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=adult_gaming_centre"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=adult_gaming_centre"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=adult_gaming_centre"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=adult_gaming_centre"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=adult_gaming_centre" />
+            <space />
+            <key key="leisure" value="adult_gaming_centre" />
+            <reference ref="name_operator_oh_wheelchair_level" />
+            <space />
+            <reference ref="internet_smoking" />
+            <space />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Adult gaming centre -->
         <item name="Night Club" icon="icons/png/food_bar.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=nightclub"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:amenity=nightclub"
@@ -11012,6 +11039,22 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Hardware -->
+        <item name="Trade supplies" icon="icons/png/shopping_trade_29143.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=trade"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=trade"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=trade"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:shop=trade"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:shop=trade"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=trade"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=trade"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=trade" />
+            <space />
+            <key key="shop" value="trade" />
+            <combo key="trade" text="Trade" values="building_supplies,plumbing,timber,agricultural_supplies,tiles,windows" 
+                display_values="Building supplies,Plumbing,Timber,Agricultural supplies,Tiles,Windows" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Trade supplies -->
         <item name="Gas" icon="icons/png/shopping_gas_29070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=gas"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=gas"
