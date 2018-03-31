@@ -1626,9 +1626,11 @@ public class TileLayerServer {
     @NonNull
     public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered) {
         List<String> ids = new ArrayList<>();
-        List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
-        for (TileLayerServer t : list) {
-            ids.add(t.id);
+        if (overlayServerList != null) {
+            List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
+            for (TileLayerServer t : list) {
+                ids.add(t.id);
+            }
         }
         return ids.toArray(new String[ids.size()]);
     }
