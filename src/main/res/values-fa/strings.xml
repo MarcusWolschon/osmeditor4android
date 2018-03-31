@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">عادی</string>
+  <string name="mode_tag_only">فقط برچسب</string>
   <string name="mode_indoor">فضای داخلی</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">احتیاط! </string>
@@ -21,6 +23,7 @@
   <string name="out_of_memory_dirty_message">Vespucci خارج از حافظه ی داده های درخواستی بارگزاری و اجرا میشود. لطفا کوشش کنید ویرایش هایتان را ذخیره کنید، برنامه را ریستارت کنید و سعی کنید فضای کوچکتری را بارگزاری کنید. </string>
   <string name="invalid_data_received_title">داده های نامعتبر دریافت شده</string>
   <string name="invalid_data_received_message">Vespucci داده های نامعتبری از سرور دریافت کرده. اگر گمان میکنید چیزی که سعی کرده اید درست است، لطفا یک فایل باگ گزارش دهید. </string>
+  <string name="welcome_title">خوش آمدید!</string>
   <string name="progress_title">در حال بارگزاری</string>
   <string name="progress_message">بارگزاری داده ها در حافظه… </string>
   <string name="progress_download_message">دانلود داده ها از سرور… </string>
@@ -28,6 +31,8 @@
   <string name="progress_deleting_message">در حال حذف… </string>
   <string name="progress_searching_message">جستجو… </string>
   <string name="progress_saving_message">ذخیره‌سازی… </string>
+  <string name="progress_uploading_message">در حال آپلود...</string>
+  <string name="progress_running_message">در حال اجرا...</string>
   <string name="upload_comment_label">نظر:</string>
   <string name="upload_source_label">منبع: </string>
   <string name="upload_gpx_description_label">توضیح</string>
@@ -35,6 +40,7 @@
   <string name="upload_gpx_visibility_label">دید</string>
   <string name="openstreetbug_new_title">یادداشت جدید</string>
   <string name="openstreetbug_new_bug">گزارش نتیجه</string>
+  <string name="openstreetbug_bug_title">موضوع</string>
   <string name="openstreetbug_new_nodeway">ایجاد گره/راه</string>
   <string name="openstreetbug_edit_title">ویرایش یادداشت</string>
   <string name="openstreetbug_commitbutton">بکار بردن</string>
@@ -57,8 +63,10 @@
   <string name="tag_editor_name_suggestion_overwrite_message">این پیشنهاد میتواندجایگزین مقدار تعدادی برچسب با مقدار های مشهورتر شود. </string>
   <string name="search_results_title">نتایج جستجو</string>
   <string name="find_message">ورود متن جستجو</string>
+  <string name="geocoder_prompt">با</string>
   <string name="search">جستجو</string>
   <string name="closed">بسته شده</string>
+  <string name="version">نسخه</string>
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
@@ -66,7 +74,7 @@
   <!--Custom imagery dialogs-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
-  <string name="toast_upload_success">آبلود به سرور OSM پایان یافت. </string>
+  <string name="toast_upload_success">آپلود به سرور OSM پایان یافت. </string>
   <string name="toast_not_in_edit_range">زوم به داخل برای ویرایش(ولوم بالا/پایین یا Lens/Shift) </string>
   <string name="toast_unlock_to_edit">قفل گشایی برای ویرایش</string>
   <string name="toast_edit_outside_downloaded_area">نمیتوانید خارج از فضای دانلود شده ویرایش کنید</string>

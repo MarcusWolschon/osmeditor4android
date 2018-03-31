@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_introduction">معرفی</string>
+    <string name="help_main">نمایش نقشه اصلی</string>
+    <string name="help_addrelationmember">رابطه انتخاب شده است</string>
+    <string name="help_multiselect">انتخاب چندگانه</string>
+    <string name="help_longclick">ایجاد اشیاء جدید</string>
     <string name="help_nodeselection">گره انتخاب شد</string>
-    <string name="help_wayselection">راه انتخاب شد</string>
+    <string name="help_pathcreation">ایجاد اشیاء جدید</string>
+    <string name="help_relationselection">رابطه انتخاب شده است</string>
+    <string name="help_wayselection">راه انتخاب شده است</string>
+    <string name="help_propertyeditor">ویژگی ویرایشگر</string>
     <string name="help_presets">پیش تنظیم</string>
+    <string name="help_gpssources">منابع GPS</string>
+    <string name="help_keyboard">صفحه کلید</string>
+    <string name="help_tagfilter">فیلتر برچسب</string>
+    <string name="help_opening_hours">ساعات کار</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

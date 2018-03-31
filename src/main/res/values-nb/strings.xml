@@ -11,6 +11,7 @@
   <string name="transfer_download_current_back">Gå tilbake</string>
   <string name="upload_problem_title">Problem med opplasting</string>
   <string name="upload_problem_message">Noe eller intet av innholdet ble opplastet. Prøv å laste opp senere hvis dette er et midlertidig problem.</string>
+  <string name="bad_request_message">APIen svarte med en feil, vennligst lagre dataene dine og rapporter problemet:\n\n</string>
   <string name="upload_conflict_title">Last opp konflikt</string>
   <string name="upload_conflict_message_version">%1$s \nhar lokal versjon %2$s \nog på serveren %3$s </string>
   <string name="upload_conflict_message_deleted">%1$s \nhar lokal versjon %2$s \nog ble slettet fra server</string>
@@ -26,8 +27,10 @@
   <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt mellom kartversjoner</string>
   <string name="bounding_box_too_large_title">Området du har valgt er for stort</string>
+  <string name="bounding_box_too_large_message">Området du prøver å laste ned er for stort eller inneholder for mye data.\n\nVennligst zoom lenger inn og prøv på nytt.</string>
   <string name="api_offline_title">API Offline</string>
   <string name="invalid_data_read_title">Ugyldig Data</string>
+  <string name="file_write_failed_message">Kunne ikke skrive til valgt fil.</string>
   <string name="welcome_title">Velkommen!</string>
   <string name="welcome_message">Takk for at du bruker Vespucci.\n\nFør du kommer i gang må du vite to ting:\n\n* et trykk på lås-ikonet øverst til venstre vil bytte mellom låst (ingen redigering) og ulåst.\n\n* for å legge til et nytt objekt; hold inne på kartet, og ved å trykke på samme sted vil du opprette et punkt. Trykker du lengre unna vil du starte en linje.\n\nIkke gløm å laste ned området du vil redigere.\n\nHa det gøy!</string>
   <string name="welcome_message_fullscreen">\n\nVespucci oppdaget at enheten din har skjermknapper, og har skjult dem. Ved å dra opp fra bunnen av skjermen vil de vises igjen.</string>
@@ -46,17 +49,22 @@
   <string name="progress_running_message">Kjører...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
+  <string name="upload_close_changeset_label">Lukk endringssett:</string>
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Egenskaper</string>
+  <string name="upload_gpx_visibility_label">Synlighet</string>
   <string name="upload_validation_error_empty_comment">Kommentar burde ikke være tom</string>
   <string name="upload_validation_error_empty_source">Kilde burde ikke være tom</string>
   <string name="openstreetbug_new_title">Ny Notat</string>
+  <string name="openstreetbug_new_bug">Rapporter Problem</string>
+  <string name="openstreetbug_bug_title">Problem</string>
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_edit_title">Rediger Notat</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_not_downloaded">ikke lastet ned</string>
   <string name="openstreetbug_last_updated">sist oppdatert</string>
+  <string name="openstreetbug_not_supported">%1$s støttes ikke.</string>
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -81,7 +89,8 @@
   <string name="last_edited">Sist endret</string>
   <string name="error">feil</string>
   <string name="warning">advarsel</string>
-  <string name="minor_issue">mindre feil</string>
+  <string name="minor_issue">mindre problem</string>
+  <string name="unknown_error_level">ukjent feil-nivå</string>
   <!--JS console dialog-->
   <string name="evaluate">Evaluer</string>
   <!--Validator dialogs-->
@@ -102,7 +111,7 @@
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
   <string name="toast_not_in_edit_range">Zoom inn for å endra (volum opp / ned eller lens/shift)</string>
   <string name="toast_unlock_to_edit">Lås opp for å redigere</string>
-  <string name="toast_edit_outside_downloaded_area">Du kan ikke redigere utenfor den nedlastede området</string>
+  <string name="toast_edit_outside_downloaded_area">Du kan ikke redigere utenfor det nedlastede området</string>
   <string name="toast_save_done">Lagring lykkes</string>
   <string name="toast_save_failed">Lagring feilet</string>
   <string name="toast_not_in_bug_range">Zoom inn for å legge til feilrapport (volum opp/ned eller lens/shift)</string>
@@ -111,6 +120,8 @@
   <string name="toast_oneway_reversed">Du snudde en enveisgate eller en linje med egenskaper avhengig av retningen. Vennligst sjekk egenskapene og fiks dem hvis det trengs.</string>
   <string name="toast_unread_mail">Du har %1$d uleste OSM-meldinger</string>
   <string name="toast_one_unread_mail">Du har en ulest OSM-melding</string>
+  <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
+  <string name="toast_outside_of_download">Du redigerer utenfor det nedlastede området.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
@@ -127,9 +138,10 @@
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
   <string name="tag_action_tag_title">Egenskap(er) valgt</string>
+  <string name="tag_menu_download">Last ned</string>
   <string name="tag_menu_i8n">Legg til egenskaper for %1$s</string>
   <!--Strings in LocationPicker-->
-  <string name="location_headline">Les inn område</string>
+  <string name="location_headline">Last ned gjeldende område</string>
   <string name="location_choose_radius">Velg radius:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Siste kjente posisjon:</string>
@@ -157,9 +169,14 @@
   <string name="menu_gps_show">Vis plassering</string>
   <string name="menu_gps_start">Start GPS-spor</string>
   <string name="menu_gps_pause">Sett GPS-sporing på pause</string>
+  <string name="menu_gps_autodownload">Auto-nedlasting</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
+  <string name="menu_transfer_download_current_add">Legg til gjeldende område til nedlasting</string>
+  <string name="menu_transfer_download_other">Last ned et annet område</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
+  <string name="menu_transfer_bugs_download_current">Last ned feil for gjeldende område</string>
+  <string name="menu_transfer_autodownload_long">Auto-nedlasting av feil</string>
   <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
   <string name="menu_enable_tagfilter">Egenskapsfilter</string>
@@ -183,6 +200,7 @@
   <string name="config_showTolerance_title">Vis endringsområde</string>
   <string name="config_showTolerance_summary">Viser område hvor elementer kan velges.</string>
   <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
+  <string name="config_enableOpenStreetBugs_summary">Vis, Endre og Opprett Notater/Feil.</string>
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
   <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
   <string name="config_category_server">Tener-innstillinger</string>
@@ -204,6 +222,7 @@
   <string name="config_forceContextMenu_summary">Vis alltid hurtigmeny i EasyEdit-modus dersom valget er tvetydig.</string>
   <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
   <string name="config_licensebutton_summary">Vis informasjon om opphavsmenn og lisenser</string>
+  <string name="config_extTriggeredDownloadRadius_title">Nedlastings-radius</string>
   <string name="config_address_tags">Adresse-egenskaper</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
