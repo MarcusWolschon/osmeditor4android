@@ -8,7 +8,6 @@ import com.pavelsikun.vintagechroma.OnColorSelectedListener;
 import com.pavelsikun.vintagechroma.colormode.ColorMode;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -22,7 +21,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,19 +28,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Spinner;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.util.Density;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapViewLayer;
@@ -62,7 +58,6 @@ public class LayerStyle extends DialogFragment {
 
     private final Map map;
 
-    
     /**
      
      */
@@ -97,17 +92,17 @@ public class LayerStyle extends DialogFragment {
         LayerStyle f = new LayerStyle();
         Bundle args = new Bundle();
         args.putInt(LAYERINDEX, layerIndex);
-       
+
         f.setArguments(args);
         f.setShowsDialog(true);
 
         return f;
     }
-    
+
     LayerStyle() {
         map = App.getLogic().getMap();
     }
-    
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -134,18 +129,18 @@ public class LayerStyle extends DialogFragment {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         View layout = inflater.inflate(R.layout.layer_style, null);
-        View labelContainer = layout.findViewById(R.id.layer_label_container); 
-        SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width); 
+        View labelContainer = layout.findViewById(R.id.layer_label_container);
+        SeekBar seeker = (SeekBar) layout.findViewById(R.id.layer_line_width);
         View lineWidthView = (View) layout.findViewById(R.id.layer_line_width_view);
         final View colorView = (View) layout.findViewById(R.id.layer_color);
-        
+
         int layerIndex = getArguments().getInt(LAYERINDEX);
         List<MapViewLayer> layers = map.getLayers();
         MapViewLayer tempLayer = layers.get(layerIndex);
         if (tempLayer != null && tempLayer instanceof StyleableLayer) {
             builder.setTitle(tempLayer.getName());
             final StyleableLayer layer = (StyleableLayer) tempLayer;
-            final List<String>labelKeys = layer.getLabelList();
+            final List<String> labelKeys = layer.getLabelList();
             if (labelKeys != null && !labelKeys.isEmpty()) {
                 final Spinner labelSpinner = (Spinner) layout.findViewById(R.id.layer_style_label);
                 labelKeys.add(0, getString(R.string.none));
@@ -154,7 +149,7 @@ public class LayerStyle extends DialogFragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, labelArray);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 labelSpinner.setAdapter(adapter);
-                
+
                 // labelSpinner.setSelection(geocoderIndex);
                 labelSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
@@ -174,23 +169,18 @@ public class LayerStyle extends DialogFragment {
             colorView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    new ChromaDialog.Builder()
-                    .initialColor(layer.getColor())
-                    .colorMode(ColorMode.ARGB)
-                    .indicatorMode(IndicatorMode.HEX)
-                    .onColorSelected(new OnColorSelectedListener() {
-                        @Override
-                        public void onColorSelected(int color) {
-                            layer.setColor(color);
-                            colorView.setBackgroundColor(color);
-                            map.invalidate();
-                        }
-                    })
-                    .create()
-                    .show(getChildFragmentManager(), "ChromaDialog");  
+                    new ChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB).indicatorMode(IndicatorMode.HEX)
+                            .onColorSelected(new OnColorSelectedListener() {
+                                @Override
+                                public void onColorSelected(int color) {
+                                    layer.setColor(color);
+                                    colorView.setBackgroundColor(color);
+                                    map.invalidate();
+                                }
+                            }).create().show(getChildFragmentManager(), "ChromaDialog");
                 }
             });
-            
+
             lineWidthView.setBackgroundColor(Color.BLACK);
             LayoutParams layoutParams = lineWidthView.getLayoutParams();
             layoutParams.height = (int) layer.getStrokeWidth();
@@ -212,7 +202,7 @@ public class LayerStyle extends DialogFragment {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
-    
+
     /**
      * Create a listener for the stroke width seek bar
      * 

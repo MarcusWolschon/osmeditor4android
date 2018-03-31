@@ -46,7 +46,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -241,7 +240,7 @@ public class MapOverlay extends StyleableLayer implements Serializable {
     transient Paint        labelBackground;
     transient float        labelStrokeWidth;
     transient FeatureStyle labelFs;
-    
+
     private String name;
 
     /**
@@ -824,12 +823,12 @@ public class MapOverlay extends StyleableLayer implements Serializable {
         }
         return null;
     }
-    
+
     @Override
     public String getName() {
-       if (name != null) {
-           return name;
-       }
-       return map.getContext().getString(R.string.layer_geojson);    
+        if (name != null) {
+            return name;
+        }
+        return map.getContext().getString(R.string.layer_geojson);
     }
 }

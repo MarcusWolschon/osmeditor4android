@@ -426,38 +426,17 @@ public class Main extends FullScreenAppCompatActivity
      */
     private File imageFile = null;
 
-    private PostAsyncActionHandler restart; // if set
-                                            // this
-                                            // is
-                                            // called
-                                            // to
-                                            // restart
-                                            // post
-                                            // authentication
+    // if set this is called to restart post authentication
+    private PostAsyncActionHandler restart;
 
-    private boolean gpsChecked = false; // flag
-                                        // to
-                                        // ensure
-                                        // that
-                                        // we
-                                        // only
-                                        // check
-                                        // once
-                                        // per
-                                        // activity
-                                        // life
-                                        // cycle
+    // flag to ensure that we only check once per activity life cycle
+    private boolean gpsChecked = false;
 
-    private boolean saveSync = false; // save
-                                      // synchronously
-                                      // instead
-                                      // of
-                                      // async
+    // save synchronously instead of async
+    private boolean saveSync = false;
 
-    private boolean haveCamera = false; // true
-                                        // if we
-                                        // have a
-                                        // camera
+    // true if we have a camera
+    private boolean haveCamera = false;
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
