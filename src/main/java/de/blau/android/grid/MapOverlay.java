@@ -7,6 +7,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
+import de.blau.android.R;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
@@ -224,5 +225,10 @@ public class MapOverlay extends MapViewLayer {
     @Override
     protected void onDrawFinished(Canvas c, IMapView osmv) {
         // do nothing
+    }
+
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_grid);
     }
 }

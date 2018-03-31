@@ -141,4 +141,9 @@ public class MapOverlay extends MapViewLayer {
         }
         return result;
     }
+    
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_tasks);
+    }
 }

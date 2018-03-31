@@ -201,4 +201,9 @@ public class MapOverlay extends MapViewLayer {
     public void setSelected(Photo photo) {
         selected = photo;
     }
+    
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_photos);
+    }
 }

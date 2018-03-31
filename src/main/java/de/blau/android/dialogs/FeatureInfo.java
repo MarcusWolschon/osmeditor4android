@@ -84,6 +84,15 @@ public class FeatureInfo extends DialogFragment {
         return new Dialog(ThemeUtils.getThemedContext(getActivity(), R.style.Theme_DialogLight, R.style.Theme_DialogDark));
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
+    
     @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

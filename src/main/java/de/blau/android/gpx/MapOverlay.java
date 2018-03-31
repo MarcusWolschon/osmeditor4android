@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.util.Log;
 import de.blau.android.Map;
+import de.blau.android.R;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.osm.ViewBox;
@@ -133,5 +134,10 @@ public class MapOverlay extends MapViewLayer {
         }
         Log.d(DEBUG_TAG, "getClicked found " + result.size());
         return result;
+    }
+    
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_gpx);
     }
 }

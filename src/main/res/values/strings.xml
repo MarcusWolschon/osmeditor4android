@@ -186,6 +186,17 @@
     <string name="preferred">Preferred</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
     <string name="delete_layer">Delete layer?</string>
+    <!--  Layer style dialog -->
+    <string name="layer_style_title">Layer style</string>
+    <string name="layer_style_stroke_width">Stroke width</string>
+    <string name="layer_style_color">Colour</string>
+    <string name="layer_style_label">Label</string>
+    <string name="layer_geojson">GeoJSON</string>
+    <string name="layer_grid">Grid</string>
+    <string name="layer_gpx">GPX</string>
+    <string name="layer_photos">Photos</string>
+    <string name="layer_tasks">Tasks</string>
+    <string name="layer_data">OSM Data</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
@@ -307,6 +318,7 @@
     <string name="min">Min.</string>
     <string name="max">Max.</string>
     <string name="geojson_object">GeoJSON %1$s</string>
+    <string name="none">None</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
     <string name="exit_text">Are you sure you want to exit?</string>

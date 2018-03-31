@@ -625,4 +625,9 @@ public class MapTilesLayer extends MapViewLayer {
             }
         }
     }
+
+    @Override
+    public String getName() {
+        return myRendererInfo.getName();
+    }
 }

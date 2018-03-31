@@ -107,6 +107,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.FeatureInfo;
 import de.blau.android.dialogs.GpxUpload;
 import de.blau.android.dialogs.ImportTrack;
+import de.blau.android.dialogs.LayerStyle;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
@@ -2001,6 +2002,7 @@ public class Main extends FullScreenAppCompatActivity
                 public boolean read(Uri fileUri) {
                     de.blau.android.layer.geojson.MapOverlay geojsonLayer = map.getGeojsonLayer();
                     try {
+                        geojsonLayer.resetStyling();
                         geojsonLayer.loadGeoJsonFile(Main.this, fileUri);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -2008,6 +2010,7 @@ public class Main extends FullScreenAppCompatActivity
                     }
                     SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                     map.invalidate();
+                    LayerStyle.showDialog(Main.this, geojsonLayer.getIndex());
                     return true;
                 }
             });
@@ -3567,7 +3570,8 @@ public class Main extends FullScreenAppCompatActivity
             }
             if (clickedFeatures != null) {
                 for (Feature f : clickedFeatures) {
-                    menu.add(Menu.NONE, id++, Menu.NONE, getString(R.string.geojson_object, f.getGeometry().getType())).setOnMenuItemClickListener(this);
+                    String label = map.getGeojsonLayer().getLabel(f);
+                    menu.add(Menu.NONE, id++, Menu.NONE, getString(R.string.geojson_object, label)).setOnMenuItemClickListener(this);
                 }
             }
             if (clickedNodesAndWays != null) {

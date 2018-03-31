@@ -277,6 +277,7 @@ dependencies {
     compile "com.google.code.gson:gson:2.8.1"
     compile 'com.faendir.rhino:rhino-android:1.4'
     compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
+    compile 'com.pavelsikun:vintage-chroma:1.5'
     compile "ch.poole:PoParser:0.7.2"
     compile "ch.poole:OpeningHoursParser:0.14.0"
     compile "ch.poole:ConditionalRestrictionParser:0.2.2"

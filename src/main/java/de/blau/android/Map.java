@@ -302,6 +302,7 @@ public class Map extends View implements IMapView {
                 if (prefs == null) { // just to be safe
                     backgroundLayer = new MapTilesLayer(this, TileLayerServer.getDefault(ctx, true), null);
                     mOverlays.add(backgroundLayer);
+                    backgroundLayer.setIndex(mOverlays.size()-1);
                 } else {
                     mOverlays.clear();
                     TileLayerServer ts = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
@@ -310,20 +311,26 @@ public class Map extends View implements IMapView {
                         ImageryOffsetUtils.applyImageryOffsets(ctx, ts, getViewBox());
                     }
                     mOverlays.add(backgroundLayer);
+                    backgroundLayer.setIndex(mOverlays.size()-1);
                     if (activeOverlay(prefs.overlayLayer())) {
                         overlayLayer = new MapTilesOverlayLayer(this);
                         mOverlays.add(overlayLayer);
+                        overlayLayer.setIndex(mOverlays.size()-1);
                     }
                     photoLayer = new de.blau.android.photos.MapOverlay(this);
                     mOverlays.add(photoLayer);
+                    photoLayer.setIndex(mOverlays.size()-1);
                     mOverlays.add(new de.blau.android.grid.MapOverlay(this));
                     mOverlays.add(null); // placeholder for data layer
                     gpxLayer = new de.blau.android.gpx.MapOverlay(this);
                     mOverlays.add(gpxLayer);
+                    gpxLayer.setIndex(mOverlays.size()-1);
                     taskLayer = new de.blau.android.tasks.MapOverlay(this);
                     mOverlays.add(taskLayer);
+                    taskLayer.setIndex(mOverlays.size()-1);
                     geojsonLayer = new de.blau.android.layer.geojson.MapOverlay(this);
                     mOverlays.add(geojsonLayer);
+                    geojsonLayer.setIndex(mOverlays.size()-1);
                 }
             }
         }
@@ -334,7 +341,7 @@ public class Map extends View implements IMapView {
      * 
      * @return a List of MapViewLayers
      */
-    protected List<MapViewLayer> getLayers() {
+    public List<MapViewLayer> getLayers() {
         return mOverlays;
     }
 

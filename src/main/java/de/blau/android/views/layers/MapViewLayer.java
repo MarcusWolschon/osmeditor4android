@@ -28,6 +28,7 @@ public abstract class MapViewLayer {
      */
     private static final String DEBUG_TAG         = MapViewLayer.class.getName();
     protected int               attributionOffset = 0;
+    private transient int       index             = -1;
 
     // ===========================================================
     // Constants
@@ -233,6 +234,32 @@ public abstract class MapViewLayer {
         return attributionOffset;
     }
 
+    /**
+     * Get our position in the layers list
+     * 
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * Get our position in the layers list
+     * 
+     * @param index the index
+     */
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    /**
+     * Return the name of this layer
+     * 
+     * @return the name 
+     */
+    @NonNull
+    abstract public String getName();
+    
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================

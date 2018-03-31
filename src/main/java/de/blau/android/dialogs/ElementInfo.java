@@ -232,6 +232,15 @@ public class ElementInfo extends DialogFragment {
         getDialog().setTitle(R.string.element_information);
         return sv;
     }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
 
     private String encodeHttpPath(String path) {
         try {

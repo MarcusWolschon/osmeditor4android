@@ -11,10 +11,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mapbox.services.api.utils.turf.TurfException;
 import com.mapbox.services.api.utils.turf.TurfJoins;
 import com.mapbox.services.commons.geojson.Feature;
@@ -36,11 +40,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Path;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
@@ -55,9 +61,14 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapViewLayer;
+import de.blau.android.views.layers.StyleableLayer;
 
-public class MapOverlay extends MapViewLayer {
+public class MapOverlay extends StyleableLayer implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -68,8 +79,8 @@ public class MapOverlay extends MapViewLayer {
 
     public final static String FILENAME = "geojson.res";
 
-    private transient SavingHelper<RTree> savingHelper = new SavingHelper<>();
-    private transient boolean             saved        = false;
+    private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
+    private transient boolean                  saved        = false;
 
     /**
      * Wrapper around mapboxes Feature class makes the object serializable and usable in an RTree
@@ -99,7 +110,7 @@ public class MapOverlay extends MapViewLayer {
                 if (bbox == null || bbox.size() != 4) {
                     box = getBounds(feature.getGeometry());
                 } else { // the geojson contains a bbox, use that
-                    box = new BoundingBox(bbox.get(0).getAsDouble(),bbox.get(1).getAsDouble(),bbox.get(2).getAsDouble(),bbox.get(3).getAsDouble());
+                    box = new BoundingBox(bbox.get(0).getAsDouble(), bbox.get(1).getAsDouble(), bbox.get(2).getAsDouble(), bbox.get(3).getAsDouble());
                 }
             }
             return box;
@@ -121,7 +132,8 @@ public class MapOverlay extends MapViewLayer {
                 break;
             case GeoJSONConstants.LINESTRING:
             case GeoJSONConstants.MULTIPOINT:
-                @SuppressWarnings("unchecked") List<Position> coordinates = (List<Position>) g.getCoordinates();
+                @SuppressWarnings("unchecked")
+                List<Position> coordinates = (List<Position>) g.getCoordinates();
                 for (Position q : coordinates) {
                     if (result == null) {
                         result = new BoundingBox(q.getLongitude(), q.getLatitude());
@@ -145,7 +157,8 @@ public class MapOverlay extends MapViewLayer {
                 }
                 break;
             case GeoJSONConstants.GEOMETRYCOLLECTION:
-                @SuppressWarnings("rawtypes") List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
+                @SuppressWarnings("rawtypes")
+                List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
                 for (Geometry<?> geometry : geometries) {
                     if (result == null) {
                         result = getBounds(geometry);
@@ -155,8 +168,9 @@ public class MapOverlay extends MapViewLayer {
                 }
                 break;
             case GeoJSONConstants.MULTILINESTRING:
-            case GeoJSONConstants.POLYGON: 
-                @SuppressWarnings("unchecked") List<List<Position>> linesOrRings = (List<List<Position>>) g.getCoordinates();
+            case GeoJSONConstants.POLYGON:
+                @SuppressWarnings("unchecked")
+                List<List<Position>> linesOrRings = (List<List<Position>>) g.getCoordinates();
                 for (List<Position> l : linesOrRings) {
                     for (Position s : l) {
                         if (result == null) {
@@ -208,14 +222,27 @@ public class MapOverlay extends MapViewLayer {
         }
     }
 
-    private RTree                 data;
-    private transient final Path  path = new Path();
-    private transient final Paint paint;
+    private RTree                data;
+    private transient final Path path = new Path();
+    private transient Paint      paint;
 
     /** Map this is an overlay of. */
-    private final Map map;
+    private transient final Map map;
 
-    private int iconRadius;
+    /**
+     * Styling parameters
+     */
+    private int    iconRadius;
+    private int    color;
+    private float  strokeWidth;
+    private String labelKey;
+
+    transient Paint        labelPaint;
+    transient Paint        labelBackground;
+    transient float        labelStrokeWidth;
+    transient FeatureStyle labelFs;
+    
+    private String name;
 
     /**
      * Construct this layer
@@ -224,8 +251,7 @@ public class MapOverlay extends MapViewLayer {
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        paint = new Paint(DataStyle.getCurrent(DataStyle.GPS_POS_FOLLOW).getPaint());
-        paint.setAlpha(125);
+        resetStyling();
     }
 
     @Override
@@ -242,19 +268,17 @@ public class MapOverlay extends MapViewLayer {
         int width = map.getWidth();
         int height = map.getHeight();
         int zoomLevel = map.getZoomLevel();
-        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
-        Paint labelPaint = fs.getPaint();
-        Paint labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        float strokeWidth = labelPaint.getStrokeWidth();
-        float yOffset = 2 * strokeWidth + iconRadius;
+        labelFs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        labelPaint = labelFs.getPaint();
+        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        labelStrokeWidth = labelPaint.getStrokeWidth();
 
         Collection<BoundedObject> queryResult = new ArrayList<>();
         data.query(queryResult, bb);
         Log.d(DEBUG_TAG, "features result count " + queryResult.size());
         for (BoundedObject bo : queryResult) {
             Feature f = ((BoundedFeature) bo).getFeature();
-            Geometry<?> g = f.getGeometry();
-            drawGeometry(canvas, bb, width, height, g);
+            drawGeometry(canvas, bb, width, height, zoomLevel, f);
         }
     }
 
@@ -265,33 +289,24 @@ public class MapOverlay extends MapViewLayer {
      * @param bb the current ViewBox
      * @param width screen width in screen coordinates
      * @param height screen height in screen coordinates
-     * @param g the Geometry object to draw
+     * @param zoomLevel current zoom level
+     * @param f the Feature object to draw
      */
-    public void drawGeometry(Canvas canvas, ViewBox bb, int width, int height, Geometry<?> g) {
+    public void drawGeometry(Canvas canvas, ViewBox bb, int width, int height, int zoomLevel, Feature f) {
+        Geometry<?> g = f.getGeometry();
+        String label = null;
+        if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
+            label = getLabel(f);
+        }
         switch (g.getType()) {
         case GeoJSONConstants.POINT:
             Position p = (Position) g.getCoordinates();
-            drawPoint(canvas, bb, width, height, p, paint);
-            // if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
-            // String label = wp.getName();
-            // if (label == null) {
-            // label = wp.getDescription();
-            // if (label == null) {
-            // continue;
-            // }
-            // }
-            // float halfTextWidth = paint.measureText(label) / 2;
-            // FontMetrics fm = fs.getFontMetrics();
-            // canvas.drawRect(x - halfTextWidth, y + yOffset + fm.bottom, x + halfTextWidth, y + yOffset -
-            // paint.getTextSize() + fm.bottom,
-            // labelBackground);
-            // canvas.drawText(label, x - halfTextWidth, y + yOffset, paint);
-            // }
+            drawPoint(canvas, bb, width, height, p, paint, label);
             break;
         case GeoJSONConstants.MULTIPOINT:
             List<Position> points = ((MultiPoint) g).getCoordinates();
             for (Position q : points) {
-                drawPoint(canvas, bb, width, height, q, paint);
+                drawPoint(canvas, bb, width, height, q, paint, label);
             }
             break;
         case GeoJSONConstants.LINESTRING:
@@ -324,9 +339,10 @@ public class MapOverlay extends MapViewLayer {
             }
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
-            @SuppressWarnings("rawtypes") List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
+            @SuppressWarnings("rawtypes")
+            List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
             for (Geometry<?> geometry : geometries) {
-                drawGeometry(canvas, bb, width, height, geometry);
+                drawGeometry(canvas, bb, width, height, zoomLevel, Feature.fromGeometry(geometry));
             }
             break;
         default:
@@ -343,14 +359,23 @@ public class MapOverlay extends MapViewLayer {
      * @param height screen height in screen coordinates
      * @param p the Position of the marker
      * @param paint Paint object for drawing
+     * @param label label to display, null if none
      */
-    public void drawPoint(Canvas canvas, ViewBox bb, int width, int height, Position p, Paint paint) {
+    public void drawPoint(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull Position p, @NonNull Paint paint,
+            @Nullable String label) {
         float x = GeoMath.lonToX(width, bb, p.getLongitude());
         float y = GeoMath.latToY(height, width, bb, p.getLatitude());
         canvas.save();
         canvas.translate(x, y);
         canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), paint);
         canvas.restore();
+        if (label != null) {
+            float yOffset = 2 * labelStrokeWidth + iconRadius;
+            float halfTextWidth = labelPaint.measureText(label) / 2;
+            FontMetrics fm = labelFs.getFontMetrics();
+            canvas.drawRect(x - halfTextWidth, y + yOffset + fm.bottom, x + halfTextWidth, y + yOffset - labelPaint.getTextSize() + fm.bottom, labelBackground);
+            canvas.drawText(label, x - halfTextWidth, y + yOffset, labelPaint);
+        }
     }
 
     /**
@@ -363,7 +388,7 @@ public class MapOverlay extends MapViewLayer {
      * @param line List of Position objects defining the line to draw
      * @param paint Paint object for drawing
      */
-    public void drawLine(Canvas canvas, ViewBox bb, int width, int height, List<Position> line, Paint paint) {
+    public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Position> line, @NonNull Paint paint) {
         path.reset();
         int size = line.size();
         for (int i = 0; i < size; i++) {
@@ -389,7 +414,7 @@ public class MapOverlay extends MapViewLayer {
      * @param polygon List of List of Position objects defining the polygon rings
      * @param paint Paint object for drawing
      */
-    public void drawPolygon(Canvas canvas, ViewBox bb, int width, int height, List<List<Position>> polygon, Paint paint) {
+    public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Position>> polygon, @NonNull Paint paint) {
         path.reset();
         for (List<Position> ring : polygon) {
             int size = ring.size();
@@ -436,6 +461,7 @@ public class MapOverlay extends MapViewLayer {
             ContentResolver cr = ctx.getContentResolver();
             is = cr.openInputStream(uri);
         }
+        name = uri.getLastPathSegment();
         loadGeoJsonFile(ctx, is);
     }
 
@@ -455,7 +481,7 @@ public class MapOverlay extends MapViewLayer {
         }
 
         try {
-            data = new RTree(2, 12);           
+            data = new RTree(2, 12);
             String json = sb.toString();
             FeatureCollection fc = FeatureCollection.fromJson(json);
             List<Feature> features = fc.getFeatures();
@@ -464,14 +490,14 @@ public class MapOverlay extends MapViewLayer {
             } else {
                 Log.d(DEBUG_TAG, "Retrying as Feature");
                 Feature f = Feature.fromJson(json);
-                Geometry<?>g = f.getGeometry();
+                Geometry<?> g = f.getGeometry();
                 if (g != null) {
                     data.insert(new BoundedFeature(f));
                 } else {
                     GsonBuilder gson = new GsonBuilder();
                     gson.registerTypeAdapter(Position.class, new PositionDeserializer());
                     gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
-                    g =  gson.create().fromJson(json, Geometry.class);
+                    g = gson.create().fromJson(json, Geometry.class);
                     Log.d(DEBUG_TAG, "Geometry " + g.getType());
                     if (g.getType() != null) {
                         data.insert(new BoundedFeature(Feature.fromGeometry(g)));
@@ -517,7 +543,7 @@ public class MapOverlay extends MapViewLayer {
         if (readingLock.tryLock()) {
             try {
                 // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(ctx, FILENAME, data, true)) {
+                if (savingHelper.save(ctx, FILENAME, this, true)) {
                     saved = true;
                 } else {
                     // this is essentially catastrophic and can only happen if something went really wrong
@@ -544,11 +570,17 @@ public class MapOverlay extends MapViewLayer {
     public synchronized boolean onRestoreState(@NonNull Context context) {
         try {
             readingLock.lock();
-            RTree newData = savingHelper.load(context, FILENAME, true);
+            MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
 
-            if (newData != null) {
+            if (restoredOverlay != null) {
                 Log.d(DEBUG_TAG, "read saved state");
-                data = newData;
+                data = restoredOverlay.data;
+                iconRadius = restoredOverlay.iconRadius;
+                color = restoredOverlay.color;
+                paint.setColor(color);
+                strokeWidth = restoredOverlay.strokeWidth;
+                paint.setStrokeWidth(strokeWidth);
+                labelKey = restoredOverlay.labelKey;
                 return true;
             } else {
                 Log.d(DEBUG_TAG, "saved state null");
@@ -587,7 +619,8 @@ public class MapOverlay extends MapViewLayer {
                         }
                         break;
                     case GeoJSONConstants.MULTIPOINT:
-                        @SuppressWarnings("unchecked") List<Position> positions = (List<Position>) g.getCoordinates();
+                        @SuppressWarnings("unchecked")
+                        List<Position> positions = (List<Position>) g.getCoordinates();
                         for (Position q : positions) {
                             if (inToleranceArea(viewBox, tolerance, q, x, y)) {
                                 result.add(f);
@@ -601,7 +634,8 @@ public class MapOverlay extends MapViewLayer {
                         int width = map.getWidth();
                         int height = map.getHeight();
                         // Iterate over all WayNodes, but not the last one.
-                        @SuppressWarnings("unchecked") List<Position> vertices = (List<Position>) g.getCoordinates();
+                        @SuppressWarnings("unchecked")
+                        List<Position> vertices = (List<Position>) g.getCoordinates();
                         for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
                             Position p1 = vertices.get(k);
                             Position p2 = vertices.get(k + 1);
@@ -685,7 +719,7 @@ public class MapOverlay extends MapViewLayer {
             Collection<BoundedObject> queryResult = new ArrayList<>();
             data.query(queryResult);
             BoundingBox extent = null;
-            for (BoundedObject bo:queryResult) {
+            for (BoundedObject bo : queryResult) {
                 if (extent == null) {
                     extent = bo.getBounds();
                 } else {
@@ -695,5 +729,107 @@ public class MapOverlay extends MapViewLayer {
             return extent;
         }
         return null;
+    }
+
+    /**
+     * Get the current color for this layer
+     * 
+     * @return the color as an int
+     */
+    @Override
+    public int getColor() {
+        return paint.getColor();
+    }
+
+    @Override
+    public void setColor(int color) {
+        paint.setColor(color);
+        this.color = color;
+    }
+
+    @Override
+    public float getStrokeWidth() {
+        return paint.getStrokeWidth();
+    }
+
+    @Override
+    public void setStrokeWidth(float width) {
+        paint.setStrokeWidth(width);
+        strokeWidth = width;
+    }
+
+    @Override
+    public Path getPointSymbol() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void setPointSymbol(Path symbol) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void resetStyling() {
+        paint = new Paint(DataStyle.getCurrent(DataStyle.GEOJSON_DEFAULT).getPaint());
+        color = paint.getColor();
+        strokeWidth = paint.getStrokeWidth();
+        labelKey = "";
+        iconRadius = map.getIconRadius();
+    }
+
+    @Override
+    public List<String> getLabelList() {
+        if (data != null) {
+            Collection<BoundedObject> queryResult = new ArrayList<>();
+            data.query(queryResult);
+            Set<String> result = new TreeSet<String>();
+            for (BoundedObject bo : queryResult) {
+                BoundedFeature bf = (BoundedFeature) bo;
+                JsonObject properties = bf.getFeature().getProperties();
+                if (properties != null) {
+                    for (String key : properties.keySet()) {
+                        JsonElement e = properties.get(key);
+                        if (e != null && e.isJsonPrimitive()) {
+                            result.add(key);
+                        }
+                    }
+                }
+            }
+            return new ArrayList<String>(result);
+        }
+        return null;
+    }
+
+    @Override
+    public void setLabel(String key) {
+        labelKey = key;
+    }
+
+    /**
+     * Get the label value for this Feature
+     * 
+     * @param f the Feature we want the label for
+     * @return the label or null if not found
+     */
+    public String getLabel(Feature f) {
+        if (labelKey != null) {
+            JsonObject properties = f.getProperties();
+            if (properties != null) {
+                JsonElement e = properties.get(labelKey);
+                if (e != null && e.isJsonPrimitive()) {
+                    return e.getAsString();
+                }
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public String getName() {
+       if (name != null) {
+           return name;
+       }
+       return map.getContext().getString(R.string.layer_geojson);    
     }
 }

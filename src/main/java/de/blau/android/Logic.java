@@ -3265,7 +3265,12 @@ public class Logic {
                 boolean result = true;
                 for (MapViewLayer layer : map.getLayers()) {
                     if (layer != null) {
-                        result = result && layer.onRestoreState(activity);
+                        try {
+                            result = result && layer.onRestoreState(activity);
+                        } catch (Exception e) {
+                            // Never crash
+                            result = false;
+                        }
                     }
                 }
                 return result ? READ_OK : READ_FAILED;
