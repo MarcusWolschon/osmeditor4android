@@ -251,6 +251,7 @@
             <li><a href="#how-can-i-add-a-custom-aerialsatellite-imagery-layer">How can I add a custom (aerial/satellite) imagery layer</a></li>
             <li><a href="#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section</a></li>
             <li><a href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</a></li>
+            <li><a href="#other-tile-database-related-issues">Other tile database related issues</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
@@ -391,7 +392,10 @@ however older devices tend to have very limited memory and correspondingly the a
 <h4 id="on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</h4>
 <p>Vespucci stores downloaded background and overlay tiles in a database that it tries to create on removable storage if present, this to preserve space on your device at the expense of access potentially being a bit slower.</p>
 <p>If the app can't write to the database it will show a message asking you to submit a crash dump and will not display any background layer. The exact reasons why this happens, even if the installation was able to create and write to the database previously and for example you just rebooted, are not clear. However in some cases is seems to be linked to Vespucci being moved to removable storage. If this happens to you try moving the app back to the regular on device storage. </p>
-<p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).</p></div>
+<p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).</p>
+<h4 id="other-tile-database-related-issues">Other tile database related issues</h4>
+<p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
+<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p></div>
                 
         </div>
 
