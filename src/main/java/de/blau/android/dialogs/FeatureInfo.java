@@ -118,9 +118,13 @@ public class FeatureInfo extends DialogFragment {
             if (properties != null) {
                 for (String key : properties.keySet()) {
                     JsonElement e = properties.get(key);
-                    if (e instanceof JsonArray) {
-
-                    } else {
+                    if (e.isJsonArray()) {
+                        // value not displayed yet
+                        tl.addView(TableLayoutUtils.createRow(activity, key, null, tp));
+                    } if (e.isJsonObject()) {
+                        // value not displayed yet
+                        tl.addView(TableLayoutUtils.createRow(activity, key, null, tp));
+                    } else if (e.isJsonPrimitive()){
                         tl.addView(TableLayoutUtils.createRow(activity, key, e.getAsString(), tp));
                     }
                 }

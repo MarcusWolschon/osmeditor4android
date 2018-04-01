@@ -729,6 +729,21 @@ public class MapOverlay extends StyleableLayer implements Serializable {
         }
         return null;
     }
+    
+    /**
+     * Return a List of all loaded Features
+     * 
+     * @return a List of Feature objects
+     */
+    public List<Feature> getFeatures() {
+        Collection<BoundedObject> queryResult = new ArrayList<>();
+        data.query(queryResult);
+        List<Feature>result = new ArrayList<>();
+        for (BoundedObject bo:queryResult) {
+            result.add(((BoundedFeature)bo).getFeature());
+        }
+        return result;
+    }
 
     /**
      * Get the current color for this layer

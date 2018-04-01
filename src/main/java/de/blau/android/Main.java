@@ -4039,10 +4039,8 @@ public class Main extends FullScreenAppCompatActivity
     private void zoomTo(int lonE7, int latE7, OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
         if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
-            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); // FIXME this
-                                                               // doesn't seem
-                                                               // to work as
-                                                               // expected
+            // FIXME this doesn't seem to work as expected
+            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); 
         } else {
             map.getViewBox().setBorders(getMap(), e.getBounds(), false);
         }

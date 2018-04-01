@@ -144,18 +144,9 @@ public class GpxTest {
         viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat());
         map.invalidate();
 
-        if (App.getLogic().isLocked()) {
-            UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
-            try {
-                lock.click();
-            } catch (UiObjectNotFoundException e) {
-                Assert.fail(e.getMessage());
-            }
-        }
+        TestUtils.unlock();
 
-        float x = GeoMath.lonE7ToX(map.getWidth(), viewBox, foundWp.getLon());
-        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, foundWp.getLat());
-        TestUtils.clickAt(x, y);
+        TestUtils.clickAtCoordinates(map, foundWp.getLon(), foundWp.getLat());
 
         TestUtils.clickText(device, true, "Create osm object from", true);
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));

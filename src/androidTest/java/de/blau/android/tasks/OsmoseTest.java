@@ -160,7 +160,7 @@ public class OsmoseTest {
     }
 
     @Test
-    public void notesAmdOsmoseUpload() {
+    public void notesAndOsmoseUpload() {
         osmoseDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         b.setFalse();

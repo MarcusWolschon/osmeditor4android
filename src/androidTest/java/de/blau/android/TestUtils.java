@@ -27,7 +27,9 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.util.GeoMath;
 
 /**
  * 
@@ -124,6 +126,43 @@ public class TestUtils {
     public static void clickAt(float x, float y) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click((int) x, (int) y);
+    }
+
+    public static void clickAtCoordinates(Map map, double lon, double lat) {
+        clickAtCoordinates(map, (int)(lon*1E7), (int)(lat*1E7));
+    }
+    
+    /**
+     * 
+     * @param map
+     * @param viewBox
+     * @param lonE7
+     * @param latE7
+     */
+    public static void clickAtCoordinates(Map map,  int lonE7, int latE7) {
+        if (map.getZoomLevel() < 15) {
+            App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
+        }
+        map.getViewBox().moveTo(map, lonE7, latE7);
+        map.invalidate();
+        float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
+        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
+        TestUtils.clickAt(x, y);
+    }
+
+    /**
+     * 
+     */
+    public static void unlock() {
+        if (App.getLogic().isLocked()) {
+            UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+            UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
+            try {
+                lock.click();
+            } catch (UiObjectNotFoundException e) {
+                Assert.fail(e.getMessage());
+            }
+        }
     }
 
     public static void zoomToLevel(Main main, int level) {
