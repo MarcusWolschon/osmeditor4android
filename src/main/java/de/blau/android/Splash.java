@@ -46,7 +46,7 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected void onPreExecute() {
-                long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI);
+                long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI);
                 long lastUpdateTime = 0L;
                 try {
                     PackageInfo packageInfo = Splash.this.getPackageManager().getPackageInfo(Splash.this.getPackageName(), 0);

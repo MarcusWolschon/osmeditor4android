@@ -134,13 +134,17 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      */
     public static long getSourceUpdate(@NonNull SQLiteDatabase db, @NonNull String source) {
         Cursor dbresult = db.query(SOURCES_TABLE, null, NAME_FIELD + "='" + source + "'", null, null, null, null);
-        if (dbresult.getCount() >= 1) {
-            boolean haveEntry = dbresult.moveToFirst();
-            if (haveEntry) {
-                return dbresult.getLong(dbresult.getColumnIndex(UPDATED_FIELD));
+        try {
+            if (dbresult.getCount() >= 1) {
+                boolean haveEntry = dbresult.moveToFirst();
+                if (haveEntry) {
+                    return dbresult.getLong(dbresult.getColumnIndex(UPDATED_FIELD));
+                }
             }
+            return 0;
+        } finally {
+            dbresult.close();
         }
-        return 0;
     }
 
     /**
