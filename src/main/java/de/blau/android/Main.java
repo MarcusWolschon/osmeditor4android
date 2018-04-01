@@ -2902,7 +2902,7 @@ public class Main extends FullScreenAppCompatActivity
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (oAuthWebView.canGoBack()) {
+                        if (oAuthWebView != null && oAuthWebView.canGoBack()) {
                             oAuthWebView.goBack();
                         } else {
                             finishOAuth();
