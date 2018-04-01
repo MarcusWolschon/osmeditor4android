@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-03-31 20:34+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-03-31 23:25+0000\n"
+"Last-Translator: Alexander Istomin\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3635,7 +3635,7 @@ msgstr ""
 #: master_preset.xml:12496(item:name|group:Land_use|preset:Industrial)
 #: master_preset.xml:8297(item:name|group:Buildings|preset:Industrial)
 msgid "Industrial"
-msgstr ""
+msgstr "Промышленное"
 
 #: master_preset.xml:9134(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -4504,7 +4504,7 @@ msgstr ""
 
 #: master_preset.xml:12540(item:name|group:Land_use|preset:Military)
 msgid "Military"
-msgstr ""
+msgstr "Военное"
 
 #: master_preset.xml:11374(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
@@ -10887,7 +10887,7 @@ msgstr ""
 #: master_preset.xml:8314(key:text|group:Buildings|preset:Industrial|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr ""
+msgstr "Промышленное"
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11874,7 +11874,7 @@ msgstr ""
 #: master_preset.xml:8447(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr ""
+msgstr "Основное"
 
 #: master_preset.xml:8456(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
