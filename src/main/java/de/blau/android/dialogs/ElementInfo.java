@@ -19,6 +19,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import android.widget.TableLayout;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
+import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -53,6 +56,12 @@ public class ElementInfo extends DialogFragment {
 
     private static final String TAG = "fragment_element_info";
 
+    /**
+     * Show an info dialog for the supplied OsmElement
+     * 
+     * @param activity the calling Activity
+     * @param e the OsmElement
+     */
     static public void showDialog(FragmentActivity activity, OsmElement e) {
         dismissDialog(activity);
         try {
@@ -64,6 +73,12 @@ public class ElementInfo extends DialogFragment {
         }
     }
 
+    
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activit
+     */
     private static void dismissDialog(FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -79,6 +94,10 @@ public class ElementInfo extends DialogFragment {
     }
 
     /**
+     * Create a new instance of the ElementInfo dialog
+     * 
+     * @param e OSMElement to display the info on
+     * @return an instance of ElementInfo
      */
     private static ElementInfo newInstance(OsmElement e) {
         ElementInfo f = new ElementInfo();
@@ -95,22 +114,34 @@ public class ElementInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Preferences prefs = new Preferences(getActivity());
-        // if (prefs.lightThemeEnabled()) {
-        // setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogLight);
-        // } else {
-        // setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_DialogDark);
-        // }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(ThemeUtils.getThemedContext(getActivity(), R.style.Theme_DialogLight, R.style.Theme_DialogDark));
+        Builder builder = new AlertDialog.Builder(getActivity());
+        DoNothingListener doNothingListener = new DoNothingListener();
+        builder.setPositiveButton(R.string.done, doNothingListener);
+        builder.setTitle(R.string.element_information);
+        builder.setView(createView(null));
+        return builder.create();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (!getShowsDialog()) {
+            return createView(container);
+        } 
+        return null;
+    }
+
+    /**
+     * Create the view we want to display
+     * 
+     * @param container parent view or null
+     * @return the View
+     */
+    @SuppressWarnings("deprecation")
+    private View createView(ViewGroup container) {      
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
@@ -118,7 +149,7 @@ public class ElementInfo extends DialogFragment {
 
         OsmElement e = (OsmElement) getArguments().getSerializable(ELEMENT);
 
-        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
 
         if (e != null) {
@@ -229,7 +260,6 @@ public class ElementInfo extends DialogFragment {
                 }
             }
         }
-        getDialog().setTitle(R.string.element_information);
         return sv;
     }
     
