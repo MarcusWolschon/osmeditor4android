@@ -991,7 +991,7 @@ public class DataStyle extends DefaultHandler {
 
     private void createWayPointPath(float scale) {
         waypoint_path = new Path();
-        int side = (int) Density.dpToPx(ctx, 5 * scale);
+        int side = (int) Density.dpToPx(ctx, 8 * scale);
         waypoint_path.moveTo(0, 0);
         waypoint_path.lineTo(side, -side * 2f);
         waypoint_path.lineTo(-side, -side * 2f);
