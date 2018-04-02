@@ -570,7 +570,6 @@ public class MapOverlay extends StyleableLayer implements Serializable {
         try {
             readingLock.lock();
             MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
-
             if (restoredOverlay != null) {
                 Log.d(DEBUG_TAG, "read saved state");
                 data = restoredOverlay.data;

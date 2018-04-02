@@ -197,6 +197,8 @@
     <string name="layer_photos">Photos</string>
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM Data</string>
+    <string name="json_object_not_displayed">JSON object (not displayed)</string>
+    <string name="json_array_not_displayed">JSON array (not displayed)</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
