@@ -498,7 +498,7 @@ public class TrackerService extends Service implements Exportable {
                     if (last != null) {
                         networkListener.onLocationChanged(last);
                     }
-                } else {
+                } else if (last != null) {
                     gpsListener.onLocationChanged(last);
                 }
             } catch (SecurityException | IllegalArgumentException ex) {
