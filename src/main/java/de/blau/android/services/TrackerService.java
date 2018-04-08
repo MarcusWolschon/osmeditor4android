@@ -1018,7 +1018,10 @@ public class TrackerService extends Service implements Exportable {
     /**
      * @param location
      */
-    public void updateLocation(Location location) {
+    public void updateLocation(@Nullable Location location) {
+        if (location == null) {
+            return;
+        }
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         // only attempt to download if we have a network
         if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
