@@ -590,17 +590,22 @@ public class Snack {
      * @param duration how long to display the message
      */
     private static void toastTop(Context context, String msg, int color, int duration) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View layout = inflater.inflate(R.layout.toast, null);
-        layout.setBackgroundColor(color);
-        TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText(msg);
+        try {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View layout = inflater.inflate(R.layout.toast, null);
+            layout.setBackgroundColor(color);
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            text.setText(msg);
 
-        Toast toast = new Toast(context);
-        int yOffset = ThemeUtils.getActionBarHeight(context) + 5;
-        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+            Toast toast = new Toast(context);
+            int yOffset = ThemeUtils.getActionBarHeight(context) + 5;
+            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, yOffset);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout);
+            toast.show();
+        } catch (Exception e) {
+            // Never crash
+            e.printStackTrace();
+        }
     }
 }
