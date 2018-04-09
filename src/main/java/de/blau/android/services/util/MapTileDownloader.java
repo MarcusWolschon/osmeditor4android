@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,12 +19,14 @@ import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.util.NetworkStatus;
 import okhttp3.Call;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -37,6 +40,7 @@ import okhttp3.ResponseBody;
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz
  * @author Manuel Stahl
+ * @author Simon Poole
  *
  */
 public class MapTileDownloader extends MapAsyncTileProvider {
@@ -46,6 +50,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private static final String DEBUGTAG = "OSM_DOWNLOADER";
 
+    public static final long TIMEOUT = 2500;
+
     // ===========================================================
     // Fields
     // ===========================================================
@@ -53,6 +59,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
     private final Context                   mCtx;
     private final MapTileFilesystemProvider mMapTileFSProvider;
     private final NetworkStatus             networkStatus;
+    private final OkHttpClient              client;
 
     // ===========================================================
     // Constructors
@@ -63,6 +70,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
         mMapTileFSProvider = aMapTileFSProvider;
         networkStatus = new NetworkStatus(ctx);
         mThreadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool((new Preferences(ctx)).getMaxTileDownloadThreads());
+        client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS).build();
     }
 
     // ===========================================================
@@ -123,7 +131,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                     }
 
                     Request request = new Request.Builder().url(tileURLString).build();
-                    Call tileCall = App.getHttpClient().newCall(request);
+                    Call tileCall = client.newCall(request);
                     Response tileCallResponse = tileCall.execute();
                     if (tileCallResponse.isSuccessful()) {
                         responseBody = tileCallResponse.body();
@@ -190,7 +198,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                  * blocks it for the whole existence of this TileDownloader. -> we remove it and the application has to
                  * re-request it.
                  */
-            } catch (RemoteException | NullPointerException | IllegalArgumentException e ) {
+            } catch (RemoteException | NullPointerException | IllegalArgumentException e) {
                 Log.e(DEBUGTAG, "Error in TileLoader. Url " + tileURLString + " Exception: " + e);
             } finally {
                 StreamUtils.closeStream(in);
