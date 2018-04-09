@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-03-31 20:34+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-04-05 12:06+0000\n"
+"Last-Translator: Grillmannen <andreas.vilen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3636,7 +3636,7 @@ msgstr "Inomhus"
 #: master_preset.xml:12496(item:name|group:Land_use|preset:Industrial)
 #: master_preset.xml:8297(item:name|group:Buildings|preset:Industrial)
 msgid "Industrial"
-msgstr ""
+msgstr "Industriell"
 
 #: master_preset.xml:9134(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -5753,7 +5753,7 @@ msgstr ""
 
 #: master_preset.xml:2024(item:name|preset:Passing_Place)
 msgid "Passing Place"
-msgstr ""
+msgstr "Mötesplats"
 
 #: master_preset.xml:1173(check:text|group:Streets|preset:Minor_road|key:passing_places)
 #: master_preset.xml:1309(check:text|group:Streets|preset:Service|key:passing_places)
@@ -10888,7 +10888,7 @@ msgstr ""
 #: master_preset.xml:8314(key:text|group:Buildings|preset:Industrial|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr ""
+msgstr "Industriell"
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11875,7 +11875,7 @@ msgstr ""
 #: master_preset.xml:8447(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr ""
+msgstr "Primär"
 
 #: master_preset.xml:8456(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"

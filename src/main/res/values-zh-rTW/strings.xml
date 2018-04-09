@@ -75,6 +75,8 @@
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
+  <string name="upload_validation_error_empty_comment">註解不應該留空</string>
+  <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <string name="openstreetbug_new_title">新註解</string>
   <string name="openstreetbug_new_bug">回報問題</string>
   <string name="openstreetbug_bug_title">問題</string>
@@ -245,6 +247,8 @@
   <string name="toast_split_via">分離\"經過\"路徑</string>
   <string name="toast_split_from_and_via">分離\"從\"和\"經過\"路徑</string>
   <string name="toast_split_to">分離\"到\"路徑</string>
+  <string name="toast_tile_database_issue_short">圖磚資料庫問題</string>
+  <string name="toast_tile_database_issue">關於地圖磚資料庫 \n\"%1$s\"\n 的嚴重問題，請參閱我們在 http://vespucci.io/ 的 FAQ</string>
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
@@ -271,6 +275,9 @@
   <string name="toast_unsupported_format">不支援的格式：%1$s</string>
   <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
   <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
+  <string name="toast_using_network_location">使用網路位置</string>
+  <string name="toast_using_gps_location">使用 GPS 位置</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS 已停用，記錄已中止</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -398,10 +405,15 @@
   <string name="menu_camera">照相機</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">顯示位置</string>
+  <string name="menu_gps_follow">追隨位置</string>
+  <string name="menu_gps_goto">前往目前位置</string>
   <string name="menu_gps_start">開始 GPS 軌跡</string>
   <string name="menu_gps_pause">暫停 GPS 軌跡</string>
   <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
   <string name="menu_gps_track_managment">軌跡管理...</string>
+  <string name="menu_gps_upload">上傳 GPS 軌跡</string>
+  <string name="menu_gps_export">匯出 GPS 軌跡</string>
+  <string name="menu_gps_import">匯入 GPS 軌跡</string>
   <string name="menu_gps_goto_start">前往起始的軌跡</string>
   <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
   <string name="menu_gps_autodownload">自動下載</string>
@@ -560,12 +572,15 @@
 帳號可在這申請 http://www.openstreetmap.org/user/new</string>
   <string name="config_password_title">OSM 密碼</string>
   <string name="config_password_summary">不要誤認為是維基密碼。請記住：它是以純文字存儲和傳輸！</string>
+  <string name="config_category_gps">位置設定</string>
   <string name="config_gps_distance_title">GPS 的最小距離</string>
   <string name="config_gps_distance_summary">GPS 接收通知，以公尺 (可以有小數) 為單位的最小距離間隔 。較低的值使電池更加耗電。</string>
   <string name="config_gps_distance_current">%1$d 公尺</string>
   <string name="config_gps_interval_title">GPS 的最小時間間隔</string>
   <string name="config_gps_interval_summary">GPS 接收通知，以毫秒為單位的最小時間間隔 。較低的值使電池更加耗電。</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_network_title">回退到網路位置</string>
+  <string name="config_gps_network_summary">如果沒有或是開 GPS 的話，回退到網路提供者 </string>
   <string name="config_category_info">關於</string>
   <string name="config_advancedprefs">進階參數選項</string>
   <string name="config_forceContextMenu_title">總是使用快顯選單</string>
@@ -653,6 +668,10 @@
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
   <string name="changes_created">\"%1$s\" 已建立</string>
+  <string name="confirm_upload_title">要上傳變動嗎？</string>
+  <string name="confirm_one_upload_text">上傳以下變動？n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">上傳以下變動 %1$d？n\n%2$s</string>
+  <string name="confirm_upload_edits_page">變動</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -685,6 +704,10 @@
   <string name="undo">復原</string>
   <string name="redo">取消復原</string>
   <string name="undo_nothing">沒什麼可復原</string>
+  <string name="tracking_active_title">Vespucci 背景服務</string>
+  <string name="tracking_active_title_short">啟用背景服務</string>
+  <string name="tracking_active_text">錄製 GPS 軌跡或是自動下載</string>
+  <string name="tracking_long_text">Vespucci 正錄製 GPS 軌跡，或是自動下載。要完全離開的話，請暫停已啟用的軌跡記錄，之後按退後按鈕離開程式。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>

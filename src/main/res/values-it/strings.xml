@@ -90,7 +90,7 @@
   <string name="openstreetbug_not_downloaded">non scaricato</string>
   <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
-  <string name="openstreetbug_not_supported">%1$snon supportato</string>
+  <string name="openstreetbug_not_supported">%1$s non supportato</string>
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
@@ -257,7 +257,7 @@
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
   <string name="toast_file_exists">Il file %1$s esiste.</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe essere non aggiornato</string>
-  <string name="toast_missing_key">%1$smancante</string>
+  <string name="toast_missing_key">%1$s mancante</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_openinghours_autocorrected">Il valore dell\'orario di apertura riguardante %1$s, è stato corretto automaticamente</string>
   <string name="toast_exit_multiselect">Per uscire tocca due volte uno spazio vuoto, oppure utilizza la freccia indietro.</string>
@@ -272,7 +272,7 @@
   <string name="toast_flus_all_caches">Questo cancellerà la cache di tutti i livelli di immagini.</string>
   <string name="toast_applied_offset">Allineamento applicato automaticamente alle immagini</string>
   <string name="toast_unsupported_format">Formato non supportato: %1$s</string>
-  <string name="toast_returning_less_than_found">Ho trovato %1$dvoci di %2$d</string>
+  <string name="toast_returning_less_than_found">Ho trovato %1$d voci di %2$d</string>
   <string name="toast_not_mbtiles">Non è file in formato MBTiles</string>
   <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
   <string name="toast_using_gps_location">Sto usando la localizzazione GPS</string>

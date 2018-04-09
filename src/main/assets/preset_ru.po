@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-03-31 23:25+0000\n"
+"PO-Revision-Date: 2018-04-04 17:39+0000\n"
 "Last-Translator: Alexander Istomin\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -795,7 +795,7 @@ msgstr ""
 
 #: master_preset.xml:5393(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "Пляжный курорт"
 
 #: master_preset.xml:8015(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"

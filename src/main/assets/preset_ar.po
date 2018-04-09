@@ -1,20 +1,18 @@
 # 
 # Translators:
 # Simon Poole <sp8962@gmail.com>, 2017
-# Cybereric, 2017
-# Vincent de Phily <vincent.dephily@mobile-devices.fr>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-04-05 15:50+0000\n"
-"Last-Translator: abdeldjalil09 <kakamilan2007@live.com>\n"
-"Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
+"PO-Revision-Date: 2018-04-07 06:19+0000\n"
+"Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: master_preset.xml:9253(label:text|preset:Power_Switchgear)
 msgid ""
@@ -156,7 +154,7 @@ msgstr ""
 msgid ""
 "A point where groundwater naturally flows to the surface of the earth from "
 "underground."
-msgstr "Un endroit ou l'eau souterraine sort naturellement de terre."
+msgstr ""
 
 #: master_preset.xml:11764(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
@@ -210,7 +208,7 @@ msgstr ""
 
 #: master_preset.xml:12708(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:inclusion)
 msgid "Accuracy"
-msgstr "Précision"
+msgstr ""
 
 #: master_preset.xml:786(list_entry:display_value|value:across)
 #: master_preset.xml:834(list_entry:display_value|value:across)
@@ -377,7 +375,7 @@ msgstr ""
 
 #: master_preset.xml:4814(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "كوخ جبلي"
 
 #: master_preset.xml:6525(item:name|group:Health|preset:Alternative_medicine)
 msgid "Alternative medicine"
@@ -385,7 +383,7 @@ msgstr ""
 
 #: master_preset.xml:12644(text:text|group:Addresses_and_Contact|preset:Name|key:alt_name)
 msgid "Alternative name"
-msgstr "Autre nom"
+msgstr ""
 
 #: master_preset.xml:7112(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 #: master_preset.xml:7153(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
@@ -445,7 +443,7 @@ msgstr ""
 
 #: master_preset.xml:5153(label:text|group:Tourism|preset:Information_Office)
 msgid "An office where you can get information about a town or region."
-msgstr "Une office ou vous pouvez obtenir des informations sur une vile ou une région."
+msgstr ""
 
 #: master_preset.xml:8919(check:text|group:Man_Made|preset:Monitoring_Station|key:display:analog)
 msgid "Analog"
@@ -495,7 +493,7 @@ msgstr ""
 
 #: master_preset.xml:8231(item:name|group:Buildings|preset:Apartments)
 msgid "Apartments"
-msgstr "Habitations"
+msgstr "شقق"
 
 #: master_preset.xml:12244(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Apple trees"
@@ -516,7 +514,7 @@ msgstr ""
 
 #: master_preset.xml:5324(item:name|group:Leisure|preset:Aquarium)
 msgid "Aquarium"
-msgstr "Aquarium"
+msgstr ""
 
 #: master_preset.xml:2551(item:name|group:Passageways|preset:Arcade)
 msgid "Arcade"
@@ -524,7 +522,7 @@ msgstr ""
 
 #: master_preset.xml:9546(item:name|group:Historic_Places_&_Objects|preset:Archaeological_Site)
 msgid "Archaeological Site"
-msgstr "Site archéologique"
+msgstr ""
 
 #: master_preset.xml:7720(item:name|group:Sport|preset:Archery)
 msgid "Archery"
@@ -532,7 +530,7 @@ msgstr ""
 
 #: master_preset.xml:14128(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr "Architecte"
+msgstr ""
 
 #: master_preset.xml:1281(check:text|group:Streets|preset:Pedestrian|key:area)
 #: master_preset.xml:4345(check:text|group:Public_Transport|preset:Station|key:area)
@@ -540,7 +538,7 @@ msgstr "Architecte"
 #: master_preset.xml:4510(check:text|group:Public_Transport_(Legacy)|preset:Bus_Platform|key:area)
 #: master_preset.xml:5357(check:text|group:Leisure|preset:Dog_Park|key:area)
 msgid "Area"
-msgstr "Polygon"
+msgstr ""
 
 #: master_preset.xml:6537(list_entry:short_description|group:Health|preset:Alternative_medicine|value:aromatherapy)
 msgid "Aromatherapy"
@@ -569,7 +567,7 @@ msgstr ""
 
 #: master_preset.xml:5891(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
-msgstr "Œuvre d'art"
+msgstr ""
 
 #: master_preset.xml:493(text:text|key:ascent)
 msgid "Ascent (m)"
@@ -667,7 +665,7 @@ msgstr ""
 
 #: master_preset.xml:4901(check:text|group:Accommodation|preset:Campsite|key:backcountry)
 msgid "Backcountry"
-msgstr "Hors-piste, pas de préparation"
+msgstr ""
 
 #: master_preset.xml:7235(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
@@ -723,7 +721,7 @@ msgstr ""
 
 #: master_preset.xml:12131(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
-msgstr "Roche nue"
+msgstr ""
 
 #: master_preset.xml:12108(label:text|group:Nature|preset:Heath)
 msgid ""
@@ -783,7 +781,7 @@ msgstr ""
 
 #: master_preset.xml:9561(item:name|group:Historic_Places_&_Objects|preset:Battlefield)
 msgid "Battlefield"
-msgstr "Champ de Bataille"
+msgstr ""
 
 #: master_preset.xml:3168(item:name|group:Water|preset:Bay)
 msgid "Bay"
@@ -795,7 +793,7 @@ msgstr ""
 
 #: master_preset.xml:5393(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr "Station balnéaire"
+msgstr "منتجع الشاطئ"
 
 #: master_preset.xml:8015(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -874,7 +872,7 @@ msgstr ""
 
 #: master_preset.xml:4146(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:rental)
 msgid "Bicycles are rented"
-msgstr "Vélos en location"
+msgstr ""
 
 #: master_preset.xml:4145(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:repair)
 msgid "Bicycles are repaired"
@@ -1054,7 +1052,7 @@ msgstr ""
 
 #: master_preset.xml:11454(group:name|group:Boundaries)
 msgid "Boundaries"
-msgstr "Frontières"
+msgstr ""
 
 #: master_preset.xml:12860(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
@@ -1062,7 +1060,7 @@ msgstr ""
 
 #: master_preset.xml:9679(item:name|group:Historic_Places_&_Objects|preset:Boundary_Stone)
 msgid "Boundary Stone"
-msgstr "Borne frontière historique"
+msgstr ""
 
 #: master_preset.xml:12874(combo:text|group:Relations|preset:Boundary|key:boundary)
 msgid "Boundary type"
@@ -1070,7 +1068,7 @@ msgstr ""
 
 #: master_preset.xml:10068(item:name|group:Clothes|preset:Boutique)
 msgid "Boutique"
-msgstr "Boutique de mode"
+msgstr ""
 
 #: master_preset.xml:533(text:text|key:branch)
 #: master_preset.xml:568(text:text|key:branch)
@@ -1098,7 +1096,7 @@ msgstr ""
 
 #: master_preset.xml:13387(item:name|group:Crafts|preset:Brewery)
 msgid "Brewery"
-msgstr "Brasserie artisanale"
+msgstr ""
 
 #: master_preset.xml:13292(item:name|preset:Bridge)
 #: master_preset.xml:85(check:text|key:bridge)
@@ -1125,7 +1123,7 @@ msgstr ""
 
 #: master_preset.xml:505(combo:display_values|key:leaf_type)
 msgid "Broadleaved"
-msgstr "arbres feuillus"
+msgstr "عريضة الأوراق"
 
 #: master_preset.xml:5696(item:name|group:Leisure|preset:Brothel)
 msgid "Brothel"
@@ -1138,7 +1136,7 @@ msgstr ""
 
 #: master_preset.xml:12567(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
-msgstr "Friche industrielle"
+msgstr ""
 
 #: master_preset.xml:516(combo:display_values|key:religion)
 msgid "Buddhist"
@@ -1150,7 +1148,7 @@ msgstr ""
 
 #: master_preset.xml:3590(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr "Butoir"
+msgstr ""
 
 #: master_preset.xml:13401(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
@@ -1192,7 +1190,7 @@ msgstr ""
 
 #: master_preset.xml:8203(group:name|group:Buildings)
 msgid "Buildings"
-msgstr "Bâtiments"
+msgstr ""
 
 #: master_preset.xml:1900(item:name|group:Traffic_Calming|preset:Bump)
 msgid "Bump"
@@ -1217,7 +1215,7 @@ msgstr ""
 
 #: master_preset.xml:3489(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr "Voie de bus guidés"
+msgstr ""
 
 #: master_preset.xml:4499(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -1307,7 +1305,7 @@ msgstr ""
 
 #: master_preset.xml:8959(label:text|group:Man_Made|preset:Surveillance_Camera)
 msgid "Camera"
-msgstr "Caméra de surveillance"
+msgstr ""
 
 #: master_preset.xml:7964(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:camogie)
 msgid "Camogie"
@@ -1425,7 +1423,7 @@ msgstr ""
 
 #: master_preset.xml:9483(item:name|group:Historic_Places_&_Objects|preset:Castle)
 msgid "Castle"
-msgstr "Château"
+msgstr "حصن/ قلعة"
 
 #: master_preset.xml:11280(multiselect:display_values|group:Other|preset:Pet_grooming|key:pet)
 #: master_preset.xml:7335(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
@@ -1452,7 +1450,7 @@ msgstr ""
 
 #: master_preset.xml:12442(item:name|group:Land_use|preset:Cemetery)
 msgid "Cemetery"
-msgstr "Cimetiere"
+msgstr ""
 
 #: master_preset.xml:1731(check:text|group:Ways|preset:Steps|key:handrail:center)
 msgid "Center handrail"
@@ -1558,7 +1556,7 @@ msgstr ""
 
 #: master_preset.xml:5924(item:name|group:Place_of_Worship|preset:Church)
 msgid "Church"
-msgstr "Église"
+msgstr ""
 
 #: master_preset.xml:11366(list_entry:short_description|preset:Vending_Machine|value:cigarettes)
 msgid "Cigarettes"
@@ -1592,7 +1590,7 @@ msgstr ""
 
 #: master_preset.xml:12675(text:text|group:Addresses_and_Contact|preset:Address|key:addr:city)
 msgid "City name"
-msgstr "Nom de ville"
+msgstr ""
 
 #: master_preset.xml:13449(item:name|group:Crafts|preset:Cleaning)
 msgid "Cleaning"
@@ -1624,7 +1622,7 @@ msgstr ""
 #: master_preset.xml:7116(check:text|group:Facilities|preset:Recycling_Container|key:recycling:clothes)
 #: master_preset.xml:7157(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:clothes)
 msgid "Clothes"
-msgstr "Vêtements"
+msgstr "ملابس"
 
 #: master_preset.xml:9084(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
@@ -1857,11 +1855,11 @@ msgstr ""
 
 #: master_preset.xml:12677(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:country)
 msgid "Country code"
-msgstr "Code pays"
+msgstr ""
 
 #: master_preset.xml:11579(item:name|group:Places|preset:County)
 msgid "County"
-msgstr "Comté"
+msgstr ""
 
 #: master_preset.xml:6151(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -1896,7 +1894,7 @@ msgstr ""
 
 #: master_preset.xml:8632(item:name|group:Man_Made|preset:Crane)
 msgid "Crane"
-msgstr "Grue"
+msgstr "رافعة"
 
 #: master_preset.xml:11420(combo:text|preset:Payment_Methods|key:payment:credit_cards)
 msgid "Credit cards"
@@ -1904,7 +1902,7 @@ msgstr ""
 
 #: master_preset.xml:6239(item:name|group:Public_Building|preset:Crematorium)
 msgid "Crematorium"
-msgstr "Crématorium"
+msgstr ""
 
 #: master_preset.xml:355(multiselect:display_values|key:cuisine)
 msgid "Crepe"
@@ -1958,7 +1956,7 @@ msgstr ""
 
 #: master_preset.xml:9586(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Crypt"
-msgstr "Crypte"
+msgstr ""
 
 #: master_preset.xml:11446(combo:text|preset:Payment_Methods|key:payment:cryptocurrencies)
 msgid "Cryptocurrencies"
@@ -2054,7 +2052,7 @@ msgstr ""
 
 #: master_preset.xml:507(list_entry:display_value|value:deciduous)
 msgid "Deciduous"
-msgstr "caduc"
+msgstr "نفضية"
 
 #: master_preset.xml:388(combo:display_values|key:smoking)
 msgid "Dedicated"
@@ -2144,12 +2142,12 @@ msgstr ""
 #: master_preset.xml:7372(text:text|group:Facilities|preset:Animal_watering_place|key:description)
 #: master_preset.xml:9971(text:text|group:Food|preset:Farm_Stand|key:description)
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #: master_preset.xml:1635(combo:display_values|group:Ways|preset:Dedicated_Cycleway|key:foot)
 #: master_preset.xml:1690(combo:display_values|group:Ways|preset:Dedicated_Footway|key:bicycle)
 msgid "Designated"
-msgstr "Prévu spécifiquement pour certains types de véhicules"
+msgstr ""
 
 #: master_preset.xml:13134(text:text|group:Routes|preset:Detour_Route|key:destination)
 #: master_preset.xml:885(text:text|group:Streets|preset:Motorway|key:destination)
@@ -2247,7 +2245,7 @@ msgstr ""
 #: master_preset.xml:1855(combo:text|group:Waypoints|preset:Mini-Roundabout|key:direction)
 #: master_preset.xml:5139(combo:text|group:Tourism|preset:Viewpoint|key:direction)
 msgid "Direction"
-msgstr "Direction"
+msgstr "الاتجاه"
 
 #: master_preset.xml:8964(text:text|group:Man_Made|preset:Surveillance_Camera|key:camera:direction)
 msgid "Direction in degrees"
@@ -2291,7 +2289,7 @@ msgstr ""
 
 #: master_preset.xml:13465(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr "Distillerie"
+msgstr ""
 
 #: master_preset.xml:12685(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
@@ -2372,7 +2370,7 @@ msgstr ""
 #: master_preset.xml:13272(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2822(item:name|group:Water|preset:Drain)
 msgid "Drain"
-msgstr "Canal d'évacuation des eaux pluviales"
+msgstr ""
 
 #: master_preset.xml:5762(list_entry:display_value|group:Culture|preset:Theatre|value:drama)
 msgid "Drama"
@@ -2500,7 +2498,7 @@ msgstr ""
 
 #: master_preset.xml:2125(item:name|preset:Elevator)
 msgid "Elevator"
-msgstr ""
+msgstr "مصعد"
 
 #: master_preset.xml:11370(list_entry:short_description|preset:Vending_Machine|value:elongated_coin)
 msgid "Elongated coin"
@@ -2522,7 +2520,7 @@ msgstr ""
 
 #: master_preset.xml:6136(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
-msgstr "Ambassade"
+msgstr ""
 
 #: master_preset.xml:12933(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:6557(group:name|group:Emergency)
@@ -2535,7 +2533,7 @@ msgstr ""
 
 #: master_preset.xml:6671(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
-msgstr "Téléphone de secours"
+msgstr ""
 
 #: master_preset.xml:6718(text:text|group:Emergency|preset:Emergency_Access_Point|key:emergency_telephone_code)
 msgid "Emergency Phone Number"
@@ -2636,7 +2634,7 @@ msgstr ""
 
 #: master_preset.xml:508(list_entry:display_value|value:evergreen)
 msgid "Evergreen"
-msgstr "sempervirent, persistant"
+msgstr "دائمة الخضرة"
 
 #: master_preset.xml:12933(multiselect:text|group:Relations|preset:Turn_Restriction|key:except)
 msgid "Exceptions"
@@ -2670,7 +2668,7 @@ msgstr ""
 
 #: master_preset.xml:11710(item:name|group:Places|preset:Farm)
 msgid "Farm"
-msgstr "Ferme"
+msgstr ""
 
 #: master_preset.xml:12211(item:name|group:Land_use|preset:Farm_(deprecated))
 msgid "Farm (deprecated)"
@@ -2678,15 +2676,15 @@ msgstr ""
 
 #: master_preset.xml:9959(item:name|group:Food|preset:Farm_Stand)
 msgid "Farm Stand"
-msgstr "Magasin à la ferme"
+msgstr ""
 
 #: master_preset.xml:12196(item:name|group:Land_use|preset:Farmland)
 msgid "Farmland"
-msgstr "Terre cultivée"
+msgstr ""
 
 #: master_preset.xml:12184(item:name|group:Land_use|preset:Farmyard)
 msgid "Farmyard"
-msgstr "Bâtiments de ferme"
+msgstr ""
 
 #: master_preset.xml:363(list_entry:short_description|value:fashion)
 msgid "Fashion"
@@ -2713,7 +2711,7 @@ msgstr ""
 
 #: master_preset.xml:12062(item:name|group:Nature|preset:Fell)
 msgid "Fell"
-msgstr "Alpage"
+msgstr ""
 
 #: master_preset.xml:10774(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 msgid "Female"
@@ -2725,7 +2723,7 @@ msgstr ""
 
 #: master_preset.xml:2277(item:name|group:Barriers|preset:Fence)
 msgid "Fence"
-msgstr "Clôture"
+msgstr ""
 
 #: master_preset.xml:4297(check:text|group:Public_Transport|preset:Stop_Position|key:ferry)
 msgid "Ferry"
@@ -2820,7 +2818,7 @@ msgstr ""
 
 #: master_preset.xml:8505(item:name|group:Man_Made|preset:Flagpole)
 msgid "Flagpole"
-msgstr "Mât de drapeau"
+msgstr "سارية العلم"
 
 #: master_preset.xml:8457(text:text|preset:Entrance|key:addr:flats)
 msgid "Flat numbers"
@@ -2851,7 +2849,7 @@ msgstr ""
 
 #: master_preset.xml:6771(item:name|group:Social_Facilities|preset:Food_Bank)
 msgid "Food Bank"
-msgstr ""
+msgstr "بنك الطعام"
 
 #: master_preset.xml:4968(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
@@ -2880,7 +2878,7 @@ msgstr ""
 msgid ""
 "For areas of solid visible rock that is sparsely vegetated or not vegetated "
 "at all."
-msgstr "Pour les zones de roche solide avec peu ou pas de végétation."
+msgstr ""
 
 #: master_preset.xml:653(combo:text|key:social_facility:for)
 msgid "For group"
@@ -2913,7 +2911,7 @@ msgstr ""
 
 #: master_preset.xml:9558(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Fortification"
-msgstr "Fortification"
+msgstr ""
 
 #: master_preset.xml:14183(item:name|group:Offices|preset:Foundation)
 msgid "Foundation"
@@ -2921,7 +2919,7 @@ msgstr ""
 
 #: master_preset.xml:8803(item:name|group:Man_Made|preset:Fountain)
 msgid "Fountain"
-msgstr "Fontaine"
+msgstr ""
 
 #: master_preset.xml:10462(item:name|group:Home_furnishing_and_decoration|preset:Frame)
 msgid "Frame"
@@ -3007,7 +3005,7 @@ msgstr ""
 
 #: master_preset.xml:8275(item:name|group:Buildings|preset:Garage)
 msgid "Garage"
-msgstr "Garage privé"
+msgstr "جراج"
 
 #: master_preset.xml:12515(item:name|group:Land_use|preset:Garages)
 msgid "Garages"
@@ -3207,7 +3205,7 @@ msgstr ""
 
 #: master_preset.xml:12580(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
-msgstr "Terrain vierge"
+msgstr ""
 
 #: master_preset.xml:9943(item:name|group:Food|preset:Greengrocer)
 msgid "Greengrocer"
@@ -3215,7 +3213,7 @@ msgstr ""
 
 #: master_preset.xml:12258(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
-msgstr "Serre d'horticulture"
+msgstr "الدفيئات الزراعية"
 
 #: master_preset.xml:777(combo:display_values|key:roof:colour)
 #: master_preset.xml:813(combo:display_values|key:building:colour)
@@ -3297,7 +3295,7 @@ msgstr ""
 
 #: master_preset.xml:13510(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
-msgstr ""
+msgstr "حرفي"
 
 #: master_preset.xml:1727(check:text|group:Ways|preset:Steps|key:handrail)
 msgid "Handrail"
@@ -3353,11 +3351,11 @@ msgstr ""
 
 #: master_preset.xml:2260(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
-msgstr "Haie"
+msgstr ""
 
 #: master_preset.xml:11923(text:text|group:Nature|preset:Tree|key:height)
 msgid "Height (m)"
-msgstr "Hauteur (m)"
+msgstr ""
 
 #: master_preset.xml:12178(text:text|group:Nature|preset:Stone|key:height)
 #: master_preset.xml:13301(text:text|preset:Bridge|key:height)
@@ -3386,7 +3384,7 @@ msgstr ""
 
 #: master_preset.xml:4579(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
-msgstr "Hélipad"
+msgstr ""
 
 #: master_preset.xml:6540(list_entry:short_description|group:Health|preset:Alternative_medicine|value:herbalism)
 msgid "Herbalism"
@@ -3394,7 +3392,7 @@ msgstr ""
 
 #: master_preset.xml:9913(item:name|group:Food|preset:Herbalist)
 msgid "Herbalist"
-msgstr "Herboristerie"
+msgstr "محل بيع الأعشاب الطبية"
 
 #: master_preset.xml:10227(item:name|group:Electronics|preset:Hifi)
 msgid "Hifi"
@@ -3435,15 +3433,15 @@ msgstr ""
 
 #: master_preset.xml:6024(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr "Temple hindou"
+msgstr ""
 
 #: master_preset.xml:9482(group:name|group:Historic_Places_&_Objects)
 msgid "Historic Places & Objects"
-msgstr "Lieux et objets historiques"
+msgstr ""
 
 #: master_preset.xml:12645(text:text|group:Addresses_and_Contact|preset:Name|key:old_name)
 msgid "Historical name"
-msgstr "Nom historique"
+msgstr ""
 
 #: master_preset.xml:4570(item:name|group:Airport|preset:Holding_Position)
 msgid "Holding Position"
@@ -3484,7 +3482,7 @@ msgstr ""
 
 #: master_preset.xml:6519(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:hospice)
 msgid "Hospice"
-msgstr "Hospice"
+msgstr ""
 
 #: master_preset.xml:6392(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -3500,15 +3498,15 @@ msgstr ""
 
 #: master_preset.xml:8253(item:name|group:Buildings|preset:House)
 msgid "House"
-msgstr "Maison mitoyenne"
+msgstr "منزل"
 
 #: master_preset.xml:12681(text:text|group:Addresses_and_Contact|preset:Address|key:addr:housename)
 msgid "House name"
-msgstr "Nom de bâtiment"
+msgstr ""
 
 #: master_preset.xml:12671(text:text|group:Addresses_and_Contact|preset:Address|key:addr:housenumber)
 msgid "House number"
-msgstr "Numéro de rue"
+msgstr ""
 
 #: master_preset.xml:3284(check:text|group:Shipping|preset:Boat_rental|key:houseboat_rental)
 msgid "Houseboats"
@@ -3635,7 +3633,7 @@ msgstr ""
 #: master_preset.xml:12496(item:name|group:Land_use|preset:Industrial)
 #: master_preset.xml:8297(item:name|group:Buildings|preset:Industrial)
 msgid "Industrial"
-msgstr "Secondaire"
+msgstr "صناعي"
 
 #: master_preset.xml:9134(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -3643,11 +3641,11 @@ msgstr ""
 
 #: master_preset.xml:5186(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
-msgstr "Panneau d'information"
+msgstr "لوحة المعلومات"
 
 #: master_preset.xml:5145(item:name|group:Tourism|preset:Information_Office)
 msgid "Information Office"
-msgstr "Bureau d'information"
+msgstr ""
 
 #: master_preset.xml:5226(item:name|group:Tourism|preset:Information_Terminal)
 msgid "Information Terminal"
@@ -3673,7 +3671,7 @@ msgstr ""
 #: master_preset.xml:9658(text:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:inscription)
 #: master_preset.xml:9677(text:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:inscription)
 msgid "Inscription"
-msgstr "Inscription"
+msgstr ""
 
 #: master_preset.xml:13542(item:name|group:Crafts|preset:Insulation)
 msgid "Insulation"
@@ -3693,12 +3691,12 @@ msgstr ""
 
 #: master_preset.xml:613(check:text|key:intermittent)
 msgid "Intermittent"
-msgstr "Intermittent"
+msgstr "متقطع"
 
 #: master_preset.xml:13117(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:355(multiselect:display_values|key:cuisine)
 msgid "International"
-msgstr ""
+msgstr "دولية"
 
 #: master_preset.xml:12649(text:text|group:Addresses_and_Contact|preset:Name|key:int_name)
 msgid "International name"
@@ -3727,7 +3725,7 @@ msgstr ""
 
 #: master_preset.xml:11877(item:name|group:Geography|preset:Islet)
 msgid "Islet"
-msgstr "Îlot"
+msgstr "جزيرة صغيرة"
 
 #: master_preset.xml:388(combo:display_values|key:smoking)
 msgid "Isolated"
@@ -3791,7 +3789,7 @@ msgstr ""
 
 #: master_preset.xml:1388(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "مفترق طرق"
 
 #: master_preset.xml:660(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -3820,7 +3818,7 @@ msgstr ""
 #: master_preset.xml:2371(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:680(combo:text|key:kerb)
 msgid "Kerb"
-msgstr "Bordure"
+msgstr ""
 
 #: master_preset.xml:686(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -3845,7 +3843,7 @@ msgstr ""
 
 #: master_preset.xml:9742(item:name|group:Food|preset:Kiosk)
 msgid "Kiosk"
-msgstr "Kiosque"
+msgstr "كشك"
 
 #: master_preset.xml:2455(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -3894,7 +3892,7 @@ msgstr ""
 
 #: master_preset.xml:12592(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
-msgstr ""
+msgstr "مكب نفايات"
 
 #: master_preset.xml:1435(group:name|group:Lane_attributes)
 msgid "Lane attributes"
@@ -3950,13 +3948,13 @@ msgstr ""
 
 #: master_preset.xml:505(combo:display_values|key:leaf_type)
 msgid "Leafless"
-msgstr "plantes sans feuilles"
+msgstr "بدون أوراق"
 
 #: master_preset.xml:11183(item:name|group:Other|preset:Leather)
 #: master_preset.xml:13568(item:name|group:Crafts|preset:Leather)
 #: master_preset.xml:366(list_entry:short_description|value:leather)
 msgid "Leather"
-msgstr "Cuir"
+msgstr ""
 
 #: master_preset.xml:1444(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left)
 #: master_preset.xml:1470(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
@@ -4018,11 +4016,11 @@ msgstr ""
 #: master_preset.xml:3437(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:4293(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr "Métro léger"
+msgstr "قطار خفيف"
 
 #: master_preset.xml:8840(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
-msgstr "Phare"
+msgstr ""
 
 #: master_preset.xml:8498(combo:display_values|group:Man_Made|preset:Mast|key:tower:type)
 msgid "Lighting"
@@ -4072,7 +4070,7 @@ msgstr ""
 
 #: master_preset.xml:13117(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "Local"
-msgstr ""
+msgstr "محليى"
 
 #: master_preset.xml:12646(text:text|group:Addresses_and_Contact|preset:Name|key:loc_name)
 msgid "Local name"
@@ -4112,7 +4110,7 @@ msgstr ""
 #: master_preset.xml:11094(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:13576(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "قفال - صانع أقفال"
 
 #: master_preset.xml:14280(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -4124,7 +4122,7 @@ msgstr ""
 
 #: master_preset.xml:5669(item:name|group:Leisure|preset:Love_Hotel)
 msgid "Love Hotel"
-msgstr "Love hôtel"
+msgstr ""
 
 #: master_preset.xml:845(list_entry:short_description|value:2)
 msgid "Lower secondary (2)"
@@ -4236,7 +4234,7 @@ msgstr ""
 
 #: master_preset.xml:8487(item:name|group:Man_Made|preset:Mast)
 msgid "Mast"
-msgstr "Mât"
+msgstr "محطة الرصد"
 
 #: master_preset.xml:11426(check:text|preset:Payment_Methods|key:payment:mastercard)
 msgid "Mastercard"
@@ -4254,7 +4252,7 @@ msgstr ""
 
 #: master_preset.xml:9586(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Mausoleum"
-msgstr "Mausolée"
+msgstr ""
 
 #: master_preset.xml:51(text:text|key:maxspeed)
 msgid "Max speed"
@@ -4355,7 +4353,7 @@ msgstr ""
 #: master_preset.xml:2788(text:text|group:Access_Restrictions|preset:Physical_restrictions|key:maxweight)
 #: master_preset.xml:605(text:text|key:maxweight)
 msgid "Max. weight (tonnes)"
-msgstr "Poid maximum (tonnes)"
+msgstr ""
 
 #: master_preset.xml:12956(text:text|group:Relations|preset:Enforcement|key:maxweight)
 msgid "Max. weight (tonnes, only if enforcement=maxweight)"
@@ -4414,7 +4412,7 @@ msgstr ""
 
 #: master_preset.xml:12216(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"
-msgstr ""
+msgstr "مرج"
 
 #: master_preset.xml:12229(combo:text|group:Land_use|preset:Meadow|key:meadow)
 msgid "Meadow type"
@@ -4430,7 +4428,7 @@ msgstr ""
 
 #: master_preset.xml:9558(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Megalith"
-msgstr "Mégalithe"
+msgstr ""
 
 #: master_preset.xml:3938(combo:text|group:Car|preset:Charging_Station|key:authentication:membership_card)
 msgid "Membership card"
@@ -4438,7 +4436,7 @@ msgstr ""
 
 #: master_preset.xml:9616(item:name|group:Historic_Places_&_Objects|preset:Memorial)
 msgid "Memorial"
-msgstr "Mémorial"
+msgstr ""
 
 #: master_preset.xml:368(list_entry:short_description|value:men)
 msgid "Men"
@@ -4496,7 +4494,7 @@ msgstr ""
 
 #: master_preset.xml:6520(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:midwife)
 msgid "Midwife"
-msgstr "Sage-femme"
+msgstr ""
 
 #: master_preset.xml:662(list_entry:display_value|value:migrant)
 msgid "Migrants"
@@ -4504,7 +4502,7 @@ msgstr ""
 
 #: master_preset.xml:12540(item:name|group:Land_use|preset:Military)
 msgid "Military"
-msgstr "Militaire"
+msgstr "عسكري"
 
 #: master_preset.xml:11374(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
@@ -4528,7 +4526,7 @@ msgstr ""
 
 #: master_preset.xml:7671(item:name|preset:Miniature_Golf)
 msgid "Miniature Golf"
-msgstr ""
+msgstr "ملعب الجولف المصغرة"
 
 #: master_preset.xml:11437(check:text|preset:Payment_Methods|key:payment:ep_minicash)
 msgid "Minicash (lu)"
@@ -4548,12 +4546,12 @@ msgstr ""
 
 #: master_preset.xml:1150(item:name|group:Streets|preset:Minor_road)
 msgid "Minor road"
-msgstr ""
+msgstr "طريق فرعي"
 
 #: master_preset.xml:505(combo:display_values|key:leaf_type)
 #: master_preset.xml:511(list_entry:display_value|value:mixed)
 msgid "Mixed"
-msgstr "mélangé"
+msgstr "مختلط"
 
 #: master_preset.xml:3686(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
@@ -4577,7 +4575,7 @@ msgstr ""
 
 #: master_preset.xml:10214(item:name|group:Electronics|preset:Mobile_Phone)
 msgid "Mobile Phone"
-msgstr ""
+msgstr "محل بيع هواتف"
 
 #: master_preset.xml:8162(item:name|group:Motorsport|preset:Model_Aerodrome)
 msgid "Model Aerodrome"
@@ -4605,7 +4603,7 @@ msgstr ""
 
 #: master_preset.xml:8883(item:name|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring Station"
-msgstr "Station de surveillance"
+msgstr "محطة الرصد"
 
 #: master_preset.xml:8896(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -4615,11 +4613,11 @@ msgstr ""
 #: master_preset.xml:4294(check:text|group:Public_Transport|preset:Stop_Position|key:monorail)
 #: master_preset.xml:4325(check:text|group:Public_Transport|preset:Platform|key:monorail)
 msgid "Monorail"
-msgstr ""
+msgstr "سكة حديدة مفردة"
 
 #: master_preset.xml:9601(item:name|group:Historic_Places_&_Objects|preset:Monument)
 msgid "Monument"
-msgstr "Grand monument commémoratif"
+msgstr "نصب تذكاري"
 
 #: master_preset.xml:3307(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
@@ -4631,11 +4629,11 @@ msgstr ""
 
 #: master_preset.xml:5953(item:name|group:Place_of_Worship|preset:Mosque)
 msgid "Mosque"
-msgstr ""
+msgstr "مسجد"
 
 #: master_preset.xml:4702(item:name|group:Accommodation|preset:Motel)
 msgid "Motel"
-msgstr ""
+msgstr "فندق رخيص"
 
 #: master_preset.xml:8134(item:name|group:Motorsport|preset:Motocross)
 msgid "Motocross"
@@ -4687,7 +4685,7 @@ msgstr ""
 
 #: master_preset.xml:4076(item:name|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Motorcycle Dealer"
-msgstr "Vendeur de moto"
+msgstr ""
 
 #: master_preset.xml:677(multiselect:text|key:brand)
 msgid "Motorcycle brand"
@@ -4748,7 +4746,7 @@ msgstr ""
 
 #: master_preset.xml:3133(item:name|group:Water|preset:Mud)
 msgid "Mud"
-msgstr "Boue"
+msgstr "وحل"
 
 #: master_preset.xml:7684(item:name|group:Sport|preset:Multi)
 msgid "Multi"
@@ -4764,11 +4762,11 @@ msgstr ""
 
 #: master_preset.xml:5904(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr "Peinture murale"
+msgstr ""
 
 #: master_preset.xml:5715(item:name|group:Culture|preset:Museum)
 msgid "Museum"
-msgstr "Musée"
+msgstr ""
 
 #: master_preset.xml:10263(item:name|group:Electronics|preset:Music)
 msgid "Music"
@@ -4776,7 +4774,7 @@ msgstr ""
 
 #: master_preset.xml:6381(item:name|group:Education|preset:Music_School)
 msgid "Music School"
-msgstr "École de musique"
+msgstr "مدرسة موسيقى"
 
 #: master_preset.xml:5772(item:name|group:Culture|preset:Music_theatres)
 msgid "Music theatres"
@@ -5007,7 +5005,7 @@ msgstr ""
 #: master_preset.xml:9652(text:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:name)
 #: master_preset.xml:9690(text:text|group:Historic_Places_&_Objects|preset:Boundary_Stone|key:name)
 msgid "Name"
-msgstr "Nom du bunker"
+msgstr ""
 
 #: master_preset.xml:13275(text:text|preset:Waterway|key:destination)
 msgid "Name of river/lake/sea/ocean it runs into"
@@ -5019,11 +5017,11 @@ msgstr ""
 
 #: master_preset.xml:13117(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "National"
-msgstr ""
+msgstr "وطنية"
 
 #: master_preset.xml:11494(item:name|group:Boundaries|preset:National_Park)
 msgid "National Park"
-msgstr "Parc national"
+msgstr ""
 
 #: master_preset.xml:12648(text:text|group:Addresses_and_Contact|preset:Name|key:nat_name)
 msgid "National name"
@@ -5031,7 +5029,7 @@ msgstr ""
 
 #: master_preset.xml:12874(combo:display_values|group:Relations|preset:Boundary|key:boundary)
 msgid "National park"
-msgstr "Parc national"
+msgstr ""
 
 #: master_preset.xml:11903(group:name|group:Nature)
 msgid "Nature"
@@ -5055,7 +5053,7 @@ msgstr ""
 
 #: master_preset.xml:505(combo:display_values|key:leaf_type)
 msgid "Needleleaved"
-msgstr "aiguilles"
+msgstr "إبرية"
 
 #: master_preset.xml:11695(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
@@ -5127,7 +5125,7 @@ msgstr ""
 #: master_preset.xml:8836(combo:display_values|group:Man_Made|preset:Water_Well|key:pump)
 #: master_preset.xml:9994(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 msgid "No"
-msgstr "Non"
+msgstr "لا"
 
 #: master_preset.xml:225(list_entry:short_description|value:no)
 #: master_preset.xml:237(list_entry:short_description|value:no)
@@ -5153,7 +5151,7 @@ msgstr ""
 
 #: master_preset.xml:12931(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "No u-turn"
-msgstr ""
+msgstr "لا يوجد دوران"
 
 #: master_preset.xml:32(list_entry:short_description|value:impassable)
 msgid "No wheeled vehicle"
@@ -5178,7 +5176,7 @@ msgstr ""
 #: master_preset.xml:13076(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:13098(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Nordic"
-msgstr ""
+msgstr "شمال أوروبا"
 
 #: master_preset.xml:209(list_entry:short_description|value:no)
 #: master_preset.xml:383(combo:display_values|key:internet_access)
@@ -5195,7 +5193,7 @@ msgstr ""
 
 #: master_preset.xml:9119(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr "Centrale nucléaire"
+msgstr ""
 
 #: master_preset.xml:1757(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -5285,7 +5283,7 @@ msgstr ""
 
 #: master_preset.xml:6803(item:name|group:Social_Facilities|preset:Nursing_Home)
 msgid "Nursing Home"
-msgstr ""
+msgstr "دار التمريض"
 
 #: master_preset.xml:6820(item:name|group:Social_Facilities|preset:Nursing_Home_(deprecated))
 msgid "Nursing Home (deprecated)"
@@ -5412,7 +5410,7 @@ msgstr ""
 #: master_preset.xml:5058(combo:display_values|group:Food+Drinks|preset:Pub|key:delivery)
 #: master_preset.xml:9994(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 msgid "Only"
-msgstr ""
+msgstr "فقط"
 
 #: master_preset.xml:12931(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
@@ -5440,7 +5438,7 @@ msgstr ""
 
 #: master_preset.xml:204(combo:text|key:opening_hours)
 msgid "Opening Hours"
-msgstr "Horaires d'ouverture"
+msgstr ""
 
 #: master_preset.xml:5782(list_entry:display_value|group:Culture|preset:Music_theatres|value:opera)
 msgid "Opera house"
@@ -5669,7 +5667,7 @@ msgstr ""
 
 #: master_preset.xml:9588(item:name|group:Historic_Places_&_Objects|preset:Palaeontological_Site)
 msgid "Palaeontological Site"
-msgstr "Site paléontologique"
+msgstr ""
 
 #: master_preset.xml:12013(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Pampas"
@@ -5698,7 +5696,7 @@ msgstr ""
 
 #: master_preset.xml:12384(item:name|group:Land_use|preset:Park)
 msgid "Park"
-msgstr ""
+msgstr "منتزه"
 
 #: master_preset.xml:3782(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
@@ -5752,7 +5750,7 @@ msgstr ""
 
 #: master_preset.xml:2024(item:name|preset:Passing_Place)
 msgid "Passing Place"
-msgstr "Aire de croisement"
+msgstr ""
 
 #: master_preset.xml:1173(check:text|group:Streets|preset:Minor_road|key:passing_places)
 #: master_preset.xml:1309(check:text|group:Streets|preset:Service|key:passing_places)
@@ -5849,7 +5847,7 @@ msgstr ""
 
 #: master_preset.xml:595(combo:text|key:phases)
 msgid "Phases"
-msgstr "Phases"
+msgstr ""
 
 #: master_preset.xml:12723(text:text|group:Addresses_and_Contact|preset:Contact|key:phone)
 #: master_preset.xml:12744(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:phone)
@@ -6040,7 +6038,7 @@ msgstr ""
 
 #: master_preset.xml:13648(item:name|group:Crafts|preset:Plumber)
 msgid "Plumber"
-msgstr ""
+msgstr "سباك"
 
 #: master_preset.xml:11054(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Plumbing"
@@ -6183,7 +6181,7 @@ msgstr ""
 
 #: master_preset.xml:9278(item:name|preset:Power_Switch)
 msgid "Power Switch"
-msgstr "Appareil de connexion électrique"
+msgstr ""
 
 #: master_preset.xml:9249(item:name|preset:Power_Switchgear)
 msgid "Power Switchgear"
@@ -6414,11 +6412,11 @@ msgstr ""
 
 #: master_preset.xml:12605(item:name|group:Land_use|preset:Quarry)
 msgid "Quarry"
-msgstr "Carrière"
+msgstr ""
 
 #: master_preset.xml:11684(item:name|group:Places|preset:Quarter)
 msgid "Quarter"
-msgstr "Quartier (division urbaine)"
+msgstr ""
 
 #: master_preset.xml:7771(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Quarzite"
@@ -6478,11 +6476,11 @@ msgstr ""
 
 #: master_preset.xml:3609(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
-msgstr "Feux tricolores Ferroviaire"
+msgstr ""
 
 #: master_preset.xml:3599(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr "Commutateur Ferroviaire"
+msgstr ""
 
 #: master_preset.xml:4289(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"
@@ -6536,7 +6534,7 @@ msgstr ""
 
 #: master_preset.xml:12398(item:name|group:Land_use|preset:Recreation_Ground)
 msgid "Recreation Ground"
-msgstr ""
+msgstr "ميدان الألعاب"
 
 #: master_preset.xml:7135(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
@@ -6544,7 +6542,7 @@ msgstr ""
 
 #: master_preset.xml:7092(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr "Conteneur de recyclage"
+msgstr "حاوية إعادة التدوير"
 
 #: master_preset.xml:777(combo:display_values|key:roof:colour)
 #: master_preset.xml:813(combo:display_values|key:building:colour)
@@ -6687,7 +6685,7 @@ msgstr ""
 #: master_preset.xml:13117(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 #: master_preset.xml:355(multiselect:display_values|key:cuisine)
 msgid "Regional"
-msgstr ""
+msgstr "إقليمي"
 
 #: master_preset.xml:12647(text:text|group:Addresses_and_Contact|preset:Name|key:reg_name)
 msgid "Regional name"
@@ -6707,13 +6705,13 @@ msgstr ""
 
 #: master_preset.xml:12837(group:name|group:Relations)
 msgid "Relations"
-msgstr "Relations"
+msgstr "العلاقات"
 
 #: master_preset.xml:11313(item:name|group:Other|preset:Religion)
 #: master_preset.xml:516(combo:text|key:religion)
 #: master_preset.xml:9653(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:religion)
 msgid "Religion"
-msgstr "Religion"
+msgstr ""
 
 #: master_preset.xml:12460(item:name|group:Land_use|preset:Religious)
 msgid "Religious"
@@ -6788,7 +6786,7 @@ msgstr ""
 
 #: master_preset.xml:2334(item:name|group:Barriers|preset:Retaining_Wall)
 msgid "Retaining Wall"
-msgstr "Mur de soutènement"
+msgstr ""
 
 #: master_preset.xml:6786(item:name|group:Social_Facilities|preset:Retirement_Home)
 msgid "Retirement Home"
@@ -6798,11 +6796,11 @@ msgstr ""
 #: master_preset.xml:1468(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 #: master_preset.xml:1486(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:reverse)
 msgid "Reverse"
-msgstr "Inverser"
+msgstr ""
 
 #: master_preset.xml:11804(item:name|group:Geography|preset:Ridge)
 msgid "Ridge"
-msgstr ""
+msgstr "نتوء جبلي"
 
 #: master_preset.xml:5181(check:text|group:Tourism|preset:Map|key:horse)
 #: master_preset.xml:5221(check:text|group:Tourism|preset:Guidepost|key:horse)
@@ -6906,7 +6904,7 @@ msgstr ""
 
 #: master_preset.xml:13679(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "بنّاء السقف"
 
 #: master_preset.xml:4693(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4716(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -6915,7 +6913,7 @@ msgstr ""
 #: master_preset.xml:4805(text:text|group:Accommodation|preset:Hostel|key:rooms)
 #: master_preset.xml:4868(text:text|group:Accommodation|preset:Caravan_Site/RV_Park|key:rooms)
 msgid "Rooms"
-msgstr "Pièces"
+msgstr ""
 
 #: master_preset.xml:3705(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Rope tow"
@@ -6923,7 +6921,7 @@ msgstr ""
 
 #: master_preset.xml:1393(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "دوار مروري"
 
 #: master_preset.xml:7965(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -6950,7 +6948,7 @@ msgstr ""
 
 #: master_preset.xml:12966(group:name|group:Routes)
 msgid "Routes"
-msgstr "Chemins"
+msgstr ""
 
 #: master_preset.xml:5176(optional:text|group:Tourism|preset:Map)
 #: master_preset.xml:5216(optional:text|group:Tourism|preset:Guidepost)
@@ -6974,7 +6972,7 @@ msgstr ""
 #: master_preset.xml:9529(check:text|group:Historic_Places_&_Objects|preset:Building|key:ruins)
 #: master_preset.xml:9532(item:name|group:Historic_Places_&_Objects|preset:Ruins)
 msgid "Ruins"
-msgstr "Bunker en ruines"
+msgstr ""
 
 #: master_preset.xml:1991(item:name|group:Traffic_Calming|preset:Rumble_strip)
 msgid "Rumble strip"
@@ -7018,7 +7016,7 @@ msgstr ""
 
 #: master_preset.xml:13698(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "صانع أشرعة"
 
 #: master_preset.xml:4094(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgid "Sale"
@@ -7071,7 +7069,7 @@ msgstr ""
 
 #: master_preset.xml:5437(item:name|group:Leisure|preset:Sauna)
 msgid "Sauna"
-msgstr "Sauna"
+msgstr "سونا"
 
 #: master_preset.xml:12013(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Savanna"
@@ -7079,7 +7077,7 @@ msgstr ""
 
 #: master_preset.xml:13706(item:name|group:Crafts|preset:Sawmill)
 msgid "Sawmill"
-msgstr ""
+msgstr "منشرة"
 
 #: master_preset.xml:13718(item:name|group:Crafts|preset:Scaffolder)
 msgid "Scaffolder"
@@ -7124,7 +7122,7 @@ msgstr ""
 
 #: master_preset.xml:12078(item:name|group:Nature|preset:Scrub)
 msgid "Scrub"
-msgstr ""
+msgstr "أراضي الأشجار القمئية"
 
 #: master_preset.xml:7882(item:name|group:Sport|preset:Scuba_Diving)
 msgid "Scuba Diving"
@@ -7136,12 +7134,12 @@ msgstr ""
 
 #: master_preset.xml:13726(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
-msgstr "Sculpteur"
+msgstr "نحّات"
 
 #: master_preset.xml:5874(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:5904(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr "Sculpture"
+msgstr ""
 
 #: master_preset.xml:7335(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -7325,7 +7323,7 @@ msgstr ""
 
 #: master_preset.xml:6047(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr "Sanctuaire shintoïste"
+msgstr ""
 
 #: master_preset.xml:3183(group:name|group:Shipping)
 msgid "Shipping"
@@ -7356,7 +7354,7 @@ msgstr ""
 #: master_preset.xml:4847(check:text|group:Accommodation|preset:Wilderness_Hut|key:shower)
 #: master_preset.xml:6956(item:name|group:Facilities|preset:Shower)
 msgid "Shower"
-msgstr "Douche"
+msgstr ""
 
 #: master_preset.xml:5174(combo:text|group:Tourism|preset:Map|key:map_size)
 msgid "Shown Area"
@@ -7543,7 +7541,7 @@ msgstr ""
 
 #: master_preset.xml:2080(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr ""
+msgstr "كاميرا مراقبة السرعة"
 
 #: master_preset.xml:2068(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
@@ -7562,7 +7560,7 @@ msgstr ""
 #: master_preset.xml:7489(multiselect:text|group:Sport_Facilities|preset:Dojo|key:sport)
 #: master_preset.xml:7683(group:name|group:Sport)
 msgid "Sport"
-msgstr "Sport"
+msgstr "رياضة"
 
 #: master_preset.xml:7921(group:name|group:Sport_(Ball))
 msgid "Sport (Ball)"
@@ -7625,7 +7623,7 @@ msgstr ""
 #: master_preset.xml:4760(combo:text|group:Accommodation|preset:Holiday_apartment|key:stars)
 #: master_preset.xml:671(combo:text|key:stars)
 msgid "Stars"
-msgstr ""
+msgstr "نجوم"
 
 #: master_preset.xml:11524(text:text|group:Boundaries|preset:Protected_Area|key:start_date)
 #: master_preset.xml:569(text:text|key:start_date)
@@ -7643,11 +7641,11 @@ msgstr ""
 
 #: master_preset.xml:10582(item:name|group:Printed_Material|preset:Stationery)
 msgid "Stationery"
-msgstr ""
+msgstr "محل بيع أدوات مكتبية"
 
 #: master_preset.xml:5904(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr "Statue commémorative"
+msgstr ""
 
 #: master_preset.xml:355(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -7681,7 +7679,7 @@ msgstr ""
 #: master_preset.xml:2178(combo:display_values|group:Barriers|preset:Block|key:material)
 #: master_preset.xml:781(combo:display_values|key:roof:material)
 msgid "Stone"
-msgstr "Pierre"
+msgstr ""
 
 #: master_preset.xml:13742(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
@@ -7760,7 +7758,7 @@ msgstr ""
 
 #: master_preset.xml:8994(combo:text|group:Bridges|preset:Bridge|key:bridge:structure)
 msgid "Structure"
-msgstr "Structure"
+msgstr ""
 
 #: master_preset.xml:5908(item:name|group:Culture|preset:Studio)
 msgid "Studio"
@@ -7780,7 +7778,7 @@ msgstr ""
 
 #: master_preset.xml:634(combo:text|key:substance)
 msgid "Substance"
-msgstr "Substance"
+msgstr ""
 
 #: master_preset.xml:13272(combo:text|preset:Waterway|key:waterway)
 msgid "Subtype of waterway (largest one of members)"
@@ -7831,7 +7829,7 @@ msgstr ""
 #: master_preset.xml:3164(combo:text|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:37(combo:text|key:surface)
 msgid "Surface"
-msgstr "Surface"
+msgstr "سطحي"
 
 #: master_preset.xml:3165(combo:display_values|group:Water|preset:Beach|key:sport)
 msgid "Surfing"
@@ -7933,7 +7931,7 @@ msgstr ""
 #: master_preset.xml:10164(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:13771(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "خياط"
 
 #: master_preset.xml:4932(combo:text|group:Food+Drinks|preset:Restaurant|key:takeaway)
 #: master_preset.xml:4959(combo:text|group:Food+Drinks|preset:Fast_Food|key:takeaway)
@@ -8144,7 +8142,7 @@ msgstr ""
 
 #: master_preset.xml:4010(item:name|group:Car|preset:Tires)
 msgid "Tires"
-msgstr "Pneus"
+msgstr ""
 
 #: master_preset.xml:11518(text:text|group:Boundaries|preset:Protected_Area|key:protection_title)
 msgid "Title or type of protection"
@@ -8187,11 +8185,11 @@ msgstr ""
 
 #: master_preset.xml:9574(item:name|group:Historic_Places_&_Objects|preset:Tomb)
 msgid "Tomb"
-msgstr "Tombe historique"
+msgstr "قبر / ضريح"
 
 #: master_preset.xml:9586(combo:text|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Tomb type"
-msgstr "Type de tombe"
+msgstr ""
 
 #: master_preset.xml:4148(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:diy)
 msgid "Tools for do-it-yourself repair (may be a bike co-operative)"
@@ -8207,15 +8205,15 @@ msgstr ""
 
 #: master_preset.xml:5173(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Toposcope"
-msgstr "Toposcope"
+msgstr ""
 
 #: master_preset.xml:5111(group:name|group:Tourism)
 msgid "Tourism"
-msgstr "Tourisme"
+msgstr "سياحة"
 
 #: master_preset.xml:12161(check:text|group:Nature|preset:Rock|key:tourism)
 msgid "Tourism attraction"
-msgstr "Attraction touristique"
+msgstr ""
 
 #: master_preset.xml:2815(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:tourist_bus)
 msgid "Tourist buses"
@@ -8223,12 +8221,12 @@ msgstr ""
 
 #: master_preset.xml:8468(item:name|group:Man_Made|preset:Tower)
 msgid "Tower"
-msgstr "Tour"
+msgstr ""
 
 #: master_preset.xml:8480(combo:text|group:Man_Made|preset:Tower|key:tower:type)
 #: master_preset.xml:8498(combo:text|group:Man_Made|preset:Mast|key:tower:type)
 msgid "Tower type"
-msgstr "Type de tour"
+msgstr ""
 
 #: master_preset.xml:11606(item:name|group:Places|preset:Town)
 msgid "Town"
@@ -8253,7 +8251,7 @@ msgstr ""
 
 #: master_preset.xml:1550(combo:text|group:Ways|preset:Track|key:tracktype)
 msgid "Tracktype"
-msgstr "Type de chemin"
+msgstr ""
 
 #: master_preset.xml:11054(combo:text|group:Other|preset:Trade_supplies|key:trade)
 msgid "Trade"
@@ -8357,15 +8355,15 @@ msgstr ""
 
 #: master_preset.xml:11904(item:name|group:Nature|preset:Tree)
 msgid "Tree"
-msgstr "Arbre"
+msgstr ""
 
 #: master_preset.xml:11931(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr "Rangée d'arbres"
+msgstr ""
 
 #: master_preset.xml:12244(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
-msgstr "Arbres de verger"
+msgstr ""
 
 #: master_preset.xml:9376(check:text|preset:Power_Tower|key:triple_tower)
 msgid "Triple tower"
@@ -8402,7 +8400,7 @@ msgstr ""
 #: master_preset.xml:960(check:text|group:Streets|preset:Trunk|key:tunnel)
 #: master_preset.xml:989(check:text|group:Streets|preset:Trunk_Link|key:tunnel)
 msgid "Tunnel"
-msgstr "Tunnel"
+msgstr ""
 
 #: master_preset.xml:355(multiselect:display_values|key:cuisine)
 msgid "Turkish"
@@ -8478,7 +8476,7 @@ msgstr ""
 #: master_preset.xml:9015(combo:text|group:Bridges|preset:Bridge_Support|key:bridge:support)
 #: master_preset.xml:9558(combo:text|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:3917(combo:text|group:Car|preset:Charging_Station|key:socket:type1)
 msgid "Type 1 (Yazaki)"
@@ -8503,7 +8501,7 @@ msgstr ""
 #: master_preset.xml:9348(combo:text|preset:Power_Portal|key:structure)
 #: master_preset.xml:9368(combo:text|preset:Power_Tower|key:structure)
 msgid "Type of construction"
-msgstr "Type de construction"
+msgstr ""
 
 #: master_preset.xml:12954(combo:text|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Type of enforcement"
@@ -8587,11 +8585,11 @@ msgstr ""
 
 #: master_preset.xml:13(combo:display_values|key:incline)
 msgid "Up"
-msgstr "En haut"
+msgstr ""
 
 #: master_preset.xml:13807(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "منجد"
 
 #: master_preset.xml:846(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -8671,7 +8669,7 @@ msgstr ""
 
 #: master_preset.xml:11355(item:name|preset:Vending_Machine)
 msgid "Vending Machine"
-msgstr ""
+msgstr "آلة بيع"
 
 #: master_preset.xml:11362(multiselect:text|preset:Vending_Machine|key:vending)
 msgid "Vending products"
@@ -8680,11 +8678,11 @@ msgstr ""
 #: master_preset.xml:4196(key:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:public_transport:version)
 #: master_preset.xml:4391(key:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:public_transport:version)
 msgid "Version"
-msgstr "Version"
+msgstr ""
 
 #: master_preset.xml:6493(item:name|group:Health|preset:Veterinary)
 msgid "Veterinary"
-msgstr "Vétérinaire"
+msgstr "بيطري"
 
 #: master_preset.xml:4396(text:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:via)
 #: master_preset.xml:702(text:text|key:via)
@@ -8757,7 +8755,7 @@ msgstr ""
 
 #: master_preset.xml:3904(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
-msgstr "Tension électrique"
+msgstr "جهد كهربائي"
 
 #: master_preset.xml:133(combo:text|key:voltage)
 #: master_preset.xml:521(combo:text|key:voltage)
@@ -8791,7 +8789,7 @@ msgstr ""
 
 #: master_preset.xml:9586(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "War grave"
-msgstr "Sépulture de guerre"
+msgstr ""
 
 #: master_preset.xml:3941(item:name|group:Car|preset:Wash)
 msgid "Wash"
@@ -8829,7 +8827,7 @@ msgstr ""
 
 #: master_preset.xml:13818(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
-msgstr "Horloger (montres)"
+msgstr "ساعاتي (ساعات يدوية)"
 
 #: master_preset.xml:2820(group:name|group:Water)
 #: master_preset.xml:2821(group:name|group:Water)
@@ -8899,11 +8897,11 @@ msgstr ""
 
 #: master_preset.xml:8773(item:name|group:Man_Made|preset:Watermill)
 msgid "Watermill"
-msgstr "Moulin à eau"
+msgstr ""
 
 #: master_preset.xml:13261(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr "Voie naviguable"
+msgstr "مجرى مائي"
 
 #: master_preset.xml:9191(item:name|group:Power_Generator|preset:Wave_Energy_Converter)
 msgid "Wave Energy Converter"
@@ -8919,11 +8917,11 @@ msgstr ""
 
 #: master_preset.xml:9640(item:name|group:Historic_Places_&_Objects|preset:Wayside_Cross)
 msgid "Wayside Cross"
-msgstr "Croix/Calvaire"
+msgstr ""
 
 #: master_preset.xml:9660(item:name|group:Historic_Places_&_Objects|preset:Wayside_Shrine)
 msgid "Wayside Shrine"
-msgstr "Oratoire"
+msgstr ""
 
 #: master_preset.xml:11333(item:name|group:Other|preset:Weapons)
 msgid "Weapons"
@@ -8949,7 +8947,7 @@ msgstr ""
 
 #: master_preset.xml:2943(item:name|group:Water|preset:Weir)
 msgid "Weir"
-msgstr "Seuil"
+msgstr "هدار"
 
 #: master_preset.xml:3128(list_entry:short_description|group:Water|preset:Wetland|value:wet_meadow)
 msgid "Wet meadow"
@@ -9051,11 +9049,11 @@ msgstr ""
 #: master_preset.xml:645(text:text|key:wikipedia)
 #: master_preset.xml:9636(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikipedia)
 msgid "Wikipedia"
-msgstr "Wikipédia"
+msgstr ""
 
 #: master_preset.xml:4833(item:name|group:Accommodation|preset:Wilderness_Hut)
 msgid "Wilderness Hut"
-msgstr "Refuge de bivouac"
+msgstr ""
 
 #: master_preset.xml:7335(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Wildlife"
@@ -9063,11 +9061,11 @@ msgstr ""
 
 #: master_preset.xml:9207(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr "Centrale éolienne"
+msgstr ""
 
 #: master_preset.xml:8548(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"
-msgstr "Moulin à vent"
+msgstr "طاحونة هوائية"
 
 #: master_preset.xml:10439(item:name|group:Home_furnishing_and_decoration|preset:Window_blinds)
 msgid "Window blinds"
@@ -9166,7 +9164,7 @@ msgstr ""
 #: master_preset.xml:8836(combo:display_values|group:Man_Made|preset:Water_Well|key:pump)
 #: master_preset.xml:9994(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #: master_preset.xml:6911(item:name|group:Social_Facilities|preset:Youth_Centre)
 msgid "Youth Centre"
@@ -9237,7 +9235,7 @@ msgstr ""
 msgid ""
 "climbing up to second grade. Often very exposed, precarious jagged rocks, "
 "glacier with danger to slip and fall"
-msgstr "escalade jusqu'au niveau deux. Souvent très exposé, pierres cassées et instables, glacier, danger de glisser et tomber."
+msgstr ""
 
 #: master_preset.xml:578(combo:text|key:generator:output:cold_air)
 #: master_preset.xml:9049(combo:text|group:Power|preset:Power_Plant|key:plant:output:cold_air)
@@ -9341,7 +9339,7 @@ msgstr ""
 
 #: master_preset.xml:4326(check:text|group:Public_Transport|preset:Platform|key:funicular)
 msgid "funicular"
-msgstr "funiculaire"
+msgstr ""
 
 #: master_preset.xml:9131(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:cold-fusion)
 #: master_preset.xml:9134(list_entry:short_description|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
@@ -9668,7 +9666,7 @@ msgstr ""
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Mud"
-msgstr "Boue"
+msgstr "وحل"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9698,7 +9696,7 @@ msgstr ""
 #: master_preset.xml:20(combo:text|key:surface)
 msgctxt "surface"
 msgid "Surface"
-msgstr "Surface"
+msgstr "سطحي"
 
 #: master_preset.xml:20(combo:display_values|key:surface)
 msgctxt "surface"
@@ -9713,7 +9711,7 @@ msgstr ""
 #: master_preset.xml:36(combo:text|key:leisure)
 msgctxt "riding"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:96(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -9728,7 +9726,7 @@ msgstr ""
 #: master_preset.xml:96(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "No"
-msgstr "Non"
+msgstr "لا"
 
 #: master_preset.xml:96(combo:display_values|key:overtaking)
 msgctxt "overtaking"
@@ -9743,7 +9741,7 @@ msgstr ""
 #: master_preset.xml:96(combo:display_values|key:overtaking)
 msgctxt "overtaking"
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #: master_preset.xml:108(list_entry:short_description|value:both)
 msgctxt "sidewalk"
@@ -9778,7 +9776,7 @@ msgstr ""
 #: master_preset.xml:123(list_entry:short_description|value:island)
 msgctxt "transport"
 msgid "Island"
-msgstr "Île"
+msgstr "جزيرة"
 
 #: master_preset.xml:125(list_entry:short_description|value:no)
 msgctxt "transport"
@@ -10116,7 +10114,7 @@ msgstr ""
 #: master_preset.xml:7530(combo:text|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Sport"
-msgstr "Sport"
+msgstr "رياضة"
 
 #: master_preset.xml:425(combo:display_values|key:leisure)
 #: master_preset.xml:428(combo:display_values|key:leisure)
@@ -10128,12 +10126,12 @@ msgstr ""
 #: master_preset.xml:428(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Stadium"
-msgstr "Stade"
+msgstr ""
 
 #: master_preset.xml:7533(combo:text|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Surface"
-msgstr "Surface"
+msgstr "سطحي"
 
 #: master_preset.xml:436(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10158,13 +10156,13 @@ msgstr ""
 #: master_preset.xml:428(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Track"
-msgstr "Chemin carrossable"
+msgstr ""
 
 #: master_preset.xml:425(combo:text|key:leisure)
 #: master_preset.xml:428(combo:text|key:leisure)
 msgctxt "sport"
 msgid "Type"
-msgstr "Type de bunker"
+msgstr "النوع"
 
 #: master_preset.xml:436(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10184,12 +10182,12 @@ msgstr ""
 #: master_preset.xml:448(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Surface"
-msgstr "Surface"
+msgstr "سطحي"
 
 #: master_preset.xml:448(combo:text|key:parking)
 msgctxt "parking"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:448(combo:display_values|key:parking)
 msgctxt "parking"
@@ -10330,7 +10328,7 @@ msgstr ""
 #: master_preset.xml:8450(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "No"
-msgstr "Non"
+msgstr "لا"
 
 #: master_preset.xml:2624(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2644(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -10393,7 +10391,7 @@ msgstr ""
 #: master_preset.xml:8450(combo:display_values|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #: master_preset.xml:9374(combo:text|preset:Power_Tower|key:branch:type)
 msgctxt "power"
@@ -10403,7 +10401,7 @@ msgstr ""
 #: master_preset.xml:543(combo:text|key:location)
 msgctxt "power"
 msgid "Location"
-msgstr "Emplacement"
+msgstr ""
 
 #: master_preset.xml:9459(combo:text|preset:Power_Line|key:wires)
 msgctxt "power"
@@ -10423,12 +10421,12 @@ msgstr ""
 #: master_preset.xml:9373(combo:text|preset:Power_Tower|key:tower:type)
 msgctxt "power"
 msgid "Tower type"
-msgstr "Type de tour"
+msgstr ""
 
 #: master_preset.xml:9411(combo:text|preset:Pole_with_Switch|key:switch)
 msgctxt "power"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:9311(combo:text|preset:Power_Compensator|key:compensator)
 msgctxt "power"
@@ -10666,7 +10664,7 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Bungalow"
-msgstr "Bungalow"
+msgstr ""
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10688,12 +10686,12 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Chapel"
-msgstr "Chapelle"
+msgstr ""
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Church"
-msgstr "Église"
+msgstr ""
 
 #: master_preset.xml:810(combo:display_values|key:building:use)
 msgctxt "building"
@@ -10728,12 +10726,12 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Construction"
-msgstr "Bâtiment en construction"
+msgstr ""
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Cowshed"
-msgstr "Étable"
+msgstr ""
 
 #: master_preset.xml:810(combo:display_values|key:building:use)
 msgctxt "building"
@@ -10774,12 +10772,12 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Farm"
-msgstr "Ferme"
+msgstr ""
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Farm auxiliary"
-msgstr "Bâtiment auxiliaire de ferme"
+msgstr ""
 
 #: master_preset.xml:820(list_entry:short_description|value:flat)
 #: master_preset.xml:8348(item:name|group:Roof_type|preset:Flat)
@@ -10887,7 +10885,7 @@ msgstr ""
 #: master_preset.xml:8314(key:text|group:Buildings|preset:Industrial|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr "Secondaire"
+msgstr "صناعي"
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -10902,7 +10900,7 @@ msgstr ""
 #: master_preset.xml:803(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr "Nombre de niveau(x)"
+msgstr ""
 
 #: master_preset.xml:793(combo:display_values|key:building:frame:material)
 #: master_preset.xml:797(combo:display_values|key:building:wall:material)
@@ -10975,14 +10973,14 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Mosque"
-msgstr ""
+msgstr "مسجد"
 
 #: master_preset.xml:793(combo:display_values|key:building:frame:material)
 #: master_preset.xml:797(combo:display_values|key:building:wall:material)
 #: master_preset.xml:817(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Mud"
-msgstr "Boue"
+msgstr "وحل"
 
 #: master_preset.xml:810(combo:display_values|key:building:use)
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
@@ -11083,7 +11081,7 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Ruins"
-msgstr "Ruines"
+msgstr ""
 
 #: master_preset.xml:829(list_entry:short_description|value:saltbox)
 #: master_preset.xml:8418(item:name|group:Roof_type|preset:Saltbox)
@@ -11133,7 +11131,7 @@ msgstr ""
 #: master_preset.xml:810(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Sport"
-msgstr "Sport"
+msgstr "رياضة"
 
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11152,7 +11150,7 @@ msgstr ""
 #: master_preset.xml:817(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Stone"
-msgstr "Pierre"
+msgstr ""
 
 #: master_preset.xml:810(combo:display_values|key:building:use)
 msgctxt "building"
@@ -11236,7 +11234,7 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Warehouse"
-msgstr ""
+msgstr "مستودع"
 
 #: master_preset.xml:793(combo:display_values|key:building:frame:material)
 #: master_preset.xml:797(combo:display_values|key:building:wall:material)
@@ -11248,7 +11246,7 @@ msgstr ""
 #: master_preset.xml:8226(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #: master_preset.xml:778(combo:text|key:roof:levels)
 msgctxt "roof_levels"
@@ -11258,7 +11256,7 @@ msgstr ""
 #: master_preset.xml:1370(item:name|group:Streets|preset:Construction)
 msgctxt "Highway"
 msgid "Construction"
-msgstr "Rue en construction"
+msgstr ""
 
 #: master_preset.xml:1217(combo:text|group:Streets|preset:Bicycle_Road|key:highway)
 #: master_preset.xml:1382(combo:text|group:Streets|preset:Construction|key:construction)
@@ -11279,7 +11277,7 @@ msgstr ""
 #: master_preset.xml:1408(combo:text|group:Streets|preset:Roundabout|key:highway)
 msgctxt "Highway"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:1522(combo:text|preset:Cycle_Lane/Track|key:cycleway)
 msgctxt "cycleway"
@@ -11301,7 +11299,7 @@ msgstr ""
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Lane"
-msgstr "Voie"
+msgstr "حارة طريق"
 
 #: master_preset.xml:1522(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1524(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
@@ -11343,7 +11341,7 @@ msgstr ""
 #: master_preset.xml:1526(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Track"
-msgstr "Chemin carrossable"
+msgstr "شاحنات"
 
 #: master_preset.xml:1589(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -11378,7 +11376,7 @@ msgstr ""
 #: master_preset.xml:1589(combo:text|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Visibility"
-msgstr "Visibilité"
+msgstr "الرؤية"
 
 #: master_preset.xml:1685(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -11393,7 +11391,7 @@ msgstr ""
 #: master_preset.xml:1685(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:1975(item:name|group:Traffic_Calming|preset:Island)
 msgctxt "traffic_calming"
@@ -11463,12 +11461,12 @@ msgstr ""
 #: master_preset.xml:2198(combo:display_values|group:Barriers|preset:Bollard|key:material)
 msgctxt "material"
 msgid "Stone"
-msgstr "Pierre"
+msgstr ""
 
 #: master_preset.xml:2290(combo:text|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:2290(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -11494,12 +11492,12 @@ msgstr ""
 #: master_preset.xml:2435(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr "Balançoire"
+msgstr ""
 
 #: master_preset.xml:2435(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:3049(item:name|group:Water|preset:Water)
 msgctxt "natural"
@@ -11680,12 +11678,12 @@ msgstr ""
 #: master_preset.xml:8719(combo:text|group:Man_Made|preset:Pipeline|key:location)
 msgctxt "pipeline"
 msgid "Location"
-msgstr "Emplacement"
+msgstr ""
 
 #: master_preset.xml:6636(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:type)
 msgctxt "pipeline"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:6645(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant position"
@@ -11769,7 +11767,7 @@ msgstr ""
 #: master_preset.xml:7594(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr "Bunker"
+msgstr ""
 
 #: master_preset.xml:7658(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -11804,7 +11802,7 @@ msgstr ""
 #: master_preset.xml:7598(combo:text|group:Golf|preset:Bunker|key:natural)
 msgctxt "golf"
 msgid "Natural"
-msgstr ""
+msgstr "طبيعة"
 
 #: master_preset.xml:7580(item:name|group:Golf|preset:Pin)
 msgctxt "golf"
@@ -11864,7 +11862,7 @@ msgstr ""
 #: master_preset.xml:8447(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Home"
-msgstr "Début"
+msgstr "Home"
 
 #: master_preset.xml:8456(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
@@ -11874,12 +11872,12 @@ msgstr ""
 #: master_preset.xml:8447(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr "Principale"
+msgstr "رئيسي"
 
 #: master_preset.xml:8456(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
 msgid "None"
-msgstr "Aucune"
+msgstr ""
 
 #: master_preset.xml:8456(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
@@ -11914,12 +11912,12 @@ msgstr ""
 #: master_preset.xml:8447(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Yes"
-msgstr "Oui"
+msgstr ""
 
 #: master_preset.xml:8602(combo:text|group:Man_Made|preset:Storage_Tank|key:content)
 msgctxt "content"
 msgid "Content"
-msgstr "Contenu"
+msgstr "المحتوى"
 
 #: master_preset.xml:8852(item:name|group:Man_Made|preset:Beacon)
 msgctxt "man_made"
@@ -11939,7 +11937,7 @@ msgstr ""
 #: master_preset.xml:8961(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:type)
 msgctxt "camera:type"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:8962(combo:text|group:Man_Made|preset:Surveillance_Camera|key:camera:mount)
 msgctxt "camera:mount"
@@ -11959,7 +11957,7 @@ msgstr ""
 #: master_preset.xml:9475(combo:text|preset:Power_Cable|key:location)
 msgctxt "power cable"
 msgid "Location"
-msgstr "Emplacement"
+msgstr ""
 
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -11969,37 +11967,37 @@ msgstr ""
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Plaque"
-msgstr "Plaque commémorative"
+msgstr ""
 
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr "Statue commémorative"
+msgstr ""
 
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stele"
-msgstr "Stèle commémorative"
+msgstr ""
 
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Stone"
-msgstr "Pierre commémorative"
+msgstr ""
 
 #: master_preset.xml:9631(combo:text|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:9631(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "War memorial"
-msgstr "Mémorial de guerre"
+msgstr ""
 
 #: master_preset.xml:11864(item:name|group:Geography|preset:Island)
 msgctxt "place"
 msgid "Island"
-msgstr "Île"
+msgstr "جزيرة"
 
 #: master_preset.xml:11561(item:name|group:Places|preset:State)
 msgctxt "place"
@@ -12009,7 +12007,7 @@ msgstr ""
 #: master_preset.xml:11995(combo:text|group:Nature|preset:Cutline|key:cutline)
 msgctxt "cutline"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:12209(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
@@ -12044,12 +12042,12 @@ msgstr ""
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Bakery"
-msgstr "Boulangerie"
+msgstr ""
 
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Brewery"
-msgstr "Brasserie"
+msgstr ""
 
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
@@ -12069,7 +12067,7 @@ msgstr ""
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Factory"
-msgstr "Usine"
+msgstr ""
 
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
@@ -12109,7 +12107,7 @@ msgstr ""
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Sawmill"
-msgstr "Scierie"
+msgstr "منشرة"
 
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
@@ -12124,22 +12122,22 @@ msgstr ""
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr "Abattoir"
+msgstr "مسلخ"
 
 #: master_preset.xml:12513(combo:text|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Type"
-msgstr "Type"
+msgstr "النوع"
 
 #: master_preset.xml:12513(combo:display_values|group:Land_use|preset:Industrial|key:industrial)
 msgctxt "industrial"
 msgid "Warehouse"
-msgstr "Entrepôt"
+msgstr "مستودع"
 
 #: master_preset.xml:12552(item:name|group:Land_use|preset:Construction_Area)
 msgctxt "Landuse"
 msgid "Construction Area"
-msgstr "Zone en construction"
+msgstr ""
 
 #: master_preset.xml:12688(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
@@ -12188,7 +12186,7 @@ msgstr ""
 #: master_preset.xml:13057(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "International"
-msgstr "International"
+msgstr "دولية"
 
 #: master_preset.xml:12977(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:13020(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -12196,14 +12194,14 @@ msgstr "International"
 #: master_preset.xml:13057(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "Local"
-msgstr "Local"
+msgstr "محليى"
 
 #: master_preset.xml:12977(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:13020(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
 #: master_preset.xml:13057(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "National"
-msgstr "National"
+msgstr "وطنية"
 
 #: master_preset.xml:12977(combo:text|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:13020(combo:text|group:Routes|preset:Hiking_Route|key:network)
@@ -12211,7 +12209,7 @@ msgstr "National"
 #: master_preset.xml:13057(combo:text|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "Network"
-msgstr "Réseau"
+msgstr ""
 
 #: master_preset.xml:12977(combo:display_values|group:Routes|preset:Bicycle_Route|key:network)
 #: master_preset.xml:13020(combo:display_values|group:Routes|preset:Hiking_Route|key:network)
@@ -12219,12 +12217,12 @@ msgstr "Réseau"
 #: master_preset.xml:13057(combo:display_values|group:Routes|preset:Riding_Route|key:network)
 msgctxt "network"
 msgid "Regional"
-msgstr "Régional"
+msgstr "إقليمي"
 
 #: master_preset.xml:14347(item:name|group:Offices|preset:Religion)
 msgctxt "office"
 msgid "Religion"
-msgstr "Religion"
+msgstr ""
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)

@@ -179,6 +179,9 @@
   <string name="menu_transfer_autodownload_long">Auto-nedlasting av feil</string>
   <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
+  <string name="menu_tools_background_contrast">Kontrast</string>
+  <string name="menu_tools_oauth_reset">Tilbakestill OAuth</string>
+  <string name="menu_tools_oauth_authorisation">Autoriser OAuth</string>
   <string name="menu_enable_tagfilter">Egenskapsfilter</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -189,6 +192,7 @@
   <string name="deleteway_description">Du skal til å slette en linje.\n\nDu kan enten beholde alle punkter, eller slette punkter som bare tilhører denne linja og som ikke har noen egenskaper.</string>
   <string name="deleteway_wayonly">Slett bare vegen</string>
   <string name="deleteway_wayandnodes">Slett veg og noder</string>
+  <string name="deletenode">Slett punkt</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
@@ -223,6 +227,8 @@
   <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
   <string name="config_licensebutton_summary">Vis informasjon om opphavsmenn og lisenser</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedlastings-radius</string>
+  <string name="config_downloadRadius_current">%1$d Meter</string>
+  <string name="config_downloadSpeed_current">%1$d km/t</string>
   <string name="config_address_tags">Adresse-egenskaper</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
@@ -270,8 +276,29 @@
   <string name="pref_acra_disabled">Krasjrapportering slått av</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="bearing_ne">NØ</string>
+  <string name="bearing_e">Ø</string>
+  <string name="bearing_se">SØ</string>
+  <string name="bearing_s">S</string>
+  <string name="bearing_sw">SV</string>
+  <string name="bearing_w">V</string>
+  <string name="bearing_nw">NV</string>
+  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
+  <string name="role">Rolle</string>
+  <string name="role_lc">rolle</string>
+  <string name="membership_relation_heading">Medlem av en relasjon</string>
+  <string name="relation">Relasjon</string>
+  <string name="relations">Relasjoner</string>
+  <string name="type">Type</string>
+  <string name="object">Objekt</string>
   <!--time and distance-->
+  <string name="days">dager</string>
+  <string name="hours">timer</string>
+  <string name="minutes">minutter</string>
+  <string name="seconds">sekunder</string>
+  <string name="km">km</string>
+  <string name="meter">meter</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

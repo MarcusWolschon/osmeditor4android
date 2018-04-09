@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-03-31 20:34+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-04-09 07:13+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -828,7 +828,7 @@ msgstr "Sörkert"
 
 #: master_preset.xml:8480(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Bell tower"
-msgstr ""
+msgstr "Harangtorony"
 
 #: master_preset.xml:4304(check:text|group:Public_Transport|preset:Platform|key:bench)
 #: master_preset.xml:4495(check:text|group:Public_Transport_(Legacy)|preset:Bus_Stop|key:bench)
@@ -7368,7 +7368,7 @@ msgstr "Mutatja a légnyomást"
 
 #: master_preset.xml:7073(check:text|group:Facilities|preset:Clock|key:date)
 msgid "Shows current date"
-msgstr "A jelenlegi dátumot mutatja"
+msgstr "Mutatja a jelenlegi dátumot"
 
 #: master_preset.xml:7076(check:text|group:Facilities|preset:Clock|key:hygrometer)
 msgid "Shows humidity"
@@ -9206,7 +9206,7 @@ msgstr "bármi, ami az utcához kötődik"
 
 #: master_preset.xml:7072(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "area (more than 20m)"
-msgstr "terület (több mint 20 m)"
+msgstr "3) terület (több mint 20 méterről)"
 
 #: master_preset.xml:4408(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:backward_stop)
 msgid "backward halt point"
@@ -9374,7 +9374,7 @@ msgstr "ház"
 
 #: master_preset.xml:7072(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "house (up to 5m)"
-msgstr "ház (legfeljebb 5 m)"
+msgstr "1) sétálók (legfeljebb 5 m-ről)"
 
 #: master_preset.xml:13232(role:text|preset:Street|key:house)
 msgid "houses belonging to the street"
@@ -9543,7 +9543,7 @@ msgstr "utca"
 
 #: master_preset.xml:7072(combo:display_values|group:Facilities|preset:Clock|key:visibility)
 msgid "street (up to 20m)"
-msgstr "utca (legfeljebb 20 m)"
+msgstr "2) utca (5–20 m távolságból)"
 
 #: master_preset.xml:9151(list_entry:short_description|group:Power_Generator|preset:Solar_Power_Generator|value:steam_turbine)
 msgid "thermal"

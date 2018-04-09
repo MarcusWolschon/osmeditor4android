@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-03-31 22:33+0200\n"
-"PO-Revision-Date: 2018-04-01 03:18+0000\n"
-"Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
+"PO-Revision-Date: 2018-04-04 13:31+0000\n"
+"Last-Translator: Alexandre de Menezes <afmenez@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1137,7 +1137,7 @@ msgstr ""
 
 #: master_preset.xml:12567(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
-msgstr ""
+msgstr "Área contaminada"
 
 #: master_preset.xml:516(combo:display_values|key:religion)
 msgid "Buddhist"
@@ -7542,7 +7542,7 @@ msgstr ""
 
 #: master_preset.xml:2080(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr ""
+msgstr "Câmera de Controle de Velocidade"
 
 #: master_preset.xml:2068(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"

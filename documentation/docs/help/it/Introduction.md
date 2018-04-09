@@ -49,7 +49,12 @@ Una lunga pressione sull'icona di blocco farà apparire un menù con 4 opzioni:
 Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:
 
 * Tocco singolo: seleziona un oggetto
-
+     * Un nodo o un percorso vengono immediatamente evidenziati
+     * Tuttavia, se si cerca di selezionare un oggetto e Vespucci individua più oggetti in quel punto, verrà mostrato un menù di selezione che permetterà di scegliere l’oggetto da selezionare. 
+    * Gli oggetti selezionati sono evidenziati in giallo. 
+    * Per ulteriori informazioni vedere [Nodo selezionato](../it/Node%20selected.md), [Percorso selezionato](../it/Way%20selected.md) e [Relazione selezionata](../it/Relation%20selected.md). 
+    * Tocco doppio: fa partire la [modalità multiselezione](../it/Multiselect.md). 
+    * Pressione a lungo: crea una "croce" che permette di aggiungere nodi, vedi qui sotto oppure in [Creare nuovi oggetti](../it/Creating%20new%20objects.md)
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -59,7 +64,7 @@ Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare c
 
 Premi su un oggetto per selezionarlo ed evidenziarlo. Toccare lo schermo in un punto senza oggetti consente di de-selezionare l'oggetto. Se hai selezionato un oggetto ma hai bisogno di selezionarle un altro, per farlo ti basta premere su questo secondo oggetto, non c'è bisogno di de-selezionare il precedente. Un doppio tocco su un oggetto avvia la funzione selezione multipla [Modalità selezione multipla](../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Tieni presente che se cerchi di selezionare un oggetto e Vespucci rileva più oggetti in quel punto (per esempio un nodo su un percorso o altri oggetti sovrapposti) verrà mostrato un menù di selezione: premi sull’oggetto che vuoi selezionare ed esso verrà selezionato. 
 
 Gli oggetti selezionati sono indicati da una sottile bordatura gialla. La bordatura potrebbe essere difficile da vedere, ma una volta selezionato l'oggetto, apparirà una notifica a conferma.
 
@@ -69,7 +74,7 @@ Completata la selezione vedrai una lista delle operazioni che è possibile effet
 
 Un secondo tocco sull'oggetto selezionato apre il menù di modifica delle etichette, dal quale è possibile modificare le etichette associate all'oggetto.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Tieni presente che per gli oggetti sovrapposti (come per esempio un nodo su un percorso) il menù di selezione comparirà una seconda volta. Se selezioni lo stesso oggetto, ti verrà mostrato l’editor delle etichette; se ne selezioni un altro, esso verrà semplicemente selezionato.
 
 #### Oggetto selezionato: spostare un nodo o una linea
 
@@ -77,9 +82,9 @@ Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere tr
 
 #### Aggiungere un nuovo nodo o una linea (pressione prolungata)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Premi a lungo dove vuoi posizionare il nodo o che cominci il percorso. Vedrai un simbolo a forma di croce.
+* se vuoi creare un nuovo nodo (non connesso ad un altro oggetto), clicca lontano da oggetti esistenti.
+* se vuoi estendere un percorso, clicca all’interno della "zona di tolleranza" del percorso (o su un nodo del percorso). La zona di tolleranza è indicata dalle aree attorno ad un nodo o percorso.
 
 Once you can see the crosshair symbol, you have these options:
 
