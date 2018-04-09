@@ -15,7 +15,7 @@ import de.blau.android.prefs.Preferences;
 /**
  * Handle determining if we are on a system with soft navigation buttons and switch to full screen mode
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActivity {
@@ -37,9 +37,15 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
                     Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
                     if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
                         if (fullScreen) {
-                            synchronized (handler) {
-                                handler.removeCallbacks(navHider);
-                                handler.postDelayed(navHider, 2000);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { 
+                                // in immersive mode directly hiding seems to work
+                                hideSystemUI();
+                            } else {
+                                // this likely, if a all, only works if you use the top bar
+                                synchronized (handler) {
+                                    handler.removeCallbacks(navHider);
+                                    handler.postDelayed(navHider, 1500);
+                                }
                             }
                         }
                     } else {
@@ -103,14 +109,14 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
             Log.d(DEBUG_TAG, "hiding nav bar");
             int fullScreenMode = (hideStatus ? View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN : 0)
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode
-                    | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : View.SYSTEM_UI_FLAG_IMMERSIVE));
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : 0));
         }
     }
 
     /**
      * This is likely not all too reliable
      * 
+     * @param prefs the current Preferences object
      * @return true if we should use the full screen layout
      */
     protected boolean useFullScreen(@NonNull Preferences prefs) {
