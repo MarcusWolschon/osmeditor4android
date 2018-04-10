@@ -31,4 +31,4 @@ Please note that some components are maintained in upstream repositories and rel
 <!-- required -->
 
 ## Any other potentially relevant information
-<!-- required -->
+<!-- optional -->
