@@ -7,28 +7,28 @@ Please note that some components are maintained in upstream repositories and rel
 * opening hours user interface: https://github.com/simonpoole/OpeningHoursFragment
 
 ## Vespucci Version
-(required, see advanced preference of debug information screen in the preferences)
+<!-- required, see advanced preference of debug information screen in the preferences -->
 
 ## Download source
-(from where did you obtain the app? google play store, amazon, f-droid, github, ...)
+<!-- from where did you obtain the app? google play store, amazon, f-droid, github, ... -->
 
 ## Device (Manufacturer and Model)
-(required)
+<!-- required -->
 
 ## Android Version 
-(required, please indicate if you are using a custom version)
+<!-- required, please indicate if you are using a custom version -->
 
 ## Behaviour/Symptoms
-(required)
+<!-- required -->
 
 ## Expected Behaviour
-(required)
+<!-- required -->
 
 ## How to recreate
-(required)
+<!-- required -->
 
 ## Crash dump submitted (no or yes + date)
-(required)
+<!-- required -->
 
 ## Any other potentially relevant information
-(optional)
+<!-- optional -->
