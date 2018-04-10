@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory;
 import android.os.RemoteException;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
@@ -50,7 +49,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private static final String DEBUGTAG = "OSM_DOWNLOADER";
 
-    public static final long TIMEOUT = 2500;
+    public static final long TIMEOUT = 5000;
 
     // ===========================================================
     // Fields
