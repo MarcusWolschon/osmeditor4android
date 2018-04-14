@@ -225,7 +225,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
             }
-            helpView.loadUrl("file:///android_asset/" + helpFile);
+            if (savedInstanceState != null) {
+                helpView.restoreState(savedInstanceState);
+            } else {
+                helpView.loadUrl("file:///android_asset/" + helpFile);
+            }
         } catch (IOException e) {
             Log.d(DEBUG_TAG, "Caught exception " + e);
         }
@@ -280,6 +284,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        helpView.saveState(outState);
+    }
+    
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
