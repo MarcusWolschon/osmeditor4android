@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -36,13 +35,14 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog asking for a search string that is then found with nominatim
  *
  */
-public class SearchForm extends DialogFragment {
+public class SearchForm extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = SearchForm.class.getSimpleName();
 
     private static final String BBOX_KEY = "bbox";

@@ -8,7 +8,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +23,7 @@ import de.blau.android.R;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -32,7 +32,7 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class UploadConflict extends DialogFragment {
+public class UploadConflict extends ImmersiveDialogFragment {
 
     private static final String UPLOADRESULT = "uploadresult";
 
