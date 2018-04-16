@@ -3,13 +3,13 @@ package de.blau.android.dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ImmersiveDialogFragment;
 
 /**
  * ProgressDialog can't be styled, this rolls its own.
@@ -17,7 +17,7 @@ import de.blau.android.prefs.Preferences;
  * @author simon
  *
  */
-public class Progress extends DialogFragment {
+public class Progress extends ImmersiveDialogFragment {
 
     private static final String TYPE = "type";
 
@@ -42,7 +42,7 @@ public class Progress extends DialogFragment {
     public static final int PROGRESS_RUNNING = 9;
 
     public static final int PROGRESS_BUILDING_IMAGERY_DATABASE = 10;
-    
+
     public static final int PROGRESS_QUERY_OAM = 11;
 
     private int dialogType;
