@@ -65,6 +65,7 @@ import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -318,10 +319,10 @@ public class Logic {
     }
 
     /**
-     * Informs the current drawing profile of the user preferences affecting drawing, the current screen properties, and
+     * Informs the current drawing style of the user preferences affecting drawing, the current screen properties, and
      * clears the way cache.
      */
-    public void updateProfile() {
+    public void updateStyle() {
         DataStyle.switchTo(prefs.getMapProfile());
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
@@ -329,6 +330,7 @@ public class Logic {
         for (Way w : getDelegator().getCurrentStorage().getWays()) {
             w.setFeatureProfile(null);
         }
+        map.updateStyle();
     }
 
     /**
@@ -671,6 +673,7 @@ public class Logic {
      * @param y display-coordinate.
      * @return a List of all OsmElements (Nodes and Ways) within the tolerance
      */
+    @NonNull
     public List<OsmElement> getClickedNodesAndWays(final float x, final float y) {
         ArrayList<OsmElement> result = new ArrayList<>();
         result.addAll(getClickedNodes(x, y));
@@ -2153,7 +2156,7 @@ public class Logic {
      * @param node2Y screen Y coordinate of node2
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
-    private double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
+    public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
         float tolerance = DataStyle.getCurrent().getWayToleranceValue() / 2f;
         // noinspection SuspiciousNameCombination
         if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
@@ -2364,6 +2367,11 @@ public class Logic {
                 }
                 if (map != null) {
                     DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
+                    // this is always a manual download so make the layer visible
+                    de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
+                    if (dataLayer != null) {
+                        dataLayer.setVisible(true);
+                    }
                     invalidateMap();
                 }
                 activity.supportInvalidateOptionsMenu();
@@ -2469,18 +2477,6 @@ public class Logic {
             protected void onPostExecute(Integer result) {
             }
         }.execute();
-    }
-
-    /**
-     * Calls the actual downloadBox function using the current map view as the bounding box for the download.
-     * 
-     * @param activity activity this was called from
-     * @param add add if true add this data to existing
-     * @see #downloadBox(activity, BoundingBox, boolean)
-     */
-    void downloadCurrent(final FragmentActivity activity, boolean add) {
-        Log.d(DEBUG_TAG, "viewBox: " + viewBox.getBottom() + " " + viewBox.getLeft() + " " + viewBox.getTop() + " " + viewBox.getRight());
-        downloadBox(activity, viewBox.copy(), add, null);
     }
 
     /**
@@ -3045,6 +3041,9 @@ public class Logic {
         try {
             getDelegator().writeToFile(activity);
             App.getTaskStorage().writeToFile(activity);
+            if (map != null) {
+                map.saveLayerState(activity);
+            }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem saving", e);
         }
@@ -3073,8 +3072,7 @@ public class Logic {
      * Saves the current editing state (selected objects, editing mode, etc) to file.
      */
     void saveEditingState(Main main) {
-        TileLayerServer osmts = map.getBackgroundLayer().getTileLayerConfiguration();
-        EditState editState = new EditState(main, this, osmts, main.getImageFileName(), viewBox, main.getFollowGPS());
+        EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }
 
@@ -3188,8 +3186,9 @@ public class Logic {
      * Loads the saved task state from a file in the background.
      * 
      * @param activity the activity calling this method
+     * @param postLoad if not null call this after loading
      */
-    void loadBugsFromFile(@NonNull final Activity activity, final PostAsyncActionHandler postLoad) {
+    void loadBugsFromFile(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
@@ -3236,8 +3235,66 @@ public class Logic {
     }
 
     /**
+     * Loads the saved layer state in the background.
+     * 
+     * @param activity the activity calling this method
+     * @param postLoad if not null call this after loading
+     */
+    void loadLayerState(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
+
+        final int READ_FAILED = 0;
+        final int READ_OK = 1;
+
+        AsyncTask<Void, Void, Integer> loader = new AsyncTask<Void, Void, Integer>() {
+
+            @Override
+            protected void onPreExecute() {
+                Log.d(DEBUG_TAG, "loadLayerState onPreExecute");
+            }
+
+            @Override
+            protected Integer doInBackground(Void... v) {
+                boolean result = true;
+                for (MapViewLayer layer : map.getLayers()) {
+                    if (layer != null) {
+                        try {
+                            result = result && layer.onRestoreState(activity);
+                        } catch (Exception e) {
+                            // Never crash
+                            result = false;
+                        }
+                    }
+                }
+                return result ? READ_OK : READ_FAILED;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                Log.d(DEBUG_TAG, "loadLayerState onPostExecute");
+                if (result != READ_FAILED) {
+                    Log.d(DEBUG_TAG, "loadBugsfromFile: state loaded correctly");
+
+                    // FIXME if no bbox exists from data, ty to use one from bugs
+                    if (postLoad != null) {
+                        postLoad.onSuccess();
+                    }
+
+                } else {
+                    Log.d(DEBUG_TAG, "loadLayerState: state load failed");
+                    if (postLoad != null) {
+                        postLoad.onError();
+                    }
+                }
+                map.invalidate();
+            }
+        };
+        loader.execute();
+    }
+
+    /**
      * Loads data from a file
      * 
+     * @param activity the activity calling this method
      */
     public void syncLoadFromFile(@NonNull FragmentActivity activity) {
 

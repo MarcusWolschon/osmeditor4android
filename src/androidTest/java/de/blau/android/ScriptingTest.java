@@ -42,6 +42,8 @@ public class ScriptingTest {
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @After

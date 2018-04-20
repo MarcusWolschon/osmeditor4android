@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.Map;
@@ -182,6 +183,7 @@ public class ViewBox extends BoundingBox {
     /**
      * Changes the dimensions of this bounding box to fit the given ratio.
      * 
+     * @param map the current Map instance
      * @param ratio The new aspect ratio.
      * @param preserveZoom If true, maintains the current level of zoom by creating a new boundingbox at the required
      *            ratio at the same center. If false, the new bounding box is sized such that the currently visible area
@@ -599,5 +601,52 @@ public class ViewBox extends BoundingBox {
         result[0] = ((getRight() - getLeft()) / 2D + getLeft()) / 1E7D;
         result[1] = getCenterLat();
         return result;
+    }
+
+    /**
+     * Change dimensions so that the given BoundingBox will fit preserving the aspect ratio
+     * 
+     * @param map the current Map instance
+     * @param extent the BoundingBox we want to fit in to
+     */
+    public void fitToBoundingBox(@NonNull Map map, @NonNull BoundingBox extent) {
+        BoundingBox box = new BoundingBox(extent);
+        box.calcDimensions();
+        long mTop = GeoMath.latE7ToMercatorE7(box.getTop());
+        long mBottom = GeoMath.latE7ToMercatorE7(box.getBottom());
+        long mHeight = mTop - mBottom;
+
+        double boxRatio = (double) box.getWidth() / mHeight;
+
+        if (boxRatio > ratio) { // less high than our screen -> make box higher
+            long mCenter = mBottom + mHeight / 2;
+            long newHeight = (long) (box.getWidth() / ratio);
+            if (newHeight > GeoMath.MAX_MLAT_E7 * 2L) { // clamp
+                box.setTop(GeoMath.MAX_LAT_E7);
+                box.setBottom(-GeoMath.MAX_LAT_E7);
+                long center = (box.getLeft() - box.getRight()) / 2L + box.getRight();
+                long newWidth = (long) (GeoMath.MAX_MLAT_E7 * 2L * ratio);
+                box.setLeft((int) (center + newWidth / 2));
+                box.setRight((int) (center - newWidth / 2));
+            } else {
+                box.setTop(GeoMath.mercatorE7ToLatE7((int) (mCenter + newHeight / 2)));
+                box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight / 2)));
+            }
+        } else if (boxRatio < ratio) { // higher than our screen -> make box wider
+            long center = (box.getLeft() - box.getRight()) / 2L + box.getRight();
+            long newWidth = (long) (mHeight * ratio);
+            if (newWidth > 2D * GeoMath.MAX_LON_E7) { // clamp
+                box.setLeft(GeoMath.MAX_LON_E7);
+                box.setRight(-GeoMath.MAX_LON_E7);
+                long mCenter = mBottom + mHeight / 2;
+                long newHeight = (long) (2D * GeoMath.MAX_LON_E7 / ratio);
+                box.setTop(GeoMath.mercatorE7ToLatE7((int) (mCenter + newHeight / 2)));
+                box.setBottom(GeoMath.mercatorE7ToLatE7((int) (mCenter - newHeight / 2)));
+            } else {
+                box.setLeft((int) (center + newWidth / 2));
+                box.setRight((int) (center - newWidth / 2));
+            }
+        }
+        setBorders(map, box, false);
     }
 }

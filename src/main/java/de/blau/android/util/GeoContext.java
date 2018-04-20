@@ -223,17 +223,17 @@ public class GeoContext {
      */
     private boolean inside(double lon, double lat, @NonNull FeatureCollection fc) {
         if (fc != null) {
-        Point p = Point.fromCoordinates(Position.fromCoordinates(lon, lat));
-        for (Feature f : fc.getFeatures()) {
-            Geometry<?> g = f.getGeometry();
-            try {
-                if (g instanceof Polygon && TurfJoins.inside(p, (Polygon) g)) {
-                    return true;
+            Point p = Point.fromCoordinates(Position.fromCoordinates(lon, lat));
+            for (Feature f : fc.getFeatures()) {
+                Geometry<?> g = f.getGeometry();
+                try {
+                    if (g instanceof Polygon && TurfJoins.inside(p, (Polygon) g)) {
+                        return true;
+                    }
+                } catch (TurfException e) {
+                    return false;
                 }
-            } catch (TurfException e) {
-                return false;
             }
-        }
         } else {
             Log.e(DEBUG_TAG, "inside called with null FeatureCollection");
         }

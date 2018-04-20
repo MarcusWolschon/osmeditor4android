@@ -1,25 +1,41 @@
-package de.blau.android.tasks;
+package de.blau.android.layer.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.MapViewLayer;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.tasks.Task;
+import de.blau.android.tasks.TaskFragment;
+import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapViewLayer;
 
-public class MapOverlay extends MapViewLayer {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface {
 
     /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
     private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
+
+    private static final String DEBUG_TAG = "tasks";
 
     private Bitmap  cachedIconClosed;
     private float   w2closed  = 0f;
@@ -45,12 +61,12 @@ public class MapOverlay extends MapViewLayer {
     @Override
     public boolean isReadyToDraw() {
         enabled = map.getPrefs().areBugsEnabled();
-        return enabled && map.getBackgroundLayer().isReadyToDraw();
+        return enabled;
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (enabled) {
+        if (isVisible && enabled) {
 
             // the idea is to have the circles a bit bigger when zoomed in, not so
             // big when zoomed out
@@ -104,15 +120,8 @@ public class MapOverlay extends MapViewLayer {
         // do nothing
     }
 
-    /**
-     * Given screen coordinates, find all nearby bugs.
-     * 
-     * @param x Screen X-coordinate.
-     * @param y Screen Y-coordinate.
-     * @param viewBox Map view box.
-     * @return List of bugs close to given location.
-     */
-    public List<Task> getClickedTasks(final float x, final float y, final ViewBox viewBox) {
+    @Override
+    public List<Task> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Task> result = new ArrayList<>();
         if (map.getPrefs().areBugsEnabled()) {
             final float tolerance = DataStyle.getCurrent().getNodeToleranceValue();
@@ -140,5 +149,68 @@ public class MapOverlay extends MapViewLayer {
             // viewBox, x), true));
         }
         return result;
+    }
+
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_tasks);
+    }
+
+    @Override
+    public void invalidate() {
+        map.invalidate();
+    }
+
+    @Override
+    public BoundingBox getExtent() {
+        List<BoundingBox> boxes = App.getTaskStorage().getBoundingBoxes();
+        if (boxes != null) {
+            return BoundingBox.union(new ArrayList<>(boxes));
+        }
+        return null;
+    }
+
+    @Override
+    public void disable(Context context) {
+        Preferences prefs = new Preferences(context);
+        prefs.setBugsEnabled(false);
+    }
+
+    @Override
+    public void onSelected(FragmentActivity activity, Object object) {
+        if (!(object instanceof Task)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return;
+        }
+        Task bug = (Task) object;
+        App.getLogic().setSelectedBug(bug);
+        FragmentManager fm = activity.getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag("fragment_bug");
+        try {
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "performBugEdit removing dialog ", isex);
+        }
+        TaskFragment bugDialog = TaskFragment.newInstance(bug);
+        try {
+            bugDialog.show(fm, "fragment_bug");
+        } catch (IllegalStateException isex) {
+            // FIXME properly
+            Log.e(DEBUG_TAG, "performBugEdit showing dialog ", isex);
+        }
+    }
+
+    @Override
+    public String getDescription(Object object) {
+        if (!(object instanceof Task)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return "?";
+        }
+        Task bug = (Task) object;
+        return bug.getDescription();
     }
 }

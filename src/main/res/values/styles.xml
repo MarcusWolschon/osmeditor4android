@@ -116,6 +116,10 @@
 		<item name="add">@drawable/ic_add_black_36dp</item>
 		<item name="remove">@drawable/ic_remove_black_36dp</item>
 		<item name="name">@drawable/name_dark</item>
+        <item name="layer_visible">@drawable/ic_visibility_white_24dp</item>
+        <item name="layer_not_visible">@drawable/ic_visibility_off_white_24dp</item>
+        <item name="zoom_to_layer_extent">@drawable/ic_crop_free_white_24dp</item>
+        <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
@@ -175,6 +179,10 @@
 		<item name="add">@drawable/ic_add_white_36dp</item>
 		<item name="remove">@drawable/ic_remove_white_36dp</item>
 		<item name="name">@drawable/name_light</item>
+        <item name="layer_visible">@drawable/ic_visibility_black_24dp</item>
+        <item name="layer_not_visible">@drawable/ic_visibility_off_black_24dp</item>
+        <item name="zoom_to_layer_extent">@drawable/ic_crop_free_black_24dp</item>
+        <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>

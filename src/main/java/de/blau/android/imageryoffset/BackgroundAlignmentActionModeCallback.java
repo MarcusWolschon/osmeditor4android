@@ -105,6 +105,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         main.hideLock();
+        main.hideLayersControl();
         mode.setTitle(R.string.menu_tools_background_align);
         if (main.getBottomBar() != null) {
             main.hideBottomBar();
@@ -216,6 +217,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         main.showBottomBar();
         main.setMode(main, oldMode);
         main.showLock();
+        main.showLayersControl();
     }
 
     /**

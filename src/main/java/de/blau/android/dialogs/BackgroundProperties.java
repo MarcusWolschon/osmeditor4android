@@ -1,11 +1,12 @@
 package de.blau.android.dialogs;
 
+import org.acra.ACRA;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,32 +19,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import de.blau.android.App;
 import de.blau.android.Main;
-import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.views.layers.MapTilesLayer;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
  *
  */
-public class BackgroundProperties extends DialogFragment {
+public class BackgroundProperties extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = BackgroundProperties.class.getSimpleName();
 
     private static final String TAG = "fragment_background_properties";
 
+    private static final String LAYERINDEX = "layer_index";
+
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    static public void showDialog(FragmentActivity activity, int layerIndex) {
         dismissDialog(activity);
         try {
             setDialogLayout(activity);
             FragmentManager fm = activity.getSupportFragmentManager();
-            BackgroundProperties backgroundPropertiesFragment = newInstance();
+            BackgroundProperties backgroundPropertiesFragment = newInstance(layerIndex);
             backgroundPropertiesFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -66,9 +72,12 @@ public class BackgroundProperties extends DialogFragment {
 
     /**
      */
-    static private BackgroundProperties newInstance() {
+    static private BackgroundProperties newInstance(int layerIndex) {
         BackgroundProperties f = new BackgroundProperties();
+        Bundle args = new Bundle();
+        args.putInt(LAYERINDEX, layerIndex);
 
+        f.setArguments(args);
         f.setShowsDialog(true);
 
         return f;
@@ -96,14 +105,21 @@ public class BackgroundProperties extends DialogFragment {
         Preferences prefs = new Preferences(getActivity());
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.menu_tools_background_properties);
-
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         setDialogLayout(getActivity());
         View layout = inflater.inflate(R.layout.background_properties, null);
         SeekBar seeker = (SeekBar) layout.findViewById(R.id.background_contrast_seeker);
         seeker.setProgress(contrast2progress(prefs.getContrastValue()));
-        seeker.setOnSeekBarChangeListener(createSeekBarListener());
+        int layerIndex = getArguments().getInt(LAYERINDEX);
+        MapTilesLayer layer = (MapTilesLayer) App.getLogic().getMap().getLayer(layerIndex);
+        if (layer != null) {
+            seeker.setOnSeekBarChangeListener(createSeekBarListener(layer));
+        } else {
+            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+            ACRA.getErrorReporter().putCustomData("REASON", "layer null");
+            ACRA.getErrorReporter().handleException(null);
+        }
         builder.setView(layout);
         builder.setPositiveButton(R.string.okay, doNothingListener);
 
@@ -113,22 +129,21 @@ public class BackgroundProperties extends DialogFragment {
     /**
      * Convert contrast value -1...+1 to a int suitable for a progress bar
      * 
-     * @param contrast
-     * @return
+     * @param contrast the contrast value
+     * @return a value scaled for a progress bar
      */
     static int contrast2progress(float contrast) {
         return (int) ((contrast + 1) * 127.5f);
     }
 
-    private OnSeekBarChangeListener createSeekBarListener() {
+    private OnSeekBarChangeListener createSeekBarListener(@NonNull final MapTilesLayer layer) {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {
                 Preferences prefs = new Preferences(getActivity());
-                Map map = ((Main) getActivity()).getMap();
                 float contrast = progress / 127.5f - 1f; // range from -1 to +1
-                map.getBackgroundLayer().setContrast(contrast);
-                map.invalidate();
+                layer.setContrast(contrast);
+                layer.invalidate();
                 prefs.setContrastValue(contrast);
             }
 

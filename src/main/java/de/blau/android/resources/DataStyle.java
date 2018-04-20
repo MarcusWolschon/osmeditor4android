@@ -104,6 +104,7 @@ public class DataStyle extends DefaultHandler {
     public final static String LABELTEXT_NORMAL_PROBLEM      = "labeltext_normal_problem";
     public final static String LABELTEXT_SMALL_PROBLEM       = "labeltext_small_problem";
     public final static String LABELTEXT_BACKGROUND          = "labeltext_background";
+    public final static String GEOJSON_DEFAULT               = "geojson_default";
 
     public class FeatureStyle {
 
@@ -659,6 +660,14 @@ public class DataStyle extends DefaultHandler {
         // fp.getPaint().setXfermode(pixelOp);
         fp.dontUpdate();
         featureStyles.put(fp.getName(), fp);
+        
+        fp = new FeatureStyle(GEOJSON_DEFAULT);
+        fp.getPaint().setStyle(Style.STROKE);
+        fp.setColor(0x9d00ff00);
+        fp.setWidthFactor(2f);
+        fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
+        fp.dontUpdate();
+        featureStyles.put(fp.getName(), fp);
 
         Log.i(DEBUG_TAG, "... done");
     }
@@ -982,7 +991,7 @@ public class DataStyle extends DefaultHandler {
 
     private void createWayPointPath(float scale) {
         waypoint_path = new Path();
-        int side = (int) Density.dpToPx(ctx, 5 * scale);
+        int side = (int) Density.dpToPx(ctx, 8 * scale);
         waypoint_path.moveTo(0, 0);
         waypoint_path.lineTo(side, -side * 2f);
         waypoint_path.lineTo(-side, -side * 2f);

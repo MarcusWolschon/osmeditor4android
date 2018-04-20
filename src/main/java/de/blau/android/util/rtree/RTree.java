@@ -396,24 +396,37 @@ public class RTree implements Serializable {
     }
 
     /**
-     * Adds items whose AABB intersects the query AABB to results
+     * Return all items in the tree
      * 
      * @param results A collection to store the query results
-     * @param box The query
      */
     public void query(Collection<BoundedObject> results) {
         BoundingBox box = new BoundingBox(-BoundingBox.MAX_LON_E7, -BoundingBox.MAX_LAT_E7, BoundingBox.MAX_LON_E7, BoundingBox.MAX_LAT_E7);
         query(results, box, root);
     }
 
+    /**
+     * Return all items for which the bounding box intersects with box
+     * 
+     * @param results a Collection holding the results
+     * @param box the BoundingBox we are querying
+     */
     public void query(Collection<BoundedObject> results, BoundingBox box) {
         query(results, box, root);
     }
 
+    /**
+     * Return all items for which the bounding box intersects with box starting at node
+     * 
+     * @param results a Collection holding the results
+     * @param box the BoundingBox we are querying
+     * @param node the Node to start at
+     */
     private void query(Collection<BoundedObject> results, BoundingBox box, Node node) {
         // Log.d(DEBUG_TAG,"query called");
-        if (node == null)
+        if (node == null) {
             return;
+        }
         if (node.isLeaf()) {
             // Log.d(DEBUG_TAG,"leaf");
             for (int i = 0; i < node.data.size(); i++) {
@@ -443,11 +456,21 @@ public class RTree implements Serializable {
 
     /**
      * Returns one item that intersects the query box, or null if nothing intersects the query box.
+     * 
+     * @param box the BoundingBox we are querying
+     * @return a BoundedObject or null ir none found
      */
     public BoundedObject queryOne(BoundingBox box) {
         return queryOne(box, root);
     }
 
+    /**
+     * Returns one item that intersects the query box, or null if nothing intersects the query box, starting at node
+     * 
+     * @param box the BoundingBox we are querying
+     * @param node Node to start at
+     * @return a BoundedObject or null ir none found
+     */
     private BoundedObject queryOne(BoundingBox box, Node node) {
         if (node == null)
             return null;

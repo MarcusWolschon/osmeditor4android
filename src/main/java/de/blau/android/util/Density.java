@@ -25,4 +25,8 @@ public class Density {
     public static int dpToPx(Context ctx, int dp) {
         return Math.round(dp * ctx.getResources().getDisplayMetrics().density);
     }
+    
+    public static int pxToDp(Context ctx, int px) {
+        return Math.round(px / ctx.getResources().getDisplayMetrics().density);
+    }
 }

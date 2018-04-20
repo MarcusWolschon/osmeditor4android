@@ -1,5 +1,6 @@
-package de.blau.android.grid;
+package de.blau.android.layer.grid;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
@@ -7,14 +8,17 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
+import de.blau.android.R;
+import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.MapViewLayer;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.Density;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapViewLayer;
 
-public class MapOverlay extends MapViewLayer {
+public class MapOverlay extends MapViewLayer implements DisableInterface {
 
     private static final String SCALE_NONE       = "SCALE_NONE";
     private static final String DEBUG_TAG        = MapOverlay.class.getName();
@@ -61,12 +65,12 @@ public class MapOverlay extends MapViewLayer {
     public boolean isReadyToDraw() {
         mode = map.getPrefs().scaleLayer();
         enabled = !SCALE_NONE.equals(mode);
-        return enabled && map.getBackgroundLayer().isReadyToDraw();
+        return enabled;
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (enabled && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
+        if (isVisible && enabled && map.getViewBox().getWidth() < 200000000L) { // testing for < 20°
             int w = map.getWidth();
             int h = map.getHeight();
             boolean metric = mode.equals("SCALE_METRIC") || mode.equals("SCALE_GRID_METRIC");
@@ -224,5 +228,24 @@ public class MapOverlay extends MapViewLayer {
     @Override
     protected void onDrawFinished(Canvas c, IMapView osmv) {
         // do nothing
+    }
+
+    @Override
+    public String getName() {
+        return map.getContext().getString(R.string.layer_grid);
+    }
+
+    @Override
+    public void invalidate() {
+        map.invalidate();
+    }
+
+    @Override
+    public void disable(Context ctx) {
+        Preferences prefs = new Preferences(ctx);
+        String[] scaleValues = ctx.getResources().getStringArray(R.array.scale_values);
+        if (scaleValues != null && scaleValues.length > 0) {
+            prefs.setScaleLayer(scaleValues[0]);
+        }
     }
 }

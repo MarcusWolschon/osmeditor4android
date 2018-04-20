@@ -146,29 +146,17 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/menu_tools_zoom_to_layer_extent"
-                android:title="@string/menu_tools_zoom_to_layer_extent" />
-            <item
                 android:id="@+id/menu_tools_background_align"
                 android:title="@string/menu_tools_background_align" />
             <item
                 android:id="@+id/menu_tools_apply_local_offset"
                 android:title="@string/menu_tools_apply_local_offset" />
             <item
-                android:id="@+id/menu_tools_background_properties"
-                android:title="@string/menu_tools_background_properties" />
-            <item
                 android:id="@+id/menu_tools_add_imagery_from_oam"
                 android:title="@string/menu_tools_add_imagery_from_oam" />
             <item
                 android:id="@+id/menu_tools_update_imagery_configuration"
                 android:title="@string/menu_tools_update_imagery_configuration" />
-            <item
-                android:id="@+id/menu_tools_flush_background_tile_cache"
-                android:title="@string/menu_tools_flush_background_tile_cache" />
-            <item
-                android:id="@+id/menu_tools_flush_overlay_tile_cache"
-                android:title="@string/menu_tools_flush_overlay_tile_cache" />
             <item
                 android:id="@+id/menu_tools_flush_all_tile_caches"
                 android:title="@string/menu_tools_flush_all_tile_caches" />
@@ -193,6 +181,17 @@
         android:icon="?attr/menu_find"
         android:title="@string/menu_find"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_layers"
+        android:icon="?attr/menu_tools"
+        android:title="@string/menu_layers"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_layers_add_geojson"
+                android:title="@string/menu_layers_add_geojson" />
+        </menu>
+    </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_enable_tagfilter"

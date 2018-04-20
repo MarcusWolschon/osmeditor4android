@@ -103,11 +103,11 @@ public class SearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton("de.blau.android:id/location_search_geocoder", true);
-        TestUtils.clickText(device, true, "Nominatim2", true);
-        TestUtils.clickText(device, true, "SEARCH", true);
+        Assert.assertTrue(TestUtils.clickText(device, true, "Nominatim2", true));
+        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
         Assert.assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
-        TestUtils.clickText(device, false, "Bergdietikon", true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Bergdietikon", true));
         ViewBox vb = ((Main)main).getMap().getViewBox();
         Assert.assertEquals(47.3898401D, vb.getCenterLat(), 0.001D);
         Assert.assertEquals(8.3865262D, ((vb.getRight()-vb.getLeft())/2 + vb.getLeft())/1E7D, 0.001D);
@@ -127,9 +127,12 @@ public class SearchTest {
             Assert.fail(e.getMessage());
         }
         TestUtils.clickButton("de.blau.android:id/location_search_geocoder", true);
-        TestUtils.clickText(device, true, "Photon", true);
-        TestUtils.clickText(device, true, "SEARCH", true);
+        Assert.assertTrue(TestUtils.clickText(device, true, "Photon", true));
+        Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
-        // fining text in the results view currently fails
+        Assert.assertTrue(TestUtils.clickTextContains(device, false, "Bergdietikon", true));
+        ViewBox vb = ((Main)main).getMap().getViewBox();
+        Assert.assertEquals(47.391823D, vb.getCenterLat(), 0.001D);
+        Assert.assertEquals(8.3717616, ((vb.getRight()-vb.getLeft())/2 + vb.getLeft())/1E7D, 0.001D);
     }
 }

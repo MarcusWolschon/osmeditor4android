@@ -1,8 +1,12 @@
-// Created by plusminus on 20:32:01 - 27.09.2008
-package de.blau.android.views.layers;
+package de.blau.android.layer;
+
+import java.io.IOException;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -15,15 +19,21 @@ import de.blau.android.views.IMapView;
  * This class was taken from OpenStreetMapViewer (original package org.andnav.osm) in 2010-06 by Marcus Wolschon to be
  * integrated into the de.blau.androin OSMEditor.
  * 
+ * @author Created by plusminus on 20:32:01 - 27.09.2008
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
+ * @author Simon Poole
  */
 public abstract class MapViewLayer {
+    private static final String VISIBLE_KEY = "visible";
     /**
      * Tag used for Android-logging.
      */
-    private static final String DEBUG_TAG = MapViewLayer.class.getName();
-    protected int attributionOffset = 0;
+    private static final String DEBUG_TAG   = MapViewLayer.class.getName();
+
+    protected int         attributionOffset = 0;
+    private transient int index             = -1;
+    protected boolean     isVisible         = true;
 
     // ===========================================================
     // Constants
@@ -50,7 +60,7 @@ public abstract class MapViewLayer {
      * very useful, i sth. to be drawn needs to be <b>topmost</b>.
      * 
      * @param c Canvas to draw on to
-     * @param osmv view alling us
+     * @param osmv view calling us
      */
     @SuppressLint("WrongCall")
     public void onManagedDraw(final Canvas c, final IMapView osmv) {
@@ -67,20 +77,18 @@ public abstract class MapViewLayer {
     /**
      * Called to draw the contents
      * 
-     * @param c     Canvas to draw on
-     * @param osmv  IMapView holding us
+     * @param c Canvas to draw on
+     * @param osmv IMapView holding us
      */
     protected abstract void onDraw(final Canvas c, final IMapView osmv);
 
     /**
      * Called after drawing is completed
      * 
-     * @param c     Canvas to draw on
-     * @param osmv  IMapView holding us
+     * @param c Canvas to draw on
+     * @param osmv IMapView holding us
      */
     protected abstract void onDrawFinished(final Canvas c, final IMapView osmv);
-    
-    
 
     // ===========================================================
     // Methods
@@ -194,6 +202,109 @@ public abstract class MapViewLayer {
         return false;
     }
 
+    /**
+     * Save state for this layer if necessary
+     * 
+     * If you override this you should call through to super
+     * 
+     * @param ctx Android Context
+     * @throws IOException if saving state to device failed
+     */
+    public void onSaveState(@NonNull Context ctx) throws IOException {
+        SharedPreferences prefs = ctx.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
+        prefs.edit().putBoolean(VISIBLE_KEY, isVisible).commit();
+    }
+
+    /**
+     * Restore state for this layer if necessary
+     * 
+     * * If you override this you should call through to super
+     * 
+     * @param ctx Android Context
+     * @return true if successful
+     */
+    public boolean onRestoreState(@NonNull Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
+        isVisible = prefs.getBoolean(VISIBLE_KEY, false);
+        return true;
+    }
+
+    /**
+     * Set the vertical position for attribution
+     * 
+     * @param attributionOffset the vertical offset in pixels
+     */
+    public void setAttributionOffset(int attributionOffset) {
+        this.attributionOffset = attributionOffset;
+    }
+
+    /**
+     * Get the vertical attribution offset
+     * 
+     * @return vertical offset in pixels
+     */
+    public int getAttributionOffset() {
+        return attributionOffset;
+    }
+
+    /**
+     * Get our position in the layers list
+     * 
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * Get our position in the layers list
+     * 
+     * @param index the index
+     */
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    /**
+     * Get the visibility of this layer
+     * 
+     * @return true in the layer is visible
+     */
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    /**
+     * Set visibility of this layer
+     * 
+     * @param visible if true show the layer
+     */
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
+    }
+
+    /**
+     * Return the name of this layer
+     * 
+     * @return the name
+     */
+    @NonNull
+    abstract public String getName();
+
+    /**
+     * Invalidate this layer
+     */
+    abstract public void invalidate();
+
+    /**
+     * Is this layer turned on
+     *
+     * @return true if layer is enabled
+     */
+    public boolean isEnabled() {
+        return true;
+    }
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
@@ -217,13 +328,5 @@ public abstract class MapViewLayer {
          * @return Whether or not to snap to the interesting point.
          */
         boolean onSnapToItem(int x, int y, android.graphics.Point snapPoint, IMapView mapView);
-    }
-
-    public void setAttributionOffset(int attributionOffset) {
-        this.attributionOffset  = attributionOffset;
-    }
-
-    public int getAttributionOffset() {
-        return attributionOffset;
     }
 }

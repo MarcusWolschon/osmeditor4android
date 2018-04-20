@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,14 @@ import de.blau.android.R;
  */
 public class Snack {
 
+    private static final String DEBUG_TAG = Snack.class.getName();
+    
     private static final int SHOW_DURATION_ACTION = 5000;
 
     protected static final int QUEUE_CAPACITY = 3;
 
     private static final Object queueLock = new Object();
+    
     // google has declared Snackbar as final, making life difficult for everybody ....
     protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
@@ -604,8 +608,7 @@ public class Snack {
             toast.setView(layout);
             toast.show();
         } catch (Exception e) {
-            // Never crash
-            e.printStackTrace();
+            Log.e(DEBUG_TAG, "toast failed with " + e.getMessage());
         }
     }
 }

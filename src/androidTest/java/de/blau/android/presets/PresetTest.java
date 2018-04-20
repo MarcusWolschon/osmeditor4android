@@ -15,6 +15,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
@@ -39,6 +40,8 @@ public class PresetTest {
     public void setup() {
         main = (Main) mActivityRule.getActivity();
         presets = App.getCurrentPresets(main);
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @Test

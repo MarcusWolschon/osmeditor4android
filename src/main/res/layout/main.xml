@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_weight="0"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" >
+        android:minHeight="?attr/actionBarSize">
     </android.support.v7.widget.Toolbar>
-
     <RelativeLayout
         android:id="@+id/mainMap"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="99999" >
-
+        android:layout_weight="99999">
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingLock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="top"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:src="@drawable/lock_bi_state"
+            android:theme="@style/Theme.customMain"
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/layers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_gravity="top"
             android:layout_margin="0dp"
             android:clickable="true"
-            android:src="@drawable/lock_bi_state"
+            android:src="@drawable/ic_view_headline_black_36dp"
+            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorControlNormal"
             app:fabSize="mini"
             app:useCompatPadding="true" />
-        
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/follow"
             android:layout_width="wrap_content"
@@ -40,28 +52,23 @@
             android:layout_gravity="top"
             android:clickable="true"
             android:src="@drawable/ic_gps_fixed_black_36dp"
-        	android:theme="@style/Theme.customMain"
-        	app:backgroundTint="?attr/colorControlNormal"
+            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorControlNormal"
             app:fabSize="mini"
             app:useCompatPadding="true" />
-
     </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_weight="0" 
+        android:layout_weight="0"
         android:background="?attr/colorPrimary">
-
         <include
             android:id="@+id/bottomToolbar"
             layout="@layout/toolbar" />
-
         <ViewStub
             android:id="@+id/cab_stub"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
     </FrameLayout>
-
 </LinearLayout>

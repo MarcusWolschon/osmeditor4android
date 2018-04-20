@@ -1,5 +1,7 @@
 package de.blau.android.views.layers;
 
+import java.io.IOException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +14,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -21,6 +25,8 @@ import android.view.View;
 import de.blau.android.Map;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -29,7 +35,9 @@ import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.NetworkStatus;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.collections.MRUList;
 import de.blau.android.views.IMapView;
 import de.blau.android.views.util.MapTileProvider;
 
@@ -43,7 +51,7 @@ import de.blau.android.views.util.MapTileProvider;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * @author Simon Poole
  */
-public class MapTilesLayer extends MapViewLayer {
+public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
 
     private static final String DEBUG_TAG          = MapTilesLayer.class.getSimpleName();
     /** Define a minimum active area for taps on the tile attribution data. */
@@ -78,7 +86,15 @@ public class MapTilesLayer extends MapViewLayer {
     private Paint                 textPaint = new Paint();
     private final NetworkStatus   networkStatus;
 
-    private int prevZoomLevel = -1; // zoom level from previous draw
+    /**
+     * MRU of last servers
+     */
+    private static final int                        MRU_SIZE        = 5;
+    final private MRUList<String>                   lastServers     = new MRUList<>(MRU_SIZE);
+    private transient SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
+
+    private int     prevZoomLevel = -1;  // zoom level from previous draw
+    private boolean saved         = true;
 
     /**
      * Construct a new tile layer
@@ -204,6 +220,8 @@ public class MapTilesLayer extends MapViewLayer {
             coverageWarningDisplayed = false;
             if (myRendererInfo != null) { // 1st invocation this is null
                 mTileProvider.flushQueue(myRendererInfo.getId(), MapAsyncTileProvider.ALLZOOMS);
+                saved = false;
+                lastServers.push(myRendererInfo.getId());
             }
         }
         myRendererInfo = tileLayer;
@@ -246,7 +264,9 @@ public class MapTilesLayer extends MapViewLayer {
      */
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-
+        if (!isVisible) {
+            return;
+        }
         BoundingBox viewBox = osmv.getViewBox();
         if (!myRendererInfo.covers(viewBox)) {
             if (!coverageWarningDisplayed) {
@@ -602,7 +622,7 @@ public class MapTilesLayer extends MapViewLayer {
         private int  viewInvalidates = 0;
 
         public SimpleInvalidationHandler(View v) {
-            super();
+            super(Looper.getMainLooper());
             this.v = v;
         }
 
@@ -624,5 +644,55 @@ public class MapTilesLayer extends MapViewLayer {
                 viewInvalidates++;
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return myRendererInfo.getName();
+    }
+
+    @Override
+    public void invalidate() {
+        myView.invalidate();
+    }
+
+    @Override
+    public BoundingBox getExtent() {
+        if (myRendererInfo != null) {
+            return myRendererInfo.getOverallCoverage();
+        }
+        return null;
+    }
+
+    /**
+     * Get the list of most recently used tile server ids
+     * 
+     * @return a String array
+     */
+    @NonNull
+    public String[] getMRU() {
+        return lastServers.toArray(new String[lastServers.size()]);
+    }
+
+    @Override
+    public void onSaveState(@NonNull Context ctx) throws IOException {
+        Log.d(DEBUG_TAG, "Saving MRU size " + lastServers.size());
+        super.onSaveState(ctx);
+        saved = true;
+        mruSavingHelper.save(ctx, getClass().getName() + "lastServers", lastServers, true);
+    }
+
+    @Override
+    public boolean onRestoreState(@NonNull Context ctx) {
+        Log.d(DEBUG_TAG, "Restoring MRU");
+        super.onRestoreState(ctx);
+        if (saved) {
+            MRUList<String> tempLastServers = mruSavingHelper.load(ctx, getClass().getName() + "lastServers", true);
+            Log.d(DEBUG_TAG, "MRU size " + tempLastServers.size());
+            lastServers.clear();
+            lastServers.addAll(tempLastServers);
+            lastServers.ensureCapacity(MRU_SIZE);
+        }
+        return true;
     }
 }

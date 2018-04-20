@@ -51,7 +51,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -96,7 +95,6 @@ import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
-import de.blau.android.dialogs.BackgroundProperties;
 import de.blau.android.dialogs.ConfirmUpload;
 import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.dialogs.DownloadCurrentWithChanges;
@@ -104,11 +102,11 @@ import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.GpxUpload;
 import de.blau.android.dialogs.ImportTrack;
+import de.blau.android.dialogs.Layers;
 import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
-import de.blau.android.dialogs.ViewWayPoint;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -120,6 +118,8 @@ import de.blau.android.geocode.Search.SearchResult;
 import de.blau.android.imageryoffset.BackgroundAlignmentActionModeCallback;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.javascript.EvalCallback;
+import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.UpdateViewListener;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -133,7 +133,6 @@ import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.osm.UndoStorage;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
-import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PrefEditor;
@@ -376,6 +375,11 @@ public class Main extends FullScreenAppCompatActivity
     private android.support.v7.widget.ActionMenuView bottomBar = null;
 
     /**
+     * Layer control
+     */
+    private FloatingActionButton layers;
+
+    /**
      * GPS FAB
      */
     private FloatingActionButton follow;
@@ -387,12 +391,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private UndoListener undoListener;
 
-    private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null; // hack
-                                                                                                // to
-                                                                                                // protect
-                                                                                                // against
-                                                                                                // weird
-                                                                                                // state
+    // hack to protect against weird state
+    private BackgroundAlignmentActionModeCallback backgroundAlignmentActionModeCallback = null;
 
     private Location lastLocation = null;
 
@@ -422,38 +422,17 @@ public class Main extends FullScreenAppCompatActivity
      */
     private File imageFile = null;
 
-    private PostAsyncActionHandler restart; // if set
-                                            // this
-                                            // is
-                                            // called
-                                            // to
-                                            // restart
-                                            // post
-                                            // authentication
+    // if set this is called to restart post authentication
+    private PostAsyncActionHandler restart;
 
-    private boolean gpsChecked = false; // flag
-                                        // to
-                                        // ensure
-                                        // that
-                                        // we
-                                        // only
-                                        // check
-                                        // once
-                                        // per
-                                        // activity
-                                        // life
-                                        // cycle
+    // flag to ensure that we only check once per activity life cycle
+    private boolean gpsChecked = false;
 
-    private boolean saveSync = false; // save
-                                      // synchronously
-                                      // instead
-                                      // of
-                                      // async
+    // save synchronously instead of async
+    private boolean saveSync = false;
 
-    private boolean haveCamera = false; // true
-                                        // if we
-                                        // have a
-                                        // camera
+    // true if we have a camera
+    private boolean haveCamera = false;
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -572,6 +551,17 @@ public class Main extends FullScreenAppCompatActivity
         rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         mapLayout.addView(zoomControls, rlp);
+
+        // layers button setup
+        layers = (FloatingActionButton) mapLayout.findViewById(R.id.layers);
+
+        layers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                descheduleAutoLock();
+                Layers.showDialog(Main.this);
+            }
+        });
 
         DataStyle.getStylesFromFiles(this); // needs to happen before
                                             // setContentView
@@ -704,8 +694,6 @@ public class Main extends FullScreenAppCompatActivity
         map.setViewBox(App.getLogic().getViewBox());
 
         map.setPrefs(this, prefs);
-        map.createOverlays(this);
-        map.getBackgroundLayer().setContrast(prefs.getContrastValue());
         map.requestFocus();
 
         undoListener = new UndoListener();
@@ -817,10 +805,12 @@ public class Main extends FullScreenAppCompatActivity
                 };
                 logic.loadStateFromFile(this, postLoadData);
                 logic.loadBugsFromFile(this, postLoadTasks);
+                logic.loadLayerState(this, null);
             } else { // loadFromFile already does this
                 synchronized (setViewBoxLock) {
                     App.getLogic().loadEditingState(this, setViewBox);
                 }
+                logic.loadLayerState(this, null);
                 postLoadData.onSuccess();
                 map.invalidate();
             }
@@ -829,8 +819,7 @@ public class Main extends FullScreenAppCompatActivity
             // reset in any case
             setViewBox = true;
         }
-        logic.updateProfile();
-        map.updateProfile();
+        logic.updateStyle();
 
         // start listening for location updates
         if (getTracker() != null) {
@@ -1110,8 +1099,9 @@ public class Main extends FullScreenAppCompatActivity
             // register earlier, but that may not help
         }
         disableLocationUpdates();
-        if (getTracker() != null)
+        if (getTracker() != null) {
             getTracker().setListener(null);
+        }
 
         // always save editing state
         App.getLogic().saveEditingState(this);
@@ -1133,8 +1123,9 @@ public class Main extends FullScreenAppCompatActivity
 
         // On devices with Android versions before Honeycomb, we already save
         // data in onPause
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             saveData();
+        }
 
         super.onStop();
     }
@@ -1174,12 +1165,6 @@ public class Main extends FullScreenAppCompatActivity
         getControls().setIsZoomInEnabled(logic.canZoom(Logic.ZOOM_IN));
         getControls().setIsZoomOutEnabled(logic.canZoom(Logic.ZOOM_OUT));
     }
-
-    // @Override
-    // public Object onRetainNonConfigurationInstance() {
-    // Log.d(DEBUG_TAG, "onRetainNonConfigurationInstance");
-    // return logic;
-    // }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -1255,6 +1240,11 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Set the icon on the follow button
+     * 
+     * @param gps if true the GPS icon will be displayed
+     */
     private void setFollowImage(boolean gps) {
         FloatingActionButton follow = getFollowButton();
         int buttonRes = R.drawable.ic_filter_tilt_shift_black_36dp;
@@ -1396,8 +1386,9 @@ public class Main extends FullScreenAppCompatActivity
 
     public static void onEditModeChanged() {
         Log.d(DEBUG_TAG, "onEditModeChanged");
-        if (runningInstance != null)
+        if (runningInstance != null) {
             runningInstance.updateActionbarEditMode();
+        }
     }
 
     BottomBarClickListener bottomBarListener;
@@ -1405,8 +1396,7 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     public boolean onPrepareOptionsMenu(final Menu m) {
         if (bottomBarListener == null && getBottomBar() != null) {
-            // NOTE doing this here tries to keep a valid reference to the
-            // activity
+            // NOTE BottomBarClickListener tries to keep a valid reference to the activity
             // doing it here should guarantee that it always works
             bottomBarListener = new BottomBarClickListener(this);
             getBottomBar().setOnMenuItemClickListener(bottomBarListener);
@@ -1992,16 +1982,6 @@ public class Main extends FullScreenAppCompatActivity
             undoListener.onClick(null);
             return true;
 
-        case R.id.menu_tools_flush_background_tile_cache:
-            flushLayer(this, map.getBackgroundLayer());
-            map.invalidate();
-            return true;
-
-        case R.id.menu_tools_flush_overlay_tile_cache:
-            flushLayer(this, map.getOverlayLayer());
-            map.invalidate();
-            return true;
-
         case R.id.menu_tools_flush_all_tile_caches:
             Snack.barWarning(this, getString(R.string.toast_flus_all_caches), R.string.Yes, new OnClickListener() {
                 @Override
@@ -2013,17 +1993,6 @@ public class Main extends FullScreenAppCompatActivity
                     map.invalidate();
                 }
             });
-            return true;
-
-        case R.id.menu_tools_zoom_to_layer_extent:
-            MapTilesLayer backgroundLayer = map.getBackgroundLayer();
-            if (backgroundLayer != null) {
-                TileLayerServer osmts = backgroundLayer.getTileLayerConfiguration();
-                if (osmts != null) {
-                    map.getViewBox().setBorders(getMap(), osmts.getOverallCoverage(), false);
-                    map.invalidate();
-                }
-            }
             return true;
 
         case R.id.menu_tools_background_align:
@@ -2039,10 +2008,6 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_tools_apply_local_offset:
             ImageryOffsetUtils.applyImageryOffsets(this, map.getBackgroundLayer().getTileLayerConfiguration(), null);
-            return true;
-
-        case R.id.menu_tools_background_properties:
-            BackgroundProperties.showDialog(this);
             return true;
 
         case R.id.menu_tools_add_imagery_from_oam:
@@ -2177,18 +2142,6 @@ public class Main extends FullScreenAppCompatActivity
         logic.setZoom(getMap(), ZOOM_FOR_ZOOMTO);
         map.getViewBox().moveTo(getMap(), trackPoint.getLon(), trackPoint.getLat());
         map.invalidate();
-    }
-
-    /**
-     * flush a layers cache
-     * 
-     * @param activity calling activity if null no progress dialog will be displayed
-     * @param layer layer we want to flush the cache for
-     */
-    private static void flushLayer(@Nullable FragmentActivity activity, @Nullable MapTilesLayer layer) {
-        if (layer != null) {
-            layer.flushTileCache(activity);
-        }
     }
 
     public static void showJsConsole(final Main main) {
@@ -2467,6 +2420,8 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Handle the result of the BoxPicker Activity
+     * 
      * @param resultCode The integer result code returned by the child activity through its setResult().
      * @param data An Intent, which can return result data to the caller (various data can be attached to Intent
      *            "extras").
@@ -2480,7 +2435,7 @@ public class Main extends FullScreenAppCompatActivity
 
         BoundingBox box = new BoundingBox(left, bottom, right, top);
         if (resultCode == RESULT_OK) {
-            performHttpLoad(box);
+            App.getLogic().downloadBox(this, box, false, null);
         } else if (resultCode == RESULT_CANCELED) { //
             synchronized (setViewBoxLock) {
                 setViewBox = false; // stop setting the view box in onResume
@@ -2605,16 +2560,28 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Download OSM data for the currently displayed area
+     * 
+     * Will include Tasks for the same if enabled
+     * 
+     * @param main the instance of Main calling this
+     * @param add if true merge the data with the current contents, if false replace
+     */
     public static void performCurrentViewHttpLoad(final Main main, boolean add) {
-        App.getLogic().downloadCurrent(main, add);
+        final Map map = main.getMap();
+        App.getLogic().downloadBox(main, map.getViewBox().copy(), add, null);
         Preferences prefs = main.prefs;
         if (prefs.areBugsEnabled()) { // always adds bugs for now
-            final Map map = main.getMap();
             TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public void onSuccess() {
+                    de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                    if (taskLayer != null) {
+                        taskLayer.setVisible(true);
+                    }
                     map.invalidate();
                 }
 
@@ -2625,10 +2592,11 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
-    private void performHttpLoad(final BoundingBox box) {
-        App.getLogic().downloadBox(this, box, false, null);
-    }
-
+    /**
+     * Simply display whatever background is configured without loading data
+     * 
+     * @param box zoom to this BoundingBox
+     */
     private void openEmptyMap(final ViewBox box) {
         App.getLogic().newEmptyMap(this, box);
     }
@@ -2745,6 +2713,18 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    public void hideLayersControl() {
+        if (layers != null) {
+            layers.hide();
+        }
+    }
+
+    public void showLayersControl() {
+        if (layers != null) {
+            layers.show();
+        }
+    }
+
     private void hideControls() {
         synchronized (controlsHiddenLock) {
             ActionBar actionbar = getSupportActionBar();
@@ -2753,6 +2733,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             hideBottomBar();
             hideLock();
+            hideLayersControl();
             ZoomControls zoomControls = getControls();
             if (zoomControls != null) {
                 zoomControls.hide();
@@ -2773,6 +2754,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             showBottomBar();
             showLock();
+            showLayersControl();
             ZoomControls zoomControls = getControls();
             if (zoomControls != null) {
                 zoomControls.show();
@@ -3205,10 +3187,19 @@ public class Main extends FullScreenAppCompatActivity
     private class MapTouchListener
             implements OnTouchListener, VersionedGestureDetector.OnGestureListener, OnCreateContextMenuListener, OnMenuItemClickListener {
 
+        class ClickedObject {
+            final ClickableInterface layer;
+            final Object             object;
+
+            ClickedObject(@NonNull ClickableInterface layer, @NonNull Object object) {
+                this.layer = layer;
+                this.object = object;
+            }
+        }
+
         private List<OsmElement> clickedNodesAndWays;
-        private List<Task>       clickedBugs;
-        private List<Photo>      clickedPhotos;
-        private List<WayPoint>   clickedWayPoints;
+
+        private List<ClickedObject> clickedObjects = new ArrayList<>();
 
         private boolean doubleTap = false;
 
@@ -3218,10 +3209,8 @@ public class Main extends FullScreenAppCompatActivity
             // Log.d("MapTouchListener", "onTouch");
             if (m.getAction() == MotionEvent.ACTION_DOWN) {
                 // Log.d("MapTouchListener", "onTouch ACTION_DOWN");
-                clickedBugs = null;
-                clickedPhotos = null;
+                clickedObjects.clear();
                 clickedNodesAndWays = null;
-                clickedWayPoints = null;
                 App.getLogic().handleTouchEventDown(Main.this, m.getX(), m.getY());
             }
             if (m.getAction() == MotionEvent.ACTION_UP) {
@@ -3239,14 +3228,9 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void onClick(View v, float x, float y) {
             boolean elementsOnly = App.getLogic().getClickableElements() != null;
-            de.blau.android.tasks.MapOverlay taskLayer = map.getTaskLayer();
-            clickedBugs = !elementsOnly && taskLayer != null ? taskLayer.getClickedTasks(x, y, map.getViewBox()) : null;
-
-            de.blau.android.photos.MapOverlay photoLayer = map.getPhotoLayer();
-            clickedPhotos = !elementsOnly && photoLayer != null ? photoLayer.getClickedPhotos(x, y, map.getViewBox()) : null;
-
-            de.blau.android.gpx.MapOverlay gpxLayer = map.getGpxLayer();
-            clickedWayPoints = !elementsOnly && gpxLayer != null ? gpxLayer.getClicked(x, y, map.getViewBox()) : null;
+            if (!elementsOnly) {
+                getClickedObjects(x, y);
+            }
 
             final Logic logic = App.getLogic();
             Mode mode = logic.getMode();
@@ -3269,61 +3253,21 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 map.invalidate();
             } else {
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
-                        + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
+                switch (clickedObjects.size()) {
                 case 0:
                     if (!isInEditZoomRange && !logic.isLocked()) {
                         Snack.barInfoShort(v, R.string.toast_not_in_edit_range);
                     }
                     break;
                 case 1:
-                    if ((clickedBugs != null) && !clickedBugs.isEmpty()) {
-                        performBugEdit(clickedBugs.get(0));
-                    } else if ((clickedPhotos != null) && !clickedPhotos.isEmpty()) {
-                        viewPhoto(clickedPhotos.get(0));
-                    } else if ((clickedWayPoints != null) && !clickedWayPoints.isEmpty()) {
-                        ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
-                    }
+                    descheduleAutoLock();
+                    ClickedObject co = clickedObjects.get(0);
+                    co.layer.onSelected(Main.this, co.object);
                     break;
                 default:
                     v.showContextMenu();
                     break;
                 }
-            }
-        }
-
-        @SuppressLint("InlinedApi")
-        private void viewPhoto(Photo photo) {
-            try {
-                Intent myIntent = new Intent(Intent.ACTION_VIEW);
-                int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
-                }
-                myIntent.setFlags(flags);
-                Uri photoUri = photo.getRefUri(Main.this);
-                if (photoUri != null) {
-                    myIntent.setDataAndType(photoUri, "image/jpeg"); // black
-                                                                     // magic
-                                                                     // only
-                                                                     // works
-                                                                     // this
-                                                                     // way
-                    startActivity(myIntent);
-                    de.blau.android.photos.MapOverlay photoLayer = map.getPhotoLayer();
-                    if (photoLayer != null) {
-                        photoLayer.setSelected(photo);
-                    }
-                    // TODO may need a map.invalidate() here
-                } else {
-                    Snack.barError(Main.this, Main.this.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
-                }
-            } catch (Exception ex) {
-                Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(ex);
             }
         }
 
@@ -3340,23 +3284,16 @@ public class Main extends FullScreenAppCompatActivity
             if (logic.isLocked()) {
                 if (logic.getMode().elementsGeomEditiable()) {
                     // display context menu
-                    de.blau.android.tasks.MapOverlay osbo = map.getTaskLayer();
-                    clickedBugs = (osbo != null) ? osbo.getClickedTasks(x, y, map.getViewBox()) : null;
-                    de.blau.android.photos.MapOverlay photos = map.getPhotoLayer();
-                    clickedPhotos = (photos != null) ? photos.getClickedPhotos(x, y, map.getViewBox()) : null;
-                    clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
-                    int bugCount = clickedBugs != null ? clickedBugs.size() : 0;
-                    int photoCount = clickedPhotos != null ? clickedPhotos.size() : 0;
-                    int wayPointCount = clickedWayPoints != null ? clickedWayPoints.size() : 0;
-                    int elementCount = clickedNodesAndWays != null ? clickedNodesAndWays.size() : 0;
-                    int itemCount = bugCount + photoCount + wayPointCount + elementCount;
+                    getClickedObjects(x, y);
+                    boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
+                    int elementCount = clickedNodesAndWays.size();
+                    int clickedObjectsCount = clickedObjects.size();
+                    int itemCount = elementCount + clickedObjectsCount;
                     if (itemCount == 1) {
-                        if (photoCount == 1) {
-                            viewPhoto(clickedPhotos.get(0));
-                        } else if (bugCount == 1) {
-                            performBugEdit(clickedBugs.get(0));
-                        } else if (wayPointCount == 1) {
-                            ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
+                        if (clickedObjectsCount == 1) {
+                            ClickedObject co = clickedObjects.get(0);
+                            co.layer.onSelected(Main.this, co.object);
                         } else if (elementCount == 1) {
                             ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                         }
@@ -3371,14 +3308,33 @@ public class Main extends FullScreenAppCompatActivity
             }
 
             if (logic.isInEditZoomRange()) {
-                setFollowGPS(false); // editing with the screen moving under you
-                                     // is a pain
+                // editing with the screen moving under you is a pain
+                setFollowGPS(false);
                 return getEasyEditManager().handleLongClick(v, x, y);
             } else {
                 Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
             }
 
             return true; // long click handled
+        }
+
+        /**
+         * Get clicked objects from layers (with the exception of the data layer)
+         * 
+         * 
+         * @param x screen x coordinate of click position
+         * @param y screen y coordinate of click position
+         */
+        private void getClickedObjects(final float x, final float y) {
+            ViewBox viewBox = map.getViewBox();
+            for (MapViewLayer layer : map.getLayers()) {
+                if (layer instanceof ClickableInterface) {
+                    List<?> objects = ((ClickableInterface) layer).getClicked(x, y, viewBox);
+                    for (Object o : objects) {
+                        clickedObjects.add(new ClickedObject((ClickableInterface) layer, o));
+                    }
+                }
+            }
         }
 
         @Override
@@ -3405,15 +3361,18 @@ public class Main extends FullScreenAppCompatActivity
          */
         public void performEdit(Mode mode, final View v, final float x, final float y) {
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
-                clickedNodesAndWays = App.getLogic().getClickedNodesAndWays(x, y);
+                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
+                int elementCount = clickedNodesAndWays.size();
+                int clickedObjectsCount = clickedObjects.size();
+                int itemCount = elementCount + clickedObjectsCount;
                 Logic logic = App.getLogic();
                 Filter filter = logic.getFilter();
                 if (filter != null) { // filter elements
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
                 }
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-                switch (((clickedBugs == null) ? 0 : clickedBugs.size()) + clickedNodesAndWays.size() + ((clickedPhotos == null) ? 0 : clickedPhotos.size())
-                        + ((clickedWayPoints == null) ? 0 : clickedWayPoints.size())) {
+                switch (itemCount) {
                 case 0:
                     // no elements were touched
                     if (inEasyEditMode) {
@@ -3422,12 +3381,10 @@ public class Main extends FullScreenAppCompatActivity
                     break;
                 case 1:
                     // exactly one element touched
-                    if (clickedBugs != null && clickedBugs.size() == 1) {
-                        performBugEdit(clickedBugs.get(0));
-                    } else if (clickedPhotos != null && clickedPhotos.size() == 1) {
-                        viewPhoto(clickedPhotos.get(0));
-                    } else if (clickedWayPoints != null && clickedWayPoints.size() == 1) {
-                        ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(0));
+                    if (clickedObjects.size() == 1) {
+                        descheduleAutoLock();
+                        ClickedObject co = clickedObjects.get(0);
+                        co.layer.onSelected(Main.this, co.object);
                     } else {
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
@@ -3441,8 +3398,7 @@ public class Main extends FullScreenAppCompatActivity
                     if (menuRequired()) {
                         v.showContextMenu();
                     } else {
-                        // menuRequired tells us it's ok to just take the first
-                        // one
+                        // menuRequired tells us it's ok to just take the first one
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
                         } else {
@@ -3486,30 +3442,21 @@ public class Main extends FullScreenAppCompatActivity
         /**
          * Creates a context menu with the objects near where the screen was touched
          * 
-         * @param menu
+         * @param menu Menu object to add our entries to
          */
         public void onCreateDefaultContextMenu(final ContextMenu menu) {
             int id = 0;
-            if (clickedPhotos != null) {
-                for (Photo p : new ArrayList<>(clickedPhotos)) {
-                    Uri photoUri = p.getRefUri(Main.this);
-                    if (photoUri != null) {
-                        menu.add(Menu.NONE, id++, Menu.NONE, photoUri.getLastPathSegment()).setOnMenuItemClickListener(this);
-                    } else {
-                        // remove photos with failed Uri generation from the
-                        // list
-                        clickedPhotos.remove(p);
-                    }
-                }
-            }
-            if (clickedBugs != null) {
-                for (Task b : clickedBugs) {
-                    menu.add(Menu.NONE, id++, Menu.NONE, b.getDescription()).setOnMenuItemClickListener(this);
-                }
-            }
-            if (clickedWayPoints != null) {
-                for (WayPoint wp : clickedWayPoints) {
-                    menu.add(Menu.NONE, id++, Menu.NONE, wp.getShortDescription(Main.this)).setOnMenuItemClickListener(this);
+            if (!clickedObjects.isEmpty()) {
+                for (final ClickedObject co : clickedObjects) {
+                    final ClickableInterface layer = co.layer;
+                    menu.add(Menu.NONE, id++, Menu.NONE, layer.getDescription(co.object)).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem arg0) {
+                            descheduleAutoLock();
+                            layer.onSelected(Main.this, co.object);
+                            return true;
+                        }
+                    });
                 }
             }
             if (clickedNodesAndWays != null) {
@@ -3569,7 +3516,7 @@ public class Main extends FullScreenAppCompatActivity
         /**
          * Check if this is the last member of a list
          * 
-         * @param <T>
+         * @param <T> type of the List member
          * @param l the list
          * @param o the member we are checking
          * @return true if it is the last item in the list
@@ -3588,21 +3535,12 @@ public class Main extends FullScreenAppCompatActivity
         private boolean menuRequired() {
             // If the context menu setting requires the menu, show it instead of
             // guessing.
-            if (prefs.getForceContextMenu())
-                return true;
-
-            // If bugs are clicked, user should always choose
-            if (clickedBugs != null && !clickedBugs.isEmpty()) {
+            if (prefs.getForceContextMenu()) {
                 return true;
             }
 
-            // If photos are clicked, user should always choose
-            if (clickedPhotos != null && !clickedPhotos.isEmpty()) {
-                return true;
-            }
-
-            // If way points are clicked, user should always choose
-            if (clickedWayPoints != null && !clickedWayPoints.isEmpty()) {
+            // If any object on a layer is clicked always show menu
+            if (!clickedObjects.isEmpty()) {
                 return true;
             }
 
@@ -3647,37 +3585,22 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public boolean onMenuItemClick(final android.view.MenuItem item) {
-            int itemId = item.getItemId();
-            int photoCount = clickedPhotos == null ? 0 : clickedPhotos.size();
-            int bugsCount = clickedBugs == null ? 0 : clickedBugs.size();
-            int wayPointCount = clickedWayPoints == null ? 0 : clickedWayPoints.size();
-            int bugsItemId = itemId - photoCount;
-            int wayPointItemId = itemId - (photoCount + bugsCount);
-            if ((clickedPhotos != null) && (itemId < clickedPhotos.size())) {
-                viewPhoto(clickedPhotos.get(itemId));
-            } else if (clickedBugs != null && bugsItemId >= 0 && bugsItemId < clickedBugs.size()) {
-                performBugEdit(clickedBugs.get(bugsItemId));
-            } else if (clickedWayPoints != null && wayPointItemId >= 0 && wayPointItemId < clickedWayPoints.size()) {
-                ViewWayPoint.showDialog(Main.this, clickedWayPoints.get(wayPointItemId));
-            } else {
-                itemId -= (bugsCount + photoCount + wayPointCount);
-
-                if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
-                    final OsmElement element = clickedNodesAndWays.get(itemId);
-                    if (App.getLogic().isLocked()) {
-                        ElementInfo.showDialog(Main.this, element);
-                    } else {
-                        Mode mode = App.getLogic().getMode();
-                        if (mode.elementsGeomEditiable()) {
-                            if (doubleTap) {
-                                doubleTap = false;
-                                getEasyEditManager().startExtendedSelection(element);
-                            } else {
-                                getEasyEditManager().editElement(element);
-                            }
-                        } else if (mode.elementsEditable()) {
-                            performTagEdit(element, null, false, false, false);
+            int itemId = item.getItemId() - clickedObjects.size();
+            if ((itemId >= 0) && (clickedNodesAndWays != null) && (itemId < clickedNodesAndWays.size())) {
+                final OsmElement element = clickedNodesAndWays.get(itemId);
+                if (App.getLogic().isLocked()) {
+                    ElementInfo.showDialog(Main.this, element);
+                } else {
+                    Mode mode = App.getLogic().getMode();
+                    if (mode.elementsGeomEditiable()) {
+                        if (doubleTap) {
+                            doubleTap = false;
+                            getEasyEditManager().startExtendedSelection(element);
+                        } else {
+                            getEasyEditManager().editElement(element);
                         }
+                    } else if (mode.elementsEditable()) {
+                        performTagEdit(element, null, false, false, false);
                     }
                 }
             }
@@ -3689,15 +3612,14 @@ public class Main extends FullScreenAppCompatActivity
             final Logic logic = App.getLogic();
             if (!logic.isLocked()) {
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
-                clickedNodesAndWays = logic.getClickedNodesAndWays(x, y);
+                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
                 switch (clickedNodesAndWays.size()) {
                 case 0:
                     // no elements were touched
                     if (inEasyEditMode) {
-                        getEasyEditManager().nothingTouched(true); // short cut
-                                                                   // to
-                                                                   // finishing
-                                                                   // multi-select
+                        // short cut to finishing multi-select
+                        getEasyEditManager().nothingTouched(true);
                     }
                     break;
                 case 1:
@@ -4007,12 +3929,10 @@ public class Main extends FullScreenAppCompatActivity
     private void zoomTo(int lonE7, int latE7, OsmElement e) {
         setFollowGPS(false); // otherwise the screen could move around
         if (e instanceof Node && map.getZoomLevel() < ZOOM_FOR_ZOOMTO) {
-            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO); // FIXME this
-                                                               // doesn't seem
-                                                               // to work as
-                                                               // expected
+            // FIXME this doesn't seem to work as expected
+            App.getLogic().setZoom(getMap(), ZOOM_FOR_ZOOMTO);
         } else {
-            map.getViewBox().setBorders(getMap(), e.getBounds(), false);
+            map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
         }
         map.getViewBox().moveTo(getMap(), lonE7, latE7);
     }
@@ -4031,7 +3951,7 @@ public class Main extends FullScreenAppCompatActivity
                                                                // expected
             map.getViewBox().moveTo(getMap(), ((Node) e).getLon(), ((Node) e).getLat());
         } else {
-            map.getViewBox().setBorders(getMap(), e.getBounds(), false);
+            map.getViewBox().fitToBoundingBox(getMap(), e.getBounds());
         }
     }
 
@@ -4122,10 +4042,8 @@ public class Main extends FullScreenAppCompatActivity
                         App.getLogic().deselectAll();
                         easyEditManager.finish();
                     }
-                } else { // can't
-                         // lock
-                         // now,
-                         // reschedule
+                } else {
+                    // can't lock now, reschedule
                     if (prefs != null) {
                         int delay = prefs.getAutolockDelay();
                         if (delay > 0) {
@@ -4168,5 +4086,4 @@ public class Main extends FullScreenAppCompatActivity
     public EasyEditManager getEasyEditManager() {
         return easyEditManager;
     }
-
 }

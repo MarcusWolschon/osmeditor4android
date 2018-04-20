@@ -511,7 +511,7 @@ public class TileLayerServer {
             metadataLoaded = true;
             // once we've got here, a selected layer that was previously non-available might now be available ... reset
             // map preferences
-            if (ctx instanceof Main) { // don't do this in the service
+            if (ctx instanceof Main && ((Main) ctx).getMap() != null) { // don't do this in the service
                 ((Main) ctx).getMap().setPrefs(ctx, new Preferences(ctx));
             }
         } catch (IOException e) {

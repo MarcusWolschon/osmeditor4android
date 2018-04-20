@@ -5,7 +5,7 @@ import de.blau.android.osm.ViewBox;
 /**
  * Interface for a graphical component that can be used with
  * {@link org.MapTilesLayer.osm.views.overlay.OpenStreetMapTilesOverlay} and other
- * {@link org.MapViewLayer.osm.views.overlay.OpenStreetMapViewOverlay} to render on.
+ * {@link de.blau.android.layer.MapViewLayer.osm.views.overlay.OpenStreetMapViewOverlay} to render on.
  */
 public interface IMapView {
 

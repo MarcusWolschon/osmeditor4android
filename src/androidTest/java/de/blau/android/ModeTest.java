@@ -42,6 +42,8 @@ public class ModeTest {
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @After
