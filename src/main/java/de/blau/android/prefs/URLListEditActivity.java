@@ -93,7 +93,6 @@ public abstract class URLListEditActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_activity);
         r = getResources();
-        onLoadList(items);
         TextView v = (TextView) View.inflate(ctx, android.R.layout.simple_list_item_1, null);
         v.setText(r.getString(getAddTextResId()));
         v.setTextColor(ContextCompat.getColor(ctx, android.R.color.darker_gray));
@@ -101,8 +100,6 @@ public abstract class URLListEditActivity extends ListActivity
         int padding = ThemeUtils.getDimensionFromAttribute(this, R.attr.dialogPreferredPadding);
         v.setPadding(padding, v.getPaddingTop(), padding, v.getPaddingBottom());
         getListView().addFooterView(v);
-
-        updateAdapter();
 
         getListView().setOnItemClickListener(this);
         getListView().setLongClickable(true);
@@ -119,6 +116,15 @@ public abstract class URLListEditActivity extends ListActivity
         if (isAddingViaIntent()) {
             itemEditDialog(null);
         }
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("URLListEditActivity", "onResume");
+        items.clear();
+        onLoadList(items);
+        updateAdapter();
     }
 
     @Override
