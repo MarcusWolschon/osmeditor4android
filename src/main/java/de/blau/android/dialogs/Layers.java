@@ -301,6 +301,8 @@ public class Layers extends ImmersiveDialogFragment {
                             ((Main)getActivity()).setFollowGPS(false);
                         }
                         logic.updateStyle();
+                        layer.setVisible(true);
+                        visible.setImageResource(visibleId);
                         map.invalidate();
                     }
                 }
