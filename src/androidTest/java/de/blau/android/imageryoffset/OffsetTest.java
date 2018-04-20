@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
+import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -42,14 +42,20 @@ public class OffsetTest {
     Instrumentation instrumentation = null;
     Preferences     prefs           = null;
 
+    /**
+     * Manual start of activity so that we can set up the monitor for main
+     */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class);
-
+    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    
     @Before
     public void setup() {
-        splash = mActivityRule.getActivity();
         instrumentation = InstrumentationRegistry.getInstrumentation();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
+               
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        splash = mActivityRule.launchActivity(intent);
+      
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
 
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -66,7 +72,9 @@ public class OffsetTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        splash.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        main.finish();
+        instrumentation.waitForIdleSync();
     }
 
     @Test

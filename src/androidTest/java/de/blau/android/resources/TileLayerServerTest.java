@@ -16,12 +16,12 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 import android.view.View;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -47,27 +47,36 @@ public class TileLayerServerTest {
     ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
 
+    /**
+     * Manual start of activity so that we can set up the monitor for main
+     */
     @Rule
-    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class);
-
+    public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
+    
     @Before
     public void setup() {
-        splash = mActivityRule.getActivity();
         instrumentation = InstrumentationRegistry.getInstrumentation();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
+               
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        splash = mActivityRule.launchActivity(intent);
+      
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+        
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        splash.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        main.finish();
+        instrumentation.waitForIdleSync();
     }
 
     @Test
     public void buildurl() {
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(splash);
         Map map = main.getMap();
         MapTile mapTile = new MapTile("", 20, 1111, 2222);
         Preferences prefs = new Preferences(main);
@@ -131,15 +140,12 @@ public class TileLayerServerTest {
 
     @Test
     public void sort() {
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
-        TestUtils.grantPermissons();
-        TestUtils.dismissStartUpDialogs(splash);
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("imagery_test.geojson");
         try {
-            TileLayerDatabase db = new TileLayerDatabase(splash);
-            TileLayerServer.parseImageryFile(splash, db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, is, false);
-            TileLayerServer.getListsLocked(splash, db.getReadableDatabase(), true);
+            TileLayerDatabase db = new TileLayerDatabase(main);
+            TileLayerServer.parseImageryFile(main, db.getWritableDatabase(), TileLayerDatabase.SOURCE_ELI, is, false);
+            TileLayerServer.getListsLocked(main, db.getReadableDatabase(), true);
             db.close();
         } catch (IOException e) {
             Assert.fail(e.getMessage());

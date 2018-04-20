@@ -19,7 +19,6 @@ import com.mapbox.services.commons.geojson.LineString;
 import com.mapbox.services.commons.geojson.MultiPoint;
 import com.mapbox.services.commons.geojson.MultiPolygon;
 import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.geojson.Polygon;
 import com.mapbox.services.commons.models.Position;
 
 import android.app.Instrumentation;
@@ -33,10 +32,7 @@ import android.support.test.uiautomator.UiDevice;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
-import de.blau.android.Splash;
 import de.blau.android.TestUtils;
-import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
@@ -49,7 +45,6 @@ public class GeoJSONTest {
     public static final int TIMEOUT         = 115;
     Context                 context         = null;
     AdvancedPrefDatabase    prefDB          = null;
-    Splash                  splash          = null;
     Main                    main            = null;
     Map                     map             = null;
     UiDevice                device          = null;

@@ -21,6 +21,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
+import de.blau.android.TestUtils;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
@@ -46,8 +47,8 @@ public class GeometryEditsTest {
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
-        // TestUtils.grantPermissons();
-        // TestUtils.dismissStartUpDialogs(main);
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(context);
     }
 
     @After

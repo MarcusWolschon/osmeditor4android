@@ -17,6 +17,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.By;
@@ -25,7 +26,6 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -64,6 +64,8 @@ public class PresetEditorTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @After

@@ -14,12 +14,13 @@ import com.orhanobut.mockwebserverplus.MockWebServerPlus;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.IndoorFilter;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -52,6 +53,8 @@ public class IndoorFilterTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(context);
     }
 
     @After

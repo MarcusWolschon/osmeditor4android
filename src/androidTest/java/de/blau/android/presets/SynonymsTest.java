@@ -13,12 +13,13 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.Main;
+import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
- * This is just a convenient way of generating the default preset dump
+ * 
  * 
  * @author simon
  *
@@ -34,6 +35,8 @@ public class SynonymsTest {
     @Before
     public void setup() {
         main = (Main) mActivityRule.getActivity();
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @Test

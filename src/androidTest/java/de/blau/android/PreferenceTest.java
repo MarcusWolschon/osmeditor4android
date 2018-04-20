@@ -6,9 +6,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import de.blau.android.prefs.Preferences;
 
@@ -23,6 +25,7 @@ public class PreferenceTest {
 
     Main main = null;
     View v    = null;
+    Context context = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -30,11 +33,14 @@ public class PreferenceTest {
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(context);
     }
 
     @Test
     public void preferences() {
-        Preferences prefs = new Preferences(main);
+        Preferences prefs = new Preferences(context);
         Assert.assertNull(prefs.getString(R.string.config_gpxPreferredDir_key));
         prefs.putString(R.string.config_gpxPreferredDir_key, "test");
         Assert.assertEquals("test", prefs.getString(R.string.config_gpxPreferredDir_key));

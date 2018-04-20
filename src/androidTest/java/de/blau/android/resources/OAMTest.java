@@ -18,7 +18,7 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.Main;
-import de.blau.android.R;
+import de.blau.android.TestUtils;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -53,6 +53,8 @@ public class OAMTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
         prefDB.selectAPI("Test");
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(main);
     }
 
     @After

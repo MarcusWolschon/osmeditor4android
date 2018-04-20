@@ -16,12 +16,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
+import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.filter.TagFilter;
 import de.blau.android.filter.TagFilterDatabaseHelper;
@@ -57,6 +58,8 @@ public class TagFilterTest {
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         db = new TagFilterDatabaseHelper(context).getWritableDatabase();
         main.getMap().setPrefs(main, prefs);
+        TestUtils.grantPermissons();
+        TestUtils.dismissStartUpDialogs(context);
     }
 
     @After

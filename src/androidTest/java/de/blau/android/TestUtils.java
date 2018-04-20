@@ -220,6 +220,40 @@ public class TestUtils {
             return false;
         }
     }
+    
+    public static boolean clickTextContains(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {
+        Log.w(DEBUG_TAG, "Searching for object with " + text);
+        // 
+        BySelector bySelector = null;
+        UiSelector uiSelector = null;
+        // NOTE order of the selector terms is significant
+        if (clickable) {
+            bySelector = By.clickable(true).textContains(text);
+            uiSelector = new UiSelector().clickable(true).textContains(text);
+        } else {
+            bySelector = By.textContains(text);
+            uiSelector = new UiSelector().textContains(text);
+        }
+        device.wait(Until.findObject(bySelector), 500);
+        UiObject button = device.findObject(uiSelector);
+        if (button.exists()) {
+            try {
+                if (waitForNewWindow) {
+                    button.clickAndWaitForNewWindow();
+                } else {
+                    button.click();
+                    Log.e(DEBUG_TAG, ".... clicked");
+                }
+                return true;
+            } catch (UiObjectNotFoundException e) {
+                Log.e(DEBUG_TAG, "Object vanished.");
+                return false;
+            }
+        } else {
+            Log.e(DEBUG_TAG, "Object not found");
+            return false;
+        }
+    }
 
     public static boolean findText(UiDevice device, boolean clickable, String text) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
