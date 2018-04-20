@@ -213,4 +213,12 @@
         android:icon="?attr/menu_help"
         android:title="@string/menu_help"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_authors"
+        android:title="@string/config_licensebutton_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_debug"
+        android:title="@string/config_debugbutton_title"
+        app:showAsAction="never" />
 </menu>

@@ -85,17 +85,4 @@
 			android:key="@string/config_validatorprefs_key"
 		/>
 	</PreferenceCategory>
-		
-	<PreferenceCategory android:title="@string/config_category_info">
-		<Preference
-			android:title="@string/config_licensebutton_title"
-			android:summary="@string/config_licensebutton_summary"
-			android:key="@string/config_licensebutton_key"
-		/>
-		<Preference
-			android:title="@string/config_debugbutton_title"
-			android:summary="@string/config_debugbutton_summary"
-			android:key="@string/config_debugbutton_key"
-		/>
-	</PreferenceCategory>
 </PreferenceScreen>

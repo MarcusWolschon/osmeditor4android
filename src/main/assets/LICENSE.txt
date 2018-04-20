@@ -28,9 +28,9 @@ The Vespucci application, excluding the GPLv3-only preset icons found in the fol
 
 The full project contains a small number of icons taken from the JOSM project under the GPLv3. Therefore, the full package, consisting of Vespucci and the bundled preset icons, is licensed under the GPLv3. You can find the full text of the GPLv3 in the file "LICENSE-GPL3.txt". The list of contributors and sources for the icons can be found in the "josm-contributors.txt" file.
 
-The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android .
+The source code may be obtained from github at https://github.com/MarcusWolschon/osmeditor4android.
 
-If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets and disable the use of the "NoNonsense FilePicker", the application will remain functional.
+If you want to use Vespucci under the Apache License, you need to remove the GPLv3-only content, i.e. delete assets/images/presets, the application will remain functional.
 
 OAuth support for Vespucci is provided by the oauth-signpost library https://github.com/mttkay/signpost licensed under the Apache License, version 2.
 
@@ -40,7 +40,7 @@ MultiSelectListPreference is Copyright (C) 2015 The Android Open Source Project 
 
 The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2.
 
-Following software was written by Simon Poole and is available under MIT style licenses:
+Following software was written by Simon Poole and is available under MIT style licences:
 
 - The parser for .PO files https://github.com/simonpoole/PoParser .
 - The conditional restriction parser https://github.com/simonpoole/CoditionalRestrictionParser .

@@ -77,17 +77,4 @@
 			android:key="@string/config_validatorprefs_key"
 		/>
 	</android.support.v7.preference.PreferenceCategory>
-		
-	<android.support.v7.preference.PreferenceCategory android:title="@string/config_category_info">
-		<android.support.v7.preference.Preference
-			android:title="@string/config_licensebutton_title"
-			android:summary="@string/config_licensebutton_summary"
-			android:key="@string/config_licensebutton_key"
-		/>
-		<android.support.v7.preference.Preference
-			android:title="@string/config_debugbutton_title"
-			android:summary="@string/config_debugbutton_summary"
-			android:key="@string/config_debugbutton_key"
-		/>
-	</android.support.v7.preference.PreferenceCategory>
 </android.support.v7.preference.PreferenceScreen>

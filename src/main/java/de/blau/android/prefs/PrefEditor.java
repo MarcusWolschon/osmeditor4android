@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -21,6 +22,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public class PrefEditor extends AppCompatActivity {
 
+    private static final String DEBUG_TAG = PrefEditor.class.getSimpleName();
+    
     final static String CURRENT_VIEWBOX = "VIEWBOX";
     private BoundingBox viewBox         = null;
     
@@ -90,5 +93,18 @@ public class PrefEditor extends AppCompatActivity {
         Log.d("PrefEditor", "onSaveInstaceState");
         super.onSaveInstanceState(outState);
         outState.putSerializable(CURRENT_VIEWBOX, viewBox);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        Log.d(DEBUG_TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                && resultCode == RESULT_OK) {
+            SelectFile.handleResult(requestCode, data);
+        }
     }
 }

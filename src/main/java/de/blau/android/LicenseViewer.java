@@ -3,6 +3,8 @@ package de.blau.android;
 import java.io.InputStreamReader;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import de.blau.android.prefs.Preferences;
@@ -18,6 +20,11 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setTitle(R.string.config_licensebutton_title);
+        
         View container = View.inflate(this, R.layout.license_viewer, null);
         TextView textShort = (TextView) container.findViewById(R.id.licenseShortText);
         TextView textFull = (TextView) container.findViewById(R.id.licenseFullText);
@@ -30,6 +37,16 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         load("josm-contributors.txt", builder);
         textFull.setText(builder.toString());
         setContentView(container);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private String load(String filename) {

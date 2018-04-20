@@ -10,8 +10,6 @@ import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import de.blau.android.App;
-import de.blau.android.DebugInformation;
-import de.blau.android.LicenseViewer;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
@@ -34,8 +32,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
     private String    KEY_MAPPROFILE;
     private String    KEY_ADVPREFS;
     private String    KEY_VALIDATOR;
-    private String    KEY_LICENSE;
-    private String    KEY_DEBUG;
     private String    KEY_SCALE;
 
     private BoundingBox viewBox = null;
@@ -51,8 +47,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
         KEY_MAPPROFILE = r.getString(R.string.config_mapProfile_key);
         KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
         KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
-        KEY_LICENSE = r.getString(R.string.config_licensebutton_key);
-        KEY_DEBUG = r.getString(R.string.config_debugbutton_key);
         KEY_SCALE = r.getString(R.string.config_scale_key);
         fixUpPrefs();
     }
@@ -161,26 +155,6 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
                 Log.d(DEBUG_TAG, "onPreferenceClick validator");
                 ValidatorRulesUI ui = new ValidatorRulesUI();
                 ui.manageRulesetContents(getContext());
-                return true;
-            }
-        });
-
-        Preference licensepref = getPreferenceScreen().findPreference(KEY_LICENSE);
-        licensepref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Log.d(DEBUG_TAG, "onPreferenceClick licence");
-                startActivity(new Intent(getActivity(), LicenseViewer.class));
-                return true;
-            }
-        });
-
-        Preference debugpref = getPreferenceScreen().findPreference(KEY_DEBUG);
-        debugpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Log.d(DEBUG_TAG, "onPreferenceClick debug");
-                startActivity(new Intent(getActivity(), DebugInformation.class));
                 return true;
             }
         });
