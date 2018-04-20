@@ -10,7 +10,7 @@
 <feature name="way_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />
 <feature name="way_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="40.0" />
 <feature name="oneway_direction" internal="true" updateWidth="true" widthFactor="0.5" editable="true" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
-<feature name="gps_track" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" />
+<feature name="gps_track" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="2.0" />
 <feature name="node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
 <feature name="node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
 <feature name="selected_node" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
