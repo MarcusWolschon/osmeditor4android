@@ -1727,6 +1727,9 @@ public class EasyEditManager {
             return true;
         }
 
+        /**
+         * Reverse a way showing a confirmation dialog if it is not reversible without changing semantics
+         */
         private void reverseWay() {
             final Way way = (Way) element;
             if (way.notReversable()) {
@@ -1799,30 +1802,33 @@ public class EasyEditManager {
         protected void menuDelete(final ActionMode mode) {
             boolean isRelationMember = element.hasParentRelations();
             boolean allNodesDownloaded = logic.isInDownload((Way) element);
-
             if (allNodesDownloaded) {
-                new AlertDialog.Builder(main).setTitle(R.string.delete)
-                        .setMessage(isRelationMember ? R.string.deleteway_relation_description : R.string.deleteway_description)
-                        .setPositiveButton(R.string.deleteway_wayonly, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                logic.performEraseWay(main, (Way) element, false, true);
-                                if (mode != null) {
-                                    mode.finish();
+                if (isRelationMember) {
+                    new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_relation_description)
+                            .setPositiveButton(R.string.deleteway_wayandnodes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteWay(mode);
                                 }
-                            }
-                        }).setNeutralButton(R.string.deleteway_wayandnodes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                logic.performEraseWay(main, (Way) element, true, true);
-                                if (mode != null) {
-                                    mode.finish();
-                                }
-                            }
-                        }).show();
+                            }).setNeutralButton(R.string.cancel, null).show();
+                } else {
+                    deleteWay(mode);
+                }
             } else {
                 new AlertDialog.Builder(main).setTitle(R.string.delete).setMessage(R.string.deleteway_nodesnotdownloaded_description)
                         .setPositiveButton(R.string.okay, null).show();
+            }
+        }
+
+        /**
+         * Delete way including orphan nodes and finish this mode
+         * 
+         * @param mode the current ActionMode
+         */
+        private void deleteWay(final ActionMode mode) {
+            logic.performEraseWay(main, (Way) element, true, true);
+            if (mode != null) {
+                mode.finish();
             }
         }
     }
