@@ -7,9 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Simple class for Android's standard-Preference Activity
@@ -20,6 +23,8 @@ public class PrefEditor extends AppCompatActivity {
 
     final static String CURRENT_VIEWBOX = "VIEWBOX";
     private BoundingBox viewBox         = null;
+    
+    private static final int MENUITEM_HELP = 1;
 
     public static void start(@NonNull Context context, BoundingBox viewBox) {
         Intent intent = new Intent(context, PrefEditor.class);
@@ -59,6 +64,12 @@ public class PrefEditor extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f).commit();
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);;
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
@@ -66,6 +77,9 @@ public class PrefEditor extends AppCompatActivity {
         switch (item.getItemId()) {
         case android.R.id.home:
             finish();
+            return true;
+        case MENUITEM_HELP:
+            HelpViewer.start(this, R.string.help_preferences);
             return true;
         }
         return super.onOptionsItemSelected(item);

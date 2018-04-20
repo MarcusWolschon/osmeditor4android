@@ -19,6 +19,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <!--  icons -->
+        <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 	</style>
 	
 	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
@@ -27,6 +29,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <!--  icons -->
+        <item name="menu_help">@drawable/ic_action_help_holo_light</item>
 	</style>
 
 	<style name="Theme.custom" parent="@style/Theme.AppCompat">
@@ -34,6 +38,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <!--  icons -->
+        <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
 	</style>
 
 	<style name="Theme.customLight" parent="@style/Theme.AppCompat.Light">
@@ -41,6 +47,8 @@
 		<item name="snack_info">@color/material_teal</item>
 		<item name="snack_warning">@color/material_orange</item>
 		<item name="snack_error">@color/material_red</item>
+        <!--  icons -->
+        <item name="menu_help">@drawable/ic_action_help_holo_light</item>
 	</style>
 	
 	<style name="Theme.noOverlapMenu" parent="@style/Theme.customMain">
