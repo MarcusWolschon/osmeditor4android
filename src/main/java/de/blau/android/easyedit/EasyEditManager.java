@@ -540,6 +540,7 @@ public class EasyEditManager {
                 currentActionModeCallback = this;
             }
             main.hideLock();
+            main.hideLayersControl();
 
             if (main.getBottomBar() != null) {
                 View v = main.findViewById(R.id.cab_stub);
@@ -563,7 +564,7 @@ public class EasyEditManager {
         /**
          * Override this is you want to create a custom context menu in onCreateContextMenu
          * 
-         * @return
+         * @return false as default
          */
         public boolean needsCustomContextMenu() {
             return false;
@@ -582,6 +583,7 @@ public class EasyEditManager {
                 main.showBottomBar();
             }
             main.showLock();
+            main.showLayersControl();
         }
 
         /**

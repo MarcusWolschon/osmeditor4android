@@ -75,6 +75,10 @@
 	<attr name="remove" format="reference" />
 	<attr name="edit" format="reference" />
 	<attr name="name" format="reference" />
+    <attr name="layer_visible" format="reference" />
+    <attr name="layer_not_visible" format="reference" />
+    <attr name="zoom_to_layer_extent" format="reference" />
+    <attr name="more_small" format="reference" />
 	<!-- Colors -->
 	<attr name="snack_info" format="reference|color" />
 	<attr name="snack_warning" format="reference|color" />

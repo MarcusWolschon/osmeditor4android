@@ -18,7 +18,6 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
 import de.blau.android.resources.DataStyle;
-import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Task;
 
 /**
@@ -44,7 +43,7 @@ public class EditState implements Serializable {
     private final boolean           savedFollowGPS;
     private final Filter            savedFilter;
 
-    public EditState(Context context, Logic logic, TileLayerServer osmts, String imageFileName, BoundingBox box, boolean followGPS) {
+    public EditState(Context context, Logic logic, String imageFileName, BoundingBox box, boolean followGPS) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
         savedNodes = logic.getSelectedNodes();

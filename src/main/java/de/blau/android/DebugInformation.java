@@ -14,13 +14,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
-import de.blau.android.views.layers.MapViewLayer;
 
 public class DebugInformation extends AppCompatActivity {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -65,14 +65,12 @@ public class DebugInformation extends AppCompatActivity {
         if (logic != null) {
             Map map = logic.getMap();
             if (map != null) {
-                synchronized (map.mOverlays) {
-                    for (MapViewLayer ov : map.mOverlays) {
+                    for (MapViewLayer ov : map.getLayers()) {
                         if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
                             builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
                                     + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
                         }
                     }
-                }
             } else {
                 builder.append("Map not available, this is a seriously curious state, please report a bug!\n");
             }

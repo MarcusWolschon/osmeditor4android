@@ -13,7 +13,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,18 +36,18 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.MapViewLayer;
+import de.blau.android.layer.StyleableLayer;
 import de.blau.android.listener.DoNothingListener;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Density;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.views.layers.MapViewLayer;
-import de.blau.android.views.layers.StyleableLayer;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
  *
  */
-public class LayerStyle extends DialogFragment {
+public class LayerStyle extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = LayerStyle.class.getSimpleName();
 
@@ -122,7 +121,6 @@ public class LayerStyle extends DialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        Preferences prefs = new Preferences(getActivity());
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.layer_style_title);
 
@@ -135,8 +133,7 @@ public class LayerStyle extends DialogFragment {
         final View colorView = (View) layout.findViewById(R.id.layer_color);
 
         int layerIndex = getArguments().getInt(LAYERINDEX);
-        List<MapViewLayer> layers = map.getLayers();
-        MapViewLayer tempLayer = layers.get(layerIndex);
+        MapViewLayer tempLayer = map.getLayer(layerIndex);
         if (tempLayer != null && tempLayer instanceof StyleableLayer) {
             builder.setTitle(tempLayer.getName());
             final StyleableLayer layer = (StyleableLayer) tempLayer;
@@ -149,8 +146,13 @@ public class LayerStyle extends DialogFragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, labelArray);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 labelSpinner.setAdapter(adapter);
-
-                // labelSpinner.setSelection(geocoderIndex);
+                String label = layer.getLabel();
+                if (label != null && !"".equals(label)) {
+                    int pos = labelKeys.indexOf(label);
+                    if (pos != -1) {
+                        labelSpinner.setSelection(pos);
+                    }
+                }
                 labelSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {

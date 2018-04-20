@@ -1,24 +1,35 @@
-package de.blau.android.photos;
+package de.blau.android.layer.photos;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.acra.ACRA;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.DisableInterface;
+import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.photos.Photo;
+import de.blau.android.photos.PhotoIndex;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.MapViewLayer;
 
 /**
  * implement a geo-referenced photo overlay, code stolen from the OSB implementation
@@ -26,7 +37,7 @@ import de.blau.android.views.layers.MapViewLayer;
  * @author simon
  *
  */
-public class MapOverlay extends MapViewLayer {
+public class MapOverlay extends MapViewLayer implements DisableInterface, ClickableInterface {
 
     private final static String DEBUG_TAG = "PhotoOverlay";
 
@@ -121,12 +132,12 @@ public class MapOverlay extends MapViewLayer {
     @Override
     public boolean isReadyToDraw() {
         enabled = map.getPrefs().isPhotoLayerEnabled();
-        return !enabled || map.getBackgroundLayer().isReadyToDraw();
+        return enabled;
     }
 
     @Override
     protected void onDraw(Canvas c, IMapView osmv) {
-        if (enabled) {
+        if (isVisible && enabled) {
             ViewBox bb = osmv.getViewBox();
 
             if ((bb.getWidth() > TOLERANCE_MIN_VIEWBOX_WIDTH) || (bb.getHeight() > TOLERANCE_MIN_VIEWBOX_WIDTH)) {
@@ -134,7 +145,6 @@ public class MapOverlay extends MapViewLayer {
             }
 
             if (!indexed && !indexing) {
-
                 indexPhotos.execute();
                 return;
             }
@@ -169,15 +179,8 @@ public class MapOverlay extends MapViewLayer {
         // do nothing
     }
 
-    /**
-     * Given screen coordinates, find all nearby photos.
-     * 
-     * @param x Screen X-coordinate.
-     * @param y Screen Y-coordinate.
-     * @param viewBox Map view box.
-     * @return List of photos close to given location.
-     */
-    public List<Photo> getClickedPhotos(final float x, final float y, final ViewBox viewBox) {
+    @Override
+    public List<Photo> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Photo> result = new ArrayList<>();
         Log.d("photos.MapOverlay", "getClickedPhotos");
         if (map.getPrefs().isPhotoLayerEnabled()) {
@@ -189,7 +192,10 @@ public class MapOverlay extends MapViewLayer {
                 float differenceY = Math.abs(GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat) - y);
                 if ((differenceX <= tolerance) && (differenceY <= tolerance)) {
                     if (Math.hypot(differenceX, differenceY) <= tolerance) {
-                        result.add(p);
+                        Uri photoUri = p.getRefUri(map.getContext());
+                        if (photoUri != null) { // only return valid entries
+                            result.add(p);
+                        }
                     }
                 }
             }
@@ -201,9 +207,68 @@ public class MapOverlay extends MapViewLayer {
     public void setSelected(Photo photo) {
         selected = photo;
     }
-    
+
     @Override
     public String getName() {
         return map.getContext().getString(R.string.layer_photos);
+    }
+
+    @Override
+    public void invalidate() {
+        map.invalidate();
+    }
+
+    @Override
+    public void disable(Context ctx) {
+        Preferences prefs = new Preferences(ctx);
+        prefs.setPhotoLayerEnabled(false);
+    }
+
+    @Override
+    public void onSelected(FragmentActivity activity, Object object) {
+        if (!(object instanceof Photo)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return;
+        }
+        Photo photo = (Photo) object;
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_VIEW);
+            int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT;
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                flags = flags | Intent.FLAG_ACTIVITY_CLEAR_TASK;
+            }
+            myIntent.setFlags(flags);
+            Context context = map.getContext();
+            Uri photoUri = photo.getRefUri(context);
+            if (photoUri != null) {
+                // black magic only works this way
+                myIntent.setDataAndType(photoUri, "image/jpeg");
+                context.startActivity(myIntent);
+                setSelected(photo);
+                // TODO may need a map.invalidate() here
+            } else {
+                Snack.toastTopError(context, context.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
+            }
+        } catch (Exception ex) {
+            Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
+            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
+            ACRA.getErrorReporter().handleException(ex);
+        }
+    }
+
+    @Override
+    public String getDescription(Object object) {
+        if (!(object instanceof Photo)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return "?";
+        }
+        Photo photo = (Photo) object;
+        Uri photoUri = photo.getRefUri(map.getContext());
+        if (photoUri != null) {
+            return photoUri.getLastPathSegment();
+        }
+        return "?";
     }
 }

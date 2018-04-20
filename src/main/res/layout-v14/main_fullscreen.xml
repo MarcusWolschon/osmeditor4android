@@ -28,10 +28,26 @@
             android:id="@+id/floatingLock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="top"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:src="@drawable/lock_bi_state"
+            android:theme="@style/Theme.customMain"
+            app:fabSize="mini"
+            app:useCompatPadding="true" />
+        
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/layers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_gravity="top"
             android:layout_margin="0dp"
             android:clickable="true"
-            android:src="@drawable/lock_bi_state"
+            android:src="@drawable/ic_view_headline_black_36dp"
+            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorControlNormal"
             app:fabSize="mini"
             app:useCompatPadding="true" />
         

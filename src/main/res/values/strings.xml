@@ -191,14 +191,17 @@
     <string name="layer_style_stroke_width">Stroke width</string>
     <string name="layer_style_color">Colour</string>
     <string name="layer_style_label">Label</string>
+    <string name="json_object_not_displayed">JSON object (not displayed)</string>
+    <string name="json_array_not_displayed">JSON array (not displayed)</string>
+    <!--  Layer dialog -->
     <string name="layer_geojson">GeoJSON</string>
     <string name="layer_grid">Grid</string>
     <string name="layer_gpx">GPX</string>
     <string name="layer_photos">Photos</string>
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM Data</string>
-    <string name="json_object_not_displayed">JSON object (not displayed)</string>
-    <string name="json_array_not_displayed">JSON array (not displayed)</string>
+    <string name="layer_flush_tile_cache">Flush tile cache</string>
+    <string name="layer_change_style">Change style</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
@@ -311,7 +314,9 @@
     <string name="forward">Forward</string>
     <string name="keep">Keep</string>
     <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
     <string name="clear">Clear</string>
+    <string name="discard">Discard</string>
     <string name="retry">Retry</string>
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
@@ -319,7 +324,7 @@
     <string name="share_position">Share position</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
-    <string name="geojson_object">GeoJSON %1$s</string>
+    <string name="geojson_object">%1$s (%2$s)</string>
     <string name="none">None</string>
     <!-- Dialog for back button -->
     <string name="exit_title">Really exit?</string>
@@ -475,8 +480,6 @@
     <string name="menu_tools">Tools…</string>
     <string name="menu_tools_imagery">More imagery tools</string>
     <string name="menu_tools_add_imagery_from_oam">Add imagery from OAM</string>
-    <string name="menu_tools_flush_background_tile_cache">Flush background tile cache</string>
-    <string name="menu_tools_flush_overlay_tile_cache">Flush overlay tile cache</string>
     <string name="menu_tools_flush_all_tile_caches">Flush all tile caches</string>
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_update_imagery_configuration">Update imagery layer configuration</string>

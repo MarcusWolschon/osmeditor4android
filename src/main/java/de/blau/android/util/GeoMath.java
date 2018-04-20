@@ -23,12 +23,14 @@ public class GeoMath {
 
     private static final double PI_2 = Math.PI / 2d;
 
-    public static final double MAX_LAT = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
+    public static final double MAX_LAT    = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
+    public static final int    MAX_LAT_E7 = (int) (MAX_LAT * 1E7);
 
-    public static final double MAX_LON = 180;
+    public static final double MAX_LON    = 180;
+    public static final int    MAX_LON_E7 = (int) (MAX_LON * 1E7);
 
-    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int) (MAX_LAT * 1E7d));
     public static final double MAX_MLAT    = GeoMath.latE7ToMercator((int) (MAX_LAT * 1E7d));
+    public static final int    MAX_MLAT_E7 = GeoMath.latE7ToMercatorE7((int) (MAX_LAT * 1E7d));
 
     public static final int EARTH_RADIUS_EQUATOR = 6378137;
 
@@ -250,7 +252,7 @@ public class GeoMath {
     public static float lonE7ToX(final int screenWidth, final BoundingBox viewBox, final int lonE7) {
         return (float) ((double) (lonE7 - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
     }
-    
+
     /**
      * Non-scaled version. Calculates the screen-coordinate to the given longitude.
      * 
@@ -258,7 +260,7 @@ public class GeoMath {
      * @return the x screen-coordinate for this longitude value.
      */
     public static float lonToX(final int screenWidth, final BoundingBox viewBox, final double lon) {
-        return (float) ((double) (lon*1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
+        return (float) ((double) (lon * 1E7D - viewBox.getLeft()) / (double) viewBox.getWidth()) * screenWidth;
     }
 
     /**

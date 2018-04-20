@@ -36,9 +36,9 @@ public class Preferences {
 
     private final boolean isAntiAliasingEnabled;
 
-    private final boolean isOpenStreetBugsEnabled;
+    private boolean isOpenStreetBugsEnabled;
 
-    private final boolean isPhotoLayerEnabled;
+    private boolean isPhotoLayerEnabled;
 
     private final boolean isKeepScreenOnEnabled;
 
@@ -52,7 +52,7 @@ public class Preferences {
 
     private String overlayLayer;
 
-    private final String scaleLayer;
+    private String scaleLayer;
 
     private final String mapProfile;
 
@@ -294,26 +294,41 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Check if the task layer is anabled
+     * 
+     * @return true if enabled
      */
     public boolean areBugsEnabled() {
         return isOpenStreetBugsEnabled;
     }
 
     /**
-     * Set the status of the tasks/bugs display
+     * Set the enabled status of the tasks/bugs layer
      * 
-     * @param on if true enable
+     * @param on if true enable layer
      */
     public void setBugsEnabled(boolean on) {
+        isOpenStreetBugsEnabled = on;
         prefs.edit().putBoolean(r.getString(R.string.config_enableOpenStreetBugs_key), on).commit();
     }
 
     /**
-     * @return
+     * Check if the photo layer is enabled
+     * 
+     * @return true if enabled
      */
     public boolean isPhotoLayerEnabled() {
         return isPhotoLayerEnabled;
+    }
+
+    /**
+     * Set the enabled status of the photo layer
+     * 
+     * @param enabled if true enable layer
+     */
+    public void setPhotoLayerEnabled(boolean enabled) {
+        isPhotoLayerEnabled = enabled;
+        prefs.edit().putBoolean(r.getString(R.string.config_enablePhotoLayer_key), enabled).commit();
     }
 
     /**
@@ -380,10 +395,22 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Get kind of scale that should be displayed
+     * 
+     * @return mode value from scale_values
      */
     public String scaleLayer() {
         return scaleLayer;
+    }
+
+    /**
+     * Set the kind of scale that should be displayed
+     * 
+     * @param mode value from scale_values
+     */
+    public void setScaleLayer(String mode) {
+        scaleLayer = mode;
+        prefs.edit().putString(r.getString(R.string.config_scale_key), mode).commit();
     }
 
     /**
@@ -475,7 +502,7 @@ public class Preferences {
      */
     public void setMaxDownloadSpeed(float maxDownloadSpeed) {
         this.maxDownloadSpeed = maxDownloadSpeed;
-        prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int)maxDownloadSpeed).commit();
+        prefs.edit().putInt(r.getString(R.string.config_maxDownloadSpeed_key), (int) maxDownloadSpeed).commit();
     }
 
     public int getBugDownloadRadius() {

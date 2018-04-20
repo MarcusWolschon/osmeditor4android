@@ -3,6 +3,7 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -583,6 +584,25 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         height = top - bottom;
     }
 
+    /**
+     * Produce the union of a Collection of BoundingBoxe objects
+     * 
+     * @param boxes Collection of Boundingbox
+     * @return a single BoundingBox covering all in the COlletion or null
+     */
+    @Nullable
+    public static BoundingBox union(Collection <BoundingBox> boxes) {
+        BoundingBox result = null;
+        for (BoundingBox b:boxes) {
+            if (result==null) {
+                result = new BoundingBox(b);
+            } else {
+                result.union(b);
+            }
+        }
+        return result;
+    }
+    
     /**
      * Return true if box is empty
      * 

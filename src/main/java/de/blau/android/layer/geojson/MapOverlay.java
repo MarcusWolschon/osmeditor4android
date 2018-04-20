@@ -45,10 +45,16 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.dialogs.FeatureInfo;
+import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.DiscardInterface;
+import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
@@ -60,9 +66,8 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
-import de.blau.android.views.layers.StyleableLayer;
 
-public class MapOverlay extends StyleableLayer implements Serializable {
+public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface {
 
     /**
      * 
@@ -241,6 +246,9 @@ public class MapOverlay extends StyleableLayer implements Serializable {
     transient float        labelStrokeWidth;
     transient FeatureStyle labelFs;
 
+    /**
+     * Name for this layer (typically the file name)
+     */
     private String name;
 
     /**
@@ -255,12 +263,12 @@ public class MapOverlay extends StyleableLayer implements Serializable {
 
     @Override
     public boolean isReadyToDraw() {
-        return data != null && map.getBackgroundLayer().isReadyToDraw();
+        return data != null;
     }
 
     @Override
     protected void onDraw(Canvas canvas, IMapView osmv) {
-        if (data == null) {
+        if (!isVisible || data == null) {
             return;
         }
         ViewBox bb = osmv.getViewBox();
@@ -472,6 +480,8 @@ public class MapOverlay extends StyleableLayer implements Serializable {
      * @throws IOException
      */
     public void loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is) throws IOException {
+        // don't draw while we are loading
+        setVisible(false);
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -503,6 +513,7 @@ public class MapOverlay extends StyleableLayer implements Serializable {
                     }
                 }
             }
+            setVisible(true); // enable too
         } catch (com.google.gson.JsonSyntaxException jsex) {
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
@@ -510,15 +521,16 @@ public class MapOverlay extends StyleableLayer implements Serializable {
             // never crash
             data = null;
             Snack.toastTopError(ctx, e.getLocalizedMessage());
-            e.printStackTrace();
         }
         saved = false;
+        // re-enable drawing
+        setVisible(true);
     }
 
     /**
-     * @param fc
+     * @param features
      */
-    public void loadFeatures(List<Feature> features) {
+    private void loadFeatures(List<Feature> features) {
         for (Feature f : features) {
             if (GeoJSONConstants.FEATURE.equals(f.getType()) && f.getGeometry() != null) {
                 data.insert(new BoundedFeature(f));
@@ -531,10 +543,11 @@ public class MapOverlay extends StyleableLayer implements Serializable {
     /**
      * Stores the current state to the default storage file
      * 
-     * @param ctx Android Context
+     * @param context Android Context
      * @throws IOException on errors writing the file
      */
-    public synchronized void onSaveState(@NonNull Context ctx) throws IOException {
+    public synchronized void onSaveState(@NonNull Context context) throws IOException {
+        super.onSaveState(context);
         if (saved) {
             Log.i(DEBUG_TAG, "state not dirty, skipping save");
             return;
@@ -542,13 +555,13 @@ public class MapOverlay extends StyleableLayer implements Serializable {
         if (readingLock.tryLock()) {
             try {
                 // TODO this doesn't really help with error conditions need to throw exception
-                if (savingHelper.save(ctx, FILENAME, this, true)) {
+                if (savingHelper.save(context, FILENAME, this, true)) {
                     saved = true;
                 } else {
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
-                    if (ctx != null && ctx instanceof Activity) {
-                        Snack.barError((Activity) ctx, R.string.toast_statesave_failed);
+                    if (context != null && context instanceof Activity) {
+                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
                     }
                 }
             } finally {
@@ -567,8 +580,15 @@ public class MapOverlay extends StyleableLayer implements Serializable {
      * @return true if the saved state was successfully read
      */
     public synchronized boolean onRestoreState(@NonNull Context context) {
+        super.onRestoreState(context);
         try {
             readingLock.lock();
+            if (data != null && data.count() > 0) {
+                // don't restore over existing data
+                return true;
+            }
+            // re-enable drawing
+            setVisible(false);
             MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
             if (restoredOverlay != null) {
                 Log.d(DEBUG_TAG, "read saved state");
@@ -579,12 +599,15 @@ public class MapOverlay extends StyleableLayer implements Serializable {
                 strokeWidth = restoredOverlay.strokeWidth;
                 paint.setStrokeWidth(strokeWidth);
                 labelKey = restoredOverlay.labelKey;
+                name = restoredOverlay.name;
                 return true;
             } else {
                 Log.d(DEBUG_TAG, "saved state null");
                 return false;
             }
         } finally {
+            // re-enable drawing
+            setVisible(true);
             readingLock.unlock();
         }
     }
@@ -597,6 +620,7 @@ public class MapOverlay extends StyleableLayer implements Serializable {
      * @param viewBox Map view box.
      * @return List of photos close to given location.
      */
+    @Override
     public List<Feature> getClicked(final float x, final float y, final ViewBox viewBox) {
         List<Feature> result = new ArrayList<>();
         Log.d(DEBUG_TAG, "getClicked");
@@ -708,28 +732,6 @@ public class MapOverlay extends StyleableLayer implements Serializable {
     }
 
     /**
-     * Return the bounding box for all of the GeoJSON objects in storage
-     * 
-     * @return a BoundingBox covering all objects
-     */
-    public BoundingBox getExtent() {
-        if (data != null) {
-            Collection<BoundedObject> queryResult = new ArrayList<>();
-            data.query(queryResult);
-            BoundingBox extent = null;
-            for (BoundedObject bo : queryResult) {
-                if (extent == null) {
-                    extent = bo.getBounds();
-                } else {
-                    extent.union(bo.getBounds());
-                }
-            }
-            return extent;
-        }
-        return null;
-    }
-    
-    /**
      * Return a List of all loaded Features
      * 
      * @return a List of Feature objects
@@ -737,18 +739,13 @@ public class MapOverlay extends StyleableLayer implements Serializable {
     public List<Feature> getFeatures() {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         data.query(queryResult);
-        List<Feature>result = new ArrayList<>();
-        for (BoundedObject bo:queryResult) {
-            result.add(((BoundedFeature)bo).getFeature());
+        List<Feature> result = new ArrayList<>();
+        for (BoundedObject bo : queryResult) {
+            result.add(((BoundedFeature) bo).getFeature());
         }
         return result;
     }
 
-    /**
-     * Get the current color for this layer
-     * 
-     * @return the color as an int
-     */
     @Override
     public int getColor() {
         return paint.getColor();
@@ -819,6 +816,11 @@ public class MapOverlay extends StyleableLayer implements Serializable {
         labelKey = key;
     }
 
+    @Override
+    public String getLabel() {
+        return labelKey;
+    }
+
     /**
      * Get the label value for this Feature
      * 
@@ -844,5 +846,72 @@ public class MapOverlay extends StyleableLayer implements Serializable {
             return name;
         }
         return map.getContext().getString(R.string.layer_geojson);
+    }
+
+    @Override
+    public void invalidate() {
+        map.invalidate();
+    }
+
+    @Override
+    public BoundingBox getExtent() {
+        if (data != null) {
+            Collection<BoundedObject> queryResult = new ArrayList<>();
+            data.query(queryResult);
+            BoundingBox extent = null;
+            for (BoundedObject bo : queryResult) {
+                if (extent == null) {
+                    extent = bo.getBounds();
+                } else {
+                    extent.union(bo.getBounds());
+                }
+            }
+            return extent;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return data != null && data.count() > 0;
+    }
+
+    @Override
+    public void discard(Context context) {
+        if (readingLock.tryLock()) {
+            try {
+                data = null;
+                File originalFile = context.getFileStreamPath(FILENAME);
+                if (!originalFile.delete()) {
+                    Log.e(DEBUG_TAG, "Failed to delete state file " + FILENAME);
+                }
+            } finally {
+                readingLock.unlock();
+            }
+        }
+    }
+
+    @Override
+    public void onSelected(FragmentActivity activity, Object object) {
+        if (!(object instanceof Feature)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return;
+        }
+        Feature feature = (Feature) object;
+        FeatureInfo.showDialog(activity, feature);
+    }
+
+    @Override
+    public String getDescription(Object object) {
+        if (!(object instanceof Feature)) {
+            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
+            return "?";
+        }
+        Feature feature = (Feature) object;
+        String label = getLabel(feature);
+        if (label == null || "".equals(label)) {
+            label = feature.getGeometry().getType();
+        }
+        return map.getContext().getString(R.string.geojson_object, label, getName());
     }
 }

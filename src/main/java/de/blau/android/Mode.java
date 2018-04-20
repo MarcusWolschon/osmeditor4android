@@ -268,7 +268,7 @@ public enum Mode {
         return ctx.getString(nameResId);
     }
 
-    boolean elementsSelectable() {
+    public boolean elementsSelectable() {
         return selectable;
     }
 
@@ -276,7 +276,7 @@ public enum Mode {
         return editable;
     }
 
-    boolean elementsGeomEditiable() {
+    public boolean elementsGeomEditiable() {
         return geomEditable;
     }
 

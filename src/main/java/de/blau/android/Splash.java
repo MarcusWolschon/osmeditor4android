@@ -63,8 +63,8 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
                 try {
+                    TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
                     if (newInstall || newConfig) {
                         TileLayerServer.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
                     }
