@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -22,7 +21,7 @@ import de.blau.android.validation.ValidatorRulesUI;
  * 
  * @author mb
  */
-public class PrefEditorFragment extends PreferenceFragmentCompat {
+public class PrefEditorFragment extends ExtendedPreferenceFragment {
 
     private static String DEBUG_TAG = PrefEditorFragment.class.getSimpleName();
 
@@ -158,17 +157,5 @@ public class PrefEditorFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
-    }
-
-    @Override
-    public void onDisplayPreferenceDialog(Preference preference) {
-        DialogFragment fragment;
-        if (preference instanceof MultiSelectListPreference) {
-            fragment = MultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
-            fragment.setTargetFragment(this, 0);
-            fragment.show(getChildFragmentManager(), "android.support.v7.preference.PreferenceFragment.MULTISELECTLIST");
-        } else {
-            super.onDisplayPreferenceDialog(preference);
-        }
     }
 }
