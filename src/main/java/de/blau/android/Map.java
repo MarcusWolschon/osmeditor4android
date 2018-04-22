@@ -117,9 +117,6 @@ public class Map extends View implements IMapView {
      */
     private boolean alwaysDrawBoundingBoxes = false;
 
-    /** Caches if the map is zoomed into edit range during one onDraw pass */
-    private boolean tmpDrawingInEditRange;
-
     /** Caches the edit mode during one onDraw pass */
     private Mode tmpDrawingEditMode;
 
@@ -436,7 +433,7 @@ public class Map extends View implements IMapView {
             }
         }
         paintGpsPos(canvas);
-        if (tmpDrawingInEditRange) {
+        if (App.getLogic().isInEditZoomRange()) {
             paintCrosshairs(canvas);
         }
 
