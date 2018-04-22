@@ -7,7 +7,6 @@ import android.content.DialogInterface.OnShowListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -41,6 +40,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
 
 /**
@@ -49,7 +49,7 @@ import de.blau.android.util.IssueAlert;
  * @author simon
  *
  */
-public class TaskFragment extends DialogFragment {
+public class TaskFragment extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 
     private UpdateViewListener mListener;
