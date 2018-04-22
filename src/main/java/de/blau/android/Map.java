@@ -91,11 +91,11 @@ public class Map extends View implements IMapView {
      * 
      * @see #getLayers()
      */
-    private final List<MapViewLayer> mLayers      = new ArrayList<MapViewLayer>();
+    private final List<MapViewLayer> mLayers      = new ArrayList<>();
     /**
      * Copy of the above for use during onDraw
      */
-    private final List<MapViewLayer> renderLayers = new ArrayList<MapViewLayer>();
+    private final List<MapViewLayer> renderLayers = new ArrayList<>();
     /* currently the layers setup is very static and we provide methods to access them */
     private MapTilesLayer                            backgroundLayer = null;
     private MapTilesOverlayLayer                     overlayLayer    = null;
@@ -116,9 +116,6 @@ public class Map extends View implements IMapView {
      * Always darken non-downloaded areas
      */
     private boolean alwaysDrawBoundingBoxes = false;
-
-    /** Caches the edit mode during one onDraw pass */
-    private Mode tmpDrawingEditMode;
 
     /**
      * Locked or not
@@ -299,7 +296,6 @@ public class Map extends View implements IMapView {
      */
     public void saveLayerState(Context ctx) {
         Log.d(DEBUG_TAG, "saveLayerState (all)");
-        // List<MapViewLayer>layers = getLayers();
         for (MapViewLayer layer : getLayers()) {
             if (layer != null) {
                 try {
@@ -404,7 +400,7 @@ public class Map extends View implements IMapView {
 
         // set in paintOsmData now tmpDrawingInEditRange = Main.logic.isInEditZoomRange();
         final Logic logic = App.getLogic();
-        tmpDrawingEditMode = logic.getMode();
+        final Mode tmpDrawingEditMode = logic.getMode();
         tmpLocked = logic.isLocked();
 
         // Draw our Overlays.
@@ -865,7 +861,7 @@ public class Map extends View implements IMapView {
      * @param layerId the layer id
      * @return true if we should allocate a layer
      */
-    private boolean activeOverlay(String layerId) {
+    public static boolean activeOverlay(String layerId) {
         return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
     }
 

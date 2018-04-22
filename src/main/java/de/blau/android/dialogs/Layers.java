@@ -9,13 +9,18 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,8 +31,10 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -51,11 +58,12 @@ import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
+import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 /**
- * Very simple dialog fragment to display some info on an OSM element
+ * Layer dialog
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class Layers extends ImmersiveDialogFragment {
@@ -76,7 +84,7 @@ public class Layers extends ImmersiveDialogFragment {
      * 
      * @param activity the calling Activity
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -123,25 +131,22 @@ public class Layers extends ImmersiveDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
+
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                final FragmentActivity activity = getActivity();
+                final Preferences prefs = new Preferences(activity);
                 PopupMenu popup = new PopupMenu(getActivity(), add);
                 // menu items for adding layers
-                MenuItem addGeoJSON = popup.getMenu().add(R.string.menu_layers_add_geojson);
-                addGeoJSON.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                MenuItem item = popup.getMenu().add(R.string.menu_layers_load_geojson);
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem arg0) {
-                        final FragmentActivity activity = getActivity();
                         SelectFile.read(activity, R.string.config_osmPreferredDir_key, new ReadFile() {
                             private static final long serialVersionUID = 1L;
 
@@ -152,7 +157,6 @@ public class Layers extends ImmersiveDialogFragment {
                                     try {
                                         geojsonLayer.resetStyling();
                                         geojsonLayer.loadGeoJsonFile(activity, fileUri);
-                                        Preferences prefs = new Preferences(activity);
                                         SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
                                         geojsonLayer.invalidate();
                                         LayerStyle.showDialog(activity, geojsonLayer.getIndex());
@@ -168,6 +172,26 @@ public class Layers extends ImmersiveDialogFragment {
                         return false;
                     }
                 });
+                if (!Map.activeOverlay(prefs.backgroundLayer())) {
+                    item = popup.getMenu().add(R.string.config_backgroundLayer_title);
+                    item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem arg0) {
+                            buildImagerySelectDialog(null, null, false).show();
+                            return true;
+                        }
+                    });
+                }
+                if (!Map.activeOverlay(prefs.overlayLayer())) {
+                    item = popup.getMenu().add(R.string.config_overlayLayer_title);
+                    item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem arg0) {
+                            buildImagerySelectDialog(null, null, true).show();
+                            return true;
+                        }
+                    });
+                }
                 popup.show();
             }
         });
@@ -272,7 +296,6 @@ public class Layers extends ImmersiveDialogFragment {
         isVisible = layer.isVisible();
         visible.setImageResource(isVisible ? visibleId : invisibleId);
         visible.setBackgroundColor(Color.TRANSPARENT);
-        // visible.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         visible.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -285,7 +308,7 @@ public class Layers extends ImmersiveDialogFragment {
         });
         tr.addView(visible);
 
-        if (layer != null && layer instanceof ExtentInterface) {
+        if (layer instanceof ExtentInterface) {
             final ImageButton zoomToExtent = new ImageButton(context);
             zoomToExtent.setImageResource(zoomToExtentId);
             zoomToExtent.setBackgroundColor(Color.TRANSPARENT);
@@ -316,17 +339,14 @@ public class Layers extends ImmersiveDialogFragment {
             tr.addView(new View(context));
         }
         TextView cell = new TextView(context);
-        cell = new TextView(context);
-        if (name != null) {
-            cell.setText(name);
-            cell.setMinEms(2);
-            cell.setHorizontallyScrolling(true);
-            cell.setSingleLine(true);
-            cell.setEllipsize(TextUtils.TruncateAt.END);
-            cell.setPadding(5, 0, 0, 0);
-            tr.addView(cell);
-        }
-        if (layer != null && needsMenu(layer)) {
+        cell.setText(name);
+        cell.setMinEms(2);
+        cell.setHorizontallyScrolling(true);
+        cell.setSingleLine(true);
+        cell.setEllipsize(TextUtils.TruncateAt.END);
+        cell.setPadding(5, 0, 0, 0);
+        tr.addView(cell);
+        if (needsMenu(layer)) {
             final ImageButton menu = new ImageButton(context);
             menu.setImageResource(menuId);
             menu.setBackgroundColor(Color.TRANSPARENT);
@@ -402,17 +422,8 @@ public class Layers extends ImmersiveDialogFragment {
                                 @Override
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if (tileServer != null) {
-                                        ((MapTilesLayer) layer).setRendererInfo(tileServer);
-                                        Preferences prefs = new Preferences(getContext());
-                                        if (tileServer.isOverlay()) {
-                                            prefs.setOverlayLayer(id);
-                                        } else {
-                                            prefs.setBackGroundLayer(id);
-                                        }
-                                        App.getDelegator().setImageryRecorded(false);
                                         TableRow row = (TableRow) button.getTag();
-                                        TextView name = (TextView) row.getChildAt(2);
-                                        name.setText(tileServer.getName());
+                                        setNewImagery(row, (MapTilesLayer) layer, tileServer);
                                         dismissDialog();
                                         layer.invalidate();
                                     }
@@ -426,7 +437,19 @@ public class Layers extends ImmersiveDialogFragment {
                         divider.setEnabled(false);
                     }
                 }
-                MenuItem item = popup.getMenu().add(R.string.layer_flush_tile_cache);
+                MenuItem item = popup.getMenu().add("Select imagery");
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (layer != null) {
+                            buildImagerySelectDialog((TableRow) button.getTag(), (MapTilesLayer) layer, layer instanceof MapTilesOverlayLayer).show();
+                            layer.invalidate();
+                        }
+                        return true;
+                    }
+                });
+
+                item = popup.getMenu().add(R.string.layer_flush_tile_cache);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -491,6 +514,95 @@ public class Layers extends ImmersiveDialogFragment {
                 });
             }
             popup.show();
+        }
+    }
+
+    /**
+     * Build a dialog that shows a selection of imagery sources that can be used
+     * 
+     * @param row the TableRow we were invoked from, can be null if row doesn't exists
+     * @param layer the layer we should change imagery for, can be null if layer doesn't exist yet
+     * @param isOverlay true if this is for the overlay layer
+     * @return an AlertDialog that can be shown
+     */
+    private AlertDialog buildImagerySelectDialog(@Nullable final TableRow row, @Nullable final MapTilesLayer layer, boolean isOverlay) {
+        Builder builder = new AlertDialog.Builder(getActivity());
+
+        final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
+
+        final View layout = themedInflater.inflate(R.layout.form_combo_dialog, null);
+        RadioGroup valueGroup = (RadioGroup) layout.findViewById(R.id.valueGroup);
+        builder.setView(layout);
+
+        LayoutParams buttonLayoutParams = valueGroup.getLayoutParams();
+        buttonLayoutParams.width = LayoutParams.MATCH_PARENT;
+        ViewBox viewBox = App.getLogic().getMap().getViewBox();
+        builder.setTitle(isOverlay ? R.string.config_overlayLayer_title : R.string.config_backgroundLayer_title);
+        final String[] ids = isOverlay ? TileLayerServer.getOverlayIds(viewBox, true) : TileLayerServer.getIds(viewBox, true);
+        String[] names = isOverlay ? TileLayerServer.getOverlayNames(ids) : TileLayerServer.getNames(ids);
+        String currentId = layer == null ? TileLayerServer.LAYER_NONE : layer.getTileLayerConfiguration().getId();
+        Context context = getContext();
+        for (int i = 0; i < ids.length; i++) {
+            String id = ids[i];
+            final AppCompatRadioButton button = new AppCompatRadioButton(context);
+            button.setText(names[i]);
+            button.setTag(id);
+            button.setChecked(id.equals(currentId));
+            button.setLayoutParams(buttonLayoutParams);
+            button.setId(i);
+            valueGroup.addView(button);
+        }
+        final Handler handler = new Handler();
+        builder.setNegativeButton(R.string.cancel, null);
+        final AlertDialog dialog = builder.create();
+        valueGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId != -1) {
+                    final TileLayerServer tileServer = TileLayerServer.get(getActivity(), ids[checkedId], true);
+                    if (tileServer != null) {
+                        setNewImagery(row, layer, tileServer);
+                        if (layer != null) {
+                            layer.invalidate();
+                        } else {
+                            App.getLogic().getMap().invalidate();
+                        }
+                    }
+                }
+                // allow a tiny bit of time to see that the action actually worked
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss(); // dismiss this
+                        dismissDialog(); // and then the caller
+                    }
+                }, 100);
+            }
+        });
+        return dialog;
+    }
+
+    /**
+     * Change the imagery for a tile layer
+     * 
+     * @param row the TableRow with the information, if null we will only set the prefs
+     * @param layer the layer, if null we will only set the prefs
+     * @param tileServer the new tileserver to use
+     */
+    private void setNewImagery(@Nullable TableRow row, @Nullable MapTilesLayer layer, @NonNull final TileLayerServer tileServer) {
+        Preferences prefs = new Preferences(getContext());
+        if (tileServer.isOverlay()) {
+            prefs.setOverlayLayer(tileServer.getId());
+        } else {
+            prefs.setBackGroundLayer(tileServer.getId());
+        }
+        App.getDelegator().setImageryRecorded(false);
+        if (row != null && layer != null) {
+            TextView name = (TextView) row.getChildAt(2);
+            name.setText(tileServer.getName());
+            layer.setRendererInfo(tileServer);
+        } else {
+            App.getLogic().getMap().setPrefs(getContext(), prefs);
         }
     }
 }

@@ -181,17 +181,6 @@
         android:icon="?attr/menu_find"
         android:title="@string/menu_find"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_layers"
-        android:icon="?attr/menu_tools"
-        android:title="@string/menu_layers"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/menu_layers_add_geojson"
-                android:title="@string/menu_layers_add_geojson" />
-        </menu>
-    </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_enable_tagfilter"
