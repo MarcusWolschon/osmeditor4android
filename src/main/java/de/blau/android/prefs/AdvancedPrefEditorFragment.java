@@ -19,25 +19,21 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
     private Resources r;
     private String    KEY_PREFAPI;
-    private String    KEY_PREFPRESET;
     private String    KEY_PREFFULLSCREEN;
     private String    KEY_PREFLOGIN;
     private String    KEY_PREFGEOCODER;
     private String    KEY_PREFGPSSOURCE;
-    private String    KEY_CUSTOM_LAYERS;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Log.d(DEBUG_TAG, "onCreatePreferences " + rootKey);
         setPreferencesFromResource(R.xml.advancedpreferences, rootKey);
         r = getResources();
-        KEY_PREFAPI = r.getString(R.string.config_api_button_key);
-        KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
+        KEY_PREFAPI = r.getString(R.string.config_api_button_key);        
         KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
         KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
         KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
         KEY_PREFGPSSOURCE = r.getString(R.string.config_gps_source_key);
-        KEY_CUSTOM_LAYERS = r.getString(R.string.config_customlayers_key);
         setOnPreferenceClickListeners();
         setTitle();
     }
@@ -83,31 +79,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
      * If we are just showing a sub-PreferenceScreen some of the keys may not be accessible
      */
     private void setOnPreferenceClickListeners() {
-        Preference customLayersPref = getPreferenceScreen().findPreference(KEY_CUSTOM_LAYERS);
-        if (customLayersPref != null) {
-            customLayersPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick custom layers");
-                    TileLayerDatabaseView ui = new TileLayerDatabaseView();
-                    ui.manageLayers(getActivity());
-                    return true;
-                }
-            });
-        }
-
-        Preference presetPref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
-        if (presetPref != null) {
-            presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Log.d(DEBUG_TAG, "onPreferenceClick");
-                    PresetEditorActivity.start(getActivity());
-                    return true;
-                }
-            });
-        }
-
         Preference apiPref = getPreferenceScreen().findPreference(KEY_PREFAPI);
         if (apiPref != null) {
             apiPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
