@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -24,17 +25,26 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import de.blau.android.App;
+import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
+import de.blau.android.util.ThemeUtils;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -49,10 +59,34 @@ public class PresetEditorActivity extends URLListEditActivity {
     private AdvancedPrefDatabase db;
 
     private final static int MENU_RELOAD = 1;
+    private final static int MENU_UP     = 2;
+    private final static int MENU_DOWN   = 3;
+
+    private static final int MENUITEM_HELP = 1;
 
     public PresetEditorActivity() {
         super();
         addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
+        addAdditionalContextMenuItem(MENU_UP, R.string.move_up);
+        addAdditionalContextMenuItem(MENU_DOWN, R.string.move_down);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
+        switch (item.getItemId()) {
+        case MENUITEM_HELP:
+            HelpViewer.start(this, R.string.help_presets);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static void start(@NonNull Context context) {
@@ -137,11 +171,34 @@ public class PresetEditorActivity extends URLListEditActivity {
         case MENU_RELOAD:
             onItemEdited(clickedItem);
             break;
-
+        case MENU_UP:
+            int oldPos = items.indexOf(clickedItem);
+            if (oldPos > 0) {
+                db.movePreset(oldPos, oldPos - 1);
+                reloadItems();
+            }
+            break;
+        case MENU_DOWN:
+            oldPos = items.indexOf(clickedItem);
+            if (oldPos < items.size() - 2) {
+                db.movePreset(oldPos, oldPos + 1);
+                reloadItems();
+            }
+            break;
         default:
             Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);
             break;
         }
+    }
+
+    /**
+     * Relaoad the ListView and invalidate the global preset var
+     */
+    private void reloadItems() {
+        items.clear();
+        onLoadList(items);
+        updateAdapter();
+        App.resetPresets();
     }
 
     /**
@@ -250,11 +307,10 @@ public class PresetEditorActivity extends URLListEditActivity {
                     Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
                     final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
                     boolean zip = false;
-                    
+
                     Request request = new Request.Builder().url(url).build();
-                    OkHttpClient client = App.getHttpClient().newBuilder()
-                            .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                            .build();
+                    OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                            .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
                     Call presetCall = client.newCall(request);
                     Response presetCallResponse = presetCall.execute();
                     if (presetCallResponse.isSuccessful()) {

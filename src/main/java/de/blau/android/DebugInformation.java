@@ -9,7 +9,10 @@ import android.annotation.SuppressLint;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +37,11 @@ public class DebugInformation extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+        
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setTitle(R.string.config_debugbutton_title);
+        
         View container = View.inflate(this, R.layout.debug_viewer, null);
         TextView textFull = (TextView) container.findViewById(R.id.debugText);
 
@@ -55,6 +63,16 @@ public class DebugInformation extends AppCompatActivity {
         setContentView(container);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
     String getDebugText(String eol) {
         StringBuilder builder = new StringBuilder();
 

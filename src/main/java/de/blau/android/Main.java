@@ -2105,6 +2105,12 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.tag_menu_js_console:
             Main.showJsConsole(this);
             return true;
+        case R.id.menu_authors:
+            startActivity(new Intent(this, LicenseViewer.class));
+            return true;
+        case R.id.menu_debug:
+            startActivity(new Intent(this, DebugInformation.class));
+            return true;
         }
         return false;
 

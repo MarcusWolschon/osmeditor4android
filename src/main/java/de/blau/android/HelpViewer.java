@@ -211,9 +211,13 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             mDrawerList.setAdapter(tocAdapter);
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-            String topicFile = tocList.get(topic).fileName;
-            if (topicFile == null) {
-                topicFile = "no_help";
+            String topicFile = "no_help";
+            HelpItem tempTopic = tocList.get(topic);
+            if (tempTopic != null) {
+                String tempTopicFile = tempTopic.fileName;
+                if (tempTopicFile != null) {
+                    topicFile = tempTopicFile;
+                }
             }
 
             String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + ".html";
@@ -288,7 +292,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         helpView.saveState(outState);
     }
-    
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

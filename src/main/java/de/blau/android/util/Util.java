@@ -511,25 +511,27 @@ public class Util {
      */
     public static void setListPreferenceSummary(@NonNull PreferenceFragmentCompat prefFragment, @NonNull String key) {
         ListPreference listPref = (ListPreference) prefFragment.getPreferenceScreen().findPreference(key);
-        CharSequence currentEntry = listPref.getEntry();
-        if (currentEntry != null) {
-            listPref.setSummary(currentEntry);
-        }
-        OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                try {
-                    int i = ((ListPreference) preference).findIndexOfValue((String) newValue);
-                    CharSequence currentEntry = ((ListPreference) preference).getEntries()[i];
-                    if (currentEntry != null) {
-                        preference.setSummary(currentEntry);
-                    }
-                } catch (Exception ex) {
-                    Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
-                }
-                return true;
+        if (listPref != null) {
+            CharSequence currentEntry = listPref.getEntry();
+            if (currentEntry != null) {
+                listPref.setSummary(currentEntry);
             }
-        };
-        listPref.setOnPreferenceChangeListener(p);
+            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    try {
+                        int i = ((ListPreference) preference).findIndexOfValue((String) newValue);
+                        CharSequence currentEntry = ((ListPreference) preference).getEntries()[i];
+                        if (currentEntry != null) {
+                            preference.setSummary(currentEntry);
+                        }
+                    } catch (Exception ex) {
+                        Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
+                    }
+                    return true;
+                }
+            };
+            listPref.setOnPreferenceChangeListener(p);
+        }
     }
 }
