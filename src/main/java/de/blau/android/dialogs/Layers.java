@@ -1,6 +1,8 @@
 package de.blau.android.dialogs;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -242,7 +244,9 @@ public class Layers extends ImmersiveDialogFragment {
         invisibleId = ThemeUtils.getResIdFromAttribute(context, R.attr.layer_not_visible);
         zoomToExtentId = ThemeUtils.getResIdFromAttribute(context, R.attr.zoom_to_layer_extent);
         menuId = ThemeUtils.getResIdFromAttribute(context, R.attr.more_small);
-        for (MapViewLayer layer : App.getLogic().getMap().getLayers()) {
+        List<MapViewLayer> layers = App.getLogic().getMap().getLayers();
+        Collections.reverse(layers);
+        for (MapViewLayer layer : layers) {
             if (layer.isEnabled()) {
                 tl.addView(createRow(context, layer, tp));
                 tl.addView(divider(context));
@@ -298,7 +302,7 @@ public class Layers extends ImmersiveDialogFragment {
                         }
                         map.getViewBox().fitToBoundingBox(map, extent);
                         if (getActivity() instanceof Main) {
-                            ((Main)getActivity()).setFollowGPS(false);
+                            ((Main) getActivity()).setFollowGPS(false);
                         }
                         logic.updateStyle();
                         layer.setVisible(true);
@@ -389,7 +393,7 @@ public class Layers extends ImmersiveDialogFragment {
                 final String[] tileServerIds = ((MapTilesLayer) layer).getMRU();
                 for (int i = 0; i < tileServerIds.length; i++) {
                     final String id = tileServerIds[i];
-                    String currentServerId = ((MapTilesLayer) layer).getTileLayerConfiguration().getId();
+                    final String currentServerId = ((MapTilesLayer) layer).getTileLayerConfiguration().getId();
                     if (!currentServerId.equals(id)) {
                         final TileLayerServer tileServer = TileLayerServer.get(getActivity(), id, true);
                         if (tileServer != null) {
@@ -399,6 +403,13 @@ public class Layers extends ImmersiveDialogFragment {
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if (tileServer != null) {
                                         ((MapTilesLayer) layer).setRendererInfo(tileServer);
+                                        Preferences prefs = new Preferences(getContext());
+                                        if (tileServer.isOverlay()) {
+                                            prefs.setOverlayLayer(id);
+                                        } else {
+                                            prefs.setBackGroundLayer(id);
+                                        }
+                                        App.getDelegator().setImageryRecorded(false);
                                         TableRow row = (TableRow) button.getTag();
                                         TextView name = (TextView) row.getChildAt(2);
                                         name.setText(tileServer.getName());
@@ -407,7 +418,7 @@ public class Layers extends ImmersiveDialogFragment {
                                     }
                                     return true;
                                 }
-                            });    
+                            });
                         }
                     }
                     if (i == tileServerIds.length - 1) {
@@ -447,7 +458,7 @@ public class Layers extends ImmersiveDialogFragment {
                         }
                         return true;
                     }
-                });              
+                });
             }
             if (layer instanceof DisableInterface) {
                 MenuItem item = popup.getMenu().add(R.string.disable);
