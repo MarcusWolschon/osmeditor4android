@@ -18,7 +18,8 @@
 	<attr name="menu_forward" format="reference" />
 	<attr name="menu_transfer" format="reference" />
 	<attr name="menu_merge" format="reference" />
-	<attr name="menu_split" format="reference" />
+	<attr name="menu_unjoin" format="reference" />
+    <attr name="menu_split" format="reference" />
 	<attr name="menu_append" format="reference" />
 	<attr name="menu_reverse" format="reference" />
 	<attr name="menu_information" format="reference" />

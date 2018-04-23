@@ -1517,7 +1517,7 @@ public class EasyEditManager {
             }
             int wayMembershipCount = logic.getFilteredWaysForNode((Node) element).size();
             if (wayMembershipCount > 1) {
-                menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_split));
+                menu.add(Menu.NONE, MENUITEM_UNJOIN, Menu.NONE, R.string.menu_unjoin).setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_unjoin));
             }
             if (wayMembershipCount > 0) {
                 menu.add(Menu.NONE, MENUITEM_EXTRACT, Menu.NONE, R.string.menu_extract)
