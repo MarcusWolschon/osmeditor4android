@@ -11,6 +11,13 @@
 "anuncio",
 "publicidade"
 ],
+"advertising/column":[
+"columna",
+"anuncios",
+"Columna de publicidade",
+"publicidade",
+"cilindro"
+],
 "aerialway":[
 "Vía aérea"
 ],
@@ -84,6 +91,18 @@
 "aeroway/terminal":[
 "Terminal de aeroporto"
 ],
+"allotments/plot":[
+"cultivo",
+"horta",
+"horta comunitaria",
+"horto urbano",
+"horta urbana",
+"horto comunitario",
+"horto",
+"parcela",
+"terreo",
+"Parcela de horto urbano"
+],
 "amenity":[
 "Instalacións"
 ],
@@ -134,6 +153,9 @@
 "alcohol",
 "bar",
 "Bar de copas",
+"taberna",
+"cervexa",
+"cantina",
 "pub",
 "bar de copas",
 "bebidas"
@@ -173,10 +195,17 @@
 "reparación"
 ],
 "amenity/biergarten":[
-"Xardín da cervexa"
+"alcohol",
+"biergarten",
+"Xardín da cervexa",
+"cervexa"
 ],
 "amenity/boat_rental":[
-"Aluguer de botes"
+"bote",
+"barca",
+"lancha",
+"Aluguer de botes",
+"aluguer"
 ],
 "amenity/bureau_de_change":[
 "cambio",
@@ -186,9 +215,6 @@
 "Troco de divisas"
 ],
 "amenity/bus_station":[
-"bus",
-"autobús",
-"estación",
 "Estación de autobuses"
 ],
 "amenity/cafe":[
@@ -322,7 +348,7 @@
 "médico"
 ],
 "amenity/dojo":[
-"Dojo/academia de artes aarciais"
+"Dojo/academia de artes marciais"
 ],
 "amenity/drinking_water":[
 "auga",
@@ -344,7 +370,7 @@
 "Comida rápida"
 ],
 "amenity/ferry_terminal":[
-"Terminal de ferry"
+"Estación de ferry"
 ],
 "amenity/fire_station":[
 "Parque de bombeiros"
@@ -361,6 +387,7 @@
 "amenity/fuel":[
 "diésel",
 "Gasolineira",
+"área de servicio",
 "gasolina",
 "gasoil",
 "gasolineira",
@@ -368,13 +395,23 @@
 "combustible"
 ],
 "amenity/grave_yard":[
+"cementerio",
+"cemitero",
+"tumbas",
+"panteón",
 "Cemiterio"
 ],
 "amenity/grit_bin":[
 "Contenedor de sal"
 ],
 "amenity/hospital":[
-"Hospital"
+"urxencias",
+"sanidade",
+"saúde",
+"Hospital",
+"hospital",
+"clínica",
+"médico"
 ],
 "amenity/hunting_stand":[
 "Stand de Caza"
@@ -406,7 +443,17 @@
 "lectura"
 ],
 "amenity/marketplace":[
-"Mercado"
+"plaza",
+"mercado",
+"Mercado",
+"mercadillo"
+],
+"amenity/monastery":[
+"capela",
+"Zona de monasterio",
+"monasterio",
+"igrexa",
+"área de monasterio"
 ],
 "amenity/motorcycle_parking":[
 "parking",
@@ -417,11 +464,23 @@
 "motocicletas",
 "aparcadoiro"
 ],
+"amenity/music_school":[
+"conservatorio",
+"escola de música",
+"academia",
+"música",
+"instrumentos",
+"Escola de música"
+],
 "amenity/nightclub":[
+"bailar",
+"alcohol",
 "Sala de baile",
 "After",
+"música",
 "Pub",
-"Discoteca"
+"Discoteca",
+"bebidas"
 ],
 "amenity/nursing_home":[
 "Residencia de anciáns"
@@ -436,7 +495,7 @@
 "Entrada/Saída a garaxe de aparcamento"
 ],
 "amenity/parking_space":[
-"Espazo de Aparcamento"
+"Praza de aparcamento"
 ],
 "amenity/pavilion":[
 "Pavillón"
@@ -527,10 +586,15 @@
 "cárcere"
 ],
 "amenity/pub":[
+"alcohol",
 "bar",
+"bar de tapas",
 "Bar",
 "cafetería",
+"cervexa",
 "Pub",
+"pinchos",
+"bebidas",
 "café"
 ],
 "amenity/public_bath":[
@@ -551,7 +615,6 @@
 "Estación de gardabosques"
 ],
 "amenity/recycling":[
-"Reciclaxe",
 "punto limpo",
 "contenedor",
 "vidrio",
@@ -559,6 +622,7 @@
 "orgánico",
 "reciclaxe",
 "basura",
+"Contenedor de reciclaxe",
 "plásticos"
 ],
 "amenity/recycling_centre":[
@@ -567,7 +631,7 @@
 "Centro de Reciclaxe"
 ],
 "amenity/register_office":[
-"Oficina de Rexistro"
+"Oficina do rexistro"
 ],
 "amenity/restaurant":[
 "xantar",
@@ -600,9 +664,16 @@
 "Depósito de chatarra"
 ],
 "amenity/shelter":[
-"Abrigo"
+"abrigo",
+"gazebo",
+"Abrigo",
+"refuxio",
+"cuberto"
 ],
 "amenity/shower":[
+"baño",
+"auga",
+"duchas",
 "Ducha"
 ],
 "amenity/social_facility":[
@@ -666,6 +737,13 @@
 "amenity/vending_machine/cigarettes":[
 "Expendedora de tabaco"
 ],
+"amenity/vending_machine/coffee":[
+"Máquina do café",
+"cafetera",
+"máquina",
+"expendedora",
+"café"
+],
 "amenity/vending_machine/condoms":[
 "Expendedora de condóns"
 ],
@@ -675,16 +753,29 @@
 "amenity/vending_machine/excrement_bags":[
 "Caca Can"
 ],
+"amenity/vending_machine/food":[
+"Expendedora de comida"
+],
+"amenity/vending_machine/ice_cream":[
+"Expendedora de xeados"
+],
 "amenity/vending_machine/news_papers":[
 "Expendedora de xornais"
 ],
 "amenity/vending_machine/newspapers":[
-"Expendedora de xornais"
+"xornais",
+"Expendedora de xornais",
+"periódicos",
+"revistas",
+"expendedora"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
 "Máquina expendedora de recollida/entrega de paquetes"
 ],
 "amenity/vending_machine/parking_tickets":[
+"parking",
+"parquímetro",
+"aparcamento",
 "Parquímetro"
 ],
 "amenity/vending_machine/public_transport_tickets":[
@@ -842,8 +933,10 @@
 ],
 "barrier/fence":[
 "Valado",
+"alambrada",
 "valo",
 "reixa",
+"cerca",
 "cercado"
 ],
 "barrier/gate":[
@@ -859,6 +952,9 @@
 "liña de arbustos",
 "Cobertura",
 "seto"
+],
+"barrier/kerb":[
+"Bordillo"
 ],
 "barrier/kissing_gate":[
 "Porta Kissing"
@@ -878,13 +974,19 @@
 "valado"
 ],
 "barrier/toll_booth":[
+"peaxe",
+"cabina de cobro",
+"cabina de peaxe",
 "Peaxe"
 ],
 "barrier/wall":[
 "Muro"
 ],
 "boundary/administrative":[
-"Límite administrativo"
+"Límite administrativo",
+"fronteira",
+"término municipal",
+"límite administrativo"
 ],
 "building":[
 "casa",
@@ -894,7 +996,11 @@
 "edificio"
 ],
 "building/apartments":[
-"Apartamentos"
+"apartamento",
+"piso",
+"Apartamentos",
+"aloxamento",
+"vivenda"
 ],
 "building/barn":[
 "cabaceiro",
@@ -904,6 +1010,9 @@
 "celeiro",
 "hórreo",
 "cabaceira"
+],
+"building/bungalow":[
+"Bungaló"
 ],
 "building/bunker":[
 "Bunker"
@@ -922,6 +1031,9 @@
 ],
 "building/church":[
 "Edificio de igrexa"
+],
+"building/civic":[
+"Edificio cívico"
 ],
 "building/college":[
 "instituto",
@@ -1355,8 +1467,13 @@
 ],
 "footway/crosswalk":[
 "paso de peóns",
+"cruzamento de peóns",
 "Paso de peóns",
+"cruamento peonil",
 "paso de cebra"
+],
+"footway/crosswalk-raised":[
+"Paso de peóns elevado"
 ],
 "footway/sidewalk":[
 "beirarrúa",
@@ -1408,12 +1525,6 @@
 "Camiño de ferradura",
 "ferradura"
 ],
-"highway/bus_stop":[
-"bus",
-"autobús",
-"parada",
-"Parada de autobús"
-],
 "highway/corridor":[
 "corredor",
 "pasillo",
@@ -1426,7 +1537,14 @@
 "paso peatonal"
 ],
 "highway/crosswalk":[
-"Cruce peonil"
+"paso de peóns",
+"cruzamento de peóns",
+"Paso de peóns",
+"cruamento peonil",
+"paso de cebra"
+],
+"highway/crosswalk-raised":[
+"Paso de peóns elevado"
 ],
 "highway/cycleway":[
 "Senda ciclista"
@@ -1441,7 +1559,7 @@
 "Senda peonil"
 ],
 "highway/give_way":[
-"Ceda o oaso"
+"Ceda o paso"
 ],
 "highway/living_street":[
 "Rúa residencial"
@@ -1475,6 +1593,15 @@
 ],
 "highway/path":[
 "Camiño"
+],
+"highway/pedestrian_area":[
+"Área peonil"
+],
+"highway/pedestrian_line":[
+"Rúa peonil",
+"rúa peonil",
+"rúa de peóns",
+"calle peatonal"
 ],
 "highway/primary":[
 "estrada",
@@ -1670,9 +1797,6 @@
 ],
 "landuse/forest":[
 "Forestal"
-],
-"landuse/garages":[
-"Garaxes"
 ],
 "landuse/grass":[
 "Céspede",
@@ -2266,9 +2390,6 @@
 "office/administrative":[
 "Administración local"
 ],
-"office/company":[
-"Oficina de empresa"
-],
 "office/coworking":[
 "Espacio de cotraballo"
 ],
@@ -2302,9 +2423,7 @@
 "legal"
 ],
 "office/lawyer/notary":[
-"Notaría",
-"notario",
-"notaría"
+"Notaría"
 ],
 "office/ngo":[
 "Oficina ONG"
@@ -2415,12 +2534,6 @@
 "power/transformer":[
 "Transformador"
 ],
-"public_transport/platform":[
-"Plataforma"
-],
-"public_transport/stop_position":[
-"Parada de transporte público"
-],
 "railway":[
 "Ferrocarril"
 ],
@@ -2442,9 +2555,6 @@
 "railway/funicular":[
 "Funicular"
 ],
-"railway/halt":[
-"Halt Ferroviario"
-],
 "railway/level_crossing":[
 "paso ferroviario",
 "paso a nivel",
@@ -2461,17 +2571,11 @@
 "railway/narrow_gauge":[
 "Tren de Vía Estreita"
 ],
-"railway/platform":[
-"Plataforma"
-],
 "railway/rail":[
 "Vía de tren"
 ],
 "railway/signal":[
 "Sinal Tren"
-],
-"railway/station":[
-"Estación de ferrocarril"
 ],
 "railway/subway":[
 "Metro"
@@ -2487,9 +2591,6 @@
 ],
 "railway/tram":[
 "Tranvía"
-],
-"railway/tram_stop":[
-"Parada de tranvía"
 ],
 "relation":[
 "Relación"
@@ -2709,9 +2810,6 @@
 ],
 "shop/jewelry":[
 "Xoiería"
-],
-"shop/kiosk":[
-"Quiosco"
 ],
 "shop/kitchen":[
 "Tenda de cociñas"
@@ -3032,15 +3130,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Prohibido o cambio de sentido"
-],
-"type/restriction/only_left_turn":[
-"Obrigatorio xirar á esquerda"
-],
-"type/restriction/only_right_turn":[
-"Obrigatorio xirar á dereita"
-],
-"type/restriction/only_straight_on":[
-"Obrigatorio continuar recto"
 ],
 "type/route":[
 "Ruta"

@@ -37,9 +37,6 @@
 "amenity/bicycle_rental":[
 "சைக்கிள் வாடகை"
 ],
-"amenity/bus_station":[
-"பேருந்து நிலையம் "
-],
 "amenity/cafe":[
 "டீக்கடை"
 ],
@@ -153,9 +150,6 @@
 ],
 "entrance":[
 "நுழைவு / வெளியேறு"
-],
-"highway/bus_stop":[
-"பேருந்து நிலையம்"
 ],
 "highway/footway":[
 "நடைபாதை"
@@ -304,14 +298,8 @@
 "railway/monorail":[
 "மோனோ இரயில்"
 ],
-"railway/platform":[
-"இரயில்வே நடைமேடை"
-],
 "railway/rail":[
 "இரயில்"
-],
-"railway/station":[
-"இரயில் நிலையம்"
 ],
 "railway/subway":[
 "சுரங்கப்பாதை"

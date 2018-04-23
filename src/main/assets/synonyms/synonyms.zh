@@ -200,9 +200,6 @@
 "highway/bridleway":[
 "马道"
 ],
-"highway/bus_stop":[
-"公交车站"
-],
 "highway/cycleway":[
 "自行车道"
 ],
@@ -536,14 +533,8 @@
 "railway/monorail":[
 "单轨铁路"
 ],
-"railway/platform":[
-"站台"
-],
 "railway/rail":[
 "铁轨"
-],
-"railway/station":[
-"火车站"
 ],
 "railway/subway":[
 "地铁"

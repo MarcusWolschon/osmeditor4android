@@ -120,9 +120,6 @@
 "amenity/bureau_de_change":[
 "Currency Exchange"
 ],
-"amenity/bus_station":[
-"Bus Station"
-],
 "amenity/cafe":[
 "Cafe"
 ],
@@ -197,9 +194,6 @@
 ],
 "amenity/fast_food":[
 "Fast Food"
-],
-"amenity/ferry_terminal":[
-"Ferry Terminal"
 ],
 "amenity/fire_station":[
 "Fire Station"
@@ -328,9 +322,6 @@
 ],
 "amenity/ranger_station":[
 "Warden Station"
-],
-"amenity/recycling":[
-"Recycling"
 ],
 "amenity/recycling_centre":[
 "Recycling Centre"
@@ -861,10 +852,10 @@
 "Raised Street Crossing"
 ],
 "footway/crosswalk":[
-"Pedestrian Crosswalk"
+"Zebra Crossing"
 ],
 "footway/crosswalk-raised":[
-"Raised Pedestrian Crosswalk"
+"Raised Zebra Crossing"
 ],
 "footway/sidewalk":[
 "sidewalk",
@@ -877,7 +868,7 @@
 "Ford"
 ],
 "golf/bunker":[
-"Sand Trap"
+"Bunker"
 ],
 "golf/fairway":[
 "Fairway"
@@ -919,7 +910,7 @@
 "Audiologist"
 ],
 "healthcare/birthing_center":[
-"Birthing Center"
+"Birthing Centre"
 ],
 "healthcare/blood_donation":[
 "Blood Donor Centre"
@@ -957,9 +948,6 @@
 "highway/bridleway":[
 "Bridleway"
 ],
-"highway/bus_stop":[
-"Bus Stop"
-],
 "highway/corridor":[
 "Indoor Corridor"
 ],
@@ -970,10 +958,10 @@
 "Raised Street Crossing"
 ],
 "highway/crosswalk":[
-"Pedestrian Crosswalk"
+"Zebra Crossing"
 ],
 "highway/crosswalk-raised":[
-"Raised Pedestrian Crosswalk"
+"Raised Zebra Crossing"
 ],
 "highway/cycleway":[
 "Cycle Path"
@@ -1169,9 +1157,6 @@
 ],
 "landuse/forest":[
 "Forest"
-],
-"landuse/garages":[
-"Garages"
 ],
 "landuse/grass":[
 "Grass"
@@ -1614,9 +1599,6 @@
 "office/charity":[
 "Charity Office"
 ],
-"office/company":[
-"Company Office"
-],
 "office/coworking":[
 "Coworking Space"
 ],
@@ -1842,12 +1824,6 @@
 "power/transformer":[
 "Transformer"
 ],
-"public_transport/platform":[
-"Platform"
-],
-"public_transport/stop_position":[
-"Stop Position"
-],
 "railway":[
 "Railway"
 ],
@@ -1858,7 +1834,7 @@
 "Buffer Stop"
 ],
 "railway/crossing":[
-"Railway Crossing (Path)"
+"Level Crossing (Path)"
 ],
 "railway/derail":[
 "Railway Derailer"
@@ -1869,11 +1845,8 @@
 "railway/funicular":[
 "Funicular"
 ],
-"railway/halt":[
-"Railway Halt"
-],
 "railway/level_crossing":[
-"Railway Crossing (Road)"
+"Level Crossing (Road)"
 ],
 "railway/milestone":[
 "Railway Milestone"
@@ -1884,17 +1857,11 @@
 "railway/narrow_gauge":[
 "Narrow Gauge Rail"
 ],
-"railway/platform":[
-"Railway Platform"
-],
 "railway/rail":[
 "Rail"
 ],
 "railway/signal":[
 "Railway Signal"
-],
-"railway/station":[
-"Railway Station"
 ],
 "railway/subway":[
 "Subway"
@@ -1911,9 +1878,6 @@
 "railway/tram":[
 "Tram"
 ],
-"railway/tram_stop":[
-"Tram Stop"
-],
 "relation":[
 "Relation"
 ],
@@ -1925,9 +1889,6 @@
 ],
 "shop":[
 "Shop"
-],
-"shop/agrarian":[
-"Agriculture Shop"
 ],
 "shop/alcohol":[
 "Off licence (Alcohol shop)"
@@ -2126,9 +2087,6 @@
 ],
 "shop/jewelry":[
 "Jeweller"
-],
-"shop/kiosk":[
-"News Kiosk"
 ],
 "shop/kitchen":[
 "Kitchen Design Store"
@@ -2423,15 +2381,6 @@
 ],
 "type/restriction/no_u_turn":[
 "No U-turn"
-],
-"type/restriction/only_left_turn":[
-"Left Turn Only"
-],
-"type/restriction/only_right_turn":[
-"Right Turn Only"
-],
-"type/restriction/only_straight_on":[
-"No Turns"
 ],
 "type/route":[
 "Route"

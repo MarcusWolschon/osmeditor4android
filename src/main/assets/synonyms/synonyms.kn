@@ -20,9 +20,6 @@
 "amenity/bench":[
 " ನ್ಯಾಯಪೀಠ"
 ],
-"amenity/bus_station":[
-"ಬಸ್ ನಿಲ್ದಾಣ"
-],
 "amenity/cinema":[
 "ಸಿನಿಮಾ"
 ],
@@ -210,9 +207,6 @@
 "ford":[
 "‍ಕಾಲ್ಗಡ"
 ],
-"highway/bus_stop":[
-"ಬಸ್ ನಿಲ್ದಾಣ"
-],
 "highway/steps":[
 "ಮೆಟ್ಟಿಲು"
 ],
@@ -221,9 +215,6 @@
 ],
 "landuse/forest":[
 "ಅರಣ್ಯ"
-],
-"landuse/garages":[
-"ಮೋಟಾರುಖಾನೆ‍ಗಳ್"
 ],
 "landuse/grass":[
 "ಹುಲ್ಲು"
@@ -314,9 +305,6 @@
 ],
 "place/village":[
 "ಹಳ್ಳಿ"
-],
-"railway/station":[
-"ರೈಲು ನಿಲ್ದಾಣ"
 ],
 "shop":[
 "ಅಂಗಡಿ"

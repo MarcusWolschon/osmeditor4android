@@ -15,6 +15,10 @@
 "4x3",
 "Panneau publicitaire"
 ],
+"advertising/column":[
+"Colonne Morris",
+"Publicité"
+],
 "aerialway":[
 "Transport par câble aérien"
 ],
@@ -109,12 +113,6 @@
 "rope tow lift"
 ],
 "aerialway/station":[
-"remontée mécanique",
-"départ",
-"arrivée",
-"remontee mecanique",
-"station",
-"aerialway",
 "Gare de remontée mécanique"
 ],
 "aerialway/t-bar":[
@@ -173,6 +171,9 @@
 "aeroway/terminal":[
 "Terminal",
 "Terminal d'aéroport"
+],
+"allotments/plot":[
+"Parcelle dans un jardin familial"
 ],
 "amenity":[
 "Équipement"
@@ -326,15 +327,7 @@
 "bureau de change"
 ],
 "amenity/bus_station":[
-"bus",
-"cars",
-"Arrêt",
-"gare de bus",
-"bus station",
-"Gare",
-"Gare routière",
-"gare de cars",
-"Arrêt de bus"
+"Gare routière"
 ],
 "amenity/cafe":[
 "salon de thé",
@@ -344,6 +337,9 @@
 "pub",
 "brasserie",
 "Café"
+],
+"amenity/car_pooling":[
+"Covoiturage"
 ],
 "amenity/car_rental":[
 "loueur de voiture",
@@ -633,15 +629,7 @@
 "kebab"
 ],
 "amenity/ferry_terminal":[
-"gare maritime",
-"transport en mer",
-"Terminal ferry",
-"embarquement",
-"port",
-"ferry",
-"transport maritime",
-"terminal des ferries",
-"traversée"
+"Terminal ferry"
 ],
 "amenity/fire_station":[
 "maison des pompes",
@@ -776,9 +764,15 @@
 "Médiathèque",
 "Bibliothèque"
 ],
+"amenity/love_hotel":[
+"Love hôtel"
+],
 "amenity/marketplace":[
 "Place de marché",
 "Marché"
+],
+"amenity/monastery":[
+"Terrain de monastère"
 ],
 "amenity/motorcycle_parking":[
 "Stationnement motos",
@@ -887,13 +881,21 @@
 "Services publics des parcs nationaux"
 ],
 "amenity/recycling":[
-"déchèterie",
-"Recyclage",
-"déchetterie"
+"benne de recyclage",
+"bulles à verre",
+"bulle à verre",
+"point de collecte",
+"Conteneur de recyclage",
+"container de recyclage"
 ],
 "amenity/recycling_centre":[
-"Déchetterie",
-"centre de recyclage"
+"Déchèterie / Parc à conteneurs / Écocentre",
+"déchèterie",
+"recyparc",
+"écocentre",
+"centre de recyclage",
+"déchetterie",
+"parc à conteneurs"
 ],
 "amenity/register_office":[
 "Bureau d'état-civil"
@@ -937,6 +939,9 @@
 ],
 "amenity/shower":[
 "Douche"
+],
+"amenity/smoking_area":[
+"Zone fumeur"
 ],
 "amenity/social_facility":[
 "Établissement de services sociaux",
@@ -1034,6 +1039,9 @@
 "vente de cigarettes",
 "Distributeur de cigarettes"
 ],
+"amenity/vending_machine/coffee":[
+"Distributeur de café"
+],
 "amenity/vending_machine/condoms":[
 "machine à préservatifs",
 "vente automatique de préservatifs",
@@ -1067,6 +1075,12 @@
 "eau",
 "machine à café"
 ],
+"amenity/vending_machine/electronics":[
+"Distributeur de matériel éléctronique"
+],
+"amenity/vending_machine/elongated_coin":[
+"Distributeur de pièces"
+],
 "amenity/vending_machine/excrement_bags":[
 "distributeur à sacs pour excréments d'animaux",
 "distributeur de sacs pour excréments d'animaux",
@@ -1096,6 +1110,16 @@
 "Distributeur de produits d'hygiène féminine",
 "serviette",
 "cup"
+],
+"amenity/vending_machine/food":[
+"Distributeur d'aliments"
+],
+"amenity/vending_machine/fuel":[
+"Pompe à essence",
+"Distributeur de carburant"
+],
+"amenity/vending_machine/ice_cream":[
+"Distributeur de glace"
 ],
 "amenity/vending_machine/news_papers":[
 "Distributeur de journaux"
@@ -1192,6 +1216,9 @@
 "vente automatique de titres de transport",
 "métro",
 "RER"
+],
+"amenity/vending_machine/stamps":[
+"Distributeur de timbres"
 ],
 "amenity/vending_machine/sweets":[
 "vente automatique de snacks",
@@ -1375,6 +1402,9 @@
 ],
 "attraction/drop_tower":[
 "Tour de chute"
+],
+"attraction/maze":[
+"Labyrinthe"
 ],
 "attraction/pirate_ship":[
 "Bateau pirate"
@@ -1590,6 +1620,9 @@
 "cloture",
 "brise-vent"
 ],
+"barrier/kerb":[
+"Bordure"
+],
 "barrier/kissing_gate":[
 "piétons",
 "enclos",
@@ -1749,6 +1782,12 @@
 "étable",
 "grenier"
 ],
+"building/boathouse":[
+"Hangar à bateaux"
+],
+"building/bungalow":[
+"Bungalow"
+],
 "building/bunker":[
 "Bunker"
 ],
@@ -1846,6 +1885,9 @@
 "église priorale",
 "christianisme"
 ],
+"building/civic":[
+"Équipement public"
+],
 "building/college":[
 "post bac",
 "haute école",
@@ -1893,6 +1935,7 @@
 ],
 "building/detached":[
 "building detached",
+"maison quatre façades",
 "pavillon",
 "maison",
 "maison individuelle",
@@ -1916,6 +1959,12 @@
 ],
 "building/entrance":[
 "Entrée/Sortie"
+],
+"building/farm":[
+"Corps de ferme"
+],
+"building/farm_auxiliary":[
+"Bâtiment de ferme"
 ],
 "building/garage":[
 "parking",
@@ -2003,6 +2052,9 @@
 "jardin d'enfants",
 "moyenne section"
 ],
+"building/mosque":[
+"Mosquée - Bâtiment"
+],
 "building/public":[
 "Bâtiment public"
 ],
@@ -2018,6 +2070,9 @@
 "Toit",
 "Toit ouvert",
 "Marché couvert"
+],
+"building/ruins":[
+"Bâtiment en ruine"
 ],
 "building/school":[
 "enseignement élémentaire",
@@ -2054,6 +2109,9 @@
 "maison jumelée",
 "maison mitoyenne"
 ],
+"building/service":[
+"Bâtiment de services"
+],
 "building/shed":[
 "Petit hangar",
 "cabanon",
@@ -2063,9 +2121,17 @@
 "building/stable":[
 "Étable"
 ],
+"building/stadium":[
+"Stade",
+"Tribune.",
+"Bâtiment du stade"
+],
 "building/static_caravan":[
 "Mobil home statique",
 "Mobil home fixe"
+],
+"building/temple":[
+"Temple"
 ],
 "building/terrace":[
 "maisons mitoyennes",
@@ -2080,6 +2146,9 @@
 ],
 "building/train_station":[
 "Gare ferroviaire"
+],
+"building/transportation":[
+"Bâtiment pour transports publics"
 ],
 "building/university":[
 "college",
@@ -2119,6 +2188,9 @@
 "camp_site/camp_pitch":[
 "Emplacement de camping",
 "Terrain de camping"
+],
+"circular":[
+"Rond-point"
 ],
 "club":[
 "Club"
@@ -2369,6 +2441,9 @@
 "emergency/private":[
 "Accès d'urgence privé"
 ],
+"emergency/water_tank":[
+"Réservoir d'eau de secours"
+],
 "emergency/yes":[
 "Accessible aux services d'urgences"
 ],
@@ -2483,6 +2558,10 @@
 "chr",
 "établissement de santé"
 ],
+"healthcare/laboratory":[
+"Laboratoire de biologie médicale",
+"Laboratoire d'analyses médicale"
+],
 "healthcare/midwife":[
 "Sage-femme",
 "maïeuticienne"
@@ -2524,9 +2603,10 @@
 "Sentier pour chevaux",
 "Piste cavalière"
 ],
+"highway/bus_guideway":[
+"Voie de bus guidés"
+],
 "highway/bus_stop":[
-"Gare",
-"Gare routière",
 "Arrêt de bus"
 ],
 "highway/corridor":[
@@ -2592,6 +2672,9 @@
 ],
 "highway/motorway_link":[
 "Bretelle d'autoroute"
+],
+"highway/passing_place":[
+"Aire de croisement"
 ],
 "highway/path":[
 "Chemin non carrossable",
@@ -2833,9 +2916,7 @@
 "Forêt"
 ],
 "landuse/garages":[
-"Garages privés",
-"boxes",
-"Garages"
+"Terrain pour garages"
 ],
 "landuse/grass":[
 "Herbe"
@@ -2843,12 +2924,15 @@
 "landuse/greenfield":[
 "Terrain vierge"
 ],
+"landuse/greenhouse_horticulture":[
+"Serre d'horticulture"
+],
 "landuse/harbour":[
-"Havre",
 "port",
 "baie",
-"beateau",
-"navire"
+"Bateau",
+"navire",
+"Port / Havre"
 ],
 "landuse/industrial":[
 "Usines",
@@ -2910,6 +2994,13 @@
 "leisure/adult_gaming_centre":[
 "Jeux pour adultes"
 ],
+"leisure/amusement_arcade":[
+"Salle de jeux"
+],
+"leisure/beach_resort":[
+"plage.",
+"Station balnéaire"
+],
 "leisure/bird_hide":[
 "Observatoire d'oiseaux",
 "Observatoire ornithologique"
@@ -2931,6 +3022,9 @@
 "salle de bal",
 "piste de danse",
 "Salle de danse"
+],
+"leisure/dancing_school":[
+"École de dance"
 ],
 "leisure/dog_park":[
 "parc à chiens",
@@ -3017,6 +3111,9 @@
 "Zone protégée",
 "Réserve naturelle"
 ],
+"leisure/outdoor_seating":[
+"Aire des places en terrasse"
+],
 "leisure/park":[
 "Parc"
 ],
@@ -3095,10 +3192,12 @@
 "détente",
 "Spa",
 "Complexe touristique",
-"Station thermale.",
 "Complexe touristique , Village de vacances",
 "Complexe hôtelier",
-"Village de vacances"
+"Village de vacances",
+"Hôtel.",
+"Station thermale",
+"Lieu de séjour"
 ],
 "leisure/running_track":[
 "piste",
@@ -3153,6 +3252,9 @@
 "Entrée de mine",
 "Entrée de galerie"
 ],
+"man_made/antenna":[
+"Antenne radioélectrique"
+],
 "man_made/breakwater":[
 "Brise-lames"
 ],
@@ -3195,9 +3297,21 @@
 "Mât",
 "radio"
 ],
+"man_made/monitoring_station":[
+"Station de surveillance",
+"climat",
+"météorologie",
+"pression",
+"séisme",
+"sismologie",
+"atmosphère."
+],
 "man_made/observation":[
 "Tour d'observation",
 "Mirador"
+],
+"man_made/observatory":[
+"Observatoire"
 ],
 "man_made/petroleum_well":[
 "derrick",
@@ -3207,6 +3321,7 @@
 "chevalet de pompage"
 ],
 "man_made/pier":[
+"arrêt",
 "Jetée",
 "Quai"
 ],
@@ -3320,6 +3435,9 @@
 "Lande",
 "Bruyère"
 ],
+"natural/mud":[
+"Boue"
+],
 "natural/peak":[
 "Sommet",
 "Pic",
@@ -3404,7 +3522,8 @@
 ],
 "office/advertising_agency":[
 "Agence publicitaire",
-"Agence de publicité"
+"Agence de publicité",
+"Agence de communication."
 ],
 "office/architect":[
 "Architecte"
@@ -3419,8 +3538,8 @@
 "Organisation de charité"
 ],
 "office/company":[
-"Bureau d'entreprise",
-"Siège social"
+"Entreprise",
+"Bureau d'entreprise"
 ],
 "office/coworking":[
 "Espace de coworking",
@@ -3442,7 +3561,7 @@
 ],
 "office/financial":[
 "Établissement financier",
-"Bureau d'entreprise financière  ",
+"Bureau d'entreprise financière",
 "Bureau financier"
 ],
 "office/forestry":[
@@ -3507,6 +3626,7 @@
 "office/quango":[
 "Autorité administrative indépendante ",
 "QUANGO.",
+"AAI",
 "ONG quasi-autonome",
 "Autorité administrative indépendante"
 ],
@@ -3718,13 +3838,131 @@
 "power/transformer":[
 "Transformateur"
 ],
+"public_transport/linear_platform":[
+"Quai de transport en commun"
+],
+"public_transport/linear_platform_aerialway":[
+"Quai pour remontée mécanique"
+],
+"public_transport/linear_platform_bus":[
+"Arrêt de bus"
+],
+"public_transport/linear_platform_ferry":[
+"Quai pour ferry"
+],
+"public_transport/linear_platform_light_rail":[
+"Station de métro léger"
+],
+"public_transport/linear_platform_monorail":[
+"Station de monorail"
+],
+"public_transport/linear_platform_subway":[
+"Station de métro"
+],
+"public_transport/linear_platform_train":[
+"Quai de gare ferroviaire"
+],
+"public_transport/linear_platform_tram":[
+"Quai pour tramway"
+],
+"public_transport/linear_platform_trolleybus":[
+"Quai pour trolleys"
+],
 "public_transport/platform":[
-"Plateforme d'attente",
-"Quai"
+"Quai de transport en commun"
+],
+"public_transport/platform_aerialway":[
+"Quai pour remontée mécanique"
+],
+"public_transport/platform_bus":[
+"Quai d'arrêt de bus"
+],
+"public_transport/platform_ferry":[
+"Quai pour ferry"
+],
+"public_transport/platform_light_rail":[
+"Station de métro léger"
+],
+"public_transport/platform_monorail":[
+"Station de monorail"
+],
+"public_transport/platform_subway":[
+"Station de métro"
+],
+"public_transport/platform_train":[
+"Quai de gare ferroviaire"
+],
+"public_transport/platform_tram":[
+"Quai pour tramway"
+],
+"public_transport/platform_trolleybus":[
+"Quai pour trolleys"
+],
+"public_transport/station":[
+"Station"
+],
+"public_transport/station_aerialway":[
+"Gare de remontée mécanique"
+],
+"public_transport/station_bus":[
+"Gare routière"
+],
+"public_transport/station_ferry":[
+"Terminal ferry"
+],
+"public_transport/station_light_rail":[
+"Station de tramway"
+],
+"public_transport/station_monorail":[
+"Station de monorail"
+],
+"public_transport/station_subway":[
+"Station de métro"
+],
+"public_transport/station_train":[
+"Gare ferroviaire"
+],
+"public_transport/station_train_halt":[
+"Gare ferroviaire (arrêt à la demande)"
+],
+"public_transport/station_tram":[
+"Station de tramway"
+],
+"public_transport/station_trolleybus":[
+"Gare de trolleys"
+],
+"public_transport/stop_area":[
+"Zone d'arrêt"
 ],
 "public_transport/stop_position":[
-"Arrêt",
-"Position exacte d’arrêt du véhicule sur le « way » d’une route de transport en commun"
+"Emplacement d'arrêt"
+],
+"public_transport/stop_position_aerialway":[
+"Emplacement où s'arrête la remontée mécanique"
+],
+"public_transport/stop_position_bus":[
+"Emplacement où s'arrête le bus"
+],
+"public_transport/stop_position_ferry":[
+"Emplacement où s'arrête le ferry"
+],
+"public_transport/stop_position_light_rail":[
+"Emplacement où s'arrête le train-tram"
+],
+"public_transport/stop_position_monorail":[
+"Emplacement où s'arrête le monorail"
+],
+"public_transport/stop_position_subway":[
+"Emplacement où s'arrête le métro"
+],
+"public_transport/stop_position_train":[
+"Emplacement où s'arrête le train"
+],
+"public_transport/stop_position_tram":[
+"Emplacement où s'arrête le tramway"
+],
+"public_transport/stop_position_trolleybus":[
+"Emplacement où s'arrête le trolley"
 ],
 "railway":[
 "Ferroviaire"
@@ -3751,9 +3989,7 @@
 "Funiculaire"
 ],
 "railway/halt":[
-"Arrêt",
-"Halte ferroviaire",
-"Arrêt ferroviaire"
+"Gare ferroviaire (arrêt à la demande)"
 ],
 "railway/level_crossing":[
 "Passage à niveau (route)",
@@ -3765,6 +4001,9 @@
 "railway/milestone":[
 "Borne kilométrique ferroviaire"
 ],
+"railway/miniature":[
+"Train miniature à passagers"
+],
 "railway/monorail":[
 "Monorail"
 ],
@@ -3773,9 +4012,7 @@
 "Voie ferrée étroite"
 ],
 "railway/platform":[
-"Quai de gare",
-"Quai de gare ferroviaire",
-"Quai"
+"Quai de gare ferroviaire"
 ],
 "railway/rail":[
 "Rail",
@@ -3785,9 +4022,7 @@
 "Feux tricolores Ferroviaire"
 ],
 "railway/station":[
-"Arrêt",
-"Gare ferroviaire",
-"Gare"
+"Gare ferroviaire"
 ],
 "railway/subway":[
 "Métropolitain",
@@ -3808,10 +4043,7 @@
 "Tram"
 ],
 "railway/tram_stop":[
-"tramway",
-"station de tramway",
-"tram",
-"Arrêt de tramway"
+"Emplacement où s'arrête le tram"
 ],
 "relation":[
 "Relation"
@@ -3828,7 +4060,7 @@
 "Boutique"
 ],
 "shop/agrarian":[
-"Magasin d'agriculture"
+"Magasin de produits de la ferme"
 ],
 "shop/alcohol":[
 "Cave",
@@ -4123,6 +4355,9 @@
 "shop/hardware":[
 "Quincaillerie"
 ],
+"shop/health_food":[
+"Magasin d'alimentation de santé"
+],
 "shop/hearing_aids":[
 "Vente de prothèses auditives",
 "Audioprothésiste"
@@ -4146,7 +4381,7 @@
 "Bijouterie"
 ],
 "shop/kiosk":[
-"Kiosque à journaux"
+"Kiosque"
 ],
 "shop/kitchen":[
 "Vente de mobilier et accessoires de cuisine",
@@ -4235,6 +4470,9 @@
 ],
 "shop/pet":[
 "Animalerie"
+],
+"shop/pet_grooming":[
+"Salon de toilettage"
 ],
 "shop/photo":[
 "Photographe",
@@ -4347,6 +4585,9 @@
 "shop/weapons":[
 "Armurerie"
 ],
+"shop/wholesale":[
+"Commerce de gros"
+],
 "shop/window_blind":[
 "Magasin de vente de stores"
 ],
@@ -4453,6 +4694,9 @@
 "Parc d'attraction",
 "Parc à thème"
 ],
+"tourism/trail_riding_station":[
+"Station équestre"
+],
 "tourism/viewpoint":[
 "mirador",
 "observatoire",
@@ -4543,6 +4787,9 @@
 "type/restriction/only_straight_on":[
 "Interdiction de bifurquer"
 ],
+"type/restriction/only_u_turn":[
+"Demi-tour obligatoire"
+],
 "type/route":[
 "rue",
 "sentier",
@@ -4579,11 +4826,17 @@
 "Trajet équestre",
 "Itinéraire équestre"
 ],
+"type/route/light_rail":[
+"Itinéraire de métro léger"
+],
 "type/route/pipeline":[
 "gazoduc",
 "Itinéraire de pipeline",
 "oléoduc",
 "Pipeline"
+],
+"type/route/piste":[
+"Itinéraire de Ski"
 ],
 "type/route/power":[
 "Ligne électrique",
@@ -4595,6 +4848,9 @@
 "chemin",
 "Route",
 "Itinéraire routier"
+],
+"type/route/subway":[
+"Itinéraire de Métro"
 ],
 "type/route/train":[
 "chemin de fer",

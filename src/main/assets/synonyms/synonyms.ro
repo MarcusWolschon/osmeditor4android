@@ -47,9 +47,6 @@
 "amenity/bureau_de_change":[
 "Schimbare Valută"
 ],
-"amenity/bus_station":[
-"Stație de autobuz"
-],
 "amenity/cafe":[
 "Cafenea"
 ],
@@ -109,9 +106,6 @@
 ],
 "amenity/fast_food":[
 "Fast Food"
-],
-"amenity/ferry_terminal":[
-"Terminal de Bac"
 ],
 "amenity/fire_station":[
 "Pompieri"
@@ -215,9 +209,6 @@
 "amenity/public_bath":[
 "Baie Publică"
 ],
-"amenity/recycling":[
-"Reciclare"
-],
 "amenity/recycling_centre":[
 "Centru de Reciclare"
 ],
@@ -270,7 +261,7 @@
 "Barieră"
 ],
 "barrier/block":[
-"Bloc"
+"Blocaj"
 ],
 "barrier/city_wall":[
 "Zid de Oraș"
@@ -476,9 +467,6 @@
 "highway":[
 "Autostradă"
 ],
-"highway/bus_stop":[
-"Stație de autobuz"
-],
 "highway/corridor":[
 "Coridor Interior"
 ],
@@ -637,9 +625,6 @@
 ],
 "landuse/forest":[
 "Pădure"
-],
-"landuse/garages":[
-"Garaje"
 ],
 "landuse/grass":[
 "Iarbă"
@@ -902,9 +887,6 @@
 "office/administrative":[
 "Oficiu Administrativ"
 ],
-"office/company":[
-"Oficiu de Companie"
-],
 "office/educational_institution":[
 "Instituție Educațională"
 ],
@@ -1025,12 +1007,6 @@
 "power/transformer":[
 "Transformator"
 ],
-"public_transport/platform":[
-"Platformă"
-],
-"public_transport/stop_position":[
-"Poziție Stop"
-],
 "railway":[
 "Cale Ferată"
 ],
@@ -1046,9 +1022,6 @@
 "railway/funicular":[
 "Frânghie"
 ],
-"railway/halt":[
-"Stație de Cale Ferată"
-],
 "railway/level_crossing":[
 "Traversare de Cale Ferată (Stradă)"
 ],
@@ -1058,14 +1031,8 @@
 "railway/narrow_gauge":[
 "Cale Ferată Îngustă"
 ],
-"railway/platform":[
-"Platformă de Cale Ferată"
-],
 "railway/rail":[
 "Șină"
-],
-"railway/station":[
-"Stație de Cale Ferată"
 ],
 "railway/subway":[
 "Metrou"
@@ -1075,9 +1042,6 @@
 ],
 "railway/tram":[
 "Tranvai"
-],
-"railway/tram_stop":[
-"Oprire de Tranvai"
 ],
 "relation":[
 "Relație"
@@ -1247,9 +1211,6 @@
 ],
 "shop/jewelry":[
 "Giuvaer"
-],
-"shop/kiosk":[
-"Chioșc de Ziare"
 ],
 "shop/kitchen":[
 "Magazin de Bucătărie"
@@ -1474,15 +1435,6 @@
 "Fără Drum Continuu"
 ],
 "type/restriction/no_u_turn":[
-"Fără Întoarcere"
-],
-"type/restriction/only_left_turn":[
-"Întoarcere doar la Stânga"
-],
-"type/restriction/only_right_turn":[
-"Întoarcere doar la Dreapta"
-],
-"type/restriction/only_straight_on":[
 "Fără Întoarcere"
 ],
 "type/route":[

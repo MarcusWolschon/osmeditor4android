@@ -75,11 +75,6 @@
 "valiutos keitykla",
 "Valiutos keitykla"
 ],
-"amenity/bus_station":[
-"stotis",
-"Autobusų stotis",
-"autobusų stotis"
-],
 "amenity/cafe":[
 "Kavinė"
 ],
@@ -247,9 +242,6 @@
 ],
 "amenity/ranger_station":[
 "Girininkų stotis"
-],
-"amenity/recycling":[
-"Rūšiavimas"
 ],
 "amenity/restaurant":[
 "rastoranas",
@@ -666,12 +658,6 @@
 "Žirgų kelias",
 "arklių takas"
 ],
-"highway/bus_stop":[
-"autobusų stotelė",
-"troleibusų stotelė",
-"stotelė",
-"Autobuso stotelė"
-],
 "highway/crosswalk":[
 "Pėsčiųjų perėja"
 ],
@@ -857,10 +843,6 @@
 "landuse/forest":[
 "miškas",
 "Miškas"
-],
-"landuse/garages":[
-"Garažai",
-"garažai"
 ],
 "landuse/grass":[
 "žolė",
@@ -1120,9 +1102,6 @@
 "office/administrative":[
 "Administracinis biuras"
 ],
-"office/company":[
-"Kompanijos kontora"
-],
 "office/educational_institution":[
 "Mokslo įstaiga",
 "Edukacinis institutas",
@@ -1244,13 +1223,6 @@
 "Transformatorius",
 "transformatorius"
 ],
-"public_transport/platform":[
-"platforma",
-"Platforma"
-],
-"public_transport/stop_position":[
-"Stop pozicija"
-],
 "railway":[
 "Geležinkelis"
 ],
@@ -1268,10 +1240,6 @@
 "Funikulierius",
 "Keltuvas"
 ],
-"railway/halt":[
-"Geležinkelio stotelė",
-"geležinkelio stotelė"
-],
 "railway/monorail":[
 "Vienbėgis geležinkelis"
 ],
@@ -1279,20 +1247,10 @@
 "siaurukas",
 "Siaurukas"
 ],
-"railway/platform":[
-"platforma",
-"Geležinkelio platforma",
-"geležinkelio platforma"
-],
 "railway/rail":[
 "gelžkelis",
 "geležinkelis",
 "Gelžkelis"
-],
-"railway/station":[
-"geležinkelio stotis",
-"stotis",
-"Geležinkelio stotis"
 ],
 "railway/subway":[
 "Metro",
@@ -1498,9 +1456,6 @@
 "shop/jewelry":[
 "Juvelyrikos parduotuvė",
 "juvelyras"
-],
-"shop/kiosk":[
-"Naujienų kioskas"
 ],
 "shop/kitchen":[
 "Virtuvės dizaino parduotuvė"
@@ -1716,18 +1671,6 @@
 "type/restriction/no_u_turn":[
 "Negalima apsisukti",
 "Jokio apsisukimo"
-],
-"type/restriction/only_left_turn":[
-"Tik į kairę",
-"Sukimas tik į kairę"
-],
-"type/restriction/only_right_turn":[
-"Tik į dešinę",
-"Sukimas tik į dešinę"
-],
-"type/restriction/only_straight_on":[
-"Nėra posūkių",
-"Jokių posūkių"
 ],
 "type/route":[
 "Maršrutas"
