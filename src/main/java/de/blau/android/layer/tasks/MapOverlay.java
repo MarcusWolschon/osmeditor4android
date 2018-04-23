@@ -38,15 +38,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     private static final String DEBUG_TAG = "tasks";
 
     private Bitmap  cachedIconClosed;
-    private float   w2closed  = 0f;
-    private float   h2closed  = 0f;
+    private float   w2closed        = 0f;
+    private float   h2closed        = 0f;
+    private Bitmap  cachedIconChangedClosed;
+    private float   w2changedClosed = 0f;
+    private float   h2changedClosed = 0f;
     private Bitmap  cachedIconOpen;
-    private float   w2open    = 0f;
-    private float   h2open    = 0f;
+    private float   w2open          = 0f;
+    private float   h2open          = 0f;
     private Bitmap  cachedIconChanged;
-    private float   w2changed = 0f;
-    private float   h2changed = 0f;
-    private boolean enabled   = false;
+    private float   w2changed       = 0f;
+    private float   h2changed       = 0f;
+    private boolean enabled         = false;
 
     /** Map this is an overlay of. */
     private final Map map;
@@ -88,9 +91,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                     float x = GeoMath.lonE7ToX(w, bb, t.getLon());
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
 
-                    if (t.isClosed()) {
+                    if (t.isClosed() && t.hasBeenChanged()) {
+                        if (cachedIconChangedClosed == null) {
+                            cachedIconChangedClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed_closed);
+                            w2changedClosed = cachedIconChangedClosed.getWidth() / 2f;
+                            h2changedClosed = cachedIconChangedClosed.getHeight() / 2f;
+                        }
+                        c.drawBitmap(cachedIconChangedClosed, x - w2changedClosed, y - h2changedClosed, null);
+                    } else if (t.isClosed()) {
                         if (cachedIconClosed == null) {
-                            cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
+                            cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed_closed);
                             w2closed = cachedIconClosed.getWidth() / 2f;
                             h2closed = cachedIconClosed.getHeight() / 2f;
                         }
