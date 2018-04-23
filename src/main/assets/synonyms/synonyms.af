@@ -215,9 +215,6 @@
 "highway/bridleway":[
 "Perdepaaidjie"
 ],
-"highway/bus_stop":[
-"Busstop"
-],
 "highway/cycleway":[
 "Fietsrypad"
 ],
@@ -582,14 +579,8 @@
 "railway/monorail":[
 "Enkelspoorbaan"
 ],
-"railway/platform":[
-"Spoorwegplatform"
-],
 "railway/rail":[
 "Treinspoor"
-],
-"railway/station":[
-"Treinstasie"
 ],
 "railway/subway":[
 "Metro"

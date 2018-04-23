@@ -78,9 +78,6 @@
 "amenity/bureau_de_change":[
 "Penukaran Mata Uang"
 ],
-"amenity/bus_station":[
-"Terminal Bus"
-],
 "amenity/cafe":[
 "Warung Kopi",
 "Kafe"
@@ -214,9 +211,6 @@
 ],
 "amenity/pub":[
 "Pub"
-],
-"amenity/recycling":[
-"Daur Ulang"
 ],
 "amenity/register_office":[
 "Dinas Catatan Sipil"
@@ -551,9 +545,6 @@
 "highway":[
 "Jalan Raya"
 ],
-"highway/bus_stop":[
-"Pemberhentian Bus"
-],
 "highway/corridor":[
 "Lorong dalam"
 ],
@@ -742,9 +733,6 @@
 "landuse/forest":[
 "Hutan Produksi",
 "Hutan"
-],
-"landuse/garages":[
-"Garasi"
 ],
 "landuse/grass":[
 "Rerumputan",
@@ -998,9 +986,6 @@
 "office/administrative":[
 "Kantor Administrasi"
 ],
-"office/company":[
-"Kantor Perusahaan"
-],
 "office/educational_institution":[
 "Institusi Pendidikan"
 ],
@@ -1096,9 +1081,6 @@
 "power/transformer":[
 "Trafo"
 ],
-"public_transport/stop_position":[
-"Hentikan petisi"
-],
 "railway":[
 "Jalur Rel"
 ],
@@ -1118,14 +1100,8 @@
 "Narrow Gauge Rail",
 "Trak"
 ],
-"railway/platform":[
-"Peron Kereta Api"
-],
 "railway/rail":[
 "Rel Kereta"
-],
-"railway/station":[
-"Stasiun Kereta"
 ],
 "railway/subway":[
 "Jalur Bawah Tanah"
@@ -1333,9 +1309,6 @@
 ],
 "shop/jewelry":[
 "Toko Perhiasan"
-],
-"shop/kiosk":[
-"Kios Berita"
 ],
 "shop/kitchen":[
 "Toko Desain Interior Dapur"
@@ -1579,15 +1552,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Dilarang Putar Balik"
-],
-"type/restriction/only_left_turn":[
-"Belok Kiri Saja"
-],
-"type/restriction/only_right_turn":[
-"Belok Kanan Saja"
-],
-"type/restriction/only_straight_on":[
-"Dilarang Berbelok"
 ],
 "type/route":[
 "Rute"

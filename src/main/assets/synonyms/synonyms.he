@@ -1,0 +1,2206 @@
+{
+"address":[
+"כתובת"
+],
+"advertising/billboard":[
+"שלט חוצות"
+],
+"aerialway/cable_car":[
+"רכבל"
+],
+"aerialway/gondola":[
+"גונדולה"
+],
+"aerialway/magic_carpet":[
+"מעלית שטיח מעופף"
+],
+"aeroway/aerodrome":[
+"נמל תעופה",
+"שדה תעופה",
+"נתב״ג",
+"נתב"ג"
+],
+"aeroway/gate":[
+"שער נמל תעופה",
+"שער שדה תעופה",
+"שער טיסה"
+],
+"aeroway/hangar":[
+"הנגר"
+],
+"aeroway/helipad":[
+"מנחת מסוקים"
+],
+"aeroway/runway":[
+"מסלול המראה"
+],
+"aeroway/taxiway":[
+"מסלול הסעה"
+],
+"aeroway/terminal":[
+"טרמינל שדה תעופה"
+],
+"amenity":[
+"נוחיות"
+],
+"amenity/animal_boarding":[
+"מתקן עליה לבעלי חיים"
+],
+"amenity/animal_breeding":[
+"מתקן רבייה לבעלי חיים"
+],
+"amenity/animal_shelter":[
+"תנו לחיות לחיות",
+"מקלט לחיות",
+"צער בעלי חיים",
+"בית מחסה לחיות מחמד"
+],
+"amenity/arts_centre":[
+"מתנ״ס",
+"מתנ"ס",
+"אשכול פיס",
+"מתנס",
+"מרכז אומנויות"
+],
+"amenity/atm":[
+"כספומט"
+],
+"amenity/bank":[
+"בנק"
+],
+"amenity/bar":[
+"בר"
+],
+"amenity/bbq":[
+"ברביקיו"
+],
+"amenity/bench":[
+"ספסל"
+],
+"amenity/bicycle_parking":[
+"חניית אופניים"
+],
+"amenity/bicycle_rental":[
+"השכרת אופניים"
+],
+"amenity/bicycle_repair_station":[
+"עמדת תיקון אופניים"
+],
+"amenity/biergarten":[
+"גן בירה"
+],
+"amenity/boat_rental":[
+"השכרת סירה"
+],
+"amenity/bureau_de_change":[
+"צ'יינג'",
+"המרת כסף זר",
+"חלפן כספים",
+"המרת מט"ח",
+"המרת מט״ח",
+"צ׳יינג׳"
+],
+"amenity/bus_station":[
+"תחנת אוטובוס"
+],
+"amenity/cafe":[
+"בית קפה"
+],
+"amenity/car_pooling":[
+"קארפול"
+],
+"amenity/car_rental":[
+"השכרת רכב"
+],
+"amenity/car_sharing":[
+"קארפול"
+],
+"amenity/car_wash":[
+"שטיפת רכב"
+],
+"amenity/casino":[
+"קזינו"
+],
+"amenity/charging_station":[
+"תחנת טעינה"
+],
+"amenity/childcare":[
+"גנון"
+],
+"amenity/cinema":[
+"בית קולנוע",
+"אקרן",
+"קולנוע",
+"סינמה"
+],
+"amenity/clinic":[
+"מרפאה",
+"קליניקה"
+],
+"amenity/clinic/abortion":[
+"מרפאת הפלות"
+],
+"amenity/clinic/fertility":[
+"מרפאת פוריות"
+],
+"amenity/clock":[
+"שעון"
+],
+"amenity/college":[
+"גן המכללה"
+],
+"amenity/community_centre":[
+"מרכז קהילתי"
+],
+"amenity/compressed_air":[
+"אוויר דחוס"
+],
+"amenity/courthouse":[
+"בית משפט"
+],
+"amenity/coworking_space":[
+"מתחם עבודה שיתופי"
+],
+"amenity/crematorium":[
+"משרפה"
+],
+"amenity/dentist":[
+"רופאת שיניים",
+"רופא שיניים",
+"מרפאת שיניים"
+],
+"amenity/doctors":[
+"רופאה",
+"רופא"
+],
+"amenity/dojo":[
+"דוג'ו"
+],
+"amenity/drinking_water":[
+"מי שתייה"
+],
+"amenity/driving_school":[
+"בית ספר לנהיגה"
+],
+"amenity/embassy":[
+"שגרירות"
+],
+"amenity/fast_food":[
+"פאסט פוד",
+"מזון מהיר"
+],
+"amenity/ferry_terminal":[
+"מסוף מעבורת"
+],
+"amenity/fire_station":[
+"תחנת כיבוי אש",
+"תחנת מכבי אש"
+],
+"amenity/food_court":[
+"מתחם מזון"
+],
+"amenity/fountain":[
+"מזרקה"
+],
+"amenity/fuel":[
+"תחנת דלק"
+],
+"amenity/grave_yard":[
+"בית קברות",
+"בית עלמין"
+],
+"amenity/grit_bin":[
+"סל חצץ"
+],
+"amenity/hospital":[
+"גן בית חולים"
+],
+"amenity/hunting_stand":[
+"עמדת ציד"
+],
+"amenity/ice_cream":[
+"חנות גלידה"
+],
+"amenity/internet_cafe":[
+"קפה אינטרנט"
+],
+"amenity/kindergarten":[
+"גן חובה"
+],
+"amenity/library":[
+"ספריה"
+],
+"amenity/love_hotel":[
+"מלון לפי שעות"
+],
+"amenity/marketplace":[
+"שוק"
+],
+"amenity/motorcycle_parking":[
+"חניית אופנועים"
+],
+"amenity/music_school":[
+"ביצפר למוזיקה",
+"בית ספר למוזיקה",
+"בית ספר למוסיקה",
+"ביצפר למוסיקה",
+"קונסרבטוריון"
+],
+"amenity/nightclub":[
+"מועדון לילה"
+],
+"amenity/nursing_home":[
+"בית אבות"
+],
+"amenity/parking":[
+"מגרש חנייה",
+"חניית מכוניות",
+"חנייה"
+],
+"amenity/parking_entrance":[
+"כניסה לחניון"
+],
+"amenity/parking_space":[
+"אזור חניה"
+],
+"amenity/pavilion":[
+"ביתן"
+],
+"amenity/pharmacy":[
+"בית מרקחת",
+"ניופארם",
+"סופר פארם",
+"פארמה"
+],
+"amenity/place_of_worship":[
+"בית תפילה"
+],
+"amenity/place_of_worship/buddhist":[
+"מקדש בודהיסטי"
+],
+"amenity/place_of_worship/christian":[
+"כנסייה"
+],
+"amenity/place_of_worship/hindu":[
+"מקדש הודי",
+"מקדש  הודי"
+],
+"amenity/place_of_worship/jewish":[
+"בית כנסת"
+],
+"amenity/place_of_worship/muslim":[
+"מסגד"
+],
+"amenity/place_of_worship/shinto":[
+"מקדש שינטו"
+],
+"amenity/place_of_worship/sikh":[
+"מקדש סיקי"
+],
+"amenity/place_of_worship/taoist":[
+"מקדש טאויסטי"
+],
+"amenity/planetarium":[
+"מצפה כוכבים"
+],
+"amenity/police":[
+"תחנת משטרה",
+"משטרה"
+],
+"amenity/post_box":[
+"תיבת חלוקת דואר",
+"תיבת דואר"
+],
+"amenity/post_office":[
+"רשות הדואר",
+"משרד דואר",
+"סניף דואר"
+],
+"amenity/prison":[
+"מגרש כלא"
+],
+"amenity/pub":[
+"מסבאה",
+"פאב",
+"בר"
+],
+"amenity/public_bath":[
+"בית מרחץ",
+"מרחצאות ציבוריות"
+],
+"amenity/public_bookcase":[
+"ספריה"
+],
+"amenity/ranger_station":[
+"תחנת הפקחים"
+],
+"amenity/recycling":[
+"סל מחזור"
+],
+"amenity/recycling_centre":[
+"מרכז מחזור",
+"מרכז מיחזור"
+],
+"amenity/register_office":[
+"משרד רישום"
+],
+"amenity/restaurant":[
+"מסעדה"
+],
+"amenity/sanitary_dump_station":[
+"תחנת סילוק RV"
+],
+"amenity/school":[
+"מגרש בית ספר"
+],
+"amenity/scrapyard":[
+"מגרש גרוטאות"
+],
+"amenity/shelter":[
+"מקלט"
+],
+"amenity/shower":[
+"מקלחת",
+"מקלחט"
+],
+"amenity/smoking_area":[
+"אזור עישון"
+],
+"amenity/social_facility":[
+"מתקן שירותי רווחה"
+],
+"amenity/social_facility/food_bank":[
+"בנק אוכל"
+],
+"amenity/social_facility/group_home":[
+"בית אבות"
+],
+"amenity/social_facility/homeless_shelter":[
+"בית מחסה להומלסים",
+"מקלט למחוסרי דיור",
+"מקלט להומלסים",
+"בית מחסה למחוסרי דיור"
+],
+"amenity/social_facility/nursing_home":[
+"בית אבות"
+],
+"amenity/studio":[
+"סטודיו"
+],
+"amenity/swimming_pool":[
+"בריכת שחייה"
+],
+"amenity/taxi":[
+"עמדת מוניות"
+],
+"amenity/telephone":[
+"טלפון"
+],
+"amenity/theatre":[
+"תאטרון"
+],
+"amenity/toilets":[
+"בתי שימוש"
+],
+"amenity/townhall":[
+"בניין עיריה"
+],
+"amenity/vending_machine":[
+"אוטומט מכירות"
+],
+"amenity/vending_machine/cigarettes":[
+"אוטומט מכירת סיגריות"
+],
+"amenity/vending_machine/condoms":[
+"אוטומט מכירת קונדומים"
+],
+"amenity/vending_machine/drinks":[
+"אוטומט מכירת שתיה"
+],
+"amenity/vending_machine/excrement_bags":[
+"אוטומט מכירת שקיות פסולת"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"אוטומט מכירת היגינה נשית"
+],
+"amenity/vending_machine/news_papers":[
+"עמדת חלוקת עיתונים"
+],
+"amenity/vending_machine/newspapers":[
+"עמדת חלוקת עיתונים"
+],
+"amenity/vending_machine/parcel_pickup_dropoff":[
+"עמדת חלוקת חבילות"
+],
+"amenity/vending_machine/parking_tickets":[
+"אוטומט מכירת כרטיסי חניה"
+],
+"amenity/vending_machine/public_transport_tickets":[
+"אוטומט מכירת כרטיסי רכבת"
+],
+"amenity/vending_machine/sweets":[
+"אוטומט מכירת חטיפים"
+],
+"amenity/veterinary":[
+"וטרינר"
+],
+"amenity/waste/dog_excrement":[
+"שקי-קקי"
+],
+"amenity/waste_basket":[
+"פח אשפה"
+],
+"amenity/waste_disposal":[
+"פח אשפה"
+],
+"area":[
+"שטח"
+],
+"area/highway":[
+"משטח כביש"
+],
+"attraction/amusement_ride":[
+"מתקן שעשועים"
+],
+"attraction/animal":[
+"חיה"
+],
+"attraction/big_wheel":[
+"גלגל ענק"
+],
+"attraction/bumper_car":[
+"מכוניות מתנגשות"
+],
+"attraction/bungee_jumping":[
+"באנג׳י"
+],
+"attraction/carousel":[
+"קרוסלה"
+],
+"attraction/pirate_ship":[
+"ספינת פיראטים"
+],
+"attraction/river_rafting":[
+"חתירה בנהר"
+],
+"attraction/roller_coaster":[
+"רכבת הרים"
+],
+"attraction/train":[
+"רכבת תיירים"
+],
+"attraction/water_slide":[
+"מגלשת מים"
+],
+"barrier":[
+"מחסום"
+],
+"barrier/border_control":[
+"משטרת הגבולות",
+"משמר הגבול"
+],
+"barrier/cattle_grid":[
+"מעבר בקר",
+"מעבר פרות"
+],
+"barrier/city_wall":[
+"חומת עיר"
+],
+"barrier/ditch":[
+"תעלה"
+],
+"barrier/entrance":[
+"כניסה"
+],
+"barrier/fence":[
+"גדר"
+],
+"barrier/gate":[
+"שער"
+],
+"barrier/hedge":[
+"גדר"
+],
+"barrier/kerb":[
+"אבן שפה"
+],
+"barrier/kissing_gate":[
+"מחסום חיות"
+],
+"barrier/lift_gate":[
+"שער הרמה"
+],
+"barrier/stile":[
+"מדרגות למעבר מעל גדר"
+],
+"barrier/toll_booth":[
+"תא אגרה"
+],
+"barrier/wall":[
+"קיר\חומה"
+],
+"boundary/administrative":[
+"גבול ניהולי"
+],
+"building":[
+"בניין"
+],
+"building/apartments":[
+"דירה"
+],
+"building/barn":[
+"אסם"
+],
+"building/bungalow":[
+"בונגלו"
+],
+"building/bunker":[
+"בונקר"
+],
+"building/cabin":[
+"בקתה"
+],
+"building/cathedral":[
+"קתדרל"
+],
+"building/chapel":[
+"קפלה"
+],
+"building/church":[
+"כניסיה"
+],
+"building/entrance":[
+"כניסה\יציאה"
+],
+"building/farm":[
+"בית חווה"
+],
+"building/farm_auxiliary":[
+"חווה"
+],
+"building/garage":[
+"מוסך"
+],
+"building/garages":[
+"מוסך",
+"מוסכים"
+],
+"building/greenhouse":[
+"חממה"
+],
+"building/hospital":[
+"בית חולים"
+],
+"building/hotel":[
+"מלון"
+],
+"building/house":[
+"בית"
+],
+"building/hut":[
+"בקתה"
+],
+"building/industrial":[
+"בניין תעשייתי"
+],
+"building/kindergarten":[
+"גן חובה"
+],
+"building/mosque":[
+"מסגד"
+],
+"building/public":[
+"מבנה ציבור",
+"בניין ציבורי"
+],
+"building/residential":[
+"בניין מגורים"
+],
+"building/retail":[
+"בניין קמעוני"
+],
+"building/roof":[
+"גג"
+],
+"building/ruins":[
+"בניין הרוס"
+],
+"building/school":[
+"מבנה ביצפר",
+"בניין בית ספר",
+"מבנה בית ספר",
+"בניין ביצפר"
+],
+"building/service":[
+"בניין שירות"
+],
+"building/shed":[
+"צריף"
+],
+"building/stable":[
+"אורווה"
+],
+"building/stadium":[
+"אצטדיון"
+],
+"building/static_caravan":[
+"RV סטטי"
+],
+"building/temple":[
+"מקדש"
+],
+"building/train_station":[
+"תחנת רכבת"
+],
+"building/university":[
+"בניין אוניברסיטה"
+],
+"building/warehouse":[
+"מחסן"
+],
+"circular":[
+"מעגל תנועה"
+],
+"club":[
+"מועדון"
+],
+"craft/basket_maker":[
+"מייצר סלים"
+],
+"craft/beekeeper":[
+"כוורן"
+],
+"craft/blacksmith":[
+"נפח"
+],
+"craft/boatbuilder":[
+"בונה סירות"
+],
+"craft/bookbinder":[
+"כורך ספרים"
+],
+"craft/brewery":[
+"מבשלת בירה"
+],
+"craft/carpenter":[
+"נגר"
+],
+"craft/carpet_layer":[
+"מתקין שטיחים"
+],
+"craft/caterer":[
+"הסעדה"
+],
+"craft/chimney_sweeper":[
+"מנקה ארובות"
+],
+"craft/clockmaker":[
+"שען"
+],
+"craft/confectionery":[
+"חנות ממתקים"
+],
+"craft/distillery":[
+"מזקקה"
+],
+"craft/dressmaker":[
+"תופרת"
+],
+"craft/electrician":[
+"חשמלאי"
+],
+"craft/electronics_repair":[
+"חנות תיקון אלקטרוניקה"
+],
+"craft/gardener":[
+"גנן"
+],
+"craft/hvac":[
+"שירות מיזוג מרכזי"
+],
+"craft/jeweler":[
+"תכשיטן"
+],
+"craft/key_cutter":[
+"שכפול מפתחות"
+],
+"craft/locksmith":[
+"מנעולן"
+],
+"craft/metal_construction":[
+"נפח"
+],
+"craft/optician":[
+"אופטיקאי"
+],
+"craft/painter":[
+"צבעי"
+],
+"craft/photographer":[
+"צלם"
+],
+"craft/photographic_laboratory":[
+"מעבדת צילום"
+],
+"craft/plumber":[
+"שרברב"
+],
+"craft/pottery":[
+"כלי חרס"
+],
+"craft/roofer":[
+"מתקין גגות"
+],
+"craft/sawmill":[
+"מנסרה"
+],
+"craft/sculptor":[
+"פסל"
+],
+"craft/shoemaker":[
+"סנדלר"
+],
+"craft/tailor":[
+"חיט"
+],
+"craft/tiler":[
+"מתקין אריחים"
+],
+"craft/tinsmith":[
+"פחח"
+],
+"craft/upholsterer":[
+"רפד"
+],
+"craft/watchmaker":[
+"שען"
+],
+"craft/winery":[
+"יקב"
+],
+"emergency/ambulance_station":[
+"תחנת אמבולנס"
+],
+"emergency/defibrillator":[
+"דפיברילטור"
+],
+"emergency/fire_hydrant":[
+"ברז כיבוי אש"
+],
+"emergency/phone":[
+"טלפון חרום"
+],
+"emergency/water_tank":[
+"מיכל מים חרום"
+],
+"emergency/yes":[
+"כניסת חירום"
+],
+"entrance":[
+"כניסה\יציאה"
+],
+"footway/crossing":[
+"מעבר חציה מוגבה"
+],
+"footway/crossing-raised":[
+"מעבר חציה מוגבה"
+],
+"footway/crosswalk":[
+"מעבר חציה"
+],
+"footway/crosswalk-raised":[
+"מעבר חציה מוגבה"
+],
+"footway/sidewalk":[
+"מדרכה"
+],
+"ford":[
+"מקום צליחה"
+],
+"golf/bunker":[
+"מכשול חול"
+],
+"golf/fairway":[
+"אזור פתוח בגולף"
+],
+"golf/green":[
+"דשא סביב חור גולף"
+],
+"golf/hole":[
+"חור גוף"
+],
+"golf/lateral_water_hazard_area":[
+"מכשול מים"
+],
+"golf/lateral_water_hazard_line":[
+"מכשול מים"
+],
+"golf/rough":[
+"שטח קשה בגולף"
+],
+"golf/tee":[
+"עמדת חביטה בגולף"
+],
+"golf/water_hazard_area":[
+"מכשול מים"
+],
+"golf/water_hazard_line":[
+"מכשול מים"
+],
+"healthcare":[
+"מוסד טיפול בריאותי"
+],
+"healthcare/alternative":[
+"בריאות אלטרנטיבי"
+],
+"healthcare/alternative/chiropractic":[
+"כירופרקט"
+],
+"healthcare/audiologist":[
+"אודיולוג"
+],
+"healthcare/birthing_center":[
+"מתקן לידה"
+],
+"healthcare/blood_donation":[
+"מרכז תרומת דם"
+],
+"healthcare/hospice":[
+"הוספיס"
+],
+"healthcare/midwife":[
+"מיילדת"
+],
+"healthcare/occupational_therapist":[
+"מרפא בעיסוק"
+],
+"healthcare/optometrist":[
+"אופטומטריסט"
+],
+"healthcare/physiotherapist":[
+"פזיווטרפיה"
+],
+"healthcare/podiatrist":[
+"פודיאטר"
+],
+"healthcare/psychotherapist":[
+"פסיכוטרפיסט"
+],
+"healthcare/rehabilitation":[
+"מוסד שיקומי"
+],
+"healthcare/speech_therapist":[
+"קלינאית תקשורת"
+],
+"highway":[
+"כביש בין-עירוני"
+],
+"highway/crossing":[
+"מעבר חציה"
+],
+"highway/crossing-raised":[
+"מעבר חציה מוגבה"
+],
+"highway/crosswalk":[
+"מעבר חציה"
+],
+"highway/crosswalk-raised":[
+"מעבר חציה מוגבה"
+],
+"highway/cycleway":[
+"מסלול אופניים"
+],
+"highway/elevator":[
+"מעלית"
+],
+"highway/footway":[
+"דרך רגל"
+],
+"highway/give_way":[
+"תן זכות קדימה"
+],
+"highway/mini_roundabout":[
+"מעגל תנועה קטן"
+],
+"highway/path":[
+"שביל"
+],
+"highway/pedestrian_area":[
+"אזור רק עם תנועה רגלית"
+],
+"highway/pedestrian_line":[
+"רחוב רק עם תנועה רגלית"
+],
+"highway/primary":[
+"כביש ראשי"
+],
+"highway/primary_link":[
+"חיבור ראשי"
+],
+"highway/raceway":[
+"מסלול מרוצים (מונע)"
+],
+"highway/residential":[
+"כביש באזור מגורים"
+],
+"highway/rest_area":[
+"אזור מנוחה"
+],
+"highway/road":[
+"כביש לא ידוע"
+],
+"highway/secondary":[
+"כביש משני"
+],
+"highway/secondary_link":[
+"חיבור משני"
+],
+"highway/service":[
+"כבישי שירות"
+],
+"highway/service/alley":[
+"סמטה"
+],
+"highway/speed_camera":[
+"מצלמת מהירות"
+],
+"highway/stop":[
+"תמרור עצור"
+],
+"historic":[
+"אתר היסטורי"
+],
+"historic/archaeological_site":[
+"אתר ארכיאולוגי"
+],
+"historic/boundary_stone":[
+"אבן גבול"
+],
+"historic/castle":[
+"טירה"
+],
+"historic/memorial":[
+"אתר הנצחה"
+],
+"historic/monument":[
+"מונומנט"
+],
+"historic/ruins":[
+"אתר חורבן"
+],
+"historic/tomb":[
+"קבר"
+],
+"landuse/allotments":[
+"גינה קהילתית"
+],
+"landuse/cemetery":[
+"בית קברות"
+],
+"landuse/forest":[
+"יער"
+],
+"landuse/grass":[
+"דשא"
+],
+"landuse/harbour":[
+"מזח"
+],
+"landuse/industrial":[
+"אזור תעשיה"
+],
+"landuse/industrial/slaughterhouse":[
+"משחטה"
+],
+"landuse/landfill":[
+"מטמנה"
+],
+"landuse/meadow":[
+"אחו"
+],
+"landuse/orchard":[
+"פרדס"
+],
+"landuse/quarry":[
+"מחצבה"
+],
+"landuse/religious":[
+"אזור דתי"
+],
+"landuse/residential":[
+" אזור מגורים"
+],
+"landuse/retail":[
+"אזור מסחרי"
+],
+"landuse/vineyard":[
+"כרם"
+],
+"leisure/bowling_alley":[
+"אולם כדורת"
+],
+"leisure/common":[
+"אזור משותף"
+],
+"leisure/dog_park":[
+"פארק כלבים"
+],
+"leisure/fitness_centre":[
+"מכון כושר"
+],
+"leisure/fitness_centre/yoga":[
+"מכון יוגה"
+],
+"leisure/garden":[
+"גן"
+],
+"leisure/golf_course":[
+"מגרש גולף"
+],
+"leisure/hackerspace":[
+"משרד משותף היי טק"
+],
+"leisure/horse_riding":[
+"מתקן רכיבה על סוסים",
+"משרד משותף היי טק"
+],
+"leisure/ice_rink":[
+"החלקה על הקרח",
+"משרד משותף היי טק"
+],
+"leisure/marina":[
+"מרינה"
+],
+"leisure/miniature_golf":[
+"מיני-גולף"
+],
+"leisure/nature_reserve":[
+"שמורת טבע"
+],
+"leisure/park":[
+"פארק"
+],
+"leisure/picnic_table":[
+"שולחן פיקניק"
+],
+"leisure/pitch/american_football":[
+"מגרש פוטבול"
+],
+"leisure/pitch/baseball":[
+"מגרש בייסבול"
+],
+"leisure/pitch/basketball":[
+"מגרש כדורסל"
+],
+"leisure/pitch/beachvolleyball":[
+"מגרש כדור-עף חוף"
+],
+"leisure/pitch/cricket":[
+"מגרש קריקט"
+],
+"leisure/pitch/rugby_league":[
+"מגרש רוגבי"
+],
+"leisure/pitch/rugby_union":[
+"מגרש רוגבי"
+],
+"leisure/pitch/skateboard":[
+"סקייטפארק"
+],
+"leisure/pitch/soccer":[
+"מגרש כדורגל"
+],
+"leisure/pitch/table_tennis":[
+"שולחן פינג פונג"
+],
+"leisure/playground":[
+"גן שעשועים"
+],
+"leisure/sauna":[
+"סאונה"
+],
+"leisure/sports_centre":[
+"מרכז ספורט"
+],
+"leisure/sports_centre/swimming":[
+"בריכות שחייה"
+],
+"leisure/stadium":[
+"אצטדיון"
+],
+"leisure/swimming_pool":[
+"בריכת שחייה"
+],
+"leisure/track":[
+"מסלול מרוץ (לא מונע)"
+],
+"leisure/water_park":[
+"פארק מים"
+],
+"line":[
+"קו"
+],
+"man_made/bridge":[
+"גשר"
+],
+"man_made/chimney":[
+"ארובה"
+],
+"man_made/crane":[
+"מנוף"
+],
+"man_made/lighthouse":[
+"מגדלור"
+],
+"man_made/petroleum_well":[
+"באר נפט"
+],
+"man_made/pumping_station":[
+"תחנת שאיבה"
+],
+"man_made/silo":[
+"סילו"
+],
+"man_made/tower":[
+"מגדל"
+],
+"man_made/wastewater_plant":[
+"מפעל טיפול במי ביוב"
+],
+"man_made/water_tower":[
+"מגדל מים"
+],
+"man_made/water_well":[
+"באר"
+],
+"man_made/water_works":[
+"מזרקה"
+],
+"man_made/watermill":[
+"תחנת מים"
+],
+"man_made/windmill":[
+"טחנת רוח"
+],
+"man_made/works":[
+"מפעל"
+],
+"manhole":[
+"פתח ביוב"
+],
+"manhole/drain":[
+"צינור לניקוז מי גשמים"
+],
+"manhole/telecom":[
+"בור טלקום"
+],
+"natural":[
+"מאפייני טבע"
+],
+"natural/bare_rock":[
+"סלע חסוף"
+],
+"natural/bay":[
+"מפרץ"
+],
+"natural/beach":[
+"חוף"
+],
+"natural/cave_entrance":[
+"כניסה למערה"
+],
+"natural/cliff":[
+"צוק"
+],
+"natural/coastline":[
+"מישור חוף"
+],
+"natural/fell":[
+"תל"
+],
+"natural/glacier":[
+"קרחון"
+],
+"natural/heath":[
+"שדה בור"
+],
+"natural/peak":[
+"פסגה"
+],
+"natural/sand":[
+"חול"
+],
+"natural/tree":[
+"עץ"
+],
+"natural/tree_row":[
+"שורת עצים"
+],
+"natural/volcano":[
+"הר געש"
+],
+"natural/water":[
+"מים"
+],
+"natural/water/lake":[
+"אגם"
+],
+"natural/water/pond":[
+"בריכת דגים\נוי"
+],
+"natural/water/reservoir":[
+"מאגר"
+],
+"natural/wetland":[
+"ביצה"
+],
+"natural/wood":[
+"יער"
+],
+"noexit/yes":[
+"אין יציאה"
+],
+"office":[
+"משרד"
+],
+"office/accountant":[
+"משרד רואה חשבון"
+],
+"office/administrative":[
+"משרד אדמינסטרטיבי"
+],
+"office/adoption_agency":[
+"סוכנות אימוץ"
+],
+"office/advertising_agency":[
+"סוכנות פרסום"
+],
+"office/architect":[
+"משרד אדריכלים"
+],
+"office/association":[
+"ארגון ללא מטרת רווח"
+],
+"office/charity":[
+"משרד צדקה"
+],
+"office/company":[
+"משרד תאגידי"
+],
+"office/coworking":[
+"משרדים משותפים"
+],
+"office/educational_institution":[
+"מוסד חינוכי"
+],
+"office/employment_agency":[
+"סוכנות כוח אדם"
+],
+"office/energy_supplier":[
+"משרדת ספק חשמל"
+],
+"office/estate_agent":[
+"משרד נדל"ן"
+],
+"office/financial":[
+"משרד פיננסי"
+],
+"office/forestry":[
+"משרד יעור"
+],
+"office/foundation":[
+"משרד קרן"
+],
+"office/government":[
+"משרד ממשלתי"
+],
+"office/government/register_office":[
+"משרד רישום"
+],
+"office/government/tax":[
+"משרד עריכת מס"
+],
+"office/guide":[
+"משרד תיירות"
+],
+"office/insurance":[
+"משרד ביטוח"
+],
+"office/it":[
+"משרד IT"
+],
+"office/lawyer":[
+"משרד עורכי דין"
+],
+"office/lawyer/notary":[
+"משרד נוטריון"
+],
+"office/moving_company":[
+"משרד מעבירי רכוש"
+],
+"office/newspaper":[
+"משרד עיתונאות"
+],
+"office/ngo":[
+"משרד ארגון לא ממשלתי"
+],
+"office/notary":[
+"משרד נוטריון"
+],
+"office/physician":[
+"רופא"
+],
+"office/political_party":[
+"משרד מפלגה פוליטית"
+],
+"office/private_investigator":[
+"משרד חוקר פרטי"
+],
+"office/quango":[
+"משרד ארגון חצי לא ממשלתי"
+],
+"office/research":[
+"משרד מחקר"
+],
+"office/surveyor":[
+"משרד מודד"
+],
+"office/tax_advisor":[
+"משרד יועץ מס"
+],
+"office/telecommunication":[
+"משרד לשירות ציבורי - טלפוניה"
+],
+"office/therapist":[
+"משרד מטפל"
+],
+"office/travel_agent":[
+"סוכנות נסיעות"
+],
+"office/water_utility":[
+"משרד לשירות ציבורי - מים"
+],
+"piste":[
+"מסלול לגלישת סקי"
+],
+"place":[
+"מקום"
+],
+"place/city":[
+"עיר"
+],
+"place/farm":[
+"חוה"
+],
+"place/hamlet":[
+"כפר"
+],
+"place/island":[
+"אי"
+],
+"place/islet":[
+"איון"
+],
+"place/isolated_dwelling":[
+"מבנה מבודד"
+],
+"place/locality":[
+"שכונה"
+],
+"place/neighbourhood":[
+"שכונה"
+],
+"place/plot":[
+"חלקה"
+],
+"place/quarter":[
+"רובע"
+],
+"place/square":[
+"כיכר"
+],
+"place/suburb":[
+"פרוור"
+],
+"place/town":[
+"עיריה"
+],
+"place/village":[
+"כפר"
+],
+"playground/balance_beam":[
+"לשחק את קורה"
+],
+"playground/basket_spinner":[
+"סל טווה"
+],
+"playground/basket_swing":[
+"סל הנדנדה"
+],
+"playground/sandpit":[
+"ארגז חול"
+],
+"playground/seesaw":[
+"נדנדה"
+],
+"playground/slide":[
+"מגלשה"
+],
+"playground/swing":[
+"נדנדות"
+],
+"playground/zipwire":[
+"אומגה"
+],
+"power/generator":[
+"גנרטור"
+],
+"power/generator/source_nuclear":[
+"תחנת כוח גרעינית"
+],
+"power/generator/source_wind":[
+"טורבינת רוח"
+],
+"power/switch":[
+"מתג חשמל"
+],
+"public_transport/linear_platform":[
+"תחנת רכבת \ רציף"
+],
+"public_transport/linear_platform_bus":[
+"תחנת אוטובוס \ רציף"
+],
+"public_transport/linear_platform_ferry":[
+"תחנת מעבורת \ רציף"
+],
+"public_transport/linear_platform_light_rail":[
+"תחנת רכבת קלה \ רציף"
+],
+"public_transport/linear_platform_monorail":[
+"תחנת מונורייל \ רציף"
+],
+"public_transport/linear_platform_subway":[
+"תחנת רכבת תחתית \ רציף"
+],
+"public_transport/linear_platform_train":[
+"תחנת רכבת \ רציף"
+],
+"public_transport/linear_platform_tram":[
+"תחנת חשמלית \ רציף"
+],
+"public_transport/platform_bus":[
+"תחנת אוטובוס \ רציף"
+],
+"public_transport/platform_ferry":[
+"תחנת מעבורת \ רציף"
+],
+"public_transport/platform_light_rail":[
+"תחנת רכבת קלה \ רציף"
+],
+"public_transport/platform_monorail":[
+"תחנת מונורייל \ רציף"
+],
+"public_transport/platform_subway":[
+"תחנת רכבת תחתית \ רציף"
+],
+"public_transport/platform_train":[
+"תחנת רכבת \ רציף"
+],
+"public_transport/platform_tram":[
+"תחנת חשמלית \ רציף"
+],
+"public_transport/platform_trolleybus":[
+"תחנת חשמלית \ רציף"
+],
+"public_transport/station_bus":[
+"תחנת אוטובוס"
+],
+"public_transport/station_ferry":[
+"מסוף מעבורת"
+],
+"public_transport/station_light_rail":[
+"תחנת רכבת קלה"
+],
+"public_transport/station_monorail":[
+"תחנת מונורייל"
+],
+"public_transport/station_subway":[
+"תחנת רכבת תחתית"
+],
+"public_transport/station_train":[
+"תחנת רכבת"
+],
+"public_transport/station_train_halt":[
+"תחנת רכבת"
+],
+"public_transport/stop_position_bus":[
+"תחנת אוטובוס"
+],
+"public_transport/stop_position_ferry":[
+"תחנת מעבורת"
+],
+"public_transport/stop_position_light_rail":[
+"תחנת רכבת קלה"
+],
+"public_transport/stop_position_monorail":[
+"תחנת מונורייל"
+],
+"public_transport/stop_position_subway":[
+"תחנת רכבת תחתית"
+],
+"public_transport/stop_position_train":[
+"תחנת רכבת"
+],
+"railway":[
+"מסילת רכבת"
+],
+"railway/abandoned":[
+"מסילת רכבת לא בשימוש"
+],
+"railway/disused":[
+"מסילת רכבת לא בשימוש"
+],
+"railway/light_rail":[
+"רכבת קלה"
+],
+"railway/monorail":[
+"מונורייל"
+],
+"railway/platform":[
+"תחנת רכבת \ רציף"
+],
+"railway/rail":[
+"מסילת רכבת"
+],
+"railway/station":[
+"תחנת רכבת"
+],
+"railway/subway":[
+"רכבת תחתית"
+],
+"railway/subway_entrance":[
+"כניסה לרכבת תחתית"
+],
+"railway/switch":[
+"שינוי נתיב רכבת"
+],
+"railway/train_wash":[
+"שטיפת רכבת"
+],
+"railway/tram":[
+"חשמלית"
+],
+"railway/tram_stop":[
+"תחנת חשמלית"
+],
+"roundabout":[
+"מעגל תנועה"
+],
+"route/ferry":[
+"נתיב מעבורת"
+],
+"shop":[
+"חנות"
+],
+"shop/agrarian":[
+"חנות אביזרי חקלאות"
+],
+"shop/alcohol":[
+"חנות משקעות חריפים"
+],
+"shop/anime":[
+"חנות סרטים מצוירים יפנים"
+],
+"shop/antiques":[
+"חנות עתיקות"
+],
+"shop/appliance":[
+"חנות כלים חשמלים"
+],
+"shop/art":[
+"חנות למוצרי אומנות"
+],
+"shop/baby_goods":[
+"חנות לדברי תינוקות"
+],
+"shop/bag":[
+"חנות מזודות"
+],
+"shop/bakery":[
+"מאפייה"
+],
+"shop/bathroom_furnishing":[
+"חנות רהיטי שירותים\מקלחת"
+],
+"shop/beauty":[
+"חנות מוצרי יופי\טיפוח"
+],
+"shop/beauty/nails":[
+"סלון ציפורניים"
+],
+"shop/beauty/tanning":[
+"מכון שיזוף"
+],
+"shop/bed":[
+"חנות מזרונים"
+],
+"shop/beverages":[
+"חנות משקעות"
+],
+"shop/bicycle":[
+"חנות אופניים"
+],
+"shop/books":[
+"חנות ספרים"
+],
+"shop/butcher":[
+"קצב"
+],
+"shop/candles":[
+"חנות נרות"
+],
+"shop/car":[
+"סוכנות רכב"
+],
+"shop/car_parts":[
+"חנות חלקי מכוניות"
+],
+"shop/car_repair":[
+"מוסך"
+],
+"shop/carpet":[
+"חנות שטיחים"
+],
+"shop/charity":[
+"חנות צדקה"
+],
+"shop/cheese":[
+"חנות צדקה"
+],
+"shop/chemist":[
+"בית מרקחת"
+],
+"shop/chocolate":[
+"חנות שוקולד"
+],
+"shop/clothes":[
+"חנות בגדים"
+],
+"shop/coffee":[
+"בית קפה"
+],
+"shop/computer":[
+"חנות מחשבים"
+],
+"shop/confectionery":[
+"חנות ממתקים"
+],
+"shop/convenience":[
+"חנות כולבו"
+],
+"shop/copyshop":[
+"חנות עותקים",
+"חנות  עותקים"
+],
+"shop/cosmetics":[
+"חנות קוסמטיקה"
+],
+"shop/craft":[
+"חנות דברי אומנות"
+],
+"shop/curtain":[
+"חנות וילונות"
+],
+"shop/dairy":[
+"חנות דברי חלב"
+],
+"shop/deli":[
+"מעדניה"
+],
+"shop/department_store":[
+"חנות  כולבו",
+"חנות כולבו"
+],
+"shop/doityourself":[
+"חנות עשה זאת בעצמך"
+],
+"shop/dry_cleaning":[
+"ניקוי יבש"
+],
+"shop/e-cigarette":[
+"חנות דברי עישון"
+],
+"shop/electronics":[
+"חנות אלקטרוניקה"
+],
+"shop/erotic":[
+"חנות סקס"
+],
+"shop/fabric":[
+"חנות אריגה"
+],
+"shop/farm":[
+"ירקן"
+],
+"shop/fashion":[
+"חנות אופנה"
+],
+"shop/fishmonger":[
+"חנות דגים"
+],
+"shop/florist":[
+"חנות פרחים"
+],
+"shop/frame":[
+"חנות חלקאות"
+],
+"shop/funeral_directors":[
+"קברן"
+],
+"shop/furnace":[
+"חנות כבשנים"
+],
+"shop/furniture":[
+"חנות רההיטים"
+],
+"shop/garden_centre":[
+"חנות גננות"
+],
+"shop/gas":[
+"חנות גז"
+],
+"shop/gift":[
+"חנות מתנות"
+],
+"shop/greengrocer":[
+"ירקן"
+],
+"shop/hairdresser":[
+"מעצב שער"
+],
+"shop/hardware":[
+"חנות כלי חומרה"
+],
+"shop/health_food":[
+"חנות מאכלי בריאות"
+],
+"shop/hearing_aids":[
+"חנות מכשירי שמיעה"
+],
+"shop/herbalist":[
+"הרבליסט"
+],
+"shop/jewelry":[
+"תכשיטן"
+],
+"shop/kiosk":[
+"קיוסק"
+],
+"shop/kitchen":[
+"חנות עיצוב מטבח"
+],
+"shop/laundry":[
+"כביסה"
+],
+"shop/leather":[
+"חנות עור"
+],
+"shop/locksmith":[
+"מנעולן"
+],
+"shop/lottery":[
+"חנות לוטו"
+],
+"shop/mall":[
+"קניון"
+],
+"shop/massage":[
+"מכון מסג'"
+],
+"shop/medical_supply":[
+"חנות ציוד רפואי"
+],
+"shop/mobile_phone":[
+"חנות טלפונים ניידים"
+],
+"shop/money_lender":[
+"מלווה בריבית"
+],
+"shop/motorcycle":[
+"חנות אופנועים"
+],
+"shop/music":[
+"חנות מוזיקה"
+],
+"shop/musical_instrument":[
+"חנות כלי נגינה"
+],
+"shop/newsagent":[
+"חנות עיתונים"
+],
+"shop/nutrition_supplements":[
+"חנות ויטמינים"
+],
+"shop/optician":[
+"אופטיקאי"
+],
+"shop/organic":[
+"חנות אורגני"
+],
+"shop/outdoor":[
+"חנות רהיטי גינה"
+],
+"shop/paint":[
+"חנות צבע"
+],
+"shop/pastry":[
+"מאפייה"
+],
+"shop/pawnbroker":[
+"חנות יד שניה"
+],
+"shop/perfumery":[
+"חנות בשמים"
+],
+"shop/pet":[
+"חנות לחיות מחמד"
+],
+"shop/photo":[
+"חנות צילום"
+],
+"shop/pyrotechnics":[
+"חנות זיקוקים"
+],
+"shop/radiotechnics":[
+"חנות אלקטרוניקה ורדיו"
+],
+"shop/religion":[
+"חנות לדברי דת"
+],
+"shop/scuba_diving":[
+"חנות לצוללנים"
+],
+"shop/seafood":[
+"חנות למאכלי ים"
+],
+"shop/second_hand":[
+"חנות יד שניה"
+],
+"shop/shoes":[
+"חנות נעליים"
+],
+"shop/sports":[
+"חנות לדברי ספורט"
+],
+"shop/stationery":[
+"חנות לדברי כתיבה"
+],
+"shop/storage_rental":[
+"שטח אחסון להשכרה"
+],
+"shop/supermarket":[
+"כול-בו"
+],
+"shop/tailor":[
+"חייט"
+],
+"shop/tattoo":[
+"מכון קעקועים"
+],
+"shop/tea":[
+"חנות תה"
+],
+"shop/ticket":[
+"עמדת מכירת כרטיסים"
+],
+"shop/tiles":[
+"חנות מרצפות"
+],
+"shop/tobacco":[
+"חנות טבק"
+],
+"shop/toys":[
+"חנות צעצועים"
+],
+"shop/trade":[
+"חנות מוצרים"
+],
+"shop/travel_agency":[
+"סוכנות נסיעות"
+],
+"shop/tyres":[
+"חנות צמיגים"
+],
+"shop/vacant":[
+"חנות ריקה"
+],
+"shop/vacuum_cleaner":[
+"חנות שועבי אבק"
+],
+"shop/variety_store":[
+"חנות מגון מוצרים"
+],
+"shop/video":[
+"חנות סרטים"
+],
+"shop/video_games":[
+"חנות למשחקי מחשב"
+],
+"shop/watches":[
+"שען"
+],
+"shop/water_sports":[
+"חנות שחיה"
+],
+"shop/weapons":[
+"חנות נשקים קרים"
+],
+"shop/wholesale":[
+"חנות סיטונאות"
+],
+"shop/window_blind":[
+"חנות וילונות"
+],
+"shop/wine":[
+"חנות יינות"
+],
+"tourism":[
+"משרד תיירות"
+],
+"tourism/alpine_hut":[
+"בקטה הררית"
+],
+"tourism/apartment":[
+"בית משותף"
+],
+"tourism/aquarium":[
+"אקווריום"
+],
+"tourism/artwork":[
+"אומנות"
+],
+"tourism/attraction":[
+"אתר תיירותי"
+],
+"tourism/camp_site":[
+"אתר מחנאות"
+],
+"tourism/caravan_site":[
+"מגרש קרוונים"
+],
+"tourism/chalet":[
+"בקתה לחגים"
+],
+"tourism/gallery":[
+"גלריית אומנות"
+],
+"tourism/guest_house":[
+"בית הארחה"
+],
+"tourism/hostel":[
+"הוסטל"
+],
+"tourism/hotel":[
+"מלון"
+],
+"tourism/information":[
+"מידע"
+],
+"tourism/information/board":[
+"לוח מידע"
+],
+"tourism/information/guidepost":[
+"סימון שביל"
+],
+"tourism/information/map":[
+"מפה"
+],
+"tourism/information/office":[
+"מידע תיירותי"
+],
+"tourism/motel":[
+"מלון"
+],
+"tourism/museum":[
+"מוזאון"
+],
+"tourism/picnic_site":[
+"פיקניק"
+],
+"tourism/theme_park":[
+"לונה פארק"
+],
+"tourism/viewpoint":[
+"תצפית"
+],
+"tourism/wilderness_hut":[
+"בקתת טבע"
+],
+"tourism/zoo":[
+"גן חיות"
+],
+"traffic_calming":[
+"הקלת פקקי תנועה"
+],
+"traffic_calming/bump":[
+"פסי האטה"
+],
+"traffic_calming/chicane":[
+"אי תנועה"
+],
+"traffic_calming/choker":[
+"פסי האטה"
+],
+"traffic_calming/cushion":[
+"פסי האטה"
+],
+"traffic_calming/dip":[
+"שקע"
+],
+"traffic_calming/hump":[
+"פסי האטה"
+],
+"traffic_calming/island":[
+"אי תנועה"
+],
+"traffic_calming/rumble_strip":[
+"פסי האטה"
+],
+"traffic_calming/table":[
+"פסי האטה"
+],
+"type/boundary":[
+"גבול"
+],
+"type/boundary/administrative":[
+"גבול ניהולי"
+],
+"type/multipolygon":[
+"מולטיפוליגון"
+],
+"type/restriction":[
+"הפרדה"
+],
+"type/restriction/no_left_turn":[
+"אין פנייה שמאלה"
+],
+"type/restriction/no_right_turn":[
+"אין פנייה ימינה"
+],
+"type/restriction/no_straight_on":[
+"אי אפשר להמשיך ישר"
+],
+"type/restriction/no_u_turn":[
+"אין פניית פרסה"
+],
+"type/route":[
+"נתיב"
+],
+"type/route/bicycle":[
+"מסלול אופניים"
+],
+"type/route/bus":[
+"נתיב אוטובוסים"
+],
+"type/route/detour":[
+"נתיב עקיפה"
+],
+"type/route/ferry":[
+"נתיב מעבורת"
+],
+"type/route/foot":[
+"דרך רגל"
+],
+"type/route/hiking":[
+"דרך טיול"
+],
+"type/route/horse":[
+"נתיב רכיבה"
+],
+"type/route/light_rail":[
+"נתיב רכבת קלה"
+],
+"type/route/pipeline":[
+"נתיב צנרת"
+],
+"type/route/piste":[
+"נתיב סקי"
+],
+"type/route/power":[
+"נתיב חשמל"
+],
+"type/route/road":[
+"נתיב כביש"
+],
+"type/route/subway":[
+"נתיב  רכבת תחתית",
+"נתיב רכבת תחתית"
+],
+"type/route/train":[
+"נתיב רכבת",
+"נתיב  רכבת"
+],
+"type/route/tram":[
+"נתיב חשמלית"
+],
+"type/route_master":[
+"נתיב על"
+],
+"type/site":[
+"אתר"
+],
+"type/waterway":[
+"נתיב מים"
+],
+"vertex":[
+"אחר"
+],
+"waterway":[
+"נתיב מים"
+],
+"waterway/boatyard":[
+"מרינה"
+],
+"waterway/canal":[
+"תעלה"
+],
+"waterway/dam":[
+"סכר"
+],
+"waterway/ditch":[
+"תעלה"
+],
+"waterway/dock":[
+"רציף"
+],
+"waterway/drain":[
+"נקז"
+],
+"waterway/fuel":[
+"תחנת תדלוק ימית"
+],
+"waterway/river":[
+"נחל"
+],
+"waterway/riverbank":[
+"גדות נהר"
+],
+"waterway/sanitary_dump_station":[
+"סילוק פסולת ימי"
+],
+"waterway/stream":[
+"נחל"
+],
+"waterway/stream_intermittent":[
+"נחל תקופתי"
+],
+"waterway/water_point":[
+"תחנת מי שתיה ימי"
+],
+"waterway/waterfall":[
+"מפל"
+],
+"waterway/weir":[
+"סכר"
+]
+}

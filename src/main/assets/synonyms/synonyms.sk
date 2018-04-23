@@ -73,9 +73,7 @@
 "lanovy vlek"
 ],
 "aerialway/station":[
-"lanovková stanica",
-"Stanica lanovky",
-"lanovkova stanica"
+"Stanica lanovky"
 ],
 "aerialway/t-bar":[
 "T kotva",
@@ -267,15 +265,6 @@
 "zmenaren",
 "cudzia mena"
 ],
-"amenity/bus_station":[
-"zastávka",
-"stanica",
-"Autobusová zastávka",
-"mhd",
-"zastavka",
-"autobus",
-"autobusova zastavka"
-],
 "amenity/cafe":[
 "kaviareň",
 "kaviaren",
@@ -455,13 +444,6 @@
 "Rýchle občerstvenie",
 "rychle obcerstvenie",
 "fastfood"
-],
-"amenity/ferry_terminal":[
-"lod",
-"Stanica trajektu",
-"trajekt",
-"autotrajekt",
-"kompa"
 ],
 "amenity/fire_station":[
 "hasici",
@@ -790,12 +772,6 @@
 "narodny park",
 "národný park",
 "sprava narodneho parku"
-],
-"amenity/recycling":[
-"recyklovanie",
-"recyklacia",
-"Recyklácia",
-"zber"
 ],
 "amenity/recycling_centre":[
 "Recyklačné centrum",
@@ -1810,13 +1786,6 @@
 "Jazdecká trať",
 "jazdecká cesta"
 ],
-"highway/bus_stop":[
-"stanica",
-"Autobusova zastavka",
-"nastupiste",
-"Autobusová zastávka",
-"nástupište"
-],
 "highway/corridor":[
 "chodba",
 "Chodba v budove",
@@ -2267,13 +2236,6 @@
 "hora",
 "Les",
 "stromy"
-],
-"landuse/garages":[
-"kryte parkovanie",
-"Garáže",
-"garaze",
-"parkovanie",
-"kryté parkovanie"
 ],
 "landuse/grass":[
 "travnik",
@@ -2943,14 +2905,7 @@
 "Úrad"
 ],
 "office/administrative":[
-"administrativny urad",
 "Administratívny úrad"
-],
-"office/company":[
-"spolocnost",
-"firmy",
-"spoločnosť",
-"Firma"
 ],
 "office/educational_institution":[
 "univerzita",
@@ -3161,17 +3116,6 @@
 "Transformátor",
 "trasformátor"
 ],
-"public_transport/platform":[
-"zastávka",
-"nastupiste",
-"zastavka",
-"Nástupište"
-],
-"public_transport/stop_position":[
-"zastávka",
-"zastavka",
-"Miesto zastavenia"
-],
 "railway":[
 "Železnica"
 ],
@@ -3191,16 +3135,6 @@
 "lanova zeleznica",
 "Lanová dráha"
 ],
-"railway/halt":[
-"stanica",
-"zástavka",
-"vlaková zástavka",
-"vlak",
-"Železničná zastávka",
-"zastavka",
-"zeleznicna zastavka",
-"vlakova zastavka"
-],
 "railway/monorail":[
 "Jednokoľajnicová dráha",
 "jednokolajka",
@@ -3213,14 +3147,6 @@
 "uzkorozchodna zeleznica",
 "úzkoľajka"
 ],
-"railway/platform":[
-"perón",
-"nastupiste",
-"zeleznicne nastupiste",
-"peron",
-"Železničné nástupište",
-"nástupište"
-],
 "railway/rail":[
 "zeleznicna trat",
 "trať",
@@ -3228,13 +3154,6 @@
 "zeleznica",
 "železnica",
 "Železničná trať"
-],
-"railway/station":[
-"stanica",
-"zeleznicna stanica",
-"zástavka",
-"zastavka",
-"Železničná stanica"
 ],
 "railway/subway":[
 "Metro",
@@ -3704,13 +3623,6 @@
 "striebro",
 "Zlatníctvo",
 "sperky"
-],
-"shop/kiosk":[
-"noviny",
-"casopisy",
-"časopisy",
-"Novinový stánok",
-"novinovy stanok"
 ],
 "shop/kitchen":[
 "kuchyňe",
@@ -4251,18 +4163,6 @@
 "type/restriction/no_u_turn":[
 "Zákaz otáčania",
 "zakaz otacania"
-],
-"type/restriction/only_left_turn":[
-"Prikázaný smer jazdy vľavo",
-"Prikazany smer jazdy vlavo"
-],
-"type/restriction/only_right_turn":[
-"prikazany smer jazdy vpravo",
-"Prikázaný smer jazdy vpravo"
-],
-"type/restriction/only_straight_on":[
-"Prikázaný smer jazdy priamo",
-"prikazany smer jazdy priamo"
 ],
 "type/route":[
 "linka",

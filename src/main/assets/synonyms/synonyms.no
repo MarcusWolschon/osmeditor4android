@@ -82,9 +82,6 @@
 "amenity/fast_food":[
 "Hurtigmat"
 ],
-"amenity/ferry_terminal":[
-"Fergeterminal"
-],
 "amenity/fire_station":[
 "Brannstasjon"
 ],
@@ -153,9 +150,6 @@
 ],
 "amenity/pub":[
 "Pub"
-],
-"amenity/recycling":[
-"Resirkulering"
 ],
 "amenity/restaurant":[
 "Restaurant"
@@ -502,9 +496,6 @@
 "highway/bridleway":[
 "Ridevei"
 ],
-"highway/bus_stop":[
-"Busstopp"
-],
 "highway/crossing":[
 "Fotgjengerovergang"
 ],
@@ -615,9 +606,6 @@
 ],
 "landuse/forest":[
 "Skog"
-],
-"landuse/garages":[
-"Garasjer"
 ],
 "landuse/grass":[
 "Gress"
@@ -939,9 +927,6 @@
 "power/transformer":[
 "Transformator"
 ],
-"public_transport/platform":[
-"Plattform"
-],
 "railway":[
 "Jernbane"
 ],
@@ -951,23 +936,14 @@
 "railway/funicular":[
 "Kabelbane"
 ],
-"railway/halt":[
-"Jernbanestasjon"
-],
 "railway/monorail":[
 "Monorail"
 ],
 "railway/narrow_gauge":[
 "Smalsporet jernbane"
 ],
-"railway/platform":[
-"Jernbaneplattform"
-],
 "railway/rail":[
 "Skinne"
-],
-"railway/station":[
-"Jernbanestasjon"
 ],
 "railway/subway":[
 "T-bane"
@@ -1163,9 +1139,6 @@
 ],
 "shop/jewelry":[
 "Smykkeforhandler"
-],
-"shop/kiosk":[
-"Aviskiosk"
 ],
 "shop/kitchen":[
 "Kjøkkenbutikk"
@@ -1370,15 +1343,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Ingen U-sving"
-],
-"type/restriction/only_left_turn":[
-"Påbudt venstresving"
-],
-"type/restriction/only_right_turn":[
-"Påbudt høyresving"
-],
-"type/restriction/only_straight_on":[
-"Ikke tillatt å snu"
 ],
 "type/route":[
 "Rute"

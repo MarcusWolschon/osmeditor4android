@@ -146,9 +146,6 @@
 "highway":[
 "Šoseja"
 ],
-"highway/bus_stop":[
-"Autobusa pietura"
-],
 "highway/cycleway":[
 "Veloceliņš"
 ],
@@ -382,9 +379,6 @@
 ],
 "railway/rail":[
 "Sliedes"
-],
-"railway/station":[
-"Dzelzceļa stacija"
 ],
 "railway/subway":[
 "Metro"

@@ -95,9 +95,6 @@
 "amenity/bureau_de_change":[
 "Менувачница"
 ],
-"amenity/bus_station":[
-"Автобуска станица"
-],
 "amenity/cafe":[
 "Кафетерија"
 ],
@@ -160,9 +157,6 @@
 ],
 "amenity/fast_food":[
 "Брза храна"
-],
-"amenity/ferry_terminal":[
-"Траектен терминал"
 ],
 "amenity/fire_station":[
 "Противпожарна станица"
@@ -262,9 +256,6 @@
 ],
 "amenity/ranger_station":[
 "Шумарска куќарка"
-],
-"amenity/recycling":[
-"Рециклажа"
 ],
 "amenity/recycling_centre":[
 "Рецикларница"
@@ -752,9 +743,6 @@
 "highway/bridleway":[
 "Јавачка патека"
 ],
-"highway/bus_stop":[
-"Автобуска постојка"
-],
 "highway/corridor":[
 "Покриен премин"
 ],
@@ -934,9 +922,6 @@
 ],
 "landuse/forest":[
 "Шума"
-],
-"landuse/garages":[
-"<преведете со истозначници или сродни поими на „Гаражи“, одделени со запирки>"
 ],
 "landuse/grass":[
 "Трева"
@@ -1256,9 +1241,6 @@
 "office/administrative":[
 "Администрација"
 ],
-"office/company":[
-"Претпријатие"
-],
 "office/educational_institution":[
 "Образовна установа"
 ],
@@ -1367,12 +1349,6 @@
 "power/transformer":[
 "Трансформатор"
 ],
-"public_transport/platform":[
-"Перон"
-],
-"public_transport/stop_position":[
-"Постојка"
-],
 "railway":[
 "Пруга"
 ],
@@ -1388,9 +1364,6 @@
 "railway/funicular":[
 "Искачница"
 ],
-"railway/halt":[
-"Железничка постојка"
-],
 "railway/level_crossing":[
 "Премин преку пруга (пат)"
 ],
@@ -1400,14 +1373,8 @@
 "railway/narrow_gauge":[
 "Теснолинејка"
 ],
-"railway/platform":[
-"Железнички перон"
-],
 "railway/rail":[
 "Шини"
-],
-"railway/station":[
-"Железничка станица"
 ],
 "railway/subway":[
 "Подземна железница"
@@ -1621,9 +1588,6 @@
 ],
 "shop/jewelry":[
 "Златарница"
-],
-"shop/kiosk":[
-"Весникара"
 ],
 "shop/kitchen":[
 "Кујни и елементи"
@@ -1897,15 +1861,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Забранет пресврт"
-],
-"type/restriction/only_left_turn":[
-"Дозволено вртење само лево"
-],
-"type/restriction/only_right_turn":[
-"Дозволено вртење само десно"
-],
-"type/restriction/only_straight_on":[
-"Забрането вртење"
 ],
 "type/route":[
 "Правец"

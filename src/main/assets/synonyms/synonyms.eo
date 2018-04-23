@@ -14,6 +14,12 @@
 "anonctabulo",
 "spamo"
 ],
+"advertising/column":[
+"afiŝkolono",
+"Reklam-kolono",
+"kolumno",
+"reklamkolono"
+],
 "aerialway":[
 "Kablotransporto"
 ],
@@ -85,7 +91,8 @@
 "fosto",
 "Kablovoja fosto",
 "apogstango",
-"stango"
+"stango",
+"kolono"
 ],
 "aerialway/rope_tow":[
 "sxnurtira skitelfero",
@@ -94,9 +101,7 @@
 "shnurtira skitelfero"
 ],
 "aerialway/station":[
-"telferstacio",
-"Kablovoja stacio",
-"telfera stacio"
+"Kablovoja stacio"
 ],
 "aerialway/t-bar":[
 "seĝa telfero",
@@ -158,6 +163,10 @@
 "flughaveno",
 "terminalo",
 "Flugstacio"
+],
+"allotments/plot":[
+"terpeco;parcelo;ĝardeno",
+"Parcelo de familia ĝardeno"
 ],
 "amenity":[
 "Servejo"
@@ -283,13 +292,7 @@
 "interŝanĝejo"
 ],
 "amenity/bus_station":[
-"stacio aŭtobusa",
-"autobusostacio",
-"auxtobusostacio",
-"stacio busa",
-"Aŭtobus-stacio",
-"haltejo aŭtobusa",
-"busstacio"
+"Aŭtobus-stacio"
 ],
 "amenity/cafe":[
 "cafe",
@@ -297,6 +300,12 @@
 "trinkejo",
 "kafo",
 "teo"
+],
+"amenity/car_pooling":[
+"kunveturado",
+"petveturado",
+"Kunvetura haltejo (carpooling)",
+"carpooling"
 ],
 "amenity/car_rental":[
 "auxtopruntejo",
@@ -486,11 +495,7 @@
 "Rapidmanĝejo"
 ],
 "amenity/ferry_terminal":[
-"pramterminalo",
-"Pramstacio",
-"pramŝipo",
-"terminalo",
-"pramo"
+"Pram-stacio"
 ],
 "amenity/fire_station":[
 "fajrosoldatejo",
@@ -588,11 +593,24 @@
 "Biblioteko",
 "librarejo"
 ],
+"amenity/love_hotel":[
+"amorhotelo",
+"Amor-hotelo",
+"amhotelo"
+],
 "amenity/marketplace":[
 "foirejo",
 "foiro",
 "Bazaro",
 "komercejo"
+],
+"amenity/monastery":[
+"abatejo",
+"klostro",
+"monahhejo",
+"klaŭstro",
+"monahxejo",
+"Monaĥeja tereno"
 ],
 "amenity/motorcycle_parking":[
 "Motorcikla parkumejo",
@@ -792,7 +810,7 @@
 ],
 "amenity/recycling":[
 "rubujego",
-"Recikligejo",
+"Recikligujo",
 "recikligo",
 "rubujo"
 ],
@@ -841,6 +859,10 @@
 "banado",
 "duŝo",
 "dushejo"
+],
+"amenity/smoking_area":[
+"Fumejo",
+"cigaredfumejo"
 ],
 "amenity/social_facility":[
 "socia servo",
@@ -929,6 +951,11 @@
 "Vendilo de cigaredoj",
 "cigaredo"
 ],
+"amenity/vending_machine/coffee":[
+"Vendilo de kafo",
+"kafmaŝino",
+"teo"
+],
 "amenity/vending_machine/condoms":[
 "kondomo",
 "vendmaŝimo",
@@ -940,6 +967,22 @@
 "trinkaĵoj",
 "vendilo de trinkajxoj",
 "Vendilo de trinkaĵoj"
+],
+"amenity/vending_machine/electronics":[
+"kabloj",
+"memorbastonetoj",
+"memorkartoj",
+"memoriloj",
+"SD-kartoj",
+"piloj",
+"ŝargiloj",
+"Vendilo de elektronikaĵoj"
+],
+"amenity/vending_machine/elongated_coin":[
+"etendilo",
+"moneretendilo",
+"memoraĵoj",
+"Vendilo de etenditaj moneroj"
 ],
 "amenity/vending_machine/excrement_bags":[
 "Vendilo de saketoj por fekaĵoj",
@@ -953,6 +996,24 @@
 "menstrusorbiloj",
 "persona higieno",
 "Vendilo de virinaj higienaĵoj"
+],
+"amenity/vending_machine/food":[
+"mangxajxo",
+"manghajho",
+"Vendilo de manĝaĵo"
+],
+"amenity/vending_machine/fuel":[
+"benzinstacio",
+"LPG",
+"biodisel",
+"benzino",
+"Vendilo de benzino",
+"brulaĵo",
+"diseloleo"
+],
+"amenity/vending_machine/ice_cream":[
+"Vendilo de glaciaĵoj",
+"glaciaĵo"
 ],
 "amenity/vending_machine/news_papers":[
 "Vendilo de gazetoj"
@@ -986,6 +1047,10 @@
 "vojimpostilo",
 "Vendilo de vojimpostoj",
 "vojimposto"
+],
+"amenity/vending_machine/stamps":[
+"Vendilo de poŝtmarkoj",
+"poŝtmarkoj"
 ],
 "amenity/vending_machine/sweets":[
 "dolchajhoj",
@@ -1103,6 +1168,11 @@
 "Defala turo (allogaĵo)",
 "drop tower"
 ],
+"attraction/maze":[
+"vojenigmo",
+"enigmo",
+"Labirinto"
+],
 "attraction/pirate_ship":[
 "shipo",
 "Pirata ŝipo (allogaĵo)",
@@ -1213,6 +1283,12 @@
 "plektobarilo",
 "heĝo"
 ],
+"barrier/kerb":[
+"trotuarrandaĵo",
+"randŝtono",
+"Trotuar-randaĵo",
+"randaĵo"
+],
 "barrier/kissing_gate":[
 "Nurhoma pordego",
 "kontraubruta",
@@ -1276,6 +1352,19 @@
 "farmbieno",
 "grenejo"
 ],
+"building/boathouse":[
+"boatejo",
+"boaatgaraĝo",
+"Boat-garaĝo",
+"haveneto"
+],
+"building/bungalow":[
+"vilao",
+"Bangalo (unuetaĝa somerdomo)",
+"somerdomo",
+"dometo",
+"feridomo"
+],
 "building/bunker":[
 "Bunkro"
 ],
@@ -1300,6 +1389,13 @@
 "preĝejo",
 "preghejo",
 "Kirko"
+],
+"building/civic":[
+"komunuma centro",
+"Publika konstruaĵo (ĝenerala)",
+"civila konstruaĵo",
+"civitana konstruaĵo",
+"biblioteko"
 ],
 "building/college":[
 "Kolegia konstruaĵo",
@@ -1331,6 +1427,22 @@
 ],
 "building/entrance":[
 "Enirejo/elirejo"
+],
+"building/farm":[
+"farmo",
+"kampara domo",
+"Ĉefarma domo",
+"somerdomo",
+"kampodomo",
+"farmodomo"
+],
+"building/farm_auxiliary":[
+"farmo",
+"kampara domo",
+"Ĉefarma konstruaĵo",
+"somerdomo",
+"kampodomo",
+"farmodomo"
 ],
 "building/garage":[
 "aŭtomobilejo",
@@ -1391,9 +1503,15 @@
 "Infanĝardena konstruaĵo",
 "infangxardeno"
 ],
+"building/mosque":[
+"islamo",
+"minareto",
+"moskeo",
+"Moskea konstruaĵo"
+],
 "building/public":[
-"Publika konstruaĵo",
-"administrejo"
+"administrejo",
+"Publika konstruaĵo (ofica)"
 ],
 "building/residential":[
 "apartamentaro",
@@ -1411,6 +1529,12 @@
 "building/roof":[
 "tegmento"
 ],
+"building/ruins":[
+"konstruaĵaĉo",
+"domaĉo",
+"ruinoj",
+"Ruinoj de konstruaĵo (ne-historie-signifa)"
+],
 "building/school":[
 "lernejo",
 "Lerneja konstruaĵo",
@@ -1423,6 +1547,13 @@
 "Ĝemela domo",
 "gxemela domo",
 "familia domo"
+],
+"building/service":[
+"Serva konstruaĵeto",
+"akvopumpejo",
+"pumpejo",
+"transformilo",
+"transformatoro"
 ],
 "building/shed":[
 "Budo",
@@ -1437,11 +1568,21 @@
 "Ĉevalejo",
 "stalo"
 ],
+"building/stadium":[
+"sportejo",
+"Stadiona konstruaĵo",
+"stadiono"
+],
 "building/static_caravan":[
 "movebla domo",
 "Movdomo",
 "kampveturilo statika",
 "kampadveturilo statika"
+],
+"building/temple":[
+"Templa konstruaĵo",
+"templo",
+"sanktejo"
 ],
 "building/terrace":[
 "Envicaj domoj",
@@ -1454,6 +1595,14 @@
 ],
 "building/train_station":[
 "Stacio fervoja"
+],
+"building/transportation":[
+"Transporta konstruaĵo",
+"stacio",
+"stacidomo",
+"flughaveno.haveno",
+"aŭtobusstacio",
+"busstacio"
 ],
 "building/university":[
 "Universitata konstruaĵo",
@@ -1473,6 +1622,9 @@
 "Kampadeja loko",
 "kampadejo",
 "tendo"
+],
+"circular":[
+"Trafikcirklo"
 ],
 "club":[
 "Klubejo",
@@ -1833,6 +1985,13 @@
 "emergency/private":[
 "Vivsav-serva aliro: privata"
 ],
+"emergency/water_tank":[
+"rezervujo",
+"fajrobrigada akvujo",
+"kriokaza akvujo",
+"akvujo",
+"Kontraŭbrulega akvujo"
+],
 "emergency/yes":[
 "Vivsav-serva aliro: jes"
 ],
@@ -1971,6 +2130,12 @@
 "flegejo",
 "hospico"
 ],
+"healthcare/laboratory":[
+"labo",
+"sanĝkontrolejo",
+"Medicina laboratorio",
+"medicina labo"
+],
 "healthcare/midwife":[
 "Akuŝisto",
 "naskiĝdomo",
@@ -2024,8 +2189,12 @@
 "Ĉeval-vojo",
 "cxevalvojo"
 ],
+"highway/bus_guideway":[
+"trakbuso",
+"Trak-aŭtobuso",
+"gvidata aŭtobuso"
+],
 "highway/bus_stop":[
-"aŭtobushaltejo",
 "Haltejo aŭtobusa"
 ],
 "highway/corridor":[
@@ -2122,6 +2291,11 @@
 "enveturejo",
 "elveturejo",
 "nodo"
+],
+"highway/passing_place":[
+"pasejo",
+"preterveturejo",
+"Preterpasejo"
 ],
 "highway/path":[
 "Vojeto (piedpremita)",
@@ -2496,11 +2670,10 @@
 "Kultiv-arbaro"
 ],
 "landuse/garages":[
-"garaĝoj",
-"aŭtejo",
-"garaĝo",
+"garaĝejo",
 "garagharo",
-"Garaĝaro",
+"Garaĝa tereno",
+"garaĝaro",
 "garagxaro"
 ],
 "landuse/grass":[
@@ -2512,6 +2685,11 @@
 "Konstruejo (virga tereno)",
 "kampo",
 "verda kampo"
+],
+"landuse/greenhouse_horticulture":[
+"Kultivdoma tereno",
+"forcejo",
+"plantodomo"
 ],
 "landuse/harbour":[
 "ŝipejo",
@@ -2621,6 +2799,22 @@
 "vetludejo",
 "Hazardludejo"
 ],
+"leisure/amusement_arcade":[
+"videoludoj",
+"ludejo",
+"paĉinko",
+"flipero",
+"Salono de ludoj",
+"amuzaparatoj",
+"bilardo"
+],
+"leisure/beach_resort":[
+"plaĝo",
+"strando",
+"ripozcentro",
+"sunbanejo",
+"Sablobordo administrata (kun oportunaĵoj)"
+],
 "leisure/bird_hide":[
 "Bird-observejo",
 "birdobservejo"
@@ -2638,6 +2832,11 @@
 "Dancejo",
 "diskoteko",
 "diskejo"
+],
+"leisure/dancing_school":[
+"dancolernejo",
+"Danca lernejo",
+"danclernejo"
 ],
 "leisure/dog_park":[
 "hundparko",
@@ -2772,6 +2971,14 @@
 "konservejo",
 "naturprotektejo",
 "Natur-rezervejo"
+],
+"leisure/outdoor_seating":[
+"seghoj",
+"segxoj",
+"Seĝoj eksterdome",
+"altano",
+"teraso",
+"benko"
 ],
 "leisure/park":[
 "Parko",
@@ -2977,6 +3184,10 @@
 "minejgalerio",
 "galerio"
 ],
+"man_made/antenna":[
+"Anteno",
+"masto"
+],
 "man_made/breakwater":[
 "ĝeto",
 "digo",
@@ -3032,10 +3243,26 @@
 "anteno",
 "signalmasto"
 ],
+"man_made/monitoring_station":[
+"aerkvalit-mezuro",
+"meteorologia stacio",
+"akvonivelmezurilo",
+"Observada stacio",
+"monitorado",
+"veterstacio",
+"meteostacio",
+"medikvalit-mezuro"
+],
 "man_made/observation":[
 "observturo",
 "Vidturo",
 "turo"
+],
+"man_made/observatory":[
+"Observejo",
+"teleskopo",
+"astronomia",
+"vetera"
 ],
 "man_made/petroleum_well":[
 "naftoŝakto",
@@ -3236,6 +3463,10 @@
 "herbejo",
 "Erikejo"
 ],
+"natural/mud":[
+"koto;malsekejo;ŝlimejo",
+"Kota tereno"
+],
 "natural/peak":[
 "supro",
 "montopinto",
@@ -3360,7 +3591,6 @@
 "Oficejo de kontisto"
 ],
 "office/administrative":[
-"administrado",
 "Administra oficejo"
 ],
 "office/adoption_agency":[
@@ -3508,9 +3738,6 @@
 "juristo"
 ],
 "office/lawyer/notary":[
-"aktisto",
-"notario",
-"registristo",
 "Oficejo de notario"
 ],
 "office/moving_company":[
@@ -3830,17 +4057,235 @@
 "transformatoro",
 "elektrotransformilo"
 ],
+"public_transport/linear_platform":[
+"perono",
+"stacio",
+"kajo",
+"atendejo",
+"Haltejo publik-transporta (atendejo)",
+"haltejo"
+],
+"public_transport/linear_platform_aerialway":[
+"kablovoja stacio",
+"telfero",
+"Haltejo kablovoja (atendejo)"
+],
+"public_transport/linear_platform_bus":[
+"aŭtobushaltejo",
+"stacio",
+"Haltejo aŭtobusa (atendejo)",
+"atendejo",
+"pereno"
+],
+"public_transport/linear_platform_ferry":[
+"Haltejo prama (atendejo)",
+"pramstacio",
+"haveno"
+],
+"public_transport/linear_platform_light_rail":[
+"malpeza fervojo",
+"perono",
+"trajno malpeza",
+"stacio",
+"Haltejo de malpeza fervojo (atendejo)"
+],
+"public_transport/linear_platform_monorail":[
+"perono",
+"Haltejo de unurela fervojo (atendejo)",
+"kajo",
+"unurela fervojo"
+],
+"public_transport/linear_platform_subway":[
+"metrostacio",
+"metroa haltejo",
+"Haltejo metroa (atendejo)",
+"subtera vagonaro"
+],
+"public_transport/linear_platform_train":[
+"perono",
+"Haltejo fervoja (atendejo)",
+"fervoja haltejo",
+"fervoja stacio"
+],
+"public_transport/linear_platform_tram":[
+"Haltejo trama (atendejo)",
+"tramhaltejo"
+],
+"public_transport/linear_platform_trolleybus":[
+"Haltejo trolebusa (atendejo)",
+"troleo",
+"trolebushaltejo"
+],
 "public_transport/platform":[
 "perono",
 "stacio",
-"Kajo (atendejo)",
+"kajo",
+"atendejo",
+"Haltejo publik-transporta (atendejo)",
 "haltejo"
 ],
-"public_transport/stop_position":[
+"public_transport/platform_aerialway":[
+"kablovoja stacio",
+"telfero",
+"Haltejo kablovoja (atendejo)"
+],
+"public_transport/platform_bus":[
+"aŭtobushaltejo",
+"stacio",
+"Haltejo aŭtobusa (atendejo)",
+"atendejo",
+"pereno"
+],
+"public_transport/platform_ferry":[
+"Haltejo prama (atendejo)",
+"pramstacio",
+"haveno"
+],
+"public_transport/platform_light_rail":[
+"malpeza fervojo",
 "perono",
+"trajno malpeza",
+"stacio",
+"Haltejo de malpeza fervojo (atendejo)"
+],
+"public_transport/platform_monorail":[
+"perono",
+"Haltejo de unurela fervojo (atendejo)",
 "kajo",
-"Haltejo (veturil-haltejo)",
+"unurela fervojo"
+],
+"public_transport/platform_subway":[
+"metrostacio",
+"metroa haltejo",
+"Haltejo metroa (atendejo)",
+"subtera vagonaro"
+],
+"public_transport/platform_train":[
+"perono",
+"Haltejo fervoja (atendejo)",
+"fervoja haltejo",
+"fervoja stacio"
+],
+"public_transport/platform_tram":[
+"Haltejo trama (atendejo)",
+"tramhaltejo"
+],
+"public_transport/platform_trolleybus":[
+"Haltejo trolebusa (atendejo)",
+"troleo",
+"trolebushaltejo"
+],
+"public_transport/station":[
+"stacidomo",
+"Stacio publik-transporta"
+],
+"public_transport/station_aerialway":[
+"telferstacio",
+"Stacio kablovoja",
+"telfera stacio"
+],
+"public_transport/station_bus":[
+"Stacio aŭtobusa",
+"stacio aŭtobusa",
+"autobusostacio",
+"auxtobusostacio",
+"stacio busa",
+"haltejo aŭtobusa",
+"busstacio"
+],
+"public_transport/station_ferry":[
+"Stacio prama",
+"pramterminalo",
+"pramstacio",
+"pramŝipo",
+"terminalo"
+],
+"public_transport/station_light_rail":[
+"malpeza fervojo",
+"tramo",
+"Stacio de malpeza fervojo",
+"malpeza trajno",
+"suburba fervojo"
+],
+"public_transport/station_monorail":[
+"unurelvojo",
+"unurela fervojo",
+"Stacio de unurela fervojo"
+],
+"public_transport/station_subway":[
+"metroo",
+"Stacio metroa",
+"subtera fervojo"
+],
+"public_transport/station_train":[
+"Stacio fervoja",
+"stacidomo fervoja"
+],
+"public_transport/station_train_halt":[
+"haltejo fervoja",
+"Stacio fervoja (laŭpete)"
+],
+"public_transport/station_tram":[
+"trama haltejo",
+"tramhaltejo",
+"Stacio trama"
+],
+"public_transport/station_trolleybus":[
+"Stacio trolebusa",
+"troleo",
+"trolebushaltejo"
+],
+"public_transport/stop_area":[
+"haltejo",
+"Haltejo publik-transporta (rilato)"
+],
+"public_transport/stop_position":[
+"Haltejo publik-transporta (haltloko)",
+"haltejo",
+"haltloko"
+],
+"public_transport/stop_position_aerialway":[
+"telfero",
+"Haltejo kablovoja (haltloko)"
+],
+"public_transport/stop_position_bus":[
+"Haltejo aŭtobusa (haltloko - ŝoseo)",
+"aŭtobusa haltejo"
+],
+"public_transport/stop_position_ferry":[
+"śnurfiksejo",
+"pramo",
+"Haltejo prama (haltloko - akvo)"
+],
+"public_transport/stop_position_light_rail":[
+"malpeza fervojo",
+"Haltejo de malpeza fervojo (haltloko - trako)",
+"malpeza trajno"
+],
+"public_transport/stop_position_monorail":[
+"Haltejo de unurela fervojo (haltloko - trako)",
+"unurela trajno",
 "haltejo"
+],
+"public_transport/stop_position_subway":[
+"metroo",
+"Haltejo metroa (haltloko - trako)",
+"subtera fervojo"
+],
+"public_transport/stop_position_train":[
+"fervojo",
+"Haltejo fervoja (haltloko - trako)",
+"trajno",
+"haltejo"
+],
+"public_transport/stop_position_tram":[
+"Haltejo trama (haltloko - trako)",
+"tramo",
+"haltejo"
+],
+"public_transport/stop_position_trolleybus":[
+"troleo",
+"Haltejo trolebusa (haltloko - ŝoseo)"
 ],
 "railway":[
 "Fervojo"
@@ -3874,7 +4319,8 @@
 ],
 "railway/disused":[
 "trako",
-"Forlasita relvojo",
+"forlasita fervojlinio",
+"Neuzata relvojo",
 "eksa fervojlinio",
 "relvojo"
 ],
@@ -3887,10 +4333,7 @@
 "telfero"
 ],
 "railway/halt":[
-"stacio",
-"kajo",
-"haltejo",
-"Haltejeto fervoja"
+"Stacio fervoja (laŭpete)"
 ],
 "railway/level_crossing":[
 "pasejo",
@@ -3910,6 +4353,13 @@
 "Mejloŝtono fervoja",
 "fervoja mejloŝtono"
 ],
+"railway/miniature":[
+"maketo",
+"vagonareto",
+"trajneto",
+"fervojeto",
+"Miniatura fervojo"
+],
 "railway/monorail":[
 "unurelvojo",
 "Relvojo unurela",
@@ -3927,10 +4377,7 @@
 "Relvojo etŝpura"
 ],
 "railway/platform":[
-"perono",
-"stacio",
-"Kajo fervoja",
-"haltejo"
+"Haltejo fervoja (atendejo)"
 ],
 "railway/rail":[
 "trako",
@@ -3947,8 +4394,7 @@
 "semaforo"
 ],
 "railway/station":[
-"fervoja stacidomo",
-"Stacidomo fervoja"
+"Stacio fervoja"
 ],
 "railway/subway":[
 "subtera fervojo",
@@ -3982,9 +4428,7 @@
 "Relvojo trama"
 ],
 "railway/tram_stop":[
-"trama haltejo",
-"tramhaltejo",
-"Haltejo trama"
+"Haltejo trama (haltloko - trako)"
 ],
 "relation":[
 "Rilato",
@@ -4419,6 +4863,13 @@
 "iloj",
 "ilovendejo"
 ],
+"shop/health_food":[
+"Sanig-manĝaĵa vendejo",
+"saniga manĝaĵo",
+"ekologia manĝaĵo",
+"vegetarisma manĝaĵo",
+"sana manĝaĵo"
+],
 "shop/hearing_aids":[
 "aŭdiloj",
 "orelhelpiloj",
@@ -4620,6 +5071,14 @@
 "Dombesta vendejo",
 "bestoj"
 ],
+"shop/pet_grooming":[
+"hundoj",
+"hartondisto",
+"hejmbestoj",
+"Dombesta beligejo",
+"katoj",
+"frizejo"
+],
 "shop/photo":[
 "Fotografia vendejo",
 "fotografarto",
@@ -4812,6 +5271,11 @@
 "milita",
 "pafiloj"
 ],
+"shop/wholesale":[
+"Pogranda vendejo",
+"magazeno",
+"staplo"
+],
 "shop/window_blind":[
 "rulkurtenoj",
 "fenestrokovriloj",
@@ -4958,6 +5422,11 @@
 "amuzejo",
 "temparko"
 ],
+"tourism/trail_riding_station":[
+"Pensiono por ĉevalistoj",
+"ĉevalejo",
+"ĉevalhotelo"
+],
 "tourism/viewpoint":[
 "vidindaĵo",
 "rigardejo",
@@ -5087,23 +5556,24 @@
 "Ĝirado U-forma malpermesata"
 ],
 "type/restriction/only_left_turn":[
-"ordono",
-"Turno maldekstren devigita",
-"devigo",
+"liven",
+"Nur turno maldekstren",
 "maldekstren"
 ],
 "type/restriction/only_right_turn":[
-"ordono",
-"Turno dekstren devigita",
-"devigo",
-"maldekstren"
+"Nur turno dekstren",
+"dekstren"
 ],
 "type/restriction/only_straight_on":[
-"ordono",
-"devigo",
+"Nur veturo rekten",
 "antaŭen",
-"Veturo rekten devigita",
 "rekten"
+],
+"type/restriction/only_u_turn":[
+"Nur turno malantaŭen",
+"malantaŭen",
+"reveturen",
+"U-turno"
 ],
 "type/route":[
 "Kurso",
@@ -5154,6 +5624,13 @@
 "chevala kurso",
 "ĉevalvojo"
 ],
+"type/route/light_rail":[
+"malpeza fervojo",
+"tramo",
+"Kurso de fervojo malpeza",
+"malpeza trajno",
+"suburba fervojo"
+],
 "type/route/pipeline":[
 "dukto",
 "tubolinio",
@@ -5164,6 +5641,11 @@
 "naftodukto",
 "akvodukto"
 ],
+"type/route/piste":[
+"skitrako",
+"Skiada kurso",
+"skivojo"
+],
 "type/route/power":[
 "lineo forkurenta",
 "Elektra kondukilo",
@@ -5173,6 +5655,11 @@
 "ŝoseo",
 "vojo",
 "Trafikvojo"
+],
+"type/route/subway":[
+"Metroa kurso",
+"metroo",
+"subtera fervojo"
 ],
 "type/route/train":[
 "trako",

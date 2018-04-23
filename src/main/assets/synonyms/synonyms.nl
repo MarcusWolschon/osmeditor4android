@@ -67,8 +67,7 @@
 "bugellift"
 ],
 "aerialway/station":[
-"Kabelbaanstation",
-"skiliftstation"
+"Kabelbaanstation"
 ],
 "aerialway/t-bar":[
 "skilift",
@@ -237,12 +236,7 @@
 "Wisselkantoor"
 ],
 "amenity/bus_station":[
-"bus",
-"bushalte",
-"OV",
-"station",
-"Busstation",
-"openbaar vervoer"
+"Busstation"
 ],
 "amenity/cafe":[
 "Cafetaria",
@@ -256,6 +250,15 @@
 "tea-room",
 "vieruurtje",
 "cafetaria"
+],
+"amenity/car_pooling":[
+"oppikplaats voor carpooling",
+"Oppikplaats voor carpooling",
+"carpoolparking",
+"samenrijden",
+"afzetplaats voor samenrijden",
+"carpoolstopplaats",
+"carpooling"
 ],
 "amenity/car_rental":[
 "huurauto",
@@ -411,11 +414,6 @@
 "Fastfoodrestaurant"
 ],
 "amenity/ferry_terminal":[
-"ferryterminal",
-"dok",
-"aanmeren",
-"pontterminal",
-"veerpontterminal",
 "Veerbootterminal"
 ],
 "amenity/fire_station":[
@@ -498,6 +496,15 @@
 "literatuuur",
 "lenen"
 ],
+"amenity/love_hotel":[
+"sekshotel",
+"privacyhotel",
+"liefdeshotel",
+"Love hotel",
+"discrete kamers",
+"privacykamers",
+"discreet hotel"
+],
 "amenity/marketplace":[
 "vis",
 "Marktplaats",
@@ -516,6 +523,11 @@
 "parking voor motorfietsen",
 "motoparking",
 "motorfietsparking"
+],
+"amenity/music_school":[
+"conservatorium",
+"Muziekschool",
+"muziekacademie"
 ],
 "amenity/nightclub":[
 "dancing",
@@ -674,13 +686,9 @@
 "Boswachtershut"
 ],
 "amenity/recycling":[
-"milieupark",
 "glasbol",
-"containerpark",
-"recyclage",
-"Recyclage",
+"Recyclagecontainer",
 "recycling",
-"stort",
 "milieustraat"
 ],
 "amenity/recycling_centre":[
@@ -741,6 +749,9 @@
 "stortbad",
 "Douche",
 "kraan"
+],
+"amenity/smoking_area":[
+"Rookgebied"
 ],
 "amenity/social_facility":[
 "hulp",
@@ -1011,9 +1022,13 @@
 "Achtbaan"
 ],
 "attraction/train":[
+"treintje",
 "Toeristentrein"
 ],
 "attraction/water_slide":[
+"waterbaan",
+"glijbaan",
+"wildwaterglijbaan",
 "Waterglijbaan"
 ],
 "barrier":[
@@ -1083,7 +1098,14 @@
 "Haag",
 "haag"
 ],
+"barrier/kerb":[
+"Stoeprand"
+],
 "barrier/kissing_gate":[
+"veehek",
+"kushek",
+"kusjeshek",
+"kissing gate",
 "Voetgangershek"
 ],
 "barrier/lift_gate":[
@@ -1137,6 +1159,14 @@
 "Schuur",
 "loods"
 ],
+"building/boathouse":[
+"botenhuis",
+"Boothuis",
+"bootligplaats"
+],
+"building/bungalow":[
+"Bungalow"
+],
 "building/bunker":[
 "Bunker"
 ],
@@ -1150,6 +1180,7 @@
 "blokhut"
 ],
 "building/cathedral":[
+"kerkgebouw",
 "Kathedraalgebouw"
 ],
 "building/chapel":[
@@ -1158,13 +1189,16 @@
 "building/church":[
 "Kerkgebouw"
 ],
+"building/civic":[
+"Niet gebruiken – niet-gestandardiseerde tag"
+],
 "building/college":[
+"Gebouw van beroepsschool",
 "buso",
 "speciaal onderwijs",
 "vmbo",
 "middelbaar",
 "secundair onderwijs",
-"Gebouw van Beroepsschool",
 "onderwijs",
 "buo",
 "bso",
@@ -1239,13 +1273,20 @@
 "Hut"
 ],
 "building/industrial":[
+"bedrijfsgebouw",
+"industriegebouw",
 "Industrieel gebouw"
 ],
 "building/kindergarten":[
 "kleuterschool",
 "peuterspeelzaal",
-"Gebouw van Crèche/Kleuterschool",
-"kinderdagverblijf"
+"kinderdagverblijf",
+"Kleuterschool/Gebouw van crèche"
+],
+"building/mosque":[
+"Moskeegebouw",
+"masjid",
+"pleinmoskee"
 ],
 "building/public":[
 "Openbaar gebouw",
@@ -1270,6 +1311,9 @@
 "afdak",
 "Dak"
 ],
+"building/ruins":[
+"Gebouwruïnes"
+],
 "building/school":[
 "school",
 "basisschool",
@@ -1281,7 +1325,10 @@
 "Schoolgebouw"
 ],
 "building/semidetached_house":[
-"Verworpen tag, gebruik dit niet"
+"Niet gebruiken – niet-gestandardiseerde tag"
+],
+"building/service":[
+"Klein machinegebouw (pomp, onderstation …)"
 ],
 "building/shed":[
 "tuinhuis",
@@ -1295,8 +1342,16 @@
 "vee",
 "Stal"
 ],
+"building/stadium":[
+"Stadiongebouw"
+],
 "building/static_caravan":[
-"Stacaravan"
+"Stacaravan",
+"chalet",
+"woonwagen"
+],
+"building/temple":[
+"Tempelgebouw"
 ],
 "building/terrace":[
 "huis",
@@ -1309,6 +1364,9 @@
 ],
 "building/train_station":[
 "Treinstation"
+],
+"building/transportation":[
+"Openbaarvervoersgebouw"
 ],
 "building/university":[
 "hogeschool",
@@ -1327,6 +1385,9 @@
 "Individueel kampeerveld of sta-plaats op camping",
 "kampeerveldje",
 "staplaats"
+],
+"circular":[
+"Rotonde, verkeer erop niet steeds voorrang"
 ],
 "club":[
 "Club",
@@ -1380,6 +1441,8 @@
 "Timmerman"
 ],
 "craft/carpet_layer":[
+"tapis plain",
+"vloerbekleder",
 "Tapijtlegger"
 ],
 "craft/caterer":[
@@ -1387,10 +1450,19 @@
 "cateraar",
 "Catering"
 ],
+"craft/chimney_sweeper":[
+"schouwveger",
+"Schoorsteenveger"
+],
 "craft/clockmaker":[
 "Klokmaker",
 "uurwerk",
 "klok"
+],
+"craft/confectionery":[
+"snoepwinkel",
+"artisanale snoepmaker",
+"Snoepmaker"
 ],
 "craft/distillery":[
 "alcohol",
@@ -1489,7 +1561,8 @@
 "Opticien"
 ],
 "craft/painter":[
-"Schilder"
+"Schilder",
+"schildersbedrijf"
 ],
 "craft/photographer":[
 "Fotograaf",
@@ -1562,6 +1635,11 @@
 "stellagemaker",
 "Stellingenmaker"
 ],
+"craft/sculptor":[
+"beeldenaar",
+"Beeldhouwer",
+"kunstenaar"
+],
 "craft/shoemaker":[
 "Schoenmaker",
 "schoenenmaker"
@@ -1619,7 +1697,11 @@
 "emergency/defibrillator":[
 "AED",
 "groene doos",
-"hart",
+"elektrische schok",
+"hartritme",
+"schok",
+"externe defibrillator",
+"reanimeren",
 "Defibrillator"
 ],
 "emergency/designated":[
@@ -1653,6 +1735,9 @@
 "emergency/private":[
 "Toegang voor hulpdiensten: privé"
 ],
+"emergency/water_tank":[
+"Noodwatertank"
+],
 "emergency/yes":[
 "Toegang voor hulpdiensten: ja"
 ],
@@ -1683,8 +1768,9 @@
 "Verhoogd Brits zebrapad zonder verkeerslichten"
 ],
 "footway/sidewalk":[
-"Stoep",
-"trottoir"
+"stoep",
+"voetpad",
+"Trottoir"
 ],
 "ford":[
 "trecht",
@@ -1784,13 +1870,13 @@
 "terminaal",
 "palliatieve zorg",
 "terminaal ziek",
-"Hospice",
 "hospicezorg",
-"palliatieve-zorgcentrum",
+"Palliatievezorgcentrum",
 "hospitium",
-"palliatieve-zorgeenheid",
+"hospice",
 "ongeneeslijk ziek",
-"terminale zorg"
+"terminale zorg",
+"palliatievezorgeenheid"
 ],
 "healthcare/midwife":[
 "vroedkundige",
@@ -1856,10 +1942,12 @@
 "Ruiterpad",
 "paardenspoor"
 ],
+"highway/bus_guideway":[
+"geleide bus",
+"spoorbus",
+"Geleidebusweg"
+],
 "highway/bus_stop":[
-"busstation",
-"OV",
-"openbaar vervoer",
 "Bushalte"
 ],
 "highway/corridor":[
@@ -1909,13 +1997,13 @@
 "haaientanden"
 ],
 "highway/living_street":[
+"woonzone",
 "Woonerf",
 "erf"
 ],
 "highway/mini_roundabout":[
 "Rotonde zonder middeneiland",
 "rotonde waarvan door het midden kan worden gereden",
-"rond-punt",
 "rondpunt"
 ],
 "highway/motorway":[
@@ -1948,6 +2036,22 @@
 "wandelpad",
 "fietsoversteekplaats",
 "fietspad"
+],
+"highway/pedestrian_area":[
+"Voetgangersplein",
+"autovrij gebied",
+"autovrij plein",
+"voetgangerszone",
+"voetgangersgebied",
+"autovrije zone"
+],
+"highway/pedestrian_line":[
+"autovrij gebied",
+"autovrije straat",
+"voetgangerszone",
+"voetgangersgebied",
+"Voetgangersstraat",
+"autovrije zone"
 ],
 "highway/primary":[
 "primaire weg",
@@ -2262,6 +2366,13 @@
 "bekken",
 "Waterbekken"
 ],
+"landuse/brownfield":[
+"ontwikkelingsgrond",
+"Braakliggend terrein (voorheen bebouwd)",
+"braakliggend terrein",
+"afgebroken gebouw",
+"braakliggende bouwgrond"
+],
 "landuse/cemetery":[
 "kerkhof",
 "begraafplaats",
@@ -2313,13 +2424,29 @@
 "bos"
 ],
 "landuse/garages":[
-"autogarage",
 "Garages (privéstalling voor voertuigen)"
 ],
 "landuse/grass":[
 "gazon",
 "gras",
 "Grasland"
+],
+"landuse/greenfield":[
+"ontwikkelingsgrond",
+"nieuwe verkaveling",
+"bouwgrond",
+"braakliggend terrein",
+"Braakliggende bouwgrond (nooit bebouwd)",
+"verkaveling"
+],
+"landuse/greenhouse_horticulture":[
+"Glastuinbouw",
+"tuinbouwcomplex",
+"serrebouw",
+"kassencomplex",
+"kassenbouw",
+"groeikasbouw",
+"kasbouw"
 ],
 "landuse/harbour":[
 "haven",
@@ -2332,6 +2459,20 @@
 "industriezone",
 "industrieel gebied",
 "industriële zone"
+],
+"landuse/industrial/scrap_yard":[
+"schroothoop",
+"metaal",
+"autokerkhof",
+"wrakken",
+"oud ijzer",
+"Sloperij"
+],
+"landuse/industrial/slaughterhouse":[
+"slachterij",
+"abattoir",
+"Slachthuis",
+"veeslachterij"
 ],
 "landuse/landfill":[
 "Stort",
@@ -2372,6 +2513,9 @@
 "park",
 "speelveld"
 ],
+"landuse/religious":[
+"Religieus gebied"
+],
 "landuse/residential":[
 "woonwijk",
 "Woongebied",
@@ -2403,6 +2547,9 @@
 "casino",
 "slot machine",
 "Speelzaal (met kansspelmachines)"
+],
+"leisure/amusement_arcade":[
+"Speelhal"
 ],
 "leisure/bird_hide":[
 "vogelkijkhut",
@@ -2441,6 +2588,8 @@
 "conditie",
 "Fitnesscentrum",
 "gym",
+"krachttraining",
+"bodybuilding",
 "sportschool"
 ],
 "leisure/fitness_centre/yoga":[
@@ -2452,6 +2601,74 @@
 "fitness",
 "Buitenshuis fitness-station",
 "speeltuin"
+],
+"leisure/fitness_station/balance_beam":[
+"balk",
+"balanceerbalk",
+"Evenwichtsbalk als fitnesstoestel"
+],
+"leisure/fitness_station/box":[
+"doos",
+"fitnesskubus",
+"springen",
+"stepdoos",
+"fitness box",
+"Opstapje als fitnesstoestel",
+"calf raises",
+"verhoogje",
+"stepkubus",
+"fitnessdoos"
+],
+"leisure/fitness_station/horizontal_bar":[
+"stang",
+"pullupstang",
+"Rekstok als fitnesstoestel",
+"optrekstang"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"Apenrek",
+"horizontale ladder"
+],
+"leisure/fitness_station/hyperextension":[
+"Hyperextensiebank"
+],
+"leisure/fitness_station/parallel_bars":[
+"damesbrug",
+"herenbrug",
+"brug met ongelijke leggers",
+"Gymnastische brug",
+"fitness",
+"brug met gelijke leggers",
+"dipstangen"
+],
+"leisure/fitness_station/push-up":[
+"Push-upstation",
+"push-upbalk",
+"fitness",
+"push-upstang"
+],
+"leisure/fitness_station/rings":[
+"Gymnastiekringen",
+"ringen"
+],
+"leisure/fitness_station/sign":[
+"fitnessbord",
+"fitnessoefeningeninstructiebord",
+"Instructiebord voor fitnessoefeningen",
+"oefeningenbord"
+],
+"leisure/fitness_station/sit-up":[
+"Sit-upstation",
+"fitness",
+"crunchbank",
+"sit-upbank",
+"crunchstation"
+],
+"leisure/fitness_station/stairs":[
+"fitnesstreden",
+"Fitnesstrappen",
+"trappen",
+"oefentrappen"
 ],
 "leisure/garden":[
 "Tuin",
@@ -2524,6 +2741,15 @@
 "strandvolleybalveld",
 "zandveld"
 ],
+"leisure/pitch/boules":[
+"bocce",
+"Jeu-de-boules-veld",
+"pétanque",
+"jeu de boules",
+"petanqueveld",
+"petanquebaan",
+"lyonnaise"
+],
 "leisure/pitch/bowls":[
 "Bowls-baan",
 "bowls",
@@ -2591,6 +2817,9 @@
 "hardlopen",
 "renpiste",
 "atletiekbaan"
+],
+"leisure/sauna":[
+"Sauna"
 ],
 "leisure/slipway":[
 "Botenhelling",
@@ -2684,6 +2913,12 @@
 "schouw",
 "schoorsteen"
 ],
+"man_made/crane":[
+"havenkraan",
+"Permanente kraan",
+"kraan",
+"containerkraan"
+],
 "man_made/cutline":[
 "Gerooide lijn",
 "scheidingslijn"
@@ -2692,8 +2927,9 @@
 "Dijk"
 ],
 "man_made/flagpole":[
-"Vlaggemast",
-"vlaggemast"
+"Vlaggenmast",
+"vlaggenpaal",
+"vlaggenstok"
 ],
 "man_made/gasometer":[
 "gastank",
@@ -2720,6 +2956,20 @@
 "communicatiemast",
 "zendmast",
 "tv-mast"
+],
+"man_made/monitoring_station":[
+"observatiestation",
+"observatieapparatuur",
+"gnss-grondstation",
+"weerstation",
+"gnss-station",
+"seismische sensor",
+"meetapparatuur",
+"gps-grondstation",
+"gps-meetstation",
+"luchtmeetstation",
+"Meetstation",
+"luchtkwaliteitmeetstation"
 ],
 "man_made/observation":[
 "Uitkijktoren"
@@ -2975,17 +3225,53 @@
 "bureau",
 "Kantoor"
 ],
+"office/accountant":[
+"Boekhouder",
+"accountant",
+"bedrijfsadministratie"
+],
 "office/administrative":[
-"administratief kantoor",
 "Bestuurlijke instantie"
 ],
+"office/adoption_agency":[
+"adoptieagentschap",
+"adoptieorganisatie",
+"pleeggezin",
+"adopteren",
+"Adoptiebureau"
+],
+"office/advertising_agency":[
+"reclamebureau",
+"Reclamebureau",
+"reclameagentschap",
+"advertentiebureau"
+],
+"office/architect":[
+"bouwmeester",
+"Architectenbureau",
+"tekenaar",
+"gebouwenontwerper",
+"architectenkantoor"
+],
+"office/association":[
+"kantoor van ngo",
+"kantoor van vzw",
+"verenigingskantoor",
+"ngo-kantoor",
+"vzw-kantoor",
+"Kantoor van non-profitorganisatie",
+"non-profitorganisatiekantoor",
+"vereniging zonder winstoogmerk",
+"kantoor van vereniging zonder winstoogmerk"
+],
+"office/charity":[
+"Kantoor van liefdadigheidsinstelling",
+"liefdadigheidsinstellingskantoor"
+],
 "office/company":[
-"kantoor",
-"Bedrijfskantoor",
-"bedrijfsbureau",
+"bedrijfskantoor",
 "hoofdkwartier",
-"bedrijfsvestiging",
-"bureau"
+"Kantoor van bedrijf"
 ],
 "office/coworking":[
 "kantoor",
@@ -3011,12 +3297,29 @@
 "interimkantoor",
 "werk zoeken"
 ],
+"office/energy_supplier":[
+"Kantoor van energiemaatschappij",
+"kantoor van energieleverancier",
+"energiemaatschappijkantoor",
+"energieleverancierskantoor"
+],
 "office/estate_agent":[
 "Immobiliënkantoor",
+"vastgoedmakelaarskantoor",
 "vastgoedkantoor"
 ],
 "office/financial":[
-"Financieel kantoor"
+"Privékantoor van financiële instelling",
+"financieel kantoor"
+],
+"office/forestry":[
+"boswachtkantoor",
+"Bosbeheerkantoor",
+"kantoor van boswachters"
+],
+"office/foundation":[
+"Kantoor van stichting",
+"stichtingskantoor"
 ],
 "office/government":[
 "Overheidskantoor",
@@ -3034,13 +3337,35 @@
 "scheiding",
 "bevolking",
 "trouwakte",
-"Burgerlijke Stand",
+"Burgerlijke stand",
 "huwelijk"
+],
+"office/government/tax":[
+"Belastingskantoor",
+"fiscaal kantoor",
+"kantoor van belastingen"
+],
+"office/guide":[
+"berggidskantoor",
+"Gidsenkantoor",
+"kantoor van gidsen",
+"duikbegeleiderskantoor",
+"gidskantoor"
 ],
 "office/insurance":[
 "verzekeringsmakelaarkantoor",
 "makelaarkantoor",
 "Verzekeringskantoor"
+],
+"office/it":[
+"elektronicakantoor",
+"software",
+"computerkantoor",
+"IT-kantoor",
+"IT-specialist",
+"ICT-kantoor",
+"hardware",
+"ICT-specialist"
 ],
 "office/lawyer":[
 "Advocatenkantoor",
@@ -3048,20 +3373,32 @@
 "wetsgeleerden"
 ],
 "office/lawyer/notary":[
-"Notariaat",
-"akte",
-"notaris",
-"testament"
+"Notariaat"
+],
+"office/moving_company":[
+"verhuisbedrijfkantoor",
+"verhuizers",
+"Kantoor van verhuisbedrijf"
+],
+"office/newspaper":[
+"Krantredactie",
+"redactie",
+"nieuwsredactie",
+"krantenredactie"
 ],
 "office/ngo":[
 "kantoor van ngo",
 "vzw",
-"kantoor van vzw",
 "niet-gouvernementele organisatie",
-"bureau van vzw",
 "ngo",
-"vereniging zonder winstoogmerk",
+"ngo-kantoor",
 "Kantoor van NGO"
+],
+"office/notary":[
+"Notariskantoor",
+"notariaat",
+"kantoor van notaris",
+"notaris"
 ],
 "office/physician":[
 "Arts"
@@ -3071,11 +3408,44 @@
 "partijbureau",
 "partijhoofdzetel"
 ],
+"office/private_investigator":[
+"privédetectivekantoor",
+"Kantoor van privédetective",
+"rechercheurskantoor",
+"onderzoekerskantoor"
+],
+"office/quango":[
+"quangokantoor",
+"quasi-NGO-kantoor",
+"Kantoor van quango",
+"quasi-autonome-non-gouvernementele-organisatiekantoor"
+],
 "office/research":[
 "researchkantoor",
 "R&D",
 "laboratorium",
 "Onderzoekskantoor"
+],
+"office/surveyor":[
+"Kantoor van landmeter/expert/risicoschatter/schademeter/opiniepeilers/statisticus",
+"exertisekantoor",
+"statisticikantoor",
+"risicoschatterskantoor",
+"kantoor van opiniepeilers",
+"kantoor van landmeter",
+"kantoor van expert",
+"opiniepeilersbureau",
+"landmeterskantoor",
+"kantoor van risicoschatter",
+"kantoor van statistici"
+],
+"office/tax_advisor":[
+"belastingen",
+"belastingsontwijking*",
+"belastingsminimalisatie*",
+"belastingsreductie*",
+"belastingsontduiking*",
+"Kantoor van belastingsadviseur"
 ],
 "office/telecommunication":[
 "Telecomkantoor",
@@ -3083,8 +3453,18 @@
 "gsm-winkel",
 "telcokantoor"
 ],
+"office/therapist":[
+"therapiekantoor",
+"Kantoor van therapeut",
+"therapeutenkantoor"
+],
 "office/travel_agent":[
 "Reisbureau"
+],
+"office/water_utility":[
+"watermaatschappij*",
+"Kantoor van watermaatschappij",
+"waterleidingsmaatschappij*"
 ],
 "piste":[
 "Skipiste"
@@ -3107,6 +3487,13 @@
 "Eiland",
 "eiland"
 ],
+"place/islet":[
+"archipel",
+"islet",
+"atol",
+"rif",
+"Eilandje <1km²"
+],
 "place/isolated_dwelling":[
 "Alleenstaande woning"
 ],
@@ -3117,6 +3504,11 @@
 "wijk",
 "kwartier",
 "Buurt"
+],
+"place/plot":[
+"lot",
+"plot",
+"Perceel"
 ],
 "place/quarter":[
 "wijk",
@@ -3152,11 +3544,40 @@
 "gehucht",
 "buurt"
 ],
+"playground/balance_beam":[
+"balk",
+"balanceerbalk",
+"Evenwichtsbalk als speeltuig"
+],
+"playground/basket_spinner":[
+"mandmolentje",
+"Manddraaimolentje"
+],
+"playground/basket_swing":[
+"schommel",
+"Mandschommel"
+],
 "playground/climbing_frame":[
 "Klimrek"
 ],
+"playground/cushion":[
+"Springkussen"
+],
+"playground/horizontal_bar":[
+"Rekstok als speeltuig"
+],
+"playground/rocker":[
+"paardje",
+"Veerwip",
+"veerpaardje",
+"wipje"
+],
 "playground/roundabout":[
-"Speel rotonde"
+"Speelplein-draaimolen",
+"ronddraaiend platform",
+"draaimolentje",
+"zwierder",
+"molentje"
 ],
 "playground/sandpit":[
 "Zandbak"
@@ -3168,13 +3589,14 @@
 "Glijbaan"
 ],
 "playground/structure":[
-"Speelconstructie"
+"Speeltuig",
+"speelconstructie"
 ],
 "playground/swing":[
 "Schommel"
 ],
 "playground/zipwire":[
-"Ritsdraad"
+"Tokkelbaan"
 ],
 "point":[
 "algemeen",
@@ -3267,6 +3689,15 @@
 "spanning",
 "transformatiecabine"
 ],
+"power/switch":[
+"circuitbreker",
+"elektrische schakelaar",
+"Stroomschakelaar",
+"hoogspanningsschakelaar",
+"onderbreker",
+"schakelaar",
+"elektriciteitsschakelaar"
+],
 "power/tower":[
 "Hoogspanningsmast",
 "hoogspanningstoren",
@@ -3277,26 +3708,186 @@
 "trafo",
 "Transformator"
 ],
-"public_transport/platform":[
-"treinperron",
-"tramperron",
-"treinplatform",
-"busplatform",
-"platform",
-"metrohalte",
-"metroplatform",
-"metroperron",
-"bushalte",
-"tramhalte",
-"tramplatform",
-"busperron",
+"public_transport/linear_platform":[
+"Perron voor openbaar vervoer"
+],
+"public_transport/linear_platform_aerialway":[
+"Kabelbaanperron"
+],
+"public_transport/linear_platform_bus":[
+"Busperron"
+],
+"public_transport/linear_platform_ferry":[
+"ferryperron",
+"kaai voor ferry",
+"veerbootkaai",
+"Kaai voor veerboot",
+"ferrykaai",
+"veerbootperron"
+],
+"public_transport/linear_platform_light_rail":[
+"lichtgewichttreinperron",
+"lichtspoorperron",
+"tramtreinperron",
 "spoorwegperron",
-"Perron",
-"spoorwegplatform"
+"sneltramperron",
+"Lightrailperron"
+],
+"public_transport/linear_platform_monorail":[
+"monorailplatform",
+"spoorwegperron",
+"Monorailperron"
+],
+"public_transport/linear_platform_subway":[
+"tramplatform",
+"spoorwegperron",
+"Metroperron"
+],
+"public_transport/linear_platform_train":[
+"treinplatform",
+"Treinperron",
+"spoorwegperron"
+],
+"public_transport/linear_platform_tram":[
+"Tramperron",
+"tramplatform",
+"spoorwegperron"
+],
+"public_transport/linear_platform_trolleybus":[
+"Trolleybusperron"
+],
+"public_transport/platform":[
+"Openbaarvervoershalte"
+],
+"public_transport/platform_aerialway":[
+"Kabelbaanhalte"
+],
+"public_transport/platform_bus":[
+"halte",
+"Bushalte"
+],
+"public_transport/platform_ferry":[
+"ferryhalte",
+"Veerboothalte"
+],
+"public_transport/platform_light_rail":[
+"lichtgewichttreinhalte",
+"lichtspoorhalte",
+"Lightrailhalte",
+"tramtreinhalte",
+"spoorweghalte",
+"sneltramhalte"
+],
+"public_transport/platform_monorail":[
+"Monorailhalte"
+],
+"public_transport/platform_subway":[
+"Metrohalte"
+],
+"public_transport/platform_train":[
+"Treinhalte"
+],
+"public_transport/platform_tram":[
+"halte",
+"Tramhalte"
+],
+"public_transport/platform_trolleybus":[
+"Trolleybushalte"
+],
+"public_transport/station":[
+"Openbaarvervoershalte"
+],
+"public_transport/station_aerialway":[
+"Kabelbaanstation"
+],
+"public_transport/station_bus":[
+"Busstation"
+],
+"public_transport/station_ferry":[
+"ferrystation",
+"Veerbootstation"
+],
+"public_transport/station_light_rail":[
+"lichtgewichttreinstation",
+"lichtspoorstation",
+"Lightrailstation",
+"sneltramstation",
+"tramtreinstation",
+"spoorwegstation"
+],
+"public_transport/station_monorail":[
+"Monorailstation",
+"spoorwegstation"
+],
+"public_transport/station_subway":[
+"Metrostation",
+"spoorwegstation"
+],
+"public_transport/station_train":[
+"Treinstation",
+"spoorwegstation"
+],
+"public_transport/station_train_halt":[
+"halte",
+"Treinstation op aanvraag",
+"treinhalte",
+"spoorweghalte",
+"spoorwegstation"
+],
+"public_transport/station_tram":[
+"Tramstation",
+"spoorwegstation"
+],
+"public_transport/station_trolleybus":[
+"Trolleybusstation"
+],
+"public_transport/stop_area":[
+"haltecomplex",
+"Haltecomplex",
+"stopplaats",
+"openbaarvervoershaltecomplex",
+"station",
+"haltegroep",
+"openbaar vervoer",
+"haltes"
 ],
 "public_transport/stop_position":[
-"Stopplaats",
-"stoppositie"
+"Stopplaats voor openbaarvervoersvoertuig"
+],
+"public_transport/stop_position_aerialway":[
+"Kabelbaanstopplaats"
+],
+"public_transport/stop_position_bus":[
+"Busstopplaats"
+],
+"public_transport/stop_position_ferry":[
+"ferrystopplaats",
+"aanmeerplaats",
+"ferryaanmeerplaats",
+"Veerbootstopplaats",
+"veerbootaanmeerplaats"
+],
+"public_transport/stop_position_light_rail":[
+"Lightrailstopplaats",
+"lichtgewichttreinstopplaats",
+"tramtreinstopplaats",
+"lichtspoorstopplaats",
+"sneltramstopplaats"
+],
+"public_transport/stop_position_monorail":[
+"Monorailstopplaats"
+],
+"public_transport/stop_position_subway":[
+"Metrostopplaats"
+],
+"public_transport/stop_position_train":[
+"Treinstopplaats"
+],
+"public_transport/stop_position_tram":[
+"Tramstopplaats"
+],
+"public_transport/stop_position_trolleybus":[
+"Trolleybusstopplaats"
 ],
 "railway":[
 "Spoorweg"
@@ -3352,12 +3943,7 @@
 "funiculaire"
 ],
 "railway/halt":[
-"treinstop",
-"halte",
-"stop",
-"treinstation",
-"station",
-"Treinhalte"
+"Treinstation op aanvraag"
 ],
 "railway/level_crossing":[
 "overweg",
@@ -3368,12 +3954,23 @@
 "spooroverweg",
 "treinsporen"
 ],
+"railway/light_rail":[
+"lichte spoorweg",
+"Lightrail",
+"lichtspoor"
+],
 "railway/milestone":[
 "kilometerpaaltje",
 "Hectometer- of kilometerpaal aan spoorweg",
 "hectometerpaaltje",
 "mijlpaal",
 "spoorwegmijlpaal"
+],
+"railway/miniature":[
+"minispoorweg",
+"Berijdbare minispoorweg",
+"miniatuurspoorweg",
+"smalspoor"
 ],
 "railway/monorail":[
 "Monorail",
@@ -3388,15 +3985,7 @@
 "spoor"
 ],
 "railway/platform":[
-"treinperron",
-"metroplatform",
-"tramperron",
-"metroperron",
-"treinplatform",
-"tramplatform",
-"Spoorperron",
-"spoorwegperron",
-"spoorwegplatform"
+"Spoorperron"
 ],
 "railway/rail":[
 "Spoorweg",
@@ -3412,11 +4001,7 @@
 "treinsein"
 ],
 "railway/station":[
-"Treinstation",
-"station",
-"treinhalte",
-"NS-station",
-"NMBS-station"
+"Treinstation"
 ],
 "railway/subway":[
 "Metrospoor",
@@ -3459,6 +4044,9 @@
 "shop":[
 "Winkel",
 "handelszaak"
+],
+"shop/agrarian":[
+"Landbouwwinkel"
 ],
 "shop/alcohol":[
 "alcoholwinkel",
@@ -3860,7 +4448,7 @@
 "juwelier"
 ],
 "shop/kiosk":[
-"Krantenkiosk",
+"Winkelkiosk",
 "nieuwskiosk",
 "krantenwinkel",
 "krantenkiosk",
@@ -4089,13 +4677,35 @@
 "toegangskaartjes",
 "ticketjes"
 ],
+"shop/tiles":[
+"muurtegelwinkel",
+"Tegelwinkel",
+"vloertegelwinkel",
+"betegeling"
+],
 "shop/tobacco":[
-"tabak winkel",
-"sigaret winkel"
+"sigarettenwinkel",
+"Tabakwinkel"
 ],
 "shop/toys":[
 "Speelgoedwinkel",
 "speelgoedwinkel"
+],
+"shop/trade":[
+"glashandel",
+"bouwmaterialengroothandel",
+"ruitenhandel",
+"bouwmaterialenwinkel",
+"tegelgroothandel",
+"ramenhandel",
+"tegelhandel",
+"loodgieterswinkel",
+"houtgroothandel",
+"plankenhandel",
+"Bouwmaterialenhandel",
+"vensterhandel",
+"houthandel",
+"bouwmaterialenzaak"
 ],
 "shop/travel_agency":[
 "Reisbureau",
@@ -4145,6 +4755,9 @@
 "wapenwinkel",
 "wapen winkel"
 ],
+"shop/wholesale":[
+"Groothandel"
+],
 "shop/window_blind":[
 "Jaloeziewinkel",
 "zonwering",
@@ -4180,8 +4793,11 @@
 "Aquarium"
 ],
 "tourism/artwork":[
+"sculptuur",
+"beeldhouwwerk",
 "Kunstwerk",
 "kunstobject",
+"schilderij",
 "kunst",
 "object"
 ],
@@ -4206,13 +4822,22 @@
 "mobilehomes",
 "kampeerwagens"
 ],
+"tourism/chalet":[
+"bungalow",
+"chalet",
+"huisje",
+"Vakantiehuisje"
+],
 "tourism/gallery":[
 "exposé",
 "gallerie",
 "kunstgallerie",
+"schilderijen",
+"sculpturen",
 "Kunstgallerij",
 "gallerij",
-"tentoonstelling"
+"tentoonstelling",
+"beeldhouwwerken"
 ],
 "tourism/guest_house":[
 "Pension",
@@ -4222,6 +4847,7 @@
 "B&B"
 ],
 "tourism/hostel":[
+"hostel",
 "Jeugdherberg"
 ],
 "tourism/hotel":[
@@ -4286,6 +4912,14 @@
 "uitkijkpunt",
 "zicht",
 "Uitzichtpunt"
+],
+"tourism/wilderness_hut":[
+"wildernishut",
+"berghuis",
+"Onbemande hut in wildernis",
+"berghostel",
+"berghut",
+"bergschuilhuis"
 ],
 "tourism/zoo":[
 "zoo",
@@ -4383,31 +5017,6 @@
 "omdraaien verboden",
 "verboden om te keren"
 ],
-"type/restriction/only_left_turn":[
-"Enkel links afslaan",
-"links afslaan verplicht",
-"enkel links inslaan",
-"verplicht links afslaan",
-"links inslaan verplicht",
-"verplicht links inslaan"
-],
-"type/restriction/only_right_turn":[
-"verplicht rechts inslaan",
-"rechts afslaan verplicht",
-"enkel rechts inslaan",
-"verplicht rechts afslaan",
-"Enkel rechts afslaan",
-"rechts inslaan verplicht"
-],
-"type/restriction/only_straight_on":[
-"afslaan verboden",
-"niet inslaan",
-"Enkel rechtdoor",
-"rechtdoor",
-"draaien verboden",
-"niet draaien",
-"niet afslaan"
-],
 "type/route":[
 "Route"
 ],
@@ -4445,11 +5054,21 @@
 "type/route/horse":[
 "Ruiterroute"
 ],
+"type/route/light_rail":[
+"lichtspoorroute",
+"lichtespoorwegroute",
+"Lightrailroute"
+],
 "type/route/pipeline":[
 "Pijpleidingstraject",
 "pijplijnroute",
 "pijplijntraject",
 "pijpleidingsroute"
+],
+"type/route/piste":[
+"piste",
+"skiroute",
+"Skipiste/Skiroute"
 ],
 "type/route/power":[
 "elektriciteitslijntraject",
@@ -4461,6 +5080,13 @@
 "autotraject",
 "sightseeingroute",
 "Autoroute"
+],
+"type/route/subway":[
+"route",
+"lijn",
+"metrotraject",
+"Metroroute",
+"metrolijn"
 ],
 "type/route/train":[
 "Treintraject",
@@ -4483,7 +5109,8 @@
 "metrolijn"
 ],
 "type/site":[
-"Site"
+"Site",
+"terrein"
 ],
 "type/waterway":[
 "rivier",

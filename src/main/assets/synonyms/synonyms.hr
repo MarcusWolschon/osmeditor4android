@@ -158,9 +158,6 @@
 "amenity/bureau_de_change":[
 "Mjenjačnica"
 ],
-"amenity/bus_station":[
-"Autobusni kolodvor"
-],
 "amenity/cafe":[
 "kafeterija",
 "kavana",
@@ -263,9 +260,6 @@
 "brza hrana",
 "hamburger",
 "Brza hrana"
-],
-"amenity/ferry_terminal":[
-"Trajektni terminal"
 ],
 "amenity/fire_station":[
 "vatrogasci",
@@ -426,9 +420,6 @@
 "stanica rendžerske službe",
 "rendžerska stanica",
 "Rendžerska postaja"
-],
-"amenity/recycling":[
-"Recikliranje"
 ],
 "amenity/register_office":[
 "Matični ured"
@@ -755,8 +746,14 @@
 "craft/caterer":[
 "Dostavljač"
 ],
+"craft/chimney_sweeper":[
+"Dimnjačar"
+],
 "craft/clockmaker":[
 "Urar (ručni satovi)"
+],
+"craft/distillery":[
+"Destilerija"
 ],
 "craft/dressmaker":[
 "Krojač"
@@ -922,13 +919,6 @@
 ],
 "highway/bridleway":[
 "Staza za konje"
-],
-"highway/bus_stop":[
-"bus stanica",
-"autobusna stanica",
-"stanica za bus",
-"busna stanica",
-"Autobusna stanica"
 ],
 "highway/corridor":[
 "Hodnik"
@@ -1115,9 +1105,6 @@
 "šuma",
 "održavana šuma",
 "šuma nasada"
-],
-"landuse/garages":[
-"Garaže"
 ],
 "landuse/grass":[
 "Travnjak"
@@ -1729,13 +1716,6 @@
 "Transformator",
 "transformator el. energije"
 ],
-"public_transport/platform":[
-"platforma",
-"Stajalište"
-],
-"public_transport/stop_position":[
-"Stop pozicija"
-],
 "railway":[
 "Željeznica"
 ],
@@ -1757,12 +1737,6 @@
 "railway/funicular":[
 "Uspinjača"
 ],
-"railway/halt":[
-"željeznička stanica",
-"stanica za vlak",
-"željeznička postaja",
-"Željeznička stanica"
-],
 "railway/monorail":[
 "pruga sa jednim kolosjekom",
 "Jednotračna željeznička pruga",
@@ -1771,26 +1745,11 @@
 "railway/narrow_gauge":[
 "Uskotračna željeznica"
 ],
-"railway/platform":[
-"platforma",
-"peron",
-"željeznički peron",
-"željeznička platforma",
-"Željeznički peron"
-],
 "railway/rail":[
 "željeznička pruga",
 "pruga pune širine",
 "Željeznička pruga",
 "željeznica pune veličine"
-],
-"railway/station":[
-"željeznička stanica",
-"željeznički kolodvor",
-"Željeznički kolodvor",
-"kolodvor",
-"stanica za vlak",
-"željeznička postaja"
 ],
 "railway/subway":[
 "gradska željeznica",
@@ -1878,6 +1837,9 @@
 "pediker",
 "beauty centar"
 ],
+"shop/beauty/nails":[
+"Studio za nokte"
+],
 "shop/bed":[
 "jastuk",
 "madrac",
@@ -1896,6 +1858,9 @@
 "shop/bicycle":[
 "trgovina biciklima",
 "prodavaonica bicikala"
+],
+"shop/bookmaker":[
+"Kladioničar"
 ],
 "shop/books":[
 "Knjižara"
@@ -1933,6 +1898,9 @@
 ],
 "shop/cheese":[
 "Prodavaonica sira"
+],
+"shop/chemist":[
+"Drogerija"
 ],
 "shop/chocolate":[
 "Prodavaonica čokolade"
@@ -2094,7 +2062,7 @@
 "zlatarna"
 ],
 "shop/kiosk":[
-"Kiosk za novine"
+"Kiosk"
 ],
 "shop/kitchen":[
 "kuhinje",
@@ -2185,6 +2153,9 @@
 ],
 "shop/pawnbroker":[
 "Zalagaonica"
+],
+"shop/perfumery":[
+"Parfimerija"
 ],
 "shop/pet":[
 "pet store",
@@ -2343,6 +2314,9 @@
 "Prodavaonica video igara",
 "računalne igre",
 "igrice"
+],
+"shop/watches":[
+"Trgovina Satovima"
 ],
 "shop/water_sports":[
 "ronjenje",
@@ -2518,15 +2492,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Zabranjeno polukružno okretanje"
-],
-"type/restriction/only_left_turn":[
-"Obavezno lijevo skretanje"
-],
-"type/restriction/only_right_turn":[
-"Obavezno desno skretanje"
-],
-"type/restriction/only_straight_on":[
-"Zabranjena sva skretanja"
 ],
 "type/route":[
 "ruta",

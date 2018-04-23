@@ -74,9 +74,6 @@
 "amenity/bureau_de_change":[
 "Мењачница"
 ],
-"amenity/bus_station":[
-"Аутобуска станица"
-],
 "amenity/cafe":[
 "Кафе"
 ],
@@ -145,9 +142,6 @@
 ],
 "amenity/fast_food":[
 "Брза храна"
-],
-"amenity/ferry_terminal":[
-"Терминал трајекта"
 ],
 "amenity/fire_station":[
 "Ватрогасна станица"
@@ -262,9 +256,6 @@
 ],
 "amenity/ranger_station":[
 "Шумарска станица"
-],
-"amenity/recycling":[
-"Рециклажа"
 ],
 "amenity/recycling_centre":[
 "Рециклажни центар"
@@ -853,9 +844,6 @@
 "коњичка стаза",
 "Коњичка стаза"
 ],
-"highway/bus_stop":[
-"Аутобуско стајалиште"
-],
 "highway/crossing":[
 "Прелаз преко улице"
 ],
@@ -1024,9 +1012,6 @@
 ],
 "landuse/forest":[
 "Шума"
-],
-"landuse/garages":[
-"Гараже"
 ],
 "landuse/grass":[
 "Трава"
@@ -1491,9 +1476,6 @@
 "power/transformer":[
 "Трансформатор"
 ],
-"public_transport/platform":[
-"Платформа"
-],
 "railway":[
 "Железничка пруга"
 ],
@@ -1512,14 +1494,8 @@
 "railway/narrow_gauge":[
 "Уски колосек"
 ],
-"railway/platform":[
-"Железничка платформа"
-],
 "railway/rail":[
 "Шина"
-],
-"railway/station":[
-"Железничка станица"
 ],
 "railway/subway":[
 "Подземна железница"
@@ -1680,9 +1656,6 @@
 ],
 "shop/jewelry":[
 "Златар"
-],
-"shop/kiosk":[
-"Трафика"
 ],
 "shop/kitchen":[
 "Кухињски дизајн"
@@ -1911,15 +1884,6 @@
 ],
 "type/restriction/no_u_turn":[
 "Забрана полукружног окретања"
-],
-"type/restriction/only_left_turn":[
-"Обавезан смер - лево"
-],
-"type/restriction/only_right_turn":[
-"Обавезан смер - десно"
-],
-"type/restriction/only_straight_on":[
-"Обавезан смер - право"
 ],
 "type/route":[
 "Путања"

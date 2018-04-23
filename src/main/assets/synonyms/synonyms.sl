@@ -77,9 +77,7 @@
 "Vlečna vrv"
 ],
 "aerialway/station":[
-"Postaja žičnice",
-"postaja gondole",
-"Žičniška postaja"
+"Postaja žičnice"
 ],
 "aerialway/t-bar":[
 "vlečnica",
@@ -222,13 +220,6 @@
 "menjava",
 "menjalnica"
 ],
-"amenity/bus_station":[
-"bus",
-"postajališče",
-"Avtobusna postaja",
-"štacjon",
-"AP"
-],
 "amenity/cafe":[
 "bar",
 "Kavarna",
@@ -352,9 +343,6 @@
 "amenity/fast_food":[
 "hitra hrana",
 "Hitra prehrana"
-],
-"amenity/ferry_terminal":[
-"Pristanišče za trajekt"
 ],
 "amenity/fire_station":[
 "Gasilska postaja",
@@ -567,11 +555,6 @@
 "čuvaj parka",
 "nadzornik parka",
 "Čuvaj parka"
-],
-"amenity/recycling":[
-"Reciklaža",
-"recikliranje",
-"ekološki otok"
 ],
 "amenity/recycling_centre":[
 "Center za recikliranje"
@@ -1365,10 +1348,6 @@
 "jahalna pot",
 "Mulatjera"
 ],
-"highway/bus_stop":[
-"Avtobusno postajališče",
-"avtobusna postaja"
-],
 "highway/corridor":[
 "Notranji hodnik"
 ],
@@ -1671,9 +1650,6 @@
 "gozdiček",
 "gozdne površine",
 "gozdič"
-],
-"landuse/garages":[
-"Garaže"
 ],
 "landuse/grass":[
 "javna zelena površina",
@@ -2227,15 +2203,7 @@
 "Urad"
 ],
 "office/administrative":[
-"Upravni urad",
-"upravna pisarna",
 "Upravna enota"
-],
-"office/company":[
-"Podjetje",
-"podjetnik",
-"sedež podjetja",
-"firma"
 ],
 "office/coworking":[
 "Prostor za sodelo"
@@ -2413,15 +2381,6 @@
 "pretvornik",
 "Transformator"
 ],
-"public_transport/platform":[
-"ploščad",
-"Peron"
-],
-"public_transport/stop_position":[
-"Postajališče",
-"postaja",
-"avtobusna postaja"
-],
 "railway":[
 "Železnica"
 ],
@@ -2443,10 +2402,6 @@
 "tirna vzpenjača",
 "Vzpenjača"
 ],
-"railway/halt":[
-"Železniško postajališče",
-"postaja brez perona in objektov"
-],
 "railway/level_crossing":[
 "Železniški prehod (cesta)"
 ],
@@ -2458,19 +2413,11 @@
 "Ozkotirna železnica",
 "železnica z ozkimi tiri"
 ],
-"railway/platform":[
-"Železniški peron",
-"ploščad"
-],
 "railway/rail":[
 "Železniški tir",
 "železnica",
 "železniški tir",
 "tirnica"
-],
-"railway/station":[
-"kolodvor",
-"Železniška postaja"
 ],
 "railway/subway":[
 "metro",
@@ -2486,9 +2433,6 @@
 "railway/tram":[
 "tramvaj",
 "Tramvaj"
-],
-"railway/tram_stop":[
-"Postajališče tramvaja"
 ],
 "relation":[
 "odnos",
@@ -2786,9 +2730,6 @@
 "bižuterija",
 "nakit",
 "zlatarna"
-],
-"shop/kiosk":[
-"Kiosk prodajalna"
 ],
 "shop/laundry":[
 "Pralnica",
@@ -3140,18 +3081,6 @@
 "type/restriction/no_u_turn":[
 "Polkrožno obračanje ni dovoljeno",
 "Ni mogoče polkrožno obrniti"
-],
-"type/restriction/only_left_turn":[
-"Možno je zaviti samo levo",
-"Dovoljeno je zaviti samo levo."
-],
-"type/restriction/only_right_turn":[
-"Dovoljeno je zaviti samo desn",
-"Možno je zaviti samo desno"
-],
-"type/restriction/only_straight_on":[
-"Možno je samo nadaljevati naravnost",
-"Zavijanje ni dovoljeno."
 ],
 "type/route":[
 "pot",

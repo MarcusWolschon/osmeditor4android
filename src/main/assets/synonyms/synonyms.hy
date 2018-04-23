@@ -35,9 +35,6 @@
 "barrier/wall":[
 "Պատ"
 ],
-"highway/bus_stop":[
-"Ավտոբուսի կանգառ"
-],
 "highway/steps":[
 "Աստիճաններ"
 ],

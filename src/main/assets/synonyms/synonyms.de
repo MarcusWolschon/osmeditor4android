@@ -9,6 +9,10 @@
 "Werbetafel",
 "Reklametafel"
 ],
+"advertising/column":[
+"Litfasssäule",
+"Anzeigeständer"
+],
 "aerialway":[
 "Seilbahn"
 ],
@@ -61,8 +65,7 @@
 "Übungslift"
 ],
 "aerialway/station":[
-"Seilbahnstation",
-"Liftstation"
+"Seilbahnstation"
 ],
 "aerialway/t-bar":[
 "Bügellift",
@@ -110,6 +113,11 @@
 "Flughafenterminal",
 "Flughafen-Empfangs-Gebäude"
 ],
+"allotments/plot":[
+"Kleingartenparzelle",
+"Gemeinschaftsgartenparzelle",
+"Gartenparzelle"
+],
 "amenity":[
 "Einrichtung"
 ],
@@ -154,11 +162,11 @@
 "Investmentfirma",
 "Register",
 "Grundkapital",
-"Bank-Fiiale",
 "Treuhandgesellschaft",
 "Fonds",
 "Rücklagen",
-"Vorrat"
+"Vorrat",
+"Bank-Filiale"
 ],
 "amenity/bar":[
 "Nachtbar",
@@ -202,15 +210,16 @@
 "Geldwechselstube"
 ],
 "amenity/bus_station":[
-"Busbahnhof",
-"ZOB",
-"Omnibusbahnhof"
+"Busbahnhof / Busterminal"
 ],
 "amenity/cafe":[
 "Kaffeehaus",
 "Cafébar",
 "Kaffee",
 "Café"
+],
+"amenity/car_pooling":[
+"Car Pooling"
 ],
 "amenity/car_rental":[
 "Kfz-Verleih",
@@ -334,7 +343,7 @@
 "Schnellimbiss"
 ],
 "amenity/ferry_terminal":[
-"Fährhafen"
+"Schiffsanleger"
 ],
 "amenity/fire_station":[
 "Feuerwehrhaus",
@@ -351,8 +360,11 @@
 "Selbstbedienung- und Sitzbereich für mehrere Lokale"
 ],
 "amenity/fountain":[
+"Springbrunnen, Zierbrunnen",
 "Wasserspiel",
-"Springbrunnen"
+"Dorfbrunnen",
+"Marktbrunnen",
+"Designerbrunnen"
 ],
 "amenity/fuel":[
 "Tanke",
@@ -402,10 +414,17 @@
 "Bibliothek",
 "Bücherei"
 ],
+"amenity/love_hotel":[
+"Liebeshotel",
+"Stundenhotel"
+],
 "amenity/marketplace":[
 "Wochenmarkt",
 "Marktverkauf",
 "Markt"
+],
+"amenity/monastery":[
+"Klostergelände"
 ],
 "amenity/motorcycle_parking":[
 "Motorradparkplatz",
@@ -569,12 +588,8 @@
 "Ranger-Station"
 ],
 "amenity/recycling":[
-"Abfallwiederverwertung",
-"Container",
-"Abfall",
-"Recyclingcontainer",
-"Müll",
-"Recycling"
+"Wertstoffhof",
+"Recyclingcontainer"
 ],
 "amenity/recycling_centre":[
 "Wertstoffhof",
@@ -640,6 +655,9 @@
 ],
 "amenity/shower":[
 "Dusche"
+],
+"amenity/smoking_area":[
+"Raucherbereich"
 ],
 "amenity/social_facility":[
 "Sozialeinrichtung",
@@ -711,12 +729,21 @@
 "amenity/vending_machine/cigarettes":[
 "Zigarettenautomat"
 ],
+"amenity/vending_machine/coffee":[
+"Kaffeeautomat"
+],
 "amenity/vending_machine/condoms":[
 "Kondomautomat"
 ],
 "amenity/vending_machine/drinks":[
 "Getränkespender",
 "Getränkeautomat"
+],
+"amenity/vending_machine/electronics":[
+"Elektro-Zubehör-Automat"
+],
+"amenity/vending_machine/elongated_coin":[
+"Münz-Sourvenir-Präge-Automat"
 ],
 "amenity/vending_machine/excrement_bags":[
 "Hundekot-Tütenspender",
@@ -726,6 +753,15 @@
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Frauenhygiene-Automat"
+],
+"amenity/vending_machine/food":[
+"Lebensmittel-Verkaufs-Automat "
+],
+"amenity/vending_machine/fuel":[
+"Tankautomat"
+],
+"amenity/vending_machine/ice_cream":[
+"Speiseeis-Automat"
 ],
 "amenity/vending_machine/news_papers":[
 "Zeitungsautomat"
@@ -744,6 +780,9 @@
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Fahrkartenautomat"
+],
+"amenity/vending_machine/stamps":[
+"Briefmarkenautomat"
 ],
 "amenity/vending_machine/sweets":[
 "Süßigkeitenautomat"
@@ -816,6 +855,10 @@
 "attraction/drop_tower":[
 "Fallturm"
 ],
+"attraction/maze":[
+"Irrgarten",
+"Labyrinth"
+],
 "attraction/pirate_ship":[
 "Piratenschiff"
 ],
@@ -878,6 +921,10 @@
 "barrier/hedge":[
 "Hecke"
 ],
+"barrier/kerb":[
+"Bordstein",
+"Randstein"
+],
 "barrier/kissing_gate":[
 "Gatter",
 "Schwinggatter",
@@ -918,6 +965,13 @@
 "Scheune",
 "Stadl"
 ],
+"building/boathouse":[
+"Bootshaus",
+"Bootsschuppen"
+],
+"building/bungalow":[
+"Bungalow"
+],
 "building/bunker":[
 "Bunker"
 ],
@@ -941,6 +995,9 @@
 "Kirche",
 "Gotteshaus"
 ],
+"building/civic":[
+"Öffentliches Gebäude"
+],
 "building/college":[
 "Schulgebäude",
 "Hochschulgebäude"
@@ -955,8 +1012,8 @@
 "Gebäude im Bau"
 ],
 "building/detached":[
+"Freistehendes Einfamilienhaus",
 "alleinstehendes Haus",
-"Freistehendes Einfamiliehaus",
 "freistehendes Haus",
 "Einfamilienhaus"
 ],
@@ -968,11 +1025,25 @@
 "building/entrance":[
 "Eingang/Ausgang"
 ],
+"building/farm":[
+"Landwirtschaft",
+"Bauernhaus",
+"Bauernhof",
+"Farm"
+],
+"building/farm_auxiliary":[
+"Bauernhaus",
+"Landwirtschaftliches Gebäude",
+"Stall"
+],
 "building/garage":[
+"Einzelgaragen",
 "Einzelgarage"
 ],
 "building/garages":[
-"Mehrfachgaragen"
+"Mehrfachgaragen",
+"Mehrfach-/Blockgaragen",
+"Garagenblock"
 ],
 "building/greenhouse":[
 "Glashaus",
@@ -1004,6 +1075,10 @@
 "Vorschul-/Kindergartengebäude",
 "Kindergartengebäude"
 ],
+"building/mosque":[
+"Moschee",
+"Moscheegebäude"
+],
 "building/public":[
 "Öffentliches Gebäude"
 ],
@@ -1020,12 +1095,19 @@
 "building/roof":[
 "Dach"
 ],
+"building/ruins":[
+"Verlassenes Gebäude"
+],
 "building/school":[
 "Schulhaus",
 "Schulgebäude"
 ],
 "building/semidetached_house":[
 "Doppelhaushälfte"
+],
+"building/service":[
+"Maschinenhaus",
+"Dienstleistungsgebäude"
 ],
 "building/shed":[
 "Schuppen",
@@ -1037,15 +1119,28 @@
 "Stallungen",
 "Stall"
 ],
+"building/stadium":[
+"Stadium",
+"Stadiumgebäude"
+],
 "building/static_caravan":[
 "Feststehender Wohnwagen",
 "Abgestellter Wohnwagen"
+],
+"building/temple":[
+"Tempelgebäude"
 ],
 "building/terrace":[
 "Reihenhäuser"
 ],
 "building/train_station":[
 "Bahnhofsgebäude"
+],
+"building/transportation":[
+"Gebäude für den öffentlichen Verkehr",
+"Bahnhof",
+"Busbahnhof",
+"U-Bahnhof"
 ],
 "building/university":[
 "Campusgebäude",
@@ -1061,6 +1156,9 @@
 "Zeltplatz",
 "Camping Stellplatz",
 "Campingplatz"
+],
+"circular":[
+"Kreisverkehr"
 ],
 "club":[
 "Verein",
@@ -1114,7 +1212,8 @@
 ],
 "craft/chimney_sweeper":[
 "Schornsteinfeger",
-"Kaminkehrer"
+"Kaminkehrer",
+"Rauchfangkehrer"
 ],
 "craft/clockmaker":[
 "Uhrmacher"
@@ -1282,7 +1381,7 @@
 "Defibrillator"
 ],
 "emergency/designated":[
-"Notzugang vorgesehen"
+"Rettungsweg"
 ],
 "emergency/destination":[
 "Notzufahrt ohne Notdurchfahrt"
@@ -1308,6 +1407,11 @@
 ],
 "emergency/private":[
 "private Notzufahrt"
+],
+"emergency/water_tank":[
+"Löschteich",
+"Löschreservoir",
+"Löschwasser"
 ],
 "emergency/yes":[
 "Notzufahrt erlaubt"
@@ -1346,12 +1450,12 @@
 "Gehsteig",
 "Gehweg",
 "Gangsteig",
-"Fußgängerweg",
 "Bürgersteig",
+"Fußgängerweg",
 "Trottoir"
 ],
 "ford":[
-"Furt"
+"Furt (Gewässerquerung)"
 ],
 "golf/bunker":[
 "Sand-Hindernis",
@@ -1389,11 +1493,11 @@
 "Abschlag"
 ],
 "golf/water_hazard_area":[
+"frontales Teichhinderniss",
 "frontale Wasserhindernissfläche",
-"frontales Wasserhindernissfläche, frontales Seehinderniss, frontales Teichhinderniss"
+"frontales Seehinderniss"
 ],
 "golf/water_hazard_line":[
-"frontales Wasserhinderniss, frontales Bachhinderniss",
 "frontales Wasserhinderniss",
 "frontales Teichhinderniss",
 "frontales Seehinderniss"
@@ -1425,6 +1529,10 @@
 "Sterbeklinik",
 "Hospiz"
 ],
+"healthcare/laboratory":[
+"Medizinlabor",
+"Medizinisches Labor"
+],
 "healthcare/midwife":[
 "Geburtshelferin",
 "Hebamme",
@@ -1441,6 +1549,7 @@
 ],
 "healthcare/physiotherapist":[
 "Physiotherapeutin",
+"Physiotherapeut/in",
 "Krankengymnastin",
 "Krankengymnast",
 "Physiotherapeut"
@@ -1457,7 +1566,7 @@
 "Reha-Klinik"
 ],
 "healthcare/speech_therapist":[
-"Logopäge",
+"Logopäde",
 "Sprachtherapeutin"
 ],
 "highway":[
@@ -1469,13 +1578,11 @@
 "Reitweg",
 "Reitpfad"
 ],
+"highway/bus_guideway":[
+"Spurbusstraße"
+],
 "highway/bus_stop":[
-"Bushaltestelle",
-"Halt",
-"Haltestelle",
-"Endhaltestelle",
-"Endstelle",
-"Verkehrshalt"
+"Bushaltestelle (Wartebereich)"
 ],
 "highway/corridor":[
 "Gang/Korridor im Innenraum",
@@ -1534,27 +1641,29 @@
 "Autobahn"
 ],
 "highway/motorway_junction":[
-"Autobahnkreuz/-abfahrt",
-"Autobahnknoten",
-"Autobahnabfahrt",
+"Autobahnabfahrt (Kreuzungspunkt)",
 "Autobahnkreuz",
-"Autobahndreieck",
 "Autobahnanschluss",
-"Autobahnexit",
-"Autobahnzubringer"
+"Autobahnzubringer",
+"Autobahnkreuzungspunkt"
 ],
 "highway/motorway_link":[
-"Autobahnabfahrt",
 "Auffahrt",
 "Abfahrt",
 "Autobahnanschluss",
-"Autobahnauffahrt"
+"Autobahnauffahrt, Autobahnabfahrt"
+],
+"highway/passing_place":[
+"Haltebucht",
+"Ausweichstelle"
 ],
 "highway/path":[
 "Fußweg",
+"Rad-/Fußweg",
+"Rad- und Fußweg",
 "Wanderweg",
+"Weg, Mehrzweck-Weg",
 "Radweg",
-"Weg",
 "Mehrzweck-Weg",
 "Pfad",
 "Reitweg"
@@ -1593,6 +1702,7 @@
 "Motorsportrennstrecke"
 ],
 "highway/residential":[
+"innerörtliche Straße",
 "Siedlungsstraße",
 "Ortsstraße",
 "Wohngebietsstraße",
@@ -1663,6 +1773,7 @@
 "Zufahrtsstraße für Rettungskräfte"
 ],
 "highway/service/parking_aisle":[
+"Parkplatzfahrgasse",
 "Parkplatzweg",
 "Fahrweg auf Parkplatzflächen"
 ],
@@ -1683,7 +1794,8 @@
 "highway/steps":[
 "Stufen",
 "Treppe",
-"Treppen"
+"Treppen",
+"Stiege"
 ],
 "highway/stop":[
 "Halt",
@@ -1820,8 +1932,11 @@
 "Flächennutzung"
 ],
 "landuse/allotments":[
-"Gemeinsamer Garten",
-"Gemeinschaftsgarten"
+"Schrebergarten",
+"Gartensparte",
+"Schrebergärten",
+"Kleingärten",
+"Kleingartenanlage"
 ],
 "landuse/aquaculture":[
 "Aquakultur",
@@ -1833,8 +1948,8 @@
 "Becken"
 ],
 "landuse/brownfield":[
-"verseuchter Boden",
 "Altlast",
+"Brachfläche (innerstädtisch)",
 "Industriebrache"
 ],
 "landuse/cemetery":[
@@ -1875,13 +1990,15 @@
 "landuse/forest":[
 "Forst",
 "Forstwald",
-"Wald",
-"bewirtschafteter Wald"
+"Nutzwald",
+"bewirtschafteter Wald",
+"Bewirtschafteter Wald"
 ],
 "landuse/garages":[
-"große Garagenflächen",
-"Garagengebiet",
-"Vielfahcgaragen"
+"Garagenfläche",
+"Garagennutzung",
+"Garagenhof",
+"Garagenwidmung"
 ],
 "landuse/grass":[
 "Grünfläche",
@@ -1893,6 +2010,9 @@
 "Bauland",
 "Freifläche",
 "Rohbauland"
+],
+"landuse/greenhouse_horticulture":[
+"Gewächshäuser"
 ],
 "landuse/harbour":[
 "Hafen",
@@ -1962,17 +2082,17 @@
 "Gelände mit religiöser Nutzung"
 ],
 "landuse/residential":[
-"Wohnhäuser",
 "Wohnregion",
+"Siedlungsraum",
+"Ortslage",
 "Siedlungsfläche",
 "Wohngebiet",
-"Wohngegend",
-"Wohnanlage"
+"Wohngegend"
 ],
 "landuse/retail":[
 "Einzelhandelsfläche",
+"Einzelhandel",
 "Einzelhandelsgebiet",
-"Geschäftsgebiet",
 "Geschäfte"
 ],
 "landuse/vineyard":[
@@ -1993,6 +2113,15 @@
 "Spielothek",
 "Spielothek für Erwachsene"
 ],
+"leisure/amusement_arcade":[
+"Spielhalle"
+],
+"leisure/beach_resort":[
+"Badestrandresort",
+"Badestrandhotelanlage",
+"Strandhotelanalge",
+"Strandresort"
+],
 "leisure/bird_hide":[
 "Vogelbeobachtungsturm",
 "Vogelbeobachtungshütte"
@@ -2002,8 +2131,8 @@
 "Bowlingbahn"
 ],
 "leisure/common":[
-"öffentliche Grünfläche",
-"öffentliche Fläche, Allmende",
+"Öffentliche Grünfläche",
+"Öffentliche Fläche, Allmende",
 "Allmende",
 "Allmeind"
 ],
@@ -2015,6 +2144,9 @@
 "Tanzhalle",
 "Tanzboden",
 "Tanzhaus"
+],
+"leisure/dancing_school":[
+"Tanzschule"
 ],
 "leisure/dog_park":[
 "Hundeauslaufzone",
@@ -2120,6 +2252,11 @@
 "Naturschutzpark",
 "Landschaftsschutzgebiet",
 "Naturreservat"
+],
+"leisure/outdoor_seating":[
+"Schanigarten",
+"Außengastronomie",
+"Gastgarten"
 ],
 "leisure/park":[
 "Parkanlage",
@@ -2258,9 +2395,14 @@
 "Bauten"
 ],
 "man_made/adit":[
-"Stollen",
-"Zugangsstollen",
-"Förderstollen"
+"Bergwerk - Stolleneingang",
+"Stollen (horizontaler Tunnel im Bergbau)",
+"Stollenmundloch"
+],
+"man_made/antenna":[
+"Antennenanlage",
+"Sendemast ",
+"Antennenmast"
 ],
 "man_made/breakwater":[
 "Buhnen",
@@ -2312,11 +2454,18 @@
 "Mobilfunkmast",
 "Sendemast"
 ],
+"man_made/monitoring_station":[
+"Messstation"
+],
 "man_made/observation":[
 "Beobachtungsstand",
 "Ausblick",
 "Ausguck",
 "Aussichtsturm"
+],
+"man_made/observatory":[
+"Sternenwarte",
+"Observatorium"
 ],
 "man_made/petroleum_well":[
 "Tiefpumpe",
@@ -2379,11 +2528,12 @@
 "Wasserturm"
 ],
 "man_made/water_well":[
-"Brunnen",
 "Trinkwasserbrunnen",
+"Bohrbrunnen",
 "Brunnen zur Wasserförderung",
 "Brauchwasserbrunnen",
-"Tiefbrunnen"
+"Tiefbrunnen",
+"Schachtbrunnen"
 ],
 "man_made/water_works":[
 "Wasserwerk"
@@ -2435,6 +2585,7 @@
 "Höhlenzugang"
 ],
 "natural/cliff":[
+"Steilkante",
 "Klippe",
 "Kliff"
 ],
@@ -2459,7 +2610,13 @@
 "Grasland"
 ],
 "natural/heath":[
-"Heidelandschaft"
+"Heidelandschaft",
+"Strauchheiden"
+],
+"natural/mud":[
+"Morast",
+"Schlamm",
+"Schlick"
 ],
 "natural/peak":[
 "Hügel",
@@ -2491,11 +2648,12 @@
 ],
 "natural/scree":[
 "Talus",
-"Hangschutt",
+"Schuttreiße",
+"Hangschutt, Schutt",
+"Blockschutt",
 "Schutthalde",
-"Schuttrampe",
-"Schuttkegel",
-"Schuttfuß"
+"kantiges "Geröll"",
+"Schuttkegel"
 ],
 "natural/scrub":[
 "Buschland",
@@ -2528,12 +2686,11 @@
 "Pfütze"
 ],
 "natural/water/lake":[
+"Bergsee",
 "See",
 "Loch"
 ],
 "natural/water/pond":[
-"Bergsee",
-"See",
 "Teich",
 "Mühlteich",
 "Tümpel"
@@ -2559,8 +2716,7 @@
 ],
 "natural/wood":[
 "Naturwald",
-"Urwald",
-"Wald"
+"Urwald"
 ],
 "noexit/yes":[
 "Wegende",
@@ -2576,9 +2732,7 @@
 "Buchhaltungsbüro"
 ],
 "office/administrative":[
-"Verwaltungsamt",
-"Öffentliche Verwaltung",
-"Verwaltungsstelle"
+"Verwaltungsamt"
 ],
 "office/adoption_agency":[
 "Adoptionsagentur"
@@ -2596,9 +2750,7 @@
 "Wohlfahrtseinrichtung"
 ],
 "office/company":[
-"Büro",
-"Firma",
-"Gesellschaft"
+"Firmenbüro"
 ],
 "office/coworking":[
 "Gemeinschafts-Arbeits-Platz",
@@ -2668,8 +2820,6 @@
 "Anwalt"
 ],
 "office/lawyer/notary":[
-"Notarbüro",
-"Notariatskanzlei",
 "Notariat"
 ],
 "office/moving_company":[
@@ -2759,8 +2909,8 @@
 "place/isolated_dwelling":[
 "Einöde",
 "Einzelhaus",
-"frei stehendes Haus",
-"abgelegene Siedlung"
+"Einzelsiedlung",
+"frei stehendes Haus"
 ],
 "place/locality":[
 "Ort",
@@ -2910,15 +3060,165 @@
 "Transformator",
 "Umspannwerk"
 ],
+"public_transport/linear_platform":[
+"Wartebereich einer Haltestelle",
+"Haltestelle (Wartebereich)"
+],
+"public_transport/linear_platform_aerialway":[
+"Wartebereich einer Seilbahn-Haltestelle",
+"Seilbahn-Haltestelle (Wartebereich)"
+],
+"public_transport/linear_platform_bus":[
+"Bushaltestelle (Wartebereich)",
+"Wartebereich einer Bushaltestelle"
+],
+"public_transport/linear_platform_ferry":[
+"Wartebereich eines Fähranlegers",
+"Fähranleger (Wartebereich)"
+],
+"public_transport/linear_platform_light_rail":[
+"Wartebereich einer Stadtbahnhaltestelle",
+"Stadtbahnhaltestelle (Wartebereich)"
+],
+"public_transport/linear_platform_monorail":[
+"Einschienenbahnhaltestelle (Wartebereich)",
+"Wartebereich einer Einschienenbahnhaltestelle"
+],
+"public_transport/linear_platform_subway":[
+"Wartebereich einer U-Bahnhaltestelle",
+"U-Bahnhaltestelle (Wartebereich)"
+],
+"public_transport/linear_platform_train":[
+"Wartebereich einer Eisenbahnhaltestelle",
+"Eisenbahnhaltestelle (Wartebereich)"
+],
+"public_transport/linear_platform_tram":[
+"Trambahnhaltestelle (Wartebereich)",
+"Wartebereich einer Straßenbahnhaltestelle",
+"Straßenbahnhaltestelle (Wartebereich)",
+"Wartebereich einer Trambahnhaltestelle"
+],
+"public_transport/linear_platform_trolleybus":[
+"Wartebereich einer Oberleitungsbushaltestelle",
+"Oberleitungsbushaltestelle (Wartebereich)"
+],
 "public_transport/platform":[
-"Bahn-/Bussteig ",
-"Halte-Plattform",
-"Bussteig"
+"Wartebereich einer Haltestelle",
+"Haltestelle (Wartebereich)"
+],
+"public_transport/platform_aerialway":[
+"Wartebereich einer Lift-/Seilbahn-Haltestelle",
+"Lift-/Seilbahn-Haltestelle (Wartebereich)"
+],
+"public_transport/platform_bus":[
+"Bushaltestelle (Wartebereich)",
+"Wartebereich einer Bushaltestelle"
+],
+"public_transport/platform_ferry":[
+"Wartebereich eines Fähranlegers",
+"Fähranleger (Wartebereich)"
+],
+"public_transport/platform_light_rail":[
+"Wartebereich einer Stadtbahnhaltestelle",
+"Stadtbahnhaltestelle (Wartebereich)"
+],
+"public_transport/platform_monorail":[
+"Einschienenbahnhaltestelle (Wartebereich)",
+"Wartebereich einer Einschienenbahnhaltestelle"
+],
+"public_transport/platform_subway":[
+"Wartebereich einer U-Bahnhaltestelle",
+"U-Bahnhaltestelle (Wartebereich)"
+],
+"public_transport/platform_train":[
+"Wartebereich einer Eisenbahnhaltestelle",
+"Eisenbahnhaltestelle (Wartebereich)"
+],
+"public_transport/platform_tram":[
+"Trambahnhaltestelle (Wartebereich)",
+"Wartebereich einer Straßenbahnhaltestelle",
+"Straßenbahnhaltestelle (Wartebereich)",
+"Wartebereich einer Trambahnhaltestelle"
+],
+"public_transport/platform_trolleybus":[
+"Wartebereich einer Oberleitungsbushaltestelle",
+"Oberleitungsbushaltestelle (Wartebereich)"
+],
+"public_transport/station":[
+"Station"
+],
+"public_transport/station_aerialway":[
+"Lift-/Seilbahn-Station"
+],
+"public_transport/station_bus":[
+"Busterminal",
+"Bushaltestelle",
+"Busbahnhof / Busterminal",
+"Bustattsion",
+"Busbahnhof"
+],
+"public_transport/station_ferry":[
+"Fähranleger",
+"Fähranleger / Fährterminal",
+"Fährterminal"
+],
+"public_transport/station_light_rail":[
+"Stadtbahn-Station"
+],
+"public_transport/station_monorail":[
+"Einschienenbahn-Station"
+],
+"public_transport/station_subway":[
+"U-Bahn-Station"
+],
+"public_transport/station_train":[
+"Eisenbahn-Station"
+],
+"public_transport/station_train_halt":[
+"Eisenbahn-Bedarfsstation"
+],
+"public_transport/station_tram":[
+"Trambahnstation",
+"Straßenbahnstation"
+],
+"public_transport/station_trolleybus":[
+"Oberleitungsbusstation / Oberleitungsbusterminal",
+"Oberleitungsbusterminal",
+"Oberleitungsbusstation"
+],
+"public_transport/stop_area":[
+"Haltestellen-Relation"
 ],
 "public_transport/stop_position":[
-"Halt",
-"Halteposition",
-"Verkehrshalt"
+"Halteplatz"
+],
+"public_transport/stop_position_aerialway":[
+"Lift-/Seilbahn-Halteplatz"
+],
+"public_transport/stop_position_bus":[
+"Bus-Halteplatz"
+],
+"public_transport/stop_position_ferry":[
+"Fähranlegeplatz"
+],
+"public_transport/stop_position_light_rail":[
+"Stadtbahn-Halteplatz"
+],
+"public_transport/stop_position_monorail":[
+"Einschienenbahn-Halteplatz"
+],
+"public_transport/stop_position_subway":[
+"U-Bahn-Halteplatz"
+],
+"public_transport/stop_position_train":[
+"Eisenbahn-Halteplatz"
+],
+"public_transport/stop_position_tram":[
+"Trambahn-Halteplatz",
+"Straßenbahn-Halteplatz"
+],
+"public_transport/stop_position_trolleybus":[
+"Oberleitungsbus-Halteplatz"
 ],
 "railway":[
 "Eisenbahn"
@@ -2927,7 +3227,7 @@
 "Abgebaute Eisenbahnstrecke",
 "Aufgegebene Bahnstrecke",
 "Verfallene Eisenbahn",
-"Ehemalige Eisenbahnstrecke"
+" Abgebaute Eisenbahnstrecke "
 ],
 "railway/buffer_stop":[
 "Prellbock"
@@ -2955,11 +3255,7 @@
 "Kettenbahn"
 ],
 "railway/halt":[
-"Zug-Haltestelle",
-"Eisenbahn-Haltepunkt",
-"Haltestelle",
-"Bahn-Haltestelle",
-"Haltepunkt"
+"Eisenbahn-Bedarfshaltestelle"
 ],
 "railway/level_crossing":[
 "Eisenbahnstraßenkreuzung",
@@ -2967,11 +3263,15 @@
 "Bahnübergang (Straße)"
 ],
 "railway/light_rail":[
-"Stadtbahngleise"
+"Stadtbahngleise",
+"Stadtbahngleis"
 ],
 "railway/milestone":[
-"Eisenbahnmeilenstein entlang einer Strecke",
-"Eisenbahn Meilenstein"
+"Eisenbahn-Kilometerstein",
+"Eisenbahnmeilenstein entlang einer Strecke"
+],
+"railway/miniature":[
+"Miniatureisenbahn"
 ],
 "railway/monorail":[
 "Einschienenbahn"
@@ -2983,7 +3283,7 @@
 "Schmalspurbahngleise"
 ],
 "railway/platform":[
-"Bahnsteig"
+"Eisenbahnhaltestelle (Wartebereich)"
 ],
 "railway/rail":[
 "Eisenbahnschienen",
@@ -2994,8 +3294,7 @@
 "Eisenbahnsignal"
 ],
 "railway/station":[
-"Bahnhof",
-"Haltestelle"
+"Eisenbahnhaltestelle"
 ],
 "railway/subway":[
 "Untergrundbahn",
@@ -3016,16 +3315,15 @@
 "Zugwaschstraße"
 ],
 "railway/tram":[
-"Trambahn",
-"Straßenbahn",
+"Tramgleise",
+"Stadtbahngleise",
 "Straßenbahngleise",
-"Bim",
-"Tramway",
-"Stadtbahn"
+"Trambahngleise",
+"Bimgleis",
+"Tramwaygleise"
 ],
 "railway/tram_stop":[
-"Trambahnhaltestelle",
-"Straßenbahnhaltestelle"
+"Straßenbahn-Halteplatz"
 ],
 "relation":[
 "Relation",
@@ -3044,7 +3342,8 @@
 "Ladenlokal"
 ],
 "shop/agrarian":[
-"Geschäft für landwirtschaftliche Produktion"
+"Landwirtschaftsbedarfsgeschäft",
+"Agrarmarkt"
 ],
 "shop/alcohol":[
 "Spirituosenladen",
@@ -3083,9 +3382,9 @@
 "Badeinrichtungsgeschäft"
 ],
 "shop/beauty":[
+"Schönheitssalon",
 "Schönheits-Salon",
-"Nagelstudio",
-"Kosmetikladen"
+"Nagelstudio"
 ],
 "shop/beauty/nails":[
 "Fingernagelsutio",
@@ -3185,7 +3484,10 @@
 "shop/convenience":[
 "Gemischtwarenladen",
 "Kaufgeschäft",
-"Gemischtwarenhandel"
+"Greißler",
+"Nachbarschaftsladen",
+"Gemischtwarenhandel/ Tante-Emma-Laden",
+"Dorfladen"
 ],
 "shop/copyshop":[
 "Kopieranstalt",
@@ -3197,7 +3499,9 @@
 "Kosmetikladen"
 ],
 "shop/craft":[
-"Kunsthandwerkgeschäft"
+"Künstlerbedarf",
+"Kunsthandwerkgeschäft",
+"Bastelbedarf"
 ],
 "shop/curtain":[
 "Gardinenladen",
@@ -3310,6 +3614,9 @@
 "Eisenwarenhandel",
 "Baustoffmarkt"
 ],
+"shop/health_food":[
+"Reformhaus"
+],
 "shop/hearing_aids":[
 "Hörhilfengeschäft",
 "Akustiker",
@@ -3341,8 +3648,9 @@
 "Schmuckgeschäft"
 ],
 "shop/kiosk":[
-"Zeitschriftenkiosk",
-"Zeitungskiosk"
+"Zeitungsstand",
+"Zeitungskiosk",
+"Kiosk"
 ],
 "shop/kitchen":[
 "Kücheneinrichtungsgeschäft",
@@ -3443,6 +3751,10 @@
 "shop/pet":[
 "Zoohandlung",
 "Tierhandlung"
+],
+"shop/pet_grooming":[
+"Hundefriseur",
+"Tierfriseur"
 ],
 "shop/photo":[
 "Fotograf",
@@ -3552,9 +3864,13 @@
 "Staubsaugerladen"
 ],
 "shop/variety_store":[
-"Gemischtwarenladen",
-"Kaufgeschäft",
-"Gemischtwarenhandel"
+"Ein-Euro-Geschäft",
+"Ramschladen",
+"Sonderpostenmarkt",
+"Restpostenmarkt",
+"Schnäppchenmarkt",
+"Billigladen",
+"Ein-Euro-Laden"
 ],
 "shop/video":[
 "Video-Geschäft",
@@ -3577,6 +3893,9 @@
 "shop/weapons":[
 "Waffenhändler",
 "Waffengeschäft"
+],
+"shop/wholesale":[
+"Großhandelsgeschäft"
 ],
 "shop/window_blind":[
 "Fensterladengeschäft",
@@ -3603,6 +3922,8 @@
 ],
 "tourism/apartment":[
 "Gästeapartment",
+"Gästeappartement",
+"Ferienappartement",
 "Gästewohnung",
 "Ferienwohnung"
 ],
@@ -3701,6 +4022,10 @@
 "Freizeitpark",
 "Themenpark"
 ],
+"tourism/trail_riding_station":[
+"Wanderreitstation",
+"Gastpferdeübernachtungsmöglichkeit"
+],
 "tourism/viewpoint":[
 "Aussichtspunkt"
 ],
@@ -3783,11 +4108,13 @@
 "kein Abbiegen nach links",
 "Linksabbiegeverbot",
 "Linksabbiegen verboten",
-"kein Linksabbiegen"
+"kein Linksabbiegen",
+"Kein Linksabbiegen"
 ],
 "type/restriction/no_right_turn":[
 "kein Rechtsabbiegen",
 "Rechtsabbiegen verboten",
+"Kein Rechtsabbiegen",
 "Rechtsabbiegeverbot",
 "kein Abbiegen nach rechts"
 ],
@@ -3798,25 +4125,31 @@
 ],
 "type/restriction/no_u_turn":[
 "Kehrtwende verboten",
+"Keine Umkehren",
+"Keine Kehrtwende",
 "Umdrehen verboten",
+"Kein Umdrehen",
 "Kehrtwendeverbot",
 "Umkehren verboten"
 ],
 "type/restriction/only_left_turn":[
+"nur Abbiegen nach Links",
 "Linksabbiegegebot",
-"nur links abbiegen erlaubt",
-"Links abbiegen geboten"
+"Nur Linksabbiegen"
 ],
 "type/restriction/only_right_turn":[
-"nur rechts abbiegen erlaubt",
+"Nur Rechtsabbiegen",
 "Rechtsabbiegegebot",
-"Rechts abbiegen geboten"
+"Nur Abbiegen nach Rechts"
 ],
 "type/restriction/only_straight_on":[
-"Kein Abbiegen",
-"nur geradeaus",
-"Abbiegen verboten",
-"Abbiegeverbot"
+"Nur geradeaus"
+],
+"type/restriction/only_u_turn":[
+"Kehrtwendegebot",
+"Nur Umkehren",
+"Nur Kehrtwende",
+"Umkehrgebpt"
 ],
 "type/route":[
 "Reiseroute",
@@ -3865,8 +4198,18 @@
 "Reitroute",
 "Wanderreitroute"
 ],
+"type/route/light_rail":[
+"Stadtbahnlinie"
+],
 "type/route/pipeline":[
 "Pipelinenetz"
+],
+"type/route/piste":[
+"Langlaufloipe",
+"Piste",
+"Wintersportroute",
+"Schiroute",
+"Schipiste"
 ],
 "type/route/power":[
 "Stromnetz",
@@ -3877,13 +4220,16 @@
 "Straßenroute",
 "Straße"
 ],
+"type/route/subway":[
+"U-Bahnlinie"
+],
 "type/route/train":[
 "Eisenbahn-Linie",
 "Bahnlinie"
 ],
 "type/route/tram":[
-"Straßenbahn-Linie",
-"Tramlinie"
+"Trambahn-Linie",
+"Straßenbahn-Linie"
 ],
 "type/route_master":[
 "Routemaster",

@@ -329,13 +329,6 @@
 "野郊訪客處",
 "Ranger Station"
 ],
-"amenity/recycling":[
-"囘收箱",
-"囘收桶",
-"Recycling",
-"回收箱",
-"回收桶"
-],
 "amenity/restaurant":[
 "Restaurant",
 "餐廳",
@@ -602,12 +595,6 @@
 "馬道",
 "Bridle Path",
 "馬徑"
-],
-"highway/bus_stop":[
-"公共汽車站",
-"巴士站",
-"公交車站",
-"Bus Stop"
 ],
 "highway/cycleway":[
 "自行車道",
@@ -1161,13 +1148,7 @@
 "辦公室"
 ],
 "office/administrative":[
-"Administrative Office",
 "行政樓"
-],
-"office/company":[
-"Company Office",
-"公司",
-"公司寫字樓"
 ],
 "office/educational_institution":[
 "Educational Institution",
@@ -1315,16 +1296,6 @@
 "Transformer",
 "火牛房"
 ],
-"public_transport/platform":[
-"Platform",
-"站頭",
-"平臺"
-],
-"public_transport/stop_position":[
-"停止位置",
-"Stop Position",
-"街中站"
-],
 "railway":[
 "鐵路"
 ],
@@ -1339,12 +1310,6 @@
 "Disused Railway",
 "廢棄的鐵路"
 ],
-"railway/halt":[
-"Railway Halt",
-"火車細站",
-"小火車站",
-"火車站仔"
-],
 "railway/monorail":[
 "單軌電車",
 "Monorail",
@@ -1357,23 +1322,12 @@
 "窄軌",
 "窄軌鐵路"
 ],
-"railway/platform":[
-"Railway Platform",
-"月臺",
-"站臺",
-"鐵道月台"
-],
 "railway/rail":[
 "Rail",
 "鐵軌",
 "火車軌",
 "路軌",
 "軌"
-],
-"railway/station":[
-"鐵路站",
-"Railway Station",
-"火車站"
 ],
 "railway/subway":[
 "MTR",

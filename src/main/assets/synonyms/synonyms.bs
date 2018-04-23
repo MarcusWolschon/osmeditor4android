@@ -241,12 +241,6 @@
 "rendžerska stanica",
 "Stanica rendžerske službe"
 ],
-"amenity/recycling":[
-"ponovna obrada",
-"Recikliranje",
-"recikliranje",
-"reciklaža"
-],
 "amenity/restaurant":[
 "gostionica",
 "restoran",
@@ -564,11 +558,6 @@
 "konjska staza",
 "konjski trag",
 "Konjska staza"
-],
-"highway/bus_stop":[
-"autobuska stanica",
-"Bus stanica",
-"autobusko stajalište"
 ],
 "highway/cycleway":[
 "biciklistička staza",
@@ -1089,16 +1078,7 @@
 "uslužni ured"
 ],
 "office/administrative":[
-"administracija",
-"administrativni ured",
-"Administrativni ured",
-"ured upravljanja"
-],
-"office/company":[
-"ured kompanije",
-"Ured kompanije",
-"ured firme",
-"korporativni ured"
+"Administrativni ured"
 ],
 "office/educational_institution":[
 "institucija za obrazovanje",
@@ -1248,16 +1228,6 @@
 "Transformator",
 "transformator el. energije"
 ],
-"public_transport/platform":[
-"platforma",
-"Platforma"
-],
-"public_transport/stop_position":[
-"pozicija zaustavljanja",
-"stop",
-"Stop pozicija",
-"stop pozicija"
-],
 "railway":[
 "Željeznička pruga"
 ],
@@ -1271,31 +1241,15 @@
 "nekorištena željeznica",
 "nekorištena željeznička pruga"
 ],
-"railway/halt":[
-"Željeznička ustava",
-"željeznička ustava",
-"željezničko zaustavljanje",
-"željeznički zastoj"
-],
 "railway/monorail":[
 "jednošinska pruga",
 "Pruga sa jednim kolosijekom",
 "pruga sa jednim kolosijekom"
 ],
-"railway/platform":[
-"željezničko stajalište",
-"željeznička platforma",
-"Željeznička platforma"
-],
 "railway/rail":[
 "šinski put",
 "šine",
 "Šina"
-],
-"railway/station":[
-"željeznička stanica",
-"željeznička postaja",
-"Željeznička stanica"
 ],
 "railway/subway":[
 "metro",

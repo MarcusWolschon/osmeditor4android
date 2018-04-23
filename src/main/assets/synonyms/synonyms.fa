@@ -31,6 +31,9 @@
 "قایق",
 "بلم"
 ],
+"aerialway/goods":[
+"محموله هوایی"
+],
 "aerialway/magic_carpet":[
 "آسانسور اسکی"
 ],
@@ -61,6 +64,9 @@
 "aeroway/apron":[
 "صحن"
 ],
+"aeroway/gate":[
+" دروازه فرودگاه "
+],
 "aeroway/hangar":[
 "آشیانه هواپیما"
 ],
@@ -73,8 +79,17 @@
 "aeroway/taxiway":[
 "راه فرود به پارکینگ"
 ],
+"aeroway/terminal":[
+"پایانه فرودگاه"
+],
 "amenity":[
 "کاربری"
+],
+"amenity/animal_breeding":[
+"امکانات پرورش حیوانات"
+],
+"amenity/animal_shelter":[
+"پناهگاه حیوانات"
 ],
 "amenity/arts_centre":[
 "مرکز هنری"
@@ -113,7 +128,7 @@
 "تبدیل ارز / صرافی"
 ],
 "amenity/bus_station":[
-"ایستگاه پایانه اتوبوس"
+"ایستگاه اتوبوس / ترمینال"
 ],
 "amenity/cafe":[
 "کافه"
@@ -175,14 +190,14 @@
 "amenity/drinking_water":[
 "آب آشامیدنی"
 ],
+"amenity/driving_school":[
+"آموزشگاه رانندگی"
+],
 "amenity/embassy":[
 "سفارت خانه"
 ],
 "amenity/fast_food":[
 "غذای آماده"
-],
-"amenity/ferry_terminal":[
-"پایانه کشتی"
 ],
 "amenity/fire_station":[
 "ایستگاه آتش نشانی"
@@ -221,14 +236,23 @@
 "amenity/library":[
 "کتابخانه"
 ],
+"amenity/love_hotel":[
+"هتل عشق"
+],
 "amenity/marketplace":[
 "بازار"
 ],
 "amenity/motorcycle_parking":[
 "پارکینگ موتور سیکلت"
 ],
+"amenity/music_school":[
+"آموزشگاه موسیقی"
+],
 "amenity/nightclub":[
 "کلوپ شبانه"
+],
+"amenity/nursing_home":[
+"خانه سالمندان"
 ],
 "amenity/parking":[
 "پارکینگ خودرو"
@@ -251,11 +275,20 @@
 "amenity/place_of_worship/christian":[
 "کلیسا"
 ],
+"amenity/place_of_worship/hindu":[
+"معبد هندو"
+],
 "amenity/place_of_worship/jewish":[
 "کنیسه"
 ],
 "amenity/place_of_worship/muslim":[
 "مسجد"
+],
+"amenity/place_of_worship/shinto":[
+"معبد شینتویی"
+],
+"amenity/place_of_worship/taoist":[
+"معبد تائو"
 ],
 "amenity/planetarium":[
 "آسمان نما"
@@ -284,9 +317,6 @@
 "amenity/ranger_station":[
 "ایستگاه جنگلبانی"
 ],
-"amenity/recycling":[
-"بازیافت مواد"
-],
 "amenity/recycling_centre":[
 "مرکز بازیافت"
 ],
@@ -305,6 +335,12 @@
 "amenity/shelter":[
 "پناه گاه"
 ],
+"amenity/shower":[
+"دوش"
+],
+"amenity/smoking_area":[
+"منطقه سیگار کشیدن"
+],
 "amenity/social_facility":[
 "امکانات اجتماعی"
 ],
@@ -316,6 +352,9 @@
 ],
 "amenity/social_facility/homeless_shelter":[
 "پناهگاه بی خانمان‌ها"
+],
+"amenity/social_facility/nursing_home":[
+"خانه سالمندان"
 ],
 "amenity/studio":[
 "استدیو"
@@ -336,10 +375,13 @@
 "سرویس بهداشتی"
 ],
 "amenity/townhall":[
-"تالار شهر"
+"شهرداری"
 ],
 "amenity/university":[
 "محیط دانشگاهی"
+],
+"amenity/vending_machine":[
+"دستگاه فروش خودکار"
 ],
 "amenity/vending_machine/cigarettes":[
 "دستگاه فروش سیگار"
@@ -356,6 +398,9 @@
 "amenity/vending_machine/news_papers":[
 "دستگاه خود فروش روزنامه"
 ],
+"amenity/vending_machine/newspapers":[
+"دستگاه فروش خودکار روزنامه"
+],
 "amenity/vending_machine/parcel_pickup_dropoff":[
 "سرویس دریافت امانات پستی، دستگاه دریافت کننده مرسولات پستی ",
 "سرویس دریافت مرسولات پستی، دستگاه دریافت مرسولات پستی"
@@ -371,6 +416,9 @@
 ],
 "amenity/veterinary":[
 "دامپزشکی"
+],
+"amenity/waste/dog_excrement":[
+"سطل زباله سگ"
 ],
 "amenity/waste_basket":[
 "سطل زباله"
@@ -389,6 +437,18 @@
 ],
 "area/highway":[
 "سطح جاده"
+],
+"attraction/bungee_jumping":[
+"بانجی جامپینگ"
+],
+"attraction/carousel":[
+"چرخ فلک"
+],
+"attraction/pirate_ship":[
+"کشتی دزدان دریایی"
+],
+"attraction/roller_coaster":[
+"ترن هوایی"
 ],
 "barrier":[
 "مانع"
@@ -456,6 +516,9 @@
 "building/barn":[
 "انبار کاه",
 "انبار غله"
+],
+"building/bungalow":[
+"بانگالو"
 ],
 "building/bunker":[
 "انباربزرگ"
@@ -608,6 +671,9 @@
 "craft/electrician":[
 "متخصص برق"
 ],
+"craft/electronics_repair":[
+"فروشگاه تعمیرات الکترونیک"
+],
 "craft/gardener":[
 "باغبان"
 ],
@@ -731,6 +797,9 @@
 "emergency/private":[
 "دسترسی اضطراری شخصی"
 ],
+"emergency/water_tank":[
+"مخزن آب اضطراری"
+],
 "emergency/yes":[
 "دسترسی اظطراری بله"
 ],
@@ -782,14 +851,14 @@
 "healthcare/blood_donation":[
 "مرکز اهدای خون"
 ],
+"healthcare/midwife":[
+"ماما"
+],
 "highway":[
 "بزرگراه"
 ],
 "highway/bridleway":[
 "مسیر حیوانات اهلی"
-],
-"highway/bus_stop":[
-"ایستگاه اتوبوس"
 ],
 "highway/corridor":[
 "راهروی داخلی"
@@ -802,6 +871,9 @@
 ],
 "highway/cycleway":[
 "مسیر دوچرخه سواری"
+],
+"highway/elevator":[
+"آسانسور"
 ],
 "highway/footway":[
 "مسیر پیاده روی"
@@ -853,7 +925,7 @@
 "جاده خدماتی"
 ],
 "highway/service/alley":[
-"کوچه"
+"پس کوچه"
 ],
 "highway/service/drive-through":[
 "پرداخت سواره"
@@ -934,6 +1006,9 @@
 "historic/ruins":[
 "ویرانه"
 ],
+"historic/tomb":[
+"آرامگاه"
+],
 "historic/wayside_cross":[
 "صلیب کنار جاده"
 ],
@@ -948,6 +1023,9 @@
 ],
 "landuse/allotments":[
 "باغچه عمومی"
+],
+"landuse/aquaculture":[
+"آبزی‌پروری"
 ],
 "landuse/basin":[
 "حوزه رودخانه"
@@ -976,14 +1054,17 @@
 "landuse/forest":[
 "جنگل"
 ],
-"landuse/garages":[
-"گاراژها"
-],
 "landuse/grass":[
 "علف زار"
 ],
+"landuse/harbour":[
+"بندرگاه"
+],
 "landuse/industrial":[
 "محیط صنعتی"
+],
+"landuse/industrial/slaughterhouse":[
+"کشتارگاه"
 ],
 "landuse/landfill":[
 "محل دفن مواد (زباله)"
@@ -1032,6 +1113,9 @@
 "سالن رقص",
 "تالار رقص"
 ],
+"leisure/dancing_school":[
+"مدرسه رقص"
+],
 "leisure/dog_park":[
 "پارک سگ"
 ],
@@ -1052,6 +1136,9 @@
 ],
 "leisure/golf_course":[
 "زمین گلف"
+],
+"leisure/hackerspace":[
+"هکراسپیس"
 ],
 "leisure/horse_riding":[
 "باشگاه اسب سواری"
@@ -1116,6 +1203,9 @@
 "مکان‌های مطرح",
 "اماکن پر رفت آمد"
 ],
+"leisure/sauna":[
+"سونا"
+],
 "leisure/slipway":[
 "قایق ساکن"
 ],
@@ -1143,6 +1233,9 @@
 "man_made/adit":[
 "گذرگاه افقی"
 ],
+"man_made/antenna":[
+"آنتن"
+],
 "man_made/breakwater":[
 "موج شکن"
 ],
@@ -1151,6 +1244,9 @@
 ],
 "man_made/chimney":[
 "دودکش"
+],
+"man_made/crane":[
+"جرثقیل"
 ],
 "man_made/cutline":[
 "خط برش"
@@ -1214,6 +1310,12 @@
 ],
 "man_made/water_works":[
 "امور آب"
+],
+"man_made/watermill":[
+"آسیاب آبی"
+],
+"man_made/windmill":[
+"آسیاب بادی"
 ],
 "man_made/works":[
 "کارخانه"
@@ -1306,8 +1408,17 @@
 "office/administrative":[
 "دفتر اداری"
 ],
-"office/company":[
-"دفتر شرکت"
+"office/advertising_agency":[
+"آژانس تبلیغاتی"
+],
+"office/architect":[
+"دفتر معماری"
+],
+"office/association":[
+"دفتر سازمان غیر انتفاعی"
+],
+"office/charity":[
+"دفتر خیریه"
 ],
 "office/coworking":[
 "فضای کاری مشارکتی"
@@ -1330,14 +1441,32 @@
 "office/government/register_office":[
 "اداره ثبت"
 ],
+"office/government/tax":[
+"اداره مالیات و درآمد"
+],
+"office/guide":[
+"دفتر راهنمای تور"
+],
 "office/insurance":[
 "دفتر بیمه"
+],
+"office/it":[
+"دفتر فناوری اطلاعات"
 ],
 "office/lawyer":[
 "دفتر حقوقی"
 ],
+"office/lawyer/notary":[
+"دفتر اسناد رسمی"
+],
+"office/newspaper":[
+"دفتر روزنامه"
+],
 "office/ngo":[
 "سازمان غیر دولتی"
+],
+"office/notary":[
+"دفتر اسناد رسمی"
 ],
 "office/physician":[
 "پزشک"
@@ -1345,8 +1474,14 @@
 "office/political_party":[
 "حزب سیاسی"
 ],
+"office/private_investigator":[
+"دفتر تحقیقات خصوصی"
+],
 "office/research":[
 "سازمان تحقیقاتی و پژوهشی"
+],
+"office/tax_advisor":[
+"دفتر مشاور مالیاتی"
 ],
 "office/telecommunication":[
 "اداره مخابرات"
@@ -1385,7 +1520,7 @@
 "میدان"
 ],
 "place/town":[
-"شهر کوچک"
+"شهرک"
 ],
 "place/village":[
 "روستا"
@@ -1423,12 +1558,6 @@
 "power/transformer":[
 "مبدل برق"
 ],
-"public_transport/platform":[
-"پلتفورم"
-],
-"public_transport/stop_position":[
-"موقعیت توقف"
-],
 "railway":[
 "راه آهن"
 ],
@@ -1444,9 +1573,6 @@
 "railway/funicular":[
 "کابلی"
 ],
-"railway/halt":[
-"توقف گاه راه آهن"
-],
 "railway/level_crossing":[
 "جاده گذرنده از راه‌آهن"
 ],
@@ -1456,14 +1582,8 @@
 "railway/narrow_gauge":[
 "راه آهن باریک کابلی"
 ],
-"railway/platform":[
-"بستر راه آهن"
-],
 "railway/rail":[
 "ریل قطار"
-],
-"railway/station":[
-"ایستگاه راه آهن"
 ],
 "railway/subway":[
 "مترو"
@@ -1681,10 +1801,6 @@
 ],
 "shop/jewelry":[
 "جواهر فروشی"
-],
-"shop/kiosk":[
-"کیوسک روزنامه",
-"باجه روزنامه فروشی"
 ],
 "shop/kitchen":[
 "فروشگاه تزئینات آشپزخانه"
@@ -1971,15 +2087,6 @@
 ],
 "type/restriction/no_u_turn":[
 "دور زدن ممنوع"
-],
-"type/restriction/only_left_turn":[
-"تنها امکان گردش به چپ"
-],
-"type/restriction/only_right_turn":[
-"تنها امکان گردش به راست"
-],
-"type/restriction/only_straight_on":[
-"گردش ممنوع"
 ],
 "type/route":[
 "مسیر"
