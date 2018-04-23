@@ -181,7 +181,7 @@
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_gps"
-        android:title="@string/config_category_gps">
+        android:title="@string/config_category_gps"
         android:summary="@string/config_category_gps_summary">
         <android.support.v7.preference.ListPreference
             android:defaultValue="internal"
@@ -223,7 +223,8 @@
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_server"
-        android:title="@string/config_category_server">
+        android:title="@string/config_category_server"
+        android:summary="@string/config_category_server_summary" >
         <android.support.v7.preference.Preference
             android:key="@string/config_api_button_key"
             android:summary="@string/config_apibutton_summary"
@@ -252,7 +253,8 @@
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_layers"
-        android:title="@string/config_category_layers">
+        android:title="@string/config_category_layers"
+        android:summary="@string/config_category_layers_summary" >
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="4"
             android:dialogTitle="@string/config_maxTileDownloadThreads_title"
