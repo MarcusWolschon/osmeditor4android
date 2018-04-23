@@ -275,14 +275,13 @@ public class TrackerService extends Service implements Exportable {
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingAppIntent = PendingIntent.getActivity(this, 0, appStartIntent, 0);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title))
-                .setContentText(getString(R.string.tracking_active_text));
+            notificationBuilder.setContentTitle(getString(R.string.tracking_active_title)).setContentText(getString(R.string.tracking_active_text));
         } else {
             notificationBuilder.setContentTitle(getString(R.string.tracking_active_title_short))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text))); 
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text)));
         }
         notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
-            .setColor(ContextCompat.getColor(this, R.color.osm_green));
+                .setColor(ContextCompat.getColor(this, R.color.osm_green));
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
 
@@ -546,7 +545,7 @@ public class TrackerService extends Service implements Exportable {
                             }
                         }
                     }
-                    if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null) {
+                    if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null && prefs.isNetworkLocationFallbackAllowed()) {
                         // if the network provider is available listen there
                         Log.d(DEBUG_TAG, "Listening for NETWORK_PROVIDER");
                         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(),
@@ -600,7 +599,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
      *            updated
-     * @param fileName
+     * @param uri Uri for the file to read
      * @throws FileNotFoundException
      */
     public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
@@ -929,8 +928,11 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Return a suitable next bounding box, simply creates a raster of the download radius size
      * 
-     * @param location current location
-     * @return the next bounding box
+     * @param bbs List of already used/downloaded BoundingBox
+     * @param prevLocation previous Location
+     * @param location current Location
+     * @param radius "radius" of the BoundingBox
+     * @return the next BoundingBox
      */
     @Nullable
     private BoundingBox getNextBox(@NonNull List<BoundingBox> bbs, Location prevLocation, @NonNull Location location, int radius) {
@@ -1016,7 +1018,9 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
-     * @param location
+     * Call all Listeners and download data and tasks
+     * 
+     * @param location current Location
      */
     public void updateLocation(@Nullable Location location) {
         if (location == null) {
@@ -1038,8 +1042,8 @@ public class TrackerService extends Service implements Exportable {
         lastLocation = location;
     }
 
+    @SuppressWarnings("deprecation")
     class OldNmeaListener implements NmeaListener {
-
         @Override
         public void onNmeaReceived(long timestamp, String nmea) {
             processNmeaSentance(nmea);
@@ -1047,7 +1051,6 @@ public class TrackerService extends Service implements Exportable {
     }
 
     class NewNmeaListener implements OnNmeaMessageListener {
-
         @Override
         public void onNmeaMessage(String message, long timestamp) {
             processNmeaSentance(message);
