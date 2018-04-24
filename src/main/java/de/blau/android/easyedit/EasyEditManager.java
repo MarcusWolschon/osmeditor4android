@@ -26,9 +26,10 @@ import de.blau.android.util.Snack;
 import de.blau.android.validation.Validator;
 
 /**
- * This class handles most of the EasyEdit mode actions, to keep it separate from the main class.
+ * This class starts the AvtionModes in "EasyEdit" mode (which is now the default)
  * 
  * @author Jan
+ * @author Simon Poole
  *
  */
 public class EasyEditManager {
@@ -43,15 +44,20 @@ public class EasyEditManager {
     private EasyEditActionModeCallback currentActionModeCallback = null;
     private final Object               actionModeCallbackLock    = new Object();
 
+    /**
+     * Construct a new instance of the manager
+     * 
+     * @param main the instance of Main we are being used from
+     */
     public EasyEditManager(Main main) {
         this.main = main;
         this.logic = App.getLogic();
     }
 
     /**
-     * Returns true if a actionmode is currently active
+     * Returns true if an ActionMode is currently active
      * 
-     * @return
+     * @return true if we are in an ActionMode
      */
     public boolean isProcessingAction() {
         synchronized (actionModeCallbackLock) {
@@ -59,20 +65,16 @@ public class EasyEditManager {
         }
     }
 
+    /**
+     * Check if an Element is selected 
+     * 
+     * @return true if we are in one of the ELementSelection modes
+     */
     public boolean inElementSelectedMode() {
         synchronized (actionModeCallbackLock) {
             return (currentActionModeCallback != null) && (currentActionModeCallback instanceof ElementSelectionActionModeCallback
                     || currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
         }
-    }
-
-    /**
-     * Check if the actionmode ants its own context menu
-     * 
-     * @return
-     */
-    public boolean needsCustomContextMenu() {
-        return isProcessingAction() && currentActionModeCallback.needsCustomContextMenu();
     }
 
     /**
@@ -95,6 +97,12 @@ public class EasyEditManager {
         return (currentActionModeCallback != null && currentActionModeCallback.handleClick(x, y));
     }
 
+    /**
+     * Set the ActionMode and the corresponding callback
+     * 
+     * @param mode the new ActionMode
+     * @param callback the new Callback
+     */
     public void setCallBack(ActionMode mode, EasyEditActionModeCallback callback) {
         synchronized (actionModeCallbackLock) {
             currentActionMode = mode;
@@ -237,7 +245,13 @@ public class EasyEditManager {
         return new AddRelationMemberActionModeCallback(this, r, null);
     }
 
-    /** This gets called when the map is long-pressed in easy-edit mode */
+    /** This gets called when the map is long-clciked in easy-edit mode 
+     * 
+     * @param v the View that was long clicked
+     * @param x screen X coordinate
+     * @param y screen Y coordinate
+     * @return true if we handled the click
+     */
     public boolean handleLongClick(@NonNull View v, float x, float y) {
         synchronized (actionModeCallbackLock) {
             if ((currentActionModeCallback instanceof PathCreationActionModeCallback)) {
@@ -254,6 +268,11 @@ public class EasyEditManager {
         return true;
     }
 
+    /**
+     * Start ExtendedSelection / multi-select mode
+     * 
+     * @param osmElement initial selected element
+     */
     public void startExtendedSelection(@NonNull OsmElement osmElement) {
         synchronized (actionModeCallbackLock) {
             if ((currentActionModeCallback instanceof WaySelectionActionModeCallback) || (currentActionModeCallback instanceof NodeSelectionActionModeCallback)
@@ -276,6 +295,9 @@ public class EasyEditManager {
         }
     }
 
+    /**
+     * Invalidate the menu of the current ActionMode
+     */
     public void invalidate() {
         synchronized (actionModeCallbackLock) {
             if (currentActionMode != null) {
@@ -299,14 +321,27 @@ public class EasyEditManager {
         }
     }
 
+    /**
+     * Handle results from starting an activity with an Intent
+     * 
+     * @param requestCode the Intent request code
+     * @param resultCode the Intent result code
+     * @param data any returned data
+     */
     public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback instanceof LongClickActionModeCallback) {
+            if (currentActionModeCallback != null && currentActionModeCallback instanceof LongClickActionModeCallback) {
                 ((LongClickActionModeCallback) currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
             }
         }
     }
 
+    /**
+     * Process keyboard shortcuts
+     * 
+     * @param c the character
+     * @return true if we processed the character
+     */
     public boolean processShortcut(Character c) {
         synchronized (actionModeCallbackLock) {
             return currentActionModeCallback != null && currentActionModeCallback.processShortcut(c);
@@ -314,9 +349,18 @@ public class EasyEditManager {
     }
 
     /**
-     * Call the per actionmode onCreateContextMenu
+     * Check if the ActionMode wants its own context menu
      * 
-     * @param menu
+     * @return true if we want to show our own context menu
+     */
+    public boolean needsCustomContextMenu() {
+        return isProcessingAction() && currentActionModeCallback.needsCustomContextMenu();
+    }
+    
+    /**
+     * Call the per ActionMode onCreateContextMenu
+     * 
+     * @param menu the ContextMenu
      */
     public void createContextMenu(ContextMenu menu) {
         synchronized (actionModeCallbackLock) {

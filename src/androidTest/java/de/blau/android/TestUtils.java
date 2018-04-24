@@ -27,13 +27,13 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
-import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Track.TrackPoint;
 import de.blau.android.util.GeoMath;
 
 /**
+ * Various methods to support testing
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class TestUtils {
@@ -52,12 +52,24 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Dismiss initial welcome dialog and download
+     * 
+     * @param ctx Android context
+     */
     public static void dismissStartUpDialogs(Context ctx) {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         clickText(mDevice, true, ctx.getResources().getString(R.string.okay), false);
         clickText(mDevice, true, ctx.getResources().getString(R.string.location_load_dismiss), false);
     }
 
+    /**
+     * Select the recipient of an intent
+     * 
+     * Currently flaky
+     * 
+     * @param ctx Android context
+     */
     public static void selectIntentRecipient(Context ctx) {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.waitForWindowUpdate(null, 1000);
@@ -67,10 +79,25 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Click the overflow button in a menu bar
+     * 
+     * @return true if successful
+     */
     public static boolean clickOverflowButton() {
+        return clickMenuButton("More options");
+    }
+
+    /**
+     * Click a menu bar button
+     * 
+     * @param description the description of the button
+     * @return true if successful
+     */
+    public static boolean clickMenuButton(String description) {
         // Note: contrary to "text", "textStartsWith" is case insensitive
-        BySelector bySelector = By.clickable(true).descStartsWith("More options");
-        UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith("More options");
+        BySelector bySelector = By.clickable(true).descStartsWith(description);
+        UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith(description);
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.wait(Until.findObject(bySelector), 500);
         UiObject button = device.findObject(uiSelector);
@@ -88,6 +115,12 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Click on a button
+     * 
+     * @param resId resource id
+     * @param waitForNewWindow if true wait for a new window after clicking
+     */
     public static void clickButton(String resId, boolean waitForNewWindow) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().clickable(true).resourceId(resId);
@@ -103,6 +136,9 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Two finger zoom out simulation
+     */
     public static void pinchOut() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
@@ -113,6 +149,9 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Two finger zoom in simulation
+     */
     public static void pinchIn() {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().resourceId("de.blau.android:id/map_view");
@@ -123,35 +162,226 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Single click at a screen location
+     * 
+     * @param x screen X coordinate
+     * @param y screen y coordinate
+     */
     public static void clickAt(float x, float y) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click((int) x, (int) y);
     }
 
-    public static void clickAtCoordinates(Map map, double lon, double lat) {
-        clickAtCoordinates(map, (int)(lon*1E7), (int)(lat*1E7));
-    }
-    
     /**
+     * Single click at a WGS84 location
      * 
-     * @param map
-     * @param viewBox
-     * @param lonE7
-     * @param latE7
+     * Will center the screen on the location first
+     * 
+     * @param map the current Map object
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
      */
-    public static void clickAtCoordinates(Map map,  int lonE7, int latE7) {
-        if (map.getZoomLevel() < 15) {
-            App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
-        }
-        map.getViewBox().moveTo(map, lonE7, latE7);
-        map.invalidate();
-        float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
-        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
-        TestUtils.clickAt(x, y);
+    public static void clickAtCoordinates(Map map, double lon, double lat) {
+        clickAtCoordinates(map, lon, lat, true);
     }
 
     /**
+     * Single click at a WGS84 location
      * 
+     * @param map the current Map object
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void clickAtCoordinates(Map map, double lon, double lat, boolean recenter) {
+        clickAtCoordinates(map, (int) (lon * 1E7), (int) (lat * 1E7), recenter);
+    }
+
+    /**
+     * Single click at a WGS84 location
+     * 
+     * Will center the screen on the location first
+     * 
+     * @param map the current Map object
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     */
+    public static void clickAtCoordinates(Map map, int lonE7, int latE7) {
+        clickAtCoordinates(map, lonE7, latE7, true);
+    }
+
+    /**
+     * Single click at a WGS84 location
+     * 
+     * @param map the current Map object
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void clickAtCoordinates(Map map, int lonE7, int latE7, boolean recenter) {
+        if (recenter) {
+            if (map.getZoomLevel() < 15) {
+                App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
+            }
+            map.getViewBox().moveTo(map, lonE7, latE7);
+            map.invalidate();
+        }
+        float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
+        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
+        System.out.println("clicking at " + x + " / " + y);
+        TestUtils.clickAt(Math.round(x), Math.round(y));
+    }
+
+    /**
+     * Long click at a screen location
+     * 
+     * @param x screen X coordinate
+     * @param y screen y coordinate
+     */
+    public static void longClickAt(float x, float y) {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.swipe((int) x, (int) y, (int) x, (int) y, 200);
+    }
+
+    /**
+     * Long click at a WGS84 location
+     * 
+     * @param map the current Map object
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void longClickAtCoordinates(Map map, double lon, double lat, boolean recenter) {
+        longClickAtCoordinates(map, (int) (lon * 1E7), (int) (lat * 1E7), recenter);
+    }
+
+    /**
+     * Long click at a WGS84 location
+     * 
+     * @param map the current Map object
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void longClickAtCoordinates(Map map, int lonE7, int latE7, boolean recenter) {
+        if (recenter) {
+            if (map.getZoomLevel() < 15) {
+                App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
+            }
+            map.getViewBox().moveTo(map, lonE7, latE7);
+            map.invalidate();
+        }
+        float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
+        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
+        System.out.println("long clicking at " + x + " / " + y);
+        TestUtils.longClickAt(x, y);
+    }
+
+    /**
+     * Double click at a screen location
+     * 
+     * @param x screen X coordinate
+     * @param y screen y coordinate
+     */
+    public static void doubleClickAt(float x, float y) {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.click((int) x, (int) y);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+        device.click((int) x, (int) y);
+    }
+
+    /**
+     * Double click at a WGS84 location
+     * 
+     * @param map the current Map object
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void doubleClickAtCoordinates(Map map, double lon, double lat, boolean recenter) {
+        doubleClickAtCoordinates(map, (int) (lon * 1E7), (int) (lat * 1E7), recenter);
+    }
+
+    /**
+     * Double click at a WGS84 location
+     * 
+     * @param map the current Map object
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     * @param recenter center the screen on the location first if true
+     */
+    public static void doubleClickAtCoordinates(Map map, int lonE7, int latE7, boolean recenter) {
+        if (recenter) {
+            if (map.getZoomLevel() < 15) {
+                App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
+            }
+            map.getViewBox().moveTo(map, lonE7, latE7);
+            map.invalidate();
+        }
+        float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
+        float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
+        System.out.println("double clicking at " + x + " / " + y);
+        TestUtils.doubleClickAt(x, y);
+    }
+
+    /**
+     * Execute a drag
+     * 
+     * @param startX start screen X coordinate
+     * @param startY start screen Y coordinate
+     * @param endX end screen X coordinate
+     * @param endY end screen Y coordinate
+     */
+    public static void drag(float startX, float startY, float endX, float endY) {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.swipe((int) startX, (int) startY, (int) endX, (int) endY, 100);
+    }
+
+    /**
+     * Execute a drag
+     * 
+     * @param map map the current Map object
+     * @param startLon start WGS84 longitude
+     * @param startLat start WGS84 latitude
+     * @param endLon end lon WGS84 longitude
+     * @param endLat end WGS84 latitude
+     * @param recenter center the screen on the start location first if true
+     */
+    public static void drag(Map map, double startLon, double startLat, double endLon, double endLat, boolean recenter) {
+        drag(map, (int) (startLon * 1E7), (int) (startLat * 1E7), (int) (endLon * 1E7), (int) (endLat * 1E7), recenter);
+    }
+
+    /**
+     * Execute a drag
+     * 
+     * @param map map the current Map object
+     * @param startLonE7 start WGS84*1E7 longitude
+     * @param startLatE7 start WGS84*1E7 latitude
+     * @param endLonE7 end lon WGS84*1E7 longitude
+     * @param endLatE7 end WGS84*1E7 latitude
+     * @param recenter center the screen on the start location first if true
+     */
+    public static void drag(Map map, int startLonE7, int startLatE7, int endLonE7, int endLatE7, boolean recenter) {
+        if (recenter) {
+            if (map.getZoomLevel() < 15) {
+                App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
+            }
+            map.getViewBox().moveTo(map, startLonE7, startLatE7);
+            map.invalidate();
+        }
+        float startX = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), startLonE7);
+        float startY = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), startLatE7);
+        float endX = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), endLonE7);
+        float endY = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), endLatE7);
+        TestUtils.drag(startX, startY, endX, endY);
+    }
+
+    /**
+     * Unlock the screen if locked
      */
     public static void unlock() {
         if (App.getLogic().isLocked()) {
@@ -165,6 +395,12 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Zoom to a specific zoom level
+     * 
+     * @param main current Main object
+     * @param level level to zoom to
+     */
     public static void zoomToLevel(Main main, int level) {
         Map map = main.getMap();
         int count = 0;
@@ -187,6 +423,15 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Click a text on screen (case insensitive, start of a string)
+     * 
+     * @param device UiDevice object
+     * @param clickable clickable if true the search will be restricted to clickable objects
+     * @param text text to search (case insensitive, uses textStartsWith)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @return true if successful
+     */
     public static boolean clickText(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
@@ -220,10 +465,19 @@ public class TestUtils {
             return false;
         }
     }
-    
+
+    /**
+     * Click a text on screen (case sensitive, any position in a string)
+     * 
+     * @param device UiDevice object
+     * @param clickable clickable if true the search will be restricted to clickable objects
+     * @param text text to search (case sensitive, uses textContains)
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @return true if successful
+     */
     public static boolean clickTextContains(UiDevice device, boolean clickable, String text, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
-        // 
+        //
         BySelector bySelector = null;
         UiSelector uiSelector = null;
         // NOTE order of the selector terms is significant
@@ -255,6 +509,14 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Find text on screen
+     * 
+     * @param device UiDevice object
+     * @param clickable if true the search will be restricted to clickable objects
+     * @param text the text to find
+     * @return true if successful
+     */
     public static boolean findText(UiDevice device, boolean clickable, String text) {
         Log.w(DEBUG_TAG, "Searching for object with " + text);
         // Note: contrary to "text", "textStartsWith" is case insensitive
@@ -268,6 +530,15 @@ public class TestUtils {
         return ob != null;
     }
 
+    /**
+     * Click on an object
+     * 
+     * @param device UiDevice object
+     * @param clickable if true the search will be restricted to clickable objects
+     * @param resourceId resource id of the object
+     * @param waitForNewWindow set the wait for new window flag if true
+     * @return true if successful
+     */
     public static boolean clickResource(UiDevice device, boolean clickable, String resourceId, boolean waitForNewWindow) {
         Log.w(DEBUG_TAG, "Searching for object with " + resourceId);
         // Note: contrary to "text", "textStartsWith" is case insensitive
@@ -302,6 +573,11 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Click "Up" button in action modes
+     * 
+     * @param mDevice UiDevice object
+     */
     public static void clickUp(UiDevice mDevice) {
         UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Navigate up"));
         if (!homeButton.exists()) {
@@ -314,6 +590,22 @@ public class TestUtils {
         }
     }
 
+    /**
+     * Click "Home" button in Activity app bars
+     * 
+     * @param mDevice UiDevice object
+     */
+    public static void clickHome(UiDevice mDevice) {
+        clickResource(mDevice, true, "de.blau.android:id/action_mode_close_button", true);
+    }
+
+    /**
+     * Buffered read an InputStream into a byte array
+     * 
+     * @param is the InputStream to read
+     * @return a byte array
+     * @throws IOException
+     */
     public static byte[] readInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

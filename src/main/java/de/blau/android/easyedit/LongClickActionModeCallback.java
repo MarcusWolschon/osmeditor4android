@@ -323,87 +323,92 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     }
 
     /**
+     * Handle the result from starting an activity via an Intent
+     * 
+     * This is currently only used for experimental voice commands
+     * 
      * FIXME This is still very hackish with lots of code duplication
      * 
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode the Intent request code
+     * @param resultCode the Intent result code
+     * @param data any Intent data
      */
     void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-        //
-        StorageDelegator storageDelegator = App.getDelegator();
-        for (String v : matches) {
-            String[] words = v.split("\\s+", 2);
-            if (words.length > 0) {
-                //
-                String first = words[0];
-                try {
-                    int number = Integer.parseInt(first);
-                    // worked if there is a further word(s) simply add it/them
-                    Snack.barInfoShort(main, +number + (words.length == 2 ? words[1] : ""));
-                    Node node = logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D);
-                    if (node != null) {
-                        TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                        tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
-                        tags.put("source:original_text", v);
-                        Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
-                                new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
-                        tags = new TreeMap<>();
-                        for (Entry<String, ArrayList<String>> entry : map.entrySet()) {
-                            tags.put(entry.getKey(), entry.getValue().get(0));
-                        }
-                        logic.setTags(main, node, tags);
-                        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-                        return;
-                    }
-                } catch (NumberFormatException ex) {
-                    // ok wasn't a number, just ignore
-                } catch (OsmIllegalOperationException e) {
-                    // FIXME something went seriously wrong
-                    Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
-                }
-
-                List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
-
-                if (presetItems != null && presetItems.size() == 1) {
-                    Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), words.length == 2 ? words[1] : null, presetItems.get(0),
-                            logic, v);
-                    if (node != null) {
-                        main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
-                        return;
-                    }
-                }
-
-                Map<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(main);
-                if (namesSearchIndex == null) {
-                    return;
-                }
-                // search in names
-                NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
-                if (nt != null) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.putAll(nt.getTags());
-                    PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
-                    if (pi != null) {
-                        Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), nt.getName(), pi, logic, v);
+        if (requestCode == Main.VOICE_RECOGNITION_REQUEST_CODE) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            //
+            StorageDelegator storageDelegator = App.getDelegator();
+            for (String v : matches) {
+                String[] words = v.split("\\s+", 2);
+                if (words.length > 0) {
+                    //
+                    String first = words[0];
+                    try {
+                        int number = Integer.parseInt(first);
+                        // worked if there is a further word(s) simply add it/them
+                        Snack.barInfoShort(main, +number + (words.length == 2 ? words[1] : ""));
+                        Node node = logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D);
                         if (node != null) {
-                            // set tags from name suggestions
-                            Map<String, String> tags = new TreeMap<>(node.getTags());
-                            for (Entry<String, String> entry : map.entrySet()) {
-                                tags.put(entry.getKey(), entry.getValue());
+                            TreeMap<String, String> tags = new TreeMap<>(node.getTags());
+                            tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
+                            tags.put("source:original_text", v);
+                            Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
+                                    new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
+                            tags = new TreeMap<>();
+                            for (Entry<String, ArrayList<String>> entry : map.entrySet()) {
+                                tags.put(entry.getKey(), entry.getValue().get(0));
                             }
-                            storageDelegator.setTags(node, tags); // note doesn't create a new undo checkpoint,
-                                                                  // performAddNode has already done that
+                            logic.setTags(main, node, tags);
+                            main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                            return;
+                        }
+                    } catch (NumberFormatException ex) {
+                        // ok wasn't a number, just ignore
+                    } catch (OsmIllegalOperationException e) {
+                        // FIXME something went seriously wrong
+                        Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
+                    }
+
+                    List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
+
+                    if (presetItems != null && presetItems.size() == 1) {
+                        Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), words.length == 2 ? words[1] : null,
+                                presetItems.get(0), logic, v);
+                        if (node != null) {
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                             return;
                         }
                     }
+
+                    Map<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(main);
+                    if (namesSearchIndex == null) {
+                        return;
+                    }
+                    // search in names
+                    NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
+                    if (nt != null) {
+                        HashMap<String, String> map = new HashMap<>();
+                        map.putAll(nt.getTags());
+                        PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
+                        if (pi != null) {
+                            Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), nt.getName(), pi, logic, v);
+                            if (node != null) {
+                                // set tags from name suggestions
+                                Map<String, String> tags = new TreeMap<>(node.getTags());
+                                for (Entry<String, String> entry : map.entrySet()) {
+                                    tags.put(entry.getKey(), entry.getValue());
+                                }
+                                storageDelegator.setTags(node, tags); // note doesn't create a new undo checkpoint,
+                                                                      // performAddNode has already done that
+                                main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
+                                return;
+                            }
+                        }
+                    }
                 }
             }
+            logic.showCrosshairs(startX, startY); // re-show the cross hairs nothing found/something went wrong
         }
-        logic.showCrosshairs(startX, startY); // re-show the cross hairs nothing found/something went wrong
     }
 
     Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {

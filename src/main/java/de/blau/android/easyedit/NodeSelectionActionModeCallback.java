@@ -36,6 +36,12 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
 
     private OsmElement joinableElement = null;
 
+    /**
+     * Construct a call back for Node selection
+     * 
+     * @param manager the EasyEditManager instance
+     * @param node the selected Node
+     */
     NodeSelectionActionModeCallback(EasyEditManager manager, Node node) {
         super(manager, node);
     }
@@ -149,6 +155,9 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         }
     }
 
+    /**
+     * Show a dialog to set the location of the selected Node
+     */
     private void setPosition() {
         if (element instanceof Node) {
             // show dialog to set lon/lat
@@ -156,6 +165,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         }
     }
 
+    /**
+     * Build a dialog with the current coordinates
+     * 
+     * @param lonE7 longitude in 1E7 format
+     * @param latE7 latitude in 1E7 format
+     * @return the Dialog
+     */
     @SuppressLint("InflateParams")
     AppCompatDialog createSetPositionDialog(int lonE7, int latE7) {
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(main);
@@ -179,8 +195,11 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     }
 
     /**
-     * Create an onClick listener that sets the coordnaties in the node
+     * Create an onClick listener that sets the coordinates in the node
      * 
+     * @param lonField the EditText with the longitude
+     * @param latField the EditText with the latitude
+     * @param node the Node we want to change the location of
      * @return the OnClickListnener
      */
     private OnClickListener createSetButtonListener(final EditText lonField, final EditText latField, final Node node) {

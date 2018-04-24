@@ -160,7 +160,7 @@ public class GpxTest {
 
         TestUtils.unlock();
 
-        TestUtils.clickAtCoordinates(map, foundWp.getLon(), foundWp.getLat());
+        TestUtils.clickAtCoordinates(map, foundWp.getLon(), foundWp.getLat(), true);
 
         Assert.assertTrue(TestUtils.clickText(device, true, "Create osm object from", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
