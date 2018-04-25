@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -58,11 +58,11 @@ class SelectedRowsActionModeCallback implements Callback {
         menu.clear();
         Context context = caller.getActivity();
         menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, R.string.delete).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_delete));
-        MenuCompat.setShowAsAction(menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all),
+        MenuCompat.setShowAsAction(menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_SELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_select_all),
                 MenuItem.SHOW_AS_ACTION_NEVER);
-        MenuCompat.setShowAsAction(menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all),
+        MenuCompat.setShowAsAction(menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_DESELECT_ALL, Menu.CATEGORY_SYSTEM, R.string.menu_deselect_all),
                 MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(EasyEditManager.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
+        menu.add(EasyEditActionModeCallback.GROUP_BASE, MENU_ITEM_HELP, Menu.CATEGORY_SYSTEM, R.string.menu_help)
                 .setAlphabeticShortcut(Util.getShortCut(context, R.string.shortcut_help)).setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_help));
         return true;
     }

@@ -134,14 +134,14 @@ public class GeoJSONTest {
                 App.getLogic().setZoom(map, Map.SHOW_LABEL_LIMIT+1);
                 TestUtils.unlock();
                 Position p = ((Point)geometry).getCoordinates();
-                TestUtils.clickAtCoordinates(map, p.getLongitude(), p.getLatitude());
+                TestUtils.clickAtCoordinates(map, p.getLongitude(), p.getLatitude(), true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POINT));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
                 device.pressBack();
                 break;
             case GeoJSONConstants.POLYGON:
                 TestUtils.unlock();  
-                TestUtils.clickAtCoordinates(map, 100.5, 0.5);
+                TestUtils.clickAtCoordinates(map, 100.5, 0.5, true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POLYGON));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
                 device.pressBack();

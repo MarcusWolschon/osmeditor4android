@@ -2603,7 +2603,7 @@ public class Main extends FullScreenAppCompatActivity
      * 
      * @param box zoom to this BoundingBox
      */
-    private void openEmptyMap(final ViewBox box) {
+    private void openEmptyMap(@NonNull final ViewBox box) {
         App.getLogic().newEmptyMap(this, box);
     }
 

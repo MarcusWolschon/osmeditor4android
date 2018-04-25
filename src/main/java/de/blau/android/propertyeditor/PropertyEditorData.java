@@ -21,7 +21,7 @@ import de.blau.android.osm.RelationMemberDescription;
  * @author Jan
  */
 public class PropertyEditorData implements Serializable {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
 
     private static final String DEBUG_TAG = PropertyEditorData.class.getSimpleName();
 
@@ -33,8 +33,7 @@ public class PropertyEditorData implements Serializable {
     public final HashMap<Long, String>                originalParents; // just store the ids and role
     public final ArrayList<RelationMemberDescription> members;
     public final ArrayList<RelationMemberDescription> originalMembers;
-
-    public String focusOnKey = null;
+    public final String focusOnKey;
 
     public PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents,
             HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers) {
