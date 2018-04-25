@@ -640,10 +640,6 @@ public class Logic {
      */
     void newEmptyMap(@NonNull FragmentActivity activity, @NonNull ViewBox box) {
         Log.d(DEBUG_TAG, "newEmptyMap");
-        if (box == null) { // probably should do a more general check if the BB is valid
-            box = ViewBox.getMaxMercatorExtent();
-        }
-
         // not checking will zap edits, given that this method will only be called when we are not downloading, not a
         // good thing
         if (!getDelegator().isDirty()) {

@@ -52,11 +52,11 @@ import de.blau.android.util.ThemeUtils;
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
 
-    static final String        ACTION_NEW   = "new";
-    static final String        EXTRA_NAME   = "name";
-    static final String        EXTRA_VALUE  = "value";
-    public static final String EXTRA_ITEM   = "item";
-    static final String        EXTRA_ENABLE = "enable";
+    static final String ACTION_NEW   = "new";
+    static final String EXTRA_NAME   = "name";
+    static final String EXTRA_VALUE  = "value";
+    static final String EXTRA_ITEM   = "item";
+    static final String EXTRA_ENABLE = "enable";
 
     Resources     r;
     final Context ctx;
@@ -117,7 +117,7 @@ public abstract class URLListEditActivity extends ListActivity
             itemEditDialog(null);
         }
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -384,13 +384,13 @@ public abstract class URLListEditActivity extends ListActivity
      */
     public static class ListEditItem implements Serializable {
         private static final long serialVersionUID = 7574708515164503467L;
-        public final String       id;
-        public String             name;
-        public String             value;
-        public String             value_2;
-        public String             value_3;
-        public boolean            enabled;
-        public boolean            active;
+        final String              id;
+        String                    name;
+        String                    value;
+        String                    value_2;
+        String                    value_3;
+        boolean                   enabled;
+        boolean                   active;
 
         /**
          * Create a new item with a new, random UUID and the given name and value
