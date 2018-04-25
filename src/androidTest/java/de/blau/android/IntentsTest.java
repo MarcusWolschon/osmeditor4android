@@ -33,6 +33,7 @@ import okhttp3.HttpUrl;
 public class IntentsTest {
 
     MockWebServerPlus    mockServer       = null;
+    MockWebServerPlus    mockServerNotes  = null;
     MockWebServerPlus    mockServerOsmose = null;
     Context              context          = null;
     ActivityMonitor      monitor          = null;
@@ -58,9 +59,13 @@ public class IntentsTest {
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         System.out.println("mock api url " + mockBaseUrl.toString());
+        mockServerNotes = new MockWebServerPlus();
+        HttpUrl mockNotesUrl = mockServerNotes.server().url("/api/0.6/");
+        System.out.println("mock notes api url " + mockNotesUrl.toString());
+        //
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, mockNotesUrl.toString(), "user", "pass", null, false);
         prefDB.selectAPI("Test");
         mockServerOsmose = new MockWebServerPlus();
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");
@@ -78,6 +83,7 @@ public class IntentsTest {
         // instrumentation.removeMonitor(mainMonitor);
         try {
             mockServer.server().shutdown();
+            mockServerNotes.server().shutdown();
             mockServerOsmose.server().shutdown();
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex);
@@ -88,8 +94,11 @@ public class IntentsTest {
     public void geo() {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("download1");
-        mockServer.enqueue("notesDownload1");
+        mockServerNotes.enqueue("notesDownload1");
         mockServerOsmose.enqueue("osmoseDownload");
+        Preferences prefs = new Preferences(main);
+        prefDB.selectAPI("Test"); // this seems to be necessary to fource reload of server object
+        System.out.println("Server " + prefs.getServer().toString());
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385?z=15");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
@@ -99,10 +108,10 @@ public class IntentsTest {
 
         // there currently doesn't seem to be a reasonable way to wait until we have downloaded
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } catch (InterruptedException e1) {
         }
-        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984));
+        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
         List<Task> tasks = App.getTaskStorage().getTasks();
         //
         Assert.assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes

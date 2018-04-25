@@ -1926,4 +1926,10 @@ public class Server {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
         }
     }
+    
+    @Override
+    public
+    String toString() {
+        return "server: " + serverURL + " readonly: " + readonlyURL + " notes " + notesURL;
+    }
 }
