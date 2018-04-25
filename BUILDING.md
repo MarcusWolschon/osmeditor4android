@@ -8,9 +8,9 @@ Given that Google randomly makes incompatible changes to these and regularly dro
 functionality, you are on your own if you use any other version than what is configured for gradle. 
 
 
-## Building with gradle (Eclipse or commandline)
+## Building with gradle (Eclipse or command line)
 
-This will work with Eclipse Neon with buildship or from the commandline: 
+This will work with Eclipse Neon with buildship or from the command line: 
 
 To install the application to your device run the following task on Unix:
 
@@ -70,5 +70,6 @@ Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discar
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
-Currently the intents test is fairly brittle you may need to intevene manually, tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set. 
+Currently the intents test is fairly brittle you may need to intervene manually, tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set. 
 
+On an Intel based emulator the tests currently take something over 22 minutes to complete.
