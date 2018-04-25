@@ -39,6 +39,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.GeoMath;
 
@@ -379,8 +380,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             try {
                 box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(), currentLocation.getLongitude(), currentRadius, true);
             } catch (OsmException e) {
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e);
+                ACRAHelper.nocrashReport(e, e.getMessage());
             }
         } else {
             ACRA.getErrorReporter().handleException(null);
@@ -397,8 +397,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             try {
                 box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(), lastLocation.getLongitude(), currentRadius, true);
             } catch (OsmException e) {
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e);
+                ACRAHelper.nocrashReport(e, e.getMessage());
             }
         } else {
             ACRA.getErrorReporter().handleException(null);

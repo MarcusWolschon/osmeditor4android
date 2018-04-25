@@ -44,7 +44,7 @@ import de.blau.android.util.BugFixedAppCompatActivity;
 /**
  * Minimal system for viewing help files Currently only html format is supported directly
  * 
- * @author simon
+ * @author Simon Poole
  *
  */
 public class HelpViewer extends BugFixedAppCompatActivity {
@@ -112,7 +112,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
         ActionBar actionbar = getSupportActionBar();
         if (actionbar == null) {
-            Log.d("HelpViewer", "No actionbar"); // fail?
+            Log.d(DEBUG_TAG, "No actionbar"); // fail?
             return;
         }
         actionbar.setDisplayShowHomeEnabled(true);
@@ -221,7 +221,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             }
 
             String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + ".html";
-            Log.d("HelpViewer", "1 Looking for help file: " + helpFile);
+            Log.d(DEBUG_TAG, "1 Looking for help file: " + helpFile);
             if (!defaultList.contains(topicFile + ".html")) {
                 helpFile = "help/en/" + topicFile + ".html";
                 if (!enList.contains(topicFile + ".html")) {
@@ -312,11 +312,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             // if to process the url in its default way, its either handling it yourself or loading it directly into the
             // webview
             if (url != null && url.startsWith("file:")) {
-                Log.d("HelpViewer", "orig " + url);
+                Log.d(DEBUG_TAG, "orig " + url);
                 getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
                 if (url.endsWith(".md")) { // on device we have pre-generated html
                     url = url.substring(0, url.length() - ".md".length()) + ".html";
-                    Log.d("HelpViewer", "new " + url);
+                    Log.d(DEBUG_TAG, "new " + url);
                 }
                 view.loadUrl(url);
             } else {

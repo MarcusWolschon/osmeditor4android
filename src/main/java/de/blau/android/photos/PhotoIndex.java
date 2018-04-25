@@ -20,6 +20,7 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 
@@ -134,8 +135,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
             db.close();
         } catch (SQLiteException ex) {
             // Don't crash just report
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(ex);
+            ACRAHelper.nocrashReport(ex, ex.getMessage());
         }
     }
 
@@ -158,8 +158,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
                     db.delete("photos", "dir = ?", new String[] { indir.getAbsolutePath() });
                 } catch (SQLiteException sqex) {
                     Log.d(LOGTAG, sqex.toString());
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(sqex);
+                    ACRAHelper.nocrashReport(sqex, sqex.getMessage());
                 }
                 needsReindex = true;
             }
@@ -228,16 +227,14 @@ public class PhotoIndex extends SQLiteOpenHelper {
             return p;
         } catch (SQLiteException sqex) {
             Log.d(LOGTAG, sqex.toString());
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(sqex);
+            ACRAHelper.nocrashReport(sqex, sqex.getMessage());
         } catch (IOException ioex) {
             // ignore silently, broken pictures are not our business
         } catch (NumberFormatException bfex) {
             // ignore silently, broken pictures are not our business
         } catch (Exception ex) {
             Log.d(LOGTAG, ex.toString());
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(ex);
+            ACRAHelper.nocrashReport(ex, ex.getMessage());
         } // ignore
         return null;
     }

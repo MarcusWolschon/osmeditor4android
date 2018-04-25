@@ -65,13 +65,9 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     LocationManager             locationManager          = null;
     private List<OsmElement>    clickedNodes;
     private List<Way>           clickedNonClosedWays;
-    final Main                  main;
-    final Logic                 logic;
 
     public LongClickActionModeCallback(EasyEditManager manager, float x, float y) {
         super(manager);
-        main = manager.getMain();
-        logic = App.getLogic();
         this.x = x;
         this.y = y;
         clickedNodes = logic.getClickedNodes(x, y);

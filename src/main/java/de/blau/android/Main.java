@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import org.acra.ACRA;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -152,6 +150,7 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
@@ -611,15 +610,13 @@ public class Main extends FullScreenAppCompatActivity
                     try {
                         box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
                     } catch (OsmException e) {
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(e);
+                        ACRAHelper.nocrashReport(e, e.getMessage());
                     }
                 } else { // create a largish bb centered on 51.48,0
                     try {
                         box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false);
                     } catch (OsmException e) {
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(e);
+                        ACRAHelper.nocrashReport(e, e.getMessage());
                     }
                 }
                 if (box == null) {
@@ -2928,8 +2925,7 @@ public class Main extends FullScreenAppCompatActivity
                         restart.onSuccess();
                     }
                 } catch (Exception ex) {
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(ex);
+                    ACRAHelper.nocrashReport(ex, ex.getMessage());
                 }
             }
         }

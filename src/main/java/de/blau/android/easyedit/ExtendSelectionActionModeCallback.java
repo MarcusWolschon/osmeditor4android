@@ -7,6 +7,8 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
@@ -46,8 +48,6 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
     private ArrayList<OsmElement> selection;
     private List<OsmElement>      sortedWays;
-
-    private ActionMode mode;
 
     UndoListener undoListener;
 
@@ -115,7 +115,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
      * 
      * @param mode the ActionMode
      */
-    private void setSubTitle(ActionMode mode) {
+    private void setSubTitle(@Nullable ActionMode mode) {
         if (mode != null) {
             int count = selection.size();
             if (count > 1) {
@@ -127,9 +127,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     @Override
-    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+    public boolean onCreateActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
         helpTopic = R.string.help_multiselect;
-        this.mode = mode;
         mode.setTitle(R.string.actionmode_multiselect);
         setSubTitle(mode);
         super.onCreateActionMode(mode, menu);
@@ -140,7 +139,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
     @SuppressLint("InflateParams")
     @Override
-    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+    public boolean onPrepareActionMode(@NonNull ActionMode mode, @NonNull Menu menu) {
         menu = replaceMenu(menu, mode, this);
         menu.clear();
         menuUtil.reset();

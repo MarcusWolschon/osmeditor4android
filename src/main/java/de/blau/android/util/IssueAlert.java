@@ -2,8 +2,6 @@ package de.blau.android.util;
 
 import java.util.ArrayList;
 
-import org.acra.ACRA;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -48,7 +46,7 @@ public class IssueAlert {
 
     private static final int[] bearings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
             R.string.bearing_w, R.string.bearing_nw, R.string.bearing_n };
-    
+
     /**
      * Private constructor to avoid instantiation of the class
      */
@@ -133,14 +131,14 @@ public class IssueAlert {
         }
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message.toString())
-                    .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA);
+            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
+                    .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
+                    .setGroup(GROUP_DATA);
             mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(re);
+            ACRAHelper.nocrashReport(re, re.getMessage());
             return;
         }
         // Creates an explicit intent for an Activity in your app
@@ -241,7 +239,7 @@ public class IssueAlert {
             long distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
 
             // filter
-            if (distance > Math.sqrt(8D * prefs.getBugDownloadRadius() * prefs.getBugDownloadRadius())) { 
+            if (distance > Math.sqrt(8D * prefs.getBugDownloadRadius() * prefs.getBugDownloadRadius())) {
                 // diagonal of auto download box
                 return;
             }
@@ -267,8 +265,7 @@ public class IssueAlert {
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(re);
+            ACRAHelper.nocrashReport(re, re.getMessage());
             return;
         }
         // Creates an explicit intent for an Activity in your app

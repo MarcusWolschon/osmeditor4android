@@ -3,8 +3,6 @@ package de.blau.android.dialogs;
 import java.util.Arrays;
 import java.util.List;
 
-import org.acra.ACRA;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -38,6 +36,7 @@ import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.FormValidation;
@@ -74,8 +73,7 @@ public class ConfirmUpload extends DialogFragment {
             confirmUploadDialogFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(isex);
+            ACRAHelper.nocrashReport(isex, isex.getMessage());
         }
     }
 
@@ -90,8 +88,7 @@ public class ConfirmUpload extends DialogFragment {
             ft.commit();
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "dismissDialog", isex);
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(isex);
+            ACRAHelper.nocrashReport(isex, isex.getMessage());
         }
     }
 

@@ -4,8 +4,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.acra.ACRA;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +19,7 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.prefs.URLListEditActivity.ListEditItem;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.Snack;
 import oauth.signpost.exception.OAuthException;
@@ -95,8 +94,7 @@ public class VespucciURLActivity extends Activity implements OnClickListener {
                 oauth_verifier = data.getQueryParameter("oauth_verifier");
             } catch (Exception ex) {
                 Log.e(DEBUG_TAG, "Uri " + data + " caused " + ex);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(ex);
+                ACRAHelper.nocrashReport(ex, ex.getMessage());
                 finish();
             }
         } else {

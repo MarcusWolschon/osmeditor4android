@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import org.acra.ACRA;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -23,6 +21,7 @@ import de.blau.android.R;
 import de.blau.android.UploadResult;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.StorageDelegator;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
@@ -163,8 +162,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
             });
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "Caught exception " + e);
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e);
+            ACRAHelper.nocrashReport(e, e.getMessage());
         }
         builder.setNegativeButton(R.string.cancel, null);
 

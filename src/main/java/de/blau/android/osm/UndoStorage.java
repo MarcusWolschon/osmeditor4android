@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import org.acra.ACRA;
-
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +14,7 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.exception.StorageException;
 import de.blau.android.presets.Preset;
+import de.blau.android.util.ACRAHelper;
 
 /**
  * This class provides undo support. It is absolutely critical that {@link StorageDelegator} calls
@@ -131,8 +130,7 @@ public class UndoStorage implements Serializable {
             undoCheckpoints.getLast().add(element);
             redoCheckpoints.clear();
         } catch (Exception ex) {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(ex); // don't crash the app send a report
+            ACRAHelper.nocrashReport(ex, ex.getMessage());
         }
     }
 

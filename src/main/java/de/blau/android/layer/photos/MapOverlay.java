@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.acra.ACRA;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -27,6 +25,7 @@ import de.blau.android.photos.Photo;
 import de.blau.android.photos.PhotoIndex;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
@@ -253,8 +252,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
             }
         } catch (Exception ex) {
             Log.d(DEBUG_TAG, "viewPhoto exception starting intent: " + ex);
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(ex);
+            ACRAHelper.nocrashReport(ex, "viewPhoto exception starting intent");
         }
     }
 

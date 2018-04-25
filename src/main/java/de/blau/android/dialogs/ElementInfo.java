@@ -10,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-import org.acra.ACRA;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -39,6 +37,7 @@ import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.Validator;
 
@@ -73,7 +72,6 @@ public class ElementInfo extends DialogFragment {
         }
     }
 
-    
     /**
      * Dismiss the dialog
      * 
@@ -130,7 +128,7 @@ public class ElementInfo extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (!getShowsDialog()) {
             return createView(container);
-        } 
+        }
         return null;
     }
 
@@ -141,7 +139,7 @@ public class ElementInfo extends DialogFragment {
      * @return the View
      */
     @SuppressWarnings("deprecation")
-    private View createView(ViewGroup container) {      
+    private View createView(ViewGroup container) {
         FragmentActivity activity = getActivity();
         LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(activity);
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
@@ -253,16 +251,14 @@ public class ElementInfo extends DialogFragment {
                         // inconsistent state
                         String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
                         Log.d(DEBUG_TAG, message);
-                        ACRA.getErrorReporter().putCustomData("CAUSE", message);
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(null);
+                        ACRAHelper.nocrashReport(null, message);
                     }
                 }
             }
         }
         return sv;
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();

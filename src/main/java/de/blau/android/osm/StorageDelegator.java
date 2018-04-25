@@ -20,7 +20,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
@@ -38,6 +37,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -1127,8 +1127,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     RelationMember rm = r.getMember(way);
                     if (rm == null) {
                         Log.d(DEBUG_TAG, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(null);
+                        ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
                         continue;
                     }
                     undo.save(r);
@@ -1376,8 +1375,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 } else {
                     Log.e(DEBUG_TAG, "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(null);
+                    ACRAHelper.nocrashReport(null, "inconsistent relation membership in " + r.getOsmId() + " for " + o1.getOsmId() + " and " + o2.getOsmId());
                     return true;
                 }
             }
@@ -2788,8 +2786,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     } else {
                         // this shouldn't be able to happen
                         Log.e(DEBUG_TAG, "mergeData null existing way " + w.getOsmId());
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(null);
+                        ACRAHelper.nocrashReport(null, "mergeData null existing way " + w.getOsmId());
                         return false;
                     }
                 }
@@ -2828,8 +2825,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             nodes.set(i, apiNode);
                         } else {
                             Log.e(DEBUG_TAG, "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId);
-                            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                            ACRA.getErrorReporter().handleException(null);
+                            ACRAHelper.nocrashReport(null, "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId);
                             return false;
                         }
                     }
@@ -2906,8 +2902,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             Node apiNode = apiStorage.getNode(rm.getRef());
                             if (apiNode != null && apiNode.getState() == OsmElement.STATE_DELETED) {
                                 Log.e(DEBUG_TAG, "mergeData deleted node in downloaded relation " + r.getOsmId());
-                                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                                ACRA.getErrorReporter().handleException(null);
+                                ACRAHelper.nocrashReport(null, "mergeData deleted node in downloaded relation " + r.getOsmId());
                                 fixupBacklinks();
                                 return false; // can't resolve conflicts, upload first
                             }
@@ -2921,8 +2916,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             Way apiWay = apiStorage.getWay(rm.getRef());
                             if (apiWay != null && apiWay.getState() == OsmElement.STATE_DELETED) {
                                 Log.e(DEBUG_TAG, "mergeData deleted way in downloaded relation");
-                                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                                ACRA.getErrorReporter().handleException(null);
+                                ACRAHelper.nocrashReport(null, "mergeData deleted way in downloaded relation");
                                 fixupBacklinks();
                                 return false; // can't resolve conflicts, upload first
                             }
@@ -2936,8 +2930,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             Relation apiRel = apiStorage.getRelation(rm.getRef());
                             if (apiRel != null && apiRel.getState() == OsmElement.STATE_DELETED) {
                                 Log.e(DEBUG_TAG, "mergeData deleted relation in downloaded relation");
-                                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                                ACRA.getErrorReporter().handleException(null);
+                                ACRAHelper.nocrashReport(null, "mergeData deleted relation in downloaded relation");
                                 fixupBacklinks();
                                 return false; // can't resolve conflicts, upload first
                             }

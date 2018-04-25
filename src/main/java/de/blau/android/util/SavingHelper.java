@@ -15,8 +15,6 @@ import java.io.Serializable;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.acra.ACRA;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -68,8 +66,7 @@ public class SavingHelper<T extends Serializable> {
             Log.d("SavingHelper", "save thread finished");
             return r.getResult();
         } catch (Exception e) {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e); // serious error report if we has crashed
+            ACRAHelper.nocrashReport(e, e.getMessage());
             return false;
         }
     }
@@ -113,13 +110,11 @@ public class SavingHelper<T extends Serializable> {
                 result = true;
             } catch (Exception e) {
                 Log.e("SavingHelper", "failed to save " + filename, e);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e); // serious error report as if we had crashed
+                ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
             } catch (Error e) {
                 Log.e("SavingHelper", "failed to save " + filename, e);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e); // serious error report as if we had crashed
+                ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
             } finally {
                 SavingHelper.close(objectOut);
@@ -151,8 +146,7 @@ public class SavingHelper<T extends Serializable> {
             Log.d("SavingHelper", "load thread finished");
             return r.getResult();
         } catch (Exception e) {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e); // serious error report as if we had crashed
+            ACRAHelper.nocrashReport(e, e.getMessage());
             return null;
         }
     }
@@ -215,14 +209,12 @@ public class SavingHelper<T extends Serializable> {
                 if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
                     // do nothing
                 } else {
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e); //
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 }
             } catch (Error e) {
                 Log.e("SavingHelper", "failed to load " + filename, e);
                 result = null;
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e); //
+                ACRAHelper.nocrashReport(e, e.getMessage());
             } finally {
                 SavingHelper.close(objectIn);
                 SavingHelper.close(in);

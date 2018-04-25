@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.acra.ACRA;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,6 +26,7 @@ import android.support.v4.util.Pools;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.exceptions.EmptyCacheException;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.views.util.MapViewConstants;
 
 /**
@@ -200,8 +199,8 @@ public class MapTileProviderDataBase implements MapViewConstants {
             } else {
                 Log.w(DEBUG_TAG, "Constraint violated inserting tile " + aTile);
                 return 0; // file was already inserted
-            }       
-        } catch (SQLiteException  sex) { // handle these the same
+            }
+        } catch (SQLiteException sex) { // handle these the same
             throw new IOException(sex.getMessage());
         }
     }
@@ -261,12 +260,13 @@ public class MapTileProviderDataBase implements MapViewConstants {
                         getStatements.release(get);
                     }
                 } else { // old and slow
-                    final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null, null, null);
+                    final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null,
+                            null, null);
                     try {
                         if (c.moveToFirst()) {
                             byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
                             return tile_data;
-                        } 
+                        }
                     } finally {
                         c.close();
                     }
@@ -274,7 +274,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
             }
         } catch (SQLiteException sex) { // handle these exceptions the same
             throw new IOException(sex.getMessage());
-        } 
+        }
         if (DEBUGMODE) {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
         }
@@ -335,8 +335,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                     } else if (e instanceof EmptyCacheException) {
                         Log.e(MapTileFilesystemProvider.DEBUG_TAG, "Exception in deleteOldest cache empty " + e);
                     } else {
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(e);
+                        ACRAHelper.nocrashReport(e, e.getMessage());
                     }
                 }
             } finally {

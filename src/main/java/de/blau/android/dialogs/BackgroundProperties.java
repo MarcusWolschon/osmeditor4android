@@ -1,7 +1,5 @@
 package de.blau.android.dialogs;
 
-import org.acra.ACRA;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -22,9 +20,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.layer.MapViewLayer;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -116,9 +114,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         if (layer != null) {
             seeker.setOnSeekBarChangeListener(createSeekBarListener(layer));
         } else {
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().putCustomData("REASON", "layer null");
-            ACRA.getErrorReporter().handleException(null);
+            ACRAHelper.nocrashReport(null, "layer null");
         }
         builder.setView(layout);
         builder.setPositiveButton(R.string.okay, doNothingListener);

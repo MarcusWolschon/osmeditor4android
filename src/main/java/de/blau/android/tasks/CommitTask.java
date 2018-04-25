@@ -3,7 +3,6 @@ package de.blau.android.tasks;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.os.AsyncTask;
@@ -13,6 +12,7 @@ import de.blau.android.UploadResult;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.Server;
 import de.blau.android.tasks.Task.State;
+import de.blau.android.util.ACRAHelper;
 
 /**
  * Task to commit changes to an OpenStreetMap "Note". Originally this code was intended for "Bugs" uploaded to the
@@ -93,8 +93,7 @@ class CommitTask extends AsyncTask<Server, Void, UploadResult> {
             // TODO: implement other state handling
             default:
                 Log.e(DEBUG_TAG, "", e);
-                ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                ACRA.getErrorReporter().handleException(e);
+                ACRAHelper.nocrashReport(e, e.getMessage());
                 result.setError(ErrorCodes.UPLOAD_PROBLEM); // use this as generic error
                 break;
             }

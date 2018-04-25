@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.acra.ACRA;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -41,6 +40,7 @@ import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
@@ -460,7 +460,8 @@ public class Server {
                         result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "database")));
                         result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "api")));
                         result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx")));
-                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX " + result.getGpxStatus());
+                        Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX "
+                                + result.getGpxStatus());
                     }
                     if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
                         if (result.getImageryBlacklist() == null) {
@@ -512,7 +513,8 @@ public class Server {
      * @return true if the read only api entry isavailable for reading
      */
     public boolean readOnlyApiAvailable() {
-        return readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.ONLINE) || readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.READONLY);
+        return readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.ONLINE)
+                || readOnlyCapabilities.getApiStatus().equals(Capabilities.Status.READONLY);
     }
 
     /**
@@ -654,8 +656,7 @@ public class Server {
                 } catch (Exception ex) {
                     // do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error
                     // because it is likely caused by a translation error
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(ex);
+                    ACRAHelper.nocrashReport(ex, ex.getMessage());
                 }
             }
         }
@@ -1926,10 +1927,9 @@ public class Server {
             throw new OsmServerException(responsecode, e.getName(), e.getOsmId(), readStream(in));
         }
     }
-    
+
     @Override
-    public
-    String toString() {
+    public String toString() {
         return "server: " + serverURL + " readonly: " + readonlyURL + " notes " + notesURL;
     }
 }

@@ -32,7 +32,6 @@ import java.util.regex.Matcher;
 import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.acra.ACRA;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -88,6 +87,7 @@ import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.EditState;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
@@ -2349,9 +2349,7 @@ public class Logic {
                         }
                     } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
                                              // however report, don't crash
-                        ACRA.getErrorReporter().putCustomData("CAUSE", ex.getMessage());
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(ex);
+                        ACRAHelper.nocrashReport(ex, ex.getMessage());
                     }
                     if (postLoadHandler != null) {
                         postLoadHandler.onError();
@@ -2397,11 +2395,6 @@ public class Logic {
         };
 
         new AsyncTask<Void, Void, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-            }
-
             @Override
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
@@ -2434,7 +2427,7 @@ public class Logic {
                         SavingHelper.close(in);
                     }
                 } catch (SAXException e) {
-                    Log.e("Vespucci", "Problem parsing", e);
+                    Log.e(DEBUG_TAG, "Problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
                         result = ErrorCodes.OUT_OF_MEMORY;
@@ -2448,29 +2441,25 @@ public class Logic {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
-                    Log.e("Vespucci", "Problem parsing", e);
+                    Log.e(DEBUG_TAG, "Problem parsing", e);
                     result = ErrorCodes.INVALID_DATA_RECEIVED;
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
                 } catch (OsmServerException e) {
                     result = e.getErrorCode();
-                    Log.e("Vespucci", "Problem downloading", e);
+                    Log.e(DEBUG_TAG, "Problem downloading", e);
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
                 } catch (IOException e) {
                     result = ErrorCodes.NO_CONNECTION;
-                    Log.e("Vespucci", "Problem downloading", e);
+                    Log.e(DEBUG_TAG, "Problem downloading", e);
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
                 }
                 return result;
-            }
-
-            @Override
-            protected void onPostExecute(Integer result) {
             }
         }.execute();
     }
@@ -2504,11 +2493,6 @@ public class Logic {
 
         class GetElementTask extends AsyncTask<Void, Void, OsmElement> {
             int result = 0;
-
-            @Override
-            protected void onPreExecute() {
-
-            }
 
             @Override
             protected OsmElement doInBackground(Void... arg) {
@@ -2545,12 +2529,6 @@ public class Logic {
                 }
                 return element;
             }
-
-            @Override
-            protected void onPostExecute(OsmElement result) {
-                // potentially do something if there is an error
-            }
-
         }
         GetElementTask loader = new GetElementTask();
         loader.execute();
@@ -2578,10 +2556,6 @@ public class Logic {
     public synchronized int downloadElement(@NonNull final Context ctx, @NonNull final String type, final long id, final boolean relationFull,
             final boolean withParents, @Nullable final PostAsyncActionHandler postLoadHandler) {
         class DownLoadElementTask extends AsyncTask<Void, Void, Integer> {
-            @Override
-            protected void onPreExecute() {
-            }
-
             @Override
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
@@ -2688,10 +2662,6 @@ public class Logic {
                     result[i] = list.get(i);
                 }
                 return result;
-            }
-
-            @Override
-            protected void onPreExecute() {
             }
 
             @Override
@@ -2933,10 +2903,7 @@ public class Logic {
                             ErrorAlert.showDialog(activity, result);
                         }
                     } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
-                                             // however report, don't crash
-                        ACRA.getErrorReporter().putCustomData("CAUSE", ex.getMessage());
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(ex);
+                        ACRAHelper.nocrashReport(ex, ex.getMessage());
                     }
                     if (postLoad != null) {
                         postLoad.onError();
@@ -3367,8 +3334,7 @@ public class Logic {
                     getDelegator().uploadToServer(server, comment, source, closeChangeset);
                 } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (final OsmServerException e) {
                     result.setHttpError(e.getErrorCode());
                     result.setMessage(e.getMessageWithDescription());
@@ -3399,8 +3365,7 @@ public class Logic {
                     // TODO: implement other state handling
                     default:
                         Log.e(DEBUG_TAG, "", e);
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(e);
+                        ACRAHelper.nocrashReport(e, e.getMessage());
                         break;
                     }
                 } catch (final IOException e) {
@@ -3408,8 +3373,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, "", e);
                 } catch (final NullPointerException e) {
                     Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 }
                 return result;
             }
@@ -3471,8 +3435,7 @@ public class Logic {
                     server.uploadTrack(track, description, tags, visibility);
                 } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (final OsmServerException e) {
                     switch (e.getErrorCode()) { // FIXME use the same mechanics as for data uoload
                     case HttpURLConnection.HTTP_FORBIDDEN:
@@ -3494,8 +3457,7 @@ public class Logic {
                     // TODO: implement other state handling
                     default:
                         Log.e(DEBUG_TAG, "", e);
-                        ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                        ACRA.getErrorReporter().handleException(e);
+                        ACRAHelper.nocrashReport(e, e.getMessage());
                         break;
                     }
                 } catch (final IOException e) {
@@ -3503,8 +3465,7 @@ public class Logic {
                     Log.e(DEBUG_TAG, "", e);
                 } catch (final NullPointerException e) {
                     Log.e(DEBUG_TAG, "", e);
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(e);
+                    ACRAHelper.nocrashReport(e, e.getMessage());
                 } catch (IllegalArgumentException | IllegalStateException e) {
                     result = ErrorCodes.UPLOAD_PROBLEM;
                 }
@@ -3540,11 +3501,6 @@ public class Logic {
     public void checkForMail(final FragmentActivity activity) {
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-            }
-
             @Override
             protected Integer doInBackground(Void... params) {
                 int result = 0;

@@ -39,7 +39,7 @@ import de.blau.android.util.Util;
  */
 public class FeatureInfo extends DialogFragment {
 
-    private static final String FEATURE = "feature";
+    private static final String FEATURE_KEY = "feature";
 
     private static final String DEBUG_TAG = FeatureInfo.class.getName();
 
@@ -93,7 +93,7 @@ public class FeatureInfo extends DialogFragment {
         FeatureInfo f = new FeatureInfo();
 
         Bundle args = new Bundle();
-        args.putString(FEATURE, feature.toJson());
+        args.putString(FEATURE_KEY, feature.toJson());
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -104,7 +104,7 @@ public class FeatureInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String featureString = getArguments().getString(FEATURE);
+        String featureString = getArguments().getString(FEATURE_KEY);
         feature = Feature.fromJson(featureString);
     }
 

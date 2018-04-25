@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.acra.ACRA;
-
 import android.util.Log;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.util.ACRAHelper;
 
 /**
  * Holds data sent in intents. Directly serializing a TreeMap in an intent does not work, as it comes out as a HashMap
@@ -33,7 +32,7 @@ public class PropertyEditorData implements Serializable {
     public final HashMap<Long, String>                originalParents; // just store the ids and role
     public final ArrayList<RelationMemberDescription> members;
     public final ArrayList<RelationMemberDescription> originalMembers;
-    public final String focusOnKey;
+    public final String                               focusOnKey;
 
     public PropertyEditorData(long osmId, String type, Map<String, String> tags, Map<String, String> originalTags, HashMap<Long, String> parents,
             HashMap<Long, String> originalParents, ArrayList<RelationMemberDescription> members, ArrayList<RelationMemberDescription> originalMembers) {
@@ -67,8 +66,7 @@ public class PropertyEditorData implements Serializable {
                     tempParents.put(r.getOsmId(), rm.getRole());
                 } else {
                     Log.e(DEBUG_TAG, "inconsistency in relation membership");
-                    ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-                    ACRA.getErrorReporter().handleException(null);
+                    ACRAHelper.nocrashReport(null, "inconsistency in relation membership");
                 }
             }
             parents = tempParents;

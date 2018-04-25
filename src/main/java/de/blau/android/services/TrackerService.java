@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.acra.ACRA;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -54,6 +52,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.services.util.NmeaTcpClient;
 import de.blau.android.services.util.NmeaTcpClientServer;
 import de.blau.android.tasks.TransferTasks;
+import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -856,8 +855,7 @@ public class TrackerService extends Service implements Exportable {
             // Log.d(TAG,"Misformed sentence " + sentence);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "NMEA sentance " + sentence + " caused exception " + e);
-            ACRA.getErrorReporter().putCustomData("STATUS", "NOCRASH");
-            ACRA.getErrorReporter().handleException(e);
+            ACRAHelper.nocrashReport(e, e.getMessage());
         }
     }
 
