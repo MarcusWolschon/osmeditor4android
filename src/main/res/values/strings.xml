@@ -202,6 +202,7 @@
     <string name="layer_data">OSM Data</string>
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style</string>
+    <string name="layer_select_imagery">Select imagery</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>

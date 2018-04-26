@@ -437,7 +437,7 @@ public class Layers extends ImmersiveDialogFragment {
                         divider.setEnabled(false);
                     }
                 }
-                MenuItem item = popup.getMenu().add("Select imagery");
+                MenuItem item = popup.getMenu().add(R.string.layer_select_imagery);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
