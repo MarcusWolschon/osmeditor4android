@@ -73,6 +73,7 @@ public class WayTest {
             is.close();
         } catch (IOException e1) {
         }
+        TestUtils.stopEasyEdit(main);
     }
 
     @After

@@ -726,4 +726,18 @@ public class TestUtils {
         }.execute();
     }
 
+    /**
+     * Finish any currently running EasyEdit modes
+     * 
+     * @param main the current Main instance
+     */
+    public static void stopEasyEdit(@NonNull final Main main) {
+        App.getLogic().deselectAll();
+        main.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                main.getEasyEditManager().finish();               
+            }
+        });
+    }
 }

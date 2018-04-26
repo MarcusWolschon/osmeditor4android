@@ -75,6 +75,7 @@ public class ExtendedSelectionTest {
             is.close();
         } catch (IOException e1) {
         }
+        TestUtils.stopEasyEdit(main);
     }
 
     @After

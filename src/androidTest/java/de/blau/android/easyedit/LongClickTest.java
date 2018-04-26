@@ -80,6 +80,7 @@ public class LongClickTest {
         } catch (IOException e1) {
         }
         App.getTaskStorage().reset();
+        TestUtils.stopEasyEdit(main);
     }
 
     @After

@@ -72,4 +72,4 @@ Automated testing has come relatively late to Vespucci, however we have made lar
 
 Currently the intents test is fairly brittle you may need to intervene manually, tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set. 
 
-On an Intel based emulator the tests currently take something over 22 minutes to complete.
+On an Intel based emulator the tests currently take something around 25 minutes to complete.

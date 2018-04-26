@@ -75,6 +75,13 @@ public class NodeTest {
             is.close();
         } catch (IOException e1) {
         }
+        TestUtils.stopEasyEdit(main);
+        map.getViewBox().fitToBoundingBox(map, map.getDataLayer().getExtent());
+        logic.updateStyle();
+        map.getDataLayer().setVisible(true);
+        map.invalidate();
+        TestUtils.unlock();
+        device.waitForWindowUpdate(null, 2000);
     }
 
     @After
@@ -88,9 +95,7 @@ public class NodeTest {
      */
     @Test
     public void selectNode() {
-        map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
+        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
@@ -116,21 +121,19 @@ public class NodeTest {
      */
     @Test
     public void dragNode() {
-        map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
-        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, false);
-        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", false));
+        TestUtils.clickAtCoordinates(map, 8.38782, 47.390339, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Toilets", true));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391,true);
+        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true);
  
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
         
-        Assert.assertEquals(node.getLon()/1E7D,8.388,0.001);
-        Assert.assertEquals(node.getLat()/1E7D,47.391,0.001);
+        Assert.assertEquals(8.388, node.getLon()/1E7D,0.001);
+        Assert.assertEquals(47.391,node.getLat()/1E7D,0.001);
         
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
@@ -141,8 +144,6 @@ public class NodeTest {
      */
     @Test
     public void unjoinMergeWays() {
-        map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
         TestUtils.zoomToLevel(main, 21);
         TestUtils.clickAtCoordinates(map, 8.3874926, 47.3884640, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
