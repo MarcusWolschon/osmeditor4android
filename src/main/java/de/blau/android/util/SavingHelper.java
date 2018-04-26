@@ -35,8 +35,7 @@ import de.blau.android.R;
  * @param <T> The type of the saved objects
  */
 public class SavingHelper<T extends Serializable> {
-
-    private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
+   private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
 
     /**
      * Date pattern used for the export file name.
@@ -57,13 +56,13 @@ public class SavingHelper<T extends Serializable> {
     public synchronized boolean save(Context context, String filename, T object, boolean compress) {
 
         try {
-            Log.d("SavingHelper", "preparing to save " + filename);
+            Log.d(DEBUG_TAG, "preparing to save " + filename);
             SaveThread r = new SaveThread(context, filename, object, compress);
             Thread t = new Thread(null, r, "SaveThread", 200000);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be saved
-            Log.d("SavingHelper", "save thread finished");
+            Log.d(DEBUG_TAG, "save thread finished");
             return r.getResult();
         } catch (Exception e) {
             ACRAHelper.nocrashReport(e, e.getMessage());
@@ -73,6 +72,7 @@ public class SavingHelper<T extends Serializable> {
 
     public class SaveThread implements Runnable {
 
+        private static final String DEBUG_TAG = "SavingThread";
         final String  filename;
         T             object;
         final boolean compress;
@@ -96,7 +96,7 @@ public class SavingHelper<T extends Serializable> {
             OutputStream out = null;
             ObjectOutputStream objectOut = null;
             try {
-                Log.i("SavingHelper", "saving  " + filename);
+                Log.i(DEBUG_TAG, "saving  " + filename);
                 String tempFilename = filename + "." + System.currentTimeMillis();
                 out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
                 if (compress) {
@@ -106,14 +106,14 @@ public class SavingHelper<T extends Serializable> {
                 objectOut.writeObject(object);
                 rename(context, filename, filename + ".backup"); // don't overwrite last saved state
                 rename(context, tempFilename, filename); // rename to expected name
-                Log.i("SavingHelper", "saved " + filename + " successfully");
+                Log.i(DEBUG_TAG, "saved " + filename + " successfully");
                 result = true;
             } catch (Exception e) {
-                Log.e("SavingHelper", "failed to save " + filename, e);
+                Log.e(DEBUG_TAG, "failed to save " + filename, e);
                 ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
             } catch (Error e) {
-                Log.e("SavingHelper", "failed to save " + filename, e);
+                Log.e(DEBUG_TAG, "failed to save " + filename, e);
                 ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
             } finally {
@@ -137,13 +137,13 @@ public class SavingHelper<T extends Serializable> {
 
     private synchronized T load(Context context, String filename, boolean compressed, boolean deleteOnFail) {
         try {
-            Log.d("SavingHelper", "preparing to load " + filename);
+            Log.d(DEBUG_TAG, "preparing to load " + filename);
             LoadThread r = new LoadThread(context, filename, compressed, deleteOnFail);
             Thread t = new Thread(null, r, "LoadThread", 200000);
             t.start();
             t.join(60000); // wait max 60 s for thread to finish TODO this needs to be done differently given this
                            // limits the size of the file that can be loaded
-            Log.d("SavingHelper", "load thread finished");
+            Log.d(DEBUG_TAG, "load thread finished");
             return r.getResult();
         } catch (Exception e) {
             ACRAHelper.nocrashReport(e, e.getMessage());
@@ -153,6 +153,7 @@ public class SavingHelper<T extends Serializable> {
 
     public class LoadThread implements Runnable {
 
+        private static final String DEBUG_TAG = "LoadThread";
         final String  filename;
         final boolean compressed;
         final boolean deleteOnFail;
@@ -176,12 +177,12 @@ public class SavingHelper<T extends Serializable> {
             InputStream in = null;
             ObjectInputStream objectIn = null;
             try {
-                Log.d("SavingHelper", "loading  " + filename);
+                Log.d(DEBUG_TAG, "loading  " + filename);
                 try {
                     in = context.openFileInput(filename);
                 } catch (FileNotFoundException fnfe) {
                     // this happens a lot and shouldn't generate an error report
-                    Log.e("SavingHelper", "file not found " + filename);
+                    Log.e(DEBUG_TAG, "file not found " + filename);
                     result = null;
                     return;
                 }
@@ -191,10 +192,10 @@ public class SavingHelper<T extends Serializable> {
                 objectIn = new ObjectInputStream(in);
                 @SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
                 T object = (T) objectIn.readObject();
-                Log.d("SavingHelper", "loaded " + filename + " successfully");
+                Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
                 result = object;
             } catch (IOException ioex) {
-                Log.e("SavingHelper", "failed to load " + filename, ioex);
+                Log.e(DEBUG_TAG, "failed to load " + filename, ioex);
                 try {
                     if (deleteOnFail) {
                         context.deleteFile(filename);
@@ -204,7 +205,7 @@ public class SavingHelper<T extends Serializable> {
                 }
                 result = null;
             } catch (Exception e) {
-                Log.e("SavingHelper", "failed to load " + filename, e);
+                Log.e(DEBUG_TAG, "failed to load " + filename, e);
                 result = null;
                 if (e instanceof InvalidClassException) { // serial id mismatch, will typically happen on upgrades
                     // do nothing
@@ -212,7 +213,7 @@ public class SavingHelper<T extends Serializable> {
                     ACRAHelper.nocrashReport(e, e.getMessage());
                 }
             } catch (Error e) {
-                Log.e("SavingHelper", "failed to load " + filename, e);
+                Log.e(DEBUG_TAG, "failed to load " + filename, e);
                 result = null;
                 ACRAHelper.nocrashReport(e, e.getMessage());
             } finally {
@@ -227,12 +228,12 @@ public class SavingHelper<T extends Serializable> {
      * 
      * @param stream a Closeable to close
      */
-    static public void close(@Nullable final Closeable stream) {
+    public static void close(@Nullable final Closeable stream) {
         if (stream != null) {
             try {
                 stream.close();
             } catch (IOException e) {
-                Log.e("SavingHelper", "Problem closing", e);
+                Log.e(DEBUG_TAG, "Problem closing", e);
             }
         }
     }
@@ -245,15 +246,17 @@ public class SavingHelper<T extends Serializable> {
      * @param originalFileName the original filename
      * @param newFileName the new filename
      */
-    private static void rename(Context context, String originalFileName, String newFileName) {
+    private static void rename(@NonNull Context context, @NonNull String originalFileName, @NonNull String newFileName) {
         File originalFile = context.getFileStreamPath(originalFileName);
         if (originalFile.exists()) {
-            Log.d("SavingHelper", "renaming " + originalFileName + " size " + originalFile.length() + " to " + newFileName);
+            Log.d(DEBUG_TAG, "renaming " + originalFileName + " size " + originalFile.length() + " to " + newFileName);
             File newFile = new File(originalFile.getParent(), newFileName);
             if (newFile.exists()) {
                 context.deleteFile(newFileName);
             }
-            originalFile.renameTo(newFile);
+            if (!originalFile.renameTo(newFile)) {
+                Log.e(DEBUG_TAG, "renaming failed!");
+            }
         }
     }
 
@@ -280,7 +283,7 @@ public class SavingHelper<T extends Serializable> {
                     outputStream = new BufferedOutputStream(fout);
                     exportable.export(outputStream);
                 } catch (Exception e) {
-                    Log.e("SavingHelper", "Export failed - " + filename);
+                    Log.e(DEBUG_TAG, "Export failed - " + filename);
                     return null;
                 } finally {
                     SavingHelper.close(outputStream);
@@ -307,7 +310,7 @@ public class SavingHelper<T extends Serializable> {
                             if (result == null) {
                                 Snack.barError((Activity) ctx, R.string.toast_export_failed);
                             } else {
-                                Log.i("SavingHelper", "Successful export to " + result);
+                                Log.i(DEBUG_TAG, "Successful export to " + result);
                                 String text = ctx.getResources().getString(R.string.toast_export_success, result);
                                 Snack.barInfoShort((Activity) ctx, text);
                             }
@@ -329,20 +332,20 @@ public class SavingHelper<T extends Serializable> {
      * @param scanfile directory or file to scan
      */
     @TargetApi(11)
-    private static void triggerMediaScanner(Context context, File scanfile) {
+    private static void triggerMediaScanner(@NonNull Context context, @NonNull File scanfile) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
             return; // API 11 - lower versions do not have MTP
         try {
             String path = scanfile.getCanonicalPath();
-            Log.i("SavingHelper", "Triggering media scan for " + path);
+            Log.i(DEBUG_TAG, "Triggering media scan for " + path);
             MediaScannerConnection.scanFile(context, new String[] { path }, null, new OnScanCompletedListener() {
                 @Override
                 public void onScanCompleted(String path, Uri uri) {
-                    Log.i("SavingHelper", "Media scan completed for " + path + " URI " + uri);
+                    Log.i(DEBUG_TAG, "Media scan completed for " + path + " URI " + uri);
                 }
             });
         } catch (Exception e) {
-            Log.e("SavingHelper", "Exception when triggering media scanner", e);
+            Log.e(DEBUG_TAG, "Exception when triggering media scanner", e);
         }
     }
 

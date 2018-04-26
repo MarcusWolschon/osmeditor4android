@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -25,12 +24,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -38,7 +33,6 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.exception.OperationFailedException;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
@@ -323,20 +317,21 @@ public class PresetEditorActivity extends URLListEditActivity {
                             filename = FILE_NAME_TEMPORARY_ARCHIVE;
                         }
                     } else {
-                        Log.w("PresetDownloader", "Could not download file " + url + " respose code " + presetCallResponse.code());
+                        Log.w(DEBUG_TAG, "Could not download file " + url + " respose code " + presetCallResponse.code());
                         return DOWNLOADED_PRESET_ERROR;
                     }
                     fileStream = new FileOutputStream(new File(presetDir, filename));
                     StreamUtils.copy(downloadStream, fileStream);
 
                     if (zip && unpackZip(presetDir.getPath() + "/", filename)) {
-                        // noinspection ResultOfMethodCallIgnored
-                        (new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete();
+                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) {
+                            Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
+                        }
                         return DOWNLOADED_PRESET_ZIP;
                     }
                     return DOWNLOADED_PRESET_XML;
                 } catch (Exception e) {
-                    Log.e("PresetDownloader", "Could not download file " + url + " " + e.getMessage());
+                    Log.e(DEBUG_TAG, "Could not download file " + url + " " + e.getMessage());
                     return DOWNLOADED_PRESET_ERROR;
                 } finally {
                     SavingHelper.close(downloadStream);
@@ -404,11 +399,13 @@ public class PresetEditorActivity extends URLListEditActivity {
     }
 
     /**
+     * Unpack a zipped preset file
+     * 
      * Code from http://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android
      * 
-     * @param presetDir
-     * @param zipname
-     * @return
+     * @param presetDir preset directory
+     * @param zipname the zip file
+     * @return true if successful
      */
     private boolean unpackZip(String presetDir, String zipname) {
         InputStream is = null;
@@ -448,7 +445,6 @@ public class PresetEditorActivity extends URLListEditActivity {
                 FileOutputStream fout = null;
                 try {
                     fout = new FileOutputStream(presetDir + filename);
-
                     // cteni zipu a zapis
                     while ((count = zis.read(buffer)) != -1) {
                         fout.write(buffer, 0, count);
@@ -468,5 +464,4 @@ public class PresetEditorActivity extends URLListEditActivity {
 
         return true;
     }
-
 }

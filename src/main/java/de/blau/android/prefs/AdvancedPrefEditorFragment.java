@@ -10,7 +10,6 @@ import android.util.Log;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
-import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
