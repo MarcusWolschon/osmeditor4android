@@ -8,7 +8,7 @@ import java.util.List;
  * 
  * Default values are as of July 2017
  * 
- * @author simon
+ * @author Simon Poole
  */
 public class Capabilities {
 
@@ -73,15 +73,6 @@ public class Capabilities {
         d.setApiStatus(Status.READONLY);
         d.setGpxStatus(Status.READONLY);
         return d;
-    }
-
-    /**
-     * Update the limits used in various places to what we have got currently
-     * 
-     * Note: likely it would be better for these places to refer to a static version of the values here
-     */
-    public void updateLimits() {
-        Way.setMaxWayNodes(getMaxWayNodes());
     }
 
     public List<String> getImageryBlacklist() {

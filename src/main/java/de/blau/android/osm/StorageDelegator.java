@@ -37,6 +37,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -441,9 +442,7 @@ public class StorageDelegator implements Serializable, Exportable {
         undo.save(way);
 
         try {
-            if (way.nodeCount() + 1 > Way.maxWayNodes) {
-                throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
-            }
+            validateWayNodeCount(way.nodeCount() + 1);
             apiStorage.insertElementSafe(way);
             way.addNode(node);
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -451,6 +450,19 @@ public class StorageDelegator implements Serializable, Exportable {
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "addNodeToWay got " + e.getMessage());
+        }
+    }
+
+    /**
+     * Check the future node count against the maximum supported by the current API
+     * 
+     * @param newCount the node count we would like to have
+     * @throws OsmIllegalOperationException if the count is larger than the maximum supported
+     */
+    private void validateWayNodeCount(final int newCount) {
+        Preferences prefs = new Preferences(App.getCurrentInstance());
+        if (newCount > prefs.getServer().getCachedCapabilities().getMaxWayNodes()) {
+            throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
         }
     }
 
@@ -465,11 +477,8 @@ public class StorageDelegator implements Serializable, Exportable {
     public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
-
         try {
-            if (way.nodeCount() + 1 > Way.maxWayNodes) {
-                throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
-            }
+            validateWayNodeCount(way.nodeCount() + 1);
             apiStorage.insertElementSafe(way);
             way.addNodeAfter(nodeBefore, newNode);
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -485,15 +494,14 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param refNode last or first way node
      * @param nextNode the new node to add
-     * @param way the way to preform the operation on
+     * @param way the way to perform the operation on
      * @throws OsmIllegalOperationException
      */
     public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
         undo.save(way);
         try {
-            if (way.nodeCount() + 1 > Way.maxWayNodes)
-                throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
+            validateWayNodeCount(way.nodeCount() + 1);
             apiStorage.insertElementSafe(way);
             way.appendNode(refNode, nextNode);
             way.updateState(OsmElement.STATE_MODIFIED);
@@ -1246,9 +1254,7 @@ public class StorageDelegator implements Serializable, Exportable {
     public boolean mergeWays(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
         boolean mergeOK = true;
 
-        if ((mergeInto.nodeCount() + mergeFrom.nodeCount()) > Way.maxWayNodes)
-            throw new OsmIllegalOperationException(App.resources().getString(R.string.exception_too_many_nodes));
-
+        validateWayNodeCount(mergeInto.nodeCount() + mergeFrom.nodeCount());
         // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
         // else check version numbers this helps preserve history
         if (((mergeInto.getOsmId() < 0) && (mergeFrom.getOsmId() > 0)) || mergeInto.getOsmVersion() < mergeFrom.getOsmVersion()) {

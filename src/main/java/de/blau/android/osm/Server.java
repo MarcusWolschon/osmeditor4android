@@ -385,7 +385,6 @@ public class Server {
             Capabilities result = getCapabilities(getCapabilitiesUrl());
             if (result != null) {
                 capabilities = result;
-                capabilities.updateLimits();
             }
             return capabilities; // if retrieving failed return the default
         } catch (MalformedURLException e) {

@@ -41,8 +41,6 @@ public class Way extends OsmElement implements BoundedObject {
 
     public static final String NODE = "nd";
 
-    public static int maxWayNodes = 2000; // if API has a different value it will replace this
-
     private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 
     Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
@@ -69,8 +67,9 @@ public class Way extends OsmElement implements BoundedObject {
     /**
      * Return list of all nodes in a way
      * 
-     * @return
+     * @return a List of Nodes
      */
+    @NonNull
     public List<Node> getNodes() {
         return nodes;
     }
@@ -158,8 +157,8 @@ public class Way extends OsmElement implements BoundedObject {
     /**
      * Returns true if "node" is a way node of this way
      * 
-     * @param node
-     * @return
+     * @param node the Node to check for
+     * @return true if the Node is a member of the Way
      */
     public boolean hasNode(final Node node) {
         return nodes.contains(node);
@@ -168,8 +167,8 @@ public class Way extends OsmElement implements BoundedObject {
     /**
      * Returns true if this way has a common node with "way"
      * 
-     * @param way
-     * @return
+     * @param way the Way to check for a common Node
+     * @return true if there is at least one common Node
      */
     public boolean hasCommonNode(final Way way) {
         for (Node n : this.nodes) {
@@ -241,7 +240,13 @@ public class Way extends OsmElement implements BoundedObject {
         }
     }
 
-    void addNodeAfter(final Node nodeBefore, final Node newNode) {
+    /**
+     * Inserts a Node after a specified one
+     * 
+     * @param nodeBefore the reference Node
+     * @param newNode the Node to insert
+     */
+    void addNodeAfter(@NonNull final Node nodeBefore, @NonNull final Node newNode) {
         if (nodeBefore == newNode) { // user error
             Log.i(DEBUG_TAG, "addNodeAfter attempt to add same node");
             return;
@@ -321,10 +326,20 @@ public class Way extends OsmElement implements BoundedObject {
         return getFirstNode() == node || getLastNode() == node;
     }
 
+    /**
+     * Get the first Node of this Way
+     * 
+     * @return the first Node
+     */
     public Node getFirstNode() {
         return nodes.get(0);
     }
 
+    /**
+     * Get the last Node of this Way
+     * 
+     * @return the last Ndoe
+     */
     public Node getLastNode() {
         return nodes.get(nodes.size() - 1);
     }
@@ -427,18 +442,20 @@ public class Way extends OsmElement implements BoundedObject {
     }
 
     /**
-     * return the number of nodes in the is way
+     * Return the number of nodes in the is way
      * 
-     * @return
+     * @return the number of nodes in this Way
      */
     public int nodeCount() {
         return nodes == null ? 0 : nodes.size();
     }
 
     /**
-     * return the length in m
+     * Return the length in m
      * 
-     * @return
+     * This uses the Haversine distance between nodes for calculation 
+     * 
+     * @return the length in m
      */
     public double length() {
         double result = 0d;
@@ -452,9 +469,11 @@ public class Way extends OsmElement implements BoundedObject {
     }
 
     /**
+     * Get the distance from a coordinate to this way
+     * 
      * Note this is only useful for sorting given that the result is returned in WGS84 °*1E7 or so
      * 
-     * @param location
+     * @param location the coordinate in WGS84*1E/ 
      * @return the minimum distance of this way to the given location
      */
     public double getDistance(final int[] location) {
@@ -496,14 +515,19 @@ public class Way extends OsmElement implements BoundedObject {
         return result;
     }
 
-    private void setBoundingBoxCache(@Nullable BoundingBox result) {
-        if (result == null) {
+    /**
+     * Cache the calculated bounding box for this way
+     * 
+     * @param box the BoundingBox
+     */
+    private void setBoundingBoxCache(@Nullable BoundingBox box) {
+        if (box == null) {
             return;
         }
-        left = result.getLeft();
-        bottom = result.getBottom();
-        right = result.getRight();
-        top = result.getTop();
+        left = box.getLeft();
+        bottom = box.getBottom();
+        right = box.getRight();
+        top = box.getTop();
     }
 
     /**
@@ -535,15 +559,6 @@ public class Way extends OsmElement implements BoundedObject {
         }
         setBoundingBoxCache(result);
         return result;
-    }
-
-    /**
-     * Set the maximum number of nodes allowed in one way
-     * 
-     * @param max
-     */
-    public static void setMaxWayNodes(int max) {
-        maxWayNodes = max;
     }
 
     @Override

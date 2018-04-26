@@ -104,7 +104,7 @@ public class ApiTest {
         Assert.assertEquals(result.getGpxStatus(), Capabilities.Status.ONLINE);
         Assert.assertEquals(result.getApiStatus(), Capabilities.Status.ONLINE);
         Assert.assertEquals(result.getDbStatus(), Capabilities.Status.ONLINE);
-        Assert.assertEquals(Way.maxWayNodes, 2001);
+        Assert.assertEquals(result.getMaxWayNodes(), 2001);
     }
 
     @Test
