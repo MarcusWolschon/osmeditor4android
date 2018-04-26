@@ -879,8 +879,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param h screen height
      * @param v screen viewbox
      */
-    public void rotateWay(final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, ViewBox v) {
-        if (way.getNodes() == null) {
+    public void rotateWay(@NonNull final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, @NonNull ViewBox v) {
+        if (way.getNodes().isEmpty()) {
             Log.d(DEBUG_TAG, "rotateWay way " + way.getOsmId() + " has no nodes!");
             return;
         }

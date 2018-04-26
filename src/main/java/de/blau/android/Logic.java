@@ -1231,6 +1231,7 @@ public class Logic {
      * {@link #handleTouchEventDown(float, float)}. Otherwise the movement will be interpreted as map-translation. Map
      * will be repainted.
      * 
+     * @param main the current instance of Main
      * @param absoluteX The absolute display-coordinate.
      * @param absoluteY The absolute display-coordinate.
      * @param relativeX The difference to the last absolute display-coordinate.
@@ -4372,7 +4373,7 @@ public class Logic {
      *         return the coordinates of the first node
      */
     @Nullable
-    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
+    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }
@@ -4438,7 +4439,7 @@ public class Logic {
      *         the coordinates of the first node
      */
     @Nullable
-    public static double[] centroidLonLat(@NonNull final Way way) {
+    public static double[] centroidLonLat(@Nullable final Way way) {
         if (way == null) {
             return null;
         }
