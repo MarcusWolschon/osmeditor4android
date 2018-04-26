@@ -727,7 +727,6 @@ public class Map extends View implements IMapView {
      * 
      * Only segments that are inside the ViewBox are included.
      * 
-     * @param map Map object that we are called to draw on
      * @param points list to (re-)use for projected points in the format expected by
      *            {@link Canvas#drawLines(float[], Paint)
      * @param nodes An iterable (e.g. List or array) with GeoPoints of the line that should be drawn (e.g. a Way or a

@@ -147,9 +147,9 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Add a single element to the map
      * 
-     * @param key
-     * @param value
-     * @return
+     * @param key the key
+     * @param value the value
+     * @return the previous value if one existed
      */
     @SuppressWarnings("unchecked")
     public V put(final long key, final V value) {
@@ -166,8 +166,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
                 ++m_size;
             }
             return null;
-        } else if (e.getOsmId() == key) // we check FREE and REMOVED prior to this call
-        {
+        } else if (e.getOsmId() == key) { // we check FREE and REMOVED prior to this call
             m_data[ptr] = (OsmElement) value;
             return (V) e;
         }
@@ -205,7 +204,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Add all elements from map
      * 
-     * @param map
+     * @param map the Map to add
      */
     public void putAll(LongOsmElementMap<V> map) {
         ensureCapacity(m_data.length + map.size());
@@ -217,7 +216,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Add all elements from c
      * 
-     * @param c
+     * @param c the Collection to add
      */
     public void putAll(Collection<V> c) {
         ensureCapacity(m_data.length + c.size());
@@ -229,8 +228,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Remove element with the specified key from the map, does not shrink the underlying array
      * 
-     * @param key
-     * @return
+     * @param key the key we want to remove
+     * @return the removed value or null if it didn't exist
      */
     public OsmElement remove(final long key) {
         int ptr = (int) (Tools.phiMix(key) & m_mask);
@@ -267,8 +266,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Return true if the map contains an object with the specified key
      * 
-     * @param key
-     * @return
+     * @param key the key to check
+     * @return true if an entry for key could be found
      */
     public boolean containsKey(long key) {
         int ptr = (int) ((Tools.phiMix(key) & m_mask));
@@ -292,9 +291,10 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     }
 
     /**
-     * Return all values in the map. Note: they are returned unordered
+     * Return all values in the map. 
+     * Note: they are returned unordered
      * 
-     * @return
+     * @return a List of the values
      */
     @SuppressWarnings("unchecked")
     public List<V> values() {
@@ -315,7 +315,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Return the number of elements in the map
      * 
-     * @return
+     * @return the number of elements in the map
      */
     public int size() {
         return m_size;
@@ -324,7 +324,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Return true if the map is empty
      * 
-     * @return
+     * @return true if the map is empty
      */
     public boolean isEmpty() {
         return m_size == 0;
@@ -333,7 +333,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Provide capacity for minimumCapacity elements without need for growing the underlying array and rehashing.
      * 
-     * @param minimumCapacity
+     * @param minimumCapacity the capacity to ensure
      */
     private void ensureCapacity(int minimumCapacity) {
         int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);

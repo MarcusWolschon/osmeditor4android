@@ -682,11 +682,12 @@ public class Logic {
     }
 
     /**
+     * Return all the Relations the OsmElements are a member of
      * 
-     * @param elements
-     * @return
+     * @param elements the OsmELements to check
+     * @return a List of OsmElement
      */
-    private ArrayList<OsmElement> getParentRelations(ArrayList<OsmElement> elements) {
+    private List<OsmElement> getParentRelations(ArrayList<OsmElement> elements) {
         ArrayList<OsmElement> relations = new ArrayList<>();
         for (OsmElement e : elements) {
             if (e.getParentRelations() != null) {
@@ -1022,11 +1023,11 @@ public class Logic {
     }
 
     /**
-     * Returns a list of all the clickable OSM elements in storage (does not restrict to the current screen). Before
+     * Returns a Set of all the clickable OSM elements in storage (does not restrict to the current screen). Before
      * returning the list is "pruned" to remove any elements on the exclude list.
      * 
      * @param excludes The list of OSM elements to exclude from the results.
-     * @return
+     * @return a Set of the clickable OsmElements
      */
     public Set<OsmElement> findClickableElements(List<OsmElement> excludes) {
         Set<OsmElement> result = new HashSet<>();
@@ -1857,6 +1858,7 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param element Node or Way that the node will be joined to.
      * @param nodeToJoin Node to be joined to the way.
+     * @return true if the operation was successful
      * @throws OsmIllegalOperationException
      */
     public synchronized boolean performJoin(@Nullable FragmentActivity activity, OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
@@ -3731,6 +3733,8 @@ public class Logic {
 
     /**
      * Get list of selected nodes
+     * 
+     * @return a List of Nodes that are selected
      */
     public List<Node> getSelectedNodes() {
         return selectedNodes;
@@ -3738,6 +3742,8 @@ public class Logic {
 
     /**
      * Return how many nodes are selected
+     * 
+     * @return a count of the selected Nodes
      */
     public int selectedNodesCount() {
         return selectedNodes == null ? 0 : selectedNodes.size();
@@ -3760,6 +3766,8 @@ public class Logic {
 
     /**
      * Get list of selected ways
+     * 
+     * @return a List of Ways that are selected
      */
     public List<Way> getSelectedWays() {
         return selectedWays;
@@ -3767,20 +3775,26 @@ public class Logic {
 
     /**
      * Return how many ways are selected
+     * 
+     * @return a count of the selected Ways
      */
     public int selectedWaysCount() {
         return selectedWays == null ? 0 : selectedWays.size();
     }
 
     /**
-     * Get list of selected ways
+     * Get list of selected RelaTions
+     * 
+     * @return a List of Relations that are selected
      */
     public List<Relation> getSelectedRelations() {
         return selectedRelations;
     }
 
     /**
-     * Return how many ways are selected
+     * Return how many Relations are selected
+     * 
+     * @return a count of the selected Relations
      */
     public int selectedRelationsCount() {
         return selectedRelations == null ? 0 : selectedRelations.size();
@@ -3788,6 +3802,8 @@ public class Logic {
 
     /**
      * Check is all selected elements exist, return true if we actually had to remove something
+     * 
+     * @return true if a slected element didn't exist anymore
      */
     boolean resyncSelected() {
         boolean result = false;
@@ -4040,7 +4056,11 @@ public class Logic {
             }
         };
 
-        /** Takes an element-distance map and returns the elements ordered by distance */
+        /** 
+         * Takes an element-distance map and returns the elements ordered by distance 
+         *
+         * @return a sorted List of the input
+         */
         public ArrayList<OUTTYPE> sort(HashMap<T, Double> input) {
             ArrayList<Entry<T, Double>> entries = new ArrayList<>(input.entrySet());
             Collections.sort(entries, comparator);
@@ -4519,43 +4539,43 @@ public class Logic {
     }
 
     /**
-     * convenience function
+     * Convenience function calls GeoMath.xToLonE7
      * 
-     * @param x
-     * @return
+     * @param x screen X coordinate
+     * @return the WGS84*1E7 longitude
      */
     public int xToLonE7(float x) {
         return GeoMath.xToLonE7(map.getWidth(), viewBox, x);
     }
 
     /**
-     * convenience function
+     * Convenience function calls GeoMath.yToLatE7
      * 
-     * @param y
-     * @return
+     * @param y screen Y coordinate
+     * @return the WGS84*1E7 latitude
      */
     public int yToLatE7(float y) {
         return GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y);
     }
 
     /**
-     * convenience function
+     * Convenience function calls GeoMath.lonE7ToX
      * 
-     * @param lon
-     * @return
+     * @param lonE7 the WGS84*1E7 longitude
+     * @return the screen X coordinate
      */
-    public float lonE7ToX(int lon) {
-        return GeoMath.lonE7ToX(map.getWidth(), viewBox, lon);
+    public float lonE7ToX(int lonE7) {
+        return GeoMath.lonE7ToX(map.getWidth(), viewBox, lonE7);
     }
 
     /**
      * convenience function
      * 
-     * @param lat
-     * @return
+     * @param latE7 the WGS84*1E7 latitude
+     * @return the screen Y coordinate
      */
-    public float latE7ToY(int lat) {
-        return GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, lat);
+    public float latE7ToY(int latE7) {
+        return GeoMath.latE7ToY(map.getHeight(), map.getWidth(), viewBox, latE7);
     }
 
     /**

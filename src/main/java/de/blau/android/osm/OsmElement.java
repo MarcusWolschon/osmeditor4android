@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -113,6 +114,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return tags != null && tags.size() > 0;
     }
 
+    /**
+     * Get the state of this element
+     * 
+     * @return the state value
+     */
     public byte getState() {
         return state;
     }
@@ -120,6 +126,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * gives a string description of the element type (e.g. 'node', 'way' or 'relation') - see also {@link #getType()}
      * is rather confusingly named
+     * 
+     * @return the type of the element
      */
     abstract public String getName();
 
@@ -238,7 +246,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * check if this element has tags of any kind
      * 
-     * @return
+     * @return true if this elements has at least one tag
      */
     public boolean isTagged() {
         return (tags != null) && (tags.size() > 0);
@@ -337,8 +345,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
 
     /**
      * Add all parent relations, avoids dups
+     * 
+     * @param relations List of Relations to add
      */
-    public void addParentRelations(ArrayList<Relation> relations) {
+    public void addParentRelations(List<Relation> relations) {
         if (parentRelations == null) {
             parentRelations = new ArrayList<>();
         }
@@ -415,9 +425,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * Generate a human-readable description/summary of the element.
      * 
+     * @param ctx Android context
      * @return a description of the element
      */
-    public String getDescription(Context ctx) {
+    public String getDescription(@Nullable Context ctx) {
         return getDescription(ctx, true);
     }
 
@@ -434,6 +445,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * Return a concise description of the element
      * 
+     * @param ctx Android context
      * @param withType include an indication of the object type (node, way, relation)
      * @return a string containing the description
      */
@@ -484,9 +496,12 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
+     * Get the first "important" tag
+     * 
+     * @param ctx Android context
      * @return the first kay =value of any important tags or null if none found
      */
-    public String getPrimaryTag(Context ctx) {
+    public String getPrimaryTag(@Nullable Context ctx) {
         String result = null;
         for (String tag : Tags.IMPORTANT_TAGS) {
             result = getTagValueString(tag);
@@ -553,16 +568,23 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return result;
     }
 
-    abstract protected int validate(Validator validator);
+    /**
+     * Validate this element
+     * 
+     * @param validator the Validator to use
+     * @return the validation result
+     */
+    abstract protected int validate(@NonNull Validator validator);
 
     /**
      * Test if the element has a noted problem. A noted problem is where someone has tagged the element with a "fixme"
      * or "todo" key/value.
      * 
      * @param context Android context, if non-null used for generating alerts
+     * @param validator the Validator to use
      * @return true if the element has a noted problem, false if it doesn't.
      */
-    public int hasProblem(@Nullable Context context, Validator validator) {
+    public int hasProblem(@Nullable Context context, @NonNull Validator validator) {
         // This implementation assumes that calcProblem() may be expensive, and
         // caches the calculation.
         if (cachedProblems == Validator.NOT_VALIDATED) {
@@ -595,8 +617,8 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * Version of above that uses a potential different set of tags
      * 
-     * @param tags
-     * @return
+     * @param tags tags to use
+     * @return the ElementType
      */
     public abstract ElementType getType(Map<String, String> tags);
 
@@ -608,8 +630,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     /**
      * Return a bounding box covering the element
      * 
-     * @return
+     * @return the BoundingBox or null if it cannot be determined
      */
+    @Nullable
     public abstract BoundingBox getBounds();
 
     /**

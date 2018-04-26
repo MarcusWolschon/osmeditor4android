@@ -345,8 +345,7 @@ public abstract class URLListEditActivity extends ListActivity
     /**
      * Called when the list should be loaded. Override this and fill the list given to you
      * 
-     * @param items
-     * @param item the created item
+     * @param items List of ListEditItem
      */
     protected abstract void onLoadList(List<ListEditItem> items);
 

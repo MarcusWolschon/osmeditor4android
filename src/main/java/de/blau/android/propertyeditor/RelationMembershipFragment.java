@@ -336,18 +336,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
-         * Sets key and value values
+         * Set the role and relation for this row
          * 
-         * @param aTagKey the key value to set
-         * @param aTagValue the value value to set
-         * @return the TagEditRow object for convenience
-         */
-        /**
-         * Set the
-         * 
-         * @param role
-         * @param r
-         * @return
+         * @param role the role of this element in the Relation
+         * @param r the Relation it is a member of
+         * @return the RelationMembershipRow object for convenience
          */
         public RelationMembershipRow setValues(String role, Relation r) {
             relationId = r.getOsmId();
@@ -357,11 +350,10 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
-         * Sets key and value values
+         * Sets the Relation for this row
          * 
-         * @param aTagKey the key value to set
-         * @param aTagValue the value value to set
-         * @return the TagEditRow object for convenience
+         * @param r the Relation to set for this row
+         * @return the RelationMembershipRow object for convenience
          */
         public RelationMembershipRow setRelation(Relation r) {
             relationId = r.getOsmId();
@@ -571,6 +563,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     /**
      * reload original arguments
      */
+    @SuppressWarnings("unchecked")
     void doRevert() {
         loadParents((HashMap<Long, String>) getArguments().getSerializable(PARENTS_KEY));
     }

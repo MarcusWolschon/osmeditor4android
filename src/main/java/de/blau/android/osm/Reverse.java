@@ -216,7 +216,8 @@ class Reverse {
      * Note this code in its original version ran in to complexity limits on Android 2.2 (and probably older).
      * Eliminating if .. else if constructs seems to have resolved this
      * 
-     * @param tags Map of all direction dependent tags
+     * @param e the OsmElement
+     * @param dirTags Map of all direction dependent tags
      * @param reverseOneway if false don't change the value of the oneway tag if present
      */
     public static void reverseDirectionDependentTags(@NonNull OsmElement e, @NonNull Map<String, String> dirTags, boolean reverseOneway) {

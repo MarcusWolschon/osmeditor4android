@@ -851,11 +851,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Insert a new row with one key and one value to edit.
      * 
+     * @param rowLayout the Layout the row will be added to
      * @param aTagKey the key-value to start with
-     * @param aTagValue the value to start with.
+     * @param tagValues a List of values to start with.
      * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at
      *            beginning.
-     * @returns The new TagEditRow.
+     * @return The new TagEditRow.
      */
     private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
@@ -1142,7 +1143,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * Sets key and value values
          * 
          * @param aTagKey the key value to set
-         * @param aTagValue the value value to set
+         * @param tagValues List of values to set
+         * @param same the values are all the same
          * @return the TagEditRow object for convenience
          */
         public TagEditRow setValues(String aTagKey, ArrayList<String> tagValues, boolean same) {
@@ -1353,7 +1355,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Focus on the value field of the first tag with non empty key and empty value
      * 
-     * @param key key that we want to find the value field for
      * @return true if successful
      */
     boolean focusOnEmptyValue() {
@@ -1826,10 +1827,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Given an edit field of an OSM key value, determine it's corresponding source key. For example, the source of
+     * Given an OSM key value, determine it's corresponding source key. For example, the source of
      * "name" is "source:name". The source of "source" is "source". The source of "mf:name" is "mf.source:name".
      * 
-     * @param keyEdit The edit field of the key to be sourced.
+     * @param key the key to be sourced.
      * @return The source key for the given key.
      */
     private static String sourceForKey(final String key) {

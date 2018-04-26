@@ -415,8 +415,8 @@ public class Util {
     /**
      * Convert first letter of v to upper case using English
      * 
-     * @param v
-     * @return
+     * @param v the input String
+     * @return a String with its first letter as a capital
      */
     public static String capitalize(String v) {
         if (v != null && v.length() > 0) {

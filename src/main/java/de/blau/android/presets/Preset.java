@@ -308,7 +308,7 @@ public class Preset implements Serializable {
      * 
      * @param ctx context (used for preset loading)
      * @param directory directory to load/store preset data (XML, icons, MRUs)
-     * @param name of external package containing preset assets for APK presets, null for other presets
+     * @param externalPackage name of external package containing preset assets for APK presets, null for other presets
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -996,7 +996,7 @@ public class Preset implements Serializable {
     /**
      * Return a preset by index
      * 
-     * @param the index value
+     * @param index the index value
      * @return the preset item or null if not found
      */
     @Nullable
@@ -1066,7 +1066,7 @@ public class Preset implements Serializable {
     /**
      * Return a preset group by index
      * 
-     * @param the index value
+     * @param index the index value
      * @return the preset item or null if not found
      */
     @Nullable
@@ -1150,9 +1150,7 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Remove a preset
-     * 
-     * @param item the item to remove
+     * Reset the MRU list
      */
     public void resetRecentlyUsed() {
         mru.recentPresets = new LinkedList<>();

@@ -582,7 +582,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * Arrange way nodes in a circle
      * 
      * @param map current map view
-     * @param center center of the circle
+     * @param c center of the circle
      * @param way way to circulize
      */
     public void circulizeWay(@NonNull de.blau.android.Map map, int[] c, @NonNull Way way) {
@@ -690,7 +690,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * squared.
      * 
      * @param map current map view
-     * @param way way to square
+     * @param ways List of Way to square
      */
     public void orthogonalizeWay(@NonNull de.blau.android.Map map, @NonNull List<Way> ways) {
         final int threshold = 10; // degrees within right or straight to alter
@@ -879,7 +879,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param h screen height
      * @param v screen viewbox
      */
-    public void rotateWay(@NonNull final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h, @NonNull ViewBox v) {
+    public void rotateWay(@NonNull final Way way, final float angle, final int direction, final float pivotX, final float pivotY, int w, int h,
+            @NonNull ViewBox v) {
         if (way.getNodes().isEmpty()) {
             Log.d(DEBUG_TAG, "rotateWay way " + way.getOsmId() + " has no nodes!");
             return;
@@ -1074,6 +1075,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param way way to split
      * @param node node to split at
+     * @return the new Way or null if the split wasn't successful
      */
     public Way splitAtNode(final Way way, final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
@@ -1202,6 +1204,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param mergeInto The node to merge into. Tags are combined.
      * @param mergeFrom The node to merge from. Is deleted.
+     * @return true if the merge was successful
      */
     public boolean mergeNodes(Node mergeInto, Node mergeFrom) {
         boolean mergeOK = true;
@@ -1358,11 +1361,11 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * return true if elements have different roles in the same relation
+     * Check if two elements have different roles in the same relation
      * 
-     * @param o1
-     * @param o2
-     * @return
+     * @param o1 the first OsmElement
+     * @param o2 the second OsmElement
+     * @return true if elements have different roles in the same relation
      */
     private boolean roleConflict(OsmElement o1, OsmElement o2) {
         List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
@@ -2285,8 +2288,12 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Read save data from standard file Loads the storage data from the default storage file NOTE: lock is acquired in
-     * logic before this is called
+     * Read save data from standard file
+     * 
+     * Loads the storage data from the default storage file NOTE: lock is acquired in logic before this is called
+     * 
+     * @param context Android context
+     * @return true if the state was read successfully
      */
     public boolean readFromFile(Context context) {
         return readFromFile(context, FILENAME);
@@ -2295,8 +2302,9 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Read save data from file
      * 
-     * @param filename
-     * @return
+     * @param context Android context
+     * @param filename the file to read
+     * @return true if the state was read successfully
      */
     public boolean readFromFile(Context context, String filename) {
         try {
@@ -2709,8 +2717,9 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
-     * @param storage storage containing data to merg
+     * @param storage storage containing data to merge
      * @param postMerge handler to run after merging
+     * @return true if the merge was successful
      */
     synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
         Log.d(DEBUG_TAG, "mergeData called");
