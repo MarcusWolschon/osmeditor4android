@@ -98,7 +98,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
         return f;
     }
 
-    LayerStyle() {
+    public LayerStyle() {
         map = App.getLogic().getMap();
     }
 

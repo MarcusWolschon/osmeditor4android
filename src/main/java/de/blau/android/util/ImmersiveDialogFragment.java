@@ -1,5 +1,6 @@
 package de.blau.android.util;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,7 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
         return result;
     }
 
+    @SuppressLint("NewApi")
     private void showImmersive(FragmentManager manager) {
         // It is necessary to call executePendingTransactions() on the FragmentManager
         // before hiding the navigation bar, because otherwise getWindow() would raise a

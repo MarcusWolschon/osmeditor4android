@@ -3,6 +3,7 @@ package de.blau.android.prefs;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -16,7 +17,8 @@ import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 
 /**
- * The handling of PreferenceScreen is partially based on https://stackoverflow.com/questions/32494548/how-to-move-back-from-preferences-subscreen-to-main-screen-in-preferencefragment/32713331#32713331
+ * The handling of PreferenceScreen is partially based on
+ * https://stackoverflow.com/questions/32494548/how-to-move-back-from-preferences-subscreen-to-main-screen-in-preferencefragment/32713331#32713331
  * 
  * @author Simon Poole
  *
@@ -43,9 +45,8 @@ public class AdvancedPrefEditor extends AppCompatActivity implements PreferenceF
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help))
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        ;
+        MenuCompat.setShowAsAction(menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)),
+                MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 

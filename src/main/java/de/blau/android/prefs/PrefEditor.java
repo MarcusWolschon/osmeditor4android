@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MenuCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,10 +24,10 @@ import de.blau.android.util.ThemeUtils;
 public class PrefEditor extends AppCompatActivity {
 
     private static final String DEBUG_TAG = PrefEditor.class.getSimpleName();
-    
+
     final static String CURRENT_VIEWBOX = "VIEWBOX";
     private BoundingBox viewBox         = null;
-    
+
     private static final int MENUITEM_HELP = 1;
 
     public static void start(@NonNull Context context, BoundingBox viewBox) {
@@ -67,10 +68,11 @@ public class PrefEditor extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f).commit();
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);;
+        MenuCompat.setShowAsAction(menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)),
+                MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -94,7 +96,7 @@ public class PrefEditor extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putSerializable(CURRENT_VIEWBOX, viewBox);
     }
-    
+
     /**
      * {@inheritDoc}
      */
