@@ -130,7 +130,8 @@ public class TrackerService extends Service implements Exportable {
     OldNmeaListener oldNmeaListener = null;
     NewNmeaListener newNmeaListener = null;
 
-    private long staleGPS = 5000000L; // 5 seconds
+    private long staleGPSMilli = 20000L;              // 20 seconds
+    private long staleGPSNano  = staleGPSMilli * 1000;
 
     @Override
     public void onCreate() {
@@ -447,6 +448,7 @@ public class TrackerService extends Service implements Exportable {
         }
     };
 
+    @SuppressWarnings("NewApi")
     LocationListener networkListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
@@ -455,11 +457,16 @@ public class TrackerService extends Service implements Exportable {
             if (lastLocation != null) {
                 boolean lastIsGpsLocation = LocationManager.GPS_PROVIDER.equals(lastLocation.getProvider());
                 if (lastIsGpsLocation) {
-                    if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPS) {
-                        return; // ignore - last GPS time is still reasonably current
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+                        if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPSNano) {
+                            return; // ignore - last GPS time is still reasonably current
+                        } 
                     } else {
-                        Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
+                        if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
+                            return; // this is not as reliable as the above but likely still OK
+                        } 
                     }
+                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
                 }
             }
             updateLocation(location);
@@ -530,8 +537,8 @@ public class TrackerService extends Service implements Exportable {
                     }
                 } else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
                     source = GpsSource.INTERNAL;
-                    staleGPS = prefs.getGpsInterval() * 5000L; // 5 times the intended interval and convert to
-                                                               // nanoseconds
+                    staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
+                    staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
                     if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
                         // internal NMEA resource only works if normal updates are turned on
                         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
@@ -1048,6 +1055,7 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
+    @SuppressWarnings("NewApi")
     class NewNmeaListener implements OnNmeaMessageListener {
         @Override
         public void onNmeaMessage(String message, long timestamp) {
