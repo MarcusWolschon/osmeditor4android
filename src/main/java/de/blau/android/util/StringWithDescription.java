@@ -15,16 +15,32 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
     private final String value;
     private String       description;
 
-    public StringWithDescription(final String value) {
+    /**
+     * Construct a new instance
+     * 
+     * @param value the value
+     */
+    public StringWithDescription(@NonNull final String value) {
         this.value = value;
     }
 
-    public StringWithDescription(final String value, final String description) {
+    /**
+     * Construct a new instance
+     * 
+     * @param value the value
+     * @param description the description of the value
+     */
+    public StringWithDescription(@NonNull final String value, @Nullable final String description) {
         this.value = value;
         this.description = description;
     }
 
-    public StringWithDescription(Object o) {
+    /**
+     * Construct a new instance from object of a known type
+     * 
+     * @param o one of StringWithDescription, ValueWIihCOunt or String
+     */
+    public StringWithDescription(@NonNull Object o) {
         if (o instanceof ValueWithCount) {
             value = ((ValueWithCount) o).getValue();
             description = ((ValueWithCount) o).getDescription();
@@ -66,10 +82,12 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
     }
 
     /**
+     * Check for equality with a String value
+     * 
      * This is likely bad style
      * 
-     * @param s
-     * @return
+     * @param s String to compare with
+     * @return true if the value of this object is the same as s
      */
     public boolean equals(String s) {
         return this.value.equals(s);

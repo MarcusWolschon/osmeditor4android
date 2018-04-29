@@ -78,6 +78,7 @@ import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.views.WrappingLayout;
@@ -496,7 +497,13 @@ public class Preset implements Serializable {
         }
     }
 
-    private PresetIconManager getIconManager(Context ctx) {
+    /**
+     * Get the PresetIconManager for this Preset
+     * 
+     * @param ctx Android Context
+     * @return the PresetIconManager instance
+     */
+    public PresetIconManager getIconManager(Context ctx) {
         if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
             return new PresetIconManager(ctx, null, null);
         } else if (externalPackage != null) {
@@ -727,9 +734,8 @@ public class Preset implements Serializable {
                         }
                         String sort = attr.getValue(VALUES_SORT);
                         if (sort != null) {
-                            currentItem.setSort(key, YES.equals(sort) || TRUE.equals(sort)); // normally this will not
-                                                                                             // be set because true is
-                                                                                             // the default
+                            // normally this will not be set because true is the default
+                            currentItem.setSort(key, YES.equals(sort) || TRUE.equals(sort));
                         }
                         String editable = attr.getValue(EDITABLE);
                         if (editable != null) {
@@ -800,7 +806,13 @@ public class Preset implements Serializable {
                                 if (d == null) {
                                     d = attr.getValue(SHORT_DESCRIPTION);
                                 }
-                                listValues.add(new StringWithDescription(v, po != null ? (valuesContext != null ? po.t(valuesContext, d) : po.t(d)) : d));
+                                String iconPath = attr.getValue(ICON);
+                                if (iconPath == null) {
+                                    listValues.add(new StringWithDescription(v, po != null ? (valuesContext != null ? po.t(valuesContext, d) : po.t(d)) : d));
+                                } else {
+                                    listValues.add(new StringWithDescriptionAndIcon(v,
+                                            po != null ? (valuesContext != null ? po.t(valuesContext, d) : po.t(d)) : d, iconPath));
+                                }
                             }
                         }
                     } else if (PRESET_LINK.equals(name)) {
@@ -1345,6 +1357,7 @@ public class Preset implements Serializable {
      */
     public abstract class PresetElement implements Serializable {
 
+        public static final int          ICON_SIZE_DP     = 36;
         /**
          * 
          */
@@ -1403,21 +1416,32 @@ public class Preset implements Serializable {
         /**
          * Return the icon for the preset or a place holder
          * 
-         * @return
+         * @return a Drawable with the icon or a place holder for it
          */
         public Drawable getIcon() {
             if (icon == null) {
-                if (iconManager == null) {
-                    iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
-                }
-                if (iconpath != null) {
-                    icon = iconManager.getDrawableOrPlaceholder(iconpath, 36);
-                    iconpath = null;
-                } else {
-                    return iconManager.getPlaceHolder(36);
-                }
+                icon = getIcon(iconpath, ICON_SIZE_DP);
+                iconpath = null;
             }
             return icon;
+        }
+
+        /**
+         * Return the icon from the preset or a place holder
+         * 
+         * @param path path to the icon
+         * @param iconSize size of the sides of the icon in DP
+         * @return a Drawable with the icon or a place holder for it
+         */
+        public Drawable getIcon(String path, int iconSize) {
+            if (iconManager == null) {
+                iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
+            }
+            if (path != null) {
+                return iconManager.getDrawableOrPlaceholder(path, iconSize);
+            } else {
+                return iconManager.getPlaceHolder(iconSize);
+            }
         }
 
         public BitmapDrawable getMapIcon() {
@@ -1464,7 +1488,7 @@ public class Preset implements Serializable {
             } else {
                 v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
             }
-            Drawable viewIcon = getIcon();
+            Drawable viewIcon = getIcon(iconpath, ICON_SIZE_DP);
             if (viewIcon != null) {
                 v.setCompoundDrawables(null, viewIcon, null, null);
                 v.setCompoundDrawablePadding((int) (4 * density));
@@ -3090,7 +3114,8 @@ public class Preset implements Serializable {
             outputStream.println("\"description\":\"Offline editor for OSM data on Android.\",");
             outputStream.println("\"project_url\":\"https://github.com/MarcusWolschon/osmeditor4android\",");
             outputStream.println("\"doc_url\":\"http://vespucci.io/\",");
-            outputStream.println("\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
+            outputStream.println(
+                    "\"icon_url\":\"https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/res/drawable/vespucci_logo.png\",");
             outputStream.println("\"keywords\":[");
             outputStream.println("\"editor\"");
             outputStream.println("]},");

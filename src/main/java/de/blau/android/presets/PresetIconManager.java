@@ -102,9 +102,9 @@ public class PresetIconManager {
      * @return null if icon file not found or a drawable of [size]x[size] dp.
      */
     public BitmapDrawable getDrawable(String url, int size) {
-        if (url == null)
+        if (url == null) {
             return null;
-
+        }
         InputStream pngStream = null;
         try {
             if (basePath != null && externalAssetPackage == null) {
@@ -119,16 +119,15 @@ public class PresetIconManager {
                 Log.e("PresetIconManager", "unknown icon URL type for " + url);
             }
 
-            if (pngStream == null)
+            if (pngStream == null) {
                 return null;
+            }
 
-            BitmapDrawable drawable = new BitmapDrawable(App.resources(), BitmapFactory.decodeStream(pngStream)); // resources
-                                                                                                                  // used
-                                                                                                                  // only
-                                                                                                                  // for
-                                                                                                                  // density
+            // resources used only for density
+            BitmapDrawable drawable = new BitmapDrawable(App.resources(), BitmapFactory.decodeStream(pngStream));
             drawable.getBitmap().setDensity(Bitmap.DENSITY_NONE);
             int pxsize = Density.dpToPx(size);
+            Log.e("PresetIconManager", "icon " + url + " size " + size + " pxsize " + pxsize);
             drawable.setBounds(0, 0, pxsize, pxsize);
             return drawable;
         } catch (Exception e) {
