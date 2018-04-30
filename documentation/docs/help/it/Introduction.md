@@ -52,9 +52,9 @@ Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con 
      * Un nodo o un percorso vengono immediatamente evidenziati
      * Tuttavia, se si cerca di selezionare un oggetto e Vespucci individua più oggetti in quel punto, verrà mostrato un menù di selezione che permetterà di scegliere l’oggetto da selezionare. 
     * Gli oggetti selezionati sono evidenziati in giallo. 
-    * Per ulteriori informazioni vedere [Nodo selezionato](../it/Node%20selected.md), [Percorso selezionato](../it/Way%20selected.md) e [Relazione selezionata](../it/Relation%20selected.md). 
-    * Tocco doppio: fa partire la [modalità multiselezione](../it/Multiselect.md). 
-    * Pressione a lungo: crea una "croce" che permette di aggiungere nodi, vedi qui sotto oppure in [Creare nuovi oggetti](../it/Creating%20new%20objects.md)
+    * Per ulteriori informazioni vedere [Nodo selezionato](../en/Node%20selected.md), [Percorso selezionato](../en/Way%20selected.md) e [Relazione selezionata](../en/Relation%20selected.md). 
+    * Tocco doppio: fa partire la [modalità multiselezione](../en/Multiselect.md). 
+    * Pressione a lungo: crea una "croce" che permette di aggiungere nodi, vedi qui sotto oppure in [Creare nuovi oggetti](../en/Creating%20new%20objects.md)
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -86,20 +86,20 @@ Premi a lungo dove vuoi posizionare il nodo o che cominci il percorso. Vedrai un
 * se vuoi creare un nuovo nodo (non connesso ad un altro oggetto), clicca lontano da oggetti esistenti.
 * se vuoi estendere un percorso, clicca all’interno della "zona di tolleranza" del percorso (o su un nodo del percorso). La zona di tolleranza è indicata dalle aree attorno ad un nodo o percorso.
 
-Once you can see the crosshair symbol, you have these options:
+Quando è visibile il simbolo a forma di croce, hai le seguenti opzioni:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Premere nello stesso punto.
+    * Se la croce non è vicina ad un nodo, premendo nello stesso punto di nuovo si crea un nuovo nodo. Se è vicino ad un percorso (ma non ad un nodo), il nuovo nodo sarà aggiunto al percorso.
+    * Se la croce è vicina ad un nodo (cioè all'interno della zona di tolleranza), premendo nello stesso punto semplicemente seleziona quel nodo (e si apre l’editor delle etichette). Nessun nodo viene creato. Si tratta della stessa azione vista in precedenza che si ha per la selezione.
+* Premere in un’altra zona. Premendo in un altro punto (al di fuori della zona di tolleranza della croce) si crea un segmento che parte dalla posizione della croce fino alla posizione corrente. Se la croce era vicina ad un nodo o un percorso, il nuovo segmento sarà connesso a quel nodo od a quel segmento.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Premi semplicemente sullo schermo dove vuoi aggiungere altri nodi al percorso. Per completare, premi il nodo finale due volte. Se il nodo finale è su un nodo o percorso già esistenti, il segmento verrà automaticamente collegato a quel nodo o a quel percorso. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
+Puoi anche usare un elemento del menù: vedi [Creare nuovi oggetti](../en/Creating%20new%20objects.md) per maggiori approfondimenti.
 
 #### Aggiungere un'area
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+Attualmente OpenStreetMap, a differenza di altri sistemi di dati geografici, non è provvisto di oggetti di tipo "area". L’editor online "iD" cerca di creare un modello di area utilizzando i sottostanti elementi di OSM che però non funziona sempre bene. Vespucci al momento non fa nulla di tutto ciò, quindi è necessario che tu sappia come i percorsi di tipo area sono rappresentati:
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
@@ -188,9 +188,9 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modalità C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+Nella modalità C vengono mostrati solo gli oggetti che hanno qualche problema vengono mostrati; questo rende molto facile identificare gli oggetti con particolari difetti o che non passano dei controlli configurabili dall’utente. Se un oggetto è selezionato e si fa partire l’editor delle proprietà in modalità C allora verrà automaticamente applicata la preimpostazione più corrispondente..
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 

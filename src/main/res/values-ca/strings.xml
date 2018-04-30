@@ -123,11 +123,16 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="evaluate">Avaluar</string>
   <string name="js_console_msg_debug">Mode depuració!</string>
   <!--Validator dialogs-->
+  <string name="age">Edat</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Relació buida</string>
   <string name="add_members">Afegeix-hi membres</string>
   <string name="leave_empty">Deixa-ho buit</string>
   <!--GPX way point dialog-->
+  <string name="description">Descripció</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage_left">Esquerra</string>
+  <string name="coverage_right">Dreta</string>
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_unsaved_changes">Tens canvis sense desar, si us plau, puja\'ls primer</string>
@@ -395,6 +400,8 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="changes_deleted">S\'ha suprmit \"%1$s\"</string>
   <string name="changes_changed">S\'ha canviat \"%1$s\"</string>
   <string name="changes_created">S\'ha creat \"%1$s\"</string>
+  <string name="confirm_upload_title">Pujar canvis?</string>
+  <string name="confirm_upload_edits_page">Canvis</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Afegeix una preconfiguració</string>
   <string name="urldialog_preset_exists">Aquesta preconfiguració ja existeix</string>
@@ -407,6 +414,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="name">Nom</string>
   <string name="url">URL</string>
   <string name="default_">Predeterminat</string>
+  <string name="state">Estat</string>
   <!---->
   <string name="empty_list">Sense resultats</string>
   <string name="api_name">Nom de l\'API</string>

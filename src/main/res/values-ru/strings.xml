@@ -145,6 +145,7 @@
   <string name="attached_object_warning_stop">Понятно, больше не показывать это сообщение</string>
   <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
+  <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
   <string name="js_console_msg_debug">Режим отладки!</string>
   <!--Validator dialogs-->
@@ -419,7 +420,7 @@
   <string name="menu_gps_autodownload">Автозагрузка</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
-  <string name="menu_transfer_download_current_add">Добавить текущее место</string>
+  <string name="menu_transfer_download_current_add">Добавить текущее место к загруженному</string>
   <string name="menu_transfer_download_other">Загрузить другое место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
@@ -602,7 +603,7 @@
   <string name="config_downloadSpeed_current">%1$d км/ч</string>
   <string name="config_bugDownloadRadius_title">Радиус загрузки заметок и ошибок</string>
   <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки заметок и ошибок</string>
-  <string name="config_maxBugDownloadSpeed_title">Максимальная скорость для автозагрузки заметок и ошибок</string>
+  <string name="config_maxBugDownloadSpeed_title">Макс. скорость загрузки заметок и ошибок</string>
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок и ошибок приостанавливается</string>
   <string name="config_bugFilter_title">Фильтр заметок и ошибок</string>
   <string name="config_bugFilter_summary">Выбор элементов, которые будут отображаться на слое заметок и ошибок</string>
@@ -623,7 +624,7 @@
   <string name="config_category_misc">Разное</string>
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
-  <string name="config_moreprefs">Другие настройки...</string>
+  <string name="config_moreprefs">Другие настройки</string>
   <string name="config_tagFormEnabled_title">Показывать форму тега</string>
   <string name="config_tagFormEnabled_summary">Показывать форму тега для редактирования</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
@@ -808,7 +809,7 @@
   <string-array name="followGPSbutton_entries">
     <item>Слева</item>
     <item>Справа</item>
-    <item>Никак</item>
+    <item>Нет</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Авто</item>

@@ -73,6 +73,7 @@
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
+  <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś błąd</string>
   <string name="openstreetbug_bug_title">Błąd</string>
@@ -160,6 +161,7 @@
   <string name="coverage_right">Prawo</string>
   <string name="coverage_bottom">Dół</string>
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
+  <string name="delete_layer">Usunąć warstwę?</string>
   <!--Toaster-->
   <string name="toast_name_empty">Nazwa nie może być pusta</string>
   <string name="toast_url_empty">URL nie może być pusty</string>
@@ -622,6 +624,7 @@
   <string name="url">URL</string>
   <string name="default_">Domyślne</string>
   <string name="regular_expression">Wyrażenie regularne</string>
+  <string name="state">Stan</string>
   <!---->
   <string name="empty_list">Brak wpisów</string>
   <string name="api_name">Nazwa API</string>

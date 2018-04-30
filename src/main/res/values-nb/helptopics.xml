@@ -13,7 +13,15 @@
     <string name="help_presets">Knapper</string>
     <string name="help_gpssources">GPS-kilder</string>
     <string name="help_keyboard">Tastatur</string>
+    <string name="help_tagfilter">Egenskap-filter</string>
+    <string name="help_presetfilter">Mal-filter</string>
     <string name="help_opening_hours">Åpningstider</string>
+    <string name="help_upgrade">Utgivelse-notater</string>
+    <string name="help_upgrade_101">10.1 utgivelse-notater</string>
+    <string name="help_upgrade_100">10.0 utgivelse-notater</string>
+    <string name="help_upgrade_099">0.9.9 utgivelse-notater</string>
+    <string name="help_upgrade_098">0.9.8 utgivelse-notater</string>
+    <string name="help_upgrade_097">0.9.7 utgivelse-notater</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

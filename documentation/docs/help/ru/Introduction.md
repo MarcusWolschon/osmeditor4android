@@ -26,7 +26,7 @@ Vespucci — полнофункциональный редактор OpenStreetM
 * **Файл...** - сохранение и загрузка данных с файлов устройства.
 * **Заметки/Ошибки...** - загрузить (автоматически или вручную) заметки и "ошибки" OSM из валидаторов (сейчас только OSMOSE) *(требуется соединение с Интернетом)*
 
-Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб движением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
+Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб сведением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
 
 ### Редактирование
 
@@ -59,17 +59,17 @@ Vespucci — полнофункциональный редактор OpenStreetM
 
 У Vespucci хорошая система отмены и повторения правок, поэтому не бойтесь экспериментировать на устройстве, однако не загружайте на сервер тестовые данные.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Выделение / Снятие выделения (простое нажатие и меню выделения)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Прикоснитесь к объекту для его выделения и подсветки. Прикосновение к экрану на пустом месте сбросит текущее выделение. Если уже выбран объект, но нужно выбрать другой, просто прикоснитесь к нему, не нужно сначала сбрасывать текущее выделение. Двойное нажатие на объекте включает [Множественное выделение](../en/Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Обратите внимание, когда Вы пытаетесь выделить объект и Vespucci посчитает, что может быть выделено несколько объектов (таких, как точка на линии или другие перекрывающиеся объекты), будет показано меню выделения: нажмите на объект, который Вы хотели выбрать и он будет выделен. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Выбранные объекты отображаются с дополнительным тонким жёлтым бордюром. Он может быть плохо заметен на некоторых цветах фона карты или при некоторых масштабах. Когда выделение сделано, Вы увидите уведомление, подтверждающее выбор.
 
 Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Выделенные объекты: Редактирование тэгов
 
 A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
 
@@ -108,7 +108,7 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Вырезать, копировать и вставлять
+#### Вырезание, копирование и вставка
 
 Вы можете скопировать или вырезать выделенные точки и линии, а затем вставить их один или несколько раз в новое место. Вырезание сохраняет OSM id и версию. Чтобы вставить, длительно нажмите в месте, в которое вы хотите вставить (вы увидите перекрестие, отмечающее расположение). Затем выберите "Вставить" из меню.
 
@@ -166,7 +166,7 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-Дисплей ошибок OSMOSE предоставит ссылку на затронутый объект синим цветом; касание по ссылке выберет объект, центрирует экран на нем и, если необходимо, предзагрузит область. 
+Дисплей ошибок OSMOSE предоставит ссылку на затронутый объект синим цветом; касание по ссылке выберет объект, центрирует экран на нем и, если необходимо, предварительно загрузит область. 
 
 ### Filtering
 
@@ -179,21 +179,21 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## План помещения
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Режим может быть включен долгим нажатием на заблокированном объекте, см. [Блокировка, разблокировка, переключение режимов](#lock) и выбором соответствующего пункта меню.
 
 <a id="c-mode"></a>
 
-## C-Mode
+## "Только конфликты" (C-Mode)
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Режим может быть включен долгим нажатием на заблокированном объекте, см. [Блокировка, разблокировка, переключение режимов](#lock) и выбором соответствующего пункта меню.
 
-### Configuring checks
+### Настройка проверок
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
@@ -219,7 +219,7 @@ Check entries have the following two properties:
 
 This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
-## Filters
+## Фильтры
 
 ### Tag based filter
 

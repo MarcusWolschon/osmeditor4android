@@ -32,7 +32,7 @@
   <string name="invalid_data_read_title">Ugyldig Data</string>
   <string name="file_write_failed_message">Kunne ikke skrive til valgt fil.</string>
   <string name="welcome_title">Velkommen!</string>
-  <string name="welcome_message">Takk for at du bruker Vespucci.\n\nFør du kommer i gang må du vite to ting:\n\n* et trykk på lås-ikonet øverst til venstre vil bytte mellom låst (ingen redigering) og ulåst.\n\n* for å legge til et nytt objekt; hold inne på kartet, og ved å trykke på samme sted vil du opprette et punkt. Trykker du lengre unna vil du starte en linje.\n\nIkke gløm å laste ned området du vil redigere.\n\nHa det gøy!</string>
+  <string name="welcome_message">Takk for at du bruker Vespucci.\n\nFør du kommer i gang må du vite to ting:\n\n* ett trykk på lås-ikonet øverst til venstre vil bytte mellom låst (ingen redigering) og ulåst.\n\n* for å legge til et nytt objekt; hold inne på kartet, og ved å trykke på samme sted vil du opprette et punkt. Trykker du lengre unna vil du starte en linje.\n\nIkke gløm å laste ned området du vil redigere.\n\nHa det gøy!</string>
   <string name="welcome_message_fullscreen">\n\nVespucci oppdaget at enheten din har skjermknapper, og har skjult dem. Ved å dra opp fra bunnen av skjermen vil de vises igjen.</string>
   <string name="read_introduction">Les introduksjonen nå</string>
   <string name="upgrade_title">Velkommen til en ny versjon av Vespucci!</string>
@@ -46,6 +46,7 @@
   <string name="progress_searching_message">Søker...</string>
   <string name="progress_saving_message">Lagrer...</string>
   <string name="progress_uploading_message">Laster opp...</string>
+  <string name="progress_preset_message">Laster ned mal...</string>
   <string name="progress_running_message">Kjører...</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
@@ -69,11 +70,15 @@
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
   <string name="imagery_offset_description">Beskrivelse</string>
+  <string name="imagery_offset_date">Laget</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distanse</string>
   <string name="tag_editor_name_suggestion">Navneforslag</string>
+  <string name="tag_editor_name_suggestion_overwrite_message">Dette forslaget kan bytte ut noen verdier med mer populære verdier.</string>
   <string name="search_results_title">Søkeresultater</string>
+  <string name="preset_search_hint">Søk etter mal</string>
   <string name="search">Søk</string>
+  <string name="no_valid_preset">Ingen gyldig mal!</string>
   <string name="read_file">Velg fil å lese</string>
   <string name="save_file">Velg fil å lagre til</string>
   <string name="delete_tags">Vil du virkelig slette alle egenskapene til objektet \"%1$s\"?</string>
@@ -102,14 +107,16 @@
   <string name="description">Beskrivelse</string>
   <string name="created">Laget</string>
   <string name="create_osm_object">Lag OSM-objekt</string>
+  <string name="create_osm_object_search">Lag et OSM-objekt ved å søke etter en mal</string>
   <!--Custom imagery dialogs-->
   <string name="delete_layer">Slette lag?</string>
   <!--Toaster-->
   <string name="toast_name_empty">Navn kan ikke stå tomt</string>
   <string name="toast_url_empty">URL-feltet kan ikke stå tomt</string>
-  <string name="toast_no_changes">Du har ikke endra noe enda…</string>
+  <string name="toast_no_changes">Du har ikke endret noe enda…</string>
+  <string name="toast_unsaved_changes">Du har ulagrede endringer, vennligst last dem opp først.</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
-  <string name="toast_not_in_edit_range">Zoom inn for å endra (volum opp / ned eller lens/shift)</string>
+  <string name="toast_not_in_edit_range">Zoom inn for å endre (volum opp / ned eller lens/shift)</string>
   <string name="toast_unlock_to_edit">Lås opp for å redigere</string>
   <string name="toast_edit_outside_downloaded_area">Du kan ikke redigere utenfor det nedlastede området</string>
   <string name="toast_save_done">Lagring lykkes</string>
@@ -117,11 +124,18 @@
   <string name="toast_not_in_bug_range">Zoom inn for å legge til feilrapport (volum opp/ned eller lens/shift)</string>
   <string name="toast_export_failed">Eksport feila</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
+  <string name="toast_preset_overwrote_tags">Merk - mal overskrev egenskap(er)</string>
+  <string name="toast_merge_overwrote_tags">Merk - operasjonen overskrev egenskap(er)</string>
   <string name="toast_oneway_reversed">Du snudde en enveisgate eller en linje med egenskaper avhengig av retningen. Vennligst sjekk egenskapene og fiks dem hvis det trengs.</string>
   <string name="toast_unread_mail">Du har %1$d uleste OSM-meldinger</string>
   <string name="toast_one_unread_mail">Du har en ulest OSM-melding</string>
   <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
+  <string name="toast_noname">Veien har intet navn eller referanse</string>
   <string name="toast_outside_of_download">Du redigerer utenfor det nedlastede området.</string>
+  <string name="toast_min_one_preset">Minst en mal må være valgt!</string>
+  <string name="toast_missing_key">Nøkkel %1$s mangler</string>
+  <string name="toast_openinghours_invalid">Ugylid verdi i form av åpningstider for %1$s</string>
+  <string name="toast_preset_creation_failed">Oppretting av malen \"%1$s\" mislyktes med: %2$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
@@ -130,16 +144,27 @@
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
+  <string name="Key">Nøkkel</string>
   <string name="value">verdi</string>
+  <string name="Value">Verdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Legg til adresse-egenskaper</string>
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
-  <string name="tag_menu_preset">Knapper</string>
+  <string name="tag_menu_preset">Maler</string>
+  <string name="tag_menu_apply_preset">Angi beste mal</string>
+  <string name="tag_menu_repeat">Gjenta egenskaper</string>
   <string name="tag_menu_revert">Gjør om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
+  <string name="tag_menu_resetMRU">Tilbakestill Maler</string>
+  <string name="tag_value_hint">Skriv en verdi</string>
+  <string name="tag_autocomplete_value_hint">Skriv eller trykk for verdier</string>
+  <string name="tag_multi_value_hint">Flere verdier</string>
+  <string name="tag_dialog_value_hint">Trykk for verdier</string>
   <string name="tag_action_tag_title">Egenskap(er) valgt</string>
   <string name="tag_menu_download">Last ned</string>
+  <string name="menu_preset_help">Mal hjelp</string>
   <string name="tag_menu_i8n">Legg til egenskaper for %1$s</string>
+  <string name="tag_restriction_header">Verdi</string>
   <!--Strings in LocationPicker-->
   <string name="location_headline">Last ned gjeldende område</string>
   <string name="location_choose_radius">Velg radius:</string>
@@ -175,22 +200,37 @@
   <string name="menu_transfer_download_current_add">Legg til gjeldende område til nedlasting</string>
   <string name="menu_transfer_download_other">Last ned et annet område</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
+  <string name="menu_transfer_file">Fil...</string>
+  <string name="menu_transfer_export">Eksporter endringer til OSC-fil</string>
+  <string name="menu_transfer_read_file">Les JOSM-fil...</string>
+  <string name="menu_transfer_save_file">Lagre til JOSM-fil...</string>
   <string name="menu_transfer_bugs_download_current">Last ned feil for gjeldende område</string>
+  <string name="menu_transfer_bugs_upload">Last opp alle</string>
   <string name="menu_transfer_autodownload_long">Auto-nedlasting av feil</string>
   <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
+  <string name="menu_copy">Kopier</string>
+  <string name="menu_cut">Klipp ut</string>
+  <string name="menu_paste">Lim inn</string>
+  <string name="menu_paste_from_clipboard">Lim inn fra utklippstavle</string>
+  <string name="menu_zoom_to_selection">Zoom til valg</string>
+  <string name="menu_rotate">Roter</string>
+  <string name="menu_orthogonalize">Rett ut vinkler</string>
+  <string name="menu_circulize">Lag sirkel</string>
+  <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Tilbakestill OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autoriser OAuth</string>
   <string name="menu_enable_tagfilter">Egenskapsfilter</string>
+  <string name="menu_enable_presetfilter">Mal-filter</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
-  <string name="notreversable_description">Linjen er merket med egenskaper som er avhengig av retningen og kan ikke bli snudd. Å snu denne linjen vil ødelegge merkingen.</string>
+  <string name="notreversable_description">Linjen er merket med egenskaper som er avhengig av retningen og kan ikke bli snudd. Å snu denne linjen kan ødelegge egenskapenes mening.</string>
   <string name="deleteway_description">Du skal til å slette en linje.\n\nDu kan enten beholde alle punkter, eller slette punkter som bare tilhører denne linja og som ikke har noen egenskaper.</string>
-  <string name="deleteway_wayonly">Slett bare vegen</string>
+  <string name="deleteway_wayonly">Slett bare linjen</string>
   <string name="deleteway_wayandnodes">Slett veg og noder</string>
   <string name="deletenode">Slett punkt</string>
   <!--EasyEdit action mode titles-->
@@ -210,8 +250,10 @@
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
   <string name="config_presetbutton_title">Knapper</string>
+  <string name="config_presetbutton_summary">Legg til og endre JOSM-kompatible maler</string>
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
+  <string name="config_showWayIcons_summary">Vis ikonet til den mest passende malen over bygninger.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>
   <string name="config_username_title">OpenStreetMap-brukernavn</string>
   <string name="config_password_title">OpenStreetMap-passord</string>
@@ -226,10 +268,27 @@
   <string name="config_forceContextMenu_summary">Vis alltid hurtigmeny i EasyEdit-modus dersom valget er tvetydig.</string>
   <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
   <string name="config_licensebutton_summary">Vis informasjon om opphavsmenn og lisenser</string>
+  <string name="config_use_back_for_undo_title">Bruk tilbake-knappen som angre-knapp</string>
+  <string name="config_use_back_for_undo_summary">Bruk tilbake-knappen til å angre endringer på kartet</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedlastings-radius</string>
   <string name="config_downloadRadius_current">%1$d Meter</string>
   <string name="config_downloadSpeed_current">%1$d km/t</string>
+  <string name="config_enableAutoPreset_title">Aktiver auto-mal</string>
   <string name="config_address_tags">Adresse-egenskaper</string>
+  <string name="config_tagFormEnabled_title">Vis skjema for egenskaper</string>
+  <string name="config_tagFormEnabled_summary">Vis skjema for egenskaper til redigering</string>
+  <string name="config_fullscreenMode_summary">Oppførsel på enheter med \"skjermknapper\".</string>
+  <string name="config_maxInlineValues_current">%1$d Verdier</string>
+  <string name="config_category_layers">Nedlasting og lagring av lag</string>
+  <string name="config_maxTileDownloadThreads_title">Maks antall nedlasting-tråder</string>
+  <string name="config_maxTileDownloadThreads_summary">Maksimalt antall tråder til nedlasting av fliser</string>
+  <string name="config_downLoadThreads_current">%1$d Tråder</string>
+  <string name="config_tileCacheSize_title">Flis-cache størrelse</string>
+  <string name="config_tileCacheSize_summary">Total mengde MB med midlertidige filer av fliser</string>
+  <string name="config_tileCache_current">%1$d MB</string>
+  <string name="config_notificationCacheSize_title">Maks antall viste varsler</string>
+  <string name="config_notificationCacheSize_current">%1$d Varsler</string>
+  <string name="manage_presets">Administrere maler</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
   <string name="preset_download_successful">Knappene ble lasta ned.</string>
@@ -237,11 +296,19 @@
   <string name="preset_download_parse_failed">Knappefila er ugyldig. Knappesettet kommer ikke til å virke.</string>
   <string name="preset_download_missing_images">Knappefila ble lasta ned, men noen ikon kunne ikke lastes ned og kommer til å mangle.</string>
   <!--changes-->
-  <string name="changes_deleted">«%1$s» sletta</string>
-  <string name="changes_changed">«%1$s» endra</string>
-  <string name="changes_created">«%1$s» oppretta</string>
+  <string name="changes_deleted">«%1$s» slettet</string>
+  <string name="changes_changed">«%1$s» endret</string>
+  <string name="changes_created">«%1$s» opprettet</string>
+  <string name="confirm_upload_title">Laste opp endringer?</string>
+  <string name="confirm_one_upload_text">Vil du laste opp den følgende endringen?\n\n%1$s</string>
+  <string name="confirm_multiple_upload_text">Vil du laste opp de følgende %1$dendringene?\n\n%2$s</string>
+  <string name="confirm_upload_edits_page">Endringer</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">Legg til mal</string>
+  <string name="urldialog_preset_exists">Denne malen eksisterer allerede</string>
+  <string name="urldialog_preset_download_successful">Malen er blitt lastet ned!</string>
   <string name="urldialog_api_exists">En API med denne URLen finst allerede, men du kan legga til en til (f. eks. for å lett skifte konto).</string>
+  <string name="urldialog_api_preset_missing">Malen brukt av APIen er ikke tilgjengelig. Du burde legge den til først.</string>
   <string name="urldialog_add_api">Legg til API</string>
   <string name="urldialog_nodata_text">Konfigurasjons-URLen har ikke gyldig data.</string>
   <!--common terms-->
@@ -252,6 +319,7 @@
   <string name="url">URL</string>
   <!---->
   <!--"default" is a reserved Java keyword...-->
+  <string name="preset">Mal</string>
   <string name="api">API</string>
   <string name="undo">Gjør om</string>
   <string name="redo">Gjenta</string>
