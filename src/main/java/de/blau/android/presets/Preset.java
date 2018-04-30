@@ -1089,6 +1089,8 @@ public class Preset implements Serializable {
     /**
      * Returns a view showing the most recently used presets
      * 
+     * @param ctx Android Context
+     * @param presets the array of currently active presets
      * @param handler the handler which will handle clicks on the presets
      * @param type filter to show only presets applying to this type
      * @return the view
@@ -1444,6 +1446,11 @@ public class Preset implements Serializable {
             }
         }
 
+        /**
+         * Get an icon suitable for drawing on the map
+         * 
+         * @return a small icon
+         */
         public BitmapDrawable getMapIcon() {
             if (mapIcon == null && mapiconpath != null) {
                 if (iconManager == null) {
@@ -1488,7 +1495,7 @@ public class Preset implements Serializable {
             } else {
                 v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
             }
-            Drawable viewIcon = getIcon(iconpath, ICON_SIZE_DP);
+            Drawable viewIcon = getIcon();
             if (viewIcon != null) {
                 v.setCompoundDrawables(null, viewIcon, null, null);
                 v.setCompoundDrawablePadding((int) (4 * density));
@@ -1959,7 +1966,7 @@ public class Preset implements Serializable {
          * Add a name, any translation and the individual words to the index. Currently we assume that all words are
          * significant
          * 
-         * @param term
+         * @param term search key to add
          */
         void addToSearchIndex(String term) {
             // search support
