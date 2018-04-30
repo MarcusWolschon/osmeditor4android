@@ -1819,31 +1819,46 @@ public class TileLayerServer {
      */
     String wmsBox(final MapTile aTile) {
         boxBuilder.setLength(0);
-        switch (proj) {
-        case EPSG_3857:
-        case EPSG_900913:
-            int ymax = 1 << aTile.zoomLevel;
-            int y = ymax - aTile.y - 1;
-            boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
-            break;
-        case EPSG_4326:
-            // note this is hack that simply squashes the vertical axis to fit to square tiles
-            boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
-            boxBuilder.append(',');
-            boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
-            break;
-        default:
-            Log.e(DEBUG_TAG, "Unsupported projection " + proj);
+        if (proj != null) {
+            switch (proj) {
+            case EPSG_3857:
+            case EPSG_900913:
+                int ymax = 1 << aTile.zoomLevel;
+                int y = ymax - aTile.y - 1;
+                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2lonMerc(tileWidth, aTile.x + 1, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2latMerc(tileHeight, y + 1, aTile.zoomLevel));
+                break;
+            case EPSG_4326:
+                // note this is hack that simply squashes the vertical axis to fit to square tiles
+                boxBuilder.append(GeoMath.tile2lon(aTile.x, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2lat(aTile.y + 1, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2lon(aTile.x + 1, aTile.zoomLevel));
+                boxBuilder.append(',');
+                boxBuilder.append(GeoMath.tile2lat(aTile.y, aTile.zoomLevel));
+                break;
+            default:
+                Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
+            }
+        } else {
+            // set proj from url  &SRS=EPSG:4326 or &CRS=EPSG:4326
+            Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)");
+            Matcher matcher = pat.matcher(originalUrl.toLowerCase());
+            if (matcher.find()) {
+                String projParameter = matcher.group(1);
+                if (projParameter != null) {
+                    proj = projParameter.toUpperCase();
+                    Log.e(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
+                    return wmsBox(aTile);
+                }
+            }
+            Log.e(DEBUG_TAG, "No projection for layer " + getName());
         }
         return boxBuilder.toString();
     }
@@ -1956,7 +1971,7 @@ public class TileLayerServer {
                 if (backgroundServerList != null) {
                     for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
                         TileLayerServer osmts = backgroundServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl);
+                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase());
                         if (m.find()) {
                             backgroundServerList.remove(key);
                             Log.d(DEBUG_TAG, "Removed background tile layer " + key);
@@ -1966,7 +1981,7 @@ public class TileLayerServer {
                 if (overlayServerList != null) {
                     for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
                         TileLayerServer osmts = overlayServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl);
+                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase());
                         if (m.find()) {
                             overlayServerList.remove(key);
                             Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
