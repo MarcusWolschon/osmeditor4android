@@ -122,6 +122,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
             ResponseBody responseBody = null;
             MediaType format = null;
             InputStream inputStream = null;
+            Response tileCallResponse = null;
             final String tileURLString = buildURL(mTile);
             try {
                 if (tileURLString.length() > 0) {
@@ -131,7 +132,7 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
                     Request request = new Request.Builder().url(tileURLString).build();
                     Call tileCall = client.newCall(request);
-                    Response tileCallResponse = tileCall.execute();
+                    tileCallResponse = tileCall.execute();
                     if (tileCallResponse.isSuccessful()) {
                         responseBody = tileCallResponse.body();
                         inputStream = responseBody.byteStream();
@@ -202,6 +203,9 @@ public class MapTileDownloader extends MapAsyncTileProvider {
             } finally {
                 StreamUtils.closeStream(in);
                 StreamUtils.closeStream(out);
+                if (tileCallResponse != null) {
+                    tileCallResponse.close();
+                }
                 finished();
             }
         }
