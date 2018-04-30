@@ -138,11 +138,16 @@ public class GpxTest {
             }
         }
         Assert.assertNotNull(foundWp);
-        Map map = main.getMap();
+        final Map map = main.getMap();
         ViewBox viewBox = map.getViewBox();
         App.getLogic().setZoom(map, 19);
         viewBox.moveTo(map, foundWp.getLon(), foundWp.getLat());
-        map.invalidate();
+        main.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                map.invalidate();
+            }
+        });
 
         if (App.getLogic().isLocked()) {
             UiObject lock = device.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
@@ -160,7 +165,7 @@ public class GpxTest {
         TestUtils.clickText(device, true, "Create osm object from", true);
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
-    
+
     @Test
     public void followNetworkLocation() {
         TestUtils.zoomToLevel(main, 19);
@@ -180,12 +185,11 @@ public class GpxTest {
         TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true);
         TestUtils.clickText(device, false, "Pause GPS track", true);
         // compare roughly with last location
-        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size()-1);
+        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
         ViewBox box = main.getMap().getViewBox();
         Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.0001);
-        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight())/2 + box.getRight())/1E7D, 0.0001);
+        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2 + box.getRight()) / 1E7D, 0.0001);
     }
-
 
     boolean doubleEquals(double d1, double d2) {
         double epsilon = 0.0000001D;
