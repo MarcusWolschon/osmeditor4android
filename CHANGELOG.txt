@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.2.2: Make network location failover preference work properly, fix custom WMS server regression, various stability improvements, update presets, translations, imagery and OH fragment.
+
 10.2.1: Improve behaviour in full screen mode, shorten timeouts when retrieving tiles, update translations, some stability improvements, update translations.
 
 10.2.0: Further small bug fixes, update preset and translations.
