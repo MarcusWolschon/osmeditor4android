@@ -12,9 +12,29 @@ import java.util.List;
  */
 public class Capabilities {
 
+    private static final String DEBUG_TAG = Capabilities.class.getSimpleName();
+
     public enum Status {
         ONLINE, READONLY, OFFLINE
     }
+
+    static final String VERSION_TAG          = "version";
+    static final String MINIMUM_KEY          = "minimum";
+    static final String MAXIMUM_KEY          = "maximum";
+    static final String AREA_TAG             = "area";
+    static final String TRACEPOINTS_TAG      = "tracepoints";
+    static final String PER_PAGE_KEY         = "per_page";
+    static final String WAYNODES_TAG         = "waynodes";
+    static final String CHANGESETS_TAG       = "changesets";
+    static final String MAXIMUM_ELEMENTS_KEY = "maximum_elements";
+    static final String TIMEOUT_TAG          = "timeout";
+    static final String SECONDS_KEY          = "seconds";
+    static final String STATUS_TAG           = "status";
+    static final String DATABASE_KEY         = "database";
+    static final String API_KEY              = "api";
+    static final String GPX_KEY              = "gpx";
+    static final String BLACKLIST_TAG        = "blacklist";
+    static final String REGEX_KEY            = "regex";
 
     // API related
     private String minVersion             = "0.6";
@@ -31,6 +51,12 @@ public class Capabilities {
     // policy
     private List<String> imageryBlacklist = new ArrayList<>();
 
+    /**
+     * Convert status as a string to Status values
+     * 
+     * @param s status string
+     * @return the Status
+     */ 
     public static Status stringToStatus(String s) {
         if (s == null) {
             return Status.OFFLINE;
@@ -45,6 +71,11 @@ public class Capabilities {
         }
     }
 
+    /**
+     * Create a default imagery blacklist
+     * 
+     * @return a List of regexp Strings
+     */
     private static List<String> defaultBlacklist() {
         List<String> blacklist = new ArrayList<>();
         blacklist.add(".*\\.google(apis)?\\..*/(vt|kh)[\\?/].*([xyz]=.*){3}.*");
@@ -53,6 +84,11 @@ public class Capabilities {
         return blacklist;
     }
 
+    /**
+     * Get default capabilities for a read/write server
+     * 
+     * @return a Capabilities object
+     */
     public static Capabilities getDefault() {
         Capabilities d = new Capabilities();
         d.imageryBlacklist.addAll(defaultBlacklist());
@@ -64,6 +100,11 @@ public class Capabilities {
         return d;
     }
 
+    /**
+     * Get default capabilities for a read-only server
+     * 
+     * @return a Capabilities object
+     */
     public static Capabilities getReadOnlyDefault() {
         Capabilities d = new Capabilities();
         d.imageryBlacklist.addAll(defaultBlacklist());
@@ -75,10 +116,20 @@ public class Capabilities {
         return d;
     }
 
+    /**
+     * Get the imagery blacklist
+     * 
+     * @return a List of regexp Strings
+     */
     public List<String> getImageryBlacklist() {
         return imageryBlacklist;
     }
 
+    /**
+     * Set the imagery blacklist
+     * 
+     * @param imageryBlacklist a List of regexp Strings
+     */
     public void setImageryBlacklist(List<String> imageryBlacklist) {
         this.imageryBlacklist = imageryBlacklist;
     }

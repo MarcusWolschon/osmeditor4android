@@ -62,16 +62,18 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
  * @author mb
  */
 public class Server {
+    private static final String DEBUG_TAG = Server.class.getName();
 
-    private static final String HTTP_PUT = "PUT";
+    private static final String OSM_CHANGE_TAG = "osmChange";
+    private static final String VERSION_KEY    = "version";
+    private static final String GENERATOR_KEY  = "generator";
 
+    private static final String HTTP_PUT  = "PUT";
     private static final String HTTP_POST = "POST";
-
-    private static final String HTTP_GET = "GET";
+    private static final String HTTP_GET  = "GET";
 
     private static final MediaType TEXTXML = MediaType.parse("text/xml");
-
-    private static final String DEBUG_TAG = Server.class.getName();
+    private static final String    UTF_8   = "UTF-8";
 
     /**
      * Timeout for connections in milliseconds.
@@ -415,58 +417,58 @@ public class Server {
             while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
                 try {
                     String tagName = parser.getName();
-                    if (eventType == XmlPullParser.START_TAG && "version".equals(tagName)) {
-                        result.setMinVersion(parser.getAttributeValue(null, "minimum"));
-                        result.setMaxVersion(parser.getAttributeValue(null, "maximum"));
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.VERSION_TAG.equals(tagName)) {
+                        result.setMinVersion(parser.getAttributeValue(null, Capabilities.MINIMUM_KEY));
+                        result.setMaxVersion(parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY));
                         Log.d(DEBUG_TAG, "getCapabilities min/max API version " + result.getMinVersion() + "/" + result.getMaxVersion());
                     }
-                    if (eventType == XmlPullParser.START_TAG && "area".equals(tagName)) {
-                        String maxArea = parser.getAttributeValue(null, "maximum");
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.AREA_TAG.equals(tagName)) {
+                        String maxArea = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
                         if (maxArea != null) {
                             result.setAreaMax(Float.parseFloat(maxArea));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum area " + maxArea);
                     }
-                    if (eventType == XmlPullParser.START_TAG && "tracepoints".equals(tagName)) {
-                        String perPage = parser.getAttributeValue(null, "per_page");
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.TRACEPOINTS_TAG.equals(tagName)) {
+                        String perPage = parser.getAttributeValue(null, Capabilities.PER_PAGE_KEY);
                         if (perPage != null) {
                             result.setMaxTracepointsPerPage(Integer.parseInt(perPage));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #tracepoints per page " + perPage);
                     }
-                    if (eventType == XmlPullParser.START_TAG && "waynodes".equals(tagName)) {
-                        String maximumWayNodes = parser.getAttributeValue(null, "maximum");
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.WAYNODES_TAG.equals(tagName)) {
+                        String maximumWayNodes = parser.getAttributeValue(null, Capabilities.MAXIMUM_KEY);
                         if (maximumWayNodes != null) {
                             result.setMaxWayNodes(Integer.parseInt(maximumWayNodes));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum #nodes in a way " + maximumWayNodes);
                     }
-                    if (eventType == XmlPullParser.START_TAG && "changesets".equals(tagName)) {
-                        String maximumElements = parser.getAttributeValue(null, "maximum_elements");
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.CHANGESETS_TAG.equals(tagName)) {
+                        String maximumElements = parser.getAttributeValue(null, Capabilities.MAXIMUM_ELEMENTS_KEY);
                         if (maximumElements != null) {
                             result.setMaxElementsInChangeset(Integer.parseInt(maximumElements));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities maximum elements in changesets " + maximumElements);
                     }
-                    if (eventType == XmlPullParser.START_TAG && "timeout".equals(tagName)) {
-                        String seconds = parser.getAttributeValue(null, "seconds");
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.TIMEOUT_TAG.equals(tagName)) {
+                        String seconds = parser.getAttributeValue(null, Capabilities.SECONDS_KEY);
                         if (seconds != null) {
                             result.setTimeout(Integer.parseInt(seconds));
                         }
                         Log.d(DEBUG_TAG, "getCapabilities timeout seconds " + seconds);
                     }
-                    if (eventType == XmlPullParser.START_TAG && "status".equals(tagName)) {
-                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "database")));
-                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "api")));
-                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, "gpx")));
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.STATUS_TAG.equals(tagName)) {
+                        result.setDbStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.DATABASE_KEY)));
+                        result.setApiStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.API_KEY)));
+                        result.setGpxStatus(Capabilities.stringToStatus(parser.getAttributeValue(null, Capabilities.GPX_KEY)));
                         Log.d(DEBUG_TAG, "getCapabilities service status DB " + result.getDbStatus() + " API " + result.getApiStatus() + " GPX "
                                 + result.getGpxStatus());
                     }
-                    if (eventType == XmlPullParser.START_TAG && "blacklist".equals(tagName)) {
+                    if (eventType == XmlPullParser.START_TAG && Capabilities.BLACKLIST_TAG.equals(tagName)) {
                         if (result.getImageryBlacklist() == null) {
                             result.setImageryBlacklist(new ArrayList<String>());
                         }
-                        String regex = parser.getAttributeValue(null, "regex");
+                        String regex = parser.getAttributeValue(null, Capabilities.REGEX_KEY);
                         if (regex != null) {
                             result.getImageryBlacklist().add(regex);
                         }
@@ -1390,10 +1392,10 @@ public class Server {
     }
 
     private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.startDocument("UTF-8", null);
+        xmlSerializer.startDocument(UTF_8, null);
         xmlSerializer.startTag("", "osm");
-        xmlSerializer.attribute("", "version", API_VERSION);
-        xmlSerializer.attribute("", "generator", generator);
+        xmlSerializer.attribute("", VERSION_KEY, API_VERSION);
+        xmlSerializer.attribute("", GENERATOR_KEY, generator);
     }
 
     private void endXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
@@ -1403,19 +1405,19 @@ public class Server {
 
     private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.startDocument("UTF-8", null);
-        xmlSerializer.startTag("", "osmChange");
-        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
-        xmlSerializer.attribute("", "generator", generator);
+        xmlSerializer.startDocument(UTF_8, null);
+        xmlSerializer.startTag("", OSM_CHANGE_TAG);
+        xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
+        xmlSerializer.attribute("", GENERATOR_KEY, generator);
         xmlSerializer.startTag("", action);
-        xmlSerializer.attribute("", "version", OSMCHANGE_VERSION);
-        xmlSerializer.attribute("", "generator", generator);
+        xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
+        xmlSerializer.attribute("", GENERATOR_KEY, generator);
     }
 
     private void endChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
         xmlSerializer.endTag("", action);
-        xmlSerializer.endTag("", "osmChange");
+        xmlSerializer.endTag("", OSM_CHANGE_TAG);
         xmlSerializer.endDocument();
     }
 
@@ -1678,7 +1680,7 @@ public class Server {
 
             // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
             // which will fail
-            String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+            String encodedComment = URLEncoder.encode(comment.getText(), UTF_8);
             URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
 
             Response response = openConnectionForAuthenicatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
@@ -1724,7 +1726,7 @@ public class Server {
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
             // description with author and date>&format=<Output format>
 
-            String encodedComment = URLEncoder.encode(comment.getText(), "UTF-8");
+            String encodedComment = URLEncoder.encode(comment.getText(), UTF_8);
             URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
 
             Response response = openConnectionForAuthenicatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));

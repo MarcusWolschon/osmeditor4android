@@ -166,6 +166,9 @@ public class Preset implements Serializable {
     private static final String OBJECT_KEYS         = "object_keys";
     private static final String GROUP               = "group";
     private static final String PRESETS             = "presets";
+    private static final String AREA                = "area";
+    private static final String MULTIPOLYGON        = "multipolygon";
+    private static final String CLOSEDWAY           = "closedway";
     /**
      * 
      */
@@ -1785,6 +1788,7 @@ public class Preset implements Serializable {
 
     /** Represents a preset item (e.g. "footpath", "grocery store") */
     public class PresetItem extends PresetElement {
+
         /**
          * 
          */
@@ -1906,11 +1910,11 @@ public class Preset implements Serializable {
                         setAppliesToNode();
                     } else if (Way.NAME.equals(type)) {
                         setAppliesToWay();
-                    } else if ("closedway".equals(type)) {
+                    } else if (CLOSEDWAY.equals(type)) {
                         setAppliesToClosedway(); // FIXME don't add if it really an area
-                    } else if ("multipolygon".equals(type)) {
+                    } else if (MULTIPOLYGON.equals(type)) {
                         setAppliesToArea();
-                    } else if ("area".equals(type)) {
+                    } else if (AREA.equals(type)) {
                         setAppliesToArea(); //
                     } else if (Relation.NAME.equals(type)) {
                         setAppliesToRelation();

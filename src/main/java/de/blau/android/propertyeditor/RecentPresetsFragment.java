@@ -121,16 +121,9 @@ public class RecentPresetsFragment extends BaseFragment {
                         return false;
                     }
                 };
-                v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); // TODO this
-                                                                                                            // should
-                                                                                                            // really be
-                                                                                                            // a call of
-                                                                                                            // a static
-                                                                                                            // method,
-                                                                                                            // all MRUs
-                                                                                                            // get added
-                                                                                                            // to this
-                                                                                                            // view
+                // TODO this should really be a call of a static method,
+                // all MRUs get added to this view
+                v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType); 
 
                 v.setId(R.id.recentPresets);
             } else {
