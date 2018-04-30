@@ -1543,10 +1543,12 @@ public class TileLayerServer {
     @NonNull
     public static String[] getIds(@Nullable BoundingBox box, boolean filtered) {
         List<String> ids = new ArrayList<>();
-        if (backgroundServerList != null) {
-            List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
-            for (TileLayerServer t : list) {
-                ids.add(t.id);
+        synchronized (serverListLock) {
+            if (backgroundServerList != null) {
+                List<TileLayerServer> list = getServersFilteredSorted(filtered, backgroundServerList, box);
+                for (TileLayerServer t : list) {
+                    ids.add(t.id);
+                }
             }
         }
         String[] idArray = new String[ids.size()];
@@ -1626,10 +1628,12 @@ public class TileLayerServer {
     @NonNull
     public static String[] getOverlayIds(@Nullable BoundingBox box, boolean filtered) {
         List<String> ids = new ArrayList<>();
-        if (overlayServerList != null) {
-            List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
-            for (TileLayerServer t : list) {
-                ids.add(t.id);
+        synchronized (serverListLock) {
+            if (overlayServerList != null) {
+                List<TileLayerServer> list = getServersFilteredSorted(filtered, overlayServerList, box);
+                for (TileLayerServer t : list) {
+                    ids.add(t.id);
+                }
             }
         }
         return ids.toArray(new String[ids.size()]);
@@ -1847,7 +1851,7 @@ public class TileLayerServer {
                 Log.e(DEBUG_TAG, "Unsupported projection " + proj + " for " + getName());
             }
         } else {
-            // set proj from url  &SRS=EPSG:4326 or &CRS=EPSG:4326
+            // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
             Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)");
             Matcher matcher = pat.matcher(originalUrl.toLowerCase());
             if (matcher.find()) {
