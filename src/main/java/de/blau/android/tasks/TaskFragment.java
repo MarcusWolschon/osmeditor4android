@@ -42,6 +42,7 @@ import de.blau.android.tasks.Task.State;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.IssueAlert;
+import de.blau.android.util.Util;
 
 /**
  * Very simple dialog fragment to display bug or notes
@@ -139,7 +140,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
         LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
         if (bug instanceof Note) {
             title.setText(getString((bug.isNew() && ((Note) bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
-            comments.setText(Html.fromHtml(((Note) bug).getComment())); // ugly
+            comments.setText(Util.fromHtml(((Note) bug).getComment())); // ugly
             comments.setAutoLinkMask(Linkify.WEB_URLS);
             comments.setMovementMethod(LinkMovementMethod.getInstance());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -162,7 +163,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
             adapter = ArrayAdapter.createFromResource(getActivity(), R.array.note_state, android.R.layout.simple_spinner_item);
         } else if (bug instanceof OsmoseBug || bug instanceof CustomBug) {
             title.setText(R.string.openstreetbug_bug_title);
-            comments.setText(Html.fromHtml(((Bug) bug).getLongDescription(getActivity(), false)));
+            comments.setText(Util.fromHtml(((Bug) bug).getLongDescription(getActivity(), false)));
             final StorageDelegator storageDelegator = App.getDelegator();
             for (final OsmElement e : ((Bug) bug).getElements()) {
                 String text;

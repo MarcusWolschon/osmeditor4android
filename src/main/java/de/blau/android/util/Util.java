@@ -29,6 +29,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.style.CharacterStyle;
 import android.text.style.MetricAffectingSpan;
 import android.util.Log;
@@ -532,6 +534,15 @@ public class Util {
                 }
             };
             listPref.setOnPreferenceChangeListener(p);
+        }
+    }
+    
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+           return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+           return Html.fromHtml(html);
         }
     }
 }

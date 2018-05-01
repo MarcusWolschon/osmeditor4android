@@ -24,6 +24,7 @@ import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.AdvancedPrefDatabase.Geocoder;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Search with nominatim, photon and maybe others
@@ -145,7 +146,7 @@ public class Search {
 
         List<Spanned> ar = new ArrayList<>();
         for (SearchResult sr : searchResults) {
-            ar.add(Html.fromHtml(sr.displayName));
+            ar.add(Util.fromHtml(sr.displayName));
         }
         lv.setAdapter(new ArrayAdapter<>(activity, itemLayout, ar));
         lv.setSelection(0);

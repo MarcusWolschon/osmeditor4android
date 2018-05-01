@@ -198,6 +198,6 @@ public class FeatureInfo extends DialogFragment {
      */
     @SuppressWarnings("deprecation")
     private Spanned toItalic(int resId) {
-        return Html.fromHtml("<i>" + getString(resId) + "</i>");
+        return Util.fromHtml("<i>" + getString(resId) + "</i>");
     }
 }

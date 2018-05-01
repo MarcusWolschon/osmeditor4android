@@ -15,6 +15,7 @@ import android.text.Html;
 import de.blau.android.App;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
+import de.blau.android.util.Util;
 
 /**
  * A bug in the OpenStreetBugs database, or a prospective new bug. This now works with the OSM Notes system, many
@@ -206,7 +207,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      */
     @Override
     public String getDescription() {
-        return "note " + (comments != null && !comments.isEmpty() ? Html.fromHtml(comments.get(0).getText()) : "<new>"); // TODO
+        return "note " + (comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "<new>"); // TODO
                                                                                                                          // externalize
                                                                                                                          // string
     }
