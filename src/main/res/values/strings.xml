@@ -203,6 +203,10 @@
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style</string>
     <string name="layer_select_imagery">Select imagery</string>
+    <!--  Undo - Redo dialog -->
+    <string name="undo_redo_title">Undo - Redo</string>
+    <string name="undo_redo_one">Just the selected checkpoint</string>
+    <string name="undo_redo_all">All checkpoints back to selected</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>

@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
@@ -64,7 +66,7 @@ public class UndoStorage implements Serializable {
     /**
      * Set currentStorage without creating a new instance
      * 
-     * @param currentStorage
+     * @param currentStorage the current OsmElement storage
      */
     public void setCurrentStorage(Storage currentStorage) {
         this.currentStorage = currentStorage;
@@ -72,9 +74,8 @@ public class UndoStorage implements Serializable {
 
     /**
      * Call to create a new checkpoint. When the user performs an undo operation, the state will be reverted to what it
-     * was at the last checkpoint. Checkpoints should NOT be created checkpoints for changes that are made as part of
-     * other operations. For this reason, checkpoints usually need to be triggered in {@link Logic}, not
-     * {@link StorageDelegator}.
+     * was at the last checkpoint. Checkpoints should NOT be created for changes that are made as part of other operations. 
+     * For this reason, checkpoints usually need to be triggered in {@link Logic}, not {@link StorageDelegator}.
      * 
      * @param name the name of the checkpoint, used for debugging and display purposes
      */
@@ -97,7 +98,7 @@ public class UndoStorage implements Serializable {
     /**
      * remove checkpoint from list. typically called when we otherwise would have an empty checkpoint at the top
      * 
-     * * @param name checkpoint name
+     * @param name checkpoint name
      */
     public void removeCheckpoint(String name) {
         removeCheckpoint(name, false);
@@ -163,6 +164,25 @@ public class UndoStorage implements Serializable {
         redoCheckpoints.add(redoPoint);
         return name;
     }
+    
+    /**
+     * Performs an undo operation, restoring a specific undo checkpoint. A redo checkpoint is automatically
+     * created. If no checkpoint is available, an error is logged and the function does nothing.
+     * 
+     * @param checkpoint index of the checkpoint to undo
+     * @return the name of the undo checkpoint used, or null if no checkpoint was available
+     */
+    public String undo(int checkpoint) {
+        if (!canUndo()) {
+            Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
+            return null;
+        }
+        String name = undoCheckpoints.get(checkpoint).getName();
+        Checkpoint redoPoint = new Checkpoint(name);
+        undoCheckpoints.remove(checkpoint).restore(redoPoint);
+        redoCheckpoints.add(redoPoint);
+        return name;
+    }
 
     /**
      * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
@@ -178,6 +198,25 @@ public class UndoStorage implements Serializable {
         String name = redoCheckpoints.getLast().getName();
         Checkpoint reundoPoint = new Checkpoint(name);
         redoCheckpoints.removeLast().restore(reundoPoint);
+        undoCheckpoints.add(reundoPoint);
+        return name;
+    }
+    
+    /**
+     * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
+     * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
+     * 
+     * @param checkpoint index of the checkpoint to redo
+     * @return the name of the redo checkpoint used, or null if no checkpoint was available
+     */
+    public String redo(int checkpoint) {
+        if (!canRedo()) {
+            Log.e(DEBUG_TAG, "Attempted to redo, but no redo checkpoints available");
+            return null;
+        }
+        String name = redoCheckpoints.get(checkpoint).getName();
+        Checkpoint reundoPoint = new Checkpoint(name);
+        redoCheckpoints.remove(checkpoint).restore(reundoPoint);
         undoCheckpoints.add(reundoPoint);
         return name;
     }
@@ -206,7 +245,7 @@ public class UndoStorage implements Serializable {
     private class Checkpoint implements Serializable {
         private static final long serialVersionUID = 2L;
 
-        private final HashMap<OsmElement, UndoElement> elements = new HashMap<>();
+        private final Map<OsmElement, UndoElement> elements = new HashMap<>();
         private String                                 name;
 
         public Checkpoint(String name) {
@@ -220,17 +259,18 @@ public class UndoStorage implements Serializable {
          * @param element the element to save
          */
         public void add(OsmElement element) throws IllegalArgumentException {
-            if (elements.containsKey(element))
+            if (elements.containsKey(element)) {
                 return;
-
-            if (element instanceof Node)
+            }
+            if (element instanceof Node) {
                 elements.put(element, new UndoNode((Node) element));
-            else if (element instanceof Way)
+            } else if (element instanceof Way) {
                 elements.put(element, new UndoWay((Way) element));
-            else if (element instanceof Relation)
+            } else if (element instanceof Relation) {
                 elements.put(element, new UndoRelation((Relation) element));
-            else
+            } else {
                 throw new IllegalArgumentException("Unsupported element type");
+            }
         }
 
         /**
@@ -239,8 +279,9 @@ public class UndoStorage implements Serializable {
          * @param element the element for which remove the saved state
          */
         public void remove(OsmElement element) throws IllegalArgumentException {
-            if (!elements.containsKey(element))
+            if (!elements.containsKey(element)) {
                 return;
+            }
             elements.remove(element);
         }
 
@@ -252,8 +293,9 @@ public class UndoStorage implements Serializable {
          */
         public void restore(Checkpoint redoCheckpoint) {
             for (Entry<OsmElement, UndoElement> entry : elements.entrySet()) {
-                if (redoCheckpoint != null)
+                if (redoCheckpoint != null) {
                     redoCheckpoint.add(entry.getKey()); // save current state
+                }
                 entry.getValue().restore();
             }
         }
@@ -358,12 +400,12 @@ public class UndoStorage implements Serializable {
         public String getDescription(@Nullable Context ctx) {
             // Use the name if it exists
             if (tags != null) {
-                String name = tags.get("name");
+                String name = tags.get(Tags.KEY_NAME);
                 if (name != null && name.length() > 0) {
                     return name;
                 }
                 // Then the house number
-                String housenb = tags.get("addr:housenumber");
+                String housenb = tags.get(Tags.KEY_ADDR_HOUSENUMBER);
                 if (housenb != null && housenb.length() > 0) {
                     return "house " + housenb;
                 }
@@ -394,7 +436,7 @@ public class UndoStorage implements Serializable {
         private String getTagValueString(String tag) {
             String value = tags.get(tag);
             if (value != null && value.length() > 0) {
-                return element.getName() + " " + tag + ":" + value;
+                return element.getName() + " " + tag + ":" + value + " #" + Long.toString(element.getOsmId());
             }
             return null;
         }
@@ -503,6 +545,26 @@ public class UndoStorage implements Serializable {
                 message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
             }
             result[i++] = message;
+        }
+        return result;
+    }
+    
+    /**
+     * Get the original unchanged information of an element
+     * 
+     * @param element the element we are looking for
+     * @return an UndoELement or null if no checkpoint containing element was found
+     */
+    @Nullable
+    public UndoElement getOriginal(@NonNull OsmElement element) {
+        UndoElement result = null;
+        int checkpointCount = undoCheckpoints.size();
+        // loop over most recent to oldest checkpoint 
+        for (int i = checkpointCount -1; i >= 0 ;i--) {
+            UndoElement undoElement = undoCheckpoints.get(i).elements.get(element);
+            if (undoElement != null) {
+                result = undoElement;
+            }
         }
         return result;
     }
