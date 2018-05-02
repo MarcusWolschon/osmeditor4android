@@ -23,27 +23,18 @@
             android:id="@+id/review_page"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:paddingLeft="?attr/dialogPreferredPadding"
+            android:paddingRight="?attr/dialogPreferredPadding"
             android:orientation="vertical">
-            <ScrollView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="?attr/dialogPreferredPadding"
-                    android:paddingRight="?attr/dialogPreferredPadding">
-                    <TextView
-                        android:id="@+id/upload_changes"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        tools:text="@string/confirm_multiple_upload_text" />
-                </LinearLayout>
-            </ScrollView>
+            <TextView
+                android:id="@+id/review_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:gravity="center_vertical" />
+            <ListView
+                android:id="@id/upload_changes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/tags_page"

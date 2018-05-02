@@ -407,7 +407,7 @@ public class Logic {
         getDelegator().dirty();
         return name;
     }
-    
+
     /**
      * Wrapper to ensure the dirty flag is set
      * 
@@ -432,7 +432,7 @@ public class Logic {
         getDelegator().dirty();
         return name;
     }
-    
+
     /**
      * Wrapper to ensure the dirty flag is set
      * 
@@ -4010,6 +4010,13 @@ public class Logic {
     }
 
     /**
+     * @return a list of all pending changes to upload
+     */
+    public synchronized List<OsmElement> getPendingChangedElements() {
+        return getDelegator().listChangedElements();
+    }
+
+    /**
      * Sets the set of elements that can currently be clicked.
      * <ul>
      * <li>If set to null, the map will use default behaviour.</li>
@@ -4082,8 +4089,8 @@ public class Logic {
             }
         };
 
-        /** 
-         * Takes an element-distance map and returns the elements ordered by distance 
+        /**
+         * Takes an element-distance map and returns the elements ordered by distance
          *
          * @return a sorted List of the input
          */
@@ -4200,11 +4207,8 @@ public class Logic {
                         addSelectedRelationWay((Way) e);
                     } else if (e.getName().equals(Node.NAME)) {
                         addSelectedRelationNode((Node) e);
-                    } else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation) e))) { // break
-                                                                                                                                                                // recursion
-                                                                                                                                                                // if
-                                                                                                                                                                // already
-                                                                                                                                                                // selected
+                    } else if (e.getName().equals(Relation.NAME) && (selectedRelationRelations == null || !selectedRelationRelations.contains((Relation) e))) {
+                        // break recursion if already selected
                         addSelectedRelationRelation((Relation) e);
                     }
                 }

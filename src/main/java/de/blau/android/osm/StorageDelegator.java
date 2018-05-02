@@ -1720,13 +1720,11 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    /*
+    /**
      * Remove non-downloaded element from relation
      * 
      * @param type type (node, way, relation) of element
-     * 
      * @param elementId id of the element
-     * 
      * @param r relation to remove the element from
      */
     public void removeElementFromRelation(@NonNull String type, final Long elementId, @NonNull final Relation r) {
@@ -2026,11 +2024,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param mergeFrom
      */
     private void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom) {
-        List<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<>(mergeFrom.getParentRelations()) : new ArrayList<Relation>(); // copy
-                                                                                                                                                             // just
-                                                                                                                                                             // to
-                                                                                                                                                             // be
-                                                                                                                                                             // safe
+        // copy just to be safe
+        List<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<>(mergeFrom.getParentRelations()) : new ArrayList<Relation>();
         List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
         try {
             HashSet<OsmElement> changedElements = new HashSet<>();
@@ -2357,6 +2352,19 @@ public class StorageDelegator implements Serializable, Exportable {
         for (Relation relation : new ArrayList<>(apiStorage.getRelations())) {
             retval.add(relation.getStateDescription(aResources));
         }
+        return retval;
+    }
+
+    /**
+     * Return a list of the elements we would upload on {@link #uploadToServer(Server)}.
+     * 
+     * @return the changed OsmElements
+     */
+    public List<OsmElement> listChangedElements() {
+        List<OsmElement> retval = new ArrayList<>();
+        retval.addAll(new ArrayList<Node>(apiStorage.getNodes()));
+        retval.addAll(new ArrayList<Way>(apiStorage.getWays()));
+        retval.addAll(new ArrayList<Relation>(apiStorage.getRelations()));
         return retval;
     }
 

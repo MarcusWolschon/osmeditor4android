@@ -1,10 +1,13 @@
 package de.blau.android.dialogs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -26,27 +29,35 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.UploadListener;
+import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
+import de.blau.android.validation.Validator;
 import de.blau.android.views.ExtendedViewPager;
 
 /**
  * Dialog for final review of changes and adding comment and source tags before upload
  * 
- * @author simon
  *
  */
 public class ConfirmUpload extends DialogFragment {
@@ -55,15 +66,17 @@ public class ConfirmUpload extends DialogFragment {
 
     private static final String TAG = "fragment_confirm_upload";
 
-    private static final char   LINE_DELIMITER = '\n';
-    private static final String LINE_PREFIX    = "- ";
-
     public static final int EDITS_PAGE = 0;
     public static final int TAGS_PAGE  = 1;
 
     private View              layout = null;
     private ExtendedViewPager pager  = null;
 
+    /**
+     * Instantiate and show the dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
     static public void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
 
@@ -77,6 +90,11 @@ public class ConfirmUpload extends DialogFragment {
         }
     }
 
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
     static public void dismissDialog(FragmentActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -93,6 +111,9 @@ public class ConfirmUpload extends DialogFragment {
     }
 
     /**
+     * Create a new instance of this Fragment
+     * 
+     * @return a new ConfirmUpload instance
      */
     static private ConfirmUpload newInstance() {
         ConfirmUpload f = new ConfirmUpload();
@@ -136,13 +157,33 @@ public class ConfirmUpload extends DialogFragment {
         pager.setAdapter(new ViewPagerAdapter());
 
         builder.setView(layout);
-        TextView changes = (TextView) layout.findViewById(R.id.upload_changes);
+
+        // Review page
+        TextView changesHeading = (TextView) layout.findViewById(R.id.review_heading);
         int changeCount = App.getDelegator().getApiElementCount();
         if (changeCount == 1) {
-            changes.setText(getString(R.string.confirm_one_upload_text, getPendingChanges(activity)));
+            changesHeading.setText(getString(R.string.confirm_one_upload_text));
         } else {
-            changes.setText(getString(R.string.confirm_multiple_upload_text, changeCount, getPendingChanges(activity)));
+            changesHeading.setText(getString(R.string.confirm_multiple_upload_text, changeCount));
         }
+        ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
+        final ChangedElement[] changes = getPendingChanges();
+        changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, App.getDefaultValidator(getContext())));
+        changesView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ChangedElement clicked = changes[position];
+                OsmElement element = clicked.element;
+                byte elemenState = element.getState();
+                if (elemenState == OsmElement.STATE_MODIFIED || elemenState == OsmElement.STATE_DELETED) {
+                    ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element);
+                } else {
+                    ElementInfo.showDialog(getActivity(), element);
+                }
+            }
+        });
+
+        // Comment and upload page
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
         AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
@@ -199,19 +240,81 @@ public class ConfirmUpload extends DialogFragment {
         }
     }
 
+    private class ChangedElement {
+        final OsmElement element;
+
+        /**
+         * Construct a new instance
+         * 
+         * @param element the OsmElement to wrap
+         */
+        ChangedElement(@NonNull OsmElement element) {
+            this.element = element;
+        }
+
+        @Override
+        public String toString() {
+            return element.getStateDescription(getResources());
+        }
+    }
+
     /**
      * Get the pending changes
      * 
-     * @param ctx Android context
-     * @return a string containing a list of all pending changes to upload (contains newlines)
+     * This will sort the result in a reasonable way: tagged elements first then untagged, newly created before modified
+     * and then deleted, then the convention node, way and relation ordering.
+     * 
+     * @return a List of all pending pending elements to upload
      */
-    private String getPendingChanges(Context ctx) {
-        List<String> changes = App.getLogic().getPendingChanges(ctx);
-        StringBuilder builder = new StringBuilder();
-        for (String change : changes) {
-            builder.append(LINE_PREFIX).append(change).append(LINE_DELIMITER);
+    private ChangedElement[] getPendingChanges() {
+
+        List<OsmElement> changedElements = App.getLogic().getPendingChangedElements();
+        List<ChangedElement> result = new ArrayList<>();
+        for (OsmElement e : changedElements) {
+            result.add(new ChangedElement(e));
         }
-        return builder.toString();
+        result.sort(new Comparator<ChangedElement>() {
+            @Override
+            public int compare(ChangedElement ce0, ChangedElement ce1) {
+
+                if (ce0.element.isTagged() && !ce1.element.isTagged()) {
+                    return -1;
+                }
+                if (!ce0.element.isTagged() && ce1.element.isTagged()) {
+                    return 1;
+                }
+                byte ce0State = ce0.element.getState();
+                byte ce1State = ce1.element.getState();
+                if (ce0State == OsmElement.STATE_CREATED && ce1State != OsmElement.STATE_CREATED) {
+                    return -1;
+                }
+                if (ce0State != OsmElement.STATE_CREATED && ce1State == OsmElement.STATE_CREATED) {
+                    return 1;
+                }
+                if (ce0State == OsmElement.STATE_MODIFIED && ce1State == OsmElement.STATE_DELETED) {
+                    return -1;
+                }
+                if (ce0State == OsmElement.STATE_DELETED && ce1State == OsmElement.STATE_MODIFIED) {
+                    return 1;
+                }
+                String ce0Type = ce0.element.getName();
+                String ce1Type = ce1.element.getName();
+                if (Node.NAME.equals(ce0Type) && !Node.NAME.equals(ce1Type)) {
+                    return -1;
+                }
+                if (Way.NAME.equals(ce0Type) && Relation.NAME.equals(ce1Type)) {
+                    return -1;
+                }
+                if (Way.NAME.equals(ce0Type) && Node.NAME.equals(ce1Type)) {
+                    return 1;
+                }
+                if (Relation.NAME.equals(ce0Type) && !Relation.NAME.equals(ce1Type)) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        return result.toArray(new ChangedElement[result.size()]);
     }
 
     /**
@@ -242,8 +345,9 @@ public class ConfirmUpload extends DialogFragment {
         }
     }
 
-    class ViewPagerAdapter extends PagerAdapter {
+    private class ViewPagerAdapter extends PagerAdapter {
 
+        @Override
         public Object instantiateItem(ViewGroup collection, int position) {
 
             int resId = 0;
@@ -278,6 +382,50 @@ public class ConfirmUpload extends DialogFragment {
                 return getString(R.string.menu_tags);
             }
             return "";
+        }
+    }
+
+    /**
+     * Highlight elements for upload that have a potential issue
+     * 
+     * @author Simon Poole
+     *
+     */
+    private class ValidatorArrayAdapter extends ArrayAdapter<ChangedElement> {
+        final ChangedElement[] elements;
+        final Validator        validator;
+        final ColorStateList   colorStateList;
+
+        /**
+         * Construct a new instance
+         * 
+         * @param context Android Context
+         * @param resource the resource id of the per item layout
+         * @param elements the array holding the elements
+         * @param validator the Validator to use
+         */
+        public ValidatorArrayAdapter(@NonNull Context context, int resource, @NonNull ChangedElement[] elements, @NonNull Validator validator) {
+            super(context, resource, elements);
+            this.elements = elements;
+            this.validator = validator;
+            colorStateList = ColorStateList.valueOf(ThemeUtils.getStyleAttribColorValue(context, R.color.material_red, 0xFFFF0000));
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup container) {
+            View v = super.getView(position, convertView, container);
+            TextView textView = (TextView) v.findViewById(R.id.text1);
+            if (textView != null) {
+                OsmElement element = elements[position].element;
+                if (OsmElement.STATE_DELETED != element.getState() && element.hasProblem(null, validator) != Validator.OK) {
+                    textView.setCompoundDrawableTintList(colorStateList);
+                } else {
+                    textView.setCompoundDrawableTintList(null);
+                }
+            } else {
+                Log.e("ValidatorAdapterView", "position " + position + " view is null");
+            }
+            return v;
         }
     }
 }

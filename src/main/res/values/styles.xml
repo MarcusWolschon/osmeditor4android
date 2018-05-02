@@ -129,6 +129,7 @@
         <item name="layer_not_visible">@drawable/ic_visibility_off_white_24dp</item>
         <item name="zoom_to_layer_extent">@drawable/ic_crop_free_white_24dp</item>
         <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
+        <item name="information_small">@drawable/ic_info_outline_white_24dp</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonDark</item>
 		<item name="EditText">@style/EditTextDark</item>
@@ -193,6 +194,7 @@
         <item name="layer_not_visible">@drawable/ic_visibility_off_black_24dp</item>
         <item name="zoom_to_layer_extent">@drawable/ic_crop_free_black_24dp</item>
         <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
+        <item name="information_small">@drawable/ic_info_outline_black_24dp</item>
 		<!-- styles -->
 		<item name="ActionButton">@style/ActionButtonLight</item>
 		<item name="EditText">@style/EditTextLight</item>
