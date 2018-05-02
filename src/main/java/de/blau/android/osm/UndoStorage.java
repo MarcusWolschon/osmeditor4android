@@ -41,7 +41,7 @@ import de.blau.android.util.ACRAHelper;
  * @author Jan Schejbal
  */
 public class UndoStorage implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String DEBUG_TAG = "UndoStorage";
 
@@ -391,6 +391,9 @@ public class UndoStorage implements Serializable {
             element.osmVersion = osmVersion;
             element.state = state;
             element.setTags(tags);
+            
+            // zap error state
+            element.resetHasProblem();
 
             if (parentRelations != null) {
                 element.parentRelations = new ArrayList<>();
