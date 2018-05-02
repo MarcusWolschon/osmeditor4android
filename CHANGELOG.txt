@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.0-1: layer control, support for GeoJSON layers, re-arranged Preferences with support for help pages, review changes before upload, undo/redo of individual checkpoints, support for icons in preset combos and multi-selects, numerous stability improvements and bug fixes. 
+
 10.2.1: Improve behaviour in full screen mode, shorten timeouts when retrieving tiles, update translations, some stability improvements, update translations.
 
 10.2.0: Further small bug fixes, update preset and translations.
