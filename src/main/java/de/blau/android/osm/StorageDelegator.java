@@ -2008,6 +2008,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public void addMembersToRelation(Relation relation, List<OsmElement> members) {
         dirty = true;
+        undo.save(relation);
         for (OsmElement e : members) {
             undo.save(e);
             RelationMember rm = new RelationMember("", e);
