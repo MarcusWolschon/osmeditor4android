@@ -433,11 +433,21 @@ public class Way extends OsmElement implements BoundedObject {
         super.setState(newState);
     }
 
+    /**
+     * Get the rendering style for this way
+     * 
+     * @return the style of null if not set
+     */
     public FeatureStyle getFeatureProfile() {
         return featureProfile;
     }
 
-    public void setFeatureProfile(FeatureStyle fp) {
+    /**
+     * Set the rendering style for this way
+     * 
+     * @param fp the style to set, null to reset
+     */
+    public void setFeatureProfile(@Nullable FeatureStyle fp) {
         featureProfile = fp;
     }
 

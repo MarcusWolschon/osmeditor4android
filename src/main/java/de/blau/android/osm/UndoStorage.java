@@ -520,6 +520,8 @@ public class UndoStorage implements Serializable {
             super.restore();
             ((Way) element).nodes.clear();
             ((Way) element).nodes.addAll(nodes);
+            // reset the style
+            ((Way) element).setFeatureProfile(null);
         }
 
         /*
