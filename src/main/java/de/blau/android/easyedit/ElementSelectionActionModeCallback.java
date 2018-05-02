@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
@@ -176,7 +177,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             main.startSupportActionMode(new ExtendSelectionActionModeCallback(manager, element));
             break;
         case MENUITEM_ELEMENT_INFO:
-            ElementInfo.showDialog(main, element);
+            main.descheduleAutoLock();
+            if (element.getState() == OsmElement.STATE_MODIFIED) {
+                ElementInfo.showDialog(main, App.getDelegator().getUndo().getOriginal(element), element);
+            } else {
+                ElementInfo.showDialog(main, element);
+            }
             break;
         case MENUITEM_PREFERENCES:
             PrefEditor.start(main, main.getMap().getViewBox());

@@ -167,9 +167,9 @@ public class FeatureInfo extends DialogFragment {
         if (feature != null) {
             // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.getGeometry().getType(), tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.getGeometry().getType(), null, tp));
             tl.addView(TableLayoutUtils.divider(activity));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
             JsonObject properties = feature.getProperties();
             if (properties != null) {
                 for (String key : properties.keySet()) {

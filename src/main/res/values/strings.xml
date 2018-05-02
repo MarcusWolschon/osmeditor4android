@@ -119,6 +119,7 @@
     <string name="existing_track_title">Existing track data</string>
     <string name="existing_track_message">You already have existing track data. You may want to cancel and save first.</string>
     <string name="delete_tags">Really delete all tags for object \"%1$s\"?</string>
+    <!-- element information dialog -->
     <string name="element_information">Element information</string>
     <string name="id">Id</string>
     <string name="nodes">Nodes</string>
@@ -133,15 +134,20 @@
     <string name="element">element</string>
     <string name="last_updated">last updated</string>
     <string name="last_edited">Last edited</string>
+    <string name="original">Original</string>
+    <string name="current">Current</string>
+    <!--  -->
     <string name="feature_information">GeoJSON Feature information</string>
     <string name="error">error</string>
     <string name="warning">warning</string>
     <string name="minor_issue">minor issue</string>
     <string name="unknown_error_level">unknown error level</string>
+    <!-- hidden object warning dialog  -->
     <string name="attached_object_warning_title">This operation affects filtered attached objects!</string>
     <string name="attached_object_warning_message">The changed object is connected to hidden elements that will change too.</string>
     <string name="attached_object_warning_continue">OK continue to show this message</string>
     <string name="attached_object_warning_stop">OK stop showing this message</string>
+    <!-- debug dialog -->
     <string name="send_debug_information">Send debug information</string>
     <!-- JS console dialog  -->
     <string name="evaluate">Evaluate</string>

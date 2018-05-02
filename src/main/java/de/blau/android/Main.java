@@ -90,7 +90,6 @@ import android.widget.RelativeLayout.LayoutParams;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
-import de.blau.android.actionbar.UndoDialogFactory;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.ConfirmUpload;
@@ -105,6 +104,7 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
@@ -4073,7 +4073,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Remove any pending automatic lock tasks
      */
-    private void descheduleAutoLock() {
+    public void descheduleAutoLock() {
         map.removeCallbacks(autoLock);
     }
 

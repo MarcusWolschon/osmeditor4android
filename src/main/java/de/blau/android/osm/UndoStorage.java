@@ -2,8 +2,10 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -74,8 +76,9 @@ public class UndoStorage implements Serializable {
 
     /**
      * Call to create a new checkpoint. When the user performs an undo operation, the state will be reverted to what it
-     * was at the last checkpoint. Checkpoints should NOT be created for changes that are made as part of other operations. 
-     * For this reason, checkpoints usually need to be triggered in {@link Logic}, not {@link StorageDelegator}.
+     * was at the last checkpoint. Checkpoints should NOT be created for changes that are made as part of other
+     * operations. For this reason, checkpoints usually need to be triggered in {@link Logic}, not
+     * {@link StorageDelegator}.
      * 
      * @param name the name of the checkpoint, used for debugging and display purposes
      */
@@ -164,10 +167,10 @@ public class UndoStorage implements Serializable {
         redoCheckpoints.add(redoPoint);
         return name;
     }
-    
+
     /**
-     * Performs an undo operation, restoring a specific undo checkpoint. A redo checkpoint is automatically
-     * created. If no checkpoint is available, an error is logged and the function does nothing.
+     * Performs an undo operation, restoring a specific undo checkpoint. A redo checkpoint is automatically created. If
+     * no checkpoint is available, an error is logged and the function does nothing.
      * 
      * @param checkpoint index of the checkpoint to undo
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
@@ -201,7 +204,7 @@ public class UndoStorage implements Serializable {
         undoCheckpoints.add(reundoPoint);
         return name;
     }
-    
+
     /**
      * Performs an redo operation, restoring the state at the next redo checkpoint. A new undo checkpoint is
      * automatically created. If no checkpoint is available, an error is logged and the function does nothing.
@@ -246,7 +249,7 @@ public class UndoStorage implements Serializable {
         private static final long serialVersionUID = 2L;
 
         private final Map<OsmElement, UndoElement> elements = new HashMap<>();
-        private String                                 name;
+        private String                             name;
 
         public Checkpoint(String name) {
             this.name = name;
@@ -330,7 +333,7 @@ public class UndoStorage implements Serializable {
      * 
      * @author Jan
      */
-    private abstract class UndoElement implements Serializable {
+    public abstract class UndoElement implements Serializable {
         private static final long serialVersionUID = 1L;
 
         final OsmElement element;
@@ -391,7 +394,13 @@ public class UndoStorage implements Serializable {
 
             if (parentRelations != null) {
                 element.parentRelations = new ArrayList<>();
-                element.parentRelations.addAll(parentRelations);
+                for (Relation r: parentRelations) {
+                    if (currentStorage.contains(r)) {
+                        element.parentRelations.add(r);
+                    } else {
+                        Log.e(DEBUG_TAG, element.getDescription() + " is a member of " + r.getDescription() + " which is deleted");
+                    }
+                }
             } else {
                 element.parentRelations = null;
             }
@@ -440,6 +449,15 @@ public class UndoStorage implements Serializable {
             }
             return null;
         }
+
+        /**
+         * Get the Map containing the tags
+         * 
+         * @return an unmodifiable Map containing the key-value pairs
+         */
+        public Map<String, String> getTags() {
+            return Collections.unmodifiableMap(tags);
+        }
     }
 
     /**
@@ -447,7 +465,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    private class UndoNode extends UndoElement implements Serializable {
+    public class UndoNode extends UndoElement implements Serializable {
         private static final long serialVersionUID = 1L;
         private final int         lat;
         private final int         lon;
@@ -462,7 +480,21 @@ public class UndoStorage implements Serializable {
         public void restore() {
             super.restore();
             ((Node) element).lat = lat;
-            ((Node) element).lon = lon;
+            ((Node) element).lon = getLon();
+        }
+
+        /**
+         * @return the longitude in WGS84*1E7
+         */
+        public int getLon() {
+            return lon;
+        }
+
+        /**
+         * @return the latitude in WGS84*1E7
+         */
+        public int getLat() {
+            return lon;
         }
     }
 
@@ -471,7 +503,7 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    private class UndoWay extends UndoElement implements Serializable {
+    public class UndoWay extends UndoElement implements Serializable {
         private static final long serialVersionUID = 1L;
         private ArrayList<Node>   nodes;
 
@@ -486,6 +518,38 @@ public class UndoStorage implements Serializable {
             ((Way) element).nodes.clear();
             ((Way) element).nodes.addAll(nodes);
         }
+
+        /*
+         * The following methods provide equivalent of the same ones in Way
+         */
+        /**
+         * return true if first == last node, will not work for broken geometries
+         * 
+         * @return true if closed
+         */
+        public boolean isClosed() {
+            return nodes.get(0).equals(nodes.get(nodes.size() - 1));
+        }
+
+        /**
+         * Return the length in m
+         * 
+         * This uses the Haversine distance between nodes for calculation
+         * 
+         * @return the length in m
+         */
+        public double length() {
+            return Way.length(nodes);
+        }
+
+        /**
+         * Return the number of nodes in the is way
+         * 
+         * @return the number of nodes in this Way
+         */
+        public int nodeCount() {
+            return nodes == null ? 0 : nodes.size();
+        }
     }
 
     /**
@@ -493,9 +557,9 @@ public class UndoStorage implements Serializable {
      * 
      * @see UndoElement
      */
-    private class UndoRelation extends UndoElement implements Serializable {
-        private static final long         serialVersionUID = 1L;
-        private ArrayList<RelationMember> members;
+    public class UndoRelation extends UndoElement implements Serializable {
+        private static final long    serialVersionUID = 1L;
+        private List<RelationMember> members;
 
         public UndoRelation(Relation originalRelation) {
             super(originalRelation);
@@ -508,6 +572,15 @@ public class UndoStorage implements Serializable {
             super.restore();
             ((Relation) element).members.clear();
             ((Relation) element).members.addAll(members);
+        }
+        
+        /**
+         * Get the list of RelationMembers for the UndoRelation
+         * 
+         * @return an unmodifiable copy of the List of RelationMembers
+         */
+        public List<RelationMember> getMembers() {
+           return Collections.unmodifiableList(members); 
         }
     }
 
@@ -548,7 +621,7 @@ public class UndoStorage implements Serializable {
         }
         return result;
     }
-    
+
     /**
      * Get the original unchanged information of an element
      * 
@@ -559,8 +632,8 @@ public class UndoStorage implements Serializable {
     public UndoElement getOriginal(@NonNull OsmElement element) {
         UndoElement result = null;
         int checkpointCount = undoCheckpoints.size();
-        // loop over most recent to oldest checkpoint 
-        for (int i = checkpointCount -1; i >= 0 ;i--) {
+        // loop over most recent to oldest checkpoint
+        for (int i = checkpointCount - 1; i >= 0; i--) {
             UndoElement undoElement = undoCheckpoints.get(i).elements.get(element);
             if (undoElement != null) {
                 result = undoElement;

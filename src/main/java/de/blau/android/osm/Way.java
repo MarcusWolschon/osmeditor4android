@@ -458,6 +458,18 @@ public class Way extends OsmElement implements BoundedObject {
      * @return the length in m
      */
     public double length() {
+        return length(nodes);
+    }
+    
+    /**
+     * Return the length in m
+     * 
+     * This uses the Haversine distance between nodes for calculation 
+     * 
+     * @param nodes List of Nodes
+     * @return the length in m
+     */
+    public static double length(List<Node>nodes) {
         double result = 0d;
         if (nodes != null) {
             for (int i = 0; i < (nodes.size() - 1); i++) {

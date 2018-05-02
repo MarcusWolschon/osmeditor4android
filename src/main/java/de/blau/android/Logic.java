@@ -407,6 +407,19 @@ public class Logic {
         getDelegator().dirty();
         return name;
     }
+    
+    /**
+     * Wrapper to ensure the dirty flag is set
+     * 
+     * @param checkpoint index of the checkpoint to undo
+     * @return checkpoint name or null if none available
+     */
+    @Nullable
+    public String undo(int checkpoint) {
+        String name = getDelegator().getUndo().undo(checkpoint);
+        getDelegator().dirty();
+        return name;
+    }
 
     /**
      * Wrapper to ensure the dirty flag is set
@@ -416,6 +429,19 @@ public class Logic {
     @Nullable
     public String redo() {
         String name = getDelegator().getUndo().redo();
+        getDelegator().dirty();
+        return name;
+    }
+    
+    /**
+     * Wrapper to ensure the dirty flag is set
+     * 
+     * @param checkpoint index of the checkpoint to redo
+     * @return checkpoint name or null if none available
+     */
+    @Nullable
+    public String redo(int checkpoint) {
+        String name = getDelegator().getUndo().redo(checkpoint);
         getDelegator().dirty();
         return name;
     }
