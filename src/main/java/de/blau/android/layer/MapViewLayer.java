@@ -225,7 +225,7 @@ public abstract class MapViewLayer {
      */
     public boolean onRestoreState(@NonNull Context ctx) {
         SharedPreferences prefs = ctx.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
-        isVisible = prefs.getBoolean(VISIBLE_KEY, false);
+        isVisible = prefs.getBoolean(VISIBLE_KEY, true);
         return true;
     }
 
