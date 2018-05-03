@@ -5,22 +5,45 @@ The main Vespucci map screen is your normal starting point for interacting with 
 ####  ![Locked](../images/locked.png) locked
 In this mode modifying the OpenStreetMap data is disabled, you can however use all the menus and other functions, for example down- or up-load data. The main reason to use this mode is to pan and zoom in high density areas, or to avoid accidental changes when pocketing your device. 
 
-Tapping the lock icon will toggle the mode.
+Tapping the lock icon will toggle the lock.
 
 ####  ![Unlocked](../images/unlocked.png) unlocked
 In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom in till editing is enabled.*
 
-If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will switch to the next available and eventually cycle back to the normal unlocked mode..
+If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes.
 
 The lock icon will always be located in the upper left corner of your devices screen. The placement of the following controls will depend on the size, orientation and age of your device, and may be in the top or bottom bar, or in a menu. 
 
 ### Map and Data display
 
-Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the latter has smaller "touch areas" mainly for working with a pen. Depending on the device it may however work better for you.
+Once you have downloaded some OSM data you will see it displayed over a configurable background layer. The default background is the standard "Mapnik" style map provided by openstreetmap.org, however you can choose a different background or none from the Preferences. The style of the OSM data displayed on top of the background layer can be fully customized, however the standard "Color round nodes" or for "Pen round nodes" should work for most situations, the latter has smaller "touch areas" mainly for working with a pen. Depending on the device it may however work better for you than the default.
 
 Note: the map tiles are cached on device and only deleted if explicitly flushed. In principle you can pre-download the tiles for the area you want to work on and so spare yourself the need to access them online while outside. 
 
-### Overlay layer
+### Layer control
+
+Vespucci supports a tiled background imagery layer, a tiled overlay background layer, a grid/scale layer, a task layer, a photo layer, a GeoJSON layer, a GPX/GPS layer and, naturally, an OSM data layer. Tapping the layer control (upper right corner) will display the layer dialog).
+
+Currently it is not possible to change the ordering or add more than one layer of a specific type. The layer dialog supports the following: 
+
+* Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.
+* Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
+* Menu button.
+    * Tile based layers: 
+        * Select imagery. Same contents as on the prefernce screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
+        * Flush tile cache. Moved here from main menu.
+        * Background properties. Set contrast of layer, moved here from main menu.
+    * GeoJSON layer. 
+        * Change style. Show the layer styling dialog.
+        * Discard. Delete the layer including any saved state.
+    * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
+        * Change style. Show the layer styling dialog.
+    * Photo, Grid and Task layers.
+        * Disable. Turn this layer off, needs to be re-anbled via proferences. For the tasks and photo layers this will free resources if the app is exited and re-started.
+* "+" button: 
+    * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
+    * Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.
+    * Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.
 
 Besides the background layer you can add a "overlay" layer between the background and the OSM data, for example a layer showing buildings without an address.
 
@@ -44,7 +67,7 @@ Elements that are not on the current level are drawn in a light grey, this works
 
 ### ![Undo](../images/undolist_undo.png) Undo
 
-Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" action will be displayed. *Some operations consist of multiple simpler actions that will be listed as individual items.*
+Tapping the icon once will undo the last operation. A long press will display a list of the operations since the last save, if you have undone anything a corresponding "redo" checkpoint will be displayed. *Some operations consist of multiple simpler actions that will be listed as individual items.*
 
 ### ![Camera](../images/camera.png) Camera
 
@@ -99,16 +122,13 @@ Show the user preference screens. The settings are split into two sets: the firs
 
 ### ![Tools](../images/menu_tools.png) Tools
 
- * **Zoom to background layer extent** - zoom to the bounding box of the current background layer
  * **Align background** - align the current background layer, this can be done manually or from the image alignment database *(requires network connectivity)*
  * **Apply stored offset to imagery** - apply stored offset, if it exists, for the current background layer 
- * **Background properties** - adjust properties of the background layer, currently only a combined contrast/brightness control *(non-persistent)*
  * **Add imagery from OAM** - query OAM for layers in the current map view and display a list allowing to add them to the local configuration
  * **More imagery tools**
-    * **Flush background tile cache** - empty the on device cache for the current background
-    * **Flush overlay tile cache** - empty the on device cache for the current overlay
-    * **Flush all tile caches"" - empty all on device tile caches 
- * **Reset OAuth** - reset the OAuth tokens, This will force reauthorisation the next time you upload.
+    * **Update imagery layer configuration** - download a current version of the imagery layer configuration. *(requires network connectivity)*
+    * **Flush all tile caches"" - empty all on device tile caches. 
+ * **Reset OAuth** - reset the OAuth tokens, this will force reauthorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
@@ -130,3 +150,11 @@ Share the current position (center of the displayed map) with other apps on the 
 ### ![Help](../images/menu_help.png) Help
 
 Start the on device help browser.
+
+### Authors and licenses
+
+Some information on the licence of Vespucci itself, specific components and a list of all known contributors to the app.
+
+### Debug
+
+Internal information on the app and a button to force submission of a crash dump.
