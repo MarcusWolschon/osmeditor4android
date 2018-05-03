@@ -2,6 +2,7 @@ package de.blau.android.dialogs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -162,9 +163,9 @@ public class ConfirmUpload extends DialogFragment {
         TextView changesHeading = (TextView) layout.findViewById(R.id.review_heading);
         int changeCount = App.getDelegator().getApiElementCount();
         if (changeCount == 1) {
-            changesHeading.setText(getString(R.string.confirm_one_upload_text));
+            changesHeading.setText(getString(R.string.confirm_one_upload_text_1));
         } else {
-            changesHeading.setText(getString(R.string.confirm_multiple_upload_text, changeCount));
+            changesHeading.setText(getString(R.string.confirm_multiple_upload_text_1, changeCount));
         }
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
         final ChangedElement[] changes = getPendingChanges();
@@ -273,7 +274,7 @@ public class ConfirmUpload extends DialogFragment {
         for (OsmElement e : changedElements) {
             result.add(new ChangedElement(e));
         }
-        result.sort(new Comparator<ChangedElement>() {
+        Collections.sort(result, new Comparator<ChangedElement>() {
             @Override
             public int compare(ChangedElement ce0, ChangedElement ce1) {
 
