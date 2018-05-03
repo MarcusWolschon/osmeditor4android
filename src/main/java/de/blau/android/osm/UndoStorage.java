@@ -141,7 +141,7 @@ public class UndoStorage implements Serializable {
     /**
      * Remove the saved state of this element from the last checkpoint
      * 
-     * @param element eleent for which the state should be removed
+     * @param element element for which the state should be removed
      */
     void remove(OsmElement element) {
         Checkpoint checkpoint = undoCheckpoints.getLast();
@@ -372,15 +372,16 @@ public class UndoStorage implements Serializable {
         public void restore() {
             // Restore element existence
             try {
-                if (inCurrentStorage)
+                if (inCurrentStorage) {
                     currentStorage.insertElementSafe(element);
-                else
+                } else {
                     currentStorage.removeElement(element);
-
-                if (inApiStorage)
+                }
+                if (inApiStorage) {
                     apiStorage.insertElementSafe(element);
-                else
+                } else {
                     apiStorage.removeElement(element);
+                }
             } catch (StorageException e) {
                 // TODO handle OOM
                 Log.e(DEBUG_TAG, "restore got " + e.getMessage());
@@ -409,6 +410,13 @@ public class UndoStorage implements Serializable {
             }
         }
 
+        /**
+         * Get a short description of the UndoElement
+         * 
+         * @param ctx Android Context
+         * @return a descriptive String
+         */
+        @NonNull
         public String getDescription(@Nullable Context ctx) {
             // Use the name if it exists
             if (tags != null) {
@@ -519,7 +527,13 @@ public class UndoStorage implements Serializable {
         public void restore() {
             super.restore();
             ((Way) element).nodes.clear();
-            ((Way) element).nodes.addAll(nodes);
+            for (Node n: nodes) {
+                if (currentStorage.contains(n)) {
+                    ((Way) element).nodes.add(n); // only add undeleted way nodes
+                } else {
+                    Log.e(DEBUG_TAG, n.getDescription() + " member of " + element.getDescription() + " is deleted");
+                }
+            }
             // reset the style
             ((Way) element).setFeatureProfile(null);
         }
@@ -577,6 +591,14 @@ public class UndoStorage implements Serializable {
             super.restore();
             ((Relation) element).members.clear();
             ((Relation) element).members.addAll(members);
+            for (RelationMember rm: members) {
+                OsmElement rmElement = rm.getElement();
+                if (rmElement == null || currentStorage.contains(rmElement)) {
+                    ((Relation) element).members.add(rm); // only add undeleted members or ones that haven't been downloaded
+                } else {
+                    Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + element.getDescription() + " is deleted");
+                }
+            }
         }
         
         /**

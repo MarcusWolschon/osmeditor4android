@@ -3158,6 +3158,7 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public boolean onLongClick(View v) {
             Log.d(DEBUG_TAG, "long click");
+            descheduleAutoLock();
             final Logic logic = App.getLogic();
             UndoStorage undo = logic.getUndo();
             if (undo.canUndo() || undo.canRedo()) {
@@ -3165,18 +3166,22 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Snack.barInfoShort(Main.this, R.string.undo_nothing);
             }
-            resync(logic);
             map.invalidate();
             return true;
         }
-
-        void resync(final Logic logic) {
-            // check that we haven't just removed a selected element
-            if (logic.resyncSelected()) {
-                // only need to test if anything at all is still selected
-                if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0) {
-                    getEasyEditManager().finish();
-                }
+    }
+    
+    /**
+     * If an undo/redo deleted an element we need to resync selection
+     * 
+     * @param logic the current instance of Logic
+     */
+    public void resync(final Logic logic) {
+        // check that we haven't just removed a selected element
+        if (logic.resyncSelected()) {
+            // only need to test if anything at all is still selected
+            if (logic.selectedNodesCount() + logic.selectedWaysCount() + logic.selectedRelationsCount() == 0) {
+                getEasyEditManager().finish();
             }
         }
     }

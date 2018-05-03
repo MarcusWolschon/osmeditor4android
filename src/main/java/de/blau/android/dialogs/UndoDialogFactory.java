@@ -25,7 +25,7 @@ public class UndoDialogFactory {
 
     public static void showUndoDialog(final Main main, final Logic logic, final UndoStorage undo) {
         Builder dialog = new Builder(main);
-        dialog.setTitle(R.string.undo);
+        dialog.setTitle(R.string.checkpoints);
 
         final String[] undoActions = undo.getUndoActions(main);
         final String[] redoActions = undo.getRedoActions(main);
@@ -42,11 +42,11 @@ public class UndoDialogFactory {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 final UndoDialogItem item = adapter.getItem(which);
-                if (which > 0) { // not the top item
+                if (item.index > 1) { // not the top item
                     AlertDialog.Builder builder = new AlertDialog.Builder(main);
                     builder.setTitle(R.string.undo_redo_title);
                     builder.setNeutralButton(R.string.cancel, null);
-                    builder.setPositiveButton(R.string.undo_redo_one, new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.undo_redo_one, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             if (item.isRedo) {
@@ -54,22 +54,22 @@ public class UndoDialogFactory {
                             } else {
                                 logic.undo(undoActions.length - item.index);
                             }
-                            dismissAndInvalidate(main, dialog);
+                            dismissAndInvalidate(main, logic, dialog);
                         }
                     });
-                    builder.setNegativeButton(R.string.undo_redo_all, new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(item.isRedo ? R.string.redo_all : R.string.undo_all, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             for (int i = 0; i < item.index; i++) {
                                 undoRedoLast(logic, item.isRedo);
                             }
-                            dismissAndInvalidate(main, dialog);
+                            dismissAndInvalidate(main, logic, dialog);
                         }
                     });
                     builder.create().show();
                 } else { // just undo/redo top item without asking
                     undoRedoLast(logic, item.isRedo);
-                    dismissAndInvalidate(main, dialog);
+                    dismissAndInvalidate(main, logic, dialog);
                 }
             }
         });
@@ -96,8 +96,9 @@ public class UndoDialogFactory {
      * @param main the current instance of Main
      * @param dialog the Dialog
      */
-    private static void dismissAndInvalidate(@NonNull final Main main, @NonNull final DialogInterface dialog) {
+    private static void dismissAndInvalidate(@NonNull final Main main, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
         dialog.dismiss();
+        main.resync(logic);
         main.invalidateMap();
         main.supportInvalidateOptionsMenu();
     }

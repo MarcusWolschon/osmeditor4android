@@ -210,9 +210,11 @@
     <string name="layer_change_style">Change style</string>
     <string name="layer_select_imagery">Select imagery</string>
     <!--  Undo - Redo dialog -->
+    <string name="checkpoints">Checkpoints</string>
     <string name="undo_redo_title">Undo - Redo</string>
-    <string name="undo_redo_one">Just the selected checkpoint</string>
-    <string name="undo_redo_all">All checkpoints back to selected</string>
+    <string name="undo_redo_one">Just the selected checkpoint (unsafe)</string>
+    <string name="undo_all">Undo all later checkpoints (safe)</string>
+    <string name="redo_all">Redo all earlier checkpoints (safe)</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
