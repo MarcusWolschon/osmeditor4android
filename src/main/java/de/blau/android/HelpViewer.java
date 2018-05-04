@@ -18,6 +18,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +42,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
+import de.blau.android.util.ThemeUtils;
 
 /**
  * Minimal system for viewing help files Currently only html format is supported directly
@@ -251,6 +254,20 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        MenuItem item = menu.findItem(R.id.help_menu_forward);
+        if (item != null) {
+            boolean canGoForward = helpView.canGoForward();
+            item.setEnabled(canGoForward);
+            item.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_forward));
+            if (!canGoForward) {
+                item.getIcon().mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -260,7 +277,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         case R.id.help_menu_back:
             if (helpView.canGoBack()) {
                 helpView.goBack();
-                // getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+                invalidateOptionsMenu();
             } else {
                 onBackPressed(); // return to caller
             }
@@ -269,7 +286,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         case R.id.help_menu_forward:
             if (helpView.canGoForward()) {
                 helpView.goForward();
-                // getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(helpView.getUrl()));
+                invalidateOptionsMenu();
             }
             return true;
         }
