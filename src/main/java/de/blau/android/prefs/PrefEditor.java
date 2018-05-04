@@ -30,6 +30,12 @@ public class PrefEditor extends AppCompatActivity {
 
     private static final int MENUITEM_HELP = 1;
 
+    /**
+     * Start the PrefEditor activity
+     * 
+     * @param context Android Context
+     * @param viewBox the current ViewBox
+     */
     public static void start(@NonNull Context context, BoundingBox viewBox) {
         Intent intent = new Intent(context, PrefEditor.class);
         intent.putExtra(CURRENT_VIEWBOX, viewBox);
@@ -39,7 +45,7 @@ public class PrefEditor extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
-        Log.d("PrefEditor", "onCreate");
+        Log.d(DEBUG_TAG, "onCreate");
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_AppCompatPrefsLight);
@@ -51,11 +57,11 @@ public class PrefEditor extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            Log.d("PrefEditor", "initializing from intent");
+            Log.d(DEBUG_TAG, "initializing from intent");
             // No previous state to restore - get the state from the intent
             viewBox = (BoundingBox) getIntent().getSerializableExtra(CURRENT_VIEWBOX);
         } else {
-            Log.d("PrefEditor", "initializing from saved state");
+            Log.d(DEBUG_TAG, "initializing from saved state");
             // Restore activity from saved state
             viewBox = (BoundingBox) savedInstanceState.getSerializable(CURRENT_VIEWBOX);
         }
@@ -69,6 +75,7 @@ public class PrefEditor extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(android.R.id.content, f).commit();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         MenuCompat.setShowAsAction(menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)),
@@ -78,7 +85,7 @@ public class PrefEditor extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        Log.d("PrefEditor", "onOptionsItemSelected");
+        Log.d(DEBUG_TAG, "onOptionsItemSelected");
         switch (item.getItemId()) {
         case android.R.id.home:
             finish();
@@ -92,7 +99,7 @@ public class PrefEditor extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
-        Log.d("PrefEditor", "onSaveInstaceState");
+        Log.d(DEBUG_TAG, "onSaveInstaceState");
         super.onSaveInstanceState(outState);
         outState.putSerializable(CURRENT_VIEWBOX, viewBox);
     }
