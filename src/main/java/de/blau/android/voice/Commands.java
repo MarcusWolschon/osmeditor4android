@@ -23,6 +23,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.Note;
@@ -99,9 +100,9 @@ public class Commands {
                         Snack.toastTopError(main, e.getLocalizedMessage());
                     }
 
-                    List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
                     if (presetItems != null && presetItems.size() == 1) {
-                        addNode(createNode(loc, location), words.length == 3 ? words[2] : null, presetItems.get(0), logic, v);
+                        addNode(createNode(loc, location), words.length == 3 ? words[2] : null, (PresetItem) presetItems.get(0), logic, v);
                         return;
                     }
 

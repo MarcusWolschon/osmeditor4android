@@ -35,7 +35,7 @@ import de.blau.android.osm.Track.WayPoint;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetGroup;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
@@ -58,8 +58,8 @@ public class ViewWayPoint extends DialogFragment {
     /**
      * Show dialog for a WayPoint
      * 
-     * @param activity  the calling activity
-     * @param wp        the WayPoint
+     * @param activity the calling activity
+     * @param wp the WayPoint
      */
     static public void showDialog(FragmentActivity activity, WayPoint wp) {
         dismissDialog(activity);
@@ -126,10 +126,10 @@ public class ViewWayPoint extends DialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
         Builder builder = new AlertDialog.Builder(activity);
-        
+
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        
+
         ScrollView sv = (ScrollView) inflater.inflate(R.layout.element_info_view, null, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
@@ -152,12 +152,13 @@ public class ViewWayPoint extends DialogFragment {
             }
             long timestamp = wp.getTime();
             if (timestamp > 0) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp), null, tp));
+                tl.addView(
+                        TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp), null, tp));
             }
 
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", wp.getLongitude()) + "°", null, tp));
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", wp.getLatitude()) + "°", null, tp));
-            
+
             if (wp.hasAltitude()) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.altitude, String.format(Locale.US, "%.0f", wp.getAltitude()) + "m", null, tp));
             }
@@ -180,11 +181,11 @@ public class ViewWayPoint extends DialogFragment {
 
         return builder.create();
     }
-    
+
     /**
      * Create a Node from information in and the position of a way point
      * 
-     * @param wp        the WayPoint
+     * @param wp the WayPoint
      * @param useSearch if the type field is present search the presets for a match
      */
     private void createObjectFromWayPoint(final WayPoint wp, final boolean useSearch) {
@@ -194,7 +195,7 @@ public class ViewWayPoint extends DialogFragment {
         if (activity instanceof Main) {
             PresetElementPath presetPath = null;
             if (useSearch && wp.getType() != null) {
-                List<PresetItem> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), wp.getType(), ElementType.NODE, 1, 1));
+                List<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), wp.getType(), ElementType.NODE, 1, 1));
                 if (searchResults != null && !searchResults.isEmpty()) {
                     Preset[] presets = App.getCurrentPresets(activity);
                     PresetGroup rootGroup = presets[0].getRootGroup();
@@ -204,14 +205,14 @@ public class ViewWayPoint extends DialogFragment {
                 }
             }
 
-            HashMap<String,String> tags = new HashMap<>();
+            HashMap<String, String> tags = new HashMap<>();
             if (wp.getName() != null) {
                 tags.put(Tags.KEY_NAME, wp.getName());
             }
             if (wp.getDescription() != null) {
                 tags.put(Tags.KEY_NOTE, wp.getDescription());
             }
-            ((Main)activity).performTagEdit(n, presetPath,  tags, presetPath == null ? true : false);
+            ((Main) activity).performTagEdit(n, presetPath, tags, presetPath == null ? true : false);
         }
     }
 }

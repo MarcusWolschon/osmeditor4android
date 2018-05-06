@@ -6,6 +6,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,8 @@ import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
@@ -45,7 +48,9 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 
-public class PresetFragment extends BaseFragment implements PresetFilterUpdate, PresetClickHandler {
+public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
+
+    private static final int MAX_SEARCHRESULTS = 10;
 
     private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
 
@@ -64,6 +69,8 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
     }
 
     private OnPresetSelectedListener mListener;
+
+    private PropertyEditorListener propertyEditorListener;
 
     /** The type of OSM element to which the preset will be applied (used for filtering) */
     private ElementType type;
@@ -101,6 +108,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
         Log.d(DEBUG_TAG, "onAttachToContext");
         try {
             mListener = (OnPresetSelectedListener) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener");
         }
@@ -121,6 +129,7 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
         Preset[] presets = App.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG, "presets size " + (presets == null ? " is null" : presets.length));
         paneMode = getArguments().getBoolean(PANE_MODE);
+        @SuppressWarnings("unchecked")
         List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>) getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
 
         LinearLayout presetPaneLayout = (LinearLayout) inflater.inflate(R.layout.preset_pane, null);
@@ -140,21 +149,10 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
         }
 
         if (rootGroup == null) {
-            rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
-            if (presets.length > 1) {
-                // a bit of a hack ... this adds the elements from other presets to the root group of the first one
-                List<PresetElement> rootElements = rootGroup.getElements();
-                for (Preset p : presets) {
-                    if (p != null) {
-                        for (PresetElement e : p.getRootGroup().getElements()) {
-                            if (!rootElements.contains(e)) { // only do this if not already present
-                                rootGroup.addElement(e);
-                                e.setParent(rootGroup);
-                            }
-                        }
-                    }
-                }
-            }
+            Preset preset = new Preset(); // dummy preset to hold the elements of all
+            rootGroup = preset.new PresetGroup(null, "", null);
+            preset.setRootGroup(rootGroup);
+            addToRootGroup(presets);
         }
         currentGroup = rootGroup;
 
@@ -205,26 +203,71 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
     }
 
     /**
+     * Add the top level PresetElements to rootGroup
+     * 
+     * @param presets array of current presets
+     */
+    private void addToRootGroup(Preset[] presets) {
+        if (presets.length > 0) {
+            // a bit of a hack ... this adds the elements from other presets to the dummy root group
+            List<PresetElement> rootElements = rootGroup.getElements();
+            rootElements.clear();
+            for (Preset p : presets) {
+                if (p != null) {
+                    for (PresetElement e : p.getRootGroup().getElements()) {
+                        if (!rootElements.contains(e)) { // only do this if not already present
+                            rootGroup.addElement(e, true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Query the preset seach index and display results in a dialog
      * 
      * @param term search term
      * @return always returns true for now
      */
-    private boolean getAndShowSearchResults(String term) {
-        FragmentManager fm = getChildFragmentManager();
+    private boolean getAndShowSearchResults(final String term) {
+        final FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.commit();
-        ArrayList<PresetItem> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, 10));
-        if (searchResults == null || searchResults.isEmpty()) {
-            Snack.barInfo(getActivity(), R.string.toast_nothing_found);
-            return true;
-        }
-        PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(searchResults);
-        searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+
+        AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
+            @Override
+            protected ArrayList<PresetElement> doInBackground(Void... params) {
+                ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, MAX_SEARCHRESULTS));
+                Preferences prefs = new Preferences(getContext());
+                if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnectedOrConnecting()) {
+                    AutoPreset autoPreset = new AutoPreset(getContext());
+                    Preset fromTaginfo = autoPreset.fromTaginfo(term, MAX_SEARCHRESULTS - searchResults.size());
+                    for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
+                        searchResults.add(pe);
+                    }
+                }
+                if (searchResults.isEmpty()) {
+                    return null;
+                }
+                return searchResults;
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<PresetElement> result) {
+                if (result == null) {
+                    Snack.barInfo(getActivity(), R.string.toast_nothing_found);
+                    return;
+                }
+                PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(result);
+                searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+            }
+        };
+        list.execute();
         return true;
     }
 
@@ -239,8 +282,11 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
     }
 
     @Override
-    public void typeUpdated(ElementType type) {
-        this.type = type;
+    public void update(ElementType type) {
+        if (type != null) {
+            this.type = type;
+        }
+        addToRootGroup(App.getCurrentPresets(getContext()));
         LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
         if (presetLayout != null) {
             presetLayout.removeAllViews();
@@ -248,10 +294,13 @@ public class PresetFragment extends BaseFragment implements PresetFilterUpdate, 
         }
     }
 
+    /**
+     * Get View for the current group
+     * 
+     * @return a View displaying the elements of the current group
+     */
     private View getPresetView() {
         View view = currentGroup.getGroupView(getActivity(), this, type, null);
-        // view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
-        // view.setOnKeyListener(this);
         view.setId(R.id.preset_view);
         return view;
     }

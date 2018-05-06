@@ -9,11 +9,13 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Synonyms;
 import de.blau.android.util.collections.MultiHashMap;
@@ -85,7 +87,8 @@ public class SearchIndexUtils {
      * @param limit max number of results
      * @return a List containing up to limit PresetItems found
      */
-    public static List<PresetItem> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit) {
+    @NonNull
+    public static List<PresetElement> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit) {
         term = SearchIndexUtils.normalize(term);
         // synonyms first
         Synonyms synonyms = App.getSynonyms(ctx);
@@ -115,7 +118,7 @@ public class SearchIndexUtils {
             }
         }
         Collections.sort(rawResult);
-        ArrayList<PresetItem> result = new ArrayList<>();
+        ArrayList<PresetElement> result = new ArrayList<>();
         for (IndexSearchResult i : rawResult) {
             Log.d(DEBUG_TAG, "found " + i.item.getName());
             if (!result.contains(i.item)) {

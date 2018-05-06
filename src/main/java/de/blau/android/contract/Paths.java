@@ -14,6 +14,8 @@ public interface Paths {
     String DIRECTORY_PATH_STORAGE = "/storage";
 
     String DIRECTORY_PATH_VESPUCCI = "Vespucci";
+    
+    String DIRECTORY_PATH_AUTOPRESET = "autopreset";
 
     String DIRECTORY_PATH_TILE_CACHE = "/tiles/";
 

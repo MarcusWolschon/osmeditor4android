@@ -112,6 +112,7 @@
     <string name="find_message">Enter search string</string>
     <string name="geocoder_prompt">with</string>
     <string name="preset_search_hint">Preset search string</string>
+    <string name="preset_autopreset">Auto-Preset</string>
     <string name="search">Search</string>
     <string name="no_valid_preset">No valid preset!</string>
     <string name="read_file">Select file to read</string>
@@ -625,6 +626,8 @@
     <string name="config_address_tags_summary">Tags used for address prediction</string>
     <string name="config_enableNameSuggestions_title">Enable name suggestions</string>
     <string name="config_enableNameSuggestions_summary">Turn on suggestions for the name tag</string>
+    <string name="config_enableNameSuggestionsPresets_title">Enable name suggestion presets</string>
+    <string name="config_enableNameSuggestionsPresets_summary">Automatically add preset when name suggestion is selected</string>   
     <string name="config_generateAlerts_title">Generate notifications</string>
     <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
     <string name="config_notificationCacheSize_title">Max. number of displayed notifications</string>
@@ -647,8 +650,8 @@
     <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended</string>
     <string name="config_closeChangesetOnSave_title">Close changesets</string>
     <string name="config_closeChangesetOnSave_summary">Close changesets by default on save</string>
-    <string name="config_enableAutoPreset_title">Enable auto preset</string>
-    <string name="config_enableAutoPreset_summary">Automatically add preset when name suggestion is selected</string>   
+    <string name="config_enableAutoPresets_title">Enable auto-preset generation</string>
+    <string name="config_enableAutoPresets_summary">Allow generation of presets from Taginfo</string>
     <!-- Location Settings -->
     <string name="config_category_gps">Location Settings</string>
     <string name="config_category_gps_summary">GPS parameters and other location providers.</string>

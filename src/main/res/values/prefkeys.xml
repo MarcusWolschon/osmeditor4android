@@ -32,11 +32,12 @@
     <string name="config_largeDragArea_key">largeDragArea</string>
     <string name="config_bugFilter_key">config_bugFilter_key</string>
     <string name="config_enableNameSuggestions_key">enableNameSuggestions</string>
-    <string name="config_enableAutoPreset_key">enableAutoPreset</string>
+    <string name="config_enableNameSuggestionsPresets_key">enableNameSuggestionsPresets</string>
     <string name="config_closeChangesetOnSave_key">closeChangesetOnSave</string>
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
     <string name="config_offsetServer_key">offsetServer2</string>
     <string name="config_osmoseServer_key">osmoseServer2</string>
+    <string name="config_taginfoServer_key">taginfoServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
     <string name="config_enableLightTheme_key">enableLightTheme</string>
@@ -65,6 +66,7 @@
     <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_validatorprefs_key">validatorprefs</string>
     <string name="config_customlayers_key">customLayers</string>
+    <string name="config_enableAutoPresets_key">enableAutoPresets</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>

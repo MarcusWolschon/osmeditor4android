@@ -18,10 +18,14 @@ import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.Files;
+import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.Server;
+import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
+import de.blau.android.util.FileUtil;
 
 /**
  * This class provides access to complex settings like OSM APIs which consist of complex/relational data. WARNING: It
@@ -118,7 +122,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             addGeocoder(db, ID_DEFAULT_GEOCODER_PHOTON, ID_DEFAULT_GEOCODER_PHOTON, GeocoderType.PHOTON, 0, Urls.DEFAULT_PHOTON_SERVER, true);
         }
         if (oldVersion <= 8 && newVersion >= 9) {
-            addAPI(db, ID_SANDBOX, Urls.SANDBOX_API_NAME, Urls.SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
+            addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
         }
         if (oldVersion <= 9 && newVersion >= 10) {
             db.execSQL("ALTER TABLE presets ADD COLUMN position INTEGER DEFAULT 0");
@@ -157,7 +161,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         Log.d(LOGTAG, "Adding default URL without https");
         addAPI(db, ID_DEFAULT_NO_HTTPS, Urls.DEFAULT_API_NO_HTTPS_NAME, Urls.DEFAULT_API_NO_HTTPS, null, null, "", "", ID_DEFAULT_NO_HTTPS, true);
         Log.d(LOGTAG, "Adding default dev URL");
-        addAPI(db, ID_SANDBOX, Urls.SANDBOX_API_NAME, Urls.SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
+        addAPI(db, ID_SANDBOX, Urls.DEFAULT_SANDBOX_API_NAME, Urls.DEFAULT_SANDBOX_API, null, null, "", "", ID_SANDBOX, true);
         Log.d(LOGTAG, "Selecting default API");
         selectAPI(db, ID_DEFAULT);
         Log.d(LOGTAG, "Deleting old user/pass settings");
@@ -372,9 +376,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     public Preset[] getCurrentPresetObject() {
         long start = System.currentTimeMillis();
         PresetInfo[] presetInfos = getActivePresets();
-        if (presetInfos == null || presetInfos.length == 0)
+        if (presetInfos == null || presetInfos.length == 0) {
             return null;
-        Preset activePresets[] = new Preset[presetInfos.length];
+        }
+        Preferences mPrefs = new Preferences(context);
+        boolean autopresetEnabled = mPrefs.autoPresetsEnabled();
+
+        Preset activePresets[] = new Preset[presetInfos.length + (autopresetEnabled ? 1 : 0)];
         for (int i = 0; i < presetInfos.length; i++) {
             PresetInfo pi = presetInfos[i];
             try {
@@ -389,6 +397,22 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 activePresets[i] = null;
             }
         }
+        if (autopresetEnabled) {
+            int autopresetPosition = activePresets.length - 1;
+            try {
+                AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
+            } catch (Exception e) {
+                Log.e(LOGTAG, "Failed to find auto-preset, creating", e);
+                try {
+                    FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
+                            FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
+                    AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
+                } catch (Exception e1) {
+                    Log.e(LOGTAG, "Failed to create auto-preset", e1);
+                    activePresets[autopresetPosition] = null;
+                }
+            }
+        }
         Log.d(LOGTAG, "Elapsed time to read presets " + (System.currentTimeMillis() - start) / 1000);
         if (activePresets.length >= 1) {
             return activePresets;
@@ -396,13 +420,23 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         return null;
     }
 
-    /** returns an array of PresetInfos for all currently known presets */
+    /**
+     * Get PresetInfos for all currently known presets
+     * 
+     * @return an array of PresetInfo
+     */
     public PresetInfo[] getPresets() {
         return getPresets(null, false);
     }
 
-    /** gets a preset by ID (will return null if no preset with this ID exists) */
-    private PresetInfo getPreset(String id) {
+    /**
+     * Gets a preset by ID (will return null if no preset with this ID exists)
+     * 
+     * @param id id of the preset
+     * @return a PresetInfo object or null
+     */
+    @Nullable
+    private PresetInfo getPreset(@NonNull String id) {
         PresetInfo[] found = getPresets(id, false);
         if (found.length == 0) {
             return null;
@@ -410,7 +444,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         return found[0];
     }
 
-    /** gets a preset by URL (will return null if no preset with this URL exists) */
+    /**
+     * Gets a preset by URL (will return null if no preset with this URL exists)
+     * 
+     * @param url the url
+     * @return a PresetInfo object or null
+     */
+    @Nullable
     public PresetInfo getPresetByURL(String url) {
         PresetInfo[] found = getPresets(url, true);
         if (found.length == 0) {
@@ -419,7 +459,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         return found[0];
     }
 
-    /** returns an array of PresetInfos for all active presets */
+    /**
+     * Gets an array of PresetInfos for all active presets
+     * 
+     * @return an array of PresetInfo
+     */
+    @NonNull
     public PresetInfo[] getActivePresets() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_FIELD, "name", "url", "lastupdate", "active" }, "active=1", null, null, null,
@@ -545,7 +590,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             App.resetPresets();
         }
     }
-    
+
     /**
      * Move a preset to a new position
      * 
@@ -562,20 +607,20 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         int count = dbresult.getCount();
         for (int i = 0; i < count; i++) {
             ContentValues values = new ContentValues();
-            if (i==oldPos) {
+            if (i == oldPos) {
                 values.put(POSITION_FIELD, newPos);
             } else if (oldPos < newPos) { // moving down
                 if (i < oldPos || i > newPos) {
                     dbresult.moveToNext();
                     continue;
-                } 
-                values.put(POSITION_FIELD, i-1); // move everything in between up
+                }
+                values.put(POSITION_FIELD, i - 1); // move everything in between up
             } else {
                 if (i > oldPos || i < newPos) {
                     dbresult.moveToNext();
                     continue;
-                } 
-                values.put(POSITION_FIELD, i+1); // move everything in between down
+                }
+                values.put(POSITION_FIELD, i + 1); // move everything in between down
             }
             db.update(PRESETS_TABLE, values, "id = ?", new String[] { dbresult.getString(0) });
             dbresult.moveToNext();

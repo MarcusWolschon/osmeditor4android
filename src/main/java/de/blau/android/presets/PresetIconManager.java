@@ -58,7 +58,7 @@ public class PresetIconManager {
      * @param basePath Base path for images downloaded for this preset. May be null.
      * @param externalAssetPackage Name of external package to use for loading assets. May be null.
      */
-    public PresetIconManager(Context context, String basePath, String externalAssetPackage) {
+    public PresetIconManager(@NonNull Context context, String basePath, String externalAssetPackage) {
         this.context = context;
         this.basePath = basePath;
         this.externalAssetPackage = externalAssetPackage;

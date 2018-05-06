@@ -598,7 +598,7 @@ public class Server {
      * @throws IOException
      * @throws OsmServerException
      */
-    private InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 
         Request request = new Request.Builder().url(url).build();
@@ -636,31 +636,6 @@ public class Server {
             throwOsmServerException(readCallResponse);
         }
         return null;
-    }
-
-    public class DownloadErrorToast implements Runnable {
-        final int     code;
-        final String  message;
-        final Context context;
-
-        DownloadErrorToast(Context context, int code, String message) {
-            this.code = code;
-            this.message = message;
-            this.context = context;
-        }
-
-        @Override
-        public void run() {
-            if (context != null && context instanceof Activity) {
-                try {
-                    Snack.barError((Activity) context, context.getResources().getString(R.string.toast_download_failed, code, message));
-                } catch (Exception ex) {
-                    // do nothing ... this is stop bugs in the Android format parsing crashing the app, report the error
-                    // because it is likely caused by a translation error
-                    ACRAHelper.nocrashReport(ex, ex.getMessage());
-                }
-            }
-        }
     }
 
     /**

@@ -78,7 +78,7 @@ public class Preferences {
 
     private final boolean enableNameSuggestions;
 
-    private final boolean enableAutoPreset;
+    private final boolean nameSuggestionPresetsEnabled;
 
     private final boolean closeChangesetOnSave;
 
@@ -90,6 +90,8 @@ public class Preferences {
     private final String offsetServer;
 
     private final String osmoseServer;
+    
+    private final String taginfoServer;
 
     private final boolean showCameraAction;
 
@@ -122,6 +124,8 @@ public class Preferences {
     private final boolean alwaysDrawBoundingBoxes;
 
     private final boolean jsConsoleEnabled;
+    
+    private final boolean autoPresetsEnabled;
 
     private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -179,7 +183,7 @@ public class Preferences {
         useBackForUndo = prefs.getBoolean(r.getString(R.string.config_use_back_for_undo_key), false);
         largeDragArea = prefs.getBoolean(r.getString(R.string.config_largeDragArea_key), false);
         enableNameSuggestions = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestions_key), true);
-        enableAutoPreset = prefs.getBoolean(r.getString(R.string.config_enableAutoPreset_key), true);
+        nameSuggestionPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableNameSuggestionsPresets_key), true);
         closeChangesetOnSave = prefs.getBoolean(r.getString(R.string.config_closeChangesetOnSave_key), true);
         splitActionBarEnabled = prefs.getBoolean(r.getString(R.string.config_splitActionBarEnabled_key), true);
         backgroundLayer = prefs.getString(r.getString(R.string.config_backgroundLayer_key), "MAPNIK");
@@ -207,6 +211,7 @@ public class Preferences {
 
         offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
+        taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
 
@@ -246,6 +251,8 @@ public class Preferences {
         alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
+        
+        autoPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableAutoPresets_key), true);
     }
 
     int getIntPref(int keyResId, int def) {
@@ -517,9 +524,14 @@ public class Preferences {
         return taskFilter;
     }
 
-    public boolean enableAutoPreset() {
+    /**
+     * Is automatically applying presets for name suggestionss turned on
+     * 
+     * @return true if automatically applying presets for name suggestions should be used
+     */
+    public boolean nameSuggestionPresetsEnabled() {
         //
-        return enableAutoPreset;
+        return nameSuggestionPresetsEnabled;
     }
 
     /**
@@ -533,12 +545,31 @@ public class Preferences {
         return splitActionBarEnabled;
     }
 
+    /**
+     * Get the configured offeset database server
+     * 
+     * @return base url for the server
+     */
     public String getOffsetServer() {
         return offsetServer;
     }
 
+    /**
+     * Get the configured OSMOSE server
+     * 
+     * @return base url for the server
+     */
     public String getOsmoseServer() {
         return osmoseServer;
+    }
+    
+    /**
+     * Get the configured taginfo server
+     * 
+     * @return base url for the server
+     */
+    public String getTaginfoServer() {
+        return taginfoServer;
     }
 
     public boolean showCameraAction() {
@@ -694,6 +725,15 @@ public class Preferences {
 
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
+    }
+    
+    /**
+     * Check if auto preset generation is enabled
+     * 
+     * @return true is on
+     */
+    public boolean autoPresetsEnabled() {
+        return autoPresetsEnabled;
     }
 
     /**

@@ -1,13 +1,20 @@
 package de.blau.android.util;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import de.blau.android.contract.Paths;
 
 public abstract class FileUtil {
+
+    private static final String DEBUG_TAG = FileUtil.class.getSimpleName();
 
     /**
      * Get our public directory, creating it if it doesn't exist
@@ -62,5 +69,25 @@ public abstract class FileUtil {
             }
         }
         return outfile;
+    }
+
+    public static void copyFileFromAssets(Context context, String assetFileName, File destinationDir, String destinationFilename) throws IOException {
+        InputStream in = null;
+        FileOutputStream out = null;
+        try {
+            AssetManager assetManager = context.getAssets();
+            in = assetManager.open(assetFileName);
+            File destinationFile = new File(destinationDir, destinationFilename);
+            out = new FileOutputStream(destinationFile);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            out.flush();
+        } finally {
+            SavingHelper.close(in);
+            SavingHelper.close(out);
+        }
     }
 }

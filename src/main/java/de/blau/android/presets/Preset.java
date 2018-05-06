@@ -40,6 +40,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -237,8 +238,8 @@ public class Preset implements Serializable {
         OPENING_HOURS, OPENING_HOURS_PLUS, CONDITIONAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA
     }
 
-    private final static String COMBO_DELIMITER       = ",";
-    private final static String MULTISELECT_DELIMITER = ";";
+    final static String COMBO_DELIMITER       = ",";
+    final static String MULTISELECT_DELIMITER = ";";
 
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
     private final MultiHashMap<String, StringWithDescription> autosuggestNodes      = new MultiHashMap<>(true);
@@ -337,17 +338,19 @@ public class Preset implements Serializable {
                 // get translations
                 InputStream poFileStream = null;
                 try {
-                    poFileStream = iconManager.openAsset("preset_" + Locale.getDefault() + ".po", true);
+                    Locale locale = Locale.getDefault();
+                    String language = locale.getLanguage();
+                    poFileStream = iconManager.openAsset("preset_" + locale + ".po", true);
                     if (poFileStream == null) {
-                        poFileStream = iconManager.openAsset("preset_" + Locale.getDefault().getLanguage() + ".po", true);
+                        poFileStream = iconManager.openAsset("preset_" + language + ".po", true);
                     }
                     if (poFileStream != null) {
                         try {
                             po = new Po(poFileStream);
                         } catch (ParseException ignored) {
-                            Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+                            Log.e(DEBUG_TAG, "Parsing translation file for " + locale + " or " + language + " failed");
                         } catch (TokenMgrError ignored) {
-                            Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+                            Log.e(DEBUG_TAG, "Parsing translation file for " + locale + " or " + language + " failed");
                         }
                     }
                 } finally {
@@ -507,12 +510,16 @@ public class Preset implements Serializable {
      * @return the PresetIconManager instance
      */
     public PresetIconManager getIconManager(Context ctx) {
-        if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
-            return new PresetIconManager(ctx, null, null);
-        } else if (externalPackage != null) {
-            return new PresetIconManager(ctx, directory.toString(), externalPackage);
+        if (directory != null) {
+            if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
+                return new PresetIconManager(ctx, null, null);
+            } else if (externalPackage != null) {
+                return new PresetIconManager(ctx, directory.toString(), externalPackage);
+            } else {
+                return new PresetIconManager(ctx, directory.toString(), null);
+            }
         } else {
-            return new PresetIconManager(ctx, directory.toString(), null);
+            return new PresetIconManager(ctx, null, null);
         }
     }
 
@@ -887,7 +894,7 @@ public class Preset implements Serializable {
      * @param hashValue XML hash value to check if stored data fits the XML
      * @returns a MRU object valid for this Preset, never null
      */
-    private PresetMRUInfo initMRU(File directory, String hashValue) {
+    public PresetMRUInfo initMRU(File directory, String hashValue) {
         PresetMRUInfo tmpMRU;
         ObjectInputStream mruReader = null;
         FileInputStream fout = null;
@@ -955,6 +962,10 @@ public class Preset implements Serializable {
         return rootGroup;
     }
 
+    public void setRootGroup(@NonNull PresetGroup rootGroup) {
+        this.rootGroup = rootGroup;
+    }
+
     /*
      * return true if the item is from this Preset
      */
@@ -966,7 +977,7 @@ public class Preset implements Serializable {
      * Return PresetItems containing the tag in question
      * 
      * @param tag tag in the format: key \t value
-     * @return a Set containg the PresetItems or null if none found
+     * @return a Set containing the PresetItems or null if none found
      */
     @Nullable
     Set<PresetItem> getItemByTag(@NonNull String tag) {
@@ -1102,8 +1113,11 @@ public class Preset implements Serializable {
         PresetGroup recent = new PresetGroup(null, "recent", null);
         for (Preset p : presets) {
             if (p != null && p.hasMRU()) {
+                int allItemsCount = p.allItems.size();
                 for (Integer index : p.mru.recentPresets) {
-                    recent.addElement(p.allItems.get(index));
+                    if (index < allItemsCount) {
+                        recent.addElement(p.allItems.get(index));
+                    }
                 }
             }
         }
@@ -1111,7 +1125,7 @@ public class Preset implements Serializable {
     }
 
     public boolean hasMRU() {
-        return !mru.recentPresets.isEmpty();
+        return mru != null && !mru.recentPresets.isEmpty();
     }
 
     /**
@@ -1121,6 +1135,9 @@ public class Preset implements Serializable {
      */
     public void putRecentlyUsed(PresetItem item) {
         Integer id = item.getItemIndex();
+        if (mru == null) {
+            return;
+        }
         // prevent duplicates
         if (!mru.recentPresets.remove(id)) { // calling remove(Object), i.e. removing the number if it is in the list,
                                              // not the i-th item
@@ -1177,7 +1194,7 @@ public class Preset implements Serializable {
 
     /** Saves the current MRU data to a file */
     public void saveMRU() {
-        if (mru.isChanged()) {
+        if (mru != null && mru.isChanged()) {
             ObjectOutputStream out = null;
             FileOutputStream fout = null;
             try {
@@ -1386,11 +1403,11 @@ public class Preset implements Serializable {
         /**
          * Creates the element, setting parent, name and icon, and registers with the parent
          * 
-         * @param parent parent group (or null if this is the root group)
-         * @param name name of the element
-         * @param iconpath The icon path (either "http://" URL or "presets/" local image reference)
+         * @param parent parent ParentGroup (or null if this is the root group)
+         * @param name name of the element or null
+         * @param iconpath the icon path (either "http://" URL or "presets/" local image reference) or null
          */
-        public PresetElement(PresetGroup parent, String name, String iconpath) {
+        public PresetElement(@Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
             this.parent = parent;
             this.name = name;
             this.iconpath = iconpath;
@@ -1402,6 +1419,47 @@ public class Preset implements Serializable {
             }
         }
 
+        /**
+         * Construct a new PresetElement in this preset from an existing one
+         * 
+         * @param group PresetGroup this should be added, null if none
+         * @param item the PresetElement to copy
+         */
+        public PresetElement(@Nullable PresetGroup group, @NonNull PresetElement item) {
+            this.name = item.name;
+            if (group != null) {
+                group.addElement(this);
+            }
+            this.iconpath = item.iconpath;
+            mapiconpath = item.iconpath;
+            icon = null;
+            mapIcon = null;
+            if (item.appliesToNode) {
+                setAppliesToNode();
+            }
+            if (item.appliesToWay) {
+                setAppliesToWay();
+            }
+            if (item.appliesToClosedway) {
+                setAppliesToClosedway();
+            }
+            if (item.appliesToArea) {
+                setAppliesToArea();
+            }
+            if (item.appliesToRelation) {
+                setAppliesToRelation();
+            }
+            this.deprecated = item.deprecated;
+            this.region = item.region;
+            this.mapFeatures = item.mapFeatures;
+        }
+
+        /**
+         * Get the name of this element
+         * 
+         * @return the name if set or null
+         */
+        @Nullable
         public String getName() {
             return name;
         }
@@ -1409,7 +1467,7 @@ public class Preset implements Serializable {
         /**
          * Return the name of this preset element, potentially translated
          * 
-         * @return
+         * @return the name
          */
         public String getTranslatedName() {
             if (nameContext != null) {
@@ -1426,7 +1484,6 @@ public class Preset implements Serializable {
         public Drawable getIcon() {
             if (icon == null) {
                 icon = getIcon(iconpath, ICON_SIZE_DP);
-                iconpath = null;
             }
             return icon;
         }
@@ -1465,10 +1522,21 @@ public class Preset implements Serializable {
             return mapIcon;
         }
 
+        /**
+         * Get the parent of this PresetElement
+         * 
+         * @return the parent PresetGroup or null if none
+         */
+        @Nullable
         public PresetGroup getParent() {
             return parent;
         }
 
+        /**
+         * Set the parent PresetGroup
+         * 
+         * @param pg the parent to set
+         */
         public void setParent(PresetGroup pg) {
             parent = pg;
         }
@@ -1477,10 +1545,11 @@ public class Preset implements Serializable {
          * Returns a basic view representing the current element (i.e. a button with icon and name). Can (and should) be
          * used when implementing {@link #getView(PresetClickHandler)}.
          * 
+         * @param ctx Android Context
          * @param selected if true highlight the background
          * @return the view
          */
-        private TextView getBaseView(Context ctx, boolean selected) {
+        private TextView getBaseView(@NonNull Context ctx, boolean selected) {
             Resources res = ctx.getResources();
             // GradientDrawable shape = new GradientDrawable();
             // shape.setCornerRadius(8);
@@ -1492,18 +1561,12 @@ public class Preset implements Serializable {
             v.setEllipsize(TextUtils.TruncateAt.END);
             v.setMaxLines(2);
             v.setPadding((int) (4 * density), (int) (4 * density), (int) (4 * density), (int) (4 * density));
-            // v.setBackgroundDrawable(shape);
-            if (this instanceof PresetGroup) {
-                v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
-            } else {
-                v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
-            }
             Drawable viewIcon = getIcon();
             if (viewIcon != null) {
                 v.setCompoundDrawables(null, viewIcon, null, null);
                 v.setCompoundDrawablePadding((int) (4 * density));
             } else {
-                // no icon, shouldn't happen anymore leave in logging for now
+                // no icon
                 Log.d(DEBUG_TAG, "No icon for " + getName());
             }
             v.setWidth((int) (72 * density));
@@ -1515,12 +1578,19 @@ public class Preset implements Serializable {
         /**
          * Returns a view representing this element (i.e. a button with icon and name) Implement this in subtypes
          * 
+         * @param ctx Android Context
          * @param handler handler to handle clicks on the element (may be null)
          * @param selected highlight this element
          * @return a view ready to display to represent this element
          */
-        public abstract View getView(Context ctx, final PresetClickHandler handler, boolean selected);
+        public abstract View getView(@NonNull Context ctx, @Nullable final PresetClickHandler handler, boolean selected);
 
+        /**
+         * Test what kind of elements this PresetElement applies to
+         * 
+         * @param type the ElementType to check for
+         * @return true if applicable
+         */
         public boolean appliesTo(ElementType type) {
             switch (type) {
             case NODE:
@@ -1597,12 +1667,22 @@ public class Preset implements Serializable {
             }
         }
 
+        /**
+         * Set the OSM wiki (or other) documentation URL for this PresetElement
+         * 
+         * @param url the URL to set
+         */
         void setMapFeatures(String url) {
             if (url != null) {
                 mapFeatures = url;
             }
         }
 
+        /**
+         * Get the documentation URL (typically from the OSM wiki) for this PresetELement
+         * 
+         * @return a Uri
+         */
         public Uri getMapFeatures() {
             return Uri.parse(mapFeatures);
         }
@@ -1654,11 +1734,20 @@ public class Preset implements Serializable {
             return null;
         }
 
+        /**
+         * @return the iconpath
+         */
+        public String getIconpath() {
+            return iconpath;
+        }
+
         @Override
         public String toString() {
             return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation
                     + " " + appliesToArea;
         }
+
+        public abstract void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
     }
 
     /**
@@ -1681,6 +1770,12 @@ public class Preset implements Serializable {
             v.setMinimumWidth(99999); // for WrappingLayout
             return v;
         }
+
+        @Override
+        public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", SEPARATOR);
+            s.endTag("", SEPARATOR);
+        }
     }
 
     /**
@@ -1698,16 +1793,34 @@ public class Preset implements Serializable {
         /** Elements in this group */
         private ArrayList<PresetElement> elements = new ArrayList<>();
 
-        public PresetGroup(PresetGroup parent, String name, String iconpath) {
+        /**
+         * Construct a new PresetGroup
+         * 
+         * @param parent parent ParentGroup (or null if this is the root group)
+         * @param name name of the element or null
+         * @param iconpath the icon path (either "http://" URL or "presets/" local image reference) or null
+         */
+        public PresetGroup(@Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath) {
             super(parent, name, iconpath);
             groupIndex = allGroups.size();
             allGroups.add(this);
         }
 
+        /**
+         * Add a PresetElement to this group setting its parent to this
+         * 
+         * @param element the PresetElement to add
+         */
         public void addElement(PresetElement element) {
             addElement(element, true);
         }
 
+        /**
+         * Add a PresetElement to this group
+         * 
+         * @param element the PresetElement to add
+         * @param setParent if true set the elements parent to this
+         */
         public void addElement(PresetElement element, boolean setParent) {
             elements.add(element);
             if (setParent) {
@@ -1715,6 +1828,11 @@ public class Preset implements Serializable {
             }
         }
 
+        /**
+         * Get the PresetElements in this group
+         * 
+         * @return a List of PresetElements
+         */
         public List<PresetElement> getElements() {
             return elements;
         }
@@ -1727,7 +1845,7 @@ public class Preset implements Serializable {
          * @return a view/button representing this PresetElement
          */
         @Override
-        public View getView(Context ctx, final PresetClickHandler handler, boolean selected) {
+        public View getView(@NonNull Context ctx, @Nullable final PresetClickHandler handler, boolean selected) {
             TextView v = super.getBaseView(ctx, selected);
             v.setTypeface(null, Typeface.BOLD);
             if (handler != null) {
@@ -1744,6 +1862,7 @@ public class Preset implements Serializable {
                     }
                 });
             }
+            v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_200 : R.color.dark_grey));
             v.setTag("G" + this.getGroupIndex());
             return v;
         }
@@ -1753,20 +1872,33 @@ public class Preset implements Serializable {
         }
 
         /**
-         * @param selectedElement highlight the background if true
+         * Get a ScrollView for this PresetGroup
+         * 
+         * @param ctx Android Context
+         * @param handler listeners for click events on the View, in null no listeners
+         * @param type ElementType the views are applicable for, if null don't filter
+         * @param selectedElement highlight the background if true, if null no selection
          * @return a view showing the content (nodes, subgroups) of this group
          */
-        public View getGroupView(Context ctx, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
+        public View getGroupView(@NonNull Context ctx, @Nullable PresetClickHandler handler, @Nullable ElementType type,
+                @Nullable PresetElement selectedElement) {
             ScrollView scrollView = new ScrollView(ctx);
             scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             return getGroupView(ctx, scrollView, handler, type, selectedElement);
         }
 
         /**
-         * @param selectedElement highlight the background if true
-         * @return a view showing the content (nodes, subgroups) of this group
+         * Add Views for all the PresetElements in this group to a ScrollView
+         * 
+         * @param ctx Android Context
+         * @param scrollView the ScrollView to add the PresetElement Views to
+         * @param handler listeners for click events on the View, in null no listeners
+         * @param type ElementType the views are applicable for, if null don't filter
+         * @param selectedElement highlight the background if true, if null no selection
+         * @return the supplied ScrollView
          */
-        public View getGroupView(Context ctx, ScrollView scrollView, PresetClickHandler handler, ElementType type, PresetElement selectedElement) {
+        public View getGroupView(@NonNull Context ctx, @NonNull ScrollView scrollView, @Nullable PresetClickHandler handler, @Nullable ElementType type,
+                @Nullable PresetElement selectedElement) {
             scrollView.removeAllViews();
             WrappingLayout wrappingLayout = new WrappingLayout(ctx);
             float density = ctx.getResources().getDisplayMetrics().density;
@@ -1783,6 +1915,20 @@ public class Preset implements Serializable {
             wrappingLayout.setWrappedChildren(childViews);
             scrollView.addView(wrappingLayout);
             return scrollView;
+        }
+
+        @Override
+        public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", GROUP);
+            s.attribute("", NAME, getName());
+            String iconPath = getIconpath();
+            if (iconPath != null) {
+                s.attribute("", ICON, getIconpath());
+            }
+            for (PresetElement e : elements) {
+                e.toXml(s);
+            }
+            s.endTag("", GROUP);
         }
     }
 
@@ -1894,7 +2040,15 @@ public class Preset implements Serializable {
 
         private final int itemIndex;
 
-        public PresetItem(PresetGroup parent, String name, String iconpath, String types) {
+        /**
+         * Construct a new PresetItem
+         * 
+         * @param parent parent group (or null if this is the root group)
+         * @param name name of the element or null
+         * @param iconpath the icon path (either "http://" URL or "presets/" local image reference) or null
+         * @param types comma separated list of types of OSM elements this applies to or null for all
+         */
+        public PresetItem(@Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath, @Nullable String types) {
             super(parent, name, iconpath);
             if (types == null) {
                 // Type not specified, assume all types
@@ -1923,6 +2077,108 @@ public class Preset implements Serializable {
             }
             itemIndex = allItems.size();
             allItems.add(this);
+        }
+
+        /**
+         * Construct a new PresetItem in this preset from an existing one adding the necessary bits to the indices
+         * 
+         * @param group PresetGroup this should be added, null if none
+         * @param item the PresetItem to copy
+         */
+        public PresetItem(@Nullable PresetGroup group, @NonNull PresetItem item) {
+            super(group, item);
+            this.fixedTags = item.fixedTags;
+            this.recommendedTags = item.recommendedTags;
+            this.optionalTags = item.optionalTags;
+            this.hints = item.hints;
+            this.defaults = item.defaults;
+            this.onValue = item.onValue;
+            this.roles = item.roles;
+            this.linkedPresetNames = item.linkedPresetNames;
+            this.sort = item.sort;
+            this.keyType = item.keyType;
+            this.matchType = item.matchType;
+            this.delimiters = item.delimiters;
+            this.editable = item.editable;
+            this.valuesSearchable = item.valuesSearchable;
+            this.textContext = item.textContext;
+            this.valueContext = item.valueContext;
+            this.javascript = item.javascript;
+            this.i18n = item.i18n;
+            this.valueType = item.valueType;
+
+            if (!chunk) {
+                for (Entry<String, StringWithDescription> e : getFixedTags().entrySet()) {
+                    StringWithDescription v = e.getValue();
+                    String key = e.getKey();
+                    String value = "";
+                    if (v != null && v.getValue() != null) {
+                        value = v.getValue();
+                    }
+                    tagItems.add(key + "\t" + value, this);
+                    addToAutosuggest(key, v);
+                }
+                for (Entry<String, StringWithDescription[]> e : getRecommendedTags().entrySet()) {
+                    StringWithDescription[] values = e.getValue();
+                    String key = e.getKey();
+                    tagItems.add(key + "\t", this);
+                    for (StringWithDescription swd : values) {
+                        tagItems.add(e.getKey() + "\t" + swd.getValue(), this);
+                    }
+                    addToAutosuggest(key, values);
+                }
+            }
+
+            itemIndex = allItems.size();
+            allItems.add(this);
+        }
+
+        /**
+         * Add the values to the autosuggest maps for the key
+         * 
+         * @param key the key
+         * @param values array of the values
+         */
+        private void addToAutosuggest(String key, StringWithDescription[] values) {
+            if (appliesTo(ElementType.NODE)) {
+                autosuggestNodes.add(key, values);
+            }
+            if (appliesTo(ElementType.WAY)) {
+                autosuggestWays.add(key, values);
+            }
+            if (appliesTo(ElementType.CLOSEDWAY)) {
+                autosuggestClosedways.add(key, values);
+            }
+            if (appliesTo(ElementType.RELATION)) {
+                autosuggestRelations.add(key, values);
+            }
+            if (appliesTo(ElementType.AREA)) {
+                autosuggestAreas.add(key, values);
+            }
+        }
+
+        /**
+         * Add the value to the autosuggest maps for the key
+         * 
+         * @param key the key
+         * @param value the value
+         */
+        private void addToAutosuggest(String key, StringWithDescription value) {
+            if (appliesTo(ElementType.NODE)) {
+                autosuggestNodes.add(key, value);
+            }
+            if (appliesTo(ElementType.WAY)) {
+                autosuggestWays.add(key, value);
+            }
+            if (appliesTo(ElementType.CLOSEDWAY)) {
+                autosuggestClosedways.add(key, value);
+            }
+            if (appliesTo(ElementType.RELATION)) {
+                autosuggestRelations.add(key, value);
+            }
+            if (appliesTo(ElementType.AREA)) {
+                autosuggestAreas.add(key, value);
+            }
         }
 
         /**
@@ -2000,9 +2256,11 @@ public class Preset implements Serializable {
          * Adds a fixed tag to the item, registers the item in the tagItems map and populates autosuggest.
          * 
          * @param key key name of the tag
+         * @param type PresetType
          * @param value value of the tag
+         * @param text description of the tag
          */
-        public void addTag(final String key, final PresetKeyType type, String value, String text) {
+        public void addTag(final String key, final PresetKeyType type, @Nullable String value, @Nullable String text) {
             if (key == null) {
                 throw new NullPointerException("null key not supported");
             }
@@ -2018,21 +2276,7 @@ public class Preset implements Serializable {
             }
             // Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
             keyType.put(key, type);
-            if (appliesTo(ElementType.NODE)) {
-                autosuggestNodes.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-            }
-            if (appliesTo(ElementType.WAY)) {
-                autosuggestWays.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-            }
-            if (appliesTo(ElementType.CLOSEDWAY)) {
-                autosuggestClosedways.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-            }
-            if (appliesTo(ElementType.RELATION)) {
-                autosuggestRelations.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-            }
-            if (appliesTo(ElementType.AREA)) {
-                autosuggestAreas.add(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
-            }
+            addToAutosuggest(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
         }
 
         /**
@@ -2040,16 +2284,29 @@ public class Preset implements Serializable {
          * 
          * @param optional true if optional, false if recommended
          * @param key key name of the tag
-         * @param values values string from the XML (comma-separated list of possible values)
+         * @param type type of preset field
+         * @param value value string from the XML (comma-separated list if more than one possible values)
          */
-        public void addTag(boolean optional, String key, PresetKeyType type, String values) {
-            addTag(optional, key, type, values, null, null, COMBO_DELIMITER, null);
+        public void addTag(boolean optional, String key, PresetKeyType type, String value) {
+            addTag(optional, key, type, value, null, null, COMBO_DELIMITER, null);
         }
 
-        public void addTag(boolean optional, String key, PresetKeyType type, String values, String displayValues, String shortDescriptions,
+        /**
+         * Adds a recommended or optional tag to the item and populates autosuggest
+         * 
+         * @param optional true if optional, false if recommended
+         * @param key key name of the tag
+         * @param type type of preset field
+         * @param value value string from the XML (delimiter-separated list if more than one possible values)
+         * @param displayValue matching display value for value (same format for more than one)
+         * @param shortDescriptions matching short description for value (same format for more than one)
+         * @param delimiter the delimiter if more than one value is present
+         * @param valuesContext the translation context for values
+         */
+        public void addTag(boolean optional, String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
                 final String delimiter, String valuesContext) {
-            String[] valueArray = (values == null) ? new String[0] : values.split(Pattern.quote(delimiter));
-            String[] displayValueArray = (displayValues == null) ? new String[0] : displayValues.split(Pattern.quote(delimiter));
+            String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
+            String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
             String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
             StringWithDescription[] valuesWithDesc = new StringWithDescription[valueArray.length];
             boolean useDisplayValues = valueArray.length == displayValueArray.length;
@@ -2069,6 +2326,28 @@ public class Preset implements Serializable {
             addTag(optional, key, type, valuesWithDesc, delimiter);
         }
 
+        /**
+         * Adds a recommended or optional tag to the item and populates autosuggest
+         * 
+         * @param optional true if optional, false if recommended
+         * @param key key name of the tag
+         * @param type type of preset field
+         * @param valueCollection Collection with the values
+         * @param delimiter the delimiter if more than one value is present
+         */
+        public void addTag(boolean optional, String key, PresetKeyType type, Collection<StringWithDescription> valueCollection, final String delimiter) {
+            addTag(optional, key, type, valueCollection.toArray(new StringWithDescription[valueCollection.size()]), delimiter);
+        }
+
+        /**
+         * Adds a recommended or optional tag to the item and populates autosuggest
+         * 
+         * @param optional true if optional, false if recommended
+         * @param key key name of the tag
+         * @param type type of preset field
+         * @param valueArray array with the values
+         * @param delimiter the delimiter if more than one value is present
+         */
         public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) {
             if (!chunk) {
                 if (valueArray == null || valueArray.length == 0) {
@@ -2079,23 +2358,8 @@ public class Preset implements Serializable {
                     }
                 }
             }
-            // Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
             keyType.put(key, type);
-            if (appliesTo(ElementType.NODE)) {
-                autosuggestNodes.add(key, valueArray);
-            }
-            if (appliesTo(ElementType.WAY)) {
-                autosuggestWays.add(key, valueArray);
-            }
-            if (appliesTo(ElementType.CLOSEDWAY)) {
-                autosuggestClosedways.add(key, valueArray);
-            }
-            if (appliesTo(ElementType.RELATION)) {
-                autosuggestRelations.add(key, valueArray);
-            }
-            if (appliesTo(ElementType.AREA)) {
-                autosuggestAreas.add(key, valueArray);
-            }
+            addToAutosuggest(key, valueArray);
 
             (optional ? optionalTags : recommendedTags).put(key, valueArray);
 
@@ -2208,10 +2472,10 @@ public class Preset implements Serializable {
         }
 
         /**
-         * Save non-standard values for the tag
+         * Save non-standard values for the value delimiter
          * 
-         * @param key
-         * @param on
+         * @param key key this delimiter is used for
+         * @param delimiter the delimiter
          */
         public void addDelimiter(String key, String delimiter) {
             if (delimiters == null) {
@@ -2710,6 +2974,7 @@ public class Preset implements Serializable {
                     }
                 });
             }
+            v.setBackgroundColor(ContextCompat.getColor(ctx, selected ? R.color.material_deep_teal_500 : R.color.preset_bg));
             v.setTag(Integer.toString(this.getItemIndex()));
             return v;
         }
@@ -2896,6 +3161,7 @@ public class Preset implements Serializable {
         /**
          * For taginfo.openstreetmap.org Projects
          * 
+         * @param presetName the name of the PresetItem
          * @param key tag key
          * @param value tag value
          * @return JSON representation of a single tag
@@ -2942,17 +3208,142 @@ public class Preset implements Serializable {
             Util.groupI18nKeys(i18nKeys, recommendedTags);
             Util.groupI18nKeys(i18nKeys, optionalTags);
         }
+
+        @Override
+        public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+            s.startTag("", chunk ? CHUNK : ITEM);
+            s.attribute("", NAME, name);
+            String iconPath = getIconpath();
+            if (iconPath != null) {
+                s.attribute("", ICON, getIconpath());
+            }
+            StringBuilder builder = new StringBuilder();
+            if (appliesTo(ElementType.NODE)) {
+                builder.append(Node.NAME);
+            }
+            if (appliesTo(ElementType.WAY)) {
+                if (builder.length() != 0) {
+                    builder.append(',');
+                }
+                builder.append(Way.NAME);
+            }
+            if (appliesTo(ElementType.CLOSEDWAY)) {
+                if (builder.length() != 0) {
+                    builder.append(',');
+                }
+                builder.append(CLOSEDWAY);
+            }
+            if (appliesTo(ElementType.RELATION)) {
+                if (builder.length() != 0) {
+                    builder.append(',');
+                }
+                builder.append(Relation.NAME);
+            }
+            if (appliesTo(ElementType.AREA)) {
+                if (builder.length() != 0) {
+                    builder.append(',');
+                }
+                builder.append(MULTIPOLYGON);
+            }
+            s.attribute("", TYPE, builder.toString());
+            for (Entry<String, StringWithDescription> entry : fixedTags.entrySet()) {
+                s.startTag("", KEY_ATTR);
+                s.attribute("", KEY_ATTR, entry.getKey());
+                StringWithDescription v = entry.getValue();
+                s.attribute("", VALUE, v.getValue());
+                String description = v.getDescription();
+                if (description != null && !"".equals(description)) {
+                    s.attribute("", TEXT, description);
+                }
+                s.endTag("", KEY_ATTR);
+            }
+            fieldsToXml(s, recommendedTags);
+            if (optionalTags != null && !optionalTags.isEmpty()) {
+                s.startTag("", OPTIONAL);
+                fieldsToXml(s, optionalTags);
+                s.endTag("", OPTIONAL);
+            }
+            s.endTag("", chunk ? CHUNK : ITEM);
+        }
+
+        /**
+         * Output the preset files to XML
+         * 
+         * @param fields a map containing the fields
+         * @param s the serializer
+         * @throws IOException
+         */
+        private void fieldsToXml(XmlSerializer s, Map<String, StringWithDescription[]> fields) throws IOException {
+            if (fields != null) {
+                for (Entry<String, StringWithDescription[]> entry : fields.entrySet()) {
+                    // check match attribute
+                    String k = entry.getKey();
+                    // MatchType match = getMatchType(k);
+                    PresetKeyType type = getKeyType(k);
+                    switch (type) {
+                    case TEXT:
+                        s.startTag("", TEXT);
+                        s.attribute("", KEY_ATTR, k);
+                        s.endTag("", TEXT);
+                        break;
+                    case COMBO:
+                    case MULTISELECT:
+                        s.startTag("", type == PresetKeyType.COMBO ? COMBO_FIELD : MULTISELECT_FIELD);
+                        s.attribute("", KEY_ATTR, k);
+                        for (StringWithDescription v : entry.getValue()) {
+                            s.startTag("", LIST_ENTRY);
+                            s.attribute("", VALUE, v.getValue());
+                            String description = v.getDescription();
+                            if (description != null && !"".equals(description)) {
+                                s.attribute("", SHORT_DESCRIPTION, v.getDescription());
+                            }
+                            s.endTag("", LIST_ENTRY);
+                        }
+                        s.endTag("", type == PresetKeyType.COMBO ? COMBO_FIELD : MULTISELECT_FIELD);
+                        break;
+                    case CHECK:
+                        s.startTag("", CHECK_FIELD);
+                        s.attribute("", KEY_ATTR, k);
+                        s.endTag("", CHECK_FIELD);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /** Interface for handlers handling clicks on item or group icons */
     public interface PresetClickHandler {
-        void onItemClick(PresetItem item);
 
-        boolean onItemLongClick(PresetItem item);
+        /**
+         * Called for a normal click on a button showing a PresetItem
+         * 
+         * @param item the PresetItem
+         */
+        void onItemClick(@NonNull PresetItem item);
 
-        void onGroupClick(PresetGroup group);
+        /**
+         * Called for a long click on a button showing a PresetItem
+         * 
+         * @param item the PresetItem
+         * @return true if consumed
+         */
+        boolean onItemLongClick(@NonNull PresetItem item);
 
-        boolean onGroupLongClick(PresetGroup group);
+        /**
+         * Called for a normal click on a button showing a PresetGroup
+         * 
+         * @param group the PresetGroup
+         */
+        void onGroupClick(@NonNull PresetGroup group);
+
+        /**
+         * Called for a long click on a button showing a PresetGroup
+         * 
+         * @param group the PresetGroup
+         * @return true if consumed
+         */
+        boolean onGroupLongClick(@NonNull PresetGroup group);
     }
 
     public static Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
@@ -2985,28 +3376,49 @@ public class Preset implements Serializable {
         return r;
     }
 
-    public static Collection<StringWithDescription> getAutocompleteValues(Preset[] presets, ElementType type, String key) {
+    /**
+     * Get suggested values for a key
+     * 
+     * @param presets an array holding the currently active Presets
+     * @param type the taype of element, if null all will be assumed
+     * @param key the key we want the values for
+     * @return a Collection of the suggested values for key
+     */
+    @NonNull
+    public static Collection<StringWithDescription> getAutocompleteValues(@NonNull Preset[] presets, @Nullable ElementType type, @NonNull String key) {
         Collection<StringWithDescription> result = new LinkedHashSet<>();
-        for (Preset p : presets) {
-            if (p != null) {
-                switch (type) {
-                case NODE:
+        if (type == null) {
+            for (Preset p : presets) {
+                if (p != null) {
                     result.addAll(p.autosuggestNodes.get(key));
-                    break;
-                case WAY:
                     result.addAll(p.autosuggestWays.get(key));
-                    break;
-                case CLOSEDWAY:
                     result.addAll(p.autosuggestClosedways.get(key));
-                    break;
-                case RELATION:
                     result.addAll(p.autosuggestRelations.get(key));
-                    break;
-                case AREA:
                     result.addAll(p.autosuggestAreas.get(key));
-                    break;
-                default:
-                    return Collections.emptyList();
+                }
+            }
+        } else {
+            for (Preset p : presets) {
+                if (p != null) {
+                    switch (type) {
+                    case NODE:
+                        result.addAll(p.autosuggestNodes.get(key));
+                        break;
+                    case WAY:
+                        result.addAll(p.autosuggestWays.get(key));
+                        break;
+                    case CLOSEDWAY:
+                        result.addAll(p.autosuggestClosedways.get(key));
+                        break;
+                    case RELATION:
+                        result.addAll(p.autosuggestRelations.get(key));
+                        break;
+                    case AREA:
+                        result.addAll(p.autosuggestAreas.get(key));
+                        break;
+                    default:
+                        return Collections.emptyList();
+                    }
                 }
             }
         }
@@ -3149,5 +3561,15 @@ public class Preset implements Serializable {
             SavingHelper.close(fout);
         }
         return true;
+    }
+
+    public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startDocument("UTF-8", null);
+        s.startTag("", PRESETS);
+        for (PresetElement e : getRootGroup().getElements()) {
+            e.toXml(s);
+        }
+        s.endTag("", PRESETS);
+        s.endDocument();
     }
 }
