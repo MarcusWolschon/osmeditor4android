@@ -69,6 +69,7 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
@@ -1015,12 +1016,9 @@ public class TileLayerServer {
     public static void createOrUpdateCustomSource(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb, final boolean async) {
         long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
         long lastUpdateTime = 0L;
-
-        File sdcard = Environment.getExternalStorageDirectory();
-        String userImagery = sdcard.getPath() + "/" + Paths.DIRECTORY_PATH_VESPUCCI + "/" + Files.FILE_NAME_USER_IMAGERY;
-        Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImagery);
         try {
-            File userImageryFile = new File(userImagery);
+            File userImageryFile = new File(FileUtil.getPublicDirectory(), Files.FILE_NAME_USER_IMAGERY);
+            Log.i(DEBUG_TAG, "Trying to read custom imagery from " + userImageryFile.getPath());
             lastUpdateTime = userImageryFile.lastModified();
             boolean newConfig = lastUpdateTime > lastDatabaseUpdate;
             if (lastDatabaseUpdate == 0 || newConfig) {
@@ -1031,7 +1029,7 @@ public class TileLayerServer {
                         TileLayerDatabase.deleteSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                         TileLayerDatabase.addSource(writeableDb, TileLayerDatabase.SOURCE_CUSTOM);
                     }
-                    InputStream is = new FileInputStream(new File(userImagery));
+                    InputStream is = new FileInputStream(userImageryFile);
                     parseImageryFile(ctx, writeableDb, TileLayerDatabase.SOURCE_CUSTOM, is, async);
                     writeableDb.setTransactionSuccessful();
                 } finally {
