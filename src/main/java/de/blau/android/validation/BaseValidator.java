@@ -185,7 +185,8 @@ public class BaseValidator implements Validator {
                     if (!e.hasTagKey(key)) {
                         if (!(Tags.KEY_NAME.equals(key)
                                 && (e.hasTagWithValue(Tags.KEY_NONAME, Tags.VALUE_YES) || e.hasTagWithValue(Tags.KEY_VALIDATE_NO_NAME, Tags.VALUE_YES)))) {
-                            result.add(ctx.getString(R.string.toast_missing_key, pi.getHint(key)));
+                            String hint = pi.getHint(key);
+                            result.add(ctx.getString(R.string.toast_missing_key, hint != null ? hint : key));
                         }
                     }
                 }
