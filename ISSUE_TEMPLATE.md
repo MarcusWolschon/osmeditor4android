@@ -5,6 +5,7 @@ Please note that some components are maintained in upstream repositories and rel
 * background and overlay layers: https://github.com/osmlab/editor-layer-index
 * presets: https://github.com/simonpoole/beautified-JOSM-preset
 * opening hours user interface: https://github.com/simonpoole/OpeningHoursFragment
+* name-related tag suggestions database: https://github.com/osmlab/name-suggestion-index
 
 ## Vespucci Version
 <!-- required, see advanced preference of debug information screen in the preferences -->
