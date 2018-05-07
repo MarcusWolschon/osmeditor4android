@@ -376,10 +376,6 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         }
                     }
 
-                    Map<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(main);
-                    if (namesSearchIndex == null) {
-                        return;
-                    }
                     // search in names
                     NameAndTags nt = SearchIndexUtils.searchInNames(main, v, 2);
                     if (nt != null) {

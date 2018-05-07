@@ -45,11 +45,8 @@ public class Commands {
     private static final String DEBUG_TAG = Commands.class.getSimpleName();
     private Main                main;
 
-    private Map<String, NameAndTags> namesSearchIndex;
-
     public Commands(Main main) {
         this.main = main;
-        namesSearchIndex = App.getNameSearchIndex(main);
     }
 
     public void processIntentResult(Intent data, Location location) {
@@ -105,10 +102,6 @@ public class Commands {
                     List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
                     if (presetItems != null && presetItems.size() == 1) {
                         addNode(createNode(loc, location), words.length == 3 ? words[2] : null, presetItems.get(0), logic, v);
-                        return;
-                    }
-
-                    if (namesSearchIndex == null) {
                         return;
                     }
 

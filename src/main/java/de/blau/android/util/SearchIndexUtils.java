@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.names.Names.NameAndTags;
@@ -33,7 +32,7 @@ public class SearchIndexUtils {
     static public String normalize(String n) {
         String r = n.toLowerCase(Locale.US).trim();
         r = deAccent(r);
-        
+
         StringBuilder b = new StringBuilder();
         for (char c : r.toCharArray()) {
             c = Character.toLowerCase(c);
@@ -62,7 +61,7 @@ public class SearchIndexUtils {
     }
 
     /**
-     * REmove accents from a string
+     * Remove accents from a string
      * 
      * @param str String to work on
      * @return String without accents
@@ -132,22 +131,30 @@ public class SearchIndexUtils {
     /**
      * Return match is any of term in the name index
      * 
-     * @param ctx
-     * @param term
-     * @param type
-     * @param maxDistance
-     * @return
+     * @param ctx Android Context
+     * @param name name we are searching for
+     * @param maxDistance maximum distance in "edits" the result can be away from name
+     * @return a NameAndTags object for the term
      */
-    public static NameAndTags searchInNames(Context ctx, String term, int maxDistance) {
-        Map<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
+    @Nullable
+    public static NameAndTags searchInNames(Context ctx, String name, int maxDistance) {
+        MultiHashMap<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
+        if (namesSearchIndex == null) {
+            return null;
+        }
         NameAndTags result = null;
         int lastDistance = Integer.MAX_VALUE;
-        term = SearchIndexUtils.normalize(term);
-        for (Entry<String, NameAndTags> entry : namesSearchIndex.entrySet()) {
-            int distance = OptimalStringAlignment.editDistance(entry.getKey(), term, maxDistance);
+        name = SearchIndexUtils.normalize(name);
+        for (String key : namesSearchIndex.getKeys()) {
+            int distance = OptimalStringAlignment.editDistance(key, name, maxDistance);
             if (distance >= 0 && distance <= maxDistance) {
                 if (distance < lastDistance) {
-                    result = entry.getValue();
+                    Set<NameAndTags> list = namesSearchIndex.get(key);
+                    for (NameAndTags nt : list) {
+                        if (result == null || nt.getCount() > result.getCount()) {
+                            result = nt;
+                        }
+                    }
                     lastDistance = distance;
                     if (distance == 0) { // no point in searching for better results
                         return result;

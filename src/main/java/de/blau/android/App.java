@@ -1,7 +1,5 @@
 package de.blau.android;
 
-import java.util.Map;
-
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
@@ -70,10 +68,10 @@ public class App extends android.app.Application {
     /**
      * name index related stuff
      */
-    private static Names                    names                = null;
-    private static final Object             namesLock            = new Object();
-    private static Map<String, NameAndTags> namesSearchIndex     = null;
-    private static final Object             namesSearchIndexLock = new Object();
+    private static Names                             names                = null;
+    private static final Object                      namesLock            = new Object();
+    private static MultiHashMap<String, NameAndTags> namesSearchIndex     = null;
+    private static final Object                      namesSearchIndexLock = new Object();
 
     /**
      * Geo index to on device photos
@@ -224,12 +222,17 @@ public class App extends android.app.Application {
         }
     }
 
+    /**
+     * Get a normalized name to Names entries map 
+     * 
+     * @param ctx Android Context
+     * @return a map between normalized names and NameAndTags objects
+     */
     @NonNull
-    public static Map<String, NameAndTags> getNameSearchIndex(@NonNull Context ctx) {
+    public static MultiHashMap<String, NameAndTags> getNameSearchIndex(@NonNull Context ctx) {
         getNames(ctx);
         synchronized (namesSearchIndexLock) {
             if (namesSearchIndex == null) {
-                // names.dump2Log();
                 namesSearchIndex = names.getSearchIndex();
             }
             return namesSearchIndex;

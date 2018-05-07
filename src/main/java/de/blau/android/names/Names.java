@@ -5,9 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -18,6 +16,7 @@ import com.google.gson.stream.JsonReader;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.Tags;
 import de.blau.android.util.SavingHelper;
@@ -51,12 +50,16 @@ public class Names {
     }
 
     public class NameAndTags implements Comparable<NameAndTags> {
-        private String name;
-        TagMap         tags;
+        final private String name;
+        final private int    count;
+        final private String region;
+        final TagMap         tags;
 
-        public NameAndTags(String name, TagMap tags) {
-            this.setName(name);
+        public NameAndTags(String name, TagMap tags, int count, String region) {
+            this.name = name;
             this.tags = tags;
+            this.count = count;
+            this.region = region;
         }
 
         @Override
@@ -72,22 +75,27 @@ public class Names {
         }
 
         /**
-         * @param name the name to set
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        /**
-         * @return the name
+         * @return the tags
          */
         public TagMap getTags() {
             return tags;
         }
 
+        /**
+         * @return the count
+         */
+        public int getCount() {
+            return count;
+        }
+
         @Override
         public int compareTo(@NonNull NameAndTags another) {
             if (another.name.equals(name)) {
+                if (getCount() > ((NameAndTags) another).getCount()) {
+                    return +1;
+                } else if (getCount() < another.getCount()) {
+                    return -1;
+                }
                 // more tags is better
                 if (tags.size() > ((NameAndTags) another).tags.size()) {
                     return +1;
@@ -116,10 +124,11 @@ public class Names {
         }
     }
 
-    private static MultiHashMap<String, TagMap> nameList       = new MultiHashMap<>(false); // names -> tags
-    private static HashMap<String, TagMap>      tagList        = new HashMap<>();           // tags string to tags
-    private static MultiHashMap<TagMap, String> tags2namesList = new MultiHashMap<>(false); //
-    private static MultiHashMap<String, String> categories     = new MultiHashMap<>(false);
+    private static MultiHashMap<String, NameAndTags> nameList       = new MultiHashMap<>(false); // names -> multiple
+                                                                                                 // entries
+    private static MultiHashMap<String, NameAndTags> tags2namesList = new MultiHashMap<>(false); // tagmap -A multiple
+                                                                                                 // entries
+    private static MultiHashMap<String, String>      categories     = new MultiHashMap<>(false);
 
     private static boolean ready = false;
 
@@ -149,6 +158,7 @@ public class Names {
                                     // name object
                                     String name = null;
                                     int count = 0;
+                                    String region = null;
                                     reader.beginObject();
                                     while (reader.hasNext()) {
                                         name = reader.nextName(); // name of estabishment
@@ -156,35 +166,38 @@ public class Names {
                                         TagMap secondaryTags = null; // any extra tags store here
                                         while (reader.hasNext()) {
                                             String jsonName = reader.nextName();
-                                            if (jsonName.equals("count")) {
+                                            switch (jsonName) {
+                                            case "count":
                                                 count = reader.nextInt();
-                                            } else if (jsonName.equals("tags")) {
+                                                break;
+                                            case "region":
+                                                region = reader.nextString();
+                                                break;
+                                            case "tags":
                                                 reader.beginObject();
                                                 while (reader.hasNext()) {
                                                     secondaryTags = new TagMap();
                                                     secondaryTags.put(reader.nextName(), reader.nextString());
                                                 }
                                                 reader.endObject(); // tags
-                                            } else {
+                                                break;
+                                            default:
                                                 reader.skipValue();
+                                                break;
                                             }
                                         }
                                         reader.endObject(); // name
 
                                         // add to lists here
-                                        TagMap primaryTags = new TagMap();
-                                        primaryTags.put(key, value);
+
+                                        TagMap tags = new TagMap();
+                                        tags.put(key, value);
                                         if (secondaryTags != null) {
-                                            primaryTags.putAll(secondaryTags);
+                                            tags.putAll(secondaryTags);
                                         }
-                                        String tagKey = primaryTags.toString();
-                                        TagMap tm = tagList.get(tagKey);
-                                        if (tm == null) {
-                                            tagList.put(tagKey, primaryTags);
-                                            tm = primaryTags;
-                                        }
-                                        nameList.add(name, tm);
-                                        tags2namesList.add(tm, name);
+                                        NameAndTags entry = new NameAndTags(name, tags, count, region);
+                                        nameList.add(name, entry);
+                                        tags2namesList.add(tags.toString(), entry);
                                     }
                                     reader.endObject(); // value
                                 }
@@ -257,11 +270,9 @@ public class Names {
 
         String origTagKey = tm.toString();
 
-        for (Entry<String, TagMap> entry : tagList.entrySet()) {
-            if (entry.getKey().contains(origTagKey)) {
-                TagMap storedTagMap = entry.getValue();
-                for (String n : tags2namesList.get(storedTagMap)) {
-                    NameAndTags nt = new NameAndTags(n, storedTagMap);
+        for (String key : tags2namesList.getKeys()) {
+            if (key.contains(origTagKey)) {
+                for (NameAndTags nt : tags2namesList.get(key)) {
                     result.add(nt);
                 }
             }
@@ -275,11 +286,9 @@ public class Names {
             if (set.contains(origTagKey)) {
                 for (String catTagKey : set) { // loop over categories content
                     if (!seen.contains(catTagKey)) { // suppress dups
-                        for (Entry<String, TagMap> entry : tagList.entrySet()) {
-                            if (entry.getKey().contains(catTagKey)) {
-                                TagMap storedTagMap = entry.getValue();
-                                for (String n : tags2namesList.get(storedTagMap)) {
-                                    NameAndTags nt = new NameAndTags(n, storedTagMap);
+                        for (String key : tags2namesList.getKeys()) {
+                            if (key.contains(catTagKey)) {
+                                for (NameAndTags nt : tags2namesList.get(key)) {
                                     result.add(nt);
                                 }
                             }
@@ -293,48 +302,53 @@ public class Names {
         return result;
     }
 
+    /**
+     * Get all entries
+     * 
+     * @return a Collection containing all NameAndTags objects
+     */
+    @NonNull
     private Collection<NameAndTags> getNames() {
         Collection<NameAndTags> result = new ArrayList<>();
         for (String n : nameList.getKeys()) {
-            TagMap bestTags = null;
-            for (TagMap t : nameList.get(n)) {
-                if (bestTags == null || bestTags.size() < t.size()) {
-                    bestTags = t;
-                }
+            for (NameAndTags nt : nameList.get(n)) {
+                result.add(nt);
             }
-            if (bestTags != null)
-                result.add(new NameAndTags(n, bestTags));
         }
         return result;
     }
 
-    public Map<String, NameAndTags> getSearchIndex() {
-        HashMap<String, NameAndTags> result = new HashMap<>();
+    /**
+     * Get all entries valid in a specific region
+     * 
+     * @param region if an entry is region specific only return it if it is in use in region
+     * @return a Collection of NameAndTags objects
+     */
+    @NonNull
+    private Collection<NameAndTags> getNames(@Nullable String region) {
+        Collection<NameAndTags> result = new ArrayList<>();
+        for (String n : nameList.getKeys()) {
+            for (NameAndTags nt : nameList.get(n)) {
+                if (region != null && nt.region != null && !nt.region.contains(region)) {
+                    continue;
+                }
+                result.add(nt);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Return a mapping from normalized name values to entries
+     * 
+     * @return a map from normalized names to NameAndTags objects
+     */
+    public MultiHashMap<String, NameAndTags> getSearchIndex() {
+        MultiHashMap<String, NameAndTags> result = new MultiHashMap<>();
         Collection<NameAndTags> names = getNames();
         for (NameAndTags nat : names) {
-            result.put(SearchIndexUtils.normalize(nat.getName()), nat);
+            result.add(SearchIndexUtils.normalize(nat.getName()), nat);
         }
         return result;
-    }
-
-    public void dump2Log() {
-        Log.d("Names", "Name List");
-        for (String n : nameList.getKeys()) {
-            Set<TagMap> tmList = nameList.get(n);
-            StringBuilder tags = new StringBuilder(n + ": ");
-            for (TagMap tm : tmList) {
-                tags.append(tm.toString() + "|");
-            }
-            Log.d("Names", tags.toString());
-        }
-        Log.d("Names", "tag List");
-        for (TagMap tm : tags2namesList.getKeys()) {
-            Set<String> names = tags2namesList.get(tm);
-            StringBuilder nameStr = new StringBuilder(tm.toString() + ": ");
-            for (String n : names) {
-                nameStr.append(n + "|");
-            }
-            Log.d("Names", nameStr.toString());
-        }
     }
 }
