@@ -34,6 +34,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.TaskFragment;
@@ -365,11 +366,11 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         Log.e(DEBUG_TAG, "handleActivityResult got exception " + e.getMessage());
                     }
 
-                    List<PresetItem> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
+                    List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
 
                     if (presetItems != null && presetItems.size() == 1) {
                         Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), words.length == 2 ? words[1] : null,
-                                presetItems.get(0), logic, v);
+                                (PresetItem) presetItems.get(0), logic, v);
                         if (node != null) {
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                             return;

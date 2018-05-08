@@ -142,7 +142,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private FormUpdate formUpdate;
 
-    private PresetFilterUpdate presetFilterUpdate;
+    private PresetUpdate presetFilterUpdate;
 
     private PropertyEditorListener propertyEditorListener;
 
@@ -212,7 +212,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         try {
             nameAdapters = (NameAdapters) context;
             formUpdate = (FormUpdate) context;
-            presetFilterUpdate = (PresetFilterUpdate) context;
+            presetFilterUpdate = (PresetUpdate) context;
             propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement PropertyEditorListener,  NameAdapters, FormUpdate and PresetFilterUpdate");
@@ -573,7 +573,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             ElementType newType = elements[0].getType(allTags);
             ElementType oldType = elements[0].getType();
             if (newType != oldType) {
-                presetFilterUpdate.typeUpdated(newType);
+                presetFilterUpdate.update(newType);
             }
 
             if (presets != null && addToMru) {
@@ -1260,7 +1260,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             loadEdits(currentValues);// FIXME
 
         // TODO while applying presets automatically seems like a good idea, it needs some further thought
-        if (prefs.enableAutoPreset()) {
+        if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(((PropertyEditor) getActivity()).presets, getKeyValueMapSingle(false)); // FIXME
             if (p != null) {
                 applyPreset(p, false, false);

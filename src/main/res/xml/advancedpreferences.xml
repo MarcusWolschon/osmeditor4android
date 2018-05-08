@@ -116,6 +116,11 @@
             android:title="@string/config_enableNameSuggestions_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
+            android:key="@string/config_enableNameSuggestionsPresets_key"
+            android:summary="@string/config_enableNameSuggestionsPresets_summary"
+            android:title="@string/config_enableNameSuggestionsPresets_title" />
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="true"
             android:key="@string/config_generateAlerts_key"
             android:summary="@string/config_generateAlerts_summary"
             android:title="@string/config_generateAlerts_title" />
@@ -168,9 +173,9 @@
             android:title="@string/config_closeChangesetOnSave_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
-            android:key="@string/config_enableAutoPreset_key"
-            android:summary="@string/config_enableAutoPreset_summary"
-            android:title="@string/config_enableAutoPreset_title" />
+            android:key="@string/config_enableAutoPresets_key"
+            android:summary="@string/config_enableAutoPresets_summary"
+            android:title="@string/config_enableAutoPresets_title" />
     </android.support.v7.preference.PreferenceScreen>
     <android.support.v7.preference.PreferenceScreen
         android:key="config_category_gps"

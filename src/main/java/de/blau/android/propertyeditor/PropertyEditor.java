@@ -72,7 +72,7 @@ import de.blau.android.views.ExtendedViewPager;
  * @author simon
  */
 public class PropertyEditor extends BugFixedAppCompatActivity implements PropertyEditorListener, OnPresetSelectedListener, EditorUpdate, FormUpdate,
-        PresetFilterUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
+        PresetUpdate, NameAdapters, OnSaveListener, ch.poole.openinghoursfragment.OnSaveListener {
 
     private static final String CURRENTITEM            = "current_item";
     private static final String PANELAYOUT             = "pane_layout";
@@ -1162,9 +1162,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public void typeUpdated(ElementType type) {
+    public void update(ElementType type) {
         if (presetFragment != null) {
-            presetFragment.typeUpdated(type);
+            presetFragment.update(type);
         } else {
             Log.e(DEBUG_TAG, "presetFragment is null");
         }
