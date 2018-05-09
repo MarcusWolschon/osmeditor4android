@@ -113,6 +113,6 @@ public class PresetEditorTest {
         TestUtils.clickUp(mDevice);
         App.resetPresets();
         Preset[] presets = App.getCurrentPresets(main);
-        Assert.assertEquals(2, presets.length);
+        Assert.assertEquals(3, presets.length);
     }
 }
