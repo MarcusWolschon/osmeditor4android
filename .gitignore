@@ -48,3 +48,6 @@ Desktop.ini
 $RECYCLE.BIN/
 /.gitignore
 /.checkstyle
+libs/
+libs/**
+/project.properties

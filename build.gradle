@@ -14,6 +14,7 @@ buildscript {
 		classpath 'org.jacoco:org.jacoco.core:0.8.1'
         // classpath 'com.trickyandroid:jacoco-everywhere:0.2.1'
         classpath "ch.poole:preset-utils:0.1.2"
+        classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
     }
 }
 
@@ -138,7 +139,7 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
 
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.layer.LayerDialogTest"
+		def toRun = "de.blau.android.easyedit.RelationTest"
 		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
 		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 		finalizedBy uninstallDebugAndroidTest,uninstallDebug
@@ -153,6 +154,7 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
 }
 
 apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3'
+//apply from: '../gradle-tasks/eclipse-android-3'
 
 sonarqube {
     properties {
@@ -216,6 +218,7 @@ android {
     dexOptions {
         jumboMode = true
     }
+
 }
 
 android.applicationVariants.all { variant ->
