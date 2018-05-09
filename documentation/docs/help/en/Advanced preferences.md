@@ -80,6 +80,10 @@ When using address prediction only add the tags configured here.
 
 Support special handling of name tags with canonical name suggestions. Default: on.
 
+### Enable name suggestion presets
+
+When using name suggestions, automatically apply the best preset. Default: on.
+
 ### Generate notifications
 
 Generate notifications for validator detected issues. Default: on.
@@ -116,9 +120,9 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 Close the current open changeset after uploading edits. Default: on.
 
-### Enable auto preset
+### Enable auto-preset generation
 
-When using name suggestions, automatically apply the best preset. Default: on.
+Try to build presets from taginfo when using the preset search. Default: on.
 
 ## Location Setting
 
