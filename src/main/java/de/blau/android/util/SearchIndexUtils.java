@@ -142,9 +142,6 @@ public class SearchIndexUtils {
     @Nullable
     public static NameAndTags searchInNames(Context ctx, String name, int maxDistance) {
         MultiHashMap<String, NameAndTags> namesSearchIndex = App.getNameSearchIndex(ctx);
-        if (namesSearchIndex == null) {
-            return null;
-        }
         NameAndTags result = null;
         int lastDistance = Integer.MAX_VALUE;
         name = SearchIndexUtils.normalize(name);

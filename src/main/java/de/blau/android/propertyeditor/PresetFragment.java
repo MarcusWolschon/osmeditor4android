@@ -127,7 +127,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         OsmElement element = (OsmElement) getArguments().getSerializable(ELEMENT);
         type = element.getType();
         Preset[] presets = App.getCurrentPresets(getActivity());
-        Log.d(DEBUG_TAG, "presets size " + (presets == null ? " is null" : presets.length));
+        Log.d(DEBUG_TAG, "presets size " + presets.length);
         paneMode = getArguments().getBoolean(PANE_MODE);
         @SuppressWarnings("unchecked")
         List<PresetElementPath> alternateRootPaths = (ArrayList<PresetElementPath>) getArguments().getSerializable(ALTERNATE_ROOT_PATHS);
