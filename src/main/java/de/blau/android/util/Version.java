@@ -79,7 +79,7 @@ public class Version {
      */
     public boolean isNewVersion() {
         if (isNewInstall()) {
-            return true;
+            return false;
         }
         Version last = new Version(lastVersion);
         return last.major != major || (last.major == major && last.minor != minor);

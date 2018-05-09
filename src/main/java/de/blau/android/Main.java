@@ -433,6 +433,10 @@ public class Main extends FullScreenAppCompatActivity
     // true if we have a camera
     private boolean haveCamera = false;
 
+    private boolean newInstall    = false;
+    private boolean newVersion    = false;
+    private boolean showBoxPicker = false;
+
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
      */
@@ -580,8 +584,9 @@ public class Main extends FullScreenAppCompatActivity
 
         // check if first time user and display something if yes
         Version version = new Version(this);
-        boolean newInstall = version.isNewInstall();
-        boolean newVersion = version.isNewVersion();
+        newInstall = version.isNewInstall();
+        newVersion = version.isNewVersion();
+        version.save();
 
         loadOnResume = false;
 
@@ -600,52 +605,14 @@ public class Main extends FullScreenAppCompatActivity
             // Start loading after resume to ensure loading dialog can be
             // removed afterwards
             loadOnResume = true;
-        } else { // the following code should likely be moved to onStart or
-                 // onResume
-            if (geoData == null && rcData == null && App.getDelegator().isEmpty()) {
-                // check if we have a position
-                Location loc = getLastLocation();
-                BoundingBox box = null;
-                if (loc != null) {
-                    try {
-                        box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
-                    } catch (OsmException e) {
-                        ACRAHelper.nocrashReport(e, e.getMessage());
-                    }
-                } else { // create a largish bb centered on 51.48,0
-                    try {
-                        box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false);
-                    } catch (OsmException e) {
-                        ACRAHelper.nocrashReport(e, e.getMessage());
-                    }
-                }
-                if (box == null) {
-                    box = ViewBox.getMaxMercatorExtent(); // max possible size
-                }
-                openEmptyMap(new ViewBox(box));
-
-                // only show box picker if we are not showing welcome dialog
-                if (!(newInstall || newVersion)) {
-                    gotoBoxPicker();
-                }
-            }
         }
 
         easyEditManager = new EasyEditManager(this);
 
         haveCamera = checkForCamera(); // we recall this in onResume just to be
                                        // safe
+        showBoxPicker = geoData == null && rcData == null && App.getDelegator().isEmpty();
 
-        // show welcome dialog
-        if (newInstall) {
-            // newbie, display welcome dialog
-            Log.d(DEBUG_TAG, "showing welcome dialog");
-            Newbie.showDialog(this);
-        } else if (newVersion) {
-            Log.d(DEBUG_TAG, "new version");
-            NewVersion.showDialog(this);
-        }
-        version.save();
     }
 
     /**
@@ -725,8 +692,6 @@ public class Main extends FullScreenAppCompatActivity
 
         App.initGeoContext(this);
 
-        checkPermissions();
-
         // register received for changes in connectivity
         IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         connectivityChangedReceiver = new ConnectivityChangedReceiver();
@@ -778,6 +743,7 @@ public class Main extends FullScreenAppCompatActivity
             public void onError() {
             }
         };
+        Log.e(DEBUG_TAG, "redownloadOnResume " + redownloadOnResume + " loadOnResume " + loadOnResume + " newInstall " + newInstall);
         synchronized (loadOnResumeLock) {
             if (redownloadOnResume) {
                 redownloadOnResume = false;
@@ -802,7 +768,12 @@ public class Main extends FullScreenAppCompatActivity
                 };
                 logic.loadStateFromFile(this, postLoadData);
                 logic.loadBugsFromFile(this, postLoadTasks);
-                logic.loadLayerState(this, null);
+                checkPermissions(new Runnable() {
+                    @Override
+                    public void run() {
+                        logic.loadLayerState(Main.this, null);
+                    }
+                });
             } else { // loadFromFile already does this
                 synchronized (setViewBoxLock) {
                     App.getLogic().loadEditingState(this, setViewBox);
@@ -810,6 +781,57 @@ public class Main extends FullScreenAppCompatActivity
                 logic.loadLayerState(this, null);
                 postLoadData.onSuccess();
                 map.invalidate();
+                if (newInstall) {
+                    newInstall = false;
+                    showBoxPicker = false;
+                    // newbie, display welcome dialog
+                    Log.d(DEBUG_TAG, "showing welcome dialog");
+                    checkPermissions(new Runnable() {
+                        @Override
+                        public void run() {
+                            Newbie.showDialog(Main.this);
+                        }
+                    });
+                } else if (newVersion) {
+                    newVersion = false;
+                    Log.d(DEBUG_TAG, "new version");
+                    checkPermissions(new Runnable() {
+                        @Override
+                        public void run() {
+                            NewVersion.showDialog(Main.this);
+                        }
+                    });
+                } else if (showBoxPicker) {
+                    showBoxPicker = false;
+                    checkPermissions(new Runnable() {
+                        @Override
+                        public void run() {
+                            // check if we have a position
+                            Location loc = getLastLocation();
+                            BoundingBox box = null;
+                            if (loc != null) {
+                                try {
+                                    box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
+                                } catch (OsmException e) {
+                                    ACRAHelper.nocrashReport(e, e.getMessage());
+                                }
+                            } else { // create a largish bb centered on 51.48,0
+                                try {
+                                    box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false);
+                                } catch (OsmException e) {
+                                    ACRAHelper.nocrashReport(e, e.getMessage());
+                                }
+                            }
+                            if (box == null) {
+                                box = ViewBox.getMaxMercatorExtent(); // max possible size
+                            }
+                            openEmptyMap(new ViewBox(box));
+                            gotoBoxPicker();
+                        }
+                    });
+                } else {
+                    checkPermissions(null);
+                }
             }
         }
         synchronized (setViewBoxLock) {
@@ -854,9 +876,11 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Check if we have fine location permission and ask for it if not Side effect binds to TrackerService
+     * Check if we have fine location permission and ask for it if not Side effect: binds to TrackerService
+     * 
+     * @param whenDone run this when finished, use this if you need permissions before an operation is executed
      */
-    private void checkPermissions() {
+    private void checkPermissions(Runnable whenDone) {
         final List<String> permissionsList = new ArrayList<>();
         synchronized (locationPermissionLock) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -896,13 +920,9 @@ public class Main extends FullScreenAppCompatActivity
         if (!permissionsList.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionsList.toArray(new String[permissionsList.size()]), REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
         }
-    }
-
-    /**
-     * Check if we have write to external permission and ask for it if not
-     */
-    void checkStoragePermission() {
-
+        if (whenDone != null) {
+            whenDone.run();
+        }
     }
 
     /**
@@ -3170,7 +3190,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         }
     }
-    
+
     /**
      * If an undo/redo deleted an element we need to resync selection
      * 
@@ -3815,7 +3835,7 @@ public class Main extends FullScreenAppCompatActivity
      * Sets the activity to re-download the last downloaded area on startup (use e.g. when the API URL is changed)
      */
     public static void prepareRedownload() {
-        redownloadOnResume = true;
+        // redownloadOnResume = true;
     }
 
     @Override
