@@ -505,7 +505,7 @@ public class UndoStorage implements Serializable {
          * @return the latitude in WGS84*1E7
          */
         public int getLat() {
-            return lon;
+            return lat;
         }
     }
 
