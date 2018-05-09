@@ -15,7 +15,7 @@ import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.util.SearchIndexUtils;
 
 /**
@@ -43,7 +43,7 @@ public class SynonymsTest {
     public void search() {
         Locale locale = Locale.getDefault();
         Assert.assertEquals(Locale.US.getCountry(), locale.getCountry());
-        List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10);
+        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "raptor", ElementType.NODE, 2, 10);
         Assert.assertTrue(result.size() > 0);
         Assert.assertEquals("Animal shelter", result.get(0).getName());
     }

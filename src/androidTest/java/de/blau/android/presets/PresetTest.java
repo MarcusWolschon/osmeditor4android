@@ -17,6 +17,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
 
@@ -80,7 +81,7 @@ public class PresetTest {
         PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)");
         PresetItem placeFarm = presets[0].getItemByName("Farm");
         Assert.assertNotNull(landuseFarm);
-        List<PresetItem> result = SearchIndexUtils.searchInPresets(main, "farm", ElementType.CLOSEDWAY, 2, 10);
+        List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "farm", ElementType.CLOSEDWAY, 2, 10);
         Assert.assertFalse(result.contains(landuseFarm));
         Assert.assertTrue(result.contains(placeFarm));
     }
