@@ -1219,6 +1219,9 @@ public class Preset implements Serializable {
         StringBuilder result = new StringBuilder();
         for (PresetItem pi : allItems) {
             if (!pi.isChunk()) {
+                if (result.length() != 0) {
+                    result.append(",\n");
+                }
                 result.append(pi.toJSON());
             }
         }
@@ -3125,6 +3128,9 @@ public class Preset implements Serializable {
             String presetName = presetNameBuilder.toString();
             StringBuilder jsonString = new StringBuilder();
             for (Entry<String, StringWithDescription> entry : fixedTags.entrySet()) {
+                if (jsonString.length() != 0) {
+                    jsonString.append(",\n");
+                }
                 jsonString.append(tagToJSON(presetName, entry.getKey(), entry.getValue().getValue()));
             }
             for (Entry<String, StringWithDescription[]> entry : recommendedTags.entrySet()) {
@@ -3133,10 +3139,16 @@ public class Preset implements Serializable {
                 MatchType match = getMatchType(k);
                 PresetKeyType type = getKeyType(k);
                 if (isEditable(k) || type == PresetKeyType.TEXT) {
+                    if (jsonString.length() != 0) {
+                        jsonString.append(",\n");
+                    }
                     jsonString.append(tagToJSON(presetName, k, null));
                 }
                 if (!isEditable(k) && type != PresetKeyType.TEXT && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
                     for (StringWithDescription v : entry.getValue()) {
+                        if (jsonString.length() != 0) {
+                            jsonString.append(",\n");
+                        }
                         jsonString.append(tagToJSON(presetName, k, v.getValue()));
                     }
                 }
@@ -3147,10 +3159,16 @@ public class Preset implements Serializable {
                 MatchType match = getMatchType(k);
                 PresetKeyType type = getKeyType(k);
                 if (isEditable(k) || type == PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
+                    if (jsonString.length() != 0) {
+                        jsonString.append(",\n");
+                    }
                     jsonString.append(tagToJSON(presetName, k, null));
                 }
                 if (!isEditable(k) && type != PresetKeyType.TEXT && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
                     for (StringWithDescription v : entry.getValue()) {
+                        if (jsonString.length() != 0) {
+                            jsonString.append(",\n");
+                        }
                         jsonString.append(tagToJSON(presetName, k, v.getValue()));
                     }
                 }
@@ -3196,7 +3214,7 @@ public class Preset implements Serializable {
                 }
                 result.append("\"area\"");
             }
-            return result.append("]},\n").toString();
+            return result.append("]}").toString();
         }
 
         /**
@@ -3545,12 +3563,13 @@ public class Preset implements Serializable {
 
             outputStream.println("\"tags\":[");
             for (int i = 0; i < presets.length; i++) {
-                String json = presets[i].toJSON();
-                if (i == presets.length - 1) {
-                    int comma = json.lastIndexOf(',');
-                    json = json.substring(0, comma);
+                if (presets[i] != null) {
+                    if (i != 0) {
+                        outputStream.print(",\n");
+                    }
+                    String json = presets[i].toJSON();
+                    outputStream.print(json);
                 }
-                outputStream.print(json);
             }
             outputStream.println("]}");
         } catch (Exception e) {
