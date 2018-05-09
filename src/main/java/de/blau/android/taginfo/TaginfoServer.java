@@ -43,9 +43,9 @@ public class TaginfoServer {
      * 
      */
     public static class SearchResult {
-        public String key;
-        public String value;
-        public int    count = 0;
+        private String key;
+        private String value;
+        private int    count = 0;
 
         SearchResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {
             reader.beginObject();
@@ -73,19 +73,40 @@ public class TaginfoServer {
         public String toString() {
             return key + "=" + value + " (" + count + ")";
         }
+
+        /**
+         * @return the key
+         */
+        public String getKey() {
+            return key;
+        }
+
+        /**
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        /**
+         * @return the count
+         */
+        public int getCount() {
+            return count;
+        }
     }
 
     public static class WikiPageResult {
-        public boolean      onNode        = false;
-        public boolean      onWay         = false;
-        public boolean      onArea        = false;
-        public boolean      onRelation    = false;
-        public String       description   = null;
-        public String       descriptionEN = null;
-        public String       title         = null;
-        public String       titleEN       = null;
-        public String       titleOther    = null;
-        public List<String> combinations  = new ArrayList<>();
+        private boolean      onNode        = false;
+        private boolean      onWay         = false;
+        private boolean      onArea        = false;
+        private boolean      onRelation    = false;
+        private String       description   = null;
+        private String       descriptionEN = null;
+        private String       title         = null;
+        private String       titleEN       = null;
+        private String       titleOther    = null;
+        private List<String> combinations  = new ArrayList<>();
 
         WikiPageResult(@NonNull JsonReader reader, String lang) throws IOException {
 
@@ -165,6 +186,76 @@ public class TaginfoServer {
             reader.endObject();
         }
 
+        /**
+         * @return the onNode
+         */
+        public boolean isOnNode() {
+            return onNode;
+        }
+
+        /**
+         * @return the onWay
+         */
+        public boolean isOnWay() {
+            return onWay;
+        }
+
+        /**
+         * @return the onArea
+         */
+        public boolean isOnArea() {
+            return onArea;
+        }
+
+        /**
+         * @return the onRelation
+         */
+        public boolean isOnRelation() {
+            return onRelation;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @return the descriptionEN
+         */
+        public String getDescriptionEN() {
+            return descriptionEN;
+        }
+
+        /**
+         * @return the title
+         */
+        public String getTitle() {
+            return title;
+        }
+
+        /**
+         * @return the titleEN
+         */
+        public String getTitleEN() {
+            return titleEN;
+        }
+
+        /**
+         * @return the titleOther
+         */
+        public String getTitleOther() {
+            return titleOther;
+        }
+
+        /**
+         * @return the combinations
+         */
+        public List<String> getCombinations() {
+            return combinations;
+        }
+
         @Override
         public String toString() {
             return titleEN + " / " + title + " / " + titleOther;
@@ -172,7 +263,7 @@ public class TaginfoServer {
     }
 
     public static class ValueResult extends StringWithDescription {
-        int count;
+        private int count;
 
         public ValueResult(String value, String description, int count) {
             super(value, description);
@@ -204,6 +295,13 @@ public class TaginfoServer {
             reader.endObject();
             return new ValueResult(tempValue, tempDescription, tempCount);
 
+        }
+
+        /**
+         * @return the count
+         */
+        int getCount() {
+            return count;
         }
 
         @Override
@@ -509,15 +607,8 @@ public class TaginfoServer {
                 handler.onSuccess();
             }
             return result;
-        } catch (OsmServerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
         } finally {
             SavingHelper.close(reader);
             SavingHelper.close(is);
@@ -549,16 +640,9 @@ public class TaginfoServer {
                         reader = new JsonReader(new InputStreamReader(is));
                         return resultReader.read(reader);
                     }
-                } catch (OsmServerException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } finally {
+                    Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
+                }  finally {
                     SavingHelper.close(reader);
                     SavingHelper.close(is);
                 }
@@ -579,11 +663,9 @@ public class TaginfoServer {
         list.execute();
         try {
             return list.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-        } catch (TimeoutException e) {
-            Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-        }
+        } 
         return null;
     }
 }

@@ -85,41 +85,41 @@ public class AutoPreset {
             for (SearchResult sr : candidateTags) {
                 // remove results with empty values
                 // and presets that we already have
-                if (sr.value != null && !"".equals(sr.value) && !existsInPresets(sr)) {
-                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, sr.key, sr.value, language, null);
+                if (sr.getValue() != null && !"".equals(sr.getValue()) && !existsInPresets(sr)) {
+                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, sr.getKey(), sr.getValue(), language, null);
                     if (wikiPage != null) {
-                        SearchResult stats = TaginfoServer.tagStats(context, sr.key, sr.value);
+                        SearchResult stats = TaginfoServer.tagStats(context, sr.getKey(), sr.getValue());
                         if (stats != null) {
                             Log.d(DEBUG_TAG, "Creating PresetItem for " + wikiPage);
-                            AutoPresetItem item = new AutoPresetItem(preset, group, sr.key + " " + sr.value, sr.key + "_empty.png",
-                                    null, stats.count);
-                            String title = wikiPage.titleOther; // fallback
-                            if (wikiPage.title != null) { // local language
-                                title = wikiPage.title;
-                            } else if (wikiPage.titleEN != null) {
-                                title = wikiPage.titleEN;
+                            AutoPresetItem item = new AutoPresetItem(preset, group, sr.getKey() + " " + sr.getValue(), sr.getKey() + "_empty.png",
+                                    null, stats.getCount());
+                            String title = wikiPage.getTitleOther(); // fallback
+                            if (wikiPage.getTitle() != null) { // local language
+                                title = wikiPage.getTitle();
+                            } else if (wikiPage.getTitleEN() != null) {
+                                title = wikiPage.getTitleEN();
                             }
                             item.setMapFeatures(Urls.OSM_WIKI + title);
-                            if (wikiPage.onNode) {
+                            if (wikiPage.isOnNode()) {
                                 item.setAppliesToNode();
                             }
-                            if (wikiPage.onWay) {
+                            if (wikiPage.isOnWay()) {
                                 item.setAppliesToWay();
                             }
-                            if (wikiPage.onArea) {
+                            if (wikiPage.isOnArea()) {
                                 item.setAppliesToArea();
                             }
-                            if (wikiPage.onRelation) {
+                            if (wikiPage.isOnRelation()) {
                                 item.setAppliesToRelation();
                             }
-                            Log.e(DEBUG_TAG, "adding " + sr.key + " " + sr.value);
-                            item.addTag(sr.key, PresetKeyType.TEXT, sr.value, null);
+                            Log.e(DEBUG_TAG, "adding " + sr.getKey() + " " + sr.getValue());
+                            item.addTag(sr.getKey(), PresetKeyType.TEXT, sr.getValue(), null);
 
-                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, sr.key, sr.value, 10);
+                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, sr.getKey(), sr.getValue(), 10);
                             if (combinationsFromTaginfo != null) {
-                                combinationsFromTaginfo.addAll(wikiPage.combinations);
+                                combinationsFromTaginfo.addAll(wikiPage.getCombinations());
                             } else {
-                                combinationsFromTaginfo = wikiPage.combinations;
+                                combinationsFromTaginfo = wikiPage.getCombinations();
                             }
 
                             Map<String, String> combinations = new HashMap<>();
@@ -167,7 +167,7 @@ public class AutoPreset {
                             }
 
                             // finally add some hardwired keys, depending on the main key
-                            Set<StringWithDescription> hardwiredKeys = HARDWIRED_KEYS.get(sr.key);
+                            Set<StringWithDescription> hardwiredKeys = HARDWIRED_KEYS.get(sr.getKey());
                             if (hardwiredKeys != null) {
                                 for (StringWithDescription swd : hardwiredKeys) {
                                     String key = swd.getValue();
@@ -203,7 +203,7 @@ public class AutoPreset {
      * @return true if we already have this
      */
     private boolean existsInPresets(SearchResult sr) {
-        String tag = sr.key + "\t" + sr.value;
+        String tag = sr.getKey() + "\t" + sr.getValue();
         for (Preset preset : presets) {
             if (preset != null) {
                 Set<PresetItem> existingPresets = preset.getItemByTag(tag);
