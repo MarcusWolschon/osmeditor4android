@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci version is 10.1.
+The current Vespucci version is 10.2. The upcoming version 11 is now in beta-testing.
 
 #### Is Vespucci available for other mobile platforms?
 
