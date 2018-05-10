@@ -6,7 +6,7 @@ theme:
   custom_dir: flatly-custom
   favicon: favicon.ico
 extra:
-  version: 10.0.0
+  version: 10.2.0
   project: Vespucci
 pages:
 - Vespucci: 'index.md'
@@ -37,6 +37,7 @@ pages:
     - 'Preset based filter': 'help/en/Preset filter.md'
     - 'Opening hours': 'help/en/Opening hours.md'           
 - Tutorials and Posts:
+    - '"network" Location Provider Support': 'tutorials/network_location.md'
     - 'Custom imagery': 'tutorials/custom_imagery.md'
     - 'Using name suggestions': 'tutorials/name_suggestions.md'
     - 'Reporting Vespucci issues': 'tutorials/reporting_issues.md'
