@@ -24,7 +24,7 @@ or this command on Windows:
 $ gradlew.bat installDebug
 ```
 
-If you are using Eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless. Run the gradle "eclipse" task to do this.
+If you are using Eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless. Run the gradle "eclipse" task to do this. It should be noted that this is a constant fight against changes in googles build tools and involves rather hackish workarounds
 
 ## Building with gradle and Android Studio
 
@@ -70,6 +70,6 @@ Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discar
 
 Automated testing has come relatively late to Vespucci, however we have made large advances in improving the coverage in 2017. Note: the on-device tests will typically fail the first time if Vespucci was already installed on the device (due to previous state being loaded). Either de-install or simply run the tests twice.
 
-Currently the intents test is fairly brittle you may need to intervene manually, tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set. 
+Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later.
 
 On an Intel based emulator the tests currently take something around 25 minutes to complete.
