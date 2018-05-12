@@ -53,15 +53,15 @@
   <string name="file_write_failed_title">Сбой записи в файл</string>
   <string name="file_write_failed_message">Не удалось записать в выбранный файл.</string>
   <string name="welcome_title">Добро пожаловать!</string>
-  <string name="welcome_message">Спасибо, что используете Vespucci.\n\nЧтобы начать, достаточно знать следующее:\n\n* Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (открыт) и блокировки правок.\n\n* Чтобы добавить новый объект: длинное нажатие, а затем короткое в этом же месте создаст точку; последующее нажатие в другом месте создаёт линию.\n\nНе забудьте скачать область, которую собираетесь редактировать.\n\nУспехов!</string>
+  <string name="welcome_message">Спасибо, что используете Vespucci.\n\nЧтобы начать, достаточно знать следующее:\n\n* Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (открыт) и блокировки правок.\n\n* Чтобы добавить новый объект: длинное нажатие, а затем короткое в этом же месте создаст точку; последующее нажатие в другом месте создаёт линию.\n\nНе забудьте загрузить область, которую собираетесь редактировать.\n\nУспехов!</string>
   <string name="welcome_message_fullscreen">\n\nVespucci обнаружил, что ваше устройство имеет настраиваемые кнопки (\"soft keys\") и скрыл их. Пролистывание от нижнего края покажет их снова.</string>
   <string name="read_introduction">Читать введение сейчас</string>
   <string name="upgrade_title">Добро пожаловать в новую версию Vespucci!</string>
   <string name="upgrade_message">Это новая версия Vespucci с новыми функциями и поведением. Ознакомьтесь, пожалуйста, с информацией об обновлении.</string>
   <string name="read_upgrade">Прочитать о новой версии</string>
-  <string name="progress_title">Скачивание</string>
+  <string name="progress_title">Загрузка</string>
   <string name="progress_message">Загрузка данных в память…</string>
-  <string name="progress_download_message">Скачивание данных с сервера…</string>
+  <string name="progress_download_message">Загрузка данных с сервера…</string>
   <string name="progress_general_title">Подождите</string>
   <string name="progress_deleting_message">Удаление...</string>
   <string name="progress_searching_message">Поиск…</string>
@@ -145,6 +145,7 @@
   <string name="attached_object_warning_stop">Понятно, больше не показывать это сообщение</string>
   <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
+  <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
   <string name="js_console_msg_debug">Режим отладки!</string>
   <!--Validator dialogs-->
@@ -192,7 +193,7 @@
   <string name="toast_upload_success">Передача на сервер OSM завершена.</string>
   <string name="toast_not_in_edit_range">Пожалуйста, увеличьте масштаб для редактирования  (Громкость +/- или Движок масштаба)</string>
   <string name="toast_unlock_to_edit">Разблокируйте для редактирования</string>
-  <string name="toast_edit_outside_downloaded_area">Вы не можете редактировать за пределами скачанной области.</string>
+  <string name="toast_edit_outside_downloaded_area">Вы не можете редактировать за пределами загруженной области.</string>
   <string name="toast_save_done">Сохранено успешно</string>
   <string name="toast_save_failed">Не удалось сохранить</string>
   <string name="toast_not_in_bug_range">Пожалуйста, увеличьте масштаб для добавления заметки (Громкость +/- или Движок масштаба)</string>
@@ -362,7 +363,7 @@
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
   <string name="tag_restriction_value_hint">условное ограничение</string>
   <!--Strings in LocationPicker-->
-  <string name="location_headline">Область скачивания</string>
+  <string name="location_headline">Область для загрузки</string>
   <string name="location_choose_radius">Выберите радиус:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Последняя определенная позиция:</string>
@@ -419,7 +420,7 @@
   <string name="menu_gps_autodownload">Автозагрузка</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
-  <string name="menu_transfer_download_current_add">Добавить текущее место</string>
+  <string name="menu_transfer_download_current_add">Добавить текущее место к загруженному</string>
   <string name="menu_transfer_download_other">Загрузить другое место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
@@ -457,7 +458,7 @@
   <string name="menu_set_name">Задать название</string>
   <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
   <string name="menu_tools">Инструменты</string>
-  <string name="menu_tools_imagery">Другие настройки снимков</string>
+  <string name="menu_tools_imagery">Настроить снимки</string>
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
   <string name="menu_tools_flush_background_tile_cache">Очистить базу подложки карты</string>
   <string name="menu_tools_flush_overlay_tile_cache">Очистить базу наложений карты</string>
@@ -475,7 +476,7 @@
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
-  <string name="menu_tools_oauth_reset">Сброс OAuth</string>
+  <string name="menu_tools_oauth_reset">Сбросить OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизоваться через OAuth</string>
   <string name="menu_enable_tagfilter">Фильтр тегов</string>
   <string name="menu_enable_presetfilter">Фильтр заготовок</string>
@@ -520,9 +521,9 @@
   <string name="config_category_view">Настройки интерфейса пользователя</string>
   <string name="config_showCameraAction_title">Камера на панели действий</string>
   <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий</string>
-  <string name="config_generateAlerts_title">Показывать уведомления</string>
+  <string name="config_generateAlerts_title">Уведомления</string>
   <string name="config_generateAlerts_summary">Показывать уведомления о данных с проблемами или заметками</string>
-  <string name="config_voiceCommandsEnabled_title">Разрешить голосовые команды</string>
+  <string name="config_voiceCommandsEnabled_title">Голосовые команды</string>
   <string name="config_voiceCommandsEnabled_summary">Активировать экспериментальную поддержку голосовых команд</string>
   <string name="config_maxAlertDistance_title">Макс. расстояние для уведомлений</string>
   <string name="config_maxAlertDistance_summary">Максимальное расстояние до заметки или проблемы от текущей позиции, на котором ещё показываются уведомления</string>
@@ -530,19 +531,19 @@
   <string name="config_maxStrokeWidth_title">Макс. ширина линии</string>
   <string name="config_maxStrokeWidth_summary">Не рисовать линию толще, чем эта</string>
   <string name="config_maxStrokeWidth_current">%1$d пикс.</string>
-  <string name="config_showStats_title">Показать статистику</string>
-  <string name="config_showStats_summary">Отображать быстродействие кадр/сек. в нижнем левом углу.</string>
-  <string name="config_showTolerance_title">Показать захват</string>
+  <string name="config_showStats_title">Статистика</string>
+  <string name="config_showStats_summary">Отображать быстродействие кадр/сек. в левом нижнем углу</string>
+  <string name="config_showTolerance_title">Область выбора</string>
   <string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент.</string>
-  <string name="config_enableAntiAliasing_title">Включить сглаживание</string>
-  <string name="config_enableAntiAliasing_summary">Сглаживает линии.</string>
+  <string name="config_enableAntiAliasing_title">Сглаживание</string>
+  <string name="config_enableAntiAliasing_summary">Сглаживать линии карты на экране</string>
   <string name="config_enableOpenStreetBugs_title">Ошибки и заметки</string>
   <string name="config_enableOpenStreetBugs_summary">Показывать, редактировать и создавать заметки/ошибки.</string>
-  <string name="config_enablePhotoLayer_title">Включить слой фото</string>
+  <string name="config_enablePhotoLayer_title">Слой фотоснимков</string>
   <string name="config_enablePhotoLayer_summary">Показывать гео-привязанные фото</string>
-  <string name="config_enableKeepScreenOn_title">Не гасить экран</string>
+  <string name="config_enableKeepScreenOn_title">Блокировка экрана</string>
   <string name="config_enableKeepScreenOn_summary">Не отключать экран для сохранения энергии.</string>
-  <string name="config_closeChangesetOnSave_title">Закрывать наборы изменений</string>
+  <string name="config_closeChangesetOnSave_title">Закрытие изменений</string>
   <string name="config_closeChangesetOnSave_summary">Закрывать наборы изменений по умолчанию при сохранении</string>
   <string name="config_backgroundLayer_title">Фоновая карта</string>
   <string name="config_backgroundLayer_summary">Растровая фоновая карта.</string>
@@ -552,7 +553,7 @@
   <string name="config_scale_summary">Тип шкалы, показываемой на карте</string>
   <string name="config_category_server">Настройки входа</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Здесь вы можете задать нестандартный API URL. Обычно не требует изменения!</string>
+  <string name="config_apibutton_summary">Нестандартный URL для API. Обычно не требуется!</string>
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Использовать oauth</string>
   <string name="listedit_enable_oauth">Включить OAuth</string>
@@ -567,10 +568,10 @@
   <string name="config_showWayIcons_title">Значки POI на зданиях</string>
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_loginbutton_title">Учётная запись</string>
-  <string name="config_username_title">Логин на сервер OSM</string>
+  <string name="config_username_title">Имя пользователя для сервера OSM</string>
   <string name="config_username_summary">Настройка необходима для передачи OSM-данных на сервер, только если вы не используете OAuth. Аккаунты доступны на http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Пароль на сервер OSM</string>
-  <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните: Он хранится и передается незашифрованным!</string>
+  <string name="config_password_title">Пароль для сервера OSM</string>
+  <string name="config_password_summary">Не перепутайте его с паролем для Wiki. Помните, он хранится и передается в незашифрованном виде!</string>
   <string name="config_category_gps">Настройки местоположения</string>
   <string name="config_gps_distance_title">Радиус опроса GPS</string>
   <string name="config_gps_distance_summary">Минимальный интервал для опроса GPS в метрах. Меньшее значение приводит к большему расходу аккумулятора.</string>
@@ -582,7 +583,7 @@
   <string name="config_gps_network_summary">Если GPS не доступен или не разрешен, пробовать определять приблизительное местоположение по сотовой сети</string>
   <string name="config_category_info">О программе</string>
   <string name="config_advancedprefs">Расширенные настройки</string>
-  <string name="config_forceContextMenu_title">Использовать контекстное меню</string>
+  <string name="config_forceContextMenu_title">Контекстное меню</string>
   <string name="config_forceContextMenu_summary">Всегда показывать контекстное меню в режиме редактирования, если выбор элементов неоднозначен.</string>
   <string name="config_licensebutton_title">Авторы и лицензии</string>
   <string name="config_licensebutton_summary">Показать информацию об авторах и лицензии</string>
@@ -592,7 +593,7 @@
   <string name="config_mapProfile_summary">Управление стилем и видимостью элементов</string>
   <string name="config_use_back_for_undo_title">Кнопка Назад для отмены</string>
   <string name="config_use_back_for_undo_summary">Использовать клавишу Назад для отмены в главном окне редактирования</string>
-  <string name="config_largeDragArea_title">Большая область захвата точек для перемещения</string>
+  <string name="config_largeDragArea_title">Перемещение точек</string>
   <string name="config_largeDragArea_summary">Разрешить перемещать точки на большие расстояния</string>
   <string name="config_extTriggeredDownloadRadius_title">Радиус загрузки</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радиус (м) активируемой извне загрузки, 0 = только центр карты.</string>
@@ -602,29 +603,29 @@
   <string name="config_downloadSpeed_current">%1$d км/ч</string>
   <string name="config_bugDownloadRadius_title">Радиус загрузки заметок и ошибок</string>
   <string name="config_bugDownloadRadius_summary">Радиус (м) загрузки заметок и ошибок</string>
-  <string name="config_maxBugDownloadSpeed_title">Максимальная скорость для автозагрузки заметок и ошибок</string>
+  <string name="config_maxBugDownloadSpeed_title">Макс. скорость загрузки заметок и ошибок</string>
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок и ошибок приостанавливается</string>
   <string name="config_bugFilter_title">Фильтр заметок и ошибок</string>
   <string name="config_bugFilter_summary">Выбор элементов, которые будут отображаться на слое заметок и ошибок</string>
-  <string name="config_enableNameSuggestions_title">Разрешить предложения названий</string>
+  <string name="config_enableNameSuggestions_title">Предложения для названий</string>
   <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
-  <string name="config_enableAutoPreset_title">Включить автонастройку</string>
+  <string name="config_enableAutoPreset_title">Автонастройка</string>
   <string name="config_enableAutoPreset_summary">Автоматически добавлять заготовку когда предложение выбрано</string>
-  <string name="config_splitActionBarEnabled_title">Включить разделённую панель действий</string>
+  <string name="config_splitActionBarEnabled_title">Разделить панель действий</string>
   <string name="config_splitActionBarEnabled_summary">Позволяет использовать разделённую панель действий, зависит от модели устройства. Требуется перезапуск и Android версии &gt;= 4.0</string>
   <string name="config_gps_source_title">Источник GPS</string>
   <string name="config_gps_source_summary">Источник обновления GPS-координат</string>
-  <string name="config_gps_source_tcp_title">Сетевой источник NMEA</string>
-  <string name="config_gps_source_tcp_summary">Адрес источника TCP NMEA в виде хост:порт</string>
-  <string name="config_leaveGpsDisabled_title">Не использовать GPS</string>
+  <string name="config_gps_source_tcp_title">Внешний источник NMEA</string>
+  <string name="config_gps_source_tcp_summary">Сетевой IP-адрес источника NMEA в виде хост:порт</string>
+  <string name="config_leaveGpsDisabled_title">Выключение GPS</string>
   <string name="config_leaveGpsDisabled_summary">Не предлагать включить GPS, если пользователь его отключил</string>
-  <string name="config_enableLightTheme_title">Включить светлую тему</string>
-  <string name="config_enableLightTheme_summary">Светлая тема с белым фоном</string>
+  <string name="config_enableLightTheme_title">Светлая тема</string>
+  <string name="config_enableLightTheme_summary">Светлое оформление с белым фоном</string>
   <string name="config_category_misc">Разное</string>
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
-  <string name="config_moreprefs">Другие настройки...</string>
-  <string name="config_tagFormEnabled_title">Показывать форму тега</string>
+  <string name="config_moreprefs">Другие настройки</string>
+  <string name="config_tagFormEnabled_title">Формы тега</string>
   <string name="config_tagFormEnabled_summary">Показывать форму тега для редактирования</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
   <string name="config_followGPSbutton_summary">Где будет расположена кнопка «следовать GPS» </string>
@@ -640,7 +641,7 @@
   <string name="config_tileCacheSize_title">Размер базы</string>
   <string name="config_tileCacheSize_summary">Общий размер базы подложки карты в МБ</string>
   <string name="config_tileCache_current">%1$d МБ</string>
-  <string name="config_notificationCacheSize_title">Макс. число показываемых оповещений</string>
+  <string name="config_notificationCacheSize_title">Макс. число уведомлений</string>
   <string name="config_notificationCacheSize_summary">Максимальное число показываемых уведомлений для каждого типа (минимально 1)</string>
   <string name="config_notificationCacheSize_current">%1$d уведомлений</string>
   <string name="config_autoLockDelay_title">Время автоблокировки</string>
@@ -650,7 +651,7 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">Если установлено, незагруженные области будут затемнены в заблокированном режиме</string>
   <string name="config_geocoderbutton_title">Настройки геокодирования</string>
   <string name="config_geocoderbutton_summary">Добавить, изменить или удалить геокодер для поиска местоположений</string>
-  <string name="config_js_console_title">Включить консоль JS</string>
+  <string name="config_js_console_title">Консоль JS</string>
   <string name="config_js_console_summary">Разрешить консоль JS в \"живом\" режиме</string>
   <string name="config_validatorprefs_title">Настройки проверок</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
@@ -676,7 +677,7 @@
   <string name="urldialog_preset_exists">Эта заготовка уже существует</string>
   <string name="urldialog_preset_download_successful">Заготовка успешно загружена!</string>
   <string name="urldialog_api_exists">API с таким же URL уже существует. Однако, вы можете добавить ещё (например, чтобы упростить переключение между учётными записями).</string>
-  <string name="urldialog_api_preset_missing">Заготовка, используемая API, недоступна. Её сперва необходимо скачать.</string>
+  <string name="urldialog_api_preset_missing">Заготовка, используемая API, недоступна. Сперва её необходимо загрузить.</string>
   <string name="urldialog_api_install_successful">API успешно установлено!</string>
   <string name="urldialog_add_api">Добавить API</string>
   <string name="urldialog_nodata_text">Конфигурационный URL не содержит корректных данных.</string>
@@ -738,14 +739,14 @@
   <string name="undo_action_fix_conflict">исправить конфликт</string>
   <string name="undo_action_extract_node">извлечь точку</string>
   <!--ACRA-->
-  <string name="crash_dialog_text">Vespucci упал, либо нашёл серьёзную проблему при последнем запуске.\n\nПожалуйста, помогите нам, оправив отчёт о ошибке - всё, что вам требуется, это нажать \'OK\'.\n</string>
+  <string name="crash_dialog_text">Vespucci обнаружил серьёзный сбой при последнем запуске.\n\nПожалуйста, помогите нам, оправив отчёт о ошибке - всё, что вам требуется, это нажать \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Поделитесь другой информацией которая может помочь по вашему мнению и (необязательно) ваш e-mail адрес если вы хотите обратный ответ.\n\nСпасибо!</string>
   <string name="report_success">Отчет успешно отправлен!</string>
   <string name="report_failure">Ошибка отправки отчета!</string>
   <string name="config_category_acra">Отчёт о сбое</string>
-  <string name="pref_enable_acra">Сообщать о сбоях</string>
-  <string name="pref_acra_enabled">Отчёты о сбоях разрешены</string>
-  <string name="pref_acra_disabled">Отчёты о сбоях не разрешены</string>
+  <string name="pref_enable_acra">Отчёты о сбоях</string>
+  <string name="pref_acra_enabled">Отправлять отчёты о сбоях в приложении</string>
+  <string name="pref_acra_disabled">Не отправлять отчёты о сбоях в приложении</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Эта операция создаст линию с очень большим числом точек.</string>
   <!--Notifications-->
@@ -808,7 +809,7 @@
   <string-array name="followGPSbutton_entries">
     <item>Слева</item>
     <item>Справа</item>
-    <item>Никак</item>
+    <item>Нет</item>
   </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Авто</item>

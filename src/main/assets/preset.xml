@@ -8877,7 +8877,7 @@
             <key key="man_made" value="embankment" />
         </item> <!-- Embankment -->
         <separator/>
-        <item name="Pipeline" icon="presets/path.png" type="way" preset_name_label="true">
+        <item name="Pipeline" icon="icons/png/man_made_pipeline.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=pipeline"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:man_made=pipeline"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=pipeline"
@@ -8891,7 +8891,7 @@
             <reference ref="operator_substance" />
             <combo key="location" text="Location" values="underground,underwater,overground" values_context="pipeline" />
         </item> <!-- Pipeline -->
-        <item name="Pipeline Marker" icon="styles/standard/misc/pipeline_marker.svg" type="node" preset_name_label="true">
+        <item name="Pipeline Marker" icon="icons/png/man_made_pipeline_marker.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:pipeline=marker"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:pipeline=marker"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:pipeline=marker"
@@ -8902,7 +8902,7 @@
             <reference ref="operator_substance" />
             <reference ref="support" />
         </item> <!-- Pipeline Marker -->
-        <item name="Pipeline Valve" icon="styles/standard/misc/valve.svg" type="node" preset_name_label="true">
+        <item name="Pipeline Valve" icon="icons/png/man_made_pipeline_valve.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:pipeline=valve"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:pipeline=valve"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:pipeline=valve" />
@@ -10014,7 +10014,7 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Cheese -->
-        <item name="Frozen food" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Frozen food" icon="icons/png/shopping_frozen_food.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=frozen_food"
                   ca.href="http://wiki.openstreetmap.org/wiki/Ca:Tag:shop=frozen_food"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=frozen_food"
