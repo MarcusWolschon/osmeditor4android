@@ -1,15 +1,18 @@
 package de.blau.android;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.acra.ACRA;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -102,9 +105,19 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
     private static final int MIN_WIDTH = 50;
 
+    private static final String TITLE_KEY = "title";
+
     Button   loadMapButton;
     EditText latEdit;
     EditText lonEdit;
+
+    public static void startForResult(@NonNull Activity activity, int titleResId, int requestCode) {
+        Log.d(DEBUG_TAG, "startForResult");
+        Intent intent = new Intent(activity, BoxPicker.class);
+
+        intent.putExtra(TITLE_KEY, Integer.valueOf(titleResId));
+        activity.startActivityForResult(intent, requestCode);
+    }
 
     /**
      * Registers some listeners, sets the content view and initialize {@link #currentRadius}.</br>
@@ -118,6 +131,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         }
 
         super.onCreate(savedInstanceState);
+
+        int title = R.string.menu_transfer_download_other;
+        Serializable arg = getIntent().getSerializableExtra(TITLE_KEY);
+        if (arg != null && arg instanceof Integer) {
+            title = (Integer) arg;
+        }
+
         setContentView(R.layout.location_picker_view);
 
         // Load Views
@@ -183,6 +203,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setTitle(title);
     }
 
     @Override

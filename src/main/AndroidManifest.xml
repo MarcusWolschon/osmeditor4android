@@ -68,7 +68,6 @@
 		<activity
 			android:name="BoxPicker"
 			android:theme="@style/Theme.AppCompat"
-			android:label="@string/menu_transfer_download_other"
 		/>
 		<activity
 			android:name=".propertyeditor.PropertyEditor"

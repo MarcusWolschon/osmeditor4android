@@ -433,9 +433,8 @@ public class Main extends FullScreenAppCompatActivity
     // true if we have a camera
     private boolean haveCamera = false;
 
-    private boolean newInstall    = false;
-    private boolean newVersion    = false;
-    private boolean showBoxPicker = false;
+    private boolean newInstall = false;
+    private boolean newVersion = false;
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -610,9 +609,6 @@ public class Main extends FullScreenAppCompatActivity
         easyEditManager = new EasyEditManager(this);
 
         haveCamera = checkForCamera(); // we recall this in onResume just to be
-                                       // safe
-        showBoxPicker = geoData == null && rcData == null && App.getDelegator().isEmpty();
-
     }
 
     /**
@@ -743,7 +739,6 @@ public class Main extends FullScreenAppCompatActivity
             public void onError() {
             }
         };
-        Log.e(DEBUG_TAG, "redownloadOnResume " + redownloadOnResume + " loadOnResume " + loadOnResume + " newInstall " + newInstall);
         synchronized (loadOnResumeLock) {
             if (redownloadOnResume) {
                 redownloadOnResume = false;
@@ -783,7 +778,6 @@ public class Main extends FullScreenAppCompatActivity
                 map.invalidate();
                 if (newInstall) {
                     newInstall = false;
-                    showBoxPicker = false;
                     // newbie, display welcome dialog
                     Log.d(DEBUG_TAG, "showing welcome dialog");
                     checkPermissions(new Runnable() {
@@ -799,34 +793,6 @@ public class Main extends FullScreenAppCompatActivity
                         @Override
                         public void run() {
                             NewVersion.showDialog(Main.this);
-                        }
-                    });
-                } else if (showBoxPicker) {
-                    showBoxPicker = false;
-                    checkPermissions(new Runnable() {
-                        @Override
-                        public void run() {
-                            // check if we have a position
-                            Location loc = getLastLocation();
-                            BoundingBox box = null;
-                            if (loc != null) {
-                                try {
-                                    box = GeoMath.createBoundingBoxForCoordinates(loc.getLatitude(), loc.getLongitude(), DEFAULT_BOUNDING_BOX_RADIUS, true);
-                                } catch (OsmException e) {
-                                    ACRAHelper.nocrashReport(e, e.getMessage());
-                                }
-                            } else { // create a largish bb centered on 51.48,0
-                                try {
-                                    box = GeoMath.createBoundingBoxForCoordinates(51.48, 0, DEFAULT_BOUNDING_BOX_RADIUS, false);
-                                } catch (OsmException e) {
-                                    ACRAHelper.nocrashReport(e, e.getMessage());
-                                }
-                            }
-                            if (box == null) {
-                                box = ViewBox.getMaxMercatorExtent(); // max possible size
-                            }
-                            openEmptyMap(new ViewBox(box));
-                            gotoBoxPicker();
                         }
                     });
                 } else {
@@ -1833,7 +1799,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_transfer_download_other:
-            gotoBoxPicker();
+            gotoBoxPicker(R.string.menu_transfer_download_other);
             return true;
 
         case R.id.menu_transfer_upload:
@@ -2954,13 +2920,13 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Starts the LocationPicker activity for requesting a location.
      */
-    public void gotoBoxPicker() {
+    public void gotoBoxPicker(int titleResId) {
         descheduleAutoLock();
-        Intent intent = new Intent(this, BoxPicker.class);
         if (App.getLogic().hasChanges()) {
+            Intent intent = new Intent(this, BoxPicker.class);
             DataLossActivity.showDialog(this, intent, REQUEST_BOUNDING_BOX);
         } else {
-            startActivityForResult(intent, REQUEST_BOUNDING_BOX);
+            BoxPicker.startForResult(this, titleResId, REQUEST_BOUNDING_BOX);
         }
     }
 

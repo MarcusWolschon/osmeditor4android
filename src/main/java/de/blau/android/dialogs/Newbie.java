@@ -74,7 +74,7 @@ public class Newbie extends DialogFragment {
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
         }
-        main = (Main)context;
+        main = (Main) context;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Newbie extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 Main main = (Main) getActivity();
                 if (main != null) {
-                    main.gotoBoxPicker();
+                    main.gotoBoxPicker(R.string.boxpicker_firsttimetitle);
                 } else {
                     // FIXME do something intelligent here
                     Log.e(DEBUG_TAG, "getActivity returned null in onClick");

@@ -216,6 +216,8 @@
     <string name="undo_redo_one">Just the selected checkpoint (unsafe)</string>
     <string name="undo_all">Undo all later checkpoints (safe)</string>
     <string name="redo_all">Redo all earlier checkpoints (safe)</string>
+    <!--  BoxPicker -->
+    <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>
