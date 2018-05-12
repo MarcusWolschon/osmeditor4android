@@ -599,6 +599,22 @@ public class Server {
      * @throws OsmServerException
      */
     public static InputStream openConnection(@Nullable final Context context, @NonNull URL url) throws IOException, OsmServerException {
+        return openConnection(context, url, TIMEOUT, TIMEOUT);
+    }
+
+    /**
+     * Given an URL, open the connection and return the InputStream
+     * 
+     * @param context Android context
+     * @param url the URL
+     * @param connectTimeout connection timeout in ms
+     * @param readTimeout read timeout in ms
+     * @return the InputStream
+     * @throws IOException
+     * @throws OsmServerException
+     */
+    public static InputStream openConnection(@Nullable final Context context, @NonNull URL url, int connectTimeout, int readTimeout)
+            throws IOException, OsmServerException {
         Log.d(DEBUG_TAG, "get input stream for  " + url.toString());
 
         Request request = new Request.Builder().url(url).build();

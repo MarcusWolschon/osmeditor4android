@@ -3,7 +3,6 @@ package de.blau.android.taginfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.PostAsyncActionHandler;
-import de.blau.android.exception.OsmServerException;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.SavingHelper;
@@ -598,7 +596,7 @@ public class TaginfoServer {
         JsonReader reader = null;
         Object result = null;
         try {
-            is = Server.openConnection(context, new URL(url));
+            is = Server.openConnection(context, new URL(url), 1000, 1000);
             if (is != null) {
                 reader = new JsonReader(new InputStreamReader(is));
                 result = resultReader.read(reader);
@@ -606,6 +604,7 @@ public class TaginfoServer {
             if (result != null && handler != null) {
                 handler.onSuccess();
             }
+            Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List)result).size() : "1") + " results");
             return result;
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
@@ -635,7 +634,7 @@ public class TaginfoServer {
                 InputStream is = null;
                 JsonReader reader = null;
                 try {
-                    is = Server.openConnection(context, new URL(url));
+                    is = Server.openConnection(context, new URL(url), 1000, 1000);
                     if (is != null) {
                         reader = new JsonReader(new InputStreamReader(is));
                         return resultReader.read(reader);

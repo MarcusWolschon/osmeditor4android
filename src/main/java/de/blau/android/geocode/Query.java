@@ -41,7 +41,7 @@ class Query extends AsyncTask<String, Void, List<SearchResult>> {
     @Override
     protected void onPreExecute() {
         if (activity != null) {
-            progress = ProgressDialog.get(activity, Progress.PROGRESS_LOADING);
+            progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
             progress.show();
         }
     }
@@ -53,15 +53,13 @@ class Query extends AsyncTask<String, Void, List<SearchResult>> {
 
     @Override
     protected void onPostExecute(List<SearchResult> res) {
-        if (activity != null) {
-            try {
-                progress.dismiss();
-            } catch (Exception ex) {
-                Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
-            }
+        try {
+            progress.dismiss();
+        } catch (Exception ex) {
+            Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
         }
     }
-    
+
     /**
      * Show a toast if connection to server has failed
      * 

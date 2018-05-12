@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -33,6 +35,8 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -240,11 +244,23 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ft.commit();
 
         AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
+            private AlertDialog progress = null;
+            private Activity    activity = null;
+
+            @Override
+            protected void onPreExecute() {
+                Activity activity = getActivity();
+                if (activity != null) {
+                    progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
+                    progress.show();
+                }
+            }
+
             @Override
             protected ArrayList<PresetElement> doInBackground(Void... params) {
                 ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, MAX_SEARCHRESULTS));
                 Preferences prefs = new Preferences(getContext());
-                if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnectedOrConnecting()) {
+                if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
                     AutoPreset autoPreset = new AutoPreset(getContext());
                     Preset fromTaginfo = autoPreset.fromTaginfo(term, MAX_SEARCHRESULTS - searchResults.size());
                     for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
@@ -259,6 +275,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
             @Override
             protected void onPostExecute(ArrayList<PresetElement> result) {
+                try {
+                    progress.dismiss();
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                }
                 if (result == null) {
                     Snack.barInfo(getActivity(), R.string.toast_nothing_found);
                     return;
