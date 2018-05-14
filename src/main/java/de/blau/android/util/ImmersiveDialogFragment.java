@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,21 +18,26 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
-
-        // Make the dialog non-focusable before showing it
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            // Make the dialog non-focusable before showing it
+            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+        }
     }
 
     @Override
     public void show(FragmentManager manager, String tag) {
         super.show(manager, tag);
-        showImmersive(manager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            showImmersive(manager);
+        }
     }
 
     @Override
     public int show(FragmentTransaction transaction, String tag) {
         int result = super.show(transaction, tag);
-        showImmersive(getFragmentManager());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            showImmersive(getFragmentManager());
+        }
         return result;
     }
 
