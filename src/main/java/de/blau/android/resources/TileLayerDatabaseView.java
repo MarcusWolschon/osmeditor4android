@@ -158,9 +158,12 @@ public class TileLayerDatabaseView {
      */
     protected static void resetLayer(Context context, SQLiteDatabase db) {
         TileLayerServer.getListsLocked(context, db, true);
-        MapTilesLayer layer = App.getLogic().getMap().getBackgroundLayer();
-        if (layer != null) {
-            layer.getTileProvider().update();
+        Login logic = App.getLogic();
+        if (logic != null) {
+            MapTilesLayer layer = logic.getMap().getBackgroundLayer();
+            if (layer != null) {
+                layer.getTileProvider().update();
+            }
         }
     }
 }
