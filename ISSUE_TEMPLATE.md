@@ -10,7 +10,7 @@ Please note that some components are maintained in upstream repositories and rel
 -->
 
 ## Vespucci Version
-<!-- required, see advanced preference of debug information screen in the preferences -->
+<!-- required, see debug information screen (select debug in main menu) -->
 
 ## Download source
 <!-- from where did you obtain the app? google play store, amazon, f-droid, github, ... -->
