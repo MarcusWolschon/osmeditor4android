@@ -587,6 +587,7 @@ public class TaginfoServer {
      * @param handler a handler to call after the download or null
      * @return an Object that has to be cast to the correct type, or null is something seriously went wrong
      */
+    @SuppressWarnings("rawtypes")
     @Nullable
     public static Object querySync(@NonNull final Context context, @NonNull final String url, @NonNull final ResultReader resultReader,
             @Nullable final PostAsyncActionHandler handler) {
@@ -604,7 +605,7 @@ public class TaginfoServer {
             if (result != null && handler != null) {
                 handler.onSuccess();
             }
-            Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List)result).size() : "1") + " results");
+            Log.d(DEBUG_TAG, "returning " + (result instanceof List ? ((List) result).size() : "1") + " results");
             return result;
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
@@ -641,7 +642,7 @@ public class TaginfoServer {
                     }
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-                }  finally {
+                } finally {
                     SavingHelper.close(reader);
                     SavingHelper.close(is);
                 }
@@ -664,7 +665,7 @@ public class TaginfoServer {
             return list.get(5, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-        } 
+        }
         return null;
     }
 }

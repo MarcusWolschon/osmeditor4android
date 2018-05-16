@@ -24,6 +24,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -61,7 +62,7 @@ public class AutoPreset {
     private final Preset[] presets;
     private final String   language;
 
-    public AutoPreset(Context context) {
+    public AutoPreset(@NonNull Context context) {
         this.context = context;
         presets = App.getCurrentPresets(context);
         Locale locale = Locale.getDefault();
@@ -75,7 +76,8 @@ public class AutoPreset {
      * @param maxResults maximum number of results (ignored)
      * @return a temporary Preset object
      */
-    public Preset fromTaginfo(String term, int maxResults) {
+    @NonNull
+    public Preset fromTaginfo(@NonNull String term, int maxResults) {
         List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, term, -1);
 
         Preset preset = new Preset();
@@ -183,9 +185,12 @@ public class AutoPreset {
                 }
             }
         }
+        List<PresetElement> elements = group.getElements();
+        if (elements.isEmpty()) {
+            return preset;
+        }
         // sort the results
         List<AutoPresetItem> items = new ArrayList<>();
-        List<PresetElement> elements = group.getElements();
         for (PresetElement pe : elements) {
             items.add((AutoPresetItem) pe);
         }
