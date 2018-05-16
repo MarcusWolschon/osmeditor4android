@@ -25,6 +25,6 @@ public abstract class ReadFile implements Serializable {
      * @param uris List of Uri to read
      */
     public void read(List<Uri> uris) {
-        // empty 
+        // empty
     }
 }

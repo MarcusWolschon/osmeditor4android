@@ -660,7 +660,7 @@ public class DataStyle extends DefaultHandler {
         // fp.getPaint().setXfermode(pixelOp);
         fp.dontUpdate();
         featureStyles.put(fp.getName(), fp);
-        
+
         fp = new FeatureStyle(GEOJSON_DEFAULT);
         fp.getPaint().setStyle(Style.STROKE);
         fp.setColor(0x9d00ff00);

@@ -90,7 +90,7 @@ public class Preferences {
     private final String offsetServer;
 
     private final String osmoseServer;
-    
+
     private final String taginfoServer;
 
     private final boolean showCameraAction;
@@ -124,7 +124,7 @@ public class Preferences {
     private final boolean alwaysDrawBoundingBoxes;
 
     private final boolean jsConsoleEnabled;
-    
+
     private final boolean autoPresetsEnabled;
 
     private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
@@ -251,7 +251,7 @@ public class Preferences {
         alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
-        
+
         autoPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableAutoPresets_key), true);
     }
 
@@ -562,7 +562,7 @@ public class Preferences {
     public String getOsmoseServer() {
         return osmoseServer;
     }
-    
+
     /**
      * Get the configured taginfo server
      * 
@@ -726,7 +726,7 @@ public class Preferences {
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
     }
-    
+
     /**
      * Check if auto preset generation is enabled
      * 

@@ -15,7 +15,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
 public class FromElementActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "FromElement...";
+    private static final String DEBUG_TAG   = "FromElement...";
     private Way                 fromWay;
     private Set<OsmElement>     viaElements;
     private boolean             viaSelected = false;
@@ -92,8 +92,7 @@ public class FromElementActionModeCallback extends EasyEditActionModeCallback {
         if (newViaWay != null) {
             // restart via selection
             Snack.barInfo(main, R.string.toast_split_via);
-            main.startSupportActionMode(
-                    new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, fromWay, newViaElements));
+            main.startSupportActionMode(new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, fromWay, newViaElements));
             return true;
         }
         viaSelected = true;

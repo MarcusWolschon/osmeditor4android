@@ -41,7 +41,7 @@ public class StringWithDescriptionAndIcon extends StringWithDescription {
     /**
      * Construct a new instance from object of a known type
      * 
-     * @param object one of StringWithDescriptionAndIcon,  StringWithDescription, ValueWIihCOunt or String
+     * @param object one of StringWithDescriptionAndIcon, StringWithDescription, ValueWIihCOunt or String
      */
     public StringWithDescriptionAndIcon(@NonNull final Object object) {
         super(object);

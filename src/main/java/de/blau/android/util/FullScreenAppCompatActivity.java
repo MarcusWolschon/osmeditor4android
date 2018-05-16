@@ -37,7 +37,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
                     Log.d(DEBUG_TAG, "onSystemUiVisibilityChange " + Integer.toHexString(visibility));
                     if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
                         if (fullScreen) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { 
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 // in immersive mode directly hiding seems to work
                                 hideSystemUI();
                             } else {
@@ -109,7 +109,8 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
             Log.d(DEBUG_TAG, "hiding nav bar");
             int fullScreenMode = (hideStatus ? View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN : 0)
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : 0));
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | fullScreenMode
+                    | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY : 0));
         }
     }
 
@@ -124,7 +125,8 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             String fullScreenPref = prefs.getFullscreenMode();
             if (fullScreenPref.equals(getString(R.string.full_screen_auto))) {
-                fullScreen = hasNavBar(getResources()) || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
+                fullScreen = hasNavBar(getResources())
+                        || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
                 Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                         + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
             } else if (fullScreenPref.equals(getString(R.string.full_screen_never))) {
@@ -141,7 +143,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
         }
         return fullScreen;
     }
-    
+
     /**
      * Test if the device has a navigation bar
      * 
@@ -150,8 +152,7 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
      * @param resources to retrieve the setting from
      * @return true if the device has a navigation bar
      */
-    public boolean hasNavBar(@NonNull Resources resources)
-    {
+    public boolean hasNavBar(@NonNull Resources resources) {
         int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
         return id > 0 && resources.getBoolean(id);
     }

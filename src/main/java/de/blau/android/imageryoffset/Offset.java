@@ -13,28 +13,28 @@ public class Offset implements Serializable { // offsets in WGS84 needed to alig
 
     private double deltaLon = 0;
     private double deltaLat = 0;
-    
+
     /**
      * @return deltaLon
      */
     public double getDeltaLon() {
         return deltaLon;
     }
-    
+
     /**
      * @param deltaLon the deltaLon to set
      */
     public void setDeltaLon(double deltaLon) {
         this.deltaLon = deltaLon;
     }
-    
+
     /**
      * @return deltaLat
      */
     public double getDeltaLat() {
         return deltaLat;
     }
-    
+
     /**
      * @param deltaLat the deltaLat to set
      */

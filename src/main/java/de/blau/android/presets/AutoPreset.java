@@ -93,8 +93,8 @@ public class AutoPreset {
                         SearchResult stats = TaginfoServer.tagStats(context, sr.getKey(), sr.getValue());
                         if (stats != null) {
                             Log.d(DEBUG_TAG, "Creating PresetItem for " + wikiPage);
-                            AutoPresetItem item = new AutoPresetItem(preset, group, sr.getKey() + " " + sr.getValue(), sr.getKey() + "_empty.png",
-                                    null, stats.getCount());
+                            AutoPresetItem item = new AutoPresetItem(preset, group, sr.getKey() + " " + sr.getValue(), sr.getKey() + "_empty.png", null,
+                                    stats.getCount());
                             String title = wikiPage.getTitleOther(); // fallback
                             if (wikiPage.getTitle() != null) { // local language
                                 title = wikiPage.getTitle();

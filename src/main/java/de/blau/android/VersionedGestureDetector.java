@@ -7,7 +7,7 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 
 /**
- * From: http://android-developers.blogspot.com/2010/07/how-to-have-your-cupcake-and-eat-it-too.html 
+ * From: http://android-developers.blogspot.com/2010/07/how-to-have-your-cupcake-and-eat-it-too.html
  * 
  * @author Adam Powell, modified by Andrew Gregory for Vespucci
  * @author Jan Schejbal added long-click detection

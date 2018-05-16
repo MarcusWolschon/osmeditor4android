@@ -128,30 +128,30 @@ public class SelectFile {
     public static void handleResult(int code, Intent data) {
         if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, false)) {
             if (code == READ_FILE) {
-            List<Uri>uris = new ArrayList<>();
-            // For JellyBean and above
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                ClipData clip = data.getClipData();
-                if (clip != null) {
-                    for (int i = 0; i < clip.getItemCount(); i++) {
-                        uris.add(clip.getItemAt(i).getUri());
+                List<Uri> uris = new ArrayList<>();
+                // For JellyBean and above
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    ClipData clip = data.getClipData();
+                    if (clip != null) {
+                        for (int i = 0; i < clip.getItemCount(); i++) {
+                            uris.add(clip.getItemAt(i).getUri());
+                        }
+                    }
+                    // For Ice Cream Sandwich
+                } else {
+                    ArrayList<String> paths = data.getStringArrayListExtra(FilePickerActivity.EXTRA_PATHS);
+                    if (paths != null) {
+                        for (String path : paths) {
+                            uris.add(Uri.parse(path));
+                        }
                     }
                 }
-                // For Ice Cream Sandwich
-            } else {
-                ArrayList<String> paths = data.getStringArrayListExtra(FilePickerActivity.EXTRA_PATHS);
-                if (paths != null) {
-                    for (String path : paths) {
-                        uris.add(Uri.parse(path));
+                synchronized (saveCallbackLock) {
+                    if (saveCallback != null) {
+                        Log.d(DEBUG_TAG, "saving");
+                        readCallback.read(uris);
                     }
                 }
-            }
-            synchronized (saveCallbackLock) {
-                if (saveCallback != null) {
-                    Log.d(DEBUG_TAG, "saving");
-                    readCallback.read(uris);
-                }
-            }
             } else {
                 throw new IllegalArgumentException("Multiple files do not make sense for saving");
             }

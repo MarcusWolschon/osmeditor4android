@@ -553,7 +553,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         }
         return result;
     }
-    
+
     /**
      * Get the string resource for the current state
      * 

@@ -262,7 +262,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                         }
                     });
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
-                            .setContentTitle( mCtx.getString(R.string.toast_tile_database_issue_short));
+                            .setContentTitle(mCtx.getString(R.string.toast_tile_database_issue_short));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                         builder.setContentText(e.getLocalizedMessage());
                     } else {
@@ -270,7 +270,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                     }
 
                     NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-                    nManager.notify((int)(Math.random()*Integer.MAX_VALUE), builder.build());
+                    nManager.notify((int) (Math.random() * Integer.MAX_VALUE), builder.build());
                     errorDisplayed = true;
                 }
             } finally {

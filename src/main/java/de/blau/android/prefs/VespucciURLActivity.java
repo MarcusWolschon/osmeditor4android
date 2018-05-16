@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
@@ -154,7 +153,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             break;
         }
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         Log.d(DEBUG_TAG, "onOptionsItemSelected");

@@ -83,5 +83,5 @@ public class RelationMemberDescription extends RelationMember {
         result = 37 * result + position;
         return result;
     }
-    
+
 }

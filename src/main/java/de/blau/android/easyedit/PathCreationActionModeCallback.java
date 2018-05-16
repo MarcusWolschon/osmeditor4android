@@ -20,7 +20,7 @@ import de.blau.android.util.Util;
  * custom code. The node and way click handlers are thus never called.
  */
 public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG             = "PathCreationAction...";
+    private static final String DEBUG_TAG              = "PathCreationAction...";
     private static final int    MENUITEM_UNDO          = 1;
     private static final int    MENUITEM_NEWWAY_PRESET = 2;
 

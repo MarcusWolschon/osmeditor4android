@@ -249,10 +249,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 InputStream inputStream = null;
 
                 Request request = new Request.Builder().url(urlString).build();
-                OkHttpClient client = App.getHttpClient().newBuilder()
-                        .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
                 if (offestListCallResponse.isSuccessful()) {
@@ -261,7 +259,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 } else {
                     Server.throwOsmServerException(offestListCallResponse);
                 }
-                
+
                 JsonReader reader = null;
                 try {
                     reader = new JsonReader(new InputStreamReader(inputStream));
@@ -367,10 +365,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 Log.d(DEBUG_TAG, "urlString " + urlString);
                 RequestBody reqbody = RequestBody.create(null, "");
                 Request request = new Request.Builder().url(urlString).post(reqbody).build();
-                OkHttpClient client = App.getHttpClient().newBuilder()
-                        .connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
-                        .build();
+                OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS)
+                        .readTimeout(Server.TIMEOUT, TimeUnit.MILLISECONDS).build();
                 Call offsetListCall = client.newCall(request);
                 Response offestListCallResponse = offsetListCall.execute();
                 if (!offestListCallResponse.isSuccessful()) {
@@ -614,8 +610,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             author.setText(offset.author);
         }
         TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-        off.setText(String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
-                + " meters");
+        off.setText(
+                String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
+                        + " meters");
         if (offset.date != null) {
             TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
             created.setText(offset.date);
@@ -712,8 +709,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             author.setText(offset.author);
         }
         TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-        off.setText(String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
-                + " meters");
+        off.setText(
+                String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
+                        + " meters");
         if (offset.date != null) {
             TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
             created.setText(offset.date);
@@ -722,7 +720,8 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         minmax.setText(offset.getMinZoom() + "-" + offset.getMaxZoom());
         TextView distance = (TextView) layout.findViewById(R.id.imagery_offset_distance);
         distance.setText(String.format(Locale.US, "%.3f",
-                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000) + " km");
+                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000)
+                + " km");
         dialog.setPositiveButton(R.string.apply, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -40,7 +40,6 @@ import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;

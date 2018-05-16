@@ -536,13 +536,13 @@ public class Util {
             listPref.setOnPreferenceChangeListener(p);
         }
     }
-    
+
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
+    public static Spanned fromHtml(String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-           return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
-           return Html.fromHtml(html);
+            return Html.fromHtml(html);
         }
     }
 }

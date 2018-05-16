@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import de.blau.android.osm.ViewBox;
 
 public interface ClickableInterface {
- 
+
     /**
      * Get objects near the screen coordinates
      * 
@@ -17,7 +17,7 @@ public interface ClickableInterface {
      * @return a List of the objects
      */
     List<?> getClicked(float x, float y, @NonNull ViewBox viewBox);
-    
+
     /**
      * Do whatever should be done on the object if it is selected
      * 
@@ -25,7 +25,7 @@ public interface ClickableInterface {
      * @param object the Object from this layer
      */
     void onSelected(@NonNull FragmentActivity activity, @NonNull final Object object);
-    
+
     /**
      * Get a short description of the object suitable for a menu
      * 

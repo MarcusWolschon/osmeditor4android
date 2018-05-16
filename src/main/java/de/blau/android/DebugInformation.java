@@ -36,11 +36,11 @@ public class DebugInformation extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        
+
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setTitle(R.string.config_debugbutton_title);
-        
+
         View container = View.inflate(this, R.layout.debug_viewer, null);
         TextView textFull = (TextView) container.findViewById(R.id.debugText);
 
@@ -71,7 +71,7 @@ public class DebugInformation extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     String getDebugText(String eol) {
         StringBuilder builder = new StringBuilder();
 
@@ -82,12 +82,12 @@ public class DebugInformation extends AppCompatActivity {
         if (logic != null) {
             Map map = logic.getMap();
             if (map != null) {
-                    for (MapViewLayer ov : map.getLayers()) {
-                        if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
-                            builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
-                                    + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
-                        }
+                for (MapViewLayer ov : map.getLayers()) {
+                    if (ov instanceof MapTilesLayer || ov instanceof MapTilesOverlayLayer) {
+                        builder.append("Tile Cache " + ((MapTilesLayer) ov).getTileLayerConfiguration().getId() + " usage "
+                                + ((MapTilesLayer) ov).getTileProvider().getCacheUsageInfo() + eol);
                     }
+                }
             } else {
                 builder.append("Map not available, this is a seriously curious state, please report a bug!\n");
             }

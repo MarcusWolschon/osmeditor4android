@@ -460,11 +460,11 @@ public class TrackerService extends Service implements Exportable {
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
                         if (location.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos() < staleGPSNano) {
                             return; // ignore - last GPS time is still reasonably current
-                        } 
+                        }
                     } else {
                         if (location.getTime() - lastLocation.getTime() < staleGPSMilli) {
                             return; // this is not as reliable as the above but likely still OK
-                        } 
+                        }
                     }
                     Snack.toastTopInfo(TrackerService.this, R.string.toast_using_network_location);
                 }

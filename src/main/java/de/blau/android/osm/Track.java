@@ -159,7 +159,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         currentTrack.clear();
         currentWayPoints.clear();
     }
-    
+
     /**
      * Check if we have any stored elements
      * 

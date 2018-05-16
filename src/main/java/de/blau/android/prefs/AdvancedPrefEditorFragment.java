@@ -28,7 +28,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         Log.d(DEBUG_TAG, "onCreatePreferences " + rootKey);
         setPreferencesFromResource(R.xml.advancedpreferences, rootKey);
         r = getResources();
-        KEY_PREFAPI = r.getString(R.string.config_api_button_key);        
+        KEY_PREFAPI = r.getString(R.string.config_api_button_key);
         KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
         KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
         KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);

@@ -132,9 +132,10 @@ public class Tags {
 
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
-    public static final String MPH = " mph";
+    public static final String MPH          = " mph";
+
     public static boolean isSpeedKey(final String key) {
-        return key!=null && (key.startsWith(KEY_MAXSPEED)||key.startsWith(KEY_MINSPEED));
+        return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED));
     }
 
     public static final String KEY_ACCESS        = "access";
@@ -187,8 +188,9 @@ public class Tags {
     // keys were the values are URLs
     private static final String KEY_WEBSITE         = "website";
     private static final String KEY_CONTACT_WEBSITE = "contact:website";
-    public static final String HTTP_PREFIX = "http://";
-    public static final String HTTPS_PREFIX = "https://";
+    public static final String  HTTP_PREFIX         = "http://";
+    public static final String  HTTPS_PREFIX        = "https://";
+
     public static boolean isWebsiteKey(final String key) {
         return Tags.KEY_WEBSITE.equals(key) || Tags.KEY_CONTACT_WEBSITE.equals(key);
     }

@@ -1342,7 +1342,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         row.deleteRow(rowLayout);
                     }
                 } else {
-                    Log.e(DEBUG_TAG,"ensureEmptyRow no row at position " + i);
+                    Log.e(DEBUG_TAG, "ensureEmptyRow no row at position " + i);
                 }
             }
             if (ret == null) {
@@ -1827,8 +1827,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Given an OSM key value, determine it's corresponding source key. For example, the source of
-     * "name" is "source:name". The source of "source" is "source". The source of "mf:name" is "mf.source:name".
+     * Given an OSM key value, determine it's corresponding source key. For example, the source of "name" is
+     * "source:name". The source of "source" is "source". The source of "mf:name" is "mf.source:name".
      * 
      * @param key the key to be sourced.
      * @return The source key for the given key.

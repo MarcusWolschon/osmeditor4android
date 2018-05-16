@@ -27,7 +27,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     private static final long serialVersionUID = -2708721312405863618L;
 
     private static final String DEBUG_TAG = "BoundingBox";
-    
+
     /**
      * left border of the bounding box, multiplied by 1E7
      */
@@ -195,7 +195,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         return Double.toString(left / 1E7D) + STRING_DELIMITER + Double.toString(bottom / 1E7D) + STRING_DELIMITER + Double.toString(right / 1E7D)
                 + STRING_DELIMITER + Double.toString(top / 1E7D);
     }
-    
+
     /**
      * Construct a BoundingBox from a String in the format L, B, R, T possibly enclosed in square brackets
      * 
@@ -204,7 +204,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      */
     @Nullable
     public static BoundingBox fromString(@NonNull String boxString) {
-        String[] corners = boxString.trim().split(",",4);
+        String[] corners = boxString.trim().split(",", 4);
         if (corners.length == 4) {
             if (corners[0].startsWith("[")) {
                 corners[0] = corners[0].substring(1, corners[0].length());
@@ -591,10 +591,10 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return a single BoundingBox covering all in the COlletion or null
      */
     @Nullable
-    public static BoundingBox union(Collection <BoundingBox> boxes) {
+    public static BoundingBox union(Collection<BoundingBox> boxes) {
         BoundingBox result = null;
-        for (BoundingBox b:boxes) {
-            if (result==null) {
+        for (BoundingBox b : boxes) {
+            if (result == null) {
                 result = new BoundingBox(b);
             } else {
                 result.union(b);
@@ -602,7 +602,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         }
         return result;
     }
-    
+
     /**
      * Return true if box is empty
      * 

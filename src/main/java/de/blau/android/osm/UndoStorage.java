@@ -392,13 +392,13 @@ public class UndoStorage implements Serializable {
             element.osmVersion = osmVersion;
             element.state = state;
             element.setTags(tags);
-            
+
             // zap error state
             element.resetHasProblem();
 
             if (parentRelations != null) {
                 element.parentRelations = new ArrayList<>();
-                for (Relation r: parentRelations) {
+                for (Relation r : parentRelations) {
                     if (currentStorage.contains(r)) {
                         element.parentRelations.add(r);
                     } else {
@@ -527,7 +527,7 @@ public class UndoStorage implements Serializable {
         public void restore() {
             super.restore();
             ((Way) element).nodes.clear();
-            for (Node n: nodes) {
+            for (Node n : nodes) {
                 if (currentStorage.contains(n)) {
                     ((Way) element).nodes.add(n); // only add undeleted way nodes
                 } else {
@@ -591,23 +591,24 @@ public class UndoStorage implements Serializable {
             super.restore();
             ((Relation) element).members.clear();
             ((Relation) element).members.addAll(members);
-            for (RelationMember rm: members) {
+            for (RelationMember rm : members) {
                 OsmElement rmElement = rm.getElement();
                 if (rmElement == null || currentStorage.contains(rmElement)) {
-                    ((Relation) element).members.add(rm); // only add undeleted members or ones that haven't been downloaded
+                    ((Relation) element).members.add(rm); // only add undeleted members or ones that haven't been
+                                                          // downloaded
                 } else {
                     Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + element.getDescription() + " is deleted");
                 }
             }
         }
-        
+
         /**
          * Get the list of RelationMembers for the UndoRelation
          * 
          * @return an unmodifiable copy of the List of RelationMembers
          */
         public List<RelationMember> getMembers() {
-           return Collections.unmodifiableList(members); 
+            return Collections.unmodifiableList(members);
         }
     }
 

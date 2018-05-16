@@ -11,13 +11,13 @@ public class NetworkStatus {
     private static final String DEBUG_TAG = "NetworkStatus";
 
     private final ConnectivityManager connectivityManager;
-    
+
     public NetworkStatus(@NonNull Context ctx) {
         connectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
-    
+
     public boolean isConnected() {
-        try {           
+        try {
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             return networkInfo != null && networkInfo.isConnectedOrConnecting();
         } catch (Exception e) {
@@ -25,9 +25,9 @@ public class NetworkStatus {
             return false;
         }
     }
-    
+
     public boolean isConnectedOrConnecting() {
-        try {           
+        try {
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             return networkInfo != null && networkInfo.isConnectedOrConnecting();
         } catch (Exception e) {

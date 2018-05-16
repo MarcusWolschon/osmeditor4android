@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -19,13 +18,11 @@ public class TableLayoutUtils {
 
     private static final int MAX_FIRST_CELL_WIDTH = 8;
 
-    
-    
     @SuppressLint("NewApi")
     public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, null, cell2, false, tp);
     }
-    
+
     @SuppressLint("NewApi")
     public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, CharSequence cell3, TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, cell3, false, tp);
@@ -37,7 +34,8 @@ public class TableLayoutUtils {
     }
 
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, CharSequence cell3, boolean isUrl, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, CharSequence cell3, boolean isUrl,
+            TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setSingleLine();
@@ -112,7 +110,7 @@ public class TableLayoutUtils {
         tr.setLayoutParams(tp);
         return tr;
     }
-    
+
     @SuppressLint("NewApi")
     public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);

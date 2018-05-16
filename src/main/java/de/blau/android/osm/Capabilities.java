@@ -56,7 +56,7 @@ public class Capabilities {
      * 
      * @param s status string
      * @return the Status
-     */ 
+     */
     public static Status stringToStatus(String s) {
         if (s == null) {
             return Status.OFFLINE;

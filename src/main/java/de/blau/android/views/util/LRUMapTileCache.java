@@ -34,12 +34,12 @@ public class LRUMapTileCache {
     HashMap<String, CacheElement> cache;
 
     /** Maximum cache size. */
-    private long                           maxCacheSize;
+    private long                          maxCacheSize;
     /** Current cache size **/
-    private long                           cacheSize = 0;
+    private long                          cacheSize = 0;
     /** LRU list. */
     private final ArrayList<CacheElement> list;
-    private final ArrayList<CacheElement>  reuseList;
+    private final ArrayList<CacheElement> reuseList;
 
     private class CacheElement {
         boolean recycleable = true;
@@ -118,7 +118,7 @@ public class LRUMapTileCache {
         }
         while (cacheSize > limit && !list.isEmpty()) {
             // Log.d(DEBUG_TAG,"removing bitmap from in memory cache " + cacheSize);
-            CacheElement ce = list.remove(list.size()-1);
+            CacheElement ce = list.remove(list.size() - 1);
             if (ce.owner == owner && owner != 0) {
                 // cache is being thrashed because it is too small, fail
                 Log.d(DEBUG_TAG, "cache too small, failing");
@@ -212,7 +212,7 @@ public class LRUMapTileCache {
             } else {
                 ce = new CacheElement(key, value, recycleable, owner);
             }
-            list.add(0,ce);
+            list.add(0, ce);
             cache.put(key, ce);
             cacheSize += bitmapSize;
         } else {
@@ -249,7 +249,7 @@ public class LRUMapTileCache {
      */
     private synchronized void update(final CacheElement value) {
         list.remove(value);
-        list.add(0,value);
+        list.add(0, value);
     }
 
     // ===========================================================

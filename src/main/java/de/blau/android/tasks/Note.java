@@ -11,7 +11,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.text.Html;
 import de.blau.android.App;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;

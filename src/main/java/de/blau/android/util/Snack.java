@@ -23,13 +23,13 @@ import de.blau.android.R;
 public class Snack {
 
     private static final String DEBUG_TAG = Snack.class.getName();
-    
+
     private static final int SHOW_DURATION_ACTION = 5000;
 
     protected static final int QUEUE_CAPACITY = 3;
 
     private static final Object queueLock = new Object();
-    
+
     // google has declared Snackbar as final, making life difficult for everybody ....
     protected static LinkedList<Snackbar> infoQueue    = new LinkedList<>();
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
@@ -312,7 +312,7 @@ public class Snack {
             barInfo(activity.findViewById(android.R.id.content), msg);
         }
     }
-    
+
     /**
      * Display a snackbar with an informational message
      * 

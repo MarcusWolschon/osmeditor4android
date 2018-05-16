@@ -36,7 +36,7 @@ import de.blau.android.osm.Way;
  */
 public class GeoContext {
 
-    private static final String DEBUG_TAG = "GeoContext";
+    private static final String     DEBUG_TAG = "GeoContext";
     private final FeatureCollection imperialAreas;
     private final List<BoundingBox> imperialBoxes;
     private final FeatureCollection driveLeftAreas;
@@ -120,7 +120,7 @@ public class GeoContext {
      */
     public boolean imperial(@NonNull Node n) {
         if (checkIsIn(n, imperialBoxes)) {
-            return imperial(n.getLon()/1E7D, n.getLat()/1E7D);
+            return imperial(n.getLon() / 1E7D, n.getLat() / 1E7D);
         }
         return false;
     }
@@ -181,7 +181,7 @@ public class GeoContext {
      * @return true if the territory that drives on the left hand side
      */
     public boolean driveLeft(double lon, double lat) {
-        return inside(lon, lat, driveLeftAreas);       
+        return inside(lon, lat, driveLeftAreas);
     }
 
     /**
@@ -192,7 +192,7 @@ public class GeoContext {
      */
     public boolean driveLeft(@NonNull Node n) {
         if (checkIsIn(n, driveLeftBoxes)) {
-            return driveLeft(n.getLon()/1E7D, n.getLat()/1E7D);
+            return driveLeft(n.getLon() / 1E7D, n.getLat() / 1E7D);
         }
         return false;
     }
@@ -212,13 +212,13 @@ public class GeoContext {
         }
         return false;
     }
-    
+
     /**
      * Check if a coordinate is covered by a GeoJson FeatureCollection
      * 
      * @param lon longitude
      * @param lat latitude
-     * @param fc  the FeatureCollection
+     * @param fc the FeatureCollection
      * @return true if the coordinate is in the bounds of the FeatureCollection
      */
     private boolean inside(double lon, double lat, @NonNull FeatureCollection fc) {

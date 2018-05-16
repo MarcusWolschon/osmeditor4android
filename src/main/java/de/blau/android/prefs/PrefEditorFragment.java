@@ -159,7 +159,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             mapProfilePref.setOnPreferenceChangeListener(p);
             p.onPreferenceChange(mapProfilePref, prefs.getMapProfile());
         }
-        
+
         Preference presetPref = getPreferenceScreen().findPreference(KEY_PREFPRESET);
         if (presetPref != null) {
             presetPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -171,7 +171,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                 }
             });
         }
-        
+
         Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
         if (advprefs != null) {
             advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

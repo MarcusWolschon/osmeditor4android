@@ -24,7 +24,7 @@ public class NmeaTcpClientServer implements Runnable {
     boolean            canceled = false;
     int                port     = 1959;
     final NmeaListener listener;
-    final Handler handler;
+    final Handler      handler;
 
     public NmeaTcpClientServer(String hostAndPort, NmeaListener listener, Handler handler) {
         // only use the port string

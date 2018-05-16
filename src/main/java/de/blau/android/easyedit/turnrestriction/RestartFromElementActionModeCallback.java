@@ -12,7 +12,7 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
 public class RestartFromElementActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG   = "RestartFrom...";
+    private static final String DEBUG_TAG    = "RestartFrom...";
     private Set<OsmElement>     fromElements;
     private Set<OsmElement>     viaElements;
     private boolean             fromSelected = false;
@@ -45,8 +45,7 @@ public class RestartFromElementActionModeCallback extends EasyEditActionModeCall
             fromSelected = true;
             logic.addSelectedRelationWay((Way) element);
             // redo via selection, this time with pre-split way
-            main.startSupportActionMode(
-                    new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, (Way) element, viaElements));
+            main.startSupportActionMode(new FromElementActionModeCallback(manager, R.string.actionmode_restriction_restart_via, (Way) element, viaElements));
             return true;
         } else if (viaElements.size() == 1) {
             fromSelected = true;

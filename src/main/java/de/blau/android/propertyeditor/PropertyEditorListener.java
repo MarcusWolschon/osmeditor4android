@@ -14,14 +14,14 @@ interface PropertyEditorListener {
      * @return true if shown
      */
     boolean onTop(Fragment me);
-    
+
     /**
      * Are we connected to a network?
      * 
      * @return true if connected
      */
     boolean isConnected();
-    
+
     /**
      * Are we connected or connecting to a network?
      * 

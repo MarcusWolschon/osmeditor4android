@@ -10,9 +10,9 @@ import java.util.Arrays;
  */
 public class FloatPrimitiveList {
     private float[] array;
-    private int size = 0;
-    private int capacity = 0;
-        
+    private int     size     = 0;
+    private int     capacity = 0;
+
     /**
      * Construct a new instance with capacity initial capacity
      * 
@@ -22,7 +22,7 @@ public class FloatPrimitiveList {
         array = new float[capacity];
         this.capacity = capacity;
     }
-    
+
     public FloatPrimitiveList() {
         this(12);
     }
@@ -35,22 +35,23 @@ public class FloatPrimitiveList {
     public int size() {
         return size;
     }
-    
+
     /**
      * Add a float at the end of the list
      * 
      * THis will increase the size of the backing array if necessary
+     * 
      * @param f float to add
      */
     public void add(float f) {
         if (size == capacity) {
-            capacity = capacity*2;
+            capacity = capacity * 2;
             array = Arrays.copyOf(array, capacity);
-        } 
+        }
         array[size] = f;
         size++;
     }
-    
+
     /**
      * Get the float at position i
      * 
@@ -58,12 +59,12 @@ public class FloatPrimitiveList {
      * @return the requested float
      */
     public float get(int i) {
-        if (i > size -1 ) {
+        if (i > size - 1) {
             throw new IndexOutOfBoundsException(Integer.toString(i) + " is larger than " + Integer.toString(size));
         }
         return array[i];
     }
-    
+
     /**
      * Reset the contents
      * 
@@ -72,7 +73,7 @@ public class FloatPrimitiveList {
     public void clear() {
         size = 0;
     }
-    
+
     /**
      * Get a float array containing all values
      * 
@@ -81,12 +82,13 @@ public class FloatPrimitiveList {
     public float[] values() {
         return Arrays.copyOf(array, size);
     }
-    
+
     /**
      * Get the array backing this object
      * 
-     * This is useful if you want to avoid allocating a new array and copying the contents, only useful
-     * together with the value of size()
+     * This is useful if you want to avoid allocating a new array and copying the contents, only useful together with
+     * the value of size()
+     * 
      * @return the backing float array
      */
     public float[] getArray() {

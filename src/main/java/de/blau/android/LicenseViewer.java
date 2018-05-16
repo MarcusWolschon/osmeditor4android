@@ -24,7 +24,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setTitle(R.string.config_licensebutton_title);
-        
+
         View container = View.inflate(this, R.layout.license_viewer, null);
         TextView textShort = (TextView) container.findViewById(R.id.licenseShortText);
         TextView textFull = (TextView) container.findViewById(R.id.licenseFullText);
@@ -38,7 +38,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         textFull.setText(builder.toString());
         setContentView(container);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {

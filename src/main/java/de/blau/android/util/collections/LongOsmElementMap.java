@@ -291,8 +291,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     }
 
     /**
-     * Return all values in the map. 
-     * Note: they are returned unordered
+     * Return all values in the map. Note: they are returned unordered
      * 
      * @return a List of the values
      */

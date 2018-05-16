@@ -102,13 +102,14 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
 
     /**
      * Retrieve offsets for specific imagery identified by its id
+     * 
      * @param db readable SQLiteDatabase
      * @param id imagery offset db id
      * 
      * @return a List of Offsets instances
      */
     public static List<ImageryOffset> getOffsets(@NonNull SQLiteDatabase db, @NonNull String id) {
-        List<ImageryOffset>result = new ArrayList<>();
+        List<ImageryOffset> result = new ArrayList<>();
         Cursor dbresult = db.query(OFFSETS_TABLE, null, IMAGERY_ID_FIELD + "='" + id + "'", null, null, null, null);
 
         if (dbresult.getCount() >= 1) {
@@ -122,7 +123,7 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
         dbresult.close();
         return result;
     }
-    
+
     /**
      * Create an Offset from a database entry
      * 
@@ -138,10 +139,10 @@ public class ImageryOffsetDatabase extends SQLiteOpenHelper {
         offset.setMaxZoom(cursor.getInt(cursor.getColumnIndex(MAX_ZOOM_FIELD)));
         offset.setImageryLon(cursor.getDouble(cursor.getColumnIndex(IMAGERY_LON_FIELD)));
         offset.setImageryLat(cursor.getDouble(cursor.getColumnIndex(IMAGERY_LAT_FIELD)));
- 
+
         return offset;
     }
-    
+
     /**
      * Delete a specific source which will delete all layers from that source
      * 

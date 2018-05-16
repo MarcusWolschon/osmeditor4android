@@ -35,7 +35,7 @@ import de.blau.android.R;
  * @param <T> The type of the saved objects
  */
 public class SavingHelper<T extends Serializable> {
-   private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
+    private static final String DEBUG_TAG = SavingHelper.class.getSimpleName();
 
     /**
      * Date pattern used for the export file name.
@@ -73,11 +73,11 @@ public class SavingHelper<T extends Serializable> {
     public class SaveThread implements Runnable {
 
         private static final String DEBUG_TAG = "SavingThread";
-        final String  filename;
-        T             object;
-        final boolean compress;
-        final Context context;
-        boolean       result = false;
+        final String                filename;
+        T                           object;
+        final boolean               compress;
+        final Context               context;
+        boolean                     result    = false;
 
         SaveThread(Context context, String fn, T obj, boolean c) {
             filename = fn;
@@ -154,11 +154,11 @@ public class SavingHelper<T extends Serializable> {
     public class LoadThread implements Runnable {
 
         private static final String DEBUG_TAG = "LoadThread";
-        final String  filename;
-        final boolean compressed;
-        final boolean deleteOnFail;
-        final Context context;
-        T             result;
+        final String                filename;
+        final boolean               compressed;
+        final boolean               deleteOnFail;
+        final Context               context;
+        T                           result;
 
         LoadThread(Context context, String fn, boolean c, boolean deleteOnFail) {
             filename = fn;

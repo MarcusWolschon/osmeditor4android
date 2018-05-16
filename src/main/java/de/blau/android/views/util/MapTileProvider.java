@@ -33,6 +33,7 @@ import de.blau.android.services.util.MapTile;
  * integrated into the de.blau.androin OSMEditor.
  * 
  * Created by plusminus on 21:46:22 - 25.09.2008
+ * 
  * @author Nicolas Gramlich
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * 
@@ -231,7 +232,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
         }
         mTileCache.clear(); // zap everything in in memory cache
     }
-    
+
     /**
      * Tell the tile provider service to reread the database of TileLayerServers
      */
@@ -273,7 +274,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 }
                 Long l = pending.get(t.toId());
                 if (l != null) {
-                    mTileCache.putTile(t, tileBitmap, l);           
+                    mTileCache.putTile(t, tileBitmap, l);
                 } // else wasn't in pending queue just ignore
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
                 // Log.d(DEBUGTAG, "Sending tile success message");
@@ -315,8 +316,8 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                     try {
                         Long l = pending.get(t.toId());
                         if (l != null) {
-                            mTileCache.putTile(t, getNoTilesTile(), false, l);           
-                        }                       
+                            mTileCache.putTile(t, getNoTilesTile(), false, l);
+                        }
                     } catch (StorageException e) {
                         Log.w(DEBUG_TAG, "mapTileFailed got " + e.getMessage());
                         setSmallHeapMode();
@@ -327,7 +328,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             // don't send when we fail mDownloadFinishedHandler.sendEmptyMessage(OpenStreetMapTile.MAPTILE_SUCCESS_ID);
         }
     };
-    
+
     /**
      * Get the "No Tiles" tile, creating it if necessary
      * 
@@ -346,7 +347,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
         }
         return mNoTilesTile;
     }
-    
+
     public String getCacheUsageInfo() {
         return mTileCache.getCacheUsageInfo();
     }

@@ -223,7 +223,7 @@ public class App extends android.app.Application {
     }
 
     /**
-     * Get a normalized name to Names entries map 
+     * Get a normalized name to Names entries map
      * 
      * @param ctx Android Context
      * @return a map between normalized names and NameAndTags objects

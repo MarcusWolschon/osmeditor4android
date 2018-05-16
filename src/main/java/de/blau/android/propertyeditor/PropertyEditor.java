@@ -635,7 +635,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             restoring = true;
             Log.d(DEBUG_TAG, "restoreState done");
         }
-        
+
         @Override
         public Parcelable saveState() {
             Log.d(DEBUG_TAG, "saveState");
@@ -1254,7 +1254,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         }
         return networkStatus.isConnected();
     }
-    
+
     @Override
     public boolean isConnectedOrConnecting() {
         if (networkStatus == null) {

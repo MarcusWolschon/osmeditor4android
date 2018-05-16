@@ -14,8 +14,8 @@ public class ImageryOffset {
     @SuppressWarnings("unused")
     long            id;
     String          imageryId;
-    private double   lon        = 0;
-    private double   lat        = 0;
+    private double  lon        = 0;
+    private double  lat        = 0;
     private int     minZoom    = 0;
     private int     maxZoom    = 18;
     private double  imageryLat = 0;

@@ -15,12 +15,12 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
 public class ViaElementActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "ViaElement..";
+    private static final String DEBUG_TAG  = "ViaElement..";
     private Way                 fromWay;
     private OsmElement          viaElement;
     private Set<OsmElement>     cachedToElements;
-    private boolean             toSelected  = false;
-    private int                 titleId     = R.string.actionmode_restriction_to;
+    private boolean             toSelected = false;
+    private int                 titleId    = R.string.actionmode_restriction_to;
 
     public ViaElementActionModeCallback(EasyEditManager manager, Way from, OsmElement via) {
         super(manager);

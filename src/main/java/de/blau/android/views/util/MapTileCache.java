@@ -26,7 +26,7 @@ public class MapTileCache implements MapViewConstants {
     // ===========================================================
 
     private static final String DEBUG_TAG = "MapTileCache";
-    private LRUMapTileCache mCachedTiles;
+    private LRUMapTileCache     mCachedTiles;
 
     // ===========================================================
     // Constructors

@@ -17,13 +17,13 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 
 public class ImageryOffsetUtils {
-    private static final int MAX_OFFSET_DISTANCE = 100;
-    private static final String DEBUG_TAG = "OffsetUtils";
+    private static final int    MAX_OFFSET_DISTANCE = 100;
+    private static final String DEBUG_TAG           = "OffsetUtils";
 
     private ImageryOffsetUtils() {
         // hide default constructor
     }
-    
+
     /**
      * Retrieve offsets from the DB for a specific layer and apply them (displaying a toast)
      * 
@@ -53,7 +53,8 @@ public class ImageryOffsetUtils {
         for (ImageryOffset offset : offsets) {
             if (bbox != null) {
                 double distance = GeoMath.haversineDistance(centerLon, centerLat, offset.getLon(), offset.getLat());
-                Log.d(DEBUG_TAG, "applyImageryOffsets distance is " + distance + " " + centerLon+ " " + centerLat+ " " + offset.getLon()+ " " + offset.getLat());
+                Log.d(DEBUG_TAG,
+                        "applyImageryOffsets distance is " + distance + " " + centerLon + " " + centerLat + " " + offset.getLon() + " " + offset.getLat());
                 if (distance > MAX_OFFSET_DISTANCE) {
                     Log.d(DEBUG_TAG, "not applying");
                     continue;
@@ -76,7 +77,7 @@ public class ImageryOffsetUtils {
             }
         }
     }
-    
+
     /**
      * Create a list of ImageryOffsets from a layer configuration
      * 

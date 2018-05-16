@@ -66,7 +66,7 @@ public class EasyEditManager {
     }
 
     /**
-     * Check if an Element is selected 
+     * Check if an Element is selected
      * 
      * @return true if we are in one of the ELementSelection modes
      */
@@ -125,8 +125,7 @@ public class EasyEditManager {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_exit_actionmode));
             return; // don't deselect all just because we didn't hit anything
         }
-        if (currentActionModeCallback instanceof ViaElementActionModeCallback
-                || currentActionModeCallback instanceof ToElementActionModeCallback
+        if (currentActionModeCallback instanceof ViaElementActionModeCallback || currentActionModeCallback instanceof ToElementActionModeCallback
                 || currentActionModeCallback instanceof FromElementActionModeCallback
                 || currentActionModeCallback instanceof RestartFromElementActionModeCallback) {
             Snack.toastTopInfo(getMain(), getMain().getString(R.string.toast_abort_actionmode));
@@ -245,7 +244,8 @@ public class EasyEditManager {
         return new AddRelationMemberActionModeCallback(this, r, null);
     }
 
-    /** This gets called when the map is long-clciked in easy-edit mode 
+    /**
+     * This gets called when the map is long-clciked in easy-edit mode
      * 
      * @param v the View that was long clicked
      * @param x screen X coordinate
@@ -356,7 +356,7 @@ public class EasyEditManager {
     public boolean needsCustomContextMenu() {
         return isProcessingAction() && currentActionModeCallback.needsCustomContextMenu();
     }
-    
+
     /**
      * Call the per ActionMode onCreateContextMenu
      * 

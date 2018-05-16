@@ -6,16 +6,16 @@ import de.blau.android.R;
 import de.blau.android.contract.Files;
 
 public class Version {
-    
+
     private static final String DEBUG_TAG = "Version";
-    int major = 0;
-    int minor = 0;
-    int patch = 0;
-    int beta = 0;
-    
-    String lastVersion;
+    int                         major     = 0;
+    int                         minor     = 0;
+    int                         patch     = 0;
+    int                         beta      = 0;
+
+    String               lastVersion;
     SavingHelper<String> savingHelperVersion;
-    Context ctx;
+    Context              ctx;
 
     /**
      * Determine various version related things
@@ -29,7 +29,7 @@ public class Version {
         String currentVersion = ctx.getString(R.string.app_version);
         parse(currentVersion);
     }
-    
+
     /**
      * Construct a Version from a String
      * 
@@ -38,31 +38,31 @@ public class Version {
     private Version(String version) {
         parse(version);
     }
-    
+
     /**
      * Parser a semver String
      * 
      * @param v the version string
      */
     private void parse(String v) {
-        String[]numbers = v.split("\\.",4);
-        
+        String[] numbers = v.split("\\.", 4);
+
         if (numbers.length < 3) {
             Log.e(DEBUG_TAG, "Invalid version string " + v);
             return;
         }
         try {
-        major = Integer.parseInt(numbers[0]);
-        minor = Integer.parseInt(numbers[1]);
-        patch = Integer.parseInt(numbers[2]);
-        if (numbers.length == 4) {
-            beta = Integer.parseInt(numbers[3]);
-        }
+            major = Integer.parseInt(numbers[0]);
+            minor = Integer.parseInt(numbers[1]);
+            patch = Integer.parseInt(numbers[2]);
+            if (numbers.length == 4) {
+                beta = Integer.parseInt(numbers[3]);
+            }
         } catch (NumberFormatException nfe) {
             Log.e(DEBUG_TAG, "Invalid version string " + v);
         }
     }
-    
+
     /**
      * Check if this is a new install
      * 
@@ -71,7 +71,7 @@ public class Version {
     public boolean isNewInstall() {
         return lastVersion == null || "".equals(lastVersion);
     }
-    
+
     /**
      * Check if this is a new version
      * 
@@ -89,6 +89,6 @@ public class Version {
      * Save the current version to a file
      */
     public void save() {
-        savingHelperVersion.save(ctx, Files.VERSION, ctx.getString(R.string.app_version), false);        
+        savingHelperVersion.save(ctx, Files.VERSION, ctx.getString(R.string.app_version), false);
     }
 }
