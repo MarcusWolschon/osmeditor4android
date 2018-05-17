@@ -120,7 +120,7 @@
         <reference ref="sidewalk" />
     </chunk>
     <chunk id="crossing_type">    
-    	<multiselect key="crossing" text="Pedestrian crossing type" values_context="transport" >
+    	<multiselect key="crossing" text="Crossing type" values_context="transport" >
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg" />
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg" />
 			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" />
@@ -445,7 +445,7 @@
         <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none" />
     </chunk>
     <chunk id="fee_interval">
-        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" values_sort="false" editable="true" />
+        <combo key="fee" text="Fee" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_sort="false" editable="true" />
     </chunk>
     <chunk id="parking_name_type_ref">
         <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop" display_values="Multi-storey,Surface,Underground,Rooftop" values_context="parking" />
@@ -465,11 +465,11 @@
         <combo key="maxstay" text="Time Limit (minutes)" values="0,30,60,90,120,180"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised">
-        <combo key="supervised" text="Supervised" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
+        <combo key="supervised" text="Supervised" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised_lit_oh">
         <reference ref="supervised" />
-        <combo key="lit" text="Lit" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
+        <combo key="lit" text="Lit" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false"  match="none" editable="true" />
         <optional>
             <reference ref="oh" />
         </optional>
@@ -521,10 +521,12 @@
             display_values="Anglican,Baptist,Catholic,Evangelical,Greek catholic,Jehovahs witness,Lutheran,Methodist,Mormon,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Roman catholic,Shia,Sunni" />
     </chunk>
     <chunk id="voltage">
-        <combo key="voltage" text="Voltage in Volts (V)" values="1150000,765000,750000,735000,500000,450000,420000,400000,380000,350000,345000,330000,315000,300000,275000,238000,230000,225000,220000,200000,161000,154000,150000,138000,132000,120000,115000,110000,100000,90000,69000,66000,65000,63000,60000,55000,49000,45000,35000,33000,30000,20000,15000,750000;200000,110000;20000" />
+        <combo key="voltage" text="Voltage in Volts (V)" 
+            values="1150000,765000,750000,735000,500000,450000,420000,400000,380000,350000,345000,330000,315000,300000,275000,238000,230000,225000,220000,200000,161000,154000,150000,138000,132000,120000,115000,110000,100000,90000,69000,66000,65000,63000,60000,55000,49000,45000,35000,33000,30000,20000,15000,750000;200000,110000;20000" 
+            values_sort="false" />
     </chunk>
     <chunk id="frequency">
-        <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" />
+        <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" values_sort="false" />
     </chunk>
     <chunk id="voltage_frequency">
         <reference ref="voltage" />
@@ -536,14 +538,15 @@
         <text key="branch" text="Branch operator" />
     </chunk>
         <chunk id="cables">
-        <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12"  />
+        <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12" values_sort="false" />
     </chunk>
     <chunk id="cables_circuits">
         <reference ref="cables" />
         <combo key="circuits" text="Number of circuits" values="1,2,3,4" />
     </chunk>
     <chunk id="power_loc">
-        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop" values_context="power" />
+        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop" 
+            display_values="Outdoor,Indoor,Underground,Platform,Rooftop" values_context="power" />
     </chunk>
     <chunk id="power_extra">
         <reference ref="power_loc" />
@@ -594,7 +597,7 @@
     </chunk>
     <chunk id="optional_rating_phases">
         <optional>
-            <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
+            <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" values_sort="false" />
             <combo key="phases" text="Phases" values="1,3" length="1" />
          </optional>
      </chunk>
@@ -709,7 +712,7 @@
     <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
   </chunk>
   <chunk id="tactile_paving">
-  	<combo key="tactile_paving" text="Tactile paving" match="key" values_sort="false" >
+  	<combo key="tactile_paving" text="Tactile paving" values_context="tactile_paving" match="key" values_sort="false" >
         <list_entry value="yes" display_value="Present" />
         <list_entry value="no" display_value="None" />
         <list_entry value="incorrect" display_value="Incorrect" />
@@ -1808,10 +1811,10 @@
             <key key="highway" value="traffic_signals" />
             <optional text="Optional crossing attributes:">
             	<reference ref="crossing_type" />
-                <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
+                <combo key="crossing_ref" text="Crossing type (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
                 <check key="button_operated" text="Button operated" disable_off="true" />
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
-                <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
+                <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" />
                 <reference ref="tactile_paving" />
                 <check key="bicycle" text="Cross by bicycle" disable_off="true" />
                 <check key="horse" text="Cross on horseback" disable_off="true" />
@@ -1876,7 +1879,7 @@
             <optional>
             	<combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
             </optional>
-            <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
+            <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
             <check key="horse" text="Cross on horseback" disable_off="true" />
             <reference ref="kerb" />
@@ -5392,7 +5395,7 @@
                 <list_entry value="fox" display_value="Fox" />
                 <list_entry value="giraffe" display_value="Giraffe" />
                 <list_entry value="goat" display_value="Goat" />
-                <list_entry value="goase" display_value="Goase" />
+                <list_entry value="goose" display_value="Goose" />
                 <list_entry value="gorilla" display_value="Gorilla" />
                 <list_entry value="hippopotamus" display_value="Hippopotamus" />
                 <list_entry value="horse" display_value="Horse" />
