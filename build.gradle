@@ -153,8 +153,8 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
 	connectedDebugAndroidTest.dependsOn installDebug
 }
 
-apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3'
-//apply from: '../gradle-tasks/eclipse-android-3'
+//apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3'
+apply from: '../gradle-tasks/eclipse-android-3'
 
 sonarqube {
     properties {
@@ -285,7 +285,7 @@ dependencies {
     implementation "ch.poole:PoParser:0.7.2"
     implementation "ch.poole:OpeningHoursParser:0.14.0"
     implementation "ch.poole:ConditionalRestrictionParser:0.2.2"
-    implementation "ch.poole:OpeningHoursFragment:0.4.2"    
+    implementation "ch.poole:OpeningHoursFragment:0.5.1"    
     implementation 'ch.poole.android:numberpicker:1.0.8'
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
     // for temp stuff during dev 

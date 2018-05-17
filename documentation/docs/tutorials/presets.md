@@ -144,4 +144,15 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
 * _i18n_ the tag can have i18n variants, for example name and name:de
 * _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example
-* _value\_type_ type of the value: _opening_hours_, _opening_hours_plus_, _conditional_, _integer_, _website_, _phone_, _wikipedia_, _wikidata_ this avoids having to hardcode this in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example
+* _value\_type_ type of the value: 
+
+    * _opening_hours_ a normal opening hours syntax tag
+    * _opening_hours_mixed_ a tag with both text values and opening hours, examples: _fee_, _supervised_ and _lit_
+    * _conditional_ conditional access tag
+    * _integer_ a integer numeric value
+    * _website_ an URL for a website
+    * _phone_ a phone number
+    * _wikipedia_ a wikipedia page
+    * _wikidata_  a wikidata Q ref
+  
+  this avoids having to hardcode this in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example.
