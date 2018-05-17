@@ -3915,10 +3915,10 @@
             <space />
             <label text="Types of vehicles which can be charged:" />
             <checkgroup columns="4">
-                <check key="bicycle" text="Bicycle" />
-                <check key="scooter" text="Scooter" />
-                <check key="car" text="Car" />
-                <check key="truck" text="Truck" />
+                <check key="bicycle" text="Bicycle" disable_off="true" />
+                <check key="scooter" text="Scooter" disable_off="true"  />
+                <check key="car" text="Car" disable_off="true" />
+                <check key="truck" text="Truck" disable_off="true"/>
             </checkgroup>
             <space />
             <label text="Number of Sockets:" />
@@ -3938,10 +3938,10 @@
             <space />
             <label text="Authentication:" />
             <checkgroup columns="4">
-                <check key="authentication:none" text="None" />
-                <check key="authentication:phone_call" text="Phone call" />
-                <check key="authentication:short_message" text="Short message" />
-                <check key="authentication:nfc" text="NFC" />
+                <check key="authentication:none" text="None" disable_off="true" />
+                <check key="authentication:phone_call" text="Phone call" disable_off="true" />
+                <check key="authentication:short_message" text="Short message" disable_off="true" />
+                <check key="authentication:nfc" text="NFC" disable_off="true" />
             </checkgroup>
             <combo key="authentication:membership_card" text="Membership card" values="yes" />
             <preset_link preset_name="Payment Methods" />
@@ -4941,7 +4941,7 @@
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="wheelchair_seating" />
             <reference ref="stars" />
@@ -4968,7 +4968,7 @@
 			<reference ref="cuisine" />            
 			<check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5017,7 +5017,7 @@
             <combo key="cuisine" text="Cuisine" values="ice_cream" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5041,7 +5041,7 @@
             <reference ref="name_operator" />
             <check key="outdoor_seating" text="Outdoor seating" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5066,7 +5066,7 @@
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -12628,7 +12628,7 @@
             <reference ref="optional_name" />
         </item> <!-- Recreation Ground -->
         <separator/>
-        <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=residential"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=residential"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=residential"
@@ -12686,7 +12686,7 @@
             <reference ref="optional_name" />
             <reference ref="religious" />
         </item> <!-- Religious -->
-        <item name="Retail" icon="icons/png/landuse_supermarket.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Retail" icon="icons/png/landuse_supermarket.png" name_context="Landuse" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=retail"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=retail"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=retail"
@@ -12699,7 +12699,7 @@
             <key key="landuse" value="retail" />
             <reference ref="optional_name" />
         </item> <!-- Retail -->
-        <item name="Commercial" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Commercial" icon="icons/png/natural_empty.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=commercial"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=commercial"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=commercial"
@@ -12712,7 +12712,7 @@
             <key key="landuse" value="commercial" values_context="landuse" />
             <reference ref="optional_name" />
         </item> <!-- Commercial -->
-        <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=industrial"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=industrial"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=industrial"
@@ -12731,7 +12731,7 @@
             	editable="true"
             	values_context="industrial" match="key"/>
         </item> <!-- Industrial -->
-        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=garages"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=garages"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=garages"
@@ -12756,7 +12756,7 @@
             <key key="landuse" value="railway" />
             <reference ref="optional_name" />
         </item> <!-- Railway Land -->
-        <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=military"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=military"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=military"

@@ -33,6 +33,8 @@
   <string name="data_conflict_message">Los datos que trata de descargar contiene datos que entra en conflicto con sus ediciones. Intente subir sus datos antes de volver a intentarlo.</string>
   <string name="invalid_bounding_box_title">Cuadro delimitador inválido</string>
   <string name="invalid_bounding_box_message">El área seleccionada no se ajuste a las restricciones de la API, elija una diferente.</string>
+  <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
+  <string name="bounding_box_too_large_message">El área que intentas descargar es demasiado grande o contiene demasiados datos.\n\nPor favor acerca la imagen e inténtalo de nuevo.</string>
   <string name="api_offline_title">API fuera de línea</string>
   <string name="api_offline_message">La API está actualmente fuera de línea y no permite que los datos sean recuperados ni escritos.</string>
   <string name="out_of_memory_title">Sin memoria</string>
@@ -61,12 +63,15 @@
   <string name="progress_preset_message">Descargando predefinido...</string>
   <string name="progress_running_message">Ejecutando…</string>
   <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
+  <string name="progress_building_imagery_database">Construyendo base de datos de imágenes...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
   <string name="upload_close_changeset_label">Cerrar conjunto de cambios:</string>
   <string name="upload_gpx_description_label">Descripción</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidad</string>
+  <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
+  <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
   <string name="openstreetbug_new_title">Nota nueva</string>
   <string name="openstreetbug_new_bug">Registrar nota</string>
   <string name="openstreetbug_bug_title">Problema</string>
@@ -80,6 +85,8 @@
   <string name="openstreetbug_commit_fail">No se pudo guardar los cambios de errores</string>
   <string name="openstreetbug_not_downloaded">no descargado</string>
   <string name="openstreetbug_last_updated">última actualización</string>
+  <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
+  <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Tiene cambios sin guardar que se descartarán si continúa.</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -133,12 +140,35 @@
   <string name="js_console_msg_live">¡Modo en directo!</string>
   <string name="js_console_msg_debug">¡Modo de depuración!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Conjunto de reglas del validador %1$s</string>
+  <string name="age">Edad</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Relación vacía</string>
+  <string name="add_members">Añadir miembros</string>
+  <string name="leave_empty">Dejar vacío</string>
   <!--GPX way point dialog-->
+  <string name="description">Descripción</string>
+  <string name="created">Creado</string>
+  <string name="altitude">Altitud</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Imágenes personalizadas</string>
+  <string name="oam_layer_title">Imágenes OAM</string>
+  <string name="edit_layer_title">Editar entrada de capa</string>
+  <string name="add_layer_title">Añadir entrada de capa</string>
+  <string name="overlay">Superposición</string>
+  <string name="coverage">Cobertura</string>
+  <string name="coverage_top">Arriba</string>
+  <string name="coverage_left">Izquierda</string>
+  <string name="coverage_right">Derecha</string>
+  <string name="coverage_bottom">Abajo</string>
+  <string name="preferred">Preferido</string>
+  <string name="delete_layer">¿Borrar capa?</string>
   <!--Toaster-->
+  <string name="toast_name_empty">El nombre no puede estar vacío</string>
+  <string name="toast_url_empty">La URL no puede estar vacía</string>
   <string name="toast_no_changes">No cambió nada aún…</string>
   <string name="toast_unsaved_changes">Tiene cambios sin guardar, súbalos primero.</string>
+  <string name="clear_anyway">¿Borrar de todas formas?</string>
   <string name="toast_upload_success">Finalizada la subida al servidor OSM.</string>
   <string name="toast_not_in_edit_range">Acerque para editar (Botón volumen arriba/abajo o Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquee para editar</string>
@@ -201,6 +231,7 @@
   <string name="toast_no_coverage">%1$s no tiene cobertura aquí</string>
   <string name="toast_file_exists">El archivo %1$s existe.</string>
   <string name="toast_needs_resurvey">El objeto puede estar desactualizado</string>
+  <string name="toast_missing_key">La clave %1$s no se encuentra</string>
   <string name="toast_openinghours_invalid">Valor de horas de apertura no válidas para %1$s</string>
   <string name="toast_openinghours_autocorrected">Se autocorrigió el valor de horas de apertura para %1$s</string>
   <string name="toast_exit_multiselect">Toca dos veces un espacio vacío o usa la flecha hacia atrás para salir</string>
@@ -208,12 +239,16 @@
   <string name="toast_abort_actionmode">Use la flecha hacia atrás para abortar</string>
   <string name="toast_null_island">Por favor, no añada elementos en 0°/0° (Isla Nula)</string>
   <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
+  <string name="toast_illegal_operation">Operación ilegal: %1$s</string>
+  <string name="toast_using_network_location">Usando la localización por red</string>
+  <string name="toast_using_gps_location">Usando la localización GPS</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
   <string name="okay">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="dismiss">Descartar</string>
+  <string name="done">Listo</string>
   <string name="locked">Bloqueado</string>
   <string name="next">Siguiente</string>
   <string name="apply">Aplicar</string>
@@ -351,6 +386,8 @@
   <string name="menu_transfer_autodownload_long">Autodescargar errores</string>
   <string name="menu_transfer_save_notes_all">Guardar todas las notas...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Guardar notas nuevas o cambiadas...</string>
+  <string name="menu_transfer_read_custom_bugs">Cargar tareas personalizadas...</string>
+  <string name="menu_transfer_write_custom_bugs">Guardar tareas personalizadas abiertas...</string>
   <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -370,6 +407,8 @@
   <string name="menu_set_name">Establecer nombre</string>
   <string name="tag_form_unknown_element">Elemento desconocido (sin preestablecido)</string>
   <string name="menu_tools">Herramientas</string>
+  <string name="menu_tools_imagery">Más herramientas de imágenes</string>
+  <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_flush_background_tile_cache">Liberar caché de teselas de fondo</string>
   <string name="menu_tools_flush_overlay_tile_cache">Liberar caché de teselas superpuestas</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
@@ -530,6 +569,7 @@
   <string name="config_fullscreenMode_summary">Comportamiento en dispositivos con teclas «suaves»</string>
   <string name="config_maxInlineValues_title">Número máx. de valores en línea</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores en línea mostrados en el formulario de etiqueta</string>
+  <string name="config_category_layers">Descarga y almacenamiento de capas</string>
   <string name="config_maxTileDownloadThreads_title">Número máx. de hilos de descarga</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de hilos para descargar teselas</string>
   <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
@@ -544,6 +584,8 @@
   <string name="config_geocoderbutton_summary">Agregar, editar, eliminar geocodificadores para la funcionalidad de búsqueda</string>
   <string name="config_js_console_title">Habilitar consola JS</string>
   <string name="config_js_console_summary">Haga que la consola JS esté disponible en modo «en directo»</string>
+  <string name="config_validatorprefs_title">Preferencias del validador</string>
+  <string name="config_customlayers_title">Capas personalizadas</string>
   <string name="manage_apis">Administrar APIs</string>
   <string name="manage_presets">Administrar preajustes</string>
   <string name="manage_geocoders">Administrar geocodificadores</string>
