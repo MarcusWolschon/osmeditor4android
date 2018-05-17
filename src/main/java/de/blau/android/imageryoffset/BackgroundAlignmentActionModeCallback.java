@@ -720,7 +720,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         minmax.setText(offset.getMinZoom() + "-" + offset.getMaxZoom());
         TextView distance = (TextView) layout.findViewById(R.id.imagery_offset_distance);
         distance.setText(String.format(Locale.US, "%.3f",
-                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000)
+                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2D) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000)
                 + " km");
         dialog.setPositiveButton(R.string.apply, new OnClickListener() {
             @Override
