@@ -59,13 +59,15 @@ public class StringWithDescriptionAndIcon extends StringWithDescription {
      * @param preset the current PresetItem
      * @return a Drawable with the icon
      */
-    @NonNull
+    @Nullable
     public Drawable getIcon(PresetItem preset) {
         if (icon == null) {
-            icon = preset.getIcon(iconPath, PresetElement.ICON_SIZE_DP);
-            Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-            int size = Density.dpToPx(PresetElement.ICON_SIZE_DP);
-            icon = new BitmapDrawable(App.resources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
+            icon = preset.getIconIfExists(iconPath);
+            if (icon != null) {
+                Bitmap bitmap = Util.drawableToBitmap(icon);
+                int size = Density.dpToPx(PresetElement.ICON_SIZE_DP);
+                icon = new BitmapDrawable(App.resources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
+            }
         }
         return icon;
     }

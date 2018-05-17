@@ -2306,9 +2306,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             setMyVisibility(View.VISIBLE);
         }
 
-        public void setTitle(PresetItem preset) {
+        public void setTitle(@Nullable PresetItem preset) {
             if (preset != null) {
-                Drawable icon = preset.getIcon();
+                Drawable icon = preset.getIconIfExists(preset.getIconpath());
                 this.preset = preset;
                 if (icon != null) {
                     headerIconView.setVisibility(View.VISIBLE);
@@ -2322,12 +2322,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 copyButton.setVisibility(View.VISIBLE);
                 cutButton.setVisibility(View.VISIBLE);
                 deleteButton.setVisibility(View.VISIBLE);
-            } else {
-                headerTitleView.setText(R.string.tag_form_unknown_element);
-                applyPresetButton.setVisibility(View.GONE);
-                copyButton.setVisibility(View.GONE);
-                cutButton.setVisibility(View.GONE);
-                deleteButton.setVisibility(View.GONE);
             }
         }
 

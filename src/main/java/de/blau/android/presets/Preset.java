@@ -235,7 +235,36 @@ public class Preset implements Serializable {
     }
 
     public enum ValueType {
-        OPENING_HOURS, OPENING_HOURS_PLUS, CONDITIONAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA
+        OPENING_HOURS, OPENING_HOURS_MIXED, CONDITIONAL, INTEGER, WEBSITE, PHONE, WIKIPEDIA, WIKIDATA;
+
+        /**
+         * Get a ValueType corresponding to the input String
+         * 
+         * @param typeString
+         * @return the ValueType or null if unknown
+         */
+        @Nullable
+        static ValueType fromString(@NonNull String typeString) {
+            ValueType type = null;
+            if ("opening_hours".equals(typeString)) {
+                type = OPENING_HOURS;
+            } else if ("opening_hours_mixed".equals(typeString)) {
+                type = OPENING_HOURS_MIXED;
+            } else if ("conditional".equals(typeString)) {
+                type = CONDITIONAL;
+            } else if ("integer".equals(typeString)) {
+                type = INTEGER;
+            } else if ("website".equals(typeString)) {
+                type = WEBSITE;
+            } else if ("phone".equals(typeString)) {
+                type = PHONE;
+            } else if ("wikipedia".equals(typeString)) {
+                type = WIKIPEDIA;
+            } else if ("wikidata".equals(typeString)) {
+                type = WIKIDATA;
+            }
+            return type;
+        }
     }
 
     final static String COMBO_DELIMITER       = ",";
@@ -1484,6 +1513,7 @@ public class Preset implements Serializable {
          * 
          * @return a Drawable with the icon or a place holder for it
          */
+        @NonNull
         public Drawable getIcon() {
             if (icon == null) {
                 icon = getIcon(iconpath, ICON_SIZE_DP);
@@ -1498,7 +1528,8 @@ public class Preset implements Serializable {
          * @param iconSize size of the sides of the icon in DP
          * @return a Drawable with the icon or a place holder for it
          */
-        public Drawable getIcon(String path, int iconSize) {
+        @NonNull
+        public Drawable getIcon(@Nullable String path, int iconSize) {
             if (iconManager == null) {
                 iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
             }
@@ -1507,6 +1538,23 @@ public class Preset implements Serializable {
             } else {
                 return iconManager.getPlaceHolder(iconSize);
             }
+        }
+
+        /**
+         * Return the icon from the preset if it exists
+         * 
+         * @param path path to the icon
+         * @return a Drawable with the icon or or null if it can't be found
+         */
+        @Nullable
+        public Drawable getIconIfExists(@Nullable String path) {
+            if (iconManager == null) {
+                iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
+            }
+            if (path != null) {
+                return iconManager.getDrawable(path, ICON_SIZE_DP);
+            }
+            return null;
         }
 
         /**
@@ -1565,13 +1613,8 @@ public class Preset implements Serializable {
             v.setMaxLines(2);
             v.setPadding((int) (4 * density), (int) (4 * density), (int) (4 * density), (int) (4 * density));
             Drawable viewIcon = getIcon();
-            if (viewIcon != null) {
-                v.setCompoundDrawables(null, viewIcon, null, null);
-                v.setCompoundDrawablePadding((int) (4 * density));
-            } else {
-                // no icon
-                Log.d(DEBUG_TAG, "No icon for " + getName());
-            }
+            v.setCompoundDrawables(null, viewIcon, null, null);
+            v.setCompoundDrawablePadding((int) (4 * density));
             v.setWidth((int) (72 * density));
             v.setHeight((int) (72 * density));
             v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -2532,29 +2575,17 @@ public class Preset implements Serializable {
             return matchType != null ? matchType.get(key) : null;
         }
 
-        public void setValueType(String key, String match) {
+        /**
+         * Set the ValueType for the key
+         * 
+         * @param key the key
+         * @param type a String for the ValueType
+         */
+        public void setValueType(@NonNull String key, @Nullable String type) {
             if (valueType == null) {
                 valueType = new HashMap<>();
             }
-            ValueType type = null;
-            if ("opening_hours".equals(match)) {
-                type = ValueType.OPENING_HOURS;
-            } else if ("opening_hours_plus".equals(match)) {
-                type = ValueType.OPENING_HOURS_PLUS;
-            } else if ("conditional".equals(match)) {
-                type = ValueType.CONDITIONAL;
-            } else if ("integer".equals(match)) {
-                type = ValueType.INTEGER;
-            } else if ("website".equals(match)) {
-                type = ValueType.WEBSITE;
-            } else if ("phone".equals(match)) {
-                type = ValueType.PHONE;
-            } else if ("wikipedia".equals(match)) {
-                type = ValueType.WIKIPEDIA;
-            } else if ("wikidata".equals(match)) {
-                type = ValueType.WIKIDATA;
-            }
-            valueType.put(key, type);
+            valueType.put(key, ValueType.fromString(type));
         }
 
         public void setAllValueTypes(HashMap<String, ValueType> newValueTypes) {

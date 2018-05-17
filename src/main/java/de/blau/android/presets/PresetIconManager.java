@@ -101,7 +101,8 @@ public class PresetIconManager {
      * @param size icon size in dp
      * @return null if icon file not found or a drawable of [size]x[size] dp.
      */
-    public BitmapDrawable getDrawable(String url, int size) {
+    @Nullable
+    public BitmapDrawable getDrawable(@Nullable String url, int size) {
         if (url == null) {
             return null;
         }
@@ -140,8 +141,13 @@ public class PresetIconManager {
 
     /**
      * Like {@link #getDrawable(String, int)}, but returns a transparent placeholder instead of null
+     *
+     * @param url either a local preset url of the format "presets/xyz.png", or a http/https url
+     * @param size icon size in dp
+     * @return a drawable of [size]x[size] dp
      */
-    public Drawable getDrawableOrPlaceholder(String url, int size) {
+    @NonNull
+    public Drawable getDrawableOrPlaceholder(@Nullable String url, int size) {
         Drawable result = getDrawable(url, size);
         if (result != null) {
             return result;
