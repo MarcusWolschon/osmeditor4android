@@ -784,6 +784,10 @@ public class Preset implements Serializable {
                         if (searchable != null) {
                             currentItem.setValuesSearchable(key, YES.equals(searchable) || TRUE.equals(searchable));
                         }
+                        String valueType = attr.getValue(VALUE_TYPE);
+                        if (valueType != null) {
+                            currentItem.setValueType(key, valueType);
+                        }
                     } else if (ROLE.equals(name)) {
                         String key = attr.getValue(KEY_ATTR);
                         String text = attr.getValue(TEXT);
@@ -2588,7 +2592,12 @@ public class Preset implements Serializable {
             valueType.put(key, ValueType.fromString(type));
         }
 
-        public void setAllValueTypes(HashMap<String, ValueType> newValueTypes) {
+        /**
+         * Add a key - ValueType map
+         * 
+         * @param newValueTypes the additional map
+         */
+        public void setAllValueTypes(@Nullable HashMap<String, ValueType> newValueTypes) {
             if (valueType == null) {
                 valueType = newValueTypes; // doesn't matter if newMatchTypes is null
             } else if (newValueTypes != null) {
