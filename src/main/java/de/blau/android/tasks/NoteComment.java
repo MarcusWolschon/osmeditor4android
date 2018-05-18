@@ -142,8 +142,8 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
         if (action != null) {
             s.attribute("", "action", action);
         } else {
-            if (note.getOriginalState() != note.state) {
-                switch (note.state) {
+            if (note.getOriginalState() != note.getState()) {
+                switch (note.getState()) {
                 case CLOSED:
                     s.attribute("", "action", "closed");
                     break;
@@ -155,7 +155,7 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
                     }
                     break;
                 default:
-                    Log.d(DEBUG_TAG, "Illegal state for Note " + note.state);
+                    Log.d(DEBUG_TAG, "Illegal state for Note " + note.getState());
                     break;
                 }
             } else {

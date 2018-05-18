@@ -91,12 +91,12 @@ class OsmoseServer {
     public static boolean changeState(Context context, OsmoseBug bug) {
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313305479/done
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313313045/false
-        if (bug.state == State.OPEN) {
+        if (bug.getState() == State.OPEN) {
             return false; // open is the default state and we shouldn't actually get here
         }
         try {
             URL url;
-            url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.state == State.CLOSED ? "done" : "false"));
+            url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
             Log.d(DEBUG_TAG, "changeState " + url.toString());
             Request request = new Request.Builder().url(url).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -107,12 +107,12 @@ class OsmoseServer {
                 int responseCode = osmoseCallResponse.code();
                 Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);
                 if (responseCode == HttpURLConnection.HTTP_GONE) {
-                    bug.changed = false; // don't retry
+                    bug.setChanged(false); // don't retry
                     App.getTaskStorage().setDirty();
                 }
                 return false;
             }
-            bug.changed = false;
+            bug.setChanged(false);
             App.getTaskStorage().setDirty();
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());

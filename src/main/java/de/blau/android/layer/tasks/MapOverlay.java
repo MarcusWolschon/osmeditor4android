@@ -57,6 +57,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     /** Bugs visible on the overlay. */
     private TaskStorage tasks = App.getTaskStorage();
 
+    /**
+     * Construct a new layer
+     * 
+     * @param map the current Map instance
+     */
     public MapOverlay(final Map map) {
         this.map = map;
     }
@@ -100,7 +105,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                         c.drawBitmap(cachedIconChangedClosed, x - w2changedClosed, y - h2changedClosed, null);
                     } else if (t.isClosed()) {
                         if (cachedIconClosed == null) {
-                            cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed_closed);
+                            cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
                             w2closed = cachedIconClosed.getWidth() / 2f;
                             h2closed = cachedIconClosed.getHeight() / 2f;
                         }

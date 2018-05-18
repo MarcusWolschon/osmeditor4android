@@ -32,10 +32,10 @@ public abstract class Task implements Serializable, BoundedObject {
         OPEN, CLOSED, FALSE_POSITIVE
     }
 
-    State state;
+    private State state;
 
     /** Has been edited */
-    boolean changed = false;
+    private boolean changed = false;
 
     /**
      * Get the bug ID.
@@ -62,6 +62,20 @@ public abstract class Task implements Serializable, BoundedObject {
      */
     public int getLon() {
         return lon;
+    }
+
+    /**
+     * @return the state
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(State state) {
+        this.state = state;
     }
 
     /**
@@ -102,7 +116,21 @@ public abstract class Task implements Serializable, BoundedObject {
     public void open() {
         state = State.OPEN;
     }
+    
+    /**
+     * Check if the bug is open
+     * 
+     * @return true if open
+     */
+    public boolean isOpen() {
+        return state == State.OPEN;
+    }
 
+    /**
+     * Get a (degenerated) BoundingBox for this task
+     * 
+     * @return a BoundingBox for the location of this Task
+     */
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
     }
@@ -128,14 +156,26 @@ public abstract class Task implements Serializable, BoundedObject {
     }
 
     /**
-     * Inidicate that the bug has been modified
+     * Indicate that the bug has been modified or not
+     * 
+     * @param changed if true the Task has been changed
      */
-    public void setChanged() {
-        changed = true;
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
 
+    /**
+     * Get a description for this Task
+     * 
+     * @return a String containing a short decsription
+     */
     abstract public String getDescription();
 
+    /**
+     * Get the time this Task was last updated
+     * 
+     * @return a Date object
+     */
     abstract public Date getLastUpdate();
 
     /**

@@ -199,7 +199,7 @@ public class Commands {
                 }
                 n.addComment(input.toString().trim());
                 n.open();
-                n.setChanged();
+                n.setChanged(true);
                 App.getTaskStorage().add(n);
                 return n;
             }

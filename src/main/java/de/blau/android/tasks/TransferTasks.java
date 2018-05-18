@@ -163,7 +163,7 @@ public class TransferTasks {
             final List<Task> queryResult = App.getTaskStorage().getTasks();
             // check if we need to oAuth first
             for (Task b : queryResult) {
-                if (b.changed && b instanceof Note) {
+                if (b.hasBeenChanged() && b instanceof Note) {
                     if (server.isLoginSet()) {
                         if (server.needOAuthHandshake()) {
                             main.oAuthHandshake(server, new PostAsyncActionHandler() {
@@ -199,7 +199,7 @@ public class TransferTasks {
                 protected Boolean doInBackground(Void... params) {
                     boolean uploadFailed = false;
                     for (Task b : queryResult) {
-                        if (b.changed) {
+                        if (b.hasBeenChanged()) {
                             Log.d(DEBUG_TAG, b.getDescription());
                             if (b instanceof Note) {
                                 Note n = (Note) b;
@@ -364,7 +364,7 @@ public class TransferTasks {
                     }
                     if (result.getError() == ErrorCodes.OK) {
                         // upload successful
-                        bug.changed = false;
+                        bug.setChanged(false);
                         if (postUploadHandler != null) {
                             postUploadHandler.onSuccess();
                         }

@@ -118,7 +118,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     if (bug instanceof Note) {
                         Note n = (Note) bug;
                         NoteComment nc = n.getLastComment();
-                        TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.state == State.CLOSED,
+                        TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED,
                                 false, null);
                     } else if (bug instanceof OsmoseBug) {
                         TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug) bug, false, null);
@@ -230,11 +230,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
         // Apply the adapter to the spinner
         state.setAdapter(adapter);
 
-        if (bug.state == State.OPEN) {
+        if (bug.getState() == State.OPEN) {
             state.setSelection(State.OPEN.ordinal());
-        } else if (bug.state == State.CLOSED) {
+        } else if (bug.getState() == State.CLOSED) {
             state.setSelection(State.CLOSED.ordinal());
-        } else if (bug.state == State.FALSE_POSITIVE) {
+        } else if (bug.getState() == State.FALSE_POSITIVE) {
             if (adapter.getCount() == 3) {
                 state.setSelection(State.FALSE_POSITIVE.ordinal());
             } else {
@@ -350,8 +350,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
             ((Note) bug).addComment(c);
         }
         final Spinner state = (Spinner) v.findViewById(R.id.openstreetbug_state);
-        bug.state = pos2state(state.getSelectedItemPosition());
-        bug.changed = true;
+        bug.setState(pos2state(state.getSelectedItemPosition()));
+        bug.setChanged(true);
         App.getTaskStorage().setDirty();
     }
 
