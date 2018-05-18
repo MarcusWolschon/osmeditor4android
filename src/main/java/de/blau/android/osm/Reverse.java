@@ -31,6 +31,9 @@ class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
+    /**
+     * Private constructor
+     */
     private Reverse() {
         // don't allow instantiating of this class
     }
@@ -117,6 +120,12 @@ class Reverse {
         }
     }
 
+    /**
+     * Reverse a cardinal direction 
+     * 
+     * @param value the value to reverse
+     * @return the reversed value
+     */
     private static String reverseCardinalDirection(final String value) {
         StringBuilder tmpVal = new StringBuilder("");
         for (int i = 0; i < value.length(); i++) {
@@ -140,11 +149,21 @@ class Reverse {
         return tmpVal.toString();
     }
 
+    /**
+     * REverse the value of a direction tag
+     * 
+     * @param value the value to reverse
+     * @return the reversed value
+     */
     private static String reverseDirection(final String value) {
         if (Tags.VALUE_UP.equals(value)) {
             return Tags.VALUE_DOWN;
         } else if (Tags.VALUE_DOWN.equals(value)) {
             return Tags.VALUE_UP;
+        } else if (Tags.VALUE_FORWARD.equals(value)) {
+            return Tags.VALUE_BACKWARD;
+        } else if (Tags.VALUE_BACKWARD.equals(value)) {
+            return Tags.VALUE_FORWARD;
         } else {
             if (value.endsWith(DEGREE)) { // degrees
                 try {
@@ -171,6 +190,12 @@ class Reverse {
         }
     }
 
+    /**
+     * REverse the value of an incline tag
+     * 
+     * @param value the value to reverse
+     * @return the reversed value
+     */
     private static String reverseIncline(@NonNull final String value) {
         String tmpVal;
         if (Tags.VALUE_UP.equals(value)) {
@@ -315,10 +340,17 @@ class Reverse {
         e.setTags(tags);
     }
 
+    /**
+     * Format a float in a nice way, dopping the decimal part if possible
+     * 
+     * @param f the float to format
+     * @return a strign representation of the float value
+     */
     private static String floatToString(float f) {
-        if (f == (int) f)
+        if (f == (int) f) {
             return String.format(Locale.US, "%d", (int) f);
-        else
+        } else {
             return String.format(Locale.US, "%s", f);
+        }
     }
 }
