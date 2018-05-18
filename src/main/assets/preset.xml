@@ -2,7 +2,7 @@
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
     shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version"
-    object_keys="attraction" >
+    object_keys="attraction,traffic_sign,traffic_sign:forward,traffic_sign:backward" >
 <!--
     Icons have been derived from mainly from
   
@@ -2069,6 +2069,7 @@
             <space />
             <key key="traffic_sign" value="city_limit" />
             <text key="name" text="Name" />
+            <combo key="direction" text="Direction on way" values="forward,backward"  display_values="Forward,Backward"  /> 
             <preset_link preset_name="Name" />
         </item> <!-- City Limit -->
         <item name="Speed Limit Sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
@@ -2082,7 +2083,30 @@
             <space />
             <key key="traffic_sign" value="maxspeed" />
             <text key="maxspeed" text="Max. speed (km/h)" />
+            <combo key="direction" text="Direction on way" values="forward,backward"  display_values="Forward,Backward"  /> 
         </item> <!-- Speed Limit -->
+        <item name="Traffic Sign Forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_sign"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_sign"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Key:traffic_sign"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:traffic_sign"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:traffic_sign"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_sign"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:traffic_sign" />
+            <space />
+            <text key="traffic_sign:forward"  match="key" />
+        </item> <!-- Traffic Sign Forward -->
+        <item name="Traffic Sign Backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_sign"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_sign"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Key:traffic_sign"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:traffic_sign"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:traffic_sign"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_sign"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:traffic_sign" />
+            <space />
+            <text key="traffic_sign:backward"  match="key" />
+        </item> <!-- Traffic Sign Forward -->
         <item name="Speed Camera" icon="icons/png/highway_speed_camera_18025.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=speed_camera"
                   az.href="http://wiki.openstreetmap.org/wiki/Az:Tag:highway=speed_camera"
