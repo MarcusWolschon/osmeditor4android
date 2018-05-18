@@ -1,18 +1,12 @@
 package de.blau.android.osm;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Test;
-
-import de.blau.android.osm.Reverse;
 
 public class ReverseTest {
 
@@ -23,6 +17,12 @@ public class ReverseTest {
         reverseTag("direction","NW","SE");
         reverseTag("direction","45°","225°");
         reverseTag("direction","45","225");
+        reverseTag("direction","forward","backward");
+        reverseTag("direction","backward","forward");
+        reverseTag("incline","up","down");
+        reverseTag("incline","down","up");
+        reverseTag("incline","10°","-10°");
+        reverseTag("incline","-10°","10°");
         reverseTag("oneway","yes","-1");
     }
 
