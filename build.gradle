@@ -153,8 +153,8 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
 	connectedDebugAndroidTest.dependsOn installDebug
 }
 
-//apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3'
-apply from: '../gradle-tasks/eclipse-android-3'
+apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3'
+//apply from: '../gradle-tasks/eclipse-android-3'
 
 sonarqube {
     properties {
