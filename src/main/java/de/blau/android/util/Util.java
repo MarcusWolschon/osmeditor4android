@@ -61,6 +61,12 @@ public class Util {
         // don't allow instantiating of this class
     }
 
+    /**
+     * Wrap a string in an ArrayList
+     * 
+     * @param s the input String
+     * @return an ArrayList containing only s
+     */
     static public ArrayList<String> getArrayList(String s) {
         ArrayList<String> v = new ArrayList<>();
         v.add(s);
