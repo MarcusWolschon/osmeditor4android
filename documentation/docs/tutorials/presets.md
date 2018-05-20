@@ -155,4 +155,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _wikipedia_ a wikipedia page
     * _wikidata_  a wikidata Q ref
   
-  this avoids having to hardcode this in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example.
+  this avoids having to hardcode such properties in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example.
