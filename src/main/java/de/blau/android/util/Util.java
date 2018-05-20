@@ -547,6 +547,12 @@ public class Util {
         }
     }
 
+    /**
+     * Backwards compatible version of Html.fromHtml
+     * 
+     * @param html string with HTML markup to convert
+     * @return a Spanned formated as the markup required
+     */
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -555,10 +561,10 @@ public class Util {
             return Html.fromHtml(html);
         }
     }
-    
+
     /**
-     * Convert a Drawable to a Bitmap
-     * See https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap/9390776
+     * Convert a Drawable to a Bitmap See
+     * https://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap/9390776
      * 
      * @param drawable input Drawable
      * @return a Bitmap
@@ -569,16 +575,13 @@ public class Util {
         }
 
         // We ask for the bounds if they have been set as they would be most
-        // correct, then we check we are  > 0
-        final int width = !drawable.getBounds().isEmpty() ?
-                drawable.getBounds().width() : drawable.getIntrinsicWidth();
+        // correct, then we check we are > 0
+        final int width = !drawable.getBounds().isEmpty() ? drawable.getBounds().width() : drawable.getIntrinsicWidth();
 
-        final int height = !drawable.getBounds().isEmpty() ?
-                drawable.getBounds().height() : drawable.getIntrinsicHeight();
+        final int height = !drawable.getBounds().isEmpty() ? drawable.getBounds().height() : drawable.getIntrinsicHeight();
 
         // Now we check we are > 0
-        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width, height <= 0 ? 1 : height,
-                Bitmap.Config.ARGB_8888);
+        final Bitmap bitmap = Bitmap.createBitmap(width <= 0 ? 1 : width, height <= 0 ? 1 : height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);

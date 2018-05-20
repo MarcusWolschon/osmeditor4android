@@ -2605,6 +2605,12 @@ public class Preset implements Serializable {
             }
         }
 
+        /**
+         * Get the ValueType for this key
+         *  
+         * @param key the key to check
+         * @return the ValueType of null if none set
+         */
         @Nullable
         public ValueType getValueType(String key) {
             return valueType != null ? valueType.get(key) : null;

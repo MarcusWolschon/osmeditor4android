@@ -969,7 +969,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Nullable final String hint, @NonNull final String key, @Nullable final String value, @Nullable final String defaultValue,
             @Nullable final ArrayList<String> values, final LinkedHashMap<String, String> allTags) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
-        final boolean isWebsite = Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key));
+        final ValueType valueType = preset != null ? preset.getValueType(key) : null;
+        final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
         final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(((PropertyEditor) getActivity()).getElement());
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1005,15 +1006,20 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         ((EditableLayout) rowLayout).putTag(key, rowValue);
                     }
                 } else if (hasFocus) {
-                    if (values != null) {
+                    boolean hasValues = values != null && !values.isEmpty();
+                    if (hasValues) {
                         ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
                         row.valueView.setAdapter(adapter);
                     }
+
                     if (isWebsite) {
                         TagEditorFragment.initWebsite(row.valueView);
                     } else if (isMPHSpeed) {
                         TagEditorFragment.initMPHSpeed(getActivity(), row.valueView, ((PropertyEditor) getActivity()).getElement());
+                    } else if (valueType == null) {
+                        InputTypeUtil.enableTextSuggestions(row.valueView);
                     }
+                    InputTypeUtil.setInputTypeFromValueType(row.valueView, valueType);
                 }
             }
         });

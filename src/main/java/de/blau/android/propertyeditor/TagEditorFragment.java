@@ -328,6 +328,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         // Add any extra tags that were supplied
+        @SuppressWarnings("unchecked")
         HashMap<String, String> extraTags = (HashMap<String, String>) getArguments().getSerializable(EXTRA_TAGS);
         if (extraTags != null) {
             for (Entry<String, String> e : extraTags.entrySet()) {
@@ -942,26 +943,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     originalValue = row.getValue();
                     String key = row.getKey();
                     PresetItem preset = getPreset(key);
+                    final ValueType valueType = preset != null ? preset.getValueType(key) : null;
+                    final PresetKeyType keyType = preset.getKeyType(key);
                     row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
-                    if (preset != null && preset.getKeyType(key) == PresetKeyType.MULTISELECT) {
+                    if (preset != null && keyType == PresetKeyType.MULTISELECT) {
                         // FIXME this should be somewhere better obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
                     }
-                    if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == preset.getValueType(key))) {
+                    if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == valueType)) {
                         initWebsite(row.valueEdit);
                     } else if (Tags.isSpeedKey(key)) {
                         initMPHSpeed(getActivity(), row.valueEdit, ((PropertyEditor) getActivity()).getElement());
+                    } else if (keyType == PresetKeyType.TEXT && valueType == null) {
+                        InputTypeUtil.enableTextSuggestions(row.valueEdit);
                     }
+                    InputTypeUtil.setInputTypeFromValueType(row.valueEdit, valueType);
+
                     if (PropertyEditor.running) {
-                        if (row.valueEdit.getText().length() == 0)
+                        if (row.valueEdit.getText().length() == 0) {
                             row.valueEdit.showDropDown();
-                        // try { // hack to display numeric keyboard for numeric tag values
-                        // // unluckily there is then no way to get an alpha-numeric keyboard
-                        // int number = Integer.parseInt(valueEdit.getText().toString());
-                        // valueEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        // } catch (NumberFormatException nfe) {
-                        // // do nothing
-                        // }
+                        }
                     }
                 } else {
                     // our preset may have changed re-calc
@@ -1226,6 +1227,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         void enableCheckBox() {
             selected.setEnabled(true);
         }
+
     }
 
     /**
