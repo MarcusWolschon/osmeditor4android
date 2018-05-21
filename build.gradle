@@ -169,7 +169,7 @@ sonarqube {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
  
     defaultConfig {
         minSdkVersion project.getMinSdkVersion()
@@ -192,8 +192,8 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     
     testOptions {
@@ -288,6 +288,7 @@ dependencies {
     implementation "ch.poole:OpeningHoursFragment:0.5.1"    
     implementation 'ch.poole.android:numberpicker:1.0.8'
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
+    implementation 'de.westnordost:countryboundaries:1.2'
     // for temp stuff during dev 
     // implementation(name:'alibrary', ext:'jar')
  

@@ -1810,6 +1810,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=traffic_signals" />
             <key key="highway" value="traffic_signals" />
             <optional text="Optional crossing attributes:">
+                <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  />
             	<reference ref="crossing_type" />
                 <combo key="crossing_ref" text="Crossing type (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
                 <check key="button_operated" text="Button operated" disable_off="true" />
@@ -1834,6 +1835,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=stop"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=stop" />
             <key key="highway" value="stop" />
+            <combo key="direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  /> 
         </item> <!-- Stop -->
         <item name="Give Way" icon="icons/png/give_way.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=give_way"
@@ -1845,6 +1847,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=give_way"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=give_way" />
             <key key="highway" value="give_way" />
+            <combo key="direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  />
         </item> <!-- Give Way -->
         <item name="Mini-Roundabout" icon="icons/png/transport_miniroundabout_clockwise.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=mini_roundabout"
@@ -5298,7 +5301,7 @@
             <reference ref="fee" />
             <space />
             <label text="Audioguide via mobile phone?" />
-            <text key="phone" text="Phone number" />
+            <text key="phone" text="Phone number" value_type="phone" />
         </item> <!-- Audio Guide -->
         <item name="Other Information Point" icon="icons/png/tourist_information.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=information"
@@ -6772,7 +6775,7 @@
             <reference ref="oh_wheelchair_level" />
             <text key="operator" text="Operator" />
             <text key="defibrillator:location" text="Location description" />
-            <text key="phone" text="Phone Number" />
+            <text key="phone" text="Phone Number" value_type="phone" />
             <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="Yes,Private,Customers,Permissive,No" />
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none" />
             <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
@@ -12964,8 +12967,8 @@
             <text key="website" text="Website" match="key" />
             <text key="email" text="Email Address" match="key" />
             <space />
-            <text key="phone" text="Phone Number" match="key" />
-            <text key="fax" text="Fax Number" match="key" />
+            <text key="phone" text="Phone Number" match="key" value_type="phone" />
+            <text key="fax" text="Fax Number" match="key" value_type="phone" />
             <space />
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
             <text key="wikidata" text="Wikidata" value_type="wikidata" />
@@ -12985,8 +12988,8 @@
             <text key="contact:website" text="Website" match="key" />
             <text key="contact:email" text="Email Address" match="key" />
             <space />
-            <text key="contact:phone" text="Phone Number" match="key" />
-            <text key="contact:fax" text="Fax Number" match="key" />
+            <text key="contact:phone" text="Phone Number" match="key" value_type="phone" />
+            <text key="contact:fax" text="Fax Number" match="key" value_type="phone" />
             <space />
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
             <text key="wikidata" text="Wikidata" value_type="wikidata" />
