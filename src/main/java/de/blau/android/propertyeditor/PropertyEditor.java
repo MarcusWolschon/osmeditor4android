@@ -169,6 +169,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     private boolean                 usePaneLayout = false;
     private boolean                 isRelation    = false;
     private transient NetworkStatus networkStatus;
+    private List<String>            isoCodes      = null;
 
     /**
      * Start a PropertyEditor activity
@@ -1171,38 +1172,30 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     }
 
-    /**
-     * Gets an adapter for the autocompletion of street names based on the neighborhood of the edited item.
-     * 
-     * @param tagValues
-     * @return
-     */
-    public ArrayAdapter<ValueWithCount> getStreetNameAdapter(ArrayList<String> tagValues) {
+    @Override
+    public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
         if (App.getDelegator() == null) {
             return null;
         }
         if (streetNameAutocompleteAdapter == null) {
-            streetNameAutocompleteAdapter = new StreetTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], tagValues); // FIXME
+            streetNameAutocompleteAdapter = new StreetTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
         }
         return streetNameAutocompleteAdapter;
     }
 
-    /**
-     * Gets an adapter for the autocompletion of place names based on the neighborhood of the edited item.
-     * 
-     * @return
-     */
-    public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(ArrayList<String> tagValues) {
+    @Override
+    public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
         if (App.getDelegator() == null) {
             return null;
         }
         if (placeNameAutocompleteAdapter == null) {
-            placeNameAutocompleteAdapter = new PlaceTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], tagValues); // FIXME
+            placeNameAutocompleteAdapter = new PlaceTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
         }
         return placeNameAutocompleteAdapter;
     }
 
-    OsmElement getElement() {
+    @Override
+    public OsmElement getElement() {
         return elements[0]; // FIXME validate
     }
 
@@ -1261,5 +1254,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             networkStatus = new NetworkStatus(this);
         }
         return networkStatus.isConnectedOrConnecting();
+    }
+
+    @Override
+    public List<String> getIsoCodes() {
+        if (isoCodes == null) {
+            isoCodes = App.getGeoContext(this).getIsoCodes(getElement());
+        }
+        return isoCodes;
     }
 }

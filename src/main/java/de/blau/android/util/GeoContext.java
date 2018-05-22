@@ -17,8 +17,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.Logic;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.westnordost.countryboundaries.CountryBoundaries;
 
@@ -30,13 +34,42 @@ import de.westnordost.countryboundaries.CountryBoundaries;
  */
 public class GeoContext {
 
-    private static final String     DEBUG_TAG = "GeoContext";
+    private static final String     SPEED_LIMITS      = "speed-limits";
+    private static final String     LEFT_HAND_TRAFFIC = "left-hand-traffic";
+    private static final String     IMPERIAL          = "imperial";
+    private static final String     DISTANCE          = "distance";
+    private static final String     DEBUG_TAG         = "GeoContext";
     private final CountryBoundaries countryBoundaries;
 
-    private class Properties {
-        boolean imperialUnits   = false;
-        boolean leftHandTraffic = false;
-        int[]   speedLimits;
+    public class Properties {
+        boolean       imperialUnits   = false;
+        boolean       leftHandTraffic = false;
+        private int[] speedLimits;
+
+        /**
+         * Get an array of common speed limits add mph im imperialUnits is true
+         * 
+         * @return the speedLimits
+         */
+        @Nullable
+        public String[] getSpeedLimits() {
+            String[] result = null;
+            if (speedLimits != null) {
+                int length = speedLimits.length;
+                result = new String[length];
+                for (int i = 0; i < length; i++) {
+                    result[i] = Integer.toString(speedLimits[i]) + (imperialUnits ? Tags.MPH : "");
+                }
+            }
+            return result;
+        }
+
+        /**
+         * @return true if imperial units are in use
+         */
+        public boolean imperialUnits() {
+            return imperialUnits;
+        }
     }
 
     private final Map<String, Properties> properties;
@@ -67,7 +100,6 @@ public class GeoContext {
             return CountryBoundaries.load(assetManager.open(fileName));
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Reading boundaries failed with " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
     }
@@ -96,13 +128,13 @@ public class GeoContext {
                     while (reader.hasNext()) {
                         String propName = reader.nextName();
                         switch (propName) {
-                        case "distance":
-                            prop.imperialUnits = "imperial".equals(reader.nextString());
+                        case DISTANCE:
+                            prop.imperialUnits = IMPERIAL.equals(reader.nextString());
                             break;
-                        case "left-hand-traffic":
+                        case LEFT_HAND_TRAFFIC:
                             prop.leftHandTraffic = reader.nextBoolean();
                             break;
-                        case "speed-limits":
+                        case SPEED_LIMITS:
                             reader.beginArray();
                             List<Integer> speedLimits = new ArrayList<>();
                             while (reader.hasNext()) {
@@ -162,6 +194,17 @@ public class GeoContext {
     @Nullable
     private Properties getProperties(double lon, double lat) {
         List<String> territories = getIsoCodes(lon, lat);
+        return getProperties(territories);
+    }
+
+    /**
+     * Get the properties for a specific territory
+     * 
+     * @param territories List of ISO codes
+     * @return a Properties instance or null if not found
+     */
+    @Nullable
+    public Properties getProperties(@Nullable List<String> territories) {
         Properties result = null;
         if (territories != null) {
             for (String territory : territories) {
@@ -190,6 +233,40 @@ public class GeoContext {
     }
 
     /**
+     * Get a list of ISO country codes that this element is in
+     * 
+     * Currently this uses a centroid of the object which is probably a bad idea
+     * 
+     * @param e the OsmElement in question
+     * @return a List of ISO country codes as Strings, or null if nothing found
+     */
+    @Nullable
+    public List<String> getIsoCodes(@NonNull OsmElement e) {
+        if (countryBoundaries == null) {
+            return null;
+        }
+        double lon = 0d;
+        double lat = 0d;
+        if (e instanceof Node) {
+            lon = ((Node) e).getLon();
+            lat = ((Node) e).getLat();
+        } else if (e instanceof Way) {
+            double[] coords = Logic.centroidLonLat((Way) e);
+            lon = coords[0];
+            lat = coords[1];
+        } else {
+            BoundingBox bbox = e.getBounds();
+            if (bbox != null) {
+                ViewBox vbox = new ViewBox(bbox);
+                lon = vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D;
+                lat = vbox.getCenterLat();
+            }
+        }
+        List<String> territories = countryBoundaries.getIds(lon, lat);
+        return territories;
+    }
+
+    /**
      * Check if an OsmElement is in a territory that uses imperial units
      * 
      * @param e the OsmElement
@@ -201,7 +278,7 @@ public class GeoContext {
         } else if (e instanceof Way) {
             return imperial((Way) e);
         } else {
-            return false; // FIXME handle relations
+            return imperial((Relation) e);
         }
     }
 
@@ -226,6 +303,23 @@ public class GeoContext {
     public boolean imperial(@NonNull Way w) {
         double[] coords = Logic.centroidLonLat(w);
         return imperial(coords[0], coords[1]);
+    }
+
+    /**
+     * Check if a Relation is in a territory that uses imperial units
+     * 
+     * Note the check uses the center of the bounding box, this might not be the best choice
+     * 
+     * @param r the Relation
+     * @return true if the territory uses imperial units
+     */
+    public boolean imperial(@NonNull Relation r) {
+        BoundingBox bbox = r.getBounds();
+        if (bbox != null) {
+            ViewBox vbox = new ViewBox(bbox);
+            return imperial(vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D, vbox.getCenterLat());
+        }
+        return false;
     }
 
     /**

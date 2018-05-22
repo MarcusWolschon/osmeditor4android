@@ -26,6 +26,7 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -57,14 +58,17 @@ public class PlaceTagValueAdapter extends ArrayAdapter<ValueWithCount> {
     private ElementSearch es;
 
     /**
+     * Get an Adapter containing near by place names
      * 
-     * @param aContext used to load resources
-     * @param aTextViewResourceId given to {@link ArrayAdapter}
-     * @param osmId
-     * @param type
+     * @param aContext Android context
+     * @param aTextViewResourceId the resource id of the AutoCompleteTextView
+     * @param delegator the current StorageDelegator instance
+     * @param osmElementType the type of OsmElement
+     * @param osmId the id of the OsmElement
+     * @param extraValues any existing values
      */
     public PlaceTagValueAdapter(final Context aContext, final int aTextViewResourceId, final StorageDelegator delegator, final String osmElementType,
-            final long osmId, ArrayList<String> extraValues) {
+            final long osmId, List<String> extraValues) {
         super(aContext, aTextViewResourceId);
         Log.d(DEBUG_TAG, "Constructor ...");
 

@@ -40,6 +40,8 @@ MultiSelectListPreference is Copyright (C) 2015 The Android Open Source Project 
 
 The SplitPane layout was retrieved from https://github.com/MobiDevelop/android-split-pane-layout licensed under the Apache License, version 2.
 
+The countryboundaries library used for geo-coding OSM elements is © 2018 Tobias Zwick. The library is released under the terms of the GNU Lesser General Public License (LGPL) and is available from https://github.com/westnordost/countryboundaries
+
 Following software was written by Simon Poole and is available under MIT style licences:
 
 - The parser for .PO files https://github.com/simonpoole/PoParser .
@@ -62,6 +64,9 @@ The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt
   http://mozilla.org/MPL/2.0/
+  http://www.gnu.org/licenses/lgpl-3.0.html
+
+--
 
 The R-Tree library was originally developed by Colonel Thirty Two:
 

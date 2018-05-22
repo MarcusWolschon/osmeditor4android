@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.support.annotation.Nullable;
+
 /**
  * Key and value constants for tags that are used in the code
  * 
@@ -134,7 +136,13 @@ public class Tags {
     public static final String KEY_MINSPEED = "minspeed";
     public static final String MPH          = " mph";
 
-    public static boolean isSpeedKey(final String key) {
+    /**
+     * Check if the key has something to do with a vehicle speed
+     * 
+     * @param key the key to check
+     * @return true is a speed related key
+     */
+    public static boolean isSpeedKey(@Nullable final String key) {
         return key != null && (key.startsWith(KEY_MAXSPEED) || key.startsWith(KEY_MINSPEED));
     }
 

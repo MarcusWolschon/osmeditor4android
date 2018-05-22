@@ -76,7 +76,7 @@
             70
         ]
     },
-    "gb-gi": {
+    "gi": {
         "distance": "metric",
         "left-hand-traffic": false
     },
@@ -189,12 +189,28 @@
         "left-hand-traffic": true
     },
     "us": {
-        "distance": "imperial"
+        "distance": "imperial",
+        "speed-limits": [
+            20,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85
+        ]
     },
-    "us-pr": {
+    "pr": {
         "distance": "metric"
     },
-    "us-vi": {
+    "vi": {
+        "distance": "imperial",
         "left-hand-traffic": true
     },
     "vc": {
