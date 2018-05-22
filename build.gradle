@@ -169,7 +169,7 @@ sonarqube {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
  
     defaultConfig {
         minSdkVersion project.getMinSdkVersion()
