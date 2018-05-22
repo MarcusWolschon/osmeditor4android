@@ -1,0 +1,231 @@
+{
+    "ag": {
+        "left-hand-traffic": true
+    },
+    "au": {
+        "left-hand-traffic": true
+    },
+    "at": {
+        "speed-limits": [
+            50,
+            100,
+            130
+        ]
+    },
+    "bb": {
+        "left-hand-traffic": true
+    },
+    "bd": {
+        "left-hand-traffic": true
+    },
+    "bn": {
+        "left-hand-traffic": true
+    },
+    "bs": {
+        "left-hand-traffic": true
+    },
+    "bt": {
+        "left-hand-traffic": true
+    },
+    "bw": {
+        "left-hand-traffic": true
+    },
+    "ch": {
+        "speed-limits": [
+            30,
+            50,
+            60,
+            80,
+            100,
+            120
+        ]
+    },
+    "cn-hk": {
+        "left-hand-traffic": true
+    },
+    "cy": {
+        "left-hand-traffic": true
+    },
+    "de": {
+        "speed-limits": [
+            30,
+            50,
+            100,
+            130
+        ]
+    },
+    "dm": {
+        "left-hand-traffic": true
+    },
+    "fj": {
+        "left-hand-traffic": true
+    },
+    "fr": {
+        "speed-limits": [
+            50,
+            80,
+            130
+        ]
+    },
+    "gb": {
+        "distance": "imperial",
+        "left-hand-traffic": true,
+        "speed-limits": [
+            30,
+            60,
+            70
+        ]
+    },
+    "gi": {
+        "distance": "metric",
+        "left-hand-traffic": false
+    },
+    "gd": {
+        "left-hand-traffic": true
+    },
+    "gy": {
+        "left-hand-traffic": true
+    },
+    "id": {
+        "left-hand-traffic": true
+    },
+    "ie": {
+        "left-hand-traffic": true
+    },
+    "in": {
+        "left-hand-traffic": true
+    },
+    "jm": {
+        "left-hand-traffic": true
+    },
+    "jp": {
+        "left-hand-traffic": true
+    },
+    "ke": {
+        "left-hand-traffic": true
+    },
+    "ki": {
+        "left-hand-traffic": true
+    },
+    "kn": {
+        "left-hand-traffic": true
+    },
+    "lc": {
+        "left-hand-traffic": true
+    },
+    "lk": {
+        "left-hand-traffic": true
+    },
+    "ls": {
+        "left-hand-traffic": true
+    },
+    "mt": {
+        "left-hand-traffic": true
+    },
+    "mu": {
+        "left-hand-traffic": true
+    },
+    "mv": {
+        "left-hand-traffic": true
+    },
+    "mw": {
+        "left-hand-traffic": true
+    },
+    "my": {
+        "left-hand-traffic": true
+    },
+    "mz": {
+        "left-hand-traffic": true
+    },
+    "np": {
+        "left-hand-traffic": true
+    },
+    "nr": {
+        "left-hand-traffic": true
+    },
+    "nz": {
+        "left-hand-traffic": true
+    },
+    "pg": {
+        "left-hand-traffic": true
+    },
+    "pk": {
+        "left-hand-traffic": true
+    },
+    "sb": {
+        "left-hand-traffic": true
+    },
+    "sc": {
+        "left-hand-traffic": true
+    },
+    "sg": {
+        "left-hand-traffic": true
+    },
+    "sr": {
+        "left-hand-traffic": true
+    },
+    "sz": {
+        "left-hand-traffic": true
+    },
+    "th": {
+        "left-hand-traffic": true
+    },
+    "tl": {
+        "left-hand-traffic": true
+    },
+    "to": {
+        "left-hand-traffic": true
+    },
+    "tt": {
+        "left-hand-traffic": true
+    },
+    "tv": {
+        "left-hand-traffic": true
+    },
+    "tz": {
+        "left-hand-traffic": true
+    },
+    "ug": {
+        "left-hand-traffic": true
+    },
+    "us": {
+        "distance": "imperial",
+        "speed-limits": [
+            20,
+            30,
+            35,
+            40,
+            45,
+            50,
+            55,
+            60,
+            65,
+            70,
+            75,
+            80,
+            85
+        ]
+    },
+    "pr": {
+        "distance": "metric"
+    },
+    "vi": {
+        "distance": "imperial",
+        "left-hand-traffic": true
+    },
+    "vc": {
+        "left-hand-traffic": true
+    },
+    "ws": {
+        "left-hand-traffic": true
+    },
+    "za": {
+        "left-hand-traffic": true
+    },
+    "zm": {
+        "left-hand-traffic": true
+    },
+    "zw": {
+        "left-hand-traffic": true
+    }
+}

@@ -1,21 +1,15 @@
 package de.blau.android.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import com.mapbox.services.api.utils.turf.TurfException;
-import com.mapbox.services.api.utils.turf.TurfJoins;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.FeatureCollection;
-import com.mapbox.services.commons.geojson.Geometry;
-import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.geojson.Polygon;
-import com.mapbox.services.commons.models.Position;
+import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -26,7 +20,11 @@ import de.blau.android.Logic;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.Relation;
+import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.westnordost.countryboundaries.CountryBoundaries;
 
 /**
  * Class to determine certain general properties of the environment we are mapping in from the geographic location
@@ -36,25 +34,74 @@ import de.blau.android.osm.Way;
  */
 public class GeoContext {
 
-    private static final String     DEBUG_TAG = "GeoContext";
-    private final FeatureCollection imperialAreas;
-    private final List<BoundingBox> imperialBoxes;
-    private final FeatureCollection driveLeftAreas;
-    private final List<BoundingBox> driveLeftBoxes;
+    private static final String     SPEED_LIMITS      = "speed-limits";
+    private static final String     LEFT_HAND_TRAFFIC = "left-hand-traffic";
+    private static final String     IMPERIAL          = "imperial";
+    private static final String     DISTANCE          = "distance";
+    private static final String     DEBUG_TAG         = "GeoContext";
+    private final CountryBoundaries countryBoundaries;
+
+    public class Properties {
+        boolean       imperialUnits   = false;
+        boolean       leftHandTraffic = false;
+        private int[] speedLimits;
+
+        /**
+         * Get an array of common speed limits add mph im imperialUnits is true
+         * 
+         * @return the speedLimits
+         */
+        @Nullable
+        public String[] getSpeedLimits() {
+            String[] result = null;
+            if (speedLimits != null) {
+                int length = speedLimits.length;
+                result = new String[length];
+                for (int i = 0; i < length; i++) {
+                    result[i] = Integer.toString(speedLimits[i]) + (imperialUnits ? Tags.MPH : "");
+                }
+            }
+            return result;
+        }
+
+        /**
+         * @return true if imperial units are in use
+         */
+        public boolean imperialUnits() {
+            return imperialUnits;
+        }
+    }
+
+    private final Map<String, Properties> properties;
 
     /**
-     * Implicit assumption that the list will be short and that it is OK to read in synchronously
+     * Implicit assumption that the data will be short and that it is OK to read in synchronously which may not be true
+     * any longer
      * 
      * @param context Android Context
      */
     public GeoContext(@NonNull Context context) {
         Log.d(DEBUG_TAG, "Initalizing");
         AssetManager assetManager = context.getAssets();
+        countryBoundaries = getCountryBoundariesFromAssets(assetManager, "boundaries.ser");
+        properties = getPropertiesMap(assetManager, "geocontext.json");
+    }
 
-        imperialAreas = getGeoJsonFromAssets(assetManager, "imperial.json");
-        imperialBoxes = getBoundingBoxes(imperialAreas);
-        driveLeftAreas = getGeoJsonFromAssets(assetManager, "drive-left.json");
-        driveLeftBoxes = getBoundingBoxes(driveLeftAreas);
+    /**
+     * Load the country boundaries data from file
+     * 
+     * @param assetManager a AssetMangager instance
+     * @param fileName the filename
+     * @return a COuntryBoundaries instance or null
+     */
+    @Nullable
+    CountryBoundaries getCountryBoundariesFromAssets(@NonNull AssetManager assetManager, @NonNull String fileName) {
+        try {
+            return CountryBoundaries.load(assetManager.open(fileName));
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Reading boundaries failed with " + e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -65,24 +112,61 @@ public class GeoContext {
      * @return a GeoJson FeatureCollection
      */
     @Nullable
-    FeatureCollection getGeoJsonFromAssets(@NonNull AssetManager assetManager, @NonNull String fileName) {
+    Map<String, Properties> getPropertiesMap(@NonNull AssetManager assetManager, @NonNull String fileName) {
+        Map<String, Properties> result = new HashMap<>();
         InputStream is = null;
+        JsonReader reader = null;
         try {
             is = assetManager.open(fileName);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
+            reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+            try {
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    String territory = reader.nextName();
+                    Properties prop = new Properties();
+                    reader.beginObject();
+                    while (reader.hasNext()) {
+                        String propName = reader.nextName();
+                        switch (propName) {
+                        case DISTANCE:
+                            prop.imperialUnits = IMPERIAL.equals(reader.nextString());
+                            break;
+                        case LEFT_HAND_TRAFFIC:
+                            prop.leftHandTraffic = reader.nextBoolean();
+                            break;
+                        case SPEED_LIMITS:
+                            reader.beginArray();
+                            List<Integer> speedLimits = new ArrayList<>();
+                            while (reader.hasNext()) {
+                                speedLimits.add(reader.nextInt());
+                            }
+                            reader.endArray();
+                            int size = speedLimits.size();
+                            prop.speedLimits = new int[speedLimits.size()];
+                            for (int i = 0; i < size; i++) {
+                                prop.speedLimits[i] = speedLimits.get(i);
+                            }
+                            break;
+                        default:
+                            Log.e(DEBUG_TAG, "Unknown property " + propName);
+                            reader.skipValue();
+                        }
+                    }
+                    reader.endObject();
+                    result.put(territory, prop);
+                }
+                reader.endObject();
+                Log.d(DEBUG_TAG, "Found " + result.size() + " entries.");
+            } catch (IOException e) {
+                Log.d(DEBUG_TAG, "Reading " + fileName + " " + e.getMessage());
             }
-            is.close();
-            return FeatureCollection.fromJson(sb.toString());
         } catch (IOException e) {
-            Log.e("GeoContext", "Unable to read file " + fileName + " exception " + e);
-            return null;
+            Log.d(DEBUG_TAG, "Opening " + fileName + " " + e.getMessage());
         } finally {
+            SavingHelper.close(reader);
             SavingHelper.close(is);
         }
+        return result;
     }
 
     /**
@@ -93,7 +177,93 @@ public class GeoContext {
      * @return true if the territory uses imperial units
      */
     public boolean imperial(double lon, double lat) {
-        return inside(lon, lat, imperialAreas);
+        Properties result = getProperties(lon, lat);
+        if (result == null) {
+            return false;
+        }
+        return result.imperialUnits;
+    }
+
+    /**
+     * Get the properties for a specific territory
+     * 
+     * @param lon WGS84 longitude of the location
+     * @param lat WGS84 latitude of the location
+     * @return a Properties instance or null if not found
+     */
+    @Nullable
+    private Properties getProperties(double lon, double lat) {
+        List<String> territories = getIsoCodes(lon, lat);
+        return getProperties(territories);
+    }
+
+    /**
+     * Get the properties for a specific territory
+     * 
+     * @param territories List of ISO codes
+     * @return a Properties instance or null if not found
+     */
+    @Nullable
+    public Properties getProperties(@Nullable List<String> territories) {
+        Properties result = null;
+        if (territories != null) {
+            for (String territory : territories) {
+                result = properties.get(territory.toLowerCase(Locale.US));
+                if (result != null) {
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the ISO codes of the territory the supplied location is in
+     * 
+     * @param lon WGS84 longitude of the location
+     * @param lat WGS84 latitude of the location
+     * @return a list of ISO codes for the territory
+     */
+    public List<String> getIsoCodes(double lon, double lat) {
+        if (countryBoundaries == null) {
+            return null;
+        }
+        List<String> territories = countryBoundaries.getIds(lon, lat);
+        return territories;
+    }
+
+    /**
+     * Get a list of ISO country codes that this element is in
+     * 
+     * Currently this uses a centroid of the object which is probably a bad idea
+     * 
+     * @param e the OsmElement in question
+     * @return a List of ISO country codes as Strings, or null if nothing found
+     */
+    @Nullable
+    public List<String> getIsoCodes(@NonNull OsmElement e) {
+        if (countryBoundaries == null) {
+            return null;
+        }
+        double lon = 0d;
+        double lat = 0d;
+        if (e instanceof Node) {
+            lon = ((Node) e).getLon();
+            lat = ((Node) e).getLat();
+        } else if (e instanceof Way) {
+            double[] coords = Logic.centroidLonLat((Way) e);
+            lon = coords[0];
+            lat = coords[1];
+        } else {
+            BoundingBox bbox = e.getBounds();
+            if (bbox != null) {
+                ViewBox vbox = new ViewBox(bbox);
+                lon = vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D;
+                lat = vbox.getCenterLat();
+            }
+        }
+        List<String> territories = countryBoundaries.getIds(lon, lat);
+        return territories;
     }
 
     /**
@@ -108,7 +278,7 @@ public class GeoContext {
         } else if (e instanceof Way) {
             return imperial((Way) e);
         } else {
-            return false; // FIXME handle relations
+            return imperial((Relation) e);
         }
     }
 
@@ -119,10 +289,7 @@ public class GeoContext {
      * @return true if the territory uses imperial units
      */
     public boolean imperial(@NonNull Node n) {
-        if (checkIsIn(n, imperialBoxes)) {
-            return imperial(n.getLon() / 1E7D, n.getLat() / 1E7D);
-        }
-        return false;
+        return imperial(n.getLon() / 1E7D, n.getLat() / 1E7D);
     }
 
     /**
@@ -134,41 +301,23 @@ public class GeoContext {
      * @return true if the territory uses imperial units
      */
     public boolean imperial(@NonNull Way w) {
-        if (checkIntersect(w, imperialBoxes)) {
-            double[] coords = Logic.centroidLonLat(w);
-            return imperial(coords[0], coords[1]);
-        }
-        return false;
+        double[] coords = Logic.centroidLonLat(w);
+        return imperial(coords[0], coords[1]);
     }
 
     /**
-     * Check if a Ways BoundingBox intersects with another
+     * Check if a Relation is in a territory that uses imperial units
      * 
-     * @param w the Way
-     * @param boxes a List of BoundingBoxes to test against
-     * @return true if there is an intersection otherwise false
-     */
-    public boolean checkIntersect(@NonNull Way w, @NonNull List<BoundingBox> boxes) {
-        for (BoundingBox box : boxes) {
-            if (w.getBounds().intersects(box)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Check if a Node is covered by a BoundingBox
+     * Note the check uses the center of the bounding box, this might not be the best choice
      * 
-     * @param n the Node
-     * @param boxes a List of BoundingBoxes to test against
-     * @return true if there is an intersection otherwise false
+     * @param r the Relation
+     * @return true if the territory uses imperial units
      */
-    public boolean checkIsIn(@NonNull Node n, @NonNull List<BoundingBox> boxes) {
-        for (BoundingBox box : boxes) {
-            if (box.isIn(n.getLon(), n.getLat())) {
-                return true;
-            }
+    public boolean imperial(@NonNull Relation r) {
+        BoundingBox bbox = r.getBounds();
+        if (bbox != null) {
+            ViewBox vbox = new ViewBox(bbox);
+            return imperial(vbox.getLeft() + (vbox.getRight() - vbox.getLeft()) / 2D, vbox.getCenterLat());
         }
         return false;
     }
@@ -181,7 +330,11 @@ public class GeoContext {
      * @return true if the territory that drives on the left hand side
      */
     public boolean driveLeft(double lon, double lat) {
-        return inside(lon, lat, driveLeftAreas);
+        Properties result = getProperties(lon, lat);
+        if (result == null) {
+            return false;
+        }
+        return result.leftHandTraffic;
     }
 
     /**
@@ -191,10 +344,7 @@ public class GeoContext {
      * @return true if the territory that drives on the left hand sides
      */
     public boolean driveLeft(@NonNull Node n) {
-        if (checkIsIn(n, driveLeftBoxes)) {
-            return driveLeft(n.getLon() / 1E7D, n.getLat() / 1E7D);
-        }
-        return false;
+        return driveLeft(n.getLon() / 1E7D, n.getLat() / 1E7D);
     }
 
     /**
@@ -206,84 +356,7 @@ public class GeoContext {
      * @return true if the territory that drives on the left hand side
      */
     public boolean driveLeft(@NonNull Way w) {
-        if (checkIntersect(w, driveLeftBoxes)) {
-            double[] coords = Logic.centroidLonLat(w);
-            return driveLeft(coords[0], coords[1]);
-        }
-        return false;
-    }
-
-    /**
-     * Check if a coordinate is covered by a GeoJson FeatureCollection
-     * 
-     * @param lon longitude
-     * @param lat latitude
-     * @param fc the FeatureCollection
-     * @return true if the coordinate is in the bounds of the FeatureCollection
-     */
-    private boolean inside(double lon, double lat, @NonNull FeatureCollection fc) {
-        if (fc != null) {
-            Point p = Point.fromCoordinates(Position.fromCoordinates(lon, lat));
-            for (Feature f : fc.getFeatures()) {
-                Geometry<?> g = f.getGeometry();
-                try {
-                    if (g instanceof Polygon && TurfJoins.inside(p, (Polygon) g)) {
-                        return true;
-                    }
-                } catch (TurfException e) {
-                    return false;
-                }
-            }
-        } else {
-            Log.e(DEBUG_TAG, "inside called with null FeatureCollection");
-        }
-        return false;
-    }
-
-    /**
-     * Calculate the bounding boxes of a GeoJson FeatureCollection
-     * 
-     * @param fc The GeoJson feature
-     * @return a List of BoundingBoxes, empty in no Polygons were found
-     */
-    @NonNull
-    static List<BoundingBox> getBoundingBoxes(@Nullable FeatureCollection fc) {
-        List<BoundingBox> result = new ArrayList<>();
-        if (fc != null) {
-            for (Feature f : fc.getFeatures()) {
-                result.addAll(getBoundingBoxes(f));
-            }
-        } else {
-            Log.e(DEBUG_TAG, "getBoundingboxes called with null FeatureCollection");
-        }
-        return result;
-    }
-
-    /**
-     * Calculate the bounding boxes of a GeoJson Polygon feature
-     * 
-     * @param f The GeoJson feature
-     * @return a List of BoundingBoxes, empty in no Polygons were found
-     */
-    @NonNull
-    public static List<BoundingBox> getBoundingBoxes(@NonNull Feature f) {
-        List<BoundingBox> result = new ArrayList<>();
-        Geometry<?> g = f.getGeometry();
-        if (g instanceof Polygon) {
-            for (List<Position> l : ((Polygon) g).getCoordinates()) {
-                BoundingBox box = null;
-                for (Position p : l) {
-                    if (box == null) {
-                        box = new BoundingBox(p.getLongitude(), p.getLatitude());
-                    } else {
-                        box.union(p.getLongitude(), p.getLatitude());
-                    }
-                }
-                if (box != null) {
-                    result.add(box);
-                }
-            }
-        }
-        return result;
+        double[] coords = Logic.centroidLonLat(w);
+        return driveLeft(coords[0], coords[1]);
     }
 }

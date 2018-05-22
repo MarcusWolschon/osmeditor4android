@@ -81,6 +81,7 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.StringWithDescriptionAndIcon;
@@ -320,6 +321,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     Collections.sort(result);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
                 }
+            } else if (Tags.isSpeedKey(key)) {
+                // check if we have localized maxspeed values
+                Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+                String[] speedLimits = prop.getSpeedLimits();
+                if (speedLimits != null) {
+                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                }
             } else {
                 HashMap<String, Integer> counter = new HashMap<>();
                 ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
@@ -342,8 +350,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     }
                 } else {
-                    OsmElement element = ((PropertyEditor) getActivity()).getElement();
-                    if (((PropertyEditor) getActivity()).presets != null && element != null) {
+                    OsmElement element = propertyEditorListener.getElement();
+                    if (((PropertyEditor) getActivity()).presets != null) {
                         Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets");
                         // only do this if/ there is no other source of suggestions
                         for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, element.getType(), key)) {
@@ -372,9 +380,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
 
             }
+
         }
         Log.d(DEBUG_TAG, adapter == null ? "adapter is null" : "adapter has " + adapter.getCount() + " elements");
         return adapter;
+
     }
 
     @Override
@@ -1009,13 +1019,14 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     boolean hasValues = values != null && !values.isEmpty();
                     if (hasValues) {
                         ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
-                        row.valueView.setAdapter(adapter);
+                        if (adapter != null) {
+                            row.valueView.setAdapter(adapter);
+                        }
                     }
-
                     if (isWebsite) {
                         TagEditorFragment.initWebsite(row.valueView);
                     } else if (isMPHSpeed) {
-                        TagEditorFragment.initMPHSpeed(getActivity(), row.valueView, ((PropertyEditor) getActivity()).getElement());
+                        TagEditorFragment.initMPHSpeed(getActivity(), row.valueView, propertyEditorListener);
                     } else if (valueType == null) {
                         InputTypeUtil.enableTextSuggestions(row.valueView);
                     }
@@ -1184,18 +1195,20 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         final ArrayList<String> templates = new ArrayList<>();
         if (values != null) {
             ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
-            Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
-            for (int i = 0; i < adapter.getCount(); i++) {
-                Object o = adapter.getItem(i);
+            if (adapter != null) {
+                Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    Object o = adapter.getItem(i);
 
-                StringWithDescription swd = new StringWithDescription(o);
-                Log.d(DEBUG_TAG, "adding " + swd);
-                String v = swd.getValue();
-                if (v == null || "".equals(v)) {
-                    continue;
+                    StringWithDescription swd = new StringWithDescription(o);
+                    Log.d(DEBUG_TAG, "adding " + swd);
+                    String v = swd.getValue();
+                    if (v == null || "".equals(v)) {
+                        continue;
+                    }
+                    Log.d(DEBUG_TAG, "adding " + v + " to templates");
+                    templates.add(v);
                 }
-                Log.d(DEBUG_TAG, "adding " + v + " to templates");
-                templates.add(v);
             }
         }
         if (value != null && !"".equals(value)) {
@@ -1272,6 +1285,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             } else if (!strictSucceeded && adapter == null) {
                 // only warn if the value should be an OH string
                 rowLayout.post(new Runnable() {
+
                     @Override
                     public void run() {
                         Snack.barWarning(rowLayout, getString(R.string.toast_openinghours_invalid, row.keyView.getText().toString()), Snackbar.LENGTH_LONG);

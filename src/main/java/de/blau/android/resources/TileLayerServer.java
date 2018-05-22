@@ -68,7 +68,7 @@ import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
-import de.blau.android.util.GeoContext;
+import de.blau.android.util.GeoJson;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.views.layers.MapTilesLayer;
@@ -826,7 +826,7 @@ public class TileLayerServer {
 
             JsonObject properties = f.getProperties();
 
-            List<BoundingBox> boxes = GeoContext.getBoundingBoxes(f);
+            List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f);
             int minZoom = getJosnInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
             int maxZoom = getJosnInteger(properties, "max_zoom", DEFAULT_MAX_ZOOM);
             Provider provider = new Provider();

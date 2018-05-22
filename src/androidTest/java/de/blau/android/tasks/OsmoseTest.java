@@ -123,7 +123,7 @@ public class OsmoseTest {
         osmoseDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         b.setFalse();
-        b.setChanged();
+        b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("200");
@@ -145,7 +145,7 @@ public class OsmoseTest {
         osmoseDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         b.setFalse();
-        b.setChanged();
+        b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("500");
@@ -167,7 +167,7 @@ public class OsmoseTest {
         osmoseDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         b.setFalse();
-        b.setChanged();
+        b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         Note n = new Note((int) (51.0 * 1E7D), (int) (0.1 * 1E7D));
         Assert.assertTrue(n.isNew());

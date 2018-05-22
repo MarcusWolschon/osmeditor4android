@@ -26,8 +26,11 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -58,15 +61,17 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
     private ElementSearch es;
 
     /**
+     * Get an Adapter containing near by street names
      * 
-     * @param aContext used to load resources
-     * @param aTextViewResourceId given to {@link ArrayAdapter}
-     * @param osmId
-     * @param extraValues
-     * @param type
+     * @param aContext Android context
+     * @param aTextViewResourceId the resource id of the AutoCompleteTextView
+     * @param delegator the current StorageDelegator instance
+     * @param osmElementType the type of OsmElement
+     * @param osmId the id of the OsmElement
+     * @param extraValues any existing values
      */
-    public StreetTagValueAdapter(final Context aContext, final int aTextViewResourceId, final StorageDelegator delegator, final String osmElementType,
-            final long osmId, ArrayList<String> extraValues) {
+    public StreetTagValueAdapter(@NonNull final Context aContext, final int aTextViewResourceId, @NonNull final StorageDelegator delegator,
+            @NonNull final String osmElementType, final long osmId, @Nullable List<String> extraValues) {
         super(aContext, aTextViewResourceId);
         Log.d(DEBUG_TAG, "constructor called");
 
@@ -105,10 +110,22 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
         }
     }
 
+    /**
+     * Get the names in this adapter
+     * 
+     * @return a String array containing the names
+     */
     public String[] getNames() {
         return es.getStreetNames();
     }
 
+    /**
+     * Get the osm id for a specific street
+     * 
+     * @param name the name
+     * @return the osm id
+     * @throws OsmException
+     */
     public long getId(String name) throws OsmException {
         return es.getStreetId(name);
     }
@@ -116,7 +133,7 @@ public class StreetTagValueAdapter extends ArrayAdapter<ValueWithCount> {
     /**
      * This avoids generating everything twice
      * 
-     * @return
+     * @return the ElementSearch instance used to create the adapter
      */
     public ElementSearch getElementSearch() {
         return es;

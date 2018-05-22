@@ -35,6 +35,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         load("LICENSE-GPL3.txt", builder);
         load("LICENSE-Apache.txt", builder);
         load("josm-contributors.txt", builder);
+        load("LICENSE-LGPL3.txt", builder);
         textFull.setText(builder.toString());
         setContentView(container);
     }
@@ -49,12 +50,24 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Load a text file in to a String
+     * 
+     * @param filename the name of the file
+     * @return a String with the contents
+     */
     private String load(String filename) {
         StringBuilder builder = new StringBuilder();
         load(filename, builder);
         return builder.toString();
     }
 
+    /**
+     * Load a text file in to a StringBuilder
+     * 
+     * @param filename the name of the file
+     * @param builder the StringBuilder
+     */
     private void load(String filename, StringBuilder builder) {
         builder.append("== " + filename + " ==\n");
 

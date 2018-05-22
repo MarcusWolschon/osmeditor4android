@@ -157,7 +157,9 @@ apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/ec
 //apply from: '../gradle-tasks/eclipse-android-3'
 
 sonarqube {
+    // we've not converted to Java 8 source yet, so analyse as for 7/1.7
     properties {
+        property "sonar.java.source","1.7"
         property "sonar.sourceEncoding","UTF-8"
         property "sonar.java.binaries", "build/intermediates/classes/debug"
         property "sonar.jacoco.reportPaths","build/outputs/code-coverage/connected/5n(AVD) - 7.0-coverage.ec,\
@@ -192,8 +194,8 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     
     testOptions {
@@ -288,6 +290,7 @@ dependencies {
     implementation "ch.poole:OpeningHoursFragment:0.5.1"    
     implementation 'ch.poole.android:numberpicker:1.0.8'
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
+    implementation 'de.westnordost:countryboundaries:1.2'
     // for temp stuff during dev 
     // implementation(name:'alibrary', ext:'jar')
  

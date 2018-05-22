@@ -46,6 +46,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ScrollView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -69,6 +70,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
+import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -788,6 +790,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
                 }
+            }  else if (Tags.isSpeedKey(key)) {
+                // check if we have localized maxspeed values
+                Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
+                String[] speedLimits = prop.getSpeedLimits();
+                if (speedLimits != null) {
+                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                }
             } else {
                 Map<String, Integer> counter = new HashMap<>();
                 ArrayAdapter<ValueWithCount> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
@@ -944,7 +953,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     String key = row.getKey();
                     PresetItem preset = getPreset(key);
                     final ValueType valueType = preset != null ? preset.getValueType(key) : null;
-                    final PresetKeyType keyType = preset.getKeyType(key);
+                    final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
                     row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
                         // FIXME this should be somewhere better obvious since it creates a non obvious side effect
@@ -953,7 +962,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     if (Tags.isWebsiteKey(key) || (preset != null && ValueType.WEBSITE == valueType)) {
                         initWebsite(row.valueEdit);
                     } else if (Tags.isSpeedKey(key)) {
-                        initMPHSpeed(getActivity(), row.valueEdit, ((PropertyEditor) getActivity()).getElement());
+                        initMPHSpeed(getActivity(), row.valueEdit, propertyEditorListener);
                     } else if (keyType == PresetKeyType.TEXT && valueType == null) {
                         InputTypeUtil.enableTextSuggestions(row.valueEdit);
                     }
@@ -2235,13 +2244,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * 
      * @param ctx Android Context
      * @param valueEdit the EditTExt holding the value
-     * @param e the associated OsmElement
+     * @param listener callback to the activity
      */
-    public static void initMPHSpeed(Context ctx, final EditText valueEdit, OsmElement e) {
+    public static void initMPHSpeed(Context ctx, final AutoCompleteTextView valueEdit, PropertyEditorListener listener) {
         valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
-        if (valueEdit.getText().length() == 0 && App.getGeoContext(ctx).imperial(e)) { // in the case of multi-select
-                                                                                       // there is no guarantee that
-                                                                                       // this makes sense
+        ListAdapter adapter = valueEdit.getAdapter();
+        Properties prop = App.getGeoContext(ctx).getProperties(listener.getIsoCodes());
+        if (valueEdit.getText().length() == 0 && (adapter == null || adapter.getCount() == 0) && (prop != null && prop.imperialUnits())) { 
+            // in the case of multi-select/ there is no guarantee that this makes sense
             valueEdit.setText(Tags.MPH);
             valueEdit.setSelection(0);
         }
