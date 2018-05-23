@@ -1263,4 +1263,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         }
         return isoCodes;
     }
+
+    @Override
+    public Preset[] getPresets() {
+        return presets;
+    }
 }

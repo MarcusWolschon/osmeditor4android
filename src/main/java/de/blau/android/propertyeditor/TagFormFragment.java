@@ -220,7 +220,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ft.remove(recentPresetsFragment);
             }
             // FIXME multiselect or what?
-            recentPresetsFragment = RecentPresetsFragment.newInstance(((PropertyEditor) getActivity()).getElement());
+            recentPresetsFragment = RecentPresetsFragment.newInstance(propertyEditorListener.getElement());
             ft.add(R.id.form_mru_layout, recentPresetsFragment, "recentpresets_fragment");
             ft.commit();
         }
@@ -351,10 +351,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                 } else {
                     OsmElement element = propertyEditorListener.getElement();
-                    if (((PropertyEditor) getActivity()).presets != null) {
+                    if (propertyEditorListener.getPresets() != null) {
                         Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets");
                         // only do this if/ there is no other source of suggestions
-                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, element.getType(), key)) {
+                        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), element.getType(), key)) {
                             adapter2.add(s);
                         }
                     }
@@ -451,8 +451,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             startActivity(Preset.getMapFeaturesIntent(getActivity(), tagListener.getBestPreset()));
             return true;
         case R.id.tag_menu_resetMRU:
-            for (Preset p : ((PropertyEditor) getActivity()).presets)
+            for (Preset p : propertyEditorListener.getPresets()) {
                 p.resetRecentlyUsed();
+            }
             ((PropertyEditor) getActivity()).recreateRecentPresetView();
             return true;
         case R.id.tag_menu_reset_address_prediction:
@@ -880,7 +881,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Log.d(DEBUG_TAG, "adapter null " + key + " " + value + " " + preset);
                         }
                         if (keyType == PresetKeyType.COMBO || (keyType == PresetKeyType.CHECK && count > 2)) {
-
                             if (ValueType.OPENING_HOURS_MIXED == valueType && Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
                                 Log.d(DEBUG_TAG, "key " + key + " type " + valueType);
                                 // FIXME need at least SDK 12 for now
@@ -981,7 +981,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final ValueType valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
-        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(((PropertyEditor) getActivity()).getElement());
+        final boolean isMPHSpeed = Tags.isSpeedKey(key) && App.getGeoContext(getActivity()).imperial(propertyEditorListener.getElement());
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -1220,8 +1220,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
         final ArrayList<String> ohTemplates = new ArrayList<>();
-        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets,
-                ((PropertyEditor) getActivity()).getElement().getType(), Tags.KEY_OPENING_HOURS)) {
+        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(),
+                propertyEditorListener.getElement().getType(), Tags.KEY_OPENING_HOURS)) {
             ohTemplates.add(s.getValue());
         }
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);

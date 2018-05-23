@@ -117,6 +117,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 
+    private static final String NO                  = "no";
     private static final String VALUE_TYPE          = "value_type";
     private static final String PRESET_NAME         = "preset_name";
     private static final String PRESET_LINK         = "preset_link";
@@ -693,7 +694,7 @@ public class Preset implements Serializable {
                     } else if (CHECK_FIELD.equals(name)) {
                         String key = attr.getValue(KEY_ATTR);
                         String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
-                        String value_off = attr.getValue(VALUE_OFF) == null ? "no" : attr.getValue(VALUE_OFF);
+                        String value_off = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
                         String disable_off = attr.getValue(DISABLE_OFF);
                         String values = value_on;
                         // zap value_off if disabled
@@ -805,21 +806,22 @@ public class Preset implements Serializable {
                                 if (chunk.getFixedTagCount() > 0) {
                                     Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
                                 }
-                                currentItem.optionalTags.putAll(chunk.getRecommendedTags());
                             } else {
                                 currentItem.fixedTags.putAll(chunk.getFixedTags());
                                 if (!currentItem.isChunk()) {
                                     for (Entry<String, StringWithDescription> e : chunk.getFixedTags().entrySet()) {
+                                        String key = e.getKey();
                                         StringWithDescription v = e.getValue();
                                         String value = "";
                                         if (v != null && v.getValue() != null) {
                                             value = v.getValue();
                                         }
-                                        tagItems.add(e.getKey() + "\t" + value, currentItem);
+                                        tagItems.add(key + "\t" + value, currentItem);
+                                        currentItem.addToAutosuggest(key, v);
                                     }
                                 }
-                                currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
                             }
+                            currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
                             addToTagItems(currentItem, chunk.getRecommendedTags());
                             currentItem.optionalTags.putAll(chunk.getOptionalTags());
                             addToTagItems(currentItem, chunk.getOptionalTags());
@@ -874,14 +876,17 @@ public class Preset implements Serializable {
                 }
                 for (Entry<String, StringWithDescription[]> e : tags.entrySet()) {
                     StringWithDescription values[] = e.getValue();
+                    String key = e.getKey();
+                    tagItems.add(key + "\t", currentItem);
                     if (values != null) {
                         for (StringWithDescription v : values) {
                             String value = "";
                             if (v != null && v.getValue() != null) {
                                 value = v.getValue();
                             }
-                            tagItems.add(e.getKey() + "\t" + value, currentItem);
+                            tagItems.add(key + "\t" + value, currentItem);
                         }
+                        currentItem.addToAutosuggest(key, values);
                     }
                 }
             }
@@ -1385,7 +1390,7 @@ public class Preset implements Serializable {
                 }
             }
         }
-        Log.d(DEBUG_TAG,"buildPossibleMatches found " + possibleMatches.size());
+        Log.d(DEBUG_TAG, "buildPossibleMatches found " + possibleMatches.size());
         return possibleMatches;
     }
 
@@ -2325,10 +2330,10 @@ public class Preset implements Serializable {
             fixedTags.put(key, new StringWithDescription(value, text));
             if (!chunk) {
                 tagItems.add(key + "\t" + value, this);
+                addToAutosuggest(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
             }
             // Log.d(DEBUG_TAG,name + " key " + key + " type " + type);
             keyType.put(key, type);
-            addToAutosuggest(key, value.length() > 0 ? new StringWithDescription(value, text) : null);
         }
 
         /**
@@ -2408,9 +2413,9 @@ public class Preset implements Serializable {
                         tagItems.add(key + "\t" + v.getValue(), this);
                     }
                 }
+                addToAutosuggest(key, valueArray);
             }
             keyType.put(key, type);
-            addToAutosuggest(key, valueArray);
 
             (optional ? optionalTags : recommendedTags).put(key, valueArray);
 
@@ -2608,7 +2613,7 @@ public class Preset implements Serializable {
 
         /**
          * Get the ValueType for this key
-         *  
+         * 
          * @param key the key to check
          * @return the ValueType of null if none set
          */
@@ -3408,7 +3413,14 @@ public class Preset implements Serializable {
         boolean onGroupLongClick(@NonNull PresetGroup group);
     }
 
-    public static Collection<String> getAutocompleteKeys(Preset[] presets, ElementType type) {
+    /**
+     * Get all possible keys for a specific ElementType
+     * 
+     * @param presets the current Presets
+     * @param type the ELementType
+     * @return a Collection of keys
+     */
+    public static Collection<String> getAutocompleteKeys(@NonNull Preset[] presets, @NonNull ElementType type) {
         Collection<String> result = new LinkedHashSet<>();
         for (Preset p : presets) {
             if (p != null) {
@@ -3531,9 +3543,9 @@ public class Preset implements Serializable {
     /**
      * Build an intent to startup up the correct mapfeatures wiki page
      * 
-     * @param ctx
-     * @param p
-     * @return
+     * @param ctx Android Context
+     * @param p the PresetItem
+     * @return an Intent
      */
     public static Intent getMapFeaturesIntent(Context ctx, PresetItem p) {
         Uri uri = null;
@@ -3578,7 +3590,11 @@ public class Preset implements Serializable {
     }
 
     /**
-     * This is for the taginfo project repo and not really for testing
+     * This is for the taginfo project repo
+     * 
+     * @param ctx Android Context
+     * @param filename the filename to save to
+     * @return true if things worked
      */
     public static boolean generateTaginfoJson(Context ctx, String filename) {
         Preset[] presets = App.getCurrentPresets(ctx);

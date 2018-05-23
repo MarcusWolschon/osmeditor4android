@@ -727,7 +727,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // Use a set to prevent duplicate keys appearing
         Set<String> keys = new HashSet<>();
 
-        if (preset == null && ((PropertyEditor) getActivity()).presets != null) {
+        Preset[] presets = propertyEditorListener.getPresets();
+        if (preset == null && presets != null) {
             updateAutocompletePresetItem(rowLayout, null, false);
         }
 
@@ -737,8 +738,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             keys.addAll(preset.getOptionalTags().keySet());
         }
 
-        if (((PropertyEditor) getActivity()).presets != null && elements[0] != null) { // FIXME multiselect
-            keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags)));
+        if (presets != null && elements[0] != null) { // FIXME multiselect
+            keys.addAll(Preset.getAutocompleteKeys(presets, elements[0].getType(allTags)));
         }
 
         keys.removeAll(getUsedKeys(rowLayout, keyEdit));
@@ -849,11 +850,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
                     }
-                } else if (((PropertyEditor) getActivity()).presets != null && elements[0] != null) {
+                } else if (propertyEditorListener.getPresets() != null && elements[0] != null) {
                     Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets"); // only do this if there is
                                                                                              // no other source of
                                                                                              // suggestions
-                    for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags), key)) {
+                    for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), elements[0].getType(allTags), key)) {
                         adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                     }
                 } else if (adapter2.getCount() == 0) {
@@ -1282,7 +1283,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         // TODO while applying presets automatically seems like a good idea, it needs some further thought
         if (prefs.nameSuggestionPresetsEnabled()) {
-            PresetItem p = Preset.findBestMatch(((PropertyEditor) getActivity()).presets, getKeyValueMapSingle(false)); // FIXME
+            PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (p != null) {
                 applyPreset(p, false, false);
             }
@@ -1689,7 +1690,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             doSourceSurvey();
             return true;
         case R.id.tag_menu_apply_preset:
-            PresetItem pi = Preset.findBestMatch(((PropertyEditor) getActivity()).presets, getKeyValueMapSingle(false)); // FIXME
+            PresetItem pi = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (pi != null) {
                 applyPreset(pi, true, false);
             }

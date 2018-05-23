@@ -406,9 +406,9 @@ public class Way extends OsmElement implements BoundedObject {
 
     @Override
     public ElementType getType() {
-        if (nodes.size() < 2)
+        if (nodes.size() < 2) {
             return ElementType.WAY; // should not happen
-
+        }
         if (getFirstNode().equals(getLastNode())) {
             return ElementType.CLOSEDWAY;
         } else {

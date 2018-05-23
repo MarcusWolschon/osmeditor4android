@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.presets.Preset;
 
 /**
  * Interface for communicating with the PropertyEditor activity
@@ -43,10 +44,18 @@ interface PropertyEditorListener {
     List<String> getIsoCodes();
     
     /**
-     * Get the current OsmELement
+     * Get the current OsmElement
      * 
      * @return an OsmELement
      */
     @NonNull 
     OsmElement getElement();
+    
+    /**
+     * Get the current set of Presets
+     * 
+     * @return an array of Preset or null
+     */
+    @Nullable 
+    Preset[] getPresets();
 }
