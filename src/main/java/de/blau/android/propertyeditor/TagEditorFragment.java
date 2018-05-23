@@ -713,7 +713,17 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         updateAutocompletePresetItem(null);
     }
 
-    private ArrayAdapter<String> getKeyAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, AutoCompleteTextView keyEdit) {
+    /**
+     * Get an Adapter for keys
+     * 
+     * @param preset the current best matching PresetItem or null
+     * @param rowLayout the Layout holding the tag rows
+     * @param keyEdit the AutoCompleteTextView the Adapter is for
+     * @param allTags the current tags
+     * @return an ArrayAdapter holding the key Strings
+     */
+    private ArrayAdapter<String> getKeyAutocompleteAdapter(@Nullable PresetItem preset, @NonNull LinearLayout rowLayout, @NonNull AutoCompleteTextView keyEdit,
+            @NonNull LinkedHashMap<String, String> allTags) {
         // Use a set to prevent duplicate keys appearing
         Set<String> keys = new HashSet<>();
 
@@ -728,8 +738,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (((PropertyEditor) getActivity()).presets != null && elements[0] != null) { // FIXME multiselect
-            keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor) getActivity()).presets, elements[0].getType())); // FIXME
-                                                                                                                      // multiselect
+            keys.addAll(Preset.getAutocompleteKeys(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags)));
         }
 
         keys.removeAll(getUsedKeys(rowLayout, keyEdit));
@@ -742,9 +751,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Return true if the edited object has an address or is a "highway"
      * 
-     * @param key
-     * @param usedKeys
-     * @return
+     * @param key the key
+     * @param usedKeys all currently in use keys
+     * @return true if key is the name of a street
      */
     public static boolean isStreetName(String key, Set<String> usedKeys) {
         return (Tags.KEY_ADDR_STREET.equalsIgnoreCase(key) || (Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_HIGHWAY)));
@@ -753,9 +762,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Return true if the edited object has an address or is a "place"
      * 
-     * @param key
-     * @param usedKeys
-     * @return
+     * @param key the key
+     * @param usedKeys all currently in use keys
+     * @return true if key is the name of a place
      */
     public static boolean isPlaceName(String key, Set<String> usedKeys) {
         return (Tags.KEY_ADDR_PLACE.equalsIgnoreCase(key) || (Tags.KEY_NAME.equalsIgnoreCase(key) && usedKeys.contains(Tags.KEY_PLACE)));
@@ -772,7 +781,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY));
     }
 
-    private ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row) {
+    private ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row, LinkedHashMap<String, String> allTags) {
         ArrayAdapter<?> adapter = null;
         String key = row.getKey();
         if (key != null && key.length() > 0) {
@@ -790,7 +799,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
                 }
-            }  else if (Tags.isSpeedKey(key)) {
+            } else if (Tags.isSpeedKey(key)) {
                 // check if we have localized maxspeed values
                 Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
                 String[] speedLimits = prop.getSpeedLimits();
@@ -835,7 +844,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     } else if (preset.isFixedTag(key)) {
-                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(), key)) {
+                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags),
+                                key)) {
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
                     }
@@ -843,7 +853,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets"); // only do this if there is
                                                                                              // no other source of
                                                                                              // suggestions
-                    for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(), key)) {
+                    for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags), key)) {
                         adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                     }
                 } else if (adapter2.getCount() == 0) {
@@ -930,7 +940,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (hasFocus) {
                     // Log.d(DEBUG_TAG,"got focus");
                     originalKey = row.getKey();
-                    row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
+                    row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit, getKeyValueMapSingle(rowLayout, true)));
                     if (PropertyEditor.running && row.getKey().length() == 0)
                         row.keyEdit.showDropDown();
                 } else {
@@ -954,7 +964,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     PresetItem preset = getPreset(key);
                     final ValueType valueType = preset != null ? preset.getValueType(key) : null;
                     final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
-                    row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
+                    row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row, getKeyValueMapSingle(rowLayout, true)));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
                         // FIXME this should be somewhere better obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
@@ -1579,9 +1589,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Merge a set of tags in to the current ones
      * 
-     * @param newTags
+     * @param newTags the new tags to merge
      */
-    private void mergeTags(Map<String, String> newTags) {
+    private void mergeTags(@NonNull Map<String, String> newTags) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
 
         boolean replacedValue = false;
@@ -1604,10 +1614,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Merge a set of tags in to the current ones, with potentially empty keys
      * 
-     * @param newTags
-     * @param replace
+     * @param newTags the new tags to merge
+     * @param replace overwrite values of existing keys
      */
-    private void mergeTags(ArrayList<KeyValue> newTags, boolean replace) {
+    private void mergeTags(@NonNull ArrayList<KeyValue> newTags, boolean replace) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
         HashMap<String, KeyValue> keyIndex = new HashMap<>(); // needed for de-duping
 
@@ -1734,6 +1744,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return getKeyValueMap(rowLayout, allowBlanks);
     }
 
+    /**
+     * Collect all key-value pairs into a LinkedHashMap<String,String>
+     * 
+     * @param rowLayout the Layout holding the rows
+     * @param allowBlanks If true, includes key-value pairs where one or the other is blank.
+     * @return The LinkedHashMap<String,String> of key-value pairs.
+     */
     private LinkedHashMap<String, ArrayList<String>> getKeyValueMap(LinearLayout rowLayout, final boolean allowBlanks) {
 
         final LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<>();
@@ -1767,25 +1784,32 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         } else {
             Log.e(DEBUG_TAG, "rowLayout null in getKeyValueMapSingle");
         }
-        // for (String key:tags.keySet()) {
-        // Log.d(DEBUG_TAG,"getKeyValueMap Key " + key + " " + tags.get(key));
-        // }
         return tags;
     }
 
     /**
-     * Version of above that ignores multiple values
+     * Return the current tags as a Map, single element only, if multiple are selected only the tags of the first will
+     * be returned
      * 
-     * @param allowBlanks
-     * @return
+     * @param allowBlanks allow blank keys of values (not both)
+     * @return a LinkedHashMap of the current tags
      */
+    @NonNull
     public LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         return getKeyValueMapSingle(rowLayout, allowBlanks);
     }
 
+    /**
+     * Return the current tags as a Map, single element only, if multiple are selected only the tags of the first will
+     * be returned
+     * 
+     * @param rowLayout the Layout holding the rows
+     * @param allowBlanks allow blank keys of values (not both)
+     * @return a LinkedHashMap of the current tags
+     */
+    @NonNull
     private LinkedHashMap<String, String> getKeyValueMapSingle(LinearLayout rowLayout, final boolean allowBlanks) {
-
         final LinkedHashMap<String, String> tags = new LinkedHashMap<>();
         if (rowLayout == null && savedTags != null) {
             for (Entry<String, ArrayList<String>> entry : savedTags.entrySet()) {
@@ -2094,22 +2118,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             for (Entry<String, ArrayList<String>> entry : edits.entrySet()) {
                 String editsKey = entry.getKey();
                 List<String> valueList = entry.getValue();
-                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size() == 1) { // zap
-                                                                                                                       // empty
-                                                                                                                       // stuff
-                                                                                                                       // or
-                                                                                                                       // just
-                                                                                                                       // the
-                                                                                                                       // HTTP
-                                                                                                                       // prefix
-                                                                                                                       // FIXME
-                                                                                                                       // throw
-                                                                                                                       // an
-                                                                                                                       // exception
-                                                                                                                       // when
-                                                                                                                       // we
-                                                                                                                       // do
-                                                                                                                       // zap
+                if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size() == 1) {
+                    // zap empty stuff or just the HTTP prefix
+                    // FIXME throw an exception when we do zap
                     String value = valueList.get(0).trim();
                     if (saveTag(editsKey, value)) {
                         addTagToMap(map, editsKey, value);
@@ -2250,7 +2261,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         valueEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
         ListAdapter adapter = valueEdit.getAdapter();
         Properties prop = App.getGeoContext(ctx).getProperties(listener.getIsoCodes());
-        if (valueEdit.getText().length() == 0 && (adapter == null || adapter.getCount() == 0) && (prop != null && prop.imperialUnits())) { 
+        if (valueEdit.getText().length() == 0 && (adapter == null || adapter.getCount() == 0) && (prop != null && prop.imperialUnits())) {
             // in the case of multi-select/ there is no guarantee that this makes sense
             valueEdit.setText(Tags.MPH);
             valueEdit.setSelection(0);
