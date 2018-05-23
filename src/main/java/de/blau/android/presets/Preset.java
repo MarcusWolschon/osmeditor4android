@@ -240,7 +240,7 @@ public class Preset implements Serializable {
         /**
          * Get a ValueType corresponding to the input String
          * 
-         * @param typeString
+         * @param typeString the ValueType as a String
          * @return the ValueType or null if unknown
          */
         @Nullable
@@ -301,6 +301,11 @@ public class Preset implements Serializable {
 
         private volatile boolean changed = false;
 
+        /**
+         * Construct a new instance
+         * 
+         * @param presetHash a hash for the Preset contents
+         */
         PresetMRUInfo(String presetHash) {
             this.presetHash = presetHash;
         }
@@ -462,13 +467,6 @@ public class Preset implements Serializable {
 
             mru = initMRU(directory, hashValue);
 
-            // for (String k:searchIndex.getKeys()) {
-            // String l = k;
-            // for (PresetItem pi:searchIndex.get(k)) {
-            // l = l + " " + pi.getName();
-            // }
-            // Log.d("SearchIndex",l);
-            // }
             Log.d(DEBUG_TAG, "search index length: " + searchIndex.getKeys().size());
         } finally {
             SavingHelper.close(fileStream);
@@ -925,7 +923,7 @@ public class Preset implements Serializable {
      * 
      * @param directory data directory of the preset
      * @param hashValue XML hash value to check if stored data fits the XML
-     * @returns a MRU object valid for this Preset, never null
+     * @return a MRU object valid for this Preset, never null
      */
     public PresetMRUInfo initMRU(File directory, String hashValue) {
         PresetMRUInfo tmpMRU;
@@ -999,8 +997,11 @@ public class Preset implements Serializable {
         this.rootGroup = rootGroup;
     }
 
-    /*
-     * return true if the item is from this Preset
+    /**
+     * Check if this Preset contains a PresetItem
+     * 
+     * @param pi the PresetItem we are interested in
+     * @return true if the item is from this Preset
      */
     public boolean contains(PresetItem pi) {
         return allItems.contains(pi);
@@ -1018,10 +1019,10 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Return the index of the preset by sequential search FIXME
+     * Return the index of a PresetItem by sequential search FIXME
      * 
-     * @param name
-     * @return
+     * @param name the name of the PresetItem
+     * @return the index or null if not found
      */
     private Integer getItemIndexByName(@NonNull String name) {
         Log.d(DEBUG_TAG, "getItemIndexByName " + name);
@@ -1310,7 +1311,8 @@ public class Preset implements Serializable {
         final int FIXED_WEIGHT = 100; // always prioritize presets with fixed keys
         for (PresetItem possibleMatch : possibleMatches) {
             int fixedTagCount = possibleMatch.getFixedTagCount() * FIXED_WEIGHT;
-            if (fixedTagCount + possibleMatch.getRecommendedTags().size() < bestMatchStrength) {
+            int recommendedTagCount = possibleMatch.getRecommendedTags().size();
+            if (fixedTagCount + recommendedTagCount < bestMatchStrength) {
                 continue; // isn't going to help
             }
             int matches = 0;
@@ -1319,7 +1321,7 @@ public class Preset implements Serializable {
                     matches = fixedTagCount;
                 }
             }
-            if (possibleMatch.getRecommendedTags().size() > 0) {
+            if (recommendedTagCount > 0) {
                 matches = matches + possibleMatch.matchesRecommended(tags);
             }
             if (matches > bestMatchStrength) {
@@ -1327,7 +1329,6 @@ public class Preset implements Serializable {
                 bestMatchStrength = matches;
             }
         }
-        // Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
         return bestMatch;
     }
 
@@ -1341,7 +1342,7 @@ public class Preset implements Serializable {
     @Nullable
     public static PresetItem findMatch(@NonNull Preset presets[], @NonNull Map<String, String> tags) {
         if (tags == null || presets == null) {
-            Log.e(DEBUG_TAG, "findBestMatch " + (tags == null ? "tags null" : "presets null"));
+            Log.e(DEBUG_TAG, "findMatch " + (tags == null ? "tags null" : "presets null"));
             return null;
         }
 
@@ -1384,6 +1385,7 @@ public class Preset implements Serializable {
                 }
             }
         }
+        Log.d(DEBUG_TAG,"buildPossibleMatches found " + possibleMatches.size());
         return possibleMatches;
     }
 
@@ -2400,9 +2402,8 @@ public class Preset implements Serializable {
          */
         public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) {
             if (!chunk) {
-                if (valueArray == null || valueArray.length == 0) {
-                    tagItems.add(key + "\t", this);
-                } else {
+                tagItems.add(key + "\t", this);
+                if (valueArray != null && valueArray.length > 0) {
                     for (StringWithDescription v : valueArray) {
                         tagItems.add(key + "\t" + v.getValue(), this);
                     }
@@ -2973,17 +2974,14 @@ public class Preset implements Serializable {
          * 
          * Uses the match value to control actual behavior
          * 
-         * @param tagSet Map containing the tags
+         * @param tagMap Map containing the tags
          * @return number of matches
          */
-        public int matchesRecommended(Map<String, String> tagSet) {
-            if (name.equals("Addresses")) {
-                Log.d(DEBUG_TAG, "matching addresses recommended");
-            }
+        public int matchesRecommended(Map<String, String> tagMap) {
             int matches = 0;
             for (Entry<String, StringWithDescription[]> tag : recommendedTags.entrySet()) { // for each own tag
                 String key = tag.getKey();
-                if (tagSet.containsKey(key)) { // key could have null value in the set
+                if (tagMap.containsKey(key)) { // key could have null value in the set
                     // value not empty
                     if (getMatchType(key) == MatchType.NONE) {
                         // don't count this
@@ -2993,7 +2991,7 @@ public class Preset implements Serializable {
                         matches++;
                         break;
                     }
-                    String otherTagValue = tagSet.get(key);
+                    String otherTagValue = tagMap.get(key);
                     for (StringWithDescription v : tag.getValue()) {
                         if (v.equals(otherTagValue)) {
                             matches++;
