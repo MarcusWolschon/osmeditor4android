@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.0-4: Improved geo-location of edits and some support for country specific tag values, improved preset matching, support use of on device text/spelling suggestions when possible, numerous bug fixes.
+
 11.0.0-3: Fix crashes in PropertyEditor (preset search and icons in combos/multiselects), documentation updates, update OH Fragment and support mixed value tags.
 
 11.0.0-2: show progress spinner during preset search, shorten taginfo timeouts, fix regression in onResume, make boxpicker title settable, update presets and translations. 
