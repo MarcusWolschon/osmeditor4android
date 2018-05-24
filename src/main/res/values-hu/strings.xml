@@ -113,6 +113,7 @@
   <string name="existing_track_title">Létező nyomvonal adatok</string>
   <string name="existing_track_message">Már vannak létező nyomvonal adatok. Lehet hogy meg szeretné szakítani a folyamatot, és menteni előbb.</string>
   <string name="delete_tags">Tényleg törli a(z) „%1$s” objektum összes címkéjét?</string>
+  <!--element information dialog-->
   <string name="element_information">Eleminformációk</string>
   <string name="id">Azonosító</string>
   <string name="nodes">Pontok</string>
@@ -127,14 +128,17 @@
   <string name="element">elem</string>
   <string name="last_updated">legutóbb frissítve</string>
   <string name="last_edited">Legutóbb szerkesztett</string>
+  <!---->
   <string name="error">hiba</string>
   <string name="warning">figyelmeztetés</string>
   <string name="minor_issue">apró probléma</string>
   <string name="unknown_error_level">ismeretlen hibaszint</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ez a művelet érinti a szűrt csatolt objektumokat!</string>
   <string name="attached_object_warning_message">A módosított objektum olyan rejtett elemekhez kapcsolódik, amelyek szintén változni fognak.</string>
   <string name="attached_object_warning_continue">OK, folytassa ezen üzenet megjelenítését</string>
   <string name="attached_object_warning_stop">OK, hagyja abba ezen üzenet megjelenítését</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Hibakeresési információk elküldése</string>
   <!--JS console dialog-->
   <string name="evaluate">Kiértékelés</string>
@@ -177,6 +181,10 @@
   <string name="coverage_bottom">Le</string>
   <string name="preferred">Előnyben részesített</string>
   <string name="toast_invalid_box">Érvénytelen vagy hiányos határolókeret</string>
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_name_empty">A név nem lehet üres</string>
   <string name="toast_url_empty">Az URL nem lehet üres</string>
@@ -414,9 +422,6 @@
   <string name="menu_voice_commands">Hangutasítások</string>
   <string name="menu_set_name">Név beállítása</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
-  <string name="menu_tools">Eszközök</string>
-  <string name="menu_tools_flush_background_tile_cache">Háttér csempe-gyorsítótár ürítése</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Előtér csempe-gyorsítótár ürítése</string>
   <string name="menu_tools_background_properties">Háttér tulajdonságok</string>
   <string name="menu_tools_background_align">Háttér igazítása</string>
   <string name="menu_tools_background_align_reset">Alaphelyzet</string>
@@ -445,7 +450,6 @@
   <string name="deleteway_relation_description">Arra készül, hogy töröljön egy vonalat, amely egy vagy több kapcsolat része. Az út eltávolítása a kapcsolat(ok)ból érvénytelenné teheti őket.</string>
   <string name="deleteway_nodesnotdownloaded_description">A vonal olyan pontokat tartalmaz, amely kívül esik a letöltött területen, és nem törölhető anélkül, hogy inkonzisztens állapot keletkezzen. Újrapróbálkozás előtt töltse le a teljes utat.</string>
   <string name="deleteway_wayonly">Csak a vonal törlése</string>
-  <string name="deleteway_wayandnodes">Vonal és pontok törlése</string>
   <string name="deletenode_relation_description">Arra készül, hogy töröljön egy pontot, amely egy vagy több kapcsolat része. A pont eltávolítása a kapcsolat(ok)ból érvénytelenné teheti őket.</string>
   <string name="deletenode">Pont törlése</string>
   <string name="split_all_ways">Minden út felosztása</string>
@@ -468,128 +472,130 @@
   <string name="actionmode_object_count">%1$d objektum</string>
   <string name="actionmode_rotateway">Vonal forgatása</string>
   <!--Preferences-->
-  <string name="config_category_editing">Adat és szerkesztési beállítások</string>
-  <string name="config_category_view">Felhasználói felület beállítások</string>
-  <string name="config_showCameraAction_title">Kameraművelet megjelenítése</string>
-  <string name="config_showCameraAction_summary">Kamera ikon megjelenítése a műveletsávon</string>
-  <string name="config_generateAlerts_title">Értesítések létrehozása</string>
-  <string name="config_generateAlerts_summary">Értesítések létrehozása a problémás adatokhoz vagy megjegyzésekhez</string>
-  <string name="config_voiceCommandsEnabled_title">Hangutasítások engedélyezése</string>
-  <string name="config_voiceCommandsEnabled_summary">Kísérleti hangutasítás támogatás engedélyezése</string>
-  <string name="config_maxAlertDistance_title">Maximális távolság az értesítésekhez</string>
-  <string name="config_maxAlertDistance_summary">A probléma vagy megjegyzés legnagyobb távolsága a jelenlegi helyzettől, amikor még kell értesítést létrehozni.</string>
-  <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
-  <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat</string>
-  <string name="config_showStats_title">Statisztika megjelenítése</string>
-  <string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
-  <string name="config_showTolerance_title">Tolerancia megjelenítése</string>
-  <string name="config_showTolerance_summary">Megjeleníti azt a területet, amelyen egy elem kijelölhető.</string>
-  <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
-  <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
+  <string name="config_backgroundLayer_title">Térkép háttér</string>
+  <string name="config_overlayLayer_title">Térképelőtér</string>
+  <string name="config_scale_title">Skála megjelenítése</string>
   <string name="config_enableOpenStreetBugs_title">Hibák és megjegyzések megjelenítése</string>
   <string name="config_enableOpenStreetBugs_summary">Jegyzetek/hibák mutatása, szerkesztése és létrehozása.</string>
   <string name="config_enablePhotoLayer_title">Fénykép réteg engedélyezése</string>
   <string name="config_enablePhotoLayer_summary">Földrajzi pozícióval ellátott fényképek megjelenítése.</string>
   <string name="config_enableKeepScreenOn_title">Képernyő ébren tartása</string>
   <string name="config_enableKeepScreenOn_summary">Ne kapcsoljon ki a képernyő a fogyasztás csökkentése érdekében.</string>
-  <string name="config_closeChangesetOnSave_title">Módosításkészletek lezárása:</string>
-  <string name="config_closeChangesetOnSave_summary">Módosítákészletek lezárása alapértelmezetten mentéskor</string>
-  <string name="config_backgroundLayer_title">Térkép háttér</string>
-  <string name="config_backgroundLayer_summary">A grafikus, renderelt térképháttér.</string>
-  <string name="config_overlayLayer_title">Térképelőtér</string>
-  <string name="config_overlayLayer_summary">A grafikus, renderelt térképelőtér.</string>
-  <string name="config_scale_title">Skála megjelenítése</string>
-  <string name="config_scale_summary">A térképen megjelenített skála típusa.</string>
-  <string name="config_category_server">Kiszolgálóbeállítások</string>
-  <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Itt állíthat be nem szabványos API URL-t. Többnyire nem kell megváltoztatni!</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">OAuth használata</string>
-  <string name="listedit_enable_oauth">OAuth engedélyezése</string>
-  <string name="config_offsetServer_title">Eltolás kiszolgáló</string>
-  <string name="config_offsetServer_summary">URL a térkép-eltolási kiszolgálóhoz</string>
-  <string name="config_osmoseServer_title">OSMOSE kiszolgáló</string>
-  <string name="config_osmoseServer_summary">URL az osmose kiszolgálóhoz</string>
+  <string name="config_largeDragArea_title">Nagy pontmozgatási terület</string>
+  <string name="config_largeDragArea_summary">Nagy terület biztosítása a pontok mozgatásához</string>
+  <string name="config_advancedprefs">Speciális beállítások</string>
+  <string name="config_moreprefs">További beállítások…</string>
   <string name="config_presetbutton_title">Előbeállítások</string>
   <string name="config_presetbutton_summary">JOSM kompatibilis előbeállítások hozzáadása és engedélyezése</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Szerzők és licencek</string>
+  <string name="config_debugbutton_title">Hibakereső</string>
+  <string name="config_category_info">Névjegy</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Felhasználói felület beállítások</string>
   <string name="config_iconbutton_title">Pont ikonok megjelenítése</string>
   <string name="config_iconbutton_summary">A legjobban illeszkedő előbeállítás ikonjainak megjelenítése a pontok fölött.</string>
   <string name="config_showWayIcons_title">POI ikonok megjelenítése az épületeken</string>
   <string name="config_showWayIcons_summary">A legjobban illeszkedő előbeállítás ikonjainak megjelenítése az épületek fölött.</string>
-  <string name="config_loginbutton_title">Felhasználói fiók</string>
-  <string name="config_username_title">OSM felhasználónév</string>
-  <string name="config_username_summary">Csak akkor szükséges megadni az OSM adatok feltöltéséhez, ha nem használ OAuth-ot. Regisztráció: http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">OSM jelszó</string>
-  <string name="config_password_summary">Ne tévessze össze a Wiki jelszóval. Ne feledje: egyszerű szövegként kerül tárolásra és átvitelre!</string>
-  <string name="config_gps_distance_title">Minimális GPS távolság</string>
-  <string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (lebegőpontos). Az alacsonyabb érték nagyobb akkumulátorhasználatot okoz.</string>
-  <string name="config_gps_interval_title">Minimális GPS időköz</string>
-  <string name="config_gps_interval_summary">A minimális időintervallum a GPS figyeléséhez ezredmásodpercben. Az alacsonyabb érték nagyobb akkumulátorhasználatot okoz.</string>
-  <string name="config_category_info">Névjegy</string>
-  <string name="config_advancedprefs">Speciális beállítások</string>
-  <string name="config_forceContextMenu_title">Mindig használja a környezeti menüt</string>
-  <string name="config_forceContextMenu_summary">Gyorsszerkesztés módban mindig jelenjék meg a környezeti menü, ha a kijelölés nem egyértelmű.</string>
-  <string name="config_licensebutton_title">Szerzők és licencek</string>
-  <string name="config_licensebutton_summary">Szerzők és licencinformációk megjelenítése</string>
-  <string name="config_debugbutton_title">Hibakereső</string>
-  <string name="config_debugbutton_summary">Néhány belső információ megjelenítése</string>
-  <string name="config_mapProfile_title">Térkép profil</string>
-  <string name="config_mapProfile_summary">Az elemek stílusának és láthatóságának beállítása</string>
+  <string name="config_tagFormEnabled_title">Címkeűrlap megjelenítése</string>
+  <string name="config_tagFormEnabled_summary">Címkeűrlap megjelenítése a szerkesztéshez</string>
+  <string name="config_showCameraAction_title">Kameraművelet megjelenítése</string>
+  <string name="config_showCameraAction_summary">Kamera ikon megjelenítése a műveletsávon</string>
+  <string name="config_followGPSbutton_title">GPS követése gomb elhelyezkedése</string>
+  <string name="config_followGPSbutton_summary">Hol jelenlen meg a „GPS követése” gomb</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Ha be van kapcsolva, akkor a nem letöltött területek el lesznek sötétítve lezárt módban</string>
+  <string name="config_fullscreenMode_title">Teljes képernyős mód</string>
+  <string name="config_fullscreenMode_summary">Viselkedés a szoftveres gombokkal rendelkező eszközökön.</string>
+  <string name="config_showTolerance_title">Tolerancia megjelenítése</string>
+  <string name="config_showTolerance_summary">Megjeleníti azt a területet, amelyen egy elem kijelölhető.</string>
   <string name="config_use_back_for_undo_title">A vissza gomb használata visszavonáshoz</string>
   <string name="config_use_back_for_undo_summary">A vissza gomb használata visszavonáshoz a fő szerkesztő nézetben</string>
-  <string name="config_largeDragArea_title">Nagy pontmozgatási terület</string>
-  <string name="config_largeDragArea_summary">Nagy terület biztosítása a pontok mozgatásához</string>
+  <string name="config_enableLightTheme_title">Világos téma</string>
+  <string name="config_enableLightTheme_summary">Világos téma fehér hátterekkel</string>
+  <string name="config_splitActionBarEnabled_title">Felosztás műveletsáv engedélyezése</string>
+  <string name="config_splitActionBarEnabled_summary">Felosztás műveletsáv engedélyezése, a használat eszközfüggő. Újraindítást, és Android &gt;= 4.0 verziót igényel.</string>
+  <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
+  <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon</string>
+  <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
+  <string name="config_autoLockDelay_summary">Várakozási idő az automatikus lezárás előtt, a 0 letiltja.</string>
+  <string name="config_enableAntiAliasing_title">Élsimítás engedélyezése</string>
+  <string name="config_enableAntiAliasing_summary">A vonalakat simábbá teszi.</string>
+  <string name="config_maxStrokeWidth_title">Legnagyobb vonalvastagság</string>
+  <string name="config_maxStrokeWidth_summary">Ne rajzoljon ennél vastagabb vonalat</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Adat és szerkesztési beállítások</string>
+  <string name="config_forceContextMenu_title">Mindig használja a környezeti menüt</string>
+  <string name="config_address_tags">Cím címkék</string>
+  <string name="config_address_tags_summary">A cím-előrejelzéshez használt címkék</string>
+  <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
+  <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása</string>
+  <string name="config_generateAlerts_title">Értesítések létrehozása</string>
+  <string name="config_generateAlerts_summary">Értesítések létrehozása a problémás adatokhoz vagy megjegyzésekhez</string>
+  <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
+  <string name="config_notificationCacheSize_summary">Megjelenített értesítések maximális száma típusonként (min. 1)</string>
+  <string name="config_maxAlertDistance_title">Maximális távolság az értesítésekhez</string>
+  <string name="config_maxAlertDistance_summary">A probléma vagy megjegyzés legnagyobb távolsága a jelenlegi helyzettől, amikor még kell értesítést létrehozni.</string>
   <string name="config_extTriggeredDownloadRadius_title">Letöltési sugár</string>
   <string name="config_extTriggeredDownloadRadius_summary">A külsőleg kiváltott letöltés sugara (méterben), 0 = csak középre ugrás a térképen.</string>
   <string name="config_maxDownloadSpeed_title">Maximális sebesség automatikus letöltés közben</string>
   <string name="config_maxDownloadSpeed_summary">A korlát (km/h-ban) amely felett az automatikus letöltés felfüggesztésre kerül</string>
+  <string name="config_bugFilter_title">Szűrő a megjegyzésekhez/hibákhoz</string>
+  <string name="config_bugFilter_summary">Kijelöli, mely elemek jelennek meg a megjegyzések/hibák rétegén</string>
   <string name="config_bugDownloadRadius_title">Megjegyzések/hibák letöltési sugara</string>
   <string name="config_bugDownloadRadius_summary">A megjegyzések/hibák letöltési sugara (méterben)</string>
   <string name="config_maxBugDownloadSpeed_title">Maximális sebesség a megjegyzések/hibák automatikus letöltése közben</string>
   <string name="config_maxBugDownloadSpeed_summary">A korlát (km/h-ban) amely felett a megjegyzések/hibák automatikus letöltése felfüggesztésre kerül</string>
-  <string name="config_bugFilter_title">Szűrő a megjegyzésekhez/hibákhoz</string>
-  <string name="config_bugFilter_summary">Kijelöli, mely elemek jelennek meg a megjegyzések/hibák rétegén</string>
-  <string name="config_enableNameSuggestions_title">Névjavaslatok engedélyezése</string>
-  <string name="config_enableNameSuggestions_summary">A név címke javaslatainak bekapcsolása</string>
-  <string name="config_enableAutoPreset_title">Automatikus előbeállítás engedélyezése</string>
-  <string name="config_enableAutoPreset_summary">Előbeállítás automatikus hozzáadása, amikor kijelöl egy névjavaslatot</string>
-  <string name="config_splitActionBarEnabled_title">Felosztás műveletsáv engedélyezése</string>
-  <string name="config_splitActionBarEnabled_summary">Felosztás műveletsáv engedélyezése, a használat eszközfüggő. Újraindítást, és Android &gt;= 4.0 verziót igényel.</string>
+  <string name="config_closeChangesetOnSave_title">Módosításkészletek lezárása:</string>
+  <string name="config_closeChangesetOnSave_summary">Módosítákészletek lezárása alapértelmezetten mentéskor</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS forrás</string>
   <string name="config_gps_source_summary">A GPS helyfrissítések forrása</string>
   <string name="config_gps_source_tcp_title">NMEA hálózati forrás</string>
   <string name="config_gps_source_tcp_summary">A TCP NMEA forrás címe, mint gép:port</string>
+  <string name="config_gps_interval_title">Minimális GPS időköz</string>
+  <string name="config_gps_interval_summary">A minimális időintervallum a GPS figyeléséhez ezredmásodpercben. Az alacsonyabb érték nagyobb akkumulátorhasználatot okoz.</string>
+  <string name="config_gps_distance_title">Minimális GPS távolság</string>
+  <string name="config_gps_distance_summary">A minimális távolságintervallum a GPS figyeléséhez méterben (lebegőpontos). Az alacsonyabb érték nagyobb akkumulátorhasználatot okoz.</string>
   <string name="config_leaveGpsDisabled_title">GPS kikapcsolva tartása</string>
   <string name="config_leaveGpsDisabled_summary">Ne kérje a GPS bekapcsolását a felhasználótól, ha az le van tiltva</string>
-  <string name="config_enableLightTheme_title">Világos téma</string>
-  <string name="config_enableLightTheme_summary">Világos téma fehér hátterekkel</string>
-  <string name="config_category_misc">Egyebek</string>
-  <string name="config_address_tags">Cím címkék</string>
-  <string name="config_address_tags_summary">A cím-előrejelzéshez használt címkék</string>
-  <string name="config_moreprefs">További beállítások…</string>
-  <string name="config_tagFormEnabled_title">Címkeűrlap megjelenítése</string>
-  <string name="config_tagFormEnabled_summary">Címkeűrlap megjelenítése a szerkesztéshez</string>
-  <string name="config_followGPSbutton_title">GPS követése gomb elhelyezkedése</string>
-  <string name="config_followGPSbutton_summary">Hol jelenlen meg a „GPS követése” gomb</string>
-  <string name="config_fullscreenMode_title">Teljes képernyős mód</string>
-  <string name="config_fullscreenMode_summary">Viselkedés a szoftveres gombokkal rendelkező eszközökön.</string>
-  <string name="config_maxInlineValues_title">A soron belüli értékek maximális száma</string>
-  <string name="config_maxInlineValues_summary">A soron belül megjelenített értékek maximális száma a címkeűrlapon</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Kiszolgálóbeállítások</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Itt állíthat be nem szabványos API URL-t. Többnyire nem kell megváltoztatni!</string>
+  <string name="config_loginbutton_title">Felhasználói fiók</string>
+  <string name="config_username_summary">Csak akkor szükséges megadni az OSM adatok feltöltéséhez, ha nem használ OAuth-ot. Regisztráció: http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Eltolás kiszolgáló</string>
+  <string name="config_offsetServer_summary">URL a térkép-eltolási kiszolgálóhoz</string>
+  <string name="config_osmoseServer_title">OSMOSE kiszolgáló</string>
+  <string name="config_osmoseServer_summary">URL az osmose kiszolgálóhoz</string>
+  <string name="config_geocoderbutton_title">Geokódolók beállítása</string>
+  <string name="config_geocoderbutton_summary">Geokódolók hozzáadása, szerkesztése, törlése a keresőfunkcióhoz</string>
+  <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Letöltési szálak maximális száma</string>
   <string name="config_maxTileDownloadThreads_summary">A csempék letöltésére használt szálak maximális száma</string>
   <string name="config_tileCacheSize_title">Csempe gyorsítótár mérete</string>
   <string name="config_tileCacheSize_summary">A csempe gyorsítótár teljes mérete (MB)</string>
-  <string name="config_notificationCacheSize_title">Megjelenített értesítések maximális száma</string>
-  <string name="config_notificationCacheSize_summary">Megjelenített értesítések maximális száma típusonként (min. 1)</string>
-  <string name="config_autoLockDelay_title">Várakozási idő az automatikus lezárás előtt</string>
-  <string name="config_autoLockDelay_summary">Várakozási idő az automatikus lezárás előtt, a 0 letiltja.</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Mindig sötétítse el a nem letöltött területeket</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Ha be van kapcsolva, akkor a nem letöltött területek el lesznek sötétítve lezárt módban</string>
-  <string name="config_geocoderbutton_title">Geokódolók beállítása</string>
-  <string name="config_geocoderbutton_summary">Geokódolók hozzáadása, szerkesztése, törlése a keresőfunkcióhoz</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Egyebek</string>
+  <string name="pref_enable_acra">Összeomlások jelentése</string>
+  <string name="pref_acra_enabled">Az összeomlások jelentése engedélyezve van</string>
+  <string name="pref_acra_disabled">Az összeomlások jelentése le van tilva</string>
+  <string name="config_showStats_title">Statisztika megjelenítése</string>
+  <string name="config_showStats_summary">Adatstatisztika és frames/sec érték megjelenítése a jobb alsó sarokban.</string>
+  <!--Experimental-->
   <string name="config_js_console_title">JS konzol engedélyezése</string>
   <string name="config_js_console_summary">Tegye elérhetővé a JS konzolt „éles” módban</string>
+  <string name="config_voiceCommandsEnabled_title">Hangutasítások engedélyezése</string>
+  <!---->
   <string name="manage_apis">API-k kezelése</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">OAuth használata</string>
+  <string name="listedit_enable_oauth">OAuth engedélyezése</string>
+  <string name="config_username_title">OSM felhasználónév</string>
+  <string name="config_password_title">OSM jelszó</string>
+  <string name="config_password_summary">Ne tévessze össze a Wiki jelszóval. Ne feledje: egyszerű szövegként kerül tárolásra és átvitelre!</string>
   <string name="manage_presets">Előbeállítások kezelése</string>
   <string name="manage_geocoders">Geokódolók kezelése</string>
   <!--preset downloader messages-->
@@ -665,10 +671,6 @@
   <!--ACRA-->
   <string name="crash_dialog_text">A Vespucci összeomlott, vagy egy súlyos hibát észlelt a legutóbbi futásakor.\n\nSegítsen nekünk hibajelentés küldésével, annyit kell tennie, hogy rákattint az „OK” gombra.\n</string>
   <string name="crash_dialog_comment_prompt">Adjon hozzá minden további információt, amely segíthet és (nem kötelező) adja meg az e-mail címét, ha visszajelzést szeretne kapni.\n\nKöszönjük!</string>
-  <string name="config_category_acra">Összeomlások jelentése</string>
-  <string name="pref_enable_acra">Összeomlások jelentése</string>
-  <string name="pref_acra_enabled">Az összeomlások jelentése engedélyezve van</string>
-  <string name="pref_acra_disabled">Az összeomlások jelentése le van tilva</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Ez a művelet túl sok pontból álló vonalat hozna létre.</string>
   <!--Notifications-->

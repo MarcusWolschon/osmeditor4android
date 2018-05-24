@@ -81,6 +81,7 @@
   <string name="save_file">输入要保存到的文件</string>
   <string name="existing_track_title">现有的轨迹数据</string>
   <string name="existing_track_message">您已经有存在的轨迹数据。您可能要取消并先储存。</string>
+  <!--element information dialog-->
   <string name="element_information">元素信息</string>
   <string name="id">Id</string>
   <string name="nodes">节点</string>
@@ -92,11 +93,18 @@
   <string name="length_m">长度 (米)</string>
   <string name="not_downloaded">未下载</string>
   <string name="empty_role">空的角色</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">你还没有改变什么…</string>
   <string name="toast_upload_success">上传OSM服务器完成。</string>
@@ -236,9 +244,6 @@
   <string name="menu_newnode_gps">在GPS位置新增节点</string>
   <string name="menu_extend_selection">扩展选择</string>
   <string name="menu_information">信息</string>
-  <string name="menu_tools">工具</string>
-  <string name="menu_tools_flush_background_tile_cache">清理背景切片缓存</string>
-  <string name="menu_tools_flush_overlay_tile_cache">清理覆盖层切片缓存</string>
   <string name="menu_tools_background_properties">背景属性</string>
   <string name="menu_tools_background_align">背景对齐</string>
   <string name="menu_tools_background_align_reset">重置</string>
@@ -261,7 +266,6 @@
   <string name="deleteway_relation_description">您将要删除的路径，它是一个或多个关系中的成员。从关系中移除了路径，可能会使得它或它们变成无效。</string>
   <string name="deleteway_nodesnotdownloaded_description">路径含有在下载区域之外的节点，不能在还没有建立并且不一致的状态中删除。先下载整体路径然后再重试。</string>
   <string name="deleteway_wayonly">只删除路径</string>
-  <string name="deleteway_wayandnodes">删除路径和节点</string>
   <string name="deletenode_relation_description">您将要删除的节点，它是一个或多个关系中的成员。从关系中移除了节点，可能会使得它或它们变成无效。</string>
   <string name="deletenode">删除节点</string>
   <!--EasyEdit action mode titles-->
@@ -274,80 +278,85 @@
   <string name="actionmode_closed_way_split_1">第1节点拆分封闭路径</string>
   <string name="actionmode_closed_way_split_2">第2节点拆分封闭路径</string>
   <!--Preferences-->
-  <string name="config_category_view">用户界面设置</string>
-  <string name="config_showCameraAction_title">显示相机操作</string>
-  <string name="config_showCameraAction_summary">在 action bar上显示相机图示</string>
-  <string name="config_generateAlerts_title">产生通知</string>
-  <string name="config_generateAlerts_summary">有问题的注释或节点发生通知</string>
-  <string name="config_maxStrokeWidth_title">最大线宽</string>
-  <string name="config_maxStrokeWidth_summary">不要画出比这更粗的路径</string>
-  <string name="config_showStats_title">显示统计数据</string>
-  <string name="config_showStats_summary">在左下角显示数据统计和帧/秒。</string>
-  <string name="config_showTolerance_title">显示容限</string>
-  <string name="config_showTolerance_summary">在元素周围显示可以被选取的区域。</string>
-  <string name="config_enableAntiAliasing_title">启用抗锯齿</string>
-  <string name="config_enableAntiAliasing_summary">使线条更流畅。</string>
+  <string name="config_backgroundLayer_title">地图背景</string>
+  <string name="config_overlayLayer_title">地图覆叠层</string>
   <string name="config_enableOpenStreetBugs_summary">显示，编辑与建立注释/错误。</string>
   <string name="config_enablePhotoLayer_title">启动照片层</string>
   <string name="config_enablePhotoLayer_summary">显示地理参考图片。</string>
   <string name="config_enableKeepScreenOn_title">保持唤醒</string>
   <string name="config_enableKeepScreenOn_summary">不要为了省电而关闭萤幕。</string>
-  <string name="config_closeChangesetOnSave_title">关闭变更集</string>
-  <string name="config_closeChangesetOnSave_summary">在默认情况下，储存时关闭变更集</string>
-  <string name="config_backgroundLayer_title">地图背景</string>
-  <string name="config_backgroundLayer_summary">图像渲染地图背景。</string>
-  <string name="config_overlayLayer_title">地图覆叠层</string>
-  <string name="config_overlayLayer_summary">图像渲染地图覆叠层。</string>
-  <string name="config_category_server">服务器设置</string>
-  <string name="config_apibutton_title">OSM API网址</string>
-  <string name="config_apibutton_summary">你可以在这里设置一个非标准的API网址。通常不需要改变！</string>
-  <string name="config_api_url_title">API网址</string>
-  <string name="config_api_oauth_title">使用oauth</string>
-  <string name="listedit_enable_oauth">启用oauth</string>
-  <string name="config_offsetServer_title">偏移服务器</string>
-  <string name="config_offsetServer_summary">图像偏移服务器的网址</string>
-  <string name="config_presetbutton_title">预设</string>
-  <string name="config_presetbutton_summary">添加并启用JOSM兼容的预设</string>
-  <string name="config_iconbutton_title">显示节点图标</string>
-  <string name="config_iconbutton_summary">在节点上面显示最相配的预设图标。</string>
-  <string name="config_loginbutton_title">用户帐户</string>
-  <string name="config_username_title">OSM用户名</string>
-  <string name="config_username_summary">如果您不使用OAuth，才要设定上传OSM 资料用的帐号。帐号可在这申请http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">OSM密码</string>
-  <string name="config_password_summary">不要误认为是维基密码。请记住：它是以纯文字存储和传输！</string>
-  <string name="config_gps_distance_title">GPS的最小距离</string>
-  <string name="config_gps_distance_summary">GPS接收通知，以米（可以有小数）为单位的最小距离间隔。较低的值使电池更加耗电。</string>
-  <string name="config_gps_interval_title">GPS的最小时间间隔</string>
-  <string name="config_gps_interval_summary">GPS接收通知，以毫秒为单位的最小时间间隔。较低的值使电池更加耗电。</string>
-  <string name="config_category_info">关于</string>
-  <string name="config_advancedprefs">高级首选项</string>
-  <string name="config_forceContextMenu_title">始终使用快捷菜单</string>
-  <string name="config_forceContextMenu_summary">如果选取是不明确的，始终在简易编辑模式下显示快捷菜单。</string>
-  <string name="config_licensebutton_title">作者和许可证</string>
-  <string name="config_licensebutton_summary">显示作者和许可信息</string>
-  <string name="config_mapProfile_title">地图配置文件</string>
-  <string name="config_mapProfile_summary">设定样式和元素的可见度</string>
-  <string name="config_use_back_for_undo_title">使用返回键进行撤消</string>
-  <string name="config_use_back_for_undo_summary">在主编辑视图中使用返回键撤消</string>
   <string name="config_largeDragArea_title">大的节点拖动区域</string>
   <string name="config_largeDragArea_summary">拖动节点时提供大的面积</string>
-  <string name="config_extTriggeredDownloadRadius_title">下载半径</string>
-  <string name="config_extTriggeredDownloadRadius_summary">只有在地图上的时候，从外部触发下载的半径(m) 0 = 中心。</string>
-  <string name="config_enableNameSuggestions_title">启用建议名称</string>
-  <string name="config_enableNameSuggestions_summary">开启建议的名称标签</string>
-  <string name="config_enableAutoPreset_title">启用自动预设</string>
-  <string name="config_enableAutoPreset_summary">当选择了名称建议时自动加入预置</string>
+  <string name="config_advancedprefs">高级首选项</string>
+  <string name="config_presetbutton_title">预设</string>
+  <string name="config_presetbutton_summary">添加并启用JOSM兼容的预设</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">作者和许可证</string>
+  <string name="config_category_info">关于</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">用户界面设置</string>
+  <string name="config_iconbutton_title">显示节点图标</string>
+  <string name="config_iconbutton_summary">在节点上面显示最相配的预设图标。</string>
+  <string name="config_showCameraAction_title">显示相机操作</string>
+  <string name="config_showCameraAction_summary">在 action bar上显示相机图示</string>
+  <string name="config_showTolerance_title">显示容限</string>
+  <string name="config_showTolerance_summary">在元素周围显示可以被选取的区域。</string>
+  <string name="config_use_back_for_undo_title">使用返回键进行撤消</string>
+  <string name="config_use_back_for_undo_summary">在主编辑视图中使用返回键撤消</string>
+  <string name="config_enableLightTheme_title">启用明亮的主题</string>
+  <string name="config_enableLightTheme_summary">明亮背景的主题</string>
   <string name="config_splitActionBarEnabled_title">启用拆分action bar</string>
   <string name="config_splitActionBarEnabled_summary">允许拆分action bar，在特定设备才有作用。需要重启应用并且 Android 版本须 &gt;= 4.0</string>
+  <string name="config_enableAntiAliasing_title">启用抗锯齿</string>
+  <string name="config_enableAntiAliasing_summary">使线条更流畅。</string>
+  <string name="config_maxStrokeWidth_title">最大线宽</string>
+  <string name="config_maxStrokeWidth_summary">不要画出比这更粗的路径</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">始终使用快捷菜单</string>
+  <string name="config_enableNameSuggestions_title">启用建议名称</string>
+  <string name="config_enableNameSuggestions_summary">开启建议的名称标签</string>
+  <string name="config_generateAlerts_title">产生通知</string>
+  <string name="config_generateAlerts_summary">有问题的注释或节点发生通知</string>
+  <string name="config_extTriggeredDownloadRadius_title">下载半径</string>
+  <string name="config_extTriggeredDownloadRadius_summary">只有在地图上的时候，从外部触发下载的半径(m) 0 = 中心。</string>
+  <string name="config_closeChangesetOnSave_title">关闭变更集</string>
+  <string name="config_closeChangesetOnSave_summary">在默认情况下，储存时关闭变更集</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS源</string>
   <string name="config_gps_source_summary">GPS定位的更新来源</string>
   <string name="config_gps_source_tcp_title">NMEA网路来源</string>
   <string name="config_gps_source_tcp_summary">TCP NMEA来源主机的host:port</string>
-  <string name="config_enableLightTheme_title">启用明亮的主题</string>
-  <string name="config_enableLightTheme_summary">明亮背景的主题</string>
-  <string name="config_category_misc">杂项</string>
+  <string name="config_gps_interval_title">GPS的最小时间间隔</string>
+  <string name="config_gps_interval_summary">GPS接收通知，以毫秒为单位的最小时间间隔。较低的值使电池更加耗电。</string>
+  <string name="config_gps_distance_title">GPS的最小距离</string>
+  <string name="config_gps_distance_summary">GPS接收通知，以米（可以有小数）为单位的最小距离间隔。较低的值使电池更加耗电。</string>
+  <!--Server Settings-->
+  <string name="config_category_server">服务器设置</string>
+  <string name="config_apibutton_title">OSM API网址</string>
+  <string name="config_apibutton_summary">你可以在这里设置一个非标准的API网址。通常不需要改变！</string>
+  <string name="config_loginbutton_title">用户帐户</string>
+  <string name="config_username_summary">如果您不使用OAuth，才要设定上传OSM 资料用的帐号。帐号可在这申请http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">偏移服务器</string>
+  <string name="config_offsetServer_summary">图像偏移服务器的网址</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">切片缓存大小</string>
   <string name="config_tileCacheSize_summary">切片缓存总大小，以MB为单位</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">杂项</string>
+  <string name="pref_enable_acra">报告应用程序崩溃</string>
+  <string name="pref_acra_enabled">已启用崩溃报告</string>
+  <string name="pref_acra_disabled">已禁用崩溃报告</string>
+  <string name="config_showStats_title">显示统计数据</string>
+  <string name="config_showStats_summary">在左下角显示数据统计和帧/秒。</string>
+  <!--Experimental-->
+  <!---->
+  <string name="config_api_url_title">API网址</string>
+  <string name="config_api_oauth_title">使用oauth</string>
+  <string name="listedit_enable_oauth">启用oauth</string>
+  <string name="config_username_title">OSM用户名</string>
+  <string name="config_password_title">OSM密码</string>
+  <string name="config_password_summary">不要误认为是维基密码。请记住：它是以纯文字存储和传输！</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
   <string name="preset_download_successful">预设成功下载</string>
@@ -412,10 +421,6 @@
   <string name="undo_action_fix_conflict">解决冲突</string>
   <string name="undo_action_extract_node">提取节点</string>
   <!--ACRA-->
-  <string name="config_category_acra">崩溃报告</string>
-  <string name="pref_enable_acra">报告应用程序崩溃</string>
-  <string name="pref_acra_enabled">已启用崩溃报告</string>
-  <string name="pref_acra_disabled">已禁用崩溃报告</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">该操作会创建过多的节点的路径。</string>
   <!--Notifications-->

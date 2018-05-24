@@ -36,12 +36,20 @@
   <string name="imagery_offset_distance">Distanţă</string>
   <string name="search_results_title">Rezultatele căutării</string>
   <string name="search">Caută</string>
+  <!--element information dialog-->
   <string name="version">Versiune</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_upload_success">Încărcat către server-ul OSM. </string>
@@ -103,7 +111,6 @@
   <string name="menu_cut">Taie</string>
   <string name="menu_rotate">Rotește</string>
   <string name="menu_circulize">Aranjează în cerc</string>
-  <string name="menu_tools">Unelte</string>
   <string name="menu_tools_background_properties">Proprietăţile fundalului</string>
   <string name="menu_tools_background_align_reset">Resetează</string>
   <string name="menu_tools_background_align_zero">Zero</string>
@@ -117,18 +124,27 @@
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_showStats_title">Arată statistici</string>
-  <string name="config_showTolerance_title">Arată toleranţa</string>
   <string name="config_backgroundLayer_title">Hartă de fundal</string>
+  <string name="config_advancedprefs">Setări avansate</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autori și licenţe</string>
+  <string name="config_category_info">Despre</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_showTolerance_title">Arată toleranţa</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Folosește întotdeauna meniu contextual</string>
+  <!--Location Settings-->
+  <!--Server Settings-->
   <string name="config_category_server">Setările Serverului</string>
   <string name="config_loginbutton_title">Cont utilizator</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="config_showStats_title">Arată statistici</string>
+  <!--Experimental-->
+  <!---->
   <string name="config_username_title">Nume utilizator OSM</string>
   <string name="config_password_title">Parolă OSM</string>
-  <string name="config_category_info">Despre</string>
-  <string name="config_advancedprefs">Setări avansate</string>
-  <string name="config_forceContextMenu_title">Folosește întotdeauna meniu contextual</string>
-  <string name="config_licensebutton_title">Autori și licenţe</string>
-  <string name="config_licensebutton_summary">Arată informaţii despre autori și licenţe</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" sters</string>

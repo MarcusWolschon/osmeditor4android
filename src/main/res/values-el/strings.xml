@@ -80,6 +80,7 @@
   <string name="save_file">Εισαγάγετε το αρχείο αποθήκευσης</string>
   <string name="existing_track_title">Υπάρχοντα δεδομένα τροχιάς</string>
   <string name="existing_track_message">Έχετε ήδη υπάρχοντα δεδομένα τροχιάς. Μπορεί να θέλετε να ακυρώσετε και να τα αποθηκεύσετε πρώτα.</string>
+  <!--element information dialog-->
   <string name="nodes">Κόμβοι</string>
   <string name="problem">Πρόβλημα</string>
   <string name="members">Μέλη</string>
@@ -88,13 +89,20 @@
   <string name="length_m">Μήκος (μ)</string>
   <string name="empty_role">άδειος ρόλος</string>
   <string name="last_updated">τελευταία ενημερώθηκε στις</string>
+  <!---->
   <string name="error">σφάλμα</string>
   <string name="warning">προειδοποίηση</string>
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
@@ -242,9 +250,6 @@
   <string name="menu_extend_selection">Επέκταση επιλογής</string>
   <string name="menu_information">Πληροφορίες</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
-  <string name="menu_tools">Εργαλεία</string>
-  <string name="menu_tools_flush_background_tile_cache">Άδειασμα προσωρινής μνήμης φόντου</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Άδειασμα προσωρινής μνήμης επικάλυψης</string>
   <string name="menu_tools_background_properties">Ιδιότητες φόντου</string>
   <string name="menu_tools_background_align">Ευθυγράμμιση φόντου</string>
   <string name="menu_tools_background_align_reset">Επαναφορά</string>
@@ -266,7 +271,6 @@
   <string name="deleteway_relation_description">Είστε έτοιμος να διαγράψετε έναν δρόμο που είναι μέλος μίας ή περισσότερων σχέσεων. Η κατάργηση του δρόμου από την σχέση/-εις μπορεί να την/τις καταστήσει άκυρη/-ες.</string>
   <string name="deleteway_nodesnotdownloaded_description">Ο δρόμος περιέχει κόμβους έξω από την ληφθείσα περιοχή και δεν μπορεί να διαγραφεί χωρίς να δημιουργηθεί μια ασυνεπής κατάσταση. Κατεβάστε πρώτα ολόκληρο τον δρόμο προτού προσπαθήσετε ξανά.</string>
   <string name="deleteway_wayonly">Διαγραφή διαδρομής μόνο</string>
-  <string name="deleteway_wayandnodes">Διαγραφή διαδρομής και κόμβων</string>
   <string name="deletenode_relation_description">Είστε έτοιμος να διαγράψετε έναν κόμβο που είναι μέλος μίας ή περισσότερων σχέσεων. Η Αφαίρεση του κόμβου από την σχέση(εις)  μπορεί να τον καταστήσει άκυρο.</string>
   <string name="deletenode">Διαγραφή κόμβου</string>
   <!--EasyEdit action mode titles-->
@@ -279,83 +283,87 @@
   <string name="actionmode_closed_way_split_2">Διαίρεση κλειστού τρόπου, 2ο κόμβος</string>
   <string name="actionmode_restriction">Προσθήκη περιορισμού στροφών</string>
   <!--Preferences-->
-  <string name="config_voiceCommandsEnabled_title">Ενεργοποίηση φωνητικών εντολών</string>
-  <string name="config_voiceCommandsEnabled_summary">Ενεργοποίηση πειραματικής υποστήριξης φωνητικών εντολών</string>
-  <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
-  <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
-  <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
-  <string name="config_showStats_summary">Στατιστικά στοιχεία και πλαισία δεδομένων εμφανίζονται στην κάτω αριστερή γωνία.</string>
-  <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
-  <string name="config_showTolerance_summary">Εμφανίζει την περιοχή όπου μπορείτε να επιλέξετε ένα στοιχείο.</string>
-  <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
-  <string name="config_enableAntiAliasing_summary">Κάνει τις γραμμές ομαλές.</string>
+  <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
+  <string name="config_overlayLayer_title">Επικάλυψη χάρτη</string>
   <string name="config_enableOpenStreetBugs_title">Ενεργοποίηση προβολής Σφαλμάτων και Σημειώσεων</string>
   <string name="config_enableOpenStreetBugs_summary">Εμφάνιση, Επεξεργασία και Δημιουργία Σημειώσεων/Σφάλματων.</string>
   <string name="config_enablePhotoLayer_title">Ενεργοποίηση στρώματος φωτογραφιών</string>
   <string name="config_enablePhotoLayer_summary">Εμφάνιση γεω-αναφερόμενων φωτογραφιών.</string>
   <string name="config_enableKeepScreenOn_title">Παραμονή οθόνης ανοικτή</string>
   <string name="config_enableKeepScreenOn_summary">Μην κλείσετε την οθόνη για εξοικονόμηση ενέργειας.</string>
-  <string name="config_closeChangesetOnSave_title">Κλείσιμο ομάδων αλλαγών</string>
-  <string name="config_closeChangesetOnSave_summary">Κλείσιμο ομάδων αλλαγών από προεπιλογή στην Αποθήκευση</string>
-  <string name="config_backgroundLayer_title">Παρασκήνιο χάρτη</string>
-  <string name="config_backgroundLayer_summary">Το γραφικό παρασκήνιο χάρτη.</string>
-  <string name="config_overlayLayer_title">Επικάλυψη χάρτη</string>
-  <string name="config_overlayLayer_summary">Η γραφική επικάλυψη χάρτη.</string>
-  <string name="config_category_server">Ρυθμίσεις Διακομιστή</string>
-  <string name="config_apibutton_title">URL για το OSM API</string>
-  <string name="config_apibutton_summary">Εδώ μπορείτε να ρυθμίσετε ένα URL μη τυπικού API. Συνήθως δεν θα πρέπει να αλλάξει!</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Χρήση του oauth</string>
-  <string name="listedit_enable_oauth">Ενεργοποίηση του oauth</string>
-  <string name="config_offsetServer_title">Διακομιστής Απόκλισης</string>
-  <string name="config_offsetServer_summary">URL του διακομιστή απόκλισης εικόνων</string>
-  <string name="config_presetbutton_title">Προκαθορισμένες</string>
-  <string name="config_presetbutton_summary">Προσθέστε και ενεργοποιήστε προκαθορισμένα συμβατά με JOSM</string>
-  <string name="config_iconbutton_title">Εμφάνιση εικονιδίων κόμβων</string>
-  <string name="config_iconbutton_summary">Εμφάνιση του εικονίδιου του πιο ταιριαστού προκαθορισμένου πάνω από τους κόμβους.</string>
-  <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
-  <string name="config_username_title">Όνομα Χρήστη OSM</string>
-  <string name="config_username_summary">Ρύθμιση που απαιτείται για τη μεταφόρτωση δεδομένων OSM μόνο αν δεν χρησιμοποιείτε το OAuth. Οι Λογαριασμοί είναι διαθέσιμοι στο http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Κωδικός OSM</string>
-  <string name="config_password_summary">Μην το συγχέετε με τον κωδικό του Wiki. Θυμηθείτε: Είναι αποθηκεύμενος και διαβιβασμενος σε μορφή απλού κειμένου!</string>
-  <string name="config_gps_distance_title">Ελάχιστη απόσταση </string>
-  <string name="config_gps_distance_summary">Το μικρότερο διάστημα απόστασης για τις ανανεώσεις GPS, σε μέτρα (float). Μικρότερη τιμή προκαλεί μεγαλύτερη κατανάλωση της μπαταρίας.</string>
-  <string name="config_gps_interval_title">Ελάχιστο GPS-Χρονικό διάστημα</string>
-  <string name="config_gps_interval_summary">Το ελάχιστο χρονικό διάστημα για τις κοινοποιήσεις GPS, σε χιλιοστά του δευτερολέπτου. Κάτω αξίες προκαλούν περισσότερη χρήση της μπαταρίας.</string>
-  <string name="config_category_info">Σχετικά</string>
-  <string name="config_advancedprefs">Προχωρημένες προτιμήσεις</string>
-  <string name="config_forceContextMenu_title">Χρησιμοποιείτε πάντα το μενού περιβάλλοντος</string>
-  <string name="config_forceContextMenu_summary">Εμφανίση πάντα του μενού στην λειτουργία EasyEdit αν η επιλογή είναι ασαφής.</string>
-  <string name="config_licensebutton_title">Συντάκτες και άδειες</string>
-  <string name="config_licensebutton_summary">Εμφάνιση πληροφοριών για συντάκτες και άδειες</string>
-  <string name="config_debugbutton_title">Αποσφαλμάτωση</string>
-  <string name="config_mapProfile_title">Προφίλ Χάρτη</string>
-  <string name="config_mapProfile_summary">Ορισμός στυλ και προβολή των στοιχείων</string>
-  <string name="config_use_back_for_undo_title">Χρησιμοποιήστε το πλήκτρο Πίσω για Αναίρεση</string>
-  <string name="config_use_back_for_undo_summary">Χρησιμοποιήστε το πλήκτρο επιστροφής για αναίρεση στην κύρια προβολή επεξεργασίας</string>
   <string name="config_largeDragArea_title">Μεγάλος κόμβος περιοχής μεταφοράς</string>
   <string name="config_largeDragArea_summary">Παροχή μεγάλης έκτασης για μεταφορά των κόμβων</string>
+  <string name="config_advancedprefs">Προχωρημένες προτιμήσεις</string>
+  <string name="config_moreprefs">Περισσότερες ρυθμίσεις...</string>
+  <string name="config_presetbutton_title">Προκαθορισμένες</string>
+  <string name="config_presetbutton_summary">Προσθέστε και ενεργοποιήστε προκαθορισμένα συμβατά με JOSM</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Συντάκτες και άδειες</string>
+  <string name="config_debugbutton_title">Αποσφαλμάτωση</string>
+  <string name="config_category_info">Σχετικά</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">Εμφάνιση εικονιδίων κόμβων</string>
+  <string name="config_iconbutton_summary">Εμφάνιση του εικονίδιου του πιο ταιριαστού προκαθορισμένου πάνω από τους κόμβους.</string>
+  <string name="config_fullscreenMode_title">Λειτουργία πλήρους οθόνης</string>
+  <string name="config_showTolerance_title">Εμφάνιση ανεκτικότητας</string>
+  <string name="config_showTolerance_summary">Εμφανίζει την περιοχή όπου μπορείτε να επιλέξετε ένα στοιχείο.</string>
+  <string name="config_use_back_for_undo_title">Χρησιμοποιήστε το πλήκτρο Πίσω για Αναίρεση</string>
+  <string name="config_use_back_for_undo_summary">Χρησιμοποιήστε το πλήκτρο επιστροφής για αναίρεση στην κύρια προβολή επεξεργασίας</string>
+  <string name="config_splitActionBarEnabled_title">Ενεργοποίηση γραμμής διαίρεσης δράσης</string>
+  <string name="config_splitActionBarEnabled_summary">Επιτρέψτε γραμμή διαίρεσης δράσης, είναι χρήση της συγκεκριμένης συσκευής. Απαιτείται επανεκκίνηση και μια έκδοση του Android &gt;= 4.0</string>
+  <string name="config_enableAntiAliasing_title">Ενεργοποίηση Εξομάλυνσης Εικόνας</string>
+  <string name="config_enableAntiAliasing_summary">Κάνει τις γραμμές ομαλές.</string>
+  <string name="config_maxStrokeWidth_title">Μέγιστο πάχος γραμμής</string>
+  <string name="config_maxStrokeWidth_summary">Μην σχεδιάσετε ένα δρόμο παχύτερο από αυτόν</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Χρησιμοποιείτε πάντα το μενού περιβάλλοντος</string>
+  <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
+  <string name="config_enableNameSuggestions_title">Ενεργοποίηση προτάσεων ονομασίας</string>
+  <string name="config_enableNameSuggestions_summary">Ενεργοποίηση προτάσεων για την ονομασία ετικέτας </string>
   <string name="config_extTriggeredDownloadRadius_title">Ακτίνα λήψης</string>
   <string name="config_extTriggeredDownloadRadius_summary">Ακτίνα (m) από εξωτερικό προκάλεσε Λήψεις, 0 = κέντρο μόνο στον χάρτη.</string>
+  <string name="config_bugFilter_title">Φίλτρο για Σημειώσεις/Αναφορές</string>
   <string name="config_bugDownloadRadius_title">Ακτίνα λήψης σημειώσεων/αναφορών</string>
   <string name="config_bugDownloadRadius_summary">Ακτίνα (μ) για λήψη σημειώσεων/αναφορών</string>
   <string name="config_maxBugDownloadSpeed_summary">Όριο (χλμ/ώ) πάνω από το οποίο διακόπτεται η αυτόματη λήψη σημειώσεων/αναφορών</string>
-  <string name="config_bugFilter_title">Φίλτρο για Σημειώσεις/Αναφορές</string>
-  <string name="config_enableNameSuggestions_title">Ενεργοποίηση προτάσεων ονομασίας</string>
-  <string name="config_enableNameSuggestions_summary">Ενεργοποίηση προτάσεων για την ονομασία ετικέτας </string>
-  <string name="config_enableAutoPreset_title">Ενεργοποίηση Αυτόματης Προεπιλογής</string>
-  <string name="config_enableAutoPreset_summary">Αυτόματη προσθήκη προκαθορισμένου όταν είναι επιλεγμένο το όνομα πρότασης</string>
-  <string name="config_splitActionBarEnabled_title">Ενεργοποίηση γραμμής διαίρεσης δράσης</string>
-  <string name="config_splitActionBarEnabled_summary">Επιτρέψτε γραμμή διαίρεσης δράσης, είναι χρήση της συγκεκριμένης συσκευής. Απαιτείται επανεκκίνηση και μια έκδοση του Android &gt;= 4.0</string>
+  <string name="config_closeChangesetOnSave_title">Κλείσιμο ομάδων αλλαγών</string>
+  <string name="config_closeChangesetOnSave_summary">Κλείσιμο ομάδων αλλαγών από προεπιλογή στην Αποθήκευση</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS Προέλευση</string>
   <string name="config_gps_source_summary">Πηγή ενημερώσεων τοποθεσίας GPS</string>
   <string name="config_gps_source_tcp_title">NMEA Προέλευση δικτυου</string>
   <string name="config_gps_source_tcp_summary">Διεύθυνση της πηγής TCP NMEA ως host:port</string>
-  <string name="config_address_tags">Ετικέτες διεύθυνσης</string>
-  <string name="config_moreprefs">Περισσότερες ρυθμίσεις...</string>
-  <string name="config_fullscreenMode_title">Λειτουργία πλήρους οθόνης</string>
+  <string name="config_gps_interval_title">Ελάχιστο GPS-Χρονικό διάστημα</string>
+  <string name="config_gps_interval_summary">Το ελάχιστο χρονικό διάστημα για τις κοινοποιήσεις GPS, σε χιλιοστά του δευτερολέπτου. Κάτω αξίες προκαλούν περισσότερη χρήση της μπαταρίας.</string>
+  <string name="config_gps_distance_title">Ελάχιστη απόσταση </string>
+  <string name="config_gps_distance_summary">Το μικρότερο διάστημα απόστασης για τις ανανεώσεις GPS, σε μέτρα (float). Μικρότερη τιμή προκαλεί μεγαλύτερη κατανάλωση της μπαταρίας.</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Ρυθμίσεις Διακομιστή</string>
+  <string name="config_apibutton_title">URL για το OSM API</string>
+  <string name="config_apibutton_summary">Εδώ μπορείτε να ρυθμίσετε ένα URL μη τυπικού API. Συνήθως δεν θα πρέπει να αλλάξει!</string>
+  <string name="config_loginbutton_title">Λογαριασμός χρήστη</string>
+  <string name="config_username_summary">Ρύθμιση που απαιτείται για τη μεταφόρτωση δεδομένων OSM μόνο αν δεν χρησιμοποιείτε το OAuth. Οι Λογαριασμοί είναι διαθέσιμοι στο http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Διακομιστής Απόκλισης</string>
+  <string name="config_offsetServer_summary">URL του διακομιστή απόκλισης εικόνων</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Μέγεθος μνήμης cache</string>
   <string name="config_tileCacheSize_summary">Συνολικό μέγεθος της μνήμης cache σε MB</string>
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">Ανέφερε σφάλματα</string>
+  <string name="pref_acra_enabled">Αναφορά σφαλμάτων ενεργή</string>
+  <string name="pref_acra_disabled">Αναφορά σφαλμάτων ανενεργή</string>
+  <string name="config_showStats_title">Εμφάνιση στατιστικών</string>
+  <string name="config_showStats_summary">Στατιστικά στοιχεία και πλαισία δεδομένων εμφανίζονται στην κάτω αριστερή γωνία.</string>
+  <!--Experimental-->
+  <string name="config_voiceCommandsEnabled_title">Ενεργοποίηση φωνητικών εντολών</string>
+  <!---->
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Χρήση του oauth</string>
+  <string name="listedit_enable_oauth">Ενεργοποίηση του oauth</string>
+  <string name="config_username_title">Όνομα Χρήστη OSM</string>
+  <string name="config_password_title">Κωδικός OSM</string>
+  <string name="config_password_summary">Μην το συγχέετε με τον κωδικό του Wiki. Θυμηθείτε: Είναι αποθηκεύμενος και διαβιβασμενος σε μορφή απλού κειμένου!</string>
   <!--preset downloader messages-->
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_successful">Το προκαθορισμένο ελήφθη επιτυχώς</string>
@@ -418,10 +426,6 @@
   <string name="undo_action_fix_conflict">επίλυση διένεξης</string>
   <string name="undo_action_extract_node">εξαγωγή κόμβου</string>
   <!--ACRA-->
-  <string name="config_category_acra">Αυτόματη Αναφορά Σφαλμάτων</string>
-  <string name="pref_enable_acra">Ανέφερε σφάλματα</string>
-  <string name="pref_acra_enabled">Αναφορά σφαλμάτων ενεργή</string>
-  <string name="pref_acra_disabled">Αναφορά σφαλμάτων ανενεργή</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
   <!--Notifications-->

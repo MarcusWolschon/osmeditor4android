@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-24 08:08+0000\n"
+"Last-Translator: ccpr1l <csdpe0810-tf@yahoo.es>\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3519,7 +3519,7 @@ msgstr ""
 
 #: master_preset.xml:5251(item:name|group:Tourism|preset:Guidepost)
 msgid "Guidepost"
-msgstr ""
+msgstr "Poste indicador"
 
 #: master_preset.xml:8032(item:name|group:Sport|preset:Gymnastics)
 msgid "Gymnastics"

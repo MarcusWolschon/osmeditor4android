@@ -27,12 +27,20 @@
   <string name="imagery_offset_date">Opprettet</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="search">Søk</string>
+  <!--element information dialog-->
   <string name="version">Versjon</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
@@ -95,7 +103,6 @@
   <string name="menu_join">Kombiner</string>
   <string name="menu_rotate">Rotér</string>
   <string name="menu_orthogonalize">Lag åttekantet</string>
-  <string name="menu_tools">Verktøy</string>
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -103,39 +110,48 @@
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
   <string name="deleteway_wayonly">Slett bare vegen</string>
-  <string name="deleteway_wayandnodes">Slett veg og noder</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Veg valgt</string>
   <string name="actionmode_nodeselect">Node valgt</string>
   <string name="actionmode_createpath">Lager bane</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_showStats_title">Vis statistikk</string>
-  <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
+  <string name="config_backgroundLayer_title">Kartbakgrunn</string>
+  <string name="config_advancedprefs">Avanserte innstillinger</string>
+  <string name="config_presetbutton_title">Knapper</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
+  <string name="config_category_info">Om</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">Vis node-ikon</string>
+  <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
   <string name="config_showTolerance_summary">Viser område hvor elementer kan velges.</string>
   <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
-  <string name="config_backgroundLayer_title">Kartbakgrunn</string>
-  <string name="config_backgroundLayer_summary">Forehåndstegna kartbakgrunn</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Bruk alltid hurtigmeny</string>
+  <!--Location Settings-->
+  <string name="config_gps_interval_title">Minimum GPS-intervall</string>
+  <string name="config_gps_interval_summary">Korteste tidsintervall for GPS-målinger, i millisekunder. Lavere verdi gir kortere batteritid.</string>
+  <string name="config_gps_distance_title">Minimum GPS-avstand</string>
+  <string name="config_gps_distance_summary">Kortaste avstand mellom GPS-målinger, i meter (med komma). Lavere verdi gir kortere batteritid.</string>
+  <!--Server Settings-->
   <string name="config_category_server">Tener-innstillinger</string>
   <string name="config_apibutton_summary">Her kan du spesifisere en ustandard API URL. Skal normalt ikke endres!</string>
-  <string name="config_presetbutton_title">Knapper</string>
-  <string name="config_iconbutton_title">Vis node-ikon</string>
-  <string name="config_iconbutton_summary">Vis ikonet for knapp som passer best på noder.</string>
   <string name="config_loginbutton_title">Brukerkonto</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">Rapporter program-krasjer</string>
+  <string name="pref_acra_enabled">Krasjrapportering slått på</string>
+  <string name="pref_acra_disabled">Krasjrapportering slått av</string>
+  <string name="config_showStats_title">Vis statistikk</string>
+  <string name="config_showStats_summary">Viser datastatistikk og bilde/sek i nederste venstre hjørne.</string>
+  <!--Experimental-->
+  <!---->
   <string name="config_username_title">OpenStreetMap-brukernavn</string>
   <string name="config_password_title">OpenStreetMap-passord</string>
   <string name="config_password_summary">Må ikke forveksles med Wiki-passordet. Obs: Det blir lagret og sendt som lesbar tekst!</string>
-  <string name="config_gps_distance_title">Minimum GPS-avstand</string>
-  <string name="config_gps_distance_summary">Kortaste avstand mellom GPS-målinger, i meter (med komma). Lavere verdi gir kortere batteritid.</string>
-  <string name="config_gps_interval_title">Minimum GPS-intervall</string>
-  <string name="config_gps_interval_summary">Korteste tidsintervall for GPS-målinger, i millisekunder. Lavere verdi gir kortere batteritid.</string>
-  <string name="config_category_info">Om</string>
-  <string name="config_advancedprefs">Avanserte innstillinger</string>
-  <string name="config_forceContextMenu_title">Bruk alltid hurtigmeny</string>
-  <string name="config_forceContextMenu_summary">Vis alltid hurtigmeny i EasyEdit-modus dersom valget er tvetydig.</string>
-  <string name="config_licensebutton_title">Opphavsmenn og lisenser</string>
-  <string name="config_licensebutton_summary">Vis informasjon om opphavsmenn og lisenser</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
   <string name="preset_download_successful">Knappene ble lasta ned.</string>
@@ -177,10 +193,6 @@
   <string name="undo_action_reverse_way">snu vegar</string>
   <string name="undo_action_set_tags">legg til taggar</string>
   <!--ACRA-->
-  <string name="config_category_acra">Krasj-rapportering</string>
-  <string name="pref_enable_acra">Rapporter program-krasjer</string>
-  <string name="pref_acra_enabled">Krasjrapportering slått på</string>
-  <string name="pref_acra_disabled">Krasjrapportering slått av</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="bearing_s">S</string>

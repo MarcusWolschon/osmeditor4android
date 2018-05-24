@@ -32,6 +32,8 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_preferences</item>
+        <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -41,6 +43,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
     	<item>@string/help_upgrade_099</item>
@@ -58,6 +61,8 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Preferences</item>
+        <item>Advanced preferences</item>
     	<item>Presets</item>	
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -66,6 +71,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>
     	<item>10.0.0 Release notes</item>

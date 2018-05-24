@@ -112,6 +112,7 @@
   <string name="existing_track_title">Existující data stopy</string>
   <string name="existing_track_message">Již máte existující data stopy. Možná budete chtít operaci zrušit a data nejdříve uložit.</string>
   <string name="delete_tags">Opravdu smazat všechny tagy objektu \"%1$s\"?</string>
+  <!--element information dialog-->
   <string name="element_information">Vlastnosti prvku</string>
   <string name="id">ID</string>
   <string name="nodes">Uzly</string>
@@ -126,14 +127,17 @@
   <string name="element">prvek</string>
   <string name="last_updated">naposledy upraveno</string>
   <string name="last_edited">Poslední změna</string>
+  <!---->
   <string name="error">chyba</string>
   <string name="warning">varování</string>
   <string name="minor_issue">drobná chyba</string>
   <string name="unknown_error_level">neznámá úroveň chyby</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tato operace ovlivní filtrované propojené objekty!</string>
   <string name="attached_object_warning_message">Změněný objekt je spojen se skrytými prvky, které se změní také.</string>
   <string name="attached_object_warning_continue">OK nadále zobrazovat tuto zprávu</string>
   <string name="attached_object_warning_stop">OK nezobrazovat tuto zprávu</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Poslat ladicí informace</string>
   <!--JS console dialog-->
   <string name="evaluate">Spustit</string>
@@ -171,6 +175,10 @@
   <string name="coverage_bottom">Dole</string>
   <string name="toast_invalid_box">Neplatný nebo nekompletní ohraničující rámec</string>
   <string name="delete_layer">Smazat vrstvu?</string>
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_name_empty">Název nesmí být prázdný</string>
   <string name="toast_url_empty">URL nesmí být prázdné</string>
@@ -426,11 +434,8 @@
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
-  <string name="menu_tools">Nástroje</string>
   <string name="menu_tools_imagery">Další nástroje snímků</string>
   <string name="menu_tools_add_imagery_from_oam">Přidat snímky z OAM</string>
-  <string name="menu_tools_flush_background_tile_cache">Vyčistit mezipaměť dlaždic pozadí</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Vyčistit mezipaměť překryvných dlaždic</string>
   <string name="menu_tools_flush_all_tile_caches">Vyčistit veškerou mezipaměť dlaždic</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadí</string>
   <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci snímků</string>
@@ -462,7 +467,6 @@
   <string name="deleteway_relation_description">Chystáte se odstranit cestu, která je členem jedné nebo více relací. Odstranění cesty z relace/relací může způsobit nesprávné vykreslení.</string>
   <string name="deleteway_nodesnotdownloaded_description">Cesta obsahuje uzly mimo staženou oblast a nemůže být smazána bez vytvoření nekonzistentním stavu. Nejdříve si stáhněte celou cestu a zkuste to znovu.</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
-  <string name="deleteway_wayandnodes">Smazat cestu a uzly</string>
   <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu z relace/relací může způsobit nesprávné vykreslení.</string>
   <string name="deletenode">Smazat uzel</string>
   <string name="split_all_ways">Rozdělit všechny cesty</string>
@@ -485,118 +489,115 @@
   <string name="actionmode_object_count">%1$d objektů</string>
   <string name="actionmode_rotateway">Otočit cestu</string>
   <!--Preferences-->
-  <string name="config_category_editing">Nastavení dat a úprav</string>
-  <string name="config_category_view">Nastavení uživatelského rozhraní</string>
-  <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
-  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů</string>
-  <string name="config_generateAlerts_title">Vytvářet notifikace</string>
-  <string name="config_generateAlerts_summary">Vytvářet notifikace pro data s problémy či poznámkami</string>
-  <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
-  <string name="config_voiceCommandsEnabled_summary">Povolit experimentální podporu hlasových příkazů</string>
-  <string name="config_maxAlertDistance_title">Max. vzdálenost pro notifikace</string>
-  <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky, která může být od aktuální polohy, pro generování oznámení</string>
-  <string name="config_maxAlertDistance_current">%1$d m</string>
-  <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
-  <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto</string>
-  <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_showStats_title">Zobrazit statistiku</string>
-  <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
-  <string name="config_showTolerance_title">Zobrazit toleranci</string>
-  <string name="config_showTolerance_summary">Zobrazí oblast ve které lze vybrat prvek.</string>
-  <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
-  <string name="config_enableAntiAliasing_summary">Dělá čáry hladší.</string>
+  <string name="config_backgroundLayer_title">Pozadí mapy</string>
+  <string name="config_overlayLayer_title">Překrytí mapy</string>
+  <string name="config_customlayers_title">Vlastní vrstvy</string>
+  <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_enableOpenStreetBugs_title">Povolit zobrazení chyb a poznámek</string>
   <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek/chyb</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
   <string name="config_enablePhotoLayer_summary">Zobrazit fotografie s georeferencemi</string>
   <string name="config_enableKeepScreenOn_title">Nezhasínat obrazovku</string>
   <string name="config_enableKeepScreenOn_summary">Nevypínat obrazovku pro úsporu energie.</string>
-  <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
-  <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
-  <string name="config_backgroundLayer_title">Pozadí mapy</string>
-  <string name="config_backgroundLayer_summary">Grafické vykreslení pozadí mapy.</string>
-  <string name="config_overlayLayer_title">Překrytí mapy</string>
-  <string name="config_overlayLayer_summary">Grafické vykreslení překrytí mapy.</string>
-  <string name="config_scale_title">Zobrazení měřítka</string>
-  <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
-  <string name="config_category_server">Nastavení serveru</string>
-  <string name="config_apibutton_title">URL API OSM</string>
-  <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
-  <string name="config_api_url_title">URL API</string>
-  <string name="config_api_oauth_title">Použít oauth</string>
-  <string name="listedit_enable_oauth">Povolit oauth</string>
-  <string name="config_offsetServer_title">Ofset server</string>
-  <string name="config_offsetServer_summary">URL serveru s odsazením snímků</string>
-  <string name="config_osmoseServer_title">OSMOSE server</string>
-  <string name="config_osmoseServer_summary">URL osmose serveru</string>
+  <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
+  <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů</string>
+  <string name="config_advancedprefs">Rozšířená nastavení</string>
+  <string name="config_moreprefs">Další nastavení...</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autoři a licence</string>
+  <string name="config_debugbutton_title">Ladění</string>
+  <string name="config_category_info">Informace</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Nastavení uživatelského rozhraní</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
   <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
   <string name="config_showWayIcons_summary">Ukázat ikonku nejlépe odpovídající předvolbě budovy.</string>
-  <string name="config_loginbutton_title">Uživatelský účet</string>
-  <string name="config_username_title">OSM už. jméno</string>
-  <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">OSM heslo</string>
-  <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
-  <string name="config_category_gps">Nastavení umístění</string>
-  <string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
-  <string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
-  <string name="config_gps_distance_current">%1$d m</string>
-  <string name="config_gps_interval_title">Minimální GPS interval</string>
-  <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
-  <string name="config_gps_interval_current">%1$d ms</string>
-  <string name="config_gps_network_title">Použít polohu sítě</string>
-  <string name="config_gps_network_summary">Pokud není GPS povolený nebo aktuální, použít umístění ze sítě</string>
-  <string name="config_category_info">Informace</string>
-  <string name="config_advancedprefs">Rozšířená nastavení</string>
-  <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
-  <string name="config_forceContextMenu_summary">Vždy zobrazit kontextové menu v EasyEdit, pokud je výběr nejednoznačný</string>
-  <string name="config_licensebutton_title">Autoři a licence</string>
-  <string name="config_licensebutton_summary">Zobrazit autory a licenční informace</string>
-  <string name="config_debugbutton_title">Ladění</string>
-  <string name="config_debugbutton_summary">Zobrazí některé vnitřní informace</string>
-  <string name="config_mapProfile_title">Zobrazení prvků</string>
-  <string name="config_mapProfile_summary">Nastavit styl a viditelnost prvků</string>
+  <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
+  <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář</string>
+  <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
+  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů</string>
+  <string name="config_followGPSbutton_title">Umístění tlačítka GPS</string>
+  <string name="config_followGPSbutton_summary">Umístění tlačítka Následovat polohu GPS</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>
+  <string name="config_fullscreenMode_title">Režim na celou obrazovku</string>
+  <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
+  <string name="config_showTolerance_title">Zobrazit toleranci</string>
+  <string name="config_showTolerance_summary">Zobrazí oblast ve které lze vybrat prvek.</string>
   <string name="config_use_back_for_undo_title">Tlačítkem zpět vracet změnu</string>
   <string name="config_use_back_for_undo_summary">Použít tlačítko zpět pro vracení úprav v hlavním okně</string>
-  <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
-  <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů</string>
+  <string name="config_enableLightTheme_title">Povolit světlý vzhled</string>
+  <string name="config_enableLightTheme_summary">Světlý vzhled s bílým pozadím</string>
+  <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
+  <string name="config_splitActionBarEnabled_summary">Umožní rozdělit lištu nástrojů, výsledek závisí na konkrétním telefonu. Vyžaduje restart a Android verze &gt;= 4.0</string>
+  <string name="config_maxInlineValues_current">%1$d hodnoty</string>
+  <string name="config_autoLockDelay_title">Časový limit automatického uzamčení</string>
+  <string name="config_autoLockDelay_summary">Časový limit v sekundách automatického uzamčení, 0 se deaktivuje.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="config_enableAntiAliasing_title">Zapnout vyhlazení hran</string>
+  <string name="config_enableAntiAliasing_summary">Dělá čáry hladší.</string>
+  <string name="config_maxStrokeWidth_title">Max. tloušťka čáry</string>
+  <string name="config_maxStrokeWidth_summary">Nekreslit tlustší cestu než tuto</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Nastavení dat a úprav</string>
+  <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
+  <string name="config_address_tags">Tagy pro adresu</string>
+  <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy</string>
+  <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
+  <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem</string>
+  <string name="config_generateAlerts_title">Vytvářet notifikace</string>
+  <string name="config_generateAlerts_summary">Vytvářet notifikace pro data s problémy či poznámkami</string>
+  <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
+  <string name="config_notificationCacheSize_summary">Maximální počet zobrazených notifikací jednoho typu (min. 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d notifikace</string>
+  <string name="config_maxAlertDistance_title">Max. vzdálenost pro notifikace</string>
+  <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky, která může být od aktuální polohy, pro generování oznámení</string>
+  <string name="config_maxAlertDistance_current">%1$d m</string>
   <string name="config_extTriggeredDownloadRadius_title">Poloměr pro stahování</string>
   <string name="config_downloadRadius_current">%1$d m</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
   <string name="config_maxDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování pozastaveno</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_bugFilter_title">Filtr Poznámek/Chyb</string>
+  <string name="config_bugFilter_summary">Vyberte, které prvky se zobrazí ve vrstvě poznámek/chyb</string>
   <string name="config_bugDownloadRadius_title">Poloměr stahování poznámek/chyb</string>
   <string name="config_bugDownloadRadius_summary">Poloměr (m) pro stahování poznámek/chyb</string>
   <string name="config_maxBugDownloadSpeed_title">Max. rychlost pro auto-stahování poznámek/chyb</string>
   <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek/chyb pozastaveno</string>
-  <string name="config_bugFilter_title">Filtr Poznámek/Chyb</string>
-  <string name="config_bugFilter_summary">Vyberte, které prvky se zobrazí ve vrstvě poznámek/chyb</string>
-  <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
-  <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem</string>
-  <string name="config_enableAutoPreset_title">Povolit automatickou předvolbu</string>
-  <string name="config_enableAutoPreset_summary">Automaticky přidat předvolbu, pokud je zvolen návrh názvů</string>
-  <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
-  <string name="config_splitActionBarEnabled_summary">Umožní rozdělit lištu nástrojů, výsledek závisí na konkrétním telefonu. Vyžaduje restart a Android verze &gt;= 4.0</string>
+  <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
+  <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
+  <!--Location Settings-->
+  <string name="config_category_gps">Nastavení umístění</string>
   <string name="config_gps_source_title">Zdroj GPS</string>
   <string name="config_gps_source_summary">Zdroj aktualizaci GPS polohy</string>
+  <string name="config_gps_interval_title">Minimální GPS interval</string>
+  <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Minimální GPS vzdálenost</string>
+  <string name="config_gps_distance_summary">Minimální vzdálenost mezi GPS notifikacemí v metrech (desetinné číslo). Menší hodnota způsobí vyšší spotřebu baterie.</string>
+  <string name="config_gps_distance_current">%1$d m</string>
   <string name="config_leaveGpsDisabled_title">Ponechat vypnuté GPS</string>
   <string name="config_leaveGpsDisabled_summary">Neptat se uživatele na zapnutí GPS, pokud je vypnutá</string>
-  <string name="config_enableLightTheme_title">Povolit světlý vzhled</string>
-  <string name="config_enableLightTheme_summary">Světlý vzhled s bílým pozadím</string>
-  <string name="config_category_misc">Různé</string>
-  <string name="config_address_tags">Tagy pro adresu</string>
-  <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy</string>
-  <string name="config_moreprefs">Další nastavení...</string>
-  <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
-  <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář</string>
-  <string name="config_followGPSbutton_title">Umístění tlačítka GPS</string>
-  <string name="config_followGPSbutton_summary">Umístění tlačítka Následovat polohu GPS</string>
-  <string name="config_fullscreenMode_title">Režim na celou obrazovku</string>
-  <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
-  <string name="config_maxInlineValues_current">%1$d hodnoty</string>
+  <string name="config_gps_network_title">Použít polohu sítě</string>
+  <string name="config_gps_network_summary">Pokud není GPS povolený nebo aktuální, použít umístění ze sítě</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Nastavení serveru</string>
+  <string name="config_apibutton_title">URL API OSM</string>
+  <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
+  <string name="config_loginbutton_title">Uživatelský účet</string>
+  <string name="config_username_summary">Konfigurace potřebná k nahrávání OSM-Dat v případě, že nepoužíváte OAuth. Účty jsou dostupné na: http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Ofset server</string>
+  <string name="config_offsetServer_summary">URL serveru s odsazením snímků</string>
+  <string name="config_osmoseServer_title">OSMOSE server</string>
+  <string name="config_osmoseServer_summary">URL osmose serveru</string>
+  <string name="config_geocoderbutton_title">Nastavit geokodéry</string>
+  <string name="config_geocoderbutton_summary">Přidat, upravit, smazat geokodéry pro funkci vyhledávání</string>
+  <!--Layer download and storage-->
   <string name="config_category_layers">Stahování a ukládání vrstev</string>
   <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
   <string name="config_maxTileDownloadThreads_summary">Maximální počet vláken pro stahování dlaždic.</string>
@@ -604,20 +605,24 @@
   <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
   <string name="config_tileCacheSize_summary">Celková velikost mezipaměti s dlaždicemi v MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
-  <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
-  <string name="config_notificationCacheSize_summary">Maximální počet zobrazených notifikací jednoho typu (min. 1)</string>
-  <string name="config_notificationCacheSize_current">%1$d notifikace</string>
-  <string name="config_autoLockDelay_title">Časový limit automatického uzamčení</string>
-  <string name="config_autoLockDelay_summary">Časový limit v sekundách automatického uzamčení, 0 se deaktivuje.</string>
-  <string name="config_autoLockDelay_current">%1$d s</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Pokud je nastaveno, nestažené oblasti budou tmavé v Uzamčeném režimu</string>
-  <string name="config_geocoderbutton_title">Nastavit geokodéry</string>
-  <string name="config_geocoderbutton_summary">Přidat, upravit, smazat geokodéry pro funkci vyhledávání</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Různé</string>
+  <string name="pref_enable_acra">Hlásí pády aplikace</string>
+  <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
+  <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
+  <string name="config_showStats_title">Zobrazit statistiku</string>
+  <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
+  <!--Experimental-->
   <string name="config_js_console_title">Povolit JS konzoli</string>
-  <string name="config_validatorprefs_title">Nastavení validátoru</string>
-  <string name="config_customlayers_title">Vlastní vrstvy</string>
+  <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
+  <!---->
   <string name="manage_apis">Spravovat API</string>
+  <string name="config_api_url_title">URL API</string>
+  <string name="config_api_oauth_title">Použít oauth</string>
+  <string name="listedit_enable_oauth">Povolit oauth</string>
+  <string name="config_username_title">OSM už. jméno</string>
+  <string name="config_password_title">OSM heslo</string>
+  <string name="config_password_summary">Nezaměňte ho za heslo do Wiki. Pamatujte: Je ukládáno a odesíláno v otevřeném formátu!</string>
   <string name="manage_presets">Spravovat předvolby</string>
   <string name="manage_geocoders">Spravovat geokodéry</string>
   <!--preset downloader messages-->
@@ -630,9 +635,6 @@
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
-  <string name="confirm_upload_title">Nahrát změny?</string>
-  <string name="confirm_one_upload_text">Nahrát následující změnu?\n\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Nahrát následujících %1$d změn?\n\n%2$s</string>
   <string name="confirm_upload_edits_page">Změny</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
@@ -705,10 +707,6 @@
   <string name="crash_dialog_comment_prompt">Přidejte jakékoliv další informace, které by mohli pomoci a (volitelně) vaši e-mailovou adresu abychom vás mohli kontaktovat.\n\nDěkujeme!</string>
   <string name="report_success">Hlášení úspěšně odesláno!</string>
   <string name="report_failure">Odeslání hlášení se nezdařilo!</string>
-  <string name="config_category_acra">Hlášení pádu</string>
-  <string name="pref_enable_acra">Hlásí pády aplikace</string>
-  <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
-  <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Touto operací se vytvoří cesta s příliš velkým počtem uzlů.</string>
   <!--Notifications-->

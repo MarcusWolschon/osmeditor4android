@@ -10,12 +10,20 @@
   <string name="imagery_offset_date">已创建</string>
   <string name="imagery_offset_zoom">缩放</string>
   <string name="search">搜索</string>
+  <!--element information dialog-->
   <string name="version">版本</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
@@ -37,7 +45,6 @@
   <string name="menu_camera">摄像机</string>
   <string name="menu_rotate">旋转</string>
   <string name="menu_orthogonalize">直角化</string>
-  <string name="menu_tools">工具</string>
   <string name="menu_tools_background_align_reset">重置</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -47,6 +54,16 @@
   <string name="actionmode_multiselect">多选</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <!--Data and Editing Settings-->
+  <!--Location Settings-->
+  <!--Server Settings-->
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <!--Experimental-->
+  <!---->
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->

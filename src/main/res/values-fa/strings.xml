@@ -74,13 +74,21 @@
   <string name="find_message">ورود متن جستجو</string>
   <string name="geocoder_prompt">با</string>
   <string name="search">جستجو</string>
+  <!--element information dialog-->
   <string name="closed">بسته شده</string>
   <string name="version">نسخه</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_upload_success">آپلود به سرور OSM پایان یافت. </string>
@@ -157,7 +165,6 @@
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>
   <string name="menu_rotate">چرخش</string>
-  <string name="menu_tools">ابزارها</string>
   <string name="menu_tools_background_align_reset">باز نشانی</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -165,45 +172,54 @@
   <string name="menu_merge">پیوند دادن</string>
   <string name="menu_reverse">معکوس کردن</string>
   <string name="deleteway_wayonly">فقط حذف راه</string>
-  <string name="deleteway_wayandnodes">حذف راه و گره ها</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">راه انتخاب شد</string>
   <string name="actionmode_nodeselect">گره انتخاب شد</string>
   <string name="actionmode_createpath">ایجاد مسیر</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
-  <string name="config_maxStrokeWidth_summary">راه ضخیم تر از این نکشید</string>
-  <string name="config_showStats_title">نمایش آمار</string>
-  <string name="config_showStats_summary">نمایش آمار داده ها و فریم بر ثانیه در گوشه ی پایینی سمت چپ</string>
+  <string name="config_backgroundLayer_title">نقشه پس زمینه</string>
+  <string name="config_enableOpenStreetBugs_summary">نمایش،ویرایش و ایجاد یادداشت ها/خطاها.</string>
+  <string name="config_advancedprefs">ترجیحات پیشرفته</string>
+  <string name="config_presetbutton_title">پیش تنظیم</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">پدید آورندگان و مجوزها</string>
+  <string name="config_category_info">درباره</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">نمایش آیکون های گره</string>
+  <string name="config_iconbutton_summary">نمایش آیکون بهترین پیش تنظیم سازگار دور گره ها.</string>
   <string name="config_showTolerance_title">نمایش تحمل</string>
   <string name="config_showTolerance_summary">نشان دادن جاهایی از ناحیه که المنت ها میتوانند انتخاب شوند.</string>
   <string name="config_enableAntiAliasing_title">فعال کردن ضد-بد نمایی</string>
   <string name="config_enableAntiAliasing_summary">خط ها را صافتر می سازد.</string>
-  <string name="config_enableOpenStreetBugs_summary">نمایش،ویرایش و ایجاد یادداشت ها/خطاها.</string>
-  <string name="config_backgroundLayer_title">نقشه پس زمینه</string>
-  <string name="config_backgroundLayer_summary">نقشه ی گرافیکی ارائه شده در پس زمینه.</string>
+  <string name="config_maxStrokeWidth_title">حداکثر عرض خط</string>
+  <string name="config_maxStrokeWidth_summary">راه ضخیم تر از این نکشید</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">استفاده ی همیشگی از منو ی متنی</string>
+  <!--Location Settings-->
+  <string name="config_gps_interval_title">کمترین وقفه جی پی اس</string>
+  <string name="config_gps_interval_summary">کمترین فاصله ی زمانی برای اطلاعیه های جی پی اس در میلی ثانیه است. مقدار کمتر مصرف بیشتر باطری را به همراه دارد.</string>
+  <string name="config_gps_distance_title">کمترین فاصله ی جی پی اس</string>
+  <string name="config_gps_distance_summary">کمترین فاصله مقداری است برای اطلاعیه های جی پی اس، در متر(شناور). مقدار کمتر مصرف بیشتر باطری را همراه دارد.</string>
+  <!--Server Settings-->
   <string name="config_category_server">تنظیمات سرور</string>
   <string name="config_apibutton_title">آدرس ای پی آی OSM</string>
   <string name="config_apibutton_summary">میتوانید یک آدرس ای پی آی غیر استاندارد اینجا تنظیم کنید. معمولا نباید تغییر یابد!</string>
-  <string name="config_presetbutton_title">پیش تنظیم</string>
-  <string name="config_iconbutton_title">نمایش آیکون های گره</string>
-  <string name="config_iconbutton_summary">نمایش آیکون بهترین پیش تنظیم سازگار دور گره ها.</string>
   <string name="config_loginbutton_title">حساب کاربری</string>
-  <string name="config_username_title">حساب OSM </string>
   <string name="config_username_summary">پیکربندی برای آپلود داده ها به OSM نیاز است تنها اگر از OAuth استفاده نمیکنید. حساب ها در آدرس http://www.openstreetmap.org/user/new در دسترس هستند</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">گزارش کرش های برنامه</string>
+  <string name="pref_acra_enabled">گزارش کرش فعال شد</string>
+  <string name="pref_acra_disabled">گزارش کرش غیر فعال شد</string>
+  <string name="config_showStats_title">نمایش آمار</string>
+  <string name="config_showStats_summary">نمایش آمار داده ها و فریم بر ثانیه در گوشه ی پایینی سمت چپ</string>
+  <!--Experimental-->
+  <!---->
+  <string name="config_username_title">حساب OSM </string>
   <string name="config_password_title">کلمه ی عبور OSM </string>
   <string name="config_password_summary">این را با کلمه ی عبور ویکی اشتباه نگیرید. به خاطر داشته باشید: این ذخیره میشود و در یک متن رمزگذاری شده ارسال میشود!</string>
-  <string name="config_gps_distance_title">کمترین فاصله ی جی پی اس</string>
-  <string name="config_gps_distance_summary">کمترین فاصله مقداری است برای اطلاعیه های جی پی اس، در متر(شناور). مقدار کمتر مصرف بیشتر باطری را همراه دارد.</string>
-  <string name="config_gps_interval_title">کمترین وقفه جی پی اس</string>
-  <string name="config_gps_interval_summary">کمترین فاصله ی زمانی برای اطلاعیه های جی پی اس در میلی ثانیه است. مقدار کمتر مصرف بیشتر باطری را به همراه دارد.</string>
-  <string name="config_category_info">درباره</string>
-  <string name="config_advancedprefs">ترجیحات پیشرفته</string>
-  <string name="config_forceContextMenu_title">استفاده ی همیشگی از منو ی متنی</string>
-  <string name="config_forceContextMenu_summary">در حالت ویرایش آسان منوی متنی نمایش یابد اگر انتخاب مبهم باشد.</string>
-  <string name="config_licensebutton_title">پدید آورندگان و مجوزها</string>
-  <string name="config_licensebutton_summary">نمایش اطلاعات مجوزها و پدیدآورنده ها</string>
   <!--preset downloader messages-->
   <string name="preset_update">بروزرسانی پیش تنظیم ها</string>
   <string name="preset_download_successful">پیش تنظیم ها با موفقیت دانلود شد</string>
@@ -251,10 +267,6 @@
   <string name="undo_action_join">پیوستن</string>
   <string name="undo_action_unjoin_ways">جدا کردن راه ها</string>
   <!--ACRA-->
-  <string name="config_category_acra">گزارش کرش</string>
-  <string name="pref_enable_acra">گزارش کرش های برنامه</string>
-  <string name="pref_acra_enabled">گزارش کرش فعال شد</string>
-  <string name="pref_acra_disabled">گزارش کرش غیر فعال شد</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="bearing_s">S</string>

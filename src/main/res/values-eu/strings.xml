@@ -27,12 +27,20 @@
   <string name="unsaved_data_title">Kontuz!</string>
   <string name="unsaved_data_message">Aurrera jarraitzen baduzu, gorde gabe dituzun aldaketak baztertuko dira.</string>
   <string name="unsaved_data_proceed">Baztertu &amp; aurrera jarraitu</string>
+  <!--element information dialog-->
   <string name="closed">Itxia</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Oraindik ez duzu ezer aldatu...</string>
   <string name="toast_upload_success">OSM Zerbitzarira igoera bukatu da.</string>
@@ -112,7 +120,6 @@
   <string name="reverse_anyway">Alderantzizkatu hala ere</string>
   <string name="deleteway_relation_description">Erlazio bat edo gehiagoren partaide den bide bat ezabatzeko zorian zaude. Bidea erlazioetatik kentzeak erlazioak baliogabetu ditzazke.</string>
   <string name="deleteway_wayonly">Bidea bakarrik ezabatu</string>
-  <string name="deleteway_wayandnodes">Bidea eta nodoak ezabatu</string>
   <string name="deletenode_relation_description">Erlazio bat edo gehiagoren partaide den bide bat ezabatzeko zorian zaude. Bidea erlazioetatik kentzeak erlazioak baliogabetu ditzazke.</string>
   <string name="deletenode">Nodoa ezabatu</string>
   <!--EasyEdit action mode titles-->
@@ -122,42 +129,50 @@
   <string name="actionmode_createpath">Ibilbidea sortzen</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">Lerroaren zab. max.</string>
-  <string name="config_maxStrokeWidth_summary">Hau baina lodiagoa den biderik ez marraztu</string>
-  <string name="config_showStats_title">Estatistikak erakutsi</string>
-  <string name="config_showStats_summary">Data estatistikak eta segunduko fotogramak beheko ezkerreko eskinan erakutsi.</string>
+  <string name="config_backgroundLayer_title">Maparen atzeko planoa</string>
+  <string name="config_enableOpenStreetBugs_summary">Erakutsi, Editatu eta Sortu Notak/Akats jakinarazpenak.</string>
+  <string name="config_advancedprefs">Hobespen aurreratuak</string>
+  <string name="config_presetbutton_title">Aurrezarpenak</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autoreak eta lizentziak</string>
+  <string name="config_category_info">Honi buruz</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">Nodoen ikonoak erakutsi</string>
+  <string name="config_iconbutton_summary">Nodoen arteko aurrezarpen hoberenaren ikonoa erakutsi</string>
   <string name="config_showTolerance_title">Tolerantzia erakutsi</string>
   <string name="config_showTolerance_summary">Elementu bat aukeratua izan daitekeen area erakutsi</string>
   <string name="config_enableAntiAliasing_title">Anti-Alisinga Gaitu</string>
   <string name="config_enableAntiAliasing_summary">Bideak leunagoak egiten ditu.</string>
-  <string name="config_enableOpenStreetBugs_summary">Erakutsi, Editatu eta Sortu Notak/Akats jakinarazpenak.</string>
-  <string name="config_backgroundLayer_title">Maparen atzeko planoa</string>
-  <string name="config_backgroundLayer_summary">Grafikoki errenderizatutako atzeko planoko mapa.</string>
+  <string name="config_maxStrokeWidth_title">Lerroaren zab. max.</string>
+  <string name="config_maxStrokeWidth_summary">Hau baina lodiagoa den biderik ez marraztu</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Kontestu menua erabili beti</string>
+  <!--Location Settings-->
+  <string name="config_gps_interval_title">GPSaren Tarte Minimoa</string>
+  <string name="config_gps_interval_summary">GPS oharren arteko denbora txikiena, milisegundotan. Balio txikiagoek bateria erabilpen handiagoa sortzen dute.</string>
+  <string name="config_gps_distance_title">GPSaren Distantzia Minimoa</string>
+  <string name="config_gps_distance_summary">GPS oharren arteko distantzia txikiena, metrotan (flotatzen). Balio txikiagoek bateria erabilpen handiagoa sortzen dute.</string>
+  <!--Server Settings-->
   <string name="config_category_server">Zerbitzariaren Ezarpenak</string>
   <string name="config_apibutton_title">OSMren APIaren URLa</string>
   <string name="config_apibutton_summary">Estandarra ez den API URL bat ezarri dezakezu hemen. Normalean ez litzake aldatu beharko!</string>
+  <string name="config_loginbutton_title">Erabiltzaile kontua</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">Aplikazioa hautsi dela jakinarazi</string>
+  <string name="pref_acra_enabled">Haustura jakinarazpena gaituta</string>
+  <string name="pref_acra_disabled">Hautsura jakinarazpena ezgaitua</string>
+  <string name="config_showStats_title">Estatistikak erakutsi</string>
+  <string name="config_showStats_summary">Data estatistikak eta segunduko fotogramak beheko ezkerreko eskinan erakutsi.</string>
+  <!--Experimental-->
+  <!---->
   <string name="config_api_url_title">APIaren URLa</string>
   <string name="config_api_oauth_title">Oauth erabili</string>
   <string name="listedit_enable_oauth">Oauth gaitu</string>
-  <string name="config_presetbutton_title">Aurrezarpenak</string>
-  <string name="config_iconbutton_title">Nodoen ikonoak erakutsi</string>
-  <string name="config_iconbutton_summary">Nodoen arteko aurrezarpen hoberenaren ikonoa erakutsi</string>
-  <string name="config_loginbutton_title">Erabiltzaile kontua</string>
   <string name="config_username_title">OSM Erabiltzailea</string>
   <string name="config_password_title">OSM Pasahitza</string>
   <string name="config_password_summary">Ez nahastu Wikiko pasahitzarekin. Gogoratu: testu planoan gordea eta transmititua da.</string>
-  <string name="config_gps_distance_title">GPSaren Distantzia Minimoa</string>
-  <string name="config_gps_distance_summary">GPS oharren arteko distantzia txikiena, metrotan (flotatzen). Balio txikiagoek bateria erabilpen handiagoa sortzen dute.</string>
-  <string name="config_gps_interval_title">GPSaren Tarte Minimoa</string>
-  <string name="config_gps_interval_summary">GPS oharren arteko denbora txikiena, milisegundotan. Balio txikiagoek bateria erabilpen handiagoa sortzen dute.</string>
-  <string name="config_category_info">Honi buruz</string>
-  <string name="config_advancedprefs">Hobespen aurreratuak</string>
-  <string name="config_forceContextMenu_title">Kontestu menua erabili beti</string>
-  <string name="config_forceContextMenu_summary">Maparen menua beti EdizioErraza moduan erakutsi aukera anbiguoa bada.</string>
-  <string name="config_licensebutton_title">Autoreak eta lizentziak</string>
-  <string name="config_licensebutton_summary">Erakutsi autoreen eta lizentzien informazioa</string>
-  <string name="config_mapProfile_title">Mapa profila</string>
-  <string name="config_mapProfile_summary">Elementuen estiloa eta ikusgarritasuna</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aurrezarpenak eguneratu</string>
   <string name="preset_download_successful">Aurrezarpena ondo deskargatu da</string>
@@ -213,10 +228,6 @@
   <string name="undo_action_paste">itsatsi</string>
   <string name="undo_action_rotateway">bidea biratu</string>
   <!--ACRA-->
-  <string name="config_category_acra">Haustura Jakinarazpena</string>
-  <string name="pref_enable_acra">Aplikazioa hautsi dela jakinarazi</string>
-  <string name="pref_acra_enabled">Haustura jakinarazpena gaituta</string>
-  <string name="pref_acra_disabled">Hautsura jakinarazpena ezgaitua</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->

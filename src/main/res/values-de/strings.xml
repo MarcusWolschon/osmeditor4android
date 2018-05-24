@@ -110,6 +110,7 @@
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="geocoder_prompt">mit</string>
   <string name="preset_search_hint">Vorlagensuche</string>
+  <string name="preset_autopreset">Auto-Preset</string>
   <string name="search">Suche</string>
   <string name="no_valid_preset">Keine gültige Vorlage!</string>
   <string name="read_file">Datei zum Lesen auswählen</string>
@@ -117,6 +118,7 @@
   <string name="existing_track_title">Trackdaten vorhanden</string>
   <string name="existing_track_message">Es sind bereits Trackdaten vorhanden. Möglicherweise sollten diese zuerst gespeichert werden.</string>
   <string name="delete_tags">Wirklich alle Eigenschaften für Objekt \"%1$s\" löschen?</string>
+  <!--element information dialog-->
   <string name="element_information">Elementinformationen</string>
   <string name="id">Id</string>
   <string name="nodes">Knoten</string>
@@ -131,14 +133,19 @@
   <string name="element">Element</string>
   <string name="last_updated">letzte Änderung</string>
   <string name="last_edited">Zuletzt bearbeitet</string>
+  <string name="original">Original</string>
+  <string name="current">Aktuell</string>
+  <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
   <string name="minor_issue">Fehler mit geringer Bedeutung</string>
   <string name="unknown_error_level">Unbekannter Fehlerstatus</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Diese Aktion verändert gefilterte verbundene Objekte!</string>
   <string name="attached_object_warning_message">Das veränderte Objekt ist mit versteckten Objekten verbunden die auch geändert werden.</string>
   <string name="attached_object_warning_continue">OK, diese Meldung weiter anzeigen</string>
   <string name="attached_object_warning_stop">OK, diese Meldung nicht mehr anzeigen</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Informationen zur Problembehebung senden</string>
   <!--JS console dialog-->
   <string name="evaluate">Auswerten</string>
@@ -183,6 +190,13 @@
   <string name="preferred">Bevorzugt</string>
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrund löschen?</string>
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_flush_tile_cache">Tile Cache leeren</string>
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
@@ -435,7 +449,6 @@
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern...</string>
   <string name="menu_transfer_read_custom_bugs">Benutzerdefinierte Tasks laden...</string>
-  <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Tasks speichern...</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -454,11 +467,9 @@
   <string name="menu_voice_commands">Sprachbefehle</string>
   <string name="menu_set_name">Namen festlegen</string>
   <string name="tag_form_unknown_element">Unbekanntes Element (keine Vorlage gefunden)</string>
-  <string name="menu_tools">Werkzeuge</string>
+  <string name="menu_tools">Werkzeuge…</string>
   <string name="menu_tools_imagery">Mehr Hintergrundtools</string>
   <string name="menu_tools_add_imagery_from_oam">Hintergrund von OAM hinzufügen</string>
-  <string name="menu_tools_flush_background_tile_cache">Hintergrund Tile Cache leeren</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Overlay Tile Cache leeren</string>
   <string name="menu_tools_flush_all_tile_caches">Alle Tile Caches leeren</string>
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
   <string name="menu_tools_update_imagery_configuration">Hintergrundbilderkonfiguration updaten</string>
@@ -475,6 +486,7 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>
+  <string name="menu_layers">Ebenen…</string>
   <string name="menu_enable_tagfilter">Tag-Filter</string>
   <string name="menu_enable_presetfilter">Vorlagenfilter</string>
   <string name="preset_menu_waynodes">Wegknoten zurückgeben</string>
@@ -491,7 +503,7 @@
   <string name="deleteway_relation_description">Dieser Weg ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deleteway_nodesnotdownloaded_description">Dieser Weg besitzt Punkte außerhalb des heruntergeladenen Bereichs und kann nicht gelöscht werden. Bitte zuerst den ganzen Bereich, um den Weg herunterzuladen. </string>
   <string name="deleteway_wayonly">Nur Weg löschen</string>
-  <string name="deleteway_wayandnodes">Weg und Knoten löschen</string>
+  <string name="deleteway_wayandnodes">Weg löschen</string>
   <string name="deletenode_relation_description">Dieser Punkt ist ein Mitglied einer oder mehrerer Relationen. Wird er gelöscht wird er aus diesen entfernt und macht sie eventuell ungültig.</string>
   <string name="deletenode">Punkt löschen</string>
   <string name="split_all_ways">Alle Wege auftrennen</string>
@@ -514,123 +526,121 @@
   <string name="actionmode_object_count">%1$d Objekte</string>
   <string name="actionmode_rotateway">Weg drehen</string>
   <!--Preferences-->
-  <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
-  <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
-  <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
-  <string name="config_showCameraAction_summary">Kamera-Icon in Menuleiste anzeigen</string>
-  <string name="config_generateAlerts_title">Alarme generieren</string>
-  <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
-  <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
-  <string name="config_voiceCommandsEnabled_summary">Experimentelle Sprachunterstützung einschalten</string>
-  <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
-  <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
-  <string name="config_maxAlertDistance_current">%1$d Meter</string>
-  <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
-  <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
-  <string name="config_maxStrokeWidth_current">%1$d px</string>
-  <string name="config_showStats_title">Zeige Statistiken</string>
-  <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) unten links in der Ecke.</string>
-  <string name="config_showTolerance_title">Zeige Toleranz</string>
-  <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
-  <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
-  <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
+  <string name="config_backgroundLayer_title">Kartenhintergrund</string>
+  <string name="config_overlayLayer_title">Karten Overlay</string>
+  <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
+  <string name="config_scale_title">Maßstabsanzeige</string>
   <string name="config_enableOpenStreetBugs_title">Fehler und Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
   <string name="config_enablePhotoLayer_summary">Geo-referenzierte Fotos anzeigen</string>
   <string name="config_enableKeepScreenOn_title">Bildschirm nicht abschalten</string>
   <string name="config_enableKeepScreenOn_summary">Den Bildschirm nicht abschalten um Energie zu sparen</string>
-  <string name="config_closeChangesetOnSave_title">Changesets schließen</string>
-  <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schließen</string>
-  <string name="config_backgroundLayer_title">Kartenhintergrund</string>
-  <string name="config_backgroundLayer_summary">Das Bild, das im Hintergrund der Karte angezeigt wird.</string>
-  <string name="config_overlayLayer_title">Karten Overlay</string>
-  <string name="config_overlayLayer_summary">Das Bild, das über der Karte angezeigt wird.</string>
-  <string name="config_scale_title">Maßstabsanzeige</string>
-  <string name="config_scale_summary">Art der angezeigeten Skala</string>
-  <string name="config_category_server">Server-Einstellungen</string>
-  <string name="config_apibutton_title">OSM-API-URL</string>
-  <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
-  <string name="config_api_url_title">API-URL</string>
-  <string name="config_api_oauth_title">OAuth verwenden</string>
-  <string name="listedit_enable_oauth">OAuth erlauben</string>
-  <string name="config_offsetServer_title">Versatzserver</string>
-  <string name="config_offsetServer_summary">URL für den Versatzserver</string>
-  <string name="config_osmoseServer_title">OSMOSE-Server</string>
-  <string name="config_osmoseServer_summary">URL für den OSMOSE-Server</string>
+  <string name="config_largeDragArea_title">Großer Bereich um Punkte zu bewegen</string>
+  <string name="config_largeDragArea_summary">Macht einen größeren Bereich verfügbar, um Punkte zu verschieben</string>
+  <string name="config_advancedprefs">Erweiterte Einstellungen</string>
+  <string name="config_moreprefs">Weitere Einstellungen ...</string>
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM-kompatible Vorlagen hinzufügen und verwalten</string>
+  <string name="config_validatorprefs_title">Validationseinstellungen</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autoren und Lizenzen</string>
+  <string name="config_debugbutton_title">Debug</string>
+  <string name="config_category_info">Informationen</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden.</string>
   <string name="config_showWayIcons_title">Symbole für POIs auf Gebäuden anzeigen</string>
   <string name="config_showWayIcons_summary">Auf Gebäuden das Symbol der am besten passenden Vorlage einblenden</string>
-  <string name="config_loginbutton_title">Benutzerkonto</string>
-  <string name="config_username_title">OSM-Benutzername</string>
-  <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
-  <string name="config_password_title">OSM-Passwort</string>
-  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzen und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
-  <string name="config_category_gps">Standorteinstellungen</string>
-  <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
-  <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
-  <string name="config_gps_distance_current">%1$d Meter</string>
-  <string name="config_gps_interval_title">Minimaler GPS-Interval</string>
-  <string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
-  <string name="config_gps_interval_current">%1$d ms</string>
-  <string name="config_gps_network_title">Netzwerkstandort  verwenden</string>
-  <string name="config_gps_network_summary">Falls kein GPS vorhanden ist, oder abgeschaltet, Netzwerkstandort verwenden</string>
-  <string name="config_category_info">Informationen</string>
-  <string name="config_advancedprefs">Erweiterte Einstellungen</string>
-  <string name="config_forceContextMenu_title">Immer Kontextmenü benutzen</string>
-  <string name="config_forceContextMenu_summary">In EasyEdit-Modus immer Kontextmenü zeigen wenn Auswahl uneindeutig.</string>
-  <string name="config_licensebutton_title">Autoren und Lizenzen</string>
-  <string name="config_licensebutton_summary">Zeige Autoren- und Lizenzinformationen</string>
-  <string name="config_debugbutton_title">Debug</string>
-  <string name="config_debugbutton_summary">Interne Zustandsinformation anzeigen</string>
-  <string name="config_mapProfile_title">Datenanzeigestil</string>
-  <string name="config_mapProfile_summary">Anzeige und Sichtbarkeit der Datenelemente </string>
+  <string name="config_tagFormEnabled_title">Eigenschaftsformular anzeigen</string>
+  <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
+  <string name="config_showCameraAction_title">Kameraaktion anzeigen</string>
+  <string name="config_showCameraAction_summary">Kamera-Icon in Menuleiste anzeigen</string>
+  <string name="config_followGPSbutton_title">Anordnung des GPS-Position Knopfes</string>
+  <string name="config_followGPSbutton_summary">Wo der \"GPS-Position folgen\" Knopf angezeigt wird</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Immer nicht heruntergeladene Gebiete verdunkeln</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Falls gesetzt werden nicht heruntergeladene Gebiete auch im gesperrten Modus verdunkelt.</string>
+  <string name="config_fullscreenMode_title">Vollbild-Modus</string>
+  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
+  <string name="config_showTolerance_title">Zeige Toleranz</string>
+  <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_use_back_for_undo_title">Zurücktaste für \"Rückgängig machen\" verwenden</string>
   <string name="config_use_back_for_undo_summary">Zurücktaste in der Hauptansicht für \"Rückgängig machen\" verwenden</string>
-  <string name="config_largeDragArea_title">Großer Bereich um Punkte zu bewegen</string>
-  <string name="config_largeDragArea_summary">Macht einen größeren Bereich verfügbar, um Punkte zu verschieben</string>
+  <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
+  <string name="config_enableLightTheme_summary">Helles Thema mit weißem Hintergrund</string>
+  <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar erlauben</string>
+  <string name="config_splitActionBarEnabled_summary">Geteilte Action-Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android Version &gt;= 4.0</string>
+  <string name="config_maxInlineValues_title">Max. Anzahl Werte die direkt angezeigt werden</string>
+  <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im Eigenschaftsformular direkt angezeigt werden.</string>
+  <string name="config_maxInlineValues_current">%1$d Werte</string>
+  <string name="config_autoLockDelay_title">Zeit bis zur automatischen Schirmsperrung</string>
+  <string name="config_autoLockDelay_summary">Zeit in Sekunden bis zur automatischen Schirmsperrung, 0 schaltet die Funktion ab.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
+  <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
+  <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
+  <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
+  <string name="config_forceContextMenu_title">Immer Kontextmenü benutzen</string>
+  <string name="config_address_tags">Adressattribute</string>
+  <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
+  <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
+  <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
+  <string name="config_generateAlerts_title">Alarme generieren</string>
+  <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
+  <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigten Hinweisen</string>
+  <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigten Hinweisen pro Typ (mind. 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d Benachrichtiungen</string>
+  <string name="config_maxAlertDistance_title">Max. Distanz für Alarme</string>
+  <string name="config_maxAlertDistance_summary">Max. Distanz zu einem Fehler oder Notiz bei dem noch ein Alarm generiert wird</string>
+  <string name="config_maxAlertDistance_current">%1$d Meter</string>
   <string name="config_extTriggeredDownloadRadius_title">Download-Radius</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radius in Metern für extern ausgelöste Downloads</string>
   <string name="config_downloadRadius_current">%1$d Meter</string>
   <string name="config_maxDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download</string>
   <string name="config_maxDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download pausiert wird. </string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_bugFilter_title">Fehler/Notizen-Filter</string>
+  <string name="config_bugFilter_summary">Auswahl welche Objekte auf dem Notizen/Fehler-Layer angezeigt werden</string>
   <string name="config_bugDownloadRadius_title">Download Radius für Notizen/Fehler</string>
   <string name="config_bugDownloadRadius_summary">Radius (in Metern) des Download-Gebiets für Notizen und Fehler</string>
   <string name="config_maxBugDownloadSpeed_title">Maximal Geschwindigkeit für Auto-Download von Notizen/Fehler</string>
   <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download von Notizen/Fehlern pausiert wird.</string>
-  <string name="config_bugFilter_title">Fehler/Notizen-Filter</string>
-  <string name="config_bugFilter_summary">Auswahl welche Objekte auf dem Notizen/Fehler-Layer angezeigt werden</string>
-  <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
-  <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
-  <string name="config_enableAutoPreset_title">Auto Preset einschalten</string>
-  <string name="config_enableAutoPreset_summary">Automatisch zutreffenden Preset anwenden wenn ein Namensvorschlag angewendet wird</string>
-  <string name="config_splitActionBarEnabled_title">Geteilte Action-Bar erlauben</string>
-  <string name="config_splitActionBarEnabled_summary">Geteilte Action-Bar erlauben, Nutzung hängt vom Gerät ab. Benötigt einen Neustart und eine Android Version &gt;= 4.0</string>
+  <string name="config_closeChangesetOnSave_title">Changesets schließen</string>
+  <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schließen</string>
+  <!--Location Settings-->
+  <string name="config_category_gps">Standorteinstellungen</string>
   <string name="config_gps_source_title">GPS-Quelle</string>
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA-Netzwerkquelle</string>
   <string name="config_gps_source_tcp_summary">Adresse der TCP NMEA-Quelle als host:port</string>
+  <string name="config_gps_interval_title">Minimaler GPS-Interval</string>
+  <string name="config_gps_interval_summary">Der minimale GPS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Minimale GPS-Distanz</string>
+  <string name="config_gps_distance_summary">Der minimale GPS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
+  <string name="config_gps_distance_current">%1$d Meter</string>
   <string name="config_leaveGpsDisabled_title">GPS abgeschaltet lassen</string>
   <string name="config_leaveGpsDisabled_summary">Nicht nachfragen, wenn GPS ausgeschaltet ist</string>
-  <string name="config_enableLightTheme_title">Helles Thema verwenden</string>
-  <string name="config_enableLightTheme_summary">Helles Thema mit weißem Hintergrund</string>
-  <string name="config_category_misc">Verschiedenes</string>
-  <string name="config_address_tags">Adressattribute</string>
-  <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
-  <string name="config_moreprefs">Weitere Einstellungen ...</string>
-  <string name="config_tagFormEnabled_title">Eigenschaftsformular anzeigen</string>
-  <string name="config_tagFormEnabled_summary">Formularansicht für Eigenschaften anzeigen</string>
-  <string name="config_followGPSbutton_title">Anordnung des GPS-Position Knopfes</string>
-  <string name="config_followGPSbutton_summary">Wo der \"GPS-Position folgen\" Knopf angezeigt wird</string>
-  <string name="config_fullscreenMode_title">Vollbild-Modus</string>
-  <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
-  <string name="config_maxInlineValues_title">Max. Anzahl Werte die direkt angezeigt werden</string>
-  <string name="config_maxInlineValues_summary">Max. Anzahl Werte die im Eigenschaftsformular direkt angezeigt werden.</string>
-  <string name="config_maxInlineValues_current">%1$d Werte</string>
+  <string name="config_gps_network_title">Netzwerkstandort  verwenden</string>
+  <string name="config_gps_network_summary">Falls kein GPS vorhanden ist, oder abgeschaltet, Netzwerkstandort verwenden</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Server-Einstellungen</string>
+  <string name="config_apibutton_title">OSM-API-URL</string>
+  <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
+  <string name="config_loginbutton_title">Benutzerkonto</string>
+  <string name="config_username_summary">Konfiguration wird nur gebraucht falls kein OAuth verwendet wird. Konten sind hier http://www.openstreetmap.org/user/new verfügbar.</string>
+  <string name="config_offsetServer_title">Versatzserver</string>
+  <string name="config_offsetServer_summary">URL für den Versatzserver</string>
+  <string name="config_osmoseServer_title">OSMOSE-Server</string>
+  <string name="config_osmoseServer_summary">URL für den OSMOSE-Server</string>
+  <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>
+  <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
+  <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
@@ -638,21 +648,26 @@
   <string name="config_tileCacheSize_title">Größe des Tile-Caches</string>
   <string name="config_tileCacheSize_summary">Gesamtgröße des Tile-Caches in MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
-  <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigten Hinweisen</string>
-  <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigten Hinweisen pro Typ (mind. 1)</string>
-  <string name="config_notificationCacheSize_current">%1$d Benachrichtiungen</string>
-  <string name="config_autoLockDelay_title">Zeit bis zur automatischen Schirmsperrung</string>
-  <string name="config_autoLockDelay_summary">Zeit in Sekunden bis zur automatischen Schirmsperrung, 0 schaltet die Funktion ab.</string>
-  <string name="config_autoLockDelay_current">%1$d s</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Immer nicht heruntergeladene Gebiete verdunkeln</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Falls gesetzt werden nicht heruntergeladene Gebiete auch im gesperrten Modus verdunkelt.</string>
-  <string name="config_geocoderbutton_title">Geocoder konfigurieren</string>
-  <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Verschiedenes</string>
+  <string name="pref_enable_acra">Programmabstürze melden</string>
+  <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
+  <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
+  <string name="config_showStats_title">Zeige Statistiken</string>
+  <string name="config_showStats_summary">Zeigt Statistiken (FPS/Knotenanzahl) unten links in der Ecke.</string>
+  <!--Experimental-->
+  <string name="config_category_experimental">Experimentell</string>
   <string name="config_js_console_title">JS-Konsole freischalten</string>
   <string name="config_js_console_summary">Den \"live\" Modus der JS-Konsole freischalten</string>
-  <string name="config_validatorprefs_title">Validationseinstellungen</string>
-  <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
+  <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
+  <!---->
   <string name="manage_apis">APIs verwalten</string>
+  <string name="config_api_url_title">API-URL</string>
+  <string name="config_api_oauth_title">OAuth verwenden</string>
+  <string name="listedit_enable_oauth">OAuth erlauben</string>
+  <string name="config_username_title">OSM-Benutzername</string>
+  <string name="config_password_title">OSM-Passwort</string>
+  <string name="config_password_summary">Normalerweise ist es nicht nötig dies zu setzen und nicht mit dem Wiki-Passwort verwechseln. Achtung: das Passwort wird unverschlüsselt gespeichert und übertragen!</string>
   <string name="manage_presets">Vorlagen verwalten</string>
   <string name="manage_geocoders">Geocoder verwalten</string>
   <!--preset downloader messages-->
@@ -665,9 +680,9 @@
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>
   <string name="changes_created">\"%1$s\" angelegt</string>
-  <string name="confirm_upload_title">Änderungen hochladen?</string>
-  <string name="confirm_one_upload_text">Soll die folgende Änderung hochgeladen werden?\n%1$s</string>
-  <string name="confirm_multiple_upload_text">Sollen folgende %1$d Änderungen hochgeladen werden?\n\n%2$s</string>
+  <string name="confirm_upload_title">Änderungen hochladen</string>
+  <string name="confirm_one_upload_text_1">Soll die folgende Änderung hochgeladen werden?</string>
+  <string name="confirm_multiple_upload_text_1">Sollen folgende %1$d Änderungen hochgeladen werden?</string>
   <string name="confirm_upload_edits_page">Änderungen</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
@@ -740,10 +755,6 @@
   <string name="crash_dialog_comment_prompt">Füge weitere Informationen, und (optional) deine E-Mail-Adresse dazu, falls du eine Rückmeldung willst.\n\nDanke!</string>
   <string name="report_success">Bericht erfolgreich hochgeladen!</string>
   <string name="report_failure">Bericht konnte nicht hochgeladen werden!</string>
-  <string name="config_category_acra">Fehlerreport</string>
-  <string name="pref_enable_acra">Programmabstürze melden</string>
-  <string name="pref_acra_enabled">Fehlerreport aktiviert</string>
-  <string name="pref_acra_disabled">Fehlerreport deaktiviert</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Diese Operation würde einen Weg mit zu vielen Knoten erstellen.</string>
   <!--Notifications-->

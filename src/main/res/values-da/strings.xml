@@ -57,6 +57,7 @@
   <string name="search_results_title">Søgeresultater</string>
   <string name="find_message">Indtast søgetekst</string>
   <string name="search">Søg</string>
+  <!--element information dialog-->
   <string name="id">Id</string>
   <string name="problem">Problem</string>
   <string name="members">Medlemmer</string>
@@ -66,13 +67,20 @@
   <string name="empty_role">tom rolle</string>
   <string name="last_updated">sidst opdateret</string>
   <string name="last_edited">Senest rettet</string>
+  <!---->
   <string name="error">fejl</string>
   <string name="warning">advarsel</string>
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
@@ -194,7 +202,6 @@
   <string name="menu_rotate">Rotér</string>
   <string name="menu_orthogonalize">Ortogonaliser</string>
   <string name="menu_information">Info</string>
-  <string name="menu_tools">Værktøjer</string>
   <string name="menu_tools_background_align_reset">Nulstil</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -202,7 +209,6 @@
   <string name="menu_merge">Sammenlæg</string>
   <string name="menu_reverse">Vend om</string>
   <string name="deleteway_wayonly">Slet kun vej</string>
-  <string name="deleteway_wayandnodes">Slet vej og knuder</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vej valgt</string>
   <string name="actionmode_nodeselect">Knude valgt</string>
@@ -212,47 +218,57 @@
   <string name="actionmode_one_object">1 objekt</string>
   <string name="actionmode_object_count">%1$d objekter</string>
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">Max linjebredde</string>
-  <string name="config_maxStrokeWidth_summary">Tegn ikke en vej tykkere end dette</string>
-  <string name="config_showStats_title">Vis statistik</string>
-  <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
+  <string name="config_backgroundLayer_title">Kortbaggrund</string>
+  <string name="config_advancedprefs">Avancerede indstillinger</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Forfattere og licenser</string>
+  <string name="config_category_info">Om</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
   <string name="config_showTolerance_summary">Viser et område, hvor et element kan vælges.</string>
   <string name="config_enableAntiAliasing_title">Vælg Anti-Aliasing</string>
-  <string name="config_backgroundLayer_title">Kortbaggrund</string>
-  <string name="config_backgroundLayer_summary">Den grafisk renderede kortbaggrund</string>
-  <string name="config_category_server">Server Indstillinger</string>
-  <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Brug oauth</string>
-  <string name="listedit_enable_oauth">Aktiver oauth</string>
-  <string name="config_osmoseServer_title">OSMOSE server</string>
-  <string name="config_osmoseServer_summary">URL for osmose server</string>
-  <string name="config_iconbutton_title">Vis knude-ikoner</string>
-  <string name="config_loginbutton_title">Brugerkonto</string>
-  <string name="config_username_title">OSM Username</string>
-  <string name="config_password_title">OSM Password</string>
-  <string name="config_password_summary">Forveksel ikke dette med Wiki password\'et. Husk: Det bliver gemt og sendt som læsbar tekst!</string>
-  <string name="config_gps_distance_title">Mindste GPS-afstand</string>
-  <string name="config_gps_distance_summary">Mindste afstand mellem GPS-målinger, i meter (med komma). Lavere værdi giver kortere batteritid.</string>
-  <string name="config_gps_interval_title">Mindste GPS-interval</string>
-  <string name="config_gps_interval_summary">Mindste tidsinterval for GPS-målinger, i millisekunder. Lavere værdi giver kortere batteritid.</string>
-  <string name="config_category_info">Om</string>
-  <string name="config_advancedprefs">Avancerede indstillinger</string>
+  <string name="config_maxStrokeWidth_title">Max linjebredde</string>
+  <string name="config_maxStrokeWidth_summary">Tegn ikke en vej tykkere end dette</string>
+  <!--Data and Editing Settings-->
   <string name="config_forceContextMenu_title">Brug altid kontekst-menu</string>
-  <string name="config_forceContextMenu_summary">Vis altid kontekst-menu i EasyEdit mode hvis valget er uklart</string>
-  <string name="config_licensebutton_title">Forfattere og licenser</string>
-  <string name="config_licensebutton_summary">Vis forfatter- og licensinformation</string>
   <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
   <string name="config_bugFilter_title">Filter for noter/fejl</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS kilde</string>
   <string name="config_gps_source_summary">Kilde for opdateringer af GPS placering</string>
   <string name="config_gps_source_tcp_title">NMEA netværks kilde</string>
+  <string name="config_gps_interval_title">Mindste GPS-interval</string>
+  <string name="config_gps_interval_summary">Mindste tidsinterval for GPS-målinger, i millisekunder. Lavere værdi giver kortere batteritid.</string>
+  <string name="config_gps_distance_title">Mindste GPS-afstand</string>
+  <string name="config_gps_distance_summary">Mindste afstand mellem GPS-målinger, i meter (med komma). Lavere værdi giver kortere batteritid.</string>
   <string name="config_leaveGpsDisabled_title">Lad GPS være deaktiveret</string>
   <string name="config_leaveGpsDisabled_summary">Spørg ikke brugeren om at tænde GPS, hvis den er deaktiveret</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Server Indstillinger</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
+  <string name="config_loginbutton_title">Brugerkonto</string>
+  <string name="config_osmoseServer_title">OSMOSE server</string>
+  <string name="config_osmoseServer_summary">URL for osmose server</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Tern cache størrelse</string>
   <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">Rapporter applikations-crash</string>
+  <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
+  <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
+  <string name="config_showStats_title">Vis statistik</string>
+  <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
+  <!--Experimental-->
+  <!---->
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Brug oauth</string>
+  <string name="listedit_enable_oauth">Aktiver oauth</string>
+  <string name="config_username_title">OSM Username</string>
+  <string name="config_password_title">OSM Password</string>
+  <string name="config_password_summary">Forveksel ikke dette med Wiki password\'et. Husk: Det bliver gemt og sendt som læsbar tekst!</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" slettet</string>
@@ -306,10 +322,6 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci stoppede eller fandt et alvorligt problem sidste gang det kørte.\n\nHjælp os ved at sende en fejlrapport, alt hvad du skal gøre er at klikke på \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Tilføj yderligere oplysninger, som du tror kan hjælpe og (valgfrit) din e-mail-adresse, hvis du vil have tilbagemelding.\n\nTak!</string>
-  <string name="config_category_acra">Crash-rapportering</string>
-  <string name="pref_enable_acra">Rapporter applikations-crash</string>
-  <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
-  <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="alert_distance_direction">i %1$d m %2$s</string>

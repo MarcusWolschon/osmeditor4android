@@ -115,6 +115,7 @@
   <string name="existing_track_title">Dữ liệu tuyến đường đã tồn tại</string>
   <string name="existing_track_message">Bạn đã có dữ liệu tuyến đường. Có lẽ bạn muốn hủy và lưu trước tiên.</string>
   <string name="delete_tags">Chắc chắn muốn xóa tất cả các thẻ cho đối tượng “%1$s”?</string>
+  <!--element information dialog-->
   <string name="element_information">Thông tin đối tượng</string>
   <string name="id">ID</string>
   <string name="nodes">Các nốt</string>
@@ -129,14 +130,17 @@
   <string name="element">phần tử</string>
   <string name="last_updated">lần cập nhật cuối</string>
   <string name="last_edited">Lần sửa đổi cuối</string>
+  <!---->
   <string name="error">lỗi</string>
   <string name="warning">cảnh báo</string>
   <string name="minor_issue">vấn đề nhỏ</string>
   <string name="unknown_error_level">mức lỗi không rõ</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Tác động này có ảnh hưởng đến các đối tượng nối liền đã được lọc ra!</string>
   <string name="attached_object_warning_message">Đối tượng này nối liền với các đối tượng ẩn sẽ được thay đổi cùng lúc.</string>
   <string name="attached_object_warning_continue">OK, tiếp tục hiển thị thông báo này</string>
   <string name="attached_object_warning_stop">OK, ngừng hiển thị thông báo này</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Gửi thông tin gỡ lỗi</string>
   <!--JS console dialog-->
   <string name="evaluate">Đánh giá</string>
@@ -180,6 +184,10 @@
   <string name="coverage_bottom">Dưới</string>
   <string name="preferred">Ưa thích</string>
   <string name="toast_invalid_box">Hộp bao không hợp lệ hoặc chưa đầy đủ</string>
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_name_empty">Không thể để trống tên</string>
   <string name="toast_url_empty">Không thể để trống URL</string>
@@ -418,7 +426,6 @@
   <string name="menu_transfer_save_notes_all">Lưu Tất cả Ghi chú…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Lưu các Ghi chú Mới và Thay đổi…</string>
   <string name="menu_transfer_read_custom_bugs">Tải công việc tùy biến…</string>
-  <string name="menu_transfer_write_custom_bugs">Lưu công việc tùy biến đang mở…</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
@@ -437,11 +444,8 @@
   <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
   <string name="menu_set_name">Đặt tên</string>
   <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
-  <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_imagery">Thêm công cụ hình ảnh</string>
   <string name="menu_tools_add_imagery_from_oam">Thêm hình ảnh OAM</string>
-  <string name="menu_tools_flush_background_tile_cache">Xóa sạch bộ nhớ đệm mảnh nền</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Xóa sạch bộ nhớ đệm mảnh phủ</string>
   <string name="menu_tools_flush_all_tile_caches">Xóa sạch tất cả các bộ nhớ đệm mảnh</string>
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
   <string name="menu_tools_update_imagery_configuration">Cập nhật thiết lập lớp hình ảnh</string>
@@ -474,7 +478,6 @@
   <string name="deleteway_relation_description">Bạn sắp sửa xóa một lối trực thuộc một hay nhiều quan hệ. Việc xóa lối này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deleteway_nodesnotdownloaded_description">Không thể xóa lối này một cách nhất quán, vì nó có nốt nằm bên ngoài khu vực đã tải về. Hãy tải về toàn bộ lối này và thử lại.</string>
   <string name="deleteway_wayonly">Chỉ xóa lối</string>
-  <string name="deleteway_wayandnodes">Xóa lối và các nốt</string>
   <string name="deletenode_relation_description">Bạn sắp sửa xóa một nốt trực thuộc một hay nhiều quan hệ. Việc xóa nốt này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deletenode">Xóa nốt</string>
   <string name="split_all_ways">Chia tất cả các lối</string>
@@ -497,120 +500,117 @@
   <string name="actionmode_object_count">%1$d đối tượng</string>
   <string name="actionmode_rotateway">Quay lối</string>
   <!--Preferences-->
-  <string name="config_category_editing">Tùy chọn Dữ liệu và Sửa đổi</string>
-  <string name="config_category_view">Thiết lập Giao diện</string>
-  <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
-  <string name="config_showCameraAction_summary">Hình hiển thị máy ảnh trên thanh tác vụ</string>
-  <string name="config_generateAlerts_title">Nhận thông báo</string>
-  <string name="config_generateAlerts_summary">Nhận thông báo khi nào dữ liệu có vấn đề hoặc ghi chú</string>
-  <string name="config_voiceCommandsEnabled_title">Bật lệnh bằng giọng nói</string>
-  <string name="config_voiceCommandsEnabled_summary">Bật chức năng thử nghiệm ra lệnh bằng giọng nói</string>
-  <string name="config_maxAlertDistance_title">Tầm xa thông báo tối đa</string>
-  <string name="config_maxAlertDistance_summary">Khoảng cách tối đa từ vị trí hiện tại đến một vấn đề hoặc ghi chú để gây thông báo</string>
-  <string name="config_maxAlertDistance_current">%1$d mét</string>
-  <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
-  <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
-  <string name="config_maxStrokeWidth_current">%1$d điểm ảnh</string>
-  <string name="config_showStats_title">Xem thống kê</string>
-  <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
-  <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
-  <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
-  <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
-  <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
+  <string name="config_backgroundLayer_title">Nền bản đồ</string>
+  <string name="config_overlayLayer_title">Lớp phủ bản đồ</string>
+  <string name="config_customlayers_title">Lớp tùy biến</string>
+  <string name="config_scale_title">Hiển thị Tỷ lệ</string>
   <string name="config_enableOpenStreetBugs_title">Hiển thị Lỗi và Ghi chú</string>
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
   <string name="config_enablePhotoLayer_summary">Hiển thị các hình ảnh được định vị.</string>
   <string name="config_enableKeepScreenOn_title">Giữ cho màn hình luôn sáng</string>
   <string name="config_enableKeepScreenOn_summary">Không tắt màn hình để duy trì năng lượng.</string>
-  <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
-  <string name="config_closeChangesetOnSave_summary">Đóng các bộ thay đổi khi lưu theo mặc định</string>
-  <string name="config_backgroundLayer_title">Nền bản đồ</string>
-  <string name="config_backgroundLayer_summary">Hình nền của bản đồ.</string>
-  <string name="config_overlayLayer_title">Lớp phủ bản đồ</string>
-  <string name="config_overlayLayer_summary">Lớp phủ được kết xuất trực quan trên bản đồ.</string>
-  <string name="config_scale_title">Hiển thị Tỷ lệ</string>
-  <string name="config_scale_summary">Loại tỷ lệ được hiển thị trên bản đồ.</string>
-  <string name="config_category_server">Thiết lập Máy chủ</string>
-  <string name="config_apibutton_title">URL của API OSM</string>
-  <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
-  <string name="config_api_url_title">URL của API</string>
-  <string name="config_api_oauth_title">Dùng OAuth</string>
-  <string name="listedit_enable_oauth">Bật OAuth</string>
-  <string name="config_offsetServer_title">Máy chủ Độ chệch</string>
-  <string name="config_offsetServer_summary">URL của máy chủ độ chệch hình ảnh</string>
-  <string name="config_osmoseServer_title">Máy chủ Osmose</string>
-  <string name="config_osmoseServer_summary">URL của máy chủ Osmose</string>
+  <string name="config_largeDragArea_title">Vùng kéo nốt lớn</string>
+  <string name="config_largeDragArea_summary">Cung cấp vùng lớn để kéo nốt</string>
+  <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
+  <string name="config_moreprefs">Thiết lập thêm…</string>
   <string name="config_presetbutton_title">Thẻ đặt trước</string>
   <string name="config_presetbutton_summary">Thêm và kích hoạt các thẻ đặt trước tương thích với JOSM</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Tác giả và giấy phép</string>
+  <string name="config_debugbutton_title">Gỡ lỗi</string>
+  <string name="config_category_info">Giới thiệu</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Thiết lập Giao diện</string>
   <string name="config_iconbutton_title">Xem hình nốt</string>
   <string name="config_iconbutton_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các nốt.</string>
   <string name="config_showWayIcons_title">Hiển thị hình địa điểm quan tâm trên tòa nhà</string>
   <string name="config_showWayIcons_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các tòa nhà.</string>
-  <string name="config_loginbutton_title">Tài khoản người dùng</string>
-  <string name="config_username_title">Tên người dùng OSM</string>
-  <string name="config_username_summary">Nếu bạn không sử dụng OAuth, bạn cần mở tài khoản để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Mật khẩu OSM</string>
-  <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
-  <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
-  <string name="config_gps_distance_summary">Khoảng cách tối thiểu giữa các tín hiệu GPS đo bằng mét (số kiểu float). Giá trị càng thấp càng tốn pin.</string>
-  <string name="config_gps_distance_current">%1$d mét</string>
-  <string name="config_gps_interval_title">Khoảng GPS Tối thiểu</string>
-  <string name="config_gps_interval_summary">Khoảng thời gian tối thiểu giữa các tín hiệu GPS đo bằng mili giây. Giá trị càng thấp càng tốn pin.</string>
-  <string name="config_gps_interval_current">%1$d ms</string>
-  <string name="config_category_info">Giới thiệu</string>
-  <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
-  <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
-  <string name="config_forceContextMenu_summary">Luôn hiển thị trình đơn ngữ cảnh trong chế độ Sửa đổi Dễ dàng khi nào lựa chọn không rõ ràng</string>
-  <string name="config_licensebutton_title">Tác giả và giấy phép</string>
-  <string name="config_licensebutton_summary">Xem thông tin về tác giả và giấy phép</string>
-  <string name="config_debugbutton_title">Gỡ lỗi</string>
-  <string name="config_debugbutton_summary">Hiển thị thông tin nội bộ</string>
-  <string name="config_mapProfile_title">Thành phần bản đồ</string>
-  <string name="config_mapProfile_summary">Đặt kiểu và thuộc tính của các phần tử</string>
+  <string name="config_tagFormEnabled_title">Hiển thị biểu mẫu thẻ</string>
+  <string name="config_tagFormEnabled_summary">Hiển thị biểu mẫu thẻ để sửa đổi</string>
+  <string name="config_showCameraAction_title">Tác vụ hiển thị máy ảnh</string>
+  <string name="config_showCameraAction_summary">Hình hiển thị máy ảnh trên thanh tác vụ</string>
+  <string name="config_followGPSbutton_title">Bố trí nút theo dõi GPS</string>
+  <string name="config_followGPSbutton_summary">Vị trí của nút “theo dõi GPS”</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Luôn làm mờ các khu vực không được tải về</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Nếu đặt, các khu vực không được tải về sẽ bị mờ trong chế độ khóa</string>
+  <string name="config_fullscreenMode_title">Chế độ toàn màn hình</string>
+  <string name="config_fullscreenMode_summary">Chế độ trong thiết bị có “bàn phím mềm”.</string>
+  <string name="config_showTolerance_title">Hiển thị mức chịu đựng</string>
+  <string name="config_showTolerance_summary">Hiển thị khu vực nơi đối tượng có thể được chọn</string>
   <string name="config_use_back_for_undo_title">Nhấn phím Backspace để hoàn tác</string>
   <string name="config_use_back_for_undo_summary">Nhấn phím Backspace để hoàn tác trong màn hình sửa đổi chính</string>
-  <string name="config_largeDragArea_title">Vùng kéo nốt lớn</string>
-  <string name="config_largeDragArea_summary">Cung cấp vùng lớn để kéo nốt</string>
+  <string name="config_enableLightTheme_title">Sử dụng giao diện sáng</string>
+  <string name="config_enableLightTheme_summary">Giao diện sáng có nền màu trắng</string>
+  <string name="config_splitActionBarEnabled_title">Chia đôi thanh tác vụ</string>
+  <string name="config_splitActionBarEnabled_summary">Thanh tác vụ chỉ có chia đôi được tùy thiết bị. Cần khởi động lại và phiên bản Android &gt;= 4.0.</string>
+  <string name="config_maxInlineValues_title">Số giá trí nội dùng tối đa</string>
+  <string name="config_maxInlineValues_summary">Số giá trị nội dòng tối đa được hiển thị dưới dạng thẻ</string>
+  <string name="config_maxInlineValues_current">%1$d giá trị</string>
+  <string name="config_autoLockDelay_title">Thời gian truớc khi tự động khóa</string>
+  <string name="config_autoLockDelay_summary">Số giây để chờ đợi trướci khi tự động khóa (0 để tắt)</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="config_enableAntiAliasing_title">Khử răng cưa</string>
+  <string name="config_enableAntiAliasing_summary">Làm bằng phẳng các đường kẻ.</string>
+  <string name="config_maxStrokeWidth_title">Chiều rộng đường kẻ tối đa</string>
+  <string name="config_maxStrokeWidth_summary">Không vẽ lối dày hơn chiều rộng này</string>
+  <string name="config_maxStrokeWidth_current">%1$d điểm ảnh</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Tùy chọn Dữ liệu và Sửa đổi</string>
+  <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
+  <string name="config_address_tags">Thẻ địa chỉ</string>
+  <string name="config_address_tags_summary">Thẻ dùng để suy đoán địa chỉ</string>
+  <string name="config_enableNameSuggestions_title">Gợi ý tên gọi</string>
+  <string name="config_enableNameSuggestions_summary">Gợi ý giá trị cho thẻ tên gọi</string>
+  <string name="config_generateAlerts_title">Nhận thông báo</string>
+  <string name="config_generateAlerts_summary">Nhận thông báo khi nào dữ liệu có vấn đề hoặc ghi chú</string>
+  <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
+  <string name="config_notificationCacheSize_summary">Số thông báo tối đa từng loại được hiển thị (ít nhất là 1)</string>
+  <string name="config_notificationCacheSize_current">%1$d thông báo</string>
+  <string name="config_maxAlertDistance_title">Tầm xa thông báo tối đa</string>
+  <string name="config_maxAlertDistance_summary">Khoảng cách tối đa từ vị trí hiện tại đến một vấn đề hoặc ghi chú để gây thông báo</string>
+  <string name="config_maxAlertDistance_current">%1$d mét</string>
   <string name="config_extTriggeredDownloadRadius_title">Tải về theo bán kính</string>
   <string name="config_extTriggeredDownloadRadius_summary">Đường bán kính (m) để tải về dữ liệu từ bên ngoài; 0 = chỉ đặt vào giữa bản đồ.</string>
   <string name="config_downloadRadius_current">%1$d mét</string>
   <string name="config_maxDownloadSpeed_title">Tốc độ tối đa để tải về tự động</string>
   <string name="config_maxDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động</string>
   <string name="config_downloadSpeed_current">%1$d km/giờ</string>
+  <string name="config_bugFilter_title">Bộ lọc ghi chú/lỗi</string>
+  <string name="config_bugFilter_summary">Chọn các phần tử được hiển thị trên lớp ghi chú/lỗi</string>
   <string name="config_bugDownloadRadius_title">Trạng thái tải về ghi chú/lỗi</string>
   <string name="config_bugDownloadRadius_summary">Bán kính (m) tải về các ghi chú/lỗi</string>
   <string name="config_maxBugDownloadSpeed_title">Tốc độ tối đa để tải về tự động các ghi chú/lỗi</string>
   <string name="config_maxBugDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động các ghi chú/lỗi</string>
-  <string name="config_bugFilter_title">Bộ lọc ghi chú/lỗi</string>
-  <string name="config_bugFilter_summary">Chọn các phần tử được hiển thị trên lớp ghi chú/lỗi</string>
-  <string name="config_enableNameSuggestions_title">Gợi ý tên gọi</string>
-  <string name="config_enableNameSuggestions_summary">Gợi ý giá trị cho thẻ tên gọi</string>
-  <string name="config_enableAutoPreset_title">Tự động đặt trước các thẻ</string>
-  <string name="config_enableAutoPreset_summary">Tự động đặt trước thẻ khi chọn gợi ý tên gọi</string>
-  <string name="config_splitActionBarEnabled_title">Chia đôi thanh tác vụ</string>
-  <string name="config_splitActionBarEnabled_summary">Thanh tác vụ chỉ có chia đôi được tùy thiết bị. Cần khởi động lại và phiên bản Android &gt;= 4.0.</string>
+  <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
+  <string name="config_closeChangesetOnSave_summary">Đóng các bộ thay đổi khi lưu theo mặc định</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">Nguồn GPS</string>
   <string name="config_gps_source_summary">Nguồn cập nhật các vị trí GPS</string>
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
   <string name="config_gps_source_tcp_summary">Địa chỉ nguồn NMEA TCP dưới dạng tênmiền:cổng</string>
+  <string name="config_gps_interval_title">Khoảng GPS Tối thiểu</string>
+  <string name="config_gps_interval_summary">Khoảng thời gian tối thiểu giữa các tín hiệu GPS đo bằng mili giây. Giá trị càng thấp càng tốn pin.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Tầm xa GPS Tối thiểu</string>
+  <string name="config_gps_distance_summary">Khoảng cách tối thiểu giữa các tín hiệu GPS đo bằng mét (số kiểu float). Giá trị càng thấp càng tốn pin.</string>
+  <string name="config_gps_distance_current">%1$d mét</string>
   <string name="config_leaveGpsDisabled_title">Tiếp tục vô hiệu GPS</string>
   <string name="config_leaveGpsDisabled_summary">Tránh việc xin người dùng bật lên GPS khi nó bị tắt</string>
-  <string name="config_enableLightTheme_title">Sử dụng giao diện sáng</string>
-  <string name="config_enableLightTheme_summary">Giao diện sáng có nền màu trắng</string>
-  <string name="config_category_misc">Khác</string>
-  <string name="config_address_tags">Thẻ địa chỉ</string>
-  <string name="config_address_tags_summary">Thẻ dùng để suy đoán địa chỉ</string>
-  <string name="config_moreprefs">Thiết lập thêm…</string>
-  <string name="config_tagFormEnabled_title">Hiển thị biểu mẫu thẻ</string>
-  <string name="config_tagFormEnabled_summary">Hiển thị biểu mẫu thẻ để sửa đổi</string>
-  <string name="config_followGPSbutton_title">Bố trí nút theo dõi GPS</string>
-  <string name="config_followGPSbutton_summary">Vị trí của nút “theo dõi GPS”</string>
-  <string name="config_fullscreenMode_title">Chế độ toàn màn hình</string>
-  <string name="config_fullscreenMode_summary">Chế độ trong thiết bị có “bàn phím mềm”.</string>
-  <string name="config_maxInlineValues_title">Số giá trí nội dùng tối đa</string>
-  <string name="config_maxInlineValues_summary">Số giá trị nội dòng tối đa được hiển thị dưới dạng thẻ</string>
-  <string name="config_maxInlineValues_current">%1$d giá trị</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Thiết lập Máy chủ</string>
+  <string name="config_apibutton_title">URL của API OSM</string>
+  <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
+  <string name="config_loginbutton_title">Tài khoản người dùng</string>
+  <string name="config_username_summary">Nếu bạn không sử dụng OAuth, bạn cần mở tài khoản để tải lên dữ liệu OSM. Bạn có thể mở tài khoản tại http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Máy chủ Độ chệch</string>
+  <string name="config_offsetServer_summary">URL của máy chủ độ chệch hình ảnh</string>
+  <string name="config_osmoseServer_title">Máy chủ Osmose</string>
+  <string name="config_osmoseServer_summary">URL của máy chủ Osmose</string>
+  <string name="config_geocoderbutton_title">Thiết lập bộ mã hóa địa lý</string>
+  <string name="config_geocoderbutton_summary">Thêm, sửa, xóa các bộ mã hóa địa lý được sử dụng trong bộ tìm kiếm</string>
+  <!--Layer download and storage-->
   <string name="config_category_layers">Tải về và lưu trữ lớp</string>
   <string name="config_maxTileDownloadThreads_title">Số luồng tải về tối đa</string>
   <string name="config_maxTileDownloadThreads_summary">Số luồng tối đa dùng để tải về mảnh</string>
@@ -618,21 +618,25 @@
   <string name="config_tileCacheSize_title">Kích cỡ bộ nhớ đệm mảnh</string>
   <string name="config_tileCacheSize_summary">Tổng kích cỡ bộ nhớ đệm mảnh bằng MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
-  <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
-  <string name="config_notificationCacheSize_summary">Số thông báo tối đa từng loại được hiển thị (ít nhất là 1)</string>
-  <string name="config_notificationCacheSize_current">%1$d thông báo</string>
-  <string name="config_autoLockDelay_title">Thời gian truớc khi tự động khóa</string>
-  <string name="config_autoLockDelay_summary">Số giây để chờ đợi trướci khi tự động khóa (0 để tắt)</string>
-  <string name="config_autoLockDelay_current">%1$d s</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Luôn làm mờ các khu vực không được tải về</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Nếu đặt, các khu vực không được tải về sẽ bị mờ trong chế độ khóa</string>
-  <string name="config_geocoderbutton_title">Thiết lập bộ mã hóa địa lý</string>
-  <string name="config_geocoderbutton_summary">Thêm, sửa, xóa các bộ mã hóa địa lý được sử dụng trong bộ tìm kiếm</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Khác</string>
+  <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
+  <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>
+  <string name="pref_acra_disabled">Báo cáo sự cố được tắt</string>
+  <string name="config_showStats_title">Xem thống kê</string>
+  <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
+  <!--Experimental-->
   <string name="config_js_console_title">Bật bảng điều khiển JavaScript</string>
   <string name="config_js_console_summary">Kích hoạt bảng điều khiển JavaScript trong chế độ “trực tiếp”</string>
-  <string name="config_validatorprefs_title">Tùy chỉnh kiểm tra</string>
-  <string name="config_customlayers_title">Lớp tùy biến</string>
+  <string name="config_voiceCommandsEnabled_title">Bật lệnh bằng giọng nói</string>
+  <!---->
   <string name="manage_apis">Quản lý API</string>
+  <string name="config_api_url_title">URL của API</string>
+  <string name="config_api_oauth_title">Dùng OAuth</string>
+  <string name="listedit_enable_oauth">Bật OAuth</string>
+  <string name="config_username_title">Tên người dùng OSM</string>
+  <string name="config_password_title">Mật khẩu OSM</string>
+  <string name="config_password_summary">Không nhầm lẫn với mật khẩu trên wiki. Lưu ý: Mật khẩu này được truyền như văn bản thuần!</string>
   <string name="manage_presets">Quản lý thẻ đặt trước</string>
   <string name="manage_geocoders">Quản lý bộ mã hóa địa lý</string>
   <!--preset downloader messages-->
@@ -711,10 +715,6 @@
   <string name="crash_dialog_comment_prompt">Bổ sung thông tin nào mà bạn nghĩ có thể giúp đỡ cũng như (tùy chọn) địa chỉ thư điện tử của bạn nếu bạn muốn nhận được thông tin phản hồi.\n\nCám ơn!</string>
   <string name="report_success">Đã gửi báo cáo thành công!</string>
   <string name="report_failure">Thất bại khi gửi báo cáo!</string>
-  <string name="config_category_acra">Báo cáo Sự cố</string>
-  <string name="pref_enable_acra">Báo cáo sự cố của ứng dụng</string>
-  <string name="pref_acra_enabled">Báo cáo sự cố được kích hoạt</string>
-  <string name="pref_acra_disabled">Báo cáo sự cố được tắt</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tác vụ này sẽ tạo lối có quá nhiều nốt.</string>
   <!--Notifications-->

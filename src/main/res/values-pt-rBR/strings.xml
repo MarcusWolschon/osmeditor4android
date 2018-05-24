@@ -52,6 +52,7 @@
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
   <string name="search">Procurar</string>
+  <!--element information dialog-->
   <string name="id">Id</string>
   <string name="nodes">Nós</string>
   <string name="problem">Problema</string>
@@ -59,11 +60,18 @@
   <string name="closed">Fechado</string>
   <string name="version">Versão</string>
   <string name="length_m">Comprimento (m)</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_save_done">Salvo com sucesso</string>
@@ -145,9 +153,6 @@
   <string name="menu_circulize">Arrumar em círculo</string>
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_information">Info</string>
-  <string name="menu_tools">Ferramentas</string>
-  <string name="menu_tools_flush_background_tile_cache">Limpar o cache dos tiles de fundo de tela</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Limpar o cache dos tiles sobrepostos</string>
   <string name="menu_tools_background_properties">Propriedades das imagens de fundo</string>
   <string name="menu_tools_background_align">Alinhar fundo de tela</string>
   <string name="menu_tools_background_align_reset">Redefinir</string>
@@ -172,24 +177,34 @@
   <string name="actionmode_multiselect">Multi seleção</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_category_view">Configurações da interface de usuário</string>
-  <string name="config_generateAlerts_title">Gerar notificações</string>
-  <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou notas</string>
-  <string name="config_maxStrokeWidth_title">Largura máxima da linha</string>
-  <string name="config_showStats_title">Mostrar estatísticas</string>
-  <string name="config_showTolerance_title">Mostrar tolerância</string>
-  <string name="config_enableKeepScreenOn_title">Manter a tela ligada</string>
   <string name="config_backgroundLayer_title">Mapa de fundo</string>
   <string name="config_overlayLayer_title">Mapa sobreposto</string>
+  <string name="config_enableKeepScreenOn_title">Manter a tela ligada</string>
+  <string name="config_advancedprefs">Preferências avançadas</string>
+  <string name="config_presetbutton_title">Pré-definições</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_debugbutton_title">Debug</string>
+  <string name="config_category_info">Sobre</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Configurações da interface de usuário</string>
+  <string name="config_showTolerance_title">Mostrar tolerância</string>
+  <string name="config_enableLightTheme_title">Ativar tema claro</string>
+  <string name="config_maxStrokeWidth_title">Largura máxima da linha</string>
+  <!--Data and Editing Settings-->
+  <string name="config_generateAlerts_title">Gerar notificações</string>
+  <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou notas</string>
+  <!--Location Settings-->
+  <string name="config_gps_source_title">Fonte GPS</string>
+  <!--Server Settings-->
   <string name="config_category_server">Configurações do servidor</string>
   <string name="config_apibutton_title">URL da API OSM</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="config_showStats_title">Mostrar estatísticas</string>
+  <!--Experimental-->
+  <!---->
   <string name="config_api_url_title">URL da API</string>
-  <string name="config_presetbutton_title">Pré-definições</string>
-  <string name="config_category_info">Sobre</string>
-  <string name="config_advancedprefs">Preferências avançadas</string>
-  <string name="config_debugbutton_title">Debug</string>
-  <string name="config_gps_source_title">Fonte GPS</string>
-  <string name="config_enableLightTheme_title">Ativar tema claro</string>
   <!--preset downloader messages-->
   <!--changes-->
   <!--url handler activity-->

@@ -105,6 +105,7 @@
   <string name="existing_track_title">既存のトラックデータ</string>
   <string name="existing_track_message">すでに既存のトラックデータが存在します。キャンセルして最初に保存してください。</string>
   <string name="delete_tags">オブジェクト \"%1$s\" のすべてのタグを削除してもよろしいですか?</string>
+  <!--element information dialog-->
   <string name="element_information">要素の情報</string>
   <string name="id">ID</string>
   <string name="nodes">ノード</string>
@@ -118,15 +119,22 @@
   <string name="empty_role">空のロール</string>
   <string name="element">要素</string>
   <string name="last_updated">最終更新</string>
+  <!---->
   <string name="error">エラー</string>
   <string name="warning">警告</string>
   <string name="minor_issue">軽微な問題</string>
   <string name="unknown_error_level">エラーレベル不明</string>
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_unsaved_changes">変更が保存されていません。先にアップロードしてください。</string>
@@ -256,9 +264,6 @@
   <string name="menu_circulize">円状に配置する</string>
   <string name="menu_newnode_gps">GPS posで新しいノード</string>
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
-  <string name="menu_tools">ツール</string>
-  <string name="menu_tools_flush_background_tile_cache">背景画像タイルキャッシュを全削除</string>
-  <string name="menu_tools_flush_overlay_tile_cache">オーバーレイのタイルキャッシュを全削除</string>
   <string name="menu_tools_background_properties">背景画像プロパティ</string>
   <string name="menu_tools_background_align">背景画像の位置調整</string>
   <string name="menu_tools_background_align_reset">リセット</string>
@@ -282,7 +287,6 @@
   <string name="deleteway_relation_description">ひとつ以上のリレーションにメンバーとして所属しているウェイを削除しようとしています。リレーションからこのウェイを削除することにより、リレーションが不正な状態になる可能性があります。</string>
   <string name="deleteway_nodesnotdownloaded_description">ウェイがダウンロード範囲外のノードデータを含んでいるため、削除してしまうことで、データの一貫性が確保できなくなります。削除をリトライする際には、まずウェイ全体をダウンロードするようにしてください。</string>
   <string name="deleteway_wayonly">ウェイのみを削除</string>
-  <string name="deleteway_wayandnodes">ウェイとノードを削除</string>
   <string name="deletenode_relation_description">ひとつ以上のリレーションにメンバーとして所属しているノードを削除しようとしています。リレーションからこのノードを削除することにより、リレーションが不正な状態になる可能性があります。</string>
   <string name="deletenode">ノードを削除</string>
   <!--EasyEdit action mode titles-->
@@ -294,73 +298,78 @@
   <string name="actionmode_closed_way_split_1">1番目のノードでクローズドウェイを分割する</string>
   <string name="actionmode_closed_way_split_2">2番目のノードでクローズドウェイを分割する</string>
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
-  <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
-  <string name="config_showStats_title">統計情報を表示</string>
-  <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
-  <string name="config_showTolerance_title">トレランスを表示</string>
-  <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
-  <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
-  <string name="config_enableAntiAliasing_summary">ラインをよりスムーズにする</string>
+  <string name="config_backgroundLayer_title">背景地図</string>
+  <string name="config_overlayLayer_title">マップオーバーレイ</string>
   <string name="config_enableOpenStreetBugs_summary">ノート/エラーの表示、編集、作成</string>
   <string name="config_enablePhotoLayer_title">写真レイヤーを利用可能にする</string>
   <string name="config_enablePhotoLayer_summary">地理的情報が付加された写真を表示</string>
   <string name="config_enableKeepScreenOn_title">スクリーン表示を継続</string>
   <string name="config_enableKeepScreenOn_summary">節電のためにスクリーンをオフにしない</string>
-  <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
-  <string name="config_closeChangesetOnSave_summary">セーブ時にはデフォルトでチェンジセットを閉じる</string>
-  <string name="config_backgroundLayer_title">背景地図</string>
-  <string name="config_backgroundLayer_summary">グラフィカルに描画されたマップの背景。</string>
-  <string name="config_overlayLayer_title">マップオーバーレイ</string>
-  <string name="config_overlayLayer_summary">グラフィカルに描画されたマップをかぶせます。</string>
-  <string name="config_category_server">サーバ設定</string>
-  <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">非標準のAPI URLをここに設定できます。特殊な状況以外では変更しないでください！</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Oauth　を利用</string>
-  <string name="listedit_enable_oauth">Oauth　を利用可能にする</string>
-  <string name="config_offsetServer_title">オフセットサーバ</string>
-  <string name="config_offsetServer_summary">画像オフセットサーバURL</string>
-  <string name="config_presetbutton_title">プリセット</string>
-  <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
-  <string name="config_iconbutton_title">ノードアイコンを表示</string>
-  <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
-  <string name="config_loginbutton_title">ユーザーアカウント</string>
-  <string name="config_username_title">OSMユーザ名</string>
-  <string name="config_username_summary">OAuth を利用せずにOSM-Dataをアップロードするにはアカウントの設定が必要です。アカウント作成は次のリンクから行えます。http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">OSMパスワード</string>
-  <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
-  <string name="config_gps_distance_title">最小GPS-距離</string>
-  <string name="config_gps_distance_summary">GPS通知用の最小距離間隔、メートル単位(float)。 値が小さいほどバッテリーを消費します。</string>
-  <string name="config_gps_interval_title">最小GPS-間隔</string>
-  <string name="config_gps_interval_summary">GPS通知用の最小時間間隔、ミリ秒単位。値が小さいほどバッテリーを消費します。</string>
-  <string name="config_category_info">Vespucciについて</string>
-  <string name="config_advancedprefs">高度な設定</string>
-  <string name="config_forceContextMenu_title">常にコンテキストメニューを利用</string>
-  <string name="config_forceContextMenu_summary">イージーモードを利用中、指定があいまいな場合は常にコンテキストメニューを表示</string>
-  <string name="config_licensebutton_title">作者およびライセンス</string>
-  <string name="config_licensebutton_summary">作者およびライセンスに関する情報を表示</string>
-  <string name="config_debugbutton_title">デバッグ</string>
-  <string name="config_mapProfile_title">マッププロファイル</string>
-  <string name="config_mapProfile_summary">要素のスタイルと見え方を設定する</string>
-  <string name="config_use_back_for_undo_title">バックキーでやり直し</string>
-  <string name="config_use_back_for_undo_summary">メイン編集ビュー内でバックキーを使ってやり直し</string>
   <string name="config_largeDragArea_title">大きなノードのドラッグエリア</string>
   <string name="config_largeDragArea_summary">ノードをドラッグするために大きなエリアを用意する</string>
-  <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
-  <string name="config_extTriggeredDownloadRadius_summary">外部トリガーによってダウンロードされる半径 (m) , 0 = 地図の中心のみ</string>
-  <string name="config_enableNameSuggestions_title">名称の提案を有効化</string>
-  <string name="config_enableNameSuggestions_summary">nameタグの提案を有効化</string>
-  <string name="config_enableAutoPreset_title">自動プリセット有効化</string>
-  <string name="config_enableAutoPreset_summary">名称の提案が選択された際、自動的にプリセットを入力</string>
+  <string name="config_advancedprefs">高度な設定</string>
+  <string name="config_presetbutton_title">プリセット</string>
+  <string name="config_presetbutton_summary">JOSM互換プリセット追加と有効化</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">作者およびライセンス</string>
+  <string name="config_debugbutton_title">デバッグ</string>
+  <string name="config_category_info">Vespucciについて</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">ノードアイコンを表示</string>
+  <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
+  <string name="config_showTolerance_title">トレランスを表示</string>
+  <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
+  <string name="config_use_back_for_undo_title">バックキーでやり直し</string>
+  <string name="config_use_back_for_undo_summary">メイン編集ビュー内でバックキーを使ってやり直し</string>
   <string name="config_splitActionBarEnabled_title">分割アクションバーを利用可にする</string>
   <string name="config_splitActionBarEnabled_summary">分割アクションバーの使用はデバイス固有設定となります。設定後リスタートおよびAndroidのバージョンは &gt;= 4.0 が必要です。</string>
+  <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
+  <string name="config_enableAntiAliasing_summary">ラインをよりスムーズにする</string>
+  <string name="config_maxStrokeWidth_title">ライン幅の最大</string>
+  <string name="config_maxStrokeWidth_summary">ウェイの最大表示幅</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">常にコンテキストメニューを利用</string>
+  <string name="config_enableNameSuggestions_title">名称の提案を有効化</string>
+  <string name="config_enableNameSuggestions_summary">nameタグの提案を有効化</string>
+  <string name="config_extTriggeredDownloadRadius_title">ダウンロード半径</string>
+  <string name="config_extTriggeredDownloadRadius_summary">外部トリガーによってダウンロードされる半径 (m) , 0 = 地図の中心のみ</string>
+  <string name="config_closeChangesetOnSave_title">チェンジセットを閉じる</string>
+  <string name="config_closeChangesetOnSave_summary">セーブ時にはデフォルトでチェンジセットを閉じる</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPSソース</string>
   <string name="config_gps_source_summary">GPS位置更新ソース</string>
   <string name="config_gps_source_tcp_title">NMEAネットワークソース</string>
   <string name="config_gps_source_tcp_summary">TCP NMEAソースアドレス host:post形式</string>
+  <string name="config_gps_interval_title">最小GPS-間隔</string>
+  <string name="config_gps_interval_summary">GPS通知用の最小時間間隔、ミリ秒単位。値が小さいほどバッテリーを消費します。</string>
+  <string name="config_gps_distance_title">最小GPS-距離</string>
+  <string name="config_gps_distance_summary">GPS通知用の最小距離間隔、メートル単位(float)。 値が小さいほどバッテリーを消費します。</string>
+  <!--Server Settings-->
+  <string name="config_category_server">サーバ設定</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">非標準のAPI URLをここに設定できます。特殊な状況以外では変更しないでください！</string>
+  <string name="config_loginbutton_title">ユーザーアカウント</string>
+  <string name="config_username_summary">OAuth を利用せずにOSM-Dataをアップロードするにはアカウントの設定が必要です。アカウント作成は次のリンクから行えます。http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">オフセットサーバ</string>
+  <string name="config_offsetServer_summary">画像オフセットサーバURL</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">タイルキャッシュサイズ</string>
   <string name="config_tileCacheSize_summary">タイルキャッシュの合計サイズ（MB）</string>
+  <!--Miscellaneous-->
+  <string name="pref_enable_acra">アプリケーションのクラッシュを報告</string>
+  <string name="pref_acra_enabled">クラッシュレポートが利用可能</string>
+  <string name="pref_acra_disabled">クラッシュレポートは停止</string>
+  <string name="config_showStats_title">統計情報を表示</string>
+  <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
+  <!--Experimental-->
+  <!---->
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Oauth　を利用</string>
+  <string name="listedit_enable_oauth">Oauth　を利用可能にする</string>
+  <string name="config_username_title">OSMユーザ名</string>
+  <string name="config_password_title">OSMパスワード</string>
+  <string name="config_password_summary">Wikiのパスワードと間違えないでください。注意: プレーンテキストで保管・送信されます！</string>
   <!--preset downloader messages-->
   <string name="preset_update">プリセットを更新</string>
   <string name="preset_download_successful">プリセットのダウンロードに成功しました</string>
@@ -420,10 +429,6 @@
   <string name="undo_action_circulize">円状に配置する</string>
   <string name="undo_action_fix_conflict">修正の不一致</string>
   <!--ACRA-->
-  <string name="config_category_acra">クラッシュレポート</string>
-  <string name="pref_enable_acra">アプリケーションのクラッシュを報告</string>
-  <string name="pref_acra_enabled">クラッシュレポートが利用可能</string>
-  <string name="pref_acra_disabled">クラッシュレポートは停止</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">大量のノードが付与されたウェイが作成されます。</string>
   <!--Notifications-->

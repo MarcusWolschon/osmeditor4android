@@ -103,6 +103,7 @@
   <string name="existing_track_title">Olemassaoleva jälki</string>
   <string name="existing_track_message">Muokkaimessa on jo jälkidataa.  Saatat haluta peruuttaa ja tallentaa ensin.</string>
   <string name="delete_tags">Poistetaanko varmasti kaikki kohteen \"%1$s\" tägit?</string>
+  <!--element information dialog-->
   <string name="element_information">Tietoa elementistä</string>
   <string name="id">ID</string>
   <string name="nodes">Pisteet</string>
@@ -117,14 +118,17 @@
   <string name="element">elementti</string>
   <string name="last_updated">viimeksi päivitetty</string>
   <string name="last_edited">Viimeksi muokattu</string>
+  <!---->
   <string name="error">virhe</string>
   <string name="warning">varoitus</string>
   <string name="minor_issue">pikkujuttu</string>
   <string name="unknown_error_level">tuntematon virhetaso</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Toiminto vaikuttaa piileviin liitettyihin kohteisiin!</string>
   <string name="attached_object_warning_message">Muutettuun kohteeseen liittyy suodatettuja elementtejä, jotka muuttuvat myös.</string>
   <string name="attached_object_warning_continue">Selvä, näytä tämä viesti jatkossakin</string>
   <string name="attached_object_warning_stop">Selvä, älä näytä tätä viestiä enää</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Lähetä tietoa virheestä</string>
   <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
@@ -134,6 +138,10 @@
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
   <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>
@@ -361,9 +369,6 @@
   <string name="menu_voice_commands">Äänikomennot</string>
   <string name="menu_set_name">Aseta nimi</string>
   <string name="tag_form_unknown_element">Tuntematon elementti (ei esivalintaa)</string>
-  <string name="menu_tools">Työkalut</string>
-  <string name="menu_tools_flush_background_tile_cache">Tyhjennä taustan välimuisti</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Tyhjennä peittotason välimuisti</string>
   <string name="menu_tools_background_properties">Taustan ominaisuudet</string>
   <string name="menu_tools_background_align">Kohdista tausta</string>
   <string name="menu_tools_background_align_reset">Palauta</string>
@@ -392,7 +397,6 @@
   <string name="deleteway_relation_description">Olet poistamassa viivaa, joka on ainakin yhden relaation jäsen. Viivan poistaminen saattaa sotkea relaatiot.</string>
   <string name="deleteway_nodesnotdownloaded_description">Osa viivan pisteistä on ladatun alueen ulkopuolella, ja sen poistaminen johtaisi epäjohdonmukaiseen tilaan. Lataa koko viiva ennen uutta yritystä.</string>
   <string name="deleteway_wayonly">Poista pelkkä viiva</string>
-  <string name="deleteway_wayandnodes">Poista viiva ja pisteet</string>
   <string name="deletenode_relation_description">Olet poistamassa pistettä, joka on ainakin yhden relaation jäsen. Pisteen poistaminen saattaa sotkea relaatiot.</string>
   <string name="deletenode">Poista piste</string>
   <string name="split_all_ways">Jaa kaikki viivat</string>
@@ -415,128 +419,130 @@
   <string name="actionmode_object_count">%1$d kohdetta</string>
   <string name="actionmode_rotateway">Pyöritä viivaa</string>
   <!--Preferences-->
-  <string name="config_category_editing">Data- ja muokkausasetukset</string>
-  <string name="config_category_view">Käyttöliittymän asetukset</string>
-  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
-  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa</string>
-  <string name="config_generateAlerts_title">Näytä ilmoitukset</string>
-  <string name="config_generateAlerts_summary">Näytä ilmoitus, jos datassa on ongelmia tai muistiinpanoja</string>
-  <string name="config_voiceCommandsEnabled_title">Ota äänikomennot käyttöön</string>
-  <string name="config_voiceCommandsEnabled_summary">Ota kokeellinen äänikomentotuki käyttöön</string>
-  <string name="config_maxAlertDistance_title">Etäisyysraja ilmoituksille</string>
-  <string name="config_maxAlertDistance_summary">Suurin etäisyys nykyisestä sijainnista, jolta ongelmista ja muistiinpanoista vielä ilmoitetaan</string>
-  <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
-  <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
-  <string name="config_showStats_title">Näytä tilastotietoa</string>
-  <string name="config_showStats_summary">Näyttää vasemmassa alakulmassa tilastoa datasta ja kuvataajuuden.</string>
-  <string name="config_showTolerance_title">Näytä toleranssialue</string>
-  <string name="config_showTolerance_summary">Näyttää elementin ympärillä alueen, josta sen voi valita.</string>
-  <string name="config_enableAntiAliasing_title">Käytä reunanpehmennystä</string>
-  <string name="config_enableAntiAliasing_summary">Tekee viivoista sileämpiä.</string>
+  <string name="config_backgroundLayer_title">Taustan kartta</string>
+  <string name="config_overlayLayer_title">Peittotason kartta</string>
+  <string name="config_scale_title">Mittakaava</string>
   <string name="config_enableOpenStreetBugs_title">Näytä virheet ja muistiinpanot</string>
   <string name="config_enableOpenStreetBugs_summary">Näytä, muokkaa ja tee muistiinpanoja ja virhemerkintöjä.</string>
   <string name="config_enablePhotoLayer_title">Näytä valokuvataso</string>
   <string name="config_enablePhotoLayer_summary">Näytä geomerkityt kuvat.</string>
   <string name="config_enableKeepScreenOn_title">Pidä näyttö päällä</string>
   <string name="config_enableKeepScreenOn_summary">Älä sammuta näyttöä virran säästämiseksi.</string>
-  <string name="config_closeChangesetOnSave_title">Sulje muutossetit</string>
-  <string name="config_closeChangesetOnSave_summary">Sulje muutossetit oletusarvoisesti tallennettaessa.</string>
-  <string name="config_backgroundLayer_title">Taustan kartta</string>
-  <string name="config_backgroundLayer_summary">Taustalla näytettävä kartta.</string>
-  <string name="config_overlayLayer_title">Peittotason kartta</string>
-  <string name="config_overlayLayer_summary">Peittotasolla näytettävä kartta.</string>
-  <string name="config_scale_title">Mittakaava</string>
-  <string name="config_scale_summary">Kartalla näytettävän mittakaavan tyyppi.</string>
-  <string name="config_category_server">Palvelimen asetukset</string>
-  <string name="config_apibutton_title">OSM-API:n URL</string>
-  <string name="config_apibutton_summary">Tästä voit asettaa URLin epästandardille APIlle. Tavallisesti sitä ei pitäisi muuttaa!</string>
-  <string name="config_api_url_title">API:n URL</string>
-  <string name="config_api_oauth_title">Käytä oauthia</string>
-  <string name="listedit_enable_oauth">Ota oauth käyttöön</string>
-  <string name="config_offsetServer_title">Siirrospalvelin</string>
-  <string name="config_offsetServer_summary">Kuvastosiirrospalvelimen URL</string>
-  <string name="config_osmoseServer_title">OSMOSE-palvelin</string>
-  <string name="config_osmoseServer_summary">Osmose-palvelimen URL</string>
+  <string name="config_largeDragArea_title">Laaja vetoalue pisteille</string>
+  <string name="config_largeDragArea_summary">Mahdollistaa pisteisiin tarttumisen laajalta alueelta.</string>
+  <string name="config_advancedprefs">Lisäasetukset</string>
+  <string name="config_moreprefs">Lisää asetuksia...</string>
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Tekijät ja lisenssit</string>
+  <string name="config_debugbutton_title">Vianetsintä</string>
+  <string name="config_category_info">Tietoja</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Käyttöliittymän asetukset</string>
   <string name="config_iconbutton_title">Näytä pisteikonit</string>
   <string name="config_iconbutton_summary">Näytä osuvimman esivalinnan ikoni pisteiden päällä.</string>
   <string name="config_showWayIcons_title">Näytä kohdepisteet rakennuksissa</string>
   <string name="config_showWayIcons_summary">Näytä osuvimman esivalinnan ikoni rakennusten päällä.</string>
-  <string name="config_loginbutton_title">Käyttäjätili</string>
-  <string name="config_username_title">Käyttäjätunnus OSM:ssä</string>
-  <string name="config_username_summary">Näitä asetuksia tarvitaan OSM-datan lähettämiseen vain, jos et käytä OAuthia. Tilin voi luoda sivulla http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Salasana OSM:ssä</string>
-  <string name="config_password_summary">Älä sekoita tätä Wiki-salasanaan. Muista: se tallennetaan ja lähetetään pelkkänä tekstinä!</string>
-  <string name="config_gps_distance_title">GPS:n vähimmäisetäisyys</string>
-  <string name="config_gps_distance_summary">Välimatka metreinä (desimaaliluku), joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
-  <string name="config_gps_interval_title">GPS:n vähimmäisaikaväli</string>
-  <string name="config_gps_interval_summary">Aikaväli millisekunteina, joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
-  <string name="config_category_info">Tietoja</string>
-  <string name="config_advancedprefs">Lisäasetukset</string>
-  <string name="config_forceContextMenu_title">Näytä kontekstivalikko aina</string>
-  <string name="config_forceContextMenu_summary">Näytä kontekstivalikko aina helppomuokkaustilassa, jos valinta on monitulkintainen.</string>
-  <string name="config_licensebutton_title">Tekijät ja lisenssit</string>
-  <string name="config_licensebutton_summary">Näytä sovelluksen tekijät ja lisenssitiedot</string>
-  <string name="config_debugbutton_title">Vianetsintä</string>
-  <string name="config_debugbutton_summary">Näytä muutamia sisäisiä tietoja</string>
-  <string name="config_mapProfile_title">Karttaprofiili</string>
-  <string name="config_mapProfile_summary">Aseta elementtien tyyli ja näkyvyys</string>
+  <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
+  <string name="config_tagFormEnabled_summary">Näytä tägit myös lomakkeena muokattaessa.</string>
+  <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
+  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa</string>
+  <string name="config_followGPSbutton_title">GPS-seurantanapin sijainti</string>
+  <string name="config_followGPSbutton_summary">Valitse missä \"Seuraa GPS:ää\" -nappi näytetään.</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Jos asetus on päällä, lataamattomat alueet himmenetään lukitustilassa.</string>
+  <string name="config_fullscreenMode_title">Kokoruututila</string>
+  <string name="config_fullscreenMode_summary">Käytös laitteilla joissa on softanappeja.</string>
+  <string name="config_showTolerance_title">Näytä toleranssialue</string>
+  <string name="config_showTolerance_summary">Näyttää elementin ympärillä alueen, josta sen voi valita.</string>
   <string name="config_use_back_for_undo_title">Peruuta paluunuolella</string>
   <string name="config_use_back_for_undo_summary">Käytä paluunappia peruutustoimintona päämuokkausnäkymässä.</string>
-  <string name="config_largeDragArea_title">Laaja vetoalue pisteille</string>
-  <string name="config_largeDragArea_summary">Mahdollistaa pisteisiin tarttumisen laajalta alueelta.</string>
+  <string name="config_enableLightTheme_title">Käytä vaaleaa teemaa</string>
+  <string name="config_enableLightTheme_summary">Vaalea teema, jossa on valkoiset taustat</string>
+  <string name="config_splitActionBarEnabled_title">Käytä jaettua toimintopalkkia</string>
+  <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki, käyttö on laitekohtaista. Vaatii uudelleenkäynnistyksen ja Android-version &gt;= 4.0.</string>
+  <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
+  <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
+  <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
+  <string name="config_autoLockDelay_summary">Aika sekunteina ennen kuin lukitus laitetaan päälle automaattisesti, 0 poistaa käytöstä.</string>
+  <string name="config_enableAntiAliasing_title">Käytä reunanpehmennystä</string>
+  <string name="config_enableAntiAliasing_summary">Tekee viivoista sileämpiä.</string>
+  <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
+  <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Data- ja muokkausasetukset</string>
+  <string name="config_forceContextMenu_title">Näytä kontekstivalikko aina</string>
+  <string name="config_address_tags">Osoitetägit</string>
+  <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
+  <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
+  <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägin ehdotukset.</string>
+  <string name="config_generateAlerts_title">Näytä ilmoitukset</string>
+  <string name="config_generateAlerts_summary">Näytä ilmoitus, jos datassa on ongelmia tai muistiinpanoja</string>
+  <string name="config_notificationCacheSize_title">Suurin määrä ilmoituksia</string>
+  <string name="config_notificationCacheSize_summary">Suurin määrä näytettäviä ilmoituksia per tyyppi (vähintään 1).</string>
+  <string name="config_maxAlertDistance_title">Etäisyysraja ilmoituksille</string>
+  <string name="config_maxAlertDistance_summary">Suurin etäisyys nykyisestä sijainnista, jolta ongelmista ja muistiinpanoista vielä ilmoitetaan</string>
   <string name="config_extTriggeredDownloadRadius_title">Lataussäde</string>
   <string name="config_extTriggeredDownloadRadius_summary">Säde (m) ulkopuolelta käynnistetyille latauksille, 0 = pelkkä kartan keskitys.</string>
   <string name="config_maxDownloadSpeed_title">Suurin nopeus automaattilataukselle</string>
   <string name="config_maxDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä automaattilataus keskeytetään.</string>
+  <string name="config_bugFilter_title">Muistiinpano-/virhesuodatin</string>
+  <string name="config_bugFilter_summary">Valitse muistiinpano- ja virhetasolla näytettävät kohteet.</string>
   <string name="config_bugDownloadRadius_title">Muistiinpanojen/virheiden lataussäde</string>
   <string name="config_bugDownloadRadius_summary">Säde (m) jolta muistiinpanot ja virheet ladataan.</string>
   <string name="config_maxBugDownloadSpeed_title">Suurin nopeus muistiinpanojen/virheiden automaattilataukselle</string>
   <string name="config_maxBugDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä muistiinpanojen ja virheiden automaattilataus keskeytetään.</string>
-  <string name="config_bugFilter_title">Muistiinpano-/virhesuodatin</string>
-  <string name="config_bugFilter_summary">Valitse muistiinpano- ja virhetasolla näytettävät kohteet.</string>
-  <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
-  <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägin ehdotukset.</string>
-  <string name="config_enableAutoPreset_title">Käytä automaattiesivalintoja</string>
-  <string name="config_enableAutoPreset_summary">Lisää automaattisesti esivalinta, kun nimiehdotus valitaan.</string>
-  <string name="config_splitActionBarEnabled_title">Käytä jaettua toimintopalkkia</string>
-  <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki, käyttö on laitekohtaista. Vaatii uudelleenkäynnistyksen ja Android-version &gt;= 4.0.</string>
+  <string name="config_closeChangesetOnSave_title">Sulje muutossetit</string>
+  <string name="config_closeChangesetOnSave_summary">Sulje muutossetit oletusarvoisesti tallennettaessa.</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS-lähde</string>
   <string name="config_gps_source_summary">GPS-sijainnin päivitysten lähde</string>
   <string name="config_gps_source_tcp_title">NMEA-verkon lähde</string>
   <string name="config_gps_source_tcp_summary">NMEA:n TCP-lähteen osoite muodossa palvelin:portti</string>
+  <string name="config_gps_interval_title">GPS:n vähimmäisaikaväli</string>
+  <string name="config_gps_interval_summary">Aikaväli millisekunteina, joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
+  <string name="config_gps_distance_title">GPS:n vähimmäisetäisyys</string>
+  <string name="config_gps_distance_summary">Välimatka metreinä (desimaaliluku), joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
   <string name="config_leaveGpsDisabled_title">Jätä GPS pois päältä</string>
   <string name="config_leaveGpsDisabled_summary">Älä pyydä käyttäjää käynnistämään GPS:ää, jos se on pois päältä.</string>
-  <string name="config_enableLightTheme_title">Käytä vaaleaa teemaa</string>
-  <string name="config_enableLightTheme_summary">Vaalea teema, jossa on valkoiset taustat</string>
-  <string name="config_category_misc">Sekalaiset</string>
-  <string name="config_address_tags">Osoitetägit</string>
-  <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
-  <string name="config_moreprefs">Lisää asetuksia...</string>
-  <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
-  <string name="config_tagFormEnabled_summary">Näytä tägit myös lomakkeena muokattaessa.</string>
-  <string name="config_followGPSbutton_title">GPS-seurantanapin sijainti</string>
-  <string name="config_followGPSbutton_summary">Valitse missä \"Seuraa GPS:ää\" -nappi näytetään.</string>
-  <string name="config_fullscreenMode_title">Kokoruututila</string>
-  <string name="config_fullscreenMode_summary">Käytös laitteilla joissa on softanappeja.</string>
-  <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
-  <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Palvelimen asetukset</string>
+  <string name="config_apibutton_title">OSM-API:n URL</string>
+  <string name="config_apibutton_summary">Tästä voit asettaa URLin epästandardille APIlle. Tavallisesti sitä ei pitäisi muuttaa!</string>
+  <string name="config_loginbutton_title">Käyttäjätili</string>
+  <string name="config_username_summary">Näitä asetuksia tarvitaan OSM-datan lähettämiseen vain, jos et käytä OAuthia. Tilin voi luoda sivulla http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Siirrospalvelin</string>
+  <string name="config_offsetServer_summary">Kuvastosiirrospalvelimen URL</string>
+  <string name="config_osmoseServer_title">OSMOSE-palvelin</string>
+  <string name="config_osmoseServer_summary">Osmose-palvelimen URL</string>
+  <string name="config_geocoderbutton_title">Määritä geokooderit</string>
+  <string name="config_geocoderbutton_summary">Lisää, muokkaa ja poista hakutoiminnon geokoodereita.</string>
+  <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Suurin määrä lataussäikeitä</string>
   <string name="config_maxTileDownloadThreads_summary">Suurin määrä laattojen lataukseen käytettäviä prosessisäikeitä.</string>
   <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
   <string name="config_tileCacheSize_summary">Taustakuvalaattojen välimuistin koko megatavuissa</string>
-  <string name="config_notificationCacheSize_title">Suurin määrä ilmoituksia</string>
-  <string name="config_notificationCacheSize_summary">Suurin määrä näytettäviä ilmoituksia per tyyppi (vähintään 1).</string>
-  <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
-  <string name="config_autoLockDelay_summary">Aika sekunteina ennen kuin lukitus laitetaan päälle automaattisesti, 0 poistaa käytöstä.</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Jos asetus on päällä, lataamattomat alueet himmenetään lukitustilassa.</string>
-  <string name="config_geocoderbutton_title">Määritä geokooderit</string>
-  <string name="config_geocoderbutton_summary">Lisää, muokkaa ja poista hakutoiminnon geokoodereita.</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Sekalaiset</string>
+  <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
+  <string name="pref_acra_enabled">Kaatumisilmoitukset käytössä</string>
+  <string name="pref_acra_disabled">Kaatumisilmoitukset pois käytöstä</string>
+  <string name="config_showStats_title">Näytä tilastotietoa</string>
+  <string name="config_showStats_summary">Näyttää vasemmassa alakulmassa tilastoa datasta ja kuvataajuuden.</string>
+  <!--Experimental-->
   <string name="config_js_console_title">Ota JS-konsoli käyttöön</string>
   <string name="config_js_console_summary">Ota JS-konsoli käyttöön \"suorassa\" tilassa.</string>
+  <string name="config_voiceCommandsEnabled_title">Ota äänikomennot käyttöön</string>
+  <!---->
   <string name="manage_apis">APIen hallinta</string>
+  <string name="config_api_url_title">API:n URL</string>
+  <string name="config_api_oauth_title">Käytä oauthia</string>
+  <string name="listedit_enable_oauth">Ota oauth käyttöön</string>
+  <string name="config_username_title">Käyttäjätunnus OSM:ssä</string>
+  <string name="config_password_title">Salasana OSM:ssä</string>
+  <string name="config_password_summary">Älä sekoita tätä Wiki-salasanaan. Muista: se tallennetaan ja lähetetään pelkkänä tekstinä!</string>
   <string name="manage_presets">Esivalintojen hallinta</string>
   <string name="manage_geocoders">Geokoodereiden hallinta</string>
   <!--preset downloader messages-->
@@ -612,10 +618,6 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci kaatui tai törmäsi vakavaan ongelmaan edellisellä ajokerralla.\n\nAuta meitä ilmoittamalla virheestä, sinun tarvitsee vain painaa \"OK\".\n</string>
   <string name="crash_dialog_comment_prompt">Lisää tietoja, jotka voisivat mielestäsi olla avuksi, ja (valinnaisesti) anna sähköpostiosoitteesi, jos haluat palautetta.\n\nKiitos!</string>
-  <string name="config_category_acra">Kaatumisilmoitukset</string>
-  <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
-  <string name="pref_acra_enabled">Kaatumisilmoitukset käytössä</string>
-  <string name="pref_acra_disabled">Kaatumisilmoitukset pois käytöstä</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tämä toiminto tekisi viivan, jossa on liikaa pisteitä.</string>
   <!--Notifications-->

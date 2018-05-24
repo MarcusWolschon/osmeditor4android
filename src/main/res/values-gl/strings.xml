@@ -103,6 +103,7 @@
   <string name="existing_track_title">Información da pista existente</string>
   <string name="existing_track_message">Xa tes datos de pistas existentes. Podes querer cancelar e gardar primeiro.</string>
   <string name="delete_tags">Tas certo que queres borrar tódolas etiquetas para o obxecto \"%1$s\"?</string>
+  <!--element information dialog-->
   <string name="element_information">Información elemento</string>
   <string name="id">Id</string>
   <string name="nodes">Nodos</string>
@@ -117,14 +118,17 @@
   <string name="element">elemento</string>
   <string name="last_updated">última suba</string>
   <string name="last_edited">Última edición</string>
+  <!---->
   <string name="error">erro</string>
   <string name="warning">precaución</string>
   <string name="minor_issue">impresión menor</string>
   <string name="unknown_error_level">descoñecido erro de nivel</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Esta operación afecta aos obxectos anexos filtrados!</string>
   <string name="attached_object_warning_message">O obxecto modificado está conectado a elementos ocultos que tamén cambiarán.</string>
   <string name="attached_object_warning_continue">Aceptar continúa a amosar esta mensaxe</string>
   <string name="attached_object_warning_stop">Aceptar deixar de mostrar esta mensaxe</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Enviar información do erro</string>
   <!--JS console dialog-->
   <string name="evaluate">Avaliar</string>
@@ -134,6 +138,10 @@
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Aínda non cambiaches nada</string>
   <string name="toast_unsaved_changes">Tes os cambios sen gardar, dalle outra cárgaos primeiro.</string>
@@ -366,9 +374,6 @@
   <string name="menu_voice_commands">Ordes de voz</string>
   <string name="menu_set_name">Xogo nome</string>
   <string name="tag_form_unknown_element">Elemento descoñecido (non presente ou atopado)</string>
-  <string name="menu_tools">Ferramentas</string>
-  <string name="menu_tools_flush_background_tile_cache">Limpar a caché do fondo</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Limpar a memoria caché de mosaicos</string>
   <string name="menu_tools_background_properties">Propiedades do escritorio</string>
   <string name="menu_tools_background_align">Aliñar co fondo</string>
   <string name="menu_tools_background_align_reset">a 0 meu!</string>
@@ -397,7 +402,6 @@
   <string name="deleteway_relation_description">Estás a punto de borrar unha vía que é un membro dunha ou máis relacións. Se eliminas a vía da(s) relación(s), pode que quede(n) inválida(s).</string>
   <string name="deleteway_nodesnotdownloaded_description">O modo contén nodos fóra da área descargada e non se pode eliminar sen crear un estado inconsistente. Descargue todo o camiño antes de volvelo tentar.</string>
   <string name="deleteway_wayonly">Borrar só a vía</string>
-  <string name="deleteway_wayandnodes">Borrar vía e puntos</string>
   <string name="deletenode_relation_description">Estás a punto de borrar un punto que é un membro dunha ou máis relacións. Se eliminas a punto da(s) relación(s), pode que quede(n) inválida(s).</string>
   <string name="deletenode">Borrar punto</string>
   <string name="split_all_ways">Dividir tódalas vías</string>
@@ -420,128 +424,130 @@
   <string name="actionmode_object_count">%1$d obxectos</string>
   <string name="actionmode_rotateway">Rotar vía</string>
   <!--Preferences-->
-  <string name="config_category_editing">Axustes de datos e edición</string>
-  <string name="config_category_view">Axustes da interface de usuario</string>
-  <string name="config_showCameraAction_title">Mostrar a acción da cámara</string>
-  <string name="config_showCameraAction_summary">Mostrar a icona da cámara na barra de acción</string>
-  <string name="config_generateAlerts_title">Xerar notificacións</string>
-  <string name="config_generateAlerts_summary">Xerar notificacións para datos con problemas ou con notas</string>
-  <string name="config_voiceCommandsEnabled_title">Activar comandos de voz</string>
-  <string name="config_voiceCommandsEnabled_summary">Activar soporte experimental para comandos de voz</string>
-  <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
-  <string name="config_maxAlertDistance_summary">A distancia máxima á que un problema ou nota pode estar da posición actual para xerar unha notificación</string>
-  <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
-  <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
-  <string name="config_showStats_title">Mostrar estadísticas</string>
-  <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
-  <string name="config_showTolerance_title">Mostrar tolerancia</string>
-  <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
-  <string name="config_enableAntiAliasing_title">Activar Anti-Aliasing</string>
-  <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
+  <string name="config_backgroundLayer_title">Fondo de mapa</string>
+  <string name="config_overlayLayer_title">Superposición co mapa</string>
+  <string name="config_scale_title">Amosar Escala</string>
   <string name="config_enableOpenStreetBugs_title">Mostrar erros e notas</string>
   <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
   <string name="config_enablePhotoLayer_title">Activar capa fotográfica</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotografías xeorreferenciadas.</string>
   <string name="config_enableKeepScreenOn_title">Manter pantalla acendida</string>
   <string name="config_enableKeepScreenOn_summary">Non apagar a pantalla para aforrar enerxía.</string>
-  <string name="config_closeChangesetOnSave_title">Cerrar conxuntos de cambios</string>
-  <string name="config_closeChangesetOnSave_summary">Cerrar por defecto conxuntos de cambios ao gardar</string>
-  <string name="config_backgroundLayer_title">Fondo de mapa</string>
-  <string name="config_backgroundLayer_summary">O fondo gráfico do mapa</string>
-  <string name="config_overlayLayer_title">Superposición co mapa</string>
-  <string name="config_overlayLayer_summary">Render gráfico superposición co mapa.</string>
-  <string name="config_scale_title">Amosar Escala</string>
-  <string name="config_scale_summary">Tipo de escala amosada no mapa.</string>
-  <string name="config_category_server">Axustes do Servidor</string>
-  <string name="config_apibutton_title">URL da API de OSM</string>
-  <string name="config_apibutton_summary">Aquí podes axustar a URL dunha API non estándar. Normalmente non debería cambiarse!</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Use oauth</string>
-  <string name="listedit_enable_oauth">Activar oauth</string>
-  <string name="config_offsetServer_title">Offset Server</string>
-  <string name="config_offsetServer_summary">URL para imaxe offset do server</string>
-  <string name="config_osmoseServer_title">Server OSMOSE </string>
-  <string name="config_osmoseServer_summary">URL para o osmose server</string>
+  <string name="config_largeDragArea_title">Área grande de arrastre de nodo</string>
+  <string name="config_largeDragArea_summary">Proporciona unha grande área para arrastrar nodos</string>
+  <string name="config_advancedprefs">Preferencias avanzadas</string>
+  <string name="config_moreprefs">Máis axustes...</string>
   <string name="config_presetbutton_title">Presentes</string>
   <string name="config_presetbutton_summary">Engadir e activar JOSM compatibilidade actual</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autores e licenzas</string>
+  <string name="config_debugbutton_title">Depurar</string>
+  <string name="config_category_info">Acerca de</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Axustes da interface de usuario</string>
   <string name="config_iconbutton_title">Mostrar iconas dos puntos</string>
   <string name="config_iconbutton_summary">Mostrar a icona do preaxuste máis coincidente sobre os puntos.</string>
   <string name="config_showWayIcons_title">Amosar iconos POI nos edificios</string>
   <string name="config_showWayIcons_summary">Amosar a icona do predeterminado máis axeitado dos edificios.</string>
-  <string name="config_loginbutton_title">Conta de usuario</string>
-  <string name="config_username_title">Nome de usuario de OSM</string>
-  <string name="config_username_summary">Necesítase configuración para subir os datos de OSM só se non estás usando OAuth. Podes conseguir unha conta en http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Contrasinal de OSM</string>
-  <string name="config_password_summary">Non o confundas co contrasinal da Wiki. Recorda: almacénase e transmítese en texto plano!</string>
-  <string name="config_gps_distance_title">Mínima distancia GPS</string>
-  <string name="config_gps_distance_summary">O intervalo de distancia mínimo para notificacións GPS, en metros (decimal). Valores baixos causarán maior uso de batería.</string>
-  <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
-  <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificacións GPS, en milisegundos. Valores baixos causarán maior uso de batería.</string>
-  <string name="config_category_info">Acerca de</string>
-  <string name="config_advancedprefs">Preferencias avanzadas</string>
-  <string name="config_forceContextMenu_title">Usar sempre o menú contextual</string>
-  <string name="config_forceContextMenu_summary">Mostrar sempre o menú contextual no modo de Edición Fácil se a selección é ambigua.</string>
-  <string name="config_licensebutton_title">Autores e licenzas</string>
-  <string name="config_licensebutton_summary">Mostrar autores e información sobre as licenzas</string>
-  <string name="config_debugbutton_title">Depurar</string>
-  <string name="config_debugbutton_summary">Amosar algunha información interna</string>
-  <string name="config_mapProfile_title">Perfil do mapa</string>
-  <string name="config_mapProfile_summary">Establece o estilo e a visibilidade dos elementos</string>
+  <string name="config_tagFormEnabled_title">Amosar tags de forma</string>
+  <string name="config_tagFormEnabled_summary">Amosar forma de etiquetas para edición</string>
+  <string name="config_showCameraAction_title">Mostrar a acción da cámara</string>
+  <string name="config_showCameraAction_summary">Mostrar a icona da cámara na barra de acción</string>
+  <string name="config_followGPSbutton_title">Siga o deseño do botón GPS</string>
+  <string name="config_followGPSbutton_summary">Cando o botón \"seguir GPS\" estea posto</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">A dimensión das áreas non foi sempre descargada</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Se zonas non baixadas das áreas poden ser de forma pechada</string>
+  <string name="config_fullscreenMode_title">Modo pantalla completa</string>
+  <string name="config_fullscreenMode_summary">Comportamento en dispositivos con teclas \"suaves\".</string>
+  <string name="config_showTolerance_title">Mostrar tolerancia</string>
+  <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
   <string name="config_use_back_for_undo_title">Empregar tecla retroceder para Desfacer</string>
   <string name="config_use_back_for_undo_summary">Use a tecla voltar para desfacer na vista de edición principal</string>
-  <string name="config_largeDragArea_title">Área grande de arrastre de nodo</string>
-  <string name="config_largeDragArea_summary">Proporciona unha grande área para arrastrar nodos</string>
+  <string name="config_enableLightTheme_title">Activar tema luz</string>
+  <string name="config_enableLightTheme_summary">Tema claro con fondos brancos</string>
+  <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
+  <string name="config_splitActionBarEnabled_summary">Permite a barra de acción dividida, o uso é específico do dispositivo. Require reiniciar e unha versión de Android  &gt;= 4.0</string>
+  <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
+  <string name="config_maxInlineValues_summary">Máximo número de valores en liña amosados en forma de etiqueta</string>
+  <string name="config_autoLockDelay_title">Tempo de espera antes de auto pechado</string>
+  <string name="config_autoLockDelay_summary">Tempo para esperar en segundos antes do bloqueo automático, 0 desactívase.</string>
+  <string name="config_enableAntiAliasing_title">Activar Anti-Aliasing</string>
+  <string name="config_enableAntiAliasing_summary">Facer as liñas máis suaves.</string>
+  <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
+  <string name="config_maxStrokeWidth_summary">Non debuxar unha vía máis ancha que isto</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Axustes de datos e edición</string>
+  <string name="config_forceContextMenu_title">Usar sempre o menú contextual</string>
+  <string name="config_address_tags">Engadir etiquetas</string>
+  <string name="config_address_tags_summary">Etiquetas empregadas para predicción de enderezos</string>
+  <string name="config_enableNameSuggestions_title">Activar nome de suxestións</string>
+  <string name="config_enableNameSuggestions_summary">Activa as suxestións para a etiqueta do nome</string>
+  <string name="config_generateAlerts_title">Xerar notificacións</string>
+  <string name="config_generateAlerts_summary">Xerar notificacións para datos con problemas ou con notas</string>
+  <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
+  <string name="config_notificationCacheSize_summary">Número máximo de notificacións mostradas por tipo (min. 1)</string>
+  <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
+  <string name="config_maxAlertDistance_summary">A distancia máxima á que un problema ou nota pode estar da posición actual para xerar unha notificación</string>
   <string name="config_extTriggeredDownloadRadius_title">Baixar radio</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radio (m) de descargas provocadas externamente, 0 = só centro do mapa.</string>
   <string name="config_maxDownloadSpeed_title">Velocidade máxima de auto baixada</string>
   <string name="config_maxDownloadSpeed_summary">Límite (en km/h) por riba da que se suspende a descarga automática</string>
+  <string name="config_bugFilter_title">Filtro para Notas/Bugs</string>
+  <string name="config_bugFilter_summary">Seleccionar cales elementos son amosados nas capas notas/bug</string>
   <string name="config_bugDownloadRadius_title">Notas/bugs baixar no radio</string>
   <string name="config_bugDownloadRadius_summary">Radio (m) de notas/bugs baixadas</string>
   <string name="config_maxBugDownloadSpeed_title">Máximo notas/bugs velocidade de auto baixada</string>
   <string name="config_maxBugDownloadSpeed_summary">Límite (en km/h) no cal nodos/bugs suspenden auto descarga</string>
-  <string name="config_bugFilter_title">Filtro para Notas/Bugs</string>
-  <string name="config_bugFilter_summary">Seleccionar cales elementos son amosados nas capas notas/bug</string>
-  <string name="config_enableNameSuggestions_title">Activar nome de suxestións</string>
-  <string name="config_enableNameSuggestions_summary">Activa as suxestións para a etiqueta do nome</string>
-  <string name="config_enableAutoPreset_title">Activar auto presentación</string>
-  <string name="config_enableAutoPreset_summary">Engade automáticamente un predefinido cando se selecciona a suxestión de nomes</string>
-  <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
-  <string name="config_splitActionBarEnabled_summary">Permite a barra de acción dividida, o uso é específico do dispositivo. Require reiniciar e unha versión de Android  &gt;= 4.0</string>
+  <string name="config_closeChangesetOnSave_title">Cerrar conxuntos de cambios</string>
+  <string name="config_closeChangesetOnSave_summary">Cerrar por defecto conxuntos de cambios ao gardar</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">Fonte GPS</string>
   <string name="config_gps_source_summary">Fonte das actualizacións da localización GPS</string>
   <string name="config_gps_source_tcp_title">NMEA fonte da rede</string>
   <string name="config_gps_source_tcp_summary">Enderezo da fonte de TCP NMEA como host:port</string>
+  <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
+  <string name="config_gps_interval_summary">O intervalo de tempo mínimo para notificacións GPS, en milisegundos. Valores baixos causarán maior uso de batería.</string>
+  <string name="config_gps_distance_title">Mínima distancia GPS</string>
+  <string name="config_gps_distance_summary">O intervalo de distancia mínimo para notificacións GPS, en metros (decimal). Valores baixos causarán maior uso de batería.</string>
   <string name="config_leaveGpsDisabled_title">Sair GPS desactivado</string>
   <string name="config_leaveGpsDisabled_summary">Non solicite ao usuario que xire o GPS se está desactivado</string>
-  <string name="config_enableLightTheme_title">Activar tema luz</string>
-  <string name="config_enableLightTheme_summary">Tema claro con fondos brancos</string>
-  <string name="config_category_misc">Miscelánea</string>
-  <string name="config_address_tags">Engadir etiquetas</string>
-  <string name="config_address_tags_summary">Etiquetas empregadas para predicción de enderezos</string>
-  <string name="config_moreprefs">Máis axustes...</string>
-  <string name="config_tagFormEnabled_title">Amosar tags de forma</string>
-  <string name="config_tagFormEnabled_summary">Amosar forma de etiquetas para edición</string>
-  <string name="config_followGPSbutton_title">Siga o deseño do botón GPS</string>
-  <string name="config_followGPSbutton_summary">Cando o botón \"seguir GPS\" estea posto</string>
-  <string name="config_fullscreenMode_title">Modo pantalla completa</string>
-  <string name="config_fullscreenMode_summary">Comportamento en dispositivos con teclas \"suaves\".</string>
-  <string name="config_maxInlineValues_title">Max. número de valores en liña</string>
-  <string name="config_maxInlineValues_summary">Máximo número de valores en liña amosados en forma de etiqueta</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Axustes do Servidor</string>
+  <string name="config_apibutton_title">URL da API de OSM</string>
+  <string name="config_apibutton_summary">Aquí podes axustar a URL dunha API non estándar. Normalmente non debería cambiarse!</string>
+  <string name="config_loginbutton_title">Conta de usuario</string>
+  <string name="config_username_summary">Necesítase configuración para subir os datos de OSM só se non estás usando OAuth. Podes conseguir unha conta en http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Offset Server</string>
+  <string name="config_offsetServer_summary">URL para imaxe offset do server</string>
+  <string name="config_osmoseServer_title">Server OSMOSE </string>
+  <string name="config_osmoseServer_summary">URL para o osmose server</string>
+  <string name="config_geocoderbutton_title">Configurar geocoders</string>
+  <string name="config_geocoderbutton_summary">Engada, edite, elimine os geocoders para a funcionalidade de busca</string>
+  <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Máx. número de fontes de baixadas</string>
   <string name="config_maxTileDownloadThreads_summary">Máximo número de fontes de baixada de mosaicos</string>
   <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>
   <string name="config_tileCacheSize_summary">Tamaño total da caché de teselas en MB</string>
-  <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
-  <string name="config_notificationCacheSize_summary">Número máximo de notificacións mostradas por tipo (min. 1)</string>
-  <string name="config_autoLockDelay_title">Tempo de espera antes de auto pechado</string>
-  <string name="config_autoLockDelay_summary">Tempo para esperar en segundos antes do bloqueo automático, 0 desactívase.</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">A dimensión das áreas non foi sempre descargada</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Se zonas non baixadas das áreas poden ser de forma pechada</string>
-  <string name="config_geocoderbutton_title">Configurar geocoders</string>
-  <string name="config_geocoderbutton_summary">Engada, edite, elimine os geocoders para a funcionalidade de busca</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Miscelánea</string>
+  <string name="pref_enable_acra">Informar de fallos na aplicación</string>
+  <string name="pref_acra_enabled">Informe de fallos habilitado</string>
+  <string name="pref_acra_disabled">Informe de fallos deshabilitado</string>
+  <string name="config_showStats_title">Mostrar estadísticas</string>
+  <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
+  <!--Experimental-->
   <string name="config_js_console_title">Activar JS consola</string>
   <string name="config_js_console_summary">Faga que a consola JS estea dispoñible en modo \"en directo\"</string>
+  <string name="config_voiceCommandsEnabled_title">Activar comandos de voz</string>
+  <!---->
   <string name="manage_apis">Xestionar APIs</string>
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Use oauth</string>
+  <string name="listedit_enable_oauth">Activar oauth</string>
+  <string name="config_username_title">Nome de usuario de OSM</string>
+  <string name="config_password_title">Contrasinal de OSM</string>
+  <string name="config_password_summary">Non o confundas co contrasinal da Wiki. Recorda: almacénase e transmítese en texto plano!</string>
   <string name="manage_presets">Xestionar configuracións predefinidas</string>
   <string name="manage_geocoders">Xestionar geocoders</string>
   <!--preset downloader messages-->
@@ -617,10 +623,6 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci petou ou atopou un serio problema da última vez ran.\n\nPlease axuda enviando un informe do erro, só tes que facer clik en OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Engada calquera información que creas que podería axudar e (opcional) o teu enderezo de correo electrónico se desexas enviar comentarios. feedback.\n\nThank you!</string>
-  <string name="config_category_acra">Informe de fallo</string>
-  <string name="pref_enable_acra">Informar de fallos na aplicación</string>
-  <string name="pref_acra_enabled">Informe de fallos habilitado</string>
-  <string name="pref_acra_disabled">Informe de fallos deshabilitado</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Esta operación poidera crear vías con demasiados nodos.</string>
   <!--Notifications-->

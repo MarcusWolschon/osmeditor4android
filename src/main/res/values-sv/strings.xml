@@ -96,6 +96,7 @@
   <string name="existing_track_title">Befintlig spår-data</string>
   <string name="existing_track_message">Du har redan gått ur track datan. Du kanske skall ångra och spara först.</string>
   <string name="delete_tags">Verkligen ta bort alla taggar för objectet \"%1$s\"?</string>
+  <!--element information dialog-->
   <string name="element_information">Element information</string>
   <string name="id">ID</string>
   <string name="nodes">Noder</string>
@@ -110,12 +111,15 @@
   <string name="element">element</string>
   <string name="last_updated">senast uppdaterad</string>
   <string name="last_edited">senast redigerad</string>
+  <!---->
   <string name="error">fel</string>
   <string name="warning">varning</string>
   <string name="minor_issue">mindre fel</string>
   <string name="unknown_error_level">okänd fel-nivå</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_continue">OK fortsätt att visa detta meddelande</string>
   <string name="attached_object_warning_stop">OK, sluta visa detta meddelande</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Skicka felsökningsinformation</string>
   <!--JS console dialog-->
   <string name="evaluate">Utvärdera</string>
@@ -125,6 +129,10 @@
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -311,9 +319,6 @@
   <string name="menu_voice_commands">Röstkommandon</string>
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
-  <string name="menu_tools">Verktyg</string>
-  <string name="menu_tools_flush_background_tile_cache">Rensa bakgrundsrutor cache</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Rensa överdragsrutor cache</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
@@ -338,7 +343,6 @@
   <string name="reverse_anyway">Omvänd ändå</string>
   <string name="deleteway_relation_description">Du håller på att ta bort en väg som är medlem i en eller flera relationer. Om du tar bort vägen från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deleteway_wayonly">Ta endast bort väg</string>
-  <string name="deleteway_wayandnodes">Radera väg och noder</string>
   <string name="deletenode_relation_description">Du håller på att ta bort en nod som är medlem i en eller flera relationer. Om du tar bort noden från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deletenode">Ta bort nod</string>
   <string name="split_all_ways">Dela alla vägar</string>
@@ -354,72 +358,79 @@
   <string name="actionmode_object_count">%1$d objekt</string>
   <string name="actionmode_rotateway">Rotera vägen</string>
   <!--Preferences-->
-  <string name="config_category_editing">Data och redigera inställningar</string>
-  <string name="config_category_view">Användargränssnitts inställningar </string>
-  <string name="config_showCameraAction_title">Visa kamera knapp</string>
-  <string name="config_showCameraAction_summary">Visa kameraikon på åtgärdsfältet </string>
-  <string name="config_generateAlerts_title">Generera aviseringar</string>
-  <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
-  <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
-  <string name="config_voiceCommandsEnabled_summary">Aktivera experimentellt röstkommando stöd</string>
-  <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
-  <string name="config_maxStrokeWidth_title">Max linjebredd</string>
-  <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
-  <string name="config_showStats_title">Visa statistik</string>
-  <string name="config_showTolerance_title">Visa tolerans</string>
-  <string name="config_showTolerance_summary">Visar platsen där ett element kan väljas.</string>
-  <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
+  <string name="config_backgroundLayer_title">Kartans bakgrund</string>
+  <string name="config_overlayLayer_title">Kartöverdrag</string>
+  <string name="config_scale_title">Visa skala</string>
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar/fel.</string>
   <string name="config_enablePhotoLayer_title">Aktivera fotolager</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
+  <string name="config_advancedprefs">Avancerade inställningar</string>
+  <string name="config_moreprefs">Flera inställningar...</string>
+  <string name="config_presetbutton_title">Förinställda</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Upphovsmän och licenser</string>
+  <string name="config_debugbutton_title">Felsök</string>
+  <string name="config_category_info">Om</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Användargränssnitts inställningar </string>
+  <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
+  <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_showCameraAction_summary">Visa kameraikon på åtgärdsfältet </string>
+  <string name="config_fullscreenMode_title">Fullskärmsläge</string>
+  <string name="config_showTolerance_title">Visa tolerans</string>
+  <string name="config_showTolerance_summary">Visar platsen där ett element kan väljas.</string>
+  <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
+  <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
+  <string name="config_enableLightTheme_summary">Ljust tema med vit bakgrund</string>
+  <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
+  <string name="config_maxStrokeWidth_title">Max linjebredd</string>
+  <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Data och redigera inställningar</string>
+  <string name="config_address_tags">Adresstaggar</string>
+  <string name="config_enableNameSuggestions_title">Aktivera namnförslag</string>
+  <string name="config_enableNameSuggestions_summary">Slå på förslag för namn-tagg</string>
+  <string name="config_generateAlerts_title">Generera aviseringar</string>
+  <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
+  <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
+  <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
+  <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
+  <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
-  <string name="config_backgroundLayer_title">Kartans bakgrund</string>
-  <string name="config_overlayLayer_title">Kartöverdrag</string>
-  <string name="config_scale_title">Visa skala</string>
+  <!--Location Settings-->
+  <string name="config_gps_source_title">GPS-källa</string>
+  <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
+  <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
+  <string name="config_gps_interval_title">Minsta GPS-Intervall</string>
+  <string name="config_gps_distance_title">Minsta GPS-Distans</string>
+  <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
+  <string name="config_leaveGpsDisabled_summary">Be inte användaren att slå på GPS om den är inaktiverad</string>
+  <!--Server Settings-->
   <string name="config_category_server">Serverinställningar</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Använd oauth</string>
-  <string name="listedit_enable_oauth">Aktivera oauth</string>
+  <string name="config_loginbutton_title">Användarkonto</string>
   <string name="config_offsetServer_title">Justeringsserver</string>
   <string name="config_offsetServer_summary">URL till servern med bildjusteringar</string>
   <string name="config_osmoseServer_title">OSMOSE-server</string>
   <string name="config_osmoseServer_summary">URL för osmose-servern</string>
-  <string name="config_presetbutton_title">Förinställda</string>
-  <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
-  <string name="config_loginbutton_title">Användarkonto</string>
-  <string name="config_username_title">OSM Användarnamn</string>
-  <string name="config_password_title">OSM lösenord</string>
-  <string name="config_gps_distance_title">Minsta GPS-Distans</string>
-  <string name="config_gps_interval_title">Minsta GPS-Intervall</string>
-  <string name="config_category_info">Om</string>
-  <string name="config_advancedprefs">Avancerade inställningar</string>
-  <string name="config_licensebutton_title">Upphovsmän och licenser</string>
-  <string name="config_debugbutton_title">Felsök</string>
-  <string name="config_mapProfile_title">Kartprofil</string>
-  <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
-  <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
-  <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
-  <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
-  <string name="config_enableNameSuggestions_title">Aktivera namnförslag</string>
-  <string name="config_enableNameSuggestions_summary">Slå på förslag för namn-tagg</string>
-  <string name="config_enableAutoPreset_summary">Lägg automatiskt till förinställning när namnförslag väljs</string>
-  <string name="config_gps_source_title">GPS-källa</string>
-  <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
-  <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
-  <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
-  <string name="config_leaveGpsDisabled_summary">Be inte användaren att slå på GPS om den är inaktiverad</string>
-  <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
-  <string name="config_enableLightTheme_summary">Ljust tema med vit bakgrund</string>
-  <string name="config_category_misc">Diverse</string>
-  <string name="config_address_tags">Adresstaggar</string>
-  <string name="config_moreprefs">Flera inställningar...</string>
-  <string name="config_fullscreenMode_title">Fullskärmsläge</string>
+  <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_tileCacheSize_summary">Total storlek med tile cache i MB</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Diverse</string>
+  <string name="config_showStats_title">Visa statistik</string>
+  <!--Experimental-->
+  <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
+  <!---->
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Använd oauth</string>
+  <string name="listedit_enable_oauth">Aktivera oauth</string>
+  <string name="config_username_title">OSM Användarnamn</string>
+  <string name="config_password_title">OSM lösenord</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställda</string>
   <!--changes-->
@@ -479,7 +490,6 @@
   <string name="undo_action_fix_conflict">fix konflikt</string>
   <string name="undo_action_extract_node">extrahera nod</string>
   <!--ACRA-->
-  <string name="config_category_acra">Krasch rapportering</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="bearing_ne">NE</string>

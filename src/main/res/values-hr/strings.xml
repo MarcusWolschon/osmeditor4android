@@ -51,12 +51,20 @@
   <string name="imagery_offset_distance">Daljina</string>
   <string name="search_results_title">Rezultati traženja</string>
   <string name="search">Pretraži</string>
+  <!--element information dialog-->
   <string name="closed">Zatvoren</string>
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
@@ -137,7 +145,6 @@
   <string name="menu_paste">Zalijepi</string>
   <string name="menu_rotate">Rotiraj</string>
   <string name="menu_orthogonalize">Ispravi kutove</string>
-  <string name="menu_tools">Alati</string>
   <string name="menu_tools_background_properties">Opcije pozadine</string>
   <string name="menu_tools_background_align_reset">Resetiraj</string>
   <string name="menu_tools_background_align_save_db">Spremi u bazu</string>
@@ -149,7 +156,6 @@
   <string name="reverse_anyway">Svejedno promjeni smjer</string>
   <string name="deleteway_relation_description">Spremate se obrisati put koji je član jedne ili više relacija. Micanje ovog puta iz relacije ili relacija bi ih moglo pokvariti.</string>
   <string name="deleteway_wayonly">Obriši samo liniju</string>
-  <string name="deleteway_wayandnodes">Obriši liniju i točke</string>
   <string name="deletenode_relation_description">Spremate se obrisati točku koja je član jedne ili više relacija. Micanje ove točke iz relacije ili relacija bi ih moglo pokvariti.</string>
   <string name="deletenode">Obriši točku</string>
   <!--EasyEdit action mode titles-->
@@ -159,31 +165,40 @@
   <string name="actionmode_createpath">Stvaranje linije</string>
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
-  <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
-  <string name="config_showStats_title">Statistika</string>
-  <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
+  <string name="config_backgroundLayer_title">Karta u pozadini</string>
+  <string name="config_enablePhotoLayer_title">Uključi sloj sa fotografijama</string>
+  <string name="config_enablePhotoLayer_summary">Prikaži geo-referencirane fotke.</string>
+  <string name="config_advancedprefs">Napredne postavke</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_debugbutton_title">Debug</string>
+  <string name="config_category_info">Više o</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_iconbutton_title">Prikaži ikone točaka</string>
   <string name="config_showTolerance_title">Površina tolerancije</string>
   <string name="config_showTolerance_summary">Prikaže površinu u kojoj se element može označiti.</string>
   <string name="config_enableAntiAliasing_title">Omogući Anti-Aliasing</string>
-  <string name="config_enablePhotoLayer_title">Uključi sloj sa fotografijama</string>
-  <string name="config_enablePhotoLayer_summary">Prikaži geo-referencirane fotke.</string>
-  <string name="config_backgroundLayer_title">Karta u pozadini</string>
-  <string name="config_backgroundLayer_summary">Odabir karte u pozadini.</string>
+  <string name="config_maxStrokeWidth_title">Maksimalna širina linije</string>
+  <!--Data and Editing Settings-->
+  <!--Location Settings-->
+  <string name="config_gps_interval_title">Minimalni GPS interval</string>
+  <string name="config_gps_interval_summary">Minimalni vremenski interval GPS poziva, u milisekundama. Manje vrijednosti troše više baterije.</string>
+  <string name="config_gps_distance_title">Minimalna GPS udaljenost</string>
+  <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
+  <!--Server Settings-->
   <string name="config_category_server">Postavke servera</string>
+  <string name="config_loginbutton_title">Korisnički račun</string>
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <string name="config_showStats_title">Statistika</string>
+  <string name="config_showStats_summary">Prikaže statistiku podataka i frame/sec u donjem lijevom kutu.</string>
+  <!--Experimental-->
+  <!---->
   <string name="config_api_oauth_title">Koristi oauth</string>
   <string name="listedit_enable_oauth">Uključi oauth</string>
-  <string name="config_iconbutton_title">Prikaži ikone točaka</string>
-  <string name="config_loginbutton_title">Korisnički račun</string>
   <string name="config_username_title">OSM korisničko ime</string>
   <string name="config_password_title">OSM lozinka</string>
   <string name="config_password_summary">Nemojte ju zamjeniti sa Wiki lozinkom. Upamtite: Lozinka se čuva u formatu običnog teksta!</string>
-  <string name="config_gps_distance_title">Minimalna GPS udaljenost</string>
-  <string name="config_gps_distance_summary">Minimalna udaljenost za GPS poziv, u metrima (float). Manje vrijednosti troše više baterije.</string>
-  <string name="config_gps_interval_title">Minimalni GPS interval</string>
-  <string name="config_gps_interval_summary">Minimalni vremenski interval GPS poziva, u milisekundama. Manje vrijednosti troše više baterije.</string>
-  <string name="config_category_info">Više o</string>
-  <string name="config_advancedprefs">Napredne postavke</string>
-  <string name="config_debugbutton_title">Debug</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" obrisano</string>

@@ -13,7 +13,15 @@
     <string name="help_presets">Knapper</string>
     <string name="help_gpssources">GPS-kilder</string>
     <string name="help_keyboard">Tastatur</string>
+    <string name="help_tagfilter">Egenskap-filter</string>
+    <string name="help_presetfilter">Mal-filter</string>
     <string name="help_opening_hours">Åpningstider</string>
+    <string name="help_upgrade">Utgivelse-notater</string>
+    <string name="help_upgrade_101">10.1 utgivelse-notater</string>
+    <string name="help_upgrade_100">10.0 utgivelse-notater</string>
+    <string name="help_upgrade_099">0.9.9 utgivelse-notater</string>
+    <string name="help_upgrade_098">0.9.8 utgivelse-notater</string>
+    <string name="help_upgrade_097">0.9.7 utgivelse-notater</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -23,6 +31,8 @@
     	<item>@string/help_relationselection</item>
     	<item>@string/help_multiselect</item>
     	<item>@string/help_longclick</item>
+        <item>@string/help_preferences</item>
+        <item>@string/help_advanced_preferences</item>
     	<item>@string/help_presets</item>	
     	<item>@string/help_aligningbackgroundiamgery</item>
     	<item>@string/help_conflictresolution</item>
@@ -32,6 +42,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
     	<item>@string/help_upgrade_099</item>
@@ -49,6 +60,8 @@
     	<item>Relation selected</item>
     	<item>Multiselect</item>
     	<item>Creating new objects</item>
+        <item>Preferences</item>
+        <item>Advanced preferences</item>
     	<item>Presets</item>	
     	<item>Aligning background imagery</item>
     	<item>Conflict resolution</item>
@@ -57,6 +70,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>
     	<item>10.0.0 Release notes</item>

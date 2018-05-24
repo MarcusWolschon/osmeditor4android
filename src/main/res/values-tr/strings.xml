@@ -88,6 +88,7 @@
   <string name="save_file">Kaydetmek için dosyayı gir</string>
   <string name="existing_track_title">Varolan iz verileri</string>
   <string name="existing_track_message">Hazırda iz veriniz var. Devam etmeden önce kaydetmek isteyebilirsiniz.</string>
+  <!--element information dialog-->
   <string name="element_information">Element bilgisi</string>
   <string name="id">Kimlik</string>
   <string name="nodes">Düğümler</string>
@@ -101,15 +102,22 @@
   <string name="empty_role">Boş rol</string>
   <string name="element">element</string>
   <string name="last_updated">son güncelleme</string>
+  <!---->
   <string name="error">hata</string>
   <string name="warning">uyarı</string>
   <string name="minor_issue">küçük sorun</string>
   <string name="unknown_error_level">bilinmeyen hata seviyesi</string>
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
   <string name="toast_unsaved_changes">Kaydedilmemiş değişiklikleriniz var, lütfen önce yükleyin.</string>
@@ -261,9 +269,6 @@
   <string name="menu_extend_selection">Seçimi uzat</string>
   <string name="menu_information">Bilgi</string>
   <string name="menu_voice_commands">Sesli komutlar</string>
-  <string name="menu_tools">Araçlar</string>
-  <string name="menu_tools_flush_background_tile_cache">Arka plan karo döşeme ön belleğini temizle</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Karo üstlük ön belleğini temizle</string>
   <string name="menu_tools_background_properties">Arka plan özellkleri</string>
   <string name="menu_tools_background_align">Arka planı hizala</string>
   <string name="menu_tools_background_align_reset">Sıfırla</string>
@@ -286,7 +291,6 @@
   <string name="deleteway_relation_description">Bir veya daha fazla ilişkisi olan bir yolu silmek üzeresiniz. İlişkileri bu yoldan çıkarmak geçersiz hale gelmesine sebep olabilir.</string>
   <string name="deleteway_nodesnotdownloaded_description">Yol indirilmiş alanın dışında düğümler içeriyor ve bu tutarsız bir durum oluşturmadan silinemez. Tüm yolu indirip tekrar deneyin.</string>
   <string name="deleteway_wayonly">Sadece yolu sil</string>
-  <string name="deleteway_wayandnodes">Yolu ve düğümü sil</string>
   <string name="deletenode_relation_description">Bir veya daha fazla ilişkisi olan düğümü silmek üzeresiniz. Düğümü ilişkiden çıkarmak geçersiz duruma gelmesine neden olabilir.</string>
   <string name="deletenode">Düğümü sil</string>
   <!--EasyEdit action mode titles-->
@@ -299,93 +303,97 @@
   <string name="actionmode_closed_way_split_1">1.düğüm, bölünmüş kapalı yol</string>
   <string name="actionmode_closed_way_split_2">2. düğüm, Bölünmüş kapalı yol</string>
   <!--Preferences-->
-  <string name="config_category_view">Kullanıcı Arayüz Ayarları</string>
-  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
-  <string name="config_showCameraAction_summary">Kamera simgesini eylem çubuğunda göster</string>
-  <string name="config_generateAlerts_title">Uyarılar oluştur</string>
-  <string name="config_generateAlerts_summary">Sorunlu ya da notlu veriler için bildirim oluştur</string>
-  <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
-  <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
-  <string name="config_maxStrokeWidth_summary">Bu yolu şimdikinden daha kalın çizmeyin</string>
-  <string name="config_showStats_title">İstatistikleri göster</string>
-  <string name="config_showStats_summary">Veri istatistiğini ve kare/san sol üst köşede göster.</string>
-  <string name="config_showTolerance_title">Toleransı göster</string>
-  <string name="config_showTolerance_summary">Seçilebilir unsurları olan alanı göster.</string>
-  <string name="config_enableAntiAliasing_title">Kenar yumuşatmayı etkinleştir</string>
-  <string name="config_enableAntiAliasing_summary">Çizgileri pürüzsüz yapar.</string>
+  <string name="config_backgroundLayer_title">Harita arkaplanı</string>
+  <string name="config_overlayLayer_title">Harita kaplaması</string>
+  <string name="config_scale_title">Ölçek ekran</string>
   <string name="config_enableOpenStreetBugs_title">Böcek ve Not görünümünü etkinleştir</string>
   <string name="config_enableOpenStreetBugs_summary">Görüntüle, Düzenle ve Not/hata oluştur.</string>
   <string name="config_enablePhotoLayer_title">Fotoğraf katmanını etkinleştir</string>
   <string name="config_enablePhotoLayer_summary">Jeo-referanslı fotoğrafları etkinleştir.</string>
   <string name="config_enableKeepScreenOn_title">Ekranı açık tut</string>
   <string name="config_enableKeepScreenOn_summary">Güç tasarrufu için ekranı kapatmayın.</string>
-  <string name="config_backgroundLayer_title">Harita arkaplanı</string>
-  <string name="config_backgroundLayer_summary">Grafiksel harita arkaplanı.</string>
-  <string name="config_overlayLayer_title">Harita kaplaması</string>
-  <string name="config_overlayLayer_summary">Grafiksel harita kaplaması.</string>
-  <string name="config_scale_title">Ölçek ekran</string>
-  <string name="config_scale_summary">Harita üzerinde gösterilen ölçeğin türü.</string>
-  <string name="config_category_server">Sunucu Ayarları</string>
-  <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Standart dışı API URL burada belirtebilirsiniz. Genelde değiştirilmez!</string>
-  <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">oauth kullan</string>
-  <string name="listedit_enable_oauth">oauth etkinleştir</string>
-  <string name="config_offsetServer_title">Ofset sunucu</string>
-  <string name="config_offsetServer_summary">Görüntü döşeme sunucu URL adresi</string>
-  <string name="config_presetbutton_title">Öntanımlılar</string>
-  <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
-  <string name="config_iconbutton_title">Düğüm simgelerini göster</string>
-  <string name="config_iconbutton_summary">Düğüm için en iyi eşleşen simgeyi göster.</string>
-  <string name="config_loginbutton_title">Kullanıcı hesabı</string>
-  <string name="config_username_title">OSM kullanıcı adı</string>
-  <string name="config_username_summary">Eğer OAuth kullanmıyorsanız OSM-veri yüklemek için ayarlama gerekir, hesap burada mevcuttur </string>
-  <string name="config_password_title">OSM parola</string>
-  <string name="config_password_summary">Viki parolasını karıştırmayın. Unutmayın: bu düz metin dosyasında saklanır ve aktarılır!</string>
-  <string name="config_gps_distance_title">Minimum GPS-Mesafesi</string>
-  <string name="config_gps_distance_summary">GPS bildirimleri için minımum mesafe aralığı metre olarak. Düşük değer daha fazla batarya kullanır.</string>
-  <string name="config_gps_interval_title">Minimum GPS-Aralığı</string>
-  <string name="config_gps_interval_summary">GPS bildirimleri için minimum mesafe aralığı milisaniye olarak. Düşük değer daha fazla batarya kullanır.</string>
-  <string name="config_category_info">Hakkında</string>
-  <string name="config_advancedprefs">Gelişmiş özellikler</string>
-  <string name="config_forceContextMenu_title">Her zaman içerik menüsünü kullan</string>
-  <string name="config_forceContextMenu_summary">Seçim belirsiz ise içerik menüsünde her zaman KolayDüzen\'i göster</string>
-  <string name="config_licensebutton_title">Yazarlar ve lisanslar</string>
-  <string name="config_licensebutton_summary">Yazarları ve lisans bilgilerini göster</string>
-  <string name="config_mapProfile_title">Harita profili</string>
-  <string name="config_mapProfile_summary">Unsurların biçim ve görünümünü ayarla</string>
-  <string name="config_use_back_for_undo_title">Geri tuşunu Geri almak için kullan</string>
-  <string name="config_use_back_for_undo_summary">Ana düzenleme görünümünde geri tuşunu Geri al için kullan</string>
   <string name="config_largeDragArea_title">Geniş düğüm sürükleme alanı</string>
   <string name="config_largeDragArea_summary">Düğümü sürüklemek için geniş bir alan belirtin</string>
+  <string name="config_advancedprefs">Gelişmiş özellikler</string>
+  <string name="config_moreprefs">Daha fazla ayar...</string>
+  <string name="config_presetbutton_title">Öntanımlılar</string>
+  <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Yazarlar ve lisanslar</string>
+  <string name="config_category_info">Hakkında</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Kullanıcı Arayüz Ayarları</string>
+  <string name="config_iconbutton_title">Düğüm simgelerini göster</string>
+  <string name="config_iconbutton_summary">Düğüm için en iyi eşleşen simgeyi göster.</string>
+  <string name="config_showCameraAction_title">Kamera eylemini göster</string>
+  <string name="config_showCameraAction_summary">Kamera simgesini eylem çubuğunda göster</string>
+  <string name="config_showTolerance_title">Toleransı göster</string>
+  <string name="config_showTolerance_summary">Seçilebilir unsurları olan alanı göster.</string>
+  <string name="config_use_back_for_undo_title">Geri tuşunu Geri almak için kullan</string>
+  <string name="config_use_back_for_undo_summary">Ana düzenleme görünümünde geri tuşunu Geri al için kullan</string>
+  <string name="config_enableLightTheme_title">Hafif temayı etkinleştir</string>
+  <string name="config_enableLightTheme_summary">Beyaz arkaplanlı hafif tema</string>
+  <string name="config_splitActionBarEnabled_title">Bölme eylem çubuğunu etkinleştir</string>
+  <string name="config_splitActionBarEnabled_summary">Bölme eylem çubuğuna izin ver, kullanım cihaza özel. Yeniden başlatma ve Android sürüm &gt;= 4.0 gerekir.</string>
+  <string name="config_enableAntiAliasing_title">Kenar yumuşatmayı etkinleştir</string>
+  <string name="config_enableAntiAliasing_summary">Çizgileri pürüzsüz yapar.</string>
+  <string name="config_maxStrokeWidth_title">Maks çizgi genişliği</string>
+  <string name="config_maxStrokeWidth_summary">Bu yolu şimdikinden daha kalın çizmeyin</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Her zaman içerik menüsünü kullan</string>
+  <string name="config_address_tags">Adres etiketleri</string>
+  <string name="config_address_tags_summary">Adres tahmininde kullanılacak etiketler</string>
+  <string name="config_enableNameSuggestions_title">İsim tavsiyelerini etkinleştir</string>
+  <string name="config_enableNameSuggestions_summary">İsim etiketleri için tavsiyeleri aç</string>
+  <string name="config_generateAlerts_title">Uyarılar oluştur</string>
+  <string name="config_generateAlerts_summary">Sorunlu ya da notlu veriler için bildirim oluştur</string>
+  <string name="config_maxAlertDistance_title">Uyarılar için maks mesafe</string>
   <string name="config_extTriggeredDownloadRadius_title">Yarıçapı indir</string>
   <string name="config_extTriggeredDownloadRadius_summary">Dışarıdan tetiklemeli indirme için yarıçap (m) 0= sadece harita merkezi</string>
   <string name="config_maxDownloadSpeed_title">Maksimum otomatik indirme hızı</string>
   <string name="config_maxDownloadSpeed_summary">Otomatik indirmeyi askıya almak için gereken sınır (km/s olarak)</string>
+  <string name="config_bugFilter_title">Not/Böcek için filtre</string>
+  <string name="config_bugFilter_summary">Not/böcek katmanında gösterilecek unsurları seçin</string>
   <string name="config_bugDownloadRadius_title">Not/Böcek indirme yarıçapı</string>
   <string name="config_bugDownloadRadius_summary">Note/Böcek indirme yarıçapı (m)</string>
   <string name="config_maxBugDownloadSpeed_title">Maksimum not/böcek otomatik indirme hızı</string>
   <string name="config_maxBugDownloadSpeed_summary">Otomatik indirmeyi askıya almak için gereken sınır (km/s olarak)</string>
-  <string name="config_bugFilter_title">Not/Böcek için filtre</string>
-  <string name="config_bugFilter_summary">Not/böcek katmanında gösterilecek unsurları seçin</string>
-  <string name="config_enableNameSuggestions_title">İsim tavsiyelerini etkinleştir</string>
-  <string name="config_enableNameSuggestions_summary">İsim etiketleri için tavsiyeleri aç</string>
-  <string name="config_enableAutoPreset_title">Otomatik öntanımlıyı aç</string>
-  <string name="config_enableAutoPreset_summary">Tahmin edilen isim seçilirse öntanımlıyı otomatik olarak ekle</string>
-  <string name="config_splitActionBarEnabled_title">Bölme eylem çubuğunu etkinleştir</string>
-  <string name="config_splitActionBarEnabled_summary">Bölme eylem çubuğuna izin ver, kullanım cihaza özel. Yeniden başlatma ve Android sürüm &gt;= 4.0 gerekir.</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">GPS kaynağı</string>
   <string name="config_gps_source_summary">GPS konumu güncelleme kaynağı</string>
   <string name="config_gps_source_tcp_title">NMEA ağ kaynağı</string>
   <string name="config_gps_source_tcp_summary">host:port için TCP NMEA kaynak adresi</string>
-  <string name="config_enableLightTheme_title">Hafif temayı etkinleştir</string>
-  <string name="config_enableLightTheme_summary">Beyaz arkaplanlı hafif tema</string>
-  <string name="config_category_misc">Çeşitli</string>
-  <string name="config_address_tags">Adres etiketleri</string>
-  <string name="config_address_tags_summary">Adres tahmininde kullanılacak etiketler</string>
-  <string name="config_moreprefs">Daha fazla ayar...</string>
+  <string name="config_gps_interval_title">Minimum GPS-Aralığı</string>
+  <string name="config_gps_interval_summary">GPS bildirimleri için minimum mesafe aralığı milisaniye olarak. Düşük değer daha fazla batarya kullanır.</string>
+  <string name="config_gps_distance_title">Minimum GPS-Mesafesi</string>
+  <string name="config_gps_distance_summary">GPS bildirimleri için minımum mesafe aralığı metre olarak. Düşük değer daha fazla batarya kullanır.</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Sunucu Ayarları</string>
+  <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Standart dışı API URL burada belirtebilirsiniz. Genelde değiştirilmez!</string>
+  <string name="config_loginbutton_title">Kullanıcı hesabı</string>
+  <string name="config_username_summary">Eğer OAuth kullanmıyorsanız OSM-veri yüklemek için ayarlama gerekir, hesap burada mevcuttur </string>
+  <string name="config_offsetServer_title">Ofset sunucu</string>
+  <string name="config_offsetServer_summary">Görüntü döşeme sunucu URL adresi</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Karo önbellek boyutu</string>
   <string name="config_tileCacheSize_summary">Toplam karo önbelleği MB</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Çeşitli</string>
+  <string name="pref_enable_acra">Uygulama çökmesini raporla</string>
+  <string name="pref_acra_enabled">Çökme raporlama etkin</string>
+  <string name="pref_acra_disabled">Çökme raporlama devre dışı</string>
+  <string name="config_showStats_title">İstatistikleri göster</string>
+  <string name="config_showStats_summary">Veri istatistiğini ve kare/san sol üst köşede göster.</string>
+  <!--Experimental-->
+  <!---->
+  <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">oauth kullan</string>
+  <string name="listedit_enable_oauth">oauth etkinleştir</string>
+  <string name="config_username_title">OSM kullanıcı adı</string>
+  <string name="config_password_title">OSM parola</string>
+  <string name="config_password_summary">Viki parolasını karıştırmayın. Unutmayın: bu düz metin dosyasında saklanır ve aktarılır!</string>
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
   <string name="preset_download_successful">Öntanımlı başarıyla indirildi</string>
@@ -450,10 +458,6 @@
   <string name="undo_action_fix_conflict">çatışmayı düzenle</string>
   <string name="undo_action_extract_node">düğümü çıkar</string>
   <!--ACRA-->
-  <string name="config_category_acra">Sorun Raporlama</string>
-  <string name="pref_enable_acra">Uygulama çökmesini raporla</string>
-  <string name="pref_acra_enabled">Çökme raporlama etkin</string>
-  <string name="pref_acra_disabled">Çökme raporlama devre dışı</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Bu işlem çok düğümlü bir yol yaratacaktır.</string>
   <!--Notifications-->

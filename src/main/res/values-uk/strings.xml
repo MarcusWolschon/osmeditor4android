@@ -114,6 +114,7 @@
   <string name="existing_track_title">Дані треку</string>
   <string name="existing_track_message">Ви вже маєте дані для треку. Можливо, ви бажаєте спочатку скасувати дію та зберегти дані.</string>
   <string name="delete_tags">Вилучити всі теґи у \"%1$s\"?</string>
+  <!--element information dialog-->
   <string name="element_information">Відомості про елемент</string>
   <string name="id">Id</string>
   <string name="nodes">Точки</string>
@@ -128,14 +129,17 @@
   <string name="element">елемент</string>
   <string name="last_updated">в останнє оновлено</string>
   <string name="last_edited">В останнє змінено</string>
+  <!---->
   <string name="error">помилка</string>
   <string name="warning">попередження</string>
   <string name="minor_issue">незначна проблема</string>
   <string name="unknown_error_level">помилка невідомого рівня</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Ця операціє впливає на відфільтровані приєднанні обʼєкти!</string>
   <string name="attached_object_warning_message">Змінений обʼєкт приєднано до прихованого елемента, який також буде змінений.</string>
   <string name="attached_object_warning_continue">Так, продовжувати показувати це повідомлення</string>
   <string name="attached_object_warning_stop">Так, перестати показувати це повідомлення</string>
+  <!--debug dialog-->
   <string name="send_debug_information">Надіслати інформацію для відлагодженя</string>
   <!--JS console dialog-->
   <string name="evaluate">Оцінка</string>
@@ -153,6 +157,10 @@
   <string name="description">Опис</string>
   <string name="created">Створено</string>
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>
@@ -352,9 +360,6 @@
   <string name="menu_information">Інформація</string>
   <string name="menu_voice_commands">Голосові команди</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
-  <string name="menu_tools">Інструменти</string>
-  <string name="menu_tools_flush_background_tile_cache">Скинути кеш тайлів фону </string>
-  <string name="menu_tools_flush_overlay_tile_cache">Скинути кеш тайлів додаткових шарів</string>
   <string name="menu_tools_background_properties">Властивості фону</string>
   <string name="menu_tools_background_align">Положення фону</string>
   <string name="menu_tools_background_align_reset">Скинути</string>
@@ -381,7 +386,6 @@
   <string name="deleteway_relation_description">Ви намагаєтесь вилучити лінію, що входить до складу одного чи більше зв’язків. Її вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deleteway_nodesnotdownloaded_description">Лінія має точки за межами завантаженої ділянки і не може бути вилучена без порушення цілісності даних. Завантажте дані вздовж всієї лінії перед тим, як спробувати знов.</string>
   <string name="deleteway_wayonly">Вилучити лише лінію</string>
-  <string name="deleteway_wayandnodes">Вилучити лінію та точки</string>
   <string name="deletenode_relation_description">Ви намагаєтесь вилучити точку, що входить до складу одного чи більше зв’язків. Її вилучення, можливо, призведе до його(їх) спотворення.</string>
   <string name="deletenode">Вилучити точку</string>
   <!--EasyEdit action mode titles-->
@@ -396,113 +400,114 @@
   <string name="actionmode_one_object">1 об\'єкт</string>
   <string name="actionmode_object_count">%1$d об\'єкти(ів)</string>
   <!--Preferences-->
-  <string name="config_category_view">Налаштування зовнішнього вигляду</string>
-  <string name="config_showCameraAction_title">Показати камеру</string>
-  <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
-  <string name="config_generateAlerts_title">Створювати повідомлення</string>
-  <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
-  <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
-  <string name="config_voiceCommandsEnabled_summary">Задіяти експериментальну підтримку голосових команд</string>
-  <string name="config_maxAlertDistance_title">Максимальна відстань для повідомлень</string>
-  <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
-  <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
-  <string name="config_maxStrokeWidth_summary">Не показувати лінію товстішою за цю</string>
-  <string name="config_showStats_title">Показати статистику</string>
-  <string name="config_showStats_summary">Показувати швидкодію у кадр/сек. у нижньому лівому кутку.</string>
-  <string name="config_showTolerance_title">Показати чутливість</string>
-  <string name="config_showTolerance_summary">Показує ділянку, в якій елемент може бути вибраний.</string>
-  <string name="config_enableAntiAliasing_title">Включити згладжування</string>
-  <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
+  <string name="config_backgroundLayer_title">Фон мапи</string>
+  <string name="config_overlayLayer_title">Додаткові шари</string>
+  <string name="config_scale_title">Показувати масштаб</string>
   <string name="config_enableOpenStreetBugs_title">Показувати Нотатки/Помилки</string>
   <string name="config_enableOpenStreetBugs_summary">Показувати, редагувати й створювати Нотатки/Помилки.</string>
   <string name="config_enablePhotoLayer_title">Включити шар світлин</string>
   <string name="config_enablePhotoLayer_summary">Показувати геоприв’язані світлини.</string>
   <string name="config_enableKeepScreenOn_title">Не гасити екран</string>
   <string name="config_enableKeepScreenOn_summary">Не вимикати екран для збереження енергії.</string>
-  <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
-  <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
-  <string name="config_backgroundLayer_title">Фон мапи</string>
-  <string name="config_backgroundLayer_summary">Растрова фонова мапа.</string>
-  <string name="config_overlayLayer_title">Додаткові шари</string>
-  <string name="config_overlayLayer_summary">Додатковий растровий шар мапи.</string>
-  <string name="config_scale_title">Показувати масштаб</string>
-  <string name="config_scale_summary">Тип масштабу.</string>
-  <string name="config_category_server">Налаштування входу</string>
-  <string name="config_apibutton_title">URL для API OpenStreetMap</string>
-  <string name="config_apibutton_summary">Тут Ви можете задати нестандартне URL для API. Зазвичай не вимагає зміни!</string>
-  <string name="config_api_url_title">URL для API</string>
-  <string name="config_api_oauth_title">Використовувати OAuth</string>
-  <string name="listedit_enable_oauth">Включити OAuth</string>
-  <string name="config_offsetServer_title">Сервер зміщень</string>
-  <string name="config_offsetServer_summary">URL сервера зміщень</string>
-  <string name="config_osmoseServer_title">Сервер OSMOSE</string>
-  <string name="config_osmoseServer_summary">Посилання до сервера osmose</string>
+  <string name="config_largeDragArea_title">Велика ділянка навколо точок</string>
+  <string name="config_largeDragArea_summary">Велика ділянку навколо точок для їх перетягування</string>
+  <string name="config_advancedprefs">Розширені параметри</string>
+  <string name="config_moreprefs">Додаткові налаштування…</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Додати та задіяти сумісні з JOSM заготовки</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Автори та ліцензії</string>
+  <string name="config_debugbutton_title">Відлагодження</string>
+  <string name="config_category_info">Про програму</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Налаштування зовнішнього вигляду</string>
   <string name="config_iconbutton_title">Показувати значки точок</string>
   <string name="config_iconbutton_summary">Показувати найбільш відповідні значки на точках.</string>
   <string name="config_showWayIcons_title">Показувати значки цікавих точок на будівлях</string>
   <string name="config_showWayIcons_summary">Показувати найбільш відповідні значки на будівлях.</string>
-  <string name="config_loginbutton_title">Обліковий запис</string>
-  <string name="config_username_title">Логін на сервері OpenStreetMap</string>
-  <string name="config_username_summary">Потібно для передачі змін на сервер OpenStreetMap, тільки якщо ви не використовуєте OAuth. Зареєструватись можна за адресою http://www.openstreetmap.org/user/new</string>
-  <string name="config_password_title">Пароль на сервері OpenStreetMap</string>
-  <string name="config_password_summary">Не переплутайте його з паролем для Wiki. Пам’ятайте: він зберігається і передається незашифрованим!</string>
-  <string name="config_gps_distance_title">Відстань опитування GPS</string>
-  <string name="config_gps_distance_summary">Мінімальна відстань для опитування GPS в метрах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
-  <string name="config_gps_interval_title">Інтервал опитування GPS</string>
-  <string name="config_gps_interval_summary">Мінімальний інтервал частоти опитування GPS в мілісекундах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
-  <string name="config_category_info">Про програму</string>
-  <string name="config_advancedprefs">Розширені параметри</string>
-  <string name="config_forceContextMenu_title">Завжди використовувати контекстне меню</string>
-  <string name="config_forceContextMenu_summary">Завжди показувати контекстне меню в режимі ШвидкоПравка, якщо є двозначності.</string>
-  <string name="config_licensebutton_title">Автори та ліцензії</string>
-  <string name="config_licensebutton_summary">Показати інформацію про авторів та ліцензії</string>
-  <string name="config_debugbutton_title">Відлагодження</string>
-  <string name="config_debugbutton_summary">Показати деяку внутрішню інформацію</string>
-  <string name="config_mapProfile_title">Профіль мапи</string>
-  <string name="config_mapProfile_summary">Управління стилем та видимістю елементів</string>
+  <string name="config_showCameraAction_title">Показати камеру</string>
+  <string name="config_showCameraAction_summary">Показати камеру на панелі</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">При встановленні не завантажені області будуть затінені в режимі перегляду</string>
+  <string name="config_fullscreenMode_title">Повноекранний режим</string>
+  <string name="config_fullscreenMode_summary">Поведінка на пристроях з програмними кнопками.</string>
+  <string name="config_showTolerance_title">Показати чутливість</string>
+  <string name="config_showTolerance_summary">Показує ділянку, в якій елемент може бути вибраний.</string>
   <string name="config_use_back_for_undo_title">Використовувати кнопку назад для Відміни</string>
   <string name="config_use_back_for_undo_summary">Використовувати кнопку назад для відміни в режимі редагування</string>
-  <string name="config_largeDragArea_title">Велика ділянка навколо точок</string>
-  <string name="config_largeDragArea_summary">Велика ділянку навколо точок для їх перетягування</string>
+  <string name="config_enableLightTheme_title">Включити світлу тему</string>
+  <string name="config_enableLightTheme_summary">Світла тема з білим фоном</string>
+  <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
+  <string name="config_splitActionBarEnabled_summary">Дозволяє розділення панелі інструментів, в залежності від можливостей пристрою. Потребує перезапуску та Android версії &gt;= 4.0</string>
+  <string name="config_enableAntiAliasing_title">Включити згладжування</string>
+  <string name="config_enableAntiAliasing_summary">Згладжує лінії.</string>
+  <string name="config_maxStrokeWidth_title">Макс. ширина лінії</string>
+  <string name="config_maxStrokeWidth_summary">Не показувати лінію товстішою за цю</string>
+  <!--Data and Editing Settings-->
+  <string name="config_forceContextMenu_title">Завжди використовувати контекстне меню</string>
+  <string name="config_address_tags">Теґи адреси</string>
+  <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
+  <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
+  <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
+  <string name="config_generateAlerts_title">Створювати повідомлення</string>
+  <string name="config_generateAlerts_summary">Повідомляти про проблемні дані чи нотатки</string>
+  <string name="config_maxAlertDistance_title">Максимальна відстань для повідомлень</string>
+  <string name="config_maxAlertDistance_summary">Максимальна відстань до проблеми або нотатки від поточного місця для створення повідомлення</string>
   <string name="config_extTriggeredDownloadRadius_title">Радіус звантаження</string>
   <string name="config_extTriggeredDownloadRadius_summary">Радіус (м)  для розширення ділянки завантаження, 0 = центр мапи.</string>
   <string name="config_maxDownloadSpeed_title">Максимальна швидкість авто-завантаження</string>
   <string name="config_maxDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження призупиняється</string>
+  <string name="config_bugFilter_title">Фільтр Нотаток/Помилок</string>
+  <string name="config_bugFilter_summary">Оберіть які елементи показувати на шарі нотаток/помилок</string>
   <string name="config_bugDownloadRadius_title">Нотатки/Помилки - радиус завантаження</string>
   <string name="config_bugDownloadRadius_summary">Радиус (м) для завантаження нотаток/помилок</string>
   <string name="config_maxBugDownloadSpeed_title">Максимальна швидкість для автозавантаженя нотаток/помилок</string>
   <string name="config_maxBugDownloadSpeed_summary">Обмеження (в км/г) після якого автозавантаження нотаток/помилок призупиняеться</string>
-  <string name="config_bugFilter_title">Фільтр Нотаток/Помилок</string>
-  <string name="config_bugFilter_summary">Оберіть які елементи показувати на шарі нотаток/помилок</string>
-  <string name="config_enableNameSuggestions_title">Дозволити пропозиції назв</string>
-  <string name="config_enableNameSuggestions_summary">Включити пропозицію для теґа назви</string>
-  <string name="config_enableAutoPreset_title">Задіяти авто-заготовки</string>
-  <string name="config_enableAutoPreset_summary">Автоматично додавати заготовки, у разі активації цієї опції</string>
-  <string name="config_splitActionBarEnabled_title">Включити розділення панелі інструментів</string>
-  <string name="config_splitActionBarEnabled_summary">Дозволяє розділення панелі інструментів, в залежності від можливостей пристрою. Потребує перезапуску та Android версії &gt;= 4.0</string>
+  <string name="config_closeChangesetOnSave_title">Закривати набори змін</string>
+  <string name="config_closeChangesetOnSave_summary">Типово закривати набори змін під час збереження</string>
+  <!--Location Settings-->
   <string name="config_gps_source_title">Джерело GPS</string>
   <string name="config_gps_source_summary">Джерело оновлення позиції GPS</string>
   <string name="config_gps_source_tcp_title">NMEA джерело мережі</string>
   <string name="config_gps_source_tcp_summary">TCP адреса джерела NMEA як host:port</string>
+  <string name="config_gps_interval_title">Інтервал опитування GPS</string>
+  <string name="config_gps_interval_summary">Мінімальний інтервал частоти опитування GPS в мілісекундах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
+  <string name="config_gps_distance_title">Відстань опитування GPS</string>
+  <string name="config_gps_distance_summary">Мінімальна відстань для опитування GPS в метрах. Менше значення призводить до більшої витрати заряду акумулятора.</string>
   <string name="config_leaveGpsDisabled_title">Залишити  GPS  вимкненим</string>
   <string name="config_leaveGpsDisabled_summary">Не пропонувати включати GPS, коли він відключений</string>
-  <string name="config_enableLightTheme_title">Включити світлу тему</string>
-  <string name="config_enableLightTheme_summary">Світла тема з білим фоном</string>
-  <string name="config_category_misc">Додатково</string>
-  <string name="config_address_tags">Теґи адреси</string>
-  <string name="config_address_tags_summary">Теґи, що використовуються для пропонування адрес</string>
-  <string name="config_moreprefs">Додаткові налаштування…</string>
-  <string name="config_fullscreenMode_title">Повноекранний режим</string>
-  <string name="config_fullscreenMode_summary">Поведінка на пристроях з програмними кнопками.</string>
+  <!--Server Settings-->
+  <string name="config_category_server">Налаштування входу</string>
+  <string name="config_apibutton_title">URL для API OpenStreetMap</string>
+  <string name="config_apibutton_summary">Тут Ви можете задати нестандартне URL для API. Зазвичай не вимагає зміни!</string>
+  <string name="config_loginbutton_title">Обліковий запис</string>
+  <string name="config_username_summary">Потібно для передачі змін на сервер OpenStreetMap, тільки якщо ви не використовуєте OAuth. Зареєструватись можна за адресою http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Сервер зміщень</string>
+  <string name="config_offsetServer_summary">URL сервера зміщень</string>
+  <string name="config_osmoseServer_title">Сервер OSMOSE</string>
+  <string name="config_osmoseServer_summary">Посилання до сервера osmose</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Розмір кешу</string>
   <string name="config_tileCacheSize_summary">Загальний розмір кешу в МБ</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Завжди затінювати незавантажені області</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">При встановленні не завантажені області будуть затінені в режимі перегляду</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Додатково</string>
+  <string name="pref_enable_acra">Повідомлення про збій програми</string>
+  <string name="pref_acra_enabled">Звітування про помилки включене</string>
+  <string name="pref_acra_disabled">Звітування про помилки відключене</string>
+  <string name="config_showStats_title">Показати статистику</string>
+  <string name="config_showStats_summary">Показувати швидкодію у кадр/сек. у нижньому лівому кутку.</string>
+  <!--Experimental-->
   <string name="config_js_console_title">Відкрити JS консоль</string>
   <string name="config_js_console_summary">Зробити JS консоль доступною в \"live\" режимі</string>
-  <string name="config_validatorprefs_title">Налаштування валідатора</string>
+  <string name="config_voiceCommandsEnabled_title">Задіяти голосові команди</string>
+  <!---->
+  <string name="config_api_url_title">URL для API</string>
+  <string name="config_api_oauth_title">Використовувати OAuth</string>
+  <string name="listedit_enable_oauth">Включити OAuth</string>
+  <string name="config_username_title">Логін на сервері OpenStreetMap</string>
+  <string name="config_password_title">Пароль на сервері OpenStreetMap</string>
+  <string name="config_password_summary">Не переплутайте його з паролем для Wiki. Пам’ятайте: він зберігається і передається незашифрованим!</string>
   <string name="manage_presets">Керування заготовками</string>
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
@@ -572,10 +577,6 @@
   <!--ACRA-->
   <string name="crash_dialog_text">Веспуччі несподівано перервав роботу або зіткнувся з серйозною проблемою під час останнього запуску.\n\nБудь ласка, допоможіть нам виправити це, надіславши дані про помилку, все що вам потрібно зробити, це натиснути „Гаразд“.\n</string>
   <string name="crash_dialog_comment_prompt">Додайте будь-яку інформацію, що на вашу думку може бути корисною, а також (не обов\'язково) адресу вашої е-пошти, якщо ви бажаєте отримати відповідь.\n\nДякуємо вам!</string>
-  <string name="config_category_acra">Звітування про помилки</string>
-  <string name="pref_enable_acra">Повідомлення про збій програми</string>
-  <string name="pref_acra_enabled">Звітування про помилки включене</string>
-  <string name="pref_acra_disabled">Звітування про помилки відключене</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Ця операція призведе до створення лінії з завеликою кількістю точок.</string>
   <!--Notifications-->

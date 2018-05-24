@@ -94,6 +94,7 @@
   <string name="existing_track_title">Existujúce údaje stopy</string>
   <string name="existing_track_message">Už máte existujúce údaje stopy. Možno budete chcieť najskôr vykonať zrušenie a uloženie.</string>
   <string name="delete_tags">Skutočne odstrániť všetky značky objektu „%1$s“?</string>
+  <!--element information dialog-->
   <string name="element_information">Informácie o prvku</string>
   <string name="nodes">Uzly</string>
   <string name="relation_membership">Členstvo v relácii</string>
@@ -107,12 +108,15 @@
   <string name="element">prvok</string>
   <string name="last_updated">naposledy aktualizované</string>
   <string name="last_edited">Naposledy upravené</string>
+  <!---->
   <string name="error">chyba</string>
   <string name="warning">upozornenie</string>
   <string name="minor_issue">menší problém</string>
   <string name="unknown_error_level">neznáma úroveň chyby</string>
+  <!--hidden object warning dialog-->
   <string name="attached_object_warning_continue">V poriadku, pokračovať v zobrazovaní tejto správy</string>
   <string name="attached_object_warning_stop">V poriadku, zastaviť zobrazovanie tejto správy</string>
+  <!--debug dialog-->
   <!--JS console dialog-->
   <string name="js_console_msg_live">Režim naživo!</string>
   <string name="js_console_msg_debug">Režim ladenia!</string>
@@ -120,6 +124,10 @@
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
   <string name="toast_unsaved_changes">Máte neuložené zmeny. Prosím, najskôr ich odovzdajte.</string>
@@ -297,9 +305,6 @@
   <string name="menu_voice_commands">Hlasové povely</string>
   <string name="menu_set_name">Nastaviť názov</string>
   <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
-  <string name="menu_tools">Nástroje</string>
-  <string name="menu_tools_flush_background_tile_cache">Vyprázdniť vyrovnávaciu pamäť dlaždíc pozadia</string>
-  <string name="menu_tools_flush_overlay_tile_cache">Vyprázdniť vyrovnávaciu pamäť dlaždíc prekrytia</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadia</string>
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>
@@ -317,7 +322,6 @@
   <string name="deleteway_description">Chcete odstrániť cestu.\n\nMôžete buď ponechať všetky uzly, alebo iba odstrániť uzly, ktoré patria tejto ceste a neobsahujú žiadne značky.</string>
   <string name="deleteway_relation_description">Chcete odstrániť cestu, ktorá je členom jednej alebo viacerých relácií. Odstránením cesty z relácie(-í) môže spôsobiť neplatné vykreslenie.</string>
   <string name="deleteway_wayonly">Odstrániť iba cestu</string>
-  <string name="deleteway_wayandnodes">Odstrániť cestu a uzly</string>
   <string name="deletenode_relation_description">Chcete odstrániť uzol, ktorý je členom jednej alebo viacerých relácií. Odstránením uzlu z relácie(-í) môže spôsobiť neplatné vykreslenie.</string>
   <string name="deletenode">Odstrániť uzol</string>
   <string name="split_all_ways">Rozdeliť všetky cesty</string>
@@ -337,62 +341,68 @@
   <string name="actionmode_restriction_to">Pridať segment „do“</string>
   <string name="actionmode_restriction_restart_to">Znovu vybrať segment „do“</string>
   <!--Preferences-->
-  <string name="config_category_editing">Nastavenia údajov a úprav</string>
-  <string name="config_category_view">Nastavenia používateľského rozhrania</string>
-  <string name="config_showCameraAction_title">Zobraziť akciu s fotoaparátom</string>
-  <string name="config_showCameraAction_summary">Zobrazí ikonu fotoaparátu v lište s akciami</string>
-  <string name="config_generateAlerts_title">Generovať upozornenia</string>
-  <string name="config_generateAlerts_summary">Generovať upozornenia pre problémy s údajmi alebo poznámkami</string>
-  <string name="config_voiceCommandsEnabled_title">Povoliť hlasové povely</string>
-  <string name="config_voiceCommandsEnabled_summary">Povolí experimentálnu podporu hlasových povelov</string>
-  <string name="config_maxAlertDistance_title">Max. vzdialenosť pre upozornenia</string>
-  <string name="config_maxAlertDistance_summary">Maximálna vzdialenosť problému alebo poznámky od aktuálnej pozície na generovanie upozornenia</string>
-  <string name="config_maxStrokeWidth_title">Max. šírka čiar</string>
-  <string name="config_maxStrokeWidth_summary">Nevykreslí čiaru hrubšiu ako táto hodnota</string>
-  <string name="config_showTolerance_title">Zobraziť toleranciu</string>
-  <string name="config_showTolerance_summary">Zobrazí oblasť, kde môže byť vybraný prvok.</string>
-  <string name="config_enableAntiAliasing_title">Povoliť vyhladzovanie</string>
-  <string name="config_enableAntiAliasing_summary">Zjemní čiary</string>
+  <string name="config_backgroundLayer_title">Pozadie mapy</string>
+  <string name="config_overlayLayer_title">Prekrytie mapy</string>
   <string name="config_enableOpenStreetBugs_title">Povoliť zobrazenie chýb a poznámok</string>
   <string name="config_enableOpenStreetBugs_summary">Umožní zobraziť, upraviť a vytvoriť poznámky alebo chyby.</string>
   <string name="config_enablePhotoLayer_title">Povoliť vrstvu s fotografiami</string>
   <string name="config_enableKeepScreenOn_title">Ponechať obrazovku zapnutú</string>
   <string name="config_enableKeepScreenOn_summary">Nevypne obrazovku kvôli úspore energie</string>
-  <string name="config_closeChangesetOnSave_title">Zavrieť súbor zmien</string>
-  <string name="config_closeChangesetOnSave_summary">Predvolene zavrie súbor zmien pri uložení</string>
-  <string name="config_backgroundLayer_title">Pozadie mapy</string>
-  <string name="config_backgroundLayer_summary">Graficky vykreslené pozadie mapy.</string>
-  <string name="config_overlayLayer_title">Prekrytie mapy</string>
-  <string name="config_overlayLayer_summary">Graficky vykreslené prekrytie mapy.</string>
-  <string name="config_presetbutton_title">Predvoľby</string>
-  <string name="config_loginbutton_title">Používateľský účet</string>
-  <string name="config_username_title">Používateľské meno OSM</string>
-  <string name="config_password_title">Heslo OSM</string>
-  <string name="config_gps_distance_title">Minimálna vzdialenosť GPS</string>
-  <string name="config_category_info">O aplikácii</string>
   <string name="config_advancedprefs">Pokročilé predvoľby</string>
-  <string name="config_forceContextMenu_title">Vždy použiť kontextovú ponuku</string>
-  <string name="config_licensebutton_title">Autori a licencie</string>
-  <string name="config_licensebutton_summary">Zobraziť informácie o autoroch a licencii</string>
-  <string name="config_debugbutton_title">Ladenie</string>
-  <string name="config_debugbutton_summary">Zobrazí nejaké interné informácie</string>
-  <string name="config_mapProfile_title">Profil mapy</string>
-  <string name="config_mapProfile_summary">Nastaviť štýl a viditeľnosť prvkov</string>
-  <string name="config_use_back_for_undo_title">Použiť kláves späť na vrátenie zmien</string>
-  <string name="config_use_back_for_undo_summary">Použiť kláves späť na vrátenie zmien v hlavom zobrazení úprav</string>
-  <string name="config_bugDownloadRadius_title">Okruh preberania poznámok/chýb</string>
-  <string name="config_bugFilter_title">Filtrovať poznámky/chyby</string>
-  <string name="config_enableLightTheme_title">Povoliť svetlý motív</string>
-  <string name="config_enableLightTheme_summary">Svetlý motív s bielymi pozadiami</string>
-  <string name="config_category_misc">Rôzne</string>
-  <string name="config_address_tags">Adresné značky</string>
   <string name="config_moreprefs">Viac nastavení…</string>
+  <string name="config_presetbutton_title">Predvoľby</string>
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autori a licencie</string>
+  <string name="config_debugbutton_title">Ladenie</string>
+  <string name="config_category_info">O aplikácii</string>
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <string name="config_category_view">Nastavenia používateľského rozhrania</string>
+  <string name="config_showCameraAction_title">Zobraziť akciu s fotoaparátom</string>
+  <string name="config_showCameraAction_summary">Zobrazí ikonu fotoaparátu v lište s akciami</string>
   <string name="config_followGPSbutton_title">Rozloženie tlačidla nasledovania GPS</string>
   <string name="config_followGPSbutton_summary">Kde bude umiestnené tlačidlo „Nasledovať GPS“</string>
   <string name="config_fullscreenMode_title">Režim na celú obrazovku</string>
   <string name="config_fullscreenMode_summary">Správanie na zariadeniach so softvérovými klávesami.</string>
+  <string name="config_showTolerance_title">Zobraziť toleranciu</string>
+  <string name="config_showTolerance_summary">Zobrazí oblasť, kde môže byť vybraný prvok.</string>
+  <string name="config_use_back_for_undo_title">Použiť kláves späť na vrátenie zmien</string>
+  <string name="config_use_back_for_undo_summary">Použiť kláves späť na vrátenie zmien v hlavom zobrazení úprav</string>
+  <string name="config_enableLightTheme_title">Povoliť svetlý motív</string>
+  <string name="config_enableLightTheme_summary">Svetlý motív s bielymi pozadiami</string>
+  <string name="config_enableAntiAliasing_title">Povoliť vyhladzovanie</string>
+  <string name="config_enableAntiAliasing_summary">Zjemní čiary</string>
+  <string name="config_maxStrokeWidth_title">Max. šírka čiar</string>
+  <string name="config_maxStrokeWidth_summary">Nevykreslí čiaru hrubšiu ako táto hodnota</string>
+  <!--Data and Editing Settings-->
+  <string name="config_category_editing">Nastavenia údajov a úprav</string>
+  <string name="config_forceContextMenu_title">Vždy použiť kontextovú ponuku</string>
+  <string name="config_address_tags">Adresné značky</string>
+  <string name="config_generateAlerts_title">Generovať upozornenia</string>
+  <string name="config_generateAlerts_summary">Generovať upozornenia pre problémy s údajmi alebo poznámkami</string>
+  <string name="config_maxAlertDistance_title">Max. vzdialenosť pre upozornenia</string>
+  <string name="config_maxAlertDistance_summary">Maximálna vzdialenosť problému alebo poznámky od aktuálnej pozície na generovanie upozornenia</string>
+  <string name="config_bugFilter_title">Filtrovať poznámky/chyby</string>
+  <string name="config_bugDownloadRadius_title">Okruh preberania poznámok/chýb</string>
+  <string name="config_closeChangesetOnSave_title">Zavrieť súbor zmien</string>
+  <string name="config_closeChangesetOnSave_summary">Predvolene zavrie súbor zmien pri uložení</string>
+  <!--Location Settings-->
+  <string name="config_gps_distance_title">Minimálna vzdialenosť GPS</string>
+  <!--Server Settings-->
+  <string name="config_loginbutton_title">Používateľský účet</string>
+  <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Veľkosť vyrovnávacej pamäte dlaždíc</string>
   <string name="config_tileCacheSize_summary">Celková veľkosť vyrovnávacej pamäte dlaždíc v MB</string>
+  <!--Miscellaneous-->
+  <string name="config_category_misc">Rôzne</string>
+  <string name="pref_enable_acra">Nahlásiť chyby aplikácie</string>
+  <string name="pref_acra_enabled">Hlásenie chýb povolené</string>
+  <string name="pref_acra_disabled">Hlásenie chýb zakázané</string>
+  <!--Experimental-->
+  <string name="config_voiceCommandsEnabled_title">Povoliť hlasové povely</string>
+  <!---->
+  <string name="config_username_title">Používateľské meno OSM</string>
+  <string name="config_password_title">Heslo OSM</string>
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovať predvoľbu</string>
   <string name="preset_download_successful">Predvoľba úspešne prevzatá</string>
@@ -451,10 +461,6 @@
   <string name="undo_action_extract_node">extrahovanie uzlu</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Aplikácia Vespucci zlyhala alebo narazila na vážny problém počas posledného spustenia.\n\nProsím, pomôžte nám odoslaním chybového hlásenia. Stačí kliknúť na tlačidlo „OK“.\n</string>
-  <string name="config_category_acra">Hlásenie o chybe</string>
-  <string name="pref_enable_acra">Nahlásiť chyby aplikácie</string>
-  <string name="pref_acra_enabled">Hlásenie chýb povolené</string>
-  <string name="pref_acra_disabled">Hlásenie chýb zakázané</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Touto operáciou sa vytvorí cesta s príliš veľkým množstvom uzlov.</string>
   <!--Notifications-->
