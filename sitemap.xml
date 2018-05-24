@@ -18,6 +18,12 @@
     </url>
         
     <url>
+     <loc>/help/en/11.0.0 Release notes/</loc>
+     <lastmod>2018-05-24</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/help/en/10.2.0 Release notes/</loc>
      <lastmod>2018-05-24</lastmod>
      <changefreq>daily</changefreq>

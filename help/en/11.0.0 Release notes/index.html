@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>0.9.9 Release notes - Vespucci</title>
+        <title>11.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -58,8 +58,8 @@
     <a href="../Introduction/">Introduction</a>
 </li>
                             
-<li >
-    <a href="../11.0.0 Release notes/">11.0.0 Release notes</a>
+<li class="active">
+    <a href="./">11.0.0 Release notes</a>
 </li>
                             
 <li >
@@ -74,8 +74,8 @@
     <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
 </li>
                             
-<li class="active">
-    <a href="./">0.9.9 Release notes</a>
+<li >
+    <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
 </li>
                             
 <li >
@@ -210,12 +210,12 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../10.0.0 Release notes/">
+                        <a rel="next" href="../Introduction/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../0.9.8 Release notes/">
+                        <a rel="prev" href="../10.2.0 Release notes/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -229,14 +229,14 @@
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-099-malenki-highlights">Vespucci 0.9.9 "malenki" Highlights</a></li>
-            <li><a href="#end-of-android-22-api-8-support">End of Android 2.2 / API 8 support</a></li>
-            <li><a href="#indoor-mode">Indoor mode</a></li>
-            <li><a href="#changed-geometry-improvement-handle-behaviour">Changed "Geometry Improvement Handle" behaviour</a></li>
-            <li><a href="#opening-hours-editor">Opening hours editor</a></li>
-            <li><a href="#tag-based-filter">Tag based filter</a></li>
-            <li><a href="#preset-based-filter">Preset based filter</a></li>
-            <li><a href="#scripting">Scripting</a></li>
+        <li class="main active"><a href="#vespucci-110-beta-highlights">Vespucci 11.0 BETA Highlights</a></li>
+            <li><a href="#layer-control">Layer control</a></li>
+            <li><a href="#support-for-geojson-layers">Support for GeoJSON layers</a></li>
+            <li><a href="#re-arranged-preferences">Re-arranged Preferences</a></li>
+            <li><a href="#undoredo-of-individual-checkpoints">Undo/redo of individual checkpoints</a></li>
+            <li><a href="#review-changes-before-upload">Review changes before upload</a></li>
+            <li><a href="#auto-presets-from-taginfo">Auto-Presets from taginfo</a></li>
+            <li><a href="#improved-country-specific-tagging">Improved country specific tagging</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
@@ -244,59 +244,74 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="vespucci-099-malenki-highlights">Vespucci 0.9.9 "malenki" Highlights</h1>
-<p>This release is dedicated to the memory of Thomas Bellmann "malenki", an engaged OpenStreetMap contributor and Vespucci user.</p>
-<h2 id="end-of-android-22-api-8-support">End of Android 2.2 / API 8 support</h2>
-<p>Release 0.9.9 no longer supports Android 2.2. Google has removed 2.2 support from the libraries we use to provide backwards compatible support and there doesn't seem to be a way that we can replace them in any reasonable fashion. Even as is, we cannot use the latest version of these libraries that would match the Android version we are building against.</p>
-<p>As Android 2.2 was released in May 2010, nearly 7 years ago, we hope that this change does not affect all too many users.</p>
-<h2 id="indoor-mode">Indoor mode</h2>
-<p>Long pressing the lock icon will cycle through:</p>
+<h1 id="vespucci-110-beta-highlights">Vespucci 11.0 BETA Highlights</h1>
+<h2 id="layer-control">Layer control</h2>
+<p>The most obvious visual difference in version 11 is the layer control on the main map view. </p>
+<p>Currently it is not possible to change the ordering or add more than one layer of a specific type, supported functionality:  </p>
 <ul>
-<li>Normal editing mode</li>
-<li>Tag only mode</li>
-<li>Indoor editing mode</li>
+<li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
+<li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
+<li>Menu button.<ul>
+<li>Tile based layers: <ul>
+<li>Select imagery. Same contents as on the prefernce screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.</li>
+<li>Flush tile cache. Moved here from main menu.</li>
+<li>Background properties. Set contrast of layer, moved here from main menu.</li>
 </ul>
-<p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show everything that doesn’t have a level tag (roughly, it is slightly more complicated than that). </p>
-<h2 id="changed-geometry-improvement-handle-behaviour">Changed "Geometry Improvement Handle" behaviour</h2>
-<p>Geometry improvement handles on ways now work as they do with iD: </p>
-<ul>
-<li>Select way</li>
-<li>Drag handle (default rendering is a red x)</li>
-<li>Way remains selected</li>
-<li>Drag handle</li>
-<li>.. and so on ...</li>
+</li>
+<li>GeoJSON layer. <ul>
+<li>Change style. Show the layer styling dialog.</li>
+<li>Discard. Delete the layer including any saved state.</li>
 </ul>
-<p>The trade-off is that now more care has to be exercised when dragging ways.</p>
-<h2 id="opening-hours-editor">Opening hours editor</h2>
-<p>On devices with Android 3.1 and later, opening_hours, service_times and collection_times tags can be created and edited with a form interface. Opening hour strings will be auto corrected if possible. The UI for this is still in development, but is already very usable. More information can be found in the source code repositories <a href="https://github.com/simonpoole/OpeningHoursFragment">OpeningHoursFragment</a>  and <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>,</p>
-<h2 id="tag-based-filter">Tag based filter</h2>
-<p>The filter can be enabled from the normal main menu, the filter can then be changed by tapping the filter icon. More documentation can be found on device or <a href="https://github.com/MarcusWolschon/osmeditor4android/blob/master/documentation/docs/help/en/Tag%20filter.md">here</a>.</p>
-<h2 id="preset-based-filter">Preset based filter</h2>
-<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog, similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group).</p>
-<h2 id="scripting">Scripting</h2>
-<p>Presets now support a "javascript" property that allows a script to manipulate tags, for example a "check_date" tag can be auto filled with the current date. An <a href="https://github.com/simonpoole/preset-scripting-examples">example preset</a>.  Outside of the use in presets, scripts can be run in an expanded mode via the "JS Console". This is currently of limited usefulness as there is no documentation, however it is intended to add that for future releases.</p>
+</li>
+<li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.<ul>
+<li>Change style. Show the layer styling dialog.</li>
+</ul>
+</li>
+<li>Photo, Grid and Task layers.<ul>
+<li>Disable. Turn this layer off, needs to be re-anbled via proferences. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"+" button: <ul>
+<li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
+<li>Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.</li>
+<li>Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.</li>
+</ul>
+</li>
+</ul>
+<h2 id="support-for-geojson-layers">Support for GeoJSON layers</h2>
+<p>A single (currently) GeoJSON based layer can be displayed on the map, individual elements are selectable. On loading the GeoJSON data from a file colour, stroke width and a tag for displaying a label can be selected.</p>
+<p>A typical use case would be to verify third party data in GeoJSON format on the ground and similar mapping activities. </p>
+<h2 id="re-arranged-preferences">Re-arranged Preferences</h2>
+<p>The two preferences screens have been re-arranged with just the most important settings on the first screen and the "Advanced preference" screen split up in to multiple sub-screens.</p>
+<p>The Authors and Licence screen has been move to the main menu, just as the Debug screen has.</p>
+<h2 id="undoredo-of-individual-checkpoints">Undo/redo of individual checkpoints</h2>
+<p>Previously selecting an undo or redo checkpoint from the undo menu (long press on the undo icon), always undid/redid all checkpoints back to that point in time. In Vespucci 11 a dialog is shown that allows you to select the previous behaviour or to undo/redo just the single selected checkpoint.</p>
+<p>While selecting just one checkpoint will result in consistent data, it may have unintended consequences as all elements changed in the checkpoint will be reinstated to the stored state when the checkpoint was created, except if elements are referenced, for example way nodes or relation members, that have been deleted in later edits. References to deleted objects will not be re-created, including relation memberships in later deleted relations.</p>
+<p>Example: as the first operation you split a way, as the second step you delete one of the two halves of the way. Undoing the first operation will only add way nodes back that were not removed in the second step.</p>
+<p>Simple tag changes in a checkpoint can in general be undone without negative consequences.</p>
+<h2 id="review-changes-before-upload">Review changes before upload</h2>
+<p>Entries on the list of the created, changed and deleted elements can now be selected and the actual changes inspected. Elements that have failed the validator tests will have a red icon displayed. </p>
+<h2 id="auto-presets-from-taginfo">Auto-Presets from taginfo</h2>
+<p>The results in the preset search are now complemented by results from querying Jochen Tops <a href="https://taginfo.openstreetmap.org/">taginfo service</a>, currently this requires network connectivity to work and will only return results for tags that have at least one wiki page. In general so generated presets should not be taken as gospel and the tagging will typically need some manual work. </p>
+<p>Selected search results from taginfo are added to a special preset file that is stored on device in the public Vespucci directory, this can be used as a starting point for creating a proper preset for the object in question. </p>
+<p>This feature can be turned off in the Advanced preferences "Data and Editing settings". </p>
+<h2 id="improved-country-specific-tagging">Improved country specific tagging</h2>
+<p>It is now possible to add more country specific tagging rules. For now, besides the already existing check for use of imperial units in a territory, we support lists of speed limits for use in the property editor, if info is missing for your country you can provide them at <a href="https://github.com/simonpoole/geocontext">geocontext repository</a>. </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
-<li>the "Find" search function now supports Photon based geocoders. The default configuration of the OSMF Nominatim and Komoot's Photon instances can be changed in the advanced preferences.</li>
-<li>presets support a "deprecated" property that allows them to be matched for the map display and in the form-based tag editor, but they are not offered and found for new use.</li>
-<li>support for opening a photo viewer in a split window on Android N and later.</li>
-<li>a lot of work has been done to make it easier to contribute to Vespucci, this includes migrating to the new standard Android project layout, making more operations available via gradle tasks and adding tests for a substantial part of the code.</li>
-<li>timestamps are now retained on downloaded elements, the value is displayed in the info dialog </li>
-<li>a small set of objects (shops, restaurants, etc) are checked for if their last edit or check_date tag is more than 1 year back, if this is the case the object is highlighted and an alert is generated.</li>
-<li>increased maximum supported zoom so that very small objects can be drawn (please see Known Problems), at the equator the minimum width of the displayed map is now limited to roughly 3 meters compared to the previous 11 meters. </li>
-<li>populate most recently used preset list from manually entered tags.</li>
-<li>the 255 character length limit on tag key, value and relation member role values is now enforced in the editor, previously uploads with such data would fail. </li>
+<li>Support for icons in preset combos and multi-selects.</li>
+<li>The info display for selected elements will now show the original state of the element side by side with the current state if the element has been modified.</li>
+<li>Bugs and Notes that have been closed but not uploaded yet, have their own, not very distinctive, blue-green icon.</li>
+<li>Fields declared as phone or fax numbers in a preset will show the devices phone number keyboard</li>
+<li>Free form preset text fields that neither have an existing value nor pre-defined values will have device text suggestions and spelling correction enabled (note this will not be the case for "name" tags)</li>
 </ul>
 <p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
 <h1 id="known-problems">Known problems</h1>
-<ul>
-<li>Due to a change in the way Android N handles URIs that reference on-device files it may not be possible to display photos that are on removable storage. The current workaround of this problem may not work on your device or go away in future Android versions. </li>
-<li>Some manipulations of very small objects (dimensions roughly 1 meter and smaller), in particular rotation, orthogonalisation and arranging in a circle will possibly not show good results due to the maximum resolution of OSM data which is roughly 1cm at the equator.</li>
-</ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
-<li>For known problems with the beta build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul></div>
                 
         </div>

@@ -59,6 +59,10 @@
 </li>
                             
 <li >
+    <a href="../../help/en/11.0.0 Release notes/">11.0.0 Release notes</a>
+</li>
+                            
+<li >
     <a href="../../help/en/10.2.0 Release notes/">10.2.0 Release notes</a>
 </li>
                             
@@ -241,7 +245,7 @@
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
 <p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
 <h3 id="supported-josm-preset-elements-and-attributes">Supported JOSM Preset Elements and Attributes</h3>
-<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value.  </p>
+<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.</p>
 <table>
 <thead>
 <tr>
@@ -759,7 +763,7 @@
 <tr>
 <td></td>
 <td>icon</td>
-<td>ignored</td>
+<td>supported</td>
 <td></td>
 </tr>
 <tr>
@@ -941,14 +945,27 @@
 <li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
 <li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
 <li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
-<li><em>value_type</em> type of the value: <em>opening_hours</em>, <em>opening_hours_plus</em>, <em>conditional</em>, <em>integer</em>, <em>website</em>, <em>phone</em>, <em>wikipedia</em>, <em>wikidata</em> this avoids having to hardcode this in applications, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
-</ul></div>
+<li>
+<p><em>value_type</em> type of the value: </p>
+<ul>
+<li><em>opening_hours</em> a normal opening hours syntax tag</li>
+<li><em>opening_hours_mixed</em> a tag with both text values and opening hours, examples: <em>fee</em>, <em>supervised</em> and <em>lit</em></li>
+<li><em>conditional</em> conditional access tag</li>
+<li><em>integer</em> a integer numeric value</li>
+<li><em>website</em> an URL for a website</li>
+<li><em>phone</em> a phone number</li>
+<li><em>wikipedia</em> a wikipedia page</li>
+<li><em>wikidata</em>  a wikidata Q ref</li>
+</ul>
+</li>
+</ul>
+<p>this avoids having to hardcode such properties in applications, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example.</p></div>
                 
         </div>
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 10.2.0 </p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.0.0 </p>
         </footer>
         <script>var base_url = '../..';</script>
         <script src="../../js/base.js"></script>
