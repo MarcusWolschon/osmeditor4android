@@ -806,6 +806,7 @@ public class Preset implements Serializable {
                                 if (chunk.getFixedTagCount() > 0) {
                                     Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
                                 }
+                                currentItem.optionalTags.putAll(chunk.getRecommendedTags());
                             } else {
                                 currentItem.fixedTags.putAll(chunk.getFixedTags());
                                 if (!currentItem.isChunk()) {
@@ -820,8 +821,9 @@ public class Preset implements Serializable {
                                         currentItem.addToAutosuggest(key, v);
                                     }
                                 }
+                                currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
                             }
-                            currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
+                            
                             addToTagItems(currentItem, chunk.getRecommendedTags());
                             currentItem.optionalTags.putAll(chunk.getOptionalTags());
                             addToTagItems(currentItem, chunk.getOptionalTags());

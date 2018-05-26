@@ -17,6 +17,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.OsmElement.ElementType;
+import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.SearchIndexUtils;
@@ -45,6 +46,10 @@ public class PresetTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Test that we match the expected PresetItem
+     * 
+     */
     @Test
     public void matching() {
         //
@@ -75,14 +80,31 @@ public class PresetTest {
         Assert.assertTrue(result.contains("right"));
     }
 
+    /**
+     * Deprecated items should not be in the search index
+     */
     @Test
     public void deprecation() {
-        // deprecated items should not be in the search index
         PresetItem landuseFarm = presets[0].getItemByName("Farm (deprecated)");
         PresetItem placeFarm = presets[0].getItemByName("Farm");
         Assert.assertNotNull(landuseFarm);
         List<PresetElement> result = SearchIndexUtils.searchInPresets(main, "farm", ElementType.CLOSEDWAY, 2, 10);
         Assert.assertFalse(result.contains(landuseFarm));
         Assert.assertTrue(result.contains(placeFarm));
+    }
+    
+    /**
+     * Optional items should be that
+     */
+    @Test
+    public void optional() {
+        PresetItem path = presets[0].getItemByName("Path");
+        Assert.assertNotNull(path);
+        // name is in a chunk that is loaded in an optional section
+        Assert.assertFalse(path.hasKey(Tags.KEY_NAME, false));
+        Assert.assertTrue(path.hasKey(Tags.KEY_NAME, true));
+        // mtb:scale is directly in an optional section
+        Assert.assertFalse(path.hasKey("mtb:scale", false));
+        Assert.assertTrue(path.hasKey("mtb:scale", true)); 
     }
 }
