@@ -34,6 +34,13 @@ public class TaginfoServer {
 
     protected static final String DEBUG_TAG = TaginfoServer.class.getSimpleName();
 
+    private static final String DATA_NAME        = "data";
+    private static final String KEY_NAME         = "key";
+    private static final String VALUE_NAME       = "value";
+    private static final String COUNT_ALL_NAME   = "count_all";
+    private static final String COUNT_NAME       = "count";
+    private static final String DESCRIPTION_NAME = "description";
+
     /**
      * A search result as return by the search API calls
      * 
@@ -41,22 +48,30 @@ public class TaginfoServer {
      * 
      */
     public static class SearchResult {
+
         private String key;
         private String value;
         private int    count = 0;
 
+        /**
+         * Construct a new SearchResult from JSON
+         * 
+         * @param reader the JsonReader
+         * @param lang the preferred language
+         * @throws IOException
+         */
         SearchResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {
             reader.beginObject();
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
                 switch (jsonName) {
-                case "key":
+                case KEY_NAME:
                     key = reader.nextString();
                     break;
-                case "value":
+                case VALUE_NAME:
                     value = reader.nextString();
                     break;
-                case "count_all":
+                case COUNT_ALL_NAME:
                     count = reader.nextInt();
                     break;
                 default:
@@ -106,6 +121,13 @@ public class TaginfoServer {
         private String       titleOther    = null;
         private List<String> combinations  = new ArrayList<>();
 
+        /**
+         * Construct a new WikiPageResult from JSON
+         * 
+         * @param reader the JsonReader
+         * @param lang the preferred language
+         * @throws IOException
+         */
         WikiPageResult(@NonNull JsonReader reader, String lang) throws IOException {
 
             String tempLang = null;
@@ -120,7 +142,7 @@ public class TaginfoServer {
             reader.beginObject();
             while (reader.hasNext()) {
                 String jsonName = reader.nextName();
-                if ("data".equals(jsonName)) {
+                if (DATA_NAME.equals(jsonName)) {
                     reader.beginArray();
                     while (reader.hasNext()) {
                         reader.beginObject();
@@ -134,7 +156,7 @@ public class TaginfoServer {
                             case "title":
                                 tempTitle = reader.nextString();
                                 break;
-                            case "description":
+                            case DESCRIPTION_NAME:
                                 tempDescription = reader.nextString();
                                 break;
                             case "on_node":
@@ -261,13 +283,30 @@ public class TaginfoServer {
     }
 
     public static class ValueResult extends StringWithDescription {
+        private static final long serialVersionUID = 1L;
+
         private int count;
 
-        public ValueResult(String value, String description, int count) {
+        /**
+         * Construct a new ValueResult
+         * 
+         * @param value the value
+         * @param description optional description
+         * @param count how many times this value occurs
+         */
+        public ValueResult(@NonNull String value, @Nullable String description, int count) {
             super(value, description);
             this.count = count;
         }
 
+        /**
+         * Get a new ValueResult from JSON
+         * 
+         * @param reader the JsonReader
+         * @param lang the preferred language
+         * @return a new ValueReader instance
+         * @throws IOException
+         */
         public static ValueResult newValueResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {
 
             String tempValue = null;
@@ -276,13 +315,13 @@ public class TaginfoServer {
             reader.beginObject();
             while (reader.hasNext()) {
                 switch (reader.nextName()) {
-                case "value":
+                case VALUE_NAME:
                     tempValue = reader.nextString();
                     break;
-                case "count":
+                case COUNT_NAME:
                     tempCount = reader.nextInt();
                     break;
-                case "description":
+                case DESCRIPTION_NAME:
                     tempDescription = reader.nextString();
                     break;
                 default:
@@ -376,13 +415,12 @@ public class TaginfoServer {
                 List<SearchResult> result = new ArrayList<>();
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    if ("data".equals(reader.nextName())) {
+                    if (DATA_NAME.equals(reader.nextName())) {
                         reader.beginArray();
                         while (reader.hasNext()) {
                             try {
                                 SearchResult searchResult = new SearchResult(reader, null);
                                 result.add(searchResult);
-                                Log.d(DEBUG_TAG, "received: " + searchResult.toString());
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, e.getMessage());
                             }
@@ -445,13 +483,14 @@ public class TaginfoServer {
                 List<ValueResult> result = new ArrayList<>();
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    if ("data".equals(reader.nextName())) {
+                    if (DATA_NAME.equals(reader.nextName())) {
                         reader.beginArray();
                         while (reader.hasNext()) {
                             try {
                                 ValueResult valueResult = ValueResult.newValueResult(reader, null);
-                                result.add(valueResult);
-                                Log.d(DEBUG_TAG, "received: " + valueResult.toString());
+                                if (!"*".equals(valueResult.getValue())) { // we definitely never want to return *
+                                    result.add(valueResult);
+                                }
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, e.getMessage());
                             }
@@ -487,13 +526,12 @@ public class TaginfoServer {
                 SearchResult result = null;
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    if ("data".equals(reader.nextName())) {
+                    if (DATA_NAME.equals(reader.nextName())) {
                         reader.beginArray();
                         while (reader.hasNext()) {
                             if (result == null) {
                                 try {
                                     result = new SearchResult(reader, null);
-                                    Log.d(DEBUG_TAG, "received: " + result.toString());
                                 } catch (IOException e) {
                                     Log.e(DEBUG_TAG, e.getMessage());
                                 }
@@ -535,7 +573,7 @@ public class TaginfoServer {
                 List<String> result = new ArrayList<>();
                 reader.beginObject();
                 while (reader.hasNext()) {
-                    if ("data".equals(reader.nextName())) {
+                    if (DATA_NAME.equals(reader.nextName())) {
                         reader.beginArray();
                         while (reader.hasNext()) {
                             try {
@@ -562,7 +600,6 @@ public class TaginfoServer {
                                 } else {
                                     result.add(otherKey + "=" + otherValue);
                                 }
-                                Log.d(DEBUG_TAG, "received: " + result.get(result.size() - 1));
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, e.getMessage());
                             }

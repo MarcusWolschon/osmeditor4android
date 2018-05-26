@@ -76,7 +76,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
-                   | values_from                   | ignored   |
+                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
 __&lt;multiselect&gt;__      |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
@@ -94,7 +94,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
-                   | values_from                   | ignored   |
+                   | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
                    | rows                          | ignored   |
 __&lt;list_entry&gt;__       |                               | supported |  
                    | value                         | supported | required 

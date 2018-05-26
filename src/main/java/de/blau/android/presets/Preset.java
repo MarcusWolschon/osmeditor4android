@@ -49,6 +49,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -133,6 +134,7 @@ public class Preset implements Serializable {
     private static final String SHORT_DESCRIPTIONS  = "short_descriptions";
     private static final String DISPLAY_VALUES      = "display_values";
     private static final String VALUES              = "values";
+    private static final String VALUES_FROM         = "values_from";
     private static final String DELIMITER           = "delimiter";
     private static final String COMBO_FIELD         = "combo";
     private static final String MULTISELECT_FIELD   = "multiselect";
@@ -747,13 +749,17 @@ public class Preset implements Serializable {
                         String displayValues = attr.getValue(DISPLAY_VALUES);
                         String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
                         valuesContext = attr.getValue(VALUES_CONTEXT);
+                        String valuesFrom = attr.getValue(VALUES_FROM);
+                        final PresetKeyType keyType = multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO;
                         if (values != null) {
-                            currentItem.addTag(inOptionalSection, key, multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO, values, displayValues,
-                                    shortDescriptions, delimiter, valuesContext);
+                            currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter, valuesContext);
+                        } else if (valuesFrom != null) {
+                            setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter);
                         } else {
                             listKey = key;
                             listValues = new ArrayList<>();
                         }
+
                         String defaultValue = attr.getValue(DEFAULT);
                         if (defaultValue != null) {
                             currentItem.addDefault(key, defaultValue);
@@ -823,7 +829,7 @@ public class Preset implements Serializable {
                                 }
                                 currentItem.recommendedTags.putAll(chunk.getRecommendedTags());
                             }
-                            
+
                             addToTagItems(currentItem, chunk.getRecommendedTags());
                             currentItem.optionalTags.putAll(chunk.getOptionalTags());
                             addToTagItems(currentItem, chunk.getOptionalTags());
@@ -870,6 +876,41 @@ public class Preset implements Serializable {
                     Log.d(DEBUG_TAG, name + " must be in a preset item");
                     throw new SAXException(name + " must be in a preset item");
                 }
+            }
+
+            /**
+             * Set values by calling a method
+             * 
+             * As this might take longer and include network calls it needs to be done async, however on the other hand
+             * this may cause concurrent modification expection and have to be looked at
+             * 
+             * @param key the key we want values for
+             * @param valuesFrom the method spec as a String
+             * @param keyType what kind of key this is
+             * @param item the PresetItem we want to add this to
+             * @param inOptionalSection if this key optional
+             * @param delimiter delimiter for multi-valued keys
+             */
+            private void setValuesFromMethod(final String key, final String valuesFrom, final PresetKeyType keyType, final PresetItem item,
+                    final boolean inOptionalSection, final String delimiter) {
+                (new AsyncTask<Void, Void, Object>() {
+                    @Override
+                    protected Object doInBackground(Void... params) {
+                        Object result = de.blau.android.presets.Util.invokeMethod(valuesFrom, key);
+                        if (result instanceof String[]) {
+                            int count = ((String[]) result).length;
+                            StringWithDescription[] valueArray = new StringWithDescription[count];
+                            for (int i = 0; i < count; i++) {
+                                StringWithDescription swd = new StringWithDescription(((String[]) result)[i]);
+                                valueArray[i] = swd;
+                            }
+                            item.addTag(inOptionalSection, key, keyType, valueArray, delimiter);
+                        } else if (result instanceof StringWithDescription[]) {
+                            item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) result, delimiter);
+                        }
+                        return null;
+                    }
+                }).execute();
             }
 
             void addToTagItems(PresetItem currentItem, Map<String, StringWithDescription[]> tags) {
@@ -922,6 +963,7 @@ public class Preset implements Serializable {
                     listValues = null;
                 }
             }
+
         });
     }
 
