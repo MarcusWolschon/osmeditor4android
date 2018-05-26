@@ -17,6 +17,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -176,13 +177,13 @@ public class LayerDialogTest {
     }
 
     /**
+     * Get one of the buttons for a specific layer
      * 
-     * 
-     * @param layer
-     * @param buttonIndex
-     * @return
+     * @param layer the name of the layer
+     * @param buttonIndex the index of the button in the TableRow
+     * @return an UiObject2 for the button in question
      */
-    private UiObject2 getLayerButton(String layer, int buttonIndex) {
+    private UiObject2 getLayerButton(@NonNull String layer, int buttonIndex) {
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/layers", true));
         BySelector bySelector = By.textStartsWith(layer);
         UiObject2 layerName = device.wait(Until.findObject(bySelector), 500);

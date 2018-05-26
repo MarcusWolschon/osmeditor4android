@@ -38,6 +38,9 @@ public class PresetTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Before test setup
+     */
     @Before
     public void setup() {
         main = (Main) mActivityRule.getActivity();
@@ -48,7 +51,6 @@ public class PresetTest {
 
     /**
      * Test that we match the expected PresetItem
-     * 
      */
     @Test
     public void matching() {
