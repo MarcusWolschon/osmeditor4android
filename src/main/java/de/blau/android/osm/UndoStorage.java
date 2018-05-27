@@ -45,8 +45,6 @@ public class UndoStorage implements Serializable {
 
     private static final String DEBUG_TAG = "UndoStorage";
 
-    private static final int MAX_UNDO_CHECKPOINTS = 100;
-
     // Original storages for "contains" checks and restoration
     private Storage       currentStorage;
     private final Storage apiStorage;
@@ -92,10 +90,6 @@ public class UndoStorage implements Serializable {
             // Empty checkpoint exists, just rename it
             Log.d("UndoStorage", "renaming checkpoint " + name);
             undoCheckpoints.getLast().setName(name);
-        }
-
-        while (undoCheckpoints.size() > MAX_UNDO_CHECKPOINTS) {
-            undoCheckpoints.removeFirst();
         }
     }
 
