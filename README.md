@@ -30,7 +30,9 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
     * JOSM presets support
     * Download and upload to OSM server
     * Saving and reading of JOSM format OSM data files
-    * Highlight unnamed highways, and ways/nodes with TODOs or FIXMEs
+    * Highlight objects with missing tags like unnamed roads
+    * Highlight ways/nodes with TODOs or FIXMEs
+    * Highlight very old objects that are likely to be outdated
     * Add, comment and close OSM Notes
     * Use a variety of background tile layers as reference
     * Show the user's GPS track with accuracy
