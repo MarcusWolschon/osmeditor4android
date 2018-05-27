@@ -11,6 +11,8 @@
     <string name="help_wayselection">Выделенная линия</string>
     <string name="help_aligningbackgroundiamgery">Выравнивание подложки</string>
     <string name="help_propertyeditor">Редактор свойств</string>
+    <string name="help_preferences">Настройки</string>
+    <string name="help_advanced_preferences">Расширенные настройки</string>
     <string name="help_presets">Заготовки</string>
     <string name="help_conflictresolution">Решение конфликтов</string>
     <string name="help_gpssources">Источники GPS</string>
@@ -19,6 +21,7 @@
     <string name="help_presetfilter">Фильтр заготовок</string>
     <string name="help_opening_hours">Время работы</string>
     <string name="help_upgrade">Примечания к версии</string>
+    <string name="help_upgrade_102">Примечания к версии 10.2</string>
     <string name="help_upgrade_101">Примечания к версии 10.1</string>
     <string name="help_upgrade_100">Примечания к версии 10.0</string>
     <string name="help_upgrade_099">Примечания к версии 0.9.9</string>

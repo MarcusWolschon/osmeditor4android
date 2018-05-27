@@ -1206,7 +1206,7 @@
             <space />
             <key key="bicycle_road" value="yes" />
             <key key="bicycle" value="designated" />
-            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" />
+            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" match="none" />
             <text key="name" text="Name" />
             <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access" />
             <text key="maxspeed" text="Max. speed" default="30" />

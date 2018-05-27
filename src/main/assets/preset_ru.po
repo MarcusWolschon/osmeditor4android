@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-24 21:11+0000\n"
+"Last-Translator: Yury Lebedev\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6295,7 +6295,7 @@ msgstr ""
 
 #: master_preset.xml:11622(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Фотографии"
 
 #: master_preset.xml:2804(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"

@@ -11,6 +11,8 @@
     <string name="help_wayselection">Percorso selezionato</string>
     <string name="help_aligningbackgroundiamgery">Allinea immagini di sfondo</string>
     <string name="help_propertyeditor">Editor delle proprietà</string>
+    <string name="help_preferences">Preferenze</string>
+    <string name="help_advanced_preferences">Preferenze avanzate</string>
     <string name="help_presets">Predefiniti</string>
     <string name="help_conflictresolution">Risoluzione dei conflitti</string>
     <string name="help_gpssources">Dispositivi GPS</string>
@@ -19,6 +21,7 @@
     <string name="help_presetfilter">Filtro predefiniti</string>
     <string name="help_opening_hours">Orari di apertura</string>
     <string name="help_upgrade">Informazioni sulla versione</string>
+    <string name="help_upgrade_102">10.2 Note di rilascio</string>
     <string name="help_upgrade_101">10.1 Note di rilascio</string>
     <string name="help_upgrade_100">10.0 Note di rilascio</string>
     <string name="help_upgrade_099">0.9.9 Note di rilascio</string>

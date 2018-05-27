@@ -132,6 +132,8 @@
   <string name="element">elemento</string>
   <string name="last_updated">ultimo aggiornamento</string>
   <string name="last_edited">Ultima modifica</string>
+  <string name="original">Originale</string>
+  <string name="current">Attuale</string>
   <!---->
   <string name="error">errore</string>
   <string name="warning">avviso</string>
@@ -188,9 +190,22 @@
   <string name="toast_invalid_box">Riquadro di selezione non valido</string>
   <string name="delete_layer">Eliminare il livello?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Stile livello</string>
+  <string name="layer_style_color">Colore</string>
+  <string name="layer_style_label">Etichetta</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Griglia</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Foto</string>
+  <string name="layer_data">Dati OSM</string>
+  <string name="layer_flush_tile_cache">Cancella la cache delle immagini</string>
+  <string name="layer_change_style">Cambia stile</string>
+  <string name="layer_select_imagery">Seleziona immagini</string>
   <!--Undo - Redo dialog-->
+  <string name="undo_redo_title">Annulla - Ripeti</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
@@ -303,7 +318,9 @@
   <string name="forward">Avanti</string>
   <string name="keep">Mantieni</string>
   <string name="enable">Abilita</string>
+  <string name="disable">Disabilita</string>
   <string name="clear">Pulisci</string>
+  <string name="discard">Elimina</string>
   <string name="retry">Riprova</string>
   <string name="read">Leggi</string>
   <string name="overwrite">Sovrascrivi</string>
@@ -311,6 +328,8 @@
   <string name="share_position">Condividi posizione</string>
   <string name="min">Min.</string>
   <string name="max">Max.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Nessuno</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vuoi uscire veramente?</string>
   <string name="exit_text">Sei sicuro di voler uscire?</string>
@@ -462,6 +481,7 @@
   <string name="menu_voice_commands">Comandi vocali</string>
   <string name="menu_set_name">Imposta un nome</string>
   <string name="tag_form_unknown_element">Elemento sconosciuto (nessun predefinito trovato)</string>
+  <string name="menu_tools">Strumenti...</string>
   <string name="menu_tools_imagery">Ulteriori strumenti per le immagini</string>
   <string name="menu_tools_add_imagery_from_oam">Aggiungi immagini da OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Cancella la cache di tutti i livelli di immagini</string>
@@ -480,6 +500,8 @@
   <string name="menu_tools_background_contrast">Contrasto</string>
   <string name="menu_tools_oauth_reset">Resetta OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizza OAuth</string>
+  <string name="menu_layers">Livelli...</string>
+  <string name="menu_layers_load_geojson">Carica livello GeoJSON</string>
   <string name="menu_enable_tagfilter">Filtro etichette</string>
   <string name="menu_enable_presetfilter">Filtro predefiniti</string>
   <string name="preset_menu_waynodes">Includi i nodi del percorso</string>
@@ -496,6 +518,7 @@
   <string name="deleteway_relation_description">Stai per cancellare una via membro di una o più relazioni. Cancellare la via dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deleteway_nodesnotdownloaded_description">La strada contiene dei nodi al di fuori dell\'area scaricata e non può essere eliminata senza portare ad uno stato inconsistente. Scarica l\'intera strada prima di riprovare.</string>
   <string name="deleteway_wayonly">Cancella solo il percorso</string>
+  <string name="deleteway_wayandnodes">Elimina percorso</string>
   <string name="deletenode_relation_description">Stai per cancellare un nodo membro di una o più relazioni. Cancellare il nodo dalla/e relazione/i potrebbe renderla/e invalida/e.</string>
   <string name="deletenode">Cancella nodo</string>
   <string name="split_all_ways">Dividi tutti i percorsi</string>
@@ -522,6 +545,7 @@
   <string name="config_overlayLayer_title">Mappa sovrapposta</string>
   <string name="config_customlayers_title">Livelli personalizzati</string>
   <string name="config_scale_title">Visibilità della scala grafica</string>
+  <string name="config_mapProfile_title">Stile dati</string>
   <string name="config_enableOpenStreetBugs_title">Abilita la visualizzazione di bug e note</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note/segnalazioni.</string>
   <string name="config_enablePhotoLayer_title">Abilita il livello delle foto</string>
@@ -576,6 +600,7 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Impostazioni sui dati e sulle modifiche</string>
+  <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
   <string name="config_forceContextMenu_title">Usa sempre menu contestuale</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_address_tags_summary">Etichette utilizzate per la predizione dell\'indirizzo</string>
@@ -647,6 +672,7 @@
   <string name="config_showStats_title">Mostra statistiche</string>
   <string name="config_showStats_summary">Mostra dati statistiche e frames/sec nell\'angolo inferiore sinistro.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Sperimentale</string>
   <string name="config_js_console_title">Attiva console JS</string>
   <string name="config_js_console_summary">Rendi la console JS disponibile in modalità \"live\"</string>
   <string name="config_voiceCommandsEnabled_title">Abilita comandi vocali</string>
@@ -670,6 +696,9 @@
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>
   <string name="changes_created">\"%1$s\" creato</string>
+  <string name="confirm_upload_title">Carica le modifiche sul server</string>
+  <string name="confirm_one_upload_text_1">Caricare la seguente modifica?</string>
+  <string name="confirm_multiple_upload_text_1">Caricare le seguenti 1%1$d modifiche?</string>
   <string name="confirm_upload_edits_page">Modifiche</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>

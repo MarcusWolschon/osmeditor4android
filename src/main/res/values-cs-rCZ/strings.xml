@@ -177,7 +177,14 @@
   <string name="delete_layer">Smazat vrstvu?</string>
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
+  <string name="layer_select_imagery">Zvolit snímky</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Kontrolní body</string>
+  <string name="undo_redo_title">Zpět - Vpřed</string>
+  <string name="undo_redo_one">Pouze zvolený kontrolní bod (nebezpečné)</string>
+  <string name="undo_all">Vrátit i novější body (bezpečné)</string>
+  <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
   <!--BoxPicker-->
   <!--Toaster-->
   <string name="toast_name_empty">Název nesmí být prázdný</string>
@@ -277,6 +284,7 @@
   <string name="forward">Vpřed</string>
   <string name="keep">Zachovat</string>
   <string name="enable">Povolit</string>
+  <string name="disable">Zakázat</string>
   <string name="clear">Smazat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="read">Načíst</string>
@@ -492,6 +500,7 @@
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_overlayLayer_title">Překrytí mapy</string>
   <string name="config_customlayers_title">Vlastní vrstvy</string>
+  <string name="config_customlayers_summary">Nastavení vrstev, které nejsou ve výchozí konfiguraci</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_enableOpenStreetBugs_title">Povolit zobrazení chyb a poznámek</string>
   <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek/chyb</string>
@@ -505,6 +514,7 @@
   <string name="config_moreprefs">Další nastavení...</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
+  <string name="config_validatorprefs_summary">Nastavení pravidel validátoru</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoři a licence</string>
   <string name="config_debugbutton_title">Ladění</string>
@@ -613,6 +623,7 @@
   <string name="config_showStats_title">Zobrazit statistiku</string>
   <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Experimentální</string>
   <string name="config_js_console_title">Povolit JS konzoli</string>
   <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
   <!---->
@@ -742,6 +753,7 @@
   <string name="km">km</string>
   <string name="meter">metr</string>
   <!--Help system-->
+  <string name="toast_nohelp">Zde není nápověda k dispozici!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>soukromá</item>
