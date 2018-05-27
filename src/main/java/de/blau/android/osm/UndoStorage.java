@@ -45,6 +45,8 @@ public class UndoStorage implements Serializable {
 
     private static final String DEBUG_TAG = "UndoStorage";
 
+    private static final int MAX_UNDO_CHECKPOINTS = 100;
+
     // Original storages for "contains" checks and restoration
     private Storage       currentStorage;
     private final Storage apiStorage;
@@ -86,14 +88,13 @@ public class UndoStorage implements Serializable {
         Log.d("UndoStorage", "creating checkpoint " + name);
         if (undoCheckpoints.isEmpty() || !undoCheckpoints.getLast().isEmpty()) {
             undoCheckpoints.add(new Checkpoint(name));
-            redoCheckpoints.clear();
         } else {
             // Empty checkpoint exists, just rename it
             Log.d("UndoStorage", "renaming checkpoint " + name);
             undoCheckpoints.getLast().setName(name);
         }
 
-        while (undoCheckpoints.size() > 100) {
+        while (undoCheckpoints.size() > MAX_UNDO_CHECKPOINTS) {
             undoCheckpoints.removeFirst();
         }
     }
@@ -132,7 +133,6 @@ public class UndoStorage implements Serializable {
                 return;
             }
             undoCheckpoints.getLast().add(element);
-            redoCheckpoints.clear();
         } catch (Exception ex) {
             ACRAHelper.nocrashReport(ex, ex.getMessage());
         }
@@ -251,6 +251,11 @@ public class UndoStorage implements Serializable {
         private final Map<OsmElement, UndoElement> elements = new HashMap<>();
         private String                             name;
 
+        /**
+         * Construct a new checkpoint
+         * 
+         * @param name name of the checkpoint
+         */
         public Checkpoint(String name) {
             this.name = name;
         }
@@ -310,11 +315,21 @@ public class UndoStorage implements Serializable {
             return elements.isEmpty();
         }
 
+        /**
+         * Get the name of this checkpoint
+         * 
+         * @return the name of the Checkpoint
+         */
         public String getName() {
             return name;
         }
 
-        public void setName(String name) {
+        /**
+         * Set the name of the checkpoint
+         * 
+         * @param name the name to set
+         */
+        public void setName(@NonNull String name) {
             this.name = name;
         }
 
@@ -348,6 +363,11 @@ public class UndoStorage implements Serializable {
 
         private final ArrayList<Relation> parentRelations;
 
+        /**
+         * Create a new undo object
+         * 
+         * @param originalElement the OsmElement we want to save
+         */
         public UndoElement(OsmElement originalElement) {
             element = originalElement;
 
@@ -453,7 +473,14 @@ public class UndoStorage implements Serializable {
             return element.getName() + " #" + Long.toString(element.getOsmId());
         }
 
-        private String getTagValueString(String tag) {
+        /**
+         * Get a formated string version of the tag 
+         * 
+         * @param tag the tag to format
+         * @return a the tag as a string of the form osm element type key:value {@link #osmId}
+         */
+        @Nullable
+        private String getTagValueString(@NonNull String tag) {
             String value = tags.get(tag);
             if (value != null && value.length() > 0) {
                 return element.getName() + " " + tag + ":" + value + " #" + Long.toString(element.getOsmId());
@@ -481,6 +508,11 @@ public class UndoStorage implements Serializable {
         private final int         lat;
         private final int         lon;
 
+        /**
+         * Create a new undo object
+         * 
+         * @param originalNode the Node we want to save
+         */
         public UndoNode(Node originalNode) {
             super(originalNode);
             lat = originalNode.lat;
@@ -518,6 +550,11 @@ public class UndoStorage implements Serializable {
         private static final long serialVersionUID = 1L;
         private ArrayList<Node>   nodes;
 
+        /**
+         * Create a new undo object
+         * 
+         * @param originalWay the Way we want to save
+         */
         public UndoWay(Way originalWay) {
             super(originalWay);
             nodes = new ArrayList<>(originalWay.nodes);
@@ -580,6 +617,11 @@ public class UndoStorage implements Serializable {
         private static final long    serialVersionUID = 1L;
         private List<RelationMember> members;
 
+        /**
+         * Create a new undo object
+         * 
+         * @param originalRelation the Relation we want to save
+         */
         public UndoRelation(Relation originalRelation) {
             super(originalRelation);
             members = new ArrayList<>(originalRelation.members);

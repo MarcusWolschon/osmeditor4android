@@ -94,6 +94,7 @@ public class UndoDialogFactory {
      * Dismiss the dialog and invalidate the main display
      * 
      * @param main the current instance of Main
+     * @param logic the current instance of logic
      * @param dialog the Dialog
      */
     private static void dismissAndInvalidate(@NonNull final Main main, @NonNull Logic logic, @NonNull final DialogInterface dialog) {
@@ -113,7 +114,6 @@ public class UndoDialogFactory {
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             return getItem(position);
         }
-
     }
 
     private static class UndoDialogItem extends AppCompatTextView {
