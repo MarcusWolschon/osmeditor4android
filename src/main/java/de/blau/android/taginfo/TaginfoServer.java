@@ -307,6 +307,7 @@ public class TaginfoServer {
          * @return a new ValueReader instance
          * @throws IOException
          */
+        @NonNull
         public static ValueResult newValueResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {
 
             String tempValue = null;
@@ -330,6 +331,9 @@ public class TaginfoServer {
                 }
             }
             reader.endObject();
+            if (tempValue==null) {
+                throw new IOException("Input missing value");
+            }
             return new ValueResult(tempValue, tempDescription, tempCount);
 
         }

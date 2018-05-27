@@ -91,7 +91,7 @@ public class Preferences {
 
     private final String osmoseServer;
 
-    private final String taginfoServer;
+    private String taginfoServer;
 
     private final boolean showCameraAction;
 
@@ -570,6 +570,16 @@ public class Preferences {
      */
     public String getTaginfoServer() {
         return taginfoServer;
+    }
+    
+    /**
+     * set the configured taginfo server
+     * 
+     * @param url base url for the server
+     */
+    public void setTaginfoServer(String url) {
+        this.taginfoServer = url;
+        prefs.edit().putString(r.getString(R.string.config_taginfoServer_key), url).commit();
     }
 
     public boolean showCameraAction() {
