@@ -83,12 +83,10 @@ public class UndoStorage implements Serializable {
      * @param name the name of the checkpoint, used for debugging and display purposes
      */
     public void createCheckpoint(String name) {
-        Log.d("UndoStorage", "creating checkpoint " + name);
         if (undoCheckpoints.isEmpty() || !undoCheckpoints.getLast().isEmpty()) {
             undoCheckpoints.add(new Checkpoint(name));
         } else {
             // Empty checkpoint exists, just rename it
-            Log.d("UndoStorage", "renaming checkpoint " + name);
             undoCheckpoints.getLast().setName(name);
         }
     }
@@ -490,6 +488,16 @@ public class UndoStorage implements Serializable {
         public Map<String, String> getTags() {
             return Collections.unmodifiableMap(tags);
         }
+
+        /**
+         * Get the list of parent relations
+         * 
+         * @return an unmodifiable List of the relations or null
+         */
+        @Nullable
+        public List<Relation> getParentRelations() {
+            return parentRelations != null ? Collections.unmodifiableList(parentRelations) : null;
+        }
     }
 
     /**
@@ -623,7 +631,6 @@ public class UndoStorage implements Serializable {
 
         @Override
         public void restore() {
-            Log.d("Undo", "Restoring relation " + element.getDescription());
             super.restore();
             ((Relation) element).members.clear();
             ((Relation) element).members.addAll(members);
@@ -646,6 +653,23 @@ public class UndoStorage implements Serializable {
         public List<RelationMember> getMembers() {
             return Collections.unmodifiableList(members);
         }
+
+        /**
+         * Get the list of all RelationMember objects for the specified OsmElement
+         * 
+         * @param e the OsmElement
+         * @return a List of RelationMembers
+         */
+        public List<RelationMember> getAllMembers(OsmElement e) {
+            List<RelationMember> result = new ArrayList<>();
+            for (int i = 0; i < members.size(); i++) {
+                RelationMember member = members.get(i);
+                if (member.getElement() == e) {
+                    result.add(member);
+                }
+            }
+            return result;
+        }
     }
 
     /**
@@ -655,16 +679,7 @@ public class UndoStorage implements Serializable {
      * @return a list of names, oldest action first (i.e. the last action will be the first to be undone)
      */
     public String[] getUndoActions(@Nullable Context ctx) {
-        String[] result = new String[undoCheckpoints.size()];
-        int i = 0;
-        for (Checkpoint checkpoint : undoCheckpoints) {
-            String message = checkpoint.getName() + "<br>";
-            for (UndoElement u : checkpoint.elements.values()) {
-                message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
-            }
-            result[i++] = message;
-        }
-        return result;
+        return getCheckpointActions(ctx, undoCheckpoints);
     }
 
     /**
@@ -674,14 +689,27 @@ public class UndoStorage implements Serializable {
      * @return a list of names, newest action first (i.e. the last action will be the first to be redone)
      */
     public String[] getRedoActions(@Nullable Context ctx) {
-        String[] result = new String[redoCheckpoints.size()];
+        return getCheckpointActions(ctx, redoCheckpoints);
+    }
+    
+    /**
+     * Provides a list of names for the checkpoints
+     * 
+     * @param ctx Android context
+     * @param checkpoints List of Checkpoints
+     * @return a list of names of the Checkpoints plus description
+     */
+    private String[] getCheckpointActions(@Nullable Context ctx, List<Checkpoint>checkpoints) {
+        String[] result = new String[checkpoints.size()];
         int i = 0;
-        for (Checkpoint checkpoint : redoCheckpoints) {
-            String message = checkpoint.getName() + "<br>";
+        for (Checkpoint checkpoint : checkpoints) {
+            StringBuilder message = new StringBuilder(checkpoint.getName() + "<br>");
             for (UndoElement u : checkpoint.elements.values()) {
-                message = message + "<small>" + u.getDescription(ctx) + "</small><br>";
+                message.append("<small>");
+                message.append(u.getDescription(ctx));
+                message.append("</small><br>");
             }
-            result[i++] = message;
+            result[i++] = message.toString();
         }
         return result;
     }

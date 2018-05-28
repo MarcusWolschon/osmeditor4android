@@ -7,6 +7,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -327,24 +329,92 @@ public class ElementInfo extends DialogFragment {
                 }
             }
 
-            if (e.getParentRelations() != null && !e.getParentRelations().isEmpty()) {
+            List<Relation> parentsList = e.getParentRelations();
+            List<Relation> origParentsList = compare ? ue.getParentRelations() : null;
+            if ((parentsList != null && !parentsList.isEmpty()) || (origParentsList != null && !origParentsList.isEmpty())) {
                 tl.addView(TableLayoutUtils.divider(activity));
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, null, tp));
-                for (Relation r : e.getParentRelations()) {
-                    RelationMember rm = r.getMember(e);
-                    if (rm != null) {
-                        String role = rm.getRole();
-                        tl.addView(TableLayoutUtils.createRow(activity, role.equals("") ? getString(R.string.empty_role) : role, r.getDescription(), tp));
-                    } else {
-                        // inconsistent state
-                        String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
-                        Log.d(DEBUG_TAG, message);
-                        ACRAHelper.nocrashReport(null, message);
+                // get rid of duplicates and get something that we can modify
+                Set<Relation> parents = parentsList != null ? new HashSet<>(parentsList) : null; 
+                Set<Relation> origParents = origParentsList != null ? new HashSet<>(origParentsList) : null;
+
+                if (parents != null) {
+                    for (Relation r : parents) {
+                        List<RelationMember> members = r.getAllMembers(e);
+                        List<RelationMember> origMembers = null;
+                        UndoElement origRelation = null;
+                        if (compare) {
+                            if (origParentsList != null && origParentsList.contains(r)) {
+                                origRelation = App.getDelegator().getUndo().getOriginal(r);
+                                if (origRelation != null) {
+                                    origMembers = ((UndoRelation) origRelation).getAllMembers(e);
+                                    origParents.remove(r);
+                                }
+                            }
+                        }
+                        for (RelationMember rm : members) {
+                            if (rm != null) {
+                                String role = rm.getRole();
+                                if (compare) {
+                                    String origDescription = "";
+                                    if (origMembers != null) {
+                                        for (RelationMember origMember : new ArrayList<>(origMembers)) {
+                                            String origRole = origMember.getRole();
+                                            if ((origRole == null && role == null) || (origRole != null && origRole.equals(role))) {
+                                                origDescription = r.getDescription(); // should really use origRelation
+                                                origMembers.remove(origMember);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), origDescription, r.getDescription(), tp));
+                                } else {
+                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), r.getDescription(), tp));
+                                }
+                            } else {
+                                // inconsistent state
+                                String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
+                                Log.d(DEBUG_TAG, message);
+                                ACRAHelper.nocrashReport(null, message);
+                            }
+                        }
+                        // write out any relation members left (typicall with different roles)
+                        if (origMembers != null && !origMembers.isEmpty()) {
+                            for (RelationMember origMember : origMembers) {
+                                String role = origMember.getRole();
+                                tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), r.getDescription(), "", tp));
+                            }
+                        }
+                    }
+                }
+
+                if (origParents != null) {
+                    // write out the relations we are no longer a member of
+                    for (Relation r : origParents) {
+                        UndoElement origRelation = App.getDelegator().getUndo().getOriginal(r);
+                        if (origRelation != null) {
+                            List<RelationMember> members = ((UndoRelation) origRelation).getAllMembers(e);
+                            if (members != null) {
+                                for (RelationMember rm : members) {
+                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(rm.getRole()), r.getDescription(), "", tp));
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
         return sv;
+    }
+
+    /**
+     * Get a nice String for role if it is empty
+     * 
+     * @param role the role
+     * @return role or a String indicating that it is empty
+     */
+    private String getPrettyRole(@Nullable String role) {
+        return role == null || "".equals(role) ? getString(R.string.empty_role) : role;
     }
 
     /**

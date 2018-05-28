@@ -23,6 +23,7 @@ import de.blau.android.dialogs.ElementInfo;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
@@ -178,8 +179,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             break;
         case MENUITEM_ELEMENT_INFO:
             main.descheduleAutoLock();
-            if (element.getState() == OsmElement.STATE_MODIFIED) {
-                ElementInfo.showDialog(main, App.getDelegator().getUndo().getOriginal(element), element);
+            // as we want to display relation membership changes too
+            // we can't rely on the element status 
+            UndoElement ue = App.getDelegator().getUndo().getOriginal(element);
+            if (ue != null) {
+                ElementInfo.showDialog(main, ue, element);
             } else {
                 ElementInfo.showDialog(main, element);
             }

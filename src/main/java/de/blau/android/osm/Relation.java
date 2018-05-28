@@ -87,7 +87,7 @@ public class Relation extends OsmElement implements BoundedObject {
      */
     @NonNull
     public List<RelationMember> getAllMembers(@NonNull OsmElement e) {
-        ArrayList<RelationMember> result = new ArrayList<>();
+        List<RelationMember> result = new ArrayList<>();
         for (int i = 0; i < members.size(); i++) {
             RelationMember member = members.get(i);
             if (member.getElement() == e) {

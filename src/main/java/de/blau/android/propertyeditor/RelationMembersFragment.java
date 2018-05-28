@@ -570,12 +570,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd, Connected c) {
 
             String desc = rmd.getDescription();
-            String objectType = rmd.getType() == null ? "--" : rmd.getType();
             this.rmd = rmd;
             roleEdit.setText(rmd.getRole());
 
             // setIcon(ctx, rmd, c);
-            typeView.setTag(objectType);
+            typeView.setTag(rmd.getType());
             elementView.setText(desc);
             relationId = id;
             return this;
@@ -590,7 +589,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         }
 
         public void setIcon(Context ctx, RelationMemberDescription rmd, Connected c) {
-            String objectType = rmd.getType() == null ? "--" : rmd.getType();
+            String objectType = rmd.getType();
             int iconId = 0;
             if (rmd.downloaded()) {
                 if (Node.NAME.equals(objectType)) {
