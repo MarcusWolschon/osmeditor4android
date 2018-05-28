@@ -106,19 +106,19 @@ public class OsmoseBug extends Bug implements Serializable {
 
     @Override
     public String getLongDescription(Context context, boolean withElements) {
-        String result = "Osmose: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>";
+        StringBuilder result = new StringBuilder("Osmose: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>");
         if (withElements) {
             for (OsmElement osm : getElements()) {
                 if (osm.getOsmVersion() >= 0) {
-                    result = result + "<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + osm.getOsmId();
+                    result.append("<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + osm.getOsmId());
                 } else {
-                    result = result + "<br>" + osm.getName() + " " + osm.getDescription(false);
+                    result.append("<br>" + osm.getName() + " " + osm.getDescription(false));
                 }
-                result = result + "<br><br>";
+                result.append("<br><br>");
             }
         }
-        result = result + context.getString(R.string.openstreetbug_last_updated) + ": " + update + " " + context.getString(R.string.id) + ": " + id;
-        return result;
+        result.append(context.getString(R.string.openstreetbug_last_updated) + ": " + update + " " + context.getString(R.string.id) + ": " + id);
+        return result.toString();
     }
 
     @Override
