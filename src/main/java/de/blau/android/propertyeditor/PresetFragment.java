@@ -35,6 +35,7 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.dialogs.BackgroundProperties;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.exception.UiStateException;
@@ -284,7 +285,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     return;
                 }
                 PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(result);
-                searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                try {
+                    searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
+                } catch (IllegalStateException isex) {
+                    Log.e(DEBUG_TAG, "show of seach results failed with ", isex);
+                }
             }
         };
         list.execute();
