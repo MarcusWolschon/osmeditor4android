@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>ללא</item>
+    <item>מדרג (מטרי)</item>
+    <item>רשת (מטרי)</item>
+    <item>מדרג (אימפריאלי)</item>
+    <item>רשת (אימפריאלי)</item>
+  </string-array>
+</resources>

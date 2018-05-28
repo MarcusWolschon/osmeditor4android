@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-28 11:27+0000\n"
+"Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1126,7 +1126,7 @@ msgstr ""
 
 #: master_preset.xml:11697(group:name|group:Boundaries)
 msgid "Boundaries"
-msgstr ""
+msgstr "الحدود"
 
 #: master_preset.xml:13110(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:13145(item:name|group:Relations|preset:Boundary)

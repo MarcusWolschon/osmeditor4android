@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>מספר בית (addr:housenumber)</item>
+    <item>רחוב (addr:street)</item>
+    <item>מיקוד (addr:postcode)</item>
+    <item>עיר/עירייה/כפר/…  (addr:city)</item>
+    <item>ארץ (addr:country)</item>
+    <item>כתובת מלאה (addr:full)</item>
+    <item>מיקום (addr:place)</item>
+    <item>Hamlet (addr:hamlet)</item>
+    <item>פרוור (addr:suburb)</item>
+    <item>תת־מחוז (addr:subdistrict)</item>
+    <item>מחוז (addr:district)</item>
+    <item>פרובינציה (addr:province)</item>
+    <item>מדינה (addr:state)</item>
+    <item>דירות (addr:flats)</item>
+    <item>דלת (addr:door)</item>
+    <item>יחידה (addr:unit)</item>
+  </string-array>
+</resources>

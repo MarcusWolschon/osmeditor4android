@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_easy">רגיל</string>
+  <string name="mode_tag_only">תג בלבד</string>
+  <string name="mode_indoor">בתוך מבנה</string>
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">זהירות!</string>
+  <string name="transfer_download_current_upload">העלאה</string>
+  <string name="transfer_download_current_download">התעלמות והורדה</string>
+  <string name="transfer_download_current_back">חזרה (לא לעשות כלום)</string>
+  <string name="upload_problem_title">בעיה בהעלאה</string>
+  <string name="use_local_version">שימוש בגרסה המקומית</string>
+  <string name="use_server_version">שימוש בגרסה שבשרת</string>
+  <string name="no_login_data_title">האימות נכשל</string>
+  <string name="no_connection_title">אין חיבור לשרת</string>
+  <string name="no_connection_message">לא ניתן להתחבר לשרת ה־OSM. נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
+  <string name="wrong_login_data_title">האימות נכשל</string>
+  <string name="wrong_login_data_re_authenticate">אימות מחדש</string>
+  <string name="forbidden_login_title">הכניסה אסורה</string>
+  <string name="go_to_openstreetmap">מעבר ל־openstreetmap.org</string>
+  <string name="data_conflict_title">סתירת גרסאות</string>
+  <string name="invalid_bounding_box_title">תיבה תוחמת שגויה</string>
+  <string name="invalid_bounding_box_message">האזור שנבחר נכשל בעמידה מול הגבלות ה־API, נא לבחור באזור אחר.</string>
+  <string name="bounding_box_too_large_title">אזור ההורדה גדול מדי</string>
+  <string name="out_of_memory_title">אין מספיק זיכרון</string>
+  <string name="out_of_memory_message">לווספוצ׳י נגמר הזיכרון בעת טעינת הנתונים המבוקשים. נא להפעיל מחדש ולנסות לטעון אזור קטן יותר.</string>
+  <string name="out_of_memory_dirty_message">לווספוצ׳י נגמר הזיכרון בעת טעינת הנתונים המבוקשים. נא לנסות לשמור את העריכות שלך ואז להפעיל מחדש ולנסות לטעון אזור קטן יותר.</string>
+  <string name="invalid_data_received_title">התקבלו נתונים שגויים</string>
+  <string name="invalid_data_received_message">וספוצ׳י קיבל נתונים שגויים מהשרת. אם לדעתך מה שניסית לבצע הוא נכון, יש להגיש דיווח על תקלה.</string>
+  <string name="invalid_data_read_title">נתונים שגויים</string>
+  <string name="invalid_data_read_message">הקובץ הכיל נתונים שגויים. אם לדעתך מה שניסית לבצע הוא נכון, יש להגיש דיווח על תקלה.</string>
+  <string name="file_write_failed_title">כתיבת הקובץ נכשלה</string>
+  <string name="file_write_failed_message">לא ניתן לכתוב לקובץ הנבחר.</string>
+  <string name="welcome_title">ברוך בואך!</string>
+  <string name="read_introduction">יש לקרוא את ההוראות כעת</string>
+  <string name="upgrade_title">ברוך בואך לגרסה חדשה של וספוצ׳י</string>
+  <string name="upgrade_message">זו גרסה חדשה של וספוצ׳י עם תכונות והתנהגות חדשים. עדיף לקרוא ברפרוף את מידע עדכון ההתקן.</string>
+  <string name="read_upgrade">מידע על הגרסה החדשה</string>
+  <string name="progress_title">בטעינה</string>
+  <string name="progress_message">מתבצעת טעינה לזיכרון…</string>
+  <string name="progress_download_message">מתקבלים נתונים מהשרת…</string>
+  <string name="progress_general_title">נא להמתין</string>
+  <string name="progress_deleting_message">מתבצעת מחיקה…</string>
+  <string name="progress_searching_message">מתבצע חיפוש…</string>
+  <string name="progress_saving_message">מתבצעת שמירה…</string>
+  <string name="progress_uploading_message">מתבצעת העלאה…</string>
+  <string name="progress_preset_message">הערכה מתקבלת…</string>
+  <string name="progress_running_message">מתבצעת הרצה…</string>
+  <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
+  <string name="upload_comment_label">הערה:</string>
+  <string name="upload_source_label">מקור:</string>
+  <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
+  <string name="upload_gpx_description_label">תיאור</string>
+  <string name="upload_gpx_tags_label">תגיות</string>
+  <string name="upload_gpx_visibility_label">מצב הצגה</string>
+  <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
+  <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
+  <string name="openstreetbug_new_title">הערה חדשה</string>
+  <string name="openstreetbug_new_bug">דיווח על תקלה</string>
+  <string name="openstreetbug_bug_title">תקלה</string>
+  <string name="openstreetbug_new_nodeway">יצירת צומת/דרך</string>
+  <string name="openstreetbug_edit_title">עריכת הערה</string>
+  <string name="openstreetbug_commitbutton">הגשה</string>
+  <string name="openstreetbug_comment_label">הערה:</string>
+  <string name="openstreetbug_edit_close">סגירה</string>
+  <string name="openstreetbug_edit_closed">נסגר</string>
+  <string name="openstreetbug_commit_ok">השינויים בבאג נשמרו</string>
+  <string name="openstreetbug_commit_fail">לא ניתן לשמור את השינויים בבאג</string>
+  <string name="openstreetbug_not_downloaded">לא התקבל</string>
+  <string name="openstreetbug_last_updated">עדכון אחרון</string>
+  <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
+  <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
+  <string name="unsaved_data_title">אזהרה!</string>
+  <string name="unsaved_data_message">יש לך שינויים שלא נשמרו והם יימחקו אלמלא יישמרו.</string>
+  <string name="unsaved_data_proceed">התעלמות והמשך</string>
+  <string name="imagery_offset_title">היסט תמונה</string>
+  <string name="imagery_offset_description">תיאור</string>
+  <string name="imagery_offset_not_found">לא נמצאו היסטים ברדיוס של 10 ק״מ!</string>
+  <string name="imagery_offset_author">יוצר</string>
+  <string name="imagery_offset_offset">היסט</string>
+  <string name="imagery_offset_date">נוצר</string>
+  <string name="imagery_offset_zoom">תקריב</string>
+  <string name="imagery_offset_distance">מרחק</string>
+  <!--element information dialog-->
+  <string name="id">מזהה</string>
+  <string name="nodes">צמתים</string>
+  <string name="relation_membership">חברות ביחס</string>
+  <string name="problem">בעיה</string>
+  <string name="members">חברים</string>
+  <string name="closed">נסגר</string>
+  <string name="version">גרסה</string>
+  <string name="length_m">אורך (מ׳)</string>
+  <string name="not_downloaded">לא התקבל</string>
+  <string name="empty_role">תפקיד ריק</string>
+  <string name="element">רכיב</string>
+  <string name="last_updated">עדכון אחרון</string>
+  <string name="last_edited">עריכה אחרונה</string>
+  <string name="original">מקורי</string>
+  <string name="current">נוכחי</string>
+  <!---->
+  <string name="error">שגיאה</string>
+  <string name="warning">אזהרה</string>
+  <string name="minor_issue">תקלה משנית</string>
+  <string name="unknown_error_level">רמת השגיאה לא ידועה</string>
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
+  <!--JS console dialog-->
+  <string name="evaluate">הערכה</string>
+  <string name="js_console_msg_live">מצב חי!</string>
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <!--Strings in LocationPicker-->
+  <!--Menu-->
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--EasyEdit action mode sub-titles-->
+  <!--Preferences-->
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <!--Data and Editing Settings-->
+  <!--Location Settings-->
+  <!--Server Settings-->
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <!--Experimental-->
+  <!---->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!---->
+  <!--"default" is a reserved Java keyword...-->
+  <!--element description-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+</resources>
