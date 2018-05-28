@@ -213,16 +213,16 @@ public enum Mode {
         }
     });
 
-    final private int        nameResId;
-    final private String     tag;
-    final private boolean    selectable;
-    final private boolean    editable;
-    final private boolean    geomEditable;
-    final private boolean    supportFilters;
-    final private Mode       subModeOf;
+    private final int        nameResId;
+    private final String     tag;
+    private final boolean    selectable;
+    private final boolean    editable;
+    private final boolean    geomEditable;
+    private final boolean    supportFilters;
+    private final Mode       subModeOf;
     private boolean          enabled        = true;
     private int              iconResourceId = -1;
-    final private ModeConfig config;
+    private final ModeConfig config;
 
     Mode(int nameResId, String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, Mode subModeOf, int iconResourceId,
             ModeConfig config) {

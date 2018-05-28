@@ -60,7 +60,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity, int layerIndex) {
+    public static void showDialog(FragmentActivity activity, int layerIndex) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -87,7 +87,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
 
     /**
      */
-    static private LayerStyle newInstance(int layerIndex) {
+    private static LayerStyle newInstance(int layerIndex) {
         LayerStyle f = new LayerStyle();
         Bundle args = new Bundle();
         args.putInt(LAYERINDEX, layerIndex);

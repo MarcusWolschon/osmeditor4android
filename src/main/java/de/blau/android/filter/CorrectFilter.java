@@ -24,7 +24,7 @@ public class CorrectFilter extends Filter {
      * 
      */
     private static final long   serialVersionUID = 1L;
-    private final static String DEBUG_TAG        = "CompleteFilter";
+    private static final String DEBUG_TAG        = "CompleteFilter";
 
     private boolean             enabled         = true;
     private transient Context   context;

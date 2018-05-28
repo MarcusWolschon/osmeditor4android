@@ -30,7 +30,7 @@ public class NewVersion extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -57,7 +57,7 @@ public class NewVersion extends DialogFragment {
 
     /**
      */
-    static private NewVersion newInstance() {
+    private static  NewVersion newInstance() {
         NewVersion f = new NewVersion();
 
         f.setShowsDialog(true);

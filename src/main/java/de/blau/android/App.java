@@ -322,7 +322,7 @@ public class App extends android.app.Application {
      * 
      * @return a new instance of the Logic class
      */
-    public synchronized static Logic newLogic() {
+    public static synchronized Logic newLogic() {
         if (logic == null) {
             logic = new Logic();
         }

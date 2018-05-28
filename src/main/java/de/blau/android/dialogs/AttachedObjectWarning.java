@@ -37,7 +37,7 @@ public class AttachedObjectWarning extends DialogFragment {
      * 
      * @param activity Activity creating the dialog and starting the intent Activity if confirmed
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -64,7 +64,7 @@ public class AttachedObjectWarning extends DialogFragment {
 
     /**
      */
-    static private AttachedObjectWarning newInstance() {
+    private static AttachedObjectWarning newInstance() {
         AttachedObjectWarning f = new AttachedObjectWarning();
         f.setShowsDialog(true);
 

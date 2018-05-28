@@ -81,7 +81,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     private transient ReentrantLock readingLock = new ReentrantLock();
 
-    public final static String FILENAME = "geojson.res";
+    public static final String FILENAME = "geojson.res";
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
     private transient boolean                  saved        = false;
@@ -227,11 +227,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     private RTree                data;
-    private transient final Path path = new Path();
+    private final transient Path path = new Path();
     private transient Paint      paint;
 
     /** Map this is an overlay of. */
-    private transient final Map map;
+    private final transient Map map;
 
     /**
      * Styling parameters

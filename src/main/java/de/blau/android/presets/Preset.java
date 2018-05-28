@@ -270,8 +270,8 @@ public class Preset implements Serializable {
         }
     }
 
-    final static String COMBO_DELIMITER       = ",";
-    final static String MULTISELECT_DELIMITER = ";";
+    static final String COMBO_DELIMITER       = ",";
+    static final String MULTISELECT_DELIMITER = ";";
 
     /** Maps all possible keys to the respective values for autosuggest (only key/values applying to nodes) */
     private final MultiHashMap<String, StringWithDescription> autosuggestNodes      = new MultiHashMap<>(true);
@@ -1151,7 +1151,7 @@ public class Preset implements Serializable {
      * @return the PresetElement or null if not found
      */
     @Nullable
-    static public PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
+    public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
         int size = path.path.size();
         if (size > 0) {
             String segment = path.path.get(0);

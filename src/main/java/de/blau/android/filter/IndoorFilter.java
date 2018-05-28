@@ -35,7 +35,7 @@ public class IndoorFilter extends Filter {
      * 
      */
     private static final long   serialVersionUID = 4L;
-    private final static String DEBUG_TAG        = "IndoorFilter";
+    private static final String DEBUG_TAG        = "IndoorFilter";
 
     /**
      * Current level
@@ -284,11 +284,11 @@ public class IndoorFilter extends Filter {
     /**
      * Indoor filter controls
      */
-    transient private FloatingActionButton levelUp;
-    transient private FrameLayout          levelDisplay;
-    transient private TextView             levelText;
-    transient private FloatingActionButton levelTextButton;
-    transient private FloatingActionButton levelDown;
+    private transient FloatingActionButton levelUp;
+    private transient FrameLayout          levelDisplay;
+    private transient TextView             levelText;
+    private transient FloatingActionButton levelTextButton;
+    private transient FloatingActionButton levelDown;
     private transient ViewGroup            parent;
     private transient RelativeLayout       controls;
     private transient Update               update;

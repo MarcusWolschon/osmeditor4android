@@ -53,9 +53,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     private AdvancedPrefDatabase db;
 
-    private final static int MENU_RELOAD = 1;
-    private final static int MENU_UP     = 2;
-    private final static int MENU_DOWN   = 3;
+    private static final int MENU_RELOAD = 1;
+    private static final int MENU_UP     = 2;
+    private static final int MENU_DOWN   = 3;
 
     private static final int MENUITEM_HELP = 1;
 

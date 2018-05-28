@@ -414,7 +414,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * 
      */
-    transient private NetworkStatus networkStatus;
+    private transient NetworkStatus networkStatus;
 
     /**
      * file we asked the camera app to create (ugly)

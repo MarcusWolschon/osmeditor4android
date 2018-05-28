@@ -25,7 +25,7 @@ public class PrefEditor extends AppCompatActivity {
 
     private static final String DEBUG_TAG = PrefEditor.class.getSimpleName();
 
-    final static String CURRENT_VIEWBOX = "VIEWBOX";
+    static final String CURRENT_VIEWBOX = "VIEWBOX";
     private BoundingBox viewBox         = null;
 
     private static final int MENUITEM_HELP = 1;

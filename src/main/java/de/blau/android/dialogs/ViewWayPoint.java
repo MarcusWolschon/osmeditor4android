@@ -61,7 +61,7 @@ public class ViewWayPoint extends DialogFragment {
      * @param activity the calling activity
      * @param wp the WayPoint
      */
-    static public void showDialog(FragmentActivity activity, WayPoint wp) {
+    public static void showDialog(FragmentActivity activity, WayPoint wp) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();

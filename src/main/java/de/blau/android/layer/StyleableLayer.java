@@ -13,47 +13,47 @@ public abstract class StyleableLayer extends MapViewLayer {
      * 
      * @return the color as an int
      */
-    abstract public int getColor();
+    public abstract int getColor();
 
     /**
      * Set the color for the layer
      * 
      * @param color color to use
      */
-    abstract public void setColor(int color);
+    public abstract void setColor(int color);
 
     /**
      * Get the stroke width for drawing lines
      * 
      * @return the stroke width in pixels
      */
-    abstract public float getStrokeWidth();
+    public abstract float getStrokeWidth();
 
     /**
      * Set the stroke width for lines
      * 
      * @param width stroke width in pixels
      */
-    abstract public void setStrokeWidth(float width);
+    public abstract void setStrokeWidth(float width);
 
     /**
      * Symbol for points
      * 
      * @return the Path object used for points
      */
-    abstract public Path getPointSymbol();
+    public abstract Path getPointSymbol();
 
     /**
      * Set the Path for the symbol for points
      * 
      * @param symbol the Path for symbol
      */
-    abstract public void setPointSymbol(Path symbol);
+    public abstract void setPointSymbol(Path symbol);
 
     /**
      * Set styling parameters back to defaults
      */
-    abstract public void resetStyling();
+    public abstract void resetStyling();
 
     /**
      * Get a list of keys for labeling

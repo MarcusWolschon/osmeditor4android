@@ -78,7 +78,7 @@ public class ConfirmUpload extends DialogFragment {
      * 
      * @param activity the calling FragmentActivity
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -96,7 +96,7 @@ public class ConfirmUpload extends DialogFragment {
      * 
      * @param activity the calling FragmentActivity
      */
-    static public void dismissDialog(FragmentActivity activity) {
+    public static void dismissDialog(FragmentActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(TAG);
@@ -116,7 +116,7 @@ public class ConfirmUpload extends DialogFragment {
      * 
      * @return a new ConfirmUpload instance
      */
-    static private ConfirmUpload newInstance() {
+    private static ConfirmUpload newInstance() {
         ConfirmUpload f = new ConfirmUpload();
         f.setShowsDialog(true);
         return f;

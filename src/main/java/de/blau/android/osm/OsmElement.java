@@ -129,7 +129,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * @return the type of the element
      */
-    abstract public String getName();
+    public abstract String getName();
 
     /**
      * Update state if MODIFIED or DELETED.
@@ -578,7 +578,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param validator the Validator to use
      * @return the validation result
      */
-    abstract protected int validate(@NonNull Validator validator);
+    protected abstract int validate(@NonNull Validator validator);
 
     /**
      * Test if the element has a noted problem. A noted problem is where someone has tagged the element with a "fixme"

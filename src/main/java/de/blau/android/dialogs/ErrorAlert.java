@@ -36,11 +36,11 @@ public class ErrorAlert extends DialogFragment {
     private int    messageId;
     private String originalMessage;
 
-    static public void showDialog(FragmentActivity activity, int errorCode) {
+    public static void showDialog(FragmentActivity activity, int errorCode) {
         showDialog(activity, errorCode, null);
     }
 
-    static public void showDialog(FragmentActivity activity, int errorCode, String msg) {
+    public static void showDialog(FragmentActivity activity, int errorCode, String msg) {
         dismissDialog(activity, errorCode);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -108,7 +108,7 @@ public class ErrorAlert extends DialogFragment {
         return null;
     }
 
-    static private ErrorAlert newInstance(int dialogType, String msg) {
+    private static ErrorAlert newInstance(int dialogType, String msg) {
         switch (dialogType) {
         case ErrorCodes.NO_LOGIN_DATA:
             return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message, msg);
@@ -148,7 +148,7 @@ public class ErrorAlert extends DialogFragment {
 
     /**
      */
-    static private ErrorAlert createNewInstance(final int titleId, final int messageId, String msg) {
+    private static ErrorAlert createNewInstance(final int titleId, final int messageId, String msg) {
         ErrorAlert f = new ErrorAlert();
 
         Bundle args = new Bundle();

@@ -40,7 +40,7 @@ public class DataLossActivity extends DialogFragment {
      * @param requestCode If the activity should return a result, a non-negative request code. If no result is expected,
      *            set to -1.
      */
-    static public void showDialog(FragmentActivity activity, final Intent intent, final int requestCode) {
+    public static void showDialog(FragmentActivity activity, final Intent intent, final int requestCode) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -67,7 +67,7 @@ public class DataLossActivity extends DialogFragment {
 
     /**
      */
-    static private DataLossActivity newInstance(final Intent intent, final int requestCode) {
+    private static DataLossActivity newInstance(final Intent intent, final int requestCode) {
         DataLossActivity f = new DataLossActivity();
 
         Bundle args = new Bundle();

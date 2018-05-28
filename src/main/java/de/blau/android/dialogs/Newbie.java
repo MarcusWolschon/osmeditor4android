@@ -34,7 +34,7 @@ public class Newbie extends DialogFragment {
     /**
      
      */
-    static public void showDialog(@NonNull FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -61,7 +61,7 @@ public class Newbie extends DialogFragment {
 
     /**
      */
-    static private Newbie newInstance() {
+    private static Newbie newInstance() {
         Newbie f = new Newbie();
         f.setShowsDialog(true);
         return f;

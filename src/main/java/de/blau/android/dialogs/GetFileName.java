@@ -39,7 +39,7 @@ public class GetFileName extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
+    public static void showDialog(FragmentActivity activity, de.blau.android.util.SaveFile callback) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -66,7 +66,7 @@ public class GetFileName extends DialogFragment {
 
     /**
      */
-    static private GetFileName newInstance(de.blau.android.util.SaveFile callback) {
+    private static GetFileName newInstance(de.blau.android.util.SaveFile callback) {
         GetFileName f = new GetFileName();
         Bundle args = new Bundle();
         args.putSerializable("callback", callback);

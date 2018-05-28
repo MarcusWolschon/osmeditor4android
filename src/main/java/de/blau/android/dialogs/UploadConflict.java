@@ -41,7 +41,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
 
     private UploadResult result;
 
-    static public void showDialog(FragmentActivity activity, UploadResult result) {
+    public static void showDialog(FragmentActivity activity, UploadResult result) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -69,7 +69,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
 
     /**
      */
-    static private UploadConflict newInstance(final UploadResult result) {
+    private static UploadConflict newInstance(final UploadResult result) {
         UploadConflict f = new UploadConflict();
 
         Bundle args = new Bundle();

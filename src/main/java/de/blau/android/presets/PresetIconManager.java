@@ -35,7 +35,7 @@ public class PresetIconManager {
     /** base path for downloaded icons */
     private final String basePath;
 
-    private final static String ASSET_IMAGE_PREFIX = "images/";
+    private static final String ASSET_IMAGE_PREFIX = "images/";
 
     /** Asset manager for default assets (e.g. icons) stored in a separate APK, if available */
     private final AssetManager externalDefaultAssets;
@@ -49,7 +49,7 @@ public class PresetIconManager {
     /** the name of an external package containing assets (may be null), used for debug output */
     private final String externalAssetPackage;
 
-    private final static String EXTERNAL_DEFAULT_ASSETS_PACKAGE = "org.openstreetmap.vespucci.defaultpreset";
+    private static final String EXTERNAL_DEFAULT_ASSETS_PACKAGE = "org.openstreetmap.vespucci.defaultpreset";
 
     /**
      * Creates a new PresetIconManager.

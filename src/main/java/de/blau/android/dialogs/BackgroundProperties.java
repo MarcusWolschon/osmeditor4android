@@ -42,7 +42,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity, int layerIndex) {
+    public static void showDialog(FragmentActivity activity, int layerIndex) {
         dismissDialog(activity);
         try {
             setDialogLayout(activity);
@@ -70,7 +70,7 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
 
     /**
      */
-    static private BackgroundProperties newInstance(int layerIndex) {
+    private static BackgroundProperties newInstance(int layerIndex) {
         BackgroundProperties f = new BackgroundProperties();
         Bundle args = new Bundle();
         args.putInt(LAYERINDEX, layerIndex);

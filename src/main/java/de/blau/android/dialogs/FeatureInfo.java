@@ -52,7 +52,7 @@ public class FeatureInfo extends DialogFragment {
      * @param activity the calling Activity
      * @param feature the Feature
      */
-    static public void showDialog(FragmentActivity activity, Feature feature) {
+    public static void showDialog(FragmentActivity activity, Feature feature) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();

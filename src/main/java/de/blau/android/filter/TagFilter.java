@@ -123,10 +123,10 @@ public class TagFilter extends Filter {
      * 
      */
     private static final long   serialVersionUID = 1L;
-    private final static String DEBUG_TAG        = "TagFilter";
+    private static final String DEBUG_TAG        = "TagFilter";
 
     private boolean                  enabled = true;
-    transient private SQLiteDatabase mDatabase;
+    private transient SQLiteDatabase mDatabase;
 
     public TagFilter(Context context) {
         super();

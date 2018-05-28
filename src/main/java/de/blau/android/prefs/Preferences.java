@@ -127,7 +127,7 @@ public class Preferences {
 
     private final boolean autoPresetsEnabled;
 
-    private final static String DEFAULT_MAP_PROFILE = "Color Round Nodes";
+    private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
     private final SharedPreferences prefs;
 
@@ -571,7 +571,7 @@ public class Preferences {
     public String getTaginfoServer() {
         return taginfoServer;
     }
-    
+
     /**
      * set the configured taginfo server
      * 

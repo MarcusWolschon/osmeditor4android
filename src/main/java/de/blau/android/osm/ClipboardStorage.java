@@ -8,7 +8,7 @@ import android.util.Log;
 import de.blau.android.exception.StorageException;
 
 public class ClipboardStorage implements Serializable {
-    final static String DEBUG_TAG = "ClipboardStorage";
+    static final String DEBUG_TAG = "ClipboardStorage";
 
     /**
      * 

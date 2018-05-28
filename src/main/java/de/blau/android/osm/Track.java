@@ -87,7 +87,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
     /**
      * For conversion from UNIX epoch time and back
      */
-    private final static String    DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String    DATE_PATTERN_ISO8601_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private final SimpleDateFormat ISO8601FORMAT;
     private final Calendar         calendarInstance         = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 

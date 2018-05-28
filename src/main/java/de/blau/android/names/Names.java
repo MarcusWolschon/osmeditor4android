@@ -50,9 +50,9 @@ public class Names {
     }
 
     public class NameAndTags implements Comparable<NameAndTags> {
-        final private String name;
-        final private int    count;
-        final private String region;
+        private final String name;
+        private final int    count;
+        private final String region;
         final TagMap         tags;
 
         public NameAndTags(String name, TagMap tags, int count, String region) {

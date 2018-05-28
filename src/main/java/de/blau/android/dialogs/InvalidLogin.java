@@ -34,7 +34,7 @@ public class InvalidLogin extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -61,7 +61,7 @@ public class InvalidLogin extends DialogFragment {
 
     /**
      */
-    static private InvalidLogin newInstance() {
+    private static InvalidLogin newInstance() {
         InvalidLogin f = new InvalidLogin();
 
         f.setShowsDialog(true);

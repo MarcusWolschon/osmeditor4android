@@ -66,7 +66,7 @@ import okhttp3.ResponseBody;
 
 public class BackgroundAlignmentActionModeCallback implements Callback {
 
-    private final static String DEBUG_TAG = "BackgroundAlign...";
+    private static final String DEBUG_TAG = "BackgroundAlign...";
 
     private static final int MENUITEM_QUERYDB    = 1;
     private static final int MENUITEM_QUERYLOCAL = 2;

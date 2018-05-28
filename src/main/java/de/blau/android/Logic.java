@@ -217,7 +217,7 @@ public class Logic {
      */
     private Task selectedBug;
 
-    private final static int MRULIST_SIZE = 10;
+    private static final int MRULIST_SIZE = 10;
     /**
      * last changeset comment
      */
@@ -3745,7 +3745,7 @@ public class Logic {
     /**
      * @return the selectedNode (currently simply the first in the list)
      */
-    public synchronized final Node getSelectedNode() {
+    public final synchronized Node getSelectedNode() {
         if (selectedNodes != null && !selectedNodes.isEmpty()) {
             if (!exists(selectedNodes.get(0))) {
                 selectedNodes = null; // clear selection if node was deleted
@@ -3778,7 +3778,7 @@ public class Logic {
     /**
      * @return the selectedWay (currently simply the first in the list)
      */
-    public synchronized final Way getSelectedWay() {
+    public final synchronized Way getSelectedWay() {
         if (selectedWays != null && !selectedWays.isEmpty()) {
             if (!exists(selectedWays.get(0))) {
                 selectedWays = null; // clear selection if node was deleted
@@ -3880,7 +3880,7 @@ public class Logic {
      * 
      * @return The selected bug.
      */
-    public synchronized final Task getSelectedBug() {
+    public final synchronized Task getSelectedBug() {
         return selectedBug;
     }
 

@@ -40,7 +40,7 @@ public class PresetFilter extends Filter {
      * 
      */
     private static final long   serialVersionUID = 7L;
-    private final static String DEBUG_TAG        = "PresetFilter";
+    private static final String DEBUG_TAG        = "PresetFilter";
 
     private boolean                 enabled         = true;
     private transient Preset        preset[]        = null;

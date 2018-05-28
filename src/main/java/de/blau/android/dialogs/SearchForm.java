@@ -58,7 +58,7 @@ public class SearchForm extends ImmersiveDialogFragment {
      * @param activity the calling FragmentActivity
      * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      */
-    static public void showDialog(@NonNull AppCompatActivity activity, @Nullable final ViewBox bbox) {
+    public static void showDialog(@NonNull AppCompatActivity activity, @Nullable final ViewBox bbox) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -94,7 +94,7 @@ public class SearchForm extends ImmersiveDialogFragment {
      * @param bbox a BoundingBox to restrict the query to if null the whole world is considered
      * @return a SearchForm instance
      */
-    static private SearchForm newInstance(@Nullable final ViewBox bbox) {
+    private static SearchForm newInstance(@Nullable final ViewBox bbox) {
         SearchForm f = new SearchForm();
 
         Bundle args = new Bundle();

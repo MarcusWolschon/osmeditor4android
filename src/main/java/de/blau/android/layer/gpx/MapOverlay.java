@@ -39,14 +39,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
-    transient private TrackerService tracker;
+    private transient TrackerService tracker;
 
     /** Map this is an overlay of. */
-    transient private final Map map;
+    private transient final Map map;
 
-    transient private final FloatPrimitiveList linePoints;
+    private transient final FloatPrimitiveList linePoints;
 
-    public final static String FILENAME = "gpxlayer.res";
+    public static final String FILENAME = "gpxlayer.res";
 
     private transient SavingHelper<MapOverlay> savingHelper = new SavingHelper<>();
     // private transient boolean saved = false;

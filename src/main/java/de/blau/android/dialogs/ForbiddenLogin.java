@@ -36,7 +36,7 @@ public class ForbiddenLogin extends DialogFragment {
 
     private String message;
 
-    static public void showDialog(FragmentActivity activity, String message) {
+    public static void showDialog(FragmentActivity activity, String message) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -62,7 +62,7 @@ public class ForbiddenLogin extends DialogFragment {
         }
     }
 
-    static private ForbiddenLogin newInstance(String message) {
+    private static ForbiddenLogin newInstance(String message) {
         ForbiddenLogin f = new ForbiddenLogin();
 
         Bundle args = new Bundle();

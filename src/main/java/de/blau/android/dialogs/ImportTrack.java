@@ -39,7 +39,7 @@ public class ImportTrack extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity, Uri uri) {
+    public static void showDialog(FragmentActivity activity, Uri uri) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -66,7 +66,7 @@ public class ImportTrack extends DialogFragment {
 
     /**
      */
-    static private ImportTrack newInstance(Uri uri) {
+    private static ImportTrack newInstance(Uri uri) {
         ImportTrack f = new ImportTrack();
         Bundle args = new Bundle();
         args.putParcelable(URI_KEY, uri);

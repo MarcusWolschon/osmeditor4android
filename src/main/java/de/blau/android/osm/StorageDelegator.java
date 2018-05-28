@@ -79,7 +79,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     private transient boolean imageryRecorded = false;
 
-    public final static String FILENAME = "lastActivity.res";
+    public static final String FILENAME = "lastActivity.res";
 
     private transient SavingHelper<StorageDelegator> savingHelper = new SavingHelper<>();
 
@@ -2730,7 +2730,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param postMerge handler to run after merging
      * @return true if the merge was successful
      */
-    synchronized public boolean mergeData(Storage storage, PostMergeHandler postMerge) {
+    public synchronized boolean mergeData(Storage storage, PostMergeHandler postMerge) {
         Log.d(DEBUG_TAG, "mergeData called");
         // make temp copy of current storage (we may have to abort
         Storage temp = new Storage(currentStorage);

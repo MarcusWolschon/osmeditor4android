@@ -10,7 +10,7 @@ import ch.poole.android.numberpickerpreference.NumberPickerPreferenceFragment;
 public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompat {
 
     @Override
-    abstract public void onCreatePreferences(Bundle savedInstanceState, String rootKey);
+    public abstract void onCreatePreferences(Bundle savedInstanceState, String rootKey);
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {

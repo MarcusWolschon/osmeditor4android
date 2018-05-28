@@ -289,12 +289,12 @@ public abstract class MapViewLayer {
      * @return the name
      */
     @NonNull
-    abstract public String getName();
+    public abstract String getName();
 
     /**
      * Invalidate this layer
      */
-    abstract public void invalidate();
+    public abstract void invalidate();
 
     /**
      * Is this layer turned on

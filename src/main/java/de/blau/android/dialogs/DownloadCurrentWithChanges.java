@@ -32,7 +32,7 @@ public class DownloadCurrentWithChanges extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -59,7 +59,7 @@ public class DownloadCurrentWithChanges extends DialogFragment {
 
     /**
      */
-    static private DownloadCurrentWithChanges newInstance() {
+    private static DownloadCurrentWithChanges newInstance() {
         DownloadCurrentWithChanges f = new DownloadCurrentWithChanges();
         f.setShowsDialog(true);
         return f;

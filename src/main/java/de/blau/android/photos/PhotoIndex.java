@@ -32,8 +32,8 @@ import de.blau.android.util.rtree.RTree;
  */
 public class PhotoIndex extends SQLiteOpenHelper {
 
-    private final static int    DATA_VERSION = 3;
-    private final static String LOGTAG       = "PhotoIndex";
+    private static final int    DATA_VERSION = 3;
+    private static final String LOGTAG       = "PhotoIndex";
 
     private class JpgFilter implements FilenameFilter {
         @Override

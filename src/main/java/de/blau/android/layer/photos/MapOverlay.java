@@ -41,7 +41,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     private final static String DEBUG_TAG = "PhotoOverlay";
 
     /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
+    private final static int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
     /** Map this is an overlay of. */
     private final Map map;

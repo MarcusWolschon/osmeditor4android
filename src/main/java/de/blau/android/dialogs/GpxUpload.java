@@ -34,7 +34,7 @@ public class GpxUpload extends DialogFragment {
     /**
      
      */
-    static public void showDialog(FragmentActivity activity) {
+    public static void showDialog(FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -61,7 +61,7 @@ public class GpxUpload extends DialogFragment {
 
     /**
      */
-    static private GpxUpload newInstance() {
+    private static GpxUpload newInstance() {
         GpxUpload f = new GpxUpload();
         f.setShowsDialog(true);
         return f;

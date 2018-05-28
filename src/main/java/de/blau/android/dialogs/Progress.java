@@ -47,11 +47,11 @@ public class Progress extends ImmersiveDialogFragment {
 
     private int dialogType;
 
-    static public void showDialog(FragmentActivity activity, int dialogType) {
+    public static void showDialog(FragmentActivity activity, int dialogType) {
         showDialog(activity, dialogType, null);
     }
 
-    static public void showDialog(FragmentActivity activity, int dialogType, String tag) {
+    public static void showDialog(FragmentActivity activity, int dialogType, String tag) {
         dismissDialog(activity, dialogType, tag);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -64,11 +64,11 @@ public class Progress extends ImmersiveDialogFragment {
         }
     }
 
-    static public void dismissDialog(FragmentActivity activity, int dialogType) {
+    public static void dismissDialog(FragmentActivity activity, int dialogType) {
         dismissDialog(activity, dialogType, null);
     }
 
-    static public void dismissDialog(FragmentActivity activity, int dialogType, String tag) {
+    public static void dismissDialog(FragmentActivity activity, int dialogType, String tag) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
@@ -91,7 +91,7 @@ public class Progress extends ImmersiveDialogFragment {
      * 
      * @param activity
      */
-    static public void dismissAll(FragmentActivity activity) {
+    public static void dismissAll(FragmentActivity activity) {
         dismissDialog(activity, PROGRESS_LOADING);
         dismissDialog(activity, PROGRESS_DOWNLOAD);
         dismissDialog(activity, PROGRESS_DELETING);
@@ -133,7 +133,7 @@ public class Progress extends ImmersiveDialogFragment {
         return null;
     }
 
-    static private Progress newInstance(final int dialogType) {
+    private static Progress newInstance(final int dialogType) {
         Progress f = new Progress();
 
         Bundle args = new Bundle();

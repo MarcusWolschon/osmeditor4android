@@ -40,16 +40,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     private final SharedPreferences prefs;
     private final String            PREF_SELECTED_API;
 
-    private final static int    DATA_VERSION = 10;
-    private final static String LOGTAG       = "AdvancedPrefDB";
+    private static final int    DATA_VERSION = 10;
+    private static final String LOGTAG       = "AdvancedPrefDB";
 
     /** The ID string for the default API and the default Preset */
-    public final static String  ID_DEFAULT          = "default";
-    private final static String ID_DEFAULT_NO_HTTPS = "default_no_https";
-    public final static String  ID_SANDBOX          = "sandbox";
+    public static final String  ID_DEFAULT          = "default";
+    private static final String ID_DEFAULT_NO_HTTPS = "default_no_https";
+    public static final String  ID_SANDBOX          = "sandbox";
 
-    private final static String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
-    private final static String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
+    private static final String ID_DEFAULT_GEOCODER_NOMINATIM = "Nominatim";
+    private static final String ID_DEFAULT_GEOCODER_PHOTON    = "Photon";
 
     private static final String PRESETS_TABLE  = "presets";
     private static final String ID_FIELD       = "id";
