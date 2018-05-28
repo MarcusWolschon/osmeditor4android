@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,10 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.SavingHelper;
 
+/**
+ * Show licence and author information for the app
+ *
+ */
 public class LicenseViewer extends BugFixedAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
         case android.R.id.home:
             finish();
             return true;
+        default:
+            Log.e("LicenseViewer", "Unknown menu item " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }

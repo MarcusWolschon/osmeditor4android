@@ -945,7 +945,7 @@ public class Logic {
             int lat = node.getLat();
             int lon = node.getLon();
 
-            if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lat, lon)) {
+            if (!inDownloadOnly || node.getState() != OsmElement.STATE_UNCHANGED || getDelegator().isInDownload(lon, lat)) {
                 Double dist = clickDistance(node, x, y);
                 if (dist != null) {
                     result.put(node, dist);
@@ -1108,7 +1108,7 @@ public class Logic {
      */
     public boolean isInDownload(Way way) {
         for (Node n : way.getNodes()) {
-            if (!getDelegator().isInDownload(n.getLat(), n.getLon())) {
+            if (!getDelegator().isInDownload(n.getLon(), n.getLat())) {
                 return false;
             }
         }
@@ -1122,7 +1122,7 @@ public class Logic {
      * @return true if the above is the case
      */
     private boolean isInDownload(Node n) {
-        return getDelegator().isInDownload(n.getLat(), n.getLon());
+        return getDelegator().isInDownload(n.getLon(), n.getLat());
     }
 
     /**
@@ -1457,10 +1457,7 @@ public class Logic {
                 int lon = xToLonE7(x);
                 lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
                 getDelegator().insertElementSafe(lSelectedNode);
-                if (!getDelegator().isInDownload(lat, lon)) {
-                    Log.d(DEBUG_TAG, "Outside of download");
-                    Snack.barWarningShort(activity, R.string.toast_outside_of_download);
-                }
+                outsideOfDownload(activity, lon, lat);
             }
         } else {
             // this is not the first node
@@ -1476,10 +1473,7 @@ public class Logic {
                 lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
                 getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
                 getDelegator().insertElementSafe(lSelectedNode);
-                if (!getDelegator().isInDownload(lat, lon)) {
-                    Log.d(DEBUG_TAG, "Outside of download");
-                    Snack.barWarningShort(activity, R.string.toast_outside_of_download);
-                }
+                outsideOfDownload(activity, lon, lat);
             } else {
                 // User clicks an existing Node
                 if (nextNode == lSelectedNode) {
@@ -1503,6 +1497,20 @@ public class Logic {
     }
 
     /**
+     * If the coordinates are not in a downloaded area show a warning
+     * 
+     * @param activity the calling Activity
+     * @param lonE7 WGS84 longitude*1E7
+     * @param latE7 WGS84 latitude*1E7
+     */
+    private void outsideOfDownload(final Activity activity, int lonE7, int latE7) {
+        if (!getDelegator().isInDownload(lonE7, latE7)) {
+            Log.d(DEBUG_TAG, "Outside of download");
+            Snack.barWarningShort(activity, R.string.toast_outside_of_download);
+        }
+    }
+
+    /**
      * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
      * 
      * @activity activity this was called from, if null no warnings will be displayed
@@ -1518,11 +1526,7 @@ public class Logic {
         int lat = (int) (latD * 1E7D);
         Node newNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
         getDelegator().insertElementSafe(newNode);
-        if (!getDelegator().isInDownload(lat, lon)) {
-            // warning toast
-            Log.d(DEBUG_TAG, "Outside of download");
-            Snack.barWarningShort(activity, R.string.toast_outside_of_download);
-        }
+        outsideOfDownload(activity, lon, lat);
         setSelectedNode(newNode);
         return newNode;
     }
@@ -2021,7 +2025,7 @@ public class Logic {
                 int lon = xToLonE7(x);
                 node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
                 getDelegator().insertElementSafe(node);
-                if (!getDelegator().isInDownload(lat, lon)) {
+                if (!getDelegator().isInDownload(lon, lat)) {
                     // warning toast
                     Snack.barWarningShort(activity, R.string.toast_outside_of_download);
                 }

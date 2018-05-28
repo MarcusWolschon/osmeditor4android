@@ -52,6 +52,7 @@ import de.blau.android.util.ThemeUtils;
  */
 public class HelpViewer extends BugFixedAppCompatActivity {
 
+    private static final String HTML_SUFFIX = ".html";
     private static String DEBUG_TAG = HelpViewer.class.getName();
 
     class HelpItem {
@@ -159,7 +160,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
             for (int i = 0; i < tocRes.length(); i++) {
                 String fileName = fileRes.getString(i);
                 // Log.d("HelpViewer", "TOC " + tocTopic);
-                if (defaultList.contains(fileName + ".html")) {
+                if (defaultList.contains(fileName + HTML_SUFFIX)) {
                     // Log.d("HelpViewer", "TOC " + locale + " " + tocTopic);
                     HelpItem h = new HelpItem();
                     h.language = defaultLanguage;
@@ -169,7 +170,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                     if (!tocList.containsKey(h.topic)) {
                         tocList.put(h.topic, h);
                     }
-                } else if (enList.contains(fileName + ".html")) {
+                } else if (enList.contains(fileName + HTML_SUFFIX)) {
                     // Log.d("HelpViewer", "TOC en " + tocTopic);
                     HelpItem h = new HelpItem();
                     h.language = "en";
@@ -223,11 +224,11 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                 }
             }
 
-            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + ".html";
+            String helpFile = "help/" + Locale.getDefault().getLanguage() + "/" + topicFile + HTML_SUFFIX;
             Log.d(DEBUG_TAG, "1 Looking for help file: " + helpFile);
-            if (!defaultList.contains(topicFile + ".html")) {
-                helpFile = "help/en/" + topicFile + ".html";
-                if (!enList.contains(topicFile + ".html")) {
+            if (!defaultList.contains(topicFile + HTML_SUFFIX)) {
+                helpFile = "help/en/" + topicFile + HTML_SUFFIX;
+                if (!enList.contains(topicFile + HTML_SUFFIX)) {
                     helpFile = "help/en/no_help.html";
                     mDrawerLayout.openDrawer(mDrawerList);
                 }
@@ -289,6 +290,8 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                 invalidateOptionsMenu();
             }
             return true;
+        default:
+            Log.e(DEBUG_TAG, "Unknown menu item " + item.getTitle());
         }
         return false;
     }
@@ -314,7 +317,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             HelpItem helpItem = tocAdapter.getItem(position);
-            helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + ".html");
+            helpView.loadUrl("file:///android_asset/help/" + helpItem.language + "/" + helpItem.fileName + HTML_SUFFIX);
             mDrawerLayout.closeDrawer(mDrawerList);
             mDrawerList.setSelected(false);
             getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + helpItem.topic);
@@ -332,7 +335,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
                 Log.d(DEBUG_TAG, "orig " + url);
                 getSupportActionBar().setTitle(getString(R.string.menu_help) + ": " + getTopic(url));
                 if (url.endsWith(".md")) { // on device we have pre-generated html
-                    url = url.substring(0, url.length() - ".md".length()) + ".html";
+                    url = url.substring(0, url.length() - ".md".length()) + HTML_SUFFIX;
                     Log.d(DEBUG_TAG, "new " + url);
                 }
                 view.loadUrl(url);

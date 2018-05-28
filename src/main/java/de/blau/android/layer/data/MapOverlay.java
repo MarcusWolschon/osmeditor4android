@@ -353,7 +353,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 }
             }
             paintNode(canvas, n, x, y, hwAccelarationWorkaround,
-                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lat, lon)));
+                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lon, lat)));
         }
         paintHandles(canvas);
     }

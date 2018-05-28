@@ -3024,9 +3024,10 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
+     * Set an OemElement to unchanged and remove it from the upload
      * This is only used when trying to fix conflicts
      * 
-     * @param element
+     * @param element the OsmElement
      */
     public void removeFromUpload(OsmElement element) {
         apiStorage.removeElement(element);
@@ -3034,10 +3035,11 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
+     * Set the version of an OsmElement
      * This is only used when trying to fix conflicts
      * 
-     * @param element
-     * @param version
+     * @param element the OsmElement
+     * @param version the new version
      */
     public void setOsmVersion(OsmElement element, long version) {
         element.setOsmVersion(version);
@@ -3046,20 +3048,25 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Return true if coordinates were in the original bboxes from downloads, needs a more efficient implementation
+     * Check if coordinates are in the original bboxes from downloads, needs a more efficient implementation
      * 
-     * @param lat
-     * @param lon
-     * @return
+     * @param lonE7 WGS84 longitude*1E7
+     * @param latE7 WGS84 latitude*1E7
+     * @return true if the coordinates are in one of the bounding boxes
      */
-    public boolean isInDownload(int lat, int lon) {
+    public boolean isInDownload(int lonE7, int latE7) {
         for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
-            if (bb.isIn(lon, lat))
+            if (bb.isIn(lonE7, latE7))
                 return true;
         }
         return false;
     }
 
+    /**
+     * Get the last added BoundingBox
+     * 
+     * @return the last BoundingBox in the list or an emply one
+     */
     public BoundingBox getLastBox() {
         int s = getBoundingBoxes().size();
         if (s > 0) {
