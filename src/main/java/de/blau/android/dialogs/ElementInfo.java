@@ -74,15 +74,8 @@ public class ElementInfo extends DialogFragment {
      * @param activity the calling Activity
      * @param e the OsmElement
      */
-    static public void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
-        dismissDialog(activity);
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            ElementInfo elementInfoFragment = newInstance(null, e);
-            elementInfoFragment.show(fm, TAG);
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
-        }
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
+        showDialog(activity, null, e);
     }
 
     /**
@@ -92,7 +85,7 @@ public class ElementInfo extends DialogFragment {
      * @param ue an UndoElement to compare with
      * @param e the OsmElement
      */
-    static public void showDialog(@NonNull FragmentActivity activity, @Nullable UndoElement ue, @NonNull OsmElement e) {
+    public static void showDialog(@NonNull FragmentActivity activity, @Nullable UndoElement ue, @NonNull OsmElement e) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -118,7 +111,7 @@ public class ElementInfo extends DialogFragment {
             }
             ft.commit();
         } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "showDialog", isex);
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
         }
     }
 
@@ -316,10 +309,7 @@ public class ElementInfo extends DialogFragment {
                         try {
                             tl.addView(TableLayoutUtils.createRow(activity, k, oldIsEmpty ? encodeUrl(oldValue) : "", !deleted ? encodeUrl(currentValue) : null,
                                     true, tp));
-                        } catch (MalformedURLException e1) {
-                            Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + e);
-                            tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
-                        } catch (URISyntaxException e1) {
+                        } catch (MalformedURLException | URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + e);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
                         }
@@ -335,7 +325,7 @@ public class ElementInfo extends DialogFragment {
                 tl.addView(TableLayoutUtils.divider(activity));
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, null, tp));
                 // get rid of duplicates and get something that we can modify
-                Set<Relation> parents = parentsList != null ? new HashSet<>(parentsList) : null; 
+                Set<Relation> parents = parentsList != null ? new HashSet<>(parentsList) : null;
                 Set<Relation> origParents = origParentsList != null ? new HashSet<>(origParentsList) : null;
 
                 if (parents != null) {
@@ -343,13 +333,11 @@ public class ElementInfo extends DialogFragment {
                         List<RelationMember> members = r.getAllMembers(e);
                         List<RelationMember> origMembers = null;
                         UndoElement origRelation = null;
-                        if (compare) {
-                            if (origParentsList != null && origParentsList.contains(r)) {
-                                origRelation = App.getDelegator().getUndo().getOriginal(r);
-                                if (origRelation != null) {
-                                    origMembers = ((UndoRelation) origRelation).getAllMembers(e);
-                                    origParents.remove(r);
-                                }
+                        if (compare && origParentsList != null && origParentsList.contains(r)) {
+                            origRelation = App.getDelegator().getUndo().getOriginal(r);
+                            if (origRelation != null) {
+                                origMembers = ((UndoRelation) origRelation).getAllMembers(e);
+                                origParents.remove(r);
                             }
                         }
                         for (RelationMember rm : members) {
