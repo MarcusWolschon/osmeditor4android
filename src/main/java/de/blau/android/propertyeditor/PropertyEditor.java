@@ -908,7 +908,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                                 nextView = nextView.focusSearch(View.FOCUS_DOWN);
                             }
                         }
-                        if (nextView != null && nextView instanceof EditText) {
+                        if (nextView instanceof EditText) {
                             nextView.requestFocus();
                             return true;
                         }

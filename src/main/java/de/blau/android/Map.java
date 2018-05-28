@@ -987,7 +987,7 @@ public class Map extends View implements IMapView {
     public List<String> getImageryNames() {
         List<String> result = new ArrayList<>();
         for (MapViewLayer osmvo : getLayers()) {
-            if (osmvo != null && osmvo instanceof MapTilesLayer) {
+            if (osmvo instanceof MapTilesLayer) {
                 result.add(((MapTilesLayer) osmvo).getTileLayerConfiguration().getName());
             }
         }

@@ -1491,7 +1491,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_export).setEnabled(storagePermissionGranted);
 
         Filter filter = logic.getFilter();
-        if (filter != null && filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
+        if (filter instanceof TagFilter && !prefs.getEnableTagFilter()) {
             // something is wrong, try to sync
             prefs.enableTagFilter(true);
             Log.d(DEBUG_TAG, "had to resync tagfilter pref");

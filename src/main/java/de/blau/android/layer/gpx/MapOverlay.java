@@ -279,7 +279,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (!savingHelper.save(context, FILENAME, this, true)) {
             // this is essentially catastrophic and can only happen if something went really wrong
             // running out of memory or disk, or HW failure
-            if (context != null && context instanceof Activity) {
+            if (context instanceof Activity) {
                 Snack.barError((Activity) context, R.string.toast_statesave_failed);
             }
         }

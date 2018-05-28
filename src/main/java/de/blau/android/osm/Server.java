@@ -634,7 +634,7 @@ public class Server {
             ResponseBody responseBody = readCallResponse.body();
             return responseBody.byteStream();
         } else {
-            if (context != null && context instanceof Activity) {
+            if (context instanceof Activity) {
                 final int responseCode = readCallResponse.code();
                 final String responseMessage = readCallResponse.message();
                 if (responseCode == 400) {

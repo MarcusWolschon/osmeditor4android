@@ -147,7 +147,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         if (alternateRootPaths != null && !alternateRootPaths.isEmpty()) {
             PresetElement alternativeRootElement = Preset.getElementByPath(presets[0].getRootGroup(), alternateRootPaths.get(0));
-            if (alternativeRootElement != null && alternativeRootElement instanceof PresetGroup) {
+            if (alternativeRootElement instanceof PresetGroup) {
                 rootGroup = (PresetGroup) alternativeRootElement;
             }
         }

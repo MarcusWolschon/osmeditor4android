@@ -131,7 +131,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
         menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
         Filter filter = App.getLogic().getFilter();
-        if (filter == null || !(filter instanceof PresetFilter)) {
+        if (!(filter instanceof PresetFilter)) {
             Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
             return true;
         }
@@ -146,7 +146,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Filter filter = App.getLogic().getFilter();
-        if (filter == null || !(filter instanceof PresetFilter)) {
+        if (!(filter instanceof PresetFilter)) {
             Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
             return true;
         }
@@ -234,7 +234,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
     void onPresetElementSelected(PresetElement element) {
         Log.d(DEBUG_TAG, element.toString());
         Filter filter = App.getLogic().getFilter();
-        if (filter != null && filter instanceof PresetFilter) {
+        if (filter instanceof PresetFilter) {
             ((PresetFilter) filter).setPresetElement(element.getPath(rootGroup));
             Snack.toastTopInfo(this, element.getName());
             Log.d(DEBUG_TAG, "parent " + element.getParent());

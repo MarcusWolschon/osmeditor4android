@@ -109,7 +109,7 @@ public class Names {
 
         @Override
         public boolean equals(Object obj) {
-            if (obj == null || !(obj instanceof NameAndTags)) {
+            if (!(obj instanceof NameAndTags)) {
                 return false;
             }
             return name.equals(((NameAndTags) obj).name) && tags.equals(((NameAndTags) obj).tags);

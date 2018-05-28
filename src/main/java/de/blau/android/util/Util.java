@@ -57,6 +57,9 @@ public class Util {
 
     private static final String DEBUG_TAG = "Util";
 
+    /**
+     * Private constructor
+     */
     private Util() {
         // don't allow instantiating of this class
     }
@@ -324,9 +327,9 @@ public class Util {
             sv.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (sv != null && sv instanceof ScrollView) {
+                    if (sv instanceof ScrollView) {
                         ((ScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
-                    } else if (sv != null && sv instanceof NestedScrollView) {
+                    } else if (sv instanceof NestedScrollView) {
                         ((NestedScrollView) sv).fullScroll(up ? ScrollView.FOCUS_UP : ScrollView.FOCUS_DOWN);
                     } else {
                         Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);
@@ -340,9 +343,9 @@ public class Util {
                 @Override
                 public void run() {
                     final int target = up ? row.getTop() : row.getBottom();
-                    if (sv != null && sv instanceof ScrollView) {
+                    if (sv instanceof ScrollView) {
                         ((ScrollView) sv).smoothScrollTo(0, target);
-                    } else if (sv != null && sv instanceof NestedScrollView) {
+                    } else if (sv instanceof NestedScrollView) {
                         ((NestedScrollView) sv).smoothScrollTo(0, target);
                     } else {
                         Log.e(DEBUG_TAG, "scrollToRow unexpected view " + sv);

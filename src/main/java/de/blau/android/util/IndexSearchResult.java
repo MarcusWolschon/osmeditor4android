@@ -30,7 +30,7 @@ public class IndexSearchResult implements Comparable<IndexSearchResult> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof IndexSearchResult)) {
+        if (!(obj instanceof IndexSearchResult)) {
             return false;
         }
         return weight == ((IndexSearchResult) obj).weight

@@ -199,7 +199,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                             } catch (OsmException e1) {
                                 Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
                             }
-                        } else if (activity != null && activity instanceof Main) { // real
+                        } else if (activity instanceof Main) { // real
                             ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
                         }
                     }

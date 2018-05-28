@@ -411,7 +411,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (presetsToApply != null) {
             for (PresetElementPath pp : presetsToApply) {
                 PresetElement pi = Preset.getElementByPath(rootGroup, pp);
-                if (pi != null && pi instanceof PresetItem) {
+                if (pi instanceof PresetItem) {
                     applyPreset((PresetItem) pi, false, true);
                 }
             }

@@ -188,7 +188,7 @@ public class TaskStorage implements Serializable {
                 } else {
                     // this is essentially catastrophic and can only happen if something went really wrong
                     // running out of memory or disk, or HW failure
-                    if (ctx != null && ctx instanceof Activity) {
+                    if (ctx instanceof Activity) {
                         Snack.barError((Activity) ctx, R.string.toast_statesave_failed);
                     }
                 }

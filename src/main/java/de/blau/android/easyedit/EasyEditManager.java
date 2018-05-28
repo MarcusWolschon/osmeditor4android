@@ -330,7 +330,7 @@ public class EasyEditManager {
      */
     public void handleActivityResult(final int requestCode, final int resultCode, final Intent data) {
         synchronized (actionModeCallbackLock) {
-            if (currentActionModeCallback != null && currentActionModeCallback instanceof LongClickActionModeCallback) {
+            if (currentActionModeCallback instanceof LongClickActionModeCallback) {
                 ((LongClickActionModeCallback) currentActionModeCallback).handleActivityResult(requestCode, resultCode, data);
             }
         }

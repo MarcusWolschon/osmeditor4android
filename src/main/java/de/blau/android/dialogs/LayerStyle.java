@@ -134,7 +134,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
 
         int layerIndex = getArguments().getInt(LAYERINDEX);
         MapViewLayer tempLayer = map.getLayer(layerIndex);
-        if (tempLayer != null && tempLayer instanceof StyleableLayer) {
+        if (tempLayer instanceof StyleableLayer) {
             builder.setTitle(tempLayer.getName());
             final StyleableLayer layer = (StyleableLayer) tempLayer;
             final List<String> labelKeys = layer.getLabelList();

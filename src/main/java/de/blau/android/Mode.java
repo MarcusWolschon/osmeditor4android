@@ -123,7 +123,7 @@ public enum Mode {
             // we only want to apply a level tag automatically to newly created objects if they don't already have the
             // tag and not when the filter is inverted
             Filter filter = logic.getFilter();
-            if (filter != null && filter instanceof IndoorFilter && !((IndoorFilter) filter).isInverted() && e.getState() == OsmElement.STATE_CREATED
+            if (filter instanceof IndoorFilter && !((IndoorFilter) filter).isInverted() && e.getState() == OsmElement.STATE_CREATED
                     && !e.hasTagKey(Tags.KEY_LEVEL)) {
                 result.put(Tags.KEY_LEVEL, Integer.toString(((IndoorFilter) filter).getLevel()));
             }

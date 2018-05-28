@@ -667,7 +667,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         public Node getUnusedEnd() {
             OsmElement e = rmd.getElement();
-            if (e != null && e instanceof Way) {
+            if (e instanceof Way) {
                 Node first = ((Way) e).getFirstNode();
                 Node last = ((Way) e).getLastNode();
                 if (up != null && down == null) {

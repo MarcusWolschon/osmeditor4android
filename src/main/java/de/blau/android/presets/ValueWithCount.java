@@ -74,7 +74,7 @@ public class ValueWithCount implements Comparable<ValueWithCount> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof ValueWithCount)) {
+        if (!(obj instanceof ValueWithCount)) {
             return false;
         }
         return value.equals(((ValueWithCount) obj).value) && count == ((ValueWithCount) obj).count;
