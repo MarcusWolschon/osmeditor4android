@@ -229,7 +229,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     /**
-     * Query the preset seach index and display results in a dialog
+     * Query the preset search index and display results in a dialog
      * 
      * @param term search term
      * @return always returns true for now
@@ -245,7 +245,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
         AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
             private AlertDialog progress = null;
-            private Activity    activity = null;
 
             @Override
             protected void onPreExecute() {
@@ -262,7 +261,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 Preferences prefs = new Preferences(getContext());
                 if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
                     AutoPreset autoPreset = new AutoPreset(getContext());
-                    Preset fromTaginfo = autoPreset.fromTaginfo(term, MAX_SEARCHRESULTS - searchResults.size());
+                    Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
                     for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
                         searchResults.add(pe);
                     }
