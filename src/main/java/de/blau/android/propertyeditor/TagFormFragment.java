@@ -324,9 +324,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             } else if (Tags.isSpeedKey(key)) {
                 // check if we have localized maxspeed values
                 Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-                String[] speedLimits = prop.getSpeedLimits();
-                if (speedLimits != null) {
-                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                if (prop != null) {
+                    String[] speedLimits = prop.getSpeedLimits();
+                    if (speedLimits != null) {
+                        adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                    }
                 }
             } else {
                 HashMap<String, Integer> counter = new HashMap<>();
@@ -1220,8 +1222,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
         final ArrayList<String> ohTemplates = new ArrayList<>();
-        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(),
-                propertyEditorListener.getElement().getType(), Tags.KEY_OPENING_HOURS)) {
+        for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), propertyEditorListener.getElement().getType(),
+                Tags.KEY_OPENING_HOURS)) {
             ohTemplates.add(s.getValue());
         }
         row.valueView.setHint(R.string.tag_tap_to_edit_hint);
