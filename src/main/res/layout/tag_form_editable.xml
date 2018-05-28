@@ -47,7 +47,8 @@
     		android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"
     		android:contentDescription="@string/tag_menu_apply_preset"
-    		android:src="?attr/menu_apply_preset" />
+    		android:src="?attr/menu_apply_preset" 
+            android:saveEnabled="false" />
         <ImageButton
             android:id="@+id/form_header_copy"
     		style="?attr/TableHeader"
@@ -56,7 +57,8 @@
     		android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"
     		android:contentDescription="@string/menu_copy"
-    		android:src="?attr/menu_copy" />
+    		android:src="?attr/menu_copy" 
+            android:saveEnabled="false" />
         <ImageButton
             android:id="@+id/form_header_cut"
     		style="?attr/TableHeader"
@@ -65,7 +67,8 @@
     		android:layout_marginBottom="1dp"
             android:layout_marginRight="1dp"
     		android:contentDescription="@string/menu_cut"
-    		android:src="?attr/menu_cut" />
+    		android:src="?attr/menu_cut" 
+            android:saveEnabled="false" />
         <ImageButton
             android:id="@+id/form_header_delete"
     		style="?attr/TableHeader"
@@ -73,7 +76,8 @@
     		android:layout_height="fill_parent"
     		android:layout_marginBottom="1dp"
     		android:contentDescription="@string/delete"
-    		android:src="?attr/menu_delete" />
+    		android:src="?attr/menu_delete" 
+            android:saveEnabled="false" />
 
     </LinearLayout>
 
