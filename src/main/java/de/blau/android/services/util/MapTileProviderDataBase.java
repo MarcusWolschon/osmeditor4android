@@ -352,7 +352,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
      * @param rendererID the tile server for which to remove the tiles or null to remove all tiles
      * @throws EmptyCacheException
      */
-    synchronized public void flushCache(@Nullable String rendererID) throws EmptyCacheException {
+    public synchronized void flushCache(@Nullable String rendererID) throws EmptyCacheException {
         mDatabase.beginTransaction();
         try {
             if (rendererID == null) {

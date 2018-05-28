@@ -169,14 +169,14 @@ public abstract class Task implements Serializable, BoundedObject {
      * 
      * @return a String containing a short decsription
      */
-    abstract public String getDescription();
+    public abstract String getDescription();
 
     /**
      * Get the time this Task was last updated
      * 
      * @return a Date object
      */
-    abstract public Date getLastUpdate();
+    public abstract Date getLastUpdate();
 
     /**
      * Get the string that is used for filtering
@@ -186,5 +186,5 @@ public abstract class Task implements Serializable, BoundedObject {
      * 
      * @return the string we will filter on
      */
-    abstract public String bugFilterKey();
+    public abstract String bugFilterKey();
 }

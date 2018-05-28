@@ -31,7 +31,7 @@ public class SearchIndexUtils {
      * @param n String to normalize
      * @return normalized String
      */
-    static public String normalize(String n) {
+    public static String normalize(String n) {
         String r = n.toLowerCase(Locale.US).trim();
         r = deAccent(r);
 
@@ -68,7 +68,7 @@ public class SearchIndexUtils {
      * @param str String to work on
      * @return String without accents
      */
-    static private String deAccent(String str) {
+    private static String deAccent(String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
         if (deAccentPattern == null) {
             deAccentPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");

@@ -201,7 +201,7 @@ public class WrappingLayout extends LinearLayout {
      */
     public static class LayoutWrapper {
 
-        private final static String LOGTAG = LayoutWrapper.class.getSimpleName();
+        private static final String LOGTAG = LayoutWrapper.class.getSimpleName();
 
         private Context context;
 

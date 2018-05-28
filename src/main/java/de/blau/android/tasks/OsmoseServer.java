@@ -27,12 +27,12 @@ class OsmoseServer {
 
     private static final String DEBUG_TAG = OsmoseServer.class.getSimpleName();
 
-    private final static String       apiPath            = "/api/0.2/";
+    private static final String       apiPath            = "/api/0.2/";
     /**
      * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
      * the API
      */
-    private final static List<String> supportedLanguages = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl",
+    private static final List<String> supportedLanguages = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl",
             "pt", "ro", "ru", "sw", "uk");
 
     /**

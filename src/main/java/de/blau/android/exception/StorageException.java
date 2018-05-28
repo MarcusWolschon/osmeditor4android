@@ -8,7 +8,7 @@ package de.blau.android.exception;
  */
 public class StorageException extends Exception {
 
-    public final static int OOM = 0;
+    public static final int OOM = 0;
     private int             code;
 
     public StorageException(int code) {
@@ -23,6 +23,6 @@ public class StorageException extends Exception {
     /**
      * 
      */
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }

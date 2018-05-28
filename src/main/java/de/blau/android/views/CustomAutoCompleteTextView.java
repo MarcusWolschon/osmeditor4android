@@ -234,7 +234,7 @@ public class CustomAutoCompleteTextView extends AppCompatAutoCompleteTextView {
      */
     public static class SingleCharTokenizer implements Tokenizer {
 
-        final static char DEFAULT   = ';';
+        static final char DEFAULT   = ';';
         char              separator = DEFAULT;
 
         /**

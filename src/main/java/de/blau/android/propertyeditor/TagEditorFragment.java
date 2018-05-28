@@ -188,7 +188,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param focusOnKey
      * @param displayMRUpresets
      */
-    static public TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags,
+    public static TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags,
             String focusOnKey, boolean displayMRUpresets, HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetsToApply) {
         TagEditorFragment f = new TagEditorFragment();
 

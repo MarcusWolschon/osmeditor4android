@@ -125,7 +125,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     /**
      */
-    static public ConditionalRestrictionFragment newInstance(String key, String value, ArrayList<String> templates, ArrayList<String> ohTemplates) {
+    public static ConditionalRestrictionFragment newInstance(String key, String value, ArrayList<String> templates, ArrayList<String> ohTemplates) {
         ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
 
         Bundle args = new Bundle();

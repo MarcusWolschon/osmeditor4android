@@ -75,7 +75,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
     /**
      */
-    static public RelationMembersFragment newInstance(long id, ArrayList<RelationMemberDescription> members) {
+    public static RelationMembersFragment newInstance(long id, ArrayList<RelationMemberDescription> members) {
         RelationMembersFragment f = new RelationMembersFragment();
 
         Bundle args = new Bundle();

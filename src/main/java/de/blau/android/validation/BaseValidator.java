@@ -41,7 +41,7 @@ public class BaseValidator implements Validator {
     /**
      * Regex for general tagged issues with the object
      */
-    final static Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
+    static final Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
 
     public BaseValidator(@NonNull Context ctx) {
         init(ctx);

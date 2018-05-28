@@ -10,7 +10,7 @@ abstract class PathPattern {
 }
 
 class TriangleLeft extends PathPattern {
-    final static String name = "triangle_left";
+    static final String name = "triangle_left";
 
     Path path = new Path();
 
@@ -27,7 +27,7 @@ class TriangleLeft extends PathPattern {
 }
 
 class TriangleRight extends PathPattern {
-    final static String name = "triangle_right";
+    static final String name = "triangle_right";
 
     Path path = new Path();
 

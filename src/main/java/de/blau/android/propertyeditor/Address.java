@@ -220,7 +220,7 @@ public class Address implements Serializable {
      *            the nearest, higher numbers will provide some hysteresis
      * @return map containing the predicted address tags
      */
-    public synchronized static Map<String, ArrayList<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
+    public static synchronized Map<String, ArrayList<String>> predictAddressTags(@NonNull Context context, @NonNull final String elementType,
             final long elementOsmId, @Nullable final ElementSearch es, @NonNull final Map<String, ArrayList<String>> current, int maxRank) {
         Address newAddress = null;
 
@@ -579,7 +579,7 @@ public class Address implements Serializable {
      * @return a sorted map with the house numbers as key
      */
     @NonNull
-    private synchronized static TreeMap<Integer, Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses) {
+    private static synchronized TreeMap<Integer, Address> getHouseNumbers(String street, Address.Side side, LinkedList<Address> addresses) {
         TreeMap<Integer, Address> result = new TreeMap<>(); // list sorted by house numbers
         for (Address a : addresses) {
             if (a != null && a.tags != null) {
@@ -647,12 +647,12 @@ public class Address implements Serializable {
      * 
      * @param context Android context
      */
-    public synchronized static void resetLastAddresses(Context context) {
+    public static synchronized void resetLastAddresses(Context context) {
         savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
         lastAddresses = null;
     }
 
-    synchronized static void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String, ArrayList<String>> tags) {
+    static synchronized void updateLastAddresses(TagEditorFragment caller, LinkedHashMap<String, ArrayList<String>> tags) {
         // save any address tags for "last address tags"
         LinkedHashMap<String, ArrayList<String>> addressTags = getAddressTags(caller.getContext(), tags);
         // this needs to be done after the edit again in case the street name of what ever has changed
@@ -683,13 +683,13 @@ public class Address implements Serializable {
         }
     }
 
-    synchronized static void saveLastAddresses(Context context) {
+    static synchronized void saveLastAddresses(Context context) {
         if (lastAddresses != null) {
             savingHelperAddress.save(context, ADDRESS_TAGS_FILE, lastAddresses, false);
         }
     }
 
-    synchronized static void loadLastAddresses(Context context) {
+    static synchronized void loadLastAddresses(Context context) {
         if (lastAddresses == null) {
             try {
                 lastAddresses = savingHelperAddress.load(context, ADDRESS_TAGS_FILE, false);

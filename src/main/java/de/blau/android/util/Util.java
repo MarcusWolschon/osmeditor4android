@@ -70,13 +70,13 @@ public class Util {
      * @param s the input String
      * @return an ArrayList containing only s
      */
-    static public ArrayList<String> getArrayList(String s) {
+    public static ArrayList<String> getArrayList(String s) {
         ArrayList<String> v = new ArrayList<>();
         v.add(s);
         return v;
     }
 
-    static public LinkedHashMap<String, ArrayList<String>> getArrayListMap(Map<String, String> map) {
+    public static LinkedHashMap<String, ArrayList<String>> getArrayListMap(Map<String, String> map) {
         LinkedHashMap<String, ArrayList<String>> result = new LinkedHashMap<>();
         for (Entry<String, String> e : map.entrySet()) {
             result.put(e.getKey(), getArrayList(e.getValue()));
@@ -93,7 +93,7 @@ public class Util {
      * @param list List of ways
      * @return null if not connected or not all ways connected or the sorted list of ways
      */
-    static public List<OsmElement> sortWays(List<OsmElement> list) {
+    public static List<OsmElement> sortWays(List<OsmElement> list) {
         List<OsmElement> result = new ArrayList<>();
         List<OsmElement> unconnected = new ArrayList<>(list);
 
@@ -146,7 +146,7 @@ public class Util {
      * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
      *         first
      */
-    static public List<RelationMemberDescription> sortRelationMembers(List<RelationMemberDescription> list) {
+    public static List<RelationMemberDescription> sortRelationMembers(List<RelationMemberDescription> list) {
         List<RelationMemberDescription> result = new ArrayList<>();
         List<RelationMemberDescription> unconnected = new ArrayList<>(list);
         int nextWay = 0;
@@ -227,7 +227,7 @@ public class Util {
      * @param id
      * @return character or 0 if no short cut can be found
      */
-    static public char getShortCut(Context ctx, int id) {
+    public static char getShortCut(Context ctx, int id) {
         String s = ctx.getString(id);
         if (s != null && s.length() >= 1) {
             return s.charAt(0);

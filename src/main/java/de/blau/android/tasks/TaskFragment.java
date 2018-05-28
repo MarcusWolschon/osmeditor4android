@@ -60,7 +60,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param t Task to show
      * @return the fragment
      */
-    static public TaskFragment newInstance(Task t) {
+    public static TaskFragment newInstance(Task t) {
         TaskFragment f = new TaskFragment();
 
         Bundle args = new Bundle();

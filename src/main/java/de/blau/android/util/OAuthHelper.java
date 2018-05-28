@@ -33,7 +33,7 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
  *
  */
 public class OAuthHelper {
-    private final static Object  lock = new Object();
+    private static final Object  lock = new Object();
     private static OAuthConsumer mConsumer;
     private static OAuthProvider mProvider;
     private static String        mCallbackUrl;

@@ -16,7 +16,7 @@ import de.blau.android.osm.BoundingBox;
  */
 public class RTree implements Serializable {
     private static final long     serialVersionUID = 1L;
-    private final static String   DEBUG_TAG        = RTree.class.getName();
+    private static final String   DEBUG_TAG        = RTree.class.getName();
     private Node                  root;
     private int                   maxSize;
     private int                   minSize;

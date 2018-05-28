@@ -94,7 +94,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * @param paneMode we are displayed in Pane mode
      * @return a new PResetFragment
      */
-    static public PresetFragment newInstance(@NonNull OsmElement e, @Nullable ArrayList<PresetElementPath> alternateRootPath, boolean paneMode) {
+    public static PresetFragment newInstance(@NonNull OsmElement e, @Nullable ArrayList<PresetElementPath> alternateRootPath, boolean paneMode) {
         PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();

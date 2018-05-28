@@ -90,7 +90,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
      * MRU of last servers
      */
     private static final int                        MRU_SIZE        = 5;
-    final private MRUList<String>                   lastServers     = new MRUList<>(MRU_SIZE);
+    private final MRUList<String>                   lastServers     = new MRUList<>(MRU_SIZE);
     private transient SavingHelper<MRUList<String>> mruSavingHelper = new SavingHelper<>();
 
     private int     prevZoomLevel = -1;  // zoom level from previous draw

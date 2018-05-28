@@ -26,7 +26,7 @@ public class OAMCatalogView {
      * @param catalog List of OAMCatalog.Entry
      * @param box a BoundingBox to search in or null for the whole world
      */
-    static public void displayLayers(@NonNull final FragmentActivity activity, final List<OAMCatalog.Entry> catalog, final BoundingBox box) {
+    public static void displayLayers(@NonNull final FragmentActivity activity, final List<OAMCatalog.Entry> catalog, final BoundingBox box) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         View rulesetView = (View) LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);

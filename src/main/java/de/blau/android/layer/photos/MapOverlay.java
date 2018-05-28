@@ -38,10 +38,10 @@ import de.blau.android.views.IMapView;
  */
 public class MapOverlay extends MapViewLayer implements DisableInterface, ClickableInterface {
 
-    private final static String DEBUG_TAG = "PhotoOverlay";
+    private static final String DEBUG_TAG = "PhotoOverlay";
 
     /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private final static int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
+    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
     /** Map this is an overlay of. */
     private final Map map;

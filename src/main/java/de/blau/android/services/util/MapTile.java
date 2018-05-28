@@ -10,7 +10,7 @@ package de.blau.android.services.util;
  */
 public class MapTile {
 
-    final public String rendererID;
+    public final String rendererID;
 
     public int x;
     public int y;

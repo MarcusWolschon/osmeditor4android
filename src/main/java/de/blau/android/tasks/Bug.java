@@ -110,7 +110,7 @@ public abstract class Bug extends Task implements Serializable {
         return result;
     }
 
-    abstract public String getLongDescription(Context context, boolean withElements);
+    public abstract String getLongDescription(Context context, boolean withElements);
 
     final String level2string(Context context) {
         switch (level) {

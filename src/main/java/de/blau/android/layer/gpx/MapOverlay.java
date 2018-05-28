@@ -42,9 +42,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private transient TrackerService tracker;
 
     /** Map this is an overlay of. */
-    private transient final Map map;
+    private final transient Map map;
 
-    private transient final FloatPrimitiveList linePoints;
+    private final transient FloatPrimitiveList linePoints;
 
     public static final String FILENAME = "gpxlayer.res";
 

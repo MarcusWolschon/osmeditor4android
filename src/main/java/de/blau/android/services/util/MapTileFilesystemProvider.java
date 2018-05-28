@@ -43,7 +43,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
     // Constants
     // ===========================================================
 
-    final static String DEBUG_TAG = "MapTileFile...Provider";
+    static final String DEBUG_TAG = "MapTileFile...Provider";
 
     // ===========================================================
     // Fields

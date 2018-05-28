@@ -39,7 +39,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
 
     /**
      */
-    static public PresetSearchResultsFragment newInstance(ArrayList<PresetElement> searchResults) {
+    public static PresetSearchResultsFragment newInstance(ArrayList<PresetElement> searchResults) {
         PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();

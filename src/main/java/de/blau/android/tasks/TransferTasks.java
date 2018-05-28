@@ -70,7 +70,7 @@ public class TransferTasks {
      * @param add if true merge the download with existing task data
      * @param handler handler to run after the download if not null
      */
-    static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
+    public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
             @Nullable final PostAsyncActionHandler handler) {
         downloadBox(context, server, box, add, MAX_CLOSED_AGE, handler);
     }
@@ -85,7 +85,7 @@ public class TransferTasks {
      * @param maxClosedAge maximum time in ms since a Note was closed
      * @param handler handler to run after the download if not null
      */
-    static public void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
+    public static void downloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final BoundingBox box, final boolean add,
             long maxClosedAge, @Nullable final PostAsyncActionHandler handler) {
 
         final TaskStorage bugs = App.getTaskStorage();
@@ -156,7 +156,7 @@ public class TransferTasks {
      * @param server current server config
      * @param postUploadHandler execute code after an upload
      */
-    static public void upload(@NonNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static void upload(@NonNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
         if (server != null) {
@@ -248,7 +248,7 @@ public class TransferTasks {
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    static public boolean uploadOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
+    public static boolean uploadOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadOsmoseBug");
         AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
@@ -303,7 +303,7 @@ public class TransferTasks {
      * @return true if upload was successful
      */
     @TargetApi(11)
-    static public boolean uploadNote(@NonNull final FragmentActivity activity, @Nullable final Server server, @NonNull final Note note, final String comment,
+    public static boolean uploadNote(@NonNull final FragmentActivity activity, @Nullable final Server server, @NonNull final Note note, final String comment,
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
 
@@ -414,7 +414,7 @@ public class TransferTasks {
      * @param all if true write all notes, if false just those that have been modified
      * @param fileName file to write to
      */
-    static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
+    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName) {
         writeOsnFile(activity, all, fileName, null);
     }
 
@@ -428,7 +428,7 @@ public class TransferTasks {
      * @param fileName file to write to
      * @param postWrite handler to execute after the AsyncTask has finished
      */
-    static public void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName,
+    public static void writeOsnFile(@NonNull final FragmentActivity activity, final boolean all, final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
 
@@ -613,7 +613,7 @@ public class TransferTasks {
      * @param activity activity that called this
      * @param fileName file to write to
      */
-    static public void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName) {
+    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName) {
         writeCustomBugFile(activity, fileName, null);
     }
 
@@ -626,7 +626,7 @@ public class TransferTasks {
      * @param fileName file to write to
      * @param postWrite TODO
      */
-    static public void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
+    public static void writeCustomBugFile(@NonNull final FragmentActivity activity, @NonNull final String fileName,
             @Nullable final PostAsyncActionHandler postWrite) {
         new AsyncTask<Void, Void, Integer>() {
 

@@ -31,7 +31,7 @@ public class RecentPresetsFragment extends BaseFragment {
 
     /**
      */
-    static public RecentPresetsFragment newInstance(OsmElement element) {
+    public static RecentPresetsFragment newInstance(OsmElement element) {
         RecentPresetsFragment f = new RecentPresetsFragment();
 
         Bundle args = new Bundle();

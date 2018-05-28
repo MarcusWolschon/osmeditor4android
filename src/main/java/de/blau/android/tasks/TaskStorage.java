@@ -26,7 +26,7 @@ import de.blau.android.util.rtree.RTree;
  */
 public class TaskStorage implements Serializable {
     private static final long   serialVersionUID = 5L;
-    private final static String DEBUG_TAG        = TaskStorage.class.getSimpleName();
+    private static final String DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                 newId            = -1;
     private RTree               tasks;
     private RTree               boxes;
@@ -37,7 +37,7 @@ public class TaskStorage implements Serializable {
      */
     private transient ReentrantLock readingLock = new ReentrantLock();
 
-    public final static String FILENAME = "tasks.res";
+    public static final String FILENAME = "tasks.res";
 
     private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<>();
 
