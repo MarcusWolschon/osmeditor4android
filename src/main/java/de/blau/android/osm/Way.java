@@ -90,13 +90,16 @@ public class Way extends OsmElement implements BoundedObject {
 
     @Override
     public String toString() {
-        String res = super.toString();
+        StringBuilder res = new StringBuilder(super.toString());
         if (tags != null) {
             for (Map.Entry<String, String> tag : tags.entrySet()) {
-                res += "\t" + tag.getKey() + "=" + tag.getValue();
+                res.append('\t');
+                res.append(tag.getKey());
+                res.append('=');
+                res.append(tag.getValue());
             }
         }
-        return res;
+        return res.toString();
     }
 
     @Override
