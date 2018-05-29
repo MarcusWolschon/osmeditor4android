@@ -14,8 +14,6 @@
   <string name="upload_problem_message">Néhány vagy az összes adat nem lett feltöltve. Próbálja meg később feltölteni, ha ez egy átmeneti probléma.</string>
   <string name="bad_request_message">Az API hibával válaszolt, mentse el az adatait, és jelentse a problémát:\n\n</string>
   <string name="upload_conflict_title">Feltöltési ütközés</string>
-  <string name="upload_conflict_message_version">%1$s \nhelyi verziója %2$s \nés a kiszolgálón %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nhelyi verziója %2$s \nés törölve lett a kiszolgálón</string>
   <string name="upload_conflict_message_referential">%1$s \nhelyben törölve lett \nde van rá hivatkozás a kiszolgálón</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nmár törölve lett a kiszolgálón</string>
   <string name="use_local_version">Helyi verzió használata</string>
@@ -185,6 +183,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">A név nem lehet üres</string>
   <string name="toast_url_empty">Az URL nem lehet üres</string>
@@ -341,7 +340,7 @@
   <string name="tag_restriction_add_expression">Kifejezés hozzáadása</string>
   <string name="tag_restriction_add_opening_hours">Nyitva tartás hozzáadása</string>
   <string name="tag_restriction_value_hint">feltételes korlátozás</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Terület betöltése</string>
   <string name="location_choose_radius">Sugár választása:</string>
   <string name="location_default_radius">300m</string>
@@ -423,6 +422,7 @@
   <string name="menu_set_name">Név beállítása</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="menu_tools_background_properties">Háttér tulajdonságok</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Háttér igazítása</string>
   <string name="menu_tools_background_align_reset">Alaphelyzet</string>
   <string name="menu_tools_background_align_zero">Nulla</string>
@@ -431,13 +431,16 @@
   <string name="menu_tools_background_align_save_db">Mentés adatbázisba</string>
   <string name="menu_tools_background_align_save_device">Mentés eszközre</string>
   <string name="menu_tools_background_align_apply2all">Alkalmaz (minden nagyítás)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontraszt</string>
   <string name="menu_tools_oauth_reset">OAuth helyreállítása</string>
   <string name="menu_tools_oauth_authorisation">OAuth engedélyezés</string>
-  <string name="menu_enable_tagfilter">Címke szűrő</string>
+  <string name="menu_layers">Rétegek…</string>
+  <string name="menu_layers_load_geojson">GeoJSON réteg betöltése</string>
+  <string name="menu_enable_tagfilter">Címkeszűrő</string>
   <string name="menu_enable_presetfilter">Előbeállítás szűrő</string>
-  <string name="preset_menu_waynodes">Vonal pontok bele vétele</string>
-  <string name="preset_menu_invert">Szűrők invertálása</string>
+  <string name="preset_menu_waynodes">Vonalpontok bevétele</string>
+  <string name="preset_menu_invert">Szűrők megfordítása</string>
   <!--element action mode menu-->
   <string name="menu_tags">Tulajdonságok</string>
   <!--Text should be as short as possible-->

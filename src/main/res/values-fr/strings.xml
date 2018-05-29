@@ -12,10 +12,6 @@
   <string name="upload_problem_message">Tout ou une partie des données n\'a pas été envoyée. Réessayez plus tard, le problème peut être temporaire</string>
   <string name="bad_request_message">L\'API a répondu avec une erreur, s\'il vous plait sauvez vos données et signalez le problème:\n\n</string>
   <string name="upload_conflict_title">Conflit durant l\'envoi</string>
-  <string name="upload_conflict_message_version">%1$s
-la version locale est %2$s
-contre %3$s sur le serveur</string>
-  <string name="upload_conflict_message_deleted">%1$s \nla version locale est %2$s \net a été supprimé du serveur</string>
   <string name="upload_conflict_message_referential">%1$s \na été supprimé localement \nmais existe toujours sur le serveur</string>
   <string name="upload_conflict_message_already_deleted">%1$s \na déjà été supprimé sur le serveur</string>
   <string name="use_local_version">Utiliser la version locale</string>
@@ -150,6 +146,7 @@ Amusez-vous bien !</string>
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Vous n\'avez encore rien changé…</string>
   <string name="toast_unsaved_changes">Vous avez des modifications non sauvegardées, veuillez d\'abord les envoyer.</string>
@@ -279,7 +276,7 @@ Une erreur s\'est produite lors de l\'export du fichier pour une récupération 
   <string name="tag_restriction_add_simple_condition">Ajouter une condition simple</string>
   <string name="tag_restriction_add_expression">Ajouter une expression</string>
   <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
   <string name="location_choose_radius">Rayon :</string>
   <string name="location_default_radius">300 m</string>
@@ -359,6 +356,7 @@ il y a %3$s %4$s</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Commandes vocales</string>
   <string name="menu_tools_background_properties">Propriétés du fond</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Aligner le fond de carte</string>
   <string name="menu_tools_background_align_reset">Réinitialiser</string>
   <string name="menu_tools_background_align_zero">Zéro</string>
@@ -367,6 +365,7 @@ il y a %3$s %4$s</string>
   <string name="menu_tools_background_align_save_db">Sauvegarder vers la BDD</string>
   <string name="menu_tools_background_align_save_device">Sauvegarder vers l\'appareil</string>
   <string name="menu_tools_background_align_apply2all">Appliquer (tous les zooms)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Réinitialiser OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autoriser OAuth</string>

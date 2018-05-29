@@ -15,8 +15,6 @@
   <string name="upload_problem_message">Některá nebo všechna data nebyla nahrána. Zkuste to znovu později, může se jednat jen o dočasný problém.</string>
   <string name="bad_request_message">API odpovědělo chybou, uložte prosím vaše data a problém nahlaste.\n\n</string>
   <string name="upload_conflict_title">Konflikt nahrávání</string>
-  <string name="upload_conflict_message_version">%1$s \nmá místní verzi %2$s \na na serveru verzi %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nmá místní verzi %2$s \na na serveru je smazán</string>
   <string name="upload_conflict_message_referential">%1$s \nsmazán lokálně, \nna serveru však existují reference</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nje již na serveru smazán</string>
   <string name="use_local_version">Použít místní verzi</string>
@@ -176,8 +174,12 @@
   <string name="toast_invalid_box">Neplatný nebo nekompletní ohraničující rámec</string>
   <string name="delete_layer">Smazat vrstvu?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_stroke_width">Tloušťka čáry</string>
+  <string name="layer_style_color">Barva</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
+  <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolní body</string>
@@ -186,6 +188,7 @@
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Název nesmí být prázdný</string>
   <string name="toast_url_empty">URL nesmí být prázdné</string>
@@ -231,8 +234,6 @@
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
-  <string name="toast_imported_track_points">Importováno %1$s bodů trasy a %2$s waypointů.</string>
-  <string name="toast_imported_track_points_single_way_point">Importováno %1$s bodů trasy a 1 waypoint.</string>
   <string name="toast_unknown_voice_command">Promiňte, povelu %1$s zatím nerozumíme</string>
   <string name="toast_inconsistent_state">Zjištěn nekonzistentní stav, pošlete prosím chybové hlášení!</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
@@ -243,6 +244,7 @@
   <string name="toast_split_via">Rozdělena cesta \"přes\"</string>
   <string name="toast_split_from_and_via">Rozděleny cesty \"odkud\" a \"přes\"</string>
   <string name="toast_split_to">Rozdělena cesta \"kam\"</string>
+  <string name="toast_tile_database_issue_short">Problém databáze dlaždic</string>
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
@@ -286,6 +288,7 @@
   <string name="enable">Povolit</string>
   <string name="disable">Zakázat</string>
   <string name="clear">Smazat</string>
+  <string name="discard">Zahodit</string>
   <string name="retry">Zkusit znovu</string>
   <string name="read">Načíst</string>
   <string name="overwrite">Přepsat</string>
@@ -350,7 +353,7 @@
   <string name="tag_restriction_add_expression">Přidat výraz</string>
   <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <string name="tag_restriction_value_hint">podmíněné omezení</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>
   <string name="location_default_radius">300m</string>
@@ -424,6 +427,7 @@
   <string name="menu_transfer_save_notes_all">Uložit všechny poznámky...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Uložit nové a upravené poznámky...</string>
   <string name="menu_transfer_read_custom_bugs">Načíst vlastní úkoly...</string>
+  <string name="menu_transfer_write_custom_bugs">Uložit otevřené vlastní úkoly...</string>
   <string name="menu_save">Uložit do souboru</string>
   <string name="menu_join">Spojit</string>
   <string name="menu_unjoin">Rozpojit</string>
@@ -442,12 +446,14 @@
   <string name="menu_voice_commands">Hlasové příkazy</string>
   <string name="menu_set_name">Zadat název</string>
   <string name="tag_form_unknown_element">Neznámý prvek (bez nalezených předvoleb)</string>
+  <string name="menu_tools">Nástroje...</string>
   <string name="menu_tools_imagery">Další nástroje snímků</string>
   <string name="menu_tools_add_imagery_from_oam">Přidat snímky z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Vyčistit veškerou mezipaměť dlaždic</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadí</string>
   <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci snímků</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnat pozadí</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nula</string>
@@ -456,10 +462,12 @@
   <string name="menu_tools_background_align_save_db">Uložit do DB</string>
   <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
   <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
+  <string name="menu_layers_load_geojson">Načíst GeoJSON vrstvu</string>
   <string name="menu_enable_tagfilter">Filtr tagů</string>
   <string name="menu_enable_presetfilter">Filtr předvoleb</string>
   <string name="preset_menu_waynodes">Zahrnout uzly cest</string>
@@ -502,6 +510,8 @@
   <string name="config_customlayers_title">Vlastní vrstvy</string>
   <string name="config_customlayers_summary">Nastavení vrstev, které nejsou ve výchozí konfiguraci</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
+  <string name="config_mapProfile_title">Styl dat</string>
+  <string name="config_mapProfile_summary">Zvolte styl vrstvy s datay</string>
   <string name="config_enableOpenStreetBugs_title">Povolit zobrazení chyb a poznámek</string>
   <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek/chyb</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
@@ -514,6 +524,7 @@
   <string name="config_moreprefs">Další nastavení...</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
+  <string name="config_validatorprefs_title">Nastavení validátoru</string>
   <string name="config_validatorprefs_summary">Nastavení pravidel validátoru</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoři a licence</string>
@@ -522,6 +533,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Nastavení uživatelského rozhraní</string>
+  <string name="config_category_view_summary">Nastavení rozložení a zobrazení</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
   <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
@@ -555,11 +567,15 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Nastavení dat a úprav</string>
+  <string name="config_category_editing_summary">Nastavení automatického stahování, ukládání a notifikací.</string>
   <string name="config_forceContextMenu_title">Vždy používat kontextové menu</string>
+  <string name="config_forceContextMenu_summary">Vždy zobrazit kontextové menu, pokud je výběr nejednoznačný</string>
   <string name="config_address_tags">Tagy pro adresu</string>
   <string name="config_address_tags_summary">Tagy používané k předvyplnění adresy</string>
   <string name="config_enableNameSuggestions_title">Povolit návrhy názvu</string>
   <string name="config_enableNameSuggestions_summary">Zapnout návrhy pro tag s názvem</string>
+  <string name="config_enableNameSuggestionsPresets_title">Povolit předvolby z návrhu názvu</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Automaticky přidat předvolbu, pokud je zvolen návrh názvů</string>
   <string name="config_generateAlerts_title">Vytvářet notifikace</string>
   <string name="config_generateAlerts_summary">Vytvářet notifikace pro data s problémy či poznámkami</string>
   <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
@@ -581,8 +597,11 @@
   <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek/chyb pozastaveno</string>
   <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
   <string name="config_closeChangesetOnSave_summary">Při ukládání bude uzavření sady změn výchozí.</string>
+  <string name="config_enableAutoPresets_title">Povolit vytváření automatických předvoleb</string>
+  <string name="config_enableAutoPresets_summary">Povolit vytváření předvoleb z Taginfo</string>
   <!--Location Settings-->
   <string name="config_category_gps">Nastavení umístění</string>
+  <string name="config_category_gps_summary">GPS parametry a další zdroje polohy</string>
   <string name="config_gps_source_title">Zdroj GPS</string>
   <string name="config_gps_source_summary">Zdroj aktualizaci GPS polohy</string>
   <string name="config_gps_interval_title">Minimální GPS interval</string>
@@ -597,6 +616,7 @@
   <string name="config_gps_network_summary">Pokud není GPS povolený nebo aktuální, použít umístění ze sítě</string>
   <!--Server Settings-->
   <string name="config_category_server">Nastavení serveru</string>
+  <string name="config_category_server_summary">OSM API a další nastavení serverů</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_apibutton_summary">Zde můžete zadat nestandardní URL adresu API. Obvykle se nemá měnit!</string>
   <string name="config_loginbutton_title">Uživatelský účet</string>
@@ -609,6 +629,7 @@
   <string name="config_geocoderbutton_summary">Přidat, upravit, smazat geokodéry pro funkci vyhledávání</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Stahování a ukládání vrstev</string>
+  <string name="config_category_layers_summary">Stahování a ukládání pozadí z dlaždic snímků.</string>
   <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
   <string name="config_maxTileDownloadThreads_summary">Maximální počet vláken pro stahování dlaždic.</string>
   <string name="config_downLoadThreads_current">%1$d vláken</string>
@@ -626,6 +647,7 @@
   <string name="config_category_experimental">Experimentální</string>
   <string name="config_js_console_title">Povolit JS konzoli</string>
   <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
+  <string name="config_voiceCommandsEnabled_summary">Povolit podporu hlasových příkazů</string>
   <!---->
   <string name="manage_apis">Spravovat API</string>
   <string name="config_api_url_title">URL API</string>

@@ -15,8 +15,6 @@
   <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem có phải là một vấn đề tạm thời.</string>
   <string name="bad_request_message">API trả về lỗi. Xin vui lòng lưu dữ liệu và báo cáo lỗi:\n\n</string>
   <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
-  <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$s \ntrong khi máy chủ có %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$s \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
   <string name="upload_conflict_message_already_deleted">%1$s \nđã bị xóa trên máy chủ </string>
   <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
@@ -100,7 +98,6 @@
   <string name="imagery_offset_date">Ngày tạo</string>
   <string name="imagery_offset_zoom">Thu phóng</string>
   <string name="imagery_offset_distance">Tầm xa</string>
-  <string name="zoom_and_offset">Mức thu phóng %1$s Chệch %2$s/%3$s</string>
   <string name="set_position_datum_label">Mốc trắc địa</string>
   <string name="tag_editor_name_suggestion">Gợi ý tên gọi</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
@@ -188,6 +185,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Không thể để trống tên</string>
   <string name="toast_url_empty">Không thể để trống URL</string>
@@ -233,8 +231,6 @@
   <string name="toast_missing_filemanager">Vui lòng cài đặt một Trình quản lý Tập tin.</string>
   <string name="toast_outside_of_download">Bạn đang sửa đổi ở ngoài khu vực đã được tải về.</string>
   <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
-  <string name="toast_imported_track_points">Đã nhập %1$s điểm tuyến đường và %2$s tọa độ điểm.</string>
-  <string name="toast_imported_track_points_single_way_point">Đã nhập %1$s điểm tuyến đường và 1 tọa độ điểm.</string>
   <string name="toast_unknown_voice_command">Rất tiếc, hiện tại không hiểu “%1$s”</string>
   <string name="toast_inconsistent_state">Đã nhận ra mâu thuẫn. Xin vui lòng báo cáo lỗi.</string>
   <string name="toast_camera_error">Lỗi khi khởi động ứng dụng máy ảnh: %1$s</string>
@@ -358,7 +354,7 @@
   <string name="tag_restriction_add_expression">Thêm biểu thức</string>
   <string name="tag_restriction_add_opening_hours">Thêm giờ mở cửa</string>
   <string name="tag_restriction_value_hint">hạn chế có điều kiện</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
   <string name="location_default_radius">300 m</string>
@@ -450,6 +446,7 @@
   <string name="menu_tools_background_properties">Thuộc tính nền</string>
   <string name="menu_tools_update_imagery_configuration">Cập nhật thiết lập lớp hình ảnh</string>
   <string name="menu_tools_zoom_to_layer_extent">Thu phóng vừa lớp nền</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Điều chỉnh hình nền</string>
   <string name="menu_tools_background_align_reset">Đặt lại</string>
   <string name="menu_tools_background_align_zero">Không</string>
@@ -458,6 +455,7 @@
   <string name="menu_tools_background_align_save_db">Lưu vào CSDL</string>
   <string name="menu_tools_background_align_save_device">Lưu vào Thiết bị</string>
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Áp dụng độ chệch đã lưu vào hình ảnh</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
   <string name="menu_tools_oauth_reset">Đặt lại OAuth</string>

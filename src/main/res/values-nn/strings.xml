@@ -34,6 +34,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
@@ -56,7 +57,7 @@
   <string name="tag_menu_preset">Knappar</string>
   <string name="tag_menu_revert">Gjer om</string>
   <string name="tag_menu_mapfeatures">Map features wiki</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Les inn område</string>
   <string name="location_choose_radius">Velj radius:</string>
   <string name="location_default_radius">300m</string>
@@ -90,6 +91,8 @@
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
+  <!--Background alignment-->
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>

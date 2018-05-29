@@ -41,6 +41,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Oraindik ez duzu ezer aldatu...</string>
   <string name="toast_upload_success">OSM Zerbitzarira igoera bukatu da.</string>
@@ -70,7 +71,7 @@
   <string name="tag_menu_addtorelation">Erlaziora gehitu</string>
   <string name="tag_menu_resetMRU">Aurrezarpenak Berrezarri</string>
   <string name="tag_restriction_add_restriction">Debekua gehitu</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Area kargatu</string>
   <string name="location_choose_radius">Erradioa aukeratu:</string>
   <string name="location_default_radius">300m</string>
@@ -111,6 +112,8 @@
   <string name="menu_cut">Moztu</string>
   <string name="menu_paste">Itsatsi</string>
   <string name="menu_rotate">Biratu</string>
+  <!--Background alignment-->
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historiala</string>

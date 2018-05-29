@@ -72,6 +72,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_save_done">Salvo com sucesso</string>
@@ -109,7 +110,7 @@
   <string name="tag_details">Detalhes</string>
   <string name="menu_up">Para cima</string>
   <string name="tag_restriction_header">Valor</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_default_radius">300m</string>
   <string name="location_text_unknown">desconhecido</string>
   <string name="location_lat_label">Lat:</string>
@@ -154,6 +155,7 @@
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_information">Info</string>
   <string name="menu_tools_background_properties">Propriedades das imagens de fundo</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Alinhar fundo de tela</string>
   <string name="menu_tools_background_align_reset">Redefinir</string>
   <string name="menu_tools_background_align_zero">Zero</string>
@@ -161,6 +163,7 @@
   <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
   <string name="menu_tools_background_align_save_db">Salvar no BD</string>
   <string name="menu_tools_background_align_save_device">Salvar no dispositivo</string>
+  <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
   <string name="menu_tags">Propriedades</string>

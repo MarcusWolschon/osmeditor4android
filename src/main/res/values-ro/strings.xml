@@ -50,6 +50,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_upload_success">Încărcat către server-ul OSM. </string>
@@ -77,7 +78,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_details">Detalii</string>
   <string name="menu_up">Sus</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Incarcă zona</string>
   <string name="location_choose_radius">Alegeţi raza:</string>
   <string name="location_default_radius">300m</string>
@@ -112,10 +113,12 @@
   <string name="menu_rotate">Rotește</string>
   <string name="menu_circulize">Aranjează în cerc</string>
   <string name="menu_tools_background_properties">Proprietăţile fundalului</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Resetează</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_save_db">Salvează în baza de date</string>
   <string name="menu_tools_background_align_save_device">Salvează în dispozitiv</string>
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Istoric</string>

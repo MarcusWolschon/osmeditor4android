@@ -15,8 +15,6 @@
   <string name="upload_problem_message">I dati non sono stati parzialmente o totalmente caricati. Se si tratta di un problema temporaneo, prova a caricare di nuovo più tardi.</string>
   <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <string name="upload_conflict_title">Conflitto di caricamento</string>
-  <string name="upload_conflict_message_version">%1$s \nha la versione locale %2$s \nmentre sul server è %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nha la versione locale %2$s \nmentre sul server risulta eliminata</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato dal server</string>
   <string name="use_local_version">Utilizza la tua versione </string>
@@ -102,7 +100,6 @@
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
-  <string name="zoom_and_offset">Z %1$s Scostamento %2$s/%3$s</string>
   <string name="set_position_datum_label">datum geodetico</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
@@ -206,6 +203,7 @@
   <string name="undo_redo_title">Annulla - Ripeti</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
@@ -252,8 +250,6 @@
   <string name="toast_missing_filemanager">Installa un file manager</string>
   <string name="toast_outside_of_download">Stai modificando all\'esterno dell\'area scaricata.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
-  <string name="toast_imported_track_points">Ho importato %1$spunti traccia e %2$swaypoint.</string>
-  <string name="toast_imported_track_points_single_way_point">Ho importato %1$spunti traccia e 1 waypoint.</string>
   <string name="toast_unknown_voice_command">Mi dispiace ma al momento \"%1$s\" non è riconosciuto</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
@@ -388,7 +384,7 @@
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
   <string name="tag_restriction_value_hint">Regola di accesso condizionata</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
   <string name="location_default_radius">300m</string>
@@ -488,6 +484,7 @@
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
   <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
   <string name="menu_tools_background_align_zero">Azzera</string>
@@ -496,6 +493,7 @@
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>
   <string name="menu_tools_oauth_reset">Resetta OAuth</string>

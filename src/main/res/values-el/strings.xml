@@ -10,8 +10,6 @@
   <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
   <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν έχουν μεταφορτωθεί. Δοκιμάστε τη μεταφόρτωση ξανά αργότερα αν αυτό ήταν μόνο ένα προσωρινό πρόβλημα.</string>
   <string name="upload_conflict_title">Διένεξη μεταφόρτωσης</string>
-  <string name="upload_conflict_message_version">%1$s \nέχει τοπική έκδοση %2$s \nκαι στον διακομιστή %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nέχει τοπική έκδοση%2$s \nκαι διαγράφηκε στον διακομιστή</string>
   <string name="upload_conflict_message_referential">%1$s \nwas διαγράφηκε τοπικά \nαλλά έχει παραπομπές στον διακομιστή</string>
   <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
   <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
@@ -103,6 +101,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
@@ -178,7 +177,7 @@
   <string name="tag_menu_i8n">Προσθήκη ετικετών για %1$s</string>
   <string name="tag_restriction_header">Τιμή</string>
   <string name="tag_restriction_add_restriction">Προσθήκη περιορισμού</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
   <string name="location_default_radius">300μ</string>
@@ -251,6 +250,7 @@
   <string name="menu_information">Πληροφορίες</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
   <string name="menu_tools_background_properties">Ιδιότητες φόντου</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Ευθυγράμμιση φόντου</string>
   <string name="menu_tools_background_align_reset">Επαναφορά</string>
   <string name="menu_tools_background_align_zero">Μηδέν</string>
@@ -259,6 +259,7 @@
   <string name="menu_tools_background_align_save_db">Αποθήκευση σε Βάση Δεδομένων</string>
   <string name="menu_tools_background_align_save_device">Αποθήκευση στη Συσκευή</string>
   <string name="menu_tools_background_align_apply2all">Εφαρμογή (όλες οι μεγεθύνσεις)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Αντίθεση</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->

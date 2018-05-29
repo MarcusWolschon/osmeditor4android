@@ -15,8 +15,6 @@
   <string name="upload_problem_message">Todos os dados ou parte destes não foram enviados para o servidor. Tente enviar de novo mais tarde caso seja apenas um problema temporário.</string>
   <string name="bad_request_message">A API respondeu com um erro, por favor grave os seus dados e reporte o problema:\n\n</string>
   <string name="upload_conflict_title">Conflito no envio</string>
-  <string name="upload_conflict_message_version">%1$s \ntem a versão local %2$s \ne no servidor %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s /ntem uma versão local %2$s /ne foi eliminada no servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfoi eliminado localmente \nmas tem referências no servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \njá foi eliminado no servidor </string>
   <string name="use_local_version">Usar versão local</string>
@@ -102,7 +100,6 @@
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
-  <string name="zoom_and_offset">Z %1$s deslocamento %2$s/%3$s</string>
   <string name="set_position_datum_label">Datum geodésico</string>
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas com valores mais utilizados.</string>
@@ -191,6 +188,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">O nome tem de estar preenchido</string>
   <string name="toast_url_empty">O URL tem de ser preenchicdo</string>
@@ -238,8 +236,6 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_missing_filemanager">Por favor instale um Gestor de Ficheiros.</string>
   <string name="toast_outside_of_download">Está a tentar editar fora da área descarregada.</string>
   <string name="toast_file_not_found">%1$s não encontrado.</string>
-  <string name="toast_imported_track_points">Importado %1$s linhas de pontos e %2$s pontos.</string>
-  <string name="toast_imported_track_points_single_way_point">Importado %1$s linhas de pontos e 1 ponto.</string>
   <string name="toast_unknown_voice_command">Desculpe, atualmente \"%1$s\" não é compreensível</string>
   <string name="toast_inconsistent_state">Detetado um estado inconsistente, por favor envie um relatório de erro!</string>
   <string name="toast_camera_error">Erro ao iniciar a app da câmara: %1$s</string>
@@ -371,7 +367,7 @@ sem gravar</string>
   <string name="tag_restriction_add_expression">Adicionar expressão</string>
   <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
   <string name="tag_restriction_value_hint">restrição condicional</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
   <string name="location_default_radius">300m</string>
@@ -471,6 +467,7 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_update_imagery_configuration">Atualizar configuração da cama de imagem</string>
   <string name="menu_tools_zoom_to_layer_extent">Aproximar o fundo à extensão da camada</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Repôr</string>
   <string name="menu_tools_background_align_zero">Zero</string>
@@ -479,6 +476,7 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_align_save_db">Gravar na Base de Dados</string>
   <string name="menu_tools_background_align_save_device">Gravar no Dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos os Zooms)</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Aplicar ajuste guardado à camada</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Repôr OAuth</string>

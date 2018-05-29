@@ -11,8 +11,6 @@
   <string name="upload_problem_title">Problém s odovzdaním</string>
   <string name="upload_problem_message">Niektoré z údajov neboli odovzdané. Ak toto bol iba dočasný problém, pokúste sa ich odovzdať znovu neskôr.</string>
   <string name="upload_conflict_title">Konflikt pri odovzdávaní</string>
-  <string name="upload_conflict_message_version">Objekt %1$s \nje v miestnej verzii %2$s \na na serveri %3$s </string>
-  <string name="upload_conflict_message_deleted">Objekt %1$s \nje v miestnej verzii %2$s \na bol odstránený na serveri</string>
   <string name="upload_conflict_message_referential">Objekt %1$s \nbol miestne odstránený \nale má referencie na serveri </string>
   <string name="upload_conflict_message_already_deleted">Objekt %1$s \nuž bol odstránený na serveri </string>
   <string name="use_local_version">Použiť miestnu verziu</string>
@@ -128,6 +126,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
   <string name="toast_unsaved_changes">Máte neuložené zmeny. Prosím, najskôr ich odovzdajte.</string>
@@ -233,7 +232,7 @@
   <string name="tag_restriction_add_simple_condition">Pridať jednoduchú podmienku</string>
   <string name="tag_restriction_add_expression">Pridať výraz</string>
   <string name="tag_restriction_add_opening_hours">Pridať otváraciu dobu</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Načítať oblasť</string>
   <string name="location_choose_radius">Zvoľte okruh:</string>
   <string name="location_default_radius">300m</string>
@@ -306,10 +305,12 @@
   <string name="menu_set_name">Nastaviť názov</string>
   <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadia</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>
   <string name="menu_tools_background_align_retrieve_from_device">Zo zariadenia</string>
   <string name="menu_tools_background_align_apply2all">Použiť (všetky priblíženia)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <!--element action mode menu-->
   <string name="menu_tags">Vlastnosti</string>

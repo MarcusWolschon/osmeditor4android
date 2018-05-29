@@ -15,8 +15,6 @@
   <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Spróbuj wysłać ponownie, aby sprawdzić czy był to tylko tymczasowy problem.</string>
   <string name="bad_request_message">API OSM wysłało błędną odpowiedź, zapisz dane do pliku i zgłoś błąd: \n \n</string>
   <string name="upload_conflict_title">Wystąpił konflikt podczas wysyłania danych</string>
-  <string name="upload_conflict_message_version">%1$s \nposiada wersję lokalną %2$s \noraz na serwerze %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \n istnieje lokalnie w wersji %2$s \n ale został usunięty na serwerze</string>
   <string name="upload_conflict_message_referential">%1$s \nzostał usunięty lokalnie \nale ma powiązania na serwerze</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nzostał już usunięty na serwerze</string>
   <string name="use_local_version">Użyj wersji lokalnej</string>
@@ -170,6 +168,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Nazwa nie może być pusta</string>
   <string name="toast_url_empty">URL nie może być pusty</string>
@@ -214,7 +213,6 @@
   <string name="toast_missing_filemanager">Zainstaluj menadżer plików.</string>
   <string name="toast_outside_of_download">Edytujesz poza pobranym obszarem.</string>
   <string name="toast_file_not_found">%1$s - nie znaleziono szukanej frazy.</string>
-  <string name="toast_imported_track_points">Zaimportowano %1$s węzłów śladu i %2$s punktów.</string>
   <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
   <string name="toast_inconsistent_state">Niejednoznaczny stan danych został wykryty, prosimy o wysłanie raportu błędów.</string>
   <string name="toast_camera_error">Błąd podczas włączania aparatu: %1$s</string>
@@ -327,7 +325,7 @@
   <string name="tag_restriction_add_expression">Dodaj wyrażenie</string>
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
   <string name="tag_restriction_value_hint">ograniczenie warunkowe</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Wczytaj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
   <string name="location_default_radius">300m</string>
@@ -415,6 +413,7 @@
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Kalibracja podkładu</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Wyzeruj</string>
@@ -423,6 +422,7 @@
   <string name="menu_tools_background_align_save_db">Zapisz do bazy danych</string>
   <string name="menu_tools_background_align_save_device">Zapisz na urządzeniu</string>
   <string name="menu_tools_background_align_apply2all">Zastosuj (wszystkie przybliżenia)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Zresetuj OAuth</string>
   <string name="menu_tools_oauth_authorisation">Uwierzytelnij przez OAuth</string>

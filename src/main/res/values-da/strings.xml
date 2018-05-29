@@ -81,6 +81,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
@@ -143,7 +144,7 @@
   <string name="tag_restriction_add_expression">Tilføj udtryk</string>
   <string name="tag_restriction_add_opening_hours">Tilføj åbningstider</string>
   <string name="tag_restriction_value_hint">betinget begrænsning</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Indlæs område</string>
   <string name="location_choose_radius">Vælg radius:</string>
   <string name="location_default_radius">300m</string>
@@ -202,7 +203,9 @@
   <string name="menu_rotate">Rotér</string>
   <string name="menu_orthogonalize">Ortogonaliser</string>
   <string name="menu_information">Info</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Nulstil</string>
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>

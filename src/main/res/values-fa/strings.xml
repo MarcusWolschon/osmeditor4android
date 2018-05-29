@@ -14,8 +14,6 @@
   <string name="upload_problem_message">همه یا بخشی از اطلاعات آپلود نشد. اگر این مشکل موقتی باشد بعداً دوباره آپلود کنید.</string>
   <string name="bad_request_message">‏API با خطا پاسخ داد. لطفاً اطلاعاتتان را ذخیره کنید و این مشکل را گزارش دهید:\n\n</string>
   <string name="upload_conflict_title">تداخل آپلود</string>
-  <string name="upload_conflict_message_version">نسخهٔ %1$s \nروی دستگاه شما %2$s است \nو در سرور %3$s است</string>
-  <string name="upload_conflict_message_deleted">نسخهٔ %1$s \nروی دستگاه شما %2$s است \nو در سرور پاک شده است</string>
   <string name="upload_conflict_message_referential">%1$s \n از دستگاه شما پاک شده \nاما در سرور به آن اشاره شده است</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nقبلاً از سرور پاک شده است</string>
   <string name="use_local_version">از نسخهٔ من استفاده کن</string>
@@ -89,6 +87,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_upload_success">آپلود به سرور OSM پایان یافت. </string>
@@ -123,7 +122,7 @@
   <string name="tag_menu_addtorelation">افزودن به رابطه</string>
   <string name="tag_details">جزئیات</string>
   <string name="menu_up">بالا</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">بارگیری ناحیه</string>
   <string name="location_choose_radius">انتخاب شعاع:</string>
   <string name="location_default_radius">300 متر</string>
@@ -165,7 +164,9 @@
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>
   <string name="menu_rotate">چرخش</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">باز نشانی</string>
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">تاریخچه</string>

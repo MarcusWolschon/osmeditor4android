@@ -13,8 +13,6 @@
   <string name="upload_problem_message">Noe eller intet av innholdet ble opplastet. Prøv å laste opp senere hvis dette er et midlertidig problem.</string>
   <string name="bad_request_message">APIen svarte med en feil, vennligst lagre dataene dine og rapporter problemet:\n\n</string>
   <string name="upload_conflict_title">Last opp konflikt</string>
-  <string name="upload_conflict_message_version">%1$s \nhar lokal versjon %2$s \nog på serveren %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nhar lokal versjon %2$s \nog ble slettet fra server</string>
   <string name="upload_conflict_message_referential">%1$s \nble slettet lokalt \nmen har referanser på serveren</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nvar allerede slettet fra serveren</string>
   <string name="use_local_version">Bruk lokal versjon</string>
@@ -118,6 +116,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Navn kan ikke stå tomt</string>
   <string name="toast_url_empty">URL-feltet kan ikke stå tomt</string>
@@ -180,7 +179,7 @@
   <string name="menu_preset_help">Mal hjelp</string>
   <string name="tag_menu_i8n">Legg til egenskaper for %1$s</string>
   <string name="tag_restriction_header">Verdi</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Last ned gjeldende område</string>
   <string name="location_choose_radius">Velg radius:</string>
   <string name="location_default_radius">300m</string>
@@ -241,8 +240,10 @@
   <string name="menu_circulize">Lag sirkel</string>
   <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <string name="menu_tools_flush_all_tile_caches">Tøm alle mellomlagrede fliser</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <string name="menu_tools_background_align_save_device">Lagre til Enhet</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Tilbakestill OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autoriser OAuth</string>

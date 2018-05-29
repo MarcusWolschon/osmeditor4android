@@ -15,10 +15,6 @@
   <string name="upload_problem_message">Некоторые данные не переданы на сервер. Попробуйте снова через некоторое время, если это была временная проблема.</string>
   <string name="bad_request_message">API сообщает об ошибке. Пожалуйста, сохраните данные и сообщите о проблеме:\n\n</string>
   <string name="upload_conflict_title">Конфликт передачи</string>
-  <string name="upload_conflict_message_version">%1$s
-имеет локальную версию %2$s
-и версию на сервере %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nимеет локальную версию %2$s \nно на сервере отсутствует</string>
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>
@@ -106,7 +102,6 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
-  <string name="zoom_and_offset">Уровень %1$s Смещение %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезическая система координат</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
@@ -209,6 +204,7 @@
   <string name="layer_change_style">Изменить стиль</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">Название не может быть пустым</string>
   <string name="toast_url_empty">URL не может быть пустым</string>
@@ -255,8 +251,6 @@
   <string name="toast_missing_filemanager">Установите менеджер файлов.</string>
   <string name="toast_outside_of_download">Вы редактируете за пределами загруженной области.</string>
   <string name="toast_file_not_found">%1$s не найдено.</string>
-  <string name="toast_imported_track_points">Импортировано %1$s точек трека и %2$s путевых точек.</string>
-  <string name="toast_imported_track_points_single_way_point">Импортировано %1$s точек трека и одна путевая точка.</string>
   <string name="toast_unknown_voice_command">Извините, в настоящий момент \"%1$s\" не поддерживается</string>
   <string name="toast_inconsistent_state">Обнаружен inconsistent state, пожалуйста отправьте отчёт об ошибке разработчикам!</string>
   <string name="toast_camera_error">Ошибка при запуске приложения камеры: %1$s</string>
@@ -388,7 +382,7 @@
   <string name="tag_restriction_add_expression">Добавить выражение</string>
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
   <string name="tag_restriction_value_hint">условное ограничение</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Область для загрузки</string>
   <string name="location_choose_radius">Выберите радиус:</string>
   <string name="location_default_radius">300m</string>
@@ -488,6 +482,7 @@
   <string name="menu_tools_background_properties">Свойства фона</string>
   <string name="menu_tools_update_imagery_configuration">Обновить конфигурацию слоя снимков</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
   <string name="menu_tools_background_align_zero">Ноль</string>
@@ -496,6 +491,7 @@
   <string name="menu_tools_background_align_save_db">Сохранить в базу</string>
   <string name="menu_tools_background_align_save_device">Сохранить на устройство</string>
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Сбросить OAuth</string>

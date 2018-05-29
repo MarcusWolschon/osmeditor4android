@@ -110,18 +110,46 @@
   <string name="js_console_msg_live">מצב חי!</string>
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">יחס ריק</string>
+  <string name="add_members">הוספת חברים</string>
+  <string name="leave_empty">להשאיר ריק</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_title">נקודת דרך GPX</string>
+  <string name="description">תיאור</string>
+  <string name="created">נוצר</string>
+  <string name="altitude">גובה</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage">כיסוי</string>
+  <string name="coverage_top">עליון</string>
+  <string name="coverage_left">שמאל</string>
+  <string name="coverage_right">ימין</string>
+  <string name="coverage_bottom">תחתון</string>
+  <string name="preferred">מועדף</string>
+  <string name="delete_layer">למחוק שכבה</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">סגנון שכבה</string>
+  <string name="layer_style_stroke_width">עובי קו מתאר</string>
+  <string name="layer_style_color">צבע</string>
+  <string name="layer_style_label">תווית</string>
   <!--Layer dialog-->
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">תמונות</string>
+  <string name="layer_tasks">משימות</string>
+  <string name="layer_data">נתוני OSM</string>
+  <string name="layer_change_style">שינוי סגנון</string>
+  <string name="layer_select_imagery">בחירת תמונת רקע</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
+  <string name="toast_export_failed">הייצוא נכשל</string>
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <!--Menu-->
+  <!--Background alignment-->
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->

@@ -14,8 +14,6 @@
   <string name="upload_problem_message">No s\'han carregat algunes o totes les dades. Torneu a provar de tornar a pujar si això només era un problema temporal.</string>
   <string name="bad_request_message">L\'API ha respost amb un error, si us plau, guardeu les vostres dades i informeu el problema:\n\n</string>
   <string name="upload_conflict_title">Actualitzant conflicte</string>
-  <string name="upload_conflict_message_version">%1$s \nté un versió local %2$s \ni al servidor %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nté una versió local %2$s \ni s\'ha suprimit del servidor</string>
   <string name="upload_conflict_message_referential">%1$s \ns\'ha eliminat localment \nbut però té referències al servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \ns\'ha suprimit al servidor</string>
   <string name="use_local_version">Usa la versió local</string>
@@ -141,6 +139,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_unsaved_changes">Tens canvis sense desar, si us plau, puja\'ls primer</string>
@@ -237,7 +236,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="tag_restriction_add_expression">Afegir una expressió</string>
   <string name="tag_restriction_add_opening_hours">Afegir horaris d\'apertura</string>
   <string name="tag_restriction_value_hint">restricció condicional</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Carrega un àrea</string>
   <string name="location_choose_radius">Trieu un radi:</string>
   <string name="location_default_radius">300m</string>
@@ -319,12 +318,14 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_set_name">Estableix un nom</string>
   <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Reiniciar</string>
   <string name="menu_tools_background_align_zero">Zero</string>
   <string name="menu_tools_background_align_retrieve_from_db">Des de la base de dades</string>
   <string name="menu_tools_background_align_retrieve_from_device">Des del dispositiu</string>
   <string name="menu_tools_background_align_save_db">Desa a la base de dades</string>
   <string name="menu_tools_background_align_save_device">Desa al dispositiu</string>
+  <!---->
   <string name="menu_tools_background_contrast">Contrast</string>
   <string name="menu_enable_tagfilter">Filtrar Etiquetes</string>
   <string name="menu_enable_presetfilter">Filtrar Preselecció</string>

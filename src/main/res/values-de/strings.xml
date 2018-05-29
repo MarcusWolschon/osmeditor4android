@@ -15,8 +15,8 @@
   <string name="upload_problem_message">Ein Teil oder alle Daten wurden nicht hochgeladen. Falls dies nur ein temporäres Problem war versuchen sie es später nochmals. </string>
   <string name="bad_request_message">Die API gab einen Fehler zurück, bitte die Daten sichern und den Fehler melden:\n\n</string>
   <string name="upload_conflict_title">Konflikt beim Hochladen</string>
-  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$s \nund auf dem Server %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$s \nund ist auf dem Server gelöscht</string>
+  <string name="upload_conflict_message_version">%1$s \nhat lokale Version %2$d \nund auf dem Server %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \nhat lokale Version %2$d \nund ist auf dem Server gelöscht</string>
   <string name="upload_conflict_message_referential">%1$s \nwurde lokal gelöscht \naber hat noch aktive Bezüge auf dem Server </string>
   <string name="upload_conflict_message_already_deleted">%1$s \n ist auf dem Server schon gelöscht</string>
   <string name="use_local_version">Lokale Version verwenden</string>
@@ -102,8 +102,9 @@
   <string name="imagery_offset_date">Erstellt</string>
   <string name="imagery_offset_zoom">Zoomstufe</string>
   <string name="imagery_offset_distance">Entfernung</string>
-  <string name="zoom_and_offset">Z %1$s Versatz %2$s/%3$s</string>
+  <string name="zoom_and_offset">Z %1$d Versatz %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodätisches Datum</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
@@ -197,6 +198,10 @@
   <string name="layer_flush_tile_cache">Tile Cache leeren</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Name darf nicht leer sein</string>
   <string name="toast_url_empty">URL darf nicht leer sein</string>
@@ -243,8 +248,8 @@
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
   <string name="toast_outside_of_download">Du editierst außerhalb des heruntergeladenen Bereichs.</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
-  <string name="toast_imported_track_points">%1$s Trackpunkte und %2$s Wegpunkte importiert.</string>
-  <string name="toast_imported_track_points_single_way_point">%1$s Trackpunkte und 1 Wegpunkt importiert.</string>
+  <string name="toast_imported_track_points">%1$d Trackpunkte und %2$d Wegpunkte importiert.</string>
+  <string name="toast_imported_track_points_single_way_point">%1$d Trackpunkte und 1 Wegpunkt importiert.</string>
   <string name="toast_unknown_voice_command">\"%1$s\" wird im Augenblick nicht unterstützt</string>
   <string name="toast_inconsistent_state">Inkonsistenter Zustand entdeckt.. Bitte senden Sie einen Fehlerreport.</string>
   <string name="toast_camera_error">Fehler beim Starten der Kamera-App: %1$s</string>
@@ -317,6 +322,7 @@
   <string name="share_position">Position teilen</string>
   <string name="min">Min.</string>
   <string name="max">Max.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vespucci wirklich verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schließen und verlassen?</string>
@@ -375,10 +381,11 @@
   <string name="tag_restriction_add_expression">Ausdruck hinzufügen</string>
   <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
   <string name="tag_restriction_value_hint">bedingte Beschränkung</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Letzte bekannte Position:</string>
   <string name="location_current_text">Aktuelle Position: unbekannt</string>
   <string name="location_text_unknown">unbekannt</string>
@@ -474,6 +481,7 @@
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
   <string name="menu_tools_update_imagery_configuration">Hintergrundbilderkonfiguration updaten</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
   <string name="menu_tools_background_align_zero">Auf Null setzen</string>
@@ -482,6 +490,10 @@
   <string name="menu_tools_background_align_save_db">In DB speichern</string>
   <string name="menu_tools_background_align_save_device">Auf Gerät speichern</string>
   <string name="menu_tools_background_align_apply2all">Anwenden (alle Zoomstufen)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f meter</string>
+  <string name="distance_km">%1$.3f km</string>
+  <!---->
   <string name="menu_tools_apply_local_offset">Gespeicherter Hintergrundbildversatz anwenden</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>

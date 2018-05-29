@@ -13,8 +13,6 @@
   <string name="upload_problem_message">Non se cargou algunha ou tódalas informacións. Proba máis tarde a cargar de novo por se isto só foi un problema temporal.</string>
   <string name="bad_request_message">A API respondeu cun erro, garde os seus datos e informe do problema issue:\n\n</string>
   <string name="upload_conflict_title">Conflito de subidas</string>
-  <string name="upload_conflict_message_version">%1$s \nhas versión local  %2$s \nand no server %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nhas versión local %2$s \nand foi borrado no server</string>
   <string name="upload_conflict_message_referential">%1$s \nwas borrado local \nbut ten referencias no server </string>
   <string name="upload_conflict_message_already_deleted">%1$s \xa foi eliminado do servidor</string>
   <string name="no_login_data_title">Fallo de autenticación</string>
@@ -142,6 +140,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Aínda non cambiaches nada</string>
   <string name="toast_unsaved_changes">Tes os cambios sen gardar, dalle outra cárgaos primeiro.</string>
@@ -293,7 +292,7 @@
   <string name="tag_restriction_add_expression">Engadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Engadir horas abertas</string>
   <string name="tag_restriction_value_hint">restricción condicional</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elixe o radio:</string>
   <string name="location_default_radius">300m</string>
@@ -375,6 +374,7 @@
   <string name="menu_set_name">Xogo nome</string>
   <string name="tag_form_unknown_element">Elemento descoñecido (non presente ou atopado)</string>
   <string name="menu_tools_background_properties">Propiedades do escritorio</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Aliñar co fondo</string>
   <string name="menu_tools_background_align_reset">a 0 meu!</string>
   <string name="menu_tools_background_align_zero">Cero</string>
@@ -383,6 +383,7 @@
   <string name="menu_tools_background_align_save_db">Salvar a DB</string>
   <string name="menu_tools_background_align_save_device">Gardar Dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (Zooms total)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autentificación OAuth</string>

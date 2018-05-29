@@ -13,8 +13,6 @@
   <string name="upload_problem_message">Algunos o todos los datos no fueron subidos. Intente subir de nuevo más tarde si esto era sólo un problema temporal.</string>
   <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
-  <string name="upload_conflict_message_version">%1$s \ntiene la versión local %2$s \ny en el servidor %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \ntiene la versión local %2$s \ny fue eliminado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfue eliminado localmente \npero tiene referencias en el servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nya se eliminó en el servidor</string>
   <string name="use_local_version">Usar la versión local</string>
@@ -171,6 +169,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_name_empty">El nombre no puede estar vacío</string>
   <string name="toast_url_empty">La URL no puede estar vacía</string>
@@ -331,7 +330,7 @@
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
   <string name="tag_restriction_value_hint">Restricción condicional</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
   <string name="location_default_radius">300m</string>
@@ -423,6 +422,7 @@
   <string name="menu_tools_imagery">Más herramientas de imágenes</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Alinear fondo</string>
   <string name="menu_tools_background_align_reset">Restablecer</string>
   <string name="menu_tools_background_align_zero">Cero</string>
@@ -431,6 +431,7 @@
   <string name="menu_tools_background_align_save_db">Guardar en BD</string>
   <string name="menu_tools_background_align_save_device">Guardar en dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos los acercamientos)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>

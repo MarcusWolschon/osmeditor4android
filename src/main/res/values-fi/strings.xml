@@ -13,8 +13,6 @@
   <string name="upload_problem_message">Ainakaan osaa datasta ei ole lähetetty. Yritä lähetystä myöhemmin uudestaan mikäli ongelma oli vain väliaikainen.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
-  <string name="upload_conflict_message_version">%1$s \npaikallinen versio on %2$s \nja palvelimella on %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio on %2$s \nja se on poistettu palvelimelta</string>
   <string name="upload_conflict_message_referential">%1$s \non poistettu paikallisesti \nmutta siihen viitataan palvelimella</string>
   <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta</string>
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
@@ -142,6 +140,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
   <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>
@@ -288,7 +287,7 @@
   <string name="tag_restriction_add_expression">Lisää lauseke</string>
   <string name="tag_restriction_add_opening_hours">Lisää aukioloaika</string>
   <string name="tag_restriction_value_hint">ehdollinen rajoitus</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Lataa alue</string>
   <string name="location_choose_radius">Aseta säde:</string>
   <string name="location_default_radius">300m</string>
@@ -370,6 +369,7 @@
   <string name="menu_set_name">Aseta nimi</string>
   <string name="tag_form_unknown_element">Tuntematon elementti (ei esivalintaa)</string>
   <string name="menu_tools_background_properties">Taustan ominaisuudet</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Kohdista tausta</string>
   <string name="menu_tools_background_align_reset">Palauta</string>
   <string name="menu_tools_background_align_zero">Nollaa</string>
@@ -378,6 +378,7 @@
   <string name="menu_tools_background_align_save_db">Tallenna tietokantaan</string>
   <string name="menu_tools_background_align_save_device">Tallenna laitteelle</string>
   <string name="menu_tools_background_align_apply2all">Toteuta (kaikille tasoille)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontrasti</string>
   <string name="menu_tools_oauth_reset">Nollaa OAuth</string>
   <string name="menu_tools_oauth_authorisation">Valtuuta OAuth</string>

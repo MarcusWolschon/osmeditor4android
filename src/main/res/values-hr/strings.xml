@@ -65,6 +65,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
@@ -99,7 +100,7 @@
   <string name="tag_details">Detalji</string>
   <string name="menu_up">Gore</string>
   <string name="tag_restriction_add_restriction">Dodaj zabranu</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Učitaj površinu</string>
   <string name="location_choose_radius">Odaberi veličinu površine:</string>
   <string name="location_default_radius">300m</string>
@@ -146,8 +147,10 @@
   <string name="menu_rotate">Rotiraj</string>
   <string name="menu_orthogonalize">Ispravi kutove</string>
   <string name="menu_tools_background_properties">Opcije pozadine</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Resetiraj</string>
   <string name="menu_tools_background_align_save_db">Spremi u bazu</string>
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Povijest</string>

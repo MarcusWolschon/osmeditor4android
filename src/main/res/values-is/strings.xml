@@ -10,8 +10,6 @@
   <string name="upload_problem_title">Vandamál við að uppfæra</string>
   <string name="upload_problem_message">Ekki tókst að senda öll gögnin. Reyndu aftur síðar ef þetta skyldi vera tímabundið vandamál.</string>
   <string name="upload_conflict_title">Villa - samsláttur</string>
-  <string name="upload_conflict_message_version">%1$s \ner með útgáfu %2$s \nog á þjóninum er %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nhefur útgáfu %2$s \nog var eytt á þjóninum</string>
   <string name="upload_conflict_message_referential">%1$s \nvar eytt á tæki \nen er með tilvísanir á þjóninum</string>
   <string name="use_local_version">Nota útgáfu tækis</string>
   <string name="use_server_version">Nota útgáfu á þjóni</string>
@@ -104,6 +102,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
   <string name="toast_upload_success">Uppfærslu til OSM lokið.</string>
@@ -176,7 +175,7 @@
   <string name="menu_top">Efst</string>
   <string name="tag_restriction_header">Gildi</string>
   <string name="tag_restriction_add_restriction">Bæta við hindrun</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Hlaða svæði</string>
   <string name="location_choose_radius">Veldu radíus:</string>
   <string name="location_default_radius">300m</string>
@@ -241,6 +240,7 @@
   <string name="menu_extend_selection">Bæta við val</string>
   <string name="menu_information">Upplýsingar</string>
   <string name="menu_tools_background_properties">Bakgrunnsstillingar</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Hnika bakgrunni</string>
   <string name="menu_tools_background_align_reset">Endurstilla</string>
   <string name="menu_tools_background_align_zero">Núll</string>
@@ -249,6 +249,7 @@
   <string name="menu_tools_background_align_save_db">Vista í gagnagrunni</string>
   <string name="menu_tools_background_align_save_device">Vista á tæki</string>
   <string name="menu_tools_background_align_apply2all">Virkja (allar þysjanir)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Birtuskil</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->

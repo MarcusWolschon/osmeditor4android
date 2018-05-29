@@ -11,12 +11,6 @@
   <string name="upload_problem_title">アップロードで問題発生</string>
   <string name="upload_problem_message">全てもしくは一部のデータがアップロードされていません。一時的な問題の可能性もあるので、しばらくたってからもう一度アップロードしてください。</string>
   <string name="upload_conflict_title">アップロードされたデータの整合性が取れません</string>
-  <string name="upload_conflict_message_version">%1$s
-について、ローカルにあるバージョンは %2$s
-ですが、サーバー上にあるものは %3$s です。 </string>
-  <string name="upload_conflict_message_deleted">%1$s
-について、ローカルにあるバージョンは %2$s
-ですが、サーバー上では削除されています。 </string>
   <string name="upload_conflict_message_referential">%1$s
 についてローカルでは削除されていますが
 サーバー上にはまだ存在しています。 </string>
@@ -135,6 +129,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_unsaved_changes">変更が保存されていません。先にアップロードしてください。</string>
@@ -204,7 +199,7 @@
   <string name="tag_details">詳細</string>
   <string name="menu_up">上</string>
   <string name="tag_restriction_add_restriction">制限を追加</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
   <string name="location_default_radius">300m</string>
@@ -265,6 +260,7 @@
   <string name="menu_newnode_gps">GPS posで新しいノード</string>
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="menu_tools_background_properties">背景画像プロパティ</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">背景画像の位置調整</string>
   <string name="menu_tools_background_align_reset">リセット</string>
   <string name="menu_tools_background_align_zero">ゼロ</string>
@@ -273,6 +269,7 @@
   <string name="menu_tools_background_align_save_db">DBへ保存</string>
   <string name="menu_tools_background_align_save_device">デバイスへ保存</string>
   <string name="menu_tools_background_align_apply2all">適用 (すべてのズーム)</string>
+  <!---->
   <string name="menu_tools_background_contrast">比較</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->

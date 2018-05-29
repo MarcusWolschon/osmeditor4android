@@ -24,6 +24,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
@@ -36,7 +37,7 @@
   <!--Strings in PorpertyEditor-->
   <string name="tag_details">详情</string>
   <string name="menu_up">上</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <!--Menu-->
   <string name="menu_move">移动</string>
   <string name="menu_help">帮助</string>
@@ -45,7 +46,9 @@
   <string name="menu_camera">摄像机</string>
   <string name="menu_rotate">旋转</string>
   <string name="menu_orthogonalize">直角化</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align_reset">重置</string>
+  <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">历史</string>

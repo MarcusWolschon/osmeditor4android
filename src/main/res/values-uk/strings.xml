@@ -14,8 +14,6 @@
   <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте надіслати дані знову, можливо це тимчасові труднощі.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <string name="upload_conflict_title">Конфлікт надсилання</string>
-  <string name="upload_conflict_message_version">%1$s \nлокальна версія  %2$s \nверсія на сервері %3$s</string>
-  <string name="upload_conflict_message_deleted">%1$s \nлокальна версія %2$s \nвилучено на сервері</string>
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
@@ -99,7 +97,6 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
-  <string name="zoom_and_offset">Z %1$s Зміщення %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезичний датум</string>
   <string name="tag_editor_name_suggestion">Пропозиція назви</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Пропозиції можуть замінювати значення деяких теґів на більш поширені.</string>
@@ -161,6 +158,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>
@@ -278,7 +276,7 @@
   <string name="tag_restriction_add_expression">Додати вираз</string>
   <string name="tag_restriction_add_opening_hours">Додати час роботи</string>
   <string name="tag_restriction_value_hint">умовні обмеження</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Ділянка для звантаження</string>
   <string name="location_choose_radius">Виберіть радіус: </string>
   <string name="location_default_radius">300 м.</string>
@@ -361,6 +359,7 @@
   <string name="menu_voice_commands">Голосові команди</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <string name="menu_tools_background_properties">Властивості фону</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Положення фону</string>
   <string name="menu_tools_background_align_reset">Скинути</string>
   <string name="menu_tools_background_align_zero">Нуль</string>
@@ -369,6 +368,7 @@
   <string name="menu_tools_background_align_save_db">Зберегти у базу</string>
   <string name="menu_tools_background_align_save_device">Зберегти на пристрій</string>
   <string name="menu_tools_background_align_apply2all">Застосувати (усі масштаби)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Скинути OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизувати OAuth</string>

@@ -12,8 +12,6 @@
   <string name="upload_problem_message">En del eller all data laddades inte upp. Försök att ladda upp igen senare om det var bara ett tillfälligt problem.</string>
   <string name="bad_request_message">API:n svarade med ett fel, var god spara dina data och rapportera problemet:\n\n</string>
   <string name="upload_conflict_title">Uppladdningskonflikt</string>
-  <string name="upload_conflict_message_version">%1$s \nhar lokal version %2$s \noch på servern %3$s </string>
-  <string name="upload_conflict_message_deleted">%1$s \nhar lokal version %2$s \noch raderades på servern</string>
   <string name="upload_conflict_message_referential">%1$s \nwas raderades lokalt \nmen har referenser på servern</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nvar redan borttagen på servern</string>
   <string name="use_local_version">Använd lokal version</string>
@@ -133,6 +131,7 @@
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -240,7 +239,7 @@
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
-  <!--Strings in LocationPicker-->
+  <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Ladda område</string>
   <string name="location_choose_radius">Välj radie:</string>
   <string name="location_default_radius">300 m</string>
@@ -320,6 +319,7 @@
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
+  <!--Background alignment-->
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
   <string name="menu_tools_background_align_zero">Noll</string>
@@ -328,6 +328,7 @@
   <string name="menu_tools_background_align_save_db">Spara till DB</string>
   <string name="menu_tools_background_align_save_device">Spara till enhet</string>
   <string name="menu_tools_background_align_apply2all">Verkställ (alla zoom)</string>
+  <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Återställ OAuth</string>
   <string name="menu_tools_oauth_authorisation">Bevilja OAuth</string>
