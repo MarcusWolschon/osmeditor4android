@@ -1,5 +1,9 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+10.2.5: Fix crash displaying dialogs on Android 2.3 devices, updated imagery and presets.
+
+10.2.4: Sync version numbers. 
+
 10.2.3: Relation member state was not being saved properly for undos.
 
 10.2.2: Make network location failover preference work properly, fix custom WMS server regression, various stability improvements, update presets, translations, imagery and OH fragment.
