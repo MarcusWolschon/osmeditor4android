@@ -133,8 +133,8 @@
             android:id="@+id/location_radius_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingStart="5dp"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:text="@string/location_default_radius" />
     </LinearLayout>
 

@@ -322,7 +322,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
                 }
                 currentRadius = progress;
                 TextView radiusText = (TextView) findViewById(R.id.location_radius_text);
-                radiusText.setText(" " + progress + "m");
+                radiusText.setText(getString(R.string.location_radius, progress));
             }
 
             @Override
