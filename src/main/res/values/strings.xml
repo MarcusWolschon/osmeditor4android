@@ -515,7 +515,7 @@
     <string name="menu_tools_background_align_save_db">Save to DB</string>
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
-    <string name="min_max_zoom">%1$d - %1$d</string>
+    <string name="min_max_zoom">%1$d - %2$d</string>
     <string name="distance_meter">%1$.2f meter</string>
     <string name="distance_km">%1$.3f km</string>
     <!--  -->
