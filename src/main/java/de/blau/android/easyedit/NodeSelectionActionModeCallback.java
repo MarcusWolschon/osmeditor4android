@@ -182,7 +182,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         dialog.setView(layout);
         TextView datum = (TextView) layout.findViewById(R.id.set_position_datum); // TODO add conversion to/from
                                                                                   // other datums
-        datum.setText("WGS84");
+        datum.setText(R.string.WGS84);
         EditText lon = (EditText) layout.findViewById(R.id.set_position_lon);
         lon.setText(String.format(Locale.US, "%.7f", lonE7 / 1E7d));
         EditText lat = (EditText) layout.findViewById(R.id.set_position_lat);

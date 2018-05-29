@@ -106,6 +106,7 @@
     <string name="imagery_offset_distance">Distance</string>
     <string name="zoom_and_offset">Z %1$s Offset %2$s/%3$s</string>
     <string name="set_position_datum_label">Geodetic datum</string>
+    <string name="WGS84">WGS84</string>
     <string name="tag_editor_name_suggestion">Name suggestion</string>
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
     <string name="search_results_title">Search results</string>
