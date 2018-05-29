@@ -2,7 +2,7 @@
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
     shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version"
-    object_keys="attraction" >
+    object_keys="attraction,traffic_sign,traffic_sign:forward,traffic_sign:backward" >
 <!--
     Icons have been derived from mainly from
   
@@ -17,8 +17,8 @@
     </chunk>
     <chunk id="surface">
         <combo key="surface" text="Surface"  
-        	values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,mud" 
-        	display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Mud"
+        	values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
+        	display_values="Paved,Unpaved,Asphalt,Concrete,Concrete plates,Concrete lanes,Metal,Wood,Paving stones,Sett,Cobblestone,Gravel,Fine gravel,Pebblestone,Compacted,Grass paver,Grass,Sand,Ground,Dirt,Mud"
         	values_sort="false" 
         	values_context="surface" />
     </chunk>
@@ -36,35 +36,21 @@
         </combo>
     </chunk>
     <chunk id="riding_surface">
-        <combo key="leisure" text="Type" values="horse_riding,pitch,sports_centre,stadium,track" values_context="riding" />
-        <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,mud,unpaved,compacted" />
+        <combo key="leisure" text="Type" values="horse_riding,pitch,sports_centre,stadium,track" display_values="Horse riding,Pitch,Sports centre,Stadium,Track" values_context="riding" />
+        <combo key="surface" text="Surface" values="grass,sand,clay,dirt,fine_gravel,ground,dirt,mud,unpaved,compacted" display_values="Grass,Sand,Clay,Dirt,Fine gravel,Ground,Mud,Unpaved,Compacted" />
     </chunk>
     <chunk id="lanes">
         <combo key="lanes" text="Lanes" values="1,2,3,4,5,6" length="3" match="none" />
         <combo key="lanes:forward" text="Lanes →" long_text="Number of lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
         <combo key="lanes:backward" text="Lanes ←" long_text="Number of lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
-        <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none" />
-        <combo key="lanes:psv:forward" text="PSV Lanes →" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
-        <combo key="lanes:psv:backward" text="PSV Lanes ←" long_text="Number of PSV lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
-        <combo key="lanes:bus" text="Bus lanes" values="1,2,3,4,5,6" length="3" match="none" />
-        <combo key="lanes:bus:forward" text="Bus lanes →" long_text="Number of bus lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
-        <combo key="lanes:bus:backward" text="Bus lanes ←" long_text="Number of bus lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
+        <preset_link preset_name="Public transport lanes" />
     </chunk>
     <chunk id="maxspeed">
-        <text key="maxspeed" text="Max speed" long_text="Maximum speed specified in km/h" />
-        <optional>
-        	<combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
-        	<text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
-        	<combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
-        	<text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed opposite way direction specified in km/h" />
-        	<combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
-               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
-        </optional>
+        <text key="maxspeed" text="Max speed" long_text="Maximum speed in km/h if no units specified" />
     </chunk>
     <chunk id="highway_base">
-		<reference ref="maxspeed" />
+        <reference ref="maxspeed" />
+		<preset_link preset_name="Cond. &amp; direct. max speed" />
         <space />
         <reference ref="surface_smoothness" />
         <space />
@@ -80,7 +66,7 @@
                 <reference ref="name_layer" />
                 <text key="width" text="Width (meters)" />
                 <text key="maxheight" text="Max. height (meters)" />
-                <text key="maxspeed" text="Max. speed (km/h)" />
+                <reference ref="maxspeed" />
                 <reference ref="incline" />
             </optional>
     </chunk>
@@ -120,7 +106,7 @@
         <reference ref="sidewalk" />
     </chunk>
     <chunk id="crossing_type">    
-    	<multiselect key="crossing" text="Pedestrian crossing type" values_context="transport" >
+    	<multiselect key="crossing" text="Crossing type" values_context="transport" >
  			<list_entry value="uncontrolled" short_description="Not controlled" icon="presets/vehicle/crossing.svg" />
  			<list_entry value="traffic_signals" short_description="Traffic signals" icon="presets/vehicle/crossing_traffic_signals.svg" />
 			<list_entry value="island" short_description="Island" icon="presets/vehicle/crossing_island.svg" />
@@ -445,7 +431,7 @@
         <combo key="fee" text="Fee" values="yes,no" display_values="Yes,No" match="none" />
     </chunk>
     <chunk id="fee_interval">
-        <combo key="fee" text="Fee" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" values_sort="false" editable="true" />
+        <combo key="fee" text="Fee" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" values_sort="false" editable="true" />
     </chunk>
     <chunk id="parking_name_type_ref">
         <combo key="parking" text="Type" values="multi-storey,surface,underground,rooftop" display_values="Multi-storey,Surface,Underground,Rooftop" values_context="parking" />
@@ -465,11 +451,11 @@
         <combo key="maxstay" text="Time Limit (minutes)" values="0,30,60,90,120,180"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised">
-        <combo key="supervised" text="Supervised" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
+        <combo key="supervised" text="Supervised" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false"  match="none" editable="true" />
     </chunk>
     <chunk id="supervised_lit_oh">
         <reference ref="supervised" />
-        <combo key="lit" text="Lit" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" values_sort="false"  match="none" editable="true" />
+        <combo key="lit" text="Lit" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" values_sort="false"  match="none" editable="true" />
         <optional>
             <reference ref="oh" />
         </optional>
@@ -521,10 +507,12 @@
             display_values="Anglican,Baptist,Catholic,Evangelical,Greek catholic,Jehovahs witness,Lutheran,Methodist,Mormon,Old catholic,Orthodox,Pentecostal,Presbyterian,Protestant,Quaker,Roman catholic,Shia,Sunni" />
     </chunk>
     <chunk id="voltage">
-        <combo key="voltage" text="Voltage in Volts (V)" values="1150000,765000,750000,735000,500000,450000,420000,400000,380000,350000,345000,330000,315000,300000,275000,238000,230000,225000,220000,200000,161000,154000,150000,138000,132000,120000,115000,110000,100000,90000,69000,66000,65000,63000,60000,55000,49000,45000,35000,33000,30000,20000,15000,750000;200000,110000;20000" />
+        <combo key="voltage" text="Voltage in Volts (V)" 
+            values="1150000,765000,750000,735000,500000,450000,420000,400000,380000,350000,345000,330000,315000,300000,275000,238000,230000,225000,220000,200000,161000,154000,150000,138000,132000,120000,115000,110000,100000,90000,69000,66000,65000,63000,60000,55000,49000,45000,35000,33000,30000,20000,15000,750000;200000,110000;20000" 
+            values_sort="false" />
     </chunk>
     <chunk id="frequency">
-        <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" />
+        <combo key="frequency" text="Frequency in Hertz (Hz)" values="0,16.67,16.7,50,60" length="5" values_sort="false" />
     </chunk>
     <chunk id="voltage_frequency">
         <reference ref="voltage" />
@@ -536,14 +524,15 @@
         <text key="branch" text="Branch operator" />
     </chunk>
         <chunk id="cables">
-        <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12"  />
+        <combo key="cables" text="Cable count" values="1,2,3,4,6,9,12" values_sort="false" />
     </chunk>
     <chunk id="cables_circuits">
         <reference ref="cables" />
         <combo key="circuits" text="Number of circuits" values="1,2,3,4" />
     </chunk>
     <chunk id="power_loc">
-        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop" values_context="power" />
+        <combo key="location" text="Location" values="outdoor,indoor,underground,platform,rooftop" 
+            display_values="Outdoor,Indoor,Underground,Platform,Rooftop" values_context="power" />
     </chunk>
     <chunk id="power_extra">
         <reference ref="power_loc" />
@@ -594,7 +583,7 @@
     </chunk>
     <chunk id="optional_rating_phases">
         <optional>
-            <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" />
+            <combo key="rating" text="Power rating (kVA/MVA)" values="2700 kVA,12500 kVA,15 MVA,50 MVA,100 MVA" values_sort="false" />
             <combo key="phases" text="Phases" values="1,3" length="1" />
          </optional>
      </chunk>
@@ -709,7 +698,7 @@
     <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
   </chunk>
   <chunk id="tactile_paving">
-  	<combo key="tactile_paving" text="Tactile paving" match="key" values_sort="false" >
+  	<combo key="tactile_paving" text="Tactile paving" values_context="tactile_paving" match="key" values_sort="false" >
         <list_entry value="yes" display_value="Present" />
         <list_entry value="no" display_value="None" />
         <list_entry value="incorrect" display_value="Incorrect" />
@@ -1217,10 +1206,10 @@
             <space />
             <key key="bicycle_road" value="yes" />
             <key key="bicycle" value="designated" />
-            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" />
+            <combo key="highway" text="Highway type" values="residential,service,unclassified,path,cycleway" values_context="Highway" default="residential" match="none" />
             <text key="name" text="Name" />
             <combo key="vehicle" text="Vehicle access" values="yes,no,destination" default="no" values_context="access" />
-            <text key="maxspeed" text="Max. speed (km/h)" default="30" />
+            <text key="maxspeed" text="Max. speed" default="30" />
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="lanes" />
@@ -1504,6 +1493,15 @@
 					<text key="maxspeed:lanes:backward" text="Maxspeed per lane opposite to way direction" match="key"/>
             	</optional>
         	</item> <!-- Bi-directional roads -->
+            <item name="Public transport lanes" type="way,closedway" preset_name_label="true">
+                <link href="http://http://wiki.openstreetmap.org/wiki/Lanes" />
+                <combo key="lanes:psv" text="PSV Lanes" values="1,2,3,4,5,6" length="3" match="none" />
+                <combo key="lanes:psv:forward" text="PSV Lanes →" long_text="Number of PSV lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+                <combo key="lanes:psv:backward" text="PSV Lanes ←" long_text="Number of PSV lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
+                <combo key="lanes:bus" text="Bus lanes" values="1,2,3,4,5,6" length="3" match="none" />
+                <combo key="lanes:bus:forward" text="Bus lanes →" long_text="Number of bus lanes in way direction" values="1,2,3,4,5" length="3" match="none" />
+                <combo key="lanes:bus:backward" text="Bus lanes ←" long_text="Number of bus lanes opposite way direction" values="1,2,3,4,5" length="3" match="none" />
+            </item>
         </group> <!-- Lane attributes -->
         <item name="Cycle Lane/Track" icon="icons/png/bicycle.png" type="way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Bicycle"
@@ -1612,7 +1610,7 @@
             <key key="highway" value="bridleway" />
             <optional>
                 <reference ref="name_layer" />
-                <text key="maxspeed" text="Max. speed (km/h)" />
+                <reference ref="maxspeed" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
             </optional>
@@ -1807,11 +1805,12 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=traffic_signals" />
             <key key="highway" value="traffic_signals" />
             <optional text="Optional crossing attributes:">
+                <combo key="traffic_signals:direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  />
             	<reference ref="crossing_type" />
-                <combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
+                <combo key="crossing_ref" text="Crossing type (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" />
                 <check key="button_operated" text="Button operated" disable_off="true" />
                 <check key="traffic_signals:sound" text="Sound signals" disable_off="true" />
-                <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
+                <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" />
                 <reference ref="tactile_paving" />
                 <check key="bicycle" text="Cross by bicycle" disable_off="true" />
                 <check key="horse" text="Cross on horseback" disable_off="true" />
@@ -1831,6 +1830,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=stop"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=stop" />
             <key key="highway" value="stop" />
+            <combo key="direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  /> 
         </item> <!-- Stop -->
         <item name="Give Way" icon="icons/png/give_way.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=give_way"
@@ -1842,6 +1842,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:highway=give_way"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:highway=give_way" />
             <key key="highway" value="give_way" />
+            <combo key="direction" text="For traffic direction" values="forward,backward"  display_values="Forward,Backward"  />
         </item> <!-- Give Way -->
         <item name="Mini-Roundabout" icon="icons/png/transport_miniroundabout_clockwise.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=mini_roundabout"
@@ -1876,7 +1877,7 @@
             <optional>
             	<combo key="crossing_ref" text="Crossing type name (UK)" values="zebra,pelican,toucan,puffin,pegasus,tiger" values_searchable="true" />
             </optional>
-            <combo key="supervised" text="Crossing attendant" delimiter="|" values="yes|no|06:00-20:00|Mo-Fr 09:00-18:00,Sa 08:00-14:00|May-Sep 09:30-12:30,14:15-19:30" match="none" />
+            <combo key="supervised" text="Crossing attendant" delimiter="|" value_type="opening_hours_mixed" values="yes|no" display_values="Yes|No" match="none" />
             <check key="bicycle" text="Cross by bicycle" disable_off="true" />
             <check key="horse" text="Cross on horseback" disable_off="true" />
             <reference ref="kerb" />
@@ -2066,6 +2067,7 @@
             <space />
             <key key="traffic_sign" value="city_limit" />
             <text key="name" text="Name" />
+            <combo key="direction" text="Direction on way" values="forward,backward"  display_values="Forward,Backward"  /> 
             <preset_link preset_name="Name" />
         </item> <!-- City Limit -->
         <item name="Speed Limit Sign" icon="icons/png/speed_limit.png" type="node" preset_name_label="true">
@@ -2078,8 +2080,31 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:traffic_sign" />
             <space />
             <key key="traffic_sign" value="maxspeed" />
-            <text key="maxspeed" text="Max. speed (km/h)" />
+            <reference ref="maxspeed" />
+            <combo key="direction" text="Direction on way" values="forward,backward"  display_values="Forward,Backward"  /> 
         </item> <!-- Speed Limit -->
+        <item name="Traffic Sign Forward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_sign"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_sign"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Key:traffic_sign"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:traffic_sign"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:traffic_sign"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_sign"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:traffic_sign" />
+            <space />
+            <text key="traffic_sign:forward"  match="key" />
+        </item> <!-- Traffic Sign Forward -->
+        <item name="Traffic Sign Backward" icon="icons/png/traffic_signs.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Key:traffic_sign"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Key:traffic_sign"
+                  fi.href="http://wiki.openstreetmap.org/wiki/Fi:Key:traffic_sign"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Key:traffic_sign"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:traffic_sign"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:traffic_sign"
+                  uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:traffic_sign" />
+            <space />
+            <text key="traffic_sign:backward"  match="key" />
+        </item> <!-- Traffic Sign Forward -->
         <item name="Speed Camera" icon="icons/png/highway_speed_camera_18025.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:highway=speed_camera"
                   az.href="http://wiki.openstreetmap.org/wiki/Az:Tag:highway=speed_camera"
@@ -2548,7 +2573,7 @@
                 <reference ref="name_layer" />
                 <text key="width" text="Width (meters)" />
                 <text key="maxheight" text="Max. height (meters)" />
-                <text key="maxspeed" text="Max. speed (km/h)" />
+                <reference ref="maxspeed" />
                 <reference ref="incline" />
             </optional>
         </item> <!-- Building Passage -->
@@ -2795,6 +2820,23 @@
             <text key="maxwidth" text="Max. width (meters)" match="key" />
             <text key="maxlength" text="Max. length (meters)" match="key" />
         </item> <!-- Physical restrictions -->
+        <item name="Cond. &amp; direct. max speed" icon="icons/png/speed_limit.png" type="node,way,closedway" preset_name_label="true" >
+            <link href="https://wiki.openstreetmap.org/wiki/Conditional_restrictions"
+                  da.href="http://wiki.openstreetmap.org/wiki/Cs:Conditional_restrictions"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Conditional_restrictions"
+                  fr.href="http://wiki.openstreetmap.org/wiki/ES:Conditional_restrictions"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Conditional_restrictions"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Conditional_restrictions"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:KConditional_restrictions" />
+            <combo key="maxspeed:conditional" text="Max speed @" long_text="Conditional maximum speed specified in km/h" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />    
+            <text key="maxspeed:forward" text="Max speed →" long_text="Maximum speed in way direction specified in km/h" />
+            <combo key="maxspeed:forward:conditional" text="Max speed → @" long_text="Conditional maximum speed in way direction specified in km/h" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
+            <text key="maxspeed:backward" text="Max speed ←" long_text="Maximum speed opposite way direction specified in km/h" />
+            <combo key="maxspeed:backwardward:conditional" text="Max speed ← @" long_text="Conditional maximum speed opposite way direction specified in km/h" match="key"
+               delimiter="|" values="0 @ wet|0 @ dry|0 @ rain|0 @ snow|0 @ hazmat|0 @ weight=0|private @ length=0|0 @ width=0" />
+        </item> <!--  Conditional max speed -->
         <item name="Other mode restrictions" icon="icons/png/no_walking.png" type="node,way,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:access"
                   da.href="http://wiki.openstreetmap.org/wiki/Da:Key:access"
@@ -3506,7 +3548,7 @@
                 <reference ref="highway_yesno_incline_oneway" />
                 <reference ref="layer" />
                 <reference ref="surface_smoothness" />
-                <text key="maxspeed" text="Max. speed (km/h)" />
+                <reference ref="maxspeed" />
                 <text key="width" text="Width (meters)" />
             </optional>
         </item> <!-- Bus Guideway -->
@@ -3912,10 +3954,10 @@
             <space />
             <label text="Types of vehicles which can be charged:" />
             <checkgroup columns="4">
-                <check key="bicycle" text="Bicycle" />
-                <check key="scooter" text="Scooter" />
-                <check key="car" text="Car" />
-                <check key="truck" text="Truck" />
+                <check key="bicycle" text="Bicycle" disable_off="true" />
+                <check key="scooter" text="Scooter" disable_off="true"  />
+                <check key="car" text="Car" disable_off="true" />
+                <check key="truck" text="Truck" disable_off="true"/>
             </checkgroup>
             <space />
             <label text="Number of Sockets:" />
@@ -3935,10 +3977,10 @@
             <space />
             <label text="Authentication:" />
             <checkgroup columns="4">
-                <check key="authentication:none" text="None" />
-                <check key="authentication:phone_call" text="Phone call" />
-                <check key="authentication:short_message" text="Short message" />
-                <check key="authentication:nfc" text="NFC" />
+                <check key="authentication:none" text="None" disable_off="true" />
+                <check key="authentication:phone_call" text="Phone call" disable_off="true" />
+                <check key="authentication:short_message" text="Short message" disable_off="true" />
+                <check key="authentication:nfc" text="NFC" disable_off="true" />
             </checkgroup>
             <combo key="authentication:membership_card" text="Membership card" values="yes" />
             <preset_link preset_name="Payment Methods" />
@@ -4306,7 +4348,6 @@
             <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/Public_Transport#Platform" />
             <space />
             <key key="public_transport" value="platform" />
-            <text key="name" text="Name" />
             <check key="bench" text="Bench" disable_off="true" />
             <check key="shelter" text="Shelter" disable_off="true" />
             <reference ref="bin" />
@@ -4314,6 +4355,7 @@
             <reference ref="wheelchair" />
             <reference ref="tactile_paving" />
             <optional>
+                <text key="name" text="Name" />
                 <text key="ref" text="Reference" />
                 <text key="uic_ref" text="UIC reference" />
                 <text key="uic_name" text="UIC name" />
@@ -4902,12 +4944,12 @@
             <reference ref="name_operator" />
             <reference ref="stars" />
             <checkgroup columns="2">
-                <check key="tents" text="Tents allowed" />
-                <check key="caravans" text="Caravans allowed" />
+                <check key="tents" text="Tents allowed" disable_off="true" />
+                <check key="caravans" text="Caravans allowed" disable_off="true" />
             </checkgroup>
             <checkgroup columns="2">
-                <check key="backcountry" text="Backcountry" />
-                <check key="group_only" text="Group only access" />
+                <check key="backcountry" text="Backcountry" disable_off="true" />
+                <check key="group_only" text="Group only access" disable_off="true" />
             </checkgroup>
             <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" display_values="Exists,Public,Customers,Private" match="none" />
             <reference ref="wheelchair" />
@@ -4938,7 +4980,7 @@
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="wheelchair_seating" />
             <reference ref="stars" />
@@ -4965,7 +5007,7 @@
 			<reference ref="cuisine" />            
 			<check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5014,7 +5056,7 @@
             <combo key="cuisine" text="Cuisine" values="ice_cream" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5036,9 +5078,9 @@
             <space />
             <key key="amenity" value="ice_cream" />
             <reference ref="name_operator" />
-            <check key="outdoor_seating" text="Outdoor seating" />
+            <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5063,7 +5105,7 @@
             <check key="microbrewery" text="Microbrewery" disable_off="true" />
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true" />
             <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only" />
-            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
+            <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" value_type="opening_hours_mixed" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00" />
             <reference ref="oh_wheelchair_level" />
             <reference ref="toilets_with_access" />
             <space />
@@ -5271,7 +5313,7 @@
             <reference ref="fee" />
             <space />
             <label text="Audioguide via mobile phone?" />
-            <text key="phone" text="Phone number" />
+            <text key="phone" text="Phone number" value_type="phone" />
         </item> <!-- Audio Guide -->
         <item name="Other Information Point" icon="icons/png/tourist_information.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=information"
@@ -5392,7 +5434,7 @@
                 <list_entry value="fox" display_value="Fox" />
                 <list_entry value="giraffe" display_value="Giraffe" />
                 <list_entry value="goat" display_value="Goat" />
-                <list_entry value="goase" display_value="Goase" />
+                <list_entry value="goose" display_value="Goose" />
                 <list_entry value="gorilla" display_value="Gorilla" />
                 <list_entry value="hippopotamus" display_value="Hippopotamus" />
                 <list_entry value="horse" display_value="Horse" />
@@ -6745,7 +6787,7 @@
             <reference ref="oh_wheelchair_level" />
             <text key="operator" text="Operator" />
             <text key="defibrillator:location" text="Location description" />
-            <text key="phone" text="Phone Number" />
+            <text key="phone" text="Phone Number" value_type="phone" />
             <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="Yes,Private,Customers,Permissive,No" />
             <check key="indoor" text="Located inside a building?" disable_off="true" match="none" />
             <!-- lastcheck is in use for aed devices, but not yet well discussed or documented
@@ -8877,7 +8919,7 @@
             <key key="man_made" value="embankment" />
         </item> <!-- Embankment -->
         <separator/>
-        <item name="Pipeline" icon="presets/path.png" type="way" preset_name_label="true">
+        <item name="Pipeline" icon="icons/png/man_made_pipeline.png" type="way" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=pipeline"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:man_made=pipeline"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:man_made=pipeline"
@@ -8891,7 +8933,7 @@
             <reference ref="operator_substance" />
             <combo key="location" text="Location" values="underground,underwater,overground" values_context="pipeline" />
         </item> <!-- Pipeline -->
-        <item name="Pipeline Marker" icon="styles/standard/misc/pipeline_marker.svg" type="node" preset_name_label="true">
+        <item name="Pipeline Marker" icon="icons/png/man_made_pipeline_marker.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:pipeline=marker"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:pipeline=marker"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:pipeline=marker"
@@ -8902,7 +8944,7 @@
             <reference ref="operator_substance" />
             <reference ref="support" />
         </item> <!-- Pipeline Marker -->
-        <item name="Pipeline Valve" icon="styles/standard/misc/valve.svg" type="node" preset_name_label="true">
+        <item name="Pipeline Valve" icon="icons/png/man_made_pipeline_valve.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:pipeline=valve"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:pipeline=valve"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:pipeline=valve" />
@@ -10014,7 +10056,7 @@
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Cheese -->
-        <item name="Frozen food" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Frozen food" icon="icons/png/shopping_frozen_food.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=frozen_food"
                   ca.href="http://wiki.openstreetmap.org/wiki/Ca:Tag:shop=frozen_food"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=frozen_food"
@@ -10040,7 +10082,7 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Deli (Fine Food) -->
-        <item name="Pastry" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+        <item name="Pastry" icon="icons/png/shopping_pastry.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=pastry"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=pastry"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=pastry"
@@ -12625,7 +12667,7 @@
             <reference ref="optional_name" />
         </item> <!-- Recreation Ground -->
         <separator/>
-        <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Residential Area" icon="icons/png/landuse_house_sp.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=residential"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=residential"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=residential"
@@ -12683,7 +12725,7 @@
             <reference ref="optional_name" />
             <reference ref="religious" />
         </item> <!-- Religious -->
-        <item name="Retail" icon="icons/png/landuse_supermarket.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Retail" icon="icons/png/landuse_supermarket.png" name_context="Landuse" type="closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=retail"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=retail"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=retail"
@@ -12696,7 +12738,7 @@
             <key key="landuse" value="retail" />
             <reference ref="optional_name" />
         </item> <!-- Retail -->
-        <item name="Commercial" icon="icons/png/natural_empty.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Commercial" icon="icons/png/natural_empty.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=commercial"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=commercial"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=commercial"
@@ -12709,7 +12751,7 @@
             <key key="landuse" value="commercial" values_context="landuse" />
             <reference ref="optional_name" />
         </item> <!-- Commercial -->
-        <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Industrial" icon="icons/png/landuse_works_22087.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=industrial"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=industrial"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=industrial"
@@ -12728,7 +12770,7 @@
             	editable="true"
             	values_context="industrial" match="key"/>
         </item> <!-- Industrial -->
-        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Garages" icon="presets/garages.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=garages"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=garages"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=garages"
@@ -12753,7 +12795,7 @@
             <key key="landuse" value="railway" />
             <reference ref="optional_name" />
         </item> <!-- Railway Land -->
-        <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" preset_name_label="true">
+        <item name="Military" icon="icons/png/landuse_military.png" type="closedway,multipolygon" name_context="Landuse" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:landuse=military"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:landuse=military"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:landuse=military"
@@ -12937,8 +12979,8 @@
             <text key="website" text="Website" match="key" />
             <text key="email" text="Email Address" match="key" />
             <space />
-            <text key="phone" text="Phone Number" match="key" />
-            <text key="fax" text="Fax Number" match="key" />
+            <text key="phone" text="Phone Number" match="key" value_type="phone" />
+            <text key="fax" text="Fax Number" match="key" value_type="phone" />
             <space />
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
             <text key="wikidata" text="Wikidata" value_type="wikidata" />
@@ -12958,8 +13000,8 @@
             <text key="contact:website" text="Website" match="key" />
             <text key="contact:email" text="Email Address" match="key" />
             <space />
-            <text key="contact:phone" text="Phone Number" match="key" />
-            <text key="contact:fax" text="Fax Number" match="key" />
+            <text key="contact:phone" text="Phone Number" match="key" value_type="phone" />
+            <text key="contact:fax" text="Fax Number" match="key" value_type="phone" />
             <space />
             <text key="wikipedia" text="Wikipedia" value_type="wikipedia" />
             <text key="wikidata" text="Wikidata" value_type="wikidata" />
@@ -13052,6 +13094,32 @@ tags.remove('automatic_check_date');"
 		</item> <!-- Add or update check date -->
     </group> <!-- Annotation -->
   <group name="Relations" icon="icons/png/osm_relation_sp.png">
+  <item name="Relations" icon="icons/png/osm_relation_sp.png" type="relation,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Types_of_relation"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Types_of_relation"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Types_of_relation"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Types_of_relation"
+                  hu.href="http://wiki.openstreetmap.org/wiki/Hu:Types_of_relation"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Types_of_relation"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Types_of_relation" />
+            <combo key="type" text="Relation type" editable="true" match="key" >
+                <list_entry value="multipolygon" display_value="Multipolygon" />
+                <list_entry value="route" display_value="Route" />
+                <list_entry value="route_master" display_value="Route master" />
+                <list_entry value="restriction" display_value="Turn restriction" />
+                <list_entry value="boundary" display_value="Boundary" />
+                <list_entry value="site" display_value="Site" />
+                <list_entry value="associatedStreet" display_value="Associated street" />
+                <list_entry value="public_transport" display_value="Public transport" />
+                <list_entry value="destination_sign" display_value="Destination sign" />
+                <list_entry value="waterway" display_value="Waterway" />
+                <list_entry value="enforcement" display_value="Enforcement" />
+                <list_entry value="bridge" display_value="Bridge" />
+                <list_entry value="tunnel" display_value="Tunnel" />
+                <list_entry value="building" display_value="Building (3D)" />
+                <list_entry value="street" display_value="Street" />
+            </combo>
+        </item> <!-- Relations -->
         <item name="Multipolygon" icon="presets/multipolygon.png" type="relation,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Relation:multipolygon"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:multipolygon"
