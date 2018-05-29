@@ -504,6 +504,7 @@
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_update_imagery_configuration">Update imagery layer configuration</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
+    <!-- Background alignment -->
     <string name="menu_tools_background_align">Align background</string>
     <string name="menu_tools_background_align_reset">Reset</string>
     <string name="menu_tools_background_align_zero">Zero</string>
@@ -512,6 +513,10 @@
     <string name="menu_tools_background_align_save_db">Save to DB</string>
     <string name="menu_tools_background_align_save_device">Save to Device</string>
     <string name="menu_tools_background_align_apply2all">Apply (all Zooms)</string>
+    <string name="min_max_zoom">%1$d - %1$d</string>
+    <string name="distance_meter">%1$.2f meter</string>
+    <string name="distance_km">%1$.3f km</string>
+    <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>

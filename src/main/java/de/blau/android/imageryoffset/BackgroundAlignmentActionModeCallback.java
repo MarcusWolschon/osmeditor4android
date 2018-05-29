@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -588,11 +587,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     }
 
     /**
-     * Create the imagery offset display/apply dialog ... given that it has so much logic, done here instead of
-     * DialogFactory
+     * Create the imagery offset display/apply dialog
      * 
-     * @param index
-     * @return
+     * @param index index in to the list of ImageryOffset objects
+     * @param saveOffsetList the list of ImageryOffset objects
+     * @return a Dialog
      */
     @SuppressLint("InflateParams")
     private AppCompatDialog createSaveOffsetDialog(final int index, final List<ImageryOffset> saveOffsetList) {
@@ -610,15 +609,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             author.setText(offset.author);
         }
         TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-        off.setText(
-                String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
-                        + " meters");
+        off.setText(main.getString(R.string.distance_meter,
+                GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat())));
+
         if (offset.date != null) {
             TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
             created.setText(offset.date);
         }
         TextView minmax = (TextView) layout.findViewById(R.id.imagery_offset_zoom);
-        minmax.setText(offset.getMinZoom() + "-" + offset.getMaxZoom());
+        minmax.setText(main.getString(R.string.min_max_zoom, offset.getMinZoom(), offset.getMaxZoom()));
         dialog.setPositiveButton(R.string.menu_tools_background_align_save_db, createSaveButtonListener(description, author, index, saveOffsetList));
         if (index == (saveOffsetList.size() - 1))
             dialog.setNegativeButton(R.string.cancel, null);
@@ -709,19 +708,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             author.setText(offset.author);
         }
         TextView off = (TextView) layout.findViewById(R.id.imagery_offset_offset);
-        off.setText(
-                String.format(Locale.US, "%.2f", GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat()))
-                        + " meters");
+        off.setText(main.getString(R.string.distance_meter,
+                GeoMath.haversineDistance(offset.getLon(), offset.getLat(), offset.getImageryLon(), offset.getImageryLat())));
         if (offset.date != null) {
             TextView created = (TextView) layout.findViewById(R.id.imagery_offset_date);
             created.setText(offset.date);
         }
         TextView minmax = (TextView) layout.findViewById(R.id.imagery_offset_zoom);
-        minmax.setText(offset.getMinZoom() + "-" + offset.getMaxZoom());
+        minmax.setText(main.getString(R.string.min_max_zoom, offset.getMinZoom(), offset.getMaxZoom()));
         TextView distance = (TextView) layout.findViewById(R.id.imagery_offset_distance);
-        distance.setText(String.format(Locale.US, "%.3f",
-                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2D) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000)
-                + " km");
+        distance.setText(main.getString(R.string.distance_km,
+                GeoMath.haversineDistance((bbox.getLeft() + bbox.getWidth() / 2D) / 1E7d, bbox.getCenterLat(), offset.getLon(), offset.getLat()) / 1000));
         dialog.setPositiveButton(R.string.apply, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
