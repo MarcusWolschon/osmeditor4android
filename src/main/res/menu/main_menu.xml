@@ -124,9 +124,6 @@
             <item
                 android:id="@+id/menu_transfer_write_custom_bugs"
                 android:title="@string/menu_transfer_write_custom_bugs" />
-            <item
-                android:id="@+id/menu_transfer_read_geojson"
-                android:title="Read geojson" />
         </menu>
     </item>
     <item
