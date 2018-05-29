@@ -20,6 +20,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.views.layers.MapTilesLayer;
 
@@ -158,7 +159,7 @@ public class TileLayerDatabaseView {
      */
     protected static void resetLayer(Context context, SQLiteDatabase db) {
         TileLayerServer.getListsLocked(context, db, true);
-        Login logic = App.getLogic();
+        Logic logic = App.getLogic();
         if (logic != null) {
             MapTilesLayer layer = logic.getMap().getBackgroundLayer();
             if (layer != null) {
