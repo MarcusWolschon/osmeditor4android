@@ -17,8 +17,8 @@
     <string name="upload_problem_message">Some or all data was not uploaded. Try uploading again later if this was only a temporary problem.</string>
     <string name="bad_request_message">The API responded with an error, please save your data and report the issue:\n\n</string>
     <string name="upload_conflict_title">Upload conflict</string>
-    <string name="upload_conflict_message_version">%1$s \nhas local version %2$s \nand on the server %3$s </string>
-    <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$s \nand was deleted on the server</string>
+    <string name="upload_conflict_message_version">%1$s \nhas local version %2$d \nand on the server %3$d </string>
+    <string name="upload_conflict_message_deleted">%1$s \nhas local version %2$d \nand was deleted on the server</string>
     <string name="upload_conflict_message_referential">%1$s \nwas deleted locally \nbut has references on the server </string>
     <string name="upload_conflict_message_already_deleted">%1$s \nwas already deleted on the server </string>
     <string name="use_local_version">Use local version</string>
@@ -104,7 +104,7 @@
     <string name="imagery_offset_date">Created</string>
     <string name="imagery_offset_zoom">Zoom</string>
     <string name="imagery_offset_distance">Distance</string>
-    <string name="zoom_and_offset">Z %1$s Offset %2$s/%3$s</string>
+    <string name="zoom_and_offset">Z %1$d Offset %2$s/%3$s</string>
     <string name="set_position_datum_label">Geodetic datum</string>
     <string name="WGS84">WGS84</string>
     <string name="tag_editor_name_suggestion">Name suggestion</string>
@@ -269,8 +269,8 @@
     <string name="toast_missing_filemanager">Please install a File Manager.</string>
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
-    <string name="toast_imported_track_points">Imported %1$s track points and %2$s way points.</string>
-    <string name="toast_imported_track_points_single_way_point">Imported %1$s track points and 1 way point.</string>
+    <string name="toast_imported_track_points">Imported %1$d track points and %2$d way points.</string>
+    <string name="toast_imported_track_points_single_way_point">Imported %1$d track points and 1 way point.</string>
     <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>
