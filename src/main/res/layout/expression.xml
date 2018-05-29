@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="0dp"
+    android:layout_marginStart="0dp"
     android:layout_marginTop="0dp"
     android:orientation="vertical">
 
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:orientation="horizontal" >
 
@@ -27,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_weight="4"
             android:orientation="horizontal" >
@@ -37,12 +40,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
+                android:layout_marginEnd="1dp"
                 android:layout_weight="1"
                 android:completionThreshold="1"
                 android:hint="@string/value"
                 android:inputType="textNoSuggestions"
                 android:paddingLeft="5dp"
+                android:paddingStart="5dp"
                 android:paddingRight="0dp"
+                android:paddingEnd="0dp"
                 android:saveEnabled="false"
                 android:maxLines="1" />
 
@@ -59,12 +65,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
+                android:layout_marginEnd="1dp"
                 android:layout_weight="1"
                 android:completionThreshold="1"
                 android:hint="@string/value"
                 android:inputType="textNoSuggestions"
                 android:paddingLeft="5dp"
+                android:paddingStart="5dp"
                 android:paddingRight="0dp"
+                android:paddingEnd="0dp"
                 android:saveEnabled="false"
                 android:maxLines="1" />
          </LinearLayout>

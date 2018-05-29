@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/location_lon_label" />
 
             <EditText
@@ -82,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="@string/location_search_label" />
 
@@ -90,6 +92,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/location_search_label"
+            android:layout_toEndOf="@id/location_search_label"
             android:layout_alignBaseline="@id/location_search_label"
             android:imeOptions="actionSearch"
             android:inputType="text"
@@ -100,6 +103,7 @@
 		    android:layout_width="wrap_content"
 			android:layout_height="wrap_content" 
 			android:layout_alignLeft="@id/location_search_edit"
+            android:layout_alignStart="@id/location_search_edit"
 			android:layout_below="@id/location_search_edit"/>
   
 		<TextView
@@ -109,6 +113,7 @@
 			android:layout_centerVertical="true"
 			android:text="@string/geocoder_prompt" 
 			android:layout_alignLeft="@id/location_search_label"
+            android:layout_alignStart="@id/location_search_label"
 			android:layout_alignBaseline="@id/location_search_geocoder"/>
 
 	</RelativeLayout>
@@ -129,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             android:text="@string/location_default_radius" />
     </LinearLayout>
 

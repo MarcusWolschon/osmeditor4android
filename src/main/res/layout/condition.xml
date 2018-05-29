@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="0dp"
+    android:layout_marginStart="0dp"
     android:layout_marginTop="0dp"
     android:orientation="vertical">
 
@@ -10,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:orientation="horizontal"
         >
@@ -20,7 +22,9 @@
             android:layout_height="fill_parent"
             android:layout_gravity="bottom"
             android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
             android:layout_marginRight="0dp"
+            android:layout_marginEnd="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
         />
@@ -32,13 +36,16 @@
 	        android:layout_height="fill_parent"
 	        android:layout_marginBottom="1dp"
 	        android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
 	        android:layout_weight="4"
 	        android:completionThreshold="1"
 	        android:dropDownWidth="wrap_content"
 	        android:hint="@string/value"
 	        android:inputType="textNoSuggestions"
 	        android:paddingLeft="5dp"
+            android:paddingStart="5dp"
 	        android:paddingRight="0dp"
+            android:paddingEnd="0dp"
 			android:maxLines="1" />
 
          <include layout="@layout/menu" />

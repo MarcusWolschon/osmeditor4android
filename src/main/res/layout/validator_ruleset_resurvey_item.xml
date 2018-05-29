@@ -10,6 +10,7 @@
 		android:layout_height="wrap_content"
 		android:paddingTop="10dp"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
+        android:layout_marginStart="?attr/dialogPreferredPadding"
 		android:layout_alignParentTop="true"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
 		android:text="@string/Key"/>
@@ -19,8 +20,10 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_marginRight="?attr/dialogPreferredPadding"
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
 		android:layout_below="@id/resurvey_key_legend"
 		android:layout_alignLeft="@id/resurvey_key_legend"
+        android:layout_alignStart="@id/resurvey_key_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 	<TextView
@@ -28,6 +31,7 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
+        android:layout_marginStart="?attr/dialogPreferredPadding"
 		android:paddingTop="10dp"
 		android:layout_below="@id/resurvey_key"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
@@ -38,8 +42,10 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_marginRight="?attr/dialogPreferredPadding"
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
 		android:layout_below="@id/resurvey_value_legend"
 		android:layout_alignLeft="@id/resurvey_value_legend"
+        android:layout_alignStart="@id/resurvey_value_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
         
     <TextView
@@ -47,6 +53,7 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
+        android:layout_marginStart="?attr/dialogPreferredPadding"
 		android:paddingTop="10dp"
 		android:layout_below="@id/resurvey_value"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
@@ -58,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/resurvey_days_legend"
 		android:layout_toRightOf="@id/resurvey_days_legend"
+        android:layout_toEndOf="@id/resurvey_days_legend"
         numberpicker:min="0"
         numberpicker:max="3650"
         numberpicker:unit="1"
@@ -71,6 +79,7 @@
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="?attr/dialogPreferredPadding"
+        android:layout_marginStart="?attr/dialogPreferredPadding"
 		android:paddingTop="10dp"
 		android:layout_below="@id/resurvey_days_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" 
@@ -81,7 +90,9 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_marginRight="?attr/dialogPreferredPadding"
+        android:layout_marginEnd="?attr/dialogPreferredPadding"
 		android:layout_alignBaseline="@id/resurvey_is_regexp_legend"
 		android:layout_toRightOf="@id/resurvey_is_regexp_legend"
+        android:layout_toEndOf="@id/resurvey_is_regexp_legend"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
 </RelativeLayout>

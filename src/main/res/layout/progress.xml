@@ -25,7 +25,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/progressBar" >
+        android:layout_toRightOf="@id/progressBar"
+        android:layout_toEndOf="@id/progressBar" >
 
     </TextView>
 

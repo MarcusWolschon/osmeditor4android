@@ -3,6 +3,6 @@
     android:id="@+id/menu"
     android:layout_width="56dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="right"
+    android:layout_gravity="end"
      />
 

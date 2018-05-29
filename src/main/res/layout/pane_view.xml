@@ -29,7 +29,8 @@
             android:id="@+id/pager"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingRight="5dp" >
+            android:paddingRight="5dp"
+            android:paddingEnd="5dp" >
 
             <de.blau.android.views.ExtendedPagerTabStrip
                 android:id="@+id/pager_header"
@@ -45,6 +46,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             spl:orientation="vertical"
             spl:splitterBackground="?attr/SplitterBGV"
             spl:splitterPosition="33%"

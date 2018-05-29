@@ -218,6 +218,10 @@
     <string name="redo_all">Redo all earlier checkpoints (safe)</string>
     <!--  BoxPicker -->
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
+    <!--  NumberPiker -->
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
+    <string name="digit_one">1</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>

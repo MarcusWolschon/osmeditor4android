@@ -35,7 +35,8 @@
 		android:allowBackup="true"
 		android:fullBackupContent="@xml/backup"
 		android:resizeableActivity="true" 
-		android:theme="@style/Theme.AppCompat" >
+		android:theme="@style/Theme.AppCompat" 
+        android:supportsRtl="true" >
 		
 	    <activity
     		android:name=".Splash"

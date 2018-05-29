@@ -8,5 +8,6 @@
     android:paddingBottom="4dp"
     android:gravity="center_vertical"
     android:drawableRight="?attr/information_small"
+    android:drawableEnd="?attr/information_small"
      />
 

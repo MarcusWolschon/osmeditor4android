@@ -23,6 +23,7 @@
 	    	android:paddingRight="5dp"
 	    	android:layout_marginBottom="1dp"
 	    	android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
 	    	/>
 	    <AutoCompleteTextView
 	        android:id="@+id/editMemberRole"
@@ -31,6 +32,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
 	        android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
 	        android:layout_weight="3"
 	        android:completionThreshold="1"
 	        android:dropDownWidth="match_parent"
@@ -49,6 +51,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="1dp"
 	        android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
 	        android:minHeight="35dp"
 	        android:paddingLeft="0dp"
 	        android:paddingRight="0dp"

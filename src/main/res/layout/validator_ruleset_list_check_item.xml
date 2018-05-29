@@ -25,9 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
         	android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
 	        android:layout_marginRight="1dp"
+            android:layout_marginEnd="1dp"
 	        android:layout_marginBottom="1dp"
 	        android:enabled="false"
 	        />

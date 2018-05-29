@@ -15,14 +15,14 @@
         android:textColor="?attr/colorAccent"
         android:background="@null"
         android:textStyle="bold"
-        android:text="—"/>
+        android:text="@string/minus_sign"/>
 
     <EditText
         android:id="@+id/display"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
        	android:minHeight="32dp"
-        android:text="1"
+        android:text="@string/digit_one"
         android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceSmall" 
         android:focusable="false"
@@ -40,5 +40,5 @@
         android:textColor="?attr/colorAccent"
         android:background="@null"
         android:textStyle="bold"
-        android:text="+"/>
+        android:text="@string/plus_sign"/>
 </LinearLayout>

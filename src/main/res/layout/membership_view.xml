@@ -30,6 +30,7 @@
 	        		android:paddingRight="5dp"
 	       			android:layout_marginBottom="1dp"
 	        		android:layout_marginRight="1dp"
+                    android:layout_marginEnd="1dp"
 	        	/>
 				<TextView
 		        	android:id="@+id/membership_role_heading_view"
@@ -37,6 +38,7 @@
 	        		android:layout_height="wrap_content"
 	        		android:layout_marginBottom="1dp"
 	        		android:layout_marginRight="1dp"
+                    android:layout_marginEnd="1dp"
 	        		android:layout_gravity="center_vertical"
 	        		android:layout_weight="3"
 	        		style="?attr/TableHeader"
@@ -52,6 +54,7 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:layout_marginLeft="0dp"
+                    android:layout_marginStart="0dp"
 			        android:layout_marginBottom="1dp"
 			        android:layout_gravity="center_vertical"
 			        android:layout_weight="2"

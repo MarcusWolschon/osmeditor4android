@@ -28,14 +28,16 @@
                 android:id="@+id/urldialog_textPresetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp" />
 
             <TextView
                 android:id="@+id/urldialog_textPresetURL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic" 
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp" />
 
             <TextView
                 android:id="@+id/urldialog_textPresetExists"
@@ -85,7 +87,8 @@
                 android:id="@+id/urldialog_textAPIName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp" />
 
 
 
@@ -94,7 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic" 
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:paddingStart="20dp" />
 
             <TextView
                 android:id="@+id/urldialog_textAPIPresetMissing"

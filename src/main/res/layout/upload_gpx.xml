@@ -12,16 +12,20 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:gravity="center_vertical"
         android:text="@string/upload_gpx_description_label" />
     <EditText
         android:id="@+id/upload_gpx_description"
         android:layout_toRightOf="@id/upload_gpx_description_label"
+        android:layout_toEndOf="@id/upload_gpx_description_label"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/upload_gpx_description_label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:inputType="text" />
     <TextView
         android:id="@+id/upload_gpx_tags_label"
@@ -30,14 +34,17 @@
         android:gravity="center_vertical"
         android:layout_below="@id/upload_gpx_description"
         android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/upload_gpx_tags_label" />
     <EditText
         android:id="@+id/upload_gpx_tags"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/upload_gpx_tags_label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:inputType="text" />
     <TextView
         android:id="@+id/upload_gpx_visibility_label"
@@ -46,6 +53,7 @@
         android:gravity="center_vertical"
         android:layout_below="@id/upload_gpx_tags"
         android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/upload_gpx_visibility_label" />
     <Spinner
         android:id="@+id/upload_gpx_visibility"
@@ -53,7 +61,9 @@
         android:layout_height="48dp"
         android:entries="@array/gpx_visibility"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignBottom="@id/upload_gpx_visibility_label"
         android:layout_alignTop="@id/upload_gpx_visibility_label"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp" />
 </RelativeLayout>

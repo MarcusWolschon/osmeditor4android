@@ -14,6 +14,7 @@
         	android:layout_height="fill_parent"
         	android:layout_alignParentTop="true"
         	android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
        	 	android:paddingLeft="5dp"
 		    android:paddingRight="5dp" />
 		<Spinner
@@ -22,8 +23,10 @@
         	android:layout_height="fill_parent"
         	android:minHeight="32dp"
         	android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
         	android:layout_centerVertical="true"
         	android:layout_toRightOf="@id/active"
+            android:layout_toEndOf="@id/active"
         	style="?attr/spinnerStyle"
         	android:entries="@array/tagfilter_mode_entries" />
         <ImageButton
@@ -32,8 +35,10 @@
     		android:layout_width="41dp"
     		android:layout_height="fill_parent"
     		android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
     		android:layout_alignParentTop="true"
         	android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
     		android:contentDescription="@string/delete"
     		android:src="?attr/menu_delete" />
     	<Spinner
@@ -42,9 +47,12 @@
         	android:layout_height="fill_parent"
         	android:minHeight="32dp"
         	android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
         	android:layout_centerVertical="true"
         	android:layout_toRightOf="@id/mode"
+            android:layout_toEndOf="@id/mode"
         	android:layout_toLeftOf="@id/delete"
+            android:layout_toStartOf="@id/delete"
         	style="?attr/spinnerStyle"
         	android:entries="@array/tagfilter_type_entries" />
      </RelativeLayout>
@@ -73,6 +81,7 @@
         	android:paddingLeft="5dp"
 	    	android:paddingRight="5dp"
 	    	android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
 	    	android:inputType="textNoSuggestions"
 			android:hint="@string/value"
         	android:textAppearance="?android:attr/textAppearanceMedium"

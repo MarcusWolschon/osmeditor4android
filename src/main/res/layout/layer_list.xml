@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="top"
         android:clickable="true"
         android:src="@drawable/ic_add_white_36dp"

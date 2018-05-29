@@ -31,7 +31,8 @@
 		    	android:id="@+id/location_search_geocoder"
 		    	android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:paddingLeft="5dp" 
+				android:paddingLeft="5dp"
+                android:paddingStart="5dp" 
 				/>
 		</LinearLayout>
 </LinearLayout>
