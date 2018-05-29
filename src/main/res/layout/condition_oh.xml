@@ -59,8 +59,7 @@
                 android:paddingRight="5dp"
                 android:saveEnabled="false" 
                 android:singleLine="true"
-                android:ellipsize="none"
-                android:maxLines="1"/>
+                android:ellipsize="none" />
         </LinearLayout>
 
         <include layout="@layout/menu" />

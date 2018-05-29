@@ -28,7 +28,7 @@
         	android:textAppearance="?android:attr/textAppearanceSmall"
         	android:textStyle="bold"
 			android:maxLines="1" 
-			android:text="@string/Key" />/>
+			android:text="@string/Key" />
 		<TextView
     	    android:layout_width="0dp"
        	 	android:layout_height="wrap_content"

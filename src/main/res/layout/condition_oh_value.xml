@@ -22,5 +22,4 @@
     android:paddingEnd="5dp"
     android:saveEnabled="false" 
     android:singleLine="true"
-    android:ellipsize="none"
-    android:maxLines="1" />
+    android:ellipsize="none" />
