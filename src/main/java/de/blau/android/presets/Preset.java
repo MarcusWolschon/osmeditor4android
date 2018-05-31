@@ -1409,7 +1409,6 @@ public class Preset implements Serializable {
                 return possibleMatch;
             }
         }
-        // Log.d(DEBUG_TAG,"findBestMatch " + bestMatch);
         return null;
     }
 
@@ -1435,7 +1434,6 @@ public class Preset implements Serializable {
                 }
             }
         }
-        Log.d(DEBUG_TAG, "buildPossibleMatches found " + possibleMatches.size());
         return possibleMatches;
     }
 
