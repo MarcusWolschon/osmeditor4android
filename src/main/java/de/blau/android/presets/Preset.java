@@ -61,6 +61,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ch.poole.poparser.ParseException;
@@ -1670,6 +1671,9 @@ public class Preset implements Serializable {
             Drawable viewIcon = getIcon();
             v.setCompoundDrawables(null, viewIcon, null, null);
             v.setCompoundDrawablePadding((int) (4 * density));
+            // this seems to be necessary to work around
+            // https://issuetracker.google.com/issues/37003658
+            v.setLayoutParams(new LinearLayout.LayoutParams((int) (72 * density), (int) (72 * density)));
             v.setWidth((int) (72 * density));
             v.setHeight((int) (72 * density));
             v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
@@ -2008,10 +2012,14 @@ public class Preset implements Serializable {
                                                                                                          // transparent
             wrappingLayout.setHorizontalSpacing((int) (SPACING * density));
             wrappingLayout.setVerticalSpacing((int) (SPACING * density));
-            ArrayList<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
-            ArrayList<View> childViews = new ArrayList<>();
+            List<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
+            List<View> childViews = new ArrayList<>();
             for (PresetElement element : filteredElements) {
-                childViews.add(element.getView(ctx, handler, element.equals(selectedElement)));
+                View v = element.getView(ctx, handler, element.equals(selectedElement));
+                if (v.getLayoutParams() == null) {
+                    Log.e(DEBUG_TAG, "layoutparams null");
+                }
+                childViews.add(v);
             }
             wrappingLayout.setWrappedChildren(childViews);
             scrollView.addView(wrappingLayout);

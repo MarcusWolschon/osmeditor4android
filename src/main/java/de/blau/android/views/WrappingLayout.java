@@ -35,7 +35,7 @@ public class WrappingLayout extends LinearLayout {
 
     private final LayoutWrapper wrapper;
 
-    private ArrayList<View> children;
+    private List<View> children;
 
     public WrappingLayout(Context context) {
         super(context);
@@ -56,7 +56,7 @@ public class WrappingLayout extends LinearLayout {
     /**
      * @return he list of child views that are being line-wrapped
      */
-    public ArrayList<View> getWrappedChildren() {
+    public List<View> getWrappedChildren() {
         eatChildrenIfNecessary();
         return children;
     }
@@ -64,10 +64,10 @@ public class WrappingLayout extends LinearLayout {
     /**
      * Sets the list of child views that should be line-wrapped
      * 
-     * @param children the children to line-wrap
+     * @param childViews the children to line-wrap
      */
-    public void setWrappedChildren(ArrayList<View> children) {
-        this.children = children;
+    public void setWrappedChildren(List<View> childViews) {
+        this.children = childViews;
         requestLayout();
     }
 
@@ -145,8 +145,9 @@ public class WrappingLayout extends LinearLayout {
     }
 
     private void eatChildrenIfNecessary() {
-        if (children == null)
+        if (children == null) {
             eatChildren();
+        }
     }
 
     @Override
@@ -191,7 +192,6 @@ public class WrappingLayout extends LinearLayout {
                 invalidate();
             }
         });
-
     }
 
     /**
@@ -200,6 +200,8 @@ public class WrappingLayout extends LinearLayout {
      * @author Jan
      */
     public static class LayoutWrapper {
+
+        private static final String DEBUG_TAG = "WrappingLayout";
 
         private static final String LOGTAG = LayoutWrapper.class.getSimpleName();
 
@@ -251,7 +253,7 @@ public class WrappingLayout extends LinearLayout {
             container.setOrientation(LinearLayout.VERTICAL);
 
             if (children == null) {
-                Log.e("WrappingLayout", "wrap: childern null");
+                Log.e(DEBUG_TAG, "wrap: childern null");
                 return;
             }
 
@@ -281,7 +283,7 @@ public class WrappingLayout extends LinearLayout {
 
             for (View child : children) {
                 int childWidth = getViewWidth(child);
-                if (newWidth > childWidth) { // TODOthis will fail with non square children views
+                if (newWidth > childWidth) { // TODO this will fail with non square children views
                     ((TextView) child).setWidth(newWidth);
                     ((TextView) child).setHeight(newWidth);
                 }
@@ -340,6 +342,11 @@ public class WrappingLayout extends LinearLayout {
          * @return the width including margins
          */
         private int getViewWidth(View view) {
+            if (view.getLayoutParams() == null) {
+                // protect against https://issuetracker.google.com/issues/37003658
+                Log.e(DEBUG_TAG, "Don't know what to do with " + view.getClass().getName());
+                return 0;
+            }
             view.measure(MEASURE_SPEC_UNSPECIFIED, MEASURE_SPEC_UNSPECIFIED);
             int width = view.getMeasuredWidth(); // includes padding, does not include margins
             LayoutParams params = (LayoutParams) (view.getLayoutParams());
