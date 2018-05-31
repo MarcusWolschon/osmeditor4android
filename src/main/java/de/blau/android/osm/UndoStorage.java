@@ -3,7 +3,8 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -241,7 +242,7 @@ public class UndoStorage implements Serializable {
     private class Checkpoint implements Serializable {
         private static final long serialVersionUID = 2L;
 
-        private final Map<OsmElement, UndoElement> elements = new LinkedHashMap<>();
+        private final Map<OsmElement, UndoElement> elements = new HashMap<>();
         private String                             name;
 
         /**
@@ -286,6 +287,35 @@ public class UndoStorage implements Serializable {
             elements.remove(element);
         }
 
+        Comparator<OsmElement> elementOrder = new Comparator<OsmElement>() {
+            @Override
+            public int compare(OsmElement e1, OsmElement e2) {
+                if (e1 instanceof Node) {
+                    return -1;
+                }
+                if (!(e1 instanceof Node) && e2 instanceof Node) {
+                    return 1;
+                }
+                if (e1 instanceof Way) {
+                    return -1;
+                }
+                if (e1 instanceof Relation && e2 instanceof Way) {
+                    return 1;
+                }
+                if (e1 instanceof Relation && e2 instanceof Relation) {
+                    Relation r1 = (Relation) e1;
+                    Relation r2 = (Relation) e2;
+                    if (r1.hasParentRelation(r2)) {
+                        return -1;
+                    }
+                    if (r2.hasParentRelation(r1)) {
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+        };
+
         /**
          * Tries to restore the storages to the state at the time of the creation of this checkpoint.
          * 
@@ -296,7 +326,9 @@ public class UndoStorage implements Serializable {
         public boolean restore(Checkpoint redoCheckpoint) {
             boolean ok = true;
             List<OsmElement> list = new ArrayList<>(elements.keySet());
-            Collections.reverse(list);
+            // we sort according to element type and relation membership so that
+            // all member elements should be restored before their parents
+            Collections.sort(list, elementOrder);
             for (OsmElement e : list) {
                 if (redoCheckpoint != null) {
                     redoCheckpoint.add(e); // save current state
