@@ -33,6 +33,7 @@
     <string name="help_upgrade_098">0.9.8 Release notes</string>
     <string name="help_upgrade_097">0.9.7 Release notes</string>
     <string name="help_upgrade_096">0.9.6 Release notes</string>
+    <string name="help_privacy">Privacy</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -60,6 +61,7 @@
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
     	<item>@string/help_upgrade_096</item>
+        <item>@string/help_privacy</item>
     </array>
 <!--    The following array needs to mirror the positions in the above one -->
     <array translatable="false" name="help_files">
@@ -89,5 +91,6 @@
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>
     	<item>0.9.6 Release notes</item>
+        <item>Privacy</item>
     </array>
 </resources>
