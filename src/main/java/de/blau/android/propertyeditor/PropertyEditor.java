@@ -11,6 +11,8 @@ import org.acra.ACRA;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -90,7 +92,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     LinearLayout rowLayout = null;
 
     PresetFragment presetFragment;
-    private int    presetFragmentPosition = -1;
 
     TagFormFragment tagFormFragment;
     private int     tagFormFragmentPosition = -1;
@@ -102,7 +103,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     RelationMembersFragment    relationMembersFragment;
     RecentPresetsFragment      recentPresetsFragment;
 
-    private PropertyEditorPagerAdapter propertyEditorPagerAdapter;
+    private PropertyEditorPagerAdapter pagerAdapter;
 
     /**
      * The tag we use for Android-logging.
@@ -298,7 +299,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             formEnabled = prefs.tagFormEnabled();
         }
 
-        propertyEditorPagerAdapter = new PropertyEditorPagerAdapter(getSupportFragmentManager(), tags);
+        boolean rtl = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Configuration config = getResources().getConfiguration();
+            rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        }
+        pagerAdapter = new PropertyEditorPagerAdapter(getSupportFragmentManager(), rtl, tags);
         mViewPager = (ExtendedViewPager) findViewById(R.id.pager);
         PagerTabStrip pagerTabStrip = (PagerTabStrip) mViewPager.findViewById(R.id.pager_header);
         pagerTabStrip.setDrawFullUnderline(true);
@@ -327,33 +333,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             ft.add(R.id.preset_row, presetFragment, PRESET_FRAGMENT);
 
             ft.commit();
-
-            // this essentially has to be hardwired
-            presetFragmentPosition = 0;
-            if (formEnabled) {
-                tagFormFragmentPosition = 0;
-                tagEditorFragmentPosition = 1; // FIXME
-            } else {
-                tagFormFragmentPosition = 0;
-                tagEditorFragmentPosition = 0; // FIXME
-            }
-        } else {
-            presetFragmentPosition = 0;
-            if (formEnabled) {
-                tagFormFragmentPosition = 1;
-                tagEditorFragmentPosition = 2; // FIXME
-            } else {
-                tagFormFragmentPosition = 1;
-                tagEditorFragmentPosition = 1; // FIXME
-            }
         }
 
         mViewPager.setOffscreenPageLimit(4); // FIXME currently this is required or else some of the logic between the
                                              // fragments will not work
-        mViewPager.setAdapter(propertyEditorPagerAdapter);
+        mViewPager.setAdapter(pagerAdapter);
         mViewPager.addOnPageChangeListener(new PageChangeListener());
-        mViewPager.setCurrentItem(
-                currentItem != -1 ? currentItem : (showPresets ? presetFragmentPosition : (formEnabled ? tagFormFragmentPosition : tagEditorFragmentPosition)));
+        // if currentItem is >= 0 then we are restoring and should use it, otherwise the first or 2nd page
+        mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
     }
 
     private void abort(String cause) {
@@ -423,10 +410,20 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         private ArrayList<LinkedHashMap<String, String>> tags;
         private boolean                                  restoring = false;
+        private boolean                                  rtl       = false;
 
-        public PropertyEditorPagerAdapter(FragmentManager fm, ArrayList<LinkedHashMap<String, String>> tags) {
+        /**
+         * Construct a new PagerAdapter
+         * 
+         * 
+         * @param fm out FragementManager
+         * @param rtl true if we should use RTL order for the fragments
+         * @param tags the tags
+         */
+        public PropertyEditorPagerAdapter(FragmentManager fm, boolean rtl, ArrayList<LinkedHashMap<String, String>> tags) {
             super(fm);
             this.tags = tags;
+            this.rtl = rtl;
         }
 
         @Override
@@ -483,6 +480,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         public Fragment getItem(boolean instantiate, int position) {
             Log.d(DEBUG_TAG, "getItem " + instantiate + " " + position);
+            position = reversePosition(position);
             if (formEnabled) {
                 if (!usePaneLayout) {
                     switch (position) {
@@ -548,6 +546,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         @Override
         public CharSequence getPageTitle(int position) {
             if (formEnabled) {
+                position = reversePosition(position);
                 if (!usePaneLayout) {
                     switch (position) {
                     case 0:
@@ -597,6 +596,19 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                 }
             }
             return "error";
+        }
+
+        /**
+         * If RTL layout reverse the position
+         * 
+         * @param position the position
+         * @return the reversed position if an RTL layout
+         */
+        int reversePosition(int position) {
+            if (rtl) {
+                position = getCount() - position - 1;
+            }
+            return position;
         }
 
         @Override
