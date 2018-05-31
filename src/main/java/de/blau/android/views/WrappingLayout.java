@@ -283,7 +283,7 @@ public class WrappingLayout extends LinearLayout {
 
             for (View child : children) {
                 int childWidth = getViewWidth(child);
-                if (newWidth > childWidth) { // TODO this will fail with non square children views
+                if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square children views
                     ((TextView) child).setWidth(newWidth);
                     ((TextView) child).setHeight(newWidth);
                 }
