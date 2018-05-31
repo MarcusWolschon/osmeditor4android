@@ -52,6 +52,35 @@ public class UndoStorage implements Serializable {
     private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<>();
     private final LinkedList<Checkpoint> redoCheckpoints = new LinkedList<>();
 
+    static final Comparator<OsmElement> elementOrder = new Comparator<OsmElement>() {
+        @Override
+        public int compare(OsmElement e1, OsmElement e2) {
+            if (e1 instanceof Node) {
+                return -1;
+            }
+            if (!(e1 instanceof Node) && e2 instanceof Node) {
+                return 1;
+            }
+            if (e1 instanceof Way) {
+                return -1;
+            }
+            if (e1 instanceof Relation && e2 instanceof Way) {
+                return 1;
+            }
+            if (e1 instanceof Relation && e2 instanceof Relation) {
+                Relation r1 = (Relation) e1;
+                Relation r2 = (Relation) e2;
+                if (r1.hasParentRelation(r2)) {
+                    return -1;
+                }
+                if (r2.hasParentRelation(r1)) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+    };
+
     /**
      * Creates a new UndoStorage. You need to pass the storage objects to which changes are applied. Please ensure that
      * any time the {@link Logic} starts to use different objects, a new UndoStorage pointing to the correct objects is
@@ -286,35 +315,6 @@ public class UndoStorage implements Serializable {
             }
             elements.remove(element);
         }
-
-        Comparator<OsmElement> elementOrder = new Comparator<OsmElement>() {
-            @Override
-            public int compare(OsmElement e1, OsmElement e2) {
-                if (e1 instanceof Node) {
-                    return -1;
-                }
-                if (!(e1 instanceof Node) && e2 instanceof Node) {
-                    return 1;
-                }
-                if (e1 instanceof Way) {
-                    return -1;
-                }
-                if (e1 instanceof Relation && e2 instanceof Way) {
-                    return 1;
-                }
-                if (e1 instanceof Relation && e2 instanceof Relation) {
-                    Relation r1 = (Relation) e1;
-                    Relation r2 = (Relation) e2;
-                    if (r1.hasParentRelation(r2)) {
-                        return -1;
-                    }
-                    if (r2.hasParentRelation(r1)) {
-                        return 1;
-                    }
-                }
-                return 0;
-            }
-        };
 
         /**
          * Tries to restore the storages to the state at the time of the creation of this checkpoint.
