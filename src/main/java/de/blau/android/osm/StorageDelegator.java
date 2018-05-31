@@ -245,6 +245,14 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
+    /**
+     * Called after an element has been changed
+     * 
+     * As it may be fairly expensive to determine all changes pre and/or post may be null
+     * 
+     * @param pre changed element before the operation or null
+     * @param post changed element after the operation or null
+     */
     private void onElementChanged(@Nullable OsmElement pre, @Nullable OsmElement post) {
         List<OsmElement> preList = null;
         List<OsmElement> postList = null;
@@ -298,6 +306,11 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
+    /**
+     * Way geometry has to be invalidated -before- nodes are moved
+     * 
+     * @param node node that is going to change
+     */
     private void invalidateWayBoundingBox(@NonNull Node node) {
         List<Node> nodeList = new ArrayList<>();
         nodeList.add(node);
@@ -306,6 +319,8 @@ public class StorageDelegator implements Serializable, Exportable {
 
     /**
      * Store the currently used imagery
+     * 
+     * @param map the current Map instance
      */
     public void recordImagery(@Nullable de.blau.android.Map map) {
         if (!imageryRecorded) { // flag is reset when we change imagery
@@ -325,10 +340,18 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
+    /**
+     * Set the imageryRecorded flag
+     * 
+     * @param recorded the new state of the flag
+     */
     public void setImageryRecorded(boolean recorded) {
         imageryRecorded = recorded;
     }
 
+    /**
+     * Reset the cached "problems" for all OsmElements
+     */
     public void resetProblems() {
         for (OsmElement e : currentStorage.getElements()) {
             e.resetHasProblem();
@@ -532,7 +555,15 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    private void updateLatLon(final Node node, final int latE7, final int lonE7) throws StorageException {
+    /**
+     * Update the position of a Node
+     * 
+     * @param node the Node to update
+     * @param latE7 new WGS84*1E7 latitude
+     * @param lonE7 new WGS84*1E7 longitude
+     * @throws StorageException
+     */
+    private void updateLatLon(@NonNull final Node node, final int latE7, final int lonE7) throws StorageException {
         apiStorage.insertElementSafe(node);
         node.setLat(latE7);
         node.setLon(lonE7);
@@ -547,7 +578,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param deltaLatE7 the delta to move the latitude (E7)
      * @param deltaLonE7 the delta to move the longitude (E7)
      */
-    public void moveWay(final Way way, final int deltaLatE7, final int deltaLonE7) {
+    public void moveWay(@NonNull final Way way, final int deltaLatE7, final int deltaLonE7) {
         moveNodes(way.getNodes(), deltaLatE7, deltaLonE7);
     }
 
@@ -558,7 +589,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param deltaLatE7 the delta to move the latitude (E7)
      * @param deltaLonE7 the delta to move the longitude (E7)
      */
-    public void moveNodes(final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
+    public void moveNodes(@Nullable final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
         if (allNodes == null) {
             Log.d(DEBUG_TAG, "moveNodes  no nodes!");
             return;
@@ -585,7 +616,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param c center of the circle
      * @param way way to circulize
      */
-    public void circulizeWay(@NonNull de.blau.android.Map map, int[] c, @NonNull Way way) {
+    public void circulizeWay(@NonNull de.blau.android.Map map, @NonNull int[] c, @NonNull Way way) {
         if ((way.getNodes() == null) || (way.getNodes().size() < 3)) {
             Log.d(DEBUG_TAG, "circulize way " + way.getOsmId() + " has no nodes or less than 3!");
             return;
