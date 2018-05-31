@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -240,7 +241,7 @@ public class UndoStorage implements Serializable {
     private class Checkpoint implements Serializable {
         private static final long serialVersionUID = 2L;
 
-        private final Map<OsmElement, UndoElement> elements = new HashMap<>();
+        private final Map<OsmElement, UndoElement> elements = new LinkedHashMap<>();
         private String                             name;
 
         /**
@@ -292,11 +293,13 @@ public class UndoStorage implements Serializable {
          *            "redo" feature possible
          */
         public void restore(Checkpoint redoCheckpoint) {
-            for (Entry<OsmElement, UndoElement> entry : elements.entrySet()) {
+            List<OsmElement> list = new ArrayList<>(elements.keySet());
+            Collections.reverse(list);
+            for (OsmElement e  : list) {
                 if (redoCheckpoint != null) {
-                    redoCheckpoint.add(entry.getKey()); // save current state
+                    redoCheckpoint.add(e); // save current state
                 }
-                entry.getValue().restore();
+                elements.get(e).restore();
             }
         }
 
