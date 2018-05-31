@@ -3,12 +3,10 @@ package de.blau.android.osm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import android.content.Context;
@@ -175,7 +173,9 @@ public class UndoStorage implements Serializable {
         }
         String name = undoCheckpoints.get(checkpoint).getName();
         Checkpoint redoPoint = new Checkpoint(name);
-        undoCheckpoints.remove(checkpoint).restore(redoPoint);
+        if (undoCheckpoints.get(checkpoint).restore(redoPoint)) {
+            undoCheckpoints.remove(checkpoint);
+        }
         redoCheckpoints.add(redoPoint);
         return name;
     }
@@ -287,20 +287,23 @@ public class UndoStorage implements Serializable {
         }
 
         /**
-         * Restores the storages to the state at the time of the creation of this checkpoint.
+         * Tries to restore the storages to the state at the time of the creation of this checkpoint.
          * 
          * @param redoCheckpoint optional - if given, the reverted elements are added to this checkpoint to make a
          *            "redo" feature possible
+         * @return true if the restore was successful
          */
-        public void restore(Checkpoint redoCheckpoint) {
+        public boolean restore(Checkpoint redoCheckpoint) {
+            boolean ok = true;
             List<OsmElement> list = new ArrayList<>(elements.keySet());
             Collections.reverse(list);
-            for (OsmElement e  : list) {
+            for (OsmElement e : list) {
                 if (redoCheckpoint != null) {
                     redoCheckpoint.add(e); // save current state
                 }
-                elements.get(e).restore();
+                ok = ok && elements.get(e).restore();
             }
+            return ok;
         }
 
         /**
@@ -383,8 +386,10 @@ public class UndoStorage implements Serializable {
 
         /**
          * Restores the saved state of the element
+         * 
+         * @return true if the restore was successful
          */
-        public void restore() {
+        public boolean restore() {
             // Restore element existence
             try {
                 if (inCurrentStorage) {
@@ -423,6 +428,7 @@ public class UndoStorage implements Serializable {
             } else {
                 element.parentRelations = null;
             }
+            return true;
         }
 
         /**
@@ -469,7 +475,7 @@ public class UndoStorage implements Serializable {
         }
 
         /**
-         * Get a formated string version of the tag 
+         * Get a formated string version of the tag
          * 
          * @param tag the tag to format
          * @return a the tag as a string of the form osm element type key:value {@link #osmId}
@@ -525,10 +531,11 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public void restore() {
-            super.restore();
+        public boolean restore() {
+            boolean ok = super.restore();
             ((Node) element).lat = lat;
             ((Node) element).lon = getLon();
+            return ok;
         }
 
         /**
@@ -566,18 +573,26 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public void restore() {
-            super.restore();
+        public boolean restore() {
+            boolean ok = super.restore();
             ((Way) element).nodes.clear();
             for (Node n : nodes) {
                 if (currentStorage.contains(n)) {
                     ((Way) element).nodes.add(n); // only add undeleted way nodes
                 } else {
                     Log.e(DEBUG_TAG, n.getDescription() + " member of " + element.getDescription() + " is deleted");
+                    ok = false;
+                    element.setState(OsmElement.STATE_MODIFIED);
+                    try {
+                        apiStorage.insertElementSafe(element);
+                    } catch (StorageException e) {
+                        // TODO Handle OOM
+                    }
                 }
             }
             // reset the style
             ((Way) element).setFeatureProfile(null);
+            return ok;
         }
 
         /*
@@ -633,8 +648,8 @@ public class UndoStorage implements Serializable {
         }
 
         @Override
-        public void restore() {
-            super.restore();
+        public boolean restore() {
+            boolean ok = super.restore();
             ((Relation) element).members.clear();
             ((Relation) element).members.addAll(members);
             for (RelationMember rm : members) {
@@ -644,8 +659,16 @@ public class UndoStorage implements Serializable {
                                                           // downloaded
                 } else {
                     Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + element.getDescription() + " is deleted");
+                    ok = false;
+                    element.setState(OsmElement.STATE_MODIFIED);
+                    try {
+                        apiStorage.insertElementSafe(element);
+                    } catch (StorageException e) {
+                        // TODO Handle OOM
+                    }
                 }
             }
+            return ok;
         }
 
         /**
@@ -694,7 +717,7 @@ public class UndoStorage implements Serializable {
     public String[] getRedoActions(@Nullable Context ctx) {
         return getCheckpointActions(ctx, redoCheckpoints);
     }
-    
+
     /**
      * Provides a list of names for the checkpoints
      * 
@@ -702,7 +725,7 @@ public class UndoStorage implements Serializable {
      * @param checkpoints List of Checkpoints
      * @return a list of names of the Checkpoints plus description
      */
-    private String[] getCheckpointActions(@Nullable Context ctx, List<Checkpoint>checkpoints) {
+    private String[] getCheckpointActions(@Nullable Context ctx, List<Checkpoint> checkpoints) {
         String[] result = new String[checkpoints.size()];
         int i = 0;
         for (Checkpoint checkpoint : checkpoints) {
