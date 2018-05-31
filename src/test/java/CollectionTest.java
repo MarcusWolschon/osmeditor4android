@@ -1,8 +1,8 @@
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,7 +12,6 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -55,6 +54,10 @@ public class CollectionTest {
             assertNotNull(map.remove(elements.get(i).getOsmId()));
         }
         assertTrue(map.isEmpty());
+
+        for (int i = 0; i < 100000; i++) {
+            assertFalse(map.containsKey(elements.get(i).getOsmId()));
+        }
     }
 
     @Test

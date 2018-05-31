@@ -236,8 +236,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         OsmElement e = m_data[ptr];
         if (e == FREE_KEY) {
             return null; // end of chain already
-        } else if (e.getOsmId() == key) // we check FREE and REMOVED prior to this call
-        {
+        } else if (e.getOsmId() == key) { // we check FREE and REMOVED prior to this call
             --m_size;
             if (m_data[(int) ((ptr + 1) & m_mask)] == FREE_KEY) { // this shortens the chain
                 m_data[ptr] = FREE_KEY;

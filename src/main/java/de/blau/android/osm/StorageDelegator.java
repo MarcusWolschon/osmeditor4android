@@ -2809,8 +2809,10 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     } else {
                         // this shouldn't be able to happen
-                        Log.e(DEBUG_TAG, "mergeData null existing way " + w.getOsmId());
-                        ACRAHelper.nocrashReport(null, "mergeData null existing way " + w.getOsmId());
+                        Log.e(DEBUG_TAG, "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is "
+                                + apiWay);
+                        ACRAHelper.nocrashReport(null, "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
+                                + " apiWay is " + apiWay);
                         return false;
                     }
                 }
@@ -3024,8 +3026,7 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Set an OemElement to unchanged and remove it from the upload
-     * This is only used when trying to fix conflicts
+     * Set an OemElement to unchanged and remove it from the upload This is only used when trying to fix conflicts
      * 
      * @param element the OsmElement
      */
@@ -3035,8 +3036,7 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Set the version of an OsmElement
-     * This is only used when trying to fix conflicts
+     * Set the version of an OsmElement This is only used when trying to fix conflicts
      * 
      * @param element the OsmElement
      * @param version the new version
