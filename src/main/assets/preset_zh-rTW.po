@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-29 10:22+0000\n"
+"PO-Revision-Date: 2018-05-30 18:00+0000\n"
 "Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -5525,7 +5525,7 @@ msgstr ""
 #: master_preset.xml:1477(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:3980(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 msgid "None"
-msgstr ""
+msgstr "無"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -10383,7 +10383,7 @@ msgstr ""
 #: master_preset.xml:100(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "無"
 
 #: master_preset.xml:98(list_entry:short_description|value:left)
 msgctxt "sidewalk"

@@ -14,6 +14,8 @@
   <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте надіслати дані знову, можливо це тимчасові труднощі.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <string name="upload_conflict_title">Конфлікт надсилання</string>
+  <string name="upload_conflict_message_version">%1$s \nмає локальну версію %2$d \nта версію на сервері %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$d \nта вилучено на сервері</string>
   <string name="upload_conflict_message_referential">%1$s
  було вилучено локально
  але має посилання на сервері</string>
@@ -65,12 +67,16 @@
   <string name="progress_preset_message">Завантаження заготовок…</string>
   <string name="progress_running_message">Запуск…</string>
   <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
+  <string name="progress_building_imagery_database">Створення бази даних фонів…</string>
+  <string name="progress_query_oam">Отримання OAM…</string>
   <string name="upload_comment_label">Коментар: </string>
   <string name="upload_source_label">Джерело: </string>
   <string name="upload_close_changeset_label">Закрити набір змін: </string>
   <string name="upload_gpx_description_label">Опис</string>
   <string name="upload_gpx_tags_label">Теґи</string>
   <string name="upload_gpx_visibility_label">Видимість</string>
+  <string name="upload_validation_error_empty_comment">Коментар не має бути порожнім</string>
+  <string name="upload_validation_error_empty_source">Джерело не має бути порожнім</string>
   <string name="openstreetbug_new_title">Нова нотатка</string>
   <string name="openstreetbug_new_bug">Звіт про проблему</string>
   <string name="openstreetbug_bug_title">Проблема</string>
@@ -97,7 +103,9 @@
   <string name="imagery_offset_date">Створено</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Відстань</string>
+  <string name="zoom_and_offset">Z %1$d Зсув %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезичний датум</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Пропозиція назви</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Пропозиції можуть замінювати значення деяких теґів на більш поширені.</string>
   <string name="search_results_title">Результати пошуку</string>
@@ -144,6 +152,7 @@
   <string name="js_console_msg_debug">Зневадження!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Правила валідації %1$s</string>
+  <string name="age">Вік</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Порожній зв\'язок</string>
   <string name="empty_relation_message">Зв\'язок %1$s не має членів.\n\nЗалишаючи його в такому вигляді ви робите його не придатним  для редагування у Веспуччі.</string>
@@ -153,9 +162,16 @@
   <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Опис</string>
   <string name="created">Створено</string>
+  <string name="create_osm_object">Створити об\'єкт OSM</string>
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
+  <string name="layer_style_label">Мітка</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Фото</string>
+  <string name="layer_tasks">Завдання</string>
+  <string name="layer_data">Дані OSM</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->

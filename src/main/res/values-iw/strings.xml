@@ -143,6 +143,12 @@
   <!--NumberPiker-->
   <!--Toaster-->
   <string name="toast_export_failed">הייצוא נכשל</string>
+  <string name="toast_noname">לדרך אין שם או מספר</string>
+  <string name="toast_notype">לקשר אין סוג</string>
+  <string name="toast_oauth_retry">נא לאפשר גישה עם OAuth לחשבון ה־OSM שלך ואז לנסות להעלות מחדש.</string>
+  <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
+  <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
+  <string name="toast_oauth_not_enabled">OAuth אינו מופעל עבור ה־API הנוכחי.</string>
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->

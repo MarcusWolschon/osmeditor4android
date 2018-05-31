@@ -101,6 +101,7 @@
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
   <string name="set_position_datum_label">datum geodetico</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
@@ -204,6 +205,9 @@
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>
@@ -493,6 +497,8 @@
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
+  <string name="distance_meter">%1$.2f metri</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Applica lo scostamento memorizzato alle immagini</string>
   <string name="menu_tools_background_contrast">Contrasto</string>

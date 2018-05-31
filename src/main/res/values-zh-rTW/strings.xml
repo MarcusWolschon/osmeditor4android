@@ -102,6 +102,7 @@
   <string name="imagery_offset_zoom">縮放</string>
   <string name="imagery_offset_distance">距離</string>
   <string name="set_position_datum_label">大地基準點</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
@@ -211,6 +212,9 @@
   <string name="undo_redo_title">復原 - 重複</string>
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">名稱欄位不能為空白</string>
   <string name="toast_url_empty">網址不能為空白</string>
@@ -321,7 +325,9 @@
   <string name="forward">往前</string>
   <string name="keep">保留</string>
   <string name="enable">啟用</string>
+  <string name="disable">失效</string>
   <string name="clear">清除</string>
+  <string name="discard">放棄</string>
   <string name="retry">重試</string>
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
@@ -329,6 +335,8 @@
   <string name="share_position">分享位置</string>
   <string name="min">最小值</string>
   <string name="max">最大值</string>
+  <string name="geojson_object">%1$s(%2$s)</string>
+  <string name="none">無</string>
   <!--Dialog for back button-->
   <string name="exit_title">真要退出嗎？</string>
   <string name="exit_text">您確定要退出嗎？</string>
@@ -480,6 +488,7 @@
   <string name="menu_voice_commands">聲音指令</string>
   <string name="menu_set_name">設定名稱</string>
   <string name="tag_form_unknown_element">未知元件 (未找到預設組合)</string>
+  <string name="menu_tools">工具...</string>
   <string name="menu_tools_imagery">更多影像工具</string>
   <string name="menu_tools_add_imagery_from_oam">從 OAM 增加影像</string>
   <string name="menu_tools_flush_all_tile_caches">更新所有圖磚暫存檔</string>
@@ -500,6 +509,8 @@
   <string name="menu_tools_background_contrast">對比</string>
   <string name="menu_tools_oauth_reset">重置 OAuth</string>
   <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
+  <string name="menu_layers">圖層...</string>
+  <string name="menu_layers_load_geojson">載入 GeoJSON 圖層</string>
   <string name="menu_enable_tagfilter">標籤篩選</string>
   <string name="menu_enable_presetfilter">預置篩選</string>
   <string name="preset_menu_waynodes">包括路徑節點</string>
@@ -516,6 +527,7 @@
   <string name="deleteway_relation_description">您將要刪除的路徑，它是一個或多個關係中的成員。從關係中移除了路徑，可能會使得它或它們變成無效。</string>
   <string name="deleteway_nodesnotdownloaded_description">路徑含有在下載區域之外的節點，不能在還沒有建立並且不一致的狀態中刪除。先下載整體路徑然後再重試。</string>
   <string name="deleteway_wayonly">只刪除路徑</string>
+  <string name="deleteway_wayandnodes">刪除路徑</string>
   <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
   <string name="split_all_ways">分離所有路徑</string>
@@ -542,6 +554,7 @@
   <string name="config_overlayLayer_title">地圖覆疊層</string>
   <string name="config_customlayers_title">客制圖層</string>
   <string name="config_scale_title">顯示比例尺</string>
+  <string name="config_mapProfile_title">資料樣式</string>
   <string name="config_enableOpenStreetBugs_title">啟用錯誤和註解顯示</string>
   <string name="config_enableOpenStreetBugs_summary">顯示、編輯與建立註解/錯誤。</string>
   <string name="config_enablePhotoLayer_title">啟用圖層</string>
@@ -554,6 +567,7 @@
   <string name="config_moreprefs">更多的設定...</string>
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
+  <string name="config_validatorprefs_title">驗證器設定</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_debugbutton_title">除錯</string>

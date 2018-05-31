@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-30 20:52+0000\n"
+"Last-Translator: Amin Hatmi\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: master_preset.xml:5407(multiselect:text|group:Leisure|preset:Animals|key:animal)
 msgid "Animal"
-msgstr ""
+msgstr "حیوان"
 
 #: master_preset.xml:7548(item:name|group:Facilities|preset:Animal_boarding)
 msgid "Animal boarding"
@@ -2905,7 +2905,7 @@ msgstr ""
 
 #: master_preset.xml:4993(item:name|group:Food+Drinks|preset:Fast_Food)
 msgid "Fast Food"
-msgstr ""
+msgstr "فست فود"
 
 #: master_preset.xml:12983(text:text|group:Addresses_and_Contact|preset:Contact|key:fax)
 #: master_preset.xml:13004(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:fax)
@@ -3074,7 +3074,7 @@ msgstr "خیریه بانک غذا"
 
 #: master_preset.xml:5018(item:name|group:Food+Drinks|preset:Food_Court)
 msgid "Food Court"
-msgstr ""
+msgstr "فودکورت"
 
 #: master_preset.xml:4962(group:name|group:Food+Drinks)
 msgid "Food+Drinks"
@@ -3751,7 +3751,7 @@ msgstr ""
 
 #: master_preset.xml:6725(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:hospice)
 msgid "Hospice"
-msgstr ""
+msgstr "آسایشگاه"
 
 #: master_preset.xml:6598(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -5548,7 +5548,7 @@ msgstr ""
 
 #: master_preset.xml:9347(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr ""
+msgstr "راکتور هسته‌ای"
 
 #: master_preset.xml:1758(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -8048,7 +8048,7 @@ msgstr ""
 
 #: master_preset.xml:2108(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr ""
+msgstr "دوربین سرعت"
 
 #: master_preset.xml:2073(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
@@ -9632,7 +9632,7 @@ msgstr ""
 
 #: master_preset.xml:9435(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr ""
+msgstr "توربین بادی"
 
 #: master_preset.xml:8763(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-30 13:26+0000\n"
+"Last-Translator: Erick de Oliveira Leal <erickdeoliveiraleal@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -844,7 +844,7 @@ msgstr ""
 
 #: master_preset.xml:5574(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "Resort em Praia"
 
 #: master_preset.xml:8223(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -3467,7 +3467,7 @@ msgstr ""
 
 #: master_preset.xml:12838(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
-msgstr ""
+msgstr "Terra não cultivada"
 
 #: master_preset.xml:10183(item:name|group:Food|preset:Greengrocer)
 msgid "Greengrocer"
@@ -4108,7 +4108,7 @@ msgstr ""
 #: master_preset.xml:2400(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:672(combo:text|key:kerb)
 msgid "Kerb"
-msgstr ""
+msgstr "Meio-fio"
 
 #: master_preset.xml:678(combo:text|key:kerb:left)
 msgid "Kerb (left)"
