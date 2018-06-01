@@ -30,7 +30,7 @@ Currently it is not possible to change the ordering or add more than one layer o
 * Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
 * Menu button.
     * Tile based layers: 
-        * Select imagery. Same contents as on the prefernce screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
+        * Select imagery. Same contents as on the preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
         * Flush tile cache. Moved here from main menu.
         * Background properties. Set contrast of layer, moved here from main menu.
     * GeoJSON layer. 
@@ -39,7 +39,7 @@ Currently it is not possible to change the ordering or add more than one layer o
     * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
         * Change style. Show the layer styling dialog.
     * Photo, Grid and Task layers.
-        * Disable. Turn this layer off, needs to be re-anbled via proferences. For the tasks and photo layers this will free resources if the app is exited and re-started.
+        * Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.
 * "+" button: 
     * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
     * Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.
