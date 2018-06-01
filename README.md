@@ -21,11 +21,11 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 * An offline (once you have downloaded data) editor for OpenStreetMap
 * Runs on mobile devices using the Android platform
 * Functionality:
-    * Create and edit new Nodes and Ways
-    * Move and rotate Ways
-    * Append Nodes to existing Ways
-    * Delete Nodes
-    * Create, edit and delete Tags
+    * Create and edit new nodes and ways
+    * Move and rotate ways
+    * Append nodes to existing ways
+    * Delete nodes
+    * Create, edit and delete tags
     * Edit relations and create new turn restrictions
     * JOSM presets support
     * Download and upload to OSM server
