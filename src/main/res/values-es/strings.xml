@@ -422,6 +422,7 @@
   <string name="menu_tools_imagery">Más herramientas de imágenes</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Alinear fondo</string>
   <string name="menu_tools_background_align_reset">Restablecer</string>

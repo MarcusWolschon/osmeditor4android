@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-30 20:52+0000\n"
+"PO-Revision-Date: 2018-05-31 18:22+0000\n"
 "Last-Translator: Amin Hatmi\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -4747,7 +4747,7 @@ msgstr ""
 
 #: master_preset.xml:12473(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"
-msgstr ""
+msgstr "علفزار"
 
 #: master_preset.xml:12486(combo:text|group:Land_use|preset:Meadow|key:meadow)
 msgid "Meadow type"
@@ -8527,7 +8527,7 @@ msgstr ""
 
 #: master_preset.xml:7212(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr ""
+msgstr "تلفن"
 
 #: master_preset.xml:7228(check:text|group:Facilities|preset:Telephone|key:payment:telephone_cards)
 msgid "Telephone cards"

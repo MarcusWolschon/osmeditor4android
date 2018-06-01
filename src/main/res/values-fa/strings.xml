@@ -164,6 +164,7 @@
   <string name="menu_join">پیوستن</string>
   <string name="menu_unjoin">جدا کردن</string>
   <string name="menu_rotate">چرخش</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">باز نشانی</string>
   <!---->

@@ -137,6 +137,7 @@
   <string name="original">Original</string>
   <string name="current">Aktuell</string>
   <!---->
+  <string name="feature_information">GeoJSON Feature information</string>
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
   <string name="minor_issue">Fehler mit geringer Bedeutung</string>
@@ -192,12 +193,26 @@
   <string name="toast_invalid_box">Ungültiges oder unvollständiges Begrenzungsrechteck</string>
   <string name="delete_layer">Hintergrund löschen?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Ebenenstil</string>
+  <string name="layer_style_stroke_width">Strichbreite</string>
+  <string name="layer_style_color">Farbe</string>
+  <string name="json_object_not_displayed">JSON Objekt (nicht angezeigt)</string>
+  <string name="json_array_not_displayed">JSON Array (nicht angezeigt)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Fotos</string>
+  <string name="layer_data">OSM Daten</string>
   <string name="layer_flush_tile_cache">Tile Cache leeren</string>
+  <string name="layer_select_imagery">Bildmaterial auswählen</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Sicherungspunkt</string>
+  <string name="undo_redo_title">Rückgängig &amp; Wiederherstellen</string>
+  <string name="undo_redo_one">Nur den ausgewählten Sicherungspunkt (unsicher)</string>
+  <string name="undo_all">Alle späteren Sicherungspunkte rückgängig machen (sicher)</string>
+  <string name="redo_all">Alle früheren Sicherungspunkte wiederherstellen (sicher)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">OSM Daten herunterladen</string>
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -315,6 +330,7 @@
   <string name="keep">Behalten</string>
   <string name="enable">Aktivieren</string>
   <string name="clear">Zurücksetzen</string>
+  <string name="discard">Verwerfen</string>
   <string name="retry">Wiederholen</string>
   <string name="read">Lesen</string>
   <string name="overwrite">Überschreiben</string>
@@ -323,6 +339,7 @@
   <string name="min">Min.</string>
   <string name="max">Max.</string>
   <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Leer</string>
   <!--Dialog for back button-->
   <string name="exit_title">Vespucci wirklich verlassen?</string>
   <string name="exit_text">Wirklich die Anwendung schließen und verlassen?</string>
@@ -456,6 +473,7 @@
   <string name="menu_transfer_save_notes_all">Alle Notizen speichern...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Geänderte und neue Notizen speichern...</string>
   <string name="menu_transfer_read_custom_bugs">Benutzerdefinierte Tasks laden...</string>
+  <string name="menu_transfer_write_custom_bugs">Benutzerdefinierte Tasks speichern...</string>
   <string name="menu_save">Als Datei speichern</string>
   <string name="menu_join">Verbinden</string>
   <string name="menu_unjoin">Trennen</string>
@@ -481,6 +499,8 @@
   <string name="menu_tools_background_properties">Hintergrundeigenschaften</string>
   <string name="menu_tools_update_imagery_configuration">Hintergrundbilderkonfiguration updaten</string>
   <string name="menu_tools_zoom_to_layer_extent">Auf Abdeckung des Hintergrunds zoomen</string>
+  <!---->
+  <string name="menu_privacy">Datenschutz</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Hintergrund justieren</string>
   <string name="menu_tools_background_align_reset">Zurücksetzen</string>
@@ -499,6 +519,7 @@
   <string name="menu_tools_oauth_reset">OAuth zurücksetzen</string>
   <string name="menu_tools_oauth_authorisation">OAuth-Zugriff autorisieren</string>
   <string name="menu_layers">Ebenen…</string>
+  <string name="menu_layers_load_geojson">GeoJSON Ebene laden</string>
   <string name="menu_enable_tagfilter">Tag-Filter</string>
   <string name="menu_enable_presetfilter">Vorlagenfilter</string>
   <string name="preset_menu_waynodes">Wegknoten zurückgeben</string>
@@ -539,9 +560,12 @@
   <string name="actionmode_rotateway">Weg drehen</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartenhintergrund</string>
+  <string name="config_backgroundLayer_summary">Auswahl des Bildmaterials für den Hintergrund..</string>
   <string name="config_overlayLayer_title">Karten Overlay</string>
+  <string name="config_overlayLayer_summary">Auswahl des Bildmaterials für ein Overlay.</string>
   <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
   <string name="config_scale_title">Maßstabsanzeige</string>
+  <string name="config_scale_summary">Art der angezeigeten Skala</string>
   <string name="config_enableOpenStreetBugs_title">Fehler und Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
@@ -598,10 +622,13 @@
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
   <string name="config_forceContextMenu_title">Immer Kontextmenü benutzen</string>
+  <string name="config_forceContextMenu_summary">Immer Kontextmenü anzeigen wenn die Auswahl nicht eindeutig ist.</string>
   <string name="config_address_tags">Adressattribute</string>
   <string name="config_address_tags_summary">Für die Adressvorhersage verwendete Attribute</string>
   <string name="config_enableNameSuggestions_title">Namensvorschläge</string>
   <string name="config_enableNameSuggestions_summary">Vorschläge für Namen einschalten</string>
+  <string name="config_enableNameSuggestionsPresets_title">Vorlagen aus Namensvorschläge</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Automatisch die zutreffende Vorlage anwenden wenn ein Namensvorschlag angewendet wird</string>
   <string name="config_generateAlerts_title">Alarme generieren</string>
   <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
   <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigten Hinweisen</string>
@@ -624,6 +651,7 @@
   <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download von Notizen/Fehlern pausiert wird.</string>
   <string name="config_closeChangesetOnSave_title">Changesets schließen</string>
   <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schließen</string>
+  <string name="config_enableAutoPresets_summary">Erstellung von Vorlagen von Taginfo erlauben</string>
   <!--Location Settings-->
   <string name="config_category_gps">Standorteinstellungen</string>
   <string name="config_gps_source_title">GPS-Quelle</string>
@@ -672,6 +700,7 @@
   <string name="config_js_console_title">JS-Konsole freischalten</string>
   <string name="config_js_console_summary">Den \"live\" Modus der JS-Konsole freischalten</string>
   <string name="config_voiceCommandsEnabled_title">Sprachbefehle unterstützen</string>
+  <string name="config_voiceCommandsEnabled_summary">Sprachbefehle unterstützen</string>
   <!---->
   <string name="manage_apis">APIs verwalten</string>
   <string name="config_api_url_title">API-URL</string>
@@ -688,6 +717,7 @@
   <string name="preset_download_failed">Die Vorlagendatei konnte nicht heruntergeladen werden. Die Vorlage wird nicht funktionieren.</string>
   <string name="preset_download_parse_failed">Die Vorlagendatei ist ungültig. Die Vorlage wird nicht funktionieren.</string>
   <string name="preset_download_missing_images">Die Vorlagendatei wurde erfolgreich heruntergeladen. Einige Symbole konnten jedoch nicht heruntergeladen werden und werden fehlen.</string>
+  <string name="preset_download_title">Vorlagenlader</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" gelöscht</string>
   <string name="changes_changed">\"%1$s\" verändert</string>

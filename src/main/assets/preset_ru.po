@@ -1,14 +1,14 @@
 # 
 # Translators:
 # Nikolay Parukhin <parukhin@gmail.com>, 2015
-# 4004 <tohaklim@gmail.com>, 2017
+# 4004 <tohaklim@gmail.com>, 2017-2018
 # Yury Lebedev, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-28 20:17+0000\n"
-"Last-Translator: Alexander Istomin\n"
+"PO-Revision-Date: 2018-06-01 10:47+0000\n"
+"Last-Translator: Yury Lebedev\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: master_preset.xml:3569(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr ""
+msgstr "Разобранная/заброшенная железная дорога"
 
 #: master_preset.xml:646(list_entry:display_value|value:abused)
 msgid "Abused"
@@ -194,7 +194,7 @@ msgstr ""
 #: master_preset.xml:6791(combo:text|group:Emergency|preset:Automated_Defibrillator|key:access)
 #: master_preset.xml:708(combo:text|key:access)
 msgid "Access"
-msgstr ""
+msgstr "Доступ"
 
 #: master_preset.xml:2637(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
@@ -286,7 +286,7 @@ msgstr "Рекламное агентство"
 #: master_preset.xml:3685(group:name|group:Aerialway)
 #: master_preset.xml:4344(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "Терминал канатной дороги"
 
 #: master_preset.xml:6478(text:text|group:Education|preset:Childcare|key:after_school:capacity)
 msgid "After school capacity"
@@ -335,7 +335,7 @@ msgstr ""
 
 #: master_preset.xml:12965(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "All"
-msgstr ""
+msgstr "Всем"
 
 #: master_preset.xml:2638(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
@@ -351,7 +351,7 @@ msgstr "Дорога на задворках"
 
 #: master_preset.xml:12569(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
-msgstr ""
+msgstr "Садовые участки"
 
 #: master_preset.xml:132(optional:text) master_preset.xml:141(optional:text)
 #: master_preset.xml:149(optional:text)
@@ -381,7 +381,7 @@ msgstr ""
 
 #: master_preset.xml:4864(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "Горный приют"
 
 #: master_preset.xml:6731(item:name|group:Health|preset:Alternative_medicine)
 msgid "Alternative medicine"
@@ -389,7 +389,7 @@ msgstr ""
 
 #: master_preset.xml:12903(text:text|group:Addresses_and_Contact|preset:Name|key:alt_name)
 msgid "Alternative name"
-msgstr ""
+msgstr "Альтернативное имя"
 
 #: master_preset.xml:7319(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 #: master_preset.xml:7360(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
@@ -402,7 +402,7 @@ msgstr "Станция скорой помощи"
 
 #: master_preset.xml:6930(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "Амбулаторный уход"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "American"
@@ -477,7 +477,7 @@ msgstr ""
 
 #: master_preset.xml:7526(item:name|group:Facilities|preset:Animal_shelter)
 msgid "Animal shelter"
-msgstr ""
+msgstr "Приют для животных"
 
 #: master_preset.xml:7567(item:name|group:Facilities|preset:Animal_watering_place)
 msgid "Animal watering place"
@@ -528,7 +528,7 @@ msgstr ""
 
 #: master_preset.xml:4642(item:name|group:Airport|preset:Apron)
 msgid "Apron"
-msgstr ""
+msgstr "Перрон"
 
 #: master_preset.xml:12558(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:12566(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
@@ -594,7 +594,7 @@ msgstr ""
 
 #: master_preset.xml:6097(item:name|group:Culture|preset:Artwork)
 msgid "Artwork"
-msgstr ""
+msgstr "Произведение искусства"
 
 #: master_preset.xml:482(text:text|key:ascent)
 msgid "Ascent (m)"
@@ -643,7 +643,7 @@ msgstr ""
 
 #: master_preset.xml:3978(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
-msgstr ""
+msgstr "Аутентификация:"
 
 #: master_preset.xml:9141(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
@@ -705,7 +705,7 @@ msgstr "Самопрокладные"
 
 #: master_preset.xml:7442(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
-msgstr ""
+msgstr "Спинка"
 
 #: master_preset.xml:1808(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:direction)
 #: master_preset.xml:1833(combo:display_values|group:Waypoints|preset:Stop|key:direction)
@@ -749,7 +749,7 @@ msgstr ""
 
 #: master_preset.xml:10529(item:name|group:Cash|preset:Bank)
 msgid "Bank"
-msgstr ""
+msgstr "Банк"
 
 #: master_preset.xml:11654(check:text|preset:Payment_Methods|key:payment:bankaxess)
 msgid "BankAxess"
@@ -791,11 +791,11 @@ msgstr ""
 
 #: master_preset.xml:5706(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
-msgstr ""
+msgstr "Преграда"
 
 #: master_preset.xml:2192(group:name|group:Barriers)
 msgid "Barriers"
-msgstr ""
+msgstr "Преграды"
 
 #: master_preset.xml:7979(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Basalt"
@@ -833,11 +833,11 @@ msgstr ""
 
 #: master_preset.xml:9789(item:name|group:Historic_Places_&_Objects|preset:Battlefield)
 msgid "Battlefield"
-msgstr ""
+msgstr "Поле битвы"
 
 #: master_preset.xml:3215(item:name|group:Water|preset:Bay)
 msgid "Bay"
-msgstr ""
+msgstr "Бухта"
 
 #: master_preset.xml:3194(item:name|group:Water|preset:Beach)
 msgid "Beach"
@@ -892,7 +892,7 @@ msgstr ""
 #: master_preset.xml:4544(check:text|group:Public_Transport_(Legacy)|preset:Bus_Stop|key:bench)
 #: master_preset.xml:7425(item:name|group:Facilities|preset:Bench)
 msgid "Bench"
-msgstr ""
+msgstr "Скамейка"
 
 #: master_preset.xml:10252(item:name|group:Food|preset:Beverages)
 msgid "Beverages"
@@ -912,7 +912,7 @@ msgstr ""
 #: master_preset.xml:4152(group:name|group:Bicycle)
 #: master_preset.xml:4414(check:text|group:Public_Transport|preset:Subway_Entrance|key:bicycle)
 msgid "Bicycle"
-msgstr ""
+msgstr "Велосипедистам"
 
 #: master_preset.xml:1199(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
@@ -920,7 +920,7 @@ msgstr ""
 
 #: master_preset.xml:13252(item:name|group:Routes|preset:Bicycle_Route)
 msgid "Bicycle Route"
-msgstr ""
+msgstr "Велосипедный маршрут"
 
 #: master_preset.xml:1722(check:text|group:Ways|preset:Steps|key:ramp:bicycle)
 msgid "Bicycle ramp"
@@ -932,11 +932,11 @@ msgstr ""
 
 #: master_preset.xml:4193(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:rental)
 msgid "Bicycles are rented"
-msgstr ""
+msgstr "Велопрокат"
 
 #: master_preset.xml:4192(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:repair)
 msgid "Bicycles are repaired"
-msgstr ""
+msgstr "Станция велоремонта"
 
 #: master_preset.xml:4190(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:retail)
 msgid "Bicycles are sold"
@@ -956,7 +956,7 @@ msgstr ""
 
 #: master_preset.xml:7612(item:name|group:Facilities|preset:Billboard)
 msgid "Billboard"
-msgstr ""
+msgstr "Рекламный щит"
 
 #: master_preset.xml:8231(item:name|group:Sport_(Ball)|preset:Billiards)
 msgid "Billiards"
@@ -1015,7 +1015,7 @@ msgstr "Кузнец"
 
 #: master_preset.xml:2193(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr ""
+msgstr "Блок"
 
 #: master_preset.xml:6724(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:blood_donation)
 msgid "Blood donation"
@@ -1084,7 +1084,7 @@ msgstr "Боллард"
 
 #: master_preset.xml:2222(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
-msgstr ""
+msgstr "Тип столбика"
 
 #: master_preset.xml:7980(check:text|group:Sport|preset:Climbing|key:climbing:bolted)
 msgid "Bolted"
@@ -1108,7 +1108,7 @@ msgstr ""
 
 #: master_preset.xml:2280(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
-msgstr ""
+msgstr "Пограничный пропускной пункт"
 
 #: master_preset.xml:11780(combo:text|group:Boundaries|preset:Maritime|key:border_type)
 msgid "Border type"
@@ -1165,7 +1165,7 @@ msgstr ""
 #: master_preset.xml:3895(combo:text|group:Car|preset:Fuel|key:brand)
 #: master_preset.xml:4230(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 msgid "Brand"
-msgstr ""
+msgstr "Марка, бренд"
 
 #: master_preset.xml:3026(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -1333,7 +1333,7 @@ msgstr ""
 
 #: master_preset.xml:4529(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
-msgstr ""
+msgstr "Автобусная остановка"
 
 #: master_preset.xml:2251(item:name|group:Barriers|preset:Bus_Trap)
 msgid "Bus Trap"
@@ -5525,7 +5525,7 @@ msgstr ""
 #: master_preset.xml:1477(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:3980(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -10383,7 +10383,7 @@ msgstr ""
 #: master_preset.xml:100(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 #: master_preset.xml:98(list_entry:short_description|value:left)
 msgctxt "sidewalk"
@@ -10819,12 +10819,12 @@ msgstr "Тип"
 #: master_preset.xml:437(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "Подземный"
 
 #: master_preset.xml:8658(combo:text|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Access"
-msgstr ""
+msgstr "Доступ"
 
 #: master_preset.xml:2653(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2673(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -11108,7 +11108,7 @@ msgstr "Подземная"
 #: master_preset.xml:629(combo:display_values|key:support)
 msgctxt "mounting/support"
 msgid "Billboard"
-msgstr ""
+msgstr "Рекламный щит"
 
 #: master_preset.xml:629(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -12190,7 +12190,7 @@ msgstr ""
 #: master_preset.xml:3625(combo:text|group:Railway|preset:Crossing|key:crossing:barrier)
 msgctxt "crossing:barrier"
 msgid "Barrier"
-msgstr ""
+msgstr "Преграда"
 
 #: master_preset.xml:3789(item:name|group:Aerialway|preset:Station)
 msgctxt "aerialway"

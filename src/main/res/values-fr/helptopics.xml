@@ -11,7 +11,7 @@
     <string name="help_wayselection">Chemin sélectionné</string>
     <string name="help_aligningbackgroundiamgery">Aligner l\'imagerie d\'arrière plan</string>
     <string name="help_propertyeditor">Editeur de propriété</string>
-    <string name="help_presets">Modèles d\'attributs</string>
+    <string name="help_presets">Modèles d'attributs</string>
     <string name="help_conflictresolution">Résolution de conflit</string>
     <string name="help_gpssources">Source GPS</string>
     <string name="help_keyboard">Clavier</string>
@@ -44,6 +44,7 @@
     	<item>@string/help_upgrade_098</item>
     	<item>@string/help_upgrade_097</item>
     	<item>@string/help_upgrade_096</item>
+        <item>@string/help_privacy</item>
     </array>
 <!--    The following array needs to mirror the positions in the above one -->
     <array translatable="false" name="help_files">
@@ -73,5 +74,6 @@
     	<item>0.9.8 Release notes</item>
     	<item>0.9.7 Release notes</item>
     	<item>0.9.6 Release notes</item>
+        <item>Privacy</item>
     </array>
 </resources>

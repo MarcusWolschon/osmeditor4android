@@ -147,6 +147,7 @@
   <string name="menu_rotate">Rotiraj</string>
   <string name="menu_orthogonalize">Ispravi kutove</string>
   <string name="menu_tools_background_properties">Opcije pozadine</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Resetiraj</string>
   <string name="menu_tools_background_align_save_db">Spremi u bazu</string>

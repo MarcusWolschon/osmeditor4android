@@ -467,6 +467,7 @@ há %3$s %4$s</string>
   <string name="menu_tools_background_properties">Propriedades do fundo</string>
   <string name="menu_tools_update_imagery_configuration">Atualizar configuração da cama de imagem</string>
   <string name="menu_tools_zoom_to_layer_extent">Aproximar o fundo à extensão da camada</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Alinhar o fundo do mapa</string>
   <string name="menu_tools_background_align_reset">Repôr</string>

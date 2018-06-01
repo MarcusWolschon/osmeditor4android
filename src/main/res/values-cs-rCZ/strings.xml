@@ -453,6 +453,7 @@
   <string name="menu_tools_background_properties">Vlastnosti pozadí</string>
   <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci snímků</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnat pozadí</string>
   <string name="menu_tools_background_align_reset">Reset</string>

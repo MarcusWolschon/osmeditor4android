@@ -422,6 +422,7 @@
   <string name="menu_set_name">Név beállítása</string>
   <string name="tag_form_unknown_element">Ismeretlen elem (nem található előbeállítás)</string>
   <string name="menu_tools_background_properties">Háttér tulajdonságok</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Háttér igazítása</string>
   <string name="menu_tools_background_align_reset">Alaphelyzet</string>

@@ -15,6 +15,8 @@
   <string name="upload_problem_message">I dati non sono stati parzialmente o totalmente caricati. Se si tratta di un problema temporaneo, prova a caricare di nuovo più tardi.</string>
   <string name="bad_request_message">Le API hanno risposto con un errore. Salva i tuoi i dati e segnala il problema:\n\n</string>
   <string name="upload_conflict_title">Conflitto di caricamento</string>
+  <string name="upload_conflict_message_version">%1$s \nha una versione locae %2$d \ne sul server server %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \nha una versione locale %2$d \ne sul server è stato eliminato</string>
   <string name="upload_conflict_message_referential">%1$s \nè stata eliminata localamente \nmentre sul server ha dei riferimenti</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nera già stato eliminato dal server</string>
   <string name="use_local_version">Utilizza la tua versione </string>
@@ -100,6 +102,7 @@
   <string name="imagery_offset_date">Creato</string>
   <string name="imagery_offset_zoom">Ingrandimento</string>
   <string name="imagery_offset_distance">Distanza</string>
+  <string name="zoom_and_offset">Z %1$d Scostamento %2$s/%3$s</string>
   <string name="set_position_datum_label">datum geodetico</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
@@ -108,6 +111,7 @@
   <string name="find_message">Inserisci il testo di ricerca</string>
   <string name="geocoder_prompt">con</string>
   <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
+  <string name="preset_autopreset">Predefiniti automatici</string>
   <string name="search">Cerca</string>
   <string name="no_valid_preset">Predefinito non valido!</string>
   <string name="read_file">Seleziona file da leggere</string>
@@ -133,6 +137,7 @@
   <string name="original">Originale</string>
   <string name="current">Attuale</string>
   <!---->
+  <string name="feature_information">Informazioni sull’elemento GeoJSON</string>
   <string name="error">errore</string>
   <string name="warning">avviso</string>
   <string name="minor_issue">problema minore</string>
@@ -189,19 +194,27 @@
   <string name="delete_layer">Eliminare il livello?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stile livello</string>
+  <string name="layer_style_stroke_width">Larghezza linee</string>
   <string name="layer_style_color">Colore</string>
   <string name="layer_style_label">Etichetta</string>
+  <string name="json_object_not_displayed">Oggetto JSON (non visibile)</string>
+  <string name="json_array_not_displayed">Array JSON (non visibile)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_grid">Griglia</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Foto</string>
+  <string name="layer_tasks">Compiti</string>
   <string name="layer_data">Dati OSM</string>
   <string name="layer_flush_tile_cache">Cancella la cache delle immagini</string>
   <string name="layer_change_style">Cambia stile</string>
   <string name="layer_select_imagery">Seleziona immagini</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Punti di controllo</string>
   <string name="undo_redo_title">Annulla - Ripeti</string>
+  <string name="undo_redo_one">Solo il punto di controllo selezionato (non sicuro)</string>
+  <string name="undo_all">Annulla tutti i punti di controllo successivi (sicuro)</string>
+  <string name="redo_all">Ripeti tutti i punti di controllo precedenti (sicuro)</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
   <!--NumberPiker-->
@@ -254,6 +267,8 @@
   <string name="toast_missing_filemanager">Installa un file manager</string>
   <string name="toast_outside_of_download">Stai modificando all\'esterno dell\'area scaricata.</string>
   <string name="toast_file_not_found">%1$s non è stato trovato.</string>
+  <string name="toast_imported_track_points">Ho importato %1$dpunti traccia e %2$dwaypoint.</string>
+  <string name="toast_imported_track_points_single_way_point">Ho importato %1$dpunti traccia e 1 waypoint.</string>
   <string name="toast_unknown_voice_command">Mi dispiace ma al momento \"%1$s\" non è riconosciuto</string>
   <string name="toast_inconsistent_state">È stato rilevato uno stato inconsistente, si prega di segnalare l\'errore!</string>
   <string name="toast_camera_error">Errore durante l\'esecuzione della app per la videocamera: %1$s</string>
@@ -392,6 +407,7 @@
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Ultima posizione conosciuta:</string>
   <string name="location_current_text">Posizione attuale:</string>
   <string name="location_text_unknown">sconosciuto</string>
@@ -463,6 +479,7 @@
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
   <string name="menu_transfer_read_custom_bugs">Carica obiettivi personalizzati</string>
+  <string name="menu_transfer_write_custom_bugs">Salva compiti personalizzati aperti...</string>
   <string name="menu_save">Salva file</string>
   <string name="menu_join">Unisci</string>
   <string name="menu_unjoin">Separa</string>
@@ -488,6 +505,7 @@
   <string name="menu_tools_background_properties">Proprietà dello sfondo</string>
   <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
@@ -497,6 +515,7 @@
   <string name="menu_tools_background_align_save_db">Salva sul DB</string>
   <string name="menu_tools_background_align_save_device">Salva sul dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Applica (a tutti gli ingrandimenti)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metri</string>
   <string name="distance_km">%1$.3f km</string>
   <!---->
@@ -562,6 +581,8 @@
   <string name="config_moreprefs">Altre impostazioni...</string>
   <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
+  <string name="config_validatorprefs_title">Impostazioni del validatore</string>
+  <string name="config_validatorprefs_summary">Configura le regole della validazione</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autori e licenze</string>
   <string name="config_debugbutton_title">Debug</string>
@@ -696,6 +717,7 @@
   <string name="preset_download_failed">Non è stato possibile scaricare il file dei predefiniti. I predefiniti non funzioneranno.</string>
   <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
   <string name="preset_download_missing_images">Il file dei predefiniti è stato scaricato con successo. Tuttavia, non è stato possibile scaricare alcune icone, che risulteranno mancanti.</string>
+  <string name="preset_download_title">Scaricatore dei predefiniti</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" cancellato</string>
   <string name="changes_changed">\"%1$s\" modificato</string>

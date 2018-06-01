@@ -318,6 +318,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="menu_set_name">Estableix un nom</string>
   <string name="tag_form_unknown_element">Element desconegut (no s\'ha trobat cap preconfiguració)</string>
   <string name="menu_tools_background_properties">Propietats del fons</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Reiniciar</string>
   <string name="menu_tools_background_align_zero">Zero</string>

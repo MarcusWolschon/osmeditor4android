@@ -375,6 +375,7 @@
   <string name="menu_voice_commands">Голосові команди</string>
   <string name="tag_form_unknown_element">Невідомий елемент (заготовки відсутні)</string>
   <string name="menu_tools_background_properties">Властивості фону</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Положення фону</string>
   <string name="menu_tools_background_align_reset">Скинути</string>

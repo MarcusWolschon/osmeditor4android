@@ -240,6 +240,7 @@
   <string name="menu_extend_selection">Bæta við val</string>
   <string name="menu_information">Upplýsingar</string>
   <string name="menu_tools_background_properties">Bakgrunnsstillingar</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Hnika bakgrunni</string>
   <string name="menu_tools_background_align_reset">Endurstilla</string>

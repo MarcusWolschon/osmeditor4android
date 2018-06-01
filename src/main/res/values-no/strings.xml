@@ -104,6 +104,7 @@
   <string name="menu_join">Kombiner</string>
   <string name="menu_rotate">Rotér</string>
   <string name="menu_orthogonalize">Lag åttekantet</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <!---->

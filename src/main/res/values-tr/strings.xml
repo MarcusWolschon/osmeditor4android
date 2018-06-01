@@ -269,6 +269,7 @@
   <string name="menu_information">Bilgi</string>
   <string name="menu_voice_commands">Sesli komutlar</string>
   <string name="menu_tools_background_properties">Arka plan özellkleri</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Arka planı hizala</string>
   <string name="menu_tools_background_align_reset">Sıfırla</string>

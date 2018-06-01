@@ -356,6 +356,7 @@ il y a %3$s %4$s</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Commandes vocales</string>
   <string name="menu_tools_background_properties">Propriétés du fond</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Aligner le fond de carte</string>
   <string name="menu_tools_background_align_reset">Réinitialiser</string>

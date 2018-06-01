@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-05-31 18:25+0000\n"
+"Last-Translator: Gerasimos Maris <makmar21@yahoo.com>\n"
 "Language-Team: Greek (http://www.transifex.com/openstreetmap/presets/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4263,7 +4263,7 @@ msgstr "Δερμάτινα"
 #: master_preset.xml:1462(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 #: master_preset.xml:1480(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
 msgid "Left"
-msgstr ""
+msgstr "Αριστερά"
 
 #: master_preset.xml:1437(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left;through)
 #: master_preset.xml:1463(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left;through)
@@ -6295,7 +6295,7 @@ msgstr ""
 
 #: master_preset.xml:11622(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Φωτογραφίες"
 
 #: master_preset.xml:2804(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
@@ -7266,7 +7266,7 @@ msgstr ""
 #: master_preset.xml:1470(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1488(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Δεξιά"
 
 #: master_preset.xml:1443(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1469(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)

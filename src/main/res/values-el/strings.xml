@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Κανονικό</string>
+  <string name="mode_tag_only">Μόνο ετικέτα</string>
+  <string name="mode_indoor">Εσωτερικά</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
   <string name="transfer_download_current_dialog_message">Έχετε κάνει μερικές αλλαγές. Θα θέλατε να τις ανεβάσετε αντί να τις απορρίψετε;</string>
@@ -9,6 +12,7 @@
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
   <string name="upload_problem_title">Πρόβλημα κατά την Αποστολή</string>
   <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν έχουν μεταφορτωθεί. Δοκιμάστε τη μεταφόρτωση ξανά αργότερα αν αυτό ήταν μόνο ένα προσωρινό πρόβλημα.</string>
+  <string name="bad_request_message">Το API απάντησε με σφάλμα, αποθηκεύστε τα δεδομένα σας και αναφέρετε το πρόβλημα:\n\n</string>
   <string name="upload_conflict_title">Διένεξη μεταφόρτωσης</string>
   <string name="upload_conflict_message_referential">%1$s \nwas διαγράφηκε τοπικά \nαλλά έχει παραπομπές στον διακομιστή</string>
   <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
@@ -17,20 +21,34 @@
   <string name="no_login_data_message">Εάν χρησιμοποιείτε το OAuth αυτό πιθανόν να είναι ένα σφάλμα. Παρακαλούμε να στείλετε μια αναφορά προβλήματος. Εάν χρησιμοποιείτε το όνομα χρήστη και τον κωδικό πρόσβασης (δεν συνιστάται) ελέγξτε ότι τα πληκτρολογείτε σωστά.</string>
   <string name="no_connection_title">Χωρίς σύνδεση στον διακομιστή</string>
   <string name="no_connection_message">Δεν είναι δυνατή η σύνδεση στον διακομιστή OSM. Παρακαλώ ελέγξτε τη σύνδεσή σας ή δοκιμάστε αργότερα.</string>
+  <string name="ssl_handshake_failed">Δεν ήταν δυνατή η σύνδεση με το διακομιστή OSM, επειδή η διαπραγμάτευση του https απέτυχε. Δοκιμάστε να μεταβείτε σε μια μη κρυπτογραφημένη σύνδεση στις προτιμήσεις API.</string>
   <string name="wrong_login_data_title">Η πιστοποίηση απέτυχε</string>
+  <string name="wrong_login_data_message">Εάν χρησιμοποιείτε το OAuth, πρέπει να επαληθεύσετε ξανά και στη συνέχεια να προσπαθήσετε πάλι, αν χρησιμοποιείτε σύνδεση και κωδικό (δεν συνιστάται), βεβαιωθείτε ότι έχουν εισαχθεί σωστά.</string>
+  <string name="wrong_login_data_re_authenticate">Επαναπροσδιορισμός</string>
+  <string name="forbidden_login_title">Η σύνδεση απαγορεύεται</string>
+  <string name="go_to_openstreetmap">Πηγαίνετε στο openstreetmap.org</string>
   <string name="data_conflict_title">Διένεξη Εκδόσεων</string>
   <string name="data_conflict_message">Τα δεδομένα που προσπαθείτε να κατεβάσετε περιλαμβάνουν στοιχεία που έρχονται σε αντίθεση με τις αλλαγές σας. Παρακαλώ δοκιμάστε πρώτα να μεταφορτώσετε τα δεδομένα σας πριν προσπαθήσετε ξανά.</string>
+  <string name="invalid_bounding_box_message">Η επιλεγμένη περιοχή δεν ταιριάζει με τους περιορισμούς API, επιλέξτε μία διαφορετική.</string>
+  <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
+  <string name="bounding_box_too_large_message">Η περιοχή που προσπαθείτε να κάνετε λήψη είναι πολύ μεγάλη ή περιέχει πάρα πολλά δεδομένα.\n\nΠαρακαλώ μεγεθύνετε περισσότερο και δοκιμάστε ξανά.</string>
   <string name="api_offline_title">API Εκτός Σύνδεσης</string>
+  <string name="api_offline_message">Το API είναι τώρα εκτός σύνδεσης και δεν επιτρέπει την ανάκτηση ή την εγγραφή δεδομένων.</string>
   <string name="out_of_memory_title">Εξάντληση Μνήμης</string>
   <string name="out_of_memory_message">Το Vespucci έχει ξεμείνει από μνήμη φόρτωση των αιτούμενων στοιχείων. Παρακαλώ κάντε επανεκκίνηση και δοκιμάστε να τοποθετήσετε μια μικρότερη περιοχή.</string>
   <string name="out_of_memory_dirty_message">Το Vespucci έχει ξεμείνει από μνήμη φόρτωση των αιτούμενων στοιχείων. Παρακαλώ κάντε επανεκκίνηση και δοκιμάστε να τοποθετήσετε μια μικρότερη περιοχή.</string>
   <string name="invalid_data_received_title">Ελήφθησαν μη αποδεκτά δεδομένα</string>
   <string name="invalid_data_received_message">Το Vespucci εχει λάβει μη έγκυρα δεδομένα από το διακομιστή. Αν πιστεύετε ότι αυτό που προσπαθούμε να κάνουμε είναι σωστό, παρακαλούμε υποβάλετε μια αναφορά σφάλματος.</string>
+  <string name="invalid_data_read_title">Άκυρα δεδομένα</string>
+  <string name="invalid_data_read_message">Το αρχείο περιέχει άκυρα δεδομένα. Εάν πιστεύετε ότι αυτό που προσπαθούσατε να κάνετε είναι σωστό, υποβάλετε μια αναφορά σφάλματος.</string>
   <string name="file_write_failed_title">Η εγγραφή αρχείου απέτυχε</string>
   <string name="file_write_failed_message">Δεν μπορεί να γίνει εγγραφή στο επιλεγμένο αρχείο</string>
   <string name="welcome_title">Καλώς ήλθατε</string>
+  <string name="welcome_message">Σας ευχαριστούμε που χρησιμοποιείτε το Vespucci.\n\nΓια να ξεκινήσετε, πρέπει να γνωρίζετε δύο πράγματα:\n\n* χτυπώντας το εικονίδιο κλειδώματος στην επάνω αριστερή γωνία, θα αλλάξετε μεταξύ κλειδωμένης (χωρίς επεξεργασία) και ξεκλειδωμένης λειτουργίας\n\n* για να προσθέσετε ένα νέο αντικείμενο: πατήστε παρατεταμένα, χτυπώντας στο ίδιο σημείο θα προστεθεί ένας κόμβος, χτυπώντας μακρύτερα θα ξεκινήσει μία διαδρομή.\n\nΜην ξεχάσετε να κατεβάσετε την περιοχή που θέλετε να επεξεργαστείτε.\n\nΚαλή διασκέδαση!</string>
+  <string name="welcome_message_fullscreen">\n\nΤο Vespucci έχει ανιχνεύσει ότι έχετε μια συσκευή με \"soft keys\" και τα έχει αποκρύψει. Ένα σύρσιμο από την κάτω άκρη θα τα δείξει ξανά.</string>
   <string name="read_introduction">Διαβάστε την εισαγωγή τώρα</string>
   <string name="upgrade_title">Καλώς ήλθατε σε μια νέα έκδοση του Vespucci!</string>
+  <string name="upgrade_message">Αυτή είναι μια νέα έκδοση του Vespucci με νέα χαρακτηριστικά και συμπεριφορά. Θα ήταν καλύτερο να διαβάσετε γρήγορα τις πληροφορίες αναβάθμισης της συσκευής.</string>
   <string name="read_upgrade">Διαβάστε για τη νέα έκδοση</string>
   <string name="progress_title">Φόρτωση</string>
   <string name="progress_message">Φόρτωση δεδομένων στη μνήμη…</string>
@@ -40,12 +58,16 @@
   <string name="progress_searching_message">Γίνεται αναζήτηση…</string>
   <string name="progress_saving_message">Γίνεται αποθήκευση…</string>
   <string name="progress_uploading_message">Γίνεται αποστολή...</string>
+  <string name="progress_running_message">Λειτουργία...</string>
+  <string name="progress_oauth">Φόρτωση του λογαριασμού σας στο openstreetmap.org για εξουσιοδότηση του OAuth...</string>
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
   <string name="upload_close_changeset_label">Κλείσιμο ομάδας αλλαγών</string>
   <string name="upload_gpx_description_label">Περιγραφή</string>
   <string name="upload_gpx_tags_label">Ετικέτες</string>
   <string name="upload_gpx_visibility_label">ορατότητα</string>
+  <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
+  <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
   <string name="openstreetbug_new_title">Νέα Σημείωση</string>
   <string name="openstreetbug_new_bug">Αναφορά Ζητήματος</string>
   <string name="openstreetbug_bug_title">Ζήτημα</string>
@@ -55,8 +77,13 @@
   <string name="openstreetbug_comment_label">Σχόλιο:</string>
   <string name="openstreetbug_edit_close">Κλείσιμο</string>
   <string name="openstreetbug_edit_closed">Έκλεισε</string>
+  <string name="openstreetbug_commit_ok">Οι αλλαγές σφαλμάτων αποθηκεύτηκαν</string>
+  <string name="openstreetbug_commit_fail">Δεν είναι δυνατή η αποθήκευση αλλαγών σφαλμάτων</string>
   <string name="openstreetbug_not_downloaded">δεν ελήφθη</string>
   <string name="openstreetbug_last_updated">τελευταία ενημερώθηκε στις</string>
+  <string name="openstreetbug_unknown_task_type">Άγνωστος τύπος εργασίας</string>
+  <string name="openstreetbug_not_supported">%1$s δεν υποστηρίζεται.
+</string>
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_message">Έχετε μη αποθηκευμένες αλλαγές οι οποίες θα χαθούν αν συνεχίσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -73,37 +100,107 @@
   <string name="tag_editor_name_suggestion_overwrite_message">Αυτή η πρόταση μπορεί να αντικαταστήσει κάποιες τιμές ετικέτας με πιο δημοφιλείς τιμές.</string>
   <string name="search_results_title">Αποτελέσματα αναζήτησης</string>
   <string name="find_message">Εισαγάγετε κείμενο αναζήτησης</string>
+  <string name="geocoder_prompt">με</string>
+  <string name="preset_autopreset">Αυτόματη προεπιλογή</string>
   <string name="search">Αναζήτηση</string>
+  <string name="no_valid_preset">Μη έγκυρη προεπιλογή!</string>
   <string name="read_file">Επιλέξτε το αρχείο ανάγνωσης</string>
   <string name="save_file">Εισαγάγετε το αρχείο αποθήκευσης</string>
   <string name="existing_track_title">Υπάρχοντα δεδομένα τροχιάς</string>
   <string name="existing_track_message">Έχετε ήδη υπάρχοντα δεδομένα τροχιάς. Μπορεί να θέλετε να ακυρώσετε και να τα αποθηκεύσετε πρώτα.</string>
+  <string name="delete_tags">Πραγματικά θέλετε να διαγράψτε όλες τις ετικέτες για το αντικείμενο \" %1$s \";</string>
   <!--element information dialog-->
+  <string name="element_information">Πληροφορία στοιχείου</string>
   <string name="nodes">Κόμβοι</string>
+  <string name="relation_membership">Σχέση μέλους</string>
   <string name="problem">Πρόβλημα</string>
   <string name="members">Μέλη</string>
   <string name="closed">Έκλεισε</string>
   <string name="version">Έκδοση</string>
   <string name="length_m">Μήκος (μ)</string>
+  <string name="not_downloaded">Δεν κατέβηκε</string>
   <string name="empty_role">άδειος ρόλος</string>
+  <string name="element">στοιχείο</string>
   <string name="last_updated">τελευταία ενημερώθηκε στις</string>
+  <string name="last_edited">Τελευταία επεξεργασία</string>
+  <string name="original">Πρωτότυπο</string>
+  <string name="current">Τωρινό</string>
   <!---->
   <string name="error">σφάλμα</string>
   <string name="warning">προειδοποίηση</string>
+  <string name="minor_issue">δευτερεύον ζήτημα</string>
+  <string name="unknown_error_level">άγνωστο επίπεδο σφάλματος</string>
   <!--hidden object warning dialog-->
+  <string name="attached_object_warning_title">Αυτή η λειτουργία επηρεάζει τα φιλτραρισμένα αντικείμενα!</string>
+  <string name="attached_object_warning_message">Το αλλαγμένο αντικείμενο συνδέεται με κρυμμένα στοιχεία που θα αλλάξουν επίσης.</string>
+  <string name="attached_object_warning_continue">Εντάξει συνεχίστε για να εμφανίσετε αυτό το μήνυμα</string>
+  <string name="attached_object_warning_stop">Εντάξει σταματήστε να εμφανίζετε αυτό το μήνυμα</string>
   <!--debug dialog-->
+  <string name="send_debug_information">Αποστολή πληροφοριών αποσφαλμάτωσης</string>
   <!--JS console dialog-->
+  <string name="evaluate">Αξιολόγηση</string>
+  <string name="js_console_msg_live">Ζωντανή λειτουργία!</string>
+  <string name="js_console_msg_debug">Λειτουργία αποσφαλμάτωσης!</string>
   <!--Validator dialogs-->
+  <string name="edit_resurvey_title">Επεξεργασία καταχώρησης επανέρευνας</string>
+  <string name="add_resurvey_title">Προσθήκη καταχώρησης επανέρευνας</string>
+  <string name="edit_check_title">Επεξεργασία καταχώρησης ελέγχου</string>
+  <string name="add_check_title">Προσθήκη καταχώρησης ελέγχου</string>
+  <string name="max_age">Μέγιστη ηλικία</string>
+  <string name="age">Ηλικία</string>
+  <string name="check_optional">Ελέγξτε προαιρετικά</string>
+  <string name="add_resurvey_entry">Προσθήκη καταχώρησης επανέρευνας</string>
+  <string name="add_check_entry">Προσθήκη καταχώρησης ελέγχου</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Κενή Σχέση</string>
+  <string name="empty_relation_message">Η σχέση δεν έχει μέλη. %1$s Αφήνοντας την όπως είναι θα την κάνει μη επεξεργάσιμη στο Vespucci.</string>
+  <string name="add_members">Προσθήκη μελών</string>
+  <string name="leave_empty">Αφήστε κενό</string>
   <!--GPX way point dialog-->
+  <string name="description">Περιγραφή</string>
+  <string name="created">Δημιουργήθηκε</string>
+  <string name="altitude">Υψόμετρο</string>
+  <string name="create_osm_object">Δημιουργία Αντικειμένου OSM</string>
+  <string name="create_osm_object_search">Δημιουργία Αντικειμένου OSM από προεπιλεγμένη αναζήτηση</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Προσαρμοσμένες εικόνες</string>
+  <string name="oam_layer_title">Εικόνες ΟΑΜ</string>
+  <string name="edit_layer_title">Επεξεργασία καταγραφής επιπέδου</string>
+  <string name="add_layer_title">Προσθήκη καταγραφής επιπέδου</string>
+  <string name="overlay">Επικάλυψη</string>
+  <string name="coverage">Κάλυψη</string>
+  <string name="coverage_top">Πάνω</string>
+  <string name="coverage_left">Αριστερά</string>
+  <string name="coverage_right">Δεξιά</string>
+  <string name="coverage_bottom">Κάτω</string>
+  <string name="delete_layer">Διαγραφή επιπέδου;</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Στυλ επιπέδου</string>
+  <string name="layer_style_color">Χρώμα</string>
+  <string name="layer_style_label">Επιγραφή</string>
+  <string name="json_object_not_displayed">Αντικείμενο JSON (δεν εμφανίζεται)</string>
+  <string name="json_array_not_displayed">Σειρά JSON (δεν εμφανίζεται)</string>
   <!--Layer dialog-->
+  <string name="layer_grid">Πλέγμα</string>
+  <string name="layer_photos">Φωτογραφίες</string>
+  <string name="layer_data">Δεδομένα OSM</string>
+  <string name="layer_change_style">Αλλαγή στυλ</string>
+  <string name="layer_select_imagery">Επιλογή εικόνας</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Σημεία ελέγχου</string>
+  <string name="undo_redo_title">Αναίρεση - Επανάληψη</string>
+  <string name="undo_redo_one">Μόνο το επιλεγμένο σημείο ελέγχου (μη ασφαλές)</string>
+  <string name="undo_all">Αναίρεση όλων των επόμενων σημείων ελέγχου (ασφαλές)</string>
+  <string name="redo_all">Επαναλάβετε όλα τα προηγούμενα σημεία ελέγχου (ασφαλές)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
   <!--NumberPiker-->
   <!--Toaster-->
+  <string name="toast_name_empty">Το όνομα δεν μπορεί να είναι κενό</string>
+  <string name="toast_url_empty">Το URL δεν μπορεί να είναι κενό</string>
+  <string name="toast_min_zoom">Το ελάχιστο ζουμ πρέπει να είναι μικρότερο από το μέγιστο</string>
   <string name="toast_no_changes">Δεν έχετε αλλάξει τίποτα ως τώρα…</string>
+  <string name="toast_unsaved_changes">Έχετε μη αποθηκευμένες αλλαγές, παρακαλώ μεταφορτώστε τις πρώτα.</string>
   <string name="toast_upload_success">Η αποστολή στον διακομιστή OSM τελείωσε.</string>
   <string name="toast_not_in_edit_range">Παρακαλούμε εστιάστε για να επεξεργαστείτε (Αύξηση/Μείωση Έντασης ή Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Ξεκλειδώστε για επεξεργασία</string>
@@ -117,6 +214,8 @@
   <string name="toast_merge_tag_conflict">Έχετε συγχωνεύσει στοιχεία που έχουν αντικρουόμενες τιμές ετικέτας, ιδιότητες που εξαρτώνται από την κατεύθυνση ή διαφορετικούς ρόλους στην ίδια σχέση. Παρακαλώ ελέγξτε τις ετικέτες και τους ρόλους και ενδεχομένως διορθώστε.</string>
   <string name="toast_state_file_failed">Μη αναγνώσιμο ή κατεστραμμένο αρχείο</string>
   <string name="toast_too_many_nodes_for_move">Πάρα πολλοί κόμβοι στο δρόμο για να προχωρήσουμε</string>
+  <string name="toast_unread_mail">Έχετε %1$d μη αναγνωσμένο(α) μήνυμα(τα) στο OSM</string>
+  <string name="toast_one_unread_mail">Έχετε ένα μη αναγνωσμένο μήνυμα στο OSM</string>
   <string name="toast_photo_indexing_started">Ξεκίνησε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_photo_indexing_finished">Ολοκληρώθηκε η σάρωση γεωαναφερμένων φωτογραφιών</string>
   <string name="toast_download_failed">Η λήψη απέτυχε με κωδικό σφάλματος %1$d, μήνυμα %2$s</string>
@@ -139,6 +238,7 @@
   <string name="no">Όχι</string>
   <string name="okay">Εντάξει</string>
   <string name="cancel">Ακύρωση</string>
+  <string name="done">Έγινε</string>
   <string name="locked">Κλειδωμένο</string>
   <string name="next">Επόμενο</string>
   <string name="apply">Εφαρμογή</string>
@@ -149,6 +249,12 @@
   <string name="forward">Εμπρός</string>
   <string name="keep">Διατήρηση</string>
   <string name="clear">Εκκαθάριση</string>
+  <string name="retry">Επανάληψη</string>
+  <string name="read">Διάβασμα</string>
+  <string name="share">Μοίρασμα</string>
+  <string name="share_position">Μοίρασμα τοποθεσίας</string>
+  <string name="min">Ελάχιστο</string>
+  <string name="max">Μέγιστο</string>
   <!--Dialog for back button-->
   <string name="exit_title">Να γίνει έξοδος;</string>
   <string name="exit_text">Θέλετε σίγουρα να κλείσετε το πρόγραμμα;</string>
@@ -250,6 +356,7 @@
   <string name="menu_information">Πληροφορίες</string>
   <string name="menu_set_name">Ορισμός ονόματος</string>
   <string name="menu_tools_background_properties">Ιδιότητες φόντου</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Ευθυγράμμιση φόντου</string>
   <string name="menu_tools_background_align_reset">Επαναφορά</string>
@@ -430,7 +537,14 @@
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Αυτή η πράξη θα δημιουργήσει έναν δρομο με πάρα πολλούς κόμβους.</string>
   <!--Notifications-->
+  <string name="bearing_ne">ΒΑ</string>
+  <string name="bearing_e">Α</string>
+  <string name="bearing_se">ΝΑ</string>
   <string name="bearing_s">Σ</string>
+  <string name="bearing_sw">ΝΔ</string>
+  <string name="bearing_w">Δ</string>
+  <string name="bearing_nw">ΒΔ</string>
+  <string name="bearing_n">Β</string>
   <!--Misc relation related stuff-->
   <string name="role">Ρόλος</string>
   <string name="role_lc">ρόλος</string>
@@ -464,5 +578,22 @@
     <item>Internal NMEA</item>
     <item>NMEA from TCP client</item>
     <item>NMEA from TCP server</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>Ανοιχτό</item>
+    <item>Κλειστό</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Αριστερά</item>
+    <item>Δεξιά</item>
+    <item>Κανένα</item>
+  </string-array>
+  <string-array name="tagfilter_type_entries">
+    <item>Όλα</item>
+    <item>Κόμβοι</item>
+    <item>Διαδρομές</item>
+    <item>Διαδρομές+</item>
+    <item>Σχέσεις</item>
+    <item>Σχέσεις+</item>
   </string-array>
 </resources>

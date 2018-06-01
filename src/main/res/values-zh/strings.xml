@@ -244,6 +244,7 @@
   <string name="menu_extend_selection">扩展选择</string>
   <string name="menu_information">信息</string>
   <string name="menu_tools_background_properties">背景属性</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">背景对齐</string>
   <string name="menu_tools_background_align_reset">重置</string>

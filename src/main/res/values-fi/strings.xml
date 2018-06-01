@@ -369,6 +369,7 @@
   <string name="menu_set_name">Aseta nimi</string>
   <string name="tag_form_unknown_element">Tuntematon elementti (ei esivalintaa)</string>
   <string name="menu_tools_background_properties">Taustan ominaisuudet</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Kohdista tausta</string>
   <string name="menu_tools_background_align_reset">Palauta</string>

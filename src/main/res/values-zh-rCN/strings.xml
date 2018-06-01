@@ -46,6 +46,7 @@
   <string name="menu_camera">摄像机</string>
   <string name="menu_rotate">旋转</string>
   <string name="menu_orthogonalize">直角化</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">重置</string>
   <!---->

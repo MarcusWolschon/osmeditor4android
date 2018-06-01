@@ -495,6 +495,7 @@
   <string name="menu_tools_background_properties">背景屬性</string>
   <string name="menu_tools_update_imagery_configuration">更新影像圖層設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">校直背景</string>
   <string name="menu_tools_background_align_reset">重置</string>

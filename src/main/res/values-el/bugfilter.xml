@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="bugfilter_notes_entry">Σημειώσεις</string>
+  <string name="bugfilter_osmose_error_entry">Σφάλμα Osmose</string>
+  <string name="bugfilter_osmose_warning_entry">Προειδοποίηση Osmose</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Δευτερεύον ζήτημα Osmose</string>
+  <string name="bugfilter_custom_entry">Εξατομικευμένο</string>
+</resources>

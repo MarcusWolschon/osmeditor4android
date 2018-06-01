@@ -10,6 +10,7 @@
   <string name="transfer_download_current_download">התעלמות והורדה</string>
   <string name="transfer_download_current_back">חזרה (לא לעשות כלום)</string>
   <string name="upload_problem_title">בעיה בהעלאה</string>
+  <string name="upload_conflict_title">סתירת העלאה</string>
   <string name="use_local_version">שימוש בגרסה המקומית</string>
   <string name="use_server_version">שימוש בגרסה שבשרת</string>
   <string name="no_login_data_title">האימות נכשל</string>
@@ -82,7 +83,17 @@
   <string name="imagery_offset_date">נוצר</string>
   <string name="imagery_offset_zoom">תקריב</string>
   <string name="imagery_offset_distance">מרחק</string>
+  <string name="tag_editor_name_suggestion">הצעת שם</string>
+  <string name="search_results_title">תוצאות חיפוש</string>
+  <string name="find_message">נא להקליד מחרוזת לחיפוש</string>
+  <string name="geocoder_prompt">עם</string>
+  <string name="search">חיפוש</string>
+  <string name="no_valid_preset">אין ערכה מוגדרת תקפה!</string>
+  <string name="read_file">נא לבחור קובץ לקריאה</string>
+  <string name="save_file">נא להכניס קובץ לשמירה</string>
+  <string name="existing_track_title">נתוני מסלול קיימים</string>
   <!--element information dialog-->
+  <string name="element_information">פרטי רכיב</string>
   <string name="id">מזהה</string>
   <string name="nodes">צמתים</string>
   <string name="relation_membership">חברות ביחס</string>
@@ -109,6 +120,7 @@
   <string name="evaluate">הערכה</string>
   <string name="js_console_msg_live">מצב חי!</string>
   <!--Validator dialogs-->
+  <string name="age">גיל</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">יחס ריק</string>
   <string name="add_members">הוספת חברים</string>
@@ -119,19 +131,27 @@
   <string name="created">נוצר</string>
   <string name="altitude">גובה</string>
   <!--Custom imagery dialogs-->
+  <string name="edit_layer_title">עריכת רשומת שכבה</string>
+  <string name="add_layer_title">הוספת רשומת שכבה</string>
+  <string name="overlay">שכבה</string>
   <string name="coverage">כיסוי</string>
   <string name="coverage_top">עליון</string>
   <string name="coverage_left">שמאל</string>
   <string name="coverage_right">ימין</string>
   <string name="coverage_bottom">תחתון</string>
   <string name="preferred">מועדף</string>
+  <string name="toast_invalid_box">תיבה תוחמת שגויה או חלקית</string>
   <string name="delete_layer">למחוק שכבה</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">סגנון שכבה</string>
   <string name="layer_style_stroke_width">עובי קו מתאר</string>
   <string name="layer_style_color">צבע</string>
   <string name="layer_style_label">תווית</string>
+  <string name="json_object_not_displayed">פריט JSON (לא מוצג)</string>
+  <string name="json_array_not_displayed">מערך JSON (לא מוצג)</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">רשת</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">תמונות</string>
   <string name="layer_tasks">משימות</string>
@@ -140,32 +160,277 @@
   <string name="layer_select_imagery">בחירת תמונת רקע</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">הורדת נתוני OpenStreetMap</string>
   <!--NumberPiker-->
   <!--Toaster-->
+  <string name="toast_name_empty">השם לא יכול להישאר ריק</string>
+  <string name="toast_url_empty">הכתובת לא יכולה להיות ריקה</string>
+  <string name="clear_anyway">לנקות בכל זאת?</string>
+  <string name="toast_upload_success">ההעלאה לשרת ה־OSM הסתיימה.</string>
+  <string name="toast_unlock_to_edit">יש לשחרר כדי לערוך</string>
+  <string name="toast_edit_outside_downloaded_area">לא ניתן לערוך מחוץ לאזור שהתקבל</string>
+  <string name="toast_save_done">השמירה הצליחה</string>
+  <string name="toast_save_failed">השמירה נכשלה</string>
   <string name="toast_export_failed">הייצוא נכשל</string>
+  <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
+  <string name="toast_unread_mail">יש לך %1$d הודעות ב־OSM שטרם נקראו</string>
+  <string name="toast_one_unread_mail">יש לך הודעה ב־OSM שטרם קראת</string>
+  <string name="toast_photo_indexing_started">התחילה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
+  <string name="toast_photo_indexing_finished">הסתיימה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
+  <string name="toast_download_failed">ההורדה נכשלה עם קוד השגיאה %1$d, הודעה %2$s</string>
   <string name="toast_noname">לדרך אין שם או מספר</string>
   <string name="toast_notype">לקשר אין סוג</string>
   <string name="toast_oauth_retry">נא לאפשר גישה עם OAuth לחשבון ה־OSM שלך ואז לנסות להעלות מחדש.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
   <string name="toast_oauth_not_enabled">OAuth אינו מופעל עבור ה־API הנוכחי.</string>
+  <string name="toast_oauth_login_with_google_not_possible">אין תמיכה בכניסה עם google</string>
+  <string name="toast_timeout">תם זמן החיבור מול השרת</string>
+  <string name="toast_nothing_found">שום דבר לא נמצא</string>
+  <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
+  <string name="toast_outside_of_download">העריכה הזאת היא מחוץ לנתונים שהתקבלו.</string>
+  <string name="toast_file_not_found">%1$s לא נמצא.</string>
+  <string name="toast_unknown_voice_command">נכון לעכשיו, אין אפשרות לפענח את „%1$s”, עמך הסליחה.</string>
+  <string name="toast_invalid_apiurl">כתובת API שגויה</string>
+  <string name="toast_error_accessing_photo">לא ניתן לגשת לתמונה %1$s</string>
+  <string name="toast_file_exists">הקובץ %1$s קיים.</string>
+  <string name="toast_needs_resurvey">יתכן שפג תוקפו של הפריט</string>
+  <string name="toast_missing_key">המפתח %1$s חסר</string>
+  <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
+  <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">ה־GPS מושבת, המעקב הופסק</string>
   <!--Some generic labels/buttons-->
+  <string name="yes">כן</string>
+  <string name="no">לא</string>
+  <string name="okay">אישור</string>
+  <string name="cancel">ביטול</string>
+  <string name="dismiss">התעלמות</string>
+  <string name="done">בוצע</string>
+  <string name="locked">נעול</string>
+  <string name="next">הבא</string>
+  <string name="apply">החלה</string>
+  <string name="set">הגדרה</string>
+  <string name="replace">החלפה</string>
+  <string name="save">שמירה</string>
+  <string name="save_and_set">שמירה והגדרה</string>
+  <string name="back">חזרה</string>
+  <string name="forward">קדימה</string>
+  <string name="keep">להשאיר</string>
+  <string name="enable">הפעלה</string>
+  <string name="disable">השבתה</string>
+  <string name="clear">פינוי</string>
+  <string name="discard">השלכה</string>
+  <string name="retry">ניסיון חוזר</string>
+  <string name="read">קריאה</string>
+  <string name="overwrite">שכתוב</string>
+  <string name="share">שיתוף</string>
+  <string name="share_position">שיתוף מיקום</string>
+  <string name="min">מזערי</string>
+  <string name="max">מרבי</string>
+  <string name="none">ללא</string>
   <!--Dialog for back button-->
+  <string name="exit_title">לצאת?</string>
+  <string name="exit_text">באמת לצאת?</string>
   <!--Strings in PorpertyEditor-->
+  <string name="key">מפתח</string>
+  <string name="Key">מפתח</string>
+  <string name="value">ערך</string>
+  <string name="Value">ערך</string>
+  <string name="tag_menu_address">הוספת תגיות כתובת</string>
+  <string name="tag_menu_preset">ערכות מוגדרות</string>
+  <string name="tag_menu_apply_preset">החלת ערכות מוגדרות</string>
+  <string name="tag_menu_repeat">חזרה על תגיות</string>
+  <string name="tag_menu_addtorelation">הוספה ליחס</string>
+  <string name="tag_menu_resetMRU">איפוס ערכות מוגדרות</string>
+  <string name="tag_menu_reset_address_prediction">איפוס חיזוי כתובת</string>
+  <string name="tag_menu_exit_no_save">יציאה\nללא שמירה</string>
+  <string name="tag_menu_delete_unassociated_tags">מחיקת תגיות בלתי משויכות</string>
+  <string name="tag_menu_top">גלילה למעלה</string>
+  <string name="tag_menu_bottom">גלילה למטה</string>
+  <string name="tag_value_hint">יש להקליד ערך</string>
+  <string name="tag_autocomplete_value_hint">יש להקליד או ללחוץ לקבלת ערכים</string>
+  <string name="tag_autocomplete_name_hint">יש להקליד או ללחוץ להצעות של שמות</string>
+  <string name="tag_tap_to_edit_hint">יש ללחוץ כדי לערוך</string>
+  <string name="tag_multi_value_hint">ריבוי ערכים</string>
+  <string name="tag_dialog_value_hint">יש לגעת כדי לקבל ערכים</string>
+  <string name="tag_action_tag_title">נבחרו תגיות</string>
+  <string name="tag_action_members_title">נבחרו חברים</string>
+  <string name="tag_action_parents_title">נבחרו יחסים</string>
+  <string name="tag_additional_properties">מאפיינים נוספים</string>
+  <string name="tag_details">פרטים</string>
+  <string name="tag_not_set">לא הוגדר</string>
+  <string name="tag_menu_move_up">העברה למעלה</string>
+  <string name="tag_menu_move_top">הקפצה לראש</string>
+  <string name="tag_menu_move_down">העברה למטה</string>
+  <string name="tag_menu_move_bottom">הקפצה למטה</string>
+  <string name="tag_menu_sort">סידור</string>
+  <string name="tag_menu_reverse_order">היפוך הסדר</string>
+  <string name="tag_menu_download">הורדה</string>
+  <string name="tag_menu_js_console">מסוף JS</string>
+  <string name="menu_up">למעלה</string>
+  <string name="menu_top">עליון</string>
+  <string name="menu_select_all">לבחור הכול</string>
+  <string name="menu_deselect_all">לבטל את בחירת הכול</string>
+  <string name="menu_preset_help">עזרה עם ערכות מוגדרות</string>
+  <string name="tag_menu_i8n">הוספת תגיות עבור %1$s</string>
+  <string name="tag_restriction_header">ערך</string>
+  <string name="tag_restriction_when">מתי</string>
+  <string name="tag_restriction_and">וגם</string>
+  <string name="tag_restriction_add_restriction">הוספת מגבלה</string>
+  <string name="tag_restriction_add_simple_condition">הוספת תנאי פשוט</string>
+  <string name="tag_restriction_add_expression">הוספת ביטוי</string>
+  <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
+  <string name="tag_restriction_value_hint">הגבלה מותנית</string>
   <!--Strings in Box/LocationPicker-->
+  <string name="location_headline">טעינת שטח</string>
+  <string name="location_choose_radius">בחירת רדיוס:</string>
+  <string name="location_default_radius">300 מטר</string>
+  <string name="location_last_text">המיקום האחרון המוכר:</string>
+  <string name="location_current_text">מיקום נוכחי:</string>
+  <string name="location_text_unknown">לא ידוע</string>
+  <string name="location_last_text_parameterized">המיקום האחרון הידוע: %1$s</string>
+  <string name="location_current_text_parameterized">המיקום הנוכחי: %1$s</string>
+  <string name="location_map_text">מהמפה (בקרוב)</string>
+  <string name="location_coordinates_text">מנקודות ציון:</string>
+  <string name="location_search_label">חיפוש:</string>
+  <string name="location_load_button">טעינה</string>
+  <string name="location_load_dismiss">מעבר למפה</string>
+  <string name="location_nan_title">קלט שגוי!</string>
   <!--Menu-->
-  <!--Background alignment-->
+  <string name="menu_move">העברה</string>
+  <string name="menu_edit">עריכה</string>
+  <string name="menu_add">חדש</string>
+  <string name="menu_config">העדפות</string>
+  <string name="menu_find">חיפוש</string>
+  <string name="menu_help">עזרה</string>
+  <string name="menu_erase">מחיקת צומת</string>
+  <string name="menu_set_position">מיקום</string>
+  <string name="menu_split">פיצול</string>
+  <string name="menu_extract">חילוץ צומת</string>
+  <string name="menu_relation">יצירת יחס</string>
+  <string name="menu_edit_relation">עריכת יחס</string>
+  <string name="menu_add_relation_member">הוספת חבר</string>
+  <string name="menu_select_relation_members">בחירת חברים</string>
+  <string name="menu_tag">עריכת תגיות</string>
+  <string name="menu_openstreetbug">הוספת הערה</string>
+  <string name="menu_camera">מצלמה</string>
+  <string name="menu_gps">GPS…‎</string>
+  <string name="menu_gps_show">הצגת מיקום</string>
+  <string name="menu_gps_follow">מעקב אחר מיקום</string>
+  <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
+  <string name="menu_gps_start">התחלת מסלול GPS</string>
+  <string name="menu_gps_pause">השהיית מסלול GPS</string>
+  <string name="menu_gps_clear">מחיקת המסלול ונקודות הדרך של ה־GPS</string>
+  <string name="menu_gps_track_managment">ניהול מסלולים…</string>
+  <string name="menu_gps_upload">העלאת מסלול GPX</string>
+  <string name="menu_gps_export">יצוא מסלול GPX</string>
+  <string name="menu_gps_import">יבוא מסלול GPX</string>
+  <string name="menu_gps_goto_start">קפיצה לתחילת המסלול</string>
+  <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
+  <string name="menu_gps_autodownload">הורדה אוטומטית</string>
+  <string name="menu_transfer">העברה…</string>
+  <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>
+  <string name="menu_transfer_download_current_add">הוספת התצוגה הנוכחית להורדה</string>
+  <string name="menu_transfer_download_other">הורדה במיקום אחר</string>
+  <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
+  <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
+  <string name="menu_transfer_file">קובץ…</string>
+  <string name="menu_transfer_export">ייצוא שינויים לקובץ OSC</string>
+  <string name="menu_transfer_read_file">קריאה מקובץ JOSM…</string>
+  <string name="menu_transfer_save_file">שמירה לקובץ JOSM…</string>
+  <string name="menu_transfer_bugs">הערות/תקלות…</string>
+  <string name="menu_transfer_bugs_download_current">הורדת תקלות לתצוגה הנוכחית</string>
+  <string name="menu_transfer_bugs_upload">להעלות הכול</string>
+  <string name="menu_transfer_bugs_upload_long">העלאת כל התקלות</string>
+  <string name="menu_transfer_bugs_clear">ניקוי</string>
+  <string name="menu_transfer_bugs_clear_long">ניקוי תקלות</string>
+  <string name="menu_transfer_autodownload_long">הורדת תקלות אוטומטית</string>
+  <string name="menu_transfer_save_notes_all">שמירת כל ההערות…</string>
+  <string name="menu_transfer_save_notes_new_and_changed">שמירת הערות חדשות וכאלו שנשמרו…</string>
+  <string name="menu_transfer_read_custom_bugs">טעינת משימות מותאמות אישית…</string>
+  <string name="menu_transfer_write_custom_bugs">שמירת משימות פתוחות מותאמות אישית…</string>
+  <string name="menu_save">שמירה לקובץ</string>
+  <string name="menu_join">צירוף</string>
+  <string name="menu_unjoin">הפרדה</string>
+  <string name="menu_copy">העתקה</string>
+  <string name="menu_cut">גזירה</string>
+  <string name="menu_paste">הדבקה</string>
+  <string name="menu_paste_from_clipboard">הדבקה מלוח הגזירים</string>
+  <string name="menu_zoom_to_selection">התקרבות לבחירה</string>
+  <string name="menu_rotate">הטייה</string>
+  <string name="menu_circulize">סידור במעגל</string>
+  <string name="menu_split_polygon">פיצול למצולעים</string>
+  <string name="menu_extend_selection">הרחבת הבחירה</string>
+  <string name="menu_information">מידע</string>
+  <string name="menu_voice_commands">פקודות קוליות</string>
+  <string name="menu_set_name">הגדרת שם</string>
+  <string name="tag_form_unknown_element">רכיב לא ידוע (לא נמצאה ערכה מוגדרת)</string>
+  <string name="menu_tools">כלים…</string>
+  <string name="menu_tools_imagery">כלי תמונות רקע נוספים</string>
+  <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
+  <string name="menu_tools_background_properties">מאפייני רקע</string>
   <!---->
+  <!--Background alignment-->
+  <string name="menu_tools_background_align">יישור הרקע</string>
+  <string name="menu_tools_background_align_reset">איפוס</string>
+  <string name="menu_tools_background_align_zero">אפס</string>
+  <string name="menu_tools_background_align_retrieve_from_db">ממסד הנתונים</string>
+  <string name="menu_tools_background_align_retrieve_from_device">מההתקן</string>
+  <string name="menu_tools_background_align_save_db">שמירה למסד הנתונים</string>
+  <string name="menu_tools_background_align_save_device">שמירה להתקן</string>
+  <string name="menu_tools_background_align_apply2all">החלה (כל רמות התקריב)</string>
+  <string name="distance_meter">%1$.2f מטר</string>
+  <string name="distance_km">%1$.3f ק״מ</string>
+  <!---->
+  <string name="menu_layers">שכבות…</string>
+  <string name="preset_menu_invert">היפוך מסננים</string>
   <!--element action mode menu-->
+  <string name="menu_tags">מאפיינים</string>
   <!--Text should be as short as possible-->
+  <string name="menu_history">היסטוריה</string>
+  <string name="menu_merge">צירוף</string>
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
   <!--Preferences-->
+  <string name="config_validatorprefs_title">הגדרות המאמת</string>
+  <string name="config_validatorprefs_summary">הגדרת כללי האימות</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">יוצרים ורישיונות</string>
+  <string name="config_debugbutton_title">ניפוי שגיאות</string>
+  <string name="config_category_info">על אודות</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">הגדרות מנשק משתמש</string>
+  <string name="config_maxInlineValues_current">%1$d ערכים</string>
+  <string name="config_enableAntiAliasing_title">הפעלת החלקת קצוות</string>
+  <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
+  <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
+  <string name="config_maxStrokeWidth_summary">לא לצייר קווים יותר עבים מההגדרה הזאת</string>
+  <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">הגדרות נתונים ועריכה</string>
+  <string name="config_forceContextMenu_title">תמיד להשתמש בתפריט הקשר</string>
+  <string name="config_forceContextMenu_summary">תמיד להציג את תפריט ההקשר עם הבחירה אינה חד משמעית.</string>
+  <string name="config_address_tags">תגיות כתובת</string>
+  <string name="config_address_tags_summary">תגיות שמשמשות לחיזוי כתובת</string>
+  <string name="config_enableNameSuggestions_title">הפעלת הצעות שמות</string>
+  <string name="config_enableNameSuggestions_summary">הפעלת הצעות לתגיות שמות</string>
+  <string name="config_enableNameSuggestionsPresets_title">הפעלת ערכת הצעות שמות</string>
+  <string name="config_enableNameSuggestionsPresets_summary">הוספת ערכה מוגדרת אוטומטית כאשר נבחרת הצעת שם</string>
+  <string name="config_generateAlerts_title">יצירת התרעות</string>
+  <string name="config_generateAlerts_summary">יצירת התרעות לנתונים עם תקלות או הערות</string>
+  <string name="config_notificationCacheSize_title">מספר ההתרעות המרבי שיוצגו</string>
+  <string name="config_notificationCacheSize_summary">מספר ההתרעות המרבי שיוצגו מכל סוג (1 לכל הפחות)</string>
+  <string name="config_notificationCacheSize_current">%1$d התרעות</string>
+  <string name="config_downloadSpeed_current">%1$d קמ״ש</string>
   <!--Location Settings-->
+  <string name="config_category_gps">הגדרות מיקום</string>
+  <string name="config_category_gps_summary">משתנים של GPS וספקי מיקום אחרים.</string>
+  <string name="config_gps_source_title">מקור GPS</string>
+  <string name="config_gps_source_summary">מקור עדכוני מיקום ה־GPS</string>
+  <string name="config_gps_source_tcp_title">מקור רשת NMEA</string>
+  <string name="config_gps_source_tcp_summary">כתובת מקור TCP NMEA בתצורת מארח:פתחה</string>
+  <string name="config_gps_interval_current">%1$d מ״ש</string>
   <!--Server Settings-->
   <!--Layer download and storage-->
   <!--Miscellaneous-->
@@ -173,17 +438,59 @@
   <!---->
   <!--preset downloader messages-->
   <!--changes-->
+  <string name="confirm_upload_edits_page">שינויים</string>
   <!--url handler activity-->
+  <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
+  <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
+  <string name="urldialog_preset_download_successful">ערכה המוגדרת התקבלה בהצלחה!</string>
   <!--common terms-->
+  <string name="add">הוספה</string>
+  <string name="edit">עריכה</string>
+  <string name="delete">מחיקה</string>
+  <string name="name">שם</string>
+  <string name="url">כתובת</string>
+  <string name="default_">בררת מחדל</string>
+  <string name="regular_expression">ביטוי רגולרי</string>
+  <string name="state">מדינה</string>
   <!---->
+  <string name="empty_list">אין רשומות</string>
+  <string name="api_name">שם ה־API</string>
+  <string name="api_url">כתובת ה־API</string>
   <!--"default" is a reserved Java keyword...-->
+  <string name="api">API</string>
+  <string name="undo">ביטול</string>
+  <string name="redo">ביצוע חוזר</string>
+  <string name="undo_nothing">אין מה לבטל</string>
+  <string name="tracking_active_title">שירות רקע וספוצ׳י</string>
+  <string name="tracking_active_title_short">שירות הרקע פעיל</string>
   <!--element description-->
+  <string name="address_housenumber">כתובת %1$s</string>
+  <string name="address_housenumber_street">כתובת %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">הזזת צומת</string>
+  <string name="undo_action_moveway">הזזת דרך</string>
+  <string name="undo_action_moveobjects">הזזת פריטים</string>
+  <string name="undo_action_add">הוספה</string>
+  <string name="undo_action_cut">גזירה</string>
+  <string name="undo_action_paste">הדבקה</string>
+  <string name="undo_action_rotateway">הטיית דרך</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <!--Misc relation related stuff-->
+  <string name="relation">יחס</string>
+  <string name="relations">יחסים</string>
+  <string name="type">סוג</string>
+  <string name="object">פריט</string>
+  <string name="deleterelation">מחיקת יחס</string>
   <!--time and distance-->
+  <string name="days">ימים</string>
+  <string name="hours">שעות</string>
+  <string name="minutes">דקות</string>
+  <string name="seconds">שניות</string>
+  <string name="km">ק״</string>
+  <string name="meter">מטר</string>
   <!--Help system-->
+  <string name="toast_nohelp">אין כאן עזרה!</string>
   <!--Arrays-->
 </resources>

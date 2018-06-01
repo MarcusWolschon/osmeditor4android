@@ -305,6 +305,7 @@
   <string name="menu_set_name">Nastaviť názov</string>
   <string name="tag_form_unknown_element">Neznámy prvok (nenašla sa žiadna predvoľba)</string>
   <string name="menu_tools_background_properties">Vlastnosti pozadia</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnať pozadie</string>
   <string name="menu_tools_background_align_reset">Obnoviť</string>

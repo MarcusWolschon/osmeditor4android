@@ -155,6 +155,7 @@
   <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_information">Info</string>
   <string name="menu_tools_background_properties">Propriedades das imagens de fundo</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Alinhar fundo de tela</string>
   <string name="menu_tools_background_align_reset">Redefinir</string>

@@ -113,6 +113,7 @@
   <string name="menu_rotate">Rotește</string>
   <string name="menu_circulize">Aranjează în cerc</string>
   <string name="menu_tools_background_properties">Proprietăţile fundalului</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Resetează</string>
   <string name="menu_tools_background_align_zero">Zero</string>

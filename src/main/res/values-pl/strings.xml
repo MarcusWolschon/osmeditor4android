@@ -413,6 +413,7 @@
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Kalibracja podkładu</string>
   <string name="menu_tools_background_align_reset">Reset</string>

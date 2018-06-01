@@ -374,6 +374,7 @@
   <string name="menu_set_name">Xogo nome</string>
   <string name="tag_form_unknown_element">Elemento descoñecido (non presente ou atopado)</string>
   <string name="menu_tools_background_properties">Propiedades do escritorio</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Aliñar co fondo</string>
   <string name="menu_tools_background_align_reset">a 0 meu!</string>

@@ -260,6 +260,7 @@
   <string name="menu_newnode_gps">GPS posで新しいノード</string>
   <string name="tag_form_unknown_element">不明な要素 (プリセットが見つかりません)</string>
   <string name="menu_tools_background_properties">背景画像プロパティ</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">背景画像の位置調整</string>
   <string name="menu_tools_background_align_reset">リセット</string>

@@ -319,6 +319,7 @@
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>

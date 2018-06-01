@@ -15,6 +15,8 @@
   <string name="upload_problem_message">Некоторые данные не переданы на сервер. Попробуйте снова через некоторое время, если это была временная проблема.</string>
   <string name="bad_request_message">API сообщает об ошибке. Пожалуйста, сохраните данные и сообщите о проблеме:\n\n</string>
   <string name="upload_conflict_title">Конфликт передачи</string>
+  <string name="upload_conflict_message_version">%1$s \nимеет локальную версию %2$d \n и версию на сервере %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \nимеет локальную версию %2$d \n и удалено на сервере</string>
   <string name="upload_conflict_message_referential">%1$s
 было удалено локально
 но имеет ссылки на сервере</string>
@@ -102,13 +104,16 @@
   <string name="imagery_offset_date">Создано</string>
   <string name="imagery_offset_zoom">Масштаб</string>
   <string name="imagery_offset_distance">Расстояние</string>
+  <string name="zoom_and_offset">Уровень %1$d Смещение %2$s/%3$s</string>
   <string name="set_position_datum_label">Геодезическая система координат</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
   <string name="search_results_title">Результаты поиска</string>
   <string name="find_message">Введите строку поиска</string>
   <string name="geocoder_prompt">через</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
+  <string name="preset_autopreset">Заготовка</string>
   <string name="search">Поиск</string>
   <string name="no_valid_preset">Нет подходящей заготовки!</string>
   <string name="read_file">Выберете файл для чтения</string>
@@ -205,6 +210,9 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Название не может быть пустым</string>
   <string name="toast_url_empty">URL не может быть пустым</string>
@@ -251,6 +259,8 @@
   <string name="toast_missing_filemanager">Установите менеджер файлов.</string>
   <string name="toast_outside_of_download">Вы редактируете за пределами загруженной области.</string>
   <string name="toast_file_not_found">%1$s не найдено.</string>
+  <string name="toast_imported_track_points">Импортировано %1$d точек трека и %2$d путевых точек.</string>
+  <string name="toast_imported_track_points_single_way_point">Импортировано %1$d точек трека и одна путевая точка.</string>
   <string name="toast_unknown_voice_command">Извините, в настоящий момент \"%1$s\" не поддерживается</string>
   <string name="toast_inconsistent_state">Обнаружен inconsistent state, пожалуйста отправьте отчёт об ошибке разработчикам!</string>
   <string name="toast_camera_error">Ошибка при запуске приложения камеры: %1$s</string>
@@ -323,6 +333,8 @@
   <string name="share_position">Поделиться положением</string>
   <string name="min">Мин.</string>
   <string name="max">Макс.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Нет</string>
   <!--Dialog for back button-->
   <string name="exit_title">Выход из приложения</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
@@ -386,6 +398,7 @@
   <string name="location_headline">Область для загрузки</string>
   <string name="location_choose_radius">Выберите радиус:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$d м</string>
   <string name="location_last_text">Последняя определенная позиция:</string>
   <string name="location_current_text">Текущая позиция:</string>
   <string name="location_text_unknown">неизвестно</string>
@@ -476,12 +489,14 @@
   <string name="menu_voice_commands">Голосовые команды</string>
   <string name="menu_set_name">Задать название</string>
   <string name="tag_form_unknown_element">Неизвестный элемент (заготовка не найдена)</string>
+  <string name="menu_tools">Инструменты...</string>
   <string name="menu_tools_imagery">Настроить снимки</string>
   <string name="menu_tools_add_imagery_from_oam">Добавить снимки из OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Очистить все базы для карты</string>
   <string name="menu_tools_background_properties">Свойства фона</string>
   <string name="menu_tools_update_imagery_configuration">Обновить конфигурацию слоя снимков</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
@@ -491,6 +506,9 @@
   <string name="menu_tools_background_align_save_db">Сохранить в базу</string>
   <string name="menu_tools_background_align_save_device">Сохранить на устройство</string>
   <string name="menu_tools_background_align_apply2all">Применить (все масштабы)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f м</string>
+  <string name="distance_km">%1$.3f км</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Применить смещение к снимкам</string>
   <string name="menu_tools_background_contrast">Контраст</string>
@@ -512,6 +530,7 @@
   <string name="deleteway_relation_description">Вы собираетесь удалить линию, являющуюся членом одного или нескольких отношений. Удаление линии из отношения может сделать его некорректным.</string>
   <string name="deleteway_nodesnotdownloaded_description">Линия содержит точки за пределами загруженной области и не может быть корректно и безопасно удалена. Загрузите всю линию и повторите попытку.</string>
   <string name="deleteway_wayonly">Удалить только линию</string>
+  <string name="deleteway_wayandnodes">Удалить линию</string>
   <string name="deletenode_relation_description">Вы собираетесь удалить точку, являющуюся членом одного или нескольких отношений. Удаление точки из отношения может сделать его некорректным.</string>
   <string name="deletenode">Удалить точку</string>
   <string name="split_all_ways">Разделить все линии</string>
@@ -550,6 +569,8 @@
   <string name="config_moreprefs">Другие настройки</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Добавление и активация JOSM-совместимых заготовок</string>
+  <string name="config_validatorprefs_title">Настройки проверок</string>
+  <string name="config_validatorprefs_summary">Настроить правила проверок корректности данных</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Авторы и лицензии</string>
   <string name="config_debugbutton_title">Отладка</string>
@@ -573,8 +594,8 @@
   <string name="config_fullscreenMode_title">Полноэкранный режим</string>
   <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
   <string name="config_showTolerance_title">Область выбора</string>
-  <string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент.</string>
-  <string name="config_use_back_for_undo_title">Кнопка Назад для отмены</string>
+  <string name="config_showTolerance_summary">Показывает область, в которой может быть выбран элемент</string>
+  <string name="config_use_back_for_undo_title">Отмена кнопкой Назад</string>
   <string name="config_use_back_for_undo_summary">Использовать клавишу Назад для отмены в главном окне редактирования</string>
   <string name="config_enableLightTheme_title">Светлая тема</string>
   <string name="config_enableLightTheme_summary">Светлое оформление с белым фоном</string>
@@ -595,10 +616,13 @@
   <string name="config_category_editing">Настройки данных и редактирования</string>
   <string name="config_category_editing_summary">Авто-загрузка, сохранение изменений, оповещения</string>
   <string name="config_forceContextMenu_title">Контекстное меню</string>
+  <string name="config_forceContextMenu_summary">Всегда показывать контекстное меню, если выбор элементов неоднозначен</string>
   <string name="config_address_tags">Теги адреса</string>
   <string name="config_address_tags_summary">Теги, используемые для предсказания адресов</string>
   <string name="config_enableNameSuggestions_title">Предложения для названий</string>
-  <string name="config_enableNameSuggestions_summary">Включить предложение для тега названия</string>
+  <string name="config_enableNameSuggestions_summary">Включить предложения для тега названия</string>
+  <string name="config_enableNameSuggestionsPresets_title">Заготовки предложений для названий</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Автоматически добавлять заготовку, когда предложение для названия было выбрано</string>
   <string name="config_generateAlerts_title">Уведомления</string>
   <string name="config_generateAlerts_summary">Показывать уведомления о данных с проблемами или заметками</string>
   <string name="config_notificationCacheSize_title">Макс. число уведомлений</string>
@@ -621,6 +645,8 @@
   <string name="config_maxBugDownloadSpeed_summary">Предел (в км/ч), выше которого автозагрузка заметок и ошибок приостанавливается</string>
   <string name="config_closeChangesetOnSave_title">Закрытие изменений</string>
   <string name="config_closeChangesetOnSave_summary">Закрывать наборы изменений по умолчанию при сохранении</string>
+  <string name="config_enableAutoPresets_title">Создание заготовок</string>
+  <string name="config_enableAutoPresets_summary">Разрешить создание заготовок из Taginfo</string>
   <!--Location Settings-->
   <string name="config_category_gps">Настройки местоположения</string>
   <string name="config_category_gps_summary">Параметры GPS и других источников координат</string>

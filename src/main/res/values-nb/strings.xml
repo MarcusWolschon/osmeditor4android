@@ -240,6 +240,7 @@
   <string name="menu_circulize">Lag sirkel</string>
   <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <string name="menu_tools_flush_all_tile_caches">Tøm alle mellomlagrede fliser</string>
+  <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <string name="menu_tools_background_align_save_device">Lagre til Enhet</string>
