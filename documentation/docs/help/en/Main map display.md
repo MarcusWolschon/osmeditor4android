@@ -8,7 +8,7 @@ In this mode modifying the OpenStreetMap data is disabled, you can however use a
 Tapping the lock icon will toggle the lock.
 
 ####  ![Unlocked](../images/unlocked.png) unlocked
-In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom in till editing is enabled.*
+In this mode you can add and change the geometry and tags of OpenStreetMap data. *You will still need to zoom until editing is enabled.*
 
 If a small "T" is displayed on the lock icon you are in "Tag editing only" mode and will not be able to create new objects of change geometries, a small "I" indicates indoor mapping mode. A long press on the icon will display a menu allowing you to switch between editing modes.
 
