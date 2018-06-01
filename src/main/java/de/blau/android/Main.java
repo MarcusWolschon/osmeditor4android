@@ -2091,6 +2091,9 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_authors:
             startActivity(new Intent(this, LicenseViewer.class));
             return true;
+        case R.id.menu_privacy:
+            HelpViewer.start(this, R.string.help_privacy);
+            return true;
         case R.id.menu_debug:
             startActivity(new Intent(this, DebugInformation.class));
             return true;

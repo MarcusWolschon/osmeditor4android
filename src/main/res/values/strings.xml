@@ -506,6 +506,8 @@
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_update_imagery_configuration">Update imagery layer configuration</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
+    <!--  -->
+    <string name="menu_privacy">Privacy</string>
     <!-- Background alignment -->
     <string name="menu_tools_background_align">Align background</string>
     <string name="menu_tools_background_align_reset">Reset</string>

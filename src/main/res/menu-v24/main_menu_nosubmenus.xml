@@ -206,6 +206,10 @@
         android:title="@string/config_licensebutton_title"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu_privacy"
+        android:title="@string/menu_privacy"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_debug"
         android:title="@string/config_debugbutton_title"
         app:showAsAction="never" />
