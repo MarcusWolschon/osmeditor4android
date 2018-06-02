@@ -312,6 +312,7 @@ public class Layers extends ImmersiveDialogFragment {
             final ImageButton zoomToExtent = new ImageButton(context);
             zoomToExtent.setImageResource(zoomToExtentId);
             zoomToExtent.setBackgroundColor(Color.TRANSPARENT);
+            zoomToExtent.setPadding(10, 0, 5, 0);
             zoomToExtent.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
