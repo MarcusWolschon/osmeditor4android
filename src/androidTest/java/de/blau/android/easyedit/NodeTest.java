@@ -48,6 +48,9 @@ public class NodeTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -84,6 +87,9 @@ public class NodeTest {
         device.waitForWindowUpdate(null, 2000);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         logic.deselectAll();

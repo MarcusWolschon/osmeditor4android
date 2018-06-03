@@ -29,6 +29,7 @@ import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
@@ -48,6 +49,9 @@ public class RelationTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -78,6 +82,9 @@ public class RelationTest {
         TestUtils.stopEasyEdit(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         logic.deselectAll();
@@ -98,6 +105,7 @@ public class RelationTest {
         Assert.assertNotNull(rels);
         Assert.assertEquals(1, rels.size());
         Relation relation = rels.get(0);
+        List<RelationMember>origMembers = relation.getMembers();
         Assert.assertEquals(6490362L, relation.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton());
@@ -109,5 +117,10 @@ public class RelationTest {
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
+        List<RelationMember>members = relation.getMembers();
+        Assert.assertEquals(origMembers.size(), members.size());
+        for (int i=0;i<members.size();i++) {
+            Assert.assertEquals(origMembers.get(i),members.get(i));
+        }
     }
 }

@@ -18,6 +18,7 @@ import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
 import android.support.test.filters.SdkSuppress;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -27,7 +28,6 @@ import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
-import android.test.suitebuilder.annotation.LargeTest;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Main;
@@ -65,6 +65,9 @@ public class PropertyEditorTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -87,6 +90,9 @@ public class PropertyEditorTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         try {
@@ -97,6 +103,9 @@ public class PropertyEditorTest {
         }
     }
 
+    /**
+     * Change tags on an existing node
+     */
     @Test
     public void existingNode() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -130,6 +139,9 @@ public class PropertyEditorTest {
         Assert.assertEquals(edited, n.getTagWithKey(Tags.KEY_NAME));
     }
 
+    /**
+     * Add a tag to a new node
+     */
     @Test
     public void newNode() {
         Logic logic = App.getLogic();
@@ -171,6 +183,9 @@ public class PropertyEditorTest {
         Assert.assertTrue(n.hasTag("key", "value"));
     }
 
+    /**
+     * Select a way and check if expected street name is there
+     */
     @Test
     public void way() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -192,6 +207,9 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.findText(mDevice, false, "Kindhauserstrasse"));
     }
 
+    /**
+     * Select a relation and check for a specific member 
+     */
     @Test
     public void relation() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -217,8 +235,11 @@ public class PropertyEditorTest {
         Assert.assertTrue(text.exists());
     }
 
+    /**
+     * Test for max tag length
+     */
     @SdkSuppress(minSdkVersion = 24)
-    // @Test
+    @Test
     public void maxTagLength() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");
@@ -293,6 +314,12 @@ public class PropertyEditorTest {
         Assert.assertEquals(255, r.getMember(Node.NAME, 416064528).getRole().length()); // role of node #416064528
     }
 
+    /**
+     * Get the translated name of a preset group
+     * 
+     * @param name the group name 
+     * @return the translated name
+     */
     String getTranslatedPresetGroupName(String name) {
         String result = null;
         Preset[] presets = App.getCurrentPresets(main);
@@ -307,6 +334,12 @@ public class PropertyEditorTest {
         return result;
     }
 
+    /**
+     * Get the translated name of a preset item
+     * 
+     * @param name the item name 
+     * @return the translated name
+     */
     String getTranslatedPresetItemName(String name) {
         String result = null;
         Preset[] presets = App.getCurrentPresets(main);
@@ -321,6 +354,9 @@ public class PropertyEditorTest {
         return result;
     }
 
+    /**
+     * Navigate to a specific preset item
+     */
     @Test
     public void presets() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -351,6 +387,9 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
     }
 
+    /**
+     * Add a tag and check if that has added a preset item to the MRU display
+     */
     @Test
     public void presetsViaManualTag() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -403,6 +442,9 @@ public class PropertyEditorTest {
                                                                                                       // added to MRU
     }
 
+    /**
+     * Test that keys with empty values get removed
+     */
     @Test
     public void emptyKey() {
         final CountDownLatch signal = new CountDownLatch(1);

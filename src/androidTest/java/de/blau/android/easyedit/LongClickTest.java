@@ -52,6 +52,9 @@ public class LongClickTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -83,6 +86,9 @@ public class LongClickTest {
         TestUtils.stopEasyEdit(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         logic.deselectAll();
@@ -90,6 +96,9 @@ public class LongClickTest {
         App.getTaskStorage().reset();
     }
 
+    /**
+     * Create a new Node by long click plus re-click
+     */
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
@@ -107,6 +116,9 @@ public class LongClickTest {
         TestUtils.clickHome(device);
     }
     
+    /**
+     * Create a new way from long click and clicks at two more locations and finishing via home button
+     */
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
@@ -128,6 +140,9 @@ public class LongClickTest {
         TestUtils.clickHome(device);
     }
     
+    /**
+     * Create a new Note from long click
+     */
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);

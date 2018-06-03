@@ -2,6 +2,8 @@ package de.blau.android.easyedit;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +28,7 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.osm.ApiTest;
+import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -46,6 +49,9 @@ public class WayTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -76,6 +82,9 @@ public class WayTest {
         TestUtils.stopEasyEdit(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         logic.deselectAll();
@@ -93,6 +102,7 @@ public class WayTest {
         TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
+        List<Node>origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
@@ -107,5 +117,10 @@ public class WayTest {
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         Assert.assertTrue(way.hasParentRelation(6490362L));
+        List<Node>nodes = way.getNodes();
+        Assert.assertEquals(origWayNodes.size(), nodes.size());
+        for (int i=0;i<nodes.size();i++) {
+            Assert.assertEquals(origWayNodes.get(i),nodes.get(i));
+        }
     }
 }
