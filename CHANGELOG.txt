@@ -1,6 +1,8 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-11.0.0-6: Fix undo regression, support RTL layout
+11.0.0-7: Fix theme related crash in debug screen and licence viewer, another fix when showing immersive dialogs, more RTL improvements, add privacy statement.
+
+11.0.0-6: Fix undo regression, support RTL layout (not released)
 
 11.0.0-5: Fix crash when trying to upload on pre-Android 6.0 devices, fix crash when setting a maxspeed if no country entry available, fix various other small issues, compare relation membership in element information dialog.
 
