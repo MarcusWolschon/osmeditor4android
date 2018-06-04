@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>なし</item>
+    <item>スケール (メートル法)</item>
+    <item>グリッド (メートル法)</item>
+    <item>スケール (ヤード・ポンド法)</item>
+    <item>グリッド (ヤード・ポンド法)</item>
+  </string-array>
+</resources>

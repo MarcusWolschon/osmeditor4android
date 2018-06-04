@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_introduction">導入</string>
+    <string name="help_main">メインマップディスプレイ</string>
     <string name="help_addrelationmember">選択されたリレーション</string>
+    <string name="help_multiselect">複数選択</string>
+    <string name="help_longclick">新規オブジェクトを作成</string>
     <string name="help_nodeselection">選択されたノード</string>
+    <string name="help_pathcreation">新規オブジェクトを作成</string>
     <string name="help_relationselection">選択されたリレーション</string>
     <string name="help_wayselection">選択されたウェイ</string>
+    <string name="help_aligningbackgroundiamgery">背景画像の調整</string>
+    <string name="help_propertyeditor">プロパティエディター</string>
+    <string name="help_preferences">設定</string>
+    <string name="help_advanced_preferences">詳細設定</string>
     <string name="help_presets">プリセット</string>
+    <string name="help_conflictresolution">競合解決</string>
+    <string name="help_gpssources">GPSソース</string>
+    <string name="help_keyboard">キーボード</string>
+    <string name="help_tagfilter">タグフィルター</string>
+    <string name="help_presetfilter">プリセットフィルター</string>
+    <string name="help_opening_hours">オープン時間</string>
+    <string name="help_upgrade">リリースノート</string>
+    <string name="help_upgrade_102">10.2 リリースノート</string>
+    <string name="help_upgrade_101">10.1 リリースノート</string>
+    <string name="help_upgrade_100">10.0 リリースノート</string>
+    <string name="help_upgrade_099">0.9.9 リリースノート</string>
+    <string name="help_upgrade_098">0.9.8 リリースノート</string>
+    <string name="help_upgrade_097">0.9.7 リリースノート</string>
+    <string name="help_upgrade_096">0.9.6 リリースノート</string>
+    <string name="help_privacy">プライバシー</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

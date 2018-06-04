@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-05-24 07:48+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-06-04 05:43+0000\n"
+"Last-Translator: Vladan Kudláč <vladankudlac@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -242,7 +242,7 @@ msgstr ""
 
 #: master_preset.xml:12879(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
-msgstr ""
+msgstr "Adresa a kontakt"
 
 #: master_preset.xml:8891(item:name|group:Man_Made|preset:Adit)
 msgid "Adit"
@@ -495,7 +495,7 @@ msgstr ""
 
 #: master_preset.xml:13011(group:name|group:Annotation)
 msgid "Annotation"
-msgstr ""
+msgstr "Anotace"
 
 #: master_preset.xml:5409(list_entry:display_value|group:Leisure|preset:Animals|value:anteater)
 msgid "Anteater"
@@ -2032,7 +2032,7 @@ msgstr ""
 
 #: master_preset.xml:13611(group:name|group:Crafts)
 msgid "Crafts"
-msgstr ""
+msgstr "Řemeslo"
 
 #: master_preset.xml:8847(item:name|group:Man_Made|preset:Crane)
 msgid "Crane"
@@ -2870,7 +2870,7 @@ msgstr ""
 #: master_preset.xml:4726(group:name|group:Facilities)
 #: master_preset.xml:7132(group:name|group:Facilities)
 msgid "Facilities"
-msgstr ""
+msgstr "Zařízení"
 
 #: master_preset.xml:10226(item:name|group:Food|preset:Fair_Trade)
 #: master_preset.xml:10234(combo:text|group:Food|preset:Fair_Trade|key:fair_trade)
@@ -3337,7 +3337,7 @@ msgstr ""
 #: master_preset.xml:11696(group:name|group:Geography)
 #: master_preset.xml:11988(group:name|group:Geography)
 msgid "Geography"
-msgstr ""
+msgstr "Geografie"
 
 #: master_preset.xml:9429(item:name|group:Power_Generator|preset:Geothermal_Power_Generator)
 msgid "Geothermal Power Generator"
@@ -3682,7 +3682,7 @@ msgstr ""
 
 #: master_preset.xml:856(group:name|group:Highways)
 msgid "Highways"
-msgstr ""
+msgstr "Silniční síť"
 
 #: master_preset.xml:5227(check:text|group:Tourism|preset:Map|key:hiking)
 #: master_preset.xml:5267(check:text|group:Tourism|preset:Guidepost|key:hiking)
@@ -3707,7 +3707,7 @@ msgstr ""
 
 #: master_preset.xml:9710(group:name|group:Historic_Places_&_Objects)
 msgid "Historic Places & Objects"
-msgstr ""
+msgstr "Historická místa"
 
 #: master_preset.xml:12904(text:text|group:Addresses_and_Contact|preset:Name|key:old_name)
 msgid "Historical name"
@@ -4190,7 +4190,7 @@ msgstr ""
 
 #: master_preset.xml:12152(group:name|group:Land_use_and_nature)
 msgid "Land use and nature"
-msgstr ""
+msgstr "Příroda a využití krajiny"
 
 #: master_preset.xml:12850(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
@@ -4509,7 +4509,7 @@ msgstr ""
 #: master_preset.xml:8674(group:name|group:Man_Made)
 #: master_preset.xml:8675(group:name|group:Man_Made)
 msgid "Man Made"
-msgstr ""
+msgstr "Umělé objekty"
 
 #: master_preset.xml:5450(list_entry:display_value|group:Leisure|preset:Animals|value:mandrill)
 msgid "Mandrill"
@@ -7836,7 +7836,7 @@ msgstr ""
 
 #: master_preset.xml:9935(group:name|group:Shops)
 msgid "Shops"
-msgstr ""
+msgstr "Obchody"
 
 #: master_preset.xml:3982(check:text|group:Car|preset:Charging_Station|key:authentication:short_message)
 msgid "Short message"
@@ -8087,7 +8087,7 @@ msgstr ""
 #: master_preset.xml:361(list_entry:short_description|value:sports)
 #: master_preset.xml:7640(group:name|group:Sports)
 msgid "Sports"
-msgstr ""
+msgstr "Sporty"
 
 #: master_preset.xml:7657(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -8894,7 +8894,7 @@ msgstr ""
 
 #: master_preset.xml:3427(group:name|group:Transport)
 msgid "Transport"
-msgstr ""
+msgstr "Doprava"
 
 #: master_preset.xml:7396(combo:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Trash"
@@ -9466,7 +9466,7 @@ msgstr "Vodní mlýn"
 #: master_preset.xml:13115(list_entry:display_value|group:Relations|preset:Relations|value:waterway)
 #: master_preset.xml:13546(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr ""
+msgstr "Vodstvo"
 
 #: master_preset.xml:9419(item:name|group:Power_Generator|preset:Wave_Energy_Converter)
 msgid "Wave Energy Converter"

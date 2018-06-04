@@ -290,6 +290,7 @@
   <string name="location_text_unknown">לא ידוע</string>
   <string name="location_last_text_parameterized">המיקום האחרון הידוע: %1$s</string>
   <string name="location_current_text_parameterized">המיקום הנוכחי: %1$s</string>
+  <string name="location_text_metadata_accuracy">דיוק %1$2.0f מטרים,</string>
   <string name="location_map_text">מהמפה (בקרוב)</string>
   <string name="location_coordinates_text">מנקודות ציון:</string>
   <string name="location_search_label">חיפוש:</string>
@@ -431,6 +432,7 @@
   <string name="config_gps_source_tcp_title">מקור רשת NMEA</string>
   <string name="config_gps_source_tcp_summary">כתובת מקור TCP NMEA בתצורת מארח:פתחה</string>
   <string name="config_gps_interval_current">%1$d מ״ש</string>
+  <string name="config_gps_distance_current">%1$d מטרים</string>
   <!--Server Settings-->
   <!--Layer download and storage-->
   <!--Miscellaneous-->
@@ -475,9 +477,15 @@
   <string name="undo_action_paste">הדבקה</string>
   <string name="undo_action_rotateway">הטיית דרך</string>
   <!--ACRA-->
+  <string name="report_success">הדיווח נשלח בהצלחה!</string>
+  <string name="report_failure">שליחת הדיווח נכשלה!</string>
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="alert_data_issue">התגלתה תקלת נתוני OSM</string>
   <!--Misc relation related stuff-->
+  <string name="role">תפקיד</string>
+  <string name="role_lc">תפקיד</string>
+  <string name="membership_relation_heading">חבר ביחס</string>
   <string name="relation">יחס</string>
   <string name="relations">יחסים</string>
   <string name="type">סוג</string>
@@ -493,4 +501,13 @@
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה!</string>
   <!--Arrays-->
+  <string-array name="note_state">
+    <item>פתוח</item>
+    <item>סגור</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>שמאל</item>
+    <item>ימין</item>
+    <item>ללא</item>
+  </string-array>
 </resources>

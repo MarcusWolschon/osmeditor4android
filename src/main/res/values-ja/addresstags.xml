@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="address_tags_entries">
+    <item>住居番号 (addr:housenumber)</item>
+    <item>通り (addr:street)</item>
+    <item>郵便番号 (addr:postcode)</item>
+    <item>市町村  (addr:city)</item>
+    <item>国コード (addr:country)</item>
+    <item>住所全体 (addr:full)</item>
+    <item>領域名 (addr:place)</item>
+    <item>Hamlet (addr:hamlet)</item>
+    <item>区 (addr:suburb)</item>
+    <item>Subdistrict (addr:subdistrict)</item>
+    <item>郡 (addr:district)</item>
+    <item>都道府県 (addr:province)</item>
+    <item>州 (addr:state)</item>
+    <item>複合住宅・施設名 (addr:flats)</item>
+    <item>部屋番号 (addr:door)</item>
+    <item>構成要素 (addr:unit)</item>
+  </string-array>
+</resources>

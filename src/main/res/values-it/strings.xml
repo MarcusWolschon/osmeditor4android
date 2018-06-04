@@ -506,6 +506,7 @@
   <string name="menu_tools_update_imagery_configuration">Aggiorna configurazione dei livelli di immagini</string>
   <string name="menu_tools_zoom_to_layer_extent">Ingrandisci sul livello di sfondo</string>
   <!---->
+  <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
   <string name="menu_tools_background_align_reset">Ripristina</string>
@@ -565,10 +566,15 @@
   <string name="actionmode_rotateway">Ruota percorso</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Sfondo della mappa</string>
+  <string name="config_backgroundLayer_summary">Lo sfondo della mappa fatto di tasselli.</string>
   <string name="config_overlayLayer_title">Mappa sovrapposta</string>
+  <string name="config_overlayLayer_summary">La mappa sovrimpressa fatta di tasselli.</string>
   <string name="config_customlayers_title">Livelli personalizzati</string>
+  <string name="config_customlayers_summary">Configurare i livelli diversamente dalla configurazione predefinita</string>
   <string name="config_scale_title">Visibilità della scala grafica</string>
+  <string name="config_scale_summary">Tipo di scala mostrata sulla mappa.</string>
   <string name="config_mapProfile_title">Stile dati</string>
+  <string name="config_mapProfile_summary">Scegli lo stile per il livello dei dati</string>
   <string name="config_enableOpenStreetBugs_title">Abilita la visualizzazione di bug e note</string>
   <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note/segnalazioni.</string>
   <string name="config_enablePhotoLayer_title">Abilita il livello delle foto</string>
@@ -590,6 +596,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Impostazioni interfaccia grafica</string>
+  <string name="config_category_view_summary">Disposizione e visualizzazione delle opzioni di configurazione</string>
   <string name="config_iconbutton_title">Mostra icone dei nodi</string>
   <string name="config_iconbutton_summary">Mostra l\'icona del predefinito più appropriato su ciascun nodo.</string>
   <string name="config_showWayIcons_title">Mostra le icone dei POI sugli edifici</string>
@@ -627,10 +634,13 @@
   <string name="config_category_editing">Impostazioni sui dati e sulle modifiche</string>
   <string name="config_category_editing_summary">Impostazioni di download automatico, salvataggio e notifiche</string>
   <string name="config_forceContextMenu_title">Usa sempre menu contestuale</string>
+  <string name="config_forceContextMenu_summary">Mostrare sempre il menù contestuale se la selezione è incerta.</string>
   <string name="config_address_tags">Etichette degli indirizzi</string>
   <string name="config_address_tags_summary">Etichette utilizzate per la predizione dell\'indirizzo</string>
   <string name="config_enableNameSuggestions_title">Abilita il suggerimento dei nomi</string>
   <string name="config_enableNameSuggestions_summary">Abilita i suggerimenti dei nomi</string>
+  <string name="config_enableNameSuggestionsPresets_title">Abilita i predifiniti per il suggerimento del nome</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Aggiungi automaticamente i predefiniti quando il suggerimento del nome è selezionato</string>
   <string name="config_generateAlerts_title">Genera notifiche</string>
   <string name="config_generateAlerts_summary">Genera notifiche in caso di problemi con i dati o annotazioni</string>
   <string name="config_notificationCacheSize_title">Numero massimo di notifiche mostrate</string>
@@ -653,8 +663,11 @@
   <string name="config_maxBugDownloadSpeed_summary">Limite (in km/h) otlre il quale lo scaricamento automatico di note e bug viene interrotto</string>
   <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
   <string name="config_closeChangesetOnSave_summary">Chiudi sempre i gruppi di modifiche quando vengono salvati</string>
+  <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
+  <string name="config_enableAutoPresets_summary">Permette la generazione dei predefiniti da Taginfo</string>
   <!--Location Settings-->
   <string name="config_category_gps">Impostazioni della posizione</string>
+  <string name="config_category_gps_summary">Parametri del GPS e di altri sistemi di posizionamento.</string>
   <string name="config_gps_source_title">Dispositivo GPS</string>
   <string name="config_gps_source_summary">La fonte del segnale GPS per la rilevazione della posizione.</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
@@ -671,6 +684,7 @@
   <string name="config_gps_network_summary">Se non è presente o non è attivo il GPS, ritorna alla localizzazione attraverso il gestore della rete dati</string>
   <!--Server Settings-->
   <string name="config_category_server">Impostazioni server</string>
+  <string name="config_category_server_summary">API OSM e configurazioni di altri server</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">Puoi impostare una API URL non-standard qui. Di solito non viene modificata!</string>
   <string name="config_loginbutton_title">Account utente</string>
@@ -683,6 +697,7 @@
   <string name="config_geocoderbutton_summary">Aggiungi, modifica, elimina geo-codificatore per la ricerca</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Memorizzazione e download livello</string>
+  <string name="config_category_layers_summary">Scaricamento e memorizzazione delle immagini di sfondo basate sui tasselli</string>
   <string name="config_maxTileDownloadThreads_title">Massimo numero di scaricamenti paralleli</string>
   <string name="config_maxTileDownloadThreads_summary">Numero massimo di scaricamenti paralleli di tasselli</string>
   <string name="config_downLoadThreads_current">%1$d Processi</string>
@@ -701,6 +716,7 @@
   <string name="config_js_console_title">Attiva console JS</string>
   <string name="config_js_console_summary">Rendi la console JS disponibile in modalità \"live\"</string>
   <string name="config_voiceCommandsEnabled_title">Abilita comandi vocali</string>
+  <string name="config_voiceCommandsEnabled_summary">Abilita il supporto ai comandi vocali</string>
   <!---->
   <string name="manage_apis">Gestisci API</string>
   <string name="config_api_url_title">URL dell\'API</string>

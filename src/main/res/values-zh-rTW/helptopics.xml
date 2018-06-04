@@ -11,6 +11,8 @@
     <string name="help_wayselection">道路已選取</string>
     <string name="help_aligningbackgroundiamgery">對齊背景空圖</string>
     <string name="help_propertyeditor">屬性編輯器</string>
+    <string name="help_preferences">參數選項</string>
+    <string name="help_advanced_preferences">進階參數選項</string>
     <string name="help_presets">預設</string>
     <string name="help_conflictresolution">排除衝突</string>
     <string name="help_gpssources">GPS 來源</string>
@@ -19,12 +21,14 @@
     <string name="help_presetfilter">預置篩選器</string>
     <string name="help_opening_hours">營業時間 </string>
     <string name="help_upgrade">發布通知</string>
+    <string name="help_upgrade_102">10.2 發佈通知</string>
     <string name="help_upgrade_101">10.1 發布通知</string>
     <string name="help_upgrade_100">10.0 發布通知</string>
     <string name="help_upgrade_099">0.9.9 發布通知</string>
     <string name="help_upgrade_098">0.9.8 發布通知</string>
     <string name="help_upgrade_097">0.9.7 發布通知</string>
     <string name="help_upgrade_096">0.9.6 發布通知</string>
+    <string name="help_privacy">隱私</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
