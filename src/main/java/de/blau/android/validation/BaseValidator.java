@@ -3,6 +3,7 @@ package de.blau.android.validation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -43,6 +44,11 @@ public class BaseValidator implements Validator {
      */
     static final Pattern FIXME_PATTERN = Pattern.compile("(?i).*\\b(?:fixme|todo)\\b.*");
 
+    /**
+     * Construct a new instance
+     * 
+     * @param ctx Android Context
+     */
     public BaseValidator(@NonNull Context ctx) {
         init(ctx);
     }
@@ -52,6 +58,11 @@ public class BaseValidator implements Validator {
         init(context);
     }
 
+    /**
+     * (Re-)initialize everything
+     * 
+     * @param ctx Android Context
+     */
     private void init(@NonNull Context ctx) {
         // !!!! don't store ctx as that will cause a potential memory leak
         presets = App.getCurrentPresets(ctx);
@@ -65,6 +76,10 @@ public class BaseValidator implements Validator {
      * Test if the element has any problems by searching all the tags for the words "fixme" or "todo", or if it has a
      * key in the list of things to regularly re-survey
      * 
+     * @param status status before calling this method
+     * @param e the OsmElement
+     * @param tags the associated tags
+     * @return the output status
      */
     int validateElement(int status, OsmElement e, SortedMap<String, String> tags) {
         // test for fixme etc
@@ -118,6 +133,13 @@ public class BaseValidator implements Validator {
         return status;
     }
 
+    /**
+     * Validate a Way with a highway tag
+     * 
+     * @param w the Way
+     * @param highway the value of the highway tag
+     * @return the status
+     */
     int validateHighway(Way w, String highway) {
         int result = Validator.NOT_VALIDATED;
 
@@ -157,11 +179,16 @@ public class BaseValidator implements Validator {
     }
 
     /**
-     * Return a string giving the problem detected in calcProblem
+     * Return a List of Strings describing the problems detected in calcProblem
+     * 
+     * @param ctx Android Context
+     * @param e OsmElement
+     * @param tags the associates tags
+     * @return a List of Strings describing the problems
      */
     @NonNull
-    public ArrayList<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, SortedMap<String, String> tags) {
-        ArrayList<String> result = new ArrayList<>();
+    public List<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, SortedMap<String, String> tags) {
+        List<String> result = new ArrayList<>();
 
         // fixme etc.
         for (Entry<String, String> entry : tags.entrySet()) {
@@ -195,8 +222,16 @@ public class BaseValidator implements Validator {
         return result;
     }
 
-    ArrayList<String> describeProblemHighway(Context ctx, Way w, String highway) {
-        ArrayList<String> wayProblems = new ArrayList<>();
+    /**
+     * Return a List of Strings describing the problems for a Way with a highway tag
+     * 
+     * @param ctx Android Context
+     * @param w the Way
+     * @param highway the value of the highway tag
+     * @return a List containing the problem descriptions 
+     */
+    List<String> describeProblemHighway(Context ctx, Way w, String highway) {
+        List<String> wayProblems = new ArrayList<>();
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             wayProblems.add(App.resources().getString(R.string.toast_unsurveyed_road));
         }
@@ -256,6 +291,12 @@ public class BaseValidator implements Validator {
         return status;
     }
 
+    /**
+     * Check if a Relation has a type tag with value
+     * 
+     * @param r the Relation
+     * @return true if no complete type tag
+     */
     private boolean noType(Relation r) {
         String type = r.getTagWithKey(Tags.KEY_TYPE);
         return type == null || "".equals(type);
