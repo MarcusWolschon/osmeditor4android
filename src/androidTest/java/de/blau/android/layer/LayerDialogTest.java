@@ -63,6 +63,9 @@ public class LayerDialogTest {
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -100,6 +103,9 @@ public class LayerDialogTest {
         TestUtils.stopEasyEdit(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
@@ -115,7 +121,6 @@ public class LayerDialogTest {
     public void dataLayer() {
         TestUtils.zoomToLevel(main, 21);
         UiObject2 extentButton = getLayerButton(context.getString(R.string.layer_data), EXTENT_BUTTON);
-        ;
         extentButton.clickAndWait(Until.newWindow(), 2000);
         BoundingBox box = map.getViewBox();
         // <bounds minlat='47.3881338' minlon='8.3863771' maxlat='47.3908067' maxlon='8.3911514' origin='CGImap 0.6.0
@@ -138,6 +143,9 @@ public class LayerDialogTest {
         Assert.assertTrue(map.getDataLayer().isVisible());
     }
 
+    /**
+     * Find task layer and disable
+     */
     @Test
     public void taskLayer() {
         UiObject2 menuButton = getLayerButton(context.getString(R.string.layer_tasks), MENU_BUTTON);
@@ -148,6 +156,9 @@ public class LayerDialogTest {
         prefs.setBugsEnabled(true);
     }
 
+    /**
+     * Load geojson file and check if we can zoom to extent
+     */
     @Test
     public void geoJsonLayer() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -158,7 +169,6 @@ public class LayerDialogTest {
             Assert.fail(e.getMessage());
         }
         UiObject2 extentButton = getLayerButton(context.getString(R.string.layer_geojson), EXTENT_BUTTON);
-        ;
         extentButton.click();
         UiObject2 menuButton = getLayerButton(context.getString(R.string.layer_geojson), MENU_BUTTON);
         menuButton.clickAndWait(Until.newWindow(), 1000);
@@ -166,6 +176,9 @@ public class LayerDialogTest {
         Assert.assertFalse(map.getGeojsonLayer().isEnabled());
     }
 
+    /**
+     * Set the background layer to osm standard style
+     */
     @Test
     public void backgroundLayer() {
         UiObject2 menuButton = getLayerButton("OpenStreetMap", MENU_BUTTON);
