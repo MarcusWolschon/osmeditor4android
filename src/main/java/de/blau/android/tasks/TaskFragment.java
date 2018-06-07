@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -115,14 +116,20 @@ public class TaskFragment extends ImmersiveDialogFragment {
             builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     saveBug(v, bug);
-                    if (bug instanceof Note) {
-                        Note n = (Note) bug;
-                        NoteComment nc = n.getLastComment();
-                        TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED,
-                                false, null);
-                    } else if (bug instanceof OsmoseBug) {
-                        TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug) bug, false, null);
-                    }
+                    (new AsyncTask<Void,Void,Void> () {
+                        @Override
+                        protected Void doInBackground(Void... arg0) {
+                            if (bug instanceof Note) {
+                                Note n = (Note) bug;
+                                NoteComment nc = n.getLastComment();
+                                TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED,
+                                        false, null);
+                            } else if (bug instanceof OsmoseBug) {
+                                TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug) bug, false, null);
+                            }
+                            return null;
+                        }
+                    }).execute();
                     cancelAlert(bug);
                     updateMenu();
                 }

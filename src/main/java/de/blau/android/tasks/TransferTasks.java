@@ -365,6 +365,9 @@ public class TransferTasks {
                     if (result.getError() == ErrorCodes.OK) {
                         // upload successful
                         bug.setChanged(false);
+                        if (activity instanceof Main) {
+                            ((Main)activity).invalidateMap();
+                        }
                         if (postUploadHandler != null) {
                             postUploadHandler.onSuccess();
                         }
