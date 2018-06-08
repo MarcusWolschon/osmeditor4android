@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-05-24 09:48+0200\n"
-"PO-Revision-Date: 2018-06-04 11:56+0000\n"
+"PO-Revision-Date: 2018-06-06 14:57+0000\n"
 "Last-Translator: Nozomu KURASAWA <nabetaro@caldron.jp>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +116,7 @@ msgstr "情報の掲示板"
 
 #: master_preset.xml:3107(label:text|group:Water|preset:Water)
 msgid "A body of standing water, such as a lake or pond."
-msgstr ""
+msgstr "湖や池のように、常にある水の形態です。"
 
 #: master_preset.xml:11961(label:text|group:Places|preset:Farm)
 msgid "A farm within a bigger settlement"
@@ -124,15 +124,15 @@ msgstr ""
 
 #: master_preset.xml:3203(label:text|group:Water|preset:Beach)
 msgid "A flat area of sand, gravel or pebble next to water."
-msgstr ""
+msgstr "水際にある、砂、砂利、丸石の平坦な領域です。"
 
 #: master_preset.xml:12199(label:text|group:Nature|preset:Tree_Row)
 msgid "A line of trees."
-msgstr ""
+msgstr "木の列です。"
 
 #: master_preset.xml:12075(label:text|group:Geography|preset:Valley)
 msgid "A low area between hills."
-msgstr ""
+msgstr "丘の間の低い領域です。"
 
 #: master_preset.xml:12062(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
@@ -490,7 +490,7 @@ msgstr "動物"
 
 #: master_preset.xml:10881(item:name|group:Printed_Material|preset:Anime)
 msgid "Anime"
-msgstr ""
+msgstr "アニメ"
 
 #: master_preset.xml:13011(group:name|group:Annotation)
 msgid "Annotation"
@@ -967,7 +967,7 @@ msgstr ""
 #: master_preset.xml:3290(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:biodiesel)
 #: master_preset.xml:3906(check:text|group:Car|preset:Fuel|key:fuel:biodiesel)
 msgid "Bio Diesel"
-msgstr ""
+msgstr "バイオディーゼル"
 
 #: master_preset.xml:9286(item:name|group:Power_Generator|preset:Biofuel_Power_Generator)
 msgid "Biofuel Power Generator"
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: master_preset.xml:10852(item:name|group:Printed_Material|preset:Book_Store)
 msgid "Book Store"
-msgstr ""
+msgstr "本屋"
 
 #: master_preset.xml:13665(item:name|group:Crafts|preset:Bookbinder)
 msgid "Bookbinder"
@@ -1163,7 +1163,7 @@ msgstr ""
 #: master_preset.xml:3895(combo:text|group:Car|preset:Fuel|key:brand)
 #: master_preset.xml:4230(text:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:brand)
 msgid "Brand"
-msgstr ""
+msgstr "ブランド"
 
 #: master_preset.xml:3026(item:name|group:Water|preset:Breakwater)
 msgid "Breakwater"
@@ -1389,7 +1389,7 @@ msgstr ""
 #: master_preset.xml:3302(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:cng)
 #: master_preset.xml:3920(check:text|group:Car|preset:Fuel|key:fuel:cng)
 msgid "CNG (Compressed Natural Gas)"
-msgstr ""
+msgstr "CNG (圧縮天然ガス)"
 
 #: master_preset.xml:6010(list_entry:display_value|group:Culture|preset:Other_theatres|value:cabaret)
 msgid "Cabaret"
@@ -2176,7 +2176,7 @@ msgstr "サイクリング"
 
 #: master_preset.xml:3930(check:text|group:Car|preset:Fuel|key:payment:dkv)
 msgid "DKV"
-msgstr ""
+msgstr "DKV"
 
 #: master_preset.xml:10036(item:name|group:Food|preset:Dairy)
 msgid "Dairy"
@@ -2372,7 +2372,7 @@ msgstr ""
 #: master_preset.xml:3289(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:diesel)
 #: master_preset.xml:3905(check:text|group:Car|preset:Fuel|key:fuel:diesel)
 msgid "Diesel"
-msgstr ""
+msgstr "ディーゼル (軽油)"
 
 #: master_preset.xml:3907(check:text|group:Car|preset:Fuel|key:fuel:GTL_diesel)
 msgid "Diesel (Gas To Liquid - ultimate diesel)"
@@ -2388,7 +2388,7 @@ msgstr "ディーゼル発電機"
 
 #: master_preset.xml:3908(check:text|group:Car|preset:Fuel|key:fuel:HGV_diesel)
 msgid "Diesel for Heavy Good Vehicles"
-msgstr ""
+msgstr "HGV ディーゼル"
 
 #: master_preset.xml:9148(check:text|group:Man_Made|preset:Monitoring_Station|key:display:digital)
 msgid "Digital"
@@ -2628,12 +2628,12 @@ msgstr ""
 #: master_preset.xml:3298(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:e10)
 #: master_preset.xml:3916(check:text|group:Car|preset:Fuel|key:fuel:e10)
 msgid "E10 (10% Ethanol mix)"
-msgstr ""
+msgstr "E10 (10% エタノール混合)"
 
 #: master_preset.xml:3299(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:e85)
 #: master_preset.xml:3917(check:text|group:Car|preset:Fuel|key:fuel:e85)
 msgid "E85 (85% Ethanol mix)"
-msgstr ""
+msgstr "E85 (85% エタノール混合)"
 
 #: master_preset.xml:5429(list_entry:display_value|group:Leisure|preset:Animals|value:eagle)
 msgid "Eagle"
@@ -2824,7 +2824,7 @@ msgstr ""
 #: master_preset.xml:3300(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:ethanol)
 #: master_preset.xml:3918(check:text|group:Car|preset:Fuel|key:fuel:ethanol)
 msgid "Ethanol (alcohol)"
-msgstr ""
+msgstr "エタノール (アルコール)"
 
 #: master_preset.xml:9361(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:EPR)
 msgid "European Pressurized Reactor (EPR)"
@@ -3015,7 +3015,7 @@ msgstr ""
 #: master_preset.xml:11127(item:name|group:Sports_and_hobbies|preset:Fishing)
 #: master_preset.xml:5787(item:name|group:Leisure|preset:Fishing)
 msgid "Fishing"
-msgstr ""
+msgstr "フィッシング"
 
 #: master_preset.xml:7673(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -3090,7 +3090,7 @@ msgstr ""
 
 #: master_preset.xml:8171(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:football)
 msgid "Football"
-msgstr ""
+msgstr "フットボール"
 
 #: master_preset.xml:7544(check:text|group:Facilities|preset:Animal_shelter|key:animal_shelter:adoption)
 msgid "For adoption"
@@ -3245,7 +3245,7 @@ msgstr ""
 
 #: master_preset.xml:8164(item:name|group:Sport_(Ball)|preset:Gaelic_Games)
 msgid "Gaelic Games"
-msgstr ""
+msgstr "ゲーリック・ゲームス"
 
 #: master_preset.xml:9134(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:galileo)
 msgid "Galileo Signals"
@@ -3397,7 +3397,7 @@ msgstr ""
 #: master_preset.xml:7743(group:name|group:Golf)
 #: master_preset.xml:8240(item:name|group:Sport_(Ball)|preset:Golf)
 msgid "Golf"
-msgstr ""
+msgstr "ゴルフ"
 
 #: master_preset.xml:7744(item:name|group:Golf|preset:Golf_Course)
 msgid "Golf Course"
@@ -3523,7 +3523,7 @@ msgstr ""
 
 #: master_preset.xml:8032(item:name|group:Sport|preset:Gymnastics)
 msgid "Gymnastics"
-msgstr ""
+msgstr "体操競技"
 
 #: master_preset.xml:13218(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "HGV"
@@ -3552,7 +3552,7 @@ msgstr ""
 
 #: master_preset.xml:8208(item:name|group:Sport_(Ball)|preset:Handball)
 msgid "Handball"
-msgstr ""
+msgstr "ハンドボール"
 
 #: master_preset.xml:7785(combo:text|group:Golf|preset:Hole|key:handicap)
 msgid "Handicap rating"
@@ -3792,7 +3792,7 @@ msgstr ""
 
 #: master_preset.xml:11140(item:name|group:Sports_and_hobbies|preset:Hunting)
 msgid "Hunting"
-msgstr ""
+msgstr "ハンティング"
 
 #: master_preset.xml:7471(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
@@ -3852,11 +3852,11 @@ msgstr ""
 
 #: master_preset.xml:8285(item:name|group:Sport_(Ball)|preset:Ice_Hockey)
 msgid "Ice Hockey"
-msgstr ""
+msgstr "アイスホッケー"
 
 #: master_preset.xml:8049(item:name|group:Sport|preset:Ice_Skating)
 msgid "Ice Skating"
-msgstr ""
+msgstr "アイススケート"
 
 #: master_preset.xml:7976(check:text|group:Sport|preset:Climbing|key:climbing:ice)
 msgid "Ice climbing"
@@ -4161,7 +4161,7 @@ msgstr "韓国料理"
 #: master_preset.xml:3301(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:lpg)
 #: master_preset.xml:3919(check:text|group:Car|preset:Fuel|key:fuel:lpg)
 msgid "LPG (Liquefied petroleum gas)"
-msgstr ""
+msgstr "LPG (液化石油ガス)"
 
 #: master_preset.xml:13168(role:text|group:Relations|preset:Boundary|key:label)
 msgid "Label point"
@@ -4202,23 +4202,23 @@ msgstr ""
 #: master_preset.xml:1403(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:43(combo:text|key:lanes)
 msgid "Lanes"
-msgstr ""
+msgstr "車線数"
 
 #: master_preset.xml:45(combo:text|key:lanes:backward)
 msgid "Lanes ←"
-msgstr ""
+msgstr "車線数 ←"
 
 #: master_preset.xml:44(combo:text|key:lanes:forward)
 msgid "Lanes →"
-msgstr ""
+msgstr "車線数 →"
 
 #: master_preset.xml:3189(label:text|group:Water|preset:Mud)
 msgid "Large area covered with mud."
-msgstr ""
+msgstr "泥で覆われた広い領域です。"
 
 #: master_preset.xml:12381(label:text|group:Nature|preset:Sand)
 msgid "Large area covered with sand."
-msgstr ""
+msgstr "砂で覆われた広い領域です。"
 
 #: master_preset.xml:11657(check:text|preset:Payment_Methods|key:payment:laser)
 msgid "Laser"
@@ -5095,7 +5095,7 @@ msgstr "泥地"
 
 #: master_preset.xml:7892(item:name|group:Sport|preset:Multi)
 msgid "Multi"
-msgstr ""
+msgstr "様々なスポーツ"
 
 #: master_preset.xml:7975(check:text|group:Sport|preset:Climbing|key:climbing:multipitch)
 msgid "Multi-pitch routes"
@@ -5424,7 +5424,7 @@ msgstr ""
 
 #: master_preset.xml:10867(item:name|group:Printed_Material|preset:Newspaper_Stand)
 msgid "Newspaper Stand"
-msgstr ""
+msgstr "新聞スタンド"
 
 #: master_preset.xml:11618(list_entry:short_description|preset:Vending_Machine|value:newspapers)
 msgid "Newspapers"
@@ -5440,7 +5440,7 @@ msgstr ""
 
 #: master_preset.xml:7903(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
-msgstr ""
+msgstr "9ピンボウリング"
 
 #: master_preset.xml:10234(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10304(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -5661,37 +5661,37 @@ msgstr ""
 #: master_preset.xml:3297(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_100)
 #: master_preset.xml:3915(check:text|group:Car|preset:Fuel|key:fuel:octane_100)
 msgid "Octane 100"
-msgstr ""
+msgstr "オクタン価100"
 
 #: master_preset.xml:3291(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_80)
 #: master_preset.xml:3909(check:text|group:Car|preset:Fuel|key:fuel:octane_80)
 msgid "Octane 80"
-msgstr ""
+msgstr "オクタン価80"
 
 #: master_preset.xml:3292(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_87)
 #: master_preset.xml:3910(check:text|group:Car|preset:Fuel|key:fuel:octane_87)
 msgid "Octane 87"
-msgstr ""
+msgstr "オクタン価87"
 
 #: master_preset.xml:3293(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_91)
 #: master_preset.xml:3911(check:text|group:Car|preset:Fuel|key:fuel:octane_91)
 msgid "Octane 91"
-msgstr ""
+msgstr "オクタン価91"
 
 #: master_preset.xml:3294(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_92)
 #: master_preset.xml:3912(check:text|group:Car|preset:Fuel|key:fuel:octane_92)
 msgid "Octane 92"
-msgstr ""
+msgstr "オクタン価92"
 
 #: master_preset.xml:3295(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_95)
 #: master_preset.xml:3913(check:text|group:Car|preset:Fuel|key:fuel:octane_95)
 msgid "Octane 95"
-msgstr ""
+msgstr "オクタン価95"
 
 #: master_preset.xml:3296(check:text|group:Shipping|preset:Marine_Fuel|key:fuel:octane_98)
 #: master_preset.xml:3914(check:text|group:Car|preset:Fuel|key:fuel:octane_98)
 msgid "Octane 98"
-msgstr ""
+msgstr "オクタン価98"
 
 #: master_preset.xml:12965(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
@@ -5865,7 +5865,7 @@ msgstr ""
 #: master_preset.xml:9181(text:text|group:Man_Made|preset:Surveillance_Camera|key:operator)
 #: master_preset.xml:9202(text:text|group:Man_Made|preset:MDF|key:operator)
 msgid "Operator"
-msgstr ""
+msgstr "運営者"
 
 #: master_preset.xml:6593(combo:text|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:831(combo:text|key:operator:type)
@@ -7319,7 +7319,7 @@ msgstr ""
 
 #: master_preset.xml:8059(item:name|group:Sport|preset:Roller_Skating)
 msgid "Roller Skating"
-msgstr ""
+msgstr "ローラースケート"
 
 #: master_preset.xml:5556(list_entry:display_value|group:Leisure|preset:Rides|value:roller_coaster)
 msgid "Roller coaster"
@@ -7414,15 +7414,15 @@ msgstr ""
 
 #: master_preset.xml:3931(check:text|group:Car|preset:Fuel|key:payment:routex)
 msgid "Routex"
-msgstr ""
+msgstr "Routex"
 
 #: master_preset.xml:8176(item:name|group:Sport_(Ball)|preset:Rugby_League)
 msgid "Rugby League"
-msgstr ""
+msgstr "ラグビーリーグ"
 
 #: master_preset.xml:8183(item:name|group:Sport_(Ball)|preset:Rugby_Union)
 msgid "Rugby Union"
-msgstr ""
+msgstr "ラグビーユニオン"
 
 #: master_preset.xml:9722(check:text|group:Historic_Places_&_Objects|preset:Castle|key:ruins)
 #: master_preset.xml:9737(check:text|group:Historic_Places_&_Objects|preset:City_gate|key:ruins)
@@ -7592,11 +7592,11 @@ msgstr ""
 
 #: master_preset.xml:8090(item:name|group:Sport|preset:Scuba_Diving)
 msgid "Scuba Diving"
-msgstr ""
+msgstr "スキューバダイビング"
 
 #: master_preset.xml:11153(item:name|group:Sports_and_hobbies|preset:Scuba_diving)
 msgid "Scuba diving"
-msgstr ""
+msgstr "スキューバダイビング"
 
 #: master_preset.xml:14015(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
@@ -7650,7 +7650,7 @@ msgstr ""
 #: master_preset.xml:11347(item:name|group:Other|preset:Second_hand)
 #: master_preset.xml:11372(combo:text|group:Other|preset:Charity|key:second_hand)
 msgid "Second hand"
-msgstr ""
+msgstr "中古"
 
 #: master_preset.xml:4191(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:second_hand)
 msgid "Second-hand bicycles are sold"
@@ -7831,7 +7831,7 @@ msgstr ""
 
 #: master_preset.xml:8112(item:name|group:Sport|preset:Shooting)
 msgid "Shooting"
-msgstr ""
+msgstr "射撃"
 
 #: master_preset.xml:9935(group:name|group:Shops)
 msgid "Shops"
@@ -7898,11 +7898,11 @@ msgstr ""
 
 #: master_preset.xml:8068(item:name|group:Sport|preset:Skateboard)
 msgid "Skateboard"
-msgstr ""
+msgstr "スケートボード"
 
 #: master_preset.xml:8041(item:name|group:Sport|preset:Skating_(deprecated))
 msgid "Skating (deprecated)"
-msgstr ""
+msgstr "スケート (非推奨)"
 
 #: master_preset.xml:1592(combo:text|group:Ways|preset:Path|key:ski)
 msgid "Ski"
@@ -7916,7 +7916,7 @@ msgstr ""
 #: master_preset.xml:5270(check:text|group:Tourism|preset:Guidepost|key:ski)
 #: master_preset.xml:8098(item:name|group:Sport|preset:Skiing)
 msgid "Skiing"
-msgstr ""
+msgstr "スキー"
 
 #: master_preset.xml:8545(text:text|group:Buildings|preset:Building_part|key:min_height)
 msgid "Skipped height (meters)"
@@ -8072,7 +8072,7 @@ msgstr "スポーツ"
 
 #: master_preset.xml:8129(group:name|group:Sport_(Ball))
 msgid "Sport (Ball)"
-msgstr ""
+msgstr "スポーツ (球技)"
 
 #: master_preset.xml:7641(group:name|group:Sport_Facilities)
 msgid "Sport Facilities"
@@ -8086,7 +8086,7 @@ msgstr ""
 #: master_preset.xml:361(list_entry:short_description|value:sports)
 #: master_preset.xml:7640(group:name|group:Sports)
 msgid "Sports"
-msgstr ""
+msgstr "スポーツ"
 
 #: master_preset.xml:7657(item:name|group:Sport_Facilities|preset:Sports_Centre)
 msgid "Sports Centre"
@@ -8100,7 +8100,7 @@ msgstr ""
 #: master_preset.xml:8047(combo:display_values|group:Sport|preset:Skating_(deprecated)|key:leisure)
 #: master_preset.xml:8055(combo:display_values|group:Sport|preset:Ice_Skating|key:leisure)
 msgid "Sports centre"
-msgstr ""
+msgstr "スポーツセンター"
 
 #: master_preset.xml:2961(item:name|group:Water|preset:Spring)
 msgid "Spring"
@@ -8153,7 +8153,7 @@ msgstr ""
 
 #: master_preset.xml:10825(item:name|group:Printed_Material|preset:Stationery)
 msgid "Stationery"
-msgstr ""
+msgstr "文房具"
 
 #: master_preset.xml:6110(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
@@ -8379,7 +8379,7 @@ msgstr ""
 #: master_preset.xml:3212(combo:display_values|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:8079(item:name|group:Sport|preset:Swimming)
 msgid "Swimming"
-msgstr ""
+msgstr "水泳"
 
 #: master_preset.xml:5589(item:name|group:Leisure|preset:Swimming_Pool)
 msgid "Swimming Pool"
@@ -8443,7 +8443,7 @@ msgstr ""
 
 #: master_preset.xml:8307(item:name|group:Sport_(Ball)|preset:Table_Tennis/Ping-Pong)
 msgid "Table Tennis/Ping-Pong"
-msgstr ""
+msgstr "卓球/ピンポン"
 
 #: master_preset.xml:3079(combo:display_values|group:Water|preset:Reservoir|key:reservoir_type)
 msgid "Tailings"
@@ -8540,7 +8540,7 @@ msgstr ""
 
 #: master_preset.xml:7915(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
-msgstr ""
+msgstr "10ピンボウリング"
 
 #: master_preset.xml:8315(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"
@@ -8788,7 +8788,7 @@ msgstr ""
 
 #: master_preset.xml:7940(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
-msgstr ""
+msgstr "トラック&フィールド"
 
 #: master_preset.xml:1551(combo:text|group:Ways|preset:Track|key:tracktype)
 msgid "Tracktype"
@@ -9091,7 +9091,7 @@ msgstr ""
 
 #: master_preset.xml:3932(check:text|group:Car|preset:Fuel|key:payment:uta)
 msgid "UTA"
-msgstr ""
+msgstr "UTA"
 
 #: master_preset.xml:6757(list_entry:short_description|group:Health|preset:Alternative_medicine|value:unani)
 msgid "Unani medicine"
@@ -9302,7 +9302,7 @@ msgstr ""
 
 #: master_preset.xml:8215(item:name|group:Sport_(Ball)|preset:Volleyball)
 msgid "Volleyball"
-msgstr ""
+msgstr "バレーボール"
 
 #: master_preset.xml:3951(combo:text|group:Car|preset:Charging_Station|key:voltage)
 msgid "Voltage"
@@ -9673,7 +9673,7 @@ msgstr ""
 
 #: master_preset.xml:3900(combo:text|group:Car|preset:Fuel|key:shop)
 msgid "With shop"
-msgstr ""
+msgstr "店舗付"
 
 #: master_preset.xml:5492(list_entry:display_value|group:Leisure|preset:Animals|value:wolf)
 msgid "Wolf"
@@ -10321,7 +10321,7 @@ msgstr "ピッチ"
 #: master_preset.xml:39(combo:display_values|key:leisure)
 msgctxt "riding"
 msgid "Sports centre"
-msgstr ""
+msgstr "スポーツセンター"
 
 #: master_preset.xml:39(combo:display_values|key:leisure)
 msgctxt "riding"
@@ -10422,7 +10422,7 @@ msgstr ""
 #: master_preset.xml:4139(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
 msgctxt "transport"
 msgid "Second hand"
-msgstr ""
+msgstr "中古"
 
 #: master_preset.xml:111(list_entry:short_description|value:traffic_signals)
 msgctxt "transport"
@@ -10484,7 +10484,7 @@ msgstr "アスファルト"
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Athletics"
-msgstr ""
+msgstr "陸上競技"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10571,7 +10571,7 @@ msgstr "デコターフ"
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Dog racing"
-msgstr ""
+msgstr "ドッグレース"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
@@ -10592,7 +10592,7 @@ msgstr ""
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Golf"
-msgstr ""
+msgstr "ゴルフ"
 
 #: master_preset.xml:7741(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -10607,18 +10607,18 @@ msgstr "地面"
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Gymnastics"
-msgstr ""
+msgstr "体操競技"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Handball"
-msgstr ""
+msgstr "ハンドボール"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Horse racing"
-msgstr ""
+msgstr "競馬"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10629,7 +10629,7 @@ msgstr ""
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
 msgctxt "sport"
 msgid "Ice skating"
-msgstr ""
+msgstr "アイススケート"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10717,12 +10717,12 @@ msgstr "砂地"
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Shooting"
-msgstr ""
+msgstr "射撃"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Skateboard"
-msgstr ""
+msgstr "スケートボード"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 #: master_preset.xml:7738(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:sport)
@@ -10745,7 +10745,7 @@ msgstr "スポーツ"
 #: master_preset.xml:417(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Sports centre"
-msgstr ""
+msgstr "スポーツセンター"
 
 #: master_preset.xml:414(combo:display_values|key:leisure)
 #: master_preset.xml:417(combo:display_values|key:leisure)
@@ -10761,7 +10761,7 @@ msgstr "表面"
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Swimming"
-msgstr ""
+msgstr "水泳"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10792,7 +10792,7 @@ msgstr "タイプ"
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
 msgid "Volleyball"
-msgstr ""
+msgstr "バレーボール"
 
 #: master_preset.xml:437(combo:display_values|key:parking)
 msgctxt "parking"

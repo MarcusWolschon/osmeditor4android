@@ -119,6 +119,7 @@
   <!--JS console dialog-->
   <string name="evaluate">הערכה</string>
   <string name="js_console_msg_live">מצב חי!</string>
+  <string name="js_console_msg_debug">מצב ניפוי שגיאות!</string>
   <!--Validator dialogs-->
   <string name="age">גיל</string>
   <!--Empty relation dialog-->
@@ -390,9 +391,39 @@
   <!--Text should be as short as possible-->
   <string name="menu_history">היסטוריה</string>
   <string name="menu_merge">צירוף</string>
+  <string name="deletenode">מחיקת צומת</string>
+  <string name="split_all_ways">פיצול כל הדרכים</string>
   <!--EasyEdit action mode titles-->
+  <string name="actionmode_wayselect">נבחרה דרך</string>
+  <string name="actionmode_nodeselect">נבחר צומת</string>
+  <string name="actionmode_relationselect">נבחר יחס</string>
+  <string name="actionmode_createpath">נוצר נתיב</string>
+  <string name="actionmode_multiselect">בחירה מרובה</string>
   <!--EasyEdit action mode sub-titles-->
+  <string name="actionmode_closed_way_split_1">פיצול דרך סגורה, צומת ראשון</string>
+  <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, צומת שני</string>
+  <string name="actionmode_restriction">הוספת מגבלת פנייה</string>
+  <string name="actionmode_one_object">פריט אחד</string>
+  <string name="actionmode_object_count">%1$d פריטים</string>
+  <string name="actionmode_rotateway">הטיית דרך</string>
   <!--Preferences-->
+  <string name="config_backgroundLayer_title">רקע מפה</string>
+  <string name="config_customlayers_title">שכבות בהתאמה אישית</string>
+  <string name="config_customlayers_summary">הגדרת שכבות שאינן בהגדרות בררת המחדל</string>
+  <string name="config_mapProfile_title">סגנון נתונים</string>
+  <string name="config_mapProfile_summary">בחירת הסגנון לשכבת הנתונים</string>
+  <string name="config_enableOpenStreetBugs_title">הפעלת תצוגת תקלות והערות</string>
+  <string name="config_enableOpenStreetBugs_summary">הצגה, עריכה ויצירה של הערות/שגיאות.</string>
+  <string name="config_enablePhotoLayer_title">הפעלת שכבת תמונה</string>
+  <string name="config_enablePhotoLayer_summary">הצגת תמונות עם הפניה גאוגרפית.</string>
+  <string name="config_enableKeepScreenOn_title">להשאיר את המסך דולק</string>
+  <string name="config_enableKeepScreenOn_summary">לא לכבות את המסך מטעמי חסכון בחשמל.</string>
+  <string name="config_largeDragArea_title">אזור גרירה מוגדל לצמתים</string>
+  <string name="config_largeDragArea_summary">אספקת אזור מוגדל לגרירת צמתים</string>
+  <string name="config_advancedprefs">העדפות מתקדמות</string>
+  <string name="config_moreprefs">הגדרות נוספות</string>
+  <string name="config_presetbutton_title">ערכות</string>
+  <string name="config_presetbutton_summary">הוספה והפעלה של ערכות תואמות JOSM</string>
   <string name="config_validatorprefs_title">הגדרות המאמת</string>
   <string name="config_validatorprefs_summary">הגדרת כללי האימות</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
@@ -402,6 +433,8 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">הגדרות מנשק משתמש</string>
+  <string name="config_enableLightTheme_title">הפעלת ערכת עיצוב בהירה</string>
+  <string name="config_enableLightTheme_summary">ערכת עיצוב בהירה עם רקעים לבנים</string>
   <string name="config_maxInlineValues_current">%1$d ערכים</string>
   <string name="config_enableAntiAliasing_title">הפעלת החלקת קצוות</string>
   <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
@@ -433,8 +466,20 @@
   <string name="config_gps_source_tcp_summary">כתובת מקור TCP NMEA בתצורת מארח:פתחה</string>
   <string name="config_gps_interval_current">%1$d מ״ש</string>
   <string name="config_gps_distance_current">%1$d מטרים</string>
+  <string name="config_leaveGpsDisabled_title">להשאיר את ה־GPS מושבת</string>
+  <string name="config_leaveGpsDisabled_summary">לא לבקש מהמשתמש להפעיל את ה‏־GPS אם הוא מושבת</string>
+  <string name="config_gps_network_title">נסיגה למיקום דרך הרשת</string>
+  <string name="config_gps_network_summary">אם לא קיים GPS או שהוא כבוי, תתבצע נסיגה לספק רשת</string>
   <!--Server Settings-->
+  <string name="config_category_server">הגדרות שרת</string>
+  <string name="config_category_server_summary">הגדרות ה־API של OSM ושל שרתים נוספים</string>
+  <string name="config_apibutton_title">כתובת ה־API של OSM</string>
+  <string name="config_loginbutton_title">חשבון משתמש</string>
+  <string name="config_osmoseServer_title">שרת OSMOSE</string>
+  <string name="config_osmoseServer_summary">כתובת לשרת ה־osmose</string>
   <!--Layer download and storage-->
+  <string name="config_category_layers">הורדה ואחסון של שכבות</string>
+  <string name="config_category_layers_summary">הורדה ואחסון של תמונות רקע מחולקות לאריחים</string>
   <!--Miscellaneous-->
   <!--Experimental-->
   <!---->
