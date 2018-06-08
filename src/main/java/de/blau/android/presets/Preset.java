@@ -1454,7 +1454,7 @@ public class Preset implements Serializable {
                         && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator)) {
                     // add separators if there is a non-separator element above them
                     filteredElements.add(e);
-                }
+                } 
             }
         }
         return filteredElements;
@@ -1850,6 +1850,14 @@ public class Preset implements Serializable {
                     + " " + appliesToArea;
         }
 
+        /**
+         * Serialize the element to XML
+         * 
+         * @param s the XmlSerializer
+         * @throws IllegalArgumentException
+         * @throws IllegalStateException
+         * @throws IOException
+         */
         public abstract void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException;
     }
 
@@ -1862,6 +1870,11 @@ public class Preset implements Serializable {
          */
         private static final long serialVersionUID = 1L;
 
+        /**
+         * Construct a new separator
+         * 
+         * @param parent the parent PresetGroup
+         */
         public PresetSeparator(PresetGroup parent) {
             super(parent, "", null);
         }
@@ -1871,6 +1884,9 @@ public class Preset implements Serializable {
             View v = new View(ctx);
             v.setMinimumHeight(1);
             v.setMinimumWidth(99999); // for WrappingLayout
+            // this seems to be necessary to work around
+            // https://issuetracker.google.com/issues/37003658
+            v.setLayoutParams(new LinearLayout.LayoutParams(99999, 1));            
             return v;
         }
 
@@ -2015,7 +2031,7 @@ public class Preset implements Serializable {
             for (PresetElement element : filteredElements) {
                 View v = element.getView(ctx, handler, element.equals(selectedElement));
                 if (v.getLayoutParams() == null) {
-                    Log.e(DEBUG_TAG, "layoutparams null");
+                    Log.e(DEBUG_TAG, "layoutparams null " + element.getName());
                 }
                 childViews.add(v);
             }
