@@ -57,6 +57,18 @@
 		<interval length="2.0" />
 	</dash>
 </feature>
+<feature name="way-landuse-quarry" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffd8a2a2" style="STROKE" cap="BUTT" join="MITER" >
+    <dash phase="1.0">
+        <interval length="2.0" />
+        <interval length="2.0" />
+    </dash>
+</feature>
+<feature name="way-landuse-military" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffaf2626" style="STROKE" cap="BUTT" join="MITER" >
+    <dash phase="1.0">
+        <interval length="2.0" />
+        <interval length="2.0" />
+    </dash>
+</feature>
 <feature name="way-natural" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-waterway" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-natural-water" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
