@@ -112,7 +112,7 @@ public class SavingHelper<T extends Serializable> {
                 Log.e(DEBUG_TAG, "failed to save " + filename, e);
                 ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
-            } catch (Error e) {
+            } catch (Error e) { // NOSONAR crashing is not an option
                 Log.e(DEBUG_TAG, "failed to save " + filename, e);
                 ACRAHelper.nocrashReport(e, e.getMessage());
                 result = false;
@@ -212,7 +212,7 @@ public class SavingHelper<T extends Serializable> {
                 } else {
                     ACRAHelper.nocrashReport(e, e.getMessage());
                 }
-            } catch (Error e) {
+            } catch (Error e) { // NOSONAR crashing is not an option
                 Log.e(DEBUG_TAG, "failed to load " + filename, e);
                 result = null;
                 ACRAHelper.nocrashReport(e, e.getMessage());
@@ -295,7 +295,7 @@ public class SavingHelper<T extends Serializable> {
                         triggerMediaScanner(ctx, outfile);
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Toast in asyncExport failed with " + ignored.getMessage());
-                    } catch (Error ignored) {
+                    } catch (Error ignored) { // NOSONAR crashing is not an option
                         Log.e(DEBUG_TAG, "Toast in asyncExport failed with " + ignored.getMessage());
                     }
                 }
@@ -317,7 +317,7 @@ public class SavingHelper<T extends Serializable> {
                         }
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
-                    } catch (Error ignored) {
+                    } catch (Error ignored) { // NOSONAR crashing is not an option
                         Log.e(DEBUG_TAG, "Toast in asyncExport.onPostExecute failed with " + ignored.getMessage());
                     }
                 }

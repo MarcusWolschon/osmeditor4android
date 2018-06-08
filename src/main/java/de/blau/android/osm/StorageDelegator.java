@@ -2301,7 +2301,7 @@ public class StorageDelegator implements Serializable, Exportable {
                         Snack.barError((Activity) ctx, R.string.toast_statesave_failed);
                     } catch (Exception ignored) {
                         Log.e(DEBUG_TAG, "Emergency toast failed with " + ignored.getMessage());
-                    } catch (Error ignored) {
+                    } catch (Error ignored) { // NOSONAR crashing is not an option
                         Log.e(DEBUG_TAG, "Emergency toast failed with " + ignored.getMessage());
                     }
                 }

@@ -36,7 +36,7 @@ public class ExtendedExifInterface extends ExifInterface {
         } catch (Exception ex) {
             // other stuff broken ... for example ArrayIndexOutOfBounds
             throw new IOException(ex.getMessage());
-        } catch (Error err) {
+        } catch (Error err) { // NOSONAR crashing is not an option
             // other stuff broken ... for example NoSuchMethodError
             throw new IOException(err.getMessage());
         }
