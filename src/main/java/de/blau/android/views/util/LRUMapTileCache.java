@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.StorageException;
 
@@ -51,7 +52,7 @@ public class LRUMapTileCache {
             init(key, bitmap, recycleable, owner);
         }
 
-        void init(@NonNull String key, @NonNull Bitmap bitmap, boolean recycleable, long owner) {
+        void init(@Nullable String key, @Nullable Bitmap bitmap, boolean recycleable, long owner) {
             if (key == null) {
                 throw new IllegalArgumentException("key cannot be null");
             }
