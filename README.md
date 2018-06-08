@@ -1,4 +1,4 @@
-[![Dependency Status](https://www.versioneye.com/user/projects/58b9f4f501b5b7003d62093f/badge.svg)](https://www.versioneye.com/user/projects/58b9f4f501b5b7003d62093f)
+![donarcloud bugs](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=bugs) ![sonarcould maintainability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=sqale_rating) ![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=security_rating) ![sonarcloud reliability](https://sonarcloud.io/api/project_badges/measure?project=osmeditor4android&metric=reliability_rating)
 
 # Vespucci - An OpenStreetMap editor for Android
 
