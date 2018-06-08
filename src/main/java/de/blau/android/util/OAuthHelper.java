@@ -175,8 +175,8 @@ public class OAuthHelper {
     /**
      * Queries the service provider for an access token.
      * 
-     * @param verifier
-     * @return
+     * @param verifier OAuth 1.0a verification code
+     * @return the access token 
      * @throws OAuthMessageSignerException
      * @throws OAuthNotAuthorizedException
      * @throws OAuthExpectationFailedException
@@ -203,15 +203,7 @@ public class OAuthHelper {
         if (e == null) {
             return context.getString(R.string.toast_oauth_communication);
         }
-        if (e instanceof OAuthMessageSignerException) {
-            return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
-        } else if (e instanceof OAuthNotAuthorizedException) {
-            return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
-        } else if (e instanceof OAuthExpectationFailedException) {
-            return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
-        } else {
-            return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
-        }
+        return context.getString(R.string.toast_oauth_handshake_failed, e.getMessage());
     }
 
 }
