@@ -171,10 +171,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     Log.d(DEBUG_TAG, "action id " + actionId + " event " + event);
                     if (actionId == EditorInfo.IME_ACTION_SEARCH
                             || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        String term = v instanceof EditText ? ((EditText) v).getText().toString() : null;
-                        if (term != null && !"".equals(term.trim())) {
-                            return getAndShowSearchResults(term);
-                        }
+                        return getAndShowSearchResults(presetSearch);
                     }
                     return false;
                 }
@@ -192,11 +189,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         Drawable icon = presetSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
                         if (icon != null && event.getRawX() >= (presetSearch.getRight() - icon.getBounds().width())) { // FIXME
-                                                                                                                       // RTL
-                            String term = v instanceof EditText ? ((EditText) v).getText().toString() : null;
-                            if (term != null && !"".equals(term.trim())) {
-                                return getAndShowSearchResults(term);
-                            }
+                            return getAndShowSearchResults(presetSearch);
                         }
                     }
                     return false;
@@ -232,10 +225,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     /**
      * Query the preset search index and display results in a dialog
      * 
-     * @param term search term
-     * @return always returns true for now
+     * @param presetSearch the EditText used for input
+     * @return false if we didn't search
      */
-    private boolean getAndShowSearchResults(final String term) {
+    private boolean getAndShowSearchResults(final View presetSearch) {
+        String term = presetSearch instanceof EditText ? ((EditText) presetSearch).getText().toString() : null;
+        if (term == null || "".equals(term.trim())) {
+            return false;
+        }
         final FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
@@ -258,19 +255,24 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
             @Override
             protected ArrayList<PresetElement> doInBackground(Void... params) {
-                ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, MAX_SEARCHRESULTS));
-                Preferences prefs = new Preferences(getContext());
-                if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
-                    AutoPreset autoPreset = new AutoPreset(getContext());
-                    Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
-                    for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
-                        searchResults.add(pe);
+                presetSearch.setEnabled(false);
+                try {
+                    ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, MAX_SEARCHRESULTS));
+                    Preferences prefs = new Preferences(getContext());
+                    if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
+                        AutoPreset autoPreset = new AutoPreset(getContext());
+                        Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
+                        for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
+                            searchResults.add(pe);
+                        }
                     }
+                    if (searchResults.isEmpty()) {
+                        return null;
+                    }
+                    return searchResults;
+                } finally {
+                    presetSearch.setEnabled(true);
                 }
-                if (searchResults.isEmpty()) {
-                    return null;
-                }
-                return searchResults;
             }
 
             @Override
