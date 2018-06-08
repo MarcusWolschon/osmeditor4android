@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.0.8: Fix another preset display issue related to google issue 37003658, debounce preset search, upload single tasks in background, update preset and translations.
+
 11.0.0-7: Fix theme related crash in debug screen and licence viewer, another fix when showing immersive dialogs, more RTL improvements, add privacy statement.
 
 11.0.0-6: Fix undo regression, support RTL layout (not released)
