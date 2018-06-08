@@ -188,9 +188,9 @@ public class RTree implements Serializable {
                             box.union(box2.getLeft(), box2.getTop());
                             d = area(box);
                             if (d == 0) {
-                                d = box.getRight() - box2.getRight();
+                                d = (double)box.getRight() - box2.getRight();
                                 if (d == 0) {
-                                    d = box.getTop() - box2.getTop();
+                                    d = (double)box.getTop() - box2.getTop();
                                 }
                                 // else ... two nodes in the same place
                             }
