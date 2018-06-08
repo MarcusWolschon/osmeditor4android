@@ -2568,7 +2568,8 @@ public class Logic {
 
         try {
             return loader.get(20, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+            loader.cancel(true);
             return null;
         }
     }
@@ -2663,7 +2664,8 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+                loader.cancel(true);
                 return -1;
             }
         } else {
@@ -2791,7 +2793,8 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+                loader.cancel(true);
                 return -1;
             }
         } else {

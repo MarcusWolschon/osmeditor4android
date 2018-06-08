@@ -18,6 +18,7 @@ import com.google.gson.stream.JsonToken;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Loader;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -449,14 +450,14 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         final Server server = prefs.getServer();
         if (server != null) {
             if (!server.needOAuthHandshake()) {
-                try {
-                    AsyncTask<Void, Void, Server.UserDetails> loader = new AsyncTask<Void, Void, Server.UserDetails>() {
+                AsyncTask<Void, Void, Server.UserDetails> loader = new AsyncTask<Void, Void, Server.UserDetails>() {
 
-                        @Override
-                        protected Server.UserDetails doInBackground(Void... params) {
-                            return server.getUserDetails();
-                        }
-                    };
+                    @Override
+                    protected Server.UserDetails doInBackground(Void... params) {
+                        return server.getUserDetails();
+                    }
+                };
+                try {
                     loader.execute();
                     Server.UserDetails user = loader.get(10, TimeUnit.SECONDS);
 
@@ -465,7 +466,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     } else {
                         author = server.getDisplayName(); // maybe it has been configured
                     }
-                } catch (InterruptedException | ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                        // question
+                    loader.cancel(true);
                     error = e.getMessage();
                 } catch (TimeoutException e) {
                     error = main.getString(R.string.toast_timeout);
@@ -663,7 +666,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     if (result < 0) {
                         error = saver.getError();
                     }
-                } catch (InterruptedException | ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                        // question
+                    saver.cancel(true);
                     error = e.getMessage();
                 }
                 if (error != null) {

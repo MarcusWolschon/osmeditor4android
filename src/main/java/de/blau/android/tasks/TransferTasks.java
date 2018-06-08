@@ -284,8 +284,9 @@ public class TransferTasks {
         }
         try {
             return a.get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "uploadOsmoseBug got " + e.getMessage());
+            a.cancel(true);
         }
         return false;
     }
@@ -400,8 +401,9 @@ public class TransferTasks {
             }
             try {
                 return ct.get().getError() == ErrorCodes.OK;
-            } catch (InterruptedException | ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
                 Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
+                ct.cancel(true);
                 return false;
             }
         }

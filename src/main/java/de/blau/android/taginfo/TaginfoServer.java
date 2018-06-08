@@ -704,8 +704,9 @@ public class TaginfoServer {
         list.execute();
         try {
             return list.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
+            list.cancel(true);
         }
         return null;
     }

@@ -118,8 +118,9 @@ public class Search {
             } else {
                 Snack.barInfo(activity, R.string.toast_nothing_found);
             }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
+            querier.cancel(true);
             Snack.barError(activity, R.string.no_connection_title);
         } catch (TimeoutException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
