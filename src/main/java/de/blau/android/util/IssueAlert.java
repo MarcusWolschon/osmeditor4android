@@ -76,10 +76,12 @@ public class IssueAlert {
         }
         double eLon;
         double eLat;
-        if (Node.NAME.equals(e.getName())) {
+        switch (e.getName()) {
+        case Node.NAME:
             eLon = ((Node) e).getLon() / 1E7D;
             eLat = ((Node) e).getLat() / 1E7D;
-        } else if (Way.NAME.equals(e.getName())) {
+            break;
+        case Way.NAME:
             double[] result = Logic.centroidLonLat((Way) e);
             if (result == null) {
                 Log.d(DEBUG_TAG, "couldn't determine center for " + e);
@@ -87,12 +89,14 @@ public class IssueAlert {
             }
             eLon = result[0];
             eLat = result[1];
-        } else if (Relation.NAME.equals(e.getName())) {
+            break;
+        case Relation.NAME:
             ViewBox box = new ViewBox(e.getBounds());
-            double[] result = box.getCenter();
+            result = box.getCenter();
             eLon = result[0];
             eLat = result[1];
-        } else {
+            break;
+        default:
             Log.e(DEBUG_TAG, "unknown element type " + e);
             return;
         }
@@ -121,7 +125,6 @@ public class IssueAlert {
                 index += 360;
             index = index / 45;
 
-            // message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
             message.append(context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n");
             ticker = ticker + " " + message;
         }
@@ -141,16 +144,16 @@ public class IssueAlert {
             ACRAHelper.nocrashReport(re, re.getMessage());
             return;
         }
-        // Creates an explicit intent for an Activity in your app
-        // Intent resultIntent = new Intent(main, Main.class);
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
-        // Uri geo = Uri.fromParts("geo", eLat+","+eLon,null);
-        // resultIntent.setData(geo);
         try {
             BoundingBox box = GeoMath.createBoundingBoxForCoordinates(eLat, eLon, prefs.getDownloadRadius(), true);
 
             Uri rc = Uri.parse("http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft() / 1E7D + "&right=" + box.getRight() / 1E7D + "&top="
-                    + box.getTop() / 1E7D + "&bottom=" + box.getBottom() / 1E7D + "&select=" + e.getName() + e.getOsmId());
+                    + box.getTop() / 1E7D + "&bottom=" + box.getBottom() / 1E7D + "&select=" + e.getName() + e.getOsmId()); // NOSONAR
+                                                                                                                            // JOSM
+                                                                                                                            // RC
+                                                                                                                            // assumes
+                                                                                                                            // localhost
 
             Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
@@ -168,7 +171,7 @@ public class IssueAlert {
             App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
 
         } catch (OsmException e1) {
-            Log.d("IssueAlert", "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
+            Log.d(DEBUG_TAG, "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
         }
     }
 
@@ -202,7 +205,7 @@ public class IssueAlert {
      * @param b the Task
      */
     public static void alert(@NonNull Context context, @NonNull Task b) {
-        Log.d("IssueAlert", "generating alert for " + b.getDescription());
+        Log.d(DEBUG_TAG, "generating alert for " + b.getDescription());
         Preferences prefs = new Preferences(context);
 
         if (!prefs.generateAlerts()) { // don't generate alerts
@@ -251,7 +254,6 @@ public class IssueAlert {
                 index += 360;
             index = index / 45;
 
-            // message = "in " + distance + "m " /* + bearing + "° " */ + bearings[index] + "\n";
             message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
             ticker = ticker + " " + message;
         }
@@ -268,8 +270,6 @@ public class IssueAlert {
             ACRAHelper.nocrashReport(re, re.getMessage());
             return;
         }
-        // Creates an explicit intent for an Activity in your app
-        // Intent resultIntent = new Intent(main, Main.class);
         Intent resultIntent = new Intent(Intent.ACTION_VIEW);
         Uri geo = Uri.fromParts("geo", eLat + "," + eLon, null);
         resultIntent.setData(geo);
@@ -317,6 +317,15 @@ public class IssueAlert {
         double lon;
     }
 
+    /**
+     * Get the closest distance from the coordinates to a way
+     * 
+     * @param lon WGS84 longitude
+     * @param lat WGS84 latitude
+     * @param w the Way
+     * @return a ClosestPoint instance
+     */
+    @NonNull
     private static ClosestPoint getClosestDistance(double lon, double lat, @NonNull Way w) {
         ClosestPoint closest = new IssueAlert.ClosestPoint();
 
