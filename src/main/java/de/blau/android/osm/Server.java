@@ -465,7 +465,7 @@ public class Server {
                     }
                     if (eventType == XmlPullParser.START_TAG && Capabilities.BLACKLIST_TAG.equals(tagName)) {
                         if (result.getImageryBlacklist() == null) {
-                            result.setImageryBlacklist(new ArrayList<String>());
+                            result.setImageryBlacklist(new ArrayList<>());
                         }
                         String regex = parser.getAttributeValue(null, Capabilities.REGEX_KEY);
                         if (regex != null) {

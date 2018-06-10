@@ -292,7 +292,7 @@ public class StorageDelegator implements Serializable, Exportable {
             }
             List<Way> ways = currentStorage.getWays(box);
             for (Node n : nodes) {
-                for (Way w : new ArrayList<Way>(ways)) {
+                for (Way w : new ArrayList<>(ways)) {
                     if (w.getNodes().contains(n)) {
                         Log.d(DEBUG_TAG, "invalidate bb for " + w);
                         w.invalidateBoundingBox();
@@ -602,7 +602,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 undo.save(nd);
                 updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
             }
-            onElementChanged(null, new ArrayList<OsmElement>(nodes));
+            onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "moveNodes got " + e.getMessage());
@@ -655,7 +655,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
                 i++;
             }
-            onElementChanged(null, new ArrayList<OsmElement>(nodes));
+            onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "circulizeWay got " + e.getMessage());
@@ -675,7 +675,7 @@ public class StorageDelegator implements Serializable, Exportable {
         int group = 0;
         int index = 0;
         int groupIndex = 1;
-        groups.add(new ArrayList<Way>());
+        groups.add(new ArrayList<>());
         Way startWay = ways.get(index);
         groups.get(group).add(startWay);
         do {
@@ -703,7 +703,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
                 if (!found) {
                     group++;
-                    groups.add(new ArrayList<Way>());
+                    groups.add(new ArrayList<>());
                     startWay = w;
                     groupIndex = 1;
                     break;
@@ -834,7 +834,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 }
             }
-            onElementChanged(null, new ArrayList<OsmElement>(save));
+            onElementChanged(null, new ArrayList<>(save));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "orthogonalizeWay got " + e.getMessage());
@@ -931,7 +931,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 int lon = GeoMath.xToLonE7(w, v, (float) newX);
                 updateLatLon(nd, lat, lon);
             }
-            onElementChanged(null, new ArrayList<OsmElement>(nodes));
+            onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "rotateWay got " + e.getMessage());
@@ -1399,8 +1399,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @return true if elements have different roles in the same relation
      */
     private boolean roleConflict(OsmElement o1, OsmElement o2) {
-        List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<Relation>();
-        List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<Relation>();
+        List<Relation> r1 = o1.getParentRelations() != null ? o1.getParentRelations() : new ArrayList<>();
+        List<Relation> r2 = o2.getParentRelations() != null ? o2.getParentRelations() : new ArrayList<>();
         for (Relation r : r1) {
             if (r2.contains(r)) {
                 RelationMember rm1 = r.getMember(o1);
@@ -1926,12 +1926,12 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * compare current relations e is a member of to new state parents and make it so
      * 
-     * @param e
-     * @param parents
+     * @param e current OsmElement
+     * @param parents new Map of parent Relations
      */
     public void updateParentRelations(final OsmElement e, final HashMap<Long, String> parents) {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
-        ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<Relation>();
+        ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
 
         for (Relation o : origParents) { // find changes to existing memberships
             if (!parents.containsKey(o.getOsmId())) {
@@ -2051,13 +2051,13 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Assumes mergeFrom will deleted by caller and doesn't update back refs
      * 
-     * @param mergeInto
-     * @param mergeFrom
+     * @param mergeInto OsmElement to merge the parent Relations into
+     * @param mergeFrom OsmElement with potentially new parent Relations
      */
     private void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom) {
         // copy just to be safe
-        List<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<>(mergeFrom.getParentRelations()) : new ArrayList<Relation>();
-        List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<Relation>();
+        List<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new ArrayList<>(mergeFrom.getParentRelations()) : new ArrayList<>();
+        List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
         try {
             HashSet<OsmElement> changedElements = new HashSet<>();
             for (Relation r : fromRelations) {
@@ -2393,9 +2393,9 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public List<OsmElement> listChangedElements() {
         List<OsmElement> retval = new ArrayList<>();
-        retval.addAll(new ArrayList<Node>(apiStorage.getNodes()));
-        retval.addAll(new ArrayList<Way>(apiStorage.getWays()));
-        retval.addAll(new ArrayList<Relation>(apiStorage.getRelations()));
+        retval.addAll(new ArrayList<>(apiStorage.getNodes()));
+        retval.addAll(new ArrayList<>(apiStorage.getWays()));
+        retval.addAll(new ArrayList<>(apiStorage.getRelations()));
         return retval;
     }
 

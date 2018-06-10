@@ -35,7 +35,6 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.dialogs.BackgroundProperties;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.exception.UiStateException;

@@ -404,7 +404,7 @@ public class UndoStorage implements Serializable {
             osmId = originalElement.osmId;
             osmVersion = originalElement.osmVersion;
             state = originalElement.state;
-            tags = originalElement.tags == null ? new TreeMap<String, String>() : new TreeMap<>(originalElement.tags);
+            tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
 
             inCurrentStorage = currentStorage.contains(originalElement);
             inApiStorage = apiStorage.contains(originalElement);

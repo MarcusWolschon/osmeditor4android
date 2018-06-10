@@ -3282,7 +3282,7 @@ public class Main extends FullScreenAppCompatActivity
                     // display context menu
                     getClickedObjects(x, y);
                     boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
+                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
                     int elementCount = clickedNodesAndWays.size();
                     int clickedObjectsCount = clickedObjects.size();
                     int itemCount = elementCount + clickedObjectsCount;
@@ -3358,7 +3358,7 @@ public class Main extends FullScreenAppCompatActivity
         public void performEdit(Mode mode, final View v, final float x, final float y) {
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
                 boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
                 int elementCount = clickedNodesAndWays.size();
                 int clickedObjectsCount = clickedObjects.size();
                 int itemCount = elementCount + clickedObjectsCount;
@@ -3609,7 +3609,7 @@ public class Main extends FullScreenAppCompatActivity
             if (!logic.isLocked()) {
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
                 boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<OsmElement>();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
                 switch (clickedNodesAndWays.size()) {
                 case 0:
                     // no elements were touched

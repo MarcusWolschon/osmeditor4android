@@ -384,7 +384,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if (!tags.containsKey(key)) {
-                    tags.put(key, new ArrayList<String>());
+                    tags.put(key, new ArrayList<>());
                 }
                 tags.get(key).add(value);
             }
@@ -1359,7 +1359,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (row != null) {
                     boolean isEmpty = row.isEmpty();
                     if (ret == null) {
-                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<String>(), -1);
+                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<>(), -1);
                     } else if (isEmpty) {
                         row.deleteRow(rowLayout);
                     }
@@ -1368,7 +1368,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
             if (ret == null) {
-                ret = insertNewEdit(rowLayout, "", new ArrayList<String>(), -1);
+                ret = insertNewEdit(rowLayout, "", new ArrayList<>(), -1);
             }
         }
         return ret;

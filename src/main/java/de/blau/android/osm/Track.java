@@ -138,7 +138,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
         ISO8601FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         currentTrack = new ArrayList<>();
-        currentWayPoints = new ArrayList<WayPoint>();
+        currentWayPoints = new ArrayList<>();
         ctx = context;
         synchronized (openLock) {
             if (isOpen) {

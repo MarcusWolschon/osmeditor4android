@@ -259,7 +259,7 @@ public class Address implements Serializable {
         }
 
         if (newAddress == null) { // make sure we have the address object
-            newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<String, ArrayList<String>>());
+            newAddress = new Address(elementType, elementOsmId, new LinkedHashMap<>());
             Log.d("Address", "nothing to seed with, creating new");
         }
         // merge in any existing tags
@@ -648,7 +648,7 @@ public class Address implements Serializable {
      * @param context Android context
      */
     public static synchronized void resetLastAddresses(Context context) {
-        savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<Address>(), false);
+        savingHelperAddress.save(context, ADDRESS_TAGS_FILE, new LinkedList<>(), false);
         lastAddresses = null;
     }
 

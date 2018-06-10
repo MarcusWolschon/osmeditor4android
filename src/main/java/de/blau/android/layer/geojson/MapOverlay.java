@@ -793,7 +793,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         if (data != null) {
             Collection<BoundedObject> queryResult = new ArrayList<>();
             data.query(queryResult);
-            Set<String> result = new TreeSet<String>();
+            Set<String> result = new TreeSet<>();
             for (BoundedObject bo : queryResult) {
                 BoundedFeature bf = (BoundedFeature) bo;
                 JsonObject properties = bf.getFeature().getProperties();
@@ -806,7 +806,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                     }
                 }
             }
-            return new ArrayList<String>(result);
+            return new ArrayList<>(result);
         }
         return null;
     }

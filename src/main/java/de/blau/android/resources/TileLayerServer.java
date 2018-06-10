@@ -1120,8 +1120,8 @@ public class TileLayerServer {
             overlayServerList = TileLayerDatabase.getAllLayers(ctx, db, true);
             backgroundServerList = TileLayerDatabase.getAllLayers(ctx, db, false);
         } else {
-            overlayServerList = new HashMap<String, TileLayerServer>();
-            backgroundServerList = new HashMap<String, TileLayerServer>();
+            overlayServerList = new HashMap<>();
+            backgroundServerList = new HashMap<>();
             // these three layers have to exist or else we are borked
             TileLayerServer overlay = TileLayerDatabase.getLayer(ctx, db, LAYER_NOOVERLAY);
             overlayServerList.put(LAYER_NOOVERLAY, overlay);

@@ -68,7 +68,7 @@ public class MultiHashMap<K, V> implements Serializable {
     public boolean add(K key, V item) {
         Set<V> values = map.get(key);
         if (values == null) {
-            values = (sorted ? new TreeSet<V>() : new HashSet<V>());
+            values = (sorted ? new TreeSet<>() : new HashSet<>());
             map.put(key, values);
         }
         return item != null && values.add(item);
@@ -83,7 +83,7 @@ public class MultiHashMap<K, V> implements Serializable {
     public void add(K key, V[] items) {
         Set<V> values = map.get(key);
         if (values == null) {
-            values = (sorted ? new TreeSet<V>() : new HashSet<V>());
+            values = (sorted ? new TreeSet<>() : new HashSet<>());
             map.put(key, values);
         }
         values.addAll(Arrays.asList(items));
@@ -98,7 +98,7 @@ public class MultiHashMap<K, V> implements Serializable {
     private void add(K key, Set<V> items) {
         Set<V> values = map.get(key);
         if (values == null) {
-            values = (sorted ? new TreeSet<V>() : new HashSet<V>());
+            values = (sorted ? new TreeSet<>() : new HashSet<>());
             map.put(key, values);
         }
         values.addAll(items);
