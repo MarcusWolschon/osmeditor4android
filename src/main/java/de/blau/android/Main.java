@@ -2277,22 +2277,19 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 return null;
             }
-            //
-            // Log.d(DEBUG_TAG,"No GPS provider");
-            // List<String> providers = locationManager.getAllProviders();
-            // for (String p:providers) {
-            // Log.d(DEBUG_TAG,"Provider: " + p);
-            // }
             return null;
-        } catch (
-
-        Exception e) {
+        } catch (Exception e) {
             Log.d(DEBUG_TAG, "Error when checking for GPS, assuming GPS not available", e);
             Snack.barInfo(this, R.string.gps_failure);
             return null;
         }
     }
 
+    /**
+     * Set if we are centering the map on the current location
+     * 
+     * @param follow if true center on current location
+     */
     public void setFollowGPS(boolean follow) {
         // Log.d(DEBUG_TAG,"setFollowGPS from " + followGPS + " to " + follow);
         if (followGPS != follow) {
