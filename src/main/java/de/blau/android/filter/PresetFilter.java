@@ -50,11 +50,15 @@ public class PresetFilter extends Filter {
     private boolean                 includeWayNodes = false;
     private boolean                 inverted        = false;
 
+    /**
+     * Construct a new PresetFilter
+     * 
+     * @param context Android Context
+     */
     public PresetFilter(Context context) {
         super();
         Log.d(DEBUG_TAG, "Constructor");
         init(context);
-        //
     }
 
     /**
@@ -110,7 +114,7 @@ public class PresetFilter extends Filter {
     /**
      * Include way nodes when ways are included
      * 
-     * @param on
+     * @param on if true include Way nodes
      */
     public void setIncludeWayNodes(boolean on) {
         Log.d(DEBUG_TAG, "set include way nodes " + on);
@@ -293,6 +297,9 @@ public class PresetFilter extends Filter {
         setupControls(false);
     }
 
+    /**
+     * Set the icon on the filter button
+     */
     private void setIcon() {
         if (element != null && presetFilterButton != null) {
             BitmapDrawable icon = element.getMapIcon();
@@ -305,6 +312,11 @@ public class PresetFilter extends Filter {
         }
     }
 
+    /**
+     * Setup filter controls
+     * 
+     * @param toggle if true enable the controls
+     */
     private void setupControls(boolean toggle) {
         enabled = toggle ? !enabled : enabled;
         update.execute();
