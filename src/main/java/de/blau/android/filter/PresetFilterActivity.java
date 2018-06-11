@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,6 +43,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
 
     PresetFilter filter = null;
 
+    /**
+     * Start a new instance of this activity
+     * 
+     * @param context Android Context
+     */
     public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, PresetFilterActivity.class);
         context.startActivity(intent);
@@ -63,10 +69,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             finish();
         }
         Preset[] presets = App.getCurrentPresets(this);
-        rootGroup = presets[0].getRootGroup(); // FIXME this assumes that we have at least one active preset
-        if (presets.length > 1) {
-            // a bit of a hack ... this adds the elements from other presets to the root group of the first one
-            List<PresetElement> rootElements = rootGroup.getElements();
+        Preset preset = new Preset(); // dummy preset to hold the elements of all
+        rootGroup = preset.new PresetGroup(null, "", null);
+        preset.setRootGroup(rootGroup);
+        List<PresetElement> rootElements = rootGroup.getElements();
+        if (presets != null) {
             for (Preset p : presets) {
                 if (p != null) {
                     for (PresetElement e : p.getRootGroup().getElements()) {
@@ -89,7 +96,14 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         actionbar.setDisplayHomeAsUpEnabled(true);
     }
 
-    private ScrollView getPresetView(PresetGroup group, PresetElement element) {
+    /**
+     * Get a tabular view of the presets
+     * 
+     * @param group the PresetGroup to display
+     * @param element the PresetELement to highlight or null
+     * @return a View of the PresetGroup
+     */
+    private ScrollView getPresetView(@NonNull PresetGroup group, @Nullable PresetElement element) {
         View view = group.getGroupView(this, this, null, element);
         // view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
         // view.setOnKeyListener(this);
@@ -136,10 +150,8 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             return true;
         }
         menu.findItem(R.id.preset_menu_waynodes).setChecked(((PresetFilter) filter).includeWayNodes());
-        menu.findItem(R.id.preset_menu_invert).setChecked(((PresetFilter) filter).isInverted()).setVisible(false); // don't
-                                                                                                                   // show
-                                                                                                                   // for
-                                                                                                                   // now
+        // don't show for now
+        menu.findItem(R.id.preset_menu_invert).setChecked(((PresetFilter) filter).isInverted()).setVisible(false); 
         return true;
     }
 
@@ -157,7 +169,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(this, presetView, this, null, null);
+                currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
                 presetView.invalidate();
                 supportInvalidateOptionsMenu();
                 return true;
@@ -168,7 +180,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(this, presetView, this, null, null);
+                    currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
                     presetView.invalidate();
                     supportInvalidateOptionsMenu();
                     return true;
@@ -219,8 +231,13 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
      */
     @Override
     public void onGroupClick(PresetGroup group) {
+        Filter filter = App.getLogic().getFilter();
+        if (!(filter instanceof PresetFilter)) {
+            Log.e(DEBUG_TAG, "filter null or not a PresetFilter");
+            return;
+        }
         currentGroup = group;
-        currentGroup.getGroupView(this, presetView, this, null, null);
+        currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
         presetView.invalidate();
         supportInvalidateOptionsMenu();
     }
@@ -231,6 +248,11 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         return true;
     }
 
+    /**
+     * Select element for the filter and display a toast
+     * 
+     * @param element the selected PresetElement
+     */
     void onPresetElementSelected(PresetElement element) {
         Log.d(DEBUG_TAG, element.toString());
         Filter filter = App.getLogic().getFilter();
