@@ -193,7 +193,8 @@ public class ElementInfo extends DialogFragment {
             tl.setColumnStretchable(2, true);
 
             tl.addView(TableLayoutUtils.createRow(activity, R.string.type, e.getName(), tp));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.id, "#" + e.getOsmId(), tp));
+            Spanned id =e.getOsmId() > 0 ?  Util.fromHtml("<a href=\"" + Urls.OSM + "/" + e.getName() + "/" + e.getOsmId() + "\">#" + e.getOsmId() + "</a>") : Util.fromHtml("#" + e.getOsmId());
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.id,  id, true, tp));
             tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(e.getOsmVersion()), tp));
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
@@ -438,7 +439,7 @@ public class ElementInfo extends DialogFragment {
      * Create an clickable Url as text
      * 
      * @param value url to use
-     * @return clieckable text
+     * @return clickable text
      */
     private Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
         URL url = new URL(value);

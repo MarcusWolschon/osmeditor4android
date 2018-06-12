@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils.TruncateAt;
 import android.text.method.LinkMovementMethod;
@@ -13,29 +15,77 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ * Add rows to a table layout
+ * 
+ * @author simon
+ *
+ */
 public class TableLayoutUtils {
     private static final int FIRST_CELL_WIDTH = 5;
 
     private static final int MAX_FIRST_CELL_WIDTH = 8;
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, null, cell2, false, tp);
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, CharSequence cell3, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, cell3, false, tp);
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, boolean isUrl, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
+            @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, null, cell2, isUrl, tp);
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 text for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, String cell1, CharSequence cell2, CharSequence cell3, boolean isUrl,
-            TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
+            boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setSingleLine();
@@ -57,12 +107,16 @@ public class TableLayoutUtils {
     }
 
     /**
-     * @param activity
-     * @param cellText
-     * @param isUrl
-     * @param tr
+     * Add a new cell to a TableRow
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cellText the text to use for the cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tr the TableRow to add the cell to
+     * @param tp LayoutParams for the row
      */
-    private static void addCell(FragmentActivity activity, CharSequence cellText, boolean isUrl, TableRow tr, TableRow.LayoutParams tp) {
+    private static void addCell(@NonNull FragmentActivity activity, @Nullable CharSequence cellText, boolean isUrl, TableRow tr,
+            @Nullable TableRow.LayoutParams tp) {
         TextView cell;
         cell = new TextView(activity);
         if (cellText != null) {
@@ -84,13 +138,36 @@ public class TableLayoutUtils {
         }
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 a string resource id for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, CharSequence cell3, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, CharSequence cell2, CharSequence cell3,
+            @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, cell3, false, tp);
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 a string resource id for the first cell
+     * @param cell2 text for the second cell
+     * @param cell3 text for the third cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, CharSequence cell3, boolean isUrl, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
+            @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setMinEms(FIRST_CELL_WIDTH);
@@ -111,8 +188,33 @@ public class TableLayoutUtils {
         return tr;
     }
 
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 a string resource id for the first cell
+     * @param cell2 text for the second cell
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
     @SuppressLint("NewApi")
-    public static TableRow createRow(FragmentActivity activity, int cell1, CharSequence cell2, TableLayout.LayoutParams tp) {
+    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
+        return createRow(activity, cell1, cell2, false, tp);
+    }
+
+    /**
+     * Get a new TableRox with the provided contents
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param cell1 a string resource id for the first cell
+     * @param cell2 text for the second cell
+     * @param isUrl if true don't allow C&P on the values so that they can be clicked on
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
+    @SuppressLint("NewApi")
+    public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, boolean isUrl,
+            @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
         TextView cell = new TextView(activity);
         cell.setMinEms(FIRST_CELL_WIDTH);
@@ -129,12 +231,18 @@ public class TableLayoutUtils {
         tr.addView(cell);
         TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         trp.span = 2;
-        addCell(activity, cell2, false, tr, trp);
+        addCell(activity, cell2, isUrl, tr, trp);
         tr.setLayoutParams(tp);
         return tr;
     }
 
-    public static View divider(FragmentActivity activity) {
+    /**
+     * Get a divider for the TableLayout
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @return a empty View the width of the TableLayout
+     */
+    public static View divider(@NonNull FragmentActivity activity) {
         TableRow tr = new TableRow(activity);
         View v = new View(activity);
         TableRow.LayoutParams trp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
