@@ -228,8 +228,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
      * @return false if we didn't search
      */
     private boolean getAndShowSearchResults(final View presetSearch) {
+        Activity activity = getActivity();
         String term = presetSearch instanceof EditText ? ((EditText) presetSearch).getText().toString() : null;
-        if (term == null || "".equals(term.trim())) {
+        if (activity == null || term == null || "".equals(term.trim())) {
             return false;
         }
         final FragmentManager fm = getChildFragmentManager();
@@ -245,18 +246,20 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
             @Override
             protected void onPreExecute() {
-                Activity activity = getActivity();
-                if (activity != null) {
-                    progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
-                    progress.show();
-                }
+                progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
+                progress.show();
             }
 
             @Override
             protected ArrayList<PresetElement> doInBackground(Void... params) {
-                presetSearch.setEnabled(false);
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        presetSearch.setEnabled(false);
+                    }
+                });
                 try {
-                    ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(getActivity(), term, type, 2, MAX_SEARCHRESULTS));
+                    ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
                     Preferences prefs = new Preferences(getContext());
                     if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
                         AutoPreset autoPreset = new AutoPreset(getContext());
@@ -270,7 +273,12 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     }
                     return searchResults;
                 } finally {
-                    presetSearch.setEnabled(true);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            presetSearch.setEnabled(true);
+                        }
+                    });
                 }
             }
 
