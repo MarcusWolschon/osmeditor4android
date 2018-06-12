@@ -446,10 +446,10 @@ public class MapTileProviderDataBase implements MapViewConstants {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            if (DEBUGMODE)
+            if (DEBUGMODE) {
                 Log.w(MapTileFilesystemProvider.DEBUG_TAG,
                         "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-
+            }
             db.execSQL("DROP TABLE IF EXISTS " + T_FSCACHE);
 
             onCreate(db);

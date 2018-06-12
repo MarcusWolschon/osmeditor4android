@@ -265,12 +265,14 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     protected Set<OsmElement> findAppendableNodes(@NonNull Way way) {
         Set<OsmElement> result = new HashSet<>();
         for (Node node : way.getNodes()) {
-            if (way.isEndNode(node))
+            if (way.isEndNode(node)) {
                 result.add(node);
+            }
         }
         // don't allow appending to circular ways
-        if (result.size() == 1)
+        if (result.size() == 1) {
             result.clear();
+        }
         return result;
     }
 

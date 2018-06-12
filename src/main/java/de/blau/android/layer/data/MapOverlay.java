@@ -966,8 +966,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             if (addHandles) {
                 double len = Math.hypot(xDelta, yDelta);
                 if (len > minLen) {
-                    if (handles == null)
+                    if (handles == null) {
                         handles = new LongHashSet();
+                    }
                     handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + (long) Float.floatToRawIntBits(y1 + yDelta / 2));
                     xDelta = xDelta / 4;
                     yDelta = yDelta / 4;

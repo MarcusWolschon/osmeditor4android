@@ -267,8 +267,9 @@ public class TrackerService extends Service implements Exportable {
      * See {@link #startTracking()} for the public method to call when tracking should be started.
      */
     private void startInternal() {
-        if (tracking || downloading || downloadingBugs)
+        if (tracking || downloading || downloadingBugs) {
             return; // all ready running
+        }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
@@ -293,8 +294,9 @@ public class TrackerService extends Service implements Exportable {
     public void stopTracking(boolean deleteTrack) {
         Log.d(DEBUG_TAG, "Stop tracking");
         if (!tracking) {
-            if (deleteTrack)
+            if (deleteTrack) {
                 track.reset();
+            }
             return;
         }
         if (deleteTrack) {

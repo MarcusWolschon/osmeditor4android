@@ -48,15 +48,17 @@ public class WayMergingActionModeCallback extends EasyEditActionModeCallback {
         try {
             if (!logic.performMerge(main, way, (Way) element)) {
                 Snack.barWarning(main, R.string.toast_merge_tag_conflict);
-                if (way.getState() != OsmElement.STATE_DELETED)
+                if (way.getState() != OsmElement.STATE_DELETED) {
                     main.performTagEdit(way, null, false, false, false);
-                else
+                } else {
                     main.performTagEdit(element, null, false, false, false);
+                }
             } else {
-                if (way.getState() != OsmElement.STATE_DELETED)
+                if (way.getState() != OsmElement.STATE_DELETED) {
                     main.startSupportActionMode(new WaySelectionActionModeCallback(manager, way));
-                else
+                } else {
                     main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) element));
+                }
             }
         } catch (OsmIllegalOperationException e) {
             Snack.barError(main, e.getLocalizedMessage());

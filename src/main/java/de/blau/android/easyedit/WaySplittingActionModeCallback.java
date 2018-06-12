@@ -33,10 +33,11 @@ public class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         helpTopic = R.string.help_waysplitting;
         super.onCreateActionMode(mode, menu);
-        if (way.isClosed())
+        if (way.isClosed()) {
             mode.setSubtitle(R.string.actionmode_closed_way_split_1);
-        else
+        } else {
             mode.setSubtitle(R.string.menu_split);
+        }
         logic.setClickableElements(new HashSet<>(nodes));
         logic.setReturnRelations(false);
         return true;
@@ -51,9 +52,9 @@ public class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
             // TODO fix properly
             return false;
         }
-        if (way.isClosed())
+        if (way.isClosed()) {
             main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
-        else {
+        } else {
             logic.performSplit(main, way, (Node) element);
             manager.finish();
         }

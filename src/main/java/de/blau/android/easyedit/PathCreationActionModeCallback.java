@@ -167,8 +167,9 @@ public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
         if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
             Iterator<Node> nodeIterator = createdNodes.iterator();
             while (nodeIterator.hasNext()) { // remove nodes that do not exist anymore
-                if (!logic.exists(nodeIterator.next()))
+                if (!logic.exists(nodeIterator.next())) {
                     nodeIterator.remove();
+                }
             }
         } else {
             // remove existing node from list

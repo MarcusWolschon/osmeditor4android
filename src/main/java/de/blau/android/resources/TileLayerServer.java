@@ -681,8 +681,9 @@ public class TileLayerServer {
                     protected void onPostExecute(Void result) {
                     }
                 }.execute(tileUrl);
-            } else
+            } else {
                 loadInfo(tileUrl);
+            }
             return;
         } else if (type.equals("scanex")) { // hopelessly hardwired
             tileUrl = "http://irs.gis-lab.info/?layers=" + tileUrl.toLowerCase(Locale.US) + "&request=GetTile&z={zoom}&x={x}&y={y}";
@@ -1318,10 +1319,11 @@ public class TileLayerServer {
         checkMetaData();
         Collection<String> ret = new ArrayList<>();
         for (Provider p : providers) {
-            if (p.getAttribution() != null)
+            if (p.getAttribution() != null) {
                 if (p.covers(zoom, area)) {
                     ret.add(p.getAttribution());
                 }
+            }
         }
         return ret;
     }
@@ -1377,8 +1379,9 @@ public class TileLayerServer {
      */
     public void setOffset(double offsetLon, double offsetLat) {
         for (int i = 0; i < offsets.length; i++) {
-            if (offsets[i] == null)
+            if (offsets[i] == null) {
                 offsets[i] = new Offset();
+            }
             offsets[i].setDeltaLon(offsetLon);
             offsets[i].setDeltaLat(offsetLat);
         }

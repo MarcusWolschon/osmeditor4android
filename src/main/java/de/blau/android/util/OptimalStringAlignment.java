@@ -52,8 +52,9 @@ public class OptimalStringAlignment {
      */
     public static int editDistance(CharSequence s, CharSequence t, int threshold) {
 
-        if (s.length() + 1 > threadLocalBufferSize || t.length() + 1 > threadLocalBufferSize)
+        if (s.length() + 1 > threadLocalBufferSize || t.length() + 1 > threadLocalBufferSize) {
             return editDistanceWithNewBuffers(s, t, (short) threshold);
+        }
 
         short[] cost = costLocal.get();
         short[] back1 = back1Local.get();
@@ -90,8 +91,9 @@ public class OptimalStringAlignment {
         }
 
         // if lengths are different > k, then can't be within edit distance
-        if (abs(slen - tlen) > threshold)
+        if (abs(slen - tlen) > threshold) {
             return -1;
+        }
 
         if (slen > tlen) {
             // swap the two strings to consume less memory

@@ -22,8 +22,9 @@ class Tools {
      * @return the least power of two greater than or equal to the specified value.
      */
     private static long nextPowerOfTwo(long x) {
-        if (x == 0)
+        if (x == 0) {
             return 1;
+        }
         x--;
         x |= x >> 1;
         x |= x >> 2;

@@ -747,8 +747,9 @@ public class DataStyle extends DefaultHandler {
      * @return
      */
     public static DataStyle getStyle(String n) {
-        if (availableStyles == null)
+        if (availableStyles == null) {
             return null;
+        }
         return availableStyles.get(n);
     }
 
@@ -952,8 +953,9 @@ public class DataStyle extends DefaultHandler {
                 if (atts.getValue("typefacestyle") != null) {
                     tempFeatureStyle.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
                     tempFeatureStyle.getPaint().setTextSize(Density.dpToPx(ctx, Float.parseFloat(atts.getValue("textsize"))));
-                    if (atts.getValue("shadow") != null)
+                    if (atts.getValue("shadow") != null) {
                         tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
+                    }
                 }
                 if (atts.getValue("pathPattern") != null) {
                     tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue("pathPattern")));

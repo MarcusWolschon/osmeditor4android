@@ -155,10 +155,11 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
 
             for (Photo p : photos) {
                 Drawable i;
-                if (p == selected)
+                if (p == selected) {
                     i = icon_selected;
-                else
+                } else {
                     i = icon;
+                }
                 int x = (int) GeoMath.lonE7ToX(w, bb, p.getLon());
                 int y = (int) GeoMath.latE7ToY(h, w, bb, p.getLat());
                 i.setBounds(new Rect(x - w2, y - h2, x + w2, y + h2));

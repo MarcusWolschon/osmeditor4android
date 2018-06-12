@@ -580,8 +580,9 @@ public class Map extends View implements IMapView {
      * @param canvas canvas to draw on
      */
     private void paintGpsPos(final Canvas canvas) {
-        if (displayLocation == null)
+        if (displayLocation == null) {
             return;
+        }
         ViewBox viewBox = getViewBox();
         float x = GeoMath.lonE7ToX(getWidth(), viewBox, (int) (displayLocation.getLongitude() * 1E7));
         float y = GeoMath.latE7ToY(getHeight(), getWidth(), viewBox, (int) (displayLocation.getLatitude() * 1E7));

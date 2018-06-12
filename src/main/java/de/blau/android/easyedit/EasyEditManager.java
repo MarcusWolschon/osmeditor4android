@@ -155,12 +155,13 @@ public class EasyEditManager {
             if (currentActionModeCallback == null || !currentActionModeCallback.handleElementClick(element)) {
                 // No callback or didn't handle the click, perform default (select element)
                 ActionMode.Callback cb = null;
-                if (element instanceof Node)
+                if (element instanceof Node) {
                     cb = new NodeSelectionActionModeCallback(this, (Node) element);
-                if (element instanceof Way)
+                } else if (element instanceof Way) {
                     cb = new WaySelectionActionModeCallback(this, (Way) element);
-                if (element instanceof Relation)
+                } else if (element instanceof Relation) {
                     cb = new RelationSelectionActionModeCallback(this, (Relation) element);
+                }
                 if (cb != null) {
                     getMain().startSupportActionMode(cb);
                     elementToast(element);

@@ -16,8 +16,9 @@ public abstract class BugFixedAppCompatActivity extends AppCompatActivity {
      */
     @SuppressLint("NewApi")
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        if (Build.VERSION.SDK_INT >= 11)
+        if (Build.VERSION.SDK_INT >= 11) {
             return super.onCreateView(parent, name, context, attrs);
+        }
         return null;
     }
 }
