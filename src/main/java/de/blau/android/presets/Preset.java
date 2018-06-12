@@ -540,7 +540,7 @@ public class Preset implements Serializable {
      * @param ctx Android Context
      * @return the PresetIconManager instance
      */
-    public PresetIconManager getIconManager(Context ctx) {
+    private PresetIconManager getIconManager(Context ctx) {
         if (directory != null) {
             if (directory.getName().equals(AdvancedPrefDatabase.ID_DEFAULT)) {
                 return new PresetIconManager(ctx, null, null);
@@ -552,6 +552,17 @@ public class Preset implements Serializable {
         } else {
             return new PresetIconManager(ctx, null, null);
         }
+    }
+    
+    /**
+     * Set the icon manager
+     * 
+     * This is typically only used if you want to retrieve icons from a non-standard location
+     * 
+     * @param mgr the PresetIconManager to use
+     */
+    public void setIconManager(@NonNull PresetIconManager mgr) {
+        iconManager = mgr;
     }
 
     /**

@@ -58,7 +58,7 @@ public class PresetIconManager {
      * @param basePath Base path for images downloaded for this preset. May be null.
      * @param externalAssetPackage Name of external package to use for loading assets. May be null.
      */
-    public PresetIconManager(@NonNull Context context, String basePath, String externalAssetPackage) {
+    public PresetIconManager(@NonNull Context context, @Nullable String basePath, @Nullable String externalAssetPackage) {
         this.context = context;
         this.basePath = basePath;
         this.externalAssetPackage = externalAssetPackage;
@@ -159,8 +159,8 @@ public class PresetIconManager {
     /**
      * Return a dummy icon
      * 
-     * @param size
-     * @return
+     * @param size size of one side of the (square) place holder
+     * @return a transparent Drawable
      */
     public Drawable getPlaceHolder(int size) {
         Drawable placeholder = new ColorDrawable(ContextCompat.getColor(context, android.R.color.transparent));
@@ -183,7 +183,7 @@ public class PresetIconManager {
      * Loads an asset, trying first the preset-specific external asset file (if given), then if allowDefaults is set the
      * default external assets and default internal assets.
      * 
-     * @param path
+     * @param path the path to try and open
      * @param allowDefault if set to false, loading default assets will be suppressed, returning null if the external
      *            asset file does not contain this asset
      * @return An InputStream returned by {@link AssetManager#open(String)}, or null if no asset could be opened

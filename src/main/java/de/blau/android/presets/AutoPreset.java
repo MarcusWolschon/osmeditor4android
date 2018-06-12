@@ -47,7 +47,8 @@ import de.blau.android.util.collections.MultiHashMap;
 public class AutoPreset {
     private static final String DEBUG_TAG = AutoPreset.class.getSimpleName();
 
-    public static final String ICON = "auto-preset.png";
+    public static final String  ICON = "auto-preset.png";
+    private static final String PNG  = ".png";
 
     private static final MultiHashMap<String, StringWithDescription> HARDWIRED_KEYS = new MultiHashMap<>();
     static {
@@ -58,10 +59,24 @@ public class AutoPreset {
         HARDWIRED_KEYS.add(Tags.KEY_LEISURE, standardStuff);
     }
 
+    private static final String[] ICONS     = { AutoPreset.ICON, "auto-preset-amenity.png", "auto-preset-shop.png", "auto-preset-tourism.png",
+            "auto-preset-tourism.png", "auto-preset-man_made.png", "auto-preset-man_made.png", "auto-preset-emergency.png", "auto-preset-craft.png",
+            "auto-preset-office.png", "auto-preset-military.png", "auto-preset-natural.png", "auto-preset-railway.png", "auto-preset-railway.png",
+            "auto-preset-railway.png", "auto-preset-highway.png", "auto-preset-highway.png", "auto-preset-healthcare.png", "auto-preset-landuse.png",
+            "auto-preset-waterway.png" };
+    private static final String[] ICONSDEST = { AutoPreset.ICON, "amenity.png", "shop.png", "tourism.png", "leisure.png", "man_made.png", "building.png",
+            "emergency.png", "craft.png", "office.png", "military.png", "natural.png", "railway.png", "aeroway.png", "aerialway.png", "highway.png",
+            "barrier.png", "healthcare.png", "landuse.png", "waterway.png" };
+
     private final Context  context;
     private final Preset[] presets;
     private final String   language;
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context Android Context
+     */
     public AutoPreset(@NonNull Context context) {
         this.context = context;
         presets = App.getCurrentPresets(context);
@@ -81,6 +96,12 @@ public class AutoPreset {
         List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, term, -1);
 
         Preset preset = new Preset();
+        try {
+            preset.setIconManager(new PresetIconManager(context,
+                    FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Setting icon managery failed " + e.getMessage());
+        }
         PresetGroup group = preset.new PresetGroup(null, "", null);
         preset.setRootGroup(group);
         if (candidateTags != null) {
@@ -88,13 +109,17 @@ public class AutoPreset {
                 // remove results with empty values
                 // and presets that we already have
                 if (sr.getValue() != null && !"".equals(sr.getValue()) && !existsInPresets(sr)) {
-                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, sr.getKey(), sr.getValue(), language, null);
+                    String resultKey = sr.getKey();
+                    WikiPageResult wikiPage = TaginfoServer.wikiPage(context, resultKey, sr.getValue(), language, null);
                     if (wikiPage != null) {
-                        SearchResult stats = TaginfoServer.tagStats(context, sr.getKey(), sr.getValue());
+                        SearchResult stats = TaginfoServer.tagStats(context, resultKey, sr.getValue());
                         if (stats != null) {
                             Log.d(DEBUG_TAG, "Creating PresetItem for " + wikiPage);
-                            AutoPresetItem item = new AutoPresetItem(preset, group, sr.getKey() + " " + sr.getValue(), sr.getKey() + "_empty.png", null,
-                                    stats.getCount());
+                            String presetIcon = ICON;
+                            if (haveIcon(resultKey)) {
+                                presetIcon = resultKey + PNG;
+                            }
+                            AutoPresetItem item = new AutoPresetItem(preset, group, resultKey + " " + sr.getValue(), presetIcon, null, stats.getCount());
                             String title = wikiPage.getTitleOther(); // fallback
                             if (wikiPage.getTitle() != null) { // local language
                                 title = wikiPage.getTitle();
@@ -114,10 +139,10 @@ public class AutoPreset {
                             if (wikiPage.isOnRelation()) {
                                 item.setAppliesToRelation();
                             }
-                            Log.e(DEBUG_TAG, "adding " + sr.getKey() + " " + sr.getValue());
-                            item.addTag(sr.getKey(), PresetKeyType.TEXT, sr.getValue(), null);
+                            Log.e(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
+                            item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null);
 
-                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, sr.getKey(), sr.getValue(), 10);
+                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, resultKey, sr.getValue(), 10);
                             if (combinationsFromTaginfo != null) {
                                 combinationsFromTaginfo.addAll(wikiPage.getCombinations());
                             } else {
@@ -169,7 +194,7 @@ public class AutoPreset {
                             }
 
                             // finally add some hardwired keys, depending on the main key
-                            Set<StringWithDescription> hardwiredKeys = HARDWIRED_KEYS.get(sr.getKey());
+                            Set<StringWithDescription> hardwiredKeys = HARDWIRED_KEYS.get(resultKey);
                             if (hardwiredKeys != null) {
                                 for (StringWithDescription swd : hardwiredKeys) {
                                     String key = swd.getValue();
@@ -199,6 +224,21 @@ public class AutoPreset {
         elements.addAll(items);
         elements.add(0, preset.new PresetSeparator(group));
         return preset;
+    }
+
+    /**
+     * Check if we have an icon for a key
+     * 
+     * @param key the tag key value
+     * @return true if we have a specific icon
+     */
+    private boolean haveIcon(String key) {
+        for (String icon : ICONSDEST) {
+            if (icon.equals(key + PNG)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -267,23 +307,21 @@ public class AutoPreset {
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public static void readAutoPreset(Context context, Preset[] activePresets, int autopresetPosition)
+    public static void readAutoPreset(@NonNull Context context, @NonNull Preset[] activePresets, int autopresetPosition)
             throws ParserConfigurationException, SAXException, IOException, NoSuchAlgorithmException {
         String autopresetGroupName = context.getString(R.string.preset_autopreset);
 
         try {
             File autoIcon = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), AutoPreset.ICON);
             if (!autoIcon.exists()) {
-                FileUtil.copyFileFromAssets(context, "images/auto-preset.png",
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), AutoPreset.ICON);
-                FileUtil.copyFileFromAssets(context, "images/icons/png/amenity_empty.png",
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), "amenity_empty.png");
-                FileUtil.copyFileFromAssets(context, "images/icons/png/shop_empty.png",
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), "shop_empty.png");
-                FileUtil.copyFileFromAssets(context, "images/icons/png/tourism_empty.png",
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), "tourism_empty.png");
-                FileUtil.copyFileFromAssets(context, "images/icons/png/man_made_empty.png",
-                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), "man_made_empty.png");
+                for (int i = 0; i < ICONS.length; i++) {
+                    try {
+                        FileUtil.copyFileFromAssets(context, "images/" + ICONS[i],
+                                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), ICONSDEST[i]);
+                    } catch (IOException e) {
+                        Log.e(DEBUG_TAG, "Icon not found " + ICONS[i] + " " + e.getMessage());
+                    }
+                }
             }
         } catch (IOException e) {
             // don't fail because of an exception here
