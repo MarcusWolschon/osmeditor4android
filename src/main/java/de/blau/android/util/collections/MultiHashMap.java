@@ -113,8 +113,9 @@ public class MultiHashMap<K, V> implements Serializable {
      */
     public boolean removeItem(K key, V item) {
         Set<V> values = map.get(key);
-        if (values != null)
+        if (values != null) {
             return values.remove(item);
+        }
         return false;
     }
 
@@ -135,8 +136,9 @@ public class MultiHashMap<K, V> implements Serializable {
      */
     public Set<V> get(K key) {
         Set<V> values = map.get(key);
-        if (values == null)
+        if (values == null) {
             return Collections.emptySet();
+        }
         return Collections.unmodifiableSet(values);
     }
 

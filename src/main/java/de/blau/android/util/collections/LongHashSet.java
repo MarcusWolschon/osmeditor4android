@@ -121,8 +121,7 @@ public class LongHashSet implements Serializable {
         int ptr = (int) ((Tools.phiMix(value) & m_mask));
         long e = m_data[ptr];
 
-        if (e == FREE_KEY) // end of chain already
-        {
+        if (e == FREE_KEY) { // end of chain already
             m_data[ptr] = value;
             if (m_size >= m_threshold) {
                 rehash(m_data.length * 2); // size is set inside
@@ -178,8 +177,7 @@ public class LongHashSet implements Serializable {
         long e = m_data[ptr];
         if (e == FREE_KEY) {
             return false; // end of chain already
-        } else if (e == value) // we check FREE and REMOVED prior to this call
-        {
+        } else if (e == value) { // we check FREE and REMOVED prior to this call
             --m_size;
             shiftKeys(ptr);
             return true;
@@ -210,8 +208,9 @@ public class LongHashSet implements Serializable {
                     return last;
                 }
                 slot = (int) ((Tools.phiMix(k) & m_mask));// calculate the starting slot for the current key
-                if (last <= pos ? last >= slot || slot > pos : last >= slot && slot > pos)
+                if (last <= pos ? last >= slot || slot > pos : last >= slot && slot > pos) {
                     break;
+                }
                 pos = (int) ((pos + 1) & m_mask); // go to the next entry
             }
             data[last] = k;

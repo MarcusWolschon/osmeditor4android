@@ -157,8 +157,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
 
         OsmElement e = m_data[ptr];
 
-        if (e == FREE_KEY) // end of chain already
-        {
+        if (e == FREE_KEY) { // end of chain already
             m_data[ptr] = (OsmElement) value;
             if (m_size >= m_threshold) {
                 rehash(m_data.length * 2); // size is set inside

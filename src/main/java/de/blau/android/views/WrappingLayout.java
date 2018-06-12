@@ -153,8 +153,9 @@ public class WrappingLayout extends LinearLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (w != oldw)
+        if (w != oldw) {
             triggerRelayout();
+        }
     }
 
     @Override
@@ -162,8 +163,9 @@ public class WrappingLayout extends LinearLayout {
         if (needsRelayout) {
             performRelayout();
         } else {
-            if (!relayoutInProgress)
+            if (!relayoutInProgress) {
                 super.onLayout(changed, l, t, r, b);
+            }
         }
     }
 
@@ -171,8 +173,9 @@ public class WrappingLayout extends LinearLayout {
      * (Re)does the line wrapping if necessary
      */
     private void performRelayout() {
-        if (!needsRelayout)
+        if (!needsRelayout) {
             return;
+        }
 
         needsRelayout = false;
         relayoutInProgress = true;
@@ -283,7 +286,8 @@ public class WrappingLayout extends LinearLayout {
 
             for (View child : children) {
                 int childWidth = getViewWidth(child);
-                if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square children views
+                if (newWidth > childWidth && child instanceof TextView) { // TODO this will fail with non square
+                                                                          // children views
                     ((TextView) child).setWidth(newWidth);
                     ((TextView) child).setHeight(newWidth);
                 }

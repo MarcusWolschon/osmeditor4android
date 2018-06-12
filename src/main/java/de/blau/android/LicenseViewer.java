@@ -85,8 +85,9 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
             do {
                 char[] buf = new char[4096];
                 read = reader.read(buf);
-                if (read > 0)
+                if (read > 0) {
                     builder.append(buf, 0, read);
+                }
             } while (read > 0);
         } catch (Exception e) {
             builder.append("Error while loading file: " + e.getMessage());

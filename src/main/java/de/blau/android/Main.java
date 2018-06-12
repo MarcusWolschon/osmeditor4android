@@ -1830,10 +1830,10 @@ public class Main extends FullScreenAppCompatActivity
             }
             return true;
 
-        case R.id.menu_transfer_export: {
+        case R.id.menu_transfer_export:
             SavingHelper.asyncExport(this, delegator);
             return true;
-        }
+
         case R.id.menu_transfer_read_file:
             descheduleAutoLock();
             // showFileChooser(READ_OSM_FILE_SELECT_CODE);

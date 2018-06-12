@@ -121,8 +121,9 @@ public class IssueAlert {
             long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
 
             int index = (int) (bearing - 22.5);
-            if (index < 0)
+            if (index < 0) {
                 index += 360;
+            }
             index = index / 45;
 
             message.append(context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n");
@@ -250,8 +251,9 @@ public class IssueAlert {
             long bearing = GeoMath.bearing(location.getLongitude(), location.getLatitude(), eLon, eLat);
 
             int index = (int) (bearing - 22.5);
-            if (index < 0)
+            if (index < 0) {
                 index += 360;
+            }
             index = index / 45;
 
             message = context.getString(R.string.alert_distance_direction, distance, context.getString(bearings[index])) + "\n";
