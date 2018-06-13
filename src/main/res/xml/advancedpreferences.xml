@@ -102,13 +102,6 @@
             android:key="@string/config_forceContextMenu_key"
             android:summary="@string/config_forceContextMenu_summary"
             android:title="@string/config_forceContextMenu_title" />
-        <de.blau.android.prefs.MultiSelectListPreference
-            android:key="@string/config_addressTags_key"
-            android:title="@string/config_address_tags"
-            android:summary="@string/config_address_tags_summary"
-            android:entries="@array/address_tags_entries"
-            android:entryValues="@array/address_tags_values"
-            android:defaultValue="@array/address_tags_defaults" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_enableNameSuggestions_key"
