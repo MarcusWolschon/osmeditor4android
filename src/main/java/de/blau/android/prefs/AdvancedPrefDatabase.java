@@ -151,6 +151,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
 
     /**
      * Creates the default API entry using the old-style username/password
+     * 
+     * @param db an instance of the pref database
      */
     private synchronized void migrateAPI(SQLiteDatabase db) {
         Log.d(LOGTAG, "Migrating API");
@@ -183,6 +185,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Set the currently active API
+     * 
+     * @param db an instance of the pref database
+     * @param id the ID of the API to be set as active
+     */
     private synchronized void selectAPI(SQLiteDatabase db, String id) {
         Log.d("AdvancedPrefDB", "Selecting API with ID: " + id);
         if (getAPIs(db, id).length == 0) {
@@ -552,6 +560,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * Sets the active value of the given preset
      * 
      * @param id the ID of the preset to update
+     * @param active state to set, active if true
      */
     public synchronized void setPresetState(String id, boolean active) {
         Log.d(LOGTAG, "Setting pref " + id + " active to " + active);
