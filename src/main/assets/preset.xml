@@ -11853,6 +11853,21 @@
             <reference ref="name_wikipedia" />
             <reference ref="population_postcode_website" />
         </item> <!-- City -->
+        <item name="Municipality" icon="icons/png/poi_place_city.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:place=city"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:place=city"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:place=city"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:place=city"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:place=city"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:place=city"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:place=city"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:place=city"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:place=city" />
+            <space />
+            <key key="place" value="municipality" />
+            <reference ref="name_wikipedia" />
+            <reference ref="population_postcode_website" />
+        </item> <!-- Municipality -->
         <item name="Town" icon="icons/png/poi_place_town.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:place=town"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:place=town"
