@@ -8,13 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.support.annotation.Nullable;
+
 /**
  * Key and value constants for tags that are used in the code
  * 
  * @author simon
  *
  */
-public class Tags {
+public final class Tags {
     // Karlsruher schema
     public static final String KEY_ADDR_BASE        = "addr:";
     public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -133,7 +135,14 @@ public class Tags {
     public static final String KEY_MAXSPEED = "maxspeed";
     public static final String KEY_MINSPEED = "minspeed";
     public static final String MPH = " mph";
-    public static boolean isSpeedKey(final String key) {
+
+    /**
+     * Check if the key has something to do with a vehicle speed
+     * 
+     * @param key the key to check
+     * @return true is a speed related key
+     */
+    public static boolean isSpeedKey(@Nullable final String key) {
         return key!=null && (key.startsWith(KEY_MAXSPEED)||key.startsWith(KEY_MINSPEED));
     }
 
@@ -189,6 +198,13 @@ public class Tags {
     private static final String KEY_CONTACT_WEBSITE = "contact:website";
     public static final String HTTP_PREFIX = "http://";
     public static final String HTTPS_PREFIX = "https://";
+
+    /**
+     * Check if this is a key that expects an URL
+     * 
+     * @param key the key to check
+     * @return true if it expects an URL
+     */
     public static boolean isWebsiteKey(final String key) {
         return Tags.KEY_WEBSITE.equals(key) || Tags.KEY_CONTACT_WEBSITE.equals(key);
     }
@@ -250,7 +266,7 @@ public class Tags {
     public static final Set<String> IMPORTANT_TAGS = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
                     KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC,
-                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
+                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
     /** ways that we might want to render differently */
     public static final Set<String> WAY_TAGS       = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BUILDING, KEY_RAILWAY, KEY_LEISURE, KEY_LANDUSE, KEY_WATERWAY, KEY_NATURAL, KEY_ADDR_INTERPOLATION,
