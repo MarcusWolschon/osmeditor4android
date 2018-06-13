@@ -156,12 +156,13 @@ public class Layers extends ImmersiveDialogFragment {
                                 if (geojsonLayer != null) {
                                     try {
                                         geojsonLayer.resetStyling();
-                                        geojsonLayer.loadGeoJsonFile(activity, fileUri);
-                                        SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
-                                        geojsonLayer.invalidate();
-                                        LayerStyle.showDialog(activity, geojsonLayer.getIndex());
-                                        tl.removeAllViews();
-                                        addRows(activity);
+                                        if (geojsonLayer.loadGeoJsonFile(activity, fileUri)) {
+                                            SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                                            geojsonLayer.invalidate();
+                                            LayerStyle.showDialog(activity, geojsonLayer.getIndex());
+                                            tl.removeAllViews();
+                                            addRows(activity);
+                                        }
                                     } catch (IOException e) {
                                         // display a toast?
                                     }

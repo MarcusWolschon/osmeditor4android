@@ -458,9 +458,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * 
      * @param ctx Android Context
      * @param uri an URI for the file
+     * @return true if successful
      * @throws IOException
      */
-    public void loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
+    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull Uri uri) throws IOException {
         InputStream is = null;
         if (uri.getScheme().equals("file")) {
             is = new FileInputStream(new File(uri.getPath()));
@@ -469,7 +470,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             is = cr.openInputStream(uri);
         }
         name = uri.getLastPathSegment();
-        loadGeoJsonFile(ctx, is);
+        return loadGeoJsonFile(ctx, is);
     }
 
     /**
@@ -477,9 +478,11 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * 
      * @param ctx Android Context
      * @param is the InputStream to read from
+     * @return true if successful
      * @throws IOException
      */
-    public void loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is) throws IOException {
+    public boolean loadGeoJsonFile(@NonNull Context ctx, @NonNull InputStream is) throws IOException {
+        boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -514,21 +517,26 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 }
             }
             setVisible(true); // enable too
+            successful = true;
         } catch (com.google.gson.JsonSyntaxException jsex) {
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
+            Log.e(DEBUG_TAG, "Syntax error " + jsex.getMessage());
+            jsex.printStackTrace();
         } catch (Exception e) {
             // never crash
             data = null;
             Snack.toastTopError(ctx, e.getLocalizedMessage());
+            Log.e(DEBUG_TAG, "Exception " + e.getMessage());
         }
         saved = false;
         // re-enable drawing
         setVisible(true);
+        return successful;
     }
 
     /**
-     * @param features
+     * @param features a List of Feature
      */
     private void loadFeatures(List<Feature> features) {
         for (Feature f : features) {
