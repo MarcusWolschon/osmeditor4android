@@ -16,7 +16,7 @@ import android.support.annotation.Nullable;
  * @author simon
  *
  */
-public class Tags {
+public final class Tags {
     // Karlsruher schema
     public static final String KEY_ADDR_BASE        = "addr:";
     public static final String KEY_ADDR_HOUSENUMBER = "addr:housenumber";
@@ -199,6 +199,12 @@ public class Tags {
     public static final String  HTTP_PREFIX         = "http://";
     public static final String  HTTPS_PREFIX        = "https://";
 
+    /**
+     * Check if this is a key that expects an URL
+     * 
+     * @param key the key to check
+     * @return true if it expects an URL
+     */
     public static boolean isWebsiteKey(final String key) {
         return Tags.KEY_WEBSITE.equals(key) || Tags.KEY_CONTACT_WEBSITE.equals(key);
     }
@@ -260,7 +266,7 @@ public class Tags {
     public static final Set<String> IMPORTANT_TAGS = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
                     KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC,
-                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
+                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
     /** ways that we might want to render differently */
     public static final Set<String> WAY_TAGS       = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BUILDING, KEY_RAILWAY, KEY_LEISURE, KEY_LANDUSE, KEY_WATERWAY, KEY_NATURAL, KEY_ADDR_INTERPOLATION,
