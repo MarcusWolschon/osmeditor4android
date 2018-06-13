@@ -193,8 +193,9 @@ public class ElementInfo extends DialogFragment {
             tl.setColumnStretchable(2, true);
 
             tl.addView(TableLayoutUtils.createRow(activity, R.string.type, e.getName(), tp));
-            Spanned id =e.getOsmId() > 0 ?  Util.fromHtml("<a href=\"" + Urls.OSM + "/" + e.getName() + "/" + e.getOsmId() + "\">#" + e.getOsmId() + "</a>") : Util.fromHtml("#" + e.getOsmId());
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.id,  id, true, tp));
+            Spanned id = e.getOsmId() > 0 ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + e.getName() + "/" + e.getOsmId() + "\">#" + e.getOsmId() + "</a>")
+                    : Util.fromHtml("#" + e.getOsmId());
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.id, id, true, tp));
             tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(e.getOsmVersion()), tp));
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
@@ -287,29 +288,30 @@ public class ElementInfo extends DialogFragment {
                 for (String k : keys) {
                     String currentValue = currentTags.get(k);
                     String oldValue = null;
-                    boolean oldIsEmpty = false;
+                    boolean oldIsEmpty = true;
+                    if (currentValue == null) {
+                        currentValue = "";
+                    }
                     if (compare) {
-                        if (currentValue == null) {
-                            currentValue = "";
-                        }
                         oldValue = ue.getTags().get(k);
                         if (oldValue == null) {
                             oldValue = "";
-                            oldIsEmpty = true;
+                        } else {
+                            oldIsEmpty = false;
                         }
                     }
                     // special handling for some stuff
                     if (k.equals(Tags.KEY_WIKIPEDIA)) {
                         Log.d(DEBUG_TAG, Urls.WIKIPEDIA + encodeHttpPath(currentValue));
-                        tl.addView(TableLayoutUtils.createRow(activity, k, oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : "",
+                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIPEDIA, oldValue) : (compare ? "" : null),
                                 !deleted ? encodeUrl(Urls.WIKIPEDIA, currentValue) : null, true, tp));
                     } else if (k.equals(Tags.KEY_WIKIDATA)) {
-                        tl.addView(TableLayoutUtils.createRow(activity, k, oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : "",
+                        tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(Urls.WIKIDATA, oldValue) : (compare ? "" : null),
                                 !deleted ? encodeUrl(Urls.WIKIDATA, currentValue) : null, true, tp));
                     } else if (Tags.isWebsiteKey(k)) {
                         try {
-                            tl.addView(TableLayoutUtils.createRow(activity, k, oldIsEmpty ? encodeUrl(oldValue) : "", !deleted ? encodeUrl(currentValue) : null,
-                                    true, tp));
+                            tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : (compare ? "" : null),
+                                    !deleted ? encodeUrl(currentValue) : null, true, tp));
                         } catch (MalformedURLException | URISyntaxException e1) {
                             Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + e);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
@@ -440,6 +442,8 @@ public class ElementInfo extends DialogFragment {
      * 
      * @param value url to use
      * @return clickable text
+     * @throws MalformedURLException for broken URLs
+     * @throws URISyntaxException for broken URLs
      */
     private Spanned encodeUrl(@NonNull String value) throws MalformedURLException, URISyntaxException {
         URL url = new URL(value);
