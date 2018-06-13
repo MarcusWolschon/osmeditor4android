@@ -12,7 +12,7 @@ public interface Urls {
     String DEFAULT_SANDBOX_API       = "https://master.apis.dev.openstreetmap.org/api/0.6/";
     String DEFAULT_SANDBOX_API_NAME  = "OpenStreetMap sandbox";
 
-    String DEFAULT_NOMINATIM_SERVER = "httsp://nominatim.openstreetmap.org/";
+    String DEFAULT_NOMINATIM_SERVER = "https://nominatim.openstreetmap.org/";
     String DEFAULT_PHOTON_SERVER    = "https://photon.komoot.de/";
 
     String DEFAULT_OSMOSE_SERVER = "https://osmose.openstreetmap.fr/";
