@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!--Mode names-->
+  <string name="mode_easy">Нормален</string>
+  <string name="mode_tag_only">Само тагове</string>
+  <string name="mode_indoor">На закрито</string>
+  <string name="mode_correct">C-мод</string>
+  <!--Dialogs-->
+  <string name="transfer_download_current_dialog_title">Внимание!</string>
+  <string name="transfer_download_current_dialog_message">Направихте някои промени. Искате ли да ги качите вместо да ги отхвърлите?</string>
+  <string name="transfer_download_current_upload">Качване</string>
+  <string name="transfer_download_current_download">Отхвърляне &amp; сваляне</string>
+  <string name="transfer_download_current_back">Назад (Не прави нищо)</string>
+  <string name="upload_problem_title">Проблем с качването</string>
+  <string name="upload_problem_message">Някои от данните или всички данни не бяха качени. Опитайте да ги качите отново по-късно, ако това е бил само временен проблем.</string>
+  <string name="bad_request_message">API-то отговори с грешка, моля запишете данните и докладвайте проблема:\n\n</string>
+  <string name="upload_conflict_title">Конфликт при качване</string>
+  <string name="upload_conflict_message_version">%1$s \nима локална версия %2$d \nи на сървъра%3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \nима локална версия %2$d \nи беше изтрит от сървъра</string>
+  <string name="upload_conflict_message_referential">%1$s \nбеше изтрит локално, \nно има препратки към сървъра </string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nвече беше изтрит от сървъра</string>
+  <string name="use_local_version">Използвайте локална версия</string>
+  <string name="use_server_version">Използвайте версията на сървъра</string>
+  <string name="no_login_data_title">Автентикацията неуспешна</string>
+  <string name="no_login_data_message">Ако използвате OAuth това най-вероятно е бъг, моля изпратете доклад за проблема. Ако използвате потребителско име и парола (не е препоръително), моля проверете дали са правилно въведени.</string>
+  <string name="no_connection_title">Няма връзка със сървъра</string>
+  <string name="no_connection_message">Няма връзка с OSM сървъра. Моля проверете Интернет връзката си или опитайте отново по-късно.</string>
+  <string name="ssl_handshake_failed">Няма връзка с OSM сървъра, защото https свързването беше неуспешно. Опитайте да превключите на некриптирана връзка в настройките на API-то.</string>
+  <string name="wrong_login_data_title">Автентикацията неуспешна</string>
+  <string name="wrong_login_data_message">Ако използвате OAuth трябва да повторите автентикацията и след това да опитате отново. Ако използвате потребителско име и парола (не е препоръително), моля проверете дали са правилно въведени.</string>
+  <string name="wrong_login_data_re_authenticate">Повторна автентикация</string>
+  <string name="forbidden_login_title">Входът забранен</string>
+  <string name="go_to_openstreetmap">Отидете на openstreetmap.org</string>
+  <string name="data_conflict_title">Конфликт с версията</string>
+  <string name="data_conflict_message">Данните, които се опитвате да свалите, съдържат данни, които са в конфликт с вашите редакции. Моля опитайте първо да качите редакциите си преди да опитате отново.</string>
+  <string name="invalid_bounding_box_title">Невалиден ограждащ правоъгълник</string>
+  <string name="invalid_bounding_box_message">Избраният район не е съобразен с ограниченията на API-то, моля изберете друг.</string>
+  <string name="bounding_box_too_large_title">Районът за сваляне е твърде голям.</string>
+  <string name="bounding_box_too_large_message">Районът, който се опитвате да свалите е твърде голям или съдържа твърде много данни.\n\nМоля приближете още и опитайте отново.</string>
+  <string name="api_offline_title">API-то е офлайн.</string>
+  <string name="api_offline_message">API-то в момента е офлайн и не позволява достъп и запис на данни.</string>
+  <string name="out_of_memory_title">Недостатъчна памет</string>
+  <string name="out_of_memory_message">Vespucci свърши паметта докато зареждаше заявените данни. Моля рестартирайте и опитайте да заредите по-малък район.</string>
+  <!--element information dialog-->
+  <!---->
+  <!--hidden object warning dialog-->
+  <!--debug dialog-->
+  <!--JS console dialog-->
+  <!--Validator dialogs-->
+  <!--Empty relation dialog-->
+  <!--GPX way point dialog-->
+  <!--Custom imagery dialogs-->
+  <!--Layer style dialog-->
+  <!--Layer dialog-->
+  <!--Undo - Redo dialog-->
+  <!--BoxPicker-->
+  <!--NumberPiker-->
+  <!--Toaster-->
+  <!--Some generic labels/buttons-->
+  <!--Dialog for back button-->
+  <!--Strings in PorpertyEditor-->
+  <!--Strings in Box/LocationPicker-->
+  <!--Menu-->
+  <!---->
+  <!--Background alignment-->
+  <!---->
+  <!--element action mode menu-->
+  <!--Text should be as short as possible-->
+  <!--EasyEdit action mode titles-->
+  <!--EasyEdit action mode sub-titles-->
+  <!--Preferences-->
+  <!--these are no longer on the prefs page, but are used as menu entries-->
+  <!--Advanced preferences-->
+  <!--User Interface Settings-->
+  <!--Data and Editing Settings-->
+  <!--Location Settings-->
+  <!--Server Settings-->
+  <!--Layer download and storage-->
+  <!--Miscellaneous-->
+  <!--Experimental-->
+  <!---->
+  <!--preset downloader messages-->
+  <!--changes-->
+  <!--url handler activity-->
+  <!--common terms-->
+  <!---->
+  <!--"default" is a reserved Java keyword...-->
+  <!--element description-->
+  <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <!--ACRA-->
+  <!--Exceptions messages-->
+  <!--Notifications-->
+  <!--Misc relation related stuff-->
+  <!--time and distance-->
+  <!--Help system-->
+  <!--Arrays-->
+</resources>

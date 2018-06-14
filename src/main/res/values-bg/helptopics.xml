@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_introduction">Въведение</string>
+    <string name="help_main">Главен изглед на картата</string>
+    <string name="help_addrelationmember">Избрана релация</string>
+    <string name="help_multiselect">Избор на много обекти</string>
+    <string name="help_longclick">Създаване на нови обекти</string>
+    <string name="help_nodeselection">Избран възел</string>
+    <string name="help_pathcreation">Създаване на нови обекти</string>
+    <string name="help_relationselection">Избрана релация</string>
+    <string name="help_wayselection">Избран път</string>
+    <string name="help_aligningbackgroundiamgery">Подравняване на фоновото изображение</string>
+    <string name="help_propertyeditor">Редактор на свойствата</string>
+    <string name="help_preferences">Предпочитания</string>
+    <string name="help_advanced_preferences">Предпочитания за напреднали</string>
+    <string name="help_presets">Настройки</string>
+    <string name="help_conflictresolution">Разрешаване на конфликти</string>
+    <string name="help_gpssources">GPS източници</string>
+    <string name="help_keyboard">Клавиатура</string>
+    <string name="help_tagfilter">Филтър на таговете</string>
+    <string name="help_presetfilter">Филтър на настройките</string>
+    <string name="help_opening_hours">Работно време</string>
+    <string name="help_upgrade">Бележки към версията</string>
+    <string name="help_upgrade_102">10.2 Бележки към версията</string>
+    <string name="help_upgrade_101">10.1 Бележки към версията</string>
+    <string name="help_upgrade_100">10.0 Бележки към версията</string>
+    <string name="help_upgrade_099">0.9.9 Бележки към версията</string>
+    <string name="help_upgrade_098">0.9.8 Бележки към версията</string>
+    <string name="help_upgrade_097">0.9.7 Бележки към версията</string>
+    <string name="help_upgrade_096">0.9.6 Бележки към версията</string>
+    <string name="help_privacy">Поверителност</string>
+    <array translatable="false" name="help_tableofcontents">
+        <item>@string/help_introduction</item>
+        <item>@string/help_main</item>
+        <item>@string/help_propertyeditor</item>
+        <item>@string/help_nodeselection</item>
+    	<item>@string/help_wayselection</item>
+    	<item>@string/help_relationselection</item>
+    	<item>@string/help_multiselect</item>
+    	<item>@string/help_longclick</item>
+        <item>@string/help_preferences</item>
+        <item>@string/help_advanced_preferences</item>
+    	<item>@string/help_presets</item>	
+    	<item>@string/help_aligningbackgroundiamgery</item>
+    	<item>@string/help_conflictresolution</item>
+    	<item>@string/help_gpssources</item>
+    	<item>@string/help_keyboard</item>
+    	<item>@string/help_tagfilter</item>
+    	<item>@string/help_presetfilter</item>
+    	<item>@string/help_opening_hours</item>
+    	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_102</item>
+        <item>@string/help_upgrade_101</item>
+    	<item>@string/help_upgrade_100</item>
+    	<item>@string/help_upgrade_099</item>
+    	<item>@string/help_upgrade_098</item>
+    	<item>@string/help_upgrade_097</item>
+    	<item>@string/help_upgrade_096</item>
+        <item>@string/help_privacy</item>
+    </array>
+<!--    The following array needs to mirror the positions in the above one -->
+    <array translatable="false" name="help_files">
+        <item>Introduction</item>
+        <item>Main map display</item>
+        <item>Property editor</item>
+        <item>Node selected</item>
+    	<item>Way selected</item>
+    	<item>Relation selected</item>
+    	<item>Multiselect</item>
+    	<item>Creating new objects</item>
+        <item>Preferences</item>
+        <item>Advanced preferences</item>
+    	<item>Presets</item>	
+    	<item>Aligning background imagery</item>
+    	<item>Conflict resolution</item>
+    	<item>GPS sources</item>
+    	<item>Keyboard</item>
+    	<item>Tag filter</item>
+    	<item>Preset filter</item>
+    	<item>Opening hours</item>
+        <item>11.0.0 Release notes</item>
+        <item>10.2.0 Release notes</item>
+    	<item>10.1.0 Release notes</item>
+    	<item>10.0.0 Release notes</item>
+    	<item>0.9.9 Release notes</item>
+    	<item>0.9.8 Release notes</item>
+    	<item>0.9.7 Release notes</item>
+    	<item>0.9.6 Release notes</item>
+        <item>Privacy</item>
+    </array>
+</resources>
