@@ -357,7 +357,7 @@ public class TileLayerServer {
     private static final int PREFERENCE_BEST    = 10;
 
     public static final int DEFAULT_MIN_ZOOM     = 0;
-    public static final int DEFAULT_MAX_ZOOM     = 18;
+    public static final int DEFAULT_MAX_ZOOM     = 22;
     public static final int DEFAULT_MAX_OVERZOOM = 4;
 
     public static final int DEFAULT_TILE_SIZE = 256;
