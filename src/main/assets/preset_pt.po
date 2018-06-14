@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-08 12:45+0200\n"
-"PO-Revision-Date: 2018-06-08 10:47+0000\n"
-"Last-Translator: ViriatoLusitano <marcosoliveira.2405@gmail.com>\n"
+"PO-Revision-Date: 2018-06-14 15:03+0000\n"
+"Last-Translator: j acc\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4779,7 +4779,7 @@ msgstr "Velocidade máx. por faixa na direção inversa da linha"
 
 #: master_preset.xml:5560(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
 msgid "Maze"
-msgstr ""
+msgstr "Labirinto"
 
 #: master_preset.xml:12479(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"

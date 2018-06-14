@@ -11649,13 +11649,13 @@
               ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:payment"
               ru.href="http://wiki.openstreetmap.org/wiki/RU:Key:payment" />
         <space />
-        <combo key="payment:cash" text="Cash" values="yes,no" match="keyvalue" />
+        <combo key="payment:cash" text="Cash" values="yes,no" display_values="Yes,No" match="keyvalue" />
         <checkgroup columns="4">
-            <check key="payment:coins" text="Coins" match="keyvalue" />
-            <check key="payment:notes" text="Notes" text_context="payment" match="keyvalue" />
+            <check key="payment:coins" text="Coins" match="keyvalue"  disable_off="true" />
+            <check key="payment:notes" text="Notes" text_context="payment" match="keyvalue"  disable_off="true"/>
         </checkgroup>
         <space />
-        <combo key="payment:debit_cards" text="Debit cards" values="no" match="keyvalue" />
+        <combo key="payment:debit_cards" text="Debit cards" values="yes,no" display_values="Yes,No" match="keyvalue" />
         <checkgroup columns="4">
             <check key="payment:bankaxess" text="BankAxess" match="keyvalue" disable_off="true" />
             <check key="payment:bancomat" text="Bancomat" match="keyvalue" disable_off="true" />
@@ -11666,7 +11666,7 @@
             <check key="payment:visa_electron" text="Visa Electron" match="keyvalue" disable_off="true" />
         </checkgroup>
         <space />
-        <combo key="payment:credit_cards" text="Credit cards" values="no" match="keyvalue" />
+        <combo key="payment:credit_cards" text="Credit cards" values="yes,no" display_values="Yes,No" match="keyvalue" />
         <checkgroup columns="4">
             <check key="payment:american_express" text="American Express" match="keyvalue" disable_off="true" />
             <check key="payment:diners_club" text="Diners Club" match="keyvalue" disable_off="true" />
@@ -11676,7 +11676,7 @@
             <check key="payment:visa" text="Visa" match="keyvalue" disable_off="true" />
         </checkgroup>
         <space />
-        <combo key="payment:electronic_purses" text="Electronic purses and Charge cards" values="no" match="keyvalue" />
+        <combo key="payment:electronic_purses" text="Electronic purses and Charge cards" values="yes,no" display_values="Yes,No" match="keyvalue" />
         <checkgroup columns="4">
             <check key="payment:ep_avant" text="Avant (fi)" match="keyvalue" disable_off="true" />
             <check key="payment:ep_cash" text="Cash (ch)" match="keyvalue" disable_off="true" />
@@ -11692,7 +11692,7 @@
             <check key="payment:ep_quick" text="Quick (au)" match="keyvalue" disable_off="true" />
         </checkgroup>
         <space />
-        <combo key="payment:cryptocurrencies" text="Cryptocurrencies" values="no"  match="keyvalue" />
+        <combo key="payment:cryptocurrencies" text="Cryptocurrencies" values="yes,no" display_values="Yes,No"  match="keyvalue" />
         <checkgroup columns="4">
             <check key="payment:bitcoin" text="Bitcoin" match="keyvalue" disable_off="true" />
             <check key="payment:litecoin" text="Litecoin" match="keyvalue" disable_off="true" />
