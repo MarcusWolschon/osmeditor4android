@@ -53,7 +53,7 @@ import de.blau.android.util.ThemeUtils;
 public class HelpViewer extends BugFixedAppCompatActivity {
 
     private static final String HTML_SUFFIX = ".html";
-    private static String DEBUG_TAG = HelpViewer.class.getName();
+    private static String       DEBUG_TAG   = HelpViewer.class.getName();
 
     class HelpItem {
         boolean displayLanguage = false;
@@ -77,7 +77,14 @@ public class HelpViewer extends BugFixedAppCompatActivity {
     private DrawerLayout           mDrawerLayout;
     private ListView               mDrawerList;
     private ArrayAdapter<HelpItem> tocAdapter;
+    private boolean                rtl = false;
 
+    /**
+     * Start this Activity
+     * 
+     * @param context Android Context
+     * @param topic string reseource id of the help topic
+     */
     public static void start(@NonNull Context context, @StringRes int topic) {
         Intent intent = new Intent(context, HelpViewer.class);
         intent.putExtra(TOPIC, topic);
@@ -91,7 +98,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customHelpViewer_Light);
         }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Configuration config = getResources().getConfiguration();
+            rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        }
         super.onCreate(savedInstanceState);
         int topicId = R.string.help_introduction;
         Serializable s = getIntent().getSerializableExtra(TOPIC);
@@ -260,7 +270,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         if (item != null) {
             boolean canGoForward = helpView.canGoForward();
             item.setEnabled(canGoForward);
-            item.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_forward));
+            item.setIcon(ThemeUtils.getResIdFromAttribute(this, rtl ? R.attr.menu_back : R.attr.menu_forward));
             if (!canGoForward) {
                 item.getIcon().mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
             }
