@@ -3613,8 +3613,18 @@ public class Preset implements Serializable {
      * 
      * @return the List top-level object key for this preset
      */
+    @NonNull
     public List<String> getObjectKeys() {
         return objectKeys;
+    }
+    
+    /**
+     * Add more object keys to the preset
+     * 
+     * @param moreKeys a List of additional keys to add
+     */
+    public void addObjectKeys(@NonNull List<String> moreKeys) {
+        objectKeys.addAll(moreKeys);
     }
 
     /**
@@ -3624,6 +3634,7 @@ public class Preset implements Serializable {
      * @param p the PresetItem
      * @return an Intent
      */
+    @NonNull
     public static Intent getMapFeaturesIntent(Context ctx, PresetItem p) {
         Uri uri = null;
         if (p != null) {
