@@ -2,7 +2,7 @@
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
     shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version"
-    object_keys="attraction,traffic_sign,traffic_sign:forward,traffic_sign:backward" >
+    object_keys="attraction,public_transport,traffic_sign,traffic_sign:forward,traffic_sign:backward" >
 <!--
     Icons have been derived from mainly from
   
