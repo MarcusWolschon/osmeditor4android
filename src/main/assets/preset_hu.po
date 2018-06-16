@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-08 12:45+0200\n"
-"PO-Revision-Date: 2018-06-08 10:47+0000\n"
-"Last-Translator: Zoltan Erdos <airdace@gmail.com>\n"
+"PO-Revision-Date: 2018-06-15 07:50+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "…más lehetséges közlekedési módok"
 
 #: master_preset.xml:1553(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
-msgstr ""
+msgstr "1 – Tömör"
 
 #: master_preset.xml:200(list_entry:short_description|value:1)
 msgid "1 table"
@@ -89,7 +89,7 @@ msgstr "10°"
 
 #: master_preset.xml:1554(list_entry:display_value|group:Ways|preset:Track|value:grade2)
 msgid "2 - Mostly solid"
-msgstr ""
+msgstr "2 – Többnyire tömör"
 
 #: master_preset.xml:201(list_entry:short_description|value:2)
 msgid "2 tables"
@@ -97,7 +97,7 @@ msgstr "2 asztal"
 
 #: master_preset.xml:1555(list_entry:display_value|group:Ways|preset:Track|value:grade3)
 msgid "3 - Mix hard and soft"
-msgstr ""
+msgstr "3 – Vegyesen kemény és puha"
 
 #: master_preset.xml:202(list_entry:short_description|value:3)
 msgid "3 tables"
@@ -109,7 +109,7 @@ msgstr "3D"
 
 #: master_preset.xml:1556(list_entry:display_value|group:Ways|preset:Track|value:grade4)
 msgid "4 - Mostly soft"
-msgstr ""
+msgstr "4 – Többnyire puha"
 
 #: master_preset.xml:203(list_entry:short_description|value:4)
 msgid "4 tables"
@@ -117,7 +117,7 @@ msgstr "4 asztal"
 
 #: master_preset.xml:1557(list_entry:display_value|group:Ways|preset:Track|value:grade5)
 msgid "5 - Soft"
-msgstr ""
+msgstr "5 – Puha"
 
 #: master_preset.xml:204(list_entry:short_description|value:5)
 msgid "5 tables"
@@ -386,7 +386,7 @@ msgstr "Mandulafa"
 msgid ""
 "Almost always an unpaved track prominently with soil/sand/grass, but with "
 "some hard materials, or compressed materials"
-msgstr ""
+msgstr "Szinte mindig burkolat nélküli útpálya, elsődlegesen föld/homok/fű, de némi kemény vagy tömörített anyaggal."
 
 #: master_preset.xml:777(list_entry:display_value|value:along)
 #: master_preset.xml:825(list_entry:display_value|value:along)
@@ -644,7 +644,7 @@ msgstr "Kapcsolódó utca"
 
 #: master_preset.xml:13118(list_entry:display_value|group:Relations|preset:Relations|value:associatedStreet)
 msgid "Associated street"
-msgstr ""
+msgstr "Kapcsolódó utva"
 
 #: master_preset.xml:14439(item:name|group:Offices|preset:Association)
 msgid "Association"
@@ -1284,7 +1284,7 @@ msgstr "Épület"
 
 #: master_preset.xml:13125(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
-msgstr ""
+msgstr "Épület (3D)"
 
 #: master_preset.xml:2566(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
@@ -1898,7 +1898,7 @@ msgstr "Beton"
 
 #: master_preset.xml:2829(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
-msgstr ""
+msgstr "Feltételes és közvetlen max. sebesség"
 
 #: master_preset.xml:2786(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 msgid ""
@@ -2120,7 +2120,7 @@ msgstr "Vasúti átjáró típusa"
 
 #: master_preset.xml:1816(combo:text|group:Waypoints|preset:Traffic_Signal|key:crossing_ref)
 msgid "Crossing type (UK)"
-msgstr ""
+msgstr "Vasúti átjáró típusa (Egyesült Királyság)"
 
 #: master_preset.xml:1884(combo:text|group:Waypoints|preset:Pedestrian_Crossing|key:crossing_ref)
 msgid "Crossing type name (UK)"
@@ -2354,7 +2354,7 @@ msgstr "Útszám"
 
 #: master_preset.xml:13120(list_entry:display_value|group:Relations|preset:Relations|value:destination_sign)
 msgid "Destination sign"
-msgstr ""
+msgstr "Útirányjelző tábla"
 
 #: master_preset.xml:13538(text:text|preset:Destination_Sign|key:destination)
 msgid "Destination written on sign (w/o distance)"
@@ -2442,11 +2442,11 @@ msgstr "Irány fokban"
 #: master_preset.xml:2076(combo:text|preset:City_Limit|key:direction)
 #: master_preset.xml:2090(combo:text|preset:Speed_Limit_Sign|key:direction)
 msgid "Direction on way"
-msgstr ""
+msgstr "Iránya a vonalon"
 
 #: master_preset.xml:40(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr ""
+msgstr "Föld"
 
 #: master_preset.xml:648(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -2753,7 +2753,7 @@ msgstr "Töltés"
 
 #: master_preset.xml:6348(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
-msgstr "Nagykövetség"
+msgstr "Külképviselet (nagykövetség)"
 
 #: master_preset.xml:13224(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:6769(group:name|group:Emergency)
@@ -3154,7 +3154,7 @@ msgstr "Testápolás"
 #: master_preset.xml:1839(combo:text|group:Waypoints|preset:Stop|key:direction)
 #: master_preset.xml:1851(combo:text|group:Waypoints|preset:Give_Way|key:direction)
 msgid "For traffic direction"
-msgstr ""
+msgstr "Forgalom iránya"
 
 #: master_preset.xml:1410(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1421(combo:text|group:Streets|preset:Ford|key:ford)
@@ -3445,7 +3445,7 @@ msgstr "Áru"
 
 #: master_preset.xml:5443(list_entry:display_value|group:Leisure|preset:Animals|value:goose)
 msgid "Goose"
-msgstr ""
+msgstr "Lúd"
 
 #: master_preset.xml:5444(list_entry:display_value|group:Leisure|preset:Animals|value:gorilla)
 msgid "Gorilla"
@@ -3942,7 +3942,7 @@ msgstr "Beltéri"
 
 #: master_preset.xml:8511(item:name|group:Buildings|preset:Industrial_building)
 msgid "Industrial building"
-msgstr ""
+msgstr "Ipari épület"
 
 #: master_preset.xml:9368(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -4467,7 +4467,7 @@ msgstr "Lakatos"
 
 #: master_preset.xml:5559(list_entry:display_value|group:Leisure|preset:Rides|value:log_flume)
 msgid "Log flume"
-msgstr ""
+msgstr "Vízi hullámvasút"
 
 #: master_preset.xml:14579(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -4752,7 +4752,7 @@ msgstr "Sebességkorlátozás nehéz tehergépkocsiknak (km/h)"
 
 #: master_preset.xml:49(text:long_text|key:maxspeed)
 msgid "Maximum speed in km/h if no units specified"
-msgstr ""
+msgstr "A sebességkorlátozás km/h-ban (ha más mértékegység nincs megadva)"
 
 #: master_preset.xml:2839(text:long_text|group:Access_Restrictions|preset:Cond._&_direct._max_speed|key:maxspeed:forward)
 msgid "Maximum speed in way direction specified in km/h"
@@ -6134,7 +6134,7 @@ msgstr "Parkolóbejárat"
 
 #: master_preset.xml:3847(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr "Parkológhely"
+msgstr "Parkolóhely"
 
 #: master_preset.xml:1296(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking aisle"
@@ -6827,7 +6827,7 @@ msgstr "Tömegközlekedési"
 
 #: master_preset.xml:1496(item:name|group:Lane_attributes|preset:Public_transport_lanes)
 msgid "Public transport lanes"
-msgstr ""
+msgstr "Tömegközlekedési sávok"
 
 #: master_preset.xml:4443(item:name|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy))
 msgid "Public transport route (Legacy)"
@@ -7176,7 +7176,7 @@ msgstr "Reiki"
 
 #: master_preset.xml:13111(combo:text|group:Relations|preset:Relations|key:type)
 msgid "Relation type"
-msgstr ""
+msgstr "Kapcsolat típusa"
 
 #: master_preset.xml:13102(group:name|group:Relations)
 #: master_preset.xml:13103(item:name|group:Relations|preset:Relations)
@@ -7425,7 +7425,7 @@ msgstr "Útvonalhálózat"
 
 #: master_preset.xml:13114(list_entry:display_value|group:Relations|preset:Relations|value:route_master)
 msgid "Route master"
-msgstr ""
+msgstr "Tömegközlekedési útvonalhálózat (route master)"
 
 #: master_preset.xml:4249(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
 #: master_preset.xml:4269(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:route)
@@ -8476,7 +8476,7 @@ msgstr "T6 – veszélyes alpesi út mászással"
 msgid ""
 "TAlmost always an unpaved track lacking hard materials, uncompacted, with "
 "surface of soil/sand/grass"
-msgstr ""
+msgstr "Szinte mindig burkolatlan, tömörítetlen földút szilárd anyag nélkül. Felülete talaj, homok vagy fű"
 
 #: master_preset.xml:8313(item:name|group:Sport_(Ball)|preset:Table_Tennis/Ping-Pong)
 msgid "Table Tennis/Ping-Pong"
@@ -8863,11 +8863,11 @@ msgstr "Közlekedési tükör"
 
 #: master_preset.xml:2103(item:name|preset:Traffic_Sign_Backward)
 msgid "Traffic Sign Backward"
-msgstr ""
+msgstr "Jelzőtábla vonaliránnyal ellentétesen"
 
 #: master_preset.xml:2092(item:name|preset:Traffic_Sign_Forward)
 msgid "Traffic Sign Forward"
-msgstr ""
+msgstr "Jelzőtábla vonalirányban"
 
 #: master_preset.xml:1802(item:name|group:Waypoints|preset:Traffic_Signal)
 msgid "Traffic Signal"
@@ -9008,7 +9008,7 @@ msgstr "Kanyarodás korlátozása"
 
 #: master_preset.xml:13115(list_entry:display_value|group:Relations|preset:Relations|value:restriction)
 msgid "Turn restriction"
-msgstr ""
+msgstr "Bekanyarodási tilalom"
 
 #: master_preset.xml:14094(item:name|group:Crafts|preset:Turner)
 msgid "Turner"
@@ -9213,13 +9213,13 @@ msgstr "Egyes országokban névvel rendelkező közúti csomópontokra használj
 
 #: master_preset.xml:1553(list_entry:short_description|group:Ways|preset:Track|value:grade1)
 msgid "Usually a paved or heavily compacted hardcore surface"
-msgstr ""
+msgstr "Általában burkolt vagy erősen tömörített, szilárd felületű"
 
 #: master_preset.xml:1554(list_entry:short_description|group:Ways|preset:Track|value:grade2)
 msgid ""
 "Usually an unpaved track with surface of gravel mixed with a varying amount "
 "of sand, silt, and clay"
-msgstr ""
+msgstr "Általában burkolatlan földút. Felszíne zúzott kő, változó mennyiségű homokkal, kőzetliszttel és agyaggal keverve"
 
 #: master_preset.xml:14660(item:name|group:Offices|preset:Vacant)
 msgid "Vacant"
@@ -10278,7 +10278,7 @@ msgstr "Betonlapok"
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr ""
+msgstr "Föld"
 
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
@@ -10358,7 +10358,7 @@ msgstr "Fa"
 #: master_preset.xml:39(combo:display_values|key:leisure)
 msgctxt "riding"
 msgid "Horse riding"
-msgstr ""
+msgstr "Lovaglás"
 
 #: master_preset.xml:39(combo:display_values|key:leisure)
 msgctxt "riding"
@@ -11606,7 +11606,7 @@ msgstr "Ipari épület"
 #: master_preset.xml:8528(key:text|group:Buildings|preset:Industrial_building|key:building)
 msgctxt "building"
 msgid "Industrial building"
-msgstr ""
+msgstr "Ipari épület"
 
 #: master_preset.xml:8440(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -12839,7 +12839,7 @@ msgstr "Garázsok"
 #: master_preset.xml:12760(item:name|group:Land_use|preset:Industrial_area)
 msgctxt "Landuse"
 msgid "Industrial area"
-msgstr ""
+msgstr "Ipari terület"
 
 #: master_preset.xml:12804(item:name|group:Land_use|preset:Military)
 msgctxt "Landuse"

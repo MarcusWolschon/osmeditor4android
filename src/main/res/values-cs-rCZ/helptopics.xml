@@ -11,6 +11,8 @@
     <string name="help_wayselection">Cesta vybrána</string>
     <string name="help_aligningbackgroundiamgery">Zarovnávání snímků pozadí</string>
     <string name="help_propertyeditor">Editor vlastností</string>
+    <string name="help_preferences">Nastavení</string>
+    <string name="help_advanced_preferences">Rozšířená nastavení</string>
     <string name="help_presets">Předvolby</string>
     <string name="help_conflictresolution">Řešení konfliktů</string>
     <string name="help_gpssources">Zdroje GPS</string>
@@ -19,12 +21,14 @@
     <string name="help_presetfilter">Filtr předvoleb</string>
     <string name="help_opening_hours">Otevírací hodiny</string>
     <string name="help_upgrade">Poznámky k vydání</string>
+    <string name="help_upgrade_102">10.2 Poznámky k vydání</string>
     <string name="help_upgrade_101">10.1 Poznámky k vydání</string>
     <string name="help_upgrade_100">10.0 Poznámky k vydání</string>
     <string name="help_upgrade_099">0.9.9 Poznámky k vydání</string>
     <string name="help_upgrade_098">0.9.8 Poznámky k vydání</string>
     <string name="help_upgrade_097">0.9.7 Poznámky k vydání</string>
     <string name="help_upgrade_096">0.9.6 Poznámky k vydání</string>
+    <string name="help_privacy">Soukromí</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

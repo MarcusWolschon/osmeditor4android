@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-08 12:45+0200\n"
-"PO-Revision-Date: 2018-06-08 10:47+0000\n"
-"Last-Translator: Yuichiro Nishimura <nissy_yu@mac.com>\n"
+"PO-Revision-Date: 2018-06-16 01:15+0000\n"
+"Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid ""
 "(Please only use this tag if more detailed mapping using busbars and bays is"
 " impossible!)"
-msgstr ""
+msgstr "(バスバーやベイを用いたマッピングができない場合にのみこのタグを使用してください!)"
 
 #: master_preset.xml:6931(label:text|group:Emergency|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
@@ -59,11 +59,11 @@ msgstr "-10°"
 #: master_preset.xml:5239(label:text|group:Tourism|preset:Map)
 #: master_preset.xml:5279(label:text|group:Tourism|preset:Guidepost)
 msgid "... other transportation modes possible"
-msgstr ""
+msgstr "... その他の移動手段の場合もあります"
 
 #: master_preset.xml:1553(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
-msgstr ""
+msgstr "1 - 硬い"
 
 #: master_preset.xml:200(list_entry:short_description|value:1)
 msgid "1 table"
@@ -87,7 +87,7 @@ msgstr "10°"
 
 #: master_preset.xml:1554(list_entry:display_value|group:Ways|preset:Track|value:grade2)
 msgid "2 - Mostly solid"
-msgstr ""
+msgstr "2 - やや硬い"
 
 #: master_preset.xml:201(list_entry:short_description|value:2)
 msgid "2 tables"
@@ -188,7 +188,7 @@ msgstr ""
 
 #: master_preset.xml:12173(label:text|group:Nature|preset:Tree)
 msgid "A single tree."
-msgstr ""
+msgstr "単一の木"
 
 #: master_preset.xml:12096(label:text|group:Geography|preset:Cliff)
 msgid ""
@@ -2999,7 +2999,7 @@ msgstr ""
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "消化器"
 
 #: master_preset.xml:6821(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"

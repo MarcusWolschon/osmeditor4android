@@ -178,6 +178,9 @@
   <string name="layer_style_color">Barva</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Fotografie</string>
+  <string name="layer_tasks">Poznámky a chyby</string>
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
@@ -454,6 +457,7 @@
   <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci snímků</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
   <!---->
+  <string name="menu_privacy">Soukromí</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnat pozadí</string>
   <string name="menu_tools_background_align_reset">Reset</string>
@@ -669,6 +673,9 @@
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>
   <string name="changes_created">\"%1$s\" vytvořeno</string>
+  <string name="confirm_upload_title">Nahrát změny</string>
+  <string name="confirm_one_upload_text_1">Nahrát následující změnu?</string>
+  <string name="confirm_multiple_upload_text_1">Nahrát následujících %1$d změn?</string>
   <string name="confirm_upload_edits_page">Změny</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>

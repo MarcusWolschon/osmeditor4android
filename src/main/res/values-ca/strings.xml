@@ -25,6 +25,7 @@
   <string name="go_to_openstreetmap">Aneu a openstreetmap.org</string>
   <string name="data_conflict_title">Conflicte de versions</string>
   <string name="invalid_bounding_box_message">L\'àrea seleccionada no s\'ajusta a les restriccions de l\'API; trieu una altra.</string>
+  <string name="bounding_box_too_large_title">Àrea de descàrrega massa gran</string>
   <string name="api_offline_title">API Fora de línia</string>
   <string name="api_offline_message">L\'API està actualment fora de línia i no permet recuperar o escriure dades.</string>
   <string name="out_of_memory_title">Sense memòria</string>
@@ -35,7 +36,7 @@
   <string name="invalid_data_read_title">Dades invàlides</string>
   <string name="invalid_data_read_message">El fitxer conté dades no vàlides. Si creieu que el que intentava fer és correcte, envieu un informe d\'error.</string>
   <string name="file_write_failed_title">Falla l\'escriptura de l\'arxiu</string>
-  <string name="file_write_failed_message">No es pot escriure a arxiu seleccionat.</string>
+  <string name="file_write_failed_message">No es pot escriure a l\'arxiu seleccionat.</string>
   <string name="welcome_title">Us donem la benvinguda!</string>
   <string name="welcome_message">Gràcies per utilitzar Vespucci.\n\*n
 Per començar necessites saber dues coses:\n\*n*
@@ -75,6 +76,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="openstreetbug_edit_closed">Tancat</string>
   <string name="openstreetbug_not_downloaded">no descarregat</string>
   <string name="openstreetbug_last_updated">Darrera actualització</string>
+  <string name="openstreetbug_unknown_task_type">Tipus de tasca desconegut</string>
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
@@ -136,11 +138,14 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="coverage_left">Esquerra</string>
   <string name="coverage_right">Dreta</string>
   <!--Layer style dialog-->
+  <string name="layer_style_label">Etiqueta</string>
   <!--Layer dialog-->
+  <string name="layer_grid">Graella</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--Toaster-->
+  <string name="toast_name_empty">El nom no pot estar buit</string>
   <string name="toast_no_changes">No heu canviat res encara...</string>
   <string name="toast_unsaved_changes">Tens canvis sense desar, si us plau, puja\'ls primer</string>
   <string name="clear_anyway">Voleu buidar-ho igualment?</string>
@@ -185,6 +190,8 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="overwrite">Sobreescriure</string>
   <string name="share">Compartir</string>
   <string name="share_position">Compartir posició</string>
+  <string name="min">Mín.</string>
+  <string name="max">Màx.</string>
   <!--Dialog for back button-->
   <string name="exit_title">Realment voleu sortir?</string>
   <string name="exit_text">Esteu segur de voler sortir?</string>

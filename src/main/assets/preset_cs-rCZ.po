@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-08 12:45+0200\n"
-"PO-Revision-Date: 2018-06-08 10:47+0000\n"
-"Last-Translator: Jan Vršovský <vrs@email.cz>\n"
+"PO-Revision-Date: 2018-06-16 16:29+0000\n"
+"Last-Translator: Vladan Kudláč <vladankudlac@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6323,7 +6323,7 @@ msgstr ""
 
 #: master_preset.xml:11628(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Fotografie"
 
 #: master_preset.xml:2810(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
@@ -8564,7 +8564,7 @@ msgstr ""
 
 #: master_preset.xml:7218(item:name|group:Facilities|preset:Telephone)
 msgid "Telephone"
-msgstr ""
+msgstr "Telefon"
 
 #: master_preset.xml:7234(check:text|group:Facilities|preset:Telephone|key:payment:telephone_cards)
 msgid "Telephone cards"
