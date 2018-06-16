@@ -522,7 +522,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             data = null;
             Snack.toastTopError(ctx, jsex.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Syntax error " + jsex.getMessage());
-            jsex.printStackTrace();
         } catch (Exception e) {
             // never crash
             data = null;
