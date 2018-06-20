@@ -24,8 +24,9 @@ import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Util;
 
 /**
- * Filter plus UI for indoor tagging see https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging NOTE: the relevant
- * ways should be processed before nodes
+ * Filter plus UI for indoor tagging see https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging
+ * 
+ * NOTE: the relevant ways should be processed before nodes
  * 
  * @author simon
  *
@@ -43,16 +44,29 @@ public class IndoorFilter extends Filter {
     private int     level    = 0;
     private boolean inverted = false;
 
+    /**
+     * Construct a new instance of IndoorFilter
+     */
+    public IndoorFilter() {
+        super();
+    }
+
+    /**
+     * Check if the filter is currently inverted
+     * 
+     * @return true if inverted
+     */
     public boolean isInverted() {
         return inverted;
     }
 
+    /**
+     * Set if the filter is inverted or not
+     * 
+     * @param inverted if true the filter should be applied inverted
+     */
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
-    }
-
-    public IndoorFilter() {
-        super();
     }
 
     @Override
@@ -243,8 +257,11 @@ public class IndoorFilter extends Filter {
     }
 
     /**
-     * @param b
-     * @param level
+     * Check if a object is a building or building:part, has min_level and max_level keys and level is between the min
+     * and max
+     * 
+     * @param b the OsmElement
+     * @param level our current level
      * @return true if the building/building:part has a level between (inclusive) min/max
      */
     private static boolean buildingHasLevel(OsmElement b, int level) {
@@ -272,7 +289,7 @@ public class IndoorFilter extends Filter {
     /**
      * Set level used in indoor mode
      * 
-     * @param level
+     * @param level the level to set
      */
     public void setLevel(int level) {
         if (level != this.level) {
@@ -351,6 +368,11 @@ public class IndoorFilter extends Filter {
         setupControls(false);
     }
 
+    /**
+     * Setup the up and down buttons and the level display
+     * 
+     * @param toggle if true toggle between inverted and normal filter mode
+     */
     private void setupControls(boolean toggle) {
         if (toggle) {
             clear();
