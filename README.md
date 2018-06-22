@@ -47,11 +47,11 @@ our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 
 ## Getting started with contributing
 
-Here is how you can start developing. 
+Here is how you can start developing.
 
-Currently building is supported with eclipse, android studio and gradle, see [build instructions](BUILDING.md). 
+Currently building is supported with eclipse, android studio and gradle, see [build instructions](BUILDING.md).
 
-Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds. 
+Important note: if you are building your own version, particularly if you are making it available to third parties, please change app_version and app_name_version in res/values/appname.xml to something that makes it clear that this is not an "official" release and clearly identifies your builds.
 
 ## License
 
