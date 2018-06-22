@@ -12,7 +12,7 @@ This is the first [OpenStreetMap][openstreetmap] editor for
 ## Contributing
 
 If you're interested in this project, you're welcome to help improving it. We
-need UI designers, translators, and of course Java programmers. Join now! Join
+need UI designers, [translators](TRANSLATIONS.md), and of course Java programmers. Join now! Join
 our [mailing list][mailinglist] or write to marcus@wolschon.biz.
 
 
