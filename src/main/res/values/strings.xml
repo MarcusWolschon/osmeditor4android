@@ -261,7 +261,7 @@
     <string name="toast_oauth_timeout">Timeout during authentication handshake, please retry.</string>
     <string name="toast_oauth_communication">Communication error during authentication handshake, please retry.</string>
     <string name="toast_oauth_handshake_failed">OAuth handshake failed: %1$s</string>
-    <string name="toast_oauth_login_with_google_not_possible">Login with google is currently not supported</string>
+    <string name="toast_oauth_login_with_google_not_possible">Login with Google is currently not supported</string>
     <string name="toast_timeout">Timeout with server</string>
     <string name="coordinates_out_of_range">Longitude must be within -180°/+180°, latitude within -85°/85°</string>
     <string name="toast_nothing_found">Nothing found</string>
