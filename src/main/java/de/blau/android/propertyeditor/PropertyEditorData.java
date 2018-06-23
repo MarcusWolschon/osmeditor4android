@@ -93,7 +93,7 @@ public class PropertyEditorData implements Serializable {
     }
 
     /**
-     * Deserialize an array 
+     * Deserialize an array
      * 
      * @param s the Serializable
      * @return an array of the elements

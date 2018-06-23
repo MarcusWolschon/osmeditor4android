@@ -169,7 +169,7 @@ public class TileLayerServer {
              * Construct a new instance from zooms and BoundingBox
              * 
              * @param zoomMin minimum zoom
-             * @param zoomMax  maximum zoom
+             * @param zoomMax maximum zoom
              * @param bbox the BoundingBox or null
              */
             public CoverageArea(int zoomMin, int zoomMax, @Nullable BoundingBox bbox) {

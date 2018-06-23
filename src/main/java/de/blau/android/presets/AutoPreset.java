@@ -201,7 +201,7 @@ public class AutoPreset {
                                     String description = swd.getDescription();
                                     item.addTag(false, key, PresetKeyType.TEXT, Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
                                     if (description != null) {
-                                        item.addHint(key, description);
+                                        item.setHint(key, description);
                                     }
                                 }
                             }

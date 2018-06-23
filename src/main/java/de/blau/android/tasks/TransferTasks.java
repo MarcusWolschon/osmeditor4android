@@ -367,7 +367,7 @@ public class TransferTasks {
                         // upload successful
                         bug.setChanged(false);
                         if (activity instanceof Main) {
-                            ((Main)activity).invalidateMap();
+                            ((Main) activity).invalidateMap();
                         }
                         if (postUploadHandler != null) {
                             postUploadHandler.onSuccess();
@@ -401,7 +401,8 @@ public class TransferTasks {
             }
             try {
                 return ct.get().getError() == ErrorCodes.OK;
-            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
+            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                    // question
                 Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
                 ct.cancel(true);
                 return false;

@@ -176,7 +176,7 @@ public class OAuthHelper {
      * Queries the service provider for an access token.
      * 
      * @param verifier OAuth 1.0a verification code
-     * @return the access token 
+     * @return the access token
      * @throws OAuthMessageSignerException
      * @throws OAuthNotAuthorizedException
      * @throws OAuthExpectationFailedException

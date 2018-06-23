@@ -30,7 +30,12 @@ public class RecentPresetsFragment extends BaseFragment {
     private boolean                  enabled = true;
 
     /**
+     * Create a new RecentPresetsFragement instance
+     * 
+     * @param element the current OsmElement
+     * @return a RecentPresetsFragement instance
      */
+    @NonNull
     public static RecentPresetsFragment newInstance(OsmElement element) {
         RecentPresetsFragment f = new RecentPresetsFragment();
 
@@ -121,9 +126,8 @@ public class RecentPresetsFragment extends BaseFragment {
                         return false;
                     }
                 };
-                // TODO this should really be a call of a static method,
                 // all MRUs get added to this view
-                v = presets[0].getRecentPresetView(getActivity(), presets, presetClickHandler, filterType);
+                v = Preset.getRecentPresetView(getActivity(), presets, presetClickHandler, filterType);
 
                 v.setId(R.id.recentPresets);
             } else {

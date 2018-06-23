@@ -116,14 +116,14 @@ public class TaskFragment extends ImmersiveDialogFragment {
             builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     saveBug(v, bug);
-                    (new AsyncTask<Void,Void,Void> () {
+                    (new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... arg0) {
                             if (bug instanceof Note) {
                                 Note n = (Note) bug;
                                 NoteComment nc = n.getLastComment();
-                                TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null, n.getState() == State.CLOSED,
-                                        false, null);
+                                TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
+                                        n.getState() == State.CLOSED, false, null);
                             } else if (bug instanceof OsmoseBug) {
                                 TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug) bug, false, null);
                             }

@@ -78,10 +78,10 @@ public class PresetFilter extends Filter {
             }
             Log.d(DEBUG_TAG, "Setting preset to " + element.getName() + " parent " + element.getParent());
             Preset filterPreset = new Preset(Arrays.asList(new Preset.PresetElement[] { element }));
-            for (Preset p:presets) {
+            for (Preset p : presets) {
                 filterPreset.addObjectKeys(p.getObjectKeys());
             }
-            preset = new Preset[] {filterPreset};
+            preset = new Preset[] { filterPreset };
         }
         if (update != null) {
             update.execute();

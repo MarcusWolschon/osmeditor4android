@@ -727,7 +727,7 @@ public class Logic {
      * Recursively add parent relations, every relation will only be added once
      * 
      * @param e the OsmElement to get the parent Relations of
-     * @param relations the List of Relations 
+     * @param relations the List of Relations
      */
     private void getParentRelations(@NonNull OsmElement e, @NonNull List<Relation> relations) {
         if (e.getParentRelations() != null) {
@@ -739,7 +739,7 @@ public class Logic {
             }
         }
     }
-    
+
     /**
      * Returns all ways within way tolerance from the given coordinates, and their distances from them.
      * 

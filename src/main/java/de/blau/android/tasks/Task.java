@@ -116,7 +116,7 @@ public abstract class Task implements Serializable, BoundedObject {
     public void open() {
         state = State.OPEN;
     }
-    
+
     /**
      * Check if the bug is open
      * 

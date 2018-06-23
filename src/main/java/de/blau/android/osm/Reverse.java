@@ -35,11 +35,11 @@ final class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
-    private static Set<String>directionDependentKeys = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY,Tags.KEY_INCLINE,Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
-    private static Set<String>directionDependentValues = Collections
-            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT,Tags.VALUE_LEFT,Tags.VALUE_FORWARD,Tags.VALUE_BACKWARD)));
-    
+    private static Set<String> directionDependentKeys   = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY, Tags.KEY_INCLINE, Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
+    private static Set<String> directionDependentValues = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT, Tags.VALUE_LEFT, Tags.VALUE_FORWARD, Tags.VALUE_BACKWARD)));
+
     /**
      * Private constructor
      */
@@ -65,10 +65,9 @@ final class Reverse {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if ((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
-                        || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX)
-                        || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX) || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX)
-                        || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX) || key.contains(LEFT_INFIX)
-                        || directionDependentValues.contains(value)) {
+                        || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX) || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX)
+                        || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX) || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX)
+                        || key.contains(LEFT_INFIX) || directionDependentValues.contains(value)) {
                     if (result == null) {
                         result = new TreeMap<>();
                     }
@@ -130,7 +129,7 @@ final class Reverse {
     }
 
     /**
-     * Reverse a cardinal direction 
+     * Reverse a cardinal direction
      * 
      * @param value the value to reverse
      * @return the reversed value

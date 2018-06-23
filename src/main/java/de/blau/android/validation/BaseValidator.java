@@ -228,7 +228,7 @@ public class BaseValidator implements Validator {
      * @param ctx Android Context
      * @param w the Way
      * @param highway the value of the highway tag
-     * @return a List containing the problem descriptions 
+     * @return a List containing the problem descriptions
      */
     List<String> describeProblemHighway(Context ctx, Way w, String highway) {
         List<String> wayProblems = new ArrayList<>();

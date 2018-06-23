@@ -46,6 +46,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 
@@ -65,7 +66,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private static final Object                   actionModeCallbackLock           = new Object();
 
     /**
+     * Create a new RelationMembershipFragment instance 
+     * 
+     * @param parents a HashMap containing the parent Relations
+     * @return a new RelationMembershipFragment instance
      */
+    @NonNull
     public static RelationMembershipFragment newInstance(HashMap<Long, String> parents) {
         RelationMembershipFragment f = new RelationMembershipFragment();
 
@@ -258,9 +264,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             selected = (CheckBox) findViewById(R.id.parent_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editRole);
@@ -277,8 +283,9 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
                         roleEdit.setAdapter(getMembershipRoleAutocompleteAdapter());
-                        if (/* running && */roleEdit.getText().length() == 0)
+                        if (/* running && */roleEdit.getText().length() == 0) {
                             roleEdit.showDropDown();
+                        }
                     }
                 }
             });
@@ -303,26 +310,28 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                         roleEdit.setText(((StringWithDescription) o).getValue());
                     } else if (o instanceof String) {
                         roleEdit.setText((String) o);
+                    } else if (o instanceof PresetRole) {
+                        roleEdit.setText(((PresetRole) o).getRole());
                     }
                 }
             });
         }
 
-        ArrayAdapter<StringWithDescription> getMembershipRoleAutocompleteAdapter() {
+        ArrayAdapter<PresetRole> getMembershipRoleAutocompleteAdapter() {
             // Use a set to prevent duplicate keys appearing
-            Set<StringWithDescription> roles = new HashSet<>();
+            Set<PresetRole> roles = new HashSet<>();
             Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
             if (r != null && owner.presets != null) {
                 PresetItem relationPreset = Preset.findBestMatch(owner.presets, r.getTags());
                 if (relationPreset != null) {
-                    List<StringWithDescription> presetRoles = relationPreset.getRoles();
+                    List<PresetRole> presetRoles = relationPreset.getRoles();
                     if (presetRoles != null) {
                         roles.addAll(presetRoles);
                     }
                 }
             }
 
-            List<StringWithDescription> result = new ArrayList<>(roles);
+            List<PresetRole> result = new ArrayList<>(roles);
             Collections.sort(result);
 
             return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);

@@ -180,7 +180,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         case MENUITEM_ELEMENT_INFO:
             main.descheduleAutoLock();
             // as we want to display relation membership changes too
-            // we can't rely on the element status 
+            // we can't rely on the element status
             UndoElement ue = App.getDelegator().getUndo().getOriginal(element);
             if (ue != null) {
                 ElementInfo.showDialog(main, ue, element);

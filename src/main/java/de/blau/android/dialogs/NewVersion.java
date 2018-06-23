@@ -57,7 +57,7 @@ public class NewVersion extends DialogFragment {
 
     /**
      */
-    private static  NewVersion newInstance() {
+    private static NewVersion newInstance() {
         NewVersion f = new NewVersion();
 
         f.setShowsDialog(true);

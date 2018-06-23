@@ -46,6 +46,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
@@ -74,7 +75,13 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     /**
+     * Create a new RelationMembersFragment instance
+     * 
+     * @param id the id of the Relation
+     * @param members a List of the members
+     * @return a new RelationMembersFragment instance
      */
+    @NonNull
     public static RelationMembersFragment newInstance(long id, ArrayList<RelationMemberDescription> members) {
         RelationMembersFragment f = new RelationMembersFragment();
 
@@ -231,10 +238,10 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     /**
      * Determine how the current member is connected to the previous and following one
      * 
-     * @param previous
-     * @param current
-     * @param next
-     * @return
+     * @param previousRow the previous row
+     * @param currentRow the current row
+     * @param nextRow the next row
+     * @return a Connected value describing the connection
      */
     private Connected getConnection(RelationMemberRow previousRow, RelationMemberRow currentRow, RelationMemberRow nextRow) {
         Connected result = Connected.NOT;
@@ -423,11 +430,14 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     /**
      * Insert a new row with a relation member
      * 
+     * @param membersVerticalLayout the Layout holding the rowa
      * @param pos (currently unused)
      * @param rmd information on the relation member
      * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at
      *            beginning.
-     * @returns The new RelationMemberRow.
+     * @param c connection type
+     * @param select if true select this row
+     * @return The new RelationMemberRow.
      */
     RelationMemberRow insertNewMember(final LinearLayout membersVerticalLayout, final String pos, final RelationMemberDescription rmd, final int position,
             final Connected c, boolean select) {
@@ -511,9 +521,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             selected = (CheckBox) findViewById(R.id.member_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editMemberRole);
@@ -529,8 +539,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
                         roleEdit.setAdapter(getMemberRoleAutocompleteAdapter());
-                        if (/* running && */ roleEdit.getText().length() == 0)
+                        if (/* running && */ roleEdit.getText().length() == 0) {
                             roleEdit.showDropDown();
+                        }
                     }
                 }
             });
@@ -549,12 +560,14 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             roleEdit.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.d(DEBUG_TAG, "onItemClicked value");
+                    Log.d(DEBUG_TAG, "onItemClicked role");
                     Object o = parent.getItemAtPosition(position);
                     if (o instanceof StringWithDescription) {
                         roleEdit.setText(((StringWithDescription) o).getValue());
                     } else if (o instanceof String) {
                         roleEdit.setText((String) o);
+                    } else if (o instanceof PresetRole) {
+                        roleEdit.setText(((PresetRole) o).getRole());
                     }
                 }
             });
@@ -563,9 +576,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         /**
          * Sets the per row values for a relation member
          * 
-         * @param pos not used
+         * @param ctx Android Context (not used)
+         * @param pos position (not used)
+         * @param id Relation id
          * @param rmd the information on the relation member
-         * @return elationMemberRow object for convenience
+         * @param c Connected status (not used)
+         * @return RelationMemberRow object for convenience
          */
         public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd, Connected c) {
 
@@ -738,9 +754,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             selected.setEnabled(true);
         }
 
-        ArrayAdapter<StringWithDescription> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
+        ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
             // Use a set to prevent duplicate keys appearing
-            Set<StringWithDescription> roles = new HashSet<>();
+            Set<PresetRole> roles = new HashSet<>();
 
             List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
@@ -752,7 +768,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 }
             }
 
-            List<StringWithDescription> result = new ArrayList<>(roles);
+            List<PresetRole> result = new ArrayList<>(roles);
             Collections.sort(result);
             return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
         }
