@@ -67,11 +67,14 @@
         <interval length="2.0" />
     </dash>
 </feature>
+<feature name="way-leisure-pitch" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff39AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+<feature name="way-leisure-swimming_pool" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
 <feature name="way-natural" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-waterway" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-natural-water" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-natural-cliff" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff555555" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_right" />
 <feature name="way-natural-coastline" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_left" />
+<feature name="way-man_made" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-man_made-embankment" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff996633" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_right" />
 <feature name="way-building" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
 <feature name="way-building:part" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
