@@ -41,7 +41,7 @@
   <string name="invalid_data_received_title">Datos no válidos recibidos</string>
   <string name="invalid_data_received_message">Vespucci recibió datos no válidos desde el servidor. Si cree que lo que estaba intentado hacer es correcto, envíe un informe de error.</string>
   <string name="invalid_data_read_title">Imformación inválida</string>
-  <string name="invalid_data_read_message">El archivo contenía información inválida. Si cree que lo que estaba intentando es correcto, por favor archive un informe de fallo.</string>
+  <string name="invalid_data_read_message">El archivo contenía información inválida. Si cree que lo que estaba intentando es correcto, por favor envie un informe de fallo.</string>
   <string name="file_write_failed_title">Fallo en la escritura de archivos</string>
   <string name="file_write_failed_message">No se pudo escribir en el archivo seleccionado.</string>
   <string name="welcome_title">¡Bienvenido!</string>
@@ -97,6 +97,7 @@
   <string name="imagery_offset_zoom">Acercamiento</string>
   <string name="imagery_offset_distance">Distancia</string>
   <string name="set_position_datum_label">Datum geodésico</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nombre sugerido</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugerencia puede sustituir algunos valores de etiquetas con valores más populares.</string>
   <string name="search_results_title">Resultados de la búsqueda</string>
@@ -125,6 +126,8 @@
   <string name="element">elemento</string>
   <string name="last_updated">última actualización</string>
   <string name="last_edited">Última edición</string>
+  <string name="original">Original</string>
+  <string name="current">Actual</string>
   <!---->
   <string name="error">error</string>
   <string name="warning">advertencia</string>
@@ -146,12 +149,14 @@
   <string name="age">Edad</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Relación vacía</string>
+  <string name="empty_relation_message">La relación %1$s no tiene miembros.\n\nDejándola como está comportará que no sea editable en Vespucci.</string>
   <string name="add_members">Añadir miembros</string>
   <string name="leave_empty">Dejar vacío</string>
   <!--GPX way point dialog-->
   <string name="description">Descripción</string>
   <string name="created">Creado</string>
   <string name="altitude">Altitud</string>
+  <string name="create_osm_object">Crear objeto OSM</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imágenes personalizadas</string>
   <string name="oam_layer_title">Imágenes OAM</string>
@@ -166,10 +171,27 @@
   <string name="preferred">Preferido</string>
   <string name="delete_layer">¿Borrar capa?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Estilo de capa</string>
+  <string name="layer_style_color">Color</string>
+  <string name="layer_style_label">Etiqueta</string>
+  <string name="json_object_not_displayed">Objeto JSON (no mostrado)</string>
+  <string name="json_array_not_displayed">Tabla JSON (no mostrada)</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Rejilla</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Fotos</string>
+  <string name="layer_tasks">Tareas</string>
+  <string name="layer_data">Datos OSM</string>
+  <string name="layer_change_style">Cambiar estilo</string>
   <!--Undo - Redo dialog-->
+  <string name="undo_redo_title">Deshacer - Rehacer</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">El nombre no puede estar vacío</string>
   <string name="toast_url_empty">La URL no puede estar vacía</string>
@@ -229,6 +251,8 @@
   <string name="toast_split_via">Vía dividida «via»</string>
   <string name="toast_split_from_and_via">Vías divididas «from» y «via»</string>
   <string name="toast_split_to">Vía dividida «to»</string>
+  <string name="toast_tile_database_issue_short">Problema con la base de datos de teselas</string>
+  <string name="toast_tile_database_issue">Problema importante con la base de datos de teselas del mapa\n\"%1$s\"\nPor favor consulta nuestra FAQ en http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL API inválida</string>
   <string name="toast_invalid_readonlyurl">URL de la API de ReadOnly no válida</string>
   <string name="toast_invalid_notesurl">URL de la API de Notas no válida</string>
@@ -247,6 +271,7 @@
   <string name="toast_null_island">Por favor, no añada elementos en 0°/0° (Isla Nula)</string>
   <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
   <string name="toast_illegal_operation">Operación ilegal: %1$s</string>
+  <string name="toast_imperial_units">Unidades imperiales no encontradas</string>
   <string name="toast_unsupported_format">Formato no soportado: %1$s</string>
   <string name="toast_using_network_location">Usando la localización por red</string>
   <string name="toast_using_gps_location">Usando la localización GPS</string>
@@ -267,12 +292,18 @@
   <string name="forward">Adelante</string>
   <string name="keep">Mantener</string>
   <string name="enable">Habilitar</string>
+  <string name="disable">Deshabilitar</string>
   <string name="clear">Limpiar</string>
+  <string name="discard">Descartar</string>
   <string name="retry">Reintentar</string>
   <string name="read">Leer</string>
   <string name="overwrite">Sobreescribir</string>
   <string name="share">Compartir</string>
   <string name="share_position">Compartir posición</string>
+  <string name="min">Mín.</string>
+  <string name="max">Máx.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Ninguno</string>
   <!--Dialog for back button-->
   <string name="exit_title">¿Salir?</string>
   <string name="exit_text">¿Está seguro que quiere salir?</string>
@@ -334,6 +365,7 @@
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Última localización conocida:</string>
   <string name="location_current_text">Localización actual:</string>
   <string name="location_text_unknown">desconocida</string>
@@ -389,6 +421,7 @@
   <string name="menu_transfer_upload">Subir datos al servidor OSM</string>
   <string name="menu_transfer_close_changeset">Cerrar el conjunto de cambios actual</string>
   <string name="menu_transfer_file">Archivo...</string>
+  <string name="menu_transfer_export">Exportar cambios a un fichero OSC</string>
   <string name="menu_transfer_read_file">Leer desde un fichero JOSM...</string>
   <string name="menu_transfer_save_file">Guardar a un fichero JOSM...</string>
   <string name="menu_transfer_bugs">Notas/Errores...</string>
@@ -401,6 +434,7 @@
   <string name="menu_transfer_save_notes_all">Guardar todas las notas...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Guardar notas nuevas o cambiadas...</string>
   <string name="menu_transfer_read_custom_bugs">Cargar tareas personalizadas...</string>
+  <string name="menu_transfer_write_custom_bugs">Guardar tareas personalizadas abiertas...</string>
   <string name="menu_save">Guardar archivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Separar</string>
@@ -419,10 +453,12 @@
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Establecer nombre</string>
   <string name="tag_form_unknown_element">Elemento desconocido (sin preestablecido)</string>
+  <string name="menu_tools">Herramientas...</string>
   <string name="menu_tools_imagery">Más herramientas de imágenes</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
   <!---->
+  <string name="menu_privacy">Privacidad</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Alinear fondo</string>
   <string name="menu_tools_background_align_reset">Restablecer</string>
@@ -432,10 +468,15 @@
   <string name="menu_tools_background_align_save_db">Guardar en BD</string>
   <string name="menu_tools_background_align_save_device">Guardar en dispositivo</string>
   <string name="menu_tools_background_align_apply2all">Aplicar (todos los acercamientos)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f metros</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
+  <string name="menu_layers">Capas...</string>
+  <string name="menu_layers_load_geojson">Cargar capa GeoJSON</string>
   <string name="menu_enable_tagfilter">Filtro de etiquetas</string>
   <string name="menu_enable_presetfilter">Filtro preestablecido</string>
   <string name="preset_menu_waynodes">Incluir nodos de ruta</string>
@@ -452,6 +493,7 @@
   <string name="deleteway_relation_description">Está a punto de eliminar una vía que es un miembro de una o más relaciones. Quitando la vía de la(s) relacion(es) puede dejarla(s) inválida(s).</string>
   <string name="deleteway_nodesnotdownloaded_description">La vía contiene nodos que están fuera del área descargada y no puede ser borrada sin generar un estado inconsistente. Descargue primero toda la vía antes de volver a intentar.</string>
   <string name="deleteway_wayonly">Eliminar solo la vía</string>
+  <string name="deleteway_wayandnodes">Suprimir vía</string>
   <string name="deletenode_relation_description">Está a punto de eliminar un nodo que es un miembro de una o más relaciones. Quitando el nodo de la(s) relacion(es) puede dejarla(s) inválida(s).</string>
   <string name="deletenode">Borrar nodo</string>
   <string name="split_all_ways">Dividir todas las vías</string>
@@ -478,6 +520,8 @@
   <string name="config_overlayLayer_title">Superposición de mapa</string>
   <string name="config_customlayers_title">Capas personalizadas</string>
   <string name="config_scale_title">Mostrar escala</string>
+  <string name="config_mapProfile_title">Estilo de datos</string>
+  <string name="config_mapProfile_summary">Selecciona el estilo para la capa de datos</string>
   <string name="config_enableOpenStreetBugs_title">Habilitar mostrar errores y notas</string>
   <string name="config_enableOpenStreetBugs_summary">Muestra, edita y crea notas y/o errores.</string>
   <string name="config_enablePhotoLayer_title">Activar capa de fotos</string>
@@ -490,6 +534,7 @@
   <string name="config_moreprefs">Más ajustes...</string>
   <string name="config_presetbutton_title">Predeterminados</string>
   <string name="config_presetbutton_summary">Añade y habilita predeterminados compatibles con JOSM</string>
+  <string name="config_validatorprefs_title">Ajustes del validador</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autores y licencias</string>
   <string name="config_debugbutton_title">Depurar</string>
@@ -521,14 +566,18 @@
   <string name="config_splitActionBarEnabled_summary">Permite la barra de acciones dividida, uso específico del dispositivo. Requiere reinicio y una versión de Android &gt;= 4.0</string>
   <string name="config_maxInlineValues_title">Número máx. de valores en línea</string>
   <string name="config_maxInlineValues_summary">Número máximo de valores en línea mostrados en el formulario de etiqueta</string>
+  <string name="config_maxInlineValues_current">%1$d Valores</string>
   <string name="config_autoLockDelay_title">Tiempo de espera antes de auto-bloqueo</string>
   <string name="config_autoLockDelay_summary">Tiempo de espera en segundos antes de auto.bloqueo, 0 desactiva.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Habilitar antialias</string>
   <string name="config_enableAntiAliasing_summary">Hace las líneas más suaves.</string>
   <string name="config_maxStrokeWidth_title">Anchura máxima de linea</string>
   <string name="config_maxStrokeWidth_summary">Dibuja una vía no más ancha que esto</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Ajustes de datos y edición</string>
+  <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones</string>
   <string name="config_forceContextMenu_title">Utilizar siempre menú contextual</string>
   <string name="config_address_tags">Etiquetas de direcciones</string>
   <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones</string>
@@ -541,8 +590,10 @@
   <string name="config_notificationCacheSize_current">%1$d Notificaciones</string>
   <string name="config_maxAlertDistance_title">Distancia máxima para notificaciones</string>
   <string name="config_maxAlertDistance_summary">La distancia máxima a un problema o nota que puede ser desde la posición actual a generar la notificación</string>
+  <string name="config_maxAlertDistance_current">%1$d Metros</string>
   <string name="config_extTriggeredDownloadRadius_title">Radio de descarga</string>
   <string name="config_extTriggeredDownloadRadius_summary">Radio (m) para las descargas disparadas externamente. 0 = sólo centro del mapa.</string>
+  <string name="config_downloadRadius_current">%1$d Metros</string>
   <string name="config_maxDownloadSpeed_title">Máxima velocidad de descarga automática</string>
   <string name="config_maxDownloadSpeed_summary">Límite (en km/h) a partir del cual se suspende la descarga automática</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
@@ -555,14 +606,17 @@
   <string name="config_closeChangesetOnSave_title">Cerrar conjuntos de cambios</string>
   <string name="config_closeChangesetOnSave_summary">Cierra los conjuntos de cambios de forma predeterminada al guardar</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Ajustes de localización</string>
   <string name="config_gps_source_title">Fuente GPS</string>
   <string name="config_gps_source_summary">Fuente de actualizaciones de la ubicación GPS</string>
   <string name="config_gps_source_tcp_title">Fuente de la red NMEA</string>
   <string name="config_gps_source_tcp_summary">Dirección TCP de la fuente NMEA como host:puerto</string>
   <string name="config_gps_interval_title">Intervalo GPS mínimo</string>
   <string name="config_gps_interval_summary">Intervalo de tiempo mínimo de notificaciones GPS, en milisegundos. Valores bajos utilizan más batería.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Distancia mínima GPS</string>
   <string name="config_gps_distance_summary">El intervalo de distancia mínima para notificaciones GPS, en metros (decimal). Valores bajos utilizan más batería.</string>
+  <string name="config_gps_distance_current">%1$d Metros</string>
   <string name="config_leaveGpsDisabled_title">Dejar GPS deshabilitado</string>
   <string name="config_leaveGpsDisabled_summary">No preguntar al usuario para encender el GPS si está deshabilitado</string>
   <!--Server Settings-->
@@ -592,6 +646,7 @@
   <string name="config_showStats_title">Mostrar estadísticas</string>
   <string name="config_showStats_summary">Muestra datos estadisticos y cuadros/seg en la esquina inferior izquierda.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Experimental</string>
   <string name="config_js_console_title">Habilitar consola JS</string>
   <string name="config_js_console_summary">Haga que la consola JS esté disponible en modo «en directo»</string>
   <string name="config_voiceCommandsEnabled_title">Habilitar comandos de voz</string>
@@ -615,6 +670,8 @@
   <string name="changes_deleted">\"%1$s\" borrado</string>
   <string name="changes_changed">\"%1$s\" modificado</string>
   <string name="changes_created">\"%1$s\" creado</string>
+  <string name="confirm_upload_title">Subir cambios</string>
+  <string name="confirm_one_upload_text_1">¿Subir el siguiente cambio?</string>
   <string name="confirm_upload_edits_page">Cambios</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir predeterminado</string>
@@ -634,6 +691,7 @@
   <string name="url">URL</string>
   <string name="default_">Predeterminado</string>
   <string name="regular_expression">Expresión regular</string>
+  <string name="state">Estado</string>
   <!---->
   <string name="empty_list">Ninguna entrada</string>
   <string name="api_name">Nombre API</string>

@@ -11,6 +11,8 @@
     <string name="help_wayselection">Zaznaczono linię</string>
     <string name="help_aligningbackgroundiamgery">Kalibrowanie map podkładowych</string>
     <string name="help_propertyeditor">Edytor właściwości</string>
+    <string name="help_preferences">Ustawienia</string>
+    <string name="help_advanced_preferences">Ustawienia zaawansowane</string>
     <string name="help_presets">Szablony</string>
     <string name="help_conflictresolution">Rozwiązywanie konfliktów</string>
     <string name="help_gpssources">Źródła GPS</string>
@@ -23,6 +25,7 @@
     <string name="help_upgrade_098">0.9.8  Zestaw zmian</string>
     <string name="help_upgrade_097">0.9.7  Zestaw zmian</string>
     <string name="help_upgrade_096">0.9.6  Zestaw zmian</string>
+    <string name="help_privacy">Prywatność</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

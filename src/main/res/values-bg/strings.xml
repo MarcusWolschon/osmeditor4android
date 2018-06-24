@@ -67,6 +67,7 @@
   <string name="progress_running_message">Стартиране...</string>
   <string name="progress_oauth">Зареждане на вашия акаунт в openstreetmap.org за OAuth автентикация...</string>
   <string name="progress_building_imagery_database">Създаване на база данни с изображения...</string>
+  <string name="progress_query_oam">Търсене в OAM</string>
   <string name="upload_comment_label">Коментар:</string>
   <string name="upload_source_label">Източник:</string>
   <string name="upload_close_changeset_label">Затвори промяна:</string>
@@ -80,9 +81,12 @@
   <string name="openstreetbug_bug_title">Проблем</string>
   <string name="openstreetbug_new_nodeway">Създайте Възел/Път</string>
   <string name="openstreetbug_edit_title">Редактирайте бележка</string>
+  <string name="openstreetbug_commitbutton">Завърши</string>
   <string name="openstreetbug_comment_label">Коментар:</string>
   <string name="openstreetbug_edit_close">Затваряне</string>
   <string name="openstreetbug_edit_closed">Затворен</string>
+  <string name="openstreetbug_commit_ok">Промените записани</string>
+  <string name="openstreetbug_commit_fail">Записът на промените неуспешен</string>
   <string name="openstreetbug_not_downloaded">не е свалено</string>
   <string name="openstreetbug_last_updated">последно обновен</string>
   <string name="openstreetbug_unknown_task_type">Неизвестен вид задача</string>
@@ -106,9 +110,14 @@
   <string name="search_results_title">Резултати от търсенето</string>
   <string name="find_message">Въведете низ за търсене</string>
   <string name="geocoder_prompt">с</string>
+  <string name="preset_search_hint">Предварително зададен низ за търсене</string>
+  <string name="preset_autopreset">Авто настройка</string>
   <string name="search">Търсене</string>
+  <string name="no_valid_preset">Невалидна настройка</string>
   <string name="read_file">Изберете файл за четене</string>
   <string name="save_file">Изберете файл за запис</string>
+  <string name="existing_track_title">Съществуващи данни от трак</string>
+  <string name="existing_track_message">Вече имате съществуващи данни от трак. Може би искате да ги отхвърлите и първо да запишете.</string>
   <string name="delete_tags">Наистина ли искате да изтриете всички тагове за обект \"%1$s\"?</string>
   <!--element information dialog-->
   <string name="element_information">Информация за елемент</string>
@@ -142,29 +151,56 @@
   <string name="send_debug_information">Изпрати информация за дебъг</string>
   <!--JS console dialog-->
   <string name="evaluate">Оцени</string>
+  <string name="js_console_msg_live">Режим на живо!</string>
+  <string name="js_console_msg_debug">Дебъг режим!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Правила на валидатора %1$s</string>
+  <string name="max_age">Максимална вързраст</string>
+  <string name="age">Възраст</string>
+  <string name="check_opt">Провери настр.</string>
+  <string name="check_optional">Проверка по избор</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Празна релация</string>
+  <string name="empty_relation_message">Релацията %1$s няма членове.\n\nОставяйки я така, няма да може да се редактира във Vespucci.</string>
   <string name="add_members">Добави членове</string>
   <string name="leave_empty">Остави празно</string>
   <!--GPX way point dialog-->
   <string name="waypoint_title">GPX точка</string>
+  <string name="waypoint_description">Точка: %1$s</string>
   <string name="description">Описание</string>
+  <string name="created">Създаден</string>
   <string name="altitude">Надморска височина</string>
+  <string name="create_osm_object">Създайте OSM обект</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Персонализирани изображения</string>
+  <string name="oam_layer_title">OAM изображения</string>
+  <string name="edit_layer_title">Редактирайте слой</string>
+  <string name="add_layer_title">Добавете слой</string>
+  <string name="overlay">Подложка</string>
   <string name="coverage">Покритие</string>
+  <string name="coverage_top">Горе</string>
+  <string name="coverage_left">Ляво</string>
+  <string name="coverage_right">Дясно</string>
+  <string name="coverage_bottom">Долу</string>
+  <string name="preferred">Предпочитания</string>
+  <string name="toast_invalid_box">Невалиден или непълен ограждащ правоъгълник</string>
   <string name="delete_layer">Изтрий слой?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Стил на слой</string>
   <string name="layer_style_stroke_width">Дебелина на линия</string>
   <string name="layer_style_color">Цвят</string>
   <string name="layer_style_label">Надпис</string>
+  <string name="json_object_not_displayed">JSON обект (скрит)</string>
+  <string name="json_array_not_displayed">JSON масив (скрит)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Координатна мрежа</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Снимки</string>
   <string name="layer_tasks">Задачи</string>
   <string name="layer_data">OSM данни</string>
   <string name="layer_flush_tile_cache">Изчистете кеша на тайлове</string>
+  <string name="layer_change_style">Смяна стил</string>
   <string name="layer_select_imagery">Изберете изображение</string>
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">Отмени - Повтори</string>
@@ -187,6 +223,60 @@
   <string name="toast_save_failed">Записът неуспешен</string>
   <string name="toast_export_failed">Експортът неуспешен</string>
   <string name="toast_export_success">Експортнато към %1$s</string>
+  <string name="toast_too_many_nodes_for_move">Твърде много възли в път, за да бъде преместен</string>
+  <string name="toast_unread_mail">Имате  %1$d непрочетени OSM съобщения</string>
+  <string name="toast_one_unread_mail">Имате непрочетено OSM съобщение</string>
+  <string name="toast_photo_indexing_started">Стартира търсене на геореферирани снимки</string>
+  <string name="toast_photo_indexing_finished">Приключи търсене на геореферирани снимки</string>
+  <string name="toast_download_failed">Свалянето се провали с код за грешка %1$d, съобщение %2$s</string>
+  <string name="toast_unsurveyed_road">Неизмерен път</string>
+  <string name="toast_noname">Пътят няма име или номер</string>
+  <string name="toast_notype">Релацията няма вид</string>
+  <string name="toast_oauth_retry">Моля позволете OAuth достъп до вашия OSM акаунт и след това опитайте отново с качването.</string>
+  <string name="toast_oauth">Моля позволете OAuth достъп до вашия OSM акаунт,</string>
+  <string name="toast_no_oauth">Не е достъпна OAuth конфигурация за текущото API, моля използвайте потребител и парола.</string>
+  <string name="toast_oauth_not_enabled">OAuth не е позволен за текущото API.</string>
+  <string name="toast_oauth_timeout">Времето за автентикация изтече, моля опитайте отново.</string>
+  <string name="toast_oauth_communication">Комуникационна грешка по време на автентикация, моля опитайте отново.</string>
+  <string name="toast_oauth_handshake_failed">OAuth автентикацията неуспешна: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Вход с google не се поддържа в момента.</string>
+  <string name="coordinates_out_of_range">Географската дължина трябва да е между -180°/+180°, географската дължина между -85°/85°</string>
+  <string name="toast_nothing_found">Нищо не е намерено</string>
+  <string name="toast_statesave_failed">Запазването на текущото състояние се провали!\nТова е сериозна грешка, прави се опит за експорт на файл за по-нататъшно възстановяване с JOSM</string>
+  <string name="toast_missing_filemanager">Моля инсталирайте Файлов Мениджър</string>
+  <string name="toast_outside_of_download">Редактирате извън района на свалените данни.</string>
+  <string name="toast_file_not_found">%1$s не е намерен.</string>
+  <string name="toast_imported_track_points">Импортирани %1$d точки от трак и %2$d точки.</string>
+  <string name="toast_imported_track_points_single_way_point">Импортирани %1$d точки от трак и 1 точка.</string>
+  <string name="toast_unknown_voice_command">За съжаление в момента \"%1$s\" не се разбира</string>
+  <string name="toast_inconsistent_state">Противоречиво състояние е засечено, моля изпратете доклада за грешка!</string>
+  <string name="toast_camera_error">Грешка при стартирането на приложението камера: %1$s</string>
+  <string name="toast_no_voice">Няма инструмент за разпознаване на глас</string>
+  <string name="toast_storage_error">%1$s не може да се запише от Vespucci.\nТова може да е проблем с правата или технически проблем с вашето устройство.</string>
+  <string name="toast_no_suitable_storage">Системата не върна подходящо местоположение за базата данни от тайлове</string>
+  <string name="toast_min_one_geocoder">Поне един геокодер трябва да бъде избран!</string>
+  <string name="toast_used_backup">Повреден файл за състоянието, изпозвано е резервно копие!</string>
+  <string name="toast_used_bug_backup">Повреден файл за състоянието бъговете, изпозвано е резервно копие!</string>
+  <string name="toast_rmpty_relation">Празна релация, създава се доклад за срив.</string>
+  <string name="toast_split_from">Разделен път \"от\"</string>
+  <string name="toast_split_via">Разделен път \"през\"</string>
+  <string name="toast_split_from_and_via">Разделени пътища \"от\" и \"през\"</string>
+  <string name="toast_split_to">Разделен път \"до\"</string>
+  <string name="toast_tile_database_issue_short">Проблем с базата данни от тайлове</string>
+  <string name="toast_tile_database_issue">Сериозен проблем с базата данни от картни тайлове\n\"%1$s\"\nМоля косултирайте се с FAQ на http://vespucci.io/</string>
+  <string name="toast_invalid_apiurl">Невалиден URL на API</string>
+  <string name="toast_invalid_readonlyurl">Невалиден URL на ReadOnly API  </string>
+  <string name="toast_invalid_notesurl">Невалиден URL на Notes API</string>
+  <string name="toast_invalid_filter_regexp">Невалиден израз във филтър с ключ=\"%1$s\" стойност=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">Няма достъп до снимка %1$s</string>
+  <string name="toast_no_voice_recognition">Няма инструмент за разпознаване на глас</string>
+  <string name="toast_no_coverage">%1$s няма покритие тук</string>
+  <string name="toast_file_exists">Файлът %1$s съществува.</string>
+  <string name="toast_needs_resurvey">Обектът може да е остарял</string>
+  <string name="toast_missing_key">Ключ %1$s липсва</string>
+  <string name="toast_openinghours_invalid">Невалидна стойност за работно време за %1$s</string>
+  <string name="toast_openinghours_autocorrected">Данните за работно време за %1$s бяха автокоригирани</string>
+  <string name="toast_exit_multiselect">Докоснете два пъти на празно пространство или използвайте стрелка назад, за да излезете</string>
   <!--Some generic labels/buttons-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->

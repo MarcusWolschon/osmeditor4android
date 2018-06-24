@@ -72,12 +72,13 @@
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
+  <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś błąd</string>
   <string name="openstreetbug_bug_title">Błąd</string>
   <string name="openstreetbug_new_nodeway">Utwórz węzeł/linię</string>
   <string name="openstreetbug_edit_title">Zmodyfikuj uwagę</string>
-  <string name="openstreetbug_commitbutton">Wyślij</string>
+  <string name="openstreetbug_commitbutton">Zapisz bez wysyłania</string>
   <string name="openstreetbug_comment_label">Komentarz:</string>
   <string name="openstreetbug_edit_close">Zamknij</string>
   <string name="openstreetbug_edit_closed">Zamknięty</string>
@@ -99,6 +100,7 @@
   <string name="imagery_offset_zoom">Przybliżenie</string>
   <string name="imagery_offset_distance">Odległość</string>
   <string name="set_position_datum_label">Układ współrzędnych geodezyjnych</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Propozycje mogą zamienić niektóre wartości znaczników na bardziej popularne.</string>
   <string name="search_results_title">Wyniki wyszukiwania</string>
@@ -127,6 +129,8 @@
   <string name="element">element</string>
   <string name="last_updated">ostatnia zmiana</string>
   <string name="last_edited">Ostatnio edytowany</string>
+  <string name="original">Pierwotny</string>
+  <string name="current">Bieżący</string>
   <!---->
   <string name="error">błąd</string>
   <string name="warning">ostrzeżenie</string>
@@ -165,10 +169,20 @@
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
   <string name="delete_layer">Usunąć warstwę?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_color">Kolor</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Zdjęcia</string>
+  <string name="layer_tasks">Zadania</string>
+  <string name="layer_data">Dane OSM</string>
   <!--Undo - Redo dialog-->
+  <string name="undo_redo_title">Cofnij - Ponów</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
   <!--Toaster-->
   <string name="toast_name_empty">Nazwa nie może być pusta</string>
   <string name="toast_url_empty">URL nie może być pusty</string>
@@ -206,6 +220,7 @@
   <string name="toast_oauth_timeout">Przekroczenie czasu żądania podczas uwierzytelnienia, proszę spróbować jeszcze raz.</string>
   <string name="toast_oauth_communication">Błąd w komunikacji podczas uwierzytelnienia, prosimy spróbować jeszcze raz.</string>
   <string name="toast_oauth_handshake_failed">Uwierzytelnienie OAuth nie powiodło się: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Logowanie z Google nie jest w tym momencie wspierane</string>
   <string name="toast_timeout">Przekroczono czas oczekiwania na serwer</string>
   <string name="coordinates_out_of_range">Długość geograficzna musi mieścić się w -180°/+180°, szerokość w -85°/85°</string>
   <string name="toast_nothing_found">Nic nie znaleziono</string>
@@ -227,6 +242,7 @@
   <string name="toast_split_via">Oddzielona linia \"via\"</string>
   <string name="toast_split_from_and_via">Oddzielonp linie \"from\" oraz \"via\"</string>
   <string name="toast_split_to">Oddzielona linia \"to\"</string>
+  <string name="toast_tile_database_issue_short">Problem z bazą danych kafelków</string>
   <string name="toast_invalid_apiurl">Błędny URL dla API</string>
   <string name="toast_invalid_readonlyurl">Błędny URL do ReadOnly API</string>
   <string name="toast_invalid_notesurl">Błędny URL do API Uwag</string>
@@ -234,6 +250,7 @@
   <string name="toast_no_voice_recognition">Brak funkcji rozpoznawania głosu</string>
   <string name="toast_no_coverage">%1$s nie obejmuje tego terenu</string>
   <string name="toast_file_exists">Plik %1$s istnieje.</string>
+  <string name="toast_needs_resurvey">Obiekt może być nieaktualny</string>
   <string name="toast_missing_key">Brakujący klucz %1$s</string>
   <string name="toast_openinghours_invalid">Niepoprawne godziny otwarcia dla %1$s</string>
   <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia dla %1$s została poprawiona</string>
@@ -244,6 +261,7 @@
   <string name="toast_flus_all_caches">Wyczyszczone zostaną wszystkie cache kafelków!</string>
   <string name="toast_unsupported_format">Niewspierany format: %1$s</string>
   <string name="toast_returning_less_than_found">Zwrócono %1$d z %2$d znalezionych wpisów</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS wyłączony, rejestrowanie śladu zatrzymane</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -260,7 +278,9 @@
   <string name="forward">Naprzód</string>
   <string name="keep">Zachowaj</string>
   <string name="enable">Włącz</string>
+  <string name="disable">Wyłącz</string>
   <string name="clear">Wyczyść</string>
+  <string name="discard">Odrzuć</string>
   <string name="retry">Spróbuj ponownie</string>
   <string name="overwrite">Nadpisz</string>
   <string name="share">Udostępnij</string>
@@ -367,6 +387,7 @@
   <string name="menu_camera">Aparat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Znacznik położenia</string>
+  <string name="menu_gps_goto">Przesuń do bieżącego położenia</string>
   <string name="menu_gps_start">Rozpocznij rejestrowanie śladu</string>
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami...</string>
@@ -410,10 +431,13 @@
   <string name="menu_voice_commands">Polecenia głosowe</string>
   <string name="menu_set_name">Nazwij</string>
   <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
+  <string name="menu_tools">Narzędzia...</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <!---->
+  <string name="menu_privacy">Prywatność</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Kalibracja podkładu</string>
   <string name="menu_tools_background_align_reset">Reset</string>
@@ -427,6 +451,8 @@
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Zresetuj OAuth</string>
   <string name="menu_tools_oauth_authorisation">Uwierzytelnij przez OAuth</string>
+  <string name="menu_layers">Warstwy...</string>
+  <string name="menu_layers_load_geojson">Załaduj warstwę GeoJSON</string>
   <string name="menu_enable_tagfilter">Filtr tagu</string>
   <string name="menu_enable_presetfilter">Filtr szablonu</string>
   <string name="preset_menu_invert">Odwróć filtry</string>
@@ -480,6 +506,7 @@
   <string name="config_moreprefs">Więcej ustawień...</string>
   <string name="config_presetbutton_title">Szablony</string>
   <string name="config_presetbutton_summary">Dodaje i włącza szablony kompatybilne z JOSM</string>
+  <string name="config_validatorprefs_title">Ustawienia wykrywania błędow</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autorzy oraz licencje</string>
   <string name="config_debugbutton_title">Diagnozowanie błędów</string>
@@ -549,7 +576,9 @@
   <string name="config_maxBugDownloadSpeed_summary">Prędkość (w km/h) powyżej której pobieranie notatek/błędów zostaje zawieszone</string>
   <string name="config_closeChangesetOnSave_title">Zamykanie zestawów zmian</string>
   <string name="config_closeChangesetOnSave_summary">Domyślnie zamyka zestawy zmian podczas zapisywania</string>
+  <string name="config_enableAutoPresets_title">Włącz automatyczne generowanie szablonów</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Ustawienia lokalizacji</string>
   <string name="config_gps_source_title">Źródło GPS</string>
   <string name="config_gps_source_summary">Źródło sygnału GPS</string>
   <string name="config_gps_source_tcp_title">Źródło połączenia z protokołem NMEA</string>
@@ -589,6 +618,7 @@
   <string name="config_showStats_title">Statystyki</string>
   <string name="config_showStats_summary">Wyświetla szybkość obrazu w ramkach/s w dolnym lewym rogu.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Eksperymentalne</string>
   <string name="config_js_console_title">Włącz konsolę JS</string>
   <string name="config_voiceCommandsEnabled_title">Polecenia głosowe</string>
   <!---->
@@ -611,6 +641,8 @@
   <string name="changes_deleted">Usunięto „%1$s”</string>
   <string name="changes_changed">Zmieniono „%1$s”</string>
   <string name="changes_created">Utworzono „%1$s”</string>
+  <string name="confirm_upload_title">Wyślij zmiany</string>
+  <string name="confirm_one_upload_text_1">Wysłać następujące zmiany?</string>
   <string name="confirm_upload_edits_page">Zmiany</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>

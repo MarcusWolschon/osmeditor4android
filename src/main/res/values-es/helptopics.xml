@@ -28,6 +28,7 @@
     <string name="help_upgrade_098">0.9.8 Notas de versión</string>
     <string name="help_upgrade_097">0.9.7 Notas de versión</string>
     <string name="help_upgrade_096">0.9.6 Notas de versión</string>
+    <string name="help_privacy">Privacidad</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

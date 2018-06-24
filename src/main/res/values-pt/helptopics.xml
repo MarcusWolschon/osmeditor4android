@@ -11,6 +11,8 @@
     <string name="help_wayselection">Linha selecionada</string>
     <string name="help_aligningbackgroundiamgery">Alinhar imagem de fundo</string>
     <string name="help_propertyeditor">Editor de propriedades</string>
+    <string name="help_preferences">Preferências</string>
+    <string name="help_advanced_preferences">Preferências avançadas</string>
     <string name="help_presets">Modelos de etiquetas</string>
     <string name="help_conflictresolution">Resolução de conflitos</string>
     <string name="help_gpssources">Fontes de GPS</string>
@@ -19,12 +21,14 @@
     <string name="help_presetfilter">Filtro de modelos de etiquetas</string>
     <string name="help_opening_hours">Horário de abertura</string>
     <string name="help_upgrade">Notas da versão</string>
-    <string name="help_upgrade_101">10.1 Notas de lançamento</string>
-    <string name="help_upgrade_100">10.0 Notas de lançamento</string>
+    <string name="help_upgrade_102">Notas da versão 10.2</string>
+    <string name="help_upgrade_101">Notas da versão 10.1</string>
+    <string name="help_upgrade_100">Notas da versão 10.0</string>
     <string name="help_upgrade_099">Notas da versão 0.9.9</string>
     <string name="help_upgrade_098">Notas da versão 0.9.8</string>
     <string name="help_upgrade_097">Notas da versão 0.9.7</string>
     <string name="help_upgrade_096">Notas da versão 0.9.6</string>
+    <string name="help_privacy">Privacidade</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

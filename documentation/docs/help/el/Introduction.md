@@ -1,6 +1,6 @@
 # Εισαγωγή στο Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Το Vespucci είναι ένας πλήρως εξοπλισμένος επεξεργαστής OpenStreetMap που υποστηρίζει τις περισσότερες λειτουργίες που παρέχουν οι επεξεργαστές στους επιτραπέζιους υπολογιστές. Έχει δοκιμαστεί με επιτυχία στο Android 2.3 έως 7.0 της Google και διάφορες παραλλαγές που βασίζονται στο AOSP. Προσοχή: ενώ οι δυνατότητες των κινητών συσκευών έχουν φτάσει τους ανταγωνιστές τους, τους επιτραπέζιους υπολογιστές, οι παλαιότερες συσκευές έχουν πολύ περιορισμένη μνήμη και τείνουν να είναι κάπως αργές. Θα πρέπει να το λάβετε αυτό στο λογαριασμό όταν χρησιμοποιείτε το Vespucci και να κρατήσετε, για παράδειγμα, τις περιοχές που επεξεργάζεστε σε ένα λογικό μέγεθος. 
 
 ## Πρώτη χρήση
 
@@ -16,239 +16,239 @@ Vespucci is a full featured OpenStreetMap editor that supports most operations t
 
 ### Λήψη Δεδομένων OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Επιλέξτε είτε το εικονίδιο μεταφοράς ![Μεταφορά](../ images / menu_transfer.png) είτε το στοιχείο μενού "Μεταφορά". Αυτό θα εμφανίσει επτά επιλογές:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Λήψη τρέχουσας προβολής** - κατεβάστε την ορατή περιοχή στην οθόνη και αντικαταστήστε τυχόν υπάρχοντα δεδομένα *(απαιτεί σύνδεση στο δίκτυο)*
+* **Προσθήκη τρέχουσας προβολής για λήψη** - λήψη της περιοχής που είναι ορατή στην οθόνη και συγχώνευσή της με υπάρχοντα δεδομένα *(απαιτεί σύνδεση στο δίκτυο)*
+* **Λήψη σε άλλη τοποθεσία** - εμφανίζει μια φόρμα που σας επιτρέπει να εισάγετε συντεταγμένες, να αναζητήσετε μια τοποθεσία ή να χρησιμοποιήσετε την τρέχουσα θέση και στη συνέχεια να κατεβάσετε μια περιοχή γύρω από αυτή τη θέση *(απαιτεί σύνδεση στο δίκτυο)*
+* **Μεταφόρτωση δεδομένων στον διακομιστή του OSM** - μεταφόρτωση τροποποιήσεων στο OpenStreetMap *(απαιτεί επιβεβαίωση)* *(απαιτεί σύνδεση στο δίκτυο)*
+* **Αυτόματη λήψη** - αυτόματη λήψη μιας περιοχής γύρω από την τρέχουσα γεωγραφική θέση *(απαιτεί σύνδεση στο δίκτυο)* *(απαιτείται GPS)*
+* **Αρχείο...** - αποθήκευση και φόρτωση δεδομένων OSM στό/από αρχεία της συσκευής.
+* **Σημείωση/Σφάλματα...** - λήψη (αυτόματα και χειροκίνητα) Σημειώσεις και "Σφάλματα" OSM από τα εργαλεία QA (επί του παρόντος OSMOSE) *(απαιτεί σύνδεση στο δίκτυο)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Ο ευκολότερος τρόπος λήψης δεδομένων στη συσκευή είναι να κάνετε μεγέθυνση και να μετακινηθείτε στη θέση που θέλετε να επεξεργαστείτε και, στη συνέχεια, να επιλέξετε "Λήψη τρέχουσας προβολής". Μπορείτε να κάνετε μεγέθυνση χρησιμοποιώντας τα χέρια σας, τα κουμπιά ζουμ ή τα κουμπιά ελέγχου της έντασης στη συσκευή. Το Vespucci θα πρέπει στη συνέχεια να πραγματοποιήσει λήψη δεδομένων για την τρέχουσα προβολή. Δεν απαιτείται επαλήθευση για τη λήψη δεδομένων στη συσκευή σας.
 
 ### Επεξεργασία
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Κλείδωμα, ξεκλείδωμα, εναλλαγή λειτουργίας
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+Για να αποφύγετε τις κατά λάθος επεξεργασίες το Vespucci ξεκινάει σε "κλειδωμένη" λειτουργία, η οποία επιτρέπει μόνο τη μεγέθυνση και τη μετακίνηση του χάρτη. Αγγίξτε το εικονίδιο ![Κλειδωμένο] (../ images / locked.png) για να ξεκλειδώσετε την οθόνη. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Με το παρατεταμένο πάτημα του εικονιδίου κλειδώματος θα εμφανιστεί ένα μενού που προσφέρει 4 επιλογές:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Κανονική** - η προεπιλεγμένη λειτουργία επεξεργασίας, νέα αντικείμενα μπορούν να προστεθούν, τα υπάρχοντα να επεξεργαστούν, να μετακινηθούν και να αφαιρεθούν. Εμφανίζεται το εικονίδιο μιας απλής λευκής κλειδαριάς.
+* **Μόνο ετικέτα** - επιλέγοντας ένα υπάρχον αντικείμενο θα ξεκινήσει ο επεξεργαστής ιδιοτήτων, με παρατεταμένο πάτημα στην κύρια οθόνη θα προστεθούν αντικείμενα, αλλά δεν θα δουλέψουν άλλες λειτουργίες γεωμετρίας. Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "T".
+* **Εσωτερικό** - επιτρέπει την εσωτερική λειτουργία, δείτε [Εσωτερική λειτουργία] (# εσωτερική). Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "I".
+* **Λειτουργία-C** - ενεργοποιεί την Λειτουργία-C, μόνο τα αντικείμενα που έχουν μια προειδοποιητική σημαία θα εμφανιστούν, δείτε [Λειτουργία-C] (#λειτουργία-c). Εμφανίζεται το εικονίδιο μιας λευκής κλειδαριάς με "C".
 
-#### Single tap, double tap, and long press
+#### Απλό χτύπημα, διπλό χτύπημα, και παρατεταμένο πάτημα
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Από προεπιλογή, οι επιλέξιμοι κόμβοι και οι διαδρομές έχουν μια πορτοκαλί περιοχή γύρω τους δείχνοντας περίπου το σημείο όπου πρέπει να αγγίξετε για να επιλέξετε ένα αντικείμενο. Έχετε τρεις επιλογές:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
+*Απλό χτύπημα: Επιλέγεται αντικείμενο.
+   * Ένας απομονωμένος κόμβος/διαδρομή επισημαίνεται αμέσως.
+   * Ωστόσο, αν προσπαθήσετε να επιλέξετε ένα αντικείμενο και το Vespucci υπολογίζει ότι η επιλογή μπορεί να σημαίνει πολλαπλά αντικείμενα, θα παρουσιάσει ένα μενού επιλογής, δίνοντάς σας τη δυνατότητα να επιλέξετε το αντικείμενο που θέλετε να επιλέξετε.
+    * Τα επιλεγμένα αντικείμενα επισημαίνονται με κίτρινο χρώμα.
+    * Για περαιτέρω πληροφορίες, δείτε [Επιλεγμένος κόμβος](../en/Node%20selected.md),[Επιλεγμένη διαδρομή](../en/Way%20selected.md) και [Επιλεγμένη σχέση](../en/Relation%20selected.md).
+* Διπλό χτύπημα: Έναρξη [Λειτουργία πολυεπιλογών](../en/Multiselect.md)
+* Παρατεταμένη πίεση: Δημιουργεί ένα "σταυρόνημα", που σας επιτρέπει να προσθέσετε κόμβους, δείτε παρακάτω και [Δημιουργία νέων αντικειμένων](../en/Creating%20new%20objects.md)
 
 Είναι καλή στρατηγική να εστιάζστε αν επιχειρείτε να επεξεργαστείτε μια περιοχή υψηλής πυκνότητας.
 
 Το Vespucci έχει ένα καλό σύστημα "αναίρεσης/επανάληψης", οπότε μην φοβάστε να πειραματιστείτε στη συσκευή σας, ωστόσο μην αποστέλλετε και αποθηκεύετε καθαρά δοκιμαστικά δεδομένα.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Επιλογή / Αποεπιλογή (απλό πάτημα και "επιλογή μενού")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Αγγίξτε ένα αντικείμενο για να το επιλέξετε και να το επισημάνετε. Αγγίζοντας την οθόνη σε μια κενή περιοχή θα το αποεπιλέξετε. Εάν έχετε επιλέξει ένα αντικείμενο και θα πρέπει να επιλέξετε κάτι άλλο, απλώς αγγίξτε το αντικείμενο που θέλετε, χωρίς να χρειάζεται να αποεπιλέξετε το πρώτο. Ένα διπλό χτύπημα σε ένα αντικείμενο θα ξεκινήσει [Λειτουργία Πολυεπιλογής] (../ en / Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Σημειώστε ότι αν προσπαθήσετε να επιλέξετε ένα αντικείμενο και το Vespucci υπολογίζει ότι η επιλογή μπορεί να σημαίνει πολλαπλά αντικείμενα (όπως ένας κόμβος σε μία διαδρομή ή άλλα επικαλυπτόμενα αντικείμενα) θα παρουσιάσει ένα μενού επιλογής: Πατήστε το αντικείμενο που θέλετε να επιλέξετε και το αντικείμενο είναι επιλεγμένο. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Τα επιλεγμένα αντικείμενα υποδεικνύονται με ένα λεπτό κίτρινο περίγραμμα. Το κίτρινο περίγραμμα μπορεί να είναι δύσκολο να εντοπιστεί, ανάλογα με το φόντο του χάρτη και το συντελεστή μεγέθυνσης. Αφού γίνει μια επιλογή, θα δείτε μια ειδοποίηση που επιβεβαιώνει την επιλογή.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+Μόλις ολοκληρωθεί η επιλογή, θα δείτε (είτε ως κουμπιά ή ως αντικείμενα μενού) μια λίστα υποστηριζόμενων λειτουργιών για το επιλεγμένο αντικείμενο: Για περισσότερες πληροφορίες, δείτε στο [Επιλεγμένος Κόμβος](../en/Node%20selected.md), [Επιλεγμένη Διαδρομή](../en/Way%20selected.md) και [Επιλεγμένη Σχέση](../en/Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Επιλεγμένα αντικείμενα: Επεξεργασία ετικετών
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Ένα δεύτερο άγγιγμα στο επιλεγμένο αντικείμενο ανοίγει τον επεξεργαστή ετικετών και μπορείτε να επεξεργαστείτε τις ετικέτες που σχετίζονται με το αντικείμενο.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Σημειώστε ότι για τα επικαλυπτόμενα αντικείμενα (όπως ένας κόμβος σε μία διαδρομή) το μενού επιλογής εμφανίζεται για δεύτερη φορά. Επιλέγοντας το ίδιο αντικείμενο εμφανίζεται ο επεξεργαστής ετικετών, επιλέγοντας ένα άλλο αντικείμενο απλά επιλέγει το άλλο αντικείμενο.
 
-#### Selected objects: Moving a Node or Way
+#### Επιλεγμένα αντικείμενα: Μετακίνηση ενός κόμβου ή διαδρομής
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Μόλις επιλέξετε ένα αντικείμενο, αυτό μπορεί να μετακινηθεί. Σημειώστε ότι τα αντικείμενα μπορούν να συρθούν/μετακινηθούν μόνο όταν είναι επιλεγμένα. Απλά σύρετε κοντά (π.χ. εντός της ζώνης ανοχής) του επιλεγμένου αντικειμένου για να το μετακινήσετε. Εάν επιλέξετε σύροντας μια μεγάλη περιοχή στις προτιμήσεις, θα έχετε μια μεγάλη περιοχή γύρω από τον επιλεγμένο κόμβο που διευκολύνει την τοποθέτηση του αντικειμένου. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Προσθέτοντας ένα νέο Κόμβο/Σημείο ή Διαδρομή (παρατεταμένο πάτημα)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Πιέστε παρατεταμένα εκεί που θέλετε να είναι ο κόμβος ή να ξεκινάει η διαδρομή. Θα δείτε ένα μαύρο "σταυρόνημα". 
+* Αν θέλετε να δημιουργήσετε έναν νέο κόμβο (όχι συνδεδεμένο με κάποιο αντικείμενο), κάντε κλικ μακριά από τα υπάρχοντα αντικείμενα.
+* Εάν θέλετε να επεκτείνετε μία διαδρομή, κάντε κλικ μέσα στην "ζώνη ανοχής" της διαδρομής (ή ενός κόμβου στην διαδρομή). Η ζώνη ανοχής υποδεικνύεται από τις περιοχές γύρω από έναν κόμβο ή διαδρομή.
 
-Once you can see the crosshair symbol, you have these options:
+Μόλις δείτε το σταυρόνημα, έχετε αυτές τις επιλογές:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Άγγιγμα στην ίδια θέση.
+    * Εάν το σταυρόνημα δεν βρίσκεται κοντά σε έναν κόμβο, αγγίζοντας ξανά την ίδια θέση δημιουργεί έναν νέο κόμβο. Αν βρίσκεστε κοντά σε μία διαδρομή (αλλά όχι κοντά σε έναν κόμβο), ο νέος κόμβος θα βρίσκεται στην διαδρομή (και θα συνδεθεί με την διαδρομή).
+     * Εάν το σταυρόνημα βρίσκεται κοντά σε έναν κόμβο (δηλ. Εντός της ζώνης ανοχής του κόμβου), αγγίζοντας την ίδια θέση επιλέγει απλά τον κόμβο (και ο επεξεργαστής ετικετών ανοίγει.) Δεν δημιουργείται νέος κόμβος Η ενέργεια είναι ίδια με την παραπάνω επιλογή.
+* Άγγιγμα σε άλλη θέση. Εάν αγγίξετε σε άλλη θέση (εκτός της ζώνης ανοχής του σταυρονήματος), προστίθεται ένα τμήμα διαδρομής από την αρχική θέση στην τρέχουσα θέση. Εάν το σταυρόνημα ήταν κοντά σε μία διαδρομή ή κόμβο, το νέο τμήμα θα συνδεθεί με αυτήν την διαδρομή ή τον κόμβο.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Απλώς αγγίξτε την οθόνη εκεί όπου θέλετε να προσθέσετε επιπλέον κόμβους σε μία διαδρομή. Για να ολοκληρώσετε, αγγίξτε δύο φορές τον τελικό κόμβο. Εάν ο τελικός κόμβος βρίσκεται σε μία διαδρομή ή έναν κόμβο, το τμήμα θα συνδεθεί αυτόματα στη διαδρομή ή τον κόμβο. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
+Μπορείτε επίσης να χρησιμοποιήσετε ένα μενού αντικειμένου: Δείτε [Δημιουργία νέων αντικειμένων] (../en/Creating%20new%20objects.md) για περισσότερες πληροφορίες.
 
-#### Adding an Area
+#### Προσθέτοντας μια Περιοχή
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+Το OpenStreetMap επί του παρόντος δεν διαθέτει τύπο αντικειμένου ως "περιοχή" σε αντίθεση με άλλα συστήματα γεω-δεδομένων. Ο διαδικτυακός επεξεργαστής "iD" προσπαθεί να δημιουργήσει μια αφαίρεση περιοχής από τα υποκείμενα στοιχεία OSM που λειτουργεί καλά σε ορισμένες περιπτώσεις, ενώ σε άλλες όχι. Το Vespucci αυτή τη στιγμή δεν προσπαθεί να κάνει κάτι παρόμοιο, οπότε πρέπει να γνωρίζετε λίγο τον τρόπο με τον οποίο απεικονίζονται οι περιοχές:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _Κλειστές διαδρομές (* πολυγώνια") _: η απλούστερη και συνηθέστερη παραλλαγή περιοχής, είναι διαδρομές που μοιράζονται τον πρώτο και τελευταίο κόμβο σχηματίζοτας ένα κλειστό "δακτύλιο" (για παράδειγμα τα περισσότερα κτίρια είναι αυτού του τύπου). Αυτό είναι πολύ εύκολο να δημιουργηθεί στο Vespucci, απλά συνδεθείτε στον πρώτο κόμβο όταν τελειώσετε με την σχεδίαση της περιοχής. Σημείωση: η ερμηνεία της κλειστής διαδρομής εξαρτάται από την ετικέτα της: για παράδειγμα, αν μία κλειστή διαδρομή έχει επισημανθεί ως κτίριο, θα θεωρηθεί σαν περιοχή, αλλά όχι σε περίπτωση που έχει επισημανθεί ως κυκλικός κόμβος. Σε ορισμένες περιπτώσεις όπου και οι δύο ερμηνείες μπορεί να είναι έγκυρες, μια ετικέτα "περιοχή" μπορεί να διευκρινίσει την προτιθέμενη χρήση.
+* _πολυ-πολύγωνα_: ορισμένες περιοχές έχουν πολλαπλά μέρη, τρύπες και δακτυλίους που δεν μπορούν να αναπαρασταθούν με μία μόνο διαδρομή. Το OSM χρησιμοποιεί ένα συγκεκριμένο τύπο σχέσης για να το πετύχουμε (το αντικείμενο γενικού σκοπού που μπορεί να κάνει μοντέλο τις σχέσεις μεταξύ των στοιχείων), ένα πολυ-πολύγωνο. Ένα πολυ-πολύγωνο μπορεί να έχει πολλαπλούς "εξωτερικούς" δακτυλίους και πολλαπλούς "εσωτερικούς" δακτυλίους. Κάθε δακτύλιος μπορεί είτε να είναι μία κλειστή διαδρομή, όπως περιγράφηκε παραπάνω, ή πολλαπλές μεμονωμένες διαδρομές που έχουν κοινούς τον ακριανό κόμβο. Ενώ τα μεγάλα πολυ-πολύγων είναι δύσκολο να χειριστούν με οποιοδήποτε εργαλείο, τα μικρά δεν είναι δύσκολο να δημιουργηθούν στο Vespucci.
+* _ακτογραμμές_: για πολύ μεγάλα αντικείμενα, ηπείρους και νησιά, ακόμα και το πολυ-πολυγωνικό μοντέλο δεν λειτουργεί με ικανοποιητικό τρόπο. Για τις διαδρομές natural=coastline θεωρούμε τη σημασιολογική εξάρτηση της κατεύθυνσης: η γη βρίσκεται στην αριστερή πλευρά της διαδρομής, το νερό στη δεξιά πλευρά. Μια παρενέργεια αυτού του γεγονότος είναι ότι, γενικά, δεν πρέπει να αντιστρέψετε την κατεύθυνση μιας διαδρομής με τη επισήμανση της ακτογραμμής. Περισσότερες πληροφορίες μπορείτε να βρείτε στο [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Improving Way Geometry
+#### Βελτίωση της Γεωμετρίας της Διαδρομής
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Εάν κάνετε μεγέθυνση αρκετά σε μία επιλεγμένη διαδρομή, θα δείτε ένα μικρό "x" στην μέση της διαδρομής των τμημάτων που είναι αρκετά μακριά. Σέρνοντας το "x" θα δημιουργηθεί ένας κόμβος στην διαδρομή σε εκείνο το σημείο. Σημείωση: για να αποφευχθεί κατά λάθος δημιουργία κόμβων, η περιοχή ανοχής αφής για αυτή τη λειτουργία είναι αρκετά μικρή.
 
-#### Cut, Copy & Paste
+#### Αποκοπή, Αντιγραφή και Επικόλληση
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Μπορείτε να αντιγράψετε ή να αποκόψετε επιλεγμένους κόμβους και διαδρομές και στη συνέχεια να τα επικολλήσετε μια ή περισσότερες φορές σε μια νέα θέση. Η κοπή θα διατηρήσει την ταυτότητα και την έκδοση του osm. Για να επικολλήσετε πατήστε παρατεταμένα στην τοποθεσία που θέλετε να επικολλήσετε (θα δείτε ένα σταυρόνημα που σηματοδοτεί τη θέση). Στη συνέχεια, επιλέξτε "Επικόλληση" από το μενού.
 
-#### Efficiently Adding Addresses
+#### Αποτελεσματική Προσθήκη Διευθύνσεων
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Το Vespucci έχει μια λειτουργία "προσθήκη ετικετών διευθύνσεων" που προσπαθεί να αποτυπώσει πιο αποδοτικά τις διευθύνσεις. Μπορεί να επιλεγεί:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* μετά από ένα παρατεταμένο πάτημα: το Vespucci θα προσθέσει έναν κόμβο στη τοποθεσία και θα κάνει μια καλύτερη εικασία στον αριθμό του σπιτιού και θα προσθέσει ετικέτες διευθύνσεων που έχετε χρησιμοποιήσει τελευταία. Εάν ο κόμβος βρίσκεται στο περίγραμμα ενός κτιρίου, αυτόματα θα προσθέσει μια ετικέτα "είσοδος=ναι" στον κόμβο. Ο επεξεργαστής ετικετών θα ανοίξει για το συγκεκριμένο αντικείμενο και θα σας επιτρέψει να κάνετε τις απαραίτητες περαιτέρω αλλαγές.
+* στις επιλεγμένες λειτουργίες κόμβου/διαδρομής: το Vespucci θα προσθέσει ετικέτες διευθύνσεων όπως παραπάνω και θα ξεκινήσει τον επεξεργαστή ετικετών.
+* στον επεξεργαστή ετικετών.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Η πρόβλεψη αριθμού κατοικίας απαιτεί συνήθως τουλάχιστον δύο αριθμούς κατοικιών σε κάθε πλευρά του δρόμου για να τεθεί σε λειτουργία, όσο περισσότεροι αριθμοί υπάρχουν στα δεδομένα τόσο το καλύτερο.
 
-Consider using this with the [Auto-download](#download) mode.  
+Εξετάστε την χρήση αυτού με τη λειτουργία [Αυτόματη λήψη] (#λήψη).  
 
-#### Adding Turn Restrictions
+#### Προσθέτοντας Περιορισμούς Στροφής
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Το Vespucci έχει έναν γρήγορο τρόπο να προσθέσει περιορισμούς στροφής. Εάν είναι απαραίτητο, θα διαιρέσει διαδρομές αυτόματα και θα σας ζητήσει να επιλέξετε εκ νέου στοιχεία. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* επιλογή μιας διαδρομής με μια ετικέτα αυτοκινητόδρομου (οι περιορισμοί στροφής μπορούν να προστεθούν μόνο σε αυτοκινητόδρομους, εάν πρέπει να το κάνετε αυτό για άλλες διαδρομές, χρησιμοποιήστε τη γενική λειτουργία "δημιουργίας σχέσης")
+* επιλογή "Προσθήκη περιορισμού" από το μενού
+* επιλογή κόμβου ή διαδρομής "μέσω" (τα μόνο πιθανά στοιχεία "μέσω" θα εμφανίζουν την περιοχή αφής)
+επιλέξτε την διαδρομή "προς" (είναι δυνατό να πάτε αντίθετα και να ορίσετε το στοιχείο "προς" στο στοιχείο "από", το Vespucci θα υποθέσει ότι προσθέτετε περιορισμό αναστροφής)
+* ορίστε τον τύπο περιορισμού
 
-### Vespucci in "locked" mode
+### Το Vespucci σε  "κλειδωμένη" λειτουργία
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Όταν εμφανιστεί η κόκκινη κλειδαριά, όλες οι ενέργειες μη επεξεργασίας είναι διαθέσιμες. Επιπλέον, με παρατεταμένο πάτημα πάνω ή κοντά σε ένα αντικείμενο θα εμφανίσει την οθόνη λεπτομερών πληροφοριών αν πρόκειται για αντικείμενο του OSM.
 
-### Saving Your Changes
+### Αποθήκευση των Αλλαγών σας
 
-*(requires network connectivity)*
+*(απαιτείται σύνδεση δικτύου)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Επιλέξτε το ίδιο κουμπί ή μενού αντικειμένου που εκτελέσατε για τη λήψη και τώρα επιλέξτε "Μεταφόρτωση δεδομένων στον διακομιστή του OSM".
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Το Vespucci υποστηρίζει την εξουσιοδότηση OAuth και την κλασική μέθοδο ονόματος χρήστη και κωδικού πρόσβασης. Το OAuth είναι προτιμότερο δεδομένου ότι αποφεύγει την φανερή αποστολή κωδικών πρόσβασης.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Οι νέες λήψεις στο Vespucci θα έχουν ενεργοποιημένο από προεπιλογή το OAuth. Κατά την πρώτη προσπάθειά σας για μεταφόρτωση τροποποιημένων δεδομένων, φορτώνεται μια σελίδα από τον ιστότοπο OSM. Αφού συνδεθείτε (μέσω κρυπτογραφημένης σύνδεσης), θα σας ζητηθεί να εξουσιοδοτήσετε τον Vespucci να επεξεργαστεί χρησιμοποιώντας το λογαριασμό σας. Αν θέλετε ή πρέπει να εξουσιοδοτήσετε το OAuth για πρόσβαση στο λογαριασμό σας πριν από την επεξεργασία, υπάρχει ένα αντίστοιχο στοιχείο στο μενού "Εργαλεία".
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Εάν θέλετε να αποθηκεύσετε την εργασία σας και δεν έχετε πρόσβαση στο Internet, μπορείτε να αποθηκεύσετε σε ένα αρχείο .osm συμβατό με το JOSM και είτε να μεταφορτώσετε αργότερα με το Vespucci είτε με το JOSM. 
 
-#### Resolving conflicts on uploads
+#### Επίλυση συγκρούσεων στις μεταφορτώσεις
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
+Το Vespucci έχει έναν απλό επιλυτή συγκρούσεων. Ωστόσο, εάν υποψιάζεστε ότι υπάρχουν σημαντικά ζητήματα με τις επεξεργασίες σας, εξαγάγετε τις αλλαγές σας σε ένα αρχείο .osc ("Εξαγωγή" μενού αντικειμένου στο μενού "Μεταφορά") και διορθώστε τα και ανεβάστε τα με το JOSM. Δείτε την λεπτομερή βοήθεια στο [επίλυση συγκρούσεων] (../en/Conflict%20resolution.md).  
 
-## Using GPS
+## Χρήση του GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Μπορείτε να χρησιμοποιήσετε το Vespucci για να δημιουργήσετε ένα ίχνος GPX και να το εμφανίσετε στη συσκευή σας. Περαιτέρω μπορείτε να εμφανίσετε την τρέχουσα θέση GPS (ορίστε στο "Εμφάνιση τοποθεσίας" στο μενού GPS) ή/και να έχετε το κέντρο της οθόνης τριγύρω και να ακολουθείτε τη θέση (ορίστε "Ακολουθήστε τη θέση GPS" στο μενού GPS). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Εάν έχετε ορίσει το τελευταίο, η μετακίνηση της οθόνης χειροκίνητα ή η επεξεργασία θα προκαλέσει την απενεργοποίηση της λειτουργίας "παρακολούθηση του GPS" και το μπλε βέλος του GPS θα αλλάξει από περίγραμμα σε πλήρες βέλος. Για να επιστρέψετε γρήγορα στη λειτουργία "παρακολούθηση", αγγίξτε απλώς το κουμπί GPS ή επανελέγξτε την επιλογή μενού.
 
-## Notes and Bugs
+## Σημειώσεις και Σφάλματα
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Το Vespucci υποστηρίζει τη λήψη, την σχολιασμό και το κλείσιμο των Σημειώσεων OSM (πρώην OSM Bugs) και την αντίστοιχη λειτουργικότητα για τα "Σφάλματα" που παράγονται από το εργαλείο [διασφάλιση ποιότητας του OSMOSE](http://osmose.openstreetmap.fr/en/map/). Και τα δύο πρέπει είτε να είναι κατεβαίνουν λεπτομερώς είτε μπορείτε να χρησιμοποιήσετε τη δυνατότητα αυτόματης λήψης για να αποκτήσετε πρόσβαση στα στοιχεία της περιοχής σας. Μόλις επεξεργαστείτε ή κλείσετε, μπορείτε είτε να μεταφορτώσετε το σφάλμα ή τη σημείωση αμέσως ή να τα ανεβάσετε όλα ταυτόχρονα.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+Στον χάρτη οι Σημειώσεις και τα σφάλματα αντιπροσωπεύονται από ένα μικρό εικονίδιο σφάλματος ! [Σφάλμα](../images/bug_open.png), τα πράσινα είναι κλειστά/επιλυμένα, τα μπλε έχουν δημιουργηθεί ή επεξεργαστεί από εσάς και τα κίτρινο υποδεικνύουν ότι εξακολουθούν να είναι ενεργά και δεν έχουν αλλάξει. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+Η απεικόνιση σφαλμάτων του OSMOSE θα παρέχει μια σύνδεση με το επηρεασμένο αντικείμενο με μπλε χρώμα, αγγίζοντας το σύνδεσμο θα επιλέγεται το αντικείμενο, θα κεντράρεται η οθόνη πάνω του και θα φορτώνει εκ των προτέρων την περιοχή, εάν είναι απαραίτητο. 
 
-### Filtering
+### Φιλτράρισμα
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
+Εκτός από την παγκόσμια ενεργοποίηση εμφάνισης των σημειώσεων και των σφαλμάτων, μπορείτε να ορίσετε ένα χονδροειδές φίλτρο απεικόνισης για να μειώσετε όλο αυτόν τον όγκο. Στις "Προηγμένες προτιμήσεις" μπορείτε να επιλέξετε ξεχωριστά:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
+* Σημειώσεις
+* Σφάλμα Osmose
+* Προειδοποίηση Osmose
+* Ασήμαντο ζήτημα Osmose
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Εσωτερική λειτουργία
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+Η χαρτογράφηση σε εσωτερικούς χώρους είναι δύσκολη λόγω του μεγάλου αριθμού αντικειμένων που συχνά επικαλύπτουν ο ένας τον άλλον. Το Vespucci έχει μια ειδική λειτουργία εσωτερικού χώρου που σας επιτρέπει να φιλτράρετε όλα τα αντικείμενα που δεν βρίσκονται στο ίδιο επίπεδο και τα οποία θα προσθέσουν αυτόματα το τρέχον επίπεδο σε νέα αντικείμενα που έχουν δημιουργηθεί.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Η λειτουργία μπορεί να ενεργοποιηθεί πατώντας παρατεταμένα το στοιχείο κλειδώματος, δείτε στο [Κλείδωμα, ξεκλείδωμα, εναλλαγή λειτουργίας] (#κλειδαριά) και επιλέγοντας την αντίστοιχη καταχώρηση μενού.
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Λειτουργία-C
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+Στη Λειτουργία-C εμφανίζονται μόνο αντικείμενα που έχουν μια προειδοποιητική σημαία σήμανσης, γεγονός που καθιστά εύκολο το εντοπισμό αντικειμένων που παρουσιάζουν συγκεκριμένα προβλήματα ή ταιριάζουν με ρυθμιζόμενους ελέγχους. Αν επιλεγεί ένα αντικείμενο και ο Επεξεργαστής Ιδιοτήτων ξεκινήσει στη Λειτουργία-C, θα εφαρμοστεί αυτόματα η καλύτερη προεπιλεγμένη προρύθμιση.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Η λειτουργία μπορεί να ενεργοποιηθεί πατώντας παρατεταμένα το στοιχείο κλειδώματος, δείτε στο [Κλείδωμα, ξεκλείδωμα, εναλλαγή λειτουργίας] (#κλειδαριά) και επιλέγοντας την αντίστοιχη καταχώρηση μενού.
 
-### Configuring checks
+### Διαμόρφωση των ελέγχων
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Επί του παρόντος υπάρχουν δύο διαμορφώσιμοι έλεγχοι (υπάρχει ο έλεγχος για ετικέτες FIXME (ΦΤΙΑΞΕΜΕ) και η δοκιμή χαμένων τύπων ετικετών για σχέσεις που δεν είναι επί του παρόντος ρυθμιζόμενες) και οι δύο μπορούν να ρυθμιστούν επιλέγοντας το "Προτιμήσεις επικύρωσης" στις "Προτιμήσεις". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+Ο κατάλογος των καταχωρίσεων χωρίζεται στα δύο, ο πάνω μισός κατάλογος καταγράφει την "επανεξέταση", ο κάτω μισός ελέγχει τις "καταχωρήσεις". Οι καταχωρίσεις μπορούν να επεξεργαστούν κάνοντας κλικ σε αυτές, το πράσινο κουμπί μενού επιτρέπει την προσθήκη των καταχωρήσεων.
 
-#### Re-survey entries
+#### Εισαγωγές επανεξέτασης
 
-Re-survey entries have the following properties:
+Οι εισαγωγές επανεξέτασης έχουν τις εξής ιδιότητες:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Κλειδί** - Το κλειδί της ετικέτας ενδιαφέροντος.
+* **Τιμή** - Η τιμή της ετικέτας ενδιαφέροντος που θα πρέπει να έχει, αν είναι άδεια η τιμή της ετικέτας τότε θα αγνοηθεί.
+* **Ηλικία** - πόσες ημέρες μετά την τελευταία αλλαγή του στοιχείου, θα πρέπει το στοιχείο να επανεξεταστεί, αν υπάρχει πεδίο έλεγχος_ημερομηνίας αυτό θα χρησιμοποιηθεί, αλλιώς θα χρειαστεί να δημιουργηθεί η ημερομηνία της τρέχουσας έκδοσης. Ο ορισμός της τιμής στο μηδέν θα οδηγήσει στον έλεγχο που ταιριάζει απλά με το κλειδί και την τιμή.
+* **Κανονική έκφραση** - αν είναι επιλεγμένη η **Τιμή** θεωρείται κανονική έκφραση JAVA.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Κλειδί** και **Τιμή** ελέγχονται έναντι των _υπαρχόντων_ ετικετών του αντικειμένου στην ερώτηση.
 
-#### Check entries
+#### Έλεγχος καταχωρήσεων
 
-Check entries have the following two properties:
+Οι έλεγχοι καταχωρίσεων έχουν τις εξής δύο ιδιότητες:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Κλειδί** - Το Κλειδί που θα πρέπει να εμφανίζεται στο αντικείμενο σύμφωνα με την αντίστοιχη προεπιλογή
+* **Προαιρετικός έλεγχος** - Ελέγξτε τις προαιρετικές ετικέτες της αντίστοιχης προρύθμισης.
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Αυτός ο έλεγχος είναι ο πρώτος που καθορίζει την ταιριαστή ρύθμιση και στη συνέχεια ελέγχει αν το **Κλειδί** "συνιστάται" για αυτό το αντικείμενο σύμφωνα με την προεπιλογή, ο **Προαιρετικός έλεγχος** θα επεκτείνει τον έλεγχο στις ετικέτες που είναι "προαιρετικές" για το αντικείμενο. Σημείωση: οι προεπιλεγμένες συνδέσεις τώρα δεν είναι τσεκαρισμένες.
 
-## Filters
+## Φίλτρα
 
-### Tag based filter
+### Ετικέτα βασισμένη σε φίλτρο
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+Το φίλτρο μπορεί να ενεργοποιηθεί από το κύριο μενού, μπορεί τότε να αλλάξει χτυπώντας το εικονίδιο του φίλτρου. Περισσότερες οδηγίες μπορείτε να βρείτε εδώ [Φίλτρο ετικέτας](../en/Tag%20filter.md).
 
-### Preset based filter
+### Προρύθμιση βασισμένη σε φίλτρο
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
+Μια εναλλακτική λύση στα παραπάνω αντικείμενα φιλτράρονται είτε σε μεμονωμένες προεπιλογές είτε σε προκαθορισμένες ομάδες. Χτυπώντας στο εικονίδιο του φίλτρου θα εμφανιστεί ένα προκαθορισμένο παράθυρο επιλογής παρόμοιο με αυτό που χρησιμοποιείται κάπου αλλού στο Vespucci. Οι μεμονωμένες προεπιλογές μπορούν να επιλεγούν με κανονικό κλικ, οι προκαθορισμένες ομάδες με παρατεταμένο κλικ (το κανονικό κλικ μπαίνει στην ομάδα). Περισσότερες οδηγίες μπορείτε να βρείτε εδώ [Προκαθορισμένο φίλτρο](../en/Preset%20filter.md).
 
-## Customizing Vespucci
+## Προσαρμογή του Vespucci
 
-### Settings that you might want to change
+### Ρυθμίσεις που μπορεί να θέλετε να αλλάξετε
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Επίπεδο φόντου
+* Επίπεδο επικάλυψης. Η προσθήκη μιας επικάλυψης μπορεί να προκαλέσει προβλήματα με παλαιότερες συσκευές και αυτές με περιορισμένη μνήμη. Προεπιλογή: καμία.
+* Εμφάνιση Σημειώσεων/Σφαλμάτων. Οι ανοιχτές σημειώσεις και τα σφάλματα θα εμφανιστούν ως κίτρινο εικονίδιο εντόμου, οι κλειστές το ίδιο σε πράσινο. Προεπιλογή: ενεργοποιημένο.
+* Επίπεδο φωτογραφίας. Εμφανίζει γεωαναφερμένες φωτογραφίες ως κόκκινα εικονίδια κάμερας, εάν υπάρχουν πληροφορίες κατεύθυνσης, το εικονίδιο θα περιστραφεί. Προεπιλογή: απενεργοποιημένο.
+* Εικονίδια κόμβου. Προεπιλογή: ενεργοποιημένο.
+* Διατήρηση της οθόνη ανοιχτή. Προεπιλογή: απενεργοποιημένο.
+* Μετακίνηση κόμβου σε μεγάλη περιοχή. Οι μετακινούμενοι κόμβοι σε μια συσκευή με οθόνη αφής είναι προβληματικοί επειδή τα δάχτυλά σας θα κρύψουν την τρέχουσα θέση στην οθόνη. Ενεργοποιώντας την επιλογή αυτή, θα δημιουργηθεί μια μεγάλη περιοχή που μπορεί να χρησιμοποιηθεί για μετακίνηση εκτός του κέντρου (η επιλογή και άλλες λειτουργίες εξακολουθούν να χρησιμοποιούν την κανονική περιοχή ανοχής αφής). Προεπιλογή: απενεργοποιημένο.
 
-#### Advanced preferences
+#### Σύνθετες προτιμήσεις
 
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Να εμφανίζεται πάντα το μενού συνθηκών. Όταν ενεργοποιηθεί σε κάθε επιλεγμένη διαδικασία θα εμφανιστεί το μενού συνθηκών, όταν απενεργοποιηθεί το μενού θα εμφανιστεί μόνο όταν δεν μπορεί να καθοριστεί ξεκάθαρη επιλογή. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).
+* Ενεργοποίηση ανάλαφρου μοτίβου. Στις σύγχρονες συσκευές αυτό ενεργοποιείται από προεπιλογή. Παρόλο που μπορείτε να το ενεργοποιήσετε για παλαιότερες εκδόσεις Android, το στυλ ενδέχεται να είναι ασυνεπές
+* Εμφάνιση στατιστικών. Θα παρουσιάσει κάποια στατιστικά στοιχεία για την αποσφαλμάτωση, πραγματικά δεν είναι χρήσιμο. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).  
 
-## Reporting Problems
+## Αναφορά Προβλημάτων
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Αν το Vespucci καταρρεύσει ή ανιχνεύσει μια ασυνεπή κατάσταση, θα σας ζητηθεί να την στείλετε στα σκουπίδια κατάρρευσης. Παρακαλούμε να το κάνετε εάν συμβεί, αλλά παρακαλώ μόνο μία φορά για συγκεκριμένη περίπτωση. Αν θέλετε να δώσετε περαιτέρω πληροφορίες ή να ανοίξετε κάποιο ζήτημα για ένα αίτημα χαρακτηριστικών ή κάτι παρόμοιο, κάντε το εδώ: [Ανίχνευση ζητημάτων του Vespucci] (https://github.com/MarcusWolschon/osmeditor4android/issues). Εάν θέλετε να συζητήσετε κάτι που σχετίζεται με το Vespucci, μπορείτε είτε να ξεκινήσετε μια συζήτηση σχετικά με την [Ομάδα Google του Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) είτε στο [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

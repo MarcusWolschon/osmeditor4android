@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string-array name="scale_entries">
+    <item>None</item>
+    <item>Мащаб (метричен)</item>
+    <item>Координатна мрежа (метрична)</item>
+    <item>Мащаб (имперски)</item>
+    <item>Координатна мрежа (имперска)</item>
+  </string-array>
+</resources>

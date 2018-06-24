@@ -34,9 +34,9 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 #### Lock, unlock, mode switching
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+By uniknąć przypadkowych edycji Vespucci uruchamia się w trybie "zablokowanym" który umożliwia tylko wynieranie lokalizacji na mapie. Puknij w ikonę ![Locked](../images/locked.png) by odblokować ekran. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Długie naciśnięcie na kłódkę pokaże menu które teraz zawiera 4 opcje:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
@@ -96,7 +96,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Dodawanie obszaru
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -126,7 +126,7 @@ Consider using this with the [Auto-download](#download) mode.
 
 #### Dodawanie ograniczeń skrętu
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci ma  możliwość szybiego dodawania zakazów skrętu. Jeśli będzie to potrzebne to drogi zostaną automatycznie podzielone na fragmenty. W takim przypadku konieczne jest ponowne wybranie odpowiednich elementów. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
@@ -168,7 +168,7 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 Błędy OSMOSE po zaznaczeniu dają możliwość wybrania adresu do obiektu, dotknięcie adresu wybierze obiekt, wyśrodkuje ekran na nim i pobierze obszar potrzebny do jego edycji jeśli zachodzi taka potrzeba. 
 
-### Filtering
+Filtrowanie
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
 
@@ -219,7 +219,7 @@ Check entries have the following two properties:
 
 This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
-## Filters
+## Filtry
 
 ### Tag based filter
 
