@@ -1554,7 +1554,7 @@
                 <list_entry value="grade2" display_value="2 - Mostly solid" short_description="Usually an unpaved track with surface of gravel mixed with a varying amount of sand, silt, and clay" />
                 <list_entry value="grade3" display_value="3 - Mix hard and soft" short_description="Even mixture of hard and soft materials" />
                 <list_entry value="grade4" display_value="4 - Mostly soft" short_description="Almost always an unpaved track prominently with soil/sand/grass, but with some hard materials, or compressed materials" />
-                <list_entry value="grade5" display_value="5 - Soft" short_description="TAlmost always an unpaved track lacking hard materials, uncompacted, with surface of soil/sand/grass" />
+                <list_entry value="grade5" display_value="5 - Soft" short_description="Almost always an unpaved track lacking hard materials, uncompacted, with surface of soil/sand/grass" />
             </combo>
             <optional>
                 <reference ref="name_layer" />
@@ -3831,9 +3831,9 @@
             <space />
             <key key="amenity" value="parking" />
             <reference ref="parking_name_type_ref" />
-            <text key="maxheight" text="Max. height (meters)" />
             <combo key="park_ride" text="Park and Ride" values="yes,no,bus,train,tram,metro,ferry" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
+            <text key="maxheight" text="Max. height (meters)" />
             <space />
             <text key="capacity" text="Capacity (overall)" />
             <combo key="capacity:disabled" text="Spaces for Disabled" values="yes,no,1,2,3" />
@@ -5413,7 +5413,7 @@
             <multiselect key="animal" text="Animal" values_searchable="true">
                 <list_entry value="alpaca" display_value="Alpaca" />
                 <list_entry value="anteater" display_value="Anteater" />
-                <list_entry value="antilope" display_value="Antilope" />
+                <list_entry value="antelope" display_value="Antelope" />
                 <list_entry value="artic_fox" display_value="Artic fox" />
                 <list_entry value="baboon" display_value="Baboon" />
                 <list_entry value="bat" display_value="Bat" />
@@ -6803,6 +6803,15 @@
             </optional>
             -->
         </item> <!-- Automated Defibrillator -->
+        <item name="First Aid Kit" icon="icons/png/emergency_first_aid_17002.png" type="node" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=first_aid_kit" />
+            <space />
+            <key key="emergency" value="first_aid_kit" />
+            <reference ref="oh_wheelchair_level" />
+            <text key="operator" text="Operator" />
+            <combo key="access" text="Access" values="yes,private,customers,permissive,no" display_values="Yes,Private,Customers,Permissive,No" />
+            <check key="indoor" text="Located inside a building?" disable_off="true" match="none" />
+        </item> <!-- First Aid Kit -->
         <item name="Fire Extinguisher" icon="icons/png/emergency_fire_extinguisher_17008.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=fire_extinguisher"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:emergency=fire_extinguisher"
@@ -10073,7 +10082,7 @@
             <key key="shop" value="frozen_food" />
             <reference ref="name_operator_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
-        </item> <!-- Cheese -->
+        </item> <!-- Frozen food -->
         <item name="Deli (Fine Food)" icon="icons/png/shopping_deli_29042.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=deli"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=deli"
@@ -10290,6 +10299,17 @@
             <reference ref="name_oh_wheelchair_level" />
             <reference ref="link_contact_address_payment" />
         </item> <!-- Nutrition supplements -->
+        <item name="Spices" icon="icons/png/shopping_empty.png" type="node,closedway,multipolygon" preset_name_label="true">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=spices"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=spices"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=spices"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=spices"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=spices" />
+            <space />
+            <key key="shop" value="spices" />
+            <reference ref="name_oh_wheelchair_level" />
+            <reference ref="link_contact_address_payment" />
+        </item> <!-- Spices -->
     </group> <!-- Food -->
     <group name="Clothes" icon="icons/png/shopping_clothes.png">
         <item name="Clothes" icon="icons/png/shopping_clothes.png" type="node,closedway,multipolygon" preset_name_label="true">
