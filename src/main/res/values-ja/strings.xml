@@ -10,6 +10,7 @@
   <string name="transfer_download_current_back">戻る (何もしない)</string>
   <string name="upload_problem_title">アップロードで問題発生</string>
   <string name="upload_problem_message">全てもしくは一部のデータがアップロードされていません。一時的な問題の可能性もあるので、しばらくたってからもう一度アップロードしてください。</string>
+  <string name="bad_request_message">API がエラーを返しました。データを保存して問題を報告してください。\n\n</string>
   <string name="upload_conflict_title">アップロードされたデータの整合性が取れません</string>
   <string name="upload_conflict_message_version">%1$s
 について、ローカルにあるバージョンは %2$d
@@ -26,17 +27,19 @@
   <string name="no_login_data_title">認証失敗</string>
   <string name="no_login_data_message">OAuthを利用している場合、これはバグです。発生した事象のレポートを送ってください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="no_connection_title">サーバーに接続していません</string>
-  <string name="no_connection_message">OSMサーバーに接続できませんでした。インターネット接続を確認してやり直してください。</string>
+  <string name="no_connection_message">OSM-サーバーに接続できませんでした。インターネット接続を確認してやり直してください。</string>
   <string name="ssl_handshake_failed">httpsネゴシエーションが失敗したため、OSM-Serverに接続できませんでした。 APIの設定で暗号化されていない接続に切り替えてみてください。</string>
   <string name="wrong_login_data_title">認証失敗</string>
   <string name="wrong_login_data_message">OAuthを利用している場合、再認証してもう一度やり直してください。ログイン名とパスワードを利用 (非推奨) している場合、入力した文字列が正しいかどうか確認してください。</string>
   <string name="wrong_login_data_re_authenticate">再認証</string>
+  <string name="forbidden_login_title">ログインが禁止されています</string>
   <string name="go_to_openstreetmap">openstreetmap.orgへ移動</string>
   <string name="data_conflict_title">バージョン間の不一致</string>
   <string name="data_conflict_message">ダウンロードしようとしたデータは、あなたの編集したデータと合致しない内容を含みます。ダウンロードを再度行う前に、あなたが編集したデータのアップロードを試してください。</string>
   <string name="invalid_bounding_box_title">無効な境界ボックス</string>
   <string name="invalid_bounding_box_message">選択したエリアがAPIの制限に準拠していません。別のエリアを選択してください。</string>
   <string name="bounding_box_too_large_title">ダウンロード範囲が大きすぎます</string>
+  <string name="bounding_box_too_large_message">ダウンロードしようとした領域が大きすぎるか、返却データが大きすぎます。\n\nもっと拡大して再実行してください。</string>
   <string name="api_offline_title">API オフライン</string>
   <string name="api_offline_message">API は現在オフラインで、データの取得や書き込みができません。</string>
   <string name="out_of_memory_title">メモリー不足</string>
@@ -50,6 +53,7 @@
   <string name="file_write_failed_message">選択したファイルに書き込むことが出来ませんでした。</string>
   <string name="welcome_title">ようこそ！</string>
   <string name="welcome_message">Vespucci をご利用いただきありがとうございます。\n\n使い始める前にまず二つのことを覚えておく必要があります:\n\n* 左上にある鍵アイコンをタップすることで、(編集が出来ない)ロックモードとアンロックモードを切り替えられます。\n\n* 新しいオブジェクトを追加する場合: 長押しして、同じ場所をタップすればノードの追加、離れた場所をタップすればウェイの追加です。\n\n編集したいエリアをダウンロードすることをお忘れなく。\n\n楽しくご活用ください！</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci は「ソフトキー」が隠されていることを検出しました。ボタンの端をスワイプして表示してください。</string>
   <string name="read_introduction">導入説明をお読みください</string>
   <string name="upgrade_title">新しいバージョンの Vespucci へようこそ!</string>
   <string name="upgrade_message">これは新しい機能と動作を備えた、新しいバージョンの Vespucci です。 デバイスのアップグレード情報をお読みください。</string>
@@ -66,12 +70,15 @@
   <string name="progress_running_message">実行中…</string>
   <string name="progress_oauth">OAuth 認証のために openstreetmap.org でアカウントを読み込んでいます…</string>
   <string name="progress_building_imagery_database">画像データベースを構築中…</string>
+  <string name="progress_query_oam">OAM に問い合わせ中...</string>
   <string name="upload_comment_label">コメント:</string>
   <string name="upload_source_label">ソース:</string>
   <string name="upload_close_changeset_label">チェンジセットを閉じる：</string>
   <string name="upload_gpx_description_label">説明</string>
   <string name="upload_gpx_tags_label">タグ</string>
   <string name="upload_gpx_visibility_label">表示するかどうか</string>
+  <string name="upload_validation_error_empty_comment">コメントはなにか入力してください</string>
+  <string name="upload_validation_error_empty_source">ソースはなにか入力してください</string>
   <string name="openstreetbug_new_title">新規メモ</string>
   <string name="openstreetbug_new_bug">問題を報告</string>
   <string name="openstreetbug_bug_title">問題</string>
@@ -134,14 +141,20 @@
   <string name="unknown_error_level">エラーレベル不明</string>
   <!--hidden object warning dialog-->
   <!--debug dialog-->
+  <string name="send_debug_information">デバッグ情報を送信</string>
   <!--JS console dialog-->
+  <string name="js_console_msg_debug">デバッグモード!</string>
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
   <string name="altitude">高度</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">カスタム画像</string>
   <string name="oam_layer_title">OAM 画像</string>
+  <string name="edit_layer_title">レイヤーエントリーを編集</string>
+  <string name="add_layer_title">レイヤーエントリーを追加</string>
   <string name="overlay">オーバーレイ</string>
+  <string name="coverage">地図の範囲</string>
   <string name="coverage_top">上</string>
   <string name="coverage_left">左</string>
   <string name="coverage_right">右</string>
@@ -165,9 +178,15 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
+  <string name="toast_name_empty">名称は空にできません</string>
+  <string name="toast_url_empty">URL は空にできません</string>
   <string name="toast_no_changes">変更がありません…</string>
   <string name="toast_unsaved_changes">変更が保存されていません。先にアップロードしてください。</string>
+  <string name="clear_anyway">とにかくクリアしますか?</string>
   <string name="toast_upload_success">OSMサーバーへのアップロードが完了しました</string>
   <string name="toast_not_in_edit_range">ズームインしてから編集してください(ボリュームUp/Down または Lens/Shift)</string>
   <string name="toast_unlock_to_edit">編集するためにはロックを解除してください</string>
@@ -212,6 +231,7 @@
   <string name="back">戻る</string>
   <string name="forward">ウェイの順方向</string>
   <string name="keep">そのままにする</string>
+  <string name="share_position">位置の共有</string>
   <string name="geojson_object">%1$s (%2$s)</string>
   <!--Dialog for back button-->
   <string name="exit_title">終了しますか？</string>
@@ -315,13 +335,16 @@
   <string name="menu_tools_background_align_apply2all">適用 (すべてのズーム)</string>
   <!---->
   <string name="menu_tools_background_contrast">比較</string>
+  <string name="menu_enable_tagfilter">タグフィルター</string>
+  <string name="menu_enable_presetfilter">リセットフィルター</string>
+  <string name="preset_menu_invert">フィルターを反転</string>
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">オブジェクト編集履歴</string>
   <string name="menu_merge">結合</string>
   <string name="menu_reverse">逆方向の</string>
   <string name="notreversable_description">ウェイは方向依存の属性を持つタグがついているため逆走できません。ウェイの逆走はタグ付けを破壊します。</string>
-  <string name="reverse_anyway">とにかく逆走する</string>
+  <string name="reverse_anyway">とにかく反転する</string>
   <string name="deleteway_description">ウェイを削除しようとしています。
 
 このウェイに付属して何もタグを持たないノードについてはそのままにしておくことも、削除することも可能です。</string>
@@ -357,6 +380,7 @@
   <string name="config_category_info">Vespucciについて</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">ユーザーインターフェース設定</string>
   <string name="config_iconbutton_title">ノードアイコンを表示</string>
   <string name="config_iconbutton_summary">ノード上のもっとも適合したプリセットアイコンを表示</string>
   <string name="config_showTolerance_title">トレランスを表示</string>
@@ -555,5 +579,14 @@
     <item>内部 NMEA</item>
     <item>TCPクライアント経由NMEA</item>
     <item>TCPサーバー経由NMEA</item>
+  </string-array>
+  <string-array name="note_state">
+    <item>開</item>
+    <item>閉</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>左</item>
+    <item>右</item>
+    <item>なし</item>
   </string-array>
 </resources>

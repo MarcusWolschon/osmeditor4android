@@ -36,7 +36,7 @@ The easiest way to download data to the device is to zoom and pan to the locatio
 
 To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+נגיעה ארוכה בכפתור המנעול תציג תפריט שמציג 4 אפשרויות נכון לעכשיו:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
@@ -59,7 +59,7 @@ It is a good strategy to zoom in if you attempt to edit a high density area.
 
 Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### בחירה / ביטול בחירה (נגיעה בודדת ו־„תפריט בחירה”)
 
 Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
 
@@ -210,9 +210,9 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### רשומות בדיקה
 
-Check entries have the following two properties:
+לרשומות בדיקה יש את שני המאפיינים הבאים:
 
 * **Key** - Key that should be present on the object according to the matching preset.
 * **Check optional** - Check the optional tags of the matching preset.
@@ -223,7 +223,7 @@ This check works be first determining the matching preset and then checking if *
 
 ### מסנן על בסיס תגיות
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+ניתן להפעיל מסנן מהתפריט הראשי, לאחר מכן ניתן לשנות אותו על ידי לחיצה על סמל המסנן. ניתן למצוא תיעוד נוסף כאן  [מסנן תגיות](../en/Tag%20filter.md).
 
 ### מסנן על בסיס ערכות מוגדרות
 
