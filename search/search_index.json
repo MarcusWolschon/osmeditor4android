@@ -1456,6 +1456,351 @@
             "title": "Time span menu"
         }, 
         {
+            "location": "/help/en/Preferences/", 
+            "text": "Preferences\n\n\nThe settings for Vespucci are split over two screens: standard and advanced preferences. The more commonly used settings should in general be in the first screen.\n\n\nMap background\n\n\nSelect the tiled imagery background layer. Selection will be filtered to layers that cover the current map view.\n\n\nMap overlay\n\n\nSelect the tiled imagery overlay layer. Selection will be filtered to layers that cover the current map view.\n\n\nCustom layers\n\n\nConfigure a custom imagery layer not included in the standard configuration.\n\n\nScale display\n\n\nConfigure the scale or grid displayed.\n\n\nData style\n\n\nThe style that is used to render OpenStreetmapData. Additional style can be added by including corresponding files in the Vespucci directory.\n\n\nEnable Bugs and Notes display\n\n\nTurn on the task layer (currently supporting OSM Notes, OSMOSE bugs and custom tasks).\n\n\nEnable Photo layer\n\n\nTurn on the photo layer. When enabled the Vespucci directory and others will be scanned for geo-referenced photographs that will be displayed with a camera icon and are selectable (selecting will try to start a photo viewer on the device).\n\n\nKeep screen on\n\n\nDisable the Android automatic screen lock.\n\n\nLarge node drag area\n\n\nDisplay a large ring around selected nodes making draging and positioning nodes easier.\n\n\nPresets\n\n\nStart preset management screen. Vespucci supports JOSM style presets that can be downloaded and added from this screen.\n\n\nValidator settings\n\n\nConfigure the standard validator.\n\n\nThere are currently two configurable checks: a check for missing keys and an aged based one for re-surveying.\n\n\nThe missing tag check works on the combination of the keys that should be checked and the preset for element.\n\n\nExample: the default configuration checks that a \"name\" tag is present on a object if the matching preset contains a \"name\" field in the non-optional tags, optionally the check can be extended to \"optional\" tags.\n\n\nAdvanced preferences\n\n\nStarts the advanced preferences editor.", 
+            "title": "Preferences"
+        }, 
+        {
+            "location": "/help/en/Preferences/#preferences", 
+            "text": "The settings for Vespucci are split over two screens: standard and advanced preferences. The more commonly used settings should in general be in the first screen.", 
+            "title": "Preferences"
+        }, 
+        {
+            "location": "/help/en/Preferences/#map-background", 
+            "text": "Select the tiled imagery background layer. Selection will be filtered to layers that cover the current map view.", 
+            "title": "Map background"
+        }, 
+        {
+            "location": "/help/en/Preferences/#map-overlay", 
+            "text": "Select the tiled imagery overlay layer. Selection will be filtered to layers that cover the current map view.", 
+            "title": "Map overlay"
+        }, 
+        {
+            "location": "/help/en/Preferences/#custom-layers", 
+            "text": "Configure a custom imagery layer not included in the standard configuration.", 
+            "title": "Custom layers"
+        }, 
+        {
+            "location": "/help/en/Preferences/#scale-display", 
+            "text": "Configure the scale or grid displayed.", 
+            "title": "Scale display"
+        }, 
+        {
+            "location": "/help/en/Preferences/#data-style", 
+            "text": "The style that is used to render OpenStreetmapData. Additional style can be added by including corresponding files in the Vespucci directory.", 
+            "title": "Data style"
+        }, 
+        {
+            "location": "/help/en/Preferences/#enable-bugs-and-notes-display", 
+            "text": "Turn on the task layer (currently supporting OSM Notes, OSMOSE bugs and custom tasks).", 
+            "title": "Enable Bugs and Notes display"
+        }, 
+        {
+            "location": "/help/en/Preferences/#enable-photo-layer", 
+            "text": "Turn on the photo layer. When enabled the Vespucci directory and others will be scanned for geo-referenced photographs that will be displayed with a camera icon and are selectable (selecting will try to start a photo viewer on the device).", 
+            "title": "Enable Photo layer"
+        }, 
+        {
+            "location": "/help/en/Preferences/#keep-screen-on", 
+            "text": "Disable the Android automatic screen lock.", 
+            "title": "Keep screen on"
+        }, 
+        {
+            "location": "/help/en/Preferences/#large-node-drag-area", 
+            "text": "Display a large ring around selected nodes making draging and positioning nodes easier.", 
+            "title": "Large node drag area"
+        }, 
+        {
+            "location": "/help/en/Preferences/#presets", 
+            "text": "Start preset management screen. Vespucci supports JOSM style presets that can be downloaded and added from this screen.", 
+            "title": "Presets"
+        }, 
+        {
+            "location": "/help/en/Preferences/#validator-settings", 
+            "text": "Configure the standard validator.  There are currently two configurable checks: a check for missing keys and an aged based one for re-surveying.  The missing tag check works on the combination of the keys that should be checked and the preset for element.  Example: the default configuration checks that a \"name\" tag is present on a object if the matching preset contains a \"name\" field in the non-optional tags, optionally the check can be extended to \"optional\" tags.", 
+            "title": "Validator settings"
+        }, 
+        {
+            "location": "/help/en/Preferences/#advanced-preferences", 
+            "text": "Starts the advanced preferences editor.", 
+            "title": "Advanced preferences"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/", 
+            "text": "Advanced preferences\n\n\nThe Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.\n\n\nUser Interface Settings\n\n\nShow node icons\n\n\nShow icons on nodes if they can be matched with a preset. Default: on.\n\n\nShow POI icons on buildings\n\n\nShow icons on buildings if the tags on the building can be matched with a preset. Default: on.\n\n\nDisplay tag form\n\n\nEnable the form based tag editor. Default: on.\n\n\nShow camera action\n\n\nShow a camera button on the main display (if a camera is present). Default: on.\n\n\nFollow location button layout\n\n\nChange the side of the display the \"follow GPS\" button is located on. Default: lefthand side.\n\n\nAlways dim non-downloaded areas\n\n\nIf on the non-downloaded areas will be dimmed when the screen is locked. Default: off.\n\n\nFull screen mode\n\n\nConfigure the behaviour on devices with \"soft\" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.\n\n\nShow tolerance\n\n\nShow halos indicating the size of the \"touch areas\" around elements. Default: on.\n\n\nUse back key for Undo\n\n\nUse the back key for undo. Default: off.\n\n\nEnable light theme\n\n\nUse a theme with a light background. Default: on.\n\n\nEnable split action bar\n\n\nShow the menu buttons at the bottom of the screen. Default: on.\n\n\nMax. number of inline values\n\n\nMaximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: 4.\n\n\nTime to wait before auto-locking\n\n\nHow long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default 60 seconds.\n\n\nEnable Anti-Aliasing\n\n\nUse anto-aliasing when rendering OSM data. Default: on.\n\n\nMax line width\n\n\nMaximum width lines will increase to when zooming in. Default: 16 pixels.\n\n\nData and Editing Settings\n\n\nSettings related to editing.\n\n\nAlways use context menu\n\n\nAlways show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.\n\n\nAddress tags\n\n\nWhen using address prediction only add the tags configured here.\n\n\nEnable name suggestions\n\n\nSupport special handling of name tags with canonical name suggestions. Default: on.\n\n\nEnable name suggestion presets\n\n\nWhen using name suggestions, automatically apply the best preset. Default: on.\n\n\nGenerate notifications\n\n\nGenerate notifications for validator detected issues. Default: on.\n\n\nMax. number of displayed notifications\n\n\nMaximum number of notifications retained in the status bar: 5 (per type).\n\n\nMax distances for notifications\n\n\nMaximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: 100 meters.\n\n\nDownload radius\n\n\nWhen auto-downloading, the radius of the area that is attempted to download around the current position. Default: 50 meters.\n\n\nMaximum auto-download speed\n\n\nMaximum speed up to which auto-download is attempted. Default: 6 km/h.\n\n\nFilter for Notes/Bugs\n\n\nSelect OSMOSE error leval and Notes to download. Default: everything.\n\n\nNotes/Bugs Download radius\n\n\nWhen auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.\n\n\nMaximum notes/bugs auto-download speed\n\n\nMaximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.\n\n\nClose changesets\n\n\nClose the current open changeset after uploading edits. Default: on.\n\n\nEnable auto-preset generation\n\n\nTry to build presets from taginfo when using the preset search. Default: on.\n\n\nLocation Setting\n\n\nGPS and Network location settings.\n\n\nGPS source\n\n\nSource if GPS location updates. Default: internal.\n\n\nNMEA network source\n\n\nIf GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.\n\n\nMinimum GPS-Interval\n\n\nMinimum interval between updates for the internal GPS source. Default: 1000 ms.\n\n\nMinimum GPS-Distance\n\n\nMinimum distance between updates for the internal GPS source. Default: 5 meters.\n\n\nLeave GPS disabled\n\n\nIf GPS has been disabled by the user, don't ask to turn it on. Default: off.\n\n\nFallback to network location\n\n\nIF the device is providing \"Network\" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: on.\n\n\nServer Settings\n\n\nOpenStreetMap API and other servers configuration.\n\n\nOSM API URL\n\n\nSelect and add custom OpenStreetMap API servers.\n\n\nUser Account\n\n\nSet a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.\n\n\nOffset Server\n\n\nAPI server for imagery offsets.\n\n\nOSMOSE Server\n\n\nOSMOSE QA API server configuration.\n\n\nConfigure geocoders\n\n\nGeocoding service providers. Currently Photon and Nominatim servers are supported.\n\n\nLayer download and storage\n\n\nDownload and storage configuration for the tiled imagery layers.\n\n\nMax. number of download threads\n\n\nMaximum number of simultaneous download threads. Default: 4.\n\n\nTile cache size\n\n\nTotal on device size for caching imagery tiles. Default: 100MB.\n\n\nMiscellaneous\n\n\nReport application crashes\n\n\nSubmit ACRA crash dumps to the Vespucci developers. Default: on.\n\n\nShow stats\n\n\nShow some uninteresting stats on screen. Debugging use only. Default: off.\n\n\nExperimental\n\n\nEnable JS Console\n\n\nTurn on the JavaScript console. Default: off.\n\n\nEnable voice commands\n\n\nEnable voice command support: Default: off.", 
+            "title": "Advanced preferences"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#advanced-preferences", 
+            "text": "The Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.", 
+            "title": "Advanced preferences"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#user-interface-settings", 
+            "text": "", 
+            "title": "User Interface Settings"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#show-node-icons", 
+            "text": "Show icons on nodes if they can be matched with a preset. Default: on.", 
+            "title": "Show node icons"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#show-poi-icons-on-buildings", 
+            "text": "Show icons on buildings if the tags on the building can be matched with a preset. Default: on.", 
+            "title": "Show POI icons on buildings"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#display-tag-form", 
+            "text": "Enable the form based tag editor. Default: on.", 
+            "title": "Display tag form"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#show-camera-action", 
+            "text": "Show a camera button on the main display (if a camera is present). Default: on.", 
+            "title": "Show camera action"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#follow-location-button-layout", 
+            "text": "Change the side of the display the \"follow GPS\" button is located on. Default: lefthand side.", 
+            "title": "Follow location button layout"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#always-dim-non-downloaded-areas", 
+            "text": "If on the non-downloaded areas will be dimmed when the screen is locked. Default: off.", 
+            "title": "Always dim non-downloaded areas"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#full-screen-mode", 
+            "text": "Configure the behaviour on devices with \"soft\" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.", 
+            "title": "Full screen mode"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#show-tolerance", 
+            "text": "Show halos indicating the size of the \"touch areas\" around elements. Default: on.", 
+            "title": "Show tolerance"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#use-back-key-for-undo", 
+            "text": "Use the back key for undo. Default: off.", 
+            "title": "Use back key for Undo"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-light-theme", 
+            "text": "Use a theme with a light background. Default: on.", 
+            "title": "Enable light theme"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-split-action-bar", 
+            "text": "Show the menu buttons at the bottom of the screen. Default: on.", 
+            "title": "Enable split action bar"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#max-number-of-inline-values", 
+            "text": "Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: 4.", 
+            "title": "Max. number of inline values"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#time-to-wait-before-auto-locking", 
+            "text": "How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default 60 seconds.", 
+            "title": "Time to wait before auto-locking"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-anti-aliasing", 
+            "text": "Use anto-aliasing when rendering OSM data. Default: on.", 
+            "title": "Enable Anti-Aliasing"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#max-line-width", 
+            "text": "Maximum width lines will increase to when zooming in. Default: 16 pixels.", 
+            "title": "Max line width"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#data-and-editing-settings", 
+            "text": "Settings related to editing.", 
+            "title": "Data and Editing Settings"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#always-use-context-menu", 
+            "text": "Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.", 
+            "title": "Always use context menu"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#address-tags", 
+            "text": "When using address prediction only add the tags configured here.", 
+            "title": "Address tags"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-name-suggestions", 
+            "text": "Support special handling of name tags with canonical name suggestions. Default: on.", 
+            "title": "Enable name suggestions"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-name-suggestion-presets", 
+            "text": "When using name suggestions, automatically apply the best preset. Default: on.", 
+            "title": "Enable name suggestion presets"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#generate-notifications", 
+            "text": "Generate notifications for validator detected issues. Default: on.", 
+            "title": "Generate notifications"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#max-number-of-displayed-notifications", 
+            "text": "Maximum number of notifications retained in the status bar: 5 (per type).", 
+            "title": "Max. number of displayed notifications"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#max-distances-for-notifications", 
+            "text": "Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: 100 meters.", 
+            "title": "Max distances for notifications"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#download-radius", 
+            "text": "When auto-downloading, the radius of the area that is attempted to download around the current position. Default: 50 meters.", 
+            "title": "Download radius"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#maximum-auto-download-speed", 
+            "text": "Maximum speed up to which auto-download is attempted. Default: 6 km/h.", 
+            "title": "Maximum auto-download speed"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#filter-for-notesbugs", 
+            "text": "Select OSMOSE error leval and Notes to download. Default: everything.", 
+            "title": "Filter for Notes/Bugs"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#notesbugs-download-radius", 
+            "text": "When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.", 
+            "title": "Notes/Bugs Download radius"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#maximum-notesbugs-auto-download-speed", 
+            "text": "Maximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.", 
+            "title": "Maximum notes/bugs auto-download speed"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#close-changesets", 
+            "text": "Close the current open changeset after uploading edits. Default: on.", 
+            "title": "Close changesets"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-auto-preset-generation", 
+            "text": "Try to build presets from taginfo when using the preset search. Default: on.", 
+            "title": "Enable auto-preset generation"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#location-setting", 
+            "text": "GPS and Network location settings.", 
+            "title": "Location Setting"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#gps-source", 
+            "text": "Source if GPS location updates. Default: internal.", 
+            "title": "GPS source"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#nmea-network-source", 
+            "text": "If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.", 
+            "title": "NMEA network source"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#minimum-gps-interval", 
+            "text": "Minimum interval between updates for the internal GPS source. Default: 1000 ms.", 
+            "title": "Minimum GPS-Interval"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#minimum-gps-distance", 
+            "text": "Minimum distance between updates for the internal GPS source. Default: 5 meters.", 
+            "title": "Minimum GPS-Distance"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#leave-gps-disabled", 
+            "text": "If GPS has been disabled by the user, don't ask to turn it on. Default: off.", 
+            "title": "Leave GPS disabled"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#fallback-to-network-location", 
+            "text": "IF the device is providing \"Network\" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: on.", 
+            "title": "Fallback to network location"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#server-settings", 
+            "text": "OpenStreetMap API and other servers configuration.", 
+            "title": "Server Settings"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#osm-api-url", 
+            "text": "Select and add custom OpenStreetMap API servers.", 
+            "title": "OSM API URL"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#user-account", 
+            "text": "Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.", 
+            "title": "User Account"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#offset-server", 
+            "text": "API server for imagery offsets.", 
+            "title": "Offset Server"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#osmose-server", 
+            "text": "OSMOSE QA API server configuration.", 
+            "title": "OSMOSE Server"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#configure-geocoders", 
+            "text": "Geocoding service providers. Currently Photon and Nominatim servers are supported.", 
+            "title": "Configure geocoders"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#layer-download-and-storage", 
+            "text": "Download and storage configuration for the tiled imagery layers.", 
+            "title": "Layer download and storage"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#max-number-of-download-threads", 
+            "text": "Maximum number of simultaneous download threads. Default: 4.", 
+            "title": "Max. number of download threads"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#tile-cache-size", 
+            "text": "Total on device size for caching imagery tiles. Default: 100MB.", 
+            "title": "Tile cache size"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#miscellaneous", 
+            "text": "", 
+            "title": "Miscellaneous"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#report-application-crashes", 
+            "text": "Submit ACRA crash dumps to the Vespucci developers. Default: on.", 
+            "title": "Report application crashes"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#show-stats", 
+            "text": "Show some uninteresting stats on screen. Debugging use only. Default: off.", 
+            "title": "Show stats"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#experimental", 
+            "text": "", 
+            "title": "Experimental"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-js-console", 
+            "text": "Turn on the JavaScript console. Default: off.", 
+            "title": "Enable JS Console"
+        }, 
+        {
+            "location": "/help/en/Advanced preferences/#enable-voice-commands", 
+            "text": "Enable voice command support: Default: off.", 
+            "title": "Enable voice commands"
+        }, 
+        {
             "location": "/tutorials/network_location/", 
             "text": "\"network\" Location Provider Support\n\n\nHistorically Vespucci has only supported using the on-device GPS location provider, or nothing at all. That meant that you were unable to get a rough location approximation on devices that didn't have onboard GPS, or that had GPS disabled for example to reduce power requirements. The main reason for this is that on the one hand we wanted to avoid location information potentially tainted by your devices Android provider and avoid our users position being tracked by them. \n\n\nWe now support using so-called \"network\" location providers, that is location sources that derive your position from the mobile network, WLAN and other signals your device is receiving. If you've enabled such providers on your phone, more on that later, Vespucci will use all available providers for centering the map display on your position and for auto-downloads, tracks will still exclusively be generated from GPS data. \n\n\nThe change in opinion is mainly due to less and less people caring about such matters and at least google tracking in any case (see for example https://www.theverge.com/2017/11/21/16684818/google-location-tracking-cell-tower-data-android-os-firebase-privacy), further allowing such providers enables better indoor positioning which is a clear advantage.\n\n\nIf Vespucci detects that network positions can at least potentially be used, it will display this icon\n\n\n \n\n\ninstead of the classic GPS icon on the screen and will alert you to which provider it is currently using via toasts (the short on-screen messages). The fallback to network locations can be disabled in the Location Settings in the Advanced Preferences.\n\n\nModern devices running a google variant of Android have three location mode setting (besides turning location services completely off):\n\n\n\n\nDevice only\n - use only the on device GPS location information, does not require sharing your location data with google\n\n\nBattery saving\n - doesn't use GPS, instead uses mobile network, WLAN and other signals to determine your location, requires sharing of your location data with google\n\n\nHigh accuracy\n - uses GPS and other signals to determine your location, requires sharing of your location data with google, this is typically only more \"accurate\" than \nDevice only\n if receiving GPS signals is seriously impaired\n\n\n\n\nVespucci does not use the Google play servers \"fused\" location service and remains usable independent of if you are running it in a Google sanctioned environment or not.", 
             "title": "\"network\" Location Provider Support"

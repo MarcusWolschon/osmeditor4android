@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>Tag based filter - Vespucci</title>
+        <title>Advanced preferences - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -147,8 +147,8 @@
     <a href="../GPS sources/">GPS sources</a>
 </li>
                             
-<li class="active">
-    <a href="./">Tag based filter</a>
+<li >
+    <a href="../Tag filter/">Tag based filter</a>
 </li>
                             
 <li >
@@ -163,8 +163,8 @@
     <a href="../Preferences/">Preferences</a>
 </li>
                             
-<li >
-    <a href="../Advanced preferences/">Advanced preferences</a>
+<li class="active">
+    <a href="./">Advanced preferences</a>
 </li>
                         </ul>
                     </li>
@@ -221,12 +221,12 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../GPS sources/">
+                        <a rel="next" href="../Preferences/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../Preset filter/">
+                        <a rel="prev" href="../../../tutorials/network_location/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -240,25 +240,123 @@
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tag-filter">Tag filter</a></li>
-            <li><a href="#actions">Actions</a></li>
-            <li><a href="#filter-entries">Filter entries</a></li>
+        <li class="main active"><a href="#advanced-preferences">Advanced preferences</a></li>
+            <li><a href="#user-interface-settings">User Interface Settings</a></li>
+            <li><a href="#data-and-editing-settings">Data and Editing Settings</a></li>
+            <li><a href="#location-setting">Location Setting</a></li>
+            <li><a href="#server-settings">Server Settings</a></li>
+            <li><a href="#layer-download-and-storage">Layer download and storage</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+            <li><a href="#experimental">Experimental</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="tag-filter">Tag filter</h1>
-<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
-<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
-<h2 id="actions">Actions</h2>
-<h3 id="add">+ Add</h3>
-<p>Add a new filter entry.</p>
-<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help</h3>
-<p>Start the Vespucci Help browser</p>
-<h2 id="filter-entries">Filter entries</h2>
-<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
-<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
-<p>Clicking the trash can icon will delete the entry.</p></div>
+<h1 id="advanced-preferences">Advanced preferences</h1>
+<p>The Advanced preferences page is split in to seven topical sections that can be access by clicking on the main entries. Depending on the Android version running on your device some settings may be not available for technical reasons.</p>
+<h2 id="user-interface-settings">User Interface Settings</h2>
+<h3 id="show-node-icons">Show node icons</h3>
+<p>Show icons on nodes if they can be matched with a preset. Default: on.</p>
+<h3 id="show-poi-icons-on-buildings">Show POI icons on buildings</h3>
+<p>Show icons on buildings if the tags on the building can be matched with a preset. Default: on.</p>
+<h3 id="display-tag-form">Display tag form</h3>
+<p>Enable the form based tag editor. Default: on.</p>
+<h3 id="show-camera-action">Show camera action</h3>
+<p>Show a camera button on the main display (if a camera is present). Default: on.</p>
+<h3 id="follow-location-button-layout">Follow location button layout</h3>
+<p>Change the side of the display the "follow GPS" button is located on. Default: lefthand side.</p>
+<h3 id="always-dim-non-downloaded-areas">Always dim non-downloaded areas</h3>
+<p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: off.</p>
+<h3 id="full-screen-mode">Full screen mode</h3>
+<p>Configure the behaviour on devices with "soft" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.</p>
+<h3 id="show-tolerance">Show tolerance</h3>
+<p>Show halos indicating the size of the "touch areas" around elements. Default: on.</p>
+<h3 id="use-back-key-for-undo">Use back key for Undo</h3>
+<p>Use the back key for undo. Default: off.</p>
+<h3 id="enable-light-theme">Enable light theme</h3>
+<p>Use a theme with a light background. Default: on.</p>
+<h3 id="enable-split-action-bar">Enable split action bar</h3>
+<p>Show the menu buttons at the bottom of the screen. Default: on.</p>
+<h3 id="max-number-of-inline-values">Max. number of inline values</h3>
+<p>Maximum number of values that will directly be displayed in the form based editor for Tags with pre-determined values. Default: 4.</p>
+<h3 id="time-to-wait-before-auto-locking">Time to wait before auto-locking</h3>
+<p>How long to wait before auto-locking the map display, setting the value to 0 disables the auto-locking. Default 60 seconds.</p>
+<h3 id="enable-anti-aliasing">Enable Anti-Aliasing</h3>
+<p>Use anto-aliasing when rendering OSM data. Default: on.</p>
+<h3 id="max-line-width">Max line width</h3>
+<p>Maximum width lines will increase to when zooming in. Default: 16 pixels.</p>
+<h2 id="data-and-editing-settings">Data and Editing Settings</h2>
+<p>Settings related to editing.</p>
+<h3 id="always-use-context-menu">Always use context menu</h3>
+<p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.</p>
+<h3 id="address-tags">Address tags</h3>
+<p>When using address prediction only add the tags configured here.</p>
+<h3 id="enable-name-suggestions">Enable name suggestions</h3>
+<p>Support special handling of name tags with canonical name suggestions. Default: on.</p>
+<h3 id="enable-name-suggestion-presets">Enable name suggestion presets</h3>
+<p>When using name suggestions, automatically apply the best preset. Default: on.</p>
+<h3 id="generate-notifications">Generate notifications</h3>
+<p>Generate notifications for validator detected issues. Default: on.</p>
+<h3 id="max-number-of-displayed-notifications">Max. number of displayed notifications</h3>
+<p>Maximum number of notifications retained in the status bar: 5 (per type).</p>
+<h3 id="max-distances-for-notifications">Max distances for notifications</h3>
+<p>Maximum distance a validation issue or note/bug can be from the current positions to trigger a notification. Default: 100 meters.</p>
+<h3 id="download-radius">Download radius</h3>
+<p>When auto-downloading, the radius of the area that is attempted to download around the current position. Default: 50 meters.</p>
+<h3 id="maximum-auto-download-speed">Maximum auto-download speed</h3>
+<p>Maximum speed up to which auto-download is attempted. Default: 6 km/h.</p>
+<h3 id="filter-for-notesbugs">Filter for Notes/Bugs</h3>
+<p>Select OSMOSE error leval and Notes to download. Default: everything.</p>
+<h3 id="notesbugs-download-radius">Notes/Bugs Download radius</h3>
+<p>When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.</p>
+<h3 id="maximum-notesbugs-auto-download-speed">Maximum notes/bugs auto-download speed</h3>
+<p>Maximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.</p>
+<h3 id="close-changesets">Close changesets</h3>
+<p>Close the current open changeset after uploading edits. Default: on.</p>
+<h3 id="enable-auto-preset-generation">Enable auto-preset generation</h3>
+<p>Try to build presets from taginfo when using the preset search. Default: on.</p>
+<h2 id="location-setting">Location Setting</h2>
+<p>GPS and Network location settings.</p>
+<h3 id="gps-source">GPS source</h3>
+<p>Source if GPS location updates. Default: internal.</p>
+<h3 id="nmea-network-source">NMEA network source</h3>
+<p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.</p>
+<h3 id="minimum-gps-interval">Minimum GPS-Interval</h3>
+<p>Minimum interval between updates for the internal GPS source. Default: 1000 ms.</p>
+<h3 id="minimum-gps-distance">Minimum GPS-Distance</h3>
+<p>Minimum distance between updates for the internal GPS source. Default: 5 meters.</p>
+<h3 id="leave-gps-disabled">Leave GPS disabled</h3>
+<p>If GPS has been disabled by the user, don't ask to turn it on. Default: off.</p>
+<h3 id="fallback-to-network-location">Fallback to network location</h3>
+<p>IF the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: on.</p>
+<h2 id="server-settings">Server Settings</h2>
+<p>OpenStreetMap API and other servers configuration.</p>
+<h3 id="osm-api-url">OSM API URL</h3>
+<p>Select and add custom OpenStreetMap API servers.</p>
+<h3 id="user-account">User Account</h3>
+<p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
+<h3 id="offset-server">Offset Server</h3>
+<p>API server for imagery offsets.</p>
+<h3 id="osmose-server">OSMOSE Server</h3>
+<p>OSMOSE QA API server configuration.</p>
+<h3 id="configure-geocoders">Configure geocoders</h3>
+<p>Geocoding service providers. Currently Photon and Nominatim servers are supported.</p>
+<h2 id="layer-download-and-storage">Layer download and storage</h2>
+<p>Download and storage configuration for the tiled imagery layers.</p>
+<h3 id="max-number-of-download-threads">Max. number of download threads</h3>
+<p>Maximum number of simultaneous download threads. Default: 4.</p>
+<h3 id="tile-cache-size">Tile cache size</h3>
+<p>Total on device size for caching imagery tiles. Default: 100MB.</p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<h3 id="report-application-crashes">Report application crashes</h3>
+<p>Submit ACRA crash dumps to the Vespucci developers. Default: on.</p>
+<h3 id="show-stats">Show stats</h3>
+<p>Show some uninteresting stats on screen. Debugging use only. Default: off.</p>
+<h2 id="experimental">Experimental</h2>
+<h3 id="enable-js-console">Enable JS Console</h3>
+<p>Turn on the JavaScript console. Default: off.</p>
+<h3 id="enable-voice-commands">Enable voice commands</h3>
+<p>Enable voice command support: Default: off.</p></div>
                 
         </div>
 
