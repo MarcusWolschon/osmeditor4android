@@ -5,6 +5,9 @@
 "advertising/billboard":[
 "Billboard"
 ],
+"advertising/column":[
+"Advertising Column"
+],
 "aerialway":[
 "Aerialway"
 ],
@@ -72,6 +75,9 @@
 "aeroway/terminal":[
 "Airport Terminal"
 ],
+"allotments/plot":[
+"Allotments Plot"
+],
 "amenity":[
 "Amenity"
 ],
@@ -120,8 +126,14 @@
 "amenity/bureau_de_change":[
 "Currency Exchange"
 ],
+"amenity/bus_station":[
+"Bus Station / Terminal"
+],
 "amenity/cafe":[
 "Cafe"
+],
+"amenity/car_pooling":[
+"Car Pooling"
 ],
 "amenity/car_rental":[
 "Car Rental"
@@ -195,6 +207,9 @@
 "amenity/fast_food":[
 "Fast Food"
 ],
+"amenity/ferry_terminal":[
+"Ferry Station / Terminal"
+],
 "amenity/fire_station":[
 "Fire Station"
 ],
@@ -238,8 +253,14 @@
 "amenity/library":[
 "Library"
 ],
+"amenity/love_hotel":[
+"Love Hotel"
+],
 "amenity/marketplace":[
 "Marketplace"
+],
+"amenity/monastery":[
+"Monastery Grounds"
 ],
 "amenity/motorcycle_parking":[
 "Motorcycle Parking"
@@ -323,6 +344,9 @@
 "amenity/ranger_station":[
 "Warden Station"
 ],
+"amenity/recycling":[
+"Recycling Container"
+],
 "amenity/recycling_centre":[
 "Recycling Centre"
 ],
@@ -346,6 +370,9 @@
 ],
 "amenity/shower":[
 "Shower"
+],
+"amenity/smoking_area":[
+"Smoking Area"
 ],
 "amenity/social_facility":[
 "Social Facility"
@@ -392,17 +419,35 @@
 "amenity/vending_machine/cigarettes":[
 "Cigarette Vending Machine"
 ],
+"amenity/vending_machine/coffee":[
+"Coffee Vending Machine"
+],
 "amenity/vending_machine/condoms":[
 "Condom Vending Machine"
 ],
 "amenity/vending_machine/drinks":[
 "Drink Vending Machine"
 ],
+"amenity/vending_machine/electronics":[
+"Electronics Vending Machine"
+],
+"amenity/vending_machine/elongated_coin":[
+"Elongated Coin Vending Machine"
+],
 "amenity/vending_machine/excrement_bags":[
 "Excrement Bag Vending Machine"
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Feminine Hygiene Vending Machine"
+],
+"amenity/vending_machine/food":[
+"Food Vending Machine"
+],
+"amenity/vending_machine/fuel":[
+"Fuel Pump"
+],
+"amenity/vending_machine/ice_cream":[
+"Ice Cream Vending Machine"
 ],
 "amenity/vending_machine/news_papers":[
 "Newspaper Vending Machine"
@@ -418,6 +463,9 @@
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Transit Ticket Vending Machine"
+],
+"amenity/vending_machine/stamps":[
+"Postage Vending Machine"
 ],
 "amenity/vending_machine/sweets":[
 "Snack Vending Machine"
@@ -473,6 +521,9 @@
 "attraction/drop_tower":[
 "Drop Tower"
 ],
+"attraction/maze":[
+"Maze"
+],
 "attraction/pirate_ship":[
 "Pirate Ship"
 ],
@@ -524,6 +575,9 @@
 "barrier/hedge":[
 "Hedge"
 ],
+"barrier/kerb":[
+"Kerb"
+],
 "barrier/kissing_gate":[
 "Kissing Gate"
 ],
@@ -554,6 +608,12 @@
 "building/barn":[
 "Barn"
 ],
+"building/boathouse":[
+"Boathouse"
+],
+"building/bungalow":[
+"Bungalow"
+],
 "building/bunker":[
 "Bunker"
 ],
@@ -568,6 +628,9 @@
 ],
 "building/church":[
 "Church Building"
+],
+"building/civic":[
+"Civic Building"
 ],
 "building/college":[
 "College Building"
@@ -587,11 +650,20 @@
 "building/entrance":[
 "Entrance/Exit"
 ],
+"building/farm":[
+"Farm House"
+],
+"building/farm_auxiliary":[
+"Farm Building"
+],
 "building/garage":[
 "Garage"
 ],
 "building/garages":[
 "Garages"
+],
+"building/grandstand":[
+"Grandstand"
 ],
 "building/greenhouse":[
 "Greenhouse"
@@ -614,6 +686,9 @@
 "building/kindergarten":[
 "Preschool/Kindergarten Building"
 ],
+"building/mosque":[
+"Mosque Building"
+],
 "building/public":[
 "Public Building"
 ],
@@ -626,11 +701,17 @@
 "building/roof":[
 "Roof"
 ],
+"building/ruins":[
+"Building Ruins"
+],
 "building/school":[
 "School Building"
 ],
 "building/semidetached_house":[
 "Semi-Detached House"
+],
+"building/service":[
+"Service Building"
 ],
 "building/shed":[
 "Shed"
@@ -638,14 +719,23 @@
 "building/stable":[
 "Stable"
 ],
+"building/stadium":[
+"Stadium Building"
+],
 "building/static_caravan":[
 "Static Caravan"
+],
+"building/temple":[
+"Temple Building"
 ],
 "building/terrace":[
 "Terraced houses"
 ],
 "building/train_station":[
 "Train Station"
+],
+"building/transportation":[
+"Transportation Building"
 ],
 "building/university":[
 "University Building"
@@ -655,6 +745,9 @@
 ],
 "camp_site/camp_pitch":[
 "Camp Pitch"
+],
+"circular":[
+"Traffic Circle"
 ],
 "club":[
 "Club"
@@ -839,6 +932,9 @@
 "emergency/private":[
 "Emergency Access Private"
 ],
+"emergency/water_tank":[
+"Emergency Water Tank"
+],
 "emergency/yes":[
 "Emergency Access Yes"
 ],
@@ -918,6 +1014,9 @@
 "healthcare/hospice":[
 "Hospice"
 ],
+"healthcare/laboratory":[
+"Medical Laboratory"
+],
 "healthcare/midwife":[
 "Midwife"
 ],
@@ -947,6 +1046,12 @@
 ],
 "highway/bridleway":[
 "Bridleway"
+],
+"highway/bus_guideway":[
+"Bus Guideway"
+],
+"highway/bus_stop":[
+"Bus Stop / Platform"
 ],
 "highway/corridor":[
 "Indoor Corridor"
@@ -989,6 +1094,9 @@
 ],
 "highway/motorway_link":[
 "Motorway Link"
+],
+"highway/passing_place":[
+"Passing Place"
 ],
 "highway/path":[
 "Path"
@@ -1158,11 +1266,17 @@
 "landuse/forest":[
 "Forest"
 ],
+"landuse/garages":[
+"Garage Landuse"
+],
 "landuse/grass":[
 "Grass"
 ],
 "landuse/greenfield":[
 "Greenfield"
+],
+"landuse/greenhouse_horticulture":[
+"Greenhouse Horticulture"
 ],
 "landuse/harbour":[
 "Harbor"
@@ -1215,6 +1329,12 @@
 "leisure/adult_gaming_centre":[
 "Adult Gaming Centre"
 ],
+"leisure/amusement_arcade":[
+"Amusement Arcade"
+],
+"leisure/beach_resort":[
+"Beach Resort"
+],
 "leisure/bird_hide":[
 "Bird Hide"
 ],
@@ -1226,6 +1346,9 @@
 ],
 "leisure/dance":[
 "Dance Hall"
+],
+"leisure/dancing_school":[
+"Dance School"
 ],
 "leisure/dog_park":[
 "Dog Park"
@@ -1298,6 +1421,9 @@
 ],
 "leisure/nature_reserve":[
 "Nature Reserve"
+],
+"leisure/outdoor_seating":[
+"Outdoor Seating Area"
 ],
 "leisure/park":[
 "Park"
@@ -1395,6 +1521,9 @@
 "man_made/adit":[
 "Adit"
 ],
+"man_made/antenna":[
+"Antenna"
+],
 "man_made/breakwater":[
 "Breakwater"
 ],
@@ -1403,6 +1532,9 @@
 ],
 "man_made/chimney":[
 "Chimney"
+],
+"man_made/clearcut":[
+"Clearcut Forest"
 ],
 "man_made/crane":[
 "Crane"
@@ -1524,8 +1656,14 @@
 "natural/heath":[
 "Heath"
 ],
+"natural/mud":[
+"Mud"
+],
 "natural/peak":[
 "Peak"
+],
+"natural/reef":[
+"Reef"
 ],
 "natural/ridge":[
 "Ridge"
@@ -1598,6 +1736,9 @@
 ],
 "office/charity":[
 "Charity Office"
+],
+"office/company":[
+"Corporate Office"
 ],
 "office/coworking":[
 "Coworking Space"
@@ -1824,6 +1965,132 @@
 "power/transformer":[
 "Transformer"
 ],
+"public_transport/linear_platform":[
+"Transit Stop / Platform"
+],
+"public_transport/linear_platform_aerialway":[
+"Aerialway Stop / Platform"
+],
+"public_transport/linear_platform_bus":[
+"Bus Stop / Platform"
+],
+"public_transport/linear_platform_ferry":[
+"Ferry Stop / Platform"
+],
+"public_transport/linear_platform_light_rail":[
+"Light Rail Stop / Platform"
+],
+"public_transport/linear_platform_monorail":[
+"Monorail Stop / Platform"
+],
+"public_transport/linear_platform_subway":[
+"Subway Stop / Platform"
+],
+"public_transport/linear_platform_train":[
+"Train Stop / Platform"
+],
+"public_transport/linear_platform_tram":[
+"Tram Stop / Platform"
+],
+"public_transport/linear_platform_trolleybus":[
+"Trolleybus Stop / Platform"
+],
+"public_transport/platform":[
+"Transit Stop / Platform"
+],
+"public_transport/platform_aerialway":[
+"Aerialway Stop / Platform"
+],
+"public_transport/platform_bus":[
+"Bus Stop / Platform"
+],
+"public_transport/platform_ferry":[
+"Ferry Stop / Platform"
+],
+"public_transport/platform_light_rail":[
+"Light Rail Stop / Platform"
+],
+"public_transport/platform_monorail":[
+"Monorail Stop / Platform"
+],
+"public_transport/platform_subway":[
+"Subway Stop / Platform"
+],
+"public_transport/platform_train":[
+"Train Stop / Platform"
+],
+"public_transport/platform_tram":[
+"Tram Stop / Platform"
+],
+"public_transport/platform_trolleybus":[
+"Trolleybus Stop / Platform"
+],
+"public_transport/station":[
+"Transit Station"
+],
+"public_transport/station_aerialway":[
+"Aerialway Station"
+],
+"public_transport/station_bus":[
+"Bus Station / Terminal"
+],
+"public_transport/station_ferry":[
+"Ferry Station / Terminal"
+],
+"public_transport/station_light_rail":[
+"Light Rail Station"
+],
+"public_transport/station_monorail":[
+"Monorail Station"
+],
+"public_transport/station_subway":[
+"Subway Station"
+],
+"public_transport/station_train":[
+"Train Station"
+],
+"public_transport/station_train_halt":[
+"Train Station (Halt / Request)"
+],
+"public_transport/station_tram":[
+"Tram Station"
+],
+"public_transport/station_trolleybus":[
+"Trolleybus Station / Terminal"
+],
+"public_transport/stop_area":[
+"Transit Stop Area"
+],
+"public_transport/stop_position":[
+"Transit Stopping Location"
+],
+"public_transport/stop_position_aerialway":[
+"Aerialway Stopping Location"
+],
+"public_transport/stop_position_bus":[
+"Bus Stopping Location"
+],
+"public_transport/stop_position_ferry":[
+"Ferry Stopping Location"
+],
+"public_transport/stop_position_light_rail":[
+"Light Rail Stopping Location"
+],
+"public_transport/stop_position_monorail":[
+"Monorail Stopping Location"
+],
+"public_transport/stop_position_subway":[
+"Subway Stopping Location"
+],
+"public_transport/stop_position_train":[
+"Train Stopping Location"
+],
+"public_transport/stop_position_tram":[
+"Tram Stopping Location"
+],
+"public_transport/stop_position_trolleybus":[
+"Trolleybus Stopping Location"
+],
 "railway":[
 "Railway"
 ],
@@ -1845,11 +2112,20 @@
 "railway/funicular":[
 "Funicular"
 ],
+"railway/halt":[
+"Train Station (Halt / Request)"
+],
 "railway/level_crossing":[
 "Level Crossing (Road)"
 ],
+"railway/light_rail":[
+"Light Rail"
+],
 "railway/milestone":[
 "Railway Milestone"
+],
+"railway/miniature":[
+"Miniature Railway"
 ],
 "railway/monorail":[
 "Monorail"
@@ -1857,11 +2133,17 @@
 "railway/narrow_gauge":[
 "Narrow Gauge Rail"
 ],
+"railway/platform":[
+"Train Stop / Platform"
+],
 "railway/rail":[
 "Rail"
 ],
 "railway/signal":[
 "Railway Signal"
+],
+"railway/station":[
+"Train Station"
 ],
 "railway/subway":[
 "Subway"
@@ -1877,6 +2159,9 @@
 ],
 "railway/tram":[
 "Tram"
+],
+"railway/tram_stop":[
+"Tram Stopping Position"
 ],
 "relation":[
 "Relation"
@@ -2070,6 +2355,9 @@
 "shop/hardware":[
 "Hardware Store"
 ],
+"shop/health_food":[
+"Health Food Shop"
+],
 "shop/hearing_aids":[
 "Hearing Aids Store"
 ],
@@ -2121,6 +2409,9 @@
 "shop/motorcycle":[
 "Motorcycle Dealership"
 ],
+"shop/motorcycle_repair":[
+"Motorcycle Repair Shop"
+],
 "shop/music":[
 "Music Store"
 ],
@@ -2156,6 +2447,9 @@
 ],
 "shop/pet":[
 "Pet Store"
+],
+"shop/pet_grooming":[
+"Pet Grooming Store"
 ],
 "shop/photo":[
 "Photography Store"
@@ -2247,6 +2541,9 @@
 "shop/weapons":[
 "Weapon Shop"
 ],
+"shop/wholesale":[
+"Wholesale Store"
+],
 "shop/window_blind":[
 "Window Blind Store"
 ],
@@ -2319,6 +2616,9 @@
 "tourism/theme_park":[
 "Theme Park"
 ],
+"tourism/trail_riding_station":[
+"Trail Riding Station"
+],
 "tourism/viewpoint":[
 "Viewpoint"
 ],
@@ -2382,6 +2682,18 @@
 "type/restriction/no_u_turn":[
 "No U-turn"
 ],
+"type/restriction/only_left_turn":[
+"Only Left Turn"
+],
+"type/restriction/only_right_turn":[
+"Only Right Turn"
+],
+"type/restriction/only_straight_on":[
+"Only Straight On"
+],
+"type/restriction/only_u_turn":[
+"Only U-turn"
+],
 "type/route":[
 "Route"
 ],
@@ -2406,14 +2718,23 @@
 "type/route/horse":[
 "Riding Route"
 ],
+"type/route/light_rail":[
+"Light Rail Route"
+],
 "type/route/pipeline":[
 "Pipeline Route"
+],
+"type/route/piste":[
+"Piste/Ski Route"
 ],
 "type/route/power":[
 "Power Route"
 ],
 "type/route/road":[
 "Road Route"
+],
+"type/route/subway":[
+"Subway Route"
 ],
 "type/route/train":[
 "Train Route"

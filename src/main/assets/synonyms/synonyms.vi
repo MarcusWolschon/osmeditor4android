@@ -364,15 +364,17 @@
 "vỉ nướng thịt"
 ],
 "amenity/bench":[
+"Băng ghế",
 "ghế dài",
 "ghe",
 "cho ngoi",
 "chỗ ngồi",
+"băng ghế",
 "ghe dai",
 "ghế ngồi",
+"bang ghe",
 "ghe ngoi",
-"ghế",
-"Ghế"
+"ghế"
 ],
 "amenity/bicycle_parking":[
 "chỗ đậu xe đạp",
@@ -2334,6 +2336,11 @@
 "dãy ga-ra",
 "day ga-ra"
 ],
+"building/grandstand":[
+"Khán đài",
+"khán đài",
+"khan dai"
+],
 "building/greenhouse":[
 "nhà trồng hoa",
 "nha trong hoa",
@@ -3101,6 +3108,16 @@
 "emergency/destination":[
 "Dịch vụ Khẩn cấp Đến nơi"
 ],
+"emergency/fire_extinguisher":[
+"binh chua lua",
+"bình cứu hoả",
+"bình chữa cháy",
+"bình chữa lửa",
+"Bình Cứu hỏa",
+"bình cứu hỏa",
+"binh cuu hoa",
+"binh chua chay"
+],
 "emergency/fire_hydrant":[
 "cột cứu hỏa",
 "tru chua chay",
@@ -3132,6 +3149,17 @@
 ],
 "emergency/private":[
 "Chỉ Dịch vụ Khẩn cấp được Chủ Cho phép"
+],
+"emergency/siren":[
+"coi bao dong",
+"coi bao",
+"coi tam",
+"Còi Báo động",
+"còi hú",
+"còi báo động",
+"coi hu",
+"còi tầm",
+"còi báo"
 ],
 "emergency/water_tank":[
 "bể nước chữa cháy",
@@ -3838,16 +3866,18 @@
 "kiet"
 ],
 "highway/rest_area":[
-"chỗ nghỉ ngơi",
 "tram thong tin",
-"Khu Vệ sinh và Nơi Nghỉ ngơi",
 "trạm thông tin",
-"khu ve sinh",
 "phong ve sinh",
+"Trạm Dừng Nghỉ",
 "phòng vệ sinh",
+"chỗ nghỉ ngơi",
+"khu ve sinh",
+"tram dung nghi",
 "cho nghi ngoi",
 "noi nghi ngoi",
 "nơi nghỉ ngơi",
+"trạm dừng nghỉ",
 "khu vệ sinh"
 ],
 "highway/road":[
@@ -4699,6 +4729,13 @@
 "Căn nhà Quan sát Chim",
 "căn nhà quan sát chim"
 ],
+"leisure/bleachers":[
+"khán đài ngoài trời",
+"băng ghế",
+"bang ghe",
+"Khán đài Ngoài trời",
+"khan dai ngoai troi"
+],
 "leisure/bowling_alley":[
 "trung tâm bowling",
 "trung tam bowling",
@@ -5285,6 +5322,13 @@
 "ong khoi",
 "lo suoi"
 ],
+"man_made/clearcut":[
+"rung duoc chat trang",
+"Rừng bị Chặt trắng",
+"rung bi chat trang",
+"rừng được chặt trắng",
+"rừng bị chặt trắng"
+],
 "man_made/crane":[
 "can truc",
 "cau truc",
@@ -5710,6 +5754,27 @@
 "đỉnh",
 "chóp núi",
 "doi"
+],
+"natural/reef":[
+"bai cat",
+"rạn san hô",
+"bãi cạn",
+"đê cát",
+"da ngam",
+"bai nong",
+"cụm bãi cạn",
+"Đá ngầm",
+"bãi nông",
+"bãi cát",
+"con cat",
+"ám tiêu san hô",
+"cồn cát",
+"am tieu san ho",
+"de cat",
+"ran san ho",
+"bai can",
+"đá ngầm",
+"cum bai can"
 ],
 "natural/ridge":[
 "Dãy đồi",
@@ -7129,10 +7194,10 @@
 "rua xe lua"
 ],
 "railway/tram":[
-"xe dien ",
 "tàu điện",
 "đường xe điện",
 "duong xe dien",
+"xe dien",
 "duong tau dien",
 "xe điện",
 "tau dien",
@@ -8467,6 +8532,17 @@
 "cho ban xe may",
 "tiệm xe gắn máy",
 "tiem xe gan may"
+],
+"shop/motorcycle_repair":[
+"cửa hàng sửa xe mô tô",
+"tiệm sửa xe máy",
+"tiệm sửa xe mô tô",
+"tiem sua xe may",
+"cửa hàng sửa xe máy",
+"cua hang sua xe may",
+"tiem sua xe mo to",
+"Tiệm Sửa Xe máy",
+"cua hang sua xe mo to"
 ],
 "shop/music":[
 "tiệm bản nhạc",

@@ -14,6 +14,9 @@
 "óriásposzter",
 "Óriásplakát"
 ],
+"advertising/column":[
+"Hirdetőoszlop"
+],
 "aerialway":[
 "Drótkötélpálya"
 ],
@@ -221,8 +224,8 @@
 "Sörkert"
 ],
 "amenity/boat_rental":[
-"Hajókölcsönző",
-"csónakkölcsönző "
+"csónakkölcsönző",
+"Hajókölcsönző"
 ],
 "amenity/bureau_de_change":[
 "valuta váltó",
@@ -271,7 +274,7 @@
 ],
 "amenity/childcare":[
 "Bölcsőde",
-" Csecsemőotthon"
+"Csecsemőotthon"
 ],
 "amenity/cinema":[
 "Mozi",
@@ -388,7 +391,7 @@
 "amenity/driving_school":[
 "Autósiskola",
 "KRESZ",
-" jogosítvány"
+"jogosítvány"
 ],
 "amenity/embassy":[
 "Követség",
@@ -553,6 +556,8 @@
 "evangélikus"
 ],
 "amenity/place_of_worship/hindu":[
+"hindu",
+"templom",
 "Hindu templom"
 ],
 "amenity/place_of_worship/jewish":[
@@ -566,13 +571,22 @@
 "Minaret"
 ],
 "amenity/place_of_worship/shinto":[
-"Sintó szentély"
+"sintó",
+"Sintó szentély",
+"japán",
+"szentély"
 ],
 "amenity/place_of_worship/sikh":[
-"Szik templom"
+"templom",
+"Szik templom",
+"india",
+"szik"
 ],
 "amenity/place_of_worship/taoist":[
-"Taoista templom"
+"kína",
+"Taoista templom",
+"tao",
+"templom"
 ],
 "amenity/planetarium":[
 "Planetárium",
@@ -848,7 +862,10 @@
 "Állatorvos"
 ],
 "amenity/waste/dog_excrement":[
-"Kutyaürülék tartály"
+"Kutyaürülék tartály",
+"kuka",
+"ürülék",
+"kutya"
 ],
 "amenity/waste_basket":[
 "kuka",
@@ -1324,7 +1341,7 @@
 ],
 "craft/caterer":[
 "Partyszerviz",
-"Rendezvényszervező ",
+"Rendezvényszervező",
 "Catering"
 ],
 "craft/chimney_sweeper":[
@@ -1376,11 +1393,11 @@
 "iparművész"
 ],
 "craft/hvac":[
+"Fűtés",
 "épületgépészet",
 "Fűtés-, szellőztetés- és légkondicionálás-szerelő",
 "szellőzés",
-"légkondicionálás",
-" Fűtés"
+"légkondicionálás"
 ],
 "craft/insulator":[
 "Szigetelő",
@@ -2459,7 +2476,7 @@
 "gazométer"
 ],
 "man_made/groyne":[
-"Sarkantyú",
+"Keresztgát",
 "hullámtörő",
 "védőgát"
 ],
@@ -2541,18 +2558,22 @@
 "Vízmű"
 ],
 "man_made/watermill":[
-"Vízimalom"
+"víz",
+"Vízimalom",
+"malom"
 ],
 "man_made/windmill":[
-"Szélmalom"
+"Szélmalom",
+"malom",
+"szél"
 ],
 "man_made/works":[
+"művek",
 "Gyár",
 "üzem",
 "gyár",
 "kombinát",
-"manufaktúra",
-"művek "
+"manufaktúra"
 ],
 "manhole":[
 "akna",
@@ -2564,7 +2585,10 @@
 "Viharcsatorna"
 ],
 "manhole/telecom":[
-"Távközlési akna"
+"akna",
+"távközlés",
+"Távközlési akna",
+"szekrény"
 ],
 "natural":[
 "Természet"
@@ -2959,9 +2983,15 @@
 "Áramfejlesztő"
 ],
 "power/generator/source_nuclear":[
-"Atomreaktor"
+"reaktor",
+"atomerőmű",
+"Atomreaktor",
+"atom"
 ],
 "power/generator/source_wind":[
+"turbina",
+"generátor",
+"szél",
 "Szélturbina"
 ],
 "power/line":[
@@ -3137,9 +3167,9 @@
 "Miniatűrvasút"
 ],
 "railway/monorail":[
-"mágnesvasút ",
-" nyeregvasút",
-"Egysínű vasút"
+"Egysínű vasút",
+"mágnesvasút",
+"nyeregvasút"
 ],
 "railway/narrow_gauge":[
 "Keskeny nyomtávú vasút",
@@ -3250,7 +3280,7 @@
 "babruha"
 ],
 "shop/bag":[
-"utazótáska ",
+"utazótáska",
 "bőrdíszmű és táskabolt",
 "koffer",
 "Táska- és bőröndbolt"
@@ -3288,9 +3318,9 @@
 "shop/bed":[
 "ágy",
 "paplan",
-" Hálószobabútor",
 "lepedő",
 "párna",
+"Hálószobabútor",
 "ágynemű",
 "Ágy- és matracbolt",
 "takaró"
@@ -3473,7 +3503,7 @@
 "felújítás"
 ],
 "shop/dry_cleaning":[
-" Száraztisztító",
+"Száraztisztító",
 "patyolat",
 "ruhatisztítás",
 "Vegytisztitó"
@@ -3498,8 +3528,8 @@
 "shop/fabric":[
 "lakástextil",
 "rőfösbolt",
-"Rövidáru- és méterárubolt",
-" RÖLTEX"
+"RÖLTEX",
+"Rövidáru- és méterárubolt"
 ],
 "shop/farm":[
 "farm bolt",
@@ -3510,9 +3540,9 @@
 "őstermelő"
 ],
 "shop/fashion":[
-"ruhabolt ",
 "Női divat",
-"Divatüzlet"
+"Divatüzlet",
+"ruhabolt"
 ],
 "shop/fishmonger":[
 "Halbolt"
@@ -3760,7 +3790,7 @@
 "Festék- vegyi áru szaküzlet",
 "Színkeverő bolt",
 "Tikkurila Festékbolt",
-" Falfesték bolt",
+"Falfesték bolt",
 "Festékbolt"
 ],
 "shop/pastry":[
@@ -3814,10 +3844,10 @@
 "Kegytárgybolt"
 ],
 "shop/scuba_diving":[
+"Búvárszakáruház",
 "Búvárbolt",
 "Búvárfelszerelések boltja",
-"Búvárfelszerelés-bolt",
-"Búvárszakáruház "
+"Búvárfelszerelés-bolt"
 ],
 "shop/seafood":[
 "halkereskedés",
@@ -4099,7 +4129,7 @@
 ],
 "tourism/theme_park":[
 "élménypark",
-"vurstli ",
+"vurstli",
 "Vidámpark",
 "vidámpark"
 ],

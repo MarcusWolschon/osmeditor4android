@@ -10,8 +10,11 @@
 "Reklametafel"
 ],
 "advertising/column":[
-"Litfasssäule",
-"Anzeigeständer"
+"Anschlagsäule",
+"Litfaßsäule",
+"Plakatträger",
+"Anzeigeständer",
+"Plakatsäule"
 ],
 "aerialway":[
 "Seilbahn"
@@ -524,10 +527,10 @@
 "Abtei"
 ],
 "amenity/place_of_worship/hindu":[
+"hinduistisch",
 "Hindutempel"
 ],
 "amenity/place_of_worship/jewish":[
-"Sy­n­a­go­ge",
 "jüdisch",
 "Synagoge"
 ],
@@ -536,12 +539,17 @@
 "Moschee"
 ],
 "amenity/place_of_worship/shinto":[
+"Weg der Götter",
+"Shintoismus",
 "Shintō-Schrein"
 ],
 "amenity/place_of_worship/sikh":[
+"Sikhismus",
 "Sikh-Tempel"
 ],
 "amenity/place_of_worship/taoist":[
+"Taoism",
+"Dao",
 "Tao-Tempel"
 ],
 "amenity/planetarium":[
@@ -608,6 +616,7 @@
 "Wirtschaft",
 "Hamburgerstand",
 "Wirtshaus",
+"Gastronomiebetrieb",
 "Kaffeehaus",
 "Imbissstube",
 "Imbiss",
@@ -755,7 +764,8 @@
 "Frauenhygiene-Automat"
 ],
 "amenity/vending_machine/food":[
-"Lebensmittel-Verkaufs-Automat "
+"Lebensmittel-Verkaufs-Automat ",
+"Lebensmittel-Verkaufs-Automat"
 ],
 "amenity/vending_machine/fuel":[
 "Tankautomat"
@@ -793,6 +803,7 @@
 "Verterinär"
 ],
 "amenity/waste/dog_excrement":[
+"Hundeexkrementbehälter",
 "Hundekotabfalleimer"
 ],
 "amenity/waste_basket":[
@@ -832,7 +843,8 @@
 ],
 "attraction/amusement_ride":[
 "Fahrbetrieb",
-"Vergnügungsfahrt"
+"Vergnügungsfahrt",
+"Fahrgeschäft"
 ],
 "attraction/animal":[
 "Tier"
@@ -1044,6 +1056,11 @@
 "Mehrfachgaragen",
 "Mehrfach-/Blockgaragen",
 "Garagenblock"
+],
+"building/grandstand":[
+"Ehrentribüne",
+"Haupttribüne",
+"Tribüne"
 ],
 "building/greenhouse":[
 "Glashaus",
@@ -1386,12 +1403,32 @@
 "emergency/destination":[
 "Notzufahrt ohne Notdurchfahrt"
 ],
+"emergency/fire_alarm":[
+"Feueralarmierungskasten",
+"Feueralarm-Knopf"
+],
+"emergency/fire_extinguisher":[
+"Feuerlöschapparat",
+"Löschgerät",
+"Feuerlöscher",
+"Feuerlöschgerät"
+],
 "emergency/fire_hydrant":[
 "Hydrant",
 "Löschwasserentnahmestelle"
 ],
+"emergency/first_aid_kit":[
+"Erste-Hilfe-Koffer",
+"Verbandskasten",
+"Sanitätskasten"
+],
 "emergency/life_ring":[
 "Rettungsring"
+],
+"emergency/lifeguard":[
+"Rettungsschwimmerposten",
+"Rettungsschwimmerstation",
+"Rettungsschwimmerplatz"
 ],
 "emergency/no":[
 "keine Notzufahrt"
@@ -1407,6 +1444,11 @@
 ],
 "emergency/private":[
 "private Notzufahrt"
+],
+"emergency/siren":[
+"Folgetonhorn",
+"Einsatzhorn",
+"Sirene"
 ],
 "emergency/water_tank":[
 "Löschteich",
@@ -2126,6 +2168,11 @@
 "Vogelbeobachtungsturm",
 "Vogelbeobachtungshütte"
 ],
+"leisure/bleachers":[
+"Tribüne",
+"Unüberdachte Tribüne",
+"Gradin"
+],
 "leisure/bowling_alley":[
 "Kegelbahn",
 "Bowlingbahn"
@@ -2401,7 +2448,7 @@
 ],
 "man_made/antenna":[
 "Antennenanlage",
-"Sendemast ",
+"Sendemast",
 "Antennenmast"
 ],
 "man_made/breakwater":[
@@ -2418,6 +2465,11 @@
 "man_made/chimney":[
 "Kamin",
 "Schornstein"
+],
+"man_made/clearcut":[
+"Kahlschlagfläche",
+"Kahlfläche",
+"Waldkahlfläcke"
 ],
 "man_made/crane":[
 "Kran"
@@ -2628,12 +2680,18 @@
 "Bergkuppe",
 "Zipfel"
 ],
+"natural/reef":[
+"Riff",
+"Unterwassersandbank",
+"Korallenriff",
+"Untiefe"
+],
 "natural/ridge":[
-" Bergrücken",
 "Höhenrücken",
 "Gebirgsgrat",
 "Kamm",
 "Naht",
+"Bergrücken",
 "Bergzug",
 "Grat"
 ],
@@ -3230,7 +3288,10 @@
 " Abgebaute Eisenbahnstrecke "
 ],
 "railway/buffer_stop":[
-"Prellbock"
+"Gleisabschlussbock",
+"Prellbock",
+"Puffer",
+"Pufferwehr"
 ],
 "railway/crossing":[
 "Bahnübergang (Weg)",
@@ -3337,6 +3398,7 @@
 "Fährlinie"
 ],
 "shop":[
+"Shop",
 "Geschäft",
 "Laden",
 "Ladenlokal"
@@ -3697,6 +3759,11 @@
 "Motorradladen",
 "Motorradhändler",
 "Motorrad-Handlung"
+],
+"shop/motorcycle_repair":[
+"Motorrad Reperaturwerkstätte",
+"Motorrad Reperaturwerkstatt",
+"Motorrad Reperaturbetrieb"
 ],
 "shop/music":[
 "Musikladen",

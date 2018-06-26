@@ -8,6 +8,10 @@
 "廣告看板",
 "廣告牌"
 ],
+"advertising/column":[
+"廣告欄",
+"廣告看板"
+],
 "aerialway":[
 "纜車路線"
 ],
@@ -783,6 +787,9 @@
 "自由落體",
 "大怒神"
 ],
+"attraction/maze":[
+"迷宮"
+],
 "attraction/pirate_ship":[
 "海盜船"
 ],
@@ -965,6 +972,10 @@
 ],
 "building/garages":[
 "車庫"
+],
+"building/grandstand":[
+"看臺",
+"正面看臺"
 ],
 "building/greenhouse":[
 "溫室"
@@ -1287,9 +1298,16 @@
 "emergency/destination":[
 "緊急通道目的地"
 ],
+"emergency/fire_extinguisher":[
+"滅火器"
+],
 "emergency/fire_hydrant":[
 "消防栓",
 "消防設施"
+],
+"emergency/first_aid_kit":[
+"急救箱",
+"急救包"
 ],
 "emergency/life_ring":[
 "救生圈"
@@ -1305,6 +1323,9 @@
 ],
 "emergency/private":[
 "供私人緊急通行"
+],
+"emergency/siren":[
+"警笛"
 ],
 "emergency/water_tank":[
 "緊急水箱"
@@ -1394,6 +1415,10 @@
 "healthcare/hospice":[
 "安養院"
 ],
+"healthcare/laboratory":[
+"醫檢",
+"醫事檢驗所"
+],
 "healthcare/midwife":[
 "助產士"
 ],
@@ -1459,8 +1484,8 @@
 "電梯"
 ],
 "highway/footway":[
+"步道",
 "人行步道",
-"人行道",
 "步行徑"
 ],
 "highway/give_way":[
@@ -1814,6 +1839,10 @@
 "鳥類棲息處",
 "鳥類棲地"
 ],
+"leisure/bleachers":[
+"看臺",
+"看台"
+],
 "leisure/bowling_alley":[
 "保齡球場",
 "保齡球館",
@@ -2066,6 +2095,10 @@
 "煙筒",
 "煙囪"
 ],
+"man_made/clearcut":[
+"伐木林",
+"人工林"
+],
 "man_made/crane":[
 "起重機"
 ],
@@ -2231,6 +2264,10 @@
 "山峰",
 "山巔",
 "山頂"
+],
+"natural/reef":[
+"礁",
+"暗礁"
 ],
 "natural/ridge":[
 "山脊",
@@ -2917,8 +2954,8 @@
 "商行"
 ],
 "shop/agrarian":[
-"農業用品補給店",
-"農用品店 "
+"農用品店",
+"農業用品補給店"
 ],
 "shop/alcohol":[
 "酒類專賣店",
@@ -3250,6 +3287,12 @@
 "摩托車行",
 "機器腳踏車行"
 ],
+"shop/motorcycle_repair":[
+"機車行",
+"摩托車行",
+"摩托車維修店",
+"機車維修店"
+],
 "shop/music":[
 "唱片行",
 "音樂店"
@@ -3524,6 +3567,9 @@
 "tourism/theme_park":[
 "主題公園",
 "主題樂園"
+],
+"tourism/trail_riding_station":[
+"騎馬車站"
 ],
 "tourism/viewpoint":[
 "風景點",

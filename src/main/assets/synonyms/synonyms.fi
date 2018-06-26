@@ -409,6 +409,9 @@
 "abortti",
 "raskauden"
 ],
+"amenity/clinic/fertility":[
+"Hedelmällisyysklinikka"
+],
 "amenity/clock":[
 "Kello"
 ],
@@ -2950,6 +2953,9 @@
 "man_made/chimney":[
 "Savupiippu"
 ],
+"man_made/clearcut":[
+"Avohakattu metsä"
+],
 "man_made/crane":[
 "Nosturi"
 ],
@@ -4764,8 +4770,8 @@
 "tourism/camp_site":[
 "matkailuvaunualue",
 "leiripaikka",
+"camping",
 "telttailualue",
-"camping ",
 "caravan park",
 "Leirintäalue",
 "karavaanialue"

@@ -1,24 +1,77 @@
 {
 "address":[
-"כתובת"
+"כתובת",
+"מען"
 ],
 "advertising/billboard":[
-"שלט חוצות"
+"שלט חוצות",
+"שלט פרסום"
+],
+"advertising/column":[
+"לוח מודעות",
+"עמוד פרסום",
+"עמוד מודעות",
+"לוח פרסום"
+],
+"aerialway":[
+"רכבל"
 ],
 "aerialway/cable_car":[
 "רכבל"
 ],
+"aerialway/chair_lift":[
+"רכבל מושבים",
+"רכבל סקי"
+],
+"aerialway/drag_lift":[
+"מעלית גרר לסקי",
+"מעלית סקי"
+],
 "aerialway/gondola":[
 "גונדולה"
 ],
+"aerialway/goods":[
+"רכבל סחורה"
+],
 "aerialway/magic_carpet":[
-"מעלית שטיח מעופף"
+"מסוע שלג",
+"מעלית שטיח מעופף",
+"מסוע שטיח מעופף",
+"מסוע קרקעי"
+],
+"aerialway/mixed_lift":[
+"רכבל מעורב"
+],
+"aerialway/platter":[
+"רכבל קפסולה",
+"רכבל תא",
+"רכבל סגור"
+],
+"aerialway/pylon":[
+"עמוד רכבל"
+],
+"aerialway/rope_tow":[
+"רכבל חבלים"
+],
+"aerialway/station":[
+"תחנת רכבל"
+],
+"aerialway/t-bar":[
+"רכבל שטחי"
+],
+"aeroway":[
+"מתחם שדה תעופה"
 ],
 "aeroway/aerodrome":[
 "נמל תעופה",
 "שדה תעופה",
 "נתב״ג",
 "נתב"ג"
+],
+"aeroway/apron":[
+"רחבת חנייה",
+"רחבת חנייה למטוסים",
+"רחבת חניית מטוסים"
 ],
 "aeroway/gate":[
 "שער נמל תעופה",
@@ -40,14 +93,20 @@
 "aeroway/terminal":[
 "טרמינל שדה תעופה"
 ],
+"allotments/plot":[
+"חלקת גינה קהילתית",
+"חלקת גינה ציבורית"
+],
 "amenity":[
 "נוחיות"
 ],
 "amenity/animal_boarding":[
-"מתקן עליה לבעלי חיים"
+"פנסיון",
+"פנסיון לבעלי חיים"
 ],
 "amenity/animal_breeding":[
-"מתקן רבייה לבעלי חיים"
+"מתקן רבייה לבעלי חיים",
+"מתקן לגידול לבעלי חיים"
 ],
 "amenity/animal_shelter":[
 "תנו לחיות לחיות",
@@ -72,7 +131,8 @@
 "בר"
 ],
 "amenity/bbq":[
-"ברביקיו"
+"ברביקיו",
+"גריל/מנגל"
 ],
 "amenity/bench":[
 "ספסל"
@@ -87,10 +147,14 @@
 "עמדת תיקון אופניים"
 ],
 "amenity/biergarten":[
-"גן בירה"
+"גן בירה",
+"גינת בירה",
+"ביר גארדן",
+"ביר גרדן"
 ],
 "amenity/boat_rental":[
-"השכרת סירה"
+"השכרת סירה",
+"השכרת כלי שיט"
 ],
 "amenity/bureau_de_change":[
 "צ'יינג'",
@@ -174,7 +238,8 @@
 "רופא"
 ],
 "amenity/dojo":[
-"דוג'ו"
+"דוג׳ו / מרכז לאומנויות לחימה",
+"אקדמיה למקצועות לחימה"
 ],
 "amenity/drinking_water":[
 "מי שתייה"
@@ -213,7 +278,8 @@
 "סל חצץ"
 ],
 "amenity/hospital":[
-"גן בית חולים"
+"גן בית חולים",
+"גינת בית חולים"
 ],
 "amenity/hunting_stand":[
 "עמדת ציד"
@@ -231,10 +297,16 @@
 "ספריה"
 ],
 "amenity/love_hotel":[
-"מלון לפי שעות"
+"מלון לפי שעות",
+"מלון לפי שעה"
 ],
 "amenity/marketplace":[
 "שוק"
+],
+"amenity/monastery":[
+"שטחי מנזר",
+"גני מנזר",
+"מתחם מנזר"
 ],
 "amenity/motorcycle_parking":[
 "חניית אופנועים"
@@ -282,8 +354,8 @@
 "כנסייה"
 ],
 "amenity/place_of_worship/hindu":[
-"מקדש הודי",
-"מקדש  הודי"
+"מקדש הינדו",
+"מקדש  הינדואיסטי"
 ],
 "amenity/place_of_worship/jewish":[
 "בית כנסת"
@@ -298,7 +370,8 @@
 "מקדש סיקי"
 ],
 "amenity/place_of_worship/taoist":[
-"מקדש טאויסטי"
+"מקדש דאואיסטי",
+"מקדש טאואיסטי"
 ],
 "amenity/planetarium":[
 "מצפה כוכבים"
@@ -317,7 +390,9 @@
 "סניף דואר"
 ],
 "amenity/prison":[
-"מגרש כלא"
+"חצר כלא",
+"מגרש כלא",
+"חצר בית כלא"
 ],
 "amenity/pub":[
 "מסבאה",
@@ -332,13 +407,14 @@
 "ספריה"
 ],
 "amenity/ranger_station":[
-"תחנת הפקחים"
+"תחנת הפקחים",
+"תחנת פקחים"
 ],
 "amenity/recycling":[
-"סל מחזור"
+"סל מחזור",
+"סל מיחזור"
 ],
 "amenity/recycling_centre":[
-"מרכז מחזור",
 "מרכז מיחזור"
 ],
 "amenity/register_office":[
@@ -348,7 +424,8 @@
 "מסעדה"
 ],
 "amenity/sanitary_dump_station":[
-"תחנת סילוק RV"
+"תחנת סילוק לקרוונים",
+"תחנת סילוק שפכים מקרוונים"
 ],
 "amenity/school":[
 "מגרש בית ספר"
@@ -360,8 +437,7 @@
 "מקלט"
 ],
 "amenity/shower":[
-"מקלחת",
-"מקלחט"
+"מקלחת"
 ],
 "amenity/smoking_area":[
 "אזור עישון"
@@ -382,7 +458,8 @@
 "בית מחסה למחוסרי דיור"
 ],
 "amenity/social_facility/nursing_home":[
-"בית אבות"
+"בית אבות",
+"בית אבות סיעודי"
 ],
 "amenity/studio":[
 "סטודיו"
@@ -403,42 +480,85 @@
 "בתי שימוש"
 ],
 "amenity/townhall":[
-"בניין עיריה"
+"בניין עיריה",
+"בניין עירייה"
+],
+"amenity/university":[
+"שטחי אוניברסיטה",
+"אזור אוניברסיטה",
+"מתחם אוניברסיטה",
+"מרחב אוניברסיטה"
 ],
 "amenity/vending_machine":[
-"אוטומט מכירות"
+"אוטומט מכירות",
+"מכונת ממכר"
 ],
 "amenity/vending_machine/cigarettes":[
-"אוטומט מכירת סיגריות"
+"אוטומט מכירת סיגריות",
+"מכונת סיגריות"
+],
+"amenity/vending_machine/coffee":[
+"מכונת קפה"
 ],
 "amenity/vending_machine/condoms":[
-"אוטומט מכירת קונדומים"
+"אוטומט מכירת קונדומים",
+"מכונת קונדומים"
 ],
 "amenity/vending_machine/drinks":[
+"מכונת שתייה",
 "אוטומט מכירת שתיה"
 ],
+"amenity/vending_machine/electronics":[
+"אוטומט מכירת אלקטרוניקה",
+"מכונת אלקטרוניקה"
+],
+"amenity/vending_machine/elongated_coin":[
+"מכונת השטחת מטבעות",
+"אוטומט השטחת מטבעות"
+],
 "amenity/vending_machine/excrement_bags":[
-"אוטומט מכירת שקיות פסולת"
+"אוטומט מכירת שקיות פסולת",
+"מכונת שקיות פסולת"
 ],
 "amenity/vending_machine/feminine_hygiene":[
+"מכונת היגיינה נשית",
 "אוטומט מכירת היגינה נשית"
 ],
+"amenity/vending_machine/food":[
+"אוטומט אוכל",
+"מכונת אוכל"
+],
+"amenity/vending_machine/fuel":[
+"משאבת דלק"
+],
+"amenity/vending_machine/ice_cream":[
+"מכונת גלידה",
+"אוטומט גלידה"
+],
 "amenity/vending_machine/news_papers":[
-"עמדת חלוקת עיתונים"
+"מכונת חלוקת עיתונים"
 ],
 "amenity/vending_machine/newspapers":[
 "עמדת חלוקת עיתונים"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
+"מכונת חלוקת חבילות",
 "עמדת חלוקת חבילות"
 ],
 "amenity/vending_machine/parking_tickets":[
-"אוטומט מכירת כרטיסי חניה"
+"אוטומט מכירת כרטיסי חניה",
+"מכונת כרטיסי חניה"
 ],
 "amenity/vending_machine/public_transport_tickets":[
-"אוטומט מכירת כרטיסי רכבת"
+"אוטומט מכירת כרטיסי רכבת",
+"מכונת כרטיסי רכבת"
+],
+"amenity/vending_machine/stamps":[
+"אוטומט בולים",
+"מכונת בולים"
 ],
 "amenity/vending_machine/sweets":[
+"מכונת חטיפים",
 "אוטומט מכירת חטיפים"
 ],
 "amenity/veterinary":[
@@ -448,10 +568,20 @@
 "שקי-קקי"
 ],
 "amenity/waste_basket":[
-"פח אשפה"
+"סל אשפה"
 ],
 "amenity/waste_disposal":[
 "פח אשפה"
+],
+"amenity/waste_transfer_station":[
+"תחנת מעבר זבל"
+],
+"amenity/water_point":[
+"מי שתייה לקרון",
+"מי שתייה לקרוואן"
+],
+"amenity/watering_place":[
+"מקור מים לחיות"
 ],
 "area":[
 "שטח"
@@ -477,6 +607,16 @@
 "attraction/carousel":[
 "קרוסלה"
 ],
+"attraction/dark_ride":[
+"מתקן אפל"
+],
+"attraction/drop_tower":[
+"מגדל נפילה",
+"מגדל שעשועים"
+],
+"attraction/maze":[
+"מבוך"
+],
 "attraction/pirate_ship":[
 "ספינת פיראטים"
 ],
@@ -495,6 +635,16 @@
 "barrier":[
 "מחסום"
 ],
+"barrier/block":[
+"מחסום בטון",
+"בטונדה",
+"קוביות בטון",
+"קוביית בטון"
+],
+"barrier/bollard":[
+"עמוד חסימה",
+"עמוד חוסם"
+],
 "barrier/border_control":[
 "משטרת הגבולות",
 "משמר הגבול"
@@ -506,7 +656,17 @@
 "barrier/city_wall":[
 "חומת עיר"
 ],
+"barrier/cycle_barrier":[
+"מחסום אפניים",
+"מחסום אופניים"
+],
 "barrier/ditch":[
+"חפיר",
+"מחפורת",
+"בצור",
+"חפירה",
+"חפרה",
+"ביצור",
 "תעלה"
 ],
 "barrier/entrance":[
@@ -519,7 +679,7 @@
 "שער"
 ],
 "barrier/hedge":[
-"גדר"
+"גדר חיה"
 ],
 "barrier/kerb":[
 "אבן שפה"
@@ -528,16 +688,24 @@
 "מחסום חיות"
 ],
 "barrier/lift_gate":[
-"שער הרמה"
+"שער הרמה",
+"שער זרוע",
+"שער מתרומם"
+],
+"barrier/retaining_wall":[
+"קיר תמך",
+"קיר תמיכה",
+"קיר תומך"
 ],
 "barrier/stile":[
-"מדרגות למעבר מעל גדר"
+"מדרגות למעבר מעל גדר",
+"מדרגות לחציית גדר"
 ],
 "barrier/toll_booth":[
 "תא אגרה"
 ],
 "barrier/wall":[
-"קיר\חומה"
+"קיר/חומה"
 ],
 "boundary/administrative":[
 "גבול ניהולי"
@@ -551,6 +719,10 @@
 "building/barn":[
 "אסם"
 ],
+"building/boathouse":[
+"בית צף",
+"בית סירה"
+],
 "building/bungalow":[
 "בונגלו"
 ],
@@ -561,16 +733,36 @@
 "בקתה"
 ],
 "building/cathedral":[
-"קתדרל"
+"קתדרלה"
 ],
 "building/chapel":[
 "קפלה"
 ],
 "building/church":[
-"כניסיה"
+"כנסיה",
+"כנסייה"
+],
+"building/civic":[
+"בניין ממשלתי"
+],
+"building/college":[
+"בניין מכללה"
+],
+"building/commercial":[
+"בניין מסחרי"
+],
+"building/construction":[
+"מבנה בהקמה",
+"מבנה בבנייה"
+],
+"building/detached":[
+"בית לא מחובר"
+],
+"building/dormitory":[
+"מעונות"
 ],
 "building/entrance":[
-"כניסה\יציאה"
+"כניסה/יציאה"
 ],
 "building/farm":[
 "בית חווה"
@@ -584,6 +776,9 @@
 "building/garages":[
 "מוסך",
 "מוסכים"
+],
+"building/grandstand":[
+"בימת צופים"
 ],
 "building/greenhouse":[
 "חממה"
@@ -617,12 +812,15 @@
 "בניין מגורים"
 ],
 "building/retail":[
-"בניין קמעוני"
+"בניין קמעוני",
+"בניין קימעונאי",
+"בניין לקמעונאות"
 ],
 "building/roof":[
 "גג"
 ],
 "building/ruins":[
+"חורבות בניין",
 "בניין הרוס"
 ],
 "building/school":[
@@ -630,6 +828,9 @@
 "בניין בית ספר",
 "מבנה בית ספר",
 "בניין ביצפר"
+],
+"building/semidetached_house":[
+"בית חצי מחובר"
 ],
 "building/service":[
 "בניין שירות"
@@ -644,13 +845,21 @@
 "אצטדיון"
 ],
 "building/static_caravan":[
-"RV סטטי"
+"קרוון סטטי",
+"קרוון נייח"
 ],
 "building/temple":[
 "מקדש"
 ],
+"building/terrace":[
+"בתים בשורות",
+"שורת בתים"
+],
 "building/train_station":[
 "תחנת רכבת"
+],
+"building/transportation":[
+"מבנה תחבורה"
 ],
 "building/university":[
 "בניין אוניברסיטה"
@@ -658,35 +867,54 @@
 "building/warehouse":[
 "מחסן"
 ],
+"camp_site/camp_pitch":[
+"מתחם אוהלים",
+"אוהלי מחאה",
+"מאהל"
+],
 "circular":[
 "מעגל תנועה"
 ],
 "club":[
 "מועדון"
 ],
+"craft":[
+"מלאכת יד",
+"מלאכה"
+],
 "craft/basket_maker":[
-"מייצר סלים"
+"מייצר סלים",
+"יצרן סלים",
+"קליעת סלים",
+"קולעת סלים",
+"קולע סלים"
 ],
 "craft/beekeeper":[
+"כוורנית",
 "כוורן"
 ],
 "craft/blacksmith":[
-"נפח"
+"נפח",
+"נפחית"
 ],
 "craft/boatbuilder":[
 "בונה סירות"
 ],
 "craft/bookbinder":[
+"כורכת ספרים",
 "כורך ספרים"
 ],
 "craft/brewery":[
 "מבשלת בירה"
 ],
 "craft/carpenter":[
-"נגר"
+"נגר",
+"נגרית",
+"נגרת"
 ],
 "craft/carpet_layer":[
-"מתקין שטיחים"
+"מתקין שטיחים",
+"מתקינת שטיחים"
 ],
 "craft/caterer":[
 "הסעדה"
@@ -695,7 +923,8 @@
 "מנקה ארובות"
 ],
 "craft/clockmaker":[
-"שען"
+"שען",
+"שענית"
 ],
 "craft/confectionery":[
 "חנות ממתקים"
@@ -704,19 +933,36 @@
 "מזקקה"
 ],
 "craft/dressmaker":[
+"תופר",
 "תופרת"
 ],
 "craft/electrician":[
+"חשמלאית",
 "חשמלאי"
 ],
 "craft/electronics_repair":[
 "חנות תיקון אלקטרוניקה"
 ],
 "craft/gardener":[
+"גננית",
 "גנן"
+],
+"craft/glaziery":[
+"זגג",
+"זגוגית",
+"זגגות",
+"זכוכית"
+],
+"craft/handicraft":[
+"מלאכת יד",
+"עבודה ידנית",
+"עבודת יד"
 ],
 "craft/hvac":[
 "שירות מיזוג מרכזי"
+],
+"craft/insulator":[
+"מבודד"
 ],
 "craft/jeweler":[
 "תכשיטן"
@@ -728,88 +974,196 @@
 "מנעולן"
 ],
 "craft/metal_construction":[
-"נפח"
+"נפח",
+"נפחית"
 ],
 "craft/optician":[
 "אופטיקאי"
 ],
 "craft/painter":[
+"צבעית",
 "צבעי"
 ],
 "craft/photographer":[
-"צלם"
+"צלם",
+"צלמת"
 ],
 "craft/photographic_laboratory":[
 "מעבדת צילום"
 ],
+"craft/plasterer":[
+"גבס",
+"מגבס",
+"עבודת גבס",
+"איש גבס"
+],
 "craft/plumber":[
-"שרברב"
+"שרברב",
+"שרברבית"
 ],
 "craft/pottery":[
 "כלי חרס"
 ],
+"craft/rigger":[
+"יצרן ציוד לכלי שיט",
+"יצרן ציוד לדייגים",
+"יצרן ציוד לספינות",
+"יצרן ציוד לסירות",
+"חבלאות",
+"חבלאי"
+],
 "craft/roofer":[
-"מתקין גגות"
+"מתקין גגות",
+"מתקינת גגות"
+],
+"craft/saddler":[
+"מכין אוכפים",
+"אוכפן",
+"אוכפים",
+"יצרן אוכפים",
+"הכנת אוכפים",
+"אכפן"
+],
+"craft/sailmaker":[
+"תפירת מפרשים",
+"תופר מפרשים"
 ],
 "craft/sawmill":[
 "מנסרה"
 ],
+"craft/scaffolder":[
+"מתקין פיגומים",
+"פיגומאי",
+"התקנת פיגומים"
+],
 "craft/sculptor":[
-"פסל"
+"פסלית",
+"פסל",
+"פסלת"
 ],
 "craft/shoemaker":[
-"סנדלר"
+"סנדלר",
+"סנדלרית"
+],
+"craft/stonemason":[
+"סתת",
+"סתתת",
+"סתתית"
 ],
 "craft/tailor":[
 "חיט"
 ],
 "craft/tiler":[
-"מתקין אריחים"
+"מתקין אריחים",
+"מתקינת אריחים"
 ],
 "craft/tinsmith":[
-"פחח"
+"פחח",
+"פחחית"
 ],
 "craft/upholsterer":[
-"רפד"
+"רפד",
+"רפדית"
 ],
 "craft/watchmaker":[
-"שען"
+"שען",
+"שענית"
+],
+"craft/window_construction":[
+"הרכבת חלונות"
 ],
 "craft/winery":[
 "יקב"
+],
+"embankment":[
+"סוללה",
+"סלילה",
+"הגבהה"
 ],
 "emergency/ambulance_station":[
 "תחנת אמבולנס"
 ],
 "emergency/defibrillator":[
+"מפעם",
+"התקן החייאה",
 "דפיברילטור"
+],
+"emergency/designated":[
+"גישת חירום"
+],
+"emergency/destination":[
+"גישת חירום"
+],
+"emergency/fire_alarm":[
+"מכבי אש",
+"תיבת שיחה לכיבוי אש",
+"כיבוי אש",
+"לוחמת אש",
+"לוחמי אש"
+],
+"emergency/fire_extinguisher":[
+"מטפה כיבוי אש",
+"מטף כיבוי אש",
+"מטפה",
+"מטף"
 ],
 "emergency/fire_hydrant":[
 "ברז כיבוי אש"
 ],
+"emergency/first_aid_kit":[
+"קיט עזרה ראשונה",
+"ערכת עזרה ראשונה"
+],
+"emergency/life_ring":[
+"גלגל הצלה"
+],
+"emergency/lifeguard":[
+"החיאה",
+"הצלה",
+"מציל",
+"מצילה",
+"החייאה"
+],
+"emergency/no":[
+"אין גישת חירום"
+],
+"emergency/official":[
+"גישת חירום רשמית"
+],
 "emergency/phone":[
 "טלפון חרום"
 ],
+"emergency/private":[
+"גישת חירום פרטית"
+],
+"emergency/siren":[
+"סירנה",
+"צופר",
+"צפירור"
+],
 "emergency/water_tank":[
+"מיכל מים לחירום",
 "מיכל מים חרום"
 ],
 "emergency/yes":[
 "כניסת חירום"
 ],
 "entrance":[
-"כניסה\יציאה"
+"כניסה/יציאה"
 ],
 "footway/crossing":[
-"מעבר חציה מוגבה"
+"מעבר חציה",
+"מעבר חצייה"
 ],
 "footway/crossing-raised":[
-"מעבר חציה מוגבה"
+"מעבר חציה מוגבה",
+"מעבר חצייה מוגבה"
 ],
 "footway/crosswalk":[
-"מעבר חציה"
+"מעבר הולכי רגל"
 ],
 "footway/crosswalk-raised":[
-"מעבר חציה מוגבה"
+"מעבר מוגבה להולכי רגל"
 ],
 "footway/sidewalk":[
 "מדרכה"
@@ -824,16 +1178,19 @@
 "אזור פתוח בגולף"
 ],
 "golf/green":[
+"דשא סביב גומת גולף",
 "דשא סביב חור גולף"
 ],
 "golf/hole":[
-"חור גוף"
+"חור גולף",
+"גומת גולף"
 ],
 "golf/lateral_water_hazard_area":[
 "מכשול מים"
 ],
 "golf/lateral_water_hazard_line":[
-"מכשול מים"
+"מכשול מים צדי",
+"מכשול מים צדדי"
 ],
 "golf/rough":[
 "שטח קשה בגולף"
@@ -851,61 +1208,93 @@
 "מוסד טיפול בריאותי"
 ],
 "healthcare/alternative":[
-"בריאות אלטרנטיבי"
+"בריאות אלטרנטיבית"
 ],
 "healthcare/alternative/chiropractic":[
-"כירופרקט"
+"כירופרקט",
+"כירופרקטית"
 ],
 "healthcare/audiologist":[
-"אודיולוג"
+"אודיולוג",
+"אודיולוגית"
 ],
 "healthcare/birthing_center":[
-"מתקן לידה"
+"מרכז לידה"
 ],
 "healthcare/blood_donation":[
 "מרכז תרומת דם"
 ],
 "healthcare/hospice":[
+"מרכז לטיפול תומך",
 "הוספיס"
 ],
+"healthcare/laboratory":[
+"מעבדת רפואה",
+"מעבדה רפואית"
+],
 "healthcare/midwife":[
-"מיילדת"
+"מיילדת",
+"מיילד"
 ],
 "healthcare/occupational_therapist":[
-"מרפא בעיסוק"
+"מרפא בעיסוק",
+"מרפאה בעיסוק"
 ],
 "healthcare/optometrist":[
+"אופטומטריסטית",
 "אופטומטריסט"
 ],
 "healthcare/physiotherapist":[
+"פיזיותרפיה",
 "פזיווטרפיה"
 ],
 "healthcare/podiatrist":[
-"פודיאטר"
+"פודיאטור",
+"פודיאטורית"
 ],
 "healthcare/psychotherapist":[
-"פסיכוטרפיסט"
+"פסיכותרפיסט"
 ],
 "healthcare/rehabilitation":[
 "מוסד שיקומי"
 ],
 "healthcare/speech_therapist":[
+"קלינאי תקשורת",
 "קלינאית תקשורת"
 ],
 "highway":[
-"כביש בין-עירוני"
+"כביש בין־עירוני"
+],
+"highway/bridleway":[
+"מסלול יער",
+"מסלול רכיבה",
+"מסלול סוסים",
+"מסלול רכיבה על סוסים"
+],
+"highway/bus_guideway":[
+"מסלול לאוטובוסים מונחים",
+"מסלול מנחה לאוטובוסים",
+"מסלול אוטובוסים"
+],
+"highway/bus_stop":[
+"תחנת אוטובוס / רציף"
+],
+"highway/corridor":[
+"מסדרון"
 ],
 "highway/crossing":[
-"מעבר חציה"
+"מעבר חצייה"
 ],
 "highway/crossing-raised":[
-"מעבר חציה מוגבה"
+"מעבר חצייה מוגבה"
 ],
 "highway/crosswalk":[
-"מעבר חציה"
+"מעבר חציה להולכי רגל",
+"מעבר חצייה להולכי רגל"
 ],
 "highway/crosswalk-raised":[
-"מעבר חציה מוגבה"
+"מעבר חציה מוגבה להולכי רגל",
+"מעבר חצייה מוגבה להולכי רגל"
 ],
 "highway/cycleway":[
 "מסלול אופניים"
@@ -914,22 +1303,42 @@
 "מעלית"
 ],
 "highway/footway":[
-"דרך רגל"
+"דרך רגלית"
 ],
 "highway/give_way":[
-"תן זכות קדימה"
+"תן זכות קדימה",
+"מתן זכות קדימה",
+"האט"
+],
+"highway/living_street":[
+"רחוב מגורים"
 ],
 "highway/mini_roundabout":[
 "מעגל תנועה קטן"
+],
+"highway/motorway":[
+"כביש בינעירוני",
+"אוטוסטרדה",
+"כביש מהיר"
+],
+"highway/motorway_junction":[
+"יציאה / צומת כביש מהיר"
+],
+"highway/motorway_link":[
+"חיבור לכביש מהיר"
+],
+"highway/passing_place":[
+"אזור החלפה בכביש חד־נתיבי",
+"מקטע החלפה"
 ],
 "highway/path":[
 "שביל"
 ],
 "highway/pedestrian_area":[
-"אזור רק עם תנועה רגלית"
+"אזור עם תנועה רגלית בלבד"
 ],
 "highway/pedestrian_line":[
-"רחוב רק עם תנועה רגלית"
+"רחוב עם תנועה רגלית בלבד"
 ],
 "highway/primary":[
 "כביש ראשי"
@@ -938,7 +1347,8 @@
 "חיבור ראשי"
 ],
 "highway/raceway":[
-"מסלול מרוצים (מונע)"
+"מסלול מרוצים (מונע)",
+"מסלול מרוצים (לממונעים)"
 ],
 "highway/residential":[
 "כביש באזור מגורים"
@@ -956,16 +1366,81 @@
 "חיבור משני"
 ],
 "highway/service":[
-"כבישי שירות"
+"כביש שירות"
 ],
 "highway/service/alley":[
 "סמטה"
 ],
+"highway/service/drive-through":[
+"הזמנה-דרך-אשנב",
+"מסעדת הזמנה-דרך-חלון"
+],
+"highway/service/driveway":[
+"כביש גישה",
+"דרך גישה"
+],
+"highway/service/emergency_access":[
+"גישת חירום"
+],
+"highway/service/parking_aisle":[
+"מעבר במגרש חנייה"
+],
+"highway/services":[
+"מתחם שירות",
+"מתחם שרות"
+],
 "highway/speed_camera":[
 "מצלמת מהירות"
 ],
+"highway/steps":[
+"מדרגות"
+],
 "highway/stop":[
 "תמרור עצור"
+],
+"highway/street_lamp":[
+"תאורת רחוב"
+],
+"highway/tertiary":[
+"דרך שלישונית",
+"כביש שלישוני"
+],
+"highway/tertiary_link":[
+"חיבור לכביש שלישוני",
+"חיבור לדרך שלישונית"
+],
+"highway/track":[
+"מסלול שדות",
+"דרך לא סלולה",
+"כביש שדות",
+"דרך בלתי סלולה",
+"דרך עפר"
+],
+"highway/traffic_mirror":[
+"מראות כביש פנורמיות"
+],
+"highway/traffic_signals":[
+"רמזורים",
+"רמזור",
+"תמרור"
+],
+"highway/trunk":[
+"כביש בין עירוני"
+],
+"highway/trunk_link":[
+"חיבור לכביש בין עירוני"
+],
+"highway/turning_circle":[
+"מעגל תנועה"
+],
+"highway/turning_loop":[
+"מעגל תנועה (אי)",
+"כיכר פרסה (אי)",
+"מעגל פרסה (אי)"
+],
+"highway/unclassified":[
+"כביש לא מסומן",
+"כביש לא מסומן/מזערי"
 ],
 "historic":[
 "אתר היסטורי"
@@ -974,6 +1449,7 @@
 "אתר ארכיאולוגי"
 ],
 "historic/boundary_stone":[
+"אבן תוחמת",
 "אבן גבול"
 ],
 "historic/castle":[
@@ -983,7 +1459,8 @@
 "אתר הנצחה"
 ],
 "historic/monument":[
-"מונומנט"
+"מונומנט",
+"אתר מורשת"
 ],
 "historic/ruins":[
 "אתר חורבן"
@@ -991,23 +1468,93 @@
 "historic/tomb":[
 "קבר"
 ],
+"historic/wayside_cross":[
+"צלב נוצרי לצד השביל",
+"צלב נוצרי לצד הדרך"
+],
+"historic/wayside_shrine":[
+"קבר קדוש בצדי הדרך",
+"מקדש בצד הדרך",
+"מקום קדוש בצד הדרך"
+],
+"junction":[
+"צומת"
+],
+"landuse":[
+"קרקע בשימוש",
+"שימוש בקרקע"
+],
 "landuse/allotments":[
+"גן קהילתי",
 "גינה קהילתית"
 ],
+"landuse/aquaculture":[
+"חקלאות ימית",
+"דגה",
+"דייגים",
+"דיג"
+],
+"landuse/basin":[
+"מקווה",
+"מאגר"
+],
+"landuse/brownfield":[
+"קרקע מזוהמת",
+"שדה מזוהם",
+"שדה חום"
+],
 "landuse/cemetery":[
-"בית קברות"
+"בית קברות",
+"בית עלמין"
+],
+"landuse/churchyard":[
+"חצר כנסייה"
+],
+"landuse/commercial":[
+"אזור מסחרי",
+"שטח מסחרי"
+],
+"landuse/construction":[
+"בנייה"
+],
+"landuse/farm":[
+"אזור חקלאי"
+],
+"landuse/farmland":[
+"אזור חקלאי",
+"שטח חקלאי"
+],
+"landuse/farmyard":[
+"חצר חקלאית"
 ],
 "landuse/forest":[
 "יער"
 ],
+"landuse/garages":[
+"אזור אחסון"
+],
 "landuse/grass":[
 "דשא"
+],
+"landuse/greenfield":[
+"שטח ירוק",
+"קרקע בלתי מעובדת",
+"קרקע בתולית",
+"קרקע בתולה",
+"אדמה ירוקה"
+],
+"landuse/greenhouse_horticulture":[
+"מתחם חממות"
 ],
 "landuse/harbour":[
 "מזח"
 ],
 "landuse/industrial":[
 "אזור תעשיה"
+],
+"landuse/industrial/scrap_yard":[
+"מתחם גרוטאות",
+"חצר גרוטאות"
 ],
 "landuse/industrial/slaughterhouse":[
 "משחטה"
@@ -1021,14 +1568,27 @@
 "landuse/orchard":[
 "פרדס"
 ],
+"landuse/plant_nursery":[
+"משתלה"
+],
 "landuse/quarry":[
 "מחצבה"
 ],
+"landuse/railway":[
+"מסדרון תעבורה חוצה מדינה",
+"מסדרון תעבורה"
+],
+"landuse/recreation_ground":[
+"אזור מיועד לבילוי"
+],
 "landuse/religious":[
+"מתחם דת",
+"שטח דתי",
 "אזור דתי"
 ],
 "landuse/residential":[
-" אזור מגורים"
+" אזור מגורים",
+"אזור מגורים"
 ],
 "landuse/retail":[
 "אזור מסחרי"
@@ -1036,20 +1596,127 @@
 "landuse/vineyard":[
 "כרם"
 ],
+"leisure":[
+"אזור פנאי"
+],
+"leisure/adult_gaming_centre":[
+"קזינו",
+"בית הימורים",
+"מרכז בידור למבוגרים",
+"מרכז הימורים"
+],
+"leisure/amusement_arcade":[
+"מתחם משחקים",
+"משחקי ארקייד"
+],
+"leisure/beach_resort":[
+"אתר נופש על החוף",
+"אתר נופש חופי"
+],
+"leisure/bird_hide":[
+"מסתור ציפורים",
+"בקתת צפרות",
+"מסתור צפרות",
+"עמדת צפרות"
+],
+"leisure/bleachers":[
+"ספסלים",
+"שטח משופע",
+"מושבים",
+"יציע",
+"ספורט",
+"טריבונות"
+],
 "leisure/bowling_alley":[
 "אולם כדורת"
 ],
 "leisure/common":[
 "אזור משותף"
 ],
+"leisure/dance":[
+"רחבת ריקודים",
+"היכל ריקודים",
+"מועדון ריקודים"
+],
+"leisure/dancing_school":[
+"דנס",
+"סווינג",
+"טנגו",
+"סלסה",
+"בית ספר לריקוד",
+"ריקוד"
+],
 "leisure/dog_park":[
 "פארק כלבים"
+],
+"leisure/firepit":[
+"מדורה",
+"אש",
+"קומזיץ",
+"להבה",
+"שוחה למדורה"
 ],
 "leisure/fitness_centre":[
 "מכון כושר"
 ],
 "leisure/fitness_centre/yoga":[
 "מכון יוגה"
+],
+"leisure/fitness_station":[
+"תחנת כושר"
+],
+"leisure/fitness_station/balance_beam":[
+"קורת התעמלות",
+"קורה"
+],
+"leisure/fitness_station/box":[
+"קופסאות התעלמות",
+"תיבות קפיצה",
+"קופסאות קפיצה",
+"תיבות התעמלות"
+],
+"leisure/fitness_station/horizontal_bar":[
+"מוט התעמלות מתח",
+"מוט התעמלות",
+"עליות מתח",
+"מוט אופקי",
+"מוט מתח"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"סולם התעמלות",
+"מוטות אופקיים",
+"סולם אופקי",
+"סולם כושר"
+],
+"leisure/fitness_station/hyperextension":[
+"מתקן זוקפי גב",
+"מותח",
+"עמדת זוקפי גב"
+],
+"leisure/fitness_station/parallel_bars":[
+"מוטות מקביליים",
+"מוטות מקבילים"
+],
+"leisure/fitness_station/push-up":[
+"שכיבות סמיכה",
+"עמדת שכיבות שמיכה",
+"עמדת שכיבות סמיכה"
+],
+"leisure/fitness_station/rings":[
+"טבעות אימון",
+"טבעות התעמלות"
+],
+"leisure/fitness_station/sign":[
+"שלט הנחיות אימון",
+"שלט הנחיות התעמלות"
+],
+"leisure/fitness_station/sit-up":[
+"עמדת כפיפות בטן"
+],
+"leisure/fitness_station/stairs":[
+"מדרגות ספורט",
+"מדרגות התעמלות",
+"מדרגות כושר"
 ],
 "leisure/garden":[
 "גן"
@@ -1058,15 +1725,15 @@
 "מגרש גולף"
 ],
 "leisure/hackerspace":[
-"משרד משותף היי טק"
+"מתחם היי טק משותף",
+"משרד היי טק משותף"
 ],
 "leisure/horse_riding":[
-"מתקן רכיבה על סוסים",
-"משרד משותף היי טק"
+"מתקן רכיבה על סוסים"
 ],
 "leisure/ice_rink":[
 "החלקה על הקרח",
-"משרד משותף היי טק"
+"החלקרח"
 ],
 "leisure/marina":[
 "מרינה"
@@ -1077,35 +1744,68 @@
 "leisure/nature_reserve":[
 "שמורת טבע"
 ],
+"leisure/outdoor_seating":[
+"אזור ישיבה בחוץ",
+"אזור לישיבה בחוץ"
+],
 "leisure/park":[
 "פארק"
 ],
 "leisure/picnic_table":[
 "שולחן פיקניק"
 ],
+"leisure/pitch":[
+"כדורגל",
+"כדורסל",
+"מגרש ספורט",
+"צגרש",
+"טניס"
+],
 "leisure/pitch/american_football":[
 "מגרש פוטבול"
 ],
 "leisure/pitch/baseball":[
-"מגרש בייסבול"
+"מגרש בייסבול",
+"מגרש כדור בסיס"
 ],
 "leisure/pitch/basketball":[
 "מגרש כדורסל"
 ],
 "leisure/pitch/beachvolleyball":[
-"מגרש כדור-עף חוף"
+"מגרש כדורעף חוף",
+"מגרש כדורעף חופים"
+],
+"leisure/pitch/boules":[
+"מגרש טניס",
+"מגרש כדורעף",
+"מגרש משחקי כדור",
+"מגרש כדורסל",
+"מגרש כדורגל"
+],
+"leisure/pitch/bowls":[
+"כר דשא לכדורת דשא",
+"משטח כדורת דשא",
+"מתחם כדורת דשא"
 ],
 "leisure/pitch/cricket":[
 "מגרש קריקט"
 ],
+"leisure/pitch/equestrian":[
+"מתחם רכיבה",
+"זירת רכיבה"
+],
 "leisure/pitch/rugby_league":[
-"מגרש רוגבי"
+"מגרש ליגת רוגבי",
+"מגרש ליגה של רוגבי"
 ],
 "leisure/pitch/rugby_union":[
-"מגרש רוגבי"
+"מגרש התאחדות רוגבי",
+"מגרש התאחדות של רוגבי"
 ],
 "leisure/pitch/skateboard":[
-"סקייטפארק"
+"סקייטפארק",
+"פארק גלישה",
+"פארק גלגיליות"
 ],
 "leisure/pitch/soccer":[
 "מגרש כדורגל"
@@ -1113,11 +1813,34 @@
 "leisure/pitch/table_tennis":[
 "שולחן פינג פונג"
 ],
+"leisure/pitch/tennis":[
+"מגרש טניס",
+"רחבת טניס"
+],
+"leisure/pitch/volleyball":[
+"מגרש כדורעף",
+"רחבת כדורעף"
+],
 "leisure/playground":[
-"גן שעשועים"
+"גן שעשועים",
+"מגרש שעשועים"
+],
+"leisure/resort":[
+"נווה נופש",
+"מלון תיירות",
+"תיירות",
+"אתר נופש"
+],
+"leisure/running_track":[
+"מסלול ריצה",
+"מסלול תחרויות ריצה"
 ],
 "leisure/sauna":[
 "סאונה"
+],
+"leisure/slipway":[
+"שיפוע למשיית אונייה",
+"ממשה"
 ],
 "leisure/sports_centre":[
 "מרכז ספורט"
@@ -1132,7 +1855,8 @@
 "בריכת שחייה"
 ],
 "leisure/track":[
-"מסלול מרוץ (לא מונע)"
+"מסלול מרוצים (לא מונע)",
+"מסלול מרוצים (לבלתי ממונעים)"
 ],
 "leisure/water_park":[
 "פארק מים"
@@ -1140,31 +1864,102 @@
 "line":[
 "קו"
 ],
+"man_made":[
+"מעשה ידי אדם"
+],
+"man_made/adit":[
+"פתח גישה"
+],
+"man_made/antenna":[
+"אנטנה"
+],
+"man_made/breakwater":[
+"שובר גלים"
+],
 "man_made/bridge":[
 "גשר"
 ],
 "man_made/chimney":[
 "ארובה"
 ],
+"man_made/clearcut":[
+"יער מגולח",
+"קרחת יער"
+],
 "man_made/crane":[
 "מנוף"
+],
+"man_made/cutline":[
+"אזור חיץ",
+"מקטע חיץ",
+"הפרדה"
+],
+"man_made/embankment":[
+"סוללה"
+],
+"man_made/flagpole":[
+"עמוד דגל"
+],
+"man_made/gasometer":[
+"מיכל גז"
+],
+"man_made/groyne":[
+"שובר גלים"
 ],
 "man_made/lighthouse":[
 "מגדלור"
 ],
+"man_made/mast":[
+"תורן"
+],
+"man_made/monitoring_station":[
+"תחנת ניטור"
+],
+"man_made/observation":[
+"מגדל תצפית"
+],
+"man_made/observatory":[
+"מצפה כוכבים"
+],
 "man_made/petroleum_well":[
 "באר נפט"
+],
+"man_made/pier":[
+"מזח"
+],
+"man_made/pipeline":[
+"קו צינורות",
+"קו צינורות "
 ],
 "man_made/pumping_station":[
 "תחנת שאיבה"
 ],
 "man_made/silo":[
-"סילו"
+"סילו",
+"ממגורה"
+],
+"man_made/storage_tank":[
+"מכל איכסון",
+"מכל אחסון",
+"מיכל איחסון",
+"מיכל אחסון"
+],
+"man_made/surveillance":[
+"מעקב"
+],
+"man_made/surveillance_camera":[
+"מצלמת מעקב"
+],
+"man_made/survey_point":[
+"נקודת גבול",
+"נקודת מדידה",
+"נקודת מדד"
 ],
 "man_made/tower":[
 "מגדל"
 ],
 "man_made/wastewater_plant":[
+"מפעל טיפול בשפכים",
 "מפעל טיפול במי ביוב"
 ],
 "man_made/water_tower":[
@@ -1177,10 +1972,12 @@
 "מזרקה"
 ],
 "man_made/watermill":[
-"תחנת מים"
+"תחנת מים",
+"טחנת מים"
 ],
 "man_made/windmill":[
-"טחנת רוח"
+"טחנת רוח",
+"תחנת רוח"
 ],
 "man_made/works":[
 "מפעל"
@@ -1192,13 +1989,14 @@
 "צינור לניקוז מי גשמים"
 ],
 "manhole/telecom":[
-"בור טלקום"
+"בור טלקום",
+"בור תקשורת"
 ],
 "natural":[
 "מאפייני טבע"
 ],
 "natural/bare_rock":[
-"סלע חסוף"
+"סלע חשוף"
 ],
 "natural/bay":[
 "מפרץ"
@@ -1213,7 +2011,8 @@
 "צוק"
 ],
 "natural/coastline":[
-"מישור חוף"
+"מישור חוף",
+"קו חוף"
 ],
 "natural/fell":[
 "תל"
@@ -1221,14 +2020,39 @@
 "natural/glacier":[
 "קרחון"
 ],
+"natural/grassland":[
+"דשא"
+],
 "natural/heath":[
+"אברש",
 "שדה בור"
+],
+"natural/mud":[
+"בוץ"
 ],
 "natural/peak":[
 "פסגה"
 ],
+"natural/reef":[
+"שונית"
+],
+"natural/ridge":[
+"רכס"
+],
+"natural/saddle":[
+"אוכף"
+],
 "natural/sand":[
 "חול"
+],
+"natural/scree":[
+"חלוקי נחל"
+],
+"natural/scrub":[
+"עשביה"
+],
+"natural/spring":[
+"מעיין"
 ],
 "natural/tree":[
 "עץ"
@@ -1246,7 +2070,8 @@
 "אגם"
 ],
 "natural/water/pond":[
-"בריכת דגים\נוי"
+"בריכת דגים/נוי",
+"בריכת נוי/דגים"
 ],
 "natural/water/reservoir":[
 "מאגר"
@@ -1264,7 +2089,9 @@
 "משרד"
 ],
 "office/accountant":[
-"משרד רואה חשבון"
+"משרד רואת חשבון",
+"משרד רואה חשבון",
+"משרד רואי חשבון"
 ],
 "office/administrative":[
 "משרד אדמינסטרטיבי"
@@ -1276,6 +2103,8 @@
 "סוכנות פרסום"
 ],
 "office/architect":[
+"משרד אדריכלות",
+"משרד ארכיטקטים",
 "משרד אדריכלים"
 ],
 "office/association":[
@@ -1288,7 +2117,8 @@
 "משרד תאגידי"
 ],
 "office/coworking":[
-"משרדים משותפים"
+"משרדים משותפים",
+"משרדים שיתופיים"
 ],
 "office/educational_institution":[
 "מוסד חינוכי"
@@ -1297,16 +2127,21 @@
 "סוכנות כוח אדם"
 ],
 "office/energy_supplier":[
-"משרדת ספק חשמל"
+"משרד אספקת חשמל",
+"משרד ספק חשמל"
 ],
 "office/estate_agent":[
-"משרד נדל"ן"
+"משרד נדל״ן"
 ],
 "office/financial":[
-"משרד פיננסי"
+"משרד פיננסי",
+"משרד כלכלי"
 ],
 "office/forestry":[
-"משרד יעור"
+"יערנית",
+"יערנות",
+"משרד יעור",
+"יערן"
 ],
 "office/foundation":[
 "משרד קרן"
@@ -1318,7 +2153,8 @@
 "משרד רישום"
 ],
 "office/government/tax":[
-"משרד עריכת מס"
+"משרד עריכת מס",
+"מס הכנסה"
 ],
 "office/guide":[
 "משרד תיירות"
@@ -1327,16 +2163,20 @@
 "משרד ביטוח"
 ],
 "office/it":[
-"משרד IT"
+"משרד שירותי מחשוב",
+"משרד מחשוב"
 ],
 "office/lawyer":[
-"משרד עורכי דין"
+"משרד עורכי דין",
+"משרד עריכת דין"
 ],
 "office/lawyer/notary":[
 "משרד נוטריון"
 ],
 "office/moving_company":[
-"משרד מעבירי רכוש"
+"משרד הובלה",
+"משרד תובלה",
+"משרד העברת רכוש"
 ],
 "office/newspaper":[
 "משרד עיתונאות"
@@ -1354,6 +2194,7 @@
 "משרד מפלגה פוליטית"
 ],
 "office/private_investigator":[
+"משרד חוקרת פרטי",
 "משרד חוקר פרטי"
 ],
 "office/quango":[
@@ -1363,15 +2204,21 @@
 "משרד מחקר"
 ],
 "office/surveyor":[
-"משרד מודד"
+"משרד מודד",
+"משרד מדידה"
 ],
 "office/tax_advisor":[
-"משרד יועץ מס"
+"משרד יועץ מס",
+"משרד יועצת מס",
+"משרד ייעוץ מס"
 ],
 "office/telecommunication":[
-"משרד לשירות ציבורי - טלפוניה"
+"משרד לשירות ציבורי - טלפוניה",
+"משרד חברת תקשורת",
+"משרד תקשורת"
 ],
 "office/therapist":[
+"משרד מטפלת",
 "משרד מטפל"
 ],
 "office/travel_agent":[
@@ -1381,7 +2228,8 @@
 "משרד לשירות ציבורי - מים"
 ],
 "piste":[
-"מסלול לגלישת סקי"
+"מסלול לגלישת סקי",
+"נתיב לגלישת סקי"
 ],
 "place":[
 "מקום"
@@ -1390,10 +2238,11 @@
 "עיר"
 ],
 "place/farm":[
-"חוה"
+"חווה"
 ],
 "place/hamlet":[
-"כפר"
+"כפר קטן",
+"כפריר"
 ],
 "place/island":[
 "אי"
@@ -1405,9 +2254,14 @@
 "מבנה מבודד"
 ],
 "place/locality":[
-"שכונה"
+"שטח פתוח",
+"מתחם ללא תושבים",
+"אזור בלתי מיושב",
+"מתחם בלתי מיושב",
+"מתחם פתוח"
 ],
 "place/neighbourhood":[
+"שכונת מגורים",
 "שכונה"
 ],
 "place/plot":[
@@ -1423,19 +2277,48 @@
 "פרוור"
 ],
 "place/town":[
-"עיריה"
+"עיריה",
+"עירייה"
 ],
 "place/village":[
 "כפר"
 ],
 "playground/balance_beam":[
-"לשחק את קורה"
+"קורת שיווי משקל"
 ],
 "playground/basket_spinner":[
-"סל טווה"
+"מסובב סלים",
+"סל מסתובב"
 ],
 "playground/basket_swing":[
-"סל הנדנדה"
+"נדנדת סלים",
+"נדנדת סל"
+],
+"playground/climbing_frame":[
+"אוהל טיפוס",
+"מתקן טיפוס",
+"מגדל טיפוס"
+],
+"playground/cushion":[
+"מתנפח",
+"מתנפחים",
+"בלון"
+],
+"playground/horizontal_bar":[
+"מוט משחק אופקי",
+"טיפוס",
+"קורת מתח",
+"קורת טיפוס",
+"מתח"
+],
+"playground/rocker":[
+"דמויות קפיץ",
+"קופצנים",
+"קופצים",
+"קפיץ"
+],
+"playground/roundabout":[
+"קרוסלה"
 ],
 "playground/sandpit":[
 "ארגז חול"
@@ -1446,11 +2329,22 @@
 "playground/slide":[
 "מגלשה"
 ],
+"playground/structure":[
+"מתקן טיפוס",
+"מבנה משחקים",
+"בניין צעצוע"
+],
 "playground/swing":[
 "נדנדות"
 ],
 "playground/zipwire":[
 "אומגה"
+],
+"point":[
+"נקודה"
+],
+"power":[
+"חשמל"
 ],
 "power/generator":[
 "גנרטור"
@@ -1461,56 +2355,130 @@
 "power/generator/source_wind":[
 "טורבינת רוח"
 ],
+"power/line":[
+"חוט חשמל",
+"קו מתח"
+],
+"power/minor_line":[
+"קו מתח משני",
+"חוט חשמל משני"
+],
+"power/plant":[
+"תחנת חשמל",
+"תחנת כוח"
+],
+"power/pole":[
+"תורן חשמל",
+"עמוד חשמל"
+],
+"power/sub_station":[
+"תחנה תת קרקעית"
+],
+"power/substation":[
+"תחנה תת קרקעית",
+"תת־קרקעית"
+],
 "power/switch":[
 "מתג חשמל"
 ],
+"power/tower":[
+"מגדל מתח",
+"מגדל מתח גבוה"
+],
+"power/transformer":[
+"שנאי"
+],
 "public_transport/linear_platform":[
-"תחנת רכבת \ רציף"
+"רציף / תחנת תחבורה ציבורית",
+"תחנת / רציף תחבורה ציבורית"
+],
+"public_transport/linear_platform_aerialway":[
+"תחנת רכבל",
+"רציף / תחנה של תחבורת כבל",
+"רציף רכבל",
+"תחנה / רציף של תחבורת כבל"
 ],
 "public_transport/linear_platform_bus":[
-"תחנת אוטובוס \ רציף"
+"רציף / תחנת אוטובוס",
+"תחנת / רציף אוטובוס"
 ],
 "public_transport/linear_platform_ferry":[
-"תחנת מעבורת \ רציף"
+"תחנת / רציף מעבורת",
+"רציף / תחנת מעבורת"
 ],
 "public_transport/linear_platform_light_rail":[
-"תחנת רכבת קלה \ רציף"
+"תחנת / רציף רכבת קלה",
+"רציף / תחנת רכבת קלה"
 ],
 "public_transport/linear_platform_monorail":[
-"תחנת מונורייל \ רציף"
+"רציף / תחנת מונורייל",
+"תחנת / רציף מונורייל"
 ],
 "public_transport/linear_platform_subway":[
-"תחנת רכבת תחתית \ רציף"
+"רציף / תחנת רכבת תחתית",
+"תחנת / רציף רכבת תחתית"
 ],
 "public_transport/linear_platform_train":[
-"תחנת רכבת \ רציף"
+"רציף / תחנת רכבת",
+"תחנת / רציף רכבת"
 ],
 "public_transport/linear_platform_tram":[
-"תחנת חשמלית \ רציף"
+"רציף / תחנת חשמלית",
+"רציף / תחנת טראם",
+"תחנת / רציף טראם",
+"תחנת / רציף חשמלית"
+],
+"public_transport/linear_platform_trolleybus":[
+"רציף / תחנת טרוליבוס",
+"תחנת / רציף טרוליבוס"
+],
+"public_transport/platform":[
+"רציף / תחנת תחבורה ציבורית",
+"תחנת / רציף תחבורה ציבורית"
+],
+"public_transport/platform_aerialway":[
+"תחנת רכבל",
+"רציף / תחנה של תחבורת כבל",
+"רציף רכבל",
+"תחנה / רציף של תחבורת כבל"
 ],
 "public_transport/platform_bus":[
-"תחנת אוטובוס \ רציף"
+"רציף / תחנת אוטובוס",
+"תחנת / רציף אוטובוס"
 ],
 "public_transport/platform_ferry":[
-"תחנת מעבורת \ רציף"
+"תחנת / רציף מעבורת",
+"רציף / תחנת מעבורת"
 ],
 "public_transport/platform_light_rail":[
-"תחנת רכבת קלה \ רציף"
+"תחנת / רציף רכבת קלה",
+"רציף / תחנת רכבת קלה"
 ],
 "public_transport/platform_monorail":[
-"תחנת מונורייל \ רציף"
+"רציף / תחנת מונורייל",
+"תחנת / רציף מונורייל"
 ],
 "public_transport/platform_subway":[
-"תחנת רכבת תחתית \ רציף"
+"רציף / תחנת רכבת תחתית",
+"תחנת / רציף רכבת תחתית"
 ],
 "public_transport/platform_train":[
-"תחנת רכבת \ רציף"
+"רציף / תחנת רכבת",
+"תחנת / רציף רכבת "
 ],
 "public_transport/platform_tram":[
-"תחנת חשמלית \ רציף"
+"רציף / תחנת חשמלית",
+"תחנת / רציף חשמלית"
 ],
 "public_transport/platform_trolleybus":[
-"תחנת חשמלית \ רציף"
+"רציף / תחנת טרוליבוס",
+"תחנת / רציף טרוליבוס"
+],
+"public_transport/station":[
+"תחנת תחבורה ציבורית"
+],
+"public_transport/station_aerialway":[
+"תחנת רכבל"
 ],
 "public_transport/station_bus":[
 "תחנת אוטובוס"
@@ -1531,46 +2499,115 @@
 "תחנת רכבת"
 ],
 "public_transport/station_train_halt":[
-"תחנת רכבת"
+"תחנת רכבת (לא מעבר)",
+"תחנת רכבת ללא מעבר",
+"תחנת רכבת ללא החלפה"
+],
+"public_transport/station_tram":[
+"תחנת חשמלית",
+"תחנת טראם"
+],
+"public_transport/station_trolleybus":[
+"מסוף / תחנת טרוליבוס",
+"תחנת / מסוף טרוליבוס"
+],
+"public_transport/stop_area":[
+"אזור תחנת תחבורה ציבורית",
+"מתחם תחנת תחבורה ציבורית"
+],
+"public_transport/stop_position":[
+"סוף קו תחבורה ציבורית",
+"מיקום עצירת תחבורה ציבורית",
+"סיום קו תחבורה ציבורית"
+],
+"public_transport/stop_position_aerialway":[
+"תחנת עצירה לרכבל"
 ],
 "public_transport/stop_position_bus":[
-"תחנת אוטובוס"
+"שטח עצירת אוטובוס",
+"מתחם עצירת אוטובוס"
 ],
 "public_transport/stop_position_ferry":[
-"תחנת מעבורת"
+"שטח עצירת מעבורת",
+"מתחם עצירת מעבורת"
 ],
 "public_transport/stop_position_light_rail":[
-"תחנת רכבת קלה"
+"מתחם עצירת רכבת קלה",
+"שטח עצירת רכבת קלה"
 ],
 "public_transport/stop_position_monorail":[
-"תחנת מונורייל"
+"שטח עצירת מונורייל",
+"מתחם עצירת מונורייל"
 ],
 "public_transport/stop_position_subway":[
-"תחנת רכבת תחתית"
+"מתחם עצירת רכבת תחתית",
+"שטח עצירת רכבת תחתית"
 ],
 "public_transport/stop_position_train":[
-"תחנת רכבת"
+"שטח עצירת רכבת",
+"מתחם עצירת רכבת"
+],
+"public_transport/stop_position_tram":[
+"שטח עצירת חשמלית",
+"מתחם עצירת חשמלית"
+],
+"public_transport/stop_position_trolleybus":[
+"תחנת טרוליבוס"
 ],
 "railway":[
 "מסילת רכבת"
 ],
 "railway/abandoned":[
-"מסילת רכבת לא בשימוש"
+"מסילת רכבת נטושה",
+"מסילת רכבת שננטשה"
+],
+"railway/buffer_stop":[
+"אוטם מסילה"
+],
+"railway/crossing":[
+"חציית מסילת רכבת (שביל)",
+"חציית מסילת רכבת (דרך)"
+],
+"railway/derail":[
+"שומטן"
 ],
 "railway/disused":[
+"מסילת רכבת שאינה בשימוש",
 "מסילת רכבת לא בשימוש"
+],
+"railway/funicular":[
+"פוניקולר"
+],
+"railway/halt":[
+"תחנת רכבת (ללא החלפה)"
+],
+"railway/level_crossing":[
+"חציית מסילת רכבת (כביש)"
 ],
 "railway/light_rail":[
 "רכבת קלה"
 ],
+"railway/milestone":[
+"אבן דרך"
+],
+"railway/miniature":[
+"מסילת רכבת זעירה"
+],
 "railway/monorail":[
 "מונורייל"
 ],
+"railway/narrow_gauge":[
+"מסילה עם מרווח צר",
+"מסילה צרה"
+],
 "railway/platform":[
-"תחנת רכבת \ רציף"
+"תחנת / רציף רכבת"
 ],
 "railway/rail":[
 "מסילת רכבת"
+],
+"railway/signal":[
+"תמרור רכבת"
 ],
 "railway/station":[
 "תחנת רכבת"
@@ -1591,7 +2628,10 @@
 "חשמלית"
 ],
 "railway/tram_stop":[
-"תחנת חשמלית"
+"תחנת עצירה לחשמלית"
+],
+"relation":[
+"יחס"
 ],
 "roundabout":[
 "מעגל תנועה"
@@ -1606,9 +2646,11 @@
 "חנות אביזרי חקלאות"
 ],
 "shop/alcohol":[
-"חנות משקעות חריפים"
+"חנות משקאות",
+"חנות משקאות חריפים"
 ],
 "shop/anime":[
+"חנות אנימה",
 "חנות סרטים מצוירים יפנים"
 ],
 "shop/antiques":[
@@ -1618,22 +2660,26 @@
 "חנות כלים חשמלים"
 ],
 "shop/art":[
+"חנות לחפצי אומנות",
 "חנות למוצרי אומנות"
 ],
 "shop/baby_goods":[
+"חנות לציוד תינוקות",
 "חנות לדברי תינוקות"
 ],
 "shop/bag":[
-"חנות מזודות"
+"חנות מזוודות"
 ],
 "shop/bakery":[
 "מאפייה"
 ],
 "shop/bathroom_furnishing":[
-"חנות רהיטי שירותים\מקלחת"
+"חנות ריהוט לשירותים/מקלחת",
+"חנות רהיטי שירותים/מקלחת"
 ],
 "shop/beauty":[
-"חנות מוצרי יופי\טיפוח"
+"חנות מוצרי יופיטיפוח",
+"חנות מוצרי יופי/טיפוח"
 ],
 "shop/beauty/nails":[
 "סלון ציפורניים"
@@ -1642,18 +2688,27 @@
 "מכון שיזוף"
 ],
 "shop/bed":[
-"חנות מזרונים"
+"חנות מזרנים",
+"חנות אביזרי שינה"
 ],
 "shop/beverages":[
-"חנות משקעות"
+"חנות משקאות"
 ],
 "shop/bicycle":[
 "חנות אופניים"
 ],
+"shop/bookmaker":[
+"כורכת ספרים",
+"כורך ספרים"
+],
 "shop/books":[
 "חנות ספרים"
 ],
+"shop/boutique":[
+"בוטיק"
+],
 "shop/butcher":[
+"קצבית",
 "קצב"
 ],
 "shop/candles":[
@@ -1663,6 +2718,7 @@
 "סוכנות רכב"
 ],
 "shop/car_parts":[
+"חנות חלקי חילוף",
 "חנות חלקי מכוניות"
 ],
 "shop/car_repair":[
@@ -1675,7 +2731,8 @@
 "חנות צדקה"
 ],
 "shop/cheese":[
-"חנות צדקה"
+"פרומז׳רי",
+"חנות גבינות"
 ],
 "shop/chemist":[
 "בית מרקחת"
@@ -1687,7 +2744,7 @@
 "חנות בגדים"
 ],
 "shop/coffee":[
-"בית קפה"
+"חנות קפה"
 ],
 "shop/computer":[
 "חנות מחשבים"
@@ -1696,30 +2753,33 @@
 "חנות ממתקים"
 ],
 "shop/convenience":[
-"חנות כולבו"
+"חנות נוחות"
 ],
 "shop/copyshop":[
 "חנות עותקים",
-"חנות  עותקים"
+"חנות שכפולים",
+"חנות  העתקות"
 ],
 "shop/cosmetics":[
 "חנות קוסמטיקה"
 ],
 "shop/craft":[
-"חנות דברי אומנות"
+"חנות דברי אומנות",
+"חנות חפצי אומנות"
 ],
 "shop/curtain":[
 "חנות וילונות"
 ],
 "shop/dairy":[
-"חנות דברי חלב"
+"חנות דברי חלב",
+"חנות מוצרי חלב"
 ],
 "shop/deli":[
 "מעדניה"
 ],
 "shop/department_store":[
-"חנות  כולבו",
-"חנות כולבו"
+"חנות  כלבו",
+"חנות כלבו"
 ],
 "shop/doityourself":[
 "חנות עשה זאת בעצמך"
@@ -1728,42 +2788,48 @@
 "ניקוי יבש"
 ],
 "shop/e-cigarette":[
-"חנות דברי עישון"
+"חנות דברי עישון",
+"חנות מוצרי עישון"
 ],
 "shop/electronics":[
 "חנות אלקטרוניקה"
 ],
 "shop/erotic":[
-"חנות סקס"
+"חנות סקס",
+"חנות ארוטיקה"
 ],
 "shop/fabric":[
 "חנות אריגה"
 ],
 "shop/farm":[
-"ירקן"
+"ירקן",
+"דוכן ירקות"
 ],
 "shop/fashion":[
 "חנות אופנה"
 ],
 "shop/fishmonger":[
-"חנות דגים"
+"דוכן דגים"
 ],
 "shop/florist":[
 "חנות פרחים"
 ],
 "shop/frame":[
-"חנות חלקאות"
+"חנות חקלאות"
 ],
 "shop/funeral_directors":[
+"קברנית",
 "קברן"
 ],
 "shop/furnace":[
 "חנות כבשנים"
 ],
 "shop/furniture":[
-"חנות רההיטים"
+"חנות ריהוט",
+"חנות רהיטים"
 ],
 "shop/garden_centre":[
+"חנות ציוד לגן",
 "חנות גננות"
 ],
 "shop/gas":[
@@ -1773,12 +2839,15 @@
 "חנות מתנות"
 ],
 "shop/greengrocer":[
+"חנות ירקות",
 "ירקן"
 ],
 "shop/hairdresser":[
-"מעצב שער"
+"מעצב שער",
+"מעצב שיער"
 ],
 "shop/hardware":[
+"חנות אספקה טכנית",
 "חנות כלי חומרה"
 ],
 "shop/health_food":[
@@ -1788,16 +2857,30 @@
 "חנות מכשירי שמיעה"
 ],
 "shop/herbalist":[
-"הרבליסט"
+"הרבליסט",
+"חנות צמחי מרפא"
+],
+"shop/hifi":[
+"חנות הגברה",
+"חנות ציוד הגברה"
+],
+"shop/houseware":[
+"חנות כלי בית"
+],
+"shop/interior_decoration":[
+"חנות עיצוב פנים"
 ],
 "shop/jewelry":[
+"תכשיטנית",
 "תכשיטן"
 ],
 "shop/kiosk":[
-"קיוסק"
+"קיוסק",
+"פיצוציה"
 ],
 "shop/kitchen":[
-"חנות עיצוב מטבח"
+"חנות עיצוב מטבח",
+"חנות עיצוב המטבח"
 ],
 "shop/laundry":[
 "כביסה"
@@ -1806,16 +2889,19 @@
 "חנות עור"
 ],
 "shop/locksmith":[
-"מנעולן"
+"מנעולן",
+"מנעולנית"
 ],
 "shop/lottery":[
+"עמדת לוטו",
 "חנות לוטו"
 ],
 "shop/mall":[
 "קניון"
 ],
 "shop/massage":[
-"מכון מסג'"
+"מכון מסאז׳",
+"מכון עיסוי"
 ],
 "shop/medical_supply":[
 "חנות ציוד רפואי"
@@ -1828,6 +2914,9 @@
 ],
 "shop/motorcycle":[
 "חנות אופנועים"
+],
+"shop/motorcycle_repair":[
+"מוסך אופנועים"
 ],
 "shop/music":[
 "חנות מוזיקה"
@@ -1842,19 +2931,23 @@
 "חנות ויטמינים"
 ],
 "shop/optician":[
-"אופטיקאי"
+"אופטיקאי",
+"אופטיקאית"
 ],
 "shop/organic":[
-"חנות אורגני"
+"חנות למוצרים אורגניים",
+"חנות אורגנית"
 ],
 "shop/outdoor":[
+"חנות ריהוט גינה",
 "חנות רהיטי גינה"
 ],
 "shop/paint":[
 "חנות צבע"
 ],
 "shop/pastry":[
-"מאפייה"
+"בית מאפה",
+"חנות מאפים"
 ],
 "shop/pawnbroker":[
 "חנות יד שניה"
@@ -1864,6 +2957,9 @@
 ],
 "shop/pet":[
 "חנות לחיות מחמד"
+],
+"shop/pet_grooming":[
+"חנות לטיפוח חיות מחמד"
 ],
 "shop/photo":[
 "חנות צילום"
@@ -1875,9 +2971,13 @@
 "חנות אלקטרוניקה ורדיו"
 ],
 "shop/religion":[
-"חנות לדברי דת"
+"חנות לפריטי דת",
+"חנות לתשמישי קדושה",
+"חנות לתשמישי דת",
+"חנות יודאיקה"
 ],
 "shop/scuba_diving":[
+"חנות צלילה",
 "חנות לצוללנים"
 ],
 "shop/seafood":[
@@ -1890,7 +2990,8 @@
 "חנות נעליים"
 ],
 "shop/sports":[
-"חנות לדברי ספורט"
+"חנות לדברי ספורט",
+"חנות לאביזרי ספורט"
 ],
 "shop/stationery":[
 "חנות לדברי כתיבה"
@@ -1899,9 +3000,10 @@
 "שטח אחסון להשכרה"
 ],
 "shop/supermarket":[
-"כול-בו"
+"סופרמרקט"
 ],
 "shop/tailor":[
+"חייטת",
 "חייט"
 ],
 "shop/tattoo":[
@@ -1923,6 +3025,7 @@
 "חנות צעצועים"
 ],
 "shop/trade":[
+"חנות קמעונאית",
 "חנות מוצרים"
 ],
 "shop/travel_agency":[
@@ -1935,9 +3038,10 @@
 "חנות ריקה"
 ],
 "shop/vacuum_cleaner":[
-"חנות שועבי אבק"
+"חנות שואבי אבק"
 ],
 "shop/variety_store":[
+"חנות מגוון מוצרים",
 "חנות מגון מוצרים"
 ],
 "shop/video":[
@@ -1947,13 +3051,16 @@
 "חנות למשחקי מחשב"
 ],
 "shop/watches":[
-"שען"
+"שען",
+"שענית"
 ],
 "shop/water_sports":[
+"חנות שחייה",
 "חנות שחיה"
 ],
 "shop/weapons":[
-"חנות נשקים קרים"
+"חנות כלי נשק קרים",
+"חנות נשק קר"
 ],
 "shop/wholesale":[
 "חנות סיטונאות"
@@ -1965,13 +3072,14 @@
 "חנות יינות"
 ],
 "tourism":[
-"משרד תיירות"
+"תיירות"
 ],
 "tourism/alpine_hut":[
 "בקטה הררית"
 ],
 "tourism/apartment":[
-"בית משותף"
+"דירה לאורחים",
+"בית לאורחים"
 ],
 "tourism/aquarium":[
 "אקווריום"
@@ -1998,7 +3106,7 @@
 "בית הארחה"
 ],
 "tourism/hostel":[
-"הוסטל"
+"אכסנייה"
 ],
 "tourism/hotel":[
 "מלון"
@@ -2019,16 +3127,21 @@
 "מידע תיירותי"
 ],
 "tourism/motel":[
-"מלון"
+"מלונית",
+"מלון דרכים"
 ],
 "tourism/museum":[
-"מוזאון"
+"מוזאון",
+"מוזיאון"
 ],
 "tourism/picnic_site":[
 "פיקניק"
 ],
 "tourism/theme_park":[
 "לונה פארק"
+],
+"tourism/trail_riding_station":[
+"תחנת רכיבה"
 ],
 "tourism/viewpoint":[
 "תצפית"
@@ -2043,31 +3156,38 @@
 "הקלת פקקי תנועה"
 ],
 "traffic_calming/bump":[
-"פסי האטה"
+"פסי האטה",
+"פס האטה"
 ],
 "traffic_calming/chicane":[
-"אי תנועה"
+"מאט תנועה"
 ],
 "traffic_calming/choker":[
-"פסי האטה"
+"מרסן תנועה",
+"חונק תנועה"
 ],
 "traffic_calming/cushion":[
-"פסי האטה"
+"כרית האטה"
 ],
 "traffic_calming/dip":[
 "שקע"
 ],
 "traffic_calming/hump":[
-"פסי האטה"
+"פס האטה ארוך",
+"פסי האטה ארוכים"
 ],
 "traffic_calming/island":[
 "אי תנועה"
 ],
 "traffic_calming/rumble_strip":[
-"פסי האטה"
+"פסי רעד",
+"פסי רטט",
+"פס רטט",
+"פס רעד"
 ],
 "traffic_calming/table":[
-"פסי האטה"
+"פסי האטה משוטחים",
+"פס האטה משוטח"
 ],
 "type/boundary":[
 "גבול"
@@ -2076,7 +3196,7 @@
 "גבול ניהולי"
 ],
 "type/multipolygon":[
-"מולטיפוליגון"
+"רב־מצולעים"
 ],
 "type/restriction":[
 "הפרדה"
@@ -2092,6 +3212,18 @@
 ],
 "type/restriction/no_u_turn":[
 "אין פניית פרסה"
+],
+"type/restriction/only_left_turn":[
+"פנייה שמאלה בלבד"
+],
+"type/restriction/only_right_turn":[
+"פנייה ימינה בלבד"
+],
+"type/restriction/only_straight_on":[
+"ישר בלבד"
+],
+"type/restriction/only_u_turn":[
+"פרסה בלבד"
 ],
 "type/route":[
 "נתיב"
@@ -2109,7 +3241,7 @@
 "נתיב מעבורת"
 ],
 "type/route/foot":[
-"דרך רגל"
+"דרך רגלית"
 ],
 "type/route/hiking":[
 "דרך טיול"
@@ -2124,7 +3256,8 @@
 "נתיב צנרת"
 ],
 "type/route/piste":[
-"נתיב סקי"
+"נתיב סקי",
+"מסלול סקי"
 ],
 "type/route/power":[
 "נתיב חשמל"
@@ -2144,7 +3277,8 @@
 "נתיב חשמלית"
 ],
 "type/route_master":[
-"נתיב על"
+"תחנת מעבר מאוחדת",
+"תחנת מעבר אחודה"
 ],
 "type/site":[
 "אתר"
@@ -2162,13 +3296,18 @@
 "מרינה"
 ],
 "waterway/canal":[
+"תעלת מים",
 "תעלה"
 ],
 "waterway/dam":[
 "סכר"
 ],
 "waterway/ditch":[
-"תעלה"
+"מחפורת",
+"חפיר",
+"תעלה",
+"ביב",
+"שוחה"
 ],
 "waterway/dock":[
 "רציף"
@@ -2180,7 +3319,7 @@
 "תחנת תדלוק ימית"
 ],
 "waterway/river":[
-"נחל"
+"נהר"
 ],
 "waterway/riverbank":[
 "גדות נהר"
@@ -2189,18 +3328,24 @@
 "סילוק פסולת ימי"
 ],
 "waterway/stream":[
-"נחל"
+"נחל",
+"יובל",
+"פלג"
 ],
 "waterway/stream_intermittent":[
-"נחל תקופתי"
+"נחל תקופתי",
+"נחל אכזב"
 ],
 "waterway/water_point":[
-"תחנת מי שתיה ימי"
+"תחנת מי שתיה ימית",
+"תחנת מי שתייה ימית"
 ],
 "waterway/waterfall":[
 "מפל"
 ],
 "waterway/weir":[
-"סכר"
+"מגלש",
+"סכר",
+"סכר מגלש"
 ]
 }

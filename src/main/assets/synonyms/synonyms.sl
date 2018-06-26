@@ -1076,14 +1076,14 @@
 "popravljanje ur"
 ],
 "craft/distillery":[
-"pijača ",
 "Destilarna",
 "žganjarna",
 "vino",
 "žganje",
 "vinarna",
 "pivovarna",
-"alkohol"
+"alkohol",
+"pijača"
 ],
 "craft/dressmaker":[
 "Šiviljstvo",

@@ -8,6 +8,9 @@
 "Gadeopslagstavle",
 "Reklameskilt"
 ],
+"advertising/column":[
+"Reklamesøjle"
+],
 "aerialway":[
 "Skiliftbane"
 ],
@@ -99,6 +102,8 @@
 "Dyreforsøgsklinik"
 ],
 "amenity/animal_shelter":[
+"Hundepension",
+"Hestepension",
 "Dyrehjem",
 "Dyrepension"
 ],
@@ -464,8 +469,9 @@
 "Skrotplads"
 ],
 "amenity/shelter":[
-"læskur",
-"Shelter"
+"Skur",
+"Shelter",
+"Bivuak"
 ],
 "amenity/shower":[
 "Brusebad",
@@ -490,7 +496,8 @@
 "Alderdomshjem"
 ],
 "amenity/social_facility/homeless_shelter":[
-"Hjemløseskur"
+"Hjemløs",
+"Hjemløseherberg"
 ],
 "amenity/social_facility/nursing_home":[
 "Plejehjem",
@@ -532,6 +539,9 @@
 "amenity/vending_machine/cigarettes":[
 "Cigaretautomat",
 "Tobaksautomat"
+],
+"amenity/vending_machine/coffee":[
+"Kaffeautomat"
 ],
 "amenity/vending_machine/condoms":[
 "Kondomautomat"
@@ -638,6 +648,9 @@
 "Forlystelse i mørke",
 "spøgelsestog"
 ],
+"attraction/maze":[
+"Labyrint"
+],
 "attraction/pirate_ship":[
 "Piratskib",
 "sørøver"
@@ -731,6 +744,9 @@
 "Lade",
 "Stald"
 ],
+"building/boathouse":[
+"Bådehus"
+],
 "building/bunker":[
 "Bunker"
 ],
@@ -764,7 +780,8 @@
 "building/dormitory":[
 "Kollegium",
 " Kollegie",
-"Klubværelse"
+"Klubværelse",
+"Kollegie"
 ],
 "building/entrance":[
 "Indgang/Udgang"
@@ -1255,6 +1272,9 @@
 "highway/motorway_link":[
 "Motorvejsafkørsel"
 ],
+"highway/passing_place":[
+"Vigested"
+],
 "highway/path":[
 "Sti"
 ],
@@ -1413,6 +1433,7 @@
 "Bassin"
 ],
 "landuse/cemetery":[
+"Gravplads",
 "Gravplads "
 ],
 "landuse/churchyard":[
@@ -1713,6 +1734,10 @@
 "man_made/chimney":[
 "Skorsten"
 ],
+"man_made/clearcut":[
+"Ryddet skov",
+"Rydning"
+],
 "man_made/crane":[
 "grej",
 "kran",
@@ -1787,10 +1812,10 @@
 "Tårn"
 ],
 "man_made/wastewater_plant":[
+"Rensningsanlæg",
 "Spildevandsanlæg",
 "Spildevandsanlæg ",
-"Vandrensningsanlæg",
-"Rensningsanlæg "
+"Vandrensningsanlæg"
 ],
 "man_made/water_tower":[
 "Vandtårn"
@@ -1869,6 +1894,9 @@
 "Bjergtop",
 "Højdedrag",
 "Bakketop"
+],
+"natural/reef":[
+"Rev"
 ],
 "natural/ridge":[
 "Bakkekam",
@@ -2030,6 +2058,9 @@
 "place/island":[
 "Ø"
 ],
+"place/islet":[
+"Holm"
+],
 "place/isolated_dwelling":[
 "Lille beboet område (1-2 hustande)"
 ],
@@ -2038,6 +2069,9 @@
 ],
 "place/neighbourhood":[
 "Nabolag"
+],
+"place/plot":[
+"Matrikel"
 ],
 "place/quarter":[
 "Nabolag / Kvarter"
@@ -2054,6 +2088,15 @@
 ],
 "place/village":[
 "Landsby"
+],
+"playground/cushion":[
+"Hoppepude"
+],
+"playground/sandpit":[
+"Sandkasse"
+],
+"playground/swing":[
+"Gynge"
 ],
 "point":[
 "Punkt"
@@ -2128,6 +2171,9 @@
 ],
 "railway/milestone":[
 "Jernbanemilepæl"
+],
+"railway/miniature":[
+"Miniaturejernbane"
 ],
 "railway/monorail":[
 "Monorail"
@@ -2219,6 +2265,7 @@
 "Neglesalon"
 ],
 "shop/beauty/tanning":[
+"Solcenter",
 "Hudklinik"
 ],
 "shop/bed":[
@@ -2623,6 +2670,7 @@
 "Støvsugerforhandler"
 ],
 "shop/variety_store":[
+"Spøg og skæmtbutik",
 "Spøg og skæmtbutik "
 ],
 "shop/video":[
@@ -2687,6 +2735,9 @@
 "tourism/caravan_site":[
 "Autocamperplads"
 ],
+"tourism/chalet":[
+"Feriehus"
+],
 "tourism/gallery":[
 "Galleri",
 "Kunstgalleri"
@@ -2734,6 +2785,9 @@
 ],
 "tourism/viewpoint":[
 "Udsigtspunkt"
+],
+"tourism/wilderness_hut":[
+"Vildmarkshytte"
 ],
 "tourism/zoo":[
 "Zoo",
@@ -2794,6 +2848,15 @@
 ],
 "type/restriction/no_u_turn":[
 "Ingen U-vending"
+],
+"type/restriction/only_left_turn":[
+"Kun venstresving"
+],
+"type/restriction/only_right_turn":[
+"Kun højresving"
+],
+"type/restriction/only_straight_on":[
+"Kun lige ud"
 ],
 "type/route":[
 "Rute"

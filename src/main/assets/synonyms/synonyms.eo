@@ -1461,6 +1461,14 @@
 "Garaĝaro",
 "garagxaro"
 ],
+"building/grandstand":[
+"podio",
+"spektoteraso",
+"estrado",
+"Spektejo ĉefa",
+"spektantejo",
+"tribuno"
+],
 "building/greenhouse":[
 "forcejo",
 "plantdomo",
@@ -1960,15 +1968,42 @@
 "emergency/destination":[
 "Vivsav-serva aliro: nur al celloko"
 ],
+"emergency/fire_alarm":[
+"budo",
+"fajro",
+"Alarmilo kontraŭfajra",
+"alarmbudo"
+],
+"emergency/fire_extinguisher":[
+"fajrestingilo",
+"fajroestingilo",
+"estingilo",
+"Fajr-estingilo",
+"malfajrilo"
+],
 "emergency/fire_hydrant":[
 "akvokrano",
 "fajrohidranto",
 "Hidranto"
 ],
+"emergency/first_aid_kit":[
+"tujhelpilo",
+"Man-apoteko",
+"manapoteko",
+"bandaĝo"
+],
 "emergency/life_ring":[
 "ringo",
 "Savoringo",
 "sekurigilo"
+],
+"emergency/lifeguard":[
+"Observejo de akva savisto",
+"vivsavisto",
+"akva savisto",
+"naghsavanto",
+"savisto",
+"savanto"
 ],
 "emergency/no":[
 "Vivsav-serva aliro: ne"
@@ -1984,6 +2019,11 @@
 ],
 "emergency/private":[
 "Vivsav-serva aliro: privata"
+],
+"emergency/siren":[
+"Sireno",
+"alarmo",
+"avertilo"
 ],
 "emergency/water_tank":[
 "rezervujo",
@@ -2819,6 +2859,15 @@
 "Bird-observejo",
 "birdobservejo"
 ],
+"leisure/bleachers":[
+"podio",
+"benkoj",
+"Spektejo",
+"spektoteraso",
+"estrado",
+"spektantejo",
+"tribuno"
+],
 "leisure/bowling_alley":[
 "keglejo",
 "Kegloludejo"
@@ -3204,6 +3253,14 @@
 "Kamentubo",
 "kameno"
 ],
+"man_made/clearcut":[
+"stumpoj",
+"dehakita arbaro",
+"malarbaro",
+"senarbigita areo",
+"senarba areo",
+"Hakita arbaro"
+],
 "man_made/crane":[
 "argano",
 "levmaŝino",
@@ -3474,6 +3531,11 @@
 "supraĵo",
 "kulmino",
 "Montpinto"
+],
+"natural/reef":[
+"submara roko",
+"ŝtono",
+"Rifo"
 ],
 "natural/ridge":[
 "montsistemo",
@@ -4992,6 +5054,12 @@
 "Motorcikla vendejo",
 "motocikloj",
 "motorcikloj"
+],
+"shop/motorcycle_repair":[
+"motocikloj",
+"Motorcikl-riparejo",
+"motorcikloj",
+"riparejo"
 ],
 "shop/music":[
 "cd",

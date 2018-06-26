@@ -8,6 +8,12 @@
 "Cartellera",
 "Taulell"
 ],
+"advertising/column":[
+"propaganda",
+"publicitat",
+"cartell",
+"Columna publicitària"
+],
 "aerialway":[
 "Transport per cable"
 ],
@@ -17,12 +23,30 @@
 "aerialway/chair_lift":[
 "Telecadira"
 ],
+"aerialway/drag_lift":[
+"lliscant",
+"elevador",
+"snowboarder",
+"remunta pendents",
+"telesquí",
+"esquí"
+],
 "aerialway/gondola":[
 "Telecabina",
 "Góndola"
 ],
+"aerialway/goods":[
+"càrrega",
+"material",
+"mercaderia",
+"producte",
+"article"
+],
 "aerialway/magic_carpet":[
-"Cinta remuntadora"
+"Cinta remuntadora",
+"cinta transportadora",
+"catifa màgica",
+"catifa rodant"
 ],
 "aerialway/platter":[
 "Teleesquí individual"
@@ -111,9 +135,9 @@
 ],
 "amenity/bar":[
 "Local d'oci nocturn",
-"Bar",
+"Bar de copes",
 "Bar Musical",
-"Local d'oci "
+"Local d'oci"
 ],
 "amenity/bbq":[
 "Barbacoa/graella"
@@ -318,7 +342,7 @@
 "Espai d'emmagatzematge de llibres",
 "Biblioteca",
 "llibreria",
-"Edifici públic per als llibres "
+"Edifici públic per als llibres"
 ],
 "amenity/marketplace":[
 "Mercat de carrer",
@@ -431,11 +455,10 @@
 "Terrenys de presó"
 ],
 "amenity/pub":[
-"Local de copes",
 "Local d'oci nocturn",
 "Bareto",
 "Bar",
-"Bar Musical",
+"Granja",
 "Pub"
 ],
 "amenity/public_bath":[
@@ -1380,6 +1403,9 @@
 "Ruines",
 "Ruïnes"
 ],
+"historic/tomb":[
+"Tomba"
+],
 "historic/wayside_cross":[
 "Calvari",
 "Creu Cristiana",
@@ -1464,6 +1490,9 @@
 "landuse/industrial":[
 "Zona Industrial"
 ],
+"landuse/industrial/slaughterhouse":[
+"Escorxador"
+],
 "landuse/landfill":[
 "Abocador"
 ],
@@ -1490,6 +1519,9 @@
 ],
 "landuse/recreation_ground":[
 "Terrenys per al Lleure"
+],
+"landuse/religious":[
+"Àrea religiosa"
 ],
 "landuse/residential":[
 "Zona Residencial"
@@ -1792,6 +1824,9 @@
 "natural/saddle":[
 "Seient"
 ],
+"natural/sand":[
+"Sorra"
+],
 "natural/scree":[
 "Tartera"
 ],
@@ -1842,8 +1877,26 @@
 "Oficina",
 "Oficines"
 ],
+"office/accountant":[
+"Oficina comptable"
+],
 "office/administrative":[
 "Oficina de tràmits locals"
+],
+"office/adoption_agency":[
+"Agència d'adopció"
+],
+"office/advertising_agency":[
+"Agència de publicitat"
+],
+"office/architect":[
+"Oficina d'arquitectura"
+],
+"office/association":[
+"Oficina d'organització no governamental"
+],
+"office/company":[
+"Oficina corporativa"
 ],
 "office/coworking":[
 "Espai de coworking"
@@ -1878,6 +1931,9 @@
 "office/ngo":[
 "Oficina d'ONG"
 ],
+"office/notary":[
+"Notaria"
+],
 "office/physician":[
 "Metge"
 ],
@@ -1890,6 +1946,9 @@
 ],
 "office/telecommunication":[
 "Oficina de telecomunicacions"
+],
+"office/therapist":[
+"Oficina de terapeuta"
 ],
 "office/travel_agent":[
 "Agència de viatges"
@@ -1926,11 +1985,17 @@
 "place/neighbourhood":[
 "Barri"
 ],
+"place/square":[
+"Plaça"
+],
 "place/town":[
 "Ciutat"
 ],
 "place/village":[
 "Poble"
+],
+"playground/structure":[
+"Estructura de jocs"
 ],
 "point":[
 "Punt"
@@ -1940,6 +2005,9 @@
 ],
 "power/generator":[
 "Generador elèctric"
+],
+"power/generator/source_nuclear":[
+"Reactor nuclear"
 ],
 "power/line":[
 "Línia elèctrica"
@@ -1966,6 +2034,15 @@
 ],
 "power/transformer":[
 "Transformador"
+],
+"public_transport/linear_platform_bus":[
+"Plataforma de parada bus"
+],
+"public_transport/station_bus":[
+"Estació d'autobusos"
+],
+"public_transport/station_train":[
+"Estació de ferrocarril"
 ],
 "railway":[
 "Ferrocarril"
@@ -1997,6 +2074,9 @@
 ],
 "railway/rail":[
 "Via fèrria"
+],
+"railway/station":[
+"Estació de ferrocarril"
 ],
 "railway/subway":[
 "Metro",
@@ -2640,6 +2720,9 @@
 ],
 "type/site":[
 "Lloc"
+],
+"type/waterway":[
+"Curs d'aigua"
 ],
 "vertex":[
 "Altres",

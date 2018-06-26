@@ -52,10 +52,10 @@
 "elevador",
 "material",
 "mercadería",
-" producto",
 "remonte",
 "Elevador por cable de mercancías",
 "artículo",
+"producto",
 "mercancía",
 "carga"
 ],
@@ -1614,6 +1614,11 @@
 "juego mecánico",
 "Torre de caída"
 ],
+"attraction/maze":[
+"parque temático",
+"Laberinto",
+"parque de diversiones"
+],
 "attraction/pirate_ship":[
 "juego de feria",
 "Barco pirata",
@@ -1872,7 +1877,7 @@
 "troj"
 ],
 "building/boathouse":[
-"botes ",
+"botes",
 "Cobertizo para botes",
 "cobertizo"
 ],
@@ -1975,6 +1980,11 @@
 "cocheras",
 "garajes",
 "Garajes"
+],
+"building/grandstand":[
+"tribuna",
+"gradas",
+"Tribuna"
 ],
 "building/greenhouse":[
 "Invernáculo",
@@ -2590,6 +2600,12 @@
 "emergency/destination":[
 "Acceso de emergencia como destino"
 ],
+"emergency/fire_extinguisher":[
+"incendio",
+"fuego",
+"Extintor de incendios",
+"matafuego"
+],
 "emergency/fire_hydrant":[
 "hidrante de incendio",
 "Hidrante contra incendios",
@@ -2636,7 +2652,7 @@
 "cruce",
 "peatones",
 "vía peatonal sobre calle",
-"Cruce de calle",
+"Cruce de calle peatonal",
 "calle",
 "peatonal",
 "cruce perpendicular entre aceras"
@@ -2648,6 +2664,7 @@
 "tope",
 "lomo",
 "plano",
+"Cruce de calle peatonal sobreelevado",
 "velocidad",
 "resalte"
 ],
@@ -2840,6 +2857,14 @@
 "enfermedad",
 "Hospicio",
 "terminal"
+],
+"healthcare/laboratory":[
+"análisis de sangre",
+"analisis de sangre",
+"analisis clinicos",
+"análisis clínicos",
+"Laboratorio médico",
+"laboratorio"
 ],
 "healthcare/midwife":[
 "trabajo de parto",
@@ -3845,6 +3870,16 @@
 "Observatorio de aves",
 "refugio"
 ],
+"leisure/bleachers":[
+"multitud",
+"asientos",
+"gradas",
+"banco",
+"deportes",
+"asiento",
+"Gradas",
+"soporte"
+],
 "leisure/bowling_alley":[
 "juego de bolos",
 "Pista de bolos",
@@ -4392,6 +4427,16 @@
 "fuego",
 "Chimenea"
 ],
+"man_made/clearcut":[
+"madera",
+"bosque talado",
+"tala",
+"Bosque talado",
+"bosque",
+"talado",
+"desmonte",
+"árbol"
+],
 "man_made/crane":[
 "pluma",
 "Grúa",
@@ -4804,6 +4849,14 @@
 "cúspide",
 "montaña",
 "corona"
+],
+"natural/reef":[
+"Arrecife",
+"cardumen",
+"barrera",
+"océano",
+"coral",
+"arena"
 ],
 "natural/ridge":[
 "Cresta",
@@ -5441,12 +5494,19 @@
 "Línea eléctrica"
 ],
 "power/generator":[
-"Generador de energía",
+"estación eléctrica",
 "subestación",
-"generador de potencia",
 "generador eléctrico",
+"generador de energía",
+"generador de electricidad",
+"central elécrica",
+"planta de electridad",
+"Generador de energía",
+"generador de potencia",
 "generador",
-"generador de electricidad"
+"electricidad",
+"eléctrica",
+"electrica"
 ],
 "power/generator/source_nuclear":[
 "Fisión",
@@ -6941,6 +7001,15 @@
 "ciclomotor",
 "moto"
 ],
+"shop/motorcycle_repair":[
+"taller",
+"servicio",
+"reparación",
+"garaje",
+"moto",
+"motocicleta",
+"Taller de reparación de motocicletas"
+],
 "shop/music":[
 "música",
 "tienda de discos",
@@ -7378,18 +7447,19 @@
 "cabaña de vacaciones",
 "casa de campo",
 "bungalow",
+"Cabaña vacacional / Bungaló",
 "complejo de cabañas",
 "casa de labranza",
 "turismo",
 "bungalo",
 "turístico",
-"Alojamiento rural vacacional",
 "bungaló",
 "turistico",
 "casa rural",
 "cabaña",
 "posada",
-"vacacional"
+"vacacional",
+"alojamiento rural"
 ],
 "tourism/gallery":[
 "escultura",
@@ -7500,6 +7570,14 @@
 "parque temático",
 "atracciones"
 ],
+"tourism/trail_riding_station":[
+"equitación",
+"Estación en sendero de cabalgata",
+"cabalgata",
+"estación",
+"sendero",
+"equitacion"
+],
 "tourism/viewpoint":[
 "mirador",
 "punto de vista",
@@ -7524,7 +7602,7 @@
 "Refugio de paraje natural"
 ],
 "tourism/zoo":[
-"zoológico ",
+"zoológico",
 "zoo",
 "Zoológico"
 ],

@@ -16,6 +16,20 @@
 "reklam",
 "Annonstavla"
 ],
+"advertising/column":[
+"annonstavla",
+"reklamplats",
+"Reklampelare",
+"annons",
+"affisch",
+"reklam",
+"affischpelare",
+"reklampelare",
+"billboard",
+"marknadsföring",
+"annonspelare",
+"annonsering"
+],
 "aerialway":[
 "Linbana"
 ],
@@ -181,6 +195,15 @@
 "terminal",
 "avgångshall",
 "ankomsthall"
+],
+"allotments/plot":[
+"odlingslott",
+"lott",
+"koloniträdgård",
+"koloniområde",
+"Kolonilott",
+"koloni",
+"täppa"
 ],
 "amenity":[
 "Facilitet"
@@ -654,8 +677,6 @@
 "amenity/hospital":[
 "sanatorium",
 "sjukhus",
-"kirurgi
-               ",
 "läkare",
 "Sjukhusområde",
 "klinik",
@@ -665,6 +686,7 @@
 "läkarmottagning",
 "sjukstuga",
 "vårdhem",
+"kirurgi",
 "sjuk"
 ],
 "amenity/hunting_stand":[
@@ -730,6 +752,68 @@
 "marknad",
 "torg",
 "Saluhall"
+],
+"amenity/monastery":[
+"helgedom",
+"allah",
+"församling",
+"tempelområde",
+"kyrka",
+"katedral",
+"religiös anläggning",
+"kor",
+"vallfärdsort",
+"andaktsrum",
+"gudshus",
+"tillbedjan",
+"moské",
+"begravningskapell",
+"andligt område",
+"moske",
+"fristad",
+"kloster",
+"dopkapell",
+"kapell",
+"gudstjänstslokal",
+"tro",
+"mission",
+"bönehus",
+"gud",
+"dyrkan",
+"guds hus",
+"kristendom",
+"missionshus",
+"sanktuarium",
+"andaktssal",
+"dom",
+"kyrkogård",
+"böneplats",
+"basilika",
+"tempel",
+"kyrkobyggnad",
+"religiös",
+"religiöst område",
+"Klosterområde",
+"bönhus",
+"sidokapell",
+"kranskapell",
+"predikan",
+"vallfärgsplats",
+"betel",
+"kristen",
+"kyrkbyggnad",
+"synagoga",
+"mässkapell",
+"religion",
+"annexkyrka",
+"gravkapell",
+"kyrkorum",
+"andaktslokal",
+"gudstjänstlokal",
+"gudstjänst",
+"kyrksal",
+"korkapell",
+"tabernakel"
 ],
 "amenity/motorcycle_parking":[
 "motorcykelställ",
@@ -810,40 +894,65 @@
 "helgedom",
 "allah",
 "församling",
-"dom",
+"tempelområde",
 "kyrka",
 "katedral",
-"böneplats",
-"basilika",
+"religiös anläggning",
 "kor",
-"tempel",
-"kyrkobyggnad",
 "vallfärdsort",
-"Plats för tillbedjan",
+"andaktsrum",
 "gudshus",
 "tillbedjan",
 "moské",
+"begravningskapell",
+"andligt område",
 "moske",
 "fristad",
 "kloster",
-"socken",
-"predikan",
+"dopkapell",
 "kapell",
-"vallfärgsplats",
-"betel",
-"synagoga",
-"mässkapell",
-"religion",
+"gudstjänstslokal",
 "tro",
 "mission",
 "bönehus",
-"gudstjänstlokal",
 "gud",
 "dyrkan",
 "guds hus",
-"pastorat",
+"kristendom",
 "missionshus",
 "sanktuarium",
+"andaktssal",
+"dom",
+"kyrkogård",
+"böneplats",
+"basilika",
+"tempel",
+"kyrkobyggnad",
+"religiös",
+"religiöst område",
+"Plats för tillbedjan",
+"bönhus",
+"sidokapell",
+"kranskapell",
+"socken",
+"predikan",
+"vallfärgsplats",
+"betel",
+"kristen",
+"kyrkbyggnad",
+"synagoga",
+"mässkapell",
+"religion",
+"slottskapell",
+"annexkyrka",
+"gravkapell",
+"kyrkorum",
+"andaktslokal",
+"gudstjänstlokal",
+"gudstjänst",
+"kyrksal",
+"korkapell",
+"pastorat",
 "tabernakel"
 ],
 "amenity/place_of_worship/buddhist":[
@@ -863,27 +972,63 @@
 "amenity/place_of_worship/christian":[
 "helgedom",
 "församling",
+"tempelområde",
+"kyrka",
+"katedral",
+"religiös anläggning",
+"kor",
+"vallfärdsort",
+"andaktsrum",
+"gudshus",
+"tillbedjan",
+"begravningskapell",
+"andligt område",
+"fristad",
 "Kyrka",
+"kloster",
+"dopkapell",
+"kapell",
+"gudstjänstslokal",
+"tro",
+"mission",
+"bönehus",
+"gud",
+"dyrkan",
+"guds hus",
+"kristendom",
+"missionshus",
+"sanktuarium",
+"andaktssal",
 "dom",
+"kyrkogård",
+"böneplats",
+"basilika",
+"tempel",
+"kyrkobyggnad",
+"religiös",
+"religiöst område",
+"bönhus",
+"sidokapell",
+"kranskapell",
 "socken",
 "predikan",
-"kapell",
-"katedral",
+"vallfärgsplats",
+"betel",
 "kristen",
-"böneplats",
-"tempel",
+"kyrkbyggnad",
+"mässkapell",
 "religion",
-"kor",
-"kyrkobyggnad",
-"tro",
-"bönehus",
-"gudshus",
+"slottskapell",
+"annexkyrka",
+"gravkapell",
+"kyrkorum",
+"andaktslokal",
 "gudstjänstlokal",
-"gud",
-"guds hus",
-"tillbedjan",
-"kristendom",
-"missionshus"
+"gudstjänst",
+"kyrksal",
+"korkapell",
+"pastorat",
+"tabernakel"
 ],
 "amenity/place_of_worship/hindu":[
 "hinduism",
@@ -1341,6 +1486,16 @@
 "tobaksautomat",
 "Cigarettautomat"
 ],
+"amenity/vending_machine/coffee":[
+"the",
+"te",
+"Varuautomat",
+"Espresso",
+"expresso",
+"Kaffeautomat",
+"varumaskin",
+"kaffe"
+],
 "amenity/vending_machine/condoms":[
 "kondomomat",
 "Kondomautomat",
@@ -1358,6 +1513,39 @@
 "juice",
 "kaffe",
 "dryckautomat"
+],
+"amenity/vending_machine/electronics":[
+"kabel",
+"laddare",
+"kablar",
+"varumaskin",
+"laddkabel",
+"laddkablar",
+"mobiltelefon",
+"pekplatta",
+"telefon",
+"surfplatta",
+"varuautomat",
+"Varumaskin för elektronik",
+"elektronik",
+"öronsnäckor",
+"hörlurar"
+],
+"amenity/vending_machine/elongated_coin":[
+"mynt",
+"Penny Press",
+"minnesmyntmaskin",
+"elongated penny",
+"myntpressmaskin",
+"ECM",
+"coin maskin",
+"minne",
+"minnesmynt",
+"souvenirmynt",
+"elongated coin-maskin",
+"Elongated coin-maskin (myntpressmaskin)",
+"elongated coin",
+"souvenir"
 ],
 "amenity/vending_machine/excrement_bags":[
 "hundpåsar",
@@ -1383,8 +1571,39 @@
 "mens",
 "mensskydd"
 ],
+"amenity/vending_machine/food":[
+"mat",
+"matvarumaskin",
+"matautomat",
+"Matvaruautomat",
+"Varuautomat",
+"varumaskin",
+"mellanmål"
+],
 "amenity/vending_machine/fuel":[
-"Bränslepump"
+"Bränslepump",
+"diesel",
+"ing",
+"tanka",
+"bensinstation",
+"propan",
+"tankomat",
+"tankstation",
+"mack",
+"bensin",
+"etanol",
+"bränsle",
+"tapp",
+"pump",
+"cng",
+"biodiesel"
+],
+"amenity/vending_machine/ice_cream":[
+"glass",
+"Glassautomat",
+"Varuautomat",
+"isglass",
+"varumaskin"
 ],
 "amenity/vending_machine/news_papers":[
 "Tidningsautomat"
@@ -1426,6 +1645,18 @@
 "spårvagn",
 "Biljettautomat",
 "buss"
+],
+"amenity/vending_machine/stamps":[
+"porto",
+"frankering",
+"post",
+"Varuautomat",
+"Frimärksautomat",
+"frankeringsautomat",
+"varumaskin",
+"frimärke",
+"vykort",
+"brev"
 ],
 "amenity/vending_machine/sweets":[
 "tuggummi",
@@ -1594,6 +1825,14 @@
 "Fritt fall",
 "nöjeskarusell"
 ],
+"attraction/maze":[
+"Trojeborg",
+"slingergång",
+"Trädgårdslabyrint",
+"Labyrint",
+"Trojaborg",
+"irrgång"
+],
 "attraction/pirate_ship":[
 "karusell",
 "roterande båt",
@@ -1665,9 +1904,9 @@
 ],
 "barrier/block":[
 "trafikbarriärer",
-"Trafikhinder ",
 "sugga",
 "Block",
+"Trafikhinder",
 "betongsugga",
 "avspärrare"
 ],
@@ -1743,8 +1982,8 @@
 "spärr"
 ],
 "barrier/retaining_wall":[
-"nivåskillnad ",
-"Stödmur"
+"Stödmur",
+"nivåskillnad"
 ],
 "barrier/stile":[
 "Övergång",
@@ -1831,44 +2070,148 @@
 "torp"
 ],
 "building/cathedral":[
-"Huvudkyrka",
+"helgedom",
 "dom",
 "stiftskyrka",
 "Katedral",
 "kyrka",
-"biskop",
+"religiös anläggning",
+"kyrkogård",
+"basilika",
+"kyrkobyggnad",
+"Huvudkyrka",
+"religiös",
+"religiöst område",
+"vallfärdsort",
+"gudshus",
 "biskopskyrka",
-"domkyrka"
+"tillbedjan",
+"andligt område",
+"fristad",
+"kloster",
+"predikan",
+"vallfärgsplats",
+"kristen",
+"kyrkbyggnad",
+"religion",
+"tro",
+"kyrkorum",
+"gud",
+"biskop",
+"dyrkan",
+"guds hus",
+"gudstjänst",
+"kyrksal",
+"domkyrka",
+"kristendom"
 ],
 "building/chapel":[
-"dopkapell",
-"Kapell",
+"helgedom",
+"andaktssal",
+"tempelområde",
+"kyrka",
+"religiös anläggning",
+"kyrkogård",
+"böneplats",
+"kor",
+"tempel",
 "kyrkobyggnad",
+"religiös",
+"religiöst område",
+"bönhus",
+"sidokapell",
+"andaktsrum",
+"gudshus",
+"tillbedjan",
+"begravningskapell",
+"fristad",
+"socken",
+"predikan",
+"dopkapell",
+"kristen",
+"Kapell",
+"kyrkbyggnad",
+"mässkapell",
+"religion",
+"tro",
 "slottskapell",
 "gravkapell",
 "annexkyrka",
 "kyrkorum",
+"mission",
 "bönehus",
-"bönhus",
-"sidokapell",
-"gudstjänstlokal",
-"andaktsrum",
-"Kranskapell",
-"korkapell",
-"begravningskapell"
-],
-"building/church":[
-"kyrkobyggnad",
-"andaktssal",
-"Kyrka",
 "andaktslokal",
-"gudshus",
+"gudstjänstlokal",
+"gud",
+"Kranskapell",
+"dyrkan",
+"guds hus",
 "gudstjänst",
 "kyrksal",
+"korkapell",
+"kristendom",
+"missionshus",
+"sanktuarium"
+],
+"building/church":[
+"helgedom",
+"församling",
+"tempelområde",
+"katedral",
+"religiös anläggning",
+"kor",
+"vallfärdsort",
+"gudshus",
+"andaktsrum",
+"tillbedjan",
+"begravningskapell",
+"andligt område",
+"fristad",
+"Kyrka",
+"kloster",
+"dopkapell",
+"kapell",
 "gudstjänstslokal",
+"tro",
+"mission",
+"bönehus",
+"gud",
+"dyrkan",
+"guds hus",
 "Kyrkobyggnad",
+"kristendom",
+"missionshus",
+"sanktuarium",
+"andaktssal",
+"dom",
+"kyrkogård",
+"böneplats",
+"basilika",
+"tempel",
+"kyrkobyggnad",
+"religiös",
+"religiöst område",
+"bönhus",
+"sidokapell",
+"kranskapell",
+"socken",
+"predikan",
+"vallfärgsplats",
+"betel",
+"kristen",
 "kyrkbyggnad",
-"missionshus"
+"mässkapell",
+"religion",
+"slottskapell",
+"annexkyrka",
+"gravkapell",
+"kyrkorum",
+"andaktslokal",
+"gudstjänst",
+"kyrksal",
+"korkapell",
+"pastorat",
+"tabernakel"
 ],
 "building/civic":[
 "kommunal",
@@ -1971,6 +2314,15 @@
 "bilstall",
 "skydd för bilar",
 "carport"
+],
+"building/grandstand":[
+"åskådarplats",
+"åskådare",
+"Huvudläktare",
+"sittplats",
+"läktare",
+"publik",
+"sport"
 ],
 "building/greenhouse":[
 "vinterträdgård",
@@ -2125,6 +2477,20 @@
 "radhus",
 "parhusområde"
 ],
+"building/service":[
+"teknikhus",
+"transformator",
+"nätstation",
+"Teknikhus",
+"teknik",
+"transformatorhus",
+"fördelningsstation",
+"mäthus",
+"pumphus",
+"mätstation",
+"pump",
+"mätning"
+],
 "building/shed":[
 "uthus",
 "förråd",
@@ -2164,13 +2530,53 @@
 "Villavagn"
 ],
 "building/temple":[
-"Tempelbyggnad"
+"fristad",
+"helgedom",
+"tempelområde",
+"religiös anläggning",
+"böneplats",
+"tempel",
+"religion",
+"tro",
+"religiös",
+"religiöst område",
+"Tempelbyggnad",
+"mission",
+"bönehus",
+"bönhus",
+"andaktsrum",
+"gudshus",
+"gud",
+"dyrkan",
+"guds hus",
+"tillbedjan"
 ],
 "building/terrace":[
 "Terrasshus"
 ],
 "building/train_station":[
 "Järnvägsstation"
+],
+"building/transportation":[
+"Byggnad för kollektivtrafik",
+"linbaneterminal",
+"Färjeterminal",
+"linbana",
+"linjetrafik",
+"terminal",
+"transport",
+"färja",
+"båt",
+"kollektivtrafikbyggnad",
+"kollektivtrafik",
+"Perrong",
+"bussterminal",
+"båtterminal",
+"spårvagnsterminal",
+"metro",
+"transit",
+"station",
+"buss"
 ],
 "building/university":[
 "högskola",
@@ -2437,11 +2843,11 @@
 "craft/metal_construction":[
 "Metallarbete",
 "metallarbetare",
-"svetsning ",
 "metallindustri",
 "kallbearbetning",
 "svets",
-"svetsare"
+"svetsare",
+"svetsning"
 ],
 "craft/optician":[
 "Optiker"
@@ -2642,11 +3048,42 @@
 "emergency/destination":[
 "Åtkomst för utryckningsfordon - Destination"
 ],
+"emergency/fire_alarm":[
+"brandtelefon",
+"Nödtelefon"
+],
+"emergency/fire_extinguisher":[
+"skumsläckare",
+"pulversläckare",
+"vattensläckare",
+"vattenpost",
+"eldsläckare",
+"koldioxidsläckare",
+"brandsläckning",
+"Brandpost",
+"Brandsläckare",
+"brandslang",
+"handbrandsläckare",
+"kolsyresläckare",
+"brand"
+],
 "emergency/fire_hydrant":[
 "brandsläckning",
 "Brandpost",
 "vattenpost",
 "brandslang"
+],
+"emergency/first_aid_kit":[
+"brännsår",
+"sårvård",
+"plåster",
+"sår",
+"Första hjälpen",
+"första hjälpen låda",
+"första hjälpen kit",
+"förbandslåda",
+"förband",
+"bandage"
 ],
 "emergency/life_ring":[
 "livräddningsboj",
@@ -2654,6 +3091,15 @@
 "Livboj",
 "livräddning",
 "livboj"
+],
+"emergency/lifeguard":[
+"Badvakt",
+"CPR",
+"strandvakt",
+"livräddare",
+"badvakt",
+"räddning",
+"Lifeguard"
 ],
 "emergency/no":[
 "Åtkomst för utryckningsfordon - Nej"
@@ -2671,14 +3117,45 @@
 "emergency/private":[
 "Åtkomst för utryckningsfordon - Ja"
 ],
+"emergency/siren":[
+"larm",
+"Viktigt Meddelande till Allmänheten",
+"beredskapslarm",
+"mistlur",
+"starktonssiren",
+"varning",
+"flyglarm",
+"Siren",
+"Tyfon",
+"Hesa Fredrik",
+"VMA"
+],
+"emergency/water_tank":[
+"vattensamling",
+"kris",
+"reservoar",
+"räddning",
+"vattentorn",
+"nödtank",
+"brandsläckningstank",
+"lagringstank",
+"brandsläckning",
+"cistern",
+"Vattentank för brandsläckning",
+"tank",
+"brand",
+"nöd",
+"vatten",
+"vattentank"
+],
 "emergency/yes":[
 "Åtkomst för utryckningsfordon - Ja"
 ],
 "entrance":[
 "entré",
+"huvudentré",
 "dörr",
 "utgång",
-"huvudentré ",
 "Ingång",
 "In-/Utgång"
 ],
@@ -2724,7 +3201,7 @@
 "ford":[
 "vad",
 "Vadställe",
-"övergångsställe "
+"övergångsställe"
 ],
 "golf/bunker":[
 "golf",
@@ -2875,8 +3352,30 @@
 "döende",
 "död",
 "Palliativ vård",
-"terminalvård ",
+"terminalvård",
 "Hospis (palliativ vård)"
+],
+"healthcare/laboratory":[
+"Medicinskt laboratorium",
+"diagnos",
+"kemi",
+"blodkontroll",
+"diagnosering",
+"lab",
+"immunologi",
+"Laboratoriemedicin",
+"patologi",
+"laboratorium",
+"analys",
+"medicinskt laboratorium",
+"provtagning",
+"genetik",
+"farmakologi",
+"analysrådgivning",
+"mikrobiologi",
+"blodanalys",
+"medicinskt lab",
+"transfusionsmedicin"
 ],
 "healthcare/midwife":[
 "mödrahälsovård",
@@ -3433,7 +3932,7 @@
 "krigsgrav",
 "pyramid",
 "klippgrav",
-"katakomb ",
+"katakomb",
 "massgrav",
 "Sarkofag",
 "krypta",
@@ -3529,10 +4028,18 @@
 "Kyrkogård"
 ],
 "landuse/churchyard":[
+"religiös",
+"religiöst område",
+"gravkapell",
 "kyrkområde",
 "kyrka",
 "Kyrkogård (utan gravar)",
-"Kyrkogård"
+"kristen",
+"begravningskapell",
+"Kyrkogård",
+"andligt område",
+"kristendom",
+"religion"
 ],
 "landuse/commercial":[
 "Kommersiell",
@@ -3699,7 +4206,7 @@
 ],
 "landuse/plant_nursery":[
 "Plantskola",
-"handelsträdgård "
+"handelsträdgård"
 ],
 "landuse/quarry":[
 "stenbrytning",
@@ -3737,19 +4244,28 @@
 "Park"
 ],
 "landuse/religious":[
+"helgedom",
 "tempelområde",
 "kyrka",
 "religiös anläggning",
+"vallfärgsplats",
 "kyrkogård",
 "Religiöst område",
+"kristen",
 "synagoga",
 "böneplats",
 "religion",
 "tempel",
+"tro",
 "religiös",
+"vallfärdsort",
+"gud",
+"dyrkan",
 "tillbedjan",
 "moské",
-"andligt område"
+"andligt område",
+"kristendom",
+"moske"
 ],
 "landuse/residential":[
 "lägenhetsområde",
@@ -3841,6 +4357,16 @@
 "Fågelskådning",
 "vilttorn"
 ],
+"leisure/bleachers":[
+"bänk",
+"åskådarplats",
+"åskådare",
+"sittplats",
+"Läktare",
+"läktare",
+"publik",
+"sport"
+],
 "leisure/bowling_alley":[
 "kägelspel",
 "Bowlinghall",
@@ -3927,8 +4453,8 @@
 "träning",
 "motion",
 "fitness",
-"naturgym ",
 "gym",
+"naturgym",
 "utegym",
 "träningsbana",
 "träningsspår",
@@ -3963,6 +4489,7 @@
 "leisure/fitness_station/horizontal_bar":[
 "träning",
 "pullup",
+"hävräcke",
 "motion",
 "pull-up",
 "utomhusgym",
@@ -3971,7 +4498,6 @@
 "räck",
 "bar",
 "pull up",
-"hävräcke ",
 "Räckhäv",
 "Räck (träning)",
 "fitness",
@@ -4319,9 +4845,9 @@
 "leisure/pitch/skateboard":[
 "Skate Park",
 "skateboardramp",
+"halfpipe",
 "Skateboardpark",
-"skateboard",
-"halfpipe "
+"skateboard"
 ],
 "leisure/pitch/soccer":[
 "Fotboll",
@@ -4371,8 +4897,8 @@
 "leisure/running_track":[
 "Kapplöpningsbana",
 "löpbana",
-"Löparbana ",
-"motionsspår"
+"motionsspår",
+"Löparbana"
 ],
 "leisure/sauna":[
 "kölna",
@@ -4415,10 +4941,10 @@
 "simning",
 "Badanläggning",
 "pool",
+"tävlingssim",
 "simhall",
 "bassäng",
 "swimmingpool",
-"tävlingssim ",
 "motionssim"
 ],
 "leisure/stadium":[
@@ -4518,6 +5044,22 @@
 "Skorsten",
 "rökgång",
 "skorsten"
+],
+"man_made/clearcut":[
+"föryngringsavverkning",
+"skog",
+"hygge",
+"trä",
+"träd",
+"kalhygge",
+"Kalhygge",
+"timmer",
+"avverkning",
+"föryngringsyta",
+"avskogning",
+"Slutavverkning",
+"skövlat skogsområde",
+"avverkningsområde"
 ],
 "man_made/crane":[
 "Kran",
@@ -4930,6 +5472,23 @@
 "klätt",
 "topp",
 "klack"
+],
+"natural/reef":[
+"grund",
+"rev",
+"Sandbank",
+"Rev",
+"sandbank",
+"undervattensgrund",
+"sandrev",
+"sand",
+"undervattensskär",
+"bank",
+"korall",
+"barriär",
+"hav",
+"revel",
+"korallrev"
 ],
 "natural/ridge":[
 "kulle",
@@ -7062,10 +7621,10 @@
 "shop/florist":[
 "Florist",
 "bukett",
+"blomsterhandlare",
 "blommor",
 "blomsterbindare",
-"blomförsäljning",
-"blomsterhandlare "
+"blomförsäljning"
 ],
 "shop/frame":[
 "Ramaffär",
@@ -7305,7 +7864,7 @@
 "Läderaffär"
 ],
 "shop/locksmith":[
-"Låsdyrkning ",
+"Låsdyrkning",
 "dyrkning",
 "nyckel",
 "nyckelkopiering",
@@ -7376,6 +7935,20 @@
 "motorcykeltillbehör",
 "motorcykelåterförsäljare"
 ],
+"shop/motorcycle_repair":[
+"motorcykelreparatör",
+"motorcyklar",
+"motorcykel",
+"service",
+"cykel",
+"Motorcykelverkstad",
+"moped",
+"reparatör",
+"motorcykelservice",
+"verkstad",
+"reparation",
+"mopedverkstad"
+],
 "shop/music":[
 "CD",
 "Musikaffär",
@@ -7445,6 +8018,7 @@
 "shop/pastry":[
 "kondis",
 "kaffeservering",
+"servering",
 "fik",
 "sockerbagare",
 "kafé",
@@ -7453,7 +8027,6 @@
 "finbageri",
 "sockerbageri",
 "cafe",
-"servering ",
 "bageri",
 "Konditori"
 ],
@@ -7561,8 +8134,8 @@
 "shop/second_hand":[
 "loppis",
 "Second hand",
-"secondhand ",
-"loppmarknad"
+"loppmarknad",
+"secondhand"
 ],
 "shop/shoes":[
 "Skoaffär",
@@ -7696,12 +8269,12 @@
 "proffs"
 ],
 "shop/travel_agency":[
-"charterresa ",
 "charterflyg",
 "charter",
 "reseagent",
 "Resebyrå",
-"biljettförsäljning"
+"biljettförsäljning",
+"charterresa"
 ],
 "shop/tyres":[
 "däckförsäljning",
@@ -7989,6 +8562,18 @@
 "Nöjespark",
 "Temapark"
 ],
+"tourism/trail_riding_station":[
+"tur",
+"ridstation",
+"hästrastning",
+"häststall",
+"gästhus",
+"ridningsstation",
+"stall",
+"turridning",
+"Turridningsstation",
+"häst"
+],
 "tourism/viewpoint":[
 "utsikt",
 "vy",
@@ -8040,10 +8625,10 @@
 "trafikchikan",
 "långsam",
 "hastighet",
-"Sidoförskjutning ",
 "* fart*",
 "Sidoförskjutning (chikan)",
 "kurvor",
+"Sidoförskjutning",
 "chikan",
 "slalom",
 "trafikhinder",
@@ -8312,8 +8897,8 @@
 "type/route/tram":[
 "spårvagnsnät",
 "Spårvagnsrutt",
-"spårvagnsförbindelse ",
 "spårvagn",
+"spårvagnsförbindelse",
 "spårvagnsräls"
 ],
 "type/route_master":[
@@ -8376,7 +8961,7 @@
 "fartygsdocka"
 ],
 "waterway/drain":[
-"dagvattenavrinning ",
+"dagvattenavrinning",
 "dagvatten",
 "Dränering",
 "dränering",

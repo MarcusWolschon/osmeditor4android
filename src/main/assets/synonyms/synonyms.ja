@@ -336,6 +336,7 @@
 ],
 "amenity/community_centre":[
 "コミュニティセンター",
+"集会所",
 "市民センター",
 "市民活動",
 "公民館"
@@ -347,6 +348,8 @@
 ],
 "amenity/courthouse":[
 "裁判所",
+"司法",
+"法律",
 "法廷"
 ],
 "amenity/coworking_space":[
@@ -1039,6 +1042,7 @@
 "スナック"
 ],
 "amenity/veterinary":[
+"動物病院",
 "病院",
 "獣医",
 "医療",
@@ -1408,6 +1412,10 @@
 "集合車庫",
 "集合車庫（建物、大）"
 ],
+"building/grandstand":[
+"正面スタンド",
+"メインスタンド"
+],
 "building/greenhouse":[
 "温室（建物）",
 "温室",
@@ -1617,7 +1625,9 @@
 ],
 "craft/caterer":[
 "ケータリング",
-"仕出し料理店"
+"仕出し料理店",
+"弁当",
+"ホカ弁"
 ],
 "craft/chimney_sweeper":[
 "工房",
@@ -1647,6 +1657,9 @@
 "菓子屋（製造・販売）"
 ],
 "craft/distillery":[
+"",
+"工房",
+"職人",
 "蒸留所"
 ],
 "craft/dressmaker":[
@@ -1845,6 +1858,9 @@
 ],
 "emergency/destination":[
 "行き先に用事がある緊急車両, 救命"
+],
+"emergency/fire_extinguisher":[
+"消化器"
 ],
 "emergency/fire_hydrant":[
 "救命",
@@ -2712,6 +2728,11 @@
 "ハイド",
 "野鳥観察小屋"
 ],
+"leisure/bleachers":[
+"外野席",
+"外野スタンド",
+"観覧席"
+],
 "leisure/bowling_alley":[
 "ボーリング",
 "ボウリング",
@@ -3173,6 +3194,11 @@
 "man_made/chimney":[
 "煙突"
 ],
+"man_made/clearcut":[
+"皆伐地",
+"皆伐",
+"伐採"
+],
 "man_made/crane":[
 "クレーン"
 ],
@@ -3335,6 +3361,14 @@
 "頂",
 "山頂"
 ],
+"natural/reef":[
+"砂礁",
+"礁",
+"岩礁",
+"暗礁",
+"海",
+"サンゴ礁"
+],
 "natural/ridge":[
 "尾根",
 "稜線"
@@ -3416,7 +3450,11 @@
 "オフィス"
 ],
 "office/accountant":[
-"会計事務所"
+"会計士",
+"税理士事務所",
+"会計事務所",
+"税理士",
+"公認会計士"
 ],
 "office/administrative":[
 "地方行政事務所"
@@ -3488,8 +3526,7 @@
 "法務局"
 ],
 "office/government/tax":[
-"税理士事務所",
-"税理士"
+"税務署"
 ],
 "office/guide":[
 "ツアーガイド",
@@ -3608,11 +3645,14 @@
 ],
 "place/plot":[
 "小区画",
-"プロット",
-" 小区画"
+"プロット"
 ],
 "place/quarter":[
-"Sub-Borough / Quarter"
+"字",
+"地名",
+"町",
+"大字",
+"大字 / (市内の)町"
 ],
 "place/square":[
 "スクエア",
@@ -4000,7 +4040,6 @@
 "廃線跡"
 ],
 "railway/buffer_stop":[
-" ",
 "車止め",
 "車止め（鉄道）"
 ],
@@ -4365,6 +4404,7 @@
 "shop/dairy":[
 "食品",
 "日配品店",
+"乳製品店",
 "食べ物"
 ],
 "shop/deli":[
@@ -4620,6 +4660,12 @@
 "shop/motorcycle":[
 "バイク店",
 "オートバイ店"
+],
+"shop/motorcycle_repair":[
+"バイク",
+"バイク修理店",
+"オートバイ修理",
+"オートバイ"
 ],
 "shop/music":[
 "レコード店",
@@ -5044,6 +5090,9 @@
 "遊園地",
 "テーマパーク",
 "娯楽"
+],
+"tourism/trail_riding_station":[
+"乗馬トレール乗り場"
 ],
 "tourism/viewpoint":[
 "景勝",

@@ -606,6 +606,9 @@
 "attraction/drop_tower":[
 "자이로드롭"
 ],
+"attraction/maze":[
+"미로"
+],
 "attraction/pirate_ship":[
 "바이킹"
 ],
@@ -738,6 +741,12 @@
 ],
 "building/entrance":[
 "입구/출구"
+],
+"building/farm":[
+"농가"
+],
+"building/farm_auxiliary":[
+"농장 건물"
 ],
 "building/garage":[
 "차고"
@@ -876,6 +885,9 @@
 ],
 "craft/caterer":[
 "요리 조달자"
+],
+"craft/chimney_sweeper":[
+"굴뚝 청소부"
 ],
 "craft/clockmaker":[
 "시계공",
@@ -1138,6 +1150,9 @@
 ],
 "healthcare/hospice":[
 "호스피스"
+],
+"healthcare/laboratory":[
+"의학 연구소"
 ],
 "healthcare/midwife":[
 "산파",
@@ -1514,6 +1529,12 @@
 "도박",
 "노름"
 ],
+"leisure/amusement_arcade":[
+"오락실"
+],
+"leisure/beach_resort":[
+"해변 리조트"
+],
 "leisure/bird_hide":[
 "조류",
 "전망대",
@@ -1584,6 +1605,9 @@
 "leisure/nature_reserve":[
 "자연 보호 구역",
 "개발 제한 구역"
+],
+"leisure/outdoor_seating":[
+"야외 좌석 구역"
 ],
 "leisure/park":[
 "공원"
@@ -1880,6 +1904,9 @@
 "언덕",
 "첨봉",
 "봉우리"
+],
+"natural/reef":[
+"암초"
 ],
 "natural/ridge":[
 "산등성이"
@@ -2610,6 +2637,16 @@
 "shop":[
 "상점",
 "가게"
+],
+"shop/agrarian":[
+"농기계",
+"종자",
+"농약",
+"씨앗",
+"농기구",
+"살충제",
+"농업 용품 가게",
+"비료"
 ],
 "shop/alcohol":[
 "술",

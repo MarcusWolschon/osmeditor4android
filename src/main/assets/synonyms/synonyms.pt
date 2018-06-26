@@ -9,6 +9,9 @@
 "Billboard",
 "publicidade"
 ],
+"advertising/column":[
+"Coluna de publicidade"
+],
 "aerialway":[
 "Transporte aéreo por cabo"
 ],
@@ -237,7 +240,7 @@
 ],
 "amenity/car_sharing":[
 "Partilha de automóveis",
-"Partilha de Veículos ",
+"Partilha de Veículos",
 "Partilha de Carros"
 ],
 "amenity/car_wash":[
@@ -852,6 +855,9 @@
 "Cigarros",
 "Cigarette Vending Machine"
 ],
+"amenity/vending_machine/coffee":[
+"Máquina de venda de café"
+],
 "amenity/vending_machine/condoms":[
 "Condom Vending Machine",
 "Máquina de venda de preservativos",
@@ -873,6 +879,15 @@
 "amenity/vending_machine/feminine_hygiene":[
 "Máquina de Venda de Produtos de Higiene Feminina",
 "Higiene Feminina"
+],
+"amenity/vending_machine/food":[
+"Máquina de venda de alimentos"
+],
+"amenity/vending_machine/fuel":[
+"Bomba de combustível"
+],
+"amenity/vending_machine/ice_cream":[
+"Máquina de venda de gelados"
 ],
 "amenity/vending_machine/news_papers":[
 "Máquina de venda automática de jornais"
@@ -1045,6 +1060,9 @@
 "Drop Towe",
 "caída"
 ],
+"attraction/maze":[
+"Labirinto"
+],
 "attraction/pirate_ship":[
 "corsário",
 "Pirate Ship",
@@ -1197,7 +1215,7 @@
 "Campo",
 "Cabin",
 "Cabine",
-"Cabana ",
+"Cabana",
 "Praia"
 ],
 "building/cathedral":[
@@ -1311,6 +1329,9 @@
 "Telhado",
 "Coberto"
 ],
+"building/ruins":[
+"Ruínas de edifício"
+],
 "building/school":[
 "Pavilhão Escolar",
 "School Building",
@@ -1320,6 +1341,9 @@
 "building/semidetached_house":[
 "Casa Semi-isolada",
 "Semi-Detached House"
+],
+"building/service":[
+"Edifício de serviços"
 ],
 "building/shed":[
 "Shed",
@@ -1334,6 +1358,9 @@
 "Stable",
 "Cavalariça",
 "Cavalo"
+],
+"building/stadium":[
+"Edifício do Estádio"
 ],
 "building/static_caravan":[
 "Static Mobile Home",
@@ -1733,13 +1760,16 @@
 ],
 "emergency/defibrillator":[
 "Desfibrilador",
-"Defibrillator "
+"Defibrillator"
 ],
 "emergency/designated":[
 "Acesso de emergência, designado"
 ],
 "emergency/destination":[
 "Acesso de emergência, destino"
+],
+"emergency/fire_extinguisher":[
+"Extintor de incêndio"
 ],
 "emergency/fire_hydrant":[
 "Hidrate",
@@ -2086,6 +2116,9 @@
 "Saída Autoestrada",
 "Ligação Autoestrada"
 ],
+"highway/passing_place":[
+"Lugar de passagem"
+],
 "highway/path":[
 "vereda (com pavimento em terra)",
 "Trilho pedestre",
@@ -2290,8 +2323,8 @@
 "Estrada florestal / agrícola",
 "Estrada de terra",
 "Carreiro",
-"Track",
-"Carreiro Florestal "
+"Carreiro Florestal",
+"Track"
 ],
 "highway/traffic_mirror":[
 "Espelho rodoviário",
@@ -2391,9 +2424,9 @@
 "Túmulo"
 ],
 "historic/wayside_cross":[
+"Cruz ao Ar Livre",
 "Cruz",
-"Cruzeiro",
-" Cruz ao Ar Livre"
+"Cruzeiro"
 ],
 "historic/wayside_shrine":[
 "Nicho",
@@ -3222,6 +3255,9 @@
 "Charneca",
 "Heath"
 ],
+"natural/mud":[
+"Lama"
+],
 "natural/peak":[
 "Pináculo",
 "Pico / Cume",
@@ -4011,7 +4047,7 @@
 "Metropolitano",
 "Entrada do Metro",
 "Metro",
-"Subterrâneo ",
+"Subterrâneo",
 "Entrada de metro"
 ],
 "railway/switch":[
@@ -4868,8 +4904,8 @@
 ],
 "shop/watches":[
 "relojoaria",
-"Loja de relógios",
-"Relojoeiro "
+"Relojoeiro",
+"Loja de relógios"
 ],
 "shop/water_sports":[
 "Loja de material de natação",

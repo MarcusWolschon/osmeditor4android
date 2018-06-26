@@ -616,10 +616,10 @@
 "Katus"
 ],
 "building/ruins":[
+"maha jäetud",
 "Hoone varemed",
 "varemed",
-"purunenud",
-"maha jäätud"
+"purunenud"
 ],
 "building/school":[
 "keskkool",
@@ -1945,7 +1945,10 @@
 "shop/convenience":[
 "pood",
 "Kauplus",
-"Esmatarbekauba pood"
+"väike pood",
+"külapood",
+"Toidupood",
+"esmatarbekaup"
 ],
 "shop/copyshop":[
 "Koopiateenuse kauplus"
@@ -2445,8 +2448,11 @@
 "Piknikukoht"
 ],
 "tourism/theme_park":[
-"lõbustuspark",
-"Teemapark"
+"seikluskeskus",
+"seikluspark",
+"perepark",
+"teemapark",
+"Lõbustuspark"
 ],
 "tourism/viewpoint":[
 "Vaatekoht",
@@ -2684,7 +2690,7 @@
 "vee"
 ],
 "waterway/waterfall":[
-"Kosk"
+"Juga"
 ],
 "waterway/weir":[
 "Ülevoolupais",

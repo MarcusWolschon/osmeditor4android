@@ -255,11 +255,14 @@
 "tesoro"
 ],
 "amenity/bar":[
+"alcool",
+"bevute",
 "Bar",
+"bettola",
 "snack",
-"caffetteria",
-"caffè",
-"caffé"
+"lounge bar",
+"birra",
+"bevuta"
 ],
 "amenity/bbq":[
 "barbeque",
@@ -322,6 +325,9 @@
 "amenity/cafe":[
 "te",
 "bar",
+"bistrot",
+"thè",
+"caffetteria",
 "Caffè",
 "caffè"
 ],
@@ -557,9 +563,11 @@
 "gelateria"
 ],
 "amenity/internet_cafe":[
+"cybercafe",
 "te",
 "bar",
 "caffè",
+"internet point",
 "Internet Cafe",
 "internet",
 "point"
@@ -1539,6 +1547,16 @@
 "Garage",
 "rimesse"
 ],
+"building/grandstand":[
+"tribuna",
+"gradinata",
+"curva",
+"gradinate",
+"curve",
+"spalto",
+"spalti",
+"Tribuna"
+],
 "building/greenhouse":[
 "piante",
 "coltivazione",
@@ -1981,12 +1999,62 @@
 "emergency/destination":[
 "Destinazione d'uso accesso di emergenzza"
 ],
+"emergency/fire_alarm":[
+"pompieri",
+"fuoco",
+"incendio",
+"soccorso",
+"allarme",
+"chiamata",
+"antincendio",
+"Box soccorso antincendio"
+],
+"emergency/fire_extinguisher":[
+"estintore fuoco",
+"fiamme",
+"Estintore",
+"pompieri",
+"incendio",
+"fuoco",
+"emergenza",
+"antincendio"
+],
 "emergency/fire_hydrant":[
 "Idrante",
-" Pompa antincendio "
+"Pompa antincendio"
+],
+"emergency/first_aid_kit":[
+"pronto soccorso",
+"primo soccorso",
+"medicine",
+"soccorso",
+"bendaggi",
+"disinfettante",
+"Kit di primo soccorso",
+"cerotti",
+"sterile",
+"kit",
+"medico",
+"bende",
+"garze",
+"sterili"
 ],
 "emergency/life_ring":[
 "Salvagente"
+],
+"emergency/lifeguard":[
+"bagnino",
+"salvataggio",
+"CPR",
+"mare",
+"salvamento",
+"bagnini",
+"Salvamento",
+"massaggio cardiaco",
+"respirazione",
+"soccorso",
+"rianimazione",
+"acqua"
 ],
 "emergency/no":[
 "Nessun accesso di emergenza"
@@ -2000,6 +2068,17 @@
 ],
 "emergency/private":[
 "Accesso di emergenza privato"
+],
+"emergency/siren":[
+"allerta",
+"temporale",
+"tornado",
+"Sirena",
+"rumore",
+"segnalazione",
+"alto",
+"stridente",
+"attacco aereo"
 ],
 "emergency/water_tank":[
 "Serbatoio d'emergenza per l'acqua"
@@ -2691,6 +2770,20 @@
 "osservazione uccelli",
 "Capanno di osservazione"
 ],
+"leisure/bleachers":[
+"posto",
+"calcio",
+"panchina",
+"gradini",
+"panchine",
+"stadio",
+"posti",
+"posto a sedere",
+"Gradinata",
+"folla",
+"gradino",
+"sport"
+],
 "leisure/bowling_alley":[
 "sala",
 "Sala da Bowling",
@@ -3065,6 +3158,21 @@
 "camino",
 "torre"
 ],
+"man_made/clearcut":[
+"legna",
+"legname",
+"taglio",
+"alberi",
+"selvicoltura",
+"bosco",
+"tronchi",
+"albero",
+"disboscamento",
+"legno",
+"deforestazione",
+"foresta",
+"Area disboscata"
+],
 "man_made/crane":[
 "Gru"
 ],
@@ -3137,7 +3245,7 @@
 ],
 "man_made/pier":[
 "Molo",
-" Passerella "
+"Passerella"
 ],
 "man_made/pipeline":[
 "Conduttura"
@@ -3197,7 +3305,7 @@
 "impianto di trattamento delle acque nere"
 ],
 "man_made/water_tower":[
-" Torre idrica ",
+"Torre idrica",
 "Torre Idrica"
 ],
 "man_made/water_well":[
@@ -3205,7 +3313,7 @@
 ],
 "man_made/water_works":[
 "Impianto Idrico",
-" Impianto idrico "
+"Impianto idrico"
 ],
 "man_made/watermill":[
 "Mulino ad acqua"
@@ -3257,7 +3365,10 @@
 "Ingresso grotta"
 ],
 "natural/cliff":[
-"Scogliera",
+"scogliera",
+"dirupo",
+"scogliera a picco",
+"parete",
 "Rupe"
 ],
 "natural/coastline":[
@@ -3284,8 +3395,8 @@
 "Ghiacciaio"
 ],
 "natural/grassland":[
-" Prateria naurale ",
-"Prateria"
+"Prateria",
+"Prateria naurale"
 ],
 "natural/heath":[
 "Brughiera"
@@ -3319,6 +3430,17 @@
 "montagna",
 "culmine",
 "vetta"
+],
+"natural/reef":[
+"reef",
+"scogli",
+"Scogliera",
+"corallo",
+"barriera",
+"subacqueo",
+"coralli",
+"barriera corallina",
+"sommerso"
 ],
 "natural/ridge":[
 "Crinale",
@@ -3387,7 +3509,6 @@
 "Serbatoio"
 ],
 "natural/wetland":[
-" Zona umida ",
 "Zona umida"
 ],
 "natural/wood":[
@@ -3618,7 +3739,7 @@
 "Isoletta"
 ],
 "place/isolated_dwelling":[
-" Insediamento rurale isolato ",
+"Insediamento rurale isolato",
 "Case Sparse"
 ],
 "place/locality":[
@@ -3708,8 +3829,8 @@
 "Energia"
 ],
 "power/generator":[
-" Centrale elettrica ",
-"Generatore di energia"
+"Generatore di energia",
+"Centrale elettrica"
 ],
 "power/generator/source_nuclear":[
 "Reattore nucleare"
@@ -4392,8 +4513,7 @@
 "lotteria"
 ],
 "shop/mall":[
-"Centro commerciale",
-" Centro commerciale "
+"Centro commerciale"
 ],
 "shop/massage":[
 "massaggi",
@@ -4416,6 +4536,21 @@
 "shop/motorcycle":[
 "Motoconcessionaria",
 "Concessionario di motociclette"
+],
+"shop/motorcycle_repair":[
+"auto",
+"motorino",
+"bici",
+"veicolo",
+"garage",
+"moto",
+"riparazione",
+"officina",
+"Officina riparazione motocicli",
+"servizio",
+"motocicletta",
+"scooter",
+"riparatore"
 ],
 "shop/music":[
 "Negozio di musica",
@@ -4549,7 +4684,7 @@
 ],
 "shop/storage_rental":[
 "noleggio",
-"Noleggio"
+"Box a noleggio"
 ],
 "shop/supermarket":[
 "negozio dell'usato",
@@ -4712,7 +4847,6 @@
 "acqua"
 ],
 "tourism/artwork":[
-" Opera d'arte ",
 "Opera d'arte"
 ],
 "tourism/attraction":[
@@ -4730,7 +4864,7 @@
 "Chalet",
 "vacanze",
 "cottage",
-" Casetta (chalet)"
+"Casetta (chalet)"
 ],
 "tourism/gallery":[
 "mostra",
@@ -4815,7 +4949,6 @@
 "esibizione"
 ],
 "tourism/picnic_site":[
-" Area picnic ",
 "Area picnic"
 ],
 "tourism/theme_park":[
@@ -4835,8 +4968,7 @@
 "stazione"
 ],
 "tourism/viewpoint":[
-"Punto panoramico",
-" Punto panoramico "
+"Punto panoramico"
 ],
 "tourism/wilderness_hut":[
 "casetta",
@@ -5093,9 +5225,9 @@
 "type/waterway":[
 "canale",
 "Corso d'acqua",
+"Corso d’acqua",
 "fiume",
-"via d'acqua",
-" Corso d’acqua"
+"via d'acqua"
 ],
 "vertex":[
 "Altro"
@@ -5125,7 +5257,6 @@
 "Bacino galleggiante / di carenaggio"
 ],
 "waterway/drain":[
-" Canale di scolo ",
 "Canale di scolo"
 ],
 "waterway/fuel":[

@@ -219,6 +219,9 @@
 "墳場",
 "Graveyard"
 ],
+"amenity/hospital":[
+"醫院地"
+],
 "amenity/library":[
 "拉記",
 "圖書館",
@@ -397,6 +400,9 @@
 "區域",
 "範圍"
 ],
+"area/highway":[
+"道面"
+],
 "barrier":[
 "阻擋",
 "屏障",
@@ -428,6 +434,9 @@
 "Cycle Barrier",
 "單車減速欄"
 ],
+"barrier/ditch":[
+"坑"
+],
 "barrier/entrance":[
 "入口"
 ],
@@ -447,6 +456,9 @@
 "barrier/hedge":[
 "Hedge",
 "樹籬"
+],
+"barrier/kerb":[
+"路邊石"
 ],
 "barrier/kissing_gate":[
 "Kissing Gate",
@@ -526,6 +538,9 @@
 "住宅建築物",
 "Residential Building"
 ],
+"building/retail":[
+"舖屋宇"
+],
 "craft/watchmaker":[
 "鐘錶匠",
 "Watchmaker"
@@ -557,6 +572,12 @@
 "Emergency Phone",
 "求助電話",
 "緊急電話"
+],
+"footway/crosswalk":[
+"行人過路"
+],
+"footway/crosswalk-raised":[
+"升起行人過路"
 ],
 "footway/sidewalk":[
 "行人路",
@@ -596,6 +617,12 @@
 "Bridle Path",
 "馬徑"
 ],
+"highway/crosswalk":[
+"行人過路"
+],
+"highway/crosswalk-raised":[
+"升起行人過路"
+],
 "highway/cycleway":[
 "自行車道",
 "單車徑",
@@ -632,10 +659,17 @@
 "徑",
 "路徑"
 ],
+"highway/pedestrian_area":[
+"行人地"
+],
+"highway/pedestrian_line":[
+"行人街"
+],
 "highway/primary":[
 "大路",
 "Primary Road",
-"主要道路"
+"主要道路",
+"大道"
 ],
 "highway/primary_link":[
 "大路駁路",
@@ -645,6 +679,7 @@
 ],
 "highway/residential":[
 "住宅區道路",
+"住宅道",
 "Residential Road",
 "住宅路"
 ],
@@ -655,12 +690,14 @@
 "未知嘅路",
 "未知種類的道路",
 "未明路",
-"不明路"
+"不明路",
+"未明道"
 ],
 "highway/secondary":[
 "Secondary Road",
 "次要道路",
-"中路"
+"中路",
+"中道"
 ],
 "highway/secondary_link":[
 "次要道路匝道",
@@ -671,6 +708,7 @@
 "highway/service":[
 "Service Road",
 "輔助道路",
+"支道",
 "支路"
 ],
 "highway/service/alley":[
@@ -726,6 +764,7 @@
 ],
 "highway/tertiary":[
 "細路",
+"細道",
 "三級道路",
 "Tertiary Road"
 ],
@@ -734,6 +773,9 @@
 "Tertiary Link",
 "三級道路匝道",
 "細路駁路"
+],
+"highway/track":[
+"無修道"
 ],
 "highway/traffic_signals":[
 "Traffic Signals",
@@ -758,6 +800,9 @@
 "環島",
 "Turning Circle",
 "回轉圈"
+],
+"highway/unclassified":[
+"道仔／無類道"
 ],
 "historic":[
 "歷史遺跡",
@@ -810,6 +855,9 @@
 "Wayside Shrine",
 "路邊神祠"
 ],
+"landuse/aquaculture":[
+"水產"
+],
 "landuse/basin":[
 "水池",
 "盆地",
@@ -820,11 +868,20 @@
 "墳場",
 "Cemetery"
 ],
+"landuse/commercial":[
+"商地"
+],
 "landuse/construction":[
 "Construction",
 "建築物",
 "建築工程",
 "地盤"
+],
+"landuse/farm":[
+"田地"
+],
+"landuse/farmland":[
+"田地"
 ],
 "landuse/farmyard":[
 "地堂",
@@ -839,6 +896,9 @@
 "landuse/grass":[
 "草地",
 "Grass"
+],
+"landuse/industrial":[
+"工地"
 ],
 "landuse/meadow":[
 "Meadow",
@@ -855,6 +915,15 @@
 "礦場",
 "Quarry",
 "石塘"
+],
+"landuse/religious":[
+"拜神地"
+],
+"landuse/residential":[
+"住地"
+],
+"landuse/retail":[
+"舖地"
 ],
 "landuse/vineyard":[
 "Vineyard",
@@ -1033,6 +1102,9 @@
 "自然",
 "自然物件"
 ],
+"natural/bare_rock":[
+"石地"
+],
 "natural/bay":[
 "海灣",
 "灣",
@@ -1043,6 +1115,9 @@
 "沙灘",
 "灘",
 "海灘"
+],
+"natural/cave_entrance":[
+"洞口"
 ],
 "natural/cliff":[
 "Cliff",
@@ -1203,6 +1278,9 @@
 "Research Office",
 "研究所"
 ],
+"office/surveyor":[
+"量地官寫字樓"
+],
 "office/telecommunication":[
 "電信公司",
 "電話公司寫字樓",
@@ -1228,9 +1306,13 @@
 "村仔"
 ],
 "place/island":[
+"洲",
 "島",
 "Island",
 "島嶼"
+],
+"place/islet":[
+"洲仔"
 ],
 "place/isolated_dwelling":[
 "孤立居所",
@@ -1309,6 +1391,9 @@
 "停用鐵路",
 "Disused Railway",
 "廢棄的鐵路"
+],
+"railway/level_crossing":[
+"鐵道口（車道）"
 ],
 "railway/monorail":[
 "單軌電車",
@@ -1582,6 +1667,9 @@
 "影相舖",
 "照相館"
 ],
+"shop/pyrotechnics":[
+"煙花舖"
+],
 "shop/radiotechnics":[
 "無綫電零件舖",
 "無綫電／電子零件舖",
@@ -1589,6 +1677,9 @@
 "電子零件舖",
 "Radio Component Store",
 "無線電零件舖"
+],
+"shop/religion":[
+"宗教舖"
 ],
 "shop/shoes":[
 "鞋舖",
@@ -1735,6 +1826,30 @@
 "type/restriction":[
 "Restriction",
 "限制"
+],
+"type/restriction/no_left_turn":[
+"不得左轉"
+],
+"type/restriction/no_right_turn":[
+"不得右轉"
+],
+"type/restriction/no_straight_on":[
+"不得直行"
+],
+"type/restriction/no_u_turn":[
+"不得倒頭"
+],
+"type/restriction/only_left_turn":[
+"只能左轉"
+],
+"type/restriction/only_right_turn":[
+"只能右轉"
+],
+"type/restriction/only_straight_on":[
+"只能直行"
+],
+"type/restriction/only_u_turn":[
+"只能倒頭"
 ],
 "type/route":[
 "路線",

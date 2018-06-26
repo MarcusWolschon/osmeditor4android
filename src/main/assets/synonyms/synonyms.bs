@@ -1196,7 +1196,7 @@
 ],
 "power/generator":[
 "Generator električne energije",
-"generator ",
+"generator",
 "generator el. energije"
 ],
 "power/line":[

@@ -128,7 +128,7 @@
 "تبدیل ارز / صرافی"
 ],
 "amenity/bus_station":[
-"ایستگاه اتوبوس / ترمینال"
+"پایانه اتوبوس / ترمینال"
 ],
 "amenity/cafe":[
 "کافه"
@@ -197,13 +197,13 @@
 "سفارت خانه"
 ],
 "amenity/fast_food":[
-"غذای آماده"
+"فست فود"
 ],
 "amenity/fire_station":[
 "ایستگاه آتش نشانی"
 ],
 "amenity/food_court":[
-"بوفه غذا"
+"فودکورت"
 ],
 "amenity/fountain":[
 "فواره"
@@ -231,7 +231,7 @@
 "کافه‌ی اینترنت"
 ],
 "amenity/kindergarten":[
-"پیش دبستانی / محیط کودکستان"
+"محوطه پیش دبستانی / مهدکودک"
 ],
 "amenity/library":[
 "کتابخانه"
@@ -286,6 +286,9 @@
 ],
 "amenity/place_of_worship/shinto":[
 "معبد شینتویی"
+],
+"amenity/place_of_worship/sikh":[
+"معبد سیک"
 ],
 "amenity/place_of_worship/taoist":[
 "معبد تائو"
@@ -345,7 +348,7 @@
 "امکانات اجتماعی"
 ],
 "amenity/social_facility/food_bank":[
-"فروشگاه مواد غذایی"
+"خیریه بانک غذا"
 ],
 "amenity/social_facility/group_home":[
 "خانه سالمندان"
@@ -378,13 +381,16 @@
 "شهرداری"
 ],
 "amenity/university":[
-"محیط دانشگاهی"
+"محوطه دانشگاه"
 ],
 "amenity/vending_machine":[
 "دستگاه فروش خودکار"
 ],
 "amenity/vending_machine/cigarettes":[
 "دستگاه فروش سیگار"
+],
+"amenity/vending_machine/coffee":[
+"دستگاه فروش قهوه"
 ],
 "amenity/vending_machine/condoms":[
 "دستگاه فروش کاندوم"
@@ -395,6 +401,15 @@
 "amenity/vending_machine/excrement_bags":[
 "دستگاه خود توزیع کیسه پسماند"
 ],
+"amenity/vending_machine/feminine_hygiene":[
+"دستتگاه فروش لوازم بهداشتی زنان"
+],
+"amenity/vending_machine/food":[
+"دستگاه فروش خوراکی"
+],
+"amenity/vending_machine/ice_cream":[
+"دستگاه فروش بستنی"
+],
 "amenity/vending_machine/news_papers":[
 "دستگاه خود فروش روزنامه"
 ],
@@ -402,7 +417,7 @@
 "دستگاه فروش خودکار روزنامه"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
-"سرویس دریافت امانات پستی، دستگاه دریافت کننده مرسولات پستی ",
+"سرویس دریافت امانات پستی، دستگاه دریافت کننده مرسولات پستی",
 "سرویس دریافت مرسولات پستی، دستگاه دریافت مرسولات پستی"
 ],
 "amenity/vending_machine/parking_tickets":[
@@ -438,6 +453,9 @@
 "area/highway":[
 "سطح جاده"
 ],
+"attraction/animal":[
+"حیوان"
+],
 "attraction/bungee_jumping":[
 "بانجی جامپینگ"
 ],
@@ -449,6 +467,9 @@
 ],
 "attraction/roller_coaster":[
 "ترن هوایی"
+],
+"attraction/water_slide":[
+"سرسره آبی"
 ],
 "barrier":[
 "مانع"
@@ -505,7 +526,7 @@
 "دیوار"
 ],
 "boundary/administrative":[
-"مرز اداری"
+"مرز حکومتی"
 ],
 "building":[
 "ساختمان"
@@ -588,6 +609,9 @@
 "building/kindergarten":[
 "پیش دبستانی /ساختمان کودکستان"
 ],
+"building/mosque":[
+"ساختمان مسجد"
+],
 "building/public":[
 "ساختمان عمومی"
 ],
@@ -599,6 +623,9 @@
 ],
 "building/roof":[
 "سقف"
+],
+"building/ruins":[
+"خرابه های ساختمان"
 ],
 "building/school":[
 "ساختمان مدرسه"
@@ -612,8 +639,14 @@
 "building/stable":[
 "اصطبل"
 ],
+"building/stadium":[
+"ساختمان استادیوم"
+],
 "building/static_caravan":[
 "خانه از پیش ساخته متحرک"
+],
+"building/temple":[
+"ساختمان معبد"
 ],
 "building/terrace":[
 "خانه های ردیفی"
@@ -848,11 +881,38 @@
 "golf/water_hazard_line":[
 "خطر آب"
 ],
+"healthcare/audiologist":[
+"شنوایی سنجی"
+],
+"healthcare/birthing_center":[
+"زایشگاه"
+],
 "healthcare/blood_donation":[
 "مرکز اهدای خون"
 ],
+"healthcare/hospice":[
+"آسایشگاه"
+],
+"healthcare/laboratory":[
+"آزمایشگاه پزشکی"
+],
 "healthcare/midwife":[
 "ماما"
+],
+"healthcare/optometrist":[
+"چشم پزشک"
+],
+"healthcare/physiotherapist":[
+"فیزیوتراپیست"
+],
+"healthcare/podiatrist":[
+"پاپزشک"
+],
+"healthcare/psychotherapist":[
+"روان‎‌درمانگر"
+],
+"healthcare/speech_therapist":[
+"گفتار درمان"
 ],
 "highway":[
 "بزرگراه"
@@ -900,6 +960,12 @@
 "highway/path":[
 "مسیر"
 ],
+"highway/pedestrian_area":[
+"محل عابر پیاده"
+],
+"highway/pedestrian_line":[
+"خیابان عابرپیاده"
+],
 "highway/primary":[
 "جاده اصلی"
 ],
@@ -941,6 +1007,9 @@
 ],
 "highway/services":[
 "فضای خدماتی"
+],
+"highway/speed_camera":[
+"دوربین سرعت"
 ],
 "highway/steps":[
 "پله"
@@ -1070,7 +1139,7 @@
 "محل دفن مواد (زباله)"
 ],
 "landuse/meadow":[
-"مرغزار"
+"علفزار"
 ],
 "landuse/orchard":[
 "باغ میوه"
@@ -1123,13 +1192,19 @@
 "گودال آتش"
 ],
 "leisure/fitness_centre":[
-"مرکز پرورش و تناسب اندام"
+"باشگاه تناسب اندام"
 ],
 "leisure/fitness_centre/yoga":[
 "استودیو یوگا"
 ],
 "leisure/fitness_station":[
 "ایستگاه ورزشی در فضای باز"
+],
+"leisure/fitness_station/push-up":[
+"محل شنا رفتن"
+],
+"leisure/fitness_station/sit-up":[
+"محل دراز و نشست"
 ],
 "leisure/garden":[
 "باغ"
@@ -1187,6 +1262,9 @@
 ],
 "leisure/pitch/soccer":[
 "میدان فوتبال"
+],
+"leisure/pitch/table_tennis":[
+"میز پینگ پنگ"
 ],
 "leisure/pitch/tennis":[
 "محوطه تنیس"
@@ -1406,7 +1484,7 @@
 "اداره"
 ],
 "office/administrative":[
-"دفتر اداری"
+"دفتر حکومتی"
 ],
 "office/advertising_agency":[
 "آژانس تبلیغاتی"
@@ -1525,6 +1603,9 @@
 "place/village":[
 "روستا"
 ],
+"playground/slide":[
+"سرسره"
+],
 "point":[
 "نقطه"
 ],
@@ -1533,6 +1614,12 @@
 ],
 "power/generator":[
 "مولد برق"
+],
+"power/generator/source_nuclear":[
+"راکتور هسته‌ای"
+],
+"power/generator/source_wind":[
+"توربین بادی"
 ],
 "power/line":[
 "خط نیرو"
@@ -1558,6 +1645,18 @@
 "power/transformer":[
 "مبدل برق"
 ],
+"public_transport/linear_platform_bus":[
+"ایستگاه اتوبوس"
+],
+"public_transport/station_monorail":[
+"ایستگاه مونوریل"
+],
+"public_transport/station_subway":[
+"ایستگاه مترو"
+],
+"public_transport/station_train":[
+"ایستگاه قطار"
+],
 "railway":[
 "راه آهن"
 ],
@@ -1577,7 +1676,7 @@
 "جاده گذرنده از راه‌آهن"
 ],
 "railway/monorail":[
-"ترن هوایی"
+"مونوریل"
 ],
 "railway/narrow_gauge":[
 "راه آهن باریک کابلی"
@@ -1606,6 +1705,9 @@
 ],
 "shop":[
 "فروشگاه"
+],
+"shop/agrarian":[
+"فروشگاه لوازم کشاورزی"
 ],
 "shop/alcohol":[
 "مغازه مشروب فروشی"
@@ -1704,7 +1806,7 @@
 "فروشگاه آب‌نبات"
 ],
 "shop/convenience":[
-"فروشگاه زنجیره ای"
+"فروشگاه کوچک"
 ],
 "shop/copyshop":[
 "کپی / زیراکس / فوتوکپی"
@@ -1838,6 +1940,9 @@
 "shop/motorcycle":[
 "نمایندگی موتور سیکلت"
 ],
+"shop/motorcycle_repair":[
+"تعمیرگاه موتورسیکلت"
+],
 "shop/music":[
 "فروشگاه موسیقی"
 ],
@@ -1867,6 +1972,9 @@
 ],
 "shop/pawnbroker":[
 "سمساری"
+],
+"shop/perfumery":[
+"عطر فروشی"
 ],
 "shop/pet":[
 "فروشگاه حیوانات خانگی"
@@ -1945,6 +2053,9 @@
 ],
 "shop/video_games":[
 "فروشگاه بازی ویدئویی"
+],
+"shop/watches":[
+"ساعت فروشی"
 ],
 "shop/water_sports":[
 "فروشگاه ورزش‌های آبی/شنا "
@@ -2068,7 +2179,7 @@
 "مرز"
 ],
 "type/boundary/administrative":[
-"مرز اداری"
+"مرز حکومتی"
 ],
 "type/multipolygon":[
 "چند ضلعی"
@@ -2087,6 +2198,18 @@
 ],
 "type/restriction/no_u_turn":[
 "دور زدن ممنوع"
+],
+"type/restriction/only_left_turn":[
+"فقط پیچیدن به چپ"
+],
+"type/restriction/only_right_turn":[
+"فقط پیچیدن به راست"
+],
+"type/restriction/only_straight_on":[
+"فقط مستقیم"
+],
+"type/restriction/only_u_turn":[
+"فقط دورزدن"
 ],
 "type/route":[
 "مسیر"
@@ -2115,12 +2238,18 @@
 "type/route/pipeline":[
 "مسیر خط لوله"
 ],
+"type/route/piste":[
+"مسیر پیست اسکی"
+],
 "type/route/power":[
 "مسیر برق",
 "خط انتقال برق"
 ],
 "type/route/road":[
 "مسیر جاده"
+],
+"type/route/subway":[
+"خط مترو"
 ],
 "type/route/train":[
 "مسیر راه آهن"
@@ -2135,6 +2264,9 @@
 "type/site":[
 "سایت، منطقه",
 "سایت"
+],
+"type/waterway":[
+"راه آبی"
 ],
 "vertex":[
 "سایر",

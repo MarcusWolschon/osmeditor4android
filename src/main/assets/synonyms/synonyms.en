@@ -1238,6 +1238,13 @@
 "building/garages":[
 "Garages"
 ],
+"building/grandstand":[
+"stands",
+"tribune",
+"bleachers",
+"stand",
+"Grandstand"
+],
 "building/greenhouse":[
 "Greenhouse"
 ],
@@ -1572,9 +1579,24 @@
 "AED",
 "Defibrillator"
 ],
+"emergency/fire_alarm":[
+"Fire Alarm Call Box"
+],
+"emergency/fire_extinguisher":[
+"Fire Extinguisher"
+],
 "emergency/fire_hydrant":[
 "Fire Hydrant",
 "fire plug"
+],
+"emergency/first_aid_kit":[
+"med kit",
+"First Aid Kit",
+"medkit",
+"first aid",
+"medic*",
+"med",
+"bandage"
 ],
 "emergency/life_ring":[
 "kisbie ring",
@@ -1583,8 +1605,22 @@
 "kisby ring",
 "Life Ring"
 ],
+"emergency/lifeguard":[
+"CPR",
+"Lifeguard",
+"rescue"
+],
 "emergency/phone":[
 "Emergency Phone"
+],
+"emergency/siren":[
+"loud",
+"air raid",
+"storm",
+"tornado",
+"Siren",
+"noise",
+"warning"
 ],
 "emergency/water_tank":[
 "water tank",
@@ -1792,6 +1828,7 @@
 ],
 "highway/bridleway":[
 "horse",
+"trail",
 "equestrian",
 "Bridle Path",
 "bridleway"
@@ -1859,10 +1896,14 @@
 "Mini-Roundabout"
 ],
 "highway/motorway_junction":[
+"exit",
 "Motorway Junction / Exit"
 ],
 "highway/motorway_link":[
+"exit",
 "on ramp",
+"road",
+"street",
 "ramp",
 "off ramp",
 "Motorway Link"
@@ -1872,6 +1913,8 @@
 "thruway",
 "autobahn",
 "expressway",
+"road",
+"street",
 "Motorway",
 "highway",
 "turnpike",
@@ -1911,12 +1954,16 @@
 ],
 "highway/primary_link":[
 "on ramp",
-"ramp",
+"road",
+"street",
 "off ramp",
+"ramp",
 "Primary Link"
 ],
 "highway/primary":[
-"Primary Road"
+"Primary Road",
+"road",
+"street"
 ],
 "highway/raceway":[
 "formula one",
@@ -1929,6 +1976,8 @@
 "Racetrack (Motorsport)"
 ],
 "highway/residential":[
+"road",
+"street",
 "Residential Road"
 ],
 "highway/rest_area":[
@@ -1936,19 +1985,27 @@
 "Rest Area"
 ],
 "highway/road":[
+"road",
+"street",
 "Unknown Road"
 ],
 "highway/secondary_link":[
 "on ramp",
-"ramp",
+"road",
+"street",
 "off ramp",
+"ramp",
 "Secondary Link"
 ],
 "highway/secondary":[
-"Secondary Road"
+"Secondary Road",
+"road",
+"street"
 ],
 "highway/service":[
-"Service Road"
+"Service Road",
+"road",
+"street"
 ],
 "highway/service/alley":[
 "Alley"
@@ -1995,11 +2052,15 @@
 ],
 "highway/tertiary_link":[
 "on ramp",
+"road",
+"street",
 "Tertiary Link",
-"ramp",
-"off ramp"
+"off ramp",
+"ramp"
 ],
 "highway/tertiary":[
+"road",
+"street",
 "Tertiary Road"
 ],
 "highway/track":[
@@ -2046,11 +2107,15 @@
 "highway/trunk_link":[
 "Trunk Link",
 "on ramp",
-"ramp",
-"off ramp"
+"road",
+"street",
+"off ramp",
+"ramp"
 ],
 "highway/trunk":[
-"Trunk Road"
+"road",
+"Trunk Road",
+"street"
 ],
 "highway/turning_circle":[
 "cul-de-sac",
@@ -2061,6 +2126,8 @@
 "Turning Loop (Island)"
 ],
 "highway/unclassified":[
+"road",
+"street",
 "Minor/Unclassified Road"
 ],
 "historic":[
@@ -2156,6 +2223,9 @@
 "Farmyard"
 ],
 "landuse/forest":[
+"forest",
+"cut",
+"lumber",
 "tree",
 "Forest"
 ],
@@ -2278,6 +2348,16 @@
 "machan",
 "ornithology",
 "Bird Hide"
+],
+"leisure/bleachers":[
+"stands",
+"seat",
+"bench",
+"sports",
+"crowd",
+"Bleachers",
+"stand",
+"seating"
 ],
 "leisure/bowling_alley":[
 "bowling center",
@@ -2665,6 +2745,14 @@
 "man_made/chimney":[
 "Chimney"
 ],
+"man_made/clearcut":[
+"Clearcut Forest",
+"forest",
+"cut",
+"lumber",
+"tree",
+"wood"
+],
 "man_made/crane":[
 "Crane"
 ],
@@ -2883,7 +2971,10 @@
 ],
 "natural/cliff":[
 "Cliff",
-"escarpment"
+"escarpment",
+"rock face",
+"crag",
+"scarp"
 ],
 "natural/coastline":[
 "Coastline",
@@ -2922,6 +3013,14 @@
 "Peak",
 "crest",
 "crown"
+],
+"natural/reef":[
+"shoal",
+"sand",
+"Reef",
+"barrier",
+"ocean",
+"coral"
 ],
 "natural/ridge":[
 "crest",
@@ -4346,6 +4445,15 @@
 ],
 "shop/money_lender":[
 "Money Lender"
+],
+"shop/motorcycle_repair":[
+"motorcycle",
+"Motorcycle Repair Shop",
+"repair",
+"auto",
+"service",
+"garage",
+"bike"
 ],
 "shop/motorcycle":[
 "Motorcycle Dealership",

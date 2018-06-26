@@ -859,9 +859,9 @@
 "amenity/prison":[
 "Prison",
 "Terrains carcéraux",
-"Geôle. ",
 "Pénitencier",
 "Maison d'arrêt",
+"Geôle.",
 "Centre correctionnel",
 "Centre de détention"
 ],
@@ -1138,8 +1138,7 @@
 "distributeur à journaux",
 "vente automatique de journaux",
 "magazines",
-"vending machine newspapers",
-"journaux "
+"vending machine newspapers"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
 "vending machine parcel",
@@ -1988,6 +1987,9 @@
 "parc de stationnement couvert",
 "parcages"
 ],
+"building/grandstand":[
+"Tribune"
+],
 "building/greenhouse":[
 "verrière",
 "véranda",
@@ -2420,11 +2422,29 @@
 "emergency/destination":[
 "Accessible aux services d'urgences"
 ],
+"emergency/fire_extinguisher":[
+"poudre",
+"mousse",
+"Extincteur d'incendie",
+"incendie",
+"feu",
+"Extincteur"
+],
 "emergency/fire_hydrant":[
 "borne-fontaine",
 "bouche d'incendie",
 "Borne incendie",
 "borne fontaine"
+],
+"emergency/first_aid_kit":[
+"pansement",
+"premiers secours",
+"kit médical",
+"Kit de premiers secours",
+"trousse d'urgence",
+"trousse de secours",
+"kit d'urgence",
+"bandage"
 ],
 "emergency/life_ring":[
 "Bouée de Sauvetage"
@@ -2440,6 +2460,13 @@
 ],
 "emergency/private":[
 "Accès d'urgence privé"
+],
+"emergency/siren":[
+"Sirène",
+"tempête",
+"raid aérien",
+"avertissement",
+"tornade"
 ],
 "emergency/water_tank":[
 "Réservoir d'eau de secours"
@@ -2614,7 +2641,6 @@
 "Couloir intérieur"
 ],
 "highway/crossing":[
-"Passage piéton ",
 "Passage piéton"
 ],
 "highway/crossing-raised":[
@@ -3005,6 +3031,9 @@
 "Observatoire d'oiseaux",
 "Observatoire ornithologique"
 ],
+"leisure/bleachers":[
+"Gradins"
+],
 "leisure/bowling_alley":[
 "Jeu de quilles",
 "Bowling",
@@ -3047,7 +3076,7 @@
 "Équipements de fitness en extérieur"
 ],
 "leisure/fitness_station/balance_beam":[
-"Poutre ",
+"Poutre",
 "Poutre (fitness en extérieur)"
 ],
 "leisure/fitness_station/box":[
@@ -3067,16 +3096,17 @@
 "Barres parallèles"
 ],
 "leisure/fitness_station/push-up":[
-"Les pompes inclinées en extérieur"
+"Équipement pour pompes inclinées en extérieur"
 ],
 "leisure/fitness_station/rings":[
-"Anneaux de gymnastique "
+"Anneaux de gymnastique ",
+"Anneaux de gymnastique"
 ],
 "leisure/fitness_station/sign":[
 "Panneau d'instruction d'un exercice"
 ],
 "leisure/fitness_station/sit-up":[
-"Équipement de Sit-up en extérieur"
+"Équipement pour abdominaux en extérieur"
 ],
 "leisure/fitness_station/stairs":[
 "Escalier d'exercices"
@@ -3232,7 +3262,7 @@
 "Piscine"
 ],
 "leisure/track":[
-"piste d'athlétisme ",
+"piste d'athlétisme",
 "Piste hippique",
 "Piste de course"
 ],
@@ -3263,6 +3293,9 @@
 ],
 "man_made/chimney":[
 "Cheminée"
+],
+"man_made/clearcut":[
+"Coupe rase forestière"
 ],
 "man_made/crane":[
 "Grue"
@@ -3317,7 +3350,6 @@
 "derrick",
 "Puits de forage",
 "Puits de pétrole",
-"...",
 "chevalet de pompage"
 ],
 "man_made/pier":[
@@ -3443,6 +3475,19 @@
 "Pic",
 "Mont"
 ],
+"natural/reef":[
+"barrière",
+"barriere",
+"ocean",
+"Récif",
+"récif",
+"recif",
+"haut fond",
+"coralien",
+"rocher",
+"océan",
+"corail"
+],
 "natural/ridge":[
 "Ligne de crête",
 "Crête"
@@ -3490,8 +3535,8 @@
 "Étang"
 ],
 "natural/water/reservoir":[
-"Réservoir ",
-"Bassin de retenue"
+"Bassin de retenue",
+"Réservoir"
 ],
 "natural/wetland":[
 "Marécage",
@@ -3674,8 +3719,10 @@
 "Ferme isolée"
 ],
 "place/hamlet":[
+"lieu-dit",
 "Hameau",
-"Hameau (moins de 100 habitants)"
+"lieu dit",
+"Lieu-dit ou hameau"
 ],
 "place/island":[
 "Île"
@@ -3689,7 +3736,7 @@
 "Lieu-dit habité (1 ou 2 habitations)"
 ],
 "place/locality":[
-"Localité",
+"lieu-dit",
 "Lieu-dit sans habitation"
 ],
 "place/neighbourhood":[
@@ -3722,7 +3769,7 @@
 "Village (de 100 à 10 000 habitants)"
 ],
 "playground/balance_beam":[
-"Poutre ",
+"Poutre",
 "Poutre (Jeux pour enfants)"
 ],
 "playground/basket_spinner":[
@@ -3875,7 +3922,7 @@
 "Quai pour remontée mécanique"
 ],
 "public_transport/platform_bus":[
-"Quai d'arrêt de bus"
+"Arrêt de bus"
 ],
 "public_transport/platform_ferry":[
 "Quai pour ferry"
@@ -4425,6 +4472,9 @@
 "Vendeur de motocyclettes",
 "Vendeur de motos"
 ],
+"shop/motorcycle_repair":[
+"Réparateur de motos"
+],
 "shop/music":[
 "Magasin de musique"
 ],
@@ -4482,6 +4532,7 @@
 "Magasin de feux d'artifice"
 ],
 "shop/radiotechnics":[
+"Magasin de composants électroniques et de radio",
 "Magasin de composants électroniques et de radio "
 ],
 "shop/religion":[
@@ -4767,6 +4818,7 @@
 "Restriction"
 ],
 "type/restriction/no_left_turn":[
+"Interdiction de tourner à gauche",
 "Interdiction de tourner à gauche "
 ],
 "type/restriction/no_right_turn":[

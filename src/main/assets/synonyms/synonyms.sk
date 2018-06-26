@@ -1967,8 +1967,8 @@
 "Nudzovy pristup",
 "Núdzový vstup",
 "stav núzde",
-"stav nudze",
-"Nudzovy vstup "
+"Nudzovy vstup",
+"stav nudze"
 ],
 "highway/service/parking_aisle":[
 "parkovacia ulicka",
@@ -4064,6 +4064,12 @@
 "turistické informácie",
 "turisticke informacie",
 "informacie"
+],
+"tourism/information/board":[
+"Informačná tabuľa"
+],
+"tourism/information/map":[
+"Mapa"
 ],
 "tourism/motel":[
 "ubytovanie",

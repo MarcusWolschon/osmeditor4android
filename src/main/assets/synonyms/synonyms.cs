@@ -936,7 +936,10 @@
 "taxi"
 ],
 "amenity/telephone":[
+"telefonní budka",
 "telefon",
+"veřejný telefon",
+"veřejná telefonní stanice",
 "Telefon"
 ],
 "amenity/theatre":[
@@ -1931,6 +1934,11 @@
 "přechod pro chodce",
 "přechod",
 "Přechod pro chodce"
+],
+"footway/crossing-raised":[
+"rychlostní stůl s přechodem",
+"zpomalovací stůl s přechodem",
+"Zvýšený přechod pro chodce"
 ],
 "footway/crosswalk":[
 "zebra",
@@ -5177,7 +5185,9 @@
 "akustická brzda"
 ],
 "traffic_calming/table":[
-"Rychlostní cedule"
+"rychlostní stůl",
+"Zvýšená plocha pro zpomalení",
+"zpomalovací stůl"
 ],
 "type/boundary":[
 "hraniční",

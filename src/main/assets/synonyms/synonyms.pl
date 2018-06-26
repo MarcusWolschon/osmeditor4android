@@ -8,6 +8,11 @@
 "Billboard",
 "Reklama"
 ],
+"advertising/column":[
+"Słup z ogłoszeniami/reklamami",
+"reklamy",
+"ogłoszenia"
+],
 "aerialway":[
 "Wyciąg narciarski"
 ],
@@ -48,8 +53,8 @@
 ],
 "aerialway/pylon":[
 "Podpora",
-"Podpora wyciagu narciarskiego",
-"słup "
+"słup",
+"Podpora wyciagu narciarskiego"
 ],
 "aerialway/rope_tow":[
 "Wyrwirączka"
@@ -396,6 +401,10 @@
 "targowisko",
 "Targowisko"
 ],
+"amenity/monastery":[
+"klasztor",
+"Teren klasztoru"
+],
 "amenity/motorcycle_parking":[
 "Parking dla motocyklów",
 "miejsce postojowe dla motocyklów"
@@ -703,11 +712,26 @@
 "amenity/vending_machine/cigarettes":[
 "Automat z papierosami"
 ],
+"amenity/vending_machine/coffee":[
+"automat do sprzedaży kawy",
+"Automat do sprzedaży kawy",
+"kawiarka"
+],
 "amenity/vending_machine/condoms":[
 "Automat z prezerwatywami"
 ],
 "amenity/vending_machine/drinks":[
 "Automat z napojami"
+],
+"amenity/vending_machine/electronics":[
+"małe agd",
+"automat do sprzedaży urządzeń elektronicznych",
+"Automat do sprzedaży urządzeń elektronicznych"
+],
+"amenity/vending_machine/elongated_coin":[
+"automat do sprzedaży monet pamiątkowych",
+"Automat do sprzedaży monet pamiątkowych",
+"moneta pamiątkowa"
 ],
 "amenity/vending_machine/excrement_bags":[
 "Dozownik z workami na psie odchody",
@@ -717,6 +741,17 @@
 "tampony",
 "Automat z produktami higieny kobiecej",
 "podpaski"
+],
+"amenity/vending_machine/food":[
+"automat do sprzedaży jedzenia",
+"pożywienie",
+"jedzenie",
+"Automat do sprzedaży jedzenia"
+],
+"amenity/vending_machine/ice_cream":[
+"automat do sprzedaży lodów",
+"lody",
+"Automat do sprzedaży lodów"
 ],
 "amenity/vending_machine/news_papers":[
 "Automat z gazetami"
@@ -734,6 +769,11 @@
 "amenity/vending_machine/public_transport_tickets":[
 "Automat z biletami komunikacji publicznej",
 "bilety komunikacji publicznej"
+],
+"amenity/vending_machine/stamps":[
+"automat do sprzedaży znaczków pocztowych",
+"Automat do sprzedaży znaczków pocztowych",
+"znaczki pocztowe"
 ],
 "amenity/vending_machine/sweets":[
 "Automat z przekąskami"
@@ -815,6 +855,10 @@
 "attraction/drop_tower":[
 "wieża spadania",
 "Wieża Swobodnego Spadania"
+],
+"attraction/maze":[
+"Labirynt",
+"labirynt"
 ],
 "attraction/pirate_ship":[
 "statek piracki",
@@ -1017,6 +1061,15 @@
 ],
 "building/entrance":[
 "Wejście/wyjście"
+],
+"building/farm":[
+"Gospodarstwo (mieszkalny)",
+"Farma"
+],
+"building/farm_auxiliary":[
+"Gospodarstwo (niemieszkalny)",
+"Farma",
+"Budynek gospodarczy"
 ],
 "building/garage":[
 "Garaż",
@@ -1653,6 +1706,10 @@
 "wyjazd",
 "rampa"
 ],
+"highway/passing_place":[
+"Mijanka",
+"mijanka"
+],
 "highway/path":[
 "dróżka",
 "ścieżka",
@@ -1946,7 +2003,7 @@
 "podwórze gospodarskie"
 ],
 "landuse/forest":[
-"drzewa",
+"puszcza",
 "las",
 "Las"
 ],
@@ -1960,9 +2017,9 @@
 "landuse/grass":[
 "trawnik",
 "klomb",
-"Trawa",
 "trawa",
-"skwer"
+"skwer",
+"Trawa/trawnik"
 ],
 "landuse/greenfield":[
 "Teren niezabudowany",
@@ -1996,8 +2053,8 @@
 ],
 "landuse/meadow":[
 "pastwisko",
-"łąka",
-"Łąka"
+"Łąka/pastwisko",
+"łąka"
 ],
 "landuse/orchard":[
 "sad",
@@ -2022,10 +2079,10 @@
 ],
 "landuse/recreation_ground":[
 "rekreacja",
-"Tereny rekreacyjne",
 "odpoczynek",
 "zabawy",
-"sporty"
+"sporty",
+"Park rekreacyjno-sportowy"
 ],
 "landuse/religious":[
 "teren religijny",
@@ -2072,10 +2129,18 @@
 "Sala Taneczna",
 "dyskoteka"
 ],
+"leisure/dancing_school":[
+"szkoła tańca",
+"Szkoła tańca",
+"tańce",
+"taniec",
+"tańczenie"
+],
 "leisure/dog_park":[
 "psi park",
+"Wybieg dla psów",
 "wybieg dla psów",
-"Park dla psów"
+"park dla psów"
 ],
 "leisure/firepit":[
 "ognisko",
@@ -2149,8 +2214,8 @@
 "leisure/hackerspace":[
 "hackspace",
 "makerspace",
-"creative space ",
 "Hackerspace",
+"creative space",
 "hackerspace",
 "hacklab"
 ],
@@ -2177,10 +2242,11 @@
 "rezerwat"
 ],
 "leisure/park":[
+"wypoczynek",
+"Park rekreacyjno-wypoczynkowy",
+"rekreacja",
 "teren rekreacyjny",
-"plac",
-"las",
-"Park"
+"park"
 ],
 "leisure/picnic_table":[
 "Stół piknikowy",
@@ -2200,8 +2266,8 @@
 "Boisko do baseballu"
 ],
 "leisure/pitch/basketball":[
-"boisko do koszykówki ",
-"Boisko do koszykówki"
+"Boisko do koszykówki",
+"boisko do koszykówki"
 ],
 "leisure/pitch/beachvolleyball":[
 "Siatkówka plażowa",
@@ -2226,11 +2292,11 @@
 ],
 "leisure/pitch/rugby_league":[
 "Boisko rugby league",
-"Boisko rugby "
+"Boisko rugby"
 ],
 "leisure/pitch/rugby_union":[
 "Boisko rugby union",
-"Boisko rugby "
+"Boisko rugby"
 ],
 "leisure/pitch/skateboard":[
 "rolki",
@@ -2311,6 +2377,7 @@
 ],
 "leisure/water_park":[
 "aquapark",
+"akwapark",
 "cieplice",
 "Park wodny"
 ],
@@ -2381,6 +2448,10 @@
 "man_made/observation":[
 "wieża obserwacyjna",
 "Wieża obserwacyjna"
+],
+"man_made/observatory":[
+"Obserwatorium",
+"obserwatorium astronomiczne"
 ],
 "man_made/petroleum_well":[
 "Szyb naftowy",
@@ -2514,14 +2585,21 @@
 "lądolód"
 ],
 "natural/grassland":[
-"Teren trawiasty",
-"Łąka"
+"preria",
+"sawanna",
+"Łąka/sawanna/step/preria",
+"step",
+"teren trawiasty"
 ],
 "natural/heath":[
 "medycyna",
 "szpital",
 "Wrzosowisko",
 "Zdrowie"
+],
+"natural/mud":[
+"błotne",
+"Błoto"
 ],
 "natural/peak":[
 "Szczyt",
@@ -2599,8 +2677,8 @@
 "bagno"
 ],
 "natural/wood":[
-"puszcza",
-"Las/puszcza",
+"zadrzewienie",
+"Drzewa",
 "zalesienie",
 "las"
 ],
@@ -3071,8 +3149,8 @@
 ],
 "railway/rail":[
 "tory",
-"Tor",
-"torowisko"
+"torowisko",
+"Tor kolejowy"
 ],
 "railway/signal":[
 "semafor",
@@ -3889,6 +3967,26 @@
 "Zakaz zawracania",
 "zakaz",
 "zawracanie"
+],
+"type/restriction/only_left_turn":[
+"tylko w lewo",
+"Tylko skręt w lewo",
+"nakaz skrętu w lewo"
+],
+"type/restriction/only_right_turn":[
+"nakaz skrętu w prawo",
+"tylko w prawo",
+"Tylko skręt w prawo"
+],
+"type/restriction/only_straight_on":[
+"Tylko jazda prosto",
+"tylko prosto",
+"nakaz jazdy na wprost"
+],
+"type/restriction/only_u_turn":[
+"tylko zawracanie",
+"nakaz zawracania",
+"Tylko zawracanie"
 ],
 "type/route":[
 "trasa",

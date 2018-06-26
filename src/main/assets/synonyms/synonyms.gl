@@ -730,8 +730,8 @@
 "Campus universitario"
 ],
 "amenity/vending_machine":[
+"Máquina expendedora",
 "vending",
-"Máquina de Vending",
 "expendedora"
 ],
 "amenity/vending_machine/cigarettes":[
@@ -856,6 +856,9 @@
 "Torre de caída",
 "torre",
 "caída"
+],
+"attraction/maze":[
+"Laberinto"
 ],
 "attraction/pirate_ship":[
 "Barco pirata",
@@ -1372,6 +1375,9 @@
 "andamios",
 "andamista"
 ],
+"craft/sculptor":[
+"Escultor"
+],
 "craft/shoemaker":[
 "zapatos",
 "zapateiro",
@@ -1434,6 +1440,9 @@
 ],
 "emergency/destination":[
 "Acceso de emerxencia como destino"
+],
+"emergency/fire_extinguisher":[
+"Extintor"
 ],
 "emergency/fire_hydrant":[
 "Boca de incendio"
@@ -1516,6 +1525,9 @@
 "healthcare/blood_donation":[
 "Doación de sangue"
 ],
+"healthcare/laboratory":[
+"Laboratorio médico"
+],
 "highway":[
 "Estrada"
 ],
@@ -1524,6 +1536,9 @@
 "cabalo",
 "Camiño de ferradura",
 "ferradura"
+],
+"highway/bus_stop":[
+"Parada/plataforma de autobús"
 ],
 "highway/corridor":[
 "corredor",
@@ -1767,6 +1782,9 @@
 "auga",
 "Cunca"
 ],
+"landuse/brownfield":[
+"Solar anteriormente edificado"
+],
 "landuse/cemetery":[
 "Cemiterio"
 ],
@@ -1803,6 +1821,9 @@
 "céspede",
 "herba"
 ],
+"landuse/greenfield":[
+"Solar urbanizable"
+],
 "landuse/harbour":[
 "porto",
 "peirao",
@@ -1823,7 +1844,11 @@
 "escombrera"
 ],
 "landuse/meadow":[
-"Prado"
+"prado",
+"pasto",
+"Prado",
+"pradeira",
+"herba"
 ],
 "landuse/orchard":[
 "froitas",
@@ -1836,8 +1861,11 @@
 ],
 "landuse/quarry":[
 "minería",
+"minerais",
+"rocha",
 "Canteira",
 "pedra",
+"mina",
 "canteira"
 ],
 "landuse/railway":[
@@ -1884,8 +1912,15 @@
 "leisure/dance":[
 "Sala de baile"
 ],
+"leisure/dancing_school":[
+"Escola de danza"
+],
 "leisure/dog_park":[
-"Parque canino"
+"canino",
+"can",
+"perro",
+"Parque canino",
+"parque"
 ],
 "leisure/firepit":[
 "Fogueira"
@@ -2067,6 +2102,9 @@
 "túnel",
 "mina"
 ],
+"man_made/antenna":[
+"Antena"
+],
 "man_made/breakwater":[
 "rompeolas",
 "rompeondas",
@@ -2124,12 +2162,18 @@
 "torre",
 "mastro"
 ],
+"man_made/monitoring_station":[
+"Estación meteorolóxica"
+],
 "man_made/observation":[
 "atalaia",
 "observación",
 "vixilancia",
 "torre",
 "Torre de observación"
+],
+"man_made/observatory":[
+"Observatorio"
 ],
 "man_made/petroleum_well":[
 "pozo",
@@ -2292,12 +2336,17 @@
 ],
 "natural/heath":[
 "breixeira",
+"arbustos",
 "uzal",
 "uceira",
 "moural",
 "urceira",
 "herba",
+"gamallos",
 "Uceira"
+],
+"natural/mud":[
+"Barro"
 ],
 "natural/peak":[
 "pico",
@@ -2306,6 +2355,9 @@
 "Cume",
 "cúspide",
 "montaña"
+],
+"natural/reef":[
+"Arrecife"
 ],
 "natural/ridge":[
 "Cume"
@@ -2327,7 +2379,16 @@
 "laxes"
 ],
 "natural/scrub":[
-"Matogueira"
+"matogueira",
+"arbustos",
+"Matogueira",
+"toxeira",
+"toxos",
+"vedramio",
+"coucheira",
+"fraguiza",
+"silveira",
+"breña"
 ],
 "natural/spring":[
 "auga",
@@ -2342,7 +2403,7 @@
 "fila",
 "ringleira",
 "árbores",
-"Fila de arbores"
+"Fila de árbores"
 ],
 "natural/volcano":[
 "Volcán"
@@ -2377,6 +2438,7 @@
 "natural/wood":[
 "bosque",
 "monte",
+"árbores",
 "Bosque",
 "fraga",
 "foresta"
@@ -2387,8 +2449,26 @@
 "office":[
 "Oficina"
 ],
+"office/accountant":[
+"Contable"
+],
 "office/administrative":[
 "Administración local"
+],
+"office/adoption_agency":[
+"Axencia de adopción"
+],
+"office/advertising_agency":[
+"Axencia publicitaria"
+],
+"office/architect":[
+"Arquitecto"
+],
+"office/association":[
+"Oficina de organización sen ánimo de lucro"
+],
+"office/company":[
+"Oficina corporativa"
 ],
 "office/coworking":[
 "Espacio de cotraballo"
@@ -2398,6 +2478,9 @@
 ],
 "office/employment_agency":[
 "Oficina de emprego"
+],
+"office/energy_supplier":[
+"Oficina de empresa enerxética"
 ],
 "office/estate_agent":[
 "Axencia inmobiliaria"
@@ -2411,10 +2494,16 @@
 "office/government/register_office":[
 "Oficina de rexistro civil"
 ],
+"office/guide":[
+"Oficina de guías turísticos"
+],
 "office/insurance":[
 "Oficina de seguros",
 "seguros",
 "aseguradora"
+],
+"office/it":[
+"Oficina de tecnoloxías da información"
 ],
 "office/lawyer":[
 "avogados",
@@ -2425,14 +2514,26 @@
 "office/lawyer/notary":[
 "Notaría"
 ],
+"office/moving_company":[
+"Empresa de mudanzas"
+],
+"office/newspaper":[
+"Oficina de xornal"
+],
 "office/ngo":[
 "Oficina ONG"
+],
+"office/notary":[
+"Notaría"
 ],
 "office/physician":[
 "Médico"
 ],
 "office/political_party":[
 "Partido político"
+],
+"office/private_investigator":[
+"Oficina de investigador privado"
 ],
 "office/research":[
 "desenvolvemento",
@@ -2441,11 +2542,20 @@
 "laboratorio",
 "investigación"
 ],
+"office/tax_advisor":[
+"Oficina de xestor fiscal"
+],
 "office/telecommunication":[
 "Oficina de telecomunicacións"
 ],
+"office/therapist":[
+"Oficina de terapeuta"
+],
 "office/travel_agent":[
 "Axencia de viaxes"
+],
+"office/water_utility":[
+"Oficina de servizos públicos de auga"
 ],
 "piste":[
 "Pista de esquí"
@@ -2469,6 +2579,9 @@
 "Illa",
 "isla"
 ],
+"place/islet":[
+"Illote"
+],
 "place/isolated_dwelling":[
 "Vivenda illada"
 ],
@@ -2477,6 +2590,9 @@
 ],
 "place/neighbourhood":[
 "Barrio"
+],
+"place/plot":[
+"Parcela"
 ],
 "place/quarter":[
 "Sub-municipio / Distrito"
@@ -2494,6 +2610,13 @@
 ],
 "place/village":[
 "Vila"
+],
+"playground/sandpit":[
+"area",
+"areal",
+"areeiro",
+"Areeiro",
+"caixón de area"
 ],
 "point":[
 "Punto"
@@ -2533,6 +2656,69 @@
 ],
 "power/transformer":[
 "Transformador"
+],
+"public_transport/linear_platform":[
+"Parada/plataforma de autobús"
+],
+"public_transport/linear_platform_bus":[
+"Parada/plataforma de autobús"
+],
+"public_transport/linear_platform_subway":[
+"Parada/plataforma de metro"
+],
+"public_transport/linear_platform_train":[
+"Parada/plataforma de tren"
+],
+"public_transport/linear_platform_tram":[
+"Parada/plataforma de tranvía"
+],
+"public_transport/platform":[
+"Parada/plataforma de transporte público"
+],
+"public_transport/platform_bus":[
+"Parada/plataforma de autobús"
+],
+"public_transport/platform_subway":[
+"Parada/plataforma de metro"
+],
+"public_transport/platform_train":[
+"Parada/plataforma de tren"
+],
+"public_transport/platform_tram":[
+"Parada/plataforma de tranvía"
+],
+"public_transport/station":[
+"Estación de transporte público"
+],
+"public_transport/station_bus":[
+"Estación de autobuses"
+],
+"public_transport/station_subway":[
+"Estación de metro"
+],
+"public_transport/station_train":[
+"Estación de tren"
+],
+"public_transport/station_tram":[
+"Estación de tranvía"
+],
+"public_transport/stop_area":[
+"Zona de parada de transporte público"
+],
+"public_transport/stop_position":[
+"Punto de parada de transporte público"
+],
+"public_transport/stop_position_bus":[
+"Punto de parada de autobús"
+],
+"public_transport/stop_position_subway":[
+"Punto de parada de metro"
+],
+"public_transport/stop_position_train":[
+"Punto de parada de tren"
+],
+"public_transport/stop_position_tram":[
+"Punto de parada de tranvía"
 ],
 "railway":[
 "Ferrocarril"
@@ -2603,6 +2789,9 @@
 ],
 "shop":[
 "Tenda"
+],
+"shop/agrarian":[
+"Tenda de suministros agrícolas"
 ],
 "shop/alcohol":[
 "Licorería"
@@ -2811,6 +3000,9 @@
 "shop/jewelry":[
 "Xoiería"
 ],
+"shop/kiosk":[
+"Quiosco"
+],
 "shop/kitchen":[
 "Tenda de cociñas"
 ],
@@ -2850,6 +3042,9 @@
 ],
 "shop/motorcycle":[
 "Concesionario de motocicletas"
+],
+"shop/motorcycle_repair":[
+"Taller de reparación de motocicletas"
 ],
 "shop/music":[
 "Tenda de música"
@@ -2998,6 +3193,9 @@
 "shop/weapons":[
 "Armería"
 ],
+"shop/wholesale":[
+"Almacén ao por maior"
+],
 "shop/window_blind":[
 "Tenda de persianas"
 ],
@@ -3054,7 +3252,10 @@
 "Placa de información"
 ],
 "tourism/information/guidepost":[
-"Posto Guía"
+"indicador",
+"cartel indicador",
+"Poste indicador",
+"poste indicador"
 ],
 "tourism/information/map":[
 "Mapa"
@@ -3084,13 +3285,16 @@
 "Acougo de Tráfico"
 ],
 "traffic_calming/bump":[
-"Banda de frenado"
+"Banda de freado",
+"badén",
+"reductora de velocidade",
+"banda de frenado"
 ],
 "traffic_calming/chicane":[
 "Chicán de Tráfico"
 ],
 "traffic_calming/choker":[
-"Choker de tráfico"
+"Estreitamento"
 ],
 "traffic_calming/cushion":[
 "Almofa de Velocidade"
@@ -3099,13 +3303,17 @@
 "Soterrado"
 ],
 "traffic_calming/hump":[
-"Speed Hump"
+"Badén",
+"badén",
+"reductora de velocidade"
 ],
 "traffic_calming/island":[
 "Illa de Tráfico"
 ],
 "traffic_calming/rumble_strip":[
-"Rumble Faixa"
+"Bandas sonoras",
+"bandas reductoras de velocidade",
+"bandas sonoras"
 ],
 "type/boundary":[
 "Límite"
@@ -3141,46 +3349,52 @@
 "Ruta de autobús"
 ],
 "type/route/detour":[
-"Ruta de Desvío"
+"Ruta de desvío"
 ],
 "type/route/ferry":[
-"Ruta do Ferry"
+"Ruta do ferry"
 ],
 "type/route/foot":[
-"Rúa a Pé"
+"Rúa a pé"
 ],
 "type/route/hiking":[
-"Ruta de Camiñata"
+"Ruta de camiñata"
 ],
 "type/route/horse":[
-"Ruta de Equitación"
+"Ruta de equitación"
 ],
 "type/route/pipeline":[
-"Ruta de Tubaría"
+"Ruta de tubaría"
 ],
 "type/route/power":[
-"Ruta de Enerxía"
+"Ruta de enerxía"
 ],
 "type/route/road":[
-"Ruta de Estrada"
+"Ruta de estrada"
+],
+"type/route/subway":[
+"Ruta de metro"
 ],
 "type/route/train":[
-"Ruta de Tren"
+"Ruta de tren"
 ],
 "type/route/tram":[
-"Ruta de Tranvía"
+"Ruta de tranvía"
 ],
 "type/route_master":[
-"Ruta Mestre"
+"Ruta mestra"
 ],
 "type/site":[
 "Lugar"
+],
+"type/waterway":[
+"Vía de auga"
 ],
 "vertex":[
 "Outro"
 ],
 "waterway":[
-"Vía de Auga"
+"Vía de auga"
 ],
 "waterway/boatyard":[
 "Estaleiro"
@@ -3201,7 +3415,7 @@
 "Cuneta"
 ],
 "waterway/fuel":[
-"Estación Mariá de Fuel"
+"Gasolineira para embarcacións"
 ],
 "waterway/river":[
 "regato",
@@ -3224,8 +3438,11 @@
 "rego",
 "torrente"
 ],
+"waterway/stream_intermittent":[
+"Regato intermitente"
+],
 "waterway/water_point":[
-"Auga Potable Mariña"
+"Auga potable para embarcacións"
 ],
 "waterway/waterfall":[
 "Fervenza"

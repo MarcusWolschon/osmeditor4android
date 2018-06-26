@@ -8,6 +8,9 @@
 "Outdoor",
 "placa de publicidade"
 ],
+"advertising/column":[
+"Coluna de publicidade"
+],
 "aerialway":[
 "Teleférico do tipo cabine"
 ],
@@ -115,6 +118,9 @@
 "turismo",
 "aeroporto",
 "avião"
+],
+"allotments/plot":[
+"Parcela de Jardim Comunitário"
 ],
 "amenity":[
 "Serviço"
@@ -642,7 +648,6 @@
 "templo sikhi"
 ],
 "amenity/place_of_worship/taoist":[
-" ",
 "Taoismo",
 "templo taoista",
 "daoista",
@@ -1133,6 +1138,9 @@
 "Torre de Queda Livre",
 "big tower"
 ],
+"attraction/maze":[
+"Labirinto"
+],
 "attraction/pirate_ship":[
 "parque de diversões",
 "Navio Pirata",
@@ -1252,6 +1260,9 @@
 "Cerca viva",
 "Cerca Viva"
 ],
+"barrier/kerb":[
+"Meio-fio"
+],
 "barrier/kissing_gate":[
 "passa um",
 "passador",
@@ -1305,6 +1316,9 @@
 ],
 "building/barn":[
 "Celeiro"
+],
+"building/boathouse":[
+"Garagem de barcos"
 ],
 "building/bungalow":[
 "casa de um andar",
@@ -1383,11 +1397,20 @@
 "building/entrance":[
 "Entrada/Saída"
 ],
+"building/farm":[
+"Casa de fazenda"
+],
+"building/farm_auxiliary":[
+"Edifício da Fazenda"
+],
 "building/garage":[
 "Garagem"
 ],
 "building/garages":[
 "Garagens"
+],
+"building/grandstand":[
+"Arquibancada"
 ],
 "building/greenhouse":[
 "Estufa"
@@ -1504,6 +1527,9 @@
 ],
 "building/train_station":[
 "Estação Ferroviária"
+],
+"building/transportation":[
+"Edifício de transporte"
 ],
 "building/university":[
 "prédio de universidade",
@@ -1990,6 +2016,9 @@
 "doença",
 "Unidades de Cuidados Paliativos"
 ],
+"healthcare/laboratory":[
+"Laboratório médico"
+],
 "healthcare/midwife":[
 "gestante",
 "clínica de obstetrícia",
@@ -2068,6 +2097,9 @@
 "Picadeiro",
 "hipismo",
 "calvagada"
+],
+"highway/bus_guideway":[
+"Guideway de ônibus"
 ],
 "highway/bus_stop":[
 "Parada de ônibus / Plataforma"
@@ -2165,6 +2197,9 @@
 "acesso a autoestrada",
 "acesso a via expressa",
 "Ligação de Autoestrada"
+],
+"highway/passing_place":[
+"Lugar de passagem"
 ],
 "highway/path":[
 "caminhada",
@@ -2460,8 +2495,8 @@
 "Bacia"
 ],
 "landuse/brownfield":[
+"Área degradada",
 "área abandonada",
-"Área contaminada",
 "zona industrial abandonada",
 "área em revitalização",
 "desenvolvimento",
@@ -2520,6 +2555,7 @@
 "landuse/greenfield":[
 "área em desenvolvimento",
 "terreno projetado",
+"Terra não cultivada",
 "área projetada"
 ],
 "landuse/greenhouse_horticulture":[
@@ -2642,12 +2678,22 @@
 "Centro de Jogos Adutos",
 "Centro de Jogos para Adultos"
 ],
+"leisure/amusement_arcade":[
+"parque de diversões",
+"Fliperama"
+],
+"leisure/beach_resort":[
+"Resort em Praia"
+],
 "leisure/bird_hide":[
 "torre de observação",
 "animais",
 "Local de observação de pássaros",
 "pássaros",
 "aves"
+],
+"leisure/bleachers":[
+"Arquibancada simples"
 ],
 "leisure/bowling_alley":[
 "Pista de Boliche",
@@ -2719,6 +2765,10 @@
 ],
 "leisure/fitness_station/parallel_bars":[
 "Barras Paralelas"
+],
+"leisure/fitness_station/rings":[
+"Argolas de Exercício",
+"Argolas"
 ],
 "leisure/fitness_station/sit-up":[
 "Prancha para Abdominais"
@@ -3822,6 +3872,9 @@
 "ponto de ônibus",
 "ônibus"
 ],
+"public_transport/linear_platform_ferry":[
+"Parada de Balsa / Plataforma"
+],
 "public_transport/linear_platform_light_rail":[
 "trânsito",
 "veículo leve sobre trilhos",
@@ -3894,6 +3947,9 @@
 "plataforma",
 "ponto de ônibus",
 "ônibus"
+],
+"public_transport/platform_ferry":[
+"Parada de Balsa / Plataforma"
 ],
 "public_transport/platform_light_rail":[
 "trânsito",
@@ -4062,11 +4118,23 @@
 "public_transport/stop_position_bus":[
 "Local de parada de ônibus"
 ],
+"public_transport/stop_position_light_rail":[
+"Local de parada do VLT"
+],
+"public_transport/stop_position_monorail":[
+"Localização de parada do monotrilho"
+],
 "public_transport/stop_position_subway":[
 "Local de parada de metrô"
 ],
 "public_transport/stop_position_train":[
 "Local de parada de trem"
+],
+"public_transport/stop_position_tram":[
+"Localização de parada do bonde"
+],
+"public_transport/stop_position_trolleybus":[
+"Trólebus parando local"
 ],
 "railway":[
 "Ferrovia"
@@ -4102,6 +4170,9 @@
 "railway/funicular":[
 "Funicular",
 "Plano Inclinado"
+],
+"railway/halt":[
+"Estação de trem (parada / pedido)"
 ],
 "railway/level_crossing":[
 "Passagem de Nível (Estrada)",
@@ -4189,6 +4260,9 @@
 "Trilho de bonde",
 "Veículo leve sobre trilhos",
 "VLT"
+],
+"railway/tram_stop":[
+"Posição de parada do bonde"
 ],
 "relation":[
 "Relação"
@@ -4640,6 +4714,9 @@
 "Revenda de Motos",
 "Concessionária de Motos"
 ],
+"shop/motorcycle_repair":[
+"Oficina de Motocicletas"
+],
 "shop/music":[
 "Loja de Discos Musicais",
 "Loja Musical",
@@ -4988,6 +5065,9 @@
 "tourism/theme_park":[
 "Parque Temático"
 ],
+"tourism/trail_riding_station":[
+"Estação de Hipismo de Trilha"
+],
 "tourism/viewpoint":[
 "Mirante"
 ],
@@ -5082,6 +5162,25 @@
 ],
 "type/restriction/no_u_turn":[
 "Proibido Retornar"
+],
+"type/restriction/only_left_turn":[
+"Apenas curva à esquerda",
+"curva à esquerda obrigatória",
+"conversão à esquerda"
+],
+"type/restriction/only_right_turn":[
+"Apenas curva à direita",
+"conversão à direita",
+"curva à direita obrigatória"
+],
+"type/restriction/only_straight_on":[
+"somente seguir em frente",
+"Apenas seguir em frente"
+],
+"type/restriction/only_u_turn":[
+"Apenas retorno",
+"somente retornar",
+"retorno obrigatório"
 ],
 "type/route":[
 "Rota"
