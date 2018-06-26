@@ -36,7 +36,9 @@ pages:
     - 'GPS sources': 'help/en/GPS sources.md'
     - 'Tag based filter': 'help/en/Tag filter.md'
     - 'Preset based filter': 'help/en/Preset filter.md'
-    - 'Opening hours': 'help/en/Opening hours.md'           
+    - 'Opening hours': 'help/en/Opening hours.md'
+    - 'Preferences': 'help/en/Preferences.md'
+    - 'Advanced preferences': 'help/en/Advanced preferences.md'           
 - Tutorials and Posts:
     - '"network" Location Provider Support': 'tutorials/network_location.md'
     - 'Custom imagery': 'tutorials/custom_imagery.md'
