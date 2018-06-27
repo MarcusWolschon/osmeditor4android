@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci version is 10.2. The upcoming version 11 is now in beta-testing.
+The current Vespucci release version is 11. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
 #### Is Vespucci available for other mobile platforms?
 
@@ -110,7 +110,7 @@ Some things missing at this point in time:
 
 #### Which languages are supported?
 
-The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese and Japanese. These translations are typically complete or only have a small number of terms missing.
+The user interface is currently available in: English, German, Chinese (Taiwan), Spanish, Ukrainian, Russian, Turkish, French, Italian, Vietnamese, Chinese, Icelandic, Greek, Portuguese, Japanese, Hebrew, Hungarian, Polish and Czech. These translations are typically complete or only have a small number of terms missing.
 
 We also have partial translations for a number of other languages (please see link to Transifex below for the current status). If the translation for your language is incomplete or missing, please feel free to request the language on Transifex and start translating. Any help in this area would be gratefully received. Please see [Vespucci's Transifex page](https://www.transifex.com/projects/p/vespucci/) to help.
 
