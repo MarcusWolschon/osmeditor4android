@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>開放街圖營業時間編輯器</h1><p>OpenStreetMap 營業時間規範相當複雜，並不易於一個簡單直觀的使用者介面。</p><p>然而大部分的時候，你應該只會用到一小部分的定議。編輯器嘗試在選單中隱藏更加模糊的功能，來達成這一點，大部分的時候減少路上設定，儘可能用預先設定的模版，加以小量修改。</p><p><em>這份文件是初步的並且正在進展</em></p><h2>使用營業時間編輯器</h2><p>在一般的工作流程中，你編輯的物件一般已經有開放時間的標籤 (opening_hour、service_times 和 colllection_times)，或是你可以重新設定物件的預設組合，用空白的開放時間欄位。如果你需要手動輸入欄位，像是用 Vespucci，你可以在詳情頁面輸入鍵值，之後切換回欄位頁籤繼續編輯。如果你相信開放時間標籤必須扅於預設組合的話，請在你的編輯器開啟 issue。</p><p>如果你已經定議預設的模板 (經由"管理模板"選單項目)，會在編輯器的空白數值自動載入。使用"載入模板"功能，你可以載入任何已經儲存的模板，然後用"儲存模板"選單你可以儲存目前的數值為模板。你可以定議不同的模板，預設"opening_hours"、"collection_times"和"service_times"標籤。</p><p>當然，您可以從頭開始構建營業時間的值，但我們建議使用現有的模板之一作為起點。</p><p>如果已經有營業時間的數值則會載入，另外會自動修正以符合營業時間規範。如果無法修正，則會在大概的位置顯示錯誤訊息，原始的營業時間數值，等待人工修正。開放街圖資料庫中有大約1/4的營業時間數值有問題，但只有少於10%的狀況是無法修正。詳見 <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a>，並且看有那些允許的規範變體。</p><h3>主選單按鈕</h3>
+<ul>
+  <li><strong>增加規則</strong>：增加一個新規則。</li>
+  <li><strong>增加假日規則</strong>：國家改變時，為假日增加新的規則。</li>
+  <li><strong>為 24/7 增加規則</strong>：為總是開放的物件增加規則，開放時間規範不支持任何其他子值為24/7，但我們允許增加更高階的選擇器 (例如年份範圍)。</li>
+  <li><strong>載入模板</strong>：載入先有的模板。</li>
+  <li><strong>儲存至模板</strong>：將現有的營業時間數值儲存為模板留待日後使用。</li>
+  <li><strong>管理模板</strong>：編輯（如變更名稱）或刪除現有模板</li>
+  <li><strong>重新整理</strong>：重新解析營業時間的數值。</li>
+</ul><h3>規則</h3><p>預設規則會依 <em>normal</em> rules 增加，意味將直接套用並且覆寫同一天原先規則的數值。這可能會為套用延伸時間規則帶來困擾，特別是你希望透過 <em>顯示規則類別</em> 選單 <em>追加</em> 轉換規則。</p><h4>規則選單</h4>
+<ul>
+  <li><strong>增加修飾符/註釋</strong>：更改此規則的效果並增加可選擇的註釋。</li>
+  <li><strong>增加假日</strong>：為公衆假期或學校假期增加選取器。</li>
+  <li><strong>增加時間跨度 ...</strong>
+  <ul>
+    <li><strong>時間 - 時間</strong>：同一天的開始時間到結束時間。</li>
+    <li><strong>時間 - 延長時間</strong>：開始時間跨到隔天的結束時間 (例如 26:00 是隔天的 02:00 (am))。</li>
+    <li><strong>變化時間 - 時間</strong>：從開始變化時間 (黎明，黃昏，日出和日落) 到同一天的結束時間。</li>
+    <li><strong>變化時間 - 延長時間</strong>：從第二天起始變化時間到隔天的結束時間。</li>
+    <li><strong>時間 - 變化時間</strong>：起啟時間到結束的變化時間</li>
+    <li><strong>變化時間 - 變化時間</strong>：從起始變化時間到結束變化時間。</li>
+    <li><strong>時間</strong>：特定的時間。</li>
+    <li><strong>時間-一直持續</strong>：從起始時間一直持續。</li>
+    <li><strong>變化時間</strong>：特定的變化時間</li>
+    <li><strong>變化時間 - 一直持續</strong>：從變化時間到一直持續</li>
+  </ul></li>
+  <li><strong>增加週間範圍</strong>：增加以週間為依據的選擇器。</li>
+  <li><strong>增加日期範圍...</strong>
+  <ul>
+    <li><strong>日期 - 日期</strong>：從開始日期 (年、月、日) 到結束日期。</li>
+    <li><strong>變化日期 - 日期</strong>：從起始變化日期 (目前規範僅定義_復活節_) 到結束日期。</li>
+    <li><strong>日期 - 變化日期</strong>：從開始日期到變化日期。</li>
+    <li><strong>變化日期 - 變化日期</strong>：從起始變化日期到結束變化日期。</li>
+    <li><strong>發生在月中-發生在月中</strong>：一個月中從開始的週間是相同的。</li>
+    <li><strong>發生在月中 - 日期</strong>：一個月中週間發生，到特定結束日期。</li>
+    <li><strong>日期 - 發生在月中</strong>：從開始日舒到一個月中的週間結束。</li>
+    <li><strong>發生在月中 - 變動日期</strong>：從一個月開始週間發生，到變動日期。</li>
+    <li><strong>變動日期 - 發生在月中</strong>：從開始的變動日期，到一個月中的週間。</li>
+    <li><strong>日期 - 開放結束</strong>：從開始日期起，</li>
+    <li><strong>日期變化 - 開端</strong>：從起始變化日期開始。</li>
+    <li><strong>發生在月中 - 一直持續</strong>：從一個月中開始週間發生。</li>
+    <li><strong>使用偏差量...</strong>：與上述相同的內容，但是指定了偏差量 (這很少使用)。</li>
+  </ul></li>
+  <li><strong>增加年範圍</strong>：增加以年為依據的選擇器。</li>
+  <li><strong>增加週範圍</strong>：增加以週為依據的選擇器。</li>
+  <li><strong>顯示規則類型</strong>：顯示並允許更改規則類型_正常_，_增加_和_倒退_(位於第一條規則中不可用)。</li>
+  <li><strong>向上移動</strong>：將此規則向上移動一個位置(位於第一條規則時不可用)。</li>
+  <li><strong>向下移動</strong>：將此規則向下移動一個位置。</li>
+  <li><strong>刪除</strong>：刪除此一規則。</li>
+</ul><h3>時間跨度</h3><p>要讓編輯時間刻度變得更簡單可行，我們嘗試選擇最佳時間範圍，加載現有值時範圍欄的刻度。對新的時間刻度來說，欄從6:00(am)開始，然後每15分鐘增加。上述的設定可以在選單更改。</p><h4>時間跨度選單</h4>
+<ul>
+  <li><strong>顯示時間選擇器</strong>：顯示相當大的數字選擇器，選擇開始和結束日期，在相當小的顯示，這是傾向的方式來改變時間。</li>
+  <li><strong>切換到15分鐘刻度</strong>：對範圍欄使用15分鐘刻度。</li>
+  <li><strong>切換到5分鐘刻度</strong>：對範圍欄使用5分鐘的刻度。</li>
+  <li><strong>切換到1分鐘刻度</strong>：對範圍欄使用1分鐘的刻度，很難在手機上使用。</li>
+  <li><strong>從午夜開始</strong>：午夜開始範圍欄。</li>
+  <li><strong>顯示間隔</strong>：顯示指定間隔（以分鐘為單位）的間隔字段。</li>
+  <li><strong>刪除</strong>：刪除此一時間跨度。</li>
+</ul>
+</body>
+</html>
