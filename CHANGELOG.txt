@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.0: Update imagery, translations, synonyms and default preset.
+
 11.0.0-10 Update OH fragment, update translations.
 
 11.0.0-9: Fix regression in preset search, make PresetFilter work with object keys defined in preset, add link to element on osm.org in info dialog and other improvements, fix highlighting of selected PresetElement when preset filter is active, make Task upload async, nicer icons for auto-presets, fix crash in Advanced Prefs on 2.6 devices, use https URLs as default, updated presets, imagery and translations.
