@@ -15,6 +15,7 @@ Thanks to:
   Julien Dodokal (Code, Czech, French, Russian translations)
   Kurt Toft (Danish translation)
   Marcus Wolschon (Code, German translation)
+  Mateusz Konieczny (Doc, Presets)
   Matthias Brandt (Code)
   Shu Higashi (Japanese translation)
   Simon Legner (German translation)
