@@ -49,6 +49,8 @@
   <string name="file_write_failed_title">כתיבת הקובץ נכשלה</string>
   <string name="file_write_failed_message">לא ניתן לכתוב לקובץ הנבחר.</string>
   <string name="welcome_title">ברוך בואך!</string>
+  <string name="welcome_message">תודה לך על השימוש בווספוצ׳י.\n\nכדי להתחיל עליך לדעת שני דברים:\n\n* ניתן לגעת בכפתור המנעול בפינה הימנית העליונה כדי להחליף בין מצב נעילה (אין עריכה) ומצב משוחרר\n\n* כדי להוסיף פריט חדש:נגיעה ארוכה, נגיעה באותו המקום פעמיים תוסיף הערה, יותר נגיעות תוספנה דרך.\n\nלא לשכוח להוריד את המקום שברצונך לערוך.\n\nכיף גדול!</string>
+  <string name="welcome_message_fullscreen">\n\nוספוצ׳י זיהה שיש לך מכשיר עם „מקשי תכנה” והסתיר אותם. משיכה כלפי מעלה מהשול התחתון תציג אותם שוב.</string>
   <string name="read_introduction">יש לקרוא את ההוראות כעת</string>
   <string name="upgrade_title">ברוך בואך לגרסה חדשה של וספוצ׳י</string>
   <string name="upgrade_message">זו גרסה חדשה של וספוצ׳י עם תכונות והתנהגות חדשים. עדיף לקרוא ברפרוף את מידע עדכון ההתקן.</string>
@@ -65,6 +67,7 @@
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
   <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
+  <string name="progress_query_oam">מתבצע תשאול מול OAM…</string>
   <string name="upload_comment_label">הערה:</string>
   <string name="upload_source_label">מקור:</string>
   <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
@@ -100,6 +103,7 @@
   <string name="imagery_offset_zoom">תקריב</string>
   <string name="imagery_offset_distance">מרחק</string>
   <string name="zoom_and_offset">Z %1$d היסט %2$s/%3$s</string>
+  <string name="set_position_datum_label">דאטום גאודטי</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">הצעת שם</string>
   <string name="tag_editor_name_suggestion_overwrite_message">הצעה זו יכולה להחליף ערכים של כמה מהתגיות בערכים נפוצים יותר.</string>
@@ -150,10 +154,15 @@
   <string name="js_console_msg_live">מצב חי!</string>
   <string name="js_console_msg_debug">מצב ניפוי שגיאות!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">ערכת כללי מאמת %1$s</string>
+  <string name="edit_resurvey_title">עריכת רשומת תשאול מחדש</string>
+  <string name="add_resurvey_title">הוספת רשומת תשאול מחדש</string>
   <string name="edit_check_title">עריכת רשומת בדיקה</string>
   <string name="add_check_title">הוספת רשומת בדיקה</string>
   <string name="max_age">גיל מרבי</string>
   <string name="age">גיל</string>
+  <string name="add_resurvey_entry">הוספת רשומת תשאול מחדש</string>
+  <string name="add_check_entry">הוספת רשומת בדיקה</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">יחס ריק</string>
   <string name="empty_relation_message">ביחס %1$s אין חברים.\n\nאם יישאר ככה לא תהיה אפשרות לערוך אותו בווספוצ׳י.</string>
@@ -161,6 +170,7 @@
   <string name="leave_empty">להשאיר ריק</string>
   <!--GPX way point dialog-->
   <string name="waypoint_title">נקודת דרך GPX</string>
+  <string name="waypoint_description">נק׳ דרך: %1$s</string>
   <string name="description">תיאור</string>
   <string name="created">נוצר</string>
   <string name="altitude">גובה</string>
@@ -168,6 +178,7 @@
   <string name="create_osm_object_search">יצירת פריט OSM מחיפוש ערכות מוגדרות</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">תמונת רקע בהתאמה אישית</string>
+  <string name="oam_layer_title">תמונות רקע OAM</string>
   <string name="edit_layer_title">עריכת רשומת שכבה</string>
   <string name="add_layer_title">הוספת רשומת שכבה</string>
   <string name="overlay">שכבה</string>
@@ -226,6 +237,7 @@
   <string name="toast_export_success">מיוצא אל %1$s</string>
   <string name="toast_preset_overwrote_tags">הערה - הערכה המוגדרת שכתבה תגית/תגיות</string>
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
+  <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיוון. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
   <string name="toast_merge_tag_conflict">מיזגת רכיבים עם ערכי תגיות סותרים, סמנטיקה תלוית כיוון או תפקידים שונים באותו היחס. נא לבדוק את התגיות והתפקידים ולתקן אם צריך.</string>
   <string name="toast_potential_merge_tag_conflict">בפעולה זו מתבצע ניסיון למזג רכיבים עם ערכי תגיות סותרים. נא לבדוק את התגיות ולתקן תחילה לפני ביצוע ניסיון חוזר.</string>
   <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
@@ -252,6 +264,8 @@
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">העריכה הזאת היא מחוץ לנתונים שהתקבלו.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
+  <string name="toast_imported_track_points">יובאו %1$d נקודות מסלול ו־%2$d נקודות דרך.</string>
+  <string name="toast_imported_track_points_single_way_point">יובאו %1$d נקודות מסלול ונקודת דרך אחת.</string>
   <string name="toast_unknown_voice_command">נכון לעכשיו, אין אפשרות לפענח את „%1$s”, עמך הסליחה.</string>
   <string name="toast_inconsistent_state">התגלו נתונים בלתי אחידים, נא לשלוח אלינו את דוח השגיאה!</string>
   <string name="toast_camera_error">שגיאה בהפעלת יישומון המצלמה: %1$s</string>
@@ -286,11 +300,14 @@
   <string name="toast_null_island">נא לא להוסיף רכיבים במיקום ‎0°/0° (אי האפס)</string>
   <string name="toast_string_too_long">המחרוזת ארוכה מדי (%1$d תווים), נחתכה!</string>
   <string name="toast_illegal_operation">פעולה בלתי חוקית: %1$s</string>
+  <string name="toast_preset_creation_failed">יצירת הערכה המוגדרת „%1$s” נכשלה עם: %2$s</string>
+  <string name="toast_imperial_units">חסרות יחידות אימפריאליות</string>
   <string name="toast_server_connection_failed">ההתחברות לשרת נכשלה עם: %1$s</string>
   <string name="toast_flus_all_caches">פעולה זו תפנה את כל מטמוני האריחים!</string>
   <string name="toast_applied_offset">חלה הסטה אוטומטית של תמונת הרקע</string>
   <string name="toast_unsupported_format">תבנית שאינה נתמכת: %1$s</string>
   <string name="toast_returning_less_than_found">מוחזרות %1$d מתוך %2$d רשומות שנמצאו</string>
+  <string name="toast_not_mbtiles">קובץ שאינו בתבנית MBTiles</string>
   <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
   <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">ה־GPS מושבת, המעקב הופסק</string>
@@ -331,6 +348,7 @@
   <string name="Key">מפתח</string>
   <string name="value">ערך</string>
   <string name="Value">ערך</string>
+  <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">הוספת תגיות כתובת</string>
   <string name="tag_menu_preset">ערכות מוגדרות</string>
   <string name="tag_menu_apply_preset">החלת ערכות מוגדרות</string>
@@ -399,6 +417,7 @@
   <string name="location_load_button">טעינה</string>
   <string name="location_load_dismiss">מעבר למפה</string>
   <string name="location_nan_title">קלט שגוי!</string>
+  <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
   <!--Menu-->
   <string name="menu_move">העברה</string>
   <string name="menu_edit">עריכה</string>
@@ -506,7 +525,9 @@
   <string name="menu_history">היסטוריה</string>
   <string name="menu_merge">צירוף</string>
   <string name="menu_reverse">היפוך</string>
+  <string name="notreversable_description">הדרך מתויגת עם מאפיינים תלויי כיוון ולא ניתן להפוך אותם. היפוך הדרך יפגום את התיוג.</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
+  <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל הצמתים או למחוק צמתים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
   <string name="deleteway_relation_description">פעולה זו תמחק דרך שחברה ביחס אחד או יותר. הסרת הדרך מהיחס/ים עשוי לגרום לה/הן לנזק.</string>
   <string name="deleteway_wayonly">למחוק דרך בלבד</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
@@ -584,6 +605,8 @@
   <string name="config_use_back_for_undo_summary">ניתן להשתמש בכפתור החזרה כדי לבטל בתצוגת העריכה הראשית</string>
   <string name="config_enableLightTheme_title">הפעלת ערכת עיצוב בהירה</string>
   <string name="config_enableLightTheme_summary">ערכת עיצוב בהירה עם רקעים לבנים</string>
+  <string name="config_splitActionBarEnabled_title">לאפשר סרגל פעולות מפוצל</string>
+  <string name="config_splitActionBarEnabled_summary">לאפשר סרגל פעולות מפוצל, השימוש הוא תלוי מכשיר. דורש הפעלה מחדש ו־Android בגרסה 4.0 ומעלה.</string>
   <string name="config_maxInlineValues_title">מספר מרבי של ערכים פנימיים</string>
   <string name="config_maxInlineValues_summary">מספר מרבי של ערכים פנימיים שמוצגים בתצורת תגיות</string>
   <string name="config_maxInlineValues_current">%1$d ערכים</string>
@@ -597,6 +620,7 @@
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">הגדרות נתונים ועריכה</string>
+  <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
   <string name="config_forceContextMenu_title">תמיד להשתמש בתפריט הקשר</string>
   <string name="config_forceContextMenu_summary">תמיד להציג את תפריט ההקשר עם הבחירה אינה חד משמעית.</string>
   <string name="config_address_tags">תגיות כתובת</string>
@@ -617,6 +641,7 @@
   <string name="config_extTriggeredDownloadRadius_summary">רדיוס במטרים של הורדות בקריאה חיצונית, 0 = מירכוז במפה בלבד.</string>
   <string name="config_downloadRadius_current">%1$d מטרים</string>
   <string name="config_maxDownloadSpeed_title">מהירות מרבית להורדה אוטומטית</string>
+  <string name="config_maxDownloadSpeed_summary">הגבלה (בקמ״ש) שמתחתיה ההורדה האוטומטית מושהית</string>
   <string name="config_downloadSpeed_current">%1$d קמ״ש</string>
   <string name="config_bugFilter_title">מסנן להערות/תקלות</string>
   <string name="config_bugFilter_summary">נא לבחור אילו רכיבים מוצרים בשכבת ההערות/תקלות</string>
@@ -626,6 +651,8 @@
   <string name="config_maxBugDownloadSpeed_summary">הגבלה (בקמ״ש) שמעליה הורדה אוטומטית של הערות/תקלות מושהית</string>
   <string name="config_closeChangesetOnSave_title">סגירת ערכת שינויים</string>
   <string name="config_closeChangesetOnSave_summary">סגירת ערכות שינויים כבררת מחדל עם שמירה</string>
+  <string name="config_enableAutoPresets_title">הפעלת יצירה אוטומטית של ערכות מוגדרות</string>
+  <string name="config_enableAutoPresets_summary">לאפשר יצירה אוטומטית של ערכות מוגדרות מפרטי תגיות</string>
   <!--Location Settings-->
   <string name="config_category_gps">הגדרות מיקום</string>
   <string name="config_category_gps_summary">משתנים של GPS וספקי מיקום אחרים.</string>
@@ -649,6 +676,7 @@
   <string name="config_apibutton_title">כתובת ה־API של OSM</string>
   <string name="config_apibutton_summary">כאן ניתן להגדיר כתובת API שונה מהרגיל. בדרך כלל אין סיבה לשנות זאת!</string>
   <string name="config_loginbutton_title">חשבון משתמש</string>
+  <string name="config_username_summary">נדרשות הגדרות להעלאת נתוני OSM רק אם לא השתמשת ב־OAuth. חשבונות זמינים תחת http://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">שרת היסט</string>
   <string name="config_offsetServer_summary">כתובת שרת היסט תמונת רקע</string>
   <string name="config_osmoseServer_title">שרת OSMOSE</string>
@@ -658,6 +686,7 @@
   <string name="config_category_layers_summary">הורדה ואחסון של תמונות רקע מחולקות לאריחים</string>
   <string name="config_maxTileDownloadThreads_title">מספר תהליכי ההורדה המרבי</string>
   <string name="config_maxTileDownloadThreads_summary">המספר המרבי של תהליכים הורדה לטובת הורדת אריחים</string>
+  <string name="config_downLoadThreads_current">%1$d תהליכים</string>
   <string name="config_tileCacheSize_title">גודל מטמון האריחים</string>
   <string name="config_tileCacheSize_summary">גודל מטמון האריחים הכולל במ״ב</string>
   <string name="config_tileCache_current">%1$d מ״ב</string>
@@ -688,6 +717,7 @@
   <string name="preset_download_successful">הערכה המוגדרת התקבלה בהצלחה</string>
   <string name="preset_download_failed">לא ניתן להוריד את קובץ הערכה המוגדרת. הערכה המוגדרת לא תעבוד.</string>
   <string name="preset_download_parse_failed">הערכה המוגדרת שגויה והיא לא תפעל.</string>
+  <string name="preset_download_missing_images">קובץ הערכה המוגדרת התקבל בהצלחה. עם זאת, הורדת חלק מהסמלים נכשלה והם יחסרו.</string>
   <string name="preset_download_title">מוריד ערכות מוגדרות</string>
   <!--changes-->
   <string name="changes_deleted">„%1$s” נמחקה</string>
@@ -772,6 +802,7 @@
   <string name="alert_data_issue">התגלתה תקלת נתוני OSM</string>
   <string name="alert_note">התגלתה הערת OSM בקרבת מקום</string>
   <string name="alert_bug">התגלתה תקלת OSM בקרבת מקום</string>
+  <string name="alert_distance_direction">בעוד %1$d מ׳ %2$s</string>
   <string name="bearing_ne">צפ-מז</string>
   <string name="bearing_e">מז</string>
   <string name="bearing_se">דר-מז</string>
@@ -803,6 +834,18 @@
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה!</string>
   <!--Arrays-->
+  <string-array name="gpx_visibility">
+    <item>פרטי</item>
+    <item>ציבורי</item>
+    <item>פתוח למעקב</item>
+    <item>פתוח לזיהוי</item>
+  </string-array>
+  <string-array name="gps_source">
+    <item>פנימי</item>
+    <item>NMEA פנימי</item>
+    <item>NMEA מלקוח TCP</item>
+    <item>NMEA משרת TCP</item>
+  </string-array>
   <string-array name="note_state">
     <item>פתוח</item>
     <item>סגור</item>

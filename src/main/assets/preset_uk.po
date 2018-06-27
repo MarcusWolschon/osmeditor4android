@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-06-26 14:19+0000\n"
+"Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1137,7 +1137,7 @@ msgstr ""
 
 #: master_preset.xml:7239(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Кабіна"
 
 #: master_preset.xml:2286(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -3009,7 +3009,7 @@ msgstr ""
 
 #: master_preset.xml:6815(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "Вогнегасник"
 
 #: master_preset.xml:6830(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
@@ -3039,7 +3039,7 @@ msgstr ""
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "Аптечка"
 
 #: master_preset.xml:12607(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -5981,7 +5981,7 @@ msgstr ""
 #: master_preset.xml:11199(group:name|group:Other)
 #: master_preset.xml:4153(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
 msgid "Other"
-msgstr ""
+msgstr "Інший"
 
 #: master_preset.xml:5324(item:name|group:Tourism|preset:Other_Information_Point)
 msgid "Other Information Point"
@@ -6877,7 +6877,7 @@ msgstr ""
 
 #: master_preset.xml:6915(combo:text|group:Emergency|preset:Siren|key:siren:purpose)
 msgid "Purpose"
-msgstr ""
+msgstr "Призначення"
 
 #: master_preset.xml:12311(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7941,7 +7941,7 @@ msgstr ""
 
 #: master_preset.xml:6904(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "Сирена"
 
 #: master_preset.xml:13152(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13230(item:name|group:Relations|preset:Site)
