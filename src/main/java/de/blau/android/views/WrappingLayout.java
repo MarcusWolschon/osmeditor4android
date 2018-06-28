@@ -278,6 +278,7 @@ public class WrappingLayout extends LinearLayout {
             inner.setOrientation(LinearLayout.HORIZONTAL);
             // not only For new rows, set margin
             innerLayoutParams.topMargin = vspace;
+            inner.setSaveEnabled(container.isSaveEnabled());
             container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams) innerLayoutParams));
 
             if (availableSpace == 0) {
@@ -298,16 +299,19 @@ public class WrappingLayout extends LinearLayout {
                     inner = new LinearLayout(context);
                     inner.setOrientation(LinearLayout.HORIZONTAL);
                     inner.setGravity(rowGravity);
+                    inner.setSaveEnabled(container.isSaveEnabled());
                     container.addView(inner, new LayoutParams((android.view.ViewGroup.MarginLayoutParams) innerLayoutParams));
                     usedSpace = 0;
                 }
                 // adding to current row
                 // add horizontal spacing if necessary
                 if (hspace > 0) {
+                    SpacerView spacer = new SpacerView(context, hspace, 0);
+                    spacer.setSaveEnabled(container.isSaveEnabled());
                     if (rightToLeft) {
-                        inner.addView(new SpacerView(context, hspace, 0), 0);
+                        inner.addView(spacer, 0);
                     } else {
-                        inner.addView(new SpacerView(context, hspace, 0));
+                        inner.addView(spacer);
                     }
                     usedSpace += hspace;
                 }

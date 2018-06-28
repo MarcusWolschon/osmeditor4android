@@ -553,7 +553,7 @@ public class Preset implements Serializable {
             return new PresetIconManager(ctx, null, null);
         }
     }
-    
+
     /**
      * Set the icon manager
      * 
@@ -1465,7 +1465,7 @@ public class Preset implements Serializable {
                         && !(filteredElements.get(filteredElements.size() - 1) instanceof PresetSeparator)) {
                     // add separators if there is a non-separator element above them
                     filteredElements.add(e);
-                } 
+                }
             }
         }
         return filteredElements;
@@ -1686,6 +1686,7 @@ public class Preset implements Serializable {
             v.setWidth((int) (72 * density));
             v.setHeight((int) (72 * density));
             v.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+            v.setSaveEnabled(false);
             return v;
         }
 
@@ -1897,7 +1898,8 @@ public class Preset implements Serializable {
             v.setMinimumWidth(99999); // for WrappingLayout
             // this seems to be necessary to work around
             // https://issuetracker.google.com/issues/37003658
-            v.setLayoutParams(new LinearLayout.LayoutParams(99999, 1));            
+            v.setLayoutParams(new LinearLayout.LayoutParams(99999, 1));
+            v.setSaveEnabled(false);
             return v;
         }
 
@@ -2014,6 +2016,7 @@ public class Preset implements Serializable {
                 @Nullable PresetElement selectedElement) {
             ScrollView scrollView = new ScrollView(ctx);
             scrollView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            scrollView.setSaveEnabled(false);
             return getGroupView(ctx, scrollView, handler, type, selectedElement);
         }
 
@@ -2031,6 +2034,7 @@ public class Preset implements Serializable {
                 @Nullable PresetElement selectedElement) {
             scrollView.removeAllViews();
             WrappingLayout wrappingLayout = new WrappingLayout(ctx);
+            wrappingLayout.setSaveEnabled(false);
             float density = ctx.getResources().getDisplayMetrics().density;
             // wrappingLayout.setBackgroundColor(ctx.getResources().getColor(android.R.color.white));
             wrappingLayout.setBackgroundColor(ContextCompat.getColor(ctx, android.R.color.transparent)); // make
@@ -3617,7 +3621,7 @@ public class Preset implements Serializable {
     public List<String> getObjectKeys() {
         return objectKeys;
     }
-    
+
     /**
      * Add more object keys to the preset
      * 

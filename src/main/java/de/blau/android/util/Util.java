@@ -23,6 +23,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -590,5 +592,19 @@ public class Util {
         drawable.draw(canvas);
 
         return bitmap;
+    }
+
+    /**
+     * Get the size of a bundle in bytes
+     * 
+     * @param bundle the Bundle 
+     * @return the size in bytes
+     */
+    public static int getBundleSize(Bundle bundle) {
+        Parcel parcel = Parcel.obtain();
+        parcel.writeBundle(bundle);
+        int size = parcel.dataSize();
+        parcel.recycle();
+        return size;
     }
 }

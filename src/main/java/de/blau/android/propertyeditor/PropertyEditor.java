@@ -227,11 +227,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-            loadData = PropertyEditorData.deserializeArray(getIntent().getSerializableExtra(TAGEDIT_DATA));
+            loadData = PropertyEditorData.deserializeArray(savedInstanceState.getSerializable(TAGEDIT_DATA));
             currentItem = savedInstanceState.getInt(CURRENTITEM, -1);
             usePaneLayout = savedInstanceState.getBoolean(PANELAYOUT); // FIXME this disables layout changes on
                                                                        // restarting
-
             Logic logic = App.newLogic(); //
             StorageDelegator delegator = App.getDelegator();
             if (!delegator.isDirty() && delegator.isEmpty()) { // this can mean: need to load state
@@ -869,12 +868,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      */
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
-        Log.d(DEBUG_TAG, "onSaveInstaceState");
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
-        // no call through. We restore our state from scratch, auto-restore messes up the already loaded edit fields.
-        // outState.putSerializable(TAGEDIT_DATA, new PropertyEditorData(osmId, type,
-        // tagEditorFragment.getKeyValueMap(true), originalTags, relationMembershipFragment.getParentRelationMap(),
-        // originalParents, relationMembersFragment.getMembersList(), originalMembers));
+        Log.d(DEBUG_TAG, "bundle size: " + Util.getBundleSize(outState));
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
     }
@@ -895,6 +891,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         super.onPause();
     }
 
+    @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onRestoreInstanceState");
         super.onRestoreInstanceState(savedInstanceState);
