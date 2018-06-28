@@ -165,6 +165,13 @@ public class TileLayerServer {
                 bbox = new BoundingBox(left, bottom, right, top);
             }
 
+            /**
+             * Construct a new instance from zooms and BoundingBox
+             * 
+             * @param zoomMin minimum zoom
+             * @param zoomMax  maximum zoom
+             * @param bbox the BoundingBox or null
+             */
             public CoverageArea(int zoomMin, int zoomMax, @Nullable BoundingBox bbox) {
                 this.zoomMin = zoomMin;
                 this.zoomMax = zoomMax;
@@ -182,22 +189,51 @@ public class TileLayerServer {
                 return (zoom >= zoomMin && zoom <= zoomMax && (this.bbox == null || this.bbox.intersects(area)));
             }
 
+            /**
+             * Check if this CoverageArea intersects with a BoundingBox
+             * 
+             * @param area the BoundingBox
+             * @return true in the coverages intersect
+             */
             public boolean covers(@NonNull BoundingBox area) {
                 return this.bbox == null || this.bbox.intersects(area);
             }
 
+            /**
+             * Check if a coordinate is covered
+             * 
+             * @param lon WGS84 longitude
+             * @param lat WGS84 latitude
+             * @return true if this CoverageArea covers the location
+             */
             public boolean covers(double lon, double lat) {
                 return this.bbox == null || this.bbox.isIn((int) (lon * 1E7d), (int) (lat * 1E7d));
             }
 
+            /**
+             * Get the minimum zoom for this area
+             * 
+             * @return the minimum zoom
+             */
             public int getMinZoomLevel() {
                 return zoomMin;
             }
 
+            /**
+             * Get the maximum zoom for this area
+             * 
+             * @return the maximum zoom
+             */
             public int getMaxZoomLevel() {
                 return zoomMax;
             }
 
+            /**
+             * Get the BoundingBox of this CoverageArea
+             * 
+             * @return a BoundingBox or null if non set
+             */
+            @Nullable
             public BoundingBox getBoundingBox() {
                 return bbox;
             }
@@ -309,7 +345,13 @@ public class TileLayerServer {
             return false;
         }
 
-        public int getZoom(BoundingBox area) {
+        /**
+         * Get the maximum zoom for this Provider in the provided BoundingBox
+         * 
+         * @param area the BoundingBox
+         * @return the maximum zoom
+         */
+        public int getZoom(@NonNull BoundingBox area) {
             if (coverageAreas.isEmpty()) {
                 return -1;
             }
@@ -1401,11 +1443,22 @@ public class TileLayerServer {
         }
     }
 
+    /**
+     * Get the current Offsets for this layer
+     * 
+     * @return an array of Offsets
+     */
+    @NonNull
     public Offset[] getOffsets() {
         return offsets;
     }
 
-    public void setOffsets(Offset[] offsets) {
+    /**
+     * Set the Offsets for this layer
+     * 
+     * @param offsets an array of Offset to set
+     */
+    public void setOffsets(@NonNull Offset[] offsets) {
         this.offsets = offsets;
     }
 
@@ -1440,7 +1493,7 @@ public class TileLayerServer {
     /**
      * Return a sorted list of tile servers
      * 
-     * Takes the preference and end date in to account
+     * Takes the preference, end date and relative coverage area size in to account
      * 
      * @param filtered if true only return those layers with a coverage area that overlaps with the supplied bounding
      *            box
@@ -1466,8 +1519,7 @@ public class TileLayerServer {
             // add the rest now
             list.add(osmts);
         }
-        // sort according to preference, end date and default layer flag in the future we might take bb size in to
-        // account
+        // sort according to preference, end date and default layer flag, bb size and name
         Collections.sort(list, new Comparator<TileLayerServer>() {
             @Override
             public int compare(TileLayerServer t1, TileLayerServer t2) {
@@ -1476,11 +1528,19 @@ public class TileLayerServer {
                 } else if (t1.preference > t2.preference) {
                     return -1;
                 }
-                if (t1.endDate == t2.endDate || (t1.endDate < 0 && t2.endDate < 0)) {
+                if (t1.endDate == t2.endDate || (t1.endDate < 0 && t2.endDate < 0) || (t1.startDate < 0 && t1.endDate < 0)
+                        || (t2.startDate < 0 && t2.endDate < 0)) {
                     if (t1.defaultLayer != t2.defaultLayer) {
                         return t2.defaultLayer ? 1 : -1;
                     }
-                    return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
+                    double t1Size = coverageSize(t1.getCoverage());
+                    double t2Size = coverageSize(t2.getCoverage());
+                    if (t1Size != t2Size) {
+                        Log.d(DEBUG_TAG, "sorting on bbox size t1 " + t1Size + " t2 " + t2Size + " (" + t1.getName() + " / " + t2.getName() + ")");
+                        return t1Size < t2Size ? -1 : 1;
+                    } else {
+                        return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
+                    }
                 } else {
                     // assumption no end date == ongoing
                     return t1.endDate > 0 && (t1.endDate < t2.endDate || t2.endDate < 0) ? 1 : -1;
@@ -1492,6 +1552,30 @@ public class TileLayerServer {
             list.add(0, noneLayer);
         }
         return list;
+    }
+
+    /**
+     * Calculate the coverage size in WGS84 degrees^2
+     * 
+     * @param areas List of ConverageAreas
+     * @return an approximate size value in WGS84 degrees^2
+     */
+    private static double coverageSize(List<CoverageArea> areas) {
+        double result = GeoMath.MAX_LON * GeoMath.MAX_LAT * 4;
+        boolean firstNonEmpty = true;
+        if (areas != null) {
+            for (CoverageArea area : areas) {
+                BoundingBox box = area.getBoundingBox();
+                if (box != null) {
+                    if (firstNonEmpty) {
+                        result = 0;
+                        firstNonEmpty = false;
+                    }
+                    result = +box.getWidth() / 1E7D * box.getHeight() / 1E7D;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -1995,7 +2079,12 @@ public class TileLayerServer {
         }
     }
 
-    public static void setBlacklist(List<String> bl) {
+    /**
+     * Set the imagery black list
+     * 
+     * @param bl a List of Strings containing regexps
+     */
+    public static void setBlacklist(@Nullable List<String> bl) {
         imageryBlacklist = bl;
     }
 
@@ -2065,6 +2154,11 @@ public class TileLayerServer {
         this.overlay = overlay;
     }
 
+    /**
+     * Get the default flag
+     * 
+     * @return true if the default layer flag is set
+     */
     public boolean isDefaultLayer() {
         return defaultLayer;
     }

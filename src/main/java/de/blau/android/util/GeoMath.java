@@ -23,6 +23,9 @@ public class GeoMath {
 
     private static final double PI_2 = Math.PI / 2d;
 
+    /**
+     * Maximum latitude value that can still be projected to web mercator
+     */
     public static final double MAX_LAT    = Math.toDegrees(Math.atan(Math.sinh(Math.PI)));
     public static final int    MAX_LAT_E7 = (int) (MAX_LAT * 1E7);
 
