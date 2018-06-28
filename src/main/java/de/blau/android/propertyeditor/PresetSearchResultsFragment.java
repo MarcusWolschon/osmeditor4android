@@ -1,11 +1,13 @@
 package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -29,6 +31,8 @@ import de.blau.android.util.ThemeUtils;
 
 public class PresetSearchResultsFragment extends DialogFragment {
 
+    private static final String SEARCH_RESULTS_KEY = "searchResults";
+
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 
     private OnPresetSelectedListener mOnPresetSelectedListener;
@@ -43,7 +47,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("searchResults", searchResults);
+        args.putSerializable(SEARCH_RESULTS_KEY, searchResults);
         f.setArguments(args);
         // f.setShowsDialog(true);
 
@@ -79,7 +83,13 @@ public class PresetSearchResultsFragment extends DialogFragment {
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view, null);
 
-        presets = (ArrayList<PresetElement>) getArguments().getSerializable("searchResults");
+        presets = (ArrayList<PresetElement>) getArguments().getSerializable(SEARCH_RESULTS_KEY);
+        /*
+         * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit and
+         * cause a android.os.TransactionTooLargeException Removing it doesn't seem to have direct negative
+         * consequences, worst case the dialog would be recreated empty.
+         */
+        getArguments().remove(SEARCH_RESULTS_KEY);
 
         View v = getResultsView(presetsLayout, presets);
 
@@ -89,7 +99,15 @@ public class PresetSearchResultsFragment extends DialogFragment {
         return builder.create();
     }
 
-    private View getResultsView(final LinearLayout presetLayout, final ArrayList<PresetElement> presets) {
+    /**
+     * Create the View holding the search results
+     * 
+     * @param presetLayout our Layout
+     * @param presets a List of PresetElements to display
+     * @return the View or null
+     */
+    @Nullable
+    private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets) {
         View v = null;
         if (presets != null && !presets.isEmpty()) {
 
@@ -194,8 +212,9 @@ public class PresetSearchResultsFragment extends DialogFragment {
     /**
      * Return the view we have our rows in and work around some android craziness
      * 
-     * @return
+     * @return the View holding our content or null 
      */
+    @Nullable
     public View getOurView() {
         // android.support.v4.app.NoSaveStateFrameLayout
         View v = getView();
