@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-11.0.0: Update imagery, translations, synonyms and default preset.
+11.0.0: Update imagery, translations, synonyms and default preset, workaround crash when displaying preset search results and switching applications.
 
 11.0.0-10 Update OH fragment, update translations.
 
