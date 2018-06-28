@@ -769,7 +769,7 @@ public class TileLayerServer {
      * @return the string or null if it couldb't be found
      */
     @Nullable
-    static String getJosnString(@NonNull JsonObject jsonObject, @NonNull String name) {
+    static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null) {
             return field.getAsString();
@@ -784,7 +784,7 @@ public class TileLayerServer {
      * @param name the name of the boolean we want to retrieve
      * @return the value or false if it couldb't be found
      */
-    static boolean getJosnBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
+    static boolean getJsonBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
         if (field != null) {
             return field.getAsBoolean();
@@ -800,7 +800,7 @@ public class TileLayerServer {
      * @param defaultValue the value to use if the int couldn't be found
      * @return the value or defaltValue if it couldb't be found
      */
-    static int getJosnInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
+    static int getJsonInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
         JsonElement field = jsonObject.get(name);
         if (field != null) {
             return field.getAsInt();
@@ -828,8 +828,8 @@ public class TileLayerServer {
             JsonObject properties = f.getProperties();
 
             List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f);
-            int minZoom = getJosnInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
-            int maxZoom = getJosnInteger(properties, "max_zoom", DEFAULT_MAX_ZOOM);
+            int minZoom = getJsonInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
+            int maxZoom = getJsonInteger(properties, "max_zoom", DEFAULT_MAX_ZOOM);
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
                 provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, null));
@@ -839,28 +839,28 @@ public class TileLayerServer {
                 }
             }
 
-            String type = getJosnString(properties, "type");
-            String id = getJosnString(properties, "id");
-            String url = getJosnString(properties, "url");
-            String name = getJosnString(properties, "name");
-            boolean overlay = getJosnBoolean(properties, "overlay");
-            boolean defaultLayer = getJosnBoolean(properties, "default");
-            int preference = getJosnBoolean(properties, "best") ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
+            String type = getJsonString(properties, "type");
+            String id = getJsonString(properties, "id");
+            String url = getJsonString(properties, "url");
+            String name = getJsonString(properties, "name");
+            boolean overlay = getJsonBoolean(properties, "overlay");
+            boolean defaultLayer = getJsonBoolean(properties, "default");
+            int preference = getJsonBoolean(properties, "best") ? PREFERENCE_BEST : PREFERENCE_DEFAULT;
 
             JsonObject attribution = (JsonObject) properties.get("attribution");
             String termsOfUseUrl = null;
             if (attribution != null) {
-                termsOfUseUrl = getJosnString(attribution, "url");
-                provider.setAttribution(getJosnString(attribution, "text"));
+                termsOfUseUrl = getJsonString(attribution, "url");
+                provider.setAttribution(getJsonString(attribution, "text"));
             }
-            String icon = getJosnString(properties, "icon");
+            String icon = getJsonString(properties, "icon");
             long startDate = -1L;
             long endDate = -1L;
-            String dateString = getJosnString(properties, "start_date");
+            String dateString = getJsonString(properties, "start_date");
             if (dateString != null) {
                 startDate = dateStringToTime(dateString);
             }
-            dateString = getJosnString(properties, "end_date");
+            dateString = getJsonString(properties, "end_date");
             if (dateString != null) {
                 endDate = dateStringToTime(dateString);
             }
