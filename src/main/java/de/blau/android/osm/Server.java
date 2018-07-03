@@ -205,7 +205,7 @@ public class Server {
         xmlParserFactory = factory;
 
         // initialize list of redundant tags
-        discardedTags = new DiscardedTags(context);
+        discardedTags = App.getDiscardedTags(context);
     }
 
     /**

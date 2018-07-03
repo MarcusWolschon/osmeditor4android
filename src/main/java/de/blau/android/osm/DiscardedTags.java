@@ -11,6 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.util.SavingHelper;
 
@@ -20,17 +21,19 @@ import de.blau.android.util.SavingHelper;
  * @author simon
  *
  */
-class DiscardedTags {
+public class DiscardedTags {
 
-    static final String DEBUG_TAG = "DiscardedTags";
+    private static final String DEBUG_TAG = "DiscardedTags";
 
     private HashSet<String> redundantTags = new HashSet<>();
 
     /**
      * Implicit assumption that the list will be short and that it is OK to read in synchronously
+     * 
+     * @param context Android Context
      */
-    DiscardedTags(Context context) {
-        Log.d("DiscardedTags", "Parsing configuration file");
+    public DiscardedTags(@NonNull Context context) {
+        Log.d(DEBUG_TAG, "Parsing configuration file");
 
         AssetManager assetManager = context.getAssets();
 
@@ -45,7 +48,7 @@ class DiscardedTags {
                     redundantTags.add(reader.nextString());
                 }
                 reader.endArray();
-                Log.d("DiscardedTags", "Found " + redundantTags.size() + " tags.");
+                Log.d(DEBUG_TAG, "Found " + redundantTags.size() + " tags.");
             } catch (IOException e) {
                 Log.d(DEBUG_TAG, "Reading discarded.json " + e.getMessage());
             }
@@ -58,29 +61,49 @@ class DiscardedTags {
     }
 
     /**
-     * Remove the redundant tags from element. Notes: - element already has the modified flag set if not, something went
-     * wrong and we skip - this does not create a checkpoint and assumes that we will never want to undo this
+     * Remove the redundant tags from element.
      * 
-     * @param element
+     * Notes:
+     * 
+     * - element already has the modified flag set if not, something went wrong and we skip
+     * 
+     * - this does not create a checkpoint and assumes that we will never want to undo this
+     * 
+     * @param element the OsmElement we want to remove the tags from
      */
-    void remove(OsmElement element) {
+    void remove(@NonNull OsmElement element) {
         if (element.isUnchanged()) {
-            Log.e("DiscardedTags", "Presented with unmodified element");
+            Log.e(DEBUG_TAG, "Presented with unmodified element");
             return;
         }
         boolean modified = false;
         SortedMap<String, String> newTags = new TreeMap<>();
         for (String key : element.getTags().keySet()) {
-            Log.d("DiscardedTags", "Checking " + key);
+            Log.d(DEBUG_TAG, "Checking " + key);
             if (!redundantTags.contains(key)) {
                 newTags.put(key, element.getTags().get(key));
             } else {
-                Log.d("DiscardedTags", " delete");
+                Log.d(DEBUG_TAG, " delete");
                 modified = true;
             }
         }
         if (modified) {
             element.setTags(newTags);
         }
+    }
+
+    /**
+     * Check if the element has only tags that would be disarded
+     * 
+     * @param element the OsmElement to check
+     * @return true if only automatically removable tags are present
+     */
+    public boolean only(@NonNull OsmElement element) {
+        for (String key : element.getTags().keySet()) {
+            if (!redundantTags.contains(key)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

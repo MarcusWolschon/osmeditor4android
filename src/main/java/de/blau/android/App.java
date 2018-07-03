@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import de.blau.android.names.Names;
 import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.net.UserAgentInterceptor;
+import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -83,6 +84,12 @@ public class App extends android.app.Application {
      */
     private static GeoContext   geoContext     = null;
     private static final Object geoContextLock = new Object();
+
+    /**
+     * Various tags that should automatically be removed from objects
+     */
+    private static DiscardedTags discardedTags     = null;
+    private static final Object  discardedTagsLock = new Object();
 
     /**
      * Cache of recent notifications for tasks
@@ -305,6 +312,22 @@ public class App extends android.app.Application {
     @Nullable
     public static GeoContext getGeoContext() {
         return geoContext;
+    }
+
+    /**
+     * Get the GeoContext object
+     * 
+     * @param ctx Android Context
+     * @return the current GeoContext object
+     */
+    @NonNull
+    public static DiscardedTags getDiscardedTags(@NonNull Context ctx) {
+        synchronized (discardedTagsLock) {
+            if (discardedTags == null) {
+                discardedTags = new DiscardedTags(ctx);
+            }
+        }
+        return discardedTags;
     }
 
     /**

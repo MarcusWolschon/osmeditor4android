@@ -66,6 +66,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -1606,7 +1607,8 @@ public class Logic {
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param way the way to be deleted
-     * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too
+     * @param deleteOrphanNodes if true, way nodes that have no tags and are in no other ways will be deleted too, if
+     *            activity is not null tags that would be discarded are ignored too
      * @param createCheckpoint if true create an undo checkpoint
      */
     public synchronized void performEraseWay(@Nullable final FragmentActivity activity, @NonNull final Way way, final boolean deleteOrphanNodes,
@@ -1618,9 +1620,11 @@ public class Logic {
         HashSet<Node> nodes = deleteOrphanNodes ? new HashSet<>(way.getNodes()) : null; // HashSet guarantees uniqueness
         getDelegator().removeWay(way);
         if (deleteOrphanNodes) {
+            DiscardedTags discardedTags = activity != null ? App.getDiscardedTags(activity) : null;
             for (Node node : nodes) {
-                if (getWaysForNode(node).isEmpty() && node.getTags().isEmpty())
+                if (getWaysForNode(node).isEmpty() && (node.getTags().isEmpty() || (discardedTags != null && discardedTags.only(node)))) {
                     getDelegator().removeNode(node);
+                }
             }
         }
         invalidateMap();
@@ -2568,7 +2572,8 @@ public class Logic {
 
         try {
             return loader.get(20, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the
+                                                                                   // thread in question
             loader.cancel(true);
             return null;
         }
@@ -2664,7 +2669,8 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
+                                                                                       // the thread in question
                 loader.cancel(true);
                 return -1;
             }
@@ -2793,7 +2799,8 @@ public class Logic {
         if (postLoadHandler == null) {
             try {
                 return loader.get(20, TimeUnit.SECONDS);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+            } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt
+                                                                                       // the thread in question
                 loader.cancel(true);
                 return -1;
             }
