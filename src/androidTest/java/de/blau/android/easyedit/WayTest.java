@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +93,7 @@ public class WayTest {
     }
 
     /**
-     * Select, show info dialog, delete, undelete
+     * Select, show info dialog, delete (check that nodes are deleted), undelete
      */
     @Test
     public void selectWay() {
@@ -105,6 +106,18 @@ public class WayTest {
         List<Node>origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
+        // add some tags to way nodes so that we can check if they get deleted properly
+        Node shouldBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
+        Assert.assertNotNull(shouldBeDeleted1);
+        java.util.Map<String,String> tags = new HashMap<>();
+        tags.put("created_by", "vespucci test");
+        logic.setTags(main, shouldBeDeleted1, tags);
+        Node shouldntBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762224L);
+        Assert.assertNotNull(shouldntBeDeleted1);
+        tags = new HashMap<>();
+        tags.put("shop", "vespucci test");
+        logic.setTags(main, shouldntBeDeleted1, tags);
+        //
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton());
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true));
@@ -114,6 +127,13 @@ public class WayTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.delete), true));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.deleteway_wayandnodes), true));
         Assert.assertEquals(OsmElement.STATE_DELETED, way.getState());
+        Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted1.getState());
+        Node shouldBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762221);
+        Assert.assertEquals(OsmElement.STATE_DELETED, shouldBeDeleted2.getState());
+        Assert.assertEquals(OsmElement.STATE_MODIFIED, shouldntBeDeleted1.getState());
+        Node shouldntBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766174);
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
+        // undo
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         Assert.assertTrue(way.hasParentRelation(6490362L));
