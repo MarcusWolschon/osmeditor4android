@@ -34,7 +34,7 @@ import de.blau.android.validation.Validator;
 import okhttp3.OkHttpClient;
 
 @AcraCore(resReportSendSuccessToast = R.string.report_success, resReportSendFailureToast = R.string.report_failure)
-@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "http://acralyzer.vespucci.io/acraproxy")
+@AcraHttpSender(httpMethod = HttpSender.Method.POST, uri = "https://acralyzer.vespucci.io/acraproxy")
 @AcraDialog(resText = R.string.crash_dialog_text, resCommentPrompt = R.string.crash_dialog_comment_prompt, resTheme = R.style.Theme_AppCompat_Light_Dialog)
 
 public class App extends android.app.Application {
