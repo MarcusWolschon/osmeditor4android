@@ -803,9 +803,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             } else if (Tags.isSpeedKey(key)) {
                 // check if we have localized maxspeed values
                 Properties prop = App.getGeoContext(getContext()).getProperties(propertyEditorListener.getIsoCodes());
-                String[] speedLimits = prop.getSpeedLimits();
-                if (speedLimits != null) {
-                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                if (prop != null) {
+                    String[] speedLimits = prop.getSpeedLimits();
+                    if (speedLimits != null) {
+                        adapter = new ArrayAdapter<String>(getActivity(), R.layout.autocomplete_row, speedLimits);
+                    }
                 }
             } else {
                 Map<String, Integer> counter = new HashMap<>();
