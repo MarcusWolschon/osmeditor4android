@@ -709,34 +709,37 @@ public class Logic {
     }
 
     /**
-     * Return all the Relations the OsmElements are a member of
+     * Return all the Relations the OsmElements are a member of and parent relations
      * 
      * @param elements the OsmELements to check
      * @return a List of OsmElement
      */
-    private List<OsmElement> getParentRelations(ArrayList<OsmElement> elements) {
-        ArrayList<OsmElement> relations = new ArrayList<>();
+    @NonNull
+    private List<Relation> getParentRelations(@NonNull List<OsmElement> elements) {
+        List<Relation> relations = new ArrayList<>();
         for (OsmElement e : elements) {
-            if (e.getParentRelations() != null) {
-                for (Relation r : e.getParentRelations()) {
-                    if (!relations.contains(r)) { // not very efficient
-                        relations.add(r);
-                        // FIXME add one level of parent relations of relations
-                        // we could do this recursively but would need to add loop protection
-                        if (r.getParentRelations() != null) {
-                            for (Relation p : r.getParentRelations()) {
-                                if (!relations.contains(p)) {
-                                    relations.add(p);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            getParentRelations(e, relations);
         }
         return relations;
     }
 
+    /**
+     * Recursively add parent relations, every relation will only be added once
+     * 
+     * @param e the OsmElement to get the parent Relations of
+     * @param relations the List of Relations 
+     */
+    private void getParentRelations(@NonNull OsmElement e, @NonNull List<Relation> relations) {
+        if (e.getParentRelations() != null) {
+            for (Relation r : e.getParentRelations()) {
+                if (!relations.contains(r)) { // not very efficient, could use a set
+                    relations.add(r);
+                    getParentRelations(r, relations);
+                }
+            }
+        }
+    }
+    
     /**
      * Returns all ways within way tolerance from the given coordinates, and their distances from them.
      * 
