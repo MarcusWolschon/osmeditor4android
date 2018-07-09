@@ -15,6 +15,8 @@
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
   <string name="upload_conflict_message_referential">%1$s \non poistettu paikallisesti \nmutta siihen viitataan palvelimella</string>
   <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta</string>
+  <string name="use_local_version">Käytä paikallista versiota</string>
+  <string name="use_server_version">Käytä palvelimen versiota</string>
   <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
   <string name="no_login_data_message">Jos käytät OAuthia, ohjelmassa on todennäköisesti vikaa. Pyydämme ilmoittamaan ongelmasta. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
   <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
@@ -29,6 +31,8 @@
   <string name="data_conflict_message">Data jota yrität ladata on ristiriidassa muokkaustesi kanssa. Yritä lähettää muokkaukset palvelimelle ennen uutta yritystä.</string>
   <string name="invalid_bounding_box_title">Virheellinen alue</string>
   <string name="invalid_bounding_box_message">Valittu alue ei ole APIn rajoitteiden mukainen. Valitse jokin toinen alue.</string>
+  <string name="bounding_box_too_large_title">Latausalue liian laaja</string>
+  <string name="bounding_box_too_large_message">Alue jota yrität ladata on liian laaja tai se sisältää liikaa tietoa.\n\nOle hyvä ja pienennä näkymää ja yritä uudelleen.</string>
   <string name="api_offline_title">API suljettu</string>
   <string name="api_offline_message">API on väliaikaisesti suljettu, eikä se hyväksy datan hakemista eikä kirjoittamista.</string>
   <string name="out_of_memory_title">Muisti ei riitä</string>
@@ -57,12 +61,15 @@
   <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
   <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennukseen...</string>
+  <string name="progress_building_imagery_database">Kootaan kuvatietokantaa...</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
+  <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
+  <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <string name="openstreetbug_new_title">Uusi muistiinpano</string>
   <string name="openstreetbug_new_bug">Ilmoita ongelmasta</string>
   <string name="openstreetbug_bug_title">Ongelma</string>
@@ -76,6 +83,7 @@
   <string name="openstreetbug_commit_fail">Virheen muutoksia ei voitu tallentaa</string>
   <string name="openstreetbug_not_downloaded">ei ladattu</string>
   <string name="openstreetbug_last_updated">viimeksi päivitetty</string>
+  <string name="openstreetbug_not_supported">%1$s ei tueta.</string>
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
   <string name="unsaved_data_proceed">Hylkää &amp; jatka</string>
@@ -135,6 +143,7 @@
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
   <!--GPX way point dialog-->
+  <string name="description">Kuvaus</string>
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->

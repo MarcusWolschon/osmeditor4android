@@ -55,9 +55,9 @@ By default, selectable nodes and ways have an orange area around them indicating
 * Double tap: Start [Multiselect mode](../en/Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+התקרבות בעת ניסיון לערוך אזור צפוף במיוחד נחשבת לאסטרטגיה טובה.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+לווספוצ׳י יש מערכת „ביטול/שחזור” טובה כך שאין חשש בנוגע להתנסות עם ההתקן שלך, עם זאת, נא לא להעלות ולשמור נתונים שנועדו לבדיקה בלבד.
 
 #### בחירה / ביטול בחירה (נגיעה בודדת ו־„תפריט בחירה”)
 
@@ -199,9 +199,9 @@ Currently there are two configurable checks (there is a check for FIXME tags and
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### תשאול רשומות מחדש
 
-Re-survey entries have the following properties:
+לתשאול של רשומות מחדש יש את המאפיינים הבאים:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.

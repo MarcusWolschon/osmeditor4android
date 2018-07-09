@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Aapo S., 2018
 # Mika Laari <laari@iki.fi>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-07-04 20:52+0000\n"
+"Last-Translator: Aapo S.\n"
 "Language-Team: Finnish (http://www.transifex.com/openstreetmap/presets/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "... mahdollisesti muitakin liikkumistapoja"
 
 #: master_preset.xml:1553(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
-msgstr ""
+msgstr "1 - Kiinteä"
 
 #: master_preset.xml:200(list_entry:short_description|value:1)
 msgid "1 table"
@@ -87,7 +88,7 @@ msgstr "10°"
 
 #: master_preset.xml:1554(list_entry:display_value|group:Ways|preset:Track|value:grade2)
 msgid "2 - Mostly solid"
-msgstr ""
+msgstr "2 - Suurimmaksi osaksi kiinteä"
 
 #: master_preset.xml:201(list_entry:short_description|value:2)
 msgid "2 tables"
@@ -95,7 +96,7 @@ msgstr "2 pöytää"
 
 #: master_preset.xml:1555(list_entry:display_value|group:Ways|preset:Track|value:grade3)
 msgid "3 - Mix hard and soft"
-msgstr ""
+msgstr "3 - Kovan ja pehmeän seos"
 
 #: master_preset.xml:202(list_entry:short_description|value:3)
 msgid "3 tables"
@@ -107,7 +108,7 @@ msgstr "3D"
 
 #: master_preset.xml:1556(list_entry:display_value|group:Ways|preset:Track|value:grade4)
 msgid "4 - Mostly soft"
-msgstr ""
+msgstr "4 - Suurimmaksi osaksi pehmeää"
 
 #: master_preset.xml:203(list_entry:short_description|value:4)
 msgid "4 tables"
@@ -115,7 +116,7 @@ msgstr "4 pöytää"
 
 #: master_preset.xml:1557(list_entry:display_value|group:Ways|preset:Track|value:grade5)
 msgid "5 - Soft"
-msgstr ""
+msgstr "5 - Pehmeä"
 
 #: master_preset.xml:204(list_entry:short_description|value:5)
 msgid "5 tables"
@@ -148,15 +149,15 @@ msgstr ""
 
 #: master_preset.xml:12240(label:text|group:Nature|preset:Tree_Row)
 msgid "A line of trees."
-msgstr ""
+msgstr "Puurivistö"
 
 #: master_preset.xml:12116(label:text|group:Geography|preset:Valley)
 msgid "A low area between hills."
-msgstr ""
+msgstr "Matala mäkien välinen alue."
 
 #: master_preset.xml:12103(label:text|group:Geography|preset:Ridge)
 msgid "A mountain or hill ridge."
-msgstr ""
+msgstr "Vuoren tai mäen selänne"
 
 #: master_preset.xml:12454(label:text|group:Nature|preset:Rock)
 msgid ""
@@ -178,7 +179,7 @@ msgstr ""
 
 #: master_preset.xml:12055(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
-msgstr ""
+msgstr "Solan satulapiste vuorten tai mäkien välissä."
 
 #: master_preset.xml:12471(label:text|group:Nature|preset:Stone)
 msgid ""
@@ -188,21 +189,21 @@ msgstr ""
 
 #: master_preset.xml:12208(label:text|group:Nature|preset:Tree)
 msgid "A single tree."
-msgstr ""
+msgstr "Yksittäinen puu."
 
 #: master_preset.xml:12131(label:text|group:Geography|preset:Cliff)
 msgid ""
 "A steep rock face exposure, with a significant vertical, or near vertical "
 "(leave the lower face to the right of the way)."
-msgstr ""
+msgstr "Jyrkkä "
 
 #: master_preset.xml:12085(label:text|group:Geography|preset:Volcano)
 msgid "A volcano, either dormant, extinct or active."
-msgstr ""
+msgstr "Tulivuori, joko uinuva, sammunut tai aktiivinen."
 
 #: master_preset.xml:3575(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr ""
+msgstr "Hylätty rautatie"
 
 #: master_preset.xml:646(list_entry:display_value|value:abused)
 msgid "Abused"
@@ -213,19 +214,19 @@ msgstr ""
 #: master_preset.xml:6812(combo:text|group:Emergency|preset:First_Aid_Kit|key:access)
 #: master_preset.xml:708(combo:text|key:access)
 msgid "Access"
-msgstr ""
+msgstr "Kulkuoikeus"
 
 #: master_preset.xml:2643(group:name|group:Access_Restrictions)
 msgid "Access Restrictions"
-msgstr ""
+msgstr "Kulkuoikeusrajoitukset"
 
 #: master_preset.xml:4733(group:name|group:Accommodation)
 msgid "Accommodation"
-msgstr ""
+msgstr "Majoitus"
 
 #: master_preset.xml:14448(item:name|group:Offices|preset:Accountant)
 msgid "Accountant"
-msgstr ""
+msgstr "Kirjanpitäjä"
 
 #: master_preset.xml:13008(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:inclusion)
 msgid "Accuracy"
@@ -238,11 +239,11 @@ msgstr ""
 
 #: master_preset.xml:773(combo:display_values|key:roof:material)
 msgid "Acrylic glass"
-msgstr ""
+msgstr "Akryylilasi"
 
 #: master_preset.xml:6746(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgid "Acupuncture"
-msgstr ""
+msgstr "Akupunktio"
 
 #: master_preset.xml:13114(item:name|group:Annotation|preset:Add_or_update_check_date)
 msgid "Add or update check date"
@@ -254,15 +255,15 @@ msgstr ""
 
 #: master_preset.xml:12954(item:name|group:Addresses_and_Contact|preset:Address)
 msgid "Address"
-msgstr ""
+msgstr "Osoite"
 
 #: master_preset.xml:12991(item:name|group:Addresses_and_Contact|preset:Address_Interpolation)
 msgid "Address Interpolation"
-msgstr ""
+msgstr "Tarkempi osoite"
 
 #: master_preset.xml:12920(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
-msgstr ""
+msgstr "Osoitteet ja yhteystiedot"
 
 #: master_preset.xml:8906(item:name|group:Man_Made|preset:Adit)
 msgid "Adit"
@@ -288,11 +289,11 @@ msgstr ""
 
 #: master_preset.xml:11632(list_entry:short_description|preset:Vending_Machine|value:admission_tickets)
 msgid "Admission tickets"
-msgstr ""
+msgstr "Pääsyliput"
 
 #: master_preset.xml:5830(item:name|group:Leisure|preset:Adult_gaming_centre)
 msgid "Adult gaming centre"
-msgstr ""
+msgstr "Uhkapelaamo"
 
 #: master_preset.xml:7614(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
@@ -300,7 +301,7 @@ msgstr ""
 
 #: master_preset.xml:14303(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
-msgstr ""
+msgstr "Mainostoimisto"
 
 #: master_preset.xml:3691(group:name|group:Aerialway)
 #: master_preset.xml:4350(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
@@ -338,11 +339,11 @@ msgstr ""
 
 #: master_preset.xml:9145(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:air_quality)
 msgid "Air Quality"
-msgstr ""
+msgstr "Ilmanlaatu"
 
 #: master_preset.xml:4586(group:name|group:Airport)
 msgid "Airport"
-msgstr ""
+msgstr "Lentokenttä"
 
 #: master_preset.xml:4587(item:name|group:Airport|preset:Airport_Ground)
 msgid "Airport Ground"
@@ -358,15 +359,15 @@ msgstr ""
 
 #: master_preset.xml:2644(item:name|group:Access_Restrictions|preset:All_vehicles)
 msgid "All vehicles"
-msgstr ""
+msgstr "Kaikki kulkuneuvot"
 
 #: master_preset.xml:2661(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
 msgid "All vehicles @"
-msgstr ""
+msgstr "Kaikki kulkuneuvot @"
 
 #: master_preset.xml:1296(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
-msgstr ""
+msgstr "Kuja"
 
 #: master_preset.xml:12610(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
@@ -412,20 +413,20 @@ msgstr ""
 
 #: master_preset.xml:4870(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "Alppimaja"
 
 #: master_preset.xml:6737(item:name|group:Health|preset:Alternative_medicine)
 msgid "Alternative medicine"
-msgstr ""
+msgstr "Vaihtoehtolääketieteen harjoittaja"
 
 #: master_preset.xml:12944(text:text|group:Addresses_and_Contact|preset:Name|key:alt_name)
 msgid "Alternative name"
-msgstr ""
+msgstr "Vaihtoehtoinen nimi"
 
 #: master_preset.xml:7334(check:text|group:Facilities|preset:Recycling_Container|key:recycling:aluminium)
 #: master_preset.xml:7375(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:aluminium)
 msgid "Aluminium"
-msgstr ""
+msgstr "Alumiini"
 
 #: master_preset.xml:6770(item:name|group:Emergency|preset:Ambulance_Station)
 msgid "Ambulance Station"
@@ -433,7 +434,7 @@ msgstr ""
 
 #: master_preset.xml:6945(item:name|group:Social_Facilities|preset:Ambulatory_Care)
 msgid "Ambulatory Care"
-msgstr ""
+msgstr "Ensihoito"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "American"
@@ -584,7 +585,7 @@ msgstr ""
 
 #: master_preset.xml:14461(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr ""
+msgstr "Arkkitehti"
 
 #: master_preset.xml:1273(check:text|group:Streets|preset:Pedestrian|key:area)
 #: master_preset.xml:4399(check:text|group:Public_Transport|preset:Station|key:area)
@@ -596,11 +597,11 @@ msgstr "Alue"
 
 #: master_preset.xml:6749(list_entry:short_description|group:Health|preset:Alternative_medicine|value:aromatherapy)
 msgid "Aromatherapy"
-msgstr ""
+msgstr "Aromaterapia"
 
 #: master_preset.xml:10719(item:name|group:Home_furnishing_and_decoration|preset:Art)
 msgid "Art"
-msgstr ""
+msgstr "Taide"
 
 #: master_preset.xml:5945(item:name|group:Culture|preset:Art_gallery)
 msgid "Art gallery"
@@ -608,7 +609,7 @@ msgstr "Taidegalleria"
 
 #: master_preset.xml:5417(list_entry:display_value|group:Leisure|preset:Animals|value:artic_fox)
 msgid "Artic fox"
-msgstr ""
+msgstr "Naali"
 
 #: master_preset.xml:6118(text:text|group:Culture|preset:Artwork|key:artist_name)
 #: master_preset.xml:9877(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:artist_name)
@@ -633,11 +634,11 @@ msgstr ""
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Asian"
-msgstr ""
+msgstr "Aasialainen"
 
 #: master_preset.xml:6884(item:name|group:Emergency|preset:Assembly_Point)
 msgid "Assembly Point"
-msgstr ""
+msgstr "Kokoontumispaikka"
 
 #: master_preset.xml:6961(item:name|group:Social_Facilities|preset:Assisted_Living)
 msgid "Assisted Living"
@@ -682,7 +683,7 @@ msgstr ""
 
 #: master_preset.xml:6783(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
-msgstr ""
+msgstr "Automaattinen defibrillaattori"
 
 #: master_preset.xml:10573(check:text|group:Cash|preset:Bank|key:atm)
 #: master_preset.xml:10590(item:name|group:Cash|preset:Automated_Teller_Machine)
@@ -691,7 +692,7 @@ msgstr ""
 
 #: master_preset.xml:1731(combo:display_values|group:Ways|preset:Steps|key:ramp:luggage)
 msgid "Automatic"
-msgstr ""
+msgstr "Automaattinen"
 
 #: master_preset.xml:13134(text:text|group:Annotation|preset:Add_or_update_check_date|key:automatic_check_date)
 msgid "Automatic check_date generation"
@@ -716,7 +717,7 @@ msgstr ""
 
 #: master_preset.xml:348(list_entry:short_description|value:babies)
 msgid "Babies"
-msgstr ""
+msgstr "Vauvoja"
 
 #: master_preset.xml:5418(list_entry:display_value|group:Leisure|preset:Animals|value:baboon)
 msgid "Baboon"
@@ -724,7 +725,7 @@ msgstr ""
 
 #: master_preset.xml:6687(item:name|group:Health|preset:Baby_Hatch/Safe_Haven)
 msgid "Baby Hatch/Safe Haven"
-msgstr ""
+msgstr "Vauvaluukku/turvapaikka"
 
 #: master_preset.xml:11230(item:name|group:Other|preset:Baby_goods)
 msgid "Baby goods"
@@ -736,7 +737,7 @@ msgstr "Maaseutuhiihto"
 
 #: master_preset.xml:7457(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
-msgstr ""
+msgstr "Selkänoja"
 
 #: master_preset.xml:1814(combo:display_values|group:Waypoints|preset:Traffic_Signal|key:traffic_signals:direction)
 #: master_preset.xml:1839(combo:display_values|group:Waypoints|preset:Stop|key:direction)
@@ -756,7 +757,7 @@ msgstr ""
 
 #: master_preset.xml:10002(item:name|group:Food|preset:Bakery)
 msgid "Bakery"
-msgstr ""
+msgstr "Leipomo"
 
 #: master_preset.xml:5996(list_entry:display_value|group:Culture|preset:Music_theatres|value:ballet)
 msgid "Ballet theatre"
@@ -772,7 +773,7 @@ msgstr ""
 
 #: master_preset.xml:11681(check:text|preset:Payment_Methods|key:payment:bancomat)
 msgid "Bancomat"
-msgstr ""
+msgstr "Pankkiautomaatti"
 
 #: master_preset.xml:5363(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
@@ -780,7 +781,7 @@ msgstr ""
 
 #: master_preset.xml:10555(item:name|group:Cash|preset:Bank)
 msgid "Bank"
-msgstr ""
+msgstr "Pankki"
 
 #: master_preset.xml:11680(check:text|preset:Payment_Methods|key:payment:bankaxess)
 msgid "BankAxess"
@@ -792,15 +793,15 @@ msgstr ""
 
 #: master_preset.xml:5143(item:name|group:Food+Drinks|preset:Bar)
 msgid "Bar"
-msgstr ""
+msgstr "Baari"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Barbecue"
-msgstr ""
+msgstr "Grilli"
 
 #: master_preset.xml:12429(item:name|group:Nature|preset:Bare_Rock)
 msgid "Bare Rock"
-msgstr ""
+msgstr "Paljas kallio"
 
 #: master_preset.xml:12406(label:text|group:Nature|preset:Heath)
 msgid ""
@@ -830,7 +831,7 @@ msgstr ""
 
 #: master_preset.xml:7994(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Basalt"
-msgstr ""
+msgstr "Basaltti"
 
 #: master_preset.xml:8205(item:name|group:Sport_(Ball)|preset:Baseball)
 msgid "Baseball"
@@ -839,11 +840,11 @@ msgstr ""
 #: master_preset.xml:3062(item:name|group:Water|preset:Basin)
 #: master_preset.xml:3118(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Basin"
-msgstr ""
+msgstr "Valuma-alue"
 
 #: master_preset.xml:13661(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
-msgstr ""
+msgstr "korintekijä"
 
 #: master_preset.xml:8214(item:name|group:Sport_(Ball)|preset:Basketball)
 msgid "Basketball"
@@ -855,7 +856,7 @@ msgstr ""
 
 #: master_preset.xml:10771(item:name|group:Home_furnishing_and_decoration|preset:Bathroom)
 msgid "Bathroom"
-msgstr ""
+msgstr "Kylpyhuone"
 
 #: master_preset.xml:7335(check:text|group:Facilities|preset:Recycling_Container|key:recycling:batteries)
 #: master_preset.xml:7376(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:batteries)
@@ -872,7 +873,7 @@ msgstr ""
 
 #: master_preset.xml:3200(item:name|group:Water|preset:Beach)
 msgid "Beach"
-msgstr ""
+msgstr "Ranta"
 
 #: master_preset.xml:5580(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
@@ -896,7 +897,7 @@ msgstr ""
 
 #: master_preset.xml:10744(item:name|group:Home_furnishing_and_decoration|preset:Bed)
 msgid "Bed"
-msgstr ""
+msgstr "Sänky"
 
 #: master_preset.xml:4750(text:text|group:Accommodation|preset:Hotel|key:beds)
 #: master_preset.xml:4773(text:text|group:Accommodation|preset:Motel|key:beds)
@@ -1135,7 +1136,7 @@ msgstr "Kirjapaino"
 
 #: master_preset.xml:7239(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Koppi"
 
 #: master_preset.xml:2286(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -3463,7 +3464,7 @@ msgstr ""
 
 #: master_preset.xml:14342(item:name|group:Offices|preset:Government)
 msgid "Government"
-msgstr ""
+msgstr "Hallinto"
 
 #: master_preset.xml:7994(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Granite"
@@ -3798,7 +3799,7 @@ msgstr "Saattokoti"
 
 #: master_preset.xml:6604(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
-msgstr ""
+msgstr "Sairaala"
 
 #: master_preset.xml:4848(item:name|group:Accommodation|preset:Hostel)
 msgid "Hostel"
@@ -3806,7 +3807,7 @@ msgstr ""
 
 #: master_preset.xml:4734(item:name|group:Accommodation|preset:Hotel)
 msgid "Hotel"
-msgstr ""
+msgstr "Hotelli"
 
 #: master_preset.xml:8476(item:name|group:Buildings|preset:House)
 msgid "House"
@@ -3952,7 +3953,7 @@ msgstr ""
 
 #: master_preset.xml:8520(item:name|group:Buildings|preset:Industrial_building)
 msgid "Industrial building"
-msgstr ""
+msgstr "Teollisuusrakennus"
 
 #: master_preset.xml:9377(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:ICF)
 msgid "Inertial Confinement Fusion (ICF)"
@@ -6144,7 +6145,7 @@ msgstr ""
 #: master_preset.xml:4112(item:name|group:Motorcycle|preset:Parking)
 #: master_preset.xml:4159(item:name|group:Bicycle|preset:Parking)
 msgid "Parking"
-msgstr ""
+msgstr "Pysäköintialue"
 
 #: master_preset.xml:1306(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
@@ -10897,7 +10898,7 @@ msgstr "Maanalainen"
 #: master_preset.xml:8673(combo:text|preset:Entrance|key:access)
 msgctxt "access"
 msgid "Access"
-msgstr ""
+msgstr "Kulkuoikeus"
 
 #: master_preset.xml:2659(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2679(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -10916,7 +10917,7 @@ msgstr ""
 #: master_preset.xml:2659(combo:text|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 msgctxt "access"
 msgid "All vehicles"
-msgstr ""
+msgstr "Kaikki kulkuneuvot"
 
 #: master_preset.xml:619(combo:text|key:boat)
 msgctxt "access"
@@ -11579,12 +11580,12 @@ msgstr ""
 #: master_preset.xml:802(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Government"
-msgstr ""
+msgstr "Hallinto"
 
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Greenhouse"
-msgstr ""
+msgstr "Kasvihuone"
 
 #: master_preset.xml:815(list_entry:short_description|value:half-hipped)
 #: master_preset.xml:8595(item:name|group:Roof_type|preset:Half-hipped)
@@ -11606,13 +11607,13 @@ msgstr ""
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Hospital"
-msgstr ""
+msgstr "Sairaala"
 
 #: master_preset.xml:802(combo:display_values|key:building:use)
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Hotel"
-msgstr ""
+msgstr "Hotelli"
 
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 #: master_preset.xml:8493(key:text|group:Buildings|preset:House|key:building)
@@ -11634,7 +11635,7 @@ msgstr "Teollinen"
 #: master_preset.xml:8537(key:text|group:Buildings|preset:Industrial_building|key:building)
 msgctxt "building"
 msgid "Industrial building"
-msgstr ""
+msgstr "Teollisuusrakennus"
 
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11717,7 +11718,7 @@ msgstr ""
 #: master_preset.xml:809(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Mirror"
-msgstr ""
+msgstr "peili"
 
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11741,12 +11742,12 @@ msgstr "Toimisto, konttori, toimipaikka, liikehuoneisto, virasto"
 #: master_preset.xml:8619(item:name|group:Roof_type|preset:Onion)
 msgctxt "building"
 msgid "Onion"
-msgstr ""
+msgstr "sipuli"
 
 #: master_preset.xml:802(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Parking"
-msgstr ""
+msgstr "Pysäköintialue"
 
 #: master_preset.xml:785(combo:display_values|key:building:frame:material)
 #: master_preset.xml:789(combo:display_values|key:building:wall:material)
@@ -13067,4 +13068,4 @@ msgstr "Uskonto"
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: master_preset.xml0(None)
 msgid "translator-credits"
-msgstr "Mika Laari <laari@iki.fi>, 2017, 2017"
+msgstr "Mika Laari <laari@iki.fi>, 2017, 2017\nAapo Savisaari, 2018"

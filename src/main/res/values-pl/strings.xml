@@ -149,6 +149,8 @@
   <string name="add_check_title">Dodaj sprawdzenie</string>
   <string name="max_age">Maks. wiek</string>
   <string name="age">Wiek</string>
+  <string name="check_opt">opcjonalne</string>
+  <string name="check_optional">Wybierz opcjonalne</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Pusta relacja</string>
   <string name="empty_relation_message">Relacja %1$s nie posiada członków. \n\n Pozostawienie jej w tym stanie uniemożliwi jej edytowanie w Vespucci.</string>
@@ -158,10 +160,12 @@
   <string name="description">Opis</string>
   <string name="created">Utworzono</string>
   <string name="altitude">Wysokość</string>
+  <string name="create_osm_object">Utwórz obiekt</string>
   <!--Custom imagery dialogs-->
   <string name="oam_layer_title">Zdjęcia OAM</string>
   <string name="edit_layer_title">Edytuj warstwę</string>
   <string name="add_layer_title">Dodaj warstwę</string>
+  <string name="coverage">Zasięg</string>
   <string name="coverage_top">Góra</string>
   <string name="coverage_left">Lewo</string>
   <string name="coverage_right">Prawo</string>
@@ -183,6 +187,7 @@
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Nazwa nie może być pusta</string>
   <string name="toast_url_empty">URL nie może być pusty</string>
@@ -274,6 +279,7 @@
   <string name="set">Ustaw</string>
   <string name="replace">Zamień</string>
   <string name="save">Zapisz</string>
+  <string name="save_and_set">Zakończ i zapisz</string>
   <string name="back">Cofnij</string>
   <string name="forward">Naprzód</string>
   <string name="keep">Zachowaj</string>
@@ -468,6 +474,7 @@
   <string name="deleteway_relation_description">Zamierzasz usunąć drogę, która należy do jednej lub większej ilości relacji. Usunięcie drogi z relacji spowoduje jej/ich nieprawidłowość.</string>
   <string name="deleteway_nodesnotdownloaded_description">Linia zawiera węzły poza pobranym obszarem i nie może zostać usunięta bez tworzenia nieścisłości w bazie. Pobierz całą drogę przed ponowną próbą edycji.</string>
   <string name="deleteway_wayonly">Usuń tylko drogę</string>
+  <string name="deleteway_wayandnodes">Usuń odcinek</string>
   <string name="deletenode_relation_description">Masz zamiar usunąć węzeł, który jest członkiem jednej lub wielu relacji. Usuwanie węzła z relacji może spowodować jej / ich nieprawidłowość.</string>
   <string name="deletenode">Usuń węzeł</string>
   <string name="split_all_ways">Przetnij wszystkie linie</string>
@@ -494,6 +501,7 @@
   <string name="config_overlayLayer_title">Nakładka mapy</string>
   <string name="config_customlayers_title">Warstwy własne</string>
   <string name="config_scale_title">Wyświetlanie skali</string>
+  <string name="config_mapProfile_title">Styl danych</string>
   <string name="config_enableOpenStreetBugs_title">Wyświetlanie błędów i notatek</string>
   <string name="config_enableOpenStreetBugs_summary">Wyświetla i pozwala modyfikować oraz zgłaszać uwagi/błędy.</string>
   <string name="config_enablePhotoLayer_title">Warstwa zdjęć</string>

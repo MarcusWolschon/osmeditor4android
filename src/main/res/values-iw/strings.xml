@@ -161,6 +161,8 @@
   <string name="add_check_title">הוספת רשומת בדיקה</string>
   <string name="max_age">גיל מרבי</string>
   <string name="age">גיל</string>
+  <string name="check_opt">בדיקת רשות</string>
+  <string name="check_optional">בדיקת רשות</string>
   <string name="add_resurvey_entry">הוספת רשומת תשאול מחדש</string>
   <string name="add_check_entry">הוספת רשומת בדיקה</string>
   <!--Empty relation dialog-->
@@ -247,6 +249,7 @@
   <string name="toast_photo_indexing_started">התחילה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_photo_indexing_finished">הסתיימה סריקה אחר תמונות עם הפנייה גאוגרפית</string>
   <string name="toast_download_failed">ההורדה נכשלה עם קוד השגיאה %1$d, הודעה %2$s</string>
+  <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או מספר</string>
   <string name="toast_notype">לקשר אין סוג</string>
   <string name="toast_oauth_retry">נא לאפשר גישה עם OAuth לחשבון ה־OSM שלך ואז לנסות להעלות מחדש.</string>
@@ -273,6 +276,7 @@
   <string name="toast_storage_error">לווספוצ׳י אין אפשרות כתיבה אל %1$s .\nיכול להיות שמדובר בבעיית הרשאה או בתקלה טכנית בהתקן שלך.</string>
   <string name="toast_no_suitable_storage">המערכת לא החזירה מיקום  מתאים למסד נתונים האריחים.</string>
   <string name="toast_min_one_preset">יש לבחור לפחות בערכה מוגדרת אחת!</string>
+  <string name="toast_min_one_geocoder">יש לבחור במקודד גאוגרפי אחת לפחות!</string>
   <string name="toast_used_backup">קובץ מצב פגום, נעשה שימוש בקובץ מהגיבוי!</string>
   <string name="toast_used_bug_backup">קובץ מצב תקלות פגום, נעשה שימוש בקובץ מהגיבוי!</string>
   <string name="toast_rmpty_relation">יחס ריק, נוצר דו״ח קריסה.</string>
@@ -339,6 +343,7 @@
   <string name="share_position">שיתוף מיקום</string>
   <string name="min">מזערי</string>
   <string name="max">מרבי</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">ללא</string>
   <!--Dialog for back button-->
   <string name="exit_title">לצאת?</string>
@@ -350,6 +355,7 @@
   <string name="Value">ערך</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">הוספת תגיות כתובת</string>
+  <string name="tag_menu_sourcesurvey">תיעוד תואם</string>
   <string name="tag_menu_preset">ערכות מוגדרות</string>
   <string name="tag_menu_apply_preset">החלת ערכות מוגדרות</string>
   <string name="tag_menu_repeat">חזרה על תגיות</string>
@@ -429,12 +435,14 @@
   <string name="menu_set_position">מיקום</string>
   <string name="menu_split">פיצול</string>
   <string name="menu_extract">חילוץ צומת</string>
+  <string name="menu_append">צירוף</string>
   <string name="menu_relation">יצירת יחס</string>
   <string name="menu_edit_relation">עריכת יחס</string>
   <string name="menu_add_relation_member">הוספת חבר</string>
   <string name="menu_select_relation_members">בחירת חברים</string>
   <string name="menu_tag">עריכת תגיות</string>
   <string name="menu_openstreetbug">הוספת הערה</string>
+  <string name="menu_easyedit">עריכה פשוטה</string>
   <string name="menu_camera">מצלמה</string>
   <string name="menu_gps">GPS…‎</string>
   <string name="menu_gps_show">הצגת מיקום</string>
@@ -494,6 +502,8 @@
   <string name="menu_tools_add_imagery_from_oam">הוספת תמונות רקע מ־OAM</string>
   <string name="menu_tools_flush_all_tile_caches">פינוי כל מטמוני האריחים</string>
   <string name="menu_tools_background_properties">מאפייני רקע</string>
+  <string name="menu_tools_update_imagery_configuration">עדכון תצורת שכבת תמונות רקע</string>
+  <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
   <!---->
   <string name="menu_privacy">פרטיות</string>
   <!--Background alignment-->
@@ -529,6 +539,7 @@
   <string name="reverse_anyway">להפוך בכל זאת</string>
   <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל הצמתים או למחוק צמתים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
   <string name="deleteway_relation_description">פעולה זו תמחק דרך שחברה ביחס אחד או יותר. הסרת הדרך מהיחס/ים עשוי לגרום לה/הן לנזק.</string>
+  <string name="deleteway_nodesnotdownloaded_description">הדרך מכילה מפרקים מחוץ לאזור שהתקבל ולא ניתן למחוק אותה ולהגיע לכדי מצב בלתי יציב. יש להוריד את כל הדרך תחילה בטרם ביצוע ניסיון חוזר.</string>
   <string name="deleteway_wayonly">למחוק דרך בלבד</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
   <string name="deletenode_relation_description">פעולה זו תמחק צומת שחבר ביחס אחד או יותר. הסרת הצומת מהיחס/ים עשוי לגרום לו/הם לנזק.</string>
@@ -681,6 +692,8 @@
   <string name="config_offsetServer_summary">כתובת שרת היסט תמונת רקע</string>
   <string name="config_osmoseServer_title">שרת OSMOSE</string>
   <string name="config_osmoseServer_summary">כתובת לשרת ה־osmose</string>
+  <string name="config_geocoderbutton_title">הגדרת מקודדים גאוגרפיים</string>
+  <string name="config_geocoderbutton_summary">הוספה, עריכה או מחיקה של מקודדים גאוגרפיים עבור תכונת החיפוש</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">הורדה ואחסון של שכבות</string>
   <string name="config_category_layers_summary">הורדה ואחסון של תמונות רקע מחולקות לאריחים</string>
@@ -712,6 +725,7 @@
   <string name="config_password_title">ססמה ב־OSM</string>
   <string name="config_password_summary">לא לבלבל בין ססמה זו לססמה של הוויקי. להזכירך: היא מאוחסנת ומועברת כטקסט גלוי!</string>
   <string name="manage_presets">ניהול ערכות מוגדרות</string>
+  <string name="manage_geocoders">ניהול מקודדים גאוגרפיים</string>
   <!--preset downloader messages-->
   <string name="preset_update">עדכון ערכה מוגדרת</string>
   <string name="preset_download_successful">הערכה המוגדרת התקבלה בהצלחה</string>
@@ -736,6 +750,7 @@
   <string name="urldialog_api_install_successful">התקנת ה־API הצליחה!</string>
   <string name="urldialog_add_api">הוספת API</string>
   <string name="urldialog_nodata_text">כתובת ההגדרה אינה מכילה נתונים תקפים.</string>
+  <string name="urldialog_add_geocoder">הוספת מקודד גאוגרפי</string>
   <!--common terms-->
   <string name="add">הוספה</string>
   <string name="edit">עריכה</string>
@@ -751,6 +766,7 @@
   <string name="api_url">כתובת ה־API</string>
   <string name="readonly_url">כתובת API לקריאה בלבד (רשות)</string>
   <string name="notes_url">כתובת API של הערות (רשות)</string>
+  <string name="geocoder_type">סוג מקודד גאוגרפי</string>
   <!--"default" is a reserved Java keyword...-->
   <string name="preset">ערכה מוגדרת</string>
   <string name="api">API</string>
@@ -845,6 +861,11 @@
     <item>NMEA פנימי</item>
     <item>NMEA מלקוח TCP</item>
     <item>NMEA משרת TCP</item>
+  </string-array>
+  <string-array name="bug_state">
+    <item>פתוח</item>
+    <item>סגור</item>
+    <item>חיובי שגוי</item>
   </string-array>
   <string-array name="note_state">
     <item>פתוח</item>

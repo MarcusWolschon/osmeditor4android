@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-07-01 09:59+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -387,13 +387,13 @@ msgstr "Mandulafa"
 msgid ""
 "Almost always an unpaved track lacking hard materials, uncompacted, with "
 "surface of soil/sand/grass"
-msgstr ""
+msgstr "Szinte mindig burkolat nélküli, tömörítetlen úttest szilárd anyag nélkül, talaj/homok/fű felülettel"
 
 #: master_preset.xml:1556(list_entry:short_description|group:Ways|preset:Track|value:grade4)
 msgid ""
 "Almost always an unpaved track prominently with soil/sand/grass, but with "
 "some hard materials, or compressed materials"
-msgstr "Szinte mindig burkolat nélküli útpálya, elsődlegesen föld/homok/fű, de némi kemény vagy tömörített anyaggal."
+msgstr "Szinte mindig burkolat nélküli úttest, elsődlegesen föld/homok/fű, de némi kemény vagy tömörített anyaggal."
 
 #: master_preset.xml:777(list_entry:display_value|value:along)
 #: master_preset.xml:825(list_entry:display_value|value:along)
@@ -537,7 +537,7 @@ msgstr "Hangyász"
 
 #: master_preset.xml:5416(list_entry:display_value|group:Leisure|preset:Animals|value:antelope)
 msgid "Antelope"
-msgstr ""
+msgstr "Antilop"
 
 #: master_preset.xml:6747(list_entry:short_description|group:Health|preset:Alternative_medicine|value:anthroposophical)
 msgid "Anthroposophic medicine"
@@ -3039,7 +3039,7 @@ msgstr "Tűzijáték"
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "Elsősegélykészlet"
 
 #: master_preset.xml:12607(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -6905,7 +6905,7 @@ msgstr "Kőfejtő"
 
 #: master_preset.xml:11969(item:name|group:Places|preset:Quarter)
 msgid "Quarter"
-msgstr "Városnegyed"
+msgstr "Kis városrész"
 
 #: master_preset.xml:7994(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Quarzite"
@@ -8114,7 +8114,7 @@ msgstr "Sebességkorlátozást jelző tábla"
 
 #: master_preset.xml:10302(item:name|group:Food|preset:Spices)
 msgid "Spices"
-msgstr ""
+msgstr "Fűszerbolt"
 
 #: master_preset.xml:2264(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
@@ -8361,7 +8361,7 @@ msgstr "Vízfolyás altípusa (legnagyobb tag)"
 #: master_preset.xml:11954(item:name|group:Places|preset:Suburb)
 #: master_preset.xml:12983(text:text|group:Addresses_and_Contact|preset:Address|key:addr:suburb)
 msgid "Suburb"
-msgstr "Jelentős városrész"
+msgstr "Városrész"
 
 #: master_preset.xml:3501(item:name|group:Railway|preset:Subway)
 #: master_preset.xml:4346(check:text|group:Public_Transport|preset:Stop_Position|key:subway)
@@ -8845,7 +8845,7 @@ msgstr "Játék"
 
 #: master_preset.xml:1533(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr "Földút"
+msgstr "Mezőgazdasági/erdészeti út"
 
 #: master_preset.xml:7955(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
@@ -8853,7 +8853,7 @@ msgstr "Atlétika"
 
 #: master_preset.xml:1552(combo:text|group:Ways|preset:Track|key:tracktype)
 msgid "Tracktype"
-msgstr "Földút típusa"
+msgstr "Mezőgazdasági/erdészeti út típusa"
 
 #: master_preset.xml:11323(combo:text|group:Other|preset:Trade_supplies|key:trade)
 msgid "Trade"
@@ -10408,7 +10408,7 @@ msgstr "Stadion"
 #: master_preset.xml:39(combo:display_values|key:leisure)
 msgctxt "riding"
 msgid "Track"
-msgstr "Földút"
+msgstr "Lóversenypálya"
 
 #: master_preset.xml:39(combo:text|key:leisure)
 msgctxt "riding"
@@ -10858,7 +10858,7 @@ msgstr "Tenisz"
 #: master_preset.xml:417(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Track"
-msgstr "Földút"
+msgstr "Versenypálya"
 
 #: master_preset.xml:414(combo:text|key:leisure)
 #: master_preset.xml:417(combo:text|key:leisure)
@@ -12092,7 +12092,7 @@ msgstr "Kerékpáros nyom"
 #: master_preset.xml:1527(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Track"
-msgstr "Földút"
+msgstr "Út melletti kerékpárút"
 
 #: master_preset.xml:1596(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"

@@ -113,13 +113,22 @@
   <!--Custom imagery dialogs-->
   <string name="delete_layer">Slette lag?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_color">Farge</string>
   <!--Layer dialog-->
+  <string name="layer_grid">Rutenett</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Bilder</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Last ned OpenStreetMap-data</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Navn kan ikke stå tomt</string>
   <string name="toast_url_empty">URL-feltet kan ikke stå tomt</string>
+  <string name="toast_min_zoom">Minimum zoom må være mindre enn maksimum</string>
   <string name="toast_no_changes">Du har ikke endret noe enda…</string>
   <string name="toast_unsaved_changes">Du har ulagrede endringer, vennligst last dem opp først.</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
@@ -136,6 +145,7 @@
   <string name="toast_oneway_reversed">Du snudde en enveisgate eller en linje med egenskaper avhengig av retningen. Vennligst sjekk egenskapene og fiks dem hvis det trengs.</string>
   <string name="toast_unread_mail">Du har %1$d uleste OSM-meldinger</string>
   <string name="toast_one_unread_mail">Du har en ulest OSM-melding</string>
+  <string name="toast_photo_indexing_started">Skanner etter geo-refererte bilder</string>
   <string name="toast_download_failed">Nedlasting mislyktes med feilkoden %1$d, melding; %2$s</string>
   <string name="toast_noname">Veien har intet navn eller referanse</string>
   <string name="toast_outside_of_download">Du redigerer utenfor det nedlastede området.</string>
@@ -218,7 +228,7 @@
   <string name="menu_gps_autodownload">Auto-nedlasting</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned nåværende utsnitt</string>
-  <string name="menu_transfer_download_current_add">Legg til gjeldende område til nedlasting</string>
+  <string name="menu_transfer_download_current_add">Legg til gjeldende utsnitt til nedlasting</string>
   <string name="menu_transfer_download_other">Last ned et annet område</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
   <string name="menu_transfer_file">Fil...</string>

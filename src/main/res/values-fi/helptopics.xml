@@ -11,6 +11,8 @@
     <string name="help_wayselection">Viiva valittuna</string>
     <string name="help_aligningbackgroundiamgery">Ilmakuvien kohdistaminen</string>
     <string name="help_propertyeditor">Ominaisuusmuokkain</string>
+    <string name="help_preferences">Asetukset</string>
+    <string name="help_advanced_preferences">Lisäasetukset</string>
     <string name="help_presets">Esivalinnat</string>
     <string name="help_conflictresolution">Ristiriitojen selvittäminen</string>
     <string name="help_gpssources">GPS-lähteet</string>
@@ -18,10 +20,15 @@
     <string name="help_tagfilter">Tägisuodin</string>
     <string name="help_presetfilter">Esivalintasuodin</string>
     <string name="help_opening_hours">Aukioloajat</string>
-    <string name="help_upgrade_099">0.9.9 Julkaisumuistio</string>
-    <string name="help_upgrade_098">0.9.8 Julkaisumuistio</string>
-    <string name="help_upgrade_097">0.9.7 Julkaisumuistio</string>
-    <string name="help_upgrade_096">0.9.6 Julkaisumuistio</string>
+    <string name="help_upgrade">Julkaisutiedot</string>
+    <string name="help_upgrade_102">10.2 Julkaisutiedot</string>
+    <string name="help_upgrade_101">10.1 Julkaisutiedot</string>
+    <string name="help_upgrade_100">10.0 Julkaisutiedot</string>
+    <string name="help_upgrade_099">0.9.9 Julkaisutiedot</string>
+    <string name="help_upgrade_098">0.9.8 Julkaisutiedot</string>
+    <string name="help_upgrade_097">0.9.7 Julkaisutiedot</string>
+    <string name="help_upgrade_096">0.9.6 Julkaisutiedot</string>
+    <string name="help_privacy">Yksityisyys</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

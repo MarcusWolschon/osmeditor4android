@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-07-07 20:25+0000\n"
+"Last-Translator: Amin Hatmi\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4613,7 +4613,7 @@ msgstr ""
 
 #: master_preset.xml:8710(item:name|group:Man_Made|preset:Mast)
 msgid "Mast"
-msgstr ""
+msgstr "دکل مخابراتی"
 
 #: master_preset.xml:11695(check:text|preset:Payment_Methods|key:payment:mastercard)
 msgid "Mastercard"
@@ -8449,7 +8449,7 @@ msgstr ""
 
 #: master_preset.xml:5564(list_entry:display_value|group:Leisure|preset:Rides|value:swing)
 msgid "Swing"
-msgstr ""
+msgstr "تاب"
 
 #: master_preset.xml:2465(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
@@ -12240,7 +12240,7 @@ msgstr ""
 #: master_preset.xml:2470(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "تاب"
 
 #: master_preset.xml:2470(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

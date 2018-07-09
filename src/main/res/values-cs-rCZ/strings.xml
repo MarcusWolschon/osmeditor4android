@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normální</string>
-  <string name="mode_tag_only">Editování tagů</string>
+  <string name="mode_tag_only">Pouze značka</string>
   <string name="mode_indoor">Vnitřní prostory</string>
   <string name="mode_correct">Režim kontroly</string>
   <!--Dialogs-->
@@ -15,6 +15,8 @@
   <string name="upload_problem_message">Některá nebo všechna data nebyla nahrána. Zkuste to znovu později, může se jednat jen o dočasný problém.</string>
   <string name="bad_request_message">API odpovědělo chybou, uložte prosím vaše data a problém nahlaste.\n\n</string>
   <string name="upload_conflict_title">Konflikt nahrávání</string>
+  <string name="upload_conflict_message_version">%1$s \nmá lokální verzi %2$d \na na serveru verzi %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \nmá lokální verzi %2$d \na na serveru je smazán</string>
   <string name="upload_conflict_message_referential">%1$s \nsmazán lokálně, \nna serveru však existují reference</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nje již na serveru smazán</string>
   <string name="use_local_version">Použít místní verzi</string>
@@ -27,6 +29,7 @@
   <string name="wrong_login_data_title">Ověření se nezdařilo</string>
   <string name="wrong_login_data_message">Pokud používáte OAuth, měli byste se znovu ověřit a zkusit to znovu, pokud používáte login a heslo (nedoporučuje se), zkontrolujte, zda jsou správně zadány.</string>
   <string name="wrong_login_data_re_authenticate">Ověřit znovu</string>
+  <string name="forbidden_login_title">Přihlášení zapovězeno</string>
   <string name="go_to_openstreetmap">Navštivte openstreetmap.org</string>
   <string name="data_conflict_title">Konflikt verzí</string>
   <string name="data_conflict_message">Data, která se snažíte stáhnout, obsahují konflikty s vašimi úpravami. Zkuste nejprve vaše data nahrát a pak to zkuste znovu.</string>
@@ -47,6 +50,7 @@
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
   <string name="welcome_title">Vítejte!</string>
   <string name="welcome_message">Děkujeme, že používáte Vespucci.\n\nChcete-li začít, potřebujete znát dvě věci:\n\n* klepnutí na ikonu zámku v levém horním rohu přepnete mezi uzamčeným režimem (bez možnosti úprav) a odemčeným režimem\n\n* pro přidání nového objektu: dlouhým stiskem nebo poklepáním na stejném místě přidáte uzel, dalším klepnutím začnete cestu.\n\nNezapomeňte si stáhnout oblast, kterou chcete upravit.\n\nPříjemnou zábavu!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci zjistil, že používáte zařízení se softwarovými tlačítky, která jsou skrytá. Zobrazíte je gestem od spodního okraje.</string>
   <string name="read_introduction">Přečíst si nyní úvod</string>
   <string name="upgrade_title">Vítejte v nové verzi Vespucci!</string>
   <string name="upgrade_message">Toto je nová verze Vespucci s novými funkcemi a vlastnostmi. Bude nejlepší si rychle pročíst informace o aktualizaci přímo v zařízení.</string>
@@ -85,6 +89,7 @@
   <string name="openstreetbug_commit_fail">Změny chyb nelze uložit</string>
   <string name="openstreetbug_not_downloaded">nestaženo</string>
   <string name="openstreetbug_last_updated">naposledy upraveno</string>
+  <string name="openstreetbug_unknown_task_type">Neznámý typ úlohy</string>
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložené změny, které budou smazány, pokud budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
@@ -97,12 +102,14 @@
   <string name="imagery_offset_zoom">Přiblížení</string>
   <string name="imagery_offset_distance">Vzdálenost</string>
   <string name="set_position_datum_label">Geodetické datum</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Návrh může nahradit některé hodnoty tagů s více oblíbenými hodnotami.</string>
   <string name="search_results_title">Výsledky vyhledávání</string>
   <string name="find_message">Vložte vyhledávací řetězec</string>
   <string name="geocoder_prompt">pomocí</string>
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
+  <string name="preset_autopreset">Auto-Předvolby</string>
   <string name="search">Hledat</string>
   <string name="no_valid_preset">Neplatná předvolba!</string>
   <string name="read_file">Vyber soubor ke čtení</string>
@@ -125,6 +132,8 @@
   <string name="element">prvek</string>
   <string name="last_updated">naposledy upraveno</string>
   <string name="last_edited">Poslední změna</string>
+  <string name="original">Původní</string>
+  <string name="current">Aktuální</string>
   <!---->
   <string name="error">chyba</string>
   <string name="warning">varování</string>
@@ -171,16 +180,23 @@
   <string name="coverage_left">Vlevo</string>
   <string name="coverage_right">Vpravo</string>
   <string name="coverage_bottom">Dole</string>
+  <string name="preferred">Oblíbené</string>
   <string name="toast_invalid_box">Neplatný nebo nekompletní ohraničující rámec</string>
   <string name="delete_layer">Smazat vrstvu?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Styl vrstvy</string>
   <string name="layer_style_stroke_width">Tloušťka čáry</string>
   <string name="layer_style_color">Barva</string>
+  <string name="layer_style_label">Štítek</string>
+  <string name="json_object_not_displayed">JSON objekt (nezobrazen)</string>
+  <string name="json_array_not_displayed">JSON pole (nezobrazeno)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Mřížka</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotografie</string>
   <string name="layer_tasks">Poznámky a chyby</string>
+  <string name="layer_data">OSM data</string>
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
@@ -191,7 +207,11 @@
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Název nesmí být prázdný</string>
   <string name="toast_url_empty">URL nesmí být prázdné</string>
@@ -237,6 +257,8 @@
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
+  <string name="toast_imported_track_points">Importováno %1$d bodů trasy a %2$d waypointů.</string>
+  <string name="toast_imported_track_points_single_way_point">Importováno %1$d bodů trasy a 1 waypoint.</string>
   <string name="toast_unknown_voice_command">Promiňte, povelu %1$s zatím nerozumíme</string>
   <string name="toast_inconsistent_state">Zjištěn nekonzistentní stav, pošlete prosím chybové hlášení!</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
@@ -299,6 +321,8 @@
   <string name="share_position">Sdílet pozici</string>
   <string name="min">Min.</string>
   <string name="max">Max.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Nic</string>
   <!--Dialog for back button-->
   <string name="exit_title">Opravdu odejít?</string>
   <string name="exit_text">Opravdu chcete odejít?</string>
@@ -333,6 +357,7 @@
   <string name="tag_action_parents_title">Zvolené relace</string>
   <string name="tag_additional_properties">Další vlastnosti</string>
   <string name="tag_details">Detaily</string>
+  <string name="tag_not_set">Nenastaveno</string>
   <string name="tag_menu_move_up">Přesunout výš</string>
   <string name="tag_menu_move_top">Přesunout na začátek</string>
   <string name="tag_menu_move_down">Přesunout níž</string>
@@ -360,6 +385,7 @@
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Poslední známá poloha:</string>
   <string name="location_current_text">Aktuální poloha:</string>
   <string name="location_text_unknown">unknown</string>
@@ -467,15 +493,20 @@
   <string name="menu_tools_background_align_save_db">Uložit do DB</string>
   <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
   <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f metrů</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Resetovat OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizace OAuth</string>
+  <string name="menu_layers">Vrstvy…</string>
   <string name="menu_layers_load_geojson">Načíst GeoJSON vrstvu</string>
   <string name="menu_enable_tagfilter">Filtr tagů</string>
   <string name="menu_enable_presetfilter">Filtr předvoleb</string>
   <string name="preset_menu_waynodes">Zahrnout uzly cest</string>
+  <string name="preset_menu_invert">Invertovat filtry</string>
   <!--element action mode menu-->
   <string name="menu_tags">Vlastnosti</string>
   <!--Text should be as short as possible-->
@@ -488,6 +519,7 @@
   <string name="deleteway_relation_description">Chystáte se odstranit cestu, která je členem jedné nebo více relací. Odstranění cesty z relace/relací může způsobit nesprávné vykreslení.</string>
   <string name="deleteway_nodesnotdownloaded_description">Cesta obsahuje uzly mimo staženou oblast a nemůže být smazána bez vytvoření nekonzistentním stavu. Nejdříve si stáhněte celou cestu a zkuste to znovu.</string>
   <string name="deleteway_wayonly">Smazat pouze cestu</string>
+  <string name="deleteway_wayandnodes">Smazat cestu</string>
   <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu z relace/relací může způsobit nesprávné vykreslení.</string>
   <string name="deletenode">Smazat uzel</string>
   <string name="split_all_ways">Rozdělit všechny cesty</string>
@@ -609,6 +641,8 @@
   <string name="config_category_gps_summary">GPS parametry a další zdroje polohy</string>
   <string name="config_gps_source_title">Zdroj GPS</string>
   <string name="config_gps_source_summary">Zdroj aktualizaci GPS polohy</string>
+  <string name="config_gps_source_tcp_title">NMEA síťový zdroj</string>
+  <string name="config_gps_source_tcp_summary">Adresa TCP NMEA zdroje ve formátu host:port</string>
   <string name="config_gps_interval_title">Minimální GPS interval</string>
   <string name="config_gps_interval_summary">Minimální čas mezi GPS notifikacemí v milisekundách. Menší hodnota způsobí vyšší spotřebu baterie.</string>
   <string name="config_gps_interval_current">%1$d ms</string>

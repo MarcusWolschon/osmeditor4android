@@ -114,7 +114,7 @@
   <string name="geocoder_prompt">через</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
   <string name="preset_autopreset">Заготовка</string>
-  <string name="search">Поиск</string>
+  <string name="search">Найти</string>
   <string name="no_valid_preset">Нет подходящей заготовки!</string>
   <string name="read_file">Выберете файл для чтения</string>
   <string name="save_file">Введите файл для сохранения</string>
@@ -184,10 +184,10 @@
   <string name="add_layer_title">Добавить слой</string>
   <string name="overlay">Наложение</string>
   <string name="coverage">Покрытие</string>
-  <string name="coverage_top">Верх</string>
+  <string name="coverage_top">Сверху</string>
   <string name="coverage_left">Слева</string>
   <string name="coverage_right">Справа</string>
-  <string name="coverage_bottom">Низ</string>
+  <string name="coverage_bottom">Снизу</string>
   <string name="preferred">Предпочтительно</string>
   <string name="toast_invalid_box">Недопустимая или незавершённая ограничительная рамка</string>
   <string name="delete_layer">Удалить слой?</string>
@@ -207,8 +207,15 @@
   <string name="layer_data">Данные OSM</string>
   <string name="layer_flush_tile_cache">Очистить  базу для карты</string>
   <string name="layer_change_style">Изменить стиль</string>
+  <string name="layer_select_imagery">Выберите снимок</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Контрольные точки</string>
+  <string name="undo_redo_title">Отмена - Повтор</string>
+  <string name="undo_redo_one">Только выбранная контрольная точка (небезопасно)</string>
+  <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
+  <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Скачать данные OpenStreetMap</string>
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -422,7 +429,7 @@
   <string name="menu_edit">Изменить</string>
   <string name="menu_add">Новый</string>
   <string name="menu_config">Настройки</string>
-  <string name="menu_find">Найти</string>
+  <string name="menu_find">Поиск</string>
   <string name="menu_help">Справка</string>
   <string name="menu_erase">Удалить точку</string>
   <string name="menu_set_position">Позиция</string>
@@ -471,6 +478,7 @@
   <string name="menu_transfer_save_notes_all">Сохранить все заметки...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Сохранить новые и изменённые заметки...</string>
   <string name="menu_transfer_read_custom_bugs">Загрузить пакет ошибок...</string>
+  <string name="menu_transfer_write_custom_bugs">Сохранить пакет ошибок...</string>
   <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>
@@ -497,6 +505,7 @@
   <string name="menu_tools_update_imagery_configuration">Обновить конфигурацию слоя снимков</string>
   <string name="menu_tools_zoom_to_layer_extent">Приблизить к нижнему слою</string>
   <!---->
+  <string name="menu_privacy">Конфиденциальность</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Выровнять подложку</string>
   <string name="menu_tools_background_align_reset">Сбросить</string>
@@ -514,6 +523,8 @@
   <string name="menu_tools_background_contrast">Контраст</string>
   <string name="menu_tools_oauth_reset">Сбросить OAuth</string>
   <string name="menu_tools_oauth_authorisation">Авторизоваться через OAuth</string>
+  <string name="menu_layers">Слои…</string>
+  <string name="menu_layers_load_geojson">Загрузить слой GeoJSON</string>
   <string name="menu_enable_tagfilter">Фильтр тегов</string>
   <string name="menu_enable_presetfilter">Фильтр заготовок</string>
   <string name="preset_menu_waynodes">Добавить точки линии </string>
@@ -554,9 +565,15 @@
   <string name="actionmode_rotateway">Повернуть линию</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Фоновая карта</string>
+  <string name="config_backgroundLayer_summary">Растровая фоновая карта</string>
   <string name="config_overlayLayer_title">Наложение</string>
+  <string name="config_overlayLayer_summary">Слой, накладываемый поверх фона и данных карты</string>
   <string name="config_customlayers_title">Пользовательские слои</string>
+  <string name="config_customlayers_summary">Настройка пользовательских слоёв, отсутствующих в конфигурации по умолчанию</string>
   <string name="config_scale_title">Отображение шкалы</string>
+  <string name="config_scale_summary">Тип шкалы, показываемой на карте</string>
+  <string name="config_mapProfile_title">Стиль данных</string>
+  <string name="config_mapProfile_summary">Выберите стиль для слоя данных</string>
   <string name="config_enableOpenStreetBugs_title">Ошибки и заметки</string>
   <string name="config_enableOpenStreetBugs_summary">Показывать, редактировать и создавать заметки/ошибки.</string>
   <string name="config_enablePhotoLayer_title">Слой фотоснимков</string>
@@ -573,7 +590,7 @@
   <string name="config_validatorprefs_summary">Настроить правила проверок корректности данных</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Авторы и лицензии</string>
-  <string name="config_debugbutton_title">Отладка</string>
+  <string name="config_debugbutton_title">Информация</string>
   <string name="config_category_info">О программе</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
@@ -585,7 +602,7 @@
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_tagFormEnabled_title">Формы тега</string>
   <string name="config_tagFormEnabled_summary">Показывать форму тега для редактирования</string>
-  <string name="config_showCameraAction_title">Камера на панели действий</string>
+  <string name="config_showCameraAction_title">Камера на панели</string>
   <string name="config_showCameraAction_summary">Показывать значок камеры на панели действий</string>
   <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
   <string name="config_followGPSbutton_summary">Где будет расположена кнопка «следовать GPS» </string>
@@ -679,6 +696,7 @@
   <string name="config_geocoderbutton_summary">Добавить, изменить или удалить геокодер для поиска местоположений</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Загрузка и сохранение слоёв</string>
+  <string name="config_category_layers_summary">Параметры загрузки и хранения снимков для фоновой карты</string>
   <string name="config_maxTileDownloadThreads_title">Макс. число потоков загрузки</string>
   <string name="config_maxTileDownloadThreads_summary">Максимальное число потоков для загрузки подложки карты</string>
   <string name="config_downLoadThreads_current">%1$d потоков</string>
@@ -737,7 +755,7 @@
   <string name="add">Добавить</string>
   <string name="edit">Изменить</string>
   <string name="delete">Удалить</string>
-  <string name="name">Имя</string>
+  <string name="name">Название</string>
   <string name="url">URL</string>
   <string name="default_">По умолчанию</string>
   <string name="regular_expression">Регулярное выражение</string>
