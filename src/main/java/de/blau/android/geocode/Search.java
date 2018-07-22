@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
@@ -34,9 +36,9 @@ import de.blau.android.util.Util;
 public class Search {
     static final String DEBUG_TAG = "Search";
 
-    private AppCompatActivity activity;
+    final private AppCompatActivity activity;
 
-    private SearchItemSelectedCallback callback;
+    final private SearchItemSelectedCallback callback;
 
     public static class SearchResult {
         private double lat;
@@ -83,7 +85,7 @@ public class Search {
      * @param activity activity calling this
      * @param callback will be called when search result is selected
      */
-    public Search(AppCompatActivity activity, SearchItemSelectedCallback callback) {
+    public Search(@NonNull AppCompatActivity activity, @NonNull SearchItemSelectedCallback callback) {
         this.activity = activity;
         this.callback = callback;
     }
@@ -95,7 +97,7 @@ public class Search {
      * @param q the query string
      * @param bbox bounding box to limit the search to
      */
-    public void find(Geocoder geocoder, String q, ViewBox bbox) {
+    public void find(@NonNull Geocoder geocoder, @NonNull String q, @Nullable ViewBox bbox) {
         Query querier = null;
         boolean multiline = false;
         switch (geocoder.type) {
@@ -112,7 +114,7 @@ public class Search {
         querier.execute(q);
         try {
             List<SearchResult> result = querier.get(20, TimeUnit.SECONDS);
-            if (!result.isEmpty()) {
+            if (result != null && !result.isEmpty()) {
                 AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
                 sr.show();
             } else {
@@ -136,7 +138,7 @@ public class Search {
      * @return a Dialog object
      */
     @SuppressLint("InflateParams")
-    private AppCompatDialog createSearchResultsDialog(final List<SearchResult> searchResults, int itemLayout) {
+    private AppCompatDialog createSearchResultsDialog(@NonNull final List<SearchResult> searchResults, int itemLayout) {
         //
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.search_results_title);
