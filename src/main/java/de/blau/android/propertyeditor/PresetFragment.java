@@ -264,7 +264,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
                         AutoPreset autoPreset = new AutoPreset(getContext());
                         Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
-                        for (PresetElement pe : fromTaginfo.getRootGroup().getElements()) {
+                        List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
+                        if (!searchResults.isEmpty()) {
+                            searchResults.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
+                        }
+                        for (PresetElement pe : elementsFromTaginfo) {
                             searchResults.add(pe);
                         }
                     }

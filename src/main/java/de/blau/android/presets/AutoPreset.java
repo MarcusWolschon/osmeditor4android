@@ -222,7 +222,6 @@ public class AutoPreset {
         elements.clear();
         Collections.sort(items);
         elements.addAll(items);
-        elements.add(0, preset.new PresetSeparator(group));
         return preset;
     }
 
