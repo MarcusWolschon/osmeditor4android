@@ -248,6 +248,7 @@ public final class Tags {
     public static final String KEY_MILITARY   = "military";
     public static final String KEY_PIPELINE   = "pipeline";
     public static final String KEY_HEALTHCARE = "healthcare";
+    public static final String KEY_GEOLOGICAL = "geological";
 
     // annotations
     public static final String KEY_NOTE = "note";
@@ -266,7 +267,7 @@ public final class Tags {
     public static final Set<String> IMPORTANT_TAGS = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_HIGHWAY, KEY_BARRIER, KEY_WATERWAY, KEY_RAILWAY, KEY_AEROWAY, KEY_AERIALWAY, KEY_POWER,
                     KEY_MAN_MADE, KEY_BUILDING, KEY_LEISURE, KEY_AMENITY, KEY_OFFICE, KEY_SHOP, KEY_CRAFT, KEY_EMERGENCY, KEY_TOURISM, KEY_HISTORIC,
-                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE)));
+                    KEY_LANDUSE, KEY_MILITARY, KEY_NATURAL, KEY_BOUNDARY, KEY_PLACE, KEY_TYPE, KEY_ENTRANCE, KEY_PIPELINE, KEY_HEALTHCARE, KEY_GEOLOGICAL)));
     /** ways that we might want to render differently */
     public static final Set<String> WAY_TAGS       = Collections
             .unmodifiableSet(new HashSet<>(Arrays.asList(KEY_BUILDING, KEY_RAILWAY, KEY_LEISURE, KEY_LANDUSE, KEY_WATERWAY, KEY_NATURAL, KEY_ADDR_INTERPOLATION,
