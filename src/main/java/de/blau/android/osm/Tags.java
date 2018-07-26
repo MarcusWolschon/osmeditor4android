@@ -128,6 +128,10 @@ public final class Tags {
     public static final String VALUE_ROUTE        = "route";
     public static final String ROLE_FORWARD       = "forward";
     public static final String ROLE_BACKWARD      = "backward";
+    public static final String ROLE_NORTH         = "north";
+    public static final String ROLE_SOUTH         = "south";
+    public static final String ROLE_EAST          = "east";
+    public static final String ROLE_WEST          = "west";
     public static final String VALUE_MULTIPOLYGON = "multipolygon";
     public static final String VALUE_BOUNDARY     = "boundary";
     public static final String KEY_BOUNDARY       = "boundary";
@@ -162,6 +166,9 @@ public final class Tags {
     public static final char   VALUE_WEST    = 'W';
     public static final char   VALUE_SOUTH   = 'S';
     public static final char   VALUE_NORTH   = 'N';
+
+    public static final String KEY_CONVEYING = "conveying";
+    public static final String KEY_PRIORITY  = "priority";
 
     //
     public static final String KEY_TURN       = "turn";

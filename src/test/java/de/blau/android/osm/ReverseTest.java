@@ -24,6 +24,10 @@ public class ReverseTest {
         reverseTag("incline","10°","-10°");
         reverseTag("incline","-10°","10°");
         reverseTag("oneway","yes","-1");
+        reverseTag("conveying","forward","backward");
+        reverseTag("conveying","backward","forward");
+        reverseTag("priority","forward","backward");
+        reverseTag("priority","backward","forward");
     }
 
     private void reverseTag(String key, String value, String result) {

@@ -1,10 +1,14 @@
 package de.blau.android.osm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import android.support.annotation.NonNull;
@@ -17,7 +21,7 @@ import android.util.Log;
  * @author simon
  *
  */
-class Reverse {
+final class Reverse {
     private static final String DEBUG_TAG = "Reverse";
 
     private static final String LEFT_INFIX       = ":left:";
@@ -31,6 +35,11 @@ class Reverse {
     private static final String PERCENT          = "%";
     private static final String DEGREE           = "°";
 
+    private static Set<String>directionDependentKeys = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.KEY_ONEWAY,Tags.KEY_INCLINE,Tags.KEY_DIRECTION, Tags.KEY_CONVEYING, Tags.KEY_PRIORITY)));
+    private static Set<String>directionDependentValues = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList(Tags.VALUE_RIGHT,Tags.VALUE_LEFT,Tags.VALUE_FORWARD,Tags.VALUE_BACKWARD)));
+    
     /**
      * Private constructor
      */
@@ -56,10 +65,10 @@ class Reverse {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if ((Tags.KEY_HIGHWAY.equals(key) && (Tags.VALUE_MOTORWAY.equals(value) || Tags.VALUE_MOTORWAY_LINK.equals(value)))
-                        || Tags.KEY_ONEWAY.equals(key) || Tags.KEY_INCLINE.equals(key) || Tags.KEY_DIRECTION.equals(key) || key.endsWith(LEFT_POSTFIX)
+                        || directionDependentKeys.contains(key) || key.endsWith(LEFT_POSTFIX)
                         || key.endsWith(RIGHT_POSTFIX) || key.endsWith(BACKWARD_POSTFIX) || key.endsWith(FORWARD_POSTFIX) || key.contains(FORWARD_INFIX)
-                        || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX) || key.contains(LEFT_INFIX) || Tags.VALUE_RIGHT.equals(value)
-                        || Tags.VALUE_LEFT.equals(value) || Tags.VALUE_FORWARD.equals(value) || Tags.VALUE_BACKWARD.equals(value)) {
+                        || key.contains(BACKWARD_INFIX) || key.contains(RIGHT_INFIX) || key.contains(LEFT_INFIX)
+                        || directionDependentValues.contains(value)) {
                     if (result == null) {
                         result = new TreeMap<>();
                     }
@@ -191,7 +200,7 @@ class Reverse {
     }
 
     /**
-     * REverse the value of an incline tag
+     * Reverse the value of an incline tag
      * 
      * @param value the value to reverse
      * @return the reversed value
