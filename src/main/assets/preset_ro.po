@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-08-02 08:29+0000\n"
+"Last-Translator: Andrei Nichitaru <nichitaru.andrei@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/openstreetmap/presets/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8404,7 +8404,7 @@ msgstr "Supravegheat"
 #: master_preset.xml:3217(combo:text|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:40(combo:text|key:surface)
 msgid "Surface"
-msgstr ""
+msgstr "Suprafaţă"
 
 #: master_preset.xml:3218(combo:display_values|group:Water|preset:Beach|key:sport)
 msgid "Surfing"
@@ -10370,7 +10370,7 @@ msgstr ""
 #: master_preset.xml:23(combo:text|key:surface)
 msgctxt "surface"
 msgid "Surface"
-msgstr ""
+msgstr "Suprafaţă"
 
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
@@ -10830,7 +10830,7 @@ msgstr "Stadion"
 #: master_preset.xml:7756(combo:text|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Surface"
-msgstr ""
+msgstr "Suprafaţă"
 
 #: master_preset.xml:425(combo:display_values|key:sport)
 msgctxt "sport"
@@ -10881,7 +10881,7 @@ msgstr ""
 #: master_preset.xml:437(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Surface"
-msgstr ""
+msgstr "Suprafaţă"
 
 #: master_preset.xml:437(combo:text|key:parking)
 msgctxt "parking"

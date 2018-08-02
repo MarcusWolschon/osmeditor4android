@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-07-25 17:37+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/openstreetmap/presets/language/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3006,7 +3006,7 @@ msgstr ""
 
 #: master_preset.xml:6815(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "Slökkvitæki"
 
 #: master_preset.xml:6830(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
@@ -3036,7 +3036,7 @@ msgstr ""
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "Skyndihjálparkassi"
 
 #: master_preset.xml:12607(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -5596,7 +5596,7 @@ msgstr ""
 
 #: master_preset.xml:7651(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "Athugasemd"
 
 #: master_preset.xml:9362(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
@@ -5978,7 +5978,7 @@ msgstr ""
 #: master_preset.xml:11199(group:name|group:Other)
 #: master_preset.xml:4153(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
 msgid "Other"
-msgstr ""
+msgstr "Annað"
 
 #: master_preset.xml:5324(item:name|group:Tourism|preset:Other_Information_Point)
 msgid "Other Information Point"
@@ -6874,7 +6874,7 @@ msgstr ""
 
 #: master_preset.xml:6915(combo:text|group:Emergency|preset:Siren|key:siren:purpose)
 msgid "Purpose"
-msgstr ""
+msgstr "Tilgangur"
 
 #: master_preset.xml:12311(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7938,7 +7938,7 @@ msgstr ""
 
 #: master_preset.xml:6904(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "Sírena"
 
 #: master_preset.xml:13152(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13230(item:name|group:Relations|preset:Site)
@@ -12465,7 +12465,7 @@ msgstr "Kyn skiptir ekki máli"
 #: master_preset.xml:7242(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Athugasemdir"
 
 #: master_preset.xml:7478(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
@@ -13006,7 +13006,7 @@ msgstr ""
 #: master_preset.xml:13089(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "Athugasemd"
 
 #: master_preset.xml:13087(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"

@@ -25,6 +25,7 @@ Quando viene caricato un valore esistente per gli orari di apertura, il programm
 * __Salva come modello__: salva il valore attuale degli orari di apertura in un modello da usare in futuro.
 * __Gestisci modello__: modifica, per esempio il nome, ed elimina modelli esistenti.
 * __Aggiorna__: ricontrolla il valore degli orari di apertura.
+* __Elimina tutto__: elimina tutte le regole.
 
 ### Regole
 
@@ -36,7 +37,7 @@ Le regole predefinite sono aggiunte come _normali_ regole, ciò implica che esse
 * __Aggiungi festività__: aggiungi un selettore per festività pubbliche o scolastiche.
 * __Aggiungi intervallo di tempo__
     * __Orario - orario__: un orario di inizio ed uno di fine nello stesso giorno.
-    * __Orario - orario esteso__: un orario di inizio ed uno di fine nel giorno dopo (ad esempio 26:00 significa 02:00 del mattino del giorno dopo).
+    * __Orario - orario esteso__: da un orario di inizio fino ad un orario di fine del giorno seguente (ad esempio 26:00 che significa le 2 del mattino del giorno seguente).
     * __Orario var. - orario__: da un orario di inizio variabile (crepuscolo, alba, tramonto) ad uno di fine nello stesso giorno.
     * __Orario var. - orario esteso__: da un orario variabile di inizio ad uno di fine nel giorno seguente.
     * __Orario - orario var.__: da un orario di inizio ad uno di fine variabile.
@@ -56,12 +57,13 @@ Le regole predefinite sono aggiunte come _normali_ regole, ciò implica che esse
     * __Data - occorrenza nel mese__: da una data di inizio fino a un numero di giorno settimanale del mese.
     * __Occorrenza nel mese - data variabile__: da un numero di giorno settimanale del mese fino a una data non precisa.
     * __Data variabile - occorrenza nel mese__: da una data non precisa di inizio fino al numero di giorno settimanale nel mese.
-    * __Data - senza un termine__: da una data di inizio in poi,
+    * __Data - senza termine__: da una data di inizio in poi.
     * __Data variabile - senza un termine__: da una data di inizio variabile in poi.
     * __Occorrenza nel mese - senza un termine__: dal numero di giorno della settimana di un mese in poi.
     * __Con scostamenti...__: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).
 * __Aggiungi intervallo annuale__: aggiungi un selettore per gli anni.
 * __Aggiungi intervallo di settimane__: aggiungi un selettore per il numero della settimana.
+* __Duplica__: crea una copia di questa regola e inseriscila dopo la posizione corrente.
 * __Mostra tipo di regola__: visualizza e modifica il tipo di regola _normale_, _additivo_ e _di riserva_ (non disponibile per la prima regola).
 * __Sposta su__: sposta questa regola di una posizione in alto (non disponibile per la prima regola).
 * __Sposta giù__: sposta questa regola di una posizione in basso.

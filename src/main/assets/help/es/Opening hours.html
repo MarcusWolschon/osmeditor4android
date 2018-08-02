@@ -14,6 +14,7 @@
   <li><strong>Guardar a plantilla</strong>: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.</li>
   <li><strong>Administrar plantilla</strong>: editar, por ejemplo cambiar el nombre, y eliminar plantillas existentes.</li>
   <li><strong>Refrescar</strong>: volver a analizar el valor de la hora de apertura.</li>
+  <li><strong>Delete all</strong>: remove all rules.</li>
 </ul><h3>Reglas</h3><p>Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser una preocupación al especificar tiempos extendidos, por lo general, querrá cambiar las reglas a través de la entrada del menú <em>Mostrar tipo de regla</em> a <em>aditivo</em>.</p><h4>Menú Regla</h4>
 <ul>
   <li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
@@ -21,7 +22,7 @@
   <li><strong>Añadir período de tiempo...</strong>
   <ul>
     <li><strong>Hora - tiempo</strong>: una hora de inicio para una hora de finalización en el mismo día.</li>
-    <li><strong>Hora - tiempo prolongado</strong>: una hora de inicio a un tiempo de finalización al día siguiente (ejemplo 26:00 es 02:00 (am) el día siguiente.</li>
+    <li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
     <li><strong>Var. hora - hora</strong>: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.</li>
     <li><strong>Var. hora - tiempo prolongado</strong>: desde una hora variable de inicio hasta una hora de finalización al día siguiente.</li>
     <li><strong>Hora - var. tiempo</strong>: una hora de inicio a una hora variable final.</li>
@@ -43,13 +44,14 @@
     <li><strong>Fecha - ocurrencia en mes</strong>: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.</li>
     <li><strong>Ocurrencia en mes - fecha variable</strong>: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.</li>
     <li><strong>Fecha variable - ocurrencia en mes</strong>: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.</li>
-    <li><strong>Fecha - final abierto</strong>: desde una fecha de inicio en adelante,</li>
+    <li><strong>Date - open end</strong>: from a start date onwards.</li>
     <li><strong>Fecha variable - final abierto</strong>: desde una fecha de inicio variable en adelante.</li>
     <li><strong>Ocurrencia en mes - final abierto</strong>: a partir de una ocurrencia de un día de la semana en un mes en adelante.</li>
     <li><strong>Con compensaciones...</strong>: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).</li>
   </ul></li>
   <li><strong>Añadir rango de año</strong>: añadir un selector basado en el año.</li>
   <li><strong>Añadir rango de semana</strong>: agregar un selector basado en el número de la semana.</li>
+  <li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
   <li><strong>Mostrar tipo de regla</strong>: mostrar y permitir el cambio del tipo de regla <em>normal</em>, <em>additive</em> y <em>fallback</em> (no disponible en la primera regla).</li>
   <li><strong>Ascender</strong>: subir esta regla una posición (no disponible en la primera regla).</li>
   <li><strong>Bajar</strong>: bajar esta regla una posición.</li>

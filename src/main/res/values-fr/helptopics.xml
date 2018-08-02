@@ -18,7 +18,16 @@
     <string name="help_gpssources">Source GPS</string>
     <string name="help_keyboard">Clavier</string>
     <string name="help_tagfilter">Filtre de tag</string>
+    <string name="help_presetfilter">Filtre de modèles d\'attributs</string>
     <string name="help_opening_hours">Horaires d\'ouverture</string>
+    <string name="help_upgrade">Notes de publication</string>
+    <string name="help_upgrade_102">Notes de publication de la version 10.2</string>
+    <string name="help_upgrade_101">Notes de publication de la version 10.1</string>
+    <string name="help_upgrade_100">Notes de publication de la version 10.0</string>
+    <string name="help_upgrade_099">Notes de publication de la version 0.9.9</string>
+    <string name="help_upgrade_098">Notes de publication de la version 0.9.8</string>
+    <string name="help_upgrade_097">Notes de publication de la version 0.9.7</string>
+    <string name="help_upgrade_096">Notes de publication de la version 0.9.6</string>
     <string name="help_privacy">Vie privée</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>

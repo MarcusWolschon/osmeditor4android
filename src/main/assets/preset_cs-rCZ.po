@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-07-03 21:47+0000\n"
-"Last-Translator: Roman Horník <roman.hornik@debian-linux.cz>\n"
+"PO-Revision-Date: 2018-08-01 13:58+0000\n"
+"Last-Translator: Jan Sten Adámek <sten@stensoft.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -298,7 +298,7 @@ msgstr ""
 
 #: master_preset.xml:7614(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
-msgstr ""
+msgstr "Reklamní sloup"
 
 #: master_preset.xml:14303(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
@@ -1137,7 +1137,7 @@ msgstr ""
 
 #: master_preset.xml:7239(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Stánek"
 
 #: master_preset.xml:2286(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -3009,7 +3009,7 @@ msgstr ""
 
 #: master_preset.xml:6815(item:name|group:Emergency|preset:Fire_Extinguisher)
 msgid "Fire Extinguisher"
-msgstr ""
+msgstr "Hasící přístroj"
 
 #: master_preset.xml:6830(item:name|group:Emergency|preset:Fire_Hose)
 msgid "Fire Hose"
@@ -3039,7 +3039,7 @@ msgstr ""
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "Lékárnička první pomoci"
 
 #: master_preset.xml:12607(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -4184,7 +4184,7 @@ msgstr "Školka"
 
 #: master_preset.xml:9985(item:name|group:Food|preset:Kiosk)
 msgid "Kiosk"
-msgstr ""
+msgstr "Kiosek"
 
 #: master_preset.xml:2490(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
@@ -4984,7 +4984,7 @@ msgstr ""
 
 #: master_preset.xml:9126(item:name|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring Station"
-msgstr ""
+msgstr "Monitorovací stanice"
 
 #: master_preset.xml:9139(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -5136,7 +5136,7 @@ msgstr ""
 #: master_preset.xml:3186(item:name|group:Water|preset:Mud)
 #: master_preset.xml:40(combo:display_values|key:surface)
 msgid "Mud"
-msgstr ""
+msgstr "Bahno"
 
 #: master_preset.xml:7907(item:name|group:Sport|preset:Multi)
 msgid "Multi"
@@ -5981,7 +5981,7 @@ msgstr ""
 #: master_preset.xml:11199(group:name|group:Other)
 #: master_preset.xml:4153(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
 msgid "Other"
-msgstr ""
+msgstr "Ostatní"
 
 #: master_preset.xml:5324(item:name|group:Tourism|preset:Other_Information_Point)
 msgid "Other Information Point"
@@ -6193,7 +6193,7 @@ msgstr ""
 
 #: master_preset.xml:2034(item:name|preset:Passing_Place)
 msgid "Passing Place"
-msgstr ""
+msgstr "Místo k vyhýbání"
 
 #: master_preset.xml:1165(check:text|group:Streets|preset:Minor_road|key:passing_places)
 #: master_preset.xml:1301(check:text|group:Streets|preset:Service|key:passing_places)
@@ -6877,7 +6877,7 @@ msgstr ""
 
 #: master_preset.xml:6915(combo:text|group:Emergency|preset:Siren|key:siren:purpose)
 msgid "Purpose"
-msgstr ""
+msgstr "Účel"
 
 #: master_preset.xml:12311(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7657,7 +7657,7 @@ msgstr ""
 
 #: master_preset.xml:14056(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
-msgstr ""
+msgstr "Sochař"
 
 #: master_preset.xml:6086(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6116(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
@@ -7941,7 +7941,7 @@ msgstr ""
 
 #: master_preset.xml:6904(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "Siréna"
 
 #: master_preset.xml:13152(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13230(item:name|group:Relations|preset:Site)
@@ -8332,7 +8332,7 @@ msgstr ""
 
 #: master_preset.xml:9237(combo:text|group:Bridges|preset:Bridge|key:bridge:structure)
 msgid "Structure"
-msgstr ""
+msgstr "Struktura"
 
 #: master_preset.xml:6120(item:name|group:Culture|preset:Studio)
 msgid "Studio"
@@ -10343,7 +10343,7 @@ msgstr "Kov"
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Mud"
-msgstr ""
+msgstr "Bahno"
 
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
@@ -11631,7 +11631,7 @@ msgstr ""
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Industrial"
-msgstr ""
+msgstr "Průmysl"
 
 #: master_preset.xml:8537(key:text|group:Buildings|preset:Industrial_building|key:building)
 msgctxt "building"
@@ -11731,7 +11731,7 @@ msgstr "Blešita"
 #: master_preset.xml:809(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Mud"
-msgstr ""
+msgstr "Bahno"
 
 #: master_preset.xml:802(combo:display_values|key:building:use)
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)

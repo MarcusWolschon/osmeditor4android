@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-07-01 09:59+0000\n"
+"PO-Revision-Date: 2018-07-22 21:05+0000\n"
 "Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -878,7 +878,7 @@ msgstr "Természetes strand"
 
 #: master_preset.xml:5580(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr "Vízparti üdülőhely"
+msgstr "Fürdőhely, vízparti strand"
 
 #: master_preset.xml:8238(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -3175,7 +3175,7 @@ msgstr "Gázló"
 
 #: master_preset.xml:12265(item:name|group:Nature|preset:Forest)
 msgid "Forest"
-msgstr "Erdő"
+msgstr "Telepített erdő"
 
 #: master_preset.xml:14606(item:name|group:Offices|preset:Forestry)
 msgid "Forestry"
@@ -8169,7 +8169,7 @@ msgstr "Forrás"
 
 #: master_preset.xml:12022(item:name|group:Places|preset:Square)
 msgid "Square"
-msgstr "Derékszögesítés"
+msgstr "Tér"
 
 #: master_preset.xml:2514(combo:display_values|group:Barriers|preset:Stile|key:stile)
 msgid "Squeezer"
@@ -12258,7 +12258,7 @@ msgstr "Víz"
 #: master_preset.xml:12249(item:name|group:Nature|preset:Wood)
 msgctxt "natural"
 msgid "Wood"
-msgstr "Fa"
+msgstr "Természetes erdő"
 
 #: master_preset.xml:3250(combo:text|group:Shipping|preset:Ferry_Terminal|key:cargo)
 msgctxt "cargo"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-26 15:50+0000\n"
+"PO-Revision-Date: 2018-07-19 02:17+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -576,7 +576,7 @@ msgstr ""
 
 #: master_preset.xml:9789(item:name|group:Historic_Places_&_Objects|preset:Archaeological_Site)
 msgid "Archaeological Site"
-msgstr ""
+msgstr "Di chỉ Khảo cổ"
 
 #: master_preset.xml:7943(item:name|group:Sport|preset:Archery)
 msgid "Archery"
@@ -5597,7 +5597,7 @@ msgstr ""
 
 #: master_preset.xml:7651(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "Ghi chú"
 
 #: master_preset.xml:9362(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
@@ -13007,7 +13007,7 @@ msgstr ""
 #: master_preset.xml:13089(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "Ghi chú"
 
 #: master_preset.xml:13087(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"

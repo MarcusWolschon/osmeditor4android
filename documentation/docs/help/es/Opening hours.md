@@ -25,6 +25,7 @@ Si se carga un valor existente, se intentará autocorregir para ajustarlo a las 
 * __Guardar a plantilla__: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.
 * __Administrar plantilla__: editar, por ejemplo cambiar el nombre, y eliminar plantillas existentes.
 * __Refrescar__: volver a analizar el valor de la hora de apertura.
+* __Delete all__: remove all rules.
 
 ### Reglas
 
@@ -36,7 +37,7 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
 * __Añadir vacaciones__: añadir un selector para vacaciones públicas o escolares.
 * __Añadir período de tiempo...__
     * __Hora - tiempo__: una hora de inicio para una hora de finalización en el mismo día.
-    * __Hora - tiempo prolongado__: una hora de inicio a un tiempo de finalización al día siguiente (ejemplo 26:00 es 02:00 (am) el día siguiente.
+    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).
     * __Var. hora - hora__: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.
     * __Var. hora - tiempo prolongado__: desde una hora variable de inicio hasta una hora de finalización al día siguiente.
     * __Hora - var. tiempo__: una hora de inicio a una hora variable final.
@@ -56,12 +57,13 @@ Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anular
     * __Fecha - ocurrencia en mes__: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.
     * __Ocurrencia en mes - fecha variable__: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.
     * __Fecha variable - ocurrencia en mes__: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.
-    * __Fecha - final abierto__: desde una fecha de inicio en adelante,
+    * __Date - open end__: from a start date onwards.
     * __Fecha variable - final abierto__: desde una fecha de inicio variable en adelante.
     * __Ocurrencia en mes - final abierto__: a partir de una ocurrencia de un día de la semana en un mes en adelante.
     * __Con compensaciones...__: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).
 * __Añadir rango de año__: añadir un selector basado en el año.
 * __Añadir rango de semana__: agregar un selector basado en el número de la semana.
+* __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Mostrar tipo de regla__: mostrar y permitir el cambio del tipo de regla _normal_, _additive_ y _fallback_ (no disponible en la primera regla).
 * __Ascender__: subir esta regla una posición (no disponible en la primera regla).
 * __Bajar__: bajar esta regla una posición.

@@ -32,16 +32,16 @@ A forma mais fácil de descarregar dados para o dispositivo é aproximar/afastar
 
 <a id="lock"></a>
 
-#### Trancar, destrancar, alternar modo
+#### Bloquear, desbloquear, alternar modo
 
 Para evitar edições acidentais, o Vespucci inicia no modo  "bloqueado". Toque no ícone ![Bloqueado](../images/locked.png) para desbloquear o ecrã. 
 
 Se pressionar de forma longa o botão do cadeado, surgirá um menu com 4 opções:
 
-* **Normal** - No modo de edição padrão novos elementos podem ser adicionados, os existentes editados, movidos ou removidos, O símbolo do cadeado fica em branco.  
-* **Apenas Etiquetas** - Selecionando um elemento surgirá a o Editor de Propriedades, pressionando de forma contínua no ecrã principal irá adicionar novos elementos, mas não novas geometrias. O símbolo do cadeado fica em branco com um "T".
-* **Interior** - Ativa o modo Interior, veja [Indoor mode](#indoor). O símbolo do cadeado fica em branco com um "i".
-* **C-Mode** - Ativa o modo C-Mode, apenas elementos qur estejam marcados com avisos serão mostrados. Veja [C-Mode](#c-mode). O símbolo do cadeado fica em branco com um "C".
+* **Normal** - no modo de edição padrão podem ser adicionados novos elementos e os existentes podem ser editados, movidos ou removidos, O símbolo do cadeado aparece a branco.
+* **Apenas etiquetas** - selecionando um elemento surgirá o Editor de Propriedades, pressionando de forma contínua no ecrã principal irá adicionar novos elementos, mas não funcionarão outras operações de geometrias. O símbolo do cadeado fica em branco com um "T".
+* **Interior** - ativa o modo Interior, veja [Modo interior](#indoor). O símbolo do cadeado fica em branco com um "i".
+* **Modo-C** - Ativa o modo Modo-C. Apenas serão mostrados os elementos que estejam marcados com avisos. Veja [Modo-C](#c-mode). O símbolo do cadeado fica em branco com um "C".
 
 #### Toque simples, toque duplo e toque longo
 
@@ -51,9 +51,9 @@ Por defeito, os nós e linhas selecionáveis têm uma área laranja à volta del
     * Um nó ou linha isolados é destacado imediatamente. 
     * No entanto se tentar selecionar um objeto e o Vespucci determinar  que a seleção pode ser vários objetos, rá mostrar um menu de seleção permitindo escolher o objeto que quer selecionar. 
     * Os objetos selecionados são destacados a amarelo. 
-    * Para mais informações ver [Nó selecionado](../en/Node%20selected.md), [Linha selecionada](../en/Way%20selected.md) e [Relação selecionada](../en/Relation%20selected.md).
-* Toque duplo: ativar [Modo Multi-seleção](../en/Multiselect.md)
-* Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos](../en/Creating%20new%20objects.md)
+    * Para mais informações ver [Nó selecionado](Node%20selected.md), [Linha selecionada](Way%20selected.md) e [Relação selecionada](Relation%20selected.md).
+* Toque duplo: ativar [Modo Multi-seleção](Multiselect.md)
+* Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos](Creating%20new%20objects.md)
 
 É uma boa ideia aproximar a visualização caso a área tenha muitos objetos.
 
@@ -61,13 +61,15 @@ O Vespucci tem um bom sistema de "desfazer/refazer" por isso não tenha medo de 
 
 #### Selecionar / Desselecionar (toque simples e "menu de seleção")
 
-Toque num objeto para o selecionar e destacá-lo. Se tocar numa área vazia irá desselecionar. Se selecionou um objeto e necessita de selecionar outra coisa, simplesmente toque nesse objeto, não necessita de desselecionar o primeiro. Se tocar 2 vezes num objeto irá iniciar o [modo Multi-seleção](../en/Multiselect.md).
+Toque num objeto para o selecionar e destacá-lo. Se tocar numa área vazia irá desselecionar. Se selecionou um objeto e necessita de selecionar outra coisa, simplesmente toque nesse objeto, não necessita de desselecionar o primeiro. Se tocar 2 vezes num objeto irá iniciar o [modo Multi-seleção](Multiselect.md).
 
 Note que se tentar selecionar um objeto e se o Vespucci determinar que a seleção pode referir-se a vários objetos (como um nó numa linha, ou outros objetos sobrepostos) irá ver um menu de seleção: toque no objeto que quer selecionar. 
 
 Os objetos selecionados são indicados com uma borda amarela fina. A borda amarela pode ser difícil de ver, dependendo do fundo do mapa e do fator de ampliação. Após ser feita uma seleção, irá ver uma mensagem a confirmar a seleção.
 
-Após a seleção estar feita irá ver (quer com botões, quer com menu) uma lista de operações permitidas para o objeto selecionado: para mais informações ver [Nó selecionado](../en/Node%20selected.md), [Linha selecionada](../en/Way%20selected.md) e [Relação selecionada](../en/Relation%20selected.md).
+Assim que a seleção estiver completa irá ver (como botões ou como itens 
+no menu) uma lista de operações suportadas para o objeto selecionado. 
+Para mais informações veja [Nó selecionado](Node%20selected.md), [Via selecionada](Way%20selected.md) e [Relação selecionada](Relation%20selected.md).
 
 #### Objetos selecionados: Editar etiquetas
 
@@ -94,7 +96,7 @@ Assim que veja um sinal mais, tem as seguintes opções:
 
 Simplesmente toque no ecrã onde quer adicionar mais nós na linha. Para terminar, toque no nó final 2 vezes. Se o nó final se encontrar numa linha ou nó existente, o segmento ficará ligado automaticamente à linha ou nó. 
 
-Também pode usar o menu: ver [Criar novos objetos](../en/Creating%20new%20objects.md) para mais informações.
+Também pode usar o menu: ver [Criar novos objetos](/Creating%20new%20objects.md) para mais informações.
 
 #### Adicionar uma Área
 
@@ -152,7 +154,7 @@ Se quiser gravar as edições e não tiver acesso à Internet, pode gravar os da
 
 #### Resolver Conflitos ao Enviar
 
-O Vespucci tem um solucionador de conflitos simples. No entanto se suspeitar que existem erros graves a resolver com as suas edições, exporte as suas alterações num ficheiro .osc  (item "Exportar" no menu "Transferir") e corrija os conflitos no JOSM. Para mais informações veja [resolução de conflitos](../en/Conflict%20resolution.md).  
+O Vespucci tem um solucionador de conflitos simples. No entanto se suspeita que existem grandes problemas com as suas edições, faça uma exportação das alterações que fez para um ficheiro .osc (o item "Exportar" no menu "Transferir") e corrija e envie as alterações para o OSM no JOSM. Veja a ajuda detalhada em [Resolução de conflitos](Conflict%20resolution.md).  
 
 ## Utilizar o GPS
 
@@ -170,12 +172,13 @@ Os erros OSMOSE fornecem um link para o objeto em questão a azul, tocando no li
 
 ### Filtros
 
-Para além disso, se ativar os erros reportados também pode ativar o filtro espaçado de visualização para reduzir a confusão. Nas "Preferências avançadas" pode selecionar individualmente:
+Para além de ativar globalmente a visualização de notas e erros também pode pode aplicar um filtro para reduzir a confusão. Em [Preferências avançadas](Advanced%20preferences.md) pode selecionar individualmente:
 
-* Notas reportadas
+* Erros reportados
 * Erro Osmose
 * Aviso Osmose
 * Pequeno problema Osmose
+* Personalizado
 
 <a id="indoor"></a>
 
@@ -183,7 +186,7 @@ Para além disso, se ativar os erros reportados também pode ativar o filtro esp
 
 Mapear interiores de edifícios pode ser desafiante devido ao elevado número de objetos que se sobrepõem. O Vespucci tem um Modo Interiores que permite filtrar todos os objetos que não estejam no mesmo andar e adiciona automaticamente o andar aos objetos criados.
 
-O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
+O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver [Bloquear, desbloquear, alternar modo](#lock) e selecionar o respetivo menu.
 
 <a id="c-mode"></a>
 
@@ -191,7 +194,7 @@ O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [
 
 No Modo-C apenas são mostrados os objetos que têm uma bandeira de aviso definida, o que torna fácil detetar objetos que têm problemas específicos ou que correspondam a verificações configuráveis. Se for selecionado um objeto e o Editor de Propriedades iniciado no Modo-C, será aplicado automaticamente o modelo de melhor correspondência.
 
-O modo pode ser ativadoo ao pressionar de forma longa o botão do cadeado, ver [Lock, unlock, mode switching](#lock) e selecionar o respetivo menu.
+O modo pode ser ativado ao pressionar de forma longa o botão do cadeado, ver [Bloquear, desbloquear, alternar modo](#lock) e selecionar o respetivo menu.
 
 ### Configurar verificações
 
@@ -223,26 +226,26 @@ Esta verificação funciona determinando primeiro o modelo correspondente e ent�
 
 ### Filtro baseado em etiquetas
 
-O filtro pode ser ativado no menu principal, pode ser então alterado tocando no ícone de filtro. Para mais informações ver [Filtro de Etiquetas](../en/Tag%20filter.md).
+O filtro pode ser ativado no menu principal, pode ser então alterado tocando no ícone de filtro. Para mais informações ver [Filtro de Etiquetas](Tag%20filter.md).
 
 ### Filtro baseado em modelos de etiquetas
 
-Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com base em modelos de etiquetas individuais ou grupos destas. Tocando no ícone de filtro irá mostrar uma lista de seleção de modelos. Os modelos individuais podem ser selecionados apenas com um toque, e os grupos de modelos por um toque longo (toque normal abre o grupo). Para mais informações ver [Filtro de modelos de etiquetas](../en/Preset%20filter.md).
+Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com base em modelos de etiquetas individuais ou grupos destas. Tocando no ícone de filtro irá mostrar uma lista de seleção de modelos. Os modelos individuais podem ser selecionados apenas com um toque, e os grupos de modelos por um toque longo (toque normal abre o grupo). Para mais informações ver [Filtro de modelos de etiquetas](Preset%20filter.md).
 
 ## Personalizar o Vespucci
 
 ### Configurações que poderá querer alterar
 
 * Camada de fundo
-* Camada superior. Adicionar uma camada superior pode causar problemas com dispositivos antigos assim como aqueles com memória RAM limitada. Padrão: nenhuma.
+* Camada superior. Adicionar uma camada superior pode causar problemas com dispositivos antigos ou com pouca memória RAM. Padrão: nenhuma.
 * Visualização de erros reportados. Os erros reportados que estejam abertos serão mostrados com um ícone de um inseto amarelo. Os erros reportados fechados serão mostrados a verde. Padrão: ativo.
 * Camada de fotos. Mostra fotografias geo-referenciadas com um ícone de uma máquina fotográfica vermelha. Se estiver disponível a direção em que foi tirada, o ícone será rodado. Padrão: desativado.
-* Ícones dos nós. Padrão: ativo.
 * Manter ecrã ligado. Padrão: desativado.
 * Área grande de arrasto. Mover nós num dispositivo com ecrã sensível ao toque é problemático uma vez que os dedos irão tapar a posição atual no ecrã. Ao ativar esta opção irá poder usar uma área grande de toque descentrada (a seleção e outras operações continuam a usar a área normal de tolerância). Padrão: desativado.
 
 #### Preferências avançadas
 
+* Ícones dos nós. Padrão: ativado.
 * Mostrar sempre menu de contexto. Quando ativado, qualquer selecionar irá mostrar o menu de contexto. Se desativado, o menu de contexto apenas é mostrado quando for possível determinar apenas um elemento selecionado. Padrão: desativado (antes era ativo).
 * Ativar tema em tons claros. Em dispositivos recentes isto é ativado por padrão. Apesar de se poder ativar isto em dispositivos antigos, os grafismos podem ser inconsistentes.
 * Ver estatísticas. Mostra algumas informações no canto inferior esquerdo para depuração de erros do programa. Padrão: desativado (antigamente estava sempre ativado).  

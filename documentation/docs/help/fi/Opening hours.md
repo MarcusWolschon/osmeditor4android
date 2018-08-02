@@ -25,6 +25,7 @@ Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattis
 * __Tallenna mallineeksi__: tallenna nykyinen aukioloaika-arvo mallineeksi tulevaa käyttöä varten.
 * __Hallitse mallineita__: muokkaa (esim. muuta nimeä) ja poista valmiita mallineita. 
 * __Päivitä__: jäsennä aukioloaika-arvo uudelleen.
+* __Delete all__: remove all rules.
 
 ### Säännöt
 
@@ -36,7 +37,7 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
 * __Lisää vapaapäivä__: lisää valitsin yleiselle tai koulujen vapaapäivälle.
 * __Lisää aikaväli...__
     * __Aika–aika__: alkuaika ja loppuaika samana päivänä.
-    * __Aika–laajennettu aika__: alkuaika ja loppuaika peräkkäisinä päivinä (esim. 26:00 tarkoittaa 02:00 seuraavana päivänä).
+    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).
     * __Vaiht. aika–aika__: vaihteleva alkuaika (aamuhämärä, iltahämärä, auringonnousu, auringonlasku) ja loppuaika samana päivänä.
     * __Vaiht. aika–laajennettu aika__: vaihteleva alkuaika ja loppuaika peräkkäisinä päivinä.
     * __Aika–vaiht. aika__: alkuaika ja vaihteleva loppuaika.
@@ -56,12 +57,13 @@ Oletussäännöt lisätään _tavallisina_ sääntöinä, mikä tarkoittaa sitä
     * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
     * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
     * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
-    * __Pvm, alkaen__: tietystä päivämäärästä eteenpäin.
+    * __Date - open end__: from a start date onwards.
     * __Vaihteleva pvm, alkaen__: vaihtelevasta päivämäärästä eteenpäin.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __Poikkeama...__: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).
 * __Lisää vuosijakso__: lisää vuosiin perustuva valitsin.
 * __Lisää viikkojakso__: lisää viikkonumeroihin perustuva valitsin.
+* __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Näytä sääntötyyppi__: näytä säännön tyyppi ja/tai muuta sitä: _tavallinen_, _lisäävä_ ja _vara_ (ei ensimmäiselle säännölle).
 * __Siirrä ylöspäin__: siirrä sääntö yhtä paikkaa ylemmäs (ei ensimmäiselle säännölle)
 * __Siirrä alaspäin__: siirrä sääntö yhtä paikkaa alemmas.

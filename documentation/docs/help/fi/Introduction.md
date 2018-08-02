@@ -47,13 +47,13 @@ A long press on the lock icon will display a menu currently offering 4 options:
 
 Valittavissa olevia pisteitä ja viivoja ympäröi oletuksena oranssi alue, joka näyttää suurinpiirtein mihin pitää napauttaa kohteen valitsemiseksi. Vaihtoehtoja on kolme:
 
-* Yksittäinen napautus: Valitsee kohteen. 
-    * Erillinen piste/viiva korostetaan heti. 
-    * Kuitenkin jos yrität valitat kohteen, ja Vespucci arvioi, että valinta voisi tarkoittaa useaa eri kohdetta, se näyttää ne listana, josta voi valita haluamansa kohteen. 
-    * Valitut kohteet korostetaan keltaisella. 
-    * Lisätietoa saat kohdista [Piste valittuna](../fi/Piste%20valittuna.md), [Viiva valittuna](../fi/Viiva%20valittuna.md) ja [Relaatio valittuna](../fi/Relaatio%20valittuna.md).
-* Tuplanapautus: Aloittaa [monivalintatilan](../fi/Monivalinta.md)
-* Pitkä painallus: Tekee "hiusristikon", jonka avulla voit lisätä pisteen, ks. alempaa ja [Uusien kohteiden luominen](../fi/Uusien%20kohteiden%20luominen.md)
+* Single tap: Selects object. 
+    * An isolated node/way is highlighted immediately. 
+    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+    * Selected objects are highlighted in yellow. 
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
 
 Kannattaa lähentää näkymää tiheään kartoitettua aluetta muokattaessa.
 
@@ -61,13 +61,13 @@ Vespuccissa on hyvä peruutus- ja palautustoiminnot, joten voit huoletta tehdä 
 
 #### Valitseminen ja valinnan poisto (yksi napautus ja "valintavalikko")
 
-Kohde valitaan ja korostetaan, kun sitä koskettaa. Kosketus ruudun tyhjään osaan poistaa valinnan. Jos jokin kohde on valittuna, ja pitää valita jokin toinen kohde, ei valintaa tarvitse ensin poistaa, vaan voit koskettaa suoraan uutta kohdetta. Tuplanapautus kohteeseen aloittaa [Monivalinnan](../en/Multiselect.md).
+Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
 Huomaa että jos Vespucci ei valintatilanteessa ole varma mitä kohdetta yrität valita (vaikkapa viivan pistettä tai muita päällekkäisiä kohteita), sinulle näytetään valintavalikko: kosketa kohdetta, jonka haluat valita, ja valinta on valmis. 
 
 Valitut kohteet ilmaistaan ohuen keltaisen reunuksen avulla. Keltaista reunusta voi olla vaikea huomata taustakartasta ja suurennuksesta riippuen. Valinnan toteuduttua näytetään siitä vahvistukseksi ilmoitus.
 
-Kun valinta on valmis, näytetään sinulle (joko nappeina tai valikkokohteina) lista toiminnoista, jotka kohteelle voidaan suorittaa: Lisätietoa saat kohdista [Piste valittuna](../fi/Piste%20valittuna.md), [Viiva valittuna](../fi/Viiva%20valittuna.md) ja [Relaatio valittuna](../fi/Relaatio%20valittuna.md).
+Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 
 #### Valitut kohteet: tägien muokkaaminen
 
@@ -94,7 +94,7 @@ Kun hiusristikko on asetettu, on valittavana seuraavat toimenpiteet:
 
 Voit lisätä viivaan lisää pisteitä koskettamalla näyttöä haluamiisi kohtiin. Lopetus tapahtuu koskettamalla viimeistä pistettä kahdesti. Jos viimeinen piste on jonkin viivan tai pisteen kohdalla, uusi viiva kiinnittyy siihen automaattisesti. 
 
-Toiminto löytyy myös valikosta: Katso lisätietoa kohdasta [Uusien kohteiden luominen](../fi/Uusien%20kohteiden%20luominen.md).
+You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
 
 #### Alueen lisääminen
 
@@ -152,7 +152,7 @@ Jos haluat tallentaa työsi tulokset, mutta sinulla ei ole internetyhteyttä, vo
 
 #### Lähetyksen ristiriitojen selvittäminen
 
-Vespuccilla on yksinkertainen ristiriitojen selvitystyökalu. Jos kuitenkin epäilet, että muokkauksissasi on vakavia virheitä, niin vie muutokset .osc-tiedostoon ("Siirto"-valikon toiminto "Vie") ja korjaa ja lähetä ne JOSMilla. Katso tarkemmat ohjeet kohdasta [ristiriitojen selvittäminen](../en/Conflict%20resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
 ## GPS:n käyttäminen
 
@@ -170,18 +170,19 @@ OSMOSE-virheiden tiedoissa on sininen linkki kyseessä olevaan kohteeseen, ja li
 
 ### Suodattaminen
 
-Muistiinpanojen ja virheiden päälle laittamisen lisäksi voit asettaa karkean suodatuksen, ettei näkymä täyty niistä. Lisävalinnoista voit valita yksitellen:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Muistiinpanot
-* Osmosen virheet
-* Osmosen varoitukset
-* Osmosen pikkuongelmat
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Custom
 
 <a id="indoor"></a>
 
 # Sisätila-tila
 
-Sisätilojen kartoittaminen on haastavaa kohteiden suuren määrän vuoksi, ja koska ne usein ovat päällekkäin. Vespuccissa on erityinen sisätila-tila, jonka avulla voit piilottaa muilla tasoilla olevat kohteet ja lisätä automaattisesti nykyisen tason uusin kohteisiin.
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
@@ -197,7 +198,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### Re-survey entries
 
@@ -223,11 +224,11 @@ This check works be first determining the matching preset and then checking if *
 
 ### Tägipohjainen suodatin
 
-Suodattimen voi ottaa käyttöön päävalikosta, jonka jälkeen sitä voi muokata napauttamalla suodatinkuvaketta. Lisätietoa saa täältä: [Tägisuodatin](../en/Tag%20filter.md).
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
 ### Esivalintapohjainen suodatin
 
-Vaihtoehtona edelliselle kohteet suodatetaan joko yksittäisten esivalintojen tai esivalintaryhmien perusteella. Suodatinkuvakkeen napautus tuo esiin samanlaisen esivalintojen valintaikkunan mitä käytetään Vespuccissa muuallakin. Yksittäisiä esivalintoja voi valita normaalilla painalluksella, ja esivalintaryhmiä pitkällä painalluksella (normaali painallus avaa ryhmän). Lisätietoa on saatavilla täältä: [Esivalintasuodatin](../en/Preset%20filter.md).
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
 ## Vespuccin räätälöiminen
 
@@ -237,15 +238,15 @@ Vaihtoehtona edelliselle kohteet suodatetaan joko yksittäisten esivalintojen ta
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
 * Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Lisäasetukset
 
-* Näytä kontekstivalikko aina. Kun tämä on käytössä, kontekstivalikko näytetään aina kun kohteita ollaan valitsemassa, muutoin vain kun valinta ei ole yksiselitteinen. Oletus: pois käytöstä (aiemmin käytössä).
-* Käytä vaaleaa teemaa. Uusissa laitteissa tämä on käytössä oletuksena. Vaikka teeman voi ottaa käyttöön vanhoissakin Android-versioissa, tyyli on todennäköisesti epäjohdonmukainen.
-* Näytä tilastotietoa. Tämä näyttää vähän tietoja virheenkorjausta varten. Ei kovin hyödyllinen. Oletus: pois päältä (aiemmin päällä).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
+* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
 ## Ongelmista ilmoittaminen
 

@@ -14,6 +14,7 @@
   <li><strong>Salva come modello</strong>: salva il valore attuale degli orari di apertura in un modello da usare in futuro.</li>
   <li><strong>Gestisci modello</strong>: modifica, per esempio il nome, ed elimina modelli esistenti.</li>
   <li><strong>Aggiorna</strong>: ricontrolla il valore degli orari di apertura.</li>
+  <li><strong>Elimina tutto</strong>: elimina tutte le regole.</li>
 </ul><h3>Regole</h3><p>Le regole predefinite sono aggiunte come <em>normali</em> regole, ciò implica che esse sostituiscono i valori delle regole precedenti per gli stessi giorni. Questo potrebbe dare problemi quando si specifica orari estesi, in questi casi probabilmente dovrai impostare il tipo di regola nel menù <em>Mostra tipo di regola</em> su <em>additivo</em>.</p><h4>Menù regole</h4>
 <ul>
   <li><strong>Aggiungi modificatore/commento</strong>: modifica l’effetto di questa regola e aggiungi un commento facoltativo.</li>
@@ -21,7 +22,7 @@
   <li><strong>Aggiungi intervallo di tempo</strong>
   <ul>
     <li><strong>Orario - orario</strong>: un orario di inizio ed uno di fine nello stesso giorno.</li>
-    <li><strong>Orario - orario esteso</strong>: un orario di inizio ed uno di fine nel giorno dopo (ad esempio 26:00 significa 02:00 del mattino del giorno dopo).</li>
+    <li><strong>Orario - orario esteso</strong>: da un orario di inizio fino ad un orario di fine del giorno seguente (ad esempio 26:00 che significa le 2 del mattino del giorno seguente).</li>
     <li><strong>Orario var. - orario</strong>: da un orario di inizio variabile (crepuscolo, alba, tramonto) ad uno di fine nello stesso giorno.</li>
     <li><strong>Orario var. - orario esteso</strong>: da un orario variabile di inizio ad uno di fine nel giorno seguente.</li>
     <li><strong>Orario - orario var.</strong>: da un orario di inizio ad uno di fine variabile.</li>
@@ -43,13 +44,14 @@
     <li><strong>Data - occorrenza nel mese</strong>: da una data di inizio fino a un numero di giorno settimanale del mese.</li>
     <li><strong>Occorrenza nel mese - data variabile</strong>: da un numero di giorno settimanale del mese fino a una data non precisa.</li>
     <li><strong>Data variabile - occorrenza nel mese</strong>: da una data non precisa di inizio fino al numero di giorno settimanale nel mese.</li>
-    <li><strong>Data - senza un termine</strong>: da una data di inizio in poi,</li>
+    <li><strong>Data - senza termine</strong>: da una data di inizio in poi.</li>
     <li><strong>Data variabile - senza un termine</strong>: da una data di inizio variabile in poi.</li>
     <li><strong>Occorrenza nel mese - senza un termine</strong>: dal numero di giorno della settimana di un mese in poi.</li>
     <li><strong>Con scostamenti...</strong>: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).</li>
   </ul></li>
   <li><strong>Aggiungi intervallo annuale</strong>: aggiungi un selettore per gli anni.</li>
   <li><strong>Aggiungi intervallo di settimane</strong>: aggiungi un selettore per il numero della settimana.</li>
+  <li><strong>Duplica</strong>: crea una copia di questa regola e inseriscila dopo la posizione corrente.</li>
   <li><strong>Mostra tipo di regola</strong>: visualizza e modifica il tipo di regola <em>normale</em>, <em>additivo</em> e <em>di riserva</em> (non disponibile per la prima regola).</li>
   <li><strong>Sposta su</strong>: sposta questa regola di una posizione in alto (non disponibile per la prima regola).</li>
   <li><strong>Sposta giù</strong>: sposta questa regola di una posizione in basso.</li>

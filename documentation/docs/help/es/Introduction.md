@@ -47,13 +47,13 @@ Una pulsación larga en el icono del candado mostrará un menú con cuatro opcio
 
 Por defecto, los nodos y vías selecionables tienen un área naranja a su alrededor indicando aproximadamente dónde tiene que tocar para seleccionar un objeto. Tiene tres opciones:
 
-* Pulsación simple: Selecciona objeto. 
-    * Un nodo/vía aislado se marca inmediatamente. 
-    * Sin embargo, si intenta seleccionar un objeto y Vespucci determina que la selección podría referirse a varios objetos, se presentará un menú de selección, dándole la posibilidad de escoger el objeto que quiera seleccionar. 
-    * Los objetos seleccionados se marcan en amarillo. 
-    * Para más información, véase [Nodo seleccionado](../en/Node%20selected.md), [Vía seleccionada](../en/Way%20selected.md) y [Relación seleccionada](../en/Relation%20selected.md).
-* Pulsación Doble: Inicia el [Modo de multiselección](../en/Multiselect.md)
-* Pulsación larga: Crea un "punto de mira", dándole la posibilidad de añadir nodos; véase más adelante y en [Crear nuevos objetos](../en/Creating%20new%20objects.md)
+* Single tap: Selects object. 
+    * An isolated node/way is highlighted immediately. 
+    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+    * Selected objects are highlighted in yellow. 
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
 
 Es una buena estrategia acercar el mapa si intenta editar un área con alta densidad.
 
@@ -61,13 +61,13 @@ Vespucci tiene un buen sistema «deshacer/rehacer» así que no tenga miedo de e
 
 #### Seleccionando / Deseleccionando (pulsación simple y "menú de selección")
 
-Toque un objeto para seleccionarlo y resaltarlo. Tocando la pantalla en una región vacía lo deseleccionará. Si ha seleccionado un objeto y necesita seleccionar otra cosa, simplemente toque el objeto en cuestión; no es necesario deseleccionar primero. Un doble toque en un objeto iniciará el [Modo multiselección](../en/Multiselect.md).
+Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
 Tenga en cuenta que si intenta seleccionar un objeto y Vespucci determina que la selección se podría referir a varios objetos (tales como un nodo en una vía u otros objetos superpuestos) se presentará un menú de selección: pulse en el objeto que quiera seleccionar y el objeto se seleccionará. 
 
 Los objetos seleccionados se indican con un fino borde amarillo. Puede que el borde amarillo sea difícil de ver, dependiendo en el fondo del mapa y el nivel de zoom. Una vez que se ha hecho una selección, verá una notificación confirmando la selección.
 
-Una vez que la selección se ha completado, verá (como botones o como items de menú) una lista de operaciones soportadas para el objeto seleccionado: para más información véase [Node seleccionado](../en/Node%20selected.md), [Vía selected](../en/Way%20selected.md) y [Relación seleccionada](../en/Relation%20selected.md).
+Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 
 #### Objetos seleccionados: Editando etiquetas
 
@@ -94,7 +94,7 @@ Una vez pueda ver el símbolo de la cruz, tiene estas opciones:
 
 Simplemente toque la pantalla donde desea agregar más nodos del camino. Para finalizar, toque el nodo final dos veces. Si el nodo final está ubicado en una ruta o nodo, el segmento se conectará automáticamente a la ruta o al nodo. 
 
-También puede usar un elemento del menú: Vea [Creando nuevos objetos](../en/Creating%20new%20objects.md) para más información.
+You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
 
 #### Añadiendo un Área
 
@@ -152,7 +152,7 @@ Si quiere guardar su trabajo y no tiene acceso a Internet, puede guardar un arch
 
 #### Resolviendo conflictos al subir
 
-Vespucci tiene un solucionador de conflictos simple. Sin embargo, si sospecha que hay problemas importantes con sus ediciones, exporte los cambios a un archivo .osc (elemento del menú «Exportar» en el menú «Transferir») y arreglarlos y subirlos con JOSM. Ver la ayuda detallada en [resolución de conflictos](../en/Conflict%20resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
 ## Usando GPS
 
@@ -170,19 +170,19 @@ La exposición de error OSMOSE proveerá un enlace al objeto azul afectado, toca
 
 ### Filtrado
 
-Además de habilitar globalmente la visualización de notas y errores, puede configurar un filtro de visualización de grano grueso para reducir el desorden. En las «Preferencias avanzadas» puede seleccionar individualmente:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notas
-* Error Osmose
-* Advertencia Osmose
-* Problema menor Osmose
-
+* Notes
+* Osmose error
+* Osmose warning
+* Osmose minor issue
+* Custom
 
 <a id="indoor"></a>
 
 ## Modo de interiores
 
-El mapeo en interiores es un desafío debido a la gran cantidad de objetos que muy a menudo se superponen unos a otros. Vespucci tiene un modo interior dedicado que le permite filtrar todos los objetos que no están en el mismo nivel y que agregarán automáticamente el nivel actual a los nuevos objetos creados.
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
 El modo puede activarse con una pulsación larga en el icono del cansado, ver [Cambiando de modo, bloquear, desbloquear](#lock) y seleccionando la correspondiente entrada de menú.
 
@@ -198,7 +198,7 @@ El modo puede activarse con una pulsación larga en el icono del cansado, ver [C
 
 Actualmente hay dos chequeos configurables (hay un chequeo para etiquetas FIXME y una prueba para etiquetas type ausentes en relaciones quite actualmente no sin configurables) ambos pueden configurarse seleccionando "Ajustes del validador" en las "Preferencias". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### Re-survey entries
 
@@ -224,11 +224,11 @@ This check works be first determining the matching preset and then checking if *
 
 ### Filtro basado en etiqueta
 
-El filtro se puede habilitar desde el menú principal, luego se puede cambiar tocando el ícono de filtro. Más documentación se puede encontrar aquí [Filtro de etiqueta](../en/Tag%20filter.md).
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
 ### Filtro basado en preajustes
 
-Como alternativa a lo anterior, los objetos se filtran en presets individuales o en grupos preestablecidos. Al tocar en el ícono del filtro aparecerá un cuadro de diálogo de selección preestablecido similar al utilizado en Vespucci. Los preajustes individuales se pueden seleccionar con un clic normal, los grupos predefinidos con un clic prolongado (con un clic normal entra al grupo). Más documentación se puede encontrar aquí [Filtro preestablecido](../en/Preset%20filter.md).
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
 ## Personalizando Vespucci
 
@@ -238,15 +238,15 @@ Como alternativa a lo anterior, los objetos se filtran en presets individuales o
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
 * Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 Preferencias avanzadas
 
-* Mostrar siempre el menú contextual. Cuando se enciende, cada proceso de selección muestra el menú contextual, apagado el menú se muestra solo cuando no se puede determinar una selección inequívoca.. Predeterminado: desactivado (usar para activarlo).
-* Habilitar tema de luz. En dispositivos modernos, esto está activado de manera predeterminada. Si bien puede habilitarlo para versiones anteriores de Android, es probable que el estilo sea inconsistente.
-* Mostrar estadísticas. Mostrará algunas estadísticas para la depuración, no es realmente útil. Predeterminado: desactivado (usar para activarlo).  
+* Node icons. Default: on.
+* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
+* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
+* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
 ## Informar de problemas
 

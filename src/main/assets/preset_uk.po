@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-26 14:19+0000\n"
+"PO-Revision-Date: 2018-07-20 11:48+0000\n"
 "Last-Translator: Andrey Golovin\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -5599,7 +5599,7 @@ msgstr ""
 
 #: master_preset.xml:7651(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "Нотатка"
 
 #: master_preset.xml:9362(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
@@ -13009,7 +13009,7 @@ msgstr ""
 #: master_preset.xml:13089(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "Нотатка"
 
 #: master_preset.xml:13087(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"

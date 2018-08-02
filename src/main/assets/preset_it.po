@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-07-06 10:54+0000\n"
+"PO-Revision-Date: 2018-07-24 10:43+0000\n"
 "Last-Translator: Manuel Tassi <manueltassi91@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 msgid ""
 "(Please only use this tag if more detailed mapping using busbars and bays is"
 " impossible!)"
-msgstr "(usare questa etichetta solamente se non è possibile mappare con precisione usando sbarre elettriche e stalli!)"
+msgstr "(Usare questa etichetta solamente se non è possibile mappare con precisione usando sbarre elettriche e stalli!)"
 
 #: master_preset.xml:6940(label:text|group:Emergency|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr "(indicare il numero sulla targa)"
+msgstr "(Indicare il numero sulla targa)"
 
 #: master_preset.xml:12003(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
@@ -63,7 +63,7 @@ msgstr "-10°"
 #: master_preset.xml:5239(label:text|group:Tourism|preset:Map)
 #: master_preset.xml:5279(label:text|group:Tourism|preset:Guidepost)
 msgid "... other transportation modes possible"
-msgstr "... altre modalità di trasporto"
+msgstr "... altre modalità di trasporto possibili"
 
 #: master_preset.xml:1553(list_entry:display_value|group:Ways|preset:Track|value:grade1)
 msgid "1 - Solid"
@@ -6041,7 +6041,7 @@ msgstr ""
 
 #: master_preset.xml:377(combo:display_values|key:smoking)
 msgid "Outside"
-msgstr ""
+msgstr "Esterno"
 
 #: master_preset.xml:1014(check:text|group:Streets|preset:Primary|key:trolley_wire)
 #: master_preset.xml:1064(check:text|group:Streets|preset:Secondary|key:trolley_wire)
@@ -10370,7 +10370,7 @@ msgstr "Sabbia"
 #: master_preset.xml:23(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Sett"
-msgstr "Pavé"
+msgstr "Pavé / Sampietrini / Blognini"
 
 #: master_preset.xml:23(combo:text|key:surface)
 msgctxt "surface"
@@ -12799,7 +12799,7 @@ msgctxt "tree denotation"
 msgid ""
 "Trees found within settlements, e.g. in parks or spread through residential "
 "areas."
-msgstr ""
+msgstr "Alberi che si trovano all'interno di insediamenti, ad esempio in parchi o sparsi in aree residenziali."
 
 #: master_preset.xml:12226(list_entry:short_description|group:Nature|preset:Tree|value:agricultural)
 msgctxt "tree denotation"

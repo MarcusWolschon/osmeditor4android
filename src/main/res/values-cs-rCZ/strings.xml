@@ -90,6 +90,7 @@
   <string name="openstreetbug_not_downloaded">nestaženo</string>
   <string name="openstreetbug_last_updated">naposledy upraveno</string>
   <string name="openstreetbug_unknown_task_type">Neznámý typ úlohy</string>
+  <string name="openstreetbug_not_supported">%1$s není podporována.</string>
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložené změny, které budou smazány, pokud budete pokračovat.</string>
   <string name="unsaved_data_proceed">Smazat &amp; pokračovat</string>
@@ -101,6 +102,7 @@
   <string name="imagery_offset_date">Vytvořeno</string>
   <string name="imagery_offset_zoom">Přiblížení</string>
   <string name="imagery_offset_distance">Vzdálenost</string>
+  <string name="zoom_and_offset">LVL %1$d Ofset %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodetické datum</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
@@ -135,6 +137,7 @@
   <string name="original">Původní</string>
   <string name="current">Aktuální</string>
   <!---->
+  <string name="feature_information">Vlastnosti objektu GeoJSON</string>
   <string name="error">chyba</string>
   <string name="warning">varování</string>
   <string name="minor_issue">drobná chyba</string>
@@ -148,7 +151,7 @@
   <string name="send_debug_information">Poslat ladicí informace</string>
   <!--JS console dialog-->
   <string name="evaluate">Spustit</string>
-  <string name="js_console_msg_live">Režim živě!</string>
+  <string name="js_console_msg_live">Ostrý režim!</string>
   <string name="js_console_msg_debug">Režim ladění!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Pravidla validátoru %1$s</string>
@@ -285,6 +288,8 @@
   <string name="toast_abort_actionmode">Pro zrušení použijte šipku zpět</string>
   <string name="toast_null_island">Prosím nepřidávejte prvky na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Příliš dlouhý řetězec (%1$d znaků), zkrácen!</string>
+  <string name="toast_illegal_operation">Nepovolená operace: %1$s</string>
+  <string name="toast_preset_creation_failed">Vytváření předvolby „%1$s“ skončilo chybou: %2$s</string>
   <string name="toast_server_connection_failed">Připojení k serveru selhalo: %1$s</string>
   <string name="toast_flus_all_caches">Vyčistí veškerou mezipaměť dlaždic!</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
@@ -685,6 +690,7 @@
   <!--Experimental-->
   <string name="config_category_experimental">Experimentální</string>
   <string name="config_js_console_title">Povolit JS konzoli</string>
+  <string name="config_js_console_summary">Povolí používat JS konzoli v „ostrém“ režimu</string>
   <string name="config_voiceCommandsEnabled_title">Povolit hlasové příkazy</string>
   <string name="config_voiceCommandsEnabled_summary">Povolit podporu hlasových příkazů</string>
   <!---->
@@ -809,6 +815,7 @@
   <string name="deleterelation_relation_description">Chystáte se odstranit relaci, která je členem jedné nebo více relací. Odstranění relace z relace/relací může způsobit nesprávné vykreslení.</string>
   <string name="deleterelation">Smazat relaci</string>
   <string name="delete_from_relation_description">Chystáte se smazat tento prvek z relace.</string>
+  <string name="unset_relation_type">relace bez typu</string>
   <!--time and distance-->
   <string name="days">dny</string>
   <string name="hours">hodiny</string>

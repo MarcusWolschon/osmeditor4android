@@ -15,6 +15,8 @@
   <string name="upload_problem_message">Niektóre lub wszystkie dane nie zostały wysłane. Spróbuj wysłać ponownie, aby sprawdzić czy był to tylko tymczasowy problem.</string>
   <string name="bad_request_message">API OSM wysłało błędną odpowiedź, zapisz dane do pliku i zgłoś błąd: \n \n</string>
   <string name="upload_conflict_title">Wystąpił konflikt podczas wysyłania danych</string>
+  <string name="upload_conflict_message_version">%1$s\nma wersję lokalną %2$d\ni na serwerze %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s\nma lokalną wersję %2$d \ni zostało skasowane na serwerze</string>
   <string name="upload_conflict_message_referential">%1$s \nzostał usunięty lokalnie \nale ma powiązania na serwerze</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nzostał już usunięty na serwerze</string>
   <string name="use_local_version">Użyj wersji lokalnej</string>
@@ -48,6 +50,7 @@
   <string name="file_write_failed_message">Nie można zapisać do wskazanego pliku.</string>
   <string name="welcome_title">Witamy!</string>
   <string name="welcome_message">Dziękujemy za używanie Vespucci.\n\n Przed rozpoczęciem należy wiedzieć dwie rzeczy:\n\n * naciśnięcie kłódki w lewym górnym rogu przełącza blokowanie edycji;\n\n* dodawanie nowego obiektu: naciśnięcie i przytrzymanie a następnie naciśnięcie w tym samym miejscu dodaje węzeł. Naciśnięcie w innym miejscu utworzy linię. \n\n Proszę nie zapomnieć o wcześniejszym pobraniu modyfikowanego obszaru.\n\n Powodzenia!</string>
+  <string name="welcome_message_fullscreen">\n\nVespucci wykrył że masz urządzenie z \"soft keys\" i je ukrył. swipe od dołu ekranu by je ponownie pokazać.</string>
   <string name="read_introduction">Wyświetl wprowadzenie</string>
   <string name="upgrade_title">Witamy w nowej wersji programu Vespucci!</string>
   <string name="upgrade_message">To nowa wersja programu Vespucci z nowymi funkcjonalnościami i zachowaniem. Proszę zapoznać się z informacjami na temat ulepszeń.</string>
@@ -137,12 +140,14 @@
   <string name="minor_issue">drobny problem</string>
   <string name="unknown_error_level">nieznany poziom błędu</string>
   <!--hidden object warning dialog-->
+  <string name="attached_object_warning_title">Ta operacja zmienia obiekty ukryte przez filtry!</string>
   <string name="attached_object_warning_message">Zmieniony obiekt związany jest z ukrytymi elementami które również się zmienią.</string>
   <string name="attached_object_warning_continue">OK dalej wyświetlaj tą wiadomość</string>
   <string name="attached_object_warning_stop">OK przestań wyświetlać tą wiadomość</string>
   <!--debug dialog-->
   <string name="send_debug_information">Prześlij informacje do debugowania</string>
   <!--JS console dialog-->
+  <string name="evaluate">Ewaluuj</string>
   <!--Validator dialogs-->
   <string name="validator_title">Zbiór zasad walidatora: %1$s</string>
   <string name="edit_check_title">Edytuj sprawdzenie</string>
@@ -165,6 +170,7 @@
   <string name="oam_layer_title">Zdjęcia OAM</string>
   <string name="edit_layer_title">Edytuj warstwę</string>
   <string name="add_layer_title">Dodaj warstwę</string>
+  <string name="overlay">Nakładka</string>
   <string name="coverage">Zasięg</string>
   <string name="coverage_top">Góra</string>
   <string name="coverage_left">Lewo</string>
@@ -173,13 +179,17 @@
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
   <string name="delete_layer">Usunąć warstwę?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Styl warstwy</string>
   <string name="layer_style_color">Kolor</string>
+  <string name="layer_style_label">Etykieta</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Siatka</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Zdjęcia</string>
   <string name="layer_tasks">Zadania</string>
   <string name="layer_data">Dane OSM</string>
+  <string name="layer_change_style">Zmień styl</string>
   <!--Undo - Redo dialog-->
   <string name="undo_redo_title">Cofnij - Ponów</string>
   <!--BoxPicker-->
@@ -194,6 +204,7 @@
   <string name="toast_min_zoom">Minimalne przybliżenie nie może być mniejsze od maksymalnego.</string>
   <string name="toast_no_changes">Jeszcze nic nie zmieniono…</string>
   <string name="toast_unsaved_changes">Istnieją niezapisane zmiany, proszę je najpierw wysłać.</string>
+  <string name="clear_anyway">Czy na pewno wyczyścić?</string>
   <string name="toast_upload_success">Wysyłano na serwer OSM.</string>
   <string name="toast_not_in_edit_range">Przybliż, by edytować (Volume Up/Down lub Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Proszę odblokować, aby zmodyfikować</string>
@@ -259,13 +270,19 @@
   <string name="toast_missing_key">Brakujący klucz %1$s</string>
   <string name="toast_openinghours_invalid">Niepoprawne godziny otwarcia dla %1$s</string>
   <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia dla %1$s została poprawiona</string>
+  <string name="toast_exit_actionmode">Użyj strzałki wstecz by zapisać i wyjść</string>
+  <string name="toast_abort_actionmode">Użyj strzałki wstecz by zatrzymać</string>
   <string name="toast_null_island">Prosimy nie dodawać obiektów na 0°/0° (Null Island)</string>
+  <string name="toast_string_too_long">Napis za długi (%1$d znaków), został przycięty!</string>
   <string name="toast_illegal_operation">Niepoprawna operacja: %1$s</string>
   <string name="toast_imperial_units">Brakujące jednostki imperialne</string>
   <string name="toast_server_connection_failed">Brak połączenia z serwerem: %1$s</string>
   <string name="toast_flus_all_caches">Wyczyszczone zostaną wszystkie cache kafelków!</string>
+  <string name="toast_applied_offset">Automatycznie zastosowana poprawa położenia tła</string>
   <string name="toast_unsupported_format">Niewspierany format: %1$s</string>
   <string name="toast_returning_less_than_found">Zwrócono %1$d z %2$d znalezionych wpisów</string>
+  <string name="toast_not_mbtiles">Plik nie jest w formacie MBTiles</string>
+  <string name="toast_using_gps_location">GPS jest używany do ustalenia lokalizacji</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS wyłączony, rejestrowanie śladu zatrzymane</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
@@ -273,6 +290,7 @@
   <string name="okay">Zatwierdź</string>
   <string name="cancel">Anuluj</string>
   <string name="dismiss">Odrzuć</string>
+  <string name="done">Zakończone</string>
   <string name="locked">Zablokowane</string>
   <string name="next">Dalej</string>
   <string name="apply">Zastosuj</string>
@@ -293,6 +311,8 @@
   <string name="share_position">Udostępnij pozycję</string>
   <string name="min">Min.</string>
   <string name="max">Maks.</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none"> Żadne</string>
   <!--Dialog for back button-->
   <string name="exit_title">Kończenie działania</string>
   <string name="exit_text">Zakończyć działanie programu?</string>
@@ -355,6 +375,7 @@
   <string name="location_headline">Wczytaj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Ostatnia znana pozycja:</string>
   <string name="location_current_text">Obecna pozycja:</string>
   <string name="location_text_unknown">nieznane</string>
@@ -438,6 +459,7 @@
   <string name="menu_set_name">Nazwij</string>
   <string name="tag_form_unknown_element">Nieznany element (brak szablonu)</string>
   <string name="menu_tools">Narzędzia...</string>
+  <string name="menu_tools_imagery">Więcej narzędzi</string>
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
@@ -453,7 +475,11 @@
   <string name="menu_tools_background_align_save_db">Zapisz do bazy danych</string>
   <string name="menu_tools_background_align_save_device">Zapisz na urządzeniu</string>
   <string name="menu_tools_background_align_apply2all">Zastosuj (wszystkie przybliżenia)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f metrów</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
+  <string name="menu_tools_apply_local_offset">Zastosuj zapamiętaną poprawkę położenia tła</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Zresetuj OAuth</string>
   <string name="menu_tools_oauth_authorisation">Uwierzytelnij przez OAuth</string>
@@ -502,6 +528,7 @@
   <string name="config_customlayers_title">Warstwy własne</string>
   <string name="config_scale_title">Wyświetlanie skali</string>
   <string name="config_mapProfile_title">Styl danych</string>
+  <string name="config_mapProfile_summary">Wybierz styl dla warstwy danych</string>
   <string name="config_enableOpenStreetBugs_title">Wyświetlanie błędów i notatek</string>
   <string name="config_enableOpenStreetBugs_summary">Wyświetla i pozwala modyfikować oraz zgłaszać uwagi/błędy.</string>
   <string name="config_enablePhotoLayer_title">Warstwa zdjęć</string>
@@ -601,6 +628,7 @@
   <string name="config_leaveGpsDisabled_summary">Nie pyta o włączenie nawigacji jeśli jest wyłączona.</string>
   <!--Server Settings-->
   <string name="config_category_server">Dane logowania</string>
+  <string name="config_category_server_summary">Konfiguracja OSM API i innych serwerów</string>
   <string name="config_apibutton_title">Adres API OpenStreetMap</string>
   <string name="config_apibutton_summary">Możesz tu ustawić nie-standardowy adres API. Zazwyczaj nie powinno się tego robić.</string>
   <string name="config_loginbutton_title">Konto użytkownika</string>
@@ -651,6 +679,7 @@
   <string name="changes_created">Utworzono „%1$s”</string>
   <string name="confirm_upload_title">Wyślij zmiany</string>
   <string name="confirm_one_upload_text_1">Wysłać następujące zmiany?</string>
+  <string name="confirm_multiple_upload_text_1">Zapisać te %1$d zmiany?</string>
   <string name="confirm_upload_edits_page">Zmiany</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>

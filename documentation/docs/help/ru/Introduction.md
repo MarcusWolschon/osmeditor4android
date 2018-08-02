@@ -26,7 +26,7 @@ Vespucci — полнофункциональный редактор OpenStreetM
 * **Файл...** - сохранение и загрузка данных с файлов устройства.
 * **Заметки/Ошибки...** - загрузить (автоматически или вручную) заметки и "ошибки" OSM из валидаторов (сейчас только OSMOSE) *(требуется соединение с Интернетом)*
 
-Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб движением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
+Самый простой способ загрузить данные на устройство - найти нужную позицию на карте и выбрать "Загрузить текущее место". Вы можете менять масштаб сведением пальцев, кнопками на экране или кнопками громкости. Vespucci загрузит данные для текущей области на карте. Для загрузки данных не требуется авторизация.
 
 ### Редактирование
 
@@ -51,27 +51,27 @@ Vespucci — полнофункциональный редактор OpenStreetM
     * An isolated node/way is highlighted immediately. 
     * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
     * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
-* Double tap: Start [Multiselect mode](../en/Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](../en/Creating%20new%20objects.md)
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
 
 Если вы пытаетесь редактировать область с высокой плотностью данных, разумно будет приблизить её.
 
 У Vespucci хорошая система отмены и повторения правок, поэтому не бойтесь экспериментировать на устройстве, однако не загружайте на сервер тестовые данные.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Выделение / Снятие выделения (простое нажатие и меню выделения)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](../en/Multiselect.md).
+Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Обратите внимание, когда Вы пытаетесь выделить объект и Vespucci посчитает, что может быть выделено несколько объектов (таких, как точка на линии или другие перекрывающиеся объекты), будет показано меню выделения: нажмите на объект, который Вы хотели выбрать и он будет выделен. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Выбранные объекты отображаются с дополнительным тонким жёлтым бордюром. Он может быть плохо заметен на некоторых цветах фона карты или при некоторых масштабах. Когда выделение сделано, Вы увидите уведомление, подтверждающее выбор.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](../en/Node%20selected.md), [Way selected](../en/Way%20selected.md) and [Relation selected](../en/Relation%20selected.md).
+Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Выделенные объекты: Редактирование тэгов
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Двойной тап по выбранному обьекту открывает редактор тегов, вы сможете редактировать теги связанные с обьектом.
 
 Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
 
@@ -85,7 +85,7 @@ Long press where you want the node to be or the way to start. You will see a bla
 * If you want to create a new node (not connected to an object), click away from existing objects.
 * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
-Once you can see the crosshair symbol, you have these options:
+Когда вы увидете символ перекрестия, у вас появятся следующие опции:
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
@@ -94,9 +94,9 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](../en/Creating%20new%20objects.md) for more information.
+You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Добавить область
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -108,7 +108,7 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Вырезать, копировать и вставлять
+#### Вырезание, копирование и вставка
 
 Вы можете скопировать или вырезать выделенные точки и линии, а затем вставить их один или несколько раз в новое место. Вырезание сохраняет OSM id и версию. Чтобы вставить, длительно нажмите в месте, в которое вы хотите вставить (вы увидите перекрестие, отмечающее расположение). Затем выберите "Вставить" из меню.
 
@@ -152,7 +152,7 @@ Vespucci поддерживает и OAuth-авторизацию, и "клас�
 
 #### Разрешение конфликтов данных при передаче на сервер
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](../en/Conflict%20resolution.md).  
+Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
 ## Использование GPS
 
@@ -166,38 +166,39 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-Дисплей ошибок OSMOSE предоставит ссылку на затронутый объект синим цветом; касание по ссылке выберет объект, центрирует экран на нем и, если необходимо, предзагрузит область. 
+Дисплей ошибок OSMOSE предоставит ссылку на затронутый объект синим цветом; касание по ссылке выберет объект, центрирует экран на нем и, если необходимо, предварительно загрузит область. 
 
 ### Filtering
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the "Advanced preferences" you can individually select:
+Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
 * Notes
 * Osmose error
 * Osmose warning
 * Osmose minor issue
+* Custom
 
 <a id="indoor"></a>
 
-## Indoor mode
+## План помещения
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created their.
+Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Режим может быть включен долгим нажатием на заблокированном объекте, см. [Блокировка, разблокировка, переключение режимов](#lock) и выбором соответствующего пункта меню.
 
 <a id="c-mode"></a>
 
-## C-Mode
+## "Только конфликты" (C-Mode)
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Режим может быть включен долгим нажатием на заблокированном объекте, см. [Блокировка, разблокировка, переключение режимов](#lock) и выбором соответствующего пункта меню.
 
-### Configuring checks
+### Настройка проверок
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half check "entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
 #### Re-survey entries
 
@@ -219,15 +220,15 @@ Check entries have the following two properties:
 
 This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
-## Filters
+## Фильтры
 
 ### Tag based filter
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](../en/Tag%20filter.md).
+The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
 ### Preset based filter
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](../en/Preset%20filter.md).
+An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
 ## Настройка Vespucci
 
@@ -237,12 +238,12 @@ An alternative to the above, objects are filtered either on individual presets o
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
 * Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
 * Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Node icons. Default: on.
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
 #### Расширенные параметры
 
+* Node icons. Default: on.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Manfred Brandl <manfred@brandl.net>\n"
+"PO-Revision-Date: 2018-07-27 15:01+0000\n"
+"Last-Translator: Sebastian\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -409,7 +409,7 @@ msgstr "Längs"
 
 #: master_preset.xml:5414(list_entry:display_value|group:Leisure|preset:Animals|value:alpaca)
 msgid "Alpaca"
-msgstr ""
+msgstr "Alpaka"
 
 #: master_preset.xml:13006(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
@@ -540,7 +540,7 @@ msgstr "Anmerkung"
 
 #: master_preset.xml:5415(list_entry:display_value|group:Leisure|preset:Animals|value:anteater)
 msgid "Anteater"
-msgstr ""
+msgstr "Ameisenbär"
 
 #: master_preset.xml:5416(list_entry:display_value|group:Leisure|preset:Animals|value:antelope)
 msgid "Antelope"
@@ -617,7 +617,7 @@ msgstr "Kunstgalerie"
 
 #: master_preset.xml:5417(list_entry:display_value|group:Leisure|preset:Animals|value:artic_fox)
 msgid "Artic fox"
-msgstr ""
+msgstr "Polarfuchs"
 
 #: master_preset.xml:6118(text:text|group:Culture|preset:Artwork|key:artist_name)
 #: master_preset.xml:9877(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:artist_name)
@@ -729,7 +729,7 @@ msgstr "Kleinkinder"
 
 #: master_preset.xml:5418(list_entry:display_value|group:Leisure|preset:Animals|value:baboon)
 msgid "Baboon"
-msgstr ""
+msgstr "Pavian"
 
 #: master_preset.xml:6687(item:name|group:Health|preset:Baby_Hatch/Safe_Haven)
 msgid "Baby Hatch/Safe Haven"
@@ -1038,7 +1038,7 @@ msgstr "Geburtshaus"
 
 #: master_preset.xml:5422(list_entry:display_value|group:Leisure|preset:Animals|value:bison)
 msgid "Bison"
-msgstr ""
+msgstr "Bison"
 
 #: master_preset.xml:11717(check:text|preset:Payment_Methods|key:payment:bitcoin)
 msgid "Bitcoin"
@@ -1278,7 +1278,7 @@ msgstr "Buddhistischer Tempel"
 
 #: master_preset.xml:5425(list_entry:display_value|group:Leisure|preset:Animals|value:buffalo)
 msgid "Buffalo"
-msgstr ""
+msgstr "Büffel"
 
 #: master_preset.xml:3643(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
@@ -1344,7 +1344,7 @@ msgstr "Autodrom"
 
 #: master_preset.xml:5554(list_entry:display_value|group:Leisure|preset:Rides|value:bungee_jumping)
 msgid "Bungee jumping"
-msgstr ""
+msgstr "Bungee-Jumping"
 
 #: master_preset.xml:8849(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
@@ -1660,7 +1660,7 @@ msgstr "Käseladen"
 
 #: master_preset.xml:5428(list_entry:display_value|group:Leisure|preset:Animals|value:cheetah)
 msgid "Cheetah"
-msgstr ""
+msgstr "Gepard"
 
 #: master_preset.xml:10921(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
@@ -2280,7 +2280,7 @@ msgstr "Deep Water Soloing"
 
 #: master_preset.xml:5431(list_entry:display_value|group:Leisure|preset:Animals|value:deer)
 msgid "Deer"
-msgstr ""
+msgstr "Hirsch, Reh"
 
 #: master_preset.xml:10086(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -2369,7 +2369,7 @@ msgstr "Zielortreferenz"
 
 #: master_preset.xml:13155(list_entry:display_value|group:Relations|preset:Relations|value:destination_sign)
 msgid "Destination sign"
-msgstr ""
+msgstr "Zielschild"
 
 #: master_preset.xml:13573(text:text|preset:Destination_Sign|key:destination)
 msgid "Destination written on sign (w/o distance)"
@@ -3087,7 +3087,7 @@ msgstr "Fahnenstange"
 
 #: master_preset.xml:5439(list_entry:display_value|group:Leisure|preset:Animals|value:flamingo)
 msgid "Flamingo"
-msgstr ""
+msgstr "Flamingo"
 
 #: master_preset.xml:8680(text:text|preset:Entrance|key:addr:flats)
 msgid "Flat numbers"
@@ -3468,7 +3468,7 @@ msgstr "Gans"
 
 #: master_preset.xml:5444(list_entry:display_value|group:Leisure|preset:Animals|value:gorilla)
 msgid "Gorilla"
-msgstr ""
+msgstr "Gorilla"
 
 #: master_preset.xml:14342(item:name|group:Offices|preset:Government)
 msgid "Government"
@@ -3899,7 +3899,7 @@ msgstr ""
 
 #: master_preset.xml:5447(list_entry:display_value|group:Leisure|preset:Animals|value:ibex)
 msgid "Ibex"
-msgstr ""
+msgstr "Steinbock"
 
 #: master_preset.xml:8300(item:name|group:Sport_(Ball)|preset:Ice_Hockey)
 msgid "Ice Hockey"
@@ -4077,7 +4077,7 @@ msgstr "JCB"
 
 #: master_preset.xml:5448(list_entry:display_value|group:Leisure|preset:Animals|value:jaguar)
 msgid "Jaguar"
-msgstr ""
+msgstr "Jaguar"
 
 #: master_preset.xml:505(combo:display_values|key:religion)
 msgid "Jain"
@@ -4133,7 +4133,7 @@ msgstr "Jugendliche"
 
 #: master_preset.xml:5449(list_entry:display_value|group:Leisure|preset:Animals|value:kangaroo)
 msgid "Kangaroo"
-msgstr ""
+msgstr "Känguru"
 
 #: master_preset.xml:7716(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:karate)
 msgid "Karate"
@@ -4203,7 +4203,7 @@ msgstr "Küchenstudio"
 
 #: master_preset.xml:5450(list_entry:display_value|group:Leisure|preset:Animals|value:koala)
 msgid "Koala"
-msgstr ""
+msgstr "Koala"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Korean"
@@ -4330,7 +4330,7 @@ msgstr "Freizeit"
 
 #: master_preset.xml:5451(list_entry:display_value|group:Leisure|preset:Animals|value:lemur)
 msgid "Lemur"
-msgstr ""
+msgstr "Lemur"
 
 #: master_preset.xml:13628(text:text|preset:Bridge|key:length)
 #: master_preset.xml:13643(text:text|preset:Tunnel|key:length)
@@ -4343,7 +4343,7 @@ msgstr "Länge in Meter"
 
 #: master_preset.xml:5452(list_entry:display_value|group:Leisure|preset:Animals|value:leopard)
 msgid "Leopard"
-msgstr ""
+msgstr "Leopard"
 
 #: master_preset.xml:178(combo:text|key:level)
 msgid "Level"
@@ -4376,7 +4376,7 @@ msgstr "Lieferfahrzeuge"
 #: master_preset.xml:3490(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:4347(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr "Stadtbah"
+msgstr "Stadtbahn"
 
 #: master_preset.xml:9082(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
@@ -4438,7 +4438,7 @@ msgstr "Wohnstrasse"
 
 #: master_preset.xml:5454(list_entry:display_value|group:Leisure|preset:Animals|value:llama)
 msgid "Llama"
-msgstr ""
+msgstr "Lama"
 
 #: master_preset.xml:13443(combo:display_values|group:Routes|preset:Inline_Skating_Route|key:network)
 msgid "Local"
@@ -4487,7 +4487,7 @@ msgstr "Schlosser"
 
 #: master_preset.xml:5559(list_entry:display_value|group:Leisure|preset:Rides|value:log_flume)
 msgid "Log flume"
-msgstr ""
+msgstr "Wildwasserbahn"
 
 #: master_preset.xml:14614(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -4772,7 +4772,7 @@ msgstr "Lastwagen-Höchstgeschwindigkeit, in km/h"
 
 #: master_preset.xml:49(text:long_text|key:maxspeed)
 msgid "Maximum speed in km/h if no units specified"
-msgstr ""
+msgstr "Höchstgeschwindigkeit in km/h wenn keine Einheiten angegeben sind"
 
 #: master_preset.xml:2839(text:long_text|group:Access_Restrictions|preset:Cond._&_direct._max_speed|key:maxspeed:forward)
 msgid "Maximum speed in way direction specified in km/h"
@@ -4816,7 +4816,7 @@ msgstr "Mediterran"
 
 #: master_preset.xml:5458(list_entry:display_value|group:Leisure|preset:Animals|value:meerkat)
 msgid "Meerkat"
-msgstr ""
+msgstr "Erdmännchen"
 
 #: master_preset.xml:9801(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Megalith"
@@ -4999,7 +4999,7 @@ msgstr "Überwachung"
 
 #: master_preset.xml:5459(list_entry:display_value|group:Leisure|preset:Animals|value:monkey)
 msgid "Monkey"
-msgstr ""
+msgstr "Affe"
 
 #: master_preset.xml:3466(item:name|group:Railway|preset:Monorail)
 #: master_preset.xml:4348(check:text|group:Public_Transport|preset:Stop_Position|key:monorail)
@@ -5017,7 +5017,7 @@ msgstr "Anlegeplatz"
 
 #: master_preset.xml:5460(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
-msgstr ""
+msgstr "Elch"
 
 #: master_preset.xml:507(combo:display_values|key:denomination)
 msgid "Mormon"
@@ -5784,7 +5784,7 @@ msgstr "Ölpalmen"
 
 #: master_preset.xml:5461(list_entry:display_value|group:Leisure|preset:Animals|value:okapi)
 msgid "Okapi"
-msgstr ""
+msgstr "Okapi"
 
 #: master_preset.xml:507(combo:display_values|key:denomination)
 #: master_preset.xml:9899(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
@@ -5803,15 +5803,15 @@ msgstr "Olivenbäume"
 #: master_preset.xml:949(check:text|group:Streets|preset:Trunk|key:oneway)
 #: master_preset.xml:978(check:text|group:Streets|preset:Trunk_Link|key:oneway)
 msgid "Oneway"
-msgstr "Einbahn"
+msgstr "Einbahnstraße"
 
 #: master_preset.xml:1528(combo:text|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
-msgstr "Einbahn (Fahrrad)"
+msgstr "Einbahnstraße (Fahrrad)"
 
 #: master_preset.xml:1219(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr "Einbahn für Fahrräder"
+msgstr "Einbahnstraße für Fahrräder"
 
 #: master_preset.xml:10249(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10330(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -5983,7 +5983,7 @@ msgstr "Osteopathie"
 
 #: master_preset.xml:5462(list_entry:display_value|group:Leisure|preset:Animals|value:ostrich)
 msgid "Ostrich"
-msgstr ""
+msgstr "Vogel Strauß"
 
 #: master_preset.xml:11199(group:name|group:Other)
 #: master_preset.xml:4153(text:text|group:Motorcycle|preset:Motorcycle_Dealer|key:services)
@@ -6012,7 +6012,7 @@ msgstr "Andere Theater"
 
 #: master_preset.xml:5463(list_entry:display_value|group:Leisure|preset:Animals|value:otter)
 msgid "Otter"
-msgstr ""
+msgstr "Otter"
 
 #: master_preset.xml:10390(item:name|group:Clothes|preset:Outdoor)
 msgid "Outdoor"
@@ -6117,7 +6117,7 @@ msgstr "Panda"
 
 #: master_preset.xml:5467(list_entry:display_value|group:Leisure|preset:Animals|value:panther)
 msgid "Panther"
-msgstr ""
+msgstr "Panther"
 
 #: master_preset.xml:7346(check:text|group:Facilities|preset:Recycling_Container|key:recycling:paper)
 #: master_preset.xml:7387(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:paper)
@@ -6266,7 +6266,7 @@ msgstr "Pelota"
 
 #: master_preset.xml:5471(list_entry:display_value|group:Leisure|preset:Animals|value:penguin)
 msgid "Penguin"
-msgstr ""
+msgstr "Pinguin"
 
 #: master_preset.xml:507(combo:display_values|key:denomination)
 msgid "Pentecostal"
@@ -6578,7 +6578,7 @@ msgstr "Bevölkerungszahl"
 
 #: master_preset.xml:5476(list_entry:display_value|group:Leisure|preset:Animals|value:porcupine)
 msgid "Porcupine"
-msgstr ""
+msgstr "Stachelschwein"
 
 #: master_preset.xml:7994(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Porphyry"
@@ -7677,7 +7677,7 @@ msgstr "Meerestiere"
 
 #: master_preset.xml:5480(list_entry:display_value|group:Leisure|preset:Animals|value:sea_lion)
 msgid "Sea lion"
-msgstr ""
+msgstr "Seelöwe"
 
 #: master_preset.xml:7557(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea mammal"
@@ -7685,7 +7685,7 @@ msgstr "Meeressäuger"
 
 #: master_preset.xml:5481(list_entry:display_value|group:Leisure|preset:Animals|value:sea_turtle)
 msgid "Sea turtle"
-msgstr ""
+msgstr "Meeresschildkröte"
 
 #: master_preset.xml:10037(item:name|group:Food|preset:Seafood)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -7694,7 +7694,7 @@ msgstr "Meeresfrüchte"
 
 #: master_preset.xml:5482(list_entry:display_value|group:Leisure|preset:Animals|value:seal)
 msgid "Seal"
-msgstr ""
+msgstr "Seehund, Robbe"
 
 #: master_preset.xml:606(check:text|key:seasonal)
 msgid "Seasonal"
@@ -8045,7 +8045,7 @@ msgstr "Schlange"
 
 #: master_preset.xml:5487(list_entry:display_value|group:Leisure|preset:Animals|value:snow_leopard)
 msgid "Snow leopard"
-msgstr ""
+msgstr "Schneeleopard"
 
 #: master_preset.xml:13402(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Snow park"
@@ -8121,7 +8121,7 @@ msgstr "Geschwindigkeitsbegrenzung"
 
 #: master_preset.xml:10302(item:name|group:Food|preset:Spices)
 msgid "Spices"
-msgstr ""
+msgstr "Gewürze"
 
 #: master_preset.xml:2264(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
@@ -8544,7 +8544,7 @@ msgstr "Daoismus"
 
 #: master_preset.xml:5488(list_entry:display_value|group:Leisure|preset:Animals|value:tapir)
 msgid "Tapir"
-msgstr ""
+msgstr "Tapir"
 
 #: master_preset.xml:773(combo:display_values|key:roof:material)
 msgid "Tar paper"
@@ -8552,7 +8552,7 @@ msgstr "Dachpappe"
 
 #: master_preset.xml:5489(list_entry:display_value|group:Leisure|preset:Animals|value:tasmanian_devil)
 msgid "Tasmanian devil"
-msgstr ""
+msgstr "Tasmanischer Teufel"
 
 #: master_preset.xml:11049(item:name|group:For_the_body|preset:Tattoo)
 msgid "Tattoo"
@@ -8625,7 +8625,7 @@ msgstr "Terminal"
 
 #: master_preset.xml:5490(list_entry:display_value|group:Leisure|preset:Animals|value:termite)
 msgid "Termite"
-msgstr ""
+msgstr "Termite"
 
 #: master_preset.xml:1091(item:name|group:Streets|preset:Tertiary)
 msgid "Tertiary"
@@ -8814,7 +8814,7 @@ msgstr "Toposcope/Orientierungstafel"
 
 #: master_preset.xml:5492(list_entry:display_value|group:Leisure|preset:Animals|value:tortoise)
 msgid "Tortoise"
-msgstr ""
+msgstr "Schildkröte"
 
 #: master_preset.xml:5167(group:name|group:Tourism)
 msgid "Tourism"
@@ -9422,7 +9422,7 @@ msgstr "Walnussbäume"
 
 #: master_preset.xml:5495(list_entry:display_value|group:Leisure|preset:Animals|value:wapiti)
 msgid "Wapiti"
-msgstr ""
+msgstr "Wapiti"
 
 #: master_preset.xml:9829(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "War grave"
@@ -9747,7 +9747,7 @@ msgstr "Kabelgebunden"
 
 #: master_preset.xml:5497(list_entry:display_value|group:Leisure|preset:Animals|value:wisent)
 msgid "Wisent"
-msgstr ""
+msgstr "Wisent"
 
 #: master_preset.xml:3906(combo:text|group:Car|preset:Fuel|key:shop)
 msgid "With shop"
@@ -9787,7 +9787,7 @@ msgstr "Wrack"
 
 #: master_preset.xml:5499(list_entry:display_value|group:Leisure|preset:Animals|value:yak)
 msgid "Yak"
-msgstr ""
+msgstr "Yak"
 
 #: master_preset.xml:769(combo:display_values|key:roof:colour)
 #: master_preset.xml:805(combo:display_values|key:building:colour)
@@ -11423,7 +11423,7 @@ msgstr "Bungalow"
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Cabin"
-msgstr "Hütte"
+msgstr "Hütte (Cabin)"
 
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -11632,7 +11632,7 @@ msgstr "Haus"
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Hut"
-msgstr "Hütte"
+msgstr "Hütte (Hut)"
 
 #: master_preset.xml:802(combo:display_values|key:building:use)
 #: master_preset.xml:8449(combo:display_values|group:Buildings|preset:Building|key:building)

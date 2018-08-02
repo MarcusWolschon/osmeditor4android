@@ -37,7 +37,7 @@ Default rules are added as _normal_ rules, this implies that they will override 
 * __Add holiday__: add a selector for public or school holidays.
 * __Add time span...__
     * __Time - time__: a start time to an end time on the same day.
-    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day.
+    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).
     * __Var. time - time__: from a start variable time (dawn, dusk, sunrise and sundown) to an end time on the same day.
     * __Var. time - extended time__: from a start variable time to an end time on the next day.
     * __Time - var. time__: a start time to an end variable time.
@@ -57,7 +57,7 @@ Default rules are added as _normal_ rules, this implies that they will override 
     * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
     * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
     * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
-    * __Date - open end__: from a start date onwards,
+    * __Date - open end__: from a start date onwards.
     * __Variable date - open end__: from a start variable date onwards.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __With offsets...__: the same entries as above however with offsets specified (this is rarely used).

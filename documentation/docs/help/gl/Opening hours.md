@@ -25,6 +25,7 @@ Se se carga un valor de horas de horario existente, faise un intento automático
 * __Gardar a plantilla__: Gardar o valor actual das horas de apertura como modelo para o seu uso futuro.
 * __Manexar plantilla__: Editar, por exemplo, cambiar o nome e eliminar os modelos existentes.
 * __Actualizar__: Repasa o valor da hora de apertura.
+* __Delete all__: remove all rules.
 
 ### Regras
 
@@ -36,7 +37,7 @@ As regras por defecto son engadidas como regras _normais_: isto implica que ter�
 * __Engadir vacacións__: Engade un selector para vacacións públicas ou escolares.
 * __Engade intervalo de tempo...__
     * __Hora - hora__: Unha hora de inicio ata unha hora final do mesmo día.
-    * __Hora - hora estendida__: Unha hora de inicio ata unha hora final do día seguinte (exemplo: 26:00 é 02:00 (am) ao día seguinte.
+    * __Time - extended time__: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).
     * __Hora var. - hora__:Desde unha hora de inicio variable (amencer, anoitecer, abrente e ocaso) ata unha hora final do mesmo día
     * __Hora var. - hora estendida__: Desde unha hora variable inicial ata unha hora de finalización ao día seguinte.
     * __Hora - hora var.__: Desde unha hora inicial ata unha hora variable final.
@@ -56,12 +57,13 @@ As regras por defecto son engadidas como regras _normais_: isto implica que ter�
     * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
     * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
     * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
-    * __Data - fin indefinido__: Desde unha data de inicio en diante,
+    * __Date - open end__: from a start date onwards.
     * __Data variable - fin indefinido__: Dende unha data de inicio variable en diante.
     * __Occurrence in month - open end__: from a start weekday occurrence in a month onwards.
     * __Con offsets...__: As mesmas entradas que o anterior pero con offsets especificados (isto raramente se usa).
 * __Engadir rango anual__: Engade un selector baseado no ano.
 * __Engadir rango semanal__: Engade un selector baseado en números semanais.
+* __Duplicate__: create a copy of this rule and insert it after the current position.
 * __Amosar tipo de regra__: Amosar e permitir o cambio do tipo de regra _normal_, _aditivo_ and _fallback_ (Non dispoñible na primeira regra).
 * __Subir__: Mova esta regra cara arriba unha posición (non está dispoñible na primeira regra).
 * __Baixar__: Mova esta regra unha posición cara abaixo.

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
-  <string name="mode_tag_only">Etiquetas apenas</string>
+  <string name="mode_tag_only">Apenas etiquetas</string>
   <string name="mode_indoor">Interior</string>
   <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
@@ -37,8 +37,8 @@
   <string name="invalid_bounding_box_message">A área selecionada não obedece às restrições da API, por favor escolha uma área diferente.</string>
   <string name="bounding_box_too_large_title">A área para download é demasiado grande</string>
   <string name="bounding_box_too_large_message">A área que está a tentar descarregar é demasiado grande ou contém demasiada informação.\n\nPor  favor aproxime mais e tente novamente.</string>
-  <string name="api_offline_title">API Offline</string>
-  <string name="api_offline_message">A API está atualmente offline e não permite envios ou descarregamentos.</string>
+  <string name="api_offline_title">API Indisponível</string>
+  <string name="api_offline_message">A API não está disponível neste momento e não permite envios ou descarregamentos.</string>
   <string name="out_of_memory_title">Memória Esgotada</string>
   <string name="out_of_memory_message">O Vespucci esgotou a memória ao carregar os dados requisitados. Por favor reinicie e tente carregar uma área mais pequena.</string>
   <string name="out_of_memory_dirty_message">O Vespucci esgotou a memória ao carregar os dados requisitados. Por favor tente gravar as suas alterações, reinicie e tente carregar uma área mais pequena.</string>
@@ -113,7 +113,7 @@
   <string name="preset_search_hint">Etiquetas a pesquisar</string>
   <string name="preset_autopreset">Etiqueta Automáitca</string>
   <string name="search">Pesquisar</string>
-  <string name="no_valid_preset">Nenhum modelo de etiquetas válido!</string>
+  <string name="no_valid_preset">Sem modelo etiq. válido!</string>
   <string name="read_file">Selecione o ficheiro a ler</string>
   <string name="save_file">Introduza o ficheiro onde gravar</string>
   <string name="existing_track_title">Dados do trilho GPS existentes</string>
@@ -201,17 +201,22 @@
   <string name="json_array_not_displayed">Tabela JSON (não mostrado)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
-  <string name="layer_grid">Grelha</string>
+  <string name="layer_grid">Escala / grelha</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
-  <string name="layer_tasks">Tarefas</string>
-  <string name="layer_data">Dados OSM</string>
+  <string name="layer_tasks">Tarefas e erros reportados</string>
+  <string name="layer_data">Dados do OpenStreetMap</string>
   <string name="layer_flush_tile_cache">Limpar cache de mosaicos</string>
   <string name="layer_change_style">Altera estilo</string>
   <string name="layer_select_imagery">Selecionar imagens aéreas</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Histórico de alterações</string>
   <string name="undo_redo_title">Desfazer - Refazer</string>
+  <string name="undo_redo_one">Apenas a alteração selecionada (inseguro)</string>
+  <string name="undo_all">Desfazer todas as alterações posteriores (seguro)</string>
+  <string name="redo_all">Refazer todas as alterações anteriores (seguro)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Descarregar dados OpenStreetMap</string>
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -229,11 +234,11 @@
   <string name="toast_edit_outside_downloaded_area">Não pode editar fora da área descarregada</string>
   <string name="toast_save_done">Gravado com sucesso</string>
   <string name="toast_save_failed">A gravação falhou</string>
-  <string name="toast_not_in_bug_range">Faça zoom in para adicionar um relatório de erro (Volume +/- ou Lente/Shift)</string>
+  <string name="toast_not_in_bug_range">Aumente o mapa para adicionar um relatório de erro (Volume +/- ou Lente/Shift)</string>
   <string name="toast_export_failed">A exportação falhou</string>
   <string name="toast_export_success">Exportado para %1$s</string>
-  <string name="toast_preset_overwrote_tags">Nota - modelo gravou por cima das etiquetas</string>
-  <string name="toast_merge_overwrote_tags">Nota - operação gravou por cima das etiquetas</string>
+  <string name="toast_preset_overwrote_tags">Nota: algumas etiquetas foram substituídas</string>
+  <string name="toast_merge_overwrote_tags">Nota: operação substituiu algumas etiquetas</string>
   <string name="toast_oneway_reversed">Inverteu uma linha de sentido único ou uma linha com etiquetas que dependem da direção. Por favor verifique as etiquetas e corrija-as se for necessário.</string>
   <string name="toast_merge_tag_conflict">Uniu elementos que têm etiquetas com valores em conflito, ou semântica dependente da direção ou funções diferentes na mesma relação. Por favor verifique as etiquetas e funções e corrija-as se for necessário.</string>
   <string name="toast_potential_merge_tag_conflict">Está a tentar unir elementos que têm valores de etiquetas em conflito. Por favor verifique as etiquetas e corrija-as antes de tentar de novo.</string>
@@ -291,7 +296,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_no_coverage">%1$s não tem cobertura aqui</string>
   <string name="toast_file_exists">O ficheiro %1$s já existe.</string>
   <string name="toast_needs_resurvey">O objeto pode estar desatualizado</string>
-  <string name="toast_missing_key">Valor %1$s em falta</string>
+  <string name="toast_missing_key">Valor %1$s em falta. </string>
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido</string>
   <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão da seta de voltar para sair</string>
@@ -356,7 +361,7 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="tag_menu_apply_preset">Aplicar o modelo de etiquetas adequado</string>
   <string name="tag_menu_repeat">Repetir etiquetas</string>
   <string name="tag_menu_revert">Reverter</string>
-  <string name="tag_menu_mapfeatures">Wiki de Elementos do Mapa</string>
+  <string name="tag_menu_mapfeatures">Pág.wiki sobre etiqueta</string>
   <string name="tag_menu_addtorelation">Adicionar à relação</string>
   <string name="tag_menu_resetMRU">Limpar etiquetas recentes</string>
   <string name="tag_menu_reset_address_prediction">Repôr previsão de endereço</string>
@@ -809,7 +814,7 @@ há %3$s %4$s</string>
   <string name="undo_action_extract_node">extrair nó</string>
   <!--ACRA-->
   <string name="crash_dialog_text">O Vespucci bloqueou ou encontrou um problema grave da última vez que foi aberto.\n\nPor favor ajude-nos, enviando um relatório de erro. Tudo o que tem a fazer é clicar em \'OK\'.\n</string>
-  <string name="crash_dialog_comment_prompt">Acrescente qualquer informação adicional que possa ajudar-nos e o endereço de email (opcional) se quiser saber o progresso da correção.\n\nObrigado!</string>
+  <string name="crash_dialog_comment_prompt">Acrescente qualquer informação adicional que possa ajudar-nos e adicione o seu endereço de email (opcional) se quiser saber o progresso da correção.\n\nObrigado!</string>
   <string name="report_success">Relatório enviado com sucesso!</string>
   <string name="report_failure">O envio do relatório falhou!</string>
   <!--Exceptions messages-->

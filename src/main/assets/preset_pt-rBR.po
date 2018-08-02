@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-06-24 09:59+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-07-25 00:10+0000\n"
+"Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1136,7 +1136,7 @@ msgstr "Editora"
 
 #: master_preset.xml:7239(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Cabine"
 
 #: master_preset.xml:2286(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -3038,7 +3038,7 @@ msgstr ""
 
 #: master_preset.xml:6806(item:name|group:Emergency|preset:First_Aid_Kit)
 msgid "First Aid Kit"
-msgstr ""
+msgstr "Kit de primeiros socorros"
 
 #: master_preset.xml:12607(combo:display_values|group:Land_use|preset:Aquaculture|key:aquaculture)
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
@@ -5598,7 +5598,7 @@ msgstr ""
 
 #: master_preset.xml:7651(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: master_preset.xml:9362(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
@@ -6876,7 +6876,7 @@ msgstr ""
 
 #: master_preset.xml:6915(combo:text|group:Emergency|preset:Siren|key:siren:purpose)
 msgid "Purpose"
-msgstr ""
+msgstr "Propósito"
 
 #: master_preset.xml:12311(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7051,7 +7051,7 @@ msgstr ""
 
 #: master_preset.xml:12180(item:name|group:Geography|preset:Reef)
 msgid "Reef"
-msgstr ""
+msgstr "Recife"
 
 #: master_preset.xml:9108(text:text|group:Man_Made|preset:Dolphin|key:ref)
 msgid "Ref"
@@ -7940,7 +7940,7 @@ msgstr ""
 
 #: master_preset.xml:6904(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "Sirene"
 
 #: master_preset.xml:13152(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13230(item:name|group:Relations|preset:Site)
@@ -12467,7 +12467,7 @@ msgstr ""
 #: master_preset.xml:7242(check:text|group:Facilities|preset:Telephone|key:payment:notes)
 msgctxt "payment"
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #: master_preset.xml:7478(list_entry:short_description|group:Facilities|preset:Shelter|value:basic_hut)
 msgctxt "shelter"
@@ -13008,7 +13008,7 @@ msgstr ""
 #: master_preset.xml:13089(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: master_preset.xml:13087(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"

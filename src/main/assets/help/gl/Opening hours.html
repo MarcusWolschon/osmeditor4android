@@ -14,6 +14,7 @@
   <li><strong>Gardar a plantilla</strong>: Gardar o valor actual das horas de apertura como modelo para o seu uso futuro.</li>
   <li><strong>Manexar plantilla</strong>: Editar, por exemplo, cambiar o nome e eliminar os modelos existentes.</li>
   <li><strong>Actualizar</strong>: Repasa o valor da hora de apertura.</li>
+  <li><strong>Delete all</strong>: remove all rules.</li>
 </ul><h3>Regras</h3><p>As regras por defecto son engadidas como regras <em>normais</em>: isto implica que terán preferencia sobre os valores das regras anteriores para mesmos días. Isto pode ser unha preocupación cando se especifiquen tempos prolongados, polo que normalmente quererá cambiar as regras a <em>aditivo</em> mediante a entrada de menú <em>Amosar tipo de regra</em>.</p><h4>Menú de regras</h4>
 <ul>
   <li><strong>Engadir modificador/comentario</strong>: Muda o efecto desta regra e engade un comentario opcional.</li>
@@ -21,7 +22,7 @@
   <li><strong>Engade intervalo de tempo...</strong>
   <ul>
     <li><strong>Hora - hora</strong>: Unha hora de inicio ata unha hora final do mesmo día.</li>
-    <li><strong>Hora - hora estendida</strong>: Unha hora de inicio ata unha hora final do día seguinte (exemplo: 26:00 é 02:00 (am) ao día seguinte.</li>
+    <li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
     <li><strong>Hora var. - hora</strong>:Desde unha hora de inicio variable (amencer, anoitecer, abrente e ocaso) ata unha hora final do mesmo día</li>
     <li><strong>Hora var. - hora estendida</strong>: Desde unha hora variable inicial ata unha hora de finalización ao día seguinte.</li>
     <li><strong>Hora - hora var.</strong>: Desde unha hora inicial ata unha hora variable final.</li>
@@ -43,13 +44,14 @@
     <li><strong>Date - occurrence in month</strong>: from a start date to an end weekday occurrence in a month.</li>
     <li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
     <li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
-    <li><strong>Data - fin indefinido</strong>: Desde unha data de inicio en diante,</li>
+    <li><strong>Date - open end</strong>: from a start date onwards.</li>
     <li><strong>Data variable - fin indefinido</strong>: Dende unha data de inicio variable en diante.</li>
     <li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
     <li><strong>Con offsets...</strong>: As mesmas entradas que o anterior pero con offsets especificados (isto raramente se usa).</li>
   </ul></li>
   <li><strong>Engadir rango anual</strong>: Engade un selector baseado no ano.</li>
   <li><strong>Engadir rango semanal</strong>: Engade un selector baseado en números semanais.</li>
+  <li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
   <li><strong>Amosar tipo de regra</strong>: Amosar e permitir o cambio do tipo de regra <em>normal</em>, <em>aditivo</em> and <em>fallback</em> (Non dispoñible na primeira regra).</li>
   <li><strong>Subir</strong>: Mova esta regra cara arriba unha posición (non está dispoñible na primeira regra).</li>
   <li><strong>Baixar</strong>: Mova esta regra unha posición cara abaixo.</li>

@@ -464,9 +464,9 @@
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
   <string name="menu_transfer_download_other"> Scarica altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
-  <string name="menu_transfer_close_changeset">Chiusi il gruppo di modifiche corrente</string>
+  <string name="menu_transfer_close_changeset">Chiudi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
-  <string name="menu_transfer_export">Esporta modifiche (file OSC)</string>
+  <string name="menu_transfer_export">Esporta modifiche su un file OSC</string>
   <string name="menu_transfer_read_file">Importa da file JOSM</string>
   <string name="menu_transfer_save_file">Salva in formato JOSM</string>
   <string name="menu_transfer_bugs">Note/Bug...</string>
@@ -474,7 +474,7 @@
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
   <string name="menu_transfer_bugs_upload_long">Carica note/bug</string>
   <string name="menu_transfer_bugs_clear">Pulisci</string>
-  <string name="menu_transfer_bugs_clear_long">Cancella note/bug dalla vista corrente</string>
+  <string name="menu_transfer_bugs_clear_long">Cancella note/bug</string>
   <string name="menu_transfer_autodownload_long">Scarica automaticamente note/bug</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva tutte le note nuove o modificate...</string>
@@ -724,7 +724,7 @@
   <string name="listedit_enable_oauth">Abilita oauth</string>
   <string name="config_username_title">Nome utente OSM</string>
   <string name="config_password_title">Password OSM</string>
-  <string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmetta in testo puro!</string>
+  <string name="config_password_summary">Da non confondere con la password del wiki. Ricorda: viene salvata e trasmessa in testo puro!</string>
   <string name="manage_presets">Gestisci i preset</string>
   <string name="manage_geocoders">Gestisci geo-codificatori</string>
   <!--preset downloader messages-->
@@ -740,7 +740,7 @@
   <string name="changes_created">\"%1$s\" creato</string>
   <string name="confirm_upload_title">Carica le modifiche sul server</string>
   <string name="confirm_one_upload_text_1">Caricare la seguente modifica?</string>
-  <string name="confirm_multiple_upload_text_1">Caricare le seguenti 1%1$d modifiche?</string>
+  <string name="confirm_multiple_upload_text_1">Caricare le seguenti %1$d modifiche?</string>
   <string name="confirm_upload_edits_page">Modifiche</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
@@ -806,10 +806,10 @@
   <string name="undo_action_rotateway">ruota percorso</string>
   <string name="undo_action_orthogonalize">ortogonalizza il percorso</string>
   <string name="undo_action_circulize">disponi in cerchio</string>
-  <string name="undo_action_fix_conflict">Risolvi il conflitto</string>
+  <string name="undo_action_fix_conflict">risolvi il conflitto</string>
   <string name="undo_action_extract_node">estrai nodo</string>
   <!--ACRA-->
-  <string name="crash_dialog_text">Vespucci si è interrotto improvvisamente o ha avuto un problema grave durante l\'ultima esecuzione\nAiutaci inviando un rapporto di errore, devi solo premere \'OK\'.\n</string>
+  <string name="crash_dialog_text">Vespucci si è interrotto improvvisamente o ha avuto un problema grave durante l\'ultima esecuzione.\n\nAiutaci inviando un rapporto di errore, devi solo premere \'OK\'.\n</string>
   <string name="crash_dialog_comment_prompt">Aggiungi ulteriori informazioni utili e (facoltativo) il tuo indirizzo e-mail se vuoi ricevere un riscontro.\n\nGrazie!</string>
   <string name="report_success">Report correttamente trasmesso.</string>
   <string name="report_failure">Errore di consegna del report.</string>

@@ -177,6 +177,7 @@ Zusätzlich zum Freischalten der Notiz- und Fehleranzeige kann eine grobe Auswah
 <item>Osmose Fehler</item>
 <item>Osmose Warnung</item>
 <item>Osmose nebensächliche Warnung</item>
+<item>Custom</item>
 
 <a id="indoor"></a>
 

@@ -25,6 +25,7 @@ Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatik
 * __Mentés sablonként__: az aktuális nyitvatartási idő értékek elmentése sablonként a későbbi használathoz.
 * __Sablon kezelése__: szerkesztés, például név módosítása, és elmentett sablonok törlése.
 * __Frissítés__: a nyitvatartási idő értékének újraelemzése.
+* __Összes törlése__: az összes szabály eltávolítása
 
 ### Szabályok
 
@@ -36,19 +37,19 @@ Az alapértelmezett szabályok _rendes_ szabályként jelennek meg. Ez azzal já
 * __Szünnap hozzáadása__: hozzáad egy választót, amellyel munkaszüneti napokat vagy tanítási szünetet választhatunk.
 * __Időtartam hozzáadása…__
     * __Idő – idő__: nyitási és zárási időpont ugyanazon a napon.
-    * __Idő – kiterjesztett idő__: nyitási időponttól másnapi zárási időpontig (például 26:00 másnap hajnali 02:00 óra).
+    * __Idő – kiterjesztett idő__: kezdő időponttól egy a következő napon lévő zárási időpontig (pl. 26:00 = másnap hajnali 02:00),
     * __Változó idő – idő__: változó nyitási időponttól (hajnal, szürkület, napkelte és napnyugta) zárási időpontig ugyanazon a napon.
     * __Változó idő – kiterjesztett idő__: változó nyitási időponttól másnapi zárási időpontig.
     * __Idő – változó idő__: nyitási időponttól változó zárási időpontig.
     * __Változó idő – változó idő__: változó nyitási időponttól változó zárási időpontig.
     * __Idő__: egy időpont.
-    * __Idő – nyitott zárás__: nyitási időponttól kezdve mindörökké.
+    * __Idő – örökké__: nyitási időponttól kezdve mindörökké.
     * __Változó idő__: a változó időpontban.
-    * __Változó idő – nyitott zárás__: változó nyitási időponttól kezdve mindörökké.
+    * __Változó idő – örökké__: változó nyitási időponttól kezdve mindörökké.
 * __Hét napjaiból álló tartomány hozzáadása__: egy a hét napjaiból álló kijelölő hozzáadása
 * __Dátumtartomány hozzáadása…__
-    * __Dátum – dátum__: egy kezdő időponttól (év, hónap, nap) egy záró időpontig.
-    * __Változó dátum – dátum__: egy változó időponttól (a specifikáció jelenleg csak a _húsvétot_ határozza meg) egy záró időpontig.
+    * __Dátum – dátum__: egy nyitási dátumtól (év, hónap, nap) egy zárási dátumig.
+    * __Változó dátum – dátum__: egy változó dátumtól (a specifikáció jelenleg csak a _húsvétot_ határozza meg) egy zárási dátumig.
     * __Dátum – változó dátum__: egy adott dátumtól egy változó dátumig.
     * __Változó dátum – változó dátum__: egy változó dátumtól egy változó dátumig.
     * __Előfordulás hónapban – előfordulás hónapban__: a hónap valahányadik hétnapjától valahányadi hétnapjáig (pl. második, harmadik és negyedik szerdáján).
@@ -56,12 +57,13 @@ Az alapértelmezett szabályok _rendes_ szabályként jelennek meg. Ez azzal já
     * __Dátum – előfordulás hónapban__: egy kezdő dátumtól a hónap valamely hétnapjáig (pl. március 1-jétől április második szerdájáig).
     * __Előfordulás hónapban – változó dátum__: a hónap valamely hétnapjától (pl. második péntekjétől) egy változó dátumig:
     * __Változó dátum – előfordulás hónapban__: egy változó időponttól a hónap valamely hétnapjáig (pl. negyedik vasárnapjáig).
-    * __Dátum – nyitott zárás__: egy dátumtól kezdve mindörökké.
-    * __Változó dátum – nyitott zárás__: egy változó dátumtól kezdve mindörökké.
-    * __Előfordulás hónapban – nyílt vég__: a hónap valamely hétnapjától (pl. első kedd) kezdődően.
+    * __Dátum – örökké__: egy nyitási dátumtól kezdve mindörökké.
+    * __Változó dátum – örökké__: egy változó dátumtól kezdve mindörökké.
+    * __Előfordulás hónapban – örökké__: a hónap valamely hétnapjától (pl. első kedd) kezdődően.
     * __Eltolásokkal…__: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).
 * __Évtartomány hozzáadása__: évalapú kijelölő hozzáadása.
 * __Héttartomány hozzáadása__: hétalapú kijelölő hozzáadása.
+* __Duplikálás__: másolat készítése erről a szabályról és beillesztése a következő helyre.
 * __Szabálytípus megjelenítése__: a _rendes_, _kiegészítő_ és _helyettesítő_ szabálytípus megjelenítése és esetleges módosítása (az első szabálynál nem alkalmazható).
 * __Mozgatás felfelé__: eggyel feljebb tolja a szabályt (az első szabálynál nem alkalmazható).
 * __Mozgatás lefelé__: eggyel lejjebb tolja a szabályt.
@@ -73,7 +75,7 @@ Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A me
 
 #### Időtartam menü
 
-* __Időválasztó__: megjelenít egy nagy számválasztót a kezdő és záró idő beállításához; kis kijelzőkön ez az időbeállítás preferált módja.
+* __Időválasztó__: megjelenít egy nagy számválasztót a nyitási és zárási idő beállításához; kis kijelzőkön ez az időbeállítás preferált módja.
 * __Váltás 15 perces lépésközre__: 15 perces finomságúra változtatja a tartománysávot.
 * __Váltás 5 perces lépésközre__: 5 perces finomságúra változtatja a tartománysávot.
 * __Váltás 1 perces lépésközre__: 1 perces finomságúra változtatja a tartománysávot; telefonon nagyon nehezen használható.
