@@ -1528,15 +1528,13 @@ public class TileLayerServer {
                 } else if (t1.preference > t2.preference) {
                     return -1;
                 }
-                if (t1.endDate == t2.endDate || (t1.endDate < 0 && t2.endDate < 0) || (t1.startDate < 0 && t1.endDate < 0)
-                        || (t2.startDate < 0 && t2.endDate < 0)) {
+                if (t1.endDate == t2.endDate) {
                     if (t1.defaultLayer != t2.defaultLayer) {
                         return t2.defaultLayer ? 1 : -1;
                     }
                     double t1Size = coverageSize(t1.getCoverage());
                     double t2Size = coverageSize(t2.getCoverage());
                     if (t1Size != t2Size) {
-                        Log.d(DEBUG_TAG, "sorting on bbox size t1 " + t1Size + " t2 " + t2Size + " (" + t1.getName() + " / " + t2.getName() + ")");
                         return t1Size < t2Size ? -1 : 1;
                     } else {
                         return t1.getName().compareToIgnoreCase(t2.getName()); // alphabetic
