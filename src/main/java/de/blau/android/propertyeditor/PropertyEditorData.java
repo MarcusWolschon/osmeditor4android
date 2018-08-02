@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -91,8 +92,18 @@ public class PropertyEditorData implements Serializable {
         this.focusOnKey = focusOnKey;
     }
 
+    /**
+     * Deserialize an array 
+     * 
+     * @param s the Serializable
+     * @return an array of the elements
+     */
+    @Nullable
     public static PropertyEditorData[] deserializeArray(Serializable s) {
         Object[] a = (Object[]) s;
+        if (a == null) {
+            return null;
+        }
         PropertyEditorData[] r = new PropertyEditorData[a.length];
         for (int i = 0; i < a.length; i++) {
             r[i] = (PropertyEditorData) a[i];

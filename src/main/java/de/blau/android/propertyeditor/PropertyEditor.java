@@ -245,7 +245,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         // sanity check
         StorageDelegator delegator = App.getDelegator();
         if (delegator == null || loadData == null) {
-            abort("Delegator null");
+            abort(delegator == null ? "Delegator null" : "loadData null");
             return;
         }
 
