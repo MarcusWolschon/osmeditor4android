@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.2: Update imagery and translations, add maxspeeds to geocontext for PT and CZ, update OH Fragment, protect against crash when layouting empty preset views, fix regression restoring state in PropertyEditor, try to avoid crash with null Context in PresetSearch, add conveying and priority to direction dependent keys.
+
 11.0.1: Update imagery and translations, always add all Relations to context menu, fix crash when adding speed values in the "Details" tab, use https for ACRA, improve imagery sources sorting, check nodes tags when deleting way.
 
 11.0.0: Update imagery, translations, synonyms and default preset, workaround crash when displaying preset search results and switching applications.
