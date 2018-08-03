@@ -132,12 +132,17 @@ public class App extends android.app.Application {
      * 
      * @return the current StorageDelegator
      */
-    @Nullable
+    @NonNull
     public static StorageDelegator getDelegator() {
         return delegator;
     }
 
-    @Nullable
+    /**
+     * Get the current TaskStorage instance
+     * 
+     * @return the current TaskStorage
+     */
+    @NonNull
     public static TaskStorage getTaskStorage() {
         return taskStorage;
     }

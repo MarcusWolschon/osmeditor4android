@@ -342,8 +342,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         mViewPager.setCurrentItem(currentItem != -1 ? currentItem : pagerAdapter.reversePosition(showPresets || usePaneLayout ? 0 : 1));
     }
 
+    /**
+     * Abort this activity
+     * 
+     * @param cause String showing a cause for this
+     */
     private void abort(String cause) {
-        Snack.barError(this, R.string.toast_inconsistent_state);
+        Snack.toastTopError(this, R.string.toast_inconsistent_state);
+        Log.e(DEBUG_TAG,"Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);
         finish();
@@ -873,6 +879,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         Log.d(DEBUG_TAG, "bundle size: " + Util.getBundleSize(outState));
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
+        outState.putSerializable(TAGEDIT_DATA, loadData);
     }
 
     /** When the Activity is interrupted, save MRUs and address cache */
