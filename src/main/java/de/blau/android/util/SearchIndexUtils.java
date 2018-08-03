@@ -88,7 +88,7 @@ public class SearchIndexUtils {
      * @return a List containing up to limit PresetItems found
      */
     @NonNull
-    public static List<PresetElement> searchInPresets(Context ctx, String term, ElementType type, int maxDistance, int limit) {
+    public static List<PresetElement> searchInPresets(@NonNull Context ctx, @NonNull String term, @Nullable ElementType type, int maxDistance, int limit) {
         term = SearchIndexUtils.normalize(term);
         // synonyms first
         Synonyms synonyms = App.getSynonyms(ctx);

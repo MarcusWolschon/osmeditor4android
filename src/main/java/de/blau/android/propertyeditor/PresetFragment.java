@@ -260,9 +260,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 });
                 try {
                     ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
-                    Preferences prefs = new Preferences(getContext());
+                    Preferences prefs = new Preferences(activity);
                     if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
-                        AutoPreset autoPreset = new AutoPreset(getContext());
+                        AutoPreset autoPreset = new AutoPreset(activity);
                         Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
                         List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
                         if (!searchResults.isEmpty()) {

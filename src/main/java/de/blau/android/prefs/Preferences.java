@@ -134,6 +134,7 @@ public class Preferences {
     private final Resources r;
 
     /**
+     * Construct a new instance
      * 
      * @param ctx Android context
      * @throws IllegalArgumentException
