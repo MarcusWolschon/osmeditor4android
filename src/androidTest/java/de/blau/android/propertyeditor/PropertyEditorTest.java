@@ -204,6 +204,7 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
+        TestUtils.stopEasyEdit(main);
         TestUtils.unlock();
         TestUtils.zoomToLevel(main, 21);
         // trying to get node click work properly is frustrating
@@ -287,6 +288,7 @@ public class PropertyEditorTest {
             Assert.fail(e.getMessage());
         }
         main.getMap().getDataLayer().setVisible(true);
+        TestUtils.stopEasyEdit(main);
         TestUtils.unlock();
         TestUtils.zoomToLevel(main, 22);
         TestUtils.clickAtCoordinates(main.getMap(), 8.3855809, 47.3892017, true);
