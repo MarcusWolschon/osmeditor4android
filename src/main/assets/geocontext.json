@@ -46,6 +46,18 @@
     "cy": {
         "left-hand-traffic": true
     },
+    "cz": {
+        "speed-limits": [
+            20,
+            30,
+            50,
+            70,
+            80,
+            90,
+            110,
+            130
+        ]
+    },
     "de": {
         "speed-limits": [
             30,
@@ -151,6 +163,16 @@
     },
     "pk": {
         "left-hand-traffic": true
+    },
+    "pt": {
+        "distance": "metric",
+        "left-hand-traffic": false,
+        "speed-limits": [
+            50,
+            90,
+            100,
+            120
+        ]
     },
     "sb": {
         "left-hand-traffic": true
