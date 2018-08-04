@@ -92,7 +92,11 @@ task updateImagery(type: Download) {
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
 
-task updateTaginfoJson(type: Exec) {
+task dumpTaginfoJson(dependsOn: ["installDebug","installDebugAndroidTest"],type: Exec) {
+    commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
+}
+ 
+task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
 	commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
 }
 updateTaginfoJson.group = 'vespucci'

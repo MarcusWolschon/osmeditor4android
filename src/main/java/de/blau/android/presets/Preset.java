@@ -3268,7 +3268,7 @@ public class Preset implements Serializable {
                 String k = entry.getKey();
                 MatchType match = getMatchType(k);
                 PresetKeyType type = getKeyType(k);
-                if (isEditable(k) || type == PresetKeyType.TEXT) {
+                if (isEditable(k) || type == PresetKeyType.TEXT || (match != null && match != MatchType.KEY_VALUE)) {
                     if (jsonString.length() != 0) {
                         jsonString.append(",\n");
                     }
