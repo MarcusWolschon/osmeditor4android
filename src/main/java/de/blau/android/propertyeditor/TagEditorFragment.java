@@ -944,8 +944,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     // Log.d(DEBUG_TAG,"got focus");
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit, getKeyValueMapSingle(rowLayout, true)));
-                    if (PropertyEditor.running && row.getKey().length() == 0)
+                    if (PropertyEditor.running && row.getKey().length() == 0) {
                         row.keyEdit.showDropDown();
+                    }
                 } else {
                     String newKey = row.getKey();
                     if (!newKey.equals(originalKey)) { // our preset may have changed re-calc
@@ -1117,9 +1118,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             keyEdit = (AutoCompleteTextView) findViewById(R.id.editKey);
             keyEdit.setOnKeyListener(owner.myKeyListener);
             // lastEditKey.setSingleLine(true);
@@ -1213,8 +1214,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 // about to delete the row that has focus!
                 // try to move the focus to the next row or failing that to the previous row
                 int current = owner.tagEditorFragment.rowIndex(this);
-                if (!owner.tagEditorFragment.focusRow(current + 1))
+                if (!owner.tagEditorFragment.focusRow(current + 1)) {
                     owner.tagEditorFragment.focusRow(current - 1);
+                }
             }
             rowLayout.removeView(this);
             if (isEmpty() && owner.tagEditorFragment != null) {
@@ -1265,8 +1267,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // Fixed tags, always have a value. We overwrite mercilessly.
         for (Entry<String, String> tag : tags.entrySet()) {
             ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(tag.getValue()));
-            if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue()))
+            if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(tag.getValue())) {
                 replacedValue = true;
+            }
         }
         if (replacedValue) {
             Builder dialog = new AlertDialog.Builder(getActivity());
@@ -1280,9 +1283,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             });
             dialog.setNegativeButton(R.string.cancel, null);
             dialog.create().show();
-        } else
+        } else {
             loadEdits(currentValues);// FIXME
-
+        }
         // TODO while applying presets automatically seems like a good idea, it needs some further thought
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
@@ -1449,8 +1452,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private int rowIndex(LinearLayout rowLayout, TagEditRow row) {
         for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
-            if (rowLayout.getChildAt(i) == row)
+            if (rowLayout.getChildAt(i) == row) {
                 return i;
+            }
         }
         return -1;
     }
@@ -1710,8 +1714,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             startActivity(Preset.getMapFeaturesIntent(getActivity(), getBestPreset()));
             return true;
         case R.id.tag_menu_resetMRU:
-            for (Preset p : ((PropertyEditor) getActivity()).presets)
+            for (Preset p : ((PropertyEditor) getActivity()).presets) {
                 p.resetRecentlyUsed();
+            }
             ((PropertyEditor) getActivity()).recreateRecentPresetView();
             return true;
         case R.id.tag_menu_reset_address_prediction:
