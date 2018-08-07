@@ -209,7 +209,11 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 double lon = Double.parseDouble(lonField.getText().toString());
                 double lat = Double.parseDouble(latField.getText().toString());
                 if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-                    logic.performSetPosition(main, node, lon, lat);
+                    try {
+                        logic.performSetPosition(main, node, lon, lat);
+                    } catch (OsmIllegalOperationException ex) {
+                        Snack.barError(main, ex.getLocalizedMessage()); // this "can't" happen
+                    }
                     manager.invalidate();
                 } else {
                     createSetPositionDialog((int) (lon * 1E7), (int) (lat * 1E7)).show();

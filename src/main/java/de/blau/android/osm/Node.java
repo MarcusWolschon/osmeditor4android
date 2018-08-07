@@ -89,8 +89,9 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", "node");
         s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null)
+        if (changeSetId != null) {
             s.attribute("", "changeset", Long.toString(changeSetId));
+        }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
             s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));

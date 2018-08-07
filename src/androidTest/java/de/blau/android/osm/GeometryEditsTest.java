@@ -22,6 +22,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
+import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
@@ -37,6 +38,9 @@ public class GeometryEditsTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -47,14 +51,30 @@ public class GeometryEditsTest {
         main.getMap().setPrefs(main, prefs);
         App.getDelegator().reset(false);
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
+        Logic logic = App.getLogic();
+        Map map = logic.getMap();
+        logic.setZoom( map, 18);
+        map.getViewBox().moveTo(map, 0, 0);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Create a way
+     * Split it
+     * Create a turn restriction on it
+     * Split one of the ways
+     * Merge the two resulting ways back in to one
+     * Add the way to a normal relation
+     * Split it again
+     */
     @UiThreadTest
     @Test
     public void mergeSplit() {
@@ -92,8 +112,9 @@ public class GeometryEditsTest {
             System.out.println("ApplicationTest split created way " + w2.getOsmId());
             ArrayList<Node> nList2 = (ArrayList<Node>) w2.getNodes();
             System.out.print("Way 2 contains nodes");
-            for (Node n : nList2)
+            for (Node n : nList2) {
                 System.out.print(" " + n.getOsmId());
+            }
             System.out.println();
             Relation r1 = logic.createRestriction(main, w1, n2, w2, "test rest");
             List<OsmElement> mList1 = r1.getMemberElements();
@@ -139,6 +160,10 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Create a closed way
+     * Split it
+     */
     @UiThreadTest
     @Test
     public void closedWaySplit() {
@@ -182,6 +207,10 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Create a closed way
+     * Split it in to two polygons (closed ways)
+     */
     @UiThreadTest
     @Test
     public void closedWaySplitToPolygons() {
@@ -227,11 +256,14 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Test bounding box calculation and intersection
+     */
     @UiThreadTest
     @Test
     public void wayBoundingBox() {
         try {
-            // setup some stuff to test bounding box calculation and intersection
+            // setup some stuff 
             Logic logic = App.getLogic();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
@@ -291,11 +323,12 @@ public class GeometryEditsTest {
         }
     }
 
-    @UiThreadTest
-    @Test
+ 
     /**
      * This tries to test adding nodes to existing ways taking the tolerance area in to account
      */
+    @UiThreadTest
+    @Test
     public void addNodeToWay() {
         try {
             App.getDelegator().setOriginalBox(new BoundingBox(-1, -1, 1, 1)); // force ops to be outside box
@@ -371,6 +404,9 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Add a node to an existing way
+     */
     @UiThreadTest
     @Test
     public void joinToWay() {
@@ -395,6 +431,9 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Merge two nodes
+     */
     @UiThreadTest
     @Test
     public void joinToNode() {
@@ -418,6 +457,9 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Cut and then paste a way
+     */
     @UiThreadTest
     @Test
     public void cutPasteWay() {
@@ -449,6 +491,9 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Cut and then paste a closed way
+     */
     @UiThreadTest
     @Test
     public void cutPasteClosedWay() {
@@ -487,14 +532,31 @@ public class GeometryEditsTest {
         }
     }
 
+    /**
+     * Return the screen X coordinate for a node
+     * 
+     * @param logic the current logic instance
+     * @param n the node
+     * @return the screen X coordinate
+     */
     private float getX(Logic logic, Node n) {
         return GeoMath.lonE7ToX(logic.getMap().getWidth(), logic.getViewBox(), n.getLon());
     }
 
+    /**
+     * Return the screen Y coordinate for a node
+     * 
+     * @param logic the current logic instance
+     * @param n the node
+     * @return the screen Y coordinate
+     */
     private float getY(Logic logic, Node n) {
         return GeoMath.latE7ToY(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), n.getLat());
     }
 
+    /**
+     * REverse a way with a lot of direction dependent tags
+     */
     @UiThreadTest
     @Test
     public void reverseWay() {
@@ -608,6 +670,101 @@ public class GeometryEditsTest {
             Assert.assertEquals(Tags.VALUE_YES, w.getTagWithKey(Tags.KEY_ONEWAY));
 
         } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+
+    /**
+     * Move a way and then try to move it out of bounds
+     */
+    @UiThreadTest
+    @Test
+    public void moveWay() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 100.0f, 100.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 150.0f, 150.0f);
+            logic.performAdd(main, 200.0f, 200.0f);
+            logic.performAdd(main, 250.0f, 250.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            StorageDelegator delegator = App.getDelegator();
+            List<Node> oldNodes = w1.getNodes();
+            int nodeCount = oldNodes.size();
+            int[] oldLat = new int[nodeCount];
+            int[] oldLon = new int[nodeCount];
+            for (int i = 0; i < nodeCount; i++) {
+                oldLat[i] = oldNodes.get(i).getLat();
+                oldLon[i] = oldNodes.get(i).getLon();
+            }
+            delegator.moveWay(w1, (int) (10 * 1E7), (int) (5 * 1E7));
+            List<Node> newNodes = w1.getNodes();
+            Assert.assertEquals(nodeCount, newNodes.size());
+            for (int i = 0; i < nodeCount; i++) {
+                Node newNode = newNodes.get(i);
+                Assert.assertEquals(oldLat[i] + (int) (10 * 1E7), newNode.getLat());
+                Assert.assertEquals(oldLon[i] + (int) (5 * 1E7), newNode.getLon());
+            }
+            try {
+                delegator.moveWay(w1, (int) (90 * 1E7), (int) (5 * 1E7));
+                Assert.fail("should have got an exception here");
+            } catch (OsmIllegalOperationException ex) {
+                // good
+            }
+            // the way should be unchanged
+            Assert.assertEquals(nodeCount, newNodes.size());
+            for (int i = 0; i < nodeCount; i++) {
+                Node newNode = newNodes.get(i);
+                Assert.assertEquals(oldLat[i] + (int) (10 * 1E7), newNode.getLat());
+                Assert.assertEquals(oldLon[i] + (int) (5 * 1E7), newNode.getLon());
+            }
+        } catch (Exception igit) {
+            igit.printStackTrace();
+            Assert.fail(igit.getMessage());
+        }
+    }
+
+    /**
+     * Move a node and then try to move it out of bounds
+     */
+    @UiThreadTest
+    @Test
+    public void moveNode() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 100.0f, 100.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            Node node = logic.getSelectedNode();
+            StorageDelegator delegator = App.getDelegator();
+            int oldLat = node.getLat();
+            int oldLon = node.getLon();
+            delegator.moveNode(node, oldLat + (int) (10 * 1E7), oldLon + (int) (5 * 1E7));
+            Assert.assertEquals(oldLat + (int) (10 * 1E7), node.getLat());
+            Assert.assertEquals(oldLon + (int) (5 * 1E7), node.getLon());
+            try {
+                delegator.moveNode(node, (int) (90 * 1E7), (int) (5 * 1E7));
+                Assert.fail("should have got an exception here");
+            } catch (OsmIllegalOperationException ex) {
+                // good
+            }
+            // the node should be unchanged
+            Assert.assertEquals(oldLat + (int) (10 * 1E7), node.getLat());
+            Assert.assertEquals(oldLon + (int) (5 * 1E7), node.getLon());
+        } catch (Exception igit) {
+            igit.printStackTrace();
             Assert.fail(igit.getMessage());
         }
     }

@@ -543,6 +543,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param lonE7 the new longitude (E7)
      */
     public void moveNode(@NonNull final Node node, final int latE7, final int lonE7) {
+        validateCoordinates(latE7, lonE7);
         dirty = true;
         undo.save(node);
         try {
@@ -581,22 +582,45 @@ public class StorageDelegator implements Serializable, Exportable {
     public void moveWay(@NonNull final Way way, final int deltaLatE7, final int deltaLonE7) {
         moveNodes(way.getNodes(), deltaLatE7, deltaLonE7);
     }
-
+    
+    /**
+     * Check that the new position would still be valid
+     * This should be done before the operation in question
+     *
+     * @param newLatE7 the new latitude (WGS84*1E7)
+     * @param newLonE7 the new longitude (WGS84*1E7)
+     * @throws OsmIllegalOperationException if the new position would be off world
+     */
+    void validateCoordinates(final int newLatE7, final int newLonE7) throws OsmIllegalOperationException {
+        if (newLatE7 > GeoMath.MAX_LAT_E7 || newLatE7 < -GeoMath.MAX_LAT_E7) {
+            Log.e(DEBUG_TAG, "lat of " + newLatE7 + " is invalid");
+            throw new OsmIllegalOperationException("lat of " + newLatE7 + " is invalid");
+        }
+        if (newLonE7 > GeoMath.MAX_LON_E7 || newLonE7 < -GeoMath.MAX_LON_E7) {
+            Log.e(DEBUG_TAG, "lon of " + newLonE7 + " is invalid");
+            throw new OsmIllegalOperationException("lon of " + newLonE7 + " is invalid");
+        }
+    }
+    
     /**
      * Move a list of nodes, apply translation only once
      * 
      * @param allNodes the list of nodes
-     * @param deltaLatE7 the delta to move the latitude (E7)
-     * @param deltaLonE7 the delta to move the longitude (E7)
+     * @param deltaLatE7 the delta to move the latitude (WGS84*1E7)
+     * @param deltaLonE7 the delta to move the longitude (WGS84*1E7)
      */
     public void moveNodes(@Nullable final List<Node> allNodes, final int deltaLatE7, final int deltaLonE7) {
         if (allNodes == null) {
-            Log.d(DEBUG_TAG, "moveNodes  no nodes!");
+            Log.e(DEBUG_TAG, "moveNodes  no nodes!");
             return;
         }
         dirty = true;
         try {
             HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
+            // check that all coordinates are valid before moving 
+            for (Node nd : nodes) {
+                validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
+            }
             invalidateWayBoundingBox(nodes);
             for (Node nd : nodes) {
                 undo.save(nd);

@@ -3333,7 +3333,11 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void onDrag(View v, float x, float y, float dx, float dy) {
             // Log.d("MapTouchListener", "onDrag dx " + dx + " dy " + dy );
-            App.getLogic().handleTouchEventMove(Main.this, x, y, -dx, dy);
+            try {
+                App.getLogic().handleTouchEventMove(Main.this, x, y, -dx, dy);
+            } catch (OsmIllegalOperationException ex) {
+                Snack.barError(Main.this, ex.getMessage());
+            }
             setFollowGPS(false);
         }
 
