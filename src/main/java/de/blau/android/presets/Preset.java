@@ -734,7 +734,7 @@ public class Preset implements Serializable {
                         if (!YES.equals(value_on)) {
                             currentItem.addOnValue(key, value_on);
                         }
-                        String defaultValue = attr.getValue(DEFAULT) == null ? value_off : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
+                        String defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
                         if (defaultValue != null) {
                             currentItem.addDefault(key, defaultValue);
                         }
