@@ -1558,10 +1558,6 @@ public class Main extends FullScreenAppCompatActivity
         final Server server = prefs.getServer();
         final Logic logic = App.getLogic();
         StorageDelegator delegator = App.getDelegator();
-        if (delegator == null) { // very unlikely error condition
-            Log.e(DEBUG_TAG, "onOptionsItemSelected delegator null");
-            return true;
-        }
         switch (item.getItemId()) {
         case R.id.menu_config:
             PrefEditor.start(this, getMap().getViewBox());
@@ -1917,8 +1913,6 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         case R.id.menu_transfer_save_notes_all:
         case R.id.menu_transfer_save_notes_new_and_changed:
-            if (App.getTaskStorage() == null)
-                return true;
             descheduleAutoLock();
             SelectFile.save(this, R.string.config_notesPreferredDir_key, new SaveFile() {
                 private static final long serialVersionUID = 1L;

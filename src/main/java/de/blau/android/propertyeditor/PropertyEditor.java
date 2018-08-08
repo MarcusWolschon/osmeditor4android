@@ -349,7 +349,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      */
     private void abort(String cause) {
         Snack.toastTopError(this, R.string.toast_inconsistent_state);
-        Log.e(DEBUG_TAG,"Inconsistent state because " + cause);
+        Log.e(DEBUG_TAG, "Inconsistent state because " + cause);
         ACRA.getErrorReporter().putCustomData("CAUSE", cause);
         ACRA.getErrorReporter().handleException(null);
         finish();
@@ -1190,9 +1190,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     @Override
     public ArrayAdapter<ValueWithCount> getStreetNameAdapter(List<String> values) {
-        if (App.getDelegator() == null) {
-            return null;
-        }
         if (streetNameAutocompleteAdapter == null) {
             streetNameAutocompleteAdapter = new StreetTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
         }
@@ -1201,9 +1198,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     @Override
     public ArrayAdapter<ValueWithCount> getPlaceNameAdapter(List<String> values) {
-        if (App.getDelegator() == null) {
-            return null;
-        }
         if (placeNameAutocompleteAdapter == null) {
             placeNameAutocompleteAdapter = new PlaceTagValueAdapter(this, R.layout.autocomplete_row, App.getDelegator(), types[0], osmIds[0], values); // FIXME
         }
