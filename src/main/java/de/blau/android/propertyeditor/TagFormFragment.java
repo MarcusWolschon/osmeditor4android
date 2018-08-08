@@ -861,7 +861,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     //
                     PresetKeyType keyType = preset.getKeyType(key);
                     ValueType valueType = preset.getValueType(key);
-                    String defaultValue = preset.getDefault(key);
 
                     if (keyType == PresetKeyType.TEXT || key.startsWith(Tags.KEY_ADDR_BASE)
                             || (preset.isEditable(key) && ValueType.OPENING_HOURS_MIXED != valueType) || key.endsWith(Tags.KEY_CONDITIONAL_SUFFIX)) {
@@ -872,7 +871,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             // FIXME need at least SDK 12 for now
                             rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, null));
                         } else {
-                            rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, defaultValue, values, allTags));
+                            rowLayout.addView(addTextRow(rowLayout, preset, keyType, hint, key, value, values, allTags));
                         }
                     } else {
                         ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
@@ -888,15 +887,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 // FIXME need at least SDK 12 for now
                                 rowLayout.addView(addOpeningHoursDialogRow(rowLayout, preset, hint, key, value, adapter));
                             } else if (count <= maxInlineValues) {
-                                rowLayout.addView(addComboRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
+                                rowLayout.addView(addComboRow(rowLayout, preset, hint, key, value, adapter));
                             } else {
-                                rowLayout.addView(addComboDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
+                                rowLayout.addView(addComboDialogRow(rowLayout, preset, hint, key, value, adapter));
                             }
                         } else if (keyType == PresetKeyType.MULTISELECT) {
                             if (count <= maxInlineValues) {
-                                rowLayout.addView(addMultiselectRow(rowLayout, preset, hint, key, values, defaultValue, adapter));
+                                rowLayout.addView(addMultiselectRow(rowLayout, preset, hint, key, values, adapter));
                             } else {
-                                rowLayout.addView(addMultiselectDialogRow(rowLayout, preset, hint, key, value, defaultValue, adapter));
+                                rowLayout.addView(addMultiselectDialogRow(rowLayout, preset, hint, key, value, adapter));
                             }
                         } else if (keyType == PresetKeyType.CHECK) {
                             if (adapter != null) {
@@ -955,7 +954,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     // FIXME need at least SDK 12 for now
                     rowLayout.addView(addOpeningHoursDialogRow(rowLayout, null, null, key, value, null));
                 } else {
-                    rowLayout.addView(addTextRow(rowLayout, null, PresetKeyType.TEXT, null, key, value, null, null, allTags));
+                    rowLayout.addView(addTextRow(rowLayout, null, PresetKeyType.TEXT, null, key, value, null, allTags));
                 }
             }
         } else {
@@ -972,14 +971,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param hint a textual description of what the key is
      * @param key the key
      * @param value any existing value for the tag
-     * @param defaultValue a default value to use
      * @param values a list of all the predefined values in the PresetItem for the key
      * @param allTags a Map of the tags currently being edited
      * @return a TagTextRow instance
      */
     private TagTextRow addTextRow(@NonNull final LinearLayout rowLayout, @Nullable final PresetItem preset, @NonNull final PresetKeyType keyType,
-            @Nullable final String hint, @NonNull final String key, @Nullable final String value, @Nullable final String defaultValue,
-            @Nullable final ArrayList<String> values, final LinkedHashMap<String, String> allTags) {
+            @Nullable final String hint, @NonNull final String key, @Nullable final String value, @Nullable final ArrayList<String> values,
+            final LinkedHashMap<String, String> allTags) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final ValueType valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
@@ -989,11 +987,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
             row.valueView.setEllipsize(TruncateAt.END);
         }
-        if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
-            row.valueView.setText(defaultValue);
-        } else {
-            row.valueView.setText(value);
-        }
+        row.valueView.setText(value);
 
         // set empty value to be on the safe side
         row.valueView.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, new String[0]));
@@ -1072,12 +1066,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param hint a textual description of what the key is
      * @param key the key
      * @param value any existing value for the tag
-     * @param defaultValue a default value to use
      * @param adapter an ArrayAdapter containing all the predefined values in the PresetItem for the key
      * @return a TagComboRow instance
      */
     private TagComboRow addComboRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value,
-            final String defaultValue, final ArrayAdapter<?> adapter) {
+            final ArrayAdapter<?> adapter) {
         final TagComboRow row = (TagComboRow) inflater.inflate(R.layout.tag_form_combo_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1096,11 +1089,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).getIcon(preset) != null) {
                 icon = ((StringWithDescriptionAndIcon) o).getIcon(preset);
             }
-            if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
-                row.addButton(description, v, v.equals(defaultValue), icon);
-            } else {
-                row.addButton(description, v, v.equals(value), icon);
-            }
+            row.addButton(description, v, v.equals(value), icon);
         }
 
         row.getRadioGroup().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -1131,12 +1120,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param hint a textual description of what the key is
      * @param key the key
      * @param values existing values for the tag
-     * @param defaultValue a default value to use
      * @param adapter an ArrayAdapter containing all the predefined values in the PresetItem for the key
      * @return a TagMultiselectRow instance
      */
     private TagMultiselectRow addMultiselectRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key,
-            final ArrayList<String> values, final String defaultValue, ArrayAdapter<?> adapter) {
+            final ArrayList<String> values, ArrayAdapter<?> adapter) {
         final TagMultiselectRow row = (TagMultiselectRow) inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1166,11 +1154,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (o instanceof StringWithDescriptionAndIcon && ((StringWithDescriptionAndIcon) o).getIcon(preset) != null) {
                 icon = ((StringWithDescriptionAndIcon) o).getIcon(preset);
             }
-            if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && (defaultValue != null && !"".equals(defaultValue))) {
-                row.addCheck(description, v, v.equals(defaultValue), icon, onCheckedChangeListener);
-            } else {
-                row.addCheck(description, v, values != null && values.contains(v), icon, onCheckedChangeListener);
-            }
+            row.addCheck(description, v, values != null && values.contains(v), icon, onCheckedChangeListener);
         }
         return row;
     }
@@ -1245,8 +1229,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return row;
     }
 
-    private TagFormDialogRow addOpeningHoursDialogRow(final LinearLayout rowLayout, PresetItem preset, final String hint, final String key, String value,
-            final ArrayAdapter<?> adapter) {
+    /**
+     * Add a row that display an opening hours value and starts the OH editor when clicked
+     * 
+     * @param rowLayout the Layout holding the rows
+     * @param preset the current preset
+     * @param hint a hint for the value
+     * @param key the key
+     * @param value the current value if any
+     * @param adapter an Adapter holding any suggested values
+     * @return a TagFormDialogRow
+     */
+    private TagFormDialogRow addOpeningHoursDialogRow(@NonNull final LinearLayout rowLayout, @Nullable PresetItem preset, @Nullable final String hint, @NonNull final String key,
+            @Nullable String value, @Nullable final ArrayAdapter<?> adapter) {
         final TagFormOpeningHoursDialogRow row = (TagFormOpeningHoursDialogRow) inflater.inflate(R.layout.tag_form_openinghours_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1351,7 +1346,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     private TagFormDialogRow addComboDialogRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value,
-            final String defaultValue, final ArrayAdapter<?> adapter) {
+            final ArrayAdapter<?> adapter) {
         final TagFormDialogRow row = (TagFormDialogRow) inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1376,11 +1371,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (description == null) {
                 description = v;
             }
-            if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue)) && v.equals(defaultValue)) {
-                row.setValue(description, v);
-                selectedValue = v;
-                break;
-            } else if (v.equals(value)) {
+            if (v.equals(value)) {
                 row.setValue(swd);
                 selectedValue = v;
                 break;
@@ -1399,7 +1390,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             public void onClick(View v) {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
-                final AlertDialog dialog = buildComboDialog(hint != null ? hint : key, key, defaultValue, adapter, row, preset);
+                final AlertDialog dialog = buildComboDialog(hint != null ? hint : key, key, adapter, row, preset);
                 dialog.setOnShowListener(new OnShowListener() {
                     @Override
                     public void onShow(DialogInterface d) {
@@ -1421,7 +1412,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     private TagFormMultiselectDialogRow addMultiselectDialogRow(LinearLayout rowLayout, final PresetItem preset, final String hint, final String key,
-            final String value, final String defaultValue, final ArrayAdapter<?> adapter) {
+            final String value, final ArrayAdapter<?> adapter) {
         final TagFormMultiselectDialogRow row = (TagFormMultiselectDialogRow) inflater.inflate(R.layout.tag_form_multiselect_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1439,10 +1430,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (v == null || "".equals(v)) {
                 continue;
             }
-            if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue)) && v.equals(defaultValue)) {
-                selectedValues.add(swd);
-                break;
-            } else if (multiselectValues != null) {
+            if (multiselectValues != null) {
                 for (String m : multiselectValues) {
                     if (v.equals(m)) {
                         selectedValues.add(swd);
@@ -1460,7 +1448,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             public void onClick(View v) {
                 final View finalView = v;
                 finalView.setEnabled(false); // debounce
-                final AlertDialog dialog = buildMultiselectDialog(hint != null ? hint : key, key, defaultValue, adapter, row, preset);
+                final AlertDialog dialog = buildMultiselectDialog(hint != null ? hint : key, key, adapter, row, preset);
                 final Object tag = finalView.getTag();
                 dialog.setOnShowListener(new OnShowListener() {
                     @Override
@@ -1501,13 +1489,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * 
      * @param hint
      * @param key
-     * @param defaultValue
      * @param adapter
      * @param row
      * @return
      */
-    private AlertDialog buildComboDialog(String hint, @NonNull String key, String defaultValue, final ArrayAdapter<?> adapter, final TagFormDialogRow row,
-            final PresetItem preset) {
+    private AlertDialog buildComboDialog(String hint, @NonNull String key, final ArrayAdapter<?> adapter, final TagFormDialogRow row, final PresetItem preset) {
         String value = row.getValue();
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(hint);
@@ -1552,11 +1538,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (v == null || "".equals(v)) {
                 continue;
             }
-            if ((value == null || "".equals(value)) && (defaultValue != null && !"".equals(defaultValue))) {
-                addButton(getActivity(), valueGroup, i, swd, v.equals(defaultValue), icon, listener, buttonLayoutParams);
-            } else {
-                addButton(getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
-            }
+            addButton(getActivity(), valueGroup, i, swd, v.equals(value), icon, listener, buttonLayoutParams);
         }
         final Handler handler = new Handler();
         builder.setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
@@ -1603,7 +1585,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return dialog;
     }
 
-    private AlertDialog buildMultiselectDialog(String hint, @NonNull String key, String defaultValue, @NonNull ArrayAdapter<?> adapter,
+    private AlertDialog buildMultiselectDialog(String hint, @NonNull String key, @NonNull ArrayAdapter<?> adapter,
             @NonNull final TagFormMultiselectDialogRow row, @NonNull final PresetItem preset) {
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(hint);
@@ -1637,11 +1619,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             if (v == null || "".equals(v)) {
                 continue;
             }
-            if ((values == null || (values.size() == 1 && "".equals(values.get(0)))) && (defaultValue != null && !"".equals(defaultValue))) {
-                addCheck(getActivity(), valueGroup, swd, v.equals(defaultValue), icon, buttonLayoutParams);
-            } else {
-                addCheck(getActivity(), valueGroup, swd, values != null ? values.contains(v) : false, icon, buttonLayoutParams);
-            }
+            addCheck(getActivity(), valueGroup, swd, values != null ? values.contains(v) : false, icon, buttonLayoutParams);
         }
 
         builder.setNeutralButton(R.string.clear, new DialogInterface.OnClickListener() {
@@ -1784,9 +1762,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             keyView = (TextView) findViewById(R.id.textKey);
             valueView = (CustomAutoCompleteTextView) findViewById(R.id.textValue);
         }
@@ -1951,9 +1929,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             keyView = (TextView) findViewById(R.id.textKey);
             valueView = (TextView) findViewById(R.id.textValue);
         }
@@ -2235,9 +2213,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             keyView = (TextView) findViewById(R.id.textKey);
             valueLayout = (LinearLayout) findViewById(R.id.valueGroup);
         }
@@ -2320,9 +2298,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             keyView = (TextView) findViewById(R.id.textKey);
             valueCheck = (AppCompatCheckBox) findViewById(R.id.valueSelected);
         }
@@ -2367,9 +2345,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            if (isInEditMode())
+            if (isInEditMode()) {
                 return; // allow visual editor to work
-
+            }
             headerIconView = (ImageView) findViewById(R.id.form_header_icon_view);
             headerTitleView = (TextView) findViewById(R.id.form_header_title);
             rowLayout = (LinearLayout) findViewById(R.id.form_editable_row_layout);

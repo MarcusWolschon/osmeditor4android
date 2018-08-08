@@ -299,7 +299,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         loaded = false;
         // rowLayout.removeAllViews();
         for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
-            insertNewEdit(editRowLayout, pair.getKey(), pair.getValue(), -1);
+            insertNewEdit(editRowLayout, pair.getKey(), pair.getValue(), -1, false);
         }
 
         loaded = true;
@@ -321,7 +321,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             loadEdits(editRowLayout,
                     Address.predictAddressTags(getActivity(), getType(), getOsmId(),
                             ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
-                            Address.DEFAULT_HYSTERESIS));
+                            Address.DEFAULT_HYSTERESIS), false);
             if (getUserVisibleHint()) {
                 if (!focusOnValue(editRowLayout, Tags.KEY_ADDR_HOUSENUMBER)) {
                     focusOnValue(editRowLayout, Tags.KEY_ADDR_STREET);
@@ -473,21 +473,23 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             v.add(entry.getValue());
             convertedTags.put(entry.getKey(), v);
         }
-        loadEdits(rowLayout, convertedTags);
+        loadEdits(rowLayout, convertedTags, false);
     }
 
     /**
      * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+     * @param applyDefault TODO
      */
-    private void loadEdits(final Map<String, ArrayList<String>> tags) {
+    private void loadEdits(final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
-        loadEdits(rowLayout, tags);
+        loadEdits(rowLayout, tags, applyDefaults);
     }
 
     /**
      * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+     * @param applyDefault TODO
      */
-    private void loadEdits(LinearLayout rowLayout, final Map<String, ArrayList<String>> tags) {
+    private void loadEdits(LinearLayout rowLayout, final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
         if (rowLayout == null) {
             Log.e(DEBUG_TAG, "loadEdits rowLayout null");
             return;
@@ -495,7 +497,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         loaded = false;
         rowLayout.removeAllViews();
         for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
-            insertNewEdit(rowLayout, pair.getKey(), pair.getValue(), -1);
+            insertNewEdit(rowLayout, pair.getKey(), pair.getValue(), -1, applyDefaults);
         }
         loaded = true;
         ensureEmptyRow(rowLayout);
@@ -619,12 +621,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             } else {
                 row.valueEdit.setHint(R.string.tag_value_hint);
             }
-            if (row.getValue().length() == 0) {
-                String defaultValue = preset.getDefault(aTagKey);
-                if (defaultValue != null) { //
-                    row.valueEdit.setText(defaultValue);
-                }
-            }
             if (!row.same) {
                 row.valueEdit.setHint(R.string.tag_multi_value_hint); // overwrite the above
             }
@@ -709,7 +705,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void predictAddressTags(boolean allowBlanks) {
         loadEdits(Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS));
+                ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS), false);
         updateAutocompletePresetItem(null);
     }
 
@@ -879,9 +875,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tagValues a List of values to start with.
      * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at
      *            beginning.
+     * @param applyDefault TODO
      * @return The new TagEditRow.
      */
-    private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position) {
+    private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position, boolean applyDefault) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -921,7 +918,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         } else if (!primaryPresetItem.getRecommendedTags().isEmpty() || !primaryPresetItem.getOptionalTags().isEmpty()) {
                             row.valueEdit.setHint(R.string.tag_value_hint);
                         }
-                        if (row.getValue().length() == 0) {
+                        if (applyDefault && row.getValue().length() == 0) {
                             String defaultValue = primaryPresetItem.getDefault(parent.getItemAtPosition(position).toString());
                             if (defaultValue != null) { //
                                 row.valueEdit.setText(defaultValue);
@@ -1257,7 +1254,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Appy tags from name suggestion list, ask if overwriting
      * 
-     * @param tags
+     * @param tags tags from name suggestions
      */
     public void applyTagSuggestions(Names.TagMap tags) {
         final LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
@@ -1278,15 +1275,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             dialog.setPositiveButton(R.string.replace, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    loadEdits(currentValues);// FIXME
+                    loadEdits(currentValues, false);// FIXME
                 }
             });
             dialog.setNegativeButton(R.string.cancel, null);
             dialog.create().show();
         } else {
-            loadEdits(currentValues);// FIXME
+            loadEdits(currentValues, false);// FIXME
         }
-        // TODO while applying presets automatically seems like a good idea, it needs some further thought
         if (prefs.nameSuggestionPresetsEnabled()) {
             PresetItem p = Preset.findBestMatch(propertyEditorListener.getPresets(), getKeyValueMapSingle(false)); // FIXME
             if (p != null) {
@@ -1364,7 +1360,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (row != null) {
                     boolean isEmpty = row.isEmpty();
                     if (ret == null) {
-                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<>(), -1);
+                        ret = isEmpty ? row : insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
                     } else if (isEmpty) {
                         row.deleteRow(rowLayout);
                     }
@@ -1373,7 +1369,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 }
             }
             if (ret == null) {
-                ret = insertNewEdit(rowLayout, "", new ArrayList<>(), -1);
+                ret = insertNewEdit(rowLayout, "", new ArrayList<>(), -1, false);
             }
         }
         return ret;
@@ -1534,7 +1530,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
-        loadEdits(currentValues);
+        loadEdits(currentValues, true);
         if (replacedValue) {
             Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
         }
@@ -1611,7 +1607,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
-        loadEdits(currentValues);
+        loadEdits(currentValues, false);
         if (replacedValue) {
             Snack.barWarning(getActivity(), R.string.toast_preset_overwrote_tags);
         }
@@ -1654,7 +1650,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         loaded = false;
         rowLayout.removeAllViews();
         for (KeyValue keyValue : keysAndValues) {
-            insertNewEdit(rowLayout, keyValue.getKey(), keyValue.getValues(), -1);
+            insertNewEdit(rowLayout, keyValue.getKey(), keyValue.getValues(), -1, false);
         }
         loaded = true;
         ensureEmptyRow(rowLayout);
@@ -1929,7 +1925,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             // source wasn't set above - add a new pair
             ArrayList<String> v = new ArrayList<>();
             v.add(Tags.VALUE_SURVEY);
-            insertNewEdit((LinearLayout) getOurView(), sourceKey, v, -1);
+            insertNewEdit((LinearLayout) getOurView(), sourceKey, v, -1, false);
         }
     }
 
@@ -1980,7 +1976,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * reload original arguments
      */
     void doRevert() {
-        loadEdits(buildEdits());
+        loadEdits(buildEdits(), false);
         updateAutocompletePresetItem(null);
     }
 
@@ -2188,7 +2184,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(rowLayout, true);
         if (!currentValues.containsKey(key) || replace) {
             currentValues.put(key, Util.getArrayList(value));
-            loadEdits(rowLayout, currentValues);
+            loadEdits(rowLayout, currentValues, false);
             if (update) {
                 updateAutocompletePresetItem(null);
             }
@@ -2199,7 +2195,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public void updateSingleValue(String key, String value) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
         currentValues.put(key, Util.getArrayList(value));
-        loadEdits(currentValues);
+        loadEdits(currentValues, false);
         updateAutocompletePresetItem(null);
     }
 
