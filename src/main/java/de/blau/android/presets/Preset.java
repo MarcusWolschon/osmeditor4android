@@ -792,11 +792,11 @@ public class Preset implements Serializable {
                             currentItem.setValueType(key, valueType);
                         }
                     } else if (ROLE.equals(name)) {
-                        String role = attr.getValue(KEY_ATTR);
+                        String roleValue = attr.getValue(KEY_ATTR);
                         String text = attr.getValue(TEXT);
                         String textContext = attr.getValue(TEXT_CONTEXT);
-                        currentItem
-                                .addRole(new PresetRole(role, po != null && text != null ? (textContext != null ? po.t(textContext, text) : po.t(text)) : text));
+                        PresetRole role = new PresetRole(roleValue, text == null ? null : translate(text, textContext), attr.getValue(TYPE));
+                        currentItem.addRole(role);
                     } else if (REFERENCE.equals(name)) {
                         PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no
                                                                              // forward references
@@ -844,10 +844,9 @@ public class Preset implements Serializable {
                                 }
                                 String iconPath = attr.getValue(ICON);
                                 if (iconPath == null) {
-                                    listValues.add(new StringWithDescription(v, po != null ? (valuesContext != null ? po.t(valuesContext, d) : po.t(d)) : d));
+                                    listValues.add(new StringWithDescription(v, translate(d, valuesContext)));
                                 } else {
-                                    listValues.add(new StringWithDescriptionAndIcon(v,
-                                            po != null ? (valuesContext != null ? po.t(valuesContext, d) : po.t(d)) : d, iconPath));
+                                    listValues.add(new StringWithDescriptionAndIcon(v, translate(d, valuesContext), iconPath));
                                 }
                             }
                         }
@@ -861,6 +860,18 @@ public class Preset implements Serializable {
                     Log.d(DEBUG_TAG, name + " must be in a preset item");
                     throw new SAXException(name + " must be in a preset item");
                 }
+            }
+
+            /**
+             * Translate a string
+             * 
+             * @param text the text to translate
+             * @param context the translation context of null
+             * @return the potentially translated text as a String
+             */
+            @NonNull
+            String translate(@NonNull String text, @Nullable String context) {
+                return po != null ? (context != null ? po.t(context, text) : po.t(text)) : text;
             }
 
             /**
@@ -1394,7 +1405,7 @@ public class Preset implements Serializable {
                 bestMatch = possibleMatch;
                 bestMatchStrength = matches;
             }
-         }
+        }
         return bestMatch;
     }
 
@@ -2161,18 +2172,25 @@ public class Preset implements Serializable {
             } else {
                 String[] typesArray = types.split(",");
                 for (String type : typesArray) {
-                    if (Node.NAME.equals(type)) {
+                    switch (type.trim()) {
+                    case Node.NAME:
                         setAppliesToNode();
-                    } else if (Way.NAME.equals(type)) {
+                        break;
+                    case Way.NAME:
                         setAppliesToWay();
-                    } else if (CLOSEDWAY.equals(type)) {
-                        setAppliesToClosedway(); // FIXME don't add if it really an area
-                    } else if (MULTIPOLYGON.equals(type)) {
+                        break;
+                    case Preset.CLOSEDWAY:
+                        setAppliesToClosedway();
+                        break;
+                    case Preset.MULTIPOLYGON:
                         setAppliesToArea();
-                    } else if (AREA.equals(type)) {
+                        break;
+                    case Preset.AREA:
                         setAppliesToArea(); //
-                    } else if (Relation.NAME.equals(type)) {
+                        break;
+                    case Relation.NAME:
                         setAppliesToRelation();
+                        break;
                     }
                 }
             }
@@ -2545,6 +2563,25 @@ public class Preset implements Serializable {
         @Nullable
         public List<PresetRole> getRoles() {
             return roles != null ? Collections.unmodifiableList(roles) : null;
+        }
+
+        /**
+         * Get any applicable roles for this PresetItem
+         * 
+         * @return a List of PresetRoles or null if none
+         */
+        @Nullable
+        public List<PresetRole> getRoles(String type) {
+            List<PresetRole> result = null;
+            if (roles != null) {
+                result = new ArrayList<>();
+                for (PresetRole role : roles) {
+                    if (role.appliesTo(type)) {
+                        result.add(role);
+                    }
+                }
+            }
+            return result;
         }
 
         /**

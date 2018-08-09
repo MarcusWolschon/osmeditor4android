@@ -2,10 +2,8 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -164,7 +162,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     /**
-     * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+     * Creates rows from a List of RelationMemberDescriptions
+     * 
+     * @param members the list of members
      */
     private void loadMembers(final ArrayList<RelationMemberDescription> members) {
         LinearLayout membersVerticalLayout = (LinearLayout) getOurView();
@@ -172,7 +172,10 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     /**
-     * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
+     * Creates rows from a List of RelationMemberDescriptions
+     * 
+     * @param membersVerticalLayout the layout holding the rows
+     * @param members the list of members
      */
     private void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
         membersVerticalLayout.removeAllViews();
@@ -696,10 +699,20 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             return null;
         }
 
+        /**
+         * Get the id of the element this row is for
+         * 
+         * @return the OSM id
+         */
         public long getOsmId() {
             return rmd.getRef();
         }
 
+        /**
+         * Get the role for this row
+         * 
+         * @return the role as a String
+         */
         public String getRole() {
             return roleEdit.getText().toString();
         }
@@ -737,40 +750,59 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             return selected.isChecked();
         }
 
+        /**
+         * Select this row
+         */
         public void select() {
             selected.setChecked(true);
         }
 
+        /**
+         * De-select this row
+         */
         @Override
         public void deselect() {
             selected.setChecked(false);
         }
 
+        /**
+         * Disable the checkbox for this row
+         */
         public void disableCheckBox() {
             selected.setEnabled(false);
         }
 
+        /**
+         * Enable the checkbox for this row
+         */
         protected void enableCheckBox() {
             selected.setEnabled(true);
         }
 
+        /**
+         * Create an ArrayAdapter containing role values for a certain member
+         * Note: this uses the tags of the first element if multiple are selected 
+         * to determine which preset to use
+         * 
+         * @return an ArrayAdapter
+         */
+        @NonNull
         ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
-            // Use a set to prevent duplicate keys appearing
-            Set<PresetRole> roles = new HashSet<>();
-
+            List<PresetRole>roles = new ArrayList<>();
             List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
                 if (owner.presets != null) { //
                     PresetItem relationPreset = Preset.findBestMatch(owner.presets, allTags.get(0));
-                    if (relationPreset != null && relationPreset.getRoles() != null) {
-                        roles.addAll(relationPreset.getRoles());
+                    if (relationPreset != null) {
+                        List<PresetRole>tempRoles = relationPreset.getRoles(rmd.getType());
+                        if (tempRoles != null) {
+                            Collections.sort(tempRoles);
+                            roles = tempRoles;
+                        }
                     }
                 }
             }
-
-            List<PresetRole> result = new ArrayList<>(roles);
-            Collections.sort(result);
-            return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
+            return new ArrayAdapter<>(owner, R.layout.autocomplete_row, roles);
         }
     }
 
