@@ -3193,7 +3193,7 @@ public class Preset implements Serializable {
         }
 
         /**
-         * Returns the number of matches between the list of recommended tags (really a misnomer) and the provided tags
+         * Returns the number of matches between the list of non-optional tags and the provided tags
          * 
          * Uses the match value to control actual behavior
          * 
@@ -3229,6 +3229,12 @@ public class Preset implements Serializable {
                             }
                         }
                         if (matched) {
+                            matches++;
+                        } else if (type == MatchType.KEY_VALUE_NEG) {
+                            matches--;
+                        }
+                    } else if (field instanceof PresetCheckField) {
+                        if (otherTagValue.equals(((PresetCheckField) field).getOnValue()) || otherTagValue.equals(((PresetCheckField) field).getOffValue())) {
                             matches++;
                         } else if (type == MatchType.KEY_VALUE_NEG) {
                             matches--;
