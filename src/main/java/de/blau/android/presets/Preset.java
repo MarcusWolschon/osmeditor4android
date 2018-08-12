@@ -3023,36 +3023,24 @@ public class Preset implements Serializable {
          * @return true if the tagSet matches
          */
         public boolean matches(Map<String, String> tagSet) {
-            if (name.equals("Addresses")) {
-                Log.d(DEBUG_TAG, "matching addresses fixed");
-            }
             int matchCount = 0;
+            int fixedTagsCount = fixedTags.entrySet().size();
             for (Entry<String, StringWithDescription> tag : fixedTags.entrySet()) { // for each own tag
                 String key = tag.getKey();
                 MatchType type = getMatchType(key);
                 if (type == MatchType.NONE) {
+                    fixedTagsCount--;
                     continue;
                 }
                 String value = tagSet.get(key);
-                if (value == null) { // key doesn't match
-                    if ((type == null || type == MatchType.KEY_VALUE_NEG || type == MatchType.KEY_NEG) && value == null) { // key
-                                                                                                                           // doesn't
-                                                                                                                           // exist
-                        matchCount--;
-                    }
-                    continue;
-                }
-                if (type == MatchType.KEY) { // key match is all we require
-                    matchCount++;
-                    continue;
+                if (value == null) { // key doesn't match no point in continuing
+                    return false; 
                 }
                 if (tag.getValue().equals(value)) { // key and value match
                     matchCount++;
-                } else if (type == null || type == MatchType.KEY_VALUE_NEG) { // value doesn't match
-                    matchCount--;
-                }
+                } 
             }
-            return matchCount > 0;
+            return matchCount == fixedTagsCount;
         }
 
         /**
