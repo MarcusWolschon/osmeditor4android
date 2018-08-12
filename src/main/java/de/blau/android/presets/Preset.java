@@ -3187,6 +3187,8 @@ public class Preset implements Serializable {
                 String value = tagSet.get(key);
                 if (value != null && field.getValue().equals(value)) { // key and value match
                     matchCount++;
+                } else {
+                    return false; // no point in continuing
                 }
             }
             return matchCount == fixedTagsCount;
