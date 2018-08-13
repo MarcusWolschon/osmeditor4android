@@ -2422,6 +2422,14 @@
 "emergency/destination":[
 "Accessible aux services d'urgences"
 ],
+"emergency/fire_alarm":[
+"incendie",
+"feu",
+"boîte",
+"Boîte d'alarme incendie",
+"sécurité",
+"Alarme"
+],
 "emergency/fire_extinguisher":[
 "poudre",
 "mousse",
@@ -2448,6 +2456,12 @@
 ],
 "emergency/life_ring":[
 "Bouée de Sauvetage"
+],
+"emergency/lifeguard":[
+"secouriste",
+"surveillant",
+"maître-nageur",
+"sauveteur"
 ],
 "emergency/no":[
 "Non accessible aux services d'urgences"
@@ -2930,7 +2944,7 @@
 ],
 "landuse/farmland":[
 "Zone agricole",
-"Terre agricole : cultures et élevage"
+"Terre agricole : cultures et élevage"
 ],
 "landuse/farmyard":[
 "exploitation agricole",
@@ -3375,7 +3389,9 @@
 ],
 "man_made/storage_tank":[
 "Réservoir de stockage",
-"Silo de stockage"
+"Silo de stockage",
+"réservoir",
+"citerne"
 ],
 "man_made/surveillance":[
 "caméra",
@@ -4668,6 +4684,7 @@
 "mosaïque",
 "statue",
 "sculpture",
+"graffiti",
 "Œuvre d'art",
 "Œuvre artistique",
 "fresque"

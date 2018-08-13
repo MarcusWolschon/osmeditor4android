@@ -1298,6 +1298,10 @@
 "emergency/destination":[
 "緊急通道目的地"
 ],
+"emergency/fire_alarm":[
+"火災警鈴",
+"火警警報點"
+],
 "emergency/fire_extinguisher":[
 "滅火器"
 ],
@@ -1311,6 +1315,9 @@
 ],
 "emergency/life_ring":[
 "救生圈"
+],
+"emergency/lifeguard":[
+"救生員"
 ],
 "emergency/no":[
 "不開放緊急通行"
@@ -3235,6 +3242,8 @@
 ],
 "shop/kiosk":[
 "售貨亭",
+"販賣亭",
+"零售亭",
 "書報攤"
 ],
 "shop/kitchen":[

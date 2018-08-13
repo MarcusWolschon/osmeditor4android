@@ -126,12 +126,14 @@
 ],
 "amenity/community_centre":[
 "külakeskus",
+"külamaja",
 "rahvamaja",
-"kogukonna keskus",
+"kultuurikeskus",
+"Kogukonna keskus",
 "hall",
+"spordikeskus",
 "üritused",
-"keskus",
-"Kultuurikeskus"
+"keskus"
 ],
 "amenity/compressed_air":[
 "Suruõhk",
@@ -1458,6 +1460,12 @@
 "man_made/chimney":[
 "Korsten"
 ],
+"man_made/clearcut":[
+"kännustik",
+"Raiesmik",
+"raiestik",
+"lageraie"
+],
 "man_made/crane":[
 "Kraana"
 ],
@@ -1582,6 +1590,11 @@
 "natural/peak":[
 "tipp",
 "Mäetipp"
+],
+"natural/reef":[
+"riff",
+"korall",
+"Kari"
 ],
 "natural/ridge":[
 "tipp",
@@ -2169,6 +2182,11 @@
 "shop/motorcycle":[
 "tsiklid",
 "Mootorrattapood"
+],
+"shop/motorcycle_repair":[
+"remont",
+"hooldus",
+"Mootorratta remondikoda"
 ],
 "shop/music":[
 "Muusikapood"

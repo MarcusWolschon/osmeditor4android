@@ -45,7 +45,6 @@
 "aerialway/magic_carpet":[
 "Babylift",
 "Zauberteppichlift",
-"KInderskilift",
 "Kinderskilift"
 ],
 "aerialway/mixed_lift":[
@@ -2095,11 +2094,18 @@
 "Obstgarten"
 ],
 "landuse/plant_nursery":[
-"Betriebskindergarten",
-"Anpflanzung, Baumschule",
-"Werkskindergarten",
-"Betriebskinderkrippe",
-"Werkskinderkrippe"
+"Baumschule",
+"Blumen",
+"Rosen",
+"Sträucher",
+"Obstgehölze",
+"Baumschule, Anzucht von Pflanzen",
+"Anbaufläche",
+"Plantage",
+"Ziergehölze",
+"Forstpflanzen",
+"Gärtnerei",
+"Anzucht"
 ],
 "landuse/quarry":[
 "Tongrube",
@@ -2231,7 +2237,12 @@
 "Reck"
 ],
 "leisure/fitness_station/horizontal_ladder":[
-"Klettergerüst"
+"Leiter",
+"Kletterleiter",
+"Hangelleiter",
+"Klettergerüst",
+"Klimmzüge",
+"Trimm Dich Pfad"
 ],
 "leisure/fitness_station/hyperextension":[
 "Hyperextension-Bank"
@@ -3025,6 +3036,7 @@
 "Korbschaukel"
 ],
 "playground/climbing_frame":[
+"Klettergerüst / Seilspinne",
 "Raumnetz",
 "Klettergerüst",
 "Seilspinne"

@@ -111,6 +111,11 @@
 "terminal pasażerski",
 "port lotniczy"
 ],
+"allotments/plot":[
+"działka",
+"ogródek",
+"Działka ogrodowa"
+],
 "amenity":[
 "Usługa"
 ],
@@ -748,6 +753,9 @@
 "jedzenie",
 "Automat do sprzedaży jedzenia"
 ],
+"amenity/vending_machine/fuel":[
+"Pompa gazowa"
+],
 "amenity/vending_machine/ice_cream":[
 "automat do sprzedaży lodów",
 "lody",
@@ -998,8 +1006,8 @@
 "building/boathouse":[
 "boathouse",
 "houseboat",
-"na wodzie",
-"Dom Na Wodzie"
+"Łódź mieszkalna",
+"na wodzie"
 ],
 "building/bungalow":[
 "Bungalow",
@@ -1078,6 +1086,11 @@
 "building/garages":[
 "Garaże",
 "garaże"
+],
+"building/grandstand":[
+"trybuna",
+"trybuny",
+"Trybuna (budynek)"
 ],
 "building/greenhouse":[
 "Szklarnia"
@@ -1448,13 +1461,25 @@
 "emergency/destination":[
 "Docelowy dojazd dla służb ratowniczych"
 ],
+"emergency/fire_alarm":[
+"Skrzynka z alarmem przeciwpożarowym"
+],
+"emergency/fire_extinguisher":[
+"Gaśnica"
+],
 "emergency/fire_hydrant":[
 "hydrant",
 "Hydrant przeciwpożarowy"
 ],
+"emergency/first_aid_kit":[
+"Apteczka"
+],
 "emergency/life_ring":[
 "koło ratunkowe",
 "Koło ratunkowe"
+],
+"emergency/lifeguard":[
+"Ratownik"
 ],
 "emergency/no":[
 "Brak dojazdu dla służb ratowniczych"
@@ -1470,6 +1495,9 @@
 ],
 "emergency/private":[
 "Prywatny dojazd dla służb ratowniczych"
+],
+"emergency/siren":[
+"Syrena alarmowa"
 ],
 "emergency/water_tank":[
 "zapasowy",
@@ -1581,6 +1609,9 @@
 "healthcare/hospice":[
 "hospicjum",
 "Hospicjum"
+],
+"healthcare/laboratory":[
+"Laboratorium medyczne"
 ],
 "healthcare/midwife":[
 "położna",
@@ -2117,6 +2148,11 @@
 "ptaki",
 "Czatownia ornitologiczna"
 ],
+"leisure/bleachers":[
+"trybuna",
+"trybuny",
+"Trybuna (odkryta)"
+],
 "leisure/bowling_alley":[
 "Kręgielnia",
 "Kręgle"
@@ -2606,6 +2642,9 @@
 "wierzchołek",
 "szczyt"
 ],
+"natural/reef":[
+"Rafa"
+],
 "natural/ridge":[
 "grzbiet górski",
 "grzbiet",
@@ -3056,6 +3095,9 @@
 "public_transport/platform_tram":[
 "Przystanek tramwajowy / peron"
 ],
+"public_transport/station_aerialway":[
+"Stacja publicznej kolejki linowej"
+],
 "public_transport/station_bus":[
 "Dworzec autobusowy",
 "dworzec autobusowy",
@@ -3393,7 +3435,7 @@
 "dom towarowy"
 ],
 "shop/doityourself":[
-"Sklep dla majsterkowiczów",
+"Market budowlany/sklep dla majsterkowiczów",
 "sklep dla majsterkowiczów"
 ],
 "shop/dry_cleaning":[

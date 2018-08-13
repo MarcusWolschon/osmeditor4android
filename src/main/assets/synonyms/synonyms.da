@@ -2217,6 +2217,9 @@
 "Forretning",
 "Butik"
 ],
+"shop/agrarian":[
+"Grovvareforretning"
+],
 "shop/alcohol":[
 "Vinforretning",
 "Vinforhandler",
@@ -2246,8 +2249,10 @@
 "Babyudstyrsforretning"
 ],
 "shop/bag":[
+"Kuffertbutik",
 "Lædervareforretning",
-"Taske/Kuffertbutik"
+"Taske/Kuffertbutik",
+"Taskebutik"
 ],
 "shop/bakery":[
 "Bageri",
@@ -2257,9 +2262,8 @@
 "Badeværelseindretningsbutik"
 ],
 "shop/beauty":[
-"Materialist",
 "Parfumebutik",
-"Skønhedbutik"
+"Skønhedsbutik"
 ],
 "shop/beauty/nails":[
 "Neglesalon"
@@ -2315,7 +2319,8 @@
 "Tæppeforretning"
 ],
 "shop/charity":[
-"Velgørenhedsbutik"
+"Velgørenhedsbutik",
+"Genbrugsbutik"
 ],
 "shop/cheese":[
 "Ostehandler",
@@ -2323,8 +2328,7 @@
 "Ostebutik"
 ],
 "shop/chemist":[
-"Materialist",
-"Medicinbutik"
+"Materialist"
 ],
 "shop/chocolate":[
 "Chokoladeforretning",
@@ -2567,6 +2571,7 @@
 ],
 "shop/paint":[
 "Malerbutik",
+"Farvehandel",
 "Malerforretning"
 ],
 "shop/pastry":[
@@ -2702,6 +2707,7 @@
 "Persienneforretning"
 ],
 "shop/wine":[
+"Vinhandler",
 "Vinforretning",
 "Vinbutik"
 ],
@@ -2797,7 +2803,8 @@
 "Trafiksanering"
 ],
 "traffic_calming/bump":[
-"Vejbump"
+"Vejbump",
+"Bump"
 ],
 "traffic_calming/chicane":[
 "Trafikchikane"

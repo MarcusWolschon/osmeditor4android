@@ -394,10 +394,11 @@
 "jogosítvány"
 ],
 "amenity/embassy":[
-"Követség",
-"Konzulátus",
+"konzulátus",
+"nagykövetség",
 "külképviselet",
-"Nagykövetség"
+"Külképviselet",
+"követség"
 ],
 "amenity/fast_food":[
 "gyros",
@@ -1963,9 +1964,11 @@
 "Bekötőút felhajtó"
 ],
 "highway/track":[
-"Nem karbantartott földút",
+"Nem karbantartott mezőgazdasági/erdészeti út",
+"tanyasi út",
 "földút",
-"nem karbantartott"
+"erdészeti út",
+"mezőgazdasági út"
 ],
 "highway/traffic_mirror":[
 "Közlekedési tükör",
@@ -2214,6 +2217,13 @@
 "játékterem",
 "Felnőtt játékközpont"
 ],
+"leisure/beach_resort":[
+"vízpart",
+"strand",
+"tengerpart",
+"Fürdőhely, vízparti strand",
+"fürdő"
+],
 "leisure/bird_hide":[
 "madárles",
 "Madárles"
@@ -2331,9 +2341,9 @@
 "leisure/pitch/beachvolleyball":[
 "pálya",
 "strand",
+"Strandröplabdapálya",
 "röpi",
-"röplabda",
-"Strandröplabda pálya"
+"röplabda"
 ],
 "leisure/pitch/bowls":[
 "Gyeptekepálya",
@@ -2603,7 +2613,11 @@
 "Öböl"
 ],
 "natural/beach":[
-"Strand"
+"vízpart",
+"tengerpart",
+"fürdőhely",
+"Strand",
+"Természetes strand"
 ],
 "natural/cave_entrance":[
 "Barlangbejárat",

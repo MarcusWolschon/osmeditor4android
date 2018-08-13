@@ -818,6 +818,9 @@
 "emergency/fire_hydrant":[
 "آتش نشانی"
 ],
+"emergency/lifeguard":[
+"نجات غریق"
+],
 "emergency/no":[
 "دسترسی اظطراری خیر"
 ],
@@ -910,6 +913,9 @@
 ],
 "healthcare/psychotherapist":[
 "روان‎‌درمانگر"
+],
+"healthcare/rehabilitation":[
+"توانبخشی"
 ],
 "healthcare/speech_therapist":[
 "گفتار درمان"
@@ -1277,8 +1283,8 @@
 ],
 "leisure/resort":[
 "مکان پررفت‌آمد",
-"پر رفت‌آمد",
 "مکان‌های مطرح",
+"مجتمع تفریحی",
 "اماکن پر رفت آمد"
 ],
 "leisure/sauna":[
@@ -1344,8 +1350,14 @@
 "man_made/lighthouse":[
 "فانوس دریایی"
 ],
+"man_made/mast":[
+"دکل مخابراتی"
+],
 "man_made/observation":[
 "برج رصد"
+],
+"man_made/observatory":[
+"رصد خانه"
 ],
 "man_made/petroleum_well":[
 "چاه نفت"
@@ -1513,8 +1525,11 @@
 "office/financial":[
 "اداره مالی"
 ],
+"office/forestry":[
+"دفتر جنگلداری"
+],
 "office/government":[
-"اداره دولتی"
+"دفتر دولتی"
 ],
 "office/government/register_office":[
 "اداره ثبت"
@@ -1603,8 +1618,17 @@
 "place/village":[
 "روستا"
 ],
+"playground/roundabout":[
+"چرخ و فلک"
+],
+"playground/seesaw":[
+"الاکلنگ"
+],
 "playground/slide":[
 "سرسره"
+],
+"playground/swing":[
+"تاب"
 ],
 "point":[
 "نقطه"
@@ -2026,6 +2050,9 @@
 ],
 "shop/ticket":[
 "بلیط فروشی"
+],
+"shop/tiles":[
+"کاشی فروشی"
 ],
 "shop/tobacco":[
 "فروشگاه مواد افیونی تنباکو"

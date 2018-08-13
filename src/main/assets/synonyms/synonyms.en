@@ -85,9 +85,12 @@
 "T-bar Lift"
 ],
 "aeroway/aerodrome":[
+"plane",
 "aerodrome",
 "airplane",
 "Airport",
+"jet",
+"aeroway",
 "airport"
 ],
 "aeroway/apron":[
@@ -1629,7 +1632,10 @@
 "reservoir"
 ],
 "entrance":[
-"Entrance/Exit"
+"exit",
+"door",
+"Entrance/Exit",
+"entrance"
 ],
 "footway/crossing-raised":[
 "hump",
@@ -2741,6 +2747,11 @@
 ],
 "man_made/bridge":[
 "Bridge"
+],
+"man_made/bunker_silo":[
+"Storage",
+"Silage",
+"Bunker Silo"
 ],
 "man_made/chimney":[
 "Chimney"

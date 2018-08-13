@@ -3436,6 +3436,9 @@
 "office/private_investigator":[
 "Yksityisetsivä"
 ],
+"office/quango":[
+"Kansalaisjärjestön toimisto"
+],
 "office/research":[
 "Tutkimustoimisto"
 ],
@@ -4967,6 +4970,15 @@
 ],
 "type/restriction/no_u_turn":[
 "Ei saa tehdä U-käännöstä"
+],
+"type/restriction/only_left_turn":[
+"Kääntyminen vain vasemmalle"
+],
+"type/restriction/only_right_turn":[
+"Kääntyminen vain oikealle"
+],
+"type/restriction/only_straight_on":[
+"Pakollinen ajosuunta suoraan"
 ],
 "type/route":[
 "matkareitti",

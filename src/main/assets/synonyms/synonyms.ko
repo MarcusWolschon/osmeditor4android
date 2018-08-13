@@ -206,8 +206,8 @@
 "시계방"
 ],
 "amenity/college":[
-"직업전문학교 부지",
-"단기대학·전문학교 부지"
+"전문대학 부지",
+"직업전문학교 부지"
 ],
 "amenity/community_centre":[
 "커뮤니티 센터"
@@ -723,8 +723,8 @@
 "교회 건물"
 ],
 "building/college":[
-"단기대학·전문학교 건물",
-"직업전문학교 건물"
+"직업전문학교 건물",
+"전문대학 건물"
 ],
 "building/commercial":[
 "상업 건물"
@@ -753,6 +753,9 @@
 ],
 "building/garages":[
 "차고들"
+],
+"building/grandstand":[
+"그랜드스탠드"
 ],
 "building/greenhouse":[
 "온실",
@@ -1035,8 +1038,14 @@
 "emergency/destination":[
 "비상시 접근 도착지"
 ],
+"emergency/fire_extinguisher":[
+"소화기"
+],
 "emergency/fire_hydrant":[
 "소화전"
+],
+"emergency/first_aid_kit":[
+"구급상자"
 ],
 "emergency/life_ring":[
 "구명부환",
@@ -1055,6 +1064,9 @@
 "emergency/private":[
 "민간 비상시 접근지"
 ],
+"emergency/siren":[
+"사이렌"
+],
 "emergency/yes":[
 "비상시 접근 가능"
 ],
@@ -1070,8 +1082,7 @@
 "보행자용 횡단보도"
 ],
 "footway/sidewalk":[
-"인도",
-"도보"
+"인도"
 ],
 "ford":[
 "여울"
@@ -1236,22 +1247,20 @@
 "양보 표지판"
 ],
 "highway/living_street":[
-"주택가"
+"주택가 거리"
 ],
 "highway/mini_roundabout":[
 "소형 회전교차로"
 ],
 "highway/motorway":[
-"고속도로",
-"자동차 전용도로"
+"고속도로"
 ],
 "highway/motorway_junction":[
 "고속도로 분기점 / 출구",
 "고속도로 IC / JC"
 ],
 "highway/motorway_link":[
-"고속도로 연결로",
-"자동차 전용도로 연결로"
+"고속도로 연결로"
 ],
 "highway/path":[
 "경로"
@@ -1263,10 +1272,10 @@
 "보행자 거리"
 ],
 "highway/primary":[
-"주요 도로"
+"1차 도로"
 ],
 "highway/primary_link":[
-"주요 연결로"
+"1차 도로 연결로"
 ],
 "highway/raceway":[
 "경기트렉 (모터 스포츠)",
@@ -1285,13 +1294,13 @@
 "미확인 도로"
 ],
 "highway/secondary":[
-"보조 도로"
+"2차 도로"
 ],
 "highway/secondary_link":[
-"보조 연결로"
+"2차 도로 연결로"
 ],
 "highway/service":[
-"이면도로"
+"접근 도로"
 ],
 "highway/service/alley":[
 "골목"
@@ -1334,7 +1343,7 @@
 "3차 도로"
 ],
 "highway/tertiary_link":[
-"3차 연결로"
+"3차 도로 연결로"
 ],
 "highway/track":[
 "농·임도"
@@ -1347,10 +1356,10 @@
 "신호등"
 ],
 "highway/trunk":[
-"간선 도로"
+"고속화도로"
 ],
 "highway/trunk_link":[
-"간선 연결로"
+"고속화도로 연결로"
 ],
 "highway/turning_circle":[
 "선회권"
@@ -1505,12 +1514,11 @@
 "종교 지역"
 ],
 "landuse/residential":[
-"주거 지역",
-"주거지역"
+"주거 지역"
 ],
 "landuse/retail":[
-"상업 지역",
-"소매점 지역"
+"소매 지역",
+"상업 지역"
 ],
 "landuse/vineyard":[
 "와인",
@@ -2427,7 +2435,7 @@
 "전기",
 "선로",
 "경전철",
-"경전철 역",
+"경전철역",
 "철도",
 "역",
 "트롤리",

@@ -2,6 +2,9 @@
 "advertising/billboard":[
 "Reklāmas dēlis"
 ],
+"advertising/column":[
+"Reklāmu stabs"
+],
 "aerialway/cable_car":[
 "Trosu Ceļš"
 ],
@@ -11,14 +14,26 @@
 "aeroway/aerodrome":[
 "Lidosta"
 ],
+"aeroway/gate":[
+"Lidostas vārti"
+],
 "aeroway/hangar":[
 "Angārs"
 ],
 "aeroway/helipad":[
 "Helikopteru nosēšanās laukums"
 ],
+"aeroway/runway":[
+"Skrejceļš"
+],
+"aeroway/taxiway":[
+"Manevrēšanas ceļš"
+],
 "aeroway/terminal":[
 "Lidostas Terminālis"
+],
+"amenity":[
+"Labierīcība"
 ],
 "amenity/animal_shelter":[
 "Dzīvnieku patversme"
@@ -53,6 +68,9 @@
 "amenity/biergarten":[
 "Alus Dārzs"
 ],
+"amenity/boat_rental":[
+"Laivu īre"
+],
 "amenity/bureau_de_change":[
 "Valūtas Maiņa"
 ],
@@ -74,11 +92,17 @@
 "amenity/charging_station":[
 "Uzlādes stacija"
 ],
+"amenity/childcare":[
+"Bērnistaba / Bērnu aprūpe"
+],
 "amenity/cinema":[
 "Kino"
 ],
 "amenity/clinic":[
 "Klīnika"
+],
+"amenity/clinic/abortion":[
+"Aborta klīnika"
 ],
 "amenity/clock":[
 "Pulkstenis"
@@ -112,6 +136,9 @@
 ],
 "amenity/fire_station":[
 "Ugunsdzēsēju stacija"
+],
+"amenity/food_court":[
+"Ēdnīca"
 ],
 "amenity/fountain":[
 "Strūklaka"
@@ -193,6 +220,9 @@
 ],
 "amenity/recycling":[
 "Šķirošanas konteiners"
+],
+"amenity/recycling_centre":[
+"Šķirošanas centrs"
 ],
 "amenity/restaurant":[
 "Restorāns"
@@ -282,16 +312,49 @@
 "Veternārārsts"
 ],
 "amenity/waste/dog_excrement":[
-"Suņu Maisiņu Izmestuve"
+"Suņu ekskrementu tvertne"
+],
+"amenity/waste_basket":[
+"Atkritumu grozs"
+],
+"amenity/waste_disposal":[
+"Atkritumu konteiners"
+],
+"area":[
+"Apgabals"
+],
+"area/highway":[
+"Ceļa segums"
+],
+"attraction/animal":[
+"Dzīvnieku"
+],
+"attraction/carousel":[
+"Karuseļu"
+],
+"attraction/maze":[
+"Labirints"
+],
+"attraction/pirate_ship":[
+"Pirātu kuģis"
 ],
 "attraction/roller_coaster":[
 "Amerikāņu Kalniņi"
+],
+"attraction/train":[
+"Tūristu vilcieniņš"
+],
+"attraction/water_slide":[
+"Ūdens Slidkalniņš"
 ],
 "barrier":[
 "Barjera"
 ],
 "barrier/block":[
 "Ēkas daļa"
+],
+"barrier/bollard":[
+"Stabs"
 ],
 "barrier/city_wall":[
 "Pilsētas mūri"
@@ -316,6 +379,9 @@
 ],
 "barrier/lift_gate":[
 "Lifta ieeja"
+],
+"barrier/retaining_wall":[
+"Stiprinājuma siena"
 ],
 "barrier/toll_booth":[
 "Muitas punkts"
@@ -350,6 +416,9 @@
 "building/church":[
 "Baznīcas Ēka"
 ],
+"building/dormitory":[
+"Kopmītnes"
+],
 "building/entrance":[
 "Ieeja/Izeja"
 ],
@@ -358,6 +427,9 @@
 ],
 "building/garages":[
 "Garāžas"
+],
+"building/grandstand":[
+"Tribīnes"
 ],
 "building/greenhouse":[
 "Siltumnīca"
@@ -374,11 +446,26 @@
 "building/industrial":[
 "Industijas Ēka"
 ],
+"building/public":[
+"Publiska Ēka"
+],
+"building/residential":[
+"Dzīvojamā Ēka"
+],
+"building/retail":[
+"Komerciāla Ēka"
+],
 "building/roof":[
 "Jumts"
 ],
+"building/ruins":[
+"Ēkas drupas"
+],
 "building/school":[
 "Skolas Ēka"
+],
+"building/shed":[
+"Sķūnis"
 ],
 "building/stable":[
 "Stallis"
@@ -389,14 +476,32 @@
 "building/train_station":[
 "Vilcienu Stacija"
 ],
+"building/university":[
+"Universitātes Ēka"
+],
 "building/warehouse":[
 "Noliktava"
 ],
 "craft/basket_maker":[
 "Grozu veidotājs"
 ],
+"craft/beekeeper":[
+"Biškopis"
+],
+"craft/boatbuilder":[
+"Laivu būvētājs"
+],
+"craft/brewery":[
+"Darītava"
+],
+"craft/chimney_sweeper":[
+"Skursteņslauķis"
+],
 "craft/clockmaker":[
 "Pulksteņdaris"
+],
+"craft/confectionery":[
+"Saldumu veidotājs"
 ],
 "craft/electrician":[
 "Elektriķis"
@@ -422,6 +527,9 @@
 "craft/photographer":[
 "Fotogrāfs"
 ],
+"craft/photographic_laboratory":[
+"Fotolabratorija"
+],
 "craft/plumber":[
 "Santehniķis"
 ],
@@ -431,8 +539,14 @@
 "craft/roofer":[
 "Jumiķis"
 ],
+"craft/sawmill":[
+"Kokzāģētava"
+],
 "craft/sculptor":[
 "Skulptors"
+],
+"craft/shoemaker":[
+"Kurpnieks"
 ],
 "emergency/defibrillator":[
 "Defibrilators"
@@ -443,8 +557,14 @@
 "emergency/fire_hydrant":[
 "Ugunsdzēsības Hidrants"
 ],
+"emergency/lifeguard":[
+"Glābējs"
+],
 "emergency/phone":[
 "Ārkārtas telefons"
+],
+"emergency/siren":[
+"Sirēna"
 ],
 "entrance":[
 "Ieeja/Izeja"
@@ -467,8 +587,14 @@
 "highway/cycleway":[
 "Veloceliņš"
 ],
+"highway/elevator":[
+"Lifts"
+],
 "highway/footway":[
 "Taka"
+],
+"highway/living_street":[
+"Dzīvojamā iela"
 ],
 "highway/motorway":[
 "Ātrgaitas šoseja"
@@ -493,6 +619,9 @@
 ],
 "highway/service/driveway":[
 "Piebraucamais ceļš"
+],
+"highway/speed_camera":[
+"Fotoradars"
 ],
 "highway/steps":[
 "Kāpnes"
@@ -571,6 +700,9 @@
 ],
 "leisure/bowling_alley":[
 "Boulinga Zāle"
+],
+"leisure/dog_park":[
+"Suņu parks"
 ],
 "leisure/garden":[
 "Dārzs"
@@ -700,6 +832,9 @@
 ],
 "natural/tree":[
 "Koks"
+],
+"natural/tree_row":[
+"Koku rinda"
 ],
 "natural/volcano":[
 "Vulkāns"
@@ -1013,6 +1148,9 @@
 "tourism/attraction":[
 "Tūrisma objekts"
 ],
+"tourism/camp_site":[
+"Kempinga vieta"
+],
 "tourism/gallery":[
 "Mākslas galerija"
 ],
@@ -1057,6 +1195,21 @@
 ],
 "traffic_calming/bump":[
 "Guļošais Policists"
+],
+"traffic_calming/hump":[
+"Guļošais Policists"
+],
+"type/boundary":[
+"Robeža"
+],
+"type/boundary/administrative":[
+"Administratīvā robeža"
+],
+"type/restriction":[
+"Aizliegums"
+],
+"vertex":[
+"Cits"
 ],
 "waterway":[
 "Ūdensceļš"

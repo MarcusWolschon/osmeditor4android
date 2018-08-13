@@ -911,8 +911,14 @@
 "emergency/destination":[
 "Neyðaraðgangur ef í fararleið"
 ],
+"emergency/fire_extinguisher":[
+"Slökkvitæki"
+],
 "emergency/fire_hydrant":[
 "Brunahani"
+],
+"emergency/first_aid_kit":[
+"Skyndihjálparkassi"
 ],
 "emergency/life_ring":[
 "Bjarghringur"
@@ -928,6 +934,9 @@
 ],
 "emergency/private":[
 "Einka neyðaraðgangur"
+],
+"emergency/siren":[
+"Sírena"
 ],
 "emergency/water_tank":[
 "Neyðarvatnstankur"
@@ -2422,6 +2431,9 @@
 ],
 "shop/motorcycle":[
 "Mótorhjólaverslun"
+],
+"shop/motorcycle_repair":[
+"Mótorhjólaviðgerðaverslun"
 ],
 "shop/music":[
 "Tónlistarbúð"

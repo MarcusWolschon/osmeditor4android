@@ -946,7 +946,15 @@
 "Máquina de Venda de Comida"
 ],
 "amenity/vending_machine/fuel":[
-"Bomba de Gasolina"
+"diesel",
+"combustível",
+"Bomba de Gasolina",
+"bomba de gasolina",
+"bomba de diesel",
+"gasolina",
+"bomba de combustível",
+"propano",
+"biodiesel"
 ],
 "amenity/vending_machine/ice_cream":[
 "Máquina de Venda de Sorvete"
@@ -1817,17 +1825,38 @@
 "emergency/destination":[
 "Acesso de Emergência como Destino"
 ],
+"emergency/fire_alarm":[
+"Caixa de chamada de alarme de incêndio"
+],
+"emergency/fire_extinguisher":[
+"Extintor de incêndio"
+],
 "emergency/fire_hydrant":[
 "extintor",
 "incêndio",
 "Hidrante",
 "mangueira"
 ],
+"emergency/first_aid_kit":[
+"Kit de primeiros socorros"
+],
 "emergency/life_ring":[
 "bóia",
 "Bóia salva-vidas",
 "salva vidas",
 "salva-vidas"
+],
+"emergency/lifeguard":[
+"rcr",
+"cpr",
+"guarda vidas",
+"Salva-vidas",
+"bombeiro",
+"guarda-vidas",
+"salva vidas",
+"rcp",
+"salva-vidas",
+"resgate"
 ],
 "emergency/no":[
 "Acesso de Emergência Não Permitido"
@@ -1840,6 +1869,9 @@
 ],
 "emergency/private":[
 "Acesso de Emergência Privado"
+],
+"emergency/siren":[
+"Sirene"
 ],
 "emergency/water_tank":[
 "Tanque de água de emergência"
@@ -2549,6 +2581,9 @@
 "Floresta plantada",
 "Floresta manejada"
 ],
+"landuse/garages":[
+"Uso da terra da garagem"
+],
 "landuse/grass":[
 "Gramado"
 ],
@@ -2679,8 +2714,12 @@
 "Centro de Jogos para Adultos"
 ],
 "leisure/amusement_arcade":[
+"jogos eletrônicos",
+"console",
 "parque de diversões",
-"Fliperama"
+"vídeo game",
+"Fliperama",
+"jogos"
 ],
 "leisure/beach_resort":[
 "Resort em Praia"
@@ -2757,8 +2796,14 @@
 "leisure/fitness_station/balance_beam":[
 "Trave de Equilíbrio"
 ],
+"leisure/fitness_station/box":[
+"Caixa de exercício"
+],
 "leisure/fitness_station/horizontal_bar":[
 "Barra Fixa Horizontal"
+],
+"leisure/fitness_station/horizontal_ladder":[
+"Barras de Macaco de Exercício"
 ],
 "leisure/fitness_station/hyperextension":[
 "Estação de Hiperextensão"
@@ -2766,9 +2811,15 @@
 "leisure/fitness_station/parallel_bars":[
 "Barras Paralelas"
 ],
+"leisure/fitness_station/push-up":[
+"Estação de flexão"
+],
 "leisure/fitness_station/rings":[
 "Argolas de Exercício",
 "Argolas"
+],
+"leisure/fitness_station/sign":[
+"Sinal de instrução de exercício"
 ],
 "leisure/fitness_station/sit-up":[
 "Prancha para Abdominais"
@@ -2826,6 +2877,9 @@
 "Reserva florestal",
 "floresta",
 "Reserva natural"
+],
+"leisure/outdoor_seating":[
+"Área de estar ao ar livre"
 ],
 "leisure/park":[
 "jardim",
@@ -3081,6 +3135,9 @@
 "Gás",
 "Fábrica"
 ],
+"man_made/clearcut":[
+"Floresta desmatada"
+],
 "man_made/crane":[
 "guindaste",
 "Grua"
@@ -3271,14 +3328,20 @@
 "Rocha nua"
 ],
 "natural/bay":[
+"costa",
+"água",
 "Baía",
 "baía",
-"enseada"
+"enseada",
+"mar"
 ],
 "natural/beach":[
 "areia",
+"cobertura de solo",
 "praia",
-"Praia"
+"solo",
+"Praia",
+"mar"
 ],
 "natural/cave_entrance":[
 "abertura de gruta",
@@ -3293,7 +3356,10 @@
 "natural/cliff":[
 "Cânion",
 "Penhasco",
-"Falésia"
+"Falésia",
+"montanha",
+"acidente geográfico",
+"morro"
 ],
 "natural/coastline":[
 "Linha Costeira",
@@ -3302,6 +3368,7 @@
 "natural/fell":[
 "Encosta",
 "Cerro",
+"acidente geográfico",
 "Outeiro",
 "Morro",
 "Montanha",
@@ -3313,13 +3380,24 @@
 "Glaciar"
 ],
 "natural/grassland":[
-"Pradaria"
+"vegetação",
+"gramínea",
+"Pradaria",
+"vegetação rasteira"
 ],
 "natural/heath":[
+"arbustos",
+"vegetação",
+"charneca",
 "Urzal"
 ],
 "natural/mud":[
-"Lama"
+"mangue",
+"cobertura de solo",
+"solo",
+"lama",
+"Lama",
+"lamaçal"
 ],
 "natural/peak":[
 "Pico",
@@ -3328,6 +3406,17 @@
 "Monte",
 "Montanha",
 "Serra"
+],
+"natural/reef":[
+"Recife",
+"corais",
+"rocha",
+"coral",
+"arrecife",
+"solo",
+"recife",
+"mar",
+"recife de corais"
 ],
 "natural/ridge":[
 "crista",
@@ -3362,6 +3451,7 @@
 "natural/scrub":[
 "Arbusto",
 "Moita",
+"vegetação",
 "Matagal",
 "Arbustos"
 ],
@@ -3372,9 +3462,13 @@
 "Rio"
 ],
 "natural/tree":[
-"Árvore"
+"vegetação",
+"Árvore",
+"planta"
 ],
 "natural/tree_row":[
+"plantas",
+"vegetação",
 "Fileira de árvores"
 ],
 "natural/volcano":[
@@ -3387,23 +3481,34 @@
 ],
 "natural/water/lake":[
 "laguna",
+"água",
 "Lago",
-"lacustre"
+"lacustre",
+"lagoa"
 ],
 "natural/water/pond":[
-"Lagoa"
+"água",
+"Lagoa",
+"lacustre",
+"lago"
 ],
 "natural/water/reservoir":[
+"barragem",
+"água",
 "Lago Artificial",
 "Represa",
+"lacustre",
 "Albufeira",
-"Açude"
+"Açude",
+"lago"
 ],
 "natural/wetland":[
 "zona úmida",
 "Zona Úmida",
 "charco",
 "turfa",
+"cobertura de solo",
+"solo",
 "paul",
 "pântano",
 "sapal"
@@ -3412,6 +3517,8 @@
 "selva",
 "Mata Nativa",
 "bosque",
+"vegetação",
+"fauna",
 "floresta"
 ],
 "noexit/yes":[
@@ -3745,10 +3852,25 @@
 "Povoado",
 "vila"
 ],
+"playground/balance_beam":[
+"Jogar saldo de feixe"
+],
+"playground/basket_spinner":[
+"Girador de cesta"
+],
+"playground/basket_swing":[
+"Balanço de cesta"
+],
+"playground/climbing_frame":[
+"Quadro de escalada"
+],
 "playground/cushion":[
 "Pula-Pula Inflável",
 "castelo inflável",
 "colchão infável"
+],
+"playground/horizontal_bar":[
+"Jogar Barra Horizontal"
 ],
 "playground/rocker":[
 "Balanço de Mola"
@@ -3767,6 +3889,9 @@
 "playground/slide":[
 "escorrega",
 "Escorregador"
+],
+"playground/structure":[
+"Estrutura do jogo"
 ],
 "playground/swing":[
 "Balanço"
@@ -3864,6 +3989,12 @@
 "eletricidade",
 "Transformador"
 ],
+"public_transport/linear_platform":[
+"Parada de Trânsito / Plataforma"
+],
+"public_transport/linear_platform_aerialway":[
+"Parada / Plataforma Aérea"
+],
 "public_transport/linear_platform_bus":[
 "trânsito",
 "Parada de Ônibus / Plataforma",
@@ -3939,6 +4070,12 @@
 "bonde",
 "tram",
 "elétrico"
+],
+"public_transport/platform":[
+"Parada de Trânsito / Plataforma"
+],
+"public_transport/platform_aerialway":[
+"Parada / Plataforma Aérea"
 ],
 "public_transport/platform_bus":[
 "trânsito",
@@ -4019,6 +4156,9 @@
 "public_transport/station":[
 "Estação de trânsito"
 ],
+"public_transport/station_aerialway":[
+"Estação Aérea"
+],
 "public_transport/station_bus":[
 "trânsito",
 "transporte público",
@@ -4091,6 +4231,7 @@
 "trânsito",
 "estação ferroviária",
 "transporte público",
+"Estação de trem (parada / pedido)",
 "transporte",
 "terminal",
 "estação de trem",
@@ -4115,8 +4256,20 @@
 "public_transport/station_trolleybus":[
 "Estação de Trólebus / Terminal"
 ],
+"public_transport/stop_area":[
+"Área de parada de trânsito"
+],
+"public_transport/stop_position":[
+"Local de parada de trânsito"
+],
+"public_transport/stop_position_aerialway":[
+"Localização de parada da via aérea"
+],
 "public_transport/stop_position_bus":[
 "Local de parada de ônibus"
+],
+"public_transport/stop_position_ferry":[
+"Localização de parada de balsa "
 ],
 "public_transport/stop_position_light_rail":[
 "Local de parada do VLT"
@@ -4277,6 +4430,9 @@
 "shop":[
 "Comércio",
 "Loja"
+],
+"shop/agrarian":[
+"Loja de Suprimentos Agrícolas"
 ],
 "shop/alcohol":[
 "Loja de alcoólicos licenciada",
@@ -4796,6 +4952,9 @@
 "Veterinário",
 "cão",
 "cães"
+],
+"shop/pet_grooming":[
+"Loja de cuidados com animais de estimação"
 ],
 "shop/photo":[
 "Foto",

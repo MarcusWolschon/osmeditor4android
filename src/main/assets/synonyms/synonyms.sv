@@ -3620,6 +3620,7 @@
 "torg",
 "gångfart",
 "Gångfartsområde",
+"Gågateområde",
 "gågata",
 "gårdsgata"
 ],
@@ -7142,7 +7143,7 @@
 "kontext"
 ],
 "roundabout":[
-"Rondell"
+"Cirkulationsplats"
 ],
 "route/ferry":[
 "färjelinje",
