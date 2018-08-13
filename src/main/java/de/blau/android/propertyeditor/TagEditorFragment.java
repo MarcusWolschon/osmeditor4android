@@ -67,6 +67,8 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetFixedField;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -172,9 +174,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Perform some processing for each key:value pair in the TagEditor.
      * 
+     * @param rowLayout the Layout holding the rows
      * @param handler The handler that will be called for each key:value pair.
      */
-    private void processKeyValues(LinearLayout rowLayout, final KeyValueHandler handler) {
+    private void processKeyValues(@NonNull LinearLayout rowLayout, @NonNull final KeyValueHandler handler) {
         final int size = rowLayout.getChildCount();
         for (int i = 0; i < size; ++i) {
             View view = rowLayout.getChildAt(i);
@@ -184,12 +187,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * @param applyLastAddressTags
-     * @param focusOnKey
-     * @param displayMRUpresets
+     * Create a new instance of TagEditorFragment
+     * 
+     * @param elements an array of the OsmElements to edit
+     * @param tags a map containing the tags
+     * @param applyLastAddressTags if true apply address tags
+     * @param focusOnKey a key to focus on
+     * @param displayMRUpresets if true show the MRU presets view
+     * @param extraTags additional tags to add
+     * @param presetsToApply a list of presets to apply
+     * @return a new instance of TagEditorFragment
      */
-    public static TagEditorFragment newInstance(OsmElement[] elements, ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags,
-            String focusOnKey, boolean displayMRUpresets, HashMap<String, String> extraTags, ArrayList<PresetElementPath> presetsToApply) {
+    public static TagEditorFragment newInstance(@NonNull OsmElement[] elements, @NonNull ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags,
+            String focusOnKey, boolean displayMRUpresets, @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply) {
         TagEditorFragment f = new TagEditorFragment();
 
         Bundle args = new Bundle();
@@ -321,7 +331,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             loadEdits(editRowLayout,
                     Address.predictAddressTags(getActivity(), getType(), getOsmId(),
                             ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(editRowLayout, false),
-                            Address.DEFAULT_HYSTERESIS), false);
+                            Address.DEFAULT_HYSTERESIS),
+                    false);
             if (getUserVisibleHint()) {
                 if (!focusOnValue(editRowLayout, Tags.KEY_ADDR_HOUSENUMBER)) {
                     focusOnValue(editRowLayout, Tags.KEY_ADDR_STREET);
@@ -372,7 +383,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Build the data structure we use to build the edit display
      * 
-     * @return
+     * @return a map of String (the keys) and ArrayList<String> (the values)
      */
     private LinkedHashMap<String, ArrayList<String>> buildEdits() {
         @SuppressWarnings("unchecked")
@@ -478,7 +489,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     /**
      * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
-     * @param applyDefault TODO
+     * 
+     * @param tags the map containing the tags
+     * @param applyDefaults apply default values if true
      */
     private void loadEdits(final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
@@ -487,7 +500,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     /**
      * Creates edits from a SortedMap containing tags (as sequential key-value pairs)
-     * @param applyDefault TODO
+     * 
+     * @param rowLayout the Layout holding the rows
+     * @param tags the map containing the tags
+     * @param applyDefaults apply default values if true
      */
     private void loadEdits(LinearLayout rowLayout, final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
         if (rowLayout == null) {
@@ -597,8 +613,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Add item to most recently used list of preset items
      * 
-     * @param presets
-     * @param item
+     * @param presets array containing all currently used Presets
+     * @param item the PresetItem to add to the MRU
      */
     void addToMru(Preset[] presets, PresetItem item) {
         for (Preset p : presets) {
@@ -609,6 +625,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
+    /**
+     * Set a hint on a row, the hint value is retrieved from the Preset
+     * 
+     * @param row the row to set the hint on
+     */
     private void setHint(TagEditRow row) {
         String aTagKey = row.getKey();
         PresetItem preset = getPreset(aTagKey);
@@ -705,7 +726,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     @Override
     public void predictAddressTags(boolean allowBlanks) {
         loadEdits(Address.predictAddressTags(getActivity(), getType(), getOsmId(),
-                ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS), false);
+                ((StreetTagValueAdapter) nameAdapters.getStreetNameAdapter(null)).getElementSearch(), getKeyValueMap(allowBlanks), Address.DEFAULT_HYSTERESIS),
+                false);
         updateAutocompletePresetItem(null);
     }
 
@@ -729,9 +751,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (preset != null) {
-            keys.addAll(preset.getFixedTags().keySet());
-            keys.addAll(preset.getRecommendedTags().keySet());
-            keys.addAll(preset.getOptionalTags().keySet());
+            keys.addAll(preset.getFields().keySet());
         }
 
         if (presets != null && elements[0] != null) { // FIXME multiselect
@@ -770,8 +790,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Return true if the edited object could have a name in the name index
      * 
-     * @param usedKeys
-     * @return
+     * @param usedKeys Set containing keys used by the object
+     * @return true if the edited object could have a name in the name index
      */
     public static boolean useNameSuggestions(Set<String> usedKeys) {
         return !(usedKeys.contains(Tags.KEY_HIGHWAY) || usedKeys.contains(Tags.KEY_WATERWAY) || usedKeys.contains(Tags.KEY_LANDUSE)
@@ -832,7 +852,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                     if (values != null && !values.isEmpty()) {
                         List<StringWithDescription> result = new ArrayList<>(values);
-                        if (preset.sortIt(key)) {
+                        if (preset.sortValues(key)) {
                             Collections.sort(result);
                         }
                         for (StringWithDescription s : result) {
@@ -878,7 +898,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param applyDefault TODO
      * @return The new TagEditRow.
      */
-    private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position, boolean applyDefault) {
+    private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position,
+            boolean applyDefault) {
         final TagEditRow row = (TagEditRow) inflater.inflate(R.layout.tag_edit_row, rowLayout, false);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) { // stop Hint from wrapping
@@ -915,7 +936,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         String hint = primaryPresetItem.getHint(parent.getItemAtPosition(position).toString());
                         if (hint != null) { //
                             row.valueEdit.setHint(hint);
-                        } else if (!primaryPresetItem.getRecommendedTags().isEmpty() || !primaryPresetItem.getOptionalTags().isEmpty()) {
+                        } else if (!primaryPresetItem.getFields().isEmpty()) { // FIXME check if fixed fields don't
+                                                                               // cause an issue here
                             row.valueEdit.setHint(R.string.tag_value_hint);
                         }
                         if (applyDefault && row.getValue().length() == 0) {
@@ -1492,7 +1514,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param addOptional add optional tags if true
      * @param addToMRU add to preset MRU list if true
      */
-    void applyPreset(PresetItem item, boolean addOptional, boolean addToMRU) {
+    void applyPreset(@NonNull PresetItem item, boolean addOptional, boolean addToMRU) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
         boolean wasEmpty = currentValues.size() == 0;
         boolean replacedValue = false;
@@ -1510,23 +1532,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         // Fixed tags, always have a value. We overwrite mercilessly.
-        for (Entry<String, StringWithDescription> tag : item.getFixedTags().entrySet()) {
-            String v = tag.getValue().getValue();
+        for (Entry<String, PresetFixedField> tag : item.getFixedTags().entrySet()) {
+            PresetFixedField field = tag.getValue();
+            String v = field.getValue().getValue();
             ArrayList<String> oldValue = currentValues.put(tag.getKey(), Util.getArrayList(v));
             if (oldValue != null && !oldValue.isEmpty() && !oldValue.contains(v) && !(oldValue.size() == 1 && "".equals(oldValue.get(0)))) {
                 replacedValue = true;
             }
         }
 
-        // Recommended tags, no fixed value is given. We add only those that do not already exist.
-        for (Entry<String, StringWithDescription[]> tag : item.getRecommendedTags().entrySet()) {
-            addTagFromPreset(item, currentValues, tag.getKey());
-        }
-
-        // Optional tags, no fixed value is given. We add only those that do not already exist.
-        if (addOptional) {
-            for (Entry<String, StringWithDescription[]> tag : item.getOptionalTags().entrySet()) {
-                addTagFromPreset(item, currentValues, tag.getKey());
+        // add tags with no fixed values, optional tags only if addOptional is set
+        for (Entry<String, PresetField> entry : item.getFields().entrySet()) {
+            PresetField field = entry.getValue();
+            boolean isOptional = field.isOptional();
+            if (!(field instanceof PresetFixedField) && (!isOptional || (isOptional && addOptional))) {
+                addTagFromPreset(item, currentValues, entry.getKey());
             }
         }
 

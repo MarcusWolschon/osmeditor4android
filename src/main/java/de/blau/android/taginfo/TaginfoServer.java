@@ -331,7 +331,7 @@ public class TaginfoServer {
                 }
             }
             reader.endObject();
-            if (tempValue==null) {
+            if (tempValue == null) {
                 throw new IOException("Input missing value");
             }
             return new ValueResult(tempValue, tempDescription, tempCount);
@@ -704,7 +704,8 @@ public class TaginfoServer {
         list.execute();
         try {
             return list.get(5, TimeUnit.SECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the thread in question
+        } catch (InterruptedException | ExecutionException | TimeoutException e) { // NOSONAR cancel does interrupt the
+                                                                                   // thread in question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
             list.cancel(true);
         }

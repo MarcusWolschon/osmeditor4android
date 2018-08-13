@@ -212,7 +212,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
     /**
      * Return the view we have our rows in and work around some android craziness
      * 
-     * @return the View holding our content or null 
+     * @return the View holding our content or null
      */
     @Nullable
     public View getOurView() {

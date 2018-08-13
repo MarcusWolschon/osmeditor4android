@@ -106,7 +106,8 @@ public class OsmoseBug extends Bug implements Serializable {
 
     @Override
     public String getLongDescription(Context context, boolean withElements) {
-        StringBuilder result = new StringBuilder("Osmose: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>");
+        StringBuilder result = new StringBuilder(
+                "Osmose: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>");
         if (withElements) {
             for (OsmElement osm : getElements()) {
                 if (osm.getOsmVersion() >= 0) {

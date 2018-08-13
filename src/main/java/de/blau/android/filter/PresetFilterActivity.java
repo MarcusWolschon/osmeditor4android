@@ -151,7 +151,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         }
         menu.findItem(R.id.preset_menu_waynodes).setChecked(((PresetFilter) filter).includeWayNodes());
         // don't show for now
-        menu.findItem(R.id.preset_menu_invert).setChecked(((PresetFilter) filter).isInverted()).setVisible(false); 
+        menu.findItem(R.id.preset_menu_invert).setChecked(((PresetFilter) filter).isInverted()).setVisible(false);
         return true;
     }
 
@@ -169,7 +169,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         case R.id.preset_menu_top:
             if (rootGroup != null) {
                 currentGroup = rootGroup;
-                currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
+                currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
                 presetView.invalidate();
                 supportInvalidateOptionsMenu();
                 return true;
@@ -180,7 +180,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
                 PresetGroup group = currentGroup.getParent();
                 if (group != null) {
                     currentGroup = group;
-                    currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
+                    currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
                     presetView.invalidate();
                     supportInvalidateOptionsMenu();
                     return true;
@@ -237,7 +237,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             return;
         }
         currentGroup = group;
-        currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter)filter).getPresetElement());
+        currentGroup.getGroupView(this, presetView, this, null, ((PresetFilter) filter).getPresetElement());
         presetView.invalidate();
         supportInvalidateOptionsMenu();
     }

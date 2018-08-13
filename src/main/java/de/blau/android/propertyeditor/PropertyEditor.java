@@ -464,7 +464,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         Fragment relationMembershipFragment() {
             if (loadData.length == 1) {
-                relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents);
+                relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
                 return relationMembershipFragment;
             }
             return null;
@@ -737,7 +737,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         }
     }
 
-    /*
+    /**
      * Revert changes in all fragments
      */
     private void doRevert() {

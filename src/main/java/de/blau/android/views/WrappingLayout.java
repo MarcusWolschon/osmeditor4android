@@ -269,7 +269,7 @@ public class WrappingLayout extends LinearLayout {
             if (!children.isEmpty() && !widthAdjustmentDone) {
                 int childWidth = getViewWidth(children.get(0));
                 int times = (int) Math.max(1, (availableSpace - hspace) / (float) (childWidth + hspace));
-                newWidth = (int) ((availableSpace - ((times + 1) * hspace)) /  times);
+                newWidth = (int) ((availableSpace - ((times + 1) * hspace)) / times);
                 widthAdjustmentDone = true;
             }
 

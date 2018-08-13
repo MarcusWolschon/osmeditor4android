@@ -34,7 +34,7 @@ interface PropertyEditorListener {
      * @return true if connected or in the process of connecting
      */
     boolean isConnectedOrConnecting();
-    
+
     /**
      * Get a List of ISO country codes for the current object
      * 
@@ -42,20 +42,20 @@ interface PropertyEditorListener {
      */
     @Nullable
     List<String> getIsoCodes();
-    
+
     /**
      * Get the current OsmElement
      * 
      * @return an OsmELement
      */
-    @NonNull 
+    @NonNull
     OsmElement getElement();
-    
+
     /**
      * Get the current set of Presets
      * 
      * @return an array of Preset or null
      */
-    @Nullable 
+    @Nullable
     Preset[] getPresets();
 }

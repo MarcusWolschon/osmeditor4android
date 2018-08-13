@@ -25,6 +25,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetFixedField;
 import de.blau.android.propertyeditor.Address;
 import de.blau.android.tasks.Note;
 import de.blau.android.util.ElementSearch;
@@ -32,7 +33,6 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.OptimalStringAlignment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
-import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.Util;
 
 /**
@@ -140,8 +140,9 @@ public class Commands {
             if (node != null) {
                 try {
                     TreeMap<String, String> tags = new TreeMap<>(node.getTags());
-                    for (Entry<String, StringWithDescription> tag : pi.getFixedTags().entrySet()) {
-                        tags.put(tag.getKey(), tag.getValue().getValue());
+                    for (Entry<String, PresetFixedField> tag : pi.getFixedTags().entrySet()) {
+                        PresetFixedField field = tag.getValue();
+                        tags.put(tag.getKey(), field.getValue().getValue());
                     }
                     if (name != null) {
                         tags.put(Tags.KEY_NAME, name);

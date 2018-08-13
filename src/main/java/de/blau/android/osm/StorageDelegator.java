@@ -582,10 +582,9 @@ public class StorageDelegator implements Serializable, Exportable {
     public void moveWay(@NonNull final Way way, final int deltaLatE7, final int deltaLonE7) {
         moveNodes(way.getNodes(), deltaLatE7, deltaLonE7);
     }
-    
+
     /**
-     * Check that the new position would still be valid
-     * This should be done before the operation in question
+     * Check that the new position would still be valid This should be done before the operation in question
      *
      * @param newLatE7 the new latitude (WGS84*1E7)
      * @param newLonE7 the new longitude (WGS84*1E7)
@@ -601,7 +600,7 @@ public class StorageDelegator implements Serializable, Exportable {
             throw new OsmIllegalOperationException("lon of " + newLonE7 + " is invalid");
         }
     }
-    
+
     /**
      * Move a list of nodes, apply translation only once
      * 
@@ -617,7 +616,7 @@ public class StorageDelegator implements Serializable, Exportable {
         dirty = true;
         try {
             HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
-            // check that all coordinates are valid before moving 
+            // check that all coordinates are valid before moving
             for (Node nd : nodes) {
                 validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
             }

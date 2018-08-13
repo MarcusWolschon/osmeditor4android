@@ -1,9 +1,6 @@
 package de.blau.android.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +48,6 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
-import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 
@@ -366,70 +362,6 @@ public class Util {
     }
 
     /**
-     * Group keys so that i18n follow the base key (which should always come first in map)
-     * 
-     * Note: this only works if map preserves insert order
-     * 
-     * @param <V> object containing the tag value(s)
-     * @param map map that preserves insert order
-     */
-    public static <V> void groupI18nKeys(List<String> i18nKeys, Map<String, V> map) {
-        LinkedHashMap<String, V> temp = new LinkedHashMap<>();
-        ArrayList<String> keys = new ArrayList<>(map.keySet());
-        while (!keys.isEmpty()) {
-            String key = keys.get(0);
-            keys.remove(0);
-            if (i18nKeys.contains(key)) {
-                temp.put(key, map.get(key));
-                int i = 0;
-                while (!keys.isEmpty() && i < keys.size()) {
-                    String i18nKey = keys.get(i);
-                    if (i18nKey.startsWith(key + ":")) {
-                        temp.put(i18nKey, map.get(i18nKey));
-                        keys.remove(i);
-                    } else {
-                        i++;
-                    }
-                }
-            } else {
-                temp.put(key, map.get(key));
-            }
-        }
-        map.clear();
-        map.putAll(temp);
-    }
-
-    /**
-     * Group address tags
-     * 
-     * Note: this only works if map preserves insert order
-     * 
-     * @param <V> object containing the tag value(s)
-     * @param map map that preserves insert order
-     */
-    public static <V> void groupAddrKeys(Map<String, V> map) {
-        List<Entry<String, V>> temp = new ArrayList<>();
-        for (Entry<String, V> entry : new HashSet<>(map.entrySet())) { // needs a copy since we are modifying map
-            String key = entry.getKey();
-            if (key.startsWith(Tags.KEY_ADDR_BASE)) {
-                if (Tags.KEY_ADDR_HOUSENUMBER.equals(key)) {
-                    temp.add(entry);
-                    map.remove(key);
-                }
-            }
-        }
-        Collections.sort(temp, new Comparator<Entry<String, V>>() {
-            @Override
-            public int compare(Entry<String, V> arg0, Entry<String, V> arg1) {
-                return Tags.ADDRESS_SORT_ORDER.get(arg0.getValue()).compareTo(Tags.ADDRESS_SORT_ORDER.get(arg1.getValue()));
-            }
-        });
-        for (Entry<String, V> entry : temp) {
-            map.put(entry.getKey(), entry.getValue());
-        }
-    }
-
-    /**
      * Convert first letter of v to upper case using English
      * 
      * @param v the input String
@@ -597,7 +529,7 @@ public class Util {
     /**
      * Get the size of a bundle in bytes
      * 
-     * @param bundle the Bundle 
+     * @param bundle the Bundle
      * @return the size in bytes
      */
     public static int getBundleSize(Bundle bundle) {
