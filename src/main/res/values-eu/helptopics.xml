@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_introduction">Sarrera</string>
+    <string name="help_main">Maparen bistaratze nagusia</string>
     <string name="help_addrelationmember">Erlazioa aukeratua</string>
     <string name="help_nodeselection">Nodoa aukeratua</string>
     <string name="help_relationselection">Erlazioa aukeratua</string>

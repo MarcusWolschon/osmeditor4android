@@ -22,6 +22,7 @@
     <string name="help_upgrade_099">0.9.9 utgivelse-notater</string>
     <string name="help_upgrade_098">0.9.8 utgivelse-notater</string>
     <string name="help_upgrade_097">0.9.7 utgivelse-notater</string>
+    <string name="help_privacy">Personvern</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

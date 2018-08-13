@@ -111,6 +111,7 @@
   <string name="create_osm_object">Lag OSM-objekt</string>
   <string name="create_osm_object_search">Lag et OSM-objekt ved å søke etter en mal</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Egendefinert orthofoto</string>
   <string name="delete_layer">Slette lag?</string>
   <!--Layer style dialog-->
   <string name="layer_style_color">Farge</string>
@@ -165,6 +166,7 @@
   <string name="no">Nei</string>
   <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
+  <string name="share_position">Del posisjon</string>
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
@@ -220,6 +222,7 @@
   <string name="menu_gps_goto">Gå til nåværende posisjon</string>
   <string name="menu_gps_start">Start GPS-spor</string>
   <string name="menu_gps_pause">Sett GPS-sporing på pause</string>
+  <string name="menu_gps_track_managment">Administrer spor...</string>
   <string name="menu_gps_upload">Last opp GPX-spor</string>
   <string name="menu_gps_export">Eksporter GPX-spor</string>
   <string name="menu_gps_import">Importer GPX-spor</string>
@@ -251,6 +254,7 @@
   <string name="tag_form_unknown_element">Ukjent element (ingen mal funnet)</string>
   <string name="menu_tools_flush_all_tile_caches">Tøm alle mellomlagrede fliser</string>
   <!---->
+  <string name="menu_privacy">Personvern</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Tilbakestill</string>
   <string name="menu_tools_background_align_save_device">Lagre til Enhet</string>
@@ -279,10 +283,17 @@
   <string name="actionmode_rotateway">Roter linje</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
+  <string name="config_customlayers_title">Egendefinerte lag</string>
+  <string name="config_mapProfile_title">Data-stil</string>
+  <string name="config_mapProfile_summary">Velg en stil på data-laget</string>
   <string name="config_enableOpenStreetBugs_summary">Vis, Endre og Opprett Notater/Feil.</string>
+  <string name="config_enablePhotoLayer_title">Aktiver Bildelag</string>
+  <string name="config_enablePhotoLayer_summary">Vis georefererte bilder.</string>
+  <string name="config_enableKeepScreenOn_title">Hold skjermen våken</string>
   <string name="config_largeDragArea_title">Stort \"håndtak\" på punkter</string>
   <string name="config_largeDragArea_summary">Gjør området for å gripe punktet større</string>
   <string name="config_advancedprefs">Avanserte innstillinger</string>
+  <string name="config_moreprefs">Flere innstillinger...</string>
   <string name="config_presetbutton_title">Knapper</string>
   <string name="config_presetbutton_summary">Legg til og endre JOSM-kompatible maler</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->

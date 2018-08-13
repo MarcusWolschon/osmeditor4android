@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-06-24 09:06+0200\n"
-"PO-Revision-Date: 2018-08-01 23:47+0000\n"
-"Last-Translator: Shu Higashi <higa432@gmail.com>\n"
+"PO-Revision-Date: 2018-08-10 12:09+0000\n"
+"Last-Translator: tomoya muramoto <muramototomoya@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1339,7 +1339,7 @@ msgstr ""
 
 #: master_preset.xml:8849(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
-msgstr ""
+msgstr "バンカーサイロ"
 
 #: master_preset.xml:344(multiselect:display_values|key:cuisine)
 msgid "Burger"
@@ -1739,7 +1739,7 @@ msgstr ""
 #: master_preset.xml:5230(combo:display_values|group:Tourism|preset:Map|key:map_size)
 #: master_preset.xml:9801(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "City"
-msgstr ""
+msgstr "市制地方自治体"
 
 #: master_preset.xml:2063(item:name|preset:City_Limit)
 msgid "City Limit"
@@ -8830,7 +8830,7 @@ msgstr ""
 
 #: master_preset.xml:11891(item:name|group:Places|preset:Town)
 msgid "Town"
-msgstr ""
+msgstr "町制地方自治体"
 
 #: master_preset.xml:6316(item:name|group:Public_Building|preset:Town_Hall)
 msgid "Town Hall"
@@ -9331,7 +9331,7 @@ msgstr ""
 
 #: master_preset.xml:11906(item:name|group:Places|preset:Village)
 msgid "Village"
-msgstr ""
+msgstr "村制の地方自治体"
 
 #: master_preset.xml:12654(item:name|group:Land_use|preset:Village_Green)
 msgid "Village Green"
