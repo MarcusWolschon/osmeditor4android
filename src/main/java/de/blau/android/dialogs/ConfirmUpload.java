@@ -9,6 +9,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -76,6 +77,8 @@ public class ConfirmUpload extends DialogFragment {
 
     private View              layout = null;
     private ExtendedViewPager pager  = null;
+
+    private Resources resources;
 
     /**
      * Instantiate and show the dialog
@@ -146,6 +149,7 @@ public class ConfirmUpload extends DialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         FragmentActivity activity = getActivity();
+        resources = getResources();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
         DoNothingListener doNothingListener = new DoNothingListener();
@@ -259,7 +263,7 @@ public class ConfirmUpload extends DialogFragment {
 
         @Override
         public String toString() {
-            return element.getStateDescription(getResources());
+            return element.getStateDescription(resources);
         }
     }
 
