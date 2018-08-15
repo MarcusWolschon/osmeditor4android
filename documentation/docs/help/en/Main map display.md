@@ -127,7 +127,7 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **Add imagery from OAM** - query OAM for layers in the current map view and display a list allowing to add them to the local configuration
  * **More imagery tools**
     * **Update imagery layer configuration** - download a current version of the imagery layer configuration. *(requires network connectivity)*
-    * **Flush all tile caches"" - empty all on device tile caches. 
+    * **Flush all tile caches** - empty all on device tile caches. 
  * **Reset OAuth** - reset the OAuth tokens, this will force reauthorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
 
