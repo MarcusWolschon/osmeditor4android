@@ -129,6 +129,11 @@ public abstract class FullScreenAppCompatActivity extends BugFixedAppCompatActiv
                         || (!KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
                 Log.d(DEBUG_TAG, "full screen auto " + fullScreen + " KEYCODE_BACK " + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK) + " KEYCODE_HOME "
                         + KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME));
+                if (fullScreen && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    hideStatus = isInMultiWindowMode();
+                } else {
+                    hideStatus = false;
+                }
             } else if (fullScreenPref.equals(getString(R.string.full_screen_never))) {
                 fullScreen = false;
                 Log.d(DEBUG_TAG, "full screen never");
