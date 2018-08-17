@@ -607,4 +607,19 @@ public class Util {
         parcel.recycle();
         return size;
     }
+
+    /**
+     * Get the size of the smaller side of the screen
+     * 
+     * @param activity the calling Activity
+     * @return the smaller side in px
+     */
+    public static int getScreenSmallDimemsion(Activity activity) {
+        Point size = new Point();
+        activity.getWindowManager().getDefaultDisplay().getSize(size);
+        if (size.x < size.y) {
+            return size.x;
+        }
+        return size.y;
+    }
 }

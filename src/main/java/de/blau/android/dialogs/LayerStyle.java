@@ -42,6 +42,7 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.Density;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Display a dialog allowing the user to change some properties of the current background
@@ -201,7 +202,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setLayout((int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
