@@ -2,7 +2,6 @@ package de.blau.android.dialogs;
 
 import java.util.List;
 
-import com.pavelsikun.vintagechroma.ChromaDialog;
 import com.pavelsikun.vintagechroma.IndicatorMode;
 import com.pavelsikun.vintagechroma.OnColorSelectedListener;
 import com.pavelsikun.vintagechroma.colormode.ColorMode;
@@ -172,7 +171,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
             colorView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    new ChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB).indicatorMode(IndicatorMode.HEX)
+                    new FixedChromaDialog.Builder().initialColor(layer.getColor()).colorMode(ColorMode.ARGB).indicatorMode(IndicatorMode.HEX)
                             .onColorSelected(new OnColorSelectedListener() {
                                 @Override
                                 public void onColorSelected(int color) {
