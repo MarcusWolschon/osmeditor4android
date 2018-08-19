@@ -45,6 +45,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
     private final int   actionBarHeight;
     private String      mode    = SCALE_NONE;
     private boolean     enabled = false;
+    private Preferences prefs = null;
 
     public MapOverlay(final Map map) {
         this.map = map;
@@ -59,11 +60,12 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
         oneDP = Density.dpToPx(map.getContext(), 1);
         main = map.getContext() instanceof Main ? (Main) map.getContext() : null;
         actionBarHeight = ThemeUtils.getActionBarHeight(map.getContext());
+        prefs = map.getPrefs();
     }
 
     @Override
     public boolean isReadyToDraw() {
-        mode = map.getPrefs().scaleLayer();
+        mode = prefs.scaleLayer();
         enabled = !SCALE_NONE.equals(mode);
         return enabled;
     }
@@ -82,7 +84,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
             if (widthInMeters < 1000000 && widthInMeters > 0) { // don't show zoomed out
                 float topOffset = 0f;
                 // avoid drawing behind the action bar
-                if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND || (main != null && main.getEasyEditManager().isProcessingAction())) {
+                if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND || (main != null && main.getEasyEditManager().isProcessingAction() && prefs.splitActionBarEnabled())) {
                     topOffset = actionBarHeight;
                     Log.d(DEBUG_TAG, "offset " + topOffset);
                 }
