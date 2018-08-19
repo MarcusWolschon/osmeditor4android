@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.blau.android"
 	android:versionName="@string/app_version"
-	android:versionCode="609"
+	android:versionCode="700"
 	android:installLocation="auto"
 	>
 	
@@ -52,7 +52,7 @@
 		<activity
 			android:name=".Main"
 			android:theme="@style/Theme.customMain"
-			android:configChanges="orientation|screenSize|keyboardHidden"
+			android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
 			android:launchMode="singleTask">
 		</activity>
 		
@@ -73,7 +73,6 @@
 		<activity
 			android:name=".propertyeditor.PropertyEditor"
 			android:theme="@style/Theme.customTagEditor"
-			android:configChanges="orientation|screenSize|keyboardHidden"
 		/>
 		<activity
 			android:name=".prefs.APIEditorActivity"
