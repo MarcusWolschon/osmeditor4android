@@ -409,7 +409,8 @@ public class Layers extends ImmersiveDialogFragment {
 
         @Override
         public void onClick(View arg0) {
-            PopupMenu popup = new PopupMenu(getActivity(), button);
+            final FragmentActivity activity = getActivity();
+            PopupMenu popup = new PopupMenu(activity, button);
 
             if (layer instanceof MapTilesLayer) { // maybe we should use an interface here
                 // get MRU list from layer
@@ -418,7 +419,7 @@ public class Layers extends ImmersiveDialogFragment {
                     final String id = tileServerIds[i];
                     final String currentServerId = ((MapTilesLayer) layer).getTileLayerConfiguration().getId();
                     if (!currentServerId.equals(id)) {
-                        final TileLayerServer tileServer = TileLayerServer.get(getActivity(), id, true);
+                        final TileLayerServer tileServer = TileLayerServer.get(activity, id, true);
                         if (tileServer != null) {
                             MenuItem item = popup.getMenu().add(tileServer.getName());
                             item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -426,7 +427,7 @@ public class Layers extends ImmersiveDialogFragment {
                                 public boolean onMenuItemClick(MenuItem item) {
                                     if (tileServer != null) {
                                         TableRow row = (TableRow) button.getTag();
-                                        setNewImagery(row, (MapTilesLayer) layer, tileServer);
+                                        setNewImagery(activity, row, (MapTilesLayer) layer, tileServer);
                                         dismissDialog();
                                         layer.invalidate();
                                     }
@@ -457,7 +458,7 @@ public class Layers extends ImmersiveDialogFragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
-                            ((MapTilesLayer) layer).flushTileCache(getActivity());
+                            ((MapTilesLayer) layer).flushTileCache(activity);
                             layer.invalidate();
                         }
                         return true;
@@ -468,7 +469,7 @@ public class Layers extends ImmersiveDialogFragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
-                            BackgroundProperties.showDialog(getActivity(), layer.getIndex());
+                            BackgroundProperties.showDialog(activity, layer.getIndex());
                         }
                         return true;
                     }
@@ -480,7 +481,7 @@ public class Layers extends ImmersiveDialogFragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
-                            LayerStyle.showDialog(getActivity(), layer.getIndex());
+                            LayerStyle.showDialog(activity, layer.getIndex());
                         }
                         return true;
                     }
@@ -529,7 +530,8 @@ public class Layers extends ImmersiveDialogFragment {
      * @return an AlertDialog that can be shown
      */
     private AlertDialog buildImagerySelectDialog(@Nullable final TableRow row, @Nullable final MapTilesLayer layer, boolean isOverlay) {
-        Builder builder = new AlertDialog.Builder(getActivity());
+        final FragmentActivity activity = getActivity();
+        Builder builder = new AlertDialog.Builder(activity);
 
         final LayoutInflater themedInflater = ThemeUtils.getLayoutInflater(getActivity());
 
@@ -564,8 +566,13 @@ public class Layers extends ImmersiveDialogFragment {
                 if (checkedId != -1) {
                     final TileLayerServer tileServer = TileLayerServer.get(getActivity(), ids[checkedId], true);
                     if (tileServer != null) {
-                        setNewImagery(row, layer, tileServer);
+                        setNewImagery(activity, row, layer, tileServer);
                         if (layer != null) {
+                            try {
+                                layer.onSaveState(context);
+                            } catch (IOException e) {
+                                Log.e(DEBUG_TAG, "save of imagery layer state failed");
+                            }
                             layer.invalidate();
                         } else {
                             App.getLogic().getMap().invalidate();
@@ -587,12 +594,12 @@ public class Layers extends ImmersiveDialogFragment {
 
     /**
      * Change the imagery for a tile layer
-     * 
+     * @param activity TODO
      * @param row the TableRow with the information, if null we will only set the prefs
      * @param layer the layer, if null we will only set the prefs
      * @param tileServer the new tileserver to use
      */
-    private void setNewImagery(@Nullable TableRow row, @Nullable MapTilesLayer layer, @NonNull final TileLayerServer tileServer) {
+    private void setNewImagery(FragmentActivity activity, @Nullable TableRow row, @Nullable MapTilesLayer layer, @NonNull final TileLayerServer tileServer) {
         Preferences prefs = new Preferences(getContext());
         if (tileServer.isOverlay()) {
             prefs.setOverlayLayer(tileServer.getId());
@@ -603,9 +610,12 @@ public class Layers extends ImmersiveDialogFragment {
         if (row != null && layer != null) {
             TextView name = (TextView) row.getChildAt(2);
             name.setText(tileServer.getName());
-            layer.setRendererInfo(tileServer);
+            layer.setRendererInfo(tileServer);        
         } else {
             App.getLogic().getMap().setPrefs(getContext(), prefs);
+        }
+        if (activity instanceof Main) {
+            ((Main)activity).updatePrefs();
         }
     }
 }
