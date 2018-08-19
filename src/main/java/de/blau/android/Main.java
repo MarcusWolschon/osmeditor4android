@@ -456,7 +456,7 @@ public class Main extends FullScreenAppCompatActivity
             rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
         }
         App.initGeoContext(this);
-        prefs = new Preferences(this);
+        updatePrefs();
         int layout = R.layout.main;
         if (useFullScreen(prefs)) {
             Log.d(DEBUG_TAG, "using full screen layout");
@@ -643,8 +643,7 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onStart");
         super.onStart();
 
-        // always re-allocate as we may have changed preferences
-        prefs = new Preferences(this);
+        updatePrefs();
 
         App.getLogic().setPrefs(prefs);
 
@@ -684,6 +683,7 @@ public class Main extends FullScreenAppCompatActivity
     protected void onResume() {
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
+
         final Logic logic = App.getLogic();
 
         App.initGeoContext(this);
@@ -827,6 +827,15 @@ public class Main extends FullScreenAppCompatActivity
             logic.setFilter(new TagFilter(this));
             logic.getFilter().addControls(getMapLayout(), updater);
         }
+    }
+
+    /**
+     * Get a new instance of Preferences
+     * 
+     * As the in device shared preferences may have been changed we need to be able to update our copy
+     */
+    public void updatePrefs() {
+        prefs = new Preferences(this);
     }
 
     /**
