@@ -343,7 +343,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
                     if (values != null && !values.isEmpty()) {
-                        ArrayList<StringWithDescription> result = new ArrayList<>(presetValues);
+                        List<StringWithDescription> result = new ArrayList<>(presetValues);
                         if (preset.sortValues(key)) {
                             Collections.sort(result, comparator);
                         }
@@ -391,7 +391,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
         Log.d(DEBUG_TAG, adapter == null ? "adapter is null" : "adapter has " + adapter.getCount() + " elements");
         return adapter;
-
     }
 
     @Override

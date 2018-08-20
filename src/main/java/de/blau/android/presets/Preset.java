@@ -2965,7 +2965,7 @@ public class Preset implements Serializable {
         public void setEditable(@NonNull String key, boolean isEditable) {
             PresetField field = fields.get(key);
             if (field instanceof PresetComboField) {
-                ((PresetComboField) field).editable = true;
+                ((PresetComboField) field).editable = isEditable;
             } else {
                 Log.e(DEBUG_TAG, "Trying to set editable attribute on non-combo field " + (field != null ? field.getClass().getName() : "null"));
             }
