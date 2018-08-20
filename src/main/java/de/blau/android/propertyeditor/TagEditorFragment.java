@@ -376,10 +376,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private LinkedHashMap<String, ArrayList<String>> buildEdits() {
         @SuppressWarnings("unchecked")
-        ArrayList<LinkedHashMap<String, String>> originalTags = (ArrayList<LinkedHashMap<String, String>>) getArguments().getSerializable(TAGS_KEY);
+        ArrayList<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
         //
         LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<>();
-        for (LinkedHashMap<String, String> map : originalTags) {
+        for (Map<String, String> map : originalTags) {
             for (Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
