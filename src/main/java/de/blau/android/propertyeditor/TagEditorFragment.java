@@ -198,8 +198,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param presetsToApply a list of presets to apply
      * @return a new instance of TagEditorFragment
      */
-    public static TagEditorFragment newInstance(@NonNull OsmElement[] elements, @NonNull ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags,
-            String focusOnKey, boolean displayMRUpresets, @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply) {
+    public static TagEditorFragment newInstance(@NonNull OsmElement[] elements, @NonNull ArrayList<LinkedHashMap<String, String>> tags,
+            boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets, @Nullable HashMap<String, String> extraTags,
+            @Nullable ArrayList<PresetElementPath> presetsToApply) {
         TagEditorFragment f = new TagEditorFragment();
 
         Bundle args = new Bundle();
@@ -387,10 +388,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private LinkedHashMap<String, ArrayList<String>> buildEdits() {
         @SuppressWarnings("unchecked")
-        ArrayList<LinkedHashMap<String, String>> originalTags = (ArrayList<LinkedHashMap<String, String>>) getArguments().getSerializable(TAGS_KEY);
+        ArrayList<Map<String, String>> originalTags = (ArrayList<Map<String, String>>) getArguments().getSerializable(TAGS_KEY);
         //
         LinkedHashMap<String, ArrayList<String>> tags = new LinkedHashMap<>();
-        for (LinkedHashMap<String, String> map : originalTags) {
+        for (Map<String, String> map : originalTags) {
             for (Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
