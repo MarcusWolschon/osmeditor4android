@@ -1,192 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	package="de.blau.android"
-	android:versionName="@string/app_version"
-	android:versionCode="700"
-	android:installLocation="auto"
-	>
-	
-	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="25" 
-	    tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference" /> 
-	
-	<!-- disable for now to see if it solves the Play Store problem of the app not showing up for many devices
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.blau.android"
+    android:installLocation="auto"
+    android:versionCode="700"
+    android:versionName="@string/app_version" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="25"
+        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference" />
+
+    <!--
+    disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-	<uses-feature android:name="android.hardware.faketouch" />
-	-->
-	<uses-feature android:name="android.hardware.sensor.compass" android:required="false" />
-	<uses-feature android:name="android.hardware.location" android:required="false" />
-	<uses-feature android:name="android.hardware.location.gps" android:required="false" />
-	<uses-feature android:name="android.hardware.location.network" android:required="false" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- cache tiles -->
-	
-	
-	<application
-		android:name="de.blau.android.App"
-		android:label="@string/app_name"
-		android:icon="@drawable/vespucci_logo"
-		android:largeHeap="true" 
-		android:allowBackup="true"
-		android:fullBackupContent="@xml/backup"
-		android:resizeableActivity="true" 
-		android:theme="@style/Theme.AppCompat" 
-        android:supportsRtl="true" >
-		
-	    <activity
-    		android:name=".Splash"
-    		android:theme="@style/SplashTheme">
-    		<intent-filter>
-        	<action android:name="android.intent.action.MAIN" />
-        		<category android:name="android.intent.category.LAUNCHER" />
-        		<!-- harmless addition for samsung multi window support -->
-				<category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
-    		</intent-filter>
-		</activity>
-	    
-		<activity
-			android:name=".Main"
-			android:theme="@style/Theme.customMain"
-			android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
-			android:launchMode="singleTask">
-		</activity>
-		
-		<activity
-			android:name=".prefs.PrefEditor"
-			android:theme="@style/Theme.AppCompatPrefs"
-			android:label="@string/menu_config"
-		/>
-		<activity
-			android:name=".prefs.AdvancedPrefEditor"
-			android:theme="@style/Theme.AppCompatPrefs"
-			android:label="@string/app_name_version"
-		/>
-		<activity
-			android:name="BoxPicker"
-			android:theme="@style/Theme.AppCompat"
-		/>
-		<activity
-			android:name=".propertyeditor.PropertyEditor"
-			android:theme="@style/Theme.customTagEditor"
-		/>
-		<activity
-			android:name=".prefs.APIEditorActivity"
-			android:theme="@style/Theme.AppCompat"
-			android:label="@string/manage_apis"
-		/>
-		<activity
-			android:name=".prefs.PresetEditorActivity"
-			android:theme="@style/Theme.AppCompat"
-			android:label="@string/manage_presets"
-		/>
-		<activity
-			android:name=".prefs.GeocoderEditorActivity"
-			android:theme="@style/Theme.AppCompat"
-			android:label="@string/manage_geocoders"
-		/>
-		<activity
-			android:name=".prefs.VespucciURLActivity"
-			tools:ignore="ExportedActivity"
-			>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="vespucci" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name="de.blau.android.GeoUrlActivity"
-			tools:ignore="ExportedActivity"
-			>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="geo" />
-			</intent-filter>
-		</activity>
-		<activity
-			android:name="de.blau.android.RemoteControlUrlActivity"
-			tools:ignore="ExportedActivity"
-			>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="josm" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="127.0.0.1" android:port="8111" android:pathPattern="/.*" />
-				<data android:scheme="https" android:host="127.0.0.1" android:port="8112" android:pathPattern="/.*" />
-			</intent-filter>
-		</activity>
-		<activity android:name="LicenseViewer" android:theme="@style/Theme.AppCompat" />
-		<activity android:name="DebugInformation" android:theme="@style/Theme.AppCompat" />
-		<activity 
-		    android:name="HelpViewer" 
-		    android:theme="@style/Theme.customHelpViewer" 
-		/>
-		<activity
-       		android:name=".util.ThemedFilePickerActivity"
-       		android:label="@string/app_name"
-      		android:theme="@style/FilePickerTheme">
-    	</activity>
-    	<activity
-			android:name=".filter.TagFilterActivity"
-			android:theme="@style/Theme.customActionBar"
-		/>
-    	<activity
-			android:name=".filter.PresetFilterActivity"
-			android:theme="@style/Theme.customActionBar"
-		/>
-		<activity
-			android:name="org.acra.dialog.CrashReportDialog"
-			android:theme="@android:style/Theme.Dialog"
-			tools:replace="android:process"
-			android:process=":error_report"
-			android:launchMode="singleInstance"
-			android:excludeFromRecents="true"
-			android:finishOnTaskLaunch="true"
-		/>
-		<service
+	<uses-feature android:name="android.hardware.faketouch" />
+    -->
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- cache tiles -->
+
+    <application
+        android:name="de.blau.android.App"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup"
+        android:icon="@drawable/vespucci_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:resizeableActivity="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat" >
+        <activity
+            android:name=".Splash"
+            android:theme="@style/SplashTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!-- harmless addition for samsung multi window support -->
+                <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.customMain" >
+            <meta-data
+                android:name="com.samsung.android.keepalive.density"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name=".prefs.PrefEditor"
+            android:label="@string/menu_config"
+            android:theme="@style/Theme.AppCompatPrefs" />
+        <activity
+            android:name=".prefs.AdvancedPrefEditor"
+            android:label="@string/app_name_version"
+            android:theme="@style/Theme.AppCompatPrefs" />
+        <activity
+            android:name="BoxPicker"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".propertyeditor.PropertyEditor"
+            android:theme="@style/Theme.customTagEditor" />
+        <activity
+            android:name=".prefs.APIEditorActivity"
+            android:label="@string/manage_apis"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".prefs.PresetEditorActivity"
+            android:label="@string/manage_presets"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".prefs.GeocoderEditorActivity"
+            android:label="@string/manage_geocoders"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name=".prefs.VespucciURLActivity"
+            tools:ignore="ExportedActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="vespucci" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.blau.android.GeoUrlActivity"
+            tools:ignore="ExportedActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="geo" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.blau.android.RemoteControlUrlActivity"
+            tools:ignore="ExportedActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="josm" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="127.0.0.1"
+                    android:pathPattern="/.*"
+                    android:port="8111"
+                    android:scheme="http" />
+                <data
+                    android:host="127.0.0.1"
+                    android:pathPattern="/.*"
+                    android:port="8112"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="LicenseViewer"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="DebugInformation"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="HelpViewer"
+            android:theme="@style/Theme.customHelpViewer" />
+        <activity
+            android:name=".util.ThemedFilePickerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/FilePickerTheme" >
+        </activity>
+        <activity
+            android:name=".filter.TagFilterActivity"
+            android:theme="@style/Theme.customActionBar" />
+        <activity
+            android:name=".filter.PresetFilterActivity"
+            android:theme="@style/Theme.customActionBar" />
+        <activity
+            android:name="org.acra.dialog.CrashReportDialog"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:process=":error_report"
+            android:theme="@android:style/Theme.Dialog"
+            tools:replace="android:process" />
+
+        <service
             android:name="org.acra.sender.SenderService"
             android:exported="false"
             android:process=":acra" />
-		
-		<!-- Service to download tiles -->
-		<service
-			android:name=".services.MapTileProviderService"
-			android:process=":remote"
-			android:exported="false"
-			android:label="MapTileProviderService"
-			>
-			<intent-filter>
-				<action android:name="de.blau.android.services.IMapTileProviderService" />
-			</intent-filter>
-		</service>
-		<!--  Service for GPS tracking -->
-		<service android:name=".services.TrackerService" android:label="TrackerService" />
-		<provider
+
+        <!-- Service to download tiles -->
+        <service
+            android:name=".services.MapTileProviderService"
+            android:exported="false"
+            android:label="MapTileProviderService"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="de.blau.android.services.IMapTileProviderService" />
+            </intent-filter>
+        </service>
+        <!-- Service for GPS tracking -->
+        <service
+            android:name=".services.TrackerService"
+            android:label="TrackerService" />
+
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="de.blau.android.osmeditor4android.provider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"/>
+                android:resource="@xml/filepaths" />
         </provider>
-		
-		<!-- harmless addition for samsung multi window support -->
-		<uses-library android:required="false" android:name="com.sec.android.app.multiwindow"> </uses-library>
-		<meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
-	</application>
-</manifest> 
+
+        <!-- harmless addition for samsung multi window support -->
+        <uses-library
+            android:name="com.sec.android.app.multiwindow"
+            android:required="false" >
+        </uses-library>
+
+        <meta-data
+            android:name="com.sec.android.support.multiwindow"
+            android:value="true" />
+
+        <!-- Receiver for broadcasts when inserted/removed from a dock, currently Samsung specific -->
+        <receiver android:name="DesktopModeReceiver" >
+            <intent-filter>
+                <action android:name="android.app.action.ENTER_KNOX_DESKTOP_MODE" />
+                <action android:name="android.app.action.EXIT_KNOX_DESKTOP_MODE" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

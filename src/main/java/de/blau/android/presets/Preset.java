@@ -967,7 +967,6 @@ public class Preset implements Serializable {
                         if (field != null) {
                             field.setValues(listValues.toArray(v));
                             currentItem.addValues(listKey, listValues.toArray(v));
-                            ;
                         }
                     }
                     listKey = null;
@@ -1164,6 +1163,34 @@ public class Preset implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * Recursively traverse the PresetELements and do something on them
+     * 
+     * @param group PresetGroup to start the traversing at
+     * @param handler PresetElementHandler to execute
+     */
+    private static void processElements(@NonNull PresetGroup group, @NonNull PresetElementHandler handler) {
+        for (PresetElement e : group.getElements()) {
+            handler.handle(e);
+            if (e instanceof PresetGroup) {
+                processElements((PresetGroup) e, handler);
+            }
+        }
+    }
+
+    /**
+     * Remove all generated icons from the Preset
+     */
+    public void clearIcons() {
+        processElements(getRootGroup(), new PresetElementHandler() {
+            @Override
+            public void handle(PresetElement element) {
+                element.icon = null;
+                element.mapIcon = null;
+            }
+        });
     }
 
     /**
@@ -1500,7 +1527,6 @@ public class Preset implements Serializable {
         String                           name;
         String                           nameContext      = null;
         private String                   iconpath;
-        private String                   mapiconpath;
         private transient Drawable       icon;
         private transient BitmapDrawable mapIcon;
         PresetGroup                      parent;
@@ -1524,7 +1550,6 @@ public class Preset implements Serializable {
             this.parent = parent;
             this.name = name;
             this.iconpath = iconpath;
-            mapiconpath = iconpath;
             icon = null;
             mapIcon = null;
             if (parent != null) {
@@ -1544,7 +1569,6 @@ public class Preset implements Serializable {
                 group.addElement(this);
             }
             this.iconpath = item.iconpath;
-            mapiconpath = item.iconpath;
             icon = null;
             mapIcon = null;
             if (item.appliesToNode) {
@@ -1644,12 +1668,11 @@ public class Preset implements Serializable {
          * @return a small icon
          */
         public BitmapDrawable getMapIcon() {
-            if (mapIcon == null && mapiconpath != null) {
+            if (mapIcon == null && iconpath != null) {
                 if (iconManager == null) {
                     iconManager = getIconManager(App.getCurrentInstance().getApplicationContext());
                 }
-                mapIcon = iconManager.getDrawable(mapiconpath, de.blau.android.Map.ICON_SIZE_DP);
-                mapiconpath = null;
+                mapIcon = iconManager.getDrawable(iconpath, de.blau.android.Map.ICON_SIZE_DP);
             }
             return mapIcon;
         }
@@ -1900,8 +1923,7 @@ public class Preset implements Serializable {
 
         @Override
         public String toString() {
-            return name + " " + iconpath + " " + mapiconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation
-                    + " " + appliesToArea;
+            return name + " " + iconpath + " " + appliesToWay + " " + appliesToNode + " " + appliesToClosedway + " " + appliesToRelation + " " + appliesToArea;
         }
 
         /**

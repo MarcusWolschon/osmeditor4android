@@ -11,6 +11,7 @@ import org.mozilla.javascript.ScriptableObject;
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -116,6 +117,8 @@ public class App extends android.app.Application {
     private static final Object defaultValidatorLock = new Object();
     private static Validator    defaultValidator;
 
+    private static Configuration configuration = null;
+
     @Override
     public void onCreate() {
         // The following line triggers the initialization of ACRA
@@ -125,6 +128,16 @@ public class App extends android.app.Application {
         String appVersion = getString(R.string.app_version);
         userAgent = appName + "/" + appVersion;
         currentInstance = this;
+        setConfiguration(getResources().getConfiguration());
+    }
+
+    @Nullable
+    public static Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public static void setConfiguration(Configuration c) {
+        configuration = new Configuration(c);
     }
 
     /**
@@ -174,6 +187,12 @@ public class App extends android.app.Application {
         }
     }
 
+    /**
+     * Get the currently enabled Presets If the presets haven't been read yet, this will do so
+     * 
+     * @param ctx Android Context
+     * @return an array of Preset
+     */
     @NonNull
     public static Preset[] getCurrentPresets(@NonNull Context ctx) {
         synchronized (currentPresetsLock) {
@@ -186,7 +205,7 @@ public class App extends android.app.Application {
     }
 
     /**
-     * Resets the current presets, causing them to be re-parsed
+     * Resets the current presets, causing them to be re-parsed when they are re-requested
      */
     public static void resetPresets() {
         synchronized (currentPresetsLock) {

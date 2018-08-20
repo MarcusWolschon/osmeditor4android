@@ -40,6 +40,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
+import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -50,6 +51,8 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.presets.Preset;
+import de.blau.android.resources.TileLayerServer;
 
 public class Util {
 
@@ -553,5 +556,28 @@ public class Util {
             return size.x;
         }
         return size.y;
+    }
+
+    /**
+     * Clear all the places where we've cached icons
+     * 
+     * @param context Android Context
+     */
+    public static void clearIconCaches(Context context) {
+        Preset[] presets = App.getCurrentPresets(context);
+        for (Preset p : presets) {
+            if (p != null) {
+                p.clearIcons();
+            }
+        }
+        de.blau.android.Map map = App.getLogic().getMap();
+        if (map != null) {
+            de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
+            if (dataLayer != null) {
+                dataLayer.clearIconCaches();
+                dataLayer.invalidate();
+            }
+        }
+        TileLayerServer.clearLogos();
     }
 }

@@ -1351,6 +1351,29 @@ public class TileLayerServer {
     }
 
     /**
+     * Zap the cached logo (necessary when screen resolution changes)
+     */
+    private void clearLogoDrawable() {
+        logoDrawable = null;
+    }
+
+    /**
+     * Clear all cached logos
+     */
+    public static void clearLogos() {
+        for (TileLayerServer tls : backgroundServerList.values()) {
+            if (tls != null) {
+                tls.clearLogoDrawable();
+            }
+        }
+        for (TileLayerServer tls : overlayServerList.values()) {
+            if (tls != null) {
+                tls.clearLogoDrawable();
+            }
+        }
+    }
+
+    /**
      * Get the attributions that apply to the given map display.
      * 
      * @param zoom Zoom level of the display.

@@ -658,6 +658,8 @@ public class Main extends FullScreenAppCompatActivity
         undoListener = new UndoListener();
 
         showActionBar();
+
+        clearCaches(App.getConfiguration());
     }
 
     @Override
@@ -1165,6 +1167,23 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "onConfigurationChanged");
         if (easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
+        }
+        clearCaches(newConfig);
+    }
+
+    /**
+     * If aspects of the configuration have changed clear icon caches
+     * 
+     * Side effect updates stored Configuration
+     * 
+     * @param newConfig new Configuration
+     */
+    private void clearCaches(Configuration newConfig) {
+        Configuration oldConfig = App.getConfiguration();
+        if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi) {
+            // if the density has changed the icons will have wrong dimension remove them
+            Util.clearIconCaches(this);
+            App.setConfiguration(newConfig);
         }
     }
 
@@ -3712,18 +3731,10 @@ public class Main extends FullScreenAppCompatActivity
                                 updateZoomControls();
                                 return true;
                             }
-                            if (getEasyEditManager().isProcessingAction() && event.isCtrlPressed()) { // shortcuts
-                                                                                                      // not
-                                                                                                      // supported
-                                                                                                      // in
-                                                                                                      // action
-                                                                                                      // modes
-                                                                                                      // arghhh
-                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0)); // get
-                                                                                                       // rid
-                                                                                                       // of
-                                                                                                       // Ctrl
-                                                                                                       // key
+                            if (getEasyEditManager().isProcessingAction() && event.isCtrlPressed()) {
+                                // shortcuts not supported in action modes arghhh
+                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+                                // get rid of Ctrl key
                                 if (getEasyEditManager().processShortcut(shortcut)) {
                                     return true;
                                 }

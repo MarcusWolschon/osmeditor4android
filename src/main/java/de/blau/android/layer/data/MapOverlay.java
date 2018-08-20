@@ -641,6 +641,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     }
 
     /**
+     * Remove everything from the iconCache
+     */
+    public void clearIconCaches() {
+        synchronized (iconCache) {
+            iconCache.clear();
+            areaIconCache.clear();
+        }
+    }
+
+    /**
      * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
      * 
      * @param element the element whose icon should be painted
@@ -648,6 +658,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * @param x the x position where the center of the icon goes
      * @param y the y position where the center of the icon goes
      * @param featureKey style key
+     * @return true if an icon was found and drawn
      */
     private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
         Bitmap icon = getIcon(element);
