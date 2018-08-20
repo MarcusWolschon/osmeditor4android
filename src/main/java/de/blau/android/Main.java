@@ -927,18 +927,7 @@ public class Main extends FullScreenAppCompatActivity
                             logic.downloadBox(this, bbox, true, null);
                             if (prefs.areBugsEnabled()) { // always adds bugs
                                                           // for now
-                                TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
-                                    private static final long serialVersionUID = 1L;
-
-                                    @Override
-                                    public void onSuccess() {
-                                        getMap().invalidate();
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
+                                downLoadBugs(bbox);
                             }
                         } else {
                             Log.d(DEBUG_TAG, "no bbox to download");
@@ -1016,6 +1005,33 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Download bugs/tasks for a BoundingBox
+     * 
+     * @param bbox the BoundingBox
+     */
+    public void downLoadBugs(BoundingBox bbox) {
+        Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
+        TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onSuccess() {
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                if (taskLayer != null) {
+                    taskLayer.setVisible(true);
+                }
+                getMap().invalidate();
+            }
+
+            @Override
+            public void onError() {
+                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+            }
+        });
+    }
+
+    /**
      * Parse the parameters of a JOSM remote control URL and select and edit the OSM objects.
      * 
      * @param rcData Data of a remote control data URL.
@@ -1028,12 +1044,9 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         if (rcData.getSelect() != null) {
             // need to actually switch to easyeditmode
-            if (!logic.getMode().elementsGeomEditiable()) { // TODO there might
-                                                            // be states in
-                                                            // which we don't
-                                                            // want to exit
-                                                            // which ever mode
-                                                            // we are in
+            if (!logic.getMode().elementsGeomEditiable()) {
+                // TODO there might be states in which we don't
+                // want to exit which ever mode we are in
                 setMode(this, Mode.MODE_EASYEDIT);
             }
             logic.setSelectedNode(null);
@@ -1128,8 +1141,9 @@ public class Main extends FullScreenAppCompatActivity
     protected void onDestroy() {
         Log.d(DEBUG_TAG, "onDestroy");
         map.onDestroy();
-        if (getTracker() != null)
+        if (getTracker() != null) {
             getTracker().setListener(null);
+        }
         try {
             unbindService(this);
         } catch (Exception ignored) {
@@ -1692,19 +1706,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_goto:
-            Location gotoLoc = null;
-            if (getTracker() != null) {
-                gotoLoc = getTracker().getLastLocation();
-            } else if (getEnabledLocationProviders() != null) {
-                gotoLoc = getLastLocation();
-            } // else moan? without GPS enabled this shouldn't be selectable
-              // currently
-            if (gotoLoc != null) {
-                logic.setZoom(getMap(), 19);
-                map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
-                map.setLocation(gotoLoc);
-                map.invalidate();
-            }
+            gotoCurrentLocation();
             return true;
 
         case R.id.menu_gps_start:
@@ -1722,8 +1724,9 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_clear:
-            if (getTracker() != null)
+            if (getTracker() != null) {
                 getTracker().stopTracking(true);
+            }
             triggerMenuInvalidation();
             map.invalidate();
             return true;
@@ -1897,18 +1900,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_transfer_bugs_download_current:
-            TransferTasks.downloadBox(this, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void onSuccess() {
-                    map.invalidate();
-                }
-
-                @Override
-                public void onError() {
-                }
-            });
+            downLoadBugs(map.getViewBox().copy());
             return true;
 
         case R.id.menu_transfer_bugs_upload:
@@ -2144,6 +2136,25 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
+     * Pan and zoom to the current location if any
+     */
+    private void gotoCurrentLocation() {
+        Location gotoLoc = null;
+        if (getTracker() != null) {
+            gotoLoc = getTracker().getLastLocation();
+        } else if (getEnabledLocationProviders() != null) {
+            gotoLoc = getLastLocation();
+        } // else moan? without GPS enabled this shouldn't be selectable
+          // currently
+        if (gotoLoc != null) {
+            App.getLogic().setZoom(getMap(), 19);
+            map.getViewBox().moveTo(getMap(), (int) (gotoLoc.getLongitude() * 1E7d), (int) (gotoLoc.getLatitude() * 1E7d));
+            map.setLocation(gotoLoc);
+            map.invalidate();
+        }
+    }
+
+    /**
      * Zoom to the GPS TrackPoint
      * 
      * @param logic the current Login instance
@@ -2352,8 +2363,9 @@ public class Main extends FullScreenAppCompatActivity
 
     private void enableLocationUpdates() {
         // noinspection PointlessBooleanExpression
-        if (wantLocationUpdates == true)
+        if (wantLocationUpdates == true) {
             return;
+        }
         if (sensorManager != null) {
             sensorManager.registerListener(sensorListener, rotation, SensorManager.SENSOR_DELAY_UI);
         }
@@ -2365,8 +2377,9 @@ public class Main extends FullScreenAppCompatActivity
 
     private void disableLocationUpdates() {
         // noinspection PointlessBooleanExpression
-        if (wantLocationUpdates == false)
+        if (wantLocationUpdates == false) {
             return;
+        }
         if (sensorManager != null) {
             sensorManager.unregisterListener(sensorListener);
         }
@@ -2584,22 +2597,7 @@ public class Main extends FullScreenAppCompatActivity
         App.getLogic().downloadBox(main, map.getViewBox().copy(), add, null);
         Preferences prefs = main.prefs;
         if (prefs.areBugsEnabled()) { // always adds bugs for now
-            TransferTasks.downloadBox(main, prefs.getServer(), map.getViewBox().copy(), true, new PostAsyncActionHandler() {
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void onSuccess() {
-                    de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-                    if (taskLayer != null) {
-                        taskLayer.setVisible(true);
-                    }
-                    map.invalidate();
-                }
-
-                @Override
-                public void onError() {
-                }
-            });
+            main.downLoadBugs(map.getViewBox().copy());
         }
     }
 
@@ -2683,8 +2681,9 @@ public class Main extends FullScreenAppCompatActivity
                         public void onError() {
                         }
                     });
-                    if (server.getOAuth()) // if still set
+                    if (server.getOAuth()) { // if still set
                         Snack.barError(this, R.string.toast_oauth);
+                    }
                     return;
                 }
                 ConfirmUpload.showDialog(Main.this);
@@ -3581,8 +3580,9 @@ public class Main extends FullScreenAppCompatActivity
                 float nodeX = logic.getNodeScreenX(candidate);
                 float nodeY = logic.getNodeScreenY(candidate);
                 for (int i = 1; i < clickedNodesAndWays.size(); i++) {
-                    if (!(clickedNodesAndWays.get(i) instanceof Node))
+                    if (!(clickedNodesAndWays.get(i) instanceof Node)) {
                         break;
+                    }
                     Node possibleNeighbor = (Node) clickedNodesAndWays.get(i);
                     float node2X = logic.getNodeScreenX(possibleNeighbor);
                     float node2Y = logic.getNodeScreenY(possibleNeighbor);
@@ -3721,6 +3721,7 @@ public class Main extends FullScreenAppCompatActivity
                         return true;
                     default:
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+
                             Character c = Character.toLowerCase((char) event.getUnicodeChar());
                             if (c == Util.getShortCut(Main.this, R.string.shortcut_zoom_in)) {
                                 logic.zoom(Logic.ZOOM_IN);
@@ -3731,12 +3732,34 @@ public class Main extends FullScreenAppCompatActivity
                                 updateZoomControls();
                                 return true;
                             }
-                            if (getEasyEditManager().isProcessingAction() && event.isCtrlPressed()) {
-                                // shortcuts not supported in action modes arghhh
-                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+                            if (event.isCtrlPressed()) {
                                 // get rid of Ctrl key
-                                if (getEasyEditManager().processShortcut(shortcut)) {
-                                    return true;
+                                char shortcut = Character.toLowerCase((char) event.getUnicodeChar(0));
+                                // menu based shortcuts don't seem to work (anymore) so we do this on foot
+                                if (getEasyEditManager().isProcessingAction()) {
+                                    if (getEasyEditManager().processShortcut(shortcut)) {
+                                        return true;
+                                    }
+                                } else if (logic.getMode().elementsSelectable()) {
+                                    if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_help)) {
+                                        HelpViewer.start(Main.this, R.string.help_main);
+                                        return true;
+                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_undo)) {
+                                        Main.this.undoListener.onClick(null);
+                                        return true;
+                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_follow)) {
+                                        Main.this.toggleFollowGPS();
+                                        return true;
+                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_gps_goto)) {
+                                        Main.this.gotoCurrentLocation();
+                                        return true;
+                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_download)) {
+                                        Main.this.onMenuDownloadCurrent(true);
+                                        return true;
+                                    } else if (shortcut == Util.getShortCut(Main.this, R.string.shortcut_bugs_download)) {
+                                        Main.this.downLoadBugs(map.getViewBox().copy());
+                                        return true;
+                                    }
                                 }
                             }
                         }
@@ -3747,6 +3770,11 @@ public class Main extends FullScreenAppCompatActivity
             return false;
         }
 
+        /**
+         * Pan the map
+         * 
+         * @param direction pan direction
+         */
         private void translate(final CursorPaddirection direction) {
             setFollowGPS(false);
             App.getLogic().translate(direction);
@@ -3810,8 +3838,9 @@ public class Main extends FullScreenAppCompatActivity
     public static boolean hasChanges() {
         final Logic logic = App.getLogic();
         // noinspection SimplifiableIfStatement
-        if (logic == null)
+        if (logic == null) {
             return false;
+        }
         return logic.hasChanges();
     }
 

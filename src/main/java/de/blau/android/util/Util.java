@@ -54,7 +54,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.resources.TileLayerServer;
 
-public class Util {
+public final class Util {
 
     private static final String DEBUG_TAG = "Util";
 
@@ -225,11 +225,11 @@ public class Util {
      * Safely return a short cut (aka one character) from the string resources
      * 
      * @param ctx Android context
-     * @param id
+     * @param res the id of a string resource
      * @return character or 0 if no short cut can be found
      */
-    public static char getShortCut(Context ctx, int id) {
-        String s = ctx.getString(id);
+    public static char getShortCut(Context ctx, int res) {
+        String s = ctx.getString(res);
         if (s != null && s.length() >= 1) {
             return s.charAt(0);
         } else {
