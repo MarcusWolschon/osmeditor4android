@@ -148,6 +148,13 @@ updateSynonyms.description = 'Update synonym files from iD editor repo'
    updateSynonyms.dependsOn name
 }
 
+task enableFreeform(type: Exec) {
+    commandLine adb, 'shell', 'settings', 'put', 'global', 'enable_freeform_support', '1'
+}
+enableFreeform.group = 'emulators'
+enableFreeform.description = 'turn on free form window support'
+
+
 afterEvaluate{ // this task needs to be created after the uninstall tasks 
 	task runSingleConnectedTest(dependsOn: ["installDebug","installDebugAndroidTest"], type: Exec) {
 		def toRun = "de.blau.android.easyedit.RelationTest"
