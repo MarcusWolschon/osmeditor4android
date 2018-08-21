@@ -108,9 +108,14 @@ public class SearchIndexUtils {
                 }
                 if ((distance >= 0 && distance <= maxDistance)) {
                     Set<PresetItem> presetItems = index.get(s);
+                    int weight = distance * presetItems.size(); // if there are a lot of items for a term, penalize
                     for (PresetItem pi : presetItems) {
                         if (type == null || pi.appliesTo(type)) {
-                            IndexSearchResult isr = new IndexSearchResult(distance * presetItems.size(), pi);
+                            int actualWeight = weight;
+                            if (term.equals(SearchIndexUtils.normalize(pi.getName()))) { // exact name match
+                                actualWeight = -1;
+                            }
+                            IndexSearchResult isr = new IndexSearchResult(actualWeight, pi);
                             rawResult.add(isr);
                         }
                     }
