@@ -64,7 +64,7 @@ public class RelationMember implements Serializable {
     /**
      * Get the OsmElement type
      * 
-     * @return the type (Node, way, Relation) as a String
+     * @return the type (NODE, WAY, RELATION) as a String
      */
     @NonNull
     public String getType() {

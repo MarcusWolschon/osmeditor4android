@@ -104,6 +104,8 @@ public class GeometryEditsTest {
             System.out.println("ApplicationTest n3 " + n3.getOsmId());
             final Node n4 = nList1.get(3);
             System.out.println("ApplicationTest n4 " + n4.getOsmId());
+
+            // split at n2
             logic.performSplit(main, n2);
 
             ArrayList<Way> wList1 = (ArrayList<Way>) logic.getWaysForNode(n3);
@@ -132,8 +134,8 @@ public class GeometryEditsTest {
             // split way 2
             logic.performSplit(main, n3);
 
-            ArrayList<Way> wList2 = (ArrayList<Way>) logic.getWaysForNode(n3);
-
+            List<Way> wList2 = (ArrayList<Way>) logic.getWaysForNode(n3);
+            // this assumes wList2 contains the way in chronological order
             Assert.assertEquals(2, wList2.size());
             Assert.assertEquals(wList2.get(0), w2);
             Assert.assertEquals(wList2.get(0).getParentRelations().get(0), r1);
@@ -144,17 +146,36 @@ public class GeometryEditsTest {
             Assert.assertEquals(3, w2.getNodes().size());
             Assert.assertEquals(w2.getParentRelations().get(0), r1);
 
-            // add w2 to a normal relation and split
-            ArrayList<OsmElement> mList2 = new ArrayList<OsmElement>();
+            // add w2 to a normal relation
+            List<OsmElement> mList2 = new ArrayList<OsmElement>();
             mList2.add(w2);
-            logic.createRelation(main, "test", mList2);
+            Relation r2 = logic.createRelation(main, "test", mList2);
             Assert.assertEquals(2, w2.getParentRelations().size());
+            
+            // add w2 to a normal relation and then w1
+            mList2 = new ArrayList<OsmElement>();
+            mList2.add(w2);
+            mList2.add(w1);
+            Relation r3 = logic.createRelation(main, "test", mList2);
+            Assert.assertEquals(3, w2.getParentRelations().size());
 
+            // resplit at n3
             logic.performSplit(main, n3);
 
             wList2 = (ArrayList<Way>) logic.getWaysForNode(n3);
-            Assert.assertEquals(2, wList2.get(0).getParentRelations().size()); // should contain both rels
-            Assert.assertEquals(1, wList2.get(1).getParentRelations().size()); // just the 2nd one
+            // this assumes wList2 contains the way in chronological order
+            Way w3 = wList2.get(0);
+            Way w4 = wList2.get(1);
+            Assert.assertEquals(3, wList2.get(0).getParentRelations().size()); // should contain both rels
+            Assert.assertEquals(2, wList2.get(1).getParentRelations().size()); // just the 2nd one
+            // default ordering in r2
+            Assert.assertEquals(0, r2.getPosition(r2.getMember(w3))); // first position in r2
+            Assert.assertEquals(1, r2.getPosition(r2.getMember(w4))); // second position in r2
+            // since w1 has a common node with w2, w3 should be after w4 in r3
+            Assert.assertEquals(1, r3.getPosition(r3.getMember(w3))); // second position in r3
+            Assert.assertEquals(0, r3.getPosition(r3.getMember(w4))); // fist position in r3
+            Assert.assertEquals(2, r3.getPosition(r3.getMember(w1))); // third position in r3
+            
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }

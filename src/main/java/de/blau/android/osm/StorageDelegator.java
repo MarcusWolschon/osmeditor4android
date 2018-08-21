@@ -843,8 +843,9 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     }
                     // Log.d("StorageDelegator", "orthogonalize way iteration/score " + iteration + "/" + score);
-                    if (score < loopEpsilon)
+                    if (score < loopEpsilon) {
                         break;
+                    }
                 }
 
                 // prepare updated nodes for upload
@@ -994,7 +995,12 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    public void splitAtNode(final Node node) {
+    /**
+     * Split all Ways that contain the Node
+     * 
+     * @param node Node to split at
+     */
+    public void splitAtNode(@NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode for all ways");
         // undo - nothing done here, everything done in splitAtNode
         dirty = true;
@@ -1038,17 +1044,19 @@ public class StorageDelegator implements Serializable, Exportable {
             if (!found1 && wayNode.getOsmId() == node1.getOsmId()) {
                 found1 = true;
                 nodesForNewWay.add(wayNode);
-                if (!found2)
+                if (!found2) {
                     nodesForOldWay1.add(wayNode);
-                else
+                } else {
                     nodesForOldWay2.add(wayNode);
+                }
             } else if (!found2 && wayNode.getOsmId() == node2.getOsmId()) {
                 found2 = true;
                 nodesForNewWay.add(wayNode);
-                if (!found1)
+                if (!found1) {
                     nodesForOldWay1.add(wayNode);
-                else
+                } else {
                     nodesForOldWay2.add(wayNode);
+                }
             } else if ((found1 && !found2) || (!found1 && found2)) {
                 nodesForNewWay.add(wayNode);
             } else if (!found1 && !found2) {
@@ -1131,7 +1139,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param node node to split at
      * @return the new Way or null if the split wasn't successful
      */
-    public Way splitAtNode(final Way way, final Node node) {
+    public Way splitAtNode(@NonNull final Way way, @NonNull final Node node) {
         Log.d(DEBUG_TAG, "splitAtNode way " + way.getOsmId() + " node " + node.getOsmId());
         // undo - old way is saved here, new way is saved at insert
         dirty = true;
@@ -1194,47 +1202,56 @@ public class StorageDelegator implements Serializable, Exportable {
                         ACRAHelper.nocrashReport(null, "Unconsistent state detected way " + way.getOsmId() + " should be relation member");
                         continue;
                     }
+                    int memberPos = r.getPosition(rm);
                     undo.save(r);
                     String type = r.getTagWithKey(Tags.KEY_TYPE);
-                    if (type != null) {
-                        // attempt to handle turn restrictions correctly, if element is the via way, copying relation
-                        // membership to both is ok
-                        if (type.equals(Tags.VALUE_RESTRICTION) && !rm.getRole().equals(Tags.VALUE_VIA)) {
-                            // check if the old way has a node in common with the via relation member, if no assume the
-                            // new way has
-                            ArrayList<RelationMember> rl = r.getMembersWithRole(Tags.VALUE_VIA);
-                            boolean foundVia = false;
-                            for (int j = 0; j < rl.size(); j++) {
-                                RelationMember viaRm = rl.get(j);
-                                OsmElement viaE = viaRm.getElement();
-                                Log.d(DEBUG_TAG, "splitAtNode " + viaE.getOsmId());
-                                if (viaE instanceof Node) {
-                                    if (((Way) rm.getElement()).hasNode((Node) viaE)) {
-                                        foundVia = true;
-                                    }
-                                } else if (viaE instanceof Way) {
-                                    if (((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
-                                        foundVia = true;
-                                    }
+
+                    // attempt to handle turn restrictions correctly, if element is the via way, copying relation
+                    // membership to both is ok
+                    if (Tags.VALUE_RESTRICTION.equals(type) && !rm.getRole().equals(Tags.VALUE_VIA)) {
+                        // check if the old way has a node in common with the via relation member, if no assume the
+                        // new way has
+                        List<RelationMember> rl = r.getMembersWithRole(Tags.VALUE_VIA);
+                        boolean foundVia = false;
+                        for (int j = 0; j < rl.size(); j++) {
+                            RelationMember viaRm = rl.get(j);
+                            OsmElement viaE = viaRm.getElement();
+                            Log.d(DEBUG_TAG, "splitAtNode " + viaE.getOsmId());
+                            if (viaE instanceof Node) {
+                                if (((Way) rm.getElement()).hasNode((Node) viaE)) {
+                                    foundVia = true;
+                                }
+                            } else if (viaE instanceof Way) {
+                                if (((Way) rm.getElement()).hasCommonNode((Way) viaE)) {
+                                    foundVia = true;
                                 }
                             }
-                            Log.d(DEBUG_TAG, "splitAtNode foundVia " + foundVia);
-                            if (!foundVia) {
-                                // remove way from relation, add newWay to it
-                                RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                                r.replaceMember(rm, newMember);
-                                way.removeParentRelation(r); // way is dirty and will be changes anyway
-                                newWay.addParentRelation(r);
-                            }
-                        } else {
+                        }
+                        Log.d(DEBUG_TAG, "splitAtNode foundVia " + foundVia);
+                        if (!foundVia) {
+                            // remove way from relation, add newWay to it
                             RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                            r.addMemberAfter(rm, newMember);
+                            r.replaceMember(rm, newMember);
+                            way.removeParentRelation(r); // way is dirty and will be changes anyway
                             newWay.addParentRelation(r);
                         }
-
                     } else {
                         RelationMember newMember = new RelationMember(rm.getRole(), newWay);
-                        r.addMemberAfter(rm, newMember);
+                        RelationMember prevMember = r.getMemberAt(memberPos - 1);
+                        RelationMember nextMember = r.getMemberAt(memberPos + 1);
+                        /*
+                         * We need to determine if to insert the new way before or after the existing member If the new
+                         * way has a common node with the previous member we insert before and if the existing way has a
+                         * common node with the following member, otherwise we insert after the existing member.
+                         */
+                        if (prevMember != null && prevMember.getElement() instanceof Way && newWay.hasCommonNode((Way) prevMember.getElement())) {
+                            r.addMemberBefore(rm, newMember);
+                        }
+                        if (nextMember != null && nextMember.getElement() instanceof Way && way.hasCommonNode((Way) nextMember.getElement())) {
+                            r.addMemberBefore(rm, newMember);
+                        } else {
+                            r.addMemberAfter(rm, newMember);
+                        }
                         newWay.addParentRelation(r);
                     }
                     r.updateState(OsmElement.STATE_MODIFIED);
@@ -2657,35 +2674,44 @@ public class StorageDelegator implements Serializable, Exportable {
 
         if (!createdNodes.isEmpty() || !createdWays.isEmpty() || !createdRelations.isEmpty()) {
             serializer.startTag(null, "create");
-            for (OsmElement elem : createdNodes)
+            for (OsmElement elem : createdNodes) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : createdWays)
+            }
+            for (OsmElement elem : createdWays) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : createdRelations)
+            }
+            for (OsmElement elem : createdRelations) {
                 elem.toXml(serializer, changeSetId);
+            }
             serializer.endTag(null, "create");
         }
 
         if (!modifiedNodes.isEmpty() || !modifiedWays.isEmpty() || !modifiedRelations.isEmpty()) {
             serializer.startTag(null, "modify");
-            for (OsmElement elem : modifiedNodes)
+            for (OsmElement elem : modifiedNodes) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : modifiedWays)
+            }
+            for (OsmElement elem : modifiedWays) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : modifiedRelations)
+            }
+            for (OsmElement elem : modifiedRelations) {
                 elem.toXml(serializer, changeSetId);
+            }
             serializer.endTag(null, "modify");
         }
 
         // delete in opposite order
         if (!deletedNodes.isEmpty() || !deletedWays.isEmpty() || !deletedRelations.isEmpty()) {
             serializer.startTag(null, "delete");
-            for (OsmElement elem : deletedRelations)
+            for (OsmElement elem : deletedRelations) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : deletedWays)
+            }
+            for (OsmElement elem : deletedWays) {
                 elem.toXml(serializer, changeSetId);
-            for (OsmElement elem : deletedNodes)
+            }
+            for (OsmElement elem : deletedNodes) {
                 elem.toXml(serializer, changeSetId);
+            }
             serializer.endTag(null, "delete");
         }
 
@@ -2761,16 +2787,19 @@ public class StorageDelegator implements Serializable, Exportable {
         Collections.sort(saveRelations, sortItLikeJochen);
 
         if (!saveNodes.isEmpty()) {
-            for (OsmElement elem : saveNodes)
+            for (OsmElement elem : saveNodes) {
                 elem.toJosmXml(serializer);
+            }
         }
         if (!saveWays.isEmpty()) {
-            for (OsmElement elem : saveWays)
+            for (OsmElement elem : saveWays) {
                 elem.toJosmXml(serializer);
+            }
         }
         if (!saveRelations.isEmpty()) {
-            for (OsmElement elem : saveRelations)
+            for (OsmElement elem : saveRelations) {
                 elem.toJosmXml(serializer);
+            }
         }
 
         serializer.endTag(null, "osm");
@@ -2924,10 +2953,11 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 } else {
                     if (apiRelation != null && apiRelation.getState() == OsmElement.STATE_DELETED) {
-                        if (apiRelation.getOsmVersion() >= r.getOsmVersion())
+                        if (apiRelation.getOsmVersion() >= r.getOsmVersion()) {
                             continue; // can use relation we already have
-                        else
+                        } else {
                             return false; // can't resolve conflicts, upload first
+                        }
                     }
                     Relation existingRelation = relationIndex.get(r.getOsmId());
                     if (existingRelation.getOsmVersion() >= r.getOsmVersion()) { // larger just to be on the safe side
@@ -2938,8 +2968,9 @@ public class StorageDelegator implements Serializable, Exportable {
                             if (postMerge != null) {
                                 postMerge.handler(r);
                             }
-                        } else
+                        } else {
                             return false; // can't resolve conflicts, upload first
+                        }
                     }
                 }
             }
@@ -3110,8 +3141,9 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public boolean isInDownload(int lonE7, int latE7) {
         for (BoundingBox bb : new ArrayList<>(currentStorage.getBoundingBoxes())) { // make shallow copy
-            if (bb.isIn(lonE7, latE7))
+            if (bb.isIn(lonE7, latE7)) {
                 return true;
+            }
         }
         return false;
     }

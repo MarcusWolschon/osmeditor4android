@@ -41,12 +41,25 @@ public class Relation extends OsmElement implements BoundedObject {
 
     public static final String MEMBER = "member";
 
+    /**
+     * Construct a new Relation
+     * 
+     * @param osmId the OSM id
+     * @param osmVersion the version
+     * @param timestamp timestamp in ms since the epoch
+     * @param status the status of the Relation
+     */
     Relation(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
         members = new ArrayList<>();
     }
 
-    void addMember(final RelationMember member) {
+    /**
+     * Append a RelationMember to the Relation
+     * 
+     * @param member the RelationMember to append
+     */
+    void addMember(@NonNull final RelationMember member) {
         members.add(member);
     }
 
@@ -118,6 +131,20 @@ public class Relation extends OsmElement implements BoundedObject {
     }
 
     /**
+     * Get the RelationMember at a specific position
+     * 
+     * @param pos the position
+     * @return the RelationMember of null if the position was out of bounds
+     */
+    @Nullable
+    public RelationMember getMemberAt(int pos) {
+        if (pos >= 0 && pos < members.size()) {
+            return members.get(pos);
+        }
+        return null;
+    }
+
+    /**
      * Get the position (0 based) of the RelationMember in the list of members
      * 
      * @param rm the RelationMember
@@ -157,8 +184,9 @@ public class Relation extends OsmElement implements BoundedObject {
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", "relation");
         s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null)
+        if (changeSetId != null) {
             s.attribute("", "changeset", Long.toString(changeSetId));
+        }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
             s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
@@ -203,33 +231,43 @@ public class Relation extends OsmElement implements BoundedObject {
         s.endTag("", "relation");
     }
 
-    public boolean hasMember(final RelationMember member) {
-        return members.contains(member);
-    }
-
     /**
      * Completely remove member from relation (even if present more than once) Does not update backlink
      * 
-     * @param member
+     * @param member the RelationMember to remove
      */
     void removeMember(final RelationMember member) {
         while (members.remove(member)) {
         }
     }
 
-    protected void appendMember(final RelationMember refMember, final RelationMember newMember) {
-        if (members != null && !members.isEmpty() && members.get(0) == refMember) {
-            members.add(0, newMember);
-        } else if (members != null && members.get(members.size() - 1) == refMember) {
-            members.add(newMember);
-        }
-    }
-
-    void addMemberAfter(final RelationMember memberBefore, final RelationMember newMember) {
+    /**
+     * Add/insert a member after an already existing member
+     * 
+     * @param memberBefore the existing RelationMember
+     * @param newMember the new RelationMember
+     */
+    void addMemberAfter(@NonNull final RelationMember memberBefore, @NonNull final RelationMember newMember) {
         members.add(members.indexOf(memberBefore) + 1, newMember);
     }
 
-    void addMember(int pos, final RelationMember newMember) {
+    /**
+     * Add/insert a member after an already existing member
+     * 
+     * @param memberAfter the existing RelationMember
+     * @param newMember the new RelationMember
+     */
+    void addMemberBefore(@NonNull final RelationMember memberAfter, @NonNull final RelationMember newMember) {
+        members.add(members.indexOf(memberAfter), newMember);
+    }
+
+    /**
+     * Add a member at a specific position
+     * 
+     * @param pos position to ad the member at, if out of bounds the member will be added
+     * @param newMember the new RelationMember
+     */
+    void addMember(int pos, @NonNull final RelationMember newMember) {
         if (pos < 0 || pos > members.size()) {
             pos = members.size(); // append
         }
@@ -251,8 +289,14 @@ public class Relation extends OsmElement implements BoundedObject {
         }
     }
 
-    public ArrayList<RelationMember> getMembersWithRole(String role) {
-        ArrayList<RelationMember> rl = new ArrayList<>();
+    /**
+     * Return a List of all RelationMembers with a specific role
+     * 
+     * @param role the role we are looking for
+     * @return a List of the RelationMembers
+     */
+    public List<RelationMember> getMembersWithRole(@NonNull String role) {
+        List<RelationMember> rl = new ArrayList<>();
         for (RelationMember rm : members) {
             Log.d("Relation", "getMembersWithRole " + rm.getRole());
             if (role.equals(rm.getRole())) {
@@ -384,8 +428,9 @@ public class Relation extends OsmElement implements BoundedObject {
     public List<OsmElement> getMemberElements() {
         List<OsmElement> result = new ArrayList<>();
         for (RelationMember rm : getMembers()) {
-            if (rm.getElement() != null)
+            if (rm.getElement() != null) {
                 result.add(rm.getElement());
+            }
         }
         return result;
     }
@@ -397,8 +442,9 @@ public class Relation extends OsmElement implements BoundedObject {
      */
     public boolean allDownloaded() {
         for (RelationMember rm : getMembers()) {
-            if (rm.getElement() == null)
+            if (rm.getElement() == null) {
                 return false;
+            }
         }
         return true;
     }
