@@ -3430,7 +3430,7 @@ public class Preset implements Serializable {
                     jsonString.append(tagToJSON(presetName, k, null));
                 }
                 if (!isEditable(k) && field instanceof PresetComboField && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
-                    for (StringWithDescription v : ((PresetComboField) entry).getValues()) {
+                    for (StringWithDescription v : ((PresetComboField) entry.getValue()).getValues()) {
                         if (jsonString.length() != 0) {
                             jsonString.append(",\n");
                         }
