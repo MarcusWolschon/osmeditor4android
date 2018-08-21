@@ -90,18 +90,19 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     private OsmElementFactory factory;
 
-    public void setCurrentStorage(final Storage currentStorage) {
-        dirty = true;
-        apiStorage = new Storage();
-        clipboard = new ClipboardStorage();
-        this.currentStorage = currentStorage;
-        undo = new UndoStorage(currentStorage, apiStorage);
-    }
-
+    /**
+     * Construct a new empty instance
+     */
     public StorageDelegator() {
         reset(false); // don't set dirty on instantiation
     }
 
+    /**
+     * Reset this instance to emply state
+     * 
+     * @param dirty if true mark the (empty) contents as dirty (this is useful because if true old state files will be
+     *            overwritten)
+     */
     public void reset(boolean dirty) {
         this.dirty = dirty;
         apiStorage = new Storage();
@@ -112,6 +113,25 @@ public class StorageDelegator implements Serializable, Exportable {
         imagery = new ArrayList<>();
     }
 
+    /**
+     * Replace the current Storage object with a new one
+     * clipboard and api storage will be reset
+     * 
+     * @param currentStorage the new Storage object to set
+     */
+    public void setCurrentStorage(@NonNull final Storage currentStorage) {
+        dirty = true;
+        apiStorage = new Storage();
+        clipboard = new ClipboardStorage();
+        this.currentStorage = currentStorage;
+        undo = new UndoStorage(currentStorage, apiStorage);
+    }
+
+    /**
+     * Check if the Storage is dirty and needs to be saved
+     * 
+     * @return true if dirty
+     */
     public boolean isDirty() {
         return dirty;
     }
@@ -1241,8 +1261,10 @@ public class StorageDelegator implements Serializable, Exportable {
                         RelationMember nextMember = r.getMemberAt(memberPos + 1);
                         /*
                          * We need to determine if to insert the new way before or after the existing member If the new
-                         * way has a common node with the previous member we insert before and if the existing way has a
-                         * common node with the following member, otherwise we insert after the existing member.
+                         * way has a common node with the previous member or if the existing way has a common node with
+                         * the following member we insert before, otherwise we insert after the existing member.
+                         * 
+                         * FIXME To do this really properly we would have to download the previous and next elements
                          */
                         if (prevMember != null && prevMember.getElement() instanceof Way && newWay.hasCommonNode((Way) prevMember.getElement())) {
                             r.addMemberBefore(rm, newMember);
@@ -1596,6 +1618,13 @@ public class StorageDelegator implements Serializable, Exportable {
         return (dirTags != null || dirRelations != null || dirNodeTags);
     }
 
+    /**
+     * Replace an existing way Node with a new one
+     * 
+     * @param existingNode the existing Node
+     * @param newNode the new Node
+     * @param way the Way to exchange the Node in
+     */
     private void replaceNodeInWay(final Node existingNode, final Node newNode, final Way way) {
         dirty = true;
         undo.save(way);
@@ -2121,6 +2150,7 @@ public class StorageDelegator implements Serializable, Exportable {
             onElementChanged(null, new ArrayList<>(changedElements));
         } catch (StorageException sex) {
             // TODO handle OOM
+            Log.e(DEBUG_TAG, "mergeElementsRelations got " + sex.getMessage());
         }
     }
 
@@ -2181,6 +2211,14 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
+    /**
+     * Paste the contents of the clipboard to coordinates
+     * If the content was copied to the clipboard a new element will be created.
+     * 
+     * @param lat latitude in WGS84*1E7 degrees
+     * @param lon longitude in WGS84*1E7 degrees
+     * @return true if the clipboard wasn't empty
+     */
     public boolean pasteFromClipboard(int lat, int lon) {
         OsmElement e = clipboard.pasteFrom();
         // if the clipboard isn't empty now we need to clone the element
@@ -2237,50 +2275,99 @@ public class StorageDelegator implements Serializable, Exportable {
         return e != null;
     }
 
+    /**
+     * Check if there is something in the clipboard
+     * 
+     * @return true if the clipboard is empty
+     */
     public boolean clipboardIsEmpty() {
         return clipboard.isEmpty();
     }
 
+    /**
+     * Get the current API Storage object
+     * 
+     * @return the Storage for changes that should be uploaded
+     */
+    @NonNull
     public Storage getApiStorage() {
         return apiStorage;
     }
 
+    /**
+     * Get the current Storage object
+     * 
+     * @return the current Storage object
+     */
+    @NonNull
     public Storage getCurrentStorage() {
         return currentStorage;
     }
 
-    // public BoundingBox getOriginalBox() {
-    // return currentStorage.getBoundingBox().copy();
-    // }
-
+    /**
+     * Return the list of BoundingBoxes from the current Storage object
+     * 
+     * @return the current List of BoundingBoxes
+     */
+    @NonNull
     public List<BoundingBox> getBoundingBoxes() {
         // TODO make a copy?
         return currentStorage.getBoundingBoxes();
     }
 
-    public void setOriginalBox(final BoundingBox box) {
+    /**
+     * Set the initial BoundingBox, this will truncate the list
+     * 
+     * @param box the initial BoundingBox
+     */
+    public void setOriginalBox(@NonNull final BoundingBox box) {
         dirty = true;
         currentStorage.setBoundingBox(box);
     }
 
-    public void addBoundingBox(BoundingBox box) {
+    /**
+     * Add a Boundingbox to the List of BoundingBoxes in Storage
+     * 
+     * @param box the BoundingBox to add
+     */
+    public void addBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.addBoundingBox(box);
     }
 
-    public void deleteBoundingBox(BoundingBox box) {
+    /**
+     * Delete a BoundingBox from the List of BoundingBoxes in Storage
+     * 
+     * @param box the BoundingBox to delete
+     */
+    public void deleteBoundingBox(@NonNull BoundingBox box) {
         dirty = true;
         currentStorage.deleteBoundingBox(box);
     }
 
+    /**
+     * Get the number of Nodes in API storage
+     * 
+     * @return the number of Nodes in API storage 
+     */
     public int getApiNodeCount() {
         return apiStorage.getNodes().size();
     }
 
+    /**
+     * Get the number of Ways in API storage
+     * 
+     * @return the number of Ways in API storage 
+     */
     public int getApiWayCount() {
         return apiStorage.getWays().size();
     }
 
+    /**
+     * Get the number of Relations in API storage
+     * 
+     * @return the number of Relations in API storage 
+     */
     public int getApiRelationCount() {
         return apiStorage.getRelations().size();
     }
@@ -2296,7 +2383,16 @@ public class StorageDelegator implements Serializable, Exportable {
         return apiStorage.getRelations().size() + apiStorage.getWays().size() + apiStorage.getNodes().size();
     }
 
-    public OsmElement getOsmElement(final String type, final long osmId) {
+    /**
+     * Retrieve an OsmElement from Storage
+     * This will check the API Storage first (because of deleted objects) and then the regular version
+     * 
+     * @param type the type of object as a String (NODE, WAY, RELATION)
+     * @param osmId the id
+     * @return the object or null if not in storage
+     */
+    @Nullable
+    public OsmElement getOsmElement(@NonNull final String type, final long osmId) {
         OsmElement elem = apiStorage.getOsmElement(type, osmId);
         if (elem == null) {
             elem = currentStorage.getOsmElement(type, osmId);
@@ -2304,10 +2400,20 @@ public class StorageDelegator implements Serializable, Exportable {
         return elem;
     }
 
+    /**
+     * Check if the data in Storage has been changed
+     * 
+     * @return true if changes have been made
+     */
     public boolean hasChanges() {
         return !apiStorage.isEmpty();
     }
 
+    /**
+     * Check is we have data in Storage
+     * 
+     * @return true if there is no data
+     */
     public boolean isEmpty() {
         return currentStorage.isEmpty() && apiStorage.isEmpty();
     }
@@ -3173,10 +3279,16 @@ public class StorageDelegator implements Serializable, Exportable {
         apiStorage.logStorage();
     }
 
+    /**
+     * Set the reading lock
+     */
     public void lock() {
         readingLock.lock();
     }
 
+    /**
+     * Free the reading lock
+     */
     public void unlock() {
         readingLock.unlock();
     }

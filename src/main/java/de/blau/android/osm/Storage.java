@@ -324,6 +324,7 @@ public class Storage implements Serializable {
      * 
      * @return all bounding boxes
      */
+    @NonNull
     public List<BoundingBox> getBoundingBoxes() {
         return bboxes;
     }
@@ -333,7 +334,7 @@ public class Storage implements Serializable {
      * 
      * @param bbox bounding box to add
      */
-    void setBoundingBox(final BoundingBox bbox) {
+    void setBoundingBox(@NonNull final BoundingBox bbox) {
         this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
         this.bboxes.add(bbox);
     }
