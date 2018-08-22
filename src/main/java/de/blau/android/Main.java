@@ -2464,7 +2464,7 @@ public class Main extends FullScreenAppCompatActivity
             synchronized (setViewBoxLock) {
                 setViewBox = false; // stop setting the view box in onResume
                 Log.d(DEBUG_TAG, "opening empty map on " + box.toString());
-                openEmptyMap(new ViewBox(box)); // we may have a valid box
+                App.getLogic().newEmptyMap(this, new ViewBox(box));
             }
         }
     }
@@ -2599,15 +2599,6 @@ public class Main extends FullScreenAppCompatActivity
         if (prefs.areBugsEnabled()) { // always adds bugs for now
             main.downLoadBugs(map.getViewBox().copy());
         }
-    }
-
-    /**
-     * Simply display whatever background is configured without loading data
-     * 
-     * @param box zoom to this BoundingBox
-     */
-    private void openEmptyMap(@NonNull final ViewBox box) {
-        App.getLogic().newEmptyMap(this, box);
     }
 
     /**

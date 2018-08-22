@@ -672,7 +672,7 @@ public class Logic {
         if (!getDelegator().isDirty()) {
             getDelegator().reset(false);
             // delegator.setOriginalBox(box); not needed IMHO
-        } else {
+        } else if (!getDelegator().isEmpty()) {
             // TODO show warning
             Log.e(DEBUG_TAG, "newEmptyMap called on dirty storage");
         }
@@ -683,7 +683,7 @@ public class Logic {
             ratio = (float) map.getWidth() / map.getHeight();
         }
         viewBox.setBorders(map, box, ratio, false);
-        map.setViewBox(box);
+        map.setViewBox(viewBox);
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         invalidateMap();
         activity.supportInvalidateOptionsMenu();

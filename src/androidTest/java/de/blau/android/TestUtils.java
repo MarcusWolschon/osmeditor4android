@@ -404,8 +404,10 @@ public class TestUtils {
     public static void zoomToLevel(Main main, int level) {
         Map map = main.getMap();
         int count = 0;
-        while (level != map.getZoomLevel() && count < 20) {
-            int currentLevel = map.getZoomLevel();
+        int currentLevel = map.getZoomLevel();
+        while (level != currentLevel && count < 20) {
+            currentLevel = map.getZoomLevel();
+            Log.e(DEBUG_TAG,"Zoom level " + currentLevel);
             if (currentLevel < level) {
                 if (level - currentLevel > 3) {
                     pinchOut();
@@ -510,7 +512,7 @@ public class TestUtils {
     }
 
     /**
-     * Find text on screen
+     * Find text on screen (case insensitive)
      * 
      * @param device UiDevice object
      * @param clickable if true the search will be restricted to clickable objects
