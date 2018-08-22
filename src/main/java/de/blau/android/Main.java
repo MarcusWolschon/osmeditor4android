@@ -241,6 +241,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
 
+    private DesktopModeReceiver desktopModeReceiver;
+
     /** Objects to handle showing device orientation. */
     private SensorManager sensorManager;
     private Sensor        magnetometer;
@@ -659,7 +661,13 @@ public class Main extends FullScreenAppCompatActivity
 
         showActionBar();
 
-        clearCaches(App.getConfiguration());
+        Util.clearCaches(this, App.getConfiguration());
+
+        // register received for dock insertion/removal - Samsung specific for now
+        desktopModeReceiver = new DesktopModeReceiver();
+        IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
+        desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
+        registerReceiver(desktopModeReceiver, desktopModeFilter);
     }
 
     @Override
@@ -691,9 +699,8 @@ public class Main extends FullScreenAppCompatActivity
         App.initGeoContext(this);
 
         // register received for changes in connectivity
-        IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         connectivityChangedReceiver = new ConnectivityChangedReceiver();
-        registerReceiver(connectivityChangedReceiver, filter);
+        registerReceiver(connectivityChangedReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
 
         haveCamera = checkForCamera();
 
@@ -1133,7 +1140,11 @@ public class Main extends FullScreenAppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             saveData();
         }
-
+        try {
+            unregisterReceiver(desktopModeReceiver);
+        } catch (Exception ignored) {
+            Log.d(DEBUG_TAG, "Ignored " + ignored);
+        }
         super.onStop();
     }
 
@@ -1148,6 +1159,10 @@ public class Main extends FullScreenAppCompatActivity
             unbindService(this);
         } catch (Exception ignored) {
             Log.d(DEBUG_TAG, "Ignored " + ignored);
+        }
+        disableLocationUpdates();
+        if (getTracker() != null) {
+            getTracker().setListener(null);
         }
         super.onDestroy();
     }
@@ -1182,23 +1197,7 @@ public class Main extends FullScreenAppCompatActivity
         if (easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
-        clearCaches(newConfig);
-    }
-
-    /**
-     * If aspects of the configuration have changed clear icon caches
-     * 
-     * Side effect updates stored Configuration
-     * 
-     * @param newConfig new Configuration
-     */
-    private void clearCaches(Configuration newConfig) {
-        Configuration oldConfig = App.getConfiguration();
-        if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi) {
-            // if the density has changed the icons will have wrong dimension remove them
-            Util.clearIconCaches(this);
-            App.setConfiguration(newConfig);
-        }
+        Util.clearCaches(this, newConfig);
     }
 
     @Override

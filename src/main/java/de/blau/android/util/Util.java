@@ -240,9 +240,9 @@ public final class Util {
     /**
      * Get the location of the center of the given osm-element
      * 
-     * @param delegator
-     * @param osmElementType
-     * @param osmId
+     * @param delegator the StorageDelegator instance 
+     * @param osmElementType the typoe of OSM element as a String (NODE, WAY, RELATION)
+     * @param osmId the id of the object
      * @return {lat, lon} or null
      */
     public static int[] getCenter(final StorageDelegator delegator, final String osmElementType, long osmId) {
@@ -580,4 +580,22 @@ public final class Util {
         }
         TileLayerServer.clearLogos();
     }
+    
+    /**
+     * If aspects of the configuration have changed clear icon caches
+     * 
+     * Side effect updates stored Configuration
+     * 
+     * @param context Android Context
+     * @param newConfig new Configuration
+     */
+    public static void clearCaches(Context context, Configuration newConfig) {
+        Configuration oldConfig = App.getConfiguration();
+        if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi) {
+            // if the density has changed the icons will have wrong dimension remove them
+            clearIconCaches(context);
+            App.setConfiguration(newConfig);
+        }
+    }
+
 }

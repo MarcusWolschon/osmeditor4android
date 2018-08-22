@@ -15,7 +15,7 @@
     disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-	<uses-feature android:name="android.hardware.faketouch" />
+	<uses-feature android:name="android.hardware.faketouch" />
     -->
     <uses-feature
         android:name="android.hardware.sensor.compass"
@@ -80,6 +80,7 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".propertyeditor.PropertyEditor"
+            android:configChanges="orientation|screenSize|keyboardHidden|density|screenLayout|uiMode"
             android:theme="@style/Theme.customTagEditor" />
         <activity
             android:name=".prefs.APIEditorActivity"
@@ -215,12 +216,5 @@
             android:name="com.sec.android.support.multiwindow"
             android:value="true" />
 
-        <!-- Receiver for broadcasts when inserted/removed from a dock, currently Samsung specific -->
-        <receiver android:name="DesktopModeReceiver" >
-            <intent-filter>
-                <action android:name="android.app.action.ENTER_KNOX_DESKTOP_MODE" />
-                <action android:name="android.app.action.EXIT_KNOX_DESKTOP_MODE" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

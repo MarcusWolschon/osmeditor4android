@@ -11,6 +11,7 @@ import org.acra.ACRA;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.App;
+import de.blau.android.DesktopModeReceiver;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -171,6 +173,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     private boolean                 isRelation    = false;
     private transient NetworkStatus networkStatus;
     private List<String>            isoCodes      = null;
+    private DesktopModeReceiver     desktopModeReceiver;
 
     /**
      * Start a PropertyEditor activity
@@ -359,6 +362,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     protected void onStart() {
         Log.d(DEBUG_TAG, "onStart");
         super.onStart();
+        // register received for dock insertion/removal - Samsung specific for now
+        desktopModeReceiver = new DesktopModeReceiver();
+        IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
+        desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
+        registerReceiver(desktopModeReceiver, desktopModeFilter);
         Log.d(DEBUG_TAG, "onStart done");
     }
 
@@ -372,9 +380,28 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
+    protected void onStop() {
+        Log.d(DEBUG_TAG, "onStop");
+        try {
+            unregisterReceiver(desktopModeReceiver);
+        } catch (Exception ignored) {
+            Log.d(DEBUG_TAG, "Ignored " + ignored);
+        }
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         Log.d(DEBUG_TAG, "onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Util.clearCaches(this, newConfig);
+        super.onConfigurationChanged(newConfig);
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
+        this.recreate();
     }
 
     @Override
@@ -449,12 +476,26 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             return usePaneLayout ? pages - 1 : pages; // preset page not in pager
         }
 
+        /**
+         * Get a new TagFormFragment instance
+         * 
+         * @param position position in the Pager
+         * @param displayRecentPresets if true display the MRU Fragment
+         * @return a TagFormFragment instance
+         */
         Fragment tagFormFragment(int position, boolean displayRecentPresets) {
             tagFormFragmentPosition = position;
             tagFormFragment = TagFormFragment.newInstance(displayRecentPresets, applyLastAddressTags, loadData[0].focusOnKey, askForName);
             return tagFormFragment;
         }
 
+        /**
+         * Get a new TagEditorFragment instance
+         * 
+         * @param position position in the Pager
+         * @param displayRecentPresets if true display the MRU Fragment
+         * @return a TagEditorFragment instance
+         */
         Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
             tagEditorFragmentPosition = position;
             tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, extraTags,
@@ -462,6 +503,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             return tagEditorFragment;
         }
 
+        /**
+         * Get a new RelationMembershipFragment instance
+         * 
+         * @return a RelationMembershipFragment instance
+         */
         Fragment relationMembershipFragment() {
             if (loadData.length == 1) {
                 relationMembershipFragment = RelationMembershipFragment.newInstance(loadData[0].parents, types[0]);
@@ -470,6 +516,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             return null;
         }
 
+        /**
+         * Get a new RelationMembersFragment instance
+         * 
+         * @return a new RelationMembersFragment instance
+         */
         Fragment relationMembersFragment() {
             if (loadData.length == 1 && types[0].endsWith(Relation.NAME)) {
                 relationMembersFragment = RelationMembersFragment.newInstance(osmIds[0], loadData[0].members);
@@ -483,6 +534,13 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             return getItem(true, position);
         }
 
+        /**
+         * Get the Fragment associated with a specific position in the Pager
+         * 
+         * @param instantiate if true instantiate the Fragment
+         * @param position the position
+         * @return a Fragment
+         */
         public Fragment getItem(boolean instantiate, int position) {
             Log.d(DEBUG_TAG, "getItem " + instantiate + " " + position);
             position = reversePosition(position);
