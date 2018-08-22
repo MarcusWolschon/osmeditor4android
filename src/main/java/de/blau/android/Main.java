@@ -2930,6 +2930,8 @@ public class Main extends FullScreenAppCompatActivity
 
     /**
      * Starts the LocationPicker activity for requesting a location.
+     * 
+     * @param titleResId a string resource id for the title
      */
     public void gotoBoxPicker(int titleResId) {
         descheduleAutoLock();

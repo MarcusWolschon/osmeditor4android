@@ -67,9 +67,20 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     private static final String DEBUG_TAG = PresetFragment.class.getSimpleName();
 
     public interface OnPresetSelectedListener {
-        void onPresetSelected(PresetItem item);
+        /**
+         * Call back when a PresetItem is selected
+         * 
+         * @param item the PresetItem
+         */
+        void onPresetSelected(@NonNull PresetItem item);
 
-        void onPresetSelected(PresetItem item, boolean applyOptional);
+        /**
+         Call back when a PresetItem is selected
+         * 
+         * @param item the PresetItem
+         * @param applyOptional if true apply optional fields
+         */
+        void onPresetSelected(@NonNull PresetItem item, boolean applyOptional);
     }
 
     private OnPresetSelectedListener mListener;
@@ -530,10 +541,16 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
     }
 
+    /**
+     * Enable preset selection
+     */
     protected void enable() {
         enabled = true;
     }
 
+    /**
+     * Disable preset selection
+     */
     void disable() {
         enabled = false;
     }

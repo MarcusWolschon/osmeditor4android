@@ -974,7 +974,7 @@ public class Map extends View implements IMapView {
     /**
      * Set the flag that determines if the arror is just an outline or not
      * 
-     * @param follow
+     * @param follow if true follow the GPS/Location position
      */
     public void setFollowGPS(boolean follow) {
         isFollowingGPS = follow;
