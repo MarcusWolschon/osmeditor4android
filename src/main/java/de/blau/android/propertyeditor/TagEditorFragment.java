@@ -1226,9 +1226,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         /**
          * Deletes this row
+         * 
+         * @param rowLayout the Layout holding the rows
          */
-        public void deleteRow(LinearLayout rowLayout) { // FIXME the references to owner.tagEditorFragemnt are likely
-                                                        // suspect
+        public void deleteRow(@NonNull LinearLayout rowLayout) {
+            // FIXME the references to owner.tagEditorFragemnt are likely
+            // suspect
             View cf = owner.getCurrentFocus();
             if (cf == keyEdit || cf == valueEdit) {
                 // about to delete the row that has focus!
@@ -1443,10 +1446,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Move the focus to the value field of the specified row.
      * 
+     * @param rowLayout the Layout holding the rows
      * @param index The index of the row to move to, counting from 0.
      * @return true if the row was successfully focused, false otherwise.
      */
-    private boolean focusRowValue(LinearLayout rowLayout, int index) {
+    private boolean focusRowValue(@NonNull LinearLayout rowLayout, int index) {
         TagEditRow row = (TagEditRow) rowLayout.getChildAt(index);
         return row != null && row.valueEdit.requestFocus();
     }
@@ -1481,10 +1485,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Focus on the value field of a tag with key "key"
      * 
+     * @param rowLayout the Layout holding the rows
      * @param key key that we want to find the value field for
      * @return true if successful
      */
-    private boolean focusOnValue(LinearLayout rowLayout, String key) {
+    private boolean focusOnValue(@NonNull LinearLayout rowLayout, String key) {
         boolean found = false;
         for (int i = rowLayout.getChildCount() - 1; i >= 0; --i) {
             TagEditRow ter = (TagEditRow) rowLayout.getChildAt(i);
@@ -2015,6 +2020,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Get all key values currently in the editor, optionally skipping one field.
      * 
+     * @param rowLayout the Layout holding the rows
      * @param ignoreEdit optional - if not null, this key field will be skipped, i.e. the key in it will not be included
      *            in the output
      * @return the set of all (or all but one) keys currently entered in the edit boxes
