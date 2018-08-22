@@ -683,7 +683,7 @@ public class Logic {
             ratio = (float) map.getWidth() / map.getHeight();
         }
         viewBox.setBorders(map, box, ratio, false);
-        map.setViewBox(box);
+        map.setViewBox(viewBox);
         DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
         invalidateMap();
         activity.supportInvalidateOptionsMenu();
