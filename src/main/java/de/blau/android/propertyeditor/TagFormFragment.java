@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -279,6 +280,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
         super.onDestroyView();
         Log.d(DEBUG_TAG, "onDestroyView");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
+        updateEditorFromText();
     }
 
     /**
@@ -1656,8 +1664,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Focus on the value field of a tag with key "key"
      * 
-     * @param key
-     * @return
+     * @param key the key value we want to focus on
+     * @return true if the key was found
      */
     private boolean focusOnTag(String key) {
         boolean found = false;
@@ -1764,7 +1772,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return the OSM key value
          * 
-         * @return
+         * @return the key as a String
          */
         public String getKey() {
             return (String) keyView.getTag();
@@ -1811,7 +1819,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return the OSM key value
          * 
-         * @return
+         * @return the key as a String
          */
         public String getKey() {
             return (String) keyView.getTag();
@@ -1918,7 +1926,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return the OSM key value
          * 
-         * @return
+         * @return the key as a String
          */
         public String getKey() {
             return (String) keyView.getTag();
@@ -2195,7 +2203,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return the OSM key value
          * 
-         * @return
+         * @return the key as a String
          */
         public String getKey() {
             return (String) keyView.getTag();
@@ -2208,7 +2216,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return all checked values concatenated with the required delimiter
          * 
-         * @return
+         * @return a String containg an OSM style list of values
          */
         public String getValue() {
             StringBuilder result = new StringBuilder();
@@ -2280,7 +2288,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Return the OSM key value
          * 
-         * @return
+         * @return the key as a String
          */
         public String getKey() {
             return (String) keyView.getTag();
