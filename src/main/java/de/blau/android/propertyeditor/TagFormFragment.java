@@ -701,7 +701,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
     }
 
-    private Map<String, String> addTagsToViews(EditableLayout editableView, PresetItem preset, LinkedHashMap<String, String> tags) {
+    /**
+     * Given a map of tags and the best matching PresetItem, loop over the fields in the PresetItem creating rows for
+     * the tags that have matching keys
+     * 
+     * @param editableView the Layout foldings rows for tags that we were able to identify
+     * @param preset the best matching PresetItem
+     * @param tags the tags we want display
+     * @return a Map containing the tags that coudn't be found in the PresetITem or linked PresetItems
+     */
+    private Map<String, String> addTagsToViews(@NonNull EditableLayout editableView, @Nullable PresetItem preset, @NonNull LinkedHashMap<String, String> tags) {
         LinkedHashMap<PresetField, String> editable = new LinkedHashMap<>();
         LinkedHashMap<PresetField, String> linkedTags = new LinkedHashMap<>();
         LinkedHashMap<String, String> nonEditable = new LinkedHashMap<>();
@@ -841,7 +850,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param preset the Preset we believe the key belongs to
      * @param allTags the other tags for this object
      */
-    private void addRow(final LinearLayout rowLayout, @NonNull final PresetField field, final String value, @Nullable PresetItem preset,
+    private void addRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetField field, final String value, @Nullable PresetItem preset,
             LinkedHashMap<String, String> allTags) {
         final String key = field.getKey();
         if (rowLayout != null) {
@@ -1327,8 +1336,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return row;
     }
 
-    private TagFormDialogRow addComboDialogRow(final LinearLayout rowLayout, final PresetItem preset, final String hint, final String key, final String value,
-            final ArrayAdapter<?> adapter) {
+    /**
+     * Add a row that displays a dialog for selecting a single when clicked
+     * 
+     * @param rowLayout the Layout holding the roes
+     * @param preset the relevant PresetItem
+     * @param hint a description of the value to display
+     * @param key the key
+     * @param value the current value
+     * @param adapter an ArrayAdapter with the selectable values
+     * @return an instance of TagFormDialogRow
+     */
+    private TagFormDialogRow addComboDialogRow(@NonNull final LinearLayout rowLayout, @NonNull final PresetItem preset, @NonNull final String hint,
+            @NonNull final String key, @NonNull final String value, @NonNull final ArrayAdapter<?> adapter) {
         final TagFormDialogRow row = (TagFormDialogRow) inflater.inflate(R.layout.tag_form_combo_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1393,8 +1413,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return row;
     }
 
-    private TagFormMultiselectDialogRow addMultiselectDialogRow(LinearLayout rowLayout, final PresetItem preset, final String hint, final String key,
-            final String value, final ArrayAdapter<?> adapter) {
+    /**
+     * Add a row that displays a dialog for selecting multi-values when clicked
+     * 
+     * @param rowLayout the Layout holding the roes
+     * @param preset the relevant PresetItem
+     * @param hint a description of the value to display
+     * @param key the key
+     * @param value the current value
+     * @param adapter an ArrayAdapter with the selectable values
+     * @return an instance of TagFormMultiselectDialogRow
+     */
+    private TagFormMultiselectDialogRow addMultiselectDialogRow(@NonNull LinearLayout rowLayout, @NonNull final PresetItem preset, @NonNull final String hint,
+            @NonNull final String key, @NonNull final String value, @NonNull final ArrayAdapter<?> adapter) {
         final TagFormMultiselectDialogRow row = (TagFormMultiselectDialogRow) inflater.inflate(R.layout.tag_form_multiselect_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);
@@ -1469,13 +1500,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Build a dialog for selecting a single value of none via a scrollable list of radio buttons
      * 
-     * @param hint
-     * @param key
-     * @param adapter
-     * @param row
-     * @return
+     * @param hint a description to display
+     * @param key the key
+     * @param adapter the ArrayAdapter holding the values
+     * @param row the row we are started from
+     * @param preset the relevant PresetItem
+     * @return an AlertDialog
      */
-    private AlertDialog buildComboDialog(String hint, @NonNull String key, final ArrayAdapter<?> adapter, final TagFormDialogRow row, final PresetItem preset) {
+    private AlertDialog buildComboDialog(@NonNull String hint, @NonNull String key, @NonNull final ArrayAdapter<?> adapter, @NonNull final TagFormDialogRow row,
+            @NonNull final PresetItem preset) {
         String value = row.getValue();
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(hint);
@@ -1567,7 +1600,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return dialog;
     }
 
-    private AlertDialog buildMultiselectDialog(String hint, @NonNull String key, @NonNull ArrayAdapter<?> adapter,
+    /**
+     * Build a dialog that allows multiple values to be selected
+     * 
+     * @param hint a description to display
+     * @param key the key
+     * @param adapter the ArrayAdapter holding the values
+     * @param row the row we are started from
+     * @param preset the relevant PresetItem
+     * @return an AlertDialog
+     */
+    private AlertDialog buildMultiselectDialog(@NonNull String hint, @NonNull String key, @NonNull ArrayAdapter<?> adapter,
             @NonNull final TagFormMultiselectDialogRow row, @NonNull final PresetItem preset) {
         Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(hint);
@@ -1728,15 +1771,32 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return found;
     }
 
+    /**
+     * An editable text only row for a tag with a dropdown containg suggestions
+     * 
+     * @author simon
+     *
+     */
     public static class TagTextRow extends LinearLayout {
 
         private TextView                   keyView;
         private CustomAutoCompleteTextView valueView;
 
+        /**
+         * Construct a editable text row for a tag
+         * 
+         * @param context Android Context
+         */
         public TagTextRow(Context context) {
             super(context);
         }
 
+        /**
+         * Construct a editable text row for a tag
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
         public TagTextRow(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
@@ -1754,16 +1814,16 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * Set the text via id of the key view
          * 
-         * @param k
+         * @param k a string resource id for the key
          */
         public void setKeyText(int k) {
             keyView.setText(k);
         }
 
         /**
-         * Set the text via id of the key view
+         * Set the ArrayAdapter for values
          * 
-         * @param k
+         * @param a the ArrayAdapter
          */
         public void setValueAdapter(ArrayAdapter<?> a) {
             valueView.setAdapter(a);
@@ -1778,15 +1838,31 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return (String) keyView.getTag();
         }
 
+        /**
+         * Get the current value
+         * 
+         * @return the current value as a String
+         */
         public String getValue() {
             return valueView.getText().toString();
         }
 
+        /**
+         * Get the AutoCompleteTextView for the values
+         * 
+         * @return a CustomAutoCompleteTextView
+         */
         public CustomAutoCompleteTextView getValueView() {
             return valueView;
         }
     }
 
+    /**
+     * A row that shows a radio-button like UI for selecting a single value
+     * 
+     * @author simon
+     *
+     */
     public static class TagComboRow extends LinearLayout {
 
         private TextView   keyView;
@@ -1796,12 +1872,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private int        idCounter = 0;
         private boolean    changed   = false;
 
-        public TagComboRow(Context context) {
+        /**
+         * Construct a radio-button like UI for selecting a single value
+         * 
+         * @param context Android Context
+         */
+        public TagComboRow(@NonNull Context context) {
             super(context);
             this.context = context;
         }
 
-        public TagComboRow(Context context, AttributeSet attrs) {
+        /**
+         * Construct a radio-button like UI for selecting a single value
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
+        public TagComboRow(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
             this.context = context;
         }
@@ -1825,27 +1912,61 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return (String) keyView.getTag();
         }
 
+        /**
+         * Get the RadioGroup that holds the buttons
+         * 
+         * @return the RadioGroup
+         */
+        @NonNull
         public RadioGroup getRadioGroup() {
             return valueGroup;
         }
 
-        public void setValue(String value) {
+        /**
+         * Set the current value
+         * 
+         * @param value the value
+         */
+        public void setValue(@NonNull String value) {
             this.value = value;
         }
 
+        /**
+         * Get the current value
+         * 
+         * @return the current value as a String
+         */
         public String getValue() {
             return value;
         }
 
+        /**
+         * Set the changed flag
+         * 
+         * @param changed value to set the flag to
+         */
         public void setChanged(boolean changed) {
             this.changed = changed;
         }
 
+        /**
+         * Check if the value has changed
+         * 
+         * @return true if changed
+         */
         public boolean hasChanged() {
             return changed;
         }
 
-        public void addButton(String description, String value, boolean selected, @Nullable Drawable icon) {
+        /**
+         * Add a button to the RadioDroup
+         * 
+         * @param description description of the value
+         * @param value the value
+         * @param selected if true the value is selected
+         * @param icon icon to display if any
+         */
+        public void addButton(@NonNull String description, @NonNull String value, boolean selected, @Nullable Drawable icon) {
             final AppCompatRadioButton button = new AppCompatRadioButton(context);
             button.setText(description);
             button.setTag(value);
@@ -1873,8 +1994,20 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
     }
 
+    /**
+     * Adda button to a RadioGroup
+     * 
+     * @param context Android Context
+     * @param group the RadioGroup we ant to add the button to
+     * @param id an id for the button
+     * @param swd the value for the button
+     * @param selected is true the button is selected
+     * @param icon an icon to display if any
+     * @param listener the Listenet to call if the button is clicked
+     * @param layoutParams LayoutParams for the button
+     */
     private void addButton(@NonNull Context context, @NonNull RadioGroup group, int id, @NonNull StringWithDescription swd, boolean selected,
-            @Nullable Drawable icon, @NonNull View.OnClickListener listener, LayoutParams layoutParams) {
+            @Nullable Drawable icon, @NonNull View.OnClickListener listener, @NonNull LayoutParams layoutParams) {
         final AppCompatRadioButton button = new AppCompatRadioButton(context);
         String description = swd.getDescription();
         button.setText(description != null && !"".equals(description) ? description : swd.getValue());
@@ -1900,11 +2033,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private boolean changed = false;
         PresetItem      preset;
 
-        public TagFormDialogRow(Context context) {
+        /**
+         * Construct a row that will display a Dialog when clicked
+         * 
+         * @param context Android Context
+         */
+        public TagFormDialogRow(@NonNull Context context) {
             super(context);
         }
 
-        public TagFormDialogRow(Context context, AttributeSet attrs) {
+        /**
+         * Construct a row that will display a Dialog when clicked
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
+        public TagFormDialogRow(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
@@ -1932,6 +2076,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return (String) keyView.getTag();
         }
 
+        /**
+         * Set the value for this row
+         * 
+         * @param value the value
+         * @param description a description of the values
+         */
         public void setValue(String value, String description) {
             this.value = value;
             setValueDescription(description);
@@ -1950,7 +2100,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             valueView.setText(description);
         }
 
-        public void setValue(StringWithDescription swd) {
+        /**
+         * Set the value for this row
+         * 
+         * @param swd the value
+         */
+        public void setValue(@NonNull StringWithDescription swd) {
             String description = swd.getDescription();
             setValue(swd.getValue(), description != null && !"".equals(description) ? description : swd.getValue());
             Drawable icon = null;
@@ -1961,30 +2116,64 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             valueView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
         }
 
+        /**
+         * Set the value for the row, setting the description to the same value
+         * 
+         * @param s the value
+         */
         public void setValue(String s) {
             setValue(s, s);
         }
 
+        /**
+         * Get the value for this row
+         * 
+         * @return the value as a String
+         */
         public String getValue() {
             return value;
         }
 
+        /**
+         * Set the changed flag for this row
+         * 
+         * @param changed the value for the changed flag
+         */
         public void setChanged(boolean changed) {
             this.changed = changed;
         }
 
+        /**
+         * Check if the row has been changed
+         * 
+         * @return true if changed
+         */
         public boolean hasChanged() {
             return changed;
         }
 
-        public void setPreset(PresetItem preset) {
+        /**
+         * Set the PresetItem this row belongs too
+         * 
+         * @param preset the PresetItem
+         */
+        public void setPreset(@Nullable PresetItem preset) {
             this.preset = preset;
         }
 
+        /**
+         * Get the PresetITem this row belongs too
+         * 
+         * @return the PresetItem or null
+         */
+        @Nullable
         public PresetItem getPreset() {
             return preset;
         }
 
+        /**
+         * Click on this row
+         */
         public void click() {
             valueView.performClick();
         }
@@ -2002,11 +2191,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         int                  errorTextColor = ContextCompat.getColor(getContext(),
                 ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
 
+        /**
+         * Construct a row that will show the OpeningHoursFragmeent when clicked
+         * 
+         * @param context Android Context
+         */
         public TagFormOpeningHoursDialogRow(Context context) {
             super(context);
             inflater = LayoutInflater.from(context);
         }
 
+        /**
+         * Construct a row that will show the OpeningHoursFragmeent when clicked
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
         public TagFormOpeningHoursDialogRow(Context context, AttributeSet attrs) {
             super(context, attrs);
             inflater = LayoutInflater.from(context);
@@ -2101,11 +2301,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         LinearLayout         valueList;
         final LayoutInflater inflater;
 
+        /**
+         * Construct a row that will show a dialog that allows multiple values to be selected when clicked
+         * 
+         * @param context Android Context
+         */
         public TagFormMultiselectDialogRow(Context context) {
             super(context);
             inflater = LayoutInflater.from(context);
         }
 
+        /**
+         * Construct a row that will show a dialog that allows multiple values to be selected when clicked
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
         public TagFormMultiselectDialogRow(Context context, AttributeSet attrs) {
             super(context, attrs);
             inflater = LayoutInflater.from(context);
@@ -2180,11 +2391,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private Context      context;
         private char         delimiter;
 
+        /**
+         * Construct a row that will multiple values to be selected
+         * 
+         * @param context Android Context
+         */
         public TagMultiselectRow(Context context) {
             super(context);
             this.context = context;
         }
 
+        /**
+         * Construct a row that will multiple values to be selected
+         * 
+         * @param context Android Context
+         * @param attrs and AttriuteSet
+         */
         public TagMultiselectRow(Context context, AttributeSet attrs) {
             super(context, attrs);
             this.context = context;
@@ -2209,6 +2431,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return (String) keyView.getTag();
         }
 
+        /**
+         * Get the Layout containing the CheckBoxes for the values
+         * 
+         * @return a LinearLayout
+         */
         public LinearLayout getValueGroup() {
             return valueLayout;
         }
@@ -2232,11 +2459,26 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return result.toString();
         }
 
+        /**
+         * Set the delimiter to be used when creating an OSM value String from the contents of the row
+         * 
+         * @param delimiter the delimter to set
+         */
         public void setDelimiter(char delimiter) {
             this.delimiter = delimiter;
         }
 
-        public void addCheck(String description, String value, boolean selected, Drawable icon, CompoundButton.OnCheckedChangeListener listener) {
+        /**
+         * Add a CheckBox to this row
+         * 
+         * @param description the description to display
+         * @param value the value to use if the CheckBox is selected
+         * @param selected if true the CheckBox will be selected
+         * @param icon an icon if there is one
+         * @param listener a listener to call when the CheckBox is clicked
+         */
+        public void addCheck(@NonNull String description, @NonNull String value, boolean selected, @Nullable Drawable icon,
+                @NonNull CompoundButton.OnCheckedChangeListener listener) {
             final AppCompatCheckBox check = new AppCompatCheckBox(context);
             check.setText(description);
             check.setTag(value);
@@ -2249,7 +2491,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
     }
 
-    private void addCheck(Context context, LinearLayout layout, StringWithDescription swd, boolean selected, Drawable icon, LayoutParams layoutParams) {
+    /**
+     * Add a CheckBox to a Layout
+     * 
+     * @param context Android Context
+     * @param layout the Layout we want to add the CheckBox to
+     * @param swd the value
+     * @param selected if true the CheckBox will be selected
+     * @param icon an icon if there is one
+     * @param layoutParams the LayoutParams for the CheckBox
+     */
+    private void addCheck(@NonNull Context context, @NonNull LinearLayout layout, @NonNull StringWithDescription swd, boolean selected, @Nullable Drawable icon,
+            @NonNull LayoutParams layoutParams) {
         final AppCompatCheckBox check = new AppCompatCheckBox(context);
         String description = swd.getDescription();
         check.setText(description != null && !"".equals(description) ? description : swd.getValue());
@@ -2267,11 +2520,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private TextView          keyView;
         private AppCompatCheckBox valueCheck;
 
-        public TagCheckRow(Context context) {
+        /**
+         * Construct a row with a single CheckBox
+         * 
+         * @param context Android Context
+         */
+        public TagCheckRow(@NonNull Context context) {
             super(context);
         }
 
-        public TagCheckRow(Context context, AttributeSet attrs) {
+        /**
+         * Construct a row with a single CheckBox
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
+        public TagCheckRow(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
@@ -2294,15 +2558,31 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return (String) keyView.getTag();
         }
 
+        /**
+         * Get the CheckBox
+         * 
+         * @return return the CheckBox associated with this row
+         */
         public AppCompatCheckBox getCheckBox() {
             return valueCheck;
         }
 
+        /**
+         * Check if the CheckBox for this row is checked
+         * 
+         * @return true if the CHeckBox is checked
+         */
         public boolean isChecked() {
             return valueCheck.isChecked();
         }
     }
 
+    /**
+     * A Layout representing the tags the match a specific PresetItem
+     * 
+     * @author simon
+     *
+     */
     public static class EditableLayout extends LinearLayout {
         private ImageView                     headerIconView;
         private TextView                      headerTitleView;
@@ -2314,10 +2594,21 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         private PresetItem                    preset;
         private LinkedHashMap<String, String> tags = new LinkedHashMap<>();
 
+        /**
+         * Construct a Layout representing the tags the match a specific PresetItem
+         * 
+         * @param context Android Context
+         */
         public EditableLayout(Context context) {
             super(context);
         }
 
+        /**
+         * Construct a Layout representing the tags the match a specific PresetItem
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
         public EditableLayout(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
@@ -2340,8 +2631,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         /**
          * As side effect this sets the onClickListeners for the buttons
          * 
-         * @param editorListener
-         * @param formListener
+         * @param editorListener the Listener called when we change the data
+         * @param formListener Listener to call after changes to update the form
          */
         public void setListeners(final EditorUpdate editorListener, final FormUpdate formListener) {
             Log.d(DEBUG_TAG, "setting listeners");
@@ -2390,23 +2681,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             });
         }
 
-        private void setMyVisibility(int visibility) {
-            rowLayout.setVisibility(visibility);
-            for (int i = 0; i < rowLayout.getChildCount(); i++) {
-                rowLayout.getChildAt(i).setVisibility(visibility);
-            }
-        }
-
-        public void close() {
-            Log.d(DEBUG_TAG, "close");
-            setMyVisibility(View.GONE);
-        }
-
-        public void open() {
-            Log.d(DEBUG_TAG, "open");
-            setMyVisibility(View.VISIBLE);
-        }
-
+        /**
+         * Set the title and PresetItem
+         * 
+         * @param preset the PresetItem
+         */
         public void setTitle(@Nullable PresetItem preset) {
             if (preset != null) {
                 Drawable icon = preset.getIconIfExists(preset.getIconpath());
@@ -2432,6 +2711,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
         }
 
+        /**
+         * Add a tag to the ones used for this Layout
+         * 
+         * @param key the key
+         * @param value the value
+         */
         public void putTag(String key, String value) {
             tags.put(key, value);
         }
