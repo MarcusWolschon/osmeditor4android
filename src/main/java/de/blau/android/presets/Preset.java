@@ -699,42 +699,32 @@ public class Preset implements Serializable {
                         String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
                         String value_off = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
                         String disable_off = attr.getValue(DISABLE_OFF);
-                        String values = value_on;
-                        // zap value_off if disabled
-                        if (disable_off != null && disable_off.equals(TRUE)) {
-                            value_off = "";
-                        } else {
-                            values = value_on + COMBO_DELIMITER + value_off;
+                        StringWithDescription valueOn = new StringWithDescription(value_on, de.blau.android.util.Util.capitalize(value_on));
+                        StringWithDescription valueOff = null;
+                        PresetCheckField field = new PresetCheckField(key, valueOn);
+                        if (disable_off == null || !disable_off.equals(TRUE)) {
+                            valueOff = new StringWithDescription(value_off, de.blau.android.util.Util.capitalize(value_off));
+                            ((PresetCheckField) field).setOffValue(valueOff);
                         }
-                        StringBuilder displayValuesBuilder = new StringBuilder(); // FIXME this is a bit of a hack as
-                                                                                  // there is no display_values
-                                                                                  // attribute for checks
-                        boolean first = true;
-                        for (String v : values.split(COMBO_DELIMITER)) {
-                            if (!first) {
-                                displayValuesBuilder.append(COMBO_DELIMITER);
-                            } else {
-                                first = false;
-                            }
-                            displayValuesBuilder.append(de.blau.android.util.Util.capitalize(v));
-                        }
-                        currentItem.addTag(inOptionalSection, key, PresetKeyType.CHECK, values, displayValuesBuilder.toString(), null, COMBO_DELIMITER, null);
                         String defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
                         if (defaultValue != null) {
-                            currentItem.setDefault(key, defaultValue);
+                            field.setDefaultValue(defaultValue);
                         }
                         String text = attr.getValue(TEXT);
                         if (text != null) {
-                            currentItem.setHint(key, text);
+                            field.setHint(text);
                         }
                         String textContext = attr.getValue(TEXT_CONTEXT);
                         if (textContext != null) {
-                            currentItem.setTextContext(key, textContext);
+                            field.setTextContext(textContext);
                         }
                         String match = attr.getValue(MATCH);
                         if (match != null) {
-                            currentItem.setMatchType(key, match);
+                            field.setMatchType(match);
                         }
+                        field.setOptional(inOptionalSection);
+                        currentItem.fields.put(key, field);
+                        currentItem.addValues(key, valueOff == null ? new StringWithDescription[] {valueOn} : new StringWithDescription[] {valueOn,valueOff});
                     } else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
                         boolean multiselect = MULTISELECT_FIELD.equals(name);
                         String key = attr.getValue(KEY_ATTR);
@@ -2499,15 +2489,7 @@ public class Preset implements Serializable {
                 field = new PresetTextField(key);
                 break;
             case CHECK:
-                if (valueArray.length > 2) { // shouldn't happen use a Combo
-                    field = new PresetComboField(key, valueArray);
-                    ((PresetComboField) field).sort = false;
-                } else {
-                    field = new PresetCheckField(key, valueArray[0]);
-                    if (valueArray.length > 1) {
-                        ((PresetCheckField) field).setOffValue(valueArray[1]);
-                    }
-                }
+                Log.e(DEBUG_TAG, "check fields should not be handled here");
                 break;
             }
             field.setOptional(optional);
@@ -2590,6 +2572,7 @@ public class Preset implements Serializable {
         /**
          * Get any applicable roles for this PresetItem
          * 
+         * @param type the OsmElement type as a string (NODE, WAY, RELATION)
          * @return a List of PresetRoles or null if none
          */
         @Nullable
@@ -2690,28 +2673,10 @@ public class Preset implements Serializable {
         public void setMatchType(String key, String match) {
             PresetField field = fields.get(key);
             if (field != null) {
-                MatchType type = null;
-                switch (match) {
-                case "none":
-                    type = MatchType.NONE;
-                    break;
-                case "key":
-                    type = MatchType.KEY;
-                    break;
-                case "key!":
-                    type = MatchType.KEY_NEG;
-                    break;
-                case "keyvalue":
-                    type = MatchType.KEY_VALUE;
-                    break;
-                case "keyvalue!":
-                    type = MatchType.KEY_VALUE_NEG;
-                    break;
-                }
-                field.matchType = type;
-                return;
+                field.setMatchType(match);
+            } else {
+                Log.e(DEBUG_TAG, "setMatchType PresetField for key " + key + " is null");
             }
-            Log.e(DEBUG_TAG, "setMatchType PresetField for key " + key + " is null");
         }
 
         /**
