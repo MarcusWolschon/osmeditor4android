@@ -11,6 +11,7 @@ import org.mozilla.javascript.ScriptableObject;
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -129,6 +130,12 @@ public class App extends android.app.Application {
         userAgent = appName + "/" + appVersion;
         currentInstance = this;
         setConfiguration(getResources().getConfiguration());
+        // register a broadcast receiver for DeX mode
+        // this will remain registered as long as the
+        // application exists
+        IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
+        desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
+        registerReceiver(new DesktopModeReceiver(), desktopModeFilter);
     }
 
     @Nullable

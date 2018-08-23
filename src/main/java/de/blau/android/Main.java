@@ -662,12 +662,6 @@ public class Main extends FullScreenAppCompatActivity
         showActionBar();
 
         Util.clearCaches(this, App.getConfiguration());
-
-        // register received for dock insertion/removal - Samsung specific for now
-        desktopModeReceiver = new DesktopModeReceiver();
-        IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
-        desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
-        registerReceiver(desktopModeReceiver, desktopModeFilter);
     }
 
     @Override
@@ -1139,11 +1133,6 @@ public class Main extends FullScreenAppCompatActivity
         // data in onPause
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             saveData();
-        }
-        try {
-            unregisterReceiver(desktopModeReceiver);
-        } catch (Exception ignored) {
-            Log.d(DEBUG_TAG, "Ignored " + ignored);
         }
         super.onStop();
     }

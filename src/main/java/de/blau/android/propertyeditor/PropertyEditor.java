@@ -362,11 +362,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     protected void onStart() {
         Log.d(DEBUG_TAG, "onStart");
         super.onStart();
-        // register received for dock insertion/removal - Samsung specific for now
-        desktopModeReceiver = new DesktopModeReceiver();
-        IntentFilter desktopModeFilter = new IntentFilter("android.app.action.ENTER_KNOX_DESKTOP_MODE");
-        desktopModeFilter.addAction("android.app.action.EXIT_KNOX_DESKTOP_MODE");
-        registerReceiver(desktopModeReceiver, desktopModeFilter);
         Log.d(DEBUG_TAG, "onStart done");
     }
 
@@ -382,11 +377,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     protected void onStop() {
         Log.d(DEBUG_TAG, "onStop");
-        try {
-            unregisterReceiver(desktopModeReceiver);
-        } catch (Exception ignored) {
-            Log.d(DEBUG_TAG, "Ignored " + ignored);
-        }
         super.onStop();
     }
 

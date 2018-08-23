@@ -240,7 +240,7 @@ public final class Util {
     /**
      * Get the location of the center of the given osm-element
      * 
-     * @param delegator the StorageDelegator instance 
+     * @param delegator the StorageDelegator instance
      * @param osmElementType the typoe of OSM element as a String (NODE, WAY, RELATION)
      * @param osmId the id of the object
      * @return {lat, lon} or null
@@ -570,17 +570,20 @@ public final class Util {
                 p.clearIcons();
             }
         }
-        de.blau.android.Map map = App.getLogic().getMap();
-        if (map != null) {
-            de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
-            if (dataLayer != null) {
-                dataLayer.clearIconCaches();
-                dataLayer.invalidate();
+        Logic logic = App.getLogic();
+        if (logic != null) {
+            de.blau.android.Map map = logic.getMap();
+            if (map != null) {
+                de.blau.android.layer.data.MapOverlay dataLayer = map.getDataLayer();
+                if (dataLayer != null) {
+                    dataLayer.clearIconCaches();
+                    dataLayer.invalidate();
+                }
             }
         }
         TileLayerServer.clearLogos();
     }
-    
+
     /**
      * If aspects of the configuration have changed clear icon caches
      * 
