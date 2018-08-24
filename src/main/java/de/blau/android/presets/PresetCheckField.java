@@ -62,6 +62,16 @@ public class PresetCheckField extends PresetField {
         this.offValue = offValue;
     }
 
+    /**
+     * Check if a value corresponds to the off value
+     * 
+     * @param value to check
+     * @return true if it is the off value
+     */
+    public boolean isOffValue(String value) {
+        return offValue != null && offValue.getValue().equals(value);
+    }
+    
     @Override
     PresetField copy() {
         return new PresetCheckField(this);

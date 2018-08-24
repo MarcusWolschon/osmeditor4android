@@ -42,7 +42,7 @@ public abstract class PresetField {
     /**
      * Translation contexts
      */
-    String textContext;
+    private String textContext;
     String valueContext;
 
     /**
@@ -104,7 +104,7 @@ public abstract class PresetField {
      * @return the hint
      */
     @Nullable
-    public String getHint() {
+    String getHint() {
         return hint;
     }
 
@@ -143,6 +143,15 @@ public abstract class PresetField {
      */
     public void setTextContext(@Nullable String textContext) {
         this.textContext = textContext;
+    }
+    
+    /**
+     * Get the text  translation context
+     * 
+     * @return the textContext
+     */
+    String getTextContext() {
+        return textContext;
     }
 
     /**
