@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pools;
 import android.util.Log;
+import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.ACRAHelper;
@@ -40,6 +41,8 @@ import de.blau.android.views.util.MapViewConstants;
  * @author Simon Poole
  */
 public class MapTileProviderDataBase implements MapViewConstants {
+
+    private static final String TILE_MARKED_INVALID_IN_DATABASE = "Tile marked invalid in database";
 
     private static final String DEBUG_TAG = "MapTilePro...DataBase";
 
@@ -242,7 +245,10 @@ public class MapTileProviderDataBase implements MapViewConstants {
                         get.bindLong(3, aTile.x);
                         get.bindLong(4, aTile.y);
                         pfd = get.simpleQueryForBlobFileDescriptor();
-
+                        if (pfd == null) {
+                            throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
+                        }
+                        
                         ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -265,6 +271,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
                     try {
                         if (c.moveToFirst()) {
                             byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
+                            if (tile_data == null) {
+                                throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
+                            } 
                             return tile_data;
                         }
                     } finally {

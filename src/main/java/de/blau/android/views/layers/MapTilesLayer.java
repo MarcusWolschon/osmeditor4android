@@ -281,10 +281,15 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
 
         long owner = (long) (Math.random() * Long.MAX_VALUE); // unique values so that we can track in the cache which
                                                               // invocation of onDraw the tile belongs too
+
+        int maxZoom = myRendererInfo.getMaxZoomLevel();
+        int minZoom = myRendererInfo.getMinZoomLevel();
+        int maxOverZoom = myRendererInfo.getMaxOverZoom();
+
         // Do some calculations and drag attributes to local variables to save
         // some performance.
         final Rect viewPort = c.getClipBounds();
-        final int zoomLevel = Math.min(osmv.getZoomLevel(), myRendererInfo.getMaxZoomLevel()); // clamp to max zoom here
+        final int zoomLevel = Math.min(osmv.getZoomLevel(), maxZoom); // clamp to max zoom here
         if (zoomLevel != prevZoomLevel && prevZoomLevel != -1) {
             mTileProvider.flushQueue(myRendererInfo.getId(), prevZoomLevel);
         }
@@ -320,10 +325,6 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
         final int tileNeededRight = Math.max(xTileLeft, xTileRight);
         final int tileNeededTop = Math.min(yTileTop, yTileBottom);
         final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
-
-        int maxZoom = myRendererInfo.getMaxZoomLevel();
-        int minZoom = myRendererInfo.getMinZoomLevel();
-        int maxOverZoom = myRendererInfo.getMaxOverZoom();
 
         final int mapTileMask = (1 << zoomLevel) - 1;
 
@@ -392,14 +393,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
                         tile.x >>= 1;
                         tile.y >>= 1;
                         --tile.zoomLevel;
-                        tileBitmap = mTileProvider.getMapTileFromCache(tile);
-                        if (tileBitmap == null && ((originalTile.zoomLevel > maxZoom && tile.zoomLevel == maxZoom) || !networkIsConnected)) {
-                            // Only try this it we are overzooming in which case we -do- want to retrieve the maxZoom
-                            // tiles if we don't have them or if we might have something on disk and no network
-                            // connectivity
-                            // Log.d(DEBUG_TAG,"larger tile " + tile.toString() + " download");
-                            tileBitmap = mTileProvider.getMapTile(tile, owner);
-                        }
+                        tileBitmap = mTileProvider.getMapTile(tile, owner);
                     }
                 }
 
@@ -409,15 +403,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
                 } else {
                     tile.reinit();
                     // Still no tile available - try smaller scale tiles
-                    if (!drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset)) {
-                        // store an error tile - don't do this as it doesn't help with anything
-                        // tile.zoomLevel = zoomLevel;
-                        // tile.x = x & mapTileMask;
-                        // tile.y = y & mapTileMask;
-                        // if (!mTileProvider.isTileAvailable(originalTile)) { // might have turned up in the mean time
-                        // // mTileProvider.cacheError(originalTile);
-                        // }
-                    }
+                    drawTile(c, osmv, 0, zoomLevel + 2, zoomLevel, x & mapTileMask, y & mapTileMask, squareTiles, lonOffset, latOffset);
                 }
                 xPos += destIncX;
             }

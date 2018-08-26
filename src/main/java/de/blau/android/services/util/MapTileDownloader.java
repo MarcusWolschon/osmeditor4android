@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -100,6 +101,8 @@ public class MapTileDownloader extends MapAsyncTileProvider {
 
     private class TileLoader extends MapAsyncTileProvider.TileLoader {
 
+        private static final String TILE_NOT_AVAILABLE = "tile not available";
+
         public TileLoader(final MapTile aTile, final IMapTileProviderCallback aCallback) {
             super(aTile, aCallback);
         }
@@ -138,14 +141,19 @@ public class MapTileDownloader extends MapAsyncTileProvider {
                         inputStream = responseBody.byteStream();
                         format = responseBody.contentType();
                     } else {
-                        throw new IOException(tileCallResponse.message());
+                        int code = tileCallResponse.code();
+                        if (code == HttpURLConnection.HTTP_NOT_FOUND) {
+                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
+                        } else {
+                            throw new IOException("Code: " + code + " message: " + tileCallResponse.body().string());
+                        }
                     }
 
                     if (TileLayerServer.LAYER_BING.equals(mTile.rendererID)) {
                         // this is fairly expensive so only do it is we are actually querying bing
                         if ("no-tile".equals(tileCallResponse.header("X-VE-Tile-Info"))) {
                             // handle special Bing header that indicates no tile is available
-                            throw new FileNotFoundException("tile not available");
+                            throw new FileNotFoundException(TILE_NOT_AVAILABLE);
                         }
                     }
                     in = new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE);

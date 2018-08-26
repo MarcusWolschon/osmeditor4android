@@ -19,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import de.blau.android.R;
+import de.blau.android.exception.InvalidTileException;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
@@ -233,15 +234,19 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                         mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                     }
                 } else {
-                    byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
-                    if (data == null) {
-                        if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
-                            Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                    try {
+                        byte[] data = MapTileFilesystemProvider.this.mDatabase.getTile(mTile);
+                        if (data == null) {
+                            if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
+                                Log.d(DEBUG_TAG, "FS failed, request for download " + mTile + " " + mTile.toId());
+                            }
+                            download = true;
+                            mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
+                        } else { // success!
+                            mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
                         }
-                        download = true;
-                        mTileDownloader.loadMapTileAsync(mTile, passedOnCallback);
-                    } else { // success!
-                        mCallback.mapTileLoaded(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, data);
+                    } catch (InvalidTileException itex) {
+                        mCallback.mapTileFailed(mTile.rendererID, mTile.zoomLevel, mTile.x, mTile.y, DOESNOTEXIST);
                     }
                 }
                 if (Log.isLoggable(DEBUG_TAG, Log.DEBUG)) {
