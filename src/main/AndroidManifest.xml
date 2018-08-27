@@ -9,7 +9,7 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="25"
-        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference" />
+        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm" />
 
     <!--
     disable for now to see if it solves the Play Store problem of the app not showing up for many devices

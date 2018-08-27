@@ -66,6 +66,8 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.Preset.ValueType;
+import de.blau.android.presets.PresetCheckField;
+import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFixedField;
@@ -476,10 +478,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * Backwards compatible version
      * 
      * @param tags map containing the tags
+     * @param flush flush existing tags
      */
-    private void loadEditsSingle(final Map<String, String> tags) {
+    private void loadEditsSingle(final Map<String, String> tags, boolean flush) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
-        LinkedHashMap<String, ArrayList<String>> convertedTags = new LinkedHashMap<>();
+        LinkedHashMap<String, ArrayList<String>> convertedTags = flush ? new LinkedHashMap<>() : getKeyValueMap(true);;
         for (Entry<String, String> entry : tags.entrySet()) {
             ArrayList<String> v = new ArrayList<>();
             v.add(entry.getValue());
@@ -665,13 +668,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             for (Entry<String, String> entry : tags.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                if (preset.hasKeyValue(key, value)) {
+                PresetField field = preset.getField(key);
+                if (field instanceof PresetCheckGroupField) {
+                    field = ((PresetCheckGroupField) field).getCheckField(key);
+                }
+                if (Preset.hasKeyValue(field, key, value)) {
                     storePreset(key, preset);
                 } else {
                     boolean found = false;
                     if (linkedPresetList != null) {
                         for (PresetItem linkedPreset : linkedPresetList) {
-                            if (linkedPreset.hasKeyValue(key, value)) {
+                            PresetField linkedField = linkedPreset.getField(key);
+                            if (linkedField instanceof PresetCheckGroupField) {
+                                linkedField = ((PresetCheckGroupField) linkedField).getCheckField(key);
+                            }
+                            if (Preset.hasKeyValue(linkedField, key, value)) {
                                 storePreset(key, linkedPreset);
                                 found = true;
                                 break;
@@ -752,7 +763,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
 
         if (preset != null) {
-            keys.addAll(preset.getFields().keySet());
+            for (PresetField field : preset.getFields().values()) {
+                if (field instanceof PresetCheckGroupField) {
+                    keys.addAll(((PresetCheckGroupField)field).getKeys());
+                } else {
+                    keys.add(field.getKey());
+                }
+            }
         }
 
         if (presets != null && elements[0] != null) { // FIXME multiselect
@@ -1192,7 +1209,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
          * @return the TagEditRow object for convenience
          */
         public TagEditRow setValues(String aTagKey, ArrayList<String> tagValues, boolean same) {
-            Log.d(DEBUG_TAG, "key " + aTagKey + " value " + tagValues);
             keyEdit.setText(aTagKey);
             this.tagValues = tagValues;
             this.same = same;
@@ -1551,8 +1567,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         for (Entry<String, PresetField> entry : item.getFields().entrySet()) {
             PresetField field = entry.getValue();
             boolean isOptional = field.isOptional();
-            if (!(field instanceof PresetFixedField) && (!isOptional || (isOptional && addOptional))) {
-                addTagFromPreset(item, currentValues, entry.getKey());
+            if (!isOptional || (isOptional && addOptional)) {
+                if (field instanceof PresetCheckGroupField) {
+                    for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
+                        addTagFromPreset(item, currentValues, check.getKey());
+                    }
+                } else if (!(field instanceof PresetFixedField)) {
+                    addTagFromPreset(item, currentValues, entry.getKey());
+                }
             }
         }
 
@@ -2228,7 +2250,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public void updateTags(Map<String, String> tags, boolean flush) {
-        loadEditsSingle(tags);
+        loadEditsSingle(tags, flush);
         updateAutocompletePresetItem(null);
     }
 

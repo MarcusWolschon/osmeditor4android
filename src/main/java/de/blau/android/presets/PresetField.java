@@ -1,10 +1,15 @@
 package de.blau.android.presets;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import ch.poole.poparser.Po;
 import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.presets.Preset.ValueType;
 
 public abstract class PresetField {
+    private static final String DEBUG_TAG = "PresetField";
+
     /**
      * Key this field is for
      */
@@ -38,14 +43,19 @@ public abstract class PresetField {
     /**
      * Translation contexts
      */
-    String textContext;
-    String valueContext;
+    private String textContext;
+    String         valueContext;
 
     /**
      * Value type
      */
     ValueType valueType = null;
 
+    /**
+     * Construct a new PresetField
+     * 
+     * @param key the key
+     */
     public PresetField(@NonNull String key) {
         this.key = key;
     }
@@ -86,6 +96,7 @@ public abstract class PresetField {
      * 
      * @return a String containing the key
      */
+    @NonNull
     public String getKey() {
         return key;
     }
@@ -93,29 +104,87 @@ public abstract class PresetField {
     /**
      * @return the hint
      */
+    @Nullable
     public String getHint() {
         return hint;
     }
 
     /**
+     * Set a short description for this tag/field
+     * 
      * @param hint the hint to set
      */
-    void setHint(String hint) {
+    void setHint(@Nullable String hint) {
         this.hint = hint;
     }
 
     /**
+     * Get the default value for this field
+     * 
      * @return the defaultValue
      */
+    @Nullable
     public String getDefaultValue() {
         return defaultValue;
     }
 
     /**
+     * Set teh default value for this field
+     * 
      * @param defaultValue the defaultValue to set
      */
-    void setDefaultValue(String defaultValue) {
+    void setDefaultValue(@Nullable String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    /**
+     * Set the text translation context
+     * 
+     * @param textContext the translation context
+     */
+    public void setTextContext(@Nullable String textContext) {
+        this.textContext = textContext;
+    }
+
+    /**
+     * Get the text translation context
+     * 
+     * @return the textContext
+     */
+    String getTextContext() {
+        return textContext;
+    }
+
+    /**
+     * Set the match type for this field
+     * 
+     * @param match the match type
+     */
+    public void setMatchType(String match) {
+
+        MatchType type = null;
+        switch (match) {
+        case "none":
+            type = MatchType.NONE;
+            break;
+        case "key":
+            type = MatchType.KEY;
+            break;
+        case "key!":
+            type = MatchType.KEY_NEG;
+            break;
+        case "keyvalue":
+            type = MatchType.KEY_VALUE;
+            break;
+        case "keyvalue!":
+            type = MatchType.KEY_VALUE_NEG;
+            break;
+        }
+        if (type != null) {
+            matchType = type;
+        } else {
+            Log.e(DEBUG_TAG, "setMatchType PresetField for key " + key + " is null");
+        }
     }
 
     /**
@@ -124,6 +193,29 @@ public abstract class PresetField {
      * @return a PresetField instance
      */
     abstract PresetField copy();
+
+    /**
+     * Translate a String
+     * 
+     * @param text the text to translate
+     * @param po the translation object
+     * @param context a translation context of null
+     * @return the translated String
+     */
+    String translate(@NonNull String text, @NonNull Po po, @Nullable String context) {
+        return context != null ? po.t(context, text) : po.t(text);
+    }
+
+    /**
+     * Translate the translatable parts of this PresetField
+     * 
+     * Note this cannot be undone
+     * 
+     * @param po the object holding the translations
+     */
+    public void translate(@NonNull Po po) {
+        hint = translate(hint, po, textContext);
+    }
 
     @Override
     public String toString() {

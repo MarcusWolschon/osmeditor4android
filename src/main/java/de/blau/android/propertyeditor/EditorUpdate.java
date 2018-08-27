@@ -23,7 +23,7 @@ interface EditorUpdate {
      * Update or add multiple keys
      * 
      * @param tags map containing the new key - value pais
-     * @param flush if true delete all existing tags before applying the update, currently always assumed to be true
+     * @param flush if true delete all existing tags before applying the update
      */
     void updateTags(final Map<String, String> tags, final boolean flush);
 

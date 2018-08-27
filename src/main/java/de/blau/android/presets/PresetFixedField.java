@@ -1,5 +1,7 @@
 package de.blau.android.presets;
 
+import android.support.annotation.NonNull;
+import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetFixedField extends PresetField {
@@ -11,7 +13,7 @@ public class PresetFixedField extends PresetField {
      * @param key the key
      * @param value the value
      */
-    public PresetFixedField(String key, StringWithDescription value) {
+    public PresetFixedField(@NonNull String key, @NonNull StringWithDescription value) {
         super(key);
         this.value = value;
     }
@@ -38,6 +40,14 @@ public class PresetFixedField extends PresetField {
     @Override
     PresetField copy() {
         return new PresetFixedField(this);
+    }
+    
+    @Override
+    public void translate(@NonNull Po po) {
+        super.translate(po);
+        if (value.getDescription() != null) {
+            value.setDescription(translate(value.getDescription(), po,valueContext));
+        }
     }
 
     @Override
