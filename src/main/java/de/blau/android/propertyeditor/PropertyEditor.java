@@ -1317,7 +1317,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     public List<String> getIsoCodes() {
         if (isoCodes == null) {
-            isoCodes = App.getGeoContext(this).getIsoCodes(getElement());
+            try {
+                isoCodes = App.getGeoContext(this).getIsoCodes(getElement());
+            } catch (IllegalArgumentException iaex) {
+                Log.e(DEBUG_TAG, "getIsoCodes " + iaex + " for " + getElement().getType() + " " + getElement().getOsmId());
+            }
         }
         return isoCodes;
     }
