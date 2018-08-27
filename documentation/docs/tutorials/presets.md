@@ -25,12 +25,12 @@ __&lt;presets&gt;__          |                     |           |
                              | icon                | ignored   |
                              | baselanguage        | ignored   |
                              | object_keys         | extension | comma separated list of top-level keys  
-__&lt;!-- comment --&gt;__   |                               | ignored   |
-__&lt;group&gt;__            |                               | supported |
+__&lt;!-- comment --&gt;__   |                     | ignored   |
+__&lt;group&gt;__  |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
-__&lt;item&gt;__             |                               | supported |
+__&lt;item&gt;__   |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
@@ -38,19 +38,19 @@ __&lt;item&gt;__             |                               | supported |
                    | name_template                 | ignored   |
                    | preset_name_label             | ignored   |
                    | deprecated                    | extension | only use the preset for matching and map icon display 
-__&lt;chunk&gt;__            |                               | supported | 
+__&lt;chunk&gt;__  |                               | supported | 
                    | id                            | supported | required
-__&lt;reference&gt;__        |                               | supported |
+__&lt;reference&gt;__ |                            | supported |
                    | ref                           | supported | required
-__&lt;key&gt;__              |                               | supported |
+__&lt;key&gt;__    |                               | supported |
                    | value                         | supported | required
-                   | match                         | supported | all values supported, "keyvalue!" is the default as in JOSM
+                   | match                         | partial | "none" is supported
                    | text		                   | extension | Something to display 
                    | values_context				   | extension | Translation context
-__&lt;text&gt;__             |                               | supported |
+__&lt;text&gt;__   |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
-                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
+                   | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
                    | default                       | supported | 
                    | use_last_as_default           | ignored   | 
                    | auto_increment                | ignored   |
@@ -59,7 +59,7 @@ __&lt;text&gt;__             |                               | supported |
                    | javascript                    | extension | if value is not set, execute the JS script
                    | i18n                          | extension | if set to true this tag has i18n variants
                    | value_type                    | extension | indicate the kind of value this tag should have
-__&lt;combo&gt;__            |                               | supported |
+__&lt;combo&gt;__  |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | supported |
@@ -67,7 +67,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
+                   | match                         | supported |
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
@@ -77,7 +77,7 @@ __&lt;combo&gt;__            |                               | supported |
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
                    | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
-__&lt;multiselect&gt;__      |                               | supported |
+__&lt;multiselect&gt;__ |                          | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | supported |
@@ -85,7 +85,7 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_sort                   | supported |
                    | delimiter                     | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
+                   | match                         | supported |
                    | display_values                | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
@@ -96,14 +96,17 @@ __&lt;multiselect&gt;__      |                               | supported |
                    | values_no_i18n                | ignored   |
                    | values_from                   | supported | extension: if the target method supports a String argument the current key will be passed
                    | rows                          | ignored   |
-__&lt;list_entry&gt;__       |                               | supported |  
+__&lt;list_entry&gt;__       |                     | supported |  
                    | value                         | supported | required 
                    | display_value                 | supported |
                    | short_description             | supported |
                    | icon                          | supported |
                    | icon_size                     | ignored   |
-__&lt;checkgroup&gt;__       |                               | ignored   | but not the included <check> elements
-__&lt;check&gt;__            |                               | supported |
+__&lt;checkgroup&gt;__       |                     | supported |
+                   | columns                       | ignored   |
+                   | text                          | extension |
+                   | text_context                  | extension |
+__&lt;check&gt;__  |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | supported |
@@ -111,23 +114,23 @@ __&lt;check&gt;__            |                               | supported |
                    | value_off                     | supported | 
                    | disable_off                   | supported |
                    | default                       | supported |
-                   | match                         | partial   | only the "key" and "none" values are supported, all other values are ignored
-__&lt;label&gt;__            |                               | ignored   |
-__&lt;space/&gt;__          |                               | ignored   |
-__&lt;optional&gt;__         |                               | supported | doesn't display anything
+                   | match                         | supported | 
+__&lt;label&gt;__  |                               | ignored   |
+__&lt;space/&gt;__ |                               | ignored   |
+__&lt;optional&gt;__ |                             | supported | doesn't display anything
                    | text                          | ignored   |
-__&lt;separator/&gt;__       |                               | supported | starts a new row in the preset selection display
-__&lt;item_separator/&gt;__  |                               | ignored   |
-__&lt;link&gt;__             |                               | supported |
+__&lt;separator/&gt;__ |                           | supported | starts a new row in the preset selection display
+__&lt;item_separator/&gt;__ |                      | ignored   |
+__&lt;link&gt;__   |                               | supported |
                    | href                          | supported | including language specific variants
-__&lt;roles&gt;__            |                               | ignored   | but not the included <role> elements
-__&lt;role&gt;__             |                               | supported |
+__&lt;roles&gt;__  |                               | ignored   | but not the included <role> elements
+__&lt;role&gt;__   |                               | supported |
                    | key                           | supported | required
                    | text                          | supported |
                    | text_context                  | supported | 
                    | requisite                     | ignored   |
                    | count                         | ignored   |
-                   | type                          | ignored   |
+                   | type                          | supported |
                    | member_expression             | ignored   | 
 
 
