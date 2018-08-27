@@ -579,7 +579,6 @@ public class Preset implements Serializable {
             /** store current combo or multiselect key */
             private String                           listKey           = null;
             private ArrayList<StringWithDescription> listValues        = null;
-            private String                           valuesContext     = null;
             private String                           delimiter         = null;
             /** check groups */
             private PresetCheckGroupField            checkGroup        = null;
@@ -761,18 +760,18 @@ public class Preset implements Serializable {
                         String values = attr.getValue(VALUES);
                         String displayValues = attr.getValue(DISPLAY_VALUES);
                         String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
-                        valuesContext = attr.getValue(VALUES_CONTEXT);
                         String valuesFrom = attr.getValue(VALUES_FROM);
                         final PresetKeyType keyType = multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO;
                         if (values != null) {
-                            currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter, valuesContext);
+                            currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter);
                         } else if (valuesFrom != null) {
-                            setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter, valuesContext);
+                            setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter);
                         } else {
                             currentItem.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
                             listKey = key;
                             listValues = new ArrayList<>();
                         }
+                        ((PresetComboField) currentItem.getField(key)).setValuesContext(attr.getValue(VALUES_CONTEXT));
 
                         String defaultValue = attr.getValue(DEFAULT);
                         if (defaultValue != null) {
@@ -860,9 +859,9 @@ public class Preset implements Serializable {
                                 }
                                 String iconPath = attr.getValue(ICON);
                                 if (iconPath == null) {
-                                    listValues.add(new StringWithDescription(v, translate(d, valuesContext)));
+                                    listValues.add(new StringWithDescription(v, d));
                                 } else {
-                                    listValues.add(new StringWithDescriptionAndIcon(v, translate(d, valuesContext), iconPath));
+                                    listValues.add(new StringWithDescriptionAndIcon(v, d, iconPath));
                                 }
                             }
                         }
@@ -893,9 +892,8 @@ public class Preset implements Serializable {
              * @param valuesContext translation context, currently unused
              */
             private void setValuesFromMethod(final String key, final String valuesFrom, final PresetKeyType keyType, final PresetItem item,
-                    final boolean inOptionalSection, final String delimiter, String valuesContext) {
+                    final boolean inOptionalSection, final String delimiter) {
                 item.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
-                item.setValueContext(key, valuesContext);
                 (new AsyncTask<Void, Void, Object>() {
                     @Override
                     protected Object doInBackground(Void... params) {
@@ -962,6 +960,7 @@ public class Preset implements Serializable {
                     if (!currentItem.isDeprecated()) {
                         currentItem.buildSearchIndex();
                     }
+                    translateItem(currentItem);
                     currentItem = null;
                     listKey = null;
                     listValues = null;
@@ -1002,6 +1001,20 @@ public class Preset implements Serializable {
     @NonNull
     public String translate(@NonNull String text, @Nullable String context) {
         return po != null ? (context != null ? po.t(context, text) : po.t(text)) : text;
+    }
+
+    /**
+     * Translate all relevant parts of the PresetField of a PresetItem Note this needs to be done post building the
+     * search index
+     * 
+     * @param item the PresetItem
+     */
+    private void translateItem(@NonNull PresetItem item) {
+        if (po != null) {
+            for (PresetField field : item.getFields().values()) {
+                field.translate(po);
+            }
+        }
     }
 
     /**
@@ -2481,7 +2494,7 @@ public class Preset implements Serializable {
          * @param value value string from the XML (comma-separated list if more than one possible values)
          */
         public void addTag(boolean optional, String key, PresetKeyType type, String value) {
-            addTag(optional, key, type, value, null, null, COMBO_DELIMITER, null);
+            addTag(optional, key, type, value, null, null, COMBO_DELIMITER);
         }
 
         /**
@@ -2497,7 +2510,7 @@ public class Preset implements Serializable {
          * @param valuesContext the translation context for values
          */
         public void addTag(boolean optional, String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
-                final String delimiter, String valuesContext) {
+                final String delimiter) {
             String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
             String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
             String[] shortDescriptionArray = (shortDescriptions == null) ? new String[0] : shortDescriptions.split(Pattern.quote(delimiter));
@@ -2507,12 +2520,9 @@ public class Preset implements Serializable {
             for (int i = 0; i < valueArray.length; i++) {
                 String description = null;
                 if (useDisplayValues) {
-                    description = (po != null && displayValueArray[i] != null)
-                            ? (valuesContext != null ? po.t(valuesContext, displayValueArray[i]) : po.t(displayValueArray[i])) : displayValueArray[i];
+                    description = displayValueArray[i];
                 } else if (useShortDescriptions) {
-                    description = (po != null && shortDescriptionArray[i] != null)
-                            ? (valuesContext != null ? po.t(valuesContext, shortDescriptionArray[i]) : po.t(shortDescriptionArray[i]))
-                            : shortDescriptionArray[i];
+                    description = shortDescriptionArray[i];
                 }
                 valuesWithDesc[i] = new StringWithDescription(valueArray[i], description);
             }
@@ -2694,20 +2704,9 @@ public class Preset implements Serializable {
                 field = getCheckFieldFromGroup(key);
             }
             if (field != null) {
-                return translate(field.getHint(), field.getTextContext());
+                return field.getHint();
             }
             return null;
-        }
-
-        /**
-         * Return, potentially translated, "text" field from preset
-         * 
-         * @param field the field we want the hint for
-         * @return the hint for this field or null
-         */
-        @Nullable
-        public String getHint(@NonNull PresetField field) {
-            return translate(field.getHint(), field.getTextContext());
         }
 
         /**

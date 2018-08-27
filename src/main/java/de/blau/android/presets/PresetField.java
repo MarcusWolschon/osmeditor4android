@@ -3,6 +3,7 @@ package de.blau.android.presets;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import ch.poole.poparser.Po;
 import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.presets.Preset.ValueType;
 
@@ -43,7 +44,7 @@ public abstract class PresetField {
      * Translation contexts
      */
     private String textContext;
-    String valueContext;
+    String         valueContext;
 
     /**
      * Value type
@@ -104,7 +105,7 @@ public abstract class PresetField {
      * @return the hint
      */
     @Nullable
-    String getHint() {
+    public String getHint() {
         return hint;
     }
 
@@ -144,9 +145,9 @@ public abstract class PresetField {
     public void setTextContext(@Nullable String textContext) {
         this.textContext = textContext;
     }
-    
+
     /**
-     * Get the text  translation context
+     * Get the text translation context
      * 
      * @return the textContext
      */
@@ -192,6 +193,29 @@ public abstract class PresetField {
      * @return a PresetField instance
      */
     abstract PresetField copy();
+
+    /**
+     * Translate a String
+     * 
+     * @param text the text to translate
+     * @param po the translation object
+     * @param context a translation context of null
+     * @return the translated String
+     */
+    String translate(@NonNull String text, @NonNull Po po, @Nullable String context) {
+        return context != null ? po.t(context, text) : po.t(text);
+    }
+
+    /**
+     * Translate the translatable parts of this PresetField
+     * 
+     * Note this cannot be undone
+     * 
+     * @param po the object holding the translations
+     */
+    public void translate(@NonNull Po po) {
+        hint = translate(hint, po, textContext);
+    }
 
     @Override
     public String toString() {

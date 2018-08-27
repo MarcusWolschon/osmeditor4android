@@ -2,6 +2,7 @@ package de.blau.android.presets;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetComboField extends PresetField {
@@ -32,6 +33,11 @@ public class PresetComboField extends PresetField {
      * Add combo and multiselect values to search index
      */
     boolean valuesSearchable = true;
+
+    /**
+     * Translation context
+     */
+    private String valuesContext = null;
 
     /**
      * Constructor
@@ -111,10 +117,31 @@ public class PresetComboField extends PresetField {
     public void setValues(@Nullable StringWithDescription[] valueArray) {
         values = valueArray;
     }
-    
+
     @Override
     PresetField copy() {
         return new PresetComboField(this);
+    }
+
+    /**
+     * Set the translation context for the values
+     * 
+     * @param valuesContext the valuesContext to set
+     */
+    void setValuesContext(@Nullable String valuesContext) {
+        this.valuesContext = valuesContext;
+    }
+
+    @Override
+    public void translate(@NonNull Po po) {
+        super.translate(po);
+        if (getValues() != null) {
+            for (StringWithDescription value : getValues()) {
+                if (value != null && value.getDescription() != null) {
+                    value.setDescription(translate(value.getDescription(), po, valuesContext));
+                }
+            }
+        }
     }
 
     @Override

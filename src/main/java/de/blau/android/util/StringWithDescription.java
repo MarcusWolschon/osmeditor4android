@@ -70,6 +70,15 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
     public String getDescription() {
         return description;
     }
+    
+    /**
+     * Set the description field
+     * 
+     * @param description the description
+     */
+    public void setDescription(@Nullable String description) {
+        this.description = description;
+    }
 
     @Override
     public String toString() {

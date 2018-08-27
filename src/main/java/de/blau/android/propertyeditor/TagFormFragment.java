@@ -923,7 +923,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     } else {
                         values = Util.getArrayList(value);
                     }
-                    String hint = preset.getHint(field);
+                    String hint = field.getHint();
                     //
                     ValueType valueType = preset.getValueType(key);
                     if (field instanceof PresetTextField || key.startsWith(Tags.KEY_ADDR_BASE)
@@ -1071,7 +1071,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
                         boolean off = check.isOffValue(checkValue);
 
-                        String d = preset.getHint(check);
+                        String d = check.getHint();
                         if (checkValue == null || "".equals(checkValue) || selected || off) {
                             if (selected || off || check.getOffValue() == null) {
                                 state = selected;
@@ -1093,7 +1093,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 String tempHint = preset.getHint(key);
                 if (tempHint == null) {
                     // fudge something
-                    tempHint = preset.getHint(field.getCheckFields().get(0)) + ", ...";
+                    tempHint = getString(R.string.ugly_checkgroup_hint, field.getCheckFields().get(0).getHint());
                 }
                 final String hint = tempHint;
                 row.keyView.setText(hint);
@@ -1162,7 +1162,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Nullable final String value, @Nullable final ArrayList<String> values, final Map<String, String> allTags) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final String key = field.getKey();
-        final String hint = preset != null ? preset.getHint(field) : null;
+        final String hint = preset != null ? field.getHint() : null;
         final String defaultValue = field.getDefaultValue();
         final ValueType valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
@@ -1900,7 +1900,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
             boolean off = checkValue == null || "".equals(checkValue) || check.isOffValue(checkValue);
             if (selected || off) {
-                addTriStateCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, preset.getHint(check)), selected, null, buttonLayoutParams);
+                addTriStateCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, check.getHint()), selected, null, buttonLayoutParams);
             } else {
                 // unknown value: add non-editable checkbox
                 TriStateCheckBox checkBox = addTriStateCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, checkKey + "=" + checkValue), false,
@@ -3068,7 +3068,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
                 PresetCheckField check = field.getCheckField(key);
                 if (check != null && !"".equals(value)) {
-                    String d = preset.getHint(check);
+                    String d = check.getHint();
                     String valueOn = check.getOnValue().getValue();
                     StringWithDescription valueOff = check.getOffValue();
                     boolean off = valueOff != null && valueOff.getValue().equals(value);

@@ -2,7 +2,7 @@ package de.blau.android.presets;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import ch.poole.openinghoursfragment.ValueWithDescription;
+import ch.poole.poparser.Po;
 import de.blau.android.util.StringWithDescription;
 
 public class PresetCheckField extends PresetField {
@@ -75,6 +75,17 @@ public class PresetCheckField extends PresetField {
     @Override
     PresetField copy() {
         return new PresetCheckField(this);
+    }
+    
+    @Override
+    public void translate(@NonNull Po po) {
+        super.translate(po);
+        if (onValue.getDescription() != null) {
+            onValue.setDescription(translate(onValue.getDescription(), po, valueContext));
+        }
+        if (offValue != null && offValue.getDescription() != null) {
+            offValue.setDescription(translate(offValue.getDescription(), po,valueContext));
+        }
     }
 
     @Override

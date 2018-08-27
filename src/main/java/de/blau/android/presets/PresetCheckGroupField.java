@@ -8,6 +8,7 @@ import java.util.Set;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import ch.poole.poparser.Po;
 
 public class PresetCheckGroupField extends PresetField {
 
@@ -77,6 +78,14 @@ public class PresetCheckGroupField extends PresetField {
         return new PresetCheckGroupField(this);
     }
 
+    @Override
+    public void translate(@NonNull Po po) {
+        super.translate(po);
+        for (PresetCheckField check : getCheckFields()) {
+            check.translate(po);
+        }
+    }
+    
     /**
      * Get an entry count
      * 
