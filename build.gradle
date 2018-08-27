@@ -32,6 +32,7 @@ allprojects {
 		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
 		maven { url 'https://dl.bintray.com/content/simonpoole/android' }
 		maven { url "https://maven.google.com" }
+		maven { url "https://jitpack.io" }
 //		flatDir {
 //        	dirs 'lib'
 //    	}
@@ -309,6 +310,7 @@ dependencies {
     implementation 'ch.poole.android:numberpicker:1.0.8'
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
     implementation 'de.westnordost:countryboundaries:1.2'
+    implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
     // for temp stuff during dev 
     // implementation(name:'alibrary', ext:'jar')
  

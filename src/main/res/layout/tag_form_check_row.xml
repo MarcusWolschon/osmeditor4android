@@ -31,8 +31,9 @@
             android:saveEnabled="false"
            	android:maxLines="3" />
 
-        <android.support.v7.widget.AppCompatCheckBox
+        <de.blau.android.views.TriStateCheckBox
             android:id="@+id/valueSelected"
+            style="?attr/RadioGroup"
             android:layout_width="fill_parent"
             android:layout_height="34dp"
             android:layout_marginBottom="1dp"

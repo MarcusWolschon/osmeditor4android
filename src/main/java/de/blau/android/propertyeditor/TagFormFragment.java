@@ -13,6 +13,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.buildware.widget.indeterm.IndeterminateCheckBox;
+import com.buildware.widget.indeterm.IndeterminateCheckBox.OnStateChangedListener;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -98,6 +101,7 @@ import de.blau.android.util.StringWithDescriptionAndIcon;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.views.CustomAutoCompleteTextView;
+import de.blau.android.views.TriStateCheckBox;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
 
@@ -316,12 +320,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param key the key for which we are generating the adapter
      * @param values existing values
      * @param preset the PresetItem that matched the tags
+     * @param field a PresetField or null
      * @param allTags all the tags of the element
      * @return an ArrayAdapter for key, or null if something went wrong
      */
     @Nullable
     private ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable String key, @Nullable ArrayList<String> values, @Nullable PresetItem preset,
-            Map<String, String> allTags) {
+            PresetField field, Map<String, String> allTags) {
         ArrayAdapter<?> adapter = null;
 
         if (key != null && key.length() > 0) {
@@ -352,7 +357,12 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
 
                 if (preset != null) {
-                    Collection<StringWithDescription> presetValues = preset.getAutocompleteValues(key);
+                    Collection<StringWithDescription> presetValues;
+                    if (field != null) {
+                        presetValues = preset.getAutocompleteValues(field);
+                    } else {
+                        presetValues = preset.getAutocompleteValues(key);
+                    }
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + presetValues);
                     if (!presetValues.isEmpty()) {
                         List<StringWithDescription> result = new ArrayList<>(presetValues);
@@ -378,7 +388,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         }
                     }
                 }
-                if (!counter.containsKey("") && !counter.containsKey(null)) {
+                if (!counter.containsKey("") && !counter.containsKey(null) && !(field instanceof PresetCheckField)) {
                     // add empty value so that we can remove tag
                     StringWithDescription s = new StringWithDescription("", getString(R.string.tag_not_set));
                     adapter2.insert(s, 0);
@@ -928,7 +938,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             rowLayout.addView(getTextRow(rowLayout, preset, field, value, values, allTags));
                         }
                     } else {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
+                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, field, allTags);
                         int count = 0;
                         if (adapter != null) {
                             count = adapter.getCount();
@@ -959,24 +969,26 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                 if (description == null) {
                                     description = valueOff;
                                 }
-                                if (tempOff != null) { // use a tri state element using a combo for now
-                                    rowLayout.addView(getComboRow(rowLayout, preset, hint, key, value, adapter));
-                                } else { // don't set an off value, can use a checkbox
-                                    final TagCheckRow row = (TagCheckRow) inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
-                                    row.keyView.setText(hint != null ? hint : key);
-                                    row.keyView.setTag(key);
-                                    row.getCheckBox().setChecked(valueOn != null && valueOn.equals(value));
-                                    rowLayout.addView(row);
-                                    row.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                        @Override
-                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                            tagListener.updateSingleValue(key, isChecked ? valueOn : valueOff);
-                                            if (rowLayout instanceof EditableLayout) {
-                                                ((EditableLayout) rowLayout).putTag(key, isChecked ? valueOn : valueOff);
-                                            }
-                                        }
-                                    });
+                                final TagCheckRow row = (TagCheckRow) inflater.inflate(R.layout.tag_form_check_row, rowLayout, false);
+                                row.keyView.setText(hint != null ? hint : key);
+                                row.keyView.setTag(key);
+                                IndeterminateCheckBox checkBox = row.getCheckBox();
+                                checkBox.setIndeterminate(tempOff != null && (value == null || "".equals(value))); // tri-state
+                                                                                                                   // needed
+                                if (!checkBox.isIndeterminate()) {
+                                    checkBox.setChecked(valueOn != null && valueOn.equals(value));
                                 }
+                                rowLayout.addView(row);
+                                checkBox.setOnStateChangedListener(new OnStateChangedListener() {
+                                    @Override
+                                    public void onStateChanged(IndeterminateCheckBox check, Boolean state) {
+                                        String checkValue = state != null ? (state ? valueOn : valueOff) : "";
+                                        tagListener.updateSingleValue(key, checkValue);
+                                        if (rowLayout instanceof EditableLayout) {
+                                            ((EditableLayout) rowLayout).putTag(key, checkValue);
+                                        }
+                                    }
+                                });
                             } else {
                                 Log.e(DEBUG_TAG, "preset element type " + key + " " + value + " " + preset.getName() + " adapter for checkbox is null");
                             }
@@ -1001,8 +1013,19 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
     }
 
-    private void addCheckGroupRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetCheckGroupField field, final Map<String, String> keyValues,
-            @NonNull PresetItem preset, Map<String, String> allTags) {
+    /**
+     * Add a row for a PresetCheckGroupField
+     * 
+     * Depending on the number of etries and if a hint is set or not, different layout variants will be used
+     * 
+     * @param rowLayout the Layout holding the rows
+     * @param field the PresetField for this row
+     * @param keyValues a Map containing existing keys and corresponding values
+     * @param preset the Preset we believe the key belongs to
+     * @param allTags the other tags for this object
+     */
+    private void addCheckGroupRow(@Nullable final LinearLayout rowLayout, @NonNull final PresetCheckGroupField field,
+            @NonNull final Map<String, String> keyValues, @NonNull PresetItem preset, Map<String, String> allTags) {
         final String key = field.getKey();
         if (rowLayout != null) {
             if (field.size() <= maxInlineValues) {
@@ -1012,21 +1035,23 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         addRow(rowLayout, check, keyValues.get(check.getKey()), preset, allTags);
                     }
                 } else {
-                    // reuse TagMultiselectRow
-                    final TagMultiselectRow row = (TagMultiselectRow) inflater.inflate(R.layout.tag_form_multiselect_row, rowLayout, false);
+                    final TagCheckGroupRow row = (TagCheckGroupRow) inflater.inflate(R.layout.tag_form_checkgroup_row, rowLayout, false);
                     row.keyView.setText(hint);
                     row.keyView.setTag(key);
-                    CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+                    OnStateChangedListener onStateChangeListener = new OnStateChangedListener() {
                         @Override
-                        public void onCheckedChanged(CompoundButton button, boolean isChecked) {
-                            PresetCheckField check = (PresetCheckField) button.getTag();
+                        public void onStateChanged(IndeterminateCheckBox checkBox, Boolean state) {
+                            PresetCheckField check = (PresetCheckField) checkBox.getTag();
                             String checkKey = check.getKey();
-                            if (isChecked) {
-                                tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
-                                keyValues.put(checkKey, check.getOnValue().getValue());
-                            } else if (!button.isEnabled()) {
+                            if (state == null) {
+                                tagListener.updateSingleValue(checkKey, "");
+                                keyValues.put(checkKey, "");
+                            } else if (!checkBox.isEnabled()) {
                                 // unknown stuff
                                 keyValues.put(checkKey, keyValues.get(checkKey));
+                            } else if (state) {
+                                tagListener.updateSingleValue(checkKey, check.getOnValue().getValue());
+                                keyValues.put(checkKey, check.getOnValue().getValue());
                             } else {
                                 StringWithDescription offValue = check.getOffValue();
                                 tagListener.updateSingleValue(checkKey, offValue == null ? "" : offValue.getValue());
@@ -1041,16 +1066,21 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     for (PresetCheckField check : field.getCheckFields()) {
                         String checkKey = check.getKey();
                         String checkValue = keyValues.get(checkKey);
+                        Boolean state = null;
+
                         boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
-                        boolean off = checkValue == null || "".equals(checkValue) || check.isOffValue(checkValue);
+                        boolean off = check.isOffValue(checkValue);
+
                         String d = preset.getHint(check);
-                        if (selected || off) {
-                            AppCompatCheckBox checkBox = row.addCheck(d == null ? checkKey : d, checkValue, selected, (Drawable) null, onCheckedChangeListener);
+                        if (checkValue == null || "".equals(checkValue) || selected || off) {
+                            if (selected || off || check.getOffValue() == null) {
+                                state = selected;
+                            }
+                            TriStateCheckBox checkBox = row.addCheck(d == null ? checkKey : d, state, onStateChangeListener);
                             checkBox.setTag(check);
                         } else {
                             // unknown value: add non-editable checkbox
-                            AppCompatCheckBox checkBox = row.addCheck(checkKey + "=" + checkValue, checkValue, selected, (Drawable) null,
-                                    onCheckedChangeListener);
+                            TriStateCheckBox checkBox = row.addCheck(checkKey + "=" + checkValue, state, onStateChangeListener);
                             checkBox.setTag(check);
                             checkBox.setEnabled(false);
                         }
@@ -1132,7 +1162,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Nullable final String value, @Nullable final ArrayList<String> values, final Map<String, String> allTags) {
         final TagTextRow row = (TagTextRow) inflater.inflate(R.layout.tag_form_text_row, rowLayout, false);
         final String key = field.getKey();
-        final String hint = preset.getHint(field);
+        final String hint = preset != null ? preset.getHint(field) : null;
         final String defaultValue = field.getDefaultValue();
         final ValueType valueType = preset != null ? preset.getValueType(key) : null;
         final boolean isWebsite = Tags.isWebsiteKey(key) || ValueType.WEBSITE == valueType;
@@ -1169,7 +1199,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 } else if (hasFocus) {
                     boolean hasValues = values != null && !values.isEmpty();
                     if (hasValues) {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
+                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, null, allTags);
                         if (adapter != null) {
                             row.valueView.setAdapter(adapter);
                         }
@@ -1335,7 +1365,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         final ArrayList<String> templates = new ArrayList<>();
         if (values != null) {
-            ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, allTags);
+            ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, null, allTags);
             if (adapter != null) {
                 Log.d(DEBUG_TAG, "adapter size " + adapter.getCount());
                 for (int i = 0; i < adapter.getCount(); i++) {
@@ -1839,6 +1869,15 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return builder.create();
     }
 
+    /**
+     * Build a dialog that allows multiple PresetCheckFields to be checked etc
+     * 
+     * @param hint a description to display
+     * @param key the key for the PresetCHeckGroupField
+     * @param row the row we are started from
+     * @param preset the relevant PresetItem
+     * @return an AlertDialog
+     */
     private AlertDialog buildCheckGroupDialog(@NonNull String hint, @NonNull String key, @NonNull final TagFormCheckGroupDialogRow row,
             @NonNull final PresetItem preset) {
         Builder builder = new AlertDialog.Builder(getActivity());
@@ -1861,11 +1900,11 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             boolean selected = checkValue != null && checkValue.equals(check.getOnValue().getValue());
             boolean off = checkValue == null || "".equals(checkValue) || check.isOffValue(checkValue);
             if (selected || off) {
-                addCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, preset.getHint(check)), selected, null, buttonLayoutParams);
+                addTriStateCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, preset.getHint(check)), selected, null, buttonLayoutParams);
             } else {
                 // unknown value: add non-editable checkbox
-                AppCompatCheckBox checkBox = addCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, checkKey + "=" + checkValue), false, null,
-                        buttonLayoutParams);
+                TriStateCheckBox checkBox = addTriStateCheck(getActivity(), valueGroup, new StringWithDescription(checkKey, checkKey + "=" + checkValue), false,
+                        null, buttonLayoutParams);
                 checkBox.setEnabled(false);
             }
         }
@@ -1882,15 +1921,18 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 Map<String, String> keyValues = new HashMap<>();
                 for (int pos = 0; pos < valueGroup.getChildCount(); pos++) {
                     View c = valueGroup.getChildAt(pos);
-                    if (c instanceof AppCompatCheckBox) {
-                        AppCompatCheckBox checkBox = (AppCompatCheckBox) c;
+                    if (c instanceof TriStateCheckBox) {
+                        TriStateCheckBox checkBox = (TriStateCheckBox) c;
                         String k = ((StringWithDescription) checkBox.getTag()).getValue();
                         PresetCheckField check = field.getCheckField(k);
-                        if (checkBox.isChecked()) {
-                            keyValues.put(k, check.getOnValue().getValue());
+                        Boolean state = checkBox.getState();
+                        if (state == null) {
+                            keyValues.put(k, "");
                         } else if (!checkBox.isEnabled()) {
                             // unknown stuff
                             keyValues.put(k, row.keyValues.get(k));
+                        } else if (state) {
+                            keyValues.put(k, check.getOnValue().getValue());
                         } else {
                             StringWithDescription offValue = check.getOffValue();
                             keyValues.put(k, offValue == null ? "" : offValue.getValue());
@@ -2759,10 +2801,36 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         return check;
     }
 
+    /**
+     * Add a CheckBox to a Layout
+     * 
+     * @param context Android Context
+     * @param layout the Layout we want to add the CheckBox to
+     * @param swd the value
+     * @param selected if true the CheckBox will be selected
+     * @param icon an icon if there is one
+     * @param layoutParams the LayoutParams for the CheckBox
+     * @return the CheckBox for further use
+     */
+    private TriStateCheckBox addTriStateCheck(@NonNull Context context, @NonNull LinearLayout layout, @NonNull StringWithDescription swd, boolean selected,
+            @Nullable Drawable icon, @NonNull LayoutParams layoutParams) {
+        final TriStateCheckBox check = new TriStateCheckBox(context);
+        String description = swd.getDescription();
+        check.setText(description != null && !"".equals(description) ? description : swd.getValue());
+        check.setTag(swd);
+        if (icon != null) {
+            check.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        }
+        check.setLayoutParams(layoutParams);
+        check.setChecked(selected);
+        layout.addView(check);
+        return check;
+    }
+
     public static class TagCheckRow extends LinearLayout {
 
-        private TextView          keyView;
-        private AppCompatCheckBox valueCheck;
+        private TextView              keyView;
+        private IndeterminateCheckBox valueCheck;
 
         /**
          * Construct a row with a single CheckBox
@@ -2790,7 +2858,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 return; // allow visual editor to work
             }
             keyView = (TextView) findViewById(R.id.textKey);
-            valueCheck = (AppCompatCheckBox) findViewById(R.id.valueSelected);
+            valueCheck = (TriStateCheckBox) findViewById(R.id.valueSelected);
         }
 
         /**
@@ -2807,7 +2875,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          * 
          * @return return the CheckBox associated with this row
          */
-        public AppCompatCheckBox getCheckBox() {
+        public IndeterminateCheckBox getCheckBox() {
             return valueCheck;
         }
 
@@ -2818,6 +2886,101 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
          */
         public boolean isChecked() {
             return valueCheck.isChecked();
+        }
+    }
+
+    /**
+     * Inline CheckGroup row with tri-state checkboxes
+     */
+    public static class TagCheckGroupRow extends LinearLayout {
+        private TextView     keyView;
+        private LinearLayout valueLayout;
+        private Context      context;
+        private char         delimiter;
+
+        /**
+         * Construct a row that will multiple values to be selected
+         * 
+         * @param context Android Context
+         */
+        public TagCheckGroupRow(Context context) {
+            super(context);
+            this.context = context;
+        }
+
+        /**
+         * Construct a row that will multiple values to be selected
+         * 
+         * @param context Android Context
+         * @param attrs and AttriuteSet
+         */
+        public TagCheckGroupRow(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            this.context = context;
+        }
+
+        @Override
+        protected void onFinishInflate() {
+            super.onFinishInflate();
+            if (isInEditMode()) {
+                return; // allow visual editor to work
+            }
+            keyView = (TextView) findViewById(R.id.textKey);
+            valueLayout = (LinearLayout) findViewById(R.id.valueGroup);
+        }
+
+        /**
+         * Return the OSM key value
+         * 
+         * @return the key as a String
+         */
+        public String getKey() {
+            return (String) keyView.getTag();
+        }
+
+        /**
+         * Get the Layout containing the CheckBoxes for the values
+         * 
+         * @return a LinearLayout
+         */
+        public LinearLayout getValueGroup() {
+            return valueLayout;
+        }
+
+        /**
+         * Return all checked values concatenated with the required delimiter
+         * 
+         * @return a String containg an OSM style list of values
+         */
+        public String getValue() {
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < valueLayout.getChildCount(); i++) {
+                AppCompatCheckBox check = (AppCompatCheckBox) valueLayout.getChildAt(i);
+                if (check.isChecked()) {
+                    if (result.length() > 0) { // not the first entry
+                        result.append(delimiter);
+                    }
+                    result.append(valueLayout.getChildAt(i).getTag());
+                }
+            }
+            return result.toString();
+        }
+
+        /**
+         * Add a CheckBox to this row
+         * 
+         * @param description the description to display
+         * @param state if true/false the CheckBox will be checekd/unchecked, if null it will be set to indetermiante state,
+         * @param listener a listener to call when the CheckBox is clicked
+         * @return the CheckBox for further use
+         */
+        public TriStateCheckBox addCheck(@NonNull String description, @Nullable Boolean state, @NonNull OnStateChangedListener listener) {
+            final TriStateCheckBox check = new TriStateCheckBox(context);
+            check.setText(description);
+            check.setState(state);
+            valueLayout.addView(check);
+            check.setOnStateChangedListener(listener);
+            return check;
         }
     }
 
@@ -2946,7 +3109,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Strike through some text in a TextView
      * 
-     * @param tv
+     * @param tv TextView to use
      */
     private static void strikeThrough(@NonNull TextView tv) {
         Spannable spannable = (Spannable) tv.getText();

@@ -2705,11 +2705,11 @@ public class Preset implements Serializable {
          * @param field the field we want the hint for
          * @return the hint for this field or null
          */
-        @Nullable 
+        @Nullable
         public String getHint(@NonNull PresetField field) {
             return translate(field.getHint(), field.getTextContext());
         }
-        
+
         /**
          * Save default for the tag
          * 
@@ -3213,11 +3213,22 @@ public class Preset implements Serializable {
          */
         @NonNull
         public Collection<StringWithDescription> getAutocompleteValues(@NonNull String key) {
-            Collection<StringWithDescription> result = new LinkedHashSet<>();
             PresetField field = fields.get(key);
             if (field == null) {
                 field = getCheckFieldFromGroup(key);
             }
+            return getAutocompleteValues(field);
+        }
+
+        /**
+         * Return a ist of the values suitable for autocomplete, note values for fixed tags are not returned
+         * 
+         * @param field the PresetField to get values for
+         * @return Collection of StringWithDescription objects
+         */
+        @NonNull
+        public Collection<StringWithDescription> getAutocompleteValues(@NonNull PresetField field) {
+            Collection<StringWithDescription> result = new LinkedHashSet<>();
             if (field instanceof PresetComboField) {
                 result.addAll(Arrays.asList(((PresetComboField) field).getValues()));
             } else if (field instanceof PresetCheckField) {
@@ -3680,6 +3691,14 @@ public class Preset implements Serializable {
         }
     }
 
+    /**
+     * Check if a key-value tupel matches a specific PresetFiel taking the MatchType in to account
+     * 
+     * @param field the PresetField
+     * @param key the key
+     * @param value the value
+     * @return true if the tag matches
+     */
     public static boolean hasKeyValue(PresetField field, @NonNull String key, @Nullable String value) {
 
         if (field == null) {
@@ -3716,8 +3735,9 @@ public class Preset implements Serializable {
                 return true;
             }
         } else if (field instanceof PresetCheckField) {
-            String v = ((PresetCheckField) field).onValue.getValue();
-            if ("".equals(value) || v == null || v.equals(value) || "".equals(v)) {
+            String on = ((PresetCheckField) field).getOnValue().getValue();
+            StringWithDescription off = ((PresetCheckField) field).getOffValue();
+            if ("".equals(value) || on == null || on.equals(value) || "".equals(on) || (off != null && off.getValue().equals(value))) {
                 return true;
             }
         }
