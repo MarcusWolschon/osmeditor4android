@@ -136,8 +136,9 @@ public class UndoStorage implements Serializable {
      * @param force remove even if checkpoint is not empty
      */
     public void removeCheckpoint(String name, boolean force) {
-        if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().getName().equals(name))
+        if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().getName().equals(name)) {
             undoCheckpoints.removeLast();
+        }
     }
 
     /**
@@ -493,10 +494,12 @@ public class UndoStorage implements Serializable {
                 if (ctx != null) {
                     Preset[] presets = App.getCurrentPresets(ctx);
                     for (Preset p : presets) {
-                        for (String key : p.getObjectKeys()) {
-                            result = getTagValueString(key);
-                            if (result != null) {
-                                return result;
+                        if (p != null) {
+                            for (String key : p.getObjectKeys()) {
+                                result = getTagValueString(key);
+                                if (result != null) {
+                                    return result;
+                                }
                             }
                         }
                     }
