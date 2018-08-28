@@ -135,7 +135,7 @@ Start the on device help browser.
 
 ## Preset display
 
-Find, select and apply a [preset](Presets.md). Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available Vespucci will try and construct additional presets by querying the Taginfo service, if you are using slow Internet connections you should disable this in the [Advanced preferences](Advanced%20preferences.md).
+Find, select and apply a [preset](Presets.md). Groups of presets have a light background, presets a dark one. The on device presets can be searched for terms, if enabled and network connectivity is available you can try and construct additional presets by querying the Taginfo service, when the results from the internal search are displayed.
 
 ### Top
 

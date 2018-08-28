@@ -125,8 +125,6 @@ public class Preferences {
 
     private final boolean jsConsoleEnabled;
 
-    private final boolean autoPresetsEnabled;
-
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
     private final SharedPreferences prefs;
@@ -252,8 +250,6 @@ public class Preferences {
         alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
-
-        autoPresetsEnabled = prefs.getBoolean(r.getString(R.string.config_enableAutoPresets_key), true);
     }
 
     int getIntPref(int keyResId, int def) {
@@ -736,15 +732,6 @@ public class Preferences {
 
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
-    }
-
-    /**
-     * Check if auto preset generation is enabled
-     * 
-     * @return true is on
-     */
-    public boolean autoPresetsEnabled() {
-        return autoPresetsEnabled;
     }
 
     /**

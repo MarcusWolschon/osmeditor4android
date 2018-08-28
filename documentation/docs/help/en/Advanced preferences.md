@@ -120,10 +120,6 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 Close the current open changeset after uploading edits. Default: on.
 
-### Enable auto-preset generation
-
-Try to build presets from taginfo when using the preset search. Default: on.
-
 ## Location Setting
 
 GPS and Network location settings.

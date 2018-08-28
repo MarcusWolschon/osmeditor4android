@@ -110,6 +110,7 @@
     <string name="tag_editor_name_suggestion">Name suggestion</string>
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
     <string name="search_results_title">Search results</string>
+    <string name="search_online">Search online</string>
     <string name="find_message">Enter search string</string>
     <string name="geocoder_prompt">with</string>
     <string name="preset_search_hint">Preset search string</string>

@@ -54,7 +54,7 @@ import de.blau.android.util.Snack;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
-    private static final int MAX_SEARCHRESULTS = 10;
+    static final int MAX_SEARCHRESULTS = 10;
 
     private static final String ALTERNATE_ROOT_PATHS = "alternateRootPaths";
 
@@ -272,20 +272,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 try {
                     ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
                     Preferences prefs = new Preferences(activity);
-                    if (/* searchResults.size() < MAX_SEARCHRESULTS && */ prefs.autoPresetsEnabled() && propertyEditorListener.isConnected()) {
-                        AutoPreset autoPreset = new AutoPreset(activity);
-                        Preset fromTaginfo = autoPreset.fromTaginfo(term.trim(), MAX_SEARCHRESULTS - searchResults.size());
-                        List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
-                        if (!searchResults.isEmpty()) {
-                            searchResults.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
-                        }
-                        for (PresetElement pe : elementsFromTaginfo) {
-                            searchResults.add(pe);
-                        }
-                    }
-                    if (searchResults.isEmpty()) {
-                        return null;
-                    }
                     return searchResults;
                 } finally {
                     activity.runOnUiThread(new Runnable() {
@@ -306,9 +292,11 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 }
                 if (result == null) {
                     Snack.barInfo(getActivity(), R.string.toast_nothing_found);
-                    return;
+                    if (propertyEditorListener.isConnected()) { // if not online nothing we can do
+                        return;
+                    }
                 }
-                PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(result);
+                PresetSearchResultsFragment searchResultDialog = PresetSearchResultsFragment.newInstance(term, result);
                 try {
                     searchResultDialog.show(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
                 } catch (IllegalStateException isex) {

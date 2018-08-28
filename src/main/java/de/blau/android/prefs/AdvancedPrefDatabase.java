@@ -387,10 +387,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         if (presetInfos == null || presetInfos.length == 0) {
             return null;
         }
-        Preferences mPrefs = new Preferences(context);
-        boolean autopresetEnabled = mPrefs.autoPresetsEnabled();
 
-        Preset activePresets[] = new Preset[presetInfos.length + (autopresetEnabled ? 1 : 0)];
+        Preset activePresets[] = new Preset[presetInfos.length + 1];
         for (int i = 0; i < presetInfos.length; i++) {
             PresetInfo pi = presetInfos[i];
             try {
@@ -405,20 +403,18 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
                 activePresets[i] = null;
             }
         }
-        if (autopresetEnabled) {
-            int autopresetPosition = activePresets.length - 1;
+        int autopresetPosition = activePresets.length - 1;
+        try {
+            AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
+        } catch (Exception e) {
+            Log.e(LOGTAG, "Failed to find auto-preset, creating", e);
             try {
+                FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
+                        FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
                 AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
-            } catch (Exception e) {
-                Log.e(LOGTAG, "Failed to find auto-preset, creating", e);
-                try {
-                    FileUtil.copyFileFromAssets(context, Files.FILE_NAME_AUTOPRESET_TEMPLATE,
-                            FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), Files.FILE_NAME_AUTOPRESET);
-                    AutoPreset.readAutoPreset(context, activePresets, autopresetPosition);
-                } catch (Exception e1) {
-                    Log.e(LOGTAG, "Failed to create auto-preset", e1);
-                    activePresets[autopresetPosition] = null;
-                }
+            } catch (Exception e1) {
+                Log.e(LOGTAG, "Failed to create auto-preset", e1);
+                activePresets[autopresetPosition] = null;
             }
         }
         Log.d(LOGTAG, "Elapsed time to read presets " + (System.currentTimeMillis() - start) / 1000);

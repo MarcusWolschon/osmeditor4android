@@ -5,20 +5,28 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
@@ -27,11 +35,13 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 public class PresetSearchResultsFragment extends DialogFragment {
 
     private static final String SEARCH_RESULTS_KEY = "searchResults";
+    private static final String SEARCH_TERM_KEY    = "searchTerm";
 
     private static final String DEBUG_TAG = PresetSearchResultsFragment.class.getSimpleName();
 
@@ -40,13 +50,20 @@ public class PresetSearchResultsFragment extends DialogFragment {
     private OsmElement               element;
     private ArrayList<PresetElement> presets;
     private boolean                  enabled = true;
+    private PropertyEditorListener   propertyEditorListener;
 
     /**
+     * Get an new PresetSearchResultsFragment
+     * 
+     * @param searchTerm the original term we were searching for
+     * @param searchResults a List of PresetEements to display
+     * @return an instance of PresetSearchResultsFragment
      */
-    public static PresetSearchResultsFragment newInstance(ArrayList<PresetElement> searchResults) {
+    public static PresetSearchResultsFragment newInstance(@NonNull String searchTerm, @NonNull ArrayList<PresetElement> searchResults) {
         PresetSearchResultsFragment f = new PresetSearchResultsFragment();
 
         Bundle args = new Bundle();
+        args.putString(SEARCH_TERM_KEY, searchTerm);
         args.putSerializable(SEARCH_RESULTS_KEY, searchResults);
         f.setArguments(args);
         // f.setShowsDialog(true);
@@ -61,6 +78,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         try {
             mOnPresetSelectedListener = (OnPresetSelectedListener) context;
             mPresetUpdateListener = (PresetUpdate) context;
+            propertyEditorListener = (PropertyEditorListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnPresetSelectedListener and PresetUpdate");
         }
@@ -83,6 +101,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.preset_search_results_view, null);
 
+        String searchTerm = getArguments().getString(SEARCH_TERM_KEY);
         presets = (ArrayList<PresetElement>) getArguments().getSerializable(SEARCH_RESULTS_KEY);
         /*
          * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit and
@@ -91,76 +110,140 @@ public class PresetSearchResultsFragment extends DialogFragment {
          */
         getArguments().remove(SEARCH_RESULTS_KEY);
 
-        View v = getResultsView(presetsLayout, presets);
+        final View container = getResultsView(presetsLayout, presets, true);
 
-        if (v != null) {
-            builder.setView(v);
+        if (container != null) {
+            builder.setView(container);
         }
-        return builder.create();
+        AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
+            private AlertDialog      progress = null;
+            private FragmentActivity activity = getActivity();
+
+            @Override
+            protected void onPreExecute() {
+                progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
+                progress.show();
+            }
+
+            @Override
+            protected ArrayList<PresetElement> doInBackground(Void... params) {
+
+                try {
+                    ArrayList<PresetElement> searchResults = new ArrayList<>();
+                    AutoPreset autoPreset = new AutoPreset(activity);
+                    Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
+                    List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
+                    if (!presets.isEmpty()) {
+                        presets.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
+                    }
+                    for (PresetElement pe : elementsFromTaginfo) {
+                        searchResults.add(pe);
+                    }
+                    if (searchResults.isEmpty()) {
+                        return null;
+                    }
+                    return searchResults;
+                } finally {
+                }
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<PresetElement> result) {
+                try {
+                    progress.dismiss();
+                } catch (Exception ex) {
+                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
+                }
+                if (result == null) {
+                    Snack.barInfo(getActivity(), R.string.toast_nothing_found);
+                    return;
+                }
+                presets.addAll(result);
+                ((ViewGroup) container).removeAllViews();
+                ((ViewGroup) container).addView(getResultsView(presetsLayout, presets, false));
+            }
+        };
+
+        builder.setNeutralButton(R.string.Done, null);
+        builder.setPositiveButton(R.string.search_online, null);
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                if (propertyEditorListener.isConnected() && container != null) {
+                    positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            list.execute();
+                            view.setEnabled(false);
+                        }
+                    });
+                } else {
+                    positive.setEnabled(false);
+                }
+            }
+        });
+        return dialog;
     }
+
+    final PresetClickHandler presetClickHandler = new PresetClickHandler() {
+        @Override
+        public void onItemClick(PresetItem item) {
+            if (!enabled) {
+                return;
+            }
+            Log.d(DEBUG_TAG, "normal click");
+            if (item instanceof AutoPresetItem) {
+                Preset[] presets = App.getCurrentPresets(getContext());
+                Preset preset = presets[presets.length - 1];
+                if (preset != null) {
+                    PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
+                    if (group != null) {
+                        PresetItem copy = preset.new PresetItem(group, item);
+                    } else {
+                        Log.e(DEBUG_TAG, "Couldn't find preset group");
+                    }
+                } else {
+                    Log.e(DEBUG_TAG, "Preset null");
+                    return;
+                }
+                // fixme update preset fragment
+                AutoPreset.save(preset);
+                mPresetUpdateListener.update(null);
+            }
+            mOnPresetSelectedListener.onPresetSelected(item);
+            dismiss();
+        }
+
+        @Override
+        public void onGroupClick(PresetGroup group) {
+            // should not have groups
+        }
+
+        @Override
+        public boolean onItemLongClick(PresetItem item) {
+            return false;
+        }
+
+        @Override
+        public boolean onGroupLongClick(PresetGroup group) {
+            return false;
+        }
+    };
 
     /**
      * Create the View holding the search results
      * 
      * @param presetLayout our Layout
      * @param presets a List of PresetElements to display
+     * @param setPadding apply padding if true
      * @return the View or null
      */
     @Nullable
-    private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets) {
+    private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets, boolean setPadding) {
         View v = null;
         if (presets != null && !presets.isEmpty()) {
-
-            final PresetClickHandler presetClickHandler = new PresetClickHandler() {
-                @Override
-                public void onItemClick(PresetItem item) {
-                    if (!enabled) {
-                        return;
-                    }
-                    Log.d(DEBUG_TAG, "normal click");
-                    if (item instanceof AutoPresetItem) {
-                        Preset[] presets = App.getCurrentPresets(getContext());
-                        Preset preset = presets[presets.length - 1];
-                        if (preset != null) {
-                            PresetGroup group = preset.getGroupByName(getContext().getString(R.string.preset_autopreset));
-                            if (group != null) {
-                                PresetItem copy = preset.new PresetItem(group, item);
-                            } else {
-                                Log.e(DEBUG_TAG, "Couldn't find preset group");
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "Preset null");
-                            return;
-                        }
-                        // fixme update preset fragment
-                        AutoPreset.save(preset);
-                        mPresetUpdateListener.update(null);
-                    }
-                    mOnPresetSelectedListener.onPresetSelected(item);
-                    dismiss();
-                }
-
-                @Override
-                public void onGroupClick(PresetGroup group) {
-                    // should not have groups
-                }
-
-                @Override
-                public boolean onItemLongClick(PresetItem item) {
-                    return false;
-                }
-
-                @Override
-                public boolean onGroupLongClick(PresetGroup group) {
-                    return false;
-                }
-            };
-
-            Preset[] currentPresets = App.getCurrentPresets(getActivity());
-
-            if (!(currentPresets != null && currentPresets.length > 0)) {
-                return null;
-            }
 
             PresetGroup results = new Preset().new PresetGroup(null, "search results", null);
             for (PresetElement p : presets) {
@@ -170,8 +253,10 @@ public class PresetSearchResultsFragment extends DialogFragment {
             }
             v = results.getGroupView(getActivity(), presetClickHandler, null, null);
 
-            int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);
-            v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
+            if (setPadding) {
+                int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);
+                v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
+            }
         } else {
             Log.d(DEBUG_TAG, "getResultsView problem");
         }
