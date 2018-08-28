@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,8 +34,6 @@ import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
-import de.blau.android.dialogs.Progress;
-import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -251,13 +248,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         ft.commit();
 
         AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
-            private AlertDialog progress = null;
-
-            @Override
-            protected void onPreExecute() {
-                progress = ProgressDialog.get(activity, Progress.PROGRESS_SEARCHING);
-                progress.show();
-            }
 
             @Override
             protected ArrayList<PresetElement> doInBackground(Void... params) {
@@ -281,11 +271,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
             @Override
             protected void onPostExecute(ArrayList<PresetElement> result) {
-                try {
-                    progress.dismiss();
-                } catch (Exception ex) {
-                    Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
-                }
                 if (result.isEmpty()) {
                     Snack.barInfo(getActivity(), R.string.toast_nothing_found);
                     if (propertyEditorListener.isConnected()) { // if not online nothing we can do

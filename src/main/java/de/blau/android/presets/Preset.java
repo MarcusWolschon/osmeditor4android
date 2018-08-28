@@ -1232,7 +1232,7 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Return a PresetElement by identifying it with its place in the hierarchy
+     * Return a PresetElement by identifying it by its place in the hierarchy
      * 
      * @param group PresetGroup to start the search at
      * @param path the path
