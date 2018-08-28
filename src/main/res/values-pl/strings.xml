@@ -102,6 +102,7 @@
   <string name="imagery_offset_date">Utworzone</string>
   <string name="imagery_offset_zoom">Przybliżenie</string>
   <string name="imagery_offset_distance">Odległość</string>
+  <string name="zoom_and_offset">Z %1$d Offset %2$s/%3$s</string>
   <string name="set_position_datum_label">Układ współrzędnych geodezyjnych</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
@@ -110,6 +111,7 @@
   <string name="find_message">Proszę wprowadzić szukany ciąg</string>
   <string name="geocoder_prompt">z</string>
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
+  <string name="preset_autopreset">Automatyczny szablon</string>
   <string name="search">Szukaj</string>
   <string name="no_valid_preset">Brak prawidłowego szablonu!</string>
   <string name="read_file">Wybierz plik do otwarcia</string>
@@ -135,6 +137,7 @@
   <string name="original">Pierwotny</string>
   <string name="current">Bieżący</string>
   <!---->
+  <string name="feature_information">Informacja o obiekcie w GeoJSON</string>
   <string name="error">błąd</string>
   <string name="warning">ostrzeżenie</string>
   <string name="minor_issue">drobny problem</string>
@@ -148,25 +151,35 @@
   <string name="send_debug_information">Prześlij informacje do debugowania</string>
   <!--JS console dialog-->
   <string name="evaluate">Ewaluuj</string>
+  <string name="js_console_msg_live">Tryb na żywo!</string>
+  <string name="js_console_msg_debug">Tryb debugowania!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Zbiór zasad walidatora: %1$s</string>
+  <string name="edit_resurvey_title">Edytuj wpis ponownego przeglądu</string>
+  <string name="add_resurvey_title">Dodaj wpis ponownego przeglądu</string>
   <string name="edit_check_title">Edytuj sprawdzenie</string>
   <string name="add_check_title">Dodaj sprawdzenie</string>
   <string name="max_age">Maks. wiek</string>
   <string name="age">Wiek</string>
   <string name="check_opt">opcjonalne</string>
   <string name="check_optional">Wybierz opcjonalne</string>
+  <string name="add_resurvey_entry">Dodaj wpis ponownego przeglądu</string>
+  <string name="add_check_entry">Dodaj sprawdzenie</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Pusta relacja</string>
   <string name="empty_relation_message">Relacja %1$s nie posiada członków. \n\n Pozostawienie jej w tym stanie uniemożliwi jej edytowanie w Vespucci.</string>
   <string name="add_members">Dodaj członków.</string>
   <string name="leave_empty">Pozostaw pustą.</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_title">Punkt ścieżki GPX</string>
+  <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Opis</string>
   <string name="created">Utworzono</string>
   <string name="altitude">Wysokość</string>
   <string name="create_osm_object">Utwórz obiekt</string>
+  <string name="create_osm_object_search">Utwórz obiekt OSM z wyszukanych szablonów</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Dostosowany podkład</string>
   <string name="oam_layer_title">Zdjęcia OAM</string>
   <string name="edit_layer_title">Edytuj warstwę</string>
   <string name="add_layer_title">Dodaj warstwę</string>
@@ -176,12 +189,16 @@
   <string name="coverage_left">Lewo</string>
   <string name="coverage_right">Prawo</string>
   <string name="coverage_bottom">Dół</string>
+  <string name="preferred">Preferowany</string>
   <string name="toast_invalid_box">Niepoprawny lub niekompletny bounding box.</string>
   <string name="delete_layer">Usunąć warstwę?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Styl warstwy</string>
+  <string name="layer_style_stroke_width">Szerokość obrysu</string>
   <string name="layer_style_color">Kolor</string>
   <string name="layer_style_label">Etykieta</string>
+  <string name="json_object_not_displayed">Obiekt JSON (niewyświetlany)</string>
+  <string name="json_array_not_displayed">Tablica JSON (niewyświetlana)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
   <string name="layer_grid">Siatka</string>
@@ -189,9 +206,15 @@
   <string name="layer_photos">Zdjęcia</string>
   <string name="layer_tasks">Zadania</string>
   <string name="layer_data">Dane OSM</string>
+  <string name="layer_flush_tile_cache">Wyczyść cache kafelków</string>
   <string name="layer_change_style">Zmień styl</string>
+  <string name="layer_select_imagery">Wybierz podkład</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Punkty kontrolne</string>
   <string name="undo_redo_title">Cofnij - Ponów</string>
+  <string name="undo_redo_one">Tylko wybrany punkt kontrolny (niebezpieczne)</string>
+  <string name="undo_all">Cofnij wszystkich późniejsze punkty kontrolne (bezpieczne)</string>
+  <string name="redo_all">Przywróć wszystkie wcześniejsze punkty kontrolne (bezpieczne)</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
   <!--NumberPiker-->
@@ -244,11 +267,14 @@
   <string name="toast_missing_filemanager">Zainstaluj menadżer plików.</string>
   <string name="toast_outside_of_download">Edytujesz poza pobranym obszarem.</string>
   <string name="toast_file_not_found">%1$s - nie znaleziono szukanej frazy.</string>
+  <string name="toast_imported_track_points">Zaimportowano %1$d węzłów śladu i %2$d punktów.</string>
+  <string name="toast_imported_track_points_single_way_point">Zaimportowano %1$d węzłów śladu i 1 punkt.</string>
   <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
   <string name="toast_inconsistent_state">Niejednoznaczny stan danych został wykryty, prosimy o wysłanie raportu błędów.</string>
   <string name="toast_camera_error">Błąd podczas włączania aparatu: %1$s</string>
   <string name="toast_no_voice">Brak dostępnej funkcji rozpoznawania głosu</string>
   <string name="toast_storage_error">Vespucci nie ma dostępu do %1$s.\nMoże być to spowodowane nie wystarczającymi uprawnieniami lub problemem z urządzeniem.</string>
+  <string name="toast_no_suitable_storage">System nie zwrócił odpowiedniej lokalizacji dla bazy danych kafelków.</string>
   <string name="toast_min_one_preset">Przynajmniej jeden szablon musi być wybrany!</string>
   <string name="toast_min_one_geocoder">Wybierz przynajmniej jeden geokoder.</string>
   <string name="toast_used_backup">Nieprawidłowy plik stanu, użyto pliku zapasowego!</string>
@@ -259,9 +285,11 @@
   <string name="toast_split_from_and_via">Oddzielonp linie \"from\" oraz \"via\"</string>
   <string name="toast_split_to">Oddzielona linia \"to\"</string>
   <string name="toast_tile_database_issue_short">Problem z bazą danych kafelków</string>
+  <string name="toast_tile_database_issue">Poważny problem z bazą danych kafelków mapy\n\"%1$s\"\nSprawdź nasze FAQ na http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Błędny URL dla API</string>
   <string name="toast_invalid_readonlyurl">Błędny URL do ReadOnly API</string>
   <string name="toast_invalid_notesurl">Błędny URL do API Uwag</string>
+  <string name="toast_invalid_filter_regexp">Nieprawidłowe wyrażenie regularne z filtrem w kluczu=\"%1$s\" wartość=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Otwieranie zdjęcia %1$s nie powiodło się</string>
   <string name="toast_no_voice_recognition">Brak funkcji rozpoznawania głosu</string>
   <string name="toast_no_coverage">%1$s nie obejmuje tego terenu</string>
@@ -270,11 +298,13 @@
   <string name="toast_missing_key">Brakujący klucz %1$s</string>
   <string name="toast_openinghours_invalid">Niepoprawne godziny otwarcia dla %1$s</string>
   <string name="toast_openinghours_autocorrected">Wartość godzin otwarcia dla %1$s została poprawiona</string>
+  <string name="toast_exit_multiselect">Dwukrotnie dotknij wolnego miejsca lub użyj strzałki wstecz, aby wyjść.</string>
   <string name="toast_exit_actionmode">Użyj strzałki wstecz by zapisać i wyjść</string>
   <string name="toast_abort_actionmode">Użyj strzałki wstecz by zatrzymać</string>
   <string name="toast_null_island">Prosimy nie dodawać obiektów na 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Napis za długi (%1$d znaków), został przycięty!</string>
   <string name="toast_illegal_operation">Niepoprawna operacja: %1$s</string>
+  <string name="toast_preset_creation_failed">Tworzenie szablonu \"%1$s\" nie powiodło się z powodu: %2$s</string>
   <string name="toast_imperial_units">Brakujące jednostki imperialne</string>
   <string name="toast_server_connection_failed">Brak połączenia z serwerem: %1$s</string>
   <string name="toast_flus_all_caches">Wyczyszczone zostaną wszystkie cache kafelków!</string>
@@ -282,6 +312,7 @@
   <string name="toast_unsupported_format">Niewspierany format: %1$s</string>
   <string name="toast_returning_less_than_found">Zwrócono %1$d z %2$d znalezionych wpisów</string>
   <string name="toast_not_mbtiles">Plik nie jest w formacie MBTiles</string>
+  <string name="toast_using_network_location">Używanie lokalizacji na podstawie sieci</string>
   <string name="toast_using_gps_location">GPS jest używany do ustalenia lokalizacji</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS wyłączony, rejestrowanie śladu zatrzymane</string>
   <!--Some generic labels/buttons-->
@@ -306,6 +337,7 @@
   <string name="clear">Wyczyść</string>
   <string name="discard">Odrzuć</string>
   <string name="retry">Spróbuj ponownie</string>
+  <string name="read">Odczytaj</string>
   <string name="overwrite">Nadpisz</string>
   <string name="share">Udostępnij</string>
   <string name="share_position">Udostępnij pozycję</string>
@@ -414,21 +446,26 @@
   <string name="menu_camera">Aparat</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Znacznik położenia</string>
+  <string name="menu_gps_follow">Śledź lokalizację</string>
   <string name="menu_gps_goto">Przesuń do bieżącego położenia</string>
   <string name="menu_gps_start">Rozpocznij rejestrowanie śladu</string>
   <string name="menu_gps_pause">Wstrzymaj rejestrowanie śladu</string>
+  <string name="menu_gps_clear">Wyczyść ślad i punkty GPS</string>
   <string name="menu_gps_track_managment">Zarządzaj śladami...</string>
   <string name="menu_gps_upload">Wyślij ślad GPX</string>
   <string name="menu_gps_export">Wyeksportuj ślad GPX</string>
   <string name="menu_gps_import">Importuj ślad GPX</string>
   <string name="menu_gps_goto_start">Przejdź na początek śladu</string>
+  <string name="menu_gps_goto_first_waypoint">Przejdź do pierwszego punktu</string>
   <string name="menu_gps_autodownload">Automatyczne pobieranie</string>
   <string name="menu_transfer">Transfer…</string>
   <string name="menu_transfer_download_current">Pobierz bieżący widok</string>
   <string name="menu_transfer_download_current_add">Dodaj bieżący widok do pobrania</string>
+  <string name="menu_transfer_download_other">Pobierz z innej lokalizacji</string>
   <string name="menu_transfer_upload">Wyślij zmiany</string>
   <string name="menu_transfer_close_changeset">Zamknij zestaw zmian</string>
   <string name="menu_transfer_file">Plik...</string>
+  <string name="menu_transfer_export">Eksportuj zmiany do pliku OSC</string>
   <string name="menu_transfer_read_file">Otwórz plik JOSM...</string>
   <string name="menu_transfer_save_file">Zapisz do pliku JOSM...</string>
   <string name="menu_transfer_bugs">Uwagi/błędy...</string>
@@ -440,6 +477,8 @@
   <string name="menu_transfer_autodownload_long">Automatyczne pobieranie błędów</string>
   <string name="menu_transfer_save_notes_all">Zapisz wszystkie uwagi...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Zapisz nowe i zmienione uwagi</string>
+  <string name="menu_transfer_read_custom_bugs">Załaduj dostosowane zadania...</string>
+  <string name="menu_transfer_write_custom_bugs">Zapisz otwarte dostosowane zadania...</string>
   <string name="menu_save">Zapisz do pliku</string>
   <string name="menu_join">Połącz</string>
   <string name="menu_unjoin">Rozłącz</string>
@@ -463,6 +502,7 @@
   <string name="menu_tools_add_imagery_from_oam">Dodaj warstwy z OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Wyczyść cache kafelków</string>
   <string name="menu_tools_background_properties">Właściwości podkładu</string>
+  <string name="menu_tools_update_imagery_configuration">Aktualizuj konfigurację warstwy podkładu</string>
   <string name="menu_tools_zoom_to_layer_extent">Pokaż cały obszar objęty warstwą wyświetlaną w tle</string>
   <!---->
   <string name="menu_privacy">Prywatność</string>
@@ -487,6 +527,7 @@
   <string name="menu_layers_load_geojson">Załaduj warstwę GeoJSON</string>
   <string name="menu_enable_tagfilter">Filtr tagu</string>
   <string name="menu_enable_presetfilter">Filtr szablonu</string>
+  <string name="preset_menu_waynodes">Uwzględnij węzły drogi</string>
   <string name="preset_menu_invert">Odwróć filtry</string>
   <!--element action mode menu-->
   <string name="menu_tags">Właściwości</string>
@@ -524,9 +565,13 @@
   <string name="actionmode_rotateway">Obróć linię</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Podkład mapy</string>
+  <string name="config_backgroundLayer_summary">Tło mapy bazujące na kafelkach.</string>
   <string name="config_overlayLayer_title">Nakładka mapy</string>
+  <string name="config_overlayLayer_summary">Nakładka mapy bazująca na kafelkach.</string>
   <string name="config_customlayers_title">Warstwy własne</string>
+  <string name="config_customlayers_summary">Konfiguruj warstwy nie będące w domyślnej konfiguracji</string>
   <string name="config_scale_title">Wyświetlanie skali</string>
+  <string name="config_scale_summary">Sposób wyświetlania skali na mapie.</string>
   <string name="config_mapProfile_title">Styl danych</string>
   <string name="config_mapProfile_summary">Wybierz styl dla warstwy danych</string>
   <string name="config_enableOpenStreetBugs_title">Wyświetlanie błędów i notatek</string>
@@ -542,6 +587,7 @@
   <string name="config_presetbutton_title">Szablony</string>
   <string name="config_presetbutton_summary">Dodaje i włącza szablony kompatybilne z JOSM</string>
   <string name="config_validatorprefs_title">Ustawienia wykrywania błędow</string>
+  <string name="config_validatorprefs_summary">Konfiguruj reguły wykrywania błędów</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autorzy oraz licencje</string>
   <string name="config_debugbutton_title">Diagnozowanie błędów</string>
@@ -549,6 +595,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Interfejs użytkownika</string>
+  <string name="config_category_view_summary">Opcje konfiguracji układu i wyświetlania</string>
   <string name="config_iconbutton_title">Ikony węzłów</string>
   <string name="config_iconbutton_summary">Wyświetla ikonę najbardziej pasującego szablonu nad węzłem.</string>
   <string name="config_showWayIcons_title">Ikony użytecznych miejsc na budynkach</string>
@@ -584,11 +631,15 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Dane i edycja</string>
+  <string name="config_category_editing_summary">Opcje automatycznego pobierania, zapisywania i powiadomień.</string>
   <string name="config_forceContextMenu_title">Używanie menu podręcznego</string>
+  <string name="config_forceContextMenu_summary">Wyświetla menu podręczne jeśli zaznaczenie jest niejednoznaczne.</string>
   <string name="config_address_tags">Znaczniki adresu</string>
   <string name="config_address_tags_summary">Znaczniki używane do określania adresu</string>
   <string name="config_enableNameSuggestions_title">Sugerowanie nazw</string>
   <string name="config_enableNameSuggestions_summary">Wyświetla propozycje dla znacznika „name”</string>
+  <string name="config_enableNameSuggestionsPresets_title">Włącz szablony sugerowanych nazw</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Automatycznie dodaj szablon po wybraniu podpowiedzi.</string>
   <string name="config_generateAlerts_title">Powiadomienia</string>
   <string name="config_generateAlerts_summary">Wyświetla powiadomienia o danych ze znanymi błędami lub uwagami</string>
   <string name="config_notificationCacheSize_title">Maks. liczba powiadomień</string>
@@ -612,8 +663,10 @@
   <string name="config_closeChangesetOnSave_title">Zamykanie zestawów zmian</string>
   <string name="config_closeChangesetOnSave_summary">Domyślnie zamyka zestawy zmian podczas zapisywania</string>
   <string name="config_enableAutoPresets_title">Włącz automatyczne generowanie szablonów</string>
+  <string name="config_enableAutoPresets_summary">Pozwól generować szablony z Taginfo</string>
   <!--Location Settings-->
   <string name="config_category_gps">Ustawienia lokalizacji</string>
+  <string name="config_category_gps_summary">Parametry GPS i innych dostawców lokalizacji.</string>
   <string name="config_gps_source_title">Źródło GPS</string>
   <string name="config_gps_source_summary">Źródło sygnału GPS</string>
   <string name="config_gps_source_tcp_title">Źródło połączenia z protokołem NMEA</string>
@@ -626,6 +679,8 @@
   <string name="config_gps_distance_current">%1$d metrów</string>
   <string name="config_leaveGpsDisabled_title">Pozostaw wyłączony GPS</string>
   <string name="config_leaveGpsDisabled_summary">Nie pyta o włączenie nawigacji jeśli jest wyłączona.</string>
+  <string name="config_gps_network_title">Przełączanie na lokalizację na podstawie sieci</string>
+  <string name="config_gps_network_summary">Jeżeli GPS jest niedostępny lub wyłączony, przełącz na lokalizację na bazie sieci</string>
   <!--Server Settings-->
   <string name="config_category_server">Dane logowania</string>
   <string name="config_category_server_summary">Konfiguracja OSM API i innych serwerów</string>
@@ -640,6 +695,8 @@
   <string name="config_geocoderbutton_title">Geokodowanie</string>
   <string name="config_geocoderbutton_summary">Dodawanie, edytowanie, usuwanie geokoderów wyszukiwarki</string>
   <!--Layer download and storage-->
+  <string name="config_category_layers">Pobieranie i przechowywanie warstw</string>
+  <string name="config_category_layers_summary">Pobieranie i przechowywanie podkładów na bazie kafelków</string>
   <string name="config_maxTileDownloadThreads_title">Maks. liczba wątków pobierania</string>
   <string name="config_maxTileDownloadThreads_summary">Maksymalna liczba wątków pobierania kafelków mapy</string>
   <string name="config_downLoadThreads_current">%1$d Wątków</string>
@@ -656,7 +713,9 @@
   <!--Experimental-->
   <string name="config_category_experimental">Eksperymentalne</string>
   <string name="config_js_console_title">Włącz konsolę JS</string>
+  <string name="config_js_console_summary">Aktywuj konsolę JS w trybie \"na żywo\"</string>
   <string name="config_voiceCommandsEnabled_title">Polecenia głosowe</string>
+  <string name="config_voiceCommandsEnabled_summary">Włącz wsparcie komend głosowych</string>
   <!---->
   <string name="manage_apis">Zarządzaj API</string>
   <string name="config_api_url_title">API URL</string>
@@ -673,6 +732,7 @@
   <string name="preset_download_failed">Nie udało się pobrać pliku szablonu. Szablon nie będzie działać.</string>
   <string name="preset_download_parse_failed">Plik szablonu jest nieprawidłowy. Szablon nie będzie działać.</string>
   <string name="preset_download_missing_images">Pobrano szablon, ale nie udało się pobrać niektórych ikon i będzie ich brakować.</string>
+  <string name="preset_download_title">Pobieracz szablonów</string>
   <!--changes-->
   <string name="changes_deleted">Usunięto „%1$s”</string>
   <string name="changes_changed">Zmieniono „%1$s”</string>
@@ -713,6 +773,10 @@
   <string name="undo">Cofnij</string>
   <string name="redo">Ponów</string>
   <string name="undo_nothing">nie ma nic do cofnięcia</string>
+  <string name="tracking_active_title">Usługa Vespucci w tle</string>
+  <string name="tracking_active_title_short">Usługa w tle aktywna</string>
+  <string name="tracking_active_text">Rejestrowanie śladu GPS lub automatyczne pobieranie</string>
+  <string name="tracking_long_text">Vespucci rejestruje ślad GPS lub automatycznie pobiera. Aby całkowicie wyjść, wstrzymaj rejestrowanie śladu, jeśli jest aktywne i wtedy wyjdź z aplikacji przyciskiem wstecz.</string>
   <string name="gps_failure">Nie udało się włączyć GPSa</string>
   <!--element description-->
   <string name="address_housenumber">Adres%1$s</string>

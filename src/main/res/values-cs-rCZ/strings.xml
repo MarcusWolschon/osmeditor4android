@@ -240,8 +240,8 @@
   <string name="toast_too_many_nodes_for_move">Příliš mnoho uzlů pro přesunutí cesty</string>
   <string name="toast_unread_mail">Máte %1$d nepřečtených zpráv na OSM</string>
   <string name="toast_one_unread_mail">Máte nepřečtenou zprávu na OSM</string>
-  <string name="toast_photo_indexing_started">Hledání fotografií s georeferencemi zahájeno</string>
-  <string name="toast_photo_indexing_finished">Hledání fotografií s georeferencemi ukončeno</string>
+  <string name="toast_photo_indexing_started">Zahájeno hledání georeferencovaných fotografií</string>
+  <string name="toast_photo_indexing_finished">Dokončeno hledání georeferencovaných fotografií</string>
   <string name="toast_download_failed">Stahování se nezdařilo s kódem chyby %1$d, %2$s</string>
   <string name="toast_unsurveyed_road">Neprozkoumaná cesta</string>
   <string name="toast_noname">Cesta bez názvu a referenčního čísla</string>
@@ -277,6 +277,7 @@
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
   <string name="toast_error_accessing_photo">Nelze získat přístup k fotografii %1$s</string>
+  <string name="toast_no_voice_recognition">Podpora pro rozpoznávání hlasu není dostupná</string>
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
   <string name="toast_file_exists">Soubor %1$s existuje.</string>
   <string name="toast_needs_resurvey">Objekt může být neaktuální.</string>
@@ -295,7 +296,7 @@
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
   <string name="toast_not_mbtiles">Soubor nemá formát MBTiles</string>
-  <string name="toast_using_network_location">Použita poloha sítě</string>
+  <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS poloha</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS vypnuto, trasování zastaveno</string>
   <!--Some generic labels/buttons-->
@@ -548,16 +549,19 @@
   <string name="actionmode_rotateway">Otočit cestu</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
+  <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
   <string name="config_overlayLayer_title">Překrytí mapy</string>
+  <string name="config_overlayLayer_summary">Dlaždicová překryvná vrstva mapy.</string>
   <string name="config_customlayers_title">Vlastní vrstvy</string>
   <string name="config_customlayers_summary">Nastavení vrstev, které nejsou ve výchozí konfiguraci</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
+  <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_mapProfile_title">Styl dat</string>
   <string name="config_mapProfile_summary">Zvolte styl vrstvy s datay</string>
   <string name="config_enableOpenStreetBugs_title">Povolit zobrazení chyb a poznámek</string>
   <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek/chyb</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
-  <string name="config_enablePhotoLayer_summary">Zobrazit fotografie s georeferencemi</string>
+  <string name="config_enablePhotoLayer_summary">Zobrazovat georeferencované fotografie</string>
   <string name="config_enableKeepScreenOn_title">Nezhasínat obrazovku</string>
   <string name="config_enableKeepScreenOn_summary">Nevypínat obrazovku pro úsporu energie.</string>
   <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
@@ -642,7 +646,7 @@
   <string name="config_enableAutoPresets_title">Povolit vytváření automatických předvoleb</string>
   <string name="config_enableAutoPresets_summary">Povolit vytváření předvoleb z Taginfo</string>
   <!--Location Settings-->
-  <string name="config_category_gps">Nastavení umístění</string>
+  <string name="config_category_gps">Nastavení polohy</string>
   <string name="config_category_gps_summary">GPS parametry a další zdroje polohy</string>
   <string name="config_gps_source_title">Zdroj GPS</string>
   <string name="config_gps_source_summary">Zdroj aktualizaci GPS polohy</string>
@@ -656,7 +660,7 @@
   <string name="config_gps_distance_current">%1$d m</string>
   <string name="config_leaveGpsDisabled_title">Ponechat vypnuté GPS</string>
   <string name="config_leaveGpsDisabled_summary">Neptat se uživatele na zapnutí GPS, pokud je vypnutá</string>
-  <string name="config_gps_network_title">Použít polohu sítě</string>
+  <string name="config_gps_network_title">Použít polohu ze sítě</string>
   <string name="config_gps_network_summary">Pokud není GPS povolený nebo aktuální, použít umístění ze sítě</string>
   <!--Server Settings-->
   <string name="config_category_server">Nastavení serveru</string>
@@ -682,11 +686,11 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Různé</string>
-  <string name="pref_enable_acra">Hlásí pády aplikace</string>
+  <string name="pref_enable_acra">Hlásit pády aplikace</string>
   <string name="pref_acra_enabled">Hlášení pádů povoleno</string>
   <string name="pref_acra_disabled">Hlášení pádů zakázáno</string>
   <string name="config_showStats_title">Zobrazit statistiku</string>
-  <string name="config_showStats_summary">Zobrazí statistické data a počet snímků za sekundu v levém spodním rohu.</string>
+  <string name="config_showStats_summary">V levém spodním rohu zobrazí statistiky dat a počet snímků za sekundu.</string>
   <!--Experimental-->
   <string name="config_category_experimental">Experimentální</string>
   <string name="config_js_console_title">Povolit JS konzoli</string>

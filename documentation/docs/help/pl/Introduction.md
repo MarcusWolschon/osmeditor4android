@@ -1,6 +1,6 @@
 # Wprowadzenie do Vespucci
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci jest wszechstronnym edytorem OpenStreetMap, który pozwala na wykonanie większości działań możliwych do wykonania w edytorach na komputerach stacjonarnych. Pozytywnie przeszedł testy na platformie Android firmy Google - wersje od 2.3 do 7.0 - oraz wielu wariantach systemów AOSP. Uwaga dla użytkowników: o ile współczesne urządzenia mobilne dorównały możliwościami komputerom stacjonarnym, to szczególnie starsze urządzenia posiadające ograniczoną ilość pamięci na ogól są wolniejsze. Należy brać to pod uwagę podczas korzystania z Vespucci i, dla przykładu, utrzymywać wielkości obszarów edytowanych w rozsądnych ramach. 
 
 ## Pierwsze kroki
 
@@ -16,97 +16,97 @@ W zależności od wielkości ekranu oraz wieku twojego urządzenia opcje edycji 
 
 ### Pobieranie danych OSM
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+Kliknij albo na ikonę transferu ![Transfer](../images/menu_transfer.png) lub wybierz w menu "Transfer". Zostanie wyświetlone 7 opcji:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **Pobierz bieżący widok** - pobiera dane obszaru widocznego na ekranie zastępując wcześniej pobrane dane *(wymagane połączenie z internetem)*
+* **Dodaj bieżący widok do pobrania** - pobiera dane obszaru widocznego na ekranie i łączy go z wcześniej pobranymi danymi *(wymagane połączenie z internetem)*
+* **Pobierz inny obszar** - pokazuje panel który pozwala na wprowadzenie współrzędnych, wyszukiwanie miejsc lub użycie bieżących współrzędnych; by pobrać dane ze wskazanej okolicy *(wymagane połączenie z internetem)*
+* **Wyślij dane na serwer OSM** - wysyła i zapisuje zmienione przez Ciebie dane na OpenStreetMap *(wymagane logowanie)* *(wymagane połączenie z internetem)*
+* **Auto-pobieranie** - pobiera dane wokół aktualnej lokalizacji geograficznej automatycznie *(wymagane połączenie z internetem)* *(wymagany sygnał GPS)*
+* **Plik...** - zapisywanie i wczytywanie danych OSM z/do pliku na urządzeniu
+* **Notatki/Błędy...** - pobieranie (automatyczne lub manualne) notatek z OSM lub "Błędów" z narzędzi weryfikacji jakości danych (aktualnie OSMOSE) *(wymagane połączenie z internetem)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Najprostszym sposobem na pobranie danych na Twoje urządzenie jest przybliżenie i przesunięcie mapy do obszaru który chcesz edytować, a następnie wybranie opcji "Pobierz bieżący widok". Możesz przybliżać używając gestów albo poprzez naciśnięcie odpowiednich przycisków na mapie lub też przycisków kontroli głośności w urządzeniu. Vespucci powinien pobrać dane z z obszaru widocznego na ekranie. Nie jest do tego potrzebna autoryzacja ze strony serwera OSM.
 
 ### Edytowanie
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Zablokuj, odblokuj, przełączanie trybów
 
 By uniknąć przypadkowych edycji Vespucci uruchamia się w trybie "zablokowanym" który umożliwia tylko wynieranie lokalizacji na mapie. Puknij w ikonę ![Locked](../images/locked.png) by odblokować ekran. 
 
 Długie naciśnięcie na kłódkę pokaże menu które teraz zawiera 4 opcje:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Tryb zwykły** - domyślny tryb edycji, można dodawać nowe obiekty, edytować, przesuwać i usuwać istniejące. Wyświetla się prosta biała ikona kłódki.
+* **Tryb tagów** - wybranie istniejącego obiektu uruchomi Edytor właściwości, długie naciśnięcie na ekranie głównym dodaje obiekty, ale nie działają żadne inne operacje na geometrii. Wyświetla się biała ikona kłódki z literą "T".
+* **Tryb wnętrz** - aktywuje tryb wnętrz, zobacz [Indoor mode](#indoor). Wyświetla się biała ikona kłódki z literą "I".
+* **Tryb błędów** - aktywuje tryb błędów, tylko obiekty z ustawioną flagą ostrzeżenia będą wyświetlane, zobacz [C-Mode](#c-mode). Wyświetla się biała ikona kłódki z literą "C".
 
-#### Single tap, double tap, and long press
+#### Pojedyncze dotknięcie, podwójne dotknięcie i długie dotknięcie
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Standardowo, możliwe do zaznaczenia węzły oraz linie mają pomarańczową obwódkę wokół nich pokazującą gdzie - mniej więcej - należny nacisnąć by wybrać ten obiekt. Masz trzy opcje:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* Pojedyncze dotknięcie: Wybierz obiekt. 
+    * Pojedynczy węzeł/linia zostaje od razu podświetlony. 
+    * Jeżeli jednak spróbujesz wybrać obiekt, a Vespucci stwierdzi, że wybór może dotyczyć wielu obiektów, pokaże się menu wyboru, pozwalając sprecyzować, o który obiekt Ci chodzi. 
+    * Wybrane obiekty są podświetlone na żółto. 
+    * Aby dowiedzieć się więcej zobacz [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Podwójne dotknięcie: Rozpocznij [Multiselect mode](Multiselect.md)
+* Długie dotknięcie: Pojawia się "celownik", pozwalający na dodawanie węzłów, spójrz niżej oraz [Creating new objects](Creating%20new%20objects.md)
 
 Dobrą praktyką jest przybliżanie widoku gdy edytujesz obszar o dużej ilości elementów.
 
 System cofania i ponawiania zmian w Vespucci jest dobrze dopracowany, więc nie bój się eksperymentować, jednakże nie wysyłaj testowych danych na serwer.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### Zaznaczanie/ Odznaczanie (pojedyncze dotknięcie i "menu zaznaczenia")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Dotknij obiektu by zaznaczyć i podświetlić go. Dotknięcie ekranu w miejscu w którym nie znajduje się żaden obiekt spowoduje odznaczenie obiektów. Jeśli zaznaczyłeś już obiekt i potrzebujesz zaznaczyć inny, wystarczy że dotkniesz ten następny, nie jest potrzebne wcześniejsze odznaczanie. Szybkie podwójne dotknięcie na obiekt rozpocznie  [Multiselect mode](Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Zauważ, że jeżeli spróbujesz wybrać obiekt, a Vespucci stwierdzi, że wybór może dotyczyć wielu obiektów (takie jak węzeł na linii lub inne nakładające się obiekty), pokaże się menu wyboru: możesz wtedy dotknąć odpowiedniego obiektu, który zostanie zaznaczony. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+Wybrane obiekty są oznaczane przez cienką, żółtą obwódkę. Ta ramka może być trudna do zauważenia przy niektórych tłach mapy i poziomach przybliżenia. Kiedy dokonasz zaznaczenia, zobaczysz powiadomienia potwierdzające to działanie.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+Kiedy skończysz zaznaczanie zobaczysz (jako menu lub przyciski) listę dostępnych operacji dla wybranych obiektów: aby dowiedzieć się więcej zobacz [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) i [Relation selected](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Zaznaczone obiekty: Edytowanie tagów
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+Drugie dotknięcie zaznaczonego obiektu otwiera edytor tagów, aby móc edytować te powiązane z danym obiektem.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Zauważ, że dla nakładających się obiektów (takich, jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.
 
-#### Selected objects: Moving a Node or Way
+#### Zaznaczone obiekty: Przenoszenie Węzłów lub Linii
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Kiedy zaznaczysz obiekt, może on zostać przesunięty. Zauważ, że obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Zwyczajnie przeciągnij obok (np. w obszarze tolerancji) zaznaczonego obiektu, aby go przesunąć. Jeśli opcja "Duży obszar przeciągania węzłów" jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie. 
 
-#### Adding a new Node/Point or Way (long press)
+#### Dodawanie nowych Węzłów/Punktów lub Linii (długie przyciśnięcie)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Przyciśnij długo w miejscu, gdzie chcesz dodać węzeł lub zacząć linię. Zobaczysz symbol czarnego "celownika". 
+* Jeśli chcesz utworzyć węzeł (bez połączenia z obiektem), kliknij z dala od istniejących obiektów.
+* Jeżeli chcesz przedłużyć linię, kliknij w "granicach tolerancji" linii (lub jej węzła). Granica tolerancji jest wskazywana przez obszar wokół węzła lub linii.
 
-Once you can see the crosshair symbol, you have these options:
+Kiedy zobaczysz symbol celownika, masz następujące opcje:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Dotknij w tym samym miejscu.
+    * Jeżeli celownik nie jest w pobliżu węzła, ponowne dotknięcie tego samego miejsca utworzy węzeł. Jeśli jesteś w pobliżu linii (ale nie węzła), nowy węzeł będzie na linii (i będzie połączony z nią).
+    * Jeżeli celownik jest w pobliżu węzła (np. w jego granicy tolerancji), dotknięcie tego samego miejsca zaznaczy węzeł (i otworzy edytor tagów). Nie powstanie żaden nowy węzeł. Działanie jest takie samo, jak dla opisanego wyżej zaznaczania.
+* Dotknij w innym miejscu. Dotknięcie innego miejsca (poza granicą tolerancji celownika) dodaje segment linii pomiędzy miejscami pierwszego i drugiego dotknięcia. Jeżeli celownik jest w pobliżu linii lub węzła, to nowy segment będzie do nich dołączony.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Dotykaj kolejne miejsca na ekranie by dodać dalsze węzły tworzące linie. Aby zakończyć kliknij ostatni węzeł dwa razy. Jeśli końcowy węzeł znajduje się na linii lub węźle, segment zostanie połączony z nimi automatycznie. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+Możesz też użyć menu: Zobacz [Creating new objects](/Creating%20new%20objects.md), aby uzyskać więcej informacji.
 
 #### Dodawanie obszaru
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+W przeciwieństwie do innych systemów danych geograficznych, OpenStreetMap aktualnie nie posiada obiektu typu "obszar". Edytor "iD" próbuje tworzyć obszary z podstawowych elementów OSM, co czasami działa lepiej, czasami gorzej. Aktualnie Vespucci nie próbuje robić nic podobnego, więc musisz wiedzieć trochę więcej o tym, jak prezentowane są obszary:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _zamknięte linie_: najprostszy i najpopularniejszy wariant obszaru, to linie, które współdzielą pierwszy i ostatni węzeł tworząc zamknięty "pierścień" (na przykład większość budynków jest tego typu). Bardzo łatwo go utworzyć w Vespucci, po prostu dołącz ostatnią linię do pierwszego węzła. Uwaga: interpretacja zamkniętej linii zależy od jej tagów: na przykład, jeśli zamknięta linia jest otagowana jako budynek, to będzie traktowana jako obszar, a jeżeli jako rondo, to nadal będzie tylko linia. W niektórych przypadkach, kiedy obydwie możliwości mogą być poprawne tag "area" wyjaśnia zamierzone użycie.
+* _wielokąty złożone ("multi-polygons")_: niektóre obszary mają wiele części, dziur i pierścieni, których nie da się odwzorować jedną linią. OSM używa specjalnego typu relacji (nasz podstawowy obiekt pozwalający określać relacje pomiędzy elementami), aby to obejść, wielokąta. Wielokąt może mieć wiele "zewnętrznych" pierścieni i wiele "wewnętrznych" pierścieni. Każdy pierścień może składać się z zamkniętej linii, jaką opisano powyżej, lub wielu pojedynczych linii o wspólnych węzłach. Podczas kiedy praca z dużymi wielokątami jest problematyczna w każdym edytorze, te mniejsze stosunkowo łatwo utworzyć w Vespucci. 
+* _linie brzegowe_: dla bardzo dużych obiektów, takich jak kontynenty i wyspy, nawet wielokąty nie są odpowiednie. Dla linii natural=coastline zakładamy nazewnictwo zależne od kierunku: ląd jest po lewej stronie linii, a woda po prawej. Efektem ubocznym tego jest, że nie powinno się odwracać kierunku linii z otagowanej jako linia brzegowa. Więcej informacji można znaleźć w [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Ulepszanie Geometrii Linii
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Jeśli odpowiednio oddalisz mapę, na zaznaczonej drodze zauważysz mały "x" na środku odcinków linii które są odpowiednio długie. Przeciągnięcie "x" utworzy nowy węzeł linii w tym miejscu. Uwaga: aby uniknąć przypadkowego dodawania węzłów, tolerancja nacisku dla tej czynności jest dość mała.
 
 #### Wytnij, Kopiuj & Wklej
 
@@ -114,25 +114,26 @@ Możesz skopiować lub wyciąć zaznaczone węzły i linie, by później wkleić
 
 #### Efektywne Dodawanie Adresów
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci posiada funkcję "Dodaj tagi adresowe" która ma na celu ułatwienie kartowania adresów. Może zostać wybrana:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* po długim nacisku: Vespucci doda węzeł tym miejscu i postara się zgadnąć który jest to numer domu i  doda odpowiednie tagi które ostatnio używano. Jeśli węzeł jest na brzegu budynku doda także tag "entrance=yes" w tym węźle. Edytor tagów otworzy się dla tego obiektu aby pozwolić Ci wprowadzić konieczne dalsze zmiany.
+* w czasie gdy zaznaczone są węzły/linie: Vespucci doda tagi tak jak w powyższym przypadku i włączy edytor tagów.
+* w edytorze tagów.
+
 
 Przewidywanie numerów adresowych zazwyczaj wymaga przynajmniej dwóch numerów po obu stronach drogi by zostać skutecznie użyta, im więcej numerów już zmapowanych tym lepsza dokładność.
 
-Consider using this with the [Auto-download](#download) mode.  
+Zastanów się nad użyciem trybu [Auto-pobierania](#download) podczas użytkowania tej funkcji.  
 
 #### Dodawanie ograniczeń skrętu
 
 Vespucci ma  możliwość szybiego dodawania zakazów skrętu. Jeśli będzie to potrzebne to drogi zostaną automatycznie podzielone na fragmenty. W takim przypadku konieczne jest ponowne wybranie odpowiednich elementów. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* zaznacz linię z tagiem highway (droga), będzie to element "from" - ograniczenia skrętu moga być dodane tylko do dróg, jeżeli potrzebujesz je zasosowac do innych linii, mozesz użyć bardziej ogólnej funkcji "Utwórz relację", dodatkowo jeżeli nie ma dostępnych prawidłowych elementów "via" pozycja nie wyświetli się 
+* wybierz "Dodaj ograniczenie" z menu
+* zaznacz węzeł lub linię "via" (tylko elementy możliwe do wykorzystania jako "via" będą miały pokazane obszary dotyku)
+* zaznacz linię "to" (możliwe jest wybranie tego samego elementu "to" jak i "from", Vespucci uzna że chodzi o zakaz zawracania "no_u_turn")
+* ustaw typ ograniczenia
 
 ### Vespucci w trybie "zablokowanym"
 
@@ -152,104 +153,104 @@ Jeśli chcesz zapisać swoją pracą, ale nie masz połączenia z internetem mo�
 
 #### Rozwiązywanie konfliktujących zmian
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci posiada prostą funkcję rozwiązywania konfliktów edycji. Jednakże jeśli podejrzewasz że istnieją poważne problemy z twoim zestawem zmian, wyeksportuj go do pliku .osc ("Eksport" w menu "Transfer") i spróbuj naprawić je w JOSM. Zobacz dalsze wskazania na [conflict resolution](Conflict%20resolution.md).  
 
 # Użycie GPS
 
 Możesz użyć Vespucci by utworzyć ślad GPX i odczytać go na swoim urządzeniu. Co więcej możesz wyświetlić swoją aktualną pozycję GPS (włączając opcję "Pokaż lokalizację" w menu GPS) i/lub włączyć centrowanie na niej oraz podążanie za pozycją GPS (włączając opcję "Podążaj za pozycją GPS" w menu GPS).  
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Jeśli wybrałeś drugą opcję, przesunięcie ekranu ręcznie lub edycja sprawi że opcja "podążaj za GPS" wyłączy się i charakter niebieskiej strzałki GPS zmieni się z obrysu na wypełniony kształt. By szybko wrócić do trybu "podążania", wystarczy że dotkniesz przycisku GPS lub ponownie włączysz ta opcję w menu.
 
 ## Notatki i Błędy
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci umożliwia pobieranie, komentowanie i zamykanie Notatek OSM (poprzednio Błędów OSM) oraz "Błędów" wykrywanych przez [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Obydwa mogą zostać pobrane manualnie lub przez funkcję auto-pobierania. Zmienione i zamknięte wpisy można wysyłać pojedynczo od razu lub wszystkie naraz po pewnym czasie.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+Na mapie Notatki i Błędu wyświetlają się jako mała ikonka robaka ![Bug](../images/bug_open.png), zielone oznaczają zamknięte/rozwiązane błędy, niebieskie zostały stworzone lub zmienione przez Ciebie, a żółte oznaczają Notatki/Błędy dalej aktywne nie zmienione przez nikogo. 
 
 Błędy OSMOSE po zaznaczeniu dają możliwość wybrania adresu do obiektu, dotknięcie adresu wybierze obiekt, wyśrodkuje ekran na nim i pobierze obszar potrzebny do jego edycji jeśli zachodzi taka potrzeba. 
 
 Filtrowanie
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Poza globalnym aktywowaniem wyświetlania notatek i błędów, możesz ustawić filtr, aby ograniczyć bałagan. W [Advanced preferences](Advanced%20preferences.md) możesz wybierać niezależnie:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* Notatka
+* Osmose błąd
+* Osmose ostrzeżenie
+* Osmose pomniejszy błąd
+* Dostosowane
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Tryb wnętrz
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+Mapowanie wnętrz jest wyzwaniem ze względu na dużą ilość obiektów, które bardzo często się nakładają na siebie. Vespucci ma dedykowany tryb wnętrz, który pozwala na odfiltrowanie wszystkich obiektów, które nie są na tym samym poziomie oraz automatyczne dodawanie aktualnego poziomu do nowo tworzonych obiektów.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Ten tryb może być włączony przez długie naciśnięcie na ikonie kłódki, zobacz [Lock, unlock, mode switching](#lock) i wybranie odpowiedniego wpisu z menu.
 
 1
 
-## C-Mode
+## Tryb błędów
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+W trybie błędów wyświetlane są tylko obiekty, które mają ustawioną flagę ostrzeżenia, co ułatwia znalezienie obiektów z konkretnymi problemami lub pasują do sprawdzeń. Jeżeli jest wybrany obiekt i uruchomiony Edytor właściwości w trybie błędów, najlepiej pasujący szablon zostanie automatycznie zastosowany.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Ten tryb może być włączony przez długie naciśnięcie na ikonie kłódki, zobacz [Lock, unlock, mode switching](#lock) i wybranie odpowiedniego wpisu z menu.
 
-### Configuring checks
+### Konfigurowanie sprawdzeń
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Aktualnie są dwa konfigurowalne sprawdzenia (sprawdzenie dla tagów FIXME i test na brakujące tagi typów w relacjach, które nie są aktualnie konfigurowalne), które mogą być ustawione poprzez wybranie "Ustawień wykrywania błędów" w "Ustawieniach". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+Lista wpisów jest podzielona na dwie części, górna pokazuje wpisy do "ponownego przeglądu", dolna "sprawdź wpisy". Wpisy mogą być edytowane przez kliknięcie na nich, zielony przycisk menu pozwala dodawać wpisy.
 
-#### Re-survey entries
+#### Wpisy do ponownego przeglądu
 
-Re-survey entries have the following properties:
+Wpisy do ponownego przeglądu mają następujące właściwości:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Klucz** - Klucz tagu.
+* **Wartość** - Wartość, którą powinien mieć tag, jeżeli pozostanie pusta, to będzie ignorowana.
+* **Wiek** - ile dni po ostatnim sprawdzeniu elementu powinien on być ponownie przejrzany, jeżeli jest obecne pole check_date, to zostanie ono użyte, w przeciwnym wypadku będzie to data utworzenia bieżącej wersji. Ustawienie wartości na zero spowoduje, że sprawdzenie po prostu dopasuje klucz i wartość.
+* **Wyrażenie regularne** - jeżeli jest zaznaczone, to przyjmuje się, że **Wartość** jest wyrażeniem regularnym JAVA.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Klucz** i **Wartość** są sprawdzane pod kątem _istniejących_ tagów obiektów w zapytaniu.
 
-#### Check entries
+#### Sprawdź wpisy
 
-Check entries have the following two properties:
+Sprawdzenie wpisów ma następujące dwie właściwości:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Klucz** - Klucz, który powinien być obecny dla obiektu zgodnie z szablonem dopasowania.
+* **Sprawdź opcjonalne** - Sprawdź opcjonalne tagi szablonu dopasowania.
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+To sprawdzenie najpierw określa pasujący szablon a następnie sprawdza, czy **Klucz** jest "rekomendowanym" kluczem dla tego obiektu zgodnie z szablonem. **Sprawdź opcjonalne** rozwinie sprawdzenie dla tagów, które są "opcjonalne" dla obiektu. Uwaga: aktualnie połączone szablony nie są sprawdzane.
 
 ## Filtry
 
-### Tag based filter
+### Filtr bazujący na tagach
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+Filtr może być aktywowany w głównym menu, a następnie zmieniany przez dotknięcie ikony filtra. Cała dokumentacja jest dostępna tutaj [Tag filter](Tag%20filter.md).
 
-### Preset based filter
+### Filtr bazujący na szablonach
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+Alternatywnie do powyższego, obiekty są filtrowane na bazie indywidualnych szablonów lub ich grup. Dotknięcie ikony filtra wyświetli okno wyboru szablonu podobne do innych używanych w Vespucci. Indywidualne szablony można wybrać zwykłym kliknięciem, natomiast grupy przez długie dotknięcie (normalne kliknięcie otwiera grupę). Cała dokumentacja dostępna jest tutaj [Preset filter](Preset%20filter.md).
 
 ## Dostosowywanie Vespucci
 
 ### Opcje które mógłbyś/mogłabyś chcieć zmienić
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Mapa w tle
+* Nakładka mapy. Dodanie nakładki może powodować problemy na starszych urządzeniach i tych z ograniczoną pamięcią. Domyślnie: brak.
+* Wyświetlanie Notatek/Błędów. Aktywne Notatki i Błędy będą wyświetlane jako żółta ikona robaczka, rozwiązane jako zielone. Domyślnie: włączone.
+* Warstwa foto. Wyświetla skalibrowane fotografie jako czerwone ikony aparatu, jeśli informacja o kierunku jest dostępna ikona zostanie obrócona zgodnie z nią. Domyślnie: wyłączone.
+* Pozostaw ekran włączony. Domyślnie: wyłączone.
+* Duży obszar przeciągania węzłów. Przesuwanie węzłów na urządzeniach dotykowych może być problematyczne gdyż twoje palce mogą przysłaniać aktualną pozycję węzła. Włączenie tej opcji zwiększa obszar który może być użyty do przesuwania węzłów przez co można przesuwać węzły nie koniecznie dotykając dokładnie tam gdzie się znajdują (zaznaczanie i inne operacje dalej zachowują normalny obszar responsywności). Domyślnie: wyłączone.
 
 #### Ustawienia zaawansowane
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Ikony węzłów. Domyślnie: włączone.
+* Zawsze pokazuj menu kontekstowe. Włączone zawsze pokazuje menu kontekstowe gdy następuje wybór węzła/linii, wyłączone pokazuje menu kontekstowe tylko gdy zaznaczenie jest niejednoznaczne. Domyślnie: wyłączone (dawniej włączone).
+* Włącz jasny styl. Na nowych urządzeniach domyślnie włączone. Na starszych urządzeniach może być wadliwe.
+* Pokaż statystyki. Pokazuje statystyki służące do odnajdywania błędów oprogramowania, nie są zbyt przydatne. Domyślnie: wyłączone (dawniej włączone).  
 
 ## Zgłaszanie Problemów
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Jeśli nastąpi awaria Vespucci, lub plik stanu będzie wadliwy, zostaniesz zapytany czy chcesz wysłać raport o błędach. Apelujemy byś to zrobił/zrobiła, ale tylko raz na ten sam rodzaj błędu. Jeśli chcesz dodać więcej informacji lub złożyć prośbę o nową funkcjonalność lub w podobnej sprawie, zrób to tutaj: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Jeżeli chcesz przedyskutować sprawę związaną z Vespucci, możesz to zrobić albo na [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) albo na [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

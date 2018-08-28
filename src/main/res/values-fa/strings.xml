@@ -23,6 +23,7 @@
   <string name="no_connection_title">اتصالی با سرور برقرار نیست</string>
   <string name="no_connection_message">ممکن است به سرور OSM متصل نباشد. لطفا اتصالاینترنت تان را بررسی کنید یا بعدا دوباره تلاش کنید. </string>
   <string name="wrong_login_data_title">تایید اعتبار ناموفق</string>
+  <string name="go_to_openstreetmap">برو به openstreetmap.org</string>
   <string name="data_conflict_title">تضاد نسخه</string>
   <string name="data_conflict_message">داده هایی که شما سعی میکنید دانلود کنید شامل داده هایی هستند که با ویرایش های شما تضاد دارند. لطفا قبل از تلاش دوباره اول داده هایتان را آپلود کنید. </string>
   <string name="out_of_memory_title">خارج از حافظه</string>
