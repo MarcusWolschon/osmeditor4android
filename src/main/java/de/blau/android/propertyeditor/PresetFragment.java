@@ -40,8 +40,6 @@ import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
-import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetClickHandler;
 import de.blau.android.presets.Preset.PresetElement;
@@ -75,7 +73,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         void onPresetSelected(@NonNull PresetItem item);
 
         /**
-         Call back when a PresetItem is selected
+         * Call back when a PresetItem is selected
          * 
          * @param item the PresetItem
          * @param applyOptional if true apply optional fields
@@ -270,9 +268,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     }
                 });
                 try {
-                    ArrayList<PresetElement> searchResults = new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
-                    Preferences prefs = new Preferences(activity);
-                    return searchResults;
+                    return new ArrayList<>(SearchIndexUtils.searchInPresets(activity, term, type, 2, MAX_SEARCHRESULTS));
                 } finally {
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -290,7 +286,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
                 }
-                if (result == null) {
+                if (result.isEmpty()) {
                     Snack.barInfo(getActivity(), R.string.toast_nothing_found);
                     if (propertyEditorListener.isConnected()) { // if not online nothing we can do
                         return;

@@ -241,8 +241,6 @@ public class Main extends FullScreenAppCompatActivity
 
     private ConnectivityChangedReceiver connectivityChangedReceiver;
 
-    private DesktopModeReceiver desktopModeReceiver;
-
     /** Objects to handle showing device orientation. */
     private SensorManager sensorManager;
     private Sensor        magnetometer;
@@ -2349,9 +2347,11 @@ public class Main extends FullScreenAppCompatActivity
         map.setFollowGPS(newState);
     }
 
+    /**
+     * Turn on location updates
+     */
     private void enableLocationUpdates() {
-        // noinspection PointlessBooleanExpression
-        if (wantLocationUpdates == true) {
+        if (wantLocationUpdates) {
             return;
         }
         if (sensorManager != null) {
@@ -2363,9 +2363,11 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Turn off location updates
+     */
     private void disableLocationUpdates() {
-        // noinspection PointlessBooleanExpression
-        if (wantLocationUpdates == false) {
+        if (!wantLocationUpdates) {
             return;
         }
         if (sensorManager != null) {

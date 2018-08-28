@@ -899,7 +899,7 @@ public class Preset implements Serializable {
                     protected Object doInBackground(Void... params) {
                         Object result = de.blau.android.presets.Util.invokeMethod(valuesFrom, key);
                         PresetComboField field = (PresetComboField) item.getField(key);
-                        synchronized (item) {
+                        synchronized (field) {
                             if (result instanceof String[]) {
                                 int count = ((String[]) result).length;
                                 StringWithDescription[] valueArray = new StringWithDescription[count];
@@ -980,14 +980,12 @@ public class Preset implements Serializable {
                     }
                     listKey = null;
                     listValues = null;
-                }
-                if (CHECKGROUP.equals(name)) {
+                } else if (CHECKGROUP.equals(name)) {
                     currentItem.addField(checkGroup);
                     checkGroup = null;
                     checkGroupCounter++;
                 }
             }
-
         });
     }
 
@@ -2569,8 +2567,10 @@ public class Preset implements Serializable {
                 Log.e(DEBUG_TAG, "check fields should not be handled here");
                 break;
             }
-            field.setOptional(optional);
-            fields.put(key, field);
+            if (field != null) {
+                field.setOptional(optional);
+                fields.put(key, field);
+            }
         }
 
         /**
@@ -2579,7 +2579,7 @@ public class Preset implements Serializable {
          * @param key the key
          * @param valueArray the suggested values
          */
-        private void addValues(String key, StringWithDescription[] valueArray) {
+        private synchronized void addValues(String key, StringWithDescription[] valueArray) {
             if (!chunk) {
                 tagItems.add(key + "\t", this);
                 if (valueArray != null && valueArray.length > 0) {
@@ -2747,7 +2747,7 @@ public class Preset implements Serializable {
             PresetField field = fields.get(key);
             if (field instanceof PresetComboField) {
                 PresetComboField combo = (PresetComboField) field;
-                return (combo != null ? combo.delimiter : (combo.isMultiSelect() ? MULTISELECT_DELIMITER : COMBO_DELIMITER)).charAt(0);
+                return (combo.delimiter != null ? combo.delimiter : (combo.isMultiSelect() ? MULTISELECT_DELIMITER : COMBO_DELIMITER)).charAt(0);
             } else {
                 Log.e(DEBUG_TAG, "Trying to get delimiter from non-combo field, item " + name + " key " + key + " "
                         + (field != null ? field.getClass().getName() : "null"));
@@ -3362,7 +3362,9 @@ public class Preset implements Serializable {
                             matches--;
                         }
                     } else if (field instanceof PresetCheckField) {
-                        if (otherTagValue.equals(((PresetCheckField) field).getOnValue()) || otherTagValue.equals(((PresetCheckField) field).getOffValue())) {
+                        String onValue = ((PresetCheckField) field).getOnValue().getValue();
+                        String offValue = ((PresetCheckField) field).getOnValue() != null ? ((PresetCheckField) field).getOnValue().getValue() : null;
+                        if (otherTagValue.equals(onValue) || otherTagValue.equals(offValue)) {
                             matches++;
                         } else if (type == MatchType.KEY_VALUE_NEG) {
                             matches--;

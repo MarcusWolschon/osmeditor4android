@@ -268,8 +268,10 @@ public class OsmParser extends DefaultHandler {
     }
 
     /**
-     * @param atts
-     * @throws OsmParseException
+     * Parse a bounding box
+     * 
+     * @param atts an Attributes object holding the current attributes
+     * @throws OsmParseException if parsing fails
      */
     private void parseBounds(final Attributes atts) throws OsmParseException {
         // <bounds minlat="53.56465" minlon="9.95893" maxlat="53.56579" maxlon="9.96022"/>
@@ -278,11 +280,7 @@ public class OsmParser extends DefaultHandler {
             double maxlat = Double.parseDouble(atts.getValue("maxlat"));
             double minlon = Double.parseDouble(atts.getValue("minlon"));
             double maxlon = Double.parseDouble(atts.getValue("maxlon"));
-            if (storage.getBoundingBoxes() == null) {
-                storage.setBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
-            } else {
-                storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
-            }
+            storage.addBoundingBox(new BoundingBox(minlon, minlat, maxlon, maxlat));
             Log.d(DEBUG_TAG, "Creating bounding box " + minlon + " " + minlat + " " + maxlon + " " + maxlat);
         } catch (NumberFormatException e) {
             throw new OsmParseException("Bounds unparsable");
@@ -290,8 +288,10 @@ public class OsmParser extends DefaultHandler {
     }
 
     /**
+     * Pares a nd entry in a Way
+     * 
      * @param atts XML attributes for the current element
-     * @throws OsmParseException
+     * @throws OsmParseException if parsing fails
      */
     private void parseWayNode(final Attributes atts) throws OsmParseException {
         try {
@@ -316,7 +316,7 @@ public class OsmParser extends DefaultHandler {
      * Parse relation members, storing information on relations that we haven't seen yet for post processing
      * 
      * @param atts XML attributes for the current element
-     * @throws OsmParseException
+     * @throws OsmParseException if parsing fails
      */
     private void parseRelationMember(final Attributes atts) throws OsmParseException {
         try {
@@ -361,6 +361,8 @@ public class OsmParser extends DefaultHandler {
                         // Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
                     }
                     // Log.d(DEBUG_TAG, "Added relation member");
+                } else {
+                    throw new OsmParseException("Unknown OSM object type " + type);
                 }
 
                 currentRelation.addMember(member);
@@ -369,22 +371,6 @@ public class OsmParser extends DefaultHandler {
         } catch (NumberFormatException e) {
             throw new OsmParseException("RelationMember unparsable");
         }
-    }
-
-    /**
-     * @return the element in which we're in. When we're not in any element, it returns null.
-     */
-    private OsmElement getCurrentOsmElement() {
-        if (currentNode != null) {
-            return currentNode;
-        }
-        if (currentWay != null) {
-            return currentWay;
-        }
-        if (currentRelation != null) {
-            return currentRelation;
-        }
-        return null;
     }
 
     /**
@@ -453,9 +439,6 @@ public class OsmParser extends DefaultHandler {
      * Clear the list of bounding boxes
      */
     public void clearBoundingBoxes() {
-        List<BoundingBox> boundingBoxes = getStorage().getBoundingBoxes();
-        if (boundingBoxes != null) {
-            boundingBoxes.clear();
-        }
+        getStorage().getBoundingBoxes().clear();;
     }
 }

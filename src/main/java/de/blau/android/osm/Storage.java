@@ -25,7 +25,7 @@ public class Storage implements Serializable {
 
     private final LongOsmElementMap<Relation> relations;
 
-    private List<BoundingBox> bboxes;
+    private final List<BoundingBox> bboxes;
 
     /**
      * Default constructor
@@ -86,6 +86,14 @@ public class Storage implements Serializable {
         return relations.get(relationOsmId);
     }
 
+    /**
+     * Get a OsmElement
+     * 
+     * @param type the element type as a String (NODE, WAY, RELATION)
+     * @param osmId the id
+     * @return the OsmElement or null if not found
+     */
+    @Nullable
     public OsmElement getOsmElement(final String type, final long osmId) {
         if (type.equalsIgnoreCase(Node.NAME)) {
             return getNode(osmId);
@@ -335,8 +343,8 @@ public class Storage implements Serializable {
      * @param bbox bounding box to add
      */
     void setBoundingBox(@NonNull final BoundingBox bbox) {
-        this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
-        this.bboxes.add(bbox);
+        bboxes.clear();
+        bboxes.add(bbox);
     }
 
     /**
@@ -345,9 +353,7 @@ public class Storage implements Serializable {
      * @param bbox bounding box to add
      */
     void addBoundingBox(final BoundingBox bbox) {
-        if (this.bboxes == null)
-            this.bboxes = Collections.synchronizedList(new ArrayList<BoundingBox>());
-        this.bboxes.add(bbox);
+        bboxes.add(bbox);
     }
 
     /**
@@ -356,9 +362,7 @@ public class Storage implements Serializable {
      * @param box bounding box to remove
      */
     public void deleteBoundingBox(BoundingBox box) {
-        if (this.bboxes != null) {
-            this.bboxes.remove(box);
-        }
+        bboxes.remove(box);
     }
 
     /**
@@ -453,14 +457,16 @@ public class Storage implements Serializable {
 
         if (nodes != null) {
             for (Node n : nodes) {
-                if (n.getLat() > top)
+                if (n.getLat() > top) {
                     top = n.getLat();
-                else if (n.getLat() < bottom)
+                } else if (n.getLat() < bottom) {
                     bottom = n.getLat();
-                if (n.getLon() > right)
+                }
+                if (n.getLon() > right) {
                     right = n.getLon();
-                else if (n.getLon() < left)
+                } else if (n.getLon() < left) {
                     left = n.getLon();
+                }
             }
         }
         return new BoundingBox(left, bottom, right, top);

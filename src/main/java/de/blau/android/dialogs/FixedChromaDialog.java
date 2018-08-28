@@ -93,7 +93,7 @@ public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog
             ad.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    measureLayout((AlertDialog) ad);
+                    fixedMeasureLayout((AlertDialog) ad);
                 }
             });
         }
@@ -101,7 +101,7 @@ public class FixedChromaDialog extends com.pavelsikun.vintagechroma.ChromaDialog
         return ad;
     }
 
-    private void measureLayout(AlertDialog ad) {
+    private void fixedMeasureLayout(AlertDialog ad) {
         int widthMultiplier = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1;
 
         TypedValue typedValue = new TypedValue();

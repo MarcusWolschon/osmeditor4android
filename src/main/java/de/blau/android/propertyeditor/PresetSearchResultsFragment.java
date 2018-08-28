@@ -26,7 +26,6 @@ import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.osm.OsmElement;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.AutoPreset;
 import de.blau.android.presets.AutoPresetItem;
 import de.blau.android.presets.Preset;
@@ -48,7 +47,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
     private OnPresetSelectedListener mOnPresetSelectedListener;
     private PresetUpdate             mPresetUpdateListener;
     private OsmElement               element;
-    private ArrayList<PresetElement> presets;
+    private List<PresetElement>      presets;
     private boolean                  enabled = true;
     private PropertyEditorListener   propertyEditorListener;
 
@@ -115,7 +114,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         if (container != null) {
             builder.setView(container);
         }
-        AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
+        AsyncTask<Void, Void, List<PresetElement>> list = new AsyncTask<Void, Void, List<PresetElement>>() {
             private AlertDialog      progress = null;
             private FragmentActivity activity = getActivity();
 
@@ -126,29 +125,25 @@ public class PresetSearchResultsFragment extends DialogFragment {
             }
 
             @Override
-            protected ArrayList<PresetElement> doInBackground(Void... params) {
-
-                try {
-                    ArrayList<PresetElement> searchResults = new ArrayList<>();
-                    AutoPreset autoPreset = new AutoPreset(activity);
-                    Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
-                    List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
-                    if (!presets.isEmpty()) {
-                        presets.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
-                    }
-                    for (PresetElement pe : elementsFromTaginfo) {
-                        searchResults.add(pe);
-                    }
-                    if (searchResults.isEmpty()) {
-                        return null;
-                    }
-                    return searchResults;
-                } finally {
+            protected List<PresetElement> doInBackground(Void... params) {
+                List<PresetElement> searchResults = new ArrayList<>();
+                AutoPreset autoPreset = new AutoPreset(activity);
+                Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
+                List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
+                if (!presets.isEmpty()) {
+                    presets.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
                 }
+                for (PresetElement pe : elementsFromTaginfo) {
+                    searchResults.add(pe);
+                }
+                if (searchResults.isEmpty()) {
+                    return null;
+                }
+                return searchResults;
             }
 
             @Override
-            protected void onPostExecute(ArrayList<PresetElement> result) {
+            protected void onPostExecute(List<PresetElement> result) {
                 try {
                     progress.dismiss();
                 } catch (Exception ex) {

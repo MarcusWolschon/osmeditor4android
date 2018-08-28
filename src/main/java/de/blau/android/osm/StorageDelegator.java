@@ -2487,7 +2487,7 @@ public class StorageDelegator implements Serializable, Exportable {
             if (newDelegator != null) {
                 Log.d(DEBUG_TAG, "read saved state");
                 currentStorage = newDelegator.currentStorage;
-                if (currentStorage.getBoundingBoxes() == null) { // can happen if data was added before load
+                if (currentStorage.getBoundingBoxes().isEmpty()) { // can happen if data was added before load
                     try {
                         currentStorage.setBoundingBox(currentStorage.calcBoundingBoxFromData());
                     } catch (OsmException e) {
