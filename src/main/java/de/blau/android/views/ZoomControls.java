@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -26,10 +28,21 @@ public class ZoomControls extends LinearLayout {
 
     private final Context context;
 
+    /**
+     * Construct a new zoom control view
+     * 
+     * @param context Android Context
+     */
     public ZoomControls(Context context) {
         this(context, null);
     }
 
+    /**
+     * Construct a new zoom control view
+     * 
+     * @param context Android COntext
+     * @param attrs an AttributeSet
+     */
     public ZoomControls(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
@@ -55,34 +68,66 @@ public class ZoomControls extends LinearLayout {
         return true;
     }
 
-    public void setOnZoomInClickListener(View.OnClickListener listener) {
+    /**
+     * Set the OnClickListener for the zoom in button
+     * 
+     * @param listener the listener to set or null
+     */
+    public void setOnZoomInClickListener(@Nullable View.OnClickListener listener) {
         zoomIn.setOnClickListener(listener);
     }
 
-    public void setOnZoomOutClickListener(View.OnClickListener listener) {
+    /**
+     * Set the OnClickListener for the zoom in button
+     * 
+     * @param listener the listener to set or null
+     */
+    public void setOnZoomOutClickListener(@Nullable View.OnClickListener listener) {
         zoomOut.setOnClickListener(listener);
     }
 
+    /**
+     * Show the zoom controls
+     */
     public void show() {
         this.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Hide the zoom controls
+     */
     public void hide() {
         this.setVisibility(View.GONE);
     }
 
+    /**
+     * Enable/disable the zoom in button
+     * 
+     * @param isEnabled enabled status to set
+     */
     public void setIsZoomInEnabled(boolean isEnabled) {
-        zoomIn.setEnabled(isEnabled);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            zoomIn.setBackgroundColor(
-                    ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
-        }
+        setEnabled(zoomIn, isEnabled);
     }
 
+    /**
+     * Enable/disable the zoom out button
+     * 
+     * @param isEnabled enabled status to set
+     */
     public void setIsZoomOutEnabled(boolean isEnabled) {
-        zoomOut.setEnabled(isEnabled);
+        setEnabled(zoomOut, isEnabled);
+    }
+
+    /**
+     * Enable/disable a zoom button
+     * 
+     * @param fab the FloatingActionButton
+     * @param isEnabled enabled status to set
+     */
+    private void setEnabled(@NonNull FloatingActionButton fab, boolean isEnabled) {
+        fab.setEnabled(isEnabled);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            zoomOut.setBackgroundColor(
+            fab.setBackgroundColor(
                     ThemeUtils.getStyleAttribColorValue(context, isEnabled ? R.attr.colorControlNormal : R.attr.colorPrimary, R.color.dark_grey));
         }
     }
