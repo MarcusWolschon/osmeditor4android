@@ -89,18 +89,19 @@ import okhttp3.ResponseBody;
  *
  */
 public class TileLayerServer {
-    static final String         EPSG_900913     = "EPSG:900913";
-    static final String         EPSG_3857       = "EPSG:3857";
-    static final String         EPSG_4326       = "EPSG:4326";
-    static final String         TYPE_BING       = "bing";
-    static final String         TYPE_TMS        = "tms";
-    static final String         TYPE_WMS        = "wms";
-    static final String         TYPE_SCANEX     = "scanex";
-    private static final String DEBUG_TAG       = "TileLayerServer";
-    public static final String  LAYER_MAPNIK    = "MAPNIK";
-    public static final String  LAYER_NONE      = "NONE";
-    public static final String  LAYER_NOOVERLAY = "NOOVERLAY";
-    public static final String  LAYER_BING      = "BING";
+    static final String         EPSG_900913       = "EPSG:900913";
+    static final String         EPSG_3857         = "EPSG:3857";
+    static final String         EPSG_4326         = "EPSG:4326";
+    static final String         TYPE_BING         = "bing";
+    static final String         TYPE_TMS          = "tms";
+    static final String         TYPE_WMS          = "wms";
+    static final String         TYPE_WMS_ENDPOINT = "wms_endpoint";
+    static final String         TYPE_SCANEX       = "scanex";
+    private static final String DEBUG_TAG         = "TileLayerServer";
+    public static final String  LAYER_MAPNIK      = "MAPNIK";
+    public static final String  LAYER_NONE        = "NONE";
+    public static final String  LAYER_NOOVERLAY   = "NOOVERLAY";
+    public static final String  LAYER_BING        = "BING";
 
     /**
      * A tile layer provide has some attribution text, and one or more coverage areas.
@@ -929,9 +930,9 @@ public class TileLayerServer {
                 }
             }
 
-            if (type == null || url == null || ("wms".equals(type) && proj == null)) {
-                Log.w(DEBUG_TAG, "name " + name + " id " + id + " type " + type + " url " + url);
-                if ("wms".equals(type)) {
+            if (type == null || url == null || (TYPE_WMS.equals(type) && proj == null) || TYPE_WMS_ENDPOINT.equals(type)) {
+                Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
+                if (TYPE_WMS.equals(type)) {
                     Log.w(DEBUG_TAG, "projections: " + projections);
                 }
                 return null;
@@ -1716,7 +1717,7 @@ public class TileLayerServer {
         if (map != null) {
             for (String key : ids) {
                 TileLayerServer osmts = map.get(key);
-                names.add(osmts.name + ("wms".equals(osmts.type) ? " [wms]" : ""));
+                names.add(osmts.name + (TYPE_WMS.equals(osmts.type) ? " [wms]" : ""));
             }
         }
         return names.toArray(new String[names.size()]);
