@@ -3,6 +3,7 @@ package de.blau.android.filter;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -21,6 +23,8 @@ import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.Density;
+import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
@@ -301,14 +305,18 @@ public class IndoorFilter extends Filter {
     /**
      * Indoor filter controls
      */
-    private transient FloatingActionButton levelUp;
-    private transient FrameLayout          levelDisplay;
-    private transient TextView             levelText;
-    private transient FloatingActionButton levelTextButton;
-    private transient FloatingActionButton levelDown;
-    private transient ViewGroup            parent;
-    private transient RelativeLayout       controls;
-    private transient Update               update;
+    private transient FloatingActionButton        levelUp;
+    private transient FrameLayout                 levelDisplay;
+    private transient TextView                    levelText;
+    private transient FloatingActionButton        levelTextButton;
+    private transient FloatingActionButton        levelDown;
+    private transient ViewGroup                   parent;
+    private transient RelativeLayout              controls;
+    private transient Update                      update;
+    private transient RelativeLayout.LayoutParams originalLayoutParamsUp;
+    private transient RelativeLayout.LayoutParams disabledLayoutParamsUp;
+    private transient RelativeLayout.LayoutParams originalLayoutParamsDown;
+    private transient RelativeLayout.LayoutParams disabledLayoutParamsDown;
 
     @Override
     public void addControls(ViewGroup layout, final Update update) {
@@ -332,6 +340,18 @@ public class IndoorFilter extends Filter {
             levelText = (TextView) controls.findViewById(R.id.levelText);
             levelTextButton = (FloatingActionButton) controls.findViewById(R.id.levelTextButton);
             levelDown = (FloatingActionButton) controls.findViewById(R.id.levelDown);
+            //
+            // the following is a hack around https://github.com/MarcusWolschon/osmeditor4android/issues/771
+            //
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                originalLayoutParamsUp = (LayoutParams) levelUp.getLayoutParams();
+                disabledLayoutParamsUp = new RelativeLayout.LayoutParams(originalLayoutParamsUp);
+                originalLayoutParamsDown = (LayoutParams) levelDown.getLayoutParams();
+                disabledLayoutParamsDown = new RelativeLayout.LayoutParams(originalLayoutParamsDown);
+                int margin = Density.dpToPx(context, 8);
+                disabledLayoutParamsUp.setMargins(margin, margin, margin, margin);
+                disabledLayoutParamsDown.setMargins(margin, margin, margin, margin);
+            }
         }
 
         // indoor controls
@@ -382,10 +402,18 @@ public class IndoorFilter extends Filter {
             levelText.setText("--");
             levelUp.setEnabled(false);
             levelDown.setEnabled(false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && disabledLayoutParamsUp != null && disabledLayoutParamsDown != null) {
+                levelUp.setLayoutParams(disabledLayoutParamsUp);
+                levelDown.setLayoutParams(disabledLayoutParamsDown);
+            }
         } else {
             updateLevel(level);
             levelUp.setEnabled(true);
             levelDown.setEnabled(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && originalLayoutParamsUp != null && originalLayoutParamsDown != null) {
+                levelUp.setLayoutParams(originalLayoutParamsUp);
+                levelDown.setLayoutParams(originalLayoutParamsDown);
+            }
         }
         update.execute();
     }
