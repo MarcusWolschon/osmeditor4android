@@ -1111,6 +1111,8 @@ public class Main extends FullScreenAppCompatActivity
 
         // always save editing state
         App.getLogic().saveEditingState(this);
+        // save tag clipboard
+        App.getTagClipboard(this).save(this);
         // onPause is the last lifecycle callback guaranteed to be called on
         // pre-honeycomb devices
         // on honeycomb and later, onStop is also guaranteed to be called, so we

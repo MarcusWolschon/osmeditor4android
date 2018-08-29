@@ -1,5 +1,6 @@
 package de.blau.android.easyedit;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
@@ -27,6 +29,7 @@ import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -46,9 +49,10 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     private static final int    MENUITEM_HISTORY          = 3;
     private static final int    MENUITEM_COPY             = 4;
     private static final int    MENUITEM_CUT              = 5;
-    private static final int    MENUITEM_RELATION         = 6;
-    private static final int    MENUITEM_EXTEND_SELECTION = 7;
-    private static final int    MENUITEM_ELEMENT_INFO     = 8;
+    private static final int    MENUITEM_PASTE_TAGS       = 6;
+    private static final int    MENUITEM_RELATION         = 7;
+    private static final int    MENUITEM_EXTEND_SELECTION = 8;
+    private static final int    MENUITEM_ELEMENT_INFO     = 9;
 
     protected static final int MENUITEM_SHARE_POSITION    = 21;
     private static final int   MENUITEM_TAG_LAST          = 22;
@@ -62,6 +66,12 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
 
     UndoListener undoListener;
 
+    /**
+     * Construct a new ActionModeCallback
+     * 
+     * @param manager the EasyEditManager instance
+     * @param element the selected OsmElement
+     */
     public ElementSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
         super(manager);
         this.element = element;
@@ -121,6 +131,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             menu.add(Menu.NONE, MENUITEM_CUT, Menu.CATEGORY_SECONDARY, R.string.menu_cut).setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_cut))
                     .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_cut));
         }
+        menu.add(Menu.NONE, MENUITEM_PASTE_TAGS, Menu.CATEGORY_SECONDARY, R.string.menu_paste_tags)
+                .setAlphabeticShortcut(Util.getShortCut(main, R.string.shortcut_paste_tags)).setEnabled(!App.getTagClipboard(main).isEmpty());
+
         menu.add(GROUP_BASE, MENUITEM_EXTEND_SELECTION, Menu.CATEGORY_SYSTEM, R.string.menu_extend_selection)
                 .setIcon(ThemeUtils.getResIdFromAttribute(main, R.attr.menu_multi_select));
         menu.add(Menu.NONE, MENUITEM_RELATION, Menu.CATEGORY_SYSTEM, R.string.menu_relation)
@@ -166,6 +179,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             logic.cutToClipboard(main, element);
             mode.finish();
             break;
+        case MENUITEM_PASTE_TAGS:
+            main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);
+            break;
         case MENUITEM_RELATION:
             deselect = false;
             logic.setSelectedNode(null);
@@ -209,6 +225,11 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         return true;
     }
 
+    /**
+     * Element specific delete action
+     * 
+     * @param mode the ActionMode
+     */
     protected abstract void menuDelete(ActionMode mode);
 
     /**
@@ -251,6 +272,9 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             return true;
         } else if (c == Util.getShortCut(main, R.string.shortcut_tagedit)) {
             main.performTagEdit(element, null, false, false, false);
+            return true;
+        } else if (c == Util.getShortCut(main, R.string.shortcut_paste_tags)) {
+            main.performTagEdit(element, null, new HashMap<>(App.getTagClipboard(main).paste()), false);
             return true;
         }
         return false;

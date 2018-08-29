@@ -42,6 +42,8 @@ The alphabetic menu shortcuts should be usable with `<Ctrl>` + letter or `<Alt>`
   __x__ Cut 
   
   __v__ Paste 
+  
+  __t__ Paste tags 
 
 ### Node selected
 

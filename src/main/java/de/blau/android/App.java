@@ -29,6 +29,7 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.OkHttpTlsCompat;
+import de.blau.android.util.TagClipboard;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.validation.BaseValidator;
@@ -117,6 +118,12 @@ public class App extends android.app.Application {
      */
     private static final Object defaultValidatorLock = new Object();
     private static Validator    defaultValidator;
+
+    /**
+     * The clipboard for tags
+     */
+    private static TagClipboard tagClipboard;
+    private static final Object tagClipboardLock = new Object();
 
     private static Configuration configuration = null;
 
@@ -343,6 +350,23 @@ public class App extends android.app.Application {
     @Nullable
     public static GeoContext getGeoContext() {
         return geoContext;
+    }
+
+    /**
+     * Get the TagClipboard object
+     * 
+     * @param ctx Android Context
+     * @return the current GeoContext object
+     */
+    @NonNull
+    public static TagClipboard getTagClipboard(@NonNull Context ctx) {
+        synchronized (tagClipboardLock) {
+            if (tagClipboard == null) {
+                tagClipboard = new TagClipboard();
+                tagClipboard.restore(ctx);
+            }
+            return tagClipboard;
+        }
     }
 
     /**

@@ -53,6 +53,11 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
 
     protected static final int MENUITEM_HELP = 0;
 
+    /**
+     * Construct a new ActionModeCallback
+     * 
+     * @param manager the current EasyEditManager isntance
+     */
     protected EasyEditActionModeCallback(EasyEditManager manager) {
         this.main = manager.getMain();
         this.logic = App.getLogic();
@@ -162,21 +167,37 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     /**
      * modify behavior of back button in action mode
      * 
-     * @return
+     * @return true
      */
     public boolean onBackPressed() {
         mode.finish();
         return true;
     }
 
+    /**
+     * Process a short cut keyboard command
+     * 
+     * @param c the Character
+     * @return true is an action was found
+     */
     public boolean processShortcut(Character c) {
         return false;
     }
 
+    /**
+     * Try to arrange menu items a best as possible
+     * 
+     * @param menu the Menu to arrange
+     */
     void arrangeMenu(Menu menu) {
         menuUtil.setShowAlways(menu);
     }
 
+    /**
+     * Called if a context menu needs to be created
+     * 
+     * @param menu the menu
+     */
     public void onCreateContextMenu(ContextMenu menu) {
     }
 
@@ -186,7 +207,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param menu original menu
      * @param actionMode the current action mode
      * @param callback the callback we are currently in
-     * @return
+     * @return the Menu
      */
     protected Menu replaceMenu(Menu menu, final ActionMode actionMode, final ActionMode.Callback callback) {
         if (cabBottomBar != null) {

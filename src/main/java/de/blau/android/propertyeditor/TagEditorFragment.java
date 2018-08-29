@@ -76,7 +76,6 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.StringWithDescription;
@@ -103,8 +102,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private static final String PRESETSTOAPPLY_KEY = "presetsToApply";
 
     private static final String TAGS_KEY = "tags";
-
-    private SavingHelper<LinkedHashMap<String, String>> savingHelper = new SavingHelper<>();
 
     private static SelectedRowsActionModeCallback tagSelectedActionModeCallback = null;
     private static final Object                   actionModeCallbackLock        = new Object();
@@ -140,11 +137,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * further matching presets
      */
     private ArrayList<PresetItem> secondaryPresets = new ArrayList<>();
-
-    /**
-     * selective copy of tags
-     */
-    Map<String, String> copiedTags = null;
 
     private FormUpdate formUpdate;
 
@@ -482,7 +474,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      */
     private void loadEditsSingle(final Map<String, String> tags, boolean flush) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
-        LinkedHashMap<String, ArrayList<String>> convertedTags = flush ? new LinkedHashMap<>() : getKeyValueMap(true);;
+        LinkedHashMap<String, ArrayList<String>> convertedTags = flush ? new LinkedHashMap<>() : getKeyValueMap(true);
+        ;
         for (Entry<String, String> entry : tags.entrySet()) {
             ArrayList<String> v = new ArrayList<>();
             v.add(entry.getValue());
@@ -765,7 +758,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (preset != null) {
             for (PresetField field : preset.getFields().values()) {
                 if (field instanceof PresetCheckGroupField) {
-                    keys.addAll(((PresetCheckGroupField)field).getKeys());
+                    keys.addAll(((PresetCheckGroupField) field).getKeys());
                 } else {
                     keys.add(field.getKey());
                 }
@@ -1711,12 +1704,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tag_menu, menu);
-        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
-        menu.findItem(R.id.tag_menu_paste).setVisible(pasteIsPossible());
-        menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(pasteFromClipboardIsPossible());
     }
 
     @Override
@@ -1725,6 +1714,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // disable address tagging for stuff that won't have an address
         // menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) ||
         // element.hasTagKey(Tags.KEY_BUILDING));
+        menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
+        menu.findItem(R.id.tag_menu_paste).setEnabled(!App.getTagClipboard(getContext()).isEmpty());
+        menu.findItem(R.id.tag_menu_paste_from_clipboard).setEnabled(pasteFromClipboardIsPossible());
     }
 
     @Override
@@ -1978,22 +1970,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public boolean pasteIsPossible() {
-        if (copiedTags == null) {
-            copiedTags = savingHelper.load(getActivity(), PropertyEditor.COPIED_TAGS_FILE, false);
-        }
-        return copiedTags != null;
-    }
-
-    @Override
     public boolean paste(boolean replace) {
+        Map<String, String> copiedTags = App.getTagClipboard(getContext()).paste();
         if (copiedTags != null) {
             mergeTags(copiedTags);
-        } else {
-            copiedTags = savingHelper.load(getActivity(), PropertyEditor.COPIED_TAGS_FILE, false);
-            if (copiedTags != null) {
-                mergeTags(copiedTags);
-            }
         }
         updateAutocompletePresetItem(null);
         return copiedTags != null;
@@ -2014,10 +1994,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return paste != null;
     }
 
-    @Override
     public void copyTags(Map<String, String> tags) {
-        copiedTags = new LinkedHashMap<>(tags);
-        ClipboardUtils.copyTags(getActivity(), copiedTags);
+        App.getTagClipboard(getContext()).copy(tags);
+        ClipboardUtils.copyTags(getActivity(), tags);
     }
 
     /**
@@ -2097,15 +2076,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             Log.d(DEBUG_TAG, "got null view in getView");
             throw new UiStateException("got null view in getView");
         }
-    }
-
-    /**
-     * Return tags copied or cut
-     * 
-     * @return map containing the copied tags
-     */
-    public LinkedHashMap<String, String> getCopiedTags() {
-        return (LinkedHashMap<String, String>) copiedTags;
     }
 
     public void enableRecentPresets() {

@@ -1,5 +1,8 @@
 package de.blau.android.dialogs;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mapbox.services.commons.geojson.Feature;
@@ -24,14 +27,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.GeoJSONConstants;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**
- * Very simple dialog fragment to display some info on an OSM element
+ * Very simple dialog fragment to display some info on a GeoJSON element
  * 
  * @author simon
  *
@@ -112,18 +117,37 @@ public class FeatureInfo extends DialogFragment {
         Builder builder = new AlertDialog.Builder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
-        if (feature != null && feature.getGeometry() != null && GeoJSONConstants.POINT.equals(feature.getGeometry().getType())) {
-            builder.setNeutralButton(R.string.share_position, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    Position p = ((Point) feature.getGeometry()).getCoordinates();
-                    double[] lonLat = new double[2];
-                    lonLat[0] = p.getLongitude();
-                    lonLat[1] = p.getLatitude();
-                    Util.sharePosition(getActivity(), lonLat);
+        if (feature != null) {
+            if (feature.getGeometry() != null && GeoJSONConstants.POINT.equals(feature.getGeometry().getType())) {
+                builder.setNeutralButton(R.string.share_position, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Position p = ((Point) feature.getGeometry()).getCoordinates();
+                        double[] lonLat = new double[2];
+                        lonLat[0] = p.getLongitude();
+                        lonLat[1] = p.getLatitude();
+                        Util.sharePosition(getActivity(), lonLat);
 
-                }
-            });
+                    }
+                });
+            }
+            final JsonObject properties = feature.getProperties();
+            if (properties != null) {
+                builder.setNegativeButton(R.string.copy_properties, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Map<String, String> tags = new LinkedHashMap<>();
+                        for (String key : properties.keySet()) {
+                            JsonElement e = properties.get(key);
+                            if (!e.isJsonNull() && e.isJsonPrimitive()) {
+                                tags.put(key, e.getAsString());
+                            }
+                        }
+                        App.getTagClipboard(getContext()).copy(tags);
+                        Snack.toastTopInfo(getContext(), R.string.toast_properties_copied);
+                    }
+                });
+            }
         }
         builder.setTitle(R.string.feature_information);
         builder.setView(createView(null));

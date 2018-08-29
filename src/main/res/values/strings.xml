@@ -139,8 +139,10 @@
     <string name="last_edited">Last edited</string>
     <string name="original">Original</string>
     <string name="current">Current</string>
-    <!--  -->
+    <!--  GeoJSON feature display dialog -->
     <string name="feature_information">GeoJSON Feature information</string>
+    <string name="copy_properties">Copy properties</string>
+    <!--  -->
     <string name="error">error</string>
     <string name="warning">warning</string>
     <string name="minor_issue">minor issue</string>
@@ -318,6 +320,9 @@
     <string name="toast_using_network_location">Using network location</string>
     <string name="toast_using_gps_location">Using GPS location</string>
     <string name="toast_using_gps_disabled_tracking_stopped">GPS disabled, tracking stopped</string>
+    <string name="toast_tags_copied">Tags copied to clipboard</string>
+    <string name="toast_tags_cut">Tags cut to clipboard</string>
+    <string name="toast_properties_copied">Properties copied to clipboard</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -489,6 +494,7 @@
     <string name="menu_copy">Copy</string>
     <string name="menu_cut">Cut</string>
     <string name="menu_paste">Paste</string>
+    <string name="menu_paste_tags">Paste tags</string>
     <string name="menu_paste_from_clipboard">Paste from clipboard</string>
     <string name="menu_zoom_to_selection">"Zoom to selection"</string>
     <string name="menu_rotate">Rotate</string>

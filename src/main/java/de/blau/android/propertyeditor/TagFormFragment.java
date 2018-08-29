@@ -421,7 +421,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         inflater.inflate(R.menu.tag_form_menu, menu);
         FragmentActivity activity = getActivity();
         menu.findItem(R.id.tag_menu_mapfeatures).setEnabled(propertyEditorListener.isConnectedOrConnecting());
-        menu.findItem(R.id.tag_menu_paste).setVisible(tagListener.pasteIsPossible());
+        menu.findItem(R.id.tag_menu_paste).setVisible(!App.getTagClipboard(getContext()).isEmpty());
         menu.findItem(R.id.tag_menu_paste_from_clipboard).setVisible(tagListener.pasteFromClipboardIsPossible());
         Locale locale = Locale.getDefault();
         if (activity != null && !(locale.equals(Locale.US) || locale.equals(Locale.UK))) {
@@ -534,7 +534,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * 
      * @return true is it worked
      */
-    boolean updateEditorFromText() {
+    @Override
+    public boolean updateEditorFromText() {
         Log.d(DEBUG_TAG, "updating data from last text field");
         // check for focus on text field
         View fragementView = getView();
@@ -3154,7 +3155,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         }
 
         /**
-         * Construct a Layout representing the tags the match a specific PresetItem
+         * Construct a Layout representing the tags that match a specific PresetItem
          * 
          * @param context Android Context
          * @param attrs an AttributeSet
@@ -3196,18 +3197,22 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             copyButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editorListener.copyTags(tags);
+                    formListener.updateEditorFromText();
+                    App.getTagClipboard(getContext()).copy(tags);
+                    Snack.toastTopInfo(getContext(), R.string.toast_tags_copied);
                 }
             });
             cutButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editorListener.copyTags(tags);
+                    formListener.updateEditorFromText();
+                    App.getTagClipboard(getContext()).cut(tags);
                     for (String key : tags.keySet()) {
                         editorListener.deleteTag(key);
                     }
                     editorListener.updatePresets();
                     formListener.tagsUpdated();
+                    Snack.toastTopInfo(getContext(), R.string.toast_tags_cut);
                 }
             });
             deleteButton.setOnClickListener(new OnClickListener() {

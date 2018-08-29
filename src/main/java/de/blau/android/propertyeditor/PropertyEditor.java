@@ -41,6 +41,7 @@ import de.blau.android.DesktopModeReceiver;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -162,17 +163,12 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     private HashMap<Long, String>                originalParents;
     private ArrayList<RelationMemberDescription> originalMembers;
 
-    static final String COPIED_TAGS_FILE = "copiedtags.dat";
-
-    private SavingHelper<LinkedHashMap<String, String>> savingHelper = new SavingHelper<>();
-
     private Preferences             prefs         = null;
     private ExtendedViewPager       mViewPager;
     private boolean                 usePaneLayout = false;
     private boolean                 isRelation    = false;
     private transient NetworkStatus networkStatus;
     private List<String>            isoCodes      = null;
-    private DesktopModeReceiver     desktopModeReceiver;
 
     /**
      * Start a PropertyEditor activity
@@ -376,6 +372,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     protected void onStop() {
         Log.d(DEBUG_TAG, "onStop");
+        // save tag clipboard
+        App.getTagClipboard(this).save(this);
         super.onStop();
     }
 
@@ -806,11 +804,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         List<LinkedHashMap<String, String>> currentTags = getUpdatedTags();
         if (currentTags != null) {
-            // Save tags to our clipboard
-            LinkedHashMap<String, String> copiedTags = tagEditorFragment.getCopiedTags();
-            if (copiedTags != null) {
-                savingHelper.save(this, COPIED_TAGS_FILE, copiedTags, false);
-            }
             // save any address tags for "last address tags"
             if (currentTags.size() == 1) {
                 Address.updateLastAddresses(tagEditorFragment, Util.getArrayListMap(currentTags.get(0)));// FIXME
@@ -1168,16 +1161,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public boolean pasteIsPossible() {
-        if (tagEditorFragment != null) {
-            return tagEditorFragment.pasteIsPossible();
-        } else {
-            Log.e(DEBUG_TAG, "pasteIsPossible tagEditorFragment is null");
-        }
-        return false;
-    }
-
-    @Override
     public boolean paste(boolean replace) {
         if (tagEditorFragment != null) {
             return tagEditorFragment.paste(replace);
@@ -1205,15 +1188,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             Log.e(DEBUG_TAG, "pasteFromClipboard tagEditorFragment is null");
         }
         return false;
-    }
-
-    @Override
-    public void copyTags(Map<String, String> tags) {
-        if (tagEditorFragment != null) {
-            tagEditorFragment.copyTags(tags);
-        } else {
-            Log.e(DEBUG_TAG, "copyTags tagEditorFragment is null");
-        }
     }
 
     @Override
@@ -1328,5 +1302,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     public Preset[] getPresets() {
         return presets;
+    }
+
+    @Override
+    public boolean updateEditorFromText() {
+        // This is only used internally by the TagFormFragment
+        throw new IllegalOperationException("updateEditorFromText can only be called internally");
     }
 }

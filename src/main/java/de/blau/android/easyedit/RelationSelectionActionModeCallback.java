@@ -20,9 +20,15 @@ import de.blau.android.util.Util;
 public class RelationSelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG = "RelationSelectionAct...";
 
-    private static final int MENUITEM_ADD_RELATION_MEMBERS    = 9;
-    private static final int MENUITEM_SELECT_RELATION_MEMBERS = 10;
+    private static final int MENUITEM_ADD_RELATION_MEMBERS    = 10;
+    private static final int MENUITEM_SELECT_RELATION_MEMBERS = 11;
 
+    /**
+     * Construct a new ActionModeCallback
+     * 
+     * @param manager the EasyEditManager instance
+     * @param relation the selected Relation
+     */
     public RelationSelectionActionModeCallback(EasyEditManager manager, Relation relation) {
         super(manager, relation);
     }

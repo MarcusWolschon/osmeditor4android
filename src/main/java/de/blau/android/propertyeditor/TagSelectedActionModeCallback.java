@@ -2,6 +2,7 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.propertyeditor.TagEditorFragment.TagEditRow;
@@ -26,6 +28,12 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
     private static final int MENU_ITEM_COPY = 2;
     private static final int MENU_ITEM_CUT  = 3;
 
+    /**
+     * Construct a new ActionModeCallback
+     * 
+     * @param caller the calling Fragment
+     * @param rows the Layout holding the rows
+     */
     public TagSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
         super(caller, rows);
     }
@@ -48,20 +56,37 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
         return true;
     }
 
-    private void copyTags(@NonNull ArrayList<TagEditRow> selectedRows, boolean deleteEachRow) {
+    /**
+     * Copy tags to the internal and system clipboard
+     * 
+     * @param selectedRows List of selected rows
+     * @param deleteEachRow if true the selected rows will be delted
+     */
+    private void copyTags(@NonNull List<TagEditRow> selectedRows, boolean deleteEachRow) {
         if (!selectedRows.isEmpty()) {
             TagEditorFragment fragment = (TagEditorFragment) caller;
-            fragment.copiedTags = new LinkedHashMap<>();
+            Map<String, String> copiedTags = new LinkedHashMap<>();
             for (TagEditRow row : selectedRows) {
-                addKeyValue(fragment.copiedTags, row);
+                addKeyValue(copiedTags, row);
                 if (deleteEachRow) {
                     row.delete();
                 }
             }
-            ClipboardUtils.copyTags(fragment.getActivity(), fragment.copiedTags);
+            if (deleteEachRow) {
+                App.getTagClipboard(fragment.getActivity()).cut(copiedTags);
+            } else {
+                App.getTagClipboard(fragment.getActivity()).copy(copiedTags);
+            }
+            ClipboardUtils.copyTags(fragment.getActivity(), copiedTags);
         }
     }
 
+    /**
+     * Build a map of the keys and values to add to the clipboards
+     * 
+     * @param tags Map containing the copied tags
+     * @param row the current row
+     */
     private void addKeyValue(Map<String, String> tags, final TagEditRow row) {
         String key = row.getKey().trim();
         String value = row.getValue().trim();
@@ -80,6 +105,12 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
         return performAction(item.getItemId());
     }
 
+    /**
+     * Perform whatever was selected on the menu
+     * 
+     * @param action the action id
+     * @return true
+     */
     private boolean performAction(int action) {
 
         final int size = rows.getChildCount();
@@ -130,5 +161,4 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
         }
         return true;
     }
-
 }

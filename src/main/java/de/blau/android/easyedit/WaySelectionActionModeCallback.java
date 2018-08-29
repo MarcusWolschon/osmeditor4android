@@ -20,21 +20,27 @@ import de.blau.android.util.Util;
 
 public class WaySelectionActionModeCallback extends ElementSelectionActionModeCallback {
     private static final String DEBUG_TAG              = "WaySelectionAction...";
-    private static final int    MENUITEM_SPLIT         = 9;
-    private static final int    MENUITEM_MERGE         = 10;
-    private static final int    MENUITEM_REVERSE       = 11;
-    private static final int    MENUITEM_APPEND        = 12;
-    private static final int    MENUITEM_RESTRICTION   = 13;
-    private static final int    MENUITEM_ROTATE        = 14;
-    private static final int    MENUITEM_ORTHOGONALIZE = 15;
-    private static final int    MENUITEM_CIRCULIZE     = 16;
-    private static final int    MENUITEM_SPLIT_POLYGON = 17;
-    private static final int    MENUITEM_ADDRESS       = 18;
+    private static final int    MENUITEM_SPLIT         = 10;
+    private static final int    MENUITEM_MERGE         = 11;
+    private static final int    MENUITEM_REVERSE       = 12;
+    private static final int    MENUITEM_APPEND        = 13;
+    private static final int    MENUITEM_RESTRICTION   = 14;
+    private static final int    MENUITEM_ROTATE        = 15;
+    private static final int    MENUITEM_ORTHOGONALIZE = 16;
+    private static final int    MENUITEM_CIRCULIZE     = 17;
+    private static final int    MENUITEM_SPLIT_POLYGON = 18;
+    private static final int    MENUITEM_ADDRESS       = 19;
 
     private Set<OsmElement> cachedMergeableWays;
     private Set<OsmElement> cachedAppendableNodes;
     private Set<OsmElement> cachedViaElements;
 
+    /**
+     * Construct a new ActionModeCallback
+     * 
+     * @param manager the EasyEditManager instance
+     * @param way the selected Way
+     */
     WaySelectionActionModeCallback(EasyEditManager manager, Way way) {
         super(manager, way);
         Log.d(DEBUG_TAG, "constructor");

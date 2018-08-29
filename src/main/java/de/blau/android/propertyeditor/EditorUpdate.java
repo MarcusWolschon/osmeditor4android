@@ -14,8 +14,8 @@ interface EditorUpdate {
     /**
      * Update or add a single key value pair in the tag editor
      * 
-     * @param key
-     * @param value
+     * @param key the key
+     * @param value the value
      */
     void updateSingleValue(final String key, final String value);
 
@@ -30,7 +30,8 @@ interface EditorUpdate {
     /**
      * Get tags from tag editor
      * 
-     * @return
+     * @param allowBlanks allow blank values
+     * @return a LinkedHashMap of the tags
      */
     LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks);
 
@@ -41,27 +42,29 @@ interface EditorUpdate {
 
     /**
      * delete tag
+     * 
+     * @param key the tag key
      */
     void deleteTag(final String key);
 
     /**
      * Get the best matching preset
      * 
-     * @return
+     * @return the best matching PresetItem
      */
     PresetItem getBestPreset();
 
     /**
      * Get all matching secondary presets (without linked presets)
      * 
-     * @return
+     * @return a List of the secondary PresetItems
      */
     List<PresetItem> getSecondaryPresets();
 
     /**
      * Get all the matching presets
      * 
-     * @return
+     * @return a Map containing a key PresetItem mapping
      */
     Map<String, PresetItem> getAllPresets();
 
@@ -72,27 +75,25 @@ interface EditorUpdate {
 
     /**
      * generate best address tags
+     * 
+     * @param allowBlanks allow blank values
      */
     void predictAddressTags(boolean allowBlanks);
 
     /**
      * Apply tag suggestion from name index
      * 
-     * @param tags
+     * @param tags a map with the tags
      */
     void applyTagSuggestions(Names.TagMap tags);
 
     /*
      * Copy/Cut/Paste related stuff
      */
-    /**
-     * @return true if we have something in out internal clipboard
-     */
-    boolean pasteIsPossible();
 
     /**
      * 
-     * @param replace currently unsed
+     * @param replace currently unused
      * @return true if something was pasted
      */
     boolean paste(boolean replace);
@@ -108,13 +109,6 @@ interface EditorUpdate {
      * @return true if something was pasted
      */
     boolean pasteFromClipboard(boolean replace);
-
-    /**
-     * Copy tags to clipboard
-     * 
-     * @param tags
-     */
-    void copyTags(Map<String, String> tags);
 
     /**
      * Apply a preset

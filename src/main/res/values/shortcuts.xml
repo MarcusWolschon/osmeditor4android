@@ -10,6 +10,7 @@
 <string name="shortcut_copy">c</string>
 <string name="shortcut_cut">x</string>
 <string name="shortcut_paste">v</string>
+<string name="shortcut_paste_tags">t</string>
 <string name="shortcut_tagedit">e</string>
 <string name="shortcut_info">i</string>
 <string name="shortcut_zoom_in">+</string>
