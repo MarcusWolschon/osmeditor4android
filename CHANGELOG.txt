@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.0.5: Workaround color picker not showing when in landscape mode and numerous other bug fixes, updated presets and imagery.
+
 11.0.4: Add workaround a crash on 4.1.2 when uploading.
 
 11.0.3: Update imagery, translations, synonyms and presets, only apply default value when applying preset manually, don't set implicit default value for check fields, don't allow dragging objects out of bounds, improvement preset matching from 11.1.
