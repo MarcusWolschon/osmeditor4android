@@ -258,14 +258,13 @@ public class TransferTasks {
             }
 
             @Override
-            protected void onPostExecute(Boolean uploadFailed) {
-                if (!uploadFailed) {
+            protected void onPostExecute(Boolean uploadSucceded) {
+                if (uploadSucceded) {
                     if (postUploadHandler != null) {
                         postUploadHandler.onSuccess();
                     }
                     if (!quiet) {
-                        Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok); // FIXME we should be using a
-                                                                                       // snack bar here for consistency
+                        Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok); 
                     }
                 } else {
                     if (postUploadHandler != null) {
