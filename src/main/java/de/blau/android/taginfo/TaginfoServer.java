@@ -313,29 +313,38 @@ public class TaginfoServer {
             String tempValue = null;
             String tempDescription = null;
             int tempCount = 0;
-            reader.beginObject();
-            while (reader.hasNext()) {
-                switch (reader.nextName()) {
-                case VALUE_NAME:
-                    tempValue = reader.nextString();
-                    break;
-                case COUNT_NAME:
-                    tempCount = reader.nextInt();
-                    break;
-                case DESCRIPTION_NAME:
-                    tempDescription = reader.nextString();
-                    break;
-                default:
-                    reader.skipValue();
-                    break;
+            try {
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    switch (reader.nextName()) {
+                    case VALUE_NAME:
+                        tempValue = reader.nextString();
+                        break;
+                    case COUNT_NAME:
+                        tempCount = reader.nextInt();
+                        break;
+                    case DESCRIPTION_NAME:
+                        switch (reader.peek()) {
+                        case STRING:
+                            tempDescription = reader.nextString();
+                            break;
+                        default:
+                            reader.skipValue();
+                        }
+                        break;
+                    default:
+                        reader.skipValue();
+                        break;
+                    }
                 }
+                reader.endObject();
+            } catch (IllegalStateException isex) {
+                throw new IOException(isex.getMessage());
             }
-            reader.endObject();
             if (tempValue == null) {
                 throw new IOException("Input missing value");
             }
             return new ValueResult(tempValue, tempDescription, tempCount);
-
         }
 
         /**
@@ -347,7 +356,8 @@ public class TaginfoServer {
 
         @Override
         public String toString() {
-            return getValue() + " / " + getDescription() + " (" + count + ")";
+            String description = getDescription();
+            return getValue() + (description != null && !"".equals(description) ? " / " + description : "") + " (" + count + ")";
         }
     }
 
@@ -555,20 +565,23 @@ public class TaginfoServer {
     }
 
     /**
-     * Retrieve tags that are used together with tag
+     * Retrieve tags that are used together with tag or key
      * 
      * @param context Android Context
      * @param key the tag key
-     * @param value the tag value
+     * @param value the tag value, if null combinations with the key will be returned
+     * @param filter filter for element type
      * @param maxResults the maximum number of results to return
      * @return a List of tag values in the form key=value or just key, or null is something seriously went wrong
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    public static List<String> tagCombinations(@NonNull final Context context, @NonNull String key, @NonNull String value, int maxResults) {
+    public static List<String> tagCombinations(@NonNull final Context context, @NonNull String key, @Nullable String value, @Nullable String filter,
+            int maxResults) {
         Preferences prefs = new Preferences(context);
-        String url = prefs.getTaginfoServer() + "api/4/tag/combinations?key=" + key + "&value=" + value + "&page=1"
-                + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
+        String url = prefs.getTaginfoServer() + "api/4/tag/combinations?key=" + key + (value != null ? "&value=" + value : "")
+                + (filter != null ? "&filter=" + filter : "") + "&page=1" + (maxResults != -1 ? "&rp=" + maxResults : "")
+                + "&sortname=together_count&sortorder=desc";
         return (List<String>) querySync(context, url, new ResultReader() {
 
             @Override
@@ -604,6 +617,64 @@ public class TaginfoServer {
                                 } else {
                                     result.add(otherKey + "=" + otherValue);
                                 }
+                            } catch (IOException e) {
+                                Log.e(DEBUG_TAG, e.getMessage());
+                            }
+                        }
+                        reader.endArray();
+                    } else {
+                        reader.skipValue();
+                    }
+                }
+                reader.endObject();
+                return result;
+            }
+        }, null);
+    }
+
+    /**
+     * Retrieve tags that are used together with tag or key
+     * 
+     * @param context Android Context
+     * @param key the tag key
+     * @param filter filter for element type
+     * @param maxResults the maximum number of results to return
+     * @return a List of tag values in the form key=value or just key, or null is something seriously went wrong
+     */
+    @SuppressWarnings("unchecked")
+    @Nullable
+    public static List<String> keyCombinations(@NonNull final Context context, @NonNull String key, @Nullable String filter, int maxResults) {
+        Preferences prefs = new Preferences(context);
+        String url = prefs.getTaginfoServer() + "api/4/key/combinations?key=" + key + (filter != null ? "&filter=" + filter : "") + "&page=1"
+                + (maxResults != -1 ? "&rp=" + maxResults : "") + "&sortname=together_count&sortorder=desc";
+        return (List<String>) querySync(context, url, new ResultReader() {
+
+            @Override
+            Object read(JsonReader reader) throws IOException {
+
+                List<String> result = new ArrayList<>();
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    if (DATA_NAME.equals(reader.nextName())) {
+                        reader.beginArray();
+                        while (reader.hasNext()) {
+                            try {
+                                String otherKey = null;
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    String jsonName = reader.nextName();
+                                    switch (jsonName) {
+                                    case "other_key":
+                                        otherKey = reader.nextString();
+                                        break;
+                                    default:
+                                        reader.skipValue();
+                                        break;
+                                    }
+                                }
+                                reader.endObject();
+
+                                result.add(otherKey);
                             } catch (IOException e) {
                                 Log.e(DEBUG_TAG, e.getMessage());
                             }

@@ -25,6 +25,7 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.R;
@@ -142,12 +143,18 @@ public class AutoPreset {
                             Log.e(DEBUG_TAG, "adding " + resultKey + " " + sr.getValue());
                             item.addTag(resultKey, PresetKeyType.TEXT, sr.getValue(), null);
 
-                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, resultKey, sr.getValue(), 10);
+                            List<String> combinationsFromTaginfo = TaginfoServer.tagCombinations(context, resultKey, sr.getValue(), getAppliesTo(item), 10);
                             if (combinationsFromTaginfo != null) {
                                 combinationsFromTaginfo.addAll(wikiPage.getCombinations());
                             } else {
                                 combinationsFromTaginfo = wikiPage.getCombinations();
                             }
+                            // these need to be added at the end or else we will overwrite values we have with better
+                            // quality
+                            // disabled for now as they seem to create too much noise
+                            // List<String> keyCombinationsFromTaginfo = TaginfoServer.keyCombinations(context,
+                            // resultKey, getAppliesTo(item), 10);
+                            // combinationsFromTaginfo.addAll(keyCombinationsFromTaginfo);
 
                             Map<String, String> combinations = new HashMap<>();
 
@@ -173,7 +180,7 @@ public class AutoPreset {
                                 String key = entry.getKey();
                                 String value = entry.getValue();
                                 if (value != null) {
-                                    item.addTag(false, key, PresetKeyType.TEXT, value);
+                                    item.addTag(false, key, PresetKeyType.COMBO, value);
                                     item.setEditable(key, true);
                                 } else {
                                     String[] s = key.split(":", 2);
@@ -182,12 +189,13 @@ public class AutoPreset {
                                         item.addTag(false, key, PresetKeyType.TEXT, null);
                                     } else if (!item.hasKey(key)) {
                                         // while we could add values from taginfo here, unluckily the results don't make
-                                        // a lot of sense
+                                        // a lot of sense, using what we already have in the presets is likely the
+                                        // better choice
                                         // List<ValueResult> result = TaginfoServer.keyValues(context, key, 20);
                                         // Log.d(DEBUG_TAG, "values for key " + key + " " + result.size());
                                         // item.addTag(false, key, PresetKeyType.COMBO, result.toArray(new
                                         // ValueResult[result.size()]), Preset.COMBO_DELIMITER);
-                                        item.addTag(false, key, PresetKeyType.TEXT, null);
+                                        item.addTag(false, key, PresetKeyType.COMBO, Preset.getAutocompleteValues(presets, null, key), Preset.COMBO_DELIMITER);
                                         item.setEditable(key, true);
                                     }
                                 }
@@ -226,12 +234,44 @@ public class AutoPreset {
     }
 
     /**
+     * Get the type of element the item applies to in a taginfo filter compatible way
+     * 
+     * @param item the PresetItem
+     * @return null if it applies to multiple element types, a single type otherwise
+     */
+    @Nullable
+    private String getAppliesTo(@NonNull AutoPresetItem item) {
+        String result = null;
+        if (item.appliesToNode) {
+            result = "nodes";
+        }
+        if (item.appliesToWay) {
+            if (result != null) {
+                result = "ways";
+            } else {
+                return null;
+            }
+        }
+        if (item.appliesToRelation) {
+            if (result != null) {
+                result = "relations";
+            } else {
+                return null;
+            }
+        }
+        if (item.appliesToArea) {
+            return null;
+        }
+        return result;
+    }
+
+    /**
      * Check if we have an icon for a key
      * 
      * @param key the tag key value
      * @return true if we have a specific icon
      */
-    private boolean haveIcon(String key) {
+    private boolean haveIcon(@NonNull String key) {
         for (String icon : ICONSDEST) {
             if (icon.equals(key + PNG)) {
                 return true;
