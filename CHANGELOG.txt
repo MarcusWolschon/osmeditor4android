@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.1.0-2: Catch exception reading old format tag clipboard file.
+
 11.1.0-1: Re-factored internal preset field representation, support for tri-state check fields and checkgroups, improved keyboard support, improved tag copy and paste, improved free form window support, Samsung DeX support, lots of bug fixes.
 
 11.0.2: Update imagery and translations, add maxspeeds to geocontext for PT and CZ, update OH Fragment, protect against crash when layouting empty preset views, fix regression restoring state in PropertyEditor, try to avoid crash with null Context in PresetSearch, add conveying and priority to direction dependent keys.
