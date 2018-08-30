@@ -46,10 +46,15 @@ public class TagClipboard implements Serializable {
      * @param context Android Context
      */
     public synchronized void restore(Context context) {
-        TagClipboard saved = savingHelper.load(context, COPIED_TAGS_FILE, false);
-        if (saved != null) {
-            tags = saved.tags;
-            dirty = true;
+        
+        try {
+            TagClipboard saved = savingHelper.load(context, COPIED_TAGS_FILE, false);
+            if (saved != null) {
+                tags = saved.tags;
+                dirty = true;
+            }
+        } catch (ClassCastException cce) {
+            // old format save file, ignore
         }
     }
 
