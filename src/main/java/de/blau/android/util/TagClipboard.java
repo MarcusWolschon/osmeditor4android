@@ -7,6 +7,7 @@ import java.util.Map;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class TagClipboard implements Serializable {
 
@@ -14,6 +15,8 @@ public class TagClipboard implements Serializable {
      * 
      */
     private static final long serialVersionUID = 2L;
+
+    private static final String DEBUG_TAG = "TagClipboard";
 
     private static final String COPIED_TAGS_FILE = "copiedtags.dat";
 
@@ -46,7 +49,7 @@ public class TagClipboard implements Serializable {
      * @param context Android Context
      */
     public synchronized void restore(Context context) {
-        
+
         try {
             TagClipboard saved = savingHelper.load(context, COPIED_TAGS_FILE, false);
             if (saved != null) {
@@ -55,6 +58,7 @@ public class TagClipboard implements Serializable {
             }
         } catch (ClassCastException cce) {
             // old format save file, ignore
+            Log.e(DEBUG_TAG, "Got exception " + cce.getMessage());
         }
     }
 
