@@ -72,11 +72,7 @@ public class TagSelectedActionModeCallback extends SelectedRowsActionModeCallbac
                     row.delete();
                 }
             }
-            if (deleteEachRow) {
-                App.getTagClipboard(fragment.getActivity()).cut(copiedTags);
-            } else {
-                App.getTagClipboard(fragment.getActivity()).copy(copiedTags);
-            }
+            App.getTagClipboard(fragment.getActivity()).copy(copiedTags);
             ClipboardUtils.copyTags(fragment.getActivity(), copiedTags);
         }
     }

@@ -7,14 +7,13 @@ import java.util.Map;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 public class TagClipboard implements Serializable {
 
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String COPIED_TAGS_FILE = "copiedtags.dat";
 
@@ -24,11 +23,6 @@ public class TagClipboard implements Serializable {
      * copy of the tags
      */
     private LinkedHashMap<String, String> tags = null;
-
-    /**
-     * Flag if this was a cut or a copy
-     */
-    private boolean cut = false;
 
     /**
      * If true we need to be saved
@@ -55,7 +49,6 @@ public class TagClipboard implements Serializable {
         TagClipboard saved = savingHelper.load(context, COPIED_TAGS_FILE, false);
         if (saved != null) {
             tags = saved.tags;
-            cut = saved.cut;
             dirty = true;
         }
     }
@@ -66,7 +59,6 @@ public class TagClipboard implements Serializable {
      * @param tags a Map containing the tags
      */
     public synchronized void copy(@NonNull Map<String, String> tags) {
-        cut = false;
         this.tags = new LinkedHashMap<>(tags);
         dirty = true;
     }
@@ -77,7 +69,7 @@ public class TagClipboard implements Serializable {
      * @param tags a Map containing the tags
      */
     public synchronized void cut(@NonNull Map<String, String> tags) {
-        cut = true;
+
         this.tags = new LinkedHashMap<>(tags);
         dirty = true;
     }
@@ -93,10 +85,6 @@ public class TagClipboard implements Serializable {
             return null;
         }
         Map<String, String> result = new LinkedHashMap<>(tags);
-        if (cut) {
-            tags = null;
-            dirty = true;
-        }
         return result;
     }
 
