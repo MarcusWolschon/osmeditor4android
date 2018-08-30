@@ -272,8 +272,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             @Override
             protected void onPostExecute(ArrayList<PresetElement> result) {
                 if (result.isEmpty()) {
-                    Snack.barInfo(getActivity(), R.string.toast_nothing_found);
-                    if (propertyEditorListener.isConnected()) { // if not online nothing we can do
+                    Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
+                    if (!propertyEditorListener.isConnected()) { // if not online nothing we can do
                         return;
                     }
                 }

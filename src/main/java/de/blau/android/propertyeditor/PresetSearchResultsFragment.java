@@ -114,7 +114,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         if (container != null) {
             builder.setView(container);
         }
-        AsyncTask<Void, Void, List<PresetElement>> list = new AsyncTask<Void, Void, List<PresetElement>>() {
+        AsyncTask<Void, Void, List<PresetElement>> query = new AsyncTask<Void, Void, List<PresetElement>>() {
             private AlertDialog      progress = null;
             private FragmentActivity activity = getActivity();
 
@@ -130,14 +130,15 @@ public class PresetSearchResultsFragment extends DialogFragment {
                 AutoPreset autoPreset = new AutoPreset(activity);
                 Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
                 List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
-                if (!presets.isEmpty()) {
-                    presets.add(fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
-                }
+                
                 for (PresetElement pe : elementsFromTaginfo) {
                     searchResults.add(pe);
                 }
                 if (searchResults.isEmpty()) {
                     return null;
+                }
+                if (!presets.isEmpty()) {
+                    searchResults.add(0,fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
                 }
                 return searchResults;
             }
@@ -149,11 +150,15 @@ public class PresetSearchResultsFragment extends DialogFragment {
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
                 }
-                if (result == null) {
-                    Snack.barInfo(getActivity(), R.string.toast_nothing_found);
+                if (result == null || result.isEmpty()) {
+                    Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
                     return;
                 }
                 presets.addAll(result);
+                int height = ((ViewGroup) container).getHeight();
+                ((ViewGroup) container).setMinimumHeight(height);
+                int width = ((ViewGroup) container).getWidth();
+                ((ViewGroup) container).setMinimumWidth(width);
                 ((ViewGroup) container).removeAllViews();
                 ((ViewGroup) container).addView(getResultsView(presetsLayout, presets, false));
             }
@@ -170,7 +175,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
                     positive.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            list.execute();
+                            query.execute();
                             view.setEnabled(false);
                         }
                     });
@@ -238,24 +243,20 @@ public class PresetSearchResultsFragment extends DialogFragment {
     @Nullable
     private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets, boolean setPadding) {
         View v = null;
-        if (presets != null && !presets.isEmpty()) {
-
-            PresetGroup results = new Preset().new PresetGroup(null, "search results", null);
+        PresetGroup results = new Preset().new PresetGroup(null, "search results", null);
+        if (presets != null) {
             for (PresetElement p : presets) {
                 if (p != null) {
                     results.addElement(p);
                 }
             }
-            v = results.getGroupView(getActivity(), presetClickHandler, null, null);
-
-            if (setPadding) {
-                int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);
-                v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
-            }
-        } else {
-            Log.d(DEBUG_TAG, "getResultsView problem");
         }
+        v = results.getGroupView(getActivity(), presetClickHandler, null, null);
 
+        if (setPadding) {
+            int padding = ThemeUtils.getDimensionFromAttribute(getActivity(), R.attr.dialogPreferredPadding);
+            v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
+        }
         return v;
     }
 
