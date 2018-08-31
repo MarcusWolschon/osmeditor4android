@@ -2587,6 +2587,8 @@ public class Preset implements Serializable {
                         tagItems.add(key + "\t" + v.getValue(), this);
                     }
                     addToAutosuggest(key, valueArray);
+                } else {
+                    addToAutosuggest(key, new StringWithDescription(""));
                 }
             }
         }
