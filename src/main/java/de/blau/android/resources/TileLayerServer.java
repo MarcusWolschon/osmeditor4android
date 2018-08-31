@@ -428,7 +428,7 @@ public class TileLayerServer {
     private String              proj;
     private int                 preference;
     private long                startDate    = -1L;
-    private long                endDate      = -1L;
+    private long                endDate      = Long.MAX_VALUE;
     private int                 maxOverZoom  = DEFAULT_MAX_OVERZOOM; // currently hardwired
     private String              logoUrl      = null;
     private Bitmap              logoBitmap   = null;
@@ -898,7 +898,7 @@ public class TileLayerServer {
             }
             String icon = getJsonString(properties, "icon");
             long startDate = -1L;
-            long endDate = -1L;
+            long endDate = Long.MAX_VALUE;
             String dateString = getJsonString(properties, "start_date");
             if (dateString != null) {
                 startDate = dateStringToTime(dateString);
@@ -1565,7 +1565,7 @@ public class TileLayerServer {
                     }
                 } else {
                     // assumption no end date == ongoing
-                    return t1.endDate > 0 && (t1.endDate < t2.endDate || t2.endDate < 0) ? 1 : -1;
+                    return t1.endDate < t2.endDate ? -1 : 1;
                 }
             }
         });
