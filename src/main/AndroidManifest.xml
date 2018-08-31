@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.blau.android"
     android:installLocation="auto"
-    android:versionCode="701"
+    android:versionCode="702"
     android:versionName="@string/app_version" >
 
     <uses-sdk
@@ -15,7 +15,7 @@
     disable for now to see if it solves the Play Store problem of the app not showing up for many devices
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-	<uses-feature android:name="android.hardware.faketouch" />
+	<uses-feature android:name="android.hardware.faketouch" />
     -->
     <uses-feature
         android:name="android.hardware.sensor.compass"
