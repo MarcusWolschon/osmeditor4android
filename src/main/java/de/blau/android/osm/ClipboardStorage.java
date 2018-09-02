@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.StorageException;
 
@@ -36,25 +38,32 @@ public class ClipboardStorage implements Serializable {
     private byte                savedState;
     private HashMap<Node, Byte> savedNdState;
 
+    /**
+     * Default constructor
+     */
     ClipboardStorage() {
         storage = new Storage();
     }
 
+    /**
+     * Reset this instance completely removing any data
+     */
     private void reset() {
         storage = new Storage();
     }
 
     /**
+     * Copy an OsmELement to the clipboard
      * assumes the element has already been cloned note no need to store nodes separate from ways
      * 
-     * @param e
-     * @param lat
-     * @param lon
+     * @param e the OsmElement
+     * @param latE7 the latitude in WGS84*1E7 coordinates
+     * @param lonE7 the longitude in WGS84*1E7 coordinates
      */
-    public void copyTo(OsmElement e, int lat, int lon) {
+    public void copyTo(@NonNull OsmElement e, int latE7, int lonE7) {
         reset();
-        selectionLat = lat;
-        selectionLon = lon;
+        selectionLat = latE7;
+        selectionLon = lonE7;
         mode = Mode.COPY;
 
         try {
@@ -66,14 +75,15 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
+     * Cut an OsmELement to the clipboard
      * assumes that element will be deleted and any necessary objects cloned
      * 
-     * @param e
-     * @param lat
-     * @param lon
+     * @param e the OsmElement
+     * @param latE7 the latitude in WGS84*1E7 coordinates
+     * @param lonE7 the longitude in WGS84*1E7 coordinates
      */
-    public void cutTo(OsmElement e, int lat, int lon) {
-        copyTo(e, lat, lon);
+    public void cutTo(@NonNull OsmElement e, int latE7, int lonE7) {
+        copyTo(e, latE7, lonE7);
         savedState = e.getState();
         if (e instanceof Way) {
             savedNdState = new HashMap<>();
@@ -85,15 +95,21 @@ public class ClipboardStorage implements Serializable {
         mode = Mode.CUT;
     }
 
+    /**
+     * Check if there is something in the clipboard
+     * 
+     * @return true if the clipboard is empty
+     */
     public boolean isEmpty() {
         return storage.isEmpty();
     }
 
     /**
-     * returns whatever is in the clipboard
+     * Returns whatever is in the clipboard
      * 
-     * @return
+     * @return the stored OsmElement or null if there is none 
      */
+    @Nullable
     public OsmElement pasteFrom() {
         List<Way> ways = storage.getWays();
         List<Node> nodes = storage.getNodes();
@@ -122,10 +138,20 @@ public class ClipboardStorage implements Serializable {
         return null;
     }
 
+    /**
+     * Get the original latitude of the element
+     * 
+     * @return the original latitude in WGS84*1E7 coordinates
+     */
     public int getSelectionLat() {
         return selectionLat;
     }
 
+    /**
+     * Get the original longitude of the element
+     * 
+     * @return the original longitude in WGS84*1E7 coordinates
+     */
     public int getSelectionLon() {
         return selectionLon;
     }

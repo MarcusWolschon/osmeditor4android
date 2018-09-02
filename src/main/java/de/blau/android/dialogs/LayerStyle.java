@@ -58,9 +58,12 @@ public class LayerStyle extends ImmersiveDialogFragment {
     private final Map map;
 
     /**
-     
+     * Show an instance of this dialog
+     * 
+     * @param activity the calling FragmentActivity
+     * @param layerIndex the index of the dialog we want to style
      */
-    public static void showDialog(FragmentActivity activity, int layerIndex) {
+    public static void showDialog(@NonNull FragmentActivity activity, int layerIndex) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -71,7 +74,12 @@ public class LayerStyle extends ImmersiveDialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss any current showing instance of this dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -86,6 +94,10 @@ public class LayerStyle extends ImmersiveDialogFragment {
     }
 
     /**
+     * Get a new instance of this fragment
+     * 
+     * @param layerIndex the index of the dialog we want to style
+     * @return a new instance of LayerStyle
      */
     private static LayerStyle newInstance(int layerIndex) {
         LayerStyle f = new LayerStyle();
@@ -98,6 +110,9 @@ public class LayerStyle extends ImmersiveDialogFragment {
         return f;
     }
 
+    /**
+     * Default constructor
+     */
     public LayerStyle() {
         map = App.getLogic().getMap();
     }
@@ -212,7 +227,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
      * @param layer the layer we are changing this for
      * @return an OnSeekBarChangeListener
      */
-    private OnSeekBarChangeListener createSeekBarListener(final View strokeWidthView, final StyleableLayer layer) {
+    private OnSeekBarChangeListener createSeekBarListener(@NonNull final View strokeWidthView, @NonNull  final StyleableLayer layer) {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {

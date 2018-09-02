@@ -12,6 +12,7 @@ import com.mapbox.services.commons.models.Position;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -57,7 +58,7 @@ public class FeatureInfo extends DialogFragment {
      * @param activity the calling Activity
      * @param feature the Feature
      */
-    public static void showDialog(FragmentActivity activity, Feature feature) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Feature feature) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -71,9 +72,9 @@ public class FeatureInfo extends DialogFragment {
     /**
      * Dismiss the dialog
      * 
-     * @param activity the calling Activit
+     * @param activity the calling Activity
      */
-    private static void dismissDialog(FragmentActivity activity) {
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -93,7 +94,8 @@ public class FeatureInfo extends DialogFragment {
      * @param feature Feature to display the info on
      * @return an instance of ElementInfo
      */
-    private static FeatureInfo newInstance(Feature feature) {
+    @NonNull
+    private static FeatureInfo newInstance(@NonNull Feature feature) {
         FeatureInfo f = new FeatureInfo();
 
         Bundle args = new Bundle();
@@ -177,7 +179,7 @@ public class FeatureInfo extends DialogFragment {
      * @param container parent view or null
      * @return the View
      */
-    private View createView(ViewGroup container) {
+    private View createView(@NonNull ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);

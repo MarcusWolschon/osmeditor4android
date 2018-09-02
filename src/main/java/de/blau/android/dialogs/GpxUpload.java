@@ -32,9 +32,11 @@ public class GpxUpload extends DialogFragment {
     private static final String TAG       = "fragment_gpx_upload";
 
     /**
-     
+     * Show an instance of this dialog
+     * 
+     * @param activity the calling FragmentActivity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -45,7 +47,12 @@ public class GpxUpload extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss any current showing instance of this dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -60,7 +67,11 @@ public class GpxUpload extends DialogFragment {
     }
 
     /**
+     * Get a new instance of this fragment
+     * 
+     * @return a new instance of GpxUpload
      */
+    @NonNull
     private static GpxUpload newInstance() {
         GpxUpload f = new GpxUpload();
         f.setShowsDialog(true);

@@ -305,7 +305,7 @@ public class AutoPreset {
      * 
      * @param preset the Preset to save
      */
-    public static void save(final Preset preset) {
+    public static void save(@NonNull final Preset preset) {
         AsyncTask<Void, Void, Void> save = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
