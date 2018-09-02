@@ -399,9 +399,11 @@ public class TileLayerServer {
     private static final int PREFERENCE_DEFAULT = 0;
     private static final int PREFERENCE_BEST    = 10;
 
-    public static final int DEFAULT_MIN_ZOOM     = 0;
-    public static final int DEFAULT_MAX_ZOOM     = 18;
-    public static final int DEFAULT_MAX_OVERZOOM = 4;
+    public static final int  DEFAULT_MIN_ZOOM     = 0;
+    public static final int  DEFAULT_MAX_ZOOM     = 18;
+    private static final int DEFAULT_WMS_MAX_ZOOM = 22;
+    private static final int NO_MAX_ZOOM          = -1;
+    public static final int  DEFAULT_MAX_OVERZOOM = 4;
 
     public static final int DEFAULT_TILE_SIZE = 256;
     static final int        WMS_TILE_SIZE     = 512;
@@ -872,7 +874,18 @@ public class TileLayerServer {
 
             List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f);
             int minZoom = getJsonInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);
-            int maxZoom = getJsonInteger(properties, "max_zoom", DEFAULT_MAX_ZOOM);
+            int maxZoom = getJsonInteger(properties, "max_zoom", NO_MAX_ZOOM);
+
+            String type = getJsonString(properties, "type");
+            boolean isWMS = TYPE_WMS.equals(type);
+            if (maxZoom == NO_MAX_ZOOM) {
+                if (isWMS) {
+                    maxZoom = DEFAULT_WMS_MAX_ZOOM;
+                } else {
+                    maxZoom = DEFAULT_MAX_ZOOM;
+                }
+            }
+
             Provider provider = new Provider();
             if (boxes.isEmpty()) {
                 provider.addCoverageArea(new Provider.CoverageArea(minZoom, maxZoom, null));
@@ -882,7 +895,6 @@ public class TileLayerServer {
                 }
             }
 
-            String type = getJsonString(properties, "type");
             String id = getJsonString(properties, "id");
             String url = getJsonString(properties, "url");
             String name = getJsonString(properties, "name");
@@ -930,7 +942,7 @@ public class TileLayerServer {
                 }
             }
 
-            if (type == null || url == null || (TYPE_WMS.equals(type) && proj == null) || TYPE_WMS_ENDPOINT.equals(type)) {
+            if (type == null || url == null || (isWMS && proj == null) || TYPE_WMS_ENDPOINT.equals(type)) {
                 Log.w(DEBUG_TAG, "skipping name " + name + " id " + id + " type " + type + " url " + url);
                 if (TYPE_WMS.equals(type)) {
                     Log.w(DEBUG_TAG, "projections: " + projections);
