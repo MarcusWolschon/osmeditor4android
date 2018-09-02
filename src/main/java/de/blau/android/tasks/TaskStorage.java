@@ -10,6 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
@@ -41,6 +42,9 @@ public class TaskStorage implements Serializable {
 
     private transient SavingHelper<TaskStorage> savingHelper = new SavingHelper<>();
 
+    /**
+     * Default constructor
+     */
     public TaskStorage() {
         reset();
         dirty = false;
@@ -124,6 +128,29 @@ public class TaskStorage implements Serializable {
             }
         }
         return false;
+    }
+    
+    /**
+     * Get any Task in storage that is of the same type and has the same id and is at the same position
+     * 
+     * @param t the Task we are looking for
+     * @return the in storage instance or null if not found
+     */
+    @Nullable
+    public Task get(@NonNull Task t) {
+        Collection<BoundedObject> queryResult = new ArrayList<>();
+        tasks.query(queryResult, t.getLon(), t.getLat());
+        Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
+        for (BoundedObject bo : queryResult) {
+            if (t instanceof Note && bo instanceof Note && t.getId() == ((Task) bo).getId()) {
+                return (Task) bo;
+            } else if (t instanceof OsmoseBug && bo instanceof OsmoseBug && t.getId() == ((Task) bo).getId()) {
+                return (Task) bo;
+            } else if (t instanceof CustomBug && bo instanceof CustomBug && t.getId() == ((Task) bo).getId()) {
+                return (Task) bo;
+            }
+        }
+        return null;
     }
 
     /**
@@ -292,6 +319,7 @@ public class TaskStorage implements Serializable {
         return false;
     }
 
+    @Override
     public String toString() {
         return "task r-tree: " + tasks.count() + " boxes r-tree " + boxes.count();
     }

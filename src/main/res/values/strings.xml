@@ -323,6 +323,7 @@
     <string name="toast_tags_copied">Tags copied to clipboard</string>
     <string name="toast_tags_cut">Tags cut to clipboard</string>
     <string name="toast_properties_copied">Properties copied to clipboard</string>
+    <string name="toast_task_conflict">%1$s has been chenged on the server, upload first and then re-download</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>

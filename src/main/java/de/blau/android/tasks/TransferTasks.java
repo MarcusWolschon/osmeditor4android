@@ -133,12 +133,26 @@ public class TransferTasks {
                 long now = System.currentTimeMillis();
                 for (Task b : result) {
                     Log.d(DEBUG_TAG, "got bug " + b.getDescription() + " " + bugs.toString());
-                    // add open bugs or closed bugs younger than 7 days
-                    if (!bugs.contains(b) && (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE)) {
-                        bugs.add(b);
-                        Log.d(DEBUG_TAG, "adding bug " + b.getDescription());
-                        if (!b.isClosed() && prefs.generateAlerts()) {
-                            IssueAlert.alert(context, prefs, b);
+                    Task existing = bugs.get(b);
+                    if (existing == null) {
+                        // add open bugs or closed bugs younger than 7 days
+                        if (!b.isClosed() || (now - b.getLastUpdate().getTime()) < MAX_CLOSED_AGE) {
+                            bugs.add(b);
+                            Log.d(DEBUG_TAG, "adding bug " + b.getDescription());
+                            if (!b.isClosed() && prefs.generateAlerts()) {
+                                IssueAlert.alert(context, prefs, b);
+                            }
+                        }
+                    } else {                       
+                        if (existing != null && b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
+                            // downloaded task is newer
+                            if (existing.hasBeenChanged()) { // conflict, show message and abort
+                                Snack.toastTopError(context, context.getString(R.string.toast_task_conflict, existing.getDescription()));
+                                break;
+                            } else {
+                                bugs.delete(existing);
+                                bugs.add(b);
+                            }
                         }
                     }
                 }
@@ -264,7 +278,7 @@ public class TransferTasks {
                         postUploadHandler.onSuccess();
                     }
                     if (!quiet) {
-                        Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok); 
+                        Snack.toastTopInfo(context, R.string.openstreetbug_commit_ok);
                     }
                 } else {
                     if (postUploadHandler != null) {
@@ -306,22 +320,26 @@ public class TransferTasks {
     public static boolean uploadNote(@NonNull final FragmentActivity activity, @Nullable final Server server, @NonNull final Note note, final String comment,
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
-
         if (server != null) {
             if (server.isLoginSet()) {
                 if (server.needOAuthHandshake()) {
                     if (activity instanceof Main) {
-                        ((Main) activity).oAuthHandshake(server, new PostAsyncActionHandler() {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
-                            public void onSuccess() {
-                                Preferences prefs = new Preferences(activity);
-                                uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-                            }
+                            public void run() {
+                                ((Main) activity).oAuthHandshake(server, new PostAsyncActionHandler() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Preferences prefs = new Preferences(activity);
+                                        uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
+                                    }
 
-                            @Override
-                            public void onError() {
+                                    @Override
+                                    public void onError() {
+                                    }
+                                });                              
                             }
-                        });
+                        });                       
                     }
                     if (server.getOAuth()) { // if still set
                         Snack.barError(activity, R.string.toast_oauth);
