@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -179,7 +180,7 @@ public class FeatureInfo extends DialogFragment {
      * @param container parent view or null
      * @return the View
      */
-    private View createView(@NonNull ViewGroup container) {
+    private View createView(@Nullable ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
