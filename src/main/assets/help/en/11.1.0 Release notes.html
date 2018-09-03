@@ -8,16 +8,17 @@
 <h1>Vespucci 11.1 BETA Highlights</h1><h2>Improved preset handling</h2><p>The internal representation of Presets has been overhauled allowing us to implement some new features without adding to already very byzantine code. The major changes for users are:</p>
 <ul>
   <li>Tri-state checkboxes: this is similar to how JOSM handle checkboxes in the preset display. Preset check fields that can have an explicit "no" or "off" value, start off in an indeterminate state and then can be toggled to on and off. A long press will return the checkbox to the indeterminate state.</li>
-  <li>Support for checkgroups. Checkgroups are groups of checkboxes, these can have a label and are handled very similar to multi-select fields, in most cases you will not even see a difference. The change allows a much more compact layout for presets that have many checkboxes, for example the payment methods preset. And caters for a general trend to taggign in such a style.</li>
-</ul><p>The default preset has been reworked to work with the new features.</p><h2>Taginfo search initiated manually</h2><p>Version 11.0 introduced "auto-presets". These continue to be available but the online query needs to be explicitly started by tapping a button in the preset search result form. We've found that the performance of the feature varies so much across mobile networks that doing the query automatically was too confusing and annoying.</p><p>The corresponding preference to enable/diable the feature has been removed.</p><h2>Improved tag copy &amp; paste</h2><p>Tag copying and pasting has been redone. New functionality includes:</p>
+  <li>Support for checkgroups. Checkgroups are groups of checkboxes, these can have a label and are handled very similar to multi-select fields, in most cases you will not even see a difference. The change allows a much more compact layout for presets that have many checkboxes, for example the payment methods preset. And caters for a general trend to tagging in such a style.</li>
+</ul><p>The default preset has been reworked to work with the new features.</p><h2>Taginfo search initiated manually</h2><p>Version 11.0 introduced "auto-presets". These continue to be available but the online query needs to be explicitly started by tapping a button in the preset search result form. We've found that the performance of the feature varies so much across mobile networks that doing the query automatically was too confusing and annoying.</p><p>The corresponding preference to enable/disable the feature has been removed.</p><h2>Improved tag copy &amp; paste</h2><p>Tag copying and pasting has been redone. New functionality includes:</p>
 <ul>
   <li>pasting tags to selected elements in the map view (keyboard short cut <strong><Ctrl> T</strong>)</li>
   <li>copying of GeoJSON Feature properties to the tag clipboard</li>
 </ul><h2>Miscellaneous</h2>
 <ul>
-  <li>Keyboard shortcuts in the main screen now work again after they stopped working due a while back.</li>
+  <li>Keyboard shortcuts in the main screen now work again after they stopped working a while back.</li>
   <li>Samsung DeX support, Vespucci now reacts to changes in display density and dock insertion/removal.</li>
   <li>Support for free form windows has been improved.</li>
+  <li>Better handling of tile layers which do not match the maximum zoom specified in the configuration.</li>
   <li>Lots of minor improvements.</li>
 </ul><p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p><h1>Known problems</h1><h1>Upgrading from previous versions</h1>
 <ul>
