@@ -437,6 +437,8 @@ public class TileLayerServer {
     private Drawable            logoDrawable = null;
     private final Queue<String> subdomains   = new LinkedList<>();
     private int                 defaultAlpha;
+    private String              noTileHeader = null;
+    private String[]              noTileValues  = null;
     private List<Provider>      providers    = new ArrayList<>();
 
     private boolean  readOnly = false;
@@ -638,12 +640,14 @@ public class TileLayerServer {
      * @param preference relative preference (larger == better)
      * @param startDate start date as a ms since epoch value, -1 if not available
      * @param endDate end date as a ms since epoch value, -1 if not available
+     * @param noTileHeader header that indicates that a tile isn't valid
+     * @param noTileValues values that together with the header indicated that a tile isn't valid
      * @param async run loadInfo in a AsyncTask needed for main process
      */
     TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, final boolean overlay,
             final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl, byte[] logoBytes,
             final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj, final int preference,
-            final long startDate, final long endDate, boolean async) {
+            final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues, boolean async) {
 
         this.ctx = ctx;
         this.id = id;
@@ -665,6 +669,9 @@ public class TileLayerServer {
         this.preference = preference;
         this.startDate = startDate;
         this.endDate = endDate;
+        
+        this.noTileHeader = noTileHeader;
+        this.noTileValues = noTileValues;
 
         if (provider != null) {
             providers.add(provider);
@@ -821,6 +828,28 @@ public class TileLayerServer {
         }
         return null;
     }
+    
+    /**
+     * Get a string array with name from a JsonObject
+     * 
+     * @param jsonObject the JsonObject
+     * @param name the name of the string we want to retrieve
+     * @return the string array or null if it couldb't be found
+     */
+    @Nullable
+    static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
+        JsonElement field = jsonObject.get(name);
+        if (field != null) {
+            JsonArray array = field.getAsJsonArray();
+            int length = array.size();
+            String[] result = new String[length];
+            for (int i = 0;i< length; i++) {
+                result[i] = array.get(i).getAsString();
+            }
+            return result;
+        }
+        return null;
+    }
 
     /**
      * Get a boolean with name from a JsonObject
@@ -920,6 +949,9 @@ public class TileLayerServer {
                 endDate = dateStringToTime(dateString);
             }
 
+            String noTileHeader = getJsonString(properties, "no_tile_header");
+            String[] noTileValues = getJsonStringArray(properties, "no_tile_values");
+            
             String proj = null;
             JsonArray projections = (JsonArray) properties.get("available_projections");
             if (projections != null) {
@@ -950,7 +982,7 @@ public class TileLayerServer {
                 return null;
             }
             osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
-                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, async);
+                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, async);
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
@@ -2138,6 +2170,26 @@ public class TileLayerServer {
      */
     public long getEndDate() {
         return endDate;
+    }
+    
+    /**
+     * Get the Header used to indicate that a tile is not valid
+     * 
+     * @return a String with the header or null
+     */
+    @Nullable
+    public String getNoTileHeader() {
+        return noTileHeader;
+    }
+    
+    /**
+     * Get any values associated with the no tile header
+     * 
+     * @return a String array with the values or null
+     */
+    @Nullable
+    public String[] getNoTileValues() {
+        return noTileValues;
     }
 
     /**

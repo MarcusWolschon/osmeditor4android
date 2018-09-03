@@ -316,7 +316,7 @@ public class TileLayerDialog {
                 }
                 if (!existing) {
                     TileLayerServer layer = new TileLayerServer(activity, layerId, name, tileUrl, "tms", isOverlay, false, provider, null, null, null, null,
-                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, true);
+                            minZoom, maxZoom, TileLayerServer.DEFAULT_MAX_OVERZOOM, tileSize, tileSize, proj, 0, finalStartDate, finalEndDate, null, null, true);
                     TileLayerDatabase.addLayer(db, TileLayerDatabase.SOURCE_MANUAL, layer);
                 } else {
                     existingLayer.setProvider(provider);
