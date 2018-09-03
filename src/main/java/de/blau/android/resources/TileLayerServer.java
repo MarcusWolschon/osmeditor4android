@@ -438,7 +438,7 @@ public class TileLayerServer {
     private final Queue<String> subdomains   = new LinkedList<>();
     private int                 defaultAlpha;
     private String              noTileHeader = null;
-    private String[]              noTileValues  = null;
+    private String[]            noTileValues = null;
     private List<Provider>      providers    = new ArrayList<>();
 
     private boolean  readOnly = false;
@@ -669,7 +669,7 @@ public class TileLayerServer {
         this.preference = preference;
         this.startDate = startDate;
         this.endDate = endDate;
-        
+
         this.noTileHeader = noTileHeader;
         this.noTileValues = noTileValues;
 
@@ -823,12 +823,34 @@ public class TileLayerServer {
     @Nullable
     static String getJsonString(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
-        if (field != null) {
+        if (field != null && field.isJsonPrimitive()) {
             return field.getAsString();
         }
         return null;
     }
-    
+
+    /**
+     * Get a string array with name from a JsonObject
+     * 
+     * @param jsonObject the JsonObject
+     * @param name the name of the string we want to retrieve
+     * @return the string array or null if it couldb't be found or if the field wasn't an array
+     */
+    @Nullable
+    static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
+        JsonElement field = jsonObject.get(name);
+        if (field != null && field.isJsonArray()) {
+            JsonArray array = field.getAsJsonArray();
+            int length = array.size();
+            String[] result = new String[length];
+            for (int i = 0; i < length; i++) {
+                result[i] = array.get(i).getAsString();
+            }
+            return result;
+        }
+        return null;
+    }
+
     /**
      * Get a string array with name from a JsonObject
      * 
@@ -837,16 +859,10 @@ public class TileLayerServer {
      * @return the string array or null if it couldb't be found
      */
     @Nullable
-    static String[] getJsonStringArray(@NonNull JsonObject jsonObject, @NonNull String name) {
+    static JsonObject getJsonObject(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
-        if (field != null) {
-            JsonArray array = field.getAsJsonArray();
-            int length = array.size();
-            String[] result = new String[length];
-            for (int i = 0;i< length; i++) {
-                result[i] = array.get(i).getAsString();
-            }
-            return result;
+        if (field != null && field.isJsonObject()) {
+            return (JsonObject) field;
         }
         return null;
     }
@@ -860,7 +876,7 @@ public class TileLayerServer {
      */
     static boolean getJsonBoolean(@NonNull JsonObject jsonObject, @NonNull String name) {
         JsonElement field = jsonObject.get(name);
-        if (field != null) {
+        if (field != null && field.isJsonPrimitive()) {
             return field.getAsBoolean();
         }
         return false;
@@ -876,7 +892,7 @@ public class TileLayerServer {
      */
     static int getJsonInteger(@NonNull JsonObject jsonObject, @NonNull String name, final int defaultValue) {
         JsonElement field = jsonObject.get(name);
-        if (field != null) {
+        if (field != null && field.isJsonPrimitive()) {
             return field.getAsInt();
         }
         return defaultValue;
@@ -949,9 +965,17 @@ public class TileLayerServer {
                 endDate = dateStringToTime(dateString);
             }
 
-            String noTileHeader = getJsonString(properties, "no_tile_header");
-            String[] noTileValues = getJsonStringArray(properties, "no_tile_values");
-            
+            String noTileHeader = null;
+            String[] noTileValues = null;
+            JsonObject noTileHeaderObject = getJsonObject(properties, "no_tile_header");
+            if (noTileHeaderObject != null) {
+                for (Entry<String, JsonElement> entry : noTileHeaderObject.entrySet()) {
+                    noTileHeader = entry.getKey();
+                    noTileValues = getJsonStringArray(noTileHeaderObject, noTileHeader);
+                    break; // only one entry supported for now
+                }
+            }
+
             String proj = null;
             JsonArray projections = (JsonArray) properties.get("available_projections");
             if (projections != null) {
@@ -2171,7 +2195,7 @@ public class TileLayerServer {
     public long getEndDate() {
         return endDate;
     }
-    
+
     /**
      * Get the Header used to indicate that a tile is not valid
      * 
@@ -2181,7 +2205,7 @@ public class TileLayerServer {
     public String getNoTileHeader() {
         return noTileHeader;
     }
-    
+
     /**
      * Get any values associated with the no tile header
      * 

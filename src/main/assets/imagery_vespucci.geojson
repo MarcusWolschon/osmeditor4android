@@ -28,10 +28,11 @@
                 "url": "http://dev.virtualearth.net/REST/v1/Imagery/Metadata/Aerial/?mapVersion=v1&key={bingapikey}&include=ImageryProviders&output=xml",
                 "default": true,
                 "max_zoom": 19,
-                "no_tile_header": "X-VE-Tile-Info",
-                "no_tile_values": [
-                    "no-tile"
-                ],
+                "no_tile_header": {
+                    "X-VE-Tile-Info": [
+                        "no-tile"
+                    ]
+                },
                 "type": "bing",
                 "id": "BING",
                 "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAdVBMVEX/phX/04r/////6cX/zXz/7Mz/vFD/u0z/1I7/tT3/yXH/uEX/v1f/rCT/2pz/vlP/qRz/4a//yG3/xmn//Pj/9eb/+/T/897/t0H/wl7/sTL//vv/+O3/2Jn/7dD/+vH/9+n/3KT/tDr/9OL/8Nf/26D/ynSCVQVOAAAAkklEQVR4Xq3R1w7DIBQD0NiQne69d///E3tvBYVU6UsVPyEdCYycIOlOv5AB004Aaf6DCpLtF4yxp8tkFMGCkiEkKyGz9qCxrkxuhLIAeaijMvAwi/vMycJDuyi5/AVUaPwTPik5UdCDiWCjtd5Q70TK+KKD26M+6o+tdGxwIlmFPeyZn1yuraFKFOnt/sCz/81f+9UEaf1lPCAAAAAASUVORK5CYII="
@@ -52,10 +53,11 @@
                 "icon": "https://osmlab.github.io/editor-layer-index/sources/world/EsriImageryClarity.png",
                 "id": "EsriWorldImagery",
                 "max_zoom": 22,
-                "no_tile_header": "Etag",
-                "no_tile_values": [
-                    "10i954m13i2"
-                ],
+                "no_tile_header": {
+                    "Etag": [
+                        "10i954m13i2"
+                    ]
+                },
                 "name": "Esri World Imagery",
                 "type": "tms",
                 "url": "https://{switch:services,server}.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{zoom}/{y}/{x}"
