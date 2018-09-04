@@ -115,6 +115,13 @@ public class TransferTasks {
                 if (osmoseResult != null) {
                     result.addAll(osmoseResult);
                 }
+                Collection<MapRouletteTask> mapRouletteResult = null;
+                if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
+                    mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, 1000);
+                }
+                if (mapRouletteResult != null) {
+                    result.addAll(mapRouletteResult);
+                }
                 return result;
             }
 

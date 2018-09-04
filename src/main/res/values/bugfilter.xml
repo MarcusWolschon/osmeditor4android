@@ -5,16 +5,19 @@
     <string name="bugfilter_osmose_warning" translatable="false">OSMOSE_WARNING</string>
     <string name="bugfilter_osmose_minor_issue" translatable="false">OSMOSE_MINOR_ISSUE</string>
     <string name="bugfilter_custom" translatable="false">CUSTOM</string>
+    <string name="bugfilter_maproulette" translatable="false">MAPROULETTE</string>
     <string name="bugfilter_notes_entry">Notes</string>
     <string name="bugfilter_osmose_error_entry">Osmose error</string>
     <string name="bugfilter_osmose_warning_entry">Osmose warning</string>
     <string name="bugfilter_osmose_minor_issue_entry">Osmose minor issue</string>
+    <string name="bugfilter_maproulette_entry">MapRoulette</string>
     <string name="bugfilter_custom_entry">Custom</string>
     <string-array translatable="false" name="bug_filter_entries">
 		<item>@string/bugfilter_notes_entry</item>
         <item>@string/bugfilter_osmose_error_entry</item>
         <item>@string/bugfilter_osmose_warning_entry</item>
         <item>@string/bugfilter_osmose_minor_issue_entry</item>
+        <item>@string/bugfilter_maproulette_entry</item>
         <item>@string/bugfilter_custom_entry</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_values">
@@ -22,6 +25,7 @@
 		<item>@string/bugfilter_osmose_error</item>
 		<item>@string/bugfilter_osmose_warning</item>
 		<item>@string/bugfilter_osmose_minor_issue</item>
+        <item>@string/bugfilter_maproulette</item>
 		<item>@string/bugfilter_custom</item>
     </string-array>
     <string-array translatable="false" name="bug_filter_defaults">
@@ -29,6 +33,7 @@
 		<item>@string/bugfilter_osmose_error</item>
 		<item>@string/bugfilter_osmose_warning</item>
 		<item>@string/bugfilter_osmose_minor_issue</item>
+        <item>@string/bugfilter_maproulette</item>
 		<item>@string/bugfilter_custom</item>
     </string-array>
 </resources>

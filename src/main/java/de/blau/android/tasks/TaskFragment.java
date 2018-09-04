@@ -167,85 +167,89 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 comment.setVisibility(View.GONE);
             }
             adapter = ArrayAdapter.createFromResource(getActivity(), R.array.note_state, android.R.layout.simple_spinner_item);
-        } else if (bug instanceof OsmoseBug || bug instanceof CustomBug) {
-            title.setText(R.string.openstreetbug_bug_title);
-            comments.setText(Util.fromHtml(((Bug) bug).getLongDescription(getActivity(), false)));
-            final StorageDelegator storageDelegator = App.getDelegator();
-            for (final OsmElement e : ((Bug) bug).getElements()) {
-                String text;
-                if (e.getOsmVersion() < 0) { // fake element
-                    text = getActivity().getString(R.string.bug_element_1, e.getName(), e.getOsmId());
-                } else { // real
-                    text = getActivity().getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
-                }
-                TextView tv = new TextView(getActivity());
-                tv.setClickable(true);
-                tv.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) { // FIXME assumption that we are being called from Main
-                        dismiss();
-                        final FragmentActivity activity = getActivity();
-                        final int lonE7 = bug.getLon();
-                        final int latE7 = bug.getLat();
-                        if (e.getOsmVersion() < 0) { // fake element
-                            try {
-                                BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
-                                App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
-                                    @Override
-                                    public void onSuccess() {
-                                        OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
-                                        if (osm != null && activity != null && activity instanceof Main) {
-                                            ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                            } catch (OsmException e1) {
-                                Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
-                            }
-                        } else if (activity instanceof Main) { // real
-                            ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
-                        }
-                    }
-                });
-                tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
-                tv.setText(text);
-                elementLayout.addView(tv);
-            }
-            // these are not used for osmose bugs
+        } else {
+            // these are only used for Notes
             commentLabel.setVisibility(View.GONE);
             comment.setVisibility(View.GONE);
             //
-            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
-        } else {
-            Log.d(DEBUG_TAG, "Unknown task type " + bug.getDescription());
-            builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.openstreetbug_unknown_task_type)
-                    .setMessage(getString(R.string.openstreetbug_not_supported, bug.getClass().getCanonicalName()))
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+            if (bug instanceof OsmoseBug || bug instanceof CustomBug) {
+                title.setText(R.string.openstreetbug_bug_title);
+                comments.setText(Util.fromHtml(((Bug) bug).getLongDescription(getActivity(), false)));
+                final StorageDelegator storageDelegator = App.getDelegator();
+                for (final OsmElement e : ((Bug) bug).getElements()) {
+                    String text;
+                    if (e.getOsmVersion() < 0) { // fake element
+                        text = getActivity().getString(R.string.bug_element_1, e.getName(), e.getOsmId());
+                    } else { // real
+                        text = getActivity().getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
+                    }
+                    TextView tv = new TextView(getActivity());
+                    tv.setClickable(true);
+                    tv.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) { // FIXME assumption that we are being called from Main
+                            dismiss();
+                            final FragmentActivity activity = getActivity();
+                            final int lonE7 = bug.getLon();
+                            final int latE7 = bug.getLat();
+                            if (e.getOsmVersion() < 0) { // fake element
+                                try {
+                                    BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
+                                    App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
+                                        @Override
+                                        public void onSuccess() {
+                                            OsmElement osm = storageDelegator.getOsmElement(e.getName(), e.getOsmId());
+                                            if (osm != null && activity != null && activity instanceof Main) {
+                                                ((Main) activity).zoomToAndEdit(lonE7, latE7, osm);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError() {
+                                        }
+                                    });
+                                } catch (OsmException e1) {
+                                    Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                                }
+                            } else if (activity instanceof Main) { // real
+                                ((Main) activity).zoomToAndEdit(lonE7, latE7, e);
+                            }
                         }
                     });
-            return builder.create();
-        }
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        state.setAdapter(adapter);
-
-        if (bug.getState() == State.OPEN) {
-            state.setSelection(State.OPEN.ordinal());
-        } else if (bug.getState() == State.CLOSED) {
-            state.setSelection(State.CLOSED.ordinal());
-        } else if (bug.getState() == State.FALSE_POSITIVE) {
-            if (adapter.getCount() == 3) {
-                state.setSelection(State.FALSE_POSITIVE.ordinal());
+                    tv.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                    tv.setText(text);
+                    elementLayout.addView(tv);
+                }
+                //
+                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
+            } else if (bug instanceof MapRouletteTask) {
+                title.setText(R.string.maproulette_task_title);
+                comments.setText(Util.fromHtml(((MapRouletteTask) bug).getDescription()));
+                final StorageDelegator storageDelegator = App.getDelegator();
+                //
+                adapter = ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
             } else {
-                Log.d(DEBUG_TAG, "ArrayAdapter too short");
+                Log.d(DEBUG_TAG, "Unknown task type " + bug.getDescription());
+                builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.openstreetbug_unknown_task_type)
+                        .setMessage(getString(R.string.openstreetbug_not_supported, bug.getClass().getCanonicalName()))
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                return builder.create();
+            }
+
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            state.setAdapter(adapter);
+
+            int stateOrdinal = bug.getState().ordinal();
+            if (adapter.getCount() > stateOrdinal) {
+                state.setSelection(stateOrdinal);
+            } else {
+                Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
             }
         }
 
@@ -332,20 +336,18 @@ public class TaskFragment extends ImmersiveDialogFragment {
     }
 
     /**
-     * Map spinner position to state
+     * ¨ Get the State value corresponding to ordinal
      * 
-     * @param pos the position
-     * @return the corresponding State
+     * @param ordinal the ordinal value
+     * @return the State value corresponding to ordinal
      */
-    private static State pos2state(int pos) {
-        if (pos == State.CLOSED.ordinal()) {
-            return State.CLOSED;
-        } else if (pos == State.OPEN.ordinal()) {
-            return State.OPEN;
-        } else if (pos == State.FALSE_POSITIVE.ordinal()) {
-            return State.FALSE_POSITIVE;
+    static State pos2state(int ordinal) {
+        State[] values = State.values();
+        if (ordinal >= 0 && ordinal < values.length) {
+            return values[ordinal];
         }
-        return State.OPEN;
+        Log.e(DEBUG_TAG, "pos2state out of range " + ordinal);
+        return values[0];
     }
 
     /**
