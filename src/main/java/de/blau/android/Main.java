@@ -3327,7 +3327,7 @@ public class Main extends FullScreenAppCompatActivity
         private void getClickedObjects(final float x, final float y) {
             ViewBox viewBox = map.getViewBox();
             for (MapViewLayer layer : map.getLayers()) {
-                if (layer instanceof ClickableInterface) {
+                if (layer instanceof ClickableInterface && layer.isVisible()) {
                     List<?> objects = ((ClickableInterface) layer).getClicked(x, y, viewBox);
                     for (Object o : objects) {
                         clickedObjects.add(new ClickedObject((ClickableInterface) layer, o));
