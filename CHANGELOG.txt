@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.1.0.5: Updated translations and imagery.
+
 11.1.0.4: Fix GeoJSON properties dialog width in landscape mode, use default max zoom 22 for WMS sources, add text keys with no values to auto suggest, merge tasks (Notes) on download and complain about conflicts, add configuration support for HTTP headers indicating invalid tiles.
 
 11.1.0-3: Fix crash sorting background layers on some devices.
