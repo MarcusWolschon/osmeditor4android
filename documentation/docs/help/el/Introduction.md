@@ -61,13 +61,13 @@
 
 #### Επιλογή / Αποεπιλογή (απλό πάτημα και "επιλογή μενού")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Αγγίξτε ένα αντικείμενο για να το επιλέξετε και να το επισημάνετε. Αγγίζοντας την οθόνη σε μια κενή περιοχή θα το αποεπιλέξετε. Εάν έχετε επιλέξει ένα αντικείμενο και θα πρέπει να επιλέξετε κάτι άλλο, απλώς αγγίξτε το αντικείμενο που θέλετε, χωρίς να χρειάζεται να αποεπιλέξετε το πρώτο. Ένα διπλό χτύπημα σε ένα αντικείμενο θα ξεκινήσει [Λειτουργία Πολυεπιλογής] (../ en / Multiselect.md).
 
 Σημειώστε ότι αν προσπαθήσετε να επιλέξετε ένα αντικείμενο και το Vespucci υπολογίζει ότι η επιλογή μπορεί να σημαίνει πολλαπλά αντικείμενα (όπως ένας κόμβος σε μία διαδρομή ή άλλα επικαλυπτόμενα αντικείμενα) θα παρουσιάσει ένα μενού επιλογής: Πατήστε το αντικείμενο που θέλετε να επιλέξετε και το αντικείμενο είναι επιλεγμένο. 
 
 Τα επιλεγμένα αντικείμενα υποδεικνύονται με ένα λεπτό κίτρινο περίγραμμα. Το κίτρινο περίγραμμα μπορεί να είναι δύσκολο να εντοπιστεί, ανάλογα με το φόντο του χάρτη και το συντελεστή μεγέθυνσης. Αφού γίνει μια επιλογή, θα δείτε μια ειδοποίηση που επιβεβαιώνει την επιλογή.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+Μόλις ολοκληρωθεί η επιλογή, θα δείτε (είτε ως κουμπιά ή ως αντικείμενα μενού) μια λίστα υποστηριζόμενων λειτουργιών για το επιλεγμένο αντικείμενο: Για περισσότερες πληροφορίες, δείτε στο [Επιλεγμένος Κόμβος](../en/Node%20selected.md), [Επιλεγμένη Διαδρομή](../en/Way%20selected.md) και [Επιλεγμένη Σχέση](../en/Relation%20selected.md).
 
 #### Επιλεγμένα αντικείμενα: Επεξεργασία ετικετών
 
@@ -152,7 +152,7 @@ Once the selection has completed you will see (either as buttons or as menu item
 
 #### Επίλυση συγκρούσεων στις μεταφορτώσεις
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Το Vespucci έχει έναν απλό επιλυτή συγκρούσεων. Ωστόσο, εάν υποψιάζεστε ότι υπάρχουν σημαντικά ζητήματα με τις επεξεργασίες σας, εξαγάγετε τις αλλαγές σας σε ένα αρχείο .osc ("Εξαγωγή" μενού αντικειμένου στο μενού "Μεταφορά") και διορθώστε τα και ανεβάστε τα με το JOSM. Δείτε την λεπτομερή βοήθεια στο [επίλυση συγκρούσεων] (../en/Conflict%20resolution.md).  
 
 ## Χρήση του GPS
 
@@ -170,7 +170,7 @@ Vespucci has a simple conflict resolver. However if you suspect that there are m
 
 ### Φιλτράρισμα
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Εκτός από την παγκόσμια ενεργοποίηση εμφάνισης των σημειώσεων και των σφαλμάτων, μπορείτε να ορίσετε ένα χονδροειδές φίλτρο απεικόνισης για να μειώσετε όλο αυτόν τον όγκο. Στις [Προηγμένες προτιμήσεις](Advanced%20preferences.md) μπορείτε να επιλέξετε ξεχωριστά:
 
 * Σημειώσεις
 * Σφάλμα Osmose
@@ -182,7 +182,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 ## Εσωτερική λειτουργία
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+Η χαρτογράφηση σε εσωτερικούς χώρους είναι δύσκολη λόγω του μεγάλου αριθμού αντικειμένων που συχνά επικαλύπτουν ο ένας τον άλλον. Το Vespucci έχει μια ειδική λειτουργία εσωτερικού χώρου που σας επιτρέπει να φιλτράρετε όλα τα αντικείμενα που δεν βρίσκονται στο ίδιο επίπεδο και τα οποία θα προσθέσουν αυτόματα το τρέχον επίπεδο σε νέα αντικείμενα που έχουν δημιουργηθεί.
 
 Η λειτουργία μπορεί να ενεργοποιηθεί πατώντας παρατεταμένα το στοιχείο κλειδώματος, δείτε στο [Κλείδωμα, ξεκλείδωμα, εναλλαγή λειτουργίας] (#κλειδαριά) και επιλέγοντας την αντίστοιχη καταχώρηση μενού.
 
@@ -198,7 +198,7 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 Επί του παρόντος υπάρχουν δύο διαμορφώσιμοι έλεγχοι (υπάρχει ο έλεγχος για ετικέτες FIXME (ΦΤΙΑΞΕΜΕ) και η δοκιμή χαμένων τύπων ετικετών για σχέσεις που δεν είναι επί του παρόντος ρυθμιζόμενες) και οι δύο μπορούν να ρυθμιστούν επιλέγοντας το "Προτιμήσεις επικύρωσης" στις "Προτιμήσεις". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+Ο κατάλογος των καταχωρίσεων χωρίζεται στα δύο, ο πάνω μισός κατάλογος καταγράφει την "επανεξέταση", ο κάτω μισός ελέγχει τις "καταχωρήσεις". Οι καταχωρίσεις μπορούν να επεξεργαστούν κάνοντας κλικ σε αυτές, το πράσινο κουμπί μενού επιτρέπει την προσθήκη των καταχωρήσεων.
 
 #### Εισαγωγές επανεξέτασης
 
@@ -228,25 +228,25 @@ The list of entries is split in to two, the top half lists "re-survey" entries, 
 
 ### Προρύθμιση βασισμένη σε φίλτρο
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+Μια εναλλακτική λύση στα παραπάνω αντικείμενα φιλτράρονται είτε σε μεμονωμένες προεπιλογές είτε σε προκαθορισμένες ομάδες. Χτυπώντας στο εικονίδιο του φίλτρου θα εμφανιστεί ένα προκαθορισμένο παράθυρο επιλογής παρόμοιο με αυτό που χρησιμοποιείται κάπου αλλού στο Vespucci. Οι μεμονωμένες προεπιλογές μπορούν να επιλεγούν με κανονικό κλικ, οι προκαθορισμένες ομάδες με παρατεταμένο κλικ (το κανονικό κλικ μπαίνει στην ομάδα). Περισσότερες οδηγίες μπορείτε να βρείτε εδώ [Προκαθορισμένο φίλτρο](../en/Preset%20filter.md).
 
 ## Προσαρμογή του Vespucci
 
 ### Ρυθμίσεις που μπορεί να θέλετε να αλλάξετε
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Επίπεδο φόντου*
+ Επίπεδο επικάλυψης. Η προσθήκη μιας επικάλυψης μπορεί να προκαλέσει προβλήματα με παλαιότερες συσκευές και αυτές με περιορισμένη μνήμη. Προεπιλογή: καμία.
+* Εμφάνιση Σημειώσεων/Σφαλμάτων. Οι ανοιχτές σημειώσεις και τα σφάλματα θα εμφανιστούν ως κίτρινο εικονίδιο εντόμου, οι κλειστές το ίδιο σε πράσινο. Προεπιλογή: ενεργοποιημένο.
+* Επίπεδο φωτογραφίας. Εμφανίζει γεωαναφερμένες φωτογραφίες ως κόκκινα εικονίδια κάμερας, εάν υπάρχουν πληροφορίες κατεύθυνσης, το εικονίδιο θα περιστραφεί. Προεπιλογή: απενεργοποιημένο.
+* Διατήρηση της οθόνη ανοιχτή. Προεπιλογή: απενεργοποιημένο.
+* Μετακίνηση κόμβου σε μεγάλη περιοχή. Οι μετακινούμενοι κόμβοι σε μια συσκευή με οθόνη αφής είναι προβληματικοί επειδή τα δάχτυλά σας θα κρύψουν την τρέχουσα θέση στην οθόνη. Ενεργοποιώντας την επιλογή αυτή, θα δημιουργηθεί μια μεγάλη περιοχή που μπορεί να χρησιμοποιηθεί για μετακίνηση εκτός του κέντρου (η επιλογή και άλλες λειτουργίες εξακολουθούν να χρησιμοποιούν την κανονική περιοχή ανοχής αφής). Προεπιλογή: απενεργοποιημένο.
 
 #### Σύνθετες προτιμήσεις
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Εικονίδια κόμβου. Προεπιλογή: ενεργοποιημένο.
+ * Να εμφανίζεται πάντα το μενού συνθηκών. Όταν ενεργοποιηθεί σε κάθε επιλεγμένη διαδικασία θα εμφανιστεί το μενού συνθηκών, όταν απενεργοποιηθεί το μενού θα εμφανιστεί μόνο όταν δεν μπορεί να καθοριστεί ξεκάθαρη επιλογή. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).
+ * Ενεργοποίηση ανάλαφρου μοτίβου. Στις σύγχρονες συσκευές αυτό ενεργοποιείται από προεπιλογή. Παρόλο που μπορείτε να το ενεργοποιήσετε για παλαιότερες εκδόσεις Android, το στυλ ενδέχεται να είναι ασυνεπές.
+ * Εμφάνιση στατιστικών. Θα παρουσιάσει κάποια στατιστικά στοιχεία για την αποσφαλμάτωση, πραγματικά δεν είναι χρήσιμο. Προεπιλογή: απενεργοποιημένο (χρησιμοποιείται για να είναι ενεργοποιημένο).  
 
 ## Αναφορά Προβλημάτων
 

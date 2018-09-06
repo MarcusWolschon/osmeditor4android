@@ -106,6 +106,7 @@
   <string name="element">prvok</string>
   <string name="last_updated">naposledy aktualizované</string>
   <string name="last_edited">Naposledy upravené</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">chyba</string>
   <string name="warning">upozornenie</string>

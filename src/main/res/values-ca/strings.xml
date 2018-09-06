@@ -111,6 +111,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="element">element</string>
   <string name="last_updated">Darrera actualització</string>
   <string name="last_edited">Darrera modificació</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">error</string>
   <string name="warning">avís</string>

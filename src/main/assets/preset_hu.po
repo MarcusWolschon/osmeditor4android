@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
-"Last-Translator: Buggi\n"
+"PO-Revision-Date: 2018-09-03 11:00+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,7 +181,7 @@ msgstr "Olyan pont, ahol a talajvíz természetes módon kifolyik a felszínre."
 #: master_preset.xml:3306(label:text|group:Water|preset:Cape)
 msgid ""
 "A prominent, elevated piece of land sticking out into the sea or large lake."
-msgstr ""
+msgstr "Feltűnő, kiemelkedő, tengerbe vagy nagy tóba belógó földdarab"
 
 #: master_preset.xml:12182(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
@@ -217,12 +217,12 @@ msgstr "Bántalmazottaknak"
 
 #: master_preset.xml:9368(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgid "Abutment"
-msgstr ""
+msgstr "Hídfő"
 
 #: master_preset.xml:7440(checkgroup:text|group:Facilities|preset:Recycling_Container)
 #: master_preset.xml:7481(checkgroup:text|group:Facilities|preset:Recycling_Centre)
 msgid "Accepted material"
-msgstr ""
+msgstr "Elfogadott anyag"
 
 #: master_preset.xml:446(combo:text|key:access)
 #: master_preset.xml:6899(combo:text|group:Emergency|preset:Automated_Defibrillator|key:access)
@@ -269,7 +269,7 @@ msgstr "Ellenőrzés dátumának hozzáadása vagy frissítése"
 #: master_preset.xml:940(checkgroup:text|group:Streets|preset:Motorway_Link)
 #: master_preset.xml:977(checkgroup:text|group:Streets|preset:Trunk)
 msgid "Additional attributes"
-msgstr ""
+msgstr "További tulajdonságok"
 
 #: master_preset.xml:4014(label:text|group:Car|preset:Fuel)
 msgid "Additives:"
@@ -697,7 +697,7 @@ msgstr "Ausztrál futball"
 
 #: master_preset.xml:4068(checkgroup:text|group:Car|preset:Charging_Station)
 msgid "Authentication"
-msgstr ""
+msgstr "Azonosítás"
 
 #: master_preset.xml:4067(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
@@ -1489,7 +1489,7 @@ msgstr "Kempingiroda"
 
 #: master_preset.xml:5039(checkgroup:text|group:Accommodation|preset:Campsite)
 msgid "Camping type"
-msgstr ""
+msgstr "Kemping típusa"
 
 #: master_preset.xml:5025(item:name|group:Accommodation|preset:Campsite)
 msgid "Campsite"
@@ -1543,7 +1543,7 @@ msgstr "Kapacitás (teljes)"
 
 #: master_preset.xml:3301(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Fok"
 
 #: master_preset.xml:13391(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:3899(group:name|group:Car)
@@ -1599,7 +1599,7 @@ msgstr "Készpénz"
 
 #: master_preset.xml:11801(checkgroup:text|preset:Payment_Methods)
 msgid "Cash type"
-msgstr ""
+msgstr "Készpénz típusa"
 
 #: master_preset.xml:5964(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
@@ -2107,7 +2107,7 @@ msgstr "Hitelkártyák"
 
 #: master_preset.xml:11819(checkgroup:text|preset:Payment_Methods)
 msgid "Credit cards type"
-msgstr ""
+msgstr "Hitelkártya típusa"
 
 #: master_preset.xml:6551(item:name|group:Public_Building|preset:Crematorium)
 msgid "Crematorium"
@@ -2180,7 +2180,7 @@ msgstr "Kriptovaluták"
 
 #: master_preset.xml:11841(checkgroup:text|preset:Payment_Methods)
 msgid "Cryptocurrencies types"
-msgstr ""
+msgstr "Kriptovaluta típusa"
 
 #: master_preset.xml:345(multiselect:text|key:cuisine)
 #: master_preset.xml:5149(combo:text|group:Food+Drinks|preset:Cafe|key:cuisine)
@@ -2273,7 +2273,7 @@ msgstr "Betéti kártyák"
 
 #: master_preset.xml:11807(checkgroup:text|preset:Payment_Methods)
 msgid "Debit cards type"
-msgstr ""
+msgstr "Betéti kártya típusa"
 
 #: master_preset.xml:497(list_entry:display_value|value:deciduous)
 msgid "Deciduous"
@@ -2314,7 +2314,7 @@ msgstr "Szarvas"
 
 #: master_preset.xml:8811(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Defensive"
-msgstr ""
+msgstr "(Középkori) vár"
 
 #: master_preset.xml:10200(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -2749,11 +2749,11 @@ msgstr "Villanyszerelő"
 
 #: master_preset.xml:11828(check:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses"
-msgstr ""
+msgstr "Elektronikus pénztárcák"
 
 #: master_preset.xml:11829(checkgroup:text|preset:Payment_Methods)
 msgid "Electronic purses type"
-msgstr ""
+msgstr "Elektronikus pénztárca típusa"
 
 #: master_preset.xml:10572(group:name|group:Electronics)
 msgid "Electronics"
@@ -3143,7 +3143,7 @@ msgstr "Árvízvédelmi fal"
 
 #: master_preset.xml:627(combo:display_values|key:tunnel)
 msgid "Flooded"
-msgstr ""
+msgstr "Elárasztott"
 
 #: master_preset.xml:13939(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
@@ -3293,7 +3293,7 @@ msgstr "Üzemanyag"
 
 #: master_preset.xml:4018(checkgroup:text|group:Car|preset:Fuel)
 msgid "Fuel cards"
-msgstr ""
+msgstr "Üzemanyagkártyák"
 
 #: master_preset.xml:4017(label:text|group:Car|preset:Fuel)
 msgid "Fuel cards:"
@@ -3302,7 +3302,7 @@ msgstr "Üzemanyagkártyák:"
 #: master_preset.xml:3370(checkgroup:text|group:Shipping|preset:Marine_Fuel)
 #: master_preset.xml:3993(checkgroup:text|group:Car|preset:Fuel)
 msgid "Fuel types"
-msgstr ""
+msgstr "Üzemanyagtípusok"
 
 #: master_preset.xml:3369(label:text|group:Shipping|preset:Marine_Fuel)
 #: master_preset.xml:3992(label:text|group:Car|preset:Fuel)
@@ -3761,7 +3761,7 @@ msgstr "Magasság (méter)"
 
 #: master_preset.xml:2303(item:name|group:Barriers|preset:Height_resctrictor)
 msgid "Height resctrictor"
-msgstr ""
+msgstr "Magasságkorlátozó"
 
 #: master_preset.xml:4721(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
@@ -4313,7 +4313,7 @@ msgstr "Hulladéklerakó"
 
 #: master_preset.xml:1459(group:name|group:Lane_attributes)
 msgid "Lane attributes"
-msgstr "Sávok jellemzői"
+msgstr "Sávok tulajdonságai"
 
 #: master_preset.xml:1435(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:43(combo:text|key:lanes)
@@ -4365,11 +4365,11 @@ msgstr "Réteg"
 
 #: master_preset.xml:496(combo:text|key:leaf_cycle)
 msgid "Leaf cycle"
-msgstr ""
+msgstr "Lombciklus"
 
 #: master_preset.xml:495(combo:text|key:leaf_type)
 msgid "Leaf type"
-msgstr ""
+msgstr "Lombtípus"
 
 #: master_preset.xml:495(combo:display_values|key:leaf_type)
 msgid "Leafless"
@@ -4399,7 +4399,7 @@ msgstr "Korlát a bal oldalon"
 
 #: master_preset.xml:4418(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Legacy stop types"
-msgstr ""
+msgstr "Maradvány megállótípusok"
 
 #: master_preset.xml:5429(group:name|group:Leisure)
 msgid "Leisure"
@@ -4448,7 +4448,7 @@ msgstr "Emelkedő sorompó"
 
 #: master_preset.xml:9368(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgid "Lift pier"
-msgstr ""
+msgstr "Felvonópillér"
 
 #: master_preset.xml:2911(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:goods)
 msgid "Light Commercial Vehicles (goods)"
@@ -5079,7 +5079,7 @@ msgstr "Megfigyelőállomás"
 
 #: master_preset.xml:9249(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring type"
-msgstr ""
+msgstr "Megfigyelés típusa"
 
 #: master_preset.xml:9248(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -5248,7 +5248,7 @@ msgstr "Multipoligon"
 
 #: master_preset.xml:12002(item:name|group:Places|preset:Municipality)
 msgid "Municipality"
-msgstr ""
+msgstr "Település"
 
 #: master_preset.xml:6215(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
@@ -5734,7 +5734,7 @@ msgstr "Áramkörök száma"
 
 #: master_preset.xml:603(combo:text|key:devices)
 msgid "Number of devices"
-msgstr ""
+msgstr "Készülékek száma"
 
 #: master_preset.xml:44(combo:long_text|key:lanes:forward)
 msgid "Number of lanes in way direction"
@@ -5780,7 +5780,7 @@ msgstr "Kerekesszékes ülőhelyek száma"
 
 #: master_preset.xml:604(combo:text|key:windings)
 msgid "Number of windings"
-msgstr ""
+msgstr "Tekercselések száma"
 
 #: master_preset.xml:13138(combo:text|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Numbering scheme"
@@ -6383,7 +6383,7 @@ msgstr "Megengedő"
 
 #: master_preset.xml:735(combo:display_values|key:access)
 msgid "Permit required"
-msgstr ""
+msgstr "Csak engedéllyel"
 
 #: master_preset.xml:12655(combo:display_values|group:Land_use|preset:Meadow|key:meadow)
 msgid "Perpetual"
@@ -6518,7 +6518,7 @@ msgstr "Sportpálya"
 
 #: master_preset.xml:9368(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgid "Pivot pier"
-msgstr ""
+msgstr "Fordítópillér"
 
 #: master_preset.xml:345(multiselect:display_values|key:cuisine)
 msgid "Pizza"
@@ -6708,7 +6708,7 @@ msgstr "(4) felsőoktatási szakképzés"
 
 #: master_preset.xml:11813(check:text|preset:Payment_Methods|key:payment:postfinance_card)
 msgid "PostFinance Card (ch)"
-msgstr ""
+msgstr "PostFinance Card (CH)"
 
 #: master_preset.xml:11878(item:name|group:Boundaries|preset:Postal_Code)
 #: master_preset.xml:11888(text:text|group:Boundaries|preset:Postal_Code|key:postal_code)
@@ -6851,7 +6851,7 @@ msgstr "Főút fel- vagy lehajtó"
 
 #: master_preset.xml:523(combo:text|key:voltage:primary)
 msgid "Primary voltage in Volts (V)"
-msgstr ""
+msgstr "Elsődleges feszültség (V)"
 
 #: master_preset.xml:14344(item:name|group:Crafts|preset:Print_shop)
 msgid "Print shop"
@@ -7055,7 +7055,7 @@ msgstr "Racquetball"
 
 #: master_preset.xml:8811(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 #: master_preset.xml:9260(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:radiation)
 msgid "Radiation"
@@ -7146,7 +7146,7 @@ msgstr "Olvasódoboz"
 
 #: master_preset.xml:9264(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
-msgstr ""
+msgstr "Adatrögzítés"
 
 #: master_preset.xml:9263(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording:"
@@ -7422,7 +7422,7 @@ msgstr "Orrszarvú"
 
 #: master_preset.xml:5629(item:name|group:Leisure|preset:Rides)
 msgid "Rides"
-msgstr ""
+msgstr "Felülős mutatványos berendezés"
 
 #: master_preset.xml:12222(item:name|group:Geography|preset:Ridge)
 msgid "Ridge"
@@ -7847,7 +7847,7 @@ msgstr "Összekötő út fel- vagy lehajtó"
 
 #: master_preset.xml:524(combo:text|key:voltage:secondary)
 msgid "Secondary voltage in Volts (V)"
-msgstr ""
+msgstr "Másodlagos feszültség (V)"
 
 #: master_preset.xml:3923(label:text|group:Car|preset:Parking)
 msgid "See the Wiki for other capacity:[types]=*."
@@ -8405,7 +8405,7 @@ msgstr "Megállási pont"
 
 #: master_preset.xml:4427(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Stop types"
-msgstr ""
+msgstr "Megállótípusok"
 
 #: master_preset.xml:8928(item:name|group:Man_Made|preset:Storage_Tank)
 msgid "Storage Tank"
@@ -8596,7 +8596,7 @@ msgstr "Elforduló sorompó"
 
 #: master_preset.xml:5651(list_entry:display_value|group:Leisure|preset:Rides|value:swing_carousel)
 msgid "Swing carousel"
-msgstr ""
+msgstr "Lánckörhinta"
 
 #: master_preset.xml:9765(label:text|preset:Pole_with_Switch)
 msgid "Switch Attributes:"
@@ -8766,7 +8766,7 @@ msgstr "Bekötőút-lehajtó"
 
 #: master_preset.xml:525(combo:text|key:voltage:tertiary)
 msgid "Tertiary voltage in Volts (V)"
-msgstr ""
+msgstr "Harmadlagos feszültség (V)"
 
 #: master_preset.xml:4059(combo:text|group:Car|preset:Charging_Station|key:socket:tesla_supercharger)
 msgid "Tesla Supercharger"
@@ -9260,7 +9260,7 @@ msgstr "Létesítmény típusa"
 
 #: master_preset.xml:4045(checkgroup:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged"
-msgstr ""
+msgstr "Tölthető járműtípusok"
 
 #: master_preset.xml:4044(label:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged:"
@@ -10169,7 +10169,7 @@ msgstr "gázosítás"
 
 #: master_preset.xml:695(role:text|key:guidepost)
 msgid "guidepost"
-msgstr ""
+msgstr "útirányjelző tábla"
 
 #: master_preset.xml:4546(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:stop)
 msgid "halt point"
@@ -11215,7 +11215,7 @@ msgstr "Használat megengedett"
 #: master_preset.xml:466(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permit required"
-msgstr ""
+msgstr "Csak engedéllyel"
 
 #: master_preset.xml:2708(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2728(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -11340,7 +11340,7 @@ msgstr "Föld alatti"
 #: master_preset.xml:606(combo:text|key:windings:configuration)
 msgctxt "power_windings"
 msgid "Windings configuration"
-msgstr ""
+msgstr "Tekercselések elrendezése"
 
 #: master_preset.xml:648(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -12329,7 +12329,7 @@ msgstr "Szögesdrót"
 #: master_preset.xml:2370(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Bars"
-msgstr ""
+msgstr "(Fém)rudak"
 
 #: master_preset.xml:2370(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -12375,7 +12375,7 @@ msgstr "Rúd"
 #: master_preset.xml:2370(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr ""
+msgstr "Korlát"
 
 #: master_preset.xml:2370(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -12431,12 +12431,12 @@ msgstr ""
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Irrigation"
-msgstr ""
+msgstr "Öntözés"
 
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Spillway"
-msgstr ""
+msgstr "Túlfolyó"
 
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
@@ -12446,7 +12446,7 @@ msgstr ""
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transmission"
-msgstr ""
+msgstr "(Víz)továbbítás"
 
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"

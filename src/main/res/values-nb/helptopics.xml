@@ -22,6 +22,7 @@
     <string name="help_upgrade_099">0.9.9 utgivelse-notater</string>
     <string name="help_upgrade_098">0.9.8 utgivelse-notater</string>
     <string name="help_upgrade_097">0.9.7 utgivelse-notater</string>
+    <string name="help_privacy">Personvern</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -42,6 +43,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
@@ -71,6 +73,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>

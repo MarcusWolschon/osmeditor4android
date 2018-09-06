@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
+"PO-Revision-Date: 2018-09-06 09:07+0000\n"
 "Last-Translator: Magnus Österlund\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -804,7 +804,7 @@ msgstr "Bankomat"
 
 #: master_preset.xml:5450(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Musikestrad"
 
 #: master_preset.xml:10676(item:name|group:Cash|preset:Bank)
 msgid "Bank"

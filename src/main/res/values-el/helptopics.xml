@@ -20,6 +20,16 @@
     <string name="help_tagfilter">Φίλτρο ετικέτας</string>
     <string name="help_presetfilter">Προκαθορισμένο φίλτρο</string>
     <string name="help_opening_hours">Ωρες λειτουργίας</string>
+    <string name="help_upgrade">Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_110">11.0 Σημειώσεις έκδοσης </string>
+    <string name="help_upgrade_102">10.2 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_101">10.1 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_100">10.0 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_099">0.9.9 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_098">0.9.8 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_097">0.9.7 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_096">0.9.6 Σημειώσεις έκδοσης</string>
+    <string name="help_privacy">Ιδιωτικότητα</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -40,6 +50,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
@@ -69,6 +80,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>

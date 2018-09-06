@@ -134,6 +134,7 @@
   <string name="element">要素</string>
   <string name="last_updated">最終更新</string>
   <string name="last_edited">最終編集</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">エラー</string>
   <string name="warning">警告</string>

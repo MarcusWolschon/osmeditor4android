@@ -136,8 +136,9 @@
   <string name="last_edited">Ultima modifica</string>
   <string name="original">Originale</string>
   <string name="current">Attuale</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informazioni sull’elemento GeoJSON</string>
+  <!---->
   <string name="error">errore</string>
   <string name="warning">avviso</string>
   <string name="minor_issue">problema minore</string>
@@ -259,7 +260,6 @@
   <string name="toast_oauth_timeout">Tempo scaduto durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_communication">Errore di comunicazione durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_handshake_failed">connessione OAuth fallita: %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">Il login tramite google non è al momento supportato</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>

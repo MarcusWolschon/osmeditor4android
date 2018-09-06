@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
+"PO-Revision-Date: 2018-09-06 09:38+0000\n"
 "Last-Translator: Alexander Istomin\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -803,7 +803,7 @@ msgstr ""
 
 #: master_preset.xml:5450(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Площадка для музыкантов"
 
 #: master_preset.xml:10676(item:name|group:Cash|preset:Bank)
 msgid "Bank"
@@ -3078,7 +3078,7 @@ msgstr ""
 #: master_preset.xml:5849(check:text|group:Leisure|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:7583(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "Камин"
 
 #: master_preset.xml:11740(item:name|group:Other|preset:Fireworks)
 msgid "Fireworks"

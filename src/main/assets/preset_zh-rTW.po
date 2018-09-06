@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
-"Last-Translator: Supaplex <bejokeup@gmail.com>\n"
+"PO-Revision-Date: 2018-09-05 12:49+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -803,7 +803,7 @@ msgstr ""
 
 #: master_preset.xml:5450(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "演奏臺"
 
 #: master_preset.xml:10676(item:name|group:Cash|preset:Bank)
 msgid "Bank"

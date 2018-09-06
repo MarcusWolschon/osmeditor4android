@@ -136,8 +136,9 @@
   <string name="last_edited">Последно обновен</string>
   <string name="original">Оригинален</string>
   <string name="current">Текущ</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Информация за GeoJSON обект</string>
+  <!---->
   <string name="error">грешка</string>
   <string name="warning">предупреждение</string>
   <string name="minor_issue">дребен проблем</string>
@@ -239,7 +240,6 @@
   <string name="toast_oauth_timeout">Времето за автентикация изтече, моля опитайте отново.</string>
   <string name="toast_oauth_communication">Комуникационна грешка по време на автентикация, моля опитайте отново.</string>
   <string name="toast_oauth_handshake_failed">OAuth автентикацията неуспешна: %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">Вход с google не се поддържа в момента.</string>
   <string name="coordinates_out_of_range">Географската дължина трябва да е между -180°/+180°, географската дължина между -85°/85°</string>
   <string name="toast_nothing_found">Нищо не е намерено</string>
   <string name="toast_statesave_failed">Запазването на текущото състояние се провали!\nТова е сериозна грешка, прави се опит за експорт на файл за по-нататъшно възстановяване с JOSM</string>

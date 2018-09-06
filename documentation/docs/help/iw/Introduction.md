@@ -1,22 +1,22 @@
 # היכרות עם וספוצ׳י
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+וספוצ׳י הוא עורך שמכיל את רוב התכונות שיש בעורכים למחשב שולחני לטובת עריכת OpenStreetMap. האפשרות להפעיל את העורך נבדקה על גבי Android 2.3 עד 7.0 ושלל הגוונים של AOSP ונמצאה חיובית. רק אזהרה קטנה: על אף שיכולות המכשירים הניידים משתכללות ומתקרבות לאלו של עמיתיהם השולחניים, למכשירים ישנים במיוחד יש כמות זיכרון מוגבלת מאוד והם נוטים להיות מאוד אטיים. כדאי לקחת זאת בחשבון בעת השימוש בווספוצ׳י ולהגביל, למשל, את האזורים שבעריכה לגודל סביר. 
 
 ## שימוש ראשון
 
-On startup Vespucci shows you the "Download other location"/"Load Area" dialog. If you have coordinates displayed and want to download immediately, you can select the appropriate option and set the radius around the location that you want to download. Do not select a large area on slow devices. 
+בהפעלה יציג בפניך וספוצ׳י את תיבת הדו־שיח „הורדת מיקום אחר”/„טעינת אזור”. אם נקודות הציון מופיעות בפניך וברצונך להוריד מיידית, ניתן לבחור את האפשרות המתאימה ולהגדיר את הרדיוס מסביב למיקום אותו ברצונך להוריד. במכשירים אטיים אין לבחור בשטחים גדולים. 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+לחלופין ניתן להתעלם מתיבת הדו־שיח על ידי לחיצה על הכפתור „מעבר למפה” ולשוטט ולהתקרב למיקום אותו ברצונך לערוך ואז להוריד את הנתונים (לעיון נוסף: „עריכה עם וספוצ׳י”).
 
 ## עריכה עם וספוצ׳י
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+בהתאם לגודל המסך וגיל המכשיר שלך פעולות העריכה עשויות להיות נגישות באופן ישיר באמצעות סמלים בסרגל העליון, דרך תפריט נפתח מימין לסרגל העליון, מהסרגל התחתון (אם קיים) או דרך מקש התפריט.
 
 <a id="download"></a>
 
 ### נתוני OSM מתקבלים
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+יש לבחור את סמל ההעברה ![העברה](../images/menu_transfer.png) או את הפריט „העברה” בתפריט. פעולה זו תציג שבע אפשרויות:
 
 * **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
 * **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
@@ -94,7 +94,7 @@ Long press where you want the node to be or the way to start. You will see a bla
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+ניתן גם להשתמש בפריט מהתפריט: ניתן לעיין ב[יצירת פריטים חדשים](/Creating%20new%20objects.md) לקבלת מידע נוסף.
 
 #### הוספת שטח
 
@@ -122,7 +122,7 @@ Vespucci has an "add address tags" function that tries to make surveying address
 
 House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
 
-Consider using this with the [Auto-download](#download) mode.  
+כדאי להשתמש באפשרות זו יחד עם המצב [הורדה אוטומטית](#download).  
 
 #### הוספת הגבלות פנייה
 
@@ -198,7 +198,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+רשימת הרשומות מחולקת לשתיים, החלק העליון מציג רשומות „תשאול מחדש” והחלק השני מציג „רשומות שנבדקו”. ניתן לערוך רשומות על ידי לחיצה עליהן, התפריט הירוק בתפריט מאפשר הוספת רשומות.
 
 #### תשאול רשומות מחדש
 

@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Vorschläge für Namen</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Dieser Vorschlag kann bestehende Tagwerte mit beliebteren ersetzen</string>
   <string name="search_results_title">Suchresultate</string>
+  <string name="search_online">Online suchen</string>
   <string name="find_message">Suchanfrage eingeben</string>
   <string name="geocoder_prompt">mit</string>
   <string name="preset_search_hint">Vorlagensuche</string>
@@ -136,8 +137,10 @@
   <string name="last_edited">Zuletzt bearbeitet</string>
   <string name="original">Original</string>
   <string name="current">Aktuell</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON Feature information</string>
+  <string name="copy_properties">Tags kopieren</string>
+  <!---->
   <string name="error">Fehler</string>
   <string name="warning">Warnung</string>
   <string name="minor_issue">Fehler mit geringer Bedeutung</string>
@@ -196,14 +199,18 @@
   <string name="layer_style_title">Ebenenstil</string>
   <string name="layer_style_stroke_width">Strichbreite</string>
   <string name="layer_style_color">Farbe</string>
+  <string name="layer_style_label">Beschriftung</string>
   <string name="json_object_not_displayed">JSON Objekt (nicht angezeigt)</string>
   <string name="json_array_not_displayed">JSON Array (nicht angezeigt)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Gitternetz</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Fotos</string>
+  <string name="layer_tasks">Aufgaben</string>
   <string name="layer_data">OSM Daten</string>
   <string name="layer_flush_tile_cache">Tile Cache leeren</string>
+  <string name="layer_change_style">Stil ändern</string>
   <string name="layer_select_imagery">Bildmaterial auswählen</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Sicherungspunkt</string>
@@ -311,6 +318,10 @@
   <string name="toast_using_network_location">Netzwerkstandort</string>
   <string name="toast_using_gps_location">GPS-Standort</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS abgeschaltet, Aufzeichnung gestoppt</string>
+  <string name="toast_tags_copied">Tags wurden in die Zwischenablage kopiert</string>
+  <string name="toast_tags_cut">Tags wurden in die Zwischenablage verschoben</string>
+  <string name="toast_properties_copied">Tags wurden in die Zwischenablage kopiert</string>
+  <string name="toast_task_conflict">%1$s wurde auf dem Server geändert, bitte zuerst Hochladen und dann nochmals Herunterladen</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -329,6 +340,7 @@
   <string name="forward">Vorwärts</string>
   <string name="keep">Behalten</string>
   <string name="enable">Aktivieren</string>
+  <string name="disable">Deaktivieren</string>
   <string name="clear">Zurücksetzen</string>
   <string name="discard">Verwerfen</string>
   <string name="retry">Wiederholen</string>
@@ -398,6 +410,7 @@
   <string name="tag_restriction_add_expression">Ausdruck hinzufügen</string>
   <string name="tag_restriction_add_opening_hours">Öffnungszeiten hinzufügen</string>
   <string name="tag_restriction_value_hint">bedingte Beschränkung</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Bereich laden</string>
   <string name="location_choose_radius">Wähle Radius aus:</string>
@@ -480,6 +493,7 @@
   <string name="menu_copy">Kopieren</string>
   <string name="menu_cut">Ausschneiden</string>
   <string name="menu_paste">Einfügen</string>
+  <string name="menu_paste_tags">Tags einfügen</string>
   <string name="menu_paste_from_clipboard">Von Clipboard einfügen</string>
   <string name="menu_zoom_to_selection">Auf Auswahl zoomen</string>
   <string name="menu_rotate">Drehen</string>
@@ -564,8 +578,11 @@
   <string name="config_overlayLayer_title">Karten Overlay</string>
   <string name="config_overlayLayer_summary">Auswahl des Bildmaterials für ein Overlay.</string>
   <string name="config_customlayers_title">Benutzerdefinierte Hintergründe</string>
+  <string name="config_customlayers_summary">Zusätzliches Hintergrundbildmaterial konfigurieren</string>
   <string name="config_scale_title">Maßstabsanzeige</string>
   <string name="config_scale_summary">Art der angezeigeten Skala</string>
+  <string name="config_mapProfile_title">Datenebenenstil</string>
+  <string name="config_mapProfile_summary">Auswahl des Stils für die Datenebene</string>
   <string name="config_enableOpenStreetBugs_title">Fehler und Notizen anzeigen</string>
   <string name="config_enableOpenStreetBugs_summary">Notizen erstellen, ändern und anzeigen</string>
   <string name="config_enablePhotoLayer_title">Foto Layer einschalten</string>
@@ -579,6 +596,7 @@
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM-kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_validatorprefs_title">Validationseinstellungen</string>
+  <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoren und Lizenzen</string>
   <string name="config_debugbutton_title">Debug</string>
@@ -586,6 +604,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Einstellungen Benutzerschnittstelle</string>
+  <string name="config_category_view_summary">Ansicht- und Anordnungsoptionen</string>
   <string name="config_iconbutton_title">Knoten-Symbole anzeigen</string>
   <string name="config_iconbutton_summary">Auf Knoten das Symbol der am besten passenden Vorlage einblenden.</string>
   <string name="config_showWayIcons_title">Symbole für POIs auf Gebäuden anzeigen</string>
@@ -621,6 +640,7 @@
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Daten- und Bearbeitungseinstellungen</string>
+  <string name="config_category_editing_summary">Auto-downloadeinstellungen</string>
   <string name="config_forceContextMenu_title">Immer Kontextmenü benutzen</string>
   <string name="config_forceContextMenu_summary">Immer Kontextmenü anzeigen wenn die Auswahl nicht eindeutig ist.</string>
   <string name="config_address_tags">Adressattribute</string>
@@ -651,9 +671,11 @@
   <string name="config_maxBugDownloadSpeed_summary">Geschwindigkeit (in km/h) über der der Auto-Download von Notizen/Fehlern pausiert wird.</string>
   <string name="config_closeChangesetOnSave_title">Changesets schließen</string>
   <string name="config_closeChangesetOnSave_summary">Changeset beim Speichern schließen</string>
+  <string name="config_enableAutoPresets_title">Auto Preset einschalten</string>
   <string name="config_enableAutoPresets_summary">Erstellung von Vorlagen von Taginfo erlauben</string>
   <!--Location Settings-->
   <string name="config_category_gps">Standorteinstellungen</string>
+  <string name="config_category_gps_summary">GPS Einstellungen und andere Standortdienste</string>
   <string name="config_gps_source_title">GPS-Quelle</string>
   <string name="config_gps_source_summary">Quelle für GPS-Daten </string>
   <string name="config_gps_source_tcp_title">NMEA-Netzwerkquelle</string>
@@ -670,6 +692,7 @@
   <string name="config_gps_network_summary">Falls kein GPS vorhanden ist, oder abgeschaltet, Netzwerkstandort verwenden</string>
   <!--Server Settings-->
   <string name="config_category_server">Server-Einstellungen</string>
+  <string name="config_category_server_summary">Einstellungen für die OSM API und andere Server </string>
   <string name="config_apibutton_title">OSM-API-URL</string>
   <string name="config_apibutton_summary">Sie können hier eine eigene API-URL einstellen. Sollte normalerweise nicht verändert werden!</string>
   <string name="config_loginbutton_title">Benutzerkonto</string>
@@ -682,6 +705,7 @@
   <string name="config_geocoderbutton_summary">Geocoder für die Suchfunktion hinzufügen, bearbeiten und löschen</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Hintergrundbilder laden und speichern</string>
+  <string name="config_category_layers_summary">Hintergrundkachelnspeicher und - download</string>
   <string name="config_maxTileDownloadThreads_title">Max. Anzahl von Download Threads</string>
   <string name="config_maxTileDownloadThreads_summary">Max. Anzahl von Threads um Kartenkacheln herunterzuladen.</string>
   <string name="config_downLoadThreads_current">%1$d Threads</string>

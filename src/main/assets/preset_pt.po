@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
+"PO-Revision-Date: 2018-09-06 09:41+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr "Um vulcão, dormente, extinto ou ativo."
 
 #: master_preset.xml:3655(item:name|group:Railway|preset:Abandoned_Rail)
 msgid "Abandoned Rail"
-msgstr "Ferrovia c/carris removidos"
+msgstr "Ferrovia com carris remov."
 
 #: master_preset.xml:665(list_entry:display_value|value:abused)
 msgid "Abused"
@@ -225,7 +225,7 @@ msgstr ""
 #: master_preset.xml:7440(checkgroup:text|group:Facilities|preset:Recycling_Container)
 #: master_preset.xml:7481(checkgroup:text|group:Facilities|preset:Recycling_Centre)
 msgid "Accepted material"
-msgstr ""
+msgstr "Material aceite"
 
 #: master_preset.xml:446(combo:text|key:access)
 #: master_preset.xml:6899(combo:text|group:Emergency|preset:Automated_Defibrillator|key:access)
@@ -272,7 +272,7 @@ msgstr "Data de Verificado"
 #: master_preset.xml:940(checkgroup:text|group:Streets|preset:Motorway_Link)
 #: master_preset.xml:977(checkgroup:text|group:Streets|preset:Trunk)
 msgid "Additional attributes"
-msgstr ""
+msgstr "Atributos adicionais"
 
 #: master_preset.xml:4014(label:text|group:Car|preset:Fuel)
 msgid "Additives:"
@@ -553,7 +553,7 @@ msgstr "Anime"
 
 #: master_preset.xml:13184(group:name|group:Annotation)
 msgid "Annotation"
-msgstr "Anotação"
+msgstr "Notas"
 
 #: master_preset.xml:5502(list_entry:display_value|group:Leisure|preset:Animals|value:anteater)
 msgid "Anteater"
@@ -700,7 +700,7 @@ msgstr "Futebol Australiano"
 
 #: master_preset.xml:4068(checkgroup:text|group:Car|preset:Charging_Station)
 msgid "Authentication"
-msgstr ""
+msgstr "Autenticação"
 
 #: master_preset.xml:4067(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
@@ -1076,7 +1076,7 @@ msgstr "Ferreiro"
 
 #: master_preset.xml:2232(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr "Bloco (cimento/pedra)"
+msgstr "Bloco cimento / pedra"
 
 #: master_preset.xml:6832(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:blood_donation)
 msgid "Blood donation"
@@ -1492,7 +1492,7 @@ msgstr "Campismo"
 
 #: master_preset.xml:5039(checkgroup:text|group:Accommodation|preset:Campsite)
 msgid "Camping type"
-msgstr ""
+msgstr "Tipo de campismo"
 
 #: master_preset.xml:5025(item:name|group:Accommodation|preset:Campsite)
 msgid "Campsite"
@@ -1546,7 +1546,7 @@ msgstr "Capacidade (total)"
 
 #: master_preset.xml:3301(item:name|group:Water|preset:Cape)
 msgid "Cape"
-msgstr ""
+msgstr "Cabo"
 
 #: master_preset.xml:13391(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:3899(group:name|group:Car)
@@ -1602,7 +1602,7 @@ msgstr "Dinheiro"
 
 #: master_preset.xml:11801(checkgroup:text|preset:Payment_Methods)
 msgid "Cash type"
-msgstr ""
+msgstr "Tipo de dinheiro"
 
 #: master_preset.xml:5964(item:name|group:Leisure|preset:Casino)
 msgid "Casino"
@@ -1937,7 +1937,7 @@ msgstr "Cimento"
 
 #: master_preset.xml:2878(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
-msgstr "Vel.máx. cond. e direcional"
+msgstr "Vel.máx. condicional"
 
 #: master_preset.xml:2835(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 msgid ""
@@ -2110,7 +2110,7 @@ msgstr "Cartões de crédito"
 
 #: master_preset.xml:11819(checkgroup:text|preset:Payment_Methods)
 msgid "Credit cards type"
-msgstr ""
+msgstr "Tipo de cartões de crédito"
 
 #: master_preset.xml:6551(item:name|group:Public_Building|preset:Crematorium)
 msgid "Crematorium"
@@ -2183,7 +2183,7 @@ msgstr "Criptomoedas"
 
 #: master_preset.xml:11841(checkgroup:text|preset:Payment_Methods)
 msgid "Cryptocurrencies types"
-msgstr ""
+msgstr "Tipos de criptomoeda"
 
 #: master_preset.xml:345(multiselect:text|key:cuisine)
 #: master_preset.xml:5149(combo:text|group:Food+Drinks|preset:Cafe|key:cuisine)
@@ -2276,7 +2276,7 @@ msgstr "Cartões de débito"
 
 #: master_preset.xml:11807(checkgroup:text|preset:Payment_Methods)
 msgid "Debit cards type"
-msgstr ""
+msgstr "Tipo de cartões de débito"
 
 #: master_preset.xml:497(list_entry:display_value|value:deciduous)
 msgid "Deciduous"
@@ -2317,7 +2317,7 @@ msgstr "Veado"
 
 #: master_preset.xml:8811(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Defensive"
-msgstr ""
+msgstr "Defensivo"
 
 #: master_preset.xml:10200(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -2752,11 +2752,11 @@ msgstr "Eletricista"
 
 #: master_preset.xml:11828(check:text|preset:Payment_Methods|key:payment:electronic_purses)
 msgid "Electronic purses"
-msgstr ""
+msgstr "Carteiras eletrónicas"
 
 #: master_preset.xml:11829(checkgroup:text|preset:Payment_Methods)
 msgid "Electronic purses type"
-msgstr ""
+msgstr "Tipo de carteiras eletrónicas"
 
 #: master_preset.xml:10572(group:name|group:Electronics)
 msgid "Electronics"
@@ -2897,7 +2897,7 @@ msgstr "Escadas rolantes"
 
 #: master_preset.xml:1357(item:name|group:Streets|preset:Escape)
 msgid "Escape"
-msgstr "Escapatória (rampa de paragem de emergência)"
+msgstr "Escapatória / parag.emerg."
 
 #: master_preset.xml:14456(item:name|group:Offices|preset:Estate_agent)
 msgid "Estate agent"
@@ -3146,7 +3146,7 @@ msgstr "Parede de cheias"
 
 #: master_preset.xml:627(combo:display_values|key:tunnel)
 msgid "Flooded"
-msgstr ""
+msgstr "Inundado"
 
 #: master_preset.xml:13939(item:name|group:Crafts|preset:Floorer)
 msgid "Floorer"
@@ -3225,7 +3225,7 @@ msgstr "Na direção do tráfego"
 #: master_preset.xml:1442(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1453(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr "Vau (passagem pela água)"
+msgstr "Vau / Almegue"
 
 #: master_preset.xml:12392(item:name|group:Nature|preset:Forest)
 msgid "Forest"
@@ -3296,7 +3296,7 @@ msgstr "Posto de Combustível"
 
 #: master_preset.xml:4018(checkgroup:text|group:Car|preset:Fuel)
 msgid "Fuel cards"
-msgstr ""
+msgstr "Cartões de combustível"
 
 #: master_preset.xml:4017(label:text|group:Car|preset:Fuel)
 msgid "Fuel cards:"
@@ -3305,7 +3305,7 @@ msgstr "Cartões de combustível:"
 #: master_preset.xml:3370(checkgroup:text|group:Shipping|preset:Marine_Fuel)
 #: master_preset.xml:3993(checkgroup:text|group:Car|preset:Fuel)
 msgid "Fuel types"
-msgstr ""
+msgstr "Tipos de combustível"
 
 #: master_preset.xml:3369(label:text|group:Shipping|preset:Marine_Fuel)
 #: master_preset.xml:3992(label:text|group:Car|preset:Fuel)
@@ -3620,7 +3620,7 @@ msgstr "Espigão Marítimo"
 
 #: master_preset.xml:2374(item:name|group:Barriers|preset:Guard_Rail)
 msgid "Guard Rail"
-msgstr "Railes de Proteção da Via"
+msgstr "Railes de via"
 
 #: master_preset.xml:4868(item:name|group:Accommodation|preset:Guest_House/Bed_&_Breakfast)
 msgid "Guest House/Bed & Breakfast"
@@ -4226,7 +4226,7 @@ msgstr "Kendo"
 #: master_preset.xml:2452(item:name|group:Barriers|preset:Kerb)
 #: master_preset.xml:699(combo:text|key:kerb)
 msgid "Kerb"
-msgstr "Lancil (passeio desnivelado sem rampa)"
+msgstr "Lancil"
 
 #: master_preset.xml:705(combo:text|key:kerb:left)
 msgid "Kerb (left)"
@@ -4460,7 +4460,7 @@ msgstr "Veículos Ligeiros Comerciais (Mercadorias)"
 #: master_preset.xml:3568(item:name|group:Railway|preset:Light_Rail)
 #: master_preset.xml:4431(check:text|group:Public_Transport|preset:Stop_Position|key:light_rail)
 msgid "Light Rail"
-msgstr "Metropolit. Ligeiro / de Superfície"
+msgstr "Metro Ligeiro / Superfície"
 
 #: master_preset.xml:9190(item:name|group:Man_Made|preset:Lighthouse)
 msgid "Lighthouse"
@@ -5030,7 +5030,7 @@ msgstr "Variadas"
 
 #: master_preset.xml:3820(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
-msgstr "Misto (gôndolas e telecadeiras)"
+msgstr "Misto (gônd./tele.)"
 
 #: master_preset.xml:8099(check:text|group:Sport|preset:Climbing|key:climbing:mixed)
 msgid "Mixed climbing"
@@ -5082,7 +5082,7 @@ msgstr "Estação de Monitorização"
 
 #: master_preset.xml:9249(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring type"
-msgstr ""
+msgstr "Tipo de monitorização"
 
 #: master_preset.xml:9248(label:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring:"
@@ -6366,7 +6366,7 @@ msgstr "Pinguim"
 
 #: master_preset.xml:3112(item:name|group:Water|preset:Penstock)
 msgid "Penstock"
-msgstr ""
+msgstr "Conduta de barragem"
 
 #: master_preset.xml:508(combo:display_values|key:denomination)
 msgid "Pentecostal"
@@ -6386,7 +6386,7 @@ msgstr "Permitido pelo dono"
 
 #: master_preset.xml:735(combo:display_values|key:access)
 msgid "Permit required"
-msgstr ""
+msgstr "Necessária permissão"
 
 #: master_preset.xml:12655(combo:display_values|group:Land_use|preset:Meadow|key:meadow)
 msgid "Perpetual"
@@ -6850,11 +6850,11 @@ msgstr "Primária (1) - 1º ao 4º ano"
 
 #: master_preset.xml:1050(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
-msgstr "Ligação a Estrada Nacional (primária)"
+msgstr "Ligação a EN (primária)"
 
 #: master_preset.xml:523(combo:text|key:voltage:primary)
 msgid "Primary voltage in Volts (V)"
-msgstr ""
+msgstr "Voltagem primária em Volts (V)"
 
 #: master_preset.xml:14344(item:name|group:Crafts|preset:Print_shop)
 msgid "Print shop"
@@ -6949,7 +6949,7 @@ msgstr "Transporte Público"
 
 #: master_preset.xml:4527(group:name|group:Public_Transport_(Legacy))
 msgid "Public Transport (Legacy)"
-msgstr "Transp.Público (desuso)"
+msgstr "Transp.Púb. (desuso)"
 
 #: master_preset.xml:4348(item:name|group:Public_Transport|preset:Public_Transport_Route_(Bus))
 msgid "Public Transport Route (Bus)"
@@ -7058,7 +7058,7 @@ msgstr "Raquetebol"
 
 #: master_preset.xml:8811(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 #: master_preset.xml:9260(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:radiation)
 msgid "Radiation"
@@ -7476,7 +7476,7 @@ msgstr "Margem do rio"
 
 #: master_preset.xml:1374(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
-msgstr "Estrada (tipo desconhecido)"
+msgstr "Estrada genérica"
 
 #: master_preset.xml:13618(item:name|group:Routes|preset:Road_Route)
 msgid "Road Route"
@@ -7625,7 +7625,7 @@ msgstr "Corrida"
 
 #: master_preset.xml:4686(item:name|group:Airport|preset:Runway)
 msgid "Runway"
-msgstr "Pista de Aterragem e Descolagem"
+msgstr "Pista"
 
 #: master_preset.xml:1618(combo:text|group:Ways|preset:Path|key:sac_scale)
 msgid "SAC Scale"
@@ -7826,7 +7826,7 @@ msgstr "Número de assentos"
 
 #: master_preset.xml:2398(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Seawall"
-msgstr ""
+msgstr "molhe / paredão"
 
 #: master_preset.xml:10448(combo:text|group:Clothes|preset:Clothes|key:second_hand)
 #: master_preset.xml:10493(combo:text|group:Clothes|preset:Shoes|key:second_hand)
@@ -7846,11 +7846,11 @@ msgstr "Estrada Regional (secundária)"
 
 #: master_preset.xml:1100(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
-msgstr "Ligação a Estrada Regional (secundária)"
+msgstr "Ligação a ER (secundária)"
 
 #: master_preset.xml:524(combo:text|key:voltage:secondary)
 msgid "Secondary voltage in Volts (V)"
-msgstr ""
+msgstr "Voltagem secundária em Volts (V)"
 
 #: master_preset.xml:3923(label:text|group:Car|preset:Parking)
 msgid "See the Wiki for other capacity:[types]=*."
@@ -8765,11 +8765,11 @@ msgstr "Caminho Municipal (terciária)"
 
 #: master_preset.xml:1151(item:name|group:Streets|preset:Tertiary_Link)
 msgid "Tertiary Link"
-msgstr "Ligação a Caminho Municipal (terciária)"
+msgstr "Ligação a CM (terciária)"
 
 #: master_preset.xml:525(combo:text|key:voltage:tertiary)
 msgid "Tertiary voltage in Volts (V)"
-msgstr ""
+msgstr "Voltagem terciária em Volts (V)"
 
 #: master_preset.xml:4059(combo:text|group:Car|preset:Charging_Station|key:socket:tesla_supercharger)
 msgid "Tesla Supercharger"
@@ -9263,7 +9263,7 @@ msgstr "Tipo de infraestrutura"
 
 #: master_preset.xml:4045(checkgroup:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged"
-msgstr ""
+msgstr "Tipo de veículos que podem ser recarregados"
 
 #: master_preset.xml:4044(label:text|group:Car|preset:Charging_Station)
 msgid "Types of vehicles which can be charged:"
@@ -9608,7 +9608,7 @@ msgstr "Relojoeiro"
 
 #: master_preset.xml:8811(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Watchtower"
-msgstr ""
+msgstr "Torre de vigia"
 
 #: master_preset.xml:2921(group:name|group:Water)
 #: master_preset.xml:2922(group:name|group:Water)
@@ -11218,7 +11218,7 @@ msgstr "Permitido pelo dono"
 #: master_preset.xml:466(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permit required"
-msgstr ""
+msgstr "Necessária permissão"
 
 #: master_preset.xml:2708(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2728(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -11712,7 +11712,7 @@ msgstr "Duas águas"
 #: master_preset.xml:8694(item:name|group:Roof_type|preset:Gambrel)
 msgctxt "building"
 msgid "Gambrel"
-msgstr ""
+msgstr "Gambrel"
 
 #: master_preset.xml:829(combo:display_values|key:building:use)
 #: master_preset.xml:8556(combo:display_values|group:Buildings|preset:Building|key:building)
@@ -12434,12 +12434,12 @@ msgstr ""
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Irrigation"
-msgstr ""
+msgstr "Irrigação"
 
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Spillway"
-msgstr ""
+msgstr "Descarregador"
 
 #: master_preset.xml:3011(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"

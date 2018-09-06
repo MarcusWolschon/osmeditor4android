@@ -38,6 +38,7 @@
   <string name="search">Caută</string>
   <!--element information dialog-->
   <string name="version">Versiune</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

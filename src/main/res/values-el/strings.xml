@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Όνομα πρότασης</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Αυτή η πρόταση μπορεί να αντικαταστήσει κάποιες τιμές ετικέτας με πιο δημοφιλείς τιμές.</string>
   <string name="search_results_title">Αποτελέσματα αναζήτησης</string>
+  <string name="search_online">Αναζήτηση στο διαδίκτυο</string>
   <string name="find_message">Εισαγάγετε κείμενο αναζήτησης</string>
   <string name="geocoder_prompt">με</string>
   <string name="preset_search_hint">Προεπιλεγμένη αναζήτηση συμβολοσειράς </string>
@@ -136,8 +137,10 @@
   <string name="last_edited">Τελευταία επεξεργασία</string>
   <string name="original">Πρωτότυπο</string>
   <string name="current">Τωρινό</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON Πληροφορίες χαρακτηριστικών</string>
+  <string name="copy_properties">Αντιγραφή ιδιοτήτων</string>
+  <!---->
   <string name="error">σφάλμα</string>
   <string name="warning">προειδοποίηση</string>
   <string name="minor_issue">δευτερεύον ζήτημα</string>
@@ -259,7 +262,7 @@
   <string name="toast_oauth_timeout">Λήξη χρόνου κατά την σύνδεση πιστοποίησης, παρακαλούμε προσπαθήστε ξανά.</string>
   <string name="toast_oauth_communication">Σφάλμα επικοινωνίας κατά την σύνδεση πιστοποίησης, παρακαλούμε προσπαθήστε ξανά.</string>
   <string name="toast_oauth_handshake_failed">Η σύνδεση στο OAuth απέτυχε: %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">Η σύνδεση με το google δεν υποστηρίζεται αυτή τη στιγμή</string>
+  <string name="toast_oauth_login_with_google_not_possible">Η σύνδεση με την Google δεν υποστηρίζεται αυτή τη στιγμή</string>
   <string name="toast_timeout">Χρονικό όριο με το διακομιστή</string>
   <string name="coordinates_out_of_range">Γεωγραφικό μήκος πρέπει να είναι εντός -180°/+180°, γεωγραφικό πλάτος εντός -85°/85°</string>
   <string name="toast_nothing_found">Δεν βρέθηκαν αποτελέσματα</string>
@@ -315,6 +318,10 @@
   <string name="toast_using_network_location">Χρησιμοποιώντας την θέση δικτύου</string>
   <string name="toast_using_gps_location">Χρησιμοποιώντας τη θέση GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">Το GPS απενεργοποιήθηκε, το ίχνος σταμάτησε</string>
+  <string name="toast_tags_copied">Οι ετικέτες έχουν αντιγραφεί στο πρόχειρο</string>
+  <string name="toast_tags_cut">Οι ετικέτες αποκόπηκαν στο πρόχειρο</string>
+  <string name="toast_properties_copied">Οι ιδιότητες έχουν αντιγραφεί στο πρόχειρο</string>
+  <string name="toast_task_conflict">%1$s έχει αλλάξει στον διακομιστή, μεταφορτώστε πρώτα και μετά ξανά κάντε λήψη</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
   <string name="no">Όχι</string>
@@ -403,6 +410,7 @@
   <string name="tag_restriction_add_expression">Προσθήκη έκφρασης</string>
   <string name="tag_restriction_add_opening_hours">Προσθήκη τις ώρες λειτουργίας</string>
   <string name="tag_restriction_value_hint">περιορισμός υπό όρους</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Φόρτωση περιοχής</string>
   <string name="location_choose_radius">Επιλέξτε ακτίνα:</string>
@@ -485,6 +493,7 @@
   <string name="menu_copy">Αντιγραφή</string>
   <string name="menu_cut">Αποκοπή</string>
   <string name="menu_paste">Επικόλληση</string>
+  <string name="menu_paste_tags">Επικόλληση ετικετών</string>
   <string name="menu_paste_from_clipboard">Επικόλληση από το πρόχειρο</string>
   <string name="menu_zoom_to_selection">Μεγέθυνση στην επιλογή</string>
   <string name="menu_rotate">Περιστροφή</string>

@@ -109,6 +109,7 @@
   <string name="tag_editor_name_suggestion">建議名稱</string>
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
+  <string name="search_online">線上搜尋</string>
   <string name="find_message">輸入搜尋字串</string>
   <string name="geocoder_prompt">與</string>
   <string name="preset_search_hint">預置搜尋字串</string>
@@ -137,8 +138,10 @@
   <string name="last_edited">最近編輯</string>
   <string name="original">原來</string>
   <string name="current">目前</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊</string>
+  <string name="copy_properties">複製性質</string>
+  <!---->
   <string name="error">錯誤</string>
   <string name="warning">警告</string>
   <string name="minor_issue">次要問題</string>
@@ -260,7 +263,7 @@
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
   <string name="toast_oauth_communication">握手驗証時發生通信錯誤，請重試。</string>
   <string name="toast_oauth_handshake_failed">OAuth 握手失敗： %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">目前並不支援以 google 登入</string>
+  <string name="toast_oauth_login_with_google_not_possible">目前不支援 Google 登入</string>
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
@@ -316,6 +319,10 @@
   <string name="toast_using_network_location">使用網路位置</string>
   <string name="toast_using_gps_location">使用 GPS 位置</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS 已停用，記錄已中止</string>
+  <string name="toast_tags_copied">標籤已複製到剪貼簿</string>
+  <string name="toast_tags_cut">標籤已剪下到剪貼簿</string>
+  <string name="toast_properties_copied">性質已複製到剪貼簿</string>
+  <string name="toast_task_conflict">伺服器上的 %1$s 已經改變了，先上傳然後再下載</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -404,6 +411,7 @@
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
   <string name="tag_restriction_value_hint">條件限制</string>
+  <string name="ugly_checkgroup_hint">%1$s，...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">載入區域</string>
   <string name="location_choose_radius">選取半徑：</string>
@@ -487,6 +495,7 @@
   <string name="menu_copy">複製</string>
   <string name="menu_cut">剪下</string>
   <string name="menu_paste">貼上</string>
+  <string name="menu_paste_tags">貼上標籤</string>
   <string name="menu_paste_from_clipboard">從剪貼簿貼上</string>
   <string name="menu_zoom_to_selection">縮放到選擇物件</string>
   <string name="menu_rotate">旋轉</string>

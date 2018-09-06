@@ -118,6 +118,7 @@
   <string name="element">요소</string>
   <string name="last_updated">마지막 업데이트</string>
   <string name="last_edited">마지막 편집</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">오류</string>
   <string name="warning">경고</string>

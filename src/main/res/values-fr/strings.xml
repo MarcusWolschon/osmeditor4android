@@ -118,6 +118,7 @@
   <string name="tag_editor_name_suggestion">Suggestion de nom</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Cette suggestion peut remplacer certaines valeurs d\'attributs par des valeurs plus courantes.</string>
   <string name="search_results_title">Résultats de la recherche</string>
+  <string name="search_online">Recherche en ligne</string>
   <string name="find_message">Saisissez le terme à rechercher</string>
   <string name="geocoder_prompt">avec</string>
   <string name="preset_search_hint">Chaîne de recherche dans les modèles d\'attirbuts</string>
@@ -146,8 +147,10 @@
   <string name="last_edited">Dernier édité</string>
   <string name="original">Original</string>
   <string name="current">Actuel</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Information d\'attributs en GeoJSON</string>
+  <string name="copy_properties">Copier les propriétés</string>
+  <!---->
   <string name="error">erreur</string>
   <string name="warning">avertissement</string>
   <string name="minor_issue">problème mineur</string>
@@ -326,6 +329,10 @@ C\'est une erreur fatale qui s\'est produite lors de l\'export du fichier pour u
   <string name="toast_using_network_location">Utilisation de l\'emplacement par le réseau</string>
   <string name="toast_using_gps_location">Utilisation de l\'emplacement du GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS désactivé, suivi terminé</string>
+  <string name="toast_tags_copied">Attributs copiés dans le presse-papier</string>
+  <string name="toast_tags_cut">Attributs coupés dans le presse-papier</string>
+  <string name="toast_properties_copied">Propriétés copiées dans le presse-papier</string>
+  <string name="toast_task_conflict">%1$s a changé sur le serveur, envoyez d\'abord puis re-téléchargez</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Oui</string>
   <string name="no">Non</string>
@@ -414,6 +421,7 @@ C\'est une erreur fatale qui s\'est produite lors de l\'export du fichier pour u
   <string name="tag_restriction_add_expression">Ajouter une expression</string>
   <string name="tag_restriction_add_opening_hours">Ajouter des horaires d\'ouverture</string>
   <string name="tag_restriction_value_hint">restrictions conditionnelles</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Télécharger une zone</string>
   <string name="location_choose_radius">Rayon :</string>
@@ -497,6 +505,7 @@ C\'est une erreur fatale qui s\'est produite lors de l\'export du fichier pour u
   <string name="menu_copy">Copier</string>
   <string name="menu_cut">Couper</string>
   <string name="menu_paste">Coller</string>
+  <string name="menu_paste_tags">Coller les attributs</string>
   <string name="menu_paste_from_clipboard">Coller depuis le presse-papier</string>
   <string name="menu_zoom_to_selection">Zoomer sur la sélection</string>
   <string name="menu_rotate">Pivoter</string>

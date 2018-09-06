@@ -76,6 +76,7 @@
   <!--element information dialog-->
   <string name="closed">بسته شده</string>
   <string name="version">نسخه</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

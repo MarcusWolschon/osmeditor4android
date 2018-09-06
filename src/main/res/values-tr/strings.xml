@@ -100,6 +100,7 @@
   <string name="empty_role">Boş rol</string>
   <string name="element">element</string>
   <string name="last_updated">son güncelleme</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">hata</string>
   <string name="warning">uyarı</string>

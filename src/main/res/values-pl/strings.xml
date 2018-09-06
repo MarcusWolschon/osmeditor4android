@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Propozycja nazwy</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Propozycje mogą zamienić niektóre wartości znaczników na bardziej popularne.</string>
   <string name="search_results_title">Wyniki wyszukiwania</string>
+  <string name="search_online">Wyszukaj online</string>
   <string name="find_message">Proszę wprowadzić szukany ciąg</string>
   <string name="geocoder_prompt">z</string>
   <string name="preset_search_hint">Wpisz nazwę szablonu</string>
@@ -136,8 +137,10 @@
   <string name="last_edited">Ostatnio edytowany</string>
   <string name="original">Pierwotny</string>
   <string name="current">Bieżący</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informacja o obiekcie w GeoJSON</string>
+  <string name="copy_properties">Kopiuj właściwości</string>
+  <!---->
   <string name="error">błąd</string>
   <string name="warning">ostrzeżenie</string>
   <string name="minor_issue">drobny problem</string>
@@ -315,6 +318,10 @@
   <string name="toast_using_network_location">Używanie lokalizacji na podstawie sieci</string>
   <string name="toast_using_gps_location">GPS jest używany do ustalenia lokalizacji</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS wyłączony, rejestrowanie śladu zatrzymane</string>
+  <string name="toast_tags_copied">Skopiowano tagi do schowka</string>
+  <string name="toast_tags_cut">Wycięto tagi do schowka</string>
+  <string name="toast_properties_copied">Skopiowano właściwości do schowka</string>
+  <string name="toast_task_conflict">%1$s został zmieniony na serwerze, najpierw prześlij, a później pobierz ponownie</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -403,6 +410,7 @@
   <string name="tag_restriction_add_expression">Dodaj wyrażenie</string>
   <string name="tag_restriction_add_opening_hours">Dodaj godziny otwarcia</string>
   <string name="tag_restriction_value_hint">ograniczenie warunkowe</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Wczytaj obszar</string>
   <string name="location_choose_radius">Wybierz promień:</string>
@@ -485,6 +493,7 @@
   <string name="menu_copy">Skopiuj</string>
   <string name="menu_cut">Wytnij</string>
   <string name="menu_paste">Wklej</string>
+  <string name="menu_paste_tags">Wklej tagi</string>
   <string name="menu_paste_from_clipboard">Wklej ze schowka</string>
   <string name="menu_zoom_to_selection">Przybliż do zaznaczenia</string>
   <string name="menu_rotate">Obróć</string>

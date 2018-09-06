@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normální</string>
-  <string name="mode_tag_only">Pouze značka</string>
+  <string name="mode_tag_only">Editování tagů</string>
   <string name="mode_indoor">Vnitřní prostory</string>
   <string name="mode_correct">Režim kontroly</string>
   <!--Dialogs-->
@@ -136,8 +136,9 @@
   <string name="last_edited">Poslední změna</string>
   <string name="original">Původní</string>
   <string name="current">Aktuální</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
+  <!---->
   <string name="error">chyba</string>
   <string name="warning">varování</string>
   <string name="minor_issue">drobná chyba</string>
@@ -155,10 +156,16 @@
   <string name="js_console_msg_debug">Režim ladění!</string>
   <!--Validator dialogs-->
   <string name="validator_title">Pravidla validátoru %1$s</string>
+  <string name="edit_resurvey_title">Úprava pravidla Ověření</string>
+  <string name="add_resurvey_title">Přidat pravidlo Ověření</string>
+  <string name="edit_check_title">Úprava pravidla Průzkum</string>
+  <string name="add_check_title">Přidat pravidlo Průzkum</string>
   <string name="max_age">Max. stáří</string>
   <string name="age">Stáří</string>
   <string name="check_opt">Kontr. volit.</string>
   <string name="check_optional">Kontrolovat volitelné</string>
+  <string name="add_resurvey_entry">Přidat pravidlo Ověření</string>
+  <string name="add_check_entry">Přidat pravidlo Průzkum</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">Prázdná relace</string>
   <string name="empty_relation_message">Relace %1$s nemá žádné členy.\n\nNecháte-li ji prázdnou, nebude ji již možné ve Vespucci upravit.</string>
@@ -469,6 +476,7 @@
   <string name="menu_copy">Kopírovat</string>
   <string name="menu_cut">Vyjmout</string>
   <string name="menu_paste">Vložit</string>
+  <string name="menu_paste_tags">Vložit tagy</string>
   <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
   <string name="menu_zoom_to_selection">Přiblížit na výběr</string>
   <string name="menu_rotate">Otočit</string>

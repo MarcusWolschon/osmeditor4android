@@ -22,6 +22,7 @@
   <string name="unsaved_data_message">Du har ulagra endringar som vil bli skrota om du går vidare.</string>
   <string name="unsaved_data_proceed">Skrot og gå vidare</string>
   <!--element information dialog-->
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

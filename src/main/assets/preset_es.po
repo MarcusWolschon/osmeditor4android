@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
-"Last-Translator: Albert\n"
+"PO-Revision-Date: 2018-09-04 18:24+0000\n"
+"Last-Translator: Ignacio L'Episcopo\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -807,7 +807,7 @@ msgstr "Bancomat"
 
 #: master_preset.xml:5450(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Quiosco de música"
 
 #: master_preset.xml:10676(item:name|group:Cash|preset:Bank)
 msgid "Bank"

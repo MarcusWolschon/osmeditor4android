@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
-"Last-Translator: Jan Vršovský <vrs@email.cz>\n"
+"PO-Revision-Date: 2018-09-02 14:43+0000\n"
+"Last-Translator: Roman Horník <roman.hornik@debian-linux.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7175,7 +7175,7 @@ msgstr ""
 
 #: master_preset.xml:12307(item:name|group:Geography|preset:Reef)
 msgid "Reef"
-msgstr ""
+msgstr "Útes"
 
 #: master_preset.xml:9216(text:text|group:Man_Made|preset:Dolphin|key:ref)
 msgid "Ref"

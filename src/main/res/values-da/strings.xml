@@ -67,6 +67,7 @@
   <string name="empty_role">tom rolle</string>
   <string name="last_updated">sidst opdateret</string>
   <string name="last_edited">Senest rettet</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">fejl</string>
   <string name="warning">advarsel</string>

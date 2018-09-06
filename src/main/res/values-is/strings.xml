@@ -90,6 +90,7 @@
   <string name="length_m">Lengd (m)</string>
   <string name="not_downloaded">Ekki niðurhalað</string>
   <string name="empty_role">tómt hlutverk</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

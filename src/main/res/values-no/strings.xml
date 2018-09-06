@@ -29,6 +29,7 @@
   <string name="search">Søk</string>
   <!--element information dialog-->
   <string name="version">Versjon</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

@@ -109,6 +109,7 @@
   <string name="element">element</string>
   <string name="last_updated">senast uppdaterad</string>
   <string name="last_edited">senast redigerad</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">fel</string>
   <string name="warning">varning</string>

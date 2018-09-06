@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="help_introduction">Sarrera</string>
+    <string name="help_main">Maparen bistaratze nagusia</string>
     <string name="help_addrelationmember">Erlazioa aukeratua</string>
     <string name="help_nodeselection">Nodoa aukeratua</string>
     <string name="help_relationselection">Erlazioa aukeratua</string>
@@ -25,6 +27,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
@@ -54,6 +57,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>

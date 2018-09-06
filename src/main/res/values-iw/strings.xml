@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">הצעת שם</string>
   <string name="tag_editor_name_suggestion_overwrite_message">הצעה זו יכולה להחליף ערכים של כמה מהתגיות בערכים נפוצים יותר.</string>
   <string name="search_results_title">תוצאות חיפוש</string>
+  <string name="search_online">חיפוש מקוון</string>
   <string name="find_message">נא להקליד מחרוזת לחיפוש</string>
   <string name="geocoder_prompt">עם</string>
   <string name="preset_search_hint">מחרוזת חיפוש ערכה מוגדרת</string>
@@ -136,8 +137,10 @@
   <string name="last_edited">עריכה אחרונה</string>
   <string name="original">מקורי</string>
   <string name="current">נוכחי</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
+  <string name="copy_properties">העתקת מאפיינים</string>
+  <!---->
   <string name="error">שגיאה</string>
   <string name="warning">אזהרה</string>
   <string name="minor_issue">תקלה משנית</string>
@@ -259,7 +262,7 @@
   <string name="toast_oauth_timeout">הזמן שהוקצה ללחיצת יד לאימות פג, נא לנסות שוב.</string>
   <string name="toast_oauth_communication">אירעה שגיאת תקשורת במהלך לחיצת היד של האימות, נא לנסות שוב.</string>
   <string name="toast_oauth_handshake_failed">לחיצת היד של ה־OAuth נכשלה: %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">אין תמיכה בכניסה עם google</string>
+  <string name="toast_oauth_login_with_google_not_possible">כרגע אין תמיכה בכניסה עם Google</string>
   <string name="toast_timeout">תם זמן החיבור מול השרת</string>
   <string name="coordinates_out_of_range">קו האורך חייב להיות בטווח ‎-180°/+180°, קו הרוחב בין ‎-85°/85°</string>
   <string name="toast_nothing_found">שום דבר לא נמצא</string>
@@ -315,6 +318,10 @@
   <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
   <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">ה־GPS מושבת, המעקב הופסק</string>
+  <string name="toast_tags_copied">התגיות הועתקו ללוח הגזירים</string>
+  <string name="toast_tags_cut">התגיות הועתקו ללוח הגזירים</string>
+  <string name="toast_properties_copied">המאפיינים הועתקו ללוח הגזירים</string>
+  <string name="toast_task_conflict">%1$s השתנה בשרת, יש להעלות תחילה ואז להוריד מחדש</string>
   <!--Some generic labels/buttons-->
   <string name="yes">כן</string>
   <string name="no">לא</string>
@@ -403,6 +410,7 @@
   <string name="tag_restriction_add_expression">הוספת ביטוי</string>
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
   <string name="tag_restriction_value_hint">הגבלה מותנית</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">טעינת שטח</string>
   <string name="location_choose_radius">בחירת רדיוס:</string>
@@ -485,6 +493,7 @@
   <string name="menu_copy">העתקה</string>
   <string name="menu_cut">גזירה</string>
   <string name="menu_paste">הדבקה</string>
+  <string name="menu_paste_tags">הדבקת תגיות</string>
   <string name="menu_paste_from_clipboard">הדבקה מלוח הגזירים</string>
   <string name="menu_zoom_to_selection">התקרבות לבחירה</string>
   <string name="menu_rotate">הטייה</string>

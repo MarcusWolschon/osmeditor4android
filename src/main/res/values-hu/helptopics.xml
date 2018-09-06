@@ -11,6 +11,8 @@
     <string name="help_wayselection">Vonal kijelölve</string>
     <string name="help_aligningbackgroundiamgery">Légifelvétel-háttér igazítása</string>
     <string name="help_propertyeditor">Tulajdonságszerkesztő</string>
+    <string name="help_preferences">Beállítások</string>
+    <string name="help_advanced_preferences">Speciális beállítások</string>
     <string name="help_presets">Előbeállítások</string>
     <string name="help_conflictresolution">Ütközés feloldása</string>
     <string name="help_gpssources">GPS-források</string>
@@ -19,10 +21,15 @@
     <string name="help_presetfilter">Előbeállításszűrő</string>
     <string name="help_opening_hours">Nyitva tartás</string>
     <string name="help_upgrade">Kiadási megjegyzések</string>
+    <string name="help_upgrade_110">11.0 kiadási megjegyzések</string>
+    <string name="help_upgrade_102">10.2 kiadási megjegyzések</string>
+    <string name="help_upgrade_101">10.1 kiadási megjegyzések</string>
+    <string name="help_upgrade_100">10.0 kiadási megjegyzések</string>
     <string name="help_upgrade_099">0.9.9 kiadási megjegyzések</string>
     <string name="help_upgrade_098">0.9.8 kiadási megjegyzések</string>
     <string name="help_upgrade_097">0.9.7 kiadási megjegyzések</string>
     <string name="help_upgrade_096">0.9.6 kiadási megjegyzések</string>
+    <string name="help_privacy">Adatvédelem</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
@@ -43,6 +50,7 @@
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
     	<item>@string/help_upgrade_100</item>
@@ -72,6 +80,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>
     	<item>10.1.0 Release notes</item>

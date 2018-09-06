@@ -12,6 +12,7 @@
   <string name="search">搜索</string>
   <!--element information dialog-->
   <string name="version">版本</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

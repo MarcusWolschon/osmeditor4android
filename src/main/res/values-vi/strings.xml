@@ -15,6 +15,8 @@
   <string name="upload_problem_message">Một số hoặc tất cả dữ liệu không được tải lên. Hãy thử tải lên lần nữa để xem có phải là một vấn đề tạm thời.</string>
   <string name="bad_request_message">API trả về lỗi. Xin vui lòng lưu dữ liệu và báo cáo lỗi:\n\n</string>
   <string name="upload_conflict_title">Tải lên mâu thuẫn</string>
+  <string name="upload_conflict_message_version">%1$s \nđiện thoại có phiên bản %2$d \ntrong khi máy chủ có %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \ncó phiên bản địa phương %2$d \ntrong khi nó đã bị xóa trên máy chủ</string>
   <string name="upload_conflict_message_referential">%1$s \nđã bị xóa trong điện thoại trong khi còn có tham chiếu trên máy chủ </string>
   <string name="upload_conflict_message_already_deleted">%1$s \nđã bị xóa trên máy chủ </string>
   <string name="use_local_version">Dùng phiên bản trong điện thoại</string>
@@ -72,6 +74,8 @@
   <string name="upload_gpx_description_label">Miêu tả</string>
   <string name="upload_gpx_tags_label">Thẻ</string>
   <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
+  <string name="upload_validation_error_empty_comment">Không thể để trống miêu tả</string>
+  <string name="upload_validation_error_empty_source">Không thể để trống nguồn</string>
   <string name="openstreetbug_new_title">Ghi chú Mới</string>
   <string name="openstreetbug_new_bug">Báo cáo Vấn đề</string>
   <string name="openstreetbug_bug_title">Vấn đề</string>
@@ -98,13 +102,17 @@
   <string name="imagery_offset_date">Ngày tạo</string>
   <string name="imagery_offset_zoom">Thu phóng</string>
   <string name="imagery_offset_distance">Tầm xa</string>
+  <string name="zoom_and_offset">Mức thu phóng %1$d Chệch %2$s/%3$s</string>
   <string name="set_position_datum_label">Mốc trắc địa</string>
+  <string name="WGS84">WGS 84</string>
   <string name="tag_editor_name_suggestion">Gợi ý tên gọi</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Gợi ý này có thể thay thế một số giá trị thẻ bằng giá trị phổ biến hơn.</string>
   <string name="search_results_title">Kết quả tìm kiếm</string>
+  <string name="search_online">Tìm kiếm trực tuyến</string>
   <string name="find_message">Nhập truy vấn</string>
   <string name="geocoder_prompt">dùng</string>
   <string name="preset_search_hint">Chuỗi tìm kiếm thẻ đặt trước</string>
+  <string name="preset_autopreset">Thẻ đặt trước Tự động</string>
   <string name="search">Tìm kiếm</string>
   <string name="no_valid_preset">Không có thẻ đặt trước hợp lệ!</string>
   <string name="read_file">Chọn tập tin để đọc</string>
@@ -127,6 +135,11 @@
   <string name="element">phần tử</string>
   <string name="last_updated">lần cập nhật cuối</string>
   <string name="last_edited">Lần sửa đổi cuối</string>
+  <string name="original">Gốc</string>
+  <string name="current">Hiện tại</string>
+  <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Thông tin đối tượng GeoJSON</string>
+  <string name="copy_properties">Sao chép thuộc tính</string>
   <!---->
   <string name="error">lỗi</string>
   <string name="warning">cảnh báo</string>
@@ -181,11 +194,36 @@
   <string name="coverage_bottom">Dưới</string>
   <string name="preferred">Ưa thích</string>
   <string name="toast_invalid_box">Hộp bao không hợp lệ hoặc chưa đầy đủ</string>
+  <string name="delete_layer">Xóa lớp?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Kiểu lớp</string>
+  <string name="layer_style_stroke_width">Chiều rộng nét</string>
+  <string name="layer_style_color">Màu</string>
+  <string name="layer_style_label">Nhãn</string>
+  <string name="json_object_not_displayed">Đối tượng JSON (không hiển thị)</string>
+  <string name="json_array_not_displayed">Dãy JSON (không hiển thị)</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Lưới</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Hình ảnh</string>
+  <string name="layer_tasks">Công việc</string>
+  <string name="layer_data">Dữ liệu OSM</string>
+  <string name="layer_flush_tile_cache">Xóa sạch bộ nhớ đệm mảnh</string>
+  <string name="layer_change_style">Đổi kiểu</string>
+  <string name="layer_select_imagery">Chọn hình ảnh</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Điểm Đánh dấu</string>
+  <string name="undo_redo_title">Hoàn tác / Làm lại</string>
+  <string name="undo_redo_one">Chỉ điểm đánh dấu được chọn (nguy hiểm)</string>
+  <string name="undo_all">Hoàn tác tất cả các điểm đánh dấu sau (chắc chắn)</string>
+  <string name="redo_all">Làm lại tất cả các điểm đánh dấu trước (chắc chắn)</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Tải về dữ liệu OpenStreetMap</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">−</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_name_empty">Không thể để trống tên</string>
   <string name="toast_url_empty">Không thể để trống URL</string>
@@ -224,6 +262,7 @@
   <string name="toast_oauth_timeout">Hết thời gian chờ bắt tay để xác thực. Hãy thử lại.</string>
   <string name="toast_oauth_communication">Lỗi giao thông khi bắt tay để xác thực. Hãy thử lại.</string>
   <string name="toast_oauth_handshake_failed">Thất bại bắt tay OAuth: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Hiện tại không hỗ trợ đăng nhập qua Google</string>
   <string name="toast_timeout">Hết thời gian chờ máy chủ</string>
   <string name="coordinates_out_of_range">Kinh độ phải nằm giữa −180°/+180°; vĩ độ phải nằm giữa −85°/85°</string>
   <string name="toast_nothing_found">Không tìm thấy kết quả</string>
@@ -231,6 +270,8 @@
   <string name="toast_missing_filemanager">Vui lòng cài đặt một Trình quản lý Tập tin.</string>
   <string name="toast_outside_of_download">Bạn đang sửa đổi ở ngoài khu vực đã được tải về.</string>
   <string name="toast_file_not_found">Không tìm thấy %1$s.</string>
+  <string name="toast_imported_track_points">Đã nhập %1$d điểm tuyến đường và %2$d tọa độ điểm.</string>
+  <string name="toast_imported_track_points_single_way_point">Đã nhập %1$d điểm tuyến đường và 1 tọa độ điểm.</string>
   <string name="toast_unknown_voice_command">Rất tiếc, hiện tại không hiểu “%1$s”</string>
   <string name="toast_inconsistent_state">Đã nhận ra mâu thuẫn. Xin vui lòng báo cáo lỗi.</string>
   <string name="toast_camera_error">Lỗi khi khởi động ứng dụng máy ảnh: %1$s</string>
@@ -246,6 +287,8 @@
   <string name="toast_split_via">Đã chia lối “qua”</string>
   <string name="toast_split_from_and_via">Đã chia các lối “từ” và “qua”</string>
   <string name="toast_split_to">Đã chia lối “đến”</string>
+  <string name="toast_tile_database_issue_short">Cơ sở dữ liệu mảnh bản đồ có vấn đề</string>
+  <string name="toast_tile_database_issue">Cơ sở dữ liệu mảnh bản đồ gặp phải sự cố\n\"%1$s\"\nVui lòng đọc câu thường hỏi tại http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">URL API không hợp lệ</string>
   <string name="toast_invalid_readonlyurl">URL API ChỉĐọc không hợp lệ</string>
   <string name="toast_invalid_notesurl">URL API Ghi chú không hợp lệ</string>
@@ -271,6 +314,14 @@
   <string name="toast_applied_offset">Đã tự động áp dụng độ lệch hình ảnh</string>
   <string name="toast_unsupported_format">Định dạng không được hỗ trợ: %1$s</string>
   <string name="toast_returning_less_than_found">Trả về mục %1$d trên tổng số %2$d</string>
+  <string name="toast_not_mbtiles">Không phải tập tin định dạng MBTiles</string>
+  <string name="toast_using_network_location">Đang định vị theo mạng</string>
+  <string name="toast_using_gps_location">Đang định vị theo GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS đang tắt, đang ngừng theo dõi</string>
+  <string name="toast_tags_copied">Đã sao chép thẻ vào bảng tạm</string>
+  <string name="toast_tags_cut">Đã cắt thẻ vào bảng tạm</string>
+  <string name="toast_properties_copied">Đã sao chép thuộc tính vào bảng tạm</string>
+  <string name="toast_task_conflict">%1$s đã thay đổi trên máy chủ; tải lên trước tiên rồi tải lại</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -284,11 +335,14 @@
   <string name="set">Đặt</string>
   <string name="replace">Thay thế</string>
   <string name="save">Lưu</string>
+  <string name="save_and_set">Lưu và đặt</string>
   <string name="back">Lùi</string>
   <string name="forward">Tiến</string>
   <string name="keep">Giữ</string>
   <string name="enable">Kích hoạt</string>
+  <string name="disable">Tắt</string>
   <string name="clear">Xóa sạch</string>
+  <string name="discard">Bác bỏ</string>
   <string name="retry">Thử lại</string>
   <string name="read">Đọc</string>
   <string name="overwrite">Ghi đè</string>
@@ -296,6 +350,8 @@
   <string name="share_position">Chia sẻ vị trí</string>
   <string name="min">Tối thiểu</string>
   <string name="max">Tối đa</string>
+  <string name="geojson_object">%1$s (%2$s)</string>
+  <string name="none">Không có</string>
   <!--Dialog for back button-->
   <string name="exit_title">Thoát?</string>
   <string name="exit_text">Bạn có chắc chắn muốn thoát?</string>
@@ -354,10 +410,12 @@
   <string name="tag_restriction_add_expression">Thêm biểu thức</string>
   <string name="tag_restriction_add_opening_hours">Thêm giờ mở cửa</string>
   <string name="tag_restriction_value_hint">hạn chế có điều kiện</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Tải Khu vực</string>
   <string name="location_choose_radius">Chọn bán kính:</string>
   <string name="location_default_radius">300 m</string>
+  <string name="location_radius">%1$d m</string>
   <string name="location_last_text">Vị trí cuối cùng được xác định:</string>
   <string name="location_current_text">Vị trí hiện tại:</string>
   <string name="location_text_unknown">không rõ</string>
@@ -397,10 +455,17 @@
   <string name="menu_camera">Máy ảnh</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Hiện vị trí</string>
+  <string name="menu_gps_follow">Theo dõi vị trí</string>
+  <string name="menu_gps_goto">Đi đến vị trí hiện tại</string>
   <string name="menu_gps_start">Bắt đầu tuyến GPS</string>
   <string name="menu_gps_pause">Tạm dừng tuyến GPS</string>
+  <string name="menu_gps_clear">Dọn dẹp tuyến GPS và các tọa độ điểm</string>
   <string name="menu_gps_track_managment">Quản lý tuyến…</string>
+  <string name="menu_gps_upload">Tải tuyến GPX lên</string>
+  <string name="menu_gps_export">Xuất tuyến GPX</string>
+  <string name="menu_gps_import">Nhập tuyến GPX</string>
   <string name="menu_gps_goto_start">Đi đến đầu tuyến đường</string>
+  <string name="menu_gps_goto_first_waypoint">Đi đến tọa độ điểm đầu tiên</string>
   <string name="menu_gps_autodownload">Tải về tự động</string>
   <string name="menu_transfer">Truyền đổi…</string>
   <string name="menu_transfer_download_current">Tải về khu vực hiện tại</string>
@@ -422,12 +487,14 @@
   <string name="menu_transfer_save_notes_all">Lưu Tất cả Ghi chú…</string>
   <string name="menu_transfer_save_notes_new_and_changed">Lưu các Ghi chú Mới và Thay đổi…</string>
   <string name="menu_transfer_read_custom_bugs">Tải công việc tùy biến…</string>
+  <string name="menu_transfer_write_custom_bugs">Lưu công việc tùy biến đang mở…</string>
   <string name="menu_save">Lưu vào tập tin</string>
   <string name="menu_join">Gộp</string>
   <string name="menu_unjoin">Tách</string>
   <string name="menu_copy">Chép</string>
   <string name="menu_cut">Cắt</string>
   <string name="menu_paste">Dán</string>
+  <string name="menu_paste_tags">Dán thẻ</string>
   <string name="menu_paste_from_clipboard">Dán từ bảng tạm</string>
   <string name="menu_zoom_to_selection">Phóng vừa lựa chọn</string>
   <string name="menu_rotate">Quay</string>
@@ -440,6 +507,7 @@
   <string name="menu_voice_commands">Lệnh bằng giọng nói</string>
   <string name="menu_set_name">Đặt tên</string>
   <string name="tag_form_unknown_element">Phần tử không rõ (không tìm thấy thẻ đặt trước)</string>
+  <string name="menu_tools">Công cụ</string>
   <string name="menu_tools_imagery">Thêm công cụ hình ảnh</string>
   <string name="menu_tools_add_imagery_from_oam">Thêm hình ảnh OAM</string>
   <string name="menu_tools_flush_all_tile_caches">Xóa sạch tất cả các bộ nhớ đệm mảnh</string>
@@ -447,6 +515,7 @@
   <string name="menu_tools_update_imagery_configuration">Cập nhật thiết lập lớp hình ảnh</string>
   <string name="menu_tools_zoom_to_layer_extent">Thu phóng vừa lớp nền</string>
   <!---->
+  <string name="menu_privacy">Quyền riêng tư</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Điều chỉnh hình nền</string>
   <string name="menu_tools_background_align_reset">Đặt lại</string>
@@ -456,11 +525,16 @@
   <string name="menu_tools_background_align_save_db">Lưu vào CSDL</string>
   <string name="menu_tools_background_align_save_device">Lưu vào Thiết bị</string>
   <string name="menu_tools_background_align_apply2all">Áp dụng (các Mức Thu phóng)</string>
+  <string name="min_max_zoom">%1$d – %2$d</string>
+  <string name="distance_meter">%1$.2f mét</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Áp dụng độ chệch đã lưu vào hình ảnh</string>
   <string name="menu_tools_background_contrast">Độ tương phản</string>
   <string name="menu_tools_oauth_reset">Đặt lại OAuth</string>
   <string name="menu_tools_oauth_authorisation">Cấp phép qua OAuth</string>
+  <string name="menu_layers">Lớp…</string>
+  <string name="menu_layers_load_geojson">Tải lớp GeoJSON</string>
   <string name="menu_enable_tagfilter">Bộ lọc thẻ</string>
   <string name="menu_enable_presetfilter">Bộ lọc thẻ đặt trước</string>
   <string name="preset_menu_waynodes">Bao gồm các nốt lối</string>
@@ -477,6 +551,7 @@
   <string name="deleteway_relation_description">Bạn sắp sửa xóa một lối trực thuộc một hay nhiều quan hệ. Việc xóa lối này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deleteway_nodesnotdownloaded_description">Không thể xóa lối này một cách nhất quán, vì nó có nốt nằm bên ngoài khu vực đã tải về. Hãy tải về toàn bộ lối này và thử lại.</string>
   <string name="deleteway_wayonly">Chỉ xóa lối</string>
+  <string name="deleteway_wayandnodes">Xóa lối</string>
   <string name="deletenode_relation_description">Bạn sắp sửa xóa một nốt trực thuộc một hay nhiều quan hệ. Việc xóa nốt này có thể làm cho các quan hệ không còn hợp lệ.</string>
   <string name="deletenode">Xóa nốt</string>
   <string name="split_all_ways">Chia tất cả các lối</string>
@@ -500,9 +575,15 @@
   <string name="actionmode_rotateway">Quay lối</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Nền bản đồ</string>
+  <string name="config_backgroundLayer_summary">Hình nền mảnh bản đồ.</string>
   <string name="config_overlayLayer_title">Lớp phủ bản đồ</string>
+  <string name="config_overlayLayer_summary">Lớp phủ mảnh bản đồ.</string>
   <string name="config_customlayers_title">Lớp tùy biến</string>
+  <string name="config_customlayers_summary">Thiết lập các lớp không có trong cấu hình mặc định</string>
   <string name="config_scale_title">Hiển thị Tỷ lệ</string>
+  <string name="config_scale_summary">Loại tỷ lệ được hiển thị trên bản đồ.</string>
+  <string name="config_mapProfile_title">Kiểu dữ liệu</string>
+  <string name="config_mapProfile_summary">Chọn kiểu của lớp dữ liệu</string>
   <string name="config_enableOpenStreetBugs_title">Hiển thị Lỗi và Ghi chú</string>
   <string name="config_enableOpenStreetBugs_summary">Xem, Sửa, và Tạo Ghi chú hoặc Báo cáo Lỗi.</string>
   <string name="config_enablePhotoLayer_title">Bật lớp Hình chụp</string>
@@ -515,6 +596,8 @@
   <string name="config_moreprefs">Thiết lập thêm…</string>
   <string name="config_presetbutton_title">Thẻ đặt trước</string>
   <string name="config_presetbutton_summary">Thêm và kích hoạt các thẻ đặt trước tương thích với JOSM</string>
+  <string name="config_validatorprefs_title">Thiết lập kiểm tra</string>
+  <string name="config_validatorprefs_summary">Thiết lập quy tắc kiểm tra</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Tác giả và giấy phép</string>
   <string name="config_debugbutton_title">Gỡ lỗi</string>
@@ -522,6 +605,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Thiết lập Giao diện</string>
+  <string name="config_category_view_summary">Thiết lập bố trí và hiển thị</string>
   <string name="config_iconbutton_title">Xem hình nốt</string>
   <string name="config_iconbutton_summary">Hiển thị hình tượng của thẻ đặt trước khớp nhất trên các nốt.</string>
   <string name="config_showWayIcons_title">Hiển thị hình địa điểm quan tâm trên tòa nhà</string>
@@ -557,11 +641,15 @@
   <string name="config_maxStrokeWidth_current">%1$d điểm ảnh</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Tùy chọn Dữ liệu và Sửa đổi</string>
+  <string name="config_category_editing_summary">Thiết lập tải về tự động, lưu giữ, và thông báo.</string>
   <string name="config_forceContextMenu_title">Luôn dùng trình đơn ngữ cảnh</string>
+  <string name="config_forceContextMenu_summary">Luôn hiển thị trình đơn ngữ cảnh khi nào lựa chọn không rõ ràng.</string>
   <string name="config_address_tags">Thẻ địa chỉ</string>
   <string name="config_address_tags_summary">Thẻ dùng để suy đoán địa chỉ</string>
   <string name="config_enableNameSuggestions_title">Gợi ý tên gọi</string>
   <string name="config_enableNameSuggestions_summary">Gợi ý giá trị cho thẻ tên gọi</string>
+  <string name="config_enableNameSuggestionsPresets_title">Gợi ý tên gọi</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Tự động đặt trước thẻ khi chọn gợi ý tên gọi</string>
   <string name="config_generateAlerts_title">Nhận thông báo</string>
   <string name="config_generateAlerts_summary">Nhận thông báo khi nào dữ liệu có vấn đề hoặc ghi chú</string>
   <string name="config_notificationCacheSize_title">Số thông báo tối đa được hiển thị</string>
@@ -584,7 +672,11 @@
   <string name="config_maxBugDownloadSpeed_summary">Giới hạn tối đa (km/h) để ngừng tải về tự động các ghi chú/lỗi</string>
   <string name="config_closeChangesetOnSave_title">Đóng các bộ thay đổi</string>
   <string name="config_closeChangesetOnSave_summary">Đóng các bộ thay đổi khi lưu theo mặc định</string>
+  <string name="config_enableAutoPresets_title">Tự động tạo ra thẻ đặt trước</string>
+  <string name="config_enableAutoPresets_summary">Tự động tạo ra thẻ đặt trước từ Taginfo</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Thiết lập Vị trí</string>
+  <string name="config_category_gps_summary">Tham số GPS và các nguồn cung cấp vị trí khác.</string>
   <string name="config_gps_source_title">Nguồn GPS</string>
   <string name="config_gps_source_summary">Nguồn cập nhật các vị trí GPS</string>
   <string name="config_gps_source_tcp_title">Nguồn mạng NMEA</string>
@@ -597,8 +689,11 @@
   <string name="config_gps_distance_current">%1$d mét</string>
   <string name="config_leaveGpsDisabled_title">Tiếp tục vô hiệu GPS</string>
   <string name="config_leaveGpsDisabled_summary">Tránh việc xin người dùng bật lên GPS khi nó bị tắt</string>
+  <string name="config_gps_network_title">Định vị theo mạng thay thế</string>
+  <string name="config_gps_network_summary">Nếu không có tín hiệu GPS hoặc GPS bị tắt, sử dụng nguồn cung cấp mạng thay thế</string>
   <!--Server Settings-->
   <string name="config_category_server">Thiết lập Máy chủ</string>
+  <string name="config_category_server_summary">Thiết lập API OSM và các máy chủ khác</string>
   <string name="config_apibutton_title">URL của API OSM</string>
   <string name="config_apibutton_summary">Bạn có thể đặt URL đến một API không chuẩn tại đây. Thường không nên thay đổi thiết lập này.</string>
   <string name="config_loginbutton_title">Tài khoản người dùng</string>
@@ -611,6 +706,7 @@
   <string name="config_geocoderbutton_summary">Thêm, sửa, xóa các bộ mã hóa địa lý được sử dụng trong bộ tìm kiếm</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Tải về và lưu trữ lớp</string>
+  <string name="config_category_layers_summary">Tải về và lưu trữ hình ảnh mảng nền</string>
   <string name="config_maxTileDownloadThreads_title">Số luồng tải về tối đa</string>
   <string name="config_maxTileDownloadThreads_summary">Số luồng tối đa dùng để tải về mảnh</string>
   <string name="config_downLoadThreads_current">%1$d luồng</string>
@@ -625,9 +721,11 @@
   <string name="config_showStats_title">Xem thống kê</string>
   <string name="config_showStats_summary">Hiển thị thống kế dữ liệu và số khung hình/giây ở phần phía dưới góc bên trái.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Thử nghiệm</string>
   <string name="config_js_console_title">Bật bảng điều khiển JavaScript</string>
   <string name="config_js_console_summary">Kích hoạt bảng điều khiển JavaScript trong chế độ “trực tiếp”</string>
   <string name="config_voiceCommandsEnabled_title">Bật lệnh bằng giọng nói</string>
+  <string name="config_voiceCommandsEnabled_summary">Cho phép ra lệnh bằng giọng nói</string>
   <!---->
   <string name="manage_apis">Quản lý API</string>
   <string name="config_api_url_title">URL của API</string>
@@ -644,10 +742,15 @@
   <string name="preset_download_failed">Không thể tải về tập tin thẻ đặt trước. Thẻ đặt trước sẽ không có tác dụng.</string>
   <string name="preset_download_parse_failed">Tập tin thẻ đặt trước không hợp lệ. Thẻ đặt trước sẽ không có tác dụng.</string>
   <string name="preset_download_missing_images">Tập tin thẻ đặt trước đã được tải về thành công. Tuy nhiên, một số hình tượng không thể được tải về và sẽ không hiển thị.</string>
+  <string name="preset_download_title">Trình tải về thẻ đặt trước</string>
   <!--changes-->
   <string name="changes_deleted">Đã xóa “%1$s”</string>
   <string name="changes_changed">Đã thay đổi “%1$s”</string>
   <string name="changes_created">Đã tạo “%1$s”</string>
+  <string name="confirm_upload_title">Tải lên các thay đổi</string>
+  <string name="confirm_one_upload_text_1">Tải lên thay đổi sau?</string>
+  <string name="confirm_multiple_upload_text_1">Tải lên %1$d thay đổi sau?</string>
+  <string name="confirm_upload_edits_page">Thay đổi</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Gắn thẻ đặt trước</string>
   <string name="urldialog_preset_exists">Thẻ đặt trước này đã tồn tại</string>
@@ -666,6 +769,7 @@
   <string name="url">URL</string>
   <string name="default_">Mặc định</string>
   <string name="regular_expression">Biểu thức chính quy</string>
+  <string name="state">Trạng thái</string>
   <!---->
   <string name="empty_list">Không có mục</string>
   <string name="api_name">Tên của API</string>
@@ -679,6 +783,10 @@
   <string name="undo">Hoàn tác</string>
   <string name="redo">Làm lại</string>
   <string name="undo_nothing">không có gì để hoàn tác</string>
+  <string name="tracking_active_title">Dịch vụ nền Vespucci trong nền</string>
+  <string name="tracking_active_title_short">Dịch vụ nền đang kích hoạt</string>
+  <string name="tracking_active_text">Đang thu một tuyến GPS hoặc tải về tự động</string>
+  <string name="tracking_long_text">Vespucci đang ghi tuyến GPS hoặc tự động tải về. Để thoát hẳn, tạm ngừng ghi tuyến đường nào đó và bấm nút lùi để thoát ứng dụng.</string>
   <string name="gps_failure">Thất bại khi kích hoạt GPS</string>
   <!--element description-->
   <string name="address_housenumber">Địa chỉ số %1$s</string>

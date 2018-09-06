@@ -116,6 +116,7 @@
   <string name="element">elemento</string>
   <string name="last_updated">última suba</string>
   <string name="last_edited">Última edición</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">erro</string>
   <string name="warning">precaución</string>

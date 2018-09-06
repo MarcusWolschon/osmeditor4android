@@ -91,6 +91,7 @@
   <string name="length_m">长度 (米)</string>
   <string name="not_downloaded">未下载</string>
   <string name="empty_role">空的角色</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

@@ -53,6 +53,7 @@
   <string name="search">Pretraži</string>
   <!--element information dialog-->
   <string name="closed">Zatvoren</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

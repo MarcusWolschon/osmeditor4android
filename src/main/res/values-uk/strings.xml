@@ -134,6 +134,7 @@
   <string name="element">елемент</string>
   <string name="last_updated">в останнє оновлено</string>
   <string name="last_edited">В останнє змінено</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">помилка</string>
   <string name="warning">попередження</string>

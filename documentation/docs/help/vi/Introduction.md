@@ -94,7 +94,7 @@ Khi bạn mới thấy hình tâm ngắm, bạn có thể:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+Bạn cũng có thể sử dụng mục trình đơn: xem thêm thông tin tại [Creating new objects](/Tạo%20đối%20tượng%20mới.md).
 
 #### Thêm Vùng
 
@@ -172,11 +172,11 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* Ghi chú
+* Lỗi Osmose
+* Cảnh báo Osmose
+* Vấn đề nhỏ Osmose
+* Tùy biến
 
 <a id="indoor"></a>
 
@@ -184,7 +184,7 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Để kích hoạt chế độ này, bấm lâu vào mục khóa. Xem [Khóa, mở khóa, thay đổi chế độ](#lock) và chọn mục trình đơn ứng với chế độ.
 
 <a id="c-mode"></a>
 
@@ -192,7 +192,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+Để kích hoạt chế độ này, bấm lâu vào mục khóa. Xem [Khóa, mở khóa, thay đổi chế độ](#lock) và chọn mục trình đơn ứng với chế độ.
 
 ### Cấu hình bộ kiểm tra
 
@@ -209,7 +209,7 @@ Mỗi mục khảo sát lại có các thuộc tính sau:
 * **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
 * **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Chìa khóa** và **Giá trị** được so sánh với các thẻ _hiện tại_ của đối tượng.
 
 #### Mục kiểm tra
 

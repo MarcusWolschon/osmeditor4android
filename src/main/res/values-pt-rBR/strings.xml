@@ -60,6 +60,7 @@
   <string name="closed">Fechado</string>
   <string name="version">Versão</string>
   <string name="length_m">Comprimento (m)</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
   <!--debug dialog-->

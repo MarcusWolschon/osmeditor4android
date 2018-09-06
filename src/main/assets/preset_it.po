@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-08-28 17:08+0200\n"
-"PO-Revision-Date: 2018-08-28 15:11+0000\n"
-"Last-Translator: Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>\n"
+"PO-Revision-Date: 2018-09-05 22:05+0000\n"
+"Last-Translator: Manuel Tassi <manueltassi91@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3317,7 +3317,7 @@ msgstr "Funzione"
 
 #: master_preset.xml:11694(item:name|group:Other|preset:Funeral_Directors)
 msgid "Funeral Directors"
-msgstr ""
+msgstr "Servizi funebri"
 
 #: master_preset.xml:3609(item:name|group:Railway|preset:Funicular)
 #: master_preset.xml:4433(check:text|group:Public_Transport|preset:Stop_Position|key:funicular)

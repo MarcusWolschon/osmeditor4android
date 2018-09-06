@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Sugestão de nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugestão pode substituir alguns valores de etiquetas com valores mais utilizados.</string>
   <string name="search_results_title">Resultados da pesquisa</string>
+  <string name="search_online">Pesquisar online</string>
   <string name="find_message">Introduza o texto a pesquisar</string>
   <string name="geocoder_prompt">com</string>
   <string name="preset_search_hint">Etiquetas a pesquisar</string>
@@ -136,8 +137,10 @@
   <string name="last_edited">Última edição</string>
   <string name="original">Original</string>
   <string name="current">Atual</string>
-  <!---->
+  <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informação de elementos GeoJSON</string>
+  <string name="copy_properties">Copiar propriedades</string>
+  <!---->
   <string name="error">erro</string>
   <string name="warning">aviso</string>
   <string name="minor_issue">pequeno problema</string>
@@ -259,7 +262,7 @@
   <string name="toast_oauth_timeout">Tempo esgotado do handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_communication">Erro de comunicação durante o handshake da autenticação, por favor tente de novo.</string>
   <string name="toast_oauth_handshake_failed">Falhou o handshake do OAuth: %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">Autenticação com o Google não é suportada</string>
+  <string name="toast_oauth_login_with_google_not_possible">Neste momento não é possível autenticar-se com o Google</string>
   <string name="toast_timeout">A tentativa de ligação ao servidor excedeu o  tempo</string>
   <string name="coordinates_out_of_range">A longitude deve estar entre -180º e +180º, a latitude entre -85º e +85º</string>
   <string name="toast_nothing_found">Não foi encontrado nada</string>
@@ -316,6 +319,10 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_using_network_location">A usar a localização da rede de telemóveis</string>
   <string name="toast_using_gps_location">A usar a localização GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS desativado, localização interrompida</string>
+  <string name="toast_tags_copied">Etiquetas copiadas</string>
+  <string name="toast_tags_cut">Etiquetas recortadas</string>
+  <string name="toast_properties_copied">Propriedades copiadas</string>
+  <string name="toast_task_conflict">%1$s foi alterado no servidor, envie primeiro e depois torne a descarregar</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -405,6 +412,7 @@ sem gravar</string>
   <string name="tag_restriction_add_expression">Adicionar expressão</string>
   <string name="tag_restriction_add_opening_hours">Adicionar horário de funcionamento</string>
   <string name="tag_restriction_value_hint">restrição condicional</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Carregar Área</string>
   <string name="location_choose_radius">Escolha o raio:</string>
@@ -489,6 +497,7 @@ há %3$s %4$s</string>
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Colar</string>
+  <string name="menu_paste_tags">Colar etiquetas</string>
   <string name="menu_paste_from_clipboard">Colar da área de tranferência</string>
   <string name="menu_zoom_to_selection">Enquadrar seleção</string>
   <string name="menu_rotate">Rodar</string>

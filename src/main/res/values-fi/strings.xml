@@ -124,6 +124,7 @@
   <string name="element">elementti</string>
   <string name="last_updated">viimeksi päivitetty</string>
   <string name="last_edited">Viimeksi muokattu</string>
+  <!--GeoJSON feature display dialog-->
   <!---->
   <string name="error">virhe</string>
   <string name="warning">varoitus</string>
