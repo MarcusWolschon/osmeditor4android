@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -43,7 +45,16 @@ public class EditState implements Serializable {
     private final boolean           savedFollowGPS;
     private final Filter            savedFilter;
 
-    public EditState(Context context, Logic logic, String imageFileName, BoundingBox box, boolean followGPS) {
+    /**
+     * Construct a new EditState instance
+     * 
+     * @param context Android Context
+     * @param logic the current Logic instance
+     * @param imageFileName a image filename is any
+     * @param box the current BoundingBox
+     * @param followGPS true if the map is following the current location
+     */
+    public EditState(@NonNull Context context, @NonNull Logic logic, @Nullable String imageFileName, @NonNull BoundingBox box, boolean followGPS) {
         savedLocked = logic.isLocked();
         savedMode = logic.getMode();
         savedNodes = logic.getSelectedNodes();
@@ -60,7 +71,13 @@ public class EditState implements Serializable {
         savedFilter = logic.getFilter();
     }
 
-    public void setSelected(Main main, Logic logic) {
+    /**
+     * Set selected elements and tasks from this EditState instance
+     * 
+     * @param main the current Main instance
+     * @param logic the current Logic instance
+     */
+    public void setSelected(@NonNull Main main, @NonNull Logic logic) {
         logic.setLocked(savedLocked);
         logic.setMode(main, savedMode);
         Log.d("EditState", "savedMode " + savedMode);
@@ -92,7 +109,13 @@ public class EditState implements Serializable {
         logic.setSelectedBug(savedBug);
     }
 
-    public void setMiscState(Main main, Logic logic) {
+    /**
+     * Set misc. state from this EditState instance
+     * 
+     * @param main the current Main instance
+     * @param logic the current Logic instance
+     */
+    public void setMiscState(@NonNull Main main, @NonNull  Logic logic) {
         main.setImageFileName(savedImageFileName);
         logic.setLastComments(savedLastComments);
         logic.setLastSources(savedLastSources);
@@ -107,7 +130,13 @@ public class EditState implements Serializable {
         main.setFollowGPS(savedFollowGPS);
     }
 
-    public void setViewBox(Logic logic, Map map) {
+    /**
+     * Set the ViewBox from this EditState instance
+     * 
+     * @param logic the current Logic instance
+     * @param map the current Map instance
+     */
+    public void setViewBox(@NonNull Logic logic, @NonNull Map map) {
         logic.getViewBox().setBorders(map, savedBox);
         try {
             logic.getViewBox().setRatio(map, (float) map.getWidth() / (float) map.getHeight());
