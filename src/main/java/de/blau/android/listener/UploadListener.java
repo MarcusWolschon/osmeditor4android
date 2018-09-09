@@ -22,7 +22,6 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     private final EditText             commentField;
     private final EditText             sourceField;
     private final CheckBox             closeChangeset;
-    @NonNull
     private final List<FormValidation> validations;
 
     private boolean tagsShown = false;
@@ -36,8 +35,8 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param closeChangeset close the changeset after upload if true
      * @param validations a List of validations to perform on the form fields
      */
-    public UploadListener(final Main caller, final EditText commentField, final EditText sourceField, final CheckBox closeChangeset,
-            @NonNull final List<FormValidation> validations) {
+    public UploadListener(@NonNull final Main caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,
+            @NonNull final CheckBox closeChangeset, @NonNull final List<FormValidation> validations) {
         this.caller = caller;
         this.commentField = commentField;
         this.sourceField = sourceField;
@@ -54,7 +53,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
     @Override
     public void onClick(View view) {
         validateFields();
-        if (tagsShown) {
+        if (tagsShown || ConfirmUpload.getPage(caller) == ConfirmUpload.TAGS_PAGE) {
             ConfirmUpload.dismissDialog(caller);
             caller.performUpload(commentField.getText().toString(), sourceField.getText().toString(), closeChangeset.isChecked());
         } else {

@@ -72,6 +72,7 @@ public class ConfirmUpload extends DialogFragment {
 
     private static final String TAG = "fragment_confirm_upload";
 
+    public static final int NO_PAGE    = -1;
     public static final int EDITS_PAGE = 0;
     public static final int TAGS_PAGE  = 1;
 
@@ -196,8 +197,9 @@ public class ConfirmUpload extends DialogFragment {
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
         AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
-        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line,
-                App.getLogic().getLastComments());
+        List<String> comments = new ArrayList<String>(App.getLogic().getLastComments());
+        addEmptyEntry(comments);
+        FilterlessArrayAdapter<String> commentAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, comments);
         comment.setAdapter(commentAdapter);
         String lastComment = App.getLogic().getLastComment();
         comment.setText(lastComment == null ? "" : lastComment);
@@ -214,8 +216,9 @@ public class ConfirmUpload extends DialogFragment {
         comment.setOnKeyListener(new MyKeyListener());
 
         AutoCompleteTextView source = (AutoCompleteTextView) layout.findViewById(R.id.upload_source);
-        FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line,
-                App.getLogic().getLastSources());
+        List<String> sources = new ArrayList<String>(App.getLogic().getLastSources());
+        addEmptyEntry(sources);
+        FilterlessArrayAdapter<String> sourceAdapter = new FilterlessArrayAdapter<>(activity, android.R.layout.simple_dropdown_item_1line, sources);
         source.setAdapter(sourceAdapter);
         String lastSource = App.getLogic().getLastSource();
         source.setText(lastSource == null ? "" : lastSource);
@@ -236,17 +239,44 @@ public class ConfirmUpload extends DialogFragment {
     }
 
     /**
+     * Add an empty entry so that it is simply to add new text
+     * 
+     * @param values the List of values
+     */
+    private void addEmptyEntry(List<String> values) {
+        if (values.contains("")) {
+            values.remove("");
+        }
+        values.add(0, "");
+    }
+
+    /**
      * Show a specific page
      * 
      * @param activity the activity this fragment was created by
      * @param item index of page to show
      */
-    public static void showPage(AppCompatActivity activity, int item) {
+    public static void showPage(@NonNull AppCompatActivity activity, int item) {
         FragmentManager fm = activity.getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(TAG);
         if (fragment != null) {
             ((ConfirmUpload) fragment).pager.setCurrentItem(item);
         }
+    }
+
+    /**
+     * Return the current page we are on
+     * 
+     * @param activity the activity this fragment was created by
+     * @return the current page index (or a value indicating that something went wrong)
+     */
+    public static int getPage(@NonNull AppCompatActivity activity) {
+        FragmentManager fm = activity.getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(TAG);
+        if (fragment != null) {
+            return ((ConfirmUpload) fragment).pager.getCurrentItem();
+        }
+        return NO_PAGE;
     }
 
     private class ChangedElement {
