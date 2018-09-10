@@ -66,8 +66,8 @@ public class PresetRole implements Comparable<PresetRole> {
         this.role = field.role;
         this.hint = field.hint;
         this.appliesToWay = field.appliesToWay;
-        this.appliesToNode= field.appliesToNode;
-        this.appliesToRelation= field.appliesToRelation;
+        this.appliesToNode = field.appliesToNode;
+        this.appliesToRelation = field.appliesToRelation;
     }
 
     /**
@@ -86,23 +86,25 @@ public class PresetRole implements Comparable<PresetRole> {
     public String getHint() {
         return hint;
     }
-    
+
     /**
      * Test what kind of elements this PresetRole applies to
      * 
      * @param type the ElementType to check for
      * @return true if applicable
      */
-    public boolean appliesTo(@NonNull String type) {
-        switch (type) {
-        case Node.NAME:
-            return appliesToNode;
-        case Way.NAME:
-            return appliesToWay;
-        case Relation.NAME:
-            return appliesToRelation;
+    public boolean appliesTo(@Nullable String type) {
+        if (type != null) {
+            switch (type) {
+            case Node.NAME:
+                return appliesToNode;
+            case Way.NAME:
+                return appliesToWay;
+            case Relation.NAME:
+                return appliesToRelation;
+            }
         }
-        return true; 
+        return true;
     }
 
     @Override

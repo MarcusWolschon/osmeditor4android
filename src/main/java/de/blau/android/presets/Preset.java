@@ -2666,7 +2666,7 @@ public class Preset implements Serializable {
          * @return a List of PresetRoles or null if none
          */
         @Nullable
-        public List<PresetRole> getRoles(String type) {
+        public List<PresetRole> getRoles(@Nullable String type) {
             List<PresetRole> result = null;
             if (roles != null) {
                 result = new ArrayList<>();
