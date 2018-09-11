@@ -43,6 +43,14 @@ public class Way extends OsmElement implements BoundedObject {
 
     private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
 
+    /**
+     * Construct a new Way
+     * 
+     * @param osmId the OSM id
+     * @param osmVersion the version
+     * @param timestamp a timestamp
+     * @param status the current status
+     */
     Way(final long osmId, final long osmVersion, final long timestamp, final byte status) {
         super(osmId, osmVersion, timestamp, status);
         nodes = new ArrayList<>();
@@ -106,8 +114,9 @@ public class Way extends OsmElement implements BoundedObject {
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", "way");
         s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null)
+        if (changeSetId != null) {
             s.attribute("", "changeset", Long.toString(changeSetId));
+        }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
             s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
@@ -231,7 +240,15 @@ public class Way extends OsmElement implements BoundedObject {
         return nodes.get(0).equals(nodes.get(nodes.size() - 1));
     }
 
-    void appendNode(final Node refNode, final Node newNode) {
+    /**
+     * Append/pre-pend a Node to the Way using an exiting Node as reference
+     * 
+     * Note: assumes the Way isn't empty
+     * 
+     * @param refNode the existing Node
+     * @param newNode the new Node
+     */
+    void appendNode(@NonNull final Node refNode, @NonNull final Node newNode) {
         if (refNode == newNode) { // user error
             Log.i(DEBUG_TAG, "appendNode attempt to add same node");
             return;
@@ -245,6 +262,8 @@ public class Way extends OsmElement implements BoundedObject {
 
     /**
      * Inserts a Node after a specified one
+     * 
+     * Note: assumes the Way isn't empty and nodeBefore is actually a way Node 
      * 
      * @param nodeBefore the reference Node
      * @param newNode the Node to insert
@@ -325,8 +344,11 @@ public class Way extends OsmElement implements BoundedObject {
      * @param node a node to check
      * @return in node is one of the end nodes
      */
-    public boolean isEndNode(final Node node) {
-        return getFirstNode() == node || getLastNode() == node;
+    public boolean isEndNode(@Nullable final Node node) {
+        if (nodes.size() > 0) {
+            return getFirstNode() == node || getLastNode() == node;
+        }
+        return false;
     }
 
     /**
