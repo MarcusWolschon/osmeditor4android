@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -35,7 +37,13 @@ public class Snack {
     protected static LinkedList<Snackbar> warningQueue = new LinkedList<>();
     protected static LinkedList<Snackbar> errorQueue   = new LinkedList<>();
 
-    static boolean isShowing(LinkedList<Snackbar> queue) {
+    /**
+     * Check if we are showing a SnackBar
+     * 
+     * @param queue the queue
+     * @return true if a SnackBar is being shown
+     */
+    static boolean isShowing(@NonNull LinkedList<Snackbar> queue) {
         Snackbar first = queue.peekFirst();
         if (first != null) {
             return first.isShown();
@@ -179,11 +187,19 @@ public class Snack {
      * @param v view to display the snackbar on
      * @param res resource id of the message to display
      */
-    public static void barError(View v, int res) {
-        Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-        snackbar.setCallback(callback);
-        enqueueError(snackbar);
+    public static void barError(@Nullable View v, int res) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barError");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, res, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
+            snackbar.setCallback(callback);
+            enqueueError(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+        }
     }
 
     /**
@@ -204,11 +220,19 @@ public class Snack {
      * @param v view to display the snackbar on
      * @param msg message to display
      */
-    public static void barError(View v, String msg) {
-        Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-        snackbar.setCallback(callback);
-        enqueueError(snackbar);
+    public static void barError(@Nullable View v, @NonNull String msg) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barError");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
+            snackbar.setCallback(callback);
+            enqueueError(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+        }
     }
 
     /**
@@ -233,14 +257,22 @@ public class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barError(View v, int msgRes, int actionRes, View.OnClickListener listener) {
-        Snackbar snackbar = Snackbar.make(v, msgRes, Snackbar.LENGTH_LONG);
-        snackbar.setDuration(5000);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
-        snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-        snackbar.setAction(actionRes, listener);
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barError(@Nullable View v, int msgRes, int actionRes, View.OnClickListener listener) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barError");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msgRes, Snackbar.LENGTH_LONG);
+            snackbar.setDuration(5000);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_error, R.color.material_red));
+            snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+            snackbar.setAction(actionRes, listener);
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barError got " + e.getMessage());
+        }
     }
 
     /**
@@ -294,11 +326,19 @@ public class Snack {
      * @param res resource id of the message to display
      * @param duration how long to display the message in ms
      */
-    public static void barInfo(View v, int res, int duration) {
-        Snackbar snackbar = Snackbar.make(v, res, duration);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barInfo(@Nullable View v, int res, int duration) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barInfo");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, res, duration);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -355,11 +395,19 @@ public class Snack {
      * @param msg message to display
      * @param duration how long to display the message in ms
      */
-    public static void barInfo(View v, String msg, int duration) {
-        Snackbar snackbar = Snackbar.make(v, msg, duration);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barInfo(@Nullable View v, @NonNull String msg, int duration) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barInfo");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, duration);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -368,11 +416,19 @@ public class Snack {
      * @param v view to display the snackbar on
      * @param msg message to display
      */
-    public static void barInfo(View v, String msg) {
-        Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barInfo(@Nullable View v, @NonNull String msg) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barInfo");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -397,14 +453,22 @@ public class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barInfo(View v, String msg, int actionRes, View.OnClickListener listener) {
-        Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-        snackbar.setDuration(5000);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-        snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-        snackbar.setAction(actionRes, listener);
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barInfo(@Nullable View v, @NonNull String msg, int actionRes, View.OnClickListener listener) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barInfo");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            snackbar.setDuration(5000);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
+            snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+            snackbar.setAction(actionRes, listener);
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -429,14 +493,22 @@ public class Snack {
      * @param action action text
      * @param listener called when action is selected
      */
-    public static void barInfo(View v, String msg, String action, View.OnClickListener listener) {
-        Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-        snackbar.setDuration(SHOW_DURATION_ACTION);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
-        snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-        snackbar.setAction(action, listener);
-        snackbar.setCallback(callback);
-        enqueueInfo(snackbar);
+    public static void barInfo(@Nullable View v, @NonNull String msg, String action, View.OnClickListener listener) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barInfo");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            snackbar.setDuration(SHOW_DURATION_ACTION);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_info, R.color.material_teal));
+            snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+            snackbar.setAction(action, listener);
+            snackbar.setCallback(callback);
+            enqueueInfo(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barInfo got " + e.getMessage());
+        }
     }
 
     /**
@@ -470,11 +542,19 @@ public class Snack {
      * @param res resource id of the message to display
      * @param duration how long to display the message in ms
      */
-    public static void barWarning(View v, int res, int duration) {
-        Snackbar snackbar = Snackbar.make(v, res, duration);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-        snackbar.setCallback(callback);
-        enqueueWarning(snackbar);
+    public static void barWarning(@Nullable View v, int res, int duration) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barWarning");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, res, duration);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
+            snackbar.setCallback(callback);
+            enqueueWarning(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
     }
 
     /**
@@ -484,11 +564,19 @@ public class Snack {
      * @param msg resource id of the message to display
      * @param duration how long to display the message in ms
      */
-    public static void barWarning(View v, String msg, int duration) {
-        Snackbar snackbar = Snackbar.make(v, msg, duration);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-        snackbar.setCallback(callback);
-        enqueueWarning(snackbar);
+    public static void barWarning(@Nullable View v, @NonNull String msg, int duration) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barWarning");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, duration);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
+            snackbar.setCallback(callback);
+            enqueueWarning(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
     }
 
     /**
@@ -499,7 +587,7 @@ public class Snack {
      * @param actionRes action textRes resource for the text of an action
      * @param listener called when action is selected
      */
-    public static void barWarning(Activity activity, String msg, int actionRes, View.OnClickListener listener) {
+    public static void barWarning(@NonNull Activity activity, @NonNull String msg, int actionRes, View.OnClickListener listener) {
         if (activity != null) {
             barWarning(activity.findViewById(android.R.id.content), msg, actionRes, listener);
         }
@@ -513,14 +601,23 @@ public class Snack {
      * @param actionRes action text resrouce id
      * @param listener called when action is selected
      */
-    public static void barWarning(View v, String msg, int actionRes, View.OnClickListener listener) {
-        Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
-        snackbar.setDuration(5000);
-        snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
-        snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
-        snackbar.setAction(actionRes, listener);
-        snackbar.setCallback(callback);
-        enqueueWarning(snackbar);
+    public static void barWarning(@Nullable View v, @NonNull String msg, int actionRes, View.OnClickListener listener) {
+        if (v == null) {
+            Log.e(DEBUG_TAG, "null View in barWarning");
+            return;
+        }
+        try {
+            Snackbar snackbar = Snackbar.make(v, msg, Snackbar.LENGTH_LONG);
+            snackbar.setDuration(5000);
+            snackbar.getView().setBackgroundColor(ThemeUtils.getStyleAttribColorValue(v.getContext(), R.attr.snack_warning, R.color.material_yellow));
+            snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
+            snackbar.setAction(actionRes, listener);
+            snackbar.setCallback(callback);
+            enqueueWarning(snackbar);
+        } catch (IllegalArgumentException e) {
+            Log.e(DEBUG_TAG, "barWarning got " + e.getMessage());
+        }
+
     }
 
     /**
