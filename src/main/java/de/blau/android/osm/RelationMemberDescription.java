@@ -1,5 +1,7 @@
 package de.blau.android.osm;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.App;
 
 /*
@@ -12,7 +14,12 @@ public class RelationMemberDescription extends RelationMember {
     private boolean           downloaded       = false;
     private int               position         = 0;                   // only used for sorting
 
-    public RelationMemberDescription(final RelationMember rm) {
+    /**
+     * Construct a RelationMemberDescription from a RelationMember
+     * 
+     * @param rm the RelationMember to use
+     */
+    public RelationMemberDescription(@NonNull final RelationMember rm) {
         super(rm.getElement() != null ? rm.getElement().getName() : rm.getType(), rm.getElement() != null ? rm.getElement().getOsmId() : rm.getRef(),
                 rm.getRole());
         OsmElement e = rm.getElement();
@@ -24,15 +31,34 @@ public class RelationMemberDescription extends RelationMember {
         }
     }
 
-    public RelationMemberDescription(final String t, final long id, final String r, final String d) {
-        super(t, id, r);
-        description = d;
+    /**
+     * Construct a new RelationMemberDescriptio
+     * 
+     * @param type the type of the member OsmElement (NODE, WAY, RELATION) as a String
+     * @param id the OSM id of the OsmElement
+     * @param role the role in the Relation
+     * @param description a description of the element
+     */
+    public RelationMemberDescription(@NonNull final String type, final long id, @Nullable final String role, @Nullable final String description) {
+        super(type, id, role);
+        this.description = description;
     }
 
+    /**
+     * Get the description for this object if any
+     * 
+     * @return a String with the description of null if none
+     */
+    @Nullable
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Check if the OsmElement we are referring to is downloaded or not
+     * 
+     * @return true if downloaded
+     */
     public boolean downloaded() {
         return downloaded;
     }
@@ -45,6 +71,8 @@ public class RelationMemberDescription extends RelationMember {
         if (e != null) {
             description = e.getDescription(false);
             downloaded = true;
+        } else {
+            downloaded = false;
         }
     }
 
@@ -56,10 +84,20 @@ public class RelationMemberDescription extends RelationMember {
         return super.getElement() == null ? App.getDelegator().getOsmElement(getType(), getRef()) : super.getElement();
     }
 
+    /**
+     * Get the position of the member in the Relation
+     * 
+     * @return the position
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * Set the position of the member in the Relation
+     * 
+     * @param postiion the position to set
+     */
     public void setPosition(int postiion) {
         this.position = postiion;
     }
@@ -83,5 +121,4 @@ public class RelationMemberDescription extends RelationMember {
         result = 37 * result + position;
         return result;
     }
-
 }

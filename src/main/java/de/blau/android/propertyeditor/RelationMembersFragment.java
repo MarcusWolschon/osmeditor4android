@@ -252,6 +252,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         RelationMemberDescription current = currentRow.getRelationMemberDescription();
         RelationMemberDescription next = nextRow != null ? nextRow.getRelationMemberDescription() : null;
         String currentType = current.getType();
+        if (current.getElement() == null) {
+            // FIXME this seems to happen on restore in not quite clear circumstances
+            Log.e(DEBUG_TAG, "Element not downloaded for " + current.getDescription());
+            current.update();
+            return result;
+        }
         if (Way.NAME.equals(currentType)) {
             Way w = (Way) current.getElement();
             currentRow.up = null;
@@ -503,12 +509,23 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
         private RelationMemberDescription rmd;
 
+        /**
+         * Construct a new row
+         * 
+         * @param context Android Context
+         */
         public RelationMemberRow(Context context) {
             super(context);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
         }
 
+        /**
+         * Construct a new row
+         * 
+         * @param context Android Context
+         * @param attrs an AttributeSet
+         */
         public RelationMemberRow(Context context, AttributeSet attrs) {
             super(context, attrs);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
