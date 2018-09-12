@@ -615,6 +615,10 @@ public class Preset implements Serializable {
                     if (currentItem != null) {
                         throw new SAXException("Nested items are not allowed");
                     }
+                    if (inOptionalSection) {
+                        Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " optional must be nested");
+                        throw new SAXException("optional must be nexted");
+                    }
                     PresetGroup parent = groupstack.peek();
                     String type = attr.getValue(TYPE);
                     if (type == null) {
@@ -629,7 +633,11 @@ public class Preset implements Serializable {
                     checkGroupCounter = 0;
                 } else if (CHUNK.equals(name)) {
                     if (currentItem != null) {
-                        throw new SAXException("Nested items are not allowed");
+                        throw new SAXException("Nested chunks are not allowed");
+                    }
+                    if (inOptionalSection) {
+                        Log.e(DEBUG_TAG, "Chunk " + attr.getValue(ID) + " optional must be nested");
+                        throw new SAXException("optional must be nexted");
                     }
                     String type = attr.getValue(TYPE);
                     if (type == null) {
@@ -823,10 +831,17 @@ public class Preset implements Serializable {
                                     Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
                                 }
                                 for (PresetField field : chunk.getFields().values()) {
-                                    // FIXME we should only create new objects once
-                                    PresetField copy = field.copy();
-                                    copy.setOptional(true);
-                                    currentItem.fields.put(copy.getKey(), copy);
+                                    String key = field.getKey();
+                                    // don't overwrite exiting fields
+                                    if (!currentItem.fields.containsKey(key)) {
+                                        // FIXME we should only create new objects once
+                                        PresetField copy = field.copy();
+                                        copy.setOptional(true);
+                                        currentItem.fields.put(copy.getKey(), copy);
+                                    } else {
+                                        Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue("ref") + " field " + key
+                                                + " overwrites existing field");
+                                    }
                                 }
                             } else {
                                 currentItem.fixedTags.putAll(chunk.getFixedTags());
@@ -2491,7 +2506,7 @@ public class Preset implements Serializable {
          * @param type type of preset field
          * @param value value string from the XML (comma-separated list if more than one possible values)
          */
-        public void addTag(boolean optional, String key, PresetKeyType type, String value) {
+        public void addTag(boolean optional, @NonNull String key, PresetKeyType type, String value) {
             addTag(optional, key, type, value, null, null, COMBO_DELIMITER);
         }
 
@@ -2506,7 +2521,7 @@ public class Preset implements Serializable {
          * @param shortDescriptions matching short description for value (same format for more than one)
          * @param delimiter the delimiter if more than one value is present
          */
-        public void addTag(boolean optional, String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
+        public void addTag(boolean optional, @NonNull String key, PresetKeyType type, String value, String displayValue, String shortDescriptions,
                 final String delimiter) {
             String[] valueArray = (value == null) ? new String[0] : value.split(Pattern.quote(delimiter));
             String[] displayValueArray = (displayValue == null) ? new String[0] : displayValue.split(Pattern.quote(delimiter));
@@ -2535,7 +2550,8 @@ public class Preset implements Serializable {
          * @param valueCollection Collection with the values
          * @param delimiter the delimiter if more than one value is present
          */
-        public void addTag(boolean optional, String key, PresetKeyType type, Collection<StringWithDescription> valueCollection, final String delimiter) {
+        public void addTag(boolean optional, @NonNull String key, PresetKeyType type, Collection<StringWithDescription> valueCollection,
+                final String delimiter) {
             addTag(optional, key, type, valueCollection.toArray(new StringWithDescription[valueCollection.size()]), delimiter);
         }
 
@@ -2548,7 +2564,7 @@ public class Preset implements Serializable {
          * @param valueArray array with the values
          * @param delimiter the delimiter if more than one value is present
          */
-        public void addTag(boolean optional, String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) {
+        public void addTag(boolean optional, @NonNull String key, PresetKeyType type, StringWithDescription[] valueArray, final String delimiter) {
             addValues(key, valueArray);
             PresetField field = null;
             switch (type) {
@@ -3410,7 +3426,7 @@ public class Preset implements Serializable {
          * @param key key to look for
          * @return true if the key is present in any category (fixed, recommended, optional)
          */
-        public boolean hasKey(String key) {
+        public boolean hasKey(@NonNull String key) {
             return hasKey(key, true);
         }
 
@@ -3422,7 +3438,7 @@ public class Preset implements Serializable {
          * @return true if the key is present in any category (fixed, recommended, and optional if checkOptional is
          *         true)
          */
-        public boolean hasKey(String key, boolean checkOptional) {
+        public boolean hasKey(@NonNull String key, boolean checkOptional) {
             PresetField field = fields.get(key);
             return field != null && (!field.isOptional() || (checkOptional && field.isOptional()));
         }
