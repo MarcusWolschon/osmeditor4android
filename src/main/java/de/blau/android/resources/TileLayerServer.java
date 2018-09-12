@@ -1633,7 +1633,7 @@ public class TileLayerServer {
                     }
                 } else {
                     // assumption no end date == ongoing
-                    return t1.endDate < t2.endDate ? -1 : 1;
+                    return t1.endDate < t2.endDate ? 1 : -1;
                 }
             }
         });

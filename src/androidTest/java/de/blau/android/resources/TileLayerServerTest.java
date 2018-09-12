@@ -53,6 +53,9 @@ public class TileLayerServerTest {
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
     
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -61,12 +64,15 @@ public class TileLayerServerTest {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
       
-        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 20000); // wait for main
+        main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
         
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
@@ -75,6 +81,9 @@ public class TileLayerServerTest {
         instrumentation.waitForIdleSync();
     }
 
+    /**
+     * Get a tile url for bing and then for the "standard" style layer 
+     */
     @Test
     public void buildurl() {
         Map map = main.getMap();
@@ -138,6 +147,9 @@ public class TileLayerServerTest {
         Assert.assertTrue(s.contains("20"));
     }
 
+    /**
+     * Test that imagery is sorted as expected
+     */
     @Test
     public void sort() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

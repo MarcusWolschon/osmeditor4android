@@ -37,6 +37,9 @@ public class OAMTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -57,6 +60,9 @@ public class OAMTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         try {
@@ -66,6 +72,9 @@ public class OAMTest {
         }
     }
 
+    /**
+     * Query the OAM catalog and assert that a certain layer is present
+     */
     @Test
     public void oamCatalog() {
         mockServer.enqueue("oam");
