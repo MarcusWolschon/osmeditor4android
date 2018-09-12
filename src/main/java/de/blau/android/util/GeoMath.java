@@ -47,15 +47,23 @@ public class GeoMath {
     /**
      * Checks if x is between a and b (or equals a or b).
      * 
-     * @param x
-     * @param a
-     * @param b
+     * @param x value to check
+     * @param a boundary a
+     * @param b boundary b
      * @return true, if x is between a or b, or equals a or b.
      */
     public static boolean isBetween(final float x, final float a, final float b) {
         return (a > b) ? x <= a && x >= b : x <= b && x >= a;
     }
 
+    /**
+     * Checks if x is between a and b (or equals a or b).
+     * 
+     * @param x value to check
+     * @param a boundary a
+     * @param b boundary b
+     * @return true, if x is between a or b, or equals a or b.
+     */
     public static boolean isBetween(final int x, final int a, final int b) {
         return (a > b) ? x <= a && x >= b : x <= b && x >= a;
     }
@@ -63,11 +71,11 @@ public class GeoMath {
     /**
      * Checks if x is between a and b plus the given offset.
      * 
-     * @param x
-     * @param a
-     * @param b
-     * @param offset
-     * @return
+     * @param x value to check
+     * @param a boundary a
+     * @param b boundary b
+     * @param offset an offset to add/subtract to the boundaries
+     * @return true, if x is between a or b, or equals a or b, + or - the offset
      */
     public static boolean isBetween(final float x, final float a, final float b, final float offset) {
         return (a > b) ? x <= a + offset && x >= b - offset : x <= b + offset && x >= a - offset;
@@ -76,11 +84,11 @@ public class GeoMath {
     /**
      * Checks if x is between a and b plus the given offset.
      * 
-     * @param x
-     * @param a
-     * @param b
-     * @param offset
-     * @return
+     * @param x value to check
+     * @param a boundary a
+     * @param b boundary b
+     * @param offset an offset to add/subtract to the boundaries
+     * @return true, if x is between a or b, or equals a or b, + or - the offset
      */
     public static boolean isBetween(final double x, final double a, final double b, final double offset) {
         return (a > b) ? x <= a + offset && x >= b - offset : x <= b + offset && x >= a - offset;
@@ -104,12 +112,14 @@ public class GeoMath {
     }
 
     /**
+     * Convert a WGS84*1E7 latitude value to a mercator projected one
+     * 
      * @see latToMercator(double)
      * @param latE7 the latitude multiplied by 1E7
-     * @return
+     * @return the mercator projected value
      */
     public static double latE7ToMercator(final int latE7) {
-        return latToMercator(latE7 / 1E7);
+        return latToMercator(latE7 / 1E7D);
     }
 
     /**
@@ -134,8 +144,8 @@ public class GeoMath {
 
     /**
      * @see mercatorToLat(double)
-     * @param mer the mercator projected coordinate, multiplied by 1E7
-     * @return
+     * @param mer the mercator projected latitude, multiplied by 1E7
+     * @return a WGS84 latitude value
      */
     public static double mercatorE7ToLat(final int mer) {
         return mercatorToLat(mer / 1E7d);
@@ -143,7 +153,7 @@ public class GeoMath {
 
     /**
      * @see mercatorToLat(double)
-     * @param mer
+     * @param mer the mercator projected latitude
      * @return the latitude value, multiplied by 1E7
      */
     public static int mercatorToLatE7(final double mer) {
@@ -216,7 +226,10 @@ public class GeoMath {
     /**
      * Calculates the screen-coordinate to the given latitude.
      * 
-     * @param latE7 latitude, multiplied by 1E7.
+     * @param screenHeight the height of the screen in px
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
+     * @param latE7 latitude, WGS84 multiplied by 1E7.
      * @return the y screen-coordinate for this latitude value.
      */
     public static float latE7ToY(final int screenHeight, int screenWidth, final ViewBox viewBox, final int latE7) {
@@ -226,11 +239,11 @@ public class GeoMath {
     /**
      * Non scaled version. Calculates the screen-coordinate to the given latitude.
      * 
-     * @param screenHeight
-     * @param screenWidth
-     * @param viewBox
-     * @param lat
-     * @return
+     * @param screenHeight the height of the screen in px
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
+     * @param lat latitude, WGS84
+     * @return the y screen-coordinate for this latitude value.
      */
     public static float latToY(final int screenHeight, int screenWidth, final ViewBox viewBox, final double lat) {
         return (float) (screenHeight - (latToMercator(lat) - viewBox.getBottomMercator()) * viewBox.getPixelRadius(screenWidth));
@@ -239,6 +252,9 @@ public class GeoMath {
     /**
      * Calculates the screen-coordinate to the given latitude.in mercator
      * 
+     * @param screenHeight the height of the screen in px
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
      * @param latE7 latitude, multiplied by 1E7.
      * @return the y screen-coordinate for this latitude value.
      */
@@ -249,6 +265,8 @@ public class GeoMath {
     /**
      * Non-scaled version. Calculates the screen-coordinate to the given longitude.
      * 
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
      * @param lonE7 the longitude, multiplied by 1E7.
      * @return the x screen-coordinate for this longitude value.
      */
@@ -259,6 +277,8 @@ public class GeoMath {
     /**
      * Non-scaled version. Calculates the screen-coordinate to the given longitude.
      * 
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
      * @param lon the longitude
      * @return the x screen-coordinate for this longitude value.
      */
@@ -269,6 +289,9 @@ public class GeoMath {
     /**
      * Calculates the latitude value for the given y screen coordinate.
      * 
+     * @param screenHeight the height of the screen in px
+     * @param screenWidth the width of the screen in px
+     * @param viewBox the current ViewBox
      * @param y the y-coordinate from the screen
      * @return latitude representing by the given y-value, multiplied by 1E7
      */
@@ -332,13 +355,13 @@ public class GeoMath {
     /**
      * Calculates the point on the line (node1X,node1Y)-(node2X,node2Y) that is closest to the point (x,y).
      * 
-     * @param x
-     * @param y
-     * @param node1X
-     * @param node1Y
-     * @param node2X
-     * @param node2Y
-     * @return
+     * @param x point x-coordinate
+     * @param y point y-coordinate
+     * @param node1X line node 1 x-coordinate
+     * @param node1Y line node 1 y-coordinate
+     * @param node2X line node 2 x-coordinate
+     * @param node2Y line node 2 y-coordinate
+     * @return an array holing the x, y coordinates of the point on the line
      */
     public static float[] closestPoint(float x, float y, float node1X, float node1Y, float node2X, float node2Y) {
         // http://paulbourke.net/geometry/pointline/
@@ -389,11 +412,11 @@ public class GeoMath {
     /**
      * Get the bearing in degrees from point 1 to point 2
      * 
-     * @param lon1
-     * @param lat1
-     * @param lon2
-     * @param lat2
-     * @return
+     * @param lon1 longitude of point 1 in WGS84 coordinates
+     * @param lat1 latitude of point 1 in WGS84 coordinates
+     * @param lon2 longitude of point 2 in WGS84 coordinates
+     * @param lat2 latitude of point 1 in WGS84 coordinates
+     * @return a bearing in degrees
      */
     public static long bearing(double lon1, double lat1, double lon2, double lat2) {
 
@@ -491,10 +514,7 @@ public class GeoMath {
     public static int resolutionToZoom(double resolution, double lat) {
         if (Util.notZero(resolution)) {
             return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR
-                                                                                                                                                  // nonZero
-                                                                                                                                                  // tests
-                                                                                                                                                  // for
-                                                                                                                                                  // zero
+            // nonZero tests for zero
         }
         throw new IllegalArgumentException("Resolution can't be zero");
     }
