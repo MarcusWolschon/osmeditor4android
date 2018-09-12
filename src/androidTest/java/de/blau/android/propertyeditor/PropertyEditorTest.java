@@ -512,6 +512,52 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
         Assert.assertTrue(found);
     }
+    
+    /**
+     * Add a conditional restriction, this is just a rough test without using the actual UI elements of the editor
+     */
+    @Test
+    public void conditionalRestrictionEditor() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
+        Assert.assertNotNull(w);
+
+        main.performTagEdit(w, null, false, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
+        }
+        boolean found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Highways"), true);
+        Assert.assertTrue(found);
+        found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Streets"), true);
+        Assert.assertTrue(found);
+        found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Residential"), true);
+        Assert.assertTrue(found);
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "Kindhauserstrasse"));
+        found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Cond. & direct. max speed"), true);
+        Assert.assertTrue(found);
+        UiObject2 conditionalMaxSpeed = null;
+        try {
+            conditionalMaxSpeed = getValueField("Max speed @");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail();
+        }
+        Assert.assertNotNull(conditionalMaxSpeed);
+        conditionalMaxSpeed.click();
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "50 @"));
+        TestUtils.clickButton("de.blau.android:id/save", true);
+    }
 
     /**
      * Add a tag and check if that has added a preset item to the MRU display
