@@ -58,7 +58,6 @@ public class Commands {
         final Logic logic = App.getLogic();
         // try to find a command it simply stops at the first string that is valid
         for (String v : matches) {
-            Snack.toastTopInfo(main, ">" + v + "<");
             String[] words = v.split("\\s+", 3);
             if (words.length > 1) {
                 String loc = words[0].toLowerCase(Locale.getDefault());
