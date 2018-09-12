@@ -15,6 +15,9 @@
     <chunk id="incline">
         <combo key="incline" text="Incline" values="10%,-10%,10°,-10°,up,down" display_values="10%,-10%,10°,-10°,Up,Down" values_sort="false" />
     </chunk>
+    <chunk id="material">
+        <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" display_values="Concrete,Metal,Plastic,Stone,Wood" values_context="material" />
+    </chunk>
     <chunk id="surface">
         <combo key="surface" text="Surface"  
         	values="paved,unpaved,asphalt,concrete,concrete:plates,concrete:lanes,metal,wood,paving_stones,sett,cobblestone,gravel,fine_gravel,pebblestone,compacted,grass_paver,grass,sand,ground,dirt,mud" 
@@ -33,6 +36,17 @@
             <list_entry value="horrible" short_description="Off-Road: heavy duty off-road vehicle" />
             <list_entry value="very_horrible" short_description="Specialized off-road: tractor, ATV" />
             <list_entry value="impassable" short_description="No wheeled vehicle" />
+        </combo>
+    </chunk>
+    <chunk id="mtb_scale">
+        <combo key="mtb:scale" text="MTB Scale">
+            <list_entry value="0" short_description="0: Solid gravel/packed earth, no obstacles, wide curves" />
+            <list_entry value="1" short_description="1: Some loose surface, small obstacles, wide curves" />
+            <list_entry value="2" short_description="2: Much loose surface, large obstacles, easy hairpins" />
+            <list_entry value="3" short_description="3: Slippery surface, large obstacles, tight hairpins" />
+            <list_entry value="4" short_description="4: Loose surface or boulders, dangerous hairpins" />
+            <list_entry value="5" short_description="5: Maximum difficulty, boulder fields, landslides" />
+            <list_entry value="6" short_description="6: Not rideable" />
         </combo>
     </chunk>
     <chunk id="riding_surface">
@@ -67,7 +81,7 @@
         <combo key="tunnel" text="Tunnel" values="yes,building_passage" 
             display_values="Yes,Building passage," values_sort="false" match="key" />
             <optional>
-                <reference ref="name_layer" />
+                <reference ref="layer" />
                 <text key="width" text="Width (meters)" />
                 <text key="maxheight" text="Max. height (meters)" />
                 <reference ref="maxspeed" />
@@ -192,6 +206,11 @@
     <chunk id="oh">
         <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 01-53/2 Fr 09:00-12:00; week 02-52/2 We 09:00-12:00" values_no_i18n="true" match="none" editable="true" />
     </chunk>
+        <chunk id="optional_oh">
+        <optional>
+            <combo key="opening_hours" text="Opening Hours" delimiter="|" values="24/7|08:30-12:30,15:30-20:00|Sa-Su 00:00-24:00|Mo-Fr 08:30-20:00; Sa,Su 08:00-15:00; PH off|Mo-Fr 08:30-20:00, Tu-Su 08:00-15:00; Sa 08:00-12:00|Mo-Su 08:00-18:00; Apr 10-15 off; Jun 08:00-14:00; Aug off; Dec 25 off|sunrise-sunset|Su 10:00+|week 01-53/2 Fr 09:00-12:00; week 02-52/2 We 09:00-12:00" values_no_i18n="true" match="none" editable="true" />
+        </optional>
+    </chunk>
     <chunk id="diaper">
         <combo key="diaper" text="Diaper changing facilities" values_sort="false" >
 	      <list_entry value="yes" short_description="Available" />
@@ -253,14 +272,27 @@
         <text key="name" text="Name" />
         <reference ref="oh_wheelchair" />
     </chunk>
+    <chunk id="name_wheelchair">
+        <text key="name" text="Name" />
+        <reference ref="wheelchair" />
+    </chunk>
     <chunk id="name_oh_wheelchair_toilets">
         <text key="name" text="Name" />
         <reference ref="oh_wheelchair" />
         <reference ref="toilets_with_access" />
     </chunk>
+        <chunk id="name_wheelchair_toilets">
+        <text key="name" text="Name" />
+        <reference ref="wheelchair" />
+        <reference ref="toilets_with_access" />
+    </chunk>
     <chunk id="name_oh_wheelchair_level">
         <reference ref="name_oh_wheelchair" />
 		<reference ref="level" />
+    </chunk>
+       <chunk id="name_wheelchair_level">
+        <reference ref="name_wheelchair" />
+        <reference ref="level" />
     </chunk>
     <chunk id="name_oh_wheelchair_level_toilets">
         <reference ref="name_oh_wheelchair" />
@@ -275,18 +307,25 @@
         <reference ref="name_operator" />
         <reference ref="oh_wheelchair" />
     </chunk>
+    <chunk id="name_operator_wheelchair">
+        <reference ref="name_operator" />
+        <reference ref="oh_wheelchair" />
+    </chunk>
     <chunk id="name_operator_oh_wheelchair_toilets">
         <reference ref="name_operator" />
         <reference ref="oh_wheelchair" />
         <reference ref="toilets_with_access" />
+    </chunk>
+    <chunk id="name_operator_wheelchair_level">
+        <reference ref="name_operator_oh_wheelchair" />
+        <reference ref="level" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair_level">
         <reference ref="name_operator_oh_wheelchair" />
 		<reference ref="level" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair_level_toilets">
-        <reference ref="name_operator_oh_wheelchair" />
-		<reference ref="level" />
+        <reference ref="name_operator_oh_wheelchair_level" />
 		<reference ref="toilets_with_access" />
     </chunk>
     <chunk id="name_brand_operator_oh_wheelchair">
@@ -584,7 +623,7 @@
     </chunk>
     <chunk id="power_pole">
         <text key="height" text="Height (meters)" />
-        <combo key="material" text="Material" values="metal,plastic,steel,stone,wood,concrete" />
+        <reference ref="material" />
         <check key="location:transition" text="Location transition" disable_off="true" />
         <reference ref="ref_operator_branch" />
     </chunk>
@@ -689,10 +728,10 @@
   </chunk>
   <chunk id="walking_routes_roles">
      <roles>
-         <role key="" text="route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
-         <role key="" text="infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
-         <role key="" text="natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
-         <role key="guidepost" text="guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
+         <role key="" text="Route segment" requisite="required" type="way,closedway" member_expression="highway|route=ferry"/>
+         <role key="" text="Infrastructure" requisite="optional" type="node,closedway" member_expression="tourism OR amenity"/>
+         <role key="" text="Natural" requisite="optional" type="node,closedway" member_expression="natural=peak OR natural=volcano OR mountain_pass=yes OR natural=water OR tourism=viewpoint OR amenity=drinking_water OR natural=spring OR place=locality"/>
+         <role key="guidepost" text="Guidepost" requisite="optional" type="node" member_expression="information=guidepost"/>
      </roles>
   </chunk>
   <chunk id="kerb">
@@ -869,7 +908,7 @@
   	</multiselect>
   </chunk>
   <chunk id="additonal_aerialway_tags">
-  	<text key="aerialway:capacity" text="Number of people per hour" />
+  	<text key="aerialway:capacity" text="Number of people per hour" value_type="integer" />
     <text key="aerialway:occupancy" text="Number of people per gondola/chair" />
     <text key="aerialway:duration" text="Typical journey time in minutes" />
     <check key="aerialway:heating" text="Has heating?" disable_off="true" />
@@ -878,7 +917,10 @@
   	<reference ref="additonal_aerialway_tags" />
   	<check key="aerialway:bubble" text="Has bubble?" disable_off="true" />
   </chunk>
-    
+  <chunk id="playground_theme">
+    <combo text="Theme" key="playground:theme" values="barrel,bee,bridge,castle,cat,cow,dog,dragon,helicopter,horse,locomotive,octopus,plane,rocket,ship,spiderweb,tiger,train"
+        display_values="Barrel,Bee,Bridge,Castle,Cat,Cow,Dog,Dragon,Helicopter,Horse,Locomotive,Octopus,Plane,Rocket,Ship,Spiderweb,Tiger,Train" />
+  </chunk>  
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png">
@@ -1135,9 +1177,9 @@
                   zh_CN.href="http://wiki.openstreetmap.org/wiki/Zh-hans:Tag:highway=tertiary" />
             <space />
             <key key="highway" value="tertiary" />
-            <text key="ref" text="Reference" />
             <text key="name" text="Name" />
             <optional>
+                <text key="ref" text="Reference" />
                 <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -1323,9 +1365,9 @@
                   vi.href="http://wiki.openstreetmap.org/wiki/Vi:Tag:highway=service" />
             <space />
             <key key="highway" value="service" values_context="Highway" />
-            <combo key="service" text="Service way type" values="alley,driveway,parking_aisle,drive-through,emergency_access" 
-                display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" />
             <optional>
+                <combo key="service" text="Service way type" values="alley,driveway,parking_aisle,drive-through,emergency_access" 
+                    display_values="Alley,Driveway,Parking,Parking aisle,Drive-through,Emergency access" />
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -1592,7 +1634,7 @@
                 <reference ref="name_layer" />
                 <reference ref="surface_smoothness" />
                 <reference ref="highway_yesno_incline_oneway_lit_width" />
-                <combo key="mtb:scale" text="MTB Scale" values="0,1,2,3,4,5" />
+                <reference ref="mtb_scale" />
                 <reference ref="road_access_restrictions" />
             </optional>
         </item> <!-- Track -->
@@ -1623,7 +1665,7 @@
                     <list_entry value="demanding_alpine_hiking" display_value="T5 - difficult alpine trail with climbing" short_description="single plainly climbing up to second grade. Exposed, demanding terrain, jagged rocks, few dangerous glacier and snow" />
                     <list_entry value="difficult_alpine_hiking" display_value="T6 - hazardous alpine trail with climbing" short_description="climbing up to second grade. Often very exposed, precarious jagged rocks, glacier with danger to slip and fall" />
                 </combo>
-                <combo key="mtb:scale" text="MTB Scale" values="0,1,2,3,4,5" />
+                <reference ref="mtb_scale" />
                 <combo key="trail_visibility" text="Visibility" values="excellent,good,intermediate,bad,horrible,no" 
                     display_values="Excellent,Good,Intermediate,Bad,Horrible,Not visible" values_context="trail_visibility" values_sort="false" />
                 <reference ref="wheelchair" />
@@ -2262,7 +2304,7 @@
             <reference ref="barrier_4" />
             <optional>
                 <text key="maxwidth" text="Max. width (meters)" length="7" />
-                <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" display_values="Concrete,Metal,Plastic,Stone,Wood" values_context="material" />
+                <reference ref="material" />
             </optional>
         </item> <!-- Bollard -->
         <item name="Cycle Barrier" icon="icons/png/barrier_cycle_barrier.png" type="node" preset_name_label="true">
@@ -3408,7 +3450,7 @@
             <reference ref="name_operator" />
             <reference ref="oh" />
             <optional>
-            	<text key="capacity" text="Number of boats" />
+            	<text key="capacity" text="Number of boats" value_type="integer" />
             	<check key="motorboat_rental" text="Motorboats" disable_off="true" /> 
             	<check key="houseboat_rental" text="Houseboats" disable_off="true" />
             	<check key="pedalboat_rental" text="Pedalos" disable_off="true" />
@@ -3840,7 +3882,7 @@
             <reference ref="name_ref" />
             <reference ref="oh" />
             <optional>
-                <text key="aerialway:capacity" text="Number of people per hour" />
+                <text key="aerialway:capacity" text="Number of people per hour" value_type="integer" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
             </optional>
         </item> <!-- Drag Lift -->
@@ -3855,7 +3897,7 @@
             <reference ref="name_ref" />
             <reference ref="oh" />
             <optional>
-                <text key="aerialway:capacity" text="Number of people per hour" />
+                <text key="aerialway:capacity" text="Number of people per hour" value_type="integer" />
                 <text key="aerialway:duration" text="Typical journey time in minutes" />
             </optional>
         </item> <!-- Magic Carpet -->
@@ -3916,7 +3958,7 @@
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <text key="maxheight" text="Max. height (meters)" />
             <space />
-            <text key="capacity" text="Capacity (overall)" />
+            <text key="capacity" text="Capacity (overall)" value_type="integer" />
             <combo key="capacity:disabled" text="Spaces for Disabled" values="yes,no,1,2,3" />
             <combo key="capacity:women" text="Spaces for Women" values="yes,no,1,2,3" />
             <combo key="capacity:parent" text="Spaces for Parents" values="yes,no,1,2,3" />
@@ -3938,11 +3980,11 @@
             <space />
             <key key="amenity" value="parking_space" />
             <reference ref="parking_name_type_ref" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="maxstay" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" disable_off="true" />
+            <check key="covered" text="Covered (with roof)" />
         </item> <!-- Parking Space -->
         <item name="Parking Entrance" icon="icons/png/transport_parking_entrance_12098.png" type="node" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=parking_entrance"
@@ -3959,7 +4001,7 @@
             <text key="maxheight" text="Max. height (meters)" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" disable_off="true" />
+            <check key="covered" text="Covered (with roof)" />
         </item> <!-- Parking Entrance -->
         <separator/>
         <item name="Fuel" icon="icons/png/transport_fuel.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4039,7 +4081,7 @@
             <space />
             <combo key="voltage" text="Voltage" values="230,400"/>
             <combo key="amperage" text="Amperage" values="16,32" />
-            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" />
+            <combo key="capacity" text="Capacity" values="1,2,3,4,5,6" value_type="integer" />
             <space />
             <label text="Types of vehicles which can be charged:" />
             <checkgroup text="Types of vehicles which can be charged" columns="4">
@@ -4185,7 +4227,7 @@
             <space />
             <key key="amenity" value="car_sharing" />
             <text key="operator" text="Operator" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="level" />
             <reference ref="name_oh_wheelchair" />
             <text key="website" text="Website" />
@@ -4204,10 +4246,10 @@
             <space />
             <key key="amenity" value="motorcycle_parking" />
             <reference ref="parking_name_type_ref" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
             <reference ref="supervised_lit_oh" />
-            <check key="covered" text="Covered (with roof)" disable_off="true" />
+            <check key="covered" text="Covered (with roof)" />
         </item> <!-- Parking -->
         <item name="Motorcycle Dealer" icon="icons/png/shopping_motorcycle.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=motorcycle"
@@ -4256,9 +4298,9 @@
             <key key="amenity" value="bicycle_parking" />
             <combo key="bicycle_parking" text="Type" values="anchors,building,ground_slots,informal,lockers,rack,shed,stands,wall_loops" />
             <reference ref="optional_name" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="parking_access_fee_operator_surface_smoothness" />
-            <check key="covered" text="Covered" disable_off="true" />
+            <check key="covered" text="Covered" />
             <reference ref="supervised_lit_oh" />
         </item> <!-- Parking -->
         <item name="Bike Dealer" icon="icons/png/shopping_bicycle.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4276,13 +4318,15 @@
             <space />
             <key key="shop" value="bicycle" />
             <reference ref="name_oh_wheelchair" />
-            <check key="service:bicycle:retail" text="Bicycles are sold" disable_off="true" />
-            <check key="service:bicycle:second_hand" text="Second-hand bicycles are sold" disable_off="true" />
-            <check key="service:bicycle:repair" text="Bicycles are repaired" disable_off="true" />
-            <check key="service:bicycle:rental" text="Bicycles are rented" disable_off="true" />
-            <check key="service:bicycle:pump" text="Free bicycle pump" disable_off="true" />
-            <check key="service:bicycle:diy" text="Tools for do-it-yourself repair (may be a bike co-operative)" disable_off="true" />
-            <check key="service:bicycle:cleaning" text="Bicycles are washed (for a fee)" disable_off="true" />
+            <checkgroup text="Provided services" columns="1">
+                <check key="service:bicycle:retail" text="Bicycles are sold" />
+                <check key="service:bicycle:second_hand" text="Second-hand bicycles are sold" />
+                <check key="service:bicycle:repair" text="Bicycles are repaired" />
+                <check key="service:bicycle:rental" text="Bicycles are rented" />
+                <check key="service:bicycle:pump" text="Free bicycle pump" />
+                <check key="service:bicycle:diy" text="Tools for do-it-yourself repair (may be a bike co-operative)" />
+                <check key="service:bicycle:cleaning" text="Bicycles are washed (for a fee)"  />
+            </checkgroup>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Bike Dealer -->
         <item name="Rental" icon="icons/png/transport_rental_bicycle.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -4442,7 +4486,7 @@
             <check key="bench" text="Bench" disable_off="true" />
             <check key="shelter" text="Shelter" disable_off="true" />
             <reference ref="bin" />
-            <check key="covered" text="Covered" disable_off="true" />
+            <check key="covered" text="Covered" />
             <reference ref="wheelchair" />
             <reference ref="tactile_paving" />
             <optional>
@@ -4984,7 +5028,7 @@
             <key key="tourism" value="wilderness_hut" />
             <reference ref="name_operator" />
             <reference ref="facility_access" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="fee" />
             <reference ref="toilets" />
             <check key="shower" text="Shower" />
@@ -5012,7 +5056,7 @@
             <text key="beds" text="Beds" />
             <reference ref="wheelchair" />
             <space />
-            <text key="capacity" text="Number of places" />
+            <text key="capacity" text="Number of places" value_type="integer" />
             <reference ref="fee_interval" />
             <combo key="sanitary_dump_station" text="Dump Station" values="yes,public,customers,no" />
             <check key="power_supply" text="Power supply" disable_off="true" />
@@ -5718,6 +5762,18 @@
                   sv.href="http://wiki.openstreetmap.org/wiki/Sv:Tag:leisure=fitness_station" />
 			<space />
 			<key key="leisure" value="fitness_station" />
+            <combo key="fitness_station" text="Fitness station" values_searchable="true" match="key" >
+                <list_entry value="balance_beam" display_value="Balance beam" />
+                <list_entry value="box" display_value="Box" />
+                <list_entry value="horizontal_bar" display_value="Horizontal bar" />
+                <list_entry value="horizontal_ladder" display_value="Horizontal ladder" />
+                <list_entry value="parallel_bars" display_value="Parallel bars" />
+                <list_entry value="push-up" display_value="Push-up" />
+                <list_entry value="rings" display_value="Rings" />
+                <list_entry value="sign" display_value="Sign" />
+                <list_entry value="sit-up" display_value="Sit-up" />
+                <list_entry value="stairs" display_value="Stairs" />
+            </combo>
 			<reference ref="name_operator_oh_wheelchair" />
 			<text key="ref" text="Reference" />
 			<text key="description" text="Description" />
@@ -5829,10 +5885,140 @@
             <reference ref="facility_access" />
             <optional>
             	<reference ref="min_max_age" />
+                <check text="Baby" key="baby"/>
             	<reference ref="surface" />
             	<reference ref="name_operator_oh_wheelchair" />
-            </optional>
-        </item> <!-- Playground -->
+                <checkgroup text="Equipment" columns="3">
+                    <check text="Activity panel" key="playground:activitypanel" disable_off="true"/>
+                    <check text="Aerial rotator" key="playground:aerialrotator" disable_off="true"/>
+                    <check text="Balance beam" key="playground:balancebeam" disable_off="true"/>
+                    <check text="Basketball backboard" key="playground:basketball_backboard" disable_off="true"/>
+                    <check text="Basket rotator" key="playground:basketrotator" disable_off="true"/>
+                    <check text="Basket swing" key="playground:basketswing" disable_off="true"/>
+                    <check text="Chain ladder" key="playground:chain_ladder" disable_off="true"/>
+                    <check text="Chess table" key="playground:chess_table" disable_off="true"/>
+                    <check text="Climbing frame" key="playground:climbingframe" disable_off="true"/>
+                    <check text="Climbing wall" key="playground:climbingwall" disable_off="true"/>
+                    <check text="Cushion" key="playground:cushion" disable_off="true"/>
+                    <check text="Exercise" key="playground:exercise" disable_off="true"/>
+                    <check text="Hopscotch" key="playground:hopscotch" disable_off="true"/>
+                    <check text="Horizontal bar" key="playground:horizontal_bar" disable_off="true"/>
+                    <check text="Multi play" key="playground:multi_play" disable_off="true"/>
+                    <check text="Playhouse" key="playground:playhouse" disable_off="true"/>
+                    <check text="Soundabout" key="playground:roundabout" disable_off="true"/>
+                    <check text="Sandpit" key="playground:sandpit" disable_off="true"/>
+                    <check text="Seesaw" key="playground:seesaw" disable_off="true"/>
+                    <check text="Skate equipment" key="playground:skate_equipment" disable_off="true"/>
+                    <check text="Sledding" key="playground:sledding" disable_off="true"/>
+                    <check text="Slide" key="playground:slide" disable_off="true"/>
+                    <check text="Gyro twister spinner" key="playground:spinner" disable_off="true"/>
+                    <check text="Splash pad" key="playground:splash_pad" disable_off="true"/>
+                    <check text="Springy" key="playground:springy" disable_off="true"/>
+                    <check text="Stepping stones/pads" key="playground:stepping_stones" disable_off="true"/>
+                    <check text="Structure (playset)" key="playground:structure" disable_off="true"/>
+                    <check text="Swing" key="playground:swing" disable_off="true"/>
+                    <check text="Teen shelter" key="playground:teenshelter" disable_off="true"/>
+                    <check text="Trampoline" key="playground:trampoline" disable_off="true"/>
+                    <check text="Tree house" key="playground:tree_house" disable_off="true"/>
+                    <check text="Tunnel tube" key="playground:tunnel_tube" disable_off="true"/>
+                    <check text="Water" key="playground:water" disable_off="true"/>
+                    <check text="Zigzag twister" key="playground:zigzagtwister" disable_off="true"/>
+                    <check text="Zip wire" key="playground:zipwire" disable_off="true"/>
+            </checkgroup>
+        </optional>
+    </item> <!-- Playground -->
+    <group name="Playground equipment" icon="icons/png/amenity_slide_30043.png">
+        <item name="Playground equipment" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=playground"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=playground"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=playground"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=playground"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:leisure=playground"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=playground"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=playground"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=playground"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=playground"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=playground" />
+            <space />
+            <combo text="Equipment" key="playground" match="key">
+                <list_entry value="activitypanel" display_value="Activity panel"/>
+                <list_entry value="aerialrotator" display_value="Aerial rotator"/>
+                <list_entry value="balancebeam" display_value="Balance beam" />
+                <list_entry value="basketball_backboard" display_value="Basketball backboard" />
+                <list_entry value="basketrotator" display_value="Basket rotator"/>
+                <list_entry value="basketswing" display_value="Basket swing" />
+                <list_entry value="chain_ladder" display_value="Chain ladder" />
+                <list_entry value="chess_table" display_value="Chess table" />
+                <list_entry value="climbingframe" display_value="Climbing frame" />
+                <list_entry value="climbingwall" display_value="Climbing wall" />
+                <list_entry value="cushion" display_value="Cushion" />
+                <list_entry value="exercise" display_value="Exercise"/>
+                <list_entry value="hopscotch" display_value="Hopscotch" />
+                <list_entry value="horizontal_bar" display_value="Horizontal bar"/>
+                <list_entry value="multi_play" display_value="Multi play" />
+                <list_entry value="playhouse" display_value="Playhouse" />
+                <list_entry value="roundabout" display_value="Roundabout" />
+                <list_entry value="sandpit" display_value="Sandpit" />
+                <list_entry value="seesaw" display_value="Seesaw" />
+                <list_entry value="skate_equipment" display_value="Skate equipment" />
+                <list_entry value="sledding" display_value="Sledding"/>
+                <list_entry value="slide" display_value="Slide" />
+                <list_entry value="spinner" display_value="Gyro twister spinner"/>
+                <list_entry value="splash_pad" display_value="Splash pad"/>
+                <list_entry value="springy" display_value="Springy" />
+                <list_entry value="stepping_stones" display_value="Stepping stones/pads"/>
+                <list_entry value="structure" display_value="Structure (playset)" />
+                <list_entry value="swing" display_value="Swing" />
+                <list_entry value="teenshelter" display_value="Teen shelter" />
+                <list_entry value="trampoline" display_value="Trampoline" />
+                <list_entry value="tree_house" display_value="Tree house"/>
+                <list_entry value="tunnel_tube" display_value="Tunnel tube"/>
+                <list_entry value="water" display_value="Water" />
+                <list_entry value="zigzagtwister" display_value="Zigzag twister"/>
+                <list_entry value="zipwire" display_value="Zip wire" />
+            </combo>
+            <reference ref="playground_theme" />
+            <reference ref="material" />
+            <reference ref="min_max_age" />
+            <check text="Baby" key="baby"/>
+        </item>
+        <item name="Slide" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=playground"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=playground"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=playground"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=playground"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:leisure=playground"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=playground"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=playground"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=playground"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=playground"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=playground" />
+            <space />
+            <key key="playground" value="slide" />
+            <reference ref="playground_theme" />
+            <reference ref="material" />
+            <reference ref="min_max_age" />
+            <check text="Baby" key="baby"/>
+        </item>
+        <item name="Swing" icon="icons/png/amenity_empty.png" type="node,way,closedway,multipolygon">
+            <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=playground"
+                  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=playground"
+                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=playground"
+                  es.href="http://wiki.openstreetmap.org/wiki/ES:Tag:leisure=playground"
+                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Tag:leisure=playground"
+                  it.href="http://wiki.openstreetmap.org/wiki/IT:Tag:leisure=playground"
+                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:leisure=playground"
+                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=playground"
+                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=playground"
+                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=playground" />
+            <space />
+            <key key="playground" value="swing" />
+            <reference ref="playground_theme" />
+            <reference ref="material" />
+            <reference ref="min_max_age" />
+            <check text="Baby" key="baby"/>
+        </item>
+    </group>
         <item name="Picnic Site" icon="icons/png/tourist_picnic.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:tourism=picnic_site"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:tourism=picnic_site"
@@ -5858,7 +6044,7 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Tag:leisure=picnic_table" />
             <space />
             <key key="leisure" value="picnic_table" />
-            <check key="covered" text="Covered" disable_off="true" />
+            <check key="covered" text="Covered" />
         </item> <!-- Picnic Table -->
         <item name="Public Grill" icon="icons/png/tourist_bbq_12006.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:amenity=bbq"
@@ -5875,7 +6061,7 @@
             <key key="amenity" value="bbq" />
             <reference ref="optional_name" />
             <combo key="fuel" text="Fuel" text_context="grill" values="charcoal,electric,wood" values_context="fuel" />
-            <check key="covered" text="Covered" disable_off="true" />
+            <check key="covered" text="Covered" />
         </item> <!-- Public Grill -->
         <item name="Firepit" icon="icons/png/tourist_firepit_21134.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=firepit"
@@ -6178,7 +6364,7 @@
             <optional>
             	<text key="name" text="Name" />
             	<text key="operator" text="Operator" />
-            	<text key="capacity" text="Capacity" />
+            	<text key="capacity" text="Capacity" value_type="integer" />
             	<reference ref="oh" />
             	<combo key="public_bookcase:type" text="Type" 
             		values="building,glass_cabinet,metal_cabinet,movable_cabinet,phone_box,reading_box,sculpture,shelf,shelter,wooden_cabinet" 
@@ -6569,7 +6755,8 @@
             <link href="http://wiki.openstreetmap.org/wiki/Proposed_features/childcare2.0" />
             <space />
             <key key="amenity" value="childcare" />
-            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="name_operator_wheelchair_level" />
+            <reference ref="optional_oh" />
             <reference ref="education_operator_type" />
             <optional>
             	<reference ref="religious" />
@@ -6580,8 +6767,8 @@
             <check key="kindergarten" text="Kindergarten" disable_off="true" />
             <check key="after_school" text="After school care" disable_off="true" />
             <space />
-            <text key="childcare:capacity" text="Childcare capacity" />
-            <text key="after_school:capacity" text="After school capacity" />
+            <text key="childcare:capacity" text="Childcare capacity" value_type="integer" />
+            <text key="after_school:capacity" text="After school capacity" value_type="integer" />
             <space />
             <reference ref="link_contact_address" />
         </item> <!-- Childcare -->
@@ -6599,7 +6786,8 @@
 			<space />
 			<key key="amenity" value="kindergarten" />
 			<reference ref="isced_level" />
-			<reference ref="name_operator_oh_wheelchair_level" />
+			<reference ref="name_operator_wheelchair_level" />
+            <reference ref="optional_oh" />
 			<reference ref="min_max_age" />
 			<reference ref="education_operator_type" />
 			<optional>
@@ -6624,7 +6812,8 @@
             <space />
             <key key="amenity" value="school" />
             <reference ref="isced_level" />
-            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="name_operator_wheelchair" />
+            <reference ref="optional_oh" />
             <reference ref="min_age" />
             <reference ref="education_operator_type" />
             <optional>
@@ -6648,7 +6837,8 @@
             <space />
             <key key="amenity" value="university" />
             <reference ref="isced_level" />
-            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="name_operator_wheelchair" />
+            <reference ref="optional_oh" />
             <reference ref="education_operator_type" />
             <optional>
             	<reference ref="religious" />
@@ -6668,7 +6858,8 @@
             <space />
             <key key="amenity" value="college" />
             <reference ref="isced_level" />
-            <reference ref="name_operator_oh_wheelchair" />
+            <reference ref="name_operator_wheelchair" />
+            <reference ref="optional_oh" />
             <reference ref="education_operator_type" />
             <optional>
             	<reference ref="religious" />
@@ -6687,7 +6878,8 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=driving_school" />
             <space />
             <key key="amenity" value="driving_school" />
-            <reference ref="name_operator_oh_wheelchair_level" />
+            <reference ref="name_operator_wheelchair_level" />
+            <reference ref="optional_oh" />
             <combo key="license_classes" text="License Classes" values="A;A1;B;BE;C,A;A1;B;B1;C;C1;D;D1;BE;CE;C1E;DE;D1E" />
             <reference ref="link_contact_address" />
         </item> <!-- Driving School -->
@@ -7074,7 +7266,7 @@
             <key key="social_facility" value="assisted_living" />
             <reference ref="social_facility_for" />
             <reference ref="name_operator_level" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Retirement Home -->
         <item name="Social Centre" icon="icons/png/amenity_social_centre_12352.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7120,7 +7312,7 @@
             <key key="social_facility" value="group_home" />
             <key key="social_facility:for" value="senior" />
             <reference ref="name_operator_level" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Retirement Home -->
         <item name="Nursing Home" icon="icons/png/amenity_nursing_home_12093.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7137,7 +7329,7 @@
             <key key="social_facility" value="nursing_home" />
             <reference ref="social_facility_for" />
             <reference ref="name_operator_level" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Nursing Home -->
         <item name="Nursing Home (deprecated)" icon="icons/png/amenity_nursing_home_12093.png" type="node,closedway,multipolygon" deprecated="true" preset_name_label="true">
@@ -7166,7 +7358,7 @@
             <key key="social_facility" value="group_home" />
             <reference ref="social_facility_for" />
             <reference ref="name_operator_level" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Group Home -->
         <item name="Outreach" icon="icons/png/amenity_outreach_12252.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7198,7 +7390,7 @@
             <key key="amenity" value="social_facility" />
             <key key="social_facility" value="shelter" />
             <reference ref="name_operator_oh_wheelchair_level_toilets" />
-            <text key="capacity" text="Capacity" />
+            <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Shelter -->
         <item name="Social Club" icon="icons/png/amenity_social_club_21172.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7562,7 +7754,7 @@
             <space />
             <key key="amenity" value="bench" />
             <check key="backrest" text="Backrest" disable_off="true" />
-            <combo key="material" text="Material" values="concrete,metal,plastic,stone,wood" values_context="material" />
+            <reference ref="material" />
             <combo key="colour" text="Color (HTML name or hexadecimal code)" values_context="colour" values="black,brown,green,red,blue,gray,white,#CD853F" match="none" editable="true" />
             <combo key="seats" text="Seats count" values="2,3,4,5,6,7,8,9,10" />
         </item> <!-- Bench -->
@@ -7854,7 +8046,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=track" />
             <space />
             <key key="leisure" value="track" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <combo key="sport" text="Sport" values="athletics,cycling,dog_racing,equestrian,horse_racing,running,skating,roller_skating,ice_skating"
             	display_values="Athletics,Cycling,Dog racing,Equestrian,Horse racing,Running,Skating,Roller skating,Ice skating" 
             	values_context="sport" />
@@ -8165,7 +8357,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:sport=skating" />
             <space />
             <key key="sport" value="skating" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" display_values="Ice rink,Pitch,Sports centre,Stadium" default="ice_rink" />
         </item> <!-- Skating -->
         <item name="Ice Skating" icon="icons/png/sport_iceskating.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8173,7 +8365,7 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:sport=ice_skating" />
             <space />
             <key key="sport" value="ice_skating" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <combo key="leisure" text="Type" values="ice_rink,pitch,sports_centre,stadium" display_values="Ice rink,Pitch,Sports centre,Stadium" default="ice_rink" />
             <reference ref="oh" />
             <reference ref="link_contact_address_payment" />
@@ -8331,7 +8523,7 @@
             <link href="http://wiki.openstreetmap.org/wiki/Tag:sport=handball" />
             <space />
             <key key="sport" value="handball" />
-            <reference ref="name_operator" />
+            <reference ref="optional_name_operator" />
             <reference ref="sport_facility" />
         </item> <!-- Handball -->
         <item name="Volleyball" icon="icons/png/sport_volleyball_21073.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8339,7 +8531,7 @@
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:sport=volleyball" />
             <space />
             <key key="sport" value="volleyball" />
-            <reference ref="name_operator" />
+            <reference ref="optional_name_operator" />
             <reference ref="sport_facility" />
         </item> <!-- Volleyball -->
         <item name="Beach Volleyball" icon="icons/png/sport_beachvolleyball_21150.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8347,7 +8539,7 @@
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:sport=beachvolleyball" />
             <space />
             <key key="sport" value="beachvolleyball" />
-            <reference ref="name_operator" />
+            <reference ref="optional_name_operator" />
             <reference ref="sport_facility" />
         </item> <!-- Beach Volleyball -->
         <item name="Billiards" icon="icons/png/sport_billiards_sp.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -8356,7 +8548,7 @@
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:sport=billiards" />
             <space />
             <key key="sport" value="billiards" />
-            <reference ref="name_operator" />
+            <reference ref="optional_name_operator" />
             <reference ref="sport_facility" />
         </item> <!-- Billiards -->
         <item name="Golf" icon="icons/png/sport_golf.png" type="node,closedway,multipolygon" preset_name_label="true">
