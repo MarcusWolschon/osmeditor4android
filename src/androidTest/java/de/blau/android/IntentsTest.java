@@ -45,6 +45,9 @@ public class IntentsTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -77,6 +80,9 @@ public class IntentsTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
@@ -90,6 +96,9 @@ public class IntentsTest {
         }
     }
 
+    /**
+     * Test that geo intents work
+     */
     @Test
     public void geo() {
         mockServer.enqueue("capabilities1");

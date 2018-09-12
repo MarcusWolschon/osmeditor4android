@@ -41,7 +41,10 @@ public class ValidatorTest {
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
-
+ 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
@@ -49,6 +52,9 @@ public class ValidatorTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Test base validation stuff, age, missing tags, road names
+     */
     @Test
     public void baseValidator() {
 
@@ -132,6 +138,9 @@ public class ValidatorTest {
         // ValidatorRulesDatabase.updateResurvey(db, id, key, value, days);
     }
     
+    /**
+     * Localized validation test
+     */
     @Test
     public void baseValidatorUk() {
         // read in test data

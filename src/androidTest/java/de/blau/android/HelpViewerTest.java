@@ -35,6 +35,9 @@ public class HelpViewerTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -50,11 +53,17 @@ public class HelpViewerTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
     }
 
+    /**
+     * Start up the Helpviewer, should do at least some UI tests
+     */
     @Test
     public void startHelp() {
         HelpViewer.start(main, R.string.help_main);
