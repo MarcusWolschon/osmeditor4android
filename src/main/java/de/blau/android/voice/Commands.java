@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -44,7 +45,10 @@ import de.blau.android.util.Util;
  */
 public class Commands {
     private static final String DEBUG_TAG = Commands.class.getSimpleName();
-    private Main                main;
+
+    public static final String SOURCE_ORIGINAL_TEXT = "source:original_text";
+
+    private Main main;
 
     public Commands(Main main) {
         this.main = main;
@@ -146,7 +150,7 @@ public class Commands {
                     if (name != null) {
                         tags.put(Tags.KEY_NAME, name);
                     }
-                    tags.put("source:original_text", original);
+                    tags.put(SOURCE_ORIGINAL_TEXT, original);
                     logic.setTags(main, node, tags);
                     return true;
                 } catch (OsmIllegalOperationException e) {
@@ -161,9 +165,12 @@ public class Commands {
     /**
      * Create a new node at the current or at a provided GPS pos
      * 
-     * @return
+     * @param loc where to put the node, currently only "here"
+     * @param location the current location
+     * @return the Node or null
      */
-    private Node createNode(String loc, Location location) {
+    @Nullable
+    private Node createNode(String loc, @Nullable Location location) {
         if (location == null) {
             location = getLocation();
         }

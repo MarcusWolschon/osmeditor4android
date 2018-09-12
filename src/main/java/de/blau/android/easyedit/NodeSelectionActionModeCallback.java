@@ -37,7 +37,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
     private OsmElement joinableElement = null;
 
     /**
-     * Construct a call back for Node selection
+     * Construct a callback for Node selection
      * 
      * @param manager the EasyEditManager instance
      * @param node the selected Node

@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -45,6 +47,7 @@ import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.voice.Commands;
 
 public class LongClickActionModeCallback extends EasyEditActionModeCallback implements android.view.MenuItem.OnMenuItemClickListener {
     private static final String DEBUG_TAG                = "LongClickActionMode...";
@@ -67,6 +70,13 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
     private List<OsmElement>    clickedNodes;
     private List<Way>           clickedNonClosedWays;
 
+    /**
+     * Construct a callback for when a long click has occurred
+     * 
+     * @param manager the EasyEditManager instance
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     */
     public LongClickActionModeCallback(EasyEditManager manager, float x, float y) {
         super(manager);
         this.x = x;
@@ -348,7 +358,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         if (node != null) {
                             TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                             tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
-                            tags.put("source:original_text", v);
+                            tags.put(Commands.SOURCE_ORIGINAL_TEXT, v);
                             Map<String, ArrayList<String>> map = Address.predictAddressTags(main, Node.NAME, node.getOsmId(),
                                     new ElementSearch(new int[] { node.getLon(), node.getLat() }, true), Util.getArrayListMap(tags), Address.NO_HYSTERESIS);
                             tags = new TreeMap<>();
@@ -404,7 +414,18 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         }
     }
 
-    Node addNode(Node node, String name, PresetItem pi, Logic logic, String original) {
+    /**
+     * Add a Node using a PresetItem and select it
+     * 
+     * @param node an existing Node
+     * @param name a name or null
+     * @param pi the PresetITem
+     * @param logic the current instance of Logic
+     * @param original the source string used to create the Node
+     * @return the Node or null
+     */
+    @Nullable
+    Node addNode(@NonNull Node node, @Nullable String name, @NonNull PresetItem pi, @NonNull Logic logic, @NonNull String original) {
         if (node != null) {
             try {
                 Snack.barInfo(main, pi.getName() + (name != null ? " name: " + name : ""));
@@ -416,10 +437,8 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                 if (name != null) {
                     tags.put(Tags.KEY_NAME, name);
                 }
-                tags.put("source:original_text", original);
-
+                tags.put(Commands.SOURCE_ORIGINAL_TEXT, original);
                 logic.setTags(main, node, tags);
-
                 logic.setSelectedNode(node);
                 return node;
             } catch (OsmIllegalOperationException e) {
