@@ -700,12 +700,14 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         File[] files = dir.listFiles();
         if (files != null) {
             for (File f : files) {
-                if (!f.delete())
+                if (!f.delete()) {
                     Log.e(LOGTAG, "Could not delete " + f.getAbsolutePath());
+                }
             }
         }
-        if (!dir.delete())
+        if (!dir.delete()) {
             Log.e(LOGTAG, "Could not delete " + dir.getAbsolutePath());
+        }
     }
 
     public enum GeocoderType {

@@ -772,8 +772,9 @@ public class Logic {
             boolean added = false;
             List<Node> wayNodes = way.getNodes();
 
-            if (clickableElements != null && !clickableElements.contains(way))
+            if (clickableElements != null && !clickableElements.contains(way)) {
                 continue;
+            }
 
             double A = 0;
             double Y = 0;
@@ -858,8 +859,9 @@ public class Logic {
         for (Way way : getDelegator().getCurrentStorage().getWays()) {
             List<Node> wayNodes = way.getNodes();
 
-            if (clickableElements != null && !clickableElements.contains(way))
+            if (clickableElements != null && !clickableElements.contains(way)) {
                 continue;
+            }
 
             // Iterate over all WayNodes, but not the last one.
             for (int k = 0, wayNodesSize = wayNodes.size(); k < wayNodesSize - 1; ++k) {
@@ -877,11 +879,13 @@ public class Logic {
                 float differenceX = Math.abs(handleX - x);
                 float differenceY = Math.abs(handleY - y);
 
-                if ((differenceX > DataStyle.getCurrent().getWayToleranceValue()) && (differenceY > DataStyle.getCurrent().getWayToleranceValue()))
+                if ((differenceX > DataStyle.getCurrent().getWayToleranceValue()) && (differenceY > DataStyle.getCurrent().getWayToleranceValue())) {
                     continue;
-                if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().getMinLenForHandle())
+                }
+                if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().getMinLenForHandle()) {
                     continue;
-
+                }
+                
                 double dist = Math.hypot(differenceX, differenceY);
                 // TODO better choice for tolerance
                 if ((dist <= DataStyle.getCurrent().getWayToleranceValue()) && (dist < bestDistance)) {
@@ -920,8 +924,9 @@ public class Logic {
         float differenceX = Math.abs(lonE7ToX(node.getLon()) - x);
         float differenceY = Math.abs(latE7ToY(node.getLat()) - y);
 
-        if ((differenceX > tolerance) && (differenceY > tolerance))
+        if ((differenceX > tolerance) && (differenceY > tolerance)) {
             return null;
+        }
 
         double dist = Math.hypot(differenceX, differenceY);
         return (dist > tolerance) ? null : dist;
@@ -982,8 +987,9 @@ public class Logic {
         List<OsmElement> allNodes = getClickedNodes(x, y);
 
         for (OsmElement osmElement : allNodes) {
-            if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement))
+            if (getDelegator().getCurrentStorage().isEndNode((Node) osmElement)) {
                 result.add(osmElement);
+            }
         }
 
         return result;
@@ -1063,8 +1069,9 @@ public class Logic {
         Set<OsmElement> result = new HashSet<>();
         result.addAll(getDelegator().getCurrentStorage().getNodes());
         result.addAll(getDelegator().getCurrentStorage().getWays());
-        for (OsmElement e : excludes)
+        for (OsmElement e : excludes) {
             result.remove(e);
+        }
         return result;
     }
 
@@ -1122,10 +1129,10 @@ public class Logic {
     /**
      * Check if node is in the downloaded data
      * 
-     * @param node
+     * @param n the Node we are looking for
      * @return true if the above is the case
      */
-    private boolean isInDownload(Node n) {
+    private boolean isInDownload(@NonNull Node n) {
         return getDelegator().isInDownload(n.getLon(), n.getLat());
     }
 
@@ -1135,6 +1142,7 @@ public class Logic {
      * A eventual movement of this node will be done in
      * {@link #handleTouchEventMove(float, float, float, float, boolean)}.
      * 
+     * @param activity the calling Activity
      * @param x display-coord.
      * @param y display-coord.
      */
@@ -1357,10 +1365,11 @@ public class Logic {
             startX = absoluteX;
             main.getEasyEditManager().invalidate(); // if we are in an action mode update menubar
         } else {
-            if (mode == Mode.MODE_ALIGN_BACKGROUND)
+            if (mode == Mode.MODE_ALIGN_BACKGROUND) {
                 performBackgroundOffset(relativeX, relativeY);
-            else
+            } else {
                 performTranslation(map, relativeX, relativeY);
+            }
         }
         invalidateMap();
     }
@@ -1375,7 +1384,7 @@ public class Logic {
     /**
      * Determine if we should show warnings when filtered attached objects are being changed
      * 
-     * @param show
+     * @param show if true show warnings
      */
     public void setAttachedObjectWarning(boolean show) {
         attachedObjectWarning = show;
@@ -1517,10 +1526,10 @@ public class Logic {
     /**
      * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
      * 
-     * @activity activity this was called from, if null no warnings will be displayed
-     * @param lonD
-     * @param latD
-     * @return the create node
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param lonD WGS84 longitude
+     * @param latD WGS84 latitude
+     * @return the created node
      */
     public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
         // A complete new Node...
@@ -1791,8 +1800,9 @@ public class Logic {
      * @param way way to square
      */
     public void performOrthogonalize(@Nullable FragmentActivity activity, Way way) {
-        if (way != null && way.getNodes().size() < 3)
+        if (way != null && way.getNodes().size() < 3) {
             return;
+        }
         ArrayList<Way> ways = new ArrayList<>(1);
         ways.add(way);
         performOrthogonalize(activity, ways);
@@ -4076,18 +4086,24 @@ public class Logic {
     }
 
     /**
+     * Get the screen X coordinate
+     * 
+     * @param node the Node
      * @return the X coordinate (in pixels) of the given node's position on the screen (note that the returned position
      *         may be outside of the screens bounds).
      */
-    public float getNodeScreenX(Node node) {
+    public float getNodeScreenX(@NonNull Node node) {
         return lonE7ToX(node.getLon());
     }
 
     /**
+     * Get the screen Y coordinate
+     * 
+     * @param node the Node
      * @return the Y coordinate (in pixels) of the given node's position on the screen (note that the returned position
      *         may be outside of the screens bounds).
      */
-    public float getNodeScreenY(Node node) {
+    public float getNodeScreenY(@NonNull Node node) {
         return latE7ToY(node.getLat());
     }
 
@@ -4096,12 +4112,15 @@ public class Logic {
         private Comparator<Entry<T, Double>> comparator = new Comparator<Entry<T, Double>>() {
             @Override
             public int compare(Entry<T, Double> lhs, Entry<T, Double> rhs) {
-                if (lhs == rhs)
+                if (lhs == rhs) {
                     return 0;
-                if (lhs.getValue() > rhs.getValue())
+                }
+                if (lhs.getValue() > rhs.getValue()) {
                     return 1;
-                if (lhs.getValue() < rhs.getValue())
+                }
+                if (lhs.getValue() < rhs.getValue()) {
                     return -1;
+                }
                 return 0;
             }
         };
@@ -4109,6 +4128,7 @@ public class Logic {
         /**
          * Takes an element-distance map and returns the elements ordered by distance
          *
+         * @param input Map with the element and distance
          * @return a sorted List of the input
          */
         public ArrayList<OUTTYPE> sort(HashMap<T, Double> input) {
@@ -4116,8 +4136,9 @@ public class Logic {
             Collections.sort(entries, comparator);
 
             ArrayList<OUTTYPE> result = new ArrayList<>(entries.size());
-            for (Entry<T, Double> entry : entries)
+            for (Entry<T, Double> entry : entries) {
                 result.add(entry.getKey());
+            }
             return result;
         }
     }
@@ -4163,10 +4184,11 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation relation = getDelegator().createAndInsertRelation(members);
         SortedMap<String, String> tags = new TreeMap<>();
-        if (type != null)
-            tags.put("type", type);
-        else
-            tags.put("type", "");
+        if (type != null) {
+            tags.put(Tags.KEY_TYPE, type);
+        } else {
+            tags.put(Tags.KEY_TYPE, "");
+        }
         getDelegator().setTags(relation, tags);
         return relation;
     }
@@ -4339,6 +4361,9 @@ public class Logic {
 
     /**
      * Displays a crosshair marker on the screen at the coordinates given (in pixels).
+     * 
+     * @param x screen x coordinate
+     * @param y screen y coordinate
      */
     public void showCrosshairs(float x, float y) {
         map.showCrosshairs(x, y);
@@ -4572,8 +4597,9 @@ public class Logic {
      * @param way way to circulize
      */
     public void performCirculize(@Nullable FragmentActivity activity, Way way) {
-        if (way.getNodes().size() < 3)
+        if (way.getNodes().size() < 3) {
             return;
+        }
         createCheckpoint(activity, R.string.undo_action_circulize);
         int[] center = centroid(map.getWidth(), map.getHeight(), viewBox, way);
         if (center != null) {
@@ -4722,8 +4748,9 @@ public class Logic {
     /**
      * Display a warning if an operation on the element e would effect a filtered/hidden object
      * 
+     * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param e
+     * @param e the OsmELement
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e) {
         ArrayList<T> a = new ArrayList<>();
@@ -4734,9 +4761,10 @@ public class Logic {
     /**
      * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
      * 
+     * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param e1
-     * @param e2
+     * @param e1 first OsmElement
+     * @param e2 2nd OsmELement
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2) {
         ArrayList<T> a = new ArrayList<>();
@@ -4748,9 +4776,10 @@ public class Logic {
     /**
      * Display a warning if an operation on the element e1 or e2 would effect a filtered/hidden object
      * 
+     * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param e1
-     * @param e2
+     * @param e1 first OsmElement
+     * @param e2 2nd OsmELement
      * @param checkRelationsOnly
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2, boolean checkRelationsOnly) {
@@ -4763,8 +4792,9 @@ public class Logic {
     /**
      * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
      * 
+     * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param list
+     * @param list List of OsmElements
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list) {
         displayAttachedObjectWarning(activity, list, false);
@@ -4773,8 +4803,9 @@ public class Logic {
     /**
      * Display a warning if an operation on the elements included in list would effect a filtered/hidden object
      * 
+     * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param list
+     * @param list List of OsmElements
      * @param checkRelationsOnly
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {

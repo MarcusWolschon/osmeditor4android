@@ -449,8 +449,9 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * again.
      */
     public void close() {
-        if (!isOpen)
+        if (!isOpen) {
             return;
+        }
         Log.d(DEBUG_TAG, "Trying to close track");
         loadingLock.lock();
         try {
@@ -859,8 +860,9 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
 
         private byte encodeFlags(boolean isNewSegment) {
             byte result = 0;
-            if (isNewSegment)
+            if (isNewSegment) {
                 result += FLAG_NEWSEGMENT;
+            }
             return result;
         }
 

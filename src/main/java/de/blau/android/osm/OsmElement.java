@@ -270,8 +270,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
             }
             StringBuilder b = new StringBuilder();
             for (String v : values) {
-                if (b.length() > 0)
+                if (b.length() > 0) {
                     b.append(';');
+                }
                 b.append(v);
             }
             merged.put(key, b.toString());
@@ -337,8 +338,9 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
             return false;
         }
         for (Relation r : parentRelations) {
-            if (osmId == r.getOsmId())
+            if (osmId == r.getOsmId()) {
                 return true;
+            }
         }
         return false;
     }

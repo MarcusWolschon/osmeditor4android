@@ -144,8 +144,9 @@ public class RTree implements Serializable {
         private static final long serialVersionUID = 1L;
 
         public void split(Node n) {
-            if (n.size() <= maxSize)
+            if (n.size() <= maxSize) {
                 return;
+            }
             boolean isleaf = n.isLeaf();
 
             // Choose seeds. Would write a function for this, but it requires returning 2 objects
@@ -175,9 +176,9 @@ public class RTree implements Serializable {
             for (int i = 0; i < list.length; i++) {
                 for (int j = 0; j < list.length; j++) {
                     // Log.d(DEBUG_TAG," i " + i + " j " + j);
-                    if (i == j)
+                    if (i == j) {
                         continue;
-
+                    }
                     BoundingBox box1 = cachedBox.get(i), box2 = cachedBox.get(j);
 
                     box.set(box1);
@@ -217,11 +218,11 @@ public class RTree implements Serializable {
             group1.box = new BoundingBox(seed1Box);
             Node group2 = new Node(isleaf);
             group2.box = new BoundingBox(seed2Box);
-            if (isleaf)
+            if (isleaf) {
                 distributeLeaves(n, cachedBox, group1, group2);
-            else
+            } else {
                 distributeBranches(n, group1, group2);
-
+            }
             Node parent = n.parent;
             if (parent == null) {
                 parent = new Node(false);
@@ -277,16 +278,17 @@ public class RTree implements Serializable {
                     // Or the one with the lowest area
                     double area1 = area(g1.box);
                     double area2 = area(g2.box);
-                    if (area1 > area2)
+                    if (area1 > area2) {
                         parent = g2;
-                    else if (area2 > area1)
+                    } else if (area2 > area1) {
                         parent = g1;
-                    else {
+                    } else {
                         // Or the one with the least items
-                        if (g1.children.size() < g2.children.size())
+                        if (g1.children.size() < g2.children.size()) {
                             parent = g1;
-                        else
+                        } else {
                             parent = g2;
+                        }
                     }
                 }
                 // assert(parent != null);
@@ -296,11 +298,11 @@ public class RTree implements Serializable {
 
             if (!n.children.isEmpty()) {
                 Node parent = null;
-                if (g1.children.size() == maxSize - minSize + 1)
+                if (g1.children.size() == maxSize - minSize + 1) {
                     parent = g2;
-                else
+                } else {
                     parent = g1;
-
+                }
                 for (int i = 0; i < n.children.size(); i++) {
                     parent.children.add(n.children.get(i));
                     n.children.get(i).parent = parent;
@@ -386,8 +388,9 @@ public class RTree implements Serializable {
      * @param maxChildren Maximum children in a node. Node splits at this number + 1
      */
     public RTree(int minChildren, int maxChildren) {
-        if (minChildren < 2 || minChildren > maxChildren / 2)
+        if (minChildren < 2 || minChildren > maxChildren / 2) {
             throw new IllegalArgumentException("2 <= minChildren <= maxChildren/2");
+        }
         splitter = new QuadraticNodeSplitter();
 
         this.minSize = minChildren;
@@ -472,8 +475,9 @@ public class RTree implements Serializable {
      * @return a BoundedObject or null ir none found
      */
     private BoundedObject queryOne(BoundingBox box, Node node) {
-        if (node == null)
+        if (node == null) {
             return null;
+        }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
                 BoundingBox box2 = node.data.get(i).getBounds();
@@ -492,8 +496,9 @@ public class RTree implements Serializable {
             for (int i = 0; i < node.children.size(); i++) {
                 if (BoundingBox.intersects(node.children.get(i).box, box)) {
                     BoundedObject result = queryOne(box, node.children.get(i));
-                    if (result != null)
+                    if (result != null) {
                         return result;
+                    }
                 }
             }
             return null;
@@ -512,8 +517,9 @@ public class RTree implements Serializable {
     }
 
     private void query(Collection<? super BoundedObject> results, int px, int py, Node node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
                 BoundingBox b = node.data.get(i).getBounds();
@@ -544,8 +550,9 @@ public class RTree implements Serializable {
     }
 
     private BoundedObject queryOne(int px, int py, Node node) {
-        if (node == null)
+        if (node == null) {
             return null;
+        }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
                 if (node.data.get(i).getBounds().contains(px, py)) {
@@ -557,8 +564,9 @@ public class RTree implements Serializable {
             for (int i = 0; i < node.children.size(); i++) {
                 if (node.children.get(i).box.contains(px, py)) {
                     BoundedObject result = queryOne(px, py, node.children.get(i));
-                    if (result != null)
+                    if (result != null) {
                         return result;
+                    }
                 }
             }
             return null;
@@ -605,9 +613,9 @@ public class RTree implements Serializable {
         if (o == null) {
             throw new NullPointerException("Cannot store null object");
         }
-        if (root == null)
+        if (root == null) {
             root = new Node(true);
-
+        }
         Node n = chooseLeaf(o.getBounds(), root);
         // assert(n.isLeaf());
         if (n == null) {
@@ -622,8 +630,9 @@ public class RTree implements Serializable {
      * Counts the number of items in the tree.
      */
     public int count() {
-        if (root == null)
+        if (root == null) {
             return 0;
+        }
         return count(root);
     }
 
@@ -633,8 +642,9 @@ public class RTree implements Serializable {
             return n.data.size();
         } else {
             int sum = 0;
-            for (int i = 0; i < n.children.size(); i++)
+            for (int i = 0; i < n.children.size(); i++) {
                 sum += count(n.children.get(i));
+            }
             return sum;
         }
     }
@@ -657,9 +667,9 @@ public class RTree implements Serializable {
                 }
             }
 
-            if (maxnode == null) // Not sure how this could occur
+            if (maxnode == null) {// Not sure how this could occur
                 return null;
-
+            }
             return chooseLeaf(box, maxnode);
         }
     }
@@ -672,21 +682,24 @@ public class RTree implements Serializable {
 
         int twoL = two.getLeft();
         int oneL = one.getLeft();
-        if (twoL < oneL)
+        if (twoL < oneL) {
             total += (long) oneL - (long) twoL;
+        }
         int twoR = two.getRight();
         int oneR = one.getRight();
-        if (twoR > oneR)
+        if (twoR > oneR) {
             total += (long) twoR - (long) oneR;
+        }
         int twoT = two.getTop();
         int oneT = one.getTop();
-        if (twoT < oneT)
+        if (twoT < oneT) {
             total += (long) oneT - (long) twoT;
+        }
         int twoB = two.getBottom();
         int oneB = one.getBottom();
-        if (twoB > oneB)
+        if (twoB > oneB) {
             total += (long) twoB - (long) oneB;
-
+        }
         return total;
     }
 

@@ -205,9 +205,9 @@ public class PresetEditorActivity extends URLListEditActivity {
         final File presetDir = db.getPresetDirectory(item.id);
         // noinspection ResultOfMethodCallIgnored
         presetDir.mkdir();
-        if (!presetDir.isDirectory())
+        if (!presetDir.isDirectory()) {
             throw new OperationFailedException("Could not create preset directory " + presetDir.getAbsolutePath());
-
+        }
         if (item.value.startsWith(Preset.APKPRESET_URLPREFIX)) {
             PresetEditorActivity.super.sendResultIfApplicable(item);
             return;
@@ -263,8 +263,9 @@ public class PresetEditorActivity extends URLListEditActivity {
                 boolean allImagesSuccessful = true;
                 int count = 0;
                 for (String url : urls) {
-                    if (canceled)
+                    if (canceled) {
                         return RESULT_DOWNLOAD_CANCELED;
+                    }
                     count++;
                     allImagesSuccessful &= (download(url, null) == DOWNLOADED_PRESET_XML);
                     publishProgress(count, url.length());

@@ -289,8 +289,9 @@ public abstract class URLListEditActivity extends ListActivity
         updateAdapter();
         onItemCreated(item);
 
-        if (canAutoClose())
+        if (canAutoClose()) {
             sendResultIfApplicable(item);
+        }
     }
 
     /**

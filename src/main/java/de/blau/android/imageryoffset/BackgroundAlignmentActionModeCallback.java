@@ -169,10 +169,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             break;
         case MENUITEM_APPLY2ALL:
             Offset o = osmts.getOffset(map.getZoomLevel());
-            if (o != null)
+            if (o != null) {
                 osmts.setOffset(o.getDeltaLon(), o.getDeltaLat());
-            else
+            } else {
                 osmts.setOffset(0.0d, 0.0d);
+            }
             break;
         case MENUITEM_QUERYDB:
             getOffsetFromDB();
@@ -269,8 +270,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                             reader.beginArray();
                             while (reader.hasNext()) {
                                 ImageryOffset imOffset = readOffset(reader);
-                                if (imOffset != null && imOffset.deprecated == null) // TODO handle deprecated
+                                if (imOffset != null && imOffset.deprecated == null) { // TODO handle deprecated
                                     result.add(imOffset);
+                                }
                             }
                             reader.endArray();
                         } else if (token.equals(JsonToken.BEGIN_OBJECT)) {
@@ -621,9 +623,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         TextView minmax = (TextView) layout.findViewById(R.id.imagery_offset_zoom);
         minmax.setText(main.getString(R.string.min_max_zoom, offset.getMinZoom(), offset.getMaxZoom()));
         dialog.setPositiveButton(R.string.menu_tools_background_align_save_db, createSaveButtonListener(description, author, index, saveOffsetList));
-        if (index == (saveOffsetList.size() - 1))
+        if (index == (saveOffsetList.size() - 1)) {
             dialog.setNegativeButton(R.string.cancel, null);
-        else
+        } else {
             dialog.setNegativeButton(R.string.next, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -631,6 +633,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     d.show();
                 }
             });
+        }
         return dialog.create();
     }
 
@@ -652,8 +655,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             public void onClick(DialogInterface dialog, int which) {
                 String error = null;
                 ImageryOffset offset = saveOffsetList.get(index);
-                if (offset == null)
+                if (offset == null) {
                     return;
+                }
                 offset.description = description.getText().toString();
                 offset.author = author.getText().toString();
                 offset.imageryId = osmts.getImageryOffsetId();
@@ -737,9 +741,9 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                 map.invalidate();
             }
         });
-        if (index == (offsetList.size() - 1))
+        if (index == (offsetList.size() - 1)) {
             dialog.setNegativeButton(R.string.cancel, null);
-        else
+        } else {
             dialog.setNegativeButton(R.string.next, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -747,6 +751,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
                     d.show();
                 }
             });
+        }
         return dialog.create();
     }
 }

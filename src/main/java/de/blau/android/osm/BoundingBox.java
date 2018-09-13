@@ -320,14 +320,18 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return true if the they intersect
      */
     public boolean intersects(@NonNull final BoundingBox b) {
-        if (right < b.left)
+        if (right < b.left) {
             return false; // a is left of b
-        if (left > b.right)
+        }
+        if (left > b.right) {
             return false; // a is right of b
-        if (top < b.bottom)
+        }
+        if (top < b.bottom) {
             return false; // a is above b
-        if (bottom > b.top)
+        }
+        if (bottom > b.top) {
             return false; // a is below b
+        }
         return true; // boxes overlap
     }
 
