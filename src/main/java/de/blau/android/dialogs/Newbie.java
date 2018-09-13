@@ -32,7 +32,9 @@ public class Newbie extends DialogFragment {
     private Main main;
 
     /**
-     
+     * Display a dialog giving new users minimal instructions
+     * 
+     * @param activity the calling Activity
      */
     public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
@@ -45,6 +47,11 @@ public class Newbie extends DialogFragment {
         }
     }
 
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
     private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -60,7 +67,11 @@ public class Newbie extends DialogFragment {
     }
 
     /**
+     * Get a new instance of Newbie
+     * 
+     * @return a new Newbie instance
      */
+    @NonNull
     private static Newbie newInstance() {
         Newbie f = new Newbie();
         f.setShowsDialog(true);

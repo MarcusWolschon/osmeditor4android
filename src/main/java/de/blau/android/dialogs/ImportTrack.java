@@ -37,9 +37,12 @@ public class ImportTrack extends DialogFragment {
     private Uri uri;
 
     /**
-     
+     * Show a dialog allowing the user to confirm the track upload and set privacy options
+     * 
+     * @param activity the calling Activity
+     * @param uri the Uri of the track to be imported
      */
-    public static void showDialog(FragmentActivity activity, Uri uri) {
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Uri uri) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -50,7 +53,12 @@ public class ImportTrack extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -65,8 +73,13 @@ public class ImportTrack extends DialogFragment {
     }
 
     /**
+     * Get a new instance of the ImportTrack dialog
+     * 
+     * @param uri the Uri of the track to be imported
+     * @return a new ImportTrack dialog instance
      */
-    private static ImportTrack newInstance(Uri uri) {
+    @NonNull
+    private static ImportTrack newInstance(@NonNull Uri uri) {
         ImportTrack f = new ImportTrack();
         Bundle args = new Bundle();
         args.putParcelable(URI_KEY, uri);

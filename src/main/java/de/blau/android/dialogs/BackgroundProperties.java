@@ -40,9 +40,12 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     private static final String LAYERINDEX = "layer_index";
 
     /**
-     
+     * Display a dialog allowing the user to change some properties of the current backgroun
+     * 
+     * @param activity the callign Activity
+     * @param layerIndex the index of the Layer
      */
-    public static void showDialog(FragmentActivity activity, int layerIndex) {
+    public static void showDialog(@NonNull FragmentActivity activity, int layerIndex) {
         dismissDialog(activity);
         try {
             setDialogLayout(activity);
@@ -54,7 +57,12 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -69,7 +77,12 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     }
 
     /**
+     * Get a new BackgroundPropertie dialog instance
+     * 
+     * @param layerIndex the index of the Layer
+     * @return a new BackgroundPropertie dialog instance
      */
+    @NonNull
     private static BackgroundProperties newInstance(int layerIndex) {
         BackgroundProperties f = new BackgroundProperties();
         Bundle args = new Bundle();

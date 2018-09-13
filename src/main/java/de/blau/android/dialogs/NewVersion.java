@@ -18,7 +18,7 @@ import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 
 /**
- * Display a dialog asking for confirmation before starting an activity that might result in data loss.
+ * Display a dialog displaying information on a new version and offering to display the release notes.
  *
  */
 public class NewVersion extends DialogFragment {
@@ -28,9 +28,11 @@ public class NewVersion extends DialogFragment {
     private static final String TAG = "fragment_newversion";
 
     /**
-     
+     * Display a dialog displaying information on a new version and offering to display the release notes
+     * 
+     * @param activity the calling Activity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -41,7 +43,12 @@ public class NewVersion extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -56,7 +63,11 @@ public class NewVersion extends DialogFragment {
     }
 
     /**
+     * Get a new NewVersion dialog instance
+     * 
+     * @return a new NewVersion instance
      */
+    @NonNull
     private static NewVersion newInstance() {
         NewVersion f = new NewVersion();
 

@@ -2,6 +2,7 @@ package de.blau.android.dialogs;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -36,11 +37,24 @@ public class ErrorAlert extends DialogFragment {
     private int    messageId;
     private String originalMessage;
 
-    public static void showDialog(FragmentActivity activity, int errorCode) {
+    /**
+     * Display a simple alert dialog with an OK button that does nothing
+     * 
+     * @param activity the calling Activity
+     * @param errorCode the error code
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int errorCode) {
         showDialog(activity, errorCode, null);
     }
 
-    public static void showDialog(FragmentActivity activity, int errorCode, String msg) {
+    /**
+     * Display a simple alert dialog with an OK button that does nothing
+     * 
+     * @param activity the calling Activity
+     * @param errorCode the error code
+     * @param msg a message
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int errorCode, @Nullable String msg) {
         dismissDialog(activity, errorCode);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -56,7 +70,13 @@ public class ErrorAlert extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity, int errorCode) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     * @param errorCode the errorCode the dialog was for
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity, int errorCode) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(getTag(errorCode));
@@ -70,6 +90,13 @@ public class ErrorAlert extends DialogFragment {
         }
     }
 
+    /**
+     * Map error codes to tags
+     * 
+     * @param errorCode the error code
+     * @return a tag
+     */
+    @Nullable
     private static String getTag(int errorCode) {
         switch (errorCode) {
         case ErrorCodes.NO_LOGIN_DATA:
@@ -108,8 +135,16 @@ public class ErrorAlert extends DialogFragment {
         return null;
     }
 
-    private static ErrorAlert newInstance(int dialogType, String msg) {
-        switch (dialogType) {
+    /**
+     * Get a new instance of an ErrorAlert dialog
+     * 
+     * @param errorCode the error code
+     * @param msg an optional message
+     * @return a new instance of an ErrorAlert dialog or null
+     */
+    @Nullable
+    private static ErrorAlert newInstance(int errorCode, @Nullable String msg) {
+        switch (errorCode) {
         case ErrorCodes.NO_LOGIN_DATA:
             return createNewInstance(R.string.no_login_data_title, R.string.no_login_data_message, msg);
         case ErrorCodes.NO_CONNECTION:
@@ -147,8 +182,15 @@ public class ErrorAlert extends DialogFragment {
     }
 
     /**
+     * Create a new instance of an ErrorAlert dialog
+     * 
+     * @param titleId the title resource id
+     * @param messageId the message resource id
+     * @param msg an optional message
+     * @return a new instance of an ErrorAlert dialog
      */
-    private static ErrorAlert createNewInstance(final int titleId, final int messageId, String msg) {
+    @NonNull
+    private static ErrorAlert createNewInstance(final int titleId, final int messageId, @Nullable String msg) {
         ErrorAlert f = new ErrorAlert();
 
         Bundle args = new Bundle();

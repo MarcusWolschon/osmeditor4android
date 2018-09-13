@@ -34,7 +34,14 @@ public class EmptyRelation extends DialogFragment {
 
     private long relationId = -1L;
 
-    public static void showDialog(FragmentActivity activity, final long relationId) {
+    /**
+     * Display a dialog if we have found an empty relation giving the options or leaving it empty, deleting it or adding
+     * some members.
+     * 
+     * @param activity the calling Activity
+     * @param relationId the id of the empty Relation
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, final long relationId) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -45,7 +52,12 @@ public class EmptyRelation extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -60,7 +72,12 @@ public class EmptyRelation extends DialogFragment {
     }
 
     /**
+     * Create a new EmptyRelation dialog instance
+     * 
+     * @param relationId the id of the empty Relation
+     * @return a new EmptyRelation dialog instance
      */
+    @NonNull
     private static EmptyRelation newInstance(final long relationId) {
         EmptyRelation f = new EmptyRelation();
 

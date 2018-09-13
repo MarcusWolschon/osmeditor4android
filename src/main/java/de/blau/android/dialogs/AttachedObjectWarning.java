@@ -20,7 +20,8 @@ import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 
 /**
- * Display a dialog asking for confirmation before starting an activity that might result in data loss.
+ * Shows a dialog warning the user that an invisible object has been changed, the user has the option of ignoring the
+ * warning, suppressing it and undoing the change.
  *
  */
 public class AttachedObjectWarning extends DialogFragment {
@@ -32,12 +33,12 @@ public class AttachedObjectWarning extends DialogFragment {
     private Main main;
 
     /**
-     * Shows a dialog warning the user that an invisible object has been changed, the user has the option of ignring the
-     * warning, supressing it and undoing the change.
+     * Shows a dialog warning the user that an invisible object has been changed, the user has the option of ignoring
+     * the warning, suppressing it and undoing the change.
      * 
      * @param activity Activity creating the dialog and starting the intent Activity if confirmed
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -48,7 +49,12 @@ public class AttachedObjectWarning extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -63,7 +69,11 @@ public class AttachedObjectWarning extends DialogFragment {
     }
 
     /**
+     * Construct a new AttachedObjectWarning instance
+     * 
+     * @return an AttachedObjectWarning dialog
      */
+    @NonNull
     private static AttachedObjectWarning newInstance() {
         AttachedObjectWarning f = new AttachedObjectWarning();
         f.setShowsDialog(true);

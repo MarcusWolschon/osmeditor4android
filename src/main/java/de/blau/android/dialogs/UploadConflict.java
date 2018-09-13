@@ -40,8 +40,14 @@ public class UploadConflict extends ImmersiveDialogFragment {
     private static final String TAG = "fragment_upload_conflict";
 
     private UploadResult result;
-
-    public static void showDialog(FragmentActivity activity, UploadResult result) {
+    
+    /**
+     * Show a dialog after a conflict has been detected and allow the user to fix it
+     * 
+     * @param activity the calling Activity
+     * @param result the UploadResult
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull UploadResult result) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -53,7 +59,12 @@ public class UploadConflict extends ImmersiveDialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(TAG);
@@ -68,8 +79,13 @@ public class UploadConflict extends ImmersiveDialogFragment {
     }
 
     /**
+     * Construct a new UploadConflit dialog
+     * 
+     * @param result an UploadResult
+     * @return an UploadConflict dialog
      */
-    private static UploadConflict newInstance(final UploadResult result) {
+    @NonNull
+    private static UploadConflict newInstance(@NonNull final UploadResult result) {
         UploadConflict f = new UploadConflict();
 
         Bundle args = new Bundle();

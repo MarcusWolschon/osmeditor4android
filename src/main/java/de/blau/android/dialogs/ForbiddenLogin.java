@@ -36,7 +36,13 @@ public class ForbiddenLogin extends DialogFragment {
 
     private String message;
 
-    public static void showDialog(FragmentActivity activity, String message) {
+    /**
+     * Display a dialog indicating that login didn't work
+     * 
+     * @param activity the calling Activity
+     * @param message the message
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull String message) {
         dismissDialog(activity);
 
         FragmentManager fm = activity.getSupportFragmentManager();
@@ -48,7 +54,12 @@ public class ForbiddenLogin extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         FragmentManager fm = activity.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = fm.findFragmentByTag(FRAGMENT_TAG);
@@ -62,7 +73,14 @@ public class ForbiddenLogin extends DialogFragment {
         }
     }
 
-    private static ForbiddenLogin newInstance(String message) {
+    /**
+     * Get a new instance of the ForbiddenLogin dialog
+     * 
+     * @param message the message
+     * @return a new instance of the ForbiddenLogin dialog
+     */
+    @NonNull
+    private static ForbiddenLogin newInstance(@NonNull String message) {
         ForbiddenLogin f = new ForbiddenLogin();
 
         Bundle args = new Bundle();

@@ -32,9 +32,11 @@ public class InvalidLogin extends DialogFragment {
     private static final String TAG = "fragment_invalid_login";
 
     /**
-     
+     * Display a dialog reporting that the login credentials don't work
+     * 
+     * @param activity the calling Activity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -45,7 +47,12 @@ public class InvalidLogin extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -60,7 +67,11 @@ public class InvalidLogin extends DialogFragment {
     }
 
     /**
+     * Get a new instance of InvalidLogin dialog
+     * 
+     * @return a new InvalidLogin dialog instance
      */
+    @NonNull
     private static InvalidLogin newInstance() {
         InvalidLogin f = new InvalidLogin();
 

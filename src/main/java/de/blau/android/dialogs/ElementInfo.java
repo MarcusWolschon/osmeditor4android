@@ -99,7 +99,7 @@ public class ElementInfo extends DialogFragment {
     /**
      * Dismiss the dialog
      * 
-     * @param activity the calling Activit
+     * @param activity the calling Activity
      */
     private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {

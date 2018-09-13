@@ -20,7 +20,7 @@ import de.blau.android.listener.DownloadCurrentListener;
 import de.blau.android.util.ThemeUtils;
 
 /**
- * Display a dialog asking for confirmation before starting an activity that might result in data loss.
+ * Display a dialog asking for confirmation before downloading and overwriting existing changes
  *
  */
 public class DownloadCurrentWithChanges extends DialogFragment {
@@ -30,9 +30,11 @@ public class DownloadCurrentWithChanges extends DialogFragment {
     private static final String TAG = "fragment_newversion";
 
     /**
-     
+     * Display a dialog asking for confirmation before downloading and overwriting existing changes
+     * 
+     * @param activity the calling Activity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -43,7 +45,12 @@ public class DownloadCurrentWithChanges extends DialogFragment {
         }
     }
 
-    private static void dismissDialog(FragmentActivity activity) {
+    /**
+     * Dismiss the dialog
+     * 
+     * @param activity the calling Activity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -58,7 +65,11 @@ public class DownloadCurrentWithChanges extends DialogFragment {
     }
 
     /**
+     * Get a new instance of a DownloadCurrentWithChanges dialog
+     * 
+     * @return a new instance of a DownloadCurrentWithChanges dialog
      */
+    @NonNull
     private static DownloadCurrentWithChanges newInstance() {
         DownloadCurrentWithChanges f = new DownloadCurrentWithChanges();
         f.setShowsDialog(true);
