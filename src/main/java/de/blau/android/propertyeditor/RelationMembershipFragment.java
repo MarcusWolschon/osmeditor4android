@@ -47,6 +47,7 @@ import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.StringWithDescription;
+import de.blau.android.util.Util;
 
 public class RelationMembershipFragment extends BaseFragment implements PropertyRows, OnItemSelectedListener {
     private static final String DEBUG_TAG = RelationMembershipFragment.class.getSimpleName();
@@ -180,6 +181,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putSerializable(PARENTS_KEY, savedParents);
         outState.putString(ELEMENT_TYPE_KEY, elementType);
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override

@@ -259,6 +259,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override

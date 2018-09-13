@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -402,6 +403,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putLong(ID_KEY, id);
         outState.putSerializable(MEMBERS_KEY, savedMembers);
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override
@@ -823,7 +825,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         }
     }
 
-    private void memberSelected(LinearLayout rowLayout) {
+    /**
+     * Start the ActionMode for when an element is selected
+     * 
+     * @param rowLayout the Layout holding the element rows
+     */
+    private void memberSelected(@NonNull LinearLayout rowLayout) {
         synchronized (actionModeCallbackLock) {
             if (memberSelectedActionModeCallback == null) {
                 memberSelectedActionModeCallback = new RelationMemberSelectedActionModeCallback(this, rowLayout);
@@ -977,10 +984,22 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         headerCheckBox.setChecked(false);
     }
 
-    public void scrollToRow(final View row, final boolean up, boolean force) {
+    /**
+     * Scroll the current View so that a row is visible
+     * 
+     * @param row the row to display, if null scroll to top or bottom of sv
+     * @param up if true scroll to top if row is null, otherwise scroll to bottom
+     * @param force if true always try to scroll even if row is already on screen
+     */
+    public void scrollToRow(@Nullable final View row, final boolean up, boolean force) {
         Util.scrollToRow(getView(), row, up, force);
     }
 
+    /**
+     * Get the id of the element we are editing
+     * 
+     * @return the OSM id
+     */
     long getOsmId() {
         return id;
     }

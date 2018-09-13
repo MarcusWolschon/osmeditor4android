@@ -437,6 +437,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putSerializable(ELEMENTS_KEY, elements);
         outState.putSerializable(SAVEDTAGS_KEY, savedTags);
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override

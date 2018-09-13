@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 
@@ -80,7 +82,16 @@ public class RecentPresetsFragment extends BaseFragment {
         return presetsLayout;
     }
 
-    private View getRecentPresetsView(final LinearLayout presetLayout, final OsmElement element, final Preset[] presets) {
+    /**
+     * Create the MRU preset View
+     * 
+     * @param presetLayout the Layout to use
+     * @param element the current OsmElement
+     * @param presets the current active Presets
+     * @return a View
+     */
+    @Nullable
+    private View getRecentPresetsView(@NonNull final LinearLayout presetLayout, @Nullable final OsmElement element, @Nullable final Preset[] presets) {
         View v = null;
         if (presets != null && presets.length >= 1 && element != null) {
             // check if any of the presets has a MRU
@@ -143,6 +154,7 @@ public class RecentPresetsFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override
@@ -172,10 +184,10 @@ public class RecentPresetsFragment extends BaseFragment {
     /**
      * Removes a preset from the MRU
      * 
+     * @param presetLayout the layout holding the MRU View
      * @param item the preset to apply
      */
-    private void removePresetFromMRU(LinearLayout presetLayout, PresetItem item) {
-
+    private void removePresetFromMRU(@NonNull LinearLayout presetLayout, @NonNull PresetItem item) {
         //
         Preset[] presets = App.getCurrentPresets(getActivity());
         if (presets != null) {
@@ -189,11 +201,19 @@ public class RecentPresetsFragment extends BaseFragment {
         recreateRecentPresetView(presetLayout);
     }
 
+    /**
+     * Recreate the MRU view
+     */
     public void recreateRecentPresetView() {
         recreateRecentPresetView((LinearLayout) getOurView());
     }
 
-    private void recreateRecentPresetView(LinearLayout presetLayout) {
+    /**
+     * Recreate the MRU view
+     * 
+     * @param presetLayout the Layout holding the preset Views
+     */
+    private void recreateRecentPresetView(@NonNull LinearLayout presetLayout) {
         Log.d(DEBUG_TAG, "recreateRecentPresetView");
         presetLayout.removeAllViews();
         View v = getRecentPresetsView(presetLayout, element, presets);
@@ -236,10 +256,16 @@ public class RecentPresetsFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Enable selection of presets
+     */
     void enable() {
         enabled = true;
     }
 
+    /**
+     * Diable selection of presets
+     */
     void disable() {
         enabled = false;
     }

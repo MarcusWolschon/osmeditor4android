@@ -46,6 +46,7 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 public class PresetFragment extends BaseFragment implements PresetUpdate, PresetClickHandler {
 
@@ -327,6 +328,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
     @Override

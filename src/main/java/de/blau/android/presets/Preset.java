@@ -1367,7 +1367,7 @@ public class Preset implements Serializable {
      * 
      * @param item the item to remove
      */
-    public void removeRecentlyUsed(PresetItem item) {
+    public void removeRecentlyUsed(@NonNull PresetItem item) {
         Integer id = item.getItemIndex();
         // prevent duplicates
         mru.recentPresets.remove(id); // calling remove(Object), i.e. removing the number if it is in the list, not the
