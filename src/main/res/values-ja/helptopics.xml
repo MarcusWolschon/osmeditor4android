@@ -20,7 +20,9 @@
     <string name="help_tagfilter">タグフィルター</string>
     <string name="help_presetfilter">プリセットフィルター</string>
     <string name="help_opening_hours">オープン時間</string>
+    <string name="help_voice_commands">音声コマンド</string>
     <string name="help_upgrade">リリースノート</string>
+    <string name="help_upgrade_110">11.0 リリースノート</string>
     <string name="help_upgrade_102">10.2 リリースノート</string>
     <string name="help_upgrade_101">10.1 リリースノート</string>
     <string name="help_upgrade_100">10.0 リリースノート</string>
@@ -48,6 +50,7 @@
     	<item>@string/help_tagfilter</item>
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
+        <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
@@ -79,6 +82,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>Voice commands</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>

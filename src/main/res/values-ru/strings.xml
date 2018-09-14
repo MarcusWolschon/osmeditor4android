@@ -22,7 +22,7 @@
 но имеет ссылки на сервере</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nуже удалено на сервере</string>
   <string name="use_local_version">Использовать локальную версию</string>
-  <string name="use_server_version">Использовать версию на сервере</string>
+  <string name="use_server_version">Использовать версию от сервера</string>
   <string name="no_login_data_title">Ошибка аутентификации</string>
   <string name="no_login_data_message">Если вы используете OAuth, то это, вероятно, ошибка, пожалуйста, отправьте отчёт. Если вы используете логин и пароль (не рекомендуется), проверьте, что они введены корректно.</string>
   <string name="no_connection_title">Нет соединения с сервером</string>
@@ -110,6 +110,7 @@
   <string name="tag_editor_name_suggestion">Предложение названия</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Это предложение может заменить некоторые значения тегов  более популярными значениями.</string>
   <string name="search_results_title">Результаты поиска</string>
+  <string name="search_online">Поиск в Интернете</string>
   <string name="find_message">Введите строку поиска</string>
   <string name="geocoder_prompt">через</string>
   <string name="preset_search_hint">Строка поиска заготовок</string>
@@ -137,6 +138,7 @@
   <string name="last_updated">последнее обновление</string>
   <string name="last_edited">Последняя правка</string>
   <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Скопировать свойства</string>
   <!---->
   <string name="error">ошибка</string>
   <string name="warning">предупреждение</string>
@@ -259,6 +261,7 @@
   <string name="toast_oauth_timeout">Тайм-аут во время аутентификации, повторите попытку.</string>
   <string name="toast_oauth_communication">Ошибка связи во время аутентификации, повторите попытку.</string>
   <string name="toast_oauth_handshake_failed">Не удалось выполнить аутентификацию OAuth: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Логин Google пока не поддерживается</string>
   <string name="toast_timeout">Таймаут соединения с сервером</string>
   <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
   <string name="toast_nothing_found">Ничего не найдено</string>
@@ -314,6 +317,10 @@
   <string name="toast_using_network_location">Определение местоположения по сети</string>
   <string name="toast_using_gps_location">Определение местоположения по GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS запрещен, запись трека остановлена</string>
+  <string name="toast_tags_copied">Теги скопированы в буфер обмена</string>
+  <string name="toast_tags_cut">Теги вырезаны в буфер обмена</string>
+  <string name="toast_properties_copied">Свойства скопированы в буфер обмена</string>
+  <string name="toast_task_conflict">%1$s уже изменился на сервере, сначала передайте ваши изменения, затем повторите загрузку</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Да</string>
   <string name="no">Нет</string>
@@ -334,6 +341,7 @@
   <string name="enable">Включить</string>
   <string name="disable">Убрать</string>
   <string name="clear">Очистить</string>
+  <string name="discard">Отменить</string>
   <string name="retry">Повторить</string>
   <string name="read">Прочесть</string>
   <string name="overwrite">Переписать</string>
@@ -402,6 +410,7 @@
   <string name="tag_restriction_add_expression">Добавить выражение</string>
   <string name="tag_restriction_add_opening_hours">Добавить время работы</string>
   <string name="tag_restriction_value_hint">условное ограничение</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Область для загрузки</string>
   <string name="location_choose_radius">Выберите радиус:</string>
@@ -486,6 +495,7 @@
   <string name="menu_copy">Копировать</string>
   <string name="menu_cut">Вырезать</string>
   <string name="menu_paste">Вставить</string>
+  <string name="menu_paste_tags">Вставить теги</string>
   <string name="menu_paste_from_clipboard">Вставить из буфера обмена</string>
   <string name="menu_zoom_to_selection">Приблизить к выделению</string>
   <string name="menu_rotate">Повернуть</string>

@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
   <string name="mode_indoor">Inomhus</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
@@ -28,6 +29,7 @@
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Data som du försöker hämta innehåller data som strider mot dina redigeringar. Försök att ladda upp dina data först innan du försöker igen.</string>
+  <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
   <string name="api_offline_title">API Frånkopplad</string>
   <string name="api_offline_message">API är för närvarande frånkopplad och data kan inte hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
@@ -71,6 +73,7 @@
   <string name="openstreetbug_commit_fail">Kunde inte att spara feländringar</string>
   <string name="openstreetbug_not_downloaded">inte hämtad</string>
   <string name="openstreetbug_last_updated">senast uppdaterad</string>
+  <string name="openstreetbug_not_supported">%1$s stöds inte.</string>
   <string name="unsaved_data_title">Försiktigt!</string>
   <string name="unsaved_data_message">Du har osparade ändringar som kommer att kastas om du fortsätter.</string>
   <string name="unsaved_data_proceed">Kasta bort &amp; fortsätt</string>
@@ -83,8 +86,10 @@
   <string name="imagery_offset_zoom">Zooma</string>
   <string name="imagery_offset_distance">Avstånd</string>
   <string name="set_position_datum_label">Geodetiskt datum</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Namnförslag</string>
   <string name="search_results_title">Sökresultat</string>
+  <string name="search_online">Sök på nätet</string>
   <string name="find_message">Ange söksträng</string>
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="search">Sök</string>
@@ -125,14 +130,29 @@
   <string name="js_console_msg_live">Live-läge!</string>
   <string name="js_console_msg_debug">Felsökningsläge!</string>
   <!--Validator dialogs-->
+  <string name="max_age">Max. ålder</string>
+  <string name="age">Ålder</string>
   <!--Empty relation dialog-->
+  <string name="add_members">Lägg till medlemmar</string>
+  <string name="leave_empty">Lämna tom</string>
   <!--GPX way point dialog-->
+  <string name="description">Beskrivning</string>
+  <string name="created">Skapad</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage_left">Vänster</string>
+  <string name="coverage_right">Höger</string>
   <!--Layer style dialog-->
+  <string name="layer_style_color">Färg</string>
+  <string name="layer_style_label">Etikett</string>
   <!--Layer dialog-->
+  <string name="layer_photos">Foton</string>
+  <string name="layer_data">OSM-data</string>
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--Toaster-->
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
@@ -330,6 +350,9 @@
   <string name="menu_tools_background_align_save_db">Spara till DB</string>
   <string name="menu_tools_background_align_save_device">Spara till enhet</string>
   <string name="menu_tools_background_align_apply2all">Verkställ (alla zoom)</string>
+  <string name="min_max_zoom">%1$d - %2$d</string>
+  <string name="distance_meter">%1$.2f meter</string>
+  <string name="distance_km">%1$.3f km</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Återställ OAuth</string>

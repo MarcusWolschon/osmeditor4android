@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Navrhování názvu</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Návrh může nahradit některé hodnoty tagů s více oblíbenými hodnotami.</string>
   <string name="search_results_title">Výsledky vyhledávání</string>
+  <string name="search_online">Hledat online</string>
   <string name="find_message">Vložte vyhledávací řetězec</string>
   <string name="geocoder_prompt">pomocí</string>
   <string name="preset_search_hint">Vyhledávací řetězec předvoleb</string>
@@ -138,6 +139,7 @@
   <string name="current">Aktuální</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Vlastnosti objektu GeoJSON</string>
+  <string name="copy_properties">Zkopírovat vlastnosti</string>
   <!---->
   <string name="error">chyba</string>
   <string name="warning">varování</string>
@@ -300,12 +302,17 @@
   <string name="toast_preset_creation_failed">Vytváření předvolby „%1$s“ skončilo chybou: %2$s</string>
   <string name="toast_server_connection_failed">Připojení k serveru selhalo: %1$s</string>
   <string name="toast_flus_all_caches">Vyčistí veškerou mezipaměť dlaždic!</string>
+  <string name="toast_applied_offset">Použito automatické zarovnání snímků</string>
   <string name="toast_unsupported_format">Nepodporovaný formát: %1$s</string>
   <string name="toast_returning_less_than_found">Zobrazuji %1$d z %2$d nalezených záznamů.</string>
   <string name="toast_not_mbtiles">Soubor nemá formát MBTiles</string>
   <string name="toast_using_network_location">Použita poloha ze sítě</string>
   <string name="toast_using_gps_location">Použita GPS poloha</string>
   <string name="toast_using_gps_disabled_tracking_stopped">GPS vypnuto, trasování zastaveno</string>
+  <string name="toast_tags_copied">Tagy zkopírovány do schránky</string>
+  <string name="toast_tags_cut">Tagy vyjmuty do schránky</string>
+  <string name="toast_properties_copied">Vlastnosti zkopírovány do schránky</string>
+  <string name="toast_task_conflict">%1$s změněn na serveru, nahrajte jej a poté proveďte stažení znovu</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -394,6 +401,7 @@
   <string name="tag_restriction_add_expression">Přidat výraz</string>
   <string name="tag_restriction_add_opening_hours">Přidat otevírací hodiny</string>
   <string name="tag_restriction_value_hint">podmíněné omezení</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Načíst oblast</string>
   <string name="location_choose_radius">Vyberte poloměr:</string>

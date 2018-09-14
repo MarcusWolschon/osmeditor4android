@@ -6,113 +6,114 @@ Vespucci は、デスクトップエディタが提供する大半の機能を�
 
 Vespucci 起動時に、Download other location"/"Load Area"ダイアログを表示します。表示された座標をすぐにダウンロードする場合は、適切なオプションを選択し、ダウンロードする場所の半径を設定します。遅いデバイスでは広いエリアを選択しないでください。 
 
-Alternatively you can dismiss the dialog by pressing the "Go to map" button and pan and zoom to a location you want to edit and download the data then (see below: "Editing with Vespucci").
+または「地図を表示」ボタンを押してダイアログを無視し、パンしたりズームして編集・ダウンロードしたい位置に移動できます(下記参照: 「Vespucciでの編集」).
 
 ## Vespucci での編集
 
-Depending on screen size and age of your device editing actions may either be accessible directly via icons in the top bar, via a drop down menu on the right of the top bar, from the bottom bar (if present) or via the menu key.
+画面サイズや機種の年代によって、編集操作は上部バーにあるアイコンで直接、あるいは上部バー右側のドロップダウンメニューで、あるいは下部のバー(あれば)から、あるいはメニューキーでアクセスできます。
 
 <a id="download"></a>
 
 ### OSM データのダウンロード
 
-Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the "Transfer" menu item. This will display seven options:
+転送アイコン ![Transfer](../images/menu_transfer.png) または「転送」メニュー項目で選びます。オプションが7つあります:
 
-* **Download current view** - download the area visible on the screen and replace any existing data *(requires network connectivity)*
-* **Add current view to download** - download the area visible on the screen and merge it with existing data *(requires network connectivity)*
-* **Download at other location** - shows a form that allows you to enter coordinates, search for a location or use the current position, and then download an area around that location *(requires network connectivity)*
-* **Upload data to OSM server** - upload edits to OpenStreetMap *(requires authentication)* *(requires network connectivity)*
-* **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
-* **File...** - saving and loading OSM data to/from on device files.
-* **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
+* **表示領域をダウンロード** - 画面上に表示されている領域をダウンロードして既存データを置き換えます *(ネットワーク接続必須)*
+* **表示領域を追加ダウンロード** - 画面上に表示されている領域をダウンロードして既存データに追加します *(ネットワーク接続必須)*
+* **その他の領域をダウンロード** - 座標を入力したり、位置を探したり、現在地を使用したりして、指定された位置の周りの領域をダウンロードするフォームを表示します *(ネットワーク接続必須)*
+* **データをOSMサーバーにアップロード** - 編集内容をOpenStreetMapにアップロードします *(requires authentication)* *(ネットワーク接続必須)*
+* **自動ダウンロード** - 現在地周辺の領域を自動的にダウンロードします *(ネットワーク接続必須)* *(requires GPS)*
+* **ファイル...** - OSMデータを端末装置にあるファイルに保存したり、ファイルからロードしたりします。
+* **メモ/バグ...** - OSMメモおよびQAツール(現在はOSMOSE)による「バグ」を(自動および手動で)ダウンロードします *(ネットワーク接続必須)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+端末装置にデータをダウンロードするいちばん簡単なやり方は、編集したい位置にズームしたりパンして「表示領域をダウンロード」を選ぶことです。ジャスチャー、ズームボタン、装置のボリューム制御ボタンでズーム操作を行えます。するとVespucci は現在の表示領域のデータをダウンロードします。自分の端末装置にダウンロードするのに認証は不要です。
 
-### 編集
+### 編集する
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### ロック、アンロック、モード切り替え
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+誤編集を避けるためにVespucciは「ロック」モードで始まります。これは地図のズームと移動だけができるモードです。画面をアンロックするには ![Locked](../images/locked.png) アイコンをタップします。 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+ロックアイコン上で長押しすると、メニューが表示され、現在4つのオプションがあります
+：
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **通常** - デフォルトの編集モード。オブジェクトを新規追加したり、既存のものを編集・移動・削除できます。単に白いロックアイコンが表示されます。
+* **タグのみ** - 既存のオブジェクトを選ぶとプロパティ・エディタが起動され、マエイン画面上で長押しするとオブジェクトが新規追加されますが、他のジオメトリ操作は機能しません。「T」の付いた白いロックアイコンが表示されます。
+* **室内** - 室内モードを有効化します。[Indoor mode](#indoor)参照。「I」の付いた白いロックアイコンが表示されます。
+* **Cモード** - Cモードを有効化し、警告フラグのセットを持つオブジェクトだけが表示されます。 [C-Mode](#c-mode)参照。「C」の付いた白いロックアイコンが表示されます。
 
 #### シングルタップ・ダブルタップ・長押し
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+デフォルトで、選択可能なノードとウェイの周りにはオレンジの領域があり、オブジェクトを選択するのにタッチすべき場所をおおよそ示しています。3つの選択肢があります：
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* シングルタップ: オブジェクトを選択します。 
+    * 孤立したノード/ウェイが即座にハイライトされます。 
+    * しかしながら、あなたがオブジェクトをタッチした際にVespucciがその選択対象が複数あると判断した場合には、選択メニューを表示して目的のオブジェクトを選べるようにします。 
+    * 選択されたオブジェクトは黄色でハイライトされます。 
+    * 詳細は [Node selected](Node%20selected.md)、 [Way selected](Way%20selected.md) および [Relation selected](Relation%20selected.md)を参照。
+* ダブルタップ: [Multiselect mode](Multiselect.md)が始まります。
+* 長押し: 「十字型」が現れ、ノードを追加することができます。下記および [Creating new objects](Creating%20new%20objects.md)を参照。
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+マッピング密度の高い領域を編集する際にはズームインしてからやると良いでしょう。
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+Vespucciには良い「取り消し/やり直し」システムがあるので自分の端末装置上で気軽に試してください。ただしテストのためだけのデータをアップロードしたりはしないでください。
 
-#### Selecting / De-selecting (single tap and "selection menu")
+#### 選択 / 選択解除 (シングルタップおよび「選択メニュー」)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+オブジェクトにタッチして選択し、ハイライトさせてください。空の領域で画面をタッチすると選択が解除されます。あるオブジェクトを選択してから別のものを選択したい場合は、単に対象のオブジェクトをタッチしてください。最初に選択解除する必要はありません。オブジェクト上でダブルタップすると[Multiselect mode](Multiselect.md)が始まります。
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+あるオブジェクトを選択した際にVespucci がその選択対象が複数あると判断した場合(ウェイ上のノードや他のオーバーラップしたオブジェクトなど)、選択メニューが表示されることに注意： 選択したいオブジェクトをタップするとそのオブジェクトが選択されます。 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+選択されたオブジェクトは薄い黄色の境界線で示されます。黄色の境界線は、地図の背景やズームレベルによっては指し示すことが難しい場合があるかもしれません。いったん選択されたら、その選択が正しいか確認する通知が表示されます。
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+選択が終わると(ボタンあるいはメニュー項目のいずれかで)そのオブジェクトに対してできる操作の一覧が現れます： 詳細は [Node selected](Node%20selected.md)、 [Way selected](Way%20selected.md) および [Relation selected](Relation%20selected.md)を参照。
 
-#### Selected objects: Editing tags
+#### 選択したオブジェクト: タグを編集する
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+選択されたオブジェクトにもういちどタッチするとタグエディタが開き、そのオブジェクトに関連するタグを編集できます。
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+オーバーラップしたオブジェクト(ウェイ上のノードなど)に対しては選択メニューは2回目に現れることに注意してください。同じオブジェクトを選択するとタグエディタが現れます；別のオブジェクトを選択すると単純に他のオブジェクトを選択します。
 
-#### Selected objects: Moving a Node or Way
+#### 選択したオブジェクト: ノードやウェイを移動する
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(許容域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 
 
-#### Adding a new Node/Point or Way (long press)
+#### 新規ノード/ポイントやウェイを追加する(長押し)
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+ノードまたはウェイを描き始めたいときは長押ししてください。黒い「十字」型のシンボルが現れます。 
+* (オブジェクトに接続していない)新しいノードを作成する場合には、既存オブジェクトから離れたところをクリックします。
+* ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「許容域ゾーン」内をクリックします。許容域ゾーンはノードまたはウェイの周りの領域に示されています。
 
-Once you can see the crosshair symbol, you have these options:
+十字のシンボルが現れたら次のような選択肢があります：
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* 同じ場所でタッチ。
+    * 十字がノードの近くにない場合、同じ位置を再度タッチすると新しいノードが作成されます。ウェイの近く(だがノードの近くではない)にいる場合、新しいノードはウェイ上(かつウェイに接続)にできます。
+    * 十字がノードの近くにある場合(ノードの許容域ゾーン内)にある場合、同じ位置をタッチすると単にそのノードを選択し、タグエディタが開きます。新しいノードは作成されません。上述の選択と同じ操作です。
+* 別の場所をタッチ。別の位置(十字の許容域外)をタッチすると元の位置から現在の位置まで、ウェイのセグメントを追加します。十字がウェイやノードの近くなら、新しいセグメントはそのノードやウェイに接続します。
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+ウェイにノードをもっと追加したい場合は単純にスクリーンにタッチしてください。終える際には、最後のノードに2回タッチします。最後のノードがウェイやノード上にある場合、そのセグメントはそのウェイまたはノードに自動的に接続します。 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+メニュー項目を使うこともできます：詳細は[Creating new objects](/Creating%20new%20objects.md) を参照。
 
-#### エリアの追加
+#### エリアを追加する
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap は他の地理データのシステムとは異なり、現在「エリア」オブジェクトという種類がありません。オンライエディタの「iD」はOSMのエレメントを元にエリアの概念を持ち込もうとしていますが、環境によりうまくいく場合とそうでない場合があります。Vespucci は現在このような試みは行っていないため、あなたはエリアの表現方法について、少し知っておく必要があります：
 
 * _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Improving Way Geometry
+#### ウェイのジオメトリを改善する
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### 切り取り、コピー&ペースト
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Efficiently Adding Addresses
+#### 住所を効果的に追加する
 
 Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
 
@@ -120,47 +121,47 @@ Vespucci has an "add address tags" function that tries to make surveying address
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
 * in the tag editor.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+住居番号の予測入力が機能するには典型的には道路の両側に最低2つの住居番号が必要で、データ中に多くの番号があるほどベターです。
 
-Consider using this with the [Auto-download](#download) mode.  
+使う場合には [Auto-download](#download) モードでの使用を考慮してください。  
 
-#### Adding Turn Restrictions
+#### 進行方向制限を追加する
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci には進行方向制限を素早く追加するやり方があります。必要な場合には、ウェイを自動的に分割して、あなたにエレメントを再選択するように尋ねるでしょう。 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* highwayタグの付いたウェイを選択 (進行方向制限はhighwayにのみ追加できます。他のウェイでこれを行う場合は汎用的な「リレーションを作成」モードを使ってください)
+* メニューから「制限を追加」を選択
+* 「via」ノードまたはウェイを選択 (対象となる「via」エレメントだけにタッチエリアが表示されます)
+* 「to」ウェイを選択 (2回戻って「to」エレメントを「from」エレメントにセットすることができます。Vespucci はあなたが Uターン禁止制限を追加しようとしているとみなします)
+* 制限の種別をセット
 
-### Vespucci in "locked" mode
+### 「ロック」モードのVespucci
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+赤いロックボタンが表示されている時は編集しない操作は全て行えます。加えて、オブジェクト近辺での長押しで、それがOSMオブジェクトであれば詳細情報が表示されます。
 
-### Saving Your Changes
+### 自分の変更内容を保存する
 
-*(requires network connectivity)*
+*(ネットワーク接続必須)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+ダウンロード時と同じボタンまたはメニュー項目を選んで、今度は「データをOSMサーバーにアップロード」を選択します。
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+Vespucci はOAuth 認証と旧式のユーザー名とパスワードによる方法をサポートします。OAuth はクリア時のパスワード送信を避けるため、そちらの方が望ましいです。
 
 New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+保存したくてもインターネット接続が無い場合には、JOSM互換の.osmファイルに保存して後からVespucci またはJOSMでアップロードできます。 
 
-#### Resolving conflicts on uploads
+#### アップロード時の競合を解決する
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
-## Using GPS
+## GPSを使う
 
 You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+後者のセットを持っている場合、画面を手動で動かしたり編集すると、無効化すべき「GPS追跡」モードとなって青いGPSの矢印が中抜きから色塗りされた矢印に変わります。素早く「追跡」モードに戻るには、単にGPSボタンにタッチするか、メニューの選択肢を再チェックしてください。
 
-## Notes and Bugs
+## メモとバグ
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
@@ -180,29 +181,29 @@ Besides globally enabling the notes and bugs display you can set a coarse grain 
 
 <a id="indoor"></a>
 
-## Indoor mode
+## 室内モード
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+モードはロック項目上で長押しすると有効化できます。 [Lock, unlock, mode switching](#lock) および対応するメニュー項目の選択を参照。
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Cモード
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+モードはロック項目上で長押しすると有効化できます。 [Lock, unlock, mode switching](#lock) および対応するメニュー項目の選択を参照。
 
-### Configuring checks
+### 構成チェック
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+現在、構成可能なチェックが2つあり (FIXMEタグ用とと現在が構成できないリレーション上のtypeタグの抜けのテスト用のチェックがあります) ともに「独自設定」内の「入力値検査の独自設定」で選んで構成できます。 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### 再調査エントリー
 
-Re-survey entries have the following properties:
+再調査エントリーには次のようなプロパティがあります:
 
 * **Key** - Key of the tag of interest.
 * **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
@@ -211,7 +212,7 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### エントリーのチェック
 
 Check entries have the following two properties:
 
@@ -230,18 +231,18 @@ The filter can be enabled from the main menu, it can then be changed by tapping 
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
-## Customizing Vespucci
+## Vespucci をカスタマイズする
 
-### Settings that you might want to change
+### 変更希望がありそうな設定
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* 背景レイヤ
+* オーバーレイするレイヤ。オーバーレイの追加は旧式の機器やメモリが少ないものでは問題が起きる場合があります。デフォルト: なし。
+* メモ/バグの表示。オープン状態のメモやバグは黄色い虫のアイコンで表示され、クローズ済のものは同じく緑で表示されます。デフォルト: on.
+* 写真レイヤ。ジオリファレンスされた写真を赤いカメラのアイコンで表示します。方向の情報が利用できる場合にはアイコンは回転します。デフォルト: off.
+* 画面を点灯したままにする。デフォルト: off.
+* 大きなノードのドラッグ用領域。タッチ入力で端末装置上のノードを動かそうとすると、自分の指がいま画面上のどの位置にあるかが曖昧なため、よく問題を引き起こします。これをオンにすると、大きな領域が提供され、中心を外れたドラッグ(選択と他の操作はそれまで通り通常のタッチ許容域を使用)が使えます。デフォルト: off.
 
-#### Advanced preferences
+#### 高度な独自設定
 
 * Node icons. Default: on.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
@@ -250,6 +251,6 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Reporting Problems
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Vespucci がクラッシュしたり不整合な状態を検知した場合、クラッシュダンプを送信するかどうか尋ねられます。そのようなことが発生したらぜひそうしてほしいのですが、ある状況について一度だけにしてください。より詳細な情報を伝えたり、機能リクエストなどのイシューを上げたい場合は、こちらでお願いします： [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues)。もしIf you want to discuss something related to Vespucciに関することを何か議論したければ、 [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) あるいは [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)上で議論を始めることができます。
 
 
