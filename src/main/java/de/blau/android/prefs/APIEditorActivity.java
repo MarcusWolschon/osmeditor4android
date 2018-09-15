@@ -149,7 +149,7 @@ public class APIEditorActivity extends URLListEditActivity {
         }
 
         builder.setView(mainView);
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Do nothing here because we override this button later to change the close behaviour.
@@ -157,7 +157,7 @@ public class APIEditorActivity extends URLListEditActivity {
                 // pass a handler the button doesn't get instantiated
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // leave empty

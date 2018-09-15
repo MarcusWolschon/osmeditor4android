@@ -192,9 +192,9 @@ public class ValidatorRulesUI {
         } else {
             alertDialog.setTitle(R.string.add_resurvey_title);
         }
-        alertDialog.setNegativeButton(R.string.Cancel, null);
+        alertDialog.setNegativeButton(R.string.cancel, null);
 
-        alertDialog.setPositiveButton(R.string.Save, new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!existing) {
@@ -315,9 +315,9 @@ public class ValidatorRulesUI {
         } else {
             alertDialog.setTitle(R.string.add_check_title);
         }
-        alertDialog.setNegativeButton(R.string.Cancel, null);
+        alertDialog.setNegativeButton(R.string.cancel, null);
 
-        alertDialog.setPositiveButton(R.string.Save, new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (!existing) {

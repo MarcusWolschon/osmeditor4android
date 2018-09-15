@@ -177,7 +177,7 @@ public class ViewWayPoint extends DialogFragment {
                 createObjectFromWayPoint(wp, true);
             }
         });
-        builder.setNeutralButton(R.string.Cancel, null);
+        builder.setNeutralButton(R.string.cancel, null);
 
         return builder.create();
     }

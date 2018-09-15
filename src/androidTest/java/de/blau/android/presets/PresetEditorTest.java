@@ -108,7 +108,7 @@ public class PresetEditorTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        TestUtils.clickText(mDevice, true, main.getString(android.R.string.ok), true);
+        TestUtils.clickText(mDevice, true, main.getString(R.string.okay), true);
         TestUtils.clickText(mDevice, false, "Test", false);
         TestUtils.clickUp(mDevice);
         App.resetPresets();

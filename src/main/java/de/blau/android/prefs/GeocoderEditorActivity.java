@@ -137,7 +137,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
         builder.setView(mainView);
 
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String name = editName.getText().toString();
@@ -158,7 +158,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
             }
         });
 
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.cancel();

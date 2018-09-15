@@ -230,7 +230,7 @@ public class TileLayerDialog {
                 }
             });
         }
-        alertDialog.setNeutralButton(R.string.Cancel, null);
+        alertDialog.setNeutralButton(R.string.cancel, null);
 
         alertDialog.setNegativeButton(R.string.save, new DialogInterface.OnClickListener() {
             @Override
