@@ -3,7 +3,10 @@ package de.blau.android.util.rtree;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.osm.BoundingBox;
 
 /**
@@ -30,6 +33,11 @@ public class RTree implements Serializable {
         ArrayList<Node>           children;
         ArrayList<BoundedObject>  data;
 
+        /**
+         * Construct a new tree Node
+         * 
+         * @param isLeaf if true the Node sis a leaf Node
+         */
         public Node(boolean isLeaf) {
             if (isLeaf) {
                 data = new ArrayList<>(maxSize + 1);
@@ -38,15 +46,30 @@ public class RTree implements Serializable {
             }
         }
 
+        /**
+         * Check if this is a leaf Node
+         * 
+         * @return true is a leaf Node
+         */
         public boolean isLeaf() {
             return data != null;
         }
 
+        /**
+         * Check if this is the root Node of the tree
+         * 
+         * @return true in there is no parent Node
+         */
         public boolean isRoot() {
             return parent == null;
         }
 
-        public void addTo(Node parent) {
+        /**
+         * Add this Node to a parent Node
+         * 
+         * @param parent the parent
+         */
+        public void addTo(@NonNull Node parent) {
             // assert(parent.children != null);
             parent.children.add(this);
             this.parent = parent;
@@ -54,10 +77,18 @@ public class RTree implements Serializable {
             splitter.split(parent);
         }
 
+        /**
+         * Compute and set the BoundingBox for this Node and its parents
+         */
         public void computeMBR() {
             computeMBR(true);
         }
 
+        /**
+         * Compute and set the BoundingBox for this Node
+         * 
+         * @param doParents if true compute the BoundingBox for the parent
+         */
         public void computeMBR(boolean doParents) {
             if (box == null) {
                 box = new BoundingBox();
@@ -92,6 +123,9 @@ public class RTree implements Serializable {
             }
         }
 
+        /**
+         * REmove this Node from the tree
+         */
         public void remove() {
             if (parent == null) {
                 // assert(root == this);
@@ -108,23 +142,52 @@ public class RTree implements Serializable {
             }
         }
 
-        public ArrayList<? extends BoundedObject> getSubItems() {
+        /**
+         * Get a List of the items this Node contains
+         * 
+         * @return a List of elements
+         */
+        @Nullable
+        public List<? extends BoundedObject> getSubItems() {
             return isLeaf() ? data : children;
         }
 
+        /**
+         * Get the BoundingBox for this Node
+         * 
+         * @return the BoundingBox
+         */
+        @Nullable
         public BoundingBox getBounds() {
             // Log.d(DEBUG_TAG, "box is " + box);
             return box;
         }
 
+        /**
+         * Check if the coordinates are in the BoundingBox of this node
+         * 
+         * @param px x coordinate
+         * @param py y coordinate
+         * @return true if the coordinates are in the BoundingBox
+         */
         public boolean contains(int px, int py) {
             return box.contains(px, py);
         }
 
+        /**
+         * Get the number of Nodes or BoundedObject this Node contains
+         * 
+         * @return the size of the Node
+         */
         public int size() {
             return isLeaf() ? data.size() : children.size();
         }
 
+        /**
+         * Get the depth of this Node in the tree
+         * 
+         * @return the deptsh
+         */
         public int depth() {
             Node n = this;
             int d = 0;
@@ -135,6 +198,7 @@ public class RTree implements Serializable {
             return d;
         }
 
+        @Override
         public String toString() {
             return "Depth: " + depth() + ", size: " + size();
         }
@@ -143,7 +207,7 @@ public class RTree implements Serializable {
     private class QuadraticNodeSplitter implements Serializable {
         private static final long serialVersionUID = 1L;
 
-        public void split(Node n) {
+        public void split(@NonNull Node n) {
             if (n.size() <= maxSize) {
                 return;
             }
@@ -375,13 +439,6 @@ public class RTree implements Serializable {
     }
 
     /**
-     * Default constructor.
-     */
-    private RTree() {
-        this(2, 12);
-    }
-
-    /**
      * Creates an R-Tree. Sets the splitting algorithm to quadratic splitting.
      * 
      * @param minChildren Minimum children in a node. {@code 2 <= minChildren <= maxChildren/2}
@@ -506,30 +563,39 @@ public class RTree implements Serializable {
     }
 
     /**
-     * Returns items whose Rect contains the specified point.
+     * Returns items whose Rect contains the specified point, start at the root.
      * 
      * @param results A collection to store the query results.
      * @param px Point X coordinate
      * @param py Point Y coordinate
      */
-    public void query(Collection<? super BoundedObject> results, int px, int py) {
+    public void query(@NonNull Collection<? super BoundedObject> results, int px, int py) {
         query(results, px, py, root);
     }
 
-    private void query(Collection<? super BoundedObject> results, int px, int py, Node node) {
+    /**
+     * Returns items whose Rect contains the specified point, start at node.
+     * 
+     * @param results A collection to store the query results.
+     * @param px Point X coordinate
+     * @param py Point Y coordinate
+     * @param node the node to start at
+     */
+    private void query(@NonNull Collection<? super BoundedObject> results, int px, int py, @NonNull Node node) {
         if (node == null) {
             return;
         }
         if (node.isLeaf()) {
             for (int i = 0; i < node.data.size(); i++) {
-                BoundingBox b = node.data.get(i).getBounds();
+                BoundedObject bo = node.data.get(i);
+                BoundingBox b = bo.getBounds();
                 if (b.isEmpty()) {
                     if (b.getLeft() == px && b.getTop() == py) {
-                        results.add(node.data.get(i));
+                        results.add(bo);
                     }
                 } else {
                     if (b.contains(px, py)) {
-                        results.add(node.data.get(i));
+                        results.add(bo);
                     }
                 }
             }
@@ -543,13 +609,27 @@ public class RTree implements Serializable {
     }
 
     /**
-     * Returns one item that intersects the query point, or null if no items intersect that point.
+     * Returns one item that intersects the query point, or null if no items intersect that point, starting at the root.
+     * 
+     * @param px Point X coordinate
+     * @param py Point Y coordinate
+     * @return a found BoundedObject or null if none found
      */
+    @Nullable
     public BoundedObject queryOne(int px, int py) {
         return queryOne(px, py, root);
     }
 
-    private BoundedObject queryOne(int px, int py, Node node) {
+    /**
+     * Returns one item that intersects the query point, or null if no items intersect that point, starting at node.
+     * 
+     * @param px Point X coordinate
+     * @param py Point Y coordinate
+     * @param node the Node to start at
+     * @return a found BoundedObject or null if none found
+     */
+    @Nullable
+    private BoundedObject queryOne(int px, int py, @NonNull Node node) {
         if (node == null) {
             return null;
         }
@@ -628,6 +708,8 @@ public class RTree implements Serializable {
 
     /**
      * Counts the number of items in the tree.
+     * 
+     * @return the item count
      */
     public int count() {
         if (root == null) {
@@ -636,6 +718,12 @@ public class RTree implements Serializable {
         return count(root);
     }
 
+    /**
+     * Counts the number of items in the sub-tree starting with n.
+     * 
+     * @param n the Node to start at
+     * @return the item count
+     */
     private int count(Node n) {
         // assert(n != null);
         if (n.isLeaf()) {
@@ -703,6 +791,12 @@ public class RTree implements Serializable {
         return total;
     }
 
+    /**
+     * Get the area of a BoundingBox
+     * 
+     * @param box the BoundingBox
+     * @return width"height
+     */
     private static double area(BoundingBox box) {
         return (double) box.getWidth() * (double) box.getHeight();
     }
