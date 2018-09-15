@@ -129,7 +129,7 @@ public class TaskStorage implements Serializable {
         }
         return false;
     }
-    
+
     /**
      * Get any Task in storage that is of the same type and has the same id and is at the same position
      * 
@@ -142,11 +142,7 @@ public class TaskStorage implements Serializable {
         tasks.query(queryResult, t.getLon(), t.getLat());
         Log.d(DEBUG_TAG, "candidates for get " + queryResult.size());
         for (BoundedObject bo : queryResult) {
-            if (t instanceof Note && bo instanceof Note && t.getId() == ((Task) bo).getId()) {
-                return (Task) bo;
-            } else if (t instanceof OsmoseBug && bo instanceof OsmoseBug && t.getId() == ((Task) bo).getId()) {
-                return (Task) bo;
-            } else if (t instanceof CustomBug && bo instanceof CustomBug && t.getId() == ((Task) bo).getId()) {
+            if (t.getId() == ((Task) bo).getId() && t.getClass().equals(bo.getClass())) {
                 return (Task) bo;
             }
         }
