@@ -520,7 +520,8 @@ public class RTree implements Serializable {
      * @param box the BoundingBox we are querying
      * @return a BoundedObject or null ir none found
      */
-    public BoundedObject queryOne(BoundingBox box) {
+    @Nullable
+    public BoundedObject queryOne(@NonNull BoundingBox box) {
         return queryOne(box, root);
     }
 
@@ -531,7 +532,8 @@ public class RTree implements Serializable {
      * @param node Node to start at
      * @return a BoundedObject or null ir none found
      */
-    private BoundedObject queryOne(BoundingBox box, Node node) {
+    @Nullable
+    private BoundedObject queryOne(@NonNull BoundingBox box, @Nullable Node node) {
         if (node == null) {
             return null;
         }
@@ -569,6 +571,7 @@ public class RTree implements Serializable {
      * @param px Point X coordinate
      * @param py Point Y coordinate
      */
+    @Nullable
     public void query(@NonNull Collection<? super BoundedObject> results, int px, int py) {
         query(results, px, py, root);
     }
@@ -581,7 +584,8 @@ public class RTree implements Serializable {
      * @param py Point Y coordinate
      * @param node the node to start at
      */
-    private void query(@NonNull Collection<? super BoundedObject> results, int px, int py, @NonNull Node node) {
+    @Nullable
+    private void query(@NonNull Collection<? super BoundedObject> results, int px, int py, @Nullable Node node) {
         if (node == null) {
             return;
         }
@@ -629,7 +633,7 @@ public class RTree implements Serializable {
      * @return a found BoundedObject or null if none found
      */
     @Nullable
-    private BoundedObject queryOne(int px, int py, @NonNull Node node) {
+    private BoundedObject queryOne(int px, int py, @Nullable Node node) {
         if (node == null) {
             return null;
         }
