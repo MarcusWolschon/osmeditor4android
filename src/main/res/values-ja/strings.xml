@@ -723,9 +723,9 @@
   <string name="config_showStats_summary">左下隅にデータ統計とフレーム/秒 を表示。</string>
   <!--Experimental-->
   <string name="config_category_experimental">実験機能</string>
-  <string name="config_js_console_title">JSコンソールを有効</string>
-  <string name="config_js_console_summary">\"ライブ\"モードでJSコンソールを有効にする</string>
-  <string name="config_voiceCommandsEnabled_title">音声コマンドを有効</string>
+  <string name="config_js_console_title">JSコンソールを有効化</string>
+  <string name="config_js_console_summary">「ライブ」モードでJSコンソールを有効にする</string>
+  <string name="config_voiceCommandsEnabled_title">音声コマンドを有効化</string>
   <string name="config_voiceCommandsEnabled_summary">音声コマンドサポートを有効にする</string>
   <!---->
   <string name="manage_apis">APIの管理</string>

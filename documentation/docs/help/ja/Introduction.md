@@ -115,7 +115,7 @@ You can copy or cut selected nodes and ways, and then paste once or multiple tim
 
 #### 住所を効果的に追加する
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci には「住所タグを追加」機能があり、住所の調査をより効果的にできるようにします。以下から選択できます：
 
 * after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
@@ -167,17 +167,17 @@ Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM
 
 On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+OSMOSEバグ表示は影響するオブジェクトへのリンクを青色で提供し、そのリンクをタッチするとオブジェクトが選択され、そこに画面が中央寄せされ、必要であれば予めそのエリアをダウンロードします。 
 
 ### フィルタリング
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* メモ
+* Osmose エラー
+* Osmose 警告
+* Osmose マイナーな問題
+* カスタム
 
 <a id="indoor"></a>
 
@@ -191,7 +191,7 @@ Mapping indoors is challenging due to the high number of objects that very often
 
 ## Cモード
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+Cモードでは、警告フラグセットを持つオブジェクトだけが表示され、特定の問題を持っていたり構成可能なチェックに一致するオブジェクトを簡単に選び出せます。オブジェクトが選択され、プロパティエディタがCモードで起動されるとベストマッチのプリセットが自動的に適用されます。
 
 モードはロック項目上で長押しすると有効化できます。 [Lock, unlock, mode switching](#lock) および対応するメニュー項目の選択を参照。
 
@@ -199,7 +199,7 @@ In C-Mode only objects are displayed that have a warning flag set, this makes it
 
 現在、構成可能なチェックが2つあり (FIXMEタグ用とと現在が構成できないリレーション上のtypeタグの抜けのテスト用のチェックがあります) ともに「独自設定」内の「入力値検査の独自設定」で選んで構成できます。 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+エントリーのリストは、リスト上半分の「再調査」エントリーと下半分の「チェックエントリー」の2つに分割されます。エントリーはクリックすると編集でき、緑のメニューモタンでエントリーを追加できます。
 
 #### 再調査エントリー
 
