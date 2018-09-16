@@ -5677,7 +5677,7 @@
                   ja.href="http://wiki.openstreetmap.org/wiki/JA:Key:attraction"
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:attraction" />
             <space />
-            <combo key="attraction" text="Attraction" values_searchable="true">
+            <combo key="attraction" text="Attraction" values_searchable="true" values_context="leisure" >
                 <list_entry value="amusement_ride" display_value="Amusement ride" />
                 <list_entry value="big_wheel" display_value="Big wheel" />
                 <list_entry value="bumper_car" display_value="Bumper car" />
@@ -5889,41 +5889,41 @@
             	<reference ref="surface" />
             	<reference ref="name_operator_oh_wheelchair" />
                 <checkgroup text="Equipment" columns="3">
-                    <check text="Activity panel" key="playground:activitypanel" disable_off="true"/>
-                    <check text="Aerial rotator" key="playground:aerialrotator" disable_off="true"/>
+                    <check text="Activity panel" key="playground:activitypanel" disable_off="true" text_context="leisure" />
+                    <check text="Aerial rotator" key="playground:aerialrotator" disable_off="true" text_context="leisure" />
                     <check text="Balance beam" key="playground:balancebeam" disable_off="true"/>
-                    <check text="Basketball backboard" key="playground:basketball_backboard" disable_off="true"/>
-                    <check text="Basket rotator" key="playground:basketrotator" disable_off="true"/>
-                    <check text="Basket swing" key="playground:basketswing" disable_off="true"/>
-                    <check text="Chain ladder" key="playground:chain_ladder" disable_off="true"/>
-                    <check text="Chess table" key="playground:chess_table" disable_off="true"/>
-                    <check text="Climbing frame" key="playground:climbingframe" disable_off="true"/>
-                    <check text="Climbing wall" key="playground:climbingwall" disable_off="true"/>
-                    <check text="Cushion" key="playground:cushion" disable_off="true"/>
-                    <check text="Exercise" key="playground:exercise" disable_off="true"/>
-                    <check text="Hopscotch" key="playground:hopscotch" disable_off="true"/>
-                    <check text="Horizontal bar" key="playground:horizontal_bar" disable_off="true"/>
-                    <check text="Multi play" key="playground:multi_play" disable_off="true"/>
-                    <check text="Playhouse" key="playground:playhouse" disable_off="true"/>
-                    <check text="Soundabout" key="playground:roundabout" disable_off="true"/>
-                    <check text="Sandpit" key="playground:sandpit" disable_off="true"/>
-                    <check text="Seesaw" key="playground:seesaw" disable_off="true"/>
-                    <check text="Skate equipment" key="playground:skate_equipment" disable_off="true"/>
-                    <check text="Sledding" key="playground:sledding" disable_off="true"/>
-                    <check text="Slide" key="playground:slide" disable_off="true"/>
-                    <check text="Gyro twister spinner" key="playground:spinner" disable_off="true"/>
-                    <check text="Splash pad" key="playground:splash_pad" disable_off="true"/>
-                    <check text="Springy" key="playground:springy" disable_off="true"/>
-                    <check text="Stepping stones/pads" key="playground:stepping_stones" disable_off="true"/>
-                    <check text="Structure (playset)" key="playground:structure" disable_off="true"/>
-                    <check text="Swing" key="playground:swing" disable_off="true"/>
-                    <check text="Teen shelter" key="playground:teenshelter" disable_off="true"/>
-                    <check text="Trampoline" key="playground:trampoline" disable_off="true"/>
-                    <check text="Tree house" key="playground:tree_house" disable_off="true"/>
-                    <check text="Tunnel tube" key="playground:tunnel_tube" disable_off="true"/>
-                    <check text="Water" key="playground:water" disable_off="true"/>
-                    <check text="Zigzag twister" key="playground:zigzagtwister" disable_off="true"/>
-                    <check text="Zip wire" key="playground:zipwire" disable_off="true"/>
+                    <check text="Basketball backboard" key="playground:basketball_backboard" disable_off="true" text_context="leisure" />
+                    <check text="Basket rotator" key="playground:basketrotator" disable_off="true" text_context="leisure" />
+                    <check text="Basket swing" key="playground:basketswing" disable_off="true" text_context="leisure" />
+                    <check text="Chain ladder" key="playground:chain_ladder" disable_off="true" text_context="leisure" />
+                    <check text="Chess table" key="playground:chess_table" disable_off="true" text_context="leisure" />
+                    <check text="Climbing frame" key="playground:climbingframe" disable_off="true" text_context="leisure" />
+                    <check text="Climbing wall" key="playground:climbingwall" disable_off="true" text_context="leisure" />
+                    <check text="Cushion" key="playground:cushion" disable_off="true" text_context="leisure" />
+                    <check text="Exercise" key="playground:exercise" disable_off="true" text_context="leisure" />
+                    <check text="Hopscotch" key="playground:hopscotch" disable_off="true" text_context="leisure" />
+                    <check text="Horizontal bar" key="playground:horizontal_bar" disable_off="true" text_context="leisure" />
+                    <check text="Multi play" key="playground:multi_play" disable_off="true" text_context="leisure" />
+                    <check text="Playhouse" key="playground:playhouse" disable_off="true" text_context="leisure" />
+                    <check text="Roundabout" key="playground:roundabout" disable_off="true" text_context="leisure" />
+                    <check text="Sandpit" key="playground:sandpit" disable_off="true" text_context="leisure" />
+                    <check text="Seesaw" key="playground:seesaw" disable_off="true" text_context="leisure" />
+                    <check text="Skate equipment" key="playground:skate_equipment" disable_off="true" text_context="leisure" />
+                    <check text="Sledding" key="playground:sledding" disable_off="true" text_context="leisure" />
+                    <check text="Slide" key="playground:slide" disable_off="true" text_context="leisure" />
+                    <check text="Gyro twister spinner" key="playground:spinner" disable_off="true" text_context="leisure" />
+                    <check text="Splash pad" key="playground:splash_pad" disable_off="true" text_context="leisure" />
+                    <check text="Springy" key="playground:springy" disable_off="true" text_context="leisure" />
+                    <check text="Stepping stones/pads" key="playground:stepping_stones" disable_off="true" text_context="leisure" />
+                    <check text="Structure (playset)" key="playground:structure" disable_off="true" text_context="leisure" />
+                    <check text="Swing" key="playground:swing" disable_off="true" text_context="leisure" />
+                    <check text="Teen shelter" key="playground:teenshelter" disable_off="true" text_context="leisure" />
+                    <check text="Trampoline" key="playground:trampoline" disable_off="true" text_context="leisure" />
+                    <check text="Tree house" key="playground:tree_house" disable_off="true" text_context="leisure" />
+                    <check text="Tunnel tube" key="playground:tunnel_tube" disable_off="true" text_context="leisure" />
+                    <check text="Water" key="playground:water" disable_off="true" text_context="leisure" />
+                    <check text="Zigzag twister" key="playground:zigzagtwister" disable_off="true" text_context="leisure" />
+                    <check text="Zip wire" key="playground:zipwire" disable_off="true" text_context="leisure" />
             </checkgroup>
         </optional>
     </item> <!-- Playground -->
@@ -5940,7 +5940,7 @@
                   pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:leisure=playground"
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:leisure=playground" />
             <space />
-            <combo text="Equipment" key="playground" match="key">
+            <combo text="Equipment" key="playground" match="key" values_context="leisure" >
                 <list_entry value="activitypanel" display_value="Activity panel"/>
                 <list_entry value="aerialrotator" display_value="Aerial rotator"/>
                 <list_entry value="balancebeam" display_value="Balance beam" />
@@ -5982,7 +5982,7 @@
             <reference ref="min_max_age" />
             <check text="Baby" key="baby"/>
         </item>
-        <item name="Slide" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon">
+        <item name="Slide" icon="icons/png/amenity_slide_30043.png" type="node,way,closedway,multipolygon" name_context="leisure" >
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=playground"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=playground"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=playground"
@@ -6000,7 +6000,7 @@
             <reference ref="min_max_age" />
             <check text="Baby" key="baby"/>
         </item>
-        <item name="Swing" icon="icons/png/amenity_empty.png" type="node,way,closedway,multipolygon">
+        <item name="Swing" icon="icons/png/amenity_empty.png" type="node,way,closedway,multipolygon" name_context="leisure" >
             <link href="http://wiki.openstreetmap.org/wiki/Tag:leisure=playground"
                   cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:leisure=playground"
                   de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:leisure=playground"

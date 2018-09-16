@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
-"POT-Creation-Date: 2018-09-10 21:16+0200\n"
-"PO-Revision-Date: 2018-09-10 19:18+0000\n"
-"Last-Translator: Albert\n"
+"POT-Creation-Date: 2018-09-16 20:11+0200\n"
+"PO-Revision-Date: 2018-09-16 18:19+0000\n"
+"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/openstreetmap/presets/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -288,11 +288,6 @@ msgstr "A través"
 msgid "Acrylic glass"
 msgstr "Vidrio acrílico"
 
-#: master_preset.xml:5892(check:text|group:Leisure|preset:Playground|key:playground:activitypanel)
-#: master_preset.xml:5944(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:activitypanel)
-msgid "Activity panel"
-msgstr ""
-
 #: master_preset.xml:7040(list_entry:short_description|group:Health|preset:Alternative_medicine|value:acupuncture)
 msgid "Acupuncture"
 msgstr "Acupuntura"
@@ -361,11 +356,6 @@ msgstr "Columna publicitaria"
 #: master_preset.xml:14624(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
 msgstr "Agencia de publicidad"
-
-#: master_preset.xml:5893(check:text|group:Leisure|preset:Playground|key:playground:aerialrotator)
-#: master_preset.xml:5945(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:aerialrotator)
-msgid "Aerial rotator"
-msgstr ""
 
 #: master_preset.xml:3813(group:name|group:Aerialway)
 #: master_preset.xml:4478(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
@@ -523,10 +513,6 @@ msgstr "Anfibio"
 
 #: master_preset.xml:6102(item:name|preset:Amusement_arcade)
 msgid "Amusement arcade"
-msgstr ""
-
-#: master_preset.xml:5681(list_entry:display_value|group:Leisure|preset:Rides|value:amusement_ride)
-msgid "Amusement ride"
 msgstr ""
 
 #: master_preset.xml:5642(item:name|group:Leisure|preset:Amusement/Theme_Park)
@@ -721,7 +707,6 @@ msgid "Association"
 msgstr "Asociación"
 
 #: master_preset.xml:5299(item:name|group:Tourism|preset:Attraction)
-#: master_preset.xml:5680(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgid "Attraction"
 msgstr "Atracción"
 
@@ -836,7 +821,6 @@ msgstr "Panadería"
 
 #: master_preset.xml:5766(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:balance_beam)
 #: master_preset.xml:5894(check:text|group:Leisure|preset:Playground|key:playground:balancebeam)
-#: master_preset.xml:5946(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgid "Balance beam"
 msgstr ""
 
@@ -931,24 +915,9 @@ msgstr "Lavabo"
 msgid "Basket maker"
 msgstr "Cestero"
 
-#: master_preset.xml:5896(check:text|group:Leisure|preset:Playground|key:playground:basketrotator)
-#: master_preset.xml:5948(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketrotator)
-msgid "Basket rotator"
-msgstr ""
-
-#: master_preset.xml:5897(check:text|group:Leisure|preset:Playground|key:playground:basketswing)
-#: master_preset.xml:5949(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketswing)
-msgid "Basket swing"
-msgstr ""
-
 #: master_preset.xml:8513(item:name|group:Sport_(Ball)|preset:Basketball)
 msgid "Basketball"
 msgstr "Baloncesto"
-
-#: master_preset.xml:5895(check:text|group:Leisure|preset:Playground|key:playground:basketball_backboard)
-#: master_preset.xml:5947(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketball_backboard)
-msgid "Basketball backboard"
-msgstr ""
 
 #: master_preset.xml:5550(list_entry:display_value|group:Leisure|preset:Animals|value:bat)
 msgid "Bat"
@@ -1081,10 +1050,6 @@ msgstr "Se venden bicicletas"
 #: master_preset.xml:4328(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:cleaning)
 msgid "Bicycles are washed (for a fee)"
 msgstr "Las bicicletas se lavan (por una tarifa)"
-
-#: master_preset.xml:5682(list_entry:display_value|group:Leisure|preset:Rides|value:big_wheel)
-msgid "Big wheel"
-msgstr "Noria"
 
 #: master_preset.xml:4306(item:name|group:Bicycle|preset:Bike_Dealer)
 msgid "Bike Dealer"
@@ -1439,14 +1404,6 @@ msgstr "Protuberancia"
 msgid "Bump Gate"
 msgstr "Puerta de choque"
 
-#: master_preset.xml:5683(list_entry:display_value|group:Leisure|preset:Rides|value:bumper_car)
-msgid "Bumper car"
-msgstr ""
-
-#: master_preset.xml:5684(list_entry:display_value|group:Leisure|preset:Rides|value:bungee_jumping)
-msgid "Bungee jumping"
-msgstr ""
-
 #: master_preset.xml:9149(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
 msgstr "Silo Búnker"
@@ -1655,10 +1612,6 @@ msgstr "Caravanas permitidas"
 msgid "Cardboard"
 msgstr "Cartón"
 
-#: master_preset.xml:5685(list_entry:display_value|group:Leisure|preset:Rides|value:carousel)
-msgid "Carousel"
-msgstr "Carrusel"
-
 #: master_preset.xml:14060(item:name|group:Crafts|preset:Carpenter)
 msgid "Carpenter"
 msgstr "Carpintero"
@@ -1733,11 +1686,6 @@ msgstr "Barandilla central"
 msgid "Chain"
 msgstr "Cadena"
 
-#: master_preset.xml:5898(check:text|group:Leisure|preset:Playground|key:playground:chain_ladder)
-#: master_preset.xml:5950(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chain_ladder)
-msgid "Chain ladder"
-msgstr ""
-
 #: master_preset.xml:4367(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
 msgstr "Herramienta de cadena"
@@ -1785,11 +1733,6 @@ msgstr "Farmacia"
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Cherry trees"
 msgstr "Cerezos"
-
-#: master_preset.xml:5899(check:text|group:Leisure|preset:Playground|key:playground:chess_table)
-#: master_preset.xml:5951(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chess_table)
-msgid "Chess table"
-msgstr ""
 
 #: master_preset.xml:1999(item:name|group:Traffic_Calming|preset:Chicane)
 msgid "Chicane"
@@ -1898,16 +1841,6 @@ msgstr "Acantilado"
 #: master_preset.xml:8274(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
 msgstr "Alpinismo"
-
-#: master_preset.xml:5900(check:text|group:Leisure|preset:Playground|key:playground:climbingframe)
-#: master_preset.xml:5952(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
-msgid "Climbing frame"
-msgstr ""
-
-#: master_preset.xml:5901(check:text|group:Leisure|preset:Playground|key:playground:climbingwall)
-#: master_preset.xml:5953(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingwall)
-msgid "Climbing wall"
-msgstr ""
 
 #: master_preset.xml:6914(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
@@ -2314,8 +2247,6 @@ msgid "Curtain"
 msgstr "Cortinas"
 
 #: master_preset.xml:2029(item:name|group:Traffic_Calming|preset:Cushion)
-#: master_preset.xml:5902(check:text|group:Leisure|preset:Playground|key:playground:cushion)
-#: master_preset.xml:5954(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:cushion)
 msgid "Cushion"
 msgstr "Protección"
 
@@ -2369,10 +2300,6 @@ msgstr "Presa"
 #: master_preset.xml:5817(item:name|group:Leisure|preset:Dance)
 msgid "Dance"
 msgstr "Baile"
-
-#: master_preset.xml:5686(list_entry:display_value|group:Leisure|preset:Rides|value:dark_ride)
-msgid "Dark ride"
-msgstr ""
 
 #: master_preset.xml:4171(multiselect:display_values|group:Car|preset:Repair|key:service)
 msgid "Dealer"
@@ -2786,10 +2713,6 @@ msgstr "Acceso para coches"
 msgid "Driving School"
 msgstr "Escuela de conducción"
 
-#: master_preset.xml:5687(list_entry:display_value|group:Leisure|preset:Rides|value:drop_tower)
-msgid "Drop tower"
-msgstr ""
-
 #: master_preset.xml:708(list_entry:display_value|value:drug_addicted)
 msgid "Drug addicted"
 msgstr "Drogadicto"
@@ -3001,7 +2924,6 @@ msgid "Equestrian"
 msgstr "Ecuestre"
 
 #: master_preset.xml:5891(checkgroup:text|group:Leisure|preset:Playground)
-#: master_preset.xml:5943(combo:text|group:Playground_equipment|preset:Playground_equipment|key:playground)
 msgid "Equipment"
 msgstr ""
 
@@ -3065,11 +2987,6 @@ msgstr "Bolsas de excrementos"
 #: master_preset.xml:11960(list_entry:short_description|preset:Vending_Machine|value:excrement_bags)
 msgid "Excrement bags"
 msgstr "Bolsas de excrementos"
-
-#: master_preset.xml:5903(check:text|group:Leisure|preset:Playground|key:playground:exercise)
-#: master_preset.xml:5955(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:exercise)
-msgid "Exercise"
-msgstr ""
 
 #: master_preset.xml:5091(combo:display_values|group:Accommodation|preset:Campsite|key:sanitary_dump_station)
 msgid "Exists"
@@ -3766,11 +3683,6 @@ msgstr "Poste indicador"
 msgid "Gymnastics"
 msgstr "Gimnasia"
 
-#: master_preset.xml:5914(check:text|group:Leisure|preset:Playground|key:playground:spinner)
-#: master_preset.xml:5966(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:spinner)
-msgid "Gyro twister spinner"
-msgstr ""
-
 #: master_preset.xml:13583(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "HGV"
 msgstr "Vehículo pesado"
@@ -3988,14 +3900,7 @@ msgstr "Indigente"
 msgid "Homeopathy"
 msgstr "Homeopatía"
 
-#: master_preset.xml:5904(check:text|group:Leisure|preset:Playground|key:playground:hopscotch)
-#: master_preset.xml:5956(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
-msgid "Hopscotch"
-msgstr ""
-
 #: master_preset.xml:5768(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:horizontal_bar)
-#: master_preset.xml:5905(check:text|group:Leisure|preset:Playground|key:playground:horizontal_bar)
-#: master_preset.xml:5957(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:horizontal_bar)
 msgid "Horizontal bar"
 msgstr ""
 
@@ -4397,10 +4302,6 @@ msgstr "Bordillo (derecho)"
 msgid "Key cutter"
 msgstr "Copiador de llaves"
 
-#: master_preset.xml:5688(list_entry:display_value|group:Leisure|preset:Rides|value:kiddie_ride)
-msgid "Kiddie ride"
-msgstr ""
-
 #: master_preset.xml:9071(item:name|group:Man_Made|preset:Kiln)
 msgid "Kiln"
 msgstr "Horno"
@@ -4730,10 +4631,6 @@ msgstr "Cerrajero"
 msgid "Locomotive"
 msgstr ""
 
-#: master_preset.xml:5689(list_entry:display_value|group:Leisure|preset:Rides|value:log_flume)
-msgid "Log flume"
-msgstr ""
-
 #: master_preset.xml:14935(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
 msgstr "Logística"
@@ -5038,10 +4935,6 @@ msgstr "Máxima velocidad por carril en esta dirección"
 #: master_preset.xml:1567(text:text|group:Lane_attributes|preset:Bi-directional_roads|key:maxspeed:lanes:backward)
 msgid "Maxspeed per lane opposite to way direction"
 msgstr "Velocidad máxima por carril opuesto a la dirección de camino"
-
-#: master_preset.xml:5690(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
-msgid "Maze"
-msgstr "Laberinto"
 
 #: master_preset.xml:12834(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"
@@ -5398,11 +5291,6 @@ msgstr "Lodo"
 #: master_preset.xml:8206(item:name|group:Sport|preset:Multi)
 msgid "Multi"
 msgstr "Multi"
-
-#: master_preset.xml:5906(check:text|group:Leisure|preset:Playground|key:playground:multi_play)
-#: master_preset.xml:5958(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
-msgid "Multi play"
-msgstr ""
 
 #: master_preset.xml:8289(check:text|group:Sport|preset:Climbing|key:climbing:multipitch)
 msgid "Multi-pitch routes"
@@ -6675,10 +6563,6 @@ msgstr "Marcador de canal"
 msgid "Pipeline Valve"
 msgstr "Válvula de tubería"
 
-#: master_preset.xml:5691(list_entry:display_value|group:Leisure|preset:Rides|value:pirate_ship)
-msgid "Pirate ship"
-msgstr "Barco pirata"
-
 #: master_preset.xml:13709(item:name|group:Routes|preset:Piste_Route)
 msgid "Piste Route"
 msgstr "Ruta de pista"
@@ -6799,11 +6683,6 @@ msgstr "Parque infantil"
 #: master_preset.xml:5930(group:name|group:Playground_equipment)
 #: master_preset.xml:5931(item:name|group:Playground_equipment|preset:Playground_equipment)
 msgid "Playground equipment"
-msgstr ""
-
-#: master_preset.xml:5907(check:text|group:Leisure|preset:Playground|key:playground:playhouse)
-#: master_preset.xml:5959(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:playhouse)
-msgid "Playhouse"
 msgstr ""
 
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
@@ -7711,10 +7590,6 @@ msgstr "Laminado"
 msgid "Roller Skating"
 msgstr "Patinaje sobre ruedas"
 
-#: master_preset.xml:5692(list_entry:display_value|group:Leisure|preset:Rides|value:roller_coaster)
-msgid "Roller coaster"
-msgstr ""
-
 #: master_preset.xml:10203(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:547(combo:display_values|key:denomination)
 msgid "Roman catholic"
@@ -7759,7 +7634,6 @@ msgid "Rope tow"
 msgstr "Cuerda de remolque"
 
 #: master_preset.xml:1459(item:name|group:Streets|preset:Roundabout)
-#: master_preset.xml:5960(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:roundabout)
 msgid "Roundabout"
 msgstr "Rotonda"
 
@@ -7907,11 +7781,6 @@ msgstr "Ciénaga de sal"
 #: master_preset.xml:54(combo:display_values|key:surface)
 msgid "Sand"
 msgstr "Arena"
-
-#: master_preset.xml:5909(check:text|group:Leisure|preset:Playground|key:playground:sandpit)
-#: master_preset.xml:5961(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sandpit)
-msgid "Sandpit"
-msgstr "Cajón de arena / Arenero"
 
 #: master_preset.xml:8293(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Sandstone"
@@ -8071,11 +7940,6 @@ msgstr ""
 #: master_preset.xml:3965(label:text|group:Car|preset:Parking)
 msgid "See the Wiki for other capacity:[types]=*."
 msgstr "Ver la Wiki para otra capacidad:[types]=*."
-
-#: master_preset.xml:5910(check:text|group:Leisure|preset:Playground|key:playground:seesaw)
-#: master_preset.xml:5962(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:seesaw)
-msgid "Seesaw"
-msgstr "Subibaja"
 
 #: master_preset.xml:1718(check:text|group:Ways|preset:Dedicated_Cycleway|key:segregated)
 #: master_preset.xml:1774(combo:text|group:Ways|preset:Dedicated_Footway|key:segregated)
@@ -8317,11 +8181,6 @@ msgstr "Lugar"
 msgid "Site name"
 msgstr "Nombre del lugar"
 
-#: master_preset.xml:5911(check:text|group:Leisure|preset:Playground|key:playground:skate_equipment)
-#: master_preset.xml:5963(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:skate_equipment)
-msgid "Skate equipment"
-msgstr ""
-
 #: master_preset.xml:8382(item:name|group:Sport|preset:Skateboard)
 msgid "Skateboard"
 msgstr "Skateboard"
@@ -8359,18 +8218,6 @@ msgstr ""
 #: master_preset.xml:839(combo:display_values|key:roof:material)
 msgid "Slate"
 msgstr "Pizarra"
-
-#: master_preset.xml:5912(check:text|group:Leisure|preset:Playground|key:playground:sledding)
-#: master_preset.xml:5964(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sledding)
-msgid "Sledding"
-msgstr ""
-
-#: master_preset.xml:5693(list_entry:display_value|group:Leisure|preset:Rides|value:slide)
-#: master_preset.xml:5913(check:text|group:Leisure|preset:Playground|key:playground:slide)
-#: master_preset.xml:5965(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:slide)
-#: master_preset.xml:5985(item:name|group:Playground_equipment|preset:Slide)
-msgid "Slide"
-msgstr "Tobogán"
 
 #: master_preset.xml:1512(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:slight_left)
 #: master_preset.xml:1538(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:slight_left)
@@ -8452,10 +8299,6 @@ msgstr "Generador de energía solar"
 msgid "Sound signals"
 msgstr "Señales sonoras"
 
-#: master_preset.xml:5908(check:text|group:Leisure|preset:Playground|key:playground:roundabout)
-msgid "Soundabout"
-msgstr ""
-
 #: master_preset.xml:3962(combo:text|group:Car|preset:Parking|key:capacity:disabled)
 msgid "Spaces for Disabled"
 msgstr "Espacios para discapacitados"
@@ -8509,11 +8352,6 @@ msgstr "Espinas"
 msgid "Spiritualist"
 msgstr "Espiritista"
 
-#: master_preset.xml:5915(check:text|group:Leisure|preset:Playground|key:playground:splash_pad)
-#: master_preset.xml:5967(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:splash_pad)
-msgid "Splash pad"
-msgstr ""
-
 #: master_preset.xml:11319(list_entry:short_description|group:For_the_body|preset:Massage|value:sport)
 #: master_preset.xml:3326(combo:text|group:Water|preset:Beach|key:sport)
 #: master_preset.xml:8011(multiselect:text|group:Sport_Facilities|preset:Dojo|key:sport)
@@ -8556,11 +8394,6 @@ msgstr "Polideportivo"
 #: master_preset.xml:3060(item:name|group:Water|preset:Spring)
 msgid "Spring"
 msgstr "Muelle"
-
-#: master_preset.xml:5916(check:text|group:Leisure|preset:Playground|key:playground:springy)
-#: master_preset.xml:5968(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:springy)
-msgid "Springy"
-msgstr ""
 
 #: master_preset.xml:12341(item:name|group:Places|preset:Square)
 msgid "Square"
@@ -8642,11 +8475,6 @@ msgstr "Estepa"
 #: master_preset.xml:1495(combo:display_values|group:Streets|preset:Ford|key:ford)
 msgid "Stepping stones"
 msgstr "Escalones"
-
-#: master_preset.xml:5917(check:text|group:Leisure|preset:Playground|key:playground:stepping_stones)
-#: master_preset.xml:5969(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:stepping_stones)
-msgid "Stepping stones/pads"
-msgstr ""
 
 #: master_preset.xml:1780(item:name|group:Ways|preset:Steps)
 msgid "Steps"
@@ -8746,11 +8574,6 @@ msgstr "Rampa para silla de bebé"
 msgid "Structure"
 msgstr "Estructura"
 
-#: master_preset.xml:5918(check:text|group:Leisure|preset:Playground|key:playground:structure)
-#: master_preset.xml:5970(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:structure)
-msgid "Structure (playset)"
-msgstr ""
-
 #: master_preset.xml:6405(item:name|group:Culture|preset:Studio)
 msgid "Studio"
 msgstr "Estudio"
@@ -8798,10 +8621,6 @@ msgstr "Bomba de succión"
 #: master_preset.xml:402(list_entry:short_description|value:suits)
 msgid "Suits"
 msgstr "Trajes"
-
-#: master_preset.xml:5696(list_entry:display_value|group:Leisure|preset:Rides|value:summer_toboggan)
-msgid "Summer toboggan"
-msgstr ""
 
 #: master_preset.xml:14405(item:name|group:Crafts|preset:Sun_protection)
 msgid "Sun protection"
@@ -8867,20 +8686,9 @@ msgstr "Piscina"
 msgid "Swimwear"
 msgstr "Bañadores"
 
-#: master_preset.xml:5694(list_entry:display_value|group:Leisure|preset:Rides|value:swing)
-#: master_preset.xml:5919(check:text|group:Leisure|preset:Playground|key:playground:swing)
-#: master_preset.xml:5971(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:swing)
-#: master_preset.xml:6003(item:name|group:Playground_equipment|preset:Swing)
-msgid "Swing"
-msgstr "Columpio / Hamaca"
-
 #: master_preset.xml:2554(item:name|group:Barriers|preset:Swing_Gate)
 msgid "Swing Gate"
 msgstr "Puerta batiente"
-
-#: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Rides|value:swing_carousel)
-msgid "Swing carousel"
-msgstr ""
 
 #: master_preset.xml:9957(label:text|preset:Pole_with_Switch)
 msgid "Switch Attributes:"
@@ -9002,11 +8810,6 @@ msgstr "Plantas de té"
 #: master_preset.xml:5828(check:text|group:Leisure|preset:Dance|key:dance:teaching)
 msgid "Teaching"
 msgstr "Enseñanza"
-
-#: master_preset.xml:5920(check:text|group:Leisure|preset:Playground|key:playground:teenshelter)
-#: master_preset.xml:5972(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:teenshelter)
-msgid "Teen shelter"
-msgstr ""
 
 #: master_preset.xml:14749(item:name|group:Offices|preset:Telecommunication)
 msgid "Telecommunication"
@@ -9352,7 +9155,6 @@ msgstr "Rastro con línea contínua y equilibrada ascensión. Terreno parcialmen
 
 #: master_preset.xml:4467(check:text|group:Public_Transport|preset:Stop_Position|key:train)
 #: master_preset.xml:4503(check:text|group:Public_Transport|preset:Platform|key:train)
-#: master_preset.xml:5697(list_entry:display_value|group:Leisure|preset:Rides|value:train)
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Train"
 msgstr "Tren"
@@ -9370,12 +9172,6 @@ msgstr "Parada de Tranvía"
 #: master_preset.xml:4466(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Tram stop (legacy)"
 msgstr "Parada de tranvía (anticuado)"
-
-#: master_preset.xml:5698(list_entry:display_value|group:Leisure|preset:Rides|value:trampoline)
-#: master_preset.xml:5921(check:text|group:Leisure|preset:Playground|key:playground:trampoline)
-#: master_preset.xml:5973(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:trampoline)
-msgid "Trampoline"
-msgstr ""
 
 #: master_preset.xml:9978(label:text|preset:Pole_with_Transformer)
 msgid "Transformer Attributes:"
@@ -9412,11 +9208,6 @@ msgstr "Árbol"
 #: master_preset.xml:12548(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
 msgstr "Hilera de árboles"
-
-#: master_preset.xml:5922(check:text|group:Leisure|preset:Playground|key:playground:tree_house)
-#: master_preset.xml:5974(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tree_house)
-msgid "Tree house"
-msgstr ""
 
 #: master_preset.xml:12862(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -9459,11 +9250,6 @@ msgstr "Túmulo"
 #: master_preset.xml:985(check:text|group:Streets|preset:Motorway_Link|key:tunnel)
 msgid "Tunnel"
 msgstr "Túnel"
-
-#: master_preset.xml:5923(check:text|group:Leisure|preset:Playground|key:playground:tunnel_tube)
-#: master_preset.xml:5975(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tunnel_tube)
-msgid "Tunnel tube"
-msgstr ""
 
 #: master_preset.xml:5624(list_entry:display_value|group:Leisure|preset:Animals|value:turkey)
 msgid "Turkey"
@@ -9916,8 +9702,6 @@ msgstr "Torre de observación"
 
 #: master_preset.xml:2963(group:name|group:Water)
 #: master_preset.xml:2964(group:name|group:Water)
-#: master_preset.xml:5924(check:text|group:Leisure|preset:Playground|key:playground:water)
-#: master_preset.xml:5976(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:water)
 #: master_preset.xml:684(combo:display_values|key:substance)
 msgid "Water"
 msgstr "Agua"
@@ -9965,10 +9749,6 @@ msgstr "Nivel del agua"
 #: master_preset.xml:3431(item:name|group:Shipping|preset:Water_point)
 msgid "Water point"
 msgstr "Punto de agua"
-
-#: master_preset.xml:5699(list_entry:display_value|group:Leisure|preset:Rides|value:water_slide)
-msgid "Water slide"
-msgstr ""
 
 #: master_preset.xml:11465(item:name|group:Sports_and_hobbies|preset:Water_sports)
 msgid "Water sports"
@@ -10293,16 +10073,6 @@ msgstr "Centro para jóvenes"
 #: master_preset.xml:5631(list_entry:display_value|group:Leisure|preset:Animals|value:zebra)
 msgid "Zebra"
 msgstr "Cebra"
-
-#: master_preset.xml:5925(check:text|group:Leisure|preset:Playground|key:playground:zigzagtwister)
-#: master_preset.xml:5977(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zigzagtwister)
-msgid "Zigzag twister"
-msgstr ""
-
-#: master_preset.xml:5926(check:text|group:Leisure|preset:Playground|key:playground:zipwire)
-#: master_preset.xml:5978(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zipwire)
-msgid "Zip wire"
-msgstr ""
 
 #: master_preset.xml:9496(combo:text|group:Man_Made|preset:Surveillance_Camera|key:surveillance:zone)
 msgid "Zone"
@@ -12825,6 +12595,310 @@ msgstr "Puerta"
 msgctxt "airport"
 msgid "Terminal"
 msgstr "Terminal"
+
+#: master_preset.xml:5892(check:text|group:Leisure|preset:Playground|key:playground:activitypanel)
+#: master_preset.xml:5944(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:activitypanel)
+msgctxt "leisure"
+msgid "Activity panel"
+msgstr ""
+
+#: master_preset.xml:5893(check:text|group:Leisure|preset:Playground|key:playground:aerialrotator)
+#: master_preset.xml:5945(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:aerialrotator)
+msgctxt "leisure"
+msgid "Aerial rotator"
+msgstr ""
+
+#: master_preset.xml:5681(list_entry:display_value|group:Leisure|preset:Rides|value:amusement_ride)
+msgctxt "leisure"
+msgid "Amusement ride"
+msgstr ""
+
+#: master_preset.xml:5680(combo:text|group:Leisure|preset:Rides|key:attraction)
+msgctxt "leisure"
+msgid "Attraction"
+msgstr "Atracción"
+
+#: master_preset.xml:5946(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
+msgctxt "leisure"
+msgid "Balance beam"
+msgstr ""
+
+#: master_preset.xml:5896(check:text|group:Leisure|preset:Playground|key:playground:basketrotator)
+#: master_preset.xml:5948(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketrotator)
+msgctxt "leisure"
+msgid "Basket rotator"
+msgstr ""
+
+#: master_preset.xml:5897(check:text|group:Leisure|preset:Playground|key:playground:basketswing)
+#: master_preset.xml:5949(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketswing)
+msgctxt "leisure"
+msgid "Basket swing"
+msgstr ""
+
+#: master_preset.xml:5895(check:text|group:Leisure|preset:Playground|key:playground:basketball_backboard)
+#: master_preset.xml:5947(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketball_backboard)
+msgctxt "leisure"
+msgid "Basketball backboard"
+msgstr ""
+
+#: master_preset.xml:5682(list_entry:display_value|group:Leisure|preset:Rides|value:big_wheel)
+msgctxt "leisure"
+msgid "Big wheel"
+msgstr "Noria"
+
+#: master_preset.xml:5683(list_entry:display_value|group:Leisure|preset:Rides|value:bumper_car)
+msgctxt "leisure"
+msgid "Bumper car"
+msgstr ""
+
+#: master_preset.xml:5684(list_entry:display_value|group:Leisure|preset:Rides|value:bungee_jumping)
+msgctxt "leisure"
+msgid "Bungee jumping"
+msgstr ""
+
+#: master_preset.xml:5685(list_entry:display_value|group:Leisure|preset:Rides|value:carousel)
+msgctxt "leisure"
+msgid "Carousel"
+msgstr "Carrusel"
+
+#: master_preset.xml:5898(check:text|group:Leisure|preset:Playground|key:playground:chain_ladder)
+#: master_preset.xml:5950(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chain_ladder)
+msgctxt "leisure"
+msgid "Chain ladder"
+msgstr ""
+
+#: master_preset.xml:5899(check:text|group:Leisure|preset:Playground|key:playground:chess_table)
+#: master_preset.xml:5951(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chess_table)
+msgctxt "leisure"
+msgid "Chess table"
+msgstr ""
+
+#: master_preset.xml:5900(check:text|group:Leisure|preset:Playground|key:playground:climbingframe)
+#: master_preset.xml:5952(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
+msgctxt "leisure"
+msgid "Climbing frame"
+msgstr ""
+
+#: master_preset.xml:5901(check:text|group:Leisure|preset:Playground|key:playground:climbingwall)
+#: master_preset.xml:5953(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingwall)
+msgctxt "leisure"
+msgid "Climbing wall"
+msgstr ""
+
+#: master_preset.xml:5902(check:text|group:Leisure|preset:Playground|key:playground:cushion)
+#: master_preset.xml:5954(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:cushion)
+msgctxt "leisure"
+msgid "Cushion"
+msgstr "Protección"
+
+#: master_preset.xml:5686(list_entry:display_value|group:Leisure|preset:Rides|value:dark_ride)
+msgctxt "leisure"
+msgid "Dark ride"
+msgstr ""
+
+#: master_preset.xml:5687(list_entry:display_value|group:Leisure|preset:Rides|value:drop_tower)
+msgctxt "leisure"
+msgid "Drop tower"
+msgstr ""
+
+#: master_preset.xml:5943(combo:text|group:Playground_equipment|preset:Playground_equipment|key:playground)
+msgctxt "leisure"
+msgid "Equipment"
+msgstr ""
+
+#: master_preset.xml:5903(check:text|group:Leisure|preset:Playground|key:playground:exercise)
+#: master_preset.xml:5955(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:exercise)
+msgctxt "leisure"
+msgid "Exercise"
+msgstr ""
+
+#: master_preset.xml:5914(check:text|group:Leisure|preset:Playground|key:playground:spinner)
+#: master_preset.xml:5966(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:spinner)
+msgctxt "leisure"
+msgid "Gyro twister spinner"
+msgstr ""
+
+#: master_preset.xml:5904(check:text|group:Leisure|preset:Playground|key:playground:hopscotch)
+#: master_preset.xml:5956(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
+msgctxt "leisure"
+msgid "Hopscotch"
+msgstr ""
+
+#: master_preset.xml:5905(check:text|group:Leisure|preset:Playground|key:playground:horizontal_bar)
+#: master_preset.xml:5957(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:horizontal_bar)
+msgctxt "leisure"
+msgid "Horizontal bar"
+msgstr ""
+
+#: master_preset.xml:5688(list_entry:display_value|group:Leisure|preset:Rides|value:kiddie_ride)
+msgctxt "leisure"
+msgid "Kiddie ride"
+msgstr ""
+
+#: master_preset.xml:5689(list_entry:display_value|group:Leisure|preset:Rides|value:log_flume)
+msgctxt "leisure"
+msgid "Log flume"
+msgstr ""
+
+#: master_preset.xml:5690(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
+msgctxt "leisure"
+msgid "Maze"
+msgstr "Laberinto"
+
+#: master_preset.xml:5906(check:text|group:Leisure|preset:Playground|key:playground:multi_play)
+#: master_preset.xml:5958(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
+msgctxt "leisure"
+msgid "Multi play"
+msgstr ""
+
+#: master_preset.xml:5691(list_entry:display_value|group:Leisure|preset:Rides|value:pirate_ship)
+msgctxt "leisure"
+msgid "Pirate ship"
+msgstr "Barco pirata"
+
+#: master_preset.xml:5907(check:text|group:Leisure|preset:Playground|key:playground:playhouse)
+#: master_preset.xml:5959(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:playhouse)
+msgctxt "leisure"
+msgid "Playhouse"
+msgstr ""
+
+#: master_preset.xml:5692(list_entry:display_value|group:Leisure|preset:Rides|value:roller_coaster)
+msgctxt "leisure"
+msgid "Roller coaster"
+msgstr ""
+
+#: master_preset.xml:5908(check:text|group:Leisure|preset:Playground|key:playground:roundabout)
+#: master_preset.xml:5960(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:roundabout)
+msgctxt "leisure"
+msgid "Roundabout"
+msgstr "Rotonda"
+
+#: master_preset.xml:5909(check:text|group:Leisure|preset:Playground|key:playground:sandpit)
+#: master_preset.xml:5961(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sandpit)
+msgctxt "leisure"
+msgid "Sandpit"
+msgstr "Cajón de arena / Arenero"
+
+#: master_preset.xml:5910(check:text|group:Leisure|preset:Playground|key:playground:seesaw)
+#: master_preset.xml:5962(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:seesaw)
+msgctxt "leisure"
+msgid "Seesaw"
+msgstr "Subibaja"
+
+#: master_preset.xml:5911(check:text|group:Leisure|preset:Playground|key:playground:skate_equipment)
+#: master_preset.xml:5963(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:skate_equipment)
+msgctxt "leisure"
+msgid "Skate equipment"
+msgstr ""
+
+#: master_preset.xml:5912(check:text|group:Leisure|preset:Playground|key:playground:sledding)
+#: master_preset.xml:5964(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sledding)
+msgctxt "leisure"
+msgid "Sledding"
+msgstr ""
+
+#: master_preset.xml:5693(list_entry:display_value|group:Leisure|preset:Rides|value:slide)
+#: master_preset.xml:5913(check:text|group:Leisure|preset:Playground|key:playground:slide)
+#: master_preset.xml:5965(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:slide)
+#: master_preset.xml:5985(item:name|group:Playground_equipment|preset:Slide)
+msgctxt "leisure"
+msgid "Slide"
+msgstr "Tobogán"
+
+#: master_preset.xml:5915(check:text|group:Leisure|preset:Playground|key:playground:splash_pad)
+#: master_preset.xml:5967(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:splash_pad)
+msgctxt "leisure"
+msgid "Splash pad"
+msgstr ""
+
+#: master_preset.xml:5916(check:text|group:Leisure|preset:Playground|key:playground:springy)
+#: master_preset.xml:5968(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:springy)
+msgctxt "leisure"
+msgid "Springy"
+msgstr ""
+
+#: master_preset.xml:5917(check:text|group:Leisure|preset:Playground|key:playground:stepping_stones)
+#: master_preset.xml:5969(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:stepping_stones)
+msgctxt "leisure"
+msgid "Stepping stones/pads"
+msgstr ""
+
+#: master_preset.xml:5918(check:text|group:Leisure|preset:Playground|key:playground:structure)
+#: master_preset.xml:5970(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:structure)
+msgctxt "leisure"
+msgid "Structure (playset)"
+msgstr ""
+
+#: master_preset.xml:5696(list_entry:display_value|group:Leisure|preset:Rides|value:summer_toboggan)
+msgctxt "leisure"
+msgid "Summer toboggan"
+msgstr ""
+
+#: master_preset.xml:5694(list_entry:display_value|group:Leisure|preset:Rides|value:swing)
+#: master_preset.xml:5919(check:text|group:Leisure|preset:Playground|key:playground:swing)
+#: master_preset.xml:5971(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:swing)
+#: master_preset.xml:6003(item:name|group:Playground_equipment|preset:Swing)
+msgctxt "leisure"
+msgid "Swing"
+msgstr "Columpio / Hamaca"
+
+#: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Rides|value:swing_carousel)
+msgctxt "leisure"
+msgid "Swing carousel"
+msgstr ""
+
+#: master_preset.xml:5920(check:text|group:Leisure|preset:Playground|key:playground:teenshelter)
+#: master_preset.xml:5972(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:teenshelter)
+msgctxt "leisure"
+msgid "Teen shelter"
+msgstr ""
+
+#: master_preset.xml:5697(list_entry:display_value|group:Leisure|preset:Rides|value:train)
+msgctxt "leisure"
+msgid "Train"
+msgstr "Tren"
+
+#: master_preset.xml:5698(list_entry:display_value|group:Leisure|preset:Rides|value:trampoline)
+#: master_preset.xml:5921(check:text|group:Leisure|preset:Playground|key:playground:trampoline)
+#: master_preset.xml:5973(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:trampoline)
+msgctxt "leisure"
+msgid "Trampoline"
+msgstr ""
+
+#: master_preset.xml:5922(check:text|group:Leisure|preset:Playground|key:playground:tree_house)
+#: master_preset.xml:5974(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tree_house)
+msgctxt "leisure"
+msgid "Tree house"
+msgstr ""
+
+#: master_preset.xml:5923(check:text|group:Leisure|preset:Playground|key:playground:tunnel_tube)
+#: master_preset.xml:5975(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tunnel_tube)
+msgctxt "leisure"
+msgid "Tunnel tube"
+msgstr ""
+
+#: master_preset.xml:5924(check:text|group:Leisure|preset:Playground|key:playground:water)
+#: master_preset.xml:5976(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:water)
+msgctxt "leisure"
+msgid "Water"
+msgstr "Cuerpo de agua"
+
+#: master_preset.xml:5699(list_entry:display_value|group:Leisure|preset:Rides|value:water_slide)
+msgctxt "leisure"
+msgid "Water slide"
+msgstr ""
+
+#: master_preset.xml:5925(check:text|group:Leisure|preset:Playground|key:playground:zigzagtwister)
+#: master_preset.xml:5977(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zigzagtwister)
+msgctxt "leisure"
+msgid "Zigzag twister"
+msgstr ""
+
+#: master_preset.xml:5926(check:text|group:Leisure|preset:Playground|key:playground:zipwire)
+#: master_preset.xml:5978(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zipwire)
+msgctxt "leisure"
+msgid "Zip wire"
+msgstr ""
 
 #: master_preset.xml:6063(combo:text|preset:Public_Grill|key:fuel)
 msgctxt "grill"
