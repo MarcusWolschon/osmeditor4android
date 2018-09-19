@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Custom imagery - Vespucci</title>
+        <title>Features - Vespucci</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -50,7 +50,7 @@
                     <li >
                         <a href="../..">Vespucci</a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -58,8 +58,8 @@
     <a href="../../help/en/Introduction/">Introduction</a>
 </li>
                             
-<li >
-    <a href="../features/">Features</a>
+<li class="active">
+    <a href="./">Features</a>
 </li>
                             
 <li >
@@ -180,7 +180,7 @@
 </li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
@@ -188,8 +188,8 @@
     <a href="../network_location/">"network" Location Provider Support</a>
 </li>
                             
-<li class="active">
-    <a href="./">Custom imagery</a>
+<li >
+    <a href="../custom_imagery/">Custom imagery</a>
 </li>
                             
 <li >
@@ -233,12 +233,12 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../network_location/">
+                        <a rel="next" href="../../help/en/Introduction/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../name_suggestions/">
+                        <a rel="prev" href="../../help/en/11.1.0 Release notes/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -252,69 +252,470 @@
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#custom-imagery">Custom imagery</a></li>
-            <li><a href="#adding-a-custom-imagery-source">Adding a custom imagery source</a></li>
-            <li><a href="#oam">OAM</a></li>
-            <li><a href="#mbtiles">MBTiles</a></li>
+        <li class="main active"><a href="#vespucci-features">Vespucci Features</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="custom-imagery">Custom imagery</h1>
-<p><em>by Simon Poole</em></p>
-<p>For Vespucci 10.1 we've added four long requested features: a simple UI to add custom imagery sources, support for WMS servers that support the same projection as conventional
-OpenStreetMap / google map tiles (EPSG:3857 and EPSG:900913), support for layers from <a href="https://openaerialmap.org/">OAM</a> and support for imagery layers in <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a> format.</p>
-<h2 id="adding-a-custom-imagery-source">Adding a custom imagery source</h2>
-<p><img alt="custom imagery form" src="../images/custom_imagery_empty.png" /> </p>
-<p>To add a custom layer goto the <em>Advanced preferences</em> screen and select <em>Custom imagery</em>, press the <em>+</em> button to add a new layer. In the form you can set</p>
-<ul>
-<li>a <strong>Name</strong> this is what is displayed in the <em>Preferences</em> selection form. This field is <em>required</em>.</li>
-<li>an <strong>URL</strong> the URL for the source with place holders in the same format as the <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index</a> (short ELI) that Vespucci and iD use as source for standard imagery. This field is <em>required</em>.</li>
-<li>the<strong>Overlay</strong> flag, indicating that the layer is not a background, but partially transparent images for displaying over a background layer.</li>
-<li><strong>Coverage</strong> left, bottom, right and top coordinates of a coverage bounding box in WGS84 coordinates, if the values are empty it is assumed that the layer covers the whole visible web-mercator area, that is -180°, -85°, 180°, 85°.</li>
-<li><strong>Zoom</strong> <em>Min</em> and <em>Max</em> zoom levels, these indicates the minimum and maximum zoom levels available and are important for the app to determine over- and under-zoom correctly.</li>
-</ul>
-<h3 id="supported-placeholders">Supported placeholders</h3>
-<p>Placeholders are replaced when the application retrieves imagery files from the source and are replaced by calculated values. There are some variants even between applications that in principle use the same system, which are noted for completeness sake below.</p>
-<p>The placeholders have the general format of <strong>{</strong> <em>placeholder name</em> <strong>}</strong>.</p>
-<p><strong>{zoom}</strong> the zoom level</p>
-<p><strong>{x}</strong> the x tile number</p>
-<p><strong>{y}</strong> the y tile number</p>
-<p><strong>{-y}</strong> the y tile number for sources using TMS tile numbering. <em>ELI</em>, <em>iD</em>,  <em>Vespucci</em></p>
-<p><strong>{ty}</strong> alternative for the y tile number for sources using TMS tile numbering. <em>iD</em>, <em>Vespucci</em></p>
-<p><strong>{switch:a,b,c}</strong> rotating server selection (replace <em>a,b,c</em> by the actual sub-domains). <em>ELI</em>, <em>iD</em>, <em>Vespucci</em></p>
-<p><strong>{quadkey}</strong> used for Bing. <em>Vespucci</em></p>
-<p><strong>{u}</strong> used for Bing. <em>iD</em></p>
-<p><strong>{proj}</strong> projection for WMS servers. <em>ELI</em>, <em>Vespucci (only in configuration files)</em></p>
-<p><strong>{width}</strong> tile width for WMS servers. <em>ELI</em>, <em>Vespucci</em></p>
-<p><strong>{height}</strong> tile height for WMS servers. <em>ELI</em>, <em>Vespucci</em></p>
-<p><strong>{bbox}</strong> bounding box in <em>proj</em> coordinates for WMS servers. <em>ELI</em>, <em>Vespucci</em></p>
-<p><strong>{subdomain}</strong> reserved, used internally by <em>Vespucci</em></p>
-<ul>
-<li>A valid normal (non-Bing) URL for a tile server must contain at least at least <strong>{zoom}</strong>, <strong>{x}</strong> and one of <strong>{y}</strong>, <strong>{-y}</strong> or <strong>{ty}</strong>.</li>
-<li>A valid WMS server entry must contain at least <strong>{width}</strong>, <strong>{height}</strong> and <strong>{bbox}</strong> placeholders. Note: do not add a <strong>{proj}</strong> placeholder when adding such a layer in the "Custom imagery" form in Vespucci (it is supported in the configuration files).</li>
-</ul>
-<h3 id="examples">Examples</h3>
-<p>Tile server example:</p>
-<pre><code>http://tiles.poole.ch/AGIS/OF2011/{zoom}/{x}/{y}.png
-</code></pre>
-<p>WMS server example:</p>
-<pre><code>https://geodienste.sachsen.de/wms_geosn_dop-rgb/guest?FORMAT=image/jpeg&amp;VERSION=1.1.1&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;LAYERS=sn_dop_020&amp;STYLES=&amp;SRS=EPSG:3857&amp;WIDTH={width}&amp;HEIGHT={height}&amp;BBOX={bbox}
-</code></pre>
-<h2 id="oam">OAM</h2>
-<p>You can query the OAM catalog by going to <em>Tools</em> and selecting <em>Add imagery from OAM</em>, this will query the OAM servers for layers in the current view:</p>
-<p><img alt="oam imagery form" src="../images/custom_imagery_oam.png" /> </p>
-<p>Unluckily it doesn't seem to be customary to give the imagery meaningful names on OAM, but as the use case is likely mostly use of layers that you have created yourself, it is likely bearable. After you've selected an entry you will again be shown the custom imagery dialog. Note: we try to determine the maximum zoom level from the nominal resolution of imagery as stored in OAM, however we've seen a couple of wacky values for this (sub-milimeter) and you should check that the value is roughly correct before saving. </p>
-<h2 id="mbtiles">MBTiles</h2>
-<p>To add a MBTiles layer, down/upload the MBTiles format file to your device, then go to the <em>Custom imagery</em> form as described above. Tap the <em>SD card</em> icon, navigate to the folder where you saved the file and select it. The form should now be filled out with all necessary values.</p>
-<p>Notes:</p>
-<ul>
-<li>The MBTiles format does not contain meta-data for min and max zoom levels, the query that determines the values from the actual file contents may take a long time to run if the file is large.</li>
-<li>Vespucci currently supports png and jpg contents.</li>
-<li>You can adjust all values in the form before saving if necessary with exception of the URL field that contains the path to the file.</li>
-</ul>
-<p><img alt="MBTiles configuration" src="../images/custom_imagery_mbtiles.png" /></p>
-<p><strong>Happy mapping!</strong> </p></div>
+<h2 id="vespucci-features">Vespucci Features</h2>
+<p><em>Documentation for Vespucci 11.1</em></p>
+<p>This list is likely not really complete, but gives some idea of the supported functionality.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Feature</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&lt;Geometry&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Create Node</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Create Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Create Relation</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Delete Node</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Delete Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Delete Relation</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Move Node</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Move Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Merge Nodes</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Add Node to Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Merge Ways</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Append to Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Split Way at Node</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Split Way at marked position</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Split closed Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Split closed Way in to polygons</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Invert Way direction</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Rotate Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Improve Way geometry</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Move multiple elements (multi-select)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Extract Node from Way</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Add element to Relation</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Remove element from Relation</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Move Node to specific coordinates</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Create Node at current coordinates</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Orthogonalize Way(s)</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Tags&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Tag copy and paste</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Form and preset based editor</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Conventional key - value editor</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Auto-suggest for keys and values</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;OSM Data&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Up- and Download</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Load and save in JOSM compatible .OSM format</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Auto-Download</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Save changes in OSC format</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Configurable API servers</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Presets&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JOSM Preset format support with extensions</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Custom presets</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Presets can be updated from app online</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Preset search</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Autp-Preset from taginfo</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JavaScript scripting support</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Background and Overlays&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Supports the editor layer index</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>On device tile caching</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Custom background and overlays</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>OpenAerialMap support</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>On device MBTiles (raster) support</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>GeoJSON layer support</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Imagery offset database support</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Grid / scale layer</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Tasks and bugs&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>OSM Notes</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>OSMOSE</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Custom tasks</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Auto-Download</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Save OSM Notes in OSN format files</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Configurable API server</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Modes and Filters&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Tag editing only mode</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Indoor mode</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>C-Mode (display and edit objects with validation issues)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Tag filter</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Preset filter</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Special editors&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Opening hours</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Conditional restrictions</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Turn restrictions</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Validation&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Missing tags (preset driven)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Re-survey after n-days</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Missing street names</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>FIXMEs</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Validation issues trigger notifications</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;GPS/GPX&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Support for external GPS sources</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>GPX track recording, loading and saving</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>GPX track upload</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>GPX waypoint support</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>&lt;Misc&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Styleable data layer</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Address prediction</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>JavaScript scripting support</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>GeoJSON Feature display</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Start camera app</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Undo- and redo functions</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
                 
         </div>
 
