@@ -10,7 +10,7 @@ notoc: true
 # Welcome to Vespucci 
 
 <br></br>
-Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, Codename "Vespucci", continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
+Vespucci is the first [OpenStreetMap](//openstreetmap.org) editor for Android, continuously improved and developed since 2009. It supports the full OpenStreetMap data model including lots of less known quirks and can be used, if necessary, completely offline. 
 
 Editing is supported by rich, extensible and searchable presets based on the JOSM system, compatible 3rd party presets can be downloaded directly to your device. Fast "on the go" surveying is easy with address prediction and [name based POI creation](markdown/tutorials/name_suggestions.md).
 
@@ -35,7 +35,7 @@ The texts in the _Introduction_ and _Editing_ sections are available on device a
 
 #### Roadmap
 
-The Vespucci team doesn't have a formal roadmap, however you can see what we have considered working on and have completed for the next release here: [milestone 11](https://github.com/MarcusWolschon/osmeditor4android/issues?q=milestone%3A11).
+The Vespucci team doesn't have a formal roadmap, however you can see what we have considered working on and have completed for the next release here: [milestone 11](https://github.com/MarcusWolschon/osmeditor4android/issues?q=milestone%3A12).
 
 #### Support and contact
 
