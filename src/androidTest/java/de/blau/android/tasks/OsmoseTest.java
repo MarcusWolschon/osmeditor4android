@@ -50,6 +50,9 @@ public class OsmoseTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-teset setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -70,6 +73,9 @@ public class OsmoseTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         try {
@@ -79,13 +85,16 @@ public class OsmoseTest {
         }
     }
 
+    /**
+     * Download some OSMOSE and check that a certain one exists, then re-download and check that it got correctly merged
+     */
     @Test
     public void osmoseDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("osmoseDownload");
         App.getTaskStorage().reset();
+        final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
-            final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
             Resources r = context.getResources();
             String osmoseErrorSelector = r.getString(R.string.bugfilter_osmose_error);
@@ -116,8 +125,26 @@ public class OsmoseTest {
         t = tasks.get(0);
         Assert.assertTrue(t instanceof OsmoseBug);
         Assert.assertEquals(11187837418L, t.getId());
+        // re-download the same bounding box
+        final CountDownLatch signal2 = new CountDownLatch(1);
+        try {
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), true, new SignalHandler(signal2));
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
+        try {
+            signal2.await(40, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        tasks = App.getTaskStorage().getTasks();
+        //
+        Assert.assertEquals(92, tasks.size());
     }
 
+    /**
+     * Upload an Osmose bug
+     */
     @Test
     public void osmoseUpload() {
         osmoseDownload();
@@ -140,6 +167,9 @@ public class OsmoseTest {
         Assert.assertFalse(b.hasBeenChanged());
     }
 
+    /**
+     * Check that we handle error messages from the Osmose server correctly
+     */
     @Test
     public void osmoseUploadFail() {
         osmoseDownload();
@@ -162,6 +192,9 @@ public class OsmoseTest {
         Assert.assertTrue(b.hasBeenChanged());
     }
 
+    /**
+     * Upload a changed Osmose bug and a Note
+     */
     @Test
     public void notesAndOsmoseUpload() {
         osmoseDownload();
@@ -188,5 +221,4 @@ public class OsmoseTest {
         Assert.assertFalse(b.hasBeenChanged());
         Assert.assertFalse(n.hasBeenChanged());
     }
-
 }
