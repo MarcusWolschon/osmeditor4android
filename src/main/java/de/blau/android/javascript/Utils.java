@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.BuildConfig;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Logic;
 import de.blau.android.PostAsyncActionHandler;
@@ -45,6 +46,7 @@ import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
@@ -63,10 +65,13 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class Utils {
+public final class Utils {
 
     private static final String DEBUG_TAG = "javascript.Utils";
 
+    /**
+     * Private constructor
+     */
     private Utils() {
         // don't allow instantiating of this class
     }
@@ -104,23 +109,28 @@ public class Utils {
      * @param originalTags original tags the property editor was called with
      * @param tags the current tags
      * @param value any value associated with the key
+     * @param key2PresetItem map from key to PresetItem
      * @return the value that should be assigned to the tag or null if no value should be set
      */
     @Nullable
-    public static String evalString(Context ctx, String scriptName, String script, Map<String, ArrayList<String>> originalTags,
-            Map<String, ArrayList<String>> tags, String value) {
+    public static String evalString(@NonNull Context ctx, @NonNull String scriptName, @NonNull  String script, @NonNull Map<String, ArrayList<String>> originalTags,
+            @NonNull  Map<String, ArrayList<String>> tags, @NonNull String value, @NonNull  Map<String, PresetItem> key2PresetItem) {
         org.mozilla.javascript.Context rhinoContext = App.getRhinoHelper(ctx).enterContext();
         try {
             Scriptable restrictedScope = App.getRestrictedRhinoScope(ctx);
             Scriptable scope = rhinoContext.newObject(restrictedScope);
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
-            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
+            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
+            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(originalTags, scope);
             ScriptableObject.putProperty(scope, "originalTags", wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(tags, scope);
             ScriptableObject.putProperty(scope, "tags", wrappedOut);
             wrappedOut = org.mozilla.javascript.Context.javaToJS(value, scope);
             ScriptableObject.putProperty(scope, "value", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(key2PresetItem, scope);
+            ScriptableObject.putProperty(scope, "key2PresetItem", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (preset): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
             if (result == null) {
@@ -150,7 +160,9 @@ public class Utils {
             Scriptable scope = rhinoContext.newObject(restrictedScope);
             scope.setPrototype(restrictedScope);
             scope.setParentScope(null);
-            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
+            Object wrappedOut = org.mozilla.javascript.Context.javaToJS(BuildConfig.VERSION_CODE, scope);
+            ScriptableObject.putProperty(scope, "versionCode", wrappedOut);
+            wrappedOut = org.mozilla.javascript.Context.javaToJS(logic, scope);
             ScriptableObject.putProperty(scope, "logic", wrappedOut);
             Log.d(DEBUG_TAG, "Eval (logic): " + script);
             Object result = rhinoContext.evaluateString(scope, script, scriptName, 1, null);
@@ -179,7 +191,7 @@ public class Utils {
 
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.tag_menu_js_console);
-        builder.setMessage(msgResource);
+        // builder.setMessage(msgResource);
         View v = inflater.inflate(R.layout.debug_js, null);
         final EditText input = (EditText) v.findViewById(R.id.js_input);
         final TextView output = (TextView) v.findViewById(R.id.js_output);
@@ -228,8 +240,8 @@ public class Utils {
                     }
                 });
                 Button neutral = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                Drawable share = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
-                neutral.setCompoundDrawablesWithIntrinsicBounds(share, null, null, null);
+                Drawable more = ThemeUtils.getTintedDrawable(activity, R.drawable.ic_more_vert_black_36dp, R.attr.colorAccent);
+                neutral.setCompoundDrawablesWithIntrinsicBounds(more, null, null, null);
                 neutral.setText("");
                 neutral.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -287,7 +299,6 @@ public class Utils {
 
                         });
                         popupMenu.show();
-
                     }
                 });
             }
@@ -296,11 +307,13 @@ public class Utils {
     }
 
     /**
-     * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
+     * Write a script to a file, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
      * 
-     * @param fileName path of the file to save to
-     * @param postSaveHandler if not null executes code after saving
+     * @param activity the calling Activity
+     * @param fileName the file name
+     * @param script the script to save 
+     * @param postSaveHandler called after saving
      */
     private static void writeScriptFile(@NonNull final FragmentActivity activity, @NonNull final String fileName, @NonNull final String script,
             @Nullable final PostAsyncActionHandler postSaveHandler) {
@@ -368,6 +381,14 @@ public class Utils {
         }.execute();
     }
 
+    /**
+     * Read a script in to a EditTExt widget
+     * 
+     * @param activity the calling Activity
+     * @param uri the URI of the file to load
+     * @param input the EditTExt
+     * @param postLoad called after loading
+     */
     public static void readScriptFile(@NonNull final FragmentActivity activity, final Uri uri, final EditText input, final PostAsyncActionHandler postLoad) {
         new AsyncTask<Void, Void, String>() {
 
