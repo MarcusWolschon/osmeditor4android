@@ -3710,14 +3710,15 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Check if a key-value tupel matches a specific PresetFiel taking the MatchType in to account
+     * Check if a key-value tupel matches a specific PresetField taking the MatchType in to account
+     * This assumes that field is either null or matches the key
      * 
      * @param field the PresetField
      * @param key the key
      * @param value the value
      * @return true if the tag matches
      */
-    public static boolean hasKeyValue(PresetField field, @NonNull String key, @Nullable String value) {
+    public static boolean hasKeyValue(@Nullable PresetField field, @NonNull String key, @Nullable String value) {
 
         if (field == null) {
             return false;

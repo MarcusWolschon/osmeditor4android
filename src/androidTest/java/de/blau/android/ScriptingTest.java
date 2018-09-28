@@ -1,6 +1,7 @@
 package de.blau.android;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import android.support.test.runner.AndroidJUnit4;
 import de.blau.android.javascript.Utils;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.resources.TileLayerServer;
 
 @RunWith(AndroidJUnit4.class)
@@ -32,6 +34,9 @@ public class ScriptingTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -46,10 +51,16 @@ public class ScriptingTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Test that the JS environment is properly sandboxed
+     */
     @Test
     public void sandbox() {
         // normal scope
@@ -68,7 +79,8 @@ public class ScriptingTest {
         ArrayList<String> v = new ArrayList<String>();
         v.add("value");
         tags.put("key", v);
-        r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test");
+        r = Utils.evalString(context, "sandbox4", "a = new java.util.ArrayList(); a.add('value1'); tags.put('key1',a);tags", tags, tags, "test",
+                new HashMap<String, PresetItem>());
         Assert.assertEquals("{key=[value], key1=[value1]}", r);
         try {
             r = Utils.evalString(context, "sandbox4", "importClass(Packages.de.blau.android.App);", App.getLogic());
