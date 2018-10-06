@@ -60,7 +60,7 @@ public class GeoUrlActivity extends Activity {
                             intent.putExtra(GEODATA, geoData);
                         }
                     } catch (NumberFormatException e) {
-                        Log.d(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[0] + " not parseable");
+                        Log.d(DEBUG_TAG, "Coordinates " + coords[0] + "/" + coords[1] + " not parseable");
                     }
                 }
             }
