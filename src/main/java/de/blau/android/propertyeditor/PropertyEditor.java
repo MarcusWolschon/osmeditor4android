@@ -37,7 +37,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.App;
-import de.blau.android.DesktopModeReceiver;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
@@ -58,7 +57,6 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.PlaceTagValueAdapter;
-import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
@@ -116,11 +114,11 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     private String types[];
 
-    Preset[]             presets = null;
+    Preset[]           presets = null;
     /**
      * The OSM element for reference. DO NOT ATTEMPT TO MODIFY IT.
      */
-    private OsmElement[] elements;
+    private OsmElement element;
 
     private PropertyEditorData[] loadData;
 
@@ -249,16 +247,16 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
         osmIds = new long[loadData.length];
         types = new String[loadData.length];
-        elements = new OsmElement[loadData.length];
 
         for (int i = 0; i < loadData.length; i++) {
             osmIds[i] = loadData[i].osmId;
             types[i] = loadData[i].type;
-            elements[i] = delegator.getOsmElement(types[i], osmIds[i]);
-            // and another sanity check
-            if (elements[i] == null) {
-                abort("Missing elements");
-            }
+        }
+
+        // we need the first element for stuff that doesn't support multi-select
+        element = delegator.getOsmElement(types[0], osmIds[0]);
+        if (element == null) {
+            abort("Missing element(s)");
         }
 
         presets = App.getCurrentPresets(this);
@@ -319,14 +317,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             if (recentPresetsFragment != null) {
                 ft.remove(recentPresetsFragment);
             }
-            recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0]); // FIXME collect tags
+            recentPresetsFragment = RecentPresetsFragment.newInstance(getElement()); // FIXME collect tags
             ft.add(R.id.recent_preset_row, recentPresetsFragment, RECENTPRESETS_FRAGMENT);
 
             presetFragment = (PresetFragment) fm.findFragmentByTag(PRESET_FRAGMENT);
             if (presetFragment != null) {
                 ft.remove(presetFragment);
             }
-            presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, true); // FIXME collect tags
+            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, true); // FIXME collect tags
             ft.add(R.id.preset_row, presetFragment, PRESET_FRAGMENT);
 
             ft.commit();
@@ -485,8 +483,8 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
          */
         Fragment tagEditorFragment(int position, boolean displayRecentPresets) {
             tagEditorFragmentPosition = position;
-            tagEditorFragment = TagEditorFragment.newInstance(elements, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets, extraTags,
-                    presetsToApply);
+            tagEditorFragment = TagEditorFragment.newInstance(osmIds, types, tags, applyLastAddressTags, loadData[0].focusOnKey, displayRecentPresets,
+                    extraTags, presetsToApply);
             return tagEditorFragment;
         }
 
@@ -536,7 +534,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                     switch (position) {
                     case 0:
                         if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); //
+                            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, false); //
                         }
                         return presetFragment;
                     case 1:
@@ -567,7 +565,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                     switch (position) {
                     case 0:
                         if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(elements[0], presetsToApply, false); //
+                            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, false); //
                         }
                         return presetFragment;
                     case 1:
@@ -763,7 +761,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                 || ((currentParents != null && !currentParents.equals(originalParents))
                         && !(originalParents == null && (currentParents == null || currentParents.size() == 0))) // parents
                                                                                                                  // changed
-                || (elements[0] != null && elements[0].getName().equals(Relation.NAME)
+                || (getElement() != null && getElement().getName().equals(Relation.NAME)
                         && (currentMembers != null && !sameMembers(currentMembers, originalMembers)))) {
             new AlertDialog.Builder(this).setNeutralButton(R.string.cancel, null)
                     .setNegativeButton(R.string.tag_menu_revert, new DialogInterface.OnClickListener() {
@@ -822,7 +820,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                 }
 
                 if (!same(currentTags, originalTags) || !(originalParents == null && currentParents.size() == 0) && !currentParents.equals(originalParents)
-                        || (elements != null && elements[0].getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
+                        || (getElement() != null && getElement().getName().equals(Relation.NAME) && !currentMembers.equals(originalMembers))) {
                     // changes were made
                     Log.d(DEBUG_TAG, "saving tags");
                     for (int i = 0; i < currentTags.size(); i++) {
@@ -1227,7 +1225,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     @Override
     public OsmElement getElement() {
-        return elements[0]; // FIXME validate
+        return element; // FIXME validate
     }
 
     /**

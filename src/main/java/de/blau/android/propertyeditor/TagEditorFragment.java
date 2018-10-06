@@ -58,6 +58,7 @@ import de.blau.android.names.Names.NameAndTags;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Server;
+import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
@@ -89,7 +90,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private static final String SAVEDTAGS_KEY = "SAVEDTAGS";
 
-    private static final String ELEMENTS_KEY = "elements";
+    private static final String IDS_KEY = "ids";
+
+    private static final String TYPES_KEY = "types";
 
     private static final String DISPLAY_MR_UPRESETS = "displayMRUpresets";
 
@@ -183,7 +186,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Create a new instance of TagEditorFragment
      * 
-     * @param elements an array of the OsmElements to edit
+     * @param elementIds an array of the ids of OsmElements to edit
+     * @param elementTypes an array of the types of OsmElements to edit
      * @param tags a map containing the tags
      * @param applyLastAddressTags if true apply address tags
      * @param focusOnKey a key to focus on
@@ -192,14 +196,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param presetsToApply a list of presets to apply
      * @return a new instance of TagEditorFragment
      */
-    public static TagEditorFragment newInstance(@NonNull OsmElement[] elements, @NonNull ArrayList<LinkedHashMap<String, String>> tags,
-            boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets, @Nullable HashMap<String, String> extraTags,
-            @Nullable ArrayList<PresetElementPath> presetsToApply) {
+    public static TagEditorFragment newInstance(@NonNull long[] elementIds, @NonNull String[] elementTypes,
+            @NonNull ArrayList<LinkedHashMap<String, String>> tags, boolean applyLastAddressTags, String focusOnKey, boolean displayMRUpresets,
+            @Nullable HashMap<String, String> extraTags, @Nullable ArrayList<PresetElementPath> presetsToApply) {
         TagEditorFragment f = new TagEditorFragment();
 
         Bundle args = new Bundle();
 
-        args.putSerializable(ELEMENTS_KEY, elements);
+        args.putSerializable(IDS_KEY, elementIds);
+        args.putSerializable(TYPES_KEY, elementTypes);
         args.putSerializable(TAGS_KEY, tags);
         args.putSerializable(APPLY_LAST_ADDRESS_TAGS, applyLastAddressTags);
         args.putSerializable(FOCUS_ON_KEY, focusOnKey);
@@ -250,18 +255,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         if (savedInstanceState == null) {
             // No previous state to restore - get the state from the intent
             Log.d(DEBUG_TAG, "Initializing from original arguments");
-            elements = (OsmElement[]) getArguments().getSerializable(ELEMENTS_KEY);
+            osmIds = (long[]) getArguments().getSerializable(IDS_KEY);
+            types = (String[]) getArguments().getSerializable(TYPES_KEY);
             applyLastAddressTags = (Boolean) getArguments().getSerializable(APPLY_LAST_ADDRESS_TAGS);
             focusOnKey = (String) getArguments().getSerializable(FOCUS_ON_KEY);
             displayMRUpresets = (Boolean) getArguments().getSerializable(DISPLAY_MR_UPRESETS);
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");
-            Object[] tempElements = (Object[]) savedInstanceState.getSerializable(ELEMENTS_KEY);
-            elements = new OsmElement[tempElements.length];
-            for (int i = 0; i < tempElements.length; i++) {
-                elements[i] = (OsmElement) tempElements[i];
-            }
+            osmIds = (long[]) savedInstanceState.getSerializable(IDS_KEY);
+            types = (String[]) savedInstanceState.getSerializable(TYPES_KEY);
             @SuppressWarnings("unchecked")
             Map<String, ArrayList<String>> temp = (Map<String, ArrayList<String>>) savedInstanceState.getSerializable(SAVEDTAGS_KEY);
             savedTags = new LinkedHashMap<>();
@@ -284,11 +287,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // editRowLayout.setSaveFromParentEnabled(false);
         editRowLayout.setSaveEnabled(false);
 
-        types = new String[elements.length];
-        osmIds = new long[elements.length];
+        elements = new OsmElement[osmIds.length];
+        StorageDelegator delegator = App.getDelegator();
         for (int i = 0; i < elements.length; i++) {
-            types[i] = elements[i].getName();
-            osmIds[i] = elements[i].getOsmId();
+            elements[i] = delegator.getOsmElement(types[i], osmIds[i]);
         }
 
         LinkedHashMap<String, ArrayList<String>> tags;
@@ -435,7 +437,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
-        outState.putSerializable(ELEMENTS_KEY, elements);
+        outState.putSerializable(IDS_KEY, osmIds);
+        outState.putSerializable(TYPES_KEY, types);
         outState.putSerializable(SAVEDTAGS_KEY, savedTags);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
