@@ -1651,11 +1651,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_share:
-            BoundingBox box = map.getViewBox();
-            double[] lonLat = new double[2];
-            lonLat[0] = ((box.getRight() - box.getLeft()) / 2 + box.getLeft()) / 1E7;
-            lonLat[1] = ((box.getTop() - box.getBottom()) / 2 + box.getBottom()) / 1E7; // rough
-            Util.sharePosition(this, lonLat);
+            Util.sharePosition(this, map.getViewBox().getCenter());
             break;
 
         case R.id.menu_help:
