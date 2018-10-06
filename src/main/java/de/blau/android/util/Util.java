@@ -3,6 +3,7 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -393,13 +394,13 @@ public final class Util {
      * Share the supplied position with other apps
      * 
      * @param activity this activity
-     * @param lonLat coordinates to sahre
+     * @param lonLat coordinates to share
      */
     public static void sharePosition(Activity activity, double[] lonLat) {
         if (lonLat != null) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            Uri geo = Uri.parse("geo:" + lonLat[1] + "," + lonLat[0]);
+            Uri geo = Uri.parse("geo:" + String.format(Locale.US, "%.7f", lonLat[1]) + "," + String.format(Locale.US, "%.7f", lonLat[0]));
             Log.d(DEBUG_TAG, "sharing " + geo);
             Intent geoIntent = new Intent(Intent.ACTION_VIEW, geo);
             activity.startActivity(geoIntent);
