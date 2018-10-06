@@ -72,13 +72,20 @@ public final class Util {
      * @param s the input String
      * @return an ArrayList containing only s
      */
-    public static ArrayList<String> getArrayList(String s) {
+    public static ArrayList<String> getArrayList(@NonNull String s) {
         ArrayList<String> v = new ArrayList<>();
         v.add(s);
         return v;
     }
 
-    public static LinkedHashMap<String, ArrayList<String>> getArrayListMap(Map<String, String> map) {
+    /**
+     * Convert a <String, String> Map to a Map of <String, ArrayList<String>>
+     * 
+     * @param map the input Map
+     * @return the converted Map
+     */
+    @NonNull
+    public static LinkedHashMap<String, ArrayList<String>> getArrayListMap(@NonNull Map<String, String> map) {
         LinkedHashMap<String, ArrayList<String>> result = new LinkedHashMap<>();
         for (Entry<String, String> e : map.entrySet()) {
             result.put(e.getKey(), getArrayList(e.getValue()));
@@ -95,7 +102,7 @@ public final class Util {
      * @param list List of ways
      * @return null if not connected or not all ways connected or the sorted list of ways
      */
-    public static List<OsmElement> sortWays(List<OsmElement> list) {
+    public static List<OsmElement> sortWays(@NonNull List<OsmElement> list) {
         List<OsmElement> result = new ArrayList<>();
         List<OsmElement> unconnected = new ArrayList<>(list);
 
@@ -148,7 +155,8 @@ public final class Util {
      * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
      *         first
      */
-    public static List<RelationMemberDescription> sortRelationMembers(List<RelationMemberDescription> list) {
+    @NonNull 
+    public static List<RelationMemberDescription> sortRelationMembers(@NonNull List<RelationMemberDescription> list) {
         List<RelationMemberDescription> result = new ArrayList<>();
         List<RelationMemberDescription> unconnected = new ArrayList<>(list);
         int nextWay = 0;
@@ -190,7 +198,16 @@ public final class Util {
         return unconnected;
     }
 
-    private static boolean haveCommonNode(Way way1, Way way2) {
+    /**
+     * Test if two ways have a common Node
+     * 
+     * Note should be moved to the Way class
+     * 
+     * @param way1 first Way
+     * @param way2 second Way
+     * @return true if the have a common Node
+     */
+    private static boolean haveCommonNode(@NonNull Way way1, @NonNull Way way2) {
         List<Node> way1Nodes = way1.getNodes();
         int size1 = way1Nodes.size();
         List<Node> way2Nodes = way2.getNodes();
@@ -210,7 +227,14 @@ public final class Util {
         return false;
     }
 
-    private static int nextWay(int start, List<RelationMemberDescription> unconnected) {
+    /**
+     * Return the next Way index in a list of RelationMemberDescriptions
+     * 
+     * @param start starting index
+     * @param unconnected List of RelationMemberDescription
+     * @return the index of the next Way, or that value of start
+     */
+    private static int nextWay(int start, @NonNull List<RelationMemberDescription> unconnected) {
         // find first way
         int firstWay = start;
         for (; firstWay < unconnected.size(); firstWay++) {
@@ -229,7 +253,7 @@ public final class Util {
      * @param res the id of a string resource
      * @return character or 0 if no short cut can be found
      */
-    public static char getShortCut(Context ctx, int res) {
+    public static char getShortCut(@NonNull Context ctx, int res) {
         String s = ctx.getString(res);
         if (s != null && s.length() >= 1) {
             return s.charAt(0);
@@ -246,7 +270,7 @@ public final class Util {
      * @param osmId the id of the object
      * @return {lat, lon} or null
      */
-    public static int[] getCenter(final StorageDelegator delegator, final String osmElementType, long osmId) {
+    public static int[] getCenter(@NonNull final StorageDelegator delegator, @NonNull final String osmElementType, long osmId) {
         OsmElement osmElement = delegator.getOsmElement(osmElementType, osmId);
         if (osmElement instanceof Node) {
             Node n = (Node) osmElement;
@@ -274,7 +298,8 @@ public final class Util {
      * @param list the List to convert
      * @return string containing the individual list values separated by ; or the empty string if list is null or empty
      */
-    public static String listToOsmList(List<String> list) {
+    @NonNull 
+    public static String listToOsmList(@Nullable List<String> list) {
         StringBuilder osmList = new StringBuilder("");
         if (list != null) {
             for (String s : list) {
@@ -287,8 +312,14 @@ public final class Util {
         return osmList.toString();
     }
 
+    /**
+     * Reliably determine if we are in landscape orientation
+     * 
+     * @param activity the calling Activity
+     * @return true if we are in landscape orientation
+     */
     @SuppressLint("NewApi")
-    public static boolean isLandscape(Activity activity) {
+    public static boolean isLandscape(@NonNull Activity activity) {
         // reliable determine if we are in landscape mode
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -304,7 +335,13 @@ public final class Util {
         return isLarge(activity) && size.x > size.y;
     }
 
-    public static boolean isLarge(Activity activity) {
+    /**
+     * Determine if we are running on a large device
+     * 
+     * @param activity the calling Activity
+     * @return true if we are running on a large device
+     */
+    public static boolean isLarge(@NonNull Activity activity) {
         int screenSize = activity.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE);
     }
@@ -317,7 +354,7 @@ public final class Util {
      * @param up if true scroll to top if row is null, otherwise scroll to bottom
      * @param force if true always try to scroll even if row is already on screen
      */
-    public static void scrollToRow(final View sv, final View row, final boolean up, boolean force) {
+    public static void scrollToRow(@NonNull final View sv, @Nullable final View row, final boolean up, boolean force) {
         Rect scrollBounds = new Rect();
         sv.getHitRect(scrollBounds);
         Log.d(DEBUG_TAG, "scrollToRow bounds " + scrollBounds);
@@ -357,7 +394,13 @@ public final class Util {
         }
     }
 
-    public static void setBackgroundTintList(FloatingActionButton fab, ColorStateList tint) {
+    /**
+     * Set the background tint list for a FloatingActionButton in a version independent way
+     * 
+     * @param fab the FloatingActionButton
+     * @param tint a ColorStateList
+     */
+    public static void setBackgroundTintList(@NonNull FloatingActionButton fab, @NonNull ColorStateList tint) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fab.setBackgroundTintList(tint);
         } else {
@@ -369,9 +412,10 @@ public final class Util {
      * Convert first letter of v to upper case using English
      * 
      * @param v the input String
-     * @return a String with its first letter as a capital
+     * @return a String with its first letter as a capital (or null if v was null)
      */
-    public static String capitalize(String v) {
+    @Nullable
+    public static String capitalize(@Nullable String v) {
         if (v != null && v.length() > 0) {
             char[] a = v.toCharArray();
             a[0] = Character.toUpperCase(a[0]);
@@ -386,7 +430,7 @@ public final class Util {
      * @param fab the floating action button
      * @param fabalpha the alpha value
      */
-    public static void setAlpha(FloatingActionButton fab, float fabalpha) {
+    public static void setAlpha(@NonNull FloatingActionButton fab, float fabalpha) {
         ViewCompat.setAlpha(fab, fabalpha);
     }
 
@@ -396,7 +440,7 @@ public final class Util {
      * @param activity this activity
      * @param lonLat coordinates to share
      */
-    public static void sharePosition(Activity activity, double[] lonLat) {
+    public static void sharePosition(@NonNull Activity activity, @Nullable double[] lonLat) {
         if (lonLat != null) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
@@ -495,7 +539,7 @@ public final class Util {
      * @return a Spanned formated as the markup required
      */
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html) {
+    public static Spanned fromHtml(@NonNull String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
@@ -510,7 +554,7 @@ public final class Util {
      * @param drawable input Drawable
      * @return a Bitmap
      */
-    public static Bitmap drawableToBitmap(Drawable drawable) {
+    public static Bitmap drawableToBitmap(@NonNull Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
         }
@@ -536,7 +580,7 @@ public final class Util {
      * @param bundle the Bundle
      * @return the size in bytes
      */
-    public static int getBundleSize(Bundle bundle) {
+    public static int getBundleSize(@NonNull Bundle bundle) {
         Parcel parcel = Parcel.obtain();
         parcel.writeBundle(bundle);
         int size = parcel.dataSize();
@@ -550,7 +594,7 @@ public final class Util {
      * @param activity the calling Activity
      * @return the smaller side in px
      */
-    public static int getScreenSmallDimemsion(Activity activity) {
+    public static int getScreenSmallDimemsion(@NonNull Activity activity) {
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
         if (size.x < size.y) {
@@ -564,7 +608,7 @@ public final class Util {
      * 
      * @param context Android Context
      */
-    public static void clearIconCaches(Context context) {
+    public static void clearIconCaches(@NonNull Context context) {
         Preset[] presets = App.getCurrentPresets(context);
         for (Preset p : presets) {
             if (p != null) {
@@ -593,7 +637,7 @@ public final class Util {
      * @param context Android Context
      * @param newConfig new Configuration
      */
-    public static void clearCaches(Context context, Configuration newConfig) {
+    public static void clearCaches(@NonNull Context context, @NonNull Configuration newConfig) {
         Configuration oldConfig = App.getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (oldConfig == null || oldConfig.densityDpi != newConfig.densityDpi) {
