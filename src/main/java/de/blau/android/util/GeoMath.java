@@ -186,15 +186,12 @@ public class GeoMath {
         if (checkSize && horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D) {
             horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D;
         }
-        // Log.d("GeoMath","horizontalRadiusDegree " + horizontalRadiusDegree);
         double mercatorLat = latToMercator(lat);
-        // Log.d("GeoMath","mercatorLat " + mercatorLat);
         double verticalRadiusDegree = horizontalRadiusDegree; //
         double left = lon - horizontalRadiusDegree;
         double right = lon + horizontalRadiusDegree;
         double bottom = mercatorToLat(mercatorLat - verticalRadiusDegree);
         double top = mercatorToLat(mercatorLat + verticalRadiusDegree);
-        // Log.d("GeoMath","bottom " + bottom + " top " + top);
         if (left < -MAX_LON) {
             left = -MAX_LON;
             right = left + horizontalRadiusDegree * 2d;
@@ -211,14 +208,25 @@ public class GeoMath {
             top = MAX_LAT;
             bottom = top - verticalRadiusDegree * 2d;
         }
-        // Log.d("GeoMath","left " + left + " right " + right + " bottom " + bottom + " top " + top);
         return new BoundingBox(left, bottom, right, top);
     }
 
+    /**
+     * Converts a distance to a degree value
+     * 
+     * @param meters distance in meters
+     * @return a value in degrees
+     */
     public static double convertMetersToGeoDistance(final double meters) {
         return (_180_PI * meters) / (double) EARTH_RADIUS;
     }
 
+    /**
+     * Converts a distance to a degrees * 1E7 value
+     * 
+     * @param meters distance in meters
+     * @return a value in degrees * 1E7
+     */
     public static int convertMetersToGeoDistanceE7(final double meters) {
         return (int) ((_180_PI * meters * 1E7d) / (double) EARTH_RADIUS);
     }
