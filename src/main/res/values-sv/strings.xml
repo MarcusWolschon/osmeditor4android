@@ -3,6 +3,7 @@
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
   <string name="mode_indoor">Inomhus</string>
+  <string name="mode_correct">C-läge</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Försiktig!</string>
   <string name="transfer_download_current_dialog_message">Du har gjort några ändringar. Vill du ladda upp dem i stället för att slänga?</string>
@@ -91,6 +92,7 @@
   <string name="search_results_title">Sökresultat</string>
   <string name="search_online">Sök på nätet</string>
   <string name="find_message">Ange söksträng</string>
+  <string name="geocoder_prompt">med</string>
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="search">Sök</string>
   <string name="no_valid_preset">Inga giltiga förinställningar</string>
@@ -114,7 +116,10 @@
   <string name="element">element</string>
   <string name="last_updated">senast uppdaterad</string>
   <string name="last_edited">senast redigerad</string>
+  <string name="original">Original</string>
+  <string name="current">Nuvarande</string>
   <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Kopiera egenskaper</string>
   <!---->
   <string name="error">fel</string>
   <string name="warning">varning</string>
@@ -138,24 +143,35 @@
   <!--GPX way point dialog-->
   <string name="description">Beskrivning</string>
   <string name="created">Skapad</string>
+  <string name="altitude">Höjd</string>
+  <string name="create_osm_object">Skapa OSM-objekt</string>
   <!--Custom imagery dialogs-->
+  <string name="coverage">Täckning</string>
   <string name="coverage_left">Vänster</string>
   <string name="coverage_right">Höger</string>
+  <string name="delete_layer">Ta bort lagret?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Stil på lagret</string>
   <string name="layer_style_color">Färg</string>
   <string name="layer_style_label">Etikett</string>
   <!--Layer dialog-->
   <string name="layer_photos">Foton</string>
+  <string name="layer_tasks">Uppgifter</string>
   <string name="layer_data">OSM-data</string>
+  <string name="layer_change_style">Byt stil</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Kontrollpunkter</string>
   <!--BoxPicker-->
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Namnet kan inte vara tomt</string>
+  <string name="toast_url_empty">URL kan inte vara tom</string>
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
   <string name="toast_unsaved_changes">Du har osparade ändringar, vänligen ladda upp dessa först.</string>
+  <string name="clear_anyway">Rensa i alla fall?</string>
   <string name="toast_upload_success">Uppladdning till OSM-servern slutfördes.</string>
   <string name="toast_not_in_edit_range">Vänligen zooma in för att redigera (Volym upp/ner eller Lins/Shift)</string>
   <string name="toast_unlock_to_edit">Lås upp för att redigera</string>

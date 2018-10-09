@@ -1,6 +1,7 @@
 # 
 # Translators:
-# hakuchi <heimlikloh@mail.com>, 2016-2017
+# Andreas Hanzl <andreas.hanzl@gmx.at>, 2018
+# hakuchi <heimlikloh@mail.com>, 2016-2018
 # Holger Jeromin <mailgithub@katur.de>, 2015,2017-2018
 # Jacob Bräutigam <barth.jacke@hotmail.de>, 2015
 # Jonas Meier <meiers.jonas@gmail.com>, 2017
@@ -14,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:21+0000\n"
+"PO-Revision-Date: 2018-10-08 21:27+0000\n"
 "Last-Translator: Simon Poole <sp8962@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openstreetmap/presets/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +28,11 @@ msgstr ""
 msgid ""
 "(Please only use this tag if more detailed mapping using busbars and bays is"
 " impossible!)"
-msgstr "(Bitte benutze diesen Tag nur wenn ein detaillierteres Mappen mit Sammelschienen/busbars und Abzweigen/bays nicht möglich ist!)"
+msgstr "(Bitte benutze diesen Tag nur, wenn ein detaillierteres Mappen mit Sammelschienen/busbars und Abzweigen/bays nicht möglich ist!)"
 
 #: master_preset.xml:7234(label:text|group:Emergency|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
-msgstr "(Nutze die Zahl die auf dem Schild steht.)"
+msgstr "(Nutze die Zahl, die auf dem Schild steht.)"
 
 #: master_preset.xml:12322(label:text|group:Places|preset:Farm)
 msgid "(please use isolated_dwelling for an isolated farm)"
@@ -216,7 +217,7 @@ msgstr "Eine Stelle an der Grundwasser natürlich an die Oberfläche tritt."
 #: master_preset.xml:3348(label:text|group:Water|preset:Cape)
 msgid ""
 "A prominent, elevated piece of land sticking out into the sea or large lake."
-msgstr ""
+msgstr "Eine markante Landzunge, die ins Meer oder einen großen See ragt."
 
 #: master_preset.xml:12374(label:text|group:Geography|preset:Saddle)
 msgid "A saddle point between mountains or hills."
@@ -252,7 +253,7 @@ msgstr "Missbraucht"
 
 #: master_preset.xml:9560(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgid "Abutment"
-msgstr ""
+msgstr "Widerlager"
 
 #: master_preset.xml:7632(checkgroup:text|group:Facilities|preset:Recycling_Container)
 #: master_preset.xml:7673(checkgroup:text|group:Facilities|preset:Recycling_Centre)
@@ -388,7 +389,7 @@ msgstr "Landmaschinen"
 
 #: master_preset.xml:11642(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Agricultural supplies"
-msgstr "Landwirtschaftliche Bedarf"
+msgstr "Landwirtschaftlicher Bedarf"
 
 #: master_preset.xml:8012(list_entry:short_description|group:Sport_Facilities|preset:Dojo|value:aikido)
 msgid "Aikido"
@@ -634,7 +635,7 @@ msgstr "Archäologischer Fundort"
 
 #: master_preset.xml:8242(item:name|group:Sport|preset:Archery)
 msgid "Archery"
-msgstr "Bogenschiessen"
+msgstr "Bogenschießen"
 
 #: master_preset.xml:14782(item:name|group:Offices|preset:Architect)
 msgid "Architect"
@@ -731,11 +732,11 @@ msgstr "Authentifizierung"
 
 #: master_preset.xml:4109(label:text|group:Car|preset:Charging_Station)
 msgid "Authentication:"
-msgstr "Authentifizierung"
+msgstr "Authentifizierung:"
 
 #: master_preset.xml:9457(check:text|group:Man_Made|preset:Monitoring_Station|key:recording:automated)
 msgid "Automated"
-msgstr "Automatisch"
+msgstr "Automatisiert"
 
 #: master_preset.xml:7077(item:name|group:Emergency|preset:Automated_Defibrillator)
 msgid "Automated Defibrillator"
@@ -796,7 +797,7 @@ msgstr "Kleinkinderbedarf"
 
 #: master_preset.xml:5088(check:text|group:Accommodation|preset:Campsite|key:backcountry)
 msgid "Backcountry"
-msgstr "Skitouren abseits der Piste"
+msgstr "Wildnis-Campingplatz"
 
 #: master_preset.xml:7756(check:text|group:Facilities|preset:Bench|key:backrest)
 msgid "Backrest"
@@ -837,7 +838,7 @@ msgstr "Gesellschaftstanz"
 
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Banana plants"
-msgstr "Bananenpflanzen"
+msgstr "Bananenstauden"
 
 #: master_preset.xml:12001(check:text|preset:Payment_Methods|key:payment:bancomat)
 msgid "Bancomat"
@@ -1008,7 +1009,7 @@ msgstr "Getränke"
 
 #: master_preset.xml:1526(item:name|group:Lane_attributes|preset:Bi-directional_roads)
 msgid "Bi-directional roads"
-msgstr "Strassen mit Gegenverkehr"
+msgstr "Straßen mit Gegenverkehr"
 
 #: master_preset.xml:13583(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 #: master_preset.xml:152(check:text|key:bicycle)
@@ -1024,7 +1025,7 @@ msgstr "Fahrrad"
 
 #: master_preset.xml:1271(item:name|group:Streets|preset:Bicycle_Road)
 msgid "Bicycle Road"
-msgstr "Fahrradstrasse"
+msgstr "Fahrradstraße"
 
 #: master_preset.xml:13617(item:name|group:Routes|preset:Bicycle_Route)
 msgid "Bicycle Route"
@@ -1926,7 +1927,7 @@ msgstr "Kolumbarium"
 
 #: master_preset.xml:1735(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
-msgstr "Gemeinsamer Fuss- und Radweg"
+msgstr "Gemeinsamer Fuß- und Radweg"
 
 #: master_preset.xml:6260(list_entry:display_value|group:Culture|preset:Theatre|value:comedy)
 msgid "Comedy"
@@ -2334,7 +2335,7 @@ msgstr "Radweg"
 
 #: master_preset.xml:1750(item:name|group:Ways|preset:Dedicated_Footway)
 msgid "Dedicated Footway"
-msgstr "Fussweg"
+msgstr "Fußweg"
 
 #: master_preset.xml:230(list_entry:short_description|value:designated)
 #: master_preset.xml:242(list_entry:short_description|value:designated)
@@ -2355,7 +2356,7 @@ msgstr "Hirsch, Reh"
 
 #: master_preset.xml:9003(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Defensive"
-msgstr ""
+msgstr "Wehrturm"
 
 #: master_preset.xml:10392(item:name|group:Food|preset:Deli_(Fine_Food))
 msgid "Deli (Fine Food)"
@@ -2537,7 +2538,7 @@ msgstr "Richtung"
 
 #: master_preset.xml:54(combo:display_values|key:surface)
 msgid "Dirt"
-msgstr ""
+msgstr "unbefestigt"
 
 #: master_preset.xml:706(list_entry:display_value|value:disabled)
 msgid "Disabled"
@@ -3147,7 +3148,7 @@ msgstr "Fish and chips"
 
 #: master_preset.xml:3226(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Fish pass"
-msgstr "Fischpass"
+msgstr "Fischtreppe"
 
 #: master_preset.xml:11472(item:name|group:Sports_and_hobbies|preset:Fishing)
 #: master_preset.xml:6078(item:name|preset:Fishing)
@@ -3156,7 +3157,7 @@ msgstr "Fischen"
 
 #: master_preset.xml:7987(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
-msgstr "Fitness Studio"
+msgstr "Fitnessstudio"
 
 #: master_preset.xml:5755(item:name|group:Leisure|preset:Fitness_Station)
 msgid "Fitness Station"
@@ -3536,7 +3537,7 @@ msgstr "Glas"
 #: master_preset.xml:7643(check:text|group:Facilities|preset:Recycling_Container|key:recycling:glass_bottles)
 #: master_preset.xml:7684(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:glass_bottles)
 msgid "Glass Bottles"
-msgstr "Flaschen (Glas)"
+msgstr "Glasflaschen"
 
 #: master_preset.xml:6371(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Glass cabinet"
@@ -4024,7 +4025,7 @@ msgstr "IT"
 
 #: master_preset.xml:6469(combo:display_values|group:Place_of_Worship|preset:Mosque|key:denomination)
 msgid "Ibadi"
-msgstr ""
+msgstr "ibaditisch"
 
 #: master_preset.xml:5578(list_entry:display_value|group:Leisure|preset:Animals|value:ibex)
 msgid "Ibex"
@@ -4222,7 +4223,7 @@ msgstr "Japanisch"
 
 #: master_preset.xml:547(combo:display_values|key:denomination)
 msgid "Jehovahs witness"
-msgstr "Jehovas Zeugen"
+msgstr "Zeugen Jehovas"
 
 #: master_preset.xml:2472(item:name|group:Barriers|preset:Jersey_Barrier)
 msgid "Jersey Barrier"
@@ -4443,7 +4444,7 @@ msgstr "Blattlos"
 #: master_preset.xml:14214(item:name|group:Crafts|preset:Leather)
 #: master_preset.xml:395(list_entry:short_description|value:leather)
 msgid "Leather"
-msgstr "Gerberei"
+msgstr "Lederwaren"
 
 #: master_preset.xml:1510(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:left)
 #: master_preset.xml:1536(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:left)
@@ -4686,7 +4687,7 @@ msgstr "Zauberteppich"
 
 #: master_preset.xml:6516(combo:display_values|group:Place_of_Worship|preset:Buddhist_Temple|key:denomination)
 msgid "Mahayana"
-msgstr ""
+msgstr "Mahayana"
 
 #: master_preset.xml:11361(check:text|group:For_the_body|preset:Hairdresser/Barber|key:male)
 msgid "Male"
@@ -4708,7 +4709,7 @@ msgstr "Kunstbauten"
 
 #: master_preset.xml:5587(list_entry:display_value|group:Leisure|preset:Animals|value:mandrill)
 msgid "Mandrill"
-msgstr ""
+msgstr "Mandrill"
 
 #: master_preset.xml:3288(list_entry:short_description|group:Water|preset:Wetland|value:mangrove)
 msgid "Mangrove"
@@ -7355,7 +7356,7 @@ msgstr "Numerische Referenz"
 
 #: master_preset.xml:3226(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reflecting pool"
-msgstr ""
+msgstr "Reflexionsbecken"
 
 #: master_preset.xml:7052(list_entry:short_description|group:Health|preset:Alternative_medicine|value:reflexology)
 msgid "Reflexology"
@@ -7951,7 +7952,7 @@ msgstr "Getrennt"
 
 #: master_preset.xml:1721(item:name|group:Ways|preset:Segregated_Foot-_and_Cycleway)
 msgid "Segregated Foot- and Cycleway"
-msgstr "Getrennter Fuss- und Radweg"
+msgstr "Getrennter Fuß- und Radweg"
 
 #: master_preset.xml:9453(check:text|group:Man_Made|preset:Monitoring_Station|key:monitoring:seismic_activity)
 msgid "Seismic Activity"
@@ -8022,11 +8023,11 @@ msgstr "Schattenspiel"
 
 #: master_preset.xml:6539(combo:display_values|group:Place_of_Worship|preset:Hindu_Temple|key:denomination)
 msgid "Shaivism"
-msgstr ""
+msgstr "Shivaismus"
 
 #: master_preset.xml:6539(combo:display_values|group:Place_of_Worship|preset:Hindu_Temple|key:denomination)
 msgid "Shaktism"
-msgstr ""
+msgstr "Shaktismus"
 
 #: master_preset.xml:4473(check:text|group:Public_Transport|preset:Stop_Position|key:share_taxi)
 #: master_preset.xml:4506(check:text|group:Public_Transport|preset:Platform|key:share_taxi)
@@ -8072,7 +8073,7 @@ msgstr "Unterstand"
 #: master_preset.xml:547(combo:display_values|key:denomination)
 #: master_preset.xml:6469(combo:display_values|group:Place_of_Worship|preset:Mosque|key:denomination)
 msgid "Shia"
-msgstr "Schiit"
+msgstr "schiitisch"
 
 #: master_preset.xml:11317(list_entry:short_description|group:For_the_body|preset:Massage|value:shiatsu)
 #: master_preset.xml:7054(list_entry:short_description|group:Health|preset:Alternative_medicine|value:shiatsu)
@@ -8245,7 +8246,7 @@ msgstr "Kleingeräte"
 
 #: master_preset.xml:6539(combo:display_values|group:Place_of_Worship|preset:Hindu_Temple|key:denomination)
 msgid "Smartism"
-msgstr ""
+msgstr "Smarta"
 
 #: master_preset.xml:417(combo:text|key:smoking)
 msgid "Smoking"
@@ -8535,7 +8536,7 @@ msgstr ""
 #: master_preset.xml:13863(item:name|preset:Street)
 #: master_preset.xml:5360(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Street"
-msgstr "Strasse"
+msgstr "Straße"
 
 #: master_preset.xml:9411(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -8550,16 +8551,16 @@ msgstr "Straßenlaterne"
 #: master_preset.xml:1316(check:text|group:Streets|preset:Living_Street|key:noname)
 #: master_preset.xml:1341(check:text|group:Streets|preset:Pedestrian|key:noname)
 msgid "Street has no name"
-msgstr "Strasse hat keinen namen"
+msgstr "Straße hat keinen Namen"
 
 #: master_preset.xml:13296(text:text|group:Addresses_and_Contact|preset:Address|key:addr:street)
 #: master_preset.xml:13857(text:text|preset:Associated_Street|key:name)
 msgid "Street name"
-msgstr "Strassenname"
+msgstr "Straßenname"
 
 #: master_preset.xml:926(group:name|group:Streets)
 msgid "Streets"
-msgstr "Strassen"
+msgstr "Straßen"
 
 #: master_preset.xml:3290(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -8632,7 +8633,7 @@ msgstr "Sonnenschutz"
 #: master_preset.xml:547(combo:display_values|key:denomination)
 #: master_preset.xml:6469(combo:display_values|group:Place_of_Worship|preset:Mosque|key:denomination)
 msgid "Sunni"
-msgstr "Sunnitisch"
+msgstr "sunnitisch"
 
 #: master_preset.xml:10256(item:name|group:Food|preset:Supermarket)
 msgid "Supermarket"
@@ -8909,7 +8910,7 @@ msgstr "Therapeut"
 
 #: master_preset.xml:6516(combo:display_values|group:Place_of_Worship|preset:Buddhist_Temple|key:denomination)
 msgid "Theravada"
-msgstr ""
+msgstr "Theravada"
 
 #: master_preset.xml:31(list_entry:short_description|value:excellent)
 msgid "Thin Rollers: rollerblade, skateboard"
@@ -9494,11 +9495,11 @@ msgstr "Staubsauger"
 
 #: master_preset.xml:6539(combo:display_values|group:Place_of_Worship|preset:Hindu_Temple|key:denomination)
 msgid "Vaishnavism"
-msgstr ""
+msgstr "Vishnuismus"
 
 #: master_preset.xml:6516(combo:display_values|group:Place_of_Worship|preset:Buddhist_Temple|key:denomination)
 msgid "Vajrayana"
-msgstr ""
+msgstr "Vajrayana"
 
 #: master_preset.xml:12428(item:name|group:Geography|preset:Valley)
 msgid "Valley"
@@ -10478,7 +10479,7 @@ msgstr "Wasserlauf (nicht Flussbett)"
 #: master_preset.xml:13949(role:text|preset:Bridge|key:outline)
 #: master_preset.xml:13963(role:text|preset:Tunnel|key:outline)
 msgid "way forming the outline footprint"
-msgstr "Weg der den Umriss festlegt"
+msgstr "Weg, der den Umriss festlegt"
 
 #: master_preset.xml:13872(role:text|preset:Street|key:street)
 msgid "ways being part of street"
@@ -10512,7 +10513,7 @@ msgstr "Stacheldraht"
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Bars"
-msgstr ""
+msgstr "Stangen"
 
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10557,7 +10558,7 @@ msgstr "Mast"
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr ""
+msgstr "Geländer"
 
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -10618,7 +10619,7 @@ msgstr "Betonplatten"
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Dirt"
-msgstr ""
+msgstr "Erde"
 
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
@@ -12941,12 +12942,12 @@ msgstr "Griechisch-Katholisch"
 #: master_preset.xml:6445(combo:display_values|group:Place_of_Worship|preset:Church|key:denomination)
 msgctxt "christian"
 msgid "Greek orthodox"
-msgstr "Griechisch Orthodox"
+msgstr "Griechisch-Orthodox"
 
 #: master_preset.xml:6445(combo:display_values|group:Place_of_Worship|preset:Church|key:denomination)
 msgctxt "christian"
 msgid "Jehovahs witness"
-msgstr "Jehovas Zeugen"
+msgstr "Zeugen Jehovas"
 
 #: master_preset.xml:6445(combo:display_values|group:Place_of_Worship|preset:Church|key:denomination)
 msgctxt "christian"
@@ -13011,12 +13012,12 @@ msgstr "Siebenten-Tags-Adventisten"
 #: master_preset.xml:6445(combo:display_values|group:Place_of_Worship|preset:Church|key:denomination)
 msgctxt "christian"
 msgid "Spiritist"
-msgstr ""
+msgstr "spiritistisch"
 
 #: master_preset.xml:6493(combo:display_values|group:Place_of_Worship|preset:Synagogue|key:denomination)
 msgctxt "jewish"
 msgid "Conservative"
-msgstr ""
+msgstr "konservativ"
 
 #: master_preset.xml:6493(combo:text|group:Place_of_Worship|preset:Synagogue|key:denomination)
 msgctxt "jewish"
@@ -13031,7 +13032,7 @@ msgstr "Orthodox"
 #: master_preset.xml:6493(combo:display_values|group:Place_of_Worship|preset:Synagogue|key:denomination)
 msgctxt "jewish"
 msgid "Reform"
-msgstr ""
+msgstr "liberal"
 
 #: master_preset.xml:7160(combo:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:position)
 msgctxt "hydrant position"
@@ -13377,7 +13378,7 @@ msgctxt "tree denotation"
 msgid ""
 "Especially old tree, often with a particular shape. Usually protected for "
 "its uniqueness."
-msgstr ""
+msgstr "Besonders alter Baum, häufig mit außergewöhnlichem Habitus. Gewöhnlich unter Naturschutz wegen seiner Einzigartigkeit."
 
 #: master_preset.xml:12541(list_entry:display_value|group:Nature|preset:Tree|value:landmark)
 msgctxt "tree denotation"

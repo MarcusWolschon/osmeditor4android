@@ -62,6 +62,7 @@
   <string name="progress_running_message">Ejecutando…</string>
   <string name="progress_oauth">Cargando su cuenta en openstreetmap.org para la autorización OAuth...</string>
   <string name="progress_building_imagery_database">Construyendo base de datos de imágenes...</string>
+  <string name="progress_query_oam">Consultando OAM...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fuente:</string>
   <string name="upload_close_changeset_label">Cerrar conjunto de cambios:</string>
@@ -101,6 +102,7 @@
   <string name="tag_editor_name_suggestion">Nombre sugerido</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Esta sugerencia puede sustituir algunos valores de etiquetas con valores más populares.</string>
   <string name="search_results_title">Resultados de la búsqueda</string>
+  <string name="search_online">Buscar en línea</string>
   <string name="find_message">Introduzca la cadena de búsqueda</string>
   <string name="geocoder_prompt">con</string>
   <string name="preset_search_hint">Cadena de búsqueda predeterminada</string>
@@ -129,6 +131,7 @@
   <string name="original">Original</string>
   <string name="current">Actual</string>
   <!--GeoJSON feature display dialog-->
+  <string name="copy_properties">Copiar propiedades</string>
   <!---->
   <string name="error">error</string>
   <string name="warning">advertencia</string>
@@ -154,10 +157,12 @@
   <string name="add_members">Añadir miembros</string>
   <string name="leave_empty">Dejar vacío</string>
   <!--GPX way point dialog-->
+  <string name="waypoint_description">WPT: %1$s</string>
   <string name="description">Descripción</string>
   <string name="created">Creado</string>
   <string name="altitude">Altitud</string>
   <string name="create_osm_object">Crear objeto OSM</string>
+  <string name="create_osm_object_search">Crear objeto OSM desde una búsqueda predefinida</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Imágenes personalizadas</string>
   <string name="oam_layer_title">Imágenes OAM</string>
@@ -170,6 +175,7 @@
   <string name="coverage_right">Derecha</string>
   <string name="coverage_bottom">Abajo</string>
   <string name="preferred">Preferido</string>
+  <string name="toast_invalid_box">Cuadro delimitador no válido o incompleto</string>
   <string name="delete_layer">¿Borrar capa?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Estilo de capa</string>
@@ -184,9 +190,15 @@
   <string name="layer_photos">Fotos</string>
   <string name="layer_tasks">Tareas</string>
   <string name="layer_data">Datos OSM</string>
+  <string name="layer_flush_tile_cache">Limpiar la caché de teselas</string>
   <string name="layer_change_style">Cambiar estilo</string>
+  <string name="layer_select_imagery">Seleccionar imágenes</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Puntos de control</string>
   <string name="undo_redo_title">Deshacer - Rehacer</string>
+  <string name="undo_redo_one">Solo el punto de control seleccionado (inseguro)</string>
+  <string name="undo_all">Deshacer todos los puntos de control posteriores (seguro)</string>
+  <string name="redo_all">Rehacer todos los puntos de control anteriores (seguro)</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Descargar datos de OpenStreetMap</string>
   <!--NumberPiker-->
@@ -196,6 +208,7 @@
   <!--Toaster-->
   <string name="toast_name_empty">El nombre no puede estar vacío</string>
   <string name="toast_url_empty">La URL no puede estar vacía</string>
+  <string name="toast_min_zoom">El zoom mínimo debe ser inferior al máximo</string>
   <string name="toast_no_changes">No cambió nada aún…</string>
   <string name="toast_unsaved_changes">Tiene cambios sin guardar, súbalos primero.</string>
   <string name="clear_anyway">¿Borrar de todas formas?</string>
@@ -273,9 +286,16 @@
   <string name="toast_string_too_long">¡Cadena demasiado larga (%1$d carácteres), truncada!</string>
   <string name="toast_illegal_operation">Operación ilegal: %1$s</string>
   <string name="toast_imperial_units">Unidades imperiales no encontradas</string>
+  <string name="toast_flus_all_caches">¡Esto limpiará todas las cachés de teselas!</string>
+  <string name="toast_applied_offset">Desplazamiento de imágenes aplicado automáticamente</string>
   <string name="toast_unsupported_format">Formato no soportado: %1$s</string>
+  <string name="toast_not_mbtiles">No es un archivo en formato MBTiles</string>
   <string name="toast_using_network_location">Usando la localización por red</string>
   <string name="toast_using_gps_location">Usando la localización GPS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS desactivado, seguimiento detenido</string>
+  <string name="toast_tags_copied">Etiquetas copiadas al portapapeles</string>
+  <string name="toast_tags_cut">Etiquetas cortadas al portapapeles</string>
+  <string name="toast_properties_copied">Propiedades copiadas al portapapeles</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sí</string>
   <string name="no">No</string>
@@ -362,6 +382,7 @@
   <string name="tag_restriction_add_expression">Añadir expresión</string>
   <string name="tag_restriction_add_opening_hours">Añadir horas de apertura</string>
   <string name="tag_restriction_value_hint">Restricción condicional</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Cargar Área</string>
   <string name="location_choose_radius">Elegir radio:</string>
@@ -406,6 +427,7 @@
   <string name="menu_camera">Cámara</string>
   <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Mostrar ubicación</string>
+  <string name="menu_gps_follow">Seguir ubicación</string>
   <string name="menu_gps_goto">Ir a la localización actual</string>
   <string name="menu_gps_start">Iniciar traza GPS</string>
   <string name="menu_gps_pause">Pausar traza GPS</string>
@@ -442,6 +464,7 @@
   <string name="menu_copy">Copiar</string>
   <string name="menu_cut">Cortar</string>
   <string name="menu_paste">Pegar</string>
+  <string name="menu_paste_tags">Pegar etiquetas</string>
   <string name="menu_paste_from_clipboard">Pegar desde el portapapeles</string>
   <string name="menu_zoom_to_selection">Acercar para seleccionar</string>
   <string name="menu_rotate">Girar</string>
@@ -457,7 +480,9 @@
   <string name="menu_tools">Herramientas...</string>
   <string name="menu_tools_imagery">Más herramientas de imágenes</string>
   <string name="menu_tools_add_imagery_from_oam">Añadir imágenes desde OAM</string>
+  <string name="menu_tools_flush_all_tile_caches">Limpiar todas las cachés de teselas</string>
   <string name="menu_tools_background_properties">Propiedades del fondo</string>
+  <string name="menu_tools_update_imagery_configuration">Actualizar la configuración de la capa de imágenes</string>
   <!---->
   <string name="menu_privacy">Privacidad</string>
   <!--Background alignment-->
@@ -473,6 +498,7 @@
   <string name="distance_meter">%1$.2f metros</string>
   <string name="distance_km">%1$.3f km</string>
   <!---->
+  <string name="menu_tools_apply_local_offset">Aplicar desplazamiento almacenado a las imágenes</string>
   <string name="menu_tools_background_contrast">Contraste</string>
   <string name="menu_tools_oauth_reset">Reiniciar OAuth</string>
   <string name="menu_tools_oauth_authorisation">Autorizar OAuth</string>
@@ -520,7 +546,9 @@
   <string name="config_backgroundLayer_title">Mapa de fondo</string>
   <string name="config_overlayLayer_title">Superposición de mapa</string>
   <string name="config_customlayers_title">Capas personalizadas</string>
+  <string name="config_customlayers_summary">Configurar capas que no están en la configuración predeterminada</string>
   <string name="config_scale_title">Mostrar escala</string>
+  <string name="config_scale_summary">Tipo de escala que se muestra en el mapa.</string>
   <string name="config_mapProfile_title">Estilo de datos</string>
   <string name="config_mapProfile_summary">Selecciona el estilo para la capa de datos</string>
   <string name="config_enableOpenStreetBugs_title">Habilitar mostrar errores y notas</string>
@@ -536,6 +564,7 @@
   <string name="config_presetbutton_title">Predeterminados</string>
   <string name="config_presetbutton_summary">Añade y habilita predeterminados compatibles con JOSM</string>
   <string name="config_validatorprefs_title">Ajustes del validador</string>
+  <string name="config_validatorprefs_summary">Configurar las reglas de validación</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autores y licencias</string>
   <string name="config_debugbutton_title">Depurar</string>
@@ -580,6 +609,7 @@
   <string name="config_category_editing">Ajustes de datos y edición</string>
   <string name="config_category_editing_summary">Ajustes de autodescarga, guardado y notificaciones</string>
   <string name="config_forceContextMenu_title">Utilizar siempre menú contextual</string>
+  <string name="config_forceContextMenu_summary">Mostrar siempre el menú contextual si la selección es ambigua.</string>
   <string name="config_address_tags">Etiquetas de direcciones</string>
   <string name="config_address_tags_summary">Etiquetas utilizadas para la predicción de direcciones</string>
   <string name="config_enableNameSuggestions_title">Activar sugerencias de nombres</string>
@@ -651,6 +681,7 @@
   <string name="config_js_console_title">Habilitar consola JS</string>
   <string name="config_js_console_summary">Haga que la consola JS esté disponible en modo «en directo»</string>
   <string name="config_voiceCommandsEnabled_title">Habilitar comandos de voz</string>
+  <string name="config_voiceCommandsEnabled_summary">Habilitar el soporte de comandos de voz</string>
   <!---->
   <string name="manage_apis">Administrar APIs</string>
   <string name="config_api_url_title">URL API</string>

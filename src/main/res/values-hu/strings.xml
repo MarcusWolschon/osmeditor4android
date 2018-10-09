@@ -321,6 +321,7 @@
   <string name="toast_tags_copied">Címkék vágólapra másolva</string>
   <string name="toast_tags_cut">Címkék kivágva a vágólapra</string>
   <string name="toast_properties_copied">Tulajdonságok vágólapra másolva</string>
+  <string name="toast_task_conflict">A(z) %1$s megváltozott a kiszolgálón, előbb töltse fel, majd töltse le újra</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Igen</string>
   <string name="no">Nem</string>

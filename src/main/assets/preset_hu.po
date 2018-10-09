@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-03 09:59+0000\n"
+"Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,7 +149,7 @@ msgstr "5: Maximális nehézség, földcsuszamlások"
 
 #: master_preset.xml:49(list_entry:short_description|value:6)
 msgid "6: Not rideable"
-msgstr ""
+msgstr "6: Kerékpárral járhatatlan"
 
 #: master_preset.xml:5397(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -777,7 +777,7 @@ msgstr "Pávián"
 #: master_preset.xml:6001(check:text|group:Playground_equipment|preset:Slide|key:baby)
 #: master_preset.xml:6019(check:text|group:Playground_equipment|preset:Swing|key:baby)
 msgid "Baby"
-msgstr ""
+msgstr "Kisbabáknak"
 
 #: master_preset.xml:6980(item:name|group:Health|preset:Baby_Hatch/Safe_Haven)
 msgid "Baby Hatch/Safe Haven"
@@ -818,7 +818,7 @@ msgstr "Pékség"
 #: master_preset.xml:5766(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:balance_beam)
 #: master_preset.xml:5894(check:text|group:Leisure|preset:Playground|key:playground:balancebeam)
 msgid "Balance beam"
-msgstr ""
+msgstr "Egyensúlyozó gerenda"
 
 #: master_preset.xml:6281(list_entry:display_value|group:Culture|preset:Music_theatres|value:ballet)
 msgid "Ballet theatre"
@@ -884,7 +884,7 @@ msgstr "Kopár, magasabb fekvésű, megműveletlen terület, jórészt fű borí
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Barrel"
-msgstr ""
+msgstr "Hordó"
 
 #: master_preset.xml:5867(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
@@ -975,7 +975,7 @@ msgstr "Ágyak száma"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Bee"
-msgstr ""
+msgstr "Méhecske"
 
 #: master_preset.xml:13985(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
@@ -2125,7 +2125,7 @@ msgstr "Fedett víztározó"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Cow"
-msgstr ""
+msgstr "Tehén"
 
 #: master_preset.xml:7543(item:name|group:Facilities|preset:Coworking_space)
 msgid "Coworking space"
@@ -2660,7 +2660,7 @@ msgstr "Sífelvonó (általános)"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Dragon"
-msgstr ""
+msgstr "Sárkány"
 
 #: master_preset.xml:13914(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2965(item:name|group:Water|preset:Drain)
@@ -3145,7 +3145,7 @@ msgstr "Hallépcső"
 #: master_preset.xml:11472(item:name|group:Sports_and_hobbies|preset:Fishing)
 #: master_preset.xml:6078(item:name|preset:Fishing)
 msgid "Fishing"
-msgstr "Horgászhely"
+msgstr "Horgászat"
 
 #: master_preset.xml:7987(item:name|group:Sport_Facilities|preset:Fitness_Centre)
 msgid "Fitness Centre"
@@ -3157,7 +3157,7 @@ msgstr "Fitneszpark"
 
 #: master_preset.xml:5765(combo:text|group:Leisure|preset:Fitness_Station|key:fitness_station)
 msgid "Fitness station"
-msgstr ""
+msgstr "Fitneszpark"
 
 #: master_preset.xml:13419(item:name|group:Annotation|preset:Fixme)
 #: master_preset.xml:13432(text:text|group:Annotation|preset:Fixme|key:fixme)
@@ -3809,7 +3809,7 @@ msgstr "Magasságkorlátozó"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Helicopter"
-msgstr ""
+msgstr "Helikopter"
 
 #: master_preset.xml:4765(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
@@ -4625,7 +4625,7 @@ msgstr "Lakatos"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Locomotive"
-msgstr ""
+msgstr "Mozdony"
 
 #: master_preset.xml:14935(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -5902,7 +5902,7 @@ msgstr "98-as oktánszámú"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Octopus"
-msgstr ""
+msgstr "Polip"
 
 #: master_preset.xml:13330(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
@@ -6110,7 +6110,7 @@ msgstr "Gyümölcsös"
 
 #: master_preset.xml:379(combo:text|key:organic)
 msgid "Organic"
-msgstr "Bioélelmiszer"
+msgstr "Biotermék"
 
 #: master_preset.xml:10540(item:name|group:Food|preset:Organic_(deprecated))
 msgid "Organic (deprecated)"
@@ -6442,7 +6442,7 @@ msgstr "Parfüméria"
 #: master_preset.xml:7106(combo:display_values|group:Emergency|preset:First_Aid_Kit|key:access)
 #: master_preset.xml:774(combo:display_values|key:access)
 msgid "Permissive"
-msgstr "Megengedő"
+msgstr "Megtűrt"
 
 #: master_preset.xml:774(combo:display_values|key:access)
 msgid "Permit required"
@@ -6605,7 +6605,7 @@ msgstr "Helyek"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Plane"
-msgstr ""
+msgstr "Repülőgép"
 
 #: master_preset.xml:4789(item:name|group:Airport|preset:Plane_Parking_Position)
 msgid "Plane Parking Position"
@@ -8338,7 +8338,7 @@ msgstr "Fűszerbolt"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Spiderweb"
-msgstr ""
+msgstr "Pókháló"
 
 #: master_preset.xml:2339(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
@@ -10796,7 +10796,7 @@ msgstr "Nincs átjárás"
 #: master_preset.xml:128(list_entry:short_description|value:uncontrolled)
 msgctxt "transport"
 msgid "Not controlled"
-msgstr "Nem ellenőrzött"
+msgstr "Jelzőlámpa nélküli"
 
 #: master_preset.xml:4153(combo:text|group:Car|preset:Car_Dealer|key:second_hand)
 #: master_preset.xml:4270(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:second_hand)
@@ -11361,7 +11361,7 @@ msgstr "Nem használható"
 #: master_preset.xml:505(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permissive"
-msgstr "Használat megengedett"
+msgstr "Megtűrt"
 
 #: master_preset.xml:2750(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2770(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -12575,7 +12575,7 @@ msgstr "Állomás"
 #: master_preset.xml:4171(multiselect:text|group:Car|preset:Repair|key:service)
 msgctxt "shop=car_repair"
 msgid "Service"
-msgstr "Szolgálati bejárat"
+msgstr "Szolgáltatás"
 
 #: master_preset.xml:4809(item:name|group:Airport|preset:Beacon)
 msgctxt "airmark"
@@ -12617,7 +12617,7 @@ msgstr "Látványosság"
 #: master_preset.xml:5946(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgctxt "leisure"
 msgid "Balance beam"
-msgstr ""
+msgstr "Egyensúlyozó gerenda"
 
 #: master_preset.xml:5896(check:text|group:Leisure|preset:Playground|key:playground:basketrotator)
 #: master_preset.xml:5948(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketrotator)
@@ -12667,7 +12667,7 @@ msgstr ""
 #: master_preset.xml:5951(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chess_table)
 msgctxt "leisure"
 msgid "Chess table"
-msgstr ""
+msgstr "Sakktábla"
 
 #: master_preset.xml:5900(check:text|group:Leisure|preset:Playground|key:playground:climbingframe)
 #: master_preset.xml:5952(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
@@ -12718,7 +12718,7 @@ msgstr ""
 #: master_preset.xml:5956(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
 msgctxt "leisure"
 msgid "Hopscotch"
-msgstr ""
+msgstr "Ugróiskola"
 
 #: master_preset.xml:5905(check:text|group:Leisure|preset:Playground|key:playground:horizontal_bar)
 #: master_preset.xml:5957(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:horizontal_bar)

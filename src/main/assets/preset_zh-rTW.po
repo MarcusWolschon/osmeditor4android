@@ -2,13 +2,13 @@
 # Translators:
 # Supaplex <bejokeup@gmail.com>, 2015,2017
 # jerry liao <ezjerry@gmail.com>, 2015,2017
-# Sean Young <assanges@icloud.com>, 2016-2017
+# Sean Young <assanges@icloud.com>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-02 04:45+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,7 +149,7 @@ msgstr "5: 騎乘等級最困難，路面充滿石頭，或者是路面坍方"
 
 #: master_preset.xml:49(list_entry:short_description|value:6)
 msgid "6: Not rideable"
-msgstr ""
+msgstr "6: 不適合騎乘"
 
 #: master_preset.xml:5397(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -417,7 +417,7 @@ msgstr "所有的車輛"
 
 #: master_preset.xml:1370(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Alley"
-msgstr ""
+msgstr "巷弄"
 
 #: master_preset.xml:12932(item:name|group:Land_use|preset:Allotments)
 msgid "Allotments"
@@ -430,7 +430,7 @@ msgstr "允許車種:"
 
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Almond trees"
-msgstr ""
+msgstr "杏仁樹"
 
 #: master_preset.xml:1631(list_entry:short_description|group:Ways|preset:Track|value:grade5)
 msgid ""
@@ -451,7 +451,7 @@ msgstr ""
 
 #: master_preset.xml:5545(list_entry:display_value|group:Leisure|preset:Animals|value:alpaca)
 msgid "Alpaca"
-msgstr ""
+msgstr "羊駝"
 
 #: master_preset.xml:13330(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Alphabetic"
@@ -505,7 +505,7 @@ msgstr ""
 #: master_preset.xml:7856(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 #: master_preset.xml:7878(multiselect:display_values|group:Facilities|preset:Animal_boarding|key:animal_boarding)
 msgid "Amphibian"
-msgstr ""
+msgstr "兩棲類"
 
 #: master_preset.xml:6102(item:name|preset:Amusement_arcade)
 msgid "Amusement arcade"
@@ -1299,7 +1299,7 @@ msgstr "橋梁"
 
 #: master_preset.xml:9553(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "橋樑支撐類型"
 
 #: master_preset.xml:9562(item:name|group:Bridges|preset:Bridge_outline)
 msgid "Bridge outline"
@@ -4770,7 +4770,7 @@ msgstr ""
 #: master_preset.xml:2478(combo:text|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:3166(combo:text|group:Water|preset:Penstock|key:material)
 msgid "Material"
-msgstr ""
+msgstr "材質"
 
 #: master_preset.xml:396(list_entry:short_description|value:maternity)
 msgid "Maternity"
@@ -5152,7 +5152,7 @@ msgstr "纪念碑"
 
 #: master_preset.xml:3478(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "繫泊處"
 
 #: master_preset.xml:5591(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
@@ -5303,7 +5303,7 @@ msgstr ""
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "壁畫"
 
 #: master_preset.xml:6212(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -7870,7 +7870,7 @@ msgstr "雕塑家"
 #: master_preset.xml:6371(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "雕塑"
 
 #: master_preset.xml:7856(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -8330,7 +8330,7 @@ msgstr "測速照相機"
 
 #: master_preset.xml:2153(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
-msgstr ""
+msgstr "速限指標"
 
 #: master_preset.xml:10612(item:name|group:Food|preset:Spices)
 msgid "Spices"
@@ -8446,7 +8446,7 @@ msgstr ""
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr ""
+msgstr "雕像"
 
 #: master_preset.xml:384(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -9203,7 +9203,7 @@ msgstr ""
 
 #: master_preset.xml:12548(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "一排樹"
 
 #: master_preset.xml:12862(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -10529,7 +10529,7 @@ msgstr ""
 #: master_preset.xml:9916(combo:text|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr ""
+msgstr "材質"
 
 #: master_preset.xml:19(combo:display_values|key:material)
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
@@ -13318,7 +13318,7 @@ msgstr ""
 #: master_preset.xml:10178(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr ""
+msgstr "雕像"
 
 #: master_preset.xml:10178(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

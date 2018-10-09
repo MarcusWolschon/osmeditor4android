@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-03 22:27+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -780,7 +780,7 @@ msgstr "Babuíno"
 #: master_preset.xml:6001(check:text|group:Playground_equipment|preset:Slide|key:baby)
 #: master_preset.xml:6019(check:text|group:Playground_equipment|preset:Swing|key:baby)
 msgid "Baby"
-msgstr ""
+msgstr "Bébés"
 
 #: master_preset.xml:6980(item:name|group:Health|preset:Baby_Hatch/Safe_Haven)
 msgid "Baby Hatch/Safe Haven"
@@ -821,7 +821,7 @@ msgstr "Padaria"
 #: master_preset.xml:5766(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:balance_beam)
 #: master_preset.xml:5894(check:text|group:Leisure|preset:Playground|key:playground:balancebeam)
 msgid "Balance beam"
-msgstr ""
+msgstr "Barra de equilíbrio"
 
 #: master_preset.xml:6281(list_entry:display_value|group:Culture|preset:Music_theatres|value:ballet)
 msgid "Ballet theatre"
@@ -887,7 +887,7 @@ msgstr ""
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Barrel"
-msgstr ""
+msgstr "Barril"
 
 #: master_preset.xml:5867(combo:text|group:Leisure|preset:Dog_Park|key:barrier)
 msgid "Barrier"
@@ -978,7 +978,7 @@ msgstr "Nº de camas"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Bee"
-msgstr ""
+msgstr "Abelhas"
 
 #: master_preset.xml:13985(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
@@ -986,7 +986,7 @@ msgstr "Apicultor"
 
 #: master_preset.xml:5253(item:name|group:Food+Drinks|preset:Beer_Garden)
 msgid "Beer Garden"
-msgstr ""
+msgstr "Jardim da Cerveja"
 
 #: master_preset.xml:9003(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Bell tower"
@@ -1115,7 +1115,7 @@ msgstr "Ferreiro"
 
 #: master_preset.xml:2274(item:name|group:Barriers|preset:Block)
 msgid "Block"
-msgstr "Bloco cimento / pedra"
+msgstr "Bloco ciment. ou pedra"
 
 #: master_preset.xml:7024(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:blood_donation)
 msgid "Blood donation"
@@ -1249,7 +1249,7 @@ msgstr "Botique"
 
 #: master_preset.xml:5767(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:box)
 msgid "Box"
-msgstr ""
+msgstr "Caixa"
 
 #: master_preset.xml:570(text:text|key:branch)
 #: master_preset.xml:606(text:text|key:branch)
@@ -2128,7 +2128,7 @@ msgstr "Reservatório coberto"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Cow"
-msgstr ""
+msgstr "Vaca"
 
 #: master_preset.xml:7543(item:name|group:Facilities|preset:Coworking_space)
 msgid "Coworking space"
@@ -2663,7 +2663,7 @@ msgstr "Telesqui (genérico)"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Dragon"
-msgstr ""
+msgstr "Dragão"
 
 #: master_preset.xml:13914(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:2965(item:name|group:Water|preset:Drain)
@@ -2924,7 +2924,7 @@ msgstr "Equestre"
 
 #: master_preset.xml:5891(checkgroup:text|group:Leisure|preset:Playground)
 msgid "Equipment"
-msgstr ""
+msgstr "Equipamento"
 
 #: master_preset.xml:11435(item:name|group:For_the_body|preset:Erotic)
 msgid "Erotic"
@@ -3160,7 +3160,7 @@ msgstr "Máq. exercíc. exterior"
 
 #: master_preset.xml:5765(combo:text|group:Leisure|preset:Fitness_Station|key:fitness_station)
 msgid "Fitness station"
-msgstr ""
+msgstr "Máq. exercíc. exterior"
 
 #: master_preset.xml:13419(item:name|group:Annotation|preset:Fixme)
 #: master_preset.xml:13432(text:text|group:Annotation|preset:Fixme|key:fixme)
@@ -3374,7 +3374,7 @@ msgstr "Pele"
 
 #: master_preset.xml:11135(item:name|group:Home_furnishing_and_decoration|preset:Furnace_(deprecated))
 msgid "Furnace (deprecated)"
-msgstr ""
+msgstr "Fornalha (em desuso)"
 
 #: master_preset.xml:10950(item:name|group:Home_furnishing_and_decoration|preset:Furniture)
 #: master_preset.xml:14503(item:name|group:Crafts|preset:Furniture)
@@ -3667,7 +3667,7 @@ msgstr "Railes de via"
 
 #: master_preset.xml:4912(item:name|group:Accommodation|preset:Guest_House/Bed_&_Breakfast)
 msgid "Guest House/Bed & Breakfast"
-msgstr "Hosp. domic. / casa hóspedes"
+msgstr "Casa de hóspedes"
 
 #: master_preset.xml:14849(item:name|group:Offices|preset:Guide)
 msgid "Guide"
@@ -3696,7 +3696,7 @@ msgstr "Habitat com vegetação de folha persistente e caduca."
 
 #: master_preset.xml:11346(item:name|group:For_the_body|preset:Hairdresser/Barber)
 msgid "Hairdresser/Barber"
-msgstr "Cabeleireiro(a)"
+msgstr "Cabeleireiro / cabeleireira"
 
 #: master_preset.xml:12241(item:name|group:Places|preset:Hamlet)
 #: master_preset.xml:13306(text:text|group:Addresses_and_Contact|preset:Address|key:addr:hamlet)
@@ -3812,7 +3812,7 @@ msgstr ""
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Helicopter"
-msgstr ""
+msgstr "Helicóptero"
 
 #: master_preset.xml:4765(item:name|group:Airport|preset:Helipad)
 msgid "Helipad"
@@ -3901,11 +3901,11 @@ msgstr "Homeopatia"
 
 #: master_preset.xml:5768(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:horizontal_bar)
 msgid "Horizontal bar"
-msgstr ""
+msgstr "Barra horizontal"
 
 #: master_preset.xml:5769(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:horizontal_ladder)
 msgid "Horizontal ladder"
-msgstr ""
+msgstr "Escada horizontal"
 
 #: master_preset.xml:153(check:text|key:horse)
 #: master_preset.xml:162(check:text|key:horse)
@@ -3980,7 +3980,7 @@ msgstr "Hurling"
 
 #: master_preset.xml:14176(item:name|group:Crafts|preset:Hvac)
 msgid "Hvac"
-msgstr "Aquecimento / arrefecimento"
+msgstr "Aquecimen. / arrefecimen."
 
 #: master_preset.xml:7048(list_entry:short_description|group:Health|preset:Alternative_medicine|value:hydrotherapy)
 msgid "Hydrotherapy"
@@ -4114,7 +4114,7 @@ msgstr "Informação utilizando auscutadores ou telemóvel."
 
 #: master_preset.xml:732(role:text|key:)
 msgid "Infrastructure"
-msgstr ""
+msgstr "Infraestrutura"
 
 #: master_preset.xml:13754(item:name|group:Routes|preset:Inline_Skating_Route)
 msgid "Inline Skating Route"
@@ -4628,7 +4628,7 @@ msgstr "Técnico de fechaduras"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Locomotive"
-msgstr ""
+msgstr "Locomotiva"
 
 #: master_preset.xml:14935(item:name|group:Offices|preset:Logistics)
 msgid "Logistics"
@@ -5293,7 +5293,7 @@ msgstr "Vários"
 
 #: master_preset.xml:8289(check:text|group:Sport|preset:Climbing|key:climbing:multipitch)
 msgid "Multi-pitch routes"
-msgstr ""
+msgstr "Rotas multi-pista"
 
 #: master_preset.xml:13471(list_entry:display_value|group:Relations|preset:Relations|value:multipolygon)
 #: master_preset.xml:13488(item:name|group:Relations|preset:Multipolygon)
@@ -5905,7 +5905,7 @@ msgstr "98 octanas"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Octopus"
-msgstr ""
+msgstr "Polvo"
 
 #: master_preset.xml:13330(combo:display_values|group:Addresses_and_Contact|preset:Address_Interpolation|key:addr:interpolation)
 msgid "Odd"
@@ -6285,7 +6285,7 @@ msgstr "Par"
 
 #: master_preset.xml:5770(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:parallel_bars)
 msgid "Parallel bars"
-msgstr ""
+msgstr "Barras paralelas"
 
 #: master_preset.xml:11967(list_entry:short_description|preset:Vending_Machine|value:parcel_mail_in)
 msgid "Parcel mail in"
@@ -6608,7 +6608,7 @@ msgstr "Locais"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Plane"
-msgstr ""
+msgstr "Avião"
 
 #: master_preset.xml:4789(item:name|group:Airport|preset:Plane_Parking_Position)
 msgid "Plane Parking Position"
@@ -6682,7 +6682,7 @@ msgstr "Parque infantil"
 #: master_preset.xml:5930(group:name|group:Playground_equipment)
 #: master_preset.xml:5931(item:name|group:Playground_equipment|preset:Playground_equipment)
 msgid "Playground equipment"
-msgstr ""
+msgstr "Equipamento parque infant."
 
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Plum trees"
@@ -6973,7 +6973,7 @@ msgstr "Protestante"
 
 #: master_preset.xml:4321(checkgroup:text|group:Bicycle|preset:Bike_Dealer)
 msgid "Provided services"
-msgstr ""
+msgstr "Serviços disponíveis"
 
 #: master_preset.xml:13310(text:text|group:Addresses_and_Contact|preset:Address|key:addr:province)
 msgid "Province"
@@ -7073,7 +7073,7 @@ msgstr "Propósito"
 
 #: master_preset.xml:5771(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:push-up)
 msgid "Push-up"
-msgstr ""
+msgstr "Barras para flexões"
 
 #: master_preset.xml:12630(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7221,7 +7221,7 @@ msgstr "Reator Bolshoy Moshchnosti Kanalniy 1500 (RBMK-1500)"
 
 #: master_preset.xml:6371(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Reading box"
-msgstr ""
+msgstr "Caixa de leitura"
 
 #: master_preset.xml:9456(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Recording"
@@ -7233,7 +7233,7 @@ msgstr "Gravação:"
 
 #: master_preset.xml:13019(item:name|group:Land_use|preset:Recreation_Ground)
 msgid "Recreation Ground"
-msgstr "Parque recreativo (p/ atividades desportivas)"
+msgstr "Parque p/ativ. desportivas"
 
 #: master_preset.xml:7656(item:name|group:Facilities|preset:Recycling_Centre)
 msgid "Recycling Centre"
@@ -7462,7 +7462,7 @@ msgstr "Reservatório"
 
 #: master_preset.xml:5710(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
-msgstr "Restort"
+msgstr "Resort"
 
 #: master_preset.xml:9188(combo:text|group:Man_Made|preset:Mineshaft|key:resource)
 #: master_preset.xml:9221(combo:text|group:Man_Made|preset:Adit|key:resource)
@@ -7538,7 +7538,7 @@ msgstr "Corrimão à direita"
 
 #: master_preset.xml:5772(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:rings)
 msgid "Rings"
-msgstr ""
+msgstr "Argolas"
 
 #: master_preset.xml:2303(combo:display_values|group:Barriers|preset:Bollard|key:bollard)
 msgid "Rising"
@@ -7577,7 +7577,7 @@ msgstr "Escavado na rocha"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Rocket"
-msgstr ""
+msgstr "Foguetão"
 
 #: master_preset.xml:742(list_entry:display_value|value:rolled)
 #: master_preset.xml:748(list_entry:display_value|value:rolled)
@@ -7630,7 +7630,7 @@ msgstr "Quartos"
 
 #: master_preset.xml:3881(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Rope tow"
-msgstr ""
+msgstr "Corda de reboque"
 
 #: master_preset.xml:1459(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
@@ -7642,7 +7642,7 @@ msgstr "Rounders"
 
 #: master_preset.xml:524(check:text|key:roundtrip)
 msgid "Roundtrip"
-msgstr ""
+msgstr "Ida e volta/circular"
 
 #: master_preset.xml:13472(list_entry:display_value|group:Relations|preset:Relations|value:route)
 msgid "Route"
@@ -7662,7 +7662,7 @@ msgstr "Rota mestre"
 
 #: master_preset.xml:731(role:text|key:)
 msgid "Route segment"
-msgstr ""
+msgstr "Segmento da rota"
 
 #: master_preset.xml:4376(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
 #: master_preset.xml:4396(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:route)
@@ -8077,7 +8077,7 @@ msgstr "Shiatsu"
 
 #: master_preset.xml:12664(item:name|group:Nature|preset:Shingle)
 msgid "Shingle"
-msgstr "Seixal (margem c/seixos)"
+msgstr "Seixal (margem)"
 
 #: master_preset.xml:545(combo:display_values|key:religion)
 msgid "Shinto"
@@ -8148,7 +8148,7 @@ msgstr "Camarão"
 
 #: master_preset.xml:5773(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sign)
 msgid "Sign"
-msgstr ""
+msgstr "Sinal"
 
 #: master_preset.xml:545(combo:display_values|key:religion)
 msgid "Sikh"
@@ -8168,7 +8168,7 @@ msgstr "Sirene"
 
 #: master_preset.xml:5774(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sit-up)
 msgid "Sit-up"
-msgstr ""
+msgstr "Abdominais sentado"
 
 #: master_preset.xml:13476(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13554(item:name|group:Relations|preset:Site)
@@ -8341,7 +8341,7 @@ msgstr "Especiarias"
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Spiderweb"
-msgstr ""
+msgstr "Teia de aranha"
 
 #: master_preset.xml:2339(item:name|group:Barriers|preset:Spikes)
 msgid "Spikes"
@@ -8410,7 +8410,7 @@ msgstr "Estádio"
 
 #: master_preset.xml:5775(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:stairs)
 msgid "Stairs"
-msgstr ""
+msgstr "Escadas"
 
 #: master_preset.xml:11972(list_entry:short_description|preset:Vending_Machine|value:stamps)
 msgid "Stamps"
@@ -8508,7 +8508,7 @@ msgstr "Paragem"
 
 #: master_preset.xml:4471(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Stop types"
-msgstr ""
+msgstr "Tipos de paragem"
 
 #: master_preset.xml:9120(item:name|group:Man_Made|preset:Storage_Tank)
 msgid "Storage Tank"
@@ -8893,7 +8893,7 @@ msgstr "Tipo de teatro"
 
 #: master_preset.xml:922(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: master_preset.xml:11318(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -9081,7 +9081,7 @@ msgstr "Brinquedos"
 
 #: master_preset.xml:1607(item:name|group:Ways|preset:Track)
 msgid "Track"
-msgstr "Carreiro Florestal ou Agrícola"
+msgstr "Caminho Florest./Agríc."
 
 #: master_preset.xml:8254(item:name|group:Sport|preset:Track_and_Field_Athletics)
 msgid "Track and Field Athletics"
@@ -10164,7 +10164,7 @@ msgstr "ar comprimido"
 
 #: master_preset.xml:11337(item:name|group:For_the_body|preset:e-cigarette)
 msgid "e-cigarette"
-msgstr "cigarros eletrónicos"
+msgstr "Cigarros eletrónicos"
 
 #: master_preset.xml:13950(role:text|preset:Bridge|key:edge)
 msgid "edge ways parallel to 'across'"
@@ -10714,7 +10714,7 @@ msgstr "Estádio"
 #: master_preset.xml:53(combo:display_values|key:leisure)
 msgctxt "riding"
 msgid "Track"
-msgstr "Carreiro florestal ou agrícola"
+msgstr "Carreiro florestal/agrícola"
 
 #: master_preset.xml:53(combo:text|key:leisure)
 msgctxt "riding"
@@ -11164,7 +11164,7 @@ msgstr "Ténis"
 #: master_preset.xml:457(combo:display_values|key:leisure)
 msgctxt "sport"
 msgid "Track"
-msgstr "Carreiro florestal ou agrícola"
+msgstr "Carreiro florestal/agrícola"
 
 #: master_preset.xml:454(combo:text|key:leisure)
 #: master_preset.xml:457(combo:text|key:leisure)
@@ -11417,7 +11417,7 @@ msgstr "Sim"
 #: master_preset.xml:9921(combo:text|preset:Power_Tower|key:branch:type)
 msgctxt "power"
 msgid "Branch tower type"
-msgstr ""
+msgstr "Tipo de torre de ramal"
 
 #: master_preset.xml:581(combo:display_values|key:location)
 msgctxt "power"
@@ -12395,7 +12395,7 @@ msgstr "Faixa oposta"
 #: master_preset.xml:1601(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Opposite track"
-msgstr ""
+msgstr "Via oposta"
 
 #: master_preset.xml:1597(combo:display_values|preset:Cycle_Lane/Track|key:cycleway)
 #: master_preset.xml:1599(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:left)
@@ -12416,7 +12416,7 @@ msgstr "Faixa partilhada"
 #: master_preset.xml:1601(combo:display_values|preset:Cycle_Lane/Track|key:cycleway:right)
 msgctxt "cycleway"
 msgid "Track"
-msgstr "Carreiro florestal ou agrícola"
+msgstr "Carreiro florestal/agrícola"
 
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -12476,7 +12476,7 @@ msgstr "Ilha"
 #: master_preset.xml:2091(item:name|group:Traffic_Calming|preset:Table)
 msgctxt "traffic_calming"
 msgid "Table"
-msgstr "Lomba mesa (c/passadeira)"
+msgstr "Lomba larga c/passadeira"
 
 #: master_preset.xml:2225(item:name|preset:Named_Junction)
 msgctxt "junction=yes"
@@ -12526,7 +12526,7 @@ msgstr ""
 #: master_preset.xml:3053(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
 msgid "Transmission"
-msgstr ""
+msgstr "Transmissão"
 
 #: master_preset.xml:3053(combo:display_values|group:Water|preset:Canal|key:usage)
 msgctxt "usage"
@@ -12588,7 +12588,7 @@ msgstr "Rádio-farol"
 #: master_preset.xml:4848(item:name|group:Airport|preset:Gate)
 msgctxt "airport"
 msgid "Gate"
-msgstr "Porta (des)embarque"
+msgstr "Porta des/ embarque"
 
 #: master_preset.xml:4835(item:name|group:Airport|preset:Terminal)
 msgctxt "airport"
@@ -12599,7 +12599,7 @@ msgstr "Terminal de acesso"
 #: master_preset.xml:5944(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:activitypanel)
 msgctxt "leisure"
 msgid "Activity panel"
-msgstr ""
+msgstr "Painel de atividades"
 
 #: master_preset.xml:5893(check:text|group:Leisure|preset:Playground|key:playground:aerialrotator)
 #: master_preset.xml:5945(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:aerialrotator)
@@ -12620,7 +12620,7 @@ msgstr "Atração turística"
 #: master_preset.xml:5946(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgctxt "leisure"
 msgid "Balance beam"
-msgstr ""
+msgstr "Barra de equilíbrio"
 
 #: master_preset.xml:5896(check:text|group:Leisure|preset:Playground|key:playground:basketrotator)
 #: master_preset.xml:5948(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketrotator)
@@ -12632,7 +12632,7 @@ msgstr ""
 #: master_preset.xml:5949(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketswing)
 msgctxt "leisure"
 msgid "Basket swing"
-msgstr ""
+msgstr "Baloiço de cesto"
 
 #: master_preset.xml:5895(check:text|group:Leisure|preset:Playground|key:playground:basketball_backboard)
 #: master_preset.xml:5947(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketball_backboard)
@@ -12670,19 +12670,19 @@ msgstr ""
 #: master_preset.xml:5951(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chess_table)
 msgctxt "leisure"
 msgid "Chess table"
-msgstr ""
+msgstr "Mesa de xadrez"
 
 #: master_preset.xml:5900(check:text|group:Leisure|preset:Playground|key:playground:climbingframe)
 #: master_preset.xml:5952(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
 msgctxt "leisure"
 msgid "Climbing frame"
-msgstr ""
+msgstr "Estrutura de trepar"
 
 #: master_preset.xml:5901(check:text|group:Leisure|preset:Playground|key:playground:climbingwall)
 #: master_preset.xml:5953(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingwall)
 msgctxt "leisure"
 msgid "Climbing wall"
-msgstr ""
+msgstr "Parede de escalada"
 
 #: master_preset.xml:5902(check:text|group:Leisure|preset:Playground|key:playground:cushion)
 #: master_preset.xml:5954(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:cushion)
@@ -12703,13 +12703,13 @@ msgstr "Torre de queda"
 #: master_preset.xml:5943(combo:text|group:Playground_equipment|preset:Playground_equipment|key:playground)
 msgctxt "leisure"
 msgid "Equipment"
-msgstr ""
+msgstr "Equipamento"
 
 #: master_preset.xml:5903(check:text|group:Leisure|preset:Playground|key:playground:exercise)
 #: master_preset.xml:5955(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:exercise)
 msgctxt "leisure"
 msgid "Exercise"
-msgstr ""
+msgstr "Exercício"
 
 #: master_preset.xml:5914(check:text|group:Leisure|preset:Playground|key:playground:spinner)
 #: master_preset.xml:5966(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:spinner)
@@ -12727,7 +12727,7 @@ msgstr ""
 #: master_preset.xml:5957(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:horizontal_bar)
 msgctxt "leisure"
 msgid "Horizontal bar"
-msgstr ""
+msgstr "Barra horizontal"
 
 #: master_preset.xml:5688(list_entry:display_value|group:Leisure|preset:Rides|value:kiddie_ride)
 msgctxt "leisure"
@@ -12748,7 +12748,7 @@ msgstr "Labirinto"
 #: master_preset.xml:5958(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
 msgctxt "leisure"
 msgid "Multi play"
-msgstr ""
+msgstr "Vários"
 
 #: master_preset.xml:5691(list_entry:display_value|group:Leisure|preset:Rides|value:pirate_ship)
 msgctxt "leisure"
@@ -12759,7 +12759,7 @@ msgstr "Barco pirata"
 #: master_preset.xml:5959(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:playhouse)
 msgctxt "leisure"
 msgid "Playhouse"
-msgstr ""
+msgstr "Casa de brincar"
 
 #: master_preset.xml:5692(list_entry:display_value|group:Leisure|preset:Rides|value:roller_coaster)
 msgctxt "leisure"
@@ -12788,7 +12788,7 @@ msgstr "Balancé"
 #: master_preset.xml:5963(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:skate_equipment)
 msgctxt "leisure"
 msgid "Skate equipment"
-msgstr ""
+msgstr "Equipamento de skate"
 
 #: master_preset.xml:5912(check:text|group:Leisure|preset:Playground|key:playground:sledding)
 #: master_preset.xml:5964(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sledding)
@@ -12820,7 +12820,7 @@ msgstr ""
 #: master_preset.xml:5969(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:stepping_stones)
 msgctxt "leisure"
 msgid "Stepping stones/pads"
-msgstr ""
+msgstr "Poldra/ponte de pedras"
 
 #: master_preset.xml:5918(check:text|group:Leisure|preset:Playground|key:playground:structure)
 #: master_preset.xml:5970(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:structure)
@@ -12868,13 +12868,13 @@ msgstr "Trampolim"
 #: master_preset.xml:5974(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tree_house)
 msgctxt "leisure"
 msgid "Tree house"
-msgstr ""
+msgstr "Casa na árvore"
 
 #: master_preset.xml:5923(check:text|group:Leisure|preset:Playground|key:playground:tunnel_tube)
 #: master_preset.xml:5975(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tunnel_tube)
 msgctxt "leisure"
 msgid "Tunnel tube"
-msgstr ""
+msgstr "Tubo tipo túnel"
 
 #: master_preset.xml:5924(check:text|group:Leisure|preset:Playground|key:playground:water)
 #: master_preset.xml:5976(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:water)
@@ -12897,7 +12897,7 @@ msgstr ""
 #: master_preset.xml:5978(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zipwire)
 msgctxt "leisure"
 msgid "Zip wire"
-msgstr ""
+msgstr "Corda suspensa"
 
 #: master_preset.xml:6063(combo:text|preset:Public_Grill|key:fuel)
 msgctxt "grill"

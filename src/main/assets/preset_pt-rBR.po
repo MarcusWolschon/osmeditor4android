@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-08 01:38+0000\n"
+"Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1298,7 +1298,7 @@ msgstr ""
 
 #: master_preset.xml:9553(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "Suporte da ponte"
 
 #: master_preset.xml:9562(item:name|group:Bridges|preset:Bridge_outline)
 msgid "Bridge outline"
@@ -2647,7 +2647,7 @@ msgstr "Baixo"
 
 #: master_preset.xml:13718(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Downhill"
-msgstr ""
+msgstr "Declive"
 
 #: master_preset.xml:3874(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
@@ -2928,7 +2928,7 @@ msgstr "Erótico"
 
 #: master_preset.xml:1814(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "Escada rolante"
 
 #: master_preset.xml:1399(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -5302,7 +5302,7 @@ msgstr ""
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "Mural"
 
 #: master_preset.xml:6212(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -5730,7 +5730,7 @@ msgstr ""
 #: master_preset.xml:13718(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:13740(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 msgid "Nordic"
-msgstr ""
+msgstr "Nórdico"
 
 #: master_preset.xml:217(list_entry:short_description|value:no)
 #: master_preset.xml:412(combo:display_values|key:internet_access)
@@ -6673,7 +6673,7 @@ msgstr ""
 
 #: master_preset.xml:5872(item:name|group:Leisure|preset:Playground)
 msgid "Playground"
-msgstr ""
+msgstr "Parque Infantil"
 
 #: master_preset.xml:5930(group:name|group:Playground_equipment)
 #: master_preset.xml:5931(item:name|group:Playground_equipment|preset:Playground_equipment)
@@ -7869,7 +7869,7 @@ msgstr "Escultor"
 #: master_preset.xml:6371(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "Escultura"
 
 #: master_preset.xml:7856(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -8329,7 +8329,7 @@ msgstr "Câmera de Controle de Velocidade"
 
 #: master_preset.xml:2153(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
-msgstr ""
+msgstr "Sinal de limite de velocidade"
 
 #: master_preset.xml:10612(item:name|group:Food|preset:Spices)
 msgid "Spices"
@@ -8445,7 +8445,7 @@ msgstr ""
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr ""
+msgstr "Estátua"
 
 #: master_preset.xml:384(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -9202,7 +9202,7 @@ msgstr "Árvore"
 
 #: master_preset.xml:12548(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "Fileira de árvores"
 
 #: master_preset.xml:12862(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -12437,7 +12437,7 @@ msgstr ""
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermediário "
 
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -13317,7 +13317,7 @@ msgstr ""
 #: master_preset.xml:10178(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr ""
+msgstr "Estátua"
 
 #: master_preset.xml:10178(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"

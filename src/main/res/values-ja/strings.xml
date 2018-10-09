@@ -416,6 +416,7 @@
   <string name="location_headline">ロードするエリア</string>
   <string name="location_choose_radius">半径を選択:</string>
   <string name="location_default_radius">300m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">前回の位置:</string>
   <string name="location_current_text">現在の位置:</string>
   <string name="location_text_unknown">不明</string>
@@ -623,7 +624,7 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">ロックモードでダウンロードされていないエリアを暗くするかどうか</string>
   <string name="config_fullscreenMode_title">全画面モード</string>
   <string name="config_fullscreenMode_summary">「ソフト」キーでの端末装置上のふるまい。</string>
-  <string name="config_showTolerance_title">許容域を表示</string>
+  <string name="config_showTolerance_title">反応域を表示</string>
   <string name="config_showTolerance_summary">エレメントを選択できるエリアを表示。</string>
   <string name="config_use_back_for_undo_title">バックキーでやり直し</string>
   <string name="config_use_back_for_undo_summary">メイン編集ビュー内でバックキーを使ってやり直し</string>
@@ -636,6 +637,7 @@
   <string name="config_maxInlineValues_current">%1$d の値</string>
   <string name="config_autoLockDelay_title">自動ロックまでの待ち時間</string>
   <string name="config_autoLockDelay_summary">自動ロックまでの待ち時間を秒で指定。0は無効化。</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">アンチエイリアスを有効化</string>
   <string name="config_enableAntiAliasing_summary">ラインをよりスムーズにする</string>
   <string name="config_maxStrokeWidth_title">ライン幅の最大</string>

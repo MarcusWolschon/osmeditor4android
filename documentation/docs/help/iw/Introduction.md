@@ -26,7 +26,7 @@
 * **File...** - saving and loading OSM data to/from on device files.
 * **Note/Bugs...** - download (automatically and manually) OSM Notes and "Bugs" from QA tools (currently OSMOSE) *(requires network connectivity)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+הדרך הקלה ביותר להוריד נתונים למכשיר היא להתקרב ולגרור למיקום שברצונך לערוך ואז לבחור ב־„הורדת התצוגה הנוכחית”. ניתן להתקרב באמצעות המחוות, כפתורי התקריב או כפתורי עצמת השמע שבמכשיר. וספוצ׳י אמור להוריד את הנתונים בהתאם עבור התצוגה הנוכחית. לא נדרש אימות כדי להוריד נתונים למכשיר שלך.
 
 ### עריכה
 

@@ -20,6 +20,7 @@
     <string name="help_tagfilter">標籤篩選器</string>
     <string name="help_presetfilter">預置篩選器</string>
     <string name="help_opening_hours">營業時間 </string>
+    <string name="help_voice_commands">語音指令</string>
     <string name="help_upgrade">發布通知</string>
     <string name="help_upgrade_110">11.0 發佈通知</string>
     <string name="help_upgrade_102">10.2 發佈通知</string>

@@ -78,20 +78,20 @@ Vespucciには良い「取り消し/やり直し」システムがあるので�
 
 #### 選択したオブジェクト: ノードやウェイを移動する
 
-いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(許容域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 
+いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(反応域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 
 
 #### 新規ノード/ポイントやウェイを追加する(長押し)
 
 ノードまたはウェイを描き始めたいときは長押ししてください。黒い「十字」型のシンボルが現れます。 
 * (オブジェクトに接続していない)新しいノードを作成する場合には、既存オブジェクトから離れたところをクリックします。
-* ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「許容域ゾーン」内をクリックします。許容域ゾーンはノードまたはウェイの周りの領域に示されています。
+* ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「反応域ゾーン」内をクリックします。反応域ゾーンはノードまたはウェイの周りの領域に示されています。
 
 十字のシンボルが現れたら次のような選択肢があります：
 
 * 同じ場所でタッチ。
     * 十字がノードの近くにない場合、同じ位置を再度タッチすると新しいノードが作成されます。ウェイの近く(だがノードの近くではない)にいる場合、新しいノードはウェイ上(かつウェイに接続)にできます。
-    * 十字がノードの近くにある場合(ノードの許容域ゾーン内)にある場合、同じ位置をタッチすると単にそのノードを選択し、タグエディタが開きます。新しいノードは作成されません。上述の選択と同じ操作です。
-* 別の場所をタッチ。別の位置(十字の許容域外)をタッチすると元の位置から現在の位置まで、ウェイのセグメントを追加します。十字がウェイやノードの近くなら、新しいセグメントはそのノードやウェイに接続します。
+    * 十字がノードの近くにある場合(ノードの反応域ゾーン内)にある場合、同じ位置をタッチすると単にそのノードを選択し、タグエディタが開きます。新しいノードは作成されません。上述の選択と同じ操作です。
+* 別の場所をタッチ。別の位置(十字の反応域外)をタッチすると元の位置から現在の位置まで、ウェイのセグメントを追加します。十字がウェイやノードの近くなら、新しいセグメントはそのノードやウェイに接続します。
 
 ウェイにノードをもっと追加したい場合は単純にスクリーンにタッチしてください。終える際には、最後のノードに2回タッチします。最後のノードがウェイやノード上にある場合、そのセグメントはそのウェイまたはノードに自動的に接続します。 
 
@@ -107,11 +107,11 @@ OpenStreetMap は他の地理データのシステムとは異なり、現在「
 
 #### ウェイのジオメトリを改善する
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+選択したウェイ上で十分にズームインすると、十分な長さのウェイのセグメントの中央に小さな「x」が現れます。その「x」をドラッグするとその位置のウェイ内にノードを作成します。注意: 誤操作によるノード作成を避けるために、この操作の反応域はかなり小さくなっています。
 
 #### 切り取り、コピー&ペースト
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+選択したノードやウェイはコピーまたは切り取りでき、新しい位置に一回または複数回貼り付けることができます。切り取った内容にはosm id とバージョンが含まれます。貼り付ける際には貼り付けたい位置で長押しします (その位置を示す十字が現れます) そのあとメニューから「貼り付け」を選択できます。 
 
 #### 住所を効果的に追加する
 
@@ -153,11 +153,11 @@ New Vespucci installs will have OAuth enabled by default. On your first attempt 
 
 #### アップロード時の競合を解決する
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci にはシンプルな競合リゾルバがあります。しかしながら、重大な問題がありそうな場合には、変更内容を However if you suspect that there are major issues with your edits, export your changes to a .osc ファイル (「転送」メニュー内の「エクスポート」メニュー項目)にエクスポートしてJOSMで修正してアップロードしてください。詳細なヘルプは [conflict resolution](Conflict%20resolution.md)参照。  
 
 ## GPSを使う
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Vespucci を使ってGPX トラックを作成し、端末装置上に表示することができます。さらに、現在のGPS 位置(GPS メニューで「位置を表示」をセット) を表示したり、付近を画面の中央に持ってきたり、位置を追跡(GPS メニューで「GPS位置を追跡」をセット) したりすることができます。 
 
 後者のセットを持っている場合、画面を手動で動かしたり編集すると、無効化すべき「GPS追跡」モードとなって青いGPSの矢印が中抜きから色塗りされた矢印に変わります。素早く「追跡」モードに戻るには、単にGPSボタンにタッチするか、メニューの選択肢を再チェックしてください。
 
@@ -165,7 +165,7 @@ You can use Vespucci to create a GPX track and display it on your device. Furthe
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+地図上ではメモとバグが小さな虫のアイコン ![Bug](../images/bug_open.png)で表され、緑はクローズ済/解決済で、青は自分が作成・変更したもの、黄色がまだ有効で変更されていないことを示します。 
 
 OSMOSEバグ表示は影響するオブジェクトへのリンクを青色で提供し、そのリンクをタッチするとオブジェクトが選択され、そこに画面が中央寄せされ、必要であれば予めそのエリアをダウンロードします。 
 
@@ -240,7 +240,7 @@ An alternative to the above, objects are filtered either on individual presets o
 * メモ/バグの表示。オープン状態のメモやバグは黄色い虫のアイコンで表示され、クローズ済のものは同じく緑で表示されます。デフォルト: on.
 * 写真レイヤ。ジオリファレンスされた写真を赤いカメラのアイコンで表示します。方向の情報が利用できる場合にはアイコンは回転します。デフォルト: off.
 * 画面を点灯したままにする。デフォルト: off.
-* 大きなノードのドラッグ用領域。タッチ入力で端末装置上のノードを動かそうとすると、自分の指がいま画面上のどの位置にあるかが曖昧なため、よく問題を引き起こします。これをオンにすると、大きな領域が提供され、中心を外れたドラッグ(選択と他の操作はそれまで通り通常のタッチ許容域を使用)が使えます。デフォルト: off.
+* 大きなノードのドラッグ用領域。タッチ入力で端末装置上のノードを動かそうとすると、自分の指がいま画面上のどの位置にあるかが曖昧なため、よく問題を引き起こします。これをオンにすると、大きな領域が提供され、中心を外れたドラッグ(選択と他の操作はそれまで通り通常のタッチ反応域を使用)が使えます。デフォルト: off.
 
 #### 高度な独自設定
 
