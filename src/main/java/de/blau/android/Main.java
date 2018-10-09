@@ -3363,13 +3363,13 @@ public class Main extends FullScreenAppCompatActivity
                 boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
                 clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
                 int elementCount = clickedNodesAndWays.size();
-                int clickedObjectsCount = clickedObjects.size();
-                int itemCount = elementCount + clickedObjectsCount;
                 Logic logic = App.getLogic();
                 Filter filter = logic.getFilter();
                 if (filter != null) { // filter elements
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
                 }
+                int clickedObjectsCount = clickedObjects.size();
+                int itemCount = elementCount + clickedObjectsCount;
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
                 switch (itemCount) {
                 case 0:
@@ -3384,12 +3384,15 @@ public class Main extends FullScreenAppCompatActivity
                         descheduleAutoLock();
                         ClickedObject co = clickedObjects.get(0);
                         co.layer.onSelected(Main.this, co.object);
-                    } else {
+                    } else if (clickedNodesAndWays.size() == 1) {
                         if (inEasyEditMode) {
                             getEasyEditManager().editElement(clickedNodesAndWays.get(0));
                         } else {
                             performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
                         }
+                    } else {
+                        Log.e(DEBUG_TAG, "performEdit can't find what was clicked " + filter);
+                        ACRAHelper.nocrashReport(null, "performEdit can't find what was clicked");
                     }
                     break;
                 default:
