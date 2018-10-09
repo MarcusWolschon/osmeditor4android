@@ -136,6 +136,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             Log.d(DEBUG_TAG, "Restoring from saved state");
             id = savedInstanceState.getLong(ID_KEY);
             members = savingHelper.load(getContext(), FILENAME, true);
+            if (members != null) {
+                for (RelationMemberDescription rmd:members) {
+                    rmd.update();
+                }
+            }
         } else if (savedMembers != null) {
             Log.d(DEBUG_TAG, "Restoring from instance variable");
             members = savedMembers;
