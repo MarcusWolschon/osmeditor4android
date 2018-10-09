@@ -2557,7 +2557,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
             } else {
                 setValue(ohValue);
-                if (preset.getValueType(getKey()) != ValueType.OPENING_HOURS_MIXED) {
+                if (preset == null || preset.getValueType(getKey()) != ValueType.OPENING_HOURS_MIXED) {
                     if (ohValue != null && !"".equals(ohValue)) {
                         valueView.setTextColor(errorTextColor);
                     }
