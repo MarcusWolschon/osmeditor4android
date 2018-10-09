@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.1.1: Updated translations, presets and imagery, geu url and sharing position improvements, fixes for TransactionTooLargeException in PropertyEditor, a few other bug fixes.
+
 11.1.0: Upload dialog improvements, various stability improvements, fix imagery date sorting regression, documentation and translation improvements.
 
 11.1.0.5: Updated translations and imagery.
