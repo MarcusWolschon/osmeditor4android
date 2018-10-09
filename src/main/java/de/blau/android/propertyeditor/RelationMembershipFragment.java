@@ -368,6 +368,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
          * 
          * @param role the role of this element in the Relation
          * @param r the Relation it is a member of
+         * @param elementType the type of the element
          * @return the RelationMembershipRow object for convenience
          */
         public RelationMembershipRow setValues(String role, Relation r, String elementType) {
@@ -392,10 +393,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             return this;
         }
 
-        public long getOsmId() {
-            return relationId;
-        }
-
+        /**
+         * THe role of the member in this row
+         * 
+         * @return the role of this member
+         */
+        @NonNull
         public String getRole() {
             return roleEdit.getText().toString();
         }

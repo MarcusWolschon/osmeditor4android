@@ -357,7 +357,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 ft.remove(recentPresetsFragment);
             }
 
-            recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0]); // FIXME
+            recentPresetsFragment = RecentPresetsFragment.newInstance(elements[0].getOsmId(), elements[0].getName()); // FIXME
             ft.add(R.id.tag_mru_layout, recentPresetsFragment, RECENTPRESETS_FRAGMENT);
             ft.commit();
         }
@@ -1618,7 +1618,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     Snack.barError(getActivity(), ex.getLocalizedMessage());
                 }
             }
-            tags.put(key, Util.getArrayList(value));
+            tags.put(key, Util.getArrayList(value != null ? value : ""));
         }
     }
 

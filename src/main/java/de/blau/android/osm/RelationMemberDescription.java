@@ -32,7 +32,7 @@ public class RelationMemberDescription extends RelationMember {
     }
 
     /**
-     * Construct a new RelationMemberDescriptio
+     * Construct a new RelationMemberDescription
      * 
      * @param type the type of the member OsmElement (NODE, WAY, RELATION) as a String
      * @param id the OSM id of the OsmElement

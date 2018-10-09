@@ -47,6 +47,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetRole;
 import de.blau.android.util.BaseFragment;
+import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -61,8 +62,10 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
     private LayoutInflater inflater = null;
 
-    private ArrayList<RelationMemberDescription> savedMembers = null;
-    private long                                 id           = -1;
+    private ArrayList<RelationMemberDescription>                         savedMembers = null;
+    private long                                                         id           = -1;
+    private transient SavingHelper<ArrayList<RelationMemberDescription>> savingHelper = new SavingHelper<>();
+    public static final String                                           FILENAME     = "members.res";
 
     private int maxStringLength; // maximum key, value and role length
 
@@ -132,7 +135,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             id = savedInstanceState.getLong(ID_KEY);
-            members = (ArrayList<RelationMemberDescription>) savedInstanceState.getSerializable(MEMBERS_KEY);
+            members = savingHelper.load(getContext(), FILENAME, true);
         } else if (savedMembers != null) {
             Log.d(DEBUG_TAG, "Restoring from instance variable");
             members = savedMembers;
@@ -140,6 +143,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             id = getArguments().getLong(ID_KEY);
             members = (ArrayList<RelationMemberDescription>) getArguments().getSerializable(MEMBERS_KEY);
         }
+
+        /*
+         * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit and
+         * cause a android.os.TransactionTooLargeException
+         */
+        getArguments().remove(MEMBERS_KEY);
 
         Preferences prefs = new Preferences(getActivity());
         Server server = prefs.getServer();
@@ -167,7 +176,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * 
      * @param members the list of members
      */
-    private void loadMembers(final ArrayList<RelationMemberDescription> members) {
+    private void loadMembers(@Nullable final ArrayList<RelationMemberDescription> members) {
         LinearLayout membersVerticalLayout = (LinearLayout) getOurView();
         loadMembers(membersVerticalLayout, members);
     }
@@ -178,7 +187,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * @param membersVerticalLayout the layout holding the rows
      * @param members the list of members
      */
-    private void loadMembers(LinearLayout membersVerticalLayout, final ArrayList<RelationMemberDescription> members) {
+    private void loadMembers(@NonNull LinearLayout membersVerticalLayout, @Nullable final ArrayList<RelationMemberDescription> members) {
         membersVerticalLayout.removeAllViews();
         if (members != null && !members.isEmpty()) {
             for (int i = 0; i < members.size(); i++) {
@@ -402,7 +411,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putLong(ID_KEY, id);
-        outState.putSerializable(MEMBERS_KEY, savedMembers);
+        savingHelper.save(getContext(), FILENAME, savedMembers, true);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
@@ -799,21 +808,20 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         }
 
         /**
-         * Create an ArrayAdapter containing role values for a certain member
-         * Note: this uses the tags of the first element if multiple are selected 
-         * to determine which preset to use
+         * Create an ArrayAdapter containing role values for a certain member Note: this uses the tags of the first
+         * element if multiple are selected to determine which preset to use
          * 
          * @return an ArrayAdapter
          */
         @NonNull
         ArrayAdapter<PresetRole> getMemberRoleAutocompleteAdapter() { // FIXME for multiselect
-            List<PresetRole>roles = new ArrayList<>();
+            List<PresetRole> roles = new ArrayList<>();
             List<LinkedHashMap<String, String>> allTags = owner.getUpdatedTags();
             if (allTags != null && !allTags.isEmpty()) {
                 if (owner.presets != null) { //
                     PresetItem relationPreset = Preset.findBestMatch(owner.presets, allTags.get(0));
                     if (relationPreset != null) {
-                        List<PresetRole>tempRoles = relationPreset.getRoles(rmd.getType());
+                        List<PresetRole> tempRoles = relationPreset.getRoles(rmd.getType());
                         if (tempRoles != null) {
                             Collections.sort(tempRoles);
                             roles = tempRoles;

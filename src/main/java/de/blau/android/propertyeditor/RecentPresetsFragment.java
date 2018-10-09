@@ -24,6 +24,9 @@ import de.blau.android.util.Util;
 
 public class RecentPresetsFragment extends BaseFragment {
 
+    private static final String ELEMENT_NAME_KEY = "elementType";
+    private static final String ELEMENT_ID_KEY   = "elementId";
+
     private static final String DEBUG_TAG = RecentPresetsFragment.class.getSimpleName();
 
     private OnPresetSelectedListener mListener;
@@ -34,18 +37,19 @@ public class RecentPresetsFragment extends BaseFragment {
     /**
      * Create a new RecentPresetsFragement instance
      * 
-     * @param element the current OsmElement
+     * @param elementId the current OsmElement id
+     * @param elementName the name of the OsmElement (Node, Way, Relation)
      * @return a RecentPresetsFragement instance
      */
     @NonNull
-    public static RecentPresetsFragment newInstance(OsmElement element) {
+    public static RecentPresetsFragment newInstance(long elementId, @NonNull String elementName) {
         RecentPresetsFragment f = new RecentPresetsFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("element", element);
+        args.putLong(ELEMENT_ID_KEY, elementId);
+        args.putString(ELEMENT_NAME_KEY, elementName);
 
         f.setArguments(args);
-        // f.setShowsDialog(true);
 
         return f;
     }
@@ -70,7 +74,10 @@ public class RecentPresetsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.recentpresets_view, null);
 
-        element = (OsmElement) getArguments().getSerializable("element");
+        long elementId = getArguments().getLong(ELEMENT_ID_KEY);
+        String elementName = getArguments().getString(ELEMENT_NAME_KEY);
+
+        element = App.getDelegator().getOsmElement(elementName, elementId);
 
         presets = App.getCurrentPresets(getActivity());
 

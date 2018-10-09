@@ -317,14 +317,18 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             if (recentPresetsFragment != null) {
                 ft.remove(recentPresetsFragment);
             }
-            recentPresetsFragment = RecentPresetsFragment.newInstance(getElement()); // FIXME collect tags
+            recentPresetsFragment = RecentPresetsFragment.newInstance(getElement().getOsmId(), getElement().getName()); // FIXME
+                                                                                                                        // collect
+                                                                                                                        // tags
             ft.add(R.id.recent_preset_row, recentPresetsFragment, RECENTPRESETS_FRAGMENT);
 
             presetFragment = (PresetFragment) fm.findFragmentByTag(PRESET_FRAGMENT);
             if (presetFragment != null) {
                 ft.remove(presetFragment);
             }
-            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, true); // FIXME collect tags
+            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, true); // FIXME
+                                                                                                                                // collect
+                                                                                                                                // tags
             ft.add(R.id.preset_row, presetFragment, PRESET_FRAGMENT);
 
             ft.commit();
@@ -534,7 +538,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                     switch (position) {
                     case 0:
                         if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, false); //
+                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
                         }
                         return presetFragment;
                     case 1:
@@ -565,7 +569,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                     switch (position) {
                     case 0:
                         if (instantiate) {
-                            presetFragment = PresetFragment.newInstance(getElement(), presetsToApply, false); //
+                            presetFragment = PresetFragment.newInstance(getElement().getOsmId(), getElement().getName(), presetsToApply, false); //
                         }
                         return presetFragment;
                     case 1:
@@ -913,8 +917,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         Log.d(DEBUG_TAG, "onSaveInstanceState");
+        Log.d(DEBUG_TAG, "bundle size 1 : " + Util.getBundleSize(outState));
         super.onSaveInstanceState(outState);
-        Log.d(DEBUG_TAG, "bundle size: " + Util.getBundleSize(outState));
+        Log.d(DEBUG_TAG, "bundle size 2 : " + Util.getBundleSize(outState));
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
         outState.putSerializable(TAGEDIT_DATA, loadData);

@@ -56,7 +56,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     private static final String PANE_MODE = "paneMode";
 
-    private static final String ELEMENT = "element";
+    private static final String ELEMENT_NAME_KEY = "elementName";
+    private static final String ELEMENT_ID_KEY   = "elementId";
 
     private static final String FRAGMENT_PRESET_SEARCH_RESULTS_TAG = "fragment_preset_search_results";
 
@@ -96,16 +97,20 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     /**
      * Create a new PresetFragement instance
      * 
-     * @param e the OsmElement this applies to
+     * @param elementId the current OsmElement id
+     * @param elementName the name of the OsmElement (Node, Way, Relation)
      * @param alternateRootPath an alternative location for the top of the preset tree
      * @param paneMode we are displayed in Pane mode
      * @return a new PResetFragment
      */
-    public static PresetFragment newInstance(@NonNull OsmElement e, @Nullable ArrayList<PresetElementPath> alternateRootPath, boolean paneMode) {
+    public static PresetFragment newInstance(long elementId, @NonNull String elementName, @Nullable ArrayList<PresetElementPath> alternateRootPath,
+            boolean paneMode) {
         PresetFragment f = new PresetFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable(ELEMENT, e);
+        args.putLong(ELEMENT_ID_KEY, elementId);
+        args.putString(ELEMENT_NAME_KEY, elementName);
+
         args.putBoolean(PANE_MODE, paneMode);
         args.putSerializable(ALTERNATE_ROOT_PATHS, alternateRootPath);
 
@@ -135,7 +140,10 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        OsmElement element = (OsmElement) getArguments().getSerializable(ELEMENT);
+        long elementId = getArguments().getLong(ELEMENT_ID_KEY);
+        String elementName = getArguments().getString(ELEMENT_NAME_KEY);
+
+        OsmElement element = App.getDelegator().getOsmElement(elementName, elementId);
         type = element.getType();
         Preset[] presets = App.getCurrentPresets(getActivity());
         Log.d(DEBUG_TAG, "presets size " + presets.length);
