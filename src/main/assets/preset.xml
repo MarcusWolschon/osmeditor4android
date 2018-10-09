@@ -9534,9 +9534,13 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Key:bridge"
                   zh_TW.href="http://wiki.openstreetmap.org/wiki/Zh-hant:Key:bridge" />
             <space />
-            <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" match="keyvalue!" default="yes" />
-            <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" match="key" />
+            <combo key="bridge" text="Bridge" values="yes,aqueduct,boardwalk,cantilever,covered,low_water_crossing,trestle,viaduct" 
+                display_values="Yes,Aqueduct,Boardwalk,Cantilever,Covered,Low water crossing,Trestle,Viaduct" match="keyvalue!" default="yes" values_context="bridge" />
+            <combo key="bridge:structure" text="Structure" values="arch,beam,truss,floating,suspension,cable-stayed,simple-suspension,humpback" 
+                display_values="Arch,Beam,Truss,Floating,Suspension,Cable-stayed,Simple-suspension,Humpback" match="key" values_context="bridge"/>
             <reference ref="optional_bridge" />
+            <preset_link preset_name="Movable Bridge" />
+            <preset_link preset_name="Movable Support" />
         </item> <!-- Bridge -->
         <item name="Movable Bridge" icon="presets/bridge_movable.png" type="way,relation,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Key:bridge:movable"
@@ -9547,7 +9551,8 @@
                   pl.href="http://wiki.openstreetmap.org/wiki/Pl:Key:bridge:movable" />
             <space />
             <key key="bridge" value="movable" />
-            <combo key="bridge:movable" text="Type" values="bascule,drawbridge,lift,submersible,swing,transporter" match="key" />
+            <combo key="bridge:movable" text="Type" values="bascule,drawbridge,lift,submersible,swing,transporter,retractable,tilt"
+                display_values="Bascule,Drawbridge,Lift,Submersible,Swing,Transporter,Retractable,Tilt" match="key" values_context="bridge" />
             <reference ref="optional_bridge" />
         </item> <!-- Movable Bridge -->
         <item name="Bridge Support" icon="icons/png/highway_bridge_sp.png" type="node,closedway" preset_name_label="true">
