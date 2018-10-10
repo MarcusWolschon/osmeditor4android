@@ -62,10 +62,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
 
     private LayoutInflater inflater = null;
 
-    private ArrayList<RelationMemberDescription>                         savedMembers = null;
-    private long                                                         id           = -1;
-    private transient SavingHelper<ArrayList<RelationMemberDescription>> savingHelper = new SavingHelper<>();
-    public static final String                                           FILENAME     = "members.res";
+    private ArrayList<RelationMemberDescription>                         savedMembers          = null;
+    private long                                                         id                    = -1;
+    private transient SavingHelper<ArrayList<RelationMemberDescription>> savingHelper          = new SavingHelper<>();
+    public static final String                                           FILENAME_MEMBERS      = "members.res";
+    public static final String                                           FILENAME_ORIG_MEMBERS = "orig_members.res";
 
     private int maxStringLength; // maximum key, value and role length
 
@@ -135,9 +136,9 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         if (savedInstanceState != null) {
             Log.d(DEBUG_TAG, "Restoring from saved state");
             id = savedInstanceState.getLong(ID_KEY);
-            members = savingHelper.load(getContext(), FILENAME, true);
+            members = savingHelper.load(getContext(), FILENAME_MEMBERS, true);
             if (members != null) {
-                for (RelationMemberDescription rmd:members) {
+                for (RelationMemberDescription rmd : members) {
                     rmd.update();
                 }
             }
@@ -147,13 +148,16 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         } else {
             id = getArguments().getLong(ID_KEY);
             members = (ArrayList<RelationMemberDescription>) getArguments().getSerializable(MEMBERS_KEY);
+            /*
+             * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit
+             * and cause a android.os.TransactionTooLargeException
+             */
+            getArguments().remove(MEMBERS_KEY);
+            /*
+             * Save to file for undo
+             */
+            savingHelper.save(getContext(), FILENAME_ORIG_MEMBERS, members, true);
         }
-
-        /*
-         * Saving this argument (done by the FragmentManager) will typically exceed the 1MB transaction size limit and
-         * cause a android.os.TransactionTooLargeException
-         */
-        getArguments().remove(MEMBERS_KEY);
 
         Preferences prefs = new Preferences(getActivity());
         Server server = prefs.getServer();
@@ -416,7 +420,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         outState.putLong(ID_KEY, id);
-        savingHelper.save(getContext(), FILENAME, savedMembers, true);
+        savingHelper.save(getContext(), FILENAME_MEMBERS, savedMembers, true);
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
@@ -983,11 +987,16 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     /**
-     * reload original arguments
+     * reload original member list
      */
-    @SuppressWarnings("unchecked")
     void doRevert() {
-        loadMembers((ArrayList<RelationMemberDescription>) getArguments().getSerializable(MEMBERS_KEY));
+        ArrayList<RelationMemberDescription> members = savingHelper.load(getContext(), FILENAME_ORIG_MEMBERS, true);
+        if (members != null) {
+            for (RelationMemberDescription rmd : members) {
+                rmd.update();
+            }
+        }
+        loadMembers(members);
         setIcons();
     }
 
