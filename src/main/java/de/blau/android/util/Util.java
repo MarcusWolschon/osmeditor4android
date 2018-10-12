@@ -596,7 +596,16 @@ public final class Util {
      */
     public static int getScreenSmallDimemsion(@NonNull Activity activity) {
         Point size = new Point();
-        activity.getWindowManager().getDefaultDisplay().getSize(size);
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            display.getSize(size);
+        } else {
+            // noinspection deprecation
+            size.x = display.getWidth();
+            // noinspection deprecation
+            size.y = display.getHeight();
+        }
+
         if (size.x < size.y) {
             return size.x;
         }
