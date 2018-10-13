@@ -108,7 +108,7 @@ task update3rdPartyDocs() {
 update3rdPartyDocs.group = 'vespucci'
 update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
 
-['de','en','es','fi','gl','hu','it','zh-rTW'].each { lang ->
+['de','en','es','fi','fr','gl','hu','it','iw','pl','pt','zh-rTW'].each { lang ->
     def name="updateOpeningHoursDoc${lang.capitalize()}"
     task (name,type: Download) {
         acceptAnyCertificate true
