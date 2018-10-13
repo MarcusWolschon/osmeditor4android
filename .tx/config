@@ -50,6 +50,19 @@ source_file = documentation/docs/help/en/Introduction.md
 source_lang = en
 minimum_perc = 10
 
+[vespucci.blurbtxt]
+file_filter = build/tmp/playstore/<lang>/blurb.txt
+source_file = documentation/docs/playstore/en/blurb.txt
+source_lang = en
+minimum_perc = 100
+
+[vespucci.titletxt]
+file_filter = build/tmp/playstore/<lang>/title.txt
+source_file = documentation/docs/playstore/en/title.txt
+source_lang = en
+minimum_perc = 100
+
+
 [presets.presetpot]
 type = PO
 file_filter = src/main/assets/preset_<lang>.po

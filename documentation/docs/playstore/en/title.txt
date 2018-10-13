@@ -1,0 +1,3 @@
+Vespucci - an OSM Editor
+
+Vespucci is the most comprehensive editor for OpenStreetMap on Android.
