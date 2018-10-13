@@ -23,7 +23,7 @@ Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattis
 * __Lisää sääntö 24/7__: lisää sääntö kohteelle, joka on aina auki; aukioloaikamäärittely ei tue alavalitsimien käyttämistä 24/7:n rinnalla, mutta tässä sallitaan korkeamman tason valitsimien lisääminen (esimerkiksi vuosijaksot).
 * __Lataa malline__: lataa valmis malline.
 * __Tallenna mallineeksi__: tallenna nykyinen aukioloaika-arvo mallineeksi tulevaa käyttöä varten.
-* __Hallitse mallineita__: muokkaa (esim. muuta nimeä) ja poista valmiita mallineita. 
+* __Manage templates__: edit, for example change the name, and delete existing templates.
 * __Päivitä__: jäsennä aukioloaika-arvo uudelleen.
 * __Delete all__: remove all rules.
 

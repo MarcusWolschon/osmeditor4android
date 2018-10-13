@@ -23,7 +23,7 @@ If an existing opening hours value is loaded, an attempt is made to auto-correct
 * __Add rule for 24/7__: add a rule for an object that is always open, the opening hours specification doesn't support any other sub values for 24/7 however we do allow adding of higher level selectors (for example year ranges).
 * __Load template__: load an existing template.
 * __Save to template__: save the current opening hours value as a template for future use.
-* __Manage template__: edit, for example change the name, and delete existing templates.
+* __Manage templates__: edit, for example change the name, and delete existing templates.
 * __Refresh__: re-parse the opening hour value.
 * __Delete all__: remove all rules.
 

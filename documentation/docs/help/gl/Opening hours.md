@@ -23,7 +23,7 @@ Se se carga un valor de horas de horario existente, faise un intento automático
 * __Engadir regra para 24/7__: Engade unha regra para un obxecto que sempre está aberto, a especificación de horas de apertura non admite ningún outro subvalor para 24/7, pero permitimos a adición de selectores de nivel superior (por exemplo, intervalos de anos).
 * __Cargar plantilla__: carga unha plantilla existente.
 * __Gardar a plantilla__: Gardar o valor actual das horas de apertura como modelo para o seu uso futuro.
-* __Manexar plantilla__: Editar, por exemplo, cambiar o nome e eliminar os modelos existentes.
+* __Manage templates__: edit, for example change the name, and delete existing templates.
 * __Actualizar__: Repasa o valor da hora de apertura.
 * __Delete all__: remove all rules.
 
