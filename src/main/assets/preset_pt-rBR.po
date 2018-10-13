@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Alexandre Magno <alexandre.mbm+transifex@gmail.com>, 2015
+# Rui <xymarior@yandex.com>, 2018
 # Thiago Vieira <thipvieira@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-08 01:38+0000\n"
-"Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
+"PO-Revision-Date: 2018-10-10 19:43+0000\n"
+"Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5637,7 +5638,7 @@ msgstr ""
 
 #: master_preset.xml:8217(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
-msgstr ""
+msgstr "Boliche de 9 pinos"
 
 #: master_preset.xml:10558(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10640(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -8824,7 +8825,7 @@ msgstr ""
 
 #: master_preset.xml:8229(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
-msgstr ""
+msgstr "Boliche de 10 pinos"
 
 #: master_preset.xml:8629(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"

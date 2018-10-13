@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Normal</string>
+  <string name="mode_tag_only">Tagga endast</string>
   <string name="mode_indoor">Inomhus</string>
   <string name="mode_correct">C-läge</string>
   <!--Dialogs-->

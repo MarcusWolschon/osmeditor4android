@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-08 15:57+0000\n"
+"PO-Revision-Date: 2018-10-10 13:09+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -956,7 +956,7 @@ msgstr "Ours"
 
 #: master_preset.xml:11275(item:name|group:For_the_body|preset:Beauty)
 msgid "Beauty"
-msgstr ""
+msgstr "Beauté"
 
 #: master_preset.xml:5552(list_entry:display_value|group:Leisure|preset:Animals|value:beaver)
 msgid "Beaver"
@@ -1027,11 +1027,11 @@ msgstr "Itinéraire cycliste"
 
 #: master_preset.xml:1802(check:text|group:Ways|preset:Steps|key:ramp:bicycle)
 msgid "Bicycle ramp"
-msgstr ""
+msgstr "Rampe pour vélo"
 
 #: master_preset.xml:11954(list_entry:short_description|preset:Vending_Machine|value:bicycle_tube)
 msgid "Bicycle tubes"
-msgstr ""
+msgstr "Chambres à air pour vélo "
 
 #: master_preset.xml:4325(check:text|group:Bicycle|preset:Bike_Dealer|key:service:bicycle:rental)
 msgid "Bicycles are rented"
@@ -1151,7 +1151,7 @@ msgstr "Chantier naval"
 
 #: master_preset.xml:3283(list_entry:short_description|group:Water|preset:Wetland|value:bog)
 msgid "Bog"
-msgstr ""
+msgstr "Tourbière"
 
 #: master_preset.xml:9669(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:BWR-1)
 msgid "Boiling Water Reactor 1 (BWR-1)"
@@ -1187,7 +1187,7 @@ msgstr "Type de poteau"
 
 #: master_preset.xml:8294(check:text|group:Sport|preset:Climbing|key:climbing:bolted)
 msgid "Bolted"
-msgstr ""
+msgstr "Boulonné"
 
 #: master_preset.xml:11195(item:name|group:Printed_Material|preset:Book_Store)
 msgid "Book Store"
@@ -1199,7 +1199,7 @@ msgstr "Relieur"
 
 #: master_preset.xml:11812(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
-msgstr ""
+msgstr "Bookmaker"
 
 #: master_preset.xml:7536(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
@@ -1223,7 +1223,7 @@ msgstr "Boule"
 
 #: master_preset.xml:6302(list_entry:display_value|group:Culture|preset:Other_theatres|value:boulevard)
 msgid "Boulevard"
-msgstr ""
+msgstr "Boulevard"
 
 #: master_preset.xml:12040(group:name|group:Boundaries)
 msgid "Boundaries"

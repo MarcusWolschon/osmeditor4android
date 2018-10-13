@@ -137,7 +137,10 @@
   <string name="element">элемент</string>
   <string name="last_updated">последнее обновление</string>
   <string name="last_edited">Последняя правка</string>
+  <string name="original">Исходный</string>
+  <string name="current">Текущий</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Информация о функциях GeoJSON</string>
   <string name="copy_properties">Скопировать свойства</string>
   <!---->
   <string name="error">ошибка</string>

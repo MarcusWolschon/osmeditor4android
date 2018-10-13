@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-03 22:27+0000\n"
+"PO-Revision-Date: 2018-10-10 19:44+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -5641,7 +5641,7 @@ msgstr "Discoteca"
 
 #: master_preset.xml:8217(item:name|group:Sport|preset:Nine-pin_Bowling)
 msgid "Nine-pin Bowling"
-msgstr "Bowling de 9 pinos"
+msgstr "Bólingue de 9 pinos"
 
 #: master_preset.xml:10558(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10640(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -8828,7 +8828,7 @@ msgstr "Cartões de chamadas telefónicas"
 
 #: master_preset.xml:8229(item:name|group:Sport|preset:Ten-pin_Bowling)
 msgid "Ten-pin Bowling"
-msgstr "Bowling de 10 pinos"
+msgstr "Bólingue de 10 pinos"
 
 #: master_preset.xml:8629(item:name|group:Sport_(Ball)|preset:Tennis)
 msgid "Tennis"

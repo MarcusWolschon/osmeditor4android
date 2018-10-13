@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-02 04:45+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"PO-Revision-Date: 2018-10-11 10:47+0000\n"
+"Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2648,7 +2648,7 @@ msgstr ""
 
 #: master_preset.xml:13718(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 msgid "Downhill"
-msgstr ""
+msgstr "下坡"
 
 #: master_preset.xml:3874(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
@@ -6674,7 +6674,7 @@ msgstr ""
 
 #: master_preset.xml:5872(item:name|group:Leisure|preset:Playground)
 msgid "Playground"
-msgstr ""
+msgstr "遊樂場"
 
 #: master_preset.xml:5930(group:name|group:Playground_equipment)
 #: master_preset.xml:5931(item:name|group:Playground_equipment|preset:Playground_equipment)
@@ -12438,7 +12438,7 @@ msgstr ""
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "中階"
 
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"

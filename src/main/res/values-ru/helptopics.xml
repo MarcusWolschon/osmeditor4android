@@ -20,6 +20,7 @@
     <string name="help_tagfilter">Фильтр тегов</string>
     <string name="help_presetfilter">Фильтр заготовок</string>
     <string name="help_opening_hours">Время работы</string>
+    <string name="help_voice_commands">Голосовые команды</string>
     <string name="help_upgrade">Примечания к версии</string>
     <string name="help_upgrade_110">Примечания к версии 11.0</string>
     <string name="help_upgrade_102">Примечания к версии 10.2</string>
