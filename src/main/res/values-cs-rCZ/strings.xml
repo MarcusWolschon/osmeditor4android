@@ -266,6 +266,7 @@
   <string name="toast_timeout">Časový limit se serverem vypršel</string>
   <string name="coordinates_out_of_range">Zem. délka musí být v rozmezí -180°/+180°, šířka v rozmezí -85°/85°</string>
   <string name="toast_nothing_found">Nic nenalezeno</string>
+  <string name="toast_statesave_failed">Ukládání stavu selhalo!\nNastala kritická chyba při uklídání exportního souboru pro obnovení z JOSM</string>
   <string name="toast_missing_filemanager">Prosím nainstalujte správce souborů.</string>
   <string name="toast_outside_of_download">Provádíte úpravy mimo staženou oblast.</string>
   <string name="toast_file_not_found">%1$s nenalezeno.</string>
@@ -274,6 +275,9 @@
   <string name="toast_unknown_voice_command">Promiňte, povelu %1$s zatím nerozumíme</string>
   <string name="toast_inconsistent_state">Zjištěn nekonzistentní stav, pošlete prosím chybové hlášení!</string>
   <string name="toast_camera_error">Chyba při spouštění aplikace fotoaparátu: %1$s</string>
+  <string name="toast_no_voice">Podpora pro rozpoznávání hlasu není dostupná</string>
+  <string name="toast_storage_error">%1$s není možno zapsat Vespucci.\nToto může být způsobeno špatným oprávněním, nebo technickým problémem s vaším zařízením.</string>
+  <string name="toast_no_suitable_storage">Systém nenašel vhodné umístění pro databázi map.</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
   <string name="toast_min_one_geocoder">Musíte vybrat alespoň jeden geokodér!</string>
   <string name="toast_rmpty_relation">Prázdná relace, vytvářím chybové hlášení.</string>

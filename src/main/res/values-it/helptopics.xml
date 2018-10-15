@@ -20,7 +20,9 @@
     <string name="help_tagfilter">Filtro etichette</string>
     <string name="help_presetfilter">Filtro predefiniti</string>
     <string name="help_opening_hours">Orari di apertura</string>
+    <string name="help_voice_commands">Comandi vocali</string>
     <string name="help_upgrade">Informazioni sulla versione</string>
+    <string name="help_upgrade_110">11.0 Note di rilascio</string>
     <string name="help_upgrade_102">10.2 Note di rilascio</string>
     <string name="help_upgrade_101">10.1 Note di rilascio</string>
     <string name="help_upgrade_100">10.0 Note di rilascio</string>

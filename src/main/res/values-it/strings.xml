@@ -108,6 +108,7 @@
   <string name="tag_editor_name_suggestion">Suggerimento del nome</string>
   <string name="tag_editor_name_suggestion_overwrite_message">Questi suggerimento può sostituire i valori delle etichette con quelli più popolari.</string>
   <string name="search_results_title">Cerca risultati</string>
+  <string name="search_online">Cerca online</string>
   <string name="find_message">Inserisci il testo di ricerca</string>
   <string name="geocoder_prompt">con</string>
   <string name="preset_search_hint">Testo di ricerca dei predefiniti</string>
@@ -138,6 +139,7 @@
   <string name="current">Attuale</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">Informazioni sull’elemento GeoJSON</string>
+  <string name="copy_properties">Copia proprietà</string>
   <!---->
   <string name="error">errore</string>
   <string name="warning">avviso</string>
@@ -260,6 +262,7 @@
   <string name="toast_oauth_timeout">Tempo scaduto durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_communication">Errore di comunicazione durante l\'autenticazione, prova di nuovo.</string>
   <string name="toast_oauth_handshake_failed">connessione OAuth fallita: %1$s</string>
+  <string name="toast_oauth_login_with_google_not_possible">Il login tramite Google non è attualmente supportato</string>
   <string name="toast_timeout">Nessuna risposta dal server</string>
   <string name="coordinates_out_of_range">La longitudine deve essere compresa tra -180° e +180°, la latitudine tra -85° e 85°</string>
   <string name="toast_nothing_found">Non è stato trovato nulla</string>
@@ -315,6 +318,10 @@
   <string name="toast_using_network_location">Sto usando la posizione della rete dati</string>
   <string name="toast_using_gps_location">Sto usando la localizzazione GPS</string>
   <string name="toast_using_gps_disabled_tracking_stopped">Il GPS è disabilitato, l\'inseguimento è stato interrotto</string>
+  <string name="toast_tags_copied">Etichette copiate in memoria</string>
+  <string name="toast_tags_cut">Etichette tagliate in memoria</string>
+  <string name="toast_properties_copied">Proprietà copiate in memoria</string>
+  <string name="toast_task_conflict">%1$s è stato modificato sul server, carica e quindi ri-scarica</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -403,6 +410,7 @@
   <string name="tag_restriction_add_expression">Aggiungi espressione</string>
   <string name="tag_restriction_add_opening_hours">Aggiungi orari di apertura</string>
   <string name="tag_restriction_value_hint">Regola di accesso condizionata</string>
+  <string name="ugly_checkgroup_hint">%1$s, ...</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_headline">Carica area</string>
   <string name="location_choose_radius">Scegli raggio:</string>
@@ -486,6 +494,7 @@
   <string name="menu_copy">Copia</string>
   <string name="menu_cut">Taglia</string>
   <string name="menu_paste">Incolla</string>
+  <string name="menu_paste_tags">Incolla etichette</string>
   <string name="menu_paste_from_clipboard">Copia dalla clipboard</string>
   <string name="menu_zoom_to_selection">Ingrandisci la selezione</string>
   <string name="menu_rotate">Ruota</string>
