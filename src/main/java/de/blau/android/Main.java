@@ -87,6 +87,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import de.blau.android.BuildConfig;
 import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
@@ -1438,7 +1439,7 @@ public class Main extends FullScreenAppCompatActivity
         if (menu.size() == 0) {
             menu.clear();
             final MenuInflater inflater = getMenuInflater();
-            if (getBottomBar() != null && Util.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (getBottomBar() != null && Util.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && BuildConfig.FLAVOR.equals("legacy")) {
                 inflater.inflate(R.menu.main_menu_nosubmenus, menu);
             } else {
                 inflater.inflate(R.menu.main_menu, menu);

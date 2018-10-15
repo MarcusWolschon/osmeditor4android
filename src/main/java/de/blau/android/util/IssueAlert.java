@@ -37,7 +37,9 @@ import de.blau.android.validation.Validator;
  * @author simon
  *
  */
-public class IssueAlert {
+public final class IssueAlert {
+    private static final String QA_CHANNEL = "qa";
+
     static final String DEBUG_TAG = "IssueAlert";
 
     private static final String GROUP_DATA   = "Data";
@@ -62,7 +64,6 @@ public class IssueAlert {
     public static void alert(@NonNull Context context, @NonNull OsmElement e) {
 
         Preferences prefs = new Preferences(context);
-
         if (!prefs.generateAlerts()) { // don't generate alerts
             return;
         }
@@ -106,9 +107,9 @@ public class IssueAlert {
         if (location != null) {
             // if we know where we are we can provide better information
             long distance = 0;
-            if ("node".equals(e.getName())) {
+            if (Node.NAME.equals(e.getName())) {
                 distance = Math.round(GeoMath.haversineDistance(location.getLongitude(), location.getLatitude(), eLon, eLat));
-            } else if ("way".equals(e.getName())) {
+            } else if (Way.NAME.equals(e.getName())) {
                 ClosestPoint cp = getClosestDistance(location.getLongitude(), location.getLatitude(), (Way) e);
                 distance = Math.round(cp.distance);
                 eLon = cp.lon;
@@ -133,9 +134,10 @@ public class IssueAlert {
         for (String p : validator.describeProblem(context, e)) {
             message.append(p);
         }
+        Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
+            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
                     .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
                     .setGroup(GROUP_DATA);
             mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
@@ -151,11 +153,7 @@ public class IssueAlert {
 
             Uri rc = Uri.parse("http://127.0.0.1:8111/load_and_zoom?left=" + box.getLeft() / 1E7D + "&right=" + box.getRight() / 1E7D + "&top="
                     + box.getTop() / 1E7D + "&bottom=" + box.getBottom() / 1E7D + "&select=" + e.getName() + e.getOsmId()); // NOSONAR
-                                                                                                                            // JOSM
-                                                                                                                            // RC
-                                                                                                                            // assumes
-                                                                                                                            // localhost
-
+            // JOSM RC assumes localhost
             Log.d(DEBUG_TAG, rc.toString());
             resultIntent.setData(rc);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
@@ -200,31 +198,15 @@ public class IssueAlert {
     /**
      * Generate an alert/notification if we found a task object nearby.
      * 
-     * Will not generate an alert if the corresponding preference is not set
-     * 
-     * @param context Android Context
-     * @param b the Task
-     */
-    public static void alert(@NonNull Context context, @NonNull Task b) {
-        Log.d(DEBUG_TAG, "generating alert for " + b.getDescription());
-        Preferences prefs = new Preferences(context);
-
-        if (!prefs.generateAlerts()) { // don't generate alerts
-            return;
-        }
-        alert(context, prefs, b);
-    }
-
-    /**
-     * Generate an alert/notification if we found a task object nearby.
-     * 
-     * Always generates an alert regardless of the preference setting
      * 
      * @param context Android Context
      * @param prefs a Preference instance
      * @param b the Task
      */
     public static void alert(@NonNull Context context, @NonNull Preferences prefs, @NonNull Task b) {
+        if (!prefs.generateAlerts()) { // don't generate alerts
+            return;
+        }
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Location location = null;
         try {
@@ -260,9 +242,10 @@ public class IssueAlert {
             ticker = ticker + " " + message;
         }
         message = message + b.getDescription();
+        Notifications.initChannel(context, QA_CHANNEL, R.string.qa_channel_name, R.string.qa_channel_description);
         NotificationCompat.Builder mBuilder;
         try {
-            mBuilder = new NotificationCompat.Builder(context).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
+            mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
                     .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
             mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));

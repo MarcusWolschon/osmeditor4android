@@ -7,8 +7,6 @@
     android:versionName="@string/app_version" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="25"
         tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm" />
 
     <!--
@@ -198,7 +196,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="de.blau.android.osmeditor4android.provider"
+            android:authorities="@string/content_provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data

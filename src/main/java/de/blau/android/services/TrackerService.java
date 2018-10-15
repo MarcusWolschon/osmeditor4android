@@ -54,9 +54,11 @@ import de.blau.android.services.util.NmeaTcpClientServer;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Notifications;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service implements Exportable {
@@ -270,7 +272,8 @@ public class TrackerService extends Service implements Exportable {
         if (tracking || downloading || downloadingBugs) {
             return; // all ready running
         }
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder notificationBuilder = Notifications.builder(this);
+        
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
