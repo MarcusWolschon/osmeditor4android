@@ -226,6 +226,11 @@
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
     <string name="digit_one">1</string>
+    <!-- NotificationChannels -->
+    <string name="default_channel_name">Vespucci</string>
+    <string name="default_channel_description">Vespucci default channel</string>
+    <string name="qa_channel_name">Vespucci QA</string>
+    <string name="qa_channel_description">Vespucci QA alert channel</string>
     <!-- Toaster -->
     <string name="toast_name_empty">Name cannot be empty</string>
     <string name="toast_url_empty">URL cannot be empty</string>

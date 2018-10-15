@@ -25,7 +25,9 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
+import de.blau.android.util.Notifications;
 import de.blau.android.util.Snack;
+import de.blau.android.util.Util;
 
 /**
  * 
@@ -266,7 +268,7 @@ public class MapTileFilesystemProvider extends MapAsyncTileProvider {
                             Snack.toastTopError(mCtx, message);
                         }
                     });
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
+                    NotificationCompat.Builder builder = Notifications.builder(mCtx).setSmallIcon(R.drawable.logo_simplified)
                             .setContentTitle(mCtx.getString(R.string.toast_tile_database_issue_short));
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                         builder.setContentText(e.getLocalizedMessage());
