@@ -155,23 +155,6 @@ task enableFreeform(type: Exec) {
 enableFreeform.group = 'emulators'
 enableFreeform.description = 'turn on free form window support'
 
-
-afterEvaluate{ // this task needs to be created after the uninstall tasks 
-	task runSingleConnectedTest(dependsOn: ["installCurrentDebug","installCurrentDebugAndroidTest"], type: Exec) {
-		def toRun = "de.blau.android.easyedit.RelationTest"
-		// commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
-		commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
-		finalizedBy uninstallCurrentDebugAndroidTest,uninstallCurrentDebug
-	} 
-	runSingleConnectedTest.group = 'vespucci'
-	runSingleConnectedTest.description = 'Run a single test method on device (configuration needs to be edited)'
-	
-	// while we are at it make sure we remove any existing installation before we run the tests
-	// currently this conflicts with installDebug which we need to be able to set the mock location permission
-	// connectedDebugAndroidTest.dependsOn uninstallDebug
-	connectedCurrentDebugAndroidTest.dependsOn installCurrentDebug
-}
-
 apply from: 'https://raw.githubusercontent.com/simonpoole/gradle-tasks/master/eclipse-android-3-flavors'
 //apply from: '../gradle-tasks/eclipse-android-3-flavors'
 
@@ -276,6 +259,27 @@ android.applicationVariants.all { variant ->
   }
 }
 
+
+afterEvaluate{ // this task needs to be created after the uninstall tasks 
+    android.productFlavors.all { flavor ->
+        task ("runSingleConnected${flavor.name.capitalize()}Test", 
+                dependsOn: ["install${flavor.name.capitalize()}Debug","install${flavor.name.capitalize()}DebugAndroidTest"], 
+                type: Exec) {
+            group = 'vespucci'
+            description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
+            def toRun = "de.blau.android.layer.LayerDialogTest"
+            // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
+            commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+            finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
+        } 
+    }
+    
+    // while we are at it make sure we remove any existing installation before we run the tests
+    // currently this conflicts with installDebug which we need to be able to set the mock location permission
+    // connectedDebugAndroidTest.dependsOn uninstallDebug
+    connectedCurrentDebugAndroidTest.dependsOn installCurrentDebug    
+}
+
 // this adds some code to set the mock location permission on devices with 6.0 and later
 tasks.whenTaskAdded { task ->
     if (task.name.startsWith('install')) {
@@ -344,7 +348,6 @@ dependencies {
     testImplementation "junit:junit:4.12"
 
     // Instrumentation tests
-    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion"
     androidTestImplementation "com.android.support.test:runner:0.5"
     androidTestImplementation "com.android.support.test:rules:0.5"
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
