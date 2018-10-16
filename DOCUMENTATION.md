@@ -17,6 +17,7 @@ The files are found in the documentation directory, layout:
     			/images
     			....
     			.....
+    	   /playstore   text for the playstore listing
     		CNAME			domain this appears under for github pages
     		index.md		top level page for vespucci.io
     	/flatly-custom		slightly customized mkdocs theme
@@ -51,3 +52,7 @@ Help with automating the build process would be welcome.
 Run gradle task
 
     markdownToHtml
+    
+## Text for playstore listing
+
+The title, description and long text of the Vespucci playstore listing can be found in the playstore directory. The text is translated on transifex and updating translations via the gradle task will pull the translated texts in to build/tmp/playstore/...
