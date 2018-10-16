@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-16 14:46+0000\n"
+"Last-Translator: Italang\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2935,7 +2935,7 @@ msgstr "Scala mobile"
 
 #: master_preset.xml:1399(item:name|group:Streets|preset:Escape)
 msgid "Escape"
-msgstr ""
+msgstr "Via di fuga"
 
 #: master_preset.xml:14648(item:name|group:Offices|preset:Estate_agent)
 msgid "Estate agent"
@@ -4364,7 +4364,7 @@ msgstr "Utilizzo del terreno"
 
 #: master_preset.xml:12512(group:name|group:Land_use_and_nature)
 msgid "Land use and nature"
-msgstr ""
+msgstr "Utilizzo del terreno ed elementi naturali"
 
 #: master_preset.xml:13214(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
@@ -4574,7 +4574,7 @@ msgstr "Litecoin"
 
 #: master_preset.xml:1300(item:name|group:Streets|preset:Living_Street)
 msgid "Living Street"
-msgstr "Strada residenziale prevalentemente pedonale"
+msgstr "Strada residenziale"
 
 #: master_preset.xml:5585(list_entry:display_value|group:Leisure|preset:Animals|value:llama)
 msgid "Llama"
@@ -5154,7 +5154,7 @@ msgstr "Monumento"
 
 #: master_preset.xml:3478(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "Boa d'ormeggio"
 
 #: master_preset.xml:5591(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
@@ -5305,7 +5305,7 @@ msgstr ""
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "Murale"
 
 #: master_preset.xml:6212(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -6150,7 +6150,7 @@ msgstr ""
 
 #: master_preset.xml:6566(item:name|group:Place_of_Worship|preset:Other_Place_of_Worship)
 msgid "Other Place of Worship"
-msgstr ""
+msgstr "Altro luogo di culto"
 
 #: master_preset.xml:7015(item:name|group:Health|preset:Other_healthcare_facilities)
 msgid "Other healthcare facilities"
@@ -8498,12 +8498,12 @@ msgstr "Stop"
 
 #: master_preset.xml:4427(item:name|group:Public_Transport|preset:Stop_Area)
 msgid "Stop Area"
-msgstr ""
+msgstr "Area di stop"
 
 #: master_preset.xml:4441(role:text|group:Public_Transport|preset:Stop_Area|key:stop)
 #: master_preset.xml:4448(item:name|group:Public_Transport|preset:Stop_Position)
 msgid "Stop Position"
-msgstr ""
+msgstr "Fermata"
 
 #: master_preset.xml:4471(checkgroup:text|group:Public_Transport|preset:Stop_Position)
 msgid "Stop types"
@@ -8791,7 +8791,7 @@ msgstr "Taxi"
 
 #: master_preset.xml:4744(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
-msgstr ""
+msgstr "Corsia per taxi"
 
 #: master_preset.xml:531(text:text|key:taxon)
 msgid "Taxon"
@@ -9226,11 +9226,11 @@ msgstr "Camion"
 
 #: master_preset.xml:995(item:name|group:Streets|preset:Trunk)
 msgid "Trunk"
-msgstr ""
+msgstr "Strada a scorrimento veloce"
 
 #: master_preset.xml:1033(item:name|group:Streets|preset:Trunk_Link)
 msgid "Trunk Link"
-msgstr ""
+msgstr "Svincolo di una strada a scorrimento veloce"
 
 #: master_preset.xml:10105(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 #: master_preset.xml:10133(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
@@ -9959,7 +9959,7 @@ msgstr ""
 
 #: master_preset.xml:4825(item:name|group:Airport|preset:Windsock)
 msgid "Windsock"
-msgstr ""
+msgstr "Manica a vento"
 
 #: master_preset.xml:10591(item:name|group:Food|preset:Wine)
 msgid "Wine"
@@ -9999,7 +9999,7 @@ msgstr ""
 
 #: master_preset.xml:12578(label:text|group:Nature|preset:Wood)
 msgid "Woodland where timber production does not dominate use."
-msgstr ""
+msgstr "Bosco dove la produzione di tronchi non è l'uso dominante."
 
 #: master_preset.xml:9048(item:name|group:Man_Made|preset:Works)
 msgid "Works"
@@ -10297,7 +10297,7 @@ msgstr "Ultima strada dopo l'incrocio"
 #: master_preset.xml:13748(role:text|group:Routes|preset:Ski_Route|key:link)
 #: master_preset.xml:13827(role:text|group:Routes|preset:Road_Route|key:link)
 msgid "link segment"
-msgstr ""
+msgstr "segmento di congiunzione"
 
 #: master_preset.xml:13609(role:text|group:Relations|preset:Enforcement|key:device)
 msgid "location of enforcement device"

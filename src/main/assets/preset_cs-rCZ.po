@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-09-16 18:19+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-10-15 11:18+0000\n"
+"Last-Translator: J. Podhorecky <j.podhorecky@volny.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3117,7 +3117,7 @@ msgstr ""
 #: master_preset.xml:6035(check:text|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:7775(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "ohniště"
 
 #: master_preset.xml:11932(item:name|group:Other|preset:Fireworks)
 msgid "Fireworks"
@@ -3632,7 +3632,7 @@ msgstr ""
 #: master_preset.xml:835(combo:display_values|key:roof:colour)
 #: master_preset.xml:871(combo:display_values|key:building:colour)
 msgid "Grey"
-msgstr ""
+msgstr "Šedá"
 
 #: master_preset.xml:2245(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
@@ -4534,7 +4534,7 @@ msgstr ""
 
 #: master_preset.xml:1804(combo:display_values|group:Ways|preset:Steps|key:ramp:wheelchair)
 msgid "Limited"
-msgstr ""
+msgstr "Omezeně"
 
 #: master_preset.xml:3243(label:text|group:Water|preset:Coastline)
 msgid ""
@@ -4718,7 +4718,7 @@ msgstr ""
 
 #: master_preset.xml:5348(item:name|group:Tourism|preset:Map)
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: master_preset.xml:3384(item:name|group:Shipping|preset:Marina)
 msgid "Marina"
@@ -4770,7 +4770,7 @@ msgstr ""
 #: master_preset.xml:2478(combo:text|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:3166(combo:text|group:Water|preset:Penstock|key:material)
 msgid "Material"
-msgstr ""
+msgstr "Materiál"
 
 #: master_preset.xml:396(list_entry:short_description|value:maternity)
 msgid "Maternity"
@@ -6168,7 +6168,7 @@ msgstr ""
 
 #: master_preset.xml:10701(item:name|group:Clothes|preset:Outdoor)
 msgid "Outdoor"
-msgstr ""
+msgstr "Vekovní"
 
 #: master_preset.xml:5118(check:text|group:Food+Drinks|preset:Restaurant|key:outdoor_seating)
 #: master_preset.xml:5145(check:text|group:Food+Drinks|preset:Fast_Food|key:outdoor_seating)
@@ -6496,7 +6496,7 @@ msgstr ""
 #: master_preset.xml:13368(text:text|group:Addresses_and_Contact|preset:Contact_('contact:-')|key:contact:phone)
 #: master_preset.xml:5453(text:text|group:Tourism|preset:Audio_Guide|key:phone)
 msgid "Phone number"
-msgstr ""
+msgstr "Telefonní číslo"
 
 #: master_preset.xml:11874(item:name|group:Other|preset:Photo)
 msgid "Photo"
@@ -7243,7 +7243,7 @@ msgstr "Recyklační kontejner"
 #: master_preset.xml:835(combo:display_values|key:roof:colour)
 #: master_preset.xml:871(combo:display_values|key:building:colour)
 msgid "Red"
-msgstr ""
+msgstr "Červená"
 
 #: master_preset.xml:3285(list_entry:short_description|group:Water|preset:Wetland|value:reedbed)
 msgid "Reedbed"
@@ -7870,7 +7870,7 @@ msgstr "Sochař"
 #: master_preset.xml:6371(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "Socha"
 
 #: master_preset.xml:7856(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -8528,7 +8528,7 @@ msgstr ""
 #: master_preset.xml:13863(item:name|preset:Street)
 #: master_preset.xml:5360(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Street"
-msgstr ""
+msgstr "Ulice"
 
 #: master_preset.xml:9411(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
@@ -9203,7 +9203,7 @@ msgstr ""
 
 #: master_preset.xml:12548(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "Stromořadí"
 
 #: master_preset.xml:12862(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -9854,7 +9854,7 @@ msgstr ""
 #: master_preset.xml:835(combo:display_values|key:roof:colour)
 #: master_preset.xml:871(combo:display_values|key:building:colour)
 msgid "White"
-msgstr ""
+msgstr "Bílá"
 
 #: master_preset.xml:1017(text:text|group:Streets|preset:Trunk|key:width)
 #: master_preset.xml:1046(text:text|group:Streets|preset:Trunk_Link|key:width)
@@ -10018,7 +10018,7 @@ msgstr ""
 #: master_preset.xml:835(combo:display_values|key:roof:colour)
 #: master_preset.xml:871(combo:display_values|key:building:colour)
 msgid "Yellow"
-msgstr ""
+msgstr "Žlutá"
 
 #: master_preset.xml:10558(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10640(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -10529,7 +10529,7 @@ msgstr ""
 #: master_preset.xml:9916(combo:text|preset:Power_Tower|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr ""
+msgstr "Materiál"
 
 #: master_preset.xml:19(combo:display_values|key:material)
 #: master_preset.xml:2412(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
@@ -11182,7 +11182,7 @@ msgstr ""
 #: master_preset.xml:477(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr ""
+msgstr "Střecha"
 
 #: master_preset.xml:477(combo:display_values|key:parking)
 msgctxt "parking"
@@ -11434,7 +11434,7 @@ msgstr ""
 #: master_preset.xml:581(combo:display_values|key:location)
 msgctxt "power"
 msgid "Outdoor"
-msgstr ""
+msgstr "Vekovní"
 
 #: master_preset.xml:581(combo:display_values|key:location)
 msgctxt "power"
@@ -11449,7 +11449,7 @@ msgstr ""
 #: master_preset.xml:581(combo:display_values|key:location)
 msgctxt "power"
 msgid "Rooftop"
-msgstr ""
+msgstr "Střecha"
 
 #: master_preset.xml:9922(combo:text|preset:Power_Tower|key:design)
 msgctxt "power"
@@ -12438,7 +12438,7 @@ msgstr "Příšerná"
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "středně pokročilý"
 
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -12773,7 +12773,7 @@ msgstr "Kruhový objezd"
 #: master_preset.xml:5961(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sandpit)
 msgctxt "leisure"
 msgid "Sandpit"
-msgstr ""
+msgstr "Pískoviště"
 
 #: master_preset.xml:5910(check:text|group:Leisure|preset:Playground|key:playground:seesaw)
 #: master_preset.xml:5962(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:seesaw)
@@ -13133,7 +13133,7 @@ msgstr ""
 #: master_preset.xml:8149(item:name|group:Golf|preset:Green)
 msgctxt "golf"
 msgid "Green"
-msgstr ""
+msgstr "Zelená"
 
 #: master_preset.xml:8084(item:name|group:Golf|preset:Hole)
 msgctxt "golf"
@@ -13218,7 +13218,7 @@ msgstr ""
 #: master_preset.xml:8970(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Main"
-msgstr ""
+msgstr "Hlavní"
 
 #: master_preset.xml:8979(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
