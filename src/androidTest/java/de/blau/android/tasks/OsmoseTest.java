@@ -126,6 +126,7 @@ public class OsmoseTest {
         Assert.assertTrue(t instanceof OsmoseBug);
         Assert.assertEquals(11187837418L, t.getId());
         // re-download the same bounding box
+        mockServer.enqueue("osmoseDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
             TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), true, new SignalHandler(signal2));
@@ -140,6 +141,9 @@ public class OsmoseTest {
         tasks = App.getTaskStorage().getTasks();
         //
         Assert.assertEquals(92, tasks.size());
+        t = tasks.get(0);
+        Assert.assertTrue(t instanceof OsmoseBug);
+        Assert.assertEquals(11187837418L, t.getId());
     }
 
     /**
@@ -206,6 +210,7 @@ public class OsmoseTest {
         Assert.assertTrue(n.isNew());
         App.getTaskStorage().add(n);
         final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("noteUpload1");
         mockServer.enqueue("200");
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
