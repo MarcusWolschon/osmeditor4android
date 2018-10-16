@@ -7,6 +7,16 @@ the ActionBarSherlock library.
 Given that Google randomly makes incompatible changes to these and regularly drops existing 
 functionality, you are on your own if you use any other version than what is configured for gradle. 
 
+## Build flavors (11.2 and later)
+
+Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
+
+See [https://commonsware.com/blog/2018/01/08/android-version-ratchet.html](https://commonsware.com/blog/2018/01/08/android-version-ratchet.html) for some more information on this.
+
+Currently the split is as follows:
+
+  _current_ Android 14 / 4.0 "Ice Cream Sandwich" and later - support library version 27
+  _legacy_ Android 9 / 2.3 "Gingerbread" and later - support library version 25
 
 ## Building with gradle (Eclipse or command line)
 
@@ -15,14 +25,16 @@ This will work with Eclipse Neon with buildship or from the command line:
 To install the application to your device run the following task on Unix:
 
 ```bash
-$ ./gradlew installDebug
+$ ./gradlew installCurrentDebug
 ```
 
 or this command on Windows:
 
 ```bash
-$ gradlew.bat installDebug
+$ gradlew.bat installCurrentDebug
 ```
+
+Use _installLegacyDebug_ for the legacy flavor.
 
 If you are using Eclipse you need to import the project as a gradle project, and then generate the .classpath file initially and on any configuration change or else the IDE is essentially useless. Run the gradle "eclipse" task to do this. It should be noted that this is a constant fight against changes in googles build tools and involves rather hackish workarounds
 
