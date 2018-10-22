@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.1.4: Bump android version code for f-droid, update translations and imagery list.
+
 11.1.3: Fix regression on pre android 13 devices.
 
 11.1.2: Fix regression when reverting to original relation members in the PropertyEditor.
