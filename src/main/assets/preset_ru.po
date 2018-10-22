@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-08 04:53+0000\n"
-"Last-Translator: Alexander Istomin\n"
+"PO-Revision-Date: 2018-10-20 11:50+0000\n"
+"Last-Translator: Yury Lebedev\n"
 "Language-Team: Russian (http://www.transifex.com/openstreetmap/presets/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4962,7 +4962,7 @@ msgstr ""
 
 #: master_preset.xml:10163(item:name|group:Historic_Places_&_Objects|preset:Memorial)
 msgid "Memorial"
-msgstr ""
+msgstr "Памятник"
 
 #: master_preset.xml:397(list_entry:short_description|value:men)
 msgid "Men"
@@ -5148,7 +5148,7 @@ msgstr ""
 
 #: master_preset.xml:10148(item:name|group:Historic_Places_&_Objects|preset:Monument)
 msgid "Monument"
-msgstr ""
+msgstr "Монумент (огромный)"
 
 #: master_preset.xml:3478(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"

@@ -1,6 +1,6 @@
 # Vespucci introduktion
 
-Vespucci is a full featured OpenStreetMap editor that supports most operations that desktop editors provide. It has been tested successfully on Google's Android 2.3 to 7.0 and various AOSP based variants. A word of caution: while mobile device capabilities have caught up with their desktop rivals, particularly older devices have very limited memory available and tend to be rather slow. You should take this in to account when using Vespucci and keep, for example, the areas you are editing to a reasonable size. 
+Vespucci är en fullfjädrad redigerare för OpenStreetMap som har stöd för de flesta operationer som skrivbordsredigerare tillhandahåller. Den har framgångsrikt testats på Google's Android 2.3 till 7.0 och olika AOSP-baserade varianter. Ett varningens ord: medan mobila enheters kapacitet har kommit ikapp sina skrivbordsrivaler så tenderar äldre enheter vara något slöare. Du bör ta hänsyn till detta när du använder Vespucci och håller exempelvis de områden du redigerar till en rimlig storlek. 
 
 ## Första gången användning
 
@@ -96,7 +96,7 @@ Simply touch the screen where you want to add further nodes of the way. To finis
 
 You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
 
-#### Adding an Area
+#### Lägger till ett område
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -168,19 +168,19 @@ On the map the Notes and bugs are represented by a small bug icon ![Bug](../imag
 
 The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
 
-### Filtering
+### Filtrering
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* Anteckningar
+* Osmose-fel
+* Osmose-varning
+* Osmose mindre fel
+* Anpassad
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Inomhus-läge
 
 Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
 
@@ -188,7 +188,7 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C-läge
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 

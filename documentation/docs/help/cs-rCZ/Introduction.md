@@ -47,13 +47,13 @@ Dlouhým stisknutím ikony zámku se zobrazí nabídka se 4 možnostmi:
 
 Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* Jedno klepnutí: Vybírá objekt. 
+    * Osamocený uzel/cesta je označena ihned. 
+    * Nicméně pokud se pokusíte vybrat objekt a Vespucci uzná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. 
+    * Zvolené objekty jsou zvýrazněny žlutě. 
+    * Více informací viz [Zvolený uzel](Node%20selected.md), [Zvolená cesta](Way%20selected.md) a [Zvolená relace](Relation%20selected.md).
+* Dvě klepnutí: Zahájí [Režim vícenásobného výběru](Multiselect.md)
+* Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a [Vytváření nových objektů](Creating%20new%20objects.md)
 
 Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.
 
@@ -61,13 +61,13 @@ Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experime
 
 #### Výběr / Zrušení výběru (jedno klepnutí a "nabídka výběru")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Klepněte na objekt, který chcete zvolit a označit. Klepnutím na prázdnou oblast výběr zrušíte. Pokud máte označený objekt a chcete označit jiný, jednoduše klepněte na dotyčný objekt, není nutné rušit označení původního objektu. Dvě klepnutí na objekt zahájí [Multiselect](Multiselect.md).
 
 Všimněte si, že pokud se pokusíte vybrat objekt a Vespucci nazná, že je výběr nejednoznačný (např. uzel ležící na cestě nebo jiné překrývající se objekty), zobrazí se nabídka výběru - klepněte na objekt, který chcete vybrat. 
 
 Vybrané objekty jsou odlišeny tenkým žlutým okrajem. Žlutý okraj může být obtížné zpozorovat v závislosti na mapovém podkladu a přiblížení. Po provedení výběru se objeví oznámení potvrzující výběr.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+Po provedení výběru se zobrazí seznam podporovaných operací (buď jako tlačítka nebo jako položky menu) pro zvolený objekt: Pro více informací viz [Uzel vybránl](Node%20selected.md), [Cesta vybrána](Way%20selected.md) a [Relace vybrána](Relation%20selected.md).
 
 #### Zvolené objekty: Úprava tagů
 
@@ -94,9 +94,9 @@ Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:
 
 Jednoduše klepněte na místo, kam chcete přidat další uzel cesty. Pro dokončení cesty klepněte na koncový uzel podruhé. Pokud se koncový uzel nachází na cestě nebo existujícím uzlu, tak se na ni vytvářený segment automaticky napojí. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+Můžete také použít položku nabídky: Viz [Vytvoření nového objektu](/Creating%20new%20objects.md) pro víc informací.
 
-#### Adding an Area
+#### Přidání oblasti
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
@@ -104,17 +104,17 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Improving Way Geometry
+#### Zlepšení geometrie cesty
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
-#### Cut, Copy & Paste
+#### Vyjmout, kopírovat a vložit
 
 You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
 
-#### Efficiently Adding Addresses
+#### Efektivně přidávat adresy
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+Vespucci má funkci "přidat adresní tagy", která se pokouší efektivněji mapovat adresy. Lze vybrat:
 
 * after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
 * in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
@@ -124,9 +124,9 @@ House number prediction typically requires at least two house numbers on each si
 
 Consider using this with the [Auto-download](#download) mode.  
 
-#### Adding Turn Restrictions
+#### Přidání omezení odbočení
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+Vespucci má rychlý způsob, jak přidat omezení odbočení. V případě potřeby automaticky rozdělí způsoby a vyzve vás k opětovnému výběru prvků. 
 
 * select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
 * select "Add restriction" from the menu
@@ -134,15 +134,15 @@ Vespucci has a fast way to add turn restrictions. if necessary it will split way
 * select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
 * set the restriction type
 
-### Vespucci in "locked" mode
+### Vespucci je v "uzamčeném" režimu
 
 When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
 
-### Saving Your Changes
+### Uložení změn
 
-*(requires network connectivity)*
+*(vyžaduje připojení k síti)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Vyberte stejné tlačítko nebo položku nabídky, kterou jste provedli při stahování, a nyní vyberte možnost "Odeslat data na server OSM".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 

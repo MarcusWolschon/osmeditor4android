@@ -280,15 +280,19 @@
   <string name="toast_no_suitable_storage">Systém nenašel vhodné umístění pro databázi map.</string>
   <string name="toast_min_one_preset">Musíte vybrat alespoň jednu předvolbu!</string>
   <string name="toast_min_one_geocoder">Musíte vybrat alespoň jeden geokodér!</string>
+  <string name="toast_used_backup">Poškozený stavový soubor, použit záložní soubor!</string>
+  <string name="toast_used_bug_backup">Poškozený soubor chyb, použit záložní soubor!</string>
   <string name="toast_rmpty_relation">Prázdná relace, vytvářím chybové hlášení.</string>
   <string name="toast_split_from">Rozdělena cesta \"odkud\"</string>
   <string name="toast_split_via">Rozdělena cesta \"přes\"</string>
   <string name="toast_split_from_and_via">Rozděleny cesty \"odkud\" a \"přes\"</string>
   <string name="toast_split_to">Rozdělena cesta \"kam\"</string>
   <string name="toast_tile_database_issue_short">Problém databáze dlaždic</string>
+  <string name="toast_tile_database_issue">Závažný problém s databází mapových dlaždic\n\"%1$s\"\nPřečtěte si prosím naše FAQ na adrese http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Neplatné URL API</string>
   <string name="toast_invalid_readonlyurl">Neplatné URL API Pouze ke čtení</string>
   <string name="toast_invalid_notesurl">Neplatné URL API Poznámek</string>
+  <string name="toast_invalid_filter_regexp">Neplatný regulární výraz ve filtru s klíčem=\"%1$s\" hodnotou=\"%2$s\"</string>
   <string name="toast_error_accessing_photo">Nelze získat přístup k fotografii %1$s</string>
   <string name="toast_no_voice_recognition">Podpora pro rozpoznávání hlasu není dostupná</string>
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
@@ -304,6 +308,7 @@
   <string name="toast_string_too_long">Příliš dlouhý řetězec (%1$d znaků), zkrácen!</string>
   <string name="toast_illegal_operation">Nepovolená operace: %1$s</string>
   <string name="toast_preset_creation_failed">Vytváření předvolby „%1$s“ skončilo chybou: %2$s</string>
+  <string name="toast_imperial_units">Chybí imperiální jednotky</string>
   <string name="toast_server_connection_failed">Připojení k serveru selhalo: %1$s</string>
   <string name="toast_flus_all_caches">Vyčistí veškerou mezipaměť dlaždic!</string>
   <string name="toast_applied_offset">Použito automatické zarovnání snímků</string>
@@ -622,6 +627,8 @@
   <string name="config_enableLightTheme_summary">Světlý vzhled s bílým pozadím</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
   <string name="config_splitActionBarEnabled_summary">Umožní rozdělit lištu nástrojů, výsledek závisí na konkrétním telefonu. Vyžaduje restart a Android verze &gt;= 4.0</string>
+  <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
+  <string name="config_maxInlineValues_summary">Maximální počet vložených hodnot zobrazených ve formuláři značky</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
   <string name="config_autoLockDelay_title">Časový limit automatického uzamčení</string>
   <string name="config_autoLockDelay_summary">Časový limit v sekundách automatického uzamčení, 0 se deaktivuje.</string>
@@ -651,6 +658,7 @@
   <string name="config_maxAlertDistance_summary">Maximální vzdálenost problému nebo poznámky, která může být od aktuální polohy, pro generování oznámení</string>
   <string name="config_maxAlertDistance_current">%1$d m</string>
   <string name="config_extTriggeredDownloadRadius_title">Poloměr pro stahování</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Radius (m) externě spuštěných stahování, 0 = centrování pouze na mapě.</string>
   <string name="config_downloadRadius_current">%1$d m</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
   <string name="config_maxDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování pozastaveno</string>
@@ -733,6 +741,7 @@
   <string name="preset_download_failed">Nelze stáhnout soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_missing_images">Soubor předvoleb úspěšně stažen. Některé ikonky se nepodařilo stáhnout a budou chybět.</string>
+  <string name="preset_download_title">Přednastavený downloader</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" smazáno</string>
   <string name="changes_changed">\"%1$s\" změněno</string>

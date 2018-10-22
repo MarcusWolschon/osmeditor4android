@@ -189,6 +189,7 @@
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
   <string name="toast_noname">Vägen har inget namn eller ref</string>
   <string name="toast_notype">Relationen har ingen typ</string>
+  <string name="toast_oauth_handshake_failed">OAuth-handskakningen misslyckades: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
   <string name="toast_nothing_found">Hittade inget</string>
   <string name="toast_missing_filemanager">Vänligen installera en filhanterare.</string>
@@ -318,17 +319,25 @@
   <string name="menu_camera">Kamera</string>
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
+  <string name="menu_gps_follow">Följ platsen</string>
   <string name="menu_gps_start">Starta GPS-spår</string>
   <string name="menu_gps_pause">Pausa GPS-spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
+  <string name="menu_gps_upload">Ladda upp GPX-spår</string>
+  <string name="menu_gps_export">Exportera GPX-spår</string>
+  <string name="menu_gps_import">Importera GPX-spår</string>
   <string name="menu_gps_goto_start">Gå till GPS-spår</string>
   <string name="menu_gps_autodownload">Hämta automatiskt</string>
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
   <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
+  <string name="menu_transfer_download_other">Ladda ner vid en annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
   <string name="menu_transfer_file">Fil...</string>
+  <string name="menu_transfer_export">Exportera ändringar till OSC-fil</string>
+  <string name="menu_transfer_read_file">Läs från JOSM-fil...</string>
+  <string name="menu_transfer_save_file">Spara till JOSM-fil...</string>
   <string name="menu_transfer_bugs">Anteckningar/fel...</string>
   <string name="menu_transfer_bugs_download_current">Hämta buggar från nuvarande vy</string>
   <string name="menu_transfer_bugs_upload">Ladda upp allt</string>
@@ -356,6 +365,7 @@
   <string name="menu_voice_commands">Röstkommandon</string>
   <string name="menu_set_name">Sätt namn</string>
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
+  <string name="menu_tools">Verktyg...</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
   <!---->
   <!--Background alignment-->
@@ -386,6 +396,7 @@
   <string name="reverse_anyway">Omvänd ändå</string>
   <string name="deleteway_relation_description">Du håller på att ta bort en väg som är medlem i en eller flera relationer. Om du tar bort vägen från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deleteway_wayonly">Ta endast bort väg</string>
+  <string name="deleteway_wayandnodes">Ta bort vägen</string>
   <string name="deletenode_relation_description">Du håller på att ta bort en nod som är medlem i en eller flera relationer. Om du tar bort noden från relationen/relationerna kanske den/de renderas felaktigt. </string>
   <string name="deletenode">Ta bort nod</string>
   <string name="split_all_ways">Dela alla vägar</string>
@@ -404,6 +415,7 @@
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
   <string name="config_overlayLayer_title">Kartöverdrag</string>
   <string name="config_scale_title">Visa skala</string>
+  <string name="config_mapProfile_title">Data-stil</string>
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar/fel.</string>
   <string name="config_enablePhotoLayer_title">Aktivera fotolager</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
@@ -418,6 +430,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Användargränssnitts inställningar </string>
+  <string name="config_iconbutton_title">Visa nod-ikoner</string>
   <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
   <string name="config_showCameraAction_summary">Visa kameraikon på åtgärdsfältet </string>
@@ -480,8 +493,10 @@
   <string name="changes_deleted">\"%1$s\" raderad</string>
   <string name="changes_changed">\"%1$s\" ändrad</string>
   <string name="changes_created">\"%1$s\" skapad</string>
+  <string name="confirm_upload_title">Ladda upp ändringar</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
+  <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
   <string name="urldialog_add_api">Lägg till API</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
@@ -535,6 +550,7 @@
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
+  <string name="alert_data_issue">OSM-dataproblem upptäcktes</string>
   <string name="bearing_ne">NE</string>
   <string name="bearing_e">E</string>
   <string name="bearing_se">SE</string>
