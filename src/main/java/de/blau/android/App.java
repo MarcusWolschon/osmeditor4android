@@ -30,6 +30,7 @@ import de.blau.android.util.GeoContext;
 import de.blau.android.util.NotificationCache;
 import de.blau.android.util.OkHttpTlsCompat;
 import de.blau.android.util.TagClipboard;
+import de.blau.android.util.Util;
 import de.blau.android.util.collections.MultiHashMap;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.validation.BaseValidator;
@@ -324,7 +325,7 @@ public class App extends android.app.Application {
      */
     public static void initGeoContext(@NonNull Context ctx) {
         synchronized (geoContextLock) {
-            if (geoContext == null) {
+            if (geoContext == null && !Util.smallHeap()) {
                 geoContext = new GeoContext(ctx);
             }
         }

@@ -25,6 +25,7 @@ import de.blau.android.services.IMapTileProviderCallback;
 import de.blau.android.services.IMapTileProviderService;
 import de.blau.android.services.util.MapAsyncTileProvider;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.Util;
 
 /**
  * 
@@ -82,7 +83,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
         mCtx = ctx;
         mTileCache = new MapTileCache();
 
-        smallHeap = Runtime.getRuntime().maxMemory() <= 32L * 1024L * 1024L; // less than 32MB
+        smallHeap = Util.smallHeap();
 
         Intent explicitIntent = (new Intent(IMapTileProviderService.class.getName())).setPackage(ctx.getPackageName());
         if (explicitIntent == null || !ctx.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE)) {
@@ -261,7 +262,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
             if (smallHeap) {
                 options.inPreferredConfig = Bitmap.Config.RGB_565;
             } else {
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888; // Bitmap.Config.RGB_565;
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             }
 
             MapTile t = new MapTile(rendererID, zoomLevel, tileX, tileY);
@@ -278,7 +279,7 @@ public class MapTileProvider implements ServiceConnection, MapViewConstants {
                 } // else wasn't in pending queue just ignore
                 mDownloadFinishedHandler.sendEmptyMessage(MapTile.MAPTILE_SUCCESS_ID);
                 // Log.d(DEBUGTAG, "Sending tile success message");
-            } catch (StorageException e) {
+            } catch (StorageException | OutOfMemoryError e) {
                 // unable to cache tile
                 Log.w(DEBUG_TAG, "mapTileLoaded got " + e.getMessage());
                 setSmallHeapMode();

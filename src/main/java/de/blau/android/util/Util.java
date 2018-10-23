@@ -658,4 +658,13 @@ public final class Util {
             }
         }
     }
+    
+    /**
+     * Determine if we have less than 32MB of heap
+     * 
+     * @return true if the heap is small
+     */
+    public static boolean smallHeap() {
+        return Runtime.getRuntime().maxMemory() <= 32L * 1024L * 1024L; // less than 32MB
+    }
 }

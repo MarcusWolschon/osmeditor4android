@@ -64,6 +64,9 @@ however older devices tend to have very limited memory and correspondingly the a
   * turn off notes and photo overlay
   * turn off name suggestions
   * don't add large presets
+  * use the <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a> instead of the one packaged with the app.
+  
+The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. 
   
 #### Can't download data from OpenStreetMap servers 
 
