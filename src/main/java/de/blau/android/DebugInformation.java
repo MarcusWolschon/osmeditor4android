@@ -72,10 +72,17 @@ public class DebugInformation extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Generate the debug text we want to display
+     * 
+     * @param eol what to use as end of line
+     * @return a String containing the text
+     */
     String getDebugText(String eol) {
         StringBuilder builder = new StringBuilder();
 
         builder.append(getString(R.string.app_name_version) + eol);
+        builder.append("Flavor: " + BuildConfig.FLAVOR + eol);
         builder.append("Maximum avaliable memory " + Runtime.getRuntime().maxMemory() + eol);
         builder.append("Total memory used " + Runtime.getRuntime().totalMemory() + eol);
         Logic logic = App.getLogic();
