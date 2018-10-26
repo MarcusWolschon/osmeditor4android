@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-10 19:44+0000\n"
+"PO-Revision-Date: 2018-10-26 17:44+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid ""
 "(Please only use this tag if more detailed mapping using busbars and bays is"
 " impossible!)"
-msgstr ""
+msgstr "(Por favor usar esta etiqueta apenas se for impossível mapear com mais detalhe utilizando barras e baías!)"
 
 #: master_preset.xml:7234(label:text|group:Emergency|preset:Emergency_Access_Point)
 msgid "(Use number as shown on plate.)"
@@ -152,7 +152,7 @@ msgstr "5: Deslizamentos de terra, depressões grandes e profundas, etc."
 
 #: master_preset.xml:49(list_entry:short_description|value:6)
 msgid "6: Not rideable"
-msgstr ""
+msgstr "6: Inultrapassável"
 
 #: master_preset.xml:5397(label:text|group:Tourism|preset:Guidepost)
 msgid ""
@@ -232,7 +232,7 @@ msgstr "Uma única árvore."
 msgid ""
 "A steep rock face exposure, with a significant vertical, or near vertical "
 "(leave the lower face to the right of the way)."
-msgstr ""
+msgstr "Uma exposição da rocha escarpada, com uma verticalidade significativa ou quase vertical (deixar a face inferior à direita do caminho)"
 
 #: master_preset.xml:12404(label:text|group:Geography|preset:Volcano)
 msgid "A volcano, either dormant, extinct or active."
@@ -711,7 +711,7 @@ msgstr "Atração turística"
 
 #: master_preset.xml:5433(item:name|group:Tourism|preset:Audio_Guide)
 msgid "Audio Guide"
-msgstr "Guia Áudio"
+msgstr "Guia áudio"
 
 #: master_preset.xml:5452(label:text|group:Tourism|preset:Audio_Guide)
 msgid "Audioguide via mobile phone?"
@@ -883,7 +883,7 @@ msgstr "Área não cultivada com arbustos e ocasionalmente com algumas árvores.
 msgid ""
 "Bare upper lying uncultivated land principally covered with grass and often "
 "grazed."
-msgstr ""
+msgstr "Terra batida não cultivada coberta principalmente com erva e muitas vezes pastagem."
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Barrel"
@@ -986,7 +986,7 @@ msgstr "Apicultor"
 
 #: master_preset.xml:5253(item:name|group:Food+Drinks|preset:Beer_Garden)
 msgid "Beer Garden"
-msgstr "Jardim da Cerveja"
+msgstr "Jardim da cerveja"
 
 #: master_preset.xml:9003(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Bell tower"
@@ -2031,7 +2031,7 @@ msgstr "Confeitaria"
 
 #: master_preset.xml:8293(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Conglomerate"
-msgstr ""
+msgstr "Aglomerado"
 
 #: master_preset.xml:14903(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
@@ -2055,7 +2055,7 @@ msgstr "Continente"
 
 #: master_preset.xml:10273(item:name|group:Food|preset:Convenience_Store)
 msgid "Convenience Store"
-msgstr "Mini-mercado/loja"
+msgstr "Mini-mercado"
 
 #: master_preset.xml:7639(check:text|group:Facilities|preset:Recycling_Container|key:recycling:cooking_oil)
 #: master_preset.xml:7680(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:cooking_oil)
@@ -2718,7 +2718,7 @@ msgstr "Toxicodependentes"
 
 #: master_preset.xml:10715(item:name|group:Clothes|preset:Dry_Cleaning)
 msgid "Dry Cleaning"
-msgstr "Limpeza a Seco"
+msgstr "Limpeza a seco"
 
 #: master_preset.xml:2440(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Dry stone"
@@ -2998,7 +2998,7 @@ msgstr "Loja de tecidos"
 #: master_preset.xml:4863(group:name|group:Facilities)
 #: master_preset.xml:7441(group:name|group:Facilities)
 msgid "Facilities"
-msgstr "Infraestruturas"
+msgstr "Infraestrutura"
 
 #: master_preset.xml:10550(item:name|group:Food|preset:Fair_Trade)
 #: master_preset.xml:10558(combo:text|group:Food|preset:Fair_Trade|key:fair_trade)
@@ -3050,7 +3050,7 @@ msgstr "Tarifa"
 
 #: master_preset.xml:12679(item:name|group:Nature|preset:Fell)
 msgid "Fell"
-msgstr ""
+msgstr "Baldios no norte de Inglaterra"
 
 #: master_preset.xml:11360(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 msgid "Female"
@@ -4016,7 +4016,7 @@ msgstr "Nível ISCED"
 
 #: master_preset.xml:14695(item:name|group:Offices|preset:IT)
 msgid "IT"
-msgstr "TI"
+msgstr "Tecnologias informação"
 
 #: master_preset.xml:6469(combo:display_values|group:Place_of_Worship|preset:Mosque|key:denomination)
 msgid "Ibadi"
@@ -4190,7 +4190,7 @@ msgstr "Isolado"
 
 #: master_preset.xml:12257(item:name|group:Places|preset:Isolated_Dwelling)
 msgid "Isolated Dwelling"
-msgstr "Habitação Isolada"
+msgstr "Habitação isolada"
 
 #: master_preset.xml:384(multiselect:display_values|key:cuisine)
 msgid "Italian"
@@ -4575,7 +4575,7 @@ msgstr "Litecoin"
 
 #: master_preset.xml:1300(item:name|group:Streets|preset:Living_Street)
 msgid "Living Street"
-msgstr "Living Street (não existem em Portugal)"
+msgstr "Zona de coexistência"
 
 #: master_preset.xml:5585(list_entry:display_value|group:Leisure|preset:Animals|value:llama)
 msgid "Llama"
@@ -8563,7 +8563,7 @@ msgstr ""
 
 #: master_preset.xml:6178(item:name|preset:Strip_Club)
 msgid "Strip Club"
-msgstr "Clube de Striptease"
+msgstr "Clube de striptease"
 
 #: master_preset.xml:1801(check:text|group:Ways|preset:Steps|key:ramp:stroller)
 msgid "Stroller ramp"
@@ -9952,7 +9952,7 @@ msgstr "Persianas"
 
 #: master_preset.xml:14476(item:name|group:Crafts|preset:Window_construction)
 msgid "Window construction"
-msgstr "Constr./Instal. de janelas"
+msgstr "Constr./instal. de janelas"
 
 #: master_preset.xml:11642(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Windows"
@@ -9980,7 +9980,7 @@ msgstr "Bisonte europeu"
 
 #: master_preset.xml:4031(combo:text|group:Car|preset:Fuel|key:shop)
 msgid "With shop"
-msgstr "Com Loja"
+msgstr "Com loja"
 
 #: master_preset.xml:5629(list_entry:display_value|group:Leisure|preset:Animals|value:wolf)
 msgid "Wolf"
@@ -12491,7 +12491,7 @@ msgstr "Fosso / vala / trincheira"
 #: master_preset.xml:2559(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Double"
-msgstr ""
+msgstr "Duplo"
 
 #: master_preset.xml:2559(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
@@ -12850,7 +12850,7 @@ msgstr "Cestas de girar"
 #: master_preset.xml:5972(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:teenshelter)
 msgctxt "leisure"
 msgid "Teen shelter"
-msgstr ""
+msgstr "Abrigo de adolescentes"
 
 #: master_preset.xml:5697(list_entry:display_value|group:Leisure|preset:Rides|value:train)
 msgctxt "leisure"

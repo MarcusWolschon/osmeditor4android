@@ -13,7 +13,7 @@
     <string name="help_propertyeditor">Editeur de propriété</string>
     <string name="help_preferences">Préférences</string>
     <string name="help_advanced_preferences">Préférences avancées</string>
-    <string name="help_presets">Modèles d'attributs</string>
+    <string name="help_presets">Modèles d\'attributs</string>
     <string name="help_conflictresolution">Résolution de conflit</string>
     <string name="help_gpssources">Source GPS</string>
     <string name="help_keyboard">Clavier</string>
