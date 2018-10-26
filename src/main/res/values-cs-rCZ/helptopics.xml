@@ -3,7 +3,7 @@
     <string name="help_introduction">Úvod</string>
     <string name="help_main">Hlavní obrazovka s mapou</string>
     <string name="help_addrelationmember">Relace vybrána</string>
-    <string name="help_multiselect">Multiselect</string>
+    <string name="help_multiselect">Vícenásobný výběr</string>
     <string name="help_longclick">Vytváření nových objektů</string>
     <string name="help_nodeselection">Uzel vybrán</string>
     <string name="help_pathcreation">Vytváření nových objektů</string>
@@ -18,7 +18,7 @@
     <string name="help_gpssources">Zdroje GPS</string>
     <string name="help_keyboard">Klávesnice</string>
     <string name="help_tagfilter">Filtr tagů</string>
-    <string name="help_presetfilter">Filtr předvoleb</string>
+    <string name="help_presetfilter">Předvolba filtru</string>
     <string name="help_opening_hours">Otevírací hodiny</string>
     <string name="help_voice_commands">Hlasové povely</string>
     <string name="help_upgrade">Poznámky k vydání</string>
@@ -52,6 +52,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
@@ -83,6 +84,7 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>Voice commands</item>
+        <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>

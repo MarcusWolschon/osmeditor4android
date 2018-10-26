@@ -13,7 +13,7 @@
     <string name="help_propertyeditor">Editeur de propriété</string>
     <string name="help_preferences">Préférences</string>
     <string name="help_advanced_preferences">Préférences avancées</string>
-    <string name="help_presets">Modèles d\'attributs</string>
+    <string name="help_presets">Modèles d'attributs</string>
     <string name="help_conflictresolution">Résolution de conflit</string>
     <string name="help_gpssources">Source GPS</string>
     <string name="help_keyboard">Clavier</string>
@@ -52,6 +52,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
@@ -83,6 +84,7 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>Voice commands</item>
+        <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>

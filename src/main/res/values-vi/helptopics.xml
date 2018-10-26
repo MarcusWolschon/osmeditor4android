@@ -20,6 +20,7 @@
     <string name="help_tagfilter">Bộ lọc thẻ</string>
     <string name="help_presetfilter">Bộ lọc thẻ đặt trước</string>
     <string name="help_opening_hours">Giờ mở cửa</string>
+    <string name="help_voice_commands">Lệnh bằng giọng nói</string>
     <string name="help_upgrade">Ghi chú phát hành</string>
     <string name="help_upgrade_110">Ghi chú phát hành 11.0</string>
     <string name="help_upgrade_102">Ghi chú phát hành 10.2</string>
@@ -51,6 +52,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
@@ -82,6 +84,7 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>Voice commands</item>
+        <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>

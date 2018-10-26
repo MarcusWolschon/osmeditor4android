@@ -27,6 +27,7 @@
     <string name="help_opening_hours">Opening hours</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_upgrade">Release notes</string>
+    <string name="help_upgrade_111">11.1 Release notes</string>
     <string name="help_upgrade_110">11.0 Release notes</string>
     <string name="help_upgrade_102">10.2 Release notes</string>
     <string name="help_upgrade_101">10.1 Release notes</string>
@@ -57,6 +58,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
         <item>@string/help_upgrade_101</item>
@@ -88,6 +90,7 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>Voice commands</item>
+        <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>
         <item>10.2.0 Release notes</item>

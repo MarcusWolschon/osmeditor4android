@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+</head>
+<body>
+<h1>Vespucci 11.2 BETA Highlights</h1><h2>End of support of Android 2.3 and 3.x for builds distributed on google play store</h2><p>As announced previously this version no longer supports Android versions prior to 4.0 on googles playstore due to restrictions that google is now imposing. It is however possible to either build your own APK with support for earlier Android versions and likely we will be distributing such a version via F-Droid and our github repository.</p><p>Do be able to do this we now have two build flavors:</p>
+<ul>
+  <li><em>current</em> that is built against a current Android support library and supports Android 4.0 (14) and higher.</li>
+  <li><em>legacy</em> that is built against the last support library that supported 2.3, but will naturally run on any later Android version too-</li>
+</ul><p>Right now the <em>current</em> build mainly profits from bug fixes to the support libraries, for example the issue with sub-menus on tablets is resolved in the version we build the <em>current</em> flavor against.</p><p>This is not a commitment to supporting 2.3 indefinitely, but as we suspect that google will be increasing the minimum Android that practically can be supported in the future we except that the legacy build will continue as a vehicle to support older versions in the future.</p><h2>Changes for Android 2.3</h2><p>On devices that only supply 32MB of heap to apps memory usage of Vespucci had gotten to the point at which the app could potentially completely run out of available memory. To work around this a bit we've stopped loading the simplified country boundaries which saves roughly 4MB, this implies that any country specific features will not work. Further we recommend to, instead of the standard bundled preset, to load the untranslated one (see the on device Preset help page) which will save roughly another 3MB (mainly because we don't build a translated search index then).</p><h1>Known problems</h1><h1>Upgrading from previous versions</h1>
+<ul>
+  <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul>
+</body>
+</html>
