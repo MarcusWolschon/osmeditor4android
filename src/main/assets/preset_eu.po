@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-05 21:11+0000\n"
+"PO-Revision-Date: 2018-10-23 15:34+0000\n"
 "Last-Translator: Maite Rikarte <m.rikarte@gmail.com>\n"
 "Language-Team: Basque (http://www.transifex.com/openstreetmap/presets/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -6471,7 +6471,7 @@ msgstr "Farmazia"
 
 #: master_preset.xml:632(combo:text|key:phases)
 msgid "Phases"
-msgstr ""
+msgstr "Faseak"
 
 #: master_preset.xml:5603(list_entry:display_value|group:Leisure|preset:Animals|value:pheasant)
 msgid "Pheasant"
@@ -8631,7 +8631,7 @@ msgstr ""
 #: master_preset.xml:3727(check:text|group:Railway|preset:Level_Crossing|key:supervised)
 #: master_preset.xml:494(combo:text|key:supervised)
 msgid "Supervised"
-msgstr ""
+msgstr "Gainbegiratu"
 
 #: master_preset.xml:3325(combo:text|group:Water|preset:Beach|key:surface)
 #: master_preset.xml:54(combo:text|key:surface)
@@ -9005,7 +9005,7 @@ msgstr ""
 #: master_preset.xml:958(check:text|group:Streets|preset:Motorway|key:toll)
 #: master_preset.xml:989(check:text|group:Streets|preset:Motorway_Link|key:toll)
 msgid "Toll"
-msgstr ""
+msgstr "Bidesari"
 
 #: master_preset.xml:2355(item:name|group:Barriers|preset:Toll_Booth)
 msgid "Toll Booth"
@@ -11516,7 +11516,7 @@ msgstr ""
 #: master_preset.xml:687(combo:text|key:support)
 msgctxt "mounting/support"
 msgid "Support"
-msgstr ""
+msgstr "Laguntza"
 
 #: master_preset.xml:687(combo:display_values|key:support)
 msgctxt "mounting/support"
@@ -12435,7 +12435,7 @@ msgstr ""
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Erdi-maila"
 
 #: master_preset.xml:1670(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"

@@ -48,13 +48,13 @@ Una lunga pressione sull'icona di blocco farà apparire un menù con 4 opzioni:
 
 Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* Tocco singolo: Seleziona oggetto. 
+    * Un nodo isolato o un percorso viene evidenziato immediatamente. 
+    * Tuttavia, se tenti di selezionare un oggetto e Vespucci determina che la seleziona possa comprendere oggetti multipli presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. 
+    * Gli oggetti selezionati sono evidenziati in giallo. 
+    * Per maggiori informazioni vedi [Nodo selezionato](Node%20selected.md), [Percorso selezionato](Way%20selected.md) e [Relazione selezionata](Relation%20selected.md).
+* Doppio tocco: Apre [Multiselect mode](Multiselect.md)
+* Pressione prolungata: Crea un "mirino", che permette di aggiungere un nodo, vedere sotto e [Creare nuovi oggetti](Creating%20new%20objects.md)
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -62,7 +62,7 @@ Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare c
 
 #### Selezione / De-selezione (tocco singolo e "menu selezione")
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Tocca un oggetto per selezionarlo ed evidenziarlo. Toccando lo schermo su una regione vuota deselezionerà l'oggetto. Se hai selezionato un oggetto e devi selezionare qualcos'altro, semplicemente tocca l'oggetto in questione, non è necessario deselezionarlo prima. Un doppio tocco su un oggetto aprirà la [Modalità di selezione](Multiselect.md).
 
 Tieni presente che se cerchi di selezionare un oggetto e Vespucci rileva più oggetti in quel punto (per esempio un nodo su un percorso o altri oggetti sovrapposti) verrà mostrato un menù di selezione: premi sull’oggetto che vuoi selezionare ed esso verrà selezionato. 
 

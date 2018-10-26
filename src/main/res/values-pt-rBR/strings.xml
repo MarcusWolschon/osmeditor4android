@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
+  <string name="mode_easy">Normal</string>
+  <string name="mode_tag_only">Apenas etiqueta</string>
   <string name="mode_indoor">Interior</string>
+  <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cuidado!</string>
   <string name="transfer_download_current_dialog_message">Você fez algumas modificações. Deseja transferir ao invés de descartar?</string>
@@ -9,6 +12,7 @@
   <string name="transfer_download_current_download">Descartar e baixar</string>
   <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
   <string name="upload_problem_title">Problema com o Upload</string>
+  <string name="upload_problem_message">Alguns ou todos os dados não foram enviados. Tente fazer o upload novamente mais tarde se isso for apenas um problema temporário.</string>
   <string name="upload_conflict_title">Conflito no upload</string>
   <string name="use_local_version">Usar versão local</string>
   <string name="use_server_version">Usar versão no servidor</string>

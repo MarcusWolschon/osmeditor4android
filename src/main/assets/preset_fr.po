@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-10 13:09+0000\n"
+"PO-Revision-Date: 2018-10-25 12:45+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -871,18 +871,18 @@ msgid ""
 "Bare lower lying uncultivated land with a shrubland habitat found mainly on "
 "free-draining infertile, acidic soils, and is characterised by open, low-"
 "growing woody vegetation."
-msgstr ""
+msgstr "Plaines nues non cultivées avec un habitat composé d'arbustes qui se trouve surtout sur des sols acides, infertiles et bien drainés, caractérisées par une végétation ouverte et basse."
 
 #: master_preset.xml:12706(label:text|group:Nature|preset:Scrub)
 msgid ""
 "Bare lower lying uncultivated land with bushes but little or no tree cover."
-msgstr ""
+msgstr "Plaines nues non cultivées avec des buissons mais peu ou pas d'arbres."
 
 #: master_preset.xml:12688(label:text|group:Nature|preset:Fell)
 msgid ""
 "Bare upper lying uncultivated land principally covered with grass and often "
 "grazed."
-msgstr ""
+msgstr "Plateaux nus et non cultivés surtout recouverts d'herbes et souvent pâturés."
 
 #: master_preset.xml:922(combo:display_values|key:playground:theme)
 msgid "Barrel"
@@ -1466,7 +1466,7 @@ msgstr ""
 
 #: master_preset.xml:9675(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:CANDU)
 msgid "CANada Deuterium Uranium reactor (CANDU)"
-msgstr ""
+msgstr "CANada Deuterium Uranium reactor (CANDU)"
 
 #: master_preset.xml:4103(combo:text|group:Car|preset:Charging_Station|key:socket:cee_blue)
 msgid "CEE blue"
@@ -1666,7 +1666,7 @@ msgstr "Catholique"
 
 #: master_preset.xml:2321(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
-msgstr ""
+msgstr "Grille à bétail"
 
 #: master_preset.xml:12455(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
@@ -1726,7 +1726,7 @@ msgstr "Guépard"
 
 #: master_preset.xml:11238(item:name|group:For_the_body|preset:Chemist)
 msgid "Chemist"
-msgstr ""
+msgstr "Pharmacie"
 
 #: master_preset.xml:12862(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Cherry trees"
@@ -2717,7 +2717,7 @@ msgstr "Toxicomanes"
 
 #: master_preset.xml:10715(item:name|group:Clothes|preset:Dry_Cleaning)
 msgid "Dry Cleaning"
-msgstr ""
+msgstr "Pressing"
 
 #: master_preset.xml:2440(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Dry stone"
@@ -2794,7 +2794,7 @@ msgstr ""
 
 #: master_preset.xml:10764(group:name|group:Electronics)
 msgid "Electronics"
-msgstr ""
+msgstr "Électronique"
 
 #: master_preset.xml:14495(item:name|group:Crafts|preset:Electronics_repair)
 msgid "Electronics repair"
@@ -2927,7 +2927,7 @@ msgstr ""
 
 #: master_preset.xml:11435(item:name|group:For_the_body|preset:Erotic)
 msgid "Erotic"
-msgstr ""
+msgstr "Sex-shop"
 
 #: master_preset.xml:1814(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
@@ -3026,7 +3026,7 @@ msgstr "Bâtiments de ferme"
 
 #: master_preset.xml:392(list_entry:short_description|value:fashion)
 msgid "Fashion"
-msgstr ""
+msgstr "Boutique de mode"
 
 #: master_preset.xml:10659(item:name|group:Clothes|preset:Fashion_(deprecated))
 msgid "Fashion (deprecated)"
@@ -3625,7 +3625,7 @@ msgstr "Terrain vierge"
 
 #: master_preset.xml:10505(item:name|group:Food|preset:Greengrocer)
 msgid "Greengrocer"
-msgstr ""
+msgstr "Primeur"
 
 #: master_preset.xml:12876(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
@@ -4319,7 +4319,7 @@ msgstr "Kiosque"
 
 #: master_preset.xml:2579(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
-msgstr ""
+msgstr "Portillon à chicane mobile"
 
 #: master_preset.xml:10983(item:name|group:Home_furnishing_and_decoration|preset:Kitchen)
 msgid "Kitchen"
@@ -4944,7 +4944,7 @@ msgstr ""
 
 #: master_preset.xml:11407(item:name|group:For_the_body|preset:Medical_Supply)
 msgid "Medical Supply"
-msgstr ""
+msgstr "Matériel médical"
 
 #: master_preset.xml:384(multiselect:display_values|key:cuisine)
 msgid "Mediterranean"
@@ -5313,7 +5313,7 @@ msgstr "Musée"
 
 #: master_preset.xml:10844(item:name|group:Electronics|preset:Music)
 msgid "Music"
-msgstr ""
+msgstr "Musique"
 
 #: master_preset.xml:6886(item:name|group:Education|preset:Music_School)
 msgid "Music School"
@@ -6587,7 +6587,7 @@ msgstr "Pizza"
 
 #: master_preset.xml:13298(text:text|group:Addresses_and_Contact|preset:Address|key:addr:place)
 msgid "Place name"
-msgstr ""
+msgstr "attribut d'adresse (Place)"
 
 #: master_preset.xml:6420(group:name|group:Place_of_Worship)
 msgid "Place of Worship"
@@ -7470,7 +7470,7 @@ msgstr "Ressource"
 
 #: master_preset.xml:1856(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
-msgstr ""
+msgstr "Aire de repos"
 
 #: master_preset.xml:5100(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
@@ -7764,7 +7764,7 @@ msgstr ""
 
 #: master_preset.xml:3227(check:text|group:Water|preset:Water|key:salt)
 msgid "Salt Water"
-msgstr ""
+msgstr "Eau salée"
 
 #: master_preset.xml:3291(list_entry:short_description|group:Water|preset:Wetland|value:saltern)
 msgid "Saltern"
@@ -8444,7 +8444,7 @@ msgstr ""
 
 #: master_preset.xml:11166(item:name|group:Printed_Material|preset:Stationery)
 msgid "Stationery"
-msgstr ""
+msgstr "Papeterie"
 
 #: master_preset.xml:6401(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
@@ -9485,7 +9485,7 @@ msgstr ""
 
 #: master_preset.xml:11124(item:name|group:Home_furnishing_and_decoration|preset:Vacuum_Cleaner)
 msgid "Vacuum Cleaner"
-msgstr ""
+msgstr "Aspirateur"
 
 #: master_preset.xml:6539(combo:display_values|group:Place_of_Worship|preset:Hindu_Temple|key:denomination)
 msgid "Vaishnavism"
@@ -9688,7 +9688,7 @@ msgstr "Station d'épuration"
 
 #: master_preset.xml:11761(item:name|group:Other|preset:Watches)
 msgid "Watches"
-msgstr ""
+msgstr "Montres"
 
 #: master_preset.xml:14468(item:name|group:Crafts|preset:Watchmaker)
 msgid "Watchmaker"
@@ -9813,7 +9813,7 @@ msgstr ""
 
 #: master_preset.xml:406(list_entry:short_description|value:wedding)
 msgid "Wedding"
-msgstr ""
+msgstr "Marriage"
 
 #: master_preset.xml:3089(item:name|group:Water|preset:Weir)
 msgid "Weir"
