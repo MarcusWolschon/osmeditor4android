@@ -263,7 +263,9 @@ public class MapTileProviderDataBase implements MapViewConstants {
                         // nothing found
                         return null;
                     } finally {
-                        getStatements.release(get);
+                        if (get != null) {
+                            getStatements.release(get);
+                        }
                     }
                 } else { // old and slow
                     final Cursor c = mDatabase.query(T_FSCACHE, new String[] { T_FSCACHE_DATA }, T_FSCACHE_WHERE_NOT_INVALID, tileToWhereArgs(aTile), null,

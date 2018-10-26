@@ -130,7 +130,9 @@ public class MBTileProviderDataBase {
                         // nothing found
                         return null;
                     } finally {
-                        getStatements.release(get);
+                        if (get != null) {
+                            getStatements.release(get);
+                        }
                     }
                 } else { // old and slow
                     final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
