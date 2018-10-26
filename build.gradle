@@ -165,10 +165,11 @@ sonarqube {
         property "sonar.sourceEncoding","UTF-8"
         property "sonar.java.binaries", "build/intermediates/classes/debug"
         property "sonar.jacoco.reportPaths","build/outputs/code-coverage/connected/5n(AVD) - 7.0-coverage.ec,\
-         build/outputs/code-coverage/connected/emulator-5554 - 7.0-coverage.ec, build/jacoco/testDebugUnitTest.exec,\
-         build/outputs/code-coverage/connected/tablettwide(AVD) - 7.0-coverage.ec,\
-         build/outputs/code-coverage/connected/8(AVD) - 8.0.0-coverage.ec,\
-         build/outputs/code-coverage/connected/8.0(AVD) - 8.0.0-coverage.ec"
+        build/outputs/code-coverage/connected/flavors/CURRENT/emulator-5554 - 7.0-coverage.ec, build/jacoco/testDebugUnitTest.exec,\
+        build/outputs/code-coverage/connected/flavors/CURRENT/tablettwide(AVD) - 7.0-coverage.ec,\
+        build/outputs/code-coverage/connected/flavors/CURRENT/8(AVD) - 8.0.0-coverage.ec,\
+        build/outputs/code-coverage/connected/flavors/CURRENT/8.0(AVD) - 8.0.0-coverage.ec,\
+        build/outputs/code-coverage/connected/flavors/CURRENT/8.1(AVD) - 8.1.0-coverage.ec"
     }
 }
 
