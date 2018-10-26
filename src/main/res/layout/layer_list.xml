@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-   	android:layout_height="match_parent"
-	android:paddingLeft="?attr/dialogPreferredPadding" 
-	android:paddingRight="?attr/dialogPreferredPadding"
-	>
-<LinearLayout 
-	android:layout_width="match_parent"
-   	android:layout_height="match_parent"
-	android:orientation="vertical" >
-     <ListView
-    	android:id="@+id/listViewLayer"
-    	android:layout_width="match_parent"
-    	android:layout_height="0dp" 
-    	android:layout_marginTop="1dp"
-    	android:layout_marginBottom="5dp"
-    	android:layout_weight="2">
-	</ListView>
-	</LinearLayout>
-	<android.support.design.widget.FloatingActionButton
-    	android:id="@+id/add"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="?attr/dialogPreferredPadding">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/listViewLayer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2">
+        </ListView>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -32,4 +32,4 @@
         app:backgroundTint="?attr/colorAccent"
         app:fabSize="mini"
         app:useCompatPadding="true" />
-   </RelativeLayout>
+</RelativeLayout>

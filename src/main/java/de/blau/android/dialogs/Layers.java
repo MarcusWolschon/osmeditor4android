@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
@@ -24,6 +26,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -205,6 +208,7 @@ public class Layers extends ImmersiveDialogFragment {
             }
         });
         dialog.setContentView(layout);
+        ViewCompat.setClipBounds(layout, null);
         return dialog;
     }
 
@@ -231,7 +235,15 @@ public class Layers extends ImmersiveDialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
+            int dialogWidth = (int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+            } else {
+                // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as possible, ugly but works 
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                // noinspection deprecation
+                dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9));
+            }
         }
     }
 
@@ -594,6 +606,7 @@ public class Layers extends ImmersiveDialogFragment {
 
     /**
      * Change the imagery for a tile layer
+     * 
      * @param activity TODO
      * @param row the TableRow with the information, if null we will only set the prefs
      * @param layer the layer, if null we will only set the prefs
@@ -610,12 +623,12 @@ public class Layers extends ImmersiveDialogFragment {
         if (row != null && layer != null) {
             TextView name = (TextView) row.getChildAt(2);
             name.setText(tileServer.getName());
-            layer.setRendererInfo(tileServer);        
+            layer.setRendererInfo(tileServer);
         } else {
             App.getLogic().getMap().setPrefs(getContext(), prefs);
         }
         if (activity instanceof Main) {
-            ((Main)activity).updatePrefs();
+            ((Main) activity).updatePrefs();
         }
     }
 }
