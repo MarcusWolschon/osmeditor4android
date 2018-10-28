@@ -62,6 +62,9 @@ public class GpxTest {
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
     
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -80,6 +83,9 @@ public class GpxTest {
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
@@ -88,6 +94,9 @@ public class GpxTest {
         instrumentation.waitForIdleSync();
     }
 
+    /**
+     * Replay a pre-recorded track and check that we record the same
+     */
     @Test
     public void recordSaveAndImportGpx() {        
         Preferences prefs = new Preferences(context);
@@ -96,14 +105,14 @@ public class GpxTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
+        main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.clickButton("de.blau.android:id/follow", false);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPS track", true));
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);
-        track.importFromGPX(is);
-        main.getTracker().getTrack().reset(); // clear out anything saved
+        track.importFromGPX(is);        
         final CountDownLatch signal = new CountDownLatch(1);
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
@@ -131,6 +140,9 @@ public class GpxTest {
 //        compareTrack(track, recordedTrack);
     }
 
+    /**
+     * Import a track file with waypoints and create an OSM object from one of them
+     */
     @Test
     public void importWayPoints() {
         Preferences prefs = new Preferences(context);
@@ -166,6 +178,9 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
     
+    /**
+     * Replay a track and pretend the output are network generated locations
+     */
     @Test
     public void followNetworkLocation() {
         Preferences prefs = new Preferences(context);
@@ -196,11 +211,24 @@ public class GpxTest {
         Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight())/2 + box.getRight())/1E7D, 0.0001);
     }
 
+    /**
+     * Check if too doubles are equal with a fixed epsilon
+     * 
+     * @param d1 double one
+     * @param d2 double two
+     * @return true if equal
+     */
     boolean doubleEquals(double d1, double d2) {
         double epsilon = 0.0000001D;
         return d1 < d2 + epsilon && d1 > d2 - epsilon;
     }
 
+    /**
+     * Check if two tracks are equal
+     * 
+     * @param track reference track
+     * @param recordedTrack new track
+     */
     private void compareTrack(Track track, List<TrackPoint> recordedTrack) {
         Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
         int i = 0;
