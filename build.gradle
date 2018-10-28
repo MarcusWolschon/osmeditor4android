@@ -163,13 +163,9 @@ sonarqube {
     properties {
         property "sonar.java.source","1.7"
         property "sonar.sourceEncoding","UTF-8"
-        property "sonar.java.binaries", "build/intermediates/classes/debug"
-        property "sonar.jacoco.reportPaths","build/outputs/code-coverage/connected/5n(AVD) - 7.0-coverage.ec,\
-        build/outputs/code-coverage/connected/flavors/CURRENT/emulator-5554 - 7.0-coverage.ec, build/jacoco/testDebugUnitTest.exec,\
-        build/outputs/code-coverage/connected/flavors/CURRENT/tablettwide(AVD) - 7.0-coverage.ec,\
-        build/outputs/code-coverage/connected/flavors/CURRENT/8(AVD) - 8.0.0-coverage.ec,\
-        build/outputs/code-coverage/connected/flavors/CURRENT/8.0(AVD) - 8.0.0-coverage.ec,\
-        build/outputs/code-coverage/connected/flavors/CURRENT/8.1(AVD) - 8.1.0-coverage.ec"
+        property "sonar.java.binaries", "build/intermediates/javac/currentDebug/compileCurrentDebugJavaWithJavac/classes"
+        property "sonar.jacoco.reportPaths","build/jacoco/testCurrentDebugUnitTest.exec,\
+            build/outputs/code-coverage/connected/flavors/CURRENT/8.1(AVD) - 8.1.0-coverage.ec"
     }
 }
 
@@ -268,7 +264,7 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
                 type: Exec) {
             group = 'vespucci'
             description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
-            def toRun = "de.blau.android.layer.LayerDialogTest"
+            def toRun = "de.blau.android.gpx.GpxTest#recordSaveAndImportGpx"
             // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
             commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
