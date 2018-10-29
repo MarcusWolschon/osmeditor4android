@@ -1,5 +1,7 @@
 package de.blau.android.layer.grid;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -125,7 +127,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
                             i = 0;
                             c.drawLine(nextTick, distance2side + topOffset, nextTick, (grid ? h - distance2side : longTicks) + topOffset, fullLine);
                             nextLabel = nextLabel + 10 * tickDistance;
-                            String labelText = subMeter ? String.format("%.1f", nextLabel) : Integer.toString((int) (km ? nextLabel / 1000 : nextLabel));
+                            String labelText = subMeter ? String.format(Locale.US, "%.1f", nextLabel) : Integer.toString((int) (km ? nextLabel / 1000 : nextLabel));
                             c.drawText(labelText, nextTick + 2 * oneDP, longTicks + topOffset + 2 * oneDP, labelH);
                         } else {
                             c.drawLine(nextTick, distance2side + topOffset, nextTick, shortTicks + topOffset, fullLine);
@@ -142,7 +144,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
                             i = 0;
                             c.drawLine(w - distance2side, nextTick, grid ? distance2side : w - longTicks, nextTick, fullLine);
                             nextLabel = nextLabel + 10 * tickDistance;
-                            String labelText = subMeter ? String.format("%.1f", nextLabel) : Integer.toString((int) (km ? nextLabel / 1000 : nextLabel));
+                            String labelText = subMeter ? String.format(Locale.US, "%.1f", nextLabel) : Integer.toString((int) (km ? nextLabel / 1000 : nextLabel));
                             c.drawText(labelText, w - (shortTicks + distance2side), nextTick + textHeight + oneDP, labelV);
                         } else {
                             c.drawLine(w - distance2side, nextTick, w - shortTicks, nextTick, fullLine);

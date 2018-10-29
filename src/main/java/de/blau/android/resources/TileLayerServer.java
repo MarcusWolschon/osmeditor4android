@@ -2026,11 +2026,11 @@ public class TileLayerServer {
         } else {
             // set proj from url &SRS=EPSG:4326 or &CRS=EPSG:4326
             Pattern pat = Pattern.compile("[\\?\\&][sc]rs=(EPSG:[0-9]+)");
-            Matcher matcher = pat.matcher(originalUrl.toLowerCase());
+            Matcher matcher = pat.matcher(originalUrl.toLowerCase(Locale.US));
             if (matcher.find()) {
                 String projParameter = matcher.group(1);
                 if (projParameter != null) {
-                    proj = projParameter.toUpperCase();
+                    proj = projParameter.toUpperCase(Locale.US);
                     Log.e(DEBUG_TAG, "Extracted " + proj + " from layer " + getName());
                     return wmsBox(aTile);
                 }
@@ -2148,7 +2148,7 @@ public class TileLayerServer {
                 if (backgroundServerList != null) {
                     for (String key : new TreeSet<>(backgroundServerList.keySet())) { // shallow copy
                         TileLayerServer osmts = backgroundServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase());
+                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
                         if (m.find()) {
                             backgroundServerList.remove(key);
                             Log.d(DEBUG_TAG, "Removed background tile layer " + key);
@@ -2158,7 +2158,7 @@ public class TileLayerServer {
                 if (overlayServerList != null) {
                     for (String key : new TreeSet<>(overlayServerList.keySet())) { // shallow copy
                         TileLayerServer osmts = overlayServerList.get(key);
-                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase());
+                        Matcher m = p.matcher(osmts.tileUrl.toLowerCase(Locale.US));
                         if (m.find()) {
                             overlayServerList.remove(key);
                             Log.d(DEBUG_TAG, "Removed overlay tile layer " + key);
