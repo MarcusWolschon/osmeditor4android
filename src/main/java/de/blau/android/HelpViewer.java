@@ -320,6 +320,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         helpView.saveState(outState);
     }
 
