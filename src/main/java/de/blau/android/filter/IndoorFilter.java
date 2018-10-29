@@ -24,7 +24,6 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.Density;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**

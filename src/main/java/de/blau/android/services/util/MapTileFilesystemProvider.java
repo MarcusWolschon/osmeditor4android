@@ -27,7 +27,6 @@ import de.blau.android.services.exceptions.EmptyCacheException;
 import de.blau.android.util.CustomDatabaseContext;
 import de.blau.android.util.Notifications;
 import de.blau.android.util.Snack;
-import de.blau.android.util.Util;
 
 /**
  * 

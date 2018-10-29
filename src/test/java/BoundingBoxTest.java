@@ -5,10 +5,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 
 public class BoundingBoxTest {

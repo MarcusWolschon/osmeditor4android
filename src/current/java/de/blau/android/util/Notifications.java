@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
-import de.blau.android.BuildConfig;
 import de.blau.android.R;
 
 /**
@@ -15,9 +14,16 @@ import de.blau.android.R;
  * @author simon
  *
  */
-public class Notifications {
+public final class Notifications {
 
     private static final String DEFAULT_CHANNEL = "default";
+    
+    /**
+     * Private constructor
+     */
+    private Notifications() {
+        // do nothing
+    }
 
     /**
      * Create a new instance of NotificationCompat.Builder in a support lib and os version independent way
@@ -37,15 +43,16 @@ public class Notifications {
      * @param channelId the NotificationChannel id, the channel has to exist
      * @return a NotificationCompat.Builder instance
      */
+    @SuppressWarnings("deprecation")
     public static NotificationCompat.Builder builder(@NonNull Context context, @NonNull String channelId) {
         if (Build.VERSION.SDK_INT >= 26) {
             if (DEFAULT_CHANNEL.equals(channelId)) {
                 return new NotificationCompat.Builder(context, DEFAULT_CHANNEL);
             } else {
-                return new NotificationCompat.Builder(context, channelId);
+                return new NotificationCompat.Builder(context, channelId); // NOSONAR
             }
         } else {
-            return new NotificationCompat.Builder(context);
+            return new NotificationCompat.Builder(context); // NOSONAR
         }
     }
 

@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
@@ -29,7 +28,6 @@ import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.PrefEditor;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.presets.PresetElementPath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 

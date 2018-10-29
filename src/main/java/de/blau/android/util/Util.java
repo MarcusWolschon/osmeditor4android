@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -603,9 +601,9 @@ public final class Util {
             display.getSize(size);
         } else {
             // noinspection deprecation
-            size.x = display.getWidth();
+            size.x = display.getWidth(); // NOSONAR
             // noinspection deprecation
-            size.y = display.getHeight();
+            size.y = display.getHeight(); // NOSONAR
         }
 
         if (size.x < size.y) {

@@ -16,9 +16,16 @@ import de.blau.android.R;
  * @author simon
  *
  */
-public class Notifications {
+public final class Notifications {
 
     private static final String DEFAULT_CHANNEL = "default";
+    
+    /**
+     * Private constructor
+     */
+    private Notifications() {
+        // do nothing
+    }
 
     /**
      * Create a new instance of NotificationCompat.Builder in a support lib and os version independent way
@@ -38,7 +45,7 @@ public class Notifications {
      * @return a NotificationCompat.Builder instance
      */
     public static NotificationCompat.Builder builder(@NonNull Context context, @NonNull String channelId) {
-        return new NotificationCompat.Builder(context);
+        return new NotificationCompat.Builder(context); // NOSONAR
     }
 
     /**

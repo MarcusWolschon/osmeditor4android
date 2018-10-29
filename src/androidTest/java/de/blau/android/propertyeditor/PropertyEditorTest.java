@@ -1,7 +1,6 @@
 package de.blau.android.propertyeditor;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 

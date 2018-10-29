@@ -242,7 +242,7 @@ public class Layers extends ImmersiveDialogFragment {
                 // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as possible, ugly but works 
                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                 // noinspection deprecation
-                dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9));
+                dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9)); // NOSONAR
             }
         }
     }
