@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -208,7 +209,7 @@ public class OsmParser extends DefaultHandler {
             long timestamp = -1L;
             if (timestampStr != null) {
                 try {
-                    timestamp = new SimpleDateFormat(TIMESTAMP_FORMAT).parse(timestampStr).getTime() / 1000;
+                    timestamp = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.US).parse(timestampStr).getTime() / 1000;
                 } catch (ParseException e) {
                     Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
                 }

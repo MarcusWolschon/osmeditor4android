@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -119,7 +120,7 @@ public class Way extends OsmElement implements BoundedObject {
         }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
         }
         if (nodes != null) {
             for (Node node : nodes) {
@@ -147,7 +148,7 @@ public class Way extends OsmElement implements BoundedObject {
         }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
         }
         s.attribute("", "visible", "true");
 

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -171,7 +172,7 @@ public class BaseValidator implements Validator {
      */
     private int checkAge(@NonNull SortedMap<String, String> tags, long now, @NonNull String tag, long validFor) {
         try {
-            return now - new SimpleDateFormat(Tags.CHECK_DATE_FORMAT).parse(tags.get(tag)).getTime() / 1000 > validFor ? Validator.AGE
+            return now - new SimpleDateFormat(Tags.CHECK_DATE_FORMAT, Locale.US).parse(tags.get(tag)).getTime() / 1000 > validFor ? Validator.AGE
                     : Validator.NOT_VALIDATED;
         } catch (ParseException e) {
             return Validator.AGE;

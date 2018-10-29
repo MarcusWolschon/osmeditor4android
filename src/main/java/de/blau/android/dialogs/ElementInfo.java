@@ -200,7 +200,7 @@ public class ElementInfo extends DialogFragment {
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited,
-                        new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
+                        new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp * 1000L), tp));
             }
 
             tl.addView(TableLayoutUtils.divider(activity));

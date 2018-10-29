@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -189,7 +190,7 @@ public class Relation extends OsmElement implements BoundedObject {
         }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
         }
 
         for (RelationMember member : members) {
@@ -215,7 +216,7 @@ public class Relation extends OsmElement implements BoundedObject {
         }
         s.attribute("", "version", Long.toString(osmVersion));
         if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
         }
         s.attribute("", "visible", "true");
 

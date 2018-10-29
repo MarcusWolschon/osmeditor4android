@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.stream.JsonReader;
@@ -197,7 +198,7 @@ public class OAMCatalog {
      */
     public long parseAcquisitionDate(JsonReader reader) throws IOException {
         try {
-            return new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
+            return new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).parse(reader.nextString()).getTime();
         } catch (ParseException e) {
 
             return -1;
