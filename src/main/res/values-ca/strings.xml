@@ -66,6 +66,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="upload_gpx_description_label">Descripció</string>
   <string name="upload_gpx_tags_label">Etiquetes</string>
   <string name="upload_gpx_visibility_label">Visibilitat</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nota nova:</string>
   <string name="openstreetbug_new_bug">Informa d\'un problema</string>
   <string name="openstreetbug_new_nodeway">Crea un node/via</string>
@@ -74,9 +75,8 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <string name="openstreetbug_comment_label">Comentari:</string>
   <string name="openstreetbug_edit_close">Tanca</string>
   <string name="openstreetbug_edit_closed">Tancat</string>
-  <string name="openstreetbug_not_downloaded">no descarregat</string>
-  <string name="openstreetbug_last_updated">Darrera actualització</string>
   <string name="openstreetbug_unknown_task_type">Tipus de tasca desconegut</string>
+  <!---->
   <string name="unsaved_data_title">Atenció!</string>
   <string name="unsaved_data_message">Teniu canvis sense desar que es descartaran si continueu.</string>
   <string name="unsaved_data_proceed">Descarta i continua</string>
@@ -145,6 +145,7 @@ pulsant fora començarà una via.\n\*nDo No oblidar descarregar l\'àrea vols ed
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">El nom no pot estar buit</string>
   <string name="toast_no_changes">No heu canviat res encara...</string>

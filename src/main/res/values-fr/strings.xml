@@ -86,6 +86,7 @@
   <string name="upload_gpx_visibility_label">Visibilité</string>
   <string name="upload_validation_error_empty_comment">Un commentaire ne doit pas être vide</string>
   <string name="upload_validation_error_empty_source">La source ne doit pas être vide</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nouvelle note</string>
   <string name="openstreetbug_new_bug">Signaler un problème</string>
   <string name="openstreetbug_bug_title">Problème</string>
@@ -97,10 +98,9 @@
   <string name="openstreetbug_edit_closed">Fermé</string>
   <string name="openstreetbug_commit_ok">Modifications de bugs sauvegardées</string>
   <string name="openstreetbug_commit_fail">Echec de sauvegarde des modifications de bugs</string>
-  <string name="openstreetbug_not_downloaded">Non téléchargé</string>
-  <string name="openstreetbug_last_updated">dernière mise à jour</string>
   <string name="openstreetbug_unknown_task_type">Type de tâche inconnue</string>
   <string name="openstreetbug_not_supported">%1$s n\'est pas supporté.</string>
+  <!---->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Des modifications non enregistrées seront abandonnées si vous continuez.</string>
   <string name="unsaved_data_proceed">Continuer sans enregistrer</string>
@@ -234,6 +234,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Le nom ne peut pas être vide</string>
   <string name="toast_url_empty">L\'URL ne peut pas être vide</string>

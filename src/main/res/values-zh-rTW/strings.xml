@@ -77,6 +77,7 @@
   <string name="upload_gpx_visibility_label">能見度</string>
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">新註解</string>
   <string name="openstreetbug_new_bug">回報問題</string>
   <string name="openstreetbug_bug_title">問題</string>
@@ -88,10 +89,9 @@
   <string name="openstreetbug_edit_closed">已關閉</string>
   <string name="openstreetbug_commit_ok">錯誤修改已存</string>
   <string name="openstreetbug_commit_fail">無法儲存錯誤修改</string>
-  <string name="openstreetbug_not_downloaded">沒有下載</string>
-  <string name="openstreetbug_last_updated">最近更新</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
+  <!---->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存儲的變更，如果繼續將會被放棄。</string>
   <string name="unsaved_data_proceed">放棄和繼續</string>
@@ -225,6 +225,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">名稱欄位不能為空白</string>
   <string name="toast_url_empty">網址不能為空白</string>

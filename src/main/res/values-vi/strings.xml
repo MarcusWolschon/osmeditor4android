@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
   <string name="upload_validation_error_empty_comment">Không thể để trống miêu tả</string>
   <string name="upload_validation_error_empty_source">Không thể để trống nguồn</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Ghi chú Mới</string>
   <string name="openstreetbug_new_bug">Báo cáo Vấn đề</string>
   <string name="openstreetbug_bug_title">Vấn đề</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Đã đóng</string>
   <string name="openstreetbug_commit_ok">Đã lưu các thay đổ</string>
   <string name="openstreetbug_commit_fail">Không thể lưu các thay đổi</string>
-  <string name="openstreetbug_not_downloaded">chưa tải về</string>
-  <string name="openstreetbug_last_updated">lần cập nhật cuối</string>
   <string name="openstreetbug_unknown_task_type">Kiểu công việc không rõ</string>
   <string name="openstreetbug_not_supported">Không hỗ trợ %1$s.</string>
+  <!---->
   <string name="unsaved_data_title">Cẩn thận!</string>
   <string name="unsaved_data_message">Nếu bạn tiếp tục, các thay đổi chưa lưu của bạn sẽ bị mất.</string>
   <string name="unsaved_data_proceed">Vứt bỏ &amp; tiếp tục</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">−</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Không thể để trống tên</string>
   <string name="toast_url_empty">Không thể để trống URL</string>

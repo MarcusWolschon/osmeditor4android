@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Láthatóság</string>
   <string name="upload_validation_error_empty_comment">A megjegyzés nem lehet üres</string>
   <string name="upload_validation_error_empty_source">A forrás nem lehet üres</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Új jegyzet</string>
   <string name="openstreetbug_new_bug">Hibajelentés küldése</string>
   <string name="openstreetbug_bug_title">Hiba</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Lezárva</string>
   <string name="openstreetbug_commit_ok">Hiba módosítások mentve</string>
   <string name="openstreetbug_commit_fail">A hiba módosítások nem menthetőek</string>
-  <string name="openstreetbug_not_downloaded">nincs letöltve</string>
-  <string name="openstreetbug_last_updated">legutóbb frissítve</string>
   <string name="openstreetbug_unknown_task_type">Ismeretlen feladattípus</string>
   <string name="openstreetbug_not_supported">%1$s nem támogatott.</string>
+  <!---->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">Mentetlen változtatásai vannak, amelyek el lesznek vetve, ha folytatja.</string>
   <string name="unsaved_data_proceed">Elvetés és folytatás</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">A név nem lehet üres</string>
   <string name="toast_url_empty">Az URL nem lehet üres</string>

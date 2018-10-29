@@ -17,9 +17,11 @@
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tagger</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <!---->
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -43,6 +45,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke endra noe enda…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>

@@ -54,6 +54,7 @@
   <string name="upload_gpx_visibility_label">Synlighet</string>
   <string name="upload_validation_error_empty_comment">Kommentar burde ikke være tom</string>
   <string name="upload_validation_error_empty_source">Kilde burde ikke være tom</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Ny Notat</string>
   <string name="openstreetbug_new_bug">Rapporter Problem</string>
   <string name="openstreetbug_bug_title">Problem</string>
@@ -61,9 +62,8 @@
   <string name="openstreetbug_edit_title">Rediger Notat</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_not_downloaded">ikke lastet ned</string>
-  <string name="openstreetbug_last_updated">sist oppdatert</string>
   <string name="openstreetbug_not_supported">%1$s støttes ikke.</string>
+  <!---->
   <string name="unsaved_data_title">Advarsel!</string>
   <string name="unsaved_data_message">Du har ulagra endringer som vil bli skrota om du går videre.</string>
   <string name="unsaved_data_proceed">Skrot og gå videre</string>
@@ -127,6 +127,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Navn kan ikke stå tomt</string>
   <string name="toast_url_empty">URL-feltet kan ikke stå tomt</string>

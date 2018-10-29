@@ -82,6 +82,7 @@
   <string name="upload_gpx_visibility_label">表示するかどうか</string>
   <string name="upload_validation_error_empty_comment">コメントはなにか入力してください</string>
   <string name="upload_validation_error_empty_source">ソースはなにか入力してください</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">新規メモ</string>
   <string name="openstreetbug_new_bug">問題を報告</string>
   <string name="openstreetbug_bug_title">問題</string>
@@ -93,10 +94,9 @@
   <string name="openstreetbug_edit_closed">クローズ済</string>
   <string name="openstreetbug_commit_ok">バグの変更を保存しました</string>
   <string name="openstreetbug_commit_fail">バグの変更を保存できませんでした</string>
-  <string name="openstreetbug_not_downloaded">ダウンロードされていません</string>
-  <string name="openstreetbug_last_updated">最終更新</string>
   <string name="openstreetbug_unknown_task_type">不明なタスク種別</string>
   <string name="openstreetbug_not_supported">%1$s はサポートしていません。</string>
+  <!---->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">このまま進めると、セーブしていない変更は破棄されます</string>
   <string name="unsaved_data_proceed">破棄 &amp; 進める</string>
@@ -225,6 +225,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">名称は空にできません</string>
   <string name="toast_url_empty">URL は空にできません</string>

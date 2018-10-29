@@ -5,7 +5,7 @@
   <string name="mode_indoor">Interior</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
-  <string name="transfer_download_current_dialog_message">Fixeches algúns cambios. Queres subilos ou descartalos?</string>
+  <string name="transfer_download_current_dialog_message">Fixeches algunhas mudanzas. Queres subilas ou desbotalas?</string>
   <string name="transfer_download_current_upload">Subir</string>
   <string name="transfer_download_current_download">Descartar e descargar</string>
   <string name="transfer_download_current_back">Volver (Non facer nada)</string>
@@ -63,6 +63,7 @@
   <string name="upload_gpx_description_label">Descrición</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nova Nota</string>
   <string name="openstreetbug_new_bug">Informar dun problema</string>
   <string name="openstreetbug_bug_title">Impresión</string>
@@ -74,10 +75,9 @@
   <string name="openstreetbug_edit_closed">Cerrado</string>
   <string name="openstreetbug_commit_ok">Bug trocos salvados</string>
   <string name="openstreetbug_commit_fail">Non se pode gardar os trocos bug</string>
-  <string name="openstreetbug_not_downloaded">non descargado</string>
-  <string name="openstreetbug_last_updated">última subida</string>
+  <!---->
   <string name="unsaved_data_title">Coidado!</string>
-  <string name="unsaved_data_message">Tes cambios sen gardar que serán descartados se continúas.</string>
+  <string name="unsaved_data_message">Tes mudanzas sen gardar que serán desbotadas se prosegues.</string>
   <string name="unsaved_data_proceed">Descartar e continuar</string>
   <string name="imagery_offset_title">Imaxes Offset</string>
   <string name="imagery_offset_description">Descrición</string>
@@ -126,7 +126,7 @@
   <string name="attached_object_warning_title">Esta operación afecta aos obxectos anexos filtrados!</string>
   <string name="attached_object_warning_message">O obxecto modificado está conectado a elementos ocultos que tamén cambiarán.</string>
   <string name="attached_object_warning_continue">Aceptar continúa a amosar esta mensaxe</string>
-  <string name="attached_object_warning_stop">Aceptar deixar de mostrar esta mensaxe</string>
+  <string name="attached_object_warning_stop">Aceptar deixar de amosar esta mensaxe</string>
   <!--debug dialog-->
   <string name="send_debug_information">Enviar información do erro</string>
   <!--JS console dialog-->
@@ -142,9 +142,10 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Aínda non cambiaches nada</string>
-  <string name="toast_unsaved_changes">Tes os cambios sen gardar, dalle outra cárgaos primeiro.</string>
+  <string name="toast_unsaved_changes">Tes as mudanzas sen gardar, súbeas primeiro.</string>
   <string name="toast_upload_success">Subida ao servidor de OSM finalizada.</string>
   <string name="toast_not_in_edit_range">Por favor, fai zoom para editar (Volume +/- ou Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Desbloquear a edición</string>
@@ -334,7 +335,7 @@
   <string name="menu_easyedit">Edición Fácil</string>
   <string name="menu_camera">Cámara</string>
   <string name="menu_gps">GPS…</string>
-  <string name="menu_gps_show">Mostrar localización</string>
+  <string name="menu_gps_show">Amosar localización</string>
   <string name="menu_gps_start">Iniciar pista GPS</string>
   <string name="menu_gps_pause">Pausar pista GPS</string>
   <string name="menu_gps_track_managment">Xestión da pista…</string>
@@ -430,10 +431,10 @@
   <string name="config_backgroundLayer_title">Fondo de mapa</string>
   <string name="config_overlayLayer_title">Superposición co mapa</string>
   <string name="config_scale_title">Amosar Escala</string>
-  <string name="config_enableOpenStreetBugs_title">Mostrar erros e notas</string>
-  <string name="config_enableOpenStreetBugs_summary">Mostrar, editar e crear Notas/Erros.</string>
+  <string name="config_enableOpenStreetBugs_title">Amosar erros e notas</string>
+  <string name="config_enableOpenStreetBugs_summary">Amosar, editar e crear Notas/Erros.</string>
   <string name="config_enablePhotoLayer_title">Activar capa fotográfica</string>
-  <string name="config_enablePhotoLayer_summary">Mostrar fotografías xeorreferenciadas.</string>
+  <string name="config_enablePhotoLayer_summary">Amosar fotografías xeorreferenciadas.</string>
   <string name="config_enableKeepScreenOn_title">Manter pantalla acendida</string>
   <string name="config_enableKeepScreenOn_summary">Non apagar a pantalla para aforrar enerxía.</string>
   <string name="config_largeDragArea_title">Área grande de arrastre de nodo</string>
@@ -449,22 +450,22 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Axustes da interface de usuario</string>
-  <string name="config_iconbutton_title">Mostrar iconas dos puntos</string>
-  <string name="config_iconbutton_summary">Mostrar a icona do preaxuste máis coincidente sobre os puntos.</string>
+  <string name="config_iconbutton_title">Amosar iconas dos puntos</string>
+  <string name="config_iconbutton_summary">Amosa-la icona do preaxuste máis coincidente sobre os puntos.</string>
   <string name="config_showWayIcons_title">Amosar iconos POI nos edificios</string>
   <string name="config_showWayIcons_summary">Amosar a icona do predeterminado máis axeitado dos edificios.</string>
   <string name="config_tagFormEnabled_title">Amosar tags de forma</string>
   <string name="config_tagFormEnabled_summary">Amosar forma de etiquetas para edición</string>
-  <string name="config_showCameraAction_title">Mostrar a acción da cámara</string>
-  <string name="config_showCameraAction_summary">Mostrar a icona da cámara na barra de acción</string>
+  <string name="config_showCameraAction_title">Amosa-la acción da cámara</string>
+  <string name="config_showCameraAction_summary">Amosa-la icona da cámara na barra de acción</string>
   <string name="config_followGPSbutton_title">Siga o deseño do botón GPS</string>
   <string name="config_followGPSbutton_summary">Cando o botón \"seguir GPS\" estea posto</string>
   <string name="config_alwaysDrawBoundingBoxes_title">A dimensión das áreas non foi sempre descargada</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se zonas non baixadas das áreas poden ser de forma pechada</string>
   <string name="config_fullscreenMode_title">Modo pantalla completa</string>
   <string name="config_fullscreenMode_summary">Comportamento en dispositivos con teclas \"suaves\".</string>
-  <string name="config_showTolerance_title">Mostrar tolerancia</string>
-  <string name="config_showTolerance_summary">Mostra a área onde un elemento pode ser seleccionado.</string>
+  <string name="config_showTolerance_title">Amosar tolerancia</string>
+  <string name="config_showTolerance_summary">Amosa a área onde un elemento pode ser seleccionado.</string>
   <string name="config_use_back_for_undo_title">Empregar tecla retroceder para Desfacer</string>
   <string name="config_use_back_for_undo_summary">Use a tecla voltar para desfacer na vista de edición principal</string>
   <string name="config_enableLightTheme_title">Activar tema luz</string>
@@ -489,7 +490,7 @@
   <string name="config_generateAlerts_title">Xerar notificacións</string>
   <string name="config_generateAlerts_summary">Xerar notificacións para datos con problemas ou con notas</string>
   <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
-  <string name="config_notificationCacheSize_summary">Número máximo de notificacións mostradas por tipo (min. 1)</string>
+  <string name="config_notificationCacheSize_summary">Número máximo de notificacións amosadas por tipo (min. 1)</string>
   <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
   <string name="config_maxAlertDistance_summary">A distancia máxima á que un problema ou nota pode estar da posición actual para xerar unha notificación</string>
   <string name="config_extTriggeredDownloadRadius_title">Baixar radio</string>
@@ -502,8 +503,8 @@
   <string name="config_bugDownloadRadius_summary">Radio (m) de notas/bugs baixadas</string>
   <string name="config_maxBugDownloadSpeed_title">Máximo notas/bugs velocidade de auto baixada</string>
   <string name="config_maxBugDownloadSpeed_summary">Límite (en km/h) no cal nodos/bugs suspenden auto descarga</string>
-  <string name="config_closeChangesetOnSave_title">Cerrar conxuntos de cambios</string>
-  <string name="config_closeChangesetOnSave_summary">Cerrar por defecto conxuntos de cambios ao gardar</string>
+  <string name="config_closeChangesetOnSave_title">Pechar conxuntos de mudanzas</string>
+  <string name="config_closeChangesetOnSave_summary">Pechar por defecto conxuntos de mudanzas ó gardar</string>
   <!--Location Settings-->
   <string name="config_gps_source_title">Fonte GPS</string>
   <string name="config_gps_source_summary">Fonte das actualizacións da localización GPS</string>
@@ -537,8 +538,8 @@
   <string name="pref_enable_acra">Informar de fallos na aplicación</string>
   <string name="pref_acra_enabled">Informe de fallos habilitado</string>
   <string name="pref_acra_disabled">Informe de fallos deshabilitado</string>
-  <string name="config_showStats_title">Mostrar estadísticas</string>
-  <string name="config_showStats_summary">Mostrar estadísticas de datos e fotogramas/seg na esquina inferior esquerda</string>
+  <string name="config_showStats_title">Amosar estatísticas</string>
+  <string name="config_showStats_summary">Amosar estatísticas dos datos e fotogramas/seg na esquina inferior esquerda</string>
   <!--Experimental-->
   <string name="config_js_console_title">Activar JS consola</string>
   <string name="config_js_console_summary">Faga que a consola JS estea dispoñible en modo \"en directo\"</string>

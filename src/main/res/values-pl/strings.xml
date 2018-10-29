@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Widoczność</string>
   <string name="upload_validation_error_empty_comment">Komentarz nie może być pusty</string>
   <string name="upload_validation_error_empty_source">Żródło nie powinno być puste</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nowa uwaga</string>
   <string name="openstreetbug_new_bug">Zgłoś błąd</string>
   <string name="openstreetbug_bug_title">Błąd</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Zamknięty</string>
   <string name="openstreetbug_commit_ok">Zapisano zmiany błędów</string>
   <string name="openstreetbug_commit_fail">Nie można zapisać zmiany błędu</string>
-  <string name="openstreetbug_not_downloaded">nie pobrany</string>
-  <string name="openstreetbug_last_updated">ostatnia zmiana</string>
   <string name="openstreetbug_unknown_task_type">Nieznany typ zadania</string>
   <string name="openstreetbug_not_supported">%1$s nie jest wspierane.</string>
+  <!---->
   <string name="unsaved_data_title">Uwaga!</string>
   <string name="unsaved_data_message">Istnieją niezapisane zmiany, które zostaną porzucone.</string>
   <string name="unsaved_data_proceed">Odrzuć i kontynuuj</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Nazwa nie może być pusta</string>
   <string name="toast_url_empty">URL nie może być pusty</string>

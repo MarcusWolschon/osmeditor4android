@@ -78,6 +78,7 @@
   <string name="upload_gpx_visibility_label">Видимость</string>
   <string name="upload_validation_error_empty_comment">Комментарий не должен быть пустым</string>
   <string name="upload_validation_error_empty_source">Источник не должен быть пустым</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Новая заметка</string>
   <string name="openstreetbug_new_bug">Сообщить об ошибке</string>
   <string name="openstreetbug_bug_title">Проблема</string>
@@ -89,10 +90,9 @@
   <string name="openstreetbug_edit_closed">Закрытая</string>
   <string name="openstreetbug_commit_ok">Изменения сохранены</string>
   <string name="openstreetbug_commit_fail">Невозможно сохранить изменения</string>
-  <string name="openstreetbug_not_downloaded">не загружено</string>
-  <string name="openstreetbug_last_updated">последнее обновление</string>
   <string name="openstreetbug_unknown_task_type">Неизвестный тип задачи</string>
   <string name="openstreetbug_not_supported">%1$s не поддерживается.</string>
+  <!---->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">У вас есть несохраненные изменения. Если вы продолжите, они будут потеряны.</string>
   <string name="unsaved_data_proceed">Отменить и продолжить</string>
@@ -226,6 +226,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Название не может быть пустым</string>
   <string name="toast_url_empty">URL не может быть пустым</string>

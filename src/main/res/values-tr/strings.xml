@@ -51,6 +51,7 @@
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Etiketler</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Yeni Not</string>
   <string name="openstreetbug_new_bug">Sorun Bildir</string>
   <string name="openstreetbug_bug_title">Konu</string>
@@ -62,8 +63,7 @@
   <string name="openstreetbug_edit_closed">Kapalı</string>
   <string name="openstreetbug_commit_ok">Böcek değişikliği kaydedildi</string>
   <string name="openstreetbug_commit_fail">Böcek değişikliği kaydedilemedi</string>
-  <string name="openstreetbug_not_downloaded">indirilemedi</string>
-  <string name="openstreetbug_last_updated">son güncelleme</string>
+  <!---->
   <string name="unsaved_data_title">Dikkat!</string>
   <string name="unsaved_data_message">Kaydedilmemiş değişiklikleriniz var devam ederseniz boşa gidecek.</string>
   <string name="unsaved_data_proceed">Boşver &amp; devam et</string>
@@ -118,6 +118,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
   <string name="toast_unsaved_changes">Kaydedilmemiş değişiklikleriniz var, lütfen önce yükleyin.</string>

@@ -77,6 +77,7 @@
   <string name="upload_gpx_visibility_label">Видимість</string>
   <string name="upload_validation_error_empty_comment">Коментар не має бути порожнім</string>
   <string name="upload_validation_error_empty_source">Джерело не має бути порожнім</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Нова нотатка</string>
   <string name="openstreetbug_new_bug">Звіт про проблему</string>
   <string name="openstreetbug_bug_title">Проблема</string>
@@ -88,10 +89,9 @@
   <string name="openstreetbug_edit_closed">Зачинено</string>
   <string name="openstreetbug_commit_ok">Зміни Помилок збережено</string>
   <string name="openstreetbug_commit_fail">Неможливо зберегти зміни помилок</string>
-  <string name="openstreetbug_not_downloaded">не отримано</string>
-  <string name="openstreetbug_last_updated">в останнє оновлено</string>
   <string name="openstreetbug_unknown_task_type">Невідомий тип завжання</string>
   <string name="openstreetbug_not_supported">%1$s не підтримується</string>
+  <!---->
   <string name="unsaved_data_title">Увага!</string>
   <string name="unsaved_data_message">У Вас є незбережені зміни, які будуть втрачені якщо Ви продовжите.</string>
   <string name="unsaved_data_proceed">Скасувати й продовжити</string>
@@ -176,6 +176,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
   <string name="toast_unsaved_changes">У Вас є незбережені зміни, збережіть їх спочатку.</string>

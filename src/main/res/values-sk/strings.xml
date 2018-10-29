@@ -56,6 +56,7 @@
   <string name="upload_gpx_description_label">Popis</string>
   <string name="upload_gpx_tags_label">Značky</string>
   <string name="upload_gpx_visibility_label">Viditeľnosť</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nová poznámka</string>
   <string name="openstreetbug_new_bug">Nahlásiť problém</string>
   <string name="openstreetbug_bug_title">Problém</string>
@@ -66,8 +67,7 @@
   <string name="openstreetbug_edit_closed">Zatvorené</string>
   <string name="openstreetbug_commit_ok">Zmeny v chybe uložené</string>
   <string name="openstreetbug_commit_fail">Nepodarilo sa uložiť zmeny v chybe</string>
-  <string name="openstreetbug_not_downloaded">neprevzaté</string>
-  <string name="openstreetbug_last_updated">naposledy aktualizované</string>
+  <!---->
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Máte neuložené zmeny, ktoré budú zahodené, ak budete pokračovať.</string>
   <string name="unsaved_data_proceed">Zahodiť a pokračovať</string>
@@ -128,6 +128,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
   <string name="toast_unsaved_changes">Máte neuložené zmeny. Prosím, najskôr ich odovzdajte.</string>

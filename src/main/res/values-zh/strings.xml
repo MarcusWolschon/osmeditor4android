@@ -50,6 +50,7 @@
   <string name="upload_gpx_description_label">描述</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">可见性</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">新建注解</string>
   <string name="openstreetbug_new_bug">报告问题</string>
   <string name="openstreetbug_new_nodeway">创建节点或路径</string>
@@ -58,6 +59,7 @@
   <string name="openstreetbug_comment_label">评论:</string>
   <string name="openstreetbug_edit_close">关闭</string>
   <string name="openstreetbug_edit_closed">关闭</string>
+  <!---->
   <string name="unsaved_data_title">注意！</string>
   <string name="unsaved_data_message">您有未存储的变更，如果继续将会被丢弃。</string>
   <string name="unsaved_data_proceed">放弃和继续</string>
@@ -105,6 +107,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">你还没有改变什么…</string>
   <string name="toast_upload_success">上传OSM服务器完成。</string>

@@ -46,6 +46,7 @@
   <string name="upload_gpx_description_label">توضیح</string>
   <string name="upload_gpx_tags_label">برچسب ها</string>
   <string name="upload_gpx_visibility_label">دید</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">یادداشت جدید</string>
   <string name="openstreetbug_new_bug">گزارش نتیجه</string>
   <string name="openstreetbug_bug_title">موضوع</string>
@@ -55,6 +56,7 @@
   <string name="openstreetbug_comment_label">نظر: </string>
   <string name="openstreetbug_edit_close">بستن</string>
   <string name="openstreetbug_edit_closed">بسته شده</string>
+  <!---->
   <string name="unsaved_data_title">احتیاط! </string>
   <string name="unsaved_data_message">شما تغییرات ذخیره نشده ای دارید که اگر به پیش روید دور انداخته میشوند. </string>
   <string name="unsaved_data_proceed">دور انداختن و پیش روی</string>
@@ -90,6 +92,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_upload_success">آپلود به سرور OSM پایان یافت. </string>

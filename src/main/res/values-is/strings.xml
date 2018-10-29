@@ -48,6 +48,7 @@
   <string name="upload_gpx_description_label">Lýsing</string>
   <string name="upload_gpx_tags_label">Tög</string>
   <string name="upload_gpx_visibility_label">Sýnileiki</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Ný athugasemd</string>
   <string name="openstreetbug_new_bug">Tilkynna vandamál</string>
   <string name="openstreetbug_new_nodeway">Búa til hnút/feril</string>
@@ -56,7 +57,7 @@
   <string name="openstreetbug_comment_label">Athugasemd:</string>
   <string name="openstreetbug_edit_close">Loka</string>
   <string name="openstreetbug_edit_closed">Lokað</string>
-  <string name="openstreetbug_not_downloaded">ekki niðurhalað</string>
+  <!---->
   <string name="unsaved_data_title">Varúð!</string>
   <string name="unsaved_data_message">Þú hefur gert breytingar sem er ekki búið að vista, þær munu tapast ef þú heldur áfram</string>
   <string name="unsaved_data_proceed">Henda &amp; halda áfram</string>
@@ -104,6 +105,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
   <string name="toast_upload_success">Uppfærslu til OSM lokið.</string>

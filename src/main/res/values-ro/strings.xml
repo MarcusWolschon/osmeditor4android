@@ -20,12 +20,14 @@
   <string name="upload_source_label">Sursa:</string>
   <string name="upload_gpx_description_label">Descripție</string>
   <string name="upload_gpx_visibility_label">Vizibilitate</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Notă nouă</string>
   <string name="openstreetbug_new_bug">Raportează problema</string>
   <string name="openstreetbug_edit_title">Editează nota</string>
   <string name="openstreetbug_commitbutton">Transmite</string>
   <string name="openstreetbug_comment_label">Comentariu:</string>
   <string name="openstreetbug_edit_close">Închide</string>
+  <!---->
   <string name="unsaved_data_title">Atenţie!</string>
   <string name="unsaved_data_message">Aveţi modificări nesalvate ce vor fi șterse dăcă continuaţi.</string>
   <string name="unsaved_data_proceed">Renunţă și continuă</string>
@@ -52,6 +54,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_upload_success">Încărcat către server-ul OSM. </string>

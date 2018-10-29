@@ -4,7 +4,7 @@ Vespucci é un editor OpenStreetMap con tódalas funcións que admite a maioría
 
 ## Primeira vez de uso
 
-No inicio Vespucci mostra a caixa de diálogo "Descargar outra localización" / "Cargar área". Se tes as coordenadas que se amosan e queres descargar de xeito inmediato, podes seleccionar a opción adecuada e configurar o radio ao redor da localización que queres descargar. Non seleccione unha área grande en dispositivos lentos. 
+No inicio Vespucci amosa a caixa de diálogo "Descargar outra localización" / "Cargar área". Se tes as coordenadas que se amosan e queres descargar de xeito inmediato, podes seleccionar a opción adecuada e configurar o radio ao redor da localización que queres descargar. Non seleccione unha área grande en dispositivos lentos. 
 
 Alternativamente, pode descartar o diálogo premendo o botón "Ir ao mapa" e xirar e ampliar a unha localización onde desexa editar e descargar os datos (ver a continuación: "Edición con Vespucci").
 
@@ -16,11 +16,11 @@ Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de 
 
 ### Descargando información OSM
 
-Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou o "Transfer" artigo do menu. Isto mostrará sete opcións:
+Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou o "Transfer" artigo do menu. Isto amosará sete opcións:
 
 * **Baixar vista actual** - descargue a área visible na pantalla e substitúa os datos existentes *(require conexión a internet)*
 * **Engadir vista actual para descargar** - descargue a área visible na pantalla e fúndea cos datos existentes *(require conexión a internet)*
-* **Descargar noutro lugar** - mostra un formulario que lle permite introducir coordenadas, buscar unha localización ou usar a posición actual e, a continuación, descargar unha área en torno a esa localización *(require conexión a internet)*
+* **Descargar noutro lugar** - amosa un formulario que lle permite introducir coordenadas, buscar unha localización ou usar a posición actual e, a continuación, descargar unha área en torno a esa localización *(require conexión a internet)*
 * **Subir datos ao server de OSM** - subir e editar OpenStreetMap *(require autenticación)* *(require conexión a internet)*
 * **Auto baixada** - descargue unha área ao redor da situación xeográfica actual automaticamente *(require conexión a internet)* *(require GPS)*
 * **Arquivo...** - salvar e cargar información en OSM a/dende arquivos do dispositivo.
@@ -116,7 +116,7 @@ Pode copiar ou cortar nodos e xeitos seleccionados e, a continuación, pegar unh
 
 Vespucci ten unha función de "engadir etiquetas de enderezos" que intenta facer que os enderezos de topografía sexan máis eficientes. Pode ser seleccionado:
 
-* despois dunha longa prensión: Vespucci engadirá un nodo no lugar e fará unha mellor adiviñación no número da casa e engadirá as etiquetas de enderezos que estivo a usar recentemente. Se o nodo está nun contorno do edificio engadirá automaticamente unha etiqueta "entrada = si" ao nodo. O editor de etiquetas abrirase para o obxecto en cuestión e permitirá que realice os cambios necesarios.
+* despois dunha longa prensión: Vespucci engadirá un nodo no lugar e fará unha mellor adiviñación no número da casa e engadirá as etiquetas de enderezos que estivo a usar recentemente. Se o nodo está nun contorno do edificio engadirá automaticamente unha etiqueta "entrada = si" ao nodo. O editor de etiquetas abrirase para o obxecto en cuestión e permitirá que realice as mudanzas precisadas.
 * no modos nodo / modo seleccionado: Vespucci engadirá as etiquetas de enderezo como se menciona arriba e inicie o editor de etiquetas.
 * no editor de etiquetas.
 
@@ -130,13 +130,13 @@ Vespucci ten un xeito rápido de engadir restricións de xiro. Se é necesario, 
 
 * Seleccione un camiño cunha etiqueta de estrada (as restricións de turno só se poden engadir ás estradas, se hai que facer isto por outras formas, use o modo xenérico "crear relación").
 * Selecciona "Engadir restrición" no menú
-* Seleccione o nodo "vía" ou o camiño (só os elementos "via" posibles terán a área táctil mostrada)
+* Seleccione o nodo "vía" ou o camiño (só os elementos "via" posibles terán a área táctil amosada)
 * Seleccione o modo "a" (é posible dobrar e configurar o elemento "a" no elemento "de", Vespucci asumirá que está engadindo un xiro sen restricións no_u_turn restriction)
 * Establecer o tipo de restrición
 
 ### Vespucci  en modo "pechado"
 
-Cando se amosa o bloqueo vermello, tódalas accións non editadas están dispoñibles. Adicionalmente, unha prensa longa ou próxima a un obxecto mostrará a pantalla de información detallada se é un obxecto OSM.
+Cando se amosa o bloqueo vermello, tódalas accións non editadas están dispoñíbeis. Adicionalmente, unha prensa longa ou próxima a un obxecto amosará a pantalla de información detallada se é un obxecto OSM.
 
 ### Gardar os teus Trocos
 
@@ -156,7 +156,7 @@ Vespucci has a simple conflict resolver. However if you suspect that there are m
 
 ## Usando GPS
 
-Podes usar Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, pode mostrar a posición actual do GPS (configurar "Mostrar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configure "Seguir posición GPS" no menú GPS). 
+Podes usar Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, pode amosar a posición actual do GPS (configurar "Mostrar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configure "Seguir posición GPS" no menú GPS). 
 
 Se ten este último axustado, mover a pantalla manualmente ou editar fará que o modo "seguir o GPS" se desactive e que a frecha GPS azul cambie dun esquema a unha frecha chea. Para volver rapidamente ao modo "seguir", simplemente toque o botón GPS ou volva a verificar a opción do menú.
 

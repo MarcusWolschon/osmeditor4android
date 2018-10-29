@@ -42,6 +42,7 @@
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nova Nota</string>
   <string name="openstreetbug_new_bug">Reportar problema</string>
   <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
@@ -49,6 +50,7 @@
   <string name="openstreetbug_comment_label">Comentário:</string>
   <string name="openstreetbug_edit_close">Fechar</string>
   <string name="openstreetbug_edit_closed">Fechado</string>
+  <!---->
   <string name="unsaved_data_title">Cuidado!</string>
   <string name="imagery_offset_description">Descrição</string>
   <string name="imagery_offset_author">Autor</string>
@@ -78,6 +80,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_save_done">Salvo com sucesso</string>

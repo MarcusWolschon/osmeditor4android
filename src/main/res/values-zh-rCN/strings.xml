@@ -6,6 +6,8 @@
   <string name="transfer_download_current_upload">上传</string>
   <string name="upload_gpx_description_label">说明</string>
   <string name="upload_gpx_visibility_label">能见度</string>
+  <!--task fragment-->
+  <!---->
   <string name="imagery_offset_description">说明</string>
   <string name="imagery_offset_date">已创建</string>
   <string name="imagery_offset_zoom">缩放</string>
@@ -26,6 +28,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>

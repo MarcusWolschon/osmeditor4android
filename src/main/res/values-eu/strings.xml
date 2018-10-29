@@ -67,6 +67,7 @@
   <string name="upload_gpx_visibility_label">Ikusgaitasuna</string>
   <string name="upload_validation_error_empty_comment">Iruzkina ez luke hutsik egon behar</string>
   <string name="upload_validation_error_empty_source">Iturria ez luke hutsik egon behar</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Ohar berria</string>
   <string name="openstreetbug_new_bug">Eman arazoaren berri</string>
   <string name="openstreetbug_bug_title">Arazoa</string>
@@ -77,10 +78,9 @@
   <string name="openstreetbug_edit_close">Itxi</string>
   <string name="openstreetbug_edit_closed">Itxia</string>
   <string name="openstreetbug_commit_fail">Ezin izan dira akatsaren aldaketak gorde</string>
-  <string name="openstreetbug_not_downloaded">deskargatu gabe</string>
-  <string name="openstreetbug_last_updated">azken eguneraketa</string>
   <string name="openstreetbug_unknown_task_type">Eginkizun mota ezezaguna</string>
   <string name="openstreetbug_not_supported">%1$s ez da onartzen.</string>
+  <!---->
   <string name="unsaved_data_title">Kontuz!</string>
   <string name="unsaved_data_message">Aurrera jarraitzen baduzu, gorde gabe dituzun aldaketak baztertuko dira.</string>
   <string name="unsaved_data_proceed">Baztertu eta aurrera jarraitu</string>
@@ -176,6 +176,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Izena ezin da hutsik egon</string>
   <string name="toast_url_empty">URL-a ezin da hutsik egon</string>

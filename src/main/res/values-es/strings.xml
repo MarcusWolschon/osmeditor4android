@@ -13,6 +13,8 @@
   <string name="upload_problem_message">Algunos o todos los datos no fueron subidos. Intente subir de nuevo más tarde si esto era sólo un problema temporal.</string>
   <string name="bad_request_message">La API respondió con un error, guarde sus datos e informe el problema, por favor:\n\n</string>
   <string name="upload_conflict_title">Conflicto en subida</string>
+  <string name="upload_conflict_message_version">%1$s \ntiene una versión en local %2$d \ny en el servidor %3$d </string>
+  <string name="upload_conflict_message_deleted">%1$s \ntiene una versión en local %2$d \ny fue borrado en el servidor</string>
   <string name="upload_conflict_message_referential">%1$s \nfue eliminado localmente \npero tiene referencias en el servidor</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nya se eliminó en el servidor</string>
   <string name="use_local_version">Usar la versión local</string>
@@ -71,6 +73,7 @@
   <string name="upload_gpx_visibility_label">Visibilidad</string>
   <string name="upload_validation_error_empty_comment">El comentario no debe estar vacío</string>
   <string name="upload_validation_error_empty_source">La fuente no debe estar vacía</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nota nueva</string>
   <string name="openstreetbug_new_bug">Registrar nota</string>
   <string name="openstreetbug_bug_title">Problema</string>
@@ -82,10 +85,9 @@
   <string name="openstreetbug_edit_closed">Cerrado</string>
   <string name="openstreetbug_commit_ok">Cambios de errores guardados</string>
   <string name="openstreetbug_commit_fail">No se pudo guardar los cambios de errores</string>
-  <string name="openstreetbug_not_downloaded">no descargado</string>
-  <string name="openstreetbug_last_updated">última actualización</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarea desconocida</string>
   <string name="openstreetbug_not_supported">%1$s no está soportado.</string>
+  <!---->
   <string name="unsaved_data_title">¡Precaución!</string>
   <string name="unsaved_data_message">Tiene cambios sin guardar que se descartarán si continúa.</string>
   <string name="unsaved_data_proceed">Descartar &amp; continuar</string>
@@ -205,6 +207,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">El nombre no puede estar vacío</string>
   <string name="toast_url_empty">La URL no puede estar vacía</string>
@@ -666,6 +669,7 @@
   <string name="config_category_layers">Descarga y almacenamiento de capas</string>
   <string name="config_maxTileDownloadThreads_title">Número máx. de hilos de descarga</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de hilos para descargar teselas</string>
+  <string name="config_downLoadThreads_current">%1$d Hilos</string>
   <string name="config_tileCacheSize_title">Tamaño de la caché de teselas</string>
   <string name="config_tileCacheSize_summary">Tamaño total de la caché de teselas en MB</string>
   <string name="config_tileCache_current">%1$d MB</string>
@@ -704,6 +708,7 @@
   <string name="changes_created">\"%1$s\" creado</string>
   <string name="confirm_upload_title">Subir cambios</string>
   <string name="confirm_one_upload_text_1">¿Subir el siguiente cambio?</string>
+  <string name="confirm_multiple_upload_text_1">¿Subir los siguientes %1$d cambios?</string>
   <string name="confirm_upload_edits_page">Cambios</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Añadir predeterminado</string>

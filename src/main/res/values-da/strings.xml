@@ -33,6 +33,7 @@
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Synlighed</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Ny note</string>
   <string name="openstreetbug_new_bug">Rapporter problem</string>
   <string name="openstreetbug_bug_title">Problem</string>
@@ -42,7 +43,7 @@
   <string name="openstreetbug_comment_label">Kommentar:</string>
   <string name="openstreetbug_edit_close">Luk</string>
   <string name="openstreetbug_edit_closed">Lukket</string>
-  <string name="openstreetbug_last_updated">sidst opdateret</string>
+  <!---->
   <string name="unsaved_data_title">Bemærk!</string>
   <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
@@ -83,6 +84,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
   <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>

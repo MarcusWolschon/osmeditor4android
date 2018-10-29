@@ -70,6 +70,7 @@
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Uusi muistiinpano</string>
   <string name="openstreetbug_new_bug">Ilmoita ongelmasta</string>
   <string name="openstreetbug_bug_title">Ongelma</string>
@@ -81,9 +82,8 @@
   <string name="openstreetbug_edit_closed">Suljettu</string>
   <string name="openstreetbug_commit_ok">Virheen muutokset tallennettu</string>
   <string name="openstreetbug_commit_fail">Virheen muutoksia ei voitu tallentaa</string>
-  <string name="openstreetbug_not_downloaded">ei ladattu</string>
-  <string name="openstreetbug_last_updated">viimeksi päivitetty</string>
   <string name="openstreetbug_not_supported">%1$s ei tueta.</string>
+  <!---->
   <string name="unsaved_data_title">Varoitus!</string>
   <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
   <string name="unsaved_data_proceed">Hylkää &amp; jatka</string>
@@ -151,6 +151,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
   <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>

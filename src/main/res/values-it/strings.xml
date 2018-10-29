@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Visibilità</string>
   <string name="upload_validation_error_empty_comment">Il commento non dovrebbe essere vuoto</string>
   <string name="upload_validation_error_empty_source">La fonte dei dati non dovrebbe essere vuota</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nuova nota</string>
   <string name="openstreetbug_new_bug">Segnala problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Chiusa</string>
   <string name="openstreetbug_commit_ok">Modifiche del bug salvate</string>
   <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche al bug</string>
-  <string name="openstreetbug_not_downloaded">non scaricato</string>
-  <string name="openstreetbug_last_updated">Ultimo aggiornamento</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
+  <!---->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Ci sono modifiche non salvate che verranno scartate se si prosegue.</string>
   <string name="unsaved_data_proceed">Scarta &amp; procedi</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Il nome non può essere lasciato vuoto</string>
   <string name="toast_url_empty">L\'url non può essere lasciato vuoto</string>

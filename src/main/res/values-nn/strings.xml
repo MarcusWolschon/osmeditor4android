@@ -15,9 +15,11 @@
   <string name="progress_download_message">Lastar ned data fra tenaren…</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_gpx_tags_label">Taggar</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_nodeway">Lag node/veg</string>
   <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <!---->
   <string name="unsaved_data_title">Åtvaring!</string>
   <string name="unsaved_data_message">Du har ulagra endringar som vil bli skrota om du går vidare.</string>
   <string name="unsaved_data_proceed">Skrot og gå vidare</string>
@@ -36,6 +38,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
   <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>

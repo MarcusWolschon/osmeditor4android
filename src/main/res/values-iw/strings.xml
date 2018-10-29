@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">מצב הצגה</string>
   <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
   <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">הערה חדשה</string>
   <string name="openstreetbug_new_bug">דיווח על תקלה</string>
   <string name="openstreetbug_bug_title">תקלה</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">נסגר</string>
   <string name="openstreetbug_commit_ok">השינויים בבאג נשמרו</string>
   <string name="openstreetbug_commit_fail">לא ניתן לשמור את השינויים בבאג</string>
-  <string name="openstreetbug_not_downloaded">לא התקבל</string>
-  <string name="openstreetbug_last_updated">עדכון אחרון</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
+  <!---->
   <string name="unsaved_data_title">אזהרה!</string>
   <string name="unsaved_data_message">יש לך שינויים שלא נשמרו והם יימחקו אלמלא יישמרו.</string>
   <string name="unsaved_data_proceed">התעלמות והמשך</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">השם לא יכול להישאר ריק</string>
   <string name="toast_url_empty">הכתובת לא יכולה להיות ריקה</string>

@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Visibilidade</string>
   <string name="upload_validation_error_empty_comment">O comentário não deve estar em branco</string>
   <string name="upload_validation_error_empty_source">A fonte não deve estar em branco</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Novo Erro Reportado</string>
   <string name="openstreetbug_new_bug">Reportar Erro</string>
   <string name="openstreetbug_bug_title">Erro</string>
@@ -87,10 +88,16 @@
   <string name="openstreetbug_edit_closed">Fechado</string>
   <string name="openstreetbug_commit_ok">As alterações do erro foram gravadas</string>
   <string name="openstreetbug_commit_fail">Não foi possível gravar as alterações do erro</string>
-  <string name="openstreetbug_not_downloaded">não descarregado</string>
-  <string name="openstreetbug_last_updated">última atualização</string>
   <string name="openstreetbug_unknown_task_type">Modo tarefas não designadas</string>
   <string name="openstreetbug_not_supported">%1$snão é suportado</string>
+  <string name="note_description">Nota: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="generic_bug">Erro</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Personalizado</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <!---->
   <string name="unsaved_data_title">Atenção!</string>
   <string name="unsaved_data_message">Tem alterações por gravar que serão perdidas se prosseguir.</string>
   <string name="unsaved_data_proceed">Não gravar alterações e prosseguir</string>
@@ -224,6 +231,11 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci</string>
+  <string name="default_channel_description">Canal padrão do Vespucci</string>
+  <string name="qa_channel_name">Perguntas Frequentes do Vespucci</string>
+  <string name="qa_channel_description">Perguntas Frequentes do canal de alerta do Vespucci</string>
   <!--Toaster-->
   <string name="toast_name_empty">O nome tem de estar preenchido</string>
   <string name="toast_url_empty">O URL tem de ser preenchicdo</string>
@@ -588,8 +600,8 @@ há %3$s %4$s</string>
 .</string>
   <string name="config_mapProfile_title">Estilo de dados</string>
   <string name="config_mapProfile_summary">Escolher o estilo da camada de dados</string>
-  <string name="config_enableOpenStreetBugs_title">Mostrar Erros Reportados</string>
-  <string name="config_enableOpenStreetBugs_summary">Visualizar, Editar e Criar Erros Reportados/OSMOSE</string>
+  <string name="config_enableOpenStreetBugs_title">Mostrar erros reportados</string>
+  <string name="config_enableOpenStreetBugs_summary">Visualizar, editar e criar erros reportados e OSMOSE</string>
   <string name="config_enablePhotoLayer_title">Ativar camada de fotos</string>
   <string name="config_enablePhotoLayer_summary">Mostrar fotos geo-referenciadas</string>
   <string name="config_enableKeepScreenOn_title">Manter ecrã ligado</string>
@@ -608,7 +620,7 @@ há %3$s %4$s</string>
   <string name="config_category_info">Sobre</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
-  <string name="config_category_view">Preferências da interface</string>
+  <string name="config_category_view">Interface</string>
   <string name="config_category_view_summary">Opções de configuração do ecrã e disposição</string>
   <string name="config_iconbutton_title">Ver ícones dos nós</string>
   <string name="config_iconbutton_summary">Mostra o ícone do modelo de etiqueta mais adequado sobre os nós.</string>
@@ -620,7 +632,7 @@ há %3$s %4$s</string>
   <string name="config_showCameraAction_summary">Mostrar ícone da câmara na barra de ações</string>
   <string name="config_followGPSbutton_title">Posição do botão seguir GPS</string>
   <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"seguir GPS\"</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer áreas p/descarregar</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer não descarregado</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
   <string name="config_fullscreenMode_title">Modo ecrã total</string>
   <string name="config_fullscreenMode_summary">Comportamento em dispositivos com teclas \"suaves\".</string>
@@ -644,15 +656,15 @@ há %3$s %4$s</string>
   <string name="config_maxStrokeWidth_summary">Não desenhar uma linha mais larga que isto</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
-  <string name="config_category_editing">Pref. dados e edição</string>
+  <string name="config_category_editing">Dados e edição</string>
   <string name="config_category_editing_summary">Configurações de descarregamento automático, gravar e notificações.</string>
   <string name="config_forceContextMenu_title">Usar menus de contexto</string>
   <string name="config_forceContextMenu_summary">Mostrar sempre o menu de contexto se a seleção for ambígua</string>
   <string name="config_address_tags">Etiquetas de endereço</string>
   <string name="config_address_tags_summary">Etiquetas para previsão de endereço</string>
-  <string name="config_enableNameSuggestions_title">Ativar sugestão de nome</string>
+  <string name="config_enableNameSuggestions_title">Sugerir nomes</string>
   <string name="config_enableNameSuggestions_summary">Ativa a apresentação de sugestões para a etiqueta de nome</string>
-  <string name="config_enableNameSuggestionsPresets_title">Ativar sugestão de etiquetas</string>
+  <string name="config_enableNameSuggestionsPresets_title">Sugerir etiquetas</string>
   <string name="config_enableNameSuggestionsPresets_summary">Adicionar automaticamente etiqueta quando for selecionado o nome da etiqueta</string>
   <string name="config_generateAlerts_title">Gerar notificações</string>
   <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou erros</string>
@@ -670,9 +682,9 @@ há %3$s %4$s</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_bugFilter_title">Filtro para erros reportados</string>
   <string name="config_bugFilter_summary">Selecione que elementos são mostrados na camada erros reportados/OSMOSE</string>
-  <string name="config_bugDownloadRadius_title">Raio de descarregar de erros/OSMOSE</string>
+  <string name="config_bugDownloadRadius_title">Raio p/descarregar erros/OSMOSE</string>
   <string name="config_bugDownloadRadius_summary">Raio (m) de descarregamento de erros reportados/OSMOSE</string>
-  <string name="config_maxBugDownloadSpeed_title">Velocidade máxima de descarregar erros/OSMOSE</string>
+  <string name="config_maxBugDownloadSpeed_title">Velocidade máxima p/descarregar erros/OSMOSE</string>
   <string name="config_maxBugDownloadSpeed_summary">Limite (em Km/h) sobre o qual o descarregamento automático de erros reportados/OSMOSE é interrompido</string>
   <string name="config_closeChangesetOnSave_title">Fechar conj. de alterações</string>
   <string name="config_closeChangesetOnSave_summary">Fechar os conjuntos de alterações ao gravar</string>
@@ -697,7 +709,7 @@ há %3$s %4$s</string>
   <string name="config_gps_network_summary">Se o GPS não existir ou estar desativado, usar a rede de telemóveis</string>
   <!--Server Settings-->
   <string name="config_category_server">Configurações do servidor</string>
-  <string name="config_category_server_summary">API do OSM e configuração de outros servidores</string>
+  <string name="config_category_server_summary">API do OpenStreetMap e configuração de outros servidores</string>
   <string name="config_apibutton_title">URL da API OpenStreetMap</string>
   <string name="config_apibutton_summary">Pode definir aqui um URL da API do OpenStreetMap diferente do usual. Em geral isto não deve ser alterado!</string>
   <string name="config_loginbutton_title">Conta de utilizador</string>
@@ -709,7 +721,7 @@ há %3$s %4$s</string>
   <string name="config_geocoderbutton_title">Configurar geo-codificadores</string>
   <string name="config_geocoderbutton_summary">Adicionar, editar, eliminar geo-codificador para a funcionalidade de procura</string>
   <!--Layer download and storage-->
-  <string name="config_category_layers">Transf. camada e armaz.</string>
+  <string name="config_category_layers">Descarregar/armaz.camada</string>
   <string name="config_category_layers_summary">Descarregamento e armazenamento de imagens de fundo baseadas em mosaicos</string>
   <string name="config_maxTileDownloadThreads_title">Nº máx. descarregamentos</string>
   <string name="config_maxTileDownloadThreads_summary">Número máximo de tarefas de descarregamento de mosaicos</string>

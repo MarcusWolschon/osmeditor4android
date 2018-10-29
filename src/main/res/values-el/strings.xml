@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">ορατότητα</string>
   <string name="upload_validation_error_empty_comment">Το σχόλιο δεν πρέπει να είναι άδειο</string>
   <string name="upload_validation_error_empty_source">Η πηγή δεν πρέπει να είναι άδεια</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Νέα Σημείωση</string>
   <string name="openstreetbug_new_bug">Αναφορά Ζητήματος</string>
   <string name="openstreetbug_bug_title">Ζήτημα</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Έκλεισε</string>
   <string name="openstreetbug_commit_ok">Οι αλλαγές σφαλμάτων αποθηκεύτηκαν</string>
   <string name="openstreetbug_commit_fail">Δεν είναι δυνατή η αποθήκευση αλλαγών σφαλμάτων</string>
-  <string name="openstreetbug_not_downloaded">δεν ελήφθη</string>
-  <string name="openstreetbug_last_updated">τελευταία ενημερώθηκε στις</string>
   <string name="openstreetbug_unknown_task_type">Άγνωστος τύπος εργασίας</string>
   <string name="openstreetbug_not_supported">%1$s δεν υποστηρίζεται.</string>
+  <!---->
   <string name="unsaved_data_title">Προσοχή!</string>
   <string name="unsaved_data_message">Έχετε μη αποθηκευμένες αλλαγές οι οποίες θα χαθούν αν συνεχίσετε.</string>
   <string name="unsaved_data_proceed">Απόρριψη και συνέχεια</string>
@@ -224,6 +224,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Το όνομα δεν μπορεί να είναι κενό</string>
   <string name="toast_url_empty">Το URL δεν μπορεί να είναι κενό</string>

@@ -76,6 +76,7 @@
   <string name="upload_gpx_visibility_label">Видимост</string>
   <string name="upload_validation_error_empty_comment">Коментарът не трябва да е празен</string>
   <string name="upload_validation_error_empty_source">Източникът не трябва да е празен</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Нова бележка</string>
   <string name="openstreetbug_new_bug">Докладвайте проблем</string>
   <string name="openstreetbug_bug_title">Проблем</string>
@@ -87,10 +88,9 @@
   <string name="openstreetbug_edit_closed">Затворен</string>
   <string name="openstreetbug_commit_ok">Промените записани</string>
   <string name="openstreetbug_commit_fail">Записът на промените неуспешен</string>
-  <string name="openstreetbug_not_downloaded">не е свалено</string>
-  <string name="openstreetbug_last_updated">последно обновен</string>
   <string name="openstreetbug_unknown_task_type">Неизвестен вид задача</string>
   <string name="openstreetbug_not_supported">%1$s не се поддържа.</string>
+  <!---->
   <string name="unsaved_data_title">Внимание!</string>
   <string name="unsaved_data_message">Имате незапазени промени, които ще бъдат отхвърлени, ако продължите.</string>
   <string name="unsaved_data_proceed">Отхвърляне &amp; продължаване</string>
@@ -211,6 +211,7 @@
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_name_empty">Името не може да е празно</string>
   <string name="toast_url_empty">URL не може да е празно</string>

@@ -31,6 +31,7 @@
   <string name="upload_close_changeset_label">Zatvaranje changeseta:</string>
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Oznake</string>
+  <!--task fragment-->
   <string name="openstreetbug_new_title">Nova bilješka</string>
   <string name="openstreetbug_new_bug">Prijavi problem</string>
   <string name="openstreetbug_new_nodeway">Stvori točku/liniju</string>
@@ -39,6 +40,7 @@
   <string name="openstreetbug_comment_label">Komentar:</string>
   <string name="openstreetbug_edit_close">Zatvori</string>
   <string name="openstreetbug_edit_closed">Zatvoren</string>
+  <!---->
   <string name="unsaved_data_title">Oprez!</string>
   <string name="unsaved_data_message">Imate nespremljenih promjena koje će se odbaciti ako nastavite.</string>
   <string name="unsaved_data_proceed">Odbaci i nastavi</string>
@@ -67,6 +69,7 @@
   <!--Undo - Redo dialog-->
   <!--BoxPicker-->
   <!--NumberPiker-->
+  <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_upload_success">Spremanje na OSM poslužitelj završeno.</string>
