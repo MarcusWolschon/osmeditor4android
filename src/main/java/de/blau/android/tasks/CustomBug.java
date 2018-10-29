@@ -11,9 +11,9 @@ import java.util.List;
 import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.R;
-import de.blau.android.osm.OsmElement;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 
@@ -22,7 +22,7 @@ import de.blau.android.util.SavingHelper;
  * 
  * @author Simon Poole
  */
-public class CustomBug extends Bug implements Serializable {
+public final class CustomBug extends Bug implements Serializable {
 
     private static final String DEBUG_TAG = CustomBug.class.getSimpleName();
 
@@ -31,6 +31,14 @@ public class CustomBug extends Bug implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Parse an InputStream containing bugs in JSON format
+     * 
+     * @param is the InputStream
+     * @return a List of CustomBugs
+     * @throws IOException
+     * @throws NumberFormatException
+     */
     public static List<CustomBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
         ArrayList<CustomBug> result = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(is));
@@ -92,20 +100,14 @@ public class CustomBug extends Bug implements Serializable {
         return "Custom: " + (subtitle != null && subtitle.length() != 0 ? subtitle : title);
     }
 
-    public String getLongDescription(Context context, boolean withElements) {
-        String result = "Custom: " + level2string(context) + "<br><br>" + (subtitle != null && subtitle.length() != 0 ? subtitle : title) + "<br>";
-        if (withElements) {
-            for (OsmElement osm : getElements()) {
-                if (osm.getOsmVersion() >= 0) {
-                    result = result + "<br>" + osm.getName() + " (" + context.getString(R.string.openstreetbug_not_downloaded) + ") #" + osm.getOsmId();
-                } else {
-                    result = result + "<br>" + osm.getName() + " " + osm.getDescription(false);
-                }
-                result = result + "<br><br>";
-            }
-        }
-        result = result + context.getString(R.string.openstreetbug_last_updated) + ": " + update + " " + context.getString(R.string.id) + ": " + id;
-        return result;
+    @Override
+    public String getDescription(@NonNull Context context) {
+        return getBugDescription(context, R.string.custom_bug);
+    }
+
+    @Override
+    public String getLongDescription(@NonNull Context context, boolean withElements) {
+        return getBugLongDescription(context, R.string.custom_bug, withElements);
     }
 
     @Override
@@ -118,6 +120,11 @@ public class CustomBug extends Bug implements Serializable {
         return false;
     }
 
+    /**
+     * Generate a descriptive JSON header
+     * 
+     * @return a String containing the header
+     */
     public static String headerToJSON() {
         return "\"description\": [" + "\"lat\",\"lon\",\"error_id\",\"elems\"," + "\"subtitle\",\"title\",\"level\",\"update\"" + "],";
     }

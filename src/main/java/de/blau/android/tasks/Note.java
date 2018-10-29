@@ -11,7 +11,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.App;
+import de.blau.android.R;
 import de.blau.android.osm.JosmXmlSerializable;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Util;
@@ -61,10 +65,18 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         // note tag has already been read ... very ugly should refactor
         lat = (int) (Double.parseDouble(parser.getAttributeValue(null, "lat")) * 1E7d);
         lon = (int) (Double.parseDouble(parser.getAttributeValue(null, "lon")) * 1E7d);
-        parseBug(parser);
+        parseNote(parser);
     }
 
-    public void parseBug(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
+    /**
+     * Parse a Note from XML
+     * 
+     * @param parser the parser instance
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws NumberFormatException
+     */
+    public void parseNote(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
 
         int eventType;
 
@@ -198,17 +210,16 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return result.toString();
     }
 
-    /**
-     * Get a string descriptive of the bug. This is intended to be used as a short bit of text representative of the
-     * bug.
-     * 
-     * @return The first comment of the bug.
-     */
     @Override
     public String getDescription() {
-        return "note " + (comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "<new>"); // TODO
-                                                                                                                         // externalize
-                                                                                                                         // string
+        return "note " + (comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "<new>");
+    }
+
+    @Override
+    public String getDescription(@NonNull Context context) {
+        String[] states = context.getResources().getStringArray(R.array.bug_state);
+        return context.getString(R.string.note_description, comments != null && !comments.isEmpty() ? Util.fromHtml(comments.get(0).getText()) : "",
+                states[getState().ordinal()]);
     }
 
     /**
@@ -231,6 +242,11 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return result;
     }
 
+    /**
+     * Add a comment to the Note
+     * 
+     * @param comment comment as a String
+     */
     public void addComment(String comment) {
         if (comment != null && comment.length() > 0) {
             comments.add(new NoteComment(this, comment));
@@ -246,6 +262,12 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return comments == null ? 0 : comments.size();
     }
 
+    /**
+     * Get the last comment
+     * 
+     * @return the last NoteComment or null
+     */
+    @Nullable
     public NoteComment getLastComment() {
         if (comments != null && !comments.isEmpty()) {
             return comments.get(comments.size() - 1);

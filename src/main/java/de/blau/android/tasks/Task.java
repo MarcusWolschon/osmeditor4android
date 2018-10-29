@@ -3,6 +3,8 @@ package de.blau.android.tasks;
 import java.io.Serializable;
 import java.util.Date;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -67,6 +69,7 @@ public abstract class Task implements Serializable, BoundedObject {
     /**
      * @return the state
      */
+    @NonNull
     public State getState() {
         return state;
     }
@@ -74,7 +77,7 @@ public abstract class Task implements Serializable, BoundedObject {
     /**
      * @param state the state to set
      */
-    public void setState(State state) {
+    public void setState(@NonNull State state) {
         this.state = state;
     }
 
@@ -131,6 +134,7 @@ public abstract class Task implements Serializable, BoundedObject {
      * 
      * @return a BoundingBox for the location of this Task
      */
+    @NonNull
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
     }
@@ -167,15 +171,26 @@ public abstract class Task implements Serializable, BoundedObject {
     /**
      * Get a description for this Task
      * 
-     * @return a String containing a short decsription
+     * @return a String containing a short description
      */
+    @NonNull
     public abstract String getDescription();
+
+    /**
+     * Get a description for this Task, i18n version
+     * 
+     * @param context Android Context
+     * @return a String containing a short description
+     */
+    @NonNull
+    public abstract String getDescription(@NonNull Context context);
 
     /**
      * Get the time this Task was last updated
      * 
      * @return a Date object
      */
+    @NonNull
     public abstract Date getLastUpdate();
 
     /**
@@ -186,5 +201,6 @@ public abstract class Task implements Serializable, BoundedObject {
      * 
      * @return the string we will filter on
      */
+    @NonNull
     public abstract String bugFilterKey();
 }

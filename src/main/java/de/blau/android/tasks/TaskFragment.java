@@ -1,6 +1,7 @@
 package de.blau.android.tasks;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.text.Editable;
@@ -174,9 +174,9 @@ public class TaskFragment extends ImmersiveDialogFragment {
             for (final OsmElement e : ((Bug) bug).getElements()) {
                 String text;
                 if (e.getOsmVersion() < 0) { // fake element
-                    text = e.getName() + " (" + getActivity().getString(R.string.openstreetbug_not_downloaded) + ") #" + e.getOsmId();
+                    text = getActivity().getString(R.string.bug_element_1, e.getName(), e.getOsmId());
                 } else { // real
-                    text = e.getName() + " " + e.getDescription(false);
+                    text = getActivity().getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
                 }
                 TextView tv = new TextView(getActivity());
                 tv.setClickable(true);
@@ -331,6 +331,12 @@ public class TaskFragment extends ImmersiveDialogFragment {
         }
     }
 
+    /**
+     * Map spinner position to state
+     * 
+     * @param pos the position
+     * @return the corresponding State
+     */
     private static State pos2state(int pos) {
         if (pos == State.CLOSED.ordinal()) {
             return State.CLOSED;

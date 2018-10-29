@@ -1810,7 +1810,7 @@ public class Server {
     private void parseBug(@NonNull Note bug, @NonNull InputStream inputStream) throws IOException, XmlPullParserException {
         XmlPullParser parser = xmlParserFactory.newPullParser();
         parser.setInput(new BufferedInputStream(inputStream, StreamUtils.IO_BUFFER_SIZE), null);
-        bug.parseBug(parser); // replace contents with result from server
+        bug.parseNote(parser); // replace contents with result from server
         App.getTaskStorage().setDirty();
     }
 
