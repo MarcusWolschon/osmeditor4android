@@ -5,34 +5,40 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h2>Vespucci 0.9.7 Highlights</h2><p>2016-08-16</p>
+<h2>Vespucci 0.9.7 Highlights</h2>
+<p>2016-08-16</p>
 <ul>
   <li>Address tags used for address prediction can be configured.</li>
   <li>Alert/Notification generation from auto-download background process</li>
   <li>Reworked implementation of the Notes subsystem.
-  <ul>
-    <li>Support for Osmose generated "Bugs"</li>
-    <li>Offline support: "Bugs" can be downloaded at home and added/edited during survey and either uploaded immediately individually or in bulk post-survey. Downloaded data will be stored over the app life cycle and will remain available even if the app is terminated.</li>
-    <li>Filtering of Osmose issue levels</li>
-    <li>Separate auto-download parameters</li>
-  </ul></li>
+    <ul>
+      <li>Support for Osmose generated "Bugs"</li>
+      <li>Offline support: "Bugs" can be downloaded at home and added/edited during survey and either uploaded immediately individually or in bulk post-survey. Downloaded data will be stored over the app life cycle and will remain available even if the app is terminated.</li>
+      <li>Filtering of Osmose issue levels</li>
+      <li>Separate auto-download parameters</li>
+    </ul>
+  </li>
   <li>Support for translated presets.</li>
   <li>Search in presets.</li>
   <li>Improved keyboard support</li>
   <li>Grid/scale overlay</li>
   <li>Experimental voice support (work in progress)
-  <ul>
-    <li>in "New" mode (long press): a name (example "McDonalds") or a preset name, either in English (or in German), (example: "Butcher" or "Fleischer" or "Fleischer Schmidt") or a number ("twentytwo") will create a node of the corresponding kind or an address on the main screen</li>
-    <li>in lock mode touching the screen will work with "map" or in German "hier" followed by one of the above, the node will be created at the current GPS position (which is less useful than you think)</li>
-    <li>note: the facility uses googles voice recognition framework which requires a working network connection</li>
-  </ul></li>
-</ul><p>The full change log is available here <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">https://github.com/MarcusWolschon/osmeditor4android/commits/master</a> </p><h2>Upgrading from previous Versions</h2>
+    <ul>
+      <li>in "New" mode (long press): a name (example "McDonalds") or a preset name, either in English (or in German), (example: "Butcher" or "Fleischer" or "Fleischer Schmidt") or a number ("twentytwo") will create a node of the corresponding kind or an address on the main screen</li>
+      <li>in lock mode touching the screen will work with "map" or in German "hier" followed by one of the above, the node will be created at the current GPS position (which is less useful than you think)</li>
+      <li>note: the facility uses googles voice recognition framework which requires a working network connection</li>
+    </ul>
+  </li>
+</ul>
+<p>The full change log is available here <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">https://github.com/MarcusWolschon/osmeditor4android/commits/master</a> </p>
+<h2>Upgrading from previous Versions</h2>
 <ul>
   <li>The saved editing state file format has changed, please complete any edits before upgrading.</li>
   <li>The original and very old "editing modes" have been completely removed.</li>
   <li>Tag editing only mode can still be turned on with a long press on the lock icon.</li>
   <li>The data auto-download checkbox has moved to the "Transfer" menu</li>
   <li>If auto-downloading data or of Notes/Bugs is enabled the tracking service will continue even if the app is paused/stopped. To completely exit, exit by pressing the back button (if you are recording a track you will need to explicitly stop tracking to terminate the background service).</li>
-</ul><p>For known problems please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">https://github.com/MarcusWolschon/osmeditor4android/issues</a></p>
+</ul>
+<p>For known problems please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">https://github.com/MarcusWolschon/osmeditor4android/issues</a></p>
 </body>
 </html>

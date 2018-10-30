@@ -5,7 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>Editor de horário de abertura do OpenStreetMap</h1><p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p><p>No entanto, na maioria das vezes só se usa uma pequena parte da especificação. O editor tem isto em conta e tenta simplificar não mostrando outras opções avançadas nos menus, assim como mostrar pequenos modelos de preenchimento úteis em levantamentos no terreno.</p><p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p><h2>Usar o editor de horário de abertura</h2><p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p><p>Se definiu um modelo padrão (através do menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a funcionalidade "Carregar modelo" pode carregar um modelo qualquer gravado e com a função "Gravar modelo" pode gravar o valor atual num modelo. Pode definir modelos separados e valores padrão nas etiquetas "opening_hours" (horário de abertura) "collection_times" (hora de recolha) e "service_times" (horário de serviços).</p><p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p><p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p><h3>Botão do menu principal</h3>
+<h1>Editor de horário de abertura do OpenStreetMap</h1>
+<p>A especificação dos horários de aberturas no OpenStreetMap é bastante complexa e não permite uma utilização simples e intuitiva.</p>
+<p>No entanto, na maioria das vezes só se usa uma pequena parte da especificação. O editor tem isto em conta e tenta simplificar não mostrando outras opções avançadas nos menus, assim como mostrar pequenos modelos de preenchimento úteis em levantamentos no terreno.</p>
+<p><em>Esta documentação é temporária e encontra-se em desenvolvimento</em></p>
+<h2>Usar o editor de horário de abertura</h2>
+<p>Num processo normal, o objeto que está a editar irá ter uma etiqueta de horário de abertura (opening_hours, service_times e collection_times) ou então poderá tornar a aplicar o modelo de etiquetas ao objeto para obter um campo de horário de abertura limpo. Se necessitar de adicionar o campo manualmente e estiver a usar o Vespucci, pode introduzir a chave na página de detalhes e então mudar para a aba baseada em formulário para editá-la. Se acreditar que a etiqueta de horário de abertura devia fazer parte do modelo de etiquetas, por favor abra um relatório para o seu editor.</p>
+<p>Se definiu um modelo padrão (através do menu "Gerir modelos"), este será carregado automaticamente quando o editor for iniciado com um valor vazio. Com a funcionalidade "Carregar modelo" pode carregar um modelo qualquer gravado e com a função "Gravar modelo" pode gravar o valor atual num modelo. Pode definir modelos separados e valores padrão nas etiquetas "opening_hours" (horário de abertura) "collection_times" (hora de recolha) e "service_times" (horário de serviços).</p>
+<p>Claro que pode construir um valor de abertura a partir do nada, mas recomendamos usar um dos modelos existentes como ponto de partida.</p>
+<p>Se for carregado um valor de horário de abertura existente, é feita uma tentativa para corrigir automaticamente para estar conforme a especificação do horário de abertura. Se isso não for possível, a localização onde o erro se encontra é destacada e poderá corrigir manualmente. Certa de um quarto de todos os valores de horários de abertura no OpenStreetMap têm problemas, mas menos de 10% não podem ser corrigidos. Veja <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para mais informação sobre que desvios da especificação são tolerados.</p>
+<h3>Botão do menu principal</h3>
 <ul>
   <li><strong>Adicionar regra</strong>: adiciona uma nova regra.</li>
   <li><strong>Adicionar regra para feriado</strong>: adiciona uma nova regra para feriado junto com um alteração de estado.</li>
@@ -15,40 +24,45 @@
   <li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
   <li><strong>Atualizar</strong>: torna a processar os valores das horas.</li>
   <li><strong>Eliminar tudo</strong>: elimina todas as regras.</li>
-</ul><h3>Regras</h3><p>As regras padrão são adicionadas como regras <em>normais</em>, isto implica que elas irão gravar por cima que quaisquer valores existentes para os mesmo dias. Isto pode ser um problema ao especificar horas expandidas, normalmente irá querer mudar as regras através do menu <em>Mostrar tipo de regra</em> para <em>aditivo</em>.</p><h4>Menu de regras</h4>
+</ul>
+<h3>Regras</h3>
+<p>As regras padrão são adicionadas como regras <em>normais</em>, isto implica que elas irão gravar por cima que quaisquer valores existentes para os mesmo dias. Isto pode ser um problema ao especificar horas expandidas, normalmente irá querer mudar as regras através do menu <em>Mostrar tipo de regra</em> para <em>aditivo</em>.</p>
+<h4>Menu de regras</h4>
 <ul>
   <li><strong>Adicionar estado/comentário</strong>: altera o efeito desta regra e permite adicionar um comentário opcional.</li>
   <li><strong>Adicionar feriado</strong>: adiciona um seletor para feriados civis ou escolares.</li>
   <li><strong>Adicionar segmento de tempo...</strong>
-  <ul>
-    <li><strong>Hora - hora</strong>: uma hora inicial e final no mesmo dia.</li>
-    <li><strong>Hora - tempo alargado</strong>: uma hora inicial e uma final no dia seguinte (por exemplo 26:00 corresponde às 02:00 do dia seguinte)</li>
-    <li><strong>Hora variável - hora</strong>: de uma hora inicial variável (amanhecer, anoitecer, nascer do sol e pôr do sol) até uma hora de fecho no mesmo dia.</li>
-    <li><strong>Hora variável - tempo alargado</strong>: de uma hora inicial variável até uma hora de fecho no dia seguinte.</li>
-    <li><strong>Hora - hora variável</strong>: de uma hora de início até uma hora de fim.</li>
-    <li><strong>Hora variável - hora variável</strong>: de uma hora de início variável até uma hora de fim variável.</li>
-    <li><strong>Hora</strong>: um ponto no tempo.</li>
-    <li><strong>Hora-fecho após últ.cliente</strong>: começa numa hora inicial.</li>
-    <li><strong>Hora variável</strong>: na hora variável</li>
-    <li><strong>Hora variável-fecho após últ.cliente</strong>: começa numa hora inicial variável.</li>
-  </ul></li>
+    <ul>
+      <li><strong>Hora - hora</strong>: uma hora inicial e final no mesmo dia.</li>
+      <li><strong>Hora - tempo alargado</strong>: uma hora inicial e uma final no dia seguinte (por exemplo 26:00 corresponde às 02:00 do dia seguinte)</li>
+      <li><strong>Hora variável - hora</strong>: de uma hora inicial variável (amanhecer, anoitecer, nascer do sol e pôr do sol) até uma hora de fecho no mesmo dia.</li>
+      <li><strong>Hora variável - tempo alargado</strong>: de uma hora inicial variável até uma hora de fecho no dia seguinte.</li>
+      <li><strong>Hora - hora variável</strong>: de uma hora de início até uma hora de fim.</li>
+      <li><strong>Hora variável - hora variável</strong>: de uma hora de início variável até uma hora de fim variável.</li>
+      <li><strong>Hora</strong>: um ponto no tempo.</li>
+      <li><strong>Hora-fecho após últ.cliente</strong>: começa numa hora inicial.</li>
+      <li><strong>Hora variável</strong>: na hora variável</li>
+      <li><strong>Hora variável-fecho após últ.cliente</strong>: começa numa hora inicial variável.</li>
+    </ul>
+  </li>
   <li><strong>Adicionar intervalo de dia da semana</strong>: adiciona um seletor baseado no dia da semana.</li>
   <li><strong>Adicionar intervalo de datas...</strong>
-  <ul>
-    <li><strong>Data - data</strong>: de uma data inicial (ano, mês, dia) até uma data de fim.</li>
-    <li><strong>Data variável - data</strong>: de uma data inicial variável (atualmente a especificação apenas define a <em>páscoa</em>) até uma data de fim.</li>
-    <li><strong>Data - data variável</strong>: de uma data inicial até uma data variável.</li>
-    <li><strong>Data variável - data variável</strong>: de uma data inicial variável até uma data de fim variável.</li>
-    <li><strong>Ocorrência no mês - ocorrência no mês</strong>: de uma ocorrência no mês do dia da semana até ao mesmo.</li>
-    <li><strong>Ocorrência num mês - data</strong>: de uma ocorrência no mês do dia da semana até a uma data de fim.</li>
-    <li><strong>Data - ocorrência num mês</strong>: de uma data de início até uma ocorrência no mês do dia da semana.</li>
-    <li><strong>Ocorrência no mês - data variável</strong>: de uma ocorrência no dia da semana num mês até uma data de fim variável.</li>
-    <li><strong>Data variável - ocorrência no mês</strong>: de uma data inicial variável até uma ocorrência no dia da semana num mês.</li>
-    <li><strong>Data - fecho após últ.cliente</strong>: começa numa data inicial.</li>
-    <li><strong>Data variável - fecho após últ.cliente</strong>: começa numa data inicial variável.</li>
-    <li><strong>Ocorrência no mês - fecho após últ.cliente</strong>: começa num dia da semana num mês inicial.</li>
-    <li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
-  </ul></li>
+    <ul>
+      <li><strong>Data - data</strong>: de uma data inicial (ano, mês, dia) até uma data de fim.</li>
+      <li><strong>Data variável - data</strong>: de uma data inicial variável (atualmente a especificação apenas define a <em>páscoa</em>) até uma data de fim.</li>
+      <li><strong>Data - data variável</strong>: de uma data inicial até uma data variável.</li>
+      <li><strong>Data variável - data variável</strong>: de uma data inicial variável até uma data de fim variável.</li>
+      <li><strong>Ocorrência no mês - ocorrência no mês</strong>: de uma ocorrência no mês do dia da semana até ao mesmo.</li>
+      <li><strong>Ocorrência num mês - data</strong>: de uma ocorrência no mês do dia da semana até a uma data de fim.</li>
+      <li><strong>Data - ocorrência num mês</strong>: de uma data de início até uma ocorrência no mês do dia da semana.</li>
+      <li><strong>Ocorrência no mês - data variável</strong>: de uma ocorrência no dia da semana num mês até uma data de fim variável.</li>
+      <li><strong>Data variável - ocorrência no mês</strong>: de uma data inicial variável até uma ocorrência no dia da semana num mês.</li>
+      <li><strong>Data - fecho após últ.cliente</strong>: começa numa data inicial.</li>
+      <li><strong>Data variável - fecho após últ.cliente</strong>: começa numa data inicial variável.</li>
+      <li><strong>Ocorrência no mês - fecho após últ.cliente</strong>: começa num dia da semana num mês inicial.</li>
+      <li><strong>Com deslocamentos...</strong>: como as mesmas entradas de cima mas com deslocamentos especificados (isto raramente é usado)</li>
+    </ul>
+  </li>
   <li><strong>Adicionar intervalo de anos</strong>: adiciona um seletor baseado em anos.</li>
   <li><strong>Adicionar intervalo de semanas</strong>: adiciona um seletor baseado no número da semana</li>
   <li><strong>Duplicar</strong>: cria uma cópia da regra atual e insere-a após a posição atual.</li>
@@ -56,7 +70,10 @@
   <li><strong>Mover para cima</strong>: move uma posição para cima a regra atual (não disponível na primeira regra).</li>
   <li><strong>Mover para baixo</strong>: move uma posição para baixo a regra atual</li>
   <li><strong>Eliminar</strong>: elimina a regra atual.</li>
-</ul><h3>Segmentos de tempo</h3><p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de minutos. Isto pode ser alterado no menu.</p><h4>Menu de segmento de tempo</h4>
+</ul>
+<h3>Segmentos de tempo</h3>
+<p>Para tornar a edição de segmentos de tempo o mais fácil possível, tentamos escolher o melhor intervalo de tempo e granularidade para as barras de intervalo ao carregar valores existentes. Para novos segmentos de tempo novos, as barras começam às 6:00 e têm incrementos de minutos. Isto pode ser alterado no menu.</p>
+<h4>Menu de segmento de tempo</h4>
 <ul>
   <li><strong>Mostrar interface alternativa</strong>: mostra uma interface com números grandes para escolher a hora de início e de fim. Esta opção é útil em ecrãs pequenos.</li>
   <li><strong>Mudar para intervalos de 15 minutos</strong>: usa intervalos de 15 minutos na barra de intervalo.</li>

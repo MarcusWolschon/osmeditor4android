@@ -5,7 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 </head>
 <body>
-<h1>OpenStreetMap nyitvatartás-szerkesztő</h1><p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p><p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkcióka,t és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p><p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p><h2>A nyitvatartás-szerkesztő használata</h2><p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p><p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Az „opening_hours”, a „collection_times” és a „service_times” címkékre külön sablonokat és alapértelmezéseket határozhat meg.</p><p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p><p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p><h3>Főmenü gomb</h3>
+<h1>OpenStreetMap nyitvatartás-szerkesztő</h1>
+<p>Az OpenStreetMapben a nyitvatartási idők megadása meglehetősen bonyolult, ezért nem könnyű egyszerű és intuitív felhasználói felületet készíteni hozzá.</p>
+<p>Azonban az esetek többségében csak egy kis részét használjuk a definícióknak. A szerkesztő ezt figyelembe véve megpróbálja menükbe rejteni a bonyolultabb funkcióka,t és az esetek többségében lecsökkenteni az általános használatot az előre definiált sablonok testreszabására.</p>
+<p><em>Ez a dokumentáció ideiglenes, és dolgozunk rajta</em></p>
+<h2>A nyitvatartás-szerkesztő használata</h2>
+<p>A szokásos munkamenet szerint a szerkesztett térképelemnek vagy már van egy nyitva tartást tartalmazó címkéje (opening_hours, service_times vagy collection_times), vagy az előbeállításnak a térképelemre történő újraalkalmazásával nyithat egy üres nyitva tartási mezőt. Ha a mezőt kézzel kell hozzáadnia és Vespuccit használ, akkor a kulcsot megadhatja a részletes adatok oldalán, majd visszakapcsolhat az űrlapalapú fülre a szerkesztéshez. Ha úgy véli, hogy a nyitva tartási címkének az előbeállításban is szerepelnie kellene, kérjük, nyisson egy kérdést (issue) a szerkesztőjéhez.</p>
+<p>Ha meghatározott egy alapértelmezett sablont (ezt a „Sablonok kezelése” menüpontban teheti meg), akkor az automatikusan be fog töltődni, amikor a szerkesztő egy üres értékkel indul. A „Sablon betöltése” funkcióval bármilyen sablont betölthet, a „Sablon mentése” menüvel pedig sablonként elmentheti az adott értéket. Az „opening_hours”, a „collection_times” és a „service_times” címkékre külön sablonokat és alapértelmezéseket határozhat meg.</p>
+<p>Természetesen a semmiből is elkezdheted összeállítani a nyitva tartást, azonban azt talácsoljuk, hogy kiindulási pontként használd valamelyik sablont.</p>
+<p>Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatikus javítási kísérlet, hogy megfeleljen a nyitva tartási idők specifikációjának. Ha ez nem lehetséges, akkor a hiba körülbelüli helye kiemelődik a nyers nyitva tartás kijelzőjén, és megpróbálhatod kézzel kijavítani. Az OpenStreetMap adatbázisában a nyitva tartási értékek mintegy negyede hibás, azonban csak kevesebb mint 10% -uk nem javítható. A specifikációtól való megtűrt eltérések: <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a></p>
+<h3>Főmenü gomb</h3>
 <ul>
   <li><strong>Szabály hozzáadása</strong>: új szabály hozzáadása.</li>
   <li><strong>Szabály hozzáadása szünnapokra</strong>: hozzáad egy szabályt munkaszüneti napokra és egy állapotváltozást.</li>
@@ -15,40 +24,45 @@
   <li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
   <li><strong>Frissítés</strong>: a nyitvatartási idő értékének újraelemzése.</li>
   <li><strong>Összes törlése</strong>: az összes szabály eltávolítása</li>
-</ul><h3>Szabályok</h3><p>Az alapértelmezett szabályok <em>rendes</em> szabályként jelennek meg. Ez azzal jár, hogy felülírják az adott napra vonatkozó korábbi szabályok értékeit. Ez aggasztó lehet, ha kiterjesztett időket szeretnénk megadni. Ilyenkor tipikusan érdemes átkapcsolni a szabályokat a <em>Szabálytípus mutatása</em> menüpontban _összeadó_ra.</p><h4>Szabály menü</h4>
+</ul>
+<h3>Szabályok</h3>
+<p>Az alapértelmezett szabályok <em>rendes</em> szabályként jelennek meg. Ez azzal jár, hogy felülírják az adott napra vonatkozó korábbi szabályok értékeit. Ez aggasztó lehet, ha kiterjesztett időket szeretnénk megadni. Ilyenkor tipikusan érdemes átkapcsolni a szabályokat a <em>Szabálytípus mutatása</em> menüpontban _összeadó_ra.</p>
+<h4>Szabály menü</h4>
 <ul>
   <li><strong>Módosító/megjegyzés hozzáadása</strong>: módosítja a szabály hatását és opcionális megjegyzést ad hozzá.</li>
   <li><strong>Szünnap hozzáadása</strong>: hozzáad egy választót, amellyel munkaszüneti napokat vagy tanítási szünetet választhatunk.</li>
   <li><strong>Időtartam hozzáadása…</strong>
-  <ul>
-    <li><strong>Idő – idő</strong>: nyitási és zárási időpont ugyanazon a napon.</li>
-    <li><strong>Idő – kiterjesztett idő</strong>: kezdő időponttól egy a következő napon lévő zárási időpontig (pl. 26:00 = másnap hajnali 02:00),</li>
-    <li><strong>Változó idő – idő</strong>: változó nyitási időponttól (hajnal, szürkület, napkelte és napnyugta) zárási időpontig ugyanazon a napon.</li>
-    <li><strong>Változó idő – kiterjesztett idő</strong>: változó nyitási időponttól másnapi zárási időpontig.</li>
-    <li><strong>Idő – változó idő</strong>: nyitási időponttól változó zárási időpontig.</li>
-    <li><strong>Változó idő – változó idő</strong>: változó nyitási időponttól változó zárási időpontig.</li>
-    <li><strong>Idő</strong>: egy időpont.</li>
-    <li><strong>Idő – örökké</strong>: nyitási időponttól kezdve mindörökké.</li>
-    <li><strong>Változó idő</strong>: a változó időpontban.</li>
-    <li><strong>Változó idő – örökké</strong>: változó nyitási időponttól kezdve mindörökké.</li>
-  </ul></li>
+    <ul>
+      <li><strong>Idő – idő</strong>: nyitási és zárási időpont ugyanazon a napon.</li>
+      <li><strong>Idő – kiterjesztett idő</strong>: kezdő időponttól egy a következő napon lévő zárási időpontig (pl. 26:00 = másnap hajnali 02:00),</li>
+      <li><strong>Változó idő – idő</strong>: változó nyitási időponttól (hajnal, szürkület, napkelte és napnyugta) zárási időpontig ugyanazon a napon.</li>
+      <li><strong>Változó idő – kiterjesztett idő</strong>: változó nyitási időponttól másnapi zárási időpontig.</li>
+      <li><strong>Idő – változó idő</strong>: nyitási időponttól változó zárási időpontig.</li>
+      <li><strong>Változó idő – változó idő</strong>: változó nyitási időponttól változó zárási időpontig.</li>
+      <li><strong>Idő</strong>: egy időpont.</li>
+      <li><strong>Idő – örökké</strong>: nyitási időponttól kezdve mindörökké.</li>
+      <li><strong>Változó idő</strong>: a változó időpontban.</li>
+      <li><strong>Változó idő – örökké</strong>: változó nyitási időponttól kezdve mindörökké.</li>
+    </ul>
+  </li>
   <li><strong>Hét napjaiból álló tartomány hozzáadása</strong>: egy a hét napjaiból álló kijelölő hozzáadása</li>
   <li><strong>Dátumtartomány hozzáadása…</strong>
-  <ul>
-    <li><strong>Dátum – dátum</strong>: egy nyitási dátumtól (év, hónap, nap) egy zárási dátumig.</li>
-    <li><strong>Változó dátum – dátum</strong>: egy változó dátumtól (a specifikáció jelenleg csak a <em>húsvétot</em> határozza meg) egy zárási dátumig.</li>
-    <li><strong>Dátum – változó dátum</strong>: egy adott dátumtól egy változó dátumig.</li>
-    <li><strong>Változó dátum – változó dátum</strong>: egy változó dátumtól egy változó dátumig.</li>
-    <li><strong>Előfordulás hónapban – előfordulás hónapban</strong>: a hónap valahányadik hétnapjától valahányadi hétnapjáig (pl. második, harmadik és negyedik szerdáján).</li>
-    <li><strong>Előfordulás hónapban – dátum</strong>: a hónap valamely hétnapjától egy befejező dátumig (pl. január harmadik keddjétől február 1-jéig).</li>
-    <li><strong>Dátum – előfordulás hónapban</strong>: egy kezdő dátumtól a hónap valamely hétnapjáig (pl. március 1-jétől április második szerdájáig).</li>
-    <li><strong>Előfordulás hónapban – változó dátum</strong>: a hónap valamely hétnapjától (pl. második péntekjétől) egy változó dátumig:</li>
-    <li><strong>Változó dátum – előfordulás hónapban</strong>: egy változó időponttól a hónap valamely hétnapjáig (pl. negyedik vasárnapjáig).</li>
-    <li><strong>Dátum – örökké</strong>: egy nyitási dátumtól kezdve mindörökké.</li>
-    <li><strong>Változó dátum – örökké</strong>: egy változó dátumtól kezdve mindörökké.</li>
-    <li><strong>Előfordulás hónapban – örökké</strong>: a hónap valamely hétnapjától (pl. első kedd) kezdődően.</li>
-    <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
-  </ul></li>
+    <ul>
+      <li><strong>Dátum – dátum</strong>: egy nyitási dátumtól (év, hónap, nap) egy zárási dátumig.</li>
+      <li><strong>Változó dátum – dátum</strong>: egy változó dátumtól (a specifikáció jelenleg csak a <em>húsvétot</em> határozza meg) egy zárási dátumig.</li>
+      <li><strong>Dátum – változó dátum</strong>: egy adott dátumtól egy változó dátumig.</li>
+      <li><strong>Változó dátum – változó dátum</strong>: egy változó dátumtól egy változó dátumig.</li>
+      <li><strong>Előfordulás hónapban – előfordulás hónapban</strong>: a hónap valahányadik hétnapjától valahányadi hétnapjáig (pl. második, harmadik és negyedik szerdáján).</li>
+      <li><strong>Előfordulás hónapban – dátum</strong>: a hónap valamely hétnapjától egy befejező dátumig (pl. január harmadik keddjétől február 1-jéig).</li>
+      <li><strong>Dátum – előfordulás hónapban</strong>: egy kezdő dátumtól a hónap valamely hétnapjáig (pl. március 1-jétől április második szerdájáig).</li>
+      <li><strong>Előfordulás hónapban – változó dátum</strong>: a hónap valamely hétnapjától (pl. második péntekjétől) egy változó dátumig:</li>
+      <li><strong>Változó dátum – előfordulás hónapban</strong>: egy változó időponttól a hónap valamely hétnapjáig (pl. negyedik vasárnapjáig).</li>
+      <li><strong>Dátum – örökké</strong>: egy nyitási dátumtól kezdve mindörökké.</li>
+      <li><strong>Változó dátum – örökké</strong>: egy változó dátumtól kezdve mindörökké.</li>
+      <li><strong>Előfordulás hónapban – örökké</strong>: a hónap valamely hétnapjától (pl. első kedd) kezdődően.</li>
+      <li><strong>Eltolásokkal…</strong>: a fentiekkel megegyező bejegyzések, azonban egy adott értékkel eltolva (ritka).</li>
+    </ul>
+  </li>
   <li><strong>Évtartomány hozzáadása</strong>: évalapú kijelölő hozzáadása.</li>
   <li><strong>Héttartomány hozzáadása</strong>: hétalapú kijelölő hozzáadása.</li>
   <li><strong>Duplikálás</strong>: másolat készítése erről a szabályról és beillesztése a következő helyre.</li>
@@ -56,7 +70,10 @@
   <li><strong>Mozgatás felfelé</strong>: eggyel feljebb tolja a szabályt (az első szabálynál nem alkalmazható).</li>
   <li><strong>Mozgatás lefelé</strong>: eggyel lejjebb tolja a szabályt.</li>
   <li><strong>Törlés</strong>: törli a szabályt.</li>
-</ul><h3>Időtartamok</h3><p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p><h4>Időtartam menü</h4>
+</ul>
+<h3>Időtartamok</h3>
+<p>Szeretnénk a lehető legkönnyebbé tenni az időtartamok szerkesztését. A meglévő értékek betöltésénél ezért megpróbáltuk kiválasztani az optimális időtartamot és a tartománysáv finomságát. Új időtartam megadásánál a tartománysáv reggel 6:00 órakor indul és 15 perces a lépésköze. Ez menüben változtatható.</p>
+<h4>Időtartam menü</h4>
 <ul>
   <li><strong>Időválasztó</strong>: megjelenít egy nagy számválasztót a nyitási és zárási idő beállításához; kis kijelzőkön ez az időbeállítás preferált módja.</li>
   <li><strong>Váltás 15 perces lépésközre</strong>: 15 perces finomságúra változtatja a tartománysávot.</li>
