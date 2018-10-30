@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-13 10:51+0000\n"
+"PO-Revision-Date: 2018-10-30 07:18+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -4373,7 +4373,7 @@ msgstr ""
 #: master_preset.xml:1477(combo:text|group:Streets|preset:Roundabout|key:lanes)
 #: master_preset.xml:57(combo:text|key:lanes)
 msgid "Lanes"
-msgstr ""
+msgstr "المسارات"
 
 #: master_preset.xml:59(combo:text|key:lanes:backward)
 msgid "Lanes ←"

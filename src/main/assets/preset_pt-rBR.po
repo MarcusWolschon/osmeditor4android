@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-09-16 20:11+0200\n"
-"PO-Revision-Date: 2018-10-25 20:04+0000\n"
+"PO-Revision-Date: 2018-10-30 01:26+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -314,7 +314,7 @@ msgstr "Interpolação de Endereço"
 
 #: master_preset.xml:13243(group:name|group:Addresses_and_Contact)
 msgid "Addresses and Contact"
-msgstr ""
+msgstr "Endereços e Contato"
 
 #: master_preset.xml:9206(item:name|group:Man_Made|preset:Adit)
 msgid "Adit"
@@ -344,7 +344,7 @@ msgstr ""
 
 #: master_preset.xml:6115(item:name|preset:Adult_gaming_centre)
 msgid "Adult gaming centre"
-msgstr ""
+msgstr "Centro de jogos para adultos"
 
 #: master_preset.xml:7913(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
@@ -357,11 +357,11 @@ msgstr "Agência de publicidade"
 #: master_preset.xml:3813(group:name|group:Aerialway)
 #: master_preset.xml:4478(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "Teleférico do tipo cabine"
 
 #: master_preset.xml:6771(text:text|group:Education|preset:Childcare|key:after_school:capacity)
 msgid "After school capacity"
-msgstr ""
+msgstr "Depois da capacidade escolar"
 
 #: master_preset.xml:6768(check:text|group:Education|preset:Childcare|key:after_school)
 msgid "After school care"
@@ -369,12 +369,12 @@ msgstr ""
 
 #: master_preset.xml:6764(text:text|group:Education|preset:Childcare|key:age_group)
 msgid "Age group (ie: 6-12)"
-msgstr ""
+msgstr "Faixa etária (ou seja: 6-12)"
 
 #: master_preset.xml:12847(combo:display_values|group:Land_use|preset:Meadow|key:meadow)
 #: master_preset.xml:2954(combo:text|group:Access_Restrictions|preset:Other_mode_restrictions|key:agricultural)
 msgid "Agricultural"
-msgstr ""
+msgstr "Agrícola"
 
 #: master_preset.xml:13969(item:name|group:Crafts|preset:Agricultural_engines)
 msgid "Agricultural engines"
