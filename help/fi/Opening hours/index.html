@@ -10,235 +10,323 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>OpenStreetMapin aukioloaikamuokkain - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../../js/highlight.pack.js"></script> 
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+            <div class="container">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
 <!--
-            <a class="navbar-brand" href="">Vespucci</a>
--->
-        </div>
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
 
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="">Vespucci</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../en/Introduction/">Introduction</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/features/">Features</a>
 </li>
-                            
+                                    
+<li >
+    <a href="../../en/11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                    
 <li >
     <a href="../../en/11.1.0 Release notes/">11.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/11.0.0 Release notes/">11.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.2.0 Release notes/">10.2.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.1.0 Release notes/">10.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.0.0 Release notes/">10.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.9 Release notes/">0.9.9 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.8 Release notes/">0.9.8 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.7 Release notes/">0.9.7 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.6 Release notes/">0.9.6 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../en/Main map display/">Main map display</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Creating new objects/">Creating new objects</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Node selected/">Node selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Way selected/">Way selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Relation selected/">Relation selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Property editor/">Property editor</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Multiselect/">Multiselect</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Conflict resolution/">Conflict resolution</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Presets/">Presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Aligning background imagery/">Aligning background imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Keyboard/">Keyboard and mouse</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/GPS sources/">GPS sources</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Tag filter/">Tag based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Preset filter/">Preset based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Opening hours/">Opening hours</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Preferences/">Preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Advanced preferences/">Advanced preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Voice commands/">Voice commands</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/tag_only/">Tag-only editing</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/presets/">Vespucci presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/screenshots/">Screenshots</a>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/faq/">FAQ</a>
+                            </li>
+                            <li >
+                                <a href="../../en/Privacy/">Privacy</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li >
-                        <a href="screenshots.md">Screenshots</a>
-                    </li>
-                    <li >
-                        <a href="faq.md">FAQ</a>
-                    </li>
-                    <li >
-                        <a href="help/en/Privacy/">Privacy</a>
-                    </li>
-                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-
-<!--
--->
-            </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+i-->
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#openstreetmapin-aukioloaikamuokkain">OpenStreetMapin aukioloaikamuokkain</a></li>
+            <li><a href="#aukioloaikamuokkaimen-kaytto">Aukioloaikamuokkaimen käyttö</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="openstreetmapin-aukioloaikamuokkain">OpenStreetMapin aukioloaikamuokkain</h1>
+<p>OpenStreetMapin aukiloaikojen määrittely on melko monimutkainen eikä se suoralta kädeltä taivu yksinkertaiseksi ja intuitiiviseksi käyttöliittymäksi.</p>
+<p>Toisaalta määrittelystä käytetään monesti vain pientä osaa. Muokkain ottaa tämän huomioon ja yrittää piilottaa oudoimmat piirteet valikoihin, jolloin tien päällä tarvitsee useimmiten tehdä vain pieniä muutoksia valmiisiin mallipohjiin.</p>
+<p><em>Tämä dokumentaatio on alustava ja työn alla.</em></p>
+<h2 id="aukioloaikamuokkaimen-kaytto">Aukioloaikamuokkaimen käyttö</h2>
+<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
+<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
+<p>Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.</p>
+<p>Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattisesti aukioloaikamäärittelyn mukaiseksi. Jos tämä ei ole mahdollista, virheen summittainen paikka raa'assa aoa-arvossa korostetaan, ja voit yrittää korjata sen käsin. Suurinpiirtein neljänneksessä OpenStreetMapin tietokannan aoa-arvoista on ongelmia, ja alle kymmentä prosenttia ei voi korjata. Sivulla [OpeningHourParser] (https://github.com/simonpoole/OpeningHoursParser) kerrotaan tarkemmin mitä poikkeamia määrittelystä sallitaan.</p>
+<h3 id="paavalikkonappi">Päävalikkonappi</h3>
+<ul>
+<li><strong>Lisää sääntö</strong>: lisää uusi sääntö.</li>
+<li><strong>Add rule for holidays</strong>: add a new rule for a holiday together with a state change.</li>
+<li><strong>Lisää sääntö 24/7</strong>: lisää sääntö kohteelle, joka on aina auki; aukioloaikamäärittely ei tue alavalitsimien käyttämistä 24/7:n rinnalla, mutta tässä sallitaan korkeamman tason valitsimien lisääminen (esimerkiksi vuosijaksot).</li>
+<li><strong>Lataa malline</strong>: lataa valmis malline.</li>
+<li><strong>Tallenna mallineeksi</strong>: tallenna nykyinen aukioloaika-arvo mallineeksi tulevaa käyttöä varten.</li>
+<li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
+<li><strong>Päivitä</strong>: jäsennä aukioloaika-arvo uudelleen.</li>
+<li><strong>Delete all</strong>: remove all rules.</li>
+</ul>
+<h3 id="saannot">Säännöt</h3>
+<p>Oletussäännöt lisätään <em>tavallisina</em> sääntöinä, mikä tarkoittaa sitä, että ne syrjäyttävät aiemmat samoille päiville osuvat säännöt. Tällä voi olla merkitystä, kun määritetään laajennettuja aikoja – tyypillisesti tällöin on syytä muuttaa säännöt <em>lisääviksi</em> valikkokohdasta <em>Näytä sääntötyyppi</em>.</p>
+<h4 id="saantovalikko">Sääntövalikko</h4>
+<ul>
+<li><strong>Lisää määre/kommentti</strong>: muuta säännön vaikutusalaa, ja lisää valinnainen kommentti.</li>
+<li><strong>Lisää vapaapäivä</strong>: lisää valitsin yleiselle tai koulujen vapaapäivälle.</li>
+<li><strong>Lisää aikaväli...</strong><ul>
+<li><strong>Aika–aika</strong>: alkuaika ja loppuaika samana päivänä.</li>
+<li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
+<li><strong>Vaiht. aika–aika</strong>: vaihteleva alkuaika (aamuhämärä, iltahämärä, auringonnousu, auringonlasku) ja loppuaika samana päivänä.</li>
+<li><strong>Vaiht. aika–laajennettu aika</strong>: vaihteleva alkuaika ja loppuaika peräkkäisinä päivinä.</li>
+<li><strong>Aika–vaiht. aika</strong>: alkuaika ja vaihteleva loppuaika.</li>
+<li><strong>Vaiht. aika–vaiht. aika</strong>: vaihteleva alkuaika ja vaihteleva loppuaika.</li>
+<li><strong>Aika</strong>: tietty ajankohta.</li>
+<li><strong>Aika, alkaen</strong>: tietystä ajankohdasta eteenpäin.</li>
+<li><strong>Vaihteleva aika</strong>: vaihtelevana ajankohtana.</li>
+<li><strong>Vaihteleva aika, alkaen</strong>: vaihtelevasta ajankohdasta eteenpäin.</li>
+</ul>
+</li>
+<li><strong>Lisää viikonpäiväjakso</strong>: lisää viikonpäiviin perustuva valitsin.</li>
+<li><strong>Lisää päiväjakso...</strong><ul>
+<li><strong>Pvm–pvm</strong>: alku- ja loppupäivämäärä (vuosi, kk, päivä).</li>
+<li><strong>Vaihteleva pvm–pvm</strong>: vaihteleva alkupäivämäärä (määrittelyssä on toistaiseksi vain <em>pääsiäinen</em>) ja loppupäivämäärä.</li>
+<li><strong>Pvm–vaihteleva pvm</strong>: alkupäivämäärä ja vaihteleva loppupäivämäärä.</li>
+<li><strong>Vaihteleva pvm–vaihteleva pvm</strong>: vaihteleva alku- ja loppupäivämäärä.</li>
+<li><strong>Occurrence in month - occurrence in month</strong>: from a start weekday occurrence in a month to the same.</li>
+<li><strong>Occurrence in month - date</strong>: from a start weekday occurrence in a month to a end date.</li>
+<li><strong>Date - occurrence in month</strong>: from a start date to an end weekday occurrence in a month.</li>
+<li><strong>Occurrence in month - variable date</strong>: from a start weekday occurrence in a month to an end variable date.</li>
+<li><strong>Variable date - occurrence in month</strong>: from a start variable date to an end weekday occurrence in a month.</li>
+<li><strong>Date - open end</strong>: from a start date onwards.</li>
+<li><strong>Vaihteleva pvm, alkaen</strong>: vaihtelevasta päivämäärästä eteenpäin.</li>
+<li><strong>Occurrence in month - open end</strong>: from a start weekday occurrence in a month onwards.</li>
+<li><strong>Poikkeama...</strong>: samat vaihtoehdot kuin edellä poikkeaman kanssa (harvoin käytetty).</li>
+</ul>
+</li>
+<li><strong>Lisää vuosijakso</strong>: lisää vuosiin perustuva valitsin.</li>
+<li><strong>Lisää viikkojakso</strong>: lisää viikkonumeroihin perustuva valitsin.</li>
+<li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
+<li><strong>Näytä sääntötyyppi</strong>: näytä säännön tyyppi ja/tai muuta sitä: <em>tavallinen</em>, <em>lisäävä</em> ja <em>vara</em> (ei ensimmäiselle säännölle).</li>
+<li><strong>Siirrä ylöspäin</strong>: siirrä sääntö yhtä paikkaa ylemmäs (ei ensimmäiselle säännölle)</li>
+<li><strong>Siirrä alaspäin</strong>: siirrä sääntö yhtä paikkaa alemmas.</li>
+<li><strong>Poista</strong>: poista sääntö.</li>
+</ul>
+<h3 id="ajanjaksot">Ajanjaksot</h3>
+<p>Jotta ajanjaksojen muokkaaminen olisi mahdollisimman helppoa, säätöpalkkien laajuus ja tarkkuus yritetään optimoida, kun olemassa oleva arvo ladataan. Uusien ajanjaksojen säätimissä alkuaika on 6:00, ja niissä on 15 minuutin jaotus. Asetuksia voi muuttaa valikon kautta.</p>
+<h4 id="ajanjaksovalikko">Ajanjaksovalikko</h4>
+<ul>
+<li><strong>Display time picker</strong>: show a large number picker for selecting start and end time, on very small displays this is the preferred way of changing times.</li>
+<li><strong>15 minuutin jaotus</strong>: käytä säätöpalkissa 15 minuutin tarkkuutta.</li>
+<li><strong>5 minuutin jaotus</strong>: käytä säätöpalkissa 5 minuutin tarkkuutta.</li>
+<li><strong>1 minuutin jaotus</strong>: käytä säätöpalkissa 1 minuutin tarkkuutta – todella vaikeaa puhelimessa.</li>
+<li><strong>Aloita keskiyöstä</strong>: aseta säätöpalkin alkuaika keskiyöhön.</li>
+<li><strong>Näytä aikaväli</strong>: näytä kenttä, johon asetetaan toistuva aikaväli minuutteina.</li>
+<li><strong>Poista</strong>: poista ajanjakso.</li>
+</ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -329,11 +417,15 @@
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.1.0 </p>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.2.0 </p>
         </footer>
-        <script>var base_url = '../../..';</script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

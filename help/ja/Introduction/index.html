@@ -10,235 +10,433 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Vespucci の導入 - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../../js/highlight.pack.js"></script> 
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+            <div class="container">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
 <!--
-            <a class="navbar-brand" href="">Vespucci</a>
--->
-        </div>
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
 
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="">Vespucci</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../en/Introduction/">Introduction</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/features/">Features</a>
 </li>
-                            
+                                    
+<li >
+    <a href="../../en/11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                    
 <li >
     <a href="../../en/11.1.0 Release notes/">11.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/11.0.0 Release notes/">11.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.2.0 Release notes/">10.2.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.1.0 Release notes/">10.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/10.0.0 Release notes/">10.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.9 Release notes/">0.9.9 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.8 Release notes/">0.9.8 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.7 Release notes/">0.9.7 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/0.9.6 Release notes/">0.9.6 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../en/Main map display/">Main map display</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Creating new objects/">Creating new objects</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Node selected/">Node selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Way selected/">Way selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Relation selected/">Relation selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Property editor/">Property editor</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Multiselect/">Multiselect</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Conflict resolution/">Conflict resolution</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Presets/">Presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Aligning background imagery/">Aligning background imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Keyboard/">Keyboard and mouse</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/GPS sources/">GPS sources</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Tag filter/">Tag based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Preset filter/">Preset based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Opening hours/">Opening hours</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Preferences/">Preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Advanced preferences/">Advanced preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../en/Voice commands/">Voice commands</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/tag_only/">Tag-only editing</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/presets/">Vespucci presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/screenshots/">Screenshots</a>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/faq/">FAQ</a>
+                            </li>
+                            <li >
+                                <a href="../../en/Privacy/">Privacy</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li >
-                        <a href="screenshots.md">Screenshots</a>
-                    </li>
-                    <li >
-                        <a href="faq.md">FAQ</a>
-                    </li>
-                    <li >
-                        <a href="help/en/Privacy/">Privacy</a>
-                    </li>
-                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-
-<!--
--->
-            </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+i-->
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci">Vespucci の導入</a></li>
+            <li><a href="#_1">初回の使用</a></li>
+            <li><a href="#vespucci_1">Vespucci での編集</a></li>
+            <li><a href="#gps">GPSを使う</a></li>
+            <li><a href="#_16">メモとバグ</a></li>
+            <li><a href="#_18">室内モード</a></li>
+            <li><a href="#c">Cモード</a></li>
+            <li><a href="#_22">フィルター</a></li>
+            <li><a href="#vespucci_3">Vespucci をカスタマイズする</a></li>
+            <li><a href="#reporting-problems">Reporting Problems</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="vespucci">Vespucci の導入</h1>
+<p>Vespucci は、デスクトップエディタが提供する大半の機能をサポートする、フル機能の OpenStreetMap エディタです。Google の Android 2.3 から 7.0 と AOSP ベースの派生物でうまくテストされています。注意事項：モバイルデバイスの性能はデスクトップに追いついていますが、特に古いデバイスではメモリが限られており、かなり遅くなる傾向にあります。Vespucci を使用する際にはこれを念頭に置き、編集するエリアを適切なサイズに保つなどしてください。 </p>
+<h2 id="_1">初回の使用</h2>
+<p>Vespucci 起動時に、Download other location"/"Load Area"ダイアログを表示します。表示された座標をすぐにダウンロードする場合は、適切なオプションを選択し、ダウンロードする場所の半径を設定します。遅いデバイスでは広いエリアを選択しないでください。 </p>
+<p>または「地図を表示」ボタンを押してダイアログを無視し、パンしたりズームして編集・ダウンロードしたい位置に移動できます(下記参照: 「Vespucciでの編集」).</p>
+<h2 id="vespucci_1">Vespucci での編集</h2>
+<p>画面サイズや機種の年代によって、編集操作は上部バーにあるアイコンで直接、あるいは上部バー右側のドロップダウンメニューで、あるいは下部のバー(あれば)から、あるいはメニューキーでアクセスできます。</p>
+<p><a id="download"></a></p>
+<h3 id="osm">OSM データのダウンロード</h3>
+<p>転送アイコン <img alt="Transfer" src="../../images/menu_transfer.png" /> または「転送」メニュー項目で選びます。オプションが7つあります:</p>
+<ul>
+<li><strong>表示領域をダウンロード</strong> - 画面上に表示されている領域をダウンロードして既存データを置き換えます <em>(ネットワーク接続必須)</em></li>
+<li><strong>表示領域を追加ダウンロード</strong> - 画面上に表示されている領域をダウンロードして既存データに追加します <em>(ネットワーク接続必須)</em></li>
+<li><strong>その他の領域をダウンロード</strong> - 座標を入力したり、位置を探したり、現在地を使用したりして、指定された位置の周りの領域をダウンロードするフォームを表示します <em>(ネットワーク接続必須)</em></li>
+<li><strong>データをOSMサーバーにアップロード</strong> - 編集内容をOpenStreetMapにアップロードします <em>(requires authentication)</em> <em>(ネットワーク接続必須)</em></li>
+<li><strong>自動ダウンロード</strong> - 現在地周辺の領域を自動的にダウンロードします <em>(ネットワーク接続必須)</em> <em>(requires GPS)</em></li>
+<li><strong>ファイル...</strong> - OSMデータを端末装置にあるファイルに保存したり、ファイルからロードしたりします。</li>
+<li><strong>メモ/バグ...</strong> - OSMメモおよびQAツール(現在はOSMOSE)による「バグ」を(自動および手動で)ダウンロードします <em>(ネットワーク接続必須)</em></li>
+</ul>
+<p>端末装置にデータをダウンロードするいちばん簡単なやり方は、編集したい位置にズームしたりパンして「表示領域をダウンロード」を選ぶことです。ジャスチャー、ズームボタン、装置のボリューム制御ボタンでズーム操作を行えます。するとVespucci は現在の表示領域のデータをダウンロードします。自分の端末装置にダウンロードするのに認証は不要です。</p>
+<h3 id="_2">編集する</h3>
+<p><a id="lock"></a></p>
+<h4 id="_3">ロック、アンロック、モード切り替え</h4>
+<p>誤編集を避けるためにVespucciは「ロック」モードで始まります。これは地図のズームと移動だけができるモードです。画面をアンロックするには <img alt="Locked" src="../../images/locked.png" /> アイコンをタップします。 </p>
+<p>ロックアイコン上で長押しすると、メニューが表示され、現在4つのオプションがあります
+：</p>
+<ul>
+<li><strong>通常</strong> - デフォルトの編集モード。オブジェクトを新規追加したり、既存のものを編集・移動・削除できます。単に白いロックアイコンが表示されます。</li>
+<li><strong>タグのみ</strong> - 既存のオブジェクトを選ぶとプロパティ・エディタが起動され、マエイン画面上で長押しするとオブジェクトが新規追加されますが、他のジオメトリ操作は機能しません。「T」の付いた白いロックアイコンが表示されます。</li>
+<li><strong>室内</strong> - 室内モードを有効化します。<a href="#indoor">Indoor mode</a>参照。「I」の付いた白いロックアイコンが表示されます。</li>
+<li><strong>Cモード</strong> - Cモードを有効化し、警告フラグのセットを持つオブジェクトだけが表示されます。 <a href="#c-mode">C-Mode</a>参照。「C」の付いた白いロックアイコンが表示されます。</li>
+</ul>
+<h4 id="_4">シングルタップ・ダブルタップ・長押し</h4>
+<p>デフォルトで、選択可能なノードとウェイの周りにはオレンジの領域があり、オブジェクトを選択するのにタッチすべき場所をおおよそ示しています。3つの選択肢があります：</p>
+<ul>
+<li>シングルタップ: オブジェクトを選択します。 <ul>
+<li>孤立したノード/ウェイが即座にハイライトされます。 </li>
+<li>しかしながら、あなたがオブジェクトをタッチした際にVespucciがその選択対象が複数あると判断した場合には、選択メニューを表示して目的のオブジェクトを選べるようにします。 </li>
+<li>選択されたオブジェクトは黄色でハイライトされます。 </li>
+<li>詳細は <a href="Node%20selected.md">Node selected</a>、 <a href="Way%20selected.md">Way selected</a> および <a href="Relation%20selected.md">Relation selected</a>を参照。</li>
+</ul>
+</li>
+<li>ダブルタップ: <a href="Multiselect.md">Multiselect mode</a>が始まります。</li>
+<li>長押し: 「十字型」が現れ、ノードを追加することができます。下記および <a href="Creating%20new%20objects.md">Creating new objects</a>を参照。</li>
+</ul>
+<p>マッピング密度の高い領域を編集する際にはズームインしてからやると良いでしょう。</p>
+<p>Vespucciには良い「取り消し/やり直し」システムがあるので自分の端末装置上で気軽に試してください。ただしテストのためだけのデータをアップロードしたりはしないでください。</p>
+<h4 id="_5">選択 / 選択解除 (シングルタップおよび「選択メニュー」)</h4>
+<p>オブジェクトにタッチして選択し、ハイライトさせてください。空の領域で画面をタッチすると選択が解除されます。あるオブジェクトを選択してから別のものを選択したい場合は、単に対象のオブジェクトをタッチしてください。最初に選択解除する必要はありません。オブジェクト上でダブルタップすると<a href="Multiselect.md">Multiselect mode</a>が始まります。</p>
+<p>あるオブジェクトを選択した際にVespucci がその選択対象が複数あると判断した場合(ウェイ上のノードや他のオーバーラップしたオブジェクトなど)、選択メニューが表示されることに注意： 選択したいオブジェクトをタップするとそのオブジェクトが選択されます。 </p>
+<p>選択されたオブジェクトは薄い黄色の境界線で示されます。黄色の境界線は、地図の背景やズームレベルによっては指し示すことが難しい場合があるかもしれません。いったん選択されたら、その選択が正しいか確認する通知が表示されます。</p>
+<p>選択が終わると(ボタンあるいはメニュー項目のいずれかで)そのオブジェクトに対してできる操作の一覧が現れます： 詳細は <a href="Node%20selected.md">Node selected</a>、 <a href="Way%20selected.md">Way selected</a> および <a href="Relation%20selected.md">Relation selected</a>を参照。</p>
+<h4 id="_6">選択したオブジェクト: タグを編集する</h4>
+<p>選択されたオブジェクトにもういちどタッチするとタグエディタが開き、そのオブジェクトに関連するタグを編集できます。</p>
+<p>オーバーラップしたオブジェクト(ウェイ上のノードなど)に対しては選択メニューは2回目に現れることに注意してください。同じオブジェクトを選択するとタグエディタが現れます；別のオブジェクトを選択すると単純に他のオブジェクトを選択します。</p>
+<h4 id="_7">選択したオブジェクト: ノードやウェイを移動する</h4>
+<p>いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(反応域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 </p>
+<h4 id="_8">新規ノード/ポイントやウェイを追加する(長押し)</h4>
+<p>ノードまたはウェイを描き始めたいときは長押ししてください。黒い「十字」型のシンボルが現れます。 
+<em> (オブジェクトに接続していない)新しいノードを作成する場合には、既存オブジェクトから離れたところをクリックします。
+</em> ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「反応域ゾーン」内をクリックします。反応域ゾーンはノードまたはウェイの周りの領域に示されています。</p>
+<p>十字のシンボルが現れたら次のような選択肢があります：</p>
+<ul>
+<li>同じ場所でタッチ。<ul>
+<li>十字がノードの近くにない場合、同じ位置を再度タッチすると新しいノードが作成されます。ウェイの近く(だがノードの近くではない)にいる場合、新しいノードはウェイ上(かつウェイに接続)にできます。</li>
+<li>十字がノードの近くにある場合(ノードの反応域ゾーン内)にある場合、同じ位置をタッチすると単にそのノードを選択し、タグエディタが開きます。新しいノードは作成されません。上述の選択と同じ操作です。</li>
+</ul>
+</li>
+<li>別の場所をタッチ。別の位置(十字の反応域外)をタッチすると元の位置から現在の位置まで、ウェイのセグメントを追加します。十字がウェイやノードの近くなら、新しいセグメントはそのノードやウェイに接続します。</li>
+</ul>
+<p>ウェイにノードをもっと追加したい場合は単純にスクリーンにタッチしてください。終える際には、最後のノードに2回タッチします。最後のノードがウェイやノード上にある場合、そのセグメントはそのウェイまたはノードに自動的に接続します。 </p>
+<p>メニュー項目を使うこともできます：詳細は<a href="/Creating%20new%20objects.md">Creating new objects</a> を参照。</p>
+<h4 id="_9">エリアを追加する</h4>
+<p>OpenStreetMap は他の地理データのシステムとは異なり、現在「エリア」オブジェクトという種類がありません。オンライエディタの「iD」はOSMのエレメントを元にエリアの概念を持ち込もうとしていますが、環境によりうまくいく場合とそうでない場合があります。Vespucci は現在このような試みは行っていないため、あなたはエリアの表現方法について、少し知っておく必要があります：</p>
+<ul>
+<li><em>closed ways (*polygons")</em>: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.</li>
+<li><em>multi-ploygons</em>: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. </li>
+<li><em>coastlines</em>: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the <a href="http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline">OSM wiki</a>.</li>
+</ul>
+<h4 id="_10">ウェイのジオメトリを改善する</h4>
+<p>選択したウェイ上で十分にズームインすると、十分な長さのウェイのセグメントの中央に小さな「x」が現れます。その「x」をドラッグするとその位置のウェイ内にノードを作成します。注意: 誤操作によるノード作成を避けるために、この操作の反応域はかなり小さくなっています。</p>
+<h4 id="_11">切り取り、コピー&amp;ペースト</h4>
+<p>選択したノードやウェイはコピーまたは切り取りでき、新しい位置に一回または複数回貼り付けることができます。切り取った内容にはosm id とバージョンが含まれます。貼り付ける際には貼り付けたい位置で長押しします (その位置を示す十字が現れます) そのあとメニューから「貼り付け」を選択できます。 </p>
+<h4 id="_12">住所を効果的に追加する</h4>
+<p>Vespucci には「住所タグを追加」機能があり、住所の調査をより効果的にできるようにします。以下から選択できます：</p>
+<ul>
+<li>after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.</li>
+<li>in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.</li>
+<li>in the tag editor.</li>
+</ul>
+<p>住居番号の予測入力が機能するには典型的には道路の両側に最低2つの住居番号が必要で、データ中に多くの番号があるほどベターです。</p>
+<p>使う場合には <a href="#download">Auto-download</a> モードでの使用を考慮してください。  </p>
+<h4 id="_13">進行方向制限を追加する</h4>
+<p>Vespucci には進行方向制限を素早く追加するやり方があります。必要な場合には、ウェイを自動的に分割して、あなたにエレメントを再選択するように尋ねるでしょう。 </p>
+<ul>
+<li>highwayタグの付いたウェイを選択 (進行方向制限はhighwayにのみ追加できます。他のウェイでこれを行う場合は汎用的な「リレーションを作成」モードを使ってください)</li>
+<li>メニューから「制限を追加」を選択</li>
+<li>「via」ノードまたはウェイを選択 (対象となる「via」エレメントだけにタッチエリアが表示されます)</li>
+<li>「to」ウェイを選択 (2回戻って「to」エレメントを「from」エレメントにセットすることができます。Vespucci はあなたが Uターン禁止制限を追加しようとしているとみなします)</li>
+<li>制限の種別をセット</li>
+</ul>
+<h3 id="vespucci_2">「ロック」モードのVespucci</h3>
+<p>赤いロックボタンが表示されている時は編集しない操作は全て行えます。加えて、オブジェクト近辺での長押しで、それがOSMオブジェクトであれば詳細情報が表示されます。</p>
+<h3 id="_14">自分の変更内容を保存する</h3>
+<p><em>(ネットワーク接続必須)</em></p>
+<p>ダウンロード時と同じボタンまたはメニュー項目を選んで、今度は「データをOSMサーバーにアップロード」を選択します。</p>
+<p>Vespucci はOAuth 認証と旧式のユーザー名とパスワードによる方法をサポートします。OAuth はクリア時のパスワード送信を避けるため、そちらの方が望ましいです。</p>
+<p>New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.</p>
+<p>保存したくてもインターネット接続が無い場合には、JOSM互換の.osmファイルに保存して後からVespucci またはJOSMでアップロードできます。 </p>
+<h4 id="_15">アップロード時の競合を解決する</h4>
+<p>Vespucci にはシンプルな競合リゾルバがあります。しかしながら、重大な問題がありそうな場合には、変更内容を However if you suspect that there are major issues with your edits, export your changes to a .osc ファイル (「転送」メニュー内の「エクスポート」メニュー項目)にエクスポートしてJOSMで修正してアップロードしてください。詳細なヘルプは <a href="Conflict%20resolution.md">conflict resolution</a>参照。  </p>
+<h2 id="gps">GPSを使う</h2>
+<p>Vespucci を使ってGPX トラックを作成し、端末装置上に表示することができます。さらに、現在のGPS 位置(GPS メニューで「位置を表示」をセット) を表示したり、付近を画面の中央に持ってきたり、位置を追跡(GPS メニューで「GPS位置を追跡」をセット) したりすることができます。 </p>
+<p>後者のセットを持っている場合、画面を手動で動かしたり編集すると、無効化すべき「GPS追跡」モードとなって青いGPSの矢印が中抜きから色塗りされた矢印に変わります。素早く「追跡」モードに戻るには、単にGPSボタンにタッチするか、メニューの選択肢を再チェックしてください。</p>
+<h2 id="_16">メモとバグ</h2>
+<p>Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the <a href="http://osmose.openstreetmap.fr/en/map/">OSMOSE quality assurance tool</a>. Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.</p>
+<p>地図上ではメモとバグが小さな虫のアイコン <img alt="Bug" src="../../images/bug_open.png" />で表され、緑はクローズ済/解決済で、青は自分が作成・変更したもの、黄色がまだ有効で変更されていないことを示します。 </p>
+<p>OSMOSEバグ表示は影響するオブジェクトへのリンクを青色で提供し、そのリンクをタッチするとオブジェクトが選択され、そこに画面が中央寄せされ、必要であれば予めそのエリアをダウンロードします。 </p>
+<h3 id="_17">フィルタリング</h3>
+<p>Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the <a href="Advanced%20preferences.md">Advanced preferences</a> you can individually select:</p>
+<ul>
+<li>メモ</li>
+<li>Osmose エラー</li>
+<li>Osmose 警告</li>
+<li>Osmose マイナーな問題</li>
+<li>カスタム</li>
+</ul>
+<p><a id="indoor"></a></p>
+<h2 id="_18">室内モード</h2>
+<p>Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.</p>
+<p>モードはロック項目上で長押しすると有効化できます。 <a href="#lock">Lock, unlock, mode switching</a> および対応するメニュー項目の選択を参照。</p>
+<p><a id="c-mode"></a></p>
+<h2 id="c">Cモード</h2>
+<p>Cモードでは、警告フラグセットを持つオブジェクトだけが表示され、特定の問題を持っていたり構成可能なチェックに一致するオブジェクトを簡単に選び出せます。オブジェクトが選択され、プロパティエディタがCモードで起動されるとベストマッチのプリセットが自動的に適用されます。</p>
+<p>モードはロック項目上で長押しすると有効化できます。 <a href="#lock">Lock, unlock, mode switching</a> および対応するメニュー項目の選択を参照。</p>
+<h3 id="_19">構成チェック</h3>
+<p>現在、構成可能なチェックが2つあり (FIXMEタグ用とと現在が構成できないリレーション上のtypeタグの抜けのテスト用のチェックがあります) ともに「独自設定」内の「入力値検査の独自設定」で選んで構成できます。 </p>
+<p>エントリーのリストは、リスト上半分の「再調査」エントリーと下半分の「チェックエントリー」の2つに分割されます。エントリーはクリックすると編集でき、緑のメニューモタンでエントリーを追加できます。</p>
+<h4 id="_20">再調査エントリー</h4>
+<p>再調査エントリーには次のようなプロパティがあります:</p>
+<ul>
+<li><strong>Key</strong> - Key of the tag of interest.</li>
+<li><strong>Value</strong> - Value the tag of interest should have, if empty the tag value will be ignored.</li>
+<li><strong>Age</strong> - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.</li>
+<li><strong>Regular expression</strong> - if checked <strong>Value</strong> is assumed to be a JAVA regular expression.</li>
+</ul>
+<p><strong>Key</strong> and <strong>Value</strong> are checked against the <em>existing</em> tags of the object in question.</p>
+<h4 id="_21">エントリーのチェック</h4>
+<p>Check entries have the following two properties:</p>
+<ul>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+</ul>
+<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<h2 id="_22">フィルター</h2>
+<h3 id="_23">タグベースのフィルター</h3>
+<p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
+<h3 id="_24">プリセットベースのフィルター</h3>
+<p>An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here <a href="Preset%20filter.md">Preset filter</a>.</p>
+<h2 id="vespucci_3">Vespucci をカスタマイズする</h2>
+<h3 id="_25">変更希望がありそうな設定</h3>
+<ul>
+<li>背景レイヤ</li>
+<li>オーバーレイするレイヤ。オーバーレイの追加は旧式の機器やメモリが少ないものでは問題が起きる場合があります。デフォルト: なし。</li>
+<li>メモ/バグの表示。オープン状態のメモやバグは黄色い虫のアイコンで表示され、クローズ済のものは同じく緑で表示されます。デフォルト: on.</li>
+<li>写真レイヤ。ジオリファレンスされた写真を赤いカメラのアイコンで表示します。方向の情報が利用できる場合にはアイコンは回転します。デフォルト: off.</li>
+<li>画面を点灯したままにする。デフォルト: off.</li>
+<li>大きなノードのドラッグ用領域。タッチ入力で端末装置上のノードを動かそうとすると、自分の指がいま画面上のどの位置にあるかが曖昧なため、よく問題を引き起こします。これをオンにすると、大きな領域が提供され、中心を外れたドラッグ(選択と他の操作はそれまで通り通常のタッチ反応域を使用)が使えます。デフォルト: off.</li>
+</ul>
+<h4 id="_26">高度な独自設定</h4>
+<ul>
+<li>Node icons. Default: on.</li>
+<li>Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).</li>
+<li>Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.</li>
+<li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
+</ul>
+<h2 id="reporting-problems">Reporting Problems</h2>
+<p>Vespucci がクラッシュしたり不整合な状態を検知した場合、クラッシュダンプを送信するかどうか尋ねられます。そのようなことが発生したらぜひそうしてほしいのですが、ある状況について一度だけにしてください。より詳細な情報を伝えたり、機能リクエストなどのイシューを上げたい場合は、こちらでお願いします： <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>。もしIf you want to discuss something related to Vespucciに関することを何か議論したければ、 <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> あるいは <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a>上で議論を始めることができます。</p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -439,11 +637,15 @@
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.1.0 </p>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.2.0 </p>
         </footer>
-        <script>var base_url = '../../..';</script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

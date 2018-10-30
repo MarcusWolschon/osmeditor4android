@@ -10,245 +10,338 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>11.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../../js/highlight.pack.js"></script> 
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+            <div class="container">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
 <!--
-            <a class="navbar-brand" href="">Vespucci</a>
--->
-        </div>
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
 
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="">Vespucci</a>
-                    </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Vespucci</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../Introduction/">Introduction</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/features/">Features</a>
 </li>
-                            
+                                    
+<li >
+    <a href="../11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                    
 <li >
     <a href="../11.1.0 Release notes/">11.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li class="active">
     <a href="./">11.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.2.0 Release notes/">10.2.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.1.0 Release notes/">10.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.7 Release notes/">0.9.7 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.6 Release notes/">0.9.6 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../Main map display/">Main map display</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Creating new objects/">Creating new objects</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Node selected/">Node selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Way selected/">Way selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Relation selected/">Relation selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Property editor/">Property editor</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Multiselect/">Multiselect</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Conflict resolution/">Conflict resolution</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Presets/">Presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Aligning background imagery/">Aligning background imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Keyboard/">Keyboard and mouse</a>
 </li>
-                            
+                                    
 <li >
     <a href="../GPS sources/">GPS sources</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Tag filter/">Tag based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Preset filter/">Preset based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Opening hours/">Opening hours</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Preferences/">Preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Advanced preferences/">Advanced preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Voice commands/">Voice commands</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/tag_only/">Tag-only editing</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/presets/">Vespucci presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/screenshots/">Screenshots</a>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/faq/">FAQ</a>
+                            </li>
+                            <li >
+                                <a href="../Privacy/">Privacy</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li >
-                        <a href="screenshots.md">Screenshots</a>
-                    </li>
-                    <li >
-                        <a href="faq.md">FAQ</a>
-                    </li>
-                    <li >
-                        <a href="help/en/Privacy/">Privacy</a>
-                    </li>
-                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-
-<!--
-                    <li >
-                        <a rel="next" href="help/en/11.1.0 Release notes/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="help/en/10.2.0 Release notes/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
--->
-            </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+                            <li >
+                                <a rel="next" href="../11.1.0 Release notes/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../10.2.0 Release notes/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+i-->
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#vespucci-110-highlights">Vespucci 11.0 Highlights</a></li>
+            <li><a href="#layer-control">Layer control</a></li>
+            <li><a href="#support-for-geojson-layers">Support for GeoJSON layers</a></li>
+            <li><a href="#re-arranged-preferences">Re-arranged Preferences</a></li>
+            <li><a href="#undoredo-of-individual-checkpoints">Undo/redo of individual checkpoints</a></li>
+            <li><a href="#review-changes-before-upload">Review changes before upload</a></li>
+            <li><a href="#auto-presets-from-taginfo">Auto-Presets from taginfo</a></li>
+            <li><a href="#improved-country-specific-tagging">Improved country specific tagging</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="vespucci-110-highlights">Vespucci 11.0 Highlights</h1>
+<p>2018-06-28</p>
+<h2 id="layer-control">Layer control</h2>
+<p>The most obvious visual difference in version 11 is the layer control on the main map view. </p>
+<p>Currently it is not possible to change the ordering or add more than one layer of a specific type, supported functionality:  </p>
+<ul>
+<li>Hide/Show button turns drawing of the layer off/on. Hiding a layer doesn't free any resources associated with the layer.</li>
+<li>Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.</li>
+<li>Menu button.<ul>
+<li>Tile based layers: <ul>
+<li>Select imagery. Same contents as on the preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.</li>
+<li>Flush tile cache. Moved here from main menu.</li>
+<li>Background properties. Set contrast of layer, moved here from main menu.</li>
+</ul>
+</li>
+<li>GeoJSON layer. <ul>
+<li>Change style. Show the layer styling dialog.</li>
+<li>Discard. Delete the layer including any saved state.</li>
+</ul>
+</li>
+<li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.<ul>
+<li>Change style. Show the layer styling dialog.</li>
+</ul>
+</li>
+<li>Photo, Grid and Task layers.<ul>
+<li>Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"+" button: <ul>
+<li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
+<li>Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.</li>
+<li>Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.</li>
+</ul>
+</li>
+</ul>
+<h2 id="support-for-geojson-layers">Support for GeoJSON layers</h2>
+<p>A single (currently) GeoJSON based layer can be displayed on the map, individual elements are selectable. On loading the GeoJSON data from a file colour, stroke width and a tag for displaying a label can be selected.</p>
+<p>A typical use case would be to verify third party data in GeoJSON format on the ground and similar mapping activities. </p>
+<h2 id="re-arranged-preferences">Re-arranged Preferences</h2>
+<p>The two preferences screens have been re-arranged with just the most important settings on the first screen and the "Advanced preference" screen split up in to multiple sub-screens.</p>
+<p>The Authors and Licence screen has been move to the main menu, just as the Debug screen has.</p>
+<h2 id="undoredo-of-individual-checkpoints">Undo/redo of individual checkpoints</h2>
+<p>Previously selecting an undo or redo checkpoint from the undo menu (long press on the undo icon), always undid/redid all checkpoints back to that point in time. In Vespucci 11 a dialog is shown that allows you to select the previous behaviour or to undo/redo just the single selected checkpoint.</p>
+<p>While selecting just one checkpoint will result in consistent data, it may have unintended consequences as all elements changed in the checkpoint will be reinstated to the stored state when the checkpoint was created, except if elements are referenced, for example way nodes or relation members, that have been deleted in later edits. References to deleted objects will not be re-created, including relation memberships in later deleted relations.</p>
+<p>Example: as the first operation you split a way, as the second step you delete one of the two halves of the way. Undoing the first operation will only add way nodes back that were not removed in the second step.</p>
+<p>Simple tag changes in a checkpoint can in general be undone without negative consequences.</p>
+<h2 id="review-changes-before-upload">Review changes before upload</h2>
+<p>Entries on the list of the created, changed and deleted elements can now be selected and the actual changes inspected. Elements that have failed the validator tests will have a red icon displayed. </p>
+<h2 id="auto-presets-from-taginfo">Auto-Presets from taginfo</h2>
+<p>The results in the preset search are now complemented by results from querying Jochen Topfs <a href="https://taginfo.openstreetmap.org/">taginfo service</a>, currently this requires network connectivity to work and will only return results for tags that have at least one wiki page. In general so generated presets should not be taken as gospel and the tagging will typically need some manual work. </p>
+<p>Selected search results from taginfo are added to a special preset file that is stored on device in the public Vespucci directory, this can be used as a starting point for creating a proper preset for the object in question. </p>
+<p>This feature can be turned off in the Advanced preferences "Data and Editing settings". </p>
+<h2 id="improved-country-specific-tagging">Improved country specific tagging</h2>
+<p>It is now possible to add more country specific tagging rules. For now, besides the already existing check for use of imperial units in a territory, we support lists of speed limits for use in the property editor, if info is missing for your country you can provide them at <a href="https://github.com/simonpoole/geocontext">geocontext repository</a>. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<ul>
+<li>Support for icons in preset combos and multi-selects.</li>
+<li>The info display for selected elements will now show the original state of the element side by side with the current state if the element has been modified.</li>
+<li>Bugs and Notes that have been closed but not uploaded yet, have their own, not very distinctive, blue-green icon.</li>
+<li>Fields declared as phone or fax numbers in a preset will show the devices phone number keyboard.</li>
+<li>Free form preset text fields that neither have an existing value nor pre-defined values will have device text suggestions and spelling correction enabled (note this will not be the case for "name" tags).</li>
+<li>Implement the "values_from" attribute in presets including an extension to the JOSM implementation of passing the key as an argument if possible.</li>
+<li>Support for RTL scripts added, caveat the openinghours editor is not converted yet (as there are no such translations) and there may be minor inconsistencies.</li>
+</ul>
+<p>The full change log is available <a href="https://github.com/MarcusWolschon/osmeditor4android/commits/master">here</a></p>
+<h1 id="known-problems">Known problems</h1>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
+<ul>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -344,11 +437,15 @@
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.1.0 </p>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.2.0 </p>
         </footer>
-        <script>var base_url = '../../..';</script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

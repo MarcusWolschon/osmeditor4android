@@ -10,245 +10,270 @@
         <link rel="shortcut icon" href="../../../img/favicon.ico">
         <title>Tag based filter - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../../../js/jquery-1.10.2.min.js"></script>
-        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../../js/highlight.pack.js"></script> 
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+            <div class="container">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
 <!--
-            <a class="navbar-brand" href="">Vespucci</a>
--->
-        </div>
+                    <a class="navbar-brand" href="../../..">Vespucci</a> -->
+                </div>
 
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="">Vespucci</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Vespucci</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../Introduction/">Introduction</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/features/">Features</a>
 </li>
-                            
+                                    
+<li >
+    <a href="../11.2.0 Release notes/">11.2.0 Release notes</a>
+</li>
+                                    
 <li >
     <a href="../11.1.0 Release notes/">11.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../11.0.0 Release notes/">11.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.2.0 Release notes/">10.2.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.1.0 Release notes/">10.1.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../10.0.0 Release notes/">10.0.0 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.9 Release notes/">0.9.9 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.8 Release notes/">0.9.8 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.7 Release notes/">0.9.7 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../0.9.6 Release notes/">0.9.6 Release notes</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../Main map display/">Main map display</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Creating new objects/">Creating new objects</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Node selected/">Node selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Way selected/">Way selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Relation selected/">Relation selected</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Property editor/">Property editor</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Multiselect/">Multiselect</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Conflict resolution/">Conflict resolution</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Presets/">Presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Aligning background imagery/">Aligning background imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Keyboard/">Keyboard and mouse</a>
 </li>
-                            
+                                    
 <li >
     <a href="../GPS sources/">GPS sources</a>
 </li>
-                            
+                                    
 <li class="active">
     <a href="./">Tag based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Preset filter/">Preset based filter</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Opening hours/">Opening hours</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Preferences/">Preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Advanced preferences/">Advanced preferences</a>
 </li>
-                            
+                                    
 <li >
     <a href="../Voice commands/">Voice commands</a>
 </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
 <li >
     <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/tag_only/">Tag-only editing</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/presets/">Vespucci presets</a>
 </li>
-                            
+                                    
 <li >
     <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
 </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/screenshots/">Screenshots</a>
+                            </li>
+                            <li >
+                                <a href="../../../tutorials/faq/">FAQ</a>
+                            </li>
+                            <li >
+                                <a href="../Privacy/">Privacy</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li >
-                        <a href="screenshots.md">Screenshots</a>
-                    </li>
-                    <li >
-                        <a href="faq.md">FAQ</a>
-                    </li>
-                    <li >
-                        <a href="help/en/Privacy/">Privacy</a>
-                    </li>
-                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-
-<!--
-                    <li >
-                        <a rel="next" href="help/en/GPS sources/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="help/en/Preset filter/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
--->
-            </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+<!--- Remove Prev - Next
+                            <li >
+                                <a rel="next" href="../GPS sources/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../Preset filter/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+i-->
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <div class="container">
+<!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#tag-filter">Tag filter</a></li>
+            <li><a href="#actions">Actions</a></li>
+            <li><a href="#filter-entries">Filter entries</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="tag-filter">Tag filter</h1>
+<p>Vespucci provides a simple mechanism to filter displayed and editable objects based on selecting keys and values with regular expressions. Elements that are not selectable and visible will be drawn with light grey lines. All edits and additions to the filter entries are immediately stored on your device.</p>
+<p>The preset filter is enabled by selecting the corresponding menu entry in the menu on the main map display.</p>
+<h2 id="actions">Actions</h2>
+<h3 id="add">+ Add</h3>
+<p>Add a new filter entry.</p>
+<h3 id="help"><img alt="Help" src="../../images/menu_help.png" /> Help</h3>
+<p>Start the Vespucci Help browser</p>
+<h2 id="filter-entries">Filter entries</h2>
+<p>Default, no entries state, is to not include any objects. Each entry can be enabled/disabled with the checkbox and are applied in the top-down order as they are displayed. Selecting the "+" node will include objects that match, "-" will exclude objects. OSM object type can be either <em>All</em>, <em>Nodes</em>, <em>Ways</em>. <em>Ways+</em> (automatically include way nodes of matched ways), <em>Relations</em> and <em>Relations+</em> (automatically include way nodes of matched ways). Included ways and relations will include their member objects.</p>
+<p>Regular expressions can be entered in the Key and Value text fields, an empty field will match all strings. Combination of tags is currently not supported.</p>
+<p>Clicking the trash can icon will delete the entry.</p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -276,11 +301,15 @@
 
         <footer class="col-md-12">
             <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.1.0 </p>
+<!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.2.0 </p>
         </footer>
-        <script>var base_url = '../../..';</script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
