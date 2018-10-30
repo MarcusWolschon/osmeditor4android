@@ -39,7 +39,7 @@
                 <span class="icon-bar"></span>
             </button>
 <!--
-            <a class="navbar-brand" href="../../..">Vespucci</a>
+            <a class="navbar-brand" href="">Vespucci</a>
 -->
         </div>
 
@@ -48,7 +48,7 @@
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="../../..">Vespucci</a>
+                        <a href="">Vespucci</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
@@ -214,13 +214,13 @@
                         </ul>
                     </li>
                     <li >
-                        <a href="../../../tutorials/screenshots/">Screenshots</a>
+                        <a href="screenshots.md">Screenshots</a>
                     </li>
                     <li >
-                        <a href="../../../tutorials/faq/">FAQ</a>
+                        <a href="faq.md">FAQ</a>
                     </li>
                     <li class="active">
-                        <a href="./">Privacy</a>
+                        <a href="help/en/Privacy/">Privacy</a>
                     </li>
                 </ul>
 
@@ -233,7 +233,7 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../../../tutorials/faq/">
+                        <a rel="next" href="tutorials/vespucci_intents/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -264,7 +264,7 @@
 <li>The vespucci.io site and the Vespucci source code repository and issue tracker is hosted on <a href="https://help.github.com/articles/github-privacy-statement/">github (likely in the USA)</a> the developers have no access to any data on use of the site, IP addresses or similar.</li>
 <li>Crash dumps contain IP addresses, detailed information on your device and log information from your device immediately before the crash. This information is stored on a server operated by Simon Poole and located in Germany, when you submit a report. The information is deleted after 90 days if it is not required further for issue identification and resolution, general web server logfiles are retained for 15 days. None of this data is shared with 3rd parties. Processing of this data is based on a legitimate interest of the developers see <a href="https://gdpr-info.eu/art-6-gdpr/">GDPR Art 6.(1) f)</a>.</li>
 <li>Contributions uploaded to and other use of the OpenStreetMap API are subject to the <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy">OSMF privacy policy</a>.</li>
-<li>Use of background, overlay and other layers will result in you device connecting to the sites of the respective operators, more information on the provenance of such layers can be found on <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index github repo</a>.</li>
+<li>Use of background, overlay and other layers will result in your device connecting to the sites of the respective operators, more information on the provenance of such layers can be found on <a href="https://github.com/osmlab/editor-layer-index">Editor Layer Index github repo</a>.</li>
 <li>Using the Tasks layer can result in your device connecting to the OSMOSE QA service operated by <a href="http://openstreetmap.fr/">OpenStreetMap France</a>.</li>
 <li>Installing the app from Amazon, google or F-Droid requires you to access these sites and potentially submit personal data (at least IP addresses) to them. </li>
 </ul>
@@ -278,8 +278,7 @@
         </footer>
         <script>var base_url = '../../..';</script>
         <script src="../../../js/base.js"></script>
-        <script src="../../../search/require.js"></script>
-        <script src="../../../search/search.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -295,7 +294,7 @@
                 </p>
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
@@ -321,19 +320,19 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><kbd>?</kbd></td>
+                    <td class="help shortcut"><kbd>?</kbd></td>
                     <td>Open this help</td>
                   </tr>
                   <tr>
-                    <td><kbd>&larr;</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td><kbd>&rarr;</kbd></td>
+                    <td class="next shortcut"><kbd>n</kbd></td>
                     <td>Next page</td>
                   </tr>
                   <tr>
-                    <td><kbd>s</kbd></td>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
                     <td>Search</td>
                   </tr>
                 </tbody>
@@ -344,7 +343,6 @@
         </div>
     </div>
 </div>
-
 
     </body>
 </html>

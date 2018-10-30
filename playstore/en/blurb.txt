@@ -1,0 +1,11 @@
+Vespucci is an advanced tool for editing OpenStreetMap data, it is not a map viewer or a navigation app. You will need an <a href="http://www.openstreetmap.org/">OpenStreetMap account</a> to use it.
+
+You can download the map data for a specific area and edit the map. After editing, you can upload it directly to the OSM servers.
+
+Any accidental change can be undone and all changes are listed for review before upload. Tag-autocompletion, JOSM compatible presets, links to the translated map-features pages and even auto-completing nearby street names help to find the right tags to use.
+
+We recommend disabling auto-updates for Vespucci so that you can upload your edits before app updates.
+
+More information and documentation can be found on <a href="http://vespucci.io/">vespucci.io</a> and in the on-device help.
+
+OpenStreetMap, OSM and the magnifying glass logo are trademarks of the <a href="https://osmfoundation.org/">OpenStreetMap Foundation</a>. The Vespucci app is not endorsed by or affiliated with the OpenStreetMap Foundation. 

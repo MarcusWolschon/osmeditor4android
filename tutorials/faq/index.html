@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>FAQ - Vespucci</title>
+        <title>Frequently Asked Questions - Vespucci</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -39,7 +39,7 @@
                 <span class="icon-bar"></span>
             </button>
 <!--
-            <a class="navbar-brand" href="../..">Vespucci</a>
+            <a class="navbar-brand" href="">Vespucci</a>
 -->
         </div>
 
@@ -48,7 +48,7 @@
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="../..">Vespucci</a>
+                        <a href="">Vespucci</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
@@ -214,13 +214,13 @@
                         </ul>
                     </li>
                     <li >
-                        <a href="../screenshots/">Screenshots</a>
-                    </li>
-                    <li class="active">
-                        <a href="./">FAQ</a>
+                        <a href="screenshots.md">Screenshots</a>
                     </li>
                     <li >
-                        <a href="../../help/en/Privacy/">Privacy</a>
+                        <a href="faq.md">FAQ</a>
+                    </li>
+                    <li >
+                        <a href="help/en/Privacy/">Privacy</a>
                     </li>
                 </ul>
 
@@ -232,16 +232,6 @@
                 </li>
 
 <!--
-                    <li >
-                        <a rel="next" href="../screenshots/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../../help/en/Privacy/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
 -->
             </ul>
         </div>
@@ -317,7 +307,7 @@ Additionally, obscure OSM data can be verified easily and quickly "on site", dat
 <h4 id="is-vespucci-available-for-other-mobile-platforms">Is Vespucci available for other mobile platforms?</h4>
 <p>No, with the exception of those that provide an Android compatible environment.</p>
 <h4 id="how-can-i-obtain-vespucci">How can I obtain Vespucci?</h4>
-<p>See <a href="../../#obtaining-vespucci">Obtaining Vespucci</a>.</p>
+<p>See <a href="/#obtaining-vespucci">Obtaining Vespucci</a>.</p>
 <h4 id="how-can-i-install-vespucci-on-my-android-device">How can I install Vespucci on my Android device?</h4>
 <p>Just download and install like any other app =)</p>
 <h4 id="which-special-permissions-does-vespucci-require">Which special permissions does Vespucci require?</h4>
@@ -339,7 +329,9 @@ however older devices tend to have very limited memory and correspondingly the a
 <li>turn off notes and photo overlay</li>
 <li>turn off name suggestions</li>
 <li>don't add large presets</li>
+<li>use the <a href="vespucci://preset/?preseturl=https://github.com/simonpoole/beautified-JOSM-preset/blob/master/gen/vespucci_zip_no_translations.zip%3fraw=true&presetname=Default preset without translations">Default preset without translations</a> instead of the one packaged with the app.</li>
 </ul>
+<p>The location dependent tagging and validation feature is not available on such devices as it alone requires 4MB of heap. </p>
 <h4 id="cant-download-data-from-openstreetmap-servers">Can't download data from OpenStreetMap servers</h4>
 <p>If it is not a connectivity issue you may be running in to the following problem: current Vespucci versions use HTTPS (encrypted connections) to connect to the OpenStreetMap servers, if you are running on an older Android version this may be failing due to problems the old devices have with more recent certificates. </p>
 <p>Workaround: create a new non-HTTPS API entry (enter "http://api.openstreetmap.org/api/0.6/" as API URL) and select that. 0.9.8 and later versions already have such an entry, you only need to activate it. </p>
@@ -440,8 +432,7 @@ however older devices tend to have very limited memory and correspondingly the a
         </footer>
         <script>var base_url = '../..';</script>
         <script src="../../js/base.js"></script>
-        <script src="../../search/require.js"></script>
-        <script src="../../search/search.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -457,7 +448,7 @@ however older devices tend to have very limited memory and correspondingly the a
                 </p>
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
@@ -483,19 +474,19 @@ however older devices tend to have very limited memory and correspondingly the a
                 </thead>
                 <tbody>
                   <tr>
-                    <td><kbd>?</kbd></td>
+                    <td class="help shortcut"><kbd>?</kbd></td>
                     <td>Open this help</td>
                   </tr>
                   <tr>
-                    <td><kbd>&larr;</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td><kbd>&rarr;</kbd></td>
+                    <td class="next shortcut"><kbd>n</kbd></td>
                     <td>Next page</td>
                   </tr>
                   <tr>
-                    <td><kbd>s</kbd></td>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
                     <td>Search</td>
                   </tr>
                 </tbody>
@@ -506,7 +497,6 @@ however older devices tend to have very limited memory and correspondingly the a
         </div>
     </div>
 </div>
-
 
     </body>
 </html>

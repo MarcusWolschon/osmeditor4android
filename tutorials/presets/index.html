@@ -39,7 +39,7 @@
                 <span class="icon-bar"></span>
             </button>
 <!--
-            <a class="navbar-brand" href="../..">Vespucci</a>
+            <a class="navbar-brand" href="">Vespucci</a>
 -->
         </div>
 
@@ -48,7 +48,7 @@
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="../..">Vespucci</a>
+                        <a href="">Vespucci</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
@@ -214,13 +214,13 @@
                         </ul>
                     </li>
                     <li >
-                        <a href="../screenshots/">Screenshots</a>
+                        <a href="screenshots.md">Screenshots</a>
                     </li>
                     <li >
-                        <a href="../faq/">FAQ</a>
+                        <a href="faq.md">FAQ</a>
                     </li>
                     <li >
-                        <a href="../../help/en/Privacy/">Privacy</a>
+                        <a href="help/en/Privacy/">Privacy</a>
                     </li>
                 </ul>
 
@@ -233,12 +233,12 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../tag_only/">
+                        <a rel="next" href="tutorials/tag_only/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../vespucci_intents/">
+                        <a rel="prev" href="tutorials/vespucci_intents/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -985,7 +985,7 @@
 <li><em>deprecated</em> only use this preset for matching, do not offer it for new use and do not find it when searched</li>
 <li><em>javascript</em> execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any</li>
 <li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
-<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
+<li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
 <li>
 <p><em>value_type</em> type of the value: </p>
 <ul>
@@ -1000,7 +1000,7 @@
 </ul>
 </li>
 </ul>
-<p>this avoids having to hardcode such properties in applications, see the <a href="../xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example.</p></div>
+<p>this avoids having to hardcode such properties in applications, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example.</p></div>
                 
         </div>
 
@@ -1010,8 +1010,7 @@
         </footer>
         <script>var base_url = '../..';</script>
         <script src="../../js/base.js"></script>
-        <script src="../../search/require.js"></script>
-        <script src="../../search/search.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -1027,7 +1026,7 @@
                 </p>
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
@@ -1053,19 +1052,19 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><kbd>?</kbd></td>
+                    <td class="help shortcut"><kbd>?</kbd></td>
                     <td>Open this help</td>
                   </tr>
                   <tr>
-                    <td><kbd>&larr;</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td><kbd>&rarr;</kbd></td>
+                    <td class="next shortcut"><kbd>n</kbd></td>
                     <td>Next page</td>
                   </tr>
                   <tr>
-                    <td><kbd>s</kbd></td>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
                     <td>Search</td>
                   </tr>
                 </tbody>
@@ -1076,7 +1075,6 @@
         </div>
     </div>
 </div>
-
 
     </body>
 </html>

@@ -39,7 +39,7 @@
                 <span class="icon-bar"></span>
             </button>
 <!--
-            <a class="navbar-brand" href="../../..">Vespucci</a>
+            <a class="navbar-brand" href="">Vespucci</a>
 -->
         </div>
 
@@ -48,7 +48,7 @@
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="../../..">Vespucci</a>
+                        <a href="">Vespucci</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
@@ -214,13 +214,13 @@
                         </ul>
                     </li>
                     <li >
-                        <a href="../../../tutorials/screenshots/">Screenshots</a>
+                        <a href="screenshots.md">Screenshots</a>
                     </li>
                     <li >
-                        <a href="../../../tutorials/faq/">FAQ</a>
+                        <a href="faq.md">FAQ</a>
                     </li>
                     <li >
-                        <a href="../Privacy/">Privacy</a>
+                        <a href="help/en/Privacy/">Privacy</a>
                     </li>
                 </ul>
 
@@ -233,12 +233,12 @@
 
 <!--
                     <li >
-                        <a rel="next" href="../Advanced preferences/">
+                        <a rel="next" href="help/en/Advanced preferences/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../../tutorials/network_location/">
+                        <a rel="prev" href="tutorials/network_location/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -277,8 +277,7 @@
         </footer>
         <script>var base_url = '../../..';</script>
         <script src="../../../js/base.js"></script>
-        <script src="../../../search/require.js"></script>
-        <script src="../../../search/search.js"></script>
+        <script src="../../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -294,7 +293,7 @@
                 </p>
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
@@ -320,19 +319,19 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><kbd>?</kbd></td>
+                    <td class="help shortcut"><kbd>?</kbd></td>
                     <td>Open this help</td>
                   </tr>
                   <tr>
-                    <td><kbd>&larr;</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td><kbd>&rarr;</kbd></td>
+                    <td class="next shortcut"><kbd>n</kbd></td>
                     <td>Next page</td>
                   </tr>
                   <tr>
-                    <td><kbd>s</kbd></td>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
                     <td>Search</td>
                   </tr>
                 </tbody>
@@ -343,7 +342,6 @@
         </div>
     </div>
 </div>
-
 
     </body>
 </html>

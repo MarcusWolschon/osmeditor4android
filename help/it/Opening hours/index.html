@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Editor degli orari di apertura - Vespucci</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+<!--
+            <a class="navbar-brand" href="">Vespucci</a>
+-->
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="">Vespucci</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../en/Introduction/">Introduction</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/features/">Features</a>
+</li>
+                            
+<li >
+    <a href="../../en/11.1.0 Release notes/">11.1.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/11.0.0 Release notes/">11.0.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/10.2.0 Release notes/">10.2.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/10.1.0 Release notes/">10.1.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/10.0.0 Release notes/">10.0.0 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/0.9.9 Release notes/">0.9.9 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/0.9.8 Release notes/">0.9.8 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/0.9.7 Release notes/">0.9.7 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../en/0.9.6 Release notes/">0.9.6 Release notes</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/old_release_notes/">Previous release notes</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../en/Main map display/">Main map display</a>
+</li>
+                            
+<li >
+    <a href="../../en/Creating new objects/">Creating new objects</a>
+</li>
+                            
+<li >
+    <a href="../../en/Node selected/">Node selected</a>
+</li>
+                            
+<li >
+    <a href="../../en/Way selected/">Way selected</a>
+</li>
+                            
+<li >
+    <a href="../../en/Relation selected/">Relation selected</a>
+</li>
+                            
+<li >
+    <a href="../../en/Property editor/">Property editor</a>
+</li>
+                            
+<li >
+    <a href="../../en/Multiselect/">Multiselect</a>
+</li>
+                            
+<li >
+    <a href="../../en/Conflict resolution/">Conflict resolution</a>
+</li>
+                            
+<li >
+    <a href="../../en/Presets/">Presets</a>
+</li>
+                            
+<li >
+    <a href="../../en/Aligning background imagery/">Aligning background imagery</a>
+</li>
+                            
+<li >
+    <a href="../../en/Keyboard/">Keyboard and mouse</a>
+</li>
+                            
+<li >
+    <a href="../../en/GPS sources/">GPS sources</a>
+</li>
+                            
+<li >
+    <a href="../../en/Tag filter/">Tag based filter</a>
+</li>
+                            
+<li >
+    <a href="../../en/Preset filter/">Preset based filter</a>
+</li>
+                            
+<li >
+    <a href="../../en/Opening hours/">Opening hours</a>
+</li>
+                            
+<li >
+    <a href="../../en/Preferences/">Preferences</a>
+</li>
+                            
+<li >
+    <a href="../../en/Advanced preferences/">Advanced preferences</a>
+</li>
+                            
+<li >
+    <a href="../../en/Voice commands/">Voice commands</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials and Posts <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../tutorials/network_location/">"network" Location Provider Support</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/custom_imagery/">Custom imagery</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/name_suggestions/">Using name suggestions</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/reporting_issues/">Reporting Vespucci issues</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/tag_only/">Tag-only editing</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/presets/">Vespucci presets</a>
+</li>
+                            
+<li >
+    <a href="../../../tutorials/vespucci_intents/">Controlling Vespucci from other apps</a>
+</li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="screenshots.md">Screenshots</a>
+                    </li>
+                    <li >
+                        <a href="faq.md">FAQ</a>
+                    </li>
+                    <li >
+                        <a href="help/en/Privacy/">Privacy</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+
+<!--
+-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                
+                    <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#editor-degli-orari-di-apertura">Editor degli orari di apertura</a></li>
+            <li><a href="#utilizzare-leditor-degli-orari-di-apertura">Utilizzare l'editor degli orari di apertura</a></li>
+    </ul>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="editor-degli-orari-di-apertura">Editor degli orari di apertura</h1>
+<p>Le specifiche sugli orari di apertura di OpenStreetMap sono piuttosto articolate e non sono facilmente rappresentabili tramite un’interfaccia utente intuitiva.</p>
+<p>Comunque sia il più delle volte solo una piccola parte della definizione viene realmente usata. L’editor considera questo aspetto omettendo gli elementi più oscuri dai menù e riducendo spesso e volentieri la libertà di azione dell’utente a piccole personalizzazioni di modelli predefiniti.</p>
+<p><em>Questa documentazione è in continuo sviluppo</em></p>
+<h2 id="utilizzare-leditor-degli-orari-di-apertura">Utilizzare l'editor degli orari di apertura</h2>
+<p>Nello scenario tipico, l’oggetto che stai modificando può sia avere già un’etichetta per gli orari di apertura (opening_hours, service_times e collection_times) oppure puoi riapplicare il valore predefinito all’oggetto per avere il campo degli orari di apertura vuoto. Se senti la necessità di inserire il valore manualmente e stai usando Vespucci, puoi modificare il campo nella pagina dettagli e poi tornare alla scheda per le modifiche. Se pensi che l’etichetta per gli orari di apertura debba far parte delle preimpostazioni, segnala il problema agli sviluppatori del tuo editor.</p>
+<p>Se hai definito un modello predefinito (puoi farlo attraverso il menù “Gestisci modelli”) questo verrà caricato automaticamente con un valore vuoto all’avvio dell’editor. Con la funzione “Carica modello” carichi un qualsiasi modello precedentemente salvato mentre con il menù “Salva modello” salvi il valore attuale in un nuovo modello. Puoi definire modelli diversi e predefiniti per le etichette “opening_hours”, “collection_times” e “service_times”.</p>
+<p>Chiaramente puoi anche decidere di scrivere di tuo pugno un valore per gli orari di apertura, ma è consigliato partire da un modello preesistente.</p>
+<p>Quando viene caricato un valore esistente per gli orari di apertura, il programma cerca di renderlo conforme alle specifiche degli orari di apertura. Qualora non fosse possibile, la posizione approssimativa dell’errore verrà evidenziata nella stringa grezza degli orari di apertura così che tu possa provare a correggerla manualmente. Circa un quarto dei valori degli orari di apertura nel database di OpenStreetMap hanno qualche problema, di questi meno del 10% può essere corretto, vedi <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> per ulteriori dettagli su quali deviazioni dalle specifiche sono tollerate.</p>
+<h3 id="bottone-menu-principale">Bottone menù principale</h3>
+<ul>
+<li><strong>Aggiungi regola</strong>: aggiunge una nuova regola.</li>
+<li><strong>Aggiungi regola per le festività</strong>: aggiunge una nuova regola per i giorni festivi insieme ad un cambiamento di stato.</li>
+<li><strong>Aggiungi una regola per 24/7</strong>: aggiunge una regola  per un oggetto che è sempre aperto, le specifiche degli orari di apertura non supportano valori secondari per 24/7 comunque noi permettiamo selezioni di periodi più grandi (per esempio periodi con una durata di anni).</li>
+<li><strong>Carica modello</strong>: carica un modello esistente.</li>
+<li><strong>Salva come modello</strong>: salva il valore attuale degli orari di apertura in un modello da usare in futuro.</li>
+<li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
+<li><strong>Aggiorna</strong>: ricontrolla il valore degli orari di apertura.</li>
+<li><strong>Elimina tutto</strong>: elimina tutte le regole.</li>
+</ul>
+<h3 id="regole">Regole</h3>
+<p>Le regole predefinite sono aggiunte come <em>normali</em> regole, ciò implica che esse sostituiscono i valori delle regole precedenti per gli stessi giorni. Questo potrebbe dare problemi quando si specifica orari estesi, in questi casi probabilmente dovrai impostare il tipo di regola nel menù <em>Mostra tipo di regola</em> su <em>additivo</em>.</p>
+<h4 id="menu-regole">Menù regole</h4>
+<ul>
+<li><strong>Aggiungi modificatore/commento</strong>: modifica l’effetto di questa regola e aggiungi un commento facoltativo.</li>
+<li><strong>Aggiungi festività</strong>: aggiungi un selettore per festività pubbliche o scolastiche.</li>
+<li><strong>Aggiungi intervallo di tempo</strong><ul>
+<li><strong>Orario - orario</strong>: un orario di inizio ed uno di fine nello stesso giorno.</li>
+<li><strong>Orario - orario esteso</strong>: da un orario di inizio fino ad un orario di fine del giorno seguente (ad esempio 26:00 che significa le 2 del mattino del giorno seguente).</li>
+<li><strong>Orario var. - orario</strong>: da un orario di inizio variabile (crepuscolo, alba, tramonto) ad uno di fine nello stesso giorno.</li>
+<li><strong>Orario var. - orario esteso</strong>: da un orario variabile di inizio ad uno di fine nel giorno seguente.</li>
+<li><strong>Orario - orario var.</strong>: da un orario di inizio ad uno di fine variabile.</li>
+<li><strong>Orario var. - orario var.</strong>: da un orario di inizio variabile ad uno di fine variabile.</li>
+<li><strong>Orario</strong>: un punto nel tempo.</li>
+<li><strong>Orario-senza un termine</strong>: da un orario di inizio in poi.</li>
+<li><strong>orario variabile</strong>: ad un orario non preciso</li>
+<li><strong>Orario variabile-senza un termine</strong>: da un orario di inizio variabile in poi</li>
+</ul>
+</li>
+<li><strong>Aggiungi intervallo di giorni</strong>: aggiungi un selettore di giorni della settimana.</li>
+<li><strong>Aggiungi intervallo di date...</strong><ul>
+<li><strong>Data - data</strong>: da una data di inizio (anno, mese, giorno) fino ad una di fine.</li>
+<li><strong>Data variabile - data</strong>: da una data di inizio non precisa (per ora ciò significa <em>Pasqua</em>) fino ad una data di fine.</li>
+<li><strong>Data - data variabile</strong>: da una data di inizio ad una data non precisa.</li>
+<li><strong>Data variabile - data variabile</strong>: da una data non precisa ad un’altra.</li>
+<li><strong>Occorrenza nel mese - occorrenza nel mese</strong>: da un numero di giorno settimanale del mese ad un altro numero di giorno settimanale dello stesso mese.</li>
+<li><strong>Occorrenza nel mese - data</strong>: da un numero di giorno settimanale del mese ad una data di fine.</li>
+<li><strong>Data - occorrenza nel mese</strong>: da una data di inizio fino a un numero di giorno settimanale del mese.</li>
+<li><strong>Occorrenza nel mese - data variabile</strong>: da un numero di giorno settimanale del mese fino a una data non precisa.</li>
+<li><strong>Data variabile - occorrenza nel mese</strong>: da una data non precisa di inizio fino al numero di giorno settimanale nel mese.</li>
+<li><strong>Data - senza termine</strong>: da una data di inizio in poi.</li>
+<li><strong>Data variabile - senza un termine</strong>: da una data di inizio variabile in poi.</li>
+<li><strong>Occorrenza nel mese - senza un termine</strong>: dal numero di giorno della settimana di un mese in poi.</li>
+<li><strong>Con scostamenti...</strong>: le stesse voci come sopra solo con specificati degli scostamenti (raramente usato).</li>
+</ul>
+</li>
+<li><strong>Aggiungi intervallo annuale</strong>: aggiungi un selettore per gli anni.</li>
+<li><strong>Aggiungi intervallo di settimane</strong>: aggiungi un selettore per il numero della settimana.</li>
+<li><strong>Duplica</strong>: crea una copia di questa regola e inseriscila dopo la posizione corrente.</li>
+<li><strong>Mostra tipo di regola</strong>: visualizza e modifica il tipo di regola <em>normale</em>, <em>additivo</em> e <em>di riserva</em> (non disponibile per la prima regola).</li>
+<li><strong>Sposta su</strong>: sposta questa regola di una posizione in alto (non disponibile per la prima regola).</li>
+<li><strong>Sposta giù</strong>: sposta questa regola di una posizione in basso.</li>
+<li><strong>Elimina</strong>: elimina questa regola.</li>
+</ul>
+<h3 id="intervalli-di-tempo">Intervalli di tempo</h3>
+<p>Per rendere la modifica degli intervalli di tempo più semplice possibile, quando vengono caricati valori già esistenti scegliamo un intervallo di tempo ed una granularità per le barre di intervallo che riteniamo ottimali. Per gli intervalli temporali nuovi le barre iniziano alle 6 del mattino e hanno incrementi di 15 minuti, questo può essere modificato attraverso il menù.</p>
+<h4 id="menu-intervalli-di-tempo">Menù intervalli di tempo</h4>
+<ul>
+<li><strong>Mostra selettore orario</strong>: visualizza un grande selettore dell’orario per scegliere l’ora di inizio e quella di fine, negli schermi molto piccoli è il modo migliore di modificare gli orari.</li>
+<li><strong>Passa a scatti di 15 minuti</strong>: utilizza una granularità di 15 minuti per la barra dell’intervallo.</li>
+<li><strong>Passa a scatti di 5 minuti</strong>: utilizza una granularità di 5 minuti per la barra dell’intervallo.</li>
+<li><strong>Passa a scatti di 1 minuto</strong>: utilizza una granularità di 1 minuto per la barra dell’intervallo.</li>
+<li><strong>Inizia a mezzanotte</strong>: fa iniziare la barra dell’intervallo dalla mezzanotte.</li>
+<li><strong>Mostra intervallo</strong>: visualizza il campo dell’intervallo per specificare un intervallo in minuti.</li>
+<li><strong>Elimina</strong>: elimina questo intervallo di tempo.</li>
+</ul></div>
+                
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.1.0 </p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
