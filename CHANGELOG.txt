@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-11.2.0-1: Support two build flavors, reduce memory footprint on devices with smallish heaps, fix popup menus in layer dialog bein clipped, update translations and imagery.
+11.2.0-1: Support two build flavors, reduce memory footprint on devices with smallish heaps, fix popup menus in layer dialog bein clipped, update translations and imagery, improve i18n support for notes and bugs, show note and bug status in disambiguation menu.
 
 11.1.3: Fix regression on pre android 13 devices.
 
