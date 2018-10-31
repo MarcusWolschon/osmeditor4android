@@ -92,20 +92,24 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                         {%- for nav_item in nav %}
-                        {%- if nav_item.children %}
-                            <li class="dropdown{% if nav_item.active %} active{% endif %}">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ nav_item.title }} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                {%- for nav_item in nav_item.children %}
-                                    {% include "nav-sub.html" %}
-                                {%- endfor %}
-                                </ul>
-                            </li>
-                        {%- else %}
-                            <li {% if nav_item.active %}class="active"{% endif %}>
-                                <a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
-                            </li>
-                        {%- endif %}
+                            {%- if nav_item.children %}
+                                <li class="dropdown{% if nav_item.active %} active{% endif %}">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ nav_item.title }} <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                    {%- for nav_item in nav_item.children %}
+                                        {% include "nav-sub.html" %}
+                                    {%- endfor %}
+                                    </ul>
+                                </li>
+                            {%- else %}
+                                <li {% if nav_item.active %}class="active"{% endif %}>
+                                    {% if nav_item.is_page and nav_item.meta and nav_item.meta.icon %}
+                                        <a href="{{ nav_item.url|url }}"><img src="{{ nav_item.meta.icon }}"></a>
+                                    {%- else %}
+                                        <a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
+                                    {%- endif %}
+                                </li>
+                            {%- endif %}
                         {%- endfor %}
                         </ul>
                     {%- endif %}
