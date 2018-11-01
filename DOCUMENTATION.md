@@ -17,16 +17,15 @@ The files are found in the documentation directory, layout:
     			/images
     			....
     			.....
-    	   /playstore   text for the playstore listing
+    	    /playstore              text for the playstore listing
     		CNAME			domain this appears under for github pages
     		index.md		top level page for vespucci.io
     	/flatly-custom		slightly customized mkdocs theme
-    	/markdown_ext		trivial python markdown extension to munge file extensions 
-    	mkdocs.yml			mkdocs
+    	mkdocs.yml			mkdocs configuration file
 
 ## vespucci.io website
 
-The static website is produced with [mkdocs](http://mkdocs.org).
+The static website is produced with [mkdocs](http://mkdocs.org) (requires version 1.0.x).
 
 You can serve a local version on your machine by running (you will need to install the [bootswatch themes](https://github.com/mkdocs/mkdocs-bootswatch)):
 
@@ -41,7 +40,7 @@ Note: any manual changes to the GitHub Pages will be lost!
 
 ## On-device help
 
-The source for the help files is in the language specific directories, currently these need to be converted from Markdown to HTML manually pre-build and then copied to the corresponding directories in assets. This is best done with [Python-Markdown](https://pythonhosted.org/Markdown/). The directory markdown_ext contains an extension that will change the .md extension in Markdown links to .html for the processed files. While this is a bit of a pain, it is faster than doing it on the fly on the device and eliminates the need to include a third party Markdown support library (which all have issues of one kind or another).
+The source for the help files is in the language specific directories, these need to be converted to html format and copied to the Android assets directory for on device use by running the `markdownToHtml` task. This is only necessary if you have changed something, to keep the build process simple the current generated html files are stored in our source code repository too. 
 
 The help files need to be named the same as in the resource file "helptopics.xml". The names of the files can be translated, but the actual help files then need to be renamed too (note in practice this currently doesn't work due to limitations of Android file names), you can however leave the default versions in if you have not translated all files. 
 
