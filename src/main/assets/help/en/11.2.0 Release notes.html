@@ -14,7 +14,7 @@
   <li><em>legacy</em> that is built against the last support library that supported 2.3, but will naturally run on any later Android version too-</li>
 </ul>
 <p>Right now the <em>current</em> build mainly profits from bug fixes to the support libraries, for example the issue with sub-menus on tablets is resolved in the version we build the <em>current</em> flavor against.</p>
-<p>This is not a commitment to supporting 2.3 indefinitely, but as we suspect that google will be increasing the minimum Android that practically can be supported in the future we except that the legacy build will continue as a vehicle to support older versions in the future.</p>
+<p>This is not a commitment to supporting 2.3 indefinitely, but as we suspect that google will be increasing the minimum Android that practically can be supported in the future we expect that the legacy build will continue as a vehicle to support older versions in the future.</p>
 <h2>Changes for Android 2.3</h2>
 <p>On devices that only supply 32MB of heap to apps memory usage of Vespucci had gotten to the point at which the app could potentially completely run out of available memory. To work around this a bit we've stopped loading the simplified country boundaries which saves roughly 4MB, this implies that any country specific features will not work. Further we recommend to, instead of the standard bundled preset, to load the untranslated one (see the on device Preset help page) which will save roughly another 3MB (mainly because we don't build a translated search index then).</p>
 <h2>Miscellaneous</h2>

@@ -240,7 +240,6 @@ android {
     dexOptions {
         jumboMode = true
     }
-
 }
 
 android.applicationVariants.all { variant ->
