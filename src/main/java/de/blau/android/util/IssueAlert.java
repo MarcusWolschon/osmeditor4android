@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -42,9 +43,13 @@ public final class IssueAlert {
 
     static final String DEBUG_TAG = "IssueAlert";
 
-    private static final String GROUP_DATA   = "Data";
-    private static final String GROUP_NOTES  = "Notes";
-    private static final String GROUP_OSMOSE = "Osmose";
+    private static final String PAACKGE_NAME    = "de.blau.android";
+    private static final String GROUP_DATA      = PAACKGE_NAME + ".Data";
+    private static final int    GROUP_DATA_ID   = GROUP_DATA.hashCode();
+    private static final String GROUP_NOTES     = PAACKGE_NAME + ".Notes";
+    private static final int    GROUP_NOTES_ID  = GROUP_NOTES.hashCode();
+    private static final String GROUP_OSMOSE    = PAACKGE_NAME + ".Osmose";
+    private static final int    GROUP_OSMOSE_ID = GROUP_OSMOSE.hashCode();
 
     private static final int[] bearings = { R.string.bearing_ne, R.string.bearing_e, R.string.bearing_se, R.string.bearing_s, R.string.bearing_sw,
             R.string.bearing_w, R.string.bearing_nw, R.string.bearing_n };
@@ -138,9 +143,8 @@ public final class IssueAlert {
         NotificationCompat.Builder mBuilder;
         try {
             mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
-                    .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
-                    .setGroup(GROUP_DATA);
-            mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
+                    .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA)
+                    .setColor(ContextCompat.getColor(context, R.color.osm_green));
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
@@ -165,10 +169,11 @@ public final class IssueAlert {
             mBuilder.setContentIntent(resultPendingIntent);
 
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            addGroupNotification(context, QA_CHANNEL, GROUP_DATA, GROUP_DATA_ID, title, mNotificationManager);
+
             // mId allows you to update the notification later on.
             mNotificationManager.notify(id(e), mBuilder.build());
             App.getOsmDataNotifications(context).save(mNotificationManager, id(e));
-
         } catch (OsmException e1) {
             Log.d(DEBUG_TAG, "Illegal BB created from lat " + eLat + " lon " + eLon + " r " + prefs.getDownloadRadius());
         }
@@ -182,17 +187,6 @@ public final class IssueAlert {
      */
     private static int id(@NonNull OsmElement e) {
         return (e.getName() + e.getOsmId()).hashCode();
-    }
-
-    /**
-     * Cancel a notification for a specific OsmElement
-     * 
-     * @param context Android Context
-     * @param e the OsmElement
-     */
-    public static void cancel(@NonNull Context context, @NonNull OsmElement e) {
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        App.getOsmDataNotifications(context).remove(mNotificationManager, id(e));
     }
 
     /**
@@ -267,6 +261,11 @@ public final class IssueAlert {
         mBuilder.setContentIntent(resultPendingIntent);
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (b instanceof Note) {
+            addGroupNotification(context, QA_CHANNEL, GROUP_NOTES, GROUP_NOTES_ID, title, mNotificationManager);
+        } else {
+            addGroupNotification(context, QA_CHANNEL, GROUP_OSMOSE, GROUP_OSMOSE_ID, title, mNotificationManager);
+        }
         // mId allows you to update the notification later on.
         int id = id(b);
         mNotificationManager.notify(id, mBuilder.build());
@@ -281,6 +280,34 @@ public final class IssueAlert {
      */
     private static int id(@NonNull Task b) {
         return (b.getClass().getSimpleName() + b.getId()).hashCode();
+    }
+
+    /**
+     * Check if we have already shown a group notification
+     * 
+     * @param notificationManager a NotificationManager instance
+     * @param groupId the group id we a rechecking
+     * @return true if present
+     */
+    private static boolean hasGroupNotification(@NonNull NotificationManager notificationManager, int groupId) {
+        StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getId() == groupId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Cancel a notification for a specific OsmElement
+     * 
+     * @param context Android Context
+     * @param e the OsmElement
+     */
+    public static void cancel(@NonNull Context context, @NonNull OsmElement e) {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        App.getOsmDataNotifications(context).remove(mNotificationManager, id(e));
     }
 
     /**
@@ -332,5 +359,35 @@ public final class IssueAlert {
             }
         }
         return closest;
+    }
+
+    /**
+     * Add a group notification so that the alerts can be grouped
+     * 
+     * This is things actually work and not how google has them in the documentation, see
+     * https://stackoverflow.com/questions/36058887/setgroup-in-notification-not-working
+     * 
+     * @param context Android Context
+     * @param channel the name of the NotificationChannel
+     * @param title the titles for this group
+     * @param group the group name
+     * @param groupId an unique id for the group
+     * @param notificationManager a NotificationManager instance
+     */
+    private static void addGroupNotification(@NonNull Context context, @NonNull String channel, @NonNull String group, int groupId, @NonNull String title,
+            @NonNull NotificationManager notificationManager) {
+        if (!hasGroupNotification(notificationManager, groupId)) {
+            NotificationCompat.Builder groupBuilder = null;
+            try {
+                groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH).setGroup(group).setGroupSummary(true)
+                        .setColor(ContextCompat.getColor(context, R.color.osm_green));
+            } catch (RuntimeException re) {
+                // don't do anything
+            }
+            if (groupBuilder != null) {
+                notificationManager.notify(GROUP_DATA_ID, groupBuilder.build());
+            }
+        }
     }
 }
