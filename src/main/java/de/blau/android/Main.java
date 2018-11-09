@@ -928,11 +928,9 @@ public class Main extends FullScreenAppCompatActivity
                                                           // for now
                                 downLoadBugs(bbox);
                             }
-                        } else {
-                            Log.d(DEBUG_TAG, "no bbox to download");
-                            logic.getViewBox().setBorders(getMap(), bbox);
-                            map.invalidate();
-                        }
+                        } 
+                        logic.getViewBox().setBorders(getMap(), bbox);
+                        map.invalidate();
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
                     }
@@ -964,10 +962,7 @@ public class Main extends FullScreenAppCompatActivity
                                     synchronized (rcDataLock) {
                                         if (rcData != null) {
                                             rcDataEdit(rcData);
-                                            rcData = null; // zap to
-                                                           // stop
-                                                           // repeated
-                                                           // downloads
+                                            rcData = null; // zap to stop repeated/ downloads
                                         }
                                     }
                                 }
@@ -984,20 +979,12 @@ public class Main extends FullScreenAppCompatActivity
                     } else { // zoom
                         map.getViewBox().setBorders(getMap(), rcData.getBox());
                         map.invalidate();
-                        rcData = null; // zap
-                                       // to
-                                       // stop
-                                       // repeated
-                                       // downloads
+                        rcData = null; // zap to stop repeated/ downloads
                     }
                 } else {
                     Log.d(DEBUG_TAG, "RC box is null");
                     rcDataEdit(rcData);
-                    rcData = null; // zap
-                                   // to
-                                   // stop
-                                   // repeated
-                                   // downloads
+                    rcData = null; // zap to stop repeated/ downloads
                 }
             }
         }
