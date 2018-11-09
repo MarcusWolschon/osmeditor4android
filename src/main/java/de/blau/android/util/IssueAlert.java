@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -376,7 +377,7 @@ public final class IssueAlert {
      */
     private static void addGroupNotification(@NonNull Context context, @NonNull String channel, @NonNull String group, int groupId, @NonNull String title,
             @NonNull NotificationManager notificationManager) {
-        if (!hasGroupNotification(notificationManager, groupId)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !hasGroupNotification(notificationManager, groupId)) {
             NotificationCompat.Builder groupBuilder = null;
             try {
                 groupBuilder = Notifications.builder(context, channel).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
