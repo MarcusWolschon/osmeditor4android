@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="108"
+   height="108"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="vespucci-logo-adaptive.svg"
+   inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable\vespucci_logo_foreground.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4284"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#9fd385;stop-opacity:1;"
+         offset="0"
+         id="stop4286" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.3299648"
+     inkscape:cx="49.26864"
+     inkscape:cy="56.847867"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-global="false"
+     inkscape:window-width="1304"
+     inkscape:window-height="738"
+     inkscape:window-x="365"
+     inkscape:window-y="144"
+     inkscape:window-maximized="0"
+     fit-margin-left="32"
+     fit-margin-top="32"
+     fit-margin-bottom="32"
+     fit-margin-right="32">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="-36.65365"
+       originy="-41.407232" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-36.65365,-902.95494)">
+    <path
+       style="opacity:1;fill:#82aa6b;fill-opacity:1;stroke:#82aa6b;stroke-width:0.96665388;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 109.83498,935.53849 c 0,0 -4.51324,1.74045 -5.90909,2.03063 -1.39585,0.29016 -3.90728,1.01657 -3.90728,1.01657 0,0 -1.815283,-0.82288 -4.095167,-1.64505 -2.279884,-0.82214 -5.535707,-1.06412 -5.535707,-1.06412 0,0 -0.605553,0.67687 -4.095171,1.54738 -2.91058,0.72606 -4.059186,1.00348 -4.515487,1.07916 l 1.564556,29.15485 8.698623,-4.13887 c 6.801467,-3.18 4.009892,-2.4142 17.825053,-9.76036 0.18652,-0.83591 0.452,-0.81925 0.99346,-2.31071 0.93057,-2.56318 1.90787,-5.17295 1.90787,-5.17295 0,0 -0.88296,-2.95138 -1.39476,-5.75636 -0.51182,-2.80499 -1.5369,-4.98017 -1.5369,-4.98017 z m -38.251305,0.39311 c -0.507904,-10e-4 -0.826913,0.0245 -0.879258,0.0425 0,0 1.396322,2.51491 2.187304,5.36826 0.790981,2.85335 1.16351,4.93259 1.16351,4.93259 0,0 -1.022674,2.46599 -1.534484,4.78737 -0.511812,2.32135 -1.071971,4.44933 -1.071971,4.44933 0,0 1.070984,3.09566 1.722381,5.80394 0.651395,2.70825 0.698588,4.68972 0.698588,4.68972 0,0 -0.745781,1.98395 -1.397177,4.69222 -0.651397,2.70825 -0.929845,5.94664 -0.929845,5.94664 0,0 1.718236,-0.38525 5.292408,0.24036 l 3.283277,-38.68141 c -0.815504,-0.39678 -2.766372,-1.48288 -4.808127,-1.89101 -1.512169,-0.30226 -2.880101,-0.37821 -3.726606,-0.38057 z m 37.956995,19.94258 -30.074996,21.49117 c 2.086556,0.39748 3.382129,0.68354 3.382129,0.68354 0,0 2.374784,-0.53228 4.468554,-1.20936 2.093771,-0.67705 3.023201,-1.25943 3.023201,-1.25943 0,0 1.025197,0.097 4.189118,1.20936 3.163921,1.11232 5.44176,1.64504 5.44176,1.64504 0,0 2.420064,-0.53137 4.839534,-1.11172 2.41947,-0.58034 4.93347,-1.54737 4.93347,-1.54737 0,0 -0.14043,-0.96757 0.79012,-4.73979 0.93057,-3.77223 1.62844,-5.41585 1.62844,-5.41585 0,0 -0.0937,-0.87081 -0.69859,-3.82088 -0.60487,-2.95006 -1.85968,-5.75635 -1.85968,-5.75635 0,0 -0.11003,0.0715 -0.0631,-0.16836 z"
+       id="path3834-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscsccccscscccscscscscccsccccscscscscscc"
+       inkscape:export-filename="C:\Users\simon\git\osmeditor4android\src\main\res\drawable\path3834-2.png"
+       inkscape:export-xdpi="10.320819"
+       inkscape:export-ydpi="10.320819" />
+  </g>
+</svg>
