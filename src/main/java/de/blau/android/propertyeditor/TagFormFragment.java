@@ -776,6 +776,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 boolean i18nFound = addI18nKeyToPreset(key, value, preset, editable, editableView);
                 if (i18nFound) {
                     groupingRequired = true;
+                    tagList.remove(key);
                 } else if (linkedPresets != null) { // check if tag is in a linked preset
                     for (PresetItem l : linkedPresets) {
                         PresetField field = l.getField(key);
