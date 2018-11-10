@@ -3349,12 +3349,12 @@ public class Main extends FullScreenAppCompatActivity
             if (!getEasyEditManager().actionModeHandledClick(x, y)) {
                 boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
                 clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
-                int elementCount = clickedNodesAndWays.size();
                 Logic logic = App.getLogic();
                 Filter filter = logic.getFilter();
                 if (filter != null) { // filter elements
                     clickedNodesAndWays = filterElements(clickedNodesAndWays);
                 }
+                int elementCount = clickedNodesAndWays.size();
                 int clickedObjectsCount = clickedObjects.size();
                 int itemCount = elementCount + clickedObjectsCount;
                 boolean inEasyEditMode = logic.getMode().elementsGeomEditiable();
@@ -3378,8 +3378,9 @@ public class Main extends FullScreenAppCompatActivity
                             performTagEdit(clickedNodesAndWays.get(0), null, false, false, false);
                         }
                     } else {
-                        Log.e(DEBUG_TAG, "performEdit can't find what was clicked " + filter);
-                        ACRAHelper.nocrashReport(null, "performEdit can't find what was clicked");
+                        String debugString = "performEdit can't find what was clicked " + filter;
+                        Log.e(DEBUG_TAG, debugString);
+                        ACRAHelper.nocrashReport(null, debugString);
                     }
                     break;
                 default:
