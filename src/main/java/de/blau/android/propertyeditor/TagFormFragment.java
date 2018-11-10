@@ -38,6 +38,7 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils.TruncateAt;
 import android.text.style.StrikethroughSpan;
@@ -3126,8 +3127,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param tv TextView to use
      */
     private static void strikeThrough(@NonNull TextView tv) {
-        Spannable spannable = (Spannable) tv.getText();
+        Spannable spannable = new SpannableString(tv.getText());
         spannable.setSpan(STRIKE_THROUGH_SPAN, 0, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv.setText(spannable);
     }
 
     /**
