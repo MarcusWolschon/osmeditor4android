@@ -114,8 +114,7 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Replace the current Storage object with a new one
-     * clipboard and api storage will be reset
+     * Replace the current Storage object with a new one clipboard and api storage will be reset
      * 
      * @param currentStorage the new Storage object to set
      */
@@ -2212,8 +2211,8 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Paste the contents of the clipboard to coordinates
-     * If the content was copied to the clipboard a new element will be created.
+     * Paste the contents of the clipboard to coordinates If the content was copied to the clipboard a new element will
+     * be created.
      * 
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
@@ -2348,7 +2347,7 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Get the number of Nodes in API storage
      * 
-     * @return the number of Nodes in API storage 
+     * @return the number of Nodes in API storage
      */
     public int getApiNodeCount() {
         return apiStorage.getNodes().size();
@@ -2357,7 +2356,7 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Get the number of Ways in API storage
      * 
-     * @return the number of Ways in API storage 
+     * @return the number of Ways in API storage
      */
     public int getApiWayCount() {
         return apiStorage.getWays().size();
@@ -2366,7 +2365,7 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Get the number of Relations in API storage
      * 
-     * @return the number of Relations in API storage 
+     * @return the number of Relations in API storage
      */
     public int getApiRelationCount() {
         return apiStorage.getRelations().size();
@@ -2384,8 +2383,8 @@ public class StorageDelegator implements Serializable, Exportable {
     }
 
     /**
-     * Retrieve an OsmElement from Storage
-     * This will check the API Storage first (because of deleted objects) and then the regular version
+     * Retrieve an OsmElement from Storage This will check the API Storage first (because of deleted objects) and then
+     * the regular version
      * 
      * @param type the type of object as a String (NODE, WAY, RELATION)
      * @param osmId the id
@@ -2998,10 +2997,10 @@ public class StorageDelegator implements Serializable, Exportable {
                         }
                     } else {
                         // this shouldn't be able to happen
-                        Log.e(DEBUG_TAG, "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId()) + " apiWay is "
-                                + apiWay);
-                        ACRAHelper.nocrashReport(null, "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
-                                + " apiWay is " + apiWay);
+                        String debugString = "mergeData null existing way " + w.getOsmId() + " containsKey is " + wayIndex.containsKey(w.getOsmId())
+                                + " apiWay is " + apiWay;
+                        Log.e(DEBUG_TAG, debugString);
+                        ACRAHelper.nocrashReport(null, debugString);
                         return false;
                     }
                 }
@@ -3039,8 +3038,10 @@ public class StorageDelegator implements Serializable, Exportable {
                             temp.insertNodeUnsafe(apiNode);
                             nodes.set(i, apiNode);
                         } else {
-                            Log.e(DEBUG_TAG, "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId);
-                            ACRAHelper.nocrashReport(null, "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId);
+                            String debugString = "mergeData null way node for way " + w.getOsmId() + " v" + w.getOsmVersion() + " node " + wayNodeId
+                                    + (apiNode != null ? " state in api " + apiNode.getState() : "");
+                            Log.e(DEBUG_TAG, debugString);
+                            ACRAHelper.nocrashReport(null, debugString);
                             return false;
                         }
                     }
