@@ -86,9 +86,6 @@
 "amenity/bicycle_repair_station":[
 "Држач за поправка на велосипеди"
 ],
-"amenity/biergarten":[
-"Пивска градина"
-],
 "amenity/boat_rental":[
 "Изнајмување чамци"
 ],

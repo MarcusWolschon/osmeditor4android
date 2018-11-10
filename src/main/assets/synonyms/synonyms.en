@@ -14,6 +14,9 @@
 "circular":[
 "Traffic Circle"
 ],
+"embankment":[
+"Embankment"
+],
 "highway":[
 "Highway"
 ],
@@ -28,6 +31,9 @@
 ],
 "roundabout":[
 "Roundabout"
+],
+"seamark":[
+"Seamark"
 ],
 "waterway":[
 "Waterway"
@@ -85,9 +91,12 @@
 "T-bar Lift"
 ],
 "aeroway/aerodrome":[
+"plane",
 "aerodrome",
 "airplane",
 "Airport",
+"jet",
+"aeroway",
 "airport"
 ],
 "aeroway/apron":[
@@ -132,6 +141,17 @@
 ],
 "amenity/nursing_home":[
 "Nursing Home"
+],
+"amenity/recycling":[
+"can",
+"glass",
+"scrap",
+"bin",
+"garbage",
+"bottle",
+"rubbish",
+"Recycling",
+"trash"
 ],
 "amenity/register_office":[
 "Register Office"
@@ -247,7 +267,7 @@
 ],
 "amenity/biergarten":[
 "booze",
-"Beer Garden",
+"Biergarten",
 "bier",
 "beer"
 ],
@@ -351,6 +371,11 @@
 "Dentist",
 "teeth",
 "tooth"
+],
+"amenity/dive_centre":[
+"diving",
+"scuba",
+"Dive Center"
 ],
 "amenity/doctors":[
 "medic*",
@@ -456,6 +481,10 @@
 "pre-school",
 "Preschool/Kindergarten Grounds"
 ],
+"amenity/language_school":[
+"Language School",
+"esl"
+],
 "amenity/library":[
 "book",
 "Library"
@@ -514,14 +543,26 @@
 "Parking Space"
 ],
 "amenity/parking":[
-"Car Parking"
+"parking lot",
+"car",
+"Parking Lot"
 ],
-"amenity/pavilion":[
-"Pavilion"
+"amenity/parking/multi-storey":[
+"parkade",
+"car",
+"indoor parking",
+"parking garage",
+"parking ramp",
+"parking structure",
+"multistorey car park",
+"parking building",
+"parking deck",
+"Multilevel Parking Garage"
 ],
 "amenity/pharmacy":[
 "prescription",
 "Pharmacy",
+"apothecary",
 "drug*",
 "med*"
 ],
@@ -694,7 +735,7 @@
 "trash",
 "Recycling Center"
 ],
-"amenity/recycling":[
+"amenity/recycling_container":[
 "can",
 "glass",
 "scrap",
@@ -745,6 +786,22 @@
 "lean-to",
 "Shelter",
 "picnic"
+],
+"amenity/shelter/gazebo":[
+"Gazebo"
+],
+"amenity/shelter/lean_to":[
+"Lean-To"
+],
+"amenity/shelter/picnic_shelter":[
+"pavilion",
+"Picnic Shelter"
+],
+"amenity/shelter/public_transport":[
+"bus stop",
+"waiting",
+"Transit Shelter",
+"metro stop"
 ],
 "amenity/shower":[
 "rain closet",
@@ -803,6 +860,13 @@
 "performance",
 "musical"
 ],
+"amenity/theatre/type/amphi":[
+"outdoor",
+"greek",
+"open air",
+"ampi",
+"Amphitheatre"
+],
 "amenity/toilets":[
 "head",
 "water closet",
@@ -827,6 +891,10 @@
 "amenity/university":[
 "college",
 "University Grounds"
+],
+"amenity/vehicle_inspection":[
+"Vehicle Inspection",
+"car inspection"
 ],
 "amenity/vending_machine":[
 "Vending Machine"
@@ -918,10 +986,18 @@
 "Newspaper Vending Machine"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
+"Parcel Pickup/Dropoff Locker",
+"parcel",
+"mail",
+"pickup"
+],
+"amenity/vending_machine/parcel_pickup":[
+"amazon",
 "parcel",
 "mail",
 "pickup",
-"Parcel Pickup/Dropoff Vending Machine"
+"Parcel Pickup Locker",
+"locker"
 ],
 "amenity/vending_machine/parking_tickets":[
 "parking",
@@ -1086,6 +1162,11 @@
 "amusement ride",
 "Roller Coaster"
 ],
+"attraction/summer_toboggan":[
+"alpine slide",
+"mountain coaster",
+"Summer Toboggan"
+],
 "attraction/train":[
 "Tourist Train",
 "park train",
@@ -1141,7 +1222,15 @@
 "Hedge"
 ],
 "barrier/kerb":[
-"Kerb"
+"Curb"
+],
+"barrier/kerb/lowered":[
+"kerb ramp",
+"curb ramp",
+"dropped kerb",
+"curb cut",
+"pram ramp",
+"Lowered Curb"
 ],
 "barrier/kissing_gate":[
 "Kissing Gate"
@@ -1163,6 +1252,12 @@
 ],
 "boundary/administrative":[
 "Administrative Boundary"
+],
+"bridge/support":[
+"Bridge Support"
+],
+"bridge/support/pier":[
+"Bridge Pier"
 ],
 "building":[
 "Building"
@@ -1192,6 +1287,13 @@
 ],
 "building/cabin":[
 "Cabin"
+],
+"building/carport":[
+"car",
+"porch",
+"Carport",
+"garage",
+"covered parking space"
 ],
 "building/cathedral":[
 "Cathedral Building"
@@ -1274,6 +1376,10 @@
 ],
 "building/mosque":[
 "Mosque Building"
+],
+"building/pavilion":[
+"sports",
+"Pavilion Building"
 ],
 "building/public":[
 "Public Building"
@@ -1548,9 +1654,6 @@
 "craft/winery":[
 "Winery"
 ],
-"embankment":[
-"Embankment"
-],
 "emergency/designated":[
 "Emergency Access Designated"
 ],
@@ -1629,32 +1732,10 @@
 "reservoir"
 ],
 "entrance":[
-"Entrance/Exit"
-],
-"footway/crossing-raised":[
-"hump",
-"Raised Street Crossing",
-"slow",
-"speed",
-"flat top"
-],
-"footway/crossing":[
-"Street Crossing"
-],
-"footway/crosswalk-raised":[
-"zebra crossing",
-"hump",
-"Raised Pedestrian Crosswalk",
-"slow",
-"speed",
-"flat top"
-],
-"footway/crosswalk":[
-"zebra crossing",
-"Pedestrian Crosswalk"
-],
-"footway/sidewalk":[
-"Sidewalk"
+"exit",
+"door",
+"Entrance/Exit",
+"entrance"
 ],
 "ford":[
 "Ford"
@@ -1845,27 +1926,47 @@
 "indoor",
 "gallery"
 ],
-"highway/crossing-raised":[
+"highway/crossing/zebra-raised":[
+"marked crossing",
+"zebra crossing",
 "hump",
-"Raised Street Crossing",
+"crosswalk",
 "slow",
+"Marked Crosswalk (Raised)",
 "speed",
 "flat top"
 ],
-"highway/crossing":[
-"Street Crossing"
+"highway/crossing/zebra":[
+"marked crossing",
+"zebra crossing",
+"crosswalk",
+"Marked Crosswalk"
 ],
-"highway/crosswalk-raised":[
+"highway/crossing/marked-raised":[
+"marked crossing",
 "zebra crossing",
 "hump",
-"Raised Pedestrian Crosswalk",
+"crosswalk",
 "slow",
+"Marked Crosswalk (Raised)",
 "speed",
 "flat top"
 ],
-"highway/crosswalk":[
+"highway/crossing/marked":[
+"marked crossing",
 "zebra crossing",
-"Pedestrian Crosswalk"
+"crosswalk",
+"Marked Crosswalk"
+],
+"highway/crossing/unmarked-raised":[
+"hump",
+"slow",
+"Unmarked Crossing (Raised)",
+"speed",
+"flat top"
+],
+"highway/crossing/unmarked":[
+"Unmarked Crossing"
 ],
 "highway/cycleway":[
 "Cycle Path",
@@ -1883,6 +1984,63 @@
 "trackway",
 "walk"
 ],
+"highway/footway/zebra-raised":[
+"marked crossing",
+"zebra crossing",
+"hump",
+"crosswalk",
+"slow",
+"Marked Crosswalk (Raised)",
+"speed",
+"flat top"
+],
+"highway/footway/zebra":[
+"marked crossing",
+"zebra crossing",
+"crosswalk",
+"Marked Crosswalk"
+],
+"highway/footway/conveying":[
+"conveyor",
+"autwalk",
+"travellator",
+"skywalk",
+"moving sidewalk",
+"travelator",
+"travolator",
+"Moving Walkway"
+],
+"highway/footway/marked-raised":[
+"marked crossing",
+"zebra crossing",
+"hump",
+"crosswalk",
+"slow",
+"Marked Crosswalk (Raised)",
+"speed",
+"flat top"
+],
+"highway/footway/marked":[
+"marked crossing",
+"zebra crossing",
+"crosswalk",
+"Marked Crosswalk"
+],
+"highway/footway/sidewalk":[
+"pavement",
+"sidepath",
+"Sidewalk"
+],
+"highway/footway/unmarked-raised":[
+"hump",
+"slow",
+"Unmarked Crossing (Raised)",
+"speed",
+"flat top"
+],
+"highway/footway/unmarked":[
+"Unmarked Crossing"
+],
 "highway/give_way":[
 "Yield Sign",
 "give way",
@@ -1891,6 +2049,11 @@
 ],
 "highway/living_street":[
 "Living Street"
+],
+"highway/milestone":[
+"milestone",
+"marker",
+"Highway Milestone"
 ],
 "highway/mini_roundabout":[
 "Mini-Roundabout"
@@ -2036,6 +2199,12 @@
 "stairs",
 "staircase"
 ],
+"highway/steps/conveying":[
+"Escalator",
+"moving staircase",
+"moving stairway",
+"people mover"
+],
 "highway/stop":[
 "halt",
 "stop",
@@ -2166,6 +2335,21 @@
 ],
 "historic/wayside_shrine":[
 "Wayside Shrine"
+],
+"historic/wreck":[
+"mast",
+"ship",
+"maritime",
+"remains",
+"hull",
+"boat",
+"Shipwreck"
+],
+"internet_access/wlan":[
+"wifi",
+"wi-fi",
+"hotspot",
+"Wi-Fi Hotspot"
 ],
 "junction":[
 "Junction"
@@ -2341,6 +2525,9 @@
 "pay-to-play games",
 "video games"
 ],
+"leisure/bandstand":[
+"Bandstand"
+],
 "leisure/beach_resort":[
 "Beach Resort"
 ],
@@ -2390,6 +2577,10 @@
 "Firepit",
 "campfire",
 "fireplace"
+],
+"leisure/fishing":[
+"Fishing Spot",
+"angler"
 ],
 "leisure/fitness_centre":[
 "studio",
@@ -2600,8 +2791,11 @@
 "leisure/pitch/american_football":[
 "American Football Field"
 ],
+"leisure/pitch/badminton":[
+"Badminton Court"
+],
 "leisure/pitch/baseball":[
-"Baseball Diamond"
+"Baseball Field"
 ],
 "leisure/pitch/basketball":[
 "Basketball Court"
@@ -2642,6 +2836,11 @@
 "leisure/pitch/soccer":[
 "Soccer Field",
 "football"
+],
+"leisure/pitch/softball":[
+"softball",
+"Softball Field",
+"diamond"
 ],
 "leisure/pitch/table_tennis":[
 "ping pong",
@@ -2690,6 +2889,7 @@
 ],
 "leisure/swimming_pool":[
 "Swimming Pool",
+"aquatics",
 "dive",
 "water"
 ],
@@ -2713,9 +2913,6 @@
 ],
 "man_made":[
 "Man Made"
-],
-"man_made/embankment":[
-"Embankment"
 ],
 "man_made/adit":[
 "mine",
@@ -2742,6 +2939,11 @@
 "man_made/bridge":[
 "Bridge"
 ],
+"man_made/bunker_silo":[
+"Storage",
+"Silage",
+"Bunker Silo"
+],
 "man_made/chimney":[
 "Chimney"
 ],
@@ -2758,6 +2960,9 @@
 ],
 "man_made/cutline":[
 "Cut line"
+],
+"man_made/embankment":[
+"Embankment"
 ],
 "man_made/flagpole":[
 "Flagpole"
@@ -2824,6 +3029,11 @@
 "dock"
 ],
 "man_made/pipeline":[
+"natural gas",
+"oil",
+"sewer",
+"water",
+"sewage",
 "Pipeline"
 ],
 "man_made/pumping_station":[
@@ -3049,7 +3259,7 @@
 "Spring"
 ],
 "natural/tree_row":[
-"Tree row"
+"Tree Row"
 ],
 "natural/tree":[
 "Tree"
@@ -3282,18 +3492,95 @@
 "utility",
 "water board"
 ],
-"piste":[
+"piste/downhill":[
+"ski",
+"piste",
+"Downhill Piste/Ski Run",
+"alpine",
+"downhill",
+"snowboard"
+],
+"piste/hike":[
+"piste",
+"ski",
+"snowshoeing",
+"Snowshoeing or Winter Hiking Trail",
+"hike",
+"winter hiking",
+"snowshoe"
+],
+"piste/ice_skate":[
+"ski",
+"piste",
+"skating",
+"Ice Skating Piste",
+"ice"
+],
+"piste/nordic":[
+"ski",
+"piste",
+"Nordic or Crosscountry Piste/Ski Trail",
+"skating",
+"crosscountry",
+"nordic"
+],
+"piste/piste":[
+"sleigh",
+"husky",
+"snowshoeing",
+"skating",
+"crosscountry",
+"skitour",
+"sledge",
+"ice",
+"nordic",
+"sled",
+"ski-joring",
+"snowshoe",
+"Winter Sport Trails",
+"ski",
+"horse",
+"ski touring",
+"luge",
+"alpine",
+"downhill",
+"winter hiking",
+"snowboard"
+],
+"piste/skitour":[
+"ski",
+"piste",
+"ski touring",
+"Ski Touring Trail",
+"skitour",
+"crosscountry"
+],
+"piste/sled":[
 "ski",
 "sleigh",
-"Piste/Ski Trail",
-"nordic",
-"downhill",
+"piste",
+"luge",
+"sledge",
+"Sled Piste",
+"sled"
+],
+"piste/sleigh":[
+"ski",
+"piste",
+"sleigh",
+"horse",
+"husky",
+"luge",
+"sledge",
 "sled",
-"snowmobile",
-"snowboard"
+"Sleigh Piste",
+"ski-joring"
 ],
 "place/farm":[
 "Farm"
+],
+"place/city_block":[
+"City Block"
 ],
 "place/city":[
 "City"
@@ -3414,6 +3701,9 @@
 "power/sub_station":[
 "Substation"
 ],
+"power/cable/underground":[
+"Underground Power Cable"
+],
 "power/generator":[
 "turbine",
 "hydro",
@@ -3421,7 +3711,13 @@
 "solar",
 "wind"
 ],
-"power/generator/source_nuclear":[
+"power/generator/method/photovoltaic":[
+"Solar Panel",
+"sunlight",
+"PV module",
+"photovoltaic module"
+],
+"power/generator/source/nuclear":[
 "nuke",
 "fission",
 "reactor",
@@ -3429,7 +3725,7 @@
 "generator",
 "nuclear"
 ],
-"power/generator/source_wind":[
+"power/generator/source/wind":[
 "turbine",
 "Wind Turbine",
 "windmill",
@@ -3462,7 +3758,8 @@
 "Power Switch"
 ],
 "power/tower":[
-"High-Voltage Tower"
+"High-Voltage Tower",
+"power"
 ],
 "power/transformer":[
 "Transformer"
@@ -4079,6 +4376,56 @@
 "route/ferry":[
 "Ferry Route"
 ],
+"seamark/beacon_isolated_danger":[
+"isolated danger beacon",
+"beacon isolated danger",
+"Danger Beacon",
+"iala"
+],
+"seamark/beacon_lateral":[
+"channel marker",
+"lateral mark",
+"beacon lateral",
+"iala",
+"lateral beacon",
+"cevni",
+"Channel Beacon"
+],
+"seamark/buoy_lateral":[
+"buoy lateral",
+"channel marker",
+"lateral mark",
+"lateral buoy",
+"iala",
+"cevni",
+"Channel Buoy"
+],
+"seamark/buoy_lateral/green":[
+"Green Buoy",
+"buoy lateral",
+"channel marker",
+"lateral mark",
+"lateral buoy",
+"iala",
+"cevni"
+],
+"seamark/buoy_lateral/red":[
+"Red Buoy",
+"buoy lateral",
+"channel marker",
+"lateral mark",
+"lateral buoy",
+"iala",
+"cevni"
+],
+"seamark/mooring":[
+"dolphin",
+"buoy",
+"post",
+"pile",
+"Mooring",
+"bollard"
+],
 "shop":[
 "Shop"
 ],
@@ -4227,6 +4574,7 @@
 ],
 "shop/chemist":[
 "gift",
+"apothecary",
 "Drugstore",
 "drug*",
 "med*"
@@ -4532,6 +4880,8 @@
 "Religious Store"
 ],
 "shop/scuba_diving":[
+"diving",
+"scuba",
 "Scuba Diving Shop"
 ],
 "shop/seafood":[
@@ -4545,6 +4895,10 @@
 "used",
 "second hand",
 "secondhand"
+],
+"shop/sewing":[
+"Sewing Supply Shop",
+"haberdashery"
 ],
 "shop/shoes":[
 "Shoe Store"
@@ -4656,6 +5010,23 @@
 "Artwork",
 "statue",
 "sculpture"
+],
+"tourism/artwork/mural":[
+"fresco",
+"wall painting",
+"Mural"
+],
+"tourism/artwork/sculpture":[
+"figure",
+"Sculpture",
+"statue",
+"carving"
+],
+"tourism/artwork/statue":[
+"figure",
+"Statue",
+"sculpture",
+"carving"
 ],
 "tourism/attraction":[
 "Tourist Attraction"
@@ -4812,6 +5183,52 @@
 "speed",
 "flat top"
 ],
+"traffic_sign_vertex":[
+"road",
+"Traffic Sign",
+"highway"
+],
+"traffic_sign":[
+"road",
+"Traffic Sign",
+"highway"
+],
+"traffic_sign/city_limit_vertex":[
+"boundary",
+"border",
+"edge",
+"town",
+"hamlet",
+"road",
+"village",
+"highway",
+"City Limit Sign"
+],
+"traffic_sign/city_limit":[
+"boundary",
+"border",
+"edge",
+"town",
+"hamlet",
+"road",
+"village",
+"highway",
+"City Limit Sign"
+],
+"traffic_sign/maxspeed_vertex":[
+"maximum speed",
+"road",
+"Speed Limit Sign",
+"highway",
+"max speed"
+],
+"traffic_sign/maxspeed":[
+"maximum speed",
+"road",
+"Speed Limit Sign",
+"highway",
+"max speed"
+],
 "type/multipolygon":[
 "Multipolygon"
 ],
@@ -4936,6 +5353,11 @@
 "gas",
 "Marine Fuel Station",
 "boat"
+],
+"waterway/milestone":[
+"milestone",
+"marker",
+"Waterway Milestone"
 ],
 "waterway/river":[
 "brook",

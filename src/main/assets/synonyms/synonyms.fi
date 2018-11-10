@@ -276,19 +276,6 @@
 "polkupyörä",
 "pidike"
 ],
-"amenity/biergarten":[
-"ravintola",
-"juomaterassi",
-"Ulkoilmaolutravintola",
-"juoma",
-"alkoholi",
-"juomala",
-"juominen",
-"olut",
-"juottola",
-"terassi",
-"olutterassi"
-],
 "amenity/boat_rental":[
 "laiva",
 "vene",
@@ -324,13 +311,14 @@
 ],
 "amenity/car_pooling":[
 "auto",
-"Yhteiskäyttöauton noutopiste",
+"kimppa",
 "jakamis",
 "yhteisauto",
 "jako",
 "vuokra",
 "yhteiskäyttö",
 "vuokra-auto",
+"Kimppakyyti",
 "vuokraus",
 "vuokraaminen",
 "jakoauto",
@@ -348,7 +336,21 @@
 "auton vuokraus"
 ],
 "amenity/car_sharing":[
-"Kimppakyyti"
+"auto",
+"jakamis",
+"sunfleet",
+"yhteisauto",
+"jako",
+"vuokra",
+"yhteiskäyttö",
+"vuokra-auto",
+"vuokraus",
+"vuokraaminen",
+"jakoauto",
+"jakaminen",
+"drivenow",
+"Yhteiskäyttöauto",
+"ajoneuvo"
 ],
 "amenity/car_wash":[
 "auto",
@@ -2604,6 +2606,9 @@
 "leisure/adult_gaming_centre":[
 "Uhkapelipelaamo"
 ],
+"leisure/beach_resort":[
+"Rantalomakohde"
+],
 "leisure/bird_hide":[
 "Lintutorni"
 ],
@@ -3079,10 +3084,15 @@
 "Paljas kallio"
 ],
 "natural/bay":[
-"Satama"
+"Lahti"
 ],
 "natural/beach":[
-"Ranta"
+"uiminen",
+"hiekkaranta",
+"uimaranta",
+"uinti",
+"Ranta",
+"uima"
 ],
 "natural/cave_entrance":[
 "Luolan suuaukko"
@@ -3435,6 +3445,9 @@
 ],
 "office/private_investigator":[
 "Yksityisetsivä"
+],
+"office/quango":[
+"Kansalaisjärjestön toimisto"
 ],
 "office/research":[
 "Tutkimustoimisto"
@@ -4967,6 +4980,15 @@
 ],
 "type/restriction/no_u_turn":[
 "Ei saa tehdä U-käännöstä"
+],
+"type/restriction/only_left_turn":[
+"Kääntyminen vain vasemmalle"
+],
+"type/restriction/only_right_turn":[
+"Kääntyminen vain oikealle"
+],
+"type/restriction/only_straight_on":[
+"Pakollinen ajosuunta suoraan"
 ],
 "type/route":[
 "matkareitti",

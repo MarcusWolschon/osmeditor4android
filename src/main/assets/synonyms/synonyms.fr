@@ -304,13 +304,6 @@
 "bicycle repair station",
 "Stand d'outils de réparation de vélos"
 ],
-"amenity/biergarten":[
-"Brasserie de plein air - Biergarten",
-"Brasserie",
-"biergarten",
-"bière",
-"boissons alcolisées"
-],
 "amenity/boat_rental":[
 "Location de bateau",
 "boat rental",
@@ -917,10 +910,10 @@
 "college",
 "collège",
 "école primaire",
+"école secondaire",
 "cycles primaires et secondaires",
 "école élémentaire",
 "établissement d'enseignement élémentaire",
-"Établissement scolaire - élémentaire ou secondaire",
 "enseignement secondaire",
 "école",
 "enseignements élémentaire et secondaire",
@@ -928,6 +921,8 @@
 "écoliers",
 "school",
 "CP-CE1-CE2-CM1-CM2",
+"ecole",
+"École élémentaire ou secondaire",
 "lycée",
 "lycee"
 ],
@@ -2422,6 +2417,14 @@
 "emergency/destination":[
 "Accessible aux services d'urgences"
 ],
+"emergency/fire_alarm":[
+"incendie",
+"feu",
+"boîte",
+"Boîte d'alarme incendie",
+"sécurité",
+"Alarme"
+],
 "emergency/fire_extinguisher":[
 "poudre",
 "mousse",
@@ -2448,6 +2451,12 @@
 ],
 "emergency/life_ring":[
 "Bouée de Sauvetage"
+],
+"emergency/lifeguard":[
+"secouriste",
+"surveillant",
+"maître-nageur",
+"sauveteur"
 ],
 "emergency/no":[
 "Non accessible aux services d'urgences"
@@ -2930,7 +2939,7 @@
 ],
 "landuse/farmland":[
 "Zone agricole",
-"Terre agricole : cultures et élevage"
+"Terre agricole : cultures et élevage"
 ],
 "landuse/farmyard":[
 "exploitation agricole",
@@ -3291,6 +3300,10 @@
 "man_made/bridge":[
 "Pont"
 ],
+"man_made/bunker_silo":[
+"Silo-couloir",
+"trémie"
+],
 "man_made/chimney":[
 "Cheminée"
 ],
@@ -3375,7 +3388,9 @@
 ],
 "man_made/storage_tank":[
 "Réservoir de stockage",
-"Silo de stockage"
+"Silo de stockage",
+"réservoir",
+"citerne"
 ],
 "man_made/surveillance":[
 "caméra",
@@ -4668,6 +4683,7 @@
 "mosaïque",
 "statue",
 "sculpture",
+"graffiti",
 "Œuvre d'art",
 "Œuvre artistique",
 "fresque"

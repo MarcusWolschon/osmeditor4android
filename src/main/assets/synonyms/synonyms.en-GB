@@ -117,9 +117,6 @@
 "amenity/bicycle_repair_station":[
 "Bicycle Repair Tool Stand"
 ],
-"amenity/biergarten":[
-"Beer Garden"
-],
 "amenity/boat_rental":[
 "Boat Rental"
 ],
@@ -1438,7 +1435,7 @@
 "American Football Field"
 ],
 "leisure/pitch/baseball":[
-"Baseball Diamond"
+"Baseball Field"
 ],
 "leisure/pitch/basketball":[
 "Basketball Court"
@@ -2185,22 +2182,22 @@
 "Antiques Shop"
 ],
 "shop/appliance":[
-"Appliance Store"
+"Appliance Shop"
 ],
 "shop/art":[
-"Art Store"
+"Art Shop"
 ],
 "shop/baby_goods":[
-"Baby Goods Store"
+"Baby Goods Shop"
 ],
 "shop/bag":[
-"Bag/Luggage Store"
+"Bag/Luggage Shop"
 ],
 "shop/bakery":[
 "Bakery"
 ],
 "shop/bathroom_furnishing":[
-"Bathroom Furnishing Store"
+"Bathroom Furnishing Shop"
 ],
 "shop/beauty":[
 "Beauty Shop"
@@ -2212,10 +2209,10 @@
 "Tanning Salon"
 ],
 "shop/bed":[
-"Bedding/Mattress Store"
+"Bed Shop"
 ],
 "shop/beverages":[
-"Beverage Store"
+"Beverages Shop"
 ],
 "shop/bicycle":[
 "Bicycle Shop"
@@ -2224,7 +2221,7 @@
 "Bookmaker"
 ],
 "shop/books":[
-"Book Store"
+"Book Shop"
 ],
 "shop/boutique":[
 "Boutique"
@@ -2239,55 +2236,55 @@
 "Car Dealership"
 ],
 "shop/car_parts":[
-"Car Parts Store"
+"Car Parts Shop"
 ],
 "shop/car_repair":[
 "Car Repair Shop"
 ],
 "shop/carpet":[
-"Carpet Store"
+"Carpet Shop"
 ],
 "shop/charity":[
 "Charity Shop"
 ],
 "shop/cheese":[
-"Cheese Store"
+"Cheese Shop"
 ],
 "shop/chemist":[
 "Chemist"
 ],
 "shop/chocolate":[
-"Chocolate Store"
+"Chocolate Shop"
 ],
 "shop/clothes":[
-"Clothing Store"
+"Clothing Shop"
 ],
 "shop/coffee":[
-"Coffee Store"
+"Coffee Shop (Retail)"
 ],
 "shop/computer":[
-"Computer Store"
+"Computer Shop"
 ],
 "shop/confectionery":[
-"Candy Store"
+"Sweet Shop"
 ],
 "shop/convenience":[
 "Convenience Store"
 ],
 "shop/copyshop":[
-"Copy Store"
+"Copyshop"
 ],
 "shop/cosmetics":[
-"Cosmetics Store"
+"Cosmetics Shop"
 ],
 "shop/craft":[
-"Arts and Crafts Store"
+"Art and Craft Supplies Shop"
 ],
 "shop/curtain":[
-"Curtain Store"
+"Curtain Shop"
 ],
 "shop/dairy":[
-"Dairy Store"
+"Dairy Shop"
 ],
 "shop/deli":[
 "Deli"
@@ -2296,7 +2293,7 @@
 "Department Store"
 ],
 "shop/doityourself":[
-"DIY Store"
+"DIY Shop"
 ],
 "shop/dry_cleaning":[
 "Dry Cleaner"
@@ -2305,19 +2302,19 @@
 "E-Cigarette Shop"
 ],
 "shop/electronics":[
-"Electronics Store"
+"Electronics Shop"
 ],
 "shop/erotic":[
-"Erotic Store"
+"Erotic Shop"
 ],
 "shop/fabric":[
-"Fabric Store"
+"Fabric Shop"
 ],
 "shop/farm":[
 "Farm Shop"
 ],
 "shop/fashion":[
-"Fashion Store"
+"Fashion Shop"
 ],
 "shop/fishmonger":[
 "Fishmonger"
@@ -2332,10 +2329,10 @@
 "Funeral Home"
 ],
 "shop/furnace":[
-"Furnace Store"
+"Furnace Shop"
 ],
 "shop/furniture":[
-"Furniture Store"
+"Furniture Shop"
 ],
 "shop/garden_centre":[
 "Garden Centre"
@@ -2353,37 +2350,41 @@
 "Hairdresser"
 ],
 "shop/hardware":[
-"Hardware Store"
+"Hardware Shop"
 ],
 "shop/health_food":[
 "Health Food Shop"
 ],
 "shop/hearing_aids":[
-"Hearing Aids Store"
+"Hearing Aids Shop"
 ],
 "shop/herbalist":[
 "Herbalist"
 ],
 "shop/hifi":[
-"Hifi Store"
+"Hifi Shop"
 ],
 "shop/houseware":[
-"Houseware Store"
+"kitchenware",
+"Houseware Store",
+"homeware",
+"linen",
+"crockery"
 ],
 "shop/interior_decoration":[
-"Interior Decoration Store"
+"Interior Decoration Shop"
 ],
 "shop/jewelry":[
 "Jeweller"
 ],
 "shop/kitchen":[
-"Kitchen Design Store"
+"Kitchen Design Shop"
 ],
 "shop/laundry":[
 "Laundry"
 ],
 "shop/leather":[
-"Leather Store"
+"Leather Shop"
 ],
 "shop/locksmith":[
 "Locksmith"
@@ -2398,10 +2399,10 @@
 "Massage Shop"
 ],
 "shop/medical_supply":[
-"Medical Supply Store"
+"Medical Supply Shop"
 ],
 "shop/mobile_phone":[
-"Mobile Phone Store"
+"Mobile Phone Shop"
 ],
 "shop/money_lender":[
 "Money Lender"
@@ -2413,16 +2414,16 @@
 "Motorcycle Repair Shop"
 ],
 "shop/music":[
-"Music Store"
+"Music Shop"
 ],
 "shop/musical_instrument":[
-"Musical Instrument Store"
+"Musical Instrument Shop"
 ],
 "shop/newsagent":[
 "Newspaper/Magazine Shop"
 ],
 "shop/nutrition_supplements":[
-"Nutrition Supplements Store"
+"Nutrition Supplements Shop"
 ],
 "shop/optician":[
 "Optician"
@@ -2431,10 +2432,10 @@
 "Organic Goods Store"
 ],
 "shop/outdoor":[
-"Outdoors Store"
+"Outdoors Shop"
 ],
 "shop/paint":[
-"Paint Store"
+"Paint Shop"
 ],
 "shop/pastry":[
 "Pastry Shop"
@@ -2443,25 +2444,25 @@
 "Pawn Shop"
 ],
 "shop/perfumery":[
-"Perfume Store"
+"Perfume Shop"
 ],
 "shop/pet":[
-"Pet Store"
+"Pet Shop"
 ],
 "shop/pet_grooming":[
-"Pet Grooming Store"
+"Pet Grooming Shop"
 ],
 "shop/photo":[
-"Photography Store"
+"Photography Shop"
 ],
 "shop/pyrotechnics":[
-"Fireworks Store"
+"Fireworks Shop"
 ],
 "shop/radiotechnics":[
-"Radio/Electronic Component Store"
+"Radio/Electronic Component Shop"
 ],
 "shop/religion":[
-"Religious Store"
+"Religious Shop"
 ],
 "shop/scuba_diving":[
 "Scuba Diving Shop"
@@ -2470,16 +2471,16 @@
 "Seafood Shop"
 ],
 "shop/second_hand":[
-"Consignment/Thrift Store"
+"Second Hand Shop"
 ],
 "shop/shoes":[
 "Shoe Shop"
 ],
 "shop/sports":[
-"Sporting Goods Store"
+"Sporting Goods Shop"
 ],
 "shop/stationery":[
-"Stationery Store"
+"Stationery Shop"
 ],
 "shop/storage_rental":[
 "Storage Rental"
@@ -2494,7 +2495,7 @@
 "Tattoo Parlor"
 ],
 "shop/tea":[
-"Tea Store"
+"Tea Shop (Retail)"
 ],
 "shop/ticket":[
 "Ticket Seller"
@@ -2506,7 +2507,7 @@
 "Tobacco Shop"
 ],
 "shop/toys":[
-"Toy Store"
+"Toy Shop"
 ],
 "shop/trade":[
 "Trade Shop"
@@ -2515,22 +2516,22 @@
 "Travel Agency"
 ],
 "shop/tyres":[
-"Tire Store"
+"Tyre Shop"
 ],
 "shop/vacant":[
 "Vacant Shop"
 ],
 "shop/vacuum_cleaner":[
-"Vacuum Cleaner Store"
+"Vacuum Cleaner Shop"
 ],
 "shop/variety_store":[
 "Variety Store"
 ],
 "shop/video":[
-"Video Store"
+"Video/DVD Shop"
 ],
 "shop/video_games":[
-"Video Game Store"
+"Video Games Shop"
 ],
 "shop/watches":[
 "Watches Shop"
@@ -2542,10 +2543,10 @@
 "Weapon Shop"
 ],
 "shop/wholesale":[
-"Wholesale Store"
+"Wholesale Shop / Cash & Carry "
 ],
 "shop/window_blind":[
-"Window Blind Store"
+"Window Blind Shop"
 ],
 "shop/wine":[
 "Wine Shop"

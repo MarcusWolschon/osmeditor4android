@@ -45,7 +45,6 @@
 "aerialway/magic_carpet":[
 "Babylift",
 "Zauberteppichlift",
-"KInderskilift",
 "Kinderskilift"
 ],
 "aerialway/mixed_lift":[
@@ -438,8 +437,10 @@
 ],
 "amenity/nightclub":[
 "Nachtlokal",
+"Diskothek, Nachtklub",
 "Nachtklub",
-"Etablissement"
+"Etablissement",
+"Disko"
 ],
 "amenity/nursing_home":[
 "Pflegeheim"
@@ -2095,11 +2096,18 @@
 "Obstgarten"
 ],
 "landuse/plant_nursery":[
-"Betriebskindergarten",
-"Anpflanzung, Baumschule",
-"Werkskindergarten",
-"Betriebskinderkrippe",
-"Werkskinderkrippe"
+"Baumschule",
+"Blumen",
+"Rosen",
+"Sträucher",
+"Obstgehölze",
+"Baumschule, Anzucht von Pflanzen",
+"Anbaufläche",
+"Plantage",
+"Ziergehölze",
+"Forstpflanzen",
+"Gärtnerei",
+"Anzucht"
 ],
 "landuse/quarry":[
 "Tongrube",
@@ -2231,7 +2239,12 @@
 "Reck"
 ],
 "leisure/fitness_station/horizontal_ladder":[
-"Klettergerüst"
+"Leiter",
+"Kletterleiter",
+"Hangelleiter",
+"Klettergerüst",
+"Klimmzüge",
+"Trimm Dich Pfad"
 ],
 "leisure/fitness_station/hyperextension":[
 "Hyperextension-Bank"
@@ -2323,6 +2336,9 @@
 "leisure/pitch/american_football":[
 "American-Football-Platz",
 "American-Football-Feld"
+],
+"leisure/pitch/badminton":[
+"Badmintonplatz"
 ],
 "leisure/pitch/baseball":[
 "Baseball-Rautenfeld",
@@ -2461,6 +2477,11 @@
 "Steg",
 "Brücke",
 "Brückenbauwerk"
+],
+"man_made/bunker_silo":[
+"offener Schüttgutbunker",
+"Fahrsilo",
+"Fahrsilokammer"
 ],
 "man_made/chimney":[
 "Kamin",
@@ -2972,8 +2993,10 @@
 ],
 "place/locality":[
 "Ort",
+"Flur",
 "Örtlichkeit",
-"Gegend"
+"Gegend",
+"Flurname"
 ],
 "place/neighbourhood":[
 "Grätzel",
@@ -3025,6 +3048,7 @@
 "Korbschaukel"
 ],
 "playground/climbing_frame":[
+"Klettergerüst / Seilspinne",
 "Raumnetz",
 "Klettergerüst",
 "Seilspinne"
@@ -3058,6 +3082,9 @@
 "Schaukel"
 ],
 "playground/zipwire":[
+"Spielplatz",
+"Seilbahn Spielplatz",
+"Seilbahn",
 "Seilrutsche"
 ],
 "point":[
@@ -3140,14 +3167,18 @@
 ],
 "public_transport/linear_platform_monorail":[
 "Einschienenbahnhaltestelle (Wartebereich)",
-"Wartebereich einer Einschienenbahnhaltestelle"
+"Wartebereich einer Einschienenbahnhaltestelle",
+"Einschienenbahn-Bahnsteig (Wartebereich )"
 ],
 "public_transport/linear_platform_subway":[
 "Wartebereich einer U-Bahnhaltestelle",
+"U-Bahn-Bahnsteig (Wartebereich)",
 "U-Bahnhaltestelle (Wartebereich)"
 ],
 "public_transport/linear_platform_train":[
 "Wartebereich einer Eisenbahnhaltestelle",
+"Bahnsteig (Wartebereich Eisenbahn)",
+"Bahnsteig (Wartebereich)",
 "Eisenbahnhaltestelle (Wartebereich)"
 ],
 "public_transport/linear_platform_tram":[

@@ -980,7 +980,7 @@
 ],
 "leisure/pitch/baseball":[
 "棒球場",
-"Baseball Diamond"
+"Baseball Field"
 ],
 "leisure/pitch/basketball":[
 "籃球場",
@@ -1325,6 +1325,9 @@
 "Locality",
 "地點",
 "地點（無人定居）"
+],
+"place/square":[
+"前地"
 ],
 "place/town":[
 "Town",

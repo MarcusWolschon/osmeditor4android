@@ -203,11 +203,6 @@
 "Stojalo za popravilo koles",
 "popravljalnica"
 ],
-"amenity/biergarten":[
-"pivski vrt",
-"Vrt pivnica",
-"pivnica"
-],
 "amenity/boat_rental":[
 "Izposoja plovil",
 "rent-a-boat",

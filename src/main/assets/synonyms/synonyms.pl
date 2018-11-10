@@ -48,8 +48,7 @@
 "wyciąg hybrydowy"
 ],
 "aerialway/platter":[
-"Wyciąg talerzykowy",
-"Wyciag talerzykowy"
+"Wyciąg talerzykowy"
 ],
 "aerialway/pylon":[
 "Podpora",
@@ -57,14 +56,16 @@
 "Podpora wyciagu narciarskiego"
 ],
 "aerialway/rope_tow":[
-"Wyrwirączka"
+"wyciąg linowy",
+"wyrwirączka",
+"Wyciąg linowy"
 ],
 "aerialway/station":[
-"Stacja wyciagu narciarskiego"
+"Stacja wyciągu"
 ],
 "aerialway/t-bar":[
-"orczyk podwójny",
-"Wyciag orczykowy podwójny"
+"Wyciąg orczykowy podwójny",
+"orczyk podwójny"
 ],
 "aeroway":[
 "Infrastruktura lotnicza"
@@ -110,6 +111,11 @@
 "terminal",
 "terminal pasażerski",
 "port lotniczy"
+],
+"allotments/plot":[
+"działka",
+"ogródek",
+"Działka ogrodowa"
 ],
 "amenity":[
 "Usługa"
@@ -175,7 +181,9 @@
 ],
 "amenity/biergarten":[
 "Ogródek piwny",
-"ogródek piwny"
+"biergarten",
+"piwo",
+"gorzałka"
 ],
 "amenity/boat_rental":[
 "wynajem łodzi",
@@ -748,6 +756,17 @@
 "jedzenie",
 "Automat do sprzedaży jedzenia"
 ],
+"amenity/vending_machine/fuel":[
+"gaz",
+"diesel",
+"lng",
+"Pompa gazowa",
+"dystrybutor",
+"cng",
+"paliwo",
+"benzyna",
+"biodiesel"
+],
 "amenity/vending_machine/ice_cream":[
 "automat do sprzedaży lodów",
 "lody",
@@ -822,7 +841,8 @@
 "polna"
 ],
 "attraction/amusement_ride":[
-"przejażdżka-atrakcja (ogólna)"
+"przejażdżka rozrywkowa",
+"Przejażdżka rozrywkowa"
 ],
 "attraction/animal":[
 "Zwierzę",
@@ -998,8 +1018,8 @@
 "building/boathouse":[
 "boathouse",
 "houseboat",
-"na wodzie",
-"Dom Na Wodzie"
+"Łódź mieszkalna",
+"na wodzie"
 ],
 "building/bungalow":[
 "Bungalow",
@@ -1078,6 +1098,11 @@
 "building/garages":[
 "Garaże",
 "garaże"
+],
+"building/grandstand":[
+"trybuna",
+"trybuny",
+"Trybuna (budynek)"
 ],
 "building/greenhouse":[
 "Szklarnia"
@@ -1448,13 +1473,35 @@
 "emergency/destination":[
 "Docelowy dojazd dla służb ratowniczych"
 ],
+"emergency/fire_alarm":[
+"skrzynka z alarmem przeciwpożarowym",
+"Skrzynka z alarmem przeciwpożarowym"
+],
+"emergency/fire_extinguisher":[
+"Gaśnica",
+"gaśnica"
+],
 "emergency/fire_hydrant":[
 "hydrant",
 "Hydrant przeciwpożarowy"
 ],
+"emergency/first_aid_kit":[
+"apteczka",
+"pierwsza pomoc",
+"bandaż",
+"zestaw medyczny",
+"Apteczka"
+],
 "emergency/life_ring":[
 "koło ratunkowe",
 "Koło ratunkowe"
+],
+"emergency/lifeguard":[
+"Ratownik",
+"CPR",
+"RKO",
+"ratownik",
+"pomoc"
 ],
 "emergency/no":[
 "Brak dojazdu dla służb ratowniczych"
@@ -1470,6 +1517,17 @@
 ],
 "emergency/private":[
 "Prywatny dojazd dla służb ratowniczych"
+],
+"emergency/siren":[
+"hałas",
+"tornado",
+"nalot",
+"syrena",
+"sztorm",
+"alarm",
+"głośno",
+"Syrena alarmowa",
+"ostrzeżenie"
 ],
 "emergency/water_tank":[
 "zapasowy",
@@ -1581,6 +1639,11 @@
 "healthcare/hospice":[
 "hospicjum",
 "Hospicjum"
+],
+"healthcare/laboratory":[
+"laboratorium medyczne",
+"Laboratorium medyczne",
+"badania krwi"
 ],
 "healthcare/midwife":[
 "położna",
@@ -1879,7 +1942,7 @@
 ],
 "highway/turning_loop":[
 "zawracanie",
-"Węzeł do zawracania (z wyspą)"
+"Pętla do zawracania (z wyspą)"
 ],
 "highway/unclassified":[
 "Droga czwartorzędna"
@@ -2039,7 +2102,16 @@
 "Obszar przemysłowy"
 ],
 "landuse/industrial/scrap_yard":[
-"Stacja demontażu pojazdów"
+"wrak",
+"śmieci",
+"Stacja demontażu pojazdów",
+"samochód",
+"metal",
+"odzysk",
+"złomowisko",
+"złom",
+"pojazd",
+"szrot"
 ],
 "landuse/industrial/slaughterhouse":[
 "Rzeźnia",
@@ -2112,10 +2184,27 @@
 "automat do gier",
 "Salon gier hazardowych"
 ],
+"leisure/amusement_arcade":[
+"automaty wrzutowe",
+"gry wideo",
+"salon gier",
+"pinball",
+"Salon gier",
+"symulatory jazdy"
+],
+"leisure/beach_resort":[
+"Resort nadmorski",
+"nadmorski ośrodek"
+],
 "leisure/bird_hide":[
 "ornitologia",
 "ptaki",
 "Czatownia ornitologiczna"
+],
+"leisure/bleachers":[
+"trybuna",
+"trybuny",
+"Trybuna (odkryta)"
 ],
 "leisure/bowling_alley":[
 "Kręgielnia",
@@ -2203,6 +2292,16 @@
 "stanowisko do brzuszków",
 "Stanowisko do brzuszków"
 ],
+"leisure/fitness_station/stairs":[
+"siłownia",
+"fitness",
+"stopnie",
+"Schody",
+"gimnastyka",
+"schody",
+"ścieżka zdrowia",
+"ćwiczenia"
+],
 "leisure/garden":[
 "Ogród",
 "ogród"
@@ -2241,6 +2340,20 @@
 "Rezerwat przyrody",
 "rezerwat"
 ],
+"leisure/outdoor_seating":[
+"ogródek piwny",
+"patio",
+"kawa",
+"bar",
+"al fresco",
+"Ogródek",
+"kawiarnia",
+"posiłki",
+"ogród",
+"ogródek",
+"pub",
+"restauracja"
+],
 "leisure/park":[
 "wypoczynek",
 "Park rekreacyjno-wypoczynkowy",
@@ -2260,6 +2373,12 @@
 "leisure/pitch/american_football":[
 "Boisko do futbolu amerykańskiego",
 "futbol amerykański"
+],
+"leisure/pitch/badminton":[
+"boisko",
+"kort",
+"Kort do badmintona",
+"badminton"
 ],
 "leisure/pitch/baseball":[
 "baseball",
@@ -2393,6 +2512,18 @@
 "Tunel kopalniany",
 "Sztolnia"
 ],
+"man_made/antenna":[
+"telefon komórkowy",
+"tv",
+"telewizja",
+"transmisja",
+"nadawanie",
+"komórka",
+"komunikacja",
+"antena",
+"Antena",
+"radio"
+],
 "man_made/breakwater":[
 "bodiony",
 "Falochron"
@@ -2402,9 +2533,24 @@
 "wiadukt",
 "Most/wiadukt"
 ],
+"man_made/bunker_silo":[
+"magazyn",
+"Silos",
+"zbiornik",
+"silos"
+],
 "man_made/chimney":[
 "kominek",
 "Komin"
+],
+"man_made/clearcut":[
+"Poręba",
+"drzewo",
+"poręba",
+"wycinka",
+"wyręba",
+"drewno",
+"las"
 ],
 "man_made/crane":[
 "dźwig",
@@ -2470,7 +2616,7 @@
 "pompa",
 "pompy",
 "przepompownia",
-"Przepompownia-ścieków,wody itp."
+"Przepompownia"
 ],
 "man_made/silo":[
 "kukurydza",
@@ -2606,6 +2752,18 @@
 "wierzchołek",
 "szczyt"
 ],
+"natural/reef":[
+"koral",
+"ocean",
+"piasek",
+"koralowiec",
+"płycizna",
+"rafa koralowa",
+"mielizna",
+"Rafa",
+"bariera",
+"rafa"
+],
 "natural/ridge":[
 "grzbiet górski",
 "grzbiet",
@@ -2713,12 +2871,22 @@
 "Architekt"
 ],
 "office/association":[
-"Biuro Organizacji non-profit"
+"nonprofit",
+"Biuro Organizacji non-profit",
+"non-profit",
+"społeczeństwo",
+"stowarzyszenie",
+"organizacja",
+"społeczność",
+"biuro organizacji non-profit"
 ],
 "office/charity":[
-"Organizacja Charytatywna"
+"organizacja charytatywna",
+"Organizacja Charytatywna",
+"biuro organizacji charytatywnej"
 ],
 "office/company":[
+"biuro firmy",
 "Biuro firmy"
 ],
 "office/coworking":[
@@ -2740,7 +2908,14 @@
 "praca tymczasowa"
 ],
 "office/energy_supplier":[
-"Biuro dostawcy energii."
+"zużycie gazu",
+"prąd",
+"energia",
+"Biuro dostawcy energii.",
+"elektryczność",
+"biuro dostawcy prądu",
+"firma energetyczna",
+"zużycie energii"
 ],
 "office/estate_agent":[
 "biuro nieruchomości",
@@ -2752,10 +2927,15 @@
 "Biuro finansowe"
 ],
 "office/forestry":[
-"Leśnictwo"
+"leśniczy",
+"Leśnictwo",
+"biuro leśniczego",
+"las"
 ],
 "office/foundation":[
-"Biuro fundacji"
+"Biuro fundacji",
+"fundacja",
+"biuro fundacji"
 ],
 "office/government":[
 "urząd",
@@ -2829,11 +3009,22 @@
 "Prywatny detektyw"
 ],
 "office/quango":[
-"Biuro organizacji prawie pozarządowej"
+"Biuro organizacji prawie pozarządowej",
+"organizacja pozarządowa",
+"ngo",
+"prawie niezależna",
+"pozarządowa",
+"organizacja",
+"biuro organizacji quasi-ngo"
 ],
 "office/research":[
 "instytut badawczy",
 "Biuro badawcze"
+],
+"office/surveyor":[
+"Biuro geodety",
+"biuro geodety",
+"geodeta"
 ],
 "office/tax_advisor":[
 "podatki",
@@ -2851,6 +3042,13 @@
 ],
 "office/travel_agent":[
 "Biuro podróży"
+],
+"office/water_utility":[
+"licznik wody",
+"woda",
+"biuro dostawcy wody",
+"Biuro wodociągowe",
+"media"
 ],
 "piste":[
 "Trasa narciarska"
@@ -2923,6 +3121,10 @@
 "Wieś",
 "wieś"
 ],
+"playground/balance_beam":[
+"równoważnia",
+"Równoważnia"
+],
 "playground/basket_spinner":[
 "Kosz obrotowy",
 "kosz obrotowy"
@@ -2941,6 +3143,11 @@
 "dmuchaniec",
 "Dmuchana trampolina",
 "trampolina"
+],
+"playground/horizontal_bar":[
+"Drążek",
+"podciąganie",
+"drążek"
 ],
 "playground/rocker":[
 "sprężynowiec",
@@ -3028,6 +3235,7 @@
 "Podstacja"
 ],
 "power/switch":[
+"wyłącznik zasilania",
 "Przełącznik wysokiego napięcia"
 ],
 "power/tower":[
@@ -3038,30 +3246,313 @@
 "transformator",
 "Transformator"
 ],
+"public_transport/linear_platform":[
+"transport publiczny",
+"przewozy",
+"peron",
+"Przystanek / Peron",
+"transport",
+"przystanek"
+],
+"public_transport/linear_platform_aerialway":[
+"wyciąg",
+"transport publiczny",
+"przewozy",
+"przystanek wyciągu",
+"peron",
+"Przystanek / Peron wyciągu",
+"kolejka linowa",
+"transport",
+"przystanek"
+],
 "public_transport/linear_platform_bus":[
-"Przystanek autobusowy / platforma"
+"przystanek autobusowy",
+"transport publiczny",
+"przewozy",
+"peron",
+"autobus",
+"transport",
+"Przystanek autobusowy / platforma",
+"przystanek"
+],
+"public_transport/linear_platform_ferry":[
+"łódka",
+"dok",
+"transport publiczny",
+"przewozy",
+"peron",
+"transport",
+"pomost",
+"Przystanek / Peron promu",
+"nabrzeże",
+"łódź",
+"prom",
+"port",
+"przystanek promu",
+"przystanek"
+],
+"public_transport/linear_platform_light_rail":[
+"transport publiczny",
+"przewozy",
+"peron",
+"kolej miejska",
+"wagon",
+"kolej elektryczna",
+"transport",
+"peron kolei miejskiej",
+"szyny",
+"tramwaj",
+"tory",
+"Przystanek / Peron kolei miejskiej",
+"przystanek"
+],
+"public_transport/linear_platform_monorail":[
+"szyny",
+"transport publiczny",
+"Przystanek / Peron kolei jednoszynowej",
+"peron kolei jednoszynowej",
+"tory",
+"przewozy",
+"peron",
+"kolej jednoszynowa",
+"transport",
+"przystanek"
+],
+"public_transport/linear_platform_subway":[
+"transport publiczny",
+"Przystanek / Peron metra",
+"przewozy",
+"peron",
+"metro",
+"tor",
+"szyna",
+"transport",
+"peron metra",
+"przystanek"
+],
+"public_transport/linear_platform_train":[
+"szyny",
+"peron kolejowy",
+"transport publiczny",
+"tory",
+"przewozy",
+"Przystanek / Peron kolejowy",
+"peron",
+"kolej",
+"transport",
+"pociąg",
+"przystanek"
 ],
 "public_transport/linear_platform_tram":[
 "Przystanek tramwajowy",
 "przystanek tramwajowy"
 ],
+"public_transport/linear_platform_trolleybus":[
+"Przystanek / Peron trolejbusowy",
+"transport publiczny",
+"tramwaj",
+"przewozy",
+"peron",
+"elektryczny",
+"trolejbus",
+"autobus",
+"transport",
+"przystanek trolejbusowy",
+"przystanek"
+],
+"public_transport/platform":[
+"transport publiczny",
+"przewozy",
+"peron",
+"Przystanek / Peron",
+"transport",
+"przystanek"
+],
+"public_transport/platform_aerialway":[
+"wyciąg",
+"transport publiczny",
+"przewozy",
+"przystanek wyciągu",
+"peron",
+"Przystanek / Peron wyciągu",
+"kolejka linowa",
+"transport",
+"przystanek"
+],
 "public_transport/platform_bus":[
 "przystanek autobusowy",
 "Przystanek autobusowy"
+],
+"public_transport/platform_ferry":[
+"łódka",
+"dok",
+"transport publiczny",
+"przewozy",
+"peron",
+"transport",
+"pomost",
+"Przystanek / Peron promu",
+"nabrzeże",
+"łódź",
+"prom",
+"port",
+"przystanek promu",
+"przystanek"
+],
+"public_transport/platform_light_rail":[
+"transport publiczny",
+"przewozy",
+"peron",
+"kolej miejska",
+"wagon",
+"kolej elektryczna",
+"transport",
+"peron kolei miejskiej",
+"szyny",
+"tramwaj",
+"tory",
+"Przystanek / Peron kolei miejskiej",
+"przystanek"
+],
+"public_transport/platform_monorail":[
+"szyny",
+"transport publiczny",
+"Przystanek / Peron kolei jednoszynowej",
+"peron kolei jednoszynowej",
+"tory",
+"przewozy",
+"peron",
+"kolej jednoszynowa",
+"transport",
+"przystanek"
+],
+"public_transport/platform_subway":[
+"szyny",
+"transport publiczny",
+"Przystanek / Peron metra",
+"tory",
+"przewozy",
+"peron",
+"metro",
+"transport",
+"peron metra",
+"przystanek"
 ],
 "public_transport/platform_train":[
 "peron kolejowy",
 "Peron kolejowy"
 ],
 "public_transport/platform_tram":[
-"Przystanek tramwajowy / peron"
+"transport publiczny",
+"przewozy",
+"peron",
+"kolej miejska",
+"wagon",
+"Przystanek tramwajowy / peron",
+"transport",
+"szyny",
+"przystanek tramwajowy",
+"tramwaj",
+"tory",
+"elektryczny",
+"przystanek"
+],
+"public_transport/platform_trolleybus":[
+"Przystanek / Peron trolejbusowy",
+"transport publiczny",
+"tramwaj",
+"przewozy",
+"peron",
+"elektryczny",
+"trolejbus",
+"autobus",
+"transport",
+"przystanek trolejbusowy",
+"przystanek"
+],
+"public_transport/station":[
+"transport publiczny",
+"dworzec",
+"przewozy",
+"stacja",
+"Stacja",
+"terminal",
+"transport"
+],
+"public_transport/station_aerialway":[
+"stacja wyciągu",
+"wyciąg",
+"transport publiczny",
+"dworzec",
+"przewozy",
+"kolejka linowa",
+"stacja",
+"terminal",
+"transport",
+"Stacja publicznej kolejki linowej"
 ],
 "public_transport/station_bus":[
 "Dworzec autobusowy",
 "dworzec autobusowy",
 "pks"
 ],
+"public_transport/station_ferry":[
+"łódka",
+"dok",
+"transport publiczny",
+"przewozy",
+"Terminal promowy",
+"terminal",
+"transport",
+"pomost",
+"terminal promowy",
+"nabrzeże",
+"łódź",
+"prom",
+"port",
+"stacja"
+],
+"public_transport/station_light_rail":[
+"transport publiczny",
+"przewozy",
+"kolej miejska",
+"wagon",
+"kolej elektryczna",
+"terminal",
+"transport",
+"Stacja kolei miejskiej",
+"szyny",
+"tramwaj",
+"dworzec",
+"tory",
+"stacja kolei miejskiej",
+"stacja"
+],
+"public_transport/station_monorail":[
+"szyny",
+"transport publiczny",
+"dworzec",
+"tory",
+"przewozy",
+"stacja",
+"stacja kolei jednoszynowej",
+"kolej elektryczna",
+"kolej jednoszynowa",
+"terminal",
+"transport",
+"Stacja kolei jednoszynowej"
+],
 "public_transport/station_subway":[
+"szyny",
+"transport publiczny",
+"dworzec",
+"tory",
+"przewozy",
+"metro",
+"stacja",
+"stacja metra",
+"terminal",
+"transport",
 "Stacja metra"
 ],
 "public_transport/station_train":[
@@ -3076,6 +3567,89 @@
 "stacja tramwajowa",
 "Stacja tramowajowa",
 "dworzec tramwajowy"
+],
+"public_transport/station_trolleybus":[
+"transport publiczny",
+"tramwaj",
+"dworzec",
+"przewozy",
+"Stacja / Dworzec trolejbusowy",
+"wagon",
+"stacja",
+"trolejbus",
+"dworzec trolejbusowy",
+"autobus",
+"terminal",
+"transport"
+],
+"public_transport/stop_area":[
+"transport publiczny",
+"przewozy",
+"obszar zatrzymania",
+"Obszar zatrzymania",
+"transport"
+],
+"public_transport/stop_position":[
+"transport publiczny",
+"miejsce zatrzymania",
+"przewozy",
+"Miejsce zatrzymania",
+"transport"
+],
+"public_transport/stop_position_aerialway":[
+"wyciąg",
+"transport publiczny",
+"przewozy",
+"kolejka linowa",
+"transport",
+"Miejsce zatrzymania się wyciągu",
+"miejsce zatrzymania wyciągu"
+],
+"public_transport/stop_position_bus":[
+"Miejsce zatrzymania się autobusu",
+"transport publiczny",
+"przewozy",
+"miejsce zatrzymania autobusu",
+"autobus",
+"transport"
+],
+"public_transport/stop_position_ferry":[
+"łódka",
+"dok",
+"miejsce zatrzymania promu",
+"łódź",
+"transport publiczny",
+"Miejsce zatrzymania się promu",
+"prom",
+"przewozy",
+"port",
+"transport",
+"pomost",
+"nabrzeże"
+],
+"public_transport/stop_position_light_rail":[
+"transport publiczny",
+"przewozy",
+"Miejsce zatrzymania się kolei miejskiej",
+"kolej miejska",
+"wagon",
+"kolej elektryczna",
+"terminal",
+"transport",
+"szyny",
+"tramwaj",
+"dworzec",
+"tory",
+"stacja",
+"miejsce zatrzymania kolei miejskiej"
+],
+"public_transport/stop_position_monorail":[
+"transport publiczny",
+"miejsce zatrzymania kolei jednoszynowej",
+"przewozy",
+"Miejsce zatrzymania się kolei jednoszynowej",
+"kolej jednoszynowa",
+"transport"
 ],
 "public_transport/stop_position_subway":[
 "miejsce zatrzymania się metra",
@@ -3127,6 +3701,12 @@
 "railway/level_crossing":[
 "przejazd kolejowy",
 "przejazd kolejowy (jezdnia)"
+],
+"railway/light_rail":[
+"tramwaj",
+"kolej miejska",
+"wagon",
+"Kolej miejska"
 ],
 "railway/milestone":[
 "słupek kilometrowy",
@@ -3393,7 +3973,7 @@
 "dom towarowy"
 ],
 "shop/doityourself":[
-"Sklep dla majsterkowiczów",
+"Market budowlany/sklep dla majsterkowiczów",
 "sklep dla majsterkowiczów"
 ],
 "shop/dry_cleaning":[
@@ -3572,6 +4152,18 @@
 "Dealer motocykli",
 "Dealer motocyklowy"
 ],
+"shop/motorcycle_repair":[
+"motor",
+"auto",
+"serwis",
+"motocykl",
+"naprawa",
+"warsztat motocyklowy",
+"samochód",
+"garaż",
+"rower",
+"Warsztat motocyklowy"
+],
 "shop/music":[
 "Sklep muzyczny",
 "sklep muzyczny"
@@ -3628,6 +4220,10 @@
 "shop/pet":[
 "Sklep zoologiczny"
 ],
+"shop/pet_grooming":[
+"psi fryzjer",
+"Salon fryzjerski dla zwierząt"
+],
 "shop/photo":[
 "fotografia",
 "Sklep fotograficzny"
@@ -3673,7 +4269,8 @@
 "papierniczy"
 ],
 "shop/storage_rental":[
-"Przechowalnia rzeczy/pojazdów (długoterminowa)",
+"Przechowalnia rzeczy (długoterminowa)",
+"magazyn",
 "przechowalnia pojazdów",
 "przechowalnia rzeczy"
 ],
@@ -3884,9 +4481,22 @@
 "park tematyczny",
 "Park rozrywki"
 ],
+"tourism/trail_riding_station":[
+"Konny ośrodek wypoczynkowy",
+"konny ośrodek wypoczynkowy"
+],
 "tourism/viewpoint":[
 "punkt obserwacyjny",
 "Punkt widokowy"
+],
+"tourism/wilderness_hut":[
+"Odosobniona chata-schronienie dla turystów",
+"wiejska chata",
+"chata na odludziu",
+"chatka",
+"chata",
+"budka",
+"szałas"
 ],
 "tourism/zoo":[
 "ogród zoologiczny",
@@ -3970,17 +4580,17 @@
 ],
 "type/restriction/only_left_turn":[
 "tylko w lewo",
-"Tylko skręt w lewo",
+"Nakaz skrętu w lewo",
 "nakaz skrętu w lewo"
 ],
 "type/restriction/only_right_turn":[
 "nakaz skrętu w prawo",
 "tylko w prawo",
-"Tylko skręt w prawo"
+"Nakaz skrętu w prawo"
 ],
 "type/restriction/only_straight_on":[
-"Tylko jazda prosto",
 "tylko prosto",
+"Nakaz jazdy prosto",
 "nakaz jazdy na wprost"
 ],
 "type/restriction/only_u_turn":[
@@ -4024,9 +4634,17 @@
 "Szlak konny",
 "szlak konny"
 ],
+"type/route/light_rail":[
+"trasa kolei miejskiej",
+"Linia kolei miejskiej"
+],
 "type/route/pipeline":[
 "przebieg rurociągu",
 "Trasa rurociągu"
+],
+"type/route/piste":[
+"Trasa narciarska",
+"trasa narciarska"
 ],
 "type/route/power":[
 "przebieg linii elektrycznej",
@@ -4142,6 +4760,7 @@
 ],
 "waterway/waterfall":[
 "Wodospad",
+"wodospad",
 "siklawa"
 ],
 "waterway/weir":[

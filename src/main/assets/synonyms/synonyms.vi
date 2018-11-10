@@ -3108,6 +3108,13 @@
 "emergency/destination":[
 "Dịch vụ Khẩn cấp Đến nơi"
 ],
+"emergency/fire_alarm":[
+"hộp cuộc gọi báo cháy",
+"hộp khẩn cấp cứu hỏa",
+"hộp khẩn cấp cứu hoả",
+"Hộp Điện thoại Báo cháy",
+"hộp điện thoại báo cháy"
+],
 "emergency/fire_extinguisher":[
 "binh chua lua",
 "bình cứu hoả",
@@ -3131,10 +3138,57 @@
 "trụ cứu hỏa",
 "Trụ Cứu hỏa"
 ],
+"emergency/first_aid_kit":[
+"hop so cuu",
+"Hộp Cấp cứu",
+"tram so cuu",
+"hop cuu thuong",
+"tram cap cuu",
+"hộp cứu thương",
+"hộp cấp cứu",
+"bộ sơ cứu",
+"trạm cứu thương",
+"tram cuu thuong",
+"bo y te",
+"trạm cấp cứu",
+"bộ y tế",
+"tram y te",
+"bo cuu thuong",
+"hộp sơ cứu",
+"bộ cấp cứu",
+"bộ cứu thương",
+"trạm y tế",
+"bo so cuu",
+"bo cap cuu",
+"trạm sơ cứu",
+"hộp y tế",
+"hop cap cuu"
+],
 "emergency/life_ring":[
 "Phao Cứu đắm",
 "phao cứu đắm",
 "phao cuu dam"
+],
+"emergency/lifeguard":[
+"nhân viên cứu hộ bơi lội",
+" nhân viên cứu hộ bờ biển",
+"cứu hộ viên bơi lội",
+"nhan vien cuu ho ho boi",
+"nhan vien truc ho boi",
+"cứu hộ viên bờ biển",
+"cứu hộ viên hồ bơi",
+"nhân viên cứu hộ hồ bơi",
+"cuu ho vien bo bien",
+"cuu ho vien boi loi",
+"nhan vien cuu ho bo bien",
+"nhân viên cứu hộ bờ sông",
+"cuu ho vien ho boi",
+"Nhân viên Cứu hộ Bơi lội",
+"nhan vien cuu ho boi loi",
+"cuu ho vien bo song",
+"nhân viên trực hồ bơi",
+"nhan vien cuu ho bo song",
+"cứu hộ viên bờ sông"
 ],
 "emergency/no":[
 "Không cho phép Dịch vụ Khẩn cấp"
@@ -4248,11 +4302,17 @@
 "kỷ niệm lịch sử"
 ],
 "historic/archaeological_site":[
-"Khu vực Khảo cổ",
+"di chỉ",
+"di chi khao co",
+"di chi",
 "khu vuc khao co",
 "khu vực khảo cổ",
 "khẩo cổ học",
-"khao co hoc"
+"dia diem khao co hoc",
+"Di chỉ Khảo cổ",
+"di chỉ khảo cổ",
+"khao co hoc",
+"địa điểm khảo cổ học"
 ],
 "historic/boundary_stone":[
 "moc bien gioi",
@@ -5047,6 +5107,15 @@
 "Sân cỏ Bóng bầu dục Mỹ",
 "sân bóng bầu dục mỹ"
 ],
+"leisure/pitch/badminton":[
+"sân đánh cầu",
+"sân cầu lông",
+"sân cầu",
+"san cau",
+"san cau long",
+"Sân Cầu lông",
+"san danh cau"
+],
 "leisure/pitch/baseball":[
 "Sân cỏ Bóng chày",
 "san co bong chay",
@@ -5314,6 +5383,19 @@
 "cầu",
 "Cầu",
 "cau"
+],
+"man_made/bunker_silo":[
+"xi-lo boong-ke",
+"xilô boongke",
+"xi lo boong ke",
+"xilo boonke",
+"xi lô boong ke",
+"xilô boong ke",
+"xilo boong ke",
+"xi-lô boong-ke",
+"xi-lo boong ke",
+"xi-lô boong ke",
+"Xilô Boong ke"
 ],
 "man_made/chimney":[
 "ống khói",

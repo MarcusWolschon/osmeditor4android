@@ -351,14 +351,21 @@
 ],
 "amenity/biergarten":[
 "ölträdgård",
+"servering",
+"trädgårdsbar",
+"sprit",
+"krog",
+"utepub",
+"utecafé",
+"bar",
 "Ölträdgård",
 "Biergarten",
+"utebar",
 "öl",
-"sprit",
+"pub",
 "trädgårdspub",
 "uteservering",
-"ölcafé",
-"utecafé"
+"ölcafé"
 ],
 "amenity/boat_rental":[
 "båtleasing",
@@ -3043,10 +3050,10 @@
 "hjärthjälp"
 ],
 "emergency/designated":[
-"Åtkomst för utryckningsfordon - Avsedd för"
+"Åtkomst för utryckningsfordon – Avsedd för"
 ],
 "emergency/destination":[
-"Åtkomst för utryckningsfordon - Destination"
+"Åtkomst för utryckningsfordon – Destination"
 ],
 "emergency/fire_alarm":[
 "brandtelefon",
@@ -3102,10 +3109,10 @@
 "Lifeguard"
 ],
 "emergency/no":[
-"Åtkomst för utryckningsfordon - Nej"
+"Åtkomst för utryckningsfordon – Nej"
 ],
 "emergency/official":[
-"Åtkomst för utryckningsfordon - Officiellt"
+"Åtkomst för utryckningsfordon – Officiellt"
 ],
 "emergency/phone":[
 "nödnummer",
@@ -3115,7 +3122,7 @@
 "alarmeringscentral"
 ],
 "emergency/private":[
-"Åtkomst för utryckningsfordon - Ja"
+"Åtkomst för utryckningsfordon – Privat"
 ],
 "emergency/siren":[
 "larm",
@@ -3149,7 +3156,7 @@
 "vattentank"
 ],
 "emergency/yes":[
-"Åtkomst för utryckningsfordon - Ja"
+"Åtkomst för utryckningsfordon – Ja"
 ],
 "entrance":[
 "entré",
@@ -3620,6 +3627,7 @@
 "torg",
 "gångfart",
 "Gångfartsområde",
+"Gågateområde",
 "gågata",
 "gårdsgata"
 ],
@@ -4767,6 +4775,12 @@
 "football",
 "Plan för amerikansk fotboll"
 ],
+"leisure/pitch/badminton":[
+"Badmintonbana",
+"badminton",
+"Badmintonplan",
+"fjäderboll"
+],
 "leisure/pitch/baseball":[
 "baseballplan",
 "Baseball",
@@ -5040,6 +5054,19 @@
 "bro",
 "Bro"
 ],
+"man_made/bunker_silo":[
+"lager",
+"Ensilage",
+"spannmålssilo",
+"spannmål",
+"pressfoder",
+"foder",
+"fodersilo",
+"Plansilo",
+"silo",
+"djurfoder",
+"spannmålslagring"
+],
 "man_made/chimney":[
 "Skorsten",
 "rökgång",
@@ -5206,10 +5233,16 @@
 "pumpaggregat"
 ],
 "man_made/silo":[
+"lager",
+"Ensilage",
 "spannmålssilo",
 "spannmål",
+"pressfoder",
+"foder",
 "fodersilo",
+"silo",
 "Silo",
+"djurfoder",
 "spannmålslagring"
 ],
 "man_made/storage_tank":[
@@ -7142,7 +7175,7 @@
 "kontext"
 ],
 "roundabout":[
-"Rondell"
+"Cirkulationsplats"
 ],
 "route/ferry":[
 "färjelinje",

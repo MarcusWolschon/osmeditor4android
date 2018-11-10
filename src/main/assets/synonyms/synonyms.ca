@@ -165,9 +165,6 @@
 "amenity/bicycle_repair_station":[
 "Lloc de reparació de Bicicletes"
 ],
-"amenity/biergarten":[
-"Biergarten"
-],
 "amenity/boat_rental":[
 "Lloguer d'embarcacions"
 ],
@@ -580,6 +577,9 @@
 "amenity/vending_machine/cigarettes":[
 "Màquina de tabac"
 ],
+"amenity/vending_machine/coffee":[
+"Expenedora de cafè"
+],
 "amenity/vending_machine/condoms":[
 "Expenedor de preservatius"
 ],
@@ -591,6 +591,12 @@
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Màquina de vènding d'articles d'higiene femenina"
+],
+"amenity/vending_machine/fuel":[
+"Sortidor de benzina"
+],
+"amenity/vending_machine/ice_cream":[
+"Expenedora de gelats"
 ],
 "amenity/vending_machine/news_papers":[
 "Màquina expenedora de diaris"
@@ -606,6 +612,9 @@
 ],
 "amenity/vending_machine/public_transport_tickets":[
 "Màquina de venda de títols de transport públic"
+],
+"amenity/vending_machine/stamps":[
+"Expenedora de segells"
 ],
 "amenity/vending_machine/sweets":[
 "Màquina de vènding de comestibles"
@@ -650,6 +659,15 @@
 ],
 "attraction/pirate_ship":[
 "Vaixell pirata"
+],
+"attraction/roller_coaster":[
+"Muntanya russa"
+],
+"attraction/train":[
+"Tren turístic"
+],
+"attraction/water_slide":[
+"tobogan d'aigua"
 ],
 "barrier":[
 "Tancament",
@@ -1822,7 +1840,7 @@
 "agulla."
 ],
 "natural/saddle":[
-"Seient"
+"Collada"
 ],
 "natural/sand":[
 "Sorra"

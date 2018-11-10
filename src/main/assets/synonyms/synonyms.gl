@@ -119,12 +119,12 @@
 "criadeiro"
 ],
 "amenity/animal_shelter":[
-"perrera",
 "adopción",
 "animais",
 "refuxio",
 "Refuxio de animais",
-"mascotas"
+"mascotas",
+"canceira"
 ],
 "amenity/arts_centre":[
 "escultura",
@@ -181,11 +181,11 @@
 "Aparcadoiro de bicicletas"
 ],
 "amenity/bicycle_rental":[
+"alugueiro",
 "bici",
 "Alugamento de bicicletas",
 "bicicleta",
-"préstamo",
-"aluguer"
+"préstamo"
 ],
 "amenity/bicycle_repair_station":[
 "inchar",
@@ -193,12 +193,6 @@
 "Lugar para ferramentas de reparación de bicicletas",
 "bicicleta",
 "reparación"
-],
-"amenity/biergarten":[
-"alcohol",
-"biergarten",
-"Xardín da cervexa",
-"cervexa"
 ],
 "amenity/boat_rental":[
 "bote",
@@ -250,11 +244,11 @@
 "ruleta",
 "Casino",
 "xogo",
-"poker",
 "tragaperras",
 "casino",
 "comecartos",
-"cartas"
+"cartas",
+"póker"
 ],
 "amenity/charging_station":[
 "eléctrico",
@@ -310,7 +304,7 @@
 ],
 "amenity/compressed_air":[
 "Aire comprimido",
-"neumáticos",
+"pneumáticos",
 "inflado de rodas",
 "aire",
 "inchado de rodas"
@@ -358,10 +352,10 @@
 "potable"
 ],
 "amenity/driving_school":[
+"escola de condución",
 "carné de conducir",
 "Autoescola",
-"autoescola",
-"escola de conducción"
+"autoescola"
 ],
 "amenity/embassy":[
 "Embaixada"
@@ -450,10 +444,10 @@
 ],
 "amenity/monastery":[
 "capela",
-"Zona de monasterio",
-"monasterio",
+"área de mosteiro",
+"mosteiro",
 "igrexa",
-"área de monasterio"
+"Zona de mosteiro"
 ],
 "amenity/motorcycle_parking":[
 "parking",
@@ -543,13 +537,13 @@
 "Mesquita"
 ],
 "amenity/place_of_worship/shinto":[
-"Santuario sintoísta"
+"Santuario xintoísta"
 ],
 "amenity/place_of_worship/sikh":[
 "Templo Sikh"
 ],
 "amenity/place_of_worship/taoist":[
-"Templo Taoista"
+"Templo Taoísta"
 ],
 "amenity/planetarium":[
 "Planetario"
@@ -605,25 +599,27 @@
 ],
 "amenity/public_bookcase":[
 "libros",
-"estantería",
-"Estantería pública",
+"andel",
 "biblioteca",
+"Estante pública",
+"estante",
 "libre",
+"libraría",
 "pública"
 ],
 "amenity/ranger_station":[
-"Estación de gardabosques"
+"Estación de garda de bosques"
 ],
 "amenity/recycling":[
 "punto limpo",
-"contenedor",
-"vidrio",
 "lixo",
 "orgánico",
 "reciclaxe",
 "basura",
+"contedor",
 "Contenedor de reciclaxe",
-"plásticos"
+"plásticos",
+"vidro"
 ],
 "amenity/recycling_centre":[
 "punto limpo",
@@ -668,6 +664,7 @@
 "gazebo",
 "Abrigo",
 "refuxio",
+"pavillón",
 "cuberto"
 ],
 "amenity/shower":[

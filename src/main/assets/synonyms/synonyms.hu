@@ -218,11 +218,6 @@
 "Önálló kerékpárszerelő pont",
 "kerékpárszerelés"
 ],
-"amenity/biergarten":[
-"söröző",
-"kerthelyisé",
-"Sörkert"
-],
 "amenity/boat_rental":[
 "csónakkölcsönző",
 "Hajókölcsönző"
@@ -394,10 +389,11 @@
 "jogosítvány"
 ],
 "amenity/embassy":[
-"Követség",
-"Konzulátus",
+"konzulátus",
+"nagykövetség",
 "külképviselet",
-"Nagykövetség"
+"Külképviselet",
+"követség"
 ],
 "amenity/fast_food":[
 "gyros",
@@ -408,6 +404,9 @@
 "büfé",
 "hot dog",
 "hamburger"
+],
+"amenity/ferry_terminal":[
+"Kompállomás / Terminál"
 ],
 "amenity/fire_station":[
 "tűzoltólaktanya",
@@ -706,6 +705,10 @@
 "fürdő",
 "Zuhany",
 "tusoló"
+],
+"amenity/smoking_area":[
+"dohányzásra kijelölt hely",
+"Dohányzó terület"
 ],
 "amenity/social_facility":[
 "Szociális intézmény",
@@ -1547,6 +1550,9 @@
 "emergency/destination":[
 "Kivéve célforgalom, vészhelyzetben"
 ],
+"emergency/fire_extinguisher":[
+"Tűzoltókészülék"
+],
 "emergency/fire_hydrant":[
 "tűzoltók",
 "Tűzcsap",
@@ -1555,12 +1561,18 @@
 "spricni",
 "vészhelyzet"
 ],
+"emergency/first_aid_kit":[
+"Elsősegélykészlet"
+],
 "emergency/life_ring":[
 "öv",
 "Mentőöv",
 "gyűrű",
 "életmentés",
 "mentés"
+],
+"emergency/lifeguard":[
+"Strandőr"
 ],
 "emergency/no":[
 "Vészhelyzeti használatra tilos"
@@ -1574,6 +1586,9 @@
 ],
 "emergency/private":[
 "Vészhelyzeti használat: magántulajdon"
+],
+"emergency/siren":[
+"Sziréna"
 ],
 "emergency/water_tank":[
 "Vészhelyzeti víztartály"
@@ -1963,9 +1978,11 @@
 "Bekötőút felhajtó"
 ],
 "highway/track":[
-"Nem karbantartott földút",
+"Nem karbantartott mezőgazdasági/erdészeti út",
+"tanyasi út",
 "földút",
-"nem karbantartott"
+"erdészeti út",
+"mezőgazdasági út"
 ],
 "highway/traffic_mirror":[
 "Közlekedési tükör",
@@ -2214,6 +2231,13 @@
 "játékterem",
 "Felnőtt játékközpont"
 ],
+"leisure/beach_resort":[
+"vízpart",
+"strand",
+"tengerpart",
+"Fürdőhely, vízparti strand",
+"fürdő"
+],
 "leisure/bird_hide":[
 "madárles",
 "Madárles"
@@ -2229,6 +2253,9 @@
 "leisure/dance":[
 "Táncterem",
 "táncterem"
+],
+"leisure/dancing_school":[
+"Tánciskola"
 ],
 "leisure/dog_park":[
 "Kutyafuttató",
@@ -2331,9 +2358,9 @@
 "leisure/pitch/beachvolleyball":[
 "pálya",
 "strand",
+"Strandröplabdapálya",
 "röpi",
-"röplabda",
-"Strandröplabda pálya"
+"röplabda"
 ],
 "leisure/pitch/bowls":[
 "Gyeptekepálya",
@@ -2427,7 +2454,9 @@
 ],
 "leisure/water_park":[
 "aquapark",
-"Aquapark",
+"strand",
+"Élményfürdő",
+"akvapark",
 "vízi szórakoztatópark"
 ],
 "line":[
@@ -2442,6 +2471,9 @@
 "Bányatárna (vízszintes)",
 "táró",
 "bánya"
+],
+"man_made/antenna":[
+"Antenna"
 ],
 "man_made/breakwater":[
 "Hullámtörő"
@@ -2497,6 +2529,9 @@
 "kilátó",
 "megfigyelőtorony",
 "Kilátótorony"
+],
+"man_made/observatory":[
+"Obszervatórium"
 ],
 "man_made/petroleum_well":[
 "olajkút",
@@ -2603,7 +2638,11 @@
 "Öböl"
 ],
 "natural/beach":[
-"Strand"
+"vízpart",
+"tengerpart",
+"fürdőhely",
+"Strand",
+"Természetes strand"
 ],
 "natural/cave_entrance":[
 "Barlangbejárat",
@@ -2639,6 +2678,9 @@
 "hangafű",
 "törpecserjés",
 "rét"
+],
+"natural/mud":[
+"Sár"
 ],
 "natural/peak":[
 "csúcs",
@@ -3235,6 +3277,9 @@
 "Üzlet",
 "kiskereskedés",
 "bolt"
+],
+"shop/agrarian":[
+"Gazdabolt"
 ],
 "shop/alcohol":[
 "tokaji",
@@ -4184,8 +4229,8 @@
 "traffic_calming/table":[
 "tábla",
 "lassító",
-"sebesség",
-"KRESZ tábla"
+"Megemelt szintű gyalogátjáró",
+"sebesség"
 ],
 "type/boundary":[
 "Határvonal",

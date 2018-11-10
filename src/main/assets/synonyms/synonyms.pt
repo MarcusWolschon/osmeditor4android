@@ -208,11 +208,6 @@
 "Ponto de reparação de bicicletas self-service",
 "Bicycle Repair Tool Station"
 ],
-"amenity/biergarten":[
-"Beer Garden",
-"Biergarten",
-"Jardim da cerveja"
-],
 "amenity/boat_rental":[
 "Aluguer de barcos",
 "Boat Rental"
@@ -473,6 +468,10 @@
 "Livros",
 "Consulta",
 "Publica"
+],
+"amenity/love_hotel":[
+"Motel só para casais",
+"Motel"
 ],
 "amenity/marketplace":[
 "Bazar",
@@ -2517,7 +2516,9 @@
 "Grama"
 ],
 "landuse/greenfield":[
-"Terreno com loteamento planeado",
+"terreno para obras",
+"Terreno com loteamento planeado ",
+"terreno para construção",
 "loteamento"
 ],
 "landuse/greenhouse_horticulture":[
@@ -2651,10 +2652,12 @@
 "Pista de Bowling"
 ],
 "leisure/common":[
-"Baldio",
-"Baldios",
-"Terreno Baldio",
-"Common"
+"terreno sem titular",
+"terreno sem proprietário",
+"baldio",
+"terreno sem dono",
+"baldio (terrenos de propriedade colectiva utilizados pela comunidade)",
+"propriedade colectiva"
 ],
 "leisure/dance":[
 "Salão de dança",
@@ -2834,9 +2837,9 @@
 "Campo de basebol",
 "Beisebol",
 "Baizebol",
+"Baseball Field",
 "Beizebol",
-"Baisebol",
-"Baseball Diamond"
+"Baisebol"
 ],
 "leisure/pitch/basketball":[
 "Basquetebol",
@@ -3291,8 +3294,13 @@
 "Encosta de rochas soltas"
 ],
 "natural/scrub":[
+"terreno sem uso",
 "Matagal",
-"Scrub"
+"matos",
+"terreno com matagal",
+"matagal",
+"terreno com mato",
+"terreno abandonado"
 ],
 "natural/spring":[
 "Nascente de água",

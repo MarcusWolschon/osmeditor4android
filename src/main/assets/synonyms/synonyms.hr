@@ -136,9 +136,6 @@
 "amenity/bicycle_repair_station":[
 "Stalak sa alatima za bicikle"
 ],
-"amenity/biergarten":[
-"Pivnica na otvorenom"
-],
 "amenity/boat_rental":[
 "iznajmljivanje čamaca",
 "najam broda",
@@ -561,6 +558,9 @@
 "barrier/cycle_barrier":[
 "Biciklistička prepreka"
 ],
+"barrier/ditch":[
+"Rov"
+],
 "barrier/entrance":[
 "Ulaz"
 ],
@@ -573,6 +573,9 @@
 ],
 "barrier/hedge":[
 "Živica"
+],
+"barrier/kerb":[
+"Rubnjak"
 ],
 "barrier/kissing_gate":[
 "Rotirajući prolaz za ljude"
@@ -956,6 +959,9 @@
 "highway/path":[
 "Staza"
 ],
+"highway/pedestrian_line":[
+"Pješačka ulica"
+],
 "highway/primary":[
 "Državna cesta"
 ],
@@ -1123,6 +1129,9 @@
 ],
 "landuse/quarry":[
 "Kamenolom"
+],
+"landuse/religious":[
+"Religiozno područje"
 ],
 "landuse/residential":[
 "Stambena zona"
@@ -2488,7 +2497,7 @@
 "Zabranjeno desno skretanje"
 ],
 "type/restriction/no_straight_on":[
-"Zabranjeno produživanje ravno"
+"Zabranjeno prolaženje ravno"
 ],
 "type/restriction/no_u_turn":[
 "Zabranjeno polukružno okretanje"

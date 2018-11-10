@@ -298,11 +298,6 @@
 "riparazione",
 "cicli"
 ],
-"amenity/biergarten":[
-"Birreria all'aperto",
-"distesa",
-"birreria"
-],
 "amenity/boat_rental":[
 "noleggio",
 "porto",
@@ -3153,6 +3148,14 @@
 "Ponte",
 "ponte"
 ],
+"man_made/bunker_silo":[
+"magazzino",
+"immagazzinamento",
+"silaggio",
+"insilato",
+"stoccaggio",
+"Bunker silo"
+],
 "man_made/chimney":[
 "Ciminiera",
 "camino",
@@ -3228,6 +3231,7 @@
 "antincendio"
 ],
 "man_made/observatory":[
+"specola",
 "osservatorio",
 "Osservatorio",
 "meteorologico",

@@ -193,12 +193,6 @@
 "維修自行車",
 "自行車維修站"
 ],
-"amenity/biergarten":[
-"戶外啤酒店",
-"露天啤酒店",
-"啤酒店",
-"啤酒花園"
-],
 "amenity/boat_rental":[
 "租艇",
 "Boat Rental",
@@ -2260,7 +2254,7 @@
 ],
 "leisure/pitch/baseball":[
 "棒球場",
-"Baseball Diamond"
+"Baseball Field"
 ],
 "leisure/pitch/basketball":[
 "籃球場",

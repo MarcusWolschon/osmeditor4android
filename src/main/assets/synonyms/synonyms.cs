@@ -11,6 +11,9 @@
 "Reklamní poutač",
 "billboard"
 ],
+"advertising/column":[
+"Reklamní sloup"
+],
 "aerialway":[
 "Lanovka/vlek"
 ],
@@ -254,14 +257,6 @@
 "stojan",
 "stojan na kolo",
 "samoobslužná opravna kol"
-],
-"amenity/biergarten":[
-"pivo",
-"venku",
-"posezení",
-"zahrádka",
-"pod širým nebem",
-"Pivní zahrádka"
 ],
 "amenity/boat_rental":[
 "půjčovna loděk",
@@ -983,6 +978,9 @@
 "prodejní automat",
 "Automat na cigarety"
 ],
+"amenity/vending_machine/coffee":[
+"Automat na kávu"
+],
 "amenity/vending_machine/condoms":[
 "Automat na kondomy",
 "automat",
@@ -1004,6 +1002,12 @@
 "lahve",
 "nápoj"
 ],
+"amenity/vending_machine/electronics":[
+"Elektronický prodejní automat"
+],
+"amenity/vending_machine/elongated_coin":[
+"Prodejní automat na mince"
+],
 "amenity/vending_machine/excrement_bags":[
 "pytlík",
 "Automat na pytlíky na exkrementy",
@@ -1018,6 +1022,12 @@
 ],
 "amenity/vending_machine/feminine_hygiene":[
 "Automat dámské hygieny"
+],
+"amenity/vending_machine/food":[
+"Jídelní automat"
+],
+"amenity/vending_machine/ice_cream":[
+"Automat na zmrzlinu"
 ],
 "amenity/vending_machine/news_papers":[
 "Automat na noviny"
@@ -1125,8 +1135,14 @@
 "povrch cesty",
 "Plocha silnice"
 ],
+"attraction/amusement_ride":[
+"Zábavní jízda"
+],
 "attraction/animal":[
 "Zvíře"
+],
+"attraction/big_wheel":[
+"Ruské kolo"
 ],
 "attraction/bumper_car":[
 "Autodrom"
@@ -1136,6 +1152,15 @@
 ],
 "attraction/carousel":[
 "Kolotoč"
+],
+"attraction/maze":[
+"Bludiště"
+],
+"attraction/pirate_ship":[
+"Pirátská loď"
+],
+"attraction/river_rafting":[
+"Říční rafting"
 ],
 "attraction/roller_coaster":[
 "Horská dráha"
@@ -1359,6 +1384,12 @@
 ],
 "building/entrance":[
 "Vchod/východ (zastaralý tag)"
+],
+"building/farm":[
+"Zemědělský dům"
+],
+"building/farm_auxiliary":[
+"Zemědělská budova"
 ],
 "building/garage":[
 "garáže",
@@ -1649,11 +1680,17 @@
 "Catering",
 "dodavatelství občerstvení"
 ],
+"craft/chimney_sweeper":[
+"Kominík"
+],
 "craft/clockmaker":[
 "hodiny",
 "Hodinář (ne hodinky)",
 "hodinářství",
 "hodinář"
+],
+"craft/confectionery":[
+"Cukrář"
 ],
 "craft/distillery":[
 "Lihovar"
@@ -1810,6 +1847,9 @@
 "Lešenář",
 "lešenářství"
 ],
+"craft/sculptor":[
+"Sochař"
+],
 "craft/shoemaker":[
 "švec",
 "Švec",
@@ -1891,11 +1931,20 @@
 "emergency/destination":[
 "Vjezd záchranným vozidlům jen do místa"
 ],
+"emergency/fire_alarm":[
+"Ohlašovna požárů"
+],
+"emergency/fire_extinguisher":[
+"Hasící přístroj"
+],
 "emergency/fire_hydrant":[
 "hasičský hydrant",
 "Požární hydrant",
 "pumpa",
 "požární hydrant"
+],
+"emergency/first_aid_kit":[
+"Lékárnička první pomoci"
 ],
 "emergency/life_ring":[
 "Kruh života"
@@ -1914,6 +1963,9 @@
 ],
 "emergency/private":[
 "Vjezd záchranným vozidlům jen s povolením"
+],
+"emergency/siren":[
+"Siréna"
 ],
 "emergency/yes":[
 "Vjezd záchranných vozidel povolen"
@@ -1948,7 +2000,9 @@
 "Přechod pro chodce typu zebra"
 ],
 "footway/crosswalk-raised":[
-"Příčný práh s přechodem"
+"rychlostní stůl s přechodem typu zebra",
+"zpomalovací stůl s přechodem typu zebra",
+"Zvýšený přechod pro chodce typu zebra"
 ],
 "footway/sidewalk":[
 "Chodník po straně silnice",
@@ -2048,6 +2102,9 @@
 "healthcare/hospice":[
 "Hospic"
 ],
+"healthcare/laboratory":[
+"Zdravotnická laboratoř"
+],
 "healthcare/midwife":[
 "dítě",
 "porod",
@@ -2105,6 +2162,11 @@
 "Bod přechodu pro chodce",
 "přechod"
 ],
+"highway/crossing-raised":[
+"rychlostní stůl s přechodem",
+"zpomalovací stůl s přechodem",
+"Bod zvýšeného přechodu pro chodce"
+],
 "highway/crosswalk":[
 "zebra",
 "přechod pro pěší",
@@ -2113,7 +2175,9 @@
 "Bod přechodu typu zebra"
 ],
 "highway/crosswalk-raised":[
-"Příčný práh s přechodem"
+"Bod zvýšeného přechodu pro chodce typu zebra",
+"rychlostní stůl s přechodem typu zebra",
+"zpomalovací stůl s přechodem typu zebra"
 ],
 "highway/cycleway":[
 "cyklotrasa",
@@ -2179,6 +2243,10 @@
 "rampa",
 "sjezd",
 "Dálnice - nájezd"
+],
+"highway/passing_place":[
+"vyhýbací záliv",
+"Místo k vyhýbání"
 ],
 "highway/path":[
 "cesta",
@@ -2532,6 +2600,9 @@
 "hospodářský les",
 "les"
 ],
+"landuse/garages":[
+"Garáže"
+],
 "landuse/grass":[
 "tráva",
 "Tráva"
@@ -2626,6 +2697,9 @@
 "rekreace",
 "obecní zeleň"
 ],
+"landuse/religious":[
+"Posvátné území"
+],
 "landuse/residential":[
 "obytná oblast",
 "byty",
@@ -2698,6 +2772,9 @@
 "valčík",
 "polka",
 "jive"
+],
+"leisure/dancing_school":[
+"Taneční škola"
 ],
 "leisure/dog_park":[
 "psí park",
@@ -2993,6 +3070,9 @@
 "tunel",
 "vstup do dolu"
 ],
+"man_made/antenna":[
+"Anténa"
+],
 "man_made/breakwater":[
 "Vlnolam",
 "molo",
@@ -3059,11 +3139,17 @@
 "BTSka",
 "vysílací věž"
 ],
+"man_made/monitoring_station":[
+"Monitorovací stanice"
+],
 "man_made/observation":[
 "pozorovatelna",
 "věž",
 "Rozhledna",
 "rozhledna"
+],
+"man_made/observatory":[
+"Observatoř"
 ],
 "man_made/petroleum_well":[
 "Ropný vrt",
@@ -3202,6 +3288,12 @@
 "zpracování",
 "výroba"
 ],
+"manhole":[
+"Šachta"
+],
+"manhole/telecom":[
+"Telekomunikační šachta"
+],
 "natural":[
 "přírodní",
 "přirozený",
@@ -3267,6 +3359,9 @@
 "Vřesoviště",
 "vřesoviště",
 "vřes"
+],
+"natural/mud":[
+"Bahno"
 ],
 "natural/peak":[
 "kóta",
@@ -3400,8 +3495,26 @@
 "office",
 "sídlo"
 ],
+"office/accountant":[
+"Účetnictví"
+],
 "office/administrative":[
 "Místní úřad"
+],
+"office/adoption_agency":[
+"Adopční agentura"
+],
+"office/advertising_agency":[
+"Reklamní agentura"
+],
+"office/architect":[
+"Kancelář architekta"
+],
+"office/association":[
+"Kancelář neziskové organizace"
+],
+"office/charity":[
+"Kancelář charity"
 ],
 "office/coworking":[
 "kancelář",
@@ -3768,6 +3881,9 @@
 ],
 "public_transport/station_tram":[
 "Tramvajová stanice"
+],
+"public_transport/station_trolleybus":[
+"Trolejbusová stanice/terminál"
 ],
 "public_transport/stop_area":[
 "Oblast zastávky"
@@ -4474,6 +4590,9 @@
 "náramky",
 "klenotnictví"
 ],
+"shop/kiosk":[
+"Kiosek"
+],
 "shop/kitchen":[
 "kuchyně",
 "kuchyňské linky",
@@ -4561,6 +4680,9 @@
 "motocykly",
 "Obchod s motocykly",
 "prodejna motocyklů"
+],
+"shop/motorcycle_repair":[
+"Opravna motocyklů"
 ],
 "shop/music":[
 "Obchod s hudbou",
@@ -4936,6 +5058,9 @@
 "pušky",
 "pistole"
 ],
+"shop/wholesale":[
+"Velkoobchodní sklad"
+],
 "shop/window_blind":[
 "žaluzie",
 "roleta",
@@ -5018,6 +5143,9 @@
 "karavan",
 "kemp",
 "camp"
+],
+"tourism/chalet":[
+"Prázdninová vesnice"
 ],
 "tourism/gallery":[
 "umělecká galerie",

@@ -329,12 +329,12 @@
 "bicicletería"
 ],
 "amenity/biergarten":[
-"Bar al aire libre",
 "bar",
 "biergarten",
 "jardín",
 "al aire libre",
 "cerveza",
+"Biergarten (Bar al aire libre)",
 "terraza"
 ],
 "amenity/boat_rental":[
@@ -1507,10 +1507,15 @@
 ],
 "amenity/watering_place":[
 "animales",
-"Lugar con agua para animales",
+"pozo",
+"Abrevadero para animales",
 "bebedero",
+"pilón",
+"fuente",
 "posa",
+"manantial",
 "estanque",
+"abrevadero",
 "agua"
 ],
 "area":[
@@ -2600,6 +2605,10 @@
 "emergency/destination":[
 "Acceso de emergencia como destino"
 ],
+"emergency/fire_alarm":[
+"Alarma anti incendios",
+"'alarma de incendios'"
+],
 "emergency/fire_extinguisher":[
 "incendio",
 "fuego",
@@ -2612,12 +2621,20 @@
 "boca de incendio",
 "hidrante contra incendios"
 ],
+"emergency/first_aid_kit":[
+"Kit de primeros auxilios",
+"'kit de primeros auxilios' 'botiquín de primeros auxilios'"
+],
 "emergency/life_ring":[
 "boya perry",
 "boya salvavidas",
 "Salvavidas",
 "anillo kisby",
 "boya"
+],
+"emergency/lifeguard":[
+"Salvavidas",
+"'salvavidas'"
 ],
 "emergency/no":[
 "Acceso de emergencia no permitido"
@@ -2632,6 +2649,10 @@
 ],
 "emergency/private":[
 "Acceso de emergencia privado"
+],
+"emergency/siren":[
+"Sirena",
+"'alarma' 'sirena'"
 ],
 "emergency/water_tank":[
 "cisterna",
@@ -4183,6 +4204,12 @@
 "americano",
 "campo"
 ],
+"leisure/pitch/badminton":[
+"bádminton",
+"cancha",
+"badminton",
+"Cancha de bádminton"
+],
 "leisure/pitch/baseball":[
 "béisbol",
 "baseball",
@@ -4420,6 +4447,12 @@
 "man_made/bridge":[
 "puente",
 "Puente"
+],
+"man_made/bunker_silo":[
+"bunker",
+"Silo búnker",
+"silo búnker",
+"silo"
 ],
 "man_made/chimney":[
 "chimenea",

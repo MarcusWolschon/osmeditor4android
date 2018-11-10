@@ -156,6 +156,7 @@
 "單車自助維修站"
 ],
 "amenity/biergarten":[
+"啤酒花園 ",
 "屋外花園酒店",
 "啤酒花園"
 ],
@@ -1298,6 +1299,10 @@
 "emergency/destination":[
 "緊急通道目的地"
 ],
+"emergency/fire_alarm":[
+"火災警鈴",
+"火警警報點"
+],
 "emergency/fire_extinguisher":[
 "滅火器"
 ],
@@ -1311,6 +1316,9 @@
 ],
 "emergency/life_ring":[
 "救生圈"
+],
+"emergency/lifeguard":[
+"救生員"
 ],
 "emergency/no":[
 "不開放緊急通行"
@@ -1967,6 +1975,9 @@
 "leisure/pitch/american_football":[
 "美式足球場"
 ],
+"leisure/pitch/badminton":[
+"羽毛球場"
+],
 "leisure/pitch/baseball":[
 "棒球場"
 ],
@@ -2090,6 +2101,10 @@
 "天橋",
 "橋樑",
 "橋"
+],
+"man_made/bunker_silo":[
+"地面筒倉",
+"地面筒倉;筒倉"
 ],
 "man_made/chimney":[
 "煙筒",
@@ -3235,6 +3250,8 @@
 ],
 "shop/kiosk":[
 "售貨亭",
+"販賣亭",
+"零售亭",
 "書報攤"
 ],
 "shop/kitchen":[

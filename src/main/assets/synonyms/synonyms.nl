@@ -228,13 +228,6 @@
 "fietsbanden",
 "Openbaar fietsgereedschap"
 ],
-"amenity/biergarten":[
-"cafe",
-"Biergarten",
-"terras",
-"bier",
-"café"
-],
 "amenity/boat_rental":[
 "boten",
 "Bootverhuur",
@@ -1793,17 +1786,26 @@
 "emergency/destination":[
 "Toegang voor hulpdiensten: bestemmingsverkeer"
 ],
+"emergency/fire_extinguisher":[
+"Brandblusser"
+],
 "emergency/fire_hydrant":[
 "hydrant",
 "Brandkraan",
 "straatpot",
 "brandstraatpot"
 ],
+"emergency/first_aid_kit":[
+"EHBO-kit"
+],
 "emergency/life_ring":[
 "reddingsring",
 "drijfring",
 "reddingsvest",
 "Reddingsboei"
+],
+"emergency/lifeguard":[
+"Badmeester"
 ],
 "emergency/no":[
 "Toegang voor hulpdiensten: nee"
@@ -1817,6 +1819,9 @@
 ],
 "emergency/private":[
 "Toegang voor hulpdiensten: privé"
+],
+"emergency/siren":[
+"Sirene"
 ],
 "emergency/water_tank":[
 "noodwateropslag",
@@ -3035,6 +3040,9 @@
 "Brug",
 "tunnel",
 "overspanning"
+],
+"man_made/bunker_silo":[
+"Bunkersilo"
 ],
 "man_made/chimney":[
 "Industriële schoorsteen",
