@@ -387,7 +387,7 @@ public final class IssueAlert {
                 // don't do anything
             }
             if (groupBuilder != null) {
-                notificationManager.notify(GROUP_DATA_ID, groupBuilder.build());
+                notificationManager.notify(groupId, groupBuilder.build());
             }
         }
     }
