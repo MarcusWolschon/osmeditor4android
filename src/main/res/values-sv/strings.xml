@@ -45,6 +45,7 @@
   <string name="welcome_title">Välkommen!</string>
   <string name="read_introduction">Läs introduktionen nu</string>
   <string name="upgrade_title">Välkommen till en ny version av Vespucci!</string>
+  <string name="upgrade_message">Detta är en ny version av Vespucci med nya funktioner och beteende. Det skulle vara bäst att snabbt läsa på enheten uppgraderingsinformation.</string>
   <string name="read_upgrade">Läs om den nya versionen</string>
   <string name="progress_title">Laddar</string>
   <string name="progress_message">Laddar in data i minnet...</string>
@@ -183,6 +184,7 @@
   <string name="toast_not_in_bug_range">Vänligen zooma in för att lägga till ett fel (Volym upp/ner eller Lins/Shift)</string>
   <string name="toast_export_failed">Export misslyckades</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
+  <string name="toast_potential_merge_tag_conflict">Du försöker sammanfoga element som har motstridiga taggvärden. Kontrollera taggarna och korrigera först innan du försöker igen.</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
   <string name="toast_too_many_nodes_for_move">För många noder att flytta</string>
   <string name="toast_unread_mail">Du har %1$d olästa OSM-meddelanden</string>
@@ -212,6 +214,7 @@
   <string name="okay">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="dismiss">Avfärda</string>
+  <string name="done">Klar</string>
   <string name="locked">Låst</string>
   <string name="next">Nästa</string>
   <string name="apply">Verkställ</string>
@@ -253,6 +256,7 @@
   <string name="tag_value_hint">Ange värde</string>
   <string name="tag_autocomplete_value_hint">Skriv eller tryck för värden</string>
   <string name="tag_autocomplete_name_hint">Skriv eller tryck för namnförslag</string>
+  <string name="tag_tap_to_edit_hint">Tryck för att redigera</string>
   <string name="tag_multi_value_hint">Flera värden</string>
   <string name="tag_dialog_value_hint">Knacka för värden</string>
   <string name="tag_action_tag_title">Tagg(ar) valda</string>
@@ -272,6 +276,7 @@
   <string name="menu_up">Upp</string>
   <string name="menu_top">Topp</string>
   <string name="menu_select_all">Välj allt</string>
+  <string name="menu_deselect_all">Avmarkera alla</string>
   <string name="menu_preset_help">Hjälp av förinställning</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">Lägg till etiketter för %1$s</string>
@@ -298,6 +303,7 @@
   <string name="location_load_button">Ladda</string>
   <string name="location_load_dismiss">Gå till karta</string>
   <string name="location_nan_title">Felaktig inmatning!</string>
+  <string name="location_nan_message">Infoga decimal formaterade koordinater (t.ex. \"52.333572\", \"8.741185\"). Lat måste ligga mellan -85.0 och +85.0, och Lon måste ligga mellan -175.0 och +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Flytta</string>
   <string name="menu_edit">Redigera</string>
@@ -321,6 +327,7 @@
   <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Visa plats</string>
   <string name="menu_gps_follow">Följ platsen</string>
+  <string name="menu_gps_goto">Gå till aktuell plats</string>
   <string name="menu_gps_start">Starta GPS-spår</string>
   <string name="menu_gps_pause">Pausa GPS-spår</string>
   <string name="menu_gps_track_managment">Spårhantering...</string>
@@ -441,9 +448,12 @@
   <string name="config_use_back_for_undo_title">Använd tillbaka knappen för Ångra</string>
   <string name="config_enableLightTheme_title">Aktivera ljust tema</string>
   <string name="config_enableLightTheme_summary">Ljust tema med vit bakgrund</string>
+  <string name="config_maxInlineValues_current">%1$d värden</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
   <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta</string>
+  <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">Data och redigera inställningar</string>
   <string name="config_address_tags">Adresstaggar</string>
@@ -453,16 +463,20 @@
   <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
+  <string name="config_downloadRadius_current">%1$d meter</string>
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
   <string name="config_bugFilter_title">Filtrera för anteckningar/fel</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <string name="config_closeChangesetOnSave_summary">Stäng changesets som standard vid sparande</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Platsinställningar</string>
   <string name="config_gps_source_title">GPS-källa</string>
   <string name="config_gps_source_summary">Källa för GPS-plats uppdateringar</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
   <string name="config_gps_interval_title">Minsta GPS-Intervall</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Minsta GPS-Distans</string>
+  <string name="config_gps_distance_current">%1$d meter</string>
   <string name="config_leaveGpsDisabled_title">Lämna GPS avaktiverad</string>
   <string name="config_leaveGpsDisabled_summary">Be inte användaren att slå på GPS om den är inaktiverad</string>
   <!--Server Settings-->
@@ -475,13 +489,18 @@
   <string name="config_osmoseServer_summary">URL för osmose-servern</string>
   <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
+  <string name="config_downLoadThreads_current">%1$d trådar</string>
   <string name="config_tileCacheSize_title">Tile cache storlek</string>
   <string name="config_tileCacheSize_summary">Total storlek med tile cache i MB</string>
+  <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Diverse</string>
   <string name="config_showStats_title">Visa statistik</string>
   <!--Experimental-->
+  <string name="config_js_console_title">Aktivera JS-konsolen</string>
+  <string name="config_js_console_summary">Gör JS-konsolen tillgänglig i \"live\"-läget</string>
   <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
+  <string name="config_voiceCommandsEnabled_summary">Aktivera röstkommandostöd</string>
   <!---->
   <string name="config_api_url_title">API URL</string>
   <string name="config_api_oauth_title">Använd oauth</string>
@@ -498,6 +517,7 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
+  <string name="urldialog_api_install_successful">API installerades!</string>
   <string name="urldialog_add_api">Lägg till API</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
