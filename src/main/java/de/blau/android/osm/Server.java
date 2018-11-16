@@ -15,7 +15,9 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,9 +69,10 @@ public class Server {
     private static final String VERSION_KEY    = "version";
     private static final String GENERATOR_KEY  = "generator";
 
-    private static final String HTTP_PUT  = "PUT";
-    private static final String HTTP_POST = "POST";
-    private static final String HTTP_GET  = "GET";
+    private static final String HTTP_PUT    = "PUT";
+    private static final String HTTP_POST   = "POST";
+    private static final String HTTP_GET    = "GET";
+    private static final String HTTP_DELETE = "DELETE";
 
     private static final MediaType TEXTXML = MediaType.parse("text/xml");
     private static final String    UTF_8   = "UTF-8";
@@ -336,8 +339,75 @@ public class Server {
      * 
      * @return the display/user name
      */
+    @Nullable
     public String getDisplayName() {
         return username;
+    }
+
+    /**
+     * Get the preferences stored on the OSM API
+     * 
+     * @return a Map of key - value Strings
+     */
+    @NonNull
+    public Map<String, String> getUserPreferences() {
+        Map<String, String> result = new HashMap<>();
+        try {
+            Response response = openConnectionForAuthenicatedAccess(getUserPreferencesUrl(), HTTP_GET, (RequestBody) null);
+            checkResponseCode(response);
+            XmlPullParser parser = xmlParserFactory.newPullParser();
+            parser.setInput(response.body().byteStream(), null);
+            int eventType;
+            while ((eventType = parser.next()) != XmlPullParser.END_DOCUMENT) {
+                String tagName = parser.getName();
+                if (eventType == XmlPullParser.START_TAG && "preference".equals(tagName)) {
+                    result.put(parser.getAttributeValue(null, "k"), parser.getAttributeValue(null, "v"));
+                }
+            }
+        } catch (XmlPullParserException e) {
+            Log.e(DEBUG_TAG, "Problem parsing user preferences", e);
+        } catch (MalformedURLException e) {
+            Log.e(DEBUG_TAG, "Problem retrieving user preferences", e);
+        } catch (IOException | NumberFormatException e) {
+            Log.e(DEBUG_TAG, "Problem accessing user preferences", e);
+        }
+        return result;
+    }
+
+    /**
+     * Set a user preference on the API server
+     * 
+     * @param key preference key
+     * @param value preference value
+     * @return true if successful
+     */
+    public boolean setUserPreference(@NonNull String key, @Nullable String value) {
+        try {
+            Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
+                    RequestBody.create(null, value != null ? value : ""));
+            int responseCode = response.code();
+            return responseCode == HttpURLConnection.HTTP_OK;
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem setting user preferences " + key + "=" + value, e);
+            return false;
+        }
+    }
+
+    /**
+     * Delete a user preference on the API server
+     * 
+     * @param key preference key
+     * @return true if successful
+     */
+    public boolean deleteUserPreference(@NonNull String key) {
+        try {
+            Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null);
+            int responseCode = response.code();
+            return responseCode == HttpURLConnection.HTTP_OK;
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "Problem deleting user preferences " + key, e);
+            return false;
+        }
     }
 
     /**
@@ -347,6 +417,12 @@ public class Server {
         return readonlyURL != null && !"".equals(readonlyURL);
     }
 
+    /**
+     * Get Capabilities from a read only API instance if configures
+     * 
+     * @return a Capabilities object, if none could be retrieved this will be the default
+     */
+    @NonNull
     public Capabilities getReadOnlyCapabilities() {
         try {
             Capabilities result = getCapabilities(getReadOnlyCapabilitiesUrl());
@@ -658,7 +734,7 @@ public class Server {
      * 
      * @param elem the element which should be deleted.
      * @return true when the server indicates the successful deletion (HTTP 200), otherwise false.
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -706,7 +782,7 @@ public class Server {
      * 
      * @param elem the OsmElement to update
      * @return the new version number
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -790,7 +866,7 @@ public class Server {
      * @param body the RequestBody or null for a get
      * @return a Response object
      * @throws IOException
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      */
     private Response openConnectionForAuthenicatedAccess(@NonNull final URL url, @NonNull final String requestMethod, @Nullable final RequestBody body)
@@ -799,10 +875,20 @@ public class Server {
 
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (body != null) {
-            if (HTTP_POST.equals(requestMethod)) {
+            switch (requestMethod) {
+            case HTTP_POST:
                 requestBuilder.post(body);
-            } else if (HTTP_PUT.equals(requestMethod)) {
+                break;
+            case HTTP_PUT:
                 requestBuilder.put(body);
+                break;
+            case HTTP_DELETE:
+                requestBuilder.delete(body);
+                break;
+            }
+        } else {
+            if (HTTP_DELETE.equals(requestMethod)) {
+                requestBuilder.delete();
             }
         }
         Request request = requestBuilder.build();
@@ -834,7 +920,7 @@ public class Server {
      * 
      * @param elem the OsmELement to create
      * @return the OSM id of the new element
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -901,7 +987,7 @@ public class Server {
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -998,7 +1084,7 @@ public class Server {
      * Close the current open changeset, will zap the stored id even if the closing fails, this will force using a new
      * changeset on the next upload
      * 
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -1059,32 +1145,27 @@ public class Server {
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
     private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
             throws MalformedURLException, ProtocolException, IOException {
-        InputStream in = null;
-        try {
-            final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
-            RequestBody body = new RequestBody() {
-                @Override
-                public MediaType contentType() {
-                    return TEXTXML;
-                }
+        final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
+        RequestBody body = new RequestBody() {
+            @Override
+            public MediaType contentType() {
+                return TEXTXML;
+            }
 
-                @Override
-                public void writeTo(BufferedSink sink) throws IOException {
-                    sendPayload(sink.outputStream(), xmlData, changesetId);
-                }
-            };
-            Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
-            checkResponseCode(response);
-            // ignore response for now
-        } finally {
-            SavingHelper.close(in);
-        }
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
+                sendPayload(sink.outputStream(), xmlData, changesetId);
+            }
+        };
+        Response response = openConnectionForAuthenicatedAccess(getCreateChangesetUrl(), HTTP_PUT, body);
+        checkResponseCode(response);
+        // ignore response for now
     }
 
     /**
@@ -1131,7 +1212,7 @@ public class Server {
      * Upload edits in OCS format and process the server response
      * 
      * @param delegator reference to the StorageDelegator
-     * @throws MalformedURLException
+     * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
@@ -1368,6 +1449,13 @@ public class Server {
         return res.toString();
     }
 
+    /**
+     * Read a single line from an InputStream
+     * 
+     * @param in the InputStream
+     * @return a String containing the line without the EOL or null
+     */
+    @Nullable
     private static String readLine(@NonNull final InputStream in) {
         // TODO: Optimize? -> no Reader
         BufferedReader reader = new BufferedReader(new InputStreamReader(in), 9);
@@ -1453,6 +1541,14 @@ public class Server {
         return new URL(getReadWriteUrl() + "user/details");
     }
 
+    private URL getUserPreferencesUrl() throws MalformedURLException {
+        return new URL(getReadWriteUrl() + "user/preferences");
+    }
+
+    private URL getSingleUserPreferencesUrl(@NonNull String key) throws MalformedURLException {
+        return new URL(getReadWriteUrl() + "user/preferences/" + key);
+    }
+
     private URL getAddCommentUrl(@NonNull String noteId, @NonNull String comment) throws MalformedURLException {
         return new URL(getNotesUrl() + SERVER_NOTES_PATH + noteId + "/comment?text=" + comment);
     }
@@ -1462,9 +1558,9 @@ public class Server {
     }
 
     /**
-     * Return for now general read write API url as a string
+     * Return for Notes read write API url as a string (this eill be the same as the general read write api currently)
      * 
-     * @return
+     * @return a String with the url
      */
     private String getNotesUrl() {
         return serverURL;
@@ -1473,7 +1569,7 @@ public class Server {
     /**
      * Return either the general read write API url as a string or a specific to notes one
      * 
-     * @return
+     * @return a String with the url
      */
     private String getNotesReadOnlyUrl() {
         if (notesURL == null || "".equals(notesURL)) {
@@ -1508,11 +1604,24 @@ public class Server {
         return getCapabilitiesUrl(getReadOnlyUrl());
     }
 
+    /**
+     * Get the Capabilities URL for the read-only API
+     * 
+     * @return a String with the url
+     * @throws MalformedURLException if the URL can't be constructed properly
+     */
     private URL getReadOnlyCapabilitiesUrl() throws MalformedURLException {
         return getCapabilitiesUrl(getReadWriteUrl());
     }
 
-    private URL getCapabilitiesUrl(String url) throws MalformedURLException {
+    /**
+     * Get the Capabilities URL for an API
+     * 
+     * @param url base API url
+     * @return a String with the url
+     * @throws MalformedURLException if the URL can't be constructed properly
+     */
+    private URL getCapabilitiesUrl(@NonNull String url) throws MalformedURLException {
         // need to strip version from serverURL
         int apiPos = url.indexOf(SERVER_API_PATH);
         if (apiPos > 0) {
@@ -1532,7 +1641,7 @@ public class Server {
     /**
      * Return the url as a string for a read only API if it exists otherwise the result is the same as for read/write
      * 
-     * @return
+     * @return a String with the url
      */
     private String getReadOnlyUrl() {
         if (readonlyURL == null || "".equals(readonlyURL)) {
@@ -1543,9 +1652,12 @@ public class Server {
     }
 
     /**
+     * Get an url with the api and version indicator stripped if present
+     * 
+     * @param url the original url
      * @return the base URL, i.e. the url with the "/api/version/"-part stripped
      */
-    public static String getBaseUrl(String url) {
+    public static String getBaseUrl(@NonNull String url) {
         return url.replaceAll("/api/[0-9]+(?:\\.[0-9]+)+/?$", "/");
     }
 
@@ -1870,7 +1982,7 @@ public class Server {
     /**
      * Override the oauth flag from the API configuration, only needed if inconsistent config
      * 
-     * @param t
+     * @param t the value to set the flag to
      */
     public void setOAuth(boolean t) {
         oauth = t;

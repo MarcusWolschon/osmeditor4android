@@ -50,6 +50,7 @@ import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.validation.Validator;
 import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.RecordedRequest;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -64,6 +65,9 @@ public class ApiTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -83,6 +87,9 @@ public class ApiTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         try {
@@ -92,6 +99,9 @@ public class ApiTest {
         }
     }
 
+    /**
+     * Get API capabilities
+     */
     @Test
     public void capabilities() {
         mockServer.enqueue("capabilities1");
@@ -107,6 +117,9 @@ public class ApiTest {
         Assert.assertEquals(result.getMaxWayNodes(), 2001);
     }
 
+    /**
+     * Simple bounding box data download
+     */
     @Test
     public void dataDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -132,6 +145,9 @@ public class ApiTest {
         Assert.assertNotNull(parent.getMember(r2));
     }
 
+    /**
+     * Downlad then download again and merge 
+     */
     @Test
     public void dataDownloadMerge() {
         dataDownload();
@@ -168,6 +184,9 @@ public class ApiTest {
         Assert.assertTrue(t.hasProblem(main, App.getDefaultValidator(main)) != Validator.OK);
     }
 
+    /**
+     * Fetch multiple elements in one call
+     */
     @Test
     public void dataDownloadMultiFetch() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -205,6 +224,9 @@ public class ApiTest {
         Assert.assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 35479116L));
     }
 
+    /**
+     * Down load a Relation with members
+     */
     @Test
     public void dataDownloadElement() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -462,6 +484,9 @@ public class ApiTest {
         Assert.assertEquals(1, App.getDelegator().getApiElementCount());
     }
 
+    /**
+     * Test the response to various error codes on download
+     */
     @Test
     public void dataDownloadErrors() {
         downloadErrorTest(400);
@@ -470,6 +495,11 @@ public class ApiTest {
         downloadErrorTest(999);
     }
 
+    /**
+     * Test that receiving a specific error code doesn't break anything
+     * 
+     * @param code the error code
+     */
     private void downloadErrorTest(int code) {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("capabilities1");
@@ -483,6 +513,9 @@ public class ApiTest {
         }
     }
 
+    /**
+     * Doenload Notes for a bounding box
+     */
     @Test
     public void notesDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -518,6 +551,9 @@ public class ApiTest {
         Assert.assertEquals(458427, tasks.get(0).getId());
     }
 
+    /**
+     * Upload a single new Note
+     */
     @Test
     public void noteUpload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -546,6 +582,9 @@ public class ApiTest {
         }
     }
 
+    /**
+     * get the user details
+     */
     @Test
     public void userdetails() {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -555,4 +594,34 @@ public class ApiTest {
         logic.checkForMail(main);
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
     }
+    
+    /**
+     * get the user preferences, the set and delete one
+     */
+    @Test
+    public void userpreferences() {
+        mockServer.enqueue("userpreferences");
+        mockServer.enqueue("200");
+        mockServer.enqueue("200");
+        try {
+            final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
+            Map<String, String> preferences = s.getUserPreferences();
+            Assert.assertEquals(2,preferences.size());
+            Assert.assertEquals("public", preferences.get("gps.trace.visibility"));
+            RecordedRequest request1 = mockServer.takeRequest();
+            Assert.assertEquals("GET", request1.getMethod().toUpperCase());
+            Assert.assertEquals("/api/0.6/user/preferences", request1.getPath());
+            s.setUserPreference("gps.trace.visibility", "private");
+            RecordedRequest request2 = mockServer.takeRequest();
+            Assert.assertEquals("PUT", request2.getMethod().toUpperCase());
+            Assert.assertEquals("/api/0.6/user/preferences/gps.trace.visibility", request2.getPath());
+            Assert.assertEquals("private", request2.getBody().readUtf8());
+            s.deleteUserPreference("gps.trace.visibility");
+            RecordedRequest request3 = mockServer.takeRequest();
+            Assert.assertEquals("DELETE", request3.getMethod().toUpperCase());
+            Assert.assertEquals("/api/0.6/user/preferences/gps.trace.visibility", request3.getPath());
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }           
+    } 
 }
