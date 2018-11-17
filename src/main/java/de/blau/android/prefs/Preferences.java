@@ -91,6 +91,8 @@ public class Preferences {
 
     private final String osmoseServer;
 
+    private final String mapRouletteServer;
+
     private String taginfoServer;
 
     private final boolean showCameraAction;
@@ -210,6 +212,7 @@ public class Preferences {
 
         offsetServer = prefs.getString(r.getString(R.string.config_offsetServer_key), Urls.DEFAULT_OFFSET_SERVER);
         osmoseServer = prefs.getString(r.getString(R.string.config_osmoseServer_key), Urls.DEFAULT_OSMOSE_SERVER);
+        mapRouletteServer = prefs.getString(r.getString(R.string.config_maprouletteServer_key), Urls.DEFAULT_MAPROULETTE_SERVER);
         taginfoServer = prefs.getString(r.getString(R.string.config_taginfoServer_key), Urls.DEFAULT_TAGINFO_SERVER);
 
         showCameraAction = prefs.getBoolean(r.getString(R.string.config_showCameraAction_key), true);
@@ -252,6 +255,13 @@ public class Preferences {
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
     }
 
+    /**
+     * Get an integer valued preference
+     * 
+     * @param keyResId the res id
+     * @param def default value
+     * @return the stored preference or the default if none found
+     */
     int getIntPref(int keyResId, int def) {
         String key = r.getString(keyResId);
         try {
@@ -558,6 +568,15 @@ public class Preferences {
      */
     public String getOsmoseServer() {
         return osmoseServer;
+    }
+
+    /**
+     * Get the configured MapRoulette server
+     * 
+     * @return base url for the server
+     */
+    public String getMapRouletteServer() {
+        return mapRouletteServer;
     }
 
     /**

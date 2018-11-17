@@ -39,7 +39,7 @@ import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class OsmoseTest {
+public class MapRouletteTest {
 
     MockWebServerPlus    mockServer = null;
     Context              context    = null;
@@ -61,14 +61,16 @@ public class OsmoseTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
+        
         mockServer = new MockWebServerPlus();
-        HttpUrl mockBaseUrl = mockServer.server().url("/en/api/0.2/");
+        HttpUrl mockBaseUrl = mockServer.server().url("/api/v2/");
         System.out.println("mock api url " + mockBaseUrl.toString());
-        prefs.putString(R.string.config_osmoseServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
+        prefs.putString(R.string.config_maprouletteServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
         prefDB.selectAPI("Test");
+        
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -86,26 +88,26 @@ public class OsmoseTest {
     }
 
     /**
-     * Download some OSMOSE and check that a certain one exists, then re-download and check that it got correctly merged
+     * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got correctly merged
      */
     @Test
-    public void osmoseDownload() {
+    public void mapRouletteDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("osmoseDownload");
+        mockServer.enqueue("maprouletteDownload");
+        mockServer.enqueue("challenge3241");
+        mockServer.enqueue("challenge2523");
+        mockServer.enqueue("challenge2611");
+        mockServer.enqueue("challenge249");
         App.getTaskStorage().reset();
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
             Resources r = context.getResources();
-            String osmoseErrorSelector = r.getString(R.string.bugfilter_osmose_error);
-            String osmoseWarningSelector = r.getString(R.string.bugfilter_osmose_warning);
-            String osmoseMinorIssueSelector = r.getString(R.string.bugfilter_osmose_minor_issue);
-            Set<String> set = new HashSet<String>(Arrays.asList(osmoseErrorSelector, osmoseWarningSelector, osmoseMinorIssueSelector));
+            String mapRouletteSelector = r.getString(R.string.bugfilter_maproulette);
+            Set<String> set = new HashSet<String>(Arrays.asList(mapRouletteSelector));
             p.edit().putStringSet(r.getString(R.string.config_bugFilter_key), set).commit();
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseErrorSelector));
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseWarningSelector));
-            Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseMinorIssueSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+            Assert.assertTrue(new Preferences(context).taskFilter().contains(mapRouletteSelector));
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D), false, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -116,20 +118,24 @@ public class OsmoseTest {
         }
         List<Task> tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(92, tasks.size());
+        Assert.assertEquals(11, tasks.size());
         try {
-            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.3702816, 47.3050382, 8.3702818, 47.3050384));
+            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4470272, 47.3960161, 8.4470274, 47.3960163));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
         t = tasks.get(0);
-        Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertTrue(t instanceof MapRouletteTask);
+        Assert.assertEquals(2237667L, t.getId());
         // re-download the same bounding box
-        mockServer.enqueue("osmoseDownload");
+        mockServer.enqueue("maprouletteDownload");
+        mockServer.enqueue("challenge3241");
+        mockServer.enqueue("challenge2523");
+        mockServer.enqueue("challenge2611");
+        mockServer.enqueue("challenge249");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), true, new SignalHandler(signal2));
+            TransferTasks.downloadBox(context, s, new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D), true, new SignalHandler(signal2));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -140,26 +146,31 @@ public class OsmoseTest {
         }
         tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(92, tasks.size());
+        Assert.assertEquals(11, tasks.size());
+        try {
+            tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4470272, 47.3960161, 8.4470274, 47.3960163));
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
         t = tasks.get(0);
-        Assert.assertTrue(t instanceof OsmoseBug);
-        Assert.assertEquals(11187837418L, t.getId());
+        Assert.assertTrue(t instanceof MapRouletteTask);
+        Assert.assertEquals(2237667L, t.getId());
     }
 
     /**
-     * Upload an Osmose bug
+     * Update a MapRoulette task
      */
     @Test
-    public void osmoseUpload() {
-        osmoseDownload();
-        OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
+    public void mapRouletteUpdate() {
+        mapRouletteDownload();
+        MapRouletteTask b = (MapRouletteTask) t; // ugly but removes code duplication
         b.setFalse();
         b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("200");
         try {
-            Assert.assertTrue(TransferTasks.updateOsmoseBug(context, b, false, new SignalHandler(signal)));
+            Assert.assertTrue(TransferTasks.updateMapRouletteTask(context, b, false, new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -172,11 +183,11 @@ public class OsmoseTest {
     }
 
     /**
-     * Check that we handle error messages from the Osmose server correctly
+     * Check that we handle error messages from the MapRoulette server correctly
      */
     @Test
     public void osmoseUploadFail() {
-        osmoseDownload();
+        mapRouletteDownload();
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         b.setFalse();
         b.setChanged(true);
@@ -194,36 +205,5 @@ public class OsmoseTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(b.hasBeenChanged());
-    }
-
-    /**
-     * Upload a changed Osmose bug and a Note
-     */
-    @Test
-    public void notesAndOsmoseUpload() {
-        osmoseDownload();
-        OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
-        b.setFalse();
-        b.setChanged(true);
-        Assert.assertTrue(b.hasBeenChanged());
-        Note n = new Note((int) (51.0 * 1E7D), (int) (0.1 * 1E7D));
-        Assert.assertTrue(n.isNew());
-        App.getTaskStorage().add(n);
-        final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("noteUpload1");
-        mockServer.enqueue("200");
-        final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
-        try {
-            TransferTasks.upload(main, s, new SignalHandler(signal));
-        } catch (Exception e) {
-            Assert.fail(e.getMessage());
-        }
-        try {
-            signal.await(40, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Assert.fail(e.getMessage());
-        }
-        Assert.assertFalse(b.hasBeenChanged());
-        Assert.assertFalse(n.hasBeenChanged());
     }
 }

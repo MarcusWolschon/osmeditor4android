@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialog;
 import android.text.Editable;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
@@ -104,7 +106,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                                 }
                                 saveBug(v, bug);
                                 cancelAlert(bug);
-                                updateMenu();
+                                updateMenu(getActivity());
                             }
                         })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -119,19 +121,33 @@ public class TaskFragment extends ImmersiveDialogFragment {
                     (new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... arg0) {
+                            PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+                                @Override
+                                public void onSuccess() {
+                                    updateMenu(getActivity());
+
+                                }
+
+                                @Override
+                                public void onError() {
+                                    updateMenu(getActivity());
+
+                                }
+                            };
                             if (bug instanceof Note) {
                                 Note n = (Note) bug;
                                 NoteComment nc = n.getLastComment();
                                 TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
-                                        n.getState() == State.CLOSED, false, null);
+                                        n.getState() == State.CLOSED, false, handler);
                             } else if (bug instanceof OsmoseBug) {
-                                TransferTasks.uploadOsmoseBug(getActivity(), (OsmoseBug) bug, false, null);
+                                TransferTasks.updateOsmoseBug(getActivity(), (OsmoseBug) bug, false, handler);
+                            } else if (bug instanceof MapRouletteTask) {
+                                TransferTasks.updateMapRouletteTask(getActivity(), (MapRouletteTask) bug, false, handler);
                             }
                             return null;
                         }
                     }).execute();
                     cancelAlert(bug);
-                    updateMenu();
                 }
             });
         }
@@ -154,9 +170,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
             }
             NoteComment nc = ((Note) bug).getLastComment();
             elementLayout.setVisibility(View.GONE); // not used for notes
-            if ((bug.isNew() && ((Note) bug).count() == 0) || (nc != null && !nc.isNew())) { // only show comment field
-                                                                                             // if we don't have an
-                                                                                             // unsaved comment
+            if ((bug.isNew() && ((Note) bug).count() == 0) || (nc != null && !nc.isNew())) {
+                // only show comment field if we don't have an unsaved comment
                 Log.d(DEBUG_TAG, "enabling comment field");
                 comment.setText("");
                 comment.setFocusable(true);
@@ -179,9 +194,9 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 for (final OsmElement e : ((Bug) bug).getElements()) {
                     String text;
                     if (e.getOsmVersion() < 0) { // fake element
-                        text = getActivity().getString(R.string.bug_element_1, e.getName(), e.getOsmId());
+                        text = getString(R.string.bug_element_1, e.getName(), e.getOsmId());
                     } else { // real
-                        text = getActivity().getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
+                        text = getString(R.string.bug_element_2, e.getName(), e.getDescription(false));
                     }
                     TextView tv = new TextView(getActivity());
                     tv.setClickable(true);
@@ -225,9 +240,73 @@ public class TaskFragment extends ImmersiveDialogFragment {
             } else if (bug instanceof MapRouletteTask) {
                 title.setText(R.string.maproulette_task_title);
                 comments.setText(Util.fromHtml(((MapRouletteTask) bug).getDescription()));
-                final StorageDelegator storageDelegator = App.getDelegator();
-                //
                 adapter = ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
+                MapRouletteChallenge challenge = App.getTaskStorage().getChallenges().get(((MapRouletteTask) bug).getParentId());
+                if (challenge != null) {
+                    final StringBuilder explanationsBuilder = new StringBuilder();
+                    //
+                    if (challenge.blurb != null && !"".equals(challenge.blurb)) {
+                        explanationsBuilder.append(challenge.blurb);
+                    } else if (challenge.description != null && !"".equals(challenge.description)) {
+                        explanationsBuilder.append(challenge.description);
+                    }
+                    //
+                    if (challenge.instruction != null && !"".equals(challenge.instruction)) {
+                        if (explanationsBuilder.length() > 0) {
+                            explanationsBuilder.append("<br><br>");
+                        }
+                        explanationsBuilder.append(challenge.instruction);
+                    }
+
+                    if (explanationsBuilder.length() > 0) {
+                        TextView instructionText = new TextView(getActivity());
+                        instructionText.setClickable(true);
+                        instructionText.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final FragmentActivity activity = getActivity();
+                                Builder builder = new AlertDialog.Builder(activity);
+                                builder.setMessage(Util.fromHtml(explanationsBuilder.toString()));
+                                builder.show();
+                            }
+                        });
+                        instructionText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                        instructionText.setText(R.string.maproulette_task_explanations);
+                        elementLayout.addView(instructionText);
+                    }
+                }
+                // add a clickable link to the location
+                TextView locationText = new TextView(getActivity());
+                locationText.setClickable(true);
+                final double lon = bug.getLon() / 1E7D;
+                final double lat = bug.getLat() / 1E7D;
+                locationText.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) { // FIXME assumption that we are being called from Main
+                        dismiss();
+                        final FragmentActivity activity = getActivity();
+                        try {
+                            final BoundingBox b = GeoMath.createBoundingBoxForCoordinates(lat, lon, 50, true);
+                            App.getLogic().downloadBox(activity, b, true, new PostAsyncActionHandler() {
+                                @Override
+                                public void onSuccess() {
+                                    Logic logic = App.getLogic();
+                                    logic.getViewBox().setBorders(logic.getMap(), b);
+                                    logic.getMap().invalidate();
+                                }
+
+                                @Override
+                                public void onError() {
+                                }
+                            });
+                        } catch (OsmException e1) {
+                            Log.e(DEBUG_TAG, "onCreateDialog got " + e1.getMessage());
+                        }
+                    }
+                });
+                locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.holo_blue_light));
+                locationText.setText(getString(R.string.maproulette_task_coords, lon, lat));
+                elementLayout.addView(locationText);
             } else {
                 Log.d(DEBUG_TAG, "Unknown task type " + bug.getDescription());
                 builder = new AlertDialog.Builder(getActivity());
@@ -303,9 +382,10 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
     /**
      * Invalidate the menu and map if we are called from Main
+     * 
+     * @param activity the calling FragmentActivity
      */
-    private void updateMenu() {
-        FragmentActivity activity = getActivity();
+    private void updateMenu(@NonNull final FragmentActivity activity) {
         if (activity != null) {
             if (activity instanceof AppCompatActivity) {
                 ((AppCompatActivity) activity).invalidateOptionsMenu();

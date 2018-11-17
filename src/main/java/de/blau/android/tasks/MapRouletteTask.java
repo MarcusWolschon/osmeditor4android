@@ -10,13 +10,10 @@ import java.util.List;
 import com.google.gson.stream.JsonReader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
+import de.blau.android.App;
 import de.blau.android.R;
-import de.blau.android.tasks.Task.BitmapWithOffset;
-import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 
 public class MapRouletteTask extends Task {
@@ -41,15 +38,14 @@ public class MapRouletteTask extends Task {
         return "MapRoulette: " + parentName;
     }
 
-
     @Override
     public String getDescription(Context context) {
         return getDescription();
     }
-    
+
     @Override
     public Date getLastUpdate() {
-        return new Date(); // FIXME 
+        return new Date(); // FIXME
     }
 
     @Override
@@ -78,14 +74,17 @@ public class MapRouletteTask extends Task {
                     switch (reader.nextName()) {
                     case "id":
                         task.id = reader.nextLong();
-                        Log.d(DEBUG_TAG,"got maproulette task is " + task.id);
+                        Log.d(DEBUG_TAG, "got maproulette task is " + task.id);
                         break;
                     case "parentName":
                         task.parentName = reader.nextString();
                         break;
                     case "parentId":
                         task.parentId = reader.nextLong();
-                        Log.d(DEBUG_TAG,"got maproulette task parent " + task.parentId);
+                        Log.d(DEBUG_TAG, "got maproulette task parent " + task.parentId);
+                        if (!App.getTaskStorage().getChallenges().containsKey(task.parentId)) {
+                            App.getTaskStorage().getChallenges().put(task.parentId, null);
+                        }
                         break;
                     case "point":
                         reader.beginObject();
@@ -126,6 +125,13 @@ public class MapRouletteTask extends Task {
             SavingHelper.close(reader);
         }
         return result;
+    }
+
+    /**
+     * @return the parentId
+     */
+    long getParentId() {
+        return parentId;
     }
 
     @Override

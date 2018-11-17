@@ -102,7 +102,7 @@ public abstract class Task implements Serializable, BoundedObject {
      * @return true if the bug is closed, false if it's still open.
      */
     public boolean isClosed() {
-        return state == State.CLOSED || state == State.FALSE_POSITIVE;
+        return state == State.CLOSED || state == State.FALSE_POSITIVE || state == State.ALREADY_FIXED || state == State.DELETED;
     }
 
     /**
@@ -229,8 +229,8 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param cache the cache for the icon
      * @param c the Canvas we are drawing on
      * @param icon the resource id for the icon
-     * @param x x position on the canvas 
-     * @param y y position on the canvas 
+     * @param x x position on the canvas
+     * @param y y position on the canvas
      */
     void drawIcon(Context context, BitmapWithOffset cache, Canvas c, int icon, float x, float y) {
         if (cache == null) {
@@ -247,46 +247,46 @@ public abstract class Task implements Serializable, BoundedObject {
      * 
      * @param context Android Context
      * @param c the Canvas we are drawing on
-     * @param x x position on the canvas 
-     * @param y y position on the canvas 
+     * @param x x position on the canvas
+     * @param y y position on the canvas
      */
     public void drawBitmapOpen(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconOpen,  c, R.drawable.bug_open, x, y);
+        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y);
     }
-    
+
     /**
      * Draw an icon for when the Task has been changed and not uploaded
      * 
      * @param context Android Context
      * @param c the Canvas we are drawing on
-     * @param x x position on the canvas 
-     * @param y y position on the canvas 
+     * @param x x position on the canvas
+     * @param y y position on the canvas
      */
     public void drawBitmapChanged(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconChanged,  c, R.drawable.bug_changed, x, y);
+        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y);
     }
-    
+
     /**
      * Draw an icon for when the Task has been closed but not uploaded
      * 
      * @param context Android Context
      * @param c the Canvas we are drawing on
-     * @param x x position on the canvas 
-     * @param y y position on the canvas 
+     * @param x x position on the canvas
+     * @param y y position on the canvas
      */
     public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconChangedClosed,  c, R.drawable.bug_changed_closed, x, y);
+        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y);
     }
-    
+
     /**
      * Draw an icon for when the Task has been closed
      * 
      * @param context Android Context
      * @param c the Canvas we are drawing on
-     * @param x x position on the canvas 
-     * @param y y position on the canvas 
+     * @param x x position on the canvas
+     * @param y y position on the canvas
      */
     public void drawBitmapClosed(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconClosed,  c, R.drawable.bug_closed, x, y);
+        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y);
     }
 }

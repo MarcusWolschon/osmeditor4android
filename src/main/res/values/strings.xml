@@ -102,6 +102,10 @@
     <string name="bug_element_1">%1$s (not downloaded) #%2$d</string>
     <string name="bug_element_2">%1$s %2$s</string>
     <string name="maproulette_task_title">MapRoulette Task</string>
+    <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+    <string name="maproulette_task_explanations">Explanations</string>
+    <string name="maproulette_task_set_apikey">Set MapRoulette API key</string>
+    <string name="maproulette_task_apikey_not_set">Unable to save MapRoulette API key</string>
     <!-- Unsaved data dialog -->
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>

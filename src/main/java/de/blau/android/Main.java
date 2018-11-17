@@ -56,6 +56,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.PopupMenu;
@@ -84,6 +85,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -104,6 +106,7 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
@@ -928,7 +931,7 @@ public class Main extends FullScreenAppCompatActivity
                                                           // for now
                                 downLoadBugs(bbox);
                             }
-                        } 
+                        }
                         logic.getViewBox().setBorders(getMap(), bbox);
                         map.invalidate();
                     } catch (OsmException e) {
@@ -2069,6 +2072,26 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
+            return true;
+        case R.id.menu_tools_set_maproulette_apikey:
+            final AppCompatDialog dialog = TextLineDialog.get(this, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
+                @Override
+                public void processLine(EditText input) {
+                    if (input != null && input.length() > 0) {
+                        final String newApiKey = input.getText().toString();
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                if (!server.setUserPreference("maproulette_apikey_v2", newApiKey)) {
+                                    Snack.toastTopError(Main.this, R.string.maproulette_task_apikey_not_set);
+                                }
+                                return null;
+                            }
+                        }.execute();
+                    }
+                }
+            });
+            dialog.show();
             return true;
         case R.id.tag_menu_js_console:
             Main.showJsConsole(this);

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.app.Activity;
@@ -26,11 +28,12 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable {
-    private static final long   serialVersionUID = 5L;
+    private static final long   serialVersionUID = 6L;
     private static final String DEBUG_TAG        = TaskStorage.class.getSimpleName();
     private int                 newId            = -1;
     private RTree               tasks;
     private RTree               boxes;
+    private Map<Long,MapRouletteChallenge> challenges;
     private transient boolean   dirty            = true;
 
     /**
@@ -47,6 +50,7 @@ public class TaskStorage implements Serializable {
      */
     public TaskStorage() {
         reset();
+        challenges = new HashMap<>();
         dirty = false;
     }
 
@@ -314,6 +318,14 @@ public class TaskStorage implements Serializable {
         }
         return false;
     }
+
+    /**
+     * @return the challenges
+     */
+    public Map<Long,MapRouletteChallenge> getChallenges() {
+        return challenges;
+    }
+
 
     @Override
     public String toString() {

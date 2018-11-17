@@ -5,21 +5,20 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
-import de.blau.android.tasks.Task.State;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -27,13 +26,7 @@ class MapRouletteServer {
 
     private static final String DEBUG_TAG = MapRouletteServer.class.getSimpleName();
 
-    private static final String       apiPath            = "/api/v2/";
-    /**
-     * the list of supported languages was simply generated from the list of .po in the osmose repo and tested against
-     * the API
-     */
-    private static final List<String> supportedLanguages = Arrays.asList("ca", "cs", "en", "da", "de", "el", "es", "fr", "hu", "it", "ja", "lt", "nl", "pl",
-            "pt", "ro", "ru", "sw", "uk");
+    private static final String apiPath = "api/v2/";
 
     /**
      * Timeout for connections in milliseconds.
@@ -55,8 +48,8 @@ class MapRouletteServer {
             Log.d(DEBUG_TAG, "getTasksForBox");
             URL url;
 
-            url = new URL(/* getServerURL(context)*/ "http://maproulette.org/" + "api/v2/tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d
-                    + "/" + area.getTop() / 1E7d + "");
+            url = new URL(getServerURL(context) + "tasks/box/" + area.getLeft() / 1E7d + "/" + area.getBottom() / 1E7d + "/" + area.getRight() / 1E7d + "/"
+                    + area.getTop() / 1E7d + "");
             Log.d(DEBUG_TAG, "query: " + url.toString());
             ResponseBody responseBody = null;
             InputStream inputStream = null;
@@ -82,37 +75,32 @@ class MapRouletteServer {
     }
 
     /**
-     * Change the state of the bug on the server
+     * Change the state of the MapRoulette task on the server
      * 
      * @param context the Android context
-     * @param bug bug with the state the server side bug should be changed to
+     * @param apiKey the users apiKey
+     * @param task the task with the state the server side task should be changed to
      * @return true if successful
      */
-    public static boolean changeState(Context context, OsmoseBug bug) {
-        // http://osmose.openstreetmap.fr/de/api/0.2/error/3313305479/done
-        // http://osmose.openstreetmap.fr/de/api/0.2/error/3313313045/false
-        if (bug.getState() == State.OPEN) {
-            return false; // open is the default state and we shouldn't actually get here
-        }
+    public static boolean changeState(@NonNull Context context, @NonNull String apiKey, @NonNull MapRouletteTask task) {
         try {
-            URL url;
-            url = new URL(getServerURL(context) + "error/" + bug.getId() + "/" + (bug.getState() == State.CLOSED ? "done" : "false"));
+            URL url = new URL(getServerURL(context) + "task/" + task.getId() + "/" + task.getState().ordinal());
             Log.d(DEBUG_TAG, "changeState " + url.toString());
-            Request request = new Request.Builder().url(url).build();
+            Request request = new Request.Builder().url(url).put(RequestBody.create(null, "")).addHeader("apiKey", apiKey).build();
             OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .build();
-            Call osmoseCall = client.newCall(request);
-            Response osmoseCallResponse = osmoseCall.execute();
-            if (!osmoseCallResponse.isSuccessful()) {
-                int responseCode = osmoseCallResponse.code();
+            Call maprouletteCall = client.newCall(request);
+            Response maprouletteCallResponse = maprouletteCall.execute();
+            if (!maprouletteCallResponse.isSuccessful()) {
+                int responseCode = maprouletteCallResponse.code();
                 Log.d(DEBUG_TAG, "changeState respnse code " + responseCode);
-                if (responseCode == HttpURLConnection.HTTP_GONE) {
-                    bug.setChanged(false); // don't retry
+                if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+                    task.setChanged(false); // don't retry
                     App.getTaskStorage().setDirty();
                 }
                 return false;
             }
-            bug.setChanged(false);
+            task.setChanged(false);
             App.getTaskStorage().setDirty();
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "changeState got exception " + e.getMessage());
@@ -123,17 +111,52 @@ class MapRouletteServer {
     }
 
     /**
+     * Retrieve a MapROulette Challenge
+     * 
+     * @param context the Android Context
+     * @param id the Challenge id
+     * @return the Challenge or null if none could be retrieved
+     */
+    @Nullable
+    public static MapRouletteChallenge getChallenge(@NonNull Context context, long id) {
+        MapRouletteChallenge result = null;
+        try {
+            Log.d(DEBUG_TAG, "getChallenge");
+            URL url;
+            url = new URL(getServerURL(context) + "challenge/" + Long.toString(id));
+            Log.d(DEBUG_TAG, "query: " + url.toString());
+            ResponseBody responseBody = null;
+            InputStream inputStream = null;
+
+            Request request = new Request.Builder().url(url).build();
+            OkHttpClient client = App.getHttpClient().newBuilder().connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS).readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build();
+            Call mapRouletteCall = client.newCall(request);
+            Response mapRouletteResponse = mapRouletteCall.execute();
+            if (mapRouletteResponse.isSuccessful()) {
+                responseBody = mapRouletteResponse.body();
+                inputStream = responseBody.byteStream();
+            } else {
+                Log.e(DEBUG_TAG, "Challenge download unsuccessful : " + mapRouletteResponse.code());
+                return null;
+            }
+
+            result = MapRouletteChallenge.parseChallenge(inputStream);
+        } catch (IOException e) {
+            Log.e(DEBUG_TAG, "getChallenge got exception " + e.getMessage());
+        }
+        return result;
+    }
+
+    /**
      * Get the Mapoulette server from preferences
      *
      * @param context the Android context
      * @return the server URL
      */
+    @NonNull
     private static String getServerURL(Context context) {
         Preferences prefs = new Preferences(context);
-        String lang = Locale.getDefault().getLanguage();
-        if (!supportedLanguages.contains(lang)) {
-            lang = "en";
-        }
-        return prefs.getOsmoseServer() + lang + apiPath;
+        return prefs.getMapRouletteServer() + apiPath;
     }
 }

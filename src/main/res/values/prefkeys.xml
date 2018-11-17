@@ -37,6 +37,7 @@
     <string name="config_splitActionBarEnabled_key">splitActionBarEnabled</string>
     <string name="config_offsetServer_key">offsetServer2</string>
     <string name="config_osmoseServer_key">osmoseServer2</string>
+    <string name="config_maprouletteServer_key">maprouletteServer</string>
     <string name="config_taginfoServer_key">taginfoServer</string>
     <string name="config_showCameraAction_key">showCameraAction</string>
     <string name="config_generateAlerts_key">generateAlerts</string>
