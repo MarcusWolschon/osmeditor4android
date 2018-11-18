@@ -58,6 +58,8 @@ public class TransferTasks {
 
     private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 
+    private static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
+    
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 
@@ -237,7 +239,7 @@ public class TransferTasks {
                             } else if (b instanceof OsmoseBug) {
                                 uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
                             } else if (b instanceof MapRouletteTask) {
-                                uploadFailed = !updateMapRouletteTask(main, (MapRouletteTask) b, true, null) || uploadFailed;
+                                uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
                             }
                         }
                     }
@@ -429,22 +431,21 @@ public class TransferTasks {
      * Update single bug state
      * 
      * @param activity the calling Activity
+     * @param server TODO
      * @param task MapRouletteTask to update
      * @param quiet don't display messages if true
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull final MapRouletteTask task, final boolean quiet,
-            @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, Server server, @NonNull final MapRouletteTask task,
+            final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
-        Preferences prefs = new Preferences(activity);
-        Server server = prefs.getServer();
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
 
             @Override
             public void onSuccess() {
-                updateMapRouletteTask(activity, task, quiet, postUploadHandler);               
+                updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);               
             }
 
             @Override
@@ -454,7 +455,7 @@ public class TransferTasks {
         if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
             return false;
         }
-        String apiKey = server.getUserPreferences().get("maproulette_apikey_v2");
+        String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
         if (apiKey == null) {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -467,8 +468,8 @@ public class TransferTasks {
                                 new AsyncTask<Void, Void, Void>() {
                                     @Override
                                     protected Void doInBackground(Void... params) {
-                                        if (server.setUserPreference("maproulette_apikey_v2", newApiKey)) {
-                                            updateMapRouletteTask(activity, task, quiet, postUploadHandler);
+                                        if (server.setUserPreference(MAPROULETTE_APIKEY_V2, newApiKey)) {
+                                            updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);
                                         } else {
                                             Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
                                         }

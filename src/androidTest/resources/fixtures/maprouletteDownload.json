@@ -152,25 +152,6 @@
         "priority": 0
     },
     {
-        "id": 2237668,
-        "owner": -1,
-        "ownerName": "",
-        "title": "2278013844",
-        "parentId": 2523,
-        "parentName": "Missing addresses police stations Switzerland",
-        "point": {
-            "lat": 47.3961956,
-            "lng": 8.4476643
-        },
-        "bounding": "",
-        "blurb": "",
-        "modified": "2018-11-13T19:54:22.721Z",
-        "difficulty": -1,
-        "type": 2,
-        "status": 0,
-        "priority": 0
-    },
-    {
         "id": 2237667,
         "owner": -1,
         "ownerName": "",

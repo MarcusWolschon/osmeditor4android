@@ -21,12 +21,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
@@ -41,11 +48,13 @@ import okhttp3.HttpUrl;
 @LargeTest
 public class MapRouletteTest {
 
-    MockWebServerPlus    mockServer = null;
-    Context              context    = null;
-    AdvancedPrefDatabase prefDB     = null;
-    Main                 main       = null;
-    Task                 t          = null;
+    MockWebServerPlus    mockServerApi         = null;
+    MockWebServerPlus    mockServerMapRoulette = null;
+    Context              context               = null;
+    AdvancedPrefDatabase prefDB                = null;
+    Main                 main                  = null;
+    Task                 t                     = null;
+    UiDevice             device                = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -56,21 +65,26 @@ public class MapRouletteTest {
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
-        
-        mockServer = new MockWebServerPlus();
-        HttpUrl mockBaseUrl = mockServer.server().url("/api/v2/");
-        System.out.println("mock api url " + mockBaseUrl.toString());
+
+        mockServerMapRoulette = new MockWebServerPlus();
+        HttpUrl mockBaseUrl = mockServerMapRoulette.server().url("/api/v2/");
+        System.out.println("mock maproulette url " + mockBaseUrl.toString());
         prefs.putString(R.string.config_maprouletteServer_key, mockBaseUrl.scheme() + "://" + mockBaseUrl.host() + ":" + mockBaseUrl.port() + "/");
+        mockServerApi = new MockWebServerPlus();
+        mockBaseUrl = mockServerApi.server().url("/api/0.6/");
+        ;
+        System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
         prefDB.selectAPI("Test");
-        
+
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -81,23 +95,24 @@ public class MapRouletteTest {
     @After
     public void teardown() {
         try {
-            mockServer.server().shutdown();
+            mockServerMapRoulette.server().shutdown();
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
     }
 
     /**
-     * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got correctly merged
+     * Download some MapRoulette tasks and check that a certain one exists, then re-download and check that it got
+     * correctly merged
      */
     @Test
     public void mapRouletteDownload() {
         final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("maprouletteDownload");
-        mockServer.enqueue("challenge3241");
-        mockServer.enqueue("challenge2523");
-        mockServer.enqueue("challenge2611");
-        mockServer.enqueue("challenge249");
+        mockServerMapRoulette.enqueue("maprouletteDownload");
+        mockServerMapRoulette.enqueue("challenge3241");
+        mockServerMapRoulette.enqueue("challenge2523");
+        mockServerMapRoulette.enqueue("challenge2611");
+        mockServerMapRoulette.enqueue("challenge249");
         App.getTaskStorage().reset();
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
@@ -118,7 +133,7 @@ public class MapRouletteTest {
         }
         List<Task> tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(11, tasks.size());
+        Assert.assertEquals(10, tasks.size());
         try {
             tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4470272, 47.3960161, 8.4470274, 47.3960163));
         } catch (Exception e) {
@@ -128,11 +143,7 @@ public class MapRouletteTest {
         Assert.assertTrue(t instanceof MapRouletteTask);
         Assert.assertEquals(2237667L, t.getId());
         // re-download the same bounding box
-        mockServer.enqueue("maprouletteDownload");
-        mockServer.enqueue("challenge3241");
-        mockServer.enqueue("challenge2523");
-        mockServer.enqueue("challenge2611");
-        mockServer.enqueue("challenge249");
+        mockServerMapRoulette.enqueue("maprouletteDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
             TransferTasks.downloadBox(context, s, new BoundingBox(8.3733566D, 47.3468982D, 8.4748442D, 47.4476552D), true, new SignalHandler(signal2));
@@ -146,7 +157,7 @@ public class MapRouletteTest {
         }
         tasks = App.getTaskStorage().getTasks();
         //
-        Assert.assertEquals(11, tasks.size());
+        Assert.assertEquals(10, tasks.size());
         try {
             tasks = App.getTaskStorage().getTasks(new BoundingBox(8.4470272, 47.3960161, 8.4470274, 47.3960163));
         } catch (Exception e) {
@@ -168,9 +179,11 @@ public class MapRouletteTest {
         b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("200");
+        mockServerApi.enqueue("userpreferences");
+        mockServerMapRoulette.enqueue("200");
         try {
-            Assert.assertTrue(TransferTasks.updateMapRouletteTask(main, b, false, new SignalHandler(signal)));
+            Assert.assertTrue(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"), b, false,
+                    new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -186,16 +199,18 @@ public class MapRouletteTest {
      * Check that we handle error messages from the MapRoulette server correctly
      */
     @Test
-    public void osmoseUploadFail() {
+    public void mapRouletteUpdateFail() {
         mapRouletteDownload();
-        OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
+        MapRouletteTask b = (MapRouletteTask) t; // ugly but removes code duplication
         b.setFalse();
         b.setChanged(true);
         Assert.assertTrue(b.hasBeenChanged());
         final CountDownLatch signal = new CountDownLatch(1);
-        mockServer.enqueue("500");
+        mockServerApi.enqueue("userpreferences");
+        mockServerMapRoulette.enqueue("500");
         try {
-            Assert.assertFalse(TransferTasks.updateOsmoseBug(context, b, false, new SignalHandler(signal)));
+            Assert.assertFalse(TransferTasks.updateMapRouletteTask(main, new Server(context, prefDB.getCurrentAPI(), "vesupucci test"), b, false,
+                    new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -205,5 +220,27 @@ public class MapRouletteTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(b.hasBeenChanged());
+    }
+
+    /**
+     * Close a MapRoulette task via dialog
+     */
+    @Test
+    public void mapRouletteDialog() {
+        mapRouletteDownload();
+        MapRouletteTask b = (MapRouletteTask) t; // ugly but removes code duplication
+        TestUtils.unlock();
+        Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
+        UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
+        try {
+            Assert.assertTrue(saveButton.exists());
+            TestUtils.clickButton("de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickText(device, false, "Deleted", true);
+            Assert.assertTrue(saveButton.isEnabled());
+            TestUtils.clickText(device, false, "Save", true);
+            Assert.assertTrue(b.isClosed());
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }

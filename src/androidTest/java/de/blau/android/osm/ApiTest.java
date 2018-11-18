@@ -606,7 +606,7 @@ public class ApiTest {
         try {
             final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
             Map<String, String> preferences = s.getUserPreferences();
-            Assert.assertEquals(2,preferences.size());
+            Assert.assertEquals(3,preferences.size());
             Assert.assertEquals("public", preferences.get("gps.trace.visibility"));
             RecordedRequest request1 = mockServer.takeRequest();
             Assert.assertEquals("GET", request1.getMethod().toUpperCase());

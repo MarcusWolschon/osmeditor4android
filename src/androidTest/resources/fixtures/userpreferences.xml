@@ -11,5 +11,8 @@
         <preference
             k="gps.trace.visibility"
             v="public" />
+        <preference
+            k="maproulette_apikey_v2"
+            v="1234567890" />
     </preferences>
 </osm>

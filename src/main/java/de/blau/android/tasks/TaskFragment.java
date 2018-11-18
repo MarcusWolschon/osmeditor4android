@@ -143,7 +143,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                             } else if (bug instanceof OsmoseBug) {
                                 TransferTasks.updateOsmoseBug(getActivity(), (OsmoseBug) bug, false, handler);
                             } else if (bug instanceof MapRouletteTask) {
-                                TransferTasks.updateMapRouletteTask(getActivity(), (MapRouletteTask) bug, false, handler);
+                                TransferTasks.updateMapRouletteTask(getActivity(), prefs.getServer(), (MapRouletteTask) bug, false, handler);
                             }
                             return null;
                         }
