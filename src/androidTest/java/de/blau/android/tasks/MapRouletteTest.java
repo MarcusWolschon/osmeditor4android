@@ -170,7 +170,7 @@ public class MapRouletteTest {
         final CountDownLatch signal = new CountDownLatch(1);
         mockServer.enqueue("200");
         try {
-            Assert.assertTrue(TransferTasks.updateMapRouletteTask(context, b, false, new SignalHandler(signal)));
+            Assert.assertTrue(TransferTasks.updateMapRouletteTask(main, b, false, new SignalHandler(signal)));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }

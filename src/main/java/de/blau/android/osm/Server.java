@@ -31,10 +31,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.ErrorCodes;
+import de.blau.android.Main;
+import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
+import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
@@ -422,7 +427,7 @@ public class Server {
      * 
      * @return a Capabilities object, if none could be retrieved this will be the default
      */
-    @NonNull
+    @Nullable
     public Capabilities getReadOnlyCapabilities() {
         try {
             Capabilities result = getCapabilities(getReadOnlyCapabilitiesUrl());
@@ -1994,6 +1999,37 @@ public class Server {
      */
     public boolean getOAuth() {
         return oauth;
+    }
+
+    /**
+     * Check if we are correctly authenticated wrt the OSM server API we are using
+     * 
+     * @param activity calling FragmentActivity
+     * @param server the current in use Server API
+     * @param restartAction the action to do when we've been sucessfully authenticated
+     */
+    public static boolean checkOsmAuthentication(@NonNull final FragmentActivity activity, @NonNull final Server server,
+            @NonNull PostAsyncActionHandler restartAction) {
+        if (server.isLoginSet()) {
+            if (server.needOAuthHandshake()) {
+                if (activity instanceof Main) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((Main) activity).oAuthHandshake(server, restartAction);
+                        }
+                    });
+                }
+                if (server.getOAuth()) { // if still set
+                    Snack.barError(activity, R.string.toast_oauth);
+                }
+                return false;
+            }
+            return true;
+        } else {
+            ErrorAlert.showDialog(activity, ErrorCodes.NO_LOGIN_DATA);
+            return false;
+        }
     }
 
     /**

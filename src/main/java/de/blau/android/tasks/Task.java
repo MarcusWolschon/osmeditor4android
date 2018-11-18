@@ -29,10 +29,10 @@ public abstract class Task implements Serializable, BoundedObject {
         float  h2   = 0f;
     }
 
-    public static BitmapWithOffset cachedIconClosed;
-    public static BitmapWithOffset cachedIconChangedClosed;
-    public static BitmapWithOffset cachedIconOpen;
-    public static BitmapWithOffset cachedIconChanged;
+    protected static BitmapWithOffset cachedIconClosed;
+    protected static BitmapWithOffset cachedIconChangedClosed;
+    protected static BitmapWithOffset cachedIconOpen;
+    protected static BitmapWithOffset cachedIconChanged;
 
     /** OSB Bug ID. */
     long id;

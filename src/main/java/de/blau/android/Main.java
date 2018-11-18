@@ -209,8 +209,6 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
-
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 
     /**
@@ -246,7 +244,9 @@ public class Main extends FullScreenAppCompatActivity
 
     /** Objects to handle showing device orientation. */
     private SensorManager sensorManager;
+    @SuppressWarnings("unused")
     private Sensor        magnetometer;
+    @SuppressWarnings("unused")
     private Sensor        accelerometer;
     private Sensor        rotation;
 
@@ -256,7 +256,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     private final SensorEventListener sensorListener = new SensorEventListener() {
         float   lastAzimut = -9999;
+        @SuppressWarnings("unused")
         float[] acceleration;
+        @SuppressWarnings("unused")
         float[] geomagnetic;
         float[] truncatedRotationVector;
 
@@ -1706,30 +1708,22 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_upload:
-            if (server != null && server.isLoginSet()) {
-                if (server.needOAuthHandshake()) {
-                    oAuthHandshake(server, new PostAsyncActionHandler() {
+            if (server != null) {
+                PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                    private static final long serialVersionUID = 1L;
 
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            GpxUpload.showDialog(Main.this);
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    });
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(this, R.string.toast_oauth);
-                        return true;
+                    @Override
+                    public void onSuccess() {
+                        GpxUpload.showDialog(Main.this);
                     }
+
+                    @Override
+                    public void onError() {
+                    }
+                };
+                if (Server.checkOsmAuthentication(this, server, restartAction)) {
+                    GpxUpload.showDialog(this);
                 }
-                GpxUpload.showDialog(this);
-                // performTrackUpload("Test","Test",Visibility.PUBLIC);
-            } else {
-                ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
             }
             return true;
 
@@ -2653,34 +2647,25 @@ public class Main extends FullScreenAppCompatActivity
      * Check if there are changes present and then show the upload dialog, getting authorisation if necessary
      */
     public void confirmUpload() {
-        final Server server = prefs.getServer();
+        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
 
-        if (server != null && server.isLoginSet()) {
-            if (App.getLogic().hasChanges()) {
-                if (server.needOAuthHandshake()) {
-                    oAuthHandshake(server, new PostAsyncActionHandler() {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            ConfirmUpload.showDialog(Main.this);
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    });
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(this, R.string.toast_oauth);
-                    }
-                    return;
-                }
+            @Override
+            public void onSuccess() {
                 ConfirmUpload.showDialog(Main.this);
-            } else {
-                Snack.barInfo(this, R.string.toast_no_changes);
+            }
+
+            @Override
+            public void onError() {
+            }
+        };
+        final Server server = prefs.getServer();
+        if (App.getLogic().hasChanges()) {
+            if (Server.checkOsmAuthentication(this, server, restartAction)) {
+                ConfirmUpload.showDialog(this);
             }
         } else {
-            ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
+            Snack.barInfo(this, R.string.toast_no_changes);
         }
     }
 

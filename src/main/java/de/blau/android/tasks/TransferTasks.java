@@ -23,7 +23,6 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
@@ -197,26 +196,18 @@ public class TransferTasks {
             // check if we need to oAuth first
             for (Task b : queryResult) {
                 if (b.hasBeenChanged() && b instanceof Note) {
-                    if (server.isLoginSet()) {
-                        if (server.needOAuthHandshake()) {
-                            main.oAuthHandshake(server, new PostAsyncActionHandler() {
-                                @Override
-                                public void onSuccess() {
-                                    Preferences prefs = new Preferences(main);
-                                    upload(main, prefs.getServer(), postUploadHandler);
-                                }
-
-                                @Override
-                                public void onError() {
-                                }
-                            });
-                            if (server.getOAuth()) { // if still set
-                                Snack.barError(main, R.string.toast_oauth);
-                            }
-                            return;
+                    PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                        @Override
+                        public void onSuccess() {
+                            Preferences prefs = new Preferences(main);
+                            upload(main, prefs.getServer(), postUploadHandler);
                         }
-                    } else {
-                        ErrorAlert.showDialog(main, ErrorCodes.NO_LOGIN_DATA);
+
+                        @Override
+                        public void onError() {
+                        }
+                    };
+                    if (!Server.checkOsmAuthentication(main, server, restartAction)) {
                         return;
                     }
                 }
@@ -342,33 +333,18 @@ public class TransferTasks {
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         if (server != null) {
-            if (server.isLoginSet()) {
-                if (server.needOAuthHandshake()) {
-                    if (activity instanceof Main) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((Main) activity).oAuthHandshake(server, new PostAsyncActionHandler() {
-                                    @Override
-                                    public void onSuccess() {
-                                        Preferences prefs = new Preferences(activity);
-                                        uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(activity, R.string.toast_oauth);
-                    }
-                    return false;
+            PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                @Override
+                public void onSuccess() {
+                    Preferences prefs = new Preferences(activity); // new to re-get this post authentication
+                    uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
                 }
-            } else {
-                ErrorAlert.showDialog(activity, ErrorCodes.NO_LOGIN_DATA);
+
+                @Override
+                public void onError() {
+                }
+            };
+            if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                 return false;
             }
 
@@ -459,11 +435,25 @@ public class TransferTasks {
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final Activity activity, @NonNull final MapRouletteTask task, final boolean quiet,
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull final MapRouletteTask task, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         Preferences prefs = new Preferences(activity);
         Server server = prefs.getServer();
+        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+
+            @Override
+            public void onSuccess() {
+                updateMapRouletteTask(activity, task, quiet, postUploadHandler);               
+            }
+
+            @Override
+            public void onError() {
+            }
+        };
+        if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
+            return false;
+        }
         String apiKey = server.getUserPreferences().get("maproulette_apikey_v2");
         if (apiKey == null) {
             activity.runOnUiThread(new Runnable() {

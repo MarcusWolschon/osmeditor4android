@@ -25,10 +25,10 @@ public class MapRouletteTask extends Task {
 
     private static final String DEBUG_TAG = "MapRouletteTask";
 
-    public static BitmapWithOffset cachedIconClosed;
-    public static BitmapWithOffset cachedIconChangedClosed;
-    public static BitmapWithOffset cachedIconOpen;
-    public static BitmapWithOffset cachedIconChanged;
+    protected static BitmapWithOffset cachedIconClosed;
+    protected static BitmapWithOffset cachedIconChangedClosed;
+    protected static BitmapWithOffset cachedIconOpen;
+    protected static BitmapWithOffset cachedIconChanged;
 
     private long   parentId   = -1;
     private String parentName = null;
