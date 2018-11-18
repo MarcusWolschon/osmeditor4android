@@ -96,8 +96,9 @@ public class TaskFragment extends ImmersiveDialogFragment {
         final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
         builder.setView(v)
                 // Add action buttons - slightly convoluted
-                .setPositiveButton(bug instanceof Note && bug.isNew()
-                        ? (App.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton) : R.string.save,
+                .setPositiveButton(
+                        bug instanceof Note && bug.isNew() ? (App.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton)
+                                : R.string.save,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (bug instanceof Note && bug.isNew() && App.getTaskStorage().contains(bug)) {
@@ -318,18 +319,18 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         });
                 return builder.create();
             }
+        }
+        
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        state.setAdapter(adapter);
 
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            // Apply the adapter to the spinner
-            state.setAdapter(adapter);
-
-            int stateOrdinal = bug.getState().ordinal();
-            if (adapter.getCount() > stateOrdinal) {
-                state.setSelection(stateOrdinal);
-            } else {
-                Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
-            }
+        int stateOrdinal = bug.getState().ordinal();
+        if (adapter.getCount() > stateOrdinal) {
+            state.setSelection(stateOrdinal);
+        } else {
+            Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
         }
 
         state.setEnabled(!bug.isNew()); // new bugs always open
