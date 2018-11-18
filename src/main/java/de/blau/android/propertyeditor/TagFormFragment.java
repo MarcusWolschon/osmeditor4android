@@ -1434,7 +1434,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @return a TagFormDialogRow
      */
     private TagFormDialogRow getOpeningHoursDialogRow(@NonNull final LinearLayout rowLayout, @Nullable PresetItem preset, @Nullable final String hint,
-            @NonNull final String key, @Nullable String value, @Nullable final ArrayAdapter<?> adapter) {
+            @NonNull final String key, @NonNull String value, @Nullable final ArrayAdapter<?> adapter) {
         final TagFormOpeningHoursDialogRow row = (TagFormOpeningHoursDialogRow) inflater.inflate(R.layout.tag_form_openinghours_dialog_row, rowLayout, false);
         row.keyView.setText(hint != null ? hint : key);
         row.keyView.setTag(key);

@@ -673,6 +673,10 @@ public class Preset implements Serializable {
                         }
                     } else if (TEXT_FIELD.equals(name)) {
                         String key = attr.getValue(KEY_ATTR);
+                        if (key == null) {
+                            Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
+                            throw new SAXException("key must be present in text field");
+                        }
                         currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null);
                         String defaultValue = attr.getValue(DEFAULT);
                         if (defaultValue != null) {
@@ -761,6 +765,10 @@ public class Preset implements Serializable {
                     } else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
                         boolean multiselect = MULTISELECT_FIELD.equals(name);
                         String key = attr.getValue(KEY_ATTR);
+                        if (key == null) {
+                            Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
+                            throw new SAXException("key must be present in combo/multiselect field");
+                        }
                         delimiter = attr.getValue(DELIMITER);
                         if (delimiter == null) {
                             delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER;
@@ -2828,7 +2836,7 @@ public class Preset implements Serializable {
          * @param key the key
          * @param type a String for the ValueType
          */
-        public void setValueType(@NonNull String key, @Nullable String type) {
+        public void setValueType(@NonNull String key, @NonNull String type) {
             PresetField field = fields.get(key);
             if (field != null) {
                 field.valueType = ValueType.fromString(type);
