@@ -236,6 +236,8 @@
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci</string>
   <string name="default_channel_description">Vespucci výchozí kanál</string>
+  <string name="qa_channel_name">Vespucci Otázky a odpovědi</string>
+  <string name="qa_channel_description">Vespucci informační kanál Otázek a odpovědí</string>
   <!--Toaster-->
   <string name="toast_name_empty">Název nesmí být prázdný</string>
   <string name="toast_url_empty">URL nesmí být prázdné</string>

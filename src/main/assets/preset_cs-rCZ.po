@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-09 21:09+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-11-14 22:13+0000\n"
+"Last-Translator: trendspotter <j.podhorecky@volny.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -880,7 +880,7 @@ msgstr "Bankomat"
 
 #: master_preset.xml:5578(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Kryté pódium"
 
 #: master_preset.xml:11098(item:name|group:Cash|preset:Bank)
 msgid "Bank"
@@ -8762,7 +8762,7 @@ msgstr ""
 
 #: master_preset.xml:2169(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
-msgstr ""
+msgstr "Značka omezení rychlosti"
 
 #: master_preset.xml:10833(item:name|group:Food|preset:Spices)
 msgid "Spices"
@@ -9083,7 +9083,7 @@ msgstr ""
 
 #: master_preset.xml:9671(item:name|group:Man_Made|preset:Surveillance_Camera)
 msgid "Surveillance Camera"
-msgstr ""
+msgstr "Sledovací kamera"
 
 #: master_preset.xml:9655(item:name|group:Man_Made|preset:Survey_Point)
 msgid "Survey Point"

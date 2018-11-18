@@ -98,45 +98,45 @@ Můžete také použít položku nabídky: Viz [Vytvoření nového objektu](/Cr
 
 #### Přidání oblasti
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+OpenStreetMap momentálně nemá typ objektu "oblast" na rozdíl od jiných geo-datových systémů. Editor online "iD" se pokouší vytvořit abstrakci od základních prvků OSM, která v některých případech funguje dobře, v jiných tolik ne. Vespucci se momentálně nepokouší dělat něco podobného, takže potřebujete vědět trochu o tom, jak jsou reprezentovány oblasti:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _closed ways (*polygons")_: nejjednodušší a nejběžnější varianty oblastí jsou cesty, které mají sdílený první a poslední uzel tvořící uzavřený "prsten" (například většina budov tohoto typu). To se dělá ve Vespucci jednoduše, prostě se připojte zpět k prvnímu uzlu, až skončíte kreslením oblasti. Poznámka: interpretace uzavřené cesty závisí na jejím označení: například pokud je uzavřená cesta označena jako budova, bude považován za plochu, pokud je označen jako kruhový objezd, pak obvykle ne. V některých situacích, ve kterých mohou být obě interpretace platné, značka "oblast" může objasnit zamýšlené použití.
+* _multi-ploygons_: některé oblasti mají více částí, díry a kroužky, OSM používá specifický typ vztahu (náš obecný účelový objekt, který může modelovat vztahy mezi prvky), aby se dostal kolem toho, vícestranného polygonu. Multi-polygon může mít několik "vnějších" kroužků a více "vnitřních" kroužků. Každý kruh může být buď uzavřený, jak je popsáno nebo více různých způsobů, které mají uzly společného konce. Zatímco velké multi-polygony jsou obtížně zvládnutelné s jakýmkoliv nástrojem, v Vespucci není obtížné vytvářet malé. 
+* _coastlines_: u velmi velkých objektů, kontinentů a ostrovů dokonce i multi-polygonový model nefunguje uspokojivým způsobem. Pro přírodní cesty = pobřežní linie předpokládáme směrovou sémantiku: země je na levé straně cesty, voda na pravé straně. Vedlejším efektem je, že obecně byste neměli zvrátit směr cesty s označením pobřeží. Další informace naleznete na [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Zlepšení geometrie cesty
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Pokud zvětšíte dostatečně daleko zvolený způsob, uvidíte malé "x" uprostřed cesty, které jsou dostatečně dlouhé. Přetahováním "x" vytvoříte uzel způsobem, který se nachází na daném místě. Poznámka: Aby nedošlo k náhodnému vytvoření uzlů, je tato toleranční oblast pro tuto operaci poměrně malá.
 
 #### Vyjmout, kopírovat a vložit
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Můžete kopírovat nebo odstranit vybrané uzly a cesty a potom je vložit jednou nebo vícekrát do nového umístění. Rozdělení zachová OSM ID a verzi. Chcete-li vložit, dlouze stiskněte místo, do kterého chcete vložit (uvidíte nitkový kříž označující místo). Potom z nabídky vyberte možnost "Vložit".
 
 #### Efektivně přidávat adresy
 
 Vespucci má funkci "přidat adresní tagy", která se pokouší efektivněji mapovat adresy. Lze vybrat:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* po dlouhém stisknutí: Vespucci přidá uzel v místě a udělá nejlepší odhad na číslo domu a přidá adresní značky, které jste v poslední době používali. Pokud je uzel na obrysu budovy, automaticky přidá do uzlu značku "entrance = yes". Editor značek se otevře pro daný objekt a umožní vám provádět další nezbytné změny. 
+* V uzlu / způsobu výběru režimů: Vespucci přidá adresové značky jako výše a spustí editor značek.
+* v editoru značek.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+Předpověď čísla domu obvykle vyžaduje, aby byly na každé straně silnice zadány alespoň dvě čísla domů, čím je více dat v data, tím lépe.
 
-Consider using this with the [Auto-download](#download) mode.  
+Zvažte použití tohoto režimu v režimu [Auto-download](#download).  
 
 #### Přidání omezení odbočení
 
 Vespucci má rychlý způsob, jak přidat omezení odbočení. V případě potřeby automaticky rozdělí způsoby a vyzve vás k opětovnému výběru prvků. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* vyberte cestu s označením dálnice (pro omezení cesty je možné přidat pouze na dálnicích, pokud to potřebujete pro jiné způsoby, použijte obecný režim "vytvořit vztah") 
+* z nabídky vyberte "Přidat omezení" 
+* vyberte uzel "přes" nebo cestu (pouze dotyková plocha se zobrazí pomocí dotykové plochy) 
+* vyberte cestu "do" (je možné zdvojnásobit zpět a nastavit prvek "to" na " z "elementu, Vespucci předpokládá, že přidáváte omezení no_u_turn) 
+* nastavte typ omezení
 
 ### Vespucci je v "uzamčeném" režimu
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Když je zobrazen červený zámek, jsou k dispozici všechny akce bez úpravy. Dlouhým stisknutím na objektu nebo v jeho blízkosti se zobrazí obrazovka s detailními informacemi, pokud jde o objekt OSM.
 
 ### Uložení změn
 
@@ -146,110 +146,110 @@ Vyberte stejné tlačítko nebo položku nabídky, kterou jste provedli při sta
 
 Vespucci podporuje autorizaci OAuth a klasickou metodu uživatelského jména a hesla. OAuth je vhodnější, protože se vyhýbá odesílání hesel.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+V nové instalaci Vespucci bude ve výchozím nastavení povolený OAuth. Při prvním pokusu o načtení upravených dat se načte stránka z webu OSM. Po přihlášení (prostřednictvím šifrovaného připojení) budete požádáni, abyste Vespucci povolil úpravu pomocí svého účtu. Pokud chcete, nebo potřebujete povolit přístup k účtu OAuth před úpravou, je v nabídce "Nástroje" příslušná položka.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Pokud chcete uložit svou práci a nemáte přístup k Internetu, můžete ji uložit do souboru .osm kompatibilního s JOSM a nahrát později pomocí Vespucci nebo JOSM. 
 
-#### Resolving conflicts on uploads
+#### Řešení konfliktů při nahrávání
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+Vespucci má jednoduché řešení konfliktů. Pokud však máte podezření, že se jedná o závažné potíže s vašimi úpravami, exportujte změny do souboru .osc (položku nabídky "Exportovat" v nabídce "Přenos") a opravte je a nahrajte je pomocí JOSM. Viz podrobná nápověda k [řešení konfliktů](Conflict%20resolution.md).  
 
-## Using GPS
+## Používání GPS
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Vespucci můžete použít k vytvoření stopy GPX a zobrazení v zařízení. Dále můžete zobrazit aktuální polohu GPS (nastavte možnost "Zobrazit polohu" v nabídce GPS) a / nebo nechte polohu na středu obrazovky a postupujte podle polohy (v nabídce GPS nastavte "Sledujte polohu GPS"). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Chcete-li tuto možnost nastavit, ruční posouvání obrazovky nebo úpravy způsobí deaktivaci režimu "následovat GPS" a změnu modré šipky GPS z obrysu na plnou šipku. Chcete-li se rychle vrátit do "sledovacího" režimu, jednoduše stiskněte tlačítko GPS nebo znovu označte nabídkové menu.
 
-## Notes and Bugs
+## Poznámky a chyby
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+Vespucci podporuje stahování, komentování a zavírání OSM Notes (dříve OSM Bugs) a ekvivalentní funkcionalitu "Bugs", vytvořenou nástrojem [OSMOSE Quality Assurance Tool](http://osmose.openstreetmap.fr/en/map/). Obě musí být buď načteny explicitně, nebo můžete použít funkci Automatické stahování pro přístup k položkám v bezprostředním okolí. Po úpravě nebo zavření můžete buď nahrát chybu nebo poznámku okamžitě, nebo nahrát vše najednou.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+Na mapě jsou poznámky a chyby reprezentovány malou ikonkou chyby ![Bug](../images/bug_open.png), zelené jsou uzavřené / vyřešené, modré byly vytvořeny nebo editovány vámi a žlutá označuje, že je stále aktivní a nebyla změněna. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+Chybová zpráva OSMOSE poskytne odkaz na postižený objekt v modré barvě, dotykem na odkaz vybere objekt, vystředí jej na obrazovku a v případě potřeby načte oblast předem. 
 
 ### Filtrování
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+Kromě toho, že globálně umožňuje zobrazování poznámek a chyb, můžete nastavit filtr hrubého zrnitého displeje pro snížení chaosu. Ve složce [Pokročilé preference](Advanced%20preferences.md) to můžete individuálně zvolit:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* Poznámky 
+* Osmose chyba
+* Osmose varování
+* Osmose drobná záležitost 
+* Vlastní
 
 <a id="indoor"></a>
 
-## Indoor mode
+## Interierový režim
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+Mapování v interiéru je náročné kvůli vysokému počtu objektů, které se velmi často překrývají. Vespucci má vyhrazený vnitřní režim, který vám umožní odfiltrovat všechny objekty, které nejsou na stejné úrovni a které automaticky přidávají aktuální úroveň nově vytvořeným objektům.
 
 Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz [Zamknout, odemknout, přepnout režim](#lock) a vybrat odpovídající položku nabídky.
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C-Mód
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+V režimu C-Mód jsou zobrazeny pouze objekty, které mají nastavenou varovnou vlajku, což usnadňuje detekci objektů, které mají specifické problémy nebo odpovídají konfigurovatelným kontrolám. Pokud je vybrán objekt a editor vlastností je spuštěn v režimu C-Mód, automaticky se použije nejlépe odpovídající předvolba.
 
 Režim lze aktivovat dlouhým stisknutím tlačítka zámku, viz [Zamknout, odemknout, přepnout režim](#lock) a vybrat odpovídající položku nabídky.
 
-### Configuring checks
+### Konfigurace kontrol
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+V současné době existují dvě konfigurovatelné kontroly (existuje kontrola značek FIXME a test chybějících typových značek na relacích, které nejsou aktuálně konfigurovatelné). Obě je možné nakonfigurovat tak, že vyberete "Předvolby validátora" v části "Předvolby". 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+Seznam záznamů je rozdělen na dvě části, políčka nahoře vypisují "ověřit záznamy", dolní polovina "zkontrolované záznamy". Záznamy lze editovat kliknutím na ně, zelené tlačítko nabídky umožňuje přidání položek.
 
-#### Re-survey entries
+#### Ověření záznamů
 
-Re-survey entries have the following properties:
+Položky opětovného Ověření mají následující vlastnosti:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Klíč** - Klíč značky, která vás zajímá. 
+* **Hodnota** - Hodnota, kterou má mít značka, která by měla mít, pokud bude prázdná hodnota značky ignorována. 
+* **Stáří** kolik dní poté, co byl prvek naposledy změněn, by měl  být prvek opětovně prozkoumán, pokud je k dispozici pole check_date, které bude použito, jinak bude datum vytvoření aktuální verze. Nastavení hodnoty na nulu vede ke kontrole, která se jednoduše shoduje s klíčem a hodnotou. 
+* **Regulární výraz** - je-li zaškrtnuto, pak **Hodnota** se považuje za JAVA regulární výraz.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+**Klíč** a **Hodnota** jsou kontrolovány proti značkám _existing_ daného objektu.
 
-#### Check entries
+#### Kontrola položek
 
-Check entries have the following two properties:
+Kontrolní položky mají následující dvě vlastnosti:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Klíč** - Klíč, který by měl být přítomen na objektu podle příslušné předvolby.
+ * **Kontrola volitelných** - Zkontrolujte volitelná označení odpovídajících předvoleb.
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Tato kontrola funguje nejdříve při určování přednastavení a následném zkontrolování, zda **Klíč** je pro tento objekt "doporučen" podle předvoleb, **Kontrola volitelných** rozšiřuje kontrolu na značky, které jsou na objektu "volitelné". Upozornění: Aktuální přednastavené položky nejsou zaškrtnuty.
 
-## Filters
+## Filtry
 
 ### Filtr na základě tagů
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+Filtr lze aktivovat z hlavního menu, poté jej lze změnit klepnutím na ikonu filtru. Další dokumentaci naleznete zde [Tag filter](Tag%20filter.md).
 
-### Preset based filter
+### Přednastavený filtr
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+Alternativou k výše uvedeným objektům jsou objekty filtrovány buď na základě individuálních předvoleb nebo na přednastavených skupinách. Klepnutím na ikonu filtru se zobrazí přednastavené dialogové okno pro výběr, které se používá ve Vespucci. Jednotlivé předvolby lze zvolit pomocí normálního kliknutí, přednastavených skupin dlouhým kliknutím (normální kliknutí se dostane do skupiny). Další dokumentaci naleznete zde [Přednastavený filtr](Preset%20filter.md).
 
-## Customizing Vespucci
+## Přizpůsobení Vespucci
 
-### Settings that you might want to change
+### Nastavení, která můžete chtít změnit
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Vrstva pozadí 
+* Překryvná vrstva. Přidání překryvné vrstvy může způsobit problémy se staršími zařízeními a problémy s omezenou pamětí. Výchozí stav: žádný. 
+* Zobrazit poznámky / chyby. Otevřené poznámky a chyby se zobrazí jako žlutá ikona chyby, uzavřené tytéž zelené. Výchozí hodnota: zapnuto. 
+* Fotografická vrstva. Zobrazuje geo-odkazované fotografie jako červené ikony fotoaparátu, pokud jsou k dispozici informace o směru, bude ikona otočena. Výchozí: vypnuto.  
+* Zachovat obrazovku zapnutou. Výchozí stav: vypnuto. 
+* Velký prostor pro tažení uzlu. Přesunutí uzlů na zařízení s dotykovým vstupem je problematické, protože vaše prsty zakryjí aktuální polohu na displeji. Zapnutím této funkce se vytvoří velká oblast, která může být použita pro tažení mimo centrum (volba a další operace stále používají normální oblast tolerance dotyku). Výchozí stav: vypnuto.
 
-#### Advanced preferences
+#### Rozšířené předvolby
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Ikony uzlu. Výchozí nastavení: zapnuto. 
+* Vždy zobrazovat kontextovou nabídku. Po zapnutí každého výběrového procesu se zobrazí kontextové menu, vypnuté menu se zobrazí pouze v případě, že nelze určit jednoznačnou volbu. Výchozí nastavení: vypnuto (používá se k zapnutí). 
+* Aktivovat motiv světla. U moderních zařízení je tato funkce zapnuta ve výchozím nastavení. I když ji můžete povolit pro starší verze systému Android, pravděpodobně bude styl nekonzistentní.
+* Zobrazit statistiky. Zobrazí některé statistiky pro ladění, které nejsou zrovna užitečné. Výchozí nastavení: vypnuto (používá se k zapnutí).  
 
-## Reporting Problems
+## Nahlašování problémů
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Pokud dojde k selhání Vespucci, nebo zjistí nekonzistentní stav, budete požádáni o odeslání výpisu havárie. Pokud tak učiníte, postupujte prosím, ale pouze jednou za konkrétní situaci. Chcete-li zadat další informace nebo otevřít problém pro požadavek na funkci nebo podobné, proveďte to prosím zde: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Chcete-li projednat něco souvisejícího s Vespucci, můžete buď zahájit diskusi o skupině [Vespucci Google](https://groups.google.com/forum/#!forum/osmeditor4android), nebo ve fóru [OpenStreetMap Android](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

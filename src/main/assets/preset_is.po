@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-09 21:09+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-11-12 14:29+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/openstreetmap/presets/language/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -877,7 +877,7 @@ msgstr ""
 
 #: master_preset.xml:5578(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Hljómsveitapallur"
 
 #: master_preset.xml:11098(item:name|group:Cash|preset:Bank)
 msgid "Bank"
@@ -1253,7 +1253,7 @@ msgstr ""
 
 #: master_preset.xml:7687(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Gjaldhlið"
 
 #: master_preset.xml:2399(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -1354,7 +1354,7 @@ msgstr "Brú"
 
 #: master_preset.xml:9746(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "Undirstaða brúar"
 
 #: master_preset.xml:9756(item:name|group:Bridges|preset:Bridge_outline)
 msgid "Bridge outline"
@@ -3056,7 +3056,7 @@ msgstr ""
 
 #: master_preset.xml:1825(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "Rúllustigi"
 
 #: master_preset.xml:1410(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -3261,7 +3261,7 @@ msgstr ""
 #: master_preset.xml:6126(check:text|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:7926(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "Eldstæði"
 
 #: master_preset.xml:12166(item:name|group:Other|preset:Fireworks)
 msgid "Fireworks"
@@ -3798,7 +3798,7 @@ msgstr "Blómagróðurhús"
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
 msgid "Grey"
-msgstr ""
+msgstr "Grátt"
 
 #: master_preset.xml:2265(item:name|preset:Grit_Bin)
 msgid "Grit Bin"
@@ -5051,7 +5051,7 @@ msgstr ""
 #: master_preset.xml:3205(combo:text|group:Water|preset:Penstock|key:material)
 #: master_preset.xml:6503(combo:text|group:Culture|preset:Artwork|key:material)
 msgid "Material"
-msgstr ""
+msgstr "Efni"
 
 #: master_preset.xml:397(list_entry:short_description|value:maternity)
 msgid "Maternity"
@@ -5448,7 +5448,7 @@ msgstr "Minnisvarði"
 
 #: master_preset.xml:3519(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "Skipalægi"
 
 #: master_preset.xml:5680(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
@@ -5599,7 +5599,7 @@ msgstr ""
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "Veggmynd"
 
 #: master_preset.xml:6308(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -6492,7 +6492,7 @@ msgstr ""
 
 #: master_preset.xml:10924(item:name|group:Clothes|preset:Outdoor)
 msgid "Outdoor"
-msgstr ""
+msgstr "Utanhúss"
 
 #: master_preset.xml:5198(check:text|group:Food+Drinks|preset:Restaurant|key:outdoor_seating)
 #: master_preset.xml:5225(check:text|group:Food+Drinks|preset:Fast_Food|key:outdoor_seating)
@@ -7605,7 +7605,7 @@ msgstr "Endurvinnslugámur"
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
 msgid "Red"
-msgstr ""
+msgstr "Rautt"
 
 #: master_preset.xml:3325(list_entry:short_description|group:Water|preset:Wetland|value:reedbed)
 msgid "Reedbed"
@@ -7613,7 +7613,7 @@ msgstr ""
 
 #: master_preset.xml:12733(item:name|group:Geography|preset:Reef)
 msgid "Reef"
-msgstr ""
+msgstr "Rif"
 
 #: master_preset.xml:9596(text:text|group:Man_Made|preset:Dolphin|key:ref)
 msgid "Ref"
@@ -8243,7 +8243,7 @@ msgstr "Myndhöggvari"
 #: master_preset.xml:6468(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "Höggmynd"
 
 #: master_preset.xml:8008(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -8876,7 +8876,7 @@ msgstr ""
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr ""
+msgstr "Stytta"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -9674,7 +9674,7 @@ msgstr ""
 
 #: master_preset.xml:12782(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "Trjáröð"
 
 #: master_preset.xml:13097(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -10011,7 +10011,7 @@ msgstr ""
 
 #: master_preset.xml:4282(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "Skoðun farartækja"
 
 #: master_preset.xml:12864(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -10357,7 +10357,7 @@ msgstr ""
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
 msgid "White"
-msgstr ""
+msgstr "Hvítt"
 
 #: master_preset.xml:1026(text:text|group:Streets|preset:Trunk|key:width)
 #: master_preset.xml:1057(text:text|group:Streets|preset:Trunk_Link|key:width)
@@ -10526,7 +10526,7 @@ msgstr ""
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
 msgid "Yellow"
-msgstr ""
+msgstr "Gult"
 
 #: master_preset.xml:10778(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10861(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -11045,7 +11045,7 @@ msgstr ""
 #: master_preset.xml:2644(combo:text|group:Barriers|preset:Stile|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr ""
+msgstr "Efni"
 
 #: master_preset.xml:19(combo:display_values|key:material)
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
@@ -11698,7 +11698,7 @@ msgstr ""
 #: master_preset.xml:478(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr ""
+msgstr "Þak"
 
 #: master_preset.xml:478(combo:display_values|key:parking)
 msgctxt "parking"
@@ -11950,7 +11950,7 @@ msgstr ""
 #: master_preset.xml:582(combo:display_values|key:location)
 msgctxt "power"
 msgid "Outdoor"
-msgstr ""
+msgstr "Utanhúss"
 
 #: master_preset.xml:582(combo:display_values|key:location)
 msgctxt "power"
@@ -11965,7 +11965,7 @@ msgstr ""
 #: master_preset.xml:582(combo:display_values|key:location)
 msgctxt "power"
 msgid "Rooftop"
-msgstr ""
+msgstr "Þak"
 
 #: master_preset.xml:10128(combo:text|preset:Power_Tower|key:design)
 msgctxt "power"
@@ -12954,7 +12954,7 @@ msgstr ""
 #: master_preset.xml:1681(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Miðlungs"
 
 #: master_preset.xml:1681(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -13255,7 +13255,7 @@ msgstr ""
 #: master_preset.xml:5779(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
 msgctxt "leisure"
 msgid "Maze"
-msgstr ""
+msgstr "Völundarhús"
 
 #: master_preset.xml:5997(check:text|group:Leisure|preset:Playground|key:playground:multi_play)
 #: master_preset.xml:6049(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
@@ -13684,7 +13684,7 @@ msgstr ""
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Advanced"
-msgstr ""
+msgstr "Nánar"
 
 #: master_preset.xml:8601(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
@@ -13694,27 +13694,27 @@ msgstr "Erfiðleikastig"
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Easy"
-msgstr ""
+msgstr "Auðvelt"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Expert"
-msgstr ""
+msgstr "Sérþekking"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Freeride"
-msgstr ""
+msgstr "Frjáls leið"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Intermediate"
-msgstr ""
+msgstr "Miðlungs"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Novice"
-msgstr ""
+msgstr "Byrjendur"
 
 #: master_preset.xml:8603(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -14029,7 +14029,7 @@ msgstr ""
 #: master_preset.xml:10395(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr ""
+msgstr "Stytta"
 
 #: master_preset.xml:10395(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -14260,7 +14260,7 @@ msgstr ""
 #: master_preset.xml:13371(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Port"
-msgstr ""
+msgstr "Höfn"
 
 #: master_preset.xml:13371(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

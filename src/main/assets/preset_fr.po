@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-09 21:09+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-11-13 08:37+0000\n"
+"Last-Translator: Jérôme C\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2980,7 +2980,7 @@ msgstr ""
 
 #: master_preset.xml:7370(item:name|group:Emergency|preset:Emergency_Access_Point)
 msgid "Emergency Access Point"
-msgstr ""
+msgstr "Point d'accès d'urgence"
 
 #: master_preset.xml:7335(item:name|group:Emergency|preset:Emergency_Phone)
 msgid "Emergency Phone"
@@ -2988,11 +2988,11 @@ msgstr "Téléphone de secours"
 
 #: master_preset.xml:7383(text:text|group:Emergency|preset:Emergency_Access_Point|key:emergency_telephone_code)
 msgid "Emergency Phone Number"
-msgstr ""
+msgstr "Numéro de téléphone d'urgence"
 
 #: master_preset.xml:1381(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Emergency access"
-msgstr ""
+msgstr "Accès d'urgence"
 
 #: master_preset.xml:1420(label:text|group:Streets|preset:Escape)
 msgid ""
@@ -3006,7 +3006,7 @@ msgstr "Véhicules d'urgence"
 
 #: master_preset.xml:14911(item:name|group:Offices|preset:Employment_agency)
 msgid "Employment agency"
-msgstr ""
+msgstr "Agence pour l'emploi"
 
 #: master_preset.xml:5658(list_entry:display_value|group:Leisure|preset:Animals|value:emu)
 msgid "Emu"
@@ -3678,7 +3678,7 @@ msgstr "Girocard"
 
 #: master_preset.xml:1927(item:name|group:Waypoints|preset:Give_Way)
 msgid "Give Way"
-msgstr ""
+msgstr "Cédez-le-passage"
 
 #: master_preset.xml:12614(item:name|group:Geography|preset:Glacier)
 msgid "Glacier"
@@ -3823,7 +3823,7 @@ msgstr ""
 
 #: master_preset.xml:5169(check:text|group:Accommodation|preset:Campsite|key:group_only)
 msgid "Group only access"
-msgstr ""
+msgstr "Accès réservé aux groupes"
 
 #: master_preset.xml:3156(item:name|group:Water|preset:Groyne)
 msgid "Groyne"
@@ -6305,15 +6305,15 @@ msgstr "Uniquement"
 
 #: master_preset.xml:13818(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only left turn"
-msgstr ""
+msgstr "Obligation de tourner à gauche"
 
 #: master_preset.xml:13818(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only right turn"
-msgstr ""
+msgstr "Obligation de tourner à droite"
 
 #: master_preset.xml:13818(combo:display_values|group:Relations|preset:Turn_Restriction|key:restriction)
 msgid "Only straight on"
-msgstr ""
+msgstr "Obligation d'aller tout droit"
 
 #: master_preset.xml:2728(check:text|group:Passageways|preset:Arcade|key:arcade:left)
 #: master_preset.xml:2745(check:text|group:Passageways|preset:Colonnade|key:colonnade:left)
