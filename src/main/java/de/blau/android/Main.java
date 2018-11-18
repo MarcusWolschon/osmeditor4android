@@ -2784,6 +2784,8 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "authURl " + authUrl);
         synchronized (oAuthWebViewLock) {
             oAuthWebView = new WebView(this);
+            // setting our own user agent seems to make google happy
+            oAuthWebView.getSettings().setUserAgentString(App.getUserAgent());
             mapLayout.addView(oAuthWebView);
             oAuthWebView.getSettings().setJavaScriptEnabled(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -2804,9 +2806,7 @@ public class Main extends FullScreenAppCompatActivity
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    if (url.contains("google.com")) {
-                        Snack.toastTopError(Main.this, R.string.toast_oauth_login_with_google_not_possible);
-                    } else if (!url.contains("vespucci")) {
+                    if (!url.contains("vespucci")) {
                         // load in in this webview
                         view.loadUrl(url);
                     } else {
