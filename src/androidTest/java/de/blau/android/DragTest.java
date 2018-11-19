@@ -18,11 +18,13 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.ApiTest;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.GeoMath;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -72,24 +74,35 @@ public class DragTest {
         logic.deselectAll();
         TestUtils.zoomToLevel(main, 18);
     }
-    
+
     /**
      * Drag the screen a bit
      */
     @Test
     public void drag() {
         map.getDataLayer().setVisible(true);
-        TestUtils.zoomToLevel(main, 18);
+        try {
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(47.390339D, 8.38782D, 50D, true);
+            App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
+            main.getMap().invalidate();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        } catch (OsmException e) {
+            Assert.fail(e.getMessage());
+        }
+
         BoundingBox before = new BoundingBox(map.getViewBox());
         TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, false);
         BoundingBox after = new BoundingBox(map.getViewBox());
- 
+
         double diffLon = 8.38782 - 8.388;
         double diffLat = 47.390339 - 47.391;
-        
-        Assert.assertEquals(diffLon, (after.getLeft() - before.getLeft())/1E7D, 0.00001);
-        Assert.assertEquals(diffLon, (after.getRight() - before.getRight())/1E7D, 0.00001);
-        Assert.assertEquals(diffLat, (after.getBottom() - before.getBottom())/1E7D, 0.00001);
-        Assert.assertEquals(diffLat, (after.getTop() - before.getTop())/1E7D, 0.00001);
+
+        Assert.assertEquals(diffLon, (after.getLeft() - before.getLeft()) / 1E7D, 0.00001);
+        Assert.assertEquals(diffLon, (after.getRight() - before.getRight()) / 1E7D, 0.00001);
+        Assert.assertEquals(diffLat, (after.getBottom() - before.getBottom()) / 1E7D, 0.00001);
+        Assert.assertEquals(diffLat, (after.getTop() - before.getTop()) / 1E7D, 0.00001);
     }
 }

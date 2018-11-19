@@ -1,6 +1,7 @@
 package de.blau.android.tasks;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -25,16 +26,23 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
+import android.support.test.uiautomator.Until;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.GeoMath;
 import okhttp3.HttpUrl;
 
 @RunWith(AndroidJUnit4.class)
@@ -46,6 +54,7 @@ public class OsmoseTest {
     AdvancedPrefDatabase prefDB     = null;
     Main                 main       = null;
     Task                 t          = null;
+    UiDevice             device     = null;
 
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
@@ -56,6 +65,7 @@ public class OsmoseTest {
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
@@ -225,5 +235,34 @@ public class OsmoseTest {
         }
         Assert.assertFalse(b.hasBeenChanged());
         Assert.assertFalse(n.hasBeenChanged());
+    }
+
+    /**
+     * Close a MapRoulette task via dialog
+     */
+    @Test
+    public void osmoseDialog() {
+        osmoseDownload();
+        OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
+        TestUtils.unlock();
+        try {
+            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D, true);
+            App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
+            main.getMap().invalidate();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+            Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));
+            UiObject saveButton = device.findObject(new UiSelector().resourceId("android:id/button1"));
+            Assert.assertTrue(saveButton.exists());
+            TestUtils.clickButton("de.blau.android:id/openstreetbug_state", true);
+            TestUtils.clickText(device, false, "Closed", true);
+            Assert.assertTrue(saveButton.isEnabled());
+            TestUtils.clickText(device, false, "Save", true);
+            Assert.assertTrue(b.isClosed());
+        } catch (UiObjectNotFoundException | OsmException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }
