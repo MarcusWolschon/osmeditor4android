@@ -239,7 +239,7 @@ public class ConfirmUpload extends DialogFragment {
     }
 
     /**
-     * Add an empty entry so that it is simply to add new text
+     * Add an empty entry so that it is simply to add new text (if empty or only have an empty entry don't add anything)
      * 
      * @param values the List of values
      */
@@ -247,7 +247,9 @@ public class ConfirmUpload extends DialogFragment {
         if (values.contains("")) {
             values.remove("");
         }
-        values.add(0, "");
+        if (!values.isEmpty()) {
+            values.add(0, "");
+        }
     }
 
     /**
