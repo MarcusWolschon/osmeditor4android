@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -30,7 +32,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
+import android.widget.EditText;
 import de.blau.android.App;
 import de.blau.android.ErrorCodes;
 import de.blau.android.Main;
@@ -41,6 +45,7 @@ import de.blau.android.dialogs.ErrorAlert;
 import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
@@ -53,6 +58,8 @@ public class TransferTasks {
 
     private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 
+    private static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
+    
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 
@@ -115,6 +122,19 @@ public class TransferTasks {
                 if (osmoseResult != null) {
                     result.addAll(osmoseResult);
                 }
+                Collection<MapRouletteTask> mapRouletteResult = null;
+                if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
+                    mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, 1000);
+                }
+                if (mapRouletteResult != null) {
+                    result.addAll(mapRouletteResult);
+                    Map<Long, MapRouletteChallenge> challenges = bugs.getChallenges();
+                    for (Entry<Long, MapRouletteChallenge> entry : challenges.entrySet()) {
+                        if (entry.getValue() == null) {
+                            challenges.put(entry.getKey(), MapRouletteServer.getChallenge(context, entry.getKey()));
+                        }
+                    }
+                }
                 return result;
             }
 
@@ -143,7 +163,7 @@ public class TransferTasks {
                                 IssueAlert.alert(context, prefs, b);
                             }
                         }
-                    } else {                       
+                    } else {
                         if (existing != null && b.getLastUpdate().getTime() > existing.getLastUpdate().getTime()) {
                             // downloaded task is newer
                             if (existing.hasBeenChanged()) { // conflict, show message and abort
@@ -178,26 +198,18 @@ public class TransferTasks {
             // check if we need to oAuth first
             for (Task b : queryResult) {
                 if (b.hasBeenChanged() && b instanceof Note) {
-                    if (server.isLoginSet()) {
-                        if (server.needOAuthHandshake()) {
-                            main.oAuthHandshake(server, new PostAsyncActionHandler() {
-                                @Override
-                                public void onSuccess() {
-                                    Preferences prefs = new Preferences(main);
-                                    upload(main, prefs.getServer(), postUploadHandler);
-                                }
-
-                                @Override
-                                public void onError() {
-                                }
-                            });
-                            if (server.getOAuth()) { // if still set
-                                Snack.barError(main, R.string.toast_oauth);
-                            }
-                            return;
+                    PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                        @Override
+                        public void onSuccess() {
+                            Preferences prefs = new Preferences(main);
+                            upload(main, prefs.getServer(), postUploadHandler);
                         }
-                    } else {
-                        ErrorAlert.showDialog(main, ErrorCodes.NO_LOGIN_DATA);
+
+                        @Override
+                        public void onError() {
+                        }
+                    };
+                    if (!Server.checkOsmAuthentication(main, server, restartAction)) {
                         return;
                     }
                 }
@@ -226,6 +238,8 @@ public class TransferTasks {
                                 }
                             } else if (b instanceof OsmoseBug) {
                                 uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
+                            } else if (b instanceof MapRouletteTask) {
+                                uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
                             }
                         }
                     }
@@ -253,18 +267,18 @@ public class TransferTasks {
     }
 
     /**
-     * Upload single bug state
+     * Update single bug state
      * 
      * @param context the Android context
-     * @param b osmose bug to upload
+     * @param b osmose bug to update
      * @param quiet don't display messages if true
-     * @param postUploadHandler if not null run this handler after upload
+     * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean uploadOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
+    public static boolean updateOsmoseBug(@NonNull final Context context, @NonNull final OsmoseBug b, final boolean quiet,
             @Nullable final PostAsyncActionHandler postUploadHandler) {
-        Log.d(DEBUG_TAG, "uploadOsmoseBug");
+        Log.d(DEBUG_TAG, "updateOsmoseBug");
         AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... params) {
@@ -298,7 +312,7 @@ public class TransferTasks {
         try {
             return a.get();
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
-            Log.e(DEBUG_TAG, "uploadOsmoseBug got " + e.getMessage());
+            Log.e(DEBUG_TAG, "updateOsmoseBug got " + e.getMessage());
             a.cancel(true);
         }
         return false;
@@ -321,33 +335,18 @@ public class TransferTasks {
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
         if (server != null) {
-            if (server.isLoginSet()) {
-                if (server.needOAuthHandshake()) {
-                    if (activity instanceof Main) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((Main) activity).oAuthHandshake(server, new PostAsyncActionHandler() {
-                                    @Override
-                                    public void onSuccess() {
-                                        Preferences prefs = new Preferences(activity);
-                                        uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-                                    }
-
-                                    @Override
-                                    public void onError() {
-                                    }
-                                });                              
-                            }
-                        });                       
-                    }
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(activity, R.string.toast_oauth);
-                    }
-                    return false;
+            PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                @Override
+                public void onSuccess() {
+                    Preferences prefs = new Preferences(activity); // new to re-get this post authentication
+                    uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
                 }
-            } else {
-                ErrorAlert.showDialog(activity, ErrorCodes.NO_LOGIN_DATA);
+
+                @Override
+                public void onError() {
+                }
+            };
+            if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
                 return false;
             }
 
@@ -424,6 +423,103 @@ public class TransferTasks {
                 ct.cancel(true);
                 return false;
             }
+        }
+        return false;
+    }
+
+    /**
+     * Update single bug state
+     * 
+     * @param activity the calling Activity
+     * @param server TODO
+     * @param task MapRouletteTask to update
+     * @param quiet don't display messages if true
+     * @param postUploadHandler if not null run this handler after update
+     * @return true if successful
+     */
+    @SuppressLint("InlinedApi")
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, Server server, @NonNull final MapRouletteTask task,
+            final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
+        Log.d(DEBUG_TAG, "updateMapRouletteTask");
+        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+
+            @Override
+            public void onSuccess() {
+                updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);               
+            }
+
+            @Override
+            public void onError() {
+            }
+        };
+        if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
+            return false;
+        }
+        String apiKey = server.getUserPreferences().get(MAPROULETTE_APIKEY_V2);
+        if (apiKey == null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AppCompatDialog dialog = TextLineDialog.get(activity, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
+                        @Override
+                        public void processLine(EditText input) {
+                            if (input != null && input.length() > 0) {
+                                final String newApiKey = input.getText().toString();
+                                new AsyncTask<Void, Void, Void>() {
+                                    @Override
+                                    protected Void doInBackground(Void... params) {
+                                        if (server.setUserPreference(MAPROULETTE_APIKEY_V2, newApiKey)) {
+                                            updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);
+                                        } else {
+                                            Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
+                                        }
+                                        return null;
+                                    }
+                                }.execute();
+                            }
+                        }
+                    });
+                    dialog.show();
+                }
+            });
+            return false;
+        }
+
+        AsyncTask<Void, Void, Boolean> a = new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                return MapRouletteServer.changeState(activity, apiKey, task);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean uploadSucceded) {
+                if (uploadSucceded) {
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onSuccess();
+                    }
+                    if (!quiet) {
+                        Snack.toastTopInfo(activity, R.string.openstreetbug_commit_ok);
+                    }
+                } else {
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onError();
+                    }
+                    if (!quiet) {
+                        Snack.toastTopError(activity, R.string.openstreetbug_commit_fail);
+                    }
+                }
+            }
+        };
+        if (Build.VERSION.SDK_INT >= 11) {
+            a.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            a.execute();
+        }
+        try {
+            return a.get();
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
+            Log.e(DEBUG_TAG, "updateMapRouletteTask got " + e.getMessage());
+            a.cancel(true);
         }
         return false;
     }

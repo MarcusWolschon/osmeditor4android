@@ -5,6 +5,10 @@ import java.util.Date;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;
 
@@ -19,6 +23,17 @@ public abstract class Task implements Serializable, BoundedObject {
      */
     private static final long serialVersionUID = 7L;
 
+    class BitmapWithOffset {
+        Bitmap icon = null;
+        float  w2   = 0f;
+        float  h2   = 0f;
+    }
+
+    protected static BitmapWithOffset cachedIconClosed;
+    protected static BitmapWithOffset cachedIconChangedClosed;
+    protected static BitmapWithOffset cachedIconOpen;
+    protected static BitmapWithOffset cachedIconChanged;
+
     /** OSB Bug ID. */
     long id;
     /** Latitude *1E7. */
@@ -31,7 +46,7 @@ public abstract class Task implements Serializable, BoundedObject {
      * Enums for modes.
      */
     public enum State {
-        OPEN, CLOSED, FALSE_POSITIVE
+        OPEN, CLOSED, FALSE_POSITIVE, SKIPPED, DELETED, ALREADY_FIXED, TOO_HARD
     }
 
     private State state;
@@ -87,7 +102,7 @@ public abstract class Task implements Serializable, BoundedObject {
      * @return true if the bug is closed, false if it's still open.
      */
     public boolean isClosed() {
-        return state == State.CLOSED || state == State.FALSE_POSITIVE;
+        return state == State.CLOSED || state == State.FALSE_POSITIVE || state == State.ALREADY_FIXED || state == State.DELETED;
     }
 
     /**
@@ -203,4 +218,75 @@ public abstract class Task implements Serializable, BoundedObject {
      */
     @NonNull
     public abstract String bugFilterKey();
+
+    /**
+     * Icon drawing related stuff
+     */
+    /**
+     * Draw an icon at the specified location on hte canvas
+     * 
+     * @param context Android Context
+     * @param cache the cache for the icon
+     * @param c the Canvas we are drawing on
+     * @param icon the resource id for the icon
+     * @param x x position on the canvas
+     * @param y y position on the canvas
+     */
+    void drawIcon(Context context, BitmapWithOffset cache, Canvas c, int icon, float x, float y) {
+        if (cache == null) {
+            cache = new BitmapWithOffset();
+            cache.icon = BitmapFactory.decodeResource(context.getResources(), icon);
+            cache.w2 = cache.icon.getWidth() / 2f;
+            cache.h2 = cache.icon.getHeight() / 2f;
+        }
+        c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
+    }
+
+    /**
+     * Draw an icon for the open state
+     * 
+     * @param context Android Context
+     * @param c the Canvas we are drawing on
+     * @param x x position on the canvas
+     * @param y y position on the canvas
+     */
+    public void drawBitmapOpen(Context context, Canvas c, float x, float y) {
+        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y);
+    }
+
+    /**
+     * Draw an icon for when the Task has been changed and not uploaded
+     * 
+     * @param context Android Context
+     * @param c the Canvas we are drawing on
+     * @param x x position on the canvas
+     * @param y y position on the canvas
+     */
+    public void drawBitmapChanged(Context context, Canvas c, float x, float y) {
+        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y);
+    }
+
+    /**
+     * Draw an icon for when the Task has been closed but not uploaded
+     * 
+     * @param context Android Context
+     * @param c the Canvas we are drawing on
+     * @param x x position on the canvas
+     * @param y y position on the canvas
+     */
+    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y) {
+        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y);
+    }
+
+    /**
+     * Draw an icon for when the Task has been closed
+     * 
+     * @param context Android Context
+     * @param c the Canvas we are drawing on
+     * @param x x position on the canvas
+     * @param y y position on the canvas
+     */
+    public void drawBitmapClosed(Context context, Canvas c, float x, float y) {
+        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y);
+    }
 }

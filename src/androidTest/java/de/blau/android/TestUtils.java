@@ -187,6 +187,24 @@ public class TestUtils {
     }
 
     /**
+     * Click at a coordinate and wait for a new window
+     * 
+     * @param device UiDevice instance
+     * @param map the current Map object
+     * @param lonE7 WGS84*1E7 longitude
+     * @param latE7 WGS84*1E7 latitude
+     * @return true if sucessful
+     */
+    public static boolean clickAtCoordinatesWaitNewWindow(@NonNull UiDevice device, @NonNull Map map, int lon, int lat) {
+        return device.performActionAndWait(new Runnable() {
+            @Override
+            public void run() {
+                TestUtils.clickAtCoordinates(map, lon, lat);
+            }
+        }, Until.newWindow(), 5000);
+    }
+
+    /**
      * Single click at a WGS84 location
      * 
      * @param map the current Map object
@@ -407,7 +425,7 @@ public class TestUtils {
         int currentLevel = map.getZoomLevel();
         while (level != currentLevel && count < 20) {
             currentLevel = map.getZoomLevel();
-            Log.e(DEBUG_TAG,"Zoom level " + currentLevel);
+            Log.e(DEBUG_TAG, "Zoom level " + currentLevel);
             if (currentLevel < level) {
                 if (level - currentLevel > 3) {
                     pinchOut();
@@ -738,7 +756,7 @@ public class TestUtils {
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                main.getEasyEditManager().finish();               
+                main.getEasyEditManager().finish();
             }
         });
     }

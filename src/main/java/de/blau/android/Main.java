@@ -56,6 +56,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.PopupMenu;
@@ -84,6 +85,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -104,6 +106,7 @@ import de.blau.android.dialogs.NewVersion;
 import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
+import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.exception.OsmException;
@@ -206,8 +209,6 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    private static final double DEFAULT_BOUNDING_BOX_RADIUS = 4000000.0D;
-
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 
     /**
@@ -243,7 +244,9 @@ public class Main extends FullScreenAppCompatActivity
 
     /** Objects to handle showing device orientation. */
     private SensorManager sensorManager;
+    @SuppressWarnings("unused")
     private Sensor        magnetometer;
+    @SuppressWarnings("unused")
     private Sensor        accelerometer;
     private Sensor        rotation;
 
@@ -253,7 +256,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     private final SensorEventListener sensorListener = new SensorEventListener() {
         float   lastAzimut = -9999;
+        @SuppressWarnings("unused")
         float[] acceleration;
+        @SuppressWarnings("unused")
         float[] geomagnetic;
         float[] truncatedRotationVector;
 
@@ -928,7 +933,7 @@ public class Main extends FullScreenAppCompatActivity
                                                           // for now
                                 downLoadBugs(bbox);
                             }
-                        } 
+                        }
                         logic.getViewBox().setBorders(getMap(), bbox);
                         map.invalidate();
                     } catch (OsmException e) {
@@ -1703,30 +1708,22 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_upload:
-            if (server != null && server.isLoginSet()) {
-                if (server.needOAuthHandshake()) {
-                    oAuthHandshake(server, new PostAsyncActionHandler() {
+            if (server != null) {
+                PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                    private static final long serialVersionUID = 1L;
 
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            GpxUpload.showDialog(Main.this);
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    });
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(this, R.string.toast_oauth);
-                        return true;
+                    @Override
+                    public void onSuccess() {
+                        GpxUpload.showDialog(Main.this);
                     }
+
+                    @Override
+                    public void onError() {
+                    }
+                };
+                if (Server.checkOsmAuthentication(this, server, restartAction)) {
+                    GpxUpload.showDialog(this);
                 }
-                GpxUpload.showDialog(this);
-                // performTrackUpload("Test","Test",Visibility.PUBLIC);
-            } else {
-                ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
             }
             return true;
 
@@ -2069,6 +2066,26 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
+            return true;
+        case R.id.menu_tools_set_maproulette_apikey:
+            final AppCompatDialog dialog = TextLineDialog.get(this, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
+                @Override
+                public void processLine(EditText input) {
+                    if (input != null && input.length() > 0) {
+                        final String newApiKey = input.getText().toString();
+                        new AsyncTask<Void, Void, Void>() {
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                if (!server.setUserPreference("maproulette_apikey_v2", newApiKey)) {
+                                    Snack.toastTopError(Main.this, R.string.maproulette_task_apikey_not_set);
+                                }
+                                return null;
+                            }
+                        }.execute();
+                    }
+                }
+            });
+            dialog.show();
             return true;
         case R.id.tag_menu_js_console:
             Main.showJsConsole(this);
@@ -2630,34 +2647,25 @@ public class Main extends FullScreenAppCompatActivity
      * Check if there are changes present and then show the upload dialog, getting authorisation if necessary
      */
     public void confirmUpload() {
-        final Server server = prefs.getServer();
+        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
 
-        if (server != null && server.isLoginSet()) {
-            if (App.getLogic().hasChanges()) {
-                if (server.needOAuthHandshake()) {
-                    oAuthHandshake(server, new PostAsyncActionHandler() {
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void onSuccess() {
-                            ConfirmUpload.showDialog(Main.this);
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    });
-                    if (server.getOAuth()) { // if still set
-                        Snack.barError(this, R.string.toast_oauth);
-                    }
-                    return;
-                }
+            @Override
+            public void onSuccess() {
                 ConfirmUpload.showDialog(Main.this);
-            } else {
-                Snack.barInfo(this, R.string.toast_no_changes);
+            }
+
+            @Override
+            public void onError() {
+            }
+        };
+        final Server server = prefs.getServer();
+        if (App.getLogic().hasChanges()) {
+            if (Server.checkOsmAuthentication(this, server, restartAction)) {
+                ConfirmUpload.showDialog(this);
             }
         } else {
-            ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
+            Snack.barInfo(this, R.string.toast_no_changes);
         }
     }
 

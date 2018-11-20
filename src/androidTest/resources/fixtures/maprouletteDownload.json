@@ -1,0 +1,192 @@
+[
+    {
+        "id": 5875344,
+        "owner": -1,
+        "ownerName": "",
+        "title": "1686442203",
+        "parentId": 3241,
+        "parentName": "gfddsf",
+        "point": {
+            "lat": 47.4068402,
+            "lng": 8.388038
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2237721,
+        "owner": -1,
+        "ownerName": "",
+        "title": "3984007758",
+        "parentId": 2523,
+        "parentName": "Missing addresses police stations Switzerland",
+        "point": {
+            "lat": 47.4163345,
+            "lng": 8.4396863
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2296485,
+        "owner": -1,
+        "ownerName": "",
+        "title": "6fdeb5ca-696f-4c66-9939-c3830ba6d6c7",
+        "parentId": 2611,
+        "parentName": "Same tags on multipolygon member ways (Switzerland)",
+        "point": {
+            "lat": 47.397974360329,
+            "lng": 8.46211880066486
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2296410,
+        "owner": -1,
+        "ownerName": "",
+        "title": "52bf2819-30c3-469c-aa04-4471d8b64794",
+        "parentId": 2611,
+        "parentName": "Same tags on multipolygon member ways (Switzerland)",
+        "point": {
+            "lat": 47.3596680519037,
+            "lng": 8.45534306525491
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 5875285,
+        "owner": -1,
+        "ownerName": "",
+        "title": "290790246",
+        "parentId": 3241,
+        "parentName": "gfddsf",
+        "point": {
+            "lat": 47.406981,
+            "lng": 8.3879292
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2237723,
+        "owner": -1,
+        "ownerName": "",
+        "title": "2428852603",
+        "parentId": 2523,
+        "parentName": "Missing addresses police stations Switzerland",
+        "point": {
+            "lat": 47.4134317,
+            "lng": 8.4499335
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2237663,
+        "owner": -1,
+        "ownerName": "",
+        "title": "532251110",
+        "parentId": 2523,
+        "parentName": "Missing addresses police stations Switzerland",
+        "point": {
+            "lat": 47.3540278,
+            "lng": 8.4376722
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2295998,
+        "owner": -1,
+        "ownerName": "",
+        "title": "f1e9e73e-2f6a-4364-89d0-37d7851c600d",
+        "parentId": 2611,
+        "parentName": "Same tags on multipolygon member ways (Switzerland)",
+        "point": {
+            "lat": 47.3991652035572,
+            "lng": 8.45201699348682
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 2237667,
+        "owner": -1,
+        "ownerName": "",
+        "title": "2279236752",
+        "parentId": 2523,
+        "parentName": "Missing addresses police stations Switzerland",
+        "point": {
+            "lat": 47.3960162,
+            "lng": 8.4470273
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    },
+    {
+        "id": 356578,
+        "owner": -1,
+        "ownerName": "",
+        "title": "way/306700442",
+        "parentId": 249,
+        "parentName": "Rivers going up the mountain (part 2)",
+        "point": {
+            "lat": 47.3581126725492,
+            "lng": 8.38056538563642
+        },
+        "bounding": "",
+        "blurb": "",
+        "modified": "2018-11-13T19:54:22.721Z",
+        "difficulty": -1,
+        "type": 2,
+        "status": 0,
+        "priority": 0
+    }
+]

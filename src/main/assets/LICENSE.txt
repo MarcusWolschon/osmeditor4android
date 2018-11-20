@@ -61,6 +61,8 @@ The GeoJson and Turf classes are Copyright (c) 2016 Mapbox licensed on MIT terms
 
 The google gson library is licensed under the Apache License, version 2.
 
+Roulette Wheel by Bakunetsu Kaito from the Noun Project
+
 The full license texts are also available online:
   http://www.apache.org/licenses/LICENSE-2.0
   http://www.gnu.org/licenses/gpl-3.0.txt

@@ -106,7 +106,7 @@ public class IntentsTest {
         mockServerNotes.enqueue("notesDownload1");
         mockServerOsmose.enqueue("osmoseDownload");
         Preferences prefs = new Preferences(main);
-        prefDB.selectAPI("Test"); // this seems to be necessary to fource reload of server object
+        prefDB.selectAPI("Test"); // this seems to be necessary to force reload of server object
         System.out.println("Server " + prefs.getServer().toString());
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385?z=15");

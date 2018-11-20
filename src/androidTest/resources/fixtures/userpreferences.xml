@@ -1,0 +1,18 @@
+<osm
+    version="0.6"
+    generator="OpenStreetMap server"
+    copyright="OpenStreetMap and contributors"
+    attribution="http://www.openstreetmap.org/copyright"
+    license="http://opendatacommons.org/licenses/odbl/1-0/">
+    <preferences>
+        <preference
+            k="diary.default_language"
+            v="en" />
+        <preference
+            k="gps.trace.visibility"
+            v="public" />
+        <preference
+            k="maproulette_apikey_v2"
+            v="1234567890" />
+    </preferences>
+</osm>

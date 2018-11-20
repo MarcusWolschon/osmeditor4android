@@ -101,10 +101,16 @@
     <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
     <string name="bug_element_1">%1$s (not downloaded) #%2$d</string>
     <string name="bug_element_2">%1$s %2$s</string>
-    <!--  -->
+    <string name="maproulette_task_title">MapRoulette Task</string>
+    <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+    <string name="maproulette_task_explanations">Explanations</string>
+    <string name="maproulette_task_set_apikey">Set MapRoulette API key</string>
+    <string name="maproulette_task_apikey_not_set">Unable to save MapRoulette API key</string>
+    <!-- Unsaved data dialog -->
     <string name="unsaved_data_title">Caution!</string>
     <string name="unsaved_data_message">You have unsaved changes that will be discarded if you proceed.</string>
     <string name="unsaved_data_proceed">Discard &amp; proceed</string>
+    <!-- Imagery offset dialog -->
     <string name="imagery_offset_title">Imagery Offset</string>
     <string name="imagery_offset_description">Description</string>
     <string name="imagery_offset_not_found">No offsets found in 10km radius!</string>
@@ -896,6 +902,15 @@
     <string-array name="note_state">
         <item>Open</item>
         <item>Closed</item>
+    </string-array>
+    <string-array name="maproulette_state">
+        <item>Open</item>
+        <item>Closed</item>
+        <item>False positive</item>
+        <item>Skipped</item> 
+        <item>Deleted</item>
+        <item>Already fixed</item>
+        <item>Too hard</item>
     </string-array>
     <string-array name="followGPSbutton_entries">
         <item>Left</item>

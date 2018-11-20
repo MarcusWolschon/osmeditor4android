@@ -524,8 +524,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         /**
          * used for storing which end of a way was used for what
          */
-        volatile Node up   = null;
-        volatile Node down = null;
+        transient Node up   = null;
+        transient Node down = null;
 
         private RelationMemberDescription rmd;
 

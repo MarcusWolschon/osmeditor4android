@@ -15,7 +15,8 @@ public interface Urls {
     String DEFAULT_NOMINATIM_SERVER = "https://nominatim.openstreetmap.org/";
     String DEFAULT_PHOTON_SERVER    = "https://photon.komoot.de/";
 
-    String DEFAULT_OSMOSE_SERVER = "https://osmose.openstreetmap.fr/";
+    String DEFAULT_OSMOSE_SERVER      = "https://osmose.openstreetmap.fr/";
+    String DEFAULT_MAPROULETTE_SERVER = "https://maproulette.org/";
 
     String DEFAULT_OFFSET_SERVER = "http://offsets.textual.ru/";
 

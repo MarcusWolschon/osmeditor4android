@@ -39,10 +39,10 @@ public final class OsmoseBug extends Bug implements Serializable {
     private String username;
 
     /**
-     * Parse an InputStream containing bugs in JSON format
+     * Parse an InputStream containing Osmose task data
      * 
-     * @param is the InputStream
-     * @return a List of OsmoseBugs
+     * @param is the InputString
+     * @return a List of OsmoseBug
      * @throws IOException
      * @throws NumberFormatException
      */

@@ -263,7 +263,7 @@ afterEvaluate{ // this task needs to be created after the uninstall tasks
                 type: Exec) {
             group = 'vespucci'
             description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
-            def toRun = "de.blau.android.gpx.GpxTest#recordSaveAndImportGpx"
+            def toRun = "de.blau.android.tasks.OsmoseTest#osmoseDialog"
             // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
             commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
@@ -383,7 +383,7 @@ def coverageSourceDirs = [
         'src/main/java'
 ]
 
-task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
+task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") {
     group = "Verification"
 
     description = "Generate Jacoco coverage reports"
@@ -399,7 +399,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
 
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
-    executionData = files('build/jacoco/testDebugUnitTest.exec')
+    executionData = files('build/jacoco/testCurrentDebugUnitTest.exec')
 
     reports {
         xml.enabled = true

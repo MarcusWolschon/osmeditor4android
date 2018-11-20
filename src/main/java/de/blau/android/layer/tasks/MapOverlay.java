@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,23 +30,8 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface {
 
-    /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
-    private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
-
     private static final String DEBUG_TAG = "tasks";
 
-    private Bitmap  cachedIconClosed;
-    private float   w2closed        = 0f;
-    private float   h2closed        = 0f;
-    private Bitmap  cachedIconChangedClosed;
-    private float   w2changedClosed = 0f;
-    private float   h2changedClosed = 0f;
-    private Bitmap  cachedIconOpen;
-    private float   w2open          = 0f;
-    private float   h2open          = 0f;
-    private Bitmap  cachedIconChanged;
-    private float   w2changed       = 0f;
-    private float   h2changed       = 0f;
     private boolean enabled         = false;
 
     /** Map this is an overlay of. */
@@ -97,33 +80,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
 
                     if (t.isClosed() && t.hasBeenChanged()) {
-                        if (cachedIconChangedClosed == null) {
-                            cachedIconChangedClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed_closed);
-                            w2changedClosed = cachedIconChangedClosed.getWidth() / 2f;
-                            h2changedClosed = cachedIconChangedClosed.getHeight() / 2f;
-                        }
-                        c.drawBitmap(cachedIconChangedClosed, x - w2changedClosed, y - h2changedClosed, null);
+                        t.drawBitmapChangedClosed(map.getContext(), c, x, y);
                     } else if (t.isClosed()) {
-                        if (cachedIconClosed == null) {
-                            cachedIconClosed = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_closed);
-                            w2closed = cachedIconClosed.getWidth() / 2f;
-                            h2closed = cachedIconClosed.getHeight() / 2f;
-                        }
-                        c.drawBitmap(cachedIconClosed, x - w2closed, y - h2closed, null);
+                        t.drawBitmapClosed(map.getContext(), c, x, y);
                     } else if (t.isNew() || t.hasBeenChanged()) {
-                        if (cachedIconChanged == null) {
-                            cachedIconChanged = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_changed);
-                            w2changed = cachedIconChanged.getWidth() / 2f;
-                            h2changed = cachedIconChanged.getHeight() / 2f;
-                        }
-                        c.drawBitmap(cachedIconChanged, x - w2changed, y - h2changed, null);
-                    } else {
-                        if (cachedIconOpen == null) {
-                            cachedIconOpen = BitmapFactory.decodeResource(map.getContext().getResources(), R.drawable.bug_open);
-                            w2open = cachedIconOpen.getWidth() / 2f;
-                            h2open = cachedIconOpen.getHeight() / 2f;
-                        }
-                        c.drawBitmap(cachedIconOpen, x - w2open, y - h2open, null);
+                        t.drawBitmapChanged(map.getContext(), c, x, y);
+                    } else {                        
+                        t.drawBitmapOpen(map.getContext(), c, x, y);
                     }
                 }
             }
