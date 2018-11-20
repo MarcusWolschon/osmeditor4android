@@ -913,12 +913,18 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         synchronized (geoDataLock) {
             if (geoData != null) {
-                Log.d(DEBUG_TAG,
-                        "got position from geo: url " + geoData.getLat() + "/" + geoData.getLon() + " storage dirty is " + App.getDelegator().isDirty());
+                final double lon = geoData.getLon();
+                final double lat = geoData.getLat();
+                final int lonE7 = geoData.getLonE7();
+                final int latE7 = geoData.getLatE7();
+                final boolean hasZoom = geoData.hasZoom();
+                final int zoom = geoData.getZoom();
+                geoData = null; // zap so that we don't re-download
+                Log.d(DEBUG_TAG, "got position from geo: url " + geoData + " storage dirty is " + App.getDelegator().isDirty());
                 if (prefs.getDownloadRadius() != 0) { // download
                     BoundingBox bbox;
                     try {
-                        bbox = GeoMath.createBoundingBoxForCoordinates(geoData.getLat(), geoData.getLon(), prefs.getDownloadRadius(), true);
+                        bbox = GeoMath.createBoundingBoxForCoordinates(lat, lon, prefs.getDownloadRadius(), true);
                         List<BoundingBox> bbList = new ArrayList<>(App.getDelegator().getBoundingBoxes());
                         List<BoundingBox> bboxes = null;
                         if (App.getDelegator().isEmpty()) {
@@ -927,24 +933,43 @@ public class Main extends FullScreenAppCompatActivity
                         } else {
                             bboxes = BoundingBox.newBoxes(bbList, bbox);
                         }
+
+                        PostAsyncActionHandler handler = new PostAsyncActionHandler() {
+                            @Override
+                            public void onSuccess() {
+                                if (hasZoom) {
+                                    getMap().getViewBox().setZoom(getMap(), zoom);
+                                    getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+                                } else {
+                                    logic.getViewBox().setBorders(getMap(), bbox);
+                                }
+                                map.invalidate();
+                            }
+
+                            @Override
+                            public void onError() {
+                            }
+                        };
                         if (bboxes != null && !bboxes.isEmpty()) {
-                            logic.downloadBox(this, bbox, true, null);
-                            if (prefs.areBugsEnabled()) { // always adds bugs
-                                                          // for now
+                            logic.downloadBox(this, bbox, true, handler);
+                            if (prefs.areBugsEnabled()) {
+                                // always add bugs for now
                                 downLoadBugs(bbox);
                             }
+                        } else {
+                            handler.onSuccess();
                         }
-                        logic.getViewBox().setBorders(getMap(), bbox);
-                        map.invalidate();
                     } catch (OsmException e) {
                         Log.d(DEBUG_TAG, "processIntents got " + e.getMessage());
                     }
                 } else {
                     Log.d(DEBUG_TAG, "moving to position");
-                    map.getViewBox().moveTo(getMap(), (int) (geoData.getLon() * 1E7), (int) (geoData.getLat() * 1E7));
-                    map.invalidate();
+                    if (hasZoom) {
+                        getMap().getViewBox().setZoom(getMap(), zoom);
+                    }
+                    getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
+                    getMap().invalidate();
                 }
-                geoData = null; // zap to stop repeated downloads
             }
         }
         synchronized (rcDataLock) {

@@ -35,8 +35,9 @@ public class GeoUrlActivity extends Activity {
         Log.d("GeoURLActivity", data.toString());
         Intent intent = new Intent(this, Main.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        String[] query = data.getSchemeSpecificPart().split("\\?"); // used by osmand likely not standard conform
+        String[] query = data.getSchemeSpecificPart().split("[\\?\\&]"); // used by osmand likely not standard conform
         if (query != null && query.length >= 1) {
+            GeoUrlData geoData = null;
             String[] params = query[0].split(";");
             if (params != null && params.length >= 1) {
                 String[] coords = params[0].split(",");
@@ -54,7 +55,7 @@ public class GeoUrlActivity extends Activity {
                         double lat = Double.parseDouble(coords[0]);
                         double lon = Double.parseDouble(coords[1]);
                         if (lon >= -180 && lon <= 180 && lat >= -GeoMath.MAX_LAT && lat <= GeoMath.MAX_LAT) {
-                            GeoUrlData geoData = new GeoUrlData();
+                            geoData = new GeoUrlData();
                             geoData.setLat(lat);
                             geoData.setLon(lon);
                             intent.putExtra(GEODATA, geoData);
@@ -64,21 +65,37 @@ public class GeoUrlActivity extends Activity {
                     }
                 }
             }
+            if (geoData != null && query.length > 1) {
+                for (int i = 1; i < query.length; i++) {
+                    params = query[i].split("=",2);
+                    if (params.length == 2 && "z".equals(params[0])) {
+                        geoData.setZoom(Integer.parseInt(params[1]));
+                    }
+                }
+            }
         }
         startActivity(intent);
         finish();
     }
 
     public static class GeoUrlData implements Serializable {
-        private static final long serialVersionUID = 2L;
+        private static final long serialVersionUID = 3L;
         private double            lat;
         private double            lon;
+        private int               zoom = -1;
 
         /**
          * @return the lat
          */
         public double getLat() {
             return lat;
+        }
+        
+        /**
+         * @return latitude in WGS*1E7 coords
+         */
+        public int getLatE7() {
+            return (int) (lat*1E7D);
         }
 
         /**
@@ -94,12 +111,47 @@ public class GeoUrlActivity extends Activity {
         public double getLon() {
             return lon;
         }
+        
+        /**
+         * @return longitude in WGS*1E7 coords
+         */
+        public int getLonE7() {
+            return (int) (lon*1E7D);
+        }
 
         /**
          * @param lon the lon to set
          */
         public void setLon(double lon) {
             this.lon = lon;
+        }
+
+        /**
+         * @return the zoom
+         */
+        public int getZoom() {
+            return zoom;
+        }
+
+        /**
+         * @param zoom the zoom to set
+         */
+        public void setZoom(int zoom) {
+            this.zoom = zoom;
+        }
+        
+        /**
+         * Check if we have a valid zoom value
+         * 
+         * @return true if zoom is present
+         */
+        public boolean hasZoom() {
+            return zoom >= 0; 
+        }
+        
+        @Override
+        public String toString() {
+            return "geo:" + lat + "," + lon + (hasZoom() ? "?z=" + zoom : "");
         }
     }
 }

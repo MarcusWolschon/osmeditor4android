@@ -109,7 +109,37 @@ public class IntentsTest {
         prefDB.selectAPI("Test"); // this seems to be necessary to force reload of server object
         System.out.println("Server " + prefs.getServer().toString());
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
-        Uri uri = Uri.parse("geo:47.3905,8.385?z=15");
+        Uri uri = Uri.parse("geo:47.3905,8.385");
+        main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        TestUtils.selectIntentRecipient(context);
+        GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
+        Assert.assertNotNull(geo);
+        // there currently doesn't seem to be a reasonable way to wait until we have downloaded
+        // reading both the data, Notes and so on takes quite long
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e1) {
+        }
+        Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
+        List<Task> tasks = App.getTaskStorage().getTasks();
+        //
+        Assert.assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
+    }
+
+    /**
+     * Test that geo intents with zoom work
+     */
+    @Test
+    public void geoWithZoom() {
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        mockServerNotes.enqueue("notesDownload1");
+        mockServerOsmose.enqueue("osmoseDownload");
+        Preferences prefs = new Preferences(main);
+        prefDB.selectAPI("Test"); // this seems to be necessary to force reload of server object
+        System.out.println("Server " + prefs.getServer().toString());
+        // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
+        Uri uri = Uri.parse("geo:47.3905,8.385?z=18");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
         TestUtils.selectIntentRecipient(context);
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
@@ -121,8 +151,8 @@ public class IntentsTest {
         } catch (InterruptedException e1) {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
-        List<Task> tasks = App.getTaskStorage().getTasks();
-        //
-        Assert.assertEquals(151, tasks.size()); // combined count of OSMOSE bugs and notes
+        Assert.assertEquals(18, main.getMap().getZoomLevel());
+        Assert.assertEquals(8.385D, main.getMap().getViewBox().getCenter()[0], 0.0001D);
+        Assert.assertEquals(47.3905D, main.getMap().getViewBox().getCenter()[1], 0.0001D);
     }
 }
