@@ -114,7 +114,7 @@ public class Util {
                 int i = 0;
                 while (!keys.isEmpty() && i < keys.size()) {
                     PresetField i18nKeyField = keys.get(i);
-                    String i18nKey = i18nKeyField .getKey();
+                    String i18nKey = i18nKeyField.getKey();
                     if (i18nKey.startsWith(key + ":")) {
                         temp.put(keys.get(i), map.get(i18nKeyField));
                         keys.remove(i);

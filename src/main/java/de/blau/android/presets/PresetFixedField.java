@@ -41,12 +41,12 @@ public class PresetFixedField extends PresetField {
     PresetField copy() {
         return new PresetFixedField(this);
     }
-    
+
     @Override
     public void translate(@NonNull Po po) {
         super.translate(po);
         if (value.getDescription() != null) {
-            value.setDescription(translate(value.getDescription(), po,valueContext));
+            value.setDescription(translate(value.getDescription(), po, valueContext));
         }
     }
 

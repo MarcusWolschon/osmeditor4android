@@ -130,7 +130,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
                 AutoPreset autoPreset = new AutoPreset(activity);
                 Preset fromTaginfo = autoPreset.fromTaginfo(searchTerm.trim(), PresetFragment.MAX_SEARCHRESULTS - searchResults.size());
                 List<PresetElement> elementsFromTaginfo = fromTaginfo.getRootGroup().getElements();
-                
+
                 for (PresetElement pe : elementsFromTaginfo) {
                     searchResults.add(pe);
                 }
@@ -138,7 +138,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
                     return null;
                 }
                 if (!presets.isEmpty()) {
-                    searchResults.add(0,fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
+                    searchResults.add(0, fromTaginfo.new PresetSeparator(fromTaginfo.getRootGroup()));
                 }
                 return searchResults;
             }

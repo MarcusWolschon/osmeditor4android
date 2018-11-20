@@ -28,13 +28,13 @@ import de.blau.android.util.rtree.RTree;
  *
  */
 public class TaskStorage implements Serializable {
-    private static final long   serialVersionUID = 6L;
-    private static final String DEBUG_TAG        = TaskStorage.class.getSimpleName();
-    private int                 newId            = -1;
-    private RTree               tasks;
-    private RTree               boxes;
-    private Map<Long,MapRouletteChallenge> challenges;
-    private transient boolean   dirty            = true;
+    private static final long               serialVersionUID = 6L;
+    private static final String             DEBUG_TAG        = TaskStorage.class.getSimpleName();
+    private int                             newId            = -1;
+    private RTree                           tasks;
+    private RTree                           boxes;
+    private Map<Long, MapRouletteChallenge> challenges;
+    private transient boolean               dirty            = true;
 
     /**
      * when reading state lockout writing/reading
@@ -322,10 +322,9 @@ public class TaskStorage implements Serializable {
     /**
      * @return the challenges
      */
-    public Map<Long,MapRouletteChallenge> getChallenges() {
+    public Map<Long, MapRouletteChallenge> getChallenges() {
         return challenges;
     }
-
 
     @Override
     public String toString() {

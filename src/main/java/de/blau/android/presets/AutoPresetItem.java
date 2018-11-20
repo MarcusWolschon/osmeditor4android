@@ -21,7 +21,8 @@ public class AutoPresetItem extends PresetItem implements Comparable<AutoPresetI
      * @param types comma separated list of types of OSM elements this applies to or null for all
      * @param count the count returned by a taginfo query or similar
      */
-    public AutoPresetItem(@NonNull Preset preset, @Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath, @Nullable String types, int count) {
+    public AutoPresetItem(@NonNull Preset preset, @Nullable PresetGroup parent, @Nullable String name, @Nullable String iconpath, @Nullable String types,
+            int count) {
         preset.super(parent, name, iconpath, types);
         this.count = count;
     }

@@ -235,7 +235,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ft.remove(recentPresetsFragment);
             }
             // FIXME multiselect or what?
-            recentPresetsFragment = RecentPresetsFragment.newInstance(propertyEditorListener.getElement().getOsmId(), propertyEditorListener.getElement().getName());
+            recentPresetsFragment = RecentPresetsFragment.newInstance(propertyEditorListener.getElement().getOsmId(),
+                    propertyEditorListener.getElement().getName());
             ft.add(R.id.form_mru_layout, recentPresetsFragment, "recentpresets_fragment");
             ft.commit();
         }

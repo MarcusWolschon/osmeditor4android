@@ -72,8 +72,10 @@ public class OAMCatalog {
      */
     @Nullable
     public List<Entry> getEntries(@NonNull String oamServer, @Nullable BoundingBox box) throws IOException {
-        URL url = new URL(oamServer + "meta" + (box != null
-                ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&" : "?")
+        URL url = new URL(oamServer + "meta"
+                + (box != null
+                        ? "?" + "bbox=" + box.getLeft() / 1E7d + "," + box.getBottom() / 1E7d + "," + box.getRight() / 1E7d + "," + box.getTop() / 1E7d + "&"
+                        : "?")
                 + "has_tiled=true");
         Log.d(DEBUG_TAG, "query: " + url.toString());
 

@@ -115,7 +115,7 @@ public class EditState implements Serializable {
      * @param main the current Main instance
      * @param logic the current Logic instance
      */
-    public void setMiscState(@NonNull Main main, @NonNull  Logic logic) {
+    public void setMiscState(@NonNull Main main, @NonNull Logic logic) {
         main.setImageFileName(savedImageFileName);
         logic.setLastComments(savedLastComments);
         logic.setLastSources(savedLastSources);

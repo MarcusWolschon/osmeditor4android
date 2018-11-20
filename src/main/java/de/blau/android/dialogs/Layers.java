@@ -239,7 +239,8 @@ public class Layers extends ImmersiveDialogFragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
             } else {
-                // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as possible, ugly but works 
+                // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as
+                // possible, ugly but works
                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                 // noinspection deprecation
                 dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9)); // NOSONAR

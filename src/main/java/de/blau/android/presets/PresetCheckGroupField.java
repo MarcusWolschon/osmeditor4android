@@ -85,7 +85,7 @@ public class PresetCheckGroupField extends PresetField {
             check.translate(po);
         }
     }
-    
+
     /**
      * Get an entry count
      * 

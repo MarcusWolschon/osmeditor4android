@@ -272,7 +272,7 @@ public class TrackerService extends Service implements Exportable {
             return; // all ready running
         }
         NotificationCompat.Builder notificationBuilder = Notifications.builder(this);
-        
+
         Intent appStartIntent = new Intent();
         appStartIntent.setAction(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                 .setComponent(new ComponentName(Main.class.getPackage().getName(), Main.class.getName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

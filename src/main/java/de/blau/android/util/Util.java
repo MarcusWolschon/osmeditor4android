@@ -155,7 +155,7 @@ public final class Util {
      * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
      *         first
      */
-    @NonNull 
+    @NonNull
     public static List<RelationMemberDescription> sortRelationMembers(@NonNull List<RelationMemberDescription> list) {
         List<RelationMemberDescription> result = new ArrayList<>();
         List<RelationMemberDescription> unconnected = new ArrayList<>(list);
@@ -298,7 +298,7 @@ public final class Util {
      * @param list the List to convert
      * @return string containing the individual list values separated by ; or the empty string if list is null or empty
      */
-    @NonNull 
+    @NonNull
     public static String listToOsmList(@Nullable List<String> list) {
         StringBuilder osmList = new StringBuilder("");
         if (list != null) {
@@ -656,7 +656,7 @@ public final class Util {
             }
         }
     }
-    
+
     /**
      * Determine if we have less than 32MB of heap
      * 

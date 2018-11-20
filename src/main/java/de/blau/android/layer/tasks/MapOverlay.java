@@ -32,7 +32,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
 
     private static final String DEBUG_TAG = "tasks";
 
-    private boolean enabled         = false;
+    private boolean enabled = false;
 
     /** Map this is an overlay of. */
     private final Map map;
@@ -85,7 +85,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                         t.drawBitmapClosed(map.getContext(), c, x, y);
                     } else if (t.isNew() || t.hasBeenChanged()) {
                         t.drawBitmapChanged(map.getContext(), c, x, y);
-                    } else {                        
+                    } else {
                         t.drawBitmapOpen(map.getContext(), c, x, y);
                     }
                 }

@@ -264,7 +264,7 @@ public class Way extends OsmElement implements BoundedObject {
     /**
      * Inserts a Node after a specified one
      * 
-     * Note: assumes the Way isn't empty and nodeBefore is actually a way Node 
+     * Note: assumes the Way isn't empty and nodeBefore is actually a way Node
      * 
      * @param nodeBefore the reference Node
      * @param newNode the Node to insert

@@ -248,7 +248,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                         if (pfd == null) {
                             throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
                         }
-                        
+
                         ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -275,7 +275,7 @@ public class MapTileProviderDataBase implements MapViewConstants {
                             byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_FSCACHE_DATA));
                             if (tile_data == null) {
                                 throw new InvalidTileException(TILE_MARKED_INVALID_IN_DATABASE);
-                            } 
+                            }
                             return tile_data;
                         }
                     } finally {

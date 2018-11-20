@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.rtree.BoundedObject;

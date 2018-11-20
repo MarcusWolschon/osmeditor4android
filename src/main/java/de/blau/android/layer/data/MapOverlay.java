@@ -194,7 +194,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         validator = App.getDefaultValidator(context);
 
         delegator = App.getDelegator();
-        
+
         updateStyle();
     }
 

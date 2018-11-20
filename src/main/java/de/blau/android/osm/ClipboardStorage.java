@@ -53,8 +53,8 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Copy an OsmELement to the clipboard
-     * assumes the element has already been cloned note no need to store nodes separate from ways
+     * Copy an OsmELement to the clipboard assumes the element has already been cloned note no need to store nodes
+     * separate from ways
      * 
      * @param e the OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
@@ -75,8 +75,7 @@ public class ClipboardStorage implements Serializable {
     }
 
     /**
-     * Cut an OsmELement to the clipboard
-     * assumes that element will be deleted and any necessary objects cloned
+     * Cut an OsmELement to the clipboard assumes that element will be deleted and any necessary objects cloned
      * 
      * @param e the OsmElement
      * @param latE7 the latitude in WGS84*1E7 coordinates
@@ -107,7 +106,7 @@ public class ClipboardStorage implements Serializable {
     /**
      * Returns whatever is in the clipboard
      * 
-     * @return the stored OsmElement or null if there is none 
+     * @return the stored OsmElement or null if there is none
      */
     @Nullable
     public OsmElement pasteFrom() {

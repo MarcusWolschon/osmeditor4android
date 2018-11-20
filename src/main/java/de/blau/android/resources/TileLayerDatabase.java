@@ -200,7 +200,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     }
 
     /**
-     * Add coverage entries 
+     * Add coverage entries
      * 
      * @param db writable database
      * @param layer a TileLayerServer instance
@@ -251,7 +251,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             // okhttp returns header values with quotes so we add them here
             StringBuilder storedValues = new StringBuilder();
             boolean first = true;
-            for (String v: layer.getNoTileValues()) {
+            for (String v : layer.getNoTileValues()) {
                 if (!first) {
                     storedValues.append('|');
                 } else {
@@ -527,7 +527,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
      * @param cursor the Cursor
      * @return a TileLayerServer instance
      */
-    private static TileLayerServer getLayerFromCursor(@NonNull Context context, @NonNull Provider provider, @NonNull  Cursor cursor) {
+    private static TileLayerServer getLayerFromCursor(@NonNull Context context, @NonNull Provider provider, @NonNull Cursor cursor) {
         if (idLayerFieldIndex == -1) {
             throw new IllegalStateException("Layer field indices not initialized");
         }
@@ -557,7 +557,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         int maxOverZoom = cursor.getInt(overZoomMaxFieldIndex);
         String logoUrl = cursor.getString(logoUrlFieldIndex);
         byte[] logoBytes = cursor.getBlob(logoFieldIndex);
-        
+
         return new TileLayerServer(context, id, name, tileUrl, type, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
                 zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, true);
     }

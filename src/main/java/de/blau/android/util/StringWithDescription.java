@@ -70,7 +70,7 @@ public class StringWithDescription implements Comparable<StringWithDescription>,
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * Set the description field
      * 

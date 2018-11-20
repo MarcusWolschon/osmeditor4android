@@ -71,13 +71,13 @@ public class DataLossActivity extends DialogFragment {
     }
 
     /**
-     * Get a new DataLossActivity dialog instance 
+     * Get a new DataLossActivity dialog instance
      * 
      * @param intent the Intent to start
      * @param requestCode the intent request code
      * @return a new DataLossActivity dialog instance
      */
-    @NonNull 
+    @NonNull
     private static DataLossActivity newInstance(@NonNull final Intent intent, final int requestCode) {
         DataLossActivity f = new DataLossActivity();
 

@@ -59,7 +59,7 @@ public class TransferTasks {
     private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 
     private static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
-    
+
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
 
@@ -445,7 +445,7 @@ public class TransferTasks {
 
             @Override
             public void onSuccess() {
-                updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);               
+                updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);
             }
 
             @Override

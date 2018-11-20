@@ -8,7 +8,7 @@ interface FormUpdate {
      * Fetch new tags etc
      */
     void tagsUpdated();
-    
+
     /**
      * Update TagEditor from text fields that may have not been saved yet
      * 

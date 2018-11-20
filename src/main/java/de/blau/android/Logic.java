@@ -885,7 +885,7 @@ public class Logic {
                 if (Math.hypot(xDelta, yDelta) <= DataStyle.getCurrent().getMinLenForHandle()) {
                     continue;
                 }
-                
+
                 double dist = Math.hypot(differenceX, differenceY);
                 // TODO better choice for tolerance
                 if ((dist <= DataStyle.getCurrent().getWayToleranceValue()) && (dist < bestDistance)) {

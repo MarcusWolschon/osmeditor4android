@@ -83,7 +83,8 @@ public class IndoorFilter extends Filter {
         if (!inverted) {
             include = (selected
                     || (node.hasTags() && (contains(node.getTagWithKey(Tags.KEY_LEVEL), level) || contains(node.getTagWithKey(Tags.KEY_REPEAT_ON), level))))
-                            ? Include.INCLUDE : Include.DONT;
+                            ? Include.INCLUDE
+                            : Include.DONT;
         } else {
             include = (selected || (node.hasTags() && !node.hasTagKey(Tags.KEY_LEVEL) && !node.hasTagKey(Tags.KEY_REPEAT_ON))) ? Include.INCLUDE : Include.DONT;
         }
@@ -165,7 +166,8 @@ public class IndoorFilter extends Filter {
             include = (selected || buildingHasLevel(relation, level)) ? Include.INCLUDE : Include.DONT;
         } else {
             include = (selected || (relation.hasTags() && !(relation.hasTagKey(Tags.KEY_MIN_LEVEL) || relation.hasTagKey(Tags.KEY_MAX_LEVEL))))
-                    ? Include.INCLUDE : Include.DONT;
+                    ? Include.INCLUDE
+                    : Include.DONT;
         }
 
         cachedRelations.put(relation, include);

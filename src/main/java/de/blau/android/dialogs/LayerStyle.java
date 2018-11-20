@@ -227,7 +227,7 @@ public class LayerStyle extends ImmersiveDialogFragment {
      * @param layer the layer we are changing this for
      * @return an OnSeekBarChangeListener
      */
-    private OnSeekBarChangeListener createSeekBarListener(@NonNull final View strokeWidthView, @NonNull  final StyleableLayer layer) {
+    private OnSeekBarChangeListener createSeekBarListener(@NonNull final View strokeWidthView, @NonNull final StyleableLayer layer) {
         return new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromTouch) {

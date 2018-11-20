@@ -40,7 +40,7 @@ public class UploadConflict extends ImmersiveDialogFragment {
     private static final String TAG = "fragment_upload_conflict";
 
     private UploadResult result;
-    
+
     /**
      * Show a dialog after a conflict has been detected and allow the user to fix it
      * 

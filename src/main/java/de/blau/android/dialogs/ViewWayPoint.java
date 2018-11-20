@@ -152,8 +152,8 @@ public class ViewWayPoint extends DialogFragment {
             }
             long timestamp = wp.getTime();
             if (timestamp > 0) {
-                tl.addView(
-                        TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp), null, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp),
+                        null, tp));
             }
 
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", wp.getLongitude()) + "°", null, tp));

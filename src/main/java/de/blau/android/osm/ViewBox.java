@@ -588,7 +588,7 @@ public class ViewBox extends BoundingBox {
     public double getCenterLat() {
         int mBottom = GeoMath.latE7ToMercatorE7(getBottom());
         int mHeight = GeoMath.latE7ToMercatorE7(getTop()) - mBottom;
-        return GeoMath.mercatorToLat((mBottom + mHeight / 2D)/1E7D);
+        return GeoMath.mercatorToLat((mBottom + mHeight / 2D) / 1E7D);
     }
 
     /**

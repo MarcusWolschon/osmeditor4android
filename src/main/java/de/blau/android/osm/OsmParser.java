@@ -440,6 +440,7 @@ public class OsmParser extends DefaultHandler {
      * Clear the list of bounding boxes
      */
     public void clearBoundingBoxes() {
-        getStorage().getBoundingBoxes().clear();;
+        getStorage().getBoundingBoxes().clear();
+        ;
     }
 }

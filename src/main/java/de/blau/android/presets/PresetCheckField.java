@@ -71,12 +71,12 @@ public class PresetCheckField extends PresetField {
     public boolean isOffValue(String value) {
         return offValue != null && offValue.getValue().equals(value);
     }
-    
+
     @Override
     PresetField copy() {
         return new PresetCheckField(this);
     }
-    
+
     @Override
     public void translate(@NonNull Po po) {
         super.translate(po);
@@ -84,7 +84,7 @@ public class PresetCheckField extends PresetField {
             onValue.setDescription(translate(onValue.getDescription(), po, valueContext));
         }
         if (offValue != null && offValue.getDescription() != null) {
-            offValue.setDescription(translate(offValue.getDescription(), po,valueContext));
+            offValue.setDescription(translate(offValue.getDescription(), po, valueContext));
         }
     }
 
