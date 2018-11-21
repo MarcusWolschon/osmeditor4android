@@ -86,6 +86,16 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     public boolean handleElementClick(OsmElement element) {
         super.handleElementClick(element);
         if (element == this.element) {
+            // remove any empty undo checkpoint from potentially starting a move
+            switch (element.getName()) {
+            case Node.NAME:
+                App.getLogic().removeCheckpoint(main, R.string.undo_action_movenode);
+                break;
+            case Way.NAME:
+                App.getLogic().removeCheckpoint(main, R.string.undo_action_moveway);
+                break;
+            default:
+            }
             main.performTagEdit(element, null, false, false, false);
             return true;
         }
