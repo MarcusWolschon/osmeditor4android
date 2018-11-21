@@ -574,12 +574,12 @@ public class Logic {
     }
 
     /**
-     * Remove an undo checkpoint using a resource string as the name
+     * Remove an empty undo checkpoint using a resource string as the name
      * 
      * @param activity that we were called from for access to the resources, if null we will use the resources from App
      * @param stringId the resource id of the string representing the checkpoint name
      */
-    private void removeCheckpoint(@Nullable Activity activity, int stringId) {
+    public void removeCheckpoint(@Nullable Activity activity, int stringId) {
         Resources r = activity != null ? activity.getResources() : App.resources();
         getDelegator().getUndo().removeCheckpoint(r.getString(stringId));
     }
