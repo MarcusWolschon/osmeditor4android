@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-09 21:09+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-11-19 06:19+0000\n"
+"Last-Translator: Michal <webmaster@kayle.sk>\n"
 "Language-Team: Slovak (http://www.transifex.com/openstreetmap/presets/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3261,7 +3261,7 @@ msgstr ""
 #: master_preset.xml:6126(check:text|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:7926(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "Ohnisko"
 
 #: master_preset.xml:12166(item:name|group:Other|preset:Fireworks)
 msgid "Fireworks"
@@ -12488,7 +12488,7 @@ msgstr ""
 #: master_preset.xml:862(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Podlažia"
 
 #: master_preset.xml:852(combo:display_values|key:building:frame:material)
 #: master_preset.xml:856(combo:display_values|key:building:wall:material)

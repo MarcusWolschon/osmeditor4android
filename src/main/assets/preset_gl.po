@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-09 21:09+0000\n"
-"Last-Translator: Simon Poole <sp8962@gmail.com>\n"
+"PO-Revision-Date: 2018-11-20 19:33+0000\n"
+"Last-Translator: Iván Seoane\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3954,7 +3954,7 @@ msgstr ""
 
 #: master_preset.xml:2408(item:name|group:Barriers|preset:Hedge)
 msgid "Hedge"
-msgstr ""
+msgstr "Sebe"
 
 #: master_preset.xml:12767(text:text|group:Nature|preset:Tree|key:height)
 msgid "Height (m)"
@@ -6853,7 +6853,7 @@ msgstr "Laboratorio de fotografía"
 
 #: master_preset.xml:12202(list_entry:short_description|preset:Vending_Machine|value:photos)
 msgid "Photos"
-msgstr ""
+msgstr "Imaxes"
 
 #: master_preset.xml:2940(item:name|group:Access_Restrictions|preset:Physical_restrictions)
 msgid "Physical restrictions"
@@ -7883,7 +7883,7 @@ msgstr ""
 #: master_preset.xml:1555(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 #: master_preset.xml:1573(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
 msgid "Right"
-msgstr ""
+msgstr "Dereita"
 
 #: master_preset.xml:1528(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right;through)
 #: master_preset.xml:1554(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right;through)
@@ -14065,7 +14065,7 @@ msgstr "Illa"
 #: master_preset.xml:12383(item:name|group:Places|preset:State)
 msgctxt "place"
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: master_preset.xml:12779(list_entry:display_value|group:Nature|preset:Tree|value:agricultural)
 msgctxt "tree denotation"
@@ -14301,7 +14301,7 @@ msgstr "Almacén"
 #: master_preset.xml:13549(combo:text|group:Addresses_and_Contact|preset:Address|key:addr:state)
 msgctxt "addr:"
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: master_preset.xml:13626(label:text|group:Annotation|preset:Description)
 msgctxt "description=*"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-09 22:08+0100\n"
-"PO-Revision-Date: 2018-11-10 15:46+0000\n"
+"PO-Revision-Date: 2018-11-19 03:30+0000\n"
 "Last-Translator: Supaplex <bejokeup@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -9083,7 +9083,7 @@ msgstr ""
 
 #: master_preset.xml:9671(item:name|group:Man_Made|preset:Surveillance_Camera)
 msgid "Surveillance Camera"
-msgstr ""
+msgstr "監視攝影機"
 
 #: master_preset.xml:9655(item:name|group:Man_Made|preset:Survey_Point)
 msgid "Survey Point"

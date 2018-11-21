@@ -1,51 +1,51 @@
-# Vespucci Introducción
+# Introdución ó Vespucci
 
-Vespucci é un editor OpenStreetMap con tódalas funcións que admite a maioría das operacións que proporcionan os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Unha palabra de precaución: mentres as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, especialmente os dispositivos máis antigos teñen memoria moi limitada dispoñible e adoitan ser bastante lentos. Debes ter en conta a miña conta ao usar Vespucci e manter, por exemplo, as áreas que estás a editar nun tamaño razoable. 
+O Vespucci é un editor do OpenStreetMap con tódalas funcións que admite a maioría das operacións que fornecen os editores de escritorio. Foi probado con éxito no Android de Google 2.3 a 7.0 e varias variantes baseadas na AOSP. Un consello: mentres que as capacidades do dispositivo móbil atópanse cos seus rivais de escritorio, de xeito especial os dispositivos máis antigos teñen a memoria moi limitada dispoñíbel e adoitan ser moi lentos. Debe ter en conta isto cando empregue o Vespucci e manteña, por exemplo, as áreas que estás a editar nun tamaño razoábel. 
 
-## Primeira vez de uso
+## Empregar por primeira vez
 
-No inicio Vespucci amosa a caixa de diálogo "Descargar outra localización" / "Cargar área". Se tes as coordenadas que se amosan e queres descargar de xeito inmediato, podes seleccionar a opción adecuada e configurar o radio ao redor da localización que queres descargar. Non seleccione unha área grande en dispositivos lentos. 
+No inicio do Vespucci amosa o cadro do diálogo "Descarregar outra localización"/"Carregar área". Se vostede ten as coordenadas que se amosan e desexa descarregar de xeito inmediato, pode escolle-la opción axeitada e inseri-lo raio ó redor da localización que desexa descarregar. Non escolla unha área ampla nos dispositivos máis lentos. 
 
-Alternativamente, pode descartar o diálogo premendo o botón "Ir ao mapa" e xirar e ampliar a unha localización onde desexa editar e descargar os datos (ver a continuación: "Edición con Vespucci").
+De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexa editar e descarrega-los datos (ollar máis adiante: "Edición co Vespucci").
 
 ## Editando con Vespucci
 
-Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de edición poden ser accesibles directamente a través das iconas na barra superior, a través dun menú desplegable á dereita da barra superior, desde a barra inferior (se está presente) ou a través da tecla de menú.
+Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de edición poden ser accesíbeis de xeito directo a través das iconas na barra superior, a través dun menú despregábel á dereita da barra superior, dende a barra inferior (se está presente) ou a través da tecla do menú.
 
 <a id="download"></a>
 
-### Descargando información OSM
+### Estasen a descarregar datos do OSM
 
 Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou o "Transfer" artigo do menu. Isto amosará sete opcións:
 
-* **Baixar vista actual** - descargue a área visible na pantalla e substitúa os datos existentes *(require conexión a internet)*
-* **Engadir vista actual para descargar** - descargue a área visible na pantalla e fúndea cos datos existentes *(require conexión a internet)*
-* **Descargar noutro lugar** - amosa un formulario que lle permite introducir coordenadas, buscar unha localización ou usar a posición actual e, a continuación, descargar unha área en torno a esa localización *(require conexión a internet)*
-* **Subir datos ao server de OSM** - subir e editar OpenStreetMap *(require autenticación)* *(require conexión a internet)*
-* **Auto baixada** - descargue unha área ao redor da situación xeográfica actual automaticamente *(require conexión a internet)* *(require GPS)*
-* **Arquivo...** - salvar e cargar información en OSM a/dende arquivos do dispositivo.
-* **Nota/Bugs...** - baixar (automaticamente e manualmente) OSM Notas e "Bugs" dende QA ferramentas (actualmente OSMOSE) *(require conexión a internet)*
+* **Descarrega-la vista actual**: descarregue a área visíbel na pantalla e substitúa os datos existentes *(precisa dunha conexión á rede)*
+* **Engadi-la vista actual para descarregar**: descarregue a área visíbel na pantalla e fúndea cos datos existentes *(precisa dunha conexión á rede)*
+* **Descarregar noutro lugar**: amosa un formulario que lle permite inserir coordenadas, procurar unha localización ou emprega-la ubicación actual e, deseguido, descarregar unha área arredor desa ubicación *(precisa dunha conexión á rede)*
+* **Subir datos ó servidor do OSM**: sube edicións ó OpenStreetMap *(precisa dunha autenticación)* *(precisa dunha conexión á rede)*
+* **Auto baixada**: descarregue unha área ó redor da ubicación xeográfica actual de xeito automático *(precisa dunha conexión á rede)* *(require GPS)*
+* **Ficheiro...**: gardar e carregar información no OSM cara/dende ficheiros do dispositivo.
+* **Nota/Erros...**: baixar (de xeito automático e manual) Notas e "Erros" do OSM dende ferramentas QA ferramentas (actualmente OSMOSE) *(precisa dunha conexión á rede)*
 
-A forma máis sinxela de descargar datos ao dispositivo é achegar e panoramizar a localización que desexa editar e logo seleccionar "Descargar vista actual". Podes achegar os xestos, os botóns de zoom ou os botóns de control de volume do dispositivo. Vespucci debería entón descargar datos para a vista actual. Non se precisa autenticación para descargar datos no dispositivo.
+O xeito máis sinxelo de descarregar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Descarregar vista actual". Pode achegar empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que descarregar entón datos da vista actual. Non se precisa dunha autenticación para descarregar datos no seu dispositivo.
 
-### Editando
+### Estase a editar
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Alternancia do modo bloquear e desbloquear
 
 Para evitar edicións accidentais Vespucci comeza no modo "bloqueado", un modo que só permite achegar e mover o mapa. Tócao! [Locked](../images/locked.png) icona para desbloquear a pantalla. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+Una premida longa na icona do candeado amosará un menú con 4 opcións:
 
 * **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
 * **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
 * **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
 * **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
 
-Toque único, dobre toque e prema longa
+#### Premido único, dobre premido e premido longo
 
-De xeito predeterminado, os nodos e os modos seleccionables teñen unha área en laranxa ao redor dela, indicando aproximadamente onde ten que tocar para seleccionar un obxecto. Tes tres opcións:
+De xeito predeterminado, os nós e as vías seleccionábeis teñen unha área laranxa ó redor dela, indicando de xeito aproximado onde ten que premer para escoller un obxecto. Ten tres opcións:
 
 * Single tap: Selects object. 
     * An isolated node/way is highlighted immediately. 
@@ -55,118 +55,118 @@ De xeito predeterminado, os nodos e os modos seleccionables teñen unha área en
 * Double tap: Start [Multiselect mode](Multiselect.md)
 * Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
 
-Ista é unha boa estratexia facer zoom se ti tentas editar unha área de alta densidade.
+É unha boa estratexia achega-lo mapa se tenta editar unha área con alta densidade.
 
-Vespucci ten un bo sistema "desfacer/refacer" así que non teñas medo de experimentar no teu dispositivo, pero non cargues e gardes datos de proba ao chou.
+O Vespucci ten un bo sistema "desfacer/refacer" así que non teñas medo de experimentar no teu dispositivo, pero non carregues e gardes datos de proba ó chou.
 
-#### Selección / Deselección (toque único e "menú de selección")
+#### Selección / Deselección (premido único e "menú de selección")
 
 Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
 
-Teña en conta que se intentas seleccionar un obxecto e Vespucci determina que a selección podería significar varios obxectos (como un nodo dun xeito ou outros obxectos solapados) presentará un menú de selección: toque o obxecto que desexe seleccionar e o obxecto é seleccionado. 
+Teña en conta que se tenta escoller un obxecto e Vespucci determina que a selección podería significar varios obxectos (coma un nó nunha vía ou outros obxectos sobrepostos) presentará un menú de selección: prema o obxecto que desexe seleccionar e o obxecto é seleccionado. 
 
-Os obxectos seleccionados son indicados a través dun delgado borde amarelo. O bordo amarelo pode ser difícil de detectar, dependendo do fondo do mapa e do factor de zoom. Unha vez feita unha selección, verás unha notificación que confirma a selección.
+Os obxectos seleccionados son indicados a través dun delgado bordo amarelo. O bordo amarelo pode ser difícil de detectar, dependendo do fondo do mapa e do factor de achegamento. Unha vez feita unha selección, verás unha notificación que confirma a selección.
 
 Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 
-#### Seleccione obxectos: Editando etiquetas
+#### Obxectos escollidos: Editando etiquetas
 
-Un segundo toque no obxecto seleccionado abre o editor de etiquetas e pode editar as etiquetas asociadas ao obxecto.
+Un segundo premido no obxecto seleccionado abre o editor de etiquetas e pode editar as etiquetas asociadas ó obxecto.
 
-Teña en conta que para superponer obxectos (como un nodo de certa forma) o menú de selección volve a subir por segunda vez. Ao seleccionar o mesmo obxecto aparecerá o editor de etiquetas; Seleccionar outro obxecto simplemente selecciona o outro obxecto.
+Teña en conta que para sobreponer obxectos (coma un nó nunha vía) o menú de selección volve a subir por segunda vez. Ó escolle-lo mesmo obxecto aparecerá o editor de etiquetas; escoller outro obxecto sinxelamente escolle o outro obxecto.
 
-#### Obxectos seleccionados: mover un nodo ou camiño
+#### Obxectos seleccionados: movendo un nó ou camiño
 
-Despois de seleccionar un obxecto, pode moverse. Teña en conta que os obxectos poden ser arrastrados/movidos só cando están seleccionados. Simplemente arrastre preto (isto é, dentro da zona de tolerancia de) o obxecto seleccionado para movelo. Se selecciona a área de arrastre grande nas preferencias, obtén unha gran área ao redor do nodo seleccionado que facilita a posicionamento do obxecto. 
+Despois de seleccionar un obxecto, pode moverse. Teña en conta que os obxectos poden ser arrastrados/movidos só cando están seleccionados. Sinxelamente arrastre preto (isto é, dentro da zona de tolerancia) o obxecto seleccionado para movelo. Se escolle a área de arrastre grande nos axustes, obtén unha grande área ó redor do nó escollido que facilita a posicionamento do obxecto. 
 
-#### Engadir un novo Nodo/Punto ou Camiño (prema prolongadamente)
+#### Engadir un novo Nó/Punto ou Vía (premido longo)
 
-Manteña premido onde quere que o nodo sexa ou o xeito de comezar. Verás un símbolo de "cruzamento" negro. 
-*Se desexa crear un novo nodo (non conectado a un obxecto), faga clic fóra de obxectos existentes.
-* Se queres estender un camiño, faga clic dentro da "zona de tolerancia" do camiño (ou un nodo no camiño). A zona de tolerancia está indicada polas áreas ao redor dun nó ou camiño.
+Manteña premido onde quere que o nó sexa ou o xeito de comezar. Verás un símbolo de "cruzamento" negro. 
+*Se desexa crear un novo nó (non conectado a un obxecto), prema fóra de obxectos existentes.
+* Se desexa estender un camiño, prema dentro da "zona de tolerancia" do camiño (ou dun nó no camiño). A zona de tolerancia está indicada polas áreas ó redor dun nó ou camiño.
 
 Unha vez que podes ver o símbolo da mira, tes estas opcións:
 
-* Toque no mesmo lugar.
-    *Se a mira non está preto dun nodo, tocando a mesma localización nuevamente crea un novo nodo. Se estás preto dun xeito (pero non preto dun nodo), o novo nodo estará en camiño (e conectado ao modo).
-    * Se a mira está preto dun nodo (é dicir, dentro da zona de tolerancia do nodo), tocar na mesma localización só selecciona o nodo (e se abre o editor de etiquetas. Non se crea ningún nodo novo. A acción é a mesma que a selección anterior.
-* Toca outro lugar. Tocar noutro lugar (fóra da zona de tolerancia da cruz) engade un segmento de forma desde a posición orixinal ata a posición actual. Se a mira estaba preto dun xeito ou nodo, o novo segmento estará conectado a ese nodo ou a outro xeito.
+* Premano mesmo lugar.
+    *Se o punto da mira non está preto dun nó, premendo a mesma localización novamente crea un novo nó. Se vostede está preto dunha vía (pero non preto dun nó), o novo nó estará na vía (e conectado á vía).
+    * Se o punto da mira está preto dun nó (é dicir, dentro da zona de tolerancia do nó), premer na mesma localización só selecciona o nó (e se abre o editor de etiquetas. Non se crea ningún nó novo. A acción é a mesma que a selección anterior.
+* Prema noutro lugar. Premer noutro lugar (fóra da zona de tolerancia da cruz) engádese un segmento da vía dende a posición orixinal até a posición actual. Se o punto da mira ficaba preto dunha vía ou nó, o novo segmento estará conectado a ese nó ou a outra vía.
 
-Simplemente toque a pantalla onde desexa engadir máis nodos do camiño. Para rematar, toque o nodo final dúas veces. Se o nodo final está situado nun xeito ou nodo, o segmento estará conectado automaticamente ao camiño ou ao nodo. 
+Sinxelamente prema a pantalla onde desexa engadir máis nó do camiño. Para rematar, prema no nó derradeiro dúas veces. Se o nó derradeiro está situado nunha vía ou nó, o segmento ficará conectado de xeito automático ó camiño ou ó nó. 
 
 You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
 
-#### Engadindo un Área
+#### Estase a engadir unha área
 
 OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
 
-* _closed ways (*polygons")_: A variante de área máis sinxela e máis común, son formas que teñen un primeiro e último nodo compartido que forman un "anel" pechado (por exemplo, a maioría dos edificios son deste tipo). Son moi fáciles de crear en Vespucci, simplemente conéctate ao primeiro nodo cando termine de debuxar a área. Nota: a interpretación do camiño pechado depende da súa etiquetaxe: por exemplo, se un camiño pechado está etiquetado como un edificio considerado como unha área, se está marcado como unha rotonda, non vai. Nalgunhas situacións nas que ambas interpretacións poden ser válidas, unha etiqueta de "área" pode aclarar o uso desexado.
-* _multi-ploygons_:Algunhas áreas teñen múltiples partes, buratos e aneis que non se poden representar con só un xeito. OSM usa un tipo específico de relación (o noso obxecto de propósito xeral que pode modelar as relacións entre elementos) para evitar isto, un multipolígono. Un multipolígono pode ter varios aneis "externos" e múltiples aneis "internos". Cada anel pode ser un xeito pechado como se describe arriba, ou varias formas individuais que teñen nós extremos comúns. Mentres os grandes multipolígonos son difíciles de manexar con calquera ferramenta, os pequenos non son difíciles de crear en Vespucci.
-* _coastlines_: Para obxectos moi grandes, continentes e illas, mesmo o modelo multipolígono non funciona de forma satisfactoria. Por formas natural=coastline tomamos a semántica dependente de dirección: a terra está no lado esquerdo do camiño, o auga no lado dereito. Un efecto secundario disto é que, en xeral, non debe revertir a dirección dun xeito co etiquetado da costa. Pode atopar máis información na páxina [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _vías pechadas ("polígonos")_: A variante de área máis sinxela e máis común, son vías que teñen un primeiro e derradeiro nó compartido que forman un "anel" pechado (por exemplo, a maioría dos edificios son deste tipo). Son moi doados de crear no Vespucci, sinxelamente conéctate ó primeiro nó cando remate de debuxar a área. Nota: a interpretación do camiño pechado depende da súa etiquetaxe: por exemplo, se un camiño pechado está etiquetado coma un edificio considerado coma unha área, se está marcado coma unha rotonda, non vai. Nalgunhas situacións nas que ámbalas dúas interpretacións poden ser válidas, unha etiqueta de "área" pode aclarar o uso desexado.
+* _multi-polígonos_: Algunhas áreas teñen múltiples partes, buracos e aneis que non se poden representar cunha soa vía. O OSM emprega un tipo específico de relación (o noso obxecto de propósito xeral que pode modelar as relacións entre elementos) para evitar isto, un multipolígono. Un multipolígono pode ter varios aneis "externos" e múltiples aneis "internos". Cada anel pode ser unha vía pechada coma se describe enriba, ou varias vías individuais que teñen nós nos extremos comúns. Mentres os grandes multipolígonos son difíciles de manexar con calquera ferramenta, os pequenos non son difíciles de crear no Vespucci.
+* _beiramar_: Para obxectos moi grandes, continentes e illas, mesmo o modelo multipolígono non funciona de xeito satisfactorio. Para formas natural=coastline tomamos a semántica dependente de dirección: a terra está na beira esquerda do camiño, o auga na beira dereita. Un efecto secundario disto é que, en xeral, non debe revertir a dirección dunha vía co etiquetado da costa. Pode atopar máis información na [wiki do OSM](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Mellorar a Xeometría do Camiño
+#### Estase a mellora-la xeometría das vías
 
-Se achegaches o suficiente de forma seleccionada, verás un pequeno "x" no medio dos segmentos que son o suficientemente longo. Arrastrando o "x" creará un nodo no camiño dese lugar. Nota: para evitar a creación de nodos accidentalmente, a área de tolerancia táctil para esta operación é bastante pequena.
+Se achegaches o suficiente na vía seleccionada, verás un pequeno "x" no medio dos segmentos que son o suficientemente longos. Arrastrando o "x" creará un nó na vía dese lugar. Nota: para evitar a creación de nós de xeito accidental, a área de tolerancia táctil para esta operación é bastante pequena.
 
-#### Cortar, Copiar & Pegar
+#### Cortar, copiar e colar
 
-Pode copiar ou cortar nodos e xeitos seleccionados e, a continuación, pegar unha ou varias veces nunha nova ubicación. O corte conservará o id e versión osm. Para pegar prema a posición na que desexa pegar (verá un pelo cruzado marcando a localización). A continuación, selecciona "Pegar" no menú.
+Pode copiar ou cortar nós e vía seleccionados e, deseguido, colar ou pegar unha ou varias veces nunha nova ubicación. O corte conservará o ID e versión do OSM. Para colar prema a posición na que desexa colar (verá unha liña cruzada marcando a localización). Deseguido, escolla "Colar ou pegar" no menú.
 
-#### Eficiente Engadindo Enderezos
+#### Estasen a engadir enderezos de xeito eficiente
 
 Vespucci ten unha función de "engadir etiquetas de enderezos" que intenta facer que os enderezos de topografía sexan máis eficientes. Pode ser seleccionado:
 
-* despois dunha longa prensión: Vespucci engadirá un nodo no lugar e fará unha mellor adiviñación no número da casa e engadirá as etiquetas de enderezos que estivo a usar recentemente. Se o nodo está nun contorno do edificio engadirá automaticamente unha etiqueta "entrada = si" ao nodo. O editor de etiquetas abrirase para o obxecto en cuestión e permitirá que realice as mudanzas precisadas.
-* no modos nodo / modo seleccionado: Vespucci engadirá as etiquetas de enderezo como se menciona arriba e inicie o editor de etiquetas.
-* no editor de etiquetas.
+* despois dunha longo premido: O Vespucci engadirá un nó na ubicación e fará unha mellor adiviñación do número da casa e engadirá as etiquetas de enderezos que estivo a empregar recentemente. Se o nó está nunha beira do edificio engadirá de xeito automático unha etiqueta "entrada = si" ó nó. O editor de etiquetas abrirase para o obxecto en cuestión e permitirá que faga as mudanzas precisadas.
+* no modos nó/vía seleccionados: O Vespucci engadirá as etiquetas de enderezo coma se menciona arriba e comezará o editor das etiquetas.
+* no editor das etiquetas.
 
 A predicción de números de casa normalmente require que polo menos dous números de casa a cada lado da estrada para ser ingresados ao traballo, cantos máis números presentes nos datos mellor.
 
 Considerar usando isto con modo [Auto-download](#download).  
 
-#### Engadindo Restriccións de Xiro
+#### Estasen a engadir restriccións de xiro
 
-Vespucci ten un xeito rápido de engadir restricións de xiro. Se é necesario, dividirase automaticamente e pediralle que volva seleccionar elementos. 
+O Vespucci ten un xeito axiña de engadir restricións de xiro. Se é necesario, dividirase de xeito automático e pediralle que volva selecciona-los elementos. 
 
-* Seleccione un camiño cunha etiqueta de estrada (as restricións de turno só se poden engadir ás estradas, se hai que facer isto por outras formas, use o modo xenérico "crear relación").
-* Selecciona "Engadir restrición" no menú
-* Seleccione o nodo "vía" ou o camiño (só os elementos "via" posibles terán a área táctil amosada)
-* Seleccione o modo "a" (é posible dobrar e configurar o elemento "a" no elemento "de", Vespucci asumirá que está engadindo un xiro sen restricións no_u_turn restriction)
-* Establecer o tipo de restrición
+* Seleccione un camiño cunha etiqueta de autoestrada (as restricións de xiro só se poden engadir ás autoestradas, se hai que facer isto por outros xeitos, empregue o modo xenérico "crear relacións").
+* Escolla "Engadir restricións" no menú
+* Escolla o nó "vía" ou o camiño (só os elementos "via" posíbeis terán a área táctil amosada)
+* Escolla o modo "a" (é posíbel volver a dobrar e configura-lo elemento "a" no elemento "dende", o Vespucci asumirá que está engadindo un xiro sen restricións no_u_turn)
+* Estabeleza o tipo de restrición
 
-### Vespucci  en modo "pechado"
+### O Vespucci no modo "bloqueado"
 
 Cando se amosa o bloqueo vermello, tódalas accións non editadas están dispoñíbeis. Adicionalmente, unha prensa longa ou próxima a un obxecto amosará a pantalla de información detallada se é un obxecto OSM.
 
-### Gardar os teus Trocos
+### Estasen a garda-las súas mudanzas
 
 *(require conectividade na rede)*
 
-Seleccione o mesmo botón ou elemento de menú que fixeches para a descarga e agora seleccione "Cargar datos no servidor OSM".
+Escolla o mesmo botón ou elemento do menú que fixo para a descarrega e agora escolla "Carregar datos no servidor do OSM".
 
-Vespucci admite a autorización de OAuth e o método clásico de nome de usuario e contrasinal. OAuth é preferible xa que evita o envío de contrasinais.
+O Vespucci admite a autorización do OAuth e o método clásico de nome do usuario e contrasinal. O OAuth é preferíbel xa que evita o envío de contrasinais nun texto plano.
 
-As novas instalacións de Vespucci terán OAuth activado por defecto. No primeiro intento de cargar datos modificados, carga unha páxina do sitio web de OSM. Despois de iniciar sesión (a través dunha conexión cifrada) pediráselle que autorice a Vespucci a editar usando a súa conta. Se queres ou necesitas autorizar o acceso de OAuth á túa conta antes de editar hai un elemento correspondente no menú "Ferramentas".
+As novas instalacións do Vespucci terán o OAuth activado por defecto. No primeiro intento de carregar datos modificados, carrega unha páxina do sitio web do OSM. Despois de iniciar sesión (a través dunha conexión cifrada) pediráselle que autorice ó Vespucci a editar empregando a súa conta. Se queres ou precisas autoriza-lo acceso do OAuth á súa conta antes de editar hai un elemento correspondente no menú "Ferramentas".
 
-Se desexa gardar o seu traballo e non ten acceso a Internet, pode gardar nun ficheiro .osm compatíbel con JOSM e cargar máis tarde con Vespucci ou con JOSM. 
+Se desexa garda-lo seu traballo e non ten acceso á Internet, pode gardar nun ficheiro .osm compatíbel co JOSM e carregar máis tarde co Vespucci ou co JOSM. 
 
-#### Resolvendo conflitos en subidas
+#### Estasen a resolver conflitos ó subir
 
 Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
 
-## Usando GPS
+## Estase a empregar GPS
 
 Podes usar Vespucci para crear unha pista GPX e visualizalo no teu dispositivo. Ademais, pode amosar a posición actual do GPS (configurar "Mostrar localización" no menú GPS) e/ou ter a pantalla en torno e seguir a posición (configure "Seguir posición GPS" no menú GPS). 
 
-Se ten este último axustado, mover a pantalla manualmente ou editar fará que o modo "seguir o GPS" se desactive e que a frecha GPS azul cambie dun esquema a unha frecha chea. Para volver rapidamente ao modo "seguir", simplemente toque o botón GPS ou volva a verificar a opción do menú.
+Se ten este último conxunto, mover a pantalla de xeito manual ou editar fará que o modo "Seguer GPS" se desactive e que a frecha azul do GPS troque dun esquema cara unha frecha chea. Para voltar axiña ó modo "seguer", sinxelamente prema o botón GPS ou volva a verificar a opción do menú.
 
-## Notas e Bugs
+## Notas e erros
 
 Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
 
 No mapa, as notas e os erros están representados por unha pequena icona de erro! [Bug](../images/bug_open.png), os verdes están pechados/resoltos, os que foron creados ou editados son azuis e o amarelo indica que aínda está activo e non foi modificado. 
 
-A visualización de erros de OSMOSE proporcionará unha ligazón ao obxecto afectado en azul, tocando a ligazón seleccionará o obxecto, centrará a pantalla nel e baixará a área previamente se fose necesario. 
+A visualización de erros do OSMOSE fornecerá unha ligazón ó obxecto afectado en azul, premendo a ligazón seleccionará o obxecto, centrará a pantalla nel e baixará a área previamente se fose necesario. 
 
 ### Filtrado
 
@@ -188,13 +188,13 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## Modo-C
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### Estasen a configura-las comprobacións
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
@@ -211,7 +211,7 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### Comprobar entradas
 
 Check entries have the following two properties:
 
@@ -226,7 +226,7 @@ This check works be first determining the matching preset and then checking if *
 
 The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
 
-### Base do filtro Presente
+### Filtro baseado nos preaxustes
 
 An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
 
@@ -241,15 +241,15 @@ An alternative to the above, objects are filtered either on individual presets o
 * Keep screen on. Default: off.
 * Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
 
-#### Preferencias Avanzadas
+#### Axustes avanzados
 
 * Node icons. Default: on.
 * Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
 * Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
 * Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
 
-## Reportando Problemas
+## Informar de problemas
 
-Se Vespucci falla ou detecta un estado inconsistente, pediráselle que envíe ao garete. Faga isto se isto ocorre, pero por favor só unha vez por situación específica. Se desexa dar máis información ou abrir un problema para unha solicitude de funcións ou similar, faga isto aquí: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Se queres discutir algo relacionado con Vespucci, podes iniciar unha discusión sobre a [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) ou en [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Se o Vespucci falla ou detecta un estado inconsistente, pediráselle que o envíe ó garete. Faga isto se isto ocorre, pero por favor só unha vez por situación específica. Se desexa dar máis información ou abrir un problema para unha solicitude de funcións ou similar, faga isto velaquí: [Rastrexador dos problemas do Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). Se desexa analizar algo relacionado co Vespucci, pode comezar unha parola no [Grupo de Vespucci do Google](https://groups.google.com/forum/#!forum/osmeditor4android) ou no [Foro de Android do Vespucci](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 
