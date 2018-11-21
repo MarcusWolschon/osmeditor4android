@@ -5,12 +5,14 @@
     <string name="help_addrelationmember">Relación seleccionada</string>
     <string name="help_multiselect">Selección múltiple</string>
     <string name="help_longclick">Creando novos obxectos</string>
-    <string name="help_nodeselection">Nodo seleccionado</string>
+    <string name="help_nodeselection">Nó seleccionado</string>
     <string name="help_pathcreation">Creando novos obxectos</string>
     <string name="help_relationselection">Relación seleccionada</string>
     <string name="help_wayselection">Vía seleccionada</string>
     <string name="help_aligningbackgroundiamgery">Aliñar imaxes de fondo</string>
     <string name="help_propertyeditor">Editor de propiedades</string>
+    <string name="help_preferences">Axustes</string>
+    <string name="help_advanced_preferences">Axustes avanzados</string>
     <string name="help_presets">Preaxustes</string>
     <string name="help_conflictresolution">Resolución de conflito</string>
     <string name="help_gpssources">Fontes GPS</string>
@@ -18,10 +20,15 @@
     <string name="help_tagfilter">Filtro de etiquetas</string>
     <string name="help_presetfilter">Filtro de preaxustes</string>
     <string name="help_opening_hours">Horario de apertura</string>
+    <string name="help_upgrade">Notas da versión</string>
+    <string name="help_upgrade_102">Notas da versión 10.2</string>
+    <string name="help_upgrade_101">Notas da versión 10.1</string>
+    <string name="help_upgrade_100">Notas da versión 10.0</string>
     <string name="help_upgrade_099">0.9.9 Notas de versión</string>
     <string name="help_upgrade_098">0.9.8 Notas de versión</string>
     <string name="help_upgrade_097">0.9.7 Notas de versión</string>
     <string name="help_upgrade_096">0.9.6 Notas de versión</string>
+    <string name="help_privacy">Privacidade</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
