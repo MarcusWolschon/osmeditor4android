@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -175,6 +176,7 @@ public class Preset implements Serializable {
     private static final String MULTIPOLYGON        = "multipolygon";
     private static final String CLOSEDWAY           = "closedway";
     private static final String LABEL               = "label";
+    private static final String ITEMS_SORT          = "items_sort";
     /**
      * 
      */
@@ -364,6 +366,7 @@ public class Preset implements Serializable {
         this.directory = directory;
         this.externalPackage = externalPackage;
         rootGroup = new PresetGroup(null, "", null);
+        rootGroup.setItemSort(false);
 
         // noinspection ResultOfMethodCallIgnored
         directory.mkdir();
@@ -493,6 +496,7 @@ public class Preset implements Serializable {
             return;
         }
         rootGroup = new PresetGroup(null, name, null);
+        rootGroup.setItemSort(false);
         addElementsToIndex(rootGroup, elements);
     }
 
@@ -609,6 +613,10 @@ public class Preset implements Serializable {
                     String context = attr.getValue(NAME_CONTEXT);
                     if (context != null) {
                         g.setNameContext(context);
+                    }
+                    String itemsSort = attr.getValue(ITEMS_SORT);
+                    if (itemsSort != null) {
+                        g.setItemSort(YES.equals(itemsSort));
                     }
                     groupstack.push(g);
                 } else if (ITEM.equals(name)) {
@@ -1655,11 +1663,11 @@ public class Preset implements Serializable {
         /**
          * Get the name of this element
          * 
-         * @return the name if set or null
+         * @return the name if set or if null an empty String
          */
-        @Nullable
+        @NonNull
         public String getName() {
-            return name;
+            return name != null ? name : "";
         }
 
         /**
@@ -1667,6 +1675,7 @@ public class Preset implements Serializable {
          * 
          * @return the name
          */
+        @NonNull
         public String getTranslatedName() {
             if (nameContext != null) {
                 return po != null ? po.t(nameContext, getName()) : getName();
@@ -1728,6 +1737,7 @@ public class Preset implements Serializable {
          * 
          * @return a small icon
          */
+        @Nullable
         public BitmapDrawable getMapIcon() {
             if (mapIcon == null && iconpath != null) {
                 if (iconManager == null) {
@@ -1753,7 +1763,7 @@ public class Preset implements Serializable {
          * 
          * @param pg the parent to set
          */
-        public void setParent(PresetGroup pg) {
+        public void setParent(@Nullable PresetGroup pg) {
             parent = pg;
         }
 
@@ -1806,7 +1816,7 @@ public class Preset implements Serializable {
          * @param type the ElementType to check for
          * @return true if applicable
          */
-        public boolean appliesTo(ElementType type) {
+        public boolean appliesTo(@NonNull ElementType type) {
             switch (type) {
             case NODE:
                 return appliesToNode;
@@ -2043,9 +2053,11 @@ public class Preset implements Serializable {
         /**
          * 
          */
-        private static final long serialVersionUID = 2L;
+        private static final long serialVersionUID = 3L;
 
         private final int groupIndex;
+
+        private boolean itemSort = true;
 
         /** Elements in this group */
         private ArrayList<PresetElement> elements = new ArrayList<>();
@@ -2061,6 +2073,15 @@ public class Preset implements Serializable {
             super(parent, name, iconpath);
             groupIndex = allGroups.size();
             allGroups.add(this);
+        }
+
+        /**
+         * Sets the flag for item sorting
+         * 
+         * @param sort if true PresetITems will be sorted
+         */
+        public void setItemSort(boolean sort) {
+            itemSort = sort;
         }
 
         /**
@@ -2172,6 +2193,27 @@ public class Preset implements Serializable {
             wrappingLayout.setHorizontalSpacing((int) (SPACING * density));
             wrappingLayout.setVerticalSpacing((int) (SPACING * density));
             List<PresetElement> filteredElements = type == null ? elements : filterElements(elements, type);
+            if (itemSort) {
+                List<PresetItem> tempItems = new ArrayList<>();
+                List<PresetGroup> tempGroups = new ArrayList<>();
+                List<PresetElement> tempElements = new ArrayList<>(filteredElements);
+                filteredElements.clear();
+                for (PresetElement element : tempElements) {
+                    if (element instanceof PresetItem) {
+                        sortAndAddElements(filteredElements, tempGroups);
+                        tempItems.add((PresetItem) element);
+                    } else if (element instanceof PresetGroup) {
+                        sortAndAddElements(filteredElements, tempItems);
+                        tempGroups.add((PresetGroup) element);
+                    } else { // PresetSeperator
+                        sortAndAddElements(filteredElements, tempGroups);
+                        sortAndAddElements(filteredElements, tempItems);
+                        filteredElements.add(element);
+                    }
+                }
+                sortAndAddElements(filteredElements, tempGroups);
+                sortAndAddElements(filteredElements, tempItems);
+            }
             List<View> childViews = new ArrayList<>();
             for (PresetElement element : filteredElements) {
                 View v = element.getView(ctx, handler, element.equals(selectedElement));
@@ -2183,6 +2225,28 @@ public class Preset implements Serializable {
             wrappingLayout.setWrappedChildren(childViews);
             scrollView.addView(wrappingLayout);
             return scrollView;
+        }
+
+        final Comparator<PresetElement> itemComparator = new Comparator<PresetElement>() {
+
+            @Override
+            public int compare(@NonNull PresetElement pe1, @NonNull PresetElement pe2) {
+                return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
+            }
+        };
+
+        /**
+         * Sort the PresetElements in a temporary List and add them to a target List
+         * 
+         * @param target target List
+         * @param temp temp List
+         */
+        private <T extends PresetElement> void sortAndAddElements(@NonNull List<PresetElement> target, @NonNull List<T> temp) {
+            if (!temp.isEmpty()) {
+                temp.sort(itemComparator);
+                target.addAll(temp);
+                temp.clear();
+            }
         }
 
         @Override

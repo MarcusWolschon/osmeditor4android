@@ -30,6 +30,7 @@ __&lt;group&gt;__  |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
                    | icon                          | supported | you really should add one for Vespucci
+                   | items_sort                    | extension | sort the items alphabetically, default "yes"
 __&lt;item&gt;__   |                               | supported |
                    | name                          | supported | required
                    | name_context                  | supported |
@@ -159,3 +160,4 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _wikidata_  a wikidata Q ref
   
   this avoids having to hardcode such properties in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example.
+* _items_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
