@@ -98,6 +98,8 @@ public class Preferences {
     private final boolean showCameraAction;
 
     private final boolean generateAlerts;
+    
+    private final boolean groupAlertsOnly;
 
     private int maxAlertDistance;
 
@@ -219,6 +221,7 @@ public class Preferences {
 
         generateAlerts = prefs.getBoolean(r.getString(R.string.config_generateAlerts_key), false);
         maxAlertDistance = getIntPref(R.string.config_maxAlertDistance_key, 100);
+        groupAlertsOnly = prefs.getBoolean(r.getString(R.string.config_groupAlertsOnly_key), false);
 
         // light theme now always default
         lightThemeEnabled = prefs.getBoolean(r.getString(R.string.config_enableLightTheme_key), true);
@@ -428,8 +431,11 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Get the current data rendering style
+     * 
+     * @return the name of the current data renderign style
      */
+    @NonNull
     public String getMapProfile() {
         return mapProfile;
     }
@@ -443,6 +449,12 @@ public class Preferences {
         return advancedPrefs.getServerObject();
     }
 
+    /**
+     * Get the currently active Presets
+     * 
+     * @return an array holding the Presets
+     */
+    @Nullable
     public Preset[] getPreset() {
         return advancedPrefs.getCurrentPresetObject();
     }
@@ -602,10 +614,29 @@ public class Preferences {
         return showCameraAction;
     }
 
+    /**
+     * Check if we should generate alerts (Android Notifications)
+     * 
+     * @return true if we should generate alerts
+     */
     public boolean generateAlerts() {
         return generateAlerts;
     }
+    
+    /**
+     * Check if we should generate alerts only once per group or always
+     * 
+     * @return true if we should generate alerts once per group or always
+     */
+    public boolean groupAlertOnly() {
+        return groupAlertsOnly;
+    }
 
+    /**
+     * Check if the light theme is enabled
+     * 
+     * @return true if the light theme is enabled
+     */
     public boolean lightThemeEnabled() {
         return lightThemeEnabled;
     }

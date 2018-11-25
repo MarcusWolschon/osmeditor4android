@@ -146,6 +146,9 @@ public final class IssueAlert {
             mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
                     .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA)
                     .setColor(ContextCompat.getColor(context, R.color.osm_green));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
+                mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+            }
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
@@ -242,8 +245,10 @@ public final class IssueAlert {
         try {
             mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
-                    .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE);
-            mBuilder.setColor(ContextCompat.getColor(context, R.color.osm_green));
+                    .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE).setColor(ContextCompat.getColor(context, R.color.osm_green));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
+                mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+            }
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return

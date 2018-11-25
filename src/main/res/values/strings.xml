@@ -674,6 +674,8 @@
     <string name="config_enableNameSuggestionsPresets_summary">Automatically add preset when name suggestion is selected</string>   
     <string name="config_generateAlerts_title">Generate notifications</string>
     <string name="config_generateAlerts_summary">Generate notifications for data with problems or notes</string>
+    <string name="config_groupAlertsOnly_title">Group alerts only</string>
+    <string name="config_groupAlertsOnly_summary">Only generate alerts (audio) for groups of notifications once</string>
     <string name="config_notificationCacheSize_title">Max. number of displayed notifications</string>
     <string name="config_notificationCacheSize_summary">Maximum number of displayed notifications per type (min. 1)</string>
     <string name="config_notificationCacheSize_current">%1$d Notifications</string>
