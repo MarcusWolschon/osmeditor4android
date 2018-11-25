@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-11.2.1: Re-enable google longs, update translations.
+11.2.1: Re-enable google logins, update translations.
 
 11.2.0: Fix issue with geo URLS when data hadn't been downloaded, group notifications when possible, fix rare element selection misbehavior when a filter is active, remove i18n key variants after they have been assigned to a preset, add adaptive launcher icon for Oreo and later, updated presets and imagery.
 
