@@ -3574,7 +3574,7 @@ public class Logic {
                     try {
                         if (activity != null) {
                             Snack.barInfo(activity, result == 1 ? activity.getResources().getString(R.string.toast_one_unread_mail)
-                                    : activity.getResources().getString(R.string.toast_unread_mail, result), R.string.read, new View.OnClickListener() {
+                                    : activity.getResources().getString(R.string.toast_unread_mail, result), R.string.read_mail, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             try {

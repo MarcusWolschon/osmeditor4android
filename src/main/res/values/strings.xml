@@ -270,6 +270,7 @@
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
     <string name="toast_unread_mail">You have %1$d unread OSM messages</string>
+    <string name="read_mail">Read</string>
     <string name="toast_one_unread_mail">You have an unread OSM message</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
@@ -366,6 +367,7 @@
     <string name="clear">Clear</string>
     <string name="discard">Discard</string>
     <string name="retry">Retry</string>
+    <!-- Read a file -->
     <string name="read">Read</string>
     <string name="overwrite">Overwrite</string>
     <string name="share">Share</string>
