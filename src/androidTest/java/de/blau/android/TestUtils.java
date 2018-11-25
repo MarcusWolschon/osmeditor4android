@@ -193,13 +193,13 @@ public class TestUtils {
      * @param map the current Map object
      * @param lonE7 WGS84*1E7 longitude
      * @param latE7 WGS84*1E7 latitude
-     * @return true if sucessful
+     * @return true if successful
      */
-    public static boolean clickAtCoordinatesWaitNewWindow(@NonNull UiDevice device, @NonNull Map map, int lon, int lat) {
+    public static boolean clickAtCoordinatesWaitNewWindow(@NonNull UiDevice device, @NonNull Map map, int lonE7, int latE7) {
         return device.performActionAndWait(new Runnable() {
             @Override
             public void run() {
-                TestUtils.clickAtCoordinates(map, lon, lat);
+                TestUtils.clickAtCoordinates(map, lonE7, latE7);
             }
         }, Until.newWindow(), 5000);
     }
