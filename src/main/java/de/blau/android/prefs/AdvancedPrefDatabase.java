@@ -358,6 +358,13 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         return result;
     }
 
+    /**
+     * Get the all currently available APIs or just for id if present
+     * 
+     * @param db an open database
+     * @param id the id of the API configuration or null for all
+     * @return an array of API objects
+     */
     @NonNull
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
         Cursor dbresult = db.query(APIS_TABLE, new String[] { ID_FIELD, "name", "url", "readonlyurl", "notesurl", "user", "pass", "preset", "showicon", "oauth",
@@ -381,6 +388,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * 
      * @return an array of preset objects, or null if no valid preset is selected or the preset cannot be created
      */
+    @Nullable
     public Preset[] getCurrentPresetObject() {
         long start = System.currentTimeMillis();
         PresetInfo[] presetInfos = getActivePresets();
@@ -429,6 +437,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * 
      * @return an array of PresetInfo
      */
+    @Nullable
     public PresetInfo[] getPresets() {
         return getPresets(null, false);
     }
@@ -451,11 +460,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Gets a preset by URL (will return null if no preset with this URL exists)
      * 
-     * @param url the url
+     * @param url the url, if null the first preset found will be returned
      * @return a PresetInfo object or null
      */
     @Nullable
-    public PresetInfo getPresetByURL(String url) {
+    public PresetInfo getPresetByURL(@Nullable String url) {
         PresetInfo[] found = getPresets(url, true);
         if (found.length == 0) {
             return null;
@@ -493,7 +502,8 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param byURL if false, value represents an ID, if true, value represents an URL
      * @return PresetInfo[]
      */
-    private synchronized PresetInfo[] getPresets(String value, boolean byURL) {
+    @NonNull
+    private synchronized PresetInfo[] getPresets(@Nullable String value, boolean byURL) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor dbresult = db.query(PRESETS_TABLE, new String[] { ID_FIELD, "name", "url", "lastupdate", "active" },
                 value == null ? null : (byURL ? "url = ?" : "id = ?"), value == null ? null : new String[] { value }, null, null, POSITION_FIELD);
@@ -511,12 +521,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * adds a new Preset with the given values to the Preset database
      * 
-     * @param id
-     * @param name
-     * @param url
-     * @param active
+     * @param id the id 
+     * @param name the name of the new Preset
+     * @param url any url for the preset
+     * @param active if true this will be included in the currently avaliable presets
      */
-    public synchronized void addPreset(String id, String name, String url, boolean active) {
+    public synchronized void addPreset(@NonNull String id, @NonNull String name, @NonNull String url, boolean active) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ID_FIELD, id);
@@ -544,7 +554,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * 
      * @param id the ID of the preset to update
      */
-    public synchronized void setPresetLastupdateNow(String id) {
+    public synchronized void setPresetLastupdateNow(@NonNull String id) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("lastupdate", ((Long) System.currentTimeMillis()).toString());
@@ -647,7 +657,16 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         public final long    lastupdate;
         public final boolean active;
 
-        public PresetInfo(String id, String name, String url, String lastUpdate, boolean active) {
+        /**
+         * Construnct a new configuration for a Preset
+         * 
+         * @param id the Preset id
+         * @param name the Preset name
+         * @param url an url or an empty string
+         * @param lastUpdate time and date of last update in milliseconds since the epoch
+         * @param active true if the Preset is active
+         */
+        public PresetInfo(@NonNull String id, @NonNull String name, @NonNull String url, @NonNull String lastUpdate, boolean active) {
             this.id = id;
             this.name = name;
             this.url = url;
@@ -665,10 +684,11 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Gets the preset data path for a preset with the given ID
      * 
-     * @param id
-     * @return
+     * @param id the id for the Preset
+     * @return the preset data path 
      */
-    public File getPresetDirectory(String id) {
+    @NonNull
+    public File getPresetDirectory(@Nullable String id) {
         if (id == null || id.equals("")) {
             throw new IllegalOperationException("Attempted to get folder for null or empty id!");
         }
@@ -735,7 +755,12 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         }
     }
 
-    /** returns an array of Geocoder for all currently known Geocoder */
+    /** 
+     * Get all currently known Geocoders
+     * 
+     * @return an array of Geocoder objects
+     */
+     @NonNull 
     public Geocoder[] getGeocoders() {
         return getGeocoders(null);
     }
@@ -744,9 +769,10 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * Fetches all Geocoders matching the given ID, or all Geocoders if id is null
      * 
      * @param id null to fetch all Geocoders, or the id to fetch a specific one
-     * @return Geocoder[]
+     * @return an array of Geocoder objects
      */
-    private synchronized Geocoder[] getGeocoders(String id) {
+    @NonNull
+    private synchronized Geocoder[] getGeocoders(@Nullable String id) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor dbresult = db.query("geocoders", new String[] { ID_FIELD, "name", "type", "version", "url", "active" }, id == null ? null : "id = ?",
                 id == null ? null : new String[] { id }, null, null, null);
