@@ -16,10 +16,13 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.Snack;
 
-public class ImageryOffsetUtils {
+public final class ImageryOffsetUtils {
     private static final int    MAX_OFFSET_DISTANCE = 100;
     private static final String DEBUG_TAG           = "OffsetUtils";
 
+    /**
+     * Private default constructor
+     */
     private ImageryOffsetUtils() {
         // hide default constructor
     }

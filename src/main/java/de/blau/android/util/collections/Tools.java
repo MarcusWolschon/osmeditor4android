@@ -3,7 +3,7 @@ package de.blau.android.util.collections;
 /**
  * Common methods Taken from FastUtil implementation
  */
-class Tools {
+final class Tools {
 
     /**
      * Default constructor

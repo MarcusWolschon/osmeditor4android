@@ -20,7 +20,7 @@ import de.blau.android.taginfo.TaginfoServer;
 import de.blau.android.taginfo.TaginfoServer.ValueResult;
 import de.blau.android.util.StringWithDescription;
 
-public class Util {
+public final class Util {
 
     private static final String DEBUG_TAG = Util.class.getSimpleName();
 

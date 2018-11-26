@@ -11,7 +11,7 @@ import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.StringWithDescription;
 
-public class InputTypeUtil {
+public final class InputTypeUtil {
 
     /**
      * Private default constructor

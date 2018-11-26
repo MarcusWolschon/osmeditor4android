@@ -37,7 +37,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public class Address implements Serializable {
+public final class Address implements Serializable {
     private static final long serialVersionUID = 5L;
 
     private static final String DEBUG_TAG = Address.class.getSimpleName();

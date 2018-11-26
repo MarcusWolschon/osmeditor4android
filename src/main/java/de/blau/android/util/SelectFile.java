@@ -26,7 +26,7 @@ import de.blau.android.prefs.Preferences;
  * @author Simon Poole
  *
  */
-public class SelectFile {
+public final class SelectFile {
 
     private static final String DEBUG_TAG = SelectFile.class.getName();
 

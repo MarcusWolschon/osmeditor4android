@@ -116,7 +116,7 @@ public class UndoDialogFactory {
         }
     }
 
-    private static class UndoDialogItem extends AppCompatTextView {
+    private static final class UndoDialogItem extends AppCompatTextView {
 
         public final int     index;
         public final boolean isRedo;

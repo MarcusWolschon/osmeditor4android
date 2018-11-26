@@ -63,10 +63,13 @@ import de.blau.android.util.ThemeUtils;
  * @author simon
  *
  */
-public class Utils {
+public final class Utils {
 
     private static final String DEBUG_TAG = "javascript.Utils";
 
+    /**
+     * Empty private constructor
+     */
     private Utils() {
         // don't allow instantiating of this class
     }
