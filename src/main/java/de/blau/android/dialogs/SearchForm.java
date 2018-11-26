@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -143,6 +144,7 @@ public class SearchForm extends ImmersiveDialogFragment {
 
         // FIXME the following shares a lot of code with BoxPicker, but is unluckily slightly different
         final Spinner searchGeocoder = (Spinner) searchLayout.findViewById(R.id.location_search_geocoder);
+        final CheckBox limitSearch = searchLayout.findViewById(R.id.location_search_limit);
         AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
         final Geocoder[] geocoders = db.getActiveGeocoders();
         String[] geocoderNames = new String[geocoders.length];
@@ -164,6 +166,13 @@ public class SearchForm extends ImmersiveDialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                 prefs.setGeocoder(pos);
+                if (geocoders[pos].type == AdvancedPrefDatabase.GeocoderType.NOMINATIM) {
+                    limitSearch.setEnabled(true);
+                    limitSearch.setChecked(prefs.getGeocoderLimit());
+                } else {
+                    limitSearch.setEnabled(false);
+                    limitSearch.setChecked(false);
+                }
             }
 
             @Override
@@ -193,7 +202,6 @@ public class SearchForm extends ImmersiveDialogFragment {
          * NOTE this is slightly hackish but needed to ensure the original dialog (this) gets dismissed
          */
         final SearchItemSelectedCallback realCallback = new SearchItemSelectedCallback() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void onItemSelected(SearchResult sr) {
@@ -208,7 +216,10 @@ public class SearchForm extends ImmersiveDialogFragment {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     Search search = new Search((AppCompatActivity) getActivity(), realCallback);
-                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox);
+                    search.find(geocoders[searchGeocoder.getSelectedItemPosition()], v.getText().toString(), bbox, limitSearch.isChecked());
+                    if (limitSearch.isEnabled()) {
+                        prefs.setGeocoderLimit(limitSearch.isChecked());
+                    }
                 }
                 return false;
             }

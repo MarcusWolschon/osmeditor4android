@@ -651,6 +651,16 @@ public class Snack {
     }
 
     /**
+     * Display a warning toast underneath the top action bar
+     * 
+     * @param context Android Context that called this
+     * @param msgRes the message resource to display
+     */
+    public static void toastTopWarning(Context context, int msgRes) {
+        toastTop(context, msgRes, ThemeUtils.getStyleAttribColorValue(context, R.attr.snack_warning, R.color.material_yellow), Toast.LENGTH_LONG);
+    }
+
+    /**
      * Display an error toast underneath the top action bar
      * 
      * @param context Android Context that called this

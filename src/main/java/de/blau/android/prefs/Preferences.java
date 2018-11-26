@@ -767,10 +767,20 @@ public class Preferences {
         return prefs.getBoolean(key, false);
     }
 
+    /**
+     * Set the current default Geocoder
+     * 
+     * @param index index of the Geocoder
+     */
     public void setGeocoder(int index) {
         prefs.edit().putInt(r.getString(R.string.config_geocoder_key), index).commit();
     }
 
+    /**
+     * Get the current default Geocoder
+     * 
+     * @return index of the Geocoder
+     */
     public int getGeocoder() {
         String key = r.getString(R.string.config_geocoder_key);
         if (!prefs.contains(key)) {
@@ -780,6 +790,29 @@ public class Preferences {
         return prefs.getInt(key, 0);
     }
 
+    /**
+     * Set if searches should be limited to the current ViewBox
+     * 
+     * @param on if true limit searches to the current ViewBox
+     */
+    public void setGeocoderLimit(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_geocoderLimit_key), on).commit();
+    }
+    
+    /**
+     * Check if we should limit searches to the current ViewBox
+     * 
+     * @return true if searches should be limited
+     */
+    public boolean getGeocoderLimit() {
+        String key = r.getString(R.string.config_geocoderLimit_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            setGeocoderLimit(false);
+        }
+        return prefs.getBoolean(key, false);
+    }
+    
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
     }

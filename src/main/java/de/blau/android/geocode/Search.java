@@ -96,8 +96,9 @@ public class Search {
      * @param geocoder the geocoder to use for the querey
      * @param q the query string
      * @param bbox bounding box to limit the search to
+     * @param limitSearch if true limitSearch to bbox
      */
-    public void find(@NonNull Geocoder geocoder, @NonNull String q, @Nullable ViewBox bbox) {
+    public void find(@NonNull Geocoder geocoder, @NonNull String q, @Nullable ViewBox bbox, boolean limitSearch) {
         Query querier = null;
         boolean multiline = false;
         switch (geocoder.type) {
@@ -107,7 +108,7 @@ public class Search {
             break;
         case NOMINATIM:
         default:
-            querier = new QueryNominatim(activity, geocoder.url, bbox);
+            querier = new QueryNominatim(activity, geocoder.url, bbox, limitSearch);
             multiline = false;
             break;
         }
@@ -118,7 +119,7 @@ public class Search {
                 AppCompatDialog sr = createSearchResultsDialog(result, multiline ? R.layout.search_results_item_multi_line : R.layout.search_results_item);
                 sr.show();
             } else {
-                Snack.barInfo(activity, R.string.toast_nothing_found);
+                Snack.toastTopWarning(activity, R.string.toast_nothing_found);
             }
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());

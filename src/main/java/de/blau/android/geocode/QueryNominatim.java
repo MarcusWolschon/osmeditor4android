@@ -25,6 +25,8 @@ import okhttp3.ResponseBody;
 class QueryNominatim extends Query {
 
     private static final String DEBUG_TAG = null;
+    
+    final boolean limitToBoundingBox;
 
     /**
      * Query a Nominatim geocoder
@@ -32,9 +34,11 @@ class QueryNominatim extends Query {
      * @param activity the calling FragmentActivity, if null no progress spinner will be shown
      * @param url URL for the specific instance of the geocoder
      * @param bbox a ViewBox to restrict the query to, if null the whole world will be considered
+     * @param limitSearch if true limit search to bbox
      */
-    public QueryNominatim(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox) {
+    public QueryNominatim(@Nullable FragmentActivity activity, @NonNull String url, @Nullable ViewBox bbox, boolean limitSearch) {
         super(activity, url, bbox);
+        limitToBoundingBox = limitSearch;
     }
 
     @Override
@@ -45,6 +49,9 @@ class QueryNominatim extends Query {
         if (bbox != null) {
             String viewBoxCoordinates = bbox.getLeft() / 1E7D + "," + bbox.getBottom() / 1E7D + "," + bbox.getRight() / 1E7D + "," + bbox.getTop() / 1E7D;
             builder.appendQueryParameter("viewboxlbrt", viewBoxCoordinates);
+            if (limitToBoundingBox) {
+                builder.appendQueryParameter("bounded", "1");
+            }
         }
         Uri uriBuilder = builder.appendQueryParameter("format", "jsonv2").build();
 
