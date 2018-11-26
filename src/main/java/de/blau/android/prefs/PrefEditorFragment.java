@@ -38,10 +38,10 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private BoundingBox viewBox = null;
 
     @Override
-    public void onCreatePreferences(Bundle arg0, String arg1) {
-        Log.d(DEBUG_TAG, "onCreatePreferences " + arg1);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        Log.d(DEBUG_TAG, "onCreatePreferences " + rootKey);
         viewBox = (BoundingBox) getArguments().getSerializable(PrefEditor.CURRENT_VIEWBOX);
-        setPreferencesFromResource(R.xml.preferences, arg1);
+        setPreferencesFromResource(R.xml.preferences, rootKey);
         r = getResources();
         KEY_MAPBG = r.getString(R.string.config_backgroundLayer_key);
         KEY_MAPOL = r.getString(R.string.config_overlayLayer_key);
