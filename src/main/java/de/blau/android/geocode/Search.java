@@ -123,10 +123,10 @@ public class Search {
         } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in question
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
             querier.cancel(true);
-            Snack.barError(activity, R.string.no_connection_title);
+            Snack.toastTopError(activity, R.string.no_connection_title);
         } catch (TimeoutException e) {
             Log.e(DEBUG_TAG, "find got exception " + e.getMessage());
-            Snack.barError(activity, R.string.toast_timeout);
+            Snack.toastTopError(activity, R.string.toast_timeout);
         }
     }
 
