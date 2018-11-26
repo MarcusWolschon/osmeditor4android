@@ -5,12 +5,14 @@ import java.util.Locale;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.prefs.Preferences;
@@ -20,7 +22,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements DisableInterface {
+public class MapOverlay extends MapViewLayer implements DisableInterface, ConfigureInterface {
 
     private static final String SCALE_NONE       = "SCALE_NONE";
     private static final String DEBUG_TAG        = MapOverlay.class.getName();
@@ -259,5 +261,15 @@ public class MapOverlay extends MapViewLayer implements DisableInterface {
         if (scaleValues != null && scaleValues.length > 0) {
             prefs.setScaleLayer(scaleValues[0]);
         }
+    }
+
+    @Override
+    public boolean enableConfiguration() {
+        return true;
+    }
+
+    @Override
+    public void configure(FragmentActivity activity) {
+        ConfigurationDialog.showDialog(activity);
     }
 }

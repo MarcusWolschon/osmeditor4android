@@ -551,13 +551,19 @@
     <string name="min_max_zoom">%1$d - %2$d</string>
     <string name="distance_meter">%1$.2f meter</string>
     <string name="distance_km">%1$.3f km</string>
+    <!--  Menus in layers dialog -->
+    <string name="menu_layers">Layers…</string>
+    <string name="menu_layers_load_geojson">Load GeoJSON layer</string>
+    <string name="menu_layers_add_backgroundlayer">Add background imagery layer</string>
+    <string name="menu_layers_add_overlaylayer">Add overlay imagery layer</string>
+    <string name="menu_layers_add_tasklayer">Add task layer</string>
+    <string name="menu_layers_add_grid">Add grid</string>
+    <string name="menu_layers_configure">Configure…</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
     <string name="menu_tools_background_contrast">Contrast</string>
     <string name="menu_tools_oauth_reset">Reset OAuth</string>
     <string name="menu_tools_oauth_authorisation">Authorise OAuth</string>
-    <string name="menu_layers">Layers…</string>
-    <string name="menu_layers_load_geojson">Load GeoJSON layer</string>
     <string name="menu_enable_tagfilter">Tag filter</string>
     <string name="menu_enable_presetfilter">Preset filter</string>
     <string name="preset_menu_waynodes">Include way nodes</string>

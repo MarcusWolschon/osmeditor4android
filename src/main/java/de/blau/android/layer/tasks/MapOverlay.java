@@ -6,6 +6,7 @@ import java.util.Set;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import de.blau.android.App;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
+import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.MapViewLayer;
@@ -28,7 +30,7 @@ import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoMath;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface, ConfigureInterface {
 
     private static final String DEBUG_TAG = "tasks";
 
@@ -190,5 +192,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
         }
         Task bug = (Task) object;
         return bug.getDescription(map.getContext());
+    }
+
+    @Override
+    public void configure(FragmentActivity activity) {
+        ConfigurationDialog.showDialog(activity);
+    }
+
+    @Override
+    public boolean enableConfiguration() {
+        // multi choice preferences are not supported on old SKD versions
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 }

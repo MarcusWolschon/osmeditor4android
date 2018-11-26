@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -26,7 +25,6 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -47,6 +45,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
+import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
@@ -56,11 +55,10 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
+import de.blau.android.util.SizedFixedImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
-import de.blau.android.util.Util;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
@@ -70,7 +68,7 @@ import de.blau.android.views.layers.MapTilesOverlayLayer;
  * @author Simon Poole
  *
  */
-public class Layers extends ImmersiveDialogFragment {
+public class Layers extends SizedFixedImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = Layers.class.getName();
 
@@ -138,7 +136,8 @@ public class Layers extends ImmersiveDialogFragment {
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         AppCompatDialog dialog = new AppCompatDialog(getActivity());
         View layout = createView(null);
-
+        // ideally the following code would be included in the layer classes, but no brillant ideas on how to do this
+        // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(new OnClickListener() {
             @Override
@@ -178,7 +177,7 @@ public class Layers extends ImmersiveDialogFragment {
                     }
                 });
                 if (!Map.activeOverlay(prefs.backgroundLayer())) {
-                    item = popup.getMenu().add(R.string.config_backgroundLayer_title);
+                    item = popup.getMenu().add(R.string.menu_layers_add_backgroundlayer);
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
@@ -188,7 +187,7 @@ public class Layers extends ImmersiveDialogFragment {
                     });
                 }
                 if (!Map.activeOverlay(prefs.overlayLayer())) {
-                    item = popup.getMenu().add(R.string.config_overlayLayer_title);
+                    item = popup.getMenu().add(R.string.menu_layers_add_overlaylayer);
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
@@ -196,6 +195,35 @@ public class Layers extends ImmersiveDialogFragment {
                             return true;
                         }
                     });
+                }
+                if (!prefs.areBugsEnabled()) {
+                    item = popup.getMenu().add(R.string.menu_layers_add_tasklayer);
+                    item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem arg0) {
+                            prefs.setBugsEnabled(true);
+                            setPrefs(activity, prefs);
+                            tl.removeAllViews();
+                            addRows(activity);
+                            return true;
+                        }
+                    });
+                }
+                String[] scaleValues = activity.getResources().getStringArray(R.array.scale_values);
+                if (scaleValues != null && scaleValues.length > 0) {
+                    if (prefs.scaleLayer().equals(scaleValues[0])) {
+                        item = popup.getMenu().add(R.string.menu_layers_add_grid);
+                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem arg0) {
+                                prefs.setScaleLayer(scaleValues[1]);
+                                setPrefs(activity, prefs);
+                                tl.removeAllViews();
+                                addRows(activity);
+                                return true;
+                            }
+                        });
+                    }
                 }
                 popup.show();
             }
@@ -228,24 +256,6 @@ public class Layers extends ImmersiveDialogFragment {
             return createView(container);
         }
         return null;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            int dialogWidth = (int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
-            } else {
-                // workaround the popupmenu being clipped in at least 2.3 by simply making the dialog as large as
-                // possible, ugly but works
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                // noinspection deprecation
-                dialog.getWindow().setLayout(dialogWidth, (int) (display.getHeight() * 0.9)); // NOSONAR
-            }
-        }
     }
 
     /**
@@ -488,6 +498,18 @@ public class Layers extends ImmersiveDialogFragment {
                     }
                 });
             }
+            if (layer instanceof ConfigureInterface && ((ConfigureInterface) layer).enableConfiguration()) {
+                MenuItem item = popup.getMenu().add(R.string.menu_layers_configure);
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (layer != null) {
+                            ((ConfigureInterface) layer).configure(activity);
+                        }
+                        return true;
+                    }
+                });
+            }
             if (layer instanceof StyleableLayer) {
                 MenuItem item = popup.getMenu().add(R.string.layer_change_style);
                 item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -508,7 +530,7 @@ public class Layers extends ImmersiveDialogFragment {
                         if (layer != null) {
                             Context context = getContext();
                             ((DisableInterface) layer).disable(context);
-                            App.getLogic().getMap().setPrefs(context, new Preferences(context));
+                            setPrefs(activity, new Preferences(context));
                             tl.removeAllViews();
                             addRows(context);
                         }
@@ -625,11 +647,20 @@ public class Layers extends ImmersiveDialogFragment {
             TextView name = (TextView) row.getChildAt(2);
             name.setText(tileServer.getName());
             layer.setRendererInfo(tileServer);
-        } else {
-            App.getLogic().getMap().setPrefs(getContext(), prefs);
         }
+        setPrefs(activity, prefs);
+    }
+
+    /**
+     * Set the Preference instance in Main and Map
+     * 
+     * @param activity the calling FragmentActivity
+     * @param prefs the new Preference object
+     */
+    private void setPrefs(@Nullable FragmentActivity activity, @NonNull Preferences prefs) {
         if (activity instanceof Main) {
-            ((Main) activity).updatePrefs();
+            ((Main) activity).updatePrefs(prefs);
         }
+        App.getLogic().getMap().setPrefs(getContext(), prefs);
     }
 }
