@@ -140,6 +140,19 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         // right now
         final FloatingActionButton add = (FloatingActionButton) layout.findViewById(R.id.add);
         add.setOnClickListener(new OnClickListener() {
+
+            /**
+             * Update the dialog and set the prefs
+             * 
+             * @param activity calling FragmentActivity
+             * @param prefs Preference instance to set
+             */
+            private void updateDialogAndPrefs(final FragmentActivity activity, final Preferences prefs) {
+                setPrefs(activity, prefs);
+                tl.removeAllViews();
+                addRows(activity);
+            }
+            
             @Override
             public void onClick(View v) {
                 final FragmentActivity activity = getActivity();
@@ -202,9 +215,18 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
                             prefs.setBugsEnabled(true);
-                            setPrefs(activity, prefs);
-                            tl.removeAllViews();
-                            addRows(activity);
+                            updateDialogAndPrefs(activity, prefs);
+                            return true;
+                        }
+                    });
+                }
+                if (!prefs.isPhotoLayerEnabled()) {
+                    item = popup.getMenu().add(R.string.menu_layers_add_photolayer);
+                    item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem arg0) {
+                            prefs.setPhotoLayerEnabled(true);;
+                            updateDialogAndPrefs(activity, prefs);
                             return true;
                         }
                     });
@@ -217,9 +239,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                             @Override
                             public boolean onMenuItemClick(MenuItem arg0) {
                                 prefs.setScaleLayer(scaleValues[1]);
-                                setPrefs(activity, prefs);
-                                tl.removeAllViews();
-                                addRows(activity);
+                                updateDialogAndPrefs(activity, prefs);
                                 return true;
                             }
                         });

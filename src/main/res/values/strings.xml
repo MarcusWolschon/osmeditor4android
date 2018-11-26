@@ -561,6 +561,7 @@
     <string name="menu_layers_add_overlaylayer">Add overlay imagery layer</string>
     <string name="menu_layers_add_tasklayer">Add task layer</string>
     <string name="menu_layers_add_grid">Add grid</string>
+    <string name="menu_layers_add_photolayer">Add photo layer</string>
     <string name="menu_layers_configure">Configure…</string>
     <!--  -->
     <string name="menu_tools_apply_local_offset">Apply stored offset to imagery</string>
