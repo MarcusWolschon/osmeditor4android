@@ -40,9 +40,9 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     private static final String LAYERINDEX = "layer_index";
 
     /**
-     * Display a dialog allowing the user to change some properties of the current backgroun
+     * Display a dialog allowing the user to change some properties of the current background
      * 
-     * @param activity the callign Activity
+     * @param activity the calling Activity
      * @param layerIndex the index of the Layer
      */
     public static void showDialog(@NonNull FragmentActivity activity, int layerIndex) {
@@ -77,10 +77,10 @@ public class BackgroundProperties extends ImmersiveDialogFragment {
     }
 
     /**
-     * Get a new BackgroundPropertie dialog instance
+     * Get a new BackgroundProperties dialog instance
      * 
      * @param layerIndex the index of the Layer
-     * @return a new BackgroundPropertie dialog instance
+     * @return a new BackgroundProperties dialog instance
      */
     @NonNull
     private static BackgroundProperties newInstance(int layerIndex) {
