@@ -2736,6 +2736,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Hide all control buttons and the action bar
+     */
     private void hideControls() {
         synchronized (controlsHiddenLock) {
             ActionBar actionbar = getSupportActionBar();
@@ -2757,6 +2760,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Show all control buttons and the action bar
+     */
     private void showControls() {
         synchronized (controlsHiddenLock) {
             ActionBar actionbar = getSupportActionBar();
@@ -2921,8 +2927,7 @@ public class Main extends FullScreenAppCompatActivity
                 showControls();
                 try {
                     // the below loadUrl, even though the "official" way to do
-                    // it,
-                    // seems to be prone to crash on some devices.
+                    // it, seems to be prone to crash on some devices.
                     oAuthWebView.loadUrl("about:blank"); // workaround clearView
                                                          // issues
                     oAuthWebView.setVisibility(View.GONE);
@@ -2935,6 +2940,8 @@ public class Main extends FullScreenAppCompatActivity
                 } catch (Exception ex) {
                     ACRAHelper.nocrashReport(ex, ex.getMessage());
                 }
+            } else { // we want to have the controls showing in any case and before restart.onScucess is run
+                showControls();
             }
         }
     }
