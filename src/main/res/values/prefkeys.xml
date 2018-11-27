@@ -70,6 +70,7 @@
     <string name="config_validatorprefs_key">validatorprefs</string>
     <string name="config_customlayers_key">customLayers</string>
     <string name="config_enableAutoPresets_key">enableAutoPresets</string>
+    <string name="config_simpleActions_key">simpleActions</string>
     
 	<!-- Preference keys used in the pref editor(s) int prefs -->
 	<string name="config_maxInlineValues_key">maxInlineValuesInt</string>

@@ -48,9 +48,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
@@ -109,6 +106,8 @@ import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.SimpleActionModeCallback;
+import de.blau.android.easyedit.SimpleActionModeCallback.SimpleAction;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -389,6 +388,11 @@ public class Main extends FullScreenAppCompatActivity
     private FloatingActionButton follow;
 
     /**
+     * Simple actions FAB
+     */
+    private FloatingActionButton simpleActionsButton;
+
+    /**
      * The current instance of the tracker service
      */
     private TrackerService tracker = null;
@@ -517,8 +521,24 @@ public class Main extends FullScreenAppCompatActivity
 
         mDetector = VersionedGestureDetector.newInstance(this, mapTouchListener);
 
+        // follow GPS button setup
+        follow = (FloatingActionButton) mapLayout.findViewById(R.id.follow);
+
+        follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFollowGPS(true);
+            }
+        });
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // currently can't be set in layout
+            ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
+            Util.setBackgroundTintList(follow, followTint);
+        }
+        Util.setAlpha(follow, Main.FABALPHA);
+
         // Set up the zoom in/out controls
-        zoomControls = new de.blau.android.views.ZoomControls(this);
+        zoomControls = mapLayout.findViewById(R.id.zoom_controls);
 
         zoomControls.setOnZoomInClickListener(new View.OnClickListener() {
             @Override
@@ -537,27 +557,39 @@ public class Main extends FullScreenAppCompatActivity
             }
         });
 
-        // follow GPS button setup
-        follow = (FloatingActionButton) mapLayout.findViewById(R.id.follow);
-
-        follow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFollowGPS(true);
-            }
-        });
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // currently can't be set in layout
-            ColorStateList followTint = ContextCompat.getColorStateList(this, R.color.follow);
-            Util.setBackgroundTintList(follow, followTint);
-        }
-        Util.setAlpha(follow, Main.FABALPHA);
-
+        // simple actions mode button
+        simpleActionsButton = (FloatingActionButton) getLayoutInflater().inflate(R.layout.simple_button, null);
+        Util.setAlpha(simpleActionsButton, Main.FABALPHA);
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+        rlp.addRule(RelativeLayout.ABOVE, R.id.zoom_controls);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mapLayout.addView(zoomControls, rlp);
+
+        simpleActionsButton.setVisibility(prefs.areSimpleActionsEnabled() ? View.VISIBLE : View.GONE);
+        mapLayout.addView(simpleActionsButton, rlp);
+        simpleActionsButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (App.getLogic().isLocked()) {
+                    Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                } else {
+                    PopupMenu popup = new PopupMenu(Main.this, simpleActionsButton);
+                    // menu items for adding layers
+                    for (SimpleAction simpleMode : SimpleAction.values()) {
+                        MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());
+                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem arg0) {
+                                Main.this.startSupportActionMode(new SimpleActionModeCallback(Main.this.easyEditManager, simpleMode));
+                                return true;
+                            }
+                        });
+                    }
+                    popup.show();
+                }
+            }
+        });
 
         // layers button setup
         layers = (FloatingActionButton) mapLayout.findViewById(R.id.layers);
@@ -1065,7 +1097,7 @@ public class Main extends FullScreenAppCompatActivity
             if (!logic.getMode().elementsGeomEditiable()) {
                 // TODO there might be states in which we don't
                 // want to exit which ever mode we are in
-                setMode(this, Mode.MODE_EASYEDIT);
+                App.getLogic().setMode(this, Mode.MODE_EASYEDIT);
             }
             logic.setSelectedNode(null);
             logic.setSelectedWay(null);
@@ -1294,7 +1326,7 @@ public class Main extends FullScreenAppCompatActivity
         final Logic logic = App.getLogic();
         Mode mode = logic.getMode();
         Log.d(DEBUG_TAG, "setupLockButton mode " + mode);
-        // ToggleButton lock = setLock(mode);
+        //
         final FloatingActionButton lock = setLock(mode);
         if (lock == null) {
             return; // FIXME not good but no other alternative right now,
@@ -1319,9 +1351,11 @@ public class Main extends FullScreenAppCompatActivity
                     logic.setMode(Main.this, mode);
                     ((FloatingActionButton) b).setImageState(new int[] { android.R.attr.state_pressed }, false);
                     logic.setLocked(false);
+                    enableSimpleActionsButton();
                 } else {
                     logic.setLocked(true);
                     ((FloatingActionButton) b).setImageState(new int[] { 0 }, false);
+                    disableSimpleActionsButton();
                 }
                 onEditModeChanged();
                 map.invalidate();
@@ -1386,6 +1420,8 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Set lock button to locked or unlocked depending on the edit mode
      * 
+     * Side effect disables/enables the simple actions button too
+     * 
      * @param mode Program mode.
      * @return Button to display checked/unchecked states.
      */
@@ -1398,15 +1434,13 @@ public class Main extends FullScreenAppCompatActivity
         Logic logic = App.getLogic();
         if (logic.isLocked()) {
             lock.setImageState(new int[] { 0 }, false);
+            disableSimpleActionsButton();
         } else {
             lock.setImageState(new int[] { android.R.attr.state_pressed }, false);
+            enableSimpleActionsButton();
         }
         logic.setMode(this, mode);
         return lock; // for convenience
-    }
-
-    public void setMode(Main main, Mode mode) {
-        App.getLogic().setMode(main, mode);
     }
 
     private void updateActionbarEditMode() {
@@ -1484,9 +1518,9 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected).setChecked(autoDownload());
+        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected).setChecked(prefs.getAutoDownload());
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
-                .setChecked(bugAutoDownload());
+                .setChecked(prefs.getBugAutoDownload());
 
         boolean trackerHasTrackPoints = getTracker() != null && getTracker().hasTrackPoints();
         boolean trackerHasWayPoints = getTracker() != null && getTracker().hasWayPoints();
@@ -1550,6 +1584,8 @@ public class Main extends FullScreenAppCompatActivity
                 .setChecked(prefs.getEnableTagFilter() && logic.getFilter() instanceof TagFilter);
         menu.findItem(R.id.menu_enable_presetfilter).setEnabled(logic.getMode().supportsFilters())
                 .setChecked(prefs.getEnablePresetFilter() && logic.getFilter() instanceof PresetFilter);
+
+        menu.findItem(R.id.menu_simple_actions).setChecked(prefs.areSimpleActionsEnabled());
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             // will run out of memory on old Android versions
@@ -1668,6 +1704,18 @@ public class Main extends FullScreenAppCompatActivity
             triggerMenuInvalidation();
             map.invalidate();
             return true;
+
+        case R.id.menu_simple_actions:
+            if (prefs.areSimpleActionsEnabled()) {
+                prefs.enableSimpleActions(false);
+                item.setChecked(false);
+                hideSimpleActionsButton();
+            } else {
+                prefs.enableSimpleActions(true);
+                item.setChecked(true);
+                showSimpleActionsButton();
+            }
+            break;
 
         case R.id.menu_share:
             Util.sharePosition(this, map.getViewBox().getCenter());
@@ -1808,7 +1856,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_gps_autodownload:
-            prefs.setAutoDownload(!autoDownload());
+            prefs.setAutoDownload(!prefs.getAutoDownload());
             startStopAutoDownload();
             return true;
 
@@ -1923,7 +1971,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_transfer_bugs_autodownload:
-            prefs.setBugAutoDownload(!bugAutoDownload());
+            prefs.setBugAutoDownload(!prefs.getBugAutoDownload());
             startStopBugAutoDownload();
             return true;
         case R.id.menu_transfer_save_notes_all:
@@ -2184,6 +2232,11 @@ public class Main extends FullScreenAppCompatActivity
         map.invalidate();
     }
 
+    /**
+     * Show the JS console
+     * 
+     * @param main the current instance of Main
+     */
     public static void showJsConsole(final Main main) {
         main.descheduleAutoLock();
         de.blau.android.javascript.Utils.jsConsoleDialog(main, R.string.js_console_msg_live, new EvalCallback() {
@@ -2213,6 +2266,13 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Get a new File for storing an image 
+     * 
+     * @return a File object
+     * @throws IOException
+     */
+    @NonNull
     private File getImageFile() throws IOException {
         File outDir = FileUtil.getPublicDirectory();
         outDir = FileUtil.getPublicDirectory(outDir, Paths.DIRECTORY_PATH_PICTURES);
@@ -2222,28 +2282,10 @@ public class Main extends FullScreenAppCompatActivity
         return imageFile;
     }
 
-    private void showFileChooser(int purpose) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        try {
-            // startActivityForResult(
-            // Intent.createChooser(intent, purpose ==
-            // WRITE_OSM_FILE_SELECT_CODE ? getString(R.string.save_file) :
-            // getString(R.string.read_file)),
-            // purpose);
-            startActivityForResult(intent, purpose);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Snack.barError(this, R.string.toast_missing_filemanager);
-        }
-    }
-
     private void startStopAutoDownload() {
         Log.d(DEBUG_TAG, "autoDownload");
         if (getTracker() != null && getEnabledLocationProviders() != null) {
-            if (autoDownload()) {
+            if (prefs.getAutoDownload()) {
                 getTracker().startAutoDownload();
             } else {
                 getTracker().stopAutoDownload();
@@ -2251,23 +2293,15 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
-    private boolean autoDownload() {
-        return prefs.getAutoDownload();
-    }
-
     private void startStopBugAutoDownload() {
         Log.d(DEBUG_TAG, "bugAutoDownload");
         if (getTracker() != null && getEnabledLocationProviders() != null) {
-            if (bugAutoDownload()) {
+            if (prefs.getBugAutoDownload()) {
                 getTracker().startBugAutoDownload();
             } else {
                 getTracker().stopBugAutoDownload();
             }
         }
-    }
-
-    private boolean bugAutoDownload() {
-        return prefs.getBugAutoDownload();
     }
 
     /**
@@ -2352,7 +2386,13 @@ public class Main extends FullScreenAppCompatActivity
         if (followButton != null) {
             Location mapLocation = map.getLocation();
             boolean onScreen = mapLocation != null && map.getViewBox().contains(mapLocation.getLongitude(), mapLocation.getLatitude());
-            followButton.setEnabled(!follow || !onScreen);
+            if (!follow || !onScreen) {
+                followButton.setEnabled(true);
+            } else { // this is hack around the elevation vanishing when disabled
+                float elevation = followButton.getElevation();
+                followButton.setEnabled(!follow || !onScreen);
+                followButton.setElevation(elevation);
+            }
         }
         if (follow && lastLocation != null) { // update if we are returning from
                                               // pause/stop
@@ -2696,6 +2736,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Hide the bottom bar (if any)
+     */
     public void hideBottomBar() {
         ActionMenuView bottomToolbar = getBottomBar();
         if (bottomToolbar != null) {
@@ -2703,6 +2746,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Show the bottom bar (if any)
+     */
     public void showBottomBar() {
         ActionMenuView bottomToolbar = getBottomBar();
         if (bottomToolbar != null) {
@@ -2710,6 +2756,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Hide the lock
+     */
     public void hideLock() {
         FloatingActionButton lock = getLock();
         if (lock != null) {
@@ -2717,6 +2766,9 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Show the lock
+     */
     public void showLock() {
         FloatingActionButton lock = getLock();
         if (lock != null) {
@@ -2724,15 +2776,71 @@ public class Main extends FullScreenAppCompatActivity
         }
     }
 
+    /**
+     * Hide the layers control
+     */
     public void hideLayersControl() {
         if (layers != null) {
             layers.hide();
         }
     }
 
+    /**
+     * Hide the layers control
+     */
     public void showLayersControl() {
         if (layers != null) {
             layers.show();
+        }
+    }
+
+    /**
+     * Hide the simple actions button
+     */
+    private void hideSimpleActionsButton() {
+        if (simpleActionsButton != null) {
+            simpleActionsButton.hide();
+        }
+    }
+
+    /**
+     * Display the simple actions button
+     */
+    private void showSimpleActionsButton() {
+        if (simpleActionsButton != null) {
+            simpleActionsButton.show();
+        }
+    }
+
+    /**
+     * Enable the simple actions button and change color to the normal value
+     */
+    private void enableSimpleActionsButton() {
+        if (simpleActionsButton != null) {
+            simpleActionsButton.setEnabled(true);
+            ColorStateList stateList = ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                simpleActionsButton.setBackgroundTintList(stateList);
+            } else {
+                Util.setBackgroundTintList(simpleActionsButton, stateList);
+            }
+        }
+    }
+
+    /**
+     * Disable the simple actions button and change color
+     */
+    private void disableSimpleActionsButton() {
+        if (simpleActionsButton != null) {
+            float elevation = simpleActionsButton.getElevation();
+            simpleActionsButton.setEnabled(false);
+            simpleActionsButton.setElevation(elevation);
+            ColorStateList stateList = ContextCompat.getColorStateList(Main.this, R.color.dark_grey);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                simpleActionsButton.setBackgroundTintList(stateList);
+            } else {
+                Util.setBackgroundTintList(simpleActionsButton, stateList);
+            }
         }
     }
 
@@ -2756,6 +2864,7 @@ public class Main extends FullScreenAppCompatActivity
             if (App.getLogic().getFilter() != null) {
                 App.getLogic().getFilter().hideControls();
             }
+            hideSimpleActionsButton();
             controlsHidden = true;
         }
     }
@@ -2780,6 +2889,7 @@ public class Main extends FullScreenAppCompatActivity
             if (App.getLogic().getFilter() != null) {
                 App.getLogic().getFilter().showControls();
             }
+            showSimpleActionsButton();
             controlsHidden = false;
         }
     }
@@ -3061,24 +3171,7 @@ public class Main extends FullScreenAppCompatActivity
         Log.d(DEBUG_TAG, "editing bug:" + bug);
         descheduleAutoLock();
         App.getLogic().setSelectedBug(bug);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("fragment_bug");
-        try {
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.commit();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "performBugEdit removing dialog ", isex);
-        }
-        TaskFragment bugDialog = TaskFragment.newInstance(bug);
-        try {
-            bugDialog.show(fm, "fragment_bug");
-        } catch (IllegalStateException isex) {
-            // FIXME properly
-            Log.e(DEBUG_TAG, "performBugEdit showing dialog ", isex);
-        }
+        TaskFragment.showDialog(this, bug);
     }
 
     /**
@@ -3330,13 +3423,16 @@ public class Main extends FullScreenAppCompatActivity
                     return false; // ignore long clicks
                 }
             }
-
-            if (logic.isInEditZoomRange()) {
-                // editing with the screen moving under you is a pain
-                setFollowGPS(false);
-                return getEasyEditManager().handleLongClick(v, x, y);
+            if (!prefs.areSimpleActionsEnabled()) {
+                if (logic.isInEditZoomRange()) {
+                    // editing with the screen moving under you is a pain
+                    setFollowGPS(false);
+                    return getEasyEditManager().handleLongClick(v, x, y);
+                } else {
+                    Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
+                }
             } else {
-                Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
+                // Snack.barWarningShort(Main.this, "No long press in simple mode");
             }
 
             return true; // long click handled
@@ -3831,6 +3927,11 @@ public class Main extends FullScreenAppCompatActivity
         map.invalidate();
     }
 
+    /**
+     * Check if we have network connectivity
+     * 
+     * @return true if connected
+     */
     public boolean isConnected() {
         if (networkStatus == null) {
             networkStatus = new NetworkStatus(this);

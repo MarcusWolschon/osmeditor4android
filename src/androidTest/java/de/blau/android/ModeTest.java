@@ -51,7 +51,7 @@ public class ModeTest {
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                main.setMode(main, Mode.MODE_EASYEDIT);
+                App.getLogic().setMode(main, Mode.MODE_EASYEDIT);
             }
         });
     }
@@ -83,7 +83,7 @@ public class ModeTest {
         Assert.assertTrue(snack.waitForExists(5000));
 
         // need to be adapted for new menu
-        main.setMode(main, Mode.MODE_EASYEDIT); // start from a known state
+        App.getLogic().setMode(main, Mode.MODE_EASYEDIT); // start from a known state
         UiObject lock = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/floatingLock"));
         try {
             lock.click();

@@ -14,9 +14,6 @@ import android.location.LocationManager;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -40,6 +37,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetFixedField;
 import de.blau.android.propertyeditor.Address;
+import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.ElementSearch;
 import de.blau.android.util.GeoMath;
@@ -201,18 +199,10 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         super.onActionItemClicked(mode, item);
         switch (item.getItemId()) {
         case MENUITEM_OSB:
-            //
             mode.finish();
-            logic.setSelectedBug(logic.makeNewBug(x, y));
-            FragmentManager fm = main.getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment prev = fm.findFragmentByTag("fragment_bug");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.commit();
-            TaskFragment bugDialog = TaskFragment.newInstance(logic.getSelectedBug());
-            bugDialog.show(fm, "fragment_bug");
+            Note note = logic.makeNewBug(x, y);
+            logic.setSelectedBug(note);
+            TaskFragment.showDialog(main, note);
             logic.hideCrosshairs();
             return true;
         case MENUITEM_NEWNODEWAY:

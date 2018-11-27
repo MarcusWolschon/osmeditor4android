@@ -817,6 +817,19 @@ public class Preferences {
         return jsConsoleEnabled;
     }
 
+    public void enableSimpleActions(boolean on) {
+        prefs.edit().putBoolean(r.getString(R.string.config_simpleActions_key), on).commit();
+    }
+    
+    public boolean areSimpleActionsEnabled() {
+        String key = r.getString(R.string.config_simpleActions_key);
+        if (!prefs.contains(key)) {
+            // create the entry
+            enableSimpleActions(true);
+        }
+        return prefs.getBoolean(key, true);
+    }
+    
     /**
      * Get a string from shared preferences
      * 

@@ -540,6 +540,7 @@
     <string name="menu_tools_background_properties">Background properties</string>
     <string name="menu_tools_update_imagery_configuration">Update imagery layer configuration</string>
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
+    <string name="menu_simple_actions">Simple mode</string>
     <!--  -->
     <string name="menu_privacy">Privacy</string>
     <!-- Background alignment -->
@@ -607,6 +608,14 @@
     <string name="actionmode_one_object">1 object</string>
     <string name="actionmode_object_count">%1$d objects</string>
     <string name="actionmode_rotateway">Rotate way</string>
+    <!-- Simple Action Mode -->
+    <string name="menu_add_node">Add node</string>
+    <string name="simple_add_node">Tap the screen position</string>
+    <string name="menu_add_node_tags">Add tagged node</string>
+    <string name="menu_add_way">Add way</string>
+    <string name="simple_add_way">Tap the screen position</string>
+    <string name="menu_add_map_note">Add map note</string>
+    <string name="simple_add_note">Tap the screen position</string>
     <!--  Preferences -->
     <string name="config_backgroundLayer_title">Map background</string>
     <string name="config_backgroundLayer_summary">The tile based map background.</string>

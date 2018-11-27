@@ -7,10 +7,7 @@ import java.util.Set;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Map;
@@ -163,25 +160,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
             return;
         }
         Task bug = (Task) object;
-        App.getLogic().setSelectedBug(bug);
-        FragmentManager fm = activity.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("fragment_bug");
-        try {
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.commit();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "performBugEdit removing dialog ", isex);
-        }
-        TaskFragment bugDialog = TaskFragment.newInstance(bug);
-        try {
-            bugDialog.show(fm, "fragment_bug");
-        } catch (IllegalStateException isex) {
-            // FIXME properly
-            Log.e(DEBUG_TAG, "performBugEdit showing dialog ", isex);
-        }
+        App.getLogic().setSelectedBug(bug);       
+        TaskFragment.showDialog(activity, bug);
     }
 
     @Override
