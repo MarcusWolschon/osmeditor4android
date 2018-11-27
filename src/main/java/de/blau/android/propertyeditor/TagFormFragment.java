@@ -745,7 +745,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     if (field instanceof PresetFixedField && value.equals(((PresetFixedField) field).getValue().getValue())) {
                         tagList.remove(key);
                         editableView.putTag(key, value);
-                    } else if (Preset.hasKeyValue(field, key, value)) {
+                    } else if (field.getKey().equals(key)) {
                         editable.put(field, value);
                         tagList.remove(key);
                         editableView.putTag(key, value);
@@ -780,6 +780,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     tagList.remove(key);
                 } else if (linkedPresets != null) { // check if tag is in a linked preset
                     for (PresetItem l : linkedPresets) {
+                        if (l.getFixedTagCount() > 0) {
+                            continue; // Presets with fixed tags should always get their own entry
+                        }
                         PresetField field = l.getField(key);
                         if (field != null) {
                             if (field instanceof PresetCheckGroupField) {
@@ -799,7 +802,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                                     checkGroupKeyValues.put(field.getKey(), keyValues);
                                     break;
                                 }
-                            } else if (Preset.hasKeyValue(field, key, value)) {
+                            } else if (field.getKey().equals(key)) {
                                 linkedTags.put(field, value);
                                 keyToLinkedPreset.put(key, l);
                                 editableView.putTag(key, value);
