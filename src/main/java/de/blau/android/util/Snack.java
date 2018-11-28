@@ -269,7 +269,7 @@ public class Snack {
             snackbar.setActionTextColor(ContextCompat.getColor(v.getContext(), R.color.ccc_white));
             snackbar.setAction(actionRes, listener);
             snackbar.setCallback(callback);
-            enqueueInfo(snackbar);
+            enqueueError(snackbar);
         } catch (IllegalArgumentException e) {
             Log.e(DEBUG_TAG, "barError got " + e.getMessage());
         }
