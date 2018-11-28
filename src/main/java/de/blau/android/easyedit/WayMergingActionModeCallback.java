@@ -6,8 +6,10 @@ import android.content.res.Resources.NotFoundException;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
@@ -46,19 +48,10 @@ public class WayMergingActionModeCallback extends EasyEditActionModeCallback {
             return false;
         }
         try {
-            if (!logic.performMerge(main, way, (Way) element)) {
-                Snack.barWarning(main, R.string.toast_merge_tag_conflict);
-                if (way.getState() != OsmElement.STATE_DELETED) {
-                    main.performTagEdit(way, null, false, false, false);
-                } else {
-                    main.performTagEdit(element, null, false, false, false);
-                }
-            } else {
-                if (way.getState() != OsmElement.STATE_DELETED) {
-                    main.startSupportActionMode(new WaySelectionActionModeCallback(manager, way));
-                } else {
-                    main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) element));
-                }
+            MergeResult result = logic.performMerge(main, way, (Way) element);
+            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
+            if (result.hasIssue()) {
+                showConflictAlert(result);
             }
         } catch (OsmIllegalOperationException e) {
             Snack.barError(main, e.getLocalizedMessage());

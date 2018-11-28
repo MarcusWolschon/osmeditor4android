@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.util.Set;
 
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
@@ -44,6 +45,15 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
     WaySelectionActionModeCallback(EasyEditManager manager, Way way) {
         super(manager, way);
         Log.d(DEBUG_TAG, "constructor");
+        findConnectedWays(way);
+    }
+
+    /**
+     * Find the Ways in different categories that are connected to this Way
+     * 
+     * @param way the selected Way
+     */
+    private void findConnectedWays(@NonNull Way way) {
         cachedMergeableWays = findMergeableWays(way);
         cachedAppendableNodes = findAppendableNodes(way);
         cachedViaElements = findViaElements(way);
@@ -138,6 +148,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 break;
             case MENUITEM_REVERSE:
                 reverseWay();
+                findConnectedWays((Way) element);
                 break;
             case MENUITEM_APPEND:
                 main.startSupportActionMode(new WayAppendingActionModeCallback(manager, (Way) element, cachedAppendableNodes));
@@ -205,5 +216,10 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         if (mode != null) {
             mode.finish();
         }
+    }
+
+    @Override
+    protected void update() {
+        findConnectedWays((Way) element);
     }
 }

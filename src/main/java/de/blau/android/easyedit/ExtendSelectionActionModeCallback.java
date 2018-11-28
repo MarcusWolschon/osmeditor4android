@@ -21,6 +21,7 @@ import de.blau.android.Main;
 import de.blau.android.Main.UndoListener;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -260,24 +261,10 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
                     main.performTagEdit(selection, false, false);
                 } else {
                     try {
-                        boolean result = logic.performMerge(main, sortedWays);
-                        // find the remaing way
-                        Way remaining = null;
-                        for (OsmElement w : selection) {
-                            if (w.getState() != OsmElement.STATE_DELETED) {
-                                remaining = (Way) w;
-                            }
-                        }
-                        if (remaining != null) {
-                            main.startSupportActionMode(new WaySelectionActionModeCallback(manager, remaining));
-                            if (!result) { // merge conflict
-                                Snack.barWarning(main, R.string.toast_merge_tag_conflict);
-                                main.performTagEdit(remaining, null, false, false, false);
-                            } else {
-                                manager.invalidate(); // update menubar
-                            }
-                        } else {
-                            Log.e(DEBUG_TAG, "no merged way");
+                        MergeResult result = logic.performMerge(main, sortedWays);
+                        main.startSupportActionMode(new WaySelectionActionModeCallback(manager, (Way) result.getElement()));
+                        if (result.hasIssue()) {
+                            showConflictAlert(result);
                         }
                     } catch (OsmIllegalOperationException e) {
                         Snack.barError(main, e.getLocalizedMessage());

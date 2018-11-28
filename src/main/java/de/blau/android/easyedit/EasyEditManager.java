@@ -302,7 +302,11 @@ public class EasyEditManager {
     public void invalidate() {
         synchronized (actionModeCallbackLock) {
             if (currentActionMode != null) {
+                if (currentActionModeCallback != null) {
+                    currentActionModeCallback.update();
+                }
                 currentActionMode.invalidate();
+
             }
         }
     }

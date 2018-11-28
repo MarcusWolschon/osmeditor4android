@@ -23,6 +23,7 @@ import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
@@ -445,15 +446,16 @@ public class GeometryEditsTest {
             double lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f) / 1E7D;
             Node n1 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(0, logic.getWaysForNode(n1).size());
-            logic.performJoin(main, w1, n1);
+            MergeResult result =logic.performJoin(main, w1, n1);
             Assert.assertTrue(w1.hasNode(n1));
+            Assert.assertFalse(result.hasIssue());
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
     }
 
     /**
-     * Merge two nodes
+     * Merge two nodes, undo, add conflicting tags re-merge
      */
     @UiThreadTest
     @Test
@@ -471,8 +473,21 @@ public class GeometryEditsTest {
             double lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f) / 1E7D;
             Node n2 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(2, App.getDelegator().getApiNodeCount());
-            logic.performJoin(main, n1, n2);
+            MergeResult result = logic.performJoin(main, n1, n2);
             Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            Assert.assertFalse(result.hasIssue());
+            logic.undo();
+            Assert.assertEquals(2, App.getDelegator().getApiNodeCount());
+            java.util.Map<String,String> tags = new HashMap<>();
+            tags.put("highway", "residential");
+            logic.setTags(main, n1, tags);
+            tags.clear();
+            tags.put("highway", "unclassified");
+            logic.setTags(main, n2, tags);
+            result = logic.performJoin(main, n1, n2);
+            Assert.assertTrue(result.hasIssue());
+            Assert.assertEquals(1,result.getIssues().size());
+            Assert.assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }

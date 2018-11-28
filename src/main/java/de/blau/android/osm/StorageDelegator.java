@@ -37,6 +37,7 @@ import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.filter.Filter;
+import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.GeoMath;
@@ -1296,10 +1297,11 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param mergeInto The node to merge into. Tags are combined.
      * @param mergeFrom The node to merge from. Is deleted.
-     * @return true if the merge was successful
+     * @return a MergeResult object with a reference to the resulting object and any issues
      */
-    public boolean mergeNodes(Node mergeInto, Node mergeFrom) {
-        boolean mergeOK = true;
+    @NonNull
+    public MergeResult mergeNodes(@NonNull Node mergeInto, @NonNull Node mergeFrom) {
+        MergeResult result = new MergeResult();
         dirty = true;
         // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
         // else check version numbers this helps preserve history
@@ -1311,13 +1313,15 @@ public class StorageDelegator implements Serializable, Exportable {
             mergeFrom = tmpNode;
             Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
         }
-        mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove objects from relations.
+        if (roleConflict(mergeInto, mergeFrom)) { // need to do this before we remove objects from relations.
+            result.addIssue(Issue.ROLECONFLICT);
+        }
         // merge tags
         setTags(mergeInto, OsmElement.mergedTags(mergeInto, mergeFrom)); // this calls onElementChange for the node
         // if merging the tags creates multiple-value tags, mergeOK should be set to false
         for (String v : mergeInto.getTags().values()) {
             if (v.indexOf(';') >= 0) {
-                mergeOK = false;
+                result.addIssue(Issue.MERGEDTAGS);
                 break;
             }
         }
@@ -1332,7 +1336,8 @@ public class StorageDelegator implements Serializable, Exportable {
         mergeElementsRelations(mergeInto, mergeFrom);
         // delete mergeFrom node
         removeNode(mergeFrom);
-        return mergeOK;
+        result.setElement(mergeInto);
+        return result;
     }
 
     /**
@@ -1343,11 +1348,12 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param mergeInto Way to merge the other way into. This way will be kept if it has a valid id.
      * @param mergeFrom Way to merge into the other.
-     * @return false if we had tag conflicts
-     * @throws OsmIllegalOperationException
+     * @return a MergeResult object with a reference to the resulting object and any issues
+     * @throws OsmIllegalOperationException if the ways cannot be merged
      */
-    public boolean mergeWays(Way mergeInto, Way mergeFrom) throws OsmIllegalOperationException {
-        boolean mergeOK = true;
+    @NonNull
+    public MergeResult mergeWays(@NonNull Way mergeInto, @NonNull Way mergeFrom) throws OsmIllegalOperationException {
+        MergeResult result = new MergeResult();
 
         validateWayNodeCount(mergeInto.nodeCount() + mergeFrom.nodeCount());
         // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
@@ -1361,7 +1367,9 @@ public class StorageDelegator implements Serializable, Exportable {
             Log.d(DEBUG_TAG, "now into #" + mergeInto.getOsmId() + " from #" + mergeFrom.getOsmId());
         }
 
-        mergeOK = !roleConflict(mergeInto, mergeFrom); // need to do this before we remove ways from relations.
+        if (roleConflict(mergeInto, mergeFrom)) { // need to do this before we remove objects from relations.
+            result.addIssue(Issue.ROLECONFLICT);
+        }
 
         // undo - mergeInto way saved here, mergeFrom way will not be changed directly and will be saved in removeWay
         dirty = true;
@@ -1380,7 +1388,9 @@ public class StorageDelegator implements Serializable, Exportable {
             if (dirTags != null) {
                 Reverse.reverseDirectionDependentTags(mergeFrom, dirTags, true);
             }
-            mergeOK = !mergeFrom.notReversable();
+            if (mergeFrom.notReversable()) {
+                result.addIssue(Issue.NOTREVERSABLE);
+            }
             Collections.reverse(newNodes);
             newNodes.remove(newNodes.size() - 1); // remove "last" (originally first) node after reversing
             reverseWayNodeTags(newNodes);
@@ -1400,7 +1410,9 @@ public class StorageDelegator implements Serializable, Exportable {
             if (dirTags != null) {
                 Reverse.reverseDirectionDependentTags(mergeFrom, dirTags, true);
             }
-            mergeOK = !mergeFrom.notReversable();
+            if (mergeFrom.notReversable()) {
+                result.addIssue(Issue.NOTREVERSABLE);
+            }
             newNodes.remove(newNodes.size() - 1); // remove last node before reversing
             reverseWayNodeTags(newNodes);
             Collections.reverse(newNodes);
@@ -1413,7 +1425,7 @@ public class StorageDelegator implements Serializable, Exportable {
         // if merging the tags creates multiple-value tags, mergeOK should be set to false
         for (String v : mergeInto.getTags().values()) {
             if (v.indexOf(';') >= 0) {
-                mergeOK = false;
+                result.addIssue(Issue.MERGEDTAGS);
                 break;
             }
         }
@@ -1423,7 +1435,8 @@ public class StorageDelegator implements Serializable, Exportable {
         insertElementSafe(mergeInto);
         mergeElementsRelations(mergeInto, mergeFrom);
 
-        return mergeOK;
+        result.setElement(mergeInto);
+        return result;
     }
 
     /**

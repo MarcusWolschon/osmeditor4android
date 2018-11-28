@@ -67,6 +67,7 @@ import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
+import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
@@ -1750,16 +1751,16 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param mergeInto Way to merge the other way into. This way will be kept.
      * @param mergeFrom Way to merge into the other. This way will be deleted.
-     * @return false if there were tag conflicts
+     * @return a MergeResult with the merged OsmElement and a list of issues if any
      * @throws OsmIllegalOperationException
      */
-    public synchronized boolean performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
+    public synchronized MergeResult performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-        boolean mergeOK = getDelegator().mergeWays(mergeInto, mergeFrom);
+        MergeResult result = getDelegator().mergeWays(mergeInto, mergeFrom);
         invalidateMap();
-        return mergeOK;
+        return result;
     }
 
     /**
@@ -1770,27 +1771,37 @@ public class Logic {
      * @return false if there were tag conflicts
      * @throws OsmIllegalOperationException
      */
-    public synchronized boolean performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays) throws OsmIllegalOperationException {
+    @NonNull
+    public synchronized MergeResult performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays)
+            throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
         boolean mergeOK = true;
+        if (sortedWays.isEmpty()) {
+            throw new OsmIllegalOperationException("No ways to merge");
+        }
         for (OsmElement e : sortedWays) {
             if (!(e instanceof Way)) {
                 throw new OsmIllegalOperationException("Only ways can be merged");
             }
         }
+        MergeResult result = new MergeResult();
         Way previousWay = (Way) sortedWays.get(0);
+        MergeResult tempResult = new MergeResult();
+        tempResult.setElement(previousWay);
         for (int i = 1; i < sortedWays.size(); i++) {
             Way nextWay = (Way) sortedWays.get(i);
-            if (!getDelegator().mergeWays(previousWay, nextWay)) {
+            tempResult = getDelegator().mergeWays(previousWay, nextWay);
+            if (tempResult.hasIssue()) {
                 Log.d(DEBUG_TAG, "ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict");
-                mergeOK = false; // signal that we had a problem somewhere
+                result.addAllIssues(tempResult.getIssues());
             }
             if (previousWay.getState() == OsmElement.STATE_DELETED) {
                 previousWay = nextWay;
             }
         }
-        return mergeOK;
+        result.setElement(tempResult.getElement());
+        return result;
     }
 
     /**
@@ -1908,13 +1919,14 @@ public class Logic {
      * @return true if the operation was successful
      * @throws OsmIllegalOperationException
      */
-    public synchronized boolean performJoin(@Nullable FragmentActivity activity, OsmElement element, Node nodeToJoin) throws OsmIllegalOperationException {
-        boolean mergeOK = true;
+    public synchronized MergeResult performJoin(@Nullable FragmentActivity activity, @NonNull OsmElement element, @NonNull Node nodeToJoin)
+            throws OsmIllegalOperationException {
+        MergeResult result = null;
         if (element instanceof Node) {
             Node node = (Node) element;
             createCheckpoint(activity, R.string.undo_action_join);
             displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
-            mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
+            result = getDelegator().mergeNodes(node, nodeToJoin);
             invalidateMap();
         } else if (element instanceof Way) {
             Way way = (Way) element;
@@ -1947,17 +1959,18 @@ public class Logic {
                         // move the existing node onto the way and insert it into the way
                         getDelegator().moveNode(nodeToJoin, lat, lon);
                         getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
+                        result = new MergeResult(nodeToJoin);
                     } else {
                         displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
                         // merge node into tgtNode
-                        mergeOK = getDelegator().mergeNodes(node, nodeToJoin);
+                        result = getDelegator().mergeNodes(node, nodeToJoin);
                     }
                     invalidateMap();
                     break; // need to leave loop !!!
                 }
             }
         }
-        return mergeOK;
+        return result;
     }
 
     /**
@@ -3573,8 +3586,10 @@ public class Logic {
                 if (result > 0) {
                     try {
                         if (activity != null) {
-                            Snack.barInfo(activity, result == 1 ? activity.getResources().getString(R.string.toast_one_unread_mail)
-                                    : activity.getResources().getString(R.string.toast_unread_mail, result), R.string.read_mail, new View.OnClickListener() {
+                            Snack.barInfo(activity,
+                                    result == 1 ? activity.getResources().getString(R.string.toast_one_unread_mail)
+                                            : activity.getResources().getString(R.string.toast_unread_mail, result),
+                                    R.string.read_mail, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             try {

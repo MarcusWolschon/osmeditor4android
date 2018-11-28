@@ -3,8 +3,10 @@ package de.blau.android.easyedit;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
@@ -202,6 +205,12 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
     }
 
     /**
+     * Called when tags have changed
+     */
+    protected void update() {
+    }
+
+    /**
      * Replace the menu used by the action mode by our toolbar if necessary
      * 
      * @param menu original menu
@@ -318,5 +327,24 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
             }
         }
         return result;
+    }
+
+    /**
+     * Show an AlertDialog when we've had a merge conflict
+     * 
+     * @param result a MergeResult object from the operation
+     */
+    protected void showConflictAlert(@NonNull MergeResult result) {
+        // TODO detailed message
+        AlertDialog.Builder builder = new AlertDialog.Builder(main);
+        builder.setMessage(R.string.toast_merge_tag_conflict);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                main.performTagEdit(result.getElement(), null, false, false, false);
+            }
+        });
+        builder.show();
     }
 }

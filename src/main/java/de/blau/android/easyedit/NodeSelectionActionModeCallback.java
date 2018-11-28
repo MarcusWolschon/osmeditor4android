@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
+import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Tags;
@@ -99,11 +100,10 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 break;
             case MENUITEM_JOIN:
                 try {
-                    if (!logic.performJoin(main, joinableElement, (Node) element)) {
-                        Snack.barWarning(main, R.string.toast_merge_tag_conflict);
-                        main.performTagEdit(element, null, false, false, false);
-                    } else {
-                        mode.finish();
+                    MergeResult result = logic.performJoin(main, joinableElement, (Node) element);
+                    manager.editElement(result.getElement());
+                    if (result.hasIssue()) { 
+                        showConflictAlert(result);
                     }
                 } catch (OsmIllegalOperationException e) {
                     Snack.barError(main, e.getLocalizedMessage());
