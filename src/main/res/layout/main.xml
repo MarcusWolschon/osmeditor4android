@@ -27,7 +27,7 @@
             android:layout_margin="8dp"
             android:clickable="true"
             android:src="@drawable/lock_bi_state"
-            android:theme="@style/Theme.customMain"
+            app:backgroundTint="?attr/colorAccent"
             app:fabSize="mini"
             app:useCompatPadding="true" />
         <android.support.design.widget.FloatingActionButton
@@ -56,6 +56,12 @@
             app:backgroundTint="?attr/colorControlNormal"
             app:fabSize="mini"
             app:useCompatPadding="true" />
+        <de.blau.android.views.ZoomControls
+            android:id="@+id/zoom_controls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
     <FrameLayout
         android:id="@+id/bottomBar"

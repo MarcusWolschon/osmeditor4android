@@ -215,7 +215,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }.execute();
 
         main.showBottomBar();
-        main.setMode(main, oldMode);
+        App.getLogic().setMode(main, oldMode);
         main.showLock();
         main.showLayersControl();
     }

@@ -197,6 +197,11 @@
         android:icon="?attr/menu_help"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/menu_simple_actions"
+        android:checkable="true"
+        android:title="@string/menu_simple_actions"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_authors"
         android:title="@string/config_licensebutton_title"
         app:showAsAction="never" />

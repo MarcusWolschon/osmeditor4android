@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Introduction</string>
     <string name="help_main">Main map display</string>
+    <string name="help_simple_actions">Simple actions</string>
     <string name="help_addrelationmember">Relation selected</string>
     <string name="help_multiselect">Multiselect</string>
     <string name="help_longclick">Creating new objects</string>
@@ -27,6 +28,7 @@
     <string name="help_opening_hours">Opening hours</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_upgrade">Release notes</string>
+    <string name="help_upgrade_112">11.2 Release notes</string>
     <string name="help_upgrade_111">11.1 Release notes</string>
     <string name="help_upgrade_110">11.0 Release notes</string>
     <string name="help_upgrade_102">10.2 Release notes</string>
@@ -40,6 +42,7 @@
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
+        <item>@string/help_simple_actions</item>
         <item>@string/help_propertyeditor</item>
         <item>@string/help_nodeselection</item>
     	<item>@string/help_wayselection</item>
@@ -58,6 +61,7 @@
     	<item>@string/help_opening_hours</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_112</item>
         <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
@@ -73,6 +77,7 @@
     <array translatable="false" name="help_files">
         <item>Introduction</item>
         <item>Main map display</item>
+        <item>Simple actions</item>
         <item>Property editor</item>
         <item>Node selected</item>
     	<item>Way selected</item>
@@ -90,6 +95,7 @@
     	<item>Preset filter</item>
     	<item>Opening hours</item>
         <item>Voice commands</item>
+        <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>

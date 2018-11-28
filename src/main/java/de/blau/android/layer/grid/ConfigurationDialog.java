@@ -1,6 +1,5 @@
 package de.blau.android.layer.grid;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;

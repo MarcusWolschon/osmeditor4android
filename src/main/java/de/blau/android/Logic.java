@@ -1450,6 +1450,8 @@ public class Logic {
      * Executes an add-command for x,y. Adds new nodes and ways to storage. When more than one Node were
      * created/selected then a new way will be created.
      * 
+     * Set selected Node and Way appropriately
+     * 
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param x screen-coordinate
      * @param y screen-coordinate

@@ -8,7 +8,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -55,19 +58,59 @@ import de.blau.android.util.Util;
 public class TaskFragment extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 
+    private static final String TAG ="fragment_bug";
+    
+    private static final String BUG_KEY = "bug";
+    
     private UpdateViewListener mListener;
 
+    /**
+     * Display a dialog for editing Taskss
+     * 
+     * @param activity the calling FragmentActivity
+     * @param t Task we want to edit
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull Task t) {
+        dismissDialog(activity);
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            TaskFragment taskFragment = newInstance(t);
+            taskFragment.show(fm, TAG);
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "showDialog", isex);
+        }
+    }
+
+    /**
+     * Dismiss the Dialog
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
+        try {
+            FragmentManager fm = activity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment fragment = fm.findFragmentByTag(TAG);
+            if (fragment != null) {
+                ft.remove(fragment);
+            }
+            ft.commit();
+        } catch (IllegalStateException isex) {
+            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        }
+    }
+    
     /**
      * Create a new fragment to be displayed
      * 
      * @param t Task to show
      * @return the fragment
      */
-    public static TaskFragment newInstance(Task t) {
+    private static TaskFragment newInstance(@NonNull Task t) {
         TaskFragment f = new TaskFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable("bug", t);
+        args.putSerializable(BUG_KEY, t);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -84,7 +127,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        final Task bug = (Task) getArguments().getSerializable("bug");
+        final Task bug = (Task) getArguments().getSerializable(BUG_KEY);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
