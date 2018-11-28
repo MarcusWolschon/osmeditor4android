@@ -209,6 +209,7 @@ public class Main extends FullScreenAppCompatActivity
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
+    public static final String ACTION_EXIT         = "de.blau.android.EXIT";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -703,18 +704,23 @@ public class Main extends FullScreenAppCompatActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(DEBUG_TAG, "onNewIntent storage dirty " + App.getDelegator().isDirty());
-        if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
+        switch (intent.getAction()) {
+        case ACTION_FINISH_OAUTH:
             Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
             finishOAuth();
             return;
-        }
-        setIntent(intent);
-        synchronized (geoDataLock) {
-            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
-        }
-
-        synchronized (rcDataLock) {
-            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+        case ACTION_EXIT:
+            Log.d(DEBUG_TAG, "onNewIntent calling exit");
+            exit();
+            return;
+        default:
+            setIntent(intent);
+            synchronized (geoDataLock) {
+                geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+            }
+            synchronized (rcDataLock) {
+                rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
+            }
         }
     }
 
@@ -1518,7 +1524,8 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected).setChecked(prefs.getAutoDownload());
+        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
+                .setChecked(prefs.getAutoDownload());
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
 
@@ -2267,7 +2274,7 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Get a new File for storing an image 
+     * Get a new File for storing an image
      * 
      * @return a File object
      * @throws IOException
@@ -3194,18 +3201,18 @@ public class Main extends FullScreenAppCompatActivity
             if (name != null) {
                 Snack.barInfo(this, getResources().getString(R.string.undo) + ": " + name);
             } else {
-                exitOnBackPressed();
+                exit();
             }
         } else {
-            exitOnBackPressed();
+            exit();
         }
     }
 
     /**
-     * pop up a dialog asking for confirmation and exit
+     * pop up a dialog asking for confirmation and if confirmed exit
      */
-    private void exitOnBackPressed() {
-        new AlertDialog.Builder(this).setTitle(R.string.exit_title).setMessage(R.string.exit_text).setNegativeButton(R.string.no, null)
+    private void exit() {
+        new AlertDialog.Builder(this).setTitle(R.string.exit_title).setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text).setNegativeButton(R.string.no, null)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
@@ -3214,6 +3221,7 @@ public class Main extends FullScreenAppCompatActivity
                         if (getTracker() != null) {
                             getTracker().stopAutoDownload();
                             getTracker().stopBugAutoDownload();
+                            getTracker().stopTracking(false);
                         }
                         try {
                             saveSync = true;

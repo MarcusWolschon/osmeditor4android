@@ -283,8 +283,12 @@ public class TrackerService extends Service implements Exportable {
             notificationBuilder.setContentTitle(getString(R.string.tracking_active_title_short))
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.tracking_long_text)));
         }
+        Intent exitIntent = new Intent(this, Main.class);
+        exitIntent.setAction(Main.ACTION_EXIT);
+        PendingIntent pendingExitIntent = PendingIntent.getActivity(this, 0, exitIntent, 0);
         notificationBuilder.setSmallIcon(R.drawable.logo_simplified).setOngoing(true).setUsesChronometer(true).setContentIntent(pendingAppIntent)
-                .setColor(ContextCompat.getColor(this, R.color.osm_green));
+                .setColor(ContextCompat.getColor(this, R.color.osm_green))
+                .addAction(R.drawable.logo_simplified, getString(R.string.exit_title), pendingExitIntent);
         startForeground(R.id.notification_tracker, notificationBuilder.build());
     }
 

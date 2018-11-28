@@ -380,8 +380,9 @@
     <string name="geojson_object">%1$s (%2$s)</string>
     <string name="none">None</string>
     <!-- Dialog for back button -->
-    <string name="exit_title">Really exit?</string>
+    <string name="exit_title">Exit Vespucci</string>
     <string name="exit_text">Are you sure you want to exit?</string>
+    <string name="pause_exit_text">Are you sure you want to pause tracking and exit?</string>   
     <!-- Strings in PorpertyEditor -->
     <string name="key">key</string>
     <string name="Key">Key</string>
@@ -831,7 +832,7 @@
     <string name="tracking_active_title">Vespucci background service</string>
     <string name="tracking_active_title_short">Background service active</string>
     <string name="tracking_active_text">Recording a GPS track or auto-downloading</string>
-    <string name="tracking_long_text">Vespucci is recording a GPS track or auto-downloading. To completly exit pause track recording if enabled and then exit the app by pressing the back button.</string>
+    <string name="tracking_long_text">Vespucci is recording a GPS track or auto-downloading. To completly exit press the button below or the back button in the app.</string>
     <string name="gps_failure">Failed to enable GPS</string>
     <!-- element description -->
     <string name="address_housenumber">Address %1$s</string>
