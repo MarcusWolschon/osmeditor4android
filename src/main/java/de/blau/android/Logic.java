@@ -58,6 +58,7 @@ import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
 import de.blau.android.dialogs.UploadConflict;
+import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -67,6 +68,7 @@ import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
+import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -214,11 +216,6 @@ public class Logic {
      */
     private List<Relation> selectedRelationRelations = null;
 
-    /**
-     * The user-selected bug.
-     */
-    private Task selectedBug;
-
     private static final int MRULIST_SIZE = 10;
     /**
      * last changeset comment
@@ -239,12 +236,18 @@ public class Logic {
      * Are we currently dragging a way? Set by {@link #handleTouchEventDown(float, float)}
      */
     private boolean draggingWay = false;
-    private int     startLat;
-    private int     startLon;
-    private float   startY;
-    private float   startX;
-    private float   centroidY;
-    private float   centroidX;
+
+    /**
+     * Are we currently dragging a Note? Set by {@link #handleTouchEventDown(float, float)}
+     */
+    private boolean draggingNote = false;
+
+    private int   startLat;
+    private int   startLon;
+    private float startY;
+    private float startX;
+    private float centroidY;
+    private float centroidX;
 
     /**
      * Are we currently dragging a handle?
@@ -364,7 +367,7 @@ public class Logic {
         Mode oldMode = this.mode;
         this.mode = mode;
         Main.onEditModeChanged();
-        setSelectedBug(null);
+        main.getMap().deselectObjects();
         deselectAll();
         oldMode.teardown(main, this);
         mode.setup(main, this);
@@ -916,14 +919,25 @@ public class Logic {
      * @return The distance between the clicked point and the node in px if the node was within the tolerance value,
      *         null otherwise
      */
-    private Double clickDistance(Node node, final float x, final float y) {
+    @Nullable
+    private Double clickDistance(@NonNull Node node, final float x, final float y) {
         return clickDistance(node, x, y, node.isTagged() ? DataStyle.getCurrent().getNodeToleranceValue() : DataStyle.getCurrent().getWayToleranceValue() / 2);
     }
 
-    private Double clickDistance(Node node, final float x, final float y, float tolerance) {
+    /**
+     * 
+     * 
+     * @param point and Object that implements the GeoPoint interface
+     * @param x screen x
+     * @param y screen y
+     * @param tolerance tolerance to apply
+     * @return the distance as a double of null if not inside the tolerance
+     */
+    @Nullable
+    private Double clickDistance(@NonNull GeoPoint point, final float x, final float y, float tolerance) {
 
-        float differenceX = Math.abs(lonE7ToX(node.getLon()) - x);
-        float differenceY = Math.abs(latE7ToY(node.getLat()) - y);
+        float differenceX = Math.abs(lonE7ToX(point.getLon()) - x);
+        float differenceY = Math.abs(latE7ToY(point.getLat()) - y);
 
         if ((differenceX > tolerance) && (differenceY > tolerance)) {
             return null;
@@ -941,6 +955,7 @@ public class Logic {
      * @param inDownloadOnly if true the node has to be new or in one of the downloaded bounding boxes
      * @return a hash map mapping Nodes to distances
      */
+    @NonNull
     private HashMap<Node, Double> getClickedNodesWithDistances(final float x, final float y, boolean inDownloadOnly) {
         HashMap<Node, Double> result = new HashMap<>();
         List<Node> nodes = filter != null ? filter.getVisibleNodes() : getDelegator().getCurrentStorage().getNodes(map.getViewBox());
@@ -1153,12 +1168,22 @@ public class Logic {
             draggingNode = false;
             draggingWay = false;
             draggingHandle = false;
-            if (selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null && clickDistance(selectedNodes.get(0), x, y,
-                    prefs.largeDragArea() ? DataStyle.getCurrent().getLargDragToleranceRadius() : DataStyle.getCurrent().getNodeToleranceValue()) != null) {
-                draggingNode = true;
-                if (prefs.largeDragArea()) {
-                    startX = lonE7ToX(selectedNodes.get(0).getLon());
-                    startY = latE7ToY(selectedNodes.get(0).getLat());
+            draggingNote = false;
+            Task selectedTask = null;
+            de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+            if (taskLayer != null) {
+                selectedTask = taskLayer.getSelected();
+            }
+            if (((selectedNodes != null && selectedNodes.size() == 1) || selectedTask != null) && selectedWays == null) {
+                float tolerance = prefs.largeDragArea() ? DataStyle.getCurrent().getLargDragToleranceRadius() : DataStyle.getCurrent().getNodeToleranceValue();
+                GeoPoint point = selectedTask != null ? selectedTask : selectedNodes.get(0);
+                if (clickDistance(point, x, y, tolerance) != null) {
+                    draggingNode = selectedTask == null;
+                    draggingNote = selectedTask != null;
+                    if (prefs.largeDragArea()) {
+                        startX = lonE7ToX(point.getLon());
+                        startY = latE7ToY(point.getLat());
+                    }
                 }
             } else {
                 if (selectedWays != null && selectedWays.size() == 1 && selectedNodes == null) {
@@ -1230,6 +1255,7 @@ public class Logic {
             draggingWay = false;
             rotatingWay = false;
             draggingHandle = false;
+            draggingNote = false;
         }
         Log.d(DEBUG_TAG, "handleTouchEventDown creating checkpoints");
         if (draggingNode || draggingWay) {
@@ -1279,11 +1305,11 @@ public class Logic {
      * @throws OsmIllegalOperationException
      */
     synchronized void handleTouchEventMove(Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
-        if (draggingNode || draggingWay || draggingHandle) {
+        if (draggingNode || draggingWay || draggingHandle || draggingNote) {
             int lat;
             int lon;
             // checkpoint created where draggingNode is set
-            if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || draggingHandle) {
+            if ((draggingNode && selectedNodes != null && selectedNodes.size() == 1 && selectedWays == null) || draggingHandle || draggingNote) {
                 if (draggingHandle) { // create node only if we are really dragging
                     try {
                         if (handleNode == null && selectedHandle != null && selectedWays != null) {
@@ -1300,7 +1326,6 @@ public class Logic {
                         return;
                     }
                 } else {
-                    displayAttachedObjectWarning(main, selectedNodes.get(0));
                     if (prefs.largeDragArea()) {
                         startY = startY + relativeY;
                         startX = startX - relativeX;
@@ -1310,7 +1335,25 @@ public class Logic {
                         lat = yToLatE7(absoluteY);
                         lon = xToLonE7(absoluteX);
                     }
-                    getDelegator().moveNode(selectedNodes.get(0), lat, lon);
+                    if (draggingNode) {
+                        displayAttachedObjectWarning(main, selectedNodes.get(0));
+                        getDelegator().moveNode(selectedNodes.get(0), lat, lon);
+                    } else {
+                        de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                        if (taskLayer != null) {
+                            Task selectedTask = taskLayer.getSelected();
+                            if (selectedTask instanceof Note && ((Note) selectedTask).isNew()) {
+                                try {
+                                    App.getTaskStorage().move(selectedTask, lat, lon);
+                                } catch (IllegalOperationException e) {
+                                    Snack.barError(main, e.getMessage());
+                                    return;
+                                }
+                            } else {
+                                Snack.barWarning(main, R.string.toast_move_note_warning);
+                            }
+                        }
+                    }
                 }
             } else { // way dragging and multi-select
                 lat = yToLatE7(absoluteY);
@@ -3613,13 +3656,13 @@ public class Logic {
     }
 
     /**
-     * Make a new bug at the given screen X/Y coordinates.
+     * Make a new Note at the given screen X/Y coordinates.
      * 
      * @param x The screen X-coordinate of the bug.
      * @param y The screen Y-coordinate of the bug.
-     * @return The new bug, which must have a comment added before it can be submitted to OSB.
+     * @return The new Note, which must have a comment added before it can be submitted to OSM.
      */
-    public Note makeNewBug(final float x, final float y) {
+    public Note makeNewNote(final float x, final float y) {
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
         return new Note(lat, lon);
@@ -3778,15 +3821,6 @@ public class Logic {
     }
 
     /**
-     * Set the currently selected bug.
-     * 
-     * @param bug The selected bug.
-     */
-    public synchronized void setSelectedBug(final Task bug) {
-        this.selectedBug = bug;
-    }
-
-    /**
      * @return the selectedNode (currently simply the first in the list)
      */
     public final synchronized Node getSelectedNode() {
@@ -3905,10 +3939,12 @@ public class Logic {
     }
 
     /**
-     * @param e
+     * Check if a specific OsmElement is selected
+     * 
+     * @param e the OsmElement to check
      * @return true is e is selected
      */
-    public synchronized boolean isSelected(OsmElement e) {
+    public synchronized boolean isSelected(@Nullable OsmElement e) {
         if (e instanceof Node) {
             return selectedNodes != null && selectedNodes.contains((Node) e);
         } else if (e instanceof Way) {
@@ -3917,15 +3953,6 @@ public class Logic {
             return selectedRelations != null && selectedRelations.contains((Relation) e);
         }
         return false;
-    }
-
-    /**
-     * Get the selected bug.
-     * 
-     * @return The selected bug.
-     */
-    public final synchronized Task getSelectedBug() {
-        return selectedBug;
     }
 
     /**
@@ -4021,7 +4048,7 @@ public class Logic {
         this.map = map;
         map.setDelegator(getDelegator());
         map.setViewBox(viewBox);
-        setSelectedBug(null);
+        map.deselectObjects();
         setSelectedNode(null);
         setSelectedWay(null);
         setSelectedRelation(null);
@@ -4047,9 +4074,12 @@ public class Logic {
     }
 
     /**
+     * Get a list of all pending changes to upload
+     * 
+     * @param aCaller an Android Context
      * @return a list of all pending changes to upload
      */
-    public List<String> getPendingChanges(final Context aCaller) {
+    public List<String> getPendingChanges(@NonNull final Context aCaller) {
         return getDelegator().listChanges(aCaller.getResources());
     }
 
@@ -4331,6 +4361,11 @@ public class Logic {
         return selectedRelationRelations;
     }
 
+    /**
+     * De-select all OsmElements
+     * 
+     * Note: does not de-select a selected Task
+     */
     public void deselectAll() {
         setSelectedNode(null);
         setSelectedWay(null);

@@ -275,6 +275,13 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
         return null;
     }
 
+    protected void move(int latE7, int lonE7) {
+        if (isNew()) {
+            lat = latE7;
+            lon = lonE7;
+        }
+    }
+
     public State getOriginalState() {
         return originalState;
     }

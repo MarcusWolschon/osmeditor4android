@@ -553,6 +553,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                             setPrefs(activity, new Preferences(context));
                             tl.removeAllViews();
                             addRows(context);
+                            App.getLogic().getMap().invalidate();
                         }
                         return true;
                     }

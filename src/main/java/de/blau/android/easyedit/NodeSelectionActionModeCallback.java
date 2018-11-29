@@ -52,9 +52,6 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
         helpTopic = R.string.help_nodeselection;
         super.onCreateActionMode(mode, menu);
         logic.setSelectedNode((Node) element);
-        logic.setSelectedWay(null);
-        logic.setSelectedRelationWays(null);
-        logic.setSelectedRelationNodes(null);
         main.invalidateMap();
         mode.setTitle(R.string.actionmode_nodeselect);
         mode.setSubtitle(null);
@@ -102,7 +99,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 try {
                     MergeResult result = logic.performJoin(main, joinableElement, (Node) element);
                     manager.editElement(result.getElement());
-                    if (result.hasIssue()) { 
+                    if (result.hasIssue()) {
                         showConflictAlert(result);
                     }
                 } catch (OsmIllegalOperationException e) {

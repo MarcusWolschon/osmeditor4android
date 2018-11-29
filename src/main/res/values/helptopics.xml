@@ -26,6 +26,7 @@
     <string name="help_tagfilter">Tag filter</string>
     <string name="help_presetfilter">Preset filter</string>
     <string name="help_opening_hours">Opening hours</string>
+    <string name="help_newnoteselection">New Note selection</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_upgrade">Release notes</string>
     <string name="help_upgrade_112">11.2 Release notes</string>
@@ -59,6 +60,7 @@
     	<item>@string/help_tagfilter</item>
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
+        <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
         <item>@string/help_upgrade_112</item>
@@ -94,6 +96,7 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>New Note selected</item>
         <item>Voice commands</item>
         <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>

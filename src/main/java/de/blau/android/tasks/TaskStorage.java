@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.R;
+import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.Snack;
@@ -320,10 +321,35 @@ public class TaskStorage implements Serializable {
     }
 
     /**
-     * @return the challenges
+     * Get the currently referenced MapRoulette Challenges
+     * 
+     * Note: if the value for a key is null that Challenge needs to be downloaded
+     * 
+     * @return a Map containing the challenges
      */
+    @NonNull
     public Map<Long, MapRouletteChallenge> getChallenges() {
         return challenges;
+    }
+
+    /**
+     * Move a tasks position
+     * 
+     * Only newly created Notes can be moved
+     * 
+     * @param t the Task to be moved
+     * @param newLatE7 the new latitude in WGS84*1E7
+     * @param newLonE7 the new longitude in WGS84*1E7
+     */
+    public synchronized void move(@NonNull Task t, int newLatE7, int newLonE7) {
+        if (t instanceof Note && ((Note) t).isNew()) {
+            tasks.remove(t);
+            ((Note) t).move(newLatE7, newLonE7);
+            tasks.insert(t);
+            setDirty();
+        } else {
+            throw new IllegalOperationException("Can only move new Notes, not " + t.getDescription());
+        }
     }
 
     @Override

@@ -67,7 +67,7 @@ import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.util.rtree.RTree;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface {
+public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, DiscardInterface, ClickableInterface<Feature> {
 
     /**
      * 
@@ -594,7 +594,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 // don't restore over existing data
                 return true;
             }
-            // re-enable drawing
+            // disable drawing
             setVisible(false);
             MapOverlay restoredOverlay = savingHelper.load(context, FILENAME, true);
             if (restoredOverlay != null) {
@@ -899,26 +899,25 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public void onSelected(FragmentActivity activity, Object object) {
-        if (!(object instanceof Feature)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return;
-        }
-        Feature feature = (Feature) object;
-        FeatureInfo.showDialog(activity, feature);
+    public void onSelected(FragmentActivity activity, Feature f) {
+        FeatureInfo.showDialog(activity, f);
     }
 
     @Override
-    public String getDescription(Object object) {
-        if (!(object instanceof Feature)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return "?";
-        }
-        Feature feature = (Feature) object;
-        String label = getLabel(feature);
+    public String getDescription(Feature f) {
+        String label = getLabel(f);
         if (label == null || "".equals(label)) {
-            label = feature.getGeometry().getType();
+            label = f.getGeometry().getType();
         }
         return map.getContext().getString(R.string.geojson_object, label, getName());
+    }
+
+    @Override
+    public Feature getSelected() {
+        return null;
+    }
+
+    @Override
+    public void deselectObjects() {
     }
 }

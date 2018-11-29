@@ -22,6 +22,7 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Way;
+import de.blau.android.tasks.Note;
 import de.blau.android.util.Snack;
 import de.blau.android.validation.Validator;
 
@@ -74,6 +75,17 @@ public class EasyEditManager {
         synchronized (actionModeCallbackLock) {
             return (currentActionModeCallback != null) && (currentActionModeCallback instanceof ElementSelectionActionModeCallback
                     || currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
+        }
+    }
+
+    /**
+     * Check if a new Note is selected
+     * 
+     * @return true if we are in new Note ActionMode
+     */
+    public boolean inNewNoteSelectedMode() {
+        synchronized (actionModeCallbackLock) {
+            return (currentActionModeCallback != null) && (currentActionModeCallback instanceof NewNoteSelectionActionModeCallback);
         }
     }
 
@@ -134,8 +146,8 @@ public class EasyEditManager {
         synchronized (actionModeCallbackLock) {
             if (currentActionModeCallback instanceof ElementSelectionActionModeCallback
                     || currentActionModeCallback instanceof ExtendSelectionActionModeCallback
-                    || currentActionModeCallback instanceof WayRotationActionModeCallback
-                    || currentActionModeCallback instanceof WayAppendingActionModeCallback) {
+                    || currentActionModeCallback instanceof WayRotationActionModeCallback || currentActionModeCallback instanceof WayAppendingActionModeCallback
+                    || currentActionModeCallback instanceof NewNoteSelectionActionModeCallback) {
                 currentActionMode.finish();
             }
         }
@@ -143,6 +155,7 @@ public class EasyEditManager {
         logic.setSelectedWay(null);
         logic.setSelectedRelationWays(null);
         logic.setSelectedRelationNodes(null);
+        main.getMap().deselectObjects();
     }
 
     /**
@@ -380,5 +393,20 @@ public class EasyEditManager {
      */
     public Main getMain() {
         return main;
+    }
+
+    /**
+     * Start a mode for new Notes (can be moved and edited)
+     * 
+     * @param note the Note to edit
+     * @param layer the current task layer
+     */
+    public void editNote(@NonNull Note note, @NonNull de.blau.android.layer.tasks.MapOverlay layer) {
+        synchronized (actionModeCallbackLock) {
+            if (currentActionModeCallback == null || (currentActionModeCallback instanceof NewNoteSelectionActionModeCallback
+                    && !((NewNoteSelectionActionModeCallback) currentActionModeCallback).handleNoteClick(note))) {
+                getMain().startSupportActionMode(new NewNoteSelectionActionModeCallback(this, note, layer));
+            }
+        }
     }
 }

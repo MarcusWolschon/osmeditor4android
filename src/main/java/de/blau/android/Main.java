@@ -150,7 +150,6 @@ import de.blau.android.services.TrackerService;
 import de.blau.android.services.TrackerService.TrackerBinder;
 import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.Task;
-import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
@@ -771,7 +770,7 @@ public class Main extends FullScreenAppCompatActivity
                 if (mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
                         || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
                     // need to restart whatever we were doing
-                    Log.d(DEBUG_TAG, "restarting action mode");
+                    Log.d(DEBUG_TAG, "restarting element action mode");
                     easyEditManager.editElements();
                 } else if (mode.elementsEditable()) {
                     // de-select everything
@@ -783,41 +782,61 @@ public class Main extends FullScreenAppCompatActivity
             public void onError() {
             }
         };
+        PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onSuccess() {
+                Mode mode = logic.getMode();
+                de.blau.android.layer.tasks.MapOverlay layer = map.getTaskLayer();
+                if (layer != null) {
+                    Task t = layer.getSelected();
+                    if (mode.elementsGeomEditiable() && t != null && map.getTaskLayer() != null) {
+                        Log.d(DEBUG_TAG, "restarting task action mode");
+                        layer.onSelected(Main.this, t);
+                    } else {
+                        layer.deselectObjects();
+                    }
+                }
+                map.invalidate();
+            }
+
+            @Override
+            public void onError() {
+            }
+        };
         synchronized (loadOnResumeLock) {
             if (redownloadOnResume) {
                 redownloadOnResume = false;
                 logic.downloadLast(this);
             } else if (loadOnResume) {
+                // this is fairly convoluted as we need to have permissions before we can load
+                // the layers which in turn need to be loaded before we retrieve the task data
                 loadOnResume = false;
-                PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
-                    private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public void onSuccess() {
-                        Mode mode = logic.getMode();
-                        Task t = logic.getSelectedBug();
-                        if (mode.elementsGeomEditiable() && t != null) {
-                            performBugEdit(t);
-                        }
-                    }
-
-                    @Override
-                    public void onError() {
-                    }
-                };
                 logic.loadStateFromFile(this, postLoadData);
-                logic.loadBugsFromFile(this, postLoadTasks);
+
                 checkPermissions(new Runnable() {
                     @Override
                     public void run() {
-                        logic.loadLayerState(Main.this, null);
+                        logic.loadLayerState(Main.this, new PostAsyncActionHandler() {
+
+                            @Override
+                            public void onSuccess() {
+                                logic.loadBugsFromFile(Main.this, postLoadTasks);
+                            }
+
+                            @Override
+                            public void onError() {
+                            }
+                        });
                     }
                 });
             } else { // loadFromFile already does this
                 synchronized (setViewBoxLock) {
                     App.getLogic().loadEditingState(this, setViewBox);
                 }
-                logic.loadLayerState(this, null);
+                logic.loadLayerState(this, postLoadTasks);
                 postLoadData.onSuccess();
                 map.invalidate();
                 if (newInstall) {
@@ -3170,18 +3189,6 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * Edit an OpenStreetBug (now called a Task)
-     * 
-     * @param bug The bug to edit.
-     */
-    private void performBugEdit(@NonNull final Task bug) {
-        Log.d(DEBUG_TAG, "editing bug:" + bug);
-        descheduleAutoLock();
-        App.getLogic().setSelectedBug(bug);
-        TaskFragment.showDialog(this, bug);
-    }
-
-    /**
      * potentially do some special stuff for invoking undo and exiting
      */
     @Override
@@ -3212,8 +3219,9 @@ public class Main extends FullScreenAppCompatActivity
      * pop up a dialog asking for confirmation and if confirmed exit
      */
     private void exit() {
-        new AlertDialog.Builder(this).setTitle(R.string.exit_title).setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text).setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(this).setTitle(R.string.exit_title)
+                .setMessage(getTracker() != null && getTracker().isTracking() ? R.string.pause_exit_text : R.string.exit_text)
+                .setNegativeButton(R.string.no, null).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         // if we actually exit, stop the auto downloads, for now
@@ -3486,7 +3494,7 @@ public class Main extends FullScreenAppCompatActivity
         /**
          * Perform edit touch processing.
          * 
-         * @param mode mode we are in, either EASYEDIT or TAG_EDIT
+         * @param mode mode we are in
          * @param v View affected by the touch event.
          * @param x the click-position on the display.
          * @param y the click-position on the display.
@@ -4134,9 +4142,6 @@ public class Main extends FullScreenAppCompatActivity
     @Override
     // currently this is only called by the task UI
     public void update() {
-        if (App.getLogic().getSelectedBug() != null) {
-            App.getLogic().setSelectedBug(null);
-        }
         map.invalidate();
     }
 
@@ -4196,13 +4201,15 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void run() {
             if (!App.getLogic().isLocked()) {
-                if (!easyEditManager.isProcessingAction() || easyEditManager.inElementSelectedMode()) {
+                boolean elementSelected = easyEditManager.inElementSelectedMode() || easyEditManager.inNewNoteSelectedMode();
+                if (!easyEditManager.isProcessingAction() || elementSelected) {
                     View lock = getLock();
                     if (lock != null) {
                         lock.performClick();
                     }
-                    if (easyEditManager.inElementSelectedMode()) {
+                    if (elementSelected) {
                         App.getLogic().deselectAll();
+                        map.deselectObjects();
                         easyEditManager.finish();
                     }
                 } else {

@@ -200,10 +200,14 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
         switch (item.getItemId()) {
         case MENUITEM_OSB:
             mode.finish();
-            Note note = logic.makeNewBug(x, y);
-            logic.setSelectedBug(note);
-            TaskFragment.showDialog(main, note);
-            logic.hideCrosshairs();
+            de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
+            if (layer == null) {
+                Snack.toastTopError(main, R.string.toast_task_layer_disabled);
+            } else {
+                Note note = logic.makeNewNote(x, y);
+                TaskFragment.showDialog(main, note);
+                logic.hideCrosshairs();
+            }
             return true;
         case MENUITEM_NEWNODEWAY:
             main.startSupportActionMode(new PathCreationActionModeCallback(manager, x, y));

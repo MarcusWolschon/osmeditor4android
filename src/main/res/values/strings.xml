@@ -348,6 +348,9 @@
     <string name="toast_tags_cut">Tags cut to clipboard</string>
     <string name="toast_properties_copied">Properties copied to clipboard</string>
     <string name="toast_task_conflict">%1$s has been changed on the server, upload first and then re-download</string>
+    <string name="toast_move_note_warning">Only new Notes can be moved</string>
+    <string name="toast_task_layer_disabled">Task layer disabled</string>
+    <string name="toast_unable_to_create_task_layer">Unable to create task layer</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -467,6 +470,7 @@
     <string name="menu_config">Preferences</string>
     <string name="menu_find">Find</string>
     <string name="menu_help">Help</string>
+    <string name="menu_view">View</string>
     <string name="menu_erase">Erase node</string>
     <string name="menu_set_position">Position</string>
     <string name="menu_split">Split</string>
@@ -591,12 +595,15 @@
     <string name="deletenode_relation_description">You are about to delete a node that is a member of one or more relations. Removing the node from the relation(s) may render it/them invalid.</string>
     <string name="deletenode">Delete node</string>
     <string name="split_all_ways">Split all ways</string>
+    <string name="delete_note_description">Deleting the note cannot be undone!</string>
+    <string name="delete_note">Delete note</string>
     <!-- EasyEdit action mode titles -->
     <string name="actionmode_wayselect">Way selected</string>
     <string name="actionmode_nodeselect">Node selected</string>
     <string name="actionmode_relationselect">Relation selected</string>
     <string name="actionmode_createpath">Creating path</string>
     <string name="actionmode_multiselect">Multiselect</string>
+    <string name="actionmode_newnoteselect">New Note selected</string>
     <!-- EasyEdit action mode sub-titles -->
     <string name="actionmode_closed_way_split_1">Split closed way, 1st node</string>
     <string name="actionmode_closed_way_split_2">Split closed way, 2nd node</string>

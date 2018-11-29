@@ -9,9 +9,11 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.ViewBox;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -66,11 +68,22 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
             @Override
             public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
                 manager.finish();
-                Note note = App.getLogic().makeNewBug(x, y);
-                App.getLogic().setSelectedBug(note);
+                de.blau.android.layer.tasks.MapOverlay layer = main.getMap().getTaskLayer();
+                if (layer == null) { // turn it on, this is supposed to be "simple"
+                    Preferences prefs = new Preferences(main);
+                    prefs.setBugsEnabled(true);
+                    main.updatePrefs(prefs);
+                    App.getLogic().getMap().setPrefs(main, prefs);
+                    layer = main.getMap().getTaskLayer();
+                    if (layer == null) {
+                        Snack.toastTopError(main, R.string.toast_unable_to_create_task_layer);
+                        return;
+                    }
+                    main.getMap().invalidate();
+                }
+                Note note = App.getLogic().makeNewNote(x, y);
                 TaskFragment.showDialog(main, note);
             }
-
         }),
         /**
          * Add a node merging with nearby elements
@@ -177,7 +190,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
         logic.setSelectedNode(null);
         logic.setSelectedWay(null);
         logic.setSelectedRelation(null);
-        logic.setSelectedBug(null);
+        main.getMap().deselectObjects();
         super.onDestroyActionMode(mode);
     }
 

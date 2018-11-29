@@ -30,6 +30,7 @@ import android.view.View;
 import de.blau.android.exception.OsmException;
 import de.blau.android.imageryoffset.ImageryOffsetUtils;
 import de.blau.android.imageryoffset.Offset;
+import de.blau.android.layer.ClickableInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.GeoPoint;
@@ -370,6 +371,17 @@ public class Map extends View implements IMapView {
     @Nullable
     public de.blau.android.layer.data.MapOverlay getDataLayer() {
         return dataLayer;
+    }
+
+    /**
+     * Loop over the layers de-selecting any objects
+     */
+    public void deselectObjects() {
+        for (MapViewLayer layer : getLayers()) {
+            if (layer != null && layer instanceof ClickableInterface) {
+                ((ClickableInterface<?>) layer).deselectObjects();
+            }
+        }
     }
 
     public void onDestroy() {

@@ -58,11 +58,13 @@ import de.blau.android.util.Util;
 public class TaskFragment extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = TaskFragment.class.getSimpleName();
 
-    private static final String TAG ="fragment_bug";
-    
+    private static final String TAG = "fragment_bug";
+
     private static final String BUG_KEY = "bug";
-    
+
     private UpdateViewListener mListener;
+
+    private Task task = null;
 
     /**
      * Display a dialog for editing Taskss
@@ -99,7 +101,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
             Log.e(DEBUG_TAG, "dismissDialog", isex);
         }
     }
-    
+
     /**
      * Create a new fragment to be displayed
      * 
@@ -127,7 +129,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
     @NonNull
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
-        final Task bug = (Task) getArguments().getSerializable(BUG_KEY);
+        task = (Task) getArguments().getSerializable(BUG_KEY);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -137,31 +139,21 @@ public class TaskFragment extends ImmersiveDialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View v = inflater.inflate(R.layout.openstreetbug_edit, null);
-        builder.setView(v)
-                // Add action buttons - slightly convoluted
-                .setPositiveButton(
-                        bug instanceof Note && bug.isNew() ? (App.getTaskStorage().contains(bug) ? R.string.delete : R.string.openstreetbug_commitbutton)
-                                : R.string.save,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                if (bug instanceof Note && bug.isNew() && App.getTaskStorage().contains(bug)) {
-                                    deleteBug(bug);
-                                    return;
-                                }
-                                saveBug(v, bug);
-                                cancelAlert(bug);
-                                updateMenu(getActivity());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
+        builder.setView(v).setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                saveTask(v, task);
+                cancelAlert(task);
+                updateMenu(getActivity());
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
 
-        if (bug.canBeUploaded()) {
+        if (task.canBeUploaded()) {
             builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    saveBug(v, bug);
+                    saveTask(v, task);
                     (new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... arg0) {
@@ -178,20 +170,20 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
                                 }
                             };
-                            if (bug instanceof Note) {
-                                Note n = (Note) bug;
+                            if (task instanceof Note) {
+                                Note n = (Note) task;
                                 NoteComment nc = n.getLastComment();
                                 TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
                                         n.getState() == State.CLOSED, false, handler);
-                            } else if (bug instanceof OsmoseBug) {
-                                TransferTasks.updateOsmoseBug(getActivity(), (OsmoseBug) bug, false, handler);
-                            } else if (bug instanceof MapRouletteTask) {
-                                TransferTasks.updateMapRouletteTask(getActivity(), prefs.getServer(), (MapRouletteTask) bug, false, handler);
+                            } else if (task instanceof OsmoseBug) {
+                                TransferTasks.updateOsmoseBug(getActivity(), (OsmoseBug) task, false, handler);
+                            } else if (task instanceof MapRouletteTask) {
+                                TransferTasks.updateMapRouletteTask(getActivity(), prefs.getServer(), (MapRouletteTask) task, false, handler);
                             }
                             return null;
                         }
                     }).execute();
-                    cancelAlert(bug);
+                    cancelAlert(task);
                 }
             });
         }
@@ -204,17 +196,17 @@ public class TaskFragment extends ImmersiveDialogFragment {
         EditText comment = (EditText) v.findViewById(R.id.openstreetbug_comment);
         TextView commentLabel = (TextView) v.findViewById(R.id.openstreetbug_comment_label);
         LinearLayout elementLayout = (LinearLayout) v.findViewById(R.id.openstreetbug_element_layout);
-        if (bug instanceof Note) {
-            title.setText(getString((bug.isNew() && ((Note) bug).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
-            comments.setText(Util.fromHtml(((Note) bug).getComment())); // ugly
+        if (task instanceof Note) {
+            title.setText(getString((task.isNew() && ((Note) task).count() == 0) ? R.string.openstreetbug_new_title : R.string.openstreetbug_edit_title));
+            comments.setText(Util.fromHtml(((Note) task).getComment())); // ugly
             comments.setAutoLinkMask(Linkify.WEB_URLS);
             comments.setMovementMethod(LinkMovementMethod.getInstance());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 comments.setTextIsSelectable(true);
             }
-            NoteComment nc = ((Note) bug).getLastComment();
+            NoteComment nc = ((Note) task).getLastComment();
             elementLayout.setVisibility(View.GONE); // not used for notes
-            if ((bug.isNew() && ((Note) bug).count() == 0) || (nc != null && !nc.isNew())) {
+            if ((task.isNew() && ((Note) task).count() == 0) || (nc != null && !nc.isNew())) {
                 // only show comment field if we don't have an unsaved comment
                 Log.d(DEBUG_TAG, "enabling comment field");
                 comment.setText("");
@@ -231,11 +223,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
             commentLabel.setVisibility(View.GONE);
             comment.setVisibility(View.GONE);
             //
-            if (bug instanceof OsmoseBug || bug instanceof CustomBug) {
+            if (task instanceof OsmoseBug || task instanceof CustomBug) {
                 title.setText(R.string.openstreetbug_bug_title);
-                comments.setText(Util.fromHtml(((Bug) bug).getLongDescription(getActivity(), false)));
+                comments.setText(Util.fromHtml(((Bug) task).getLongDescription(getActivity(), false)));
                 final StorageDelegator storageDelegator = App.getDelegator();
-                for (final OsmElement e : ((Bug) bug).getElements()) {
+                for (final OsmElement e : ((Bug) task).getElements()) {
                     String text;
                     if (e.getOsmVersion() < 0) { // fake element
                         text = getString(R.string.bug_element_1, e.getName(), e.getOsmId());
@@ -249,8 +241,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
                         public void onClick(View v) { // FIXME assumption that we are being called from Main
                             dismiss();
                             final FragmentActivity activity = getActivity();
-                            final int lonE7 = bug.getLon();
-                            final int latE7 = bug.getLat();
+                            final int lonE7 = task.getLon();
+                            final int latE7 = task.getLat();
                             if (e.getOsmVersion() < 0) { // fake element
                                 try {
                                     BoundingBox b = GeoMath.createBoundingBoxForCoordinates(latE7 / 1E7D, lonE7 / 1E7, 50, true);
@@ -281,11 +273,11 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 }
                 //
                 adapter = ArrayAdapter.createFromResource(getActivity(), R.array.bug_state, android.R.layout.simple_spinner_item);
-            } else if (bug instanceof MapRouletteTask) {
+            } else if (task instanceof MapRouletteTask) {
                 title.setText(R.string.maproulette_task_title);
-                comments.setText(Util.fromHtml(((MapRouletteTask) bug).getDescription()));
+                comments.setText(Util.fromHtml(((MapRouletteTask) task).getDescription()));
                 adapter = ArrayAdapter.createFromResource(getActivity(), R.array.maproulette_state, android.R.layout.simple_spinner_item);
-                MapRouletteChallenge challenge = App.getTaskStorage().getChallenges().get(((MapRouletteTask) bug).getParentId());
+                MapRouletteChallenge challenge = App.getTaskStorage().getChallenges().get(((MapRouletteTask) task).getParentId());
                 if (challenge != null) {
                     final StringBuilder explanationsBuilder = new StringBuilder();
                     //
@@ -322,8 +314,8 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 // add a clickable link to the location
                 TextView locationText = new TextView(getActivity());
                 locationText.setClickable(true);
-                final double lon = bug.getLon() / 1E7D;
-                final double lat = bug.getLat() / 1E7D;
+                final double lon = task.getLon() / 1E7D;
+                final double lat = task.getLat() / 1E7D;
                 locationText.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) { // FIXME assumption that we are being called from Main
@@ -352,10 +344,10 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 locationText.setText(getString(R.string.maproulette_task_coords, lon, lat));
                 elementLayout.addView(locationText);
             } else {
-                Log.d(DEBUG_TAG, "Unknown task type " + bug.getDescription());
+                Log.d(DEBUG_TAG, "Unknown task type " + task.getDescription());
                 builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.openstreetbug_unknown_task_type)
-                        .setMessage(getString(R.string.openstreetbug_not_supported, bug.getClass().getCanonicalName()))
+                        .setMessage(getString(R.string.openstreetbug_not_supported, task.getClass().getCanonicalName()))
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
@@ -369,24 +361,24 @@ public class TaskFragment extends ImmersiveDialogFragment {
         // Apply the adapter to the spinner
         state.setAdapter(adapter);
 
-        int stateOrdinal = bug.getState().ordinal();
+        int stateOrdinal = task.getState().ordinal();
         if (adapter.getCount() > stateOrdinal) {
             state.setSelection(stateOrdinal);
         } else {
             Log.e(DEBUG_TAG, "ArrayAdapter too short state " + stateOrdinal + " adapter " + adapter.getCount());
         }
 
-        state.setEnabled(!bug.isNew()); // new bugs always open
+        state.setEnabled(!task.isNew()); // new bugs always open
         AppCompatDialog d = builder.create();
         d.setOnShowListener(new OnShowListener() { // old API, buttons are enabled by default
             @Override
             public void onShow(DialogInterface dialog) { //
                 final Button save = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
-                if ((bug instanceof Note && bug.isNew() && ((Note) bug).count() == 1 && !App.getTaskStorage().contains(bug)) || !bug.hasBeenChanged()) {
+                if ((App.getTaskStorage().contains(task)) && (!task.hasBeenChanged() || task.isNew())) {
                     save.setEnabled(false);
                 }
                 final Button upload = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                if (!bug.hasBeenChanged()) {
+                if (!task.hasBeenChanged()) {
                     upload.setEnabled(false);
                 }
                 state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -419,8 +411,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
                 });
             }
         });
-        // d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE); // not a good idea on
-        // small screens
         return d;
     }
 
@@ -454,6 +444,16 @@ public class TaskFragment extends ImmersiveDialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+        if (getActivity() instanceof Main) {
+            de.blau.android.layer.tasks.MapOverlay layer = ((Main) getActivity()).getMap().getTaskLayer();
+            if (layer != null) {
+                Task selectedTask = layer.getSelected();
+                // ugly way of only de-selecting if we're not in the new note action mode
+                if (selectedTask != null && selectedTask.equals(task) && !(task instanceof Note && ((Note) task).isNew())) {
+                    layer.deselectObjects();
+                }
+            }
+        }
         if (mListener != null) {
             mListener.update();
         }
@@ -480,7 +480,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param v the view containing the EditText with the text of the note
      * @param bug the Task object
      */
-    private void saveBug(View v, Task bug) {
+    private void saveTask(View v, Task bug) {
         if (bug.isNew() && ((Note) bug).count() == 0) {
             App.getTaskStorage().add(bug); // sets dirty
         }
@@ -492,17 +492,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
         bug.setState(pos2state(state.getSelectedItemPosition()));
         bug.setChanged(true);
         App.getTaskStorage().setDirty();
-    }
-
-    /**
-     * Delete a new, non-saved, bug from storage
-     * 
-     * @param bug Task we want to delete
-     */
-    private void deleteBug(@NonNull Task bug) {
-        if (bug.isNew()) {
-            App.getTaskStorage().delete(bug); // sets dirty
-        }
     }
 
     /**

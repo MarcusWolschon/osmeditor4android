@@ -7,21 +7,27 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import de.blau.android.R;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.GeoPoint;
+import de.blau.android.resources.DataStyle;
+import de.blau.android.util.Density;
 import de.blau.android.util.rtree.BoundedObject;
 
 /**
  * Base class for OSM Notes, Osmose Errors and in the future perhaps more
  *
  */
-public abstract class Task implements Serializable, BoundedObject {
+public abstract class Task implements Serializable, BoundedObject, GeoPoint {
 
     /**
      * 
      */
     private static final long serialVersionUID = 7L;
+
+    private static int iconSelectedBorder = Density.dpToPx(2);
 
     class BitmapWithOffset {
         Bitmap icon = null;
@@ -106,9 +112,9 @@ public abstract class Task implements Serializable, BoundedObject {
     }
 
     /**
-     * Get the bug open/closed state.
+     * Check if the task has been changed
      * 
-     * @return true if the bug is closed, false if it's still open.
+     * @return true if the task has been changed.
      */
     public boolean hasBeenChanged() {
         return changed;
@@ -231,13 +237,19 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param icon the resource id for the icon
      * @param x x position on the canvas
      * @param y y position on the canvas
+     * @param selected true if selected and highlighting should be applied
      */
-    void drawIcon(Context context, BitmapWithOffset cache, Canvas c, int icon, float x, float y) {
+    void drawIcon(Context context, BitmapWithOffset cache, Canvas c, int icon, float x, float y, boolean selected) {
         if (cache == null) {
             cache = new BitmapWithOffset();
             cache.icon = BitmapFactory.decodeResource(context.getResources(), icon);
             cache.w2 = cache.icon.getWidth() / 2f;
             cache.h2 = cache.icon.getHeight() / 2f;
+        }
+        if (selected) {
+            RectF r = new RectF(x - cache.w2 - iconSelectedBorder, y - cache.h2 - iconSelectedBorder, x + cache.w2 + iconSelectedBorder,
+                    y + cache.h2 + iconSelectedBorder);
+            c.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getCurrent(DataStyle.SELECTED_NODE).getPaint());
         }
         c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
     }
@@ -249,9 +261,10 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
+     * @param selected true if selected
      */
-    public void drawBitmapOpen(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y);
+    public void drawBitmapOpen(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconOpen, c, R.drawable.bug_open, x, y, selected);
     }
 
     /**
@@ -261,9 +274,10 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
+     * @param selected true if selected
      */
-    public void drawBitmapChanged(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y);
+    public void drawBitmapChanged(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconChanged, c, R.drawable.bug_changed, x, y, selected);
     }
 
     /**
@@ -273,9 +287,10 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
+     * @param selected true if selected
      */
-    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y);
+    public void drawBitmapChangedClosed(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconChangedClosed, c, R.drawable.bug_changed_closed, x, y, selected);
     }
 
     /**
@@ -285,8 +300,9 @@ public abstract class Task implements Serializable, BoundedObject {
      * @param c the Canvas we are drawing on
      * @param x x position on the canvas
      * @param y y position on the canvas
+     * @param selected true if selected
      */
-    public void drawBitmapClosed(Context context, Canvas c, float x, float y) {
-        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y);
+    public void drawBitmapClosed(Context context, Canvas c, float x, float y, boolean selected) {
+        drawIcon(context, cachedIconClosed, c, R.drawable.bug_closed, x, y, selected);
     }
 }

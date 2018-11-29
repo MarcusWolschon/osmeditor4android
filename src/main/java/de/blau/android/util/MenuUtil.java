@@ -2,6 +2,7 @@ package de.blau.android.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ActionMenuView;
 import android.util.DisplayMetrics;
@@ -22,7 +23,12 @@ public class MenuUtil {
     private int       maxItems = 0;
     private final int screenWidth;
 
-    public MenuUtil(Context ctx) {
+    /**
+     * Utility class for menu arrangement
+     * 
+     * @param ctx an Android Context
+     */
+    public MenuUtil(@NonNull Context ctx) {
         // hardcoded calculation of how many icons we want to display
         // TODO de-hardcode
         DisplayMetrics metrics = App.resources().getDisplayMetrics();
@@ -33,10 +39,19 @@ public class MenuUtil {
         Log.d(DEBUG_TAG, "pixel width " + metrics.widthPixels + " DP width " + widthDp + " maxItems " + maxItems);
     }
 
+    /**
+     * Reset any state
+     */
     public void reset() {
     }
 
-    public void setShowAlways(Menu menu) {
+    /**
+     * Loop over the items in menu and set the show always flag as often as reasonabls
+     * 
+     * @param menu the Menu to work on
+     */
+    @SuppressWarnings("deprecation")
+    public void setShowAlways(@NonNull Menu menu) {
 
         int nonVisibleItems = 0;
         for (int i = 0; i < menu.size(); i++) {
@@ -66,7 +81,15 @@ public class MenuUtil {
         }
     }
 
-    public static void setupBottomBar(Activity activity, ActionMenuView bar, boolean fullScreen, boolean light) {
+    /**
+     * Set up a bottom action bar
+     * 
+     * @param activity the calling Activity
+     * @param bar the bar to use
+     * @param fullScreen true if we are in fullscreen mode
+     * @param light true if we are using the light theme
+     */
+    public static void setupBottomBar(@NonNull Activity activity, @NonNull ActionMenuView bar, boolean fullScreen, boolean light) {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         if (Util.isLarge(activity)) {
             params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
@@ -81,5 +104,4 @@ public class MenuUtil {
             }
         }
     }
-
 }

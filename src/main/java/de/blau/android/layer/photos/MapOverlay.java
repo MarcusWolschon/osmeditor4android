@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -36,7 +37,7 @@ import de.blau.android.views.IMapView;
  * @author simon
  *
  */
-public class MapOverlay extends MapViewLayer implements DisableInterface, ClickableInterface {
+public class MapOverlay extends MapViewLayer implements DisableInterface, ClickableInterface<Photo> {
 
     private static final String DEBUG_TAG = "PhotoOverlay";
 
@@ -115,7 +116,12 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
         }
     };
 
-    public MapOverlay(final Map map) {
+    /**
+     * Construct a new photo layer
+     * 
+     * @param map the current Map instance
+     */
+    public MapOverlay(@NonNull final Map map) {
         Context context = map.getContext();
         this.map = map;
         photos = new ArrayList<>();
@@ -204,10 +210,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
         return result;
     }
 
-    public void setSelected(Photo photo) {
-        selected = photo;
-    }
-
     @Override
     public String getName() {
         return map.getContext().getString(R.string.layer_photos);
@@ -225,12 +227,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     }
 
     @Override
-    public void onSelected(FragmentActivity activity, Object object) {
-        if (!(object instanceof Photo)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return;
-        }
-        Photo photo = (Photo) object;
+    public void onSelected(FragmentActivity activity, Photo photo) {
         try {
             Intent myIntent = new Intent(Intent.ACTION_VIEW);
             int flags = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION;
@@ -246,7 +243,7 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
                 // black magic only works this way
                 myIntent.setDataAndType(photoUri, "image/jpeg");
                 context.startActivity(myIntent);
-                setSelected(photo);
+                selected = photo;
                 // TODO may need a map.invalidate() here
             } else {
                 Snack.toastTopError(context, context.getResources().getString(R.string.toast_error_accessing_photo, photo.getRef()));
@@ -258,16 +255,21 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Clicka
     }
 
     @Override
-    public String getDescription(Object object) {
-        if (!(object instanceof Photo)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return "?";
-        }
-        Photo photo = (Photo) object;
+    public String getDescription(Photo photo) {
         Uri photoUri = photo.getRefUri(map.getContext());
         if (photoUri != null) {
             return photoUri.getLastPathSegment();
         }
         return "?";
+    }
+
+    @Override
+    public Photo getSelected() {
+        return null;
+    }
+
+    @Override
+    public void deselectObjects() {
+        selected = null;
     }
 }

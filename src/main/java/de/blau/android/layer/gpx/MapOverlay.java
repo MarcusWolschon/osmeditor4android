@@ -33,7 +33,7 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.collections.FloatPrimitiveList;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface {
+public class MapOverlay extends StyleableLayer implements Serializable, ExtentInterface, ClickableInterface<WayPoint> {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     private float           strokeWidth;
     private String          labelKey;
 
-    public MapOverlay(final Map map) {
+    /**
+     * Construct a new GPX layer
+     * 
+     * @param map the current Map instance
+     */
+    public MapOverlay(@NonNull final Map map) {
         this.map = map;
         linePoints = new FloatPrimitiveList();
         resetStyling();
@@ -192,23 +197,12 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     }
 
     @Override
-    public void onSelected(FragmentActivity activity, Object object) {
-        if (!(object instanceof WayPoint)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return;
-        }
-        WayPoint wp = (WayPoint) object;
+    public void onSelected(FragmentActivity activity, WayPoint wp) {
         ViewWayPoint.showDialog(activity, wp);
-
     }
 
     @Override
-    public String getDescription(Object object) {
-        if (!(object instanceof WayPoint)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return "?";
-        }
-        WayPoint wp = (WayPoint) object;
+    public String getDescription(WayPoint wp) {
         return wp.getShortDescription(map.getContext());
     }
 
@@ -310,5 +304,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Log.d(DEBUG_TAG, "saved state null");
             return false;
         }
+    }
+
+    @Override
+    public WayPoint getSelected() {
+        return null;
+    }
+
+    @Override
+    public void deselectObjects() {
     }
 }

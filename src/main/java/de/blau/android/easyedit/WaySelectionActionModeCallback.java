@@ -64,9 +64,6 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
         helpTopic = R.string.help_wayselection;
         super.onCreateActionMode(mode, menu);
         Log.d(DEBUG_TAG, "onCreateActionMode");
-        logic.setSelectedNode(null);
-        logic.setSelectedRelationWays(null);
-        logic.setSelectedRelationNodes(null);
         logic.setSelectedWay((Way) element);
         main.invalidateMap();
         mode.setTitle(R.string.actionmode_wayselect);

@@ -1,15 +1,20 @@
 package de.blau.android.layer.tasks;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.layer.ClickableInterface;
@@ -21,13 +26,16 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.DataStyle;
+import de.blau.android.tasks.Note;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TaskFragment;
 import de.blau.android.tasks.TaskStorage;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Snack;
 import de.blau.android.views.IMapView;
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface, ConfigureInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, DisableInterface, ClickableInterface<Task>, ConfigureInterface {
 
     private static final String DEBUG_TAG = "tasks";
 
@@ -39,8 +47,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     /** Bugs visible on the overlay. */
     private TaskStorage tasks = App.getTaskStorage();
 
+    private transient ReentrantLock readingLock = new ReentrantLock();
+
+    public static final String FILENAME = "selectedtask.res";
+
+    private transient SavingHelper<Task> savingHelper = new SavingHelper<>();
+
+    private Task selected = null;
+
     /**
-     * Construct a new layer
+     * Construct a new task layer
      * 
      * @param map the current Map instance
      */
@@ -77,15 +93,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                     }
                     float x = GeoMath.lonE7ToX(w, bb, t.getLon());
                     float y = GeoMath.latE7ToY(h, w, bb, t.getLat());
-
+                    boolean isSelected = selected != null && t.equals(selected) && App.getLogic().isInEditZoomRange();
+                    if (isSelected) {
+                        // if the task can be dragged and large drag area is turned on show the large drag area
+                        if (t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
+                            c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(),
+                                    DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                        }
+                    }
                     if (t.isClosed() && t.hasBeenChanged()) {
-                        t.drawBitmapChangedClosed(map.getContext(), c, x, y);
+                        t.drawBitmapChangedClosed(map.getContext(), c, x, y, isSelected);
                     } else if (t.isClosed()) {
-                        t.drawBitmapClosed(map.getContext(), c, x, y);
+                        t.drawBitmapClosed(map.getContext(), c, x, y, isSelected);
                     } else if (t.isNew() || t.hasBeenChanged()) {
-                        t.drawBitmapChanged(map.getContext(), c, x, y);
+                        t.drawBitmapChanged(map.getContext(), c, x, y, isSelected);
                     } else {
-                        t.drawBitmapOpen(map.getContext(), c, x, y);
+                        t.drawBitmapOpen(map.getContext(), c, x, y, isSelected);
                     }
                 }
             }
@@ -121,9 +144,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                     }
                 }
             }
-            // For debugging the OSB editor when the OSB site is down:
-            // result.add(new Bug(GeoMath.yToLatE7(map.getHeight(), viewBox, y), GeoMath.xToLonE7(map.getWidth(),
-            // viewBox, x), true));
         }
         return result;
     }
@@ -154,24 +174,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     }
 
     @Override
-    public void onSelected(FragmentActivity activity, Object object) {
-        if (!(object instanceof Task)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return;
+    public void onSelected(FragmentActivity activity, Task t) {
+        selected = t;
+        if (t instanceof Note && ((Note) t).isNew() && activity instanceof Main) {
+            ((Main) activity).getEasyEditManager().editNote((Note) t, this);
+        } else {
+            if (((Main) activity).getEasyEditManager().inNewNoteSelectedMode()) {
+                // Keeping this mode running while showing the dialog for something else is too confusing
+                ((Main) activity).getEasyEditManager().finish();
+            }
+            TaskFragment.showDialog(activity, t);
         }
-        Task bug = (Task) object;
-        App.getLogic().setSelectedBug(bug);       
-        TaskFragment.showDialog(activity, bug);
     }
 
     @Override
-    public String getDescription(Object object) {
-        if (!(object instanceof Task)) {
-            Log.e(DEBUG_TAG, "Wrong object for " + getName() + " " + object.getClass().getName());
-            return "?";
-        }
-        Task bug = (Task) object;
-        return bug.getDescription(map.getContext());
+    public String getDescription(Task t) {
+        return t.getDescription(map.getContext());
     }
 
     @Override
@@ -183,5 +201,70 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
     public boolean enableConfiguration() {
         // multi choice preferences are not supported on old SKD versions
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+    /**
+     * Stores the current state to the default storage file
+     * 
+     * @param context Android Context
+     * @throws IOException on errors writing the file
+     */
+    public synchronized void onSaveState(@NonNull Context context) throws IOException {
+        super.onSaveState(context);
+        if (readingLock.tryLock()) {
+            try {
+                // TODO this doesn't really help with error conditions need to throw exception
+                if (savingHelper.save(context, FILENAME, selected, true)) {
+
+                } else {
+                    // this is essentially catastrophic and can only happen if something went really wrong
+                    // running out of memory or disk, or HW failure
+                    if (context instanceof Activity) {
+                        Snack.barError((Activity) context, R.string.toast_statesave_failed);
+                    }
+                }
+            } finally {
+                readingLock.unlock();
+            }
+        } else {
+            Log.i(DEBUG_TAG, "bug state being read, skipping save");
+        }
+    }
+
+    /**
+     * Loads any saved state from the default storage file
+     * 
+     * 
+     * @param context Android context
+     * @return true if the saved state was successfully read
+     */
+    public synchronized boolean onRestoreState(@NonNull Context context) {
+        super.onRestoreState(context);
+        try {
+            readingLock.lock();
+
+            Task restoredTask = savingHelper.load(context, FILENAME, true);
+            if (restoredTask != null) {
+                Log.d(DEBUG_TAG, "read saved state");
+                Task taskInStorage = App.getTaskStorage().get(restoredTask);
+                selected = taskInStorage;
+                return true;
+            } else {
+                Log.d(DEBUG_TAG, "saved state null");
+                return false;
+            }
+        } finally {
+            readingLock.unlock();
+        }
+    }
+
+    @Override
+    public Task getSelected() {
+        return selected;
+    }
+
+    @Override
+    public void deselectObjects() {
+        selected = null;
     }
 }

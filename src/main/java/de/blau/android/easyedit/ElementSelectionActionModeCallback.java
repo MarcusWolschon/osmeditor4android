@@ -76,6 +76,17 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         undoListener = main.new UndoListener();
     }
 
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        super.onCreateActionMode(mode, menu);
+        logic.setSelectedNode(null);
+        logic.setSelectedWay(null);
+        logic.setSelectedRelationWays(null);
+        logic.setSelectedRelationNodes(null);
+        main.getMap().deselectObjects();
+        return true;
+    }
+
     /**
      * Internal helper to avoid duplicate code in {@link #handleElementClick(OsmElement)}}.
      * 
@@ -85,7 +96,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
     @Override
     public boolean handleElementClick(OsmElement element) {
         super.handleElementClick(element);
-        if (element == this.element) {
+        if (element.equals(this.element)) {
             // remove any empty undo checkpoint from potentially starting a move
             switch (element.getName()) {
             case Node.NAME:
@@ -307,5 +318,4 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
         }
         return result;
     }
-
 }

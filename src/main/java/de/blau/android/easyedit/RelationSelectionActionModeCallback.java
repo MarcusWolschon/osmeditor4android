@@ -37,8 +37,6 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
         helpTopic = R.string.help_relationselection;
         super.onCreateActionMode(mode, menu);
-        logic.setSelectedNode(null);
-        logic.setSelectedWay(null);
         if (checkForEmptyRelation(mode)) {
             return false;
         }

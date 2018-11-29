@@ -3,10 +3,11 @@ package de.blau.android.layer;
 import java.util.List;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import de.blau.android.osm.ViewBox;
 
-public interface ClickableInterface {
+public interface ClickableInterface<V> {
 
     /**
      * Get objects near the screen coordinates
@@ -24,7 +25,20 @@ public interface ClickableInterface {
      * @param activity calling Activity
      * @param object the Object from this layer
      */
-    void onSelected(@NonNull FragmentActivity activity, @NonNull final Object object);
+    void onSelected(@NonNull FragmentActivity activity, @NonNull final V object);
+
+    /**
+     * Get the selected object if any
+     * 
+     * @return the currently selected object or null if their is none
+     */
+    @Nullable
+    V getSelected();
+
+    /**
+     * De-select any selected objects
+     */
+    void deselectObjects();
 
     /**
      * Get a short description of the object suitable for a menu
@@ -32,6 +46,5 @@ public interface ClickableInterface {
      * @param object the Object from this layer
      * @return the description
      */
-    String getDescription(@NonNull final Object object);
-
+    String getDescription(@NonNull final V object);
 }

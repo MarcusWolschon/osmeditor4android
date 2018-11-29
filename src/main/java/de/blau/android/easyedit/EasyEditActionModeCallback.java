@@ -142,7 +142,7 @@ public abstract class EasyEditActionModeCallback implements ActionMode.Callback 
      * @param element the OsmElement that was clicked
      * @return true if the click has been handled, false if default handling should apply
      */
-    public boolean handleElementClick(OsmElement element) {
+    public boolean handleElementClick(@NonNull OsmElement element) {
         return false;
     }
 

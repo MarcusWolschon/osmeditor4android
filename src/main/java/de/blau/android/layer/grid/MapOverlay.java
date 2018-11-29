@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.Map;
@@ -96,7 +95,6 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
                 if (App.getLogic().getMode() == Mode.MODE_ALIGN_BACKGROUND
                         || (main != null && main.getEasyEditManager().isProcessingAction() && prefs.splitActionBarEnabled())) {
                     topOffset = actionBarHeight;
-                    Log.d(DEBUG_TAG, "offset " + topOffset);
                 }
                 c.drawLine(distance2side, distance2side + topOffset, w - distance2side, distance2side + topOffset, fullLine);
                 c.drawLine(w - distance2side, distance2side + topOffset, w - distance2side, h - distance2side, fullLine);

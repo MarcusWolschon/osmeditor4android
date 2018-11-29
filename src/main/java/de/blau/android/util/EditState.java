@@ -35,6 +35,7 @@ public class EditState implements Serializable {
     private final List<Node>        savedNodes;
     private final List<Way>         savedWays;
     private final List<Relation>    savedRelations;
+    @SuppressWarnings("unused")
     private final Task              savedBug;
     private final String            savedImageFileName;
     private final BoundingBox       savedBox;
@@ -60,7 +61,7 @@ public class EditState implements Serializable {
         savedNodes = logic.getSelectedNodes();
         savedWays = logic.getSelectedWays();
         savedRelations = logic.getSelectedRelations();
-        savedBug = logic.getSelectedBug();
+        savedBug = null;
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
@@ -105,8 +106,6 @@ public class EditState implements Serializable {
                 }
             }
         }
-        //
-        logic.setSelectedBug(savedBug);
     }
 
     /**
