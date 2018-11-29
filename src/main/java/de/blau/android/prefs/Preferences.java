@@ -445,6 +445,7 @@ public class Preferences {
      * 
      * @return the current Server object
      */
+    @NonNull
     public Server getServer() {
         return advancedPrefs.getServerObject();
     }

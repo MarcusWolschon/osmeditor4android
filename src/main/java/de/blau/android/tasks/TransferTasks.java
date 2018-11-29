@@ -190,80 +190,78 @@ public class TransferTasks {
      * @param server current server config
      * @param postUploadHandler execute code after an upload
      */
-    public static void upload(@NonNull final Main main, final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
+    public static void upload(@NonNull final Main main, @NonNull final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {
         final String PROGRESS_TAG = "tasks";
 
-        if (server != null) {
-            final List<Task> queryResult = App.getTaskStorage().getTasks();
-            // check if we need to oAuth first
-            for (Task b : queryResult) {
-                if (b.hasBeenChanged() && b instanceof Note) {
-                    PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-                        @Override
-                        public void onSuccess() {
-                            Preferences prefs = new Preferences(main);
-                            upload(main, prefs.getServer(), postUploadHandler);
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    };
-                    if (!Server.checkOsmAuthentication(main, server, restartAction)) {
-                        return;
+        final List<Task> queryResult = App.getTaskStorage().getTasks();
+        // check if we need to oAuth first
+        for (Task b : queryResult) {
+            if (b.hasBeenChanged() && b instanceof Note) {
+                PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Preferences prefs = new Preferences(main);
+                        upload(main, prefs.getServer(), postUploadHandler);
                     }
+
+                    @Override
+                    public void onError() {
+                    }
+                };
+                if (!Server.checkOsmAuthentication(main, server, restartAction)) {
+                    return;
                 }
             }
-            new AsyncTask<Void, Void, Boolean>() {
-                @Override
-                protected void onPreExecute() {
-                    Progress.showDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                    Log.d(DEBUG_TAG, "starting up load of total " + queryResult.size() + " tasks");
-                }
-
-                @Override
-                protected Boolean doInBackground(Void... params) {
-                    boolean uploadFailed = false;
-                    for (Task b : queryResult) {
-                        if (b.hasBeenChanged()) {
-                            Log.d(DEBUG_TAG, b.getDescription());
-                            if (b instanceof Note) {
-                                Note n = (Note) b;
-                                NoteComment nc = n.getLastComment();
-                                if (nc != null && nc.isNew()) {
-                                    uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
-                                } else {
-                                    // just a state change
-                                    uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed;
-                                }
-                            } else if (b instanceof OsmoseBug) {
-                                uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
-                            } else if (b instanceof MapRouletteTask) {
-                                uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
-                            }
-                        }
-                    }
-                    return uploadFailed;
-                }
-
-                @Override
-                protected void onPostExecute(Boolean uploadFailed) {
-                    Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                    if (!uploadFailed) {
-                        if (postUploadHandler != null) {
-                            postUploadHandler.onSuccess();
-                        }
-                        Snack.barInfo(main, R.string.openstreetbug_commit_ok);
-                        main.invalidateMap();
-                    } else {
-                        if (postUploadHandler != null) {
-                            postUploadHandler.onError();
-                        }
-                        Snack.barError(main, R.string.openstreetbug_commit_fail);
-                    }
-                }
-            }.execute();
         }
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                Log.d(DEBUG_TAG, "starting up load of total " + queryResult.size() + " tasks");
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                boolean uploadFailed = false;
+                for (Task b : queryResult) {
+                    if (b.hasBeenChanged()) {
+                        Log.d(DEBUG_TAG, b.getDescription());
+                        if (b instanceof Note) {
+                            Note n = (Note) b;
+                            NoteComment nc = n.getLastComment();
+                            if (nc != null && nc.isNew()) {
+                                uploadFailed = !uploadNote(main, server, n, nc.getText(), n.isClosed(), true, null) || uploadFailed;
+                            } else {
+                                // just a state change
+                                uploadFailed = !uploadNote(main, server, n, null, n.isClosed(), true, null) || uploadFailed;
+                            }
+                        } else if (b instanceof OsmoseBug) {
+                            uploadFailed = !OsmoseServer.changeState(main, (OsmoseBug) b) || uploadFailed;
+                        } else if (b instanceof MapRouletteTask) {
+                            uploadFailed = !updateMapRouletteTask(main, server, (MapRouletteTask) b, true, null) || uploadFailed;
+                        }
+                    }
+                }
+                return uploadFailed;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean uploadFailed) {
+                Progress.dismissDialog(main, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
+                if (!uploadFailed) {
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onSuccess();
+                    }
+                    Snack.barInfo(main, R.string.openstreetbug_commit_ok);
+                    main.invalidateMap();
+                } else {
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onError();
+                    }
+                    Snack.barError(main, R.string.openstreetbug_commit_fail);
+                }
+            }
+        }.execute();
     }
 
     /**
