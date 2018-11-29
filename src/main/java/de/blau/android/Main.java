@@ -703,23 +703,25 @@ public class Main extends FullScreenAppCompatActivity
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(DEBUG_TAG, "onNewIntent storage dirty " + App.getDelegator().isDirty());
-        switch (intent.getAction()) {
-        case ACTION_FINISH_OAUTH:
-            Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
-            finishOAuth();
-            return;
-        case ACTION_EXIT:
-            Log.d(DEBUG_TAG, "onNewIntent calling exit");
-            exit();
-            return;
-        default:
-            setIntent(intent);
-            synchronized (geoDataLock) {
-                geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+        String action = intent.getAction();
+        if (action != null) {
+            switch (action) {
+            case ACTION_FINISH_OAUTH:
+                Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
+                finishOAuth();
+                return;
+            case ACTION_EXIT:
+                Log.d(DEBUG_TAG, "onNewIntent calling exit");
+                exit();
+                return;
             }
-            synchronized (rcDataLock) {
-                rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
-            }
+        }
+        setIntent(intent);
+        synchronized (geoDataLock) {
+            geoData = (GeoUrlData) getIntent().getSerializableExtra(GeoUrlActivity.GEODATA);
+        }
+        synchronized (rcDataLock) {
+            rcData = (RemoteControlUrlData) getIntent().getSerializableExtra(RemoteControlUrlActivity.RCDATA);
         }
     }
 
@@ -1068,7 +1070,8 @@ public class Main extends FullScreenAppCompatActivity
                     } else { // zoom
                         map.getViewBox().setBorders(getMap(), rcData.getBox());
                         map.invalidate();
-                        rcData = null; // zap to stop repeated/ downloads
+                        rcData = null; // zap to stop repeated/
+                                       // downloads
                     }
                 } else {
                     Log.d(DEBUG_TAG, "RC box is null");
@@ -1811,6 +1814,7 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_gps_upload:
             if (server != null) {
                 PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override
