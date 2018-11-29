@@ -136,6 +136,7 @@ public class ConfigurationDialog extends SizedFixedImmersiveDialogFragment {
                     ((Main) activity).updatePrefs(p);
                 }
                 App.getLogic().getMap().setPrefs(getContext(), p);
+                App.getLogic().getMap().invalidate();
             }
         });
 
