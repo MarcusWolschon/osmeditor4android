@@ -1,4 +1,4 @@
-# Creating new objects in simple action mode
+# Creating new objects in simple actions mode
 
 Simple action mode replaces the [long click action](../en/Creating%20new%20objects.md) on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.
 
@@ -24,6 +24,12 @@ Create a new OSM map note at the tapped position, starting the note editor.
 
 Create a new untagged OSM Node at the tapped position, merging with nearby objects. This is for example useful if you simply want to add a Node to an existing Way.
 
-#### ![Help](../images/menu_help.png) Help
+### Paste object
 
-Start the Vespucci Help browser displaying this text.
+If an OSM object has been copied or cut to the clipboard paste it at the tapped position and then select it. This menu item will only be shown if there is something in the clipboard.
+
+### Paste multiple times
+
+If an OSM object has been copied or cut to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard.
+
+
