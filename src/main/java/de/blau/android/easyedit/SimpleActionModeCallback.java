@@ -2,12 +2,16 @@ package de.blau.android.easyedit;
 
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
 import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.tasks.Note;
@@ -47,7 +51,6 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 Node node = App.getLogic().performAddNode(main, GeoMath.xToLonE7(width, box, x) / 1E7D, GeoMath.yToLatE7(height, width, box, y) / 1E7D);
                 main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
                 main.performTagEdit(node, null, false, true, false);
-
             }
         }),
         /**
@@ -95,7 +98,44 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
                 App.getLogic().performAdd(main, x, y);
                 main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, App.getLogic().getSelectedNode()));
             }
-        });
+        }),
+        /**
+         * Paste an object from the clipboard
+         */
+        PASTE(R.string.menu_paste_object, R.string.simple_paste, new SimpleActionCallback() {
+
+            @Override
+            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
+                OsmElement e = App.getLogic().pasteFromClipboard(main, x, y);
+                if (e != null) {
+                    manager.editElement(e);
+                } else {
+                    manager.finish();
+                }
+            }
+
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return !App.getLogic().clipboardIsEmpty();
+            }
+        },
+        /**
+         * Paste an object from the clipboard, without exiting the action mode
+         */
+        PASTEMULTIPLE(R.string.menu_paste_multiple, R.string.simple_paste_multiple, new SimpleActionCallback() {
+
+            @Override
+            public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
+                OsmElement e = App.getLogic().pasteFromClipboard(main, x, y);
+            }
+
+        }) {
+            @Override
+            public boolean isEnabled() {
+                return !App.getLogic().clipboardIsEmpty();
+            }
+        };
 
         final int                  menuTextId;
         final int                  titleId;
@@ -142,6 +182,15 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
          */
         public void execute(final Main main, final EasyEditManager manager, final float x, final float y) {
             actionCallback.action(main, manager, x, y);
+        }
+
+        /**
+         * Check if this entry should be displayed
+         * 
+         * @return true if enabled
+         */
+        public boolean isEnabled() {
+            return true;
         }
     }
 
@@ -197,5 +246,30 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
     @Override
     public boolean onMenuItemClick(MenuItem arg0) {
         return false;
+    }
+
+    /**
+     * Get a menu suitable for display by clicking on a button
+     * 
+     * @param main the current instance of Main
+     * @param anchor the anchor View for the popup
+     * @return a PopupMenu instance
+     */
+    @NonNull
+    public static PopupMenu getMenu(@NonNull Main main, @NonNull View anchor) {
+        PopupMenu popup = new PopupMenu(main, anchor);
+        for (SimpleAction simpleMode : SimpleAction.values()) {
+            if (simpleMode.isEnabled()) {
+                MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem arg0) {
+                        main.startSupportActionMode(new SimpleActionModeCallback(main.getEasyEditManager(), simpleMode));
+                        return true;
+                    }
+                });
+            }
+        }
+        return popup;
     }
 }

@@ -4423,7 +4423,7 @@ public class Logic {
     }
 
     /**
-     * Hide a display crosshairs
+     * Hide the crosshairs display
      */
     public void hideCrosshairs() {
         map.hideCrosshairs();
@@ -4475,14 +4475,21 @@ public class Logic {
      * @param activity the activity we were called from
      * @param x screen x to position the object at
      * @param y screen y to position the object at
+     * @return the pasted object or null if the clipboard was empty
      */
-    public void pasteFromClipboard(@Nullable Activity activity, float x, float y) {
+    @Nullable
+    public OsmElement pasteFromClipboard(@Nullable Activity activity, float x, float y) {
         createCheckpoint(activity, R.string.undo_action_paste);
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
-        getDelegator().pasteFromClipboard(lat, lon);
+        return getDelegator().pasteFromClipboard(lat, lon);
     }
 
+    /**
+     * Check if the clipboard is empty
+     * 
+     * @return true if empty
+     */
     public boolean clipboardIsEmpty() {
         return getDelegator().clipboardIsEmpty();
     }
@@ -4490,13 +4497,14 @@ public class Logic {
     /**
      * calculate the centroid of a way
      * 
-     * @param viewvBox
-     * @param h
-     * @param w
-     * @param way
-     * @return WS84 coordinates of centroid
+     * @param v current display bounding box
+     * @param w screen width
+     * @param h screen height
+     * @param way the Way
+     * @return WS84*17E coordinates of the centroid or null if they could not be determined
      */
-    private static int[] centroid(int w, int h, @NonNull ViewBox v, final Way way) {
+    @Nullable
+    private static int[] centroid(int w, int h, @NonNull ViewBox v, @NonNull final Way way) {
         float XY[] = centroidXY(w, h, v, way);
         if (XY == null) {
             return null;
@@ -4509,8 +4517,8 @@ public class Logic {
     /**
      * Calculate the centroid of a way
      * 
-     * @param h viewbox height
-     * @param w viewbox width
+     * @param w screen width
+     * @param h screen height
      * @param v current display bounding box
      * @param way way to caculate centroid of
      * @return screen coordinates of centroid, null if the way has problems and if the way has length or area zero

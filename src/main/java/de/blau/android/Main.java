@@ -569,24 +569,13 @@ public class Main extends FullScreenAppCompatActivity
         simpleActionsButton.setVisibility(prefs.areSimpleActionsEnabled() ? View.VISIBLE : View.GONE);
         mapLayout.addView(simpleActionsButton, rlp);
         simpleActionsButton.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                if (App.getLogic().isLocked()) {
-                    Snack.barInfoShort(Main.this, R.string.toast_unlock_to_edit);
+                Logic logic = App.getLogic();
+                if (!logic.isInEditZoomRange()) {
+                    Snack.barInfoShort(Main.this, R.string.toast_not_in_edit_range);
                 } else {
-                    PopupMenu popup = new PopupMenu(Main.this, simpleActionsButton);
-                    // menu items for adding layers
-                    for (SimpleAction simpleMode : SimpleAction.values()) {
-                        MenuItem item = popup.getMenu().add(simpleMode.getMenuTextId());
-                        item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem arg0) {
-                                Main.this.startSupportActionMode(new SimpleActionModeCallback(Main.this.easyEditManager, simpleMode));
-                                return true;
-                            }
-                        });
-                    }
+                    PopupMenu popup = SimpleActionModeCallback.getMenu(Main.this, simpleActionsButton);
                     popup.show();
                 }
             }
@@ -2194,6 +2183,9 @@ public class Main extends FullScreenAppCompatActivity
                 }
             });
             dialog.show();
+            return true;
+        case R.id.menu_tools_clear_clipboard:
+            App.getDelegator().clearClipboard();
             return true;
         case R.id.tag_menu_js_console:
             Main.showJsConsole(this);

@@ -122,7 +122,8 @@
                         android:id="@+id/menu_transfer_bugs_autodownload"
                         android:checkable="true"
                         android:title="@string/menu_gps_autodownload" />
-                    <item android:title="@string/menu_transfer_file">
+                    <item
+                        android:title="@string/menu_transfer_file">
                         <menu>
                             <item
                                 android:id="@+id/menu_transfer_save_notes_all"
@@ -185,6 +186,9 @@
             <item
                 android:id="@+id/menu_tools_set_maproulette_apikey"
                 android:title="@string/maproulette_task_set_apikey" />
+            <item
+                android:id="@+id/menu_tools_clear_clipboard"
+                android:title="@string/menu_tools_clear_clipboard" />
             <item
                 android:id="@+id/tag_menu_js_console"
                 android:title="@string/tag_menu_js_console"

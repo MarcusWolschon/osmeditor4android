@@ -251,9 +251,13 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
             }
             return true;
         case MENUITEM_PASTE:
-            logic.pasteFromClipboard(main, startX, startY);
+            OsmElement element = logic.pasteFromClipboard(main, startX, startY);
             logic.hideCrosshairs();
-            mode.finish();
+            if (element != null) {
+                manager.editElement(element);
+            } else {
+                manager.finish();
+            }
             return true;
         case MENUITEM_NEWNODE_GPS:
             logic.hideCrosshairs();

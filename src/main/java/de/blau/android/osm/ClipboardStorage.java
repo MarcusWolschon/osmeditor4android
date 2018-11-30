@@ -48,7 +48,7 @@ public class ClipboardStorage implements Serializable {
     /**
      * Reset this instance completely removing any data
      */
-    private void reset() {
+    void reset() {
         storage = new Storage();
     }
 

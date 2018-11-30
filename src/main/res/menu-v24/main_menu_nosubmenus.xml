@@ -174,6 +174,9 @@
                 android:id="@+id/menu_tools_set_maproulette_apikey"
                 android:title="@string/maproulette_task_set_apikey" />
             <item
+                android:id="@+id/menu_tools_clear_clipboard"
+                android:title="@string/menu_tools_clear_clipboard" />
+            <item
                 android:id="@+id/tag_menu_js_console"
                 android:title="@string/tag_menu_js_console"
                 app:showAsAction="never" />

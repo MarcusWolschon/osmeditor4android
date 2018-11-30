@@ -2229,9 +2229,10 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param lat latitude in WGS84*1E7 degrees
      * @param lon longitude in WGS84*1E7 degrees
-     * @return true if the clipboard wasn't empty
+     * @return the contents or null is the clipboard was empty
      */
-    public boolean pasteFromClipboard(int lat, int lon) {
+    @Nullable
+    public OsmElement pasteFromClipboard(int lat, int lon) {
         OsmElement e = clipboard.pasteFrom();
         // if the clipboard isn't empty now we need to clone the element
         if (!clipboard.isEmpty()) { // paste from copy
@@ -2239,6 +2240,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 Node newNode = factory.createNodeWithNewId(lat, lon);
                 newNode.setTags(e.getTags());
                 insertElementSafe(newNode);
+                e = newNode;
             } else if (e instanceof Way) {
                 Way newWay = factory.createWayWithNewId();
                 newWay.setTags(e.getTags());
@@ -2264,6 +2266,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     newWay.addNode(newNodes.get(nd));
                 }
                 insertElementSafe(newWay);
+                e = newWay;
             }
         } else { // paste from cut
             if (e instanceof Node) {
@@ -2284,7 +2287,7 @@ public class StorageDelegator implements Serializable, Exportable {
             e.updateState(OsmElement.STATE_MODIFIED);
             insertElementSafe(e);
         }
-        return e != null;
+        return e;
     }
 
     /**
@@ -2294,6 +2297,14 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public boolean clipboardIsEmpty() {
         return clipboard.isEmpty();
+    }
+
+    /**
+     * Clear the clipboard and set the dirty flag
+     */
+    public void clearClipboard() {
+        clipboard.reset();
+        dirty();
     }
 
     /**
