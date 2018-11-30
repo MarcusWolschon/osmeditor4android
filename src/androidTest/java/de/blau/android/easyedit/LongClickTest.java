@@ -64,6 +64,7 @@ public class LongClickTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         prefs.enableSimpleActions(false);
+        main.hideSimpleActionsButton();
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons();
@@ -103,8 +104,8 @@ public class LongClickTest {
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
         TestUtils.zoomToLevel(main, 21);
+        TestUtils.unlock();  
         TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, false);
@@ -123,8 +124,8 @@ public class LongClickTest {
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
         TestUtils.zoomToLevel(main, 21);
+        TestUtils.unlock();  
         TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, false);
@@ -147,8 +148,8 @@ public class LongClickTest {
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);
-        TestUtils.unlock();
         TestUtils.zoomToLevel(main, 21);
+        TestUtils.unlock();  
         TestUtils.longClickAtCoordinates(map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.openstreetbug_new_bug)));
@@ -160,7 +161,7 @@ public class LongClickTest {
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.openstreetbug_commitbutton), true));
+        Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true));
         List<Task> tasks = App.getTaskStorage().getTasks();
         Assert.assertTrue(tasks.size()==1);
         Task t = tasks.get(0);
