@@ -21,6 +21,7 @@
 		<item name="snack_error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
+        <item name="check">@drawable/baseline_check_white_18</item>
 	</style>
 	
 	<style name="Theme.AppCompatPrefsLight" parent="@style/Theme.AppCompat.Light">
@@ -31,6 +32,7 @@
 		<item name="snack_error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
+        <item name="check">@drawable/baseline_check_black_18</item>
 	</style>
 
 	<style name="Theme.custom" parent="@style/Theme.AppCompat">

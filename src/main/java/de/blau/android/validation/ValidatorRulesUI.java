@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.poole.android.numberpicker.library.NumberPicker;
@@ -97,6 +98,13 @@ public class ValidatorRulesUI {
     private class ResurveyAdapter extends CursorAdapter {
         final SQLiteDatabase db;
 
+        /**
+         * Construct a new ResurveyAdapter
+         * 
+         * @param db an open database
+         * @param context an Android Context
+         * @param cursor a Cursor
+         */
         public ResurveyAdapter(final SQLiteDatabase db, Context context, Cursor cursor) {
             super(context, cursor, 0);
             this.db = db;
@@ -149,6 +157,7 @@ public class ValidatorRulesUI {
     /**
      * Show a dialog for editing and saving a resurvey entry
      * 
+     * @param context an Android Context
      * @param db a writable instance of the resurvey entry database
      * @param existing true if this is not a new resurvey entry
      * @param id the rowid of the resurvey entry in the database or -1 if not saved yet
@@ -229,7 +238,14 @@ public class ValidatorRulesUI {
     private class CheckAdapter extends CursorAdapter {
         final SQLiteDatabase db;
 
-        public CheckAdapter(final SQLiteDatabase db, Context context, Cursor cursor) {
+        /**
+         * Construct a new CheckAdapter
+         * 
+         * @param db an open database
+         * @param context an Android Context
+         * @param cursor a Cursor
+         */
+        public CheckAdapter(@NonNull final SQLiteDatabase db, @NonNull Context context, @NonNull Cursor cursor) {
             super(context, cursor, 0);
             this.db = db;
         }
@@ -251,8 +267,8 @@ public class ValidatorRulesUI {
             boolean optional = cursor.getInt(cursor.getColumnIndexOrThrow(ValidatorRulesDatabase.OPTIONAL_FIELD)) == 1;
             TextView keyView = (TextView) view.findViewById(R.id.key);
             keyView.setText(key);
-            CheckBox optionalView = (CheckBox) view.findViewById(R.id.optional);
-            optionalView.setChecked(optional);
+            ImageView optionalView = (ImageView) view.findViewById(R.id.optional);
+            optionalView.setVisibility(optional ? View.VISIBLE : View.GONE);
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -278,6 +294,7 @@ public class ValidatorRulesUI {
     /**
      * Show a dialog for editing and saving a check entry
      * 
+     * @param context an Android Context
      * @param db a writable instance of the check entry database
      * @param existing true if this is not a new check entry
      * @param id the rowid of the check entry in the database or -1 if not saved yet
