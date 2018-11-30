@@ -1,25 +1,34 @@
 package de.blau.android.easyedit.turnrestriction;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;
-import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.easyedit.RelationSelectionActionModeCallback;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 
-public class ToElementActionModeCallback extends EasyEditActionModeCallback {
+public class ToElementActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG9_TAG = "RestrictionToElement...";
 
-    private Way        fromWay;
-    private OsmElement viaElement;
-    private Way        toWay;
+    private final Way        fromWay;
+    private final OsmElement viaElement;
+    private final Way        toWay;
 
-    public ToElementActionModeCallback(EasyEditManager manager, Way from, OsmElement via, Way to) {
+    /**
+     * Final step in constructing a turn restrictions
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param from the "from" role Way
+     * @param via the "via" role OsmELement
+     * @param to the "to" role Way
+     */
+    public ToElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, Way to) {
         super(manager);
         fromWay = from;
         viaElement = via;

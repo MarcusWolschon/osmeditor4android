@@ -3,33 +3,49 @@ package de.blau.android.easyedit.turnrestriction;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;
-import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
-public class ViaElementActionModeCallback extends EasyEditActionModeCallback {
+public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG  = "ViaElement..";
-    private Way                 fromWay;
+    private final Way           fromWay;
     private OsmElement          viaElement;
     private Set<OsmElement>     cachedToElements;
     private boolean             toSelected = false;
     private int                 titleId    = R.string.actionmode_restriction_to;
 
-    public ViaElementActionModeCallback(EasyEditManager manager, Way from, OsmElement via) {
+    /**
+     * Construct a new callback for determining the to element of a turn restriction
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param from selected "from" role Way
+     * @param via selected "via" role OsmElement
+     */
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via) {
         super(manager);
         fromWay = from;
         viaElement = via;
         cachedToElements = findToElements(viaElement);
     }
 
-    public ViaElementActionModeCallback(EasyEditManager manager, Way from, OsmElement via, Set<OsmElement> toElements) {
+    /**
+     * Construct a new callback for determining the to element of a turn restriction
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param from selected "from" role Way
+     * @param via selected "via" role OsmElement
+     * @param toElements potential "to" role OsmElements
+     */
+    public ViaElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way from, @NonNull OsmElement via, @NonNull Set<OsmElement> toElements) {
         super(manager);
         fromWay = from;
         viaElement = via;

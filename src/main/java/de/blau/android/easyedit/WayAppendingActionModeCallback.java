@@ -2,6 +2,7 @@ package de.blau.android.easyedit;
 
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import de.blau.android.R;
@@ -9,11 +10,18 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
-public class WayAppendingActionModeCallback extends EasyEditActionModeCallback {
-    private Way             way;
-    private Set<OsmElement> nodes;
+public class WayAppendingActionModeCallback extends NonSimpleActionModeCallback {
+    private final Way             way;
+    private final Set<OsmElement> nodes;
 
-    public WayAppendingActionModeCallback(EasyEditManager manager, Way way, Set<OsmElement> appendNodes) {
+    /**
+     * Construct a new AWayAppendingActionModeCallback from an existing Way and potential Node to append
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param way the existing Way
+     * @param appendNodes a Set of Nodes that can be clicked by the user for appending
+     */
+    public WayAppendingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> appendNodes) {
         super(manager);
         this.way = way;
         nodes = appendNodes;

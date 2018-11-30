@@ -319,7 +319,6 @@ public class EasyEditManager {
                     currentActionModeCallback.update();
                 }
                 currentActionMode.invalidate();
-
             }
         }
     }

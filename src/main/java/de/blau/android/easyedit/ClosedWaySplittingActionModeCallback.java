@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
@@ -13,14 +14,28 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
-public class ClosedWaySplittingActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG      = "ClosedWaySplit...";
-    private Way                 way;
-    private Node                node;
-    private Set<OsmElement>     nodes          = new HashSet<>();    // nodes that we can use for splitting
-    private boolean             createPolygons = false;
+/**
+ * Callback for splitting a closed way/polygon
+ * 
+ * @author simon
+ *
+ */
+public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String   DEBUG_TAG      = "ClosedWaySplit...";
+    private final Way             way;
+    private final Node            node;
+    private final Set<OsmElement> nodes          = new HashSet<>();    // nodes that we can use for splitting
+    private boolean               createPolygons = false;
 
-    public ClosedWaySplittingActionModeCallback(EasyEditManager manager, Way way, Node node, boolean createPolygons) {
+    /**
+     * Construct a new callback for splitting a closed way/polygon
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param way the closed way
+     * @param node the first node to split at the callback will ask for the 2nd one
+     * @param createPolygons create two polygons instead of unclosed ways if true
+     */
+    public ClosedWaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node, boolean createPolygons) {
         super(manager);
         this.way = way;
         this.node = node;

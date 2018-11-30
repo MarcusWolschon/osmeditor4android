@@ -16,7 +16,13 @@ import de.blau.android.osm.Way;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class AddRelationMemberActionModeCallback extends EasyEditActionModeCallback {
+/**
+ * Callback for adding new members to a Relation
+ * 
+ * @author simon
+ *
+ */
+public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCallback {
     private static final int MENUITEM_REVERT = 1;
 
     private ArrayList<OsmElement> members;
@@ -25,18 +31,37 @@ public class AddRelationMemberActionModeCallback extends EasyEditActionModeCallb
     private boolean               backPressed = false;
     private boolean               existing    = false;
 
-    public AddRelationMemberActionModeCallback(EasyEditManager manager, @NonNull List<OsmElement> selection) {
+    /**
+     * Construct a new AddRelationMemberActionModeCallback from a list of selected OsmElements
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param selection a List containing OsmElements
+     */
+    public AddRelationMemberActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> selection) {
         super(manager);
         members = new ArrayList<>(selection);
     }
 
-    public AddRelationMemberActionModeCallback(EasyEditManager manager, @NonNull OsmElement element) {
+    /**
+     * Construct a new AddRelationMemberActionModeCallback starting with a single OsmElement
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param element the OsmElement
+     */
+    public AddRelationMemberActionModeCallback(@NonNull EasyEditManager manager, @NonNull OsmElement element) {
         super(manager);
         members = new ArrayList<>();
         addElement(element);
     }
 
-    public AddRelationMemberActionModeCallback(EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
+    /**
+     * Construct a new AddRelationMemberActionModeCallback starting with an existing Relation any potentially a new OsmElement to add
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param relation the existing Relation
+     * @param element the OsmElement to add or null
+     */
+    public AddRelationMemberActionModeCallback(@NonNull EasyEditManager manager, @NonNull Relation relation, @Nullable OsmElement element) {
         super(manager);
         members = new ArrayList<>();
         if (element != null) {
@@ -46,6 +71,11 @@ public class AddRelationMemberActionModeCallback extends EasyEditActionModeCallb
         existing = true;
     }
 
+    /**
+     * Add an OsmElement to an existing Relation
+     * 
+     * @param element the OsmElement to add
+     */
     private void addElement(@NonNull OsmElement element) {
         members.add(element);
         if (element.getName().equals(Way.NAME)) {
@@ -128,6 +158,9 @@ public class AddRelationMemberActionModeCallback extends EasyEditActionModeCallb
         return true;
     }
 
+    /**
+     * Calculate and set the elements the user can click
+     */
     private void setClickableElements() {
         ArrayList<OsmElement> excludes = new ArrayList<>(members);
         if (relation != null) {

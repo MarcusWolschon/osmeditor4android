@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import de.blau.android.R;
@@ -11,12 +12,19 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
-public class WaySplittingActionModeCallback extends EasyEditActionModeCallback {
-    private Way              way;
+public class WaySplittingActionModeCallback extends NonSimpleActionModeCallback {
+    private final Way        way;
     private List<OsmElement> nodes          = new ArrayList<>();
     private boolean          createPolygons = false;
 
-    public WaySplittingActionModeCallback(EasyEditManager manager, Way way, boolean createPolygons) {
+    /**
+     * Construct a WaySplittingActionModeCallback from an existing Way
+     * 
+     * @param manager the current EasyEditMAnager instance
+     * @param way the existing Way
+     * @param createPolygons create two polygons instead of unclosed ways if true and way is closed
+     */
+    public WaySplittingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, boolean createPolygons) {
         super(manager);
         this.way = way;
         nodes.addAll(way.getNodes());

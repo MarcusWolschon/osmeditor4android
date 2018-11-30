@@ -2,22 +2,30 @@ package de.blau.android.easyedit.turnrestriction;
 
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;
-import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 
-public class RestartFromElementActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG    = "RestartFrom...";
-    private Set<OsmElement>     fromElements;
-    private Set<OsmElement>     viaElements;
-    private boolean             fromSelected = false;
+public class RestartFromElementActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String   DEBUG_TAG    = "RestartFrom...";
+    private final Set<OsmElement> fromElements;
+    private final Set<OsmElement> viaElements;
+    private boolean               fromSelected = false;
 
-    public RestartFromElementActionModeCallback(EasyEditManager manager, Set<OsmElement> froms, Set<OsmElement> vias) {
+    /**
+     * Construct a new callback for determining the from element of a turn restriction from multiple Ways
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param froms potential "from" role Ways
+     * @param vias potential "via" role elements
+     */
+    public RestartFromElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Set<OsmElement> froms, @NonNull Set<OsmElement> vias) {
         super(manager);
         fromElements = froms;
         viaElements = vias;

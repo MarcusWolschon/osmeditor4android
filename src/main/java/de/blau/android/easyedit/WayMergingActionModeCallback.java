@@ -3,10 +3,10 @@ package de.blau.android.easyedit;
 import java.util.Set;
 
 import android.content.res.Resources.NotFoundException;
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.MergeResult;
@@ -14,12 +14,19 @@ import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
-public class WayMergingActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG = "WayMerging...";
-    private Way                 way;
-    private Set<OsmElement>     ways;
+public class WayMergingActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String   DEBUG_TAG = "WayMerging...";
+    private final Way             way;
+    private final Set<OsmElement> ways;
 
-    public WayMergingActionModeCallback(EasyEditManager manager, Way way, Set<OsmElement> mergeableWays) {
+    /**
+     * Construct a new WayMergingActionModeCallback from an existing Way and potentially mergable Ways
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param way the existing Way
+     * @param mergeableWays a Set of ways that could be merged
+     */
+    public WayMergingActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> mergeableWays) {
         super(manager);
         this.way = way;
         ways = mergeableWays;

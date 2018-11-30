@@ -769,7 +769,7 @@ public class Main extends FullScreenAppCompatActivity
                 }
                 updateActionbarEditMode();
                 Mode mode = logic.getMode();
-                if (mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
+                if (easyEditManager != null && mode.elementsGeomEditiable() && (logic.getSelectedNode() != null || logic.getSelectedWay() != null
                         || (logic.getSelectedRelations() != null && !logic.getSelectedRelations().isEmpty()))) {
                     // need to restart whatever we were doing
                     Log.d(DEBUG_TAG, "restarting element action mode");
@@ -1165,7 +1165,9 @@ public class Main extends FullScreenAppCompatActivity
             if (logic.isLocked() && lock != null) {
                 lock.performClick();
             }
-            easyEditManager.editElements();
+            if (easyEditManager != null) {
+                easyEditManager.editElements();
+            }
         }
     }
 
@@ -1262,7 +1264,7 @@ public class Main extends FullScreenAppCompatActivity
         super.onConfigurationChanged(newConfig);
         App.getLogic().setMap(map);
         Log.d(DEBUG_TAG, "onConfigurationChanged");
-        if (easyEditManager.isProcessingAction()) {
+        if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
         Util.clearCaches(this, newConfig);
@@ -2518,7 +2520,7 @@ public class Main extends FullScreenAppCompatActivity
                 Log.e(DEBUG_TAG, "imageFile == null");
             }
         } else if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (easyEditManager.isProcessingAction()) {
+            if (easyEditManager != null && easyEditManager.isProcessingAction()) {
                 easyEditManager.handleActivityResult(requestCode, resultCode, data);
             } else {
                 (new Commands(this)).processIntentResult(data, locationForIntent);
@@ -2827,7 +2829,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Hide the simple actions button
      */
-    private void hideSimpleActionsButton() {
+    public void hideSimpleActionsButton() {
         if (simpleActionsButton != null) {
             simpleActionsButton.hide();
         }
@@ -2836,7 +2838,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Display the simple actions button
      */
-    private void showSimpleActionsButton() {
+    public void showSimpleActionsButton() {
         if (simpleActionsButton != null) {
             simpleActionsButton.show();
         }
@@ -2845,7 +2847,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Enable the simple actions button and change color to the normal value
      */
-    private void enableSimpleActionsButton() {
+    public void enableSimpleActionsButton() {
         if (simpleActionsButton != null) {
             simpleActionsButton.setEnabled(true);
             ColorStateList stateList = ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent));
@@ -2860,7 +2862,7 @@ public class Main extends FullScreenAppCompatActivity
     /**
      * Disable the simple actions button and change color
      */
-    private void disableSimpleActionsButton() {
+    public void disableSimpleActionsButton() {
         if (simpleActionsButton != null) {
             float elevation = simpleActionsButton.getElevation();
             simpleActionsButton.setEnabled(false);
@@ -4060,7 +4062,14 @@ public class Main extends FullScreenAppCompatActivity
         this.tracker = tracker;
     }
 
-    public void zoomToAndEdit(int lonE7, int latE7, OsmElement e) {
+    /**
+     * Zoom to a location and start editing the OsmElement
+     * 
+     * @param lonE7 longitude in WGS84*1E7 coordinates
+     * @param latE7 latitude in WGS84*1E7 coordinates
+     * @param e the OsmElement to edit
+     */
+    public void zoomToAndEdit(int lonE7, int latE7, @NonNull OsmElement e) {
         Log.d(DEBUG_TAG, "zoomToAndEdit Zoom " + map.getZoomLevel());
         final Logic logic = App.getLogic();
         zoomTo(lonE7, latE7, e);
@@ -4086,7 +4095,7 @@ public class Main extends FullScreenAppCompatActivity
             }
             break;
         }
-        if (logic.getMode().elementsGeomEditiable()) {
+        if (easyEditManager != null && logic.getMode().elementsGeomEditiable()) {
             easyEditManager.editElement(e);
             map.invalidate();
         } else { // tag edit mode
@@ -4205,8 +4214,9 @@ public class Main extends FullScreenAppCompatActivity
         @Override
         public void run() {
             if (!App.getLogic().isLocked()) {
-                boolean elementSelected = easyEditManager.inElementSelectedMode() || easyEditManager.inNewNoteSelectedMode();
-                if (!easyEditManager.isProcessingAction() || elementSelected) {
+                EasyEditManager manager = getEasyEditManager();
+                boolean elementSelected = manager.inElementSelectedMode() || manager.inNewNoteSelectedMode();
+                if (!manager.isProcessingAction() || elementSelected) {
                     View lock = getLock();
                     if (lock != null) {
                         lock.performClick();
@@ -4214,7 +4224,7 @@ public class Main extends FullScreenAppCompatActivity
                     if (elementSelected) {
                         App.getLogic().deselectAll();
                         map.deselectObjects();
-                        easyEditManager.finish();
+                        manager.finish();
                     }
                 } else {
                     // can't lock now, reschedule
@@ -4257,7 +4267,16 @@ public class Main extends FullScreenAppCompatActivity
         return undoListener;
     }
 
+    /**
+     * Get the current EasyEditManager instance
+     * 
+     * @return the current EasyEditManager instance
+     */
+    @NonNull
     public EasyEditManager getEasyEditManager() {
+        if (easyEditManager == null) {
+            throw new IllegalStateException("called before EasyEditManager was constructed");
+        }
         return easyEditManager;
     }
 }

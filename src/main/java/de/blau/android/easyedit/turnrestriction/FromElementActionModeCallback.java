@@ -3,31 +3,47 @@ package de.blau.android.easyedit.turnrestriction;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import de.blau.android.R;
-import de.blau.android.easyedit.EasyEditActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
+import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
 import de.blau.android.util.Snack;
 
-public class FromElementActionModeCallback extends EasyEditActionModeCallback {
-    private static final String DEBUG_TAG   = "FromElement...";
-    private Way                 fromWay;
-    private Set<OsmElement>     viaElements;
-    private boolean             viaSelected = false;
-    private int                 titleId     = R.string.actionmode_restriction_via;
+public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
+    private static final String   DEBUG_TAG   = "FromElement...";
+    private final Way             fromWay;
+    private final Set<OsmElement> viaElements;
+    private boolean               viaSelected = false;
+    private int                   titleId     = R.string.actionmode_restriction_via;
 
-    public FromElementActionModeCallback(EasyEditManager manager, Way way, Set<OsmElement> vias) {
+    /**
+     * Construct a new callback for determining the from element of a turn restriction
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param way the "from" role Way
+     * @param vias potential "via" role elements
+     */
+    public FromElementActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Set<OsmElement> vias) {
         super(manager);
         this.fromWay = way;
         viaElements = vias;
     }
 
-    public FromElementActionModeCallback(EasyEditManager manager, int titleId, Way way, Set<OsmElement> vias) {
+    /**
+     * Construct a new callback for determining the from element of a turn restriction
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param titleId the resource id for an alternative title
+     * @param way the "from" role Way
+     * @param vias potential "via" role elements
+     */
+    public FromElementActionModeCallback(@NonNull EasyEditManager manager, int titleId, @NonNull Way way, @NonNull Set<OsmElement> vias) {
         this(manager, way, vias);
         this.titleId = titleId;
     }

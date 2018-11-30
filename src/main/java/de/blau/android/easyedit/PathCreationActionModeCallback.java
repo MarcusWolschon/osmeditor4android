@@ -3,6 +3,7 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
@@ -19,7 +20,7 @@ import de.blau.android.util.Util;
  * This callback handles path creation. It is started after a long-press. During this action mode, clicks are handled by
  * custom code. The node and way click handlers are thus never called.
  */
-public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
+public class PathCreationActionModeCallback extends NonSimpleActionModeCallback {
     private static final String DEBUG_TAG              = "PathCreationAction...";
     private static final int    MENUITEM_UNDO          = 1;
     private static final int    MENUITEM_NEWWAY_PRESET = 2;
@@ -40,7 +41,14 @@ public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
     /** contains a list of created nodes. used to fix selection after undo. */
     private ArrayList<Node> createdNodes = new ArrayList<>();
 
-    public PathCreationActionModeCallback(EasyEditManager manager, float x, float y) {
+    /**
+     * Construct a new PathCreationActionModeCallback starting with screen coordinates
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param x screen x
+     * @param y screen y
+     */
+    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, float x, float y) {
         super(manager);
         this.x = x;
         this.y = y;
@@ -48,13 +56,26 @@ public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
         appendTargetWay = null;
     }
 
-    public PathCreationActionModeCallback(EasyEditManager manager, Node node) {
+    /**
+     * Construct a new PathCreationActionModeCallback starting with an existing Node
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param node the existing Node
+     */
+    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Node node) {
         super(manager);
         appendTargetNode = node;
         appendTargetWay = null;
     }
 
-    public PathCreationActionModeCallback(EasyEditManager manager, Way way, Node node) {
+    /**
+     * Construct a new PathCreationActionModeCallback starting with an existing Way and an existing Node to add
+     * 
+     * @param manager the current EasyEditManager instance
+     * @param way the exiting Way
+     * @param node the existign Node to add
+     */
+    public PathCreationActionModeCallback(@NonNull EasyEditManager manager, @NonNull Way way, @NonNull Node node) {
         super(manager);
         appendTargetNode = node;
         appendTargetWay = way;
@@ -162,6 +183,10 @@ public class PathCreationActionModeCallback extends EasyEditActionModeCallback {
         return false;
     }
 
+    /**
+     * Handle presses on the undo button, this does not invoke the normal undo mechanism but simply removes the
+     * non-saved nodes one by one
+     */
     private void handleUndo() {
         logic.undo();
         if (logic.getSelectedNode() == null) { // should always happen when we added a new node and removed it
