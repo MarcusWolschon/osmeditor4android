@@ -6,7 +6,11 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
+import de.blau.android.BuildConfig;
 import de.blau.android.R;
+import de.blau.android.contract.Flavors;
+import de.blau.android.prefs.Preferences;
 
 /**
  * Wrapper and utils for accessing NotificationCompat and NotificationChannels for support lib 26 and later
@@ -81,6 +85,18 @@ public final class Notifications {
                 channel.setDescription(context.getString(descriptionRes));
                 notificationManager.createNotificationChannel(channel);
             }
+        }
+    }
+
+    /**
+     * Set the group alert behaviour 
+     * 
+     * @param prefs a Preferences instance
+     * @param mBuilder the NotificationCompat.Builder we want to change
+     */
+    public static void setGroupAlertBehavior(Preferences prefs, NotificationCompat.Builder mBuilder) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
+            mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
         }
     }
 }

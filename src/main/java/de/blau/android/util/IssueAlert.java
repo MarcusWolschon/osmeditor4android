@@ -18,9 +18,11 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.BuildConfig;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.Flavors;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
@@ -146,9 +148,7 @@ public final class IssueAlert {
             mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title)
                     .setContentText(message.toString()).setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true).setGroup(GROUP_DATA)
                     .setColor(ContextCompat.getColor(context, R.color.osm_green));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
-                mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
-            }
+            Notifications.setGroupAlertBehavior(prefs, mBuilder);
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return
@@ -246,9 +246,7 @@ public final class IssueAlert {
             mBuilder = Notifications.builder(context, QA_CHANNEL).setSmallIcon(R.drawable.logo_simplified).setContentTitle(title).setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_HIGH).setTicker(ticker).setAutoCancel(true)
                     .setGroup(b instanceof Note ? GROUP_NOTES : GROUP_OSMOSE).setColor(ContextCompat.getColor(context, R.color.osm_green));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && prefs.groupAlertOnly()) {
-                mBuilder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
-            }
+            Notifications.setGroupAlertBehavior(prefs, mBuilder);
         } catch (RuntimeException re) {
             // NotificationCompat.Builder seems to be flaky instead of crashing we produce a
             // crash dump and return

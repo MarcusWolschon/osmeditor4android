@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import de.blau.android.BuildConfig;
 import de.blau.android.R;
+import de.blau.android.contract.Flavors;
+import de.blau.android.prefs.Preferences;
 
 /**
  * 
@@ -57,5 +59,14 @@ public final class Notifications {
      * @param descriptionRes the resource id for the description of the channel
      */
     public static void initChannel(@NonNull Context context, @NonNull String channelId, int nameRes, int descriptionRes) {
+    }
+    
+    /**
+     * Set the group alert behaviour 
+     * 
+     * @param prefs a Preferences instance
+     * @param mBuilder the NotificationCompat.Builder we want to change
+     */
+    public static void setGroupAlertBehavior(Preferences prefs, NotificationCompat.Builder mBuilder) {
     }
 }
