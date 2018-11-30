@@ -40,15 +40,15 @@ import de.blau.android.tasks.Task;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LongClickTest {
+public class SimpleActionsTest {
 
     Context              context = null;
     AdvancedPrefDatabase prefDB  = null;
     Main                 main    = null;
     UiDevice             device  = null;
     Map                  map     = null;
-    Logic logic = null;
-    
+    Logic                logic   = null;
+
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
@@ -63,14 +63,14 @@ public class LongClickTest {
         Preferences prefs = new Preferences(context);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
-        prefs.enableSimpleActions(false);
+        prefs.enableSimpleActions(true);
         main.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                main.hideSimpleActionsButton();  
+                main.showSimpleActionsButton();   
             }            
         });
-        
+
         map = main.getMap();
         map.setPrefs(main, prefs);
         TestUtils.grantPermissons();
@@ -99,44 +99,53 @@ public class LongClickTest {
      */
     @After
     public void teardown() {
-        logic.deselectAll();
+        if (logic != null) {
+            logic.deselectAll();
+        }
         TestUtils.zoomToLevel(main, 18);
         App.getTaskStorage().reset();
     }
 
     /**
-     * Create a new Node by long click plus re-click
+     * Create a new Node
      */
     @Test
     public void newNode() {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();  
-        TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, false);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
-        TestUtils.clickUp(device);
+        TestUtils.unlock();
+        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_node), true));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_node)));
+        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertTrue(node.getOsmId() < 0);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
+
         TestUtils.clickHome(device);
     }
-    
+
     /**
-     * Create a new way from long click and clicks at two more locations and finishing via home button
+     * Create a new way from menu and clicks at two more locations and finishing via home button
      */
     @Test
     public void newWay() {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();  
-        TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, false);
+        TestUtils.unlock();
+        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_way), true));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_way)));
+        TestUtils.clickAtCoordinates(map, 8.3893454, 47.3901898, true);
+        device.waitForIdle(1000);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_createpath)));
+        device.waitForIdle(1000);
+        TestUtils.clickAtCoordinates(map, 8.3895763, 47.3901374, false);
+        device.waitForIdle(1000);
         TestUtils.clickAtCoordinates(map, 8.3896274, 47.3902424, false);
+        device.waitForIdle(1000);
         TestUtils.clickHome(device);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.tag_form_unknown_element)));
         TestUtils.clickUp(device);
@@ -147,18 +156,19 @@ public class LongClickTest {
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
         TestUtils.clickHome(device);
     }
-    
+
     /**
-     * Create a new Note from long click
+     * Create a new Note
      */
     @Test
     public void newBug() {
         map.getDataLayer().setVisible(true);
         TestUtils.zoomToLevel(main, 21);
-        TestUtils.unlock();  
-        TestUtils.longClickAtCoordinates(map, 8.3890736, 47.3896628, true);
-        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.openstreetbug_new_bug)));
+        TestUtils.unlock();
+        TestUtils.clickButton("de.blau.android:id/simpleButton", true);
+        Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_add_map_note), true));
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.simple_add_note)));
+        TestUtils.clickAtCoordinates(map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
         try {
@@ -169,9 +179,9 @@ public class LongClickTest {
         }
         Assert.assertTrue(TestUtils.clickText(device, true, context.getString(R.string.Save), true));
         List<Task> tasks = App.getTaskStorage().getTasks();
-        Assert.assertTrue(tasks.size()==1);
+        Assert.assertTrue(tasks.size() == 1);
         Task t = tasks.get(0);
         Assert.assertTrue(t instanceof Note);
-        Assert.assertTrue("test".equals(((Note)t).getComment()));
-    }    
+        Assert.assertTrue("test".equals(((Note) t).getComment()));
+    }
 }
