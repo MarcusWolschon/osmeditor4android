@@ -1303,7 +1303,7 @@ public class Preset implements Serializable {
                 int allItemsCount = p.allItems.size();
                 for (Integer index : p.mru.recentPresets) {
                     if (index < allItemsCount) {
-                        recent.addElement(p.allItems.get(index));
+                        recent.addElement(p.allItems.get(index), false);
                     }
                 }
             }

@@ -247,7 +247,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
         if (presets != null) {
             for (PresetElement p : presets) {
                 if (p != null) {
-                    results.addElement(p);
+                    results.addElement(p, false);
                 }
             }
         }
