@@ -1222,6 +1222,22 @@ public class Preset implements Serializable {
     }
 
     /**
+     * Remove an entry for a PresetItem from all tag to PresetItem indices
+     * 
+     * This is only useful for testing
+     * 
+     * @param ctx an Android Context
+     * @param tag the tag for which we want to remove the entry
+     */
+    static void removeItem(@NonNull Context ctx, @NonNull String tag) {
+        for (Preset preset : App.getCurrentPresets(ctx)) {
+            if (preset != null) {
+                preset.tagItems.removeKey(tag);
+            }
+        }
+    }
+
+    /**
      * Return the index of a PresetItem by sequential search FIXME
      * 
      * @param name the name of the PresetItem

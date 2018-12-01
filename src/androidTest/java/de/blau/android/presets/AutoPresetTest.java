@@ -96,6 +96,12 @@ public class AutoPresetTest {
         mockServer.enqueue("autopreset6");
         mockServer.enqueue("autopreset7");
 
+        // in case these presets exist, this removes them
+        // from the index so that they will not be found when
+        // de-duping
+        Preset.removeItem(main, "amenity\tpayment_centre");
+        Preset.removeItem(main, "amenity\tpayment_terminal");
+        
         AutoPreset autoPreset = new AutoPreset(context);
         Preset fromTaginfo = autoPreset.fromTaginfo("payment", 3);
         Assert.assertTrue(fromTaginfo.getItemByName("amenity payment_centre") != null);
