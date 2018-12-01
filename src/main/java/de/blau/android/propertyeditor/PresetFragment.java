@@ -170,6 +170,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         if (rootGroup == null) {
             Preset preset = new Preset(); // dummy preset to hold the elements of all
             rootGroup = preset.new PresetGroup(null, "", null);
+            rootGroup.setItemSort(false);
             preset.setRootGroup(rootGroup);
             addToRootGroup(presets);
         }
