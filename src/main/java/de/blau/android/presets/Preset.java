@@ -128,6 +128,7 @@ public class Preset implements Serializable {
     private static final String LIST_ENTRY          = "list_entry";
     private static final String REFERENCE           = "reference";
     private static final String ROLE                = "role";
+    private static final String ROLES               = "roles";
     private static final String VALUES_SEARCHABLE   = "values_searchable";
     private static final String EDITABLE            = "editable";
     private static final String VALUES_SORT         = "values_sort";
@@ -177,6 +178,7 @@ public class Preset implements Serializable {
     private static final String CLOSEDWAY           = "closedway";
     private static final String LABEL               = "label";
     private static final String ITEMS_SORT          = "items_sort";
+    private static final String SPACE               = "space";
     /**
      * 
      */
@@ -599,7 +601,8 @@ public class Preset implements Serializable {
              */
             @Override
             public void startElement(String uri, String localName, String name, Attributes attr) throws SAXException {
-                if (PRESETS.equals(name)) {
+                switch (name) {
+                case PRESETS:
                     String objectKeysTemp = attr.getValue(OBJECT_KEYS);
                     if (objectKeysTemp != null) {
                         String[] tempArray = objectKeysTemp.split("\\s*,\\s*");
@@ -607,7 +610,8 @@ public class Preset implements Serializable {
                             objectKeys.addAll(Arrays.asList(tempArray));
                         }
                     }
-                } else if (GROUP.equals(name)) {
+                    break;
+                case GROUP:
                     PresetGroup parent = groupstack.peek();
                     PresetGroup g = new PresetGroup(parent, attr.getValue(NAME), attr.getValue(ICON));
                     String context = attr.getValue(NAME_CONTEXT);
@@ -619,7 +623,8 @@ public class Preset implements Serializable {
                         g.setItemSort(YES.equals(itemsSort));
                     }
                     groupstack.push(g);
-                } else if (ITEM.equals(name)) {
+                    break;
+                case ITEM:
                     if (currentItem != null) {
                         throw new SAXException("Nested items are not allowed");
                     }
@@ -627,19 +632,20 @@ public class Preset implements Serializable {
                         Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " optional must be nested");
                         throw new SAXException("optional must be nexted");
                     }
-                    PresetGroup parent = groupstack.peek();
+                    parent = groupstack.peek();
                     String type = attr.getValue(TYPE);
                     if (type == null) {
                         type = attr.getValue(GTYPE); // note gtype seems to be undocumented
                     }
                     currentItem = new PresetItem(parent, attr.getValue(NAME), attr.getValue(ICON), type);
-                    String context = attr.getValue(NAME_CONTEXT);
+                    context = attr.getValue(NAME_CONTEXT);
                     if (context != null) {
                         currentItem.setNameContext(context);
                     }
                     currentItem.setDeprecated(TRUE.equals(attr.getValue(DEPRECATED)));
                     checkGroupCounter = 0;
-                } else if (CHUNK.equals(name)) {
+                    break;
+                case CHUNK:
                     if (currentItem != null) {
                         throw new SAXException("Nested chunks are not allowed");
                     }
@@ -647,264 +653,298 @@ public class Preset implements Serializable {
                         Log.e(DEBUG_TAG, "Chunk " + attr.getValue(ID) + " optional must be nested");
                         throw new SAXException("optional must be nexted");
                     }
-                    String type = attr.getValue(TYPE);
+                    type = attr.getValue(TYPE);
                     if (type == null) {
                         type = attr.getValue(GTYPE); // note gtype seems to be undocumented
                     }
                     currentItem = new PresetItem(null, attr.getValue(ID), attr.getValue(ICON), type);
                     currentItem.setChunk();
                     checkGroupCounter = 0;
-                } else if (SEPARATOR.equals(name)) {
+                    break;
+                case SEPARATOR:
                     new PresetSeparator(groupstack.peek());
-                } else if (currentItem != null) { // the following only make sense if we actually found an item
-                    if (OPTIONAL.equals(name)) {
-                        inOptionalSection = true;
-                    } else if (KEY_ATTR.equals(name)) {
-                        String key = attr.getValue(KEY_ATTR);
-                        String match = attr.getValue(MATCH);
-                        if (!inOptionalSection) {
-                            if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
-                                currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE));
-                            } else {
-                                currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT));
-                            }
-                        } else {
-                            // Optional fixed tags should not happen, their values will NOT be automatically inserted.
-                            currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE));
-                        }
-                        if (match != null) {
-                            currentItem.setMatchType(key, match);
-                        }
-                        String textContext = attr.getValue(TEXT_CONTEXT);
-                        if (textContext != null) {
-                            currentItem.setTextContext(key, textContext);
-                        }
-                    } else if (TEXT_FIELD.equals(name)) {
-                        String key = attr.getValue(KEY_ATTR);
-                        if (key == null) {
-                            Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
-                            throw new SAXException("key must be present in text field");
-                        }
-                        currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null);
-                        String defaultValue = attr.getValue(DEFAULT);
-                        if (defaultValue != null) {
-                            currentItem.setDefault(key, defaultValue);
-                        }
-                        String text = attr.getValue(TEXT);
-                        if (text != null) {
-                            currentItem.setHint(key, text);
-                        }
-                        String textContext = attr.getValue(TEXT_CONTEXT);
-                        if (textContext != null) {
-                            currentItem.setTextContext(key, textContext);
-                        }
-                        String match = attr.getValue(MATCH);
-                        if (match != null) {
-                            currentItem.setMatchType(key, match);
-                        }
-                        String javaScript = attr.getValue(JAVASCRIPT);
-                        if (javaScript != null) {
-                            currentItem.setJavaScript(key, javaScript);
-                        }
-                        if (TRUE.equals(attr.getValue(I18N))) {
-                            currentItem.setI18n(key);
-                        }
-                        String valueType = attr.getValue(VALUE_TYPE);
-                        if (valueType != null) {
-                            currentItem.setValueType(key, valueType);
-                        }
-                    } else if (LINK.equals(name)) {
-                        String language = Locale.getDefault().getLanguage();
-                        String href = attr.getValue(language.toLowerCase(Locale.US) + ".href");
-                        if (href == null) {
-                            href = attr.getValue(HREF);
-                        }
-                        if (href != null) {
-                            currentItem.setMapFeatures(href);
-                        }
-                    } else if (LABEL.equals(name)) {
-                        currentLabel = attr.getValue(TEXT);
-                    } else if (CHECKGROUP.equals(name)) {
-                        checkGroup = new PresetCheckGroupField(currentItem.getName() + PresetCheckGroupField.class.getSimpleName() + checkGroupCounter);
-                        String text = attr.getValue(TEXT);
-                        if (text != null) {
-                            checkGroup.setHint(text);
-                        } else if (currentLabel != null) {
-                            checkGroup.setHint(currentLabel);
-                            currentLabel = null;
-                        }
-                        checkGroup.setOptional(inOptionalSection);
-                    } else if (CHECK_FIELD.equals(name)) {
-                        String key = attr.getValue(KEY_ATTR);
-                        String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
-                        String value_off = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
-                        String disable_off = attr.getValue(DISABLE_OFF);
-                        StringWithDescription valueOn = new StringWithDescription(value_on, de.blau.android.util.Util.capitalize(value_on));
-                        StringWithDescription valueOff = null;
-                        PresetCheckField field = new PresetCheckField(key, valueOn);
-                        if (disable_off == null || !disable_off.equals(TRUE)) {
-                            valueOff = new StringWithDescription(value_off, de.blau.android.util.Util.capitalize(value_off));
-                            ((PresetCheckField) field).setOffValue(valueOff);
-                        }
-                        String defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
-                        if (defaultValue != null) {
-                            field.setDefaultValue(defaultValue);
-                        }
-                        String text = attr.getValue(TEXT);
-                        if (text != null) {
-                            field.setHint(text);
-                        }
-                        String textContext = attr.getValue(TEXT_CONTEXT);
-                        if (textContext != null) {
-                            field.setTextContext(textContext);
-                        }
-                        String match = attr.getValue(MATCH);
-                        if (match != null) {
-                            field.setMatchType(match);
-                        }
-                        field.setOptional(inOptionalSection);
-                        if (checkGroup != null) {
-                            checkGroup.addCheckField(field);
-                        } else {
-                            currentItem.fields.put(key, field);
-                        }
-                        currentItem.addValues(key,
-                                valueOff == null ? new StringWithDescription[] { valueOn } : new StringWithDescription[] { valueOn, valueOff });
-                    } else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
-                        boolean multiselect = MULTISELECT_FIELD.equals(name);
-                        String key = attr.getValue(KEY_ATTR);
-                        if (key == null) {
-                            Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
-                            throw new SAXException("key must be present in combo/multiselect field");
-                        }
-                        delimiter = attr.getValue(DELIMITER);
-                        if (delimiter == null) {
-                            delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER;
-                        }
-                        String values = attr.getValue(VALUES);
-                        String displayValues = attr.getValue(DISPLAY_VALUES);
-                        String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
-                        String valuesFrom = attr.getValue(VALUES_FROM);
-                        final PresetKeyType keyType = multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO;
-                        if (values != null) {
-                            currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter);
-                        } else if (valuesFrom != null) {
-                            setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter);
-                        } else {
-                            currentItem.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
-                            listKey = key;
-                            listValues = new ArrayList<>();
-                        }
-                        ((PresetComboField) currentItem.getField(key)).setValuesContext(attr.getValue(VALUES_CONTEXT));
+                    break;
+                default:
+                    if (currentItem != null) { // the following only make sense if we actually found an item
+                        parseItem(name, attr);
+                    } else {
+                        Log.d(DEBUG_TAG, name + " must be in a preset item");
+                        throw new SAXException(name + " must be in a preset item");
+                    }
+                }
+            }
 
-                        String defaultValue = attr.getValue(DEFAULT);
-                        if (defaultValue != null) {
-                            currentItem.setDefault(key, defaultValue);
+            /**
+             * Parse a preset item
+             * 
+             * @param name tag name
+             * @param attr attributes
+             * @throws SAXException if there is a parsing error
+             */
+            private void parseItem(@NonNull String name, @NonNull Attributes attr) throws SAXException {
+                switch (name) {
+                case OPTIONAL:
+                    inOptionalSection = true;
+                    break;
+                case KEY_ATTR:
+                    String key = attr.getValue(KEY_ATTR);
+                    String match = attr.getValue(MATCH);
+                    if (!inOptionalSection) {
+                        if (NONE.equals(match)) {// don't include in fixed tags if not used for matching
+                            currentItem.addTag(false, key, PresetKeyType.TEXT, attr.getValue(VALUE));
+                        } else {
+                            currentItem.addTag(key, PresetKeyType.TEXT, attr.getValue(VALUE), attr.getValue(TEXT));
                         }
-                        String text = attr.getValue(TEXT);
-                        if (text != null) {
-                            currentItem.setHint(key, text);
-                        }
-                        String textContext = attr.getValue(TEXT_CONTEXT);
-                        if (textContext != null) {
-                            currentItem.setTextContext(key, textContext);
-                        }
-                        String match = attr.getValue(MATCH);
-                        if (match != null) {
-                            currentItem.setMatchType(key, match);
-                        }
-                        String sort = attr.getValue(VALUES_SORT);
-                        if (sort != null) {
-                            // normally this will not be set because true is the default
-                            currentItem.setSortValues(key, YES.equals(sort) || TRUE.equals(sort));
-                        }
-                        String editable = attr.getValue(EDITABLE);
-                        if (editable != null) {
-                            currentItem.setEditable(key, YES.equals(editable) || TRUE.equals(editable));
-                        }
-                        String searchable = attr.getValue(VALUES_SEARCHABLE);
-                        if (searchable != null) {
-                            currentItem.setValuesSearchable(key, YES.equals(searchable) || TRUE.equals(searchable));
-                        }
-                        String valueType = attr.getValue(VALUE_TYPE);
-                        if (valueType != null) {
-                            currentItem.setValueType(key, valueType);
-                        }
-                    } else if (ROLE.equals(name)) {
-                        String roleValue = attr.getValue(KEY_ATTR);
-                        String text = attr.getValue(TEXT);
-                        String textContext = attr.getValue(TEXT_CONTEXT);
-                        PresetRole role = new PresetRole(roleValue, text == null ? null : translate(text, textContext), attr.getValue(TYPE));
-                        currentItem.addRole(role);
-                    } else if (REFERENCE.equals(name)) {
-                        PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no
-                                                                             // forward references
-                        if (chunk != null) {
-                            if (inOptionalSection) {
-                                // fixed tags don't make sense in an optional section, and doesn't seem to happen in
-                                // practice
-                                if (chunk.getFixedTagCount() > 0) {
-                                    Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
-                                }
-                                for (PresetField field : chunk.getFields().values()) {
-                                    String key = field.getKey();
-                                    // don't overwrite exiting fields
-                                    if (!currentItem.fields.containsKey(key)) {
-                                        // FIXME we should only create new objects once
-                                        PresetField copy = field.copy();
-                                        copy.setOptional(true);
-                                        currentItem.fields.put(copy.getKey(), copy);
-                                    } else {
-                                        Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue("ref") + " field " + key
-                                                + " overwrites existing field");
-                                    }
-                                }
-                            } else {
-                                currentItem.fixedTags.putAll(chunk.getFixedTags());
-                                if (!currentItem.isChunk()) {
-                                    for (Entry<String, PresetFixedField> e : chunk.getFixedTags().entrySet()) {
-                                        String key = e.getKey();
-                                        StringWithDescription v = e.getValue().getValue();
-                                        String value = "";
-                                        if (v != null && v.getValue() != null) {
-                                            value = v.getValue();
-                                        }
-                                        tagItems.add(key + "\t" + value, currentItem);
-                                        currentItem.addToAutosuggest(key, v);
-                                    }
-                                }
-                                currentItem.fields.putAll(chunk.fields);
+                    } else {
+                        // Optional fixed tags should not happen, their values will NOT be automatically inserted.
+                        currentItem.addTag(true, key, PresetKeyType.TEXT, attr.getValue(VALUE));
+                    }
+                    if (match != null) {
+                        currentItem.setMatchType(key, match);
+                    }
+                    String textContext = attr.getValue(TEXT_CONTEXT);
+                    if (textContext != null) {
+                        currentItem.setTextContext(key, textContext);
+                    }
+                    break;
+                case TEXT_FIELD:
+                    key = attr.getValue(KEY_ATTR);
+                    if (key == null) {
+                        Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
+                        throw new SAXException("key must be present in text field");
+                    }
+                    currentItem.addTag(inOptionalSection, key, PresetKeyType.TEXT, (String) null);
+                    String defaultValue = attr.getValue(DEFAULT);
+                    if (defaultValue != null) {
+                        currentItem.setDefault(key, defaultValue);
+                    }
+                    String text = attr.getValue(TEXT);
+                    if (text != null) {
+                        currentItem.setHint(key, text);
+                    }
+                    textContext = attr.getValue(TEXT_CONTEXT);
+                    if (textContext != null) {
+                        currentItem.setTextContext(key, textContext);
+                    }
+                    match = attr.getValue(MATCH);
+                    if (match != null) {
+                        currentItem.setMatchType(key, match);
+                    }
+                    String javaScript = attr.getValue(JAVASCRIPT);
+                    if (javaScript != null) {
+                        currentItem.setJavaScript(key, javaScript);
+                    }
+                    if (TRUE.equals(attr.getValue(I18N))) {
+                        currentItem.setI18n(key);
+                    }
+                    String valueType = attr.getValue(VALUE_TYPE);
+                    if (valueType != null) {
+                        currentItem.setValueType(key, valueType);
+                    }
+                    break;
+                case LINK:
+                    String language = Locale.getDefault().getLanguage();
+                    String href = attr.getValue(language.toLowerCase(Locale.US) + ".href");
+                    if (href == null) {
+                        href = attr.getValue(HREF);
+                    }
+                    if (href != null) {
+                        currentItem.setMapFeatures(href);
+                    }
+                    break;
+                case LABEL:
+                    currentLabel = attr.getValue(TEXT);
+                    break;
+                case CHECKGROUP:
+                    checkGroup = new PresetCheckGroupField(currentItem.getName() + PresetCheckGroupField.class.getSimpleName() + checkGroupCounter);
+                    text = attr.getValue(TEXT);
+                    if (text != null) {
+                        checkGroup.setHint(text);
+                    } else if (currentLabel != null) {
+                        checkGroup.setHint(currentLabel);
+                        currentLabel = null;
+                    }
+                    checkGroup.setOptional(inOptionalSection);
+                    break;
+                case CHECK_FIELD:
+                    key = attr.getValue(KEY_ATTR);
+                    String value_on = attr.getValue(VALUE_ON) == null ? YES : attr.getValue(VALUE_ON);
+                    String value_off = attr.getValue(VALUE_OFF) == null ? NO : attr.getValue(VALUE_OFF);
+                    String disable_off = attr.getValue(DISABLE_OFF);
+                    StringWithDescription valueOn = new StringWithDescription(value_on, de.blau.android.util.Util.capitalize(value_on));
+                    StringWithDescription valueOff = null;
+                    PresetCheckField field = new PresetCheckField(key, valueOn);
+                    if (disable_off == null || !disable_off.equals(TRUE)) {
+                        valueOff = new StringWithDescription(value_off, de.blau.android.util.Util.capitalize(value_off));
+                        ((PresetCheckField) field).setOffValue(valueOff);
+                    }
+                    defaultValue = attr.getValue(DEFAULT) == null ? null : ("on".equals(attr.getValue(DEFAULT)) ? value_on : value_off);
+                    if (defaultValue != null) {
+                        field.setDefaultValue(defaultValue);
+                    }
+                    text = attr.getValue(TEXT);
+                    if (text != null) {
+                        field.setHint(text);
+                    }
+                    textContext = attr.getValue(TEXT_CONTEXT);
+                    if (textContext != null) {
+                        field.setTextContext(textContext);
+                    }
+                    match = attr.getValue(MATCH);
+                    if (match != null) {
+                        field.setMatchType(match);
+                    }
+                    field.setOptional(inOptionalSection);
+                    if (checkGroup != null) {
+                        checkGroup.addCheckField(field);
+                    } else {
+                        currentItem.fields.put(key, field);
+                    }
+                    currentItem.addValues(key, valueOff == null ? new StringWithDescription[] { valueOn } : new StringWithDescription[] { valueOn, valueOff });
+                    break;
+                case COMBO_FIELD:
+                case MULTISELECT_FIELD:
+                    boolean multiselect = MULTISELECT_FIELD.equals(name);
+                    key = attr.getValue(KEY_ATTR);
+                    if (key == null) {
+                        Log.e(DEBUG_TAG, "Item " + attr.getValue(NAME) + " key must be present  in text field");
+                        throw new SAXException("key must be present in combo/multiselect field");
+                    }
+                    delimiter = attr.getValue(DELIMITER);
+                    if (delimiter == null) {
+                        delimiter = multiselect ? MULTISELECT_DELIMITER : COMBO_DELIMITER;
+                    }
+                    String values = attr.getValue(VALUES);
+                    String displayValues = attr.getValue(DISPLAY_VALUES);
+                    String shortDescriptions = attr.getValue(SHORT_DESCRIPTIONS);
+                    String valuesFrom = attr.getValue(VALUES_FROM);
+                    final PresetKeyType keyType = multiselect ? PresetKeyType.MULTISELECT : PresetKeyType.COMBO;
+                    if (values != null) {
+                        currentItem.addTag(inOptionalSection, key, keyType, values, displayValues, shortDescriptions, delimiter);
+                    } else if (valuesFrom != null) {
+                        setValuesFromMethod(key, valuesFrom, keyType, currentItem, inOptionalSection, delimiter);
+                    } else {
+                        currentItem.addTag(inOptionalSection, key, keyType, (StringWithDescription[]) null, delimiter);
+                        listKey = key;
+                        listValues = new ArrayList<>();
+                    }
+                    ((PresetComboField) currentItem.getField(key)).setValuesContext(attr.getValue(VALUES_CONTEXT));
+
+                    defaultValue = attr.getValue(DEFAULT);
+                    if (defaultValue != null) {
+                        currentItem.setDefault(key, defaultValue);
+                    }
+                    text = attr.getValue(TEXT);
+                    if (text != null) {
+                        currentItem.setHint(key, text);
+                    }
+                    textContext = attr.getValue(TEXT_CONTEXT);
+                    if (textContext != null) {
+                        currentItem.setTextContext(key, textContext);
+                    }
+                    match = attr.getValue(MATCH);
+                    if (match != null) {
+                        currentItem.setMatchType(key, match);
+                    }
+                    String sort = attr.getValue(VALUES_SORT);
+                    if (sort != null) {
+                        // normally this will not be set because true is the default
+                        currentItem.setSortValues(key, YES.equals(sort) || TRUE.equals(sort));
+                    }
+                    String editable = attr.getValue(EDITABLE);
+                    if (editable != null) {
+                        currentItem.setEditable(key, YES.equals(editable) || TRUE.equals(editable));
+                    }
+                    String searchable = attr.getValue(VALUES_SEARCHABLE);
+                    if (searchable != null) {
+                        currentItem.setValuesSearchable(key, YES.equals(searchable) || TRUE.equals(searchable));
+                    }
+                    valueType = attr.getValue(VALUE_TYPE);
+                    if (valueType != null) {
+                        currentItem.setValueType(key, valueType);
+                    }
+                    break;
+                case ROLES:
+                    break;
+                case ROLE:
+                    String roleValue = attr.getValue(KEY_ATTR);
+                    text = attr.getValue(TEXT);
+                    textContext = attr.getValue(TEXT_CONTEXT);
+                    PresetRole role = new PresetRole(roleValue, text == null ? null : translate(text, textContext), attr.getValue(TYPE));
+                    currentItem.addRole(role);
+                    break;
+                case REFERENCE:
+                    PresetItem chunk = chunks.get(attr.getValue("ref")); // note this assumes that there are no
+                                                                         // forward references
+                    if (chunk != null) {
+                        if (inOptionalSection) {
+                            // fixed tags don't make sense in an optional section, and doesn't seem to happen in
+                            // practice
+                            if (chunk.getFixedTagCount() > 0) {
+                                Log.e(DEBUG_TAG, "Chunk " + chunk.name + " has fixed tags but is used in an optional section");
                             }
-                            addToTagItems(currentItem, chunk.getFields());
-                            currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to
-                                                                  // duplicate entries
-                            currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
-                        }
-                    } else if (LIST_ENTRY.equals(name)) {
-                        if (listValues != null) {
-                            String v = attr.getValue(VALUE);
-                            if (v != null) {
-                                String d = attr.getValue(DISPLAY_VALUE);
-                                if (d == null) {
-                                    d = attr.getValue(SHORT_DESCRIPTION);
-                                }
-                                String iconPath = attr.getValue(ICON);
-                                if (iconPath == null) {
-                                    listValues.add(new StringWithDescription(v, d));
+                            for (PresetField f : chunk.getFields().values()) {
+                                key = f.getKey();
+                                // don't overwrite exiting fields
+                                if (!currentItem.fields.containsKey(key)) {
+                                    // FIXME we should only create new objects once
+                                    PresetField copy = f.copy();
+                                    copy.setOptional(true);
+                                    currentItem.fields.put(copy.getKey(), copy);
                                 } else {
-                                    listValues.add(new StringWithDescriptionAndIcon(v, d, iconPath));
+                                    Log.e(DEBUG_TAG, "Error in PresetItem " + currentItem.getName() + " chunk " + attr.getValue("ref") + " field " + key
+                                            + " overwrites existing field");
                                 }
                             }
+                        } else {
+                            currentItem.fixedTags.putAll(chunk.getFixedTags());
+                            if (!currentItem.isChunk()) {
+                                for (Entry<String, PresetFixedField> e : chunk.getFixedTags().entrySet()) {
+                                    key = e.getKey();
+                                    StringWithDescription v = e.getValue().getValue();
+                                    String value = "";
+                                    if (v != null && v.getValue() != null) {
+                                        value = v.getValue();
+                                    }
+                                    tagItems.add(key + "\t" + value, currentItem);
+                                    currentItem.addToAutosuggest(key, v);
+                                }
+                            }
+                            currentItem.fields.putAll(chunk.fields);
                         }
-                    } else if (PRESET_LINK.equals(name)) {
-                        String presetName = attr.getValue(PRESET_NAME);
-                        if (presetName != null) {
-                            currentItem.addLinkedPresetName(presetName);
+                        addToTagItems(currentItem, chunk.getFields());
+                        currentItem.addAllRoles(chunk.roles); // FIXME this and the following could lead to
+                                                              // duplicate entries
+                        currentItem.addAllLinkedPresetNames(chunk.linkedPresetNames);
+                    }
+                    break;
+                case LIST_ENTRY:
+                    if (listValues != null) {
+                        String v = attr.getValue(VALUE);
+                        if (v != null) {
+                            String d = attr.getValue(DISPLAY_VALUE);
+                            if (d == null) {
+                                d = attr.getValue(SHORT_DESCRIPTION);
+                            }
+                            String iconPath = attr.getValue(ICON);
+                            if (iconPath == null) {
+                                listValues.add(new StringWithDescription(v, d));
+                            } else {
+                                listValues.add(new StringWithDescriptionAndIcon(v, d, iconPath));
+                            }
                         }
                     }
-                } else {
-                    Log.d(DEBUG_TAG, name + " must be in a preset item");
-                    throw new SAXException(name + " must be in a preset item");
+                    break;
+                case PRESET_LINK:
+                    String presetName = attr.getValue(PRESET_NAME);
+                    if (presetName != null) {
+                        currentItem.addLinkedPresetName(presetName);
+                    }
+                    break;
+                case SPACE:
+                    break;
+                default:
+                    Log.e(DEBUG_TAG, "Unknown start tag in preset item " + name);
                 }
             }
 
@@ -982,12 +1022,17 @@ public class Preset implements Serializable {
 
             @Override
             public void endElement(String uri, String localName, String name) throws SAXException {
-                if (GROUP.equals(name)) {
+                switch (name) {
+                case PRESETS:
+                    chunks = null; // we're finished
+                    break;
+                case GROUP:
                     groupstack.pop();
-                } else if (OPTIONAL.equals(name)) {
+                    break;
+                case OPTIONAL:
                     inOptionalSection = false;
-                } else if (ITEM.equals(name)) {
-                    // Log.d(DEBUG_TAG,"PresetItem: " + currentItem.toString());
+                    break;
+                case ITEM:
                     if (!currentItem.isDeprecated()) {
                         currentItem.buildSearchIndex();
                     }
@@ -995,12 +1040,15 @@ public class Preset implements Serializable {
                     currentItem = null;
                     listKey = null;
                     listValues = null;
-                } else if (CHUNK.equals(name)) {
+                    break;
+                case CHUNK:
                     chunks.put(currentItem.getName(), currentItem);
                     currentItem = null;
                     listKey = null;
                     listValues = null;
-                } else if (COMBO_FIELD.equals(name) || MULTISELECT_FIELD.equals(name)) {
+                    break;
+                case COMBO_FIELD:
+                case MULTISELECT_FIELD:
                     if (listKey != null && listValues != null) {
                         StringWithDescription[] v = new StringWithDescription[listValues.size()];
                         PresetComboField field = (PresetComboField) currentItem.getField(listKey);
@@ -1011,10 +1059,18 @@ public class Preset implements Serializable {
                     }
                     listKey = null;
                     listValues = null;
-                } else if (CHECKGROUP.equals(name)) {
+                    break;
+                case CHECKGROUP:
                     currentItem.addField(checkGroup);
                     checkGroup = null;
                     checkGroupCounter++;
+                    break;
+                case SEPARATOR:
+                    break;
+                default:
+                    if (currentItem == null) {
+                        Log.e(DEBUG_TAG, "Unknown end tag " + name);
+                    }
                 }
             }
         });
