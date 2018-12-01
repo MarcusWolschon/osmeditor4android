@@ -313,17 +313,17 @@ Isto é um erro fatal. A tentar gravar um ficheiro para recuperar posteriormente
   <string name="toast_no_coverage">%1$s não tem cobertura aqui</string>
   <string name="toast_file_exists">O ficheiro %1$s já existe.</string>
   <string name="toast_needs_resurvey">O objeto pode estar desatualizado</string>
-  <string name="toast_missing_key">Valor %1$s em falta. </string>
+  <string name="toast_missing_key">Falta o valor de %1$s. </string>
   <string name="toast_openinghours_invalid">Horário de abertura inválido para %1$s</string>
   <string name="toast_openinghours_autocorrected">O horário de abertura para %1$s foi automaticamente corrigido</string>
   <string name="toast_exit_multiselect">Toque duas vezes num espaço em branco ou utilize o botão da seta de voltar para sair</string>
-  <string name="toast_exit_actionmode">Utilize o botão de seta de voltar para gravar e sair</string>
-  <string name="toast_abort_actionmode">Utilize o botão de seta de voltar para abortar</string>
+  <string name="toast_exit_actionmode">Utilize o botão seta para gravar e sair</string>
+  <string name="toast_abort_actionmode">Utilize o botão seta para abortar</string>
   <string name="toast_null_island">Por favor não adicione elementos em 0°/0° (Ilha nula)</string>
   <string name="toast_string_too_long">A expressão é demasiado longa (%1$d caracteres), truncado!</string>
   <string name="toast_illegal_operation">Operação ilegal: %1$s</string>
   <string name="toast_preset_creation_failed">Criação da definição \"%1$s\" falhou com: %2$s</string>
-  <string name="toast_imperial_units">Unidades imperiais em falta</string>
+  <string name="toast_imperial_units">Faltam as unidades imperiais</string>
   <string name="toast_server_connection_failed">Ligação ao servidor falhou com: %1$s</string>
   <string name="toast_flus_all_caches">Isto irá limpar a cache de mosaicos</string>
   <string name="toast_applied_offset">Alinhamento da imagem  aplicado automaticamente</string>
@@ -523,7 +523,7 @@ há %3$s %4$s</string>
   <string name="menu_information">Informações do elemento</string>
   <string name="menu_voice_commands">Comandos de voz</string>
   <string name="menu_set_name">Definir nome</string>
-  <string name="tag_form_unknown_element">Elemento desconhecido (nenhum modelo de etiquetas encontrado)</string>
+  <string name="tag_form_unknown_element">Elemento desconhecido (sem modelo de etiquetas)</string>
   <string name="menu_tools">Ferramentas…</string>
   <string name="menu_tools_imagery">Mais ferramentas de imagens</string>
   <string name="menu_tools_add_imagery_from_oam">Adicionar imagem de OAM</string>
@@ -634,7 +634,7 @@ há %3$s %4$s</string>
   <string name="config_showCameraAction_summary">Mostrar ícone da câmara na barra de ações</string>
   <string name="config_followGPSbutton_title">Posição do botão seguir GPS</string>
   <string name="config_followGPSbutton_summary">Onde será posicionado o botão \"seguir GPS\"</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer não descarregado</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer p/descarregar</string>
   <string name="config_alwaysDrawBoundingBoxes_summary">Se ativado, as áreas não descarregadas serão escurecidas no modo bloqueado</string>
   <string name="config_fullscreenMode_title">Modo ecrã total</string>
   <string name="config_fullscreenMode_summary">Comportamento em dispositivos com teclas \"suaves\".</string>
@@ -734,8 +734,8 @@ há %3$s %4$s</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Outras configurações</string>
   <string name="pref_enable_acra">Reportar bloqueios</string>
-  <string name="pref_acra_enabled">Reportar bloqueios (crach) do Vespucci ativado</string>
-  <string name="pref_acra_disabled">Reportar bloqueios (crach) do Vespucci desativado</string>
+  <string name="pref_acra_enabled">Reportar bloqueios do Vespucci ativado</string>
+  <string name="pref_acra_disabled">Reportar bloqueios do Vespucci desativado</string>
   <string name="config_showStats_title">Ver estatísticas</string>
   <string name="config_showStats_summary">Mostra estatísticas dos dados e quadros por segundo no canto inferior esquerdo.</string>
   <!--Experimental-->
@@ -749,9 +749,9 @@ há %3$s %4$s</string>
   <string name="config_api_url_title">URL da API</string>
   <string name="config_api_oauth_title">Usar OAuth</string>
   <string name="listedit_enable_oauth">Ativar OAuth</string>
-  <string name="config_username_title">Nome de utilizador OSM</string>
-  <string name="config_password_title">Palavra-chave OSM</string>
-  <string name="config_password_summary">Não confunda com a palavra-chave da Wiki do OSM. Tenha em conta que esta é armazenada e transmitida em texto simples não encriptado!</string>
+  <string name="config_username_title">Nome de utilizador no OpenStreetMap</string>
+  <string name="config_password_title">Palavra-chave no OpenStreetMap</string>
+  <string name="config_password_summary">Não confunda com a palavra-chave da Wiki do OpenStreetMap. Tenha em conta que esta é armazenada e transmitida em texto simples não encriptado!</string>
   <string name="manage_presets">Gerir modelos etiquetas</string>
   <string name="manage_geocoders">Gerir geo-codificadores</string>
   <!--preset downloader messages-->
@@ -844,7 +844,7 @@ há %3$s %4$s</string>
   <string name="exception_too_many_nodes">Esta operação iria criar uma linha com muitos nós.</string>
   <!--Notifications-->
   <string name="alert_data_issue">Foi detetado um problema com os dados do OpenStreetMap</string>
-  <string name="alert_note">Foi detetada um erro reportado no OSM nas redondezas</string>
+  <string name="alert_note">Foi detetado um erro reportado no OSM nas redondezas</string>
   <string name="alert_bug">Foi detetado um erro do OpenStreetMap nas redondezas</string>
   <string name="alert_distance_direction">a %1$d m %2$s</string>
   <string name="bearing_ne">NE</string>
