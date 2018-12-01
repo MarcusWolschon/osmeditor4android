@@ -318,6 +318,8 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     /**
+     * Get an Adapter containing value suggestions for a specific key
+     * 
      * Simplified version for non-multi-select and preset only situation
      * 
      * @param key the key for which we are generating the adapter

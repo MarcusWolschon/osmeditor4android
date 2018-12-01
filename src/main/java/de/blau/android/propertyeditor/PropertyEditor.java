@@ -49,6 +49,8 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
+import de.blau.android.presets.Preset.PresetElement;
+import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.ValueWithCount;
@@ -220,6 +222,14 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
             usePaneLayout = Util.isLandscape(this);
+
+            // if we have a preset to auto apply it doesn't make sense to show the Preset tab
+            if (presetsToApply != null && !presetsToApply.isEmpty()) {
+                PresetElement alternativeRootElement = Preset.getElementByPath(App.getCurrentRootPreset(this).getRootGroup(), presetsToApply.get(0));
+                if (!(alternativeRootElement instanceof PresetGroup)) {
+                    showPresets = false;
+                }
+            }
         } else {
             // Restore activity from saved state
             Log.d(DEBUG_TAG, "Restoring from savedInstanceState");

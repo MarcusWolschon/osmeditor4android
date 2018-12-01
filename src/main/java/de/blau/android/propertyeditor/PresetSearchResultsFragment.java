@@ -243,11 +243,11 @@ public class PresetSearchResultsFragment extends DialogFragment {
     @Nullable
     private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets, boolean setPadding) {
         View v = null;
-        PresetGroup results = new Preset().new PresetGroup(null, "search results", null);
+        PresetGroup results = Preset.dummyInstance().new PresetGroup(null, "search results", null);
         if (presets != null) {
             for (PresetElement p : presets) {
                 if (p != null) {
-                    results.addElement(p);
+                    results.addElement(p, false);
                 }
             }
         }

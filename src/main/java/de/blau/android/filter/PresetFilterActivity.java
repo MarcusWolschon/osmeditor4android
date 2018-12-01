@@ -1,7 +1,5 @@
 package de.blau.android.filter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,24 +66,14 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
             Snack.barError(this, "illegal state " + filter);
             finish();
         }
-        Preset[] presets = App.getCurrentPresets(this);
-        Preset preset = new Preset(); // dummy preset to hold the elements of all
-        rootGroup = preset.new PresetGroup(null, "", null);
-        preset.setRootGroup(rootGroup);
-        List<PresetElement> rootElements = rootGroup.getElements();
-        if (presets != null) {
-            for (Preset p : presets) {
-                if (p != null) {
-                    for (PresetElement e : p.getRootGroup().getElements()) {
-                        if (!rootElements.contains(e)) { // only do this if not already present
-                            rootGroup.addElement(e);
-                        }
-                    }
-                }
-            }
-        }
+
+        Preset preset = App.getCurrentRootPreset(this);
+        rootGroup = preset.getRootGroup();
+
         PresetElement element = filter.getPresetElement();
+        Log.e(DEBUG_TAG, "filter element " + element);
         PresetGroup parent = element != null ? element.getParent() : null;
+        Log.e(DEBUG_TAG, "parent " + parent);
         currentGroup = parent != null ? parent : rootGroup;
 
         presetView = getPresetView(currentGroup, element);
@@ -105,8 +93,6 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
      */
     private ScrollView getPresetView(@NonNull PresetGroup group, @Nullable PresetElement element) {
         View view = group.getGroupView(this, this, null, element);
-        // view.setBackgroundColor(getActivity().getResources().getColor(R.color.abs__background_holo_dark));
-        // view.setOnKeyListener(this);
         view.setId(R.id.preset_view);
         return (ScrollView) view;
     }
@@ -258,8 +244,8 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
         Filter filter = App.getLogic().getFilter();
         if (filter instanceof PresetFilter) {
             ((PresetFilter) filter).setPresetElement(element.getPath(rootGroup));
-            Snack.toastTopInfo(this, element.getName());
-            Log.d(DEBUG_TAG, "parent " + element.getParent());
+            currentGroup.getGroupView(this, presetView, this, null, element);
+            presetView.invalidate();
         }
         finish();
     }

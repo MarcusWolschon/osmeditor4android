@@ -96,15 +96,14 @@ public class AutoPreset {
     public Preset fromTaginfo(@NonNull String term, int maxResults) {
         List<SearchResult> candidateTags = TaginfoServer.searchByKeyword(context, term, -1);
 
-        Preset preset = new Preset();
+        Preset preset = Preset.dummyInstance();
         try {
             preset.setIconManager(new PresetIconManager(context,
                     FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET).getAbsolutePath(), null));
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Setting icon managery failed " + e.getMessage());
         }
-        PresetGroup group = preset.new PresetGroup(null, "", null);
-        preset.setRootGroup(group);
+        PresetGroup group = preset.getRootGroup();
         if (candidateTags != null) {
             for (SearchResult sr : candidateTags) {
                 // remove results with empty values

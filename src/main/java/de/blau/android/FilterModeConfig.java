@@ -35,6 +35,7 @@ public class FilterModeConfig implements ModeConfig {
         return null;
     }
 
+    @Override
     @Nullable
     public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
         // if we have a PresetFilter set for a single PresetItem, apply that automatically
@@ -43,9 +44,9 @@ public class FilterModeConfig implements ModeConfig {
         if (filter instanceof PresetFilter) {
             PresetElement presetElement = ((PresetFilter) filter).getPresetElement();
             if (presetElement instanceof PresetItem || presetElement instanceof PresetGroup) {
-                Preset[] presets = App.getCurrentPresets(ctx);
+                Preset preset = App.getCurrentRootPreset(ctx);
                 ArrayList<PresetElementPath> result = new ArrayList<>();
-                result.add(presetElement.getPath(presets[0].getRootGroup()));
+                result.add(presetElement.getPath(preset.getRootGroup()));
                 return result;
             }
         }

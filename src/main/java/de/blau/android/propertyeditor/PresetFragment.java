@@ -87,6 +87,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     /** The type of OSM element to which the preset will be applied (used for filtering) */
     private ElementType type;
 
+    private Preset      dummyPreset;
     private PresetGroup currentGroup;
     private PresetGroup rootGroup;
 
@@ -160,19 +161,16 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return presetPaneLayout;
         }
 
+        Preset rootPreset = App.getCurrentRootPreset(getActivity());
         if (alternateRootPaths != null && !alternateRootPaths.isEmpty()) {
-            PresetElement alternativeRootElement = Preset.getElementByPath(presets[0].getRootGroup(), alternateRootPaths.get(0));
+            PresetElement alternativeRootElement = Preset.getElementByPath(rootPreset.getRootGroup(), alternateRootPaths.get(0));
             if (alternativeRootElement instanceof PresetGroup) {
                 rootGroup = (PresetGroup) alternativeRootElement;
             }
         }
 
         if (rootGroup == null) {
-            Preset preset = new Preset(); // dummy preset to hold the elements of all
-            rootGroup = preset.new PresetGroup(null, "", null);
-            rootGroup.setItemSort(false);
-            preset.setRootGroup(rootGroup);
-            addToRootGroup(presets);
+            rootGroup = rootPreset.getRootGroup();
         }
         currentGroup = rootGroup;
 
@@ -213,28 +211,6 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         }
 
         return presetPaneLayout;
-    }
-
-    /**
-     * Add the top level PresetElements to rootGroup
-     * 
-     * @param presets array of current presets
-     */
-    private void addToRootGroup(Preset[] presets) {
-        if (presets.length > 0) {
-            // a bit of a hack ... this adds the elements from other presets to the dummy root group
-            List<PresetElement> rootElements = rootGroup.getElements();
-            rootElements.clear();
-            for (Preset p : presets) {
-                if (p != null) {
-                    for (PresetElement e : p.getRootGroup().getElements()) {
-                        if (!rootElements.contains(e)) { // only do this if not already present
-                            rootGroup.addElement(e, true);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -314,7 +290,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         if (type != null) {
             this.type = type;
         }
-        addToRootGroup(App.getCurrentPresets(getContext()));
+        dummyPreset.addToRootGroup(App.getCurrentPresets(getContext()));
         LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
         if (presetLayout != null) {
             presetLayout.removeAllViews();

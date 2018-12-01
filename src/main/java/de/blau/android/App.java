@@ -58,6 +58,7 @@ public class App extends android.app.Application {
      * The currently selected presets
      */
     private static Preset[]                         currentPresets;
+    private static Preset                           currentRootPreset;
     private static final Object                     currentPresetsLock              = new Object();
     private static MultiHashMap<String, PresetItem> presetSearchIndex               = null;
     private static final Object                     presetSearchIndexLock           = new Object();
@@ -220,11 +221,30 @@ public class App extends android.app.Application {
     }
 
     /**
+     * Get a single Preset containing all currently active Presets
+     * 
+     * @param ctx Android Context
+     * @return a Preset containing all currently active Presets
+     */
+    @NonNull
+    public static Preset getCurrentRootPreset(@NonNull Context ctx) {
+        synchronized (currentPresetsLock) {
+            if (currentRootPreset == null) {
+                Preset[] presets = App.getCurrentPresets(ctx);
+                currentRootPreset = Preset.dummyInstance();
+                currentRootPreset.addToRootGroup(presets);
+            }
+        }
+        return currentRootPreset;
+    }
+
+    /**
      * Resets the current presets, causing them to be re-parsed when they are re-requested
      */
     public static void resetPresets() {
         synchronized (currentPresetsLock) {
             currentPresets = null;
+            currentRootPreset = null;
             presetSearchIndex = null;
             translatedPresetSearchIndex = null;
         }

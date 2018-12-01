@@ -347,8 +347,22 @@ public class Preset implements Serializable {
     /**
      * create a dummy preset
      */
-    public Preset() {
+    private Preset() {
         mru = null;
+    }
+
+    /**
+     * Create a dumyy Preset instance with an empty root PresetGroup
+     * 
+     * @return a dummy Preset instance
+     */
+    @NonNull
+    public static Preset dummyInstance() {
+        Preset preset = new Preset(); // dummy preset to hold the elements of all
+        PresetGroup rootGroup = preset.new PresetGroup(null, "", null);
+        rootGroup.setItemSort(false);
+        preset.setRootGroup(rootGroup);
+        return preset;
     }
 
     /**
@@ -490,7 +504,7 @@ public class Preset implements Serializable {
      */
     public Preset(@NonNull List<PresetElement> elements) {
         mru = null;
-        String name = "Empty Preset";
+        String name = "";
         if (elements != null && !elements.isEmpty()) {
             name = elements.get(0).getName();
         } else {
@@ -1375,7 +1389,7 @@ public class Preset implements Serializable {
                 int allItemsCount = p.allItems.size();
                 for (Integer index : p.mru.recentPresets) {
                     if (index < allItemsCount) {
-                        recent.addElement(p.allItems.get(index));
+                        recent.addElement(p.allItems.get(index), false);
                     }
                 }
             }
@@ -1470,6 +1484,28 @@ public class Preset implements Serializable {
             } finally {
                 SavingHelper.close(out);
                 SavingHelper.close(fout);
+            }
+        }
+    }
+
+    /**
+     * Add PresetElements from other Presets to our rootGroup
+     * 
+     * @param presets array of current presets
+     */
+    public void addToRootGroup(@NonNull Preset[] presets) {
+        if (presets.length > 0) {
+            // a bit of a hack ... this adds the elements from other presets to the dummy root group
+            List<PresetElement> rootElements = rootGroup.getElements();
+            rootElements.clear();
+            for (Preset p : presets) {
+                if (p != null) {
+                    for (PresetElement e : p.getRootGroup().getElements()) {
+                        if (!rootElements.contains(e)) { // only do this if not already present
+                            rootGroup.addElement(e, true);
+                        }
+                    }
+                }
             }
         }
     }
@@ -2020,9 +2056,10 @@ public class Preset implements Serializable {
          * This is essentially the only unique way of identifying a specific preset
          * 
          * @param root PresetGroup that this is relative to
-         * @return and object containing the path elements
+         * @return an object containing the path elements
          */
-        public PresetElementPath getPath(PresetGroup root) {
+        @Nullable
+        public PresetElementPath getPath(@NonNull PresetGroup root) {
             for (PresetElement e : root.getElements()) {
                 if (e.equals(this)) {
                     PresetElementPath result = new PresetElementPath();

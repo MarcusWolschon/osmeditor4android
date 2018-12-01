@@ -414,8 +414,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // the following likely wont work in onCreateView
         @SuppressWarnings("unchecked")
         ArrayList<PresetElementPath> presetsToApply = (ArrayList<PresetElementPath>) getArguments().getSerializable(PRESETSTOAPPLY_KEY);
-        Preset[] presets = App.getCurrentPresets(getActivity());
-        PresetGroup rootGroup = presets[0].getRootGroup();
+        Preset preset = App.getCurrentRootPreset(getActivity());
+        PresetGroup rootGroup = preset.getRootGroup();
         if (presetsToApply != null) {
             for (PresetElementPath pp : presetsToApply) {
                 PresetElement pi = Preset.getElementByPath(rootGroup, pp);

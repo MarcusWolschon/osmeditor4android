@@ -224,8 +224,21 @@ public enum Mode {
     private int              iconResourceId = -1;
     private final ModeConfig config;
 
-    Mode(int nameResId, String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, Mode subModeOf, int iconResourceId,
-            ModeConfig config) {
+    /**
+     * Construct a new Mode
+     * 
+     * @param nameResId resource id for the name
+     * @param tag unique string id
+     * @param selectable OsmElements can be selected
+     * @param editable OsmElements can be edited
+     * @param geomEditable the geometry of OsmElements can be changed
+     * @param supportsFilters filters can be set in this mode (aka does not use filters itself)
+     * @param subModeOf set if this is a child Mode
+     * @param iconResourceId resource id for an icon
+     * @param config setup and teardown configuration for the Mode
+     */
+    Mode(int nameResId, @NonNull String tag, boolean selectable, boolean editable, boolean geomEditable, boolean supportsFilters, @Nullable Mode subModeOf,
+            int iconResourceId, @Nullable ModeConfig config) {
         /**
          * string resource id for the name
          */
@@ -264,53 +277,119 @@ public enum Mode {
         this.config = config;
     }
 
-    String getName(Context ctx) {
+    /**
+     * Get the name of this mode
+     * 
+     * @param ctx an Android Context
+     * @return the name as a String
+     */
+    @Nullable
+    String getName(@NonNull Context ctx) {
         return ctx.getString(nameResId);
     }
 
+    /**
+     * Check if elements are selectable in this mode
+     * 
+     * @return true if elements are selectable
+     */
     public boolean elementsSelectable() {
         return selectable;
     }
 
+    /**
+     * Check if elements are editable in this mode
+     * 
+     * @return true if elements are editable
+     */
     boolean elementsEditable() {
         return editable;
     }
 
+    /**
+     * Check if elements geometry is editable in this mode
+     * 
+     * @return true if elements geometry is editable
+     */
     public boolean elementsGeomEditiable() {
         return geomEditable;
     }
 
+    /**
+     * Set the enabled status of this mode
+     * 
+     * @param enabled if true the mode will be enables
+     */
     void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * Check if this mode is enables
+     * 
+     * @return true if enabled
+     */
     boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * Check if this mode supports filters
+     * 
+     * @return true if this mode supports filters
+     */
     boolean supportsFilters() {
         return supportFilters;
     }
 
+    /**
+     * Get the icon resources id for this mode
+     * 
+     * @return the icon resources id for this mode
+     */
     int iconResourceId() {
         return iconResourceId;
     }
 
+    /**
+     * Get the parent Mode
+     * 
+     * @return the parent Mode or null if none
+     */
+    @Nullable
     Mode isSubModeOf() {
         return subModeOf;
     }
 
+    /**
+     * Get the unique tag for this mode
+     * 
+     * @return the tag
+     */
+    @NonNull
     String tag() {
         return tag;
     }
 
-    void setup(Main main, Logic logic) {
+    /**
+     * Setup this mode
+     * 
+     * @param main the current Main instance
+     * @param logic the current Logic instance
+     */
+    void setup(@NonNull Main main, @NonNull Logic logic) {
         if (config != null) {
             config.setup(main, logic);
         }
     }
 
-    void teardown(Main main, Logic logic) {
+    /**
+     * Teardown this mode
+     * 
+     * @param main the current Main instance
+     * @param logic the current Logic instance
+     */
+    void teardown(@NonNull Main main, @NonNull Logic logic) {
         if (config != null) {
             config.teardown(main, logic);
         }
@@ -339,15 +418,22 @@ public enum Mode {
      * @return map containing the additional tags or null
      */
     @Nullable
-    public HashMap<String, String> getExtraTags(Logic logic, OsmElement e) {
+    public HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e) {
         if (config != null) {
             return config.getExtraTags(logic, e);
         }
         return null;
     }
 
+    /**
+     * Get any PresetITems that should automatically be applied to the OsmElement
+     * 
+     * @param ctx an Android Context
+     * @param e the OsmElement
+     * @return a List of PresetElementPath or null if none available
+     */
     @Nullable
-    public ArrayList<PresetElementPath> getPresetItems(Context ctx, OsmElement e) {
+    public ArrayList<PresetElementPath> getPresetItems(@NonNull Context ctx, @NonNull OsmElement e) {
         if (config != null) {
             return config.getPresetItems(ctx, e);
         }

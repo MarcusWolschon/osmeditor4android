@@ -71,7 +71,8 @@ public class PresetFilter extends Filter {
         if (path != null) {
             this.path = path;
             Preset[] presets = App.getCurrentPresets(context);
-            element = Preset.getElementByPath(presets[0].getRootGroup(), path);
+            Preset searchPreset = App.getCurrentRootPreset(context);
+            element = Preset.getElementByPath(searchPreset.getRootGroup(), path);
             if (element == null) {
                 Log.e(DEBUG_TAG, path.toString() + " not found");
                 return;
@@ -141,7 +142,13 @@ public class PresetFilter extends Filter {
         this.inverted = inverted;
     }
 
-    private Include filter(OsmElement e) {
+    /**
+     * Filter the OsemElement against a Preset
+     * 
+     * @param e the OsmElement
+     * @return an Include enum indicating the status
+     */
+    private Include filter(@NonNull OsmElement e) {
         Include include = Include.DONT;
         if (preset != null) {
             PresetItem item = Preset.findMatch(preset, e.getTags());

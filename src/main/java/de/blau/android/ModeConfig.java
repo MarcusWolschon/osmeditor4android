@@ -17,7 +17,7 @@ public interface ModeConfig {
      * @param main the current instance of Main
      * @param logic the current instance of Logic
      */
-    void setup(Main main, Logic logic);
+    void setup(@NonNull Main main, @NonNull Logic logic);
 
     /**
      * Restore any necessary state and other cleanup
@@ -25,20 +25,24 @@ public interface ModeConfig {
      * @param main the current instance of Main
      * @param logic the current instance of Logic
      */
-    void teardown(Main main, Logic logic);
+    void teardown(@NonNull Main main, @NonNull Logic logic);
 
     /**
      * Called before PropertyEditor startup to provide any mode specific tags
      * 
+     * Note explicit HashMap as the result needs to be Serializable
+     * 
      * @param logic the current instance of Logic
      * @param e selected OsmElement
-     * @return Map with tags to apply
+     * @return HashMap with tags to apply
      */
     @Nullable
     HashMap<String, String> getExtraTags(@NonNull Logic logic, @NonNull OsmElement e);
 
     /**
      * Called before PropertyEditor startup to provide any mode specific PresetItems
+     * 
+     * Note explicit ArrayList as the result needs to be Serializable
      * 
      * @param ctx Android context
      * @param e selected OsmElement
