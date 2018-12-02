@@ -15,7 +15,7 @@ public class PresetRole implements Comparable<PresetRole> {
     /**
      * Hint to be displayed in a suitable form
      */
-    final private String hint;
+    private String hint;
 
     /**
      * this role applies to
@@ -85,6 +85,15 @@ public class PresetRole implements Comparable<PresetRole> {
     @Nullable
     public String getHint() {
         return hint;
+    }
+
+    /**
+     * Set the hint aka description for this role
+     * 
+     * @param hint the hint
+     */
+    public void setHint(@Nullable String hint) {
+        this.hint = hint;
     }
 
     /**

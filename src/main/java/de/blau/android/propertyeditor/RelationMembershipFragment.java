@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -30,7 +31,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -39,6 +39,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
@@ -61,6 +62,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     private String                elementType  = null;
 
     private int maxStringLength; // maximum key, value and role length
+
+    private PropertyEditorListener propertyEditorListener;
 
     private static SelectedRowsActionModeCallback parentSelectedActionModeCallback = null;
     private static final Object                   actionModeCallbackLock           = new Object();
@@ -87,6 +90,11 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
+        try {
+            propertyEditorListener = (PropertyEditorListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
+        }
         setHasOptionsMenu(true);
         getActivity().supportInvalidateOptionsMenu();
     }
@@ -252,12 +260,13 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     public static class RelationMembershipRow extends LinearLayout implements SelectedRowsActionModeCallback.Row {
 
         private PropertyEditor       owner;
-        private long                 relationId  = -1;   // flag value for new relation memberships
+        private long                 relationId     = -1;   // flag value for new relation memberships
         private CheckBox             selected;
         private AutoCompleteTextView roleEdit;
         private Spinner              parentEdit;
-        private boolean              showSpinner = false;
-        private String               elementType = null;
+        private boolean              showSpinner    = false;
+        private String               elementType    = null;
+        private PresetItem           relationPreset = null;
 
         public RelationMembershipRow(Context context) {
             super(context);
@@ -286,7 +295,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
             selected = (CheckBox) findViewById(R.id.parent_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editRole);
-            roleEdit.setOnKeyListener(owner.myKeyListener);
+            roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
 
             parentEdit = (Spinner) findViewById(R.id.editParent);
             ArrayAdapter<Relation> a = getRelationSpinnerAdapter();
@@ -334,28 +343,68 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
+         * Get the best matching preset for the Relation
+         * 
+         * @return a PresetItem or null
+         */
+        @Nullable
+        PresetItem getRelationPreset() {
+            Preset[] presets = owner.getPresets();
+            Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
+            if (relationPreset == null && presets != null && r != null) {
+                relationPreset = Preset.findBestMatch(presets, r.getTags());
+            }
+            return relationPreset;
+        }
+
+        /**
          * Create an ArrayAdapter containing role values for the edited object in a parent Relation
          * 
-         * @return an ArrayAdapter
+         * @return an ArrayAdapter holding the possible roles
          */
         @NonNull
         ArrayAdapter<PresetRole> getMembershipRoleAutocompleteAdapter() {
             List<PresetRole> result = new ArrayList<>();
-            Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, relationId);
-            if (r != null && owner.presets != null) {
-                PresetItem relationPreset = Preset.findBestMatch(owner.presets, r.getTags());
-                if (relationPreset != null) {
-                    List<PresetRole> presetRoles = relationPreset.getRoles(elementType);
-                    if (presetRoles != null) {
-                        Collections.sort(presetRoles);
-                        result = presetRoles;
+            PresetItem presetItem = getRelationPreset();
+            if (presetItem != null) {
+                Map<String, Integer> counter = new HashMap<>();
+                int position = 0;
+                List<String> tempRoles = App.getMruTags().getRoles(presetItem);
+                if (tempRoles != null) {
+                    for (String role : tempRoles) {
+                        result.add(new PresetRole(role, null, elementType));
+                        counter.put(role, position++);
+                    }
+                }
+                List<PresetRole> tempPresetRoles = presetItem.getRoles(elementType);
+                if (tempPresetRoles != null) {
+                    Collections.sort(tempPresetRoles);
+                    for (PresetRole presetRole : tempPresetRoles) {
+                        Integer counterPos = counter.get(presetRole.getRole());
+                        if (counterPos != null) {
+                            result.get(counterPos).setHint(presetRole.getHint());
+                            continue;
+                        }
+                        result.add(presetRole);
+                    }
+                }
+            } else {
+                List<String> tempRoles = App.getMruTags().getRoles();
+                if (tempRoles != null) {
+                    for (String role : tempRoles) {
+                        result.add(new PresetRole(role, null, null));
                     }
                 }
             }
-
             return new ArrayAdapter<>(owner, R.layout.autocomplete_row, result);
         }
 
+        /**
+         * Get an ArrayAdapter containing all the Relations currently downloaded
+         * 
+         * @return an ArrayAdapter holding the Relations
+         */
+        @NonNull
         ArrayAdapter<Relation> getRelationSpinnerAdapter() {
             //
             List<Relation> result = App.getDelegator().getCurrentStorage().getRelations();
@@ -505,7 +554,12 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     /**
      */
     private interface ParentRelationHandler {
-        void handleParentRelation(final EditText roleEdit, final long relationId);
+        /**
+         * Process the contents of one RelationMembershipRow
+         * 
+         * @param row the RelationMembershipRow
+         */
+        void handleParentRelation(@NonNull final RelationMembershipRow row);
     }
 
     /**
@@ -519,7 +573,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         for (int i = 0; i < size; ++i) {
             View view = membershipVerticalLayout.getChildAt(i);
             RelationMembershipRow row = (RelationMembershipRow) view;
-            handler.handleParentRelation(row.roleEdit, row.relationId);
+            handler.handleParentRelation(row);
         }
     }
 
@@ -527,15 +581,28 @@ public class RelationMembershipFragment extends BaseFragment implements Property
      * Collect all interesting values from the parent relation view HashMap<String,String>, currently only the role
      * value
      * 
-     * @return The HashMap<Long,String> of relation and role in that relation pairs.
+     * @return The HashMap<Long,String> of relation and role in that relation, pairs.
      */
     HashMap<Long, String> getParentRelationMap() {
         final HashMap<Long, String> parents = new HashMap<>();
         processParentRelations(new ParentRelationHandler() {
             @Override
-            public void handleParentRelation(final EditText roleEdit, final long relationId) {
-                String role = roleEdit.getText().toString().trim();
-                parents.put(relationId, role);
+            public void handleParentRelation(final RelationMembershipRow row) {
+                String role = row.roleEdit.getText().toString().trim();
+                parents.put(row.relationId, role);
+                Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
+                RelationMember rm = r.getMember(propertyEditorListener.getElement());
+                PresetItem presetItem = row.getRelationPreset();
+                if (rm != null) { // can't really happen
+                    if (!"".equals(role) && rm.getRole() != null && !rm.getRole().equals(role)) {
+                        // only add if the role actually differs
+                        if (presetItem != null) {
+                            App.getMruTags().putRole(presetItem, role);
+                        } else {
+                            App.getMruTags().putRole(role);
+                        }
+                    }
+                }
             }
         });
         return parents;
@@ -602,6 +669,8 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     /**
      * Add this object to an existing relation
+     * 
+     * @param elementType the type of the OsmElement
      */
     private void addToRelation(@NonNull String elementType) {
         insertNewMembership((LinearLayout) getOurView(), null, null, elementType, -1, true).roleEdit.requestFocus();

@@ -347,7 +347,7 @@ public class Preset implements Serializable {
     /**
      * create a dummy preset
      */
-    private Preset() {
+    Preset() {
         mru = null;
     }
 
@@ -1940,6 +1940,32 @@ public class Preset implements Serializable {
             return true; // should never happen
         }
 
+        /**
+         * Get a list of ElementTypes this PresetItem applies to
+         * 
+         * @return a List of ElementType
+         */
+        @NonNull
+        public List<ElementType> appliesTo() {
+            List<ElementType> result = new ArrayList<>();
+            if (appliesToNode) { 
+                result.add(ElementType.NODE);
+            }
+            if (appliesToWay) {
+                result.add(ElementType.WAY);
+            }
+            if (appliesToClosedway) {
+                result.add(ElementType.CLOSEDWAY);
+            }
+            if (appliesToRelation) {
+                result.add(ElementType.RELATION);
+            }
+            if (appliesToArea) {
+                result.add(ElementType.AREA);
+            }
+            return result;
+        }
+        
         /**
          * Recursively sets the flag indicating that this element is relevant for nodes
          */
@@ -4018,7 +4044,7 @@ public class Preset implements Serializable {
      * Get suggested values for a key
      * 
      * @param presets an array holding the currently active Presets
-     * @param type the taype of element, if null all will be assumed
+     * @param type the type of element, if null all will be assumed
      * @param key the key we want the values for
      * @return a Collection of the suggested values for key
      */

@@ -1,6 +1,8 @@
 package de.blau.android.propertyeditor;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -42,14 +44,17 @@ import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.presets.PresetElementPath;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerServer;
 import okhttp3.HttpUrl;
@@ -223,10 +228,10 @@ public class PropertyEditorTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        
+
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         // Node n = App.getLogic().getSelectedNode();
-        //Assert.assertNotNull(n);
+        // Assert.assertNotNull(n);
 
         Assert.assertTrue(TestUtils.clickMenuButton("Properties"));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
@@ -263,7 +268,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.load_templates_title)));
         Assert.assertTrue(TestUtils.clickText(mDevice, false, "24 Hours", true));
         TestUtils.clickButton("de.blau.android:id/save", true);
-                
+
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_nodeselect)));
         Assert.assertTrue(n.hasTag("cuisine", "asian;german"));
@@ -272,7 +277,7 @@ public class PropertyEditorTest {
 
     /**
      * Select a way and check if expected street name is there, then - check for max speed dropdown - check for bridge
-     * checkbox
+     * and sidewalk:left checkboxes, check that changed key end up in the MRU tags.
      */
     @Test
     public void way() {
@@ -330,6 +335,15 @@ public class PropertyEditorTest {
         // Assert.assertTrue(w.hasTag("maxspeed", "100"));
         Assert.assertTrue(w.hasTag("bridge", "yes"));
         Assert.assertTrue(w.hasTag("sidewalk", "left"));
+        //
+        MRUTags mruTags = App.getMruTags();
+        List<String> path = Arrays.asList(new String[] { "Highways", "Streets", "Tertiary" });
+        PresetItem item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
+        Assert.assertNotNull(item);
+        Assert.assertTrue(mruTags.getValues(item, "bridge").contains("yes"));
+        Assert.assertTrue(mruTags.getValues(item, "sidewalk").contains("left"));
+        Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("bridge"));
+        Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("sidewalk"));
     }
 
     /**
@@ -511,7 +525,7 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
         Assert.assertTrue(found);
     }
-    
+
     /**
      * Add a conditional restriction, this is just a rough test without using the actual UI elements of the editor
      */

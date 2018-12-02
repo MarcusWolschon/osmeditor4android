@@ -336,6 +336,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
 
         if (key != null && key.length() > 0) {
             Set<String> usedKeys = allTags.keySet();
+
             if (TagEditorFragment.isStreetName(key, usedKeys)) {
                 adapter = nameAdapters.getStreetNameAdapter(values);
             } else if (TagEditorFragment.isPlaceName(key, usedKeys)) {
@@ -358,10 +359,17 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                 }
             } else {
-                HashMap<String, Integer> counter = new HashMap<>();
+                Map<String, Integer> counter = new HashMap<>();
+                int position = 0;
                 ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
-
                 if (preset != null) {
+                    List<String> mruValues = App.getMruTags().getValues(preset, key);
+                    if (mruValues != null) {                        
+                        for (String v : mruValues) {
+                            adapter2.add(new StringWithDescription(v));
+                            counter.put(v, position++);
+                        }
+                    }
                     Collection<StringWithDescription> presetValues;
                     if (field != null) {
                         presetValues = preset.getAutocompleteValues(field);
@@ -375,15 +383,26 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             Collections.sort(result, comparator);
                         }
                         for (StringWithDescription s : result) {
-                            if (counter != null && counter.containsKey(s.getValue())) {
+                            Integer storedPosition = counter.get(s.getValue());
+                            if (storedPosition != null) {
+                                if (storedPosition >= 0) { // hack so that we retain the descriptions
+                                    StringWithDescription r = adapter2.getItem(storedPosition);
+                                    r.setDescription(s.getDescription());
+                                }
                                 continue; // skip stuff that is already listed
                             }
                             adapter2.add(s);
-                            counter.put(s.getValue(), 1);
+                            counter.put(s.getValue(), position++);
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     }
                 } else {
+                    List<String> mruValues = App.getMruTags().getValues(key);
+                    if (mruValues != null) {
+                        for (String v : mruValues) {
+                            adapter2.add(new StringWithDescription(v));
+                        }
+                    }
                     OsmElement element = propertyEditorListener.getElement();
                     if (propertyEditorListener.getPresets() != null) {
                         Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets");
@@ -404,6 +423,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                             StringWithDescription s = new StringWithDescription(value);
                             // FIXME determine description in some way
                             // ValueWithCount v = new ValueWithCount(value, 1);
+                            adapter2.remove(s);
                             adapter2.insert(s, 0);
                         }
                     }
@@ -412,9 +432,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (adapter2.getCount() > 0) {
                     return adapter2;
                 }
-
             }
-
         }
         Log.d(DEBUG_TAG, adapter == null ? "adapter is null" : "adapter has " + adapter.getCount() + " elements");
         return adapter;
@@ -1207,12 +1225,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                         ((EditableLayout) rowLayout).putTag(key, rowValue);
                     }
                 } else if (hasFocus) {
-                    boolean hasValues = values != null && !values.isEmpty();
-                    if (hasValues) {
-                        ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, null, allTags);
-                        if (adapter != null) {
-                            row.valueView.setAdapter(adapter);
-                        }
+                    ArrayAdapter<?> adapter = getValueAutocompleteAdapter(key, values, preset, null, allTags);
+                    if (adapter != null && !adapter.isEmpty()) {
+                        row.valueView.setAdapter(adapter);
                     }
                     if (isWebsite) {
                         TagEditorFragment.initWebsite(row.valueView);

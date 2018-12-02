@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.support.annotation.NonNull;
@@ -58,4 +59,12 @@ interface PropertyEditorListener {
      */
     @Nullable
     Preset[] getPresets();
+
+    /**
+     * Get current contents of editor for saving
+     * 
+     * @return list containing the tag maps or null if something went wrong
+     */
+    @Nullable
+    public List<LinkedHashMap<String, String>> getUpdatedTags();
 }

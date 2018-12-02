@@ -108,7 +108,6 @@ import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.dialogs.UndoDialogFactory;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
-import de.blau.android.easyedit.SimpleActionModeCallback.SimpleAction;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
@@ -1190,6 +1189,7 @@ public class Main extends FullScreenAppCompatActivity
         // can defer saving.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             saveData();
+            App.getMruTags().save(this);
         }
 
         super.onPause();
@@ -1204,6 +1204,7 @@ public class Main extends FullScreenAppCompatActivity
         // data in onPause
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             saveData();
+            App.getMruTags().save(this);
         }
         super.onStop();
     }

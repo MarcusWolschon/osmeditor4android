@@ -22,6 +22,7 @@ import de.blau.android.net.UserAgentInterceptor;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Synonyms;
@@ -64,6 +65,8 @@ public class App extends android.app.Application {
     private static final Object                     presetSearchIndexLock           = new Object();
     private static MultiHashMap<String, PresetItem> translatedPresetSearchIndex     = null;
     private static final Object                     translatedPresetSearchIndexLock = new Object();
+
+    private static MRUTags mruTags = null;
 
     /**
      * Synonym list
@@ -215,6 +218,8 @@ public class App extends android.app.Application {
             if (currentPresets == null) {
                 Preferences prefs = new Preferences(ctx);
                 currentPresets = prefs.getPreset();
+                mruTags = new MRUTags();
+                mruTags.load(ctx);
             }
             return currentPresets;
         }
@@ -248,6 +253,16 @@ public class App extends android.app.Application {
             presetSearchIndex = null;
             translatedPresetSearchIndex = null;
         }
+    }
+
+    @NonNull
+    public static MRUTags getMruTags() {
+        synchronized (currentPresetsLock) {
+            if (mruTags == null) {
+                mruTags = new MRUTags();
+            }
+        }
+        return mruTags;
     }
 
     @NonNull

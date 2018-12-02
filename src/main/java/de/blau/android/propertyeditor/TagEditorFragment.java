@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,6 +62,7 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -111,11 +113,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
     private Names names = null;
 
-    private boolean      loaded   = false;
-    private String[]     types;
-    private long[]       osmIds;
-    private Preferences  prefs    = null;
-    private OsmElement[] elements = null;
+    private boolean       loaded       = false;
+    private String[]      types;
+    private long[]        osmIds;
+    private Preferences   prefs        = null;
+    private OsmElement[]  elements     = null;
+    private ElementType[] elementTypes = null;
+    private ElementType   elementType  = null;
 
     private LayoutInflater inflater = null;
 
@@ -129,7 +133,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * per tag preset association
      */
-    private HashMap<String, PresetItem> tags2Preset = new HashMap<>();
+    private Map<String, PresetItem> tags2Preset = new HashMap<>();
 
     /**
      * Best matching preset
@@ -288,10 +292,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         editRowLayout.setSaveEnabled(false);
 
         elements = new OsmElement[osmIds.length];
+        elementTypes = new ElementType[osmIds.length];
         StorageDelegator delegator = App.getDelegator();
         for (int i = 0; i < elements.length; i++) {
             elements[i] = delegator.getOsmElement(types[i], osmIds[i]);
+            elementTypes[i] = elements[i].getType();
         }
+        // set the summary element type
+        elementType = getSummaryElementType(elementTypes);
 
         LinkedHashMap<String, ArrayList<String>> tags;
         if (savedTags != null) { // view was destroyed and needs to be recreated with current state
@@ -375,6 +383,26 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         });
         Log.d(DEBUG_TAG, "onCreateView returning");
         return rowLayout;
+    }
+
+    /**
+     * Determine the ElementType for all edited elements
+     * 
+     * @param elementTypes
+     * 
+     * @return an ElementType or null if multiple are in use
+     */
+    @Nullable
+    private ElementType getSummaryElementType(ElementType[] elementTypes) {
+        ElementType result = null;
+        for (ElementType et : elementTypes) {
+            if (result == null) {
+                result = et;
+            } else if (result != et) {
+                return result;
+            }
+        }
+        return result;
     }
 
     /**
@@ -592,10 +620,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         if (elements.length == 1) {
             // update element type for preset filter if necessary
-            ElementType newType = elements[0].getType(allTags);
-            ElementType oldType = elements[0].getType();
-            if (newType != oldType) {
-                presetFilterUpdate.update(newType);
+            ElementType oldType = elementType;
+            elementType = elements[0].getType(allTags);
+            if (elementType != oldType) {
+                presetFilterUpdate.update(elementType);
             }
 
             if (presets != null && addToMru) {
@@ -608,6 +636,23 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     ((PropertyEditor) getActivity()).recreateRecentPresetView();
                 }
             }
+        } else if (rowLayout != null) { // this might be too expensive
+            LinkedHashMap<String, ArrayList<String>> edits = getKeyValueMap(rowLayout, false);
+            Map<String, String> tags = new HashMap<>();
+            for (int i = 0; i < elements.length; i++) {
+                tags.clear();
+                for (Entry<String, ArrayList<String>> entry : edits.entrySet()) {
+                    List<String> values = entry.getValue();
+                    if (values != null && values.size() > i) {
+                        String value = values.get(i);
+                        if (value != null && !"".equals(value)) {
+                            tags.put(entry.getKey(), value);
+                        }
+                    }
+                }
+                elementTypes[i] = elements[i].getType(tags);
+            }
+            elementType = getSummaryElementType(elementTypes);
         }
     }
 
@@ -669,17 +714,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (field instanceof PresetCheckGroupField) {
                     field = ((PresetCheckGroupField) field).getCheckField(key);
                 }
-                if (Preset.hasKeyValue(field, key, value)) {
+                if (field != null) {
                     storePreset(key, preset);
                 } else {
                     boolean found = false;
                     if (linkedPresetList != null) {
                         for (PresetItem linkedPreset : linkedPresetList) {
+                            if (linkedPreset.getFixedTagCount() > 0) {
+                                // fixed key presets should always count as themselves
+                                continue;
+                            }
                             PresetField linkedField = linkedPreset.getField(key);
                             if (linkedField instanceof PresetCheckGroupField) {
                                 linkedField = ((PresetCheckGroupField) linkedField).getCheckField(key);
                             }
-                            if (Preset.hasKeyValue(linkedField, key, value)) {
+                            if (linkedField != null) {
                                 storePreset(key, linkedPreset);
                                 found = true;
                                 break;
@@ -697,14 +746,29 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return leftOvers;
     }
 
-    private PresetItem getPreset(String key) {
+    /**
+     * Get the PresetITem associated with a specific key
+     * 
+     * @param key the key
+     * @return the PresetItem or null if not found
+     */
+    private PresetItem getPreset(@NonNull String key) {
         return tags2Preset.get(key);
     }
 
-    private void storePreset(String key, PresetItem preset) {
+    /**
+     * Store the key to PresetITem mapping
+     * 
+     * @param key the key
+     * @param preset the PresetItem
+     */
+    private void storePreset(@NonNull String key, @NonNull PresetItem preset) {
         tags2Preset.put(key, preset);
     }
 
+    /**
+     * Clear the key to PresetITem mapping
+     */
     private void clearPresets() {
         tags2Preset.clear();
     }
@@ -746,13 +810,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param preset the current best matching PresetItem or null
      * @param rowLayout the Layout holding the tag rows
      * @param keyEdit the AutoCompleteTextView the Adapter is for
-     * @param allTags the current tags
      * @return an ArrayAdapter holding the key Strings
      */
-    private ArrayAdapter<String> getKeyAutocompleteAdapter(@Nullable PresetItem preset, @NonNull LinearLayout rowLayout, @NonNull AutoCompleteTextView keyEdit,
-            @NonNull LinkedHashMap<String, String> allTags) {
+    private ArrayAdapter<String> getKeyAutocompleteAdapter(@Nullable PresetItem preset, @NonNull LinearLayout rowLayout,
+            @NonNull AutoCompleteTextView keyEdit) {
         // Use a set to prevent duplicate keys appearing
-        Set<String> keys = new HashSet<>();
+        Set<String> keys = new LinkedHashSet<>();
 
         Preset[] presets = propertyEditorListener.getPresets();
         if (preset == null && presets != null) {
@@ -769,14 +832,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             }
         }
 
-        if (presets != null && elements[0] != null) { // FIXME multiselect
-            keys.addAll(Preset.getAutocompleteKeys(presets, elements[0].getType(allTags)));
+        keys.addAll(App.getMruTags().getKeys(elementType));
+
+        if (presets != null) {
+            List<String> allKeys = new ArrayList<>(Preset.getAutocompleteKeys(presets, elementType));
+            // allKeys.removeAll(keys);
+            Collections.sort(allKeys);
+            keys.addAll(allKeys);
         }
 
         keys.removeAll(getUsedKeys(rowLayout, keyEdit));
 
         List<String> result = new ArrayList<>(keys);
-        Collections.sort(result);
+
         return new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, result);
     }
 
@@ -813,7 +881,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 || usedKeys.contains(Tags.KEY_NATURAL) || usedKeys.contains(Tags.KEY_RAILWAY));
     }
 
-    private ArrayAdapter<?> getValueAutocompleteAdapter(PresetItem preset, LinearLayout rowLayout, TagEditRow row, LinkedHashMap<String, String> allTags) {
+    /**
+     * Get an Adapter for value autocomplete
+     * 
+     * @param preset the PresetItem for row
+     * @param rowLayout the Layout holding the rows
+     * @param row the actual row
+     * @return an ArrayAdapter holding the values or null
+     */
+    @Nullable
+    private ArrayAdapter<?> getValueAutocompleteAdapter(@Nullable PresetItem preset, @NonNull LinearLayout rowLayout, @NonNull TagEditRow row) {
         ArrayAdapter<?> adapter = null;
         String key = row.getKey();
         if (key != null && key.length() > 0) {
@@ -862,7 +939,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         adapter2.add(v);
                     }
                 }
-                if (preset != null) { // note this will use the last applied preset which may be wrong FIXME
+                if (preset != null) {
+                    List<String> mruValues = App.getMruTags().getValues(preset, key);
+                    if (mruValues != null) {
+                        for (String v : mruValues) {
+                            adapter2.add(new ValueWithCount(v));
+                            counter.put(v, 1);
+                        }
+                    }
                     Collection<StringWithDescription> values = preset.getAutocompleteValues(key);
                     Log.d(DEBUG_TAG, "setting autocomplete adapter for values " + values + " based on " + preset.getName());
                     if (values != null && !values.isEmpty()) {
@@ -878,16 +962,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                         }
                         Log.d(DEBUG_TAG, "key " + key + " type " + preset.getKeyType(key));
                     } else if (preset.isFixedTag(key)) {
-                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elements[0].getType(allTags),
-                                key)) {
+                        for (StringWithDescription s : Preset.getAutocompleteValues(((PropertyEditor) getActivity()).presets, elementType, key)) {
                             adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                         }
                     }
-                } else if (propertyEditorListener.getPresets() != null && elements[0] != null) {
+                } else if (propertyEditorListener.getPresets() != null) {
                     Log.d(DEBUG_TAG, "generate suggestions for >" + key + "< from presets"); // only do this if there is
                                                                                              // no other source of
                                                                                              // suggestions
-                    for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), elements[0].getType(allTags), key)) {
+                    List<String> mruValues = App.getMruTags().getValues(key);
+                    if (mruValues != null) {
+                        for (String v : mruValues) {
+                            adapter2.add(new ValueWithCount(v));
+                        }
+                    }
+                    for (StringWithDescription s : Preset.getAutocompleteValues(propertyEditorListener.getPresets(), elementType, key)) {
                         adapter2.add(new ValueWithCount(s.getValue(), s.getDescription()));
                     }
                 } else if (adapter2.getCount() == 0) {
@@ -977,7 +1066,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (hasFocus) {
                     // Log.d(DEBUG_TAG,"got focus");
                     originalKey = row.getKey();
-                    row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit, getKeyValueMapSingle(rowLayout, true)));
+                    row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
                     if (PropertyEditor.running && row.getKey().length() == 0) {
                         row.keyEdit.showDropDown();
                     }
@@ -1002,7 +1091,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     PresetItem preset = getPreset(key);
                     final ValueType valueType = preset != null ? preset.getValueType(key) : null;
                     final PresetKeyType keyType = preset != null ? preset.getKeyType(key) : null;
-                    row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row, getKeyValueMapSingle(rowLayout, true)));
+                    row.valueEdit.setAdapter(getValueAutocompleteAdapter(preset, rowLayout, row));
                     if (preset != null && keyType == PresetKeyType.MULTISELECT) {
                         // FIXME this should be somewhere better obvious since it creates a non obvious side effect
                         row.valueEdit.setTokenizer(new CustomAutoCompleteTextView.SingleCharTokenizer(preset.getDelimiter(key)));
@@ -2129,12 +2218,16 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             for (String key : new TreeSet<>(map.keySet())) {
                 if (edits.containsKey(key)) {
                     List<String> valueList = edits.get(key);
-                    if (valueList.size() == 1) {
+                    if (valueList.size() == 1) { // if more than one value, we haven't changed anything in multi-select
                         String value = valueList.get(0).trim();
-                        if (saveTag(key, value)) {
-                            addTagToMap(map, key, value);
-                        } else {
-                            map.remove(key); // zap stuff with empty values or just the HTTP prefix
+                        String oldValue = map.get(key);
+                        Log.e(DEBUG_TAG, "new " + value + " old " + oldValue);
+                        if (!value.equals(oldValue)) {
+                            if (saveTag(key, value)) {
+                                addTagToMap(map, key, value);
+                            } else {
+                                map.remove(key); // zap stuff with empty values or just the HTTP prefix
+                            }
                         }
                     }
                 } else { // key deleted
@@ -2146,8 +2239,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 String editsKey = entry.getKey();
                 List<String> valueList = entry.getValue();
                 if (editsKey != null && !"".equals(editsKey) && !map.containsKey(editsKey) && valueList.size() == 1) {
-                    // zap empty stuff or just the HTTP prefix
-                    // FIXME throw an exception when we do zap
                     String value = valueList.get(0).trim();
                     if (saveTag(editsKey, value)) {
                         addTagToMap(map, editsKey, value);
@@ -2248,18 +2339,34 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Add key-value to a map stripping training list separator
+     * Add key-value to a map stripping trailing list separator
      * 
      * @param map target map
      * @param key string containing the key
      * @param value string containing the value
      */
-    private void addTagToMap(Map<String, String> map, String key, String value) {
-        if (primaryPresetItem != null && primaryPresetItem.getKeyType(key) == PresetKeyType.MULTISELECT) {
-            // trim potential trailing separators
-            if (value.endsWith(String.valueOf(primaryPresetItem.getDelimiter(key)))) {
-                value = value.substring(0, value.length() - 1);
+    private void addTagToMap(@NonNull Map<String, String> map, @NonNull String key, @NonNull String value) {
+        PresetItem pi = getPreset(key);
+        MRUTags mruTags = App.getMruTags();
+        if (pi != null) {
+            if (pi.getKeyType(key) == PresetKeyType.MULTISELECT) {
+                // trim potential trailing separators
+                char delimter = pi.getDelimiter(key);
+                if (value.endsWith(String.valueOf(delimter))) {
+                    value = value.substring(0, value.length() - 1);
+                }
+                List<String> values = Preset.splitValues(Util.getArrayList(value), pi, key);
+                if (values != null) {
+                    Collections.reverse(values);
+                    for (String v : values) {
+                        mruTags.put(pi, key, v);
+                    }
+                }
+            } else {
+                mruTags.put(pi, key, value);
             }
+        } else {
+            mruTags.put(key, value);
         }
         map.put(key, value);
     }

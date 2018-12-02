@@ -133,7 +133,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Handles "enter" key presses.
      */
-    final OnKeyListener myKeyListener = new MyKeyListener();
+    final static OnKeyListener myKeyListener = new MyKeyListener();
 
     /**
      * True while the activity is between onResume and onPause. Used to suppress autocomplete dropdowns while the
@@ -754,7 +754,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     @Override
     public void onBackPressed() {
-        // sendResultAndFinish();
         if (tagFormFragment != null) {
             tagFormFragment.updateEditorFromText(); // update any non-synced changes to the editor fragment
         }
@@ -933,6 +932,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         outState.putInt(CURRENTITEM, mViewPager.getCurrentItem());
         outState.putBoolean(PANELAYOUT, usePaneLayout);
         outState.putSerializable(TAGEDIT_DATA, loadData);
+        App.getMruTags().save(this);
     }
 
     /** When the Activity is interrupted, save MRUs and address cache */
@@ -963,7 +963,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
      * 
      * @author <a href="mailto:Marcus@Wolschon.biz">Marcus Wolschon</a>
      */
-    private class MyKeyListener implements OnKeyListener {
+    private static class MyKeyListener implements OnKeyListener {
         @Override
         public boolean onKey(final View view, final int keyCode, final KeyEvent keyEvent) {
             if (keyEvent.getAction() == KeyEvent.ACTION_UP || keyEvent.getAction() == KeyEvent.ACTION_MULTIPLE) {
@@ -1091,11 +1091,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         }
     }
 
-    /**
-     * Get current contents of editor for saving
-     * 
-     * @return list containing the tag maps or null if something went wrong
-     */
+    @Override
     @Nullable
     public List<LinkedHashMap<String, String>> getUpdatedTags() {
         if (tagEditorFragment != null) {

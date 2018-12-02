@@ -2,8 +2,11 @@ package de.blau.android.propertyeditor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -28,17 +31,18 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Way;
@@ -51,6 +55,7 @@ import de.blau.android.util.SavingHelper;
 import de.blau.android.util.StringWithDescription;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
+import de.blau.android.util.collections.MultiHashMap;
 
 public class RelationMembersFragment extends BaseFragment implements PropertyRows {
 
@@ -69,6 +74,8 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public static final String                                           FILENAME_ORIG_MEMBERS = "orig_members.res";
 
     private int maxStringLength; // maximum key, value and role length
+
+    private PropertyEditorListener propertyEditorListener;
 
     private static SelectedRowsActionModeCallback memberSelectedActionModeCallback = null;
     private static final Object                   actionModeCallbackLock           = new Object();
@@ -100,11 +107,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     @Override
     public void onAttachToContext(Context context) {
         Log.d(DEBUG_TAG, "onAttachToContext");
-        // try {
-        // mListener = (OnPresetSelectedListener) activity;
-        // } catch (ClassCastException e) {
-        // throw new ClassCastException(activity.toString() + " must implement OnPresetSelectedListener");
-        // }
+        try {
+            propertyEditorListener = (PropertyEditorListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement PropertyEditorListener");
+        }
     }
 
     @Override
@@ -482,7 +489,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             row.roleEdit.setEllipsize(TruncateAt.END);
         }
 
-        row.setValues(getActivity(), pos, id, rmd, c);
+        row.setValues(getActivity(), pos, rmd, c);
 
         // need to do this before the listener is set
         if (select) {
@@ -515,7 +522,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     public static class RelationMemberRow extends LinearLayout implements SelectedRowsActionModeCallback.Row {
 
         private PropertyEditor       owner;
-        private long                 relationId;
         private CheckBox             selected;
         private AutoCompleteTextView roleEdit;
         private ImageView            typeView;
@@ -567,7 +573,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             selected = (CheckBox) findViewById(R.id.member_selected);
 
             roleEdit = (AutoCompleteTextView) findViewById(R.id.editMemberRole);
-            roleEdit.setOnKeyListener(owner.myKeyListener);
+            roleEdit.setOnKeyListener(PropertyEditor.myKeyListener);
             // lastEditKey.setSingleLine(true);
 
             typeView = (ImageView) findViewById(R.id.memberType);
@@ -618,12 +624,11 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
          * 
          * @param ctx Android Context (not used)
          * @param pos position (not used)
-         * @param id Relation id
          * @param rmd the information on the relation member
          * @param c Connected status (not used)
          * @return RelationMemberRow object for convenience
          */
-        public RelationMemberRow setValues(Context ctx, String pos, long id, RelationMemberDescription rmd, Connected c) {
+        public RelationMemberRow setValues(Context ctx, String pos, RelationMemberDescription rmd, Connected c) {
 
             String desc = rmd.getDescription();
             this.rmd = rmd;
@@ -632,7 +637,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
             // setIcon(ctx, rmd, c);
             typeView.setTag(rmd.getType());
             elementView.setText(desc);
-            relationId = id;
             return this;
         }
 
@@ -830,10 +834,26 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
                 if (owner.presets != null) { //
                     PresetItem relationPreset = Preset.findBestMatch(owner.presets, allTags.get(0));
                     if (relationPreset != null) {
-                        List<PresetRole> tempRoles = relationPreset.getRoles(rmd.getType());
+                        Map<String, Integer> counter = new HashMap<>();
+                        int position = 0;
+                        List<String> tempRoles = App.getMruTags().getRoles(relationPreset);
                         if (tempRoles != null) {
-                            Collections.sort(tempRoles);
-                            roles = tempRoles;
+                            for (String role : tempRoles) {
+                                roles.add(new PresetRole(role, null, rmd.getType()));
+                                counter.put(role, position++);
+                            }
+                        }
+                        List<PresetRole> tempPresetRoles = relationPreset.getRoles(rmd.getType());
+                        if (tempPresetRoles != null) {
+                            Collections.sort(tempPresetRoles);
+                            for (PresetRole presetRole : tempPresetRoles) {
+                                Integer counterPos = counter.get(presetRole.getRole());
+                                if (counterPos != null) {
+                                    roles.get(counterPos).setHint(presetRole.getHint());
+                                    continue;
+                                }
+                                roles.add(presetRole);
+                            }
                         }
                     }
                 }
@@ -907,7 +927,12 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     /**
      */
     private interface RelationMemberHandler {
-        void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView);
+        /**
+         * Process the contents of a RelationMemberRow
+         * 
+         * @param row the RelationMemberRow
+         */
+        void handleRelationMember(final RelationMemberRow row);
     }
 
     /**
@@ -922,7 +947,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         for (int i = 0; i < size; ++i) { // -> avoid header
             View view = relationMembersLayout.getChildAt(i);
             RelationMemberRow row = (RelationMemberRow) view;
-            handler.handleRelationMember(row.typeView, row.rmd.getRef(), row.roleEdit, row.elementView);
+            handler.handleRelationMember(row);
         }
     }
 
@@ -930,18 +955,51 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
      * Collect all interesting values from the relation member view RelationMemberDescritption is an extended version of
      * RelationMember that holds a textual description of the element instead of the element itself
      * 
+     * Updating the MEU role is tricky as we want to avoid going through the list of members multiple times, the
+     * solution is not exact due to this
+     * 
      * @return ArrayList<RelationMemberDescription>.
      */
     ArrayList<RelationMemberDescription> getMembersList() {
         final ArrayList<RelationMemberDescription> members = new ArrayList<>();
+
+        final Relation r = (Relation) propertyEditorListener.getElement();
+        final Preset[] presets = propertyEditorListener.getPresets();
+        final List<LinkedHashMap<String, String>> allTags = propertyEditorListener.getUpdatedTags();
+        final PresetItem presetItem = presets != null && allTags != null && !allTags.isEmpty() ? Preset.findBestMatch(presets, allTags.get(0)) : null;
+
+        final MultiHashMap<String, String> originalMembesRoles = new MultiHashMap<>(false);
+        if (r != null) {
+            List<RelationMember> originalMembers = r.getMembers();
+            if (originalMembers != null) {
+                for (RelationMember rm : originalMembers) {
+                    if (!"".equals(rm.getRole())) {
+                        originalMembesRoles.add(rm.getType() + rm.getRef(), rm.getRole());
+                    }
+                }
+            }
+        }
+
         processRelationMembers(new RelationMemberHandler() {
             @Override
-            public void handleRelationMember(final ImageView typeView, final long elementId, final EditText roleEdit, final TextView descView) {
-                String type = ((String) typeView.getTag()).trim();
-                String role = roleEdit.getText().toString().trim();
-                String desc = descView.getText().toString().trim();
-                RelationMemberDescription rmd = new RelationMemberDescription(type, elementId, role, desc);
+            public void handleRelationMember(final RelationMemberRow row) {
+                String type = ((String) row.typeView.getTag()).trim();
+                String role = row.roleEdit.getText().toString().trim();
+                String desc = row.elementView.getText().toString().trim();
+                RelationMemberDescription rmd = new RelationMemberDescription(type, row.rmd.getRef(), role, desc);
                 members.add(rmd);
+
+                Set<String> originalRoles = originalMembesRoles.get(type + row.rmd.getRef());
+                if (originalRoles != null) {
+                    if (!"".equals(role) && !originalRoles.contains(role)) {
+                        // only add if the role wasn't in use before
+                        if (presetItem != null) {
+                            App.getMruTags().putRole(presetItem, role);
+                        } else {
+                            App.getMruTags().putRole(role);
+                        }
+                    }
+                }
             }
         });
         return members;
