@@ -50,7 +50,7 @@ There are currently two configurable checks: a check for missing keys and an age
 
 The missing tag check works on the combination of the keys that should be checked and the preset for element.
 
-Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to "optional" tags.
+Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to require "optional" tags.
 
 ## Advanced preferences
 

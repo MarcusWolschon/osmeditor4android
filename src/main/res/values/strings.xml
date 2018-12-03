@@ -184,8 +184,8 @@
     <string name="add_check_title">Add check entry</string>
     <string name="max_age">Max. age</string>
     <string name="age">Age</string>
-    <string name="check_opt">Check opt.</string>
-    <string name="check_optional">Check optional</string>
+    <string name="check_opt">Require\noptional</string>
+    <string name="check_optional">Require optional</string>
     <string name="add_resurvey_entry">Add re-survey entry</string>
     <string name="add_check_entry">Add check entry</string>
     <!-- Empty relation dialog  -->
