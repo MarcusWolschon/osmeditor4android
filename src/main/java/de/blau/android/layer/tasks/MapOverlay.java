@@ -209,6 +209,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
      * @param context Android Context
      * @throws IOException on errors writing the file
      */
+    @Override
     public synchronized void onSaveState(@NonNull Context context) throws IOException {
         super.onSaveState(context);
         if (readingLock.tryLock()) {
@@ -238,6 +239,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
      * @param context Android context
      * @return true if the saved state was successfully read
      */
+    @Override
     public synchronized boolean onRestoreState(@NonNull Context context) {
         super.onRestoreState(context);
         try {

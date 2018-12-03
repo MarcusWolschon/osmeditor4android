@@ -1821,7 +1821,6 @@ public class Logic {
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
         displayAttachedObjectWarning(activity, sortedWays, true); // needs to be done before merge
-        boolean mergeOK = true;
         if (sortedWays.isEmpty()) {
             throw new OsmIllegalOperationException("No ways to merge");
         }

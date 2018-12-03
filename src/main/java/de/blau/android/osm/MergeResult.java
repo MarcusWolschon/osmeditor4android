@@ -6,7 +6,6 @@ import java.util.Set;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import de.blau.android.osm.MergeResult.Issue;
 
 /**
  * Small container for results of merge operation
@@ -45,7 +44,7 @@ public class MergeResult {
      */
     public void addIssue(@NonNull Issue issue) {
         if (issues == null) {
-            issues = new HashSet<Issue>();
+            issues = new HashSet<>();
         }
         issues.add(issue);
     }
@@ -57,7 +56,7 @@ public class MergeResult {
      */
     public void addAllIssues(@NonNull Collection<Issue> issues) {
         if (this.issues == null) {
-            this.issues = new HashSet<Issue>();
+            this.issues = new HashSet<>();
         }
         this.issues.addAll(issues);
     }

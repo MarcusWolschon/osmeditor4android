@@ -205,7 +205,7 @@ public class MRUTags {
                     result.addAll(mru);
                 }
             }
-            return new ArrayList<String>(result);
+            return new ArrayList<>(result);
         }
     }
 
@@ -290,7 +290,7 @@ public class MRUTags {
                 return null;
             }
         };
-        if (dirty == true) {
+        if (dirty) {
             save.execute();
         } else {
             Log.d(DEBUG_TAG, "Not dirty, not saving");
@@ -479,6 +479,7 @@ public class MRUTags {
                     if (inValues) {
                         putValue(presetItem, valueKey, attr.getValue(VALUE_ATTR));
                     }
+                    break;
                 case ROLES_TAG:
                     inRoles = true;
                     break;

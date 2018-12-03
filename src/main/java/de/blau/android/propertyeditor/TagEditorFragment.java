@@ -1261,11 +1261,11 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 return; // allow visual editor to work
             }
             keyEdit = (AutoCompleteTextView) findViewById(R.id.editKey);
-            keyEdit.setOnKeyListener(owner.myKeyListener);
+            keyEdit.setOnKeyListener(PropertyEditor.myKeyListener);
             // lastEditKey.setSingleLine(true);
 
             valueEdit = (CustomAutoCompleteTextView) findViewById(R.id.editValue);
-            valueEdit.setOnKeyListener(owner.myKeyListener);
+            valueEdit.setOnKeyListener(PropertyEditor.myKeyListener);
 
             selected = (CheckBox) findViewById(R.id.tagSelected);
 

@@ -127,7 +127,7 @@ public class SimpleActionModeCallback extends EasyEditActionModeCallback impleme
 
             @Override
             public void action(final Main main, final EasyEditManager manager, final float x, final float y) {
-                OsmElement e = App.getLogic().pasteFromClipboard(main, x, y);
+                App.getLogic().pasteFromClipboard(main, x, y);
             }
 
         }) {

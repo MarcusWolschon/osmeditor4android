@@ -13,8 +13,9 @@ import android.support.annotation.NonNull;
  *
  */
 public class PresetElementPath implements Serializable {
-    private static final long serialVersionUID = 1L;
-    final List<String>        path;
+    private static final long  serialVersionUID = 1L;
+    
+    private final List<String> path;
 
     /**
      * Construct an empty PresetElementPath

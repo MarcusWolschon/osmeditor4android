@@ -20,7 +20,7 @@ public class NewNoteSelectionActionModeCallback extends EasyEditActionModeCallba
     private static final int MENUITEM_DELETE = 2;
 
     final Note               note;
-    final private MapOverlay layer;
+    private final MapOverlay layer;
 
     /**
      * Construct a new callback for editing new nodes

@@ -225,7 +225,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem arg0) {
-                            prefs.setPhotoLayerEnabled(true);;
+                            prefs.setPhotoLayerEnabled(true);
                             updateDialogAndPrefs(activity, prefs);
                             return true;
                         }

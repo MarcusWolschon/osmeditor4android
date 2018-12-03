@@ -333,6 +333,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
 
                                 @Override
                                 public void onError() {
+                                    // unused
                                 }
                             });
                         } catch (OsmException e1) {

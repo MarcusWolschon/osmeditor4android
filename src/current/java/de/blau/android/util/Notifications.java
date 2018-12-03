@@ -6,10 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.Builder;
-import de.blau.android.BuildConfig;
 import de.blau.android.R;
-import de.blau.android.contract.Flavors;
 import de.blau.android.prefs.Preferences;
 
 /**
@@ -21,7 +18,7 @@ import de.blau.android.prefs.Preferences;
 public final class Notifications {
 
     private static final String DEFAULT_CHANNEL = "default";
-    
+
     /**
      * Private constructor
      */
@@ -89,7 +86,7 @@ public final class Notifications {
     }
 
     /**
-     * Set the group alert behaviour 
+     * Set the group alert behaviour
      * 
      * @param prefs a Preferences instance
      * @param mBuilder the NotificationCompat.Builder we want to change

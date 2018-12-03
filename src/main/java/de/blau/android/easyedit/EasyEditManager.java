@@ -73,8 +73,8 @@ public class EasyEditManager {
      */
     public boolean inElementSelectedMode() {
         synchronized (actionModeCallbackLock) {
-            return (currentActionModeCallback != null) && (currentActionModeCallback instanceof ElementSelectionActionModeCallback
-                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback);
+            return currentActionModeCallback instanceof ElementSelectionActionModeCallback
+                    || currentActionModeCallback instanceof ExtendSelectionActionModeCallback;
         }
     }
 
@@ -85,7 +85,7 @@ public class EasyEditManager {
      */
     public boolean inNewNoteSelectedMode() {
         synchronized (actionModeCallbackLock) {
-            return (currentActionModeCallback != null) && (currentActionModeCallback instanceof NewNoteSelectionActionModeCallback);
+            return currentActionModeCallback instanceof NewNoteSelectionActionModeCallback;
         }
     }
 

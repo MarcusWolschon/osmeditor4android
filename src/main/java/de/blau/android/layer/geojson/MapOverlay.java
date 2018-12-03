@@ -919,5 +919,6 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void deselectObjects() {
+        // not used
     }
 }

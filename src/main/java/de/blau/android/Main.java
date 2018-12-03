@@ -771,6 +771,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onError() {
+             // unused
             }
         };
         PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
@@ -794,6 +795,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onError() {
+             // unused
             }
         };
         synchronized (loadOnResumeLock) {
@@ -819,6 +821,7 @@ public class Main extends FullScreenAppCompatActivity
 
                             @Override
                             public void onError() {
+                                // unused
                             }
                         });
                     }

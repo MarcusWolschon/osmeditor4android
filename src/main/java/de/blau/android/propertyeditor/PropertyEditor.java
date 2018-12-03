@@ -133,7 +133,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     /**
      * Handles "enter" key presses.
      */
-    final static OnKeyListener myKeyListener = new MyKeyListener();
+    static final OnKeyListener myKeyListener = new MyKeyListener();
 
     /**
      * True while the activity is between onResume and onPause. Used to suppress autocomplete dropdowns while the

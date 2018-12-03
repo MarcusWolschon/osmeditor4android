@@ -378,7 +378,7 @@ public class Map extends View implements IMapView {
      */
     public void deselectObjects() {
         for (MapViewLayer layer : getLayers()) {
-            if (layer != null && layer instanceof ClickableInterface) {
+            if (layer instanceof ClickableInterface) {
                 ((ClickableInterface<?>) layer).deselectObjects();
             }
         }
