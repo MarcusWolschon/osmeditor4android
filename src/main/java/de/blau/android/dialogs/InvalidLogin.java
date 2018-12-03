@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
+import de.blau.android.Authorize;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
@@ -74,9 +75,7 @@ public class InvalidLogin extends DialogFragment {
     @NonNull
     private static InvalidLogin newInstance() {
         InvalidLogin f = new InvalidLogin();
-
         f.setShowsDialog(true);
-
         return f;
     }
 
@@ -110,7 +109,7 @@ public class InvalidLogin extends DialogFragment {
             builder.setPositiveButton(R.string.wrong_login_data_re_authenticate, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((Main) getActivity()).oAuthHandshake(server, null);
+                    Authorize.startForResult(getActivity(), null);
                 }
             });
         }

@@ -146,6 +146,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="Authorize"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat" />
+        <activity
             android:name="LicenseViewer"
             android:theme="@style/Theme.AppCompat" />
         <activity

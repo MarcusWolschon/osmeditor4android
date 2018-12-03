@@ -29,13 +29,14 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.Authorize;
 import de.blau.android.ErrorCodes;
-import de.blau.android.Main;
 import de.blau.android.PostAsyncActionHandler;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -47,6 +48,7 @@ import de.blau.android.prefs.API;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
+import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.BasicAuthInterceptor;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.OAuthHelper;
@@ -2006,20 +2008,24 @@ public class Server {
      * 
      * @param activity calling FragmentActivity
      * @param server the current in use Server API
-     * @param restartAction the action to do when we've been sucessfully authenticated
+     * @param restartAction the action to do when we've been successfully authenticated
+     * @return true if login was already ok else false
      */
     public static boolean checkOsmAuthentication(@NonNull final FragmentActivity activity, @NonNull final Server server,
             @NonNull PostAsyncActionHandler restartAction) {
         if (server.isLoginSet()) {
             if (server.needOAuthHandshake()) {
-                if (activity instanceof Main) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((Main) activity).oAuthHandshake(server, restartAction);
-                        }
-                    });
-                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Authorize.startForResult(activity, new ActivityResultHandler.Listener() {
+                            @Override
+                            public void processResult(int resultCode, Intent result) {
+                                restartAction.onSuccess();
+                            }
+                        });
+                    }
+                });
                 if (server.getOAuth()) { // if still set
                     Snack.barError(activity, R.string.toast_oauth);
                 }

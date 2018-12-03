@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -26,7 +23,6 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.drawable.StateListDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -78,10 +74,6 @@ import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -152,13 +144,13 @@ import de.blau.android.services.TrackerService.TrackerLocationListener;
 import de.blau.android.tasks.Task;
 import de.blau.android.tasks.TransferTasks;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.ActivityResultHandler;
 import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
-import de.blau.android.util.OAuthHelper;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
@@ -170,7 +162,6 @@ import de.blau.android.util.Version;
 import de.blau.android.views.ZoomControls;
 import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.voice.Commands;
-import oauth.signpost.exception.OAuthException;
 
 /**
  * This is the main Activity from where other Activities will be started.
@@ -178,7 +169,7 @@ import oauth.signpost.exception.OAuthException;
  * @author mb
  */
 public class Main extends FullScreenAppCompatActivity
-        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback {
+        implements ServiceConnection, TrackerLocationListener, UpdateViewListener, de.blau.android.geocode.SearchItemSelectedCallback, ActivityResultHandler {
 
     private static final int ZOOM_FOR_ZOOMTO = 22;
 
@@ -207,8 +198,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 3;
 
-    public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
-    public static final String ACTION_EXIT         = "de.blau.android.EXIT";
+    public static final String ACTION_EXIT = "de.blau.android.EXIT";
 
     /**
      * Alpha value for floating action buttons workaround We should probably find a better place for this
@@ -310,12 +300,6 @@ public class Main extends FullScreenAppCompatActivity
             }
         }
     };
-
-    /**
-     * webview for logging in and authorizing OAuth
-     */
-    private WebView oAuthWebView;
-    private Object  oAuthWebViewLock = new Object();
 
     /**
      * our map layout
@@ -430,9 +414,6 @@ public class Main extends FullScreenAppCompatActivity
      */
     private File imageFile = null;
 
-    // if set this is called to restart post authentication
-    private PostAsyncActionHandler restart;
-
     // flag to ensure that we only check once per activity life cycle
     private boolean gpsChecked = false;
 
@@ -444,6 +425,8 @@ public class Main extends FullScreenAppCompatActivity
 
     private boolean newInstall = false;
     private boolean newVersion = false;
+
+    java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
     /**
      * While the activity is fully active (between onResume and onPause), this stores the currently active instance
@@ -695,10 +678,6 @@ public class Main extends FullScreenAppCompatActivity
         String action = intent.getAction();
         if (action != null) {
             switch (action) {
-            case ACTION_FINISH_OAUTH:
-                Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
-                finishOAuth();
-                return;
             case ACTION_EXIT:
                 Log.d(DEBUG_TAG, "onNewIntent calling exit");
                 exit();
@@ -771,7 +750,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onError() {
-             // unused
+                // unused
             }
         };
         PostAsyncActionHandler postLoadTasks = new PostAsyncActionHandler() {
@@ -795,7 +774,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onError() {
-             // unused
+                // unused
             }
         };
         synchronized (loadOnResumeLock) {
@@ -2163,10 +2142,11 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_tools_oauth_authorisation: // immediately start
                                                   // authorization handshake
             if (server.getOAuth()) {
-                oAuthHandshake(server, null);
+                Authorize.startForResult(this, null);
             } else {
                 Snack.barError(this, R.string.toast_oauth_not_enabled);
             }
+
             return true;
         case R.id.menu_tools_set_maproulette_apikey:
             final AppCompatDialog dialog = TextLineDialog.get(this, R.string.maproulette_task_set_apikey, new TextLineDialog.TextLineInterface() {
@@ -2527,6 +2507,13 @@ public class Main extends FullScreenAppCompatActivity
         } else if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
                 && resultCode == RESULT_OK) {
             SelectFile.handleResult(requestCode, data);
+        } else {
+            ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
+            if (listener != null) {
+                listener.processResult(resultCode, data);
+            } else {
+                Log.w(DEBUG_TAG, "Received activity result without listener, code " + requestCode);
+            }
         }
         scheduleAutoLock();
     }
@@ -2924,168 +2911,6 @@ public class Main extends FullScreenAppCompatActivity
     }
 
     /**
-     * @param server Server properties.
-     * @param restart Handler to be executed after asynchronous action have been performed.
-     */
-    @SuppressLint({ "SetJavaScriptEnabled", "InlinedApi", "NewApi" })
-    public void oAuthHandshake(Server server, PostAsyncActionHandler restart) {
-        descheduleAutoLock();
-        this.restart = restart;
-        hideControls();
-
-        String url = Server.getBaseUrl(server.getReadWriteUrl());
-        OAuthHelper oa;
-        try {
-            oa = new OAuthHelper(url);
-        } catch (OsmException oe) {
-            server.setOAuth(false); // ups something went wrong turn oauth off
-            showControls();
-            Snack.barError(this, R.string.toast_no_oauth);
-            return;
-        }
-        Log.d(DEBUG_TAG, "oauth auth url " + url);
-
-        String authUrl = null;
-        String errorMessage = null;
-        try {
-            authUrl = oa.getRequestToken();
-        } catch (OAuthException e) {
-            errorMessage = OAuthHelper.getErrorMessage(this, e);
-        } catch (ExecutionException e) {
-            errorMessage = getString(R.string.toast_oauth_communication);
-        } catch (TimeoutException e) {
-            errorMessage = getString(R.string.toast_oauth_timeout);
-        }
-        if (authUrl == null) {
-            Snack.barError(this, errorMessage);
-            showControls();
-            return;
-        }
-        Log.d(DEBUG_TAG, "authURl " + authUrl);
-        synchronized (oAuthWebViewLock) {
-            oAuthWebView = new WebView(this);
-            // setting our own user agent seems to make google happy
-            oAuthWebView.getSettings().setUserAgentString(App.getUserAgent());
-            mapLayout.addView(oAuthWebView);
-            oAuthWebView.getSettings().setJavaScriptEnabled(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                oAuthWebView.getSettings().setAllowContentAccess(true);
-            }
-            oAuthWebView.getLayoutParams().height = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            oAuthWebView.getLayoutParams().width = android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-            oAuthWebView.requestFocus(View.FOCUS_DOWN);
-            class OAuthWebViewClient extends WebViewClient {
-                Object   progressLock  = new Object();
-                boolean  progressShown = false;
-                Runnable dismiss       = new Runnable() {
-                                           @Override
-                                           public void run() {
-                                               Progress.dismissDialog(Main.this, Progress.PROGRESS_OAUTH);
-                                           }
-                                       };
-
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    if (!url.contains("vespucci")) {
-                        // load in in this webview
-                        view.loadUrl(url);
-                    } else {
-                        // vespucci URL
-                        // or the OSM signup page which we want to open in a
-                        // normal browser
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-                    }
-                    return true;
-                }
-
-                @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                    synchronized (progressLock) {
-                        if (!progressShown) {
-                            progressShown = true;
-                            Progress.showDialog(Main.this, Progress.PROGRESS_OAUTH);
-                        }
-                    }
-                }
-
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    synchronized (progressLock) {
-                        synchronized (oAuthWebViewLock) {
-                            if (progressShown && oAuthWebView != null) {
-                                oAuthWebView.removeCallbacks(dismiss);
-                                oAuthWebView.postDelayed(dismiss, 500);
-                            }
-                        }
-                    }
-                }
-
-                @SuppressWarnings("deprecation")
-                @Override
-                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    finishOAuth();
-                    Snack.toastTopError(view.getContext(), description);
-                }
-
-                @TargetApi(android.os.Build.VERSION_CODES.M)
-                @Override
-                public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
-                    // Redirect to deprecated method, so you can use it in all
-                    // SDK versions
-                    onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
-                }
-            }
-            oAuthWebView.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (oAuthWebView != null && oAuthWebView.canGoBack()) {
-                            oAuthWebView.goBack();
-                        } else {
-                            finishOAuth();
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            oAuthWebView.setWebViewClient(new OAuthWebViewClient());
-            oAuthWebView.loadUrl(authUrl);
-        }
-    }
-
-    /**
-     * Remove the OAuth webview
-     */
-    public void finishOAuth() {
-        Log.d(DEBUG_TAG, "finishOAuth");
-        synchronized (oAuthWebViewLock) {
-            if (oAuthWebView != null) {
-                mapLayout.removeView(oAuthWebView);
-                showControls();
-                try {
-                    // the below loadUrl, even though the "official" way to do
-                    // it, seems to be prone to crash on some devices.
-                    oAuthWebView.loadUrl("about:blank"); // workaround clearView
-                                                         // issues
-                    oAuthWebView.setVisibility(View.GONE);
-                    oAuthWebView.removeAllViews();
-                    oAuthWebView.destroy();
-                    oAuthWebView = null;
-                    if (restart != null) {
-                        restart.onSuccess();
-                    }
-                } catch (Exception ex) {
-                    ACRAHelper.nocrashReport(ex, ex.getMessage());
-                }
-            } else { // we want to have the controls showing in any case and before restart.onScucess is run
-                showControls();
-            }
-        }
-    }
-
-    /**
      * Starts the LocationPicker activity for requesting a location.
      * 
      * @param titleResId a string resource id for the title
@@ -3196,16 +3021,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     @Override
     public void onBackPressed() {
-        // super.onBackPressed();
         Log.d(DEBUG_TAG, "onBackPressed()");
-        synchronized (oAuthWebViewLock) {
-            if (oAuthWebView != null && oAuthWebView.canGoBack()) {
-                // we are displaying the oAuthWebView and somebody might want to
-                // navigate back
-                oAuthWebView.goBack();
-                return;
-            }
-        }
         if (prefs.useBackForUndo()) {
             String name = App.getLogic().undo();
             if (name != null) {
@@ -4275,5 +4091,10 @@ public class Main extends FullScreenAppCompatActivity
             throw new IllegalStateException("called before EasyEditManager was constructed");
         }
         return easyEditManager;
+    }
+
+    @Override
+    public void setResultListener(int code, Listener listener) {
+        activityResultListeners.put(code, listener);
     }
 }

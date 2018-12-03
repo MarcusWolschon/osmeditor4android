@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import de.blau.android.Main;
+import de.blau.android.Authorize;
 import de.blau.android.R;
 import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.util.ACRAHelper;
@@ -172,7 +173,15 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
         }
     }
 
-    private void oAuthHandshake(String verifier) throws OAuthException, TimeoutException, ExecutionException {
+    /**
+     * Process the OAuth callback
+     * 
+     * @param verifier the verifier
+     * @throws OAuthException
+     * @throws TimeoutException
+     * @throws ExecutionException
+     */
+    private void oAuthHandshake(@NonNull String verifier) throws OAuthException, TimeoutException, ExecutionException {
         String[] s = { verifier };
         class OAuthAccessTokenTask extends AsyncTask<String, Void, Boolean> {
             private OAuthException ex = null;
@@ -184,7 +193,7 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
                     String access[] = oa.getAccessToken(s[0]);
                     prefdb.setAPIAccessToken(access[0], access[1]);
                 } catch (OAuthException e) {
-                    Log.d("VespucciURL", "oAuthHandshake: " + e);
+                    Log.d(DEBUG_TAG, "oAuthHandshake: " + e);
                     ex = e;
                     return false;
                 }
@@ -194,8 +203,8 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
             @Override
             protected void onPostExecute(Boolean success) {
                 Log.d(DEBUG_TAG, "oAuthHandshake onPostExecute");
-                Intent intent = new Intent(VespucciURLActivity.this, Main.class);
-                intent.setAction(Main.ACTION_FINISH_OAUTH);
+                Intent intent = new Intent(VespucciURLActivity.this, Authorize.class);
+                intent.setAction(Authorize.ACTION_FINISH_OAUTH);
                 startActivity(intent);
             }
 
