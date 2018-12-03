@@ -391,6 +391,8 @@
     <string name="Key">Key</string>
     <string name="value">value</string>
     <string name="Value">Value</string>
+    <string name="multiselect_header_short">Values (%1$d)</string>
+    <string name="multiselect_header_long">Values (for %1$d elements)</string>
     <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
     <string name="tag_menu_address">Add address tags</string>
     <string name="tag_menu_sourcesurvey">Surveyed</string>

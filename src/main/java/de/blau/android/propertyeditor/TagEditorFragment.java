@@ -49,6 +49,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -159,6 +160,13 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @author Andrew Gregory
      */
     interface KeyValueHandler {
+        /**
+         * Handle the contents of a TagEditorRow
+         * 
+         * @param keyEdit the EditText holding the key
+         * @param valueEdit the EditText holding the value
+         * @param tagValues a List of tag values
+         */
         void handleKeyValue(final EditText keyEdit, final EditText valueEdit, final ArrayList<String> tagValues);
     }
 
@@ -301,6 +309,14 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // set the summary element type
         elementType = getSummaryElementType(elementTypes);
 
+        // set the value header if we are in multi-select mode
+        if (elements.length > 1) {
+            TextView valueHeader = (TextView) rowLayout.findViewById(R.id.header_value);
+            int headerRes = Util.isLandscape(getActivity()) || Util.isLarge(getActivity()) ? R.string.multiselect_header_long
+                    : R.string.multiselect_header_short;
+            valueHeader.setText(getString(headerRes, elements.length));
+        }
+
         LinkedHashMap<String, ArrayList<String>> tags;
         if (savedTags != null) { // view was destroyed and needs to be recreated with current state
             Log.d(DEBUG_TAG, "Restoring from instance variable");
@@ -388,7 +404,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Determine the ElementType for all edited elements
      * 
-     * @param elementTypes
+     * @param elementTypes an array of ElementTypes
      * 
      * @return an ElementType or null if multiple are in use
      */
@@ -999,7 +1015,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tagValues a List of values to start with.
      * @param position the position where this should be inserted. set to -1 to insert at end, or 0 to insert at
      *            beginning.
-     * @param applyDefault TODO
+     * @param applyDefault if true apply default values if they are present
      * @return The new TagEditRow.
      */
     private TagEditRow insertNewEdit(final LinearLayout rowLayout, final String aTagKey, final ArrayList<String> tagValues, final int position,
