@@ -1,6 +1,6 @@
 ## Comparison of available functions in simple actions and long click mode
 
-Long click             |    Simple action              | Notes
+Long click             |    Simple actions             | Notes
 -----------------------|-------------------------------|---------------------------------------------------------------------------
 Add OSM Note           | Add map note                  |
 Add Node / start Way   | Add node                      |                     
@@ -8,7 +8,7 @@ Add Node / start Way   | Add node                      |
 Split way              |                               | Add node to way and split conventionally
 Paste                  | Paste object                  |
 &nbsp;                 | Paste multiple times          | Not available in long click mode
-Apply preset           | Add tagged node               | Node needs to merged manually if necessary in simple actions mode
+Apply preset           | Add tagged node               | Node needs to be merged manually if necessary in simple actions mode
 Node from GPS position |                               | Not available in simple actions mode
 Add address            |                               | Set the address in the property editor
 Name based tagging     |                               | Set the name field in the property editor

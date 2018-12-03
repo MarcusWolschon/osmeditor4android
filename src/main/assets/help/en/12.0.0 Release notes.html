@@ -15,6 +15,9 @@
 <p>To be able to change a tasks status you will need to set you API key. If you have not set it, you will be asked on first upload, preferably you should set the key before making any changes via the "Tools" menu.</p>
 <h2>Notes are movable</h2>
 <p>Newly created OSM Notes that haven't been uploaded yet can be moved by selecting the Note and then dragging. Behaviour for downloaded Notes remains unchanged. </p>
+<h2>Most recently used support for OSM keys, values and roles</h2>
+<p>This adds support for storing, retrieving and prioritized selection display of keys, values and roles that have been recently used. When possible the mru values are associated with a preset.</p>
+<p>Persistent storage is provided by an XML format file ("mrutags.xml") in the publicly accessible "Vespucci" directory on device. The contents of the file can be inspected, and for example used to indicate what is missing from the presets.</p>
 <h2>Miscellaneous</h2>
 <ul>
   <li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
@@ -23,6 +26,7 @@
   <li>improved UI and error behaviour when merging objects.</li>
   <li>preset items are now alphabetically sorted by default in the displays, this can be changed in the preset itself.</li>
   <li>Nominatim searches can now be limited to a bounding box.</li>
+  <li>in multi-select mode we now show a total element count in the header of the tag editor.</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <ul>
