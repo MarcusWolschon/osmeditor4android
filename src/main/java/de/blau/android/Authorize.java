@@ -43,6 +43,8 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
     private static final String DEBUG_TAG = "Authorize";
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
+    
+    public static final int REQUEST_CODE = (short)Authorize.class.hashCode();
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
@@ -60,19 +62,18 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
      */
     public static void startForResult(@NonNull Activity activity, @Nullable ActivityResultHandler.Listener listener) {
         Log.d(DEBUG_TAG, "startForResult");
-        int requestCode = (int) (Math.random() * Short.MAX_VALUE);
 
-        Log.d(DEBUG_TAG, "request code " + requestCode);
+        Log.d(DEBUG_TAG, "request code " + REQUEST_CODE);
         if (listener != null) {
             if (activity instanceof ActivityResultHandler) {
-                ((ActivityResultHandler) activity).setResultListener(requestCode, listener);
+                ((ActivityResultHandler) activity).setResultListener(REQUEST_CODE, listener);
             } else {
                 throw new ClassCastException("activity must implement ActivityResult");
             }
         }
 
         Intent intent = new Intent(activity, Authorize.class);
-        activity.startActivityForResult(intent, requestCode);
+        activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
