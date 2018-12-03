@@ -1357,9 +1357,9 @@ public class Preset implements Serializable {
      */
     @Nullable
     public static PresetElement getElementByPath(@NonNull PresetGroup group, @NonNull PresetElementPath path) {
-        int size = path.path.size();
+        int size = path.getPath().size();
         if (size > 0) {
-            String segment = path.path.get(0);
+            String segment = path.getPath().get(0);
             for (PresetElement e : group.getElements()) {
                 if (segment.equals(e.getName())) {
                     if (size == 1) {
@@ -1367,7 +1367,7 @@ public class Preset implements Serializable {
                     } else {
                         if (e instanceof PresetGroup) {
                             PresetElementPath newPath = new PresetElementPath(path);
-                            newPath.path.remove(0);
+                            newPath.getPath().remove(0);
                             return getElementByPath((PresetGroup) e, newPath);
                         }
                     }
@@ -1948,7 +1948,7 @@ public class Preset implements Serializable {
         @NonNull
         public List<ElementType> appliesTo() {
             List<ElementType> result = new ArrayList<>();
-            if (appliesToNode) { 
+            if (appliesToNode) {
                 result.add(ElementType.NODE);
             }
             if (appliesToWay) {
@@ -1965,7 +1965,7 @@ public class Preset implements Serializable {
             }
             return result;
         }
-        
+
         /**
          * Recursively sets the flag indicating that this element is relevant for nodes
          */
@@ -2105,13 +2105,13 @@ public class Preset implements Serializable {
             for (PresetElement e : root.getElements()) {
                 if (e.equals(this)) {
                     PresetElementPath result = new PresetElementPath();
-                    result.path.add(e.getName());
+                    result.getPath().add(e.getName());
                     return result;
                 } else {
                     if (e instanceof PresetGroup) {
                         PresetElementPath result = getPath((PresetGroup) e);
                         if (result != null) {
-                            result.path.add(0, e.getName());
+                            result.getPath().add(0, e.getName());
                             return result;
                         }
                     }
