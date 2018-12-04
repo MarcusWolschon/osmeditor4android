@@ -19,21 +19,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mapbox.services.api.utils.turf.TurfException;
-import com.mapbox.services.api.utils.turf.TurfJoins;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.FeatureCollection;
-import com.mapbox.services.commons.geojson.Geometry;
-import com.mapbox.services.commons.geojson.GeometryCollection;
-import com.mapbox.services.commons.geojson.LineString;
-import com.mapbox.services.commons.geojson.MultiLineString;
-import com.mapbox.services.commons.geojson.MultiPoint;
-import com.mapbox.services.commons.geojson.MultiPolygon;
-import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.geojson.Polygon;
-import com.mapbox.services.commons.geojson.custom.GeometryDeserializer;
-import com.mapbox.services.commons.geojson.custom.PositionDeserializer;
-import com.mapbox.services.commons.models.Position;
+import com.mapbox.geojson.CoordinateContainer;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.GeometryCollection;
+import com.mapbox.geojson.MultiPolygon;
+import com.mapbox.geojson.Point;
+import com.mapbox.geojson.Polygon;
+import com.mapbox.geojson.gson.GeometryDeserializer;
+import com.mapbox.turf.TurfException;
+import com.mapbox.turf.TurfJoins;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -110,9 +106,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         @Override
         public BoundingBox getBounds() {
             if (box == null) {
-                JsonArray bbox = (JsonArray) feature.getProperties().get(GeoJSONConstants.BBOX);
+                JsonArray bbox = (JsonArray) feature.properties().get(GeoJSONConstants.BBOX);
                 if (bbox == null || bbox.size() != 4) {
-                    box = getBounds(feature.getGeometry());
+                    box = getBounds(feature.geometry());
                 } else { // the geojson contains a bbox, use that
                     box = new BoundingBox(bbox.get(0).getAsDouble(), bbox.get(1).getAsDouble(), bbox.get(2).getAsDouble(), bbox.get(3).getAsDouble());
                 }
@@ -126,44 +122,44 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
          * @param g the GeoJSON Geometry
          * @return the bounding box
          */
-        public BoundingBox getBounds(Geometry<?> g) {
+        public BoundingBox getBounds(@NonNull Geometry g) {
             BoundingBox result = null;
-            String type = g.getType();
+            String type = g.type();
             switch (type) {
             case GeoJSONConstants.POINT:
-                Position p = (Position) g.getCoordinates();
-                result = new BoundingBox(p.getLongitude(), p.getLatitude());
+                Point p = (Point) g;
+                result = new BoundingBox(p.longitude(), p.latitude());
                 break;
             case GeoJSONConstants.LINESTRING:
             case GeoJSONConstants.MULTIPOINT:
                 @SuppressWarnings("unchecked")
-                List<Position> coordinates = (List<Position>) g.getCoordinates();
-                for (Position q : coordinates) {
+                List<Point> coordinates = ((CoordinateContainer<List<Point>>) g).coordinates();
+                for (Point q : coordinates) {
                     if (result == null) {
-                        result = new BoundingBox(q.getLongitude(), q.getLatitude());
+                        result = new BoundingBox(q.longitude(), q.latitude());
                     } else {
-                        result.union(q.getLongitude(), q.getLatitude());
+                        result.union(q.longitude(), q.latitude());
                     }
                 }
                 break;
             case GeoJSONConstants.MULTIPOLYGON:
-                List<List<List<Position>>> polygons = ((MultiPolygon) g).getCoordinates();
-                for (List<List<Position>> polygon : polygons) {
-                    for (List<Position> l : polygon) {
-                        for (Position r : l) {
+                @SuppressWarnings("unchecked")
+                List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
+                for (List<List<Point>> polygon : polygons) {
+                    for (List<Point> l : polygon) {
+                        for (Point r : l) {
                             if (result == null) {
-                                result = new BoundingBox(r.getLongitude(), r.getLatitude());
+                                result = new BoundingBox(r.longitude(), r.latitude());
                             } else {
-                                result.union(r.getLongitude(), r.getLatitude());
+                                result.union(r.longitude(), r.latitude());
                             }
                         }
                     }
                 }
                 break;
             case GeoJSONConstants.GEOMETRYCOLLECTION:
-                @SuppressWarnings("rawtypes")
-                List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
-                for (Geometry<?> geometry : geometries) {
+                List<Geometry> geometries = ((GeometryCollection) g).geometries();
+                for (Geometry geometry : geometries) {
                     if (result == null) {
                         result = getBounds(geometry);
                     } else {
@@ -174,19 +170,19 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             case GeoJSONConstants.MULTILINESTRING:
             case GeoJSONConstants.POLYGON:
                 @SuppressWarnings("unchecked")
-                List<List<Position>> linesOrRings = (List<List<Position>>) g.getCoordinates();
-                for (List<Position> l : linesOrRings) {
-                    for (Position s : l) {
+                List<List<Point>> linesOrRings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
+                for (List<Point> l : linesOrRings) {
+                    for (Point s : l) {
                         if (result == null) {
-                            result = new BoundingBox(s.getLongitude(), s.getLatitude());
+                            result = new BoundingBox(s.longitude(), s.latitude());
                         } else {
-                            result.union(s.getLongitude(), s.getLatitude());
+                            result.union(s.longitude(), s.latitude());
                         }
                     }
                 }
                 break;
             default:
-                Log.e(DEBUG_TAG, "getBounds unknown GeoJSON geometry " + g.getType());
+                Log.e(DEBUG_TAG, "getBounds unknown GeoJSON geometry " + g.type());
             }
             return result;
         }
@@ -299,61 +295,67 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param zoomLevel current zoom level
      * @param f the Feature object to draw
      */
-    public void drawGeometry(Canvas canvas, ViewBox bb, int width, int height, int zoomLevel, Feature f) {
-        Geometry<?> g = f.getGeometry();
+    public void drawGeometry(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, int zoomLevel, @NonNull Feature f) {
+        Geometry g = f.geometry();
+        if (g == null) {
+            return;
+        }
         String label = null;
         if (zoomLevel > Map.SHOW_LABEL_LIMIT) {
             label = getLabel(f);
         }
-        switch (g.getType()) {
+        switch (g.type()) {
         case GeoJSONConstants.POINT:
-            Position p = (Position) g.getCoordinates();
-            drawPoint(canvas, bb, width, height, p, paint, label);
+            drawPoint(canvas, bb, width, height, (Point) g, paint, label);
             break;
         case GeoJSONConstants.MULTIPOINT:
-            List<Position> points = ((MultiPoint) g).getCoordinates();
-            for (Position q : points) {
+            @SuppressWarnings("unchecked")
+            List<Point> points = ((CoordinateContainer<List<Point>>) g).coordinates();
+            for (Point q : points) {
                 drawPoint(canvas, bb, width, height, q, paint, label);
             }
             break;
         case GeoJSONConstants.LINESTRING:
-            List<Position> line = ((LineString) g).getCoordinates();
+            @SuppressWarnings("unchecked")
+            List<Point> line = ((CoordinateContainer<List<Point>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
             drawLine(canvas, bb, width, height, line, paint);
             canvas.drawPath(path, paint);
             break;
         case GeoJSONConstants.MULTILINESTRING:
-            List<List<Position>> lines = ((MultiLineString) g).getCoordinates();
+            @SuppressWarnings("unchecked")
+            List<List<Point>> lines = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.STROKE);
-            for (List<Position> l : lines) {
+            for (List<Point> l : lines) {
                 drawLine(canvas, bb, width, height, l, paint);
             }
             break;
         case GeoJSONConstants.POLYGON:
-            List<List<Position>> rings = ((Polygon) g).getCoordinates();
+            @SuppressWarnings("unchecked")
+            List<List<Point>> rings = ((CoordinateContainer<List<List<Point>>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
             drawPolygon(canvas, bb, width, height, rings, paint);
             break;
         case GeoJSONConstants.MULTIPOLYGON:
-            List<List<List<Position>>> polygons = ((MultiPolygon) g).getCoordinates();
+            @SuppressWarnings("unchecked")
+            List<List<List<Point>>> polygons = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
             paint.setAntiAlias(true);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
-            for (List<List<Position>> polygon : polygons) {
+            for (List<List<Point>> polygon : polygons) {
                 drawPolygon(canvas, bb, width, height, polygon, paint);
             }
             break;
         case GeoJSONConstants.GEOMETRYCOLLECTION:
-            @SuppressWarnings("rawtypes")
-            List<Geometry> geometries = ((GeometryCollection) g).getGeometries();
-            for (Geometry<?> geometry : geometries) {
+            List<Geometry> geometries = ((GeometryCollection) g).geometries();
+            for (Geometry geometry : geometries) {
                 drawGeometry(canvas, bb, width, height, zoomLevel, Feature.fromGeometry(geometry));
             }
             break;
         default:
-            Log.e(DEBUG_TAG, "drawGeometry unknown GeoJSON geometry " + g.getType());
+            Log.e(DEBUG_TAG, "drawGeometry unknown GeoJSON geometry " + g.type());
         }
     }
 
@@ -368,10 +370,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param paint Paint object for drawing
      * @param label label to display, null if none
      */
-    public void drawPoint(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull Position p, @NonNull Paint paint,
-            @Nullable String label) {
-        float x = GeoMath.lonToX(width, bb, p.getLongitude());
-        float y = GeoMath.latToY(height, width, bb, p.getLatitude());
+    public void drawPoint(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull Point p, @NonNull Paint paint, @Nullable String label) {
+        float x = GeoMath.lonToX(width, bb, p.longitude());
+        float y = GeoMath.latToY(height, width, bb, p.latitude());
         canvas.save();
         canvas.translate(x, y);
         canvas.drawPath(DataStyle.getCurrent().getWaypointPath(), paint);
@@ -395,13 +396,13 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param line List of Position objects defining the line to draw
      * @param paint Paint object for drawing
      */
-    public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Position> line, @NonNull Paint paint) {
+    public void drawLine(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<Point> line, @NonNull Paint paint) {
         path.reset();
         int size = line.size();
         for (int i = 0; i < size; i++) {
-            Position p = line.get(i);
-            float x = GeoMath.lonToX(width, bb, p.getLongitude());
-            float y = GeoMath.latToY(height, width, bb, p.getLatitude());
+            Point p = line.get(i);
+            float x = GeoMath.lonToX(width, bb, p.longitude());
+            float y = GeoMath.latToY(height, width, bb, p.latitude());
             if (i == 0) {
                 path.moveTo(x, y);
             } else {
@@ -421,14 +422,14 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param polygon List of List of Position objects defining the polygon rings
      * @param paint Paint object for drawing
      */
-    public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Position>> polygon, @NonNull Paint paint) {
+    public void drawPolygon(@NonNull Canvas canvas, @NonNull ViewBox bb, int width, int height, @NonNull List<List<Point>> polygon, @NonNull Paint paint) {
         path.reset();
-        for (List<Position> ring : polygon) {
+        for (List<Point> ring : polygon) {
             int size = ring.size();
             for (int i = 0; i < size; i++) {
-                Position p = ring.get(i);
-                float x = GeoMath.lonToX(width, bb, p.getLongitude());
-                float y = GeoMath.latToY(height, width, bb, p.getLatitude());
+                Point p = ring.get(i);
+                float x = GeoMath.lonToX(width, bb, p.longitude());
+                float y = GeoMath.latToY(height, width, bb, p.latitude());
                 if (i == 0) {
                     path.moveTo(x, y);
                 } else {
@@ -496,22 +497,21 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             data = new RTree(2, 12);
             String json = sb.toString();
             FeatureCollection fc = FeatureCollection.fromJson(json);
-            List<Feature> features = fc.getFeatures();
+            List<Feature> features = fc.features();
             if (features != null) {
                 loadFeatures(features);
             } else {
                 Log.d(DEBUG_TAG, "Retrying as Feature");
                 Feature f = Feature.fromJson(json);
-                Geometry<?> g = f.getGeometry();
+                Geometry g = f.geometry();
                 if (g != null) {
                     data.insert(new BoundedFeature(f));
                 } else {
                     GsonBuilder gson = new GsonBuilder();
-                    gson.registerTypeAdapter(Position.class, new PositionDeserializer());
                     gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
                     g = gson.create().fromJson(json, Geometry.class);
-                    Log.d(DEBUG_TAG, "Geometry " + g.getType());
-                    if (g.getType() != null) {
+                    Log.d(DEBUG_TAG, "Geometry " + g.type());
+                    if (g.type() != null) {
                         data.insert(new BoundedFeature(Feature.fromGeometry(g)));
                     }
                 }
@@ -539,10 +539,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     private void loadFeatures(List<Feature> features) {
         for (Feature f : features) {
-            if (GeoJSONConstants.FEATURE.equals(f.getType()) && f.getGeometry() != null) {
+            if (GeoJSONConstants.FEATURE.equals(f.type()) && f.geometry() != null) {
                 data.insert(new BoundedFeature(f));
             } else {
-                Log.e(DEBUG_TAG, "Type of object " + f.getType() + " geometry " + f.getGeometry());
+                Log.e(DEBUG_TAG, "Type of object " + f.type() + " geometry " + f.geometry());
             }
         }
     }
@@ -639,18 +639,20 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             if (queryResult != null) {
                 for (BoundedObject bo : queryResult) {
                     Feature f = ((BoundedFeature) bo).getFeature();
-                    Geometry<?> g = f.getGeometry();
-                    switch (g.getType()) {
+                    Geometry g = f.geometry();
+                    if (g == null) {
+                        continue;
+                    }
+                    switch (g.type()) {
                     case GeoJSONConstants.POINT:
-                        Position p = (Position) g.getCoordinates();
-                        if (inToleranceArea(viewBox, tolerance, p, x, y)) {
+                        if (inToleranceArea(viewBox, tolerance, (Point) g, x, y)) {
                             result.add(f);
                         }
                         break;
                     case GeoJSONConstants.MULTIPOINT:
                         @SuppressWarnings("unchecked")
-                        List<Position> positions = (List<Position>) g.getCoordinates();
-                        for (Position q : positions) {
+                        List<Point> positions = ((CoordinateContainer<List<Point>>) g).coordinates();
+                        for (Point q : positions) {
                             if (inToleranceArea(viewBox, tolerance, q, x, y)) {
                                 result.add(f);
                                 break;
@@ -664,16 +666,16 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                         int height = map.getHeight();
                         // Iterate over all WayNodes, but not the last one.
                         @SuppressWarnings("unchecked")
-                        List<Position> vertices = (List<Position>) g.getCoordinates();
+                        List<Point> vertices = ((CoordinateContainer<List<Point>>) g).coordinates();
                         for (int k = 0, verticesSize = vertices.size(); k < verticesSize - 1; ++k) {
-                            Position p1 = vertices.get(k);
-                            Position p2 = vertices.get(k + 1);
+                            Point p1 = vertices.get(k);
+                            Point p2 = vertices.get(k + 1);
                             if (p1X == Float.MAX_VALUE) {
-                                p1X = GeoMath.lonToX(width, viewBox, p1.getLongitude());
-                                p1Y = GeoMath.latToY(height, width, viewBox, p1.getLatitude());
+                                p1X = GeoMath.lonToX(width, viewBox, p1.longitude());
+                                p1Y = GeoMath.latToY(height, width, viewBox, p1.latitude());
                             }
-                            float node2X = GeoMath.lonToX(width, viewBox, p2.getLongitude());
-                            float node2Y = GeoMath.latToY(height, width, viewBox, p2.getLatitude());
+                            float node2X = GeoMath.lonToX(width, viewBox, p2.longitude());
+                            float node2Y = GeoMath.latToY(height, width, viewBox, p2.latitude());
                             double distance = Logic.isPositionOnLine(x, y, p1X, p1Y, node2X, node2Y);
                             if (distance >= 0) {
                                 result.add(f);
@@ -718,9 +720,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @param y screen y coordinate of touch location
      * @return true if touch position is in tolerance
      */
-    private boolean inToleranceArea(@NonNull ViewBox viewBox, float tolerance, Position p, float x, float y) {
-        float differenceX = Math.abs(GeoMath.lonToX(map.getWidth(), viewBox, p.getLongitude()) - x);
-        float differenceY = Math.abs(GeoMath.latToY(map.getHeight(), map.getWidth(), viewBox, p.getLatitude()) - y);
+    private boolean inToleranceArea(@NonNull ViewBox viewBox, float tolerance, @NonNull Point p, float x, float y) {
+        float differenceX = Math.abs(GeoMath.lonToX(map.getWidth(), viewBox, p.longitude()) - x);
+        float differenceY = Math.abs(GeoMath.latToY(map.getHeight(), map.getWidth(), viewBox, p.latitude()) - y);
         return differenceX <= tolerance && differenceY <= tolerance && Math.hypot(differenceX, differenceY) <= tolerance;
     }
 
@@ -733,8 +735,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      * @return a Point object
      */
     private Point pointFromScreenCoords(final float x, final float y, final ViewBox viewBox) {
-        Point point = Point.fromCoordinates(Position.fromCoordinates(GeoMath.xToLonE7(map.getWidth(), viewBox, x) / 1E7D,
-                GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y) / 1E7D));
+        Point point = Point.fromLngLat(GeoMath.xToLonE7(map.getWidth(), viewBox, x) / 1E7D,
+                GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, y) / 1E7D);
         return point;
     }
 
@@ -803,12 +805,15 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             Set<String> result = new TreeSet<>();
             for (BoundedObject bo : queryResult) {
                 BoundedFeature bf = (BoundedFeature) bo;
-                JsonObject properties = bf.getFeature().getProperties();
-                if (properties != null) {
-                    for (String key : properties.keySet()) {
-                        JsonElement e = properties.get(key);
-                        if (e != null && e.isJsonPrimitive()) {
-                            result.add(key);
+                Feature feature = bf.getFeature();
+                if (feature != null) {
+                    JsonObject properties = feature.properties();
+                    if (properties != null) {
+                        for (String key : properties.keySet()) {
+                            JsonElement e = properties.get(key);
+                            if (e != null && e.isJsonPrimitive()) {
+                                result.add(key);
+                            }
                         }
                     }
                 }
@@ -836,7 +841,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
      */
     public String getLabel(Feature f) {
         if (labelKey != null) {
-            JsonObject properties = f.getProperties();
+            JsonObject properties = f.properties();
             if (properties != null) {
                 JsonElement e = properties.get(labelKey);
                 if (e != null && e.isJsonPrimitive()) {
@@ -907,7 +912,10 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
     public String getDescription(Feature f) {
         String label = getLabel(f);
         if (label == null || "".equals(label)) {
-            label = f.getGeometry().getType();
+            Geometry g = f.geometry();
+            if (g != null) {
+                label = g.type();
+            }
         }
         return map.getContext().getString(R.string.geojson_object, label, getName());
     }

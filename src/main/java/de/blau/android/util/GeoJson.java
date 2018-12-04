@@ -3,10 +3,11 @@ package de.blau.android.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.Geometry;
-import com.mapbox.services.commons.geojson.Polygon;
-import com.mapbox.services.commons.models.Position;
+import com.mapbox.geojson.CoordinateContainer;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.Point;
+import com.mapbox.geojson.Polygon;
 
 import android.support.annotation.NonNull;
 import de.blau.android.osm.BoundingBox;
@@ -18,18 +19,19 @@ public class GeoJson {
      * @param f The GeoJson feature
      * @return a List of BoundingBoxes, empty in no Polygons were found
      */
+    @SuppressWarnings("unchecked")
     @NonNull
     public static List<BoundingBox> getBoundingBoxes(@NonNull Feature f) {
         List<BoundingBox> result = new ArrayList<>();
-        Geometry<?> g = f.getGeometry();
+        Geometry g = f.geometry();
         if (g instanceof Polygon) {
-            for (List<Position> l : ((Polygon) g).getCoordinates()) {
+            for (List<Point> l : ((CoordinateContainer<List<List<Point>>>) g).coordinates()) {
                 BoundingBox box = null;
-                for (Position p : l) {
+                for (Point p : l) {
                     if (box == null) {
-                        box = new BoundingBox(p.getLongitude(), p.getLatitude());
+                        box = new BoundingBox(p.longitude(), p.latitude());
                     } else {
-                        box.union(p.getLongitude(), p.getLatitude());
+                        box.union(p.longitude(), p.latitude());
                     }
                 }
                 if (box != null) {

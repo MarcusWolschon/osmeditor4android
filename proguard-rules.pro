@@ -53,14 +53,17 @@
 -keep,includedescriptorclasses class de.blau.android.views.CustomAutoCompleteTextView$Tokenizer
 -keep class de.blau.android.services.*
 
--keep,includedescriptorclasses class com.mapbox.services.commons.geojson.** {
+-keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
 }
--keep class * implements com.mapbox.services.commons.geojson.GeoJSON
--keep class com.mapbox.services.commons.models.** 
+-keep class * implements com.mapbox.geojson.GeoJSON
+-keep class sun.misc.Unsafe { *; }
 
 -keepattributes Signature
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
 -dontnote com.google.gson.internal.UnsafeAllocator
+-dontwarn javax.annotation.concurrent.GuardedBy
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer

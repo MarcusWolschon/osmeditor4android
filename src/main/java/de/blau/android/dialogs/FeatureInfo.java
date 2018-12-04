@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.models.Position;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.Point;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -121,20 +121,20 @@ public class FeatureInfo extends DialogFragment {
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
         if (feature != null) {
-            if (feature.getGeometry() != null && GeoJSONConstants.POINT.equals(feature.getGeometry().getType())) {
+            Geometry geometry = feature.geometry();
+            if (geometry != null && GeoJSONConstants.POINT.equals(geometry.type())) {
                 builder.setNeutralButton(R.string.share_position, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Position p = ((Point) feature.getGeometry()).getCoordinates();
+                        Point p = ((Point) geometry);
                         double[] lonLat = new double[2];
-                        lonLat[0] = p.getLongitude();
-                        lonLat[1] = p.getLatitude();
+                        lonLat[0] = p.longitude();
+                        lonLat[1] = p.latitude();
                         Util.sharePosition(getActivity(), lonLat);
-
                     }
                 });
             }
-            final JsonObject properties = feature.getProperties();
+            final JsonObject properties = feature.properties();
             if (properties != null) {
                 builder.setNegativeButton(R.string.copy_properties, new DialogInterface.OnClickListener() {
                     @Override
@@ -193,10 +193,10 @@ public class FeatureInfo extends DialogFragment {
         if (feature != null) {
             // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.getGeometry().getType(), null, tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.geometry().type(), null, tp));
             tl.addView(TableLayoutUtils.divider(activity));
             tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
-            JsonObject properties = feature.getProperties();
+            JsonObject properties = feature.properties();
             if (properties != null) {
                 for (String key : properties.keySet()) {
                     JsonElement e = properties.get(key);

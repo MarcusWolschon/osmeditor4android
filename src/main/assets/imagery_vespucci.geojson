@@ -64,5 +64,6 @@
             },
             "type": "Feature"
         }
-    ]
+    ],
+    "type": "FeatureCollection"
 }

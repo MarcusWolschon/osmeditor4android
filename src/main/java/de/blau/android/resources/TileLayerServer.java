@@ -35,8 +35,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.FeatureCollection;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -801,16 +801,20 @@ public class TileLayerServer {
         while ((cp = rd.read()) != -1) {
             sb.append((char) cp);
         }
-        FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-        for (Feature f : fc.getFeatures()) {
-            TileLayerServer osmts = geojsonToServer(ctx, f, async);
-            if (osmts != null) {
-                TileLayerDatabase.addLayer(writeableDb, source, osmts);
-            } else {
-                Log.w(DEBUG_TAG, "Imagery layer config couldn't be parsed/unsupported");
+        try {
+            FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
+            for (Feature f : fc.features()) {
+                TileLayerServer osmts = geojsonToServer(ctx, f, async);
+                if (osmts != null) {
+                    TileLayerDatabase.addLayer(writeableDb, source, osmts);
+                } else {
+                    Log.w(DEBUG_TAG, "Imagery layer config couldn't be parsed/unsupported");
+                }
             }
+            TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
+        } catch (Exception e) {
+            Log.e(DEBUG_TAG, "Fatal error parsing " + source + " " + e.getMessage());
         }
-        TileLayerDatabase.updateSource(writeableDb, source, System.currentTimeMillis());
     }
 
     /**
@@ -915,7 +919,7 @@ public class TileLayerServer {
             int tileWidth = DEFAULT_TILE_SIZE;
             int tileHeight = DEFAULT_TILE_SIZE;
 
-            JsonObject properties = f.getProperties();
+            JsonObject properties = f.properties();
 
             List<BoundingBox> boxes = GeoJson.getBoundingBoxes(f);
             int minZoom = getJsonInteger(properties, "min_zoom", DEFAULT_MIN_ZOOM);

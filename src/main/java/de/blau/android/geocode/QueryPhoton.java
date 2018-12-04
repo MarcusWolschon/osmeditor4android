@@ -13,11 +13,10 @@ import java.util.Map;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.FeatureCollection;
-import com.mapbox.services.commons.geojson.Geometry;
-import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.models.Position;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.Point;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -86,7 +85,7 @@ class QueryPhoton extends Query {
                     sb.append((char) cp);
                 }
                 FeatureCollection fc = FeatureCollection.fromJson(sb.toString());
-                for (Feature f : fc.getFeatures()) {
+                for (Feature f : fc.features()) {
                     SearchResult searchResult = readPhotonResult(f);
                     if (searchResult != null) {
                         result.add(searchResult);
@@ -114,13 +113,12 @@ class QueryPhoton extends Query {
     private SearchResult readPhotonResult(@NonNull Feature f) {
         SearchResult result = new SearchResult();
         try {
-            JsonObject properties = f.getProperties();
-            Geometry<?> g = f.getGeometry();
+            JsonObject properties = f.properties();
+            Geometry g = f.geometry();
             if (g instanceof Point) {
                 Point p = (Point) g;
-                Position pos = p.getCoordinates();
-                result.setLat(pos.getLatitude());
-                result.setLon(pos.getLongitude());
+                result.setLat(p.latitude());
+                result.setLon(p.longitude());
                 StringBuilder sb = new StringBuilder();
                 JsonElement name = properties.get("name");
                 if (name != null) {

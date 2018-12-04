@@ -297,6 +297,7 @@ ext {
     supportLibVersion = "27.1.1"
     legacySupportLibVersion = "25.3.1"
     acraVersion = "5.0.2"
+    mapboxVersion = "4.1.1"
 }
 
 dependencies {
@@ -322,7 +323,8 @@ dependencies {
     implementation "com.drewnoakes:metadata-extractor:2.10.1"
     implementation "com.google.code.gson:gson:2.8.2"
     implementation 'com.faendir.rhino:rhino-android:1.4'
-    implementation 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.pavelsikun:vintage-chroma:1.5'
     implementation "ch.poole:PoParser:0.7.2"
     implementation "ch.poole:OpeningHoursParser:0.14.0"
