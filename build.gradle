@@ -4,14 +4,14 @@
 buildscript {
     repositories {
         mavenCentral()
-		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
-		maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
-		google()
+        maven { url 'https://dl.bintray.com/content/simonpoole/div' }
+        maven { url 'https://dl.bintray.com/content/simonpoole/osm' }
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-		classpath 'org.kordamp:markdown-gradle-plugin:1.4.0'
-		classpath 'org.jacoco:org.jacoco.core:0.8.1'
+        classpath 'org.kordamp:markdown-gradle-plugin:1.4.0'
+        classpath 'org.jacoco:org.jacoco.core:0.8.1'
         // classpath 'com.trickyandroid:jacoco-everywhere:0.2.1'
         classpath "ch.poole:preset-utils:0.7.0"
         classpath 'com.github.ksoichiro:gradle-eclipse-aar-plugin:0.3.1'
@@ -19,24 +19,24 @@ buildscript {
 }
 
 plugins {
-	id "de.undercouch.download" version "3.1.1"
-	id "org.sonarqube" version "2.6.2"
+    id "de.undercouch.download" version "3.1.1"
+    id "org.sonarqube" version "2.6.2"
     id "net.ltgt.apt" version "0.15"
 }
 import de.undercouch.gradle.tasks.download.Download
 
 allprojects {
-	repositories {
-		mavenCentral()
-		jcenter()
-		maven { url 'https://dl.bintray.com/content/simonpoole/div' }
-		maven { url 'https://dl.bintray.com/content/simonpoole/android' }
-		maven { url "https://maven.google.com" }
-		maven { url "https://jitpack.io" }
-//		flatDir {
-//        	dirs 'lib'
-//    	}
-	}
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://dl.bintray.com/content/simonpoole/div' }
+        maven { url 'https://dl.bintray.com/content/simonpoole/android' }
+        maven { url "https://maven.google.com" }
+        maven { url "https://jitpack.io" }
+        //		flatDir {
+        //        	dirs 'lib'
+        //    	}
+    }
 }
 
 // Project level build file starts here
@@ -52,8 +52,8 @@ ext {
 }
 
 
-// note this is currently processed by a slightly modified version of the 
-// org.kordamp.gradle.markdown plugin with support for a html template and 
+// note this is currently processed by a slightly modified version of the
+// org.kordamp.gradle.markdown plugin with support for a html template and
 // not the original
 markdownToHtml.sourceDir  new File(projectDir.getPath() + '/documentation/docs/help')
 markdownToHtml.inputEncoding "utf8"
@@ -61,69 +61,67 @@ markdownToHtml.outputDir  new File(projectDir.getPath() + '/src/main/assets/help
 markdownToHtml.outputEncoding "utf8"
 
 task downloadPresetIconsZipFile(type: Download) {
-	doFirst {
-		delete projectDir.getPath() + '/src/main/assets/images/icons/png'
-	}
-	acceptAnyCertificate true
+    doFirst {
+        delete projectDir.getPath() + '/src/main/assets/images/icons/png'
+    }
+    acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_icons.zip'
     dest new File(projectDir.getPath() + '/src/main/assets/images/icons/png', 'vespucci_icons.zip')
 }
 
 task downloadPresetFile(type: Download) {
-	acceptAnyCertificate true
+    acceptAnyCertificate true
     src 'https://raw.githubusercontent.com/simonpoole/beautified-JOSM-preset/master/gen/vespucci_preset_build.xml'
     dest new File(projectDir.getPath() + '/src/main/assets/preset.xml')
 }
 
 task updatePreset(dependsOn: ["downloadPresetFile", "downloadPresetIconsZipFile"], type: Copy) {
     from zipTree(downloadPresetIconsZipFile.dest)
-	into projectDir.getPath() + '/src/main/assets/images/icons/png'
-	doLast {
-		delete downloadPresetIconsZipFile.dest
-	}
+    into projectDir.getPath() + '/src/main/assets/images/icons/png'
+    doLast { delete downloadPresetIconsZipFile.dest }
 }
 updatePreset.group = 'vespucci'
 updatePreset.description = 'Update the default preset from http://simonpoole.github.io/beautified-JOSM-preset/'
 
 task updateImagery(type: Download) {
-	acceptAnyCertificate true
+    acceptAnyCertificate true
     src 'https://osmlab.github.io/editor-layer-index/imagery.geojson'
     dest new File(projectDir.getPath() + '/src/main/assets/imagery.geojson')
 }
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
 
-task dumpTaginfoJson(dependsOn: ["installDebug","installDebugAndroidTest"],type: Exec) {
+task dumpTaginfoJson(dependsOn: ["installDebug", "installDebugAndroidTest"],type: Exec) {
     commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 }
- 
+
 task updateTaginfoJson(dependsOn: "dumpTaginfoJson", type: Exec) {
-	commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
+    commandLine adb, 'pull', 'sdcard/Vespucci/taginfo.json', projectDir.getPath()
 }
 updateTaginfoJson.group = 'vespucci'
 updateTaginfoJson.description = 'Update the taginfo.json file from test device'
 
-task update3rdPartyDocs() { 
+task update3rdPartyDocs() {
 }
 update3rdPartyDocs.group = 'vespucci'
 update3rdPartyDocs.description = 'Update markdown help files for 3rd party libraries'
 
-['de','en','es','fi','fr','gl','hu','it','iw','pl','pt','zh-rTW'].each { lang ->
+['de', 'en', 'es', 'fi', 'fr', 'gl', 'hu', 'it', 'iw', 'pl', 'pt', 'zh-rTW'].each { lang ->
     def name="updateOpeningHoursDoc${lang.capitalize()}"
     task (name,type: Download) {
         acceptAnyCertificate true
         src "https://raw.githubusercontent.com/simonpoole/OpeningHoursFragment/master/lib/documentation/docs/help/${lang}/Opening%20hours.md"
         dest new File(projectDir.getPath() + "/documentation/docs/help/${lang}/Opening hours.md")
-   }
-   update3rdPartyDocs.dependsOn name
+    }
+    update3rdPartyDocs.dependsOn name
 }
 
 task updateTranslations(type: Exec) {
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-    	commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
-	} else {
-    	commandLine 'tx', 'pull', '-a'
-	}
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        commandLine 'cmd', '/c', 'tx.exe', 'pull', '-a'
+    } else {
+        commandLine 'tx', 'pull', '-a'
+    }
 }
 updateTranslations.group = 'vespucci'
 updateTranslations.description = 'Update translations by executing the transifex tx utility'
@@ -133,20 +131,16 @@ task updateSynonyms() {
 updateSynonyms.group = 'vespucci'
 updateSynonyms.description = 'Update synonym files from iD editor repo'
 
-['af','ar','ast','bg','bs','ca','cs','da','de','dv','el','en-GB','en','eo','es','et','eu',
- 'fa','fi','fr','gan','gl','gu','he','hi','hr','hu','hy','ia','id','is','it','ja','jv',
- 'km','kn','ko','ku','lij','lt','lv','mg','mk','ml','mn','ms','ne','nl','nn','no','nv',
- 'pl','pt-BR','pt','rm','ro','ru','sc','si','sk','sl','sq','sr','sv','ta','te','th','tl',
- 'tr','uk','ur','vi','yue','zh-CN','zh-HK','zh-TW','zh'].each { lang ->
+['af', 'ar', 'ast', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'dv', 'el', 'en-GB', 'en', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gan', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'hy', 'ia', 'id', 'is', 'it', 'ja', 'jv', 'km', 'kn', 'ko', 'ku', 'lij', 'lt', 'lv', 'mg', 'mk', 'ml', 'mn', 'ms', 'ne', 'nl', 'nn', 'no', 'nv', 'pl', 'pt-BR', 'pt', 'rm', 'ro', 'ru', 'sc', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yue', 'zh-CN', 'zh-HK', 'zh-TW', 'zh'].each { lang ->
     def name="updateSynonyms${lang.capitalize()}"
-	task (name,type: JavaExec) {
-   	   main = "ch.poole.osm.presetutils.Synonyms"
-       classpath = buildscript.configurations.classpath
-       args('-l',    "$lang",
-    	    '-x',    "military",
-    	    '-o',    "src/main/assets/synonyms/synonyms.$lang")
-   }
-   updateSynonyms.dependsOn name
+    task (name,type: JavaExec) {
+        main = "ch.poole.osm.presetutils.Synonyms"
+        classpath = buildscript.configurations.classpath
+        args('-l',    "$lang",
+                '-x',    "military",
+                '-o',    "src/main/assets/synonyms/synonyms.$lang")
+    }
+    updateSynonyms.dependsOn name
 }
 
 task enableFreeform(type: Exec) {
@@ -181,21 +175,23 @@ android {
         resValue("string", "reporter", reporter)
     }
 
-   buildTypes {
+    buildTypes {
         debug {
             testCoverageEnabled true
+            minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
-        release {            
-        	// currently there are too many un-investigated warnings to actually turn this on
-        	// minifyEnabled true
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'),
-            //        'proguard-rules.pro'
+        release {
+            minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
     }
-    
+
     // this, unluckily, cannot be set per flavour
     compileSdkVersion 27
-    
+
     // Specifies one flavor dimension.
     flavorDimensions "api"
     productFlavors {
@@ -214,71 +210,68 @@ android {
             applicationIdSuffix ".legacy"
             versionNameSuffix "-legacy"
             resValue "string", "content_provider", "de.blau.android.osmeditor4android.legacy.provider"
-       }
+        }
     }
-       
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    
+
     testOptions {
         unitTests.all {
-        	jacoco {
-                includeNoLocationClasses = true
-            }
+            jacoco { includeNoLocationClasses = true }
             testLogging {
                 events "passed", "skipped", "failed", "standardOut", "standardError"
                 outputs.upToDateWhen {false}
                 showStandardStreams = true
             }
         }
-    } 
-    
+    }
+
     lintOptions {
         // checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
     }
-    
-    dexOptions {
-        jumboMode = true
-    }
+
+    dexOptions { jumboMode = true }
 }
 
 android.applicationVariants.all { variant ->
-  task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-    description "Generates Javadoc for $variant.name."
-    group "Documentation"
-    source = variant.javaCompile.source
-    classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
-    options.links("http://docs.oracle.com/javase/7/docs/api/");
-    options.links("http://d.android.com/reference/");
-    exclude '**/BuildConfig.java'
-    exclude '**/R.java'
-  }
+    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for $variant.name."
+        group "Documentation"
+        source = variant.javaCompile.source
+        classpath = files(variant.javaCompile.classpath.files) + files(android.bootClasspath) + files(variant.javaCompile.destinationDir)
+        options.links("http://docs.oracle.com/javase/7/docs/api/");
+        options.links("http://d.android.com/reference/");
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
 }
 
 
-afterEvaluate{ // this task needs to be created after the uninstall tasks 
+afterEvaluate{
+    // this task needs to be created after the uninstall tasks
     android.productFlavors.all { flavor ->
-        task ("runSingleConnected${flavor.name.capitalize()}Test", 
-                dependsOn: ["install${flavor.name.capitalize()}Debug","install${flavor.name.capitalize()}DebugAndroidTest"], 
-                type: Exec) {
+        task ("runSingleConnected${flavor.name.capitalize()}Test",
+        dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
+        type: Exec) {
             group = 'vespucci'
             description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
             def toRun = "de.blau.android.tasks.OsmoseTest#osmoseDialog"
             // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
             commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
-        } 
+        }
     }
-    
+
     // while we are at it make sure we remove any existing installation before we run the tests
     // currently this conflicts with installDebug which we need to be able to set the mock location permission
     // connectedDebugAndroidTest.dependsOn uninstallDebug
-    connectedCurrentDebugAndroidTest.dependsOn installCurrentDebug    
+    connectedCurrentDebugAndroidTest.dependsOn installCurrentDebug
 }
 
 // this adds some code to set the mock location permission on devices with 6.0 and later
@@ -307,23 +300,19 @@ ext {
 }
 
 dependencies {
-    implementation ("ch.acra:acra-http:$acraVersion") {
-        exclude group: 'com.android.support'
-    }
-    implementation ("ch.acra:acra-dialog:$acraVersion") {
-        exclude group: 'com.android.support'            
-    }
+    implementation ("ch.acra:acra-http:$acraVersion") { exclude group: 'com.android.support' }
+    implementation ("ch.acra:acra-dialog:$acraVersion") { exclude group: 'com.android.support'             }
     currentImplementation "com.android.support:appcompat-v7:$supportLibVersion"
     currentImplementation "com.android.support:recyclerview-v7:$supportLibVersion"
     currentImplementation "com.android.support:preference-v7:$supportLibVersion"
     currentImplementation "com.android.support:design:$supportLibVersion"
- 	currentImplementation "com.android.support:support-annotations:$supportLibVersion" 
+    currentImplementation "com.android.support:support-annotations:$supportLibVersion"
     currentImplementation 'com.heinrichreimersoftware:android-issue-reporter:1.3.1'
- 	legacyImplementation "com.android.support:appcompat-v7:$legacySupportLibVersion"
+    legacyImplementation "com.android.support:appcompat-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:recyclerview-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:preference-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:design:$legacySupportLibVersion"
-    legacyImplementation "com.android.support:support-annotations:$legacySupportLibVersion" 
+    legacyImplementation "com.android.support:support-annotations:$legacySupportLibVersion"
     implementation "com.nononsenseapps:filepicker:3.0.0"
     implementation "oauth.signpost:signpost-core:$signpostVersion"
     implementation 'se.akerfeldt:okhttp-signpost:1.1.0'
@@ -343,9 +332,9 @@ dependencies {
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
     implementation 'de.westnordost:countryboundaries:1.2'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
-    // for temp stuff during dev 
+    // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
- 
+
     // Unit tests
     testImplementation "junit:junit:4.12"
 
@@ -355,9 +344,9 @@ dependencies {
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
-    androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18.2" 
+    androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18.2"
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {
-    	exclude group: 'org.yaml', module: 'snakeyaml'
+        exclude group: 'org.yaml', module: 'snakeyaml'
     }
     androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:2.1.3"
 }
@@ -385,9 +374,7 @@ def getXmlFromFile(String xmlFilePath) {
     return xml;
 }
 
-def coverageSourceDirs = [
-        'src/main/java'
-]
+def coverageSourceDirs = ['src/main/java']
 
 task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") {
     group = "Verification"
@@ -396,12 +383,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
 
     classDirectories = fileTree(
             dir: 'build/intermediates/classes/debug',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']
-    )
+            excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
 
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
