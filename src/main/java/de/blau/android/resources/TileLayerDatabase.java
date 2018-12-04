@@ -137,7 +137,7 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     /**
      * Get the updated value for a source
      * 
-     * @param db writable ruleset database
+     * @param db readable database will be closed by caller
      * @param source name of the source
      * @return a milliseconds since th epoch value or 0 if not set
      */

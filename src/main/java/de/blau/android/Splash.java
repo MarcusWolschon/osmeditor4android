@@ -3,6 +3,9 @@ package de.blau.android;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabaseLockedException;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +49,15 @@ public class Splash extends AppCompatActivity {
 
             @Override
             protected void onPreExecute() {
-                long lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI);
+                long lastDatabaseUpdate = 0;
+                try {
+                    lastDatabaseUpdate = TileLayerDatabase.getSourceUpdate(db.getReadableDatabase(), TileLayerDatabase.SOURCE_ELI);
+                } catch (SQLiteException sex) {
+                    if (sex instanceof SQLiteDatabaseLockedException) {
+                        Log.e(DEBUG_TAG, "tile layer database is locked");
+                        cancel(true);
+                    }
+                }
                 long lastUpdateTime = 0L;
                 try {
                     PackageInfo packageInfo = Splash.this.getPackageManager().getPackageInfo(Splash.this.getPackageName(), 0);
@@ -64,9 +75,11 @@ public class Splash extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
-                    if (newInstall || newConfig) {
-                        TileLayerServer.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
+                    if (!isCancelled()) {
+                        TileLayerServer.createOrUpdateCustomSource(Splash.this, db.getWritableDatabase(), true);
+                        if (newInstall || newConfig) {
+                            TileLayerServer.createOrUpdateFromAssetsSource(Splash.this, db.getWritableDatabase(), newConfig, true);
+                        }
                     }
                 } finally {
                     db.close();
