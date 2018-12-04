@@ -228,9 +228,8 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
         Log.d(DEBUG_TAG, "finishOAuth");
         synchronized (oAuthWebViewLock) {
             if (oAuthWebView != null) {
-                ViewGroup contentView = findViewById(android.R.id.content);
+                ViewGroup contentView = (ViewGroup)findViewById(android.R.id.content);
                 contentView.removeView(oAuthWebView);
-
                 try {
                     // the below loadUrl, even though the "official" way to do
                     // it, seems to be prone to crash on some devices.

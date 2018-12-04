@@ -156,9 +156,6 @@
             android:name="DebugInformation"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name="Feedback"
-            android:theme="@style/Theme.IssueReporter" />
-        <activity
             android:name="HelpViewer"
             android:theme="@style/Theme.customHelpViewer" />
         <activity
