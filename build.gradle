@@ -174,13 +174,18 @@ android {
         versionCode project.getVersionCode()
         versionName "${project.getVersionName()}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        def reporter = System.getenv('VESPUCCI_REPORTER')
+        if (reporter == null) {
+            reporter = "";
+        }
+        resValue("string", "reporter", reporter)
     }
 
    buildTypes {
         debug {
             testCoverageEnabled true
         }
-        release {
+        release {            
         	// currently there are too many un-investigated warnings to actually turn this on
         	// minifyEnabled true
             // proguardFiles getDefaultProguardFile('proguard-android.txt'),

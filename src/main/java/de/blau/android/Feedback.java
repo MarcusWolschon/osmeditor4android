@@ -62,7 +62,10 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             actionBar.setTitle(R.string.feedback_title);
         }
 
-        setGuestToken("badcd110e2e57ede69e2b39adb318de0e50dd725");
+        String k = getString(R.string.reporter);
+        if (k != null && !"".equals(k)) {
+            setGuestToken(k);
+        }
 
         // as as side effect this disables e-mail validation
         setGuestEmailRequired(false);
