@@ -68,7 +68,7 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
             if (activity instanceof ActivityResultHandler) {
                 ((ActivityResultHandler) activity).setResultListener(REQUEST_CODE, listener);
             } else {
-                throw new ClassCastException("activity must implement ActivityResult");
+                throw new ClassCastException("activity must implement ActivityResultHandler");
             }
         }
 
