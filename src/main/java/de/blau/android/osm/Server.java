@@ -2021,7 +2021,13 @@ public class Server {
                         Authorize.startForResult(activity, new ActivityResultHandler.Listener() {
                             @Override
                             public void processResult(int resultCode, Intent result) {
-                                restartAction.onSuccess();
+                                if (Activity.RESULT_OK == resultCode) {
+                                    restartAction.onSuccess();
+                                } else {
+                                    Log.w(DEBUG_TAG, "Authorized returend with " + resultCode);
+                                    restartAction.onError();
+                                    ;
+                                }
                             }
                         });
                     }

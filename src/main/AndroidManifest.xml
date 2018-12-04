@@ -7,7 +7,7 @@
     android:versionName="@string/app_version" >
 
     <uses-sdk
-        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm" />
+        tools:overrideLibrary="com.nononsenseapps.filepicker,ch.poole.openinghoursfragment,ch.poole.rangebar,ch.poole.android.numberpickerpreference,com.buildware.widget.indeterm,com.heinrichreimersoftware.androidissuereporter" />
 
     <!--
     disable for now to see if it solves the Play Store problem of the app not showing up for many devices
@@ -155,6 +155,9 @@
         <activity
             android:name="DebugInformation"
             android:theme="@style/Theme.AppCompat" />
+        <activity
+            android:name="Feedback"
+            android:theme="@style/Theme.IssueReporter" />
         <activity
             android:name="HelpViewer"
             android:theme="@style/Theme.customHelpViewer" />

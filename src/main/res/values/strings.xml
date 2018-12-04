@@ -124,7 +124,7 @@
     <string name="WGS84">WGS84</string>
     <string name="tag_editor_name_suggestion">Name suggestion</string>
     <string name="tag_editor_name_suggestion_overwrite_message">This suggestion can replace some tag values with more popular values.</string>
-    <!--  Search/Find disalog -->
+    <!--  Search/Find dialog -->
     <string name="search_results_title">Search results</string>
     <string name="search_online">Search online</string>
     <string name="find_message">Enter search string</string>
@@ -238,6 +238,10 @@
     <string name="undo_redo_one">Just the selected checkpoint (unsafe)</string>
     <string name="undo_all">Undo all later checkpoints (safe)</string>
     <string name="redo_all">Redo all earlier checkpoints (safe)</string>
+    <!--  Feedback activity  -->
+    <string name="feedback_with_displayname">Send with your OpenStreetMap display name</string>
+    <string name="feedback_displayname_hint">OpenStreetMap display name not retrieved yet</string>
+    <string name="feedback_title">Feedback for the developers</string>
     <!--  BoxPicker -->
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
     <!--  NumberPiker -->
@@ -549,7 +553,8 @@
     <string name="menu_tools_zoom_to_layer_extent">Zoom to background layer extent</string>
     <string name="menu_tools_clear_clipboard">Clear clipboard</string>
     <!--  -->
-    <string name="menu_simple_actions">Simple mode</string>    
+    <string name="menu_simple_actions">Simple mode</string>  
+    <string name="menu_feedback">Provide feedback</string>  
     <string name="menu_privacy">Privacy</string>
     <!-- Background alignment -->
     <string name="menu_tools_background_align">Align background</string>

@@ -1595,6 +1595,11 @@ public class Main extends FullScreenAppCompatActivity
             // will run out of memory on old Android versions
             menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
         }
+        
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            // the library providing the UI is not supported under SDK 15
+            menu.findItem(R.id.menu_feedback).setVisible(false);
+        }
 
         // enable the JS console menu entry
         menu.findItem(R.id.tag_menu_js_console).setEnabled(prefs.isJsConsoleEnabled());
@@ -2180,12 +2185,14 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_privacy:
             HelpViewer.start(this, R.string.help_privacy);
             return true;
+        case R.id.menu_feedback:
+            startActivity(new Intent(this, Feedback.class));
+            return true;
         case R.id.menu_debug:
             startActivity(new Intent(this, DebugInformation.class));
             return true;
         }
         return false;
-
     }
 
     /**

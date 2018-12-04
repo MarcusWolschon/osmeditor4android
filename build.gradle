@@ -313,6 +313,7 @@ dependencies {
     currentImplementation "com.android.support:preference-v7:$supportLibVersion"
     currentImplementation "com.android.support:design:$supportLibVersion"
  	currentImplementation "com.android.support:support-annotations:$supportLibVersion" 
+    currentImplementation 'com.heinrichreimersoftware:android-issue-reporter:1.3.1'
  	legacyImplementation "com.android.support:appcompat-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:recyclerview-v7:$legacySupportLibVersion"
     legacyImplementation "com.android.support:preference-v7:$legacySupportLibVersion"

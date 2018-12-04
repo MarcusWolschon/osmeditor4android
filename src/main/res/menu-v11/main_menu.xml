@@ -234,6 +234,10 @@
         android:title="@string/menu_privacy"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu_feedback"
+        android:title="@string/menu_feedback"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_debug"
         android:title="@string/config_debugbutton_title"
         app:showAsAction="never" />
