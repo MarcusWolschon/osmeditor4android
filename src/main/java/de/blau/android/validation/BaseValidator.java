@@ -23,6 +23,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.GeoContext;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
@@ -148,13 +149,16 @@ public class BaseValidator implements Validator {
             // unsurveyed road
             result = result | Validator.HIGHWAY_ROAD;
         }
-        boolean imperial = App.getGeoContext().imperial(w);
-        if (imperial) {
-            SortedMap<String, String> tags = w.getTags();
-            Set<String> keys = w.getTags().keySet();
-            for (String key : keys) {
-                if (Tags.isSpeedKey(key) && !tags.get(key).endsWith(Tags.MPH)) {
-                    return result | Validator.IMPERIAL_UNITS;
+        GeoContext geoContext = App.getGeoContext();
+        if (geoContext != null) {
+            boolean imperial = geoContext.imperial(w);
+            if (imperial) {
+                SortedMap<String, String> tags = w.getTags();
+                Set<String> keys = w.getTags().keySet();
+                for (String key : keys) {
+                    if (Tags.isSpeedKey(key) && !tags.get(key).endsWith(Tags.MPH)) {
+                        return result | Validator.IMPERIAL_UNITS;
+                    }
                 }
             }
         }
