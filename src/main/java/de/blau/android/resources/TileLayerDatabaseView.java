@@ -100,7 +100,14 @@ public class TileLayerDatabaseView {
         final SQLiteDatabase   db;
         final FragmentActivity activity;
 
-        public LayerAdapter(final SQLiteDatabase db, final FragmentActivity activity, Cursor cursor) {
+        /**
+         * A cursor adapter that binds Layers to Views
+         * 
+         * @param db an open db
+         * @param activity the calling activity
+         * @param cursor the Cursor
+         */
+        public LayerAdapter(@NonNull final SQLiteDatabase db, @NonNull final FragmentActivity activity, @NonNull Cursor cursor) {
             super(activity, cursor, 0);
             this.db = db;
             this.activity = activity;

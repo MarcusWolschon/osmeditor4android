@@ -1,8 +1,11 @@
 package de.blau.android;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,9 @@ import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
 import de.blau.android.osm.Track.TrackPoint;
+import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.SavingHelper;
 
 /**
  * Various methods to support testing
@@ -120,19 +125,21 @@ public class TestUtils {
      * 
      * @param resId resource id
      * @param waitForNewWindow if true wait for a new window after clicking
+     * @return true if the button was found and clicked
      */
-    public static void clickButton(String resId, boolean waitForNewWindow) {
+    public static boolean clickButton(String resId, boolean waitForNewWindow) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiSelector uiSelector = new UiSelector().clickable(true).resourceId(resId);
         UiObject button = device.findObject(uiSelector);
         try {
             if (waitForNewWindow) {
-                button.clickAndWaitForNewWindow();
+                return button.clickAndWaitForNewWindow();
             } else {
-                button.click();
+                return button.click();
             }
         } catch (UiObjectNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -597,16 +604,18 @@ public class TestUtils {
      * Click "Up" button in action modes
      * 
      * @param mDevice UiDevice object
+     * @return true if the button was clicked
      */
-    public static void clickUp(UiDevice mDevice) {
+    public static boolean clickUp(@NonNull UiDevice mDevice) {
         UiObject homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Navigate up"));
         if (!homeButton.exists()) {
             homeButton = mDevice.findObject(new UiSelector().clickable(true).descriptionStartsWith("Nach oben"));
         }
         try {
-            homeButton.clickAndWaitForNewWindow();
+            return homeButton.clickAndWaitForNewWindow();
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
+            return false; // can't actually be reached
         }
     }
 
@@ -759,5 +768,30 @@ public class TestUtils {
                 main.getEasyEditManager().finish();
             }
         });
+    }
+
+    /**
+     * Copy a file from resources to a sub-directory of the public Vespucci directory
+     * 
+     * @param fileName the name of the file to copy
+     * @param destination the destiantion sub-directory
+     * @throws IOException
+     */
+    public static void copyFileFromResources(@NonNull String fileName, @NonNull String destination) throws IOException {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream(fileName);
+
+        File destinationDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), destination);
+        File destinationFile = new File(destinationDir, fileName);
+        OutputStream os = new FileOutputStream(destinationFile);
+
+        byte[] buffer = new byte[8 * 1024];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            os.write(buffer, 0, bytesRead);
+        }
+        os.flush();
+        SavingHelper.close(is);
+        SavingHelper.close(os);
     }
 }

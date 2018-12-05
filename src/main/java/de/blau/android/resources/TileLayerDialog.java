@@ -26,6 +26,7 @@ import de.blau.android.resources.OAMCatalog.Entry;
 import de.blau.android.resources.TileLayerServer.Provider;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MBTileProviderDataBase;
+import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -174,18 +175,21 @@ public class TileLayerDialog {
                         @Override
                         public boolean read(Uri fileUri) {
                             try {
+                                if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
+                                    throw new SQLiteException("Not a SQLite database file");
+                                }
                                 MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri);
                                 Map<String, String> metadata = db.getMetadata();
                                 if (metadata.isEmpty()) {
-                                    throw new SQLiteException("metadata missing");
+                                    throw new SQLiteException("MBTiles metadata missing");
                                 }
                                 int[] zooms = null;
-                                if (metadata.containsKey("minzoom") && metadata.containsKey("maxzoom")) {
+                                if (metadata.containsKey(MBTileConstants.MINZOOM) && metadata.containsKey(MBTileConstants.MAXZOOM)) {
                                     // MBTiles 1.3 support
                                     zooms = new int[2];
                                     try {
-                                        zooms[0] = Integer.parseInt(metadata.get("minzoom"));
-                                        zooms[1] = Integer.parseInt(metadata.get("maxzoom"));
+                                        zooms[0] = Integer.parseInt(metadata.get(MBTileConstants.MINZOOM));
+                                        zooms[1] = Integer.parseInt(metadata.get(MBTileConstants.MAXZOOM));
                                     } catch (NumberFormatException e) {
                                         Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
                                         zooms = null;
@@ -196,18 +200,18 @@ public class TileLayerDialog {
                                 }
                                 db.close();
 
-                                final String format = metadata.get("format");
-                                if (!("png".equals(format) || "jpg".equals(format))) {
+                                final String format = metadata.get(MBTileConstants.FORMAT);
+                                if (!(MBTileConstants.PNG.equals(format) || MBTileConstants.JPG.equals(format))) {
                                     Snack.toastTopError(activity, activity.getResources().getString(R.string.toast_unsupported_format, format));
                                     return true;
                                 }
                                 urlEdit.setText(fileUri.toString());
-                                String name = metadata.get("name");
+                                String name = metadata.get(MBTileConstants.NAME);
                                 if (name != null) {
-                                    nameEdit.setText(metadata.get("name"));
+                                    nameEdit.setText(name);
                                 }
-                                overlayCheck.setChecked("overlay".equals(metadata.get("type")));
-                                String bounds = metadata.get("bounds");
+                                overlayCheck.setChecked(MBTileConstants.OVERLAY.equals(metadata.get(MBTileConstants.TYPE)));
+                                String bounds = metadata.get(MBTileConstants.BOUNDS);
                                 if (bounds != null) {
                                     String[] corners = bounds.split(",", 4);
                                     if (corners.length == 4) {
@@ -221,7 +225,7 @@ public class TileLayerDialog {
                                 SelectFile.savePref(prefs, R.string.config_mbtilesPreferredDir_key, fileUri);
                                 return true;
                             } catch (SQLiteException sqex) {
-                                Log.e(DEBUG_TAG, "Not a SQLite database " + fileUri + " " + sqex.getMessage());
+                                Log.e(DEBUG_TAG, "Not a SQLite/MBTiles database " + fileUri + " " + sqex.getMessage());
                                 Snack.toastTopError(activity, R.string.toast_not_mbtiles);
                                 return false;
                             }

@@ -18,7 +18,7 @@ public abstract class FileUtil {
     /**
      * Get our public directory, creating it if it doesn't exist
      * 
-     * @return
+     * @return a File object for the public directory
      * @throws IOException
      */
     public static @NonNull File getPublicDirectory() throws IOException {
@@ -28,9 +28,9 @@ public abstract class FileUtil {
     /**
      * Get a File for directoryName in baseDirectory, if it doesn't exist create it
      * 
-     * @param baseDirectory
-     * @param directoryName
-     * @return
+     * @param baseDirectory the base directory
+     * @param directoryName the new sub-directory
+     * @return a File object for the sub-director of the public directory
      * @throws IOException
      */
     public static @NonNull File getPublicDirectory(@NonNull File baseDirectory, @NonNull String directoryName) throws IOException {
@@ -70,7 +70,17 @@ public abstract class FileUtil {
         return outfile;
     }
 
-    public static void copyFileFromAssets(Context context, String assetFileName, File destinationDir, String destinationFilename) throws IOException {
+    /**
+     * Copy a file from the assets to a (public) destination
+     * 
+     * @param context Android Context
+     * @param assetFileName the filename in the assets
+     * @param destinationDir destination directory
+     * @param destinationFilename destination filename
+     * @throws IOException
+     */
+    public static void copyFileFromAssets(@NonNull Context context, @NonNull String assetFileName, @NonNull File destinationDir,
+            @NonNull String destinationFilename) throws IOException {
         InputStream in = null;
         FileOutputStream out = null;
         try {
