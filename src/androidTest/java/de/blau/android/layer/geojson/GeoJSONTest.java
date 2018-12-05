@@ -13,13 +13,11 @@ import org.junit.runner.RunWith;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.Geometry;
-import com.mapbox.services.commons.geojson.LineString;
-import com.mapbox.services.commons.geojson.MultiPoint;
-import com.mapbox.services.commons.geojson.MultiPolygon;
-import com.mapbox.services.commons.geojson.Point;
-import com.mapbox.services.commons.models.Position;
+import com.mapbox.geojson.CoordinateContainer;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.Geometry;
+import com.mapbox.geojson.LineString;
+import com.mapbox.geojson.Point;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
@@ -54,6 +52,9 @@ public class GeoJSONTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -67,10 +68,16 @@ public class GeoJSONTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE);
     }
 
+    /**
+     * Post test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Import a FeatureCollection
+     */
     @Test
     public void importFeatureCollection() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
@@ -81,9 +88,9 @@ public class GeoJSONTest {
         List<Feature> content = layer.getFeatures();
         Assert.assertEquals(3, content.size());
         for (Feature feature : content) {
-            Geometry<?> geometry = feature.getGeometry();
-            JsonObject properties = feature.getProperties();
-            switch (geometry.getType()) {
+            Geometry geometry = feature.geometry();
+            JsonObject properties = feature.properties();
+            switch (geometry.type()) {
             case GeoJSONConstants.POINT:
                 JsonElement prop = properties.get("prop0");
                 Assert.assertNotNull(prop);
@@ -103,7 +110,7 @@ public class GeoJSONTest {
                 Assert.assertEquals("that", prop.getAsJsonObject().get("this").getAsString());
                 break;
             default:
-                Assert.fail("Unexpected Feature " + geometry.getType());
+                Assert.fail("Unexpected Feature " + geometry.type());
             }
         }
         try {
@@ -116,6 +123,9 @@ public class GeoJSONTest {
         Assert.assertEquals(3, content.size());
     }
 
+    /**
+     * Show a Feature in the info dialog
+     */
     @Test
     public void showFeatureInfo() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
@@ -127,20 +137,19 @@ public class GeoJSONTest {
         List<Feature> content = layer.getFeatures();
         Assert.assertEquals(3, content.size());
         for (Feature feature : content) {
-            Geometry<?> geometry = feature.getGeometry();
-            JsonObject properties = feature.getProperties();
-            switch (geometry.getType()) {
+            Geometry geometry = feature.geometry();
+            switch (geometry.type()) {
             case GeoJSONConstants.POINT:
-                App.getLogic().setZoom(map, Map.SHOW_LABEL_LIMIT+1);
+                App.getLogic().setZoom(map, Map.SHOW_LABEL_LIMIT + 1);
                 TestUtils.unlock();
-                Position p = ((Point)geometry).getCoordinates();
-                TestUtils.clickAtCoordinates(map, p.getLongitude(), p.getLatitude(), true);
+                Point p = (Point) geometry;
+                TestUtils.clickAtCoordinates(map, p.longitude(), p.latitude(), true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POINT));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
                 device.pressBack();
                 break;
             case GeoJSONConstants.POLYGON:
-                TestUtils.unlock();  
+                TestUtils.unlock();
                 TestUtils.clickAtCoordinates(map, 100.5, 0.5, true);
                 Assert.assertTrue(TestUtils.findText(device, false, GeoJSONConstants.POLYGON));
                 Assert.assertTrue(TestUtils.findText(device, false, "value0"));
@@ -149,7 +158,10 @@ public class GeoJSONTest {
             }
         }
     }
-    
+
+    /**
+     * Import individual geometries
+     */
     @Test
     public void importGeometries() {
         de.blau.android.layer.geojson.MapOverlay layer = main.getMap().getGeojsonLayer();
@@ -159,9 +171,9 @@ public class GeoJSONTest {
         List<Feature> content = layer.getFeatures();
         Assert.assertEquals(1, content.size());
         Feature f = content.get(0);
-        Geometry<?> g = f.getGeometry();
-        Assert.assertEquals(GeoJSONConstants.LINESTRING, g.getType());
-        List<Position> lineString = ((LineString) g).getCoordinates();
+        Geometry g = f.geometry();
+        Assert.assertEquals(GeoJSONConstants.LINESTRING, g.type());
+        List<Point> lineString = ((LineString) g).coordinates();
         Assert.assertEquals(3, lineString.size());
         loadGeoJOSN(layer, "geojson/multiPoint.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
@@ -169,9 +181,10 @@ public class GeoJSONTest {
         content = layer.getFeatures();
         Assert.assertEquals(1, content.size());
         f = content.get(0);
-        g = f.getGeometry();
-        Assert.assertEquals(GeoJSONConstants.MULTIPOINT, g.getType());
-        List<Position> multiPoint = ((MultiPoint) g).getCoordinates();
+        g = f.geometry();
+        Assert.assertEquals(GeoJSONConstants.MULTIPOINT, g.type());
+        @SuppressWarnings("unchecked")
+        List<Point> multiPoint = ((CoordinateContainer<List<Point>>) g).coordinates();
         Assert.assertEquals(4, multiPoint.size());
         loadGeoJOSN(layer, "geojson/holeyMultiPolygon.geojson");
         map.getViewBox().setBorders(map, layer.getExtent(), false);
@@ -179,9 +192,10 @@ public class GeoJSONTest {
         content = layer.getFeatures();
         Assert.assertEquals(1, content.size());
         f = content.get(0);
-        g = f.getGeometry();
-        Assert.assertEquals(GeoJSONConstants.MULTIPOLYGON, g.getType());
-        List<List<List<Position>>> multiPolygon = ((MultiPolygon) g).getCoordinates();
+        g = f.geometry();
+        Assert.assertEquals(GeoJSONConstants.MULTIPOLYGON, g.type());
+        @SuppressWarnings("unchecked")
+        List<List<List<Point>>> multiPolygon = ((CoordinateContainer<List<List<List<Point>>>>) g).coordinates();
         Assert.assertEquals(2, multiPolygon.size()); // 2 polygons
         Assert.assertEquals(1, multiPolygon.get(0).size()); // 1 ring
         Assert.assertEquals(2, multiPolygon.get(1).size()); // 2 rings
@@ -191,13 +205,19 @@ public class GeoJSONTest {
         content = layer.getFeatures();
         Assert.assertEquals(1, content.size());
         f = content.get(0);
-        g = f.getGeometry();
-        Assert.assertEquals(GeoJSONConstants.POINT, g.getType());
-        Position point = ((Point) g).getCoordinates();
-        Assert.assertEquals(30d, point.getLongitude(), 0.00001D);
-        Assert.assertEquals(10d, point.getLatitude(), 0.00001D);
+        g = f.geometry();
+        Assert.assertEquals(GeoJSONConstants.POINT, g.type());
+        Point point = ((Point) g);
+        Assert.assertEquals(30d, point.longitude(), 0.00001D);
+        Assert.assertEquals(10d, point.latitude(), 0.00001D);
     }
 
+    /**
+     * Load a file into the geojson layer
+     * 
+     * @param layer the Layer
+     * @param fileName the filename
+     */
     void loadGeoJOSN(de.blau.android.layer.geojson.MapOverlay layer, String fileName) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream(fileName);

@@ -27,7 +27,9 @@ import com.mapbox.geojson.GeometryCollection;
 import com.mapbox.geojson.MultiPolygon;
 import com.mapbox.geojson.Point;
 import com.mapbox.geojson.Polygon;
+import com.mapbox.geojson.gson.BoundingBoxDeserializer;
 import com.mapbox.geojson.gson.GeometryDeserializer;
+import com.mapbox.geojson.gson.PointDeserializer;
 import com.mapbox.turf.TurfException;
 import com.mapbox.turf.TurfJoins;
 
@@ -509,6 +511,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
                 } else {
                     GsonBuilder gson = new GsonBuilder();
                     gson.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
+                    gson.registerTypeAdapter(Point.class, new PointDeserializer());
+                    gson.registerTypeAdapter(BoundingBox.class, new BoundingBoxDeserializer());
                     g = gson.create().fromJson(json, Geometry.class);
                     Log.d(DEBUG_TAG, "Geometry " + g.type());
                     if (g.type() != null) {
@@ -527,6 +531,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             data = null;
             Snack.toastTopError(ctx, e.getLocalizedMessage());
             Log.e(DEBUG_TAG, "Exception " + e.getMessage());
+            e.printStackTrace();
         }
         saved = false;
         // re-enable drawing
