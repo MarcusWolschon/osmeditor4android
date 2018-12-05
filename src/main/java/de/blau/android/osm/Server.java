@@ -2024,9 +2024,8 @@ public class Server {
                                 if (Activity.RESULT_OK == resultCode) {
                                     restartAction.onSuccess();
                                 } else {
-                                    Log.w(DEBUG_TAG, "Authorized returend with " + resultCode);
+                                    Log.w(DEBUG_TAG, "Authorized returned with " + resultCode);
                                     restartAction.onError();
-                                    ;
                                 }
                             }
                         });

@@ -23,7 +23,6 @@ import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ActivityResultHandler;
-import de.blau.android.util.ActivityResultHandler.Listener;
 
 /**
  * Open an issue on github, an anonymous submission requires the current OSM display name
@@ -39,7 +38,8 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
-    String displayName = null;
+    RadioButton anonymous;
+    String      displayName = null;
 
     @Override
     public GithubTarget getTarget() {
@@ -77,42 +77,49 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         inputEmail.setBackground(null);
 
         final FloatingActionButton buttonSend = findViewById(R.id.air_buttonSend);
-        buttonSend.setEnabled(false);
 
         final Server server = prefs.getServer();
-        RadioButton anonymous = findViewById(R.id.air_optionAnonymous);
+        anonymous = findViewById(R.id.air_optionAnonymous);
+        final PostAsyncActionHandler action = new PostAsyncActionHandler() {
+            @Override
+            public void onSuccess() {
+
+                new AsyncTask<Void, UserDetails, UserDetails>() {
+
+                    @Override
+                    protected UserDetails doInBackground(Void... params) {
+                        return server.getUserDetails();
+                    }
+
+                    @Override
+                    protected void onPostExecute(UserDetails userDetails) {
+                        if (userDetails != null) {
+                            displayName = userDetails.getDisplayName();
+                            inputEmail.setText(displayName);
+                            buttonSend.setEnabled(true);
+                        }
+                    }
+                }.execute();
+            }
+
+            @Override
+            public void onError() {
+                buttonSend.setEnabled(false);
+            }
+        };
+
+        if (anonymous.isChecked()) { // button shoudn't be checked anyway
+            buttonSend.setEnabled(Server.checkOsmAuthentication(Feedback.this, server, action));
+        }
+
         anonymous.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            PostAsyncActionHandler action = new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-
-                    new AsyncTask<Void, UserDetails, UserDetails>() {
-
-                        @Override
-                        protected UserDetails doInBackground(Void... params) {
-                            return server.getUserDetails();
-                        }
-
-                        @Override
-                        protected void onPostExecute(UserDetails userDetails) {
-                            if (userDetails != null) {
-                                displayName = userDetails.getDisplayName();
-                                inputEmail.setText(displayName);
-                                buttonSend.setEnabled(true);
-                            }
-                        }
-                    }.execute();
-                }
-
-                @Override
-                public void onError() {
-                }
-            };
 
             @Override
             public void onCheckedChanged(CompoundButton button, boolean checked) {
                 if (checked && Server.checkOsmAuthentication(Feedback.this, server, action)) {
                     action.onSuccess();
+                } else if (!checked) {
+                    buttonSend.setEnabled(true);
                 }
             }
 
@@ -124,7 +131,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     @Override
     public void onSaveExtraInfo(ExtraInfo extraInfo) {
-        if (displayName != null) {
+        if (displayName != null && anonymous.isChecked()) {
             extraInfo.put("OSM display name", displayName);
         }
     }
