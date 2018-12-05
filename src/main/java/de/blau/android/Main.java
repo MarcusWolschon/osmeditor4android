@@ -1596,7 +1596,7 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 || BuildConfig.FLAVOR != Flavors.CURRENT) {
             // the library providing the UI is not supported under SDK 15
             menu.findItem(R.id.menu_feedback).setVisible(false);
         }
@@ -2405,9 +2405,9 @@ public class Main extends FullScreenAppCompatActivity
             if (!follow || !onScreen) {
                 followButton.setEnabled(true);
             } else { // this is hack around the elevation vanishing when disabled
-                float elevation = followButton.getElevation();
+                float elevation = followButton.getCompatElevation();
                 followButton.setEnabled(!follow || !onScreen);
-                followButton.setElevation(elevation);
+                followButton.setCompatElevation(elevation);
             }
         }
         if (follow && lastLocation != null) { // update if we are returning from
@@ -2855,9 +2855,9 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void disableSimpleActionsButton() {
         if (simpleActionsButton != null) {
-            float elevation = simpleActionsButton.getElevation();
+            float elevation = simpleActionsButton.getCompatElevation();
             simpleActionsButton.setEnabled(false);
-            simpleActionsButton.setElevation(elevation);
+            simpleActionsButton.setCompatElevation(elevation);
             ColorStateList stateList = ContextCompat.getColorStateList(Main.this, R.color.dark_grey);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 simpleActionsButton.setBackgroundTintList(stateList);
