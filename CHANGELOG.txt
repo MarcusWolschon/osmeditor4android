@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-12.0.0-1: Support for a simple UI for adding objects, support for MapRoulette tasks, objects merge UI and error behaviour improvements, group alert behviour is configurable, configuration support for task and grid layers in layer control, support limiting searches to a bounding box, sort preset items alphabetically, bug fixes. 
+12.0.0-1: Support for a simple UI for adding objects, support for MapRoulette tasks, objects merge UI and error behaviour improvements, group alert behaviour is configurable, configuration support for task and grid layers in layer control, support limiting searches to a bounding box, sort preset items alphabetically, function to send reports to github directly, share position with openstreetmap.org, most recently used key, values and roles support, enable proguard, bug fixes. 
 
 11.2.1: Re-enable google logins, update translations.
 
