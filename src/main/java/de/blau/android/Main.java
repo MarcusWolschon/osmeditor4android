@@ -390,9 +390,6 @@ public class Main extends FullScreenAppCompatActivity
 
     private Location locationForIntent = null;
 
-    private boolean controlsHidden     = false;
-    private Object  controlsHiddenLock = new Object();
-
     /**
      * Status of permissions
      */
@@ -1507,14 +1504,10 @@ public class Main extends FullScreenAppCompatActivity
         boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
                 && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
         // just as good as any other place to check this
-        synchronized (controlsHiddenLock) {
-            if (!controlsHidden) {
-                if (locationProviderEnabled) {
-                    showFollowButton();
-                } else {
-                    hideFollowButton();
-                }
-            }
+        if (locationProviderEnabled) {
+            showFollowButton();
+        } else {
+            hideFollowButton();
         }
         menu.findItem(R.id.menu_gps_show).setEnabled(locationProviderEnabled).setChecked(showGPS);
         menu.findItem(R.id.menu_gps_follow).setEnabled(locationProviderEnabled).setChecked(followGPS);
@@ -2193,6 +2186,7 @@ public class Main extends FullScreenAppCompatActivity
             return true;
         }
         return false;
+
     }
 
     /**
@@ -2864,56 +2858,6 @@ public class Main extends FullScreenAppCompatActivity
             } else {
                 Util.setBackgroundTintList(simpleActionsButton, stateList);
             }
-        }
-    }
-
-    /**
-     * Hide all control buttons and the action bar
-     */
-    private void hideControls() {
-        synchronized (controlsHiddenLock) {
-            ActionBar actionbar = getSupportActionBar();
-            if (actionbar != null) {
-                actionbar.hide();
-            }
-            hideBottomBar();
-            hideLock();
-            hideLayersControl();
-            ZoomControls zoomControls = getControls();
-            if (zoomControls != null) {
-                zoomControls.hide();
-            }
-            hideFollowButton();
-            if (App.getLogic().getFilter() != null) {
-                App.getLogic().getFilter().hideControls();
-            }
-            hideSimpleActionsButton();
-            controlsHidden = true;
-        }
-    }
-
-    /**
-     * Show all control buttons and the action bar
-     */
-    private void showControls() {
-        synchronized (controlsHiddenLock) {
-            ActionBar actionbar = getSupportActionBar();
-            if (actionbar != null && !prefs.splitActionBarEnabled()) {
-                actionbar.show();
-            }
-            showBottomBar();
-            showLock();
-            showLayersControl();
-            ZoomControls zoomControls = getControls();
-            if (zoomControls != null) {
-                zoomControls.show();
-            }
-            showFollowButton();
-            if (App.getLogic().getFilter() != null) {
-                App.getLogic().getFilter().showControls();
-            }
-            showSimpleActionsButton();
-            controlsHidden = false;
         }
     }
 
