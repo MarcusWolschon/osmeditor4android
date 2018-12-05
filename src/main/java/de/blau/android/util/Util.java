@@ -439,12 +439,14 @@ public final class Util {
      * 
      * @param activity this activity
      * @param lonLat coordinates to share
+     * @param z the zoom level or null
      */
-    public static void sharePosition(@NonNull Activity activity, @Nullable double[] lonLat) {
+    public static void sharePosition(@NonNull Activity activity, @Nullable double[] lonLat, @Nullable Integer z) {
         if (lonLat != null) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            Uri geo = Uri.parse("geo:" + String.format(Locale.US, "%.7f", lonLat[1]) + "," + String.format(Locale.US, "%.7f", lonLat[0]));
+            Uri geo = Uri.parse("geo:" + String.format(Locale.US, "%.7f", lonLat[1]) + "," + String.format(Locale.US, "%.7f", lonLat[0])
+                    + (z != null ? "?z=" + z.toString() : ""));
             Log.d(DEBUG_TAG, "sharing " + geo);
             Intent geoIntent = new Intent(Intent.ACTION_VIEW, geo);
             activity.startActivity(geoIntent);

@@ -172,7 +172,7 @@ public class WaySelectionActionModeCallback extends ElementSelectionActionModeCa
                 main.performTagEdit(element, null, true, false, false);
                 break;
             case MENUITEM_SHARE_POSITION:
-                Util.sharePosition(main, Logic.centroidLonLat((Way) element));
+                Util.sharePosition(main, Logic.centroidLonLat((Way) element), main.getMap().getZoomLevel());
                 break;
             default:
                 return false;

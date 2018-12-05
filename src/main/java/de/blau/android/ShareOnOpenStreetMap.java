@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import de.blau.android.contract.Urls;
 import de.blau.android.util.GeoUrlData;
 
 /**
- * Start vespucci with geo: URLs. see http://www.ietf.org/rfc/rfc5870.txt
+ * Take a geo intent and open the location on OSM
  */
-public class GeoUrlActivity extends Activity {
+public class ShareOnOpenStreetMap extends Activity {
 
-    private static final String DEBUG_TAG = "GeoUrlActivity";
-    public static final String  GEODATA   = "de.blau.android.GeoUrlActivity";
+    private static final String DEBUG_TAG = "ShareOnOpenStreetMap";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,12 @@ public class GeoUrlActivity extends Activity {
             return;
         }
         Log.d(DEBUG_TAG, data.toString());
-        Intent intent = new Intent(this, Main.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         GeoUrlData geoUrlData = GeoUrlData.parse(data.getSchemeSpecificPart());
         if (geoUrlData != null) {
-            intent.putExtra(GEODATA, geoUrlData);
+            String url = Urls.OSM + "#map=" + (geoUrlData.hasZoom() ? geoUrlData.getZoom() : 18) + "/" + geoUrlData.getLat() + "/" + geoUrlData.getLon();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
         }
-        startActivity(intent);
         finish();
     }
 }

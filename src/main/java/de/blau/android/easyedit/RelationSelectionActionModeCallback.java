@@ -101,7 +101,8 @@ public class RelationSelectionActionModeCallback extends ElementSelectionActionM
                 break;
             case MENUITEM_SHARE_POSITION:
                 ViewBox box = new ViewBox(element.getBounds());
-                Util.sharePosition(main, box.getCenter()); // the center of the box is only a rough value
+                Util.sharePosition(main, box.getCenter(), main.getMap().getZoomLevel()); // the center of the box is
+                                                                                         // only a rough value
                 break;
             default:
                 return false;

@@ -78,7 +78,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import de.blau.android.GeoUrlActivity.GeoUrlData;
 import de.blau.android.Logic.CursorPaddirection;
 import de.blau.android.RemoteControlUrlActivity.RemoteControlUrlData;
 import de.blau.android.contract.Flavors;
@@ -149,6 +148,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.FullScreenAppCompatActivity;
 import de.blau.android.util.GeoMath;
+import de.blau.android.util.GeoUrlData;
 import de.blau.android.util.MenuUtil;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.ReadFile;
@@ -1595,7 +1595,7 @@ public class Main extends FullScreenAppCompatActivity
             // will run out of memory on old Android versions
             menu.findItem(R.id.menu_tools_update_imagery_configuration).setVisible(false);
         }
-        
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             // the library providing the UI is not supported under SDK 15
             menu.findItem(R.id.menu_feedback).setVisible(false);
@@ -1727,7 +1727,7 @@ public class Main extends FullScreenAppCompatActivity
             break;
 
         case R.id.menu_share:
-            Util.sharePosition(this, map.getViewBox().getCenter());
+            Util.sharePosition(this, map.getViewBox().getCenter(), map.getZoomLevel());
             break;
 
         case R.id.menu_help:

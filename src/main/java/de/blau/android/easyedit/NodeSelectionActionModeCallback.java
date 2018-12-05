@@ -124,7 +124,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 double[] lonLat = new double[2];
                 lonLat[0] = ((Node) element).getLon() / 1E7;
                 lonLat[1] = ((Node) element).getLat() / 1E7;
-                Util.sharePosition(main, lonLat);
+                Util.sharePosition(main, lonLat, main.getMap().getZoomLevel());
                 break;
             default:
                 return false;

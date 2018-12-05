@@ -382,6 +382,7 @@
     <string name="overwrite">Overwrite</string>
     <string name="share">Share</string>
     <string name="share_position">Share position</string>
+    <string name="share_on_openstreetmap">Share on OpenStreetMap</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
     <string name="geojson_object">%1$s (%2$s)</string>

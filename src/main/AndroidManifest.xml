@@ -117,6 +117,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="de.blau.android.ShareOnOpenStreetMap"
+            android:label="@string/share_on_openstreetmap"
+            tools:ignore="ExportedActivity" 
+            android:icon="@drawable/osm_logo" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="geo" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="de.blau.android.RemoteControlUrlActivity"
             tools:ignore="ExportedActivity" >
             <intent-filter>

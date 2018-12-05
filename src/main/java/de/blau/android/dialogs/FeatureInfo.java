@@ -130,7 +130,7 @@ public class FeatureInfo extends DialogFragment {
                         double[] lonLat = new double[2];
                         lonLat[0] = p.longitude();
                         lonLat[1] = p.latitude();
-                        Util.sharePosition(getActivity(), lonLat);
+                        Util.sharePosition(getActivity(), lonLat, null);
                     }
                 });
             }
