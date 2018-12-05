@@ -38,15 +38,13 @@ import oauth.signpost.exception.OAuthException;
  * @author simon
  *
  */
-public class Authorize extends FullScreenAppCompatActivity implements ActivityResultHandler {
+public class Authorize extends FullScreenAppCompatActivity {
 
     private static final String DEBUG_TAG = "Authorize";
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
 
-    public static final int REQUEST_CODE = (short) Authorize.class.hashCode();
-
-    java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
+    public static final int REQUEST_CODE = Authorize.class.hashCode() & 0x0000FFFF;
 
     /**
      * webview for logging in and authorizing OAuth
@@ -241,24 +239,6 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
                 }
             }
         }
-    }
-
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
-
-        ActivityResultHandler.Listener listener = activityResultListeners.get(requestCode);
-        if (listener != null) {
-            listener.processResult(resultCode, data);
-        } else {
-            Log.w(DEBUG_TAG, "Received activity result without listener, code " + requestCode);
-        }
-    }
-
-    @Override
-    public void setResultListener(int code, Listener listener) {
-        activityResultListeners.put(code, listener);
     }
 
     /**
