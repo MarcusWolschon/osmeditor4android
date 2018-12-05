@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
@@ -32,14 +33,14 @@ public class Photo implements BoundedObject {
     private String              directionRef = null;   // if null direction not present
 
     /**
-     * Create a Photo object from a directory and filename of the image
+     * Construct a Photo object from a directory and filename of the image
      * 
-     * @param directory
-     * @param imageFile
+     * @param directory the directory the image is located in
+     * @param imageFile the image file
      * @throws IOException If there was a problem parsing the XML.
      * @throws NumberFormatException If there was a problem parsing the XML.
      */
-    public Photo(File directory, File imageFile) throws IOException, NumberFormatException {
+    public Photo(@NonNull File directory, @NonNull File imageFile) throws IOException, NumberFormatException {
         //
         ExtendedExifInterface exif = new ExtendedExifInterface(imageFile.toString()); // create the ExifInterface file
 
@@ -76,22 +77,43 @@ public class Photo implements BoundedObject {
         }
     }
 
-    public Photo(int lat, int lon, String ref) {
+    /**
+     * Construct a Photo object from coordinates and the path to the file
+     * 
+     * @param lat latitude in WGS84*1E7 degrees
+     * @param lon longitude in WGS84*1E7 degrees
+     * @param ref the path of the file
+     */
+    public Photo(int lat, int lon, @NonNull String ref) {
         this.lat = lat;
         this.lon = lon;
         this.ref = ref;
     }
 
-    public Photo(int lat, int lon, int direction, String ref) {
+    /**
+     * Construct a Photo object from coordinates, the path to the file and the direction
+     * 
+     * @param lat latitude in WGS84*1E7 degrees
+     * @param lon longitude in WGS84*1E7 degrees
+     * @param direction in degrees
+     * @param ref the path of the file
+     */
+    public Photo(int lat, int lon, int direction, @NonNull String ref) {
         this.lat = lat;
         this.lon = lon;
         this.direction = direction;
         this.directionRef = "M"; // magnetic north
-        // Log.d("Photo","constructor direction " + direction + " ref " + directionRef);
         this.ref = ref;
     }
 
-    private Float convertToDegree(String stringDMS) throws NumberFormatException {
+    /**
+     * Convert the DMS string to degrees
+     * 
+     * @param stringDMS the DMS string
+     * @return degrees
+     * @throws NumberFormatException if the String couldn't be parsed for whatever reason
+     */
+    private Float convertToDegree(@NonNull String stringDMS) throws NumberFormatException {
         try {
             Float result = null;
             String[] DMS = stringDMS.split(",", 3);
@@ -163,7 +185,9 @@ public class Photo implements BoundedObject {
     }
 
     /**
-     * did we have a direction attribute
+     * Do we have a direction attribute
+     * 
+     * @return true if we have a direction attribute
      */
     public boolean hasDirection() {
         return directionRef != null;
@@ -172,16 +196,16 @@ public class Photo implements BoundedObject {
     /**
      * get the direction value
      * 
-     * @return
+     * @return the direction value
      */
     public int getDirection() {
         return direction;
     }
 
     /**
-     * BoundedObject interface
+     * For the BoundedObject interface
      */
-    @SuppressWarnings("UnnecessaryLocalVariable")
+    @Override
     public BoundingBox getBounds() {
         return new BoundingBox(lon, lat);
     }

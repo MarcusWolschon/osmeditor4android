@@ -43,8 +43,8 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
     private static final String DEBUG_TAG = "Authorize";
 
     public static final String ACTION_FINISH_OAUTH = "de.blau.android.FINISH_OAUTH";
-    
-    public static final int REQUEST_CODE = (short)Authorize.class.hashCode();
+
+    public static final int REQUEST_CODE = (short) Authorize.class.hashCode();
 
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
@@ -92,7 +92,6 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
             oa = new OAuthHelper(url);
         } catch (OsmException oe) {
             server.setOAuth(false); // ups something went wrong turn oauth off
-
             Snack.barError(this, R.string.toast_no_oauth);
             return;
         }
@@ -210,14 +209,9 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        String action = intent.getAction();
-        if (action != null) {
-            switch (action) {
-            case ACTION_FINISH_OAUTH:
-                Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
-                finishOAuth();
-                return;
-            }
+        if (ACTION_FINISH_OAUTH.equals(intent.getAction())) {
+            Log.d(DEBUG_TAG, "onNewIntent calling finishOAuth");
+            finishOAuth();
         }
     }
 
@@ -228,7 +222,7 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
         Log.d(DEBUG_TAG, "finishOAuth");
         synchronized (oAuthWebViewLock) {
             if (oAuthWebView != null) {
-                ViewGroup contentView = (ViewGroup)findViewById(android.R.id.content);
+                ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
                 contentView.removeView(oAuthWebView);
                 try {
                     // the below loadUrl, even though the "official" way to do
@@ -239,17 +233,12 @@ public class Authorize extends FullScreenAppCompatActivity implements ActivityRe
                     oAuthWebView.removeAllViews();
                     oAuthWebView.destroy();
                     oAuthWebView = null;
-                    // if (restart != null) {
-                    // restart.onSuccess();
-                    // }
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
                 } catch (Exception ex) {
                     ACRAHelper.nocrashReport(ex, ex.getMessage());
                 }
-            } else { // we want to have the controls showing in any case and before restart.onScucess is run
-                // showControls();
             }
         }
     }

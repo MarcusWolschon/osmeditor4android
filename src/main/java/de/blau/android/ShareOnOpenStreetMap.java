@@ -3,7 +3,6 @@ package de.blau.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import de.blau.android.contract.Urls;
 import de.blau.android.util.GeoUrlData;
@@ -14,11 +13,6 @@ import de.blau.android.util.GeoUrlData;
 public class ShareOnOpenStreetMap extends Activity {
 
     private static final String DEBUG_TAG = "ShareOnOpenStreetMap";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected void onStart() {

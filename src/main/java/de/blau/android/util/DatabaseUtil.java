@@ -12,7 +12,7 @@ public final class DatabaseUtil {
      */
     private DatabaseUtil() {
     }
-    
+
     /**
      * Check if this could be a valid SqlLite database
      * 
@@ -31,15 +31,12 @@ public final class DatabaseUtil {
         try {
             fr = new FileReader(file);
             char[] buffer = new char[16];
-
             if (fr.read(buffer, 0, 16) == 16) {
                 String str = String.valueOf(buffer);
                 return SQLITE_MAGIC.equals(str);
             }
             return false;
-
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         } finally {
             SavingHelper.close(fr);

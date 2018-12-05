@@ -2362,21 +2362,22 @@ public class Preset implements Serializable {
             return scrollView;
         }
 
-        final Comparator<PresetElement> itemComparator = new Comparator<PresetElement>() {
-
-            @Override
-            public int compare(@NonNull PresetElement pe1, @NonNull PresetElement pe2) {
-                return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
-            }
-        };
-
         /**
          * Sort the PresetElements in a temporary List and add them to a target List
          * 
+         * @param <T> PresetElement sub-class
          * @param target target List
          * @param temp temp List
          */
         private <T extends PresetElement> void sortAndAddElements(@NonNull List<PresetElement> target, @NonNull List<T> temp) {
+
+            final Comparator<PresetElement> itemComparator = new Comparator<PresetElement>() {
+                @Override
+                public int compare(@NonNull PresetElement pe1, @NonNull PresetElement pe2) {
+                    return pe1.getTranslatedName().compareTo(pe2.getTranslatedName());
+                }
+            };
+
             if (!temp.isEmpty()) {
                 temp.sort(itemComparator);
                 target.addAll(temp);
