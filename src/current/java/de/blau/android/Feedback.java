@@ -40,6 +40,7 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     RadioButton anonymous;
     String      displayName = null;
+    Server      server      = null;
 
     @Override
     public GithubTarget getTarget() {
@@ -78,11 +79,12 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
         final FloatingActionButton buttonSend = findViewById(R.id.air_buttonSend);
 
-        final Server server = prefs.getServer();
+        server = prefs.getServer();
         anonymous = findViewById(R.id.air_optionAnonymous);
         final PostAsyncActionHandler action = new PostAsyncActionHandler() {
             @Override
             public void onSuccess() {
+                server = prefs.getServer(); // should be authenticated now
 
                 new AsyncTask<Void, UserDetails, UserDetails>() {
 
