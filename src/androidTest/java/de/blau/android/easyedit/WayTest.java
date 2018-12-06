@@ -134,7 +134,7 @@ public class WayTest {
         Node shouldntBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766174);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         Assert.assertTrue(way.hasParentRelation(6490362L));
         List<Node>nodes = way.getNodes();

@@ -116,9 +116,9 @@ public class NodeTest {
         Assert.assertTrue(TestUtils.findText(device, false, "8.3878200"));
         Assert.assertTrue(TestUtils.findText(device, false, "47.3903390"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, node.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
     }
     
@@ -141,7 +141,7 @@ public class NodeTest {
         Assert.assertEquals(8.388, node.getLon()/1E7D,0.001);
         Assert.assertEquals(47.391,node.getLat()/1E7D,0.001);
         
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
     }
     
@@ -159,7 +159,7 @@ public class NodeTest {
         
         List<Way>waysBefore = logic.getWaysForNode(node);
         Assert.assertEquals(2, waysBefore.size());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_unjoin)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_unjoin), false, true));
         
         List<Way>waysUnjoined = logic.getWaysForNode(node);
         Assert.assertEquals(1, waysUnjoined.size());
@@ -169,7 +169,7 @@ public class NodeTest {
         
         TestUtils.clickAtCoordinates(map, 8.3874926, 47.3884640, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "node", false)); // the first node in the list
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_merge)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_merge), false, true));
         
         List<Way>waysAfter = logic.getWaysForNode(node);
         Assert.assertEquals(2, waysAfter.size());

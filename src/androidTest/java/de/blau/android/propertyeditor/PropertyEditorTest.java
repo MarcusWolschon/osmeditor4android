@@ -44,8 +44,10 @@ import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -224,7 +226,7 @@ public class PropertyEditorTest {
             }
         });
         try {
-            signal2.await(10, TimeUnit.SECONDS);
+            signal2.await(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
@@ -233,7 +235,7 @@ public class PropertyEditorTest {
         // Node n = App.getLogic().getSelectedNode();
         // Assert.assertNotNull(n);
 
-        Assert.assertTrue(TestUtils.clickMenuButton("Properties"));
+        Assert.assertTrue(TestUtils.clickMenuButton("Properties", false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
 
@@ -248,7 +250,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         UiObject2 cusine = null;
         try {
-            cusine = getValueField("Cuisine");
+            cusine = getField("Cuisine", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -259,7 +261,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "SAVE", true));
         UiObject2 openingHours = null;
         try {
-            openingHours = getValueField("Opening Hours");
+            openingHours = getField("Opening Hours", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -277,7 +279,8 @@ public class PropertyEditorTest {
 
     /**
      * Select a way and check if expected street name is there, then - check for max speed dropdown - check for bridge
-     * and sidewalk:left checkboxes, check that changed key end up in the MRU tags.
+     * and sidewalk:left checkboxes, change role in relation check that changed keys end up in the MRU tags, undo the
+     * role change.
      */
     @Test
     public void way() {
@@ -301,20 +304,25 @@ public class PropertyEditorTest {
         Way w = App.getLogic().getSelectedWay();
         Assert.assertNotNull(w);
 
-        Assert.assertTrue(TestUtils.clickMenuButton("Properties"));
+        Assert.assertTrue(TestUtils.clickMenuButton("Properties", false, true));
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(mDevice, false, "Kindhauserstrasse"));
-        Assert.assertTrue(TestUtils.clickText(mDevice, true, "50", false));
-        Assert.assertTrue(TestUtils.clickText(mDevice, true, "50", true));
-        // Assert.assertTrue(TestUtils.findText(mDevice, true, "100")); clicking dropdowns seems to be tricky
-        // Assert.assertTrue(TestUtils.clickText(mDevice, true, "100", false));
+        try {
+            UiObject2 valueField = getField("50", 1);
+            // clicking doesn't work see https://issuetracker.google.com/issues/37017411
+            valueField.click();
+            valueField.setText("100");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+
         //
         // Apply best preset
-        Assert.assertTrue(TestUtils.clickMenuButton("Apply best preset"));
+        Assert.assertTrue(TestUtils.clickMenuButton("Apply best preset", false, false));
         UiObject2 bridge = null;
         try {
-            bridge = getValueField("Bridge");
+            bridge = getField("Bridge", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -322,19 +330,40 @@ public class PropertyEditorTest {
         bridge.click();
         UiObject2 sidewalk = null;
         try {
-            sidewalk = getValueField("Sidewalk");
+            sidewalk = getField("Sidewalk", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
         Assert.assertNotNull(sidewalk);
         sidewalk.click();
         Assert.assertTrue(TestUtils.clickText(mDevice, true, "Only left side", true));
+
+        //
+        // switch to relation membership tab
+        Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_details), false));
+        Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.relations), false));
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "bus route Bus 305"));
+        try {
+            UiObject2 roleField = getField("bus route Bus 305", 1);
+            // clicking doesn't work see https://issuetracker.google.com/issues/37017411
+            roleField.setText("platform");
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail(e.getMessage());
+        }
+
         // exit and test that everything has been set correctly
         TestUtils.clickUp(mDevice);
         Assert.assertTrue(TestUtils.findText(mDevice, false, context.getString(R.string.actionmode_wayselect)));
-        // Assert.assertTrue(w.hasTag("maxspeed", "100"));
+        Assert.assertTrue(w.hasTag("maxspeed", "100"));
         Assert.assertTrue(w.hasTag("bridge", "yes"));
         Assert.assertTrue(w.hasTag("sidewalk", "left"));
+
+        List<Relation> parents = w.getParentRelations();
+        Assert.assertNotNull(parents);
+        Assert.assertTrue(findRole("platform", w, parents));
+        TestUtils.clickMenuButton(context.getString(R.string.undo), false, true);
+        Assert.assertFalse(findRole("platform", w, parents));
+
         //
         MRUTags mruTags = App.getMruTags();
         List<String> path = Arrays.asList(new String[] { "Highways", "Streets", "Tertiary" });
@@ -342,8 +371,32 @@ public class PropertyEditorTest {
         Assert.assertNotNull(item);
         Assert.assertTrue(mruTags.getValues(item, "bridge").contains("yes"));
         Assert.assertTrue(mruTags.getValues(item, "sidewalk").contains("left"));
+        Assert.assertTrue(mruTags.getValues(item, "maxspeed").contains("100"));
         Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("bridge"));
         Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("sidewalk"));
+        path = Arrays.asList(new String[] { "Transport", "Public Transport", "Public Transport Route (Bus)" });
+        item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
+        Assert.assertTrue(mruTags.getRoles(item).contains("platform"));
+    }
+
+    /**
+     * Check if the OsmELement e has a specific role in one of its parent relations
+     * 
+     * @param role the role
+     * @param e the OsmElement
+     * @param parents the parent Relations
+     * @return true if the role was found
+     */
+    private boolean findRole(@NonNull String role, @NonNull OsmElement e, @NonNull List<Relation> parents) {
+        for (Relation parent : parents) {
+            List<RelationMember> members = parent.getAllMembers(e);
+            for (RelationMember member : members) {
+                if (role.equals(member.getRole())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -562,7 +615,7 @@ public class PropertyEditorTest {
         Assert.assertTrue(found);
         UiObject2 conditionalMaxSpeed = null;
         try {
-            conditionalMaxSpeed = getValueField("Max speed @");
+            conditionalMaxSpeed = getField("Max speed @", 1);
         } catch (UiObjectNotFoundException e) {
             Assert.fail();
         }
@@ -665,16 +718,21 @@ public class PropertyEditorTest {
     /**
      * Get the value field for a specific key
      * 
-     * @param keyText the text display for the key
+     * @param text the text display for the key
+     * @param fieldIndex TODO
      * @return an UiObject2 for the value field
-     * @throws UiObjectNotFoundException
+     * @throws UiObjectNotFoundException if we couldn't find the object with text
      */
-    private UiObject2 getValueField(@NonNull String keyText) throws UiObjectNotFoundException {
+    private UiObject2 getField(@NonNull String text, int fieldIndex) throws UiObjectNotFoundException {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
-        appView.scrollIntoView(new UiSelector().text(keyText));
-        BySelector bySelector = By.textStartsWith(keyText);
+        appView.scrollIntoView(new UiSelector().text(text));
+        BySelector bySelector = By.textStartsWith(text);
         UiObject2 keyField = mDevice.wait(Until.findObject(bySelector), 500);
         UiObject2 linearLayout = keyField.getParent();
-        return linearLayout.getChildren().get(1);
+        if (!linearLayout.getClassName().equals("android.widget.LinearLayout")) {
+            // some of the text fields are nested one level deeper
+            linearLayout = linearLayout.getParent();
+        }
+        return linearLayout.getChildren().get(fieldIndex);
     }
 }

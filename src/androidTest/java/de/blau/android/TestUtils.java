@@ -90,16 +90,18 @@ public class TestUtils {
      * @return true if successful
      */
     public static boolean clickOverflowButton() {
-        return clickMenuButton("More options");
+        return clickMenuButton("More options", false, true);
     }
 
     /**
      * Click a menu bar button
      * 
      * @param description the description of the button
+     * @param longClick if true perform a long click
+     * @param waitForNewWindow if true wait for a new window
      * @return true if successful
      */
-    public static boolean clickMenuButton(String description) {
+    public static boolean clickMenuButton(String description, boolean longClick, boolean waitForNewWindow) {
         // Note: contrary to "text", "textStartsWith" is case insensitive
         BySelector bySelector = By.clickable(true).descStartsWith(description);
         UiSelector uiSelector = new UiSelector().clickable(true).descriptionStartsWith(description);
@@ -108,8 +110,13 @@ public class TestUtils {
         UiObject button = device.findObject(uiSelector);
         if (button.exists()) {
             try {
-                button.clickAndWaitForNewWindow();
-                return true;
+                if (longClick) {
+                    return button.longClick();
+                } else if (waitForNewWindow) {
+                    return button.clickAndWaitForNewWindow();
+                } else {
+                    return button.click();
+                }
             } catch (UiObjectNotFoundException e) {
                 Log.e(DEBUG_TAG, "Object vanished.");
                 return false;

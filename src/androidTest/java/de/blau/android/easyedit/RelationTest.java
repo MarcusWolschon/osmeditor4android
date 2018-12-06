@@ -112,9 +112,9 @@ public class RelationTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.menu_information), true));
         Assert.assertTrue(TestUtils.findText(device, false, "hiking"));
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, relation.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
         List<RelationMember>members = relation.getMembers();

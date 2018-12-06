@@ -112,13 +112,13 @@ public class AddressTest {
         TestUtils.zoomToLevel(main, 21);
         TestUtils.longClickAtCoordinates(map, 8.3893454, 47.3901898, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address));
+        TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address), false, true);
         Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
         Assert.assertTrue(propertyEditor instanceof PropertyEditor);
         Assert.assertTrue(TestUtils.findText(device, false, "Bergstrasse"));
-        Assert.assertTrue(TestUtils.clickMenuButton("More options"));
+        Assert.assertTrue(TestUtils.clickMenuButton("More options", false, true));
         TestUtils.clickText(device,false, main.getString(R.string.tag_menu_reset_address_prediction), true);
-        Assert.assertTrue(TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address)));
+        Assert.assertTrue(TestUtils.clickMenuButton(main.getString(R.string.tag_menu_address), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, "35"));
         TestUtils.clickUp(device);
     }

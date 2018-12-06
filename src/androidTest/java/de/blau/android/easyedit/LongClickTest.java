@@ -158,7 +158,7 @@ public class LongClickTest {
         TestUtils.unlock();  
         TestUtils.longClickAtCoordinates(map, 8.3890736, 47.3896628, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.menu_add)));
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.openstreetbug_new_bug)));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.openstreetbug_new_bug), false, true));
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.openstreetbug_new_title)));
         UiObject editText = device.findObject(new UiSelector().clickable(true).resourceId("de.blau.android:id/openstreetbug_comment"));
         try {
