@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+11.2.3: Store changes for relation members undo by deep copy.
+
 11.2.2: Remove empty undo checkpoints before starting the PropertyEditor, improve tag matching in form editor, backport fix for overwriting preset item parents, update preset, translations and imagery.
 
 11.2.1: Re-enable google logins, update translations.
