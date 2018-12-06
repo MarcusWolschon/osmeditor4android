@@ -542,6 +542,15 @@ public class UndoStorage implements Serializable {
         public List<Relation> getParentRelations() {
             return parentRelations != null ? Collections.unmodifiableList(parentRelations) : null;
         }
+        
+        /**
+         * Get the id for the underlying OsmElement
+         * 
+         * @return the id
+         */
+        public long getOsmId() {
+            return osmId;
+        }
     }
 
     /**
@@ -679,7 +688,11 @@ public class UndoStorage implements Serializable {
          */
         public UndoRelation(Relation originalRelation) {
             super(originalRelation);
-            members = new ArrayList<>(originalRelation.members);
+            // deep copy
+            members = new ArrayList<>();
+            for (RelationMember member:originalRelation.members) {
+                members.add(new RelationMember(member));
+            }
         }
 
         @Override
