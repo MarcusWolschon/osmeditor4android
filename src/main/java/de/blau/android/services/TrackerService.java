@@ -661,10 +661,8 @@ public class TrackerService extends Service implements Exportable {
                         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
                         int trackPointCount = track.getTrackPoints() != null ? track.getTrackPoints().size() : 0;
                         int wayPointCount = track.getWayPoints() != null ? track.getWayPoints().length : 0;
-                        String message = activity.getString(R.string.toast_imported_track_points, trackPointCount, wayPointCount);
-                        if (wayPointCount == 1) {
-                            message = activity.getString(R.string.toast_imported_track_points_single_way_point, trackPointCount);
-                        }
+                        String message = activity.getResources().getQuantityString(R.plurals.toast_imported_track_points, wayPointCount, trackPointCount,
+                                wayPointCount);
                         Snack.barInfo(activity, message);
                         activity.supportInvalidateOptionsMenu();
                         if (result == FILENOTFOUND) {

@@ -171,11 +171,7 @@ public class ConfirmUpload extends DialogFragment {
         // Review page
         TextView changesHeading = (TextView) layout.findViewById(R.id.review_heading);
         int changeCount = App.getDelegator().getApiElementCount();
-        if (changeCount == 1) {
-            changesHeading.setText(getString(R.string.confirm_one_upload_text_1));
-        } else {
-            changesHeading.setText(getString(R.string.confirm_multiple_upload_text_1, changeCount));
-        }
+        changesHeading.setText(getResources().getQuantityString(R.plurals.confirm_upload_text, changeCount, changeCount));
         ListView changesView = (ListView) layout.findViewById(R.id.upload_changes);
         final ChangedElement[] changes = getPendingChanges();
         changesView.setAdapter(new ValidatorArrayAdapter(activity, R.layout.changes_list_item, changes, App.getDefaultValidator(getContext())));

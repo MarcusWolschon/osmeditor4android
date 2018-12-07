@@ -276,9 +276,11 @@
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements that have conflicting tag values.\n\nPlease check the tags and correct first before retrying.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
     <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
-    <string name="toast_unread_mail">You have %1$d unread OSM messages</string>
+    <plurals name="toast_unread_mail">
+        <item quantity="one">You have an unread OSM message</item>
+        <item quantity="other">You have %1$d unread OSM messages</item>
+    </plurals>
     <string name="read_mail">Read</string>
-    <string name="toast_one_unread_mail">You have an unread OSM message</string>
     <string name="toast_photo_indexing_started">Started scan for geo-referenced photos</string>
     <string name="toast_photo_indexing_finished">Finished scan for geo-referenced photos</string>
     <string name="toast_download_failed">Download failed with error code %1$d, message %2$s</string>
@@ -300,8 +302,10 @@
     <string name="toast_missing_filemanager">Please install a File Manager.</string>
     <string name="toast_outside_of_download">You are editing outside of the downloaded data.</string>
     <string name="toast_file_not_found">%1$s not found.</string>
-    <string name="toast_imported_track_points">Imported %1$d track points and %2$d way points.</string>
-    <string name="toast_imported_track_points_single_way_point">Imported %1$d track points and 1 way point.</string>
+    <plurals name="toast_imported_track_points">
+        <item quantity="one">Imported %1$d track points and 1 way point.</item>
+        <item quantity="other">Imported %1$d track points and %2$d way points.</item>
+    </plurals>
     <string name="toast_unknown_voice_command">Sorry currently \"%1$s\" is not understood</string>
     <string name="toast_inconsistent_state">Inconsistent state detected, please send in the error report!</string>
     <string name="toast_camera_error">Error starting camera app: %1$s</string>
@@ -622,8 +626,10 @@
     <string name="actionmode_restriction_restart_via">Re-select \"via\" segment</string>
     <string name="actionmode_restriction_to">Add \"to\" segment</string>
     <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
-    <string name="actionmode_one_object">1 object</string>
-    <string name="actionmode_object_count">%1$d objects</string>
+    <plurals name="actionmode_object_count">
+        <item quantity="one">1 object</item>
+        <item quantity="other">%1$d objects</item>
+    </plurals>
     <string name="actionmode_rotateway">Rotate way</string>
     <!-- Simple Action Mode -->
     <string name="menu_add_node">Add node</string>
@@ -814,8 +820,10 @@
     <string name="changes_changed">"%1$s" changed</string>
     <string name="changes_created">"%1$s" created</string>
     <string name="confirm_upload_title">Upload changes</string>
-    <string name="confirm_one_upload_text_1">Upload the following change?</string>
-    <string name="confirm_multiple_upload_text_1">Upload the following %1$d changes?</string>
+    <plurals name="confirm_upload_text">
+        <item quantity="one">Upload the following change?</item>
+        <item quantity="other">Upload the following %1$d changes?</item>
+    </plurals>
     <string name="confirm_upload_edits_page">Changes</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>

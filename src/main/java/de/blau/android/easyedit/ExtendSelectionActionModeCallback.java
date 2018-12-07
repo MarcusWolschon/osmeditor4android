@@ -54,7 +54,13 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
 
     private boolean deselect = true;
 
-    public ExtendSelectionActionModeCallback(EasyEditManager manager, List<OsmElement> elements) {
+    /**
+     * Construct an Multi-Select actionmode from a List of OsmElements 
+     * 
+     * @param manager the current EasEditManager instance
+     * @param elements the List of OsmElements
+     */
+    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull List<OsmElement> elements) {
         super(manager);
         selection = new ArrayList<>();
         for (OsmElement e : elements) {
@@ -65,7 +71,13 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         undoListener = main.new UndoListener();
     }
 
-    public ExtendSelectionActionModeCallback(EasyEditManager manager, OsmElement element) {
+    /**
+     * Construct an Multi-Select actionmode from a single OsmElement 
+     * 
+     * @param manager the current EasEditManager instance
+     * @param element the OsmElement
+     */
+    public ExtendSelectionActionModeCallback(@NonNull EasyEditManager manager, @NonNull OsmElement element) {
         super(manager);
         Log.d(DEBUG_TAG, "Multi-Select create mode with " + element);
         selection = new ArrayList<>();
@@ -119,11 +131,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private void setSubTitle(@Nullable ActionMode mode) {
         if (mode != null) {
             int count = selection.size();
-            if (count > 1) {
-                mode.setSubtitle(main.getString(R.string.actionmode_object_count, count));
-            } else {
-                mode.setSubtitle(R.string.actionmode_one_object);
-            }
+            mode.setSubtitle(main.getResources().getQuantityString(R.plurals.actionmode_object_count, count, count));
         }
     }
 
