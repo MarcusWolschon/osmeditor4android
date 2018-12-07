@@ -142,25 +142,25 @@ public class ViewWayPoint extends DialogFragment {
             // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
             if (wp.getName() != null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.name, wp.getName(), null, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.name, wp.getName(), tp));
             }
             if (wp.getDescription() != null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.description, wp.getDescription(), null, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.description, wp.getDescription(), tp));
             }
             if (wp.getType() != null) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.type, wp.getType(), null, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.type, wp.getType(), tp));
             }
             long timestamp = wp.getTime();
             if (timestamp > 0) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp),
-                        null, tp));
+                        tp));
             }
 
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", wp.getLongitude()) + "°", null, tp));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", wp.getLatitude()) + "°", null, tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", wp.getLongitude()) + "°", tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, String.format(Locale.US, "%.7f", wp.getLatitude()) + "°", tp));
 
             if (wp.hasAltitude()) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.altitude, String.format(Locale.US, "%.0f", wp.getAltitude()) + "m", null, tp));
+                tl.addView(TableLayoutUtils.createRow(activity, R.string.altitude, String.format(Locale.US, "%.0f", wp.getAltitude()) + "m", tp));
             }
         }
         builder.setView(sv);

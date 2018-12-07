@@ -191,11 +191,10 @@ public class FeatureInfo extends DialogFragment {
         tp.setMargins(10, 2, 10, 2);
 
         if (feature != null) {
-            // tl.setShrinkAllColumns(true);
             tl.setColumnShrinkable(1, true);
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.geometry().type(), null, tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, feature.geometry().type(), tp));
             tl.addView(TableLayoutUtils.divider(activity));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, tp));
             JsonObject properties = feature.properties();
             if (properties != null) {
                 for (String key : properties.keySet()) {
@@ -222,7 +221,6 @@ public class FeatureInfo extends DialogFragment {
      * @param resId String resource id
      * @return a Spanned containing the string
      */
-    @SuppressWarnings("deprecation")
     private Spanned toItalic(int resId) {
         return Util.fromHtml("<i>" + getString(resId) + "</i>");
     }

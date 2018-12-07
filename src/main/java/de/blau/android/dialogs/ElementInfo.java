@@ -8,7 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,13 +28,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
@@ -61,12 +66,15 @@ import de.blau.android.validation.Validator;
  */
 public class ElementInfo extends DialogFragment {
 
+    private static final int    DISPLAY_LIMIT   = 10;
     private static final String ELEMENT_KEY     = "element";
     private static final String UNDOELEMENT_KEY = "undoelement";
 
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
     private static final String TAG = "fragment_element_info";
+
+    private SpannableString emptyRole;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -138,6 +146,8 @@ public class ElementInfo extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        emptyRole = new SpannableString(getString(R.string.empty_role));
+        emptyRole.setSpan(new StyleSpan(Typeface.ITALIC), 0, emptyRole.length(), 0);
     }
 
     @Override
@@ -273,6 +283,7 @@ public class ElementInfo extends DialogFragment {
                 }
             }
 
+            // tag display
             if (e.getTags() != null && e.getTags().size() > 0) {
                 tl.addView(TableLayoutUtils.divider(activity));
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
@@ -322,45 +333,149 @@ public class ElementInfo extends DialogFragment {
                 }
             }
 
+            // relation member display
+            if (e.getName().equals(Relation.NAME)) {
+                List<RelationMember> members = ((Relation) e).getMembers();
+                if (members != null) {
+                    TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
+                    t2.addView(TableLayoutUtils.divider(activity));
+                    t2.addView(TableLayoutUtils.createRow(activity, R.string.members, null, null, tp));
+                    List<RelationMember> origMembers = null;
+                    boolean changesPrevious = false;
+                    if (compare) {
+                        t2.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
+                        origMembers = new ArrayList<>(((UndoRelation) ue).getMembers());
+                    }
+                    int memberCount = members.size();
+                    for (int index = 0; index < memberCount; index++) {
+                        RelationMember member = members.get(index);
+                        OsmElement memberElement = member.getElement();
+                        String role = member.getRole();
+                        String memberDescription = memberElement != null ? memberElement.getDescription() : member.getType() + " " + member.getRef();
+                        if (compare) {
+                            String origRole = null;
+                            if (origMembers != null) {
+                                RelationMember origMember = null;
+                                int origIndex = 0;
+                                for (; origIndex < origMembers.size(); origIndex++) {
+                                    RelationMember tempMember = origMembers.get(origIndex);
+                                    if (member.getRef() == tempMember.getRef()) {
+                                        origMember = tempMember;
+                                        break;
+                                    }
+                                }
+                                if (origMember != null) {
+                                    origRole = origMember.getRole();
+                                    origMembers.remove(origIndex);
+                                }
+                            }
+                            if (memberCount > DISPLAY_LIMIT) {
+                                if ((role == null && origRole != null) || (role != null && !role.equals(origRole))) {
+                                    if (!changesPrevious) {
+                                        changesPrevious = true;
+                                        t2.addView(skipped(activity, tp));
+                                    }
+                                    t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
+                                } else {
+                                    changesPrevious = false;
+                                }
+                            } else {
+                                t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(origRole), getPrettyRole(role), tp));
+                            }
+                        } else {
+                            t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(role), tp));
+                            if (index == (DISPLAY_LIMIT - 1)) {
+                                t2.addView(skipped(activity, tp));
+                                break;
+                            }
+                        }
+                    }
+                    // write out any remaining original members
+                    if (origMembers != null) {
+                        for (RelationMember member : origMembers) {
+                            if (!changesPrevious) {
+                                changesPrevious = true;
+                                t2.addView(skipped(activity, tp));
+                            }
+                            String memberDescription = member.getElement() != null ? member.getElement().getDescription()
+                                    : member.getType() + " " + member.getRef();
+                            t2.addView(TableLayoutUtils.createRow(activity, memberDescription, getPrettyRole(member.getRole()), "", tp));
+                        }
+                    } else if (!changesPrevious && compare) {
+                        t2.addView(skipped(activity, tp));
+                    }
+                }
+            }
+
+            // relation membership display
             List<Relation> parentsList = e.getParentRelations();
             List<Relation> origParentsList = compare ? ue.getParentRelations() : null;
-            if ((parentsList != null && !parentsList.isEmpty()) || (origParentsList != null && !origParentsList.isEmpty())) {
-                tl.addView(TableLayoutUtils.divider(activity));
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, null, tp));
-                // get rid of duplicates and get something that we can modify
-                Set<Relation> parents = parentsList != null ? new HashSet<>(parentsList) : null;
-                Set<Relation> origParents = origParentsList != null ? new HashSet<>(origParentsList) : null;
+
+            // complicated stuff to determine if a role changed
+            Map<Long, List<RelationMember>> undoMembersMap = null;
+            boolean hasParents = parentsList != null && !parentsList.isEmpty();
+            if (hasParents) {
+                for (Relation parent : parentsList) {
+                    UndoRelation parentUE = (UndoRelation) App.getDelegator().getUndo().getOriginal(parent);
+                    if (parentUE != null) {
+                        List<RelationMember> ueMembers = parentUE.getAllMembers(e);
+                        List<RelationMember> members = parent.getAllMembers(e);
+                        for (RelationMember ueMember : ueMembers) {
+                            if (!hasRole(ueMember.getRole(), members)) {
+                                if (undoMembersMap == null) {
+                                    undoMembersMap = new HashMap<>();
+                                    compare = true;
+                                }
+                                undoMembersMap.put(parentUE.getOsmId(), ueMembers);
+                            }
+                        }
+                    }
+                }
+            }
+            if (hasParents || (origParentsList != null && !origParentsList.isEmpty())) {
+                TableLayout t3 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_3);
+                t3.addView(TableLayoutUtils.divider(activity));
+                t3.addView(TableLayoutUtils.createRow(activity, R.string.relation_membership, null, null, tp));
+                if (compare) {
+                    t3.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
+                }
+                // get rid of duplicates and get something that we can modify ( but retain order)
+                Set<Relation> parents = parentsList != null ? new LinkedHashSet<>(parentsList) : null;
+                Set<Relation> origParents = origParentsList != null ? new LinkedHashSet<>(origParentsList) : null;
 
                 if (parents != null) {
                     for (Relation r : parents) {
                         List<RelationMember> members = r.getAllMembers(e);
-                        List<RelationMember> origMembers = null;
+                        Set<RelationMember> origMembers = null;
                         UndoElement origRelation = null;
                         if (compare && origParentsList != null && origParentsList.contains(r)) {
                             origRelation = App.getDelegator().getUndo().getOriginal(r);
                             if (origRelation != null) {
-                                origMembers = ((UndoRelation) origRelation).getAllMembers(e);
+                                origMembers = new LinkedHashSet<>(((UndoRelation) origRelation).getAllMembers(e));
                                 origParents.remove(r);
+                            }
+                        }
+                        if (undoMembersMap != null) {
+                            List<RelationMember> undoMembers = undoMembersMap.get(r.getOsmId());
+                            if (undoMembers != null) {
+                                origMembers = new LinkedHashSet<>(undoMembers); // override
                             }
                         }
                         for (RelationMember rm : members) {
                             if (rm != null) {
                                 String role = rm.getRole();
                                 if (compare) {
-                                    String origDescription = "";
-                                    if (origMembers != null) {
+                                    String origRole = null;
+                                    if (origMembers != null && !origMembers.isEmpty()) {
                                         for (RelationMember origMember : new ArrayList<>(origMembers)) {
-                                            String origRole = origMember.getRole();
-                                            if ((origRole == null && role == null) || (origRole != null && origRole.equals(role))) {
-                                                origDescription = r.getDescription(); // should really use origRelation
-                                                origMembers.remove(origMember);
-                                                break;
-                                            }
+                                            origRole = origMember.getRole();
+                                            origMembers.remove(origMember);
+                                            break;
                                         }
                                     }
-                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), origDescription, r.getDescription(), tp));
+                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(origRole), getPrettyRole(role), tp));
                                 } else {
-                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), r.getDescription(), tp));
+                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(role), tp));
                                 }
                             } else {
                                 // inconsistent state
@@ -369,11 +484,11 @@ public class ElementInfo extends DialogFragment {
                                 ACRAHelper.nocrashReport(null, message);
                             }
                         }
-                        // write out any relation members left (typicall with different roles)
+                        // write out any relation members left
                         if (origMembers != null && !origMembers.isEmpty()) {
                             for (RelationMember origMember : origMembers) {
                                 String role = origMember.getRole();
-                                tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(role), r.getDescription(), "", tp));
+                                t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), "", getPrettyRole(role), tp));
                             }
                         }
                     }
@@ -387,7 +502,7 @@ public class ElementInfo extends DialogFragment {
                             List<RelationMember> members = ((UndoRelation) origRelation).getAllMembers(e);
                             if (members != null) {
                                 for (RelationMember rm : members) {
-                                    tl.addView(TableLayoutUtils.createRow(activity, getPrettyRole(rm.getRole()), r.getDescription(), "", tp));
+                                    t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(rm.getRole()), "", tp));
                                 }
                             }
                         }
@@ -396,6 +511,35 @@ public class ElementInfo extends DialogFragment {
             }
         }
         return sv;
+
+    }
+
+    /**
+     * @param activity
+     * @param tp
+     * @return
+     */
+    private TableRow skipped(FragmentActivity activity, TableLayout.LayoutParams tp) {
+        return TableLayoutUtils.createRow(activity, "...", null, tp);
+    }
+
+    /**
+     * Check if the List of RelatioNMember contains a member with the specified role
+     * 
+     * As the List of members will be very short, typically length one, there is no issue with searching sequentially
+     * 
+     * @param role the role
+     * @param members the list of members
+     * @return true if the role was found
+     */
+    private boolean hasRole(@Nullable String role, @NonNull List<RelationMember> members) {
+        for (RelationMember rm : members) {
+            String role2 = rm.getRole();
+            if ((role == null && rm.getRole() == null) || (role != null && role.equals(role2))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -404,8 +548,8 @@ public class ElementInfo extends DialogFragment {
      * @param role the role
      * @return role or a String indicating that it is empty
      */
-    private String getPrettyRole(@Nullable String role) {
-        return role == null || "".equals(role) ? getString(R.string.empty_role) : role;
+    private SpannableString getPrettyRole(@Nullable String role) {
+        return role == null || "".equals(role) ? emptyRole : new SpannableString(role);
     }
 
     /**

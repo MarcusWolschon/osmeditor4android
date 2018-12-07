@@ -12,12 +12,31 @@
         android:layout_height="match_parent"
         android:padding="1dp"
         android:fillViewport="true">
-        <TableLayout
-            android:id="@+id/element_info_vertical_layout"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:background="@android:color/holo_orange_light">
-        </TableLayout>
+            android:orientation="vertical">
+            <TableLayout
+                android:id="@+id/element_info_vertical_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:background="@android:color/holo_orange_light">
+            </TableLayout>
+            <TableLayout
+                android:id="@+id/element_info_vertical_layout_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:background="@android:color/holo_orange_light">
+            </TableLayout>
+            <TableLayout
+                android:id="@+id/element_info_vertical_layout_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:background="@android:color/holo_orange_light">
+            </TableLayout>
+        </LinearLayout>
     </HorizontalScrollView>
 </ScrollView>
