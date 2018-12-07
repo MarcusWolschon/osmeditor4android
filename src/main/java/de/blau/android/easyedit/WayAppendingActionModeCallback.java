@@ -15,7 +15,7 @@ public class WayAppendingActionModeCallback extends NonSimpleActionModeCallback 
     private final Set<OsmElement> nodes;
 
     /**
-     * Construct a new AWayAppendingActionModeCallback from an existing Way and potential Node to append
+     * Construct a new WayAppendingActionModeCallback from an existing Way and potential Node to append
      * 
      * @param manager the current EasyEditManager instance
      * @param way the existing Way

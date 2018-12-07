@@ -55,7 +55,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     private boolean deselect = true;
 
     /**
-     * Construct an Multi-Select actionmode from a List of OsmElements 
+     * Construct an Multi-Select actionmode from a List of OsmElements
      * 
      * @param manager the current EasEditManager instance
      * @param elements the List of OsmElements
@@ -72,7 +72,7 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     /**
-     * Construct an Multi-Select actionmode from a single OsmElement 
+     * Construct an Multi-Select actionmode from a single OsmElement
      * 
      * @param manager the current EasEditManager instance
      * @param element the OsmElement
@@ -298,8 +298,8 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be
-                                                            // clicked
+    public boolean handleElementClick(OsmElement element) {
+        // due to clickableElements, only valid elements can be clicked
         Log.d(DEBUG_TAG, "Multi-Select add/remove " + element);
         addOrRemoveElement(element);
         setClickableElements();
@@ -307,6 +307,9 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         return true;
     }
 
+    /**
+     * Set clickable elements, as currently all are clickable in this mode, empty
+     */
     private void setClickableElements() {
         // ArrayList<OsmElement> excludes = new ArrayList<OsmElement>(selection);
         // logic.setClickableElements(logic.findClickableElements(excludes));
@@ -324,6 +327,11 @@ public class ExtendSelectionActionModeCallback extends EasyEditActionModeCallbac
         }
     }
 
+    /**
+     * Delete action
+     * 
+     * @param deleteFromRelations if true the elements will be deleted without regards for their Relation memebrship
+     */
     private void menuDelete(boolean deleteFromRelations) {
         Log.d(DEBUG_TAG, "menuDelete " + deleteFromRelations + " " + selection);
 
