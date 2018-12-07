@@ -2981,6 +2981,7 @@ public class Logic {
      * Write data to a file in (J)OSM compatible format, if fileName contains directories these are created, otherwise
      * it is stored in the standard public dir
      * 
+     * @param activity the calling FragmentActivity
      * @param fileName path of the file to save to
      * @param postSaveHandler if not null executes code after saving
      */
@@ -3277,9 +3278,11 @@ public class Logic {
                 for (MapViewLayer layer : map.getLayers()) {
                     if (layer != null) {
                         try {
-                            result = result && layer.onRestoreState(activity);
+                            boolean layerResult = layer.onRestoreState(activity);
+                            result = result && layerResult;
                         } catch (Exception e) {
                             // Never crash
+                            Log.e(DEBUG_TAG, "loadLayerState failed for " + layer.getName());
                             result = false;
                         }
                     }
