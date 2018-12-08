@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.xml.sax.XMLReader;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -498,6 +500,18 @@ public final class Util {
         }
     }
 
+    private static class UlTagHandler implements Html.TagHandler {
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+            if (tag.equals("ul") && !opening) {
+                output.append("\n");
+            }
+            if (tag.equals("li") && opening) {
+                output.append("\n\t•");
+            }
+        }
+    }
+
     /**
      * Backwards compatible version of Html.fromHtml
      * 
@@ -507,9 +521,9 @@ public final class Util {
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(@NonNull String html) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, null, new UlTagHandler());
         } else {
-            return Html.fromHtml(html);
+            return Html.fromHtml(html, null, new UlTagHandler());
         }
     }
 
