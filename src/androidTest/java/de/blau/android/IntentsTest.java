@@ -68,7 +68,7 @@ public class IntentsTest {
         //
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, mockNotesUrl.toString(), "user", "pass", null, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, mockNotesUrl.toString(), "user", "pass", false);
         prefDB.selectAPI("Test");
         mockServerOsmose = new MockWebServerPlus();
         mockBaseUrl = mockServerOsmose.server().url("/en/api/0.2/");

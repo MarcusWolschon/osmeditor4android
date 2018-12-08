@@ -30,10 +30,18 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
     private AdvancedPrefDatabase db;
 
+    /**
+     * Construct a new instance
+     */
     public GeocoderEditorActivity() {
         super();
     }
 
+    /**
+     * Construct a new instance
+     * 
+     * @param context an Android Context
+     */
     public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, GeocoderEditorActivity.class);
         context.startActivity(intent);
@@ -80,7 +88,7 @@ public class GeocoderEditorActivity extends URLListEditActivity {
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value_2, item.enabled);
+        db.updateGeocoder(item.id, item.name, GeocoderType.valueOf(item.value), 0, item.value_2, item.boolean_0);
     }
 
     @Override

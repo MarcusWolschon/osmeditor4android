@@ -10,7 +10,7 @@
         android:id="@+id/listedit_labelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/api_name" />
+        android:text="@string/name" />
 
     <EditText
         android:id="@+id/listedit_editName"
@@ -25,34 +25,10 @@
         android:id="@+id/listedit_labelValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/api_url" />
+        android:text="@string/url" />
 
     <EditText
         android:id="@+id/listedit_editValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textUri" />
-
-    <TextView
-        android:id="@+id/listedit_labelValue_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/readonly_url" />
-
-    <EditText
-        android:id="@+id/listedit_editValue_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textUri" />
-
-    <TextView
-        android:id="@+id/listedit_labelValue_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/notes_url" />
-
-    <EditText
-        android:id="@+id/listedit_editValue_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textUri" />
@@ -64,20 +40,20 @@
         >
 
         <TextView
-            android:id="@+id/listedit_labeloauth"
+            android:id="@+id/listedit_label_use_translations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="@string/listedit_enable_oauth" />
+            android:text="@string/listedit_use_translations" />
 
         <CheckBox
-            android:id="@+id/listedit_oauth"
+            android:id="@+id/listedit_translations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignBaseline="@id/listedit_labeloauth" />
+            android:layout_alignBaseline="@id/listedit_label_use_translations" />
 
     </RelativeLayout>
 

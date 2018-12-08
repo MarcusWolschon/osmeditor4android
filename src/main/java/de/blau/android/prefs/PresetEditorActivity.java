@@ -9,12 +9,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -25,9 +26,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MenuCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
@@ -60,6 +70,9 @@ public class PresetEditorActivity extends URLListEditActivity {
 
     private static final int MENUITEM_HELP = 1;
 
+    /**
+     * Construct a new instance
+     */
     public PresetEditorActivity() {
         super();
         addAdditionalContextMenuItem(MENU_RELOAD, R.string.preset_update);
@@ -67,29 +80,25 @@ public class PresetEditorActivity extends URLListEditActivity {
         addAdditionalContextMenuItem(MENU_DOWN, R.string.move_down);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        MenuCompat.setShowAsAction(menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)),
-                MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
-        switch (item.getItemId()) {
-        case MENUITEM_HELP:
-            HelpViewer.start(this, R.string.help_presets);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Start the activity
+     * 
+     * @param context an Android Context
+     */
     public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, PresetEditorActivity.class);
         context.startActivity(intent);
     }
 
+    /**
+     * Start the activity and return a result
+     * 
+     * @param activity the calling Activity
+     * @param presetName the name of the preset
+     * @param presetUrl the url
+     * @param enable if true enable the preset
+     * @param requestCode the code to identify the result
+     */
     public static void startForResult(@NonNull Activity activity, @NonNull String presetName, @NonNull String presetUrl, boolean enable, int requestCode) {
         Intent intent = new Intent(activity, PresetEditorActivity.class);
         intent.setAction(ACTION_NEW);
@@ -110,6 +119,39 @@ public class PresetEditorActivity extends URLListEditActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuCompat.setShowAsAction(menu.add(0, MENUITEM_HELP, 0, R.string.menu_help).setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.menu_help)),
+                MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        Log.d("AdvancedPrefEditor", "onOptionsItemSelected");
+        switch (item.getItemId()) {
+        case MENUITEM_HELP:
+            HelpViewer.start(this, R.string.help_presets);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        selectedItem = (ListEditItem) getListView().getItemAtPosition(info.position);
+        if (selectedItem != null) {
+            menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
+            if (!selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
+                menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
+                for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
+                    menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
+                }
+            }
+        }
+    }
+
+    @Override
     protected int getAddTextResId() {
         return R.string.urldialog_add_preset;
     }
@@ -118,7 +160,7 @@ public class PresetEditorActivity extends URLListEditActivity {
     protected void onLoadList(List<ListEditItem> items) {
         PresetInfo[] presets = db.getPresets();
         for (PresetInfo preset : presets) {
-            items.add(new ListEditItem(preset.id, preset.name, preset.url, false, preset.active));
+            items.add(new ListEditItem(preset.id, preset.name, preset.url, preset.useTranslations, preset.active));
         }
     }
 
@@ -132,26 +174,29 @@ public class PresetEditorActivity extends URLListEditActivity {
         item.active = !item.active;
         db.setPresetState(item.id, item.active);
         App.resetPresets();
-        // finish();
     }
 
     @Override
     protected void onItemCreated(ListEditItem item) {
         if (isAddingViaIntent()) {
-            item.enabled = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
+            item.active = getIntent().getExtras().getBoolean(EXTRA_ENABLE);
         }
-        db.addPreset(item.id, item.name, item.value, item.enabled);
+        db.addPreset(item.id, item.name, item.value, item.active);
         downloadPresetData(item);
-        if (!isAddingViaIntent() || item.enabled) { // added a new preset and enabled it: need to rebuild presets
+        if (!isAddingViaIntent() || item.active) { // added a new preset and enabled it: need to rebuild presets
             App.resetPresets();
         }
     }
 
     @Override
     protected void onItemEdited(ListEditItem item) {
-        db.setPresetInfo(item.id, item.name, item.value);
-        db.removePresetDirectory(item.id);
-        downloadPresetData(item);
+        PresetInfo preset = db.getPreset(item.id);
+        db.setPresetInfo(item.id, item.name, item.value, item.boolean_0);
+        if (preset.url != null && !preset.url.equals(item.value)) {
+            // url changed so better recreate everything
+            db.removePresetDirectory(item.id);
+            downloadPresetData(item);
+        }
         App.resetPresets();
     }
 
@@ -215,8 +260,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         }
 
         new AsyncTask<Void, Integer, Integer>() {
-            private ProgressDialog progress;
-            private boolean        canceled = false;
+            private boolean canceled = false;
 
             private final int RESULT_TOTAL_FAILURE       = 0;
             private final int RESULT_TOTAL_SUCCESS       = 1;
@@ -230,19 +274,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 
             @Override
             protected void onPreExecute() {
-                // progress = new ProgressDialog(PresetEditorActivity.this);
-                // progress.setTitle(R.string.progress_title);
-                // progress.setIndeterminate(true);
-                // progress.setCancelable(true);
-                // progress.setMessage(PresetEditorActivity.this.getResources().getString(R.string.progress_download_message));
-                // progress.setOnCancelListener(new OnCancelListener() {
-                // @Override
-                // public void onCancel(DialogInterface dialog) {
-                // canceled = true;
-                // }
-                // });
-                // progress.show();
-                // FIXME allow canceling and switch to non-indeterminate mode
                 Progress.showDialog(PresetEditorActivity.this, Progress.PROGRESS_PRESET);
             }
 
@@ -275,20 +306,9 @@ public class PresetEditorActivity extends URLListEditActivity {
             }
 
             /**
-             * Updates the progress bar
+             * Download a Preset
              * 
-             * @param values two integers, first is the current progress, second is the max progress
-             */
-            @Override
-            protected void onProgressUpdate(Integer... values) {
-                // progress.setIndeterminate(false);
-                // progress.setMax(values[1]);
-                // progress.setProgress(values[0]);
-            }
-
-            /**
-             * 
-             * @param url
+             * @param url the url to download from
              * @param filename A filename where to save the file. If null, the URL will be hashed using the
              *            PresetIconManager hash function and the file will be saved to hashvalue.png (where "hashvalue"
              *            will be replaced with the URL hash).
@@ -344,7 +364,6 @@ public class PresetEditorActivity extends URLListEditActivity {
 
             @Override
             protected void onPostExecute(Integer result) {
-                // progress.dismiss();
                 Progress.dismissDialog(PresetEditorActivity.this, Progress.PROGRESS_PRESET);
                 switch (result) {
                 case RESULT_TOTAL_SUCCESS:
@@ -466,5 +485,106 @@ public class PresetEditorActivity extends URLListEditActivity {
         }
 
         return true;
+    }
+
+    /**
+     * Opens the dialog to edit an item
+     * 
+     * @param item the selected item
+     */
+    @SuppressLint("InflateParams")
+    @Override
+    protected void itemEditDialog(final ListEditItem item) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
+        final View mainView = inflater.inflate(R.layout.listedit_presetedit, null);
+        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
+        final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
+        final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
+
+        if (item != null) {
+            editName.setText(item.name);
+            editValue.setText(item.value);
+            useTranslations.setChecked(item.boolean_0);
+        } else if (isAddingViaIntent()) {
+            String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
+            String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
+            editName.setText(tmpName == null ? "" : tmpName);
+            editValue.setText(tmpValue == null ? "" : tmpValue);
+            useTranslations.setChecked(true);
+        }
+        if (item != null && item.id.equals(LISTITEM_ID_DEFAULT)) {
+            // name and value are not editable
+            editName.setInputType(InputType.TYPE_NULL);
+            editName.setBackground(null);
+            editValue.setEnabled(false);
+        }
+
+        builder.setView(mainView);
+        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing here because we override this button later to change the close behaviour.
+                // However, we still need this because on older versions of Android unless we
+                // pass a handler the button doesn't get instantiated
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // leave empty
+            }
+        });
+        builder.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (isAddingViaIntent()) {
+                    setResult(RESULT_CANCELED);
+                    finish();
+                }
+            }
+        });
+
+        final AlertDialog dialog = builder.create();
+        dialog.setView(mainView);
+        dialog.show();
+
+        // overriding the handlers
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editName.getText().toString().trim();
+                String presetURL = editValue.getText().toString().trim();
+                boolean useTranslationsEnabled = useTranslations.isChecked();
+                changeBackgroundColor(editValue, VALID_COLOR);
+                // validate entries
+                boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
+
+                // save or display toast
+                if (validPresetURL || item.id.equals(LISTITEM_ID_DEFAULT)) {
+                    if (item == null) {
+                        // new item
+                        finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
+                    } else {
+                        item.name = name;
+                        item.value = presetURL;
+                        item.boolean_0 = useTranslationsEnabled;
+                        finishEditItem(item);
+                    }
+                    dialog.dismiss();
+                } else {
+                    // if garbage value entered show toasts
+                    Snack.barError(PresetEditorActivity.this, R.string.toast_invalid_preseturl);
+                    changeBackgroundColor(editValue, ERROR_COLOR);
+                }
+            }
+        });
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

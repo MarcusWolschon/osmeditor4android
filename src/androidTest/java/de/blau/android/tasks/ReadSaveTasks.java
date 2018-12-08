@@ -57,6 +57,9 @@ public class ReadSaveTasks {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -71,10 +74,16 @@ public class ReadSaveTasks {
         ts.reset();
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Read and save custom tasks
+     */
     @Test
     public void readAndSaveCustomBugs() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -128,6 +137,9 @@ public class ReadSaveTasks {
         Assert.assertTrue(tasks.get(0) instanceof CustomBug);
     }
 
+    /**
+     * Save OSM Nostes to an OSN file
+     */
     @Test
     public void saveNotes() {
         mockServer = new MockWebServerPlus();
@@ -135,7 +147,7 @@ public class ReadSaveTasks {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         final CountDownLatch signal = new CountDownLatch(1);
         // mockServer.enqueue("capabilities1");

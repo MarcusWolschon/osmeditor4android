@@ -7,22 +7,20 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ActionMenuView.OnMenuItemClickListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +56,9 @@ public abstract class URLListEditActivity extends ListActivity
     static final String EXTRA_ITEM   = "item";
     static final String EXTRA_ENABLE = "enable";
 
+    static final int ERROR_COLOR = R.color.ccc_red;
+    static final int VALID_COLOR = R.color.black;
+
     Resources     r;
     final Context ctx;
 
@@ -74,12 +75,20 @@ public abstract class URLListEditActivity extends ListActivity
     private boolean                       addingViaIntent     = false;
     final LinkedHashMap<Integer, Integer> additionalMenuItems = new LinkedHashMap<>();
 
-    public URLListEditActivity() {
+    /**
+     * Construct a new Activity with empty contents
+     */
+    URLListEditActivity() {
         ctx = this;
         items = new ArrayList<>();
     }
 
-    public URLListEditActivity(List<ListEditItem> items) {
+    /**
+     * Construct a new Activity displaying items
+     * 
+     * @param items a List of ListEditItems to display
+     */
+    public URLListEditActivity(@NonNull List<ListEditItem> items) {
         ctx = this;
         this.items = items;
     }
@@ -174,6 +183,12 @@ public abstract class URLListEditActivity extends ListActivity
         }
     }
 
+    /**
+     * Handle a menu item click
+     * 
+     * @param itemId the id of the item that was clicked
+     * @return if the selection was processed
+     */
     private boolean onMenuItemClick(int itemId) {
         if (itemId >= MENUITEM_ADDITIONAL_OFFSET) {
             onAdditionalMenuItemClick(itemId - MENUITEM_ADDITIONAL_OFFSET, selectedItem);
@@ -221,62 +236,16 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param item the selected item
      */
-    void itemEditDialog(final ListEditItem item) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        final LayoutInflater inflater = ThemeUtils.getLayoutInflater(ctx);
-        final View mainView = inflater.inflate(R.layout.listedit_edit, null);
+    abstract void itemEditDialog(@NonNull final ListEditItem item);
 
-        final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
-        final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
-        if (item != null) {
-            editName.setText(item.name);
-            editValue.setText(item.value);
-        } else if (isAddingViaIntent()) {
-            String tmpName = getIntent().getExtras().getString(EXTRA_NAME);
-            String tmpValue = getIntent().getExtras().getString(EXTRA_VALUE);
-            editName.setText(tmpName == null ? "" : tmpName);
-            editValue.setText(tmpValue == null ? "" : tmpValue);
-        }
-
-        builder.setView(mainView);
-
-        builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                String name = editName.getText().toString();
-                String value = editValue.getText().toString();
-                if (item == null) {
-                    // new item
-                    if (!value.equals("")) {
-                        finishCreateItem(new ListEditItem(name, value));
-                    }
-                } else {
-                    item.name = name;
-                    item.value = value;
-                    finishEditItem(item);
-                }
-            }
-        });
-
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-
-        builder.setOnCancelListener(new OnCancelListener() {
-
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                if (isAddingViaIntent()) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
-            }
-        });
-
-        builder.show();
+    /**
+     * Change the background color of a TextView
+     * 
+     * @param textView the TextView
+     * @param colorRes the color resource id
+     */
+    void changeBackgroundColor(TextView textView, int colorRes) {
+        textView.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, colorRes), PorterDuff.Mode.SRC_ATOP);
     }
 
     /**
@@ -332,7 +301,7 @@ public abstract class URLListEditActivity extends ListActivity
     /**
      * Deletes an item
      * 
-     * @param item
+     * @param item the ListEditITem to delete
      */
     private void deleteItem(ListEditItem item) {
         if (items.remove(item)) {
@@ -341,6 +310,11 @@ public abstract class URLListEditActivity extends ListActivity
         }
     }
 
+    /**
+     * Get the resource id for the "add" text
+     * 
+     * @return the resource id
+     */
     protected abstract int getAddTextResId();
 
     /**
@@ -389,55 +363,93 @@ public abstract class URLListEditActivity extends ListActivity
         String                    value;
         String                    value_2;
         String                    value_3;
-        boolean                   enabled;
+        boolean                   boolean_0;
         boolean                   active;
 
         /**
-         * Create a new item with a new, random UUID and the given name and value
+         * Construct a new item with a new, random UUID and the given name and value
          * 
-         * @param name
-         * @param value
+         * @param name the name
+         * @param value the value
          */
-        public ListEditItem(String name, String value) {
+        public ListEditItem(@NonNull String name, @NonNull String value) {
             this(name, value, null, null, false);
         }
 
-        public ListEditItem(String name, String value, String value_2, String value_3, boolean enabled) {
+        /**
+         * Construct a new item with a new, random UUID
+         * 
+         * @param name the name
+         * @param value the value
+         * @param value_2 further value 2
+         * @param value_3 further value 3
+         * @param boolean_0 a boolean
+         */
+        public ListEditItem(@NonNull String name, @NonNull String value, @Nullable String value_2, @Nullable String value_3, boolean boolean_0) {
             id = java.util.UUID.randomUUID().toString();
             this.value = value;
             this.value_2 = value_2;
             this.value_3 = value_3;
             this.name = name;
-            this.enabled = enabled;
+            this.boolean_0 = boolean_0;
             this.active = false;
         }
 
         /**
          * Create an item with the given id, name and value. You are responsible for keeping the IDs unique!
          * 
-         * @param id
-         * @param name
-         * @param value
+         * @param id an unique internal id
+         * @param name the name
+         * @param value the value
          */
-        public ListEditItem(String id, String name, String value) {
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value) {
             this(id, name, value, false);
         }
 
-        public ListEditItem(String id, String name, String value, boolean enabled) {
-            this(id, name, value, enabled, false);
+        /**
+         * Create an item with the given id. You are responsible for keeping the IDs unique!
+         * 
+         * @param id an unique internal id
+         * @param name the name
+         * @param value the value
+         * @param boolean_0 a boolean
+         */
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean_0) {
+            this(id, name, value, boolean_0, false);
         }
 
-        public ListEditItem(String id, String name, String value, boolean enabled, boolean active) {
-            this(id, name, value, null, null, enabled, active);
+        /**
+         * Create an item with the given id. You are responsible for keeping the IDs unique!
+         * 
+         * @param id an unique internal id
+         * @param name the name
+         * @param value the value
+         * @param boolean_0 a boolean
+         * @param active true if this entry should be active
+         */
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, boolean boolean_0, boolean active) {
+            this(id, name, value, null, null, boolean_0, active);
         }
 
-        public ListEditItem(String id, String name, String value, String value_2, String value_3, boolean enabled, boolean active) {
+        /**
+         * Create an item with the given id. You are responsible for keeping the IDs unique!
+         * 
+         * @param id an unique internal id
+         * @param name the name
+         * @param value the value
+         * @param value_2 further value 2
+         * @param value_3 further value 3
+         * @param boolean_0 a boolean
+         * @param active true if this entry should be active
+         */
+        public ListEditItem(@NonNull String id, @NonNull String name, @NonNull String value, @Nullable String value_2, @Nullable String value_3,
+                boolean boolean_0, boolean active) {
             this.id = id;
             this.value = value;
             this.value_2 = value_2;
             this.value_3 = value_3;
             this.name = name;
-            this.enabled = enabled;
+            this.boolean_0 = boolean_0;
             this.active = active;
         }
 
@@ -454,7 +466,13 @@ public abstract class URLListEditActivity extends ListActivity
      */
     private class ListEditAdapter extends ArrayAdapter<ListEditItem> {
 
-        public ListEditAdapter(Context context, List<ListEditItem> items) {
+        /**
+         * Get an adapter
+         * 
+         * @param context an Android Context
+         * @param items a List of ListEditItems
+         */
+        public ListEditAdapter(@NonNull Context context, @NonNull List<ListEditItem> items) {
             super(context, R.layout.list_item, items);
         }
 
@@ -474,6 +492,12 @@ public abstract class URLListEditActivity extends ListActivity
         }
     }
 
+    /**
+     * Get a List of the current items
+     * 
+     * @return a List of ListEditItems
+     */
+    @NonNull
     public List<ListEditItem> getItems() {
         return items;
     }
@@ -485,16 +509,30 @@ public abstract class URLListEditActivity extends ListActivity
         return addingViaIntent;
     }
 
+    /**
+     * The items that are displayed in the ListActivity
+     */
     public static class ListItem extends LinearLayout {
 
         private TextView text1;
         private TextView text2;
         private CheckBox checkBox;
 
+        /**
+         * Construct a new empty instance
+         * 
+         * @param context an Android Context
+         */
         public ListItem(Context context) {
             super(context);
         }
 
+        /**
+         * Construct a new empty instance
+         * 
+         * @param context an Android Context
+         * @param attrs an AttributeSet
+         */
         public ListItem(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
@@ -512,19 +550,39 @@ public abstract class URLListEditActivity extends ListActivity
             checkBox = (CheckBox) findViewById(R.id.listItemCheckBox);
         }
 
+        /**
+         * Set the checked flag
+         * 
+         * @param checked set the checked flag to this value
+         */
         public void setChecked(boolean checked) {
             checkBox.setChecked(checked);
         }
 
+        /**
+         * Get the checked status
+         * 
+         * @return true if checked
+         */
         public boolean isChecked() {
             return checkBox.isChecked();
         }
 
-        public void setText1(String txt) {
+        /**
+         * Set text 1 to this
+         * 
+         * @param txt the text
+         */
+        public void setText1(@Nullable String txt) {
             text1.setText(txt);
         }
 
-        public void setText2(String txt) {
+        /**
+         * Set text 2 to this
+         * 
+         * @param txt the text
+         */
+        public void setText2(@Nullable String txt) {
             text2.setText(txt);
         }
     }

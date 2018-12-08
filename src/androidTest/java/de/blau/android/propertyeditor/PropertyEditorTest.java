@@ -94,7 +94,7 @@ public class PropertyEditorTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         TestUtils.grantPermissons();

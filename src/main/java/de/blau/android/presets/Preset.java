@@ -119,75 +119,77 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 
-    private static final String NO                  = "no";
-    private static final String VALUE_TYPE          = "value_type";
-    private static final String PRESET_NAME         = "preset_name";
-    private static final String PRESET_LINK         = "preset_link";
-    private static final String SHORT_DESCRIPTION   = "short_description";
-    private static final String DISPLAY_VALUE       = "display_value";
-    private static final String LIST_ENTRY          = "list_entry";
-    private static final String REFERENCE           = "reference";
-    private static final String ROLE                = "role";
-    private static final String ROLES               = "roles";
-    private static final String VALUES_SEARCHABLE   = "values_searchable";
-    private static final String EDITABLE            = "editable";
-    private static final String VALUES_SORT         = "values_sort";
-    private static final String VALUES_CONTEXT      = "values_context";
-    private static final String SHORT_DESCRIPTIONS  = "short_descriptions";
-    private static final String DISPLAY_VALUES      = "display_values";
-    private static final String VALUES              = "values";
-    private static final String VALUES_FROM         = "values_from";
-    private static final String DELIMITER           = "delimiter";
-    private static final String COMBO_FIELD         = "combo";
-    private static final String MULTISELECT_FIELD   = "multiselect";
-    private static final String YES                 = "yes";
-    private static final String DISABLE_OFF         = "disable_off";
-    private static final String VALUE_OFF           = "value_off";
-    private static final String VALUE_ON            = "value_on";
-    private static final String CHECK_FIELD         = "check";
-    private static final String CHECKGROUP          = "checkgroup";
-    private static final String HREF                = "href";
-    private static final String LINK                = "link";
-    private static final String I18N                = "i18n";
-    private static final String JAVASCRIPT          = "javascript";
-    private static final String DEFAULT             = "default";
-    private static final String TEXT_CONTEXT        = "text_context";
-    private static final String TEXT_FIELD          = "text";
-    private static final String TEXT                = "text";
-    private static final String VALUE               = "value";
-    private static final String NONE                = "none";
-    private static final String MATCH               = "match";
-    private static final String CHUNK               = "chunk";
-    private static final String KEY_ATTR            = "key";
-    private static final String OPTIONAL            = "optional";
-    private static final String SEPARATOR           = "separator";
-    private static final String ID                  = "id";
-    private static final String DEPRECATED          = "deprecated";
-    private static final String TRUE                = "true";
-    private static final String GTYPE               = "gtype";
-    private static final String TYPE                = "type";
-    private static final String ITEM                = "item";
-    private static final String NAME_CONTEXT        = "name_context";
-    private static final String ICON                = "icon";
-    private static final String NAME                = "name";
-    private static final String OBJECT_KEYS         = "object_keys";
-    private static final String GROUP               = "group";
-    private static final String PRESETS             = "presets";
-    private static final String AREA                = "area";
-    private static final String MULTIPOLYGON        = "multipolygon";
-    private static final String CLOSEDWAY           = "closedway";
-    private static final String LABEL               = "label";
-    private static final String ITEMS_SORT          = "items_sort";
-    private static final String SPACE               = "space";
+    private static final String PO                         = ".po";
+    private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
+    private static final String NO                         = "no";
+    private static final String VALUE_TYPE                 = "value_type";
+    private static final String PRESET_NAME                = "preset_name";
+    private static final String PRESET_LINK                = "preset_link";
+    private static final String SHORT_DESCRIPTION          = "short_description";
+    private static final String DISPLAY_VALUE              = "display_value";
+    private static final String LIST_ENTRY                 = "list_entry";
+    private static final String REFERENCE                  = "reference";
+    private static final String ROLE                       = "role";
+    private static final String ROLES                      = "roles";
+    private static final String VALUES_SEARCHABLE          = "values_searchable";
+    private static final String EDITABLE                   = "editable";
+    private static final String VALUES_SORT                = "values_sort";
+    private static final String VALUES_CONTEXT             = "values_context";
+    private static final String SHORT_DESCRIPTIONS         = "short_descriptions";
+    private static final String DISPLAY_VALUES             = "display_values";
+    private static final String VALUES                     = "values";
+    private static final String VALUES_FROM                = "values_from";
+    private static final String DELIMITER                  = "delimiter";
+    private static final String COMBO_FIELD                = "combo";
+    private static final String MULTISELECT_FIELD          = "multiselect";
+    private static final String YES                        = "yes";
+    private static final String DISABLE_OFF                = "disable_off";
+    private static final String VALUE_OFF                  = "value_off";
+    private static final String VALUE_ON                   = "value_on";
+    private static final String CHECK_FIELD                = "check";
+    private static final String CHECKGROUP                 = "checkgroup";
+    private static final String HREF                       = "href";
+    private static final String LINK                       = "link";
+    private static final String I18N                       = "i18n";
+    private static final String JAVASCRIPT                 = "javascript";
+    private static final String DEFAULT                    = "default";
+    private static final String TEXT_CONTEXT               = "text_context";
+    private static final String TEXT_FIELD                 = "text";
+    private static final String TEXT                       = "text";
+    private static final String VALUE                      = "value";
+    private static final String NONE                       = "none";
+    private static final String MATCH                      = "match";
+    private static final String CHUNK                      = "chunk";
+    private static final String KEY_ATTR                   = "key";
+    private static final String OPTIONAL                   = "optional";
+    private static final String SEPARATOR                  = "separator";
+    private static final String ID                         = "id";
+    private static final String DEPRECATED                 = "deprecated";
+    private static final String TRUE                       = "true";
+    private static final String GTYPE                      = "gtype";
+    private static final String TYPE                       = "type";
+    private static final String ITEM                       = "item";
+    private static final String NAME_CONTEXT               = "name_context";
+    private static final String ICON                       = "icon";
+    private static final String NAME                       = "name";
+    private static final String OBJECT_KEYS                = "object_keys";
+    private static final String GROUP                      = "group";
+    private static final String PRESETS                    = "presets";
+    private static final String AREA                       = "area";
+    private static final String MULTIPOLYGON               = "multipolygon";
+    private static final String CLOSEDWAY                  = "closedway";
+    private static final String LABEL                      = "label";
+    private static final String ITEMS_SORT                 = "items_sort";
+    private static final String SPACE                      = "space";
     /**
      * 
      */
-    private static final long   serialVersionUID    = 7L;
+    private static final long   serialVersionUID           = 7L;
     /** name of the preset XML file in a preset directory */
-    public static final String  PRESETXML           = "preset.xml";
+    public static final String  PRESETXML                  = "preset.xml";
     /** name of the MRU serialization file in a preset directory */
-    private static final String MRUFILE             = "mru.dat";
-    public static final String  APKPRESET_URLPREFIX = "apk:";
+    private static final String MRUFILE                    = "mru.dat";
+    public static final String  APKPRESET_URLPREFIX        = "apk:";
 
     // hardwired layout stuff
     public static final int SPACING = 5;
@@ -371,13 +373,14 @@ public class Preset implements Serializable {
      * @param ctx context (used for preset loading)
      * @param directory directory to load/store preset data (XML, icons, MRUs)
      * @param externalPackage name of external package containing preset assets for APK presets, null for other presets
+     * @param useTranslations if true use included translations
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      * @throws NoSuchAlgorithmException
      * @throws Exception
      */
-    public Preset(Context ctx, File directory, String externalPackage)
+    public Preset(Context ctx, File directory, String externalPackage, boolean useTranslations)
             throws ParserConfigurationException, SAXException, IOException, NoSuchAlgorithmException {
         this.directory = directory;
         this.externalPackage = externalPackage;
@@ -393,32 +396,25 @@ public class Preset implements Serializable {
                 Log.i(DEBUG_TAG, "Loading default preset");
                 iconManager = new PresetIconManager(ctx, null, null);
                 fileStream = iconManager.openAsset(PRESETXML, true);
-                // get translations
-                InputStream poFileStream = null;
-                try {
-                    Locale locale = Locale.getDefault();
-                    String language = locale.getLanguage();
-                    poFileStream = iconManager.openAsset("preset_" + locale + ".po", true);
-                    if (poFileStream == null) {
-                        poFileStream = iconManager.openAsset("preset_" + language + ".po", true);
-                    }
-                    if (poFileStream != null) {
-                        try {
-                            po = new Po(poFileStream);
-                        } catch (ParseException ignored) {
-                            Log.e(DEBUG_TAG, "Parsing translation file for " + locale + " or " + language + " failed");
-                        } catch (TokenMgrError ignored) {
-                            Log.e(DEBUG_TAG, "Parsing translation file for " + locale + " or " + language + " failed");
+                if (useTranslations) {
+                    // get translations
+                    InputStream poFileStream = null;
+                    try {
+                        Locale locale = Locale.getDefault();
+                        String language = locale.getLanguage();
+                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + PO, true);
+                        if (poFileStream == null) {
+                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + PO, true);
                         }
+                        po = parserPoFile(poFileStream);
+                    } finally {
+                        SavingHelper.close(poFileStream);
                     }
-                } finally {
-                    SavingHelper.close(poFileStream);
                 }
             } else if (externalPackage != null) {
                 Log.i(DEBUG_TAG, "Loading APK preset, package=" + externalPackage + ", directory=" + directory.toString());
                 iconManager = new PresetIconManager(ctx, directory.toString(), externalPackage);
                 fileStream = iconManager.openAsset(PRESETXML, false);
-                // po = new Po(iconManager.openAsset("preset_"+Locale.getDefault()+".po", false));
             } else {
                 Log.i(DEBUG_TAG, "Loading downloaded preset, directory=" + directory.toString());
                 iconManager = new PresetIconManager(ctx, directory.toString(), null);
@@ -428,43 +424,25 @@ public class Preset implements Serializable {
                     String presetFilename = list[0].getName();
                     Log.i(DEBUG_TAG, "Preset file name " + presetFilename);
                     fileStream = new FileInputStream(new File(directory, presetFilename));
-                    // get translations
-                    presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
-                    InputStream poFileStream = null;
-                    try {
-                        // try to open .po files either with the same name as the preset file or the standard name
+                    if (useTranslations) {
+                        // get translations
+                        presetFilename = presetFilename.substring(0, presetFilename.length() - 4);
+                        InputStream poFileStream = null;
                         try {
-                            poFileStream = new FileInputStream(new File(directory, presetFilename + "_" + Locale.getDefault() + ".po"));
-                        } catch (FileNotFoundException fnfe) {
+                            // try to open .po files either with the same name as the preset file or the standard name
                             try {
-                                poFileStream = new FileInputStream(new File(directory, presetFilename + "_" + Locale.getDefault().getLanguage() + ".po"));
-                            } catch (FileNotFoundException fnfe2) {
+                                poFileStream = getPoInputStream(directory, presetFilename + "_", Locale.getDefault());
+                            } catch (FileNotFoundException fnfe) {
                                 try {
-                                    presetFilename = PRESETXML.substring(0, PRESETXML.length() - 4);
-                                    poFileStream = new FileInputStream(new File(directory, presetFilename + "_" + Locale.getDefault() + ".po"));
+                                    poFileStream = getPoInputStream(directory, DEFAULT_PRESET_TRANSLATION, Locale.getDefault());
                                 } catch (FileNotFoundException fnfe3) {
-                                    try {
-                                        poFileStream = new FileInputStream(
-                                                new File(directory, presetFilename + "_" + Locale.getDefault().getLanguage() + ".po"));
-                                    } catch (FileNotFoundException fnfe4) {
-                                        // no translations
-                                    }
+                                    // no translations
                                 }
                             }
+                            po = parserPoFile(poFileStream);
+                        } finally {
+                            SavingHelper.close(poFileStream);
                         }
-                        if (poFileStream != null) {
-                            try {
-                                po = new Po(poFileStream);
-                            } catch (ParseException ignored) {
-                                Log.e(DEBUG_TAG,
-                                        "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-                            } catch (TokenMgrError ignored) {
-                                Log.e(DEBUG_TAG,
-                                        "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
-                            }
-                        }
-                    } finally {
-                        SavingHelper.close(poFileStream);
                     }
                 } else {
                     Log.e(DEBUG_TAG, "Can't find preset file");
@@ -495,6 +473,44 @@ public class Preset implements Serializable {
         } finally {
             SavingHelper.close(fileStream);
         }
+    }
+
+    /**
+     * Get an input stream for a .po file, try full locale string first then just the language
+     * 
+     * @param directory the director where the file is located
+     * @param presetFilename the filename
+     * @param locale the Locale
+     * @return the InputStream
+     * @throws FileNotFoundException if the file does not exist
+     */
+    @NonNull
+    private FileInputStream getPoInputStream(@NonNull File directory, @NonNull String presetFilename, @NonNull Locale locale) throws FileNotFoundException {
+        try {
+            return new FileInputStream(new File(directory, presetFilename + locale.toString() + PO));
+        } catch (FileNotFoundException fnfe) {
+            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + PO));
+        }
+    }
+
+    /**
+     * Create a Po class from an InputStream
+     * 
+     * @param poFileStream the InputStream
+     * @return an Po object or null
+     */
+    @Nullable
+    private Po parserPoFile(@Nullable InputStream poFileStream) {
+        if (poFileStream != null) {
+            try {
+                return new Po(poFileStream);
+            } catch (ParseException ignored) {
+                Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+            } catch (TokenMgrError ignored) {
+                Log.e(DEBUG_TAG, "Parsing translation file for " + Locale.getDefault() + " or " + Locale.getDefault().getLanguage() + " failed");
+            }
+        }
+        return null;
     }
 
     /**

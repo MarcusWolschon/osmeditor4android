@@ -325,6 +325,7 @@
     <string name="toast_invalid_apiurl">Invalid API URL</string>
     <string name="toast_invalid_readonlyurl">Invalid ReadOnly API URL</string>
     <string name="toast_invalid_notesurl">Invalid Notes API URL</string>
+    <string name="toast_invalid_preseturl">Invalid preset URL</string>
     <string name="toast_invalid_filter_regexp">Invalid regular expression in filter with key="%1$s" value="%2$s"</string>
     <string name="toast_error_accessing_photo">Can\'t access photo %1$s</string>
     <string name="toast_no_voice_recognition">No voice recognition facility present</string>
@@ -665,6 +666,7 @@
     <string name="config_moreprefs">More settings...</string>
     <string name="config_presetbutton_title">Presets</string>
     <string name="config_presetbutton_summary">Add and enable JOSM compatible presets</string>
+    <string name="config_built_in_preset">Built-in preset</string>
     <string name="config_validatorprefs_title">Validator settings</string>
     <string name="config_validatorprefs_summary">Configure the validation rules</string> 
     <!--  these are no longer on the prefs page, but are used as menu entries -->
@@ -806,6 +808,7 @@
     <string name="config_password_title">OSM Password</string>
     <string name="config_password_summary">Do not mistake it for the Wiki password. Remember: It is stored and transmitted in plain-text!</string>
     <string name="manage_presets">Manage presets</string>
+    <string name="listedit_use_translations">Use translations</string>
     <string name="manage_geocoders">Manage geocoders</string>
     <!-- preset downloader messages -->
     <string name="preset_update">Update preset</string>

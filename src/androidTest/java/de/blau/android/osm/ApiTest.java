@@ -81,7 +81,7 @@ public class ApiTest {
         System.out.println("mock api url " + mockBaseUrl.toString());
         prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
-        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", null, false);
+        prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
@@ -146,7 +146,7 @@ public class ApiTest {
     }
 
     /**
-     * Downlad then download again and merge 
+     * Downlad then download again and merge
      */
     @Test
     public void dataDownloadMerge() {
@@ -594,7 +594,7 @@ public class ApiTest {
         logic.checkForMail(main);
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
     }
-    
+
     /**
      * get the user preferences, the set and delete one
      */
@@ -606,7 +606,7 @@ public class ApiTest {
         try {
             final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
             Map<String, String> preferences = s.getUserPreferences();
-            Assert.assertEquals(3,preferences.size());
+            Assert.assertEquals(3, preferences.size());
             Assert.assertEquals("public", preferences.get("gps.trace.visibility"));
             RecordedRequest request1 = mockServer.takeRequest();
             Assert.assertEquals("GET", request1.getMethod().toUpperCase());
@@ -622,6 +622,6 @@ public class ApiTest {
             Assert.assertEquals("/api/0.6/user/preferences/gps.trace.visibility", request3.getPath());
         } catch (Exception e) {
             Assert.fail(e.getMessage());
-        }           
-    } 
+        }
+    }
 }
