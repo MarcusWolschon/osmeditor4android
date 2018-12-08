@@ -33,6 +33,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.GeoJSONConstants;
+import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -162,7 +163,7 @@ public class FeatureInfo extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            dialog.getWindow().setLayout((int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 

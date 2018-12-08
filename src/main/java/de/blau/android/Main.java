@@ -154,6 +154,7 @@ import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SaveFile;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -1491,7 +1492,7 @@ public class Main extends FullScreenAppCompatActivity
         if (menu.size() == 0) {
             menu.clear();
             final MenuInflater inflater = getMenuInflater();
-            if (getBottomBar() != null && Util.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Flavors.LEGACY.equals(BuildConfig.FLAVOR)) {
+            if (getBottomBar() != null && Screen.isLarge(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Flavors.LEGACY.equals(BuildConfig.FLAVOR)) {
                 inflater.inflate(R.menu.main_menu_nosubmenus, menu);
             } else {
                 inflater.inflate(R.menu.main_menu, menu);

@@ -76,7 +76,7 @@ public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            int dialogWidth = (int) (Util.getScreenSmallDimemsion(getActivity()) * 0.9);
+            int dialogWidth = (int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 dialog.getWindow().setLayout(dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
             } else {

@@ -80,6 +80,7 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
 import de.blau.android.util.GeoContext.Properties;
 import de.blau.android.util.KeyValue;
+import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
 import de.blau.android.util.StringWithDescription;
@@ -312,7 +313,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         // set the value header if we are in multi-select mode
         if (elements.length > 1) {
             TextView valueHeader = (TextView) rowLayout.findViewById(R.id.header_value);
-            int headerRes = Util.isLandscape(getActivity()) || Util.isLarge(getActivity()) ? R.string.multiselect_header_long
+            int headerRes = Screen.isLandscape(getActivity()) || Screen.isLarge(getActivity()) ? R.string.multiselect_header_long
                     : R.string.multiselect_header_short;
             valueHeader.setText(getString(headerRes, elements.length));
         }

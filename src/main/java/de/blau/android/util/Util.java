@@ -15,7 +15,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -38,7 +37,6 @@ import android.text.Spanned;
 import android.text.style.CharacterStyle;
 import android.text.style.MetricAffectingSpan;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.ScrollView;
 import de.blau.android.App;
@@ -313,40 +311,6 @@ public final class Util {
     }
 
     /**
-     * Reliably determine if we are in landscape orientation
-     * 
-     * @param activity the calling Activity
-     * @return true if we are in landscape orientation
-     */
-    @SuppressLint("NewApi")
-    public static boolean isLandscape(@NonNull Activity activity) {
-        // reliable determine if we are in landscape mode
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-        } else {
-            // noinspection deprecation
-            size.x = display.getWidth();
-            // noinspection deprecation
-            size.y = display.getHeight();
-        }
-
-        return isLarge(activity) && size.x > size.y;
-    }
-
-    /**
-     * Determine if we are running on a large device
-     * 
-     * @param activity the calling Activity
-     * @return true if we are running on a large device
-     */
-    public static boolean isLarge(@NonNull Activity activity) {
-        int screenSize = activity.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        return (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE || screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE);
-    }
-
-    /**
      * Scroll to the supplied view
      * 
      * @param sv the ScrollView or NestedScrollView to scroll
@@ -588,30 +552,6 @@ public final class Util {
         int size = parcel.dataSize();
         parcel.recycle();
         return size;
-    }
-
-    /**
-     * Get the size of the smaller side of the screen
-     * 
-     * @param activity the calling Activity
-     * @return the smaller side in px
-     */
-    public static int getScreenSmallDimemsion(@NonNull Activity activity) {
-        Point size = new Point();
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-        } else {
-            // noinspection deprecation
-            size.x = display.getWidth(); // NOSONAR
-            // noinspection deprecation
-            size.y = display.getHeight(); // NOSONAR
-        }
-
-        if (size.x < size.y) {
-            return size.x;
-        }
-        return size.y;
     }
 
     /**

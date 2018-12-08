@@ -59,6 +59,7 @@ import de.blau.android.util.BaseFragment;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.PlaceTagValueAdapter;
+import de.blau.android.util.Screen;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.StreetTagValueAdapter;
@@ -221,7 +222,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
             askForName = (Boolean) getIntent().getSerializableExtra(TAGEDIT_ASK_FOR_NAME);
             extraTags = (HashMap<String, String>) getIntent().getSerializableExtra(TAGEDIT_EXTRA_TAGS);
             presetsToApply = (ArrayList<PresetElementPath>) getIntent().getSerializableExtra(TAGEDIT_PRESETSTOAPPLY);
-            usePaneLayout = Util.isLandscape(this);
+            usePaneLayout = Screen.isLandscape(this);
 
             // if we have a preset to auto apply it doesn't make sense to show the Preset tab
             if (presetsToApply != null && !presetsToApply.isEmpty()) {
