@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
@@ -35,6 +37,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -56,6 +59,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.http.Url;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -559,9 +563,16 @@ public class PresetEditorActivity extends URLListEditActivity {
                 changeBackgroundColor(editValue, VALID_COLOR);
                 // validate entries
                 boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
+                URL url = null;
+                try {
+                    url = new URL(presetURL);
+                } catch (MalformedURLException e) {
+                    validPresetURL = false;
+                }
 
-                // save or display toast
-                if (validPresetURL || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
+                // save or display toast, exception for localhost is needed for testing
+                if (validPresetURL || URLUtil.isFileUrl(presetURL) || (url != null && "localhost".equals(url.getHost()))
+                        || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
                     if (item == null) {
                         // new item
                         finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
