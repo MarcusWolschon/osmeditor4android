@@ -1558,15 +1558,20 @@ public class Logic {
     /**
      * If the coordinates are not in a downloaded area show a warning
      * 
-     * @param activity the calling Activity
+     * @param activity the calling Activity, if null no warning will be displayed
      * @param lonE7 WGS84 longitude*1E7
      * @param latE7 WGS84 latitude*1E7
+     * @return true if we are not in a downloaded area
      */
-    private void outsideOfDownload(final Activity activity, int lonE7, int latE7) {
+    private boolean outsideOfDownload(@Nullable final Activity activity, int lonE7, int latE7) {
         if (!getDelegator().isInDownload(lonE7, latE7)) {
             Log.d(DEBUG_TAG, "Outside of download");
-            Snack.barWarningShort(activity, R.string.toast_outside_of_download);
+            if (activity != null) {
+                Snack.toastTopWarning(activity, R.string.toast_outside_of_download);
+            }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -1633,10 +1638,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, node); // needs to be done before removal
             getDelegator().removeNode(node);
             invalidateMap();
-            if (!isInDownload(node)) {
-                // warning toast
-                Snack.barWarning(activity, R.string.toast_outside_of_download);
-            }
+            outsideOfDownload(activity, node.getLat(), node.getLat());
         }
     }
 
@@ -2077,10 +2079,12 @@ public class Logic {
     }
 
     /**
+     * Append a Node to the selected Way, if the selected Node is clicked finish, otherwise create a new Node at the
+     * location
      * 
      * @param activity activity this method was called from, if null no warnings will be displayed
-     * @param x
-     * @param y
+     * @param x screen x coordinate
+     * @param y screen y coordinate
      * @throws OsmIllegalOperationException
      */
     public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
@@ -2093,16 +2097,13 @@ public class Logic {
         if (node == lSelectedNode) {
             lSelectedNode = null;
             lSelectedWay = null;
-        } else if (lSelectedWay != null) { // may have been deselected before we got here
+        } else if (lSelectedWay != null) { // may have been de-selected before we got here
             if (node == null) {
                 int lat = yToLatE7(y);
                 int lon = xToLonE7(x);
                 node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
                 getDelegator().insertElementSafe(node);
-                if (!getDelegator().isInDownload(lon, lat)) {
-                    // warning toast
-                    Snack.barWarningShort(activity, R.string.toast_outside_of_download);
-                }
+                outsideOfDownload(activity, lon, lat);
             }
             try {
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
