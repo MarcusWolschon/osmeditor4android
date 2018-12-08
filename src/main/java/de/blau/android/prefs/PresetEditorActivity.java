@@ -561,7 +561,7 @@ public class PresetEditorActivity extends URLListEditActivity {
                 boolean validPresetURL = Patterns.WEB_URL.matcher(presetURL).matches();
 
                 // save or display toast
-                if (validPresetURL || item.id.equals(LISTITEM_ID_DEFAULT)) {
+                if (validPresetURL || (item != null && item.id.equals(LISTITEM_ID_DEFAULT))) {
                     if (item == null) {
                         // new item
                         finishCreateItem(new ListEditItem(name, presetURL, null, null, useTranslationsEnabled));
