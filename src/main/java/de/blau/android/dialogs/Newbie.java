@@ -18,6 +18,7 @@ import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Display a dialog giving new users minimal instructions
@@ -98,13 +99,13 @@ public class Newbie extends DialogFragment {
     @Override
     public AppCompatDialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(ThemeUtils.getResIdFromAttribute(getActivity(), R.attr.alert_dialog));
+        builder.setIcon(null);
         builder.setTitle(R.string.welcome_title);
         String message = getString(R.string.welcome_message);
         if (main.isFullScreen()) {
             message = message + getString(R.string.welcome_message_fullscreen);
         }
-        builder.setMessage(message);
+        builder.setMessage(Util.fromHtml(message));
         builder.setPositiveButton(R.string.okay, new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

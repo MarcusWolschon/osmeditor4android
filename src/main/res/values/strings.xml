@@ -51,7 +51,7 @@
     <string name="file_write_failed_title">File write failed</string>
     <string name="file_write_failed_message">Could not write to selected file.</string>
     <string name="welcome_title">Welcome!</string>
-    <string name="welcome_message">Thank you for using Vespucci.\n\nTo get started you need to know two things:\n\n* tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode\n\n* to add a new object: long press, tapping in the same place will add a node, tapping further away will start a way.\n\nDo not forget to download the area you want to edit.\n\nHave fun!</string>
+    <string name="welcome_message">Thank you for installing Vespucci.\n\nTo get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
     <string name="welcome_message_fullscreen">\n\nVespucci has detected that you have a device with "soft keys" and has hidden them. A swipe from the bottom edge will show them again.</string>
     <string name="read_introduction">Read the introduction now</string>
     <string name="upgrade_title">Welcome to a new version of Vespucci!</string>
