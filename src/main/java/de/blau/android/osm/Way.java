@@ -410,7 +410,7 @@ public class Way extends OsmElement implements BoundedObject {
         if ((man_made != null) && man_made.equals(Tags.VALUE_EMBANKMENT)) {
             return true; // IHMO
         }
-        
+
         String highway = getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
             if (Tags.VALUE_MOTORWAY.equals(highway)) {

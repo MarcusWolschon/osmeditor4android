@@ -17,7 +17,6 @@ import android.util.Log;
 import de.blau.android.HelpViewer;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
 /**

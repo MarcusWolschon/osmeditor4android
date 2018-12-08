@@ -364,7 +364,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 ArrayAdapter<StringWithDescription> adapter2 = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row);
                 if (preset != null) {
                     List<String> mruValues = App.getMruTags().getValues(preset, key);
-                    if (mruValues != null) {                        
+                    if (mruValues != null) {
                         for (String v : mruValues) {
                             adapter2.add(new StringWithDescription(v));
                             counter.put(v, position++);

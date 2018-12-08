@@ -15,7 +15,7 @@ public interface ActivityResultHandler {
     void setResultListener(int code, @NonNull Listener listener);
 
     interface Listener {
-        
+
         /**
          * Process the result from an Activity
          * 

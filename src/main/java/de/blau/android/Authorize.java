@@ -1,6 +1,5 @@
 package de.blau.android;
 
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 

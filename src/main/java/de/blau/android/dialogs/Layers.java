@@ -152,7 +152,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                 tl.removeAllViews();
                 addRows(activity);
             }
-            
+
             @Override
             public void onClick(View v) {
                 final FragmentActivity activity = getActivity();

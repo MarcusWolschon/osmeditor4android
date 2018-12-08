@@ -70,7 +70,7 @@ public abstract class SizedFixedImmersiveDialogFragment extends DialogFragment {
             dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();

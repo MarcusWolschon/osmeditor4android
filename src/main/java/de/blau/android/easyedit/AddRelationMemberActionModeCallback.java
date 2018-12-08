@@ -55,7 +55,8 @@ public class AddRelationMemberActionModeCallback extends NonSimpleActionModeCall
     }
 
     /**
-     * Construct a new AddRelationMemberActionModeCallback starting with an existing Relation any potentially a new OsmElement to add
+     * Construct a new AddRelationMemberActionModeCallback starting with an existing Relation any potentially a new
+     * OsmElement to add
      * 
      * @param manager the current EasyEditManager instance
      * @param relation the existing Relation

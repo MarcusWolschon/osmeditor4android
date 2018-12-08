@@ -98,7 +98,7 @@ public class Preferences {
     private final boolean showCameraAction;
 
     private final boolean generateAlerts;
-    
+
     private final boolean groupAlertsOnly;
 
     private int maxAlertDistance;
@@ -623,7 +623,7 @@ public class Preferences {
     public boolean generateAlerts() {
         return generateAlerts;
     }
-    
+
     /**
      * Check if we should generate alerts only once per group or always
      * 
@@ -799,7 +799,7 @@ public class Preferences {
     public void setGeocoderLimit(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_geocoderLimit_key), on).commit();
     }
-    
+
     /**
      * Check if we should limit searches to the current ViewBox
      * 
@@ -813,7 +813,7 @@ public class Preferences {
         }
         return prefs.getBoolean(key, false);
     }
-    
+
     public boolean isJsConsoleEnabled() {
         return jsConsoleEnabled;
     }
@@ -821,7 +821,7 @@ public class Preferences {
     public void enableSimpleActions(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_simpleActions_key), on).commit();
     }
-    
+
     public boolean areSimpleActionsEnabled() {
         String key = r.getString(R.string.config_simpleActions_key);
         if (!prefs.contains(key)) {
@@ -830,7 +830,7 @@ public class Preferences {
         }
         return prefs.getBoolean(key, true);
     }
-    
+
     /**
      * Get a string from shared preferences
      * 
