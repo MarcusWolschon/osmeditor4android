@@ -236,7 +236,7 @@ public abstract class URLListEditActivity extends ListActivity
      * 
      * @param item the selected item
      */
-    abstract void itemEditDialog(@NonNull final ListEditItem item);
+    abstract void itemEditDialog(@Nullable final ListEditItem item);
 
     /**
      * Change the background color of a TextView

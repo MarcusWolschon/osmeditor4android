@@ -290,7 +290,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
      * @param token the OAuth token
      * @param secret the OAuth secret
      */
-    public synchronized void setAPIAccessToken(@NonNull String token, @NonNull String secret) {
+    public synchronized void setAPIAccessToken(@Nullable String token, @Nullable String secret) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("accesstoken", token);

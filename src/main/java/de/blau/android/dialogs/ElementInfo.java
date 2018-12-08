@@ -470,7 +470,7 @@ public class ElementInfo extends DialogFragment {
                                         for (RelationMember origMember : new ArrayList<>(origMembers)) {
                                             origRole = origMember.getRole();
                                             origMembers.remove(origMember);
-                                            break;
+                                            break; // NOSONAR there is no elegant way to get the first element
                                         }
                                     }
                                     t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(origRole), getPrettyRole(role), tp));
