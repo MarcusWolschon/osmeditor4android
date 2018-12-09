@@ -1143,16 +1143,6 @@ public class Logic {
     }
 
     /**
-     * Check if node is in the downloaded data
-     * 
-     * @param n the Node we are looking for
-     * @return true if the above is the case
-     */
-    private boolean isInDownload(@NonNull Node n) {
-        return getDelegator().isInDownload(n.getLon(), n.getLat());
-    }
-
-    /**
      * Handles the event when user begins to touch the display. When the viewBox is close enough for editing and the
      * user is in edit-mode a touched node will bet set to selected. draggingNode will be set if a node is to be moved.
      * A eventual movement of this node will be done in
