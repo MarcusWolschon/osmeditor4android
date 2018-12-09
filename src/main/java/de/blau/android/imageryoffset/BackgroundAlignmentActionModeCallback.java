@@ -63,6 +63,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+/**
+ * This is an ActionMode for aligning the background imagery
+ * 
+ * @author simon
+ *
+ */
 public class BackgroundAlignmentActionModeCallback implements Callback {
 
     private static final String DEBUG_TAG = "BackgroundAlign...";
@@ -86,11 +92,17 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
     private final Map       map;
     private final Main      main;
 
-    private ArrayList<ImageryOffset> offsetList;
+    private List<ImageryOffset> offsetList;
 
     private ActionMenuView cabBottomBar;
 
-    public BackgroundAlignmentActionModeCallback(Main main, Mode oldMode) {
+    /**
+     * Construct a new BackgroundAlignmentActionModeCallback
+     * 
+     * @param main the current instance of Main
+     * @param oldMode the Mode before we were called
+     */
+    public BackgroundAlignmentActionModeCallback(@NonNull Main main, @NonNull Mode oldMode) {
         this.oldMode = oldMode;
         this.main = main; // currently we are only called from here
         map = main.getMap();
@@ -226,16 +238,30 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * @author simon
      *
      */
-    private class OffsetLoader extends AsyncTask<Double, Void, ArrayList<ImageryOffset>> {
+    private class OffsetLoader extends AsyncTask<Double, Void, List<ImageryOffset>> {
 
         String                       error = null;
         final PostAsyncActionHandler handler;
 
-        OffsetLoader(final PostAsyncActionHandler postLoadHandler) {
+        /**
+         * Construct a new OffsetLoader
+         * 
+         * @param postLoadHandler a handler to call after loading or null
+         */
+        OffsetLoader(@Nullable final PostAsyncActionHandler postLoadHandler) {
             handler = postLoadHandler;
         }
 
-        ArrayList<ImageryOffset> getOffsetList(double lat, double lon, int radius) {
+        /**
+         * Get the offsets around the specified coordinates
+         * 
+         * @param lat latitude in WGS84 coordinates
+         * @param lon longitude in WGS84 coordinates
+         * @param radius radius around the location in fm
+         * @return a List containing the found ImageryOffsets or null
+         */
+        @Nullable
+        List<ImageryOffset> getOffsetList(double lat, double lon, int radius) {
             Uri.Builder uriBuilder = offsetServerUri.buildUpon().appendPath("get").appendQueryParameter("lat", String.valueOf(lat)).appendQueryParameter("lon",
                     String.valueOf(lon));
             if (radius > 0) {
@@ -311,7 +337,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
 
         @Override
-        protected ArrayList<ImageryOffset> doInBackground(Double... params) {
+        protected List<ImageryOffset> doInBackground(Double... params) {
 
             if (params.length != 3) {
                 Log.e(DEBUG_TAG, "wrong number of params in OffsetLoader " + params.length);
@@ -320,7 +346,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             double centerLat = params[0];
             double centerLon = params[1];
             int radius = (int) (params[2] == null ? 0 : params[2]);
-            ArrayList<ImageryOffset> result = getOffsetList(centerLat, centerLon, radius);
+            List<ImageryOffset> result = getOffsetList(centerLat, centerLon, radius);
             if (result == null || result.isEmpty()) {
                 // retry with max radius
                 Log.d(DEBUG_TAG, "retrying search with max radius");
@@ -330,7 +356,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ImageryOffset> res) {
+        protected void onPostExecute(List<ImageryOffset> res) {
             Progress.dismissDialog(main, Progress.PROGRESS_SEARCHING);
             offsetList = res;
             if (handler != null) {
@@ -338,6 +364,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             }
         }
 
+        /**
+         * Get a String describing any error that occurred
+         * 
+         * @return the error String or null if none
+         */
+        @Nullable
         String getError() {
             return error;
         }
@@ -393,6 +425,12 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
             }
         }
 
+        /**
+         * Get a String describing any error that occurred
+         * 
+         * @return the error String or null if none
+         */
+        @Nullable
         String getError() {
             return error;
         }
@@ -488,6 +526,11 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         }
     }
 
+    /**
+     * Shoe an AlertDialog for the error is any
+     * 
+     * @param error the error String or null
+     */
     private void displayError(@Nullable String error) {
         if (error != null) { // try to avoid code dup
             AlertDialog.Builder builder = new AlertDialog.Builder(main);
@@ -503,7 +546,7 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
      * 
      * @param reader the JsonReader
      * @return an ImagerOffset or null if parsing failed
-     * @throws IOException
+     * @throws IOException if reading JSON failed
      */
     @Nullable
     private ImageryOffset readOffset(@NonNull JsonReader reader) throws IOException {
@@ -565,7 +608,15 @@ public class BackgroundAlignmentActionModeCallback implements Callback {
         return null;
     }
 
-    private DeprecationNote readDeprecated(JsonReader reader) throws IOException {
+    /**
+     * Parse depreciation information from Json input
+     * 
+     * @param reader the JsonReader
+     * @return an ImagerOffset or null if parsing failed
+     * @throws IOException if reading JSON failed
+     */
+    @NonNull
+    private DeprecationNote readDeprecated(@NonNull JsonReader reader) throws IOException {
         DeprecationNote result = new DeprecationNote();
 
         reader.beginObject();
