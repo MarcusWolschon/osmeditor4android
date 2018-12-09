@@ -111,12 +111,13 @@ public class TestUtils {
         if (button.exists()) {
             try {
                 if (longClick) {
-                    return button.longClick();
+                    button.longClick();
                 } else if (waitForNewWindow) {
-                    return button.clickAndWaitForNewWindow();
+                    button.clickAndWaitForNewWindow();
                 } else {
-                    return button.click();
+                    button.click();
                 }
+                return true; // the button clicks don't seem to reliably return a true
             } catch (UiObjectNotFoundException e) {
                 Log.e(DEBUG_TAG, "Object vanished.");
                 return false;

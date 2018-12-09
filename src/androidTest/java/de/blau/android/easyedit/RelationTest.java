@@ -105,7 +105,7 @@ public class RelationTest {
         Assert.assertNotNull(rels);
         Assert.assertEquals(1, rels.size());
         Relation relation = rels.get(0);
-        List<RelationMember>origMembers = relation.getMembers();
+        List<RelationMember> origMembers = relation.getMembers();
         Assert.assertEquals(6490362L, relation.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_relationselect)));
         Assert.assertTrue(TestUtils.clickOverflowButton());
@@ -114,13 +114,13 @@ public class RelationTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.done), true));
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, relation.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, relation.getState());
         Assert.assertNotNull(relation.getMember(Way.NAME, 104148456L));
-        List<RelationMember>members = relation.getMembers();
+        List<RelationMember> members = relation.getMembers();
         Assert.assertEquals(origMembers.size(), members.size());
-        for (int i=0;i<members.size();i++) {
-            Assert.assertEquals(origMembers.get(i),members.get(i));
+        for (int i = 0; i < members.size(); i++) {
+            Assert.assertEquals(origMembers.get(i), members.get(i));
         }
     }
 }

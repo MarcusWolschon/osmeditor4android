@@ -118,10 +118,10 @@ public class NodeTest {
         Assert.assertTrue(TestUtils.clickText(device, false, context.getString(R.string.cancel), true));
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.delete), false, true));
         Assert.assertEquals(OsmElement.STATE_DELETED, node.getState());
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
     }
-    
+
     /**
      * Select, drag, undo
      */
@@ -133,18 +133,18 @@ public class NodeTest {
         Assert.assertNotNull(node);
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
-        
+
         TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true);
- 
+
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
-        
-        Assert.assertEquals(8.388, node.getLon()/1E7D,0.001);
-        Assert.assertEquals(47.391,node.getLat()/1E7D,0.001);
-        
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
+
+        Assert.assertEquals(8.388, node.getLon() / 1E7D, 0.001);
+        Assert.assertEquals(47.391, node.getLat() / 1E7D, 0.001);
+
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
     }
-    
+
     /**
      * Select, unjoin, merge
      */
@@ -156,22 +156,22 @@ public class NodeTest {
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
         Assert.assertEquals(633468419L, node.getOsmId());
-        
-        List<Way>waysBefore = logic.getWaysForNode(node);
+
+        List<Way> waysBefore = logic.getWaysForNode(node);
         Assert.assertEquals(2, waysBefore.size());
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_unjoin), false, true));
-        
-        List<Way>waysUnjoined = logic.getWaysForNode(node);
+
+        List<Way> waysUnjoined = logic.getWaysForNode(node);
         Assert.assertEquals(1, waysUnjoined.size());
         Way unjoinedWay = waysUnjoined.get(0);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
-        
+
         TestUtils.clickAtCoordinates(map, 8.3874926, 47.3884640, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "node", false)); // the first node in the list
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_merge), false, true));
-        
-        List<Way>waysAfter = logic.getWaysForNode(node);
+
+        List<Way> waysAfter = logic.getWaysForNode(node);
         Assert.assertEquals(2, waysAfter.size());
     }
 }

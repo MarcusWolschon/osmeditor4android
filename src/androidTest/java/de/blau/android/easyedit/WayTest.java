@@ -103,13 +103,13 @@ public class WayTest {
         TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
         Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
         Way way = App.getLogic().getSelectedWay();
-        List<Node>origWayNodes = new ArrayList<>(way.getNodes());
+        List<Node> origWayNodes = new ArrayList<>(way.getNodes());
         Assert.assertNotNull(way);
         Assert.assertEquals(104148456L, way.getOsmId());
         // add some tags to way nodes so that we can check if they get deleted properly
         Node shouldBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766241L);
         Assert.assertNotNull(shouldBeDeleted1);
-        java.util.Map<String,String> tags = new HashMap<>();
+        java.util.Map<String, String> tags = new HashMap<>();
         tags.put("created_by", "vespucci test");
         logic.setTags(main, shouldBeDeleted1, tags);
         Node shouldntBeDeleted1 = (Node) App.getDelegator().getOsmElement(Node.NAME, 635762224L);
@@ -134,13 +134,13 @@ public class WayTest {
         Node shouldntBeDeleted2 = (Node) App.getDelegator().getOsmElement(Node.NAME, 1201766174);
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, shouldntBeDeleted2.getState());
         // undo
-        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, true));
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
         Assert.assertTrue(way.hasParentRelation(6490362L));
-        List<Node>nodes = way.getNodes();
+        List<Node> nodes = way.getNodes();
         Assert.assertEquals(origWayNodes.size(), nodes.size());
-        for (int i=0;i<nodes.size();i++) {
-            Assert.assertEquals(origWayNodes.get(i),nodes.get(i));
+        for (int i = 0; i < nodes.size(); i++) {
+            Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
         }
     }
 }
