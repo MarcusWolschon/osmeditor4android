@@ -124,7 +124,6 @@ public class VespucciURLActivity extends AppCompatActivity implements OnClickLis
                     actionbar.show();
                 }
                 mainView.findViewById(R.id.urldialog_layoutPreset).setVisibility(View.VISIBLE);
-                mainView.findViewById(R.id.urldialog_layoutAPI).setVisibility(View.GONE);
 
                 ((TextView) mainView.findViewById(R.id.urldialog_textPresetName)).setText(presetname);
                 ((TextView) mainView.findViewById(R.id.urldialog_textPresetURL)).setText(preseturl);
