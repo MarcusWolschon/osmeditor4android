@@ -131,7 +131,85 @@ task updateSynonyms() {
 updateSynonyms.group = 'vespucci'
 updateSynonyms.description = 'Update synonym files from iD editor repo'
 
-['af', 'ar', 'ast', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'dv', 'el', 'en-GB', 'en', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fr', 'gan', 'gl', 'gu', 'he', 'hi', 'hr', 'hu', 'hy', 'ia', 'id', 'is', 'it', 'ja', 'jv', 'km', 'kn', 'ko', 'ku', 'lij', 'lt', 'lv', 'mg', 'mk', 'ml', 'mn', 'ms', 'ne', 'nl', 'nn', 'no', 'nv', 'pl', 'pt-BR', 'pt', 'rm', 'ro', 'ru', 'sc', 'si', 'sk', 'sl', 'sq', 'sr', 'sv', 'ta', 'te', 'th', 'tl', 'tr', 'uk', 'ur', 'vi', 'yue', 'zh-CN', 'zh-HK', 'zh-TW', 'zh'].each { lang ->
+[
+    'af',
+    'ar',
+    'ast',
+    'bg',
+    'bs',
+    'ca',
+    'cs',
+    'da',
+    'de',
+    'dv',
+    'el',
+    'en-GB',
+    'en',
+    'eo',
+    'es',
+    'et',
+    'eu',
+    'fa',
+    'fi',
+    'fr',
+    'gan',
+    'gl',
+    'gu',
+    'he',
+    'hi',
+    'hr',
+    'hu',
+    'hy',
+    'ia',
+    'id',
+    'is',
+    'it',
+    'ja',
+    'jv',
+    'km',
+    'kn',
+    'ko',
+    'ku',
+    'lij',
+    'lt',
+    'lv',
+    'mg',
+    'mk',
+    'ml',
+    'mn',
+    'ms',
+    'ne',
+    'nl',
+    'nn',
+    'no',
+    'nv',
+    'pl',
+    'pt-BR',
+    'pt',
+    'rm',
+    'ro',
+    'ru',
+    'sc',
+    'si',
+    'sk',
+    'sl',
+    'sq',
+    'sr',
+    'sv',
+    'ta',
+    'te',
+    'th',
+    'tl',
+    'tr',
+    'uk',
+    'ur',
+    'vi',
+    'yue',
+    'zh-CN',
+    'zh-HK',
+    'zh-TW',
+    'zh'
+].each { lang ->
     def name="updateSynonyms${lang.capitalize()}"
     task (name,type: JavaExec) {
         main = "ch.poole.osm.presetutils.Synonyms"
@@ -252,9 +330,12 @@ android.applicationVariants.all { variant ->
     }
 }
 
-
 afterEvaluate{
-    // this task needs to be created after the uninstall tasks
+    // these tasks needs to be created after the uninstall tasks
+    
+    // hardwired single test, this is only needed durign initial developement, once the whole test suite has been run
+    // any new test will be included automatically
+    // it would probably be better to somehow get the test name interactively from the user
     android.productFlavors.all { flavor ->
         task ("runSingleConnected${flavor.name.capitalize()}Test",
         dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
@@ -267,7 +348,37 @@ afterEvaluate{
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
         }
     }
-
+    
+    // this task will generate tasks for each test that was run in the last on device test
+    // it doesn't depend on it directly as that would require waiting for all the tests to execute first
+    // so the best strategy seems to simply refresh the build after the on device tests have been ran
+    // tests are split up over two categories depending if they failed or not
+    task generateTestTasks {
+        android.productFlavors.all { flavor ->
+            def flavorName = flavor.name.toUpperCase()
+            def fileRegex = "TEST.*-${flavorName}\\.xml"
+            def fileList = new File(projectDir.getPath() +"/build/outputs/androidTest-results/connected/flavors/${flavorName}/").listFiles().findAll { it.name ==~ /${fileRegex}/ }
+            if (!fileList.empty) {
+                def tests = (new XmlParser()).parse(fileList.get(0)) // assume all tests outputs are equivalent
+                tests.'testcase'.each { testcase ->
+                    def toRun = testcase.@classname + "#" + testcase.@name
+                    task ("run${flavor.name.capitalize()}${toRun.capitalize()}",
+                    dependsOn: ["install${flavor.name.capitalize()}Debug", "install${flavor.name.capitalize()}DebugAndroidTest"],
+                    type: Exec) {
+                        if (testcase.failure.size() == 0) {
+                            group = 'sucessful tests'
+                        } else {
+                            group = "failed tests"
+                        }
+                        description = "Run test " + toRun
+                        // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
+                        commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
+                        finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
+                    }
+                }
+            }
+        }
+    }
     // while we are at it make sure we remove any existing installation before we run the tests
     // currently this conflicts with installDebug which we need to be able to set the mock location permission
     // connectedDebugAndroidTest.dependsOn uninstallDebug
