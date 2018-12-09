@@ -165,7 +165,6 @@ public class MRUTags {
      * @param role the role
      */
     public synchronized void putRole(@NonNull PresetItem item, @NonNull String role) {
-        Log.d(DEBUG_TAG, "item " + item.getName() + " role " + role);
         MRUList<String> mru = roleStore.get(item);
         if (mru == null) {
             mru = new MRUList<>(ROLE_MRU_SIZE);

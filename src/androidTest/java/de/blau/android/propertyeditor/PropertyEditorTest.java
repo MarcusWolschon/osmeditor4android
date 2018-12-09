@@ -1,5 +1,6 @@
 package de.blau.android.propertyeditor;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -81,6 +82,8 @@ public class PropertyEditorTest {
      */
     @Before
     public void setup() {
+        File mruTags = new File("/sdcard/Vespucci/mrutags.xml");
+        mruTags.delete();
         instrumentation = InstrumentationRegistry.getInstrumentation();
         context = instrumentation.getTargetContext();
         monitor = instrumentation.addMonitor(PropertyEditor.class.getName(), null, false);
@@ -374,8 +377,9 @@ public class PropertyEditorTest {
         Assert.assertTrue(mruTags.getValues(item, "maxspeed").contains("100"));
         Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("bridge"));
         Assert.assertTrue(mruTags.getKeys(ElementType.WAY).contains("sidewalk"));
-        path = Arrays.asList(new String[] { "Transport", "Public Transport", "Public Transport Route (Bus)" });
+        path = Arrays.asList(new String[] { "Transport", "Public Transport (Legacy)", "Public transport route (Legacy)" });
         item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
+        Assert.assertNotNull(item);
         Assert.assertTrue(mruTags.getRoles(item).contains("platform"));
     }
 
