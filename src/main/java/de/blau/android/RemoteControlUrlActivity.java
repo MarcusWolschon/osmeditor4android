@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
 
@@ -110,15 +111,21 @@ public class RemoteControlUrlActivity extends Activity {
         }
 
         /**
-         * return string with elements to select
+         * Get the string with elements to select
          * 
-         * @return
+         * @return a String in JOSM format indicating which elements should be selected
          */
+        @Nullable
         public String getSelect() {
             return select;
         }
 
-        public void setSelect(String select) {
+        /**
+         * Set teh string indicatign which elements to select
+         * 
+         * @param select a String in JOSM format indicating which elements should be selected
+         */
+        public void setSelect(@Nullable String select) {
             this.select = select;
         }
 

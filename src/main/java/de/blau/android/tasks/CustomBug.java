@@ -36,8 +36,8 @@ public final class CustomBug extends Bug implements Serializable {
      * 
      * @param is the InputStream
      * @return a List of CustomBugs
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws IOException for JSON reading issues
+     * @throws NumberFormatException if a number conversion fails
      */
     public static List<CustomBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
         ArrayList<CustomBug> result = new ArrayList<>();

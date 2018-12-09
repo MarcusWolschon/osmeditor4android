@@ -26,8 +26,8 @@ public class MapRouletteChallenge implements Serializable {
      * 
      * @param is the InputString
      * @return a MapRouletteTask.Challenge or null
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws IOException for JSON reading issues
+     * @throws NumberFormatException if a number conversion fails
      */
     @Nullable
     public static MapRouletteChallenge parseChallenge(InputStream is) throws IOException, NumberFormatException {

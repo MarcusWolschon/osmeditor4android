@@ -43,8 +43,8 @@ public final class OsmoseBug extends Bug implements Serializable {
      * 
      * @param is the InputString
      * @return a List of OsmoseBug
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws IOException for JSON reading issues
+     * @throws NumberFormatException if a number conversion fails
      */
     public static List<OsmoseBug> parseBugs(InputStream is) throws IOException, NumberFormatException {
         List<OsmoseBug> result = new ArrayList<>();

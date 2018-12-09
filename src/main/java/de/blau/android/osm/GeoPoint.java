@@ -18,7 +18,7 @@ public interface GeoPoint {
     int getLon();
 
     interface InterruptibleGeoPoint extends GeoPoint {
-        /** return true if no line should be drawn from the last point to this one */
+        /** @return true if no line should be drawn from the last point to this one */
         boolean isInterrupted();
     }
 }

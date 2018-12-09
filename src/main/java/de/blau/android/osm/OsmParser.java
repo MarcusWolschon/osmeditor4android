@@ -17,6 +17,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
@@ -59,7 +60,13 @@ public class OsmParser extends DefaultHandler {
         Relation       parent;
         RelationMember member;
 
-        public MissingRelation(RelationMember member, Relation parent) {
+        /**
+         * Construct a new temporary container for missing Relations
+         * 
+         * @param member the RelationMember
+         * @param parent the parent Relation
+         */
+        public MissingRelation(@NonNull RelationMember member, @NonNull Relation parent) {
             this.member = member;
             this.parent = parent;
         }
@@ -70,6 +77,9 @@ public class OsmParser extends DefaultHandler {
     private LongOsmElementMap<Node> nodeIndex = null;
     private LongOsmElementMap<Way>  wayIndex  = null;
 
+    /**
+     * Construct a new instance of the parser
+     */
     public OsmParser() {
         super();
         storage = new Storage();
@@ -86,6 +96,12 @@ public class OsmParser extends DefaultHandler {
         missingRelations.clear();
     }
 
+    /**
+     * Get the Storage instane associated with the parser
+     * 
+     * @return an instance of Storage
+     */
+    @NonNull
     public Storage getStorage() {
         return storage;
     }
@@ -93,8 +109,7 @@ public class OsmParser extends DefaultHandler {
     /**
      * Triggers the beginning of parsing.
      * 
-     * @throws SAXException
-     * 
+     * @param in the InputStream
      * @throws SAXException {@see SAXException}
      * @throws IOException when the xmlRetriever could not provide any data.
      * @throws ParserConfigurationException
@@ -123,6 +138,12 @@ public class OsmParser extends DefaultHandler {
         Log.d(DEBUG_TAG, "Finished parsing input.");
     }
 
+    /**
+     * Get the List of exceptions that have occurred, if any
+     * 
+     * @return a List of Exceptions
+     */
+    @NonNull
     public List<Exception> getExceptions() {
         return exceptions;
     }
@@ -193,11 +214,11 @@ public class OsmParser extends DefaultHandler {
     /**
      * parse API 0.6 output and JOSM OSM files
      * 
-     * @param name
-     * @param atts
-     * @throws OsmParseException
+     * @param name the OsmElement type ("node", "way", "relation")
+     * @param atts the attributes of the current XML start tag
+     * @throws OsmParseException if parsing fails
      */
-    private void parseOsmElement(final String name, final Attributes atts) throws OsmParseException {
+    private void parseOsmElement(@NonNull final String name, @NonNull final Attributes atts) throws OsmParseException {
         try {
             long osmId = Long.parseLong(atts.getValue("id"));
             String version = atts.getValue("version");
@@ -395,42 +416,60 @@ public class OsmParser extends DefaultHandler {
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a Way
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a Way, otherwise false.
      */
     private static boolean isWay(final String name) {
         return Way.NAME.equalsIgnoreCase(name);
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a tag
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a tag, otherwise false.
      */
     private static boolean isTag(final String name) {
         return "tag".equalsIgnoreCase(name);
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a Way Node ("nd")
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a Way Node, otherwise false.
      */
     private static boolean isWayNode(final String name) {
         return Way.NODE.equalsIgnoreCase(name);
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a BoundingBox
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a BoundingBox, otherwise false.
      */
     private static boolean isBounds(final String name) {
         return BoundingBox.NAME.equalsIgnoreCase(name);
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a Relation
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a Relation, otherwise false.
      */
     private static boolean isRelation(final String name) {
         return Relation.NAME.equalsIgnoreCase(name);
     }
 
     /**
-     * @see isNode()
+     * Checks if the element "name" is a Relation member
+     * 
+     * @param name the name of the XML element.
+     * @return true if element "name" is a Relation member, otherwise false.
      */
     private static boolean isRelationMember(final String name) {
         return Relation.MEMBER.equalsIgnoreCase(name);

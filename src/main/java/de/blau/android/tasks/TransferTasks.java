@@ -187,7 +187,7 @@ public class TransferTasks {
      * Upload Notes or bugs to server, needs to be called from main for now (mainly for OAuth dependency)
      * 
      * @param main instance of main calling this
-     * @param server current server config
+     * @param server current server configuration
      * @param postUploadHandler execute code after an upload
      */
     public static void upload(@NonNull final Main main, @NonNull final Server server, @Nullable final PostAsyncActionHandler postUploadHandler) {

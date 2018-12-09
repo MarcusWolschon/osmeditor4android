@@ -46,6 +46,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, null, cell2, false, tp);
     }
@@ -64,6 +65,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, cell3, false, tp);
@@ -83,6 +85,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, null, cell2, isUrl, tp);
@@ -102,6 +105,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, CharSequence cell2, CharSequence cell3,
             @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, cell3, false, tp);
@@ -122,6 +126,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, activity.getString(cell1), cell2, cell3, isUrl, tp);
@@ -142,6 +147,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, @NonNull String cell1, @Nullable CharSequence cell2, @Nullable CharSequence cell3,
             boolean isUrl, @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
@@ -187,6 +193,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, @NonNull TableLayout.LayoutParams tp) {
         return createRow(activity, cell1, cell2, false, tp);
     }
@@ -202,6 +209,7 @@ public class TableLayoutUtils {
      * @return a TableRow
      */
     @SuppressLint("NewApi")
+    @NonNull
     public static TableRow createRow(@NonNull FragmentActivity activity, int cell1, @Nullable CharSequence cell2, boolean isUrl,
             @NonNull TableLayout.LayoutParams tp) {
         TableRow tr = new TableRow(activity);
@@ -236,6 +244,7 @@ public class TableLayoutUtils {
      * @param tr the TableRow to add the cell to
      * @param tp LayoutParams for the row
      */
+    @NonNull
     private static void addCell(@NonNull FragmentActivity activity, @Nullable CharSequence cellText, boolean isUrl, TableRow tr,
             @Nullable TableRow.LayoutParams tp) {
         TextView cell;
@@ -265,6 +274,7 @@ public class TableLayoutUtils {
      * @param activity the FragmentActivity the TableLayout is being displayed on
      * @return a empty View the width of the TableLayout
      */
+    @NonNull
     public static View divider(@NonNull FragmentActivity activity) {
         TableRow tr = new TableRow(activity);
         View v = new View(activity);

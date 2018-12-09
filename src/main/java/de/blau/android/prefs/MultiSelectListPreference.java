@@ -26,6 +26,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.DialogPreference;
@@ -184,7 +185,7 @@ public class MultiSelectListPreference extends DialogPreference {
      *
      * @param values The values to set for the key.
      */
-    public void setValues(Set<String> values) {
+    public void setValues(@NonNull Set<String> values) {
         mValues.clear();
         mValues.addAll(values);
 
@@ -193,7 +194,10 @@ public class MultiSelectListPreference extends DialogPreference {
 
     /**
      * Retrieves the current value of the key.
+     * 
+     * @return a Set of String containign the values
      */
+    @NonNull
     public Set<String> getValues() {
         return mValues;
     }
@@ -204,7 +208,7 @@ public class MultiSelectListPreference extends DialogPreference {
      * @param value The value whose index should be returned.
      * @return The index of the value, or -1 if not found.
      */
-    public int findIndexOfValue(String value) {
+    public int findIndexOfValue(@Nullable String value) {
         if (value != null && mEntryValues != null) {
             for (int i = mEntryValues.length - 1; i >= 0; i--) {
                 if (mEntryValues[i].equals(value)) {
@@ -215,6 +219,11 @@ public class MultiSelectListPreference extends DialogPreference {
         return -1;
     }
 
+    /**
+     * Get the selected items
+     * 
+     * @return an Array of boolean set to true at the positions that are selected
+     */
     boolean[] getSelectedItems() {
         final CharSequence[] entries = mEntryValues;
         final int entryCount = entries.length;

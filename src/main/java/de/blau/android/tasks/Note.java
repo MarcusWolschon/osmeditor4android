@@ -72,9 +72,9 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      * Parse a Note from XML
      * 
      * @param parser the parser instance
-     * @throws XmlPullParserException
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws XmlPullParserException if parsing fails
+     * @throws IOException for XML reading issues
+     * @throws NumberFormatException if a number conversion fails
      */
     public void parseNote(XmlPullParser parser) throws XmlPullParserException, IOException, NumberFormatException {
 

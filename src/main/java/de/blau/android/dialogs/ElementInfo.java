@@ -515,11 +515,14 @@ public class ElementInfo extends DialogFragment {
     }
 
     /**
-     * @param activity
-     * @param tp
-     * @return
+     * Indicate skipped content
+     * 
+     * @param activity the calling FragmentActivity
+     * @param tp layout params
+     * @return a TableRow Layout
      */
-    private TableRow skipped(FragmentActivity activity, TableLayout.LayoutParams tp) {
+    @NonNull
+    private TableRow skipped(@NonNull FragmentActivity activity, @NonNull TableLayout.LayoutParams tp) {
         return TableLayoutUtils.createRow(activity, "...", null, tp);
     }
 

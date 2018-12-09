@@ -58,7 +58,7 @@ public class TaginfoServer {
          * 
          * @param reader the JsonReader
          * @param lang the preferred language
-         * @throws IOException
+         * @throws IOException if reading JSON fails
          */
         SearchResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {
             reader.beginObject();
@@ -126,7 +126,7 @@ public class TaginfoServer {
          * 
          * @param reader the JsonReader
          * @param lang the preferred language
-         * @throws IOException
+         * @throws IOException if reading JSON fails
          */
         WikiPageResult(@NonNull JsonReader reader, String lang) throws IOException {
 
@@ -305,7 +305,7 @@ public class TaginfoServer {
          * @param reader the JsonReader
          * @param lang the preferred language
          * @return a new ValueReader instance
-         * @throws IOException
+         * @throws IOException if reading JSON fails
          */
         @NonNull
         public static ValueResult newValueResult(@NonNull JsonReader reader, @Nullable String lang) throws IOException {

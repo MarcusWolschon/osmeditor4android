@@ -111,6 +111,8 @@ public class LRUMapTileCache {
      * 
      * @param extra Extra space to take away from the cache size. Used to make room for new items before adding them so
      *            that the total cache never exceeds the limit.
+     * @param owner a long indicating who added the element to the cache
+     * @return true if the limit was successfully applied
      */
     private synchronized boolean applyCacheLimit(long extra, long owner) {
         long limit = maxCacheSize - extra;
@@ -157,7 +159,13 @@ public class LRUMapTileCache {
         applyCacheLimit(0, 0);
     }
 
-    public synchronized boolean containsKey(String key) {
+    /**
+     * Check if the cache contains an element for a key
+     * 
+     * @param key the key
+     * @return true if present
+     */
+    public synchronized boolean containsKey(@NonNull String key) {
         return cache.containsKey(key);
     }
 
@@ -170,6 +178,11 @@ public class LRUMapTileCache {
         return cacheSize;
     }
 
+    /**
+     * Get the current maximum cache size
+     * 
+     * @return a long indicating the current maximum cache size in bytes
+     */
     public long getMaxCacheSize() {
         return maxCacheSize;
     }
@@ -180,10 +193,12 @@ public class LRUMapTileCache {
      * 
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the key
+     * @param recycleable true if the element can be recycled
+     * @param owner a long indicating what is putting the element in the cache
      * @return previous value associated with key or <code>null</code> if there was no mapping for key; a
      *         <code>null</code> return can also indicate that the cache previously associated <code>null</code> with
      *         the specified key
-     * @throws StorageException
+     * @throws StorageException if we can't expand the cache anymore
      */
     public synchronized Bitmap put(@NonNull final String key, @NonNull final Bitmap value, boolean recycleable, long owner) throws StorageException {
         // Log.d("LRUMapTileCache","put " + key + " " + recycleable);

@@ -58,8 +58,8 @@ public class MapRouletteTask extends Task {
      * 
      * @param is the InputString
      * @return a List of MapRouletteTask
-     * @throws IOException
-     * @throws NumberFormatException
+     * @throws IOException for JSON reading issues
+     * @throws NumberFormatException if a number conversion fails
      */
     public static List<MapRouletteTask> parseTasks(InputStream is) throws IOException, NumberFormatException {
         List<MapRouletteTask> result = new ArrayList<>();
