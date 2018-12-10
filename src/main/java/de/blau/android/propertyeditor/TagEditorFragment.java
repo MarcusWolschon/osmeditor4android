@@ -1291,13 +1291,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Appy tags from name suggestion list, ask if overwriting
+     * Apply tags from name suggestion list, ask if overwriting
      * 
      * @param tags tags from name suggestions
      */
     public void applyTagSuggestions(Names.TagMap tags) {
         final LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
-
         boolean replacedValue = false;
 
         // Fixed tags, always have a value. We overwrite mercilessly.

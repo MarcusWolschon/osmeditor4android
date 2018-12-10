@@ -49,13 +49,27 @@ public class Names {
         }
     }
 
+    /**
+     * Container class for a name and the associated tags
+     * 
+     * @author simon
+     *
+     */
     public class NameAndTags implements Comparable<NameAndTags> {
         private final String name;
         private final int    count;
         private final String region;
         final TagMap         tags;
 
-        public NameAndTags(String name, TagMap tags, int count, String region) {
+        /**
+         * Construct a new instance
+         * 
+         * @param name the value for the name tag
+         * @param tags associated tags
+         * @param count the times this establishment was found, works as a proxy for importance
+         * @param region if this is region specific, add that here
+         */
+        public NameAndTags(@NonNull String name, @NonNull TagMap tags, @NonNull int count, @Nullable String region) {
             this.name = name;
             this.tags = tags;
             this.count = count;
@@ -132,7 +146,14 @@ public class Names {
 
     private static boolean ready = false;
 
-    public Names(Context ctx) {
+    /**
+     * Construct a new instance of the data structure holding names and tags
+     * 
+     * The contents are currently read from a hardwired file
+     * 
+     * @param ctx an Android Context
+     */
+    public Names(@NonNull Context ctx) {
         synchronized (nameList) {
 
             if (!ready) {
@@ -161,7 +182,7 @@ public class Names {
                                     String region = null;
                                     reader.beginObject();
                                     while (reader.hasNext()) {
-                                        name = reader.nextName(); // name of estabishment
+                                        name = reader.nextName(); // name of establishment
                                         reader.beginObject();
                                         TagMap secondaryTags = null; // any extra tags store here
                                         while (reader.hasNext()) {
@@ -175,8 +196,8 @@ public class Names {
                                                 break;
                                             case "tags":
                                                 reader.beginObject();
+                                                secondaryTags = new TagMap();
                                                 while (reader.hasNext()) {
-                                                    secondaryTags = new TagMap();
                                                     secondaryTags.put(reader.nextName(), reader.nextString());
                                                 }
                                                 reader.endObject(); // tags
@@ -189,7 +210,6 @@ public class Names {
                                         reader.endObject(); // name
 
                                         // add to lists here
-
                                         TagMap tags = new TagMap();
                                         tags.put(key, value);
                                         if (secondaryTags != null) {
@@ -248,7 +268,14 @@ public class Names {
         }
     }
 
-    public Collection<NameAndTags> getNames(SortedMap<String, String> tags) {
+    /**
+     * Given a set of tags determine the names and tags that could be appropriate
+     * 
+     * @param tags a SoterdMap with the existing tags
+     * @return a collection of possibly appropriate entries
+     */
+    @NonNull
+    public Collection<NameAndTags> getNames(@NonNull SortedMap<String, String> tags) {
         // remove irrelevant tags, TODO refine
         TagMap tm = new TagMap();
         String v = tags.get(Tags.KEY_AMENITY);
