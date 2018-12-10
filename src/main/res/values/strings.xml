@@ -84,7 +84,6 @@
     <string name="openstreetbug_bug_title">Issue</string>
     <string name="openstreetbug_new_nodeway">Create node/way</string>
     <string name="openstreetbug_edit_title">Edit note</string>
-    <string name="openstreetbug_commitbutton">Commit</string>
     <string name="openstreetbug_comment_label">Comment:</string>
     <string name="openstreetbug_commit_ok">Task-changes saved</string>
     <string name="openstreetbug_commit_fail">Could not save task-changes</string>
@@ -133,7 +132,6 @@
     <string name="preset_autopreset">Auto-preset</string>
     <string name="search">Search</string>
     <string name="no_valid_preset">No valid preset!</string>
-    <string name="read_file">Open</string>
     <string name="save_file">Save to</string>
     <string name="existing_track_title">Existing GPX track data</string>
     <string name="existing_track_message">You already have existing GPX track data. You may want to cancel and save first.</string>
@@ -150,7 +148,6 @@
     <string name="length_m">Length (m)</string>
     <string name="not_downloaded">Not downloaded</string>
     <string name="empty_role">Empty role</string>
-    <string name="last_updated">Last updated</string>
     <string name="last_edited">Last edited</string>
     <string name="original">Original</string>
     <string name="current">Current</string>
@@ -211,7 +208,6 @@
     <string name="coverage_left">Left</string>
     <string name="coverage_right">Right</string>
     <string name="coverage_bottom">Bottom</string>
-    <string name="preferred">Preferred</string>
     <string name="toast_invalid_box">Invalid or incomplete bounding box</string>
     <string name="delete_layer">Delete layer?</string>
     <!--  Layer style dialog -->
@@ -264,7 +260,6 @@
     <string name="toast_unlock_to_edit">Unlock to edit</string>
     <string name="toast_save_done">Saved</string>
     <string name="toast_save_failed">Could not save</string>
-    <string name="toast_not_in_bug_range">Please zoom in to add a note (Volume ↑/↓</string>
     <string name="toast_export_failed">Could not export</string>
     <string name="toast_export_success">Exported to %1$s</string>
     <string name="toast_preset_overwrote_tags">Note - preset overwrote tag(s)</string>
@@ -313,7 +308,6 @@
     <string name="toast_min_one_geocoder">At least one geocoder has to be selected!</string>
     <string name="toast_used_backup">Corrupted state file, used backup file instead.</string>
     <string name="toast_used_bug_backup">Corrupted bug state file, used backup file instead.</string>
-    <string name="toast_rmpty_relation">Empty relation, creating crash report.</string>
     <string name="toast_split_from">Splitted \"from\" way</string>
     <string name="toast_split_via">Splitted \"via\" way</string>
     <string name="toast_split_from_and_via">Splitted \"from\" and \"via\" ways</string>
@@ -405,7 +399,6 @@
     <string name="tag_menu_sourcesurvey">Surveyed</string>
     <string name="tag_menu_preset">Presets</string>
     <string name="tag_menu_apply_preset">Apply best preset</string>
-    <string name="tag_menu_repeat">Repeat tags</string>
     <string name="tag_menu_revert">Revert</string>
     <string name="tag_menu_mapfeatures">Map feature wiki</string>
     <string name="tag_menu_addtorelation">Add to relation</string>
@@ -452,7 +445,6 @@
     <string name="tag_restriction_value_hint">Conditional restriction</string>
     <string name="ugly_checkgroup_hint">%1$s, …</string>
     <!-- Strings in Box/LocationPicker -->
-    <string name="location_headline">Load Area</string>
     <string name="location_choose_radius">Choose radius:</string>
     <string name="location_default_radius">300m</string>¨
     <string name="location_radius">%1$dm</string>
@@ -463,7 +455,6 @@
     <string name="location_current_text_parameterized">Current location: %1$s</string>
     <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
     <string name="location_text_metadata_accuracy">Accuracy %1$2.0f meter,</string>
-    <string name="location_map_text">From map (coming soon)</string>
     <string name="location_coordinates_text">From coordinates:</string>
     <string name="location_lat_label">Lat:</string>
     <string name="location_lon_label">Lon:</string>
@@ -517,13 +508,13 @@
     <string name="menu_transfer_export">Export changes to OSC file</string>
     <string name="menu_transfer_read_file">Read from JOSM file…</string>
     <string name="menu_transfer_save_file">Save to JOSM file…</string>
-    <string name="menu_transfer_bugs">Notes/bugs…</string>
-    <string name="menu_transfer_bugs_download_current">Download bugs for current view</string>
+    <string name="menu_transfer_bugs">Tasks…</string>
+    <string name="menu_transfer_bugs_download_current">Download tasks for current view</string>
     <string name="menu_transfer_bugs_upload">Upload all</string>
-    <string name="menu_transfer_bugs_upload_long">Upload all bugs</string>
+    <string name="menu_transfer_bugs_upload_long">Upload all tasks</string>
     <string name="menu_transfer_bugs_clear">Clear</string>
-    <string name="menu_transfer_bugs_clear_long">Clear bugs</string>
-    <string name="menu_transfer_autodownload_long">Auto download bugs</string>
+    <string name="menu_transfer_bugs_clear_long">Clear tasks</string>
+    <string name="menu_transfer_autodownload_long">Auto download tasks</string>
     <string name="menu_transfer_save_notes_all">Save all notes…</string>
     <string name="menu_transfer_save_notes_new_and_changed">Save new and changed notes…</string>
     <string name="menu_transfer_read_custom_bugs">Load custom tasks…</string>
@@ -651,8 +642,8 @@
     <string name="config_scale_summary">Type of scale displayed on the map.</string>
     <string name="config_mapProfile_title">Data style</string>
     <string name="config_mapProfile_summary">Choose the style for the data layer.</string>
-    <string name="config_enableOpenStreetBugs_title">Display bugs and notes</string>
-    <string name="config_enableOpenStreetBugs_summary">Display, edit and create notes/errors.</string>
+    <string name="config_enableOpenStreetBugs_title">Display tasks</string>
+    <string name="config_enableOpenStreetBugs_summary">Display, edit and create notes, bugs and tasks.</string>
     <string name="config_enablePhotoLayer_title">Enable photo layer</string>
     <string name="config_enablePhotoLayer_summary">Display geo-referenced photos.</string>
     <string name="config_enableKeepScreenOn_title">Keep screen on</string>
@@ -693,7 +684,7 @@
     <string name="config_use_back_for_undo_title">Use ← key to undo</string>
     <string name="config_use_back_for_undo_summary">Use the ← key to undo in main edit view.</string>
     <string name="config_enableLightTheme_title">Light theme</string>
-    <string name="config_enableLightTheme_summary">Largely white iconography sporting white backgrounds.</string>
+    <string name="config_enableLightTheme_summary">Light and white backgrounds.</string>
     <string name="config_splitActionBarEnabled_title">Enable split action bar</string>
     <string name="config_splitActionBarEnabled_summary">Allow split action bar, use is device specific. Requires starting Vespucci again, and Android 4.0 or later.</string>
     <string name="config_maxInlineValues_title">Max. number of inline values</string>
@@ -734,12 +725,12 @@
     <string name="config_maxDownloadSpeed_title">Maximum auto-download speed</string>
     <string name="config_maxDownloadSpeed_summary">Limit (in km/h) above which auto-download is suspended.</string>
     <string name="config_downloadSpeed_current">%1$d km/h</string>
-    <string name="config_bugFilter_title">Filter for notes/bugs</string>
-    <string name="config_bugFilter_summary">Select which elements are displayed on the notes/bug layer.</string>
-    <string name="config_bugDownloadRadius_title">Notes/bugs download radius</string>
-    <string name="config_bugDownloadRadius_summary">Radius (m) of note/bug downloads.</string>
-    <string name="config_maxBugDownloadSpeed_title">Maximum note/bug auto-download speed</string>
-    <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes/bugs auto-download is suspended.</string>
+    <string name="config_bugFilter_title">Task filter</string>
+    <string name="config_bugFilter_summary">Select which elements are displayed on the notes, bugs and task layer.</string>
+    <string name="config_bugDownloadRadius_title">Task download radius</string>
+    <string name="config_bugDownloadRadius_summary">Radius (m) of task downloads.</string>
+    <string name="config_maxBugDownloadSpeed_title">Maximum task auto-download speed</string>
+    <string name="config_maxBugDownloadSpeed_summary">Limit (in km/h) above which notes, bugs and task auto-download is suspended.</string>
     <string name="config_closeChangesetOnSave_title">Close changesets</string>
     <string name="config_closeChangesetOnSave_summary">Close changesets by default upon saving.</string>
     <string name="config_enableAutoPresets_title">Enable auto-preset generation</string>
