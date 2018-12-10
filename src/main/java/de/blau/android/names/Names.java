@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -275,7 +276,7 @@ public class Names {
      * @return a collection of possibly appropriate entries
      */
     @NonNull
-    public Collection<NameAndTags> getNames(@NonNull SortedMap<String, String> tags) {
+    public List<NameAndTags> getNames(@NonNull SortedMap<String, String> tags) {
         // remove irrelevant tags, TODO refine
         TagMap tm = new TagMap();
         String v = tags.get(Tags.KEY_AMENITY);
@@ -293,7 +294,7 @@ public class Names {
             return getNames();
         }
 
-        Collection<NameAndTags> result = new ArrayList<>();
+        List<NameAndTags> result = new ArrayList<>();
 
         String origTagKey = tm.toString();
 
@@ -335,8 +336,8 @@ public class Names {
      * @return a Collection containing all NameAndTags objects
      */
     @NonNull
-    private Collection<NameAndTags> getNames() {
-        Collection<NameAndTags> result = new ArrayList<>();
+    private List<NameAndTags> getNames() {
+        List<NameAndTags> result = new ArrayList<>();
         for (String n : nameList.getKeys()) {
             for (NameAndTags nt : nameList.get(n)) {
                 result.add(nt);

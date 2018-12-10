@@ -3317,7 +3317,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (names == null) {
             names = App.getNames(ctx);
         }
-        ArrayList<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>());
+        List<NameAndTags> suggestions = names.getNames(new TreeMap<>());
         ArrayAdapter<NameAndTags> adapter = null;
         if (suggestions != null && !suggestions.isEmpty()) {
             Collections.sort(suggestions);

@@ -1237,12 +1237,23 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         private ArrayList<String>          tagValues;
         private boolean                    same = true;
 
+        /**
+         * Construct a View holding the key and value for a tag
+         * 
+         * @param context an Android Context
+         */
         public TagEditRow(Context context) {
             super(context);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
                                                                         // in Eclipse
         }
 
+        /**
+         * Construct a View holding the key and value for a tag
+         * 
+         * @param context an Android Context
+         * @param attrs am AttributeSet
+         */
         public TagEditRow(Context context, AttributeSet attrs) {
             super(context, attrs);
             owner = (PropertyEditor) (isInEditMode() ? null : context); // Can only be instantiated inside TagEditor or
@@ -1327,10 +1338,22 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return this;
         }
 
+        /**
+         * Get the current contents of the EditText for the key
+         * 
+         * @return the tag key as a String
+         */
+        @NonNull
         public String getKey() {
             return keyEdit.getText().toString();
         }
 
+        /**
+         * Get the current contents of the EditText for the tag value
+         * 
+         * @return the key as a String
+         */
+        @NonNull
         public String getValue() { // FIXME check if returning the textedit value is actually ok
             return valueEdit.getText().toString();
         }
@@ -1375,7 +1398,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             return keyEdit.getText().toString().trim().equals("") && valueEdit.getText().toString().trim().equals("");
         }
 
-        // return the status of the checkbox
         @Override
         public boolean isSelected() {
             return selected.isChecked();
@@ -1386,14 +1408,19 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             selected.setChecked(false);
         }
 
+        /**
+         * Disable the selection CheckBox
+         */
         public void disableCheckBox() {
             selected.setEnabled(false);
         }
 
+        /**
+         * Enable the selection CheckBox
+         */
         void enableCheckBox() {
             selected.setEnabled(true);
         }
-
     }
 
     /**
@@ -1435,6 +1462,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
+    /**
+     * Start the TagSelectedActionModeCallback
+     */
     private void tagSelected() {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         synchronized (actionModeCallbackLock) {
