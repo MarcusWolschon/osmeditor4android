@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +19,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import de.blau.android.R;
 import de.blau.android.util.ThemeUtils;
 
 /**
