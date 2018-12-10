@@ -51,7 +51,7 @@
     <string name="file_write_failed_title">Could not write to file</string>
     <string name="file_write_failed_message">Vespucci could not change or save the file.</string>
     <string name="welcome_title">Welcome</string>
-    <string name="welcome_message">Thank you for installing Vespucci.\n\nTo get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
+    <string name="welcome_message">Thank you for installing Vespucci.\n\nTo get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
     <string name="welcome_message_fullscreen">\n\nYour device has \"soft keys\" that are hidden from view. Swipe from the bottom to show them again.</string>
     <string name="read_introduction">Read the introduction</string>
     <string name="upgrade_title">This is a new Vespucci version</string>
@@ -348,8 +348,8 @@
     <string name="toast_returning_less_than_found">Returning %1$d of %2$d found entries</string>
     <string name="toast_not_mbtiles">Not a MBTiles format file</string>
     <string name="toast_using_network_location">Using network location</string>
-    <string name="toast_using_gps_location">Using positioning location</string>
-    <string name="toast_using_gps_disabled_tracking_stopped">Positioning turned off, GPX tracking stopped</string>
+    <string name="toast_using_gps_location">Using GPS/GNSS location</string>
+    <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS positioning turned off, GPX tracking stopped</string>
     <string name="toast_tags_copied">Tags copied to clipboard</string>
     <string name="toast_tags_cut">Tags cut to clipboard</string>
     <string name="toast_properties_copied">Properties copied to clipboard</string>
@@ -493,7 +493,7 @@
     <string name="menu_openstreetbug">Add note</string>
     <string name="menu_easyedit">EasyEdit</string>
     <string name="menu_camera">Camera</string>
-    <string name="menu_gps">Positioning…</string>
+    <string name="menu_gps">GPS/GNSS…</string>
     <string name="menu_gps_show">Show location</string>
     <string name="menu_gps_follow">Follow location</string>
     <string name="menu_gps_goto">Go to current location</string>
@@ -682,8 +682,8 @@
     <string name="config_tagFormEnabled_summary">Display tag form for editing.</string>
     <string name="config_showCameraAction_title">Show camera action</string>
     <string name="config_showCameraAction_summary">Show camera icon on action bar.</string>
-    <string name="config_followGPSbutton_title">Follow positional device button layout</string>
-    <string name="config_followGPSbutton_summary">Where the "follow positional device" button will be positioned.</string>
+    <string name="config_followGPSbutton_title">Follow position button layout</string>
+    <string name="config_followGPSbutton_summary">Where the "follow position" button will be positioned.</string>
     <string name="config_alwaysDrawBoundingBoxes_title">Always dim non-downloaded areas</string>
     <string name="config_alwaysDrawBoundingBoxes_summary">Dims non-downloaded areas in locked mode.</string>
     <string name="config_fullscreenMode_title">Fullscreen mode</string>
@@ -746,21 +746,21 @@
     <string name="config_enableAutoPresets_summary">Allow generation of presets from taginfo.</string>
     <!-- Location Settings -->
     <string name="config_category_gps">Location Settings</string>
-    <string name="config_category_gps_summary">Positioning parameters and other location providers.</string>
-    <string name="config_gps_source_title">Positioning source</string>
-    <string name="config_gps_source_summary">Source of position location updates.</string>
+    <string name="config_category_gps_summary">GPS/GNSS parameters and other location providers.</string>
+    <string name="config_gps_source_title">GPS/GNSS source</string>
+    <string name="config_gps_source_summary">Source of GPS/GNSS location updates.</string>
     <string name="config_gps_source_tcp_title">NMEA network source</string>
     <string name="config_gps_source_tcp_summary">Address of TCP NMEA source as host:port.</string>
-    <string name="config_gps_interval_title">Minimum positioning interval</string>
-    <string name="config_gps_interval_summary">The minimum time interval for position location notifications, in milliseconds. Lower values drain more battery.</string>
+    <string name="config_gps_interval_title">Minimum GPS/GNSS interval</string>
+    <string name="config_gps_interval_summary">The minimum time interval for GPS/GNSS location notifications, in milliseconds. Lower values drain more battery.</string>
     <string name="config_gps_interval_current">%1$d ms</string>
-    <string name="config_gps_distance_title">Minimum positioning-distance</string>
-    <string name="config_gps_distance_summary">The minimum distance interval for positioning notifications, in meters (float). Lower values drain more battery.</string>
+    <string name="config_gps_distance_title">Minimum GPS/GNSS-distance</string>
+    <string name="config_gps_distance_summary">The minimum distance between for GPS/GNSS notifications, in meters (float). Lower values drain more battery.</string>
     <string name="config_gps_distance_current">%1$d meter(s)</string>
-    <string name="config_leaveGpsDisabled_title">Leave positioning turned off</string>
-    <string name="config_leaveGpsDisabled_summary">Don\'t ask to turn positioning on if off.</string>
+    <string name="config_leaveGpsDisabled_title">Leave GPS/GNSS turned off</string>
+    <string name="config_leaveGpsDisabled_summary">Don\'t ask to turn GPS/GNSS on if off.</string>
     <string name="config_gps_network_title">Fallback to network location</string>
-    <string name="config_gps_network_summary">If no positioning is present or turned on, fall back to network provider.</string>
+    <string name="config_gps_network_summary">If no GPS/GNSS positioning is present or turned on, fall back to network provider.</string>
     <!-- Server Settings -->
     <string name="config_category_server">Server settings</string>
     <string name="config_category_server_summary">OSM API and configuration of other servers.</string>
@@ -769,7 +769,7 @@
     <string name="config_loginbutton_title">User account</string>
     <string name="config_username_summary">You only need configuration to upload OSM data if not using OAuth. Get an account at https://www.openstreetmap.org/user/new</string>
     <string name="config_offsetServer_title">Offset server</string>
-    <string name="config_offsetServer_summary">URL for the image offset server.</string>
+    <string name="config_offsetServer_summary">URL for the imagery offset server.</string>
     <string name="config_osmoseServer_title">OSMOSE server</string>
     <string name="config_osmoseServer_summary">URL for the OSMOSE server.</string>
     <string name="config_geocoderbutton_title">Configure geocoders</string>
@@ -870,7 +870,7 @@
     <string name="undo_action_append">Append to way</string>
     <string name="undo_action_deletenode">Node deletion</string>
     <string name="undo_action_deleteway">Way deletion</string>
-    <string name="undo_action_delete_objects">Object deletion</string>
+    <string name="undo_action_delete_objects">Objects deleted</string>
     <string name="undo_action_split_ways">Ways split</string>
     <string name="undo_action_split_way">Way split</string>
     <string name="undo_action_merge_ways">Way merging</string>
