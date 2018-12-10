@@ -2395,7 +2395,7 @@ public class Preset implements Serializable {
             };
 
             if (!temp.isEmpty()) {
-                temp.sort(itemComparator);
+                Collections.sort(temp,itemComparator);
                 target.addAll(temp);
                 temp.clear();
             }
