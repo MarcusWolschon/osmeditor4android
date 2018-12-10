@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.0.0-3: Fix preset sorting crash, fix name suggestion issue, update name-suggestion-index, various text changes, improved ElementInfo dialog, updated DE translation.
+
 12.0.0-2: Store changes for relation members undo by deep copy.
 
 12.0.0-1: Support for a simple UI for adding objects, support for MapRoulette tasks, objects merge UI and error behaviour improvements, group alert behaviour is configurable, configuration support for task and grid layers in layer control, support limiting searches to a bounding box, sort preset items alphabetically, function to send reports to github directly, share position with openstreetmap.org, most recently used key, values and roles support, enable proguard, bug fixes. 

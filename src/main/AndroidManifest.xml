@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.blau.android"
     android:installLocation="auto"
-    android:versionCode="900"
+    android:versionCode="901"
     android:versionName="@string/app_version" >
 
     <uses-sdk
