@@ -98,9 +98,13 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
             case MENUITEM_JOIN:
                 try {
                     MergeResult result = logic.performJoin(main, joinableElement, (Node) element);
-                    manager.editElement(result.getElement());
+                    if (!result.getElement().equals(element)) { // only re-select if not already selected
+                        manager.editElement(result.getElement());
+                    }
                     if (result.hasIssue()) {
                         showConflictAlert(result);
+                    } else {
+                        Snack.toastTopInfo(main, R.string.toast_merged);
                     }
                 } catch (OsmIllegalOperationException e) {
                     Snack.barError(main, e.getLocalizedMessage());

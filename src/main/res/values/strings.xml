@@ -351,6 +351,7 @@
     <string name="toast_move_note_warning">Only new Notes can be moved</string>
     <string name="toast_task_layer_disabled">Task layer disabled</string>
     <string name="toast_unable_to_create_task_layer">Unable to create task layer</string>
+    <string name="toast_merged">Merged</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
