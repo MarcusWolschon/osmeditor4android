@@ -49,7 +49,7 @@ Following software was written by Simon Poole and is available under MIT style l
 - The conditional restriction parser https://github.com/simonpoole/CoditionalRestrictionParser .
 - The opening_hours parser https://github.com/simonpoole/OpeningHoursParser .
 - The opening_hours Fragment https://github.com/simonpoole/OpeningHoursFragment .
-- THe NumberPickerPreference was adapted from code by vanniktech https://github.com/simonpoole/NumberPickerPreference .
+- The NumberPickerPreference was adapted from code by vanniktech https://github.com/simonpoole/NumberPickerPreference .
 - and some misc. other stuff
 
 
