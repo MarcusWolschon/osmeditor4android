@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>GPS sources - Vespucci</title>
+        <title>Simple actions - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -121,8 +121,8 @@
     <a href="../Main map display/">Main map display</a>
 </li>
                                         
-<li >
-    <a href="../Simple actions/">Simple actions</a>
+<li class="active">
+    <a href="./">Simple actions</a>
 </li>
                                         
 <li >
@@ -169,8 +169,8 @@
     <a href="../Keyboard/">Keyboard and mouse</a>
 </li>
                                         
-<li class="active">
-    <a href="./">GPS sources</a>
+<li >
+    <a href="../GPS sources/">GPS sources</a>
 </li>
                                         
 <li >
@@ -253,12 +253,12 @@
                         </li>
 <!--- Remove Prev - Next
                             <li >
-                                <a rel="next" href="../Keyboard/">
+                                <a rel="next" href="../Main map display/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../Tag filter/">
+                                <a rel="prev" href="../Creating new objects/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -271,61 +271,65 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#gps-sources">GPS Sources</a></li>
-            <li><a href="#setup">Setup</a></li>
+        <li class="main active"><a href="#creating-new-objects-in-simple-actions-mode">Creating new objects in simple actions mode</a></li>
+            <li><a href="#add-tagged-node">Add tagged node</a></li>
+            <li><a href="#add-way">Add way</a></li>
+            <li><a href="#add-map-note">Add map note</a></li>
+            <li><a href="#add-node">Add node</a></li>
+            <li><a href="#paste-object">Paste object</a></li>
+            <li><a href="#paste-multiple-times">Paste multiple times</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="gps-sources">GPS Sources</h1>
-<p><strong>(This is currently experimental)</strong></p>
-<p>Besides the standard Android Location mechanism, Vespucci supports three other methods of obtaining location information:</p>
-<ul>
-<li>the internal NMEA source</li>
-<li>NMEA sentences retrieved from a server</li>
-<li>NMEA sentences sent from a client to a built-in Vespucci server</li>
-</ul>
-<p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p>
-<p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p>
-<p>If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass (if present) will be used to determine the bearing.</p>
-<h3 id="setup">Setup</h3>
-<p>In the "Advanced preferences" you can select the "GPS source"</p>
-<ul>
-<li><strong>Internal</strong> - default</li>
-<li><strong>Internal NMEA</strong></li>
-<li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li>
-<li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li>
-</ul>
-<p>For the latter two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></div> -->
+<h1 id="creating-new-objects-in-simple-actions-mode">Creating new objects in simple actions mode</h1>
+<p>Simple action mode replaces the <a href="../Creating new objects/">long click action</a> on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
+<p>The mode can be toggled on and off via an item in the main menu.</p>
+<p>Tapping the large green floating button will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. The possible actions are: </p>
+<h3 id="add-tagged-node">Add tagged node</h3>
+<p>Create a new OSM Node at the tapped position, then start the <a href="../Property editor/">property editor</a> with the preset tab open. </p>
+<p>The created Node is not automatically merged with nearby objects.</p>
+<h3 id="add-way">Add way</h3>
+<p>Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is the same as described in <a href="../Creating new objects/">creating new objects</a>. <strong>Way Nodes will be merged with nearby objects.</strong></p>
+<h3 id="add-map-note">Add map note</h3>
+<p>Create a new OSM map note at the tapped position, starting the note editor. </p>
+<h3 id="add-node">Add node</h3>
+<p>Create a new untagged OSM Node at the tapped position, merging with nearby objects. This is for example useful if you simply want to add a Node to an existing Way.</p>
+<h3 id="paste-object">Paste object</h3>
+<p>If an OSM object has been copied or cut to the clipboard paste it at the tapped position and then select it. This menu item will only be shown if there is something in the clipboard.</p>
+<h3 id="paste-multiple-times">Paste multiple times</h3>
+<p>If an OSM object has been copied or cut to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard.</p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#gps-sources">GPS Sources</a></li>
-            <li><a href="#setup">Setup</a></li>
+        <li class="main active"><a href="#creating-new-objects-in-simple-actions-mode">Creating new objects in simple actions mode</a></li>
+            <li><a href="#add-tagged-node">Add tagged node</a></li>
+            <li><a href="#add-way">Add way</a></li>
+            <li><a href="#add-map-note">Add map note</a></li>
+            <li><a href="#add-node">Add node</a></li>
+            <li><a href="#paste-object">Paste object</a></li>
+            <li><a href="#paste-multiple-times">Paste multiple times</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="gps-sources">GPS Sources</h1>
-<p><strong>(This is currently experimental)</strong></p>
-<p>Besides the standard Android Location mechanism, Vespucci supports three other methods of obtaining location information:</p>
-<ul>
-<li>the internal NMEA source</li>
-<li>NMEA sentences retrieved from a server</li>
-<li>NMEA sentences sent from a client to a built-in Vespucci server</li>
-</ul>
-<p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p>
-<p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p>
-<p>If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass (if present) will be used to determine the bearing.</p>
-<h3 id="setup">Setup</h3>
-<p>In the "Advanced preferences" you can select the "GPS source"</p>
-<ul>
-<li><strong>Internal</strong> - default</li>
-<li><strong>Internal NMEA</strong></li>
-<li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li>
-<li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li>
-</ul>
-<p>For the latter two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></div>
+<h1 id="creating-new-objects-in-simple-actions-mode">Creating new objects in simple actions mode</h1>
+<p>Simple action mode replaces the <a href="../Creating new objects/">long click action</a> on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
+<p>The mode can be toggled on and off via an item in the main menu.</p>
+<p>Tapping the large green floating button will show a menu. After you've select one of the items, you will be asked to tap the screen at the location where you want  to create the object, pan and zoom continues to work. The possible actions are: </p>
+<h3 id="add-tagged-node">Add tagged node</h3>
+<p>Create a new OSM Node at the tapped position, then start the <a href="../Property editor/">property editor</a> with the preset tab open. </p>
+<p>The created Node is not automatically merged with nearby objects.</p>
+<h3 id="add-way">Add way</h3>
+<p>Start a new OSM Way at the tapped position, tapping a further position will create the next node and so on. Behaviour is the same as described in <a href="../Creating new objects/">creating new objects</a>. <strong>Way Nodes will be merged with nearby objects.</strong></p>
+<h3 id="add-map-note">Add map note</h3>
+<p>Create a new OSM map note at the tapped position, starting the note editor. </p>
+<h3 id="add-node">Add node</h3>
+<p>Create a new untagged OSM Node at the tapped position, merging with nearby objects. This is for example useful if you simply want to add a Node to an existing Way.</p>
+<h3 id="paste-object">Paste object</h3>
+<p>If an OSM object has been copied or cut to the clipboard paste it at the tapped position and then select it. This menu item will only be shown if there is something in the clipboard.</p>
+<h3 id="paste-multiple-times">Paste multiple times</h3>
+<p>If an OSM object has been copied or cut to the clipboard paste it at the tapped position and remain in the same mode allowing to be pasted repeatedly. The mode can then be exited by pressing the back button or the back arrow in the title bar.. This menu item will only be shown if there is something in the clipboard.</p></div>
                 
         </div>
 

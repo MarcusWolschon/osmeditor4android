@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../../img/favicon.ico">
-        <title>GPS sources - Vespucci</title>
+        <title>12.0.0 Release notes - Vespucci</title>
         <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../../css/base.css" rel="stylesheet">
@@ -52,7 +52,7 @@
                                     
                                         <a href="../../.."><img src="/vespucci_logo_small.png"></a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown active">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Introduction <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -64,8 +64,8 @@
     <a href="../../../tutorials/features/">Features</a>
 </li>
                                         
-<li >
-    <a href="../12.0.0 Release notes/">12.0.0 Release notes</a>
+<li class="active">
+    <a href="./">12.0.0 Release notes</a>
 </li>
                                         
 <li >
@@ -113,7 +113,7 @@
 </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown active">
+                                <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editing <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         
@@ -169,8 +169,8 @@
     <a href="../Keyboard/">Keyboard and mouse</a>
 </li>
                                         
-<li class="active">
-    <a href="./">GPS sources</a>
+<li >
+    <a href="../GPS sources/">GPS sources</a>
 </li>
                                         
 <li >
@@ -253,12 +253,12 @@
                         </li>
 <!--- Remove Prev - Next
                             <li >
-                                <a rel="next" href="../Keyboard/">
+                                <a rel="next" href="../../../tutorials/features/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../Tag filter/">
+                                <a rel="prev" href="../11.2.0 Release notes/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -271,61 +271,107 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#gps-sources">GPS Sources</a></li>
-            <li><a href="#setup">Setup</a></li>
+        <li class="main active"><a href="#vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</a></li>
+            <li><a href="#simple-action-mode">Simple action mode</a></li>
+            <li><a href="#support-for-maproulette">Support for MapRoulette</a></li>
+            <li><a href="#notes-are-movable">Notes are movable</a></li>
+            <li><a href="#most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</a></li>
+            <li><a href="#in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="gps-sources">GPS Sources</h1>
-<p><strong>(This is currently experimental)</strong></p>
-<p>Besides the standard Android Location mechanism, Vespucci supports three other methods of obtaining location information:</p>
+<h1 id="vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</h1>
+<h2 id="simple-action-mode">Simple action mode</h2>
+<p>Simple action mode replaces the long click action on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
+<p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>The mode can be toggled on and off via an item in the main menu.</p>
+<h2 id="support-for-maproulette">Support for MapRoulette</h2>
+<p>MapRoulette tasks are now supported in the task overlay. </p>
+<p>To be able to change a tasks status you will need to set you API key. If you have not set it, you will be asked on first upload, preferably you should set the key before making any changes via the "Tools" menu.</p>
+<h2 id="notes-are-movable">Notes are movable</h2>
+<p>Newly created OSM Notes that haven't been uploaded yet can be moved by selecting the Note and then dragging. Behaviour for downloaded Notes remains unchanged. </p>
+<h2 id="most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</h2>
+<p>This adds support for storing, retrieving and prioritized selection display of keys, values and roles that have been recently used. When possible the mru values are associated with a preset.</p>
+<p>Persistent storage is provided by an XML format file ("mrutags.xml") in the publicly accessible "Vespucci" directory on device. The contents of the file can be inspected, and for example used to indicate what is missing from the presets.</p>
+<h2 id="in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</h2>
+<p>You now can, by using the "Provide feedback" function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
+<p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
-<li>the internal NMEA source</li>
-<li>NMEA sentences retrieved from a server</li>
-<li>NMEA sentences sent from a client to a built-in Vespucci server</li>
+<li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
+<li>using google login during the authentication process should work again.</li>
+<li>alert behaviour for notification groups is now configurable.</li>
+<li>improved UI and error behaviour when merging objects. </li>
+<li>preset items are now alphabetically sorted by default in the displays, this can be changed in the preset itself. </li>
+<li>Nominatim searches can now be limited to a bounding box.</li>
+<li>in multi-select mode we now show a total element count in the header of the tag editor.</li>
+<li>the build process now uses proguard which results in a roughly 20% smaller APK file. </li>
 </ul>
-<p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p>
-<p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p>
-<p>If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass (if present) will be used to determine the bearing.</p>
-<h3 id="setup">Setup</h3>
-<p>In the "Advanced preferences" you can select the "GPS source"</p>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li><strong>Internal</strong> - default</li>
-<li><strong>Internal NMEA</strong></li>
-<li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li>
-<li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li>
+<li>The saved task state file format has changed, please complete any edits before upgrading.</li>
 </ul>
-<p>For the latter two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></div> -->
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#gps-sources">GPS Sources</a></li>
-            <li><a href="#setup">Setup</a></li>
+        <li class="main active"><a href="#vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</a></li>
+            <li><a href="#simple-action-mode">Simple action mode</a></li>
+            <li><a href="#support-for-maproulette">Support for MapRoulette</a></li>
+            <li><a href="#notes-are-movable">Notes are movable</a></li>
+            <li><a href="#most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</a></li>
+            <li><a href="#in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+        <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
+        <li class="main "><a href="#known-problems">Known problems</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="gps-sources">GPS Sources</h1>
-<p><strong>(This is currently experimental)</strong></p>
-<p>Besides the standard Android Location mechanism, Vespucci supports three other methods of obtaining location information:</p>
+<h1 id="vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</h1>
+<h2 id="simple-action-mode">Simple action mode</h2>
+<p>Simple action mode replaces the long click action on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
+<p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>The mode can be toggled on and off via an item in the main menu.</p>
+<h2 id="support-for-maproulette">Support for MapRoulette</h2>
+<p>MapRoulette tasks are now supported in the task overlay. </p>
+<p>To be able to change a tasks status you will need to set you API key. If you have not set it, you will be asked on first upload, preferably you should set the key before making any changes via the "Tools" menu.</p>
+<h2 id="notes-are-movable">Notes are movable</h2>
+<p>Newly created OSM Notes that haven't been uploaded yet can be moved by selecting the Note and then dragging. Behaviour for downloaded Notes remains unchanged. </p>
+<h2 id="most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</h2>
+<p>This adds support for storing, retrieving and prioritized selection display of keys, values and roles that have been recently used. When possible the mru values are associated with a preset.</p>
+<p>Persistent storage is provided by an XML format file ("mrutags.xml") in the publicly accessible "Vespucci" directory on device. The contents of the file can be inspected, and for example used to indicate what is missing from the presets.</p>
+<h2 id="in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</h2>
+<p>You now can, by using the "Provide feedback" function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
+<p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process. </p>
+<h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
-<li>the internal NMEA source</li>
-<li>NMEA sentences retrieved from a server</li>
-<li>NMEA sentences sent from a client to a built-in Vespucci server</li>
+<li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
+<li>using google login during the authentication process should work again.</li>
+<li>alert behaviour for notification groups is now configurable.</li>
+<li>improved UI and error behaviour when merging objects. </li>
+<li>preset items are now alphabetically sorted by default in the displays, this can be changed in the preset itself. </li>
+<li>Nominatim searches can now be limited to a bounding box.</li>
+<li>in multi-select mode we now show a total element count in the header of the tag editor.</li>
+<li>the build process now uses proguard which results in a roughly 20% smaller APK file. </li>
 </ul>
-<p>The main purpose of this is (internal NMEA being more of an academic exercise) to enable location updates from an external or on device RTKLIB instance. All three sources are unfiltered and the minimum GPS change values are ignored.</p>
-<p>In all three cases the only sentences that are supported are $..GGA and $..GNS. Vespucci will prioritize information from NMEA "talkers" as follows: GN (multiple talkers) &gt; GP (GPS) &gt; GL (GLONASS).</p>
-<p>If your NMEA source does not supply speed values limiting the speed at which auto-downloads happen will not work. If no bearing is supplied the magnetic compass (if present) will be used to determine the bearing.</p>
-<h3 id="setup">Setup</h3>
-<p>In the "Advanced preferences" you can select the "GPS source"</p>
+<h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li><strong>Internal</strong> - default</li>
-<li><strong>Internal NMEA</strong></li>
-<li><strong>NMEA from TCP client</strong> - use a client to retrieve NMEA data from an external server</li>
-<li><strong>NMEA from TCP server</strong> - allow an external client to submit NMEA data</li>
+<li>The saved task state file format has changed, please complete any edits before upgrading.</li>
 </ul>
-<p>For the latter two options you need to set the "NMEA network source", the string has the format <strong>host:port</strong>. The host is ignored for the server option and the process binds to the external address of the device (not localhost) at the configured port.</p></div>
+<h1 id="known-problems">Known problems</h1>
+<ul>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+</ul></div>
                 
         </div>
 

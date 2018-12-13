@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../12.0.0 Release notes/">12.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../11.2.0 Release notes/">11.2.0 Release notes</a>
 </li>
                                         
@@ -118,6 +122,10 @@
 </li>
                                         
 <li >
+    <a href="../Simple actions/">Simple actions</a>
+</li>
+                                        
+<li >
     <a href="../Creating new objects/">Creating new objects</a>
 </li>
                                         
@@ -131,6 +139,10 @@
                                         
 <li >
     <a href="../Relation selected/">Relation selected</a>
+</li>
+                                        
+<li >
+    <a href="../New Note selected/">New note selected</a>
 </li>
                                         
 <li >
@@ -315,7 +327,7 @@ i-->
 </ul>
 </li>
 <li>Double tap: Start <a href="../Multiselect/">Multiselect mode</a></li>
-<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="../Creating new objects/">Creating new objects</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="../Creating new objects/">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>It is a good strategy to zoom in if you attempt to edit a high density area.</p>
 <p>Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.</p>
@@ -329,7 +341,12 @@ i-->
 <p>Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.</p>
 <h4 id="selected-objects-moving-a-node-or-way">Selected objects: Moving a Node or Way</h4>
 <p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
-<h4 id="adding-a-new-nodepoint-or-way-long-press">Adding a new Node/Point or Way (long press)</h4>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
 <p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 <em> If you want to create a new node (not connected to an object), click away from existing objects.
 </em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
@@ -423,9 +440,9 @@ i-->
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filters">Filters</h2>
 <h3 id="tag-based-filter">Tag based filter</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="../Tag filter/">Tag filter</a>.</p>
@@ -449,7 +466,8 @@ i-->
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="reporting-problems">Reporting Problems</h2>
-<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div> -->
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -509,7 +527,7 @@ i-->
 </ul>
 </li>
 <li>Double tap: Start <a href="../Multiselect/">Multiselect mode</a></li>
-<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="../Creating new objects/">Creating new objects</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="../Creating new objects/">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>It is a good strategy to zoom in if you attempt to edit a high density area.</p>
 <p>Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.</p>
@@ -523,7 +541,12 @@ i-->
 <p>Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.</p>
 <h4 id="selected-objects-moving-a-node-or-way">Selected objects: Moving a Node or Way</h4>
 <p>Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. </p>
-<h4 id="adding-a-new-nodepoint-or-way-long-press">Adding a new Node/Point or Way (long press)</h4>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
 <p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
 <em> If you want to create a new node (not connected to an object), click away from existing objects.
 </em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
@@ -617,9 +640,9 @@ i-->
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filters">Filters</h2>
 <h3 id="tag-based-filter">Tag based filter</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="../Tag filter/">Tag filter</a>.</p>
@@ -643,14 +666,15 @@ i-->
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="reporting-problems">Reporting Problems</h2>
-<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div>
                 
         </div>
 
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 11.2.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 12.0.0 </p>
         </footer>
         <script>
             var base_url = "../../..",
