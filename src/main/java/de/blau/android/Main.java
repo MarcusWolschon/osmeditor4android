@@ -3186,29 +3186,24 @@ public class Main extends FullScreenAppCompatActivity
         public boolean onLongClick(final View v, final float x, final float y) {
             final Logic logic = App.getLogic();
             if (logic.isLocked()) {
-                if (logic.getMode().elementsGeomEditiable()) {
-                    // display context menu
-                    getClickedObjects(x, y);
-                    boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
-                    clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
-                    int elementCount = clickedNodesAndWays.size();
-                    int clickedObjectsCount = clickedObjects.size();
-                    int itemCount = elementCount + clickedObjectsCount;
-                    if (itemCount == 1) {
-                        if (clickedObjectsCount == 1) {
-                            ClickedObject co = clickedObjects.get(0);
-                            co.layer.onSelected(Main.this, co.object);
-                        } else if (elementCount == 1) {
-                            ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
-                        }
-                    } else if (itemCount > 0) {
-                        v.showContextMenu();
+                // display context menu
+                getClickedObjects(x, y);
+                boolean dataIsVisible = map.getDataLayer() != null && map.getDataLayer().isVisible();
+                clickedNodesAndWays = dataIsVisible ? App.getLogic().getClickedNodesAndWays(x, y) : new ArrayList<>();
+                int elementCount = clickedNodesAndWays.size();
+                int clickedObjectsCount = clickedObjects.size();
+                int itemCount = elementCount + clickedObjectsCount;
+                if (itemCount == 1) {
+                    if (clickedObjectsCount == 1) {
+                        ClickedObject co = clickedObjects.get(0);
+                        co.layer.onSelected(Main.this, co.object);
+                    } else if (elementCount == 1) {
+                        ElementInfo.showDialog(Main.this, clickedNodesAndWays.get(0));
                     }
-                    return true;
-                } else {
-                    // other modes
-                    return false; // ignore long clicks
+                } else if (itemCount > 0) {
+                    v.showContextMenu();
                 }
+                return true;
             }
             if (!prefs.areSimpleActionsEnabled()) {
                 if (logic.isInEditZoomRange()) {
@@ -3219,7 +3214,7 @@ public class Main extends FullScreenAppCompatActivity
                     Snack.barWarningShort(Main.this, R.string.toast_not_in_edit_range);
                 }
             } else {
-                // Snack.barWarningShort(Main.this, "No long press in simple mode");
+                Snack.barWarningShort(Main.this, R.string.toast_long_press_simple_mode);
             }
 
             return true; // long click handled

@@ -352,6 +352,7 @@
     <string name="toast_task_layer_disabled">Task layer disabled</string>
     <string name="toast_unable_to_create_task_layer">Unable to create task layer</string>
     <string name="toast_merged">Merged</string>
+    <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
