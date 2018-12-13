@@ -1,11 +1,9 @@
 
 # Building Vespucci 0.9.9 and later
 
-The code has been re-factored to use the compatibility libraries from Google instead of 
-the ActionBarSherlock library. 
+The code has been re-factored to use the compatibility libraries from Google instead of the ActionBarSherlock library.
 
-Given that Google randomly makes incompatible changes to these and regularly drops existing 
-functionality, you are on your own if you use any other version than what is configured for gradle. 
+Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
 
 ## Build flavors (11.2 and later)
 
@@ -20,7 +18,7 @@ Currently the split is as follows:
 
 ## Building with gradle (Eclipse or command line)
 
-This will work with Eclipse Neon with buildship or from the command line: 
+This will work with Eclipse Neon with buildship or from the command line:
 
 To install the application to your device run the following task on Unix:
 
@@ -44,7 +42,7 @@ The build configuration has been updated for AppCompat and should work out of th
 
 ## Building with Eclipse
 
-This is likely no longer possible since we have changed the directory layout to be in line with the standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try. 
+This is likely no longer possible since we have changed the directory layout to be in line with the standard Android Studio and gradle layout with 0.9.9, but you can naturally give it a try.
 
 You can find the required Android support libs in your SDK folder in:
 
@@ -66,7 +64,7 @@ https://github.com/simonpoole/beautified-JOSM-preset
 Original:
 http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
 
-The gradle task ``updatePreset`` will update the icons and preset.xml file in the asset directory from the github repo. 
+The gradle task ``updatePreset`` will update the icons and preset.xml file in the asset directory from the github repo.
 
 ## 3rd Party Configuration Files
 
@@ -74,7 +72,7 @@ Name suggestion index https://github.com/osmlab/name-suggestion-index
 
 Imagery index https://github.com/simonpoole/osm-layer-index (which is a fork of https://github.com/osmlab/editor-imagery-index).
 
-The gradle task ``updateImagery`` will update the imagery.json file in the asset directory from the github repo. 
+The gradle task ``updateImagery`` will update the imagery.json file in the asset directory from the github repo.
 
 Tags to be discarded https://github.com/openstreetmap/iD/blob/master/data/discarded.json
 
