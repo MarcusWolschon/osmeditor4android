@@ -515,6 +515,7 @@
     <string name="menu_transfer_file">File…</string>
     <string name="menu_transfer_export">Export changes to OSC file</string>
     <string name="menu_transfer_read_file">Read from JOSM file…</string>
+    <string name="menu_transfer_read_pbf_file">Read from PBF file</string>
     <string name="menu_transfer_save_file">Save to JOSM file…</string>
     <string name="menu_transfer_bugs">Tasks…</string>
     <string name="menu_transfer_bugs_download_current">Download tasks for current view</string>

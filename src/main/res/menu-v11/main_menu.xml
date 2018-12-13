@@ -102,6 +102,9 @@
                         android:id="@+id/menu_transfer_read_file"
                         android:title="@string/menu_transfer_read_file" />
                     <item
+                        android:id="@+id/menu_transfer_read_pbf_file"
+                        android:title="@string/menu_transfer_read_pbf_file" />
+                    <item
                         android:id="@+id/menu_transfer_save_file"
                         android:title="@string/menu_transfer_save_file" />
                 </menu>

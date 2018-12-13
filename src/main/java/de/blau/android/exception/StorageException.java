@@ -6,7 +6,7 @@ package de.blau.android.exception;
  * @author simon
  *
  */
-public class StorageException extends Exception {
+public class StorageException extends RuntimeException {
 
     public static final int OOM = 0;
     private int             code;

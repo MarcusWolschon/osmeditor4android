@@ -49,6 +49,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
@@ -1923,15 +1924,20 @@ public class Main extends FullScreenAppCompatActivity
             return true;
 
         case R.id.menu_transfer_read_file:
+        case R.id.menu_transfer_read_pbf_file:
             descheduleAutoLock();
             // showFileChooser(READ_OSM_FILE_SELECT_CODE);
-            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+            final ReadFile readFile = new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(Uri fileUri) {
                     try {
-                        logic.readOsmFile(Main.this, fileUri, false);
+                        if (item.getItemId() == R.id.menu_transfer_read_file) {
+                            logic.readOsmFile(Main.this, fileUri, false);
+                        } else {
+                            logic.readPbfFile(Main.this, fileUri, false);
+                        }
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
@@ -1943,7 +1949,23 @@ public class Main extends FullScreenAppCompatActivity
                     map.invalidate();
                     return true;
                 }
-            });
+            };
+            if (logic != null && logic.hasChanges()) {
+                Builder builder = new AlertDialog.Builder(this);
+                builder.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.alert_dialog));
+                builder.setTitle(R.string.unsaved_data_title);
+                builder.setMessage(R.string.unsaved_data_message);
+                builder.setPositiveButton(R.string.unsaved_data_proceed, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.show();
+            } else {
+                SelectFile.read(this, R.string.config_osmPreferredDir_key, readFile);
+            }
             return true;
 
         case R.id.menu_transfer_save_file:

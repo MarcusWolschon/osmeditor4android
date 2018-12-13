@@ -50,6 +50,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import crosby.binary.file.BlockInputStream;
+import crosby.binary.file.BlockReaderAdapter;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
@@ -63,6 +65,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.filter.Filter;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
@@ -73,6 +76,8 @@ import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.OsmPbfParser;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -80,6 +85,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Track;
@@ -2899,7 +2905,7 @@ public class Logic {
      * @param activity activity that called this
      * @param uri uri of file to load
      * @param add unused currently
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
         readOsmFile(activity, uri, add, null);
@@ -2912,7 +2918,7 @@ public class Logic {
      * @param uri uri of file to load
      * @param add unused currently
      * @param postLoad callback to execute once file is loaded
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
@@ -2933,11 +2939,13 @@ public class Logic {
      * 
      * @param activity activity that called this
      * @param is input
-     * @param add unused currently
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
      * @param postLoad callback to execute once stream has been loaded
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final FragmentActivity activity, final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
+    public void readOsmFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+            @Nullable final PostAsyncActionHandler postLoad) {
 
         final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
 
@@ -2957,7 +2965,6 @@ public class Logic {
                     final InputStream in = new BufferedInputStream(is);
                     try {
                         osmParser.start(in);
-
                         StorageDelegator sd = getDelegator();
                         sd.reset(false);
                         sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
@@ -3055,7 +3062,7 @@ public class Logic {
                     try {
                         fout = new FileOutputStream(outfile);
                         out = new BufferedOutputStream(fout);
-                        getDelegator().save(out);
+                        OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
@@ -3103,6 +3110,112 @@ public class Logic {
     }
 
     /**
+     * Read a stream in PBF format
+     * 
+     * @param activity activity that called this
+     * @param is InputStream
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
+     * @throws FileNotFoundException when the selected file could not be found
+     */
+    public void readPbfFile(@NonNull final FragmentActivity activity, Uri uri, boolean add) throws FileNotFoundException {
+        final InputStream is;
+
+        if (uri.getScheme().equals("file")) {
+            is = new FileInputStream(new File(uri.getPath()));
+        } else {
+            ContentResolver cr = activity.getContentResolver();
+            is = cr.openInputStream(uri);
+        }
+        readPbfFile(activity, is, add, null);
+    }
+
+    /**
+     * Read a stream in PBF format
+     * 
+     * @param activity activity that called this
+     * @param is InputStream
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
+     * @param postLoad callback to execute once stream has been loaded
+     */
+    public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+            @Nullable final PostAsyncActionHandler postLoad) {
+
+        final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
+
+        new AsyncTask<Boolean, Void, Integer>() {
+
+            @Override
+            protected void onPreExecute() {
+                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
+            }
+
+            @Override
+            protected Integer doInBackground(Boolean... arg) {
+                int result = 0;
+                try {
+                    Storage storage = new Storage();
+                    try {
+                        BlockReaderAdapter opp = new OsmPbfParser(storage);
+                        new BlockInputStream(is, opp).process();
+                        StorageDelegator sd = getDelegator();
+                        sd.reset(false);
+                        sd.setCurrentStorage(storage); // this sets dirty flag
+                        sd.fixupApiStorage();
+                        if (map != null) {
+                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        }
+                    } finally {
+                        SavingHelper.close(is);
+                    }
+                } catch (UnsupportedFormatException | IOException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
+                if (map != null) {
+                    try {
+                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
+                    } catch (OsmException e) {
+                        Log.d(DEBUG_TAG, "readOsmFile got " + e.getMessage());
+                    }
+                    DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
+                }
+                if (result != 0) {
+                    if (result == ErrorCodes.OUT_OF_MEMORY) {
+                        if (getDelegator().isDirty()) {
+                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+                        }
+                    }
+                    try {
+                        if (!activity.isFinishing()) {
+                            ErrorAlert.showDialog(activity, result);
+                        }
+                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
+                        ACRAHelper.nocrashReport(ex, ex.getMessage());
+                    }
+                    if (postLoad != null) {
+                        postLoad.onError();
+                    }
+                } else {
+                    if (postLoad != null) {
+                        postLoad.onSuccess();
+                    }
+                }
+
+                invalidateMap();
+                activity.supportInvalidateOptionsMenu();
+            }
+
+        }.execute(add);
+    }
+
+    /**
      * Saves to a file (synchronously)
      * 
      * @param activity activity that we were called from
@@ -3140,8 +3253,10 @@ public class Logic {
 
     /**
      * Saves the current editing state (selected objects, editing mode, etc) to file.
+     * 
+     * @param main the current Main instance
      */
-    void saveEditingState(Main main) {
+    void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }

@@ -1,5 +1,6 @@
 package de.blau.android.osm;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,11 +13,15 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
 import de.blau.android.util.collections.LongOsmElementMap;
 
+/**
+ * Container for OSM data
+ * 
+ *
+ */
 public class Storage implements Serializable {
 
-    /**
-     * 
-     */
+    private static final String DEBUG_TAG = "Storage";
+
     private static final long serialVersionUID = 3838107046050083566L;
 
     private final LongOsmElementMap<Node> nodes;
@@ -32,7 +37,7 @@ public class Storage implements Serializable {
      * <p>
      * Initializes the storage and adds a maximum valid mercator size bounding box
      */
-    Storage() {
+    public Storage() {
         nodes = new LongOsmElementMap<>(1000);
         ways = new LongOsmElementMap<>();
         relations = new LongOsmElementMap<>();
@@ -211,9 +216,8 @@ public class Storage implements Serializable {
      * Insert a node in to storage regardless of it is already present or not
      * 
      * @param node node to insert
-     * @throws StorageException
      */
-    void insertNodeUnsafe(final Node node) throws StorageException {
+    void insertNodeUnsafe(final Node node) {
         try {
             nodes.put(node.getOsmId(), node);
         } catch (OutOfMemoryError err) {
@@ -226,9 +230,8 @@ public class Storage implements Serializable {
      * Insert a way in to storage regardless of it is already present or not
      * 
      * @param way way to insert
-     * @throws StorageException
      */
-    void insertWayUnsafe(final Way way) throws StorageException {
+    void insertWayUnsafe(final Way way) {
         try {
             ways.put(way.getOsmId(), way);
         } catch (OutOfMemoryError err) {
@@ -240,9 +243,8 @@ public class Storage implements Serializable {
      * Insert a relation in to storage regardless of it is already present or not
      * 
      * @param relation relation to insert
-     * @throws StorageException
      */
-    void insertRelationUnsafe(final Relation relation) throws StorageException {
+    void insertRelationUnsafe(final Relation relation) {
         try {
             relations.put(relation.getOsmId(), relation);
         } catch (OutOfMemoryError err) {
@@ -256,9 +258,8 @@ public class Storage implements Serializable {
      * Note: the current data structures do not allow multiple entries for the same object in any case
      * 
      * @param element element to insert
-     * @throws StorageException
      */
-    void insertElementSafe(final OsmElement element) throws StorageException {
+    void insertElementSafe(final OsmElement element) {
         if (!contains(element)) {
             insertElementUnsafe(element);
         }
@@ -268,9 +269,8 @@ public class Storage implements Serializable {
      * Insert an element in to storage regardless of it is already present or not
      * 
      * @param element element to insert
-     * @throws StorageException
      */
-    void insertElementUnsafe(final OsmElement element) throws StorageException {
+    void insertElementUnsafe(final OsmElement element) {
         if (element instanceof Way) {
             insertWayUnsafe((Way) element);
         } else if (element instanceof Node) {
@@ -516,21 +516,60 @@ public class Storage implements Serializable {
     public void logStorage() {
         //
         for (Node n : nodes) {
-            Log.d("Storage", "Node " + n.getOsmId());
+            Log.d(DEBUG_TAG, "Node " + n.getOsmId());
             for (String k : n.getTags().keySet()) {
-                Log.d("Storage", k + "=" + n.getTags().get(k));
+                Log.d(DEBUG_TAG, k + "=" + n.getTags().get(k));
             }
         }
         for (Way w : ways) {
-            Log.d("Storage", "Way " + w.getOsmId());
+            Log.d(DEBUG_TAG, "Way " + w.getOsmId());
             for (String k : w.getTags().keySet()) {
-                Log.d("Storage", k + "=" + w.getTags().get(k));
+                Log.d(DEBUG_TAG, k + "=" + w.getTags().get(k));
+            }
+            for (Node nd : w.getNodes()) {
+                Log.d(DEBUG_TAG, "\t" + nd.getOsmId());
             }
         }
         for (Relation r : relations) {
-            Log.d("Storage", "Relation " + r.getOsmId());
+            Log.d(DEBUG_TAG, "Relation " + r.getOsmId());
             for (String k : r.getTags().keySet()) {
-                Log.d("Storage", k + "=" + r.getTags().get(k));
+                Log.d(DEBUG_TAG, k + "=" + r.getTags().get(k));
+            }
+            for (RelationMember rm : r.getMembers()) {
+                Log.d(DEBUG_TAG, "\t" + rm.getRef() + " " + rm.getRole());
+            }
+        }
+    }
+
+    /**
+     * Dump the contents to a PrintStream
+     * 
+     * @param out PrintStream we are writing to
+     */
+    public void dumpStorage(@NonNull PrintStream out) {
+        //
+        for (Node n : nodes) {
+            out.println("Node " + n.getOsmId());
+            for (String k : n.getTags().keySet()) {
+                out.println(k + "=" + n.getTags().get(k));
+            }
+        }
+        for (Way w : ways) {
+            out.println("Way " + w.getOsmId());
+            for (String k : w.getTags().keySet()) {
+                out.println(k + "=" + w.getTags().get(k));
+            }
+            for (Node nd : w.getNodes()) {
+                out.println("\t" + nd.getOsmId());
+            }
+        }
+        for (Relation r : relations) {
+            out.println("Relation " + r.getOsmId());
+            for (String k : r.getTags().keySet()) {
+                out.println(k + "=" + r.getTags().get(k));
+            }
+            for (RelationMember rm : r.getMembers()) {
+                out.println("\t\t" + rm.getRef() + " " + rm.getRole());
             }
         }
     }

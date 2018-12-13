@@ -1248,7 +1248,8 @@ public class Server {
                 @Override
                 public void writeTo(BufferedSink sink) throws IOException {
                     try {
-                        delegator.writeOsmChange(sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset());
+                        OsmXml.writeOsmChange(delegator.getApiStorage(), sink.outputStream(), changesetId, getCachedCapabilities().getMaxElementsInChangeset(),
+                                App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         throw new IOException(e);
                     }
