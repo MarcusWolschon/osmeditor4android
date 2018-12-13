@@ -1,8 +1,6 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -88,35 +86,26 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "node");
-        s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null) {
-            s.attribute("", "changeset", Long.toString(changeSetId));
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-        s.attribute("", "lat", Double.toString((lat / 1E7)));
-        s.attribute("", "lon", Double.toString((lon / 1E7)));
-        tagsToXml(s);
-        s.endTag("", "node");
+        toXml(s, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+        toXml(s, true);
+    }
+
+    /**
+     * Generate XML format OSM files
+     * 
+     * @param s the XML serializer
+     * @param josm if true use JOSM format
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", "node");
-        s.attribute("", "id", Long.toString(osmId));
-        if (state == OsmElement.STATE_DELETED) {
-            s.attribute("", "action", "delete");
-        } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
-            s.attribute("", "action", "modify");
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-        s.attribute("", "visible", "true");
+        attributesToXml(s, josm);
         s.attribute("", "lat", Double.toString((lat / 1E7)));
         s.attribute("", "lon", Double.toString((lon / 1E7)));
         tagsToXml(s);

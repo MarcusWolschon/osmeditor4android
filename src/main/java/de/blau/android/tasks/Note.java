@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -43,7 +42,7 @@ public class Note extends Task implements Serializable, JosmXmlSerializable {
      * This the standard data/time format used in .osn files and elsewhere in the API, and yes it is different than the
      * above
      */
-    private final SimpleDateFormat JOSM_DATE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+    private final SimpleDateFormat JOSM_DATE = DateFormatter.getUtcFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
     /** created and closed dates **/
     private Date created = null;

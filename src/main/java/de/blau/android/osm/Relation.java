@@ -1,12 +1,10 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -183,43 +181,26 @@ public class Relation extends OsmElement implements BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "relation");
-        s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null) {
-            s.attribute("", "changeset", Long.toString(changeSetId));
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-
-        for (RelationMember member : members) {
-            s.startTag("", "member");
-            s.attribute("", "type", member.getType());
-            s.attribute("", "ref", Long.toString(member.getRef()));
-            s.attribute("", "role", member.getRole());
-            s.endTag("", "member");
-        }
-
-        tagsToXml(s);
-        s.endTag("", "relation");
+        toXml(s, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "relation");
-        s.attribute("", "id", Long.toString(osmId));
-        if (state == OsmElement.STATE_DELETED) {
-            s.attribute("", "action", "delete");
-        } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
-            s.attribute("", "action", "modify");
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-        s.attribute("", "visible", "true");
+        toXml(s, true);
+    }
 
+    /**
+     * Generate XML format OSM files
+     * 
+     * @param s the XML serializer
+     * @param josm if true use JOSM format
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", "relation");
+        attributesToXml(s, josm);
         for (RelationMember member : members) {
             s.startTag("", "member");
             s.attribute("", "type", member.getType());

@@ -4,20 +4,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import android.support.annotation.NonNull;
 
-public abstract class DateFormatter {
+public final class DateFormatter {
+
+    private static TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
     /**
      * Parses a date from the given string using the date pattern. Throws a {@code ParseException} on failure.
+     * 
+     * @param pattern the pattern
+     * @param dateString the date string
+     * @return a Date object
+     * @throws ParseException if dateString can't be parsed
      */
     public static @NonNull Date getDate(@NonNull final String pattern, @NonNull final String dateString) throws ParseException {
-        return getSimpleDateFormat(pattern).parse(dateString);
+        return getUtcFormat(pattern).parse(dateString);
     }
 
     /**
-     * Formats the current date using the date pattern.
+     * Formats the current date (in UTC) using the date pattern.
+     * 
+     * 
+     * @param pattern the pattern
+     * @return a formatted String
      */
     public static @NonNull String getFormattedString(@NonNull final String pattern) {
         return getFormattedString(pattern, new Date());
@@ -26,15 +38,25 @@ public abstract class DateFormatter {
     /**
      * Formats the given date using the date pattern.
      */
+    /**
+     * 
+     * @param pattern the pattern
+     * @param date the date we want to format
+     * @return a formatted String
+     */
     public static @NonNull String getFormattedString(@NonNull final String pattern, @NonNull final Date date) {
-        return getSimpleDateFormat(pattern).format(date);
+        return getUtcFormat(pattern).format(date);
     }
 
     /**
-     * Constructs a new {@code SimpleDateFormat} using the given date pattern.
+     * Get a SimpleDateFormat with the correct TZ set
+     * 
+     * @param format the format String
+     * @return a SimpleDateFormat
      */
-    private static @NonNull SimpleDateFormat getSimpleDateFormat(@NonNull final String pattern) {
-        return new SimpleDateFormat(pattern, Locale.US);
+    public static SimpleDateFormat getUtcFormat(@NonNull String format) {
+        SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.US);
+        formatter.setTimeZone(timeZone);
+        return formatter;
     }
-
 }

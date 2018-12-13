@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -61,11 +60,13 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer.Provider.CoverageArea;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.GeoJson;
@@ -1280,7 +1281,7 @@ public class TileLayerServer {
                 } else if (l < 8) {
                     f = "yyyy-MM";
                 }
-                Date d = new SimpleDateFormat(f, Locale.US).parse(parts[0]);
+                Date d = DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(parts[0]);
                 result = d.getTime();
             } catch (ParseException e) {
                 Log.e(DEBUG_TAG, "Invalid RFC3339 value (" + f + ") " + timeStamp + " " + e.getMessage());

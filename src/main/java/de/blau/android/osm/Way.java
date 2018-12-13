@@ -1,12 +1,10 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -113,45 +111,26 @@ public class Way extends OsmElement implements BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "way");
-        s.attribute("", "id", Long.toString(osmId));
-        if (changeSetId != null) {
-            s.attribute("", "changeset", Long.toString(changeSetId));
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-        if (nodes != null) {
-            for (Node node : nodes) {
-                s.startTag("", "nd");
-                s.attribute("", "ref", Long.toString(node.getOsmId()));
-                s.endTag("", "nd");
-            }
-        } else {
-            Log.i(DEBUG_TAG, "Way without nodes");
-            throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
-        }
-
-        tagsToXml(s);
-        s.endTag("", "way");
+        toXml(s, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "way");
-        s.attribute("", "id", Long.toString(osmId));
-        if (state == OsmElement.STATE_DELETED) {
-            s.attribute("", "action", "delete");
-        } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
-            s.attribute("", "action", "modify");
-        }
-        s.attribute("", "version", Long.toString(osmVersion));
-        if (timestamp >= 0) {
-            s.attribute("", "timestamp", new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(getTimestamp() * 1000));
-        }
-        s.attribute("", "visible", "true");
+        toXml(s, true);
+    }
 
+    /**
+     * Generate XML format OSM files
+     * 
+     * @param s the XML serializer
+     * @param josm if true use JOSM format
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", "way");
+        attributesToXml(s, josm);
         if (nodes != null) {
             for (Node node : nodes) {
                 s.startTag("", "nd");
@@ -162,7 +141,6 @@ public class Way extends OsmElement implements BoundedObject {
             Log.i(DEBUG_TAG, "Way without nodes");
             throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
         }
-
         tagsToXml(s);
         s.endTag("", "way");
     }

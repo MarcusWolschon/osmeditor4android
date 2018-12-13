@@ -48,13 +48,13 @@ Ein langer Druck auf das Schlosssymbol zeigt ein Auswahlmenü mit vier Optionen:
 
 In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man auf den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:
 
-* Einfacher Klick: wählt das Objekt aus. 
-    * Ein freistehender Punkt oder Weg wird sofort ausgewählt. 
-    * Ist die Auswahl nicht eindeutig erscheint ein Auswahlmenü, dass dann die genaue Auswahl des Objektes erlaubt.
-    * Ausgewählte Objekte werden mit einem gelben Rang hervorgehoben. 
-    * Für mehr Informationen siehe [Knoten ausgewählt](../en/Node%20selected.md) , [Weg ausgewählt](../en/Way%20selected.md) und  [Relation ausgewählt](../en/Relation%20selected.md) 
-* Doppelklick: startet die [Mehfachauswahl](../en/Multiselect.md)
-* Langer Klick: zeigt ein Positionskreuz um neue Punkte zu erstellen, siehe unten und [Neue Objekte erstellen](../en/Creating%20new%20objects.md)
+* Single tap: Selects object. 
+    * An isolated node/way is highlighted immediately. 
+    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+    * Selected objects are highlighted in yellow. 
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
 
 In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.
 
@@ -80,11 +80,21 @@ Hinweis: für sich überlappende Objekte, z.B. ein Punkt auf einem Weg, erschein
 
 Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann man für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. 
 
-#### Einen neuen Knoten oder Weg erstellen (langer Klick)
+#### Adding a new Node/Point or Way 
 
-Mit einem langen Klick wird die Position gewählt wo der Weg beginnt oder ein Punkt erstellt werden soll.  Ein Positionskreuzsymbol markiert die Stelle. 
-* Soll ein neuer Knoten erstellt werden muss der nicht mit einem anderen Objekt verbunden ist, muss die Position ausserhalb der "Toleranzzone" liegen.
-* Soll ein bestehender Weg verlängert werden, sollte die Position innerhalb der "Toleranzzone" des Wegs oder eines Knotens auf dem Weg liegen.
+On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+
+##### Simple mode
+
+Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+
+See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+
+##### Advanced (long press) mode
+ 
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
@@ -95,7 +105,7 @@ Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:
 
 Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. 
 
-Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe [Neue Objekte erstellen](../en/Creating%20new%20objects.md) für weitere Informationen.
+You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
 #### Flächen erstellen
 
@@ -216,10 +226,10 @@ Die Liste ist zweigeteilt, die obere Hälfte enthält die "Überprüfungstests",
 
 Fehlende Tags-Test Einträge haben die folgenden zwei Eigenschaften:
 
-* **Schlüssel** - Der Schlüssel der auf dem Objekt vorhanden sein sollte nach Massgabe der am  besten passende Vorlage.
-* **Optionale Tags überprüfen** - Die optionalen Tags der Vorlage miteinbeziehen.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-Dieser Test funktioniert wie folgt: zuerst wird die am besten passende Vorlage bestimmt, und dann wird überprüft ob **Schlüssel** zu den empfohlenen Schlüssel für dieses Objekt gehört. **Optionale Tags überprüfen** überprüft auch noch die optionalen Tags der Vorlage.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Filter
 
@@ -251,6 +261,8 @@ Erweiterte Einstellungen
 
 ## Fehler melden
 
-Falls Vespucci abstürzt oder einen inkonsistenten Zustand entdeckt wird, erscheint eine Aufforderung eine Fehlermeldung ein zuschicken. Bitte komme der Aufforderung nach, aber nur einmal per spezifischen Ereignis.  Falls du mehr Input geben willst oder einen Verbesserungsvorschlag hast, erstelle bitte hier: [Vespucci Issue Tracker](https://github.com/MarcusWolschon/osmeditor4android/issues) einen neuen Eintrag. Falls du zu Vespucci eine Diskussion beginnen willst, kannst du dies entweder auf der [Vespucci google group](https://groups.google.com/forum/#!forum/osmeditor4android) oder dem [OpenStreetMap Android Forum](http://forum.openstreetmap.org/viewforum.php?id=56) machen.
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

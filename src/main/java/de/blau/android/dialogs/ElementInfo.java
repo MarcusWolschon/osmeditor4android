@@ -6,7 +6,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -54,6 +53,7 @@ import de.blau.android.osm.UndoStorage.UndoRelation;
 import de.blau.android.osm.UndoStorage.UndoWay;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 import de.blau.android.validation.Validator;
@@ -210,7 +210,7 @@ public class ElementInfo extends DialogFragment {
             long timestamp = e.getTimestamp();
             if (timestamp > 0) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited,
-                        new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp * 1000L), tp));
+                        DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
             }
 
             tl.addView(TableLayoutUtils.divider(activity));

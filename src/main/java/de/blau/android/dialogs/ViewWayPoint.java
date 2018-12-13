@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +36,7 @@ import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
@@ -152,8 +152,8 @@ public class ViewWayPoint extends DialogFragment {
             }
             long timestamp = wp.getTime();
             if (timestamp > 0) {
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.created, new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).format(timestamp),
-                        tp));
+                tl.addView(
+                        TableLayoutUtils.createRow(activity, R.string.created, DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp), tp));
             }
 
             tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, String.format(Locale.US, "%.7f", wp.getLongitude()) + "°", tp));

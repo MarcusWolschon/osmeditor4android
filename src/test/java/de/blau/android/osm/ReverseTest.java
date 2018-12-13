@@ -10,6 +10,9 @@ import org.junit.Test;
 
 public class ReverseTest {
 
+    /**
+     * Test that way reversing has the intentd effects
+     */
     @Test
     public void reverse() {
         reverseTag("direction","up","down");
@@ -30,6 +33,13 @@ public class ReverseTest {
         reverseTag("priority","backward","forward");
     }
 
+    /**
+     * Get the tag value changed by assuming that the way was reversed 
+     * 
+     * @param key the key
+     * @param value the original value
+     * @param result what the value after reversing should be
+     */
     private void reverseTag(String key, String value, String result) {
         Way e = OsmElementFactory.createWay(-1L, 1L, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED);
         // don't bother added way nodes for now

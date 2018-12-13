@@ -23,6 +23,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.IssueAlert;
 import de.blau.android.validation.Validator;
 
@@ -56,7 +57,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     ArrayList<Relation> parentRelations;
 
     // seconds since EPOCH, negative == not set
-    int timestamp = -1;
+    private int timestamp = -1;
 
     /**
      * hasProblem() is an expensive test, so the results are cached. old version used a Boolean object which was silly
@@ -285,7 +286,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return getName() + " " + osmId;
     }
 
-    void tagsToXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+    /**
+     * Write the tags in XML format
+     * 
+     * @param s the Serializer
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    protected void tagsToXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         if (tags != null) {
             for (Entry<String, String> tag : tags.entrySet()) {
                 s.startTag("", "tag");
@@ -294,6 +303,29 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
                 s.endTag("", "tag");
             }
         }
+    }
+
+    /**
+     * Write the element attributes in XML format
+     * 
+     * @param s the Serializer
+     * @param josm if true use josm format
+     * @throws IOException
+     */
+    protected void attributesToXml(final XmlSerializer s, boolean josm) throws IOException {
+        s.attribute("", "id", Long.toString(osmId));
+        if (josm) {
+            if (state == OsmElement.STATE_DELETED) {
+                s.attribute("", "action", "delete");
+            } else if (state == OsmElement.STATE_CREATED || state == OsmElement.STATE_MODIFIED) {
+                s.attribute("", "action", "modify");
+            }
+        }
+        s.attribute("", "version", Long.toString(osmVersion));
+        if (timestamp >= 0) {
+            s.attribute("", "timestamp", DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(getTimestamp() * 1000));
+        }
+        s.attribute("", "visible", "true");
     }
 
     /**

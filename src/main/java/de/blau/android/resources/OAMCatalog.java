@@ -5,10 +5,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.stream.JsonReader;
@@ -20,6 +18,7 @@ import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.Server;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -200,7 +199,7 @@ public class OAMCatalog {
      */
     public long parseAcquisitionDate(JsonReader reader) throws IOException {
         try {
-            return new SimpleDateFormat(OsmParser.TIMESTAMP_FORMAT, Locale.US).parse(reader.nextString()).getTime();
+            return DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(reader.nextString()).getTime();
         } catch (ParseException e) {
 
             return -1;

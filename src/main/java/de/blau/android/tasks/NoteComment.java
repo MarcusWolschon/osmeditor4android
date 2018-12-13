@@ -3,15 +3,14 @@ package de.blau.android.tasks;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.JosmXmlSerializable;
+import de.blau.android.util.DateFormatter;
 
 /**
  * An individual comment associated with an OpenStreetBug.
@@ -28,16 +27,15 @@ public class NoteComment implements Serializable, JosmXmlSerializable {
     private static final long serialVersionUID = 3L;
 
     /** The preferred OSB date formats. */
-    private static final DateFormat bugDateFormats[] = { new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z", Locale.US), // preferred,
-                                                                                                                   // used
-                                                                                                                   // for
-                                                                                                                   // output
-                                                                                                                   // (see
-                                                                                                                   // toString())
-            new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.US), // alternate preferred
-            new SimpleDateFormat("dd.MM.yy HH:mm:ss", Locale.US), // German
-            new SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.US) // European
-    };
+    private static final DateFormat bugDateFormats[] = {
+            // preferred, use for output (see toString())
+            DateFormatter.getUtcFormat("yyyy-MM-dd HH:mm:ss z"),
+            // alternate preferred
+            DateFormatter.getUtcFormat("yy-MM-dd HH:mm:ss"),
+            // German
+            DateFormatter.getUtcFormat("dd.MM.yy HH:mm:ss"),
+            // European
+            DateFormatter.getUtcFormat("dd/MM/yy HH:mm:ss") };
 
     /** The Note we belong to **/
     private Note   note;

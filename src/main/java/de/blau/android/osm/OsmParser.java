@@ -3,10 +3,8 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.exception.OsmParseException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.util.DateFormatter;
 import de.blau.android.util.collections.LongOsmElementMap;
 
 /**
@@ -114,7 +113,7 @@ public class OsmParser extends DefaultHandler {
      * @throws IOException when the xmlRetriever could not provide any data.
      * @throws ParserConfigurationException
      */
-    public void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
+    public void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
@@ -230,7 +229,7 @@ public class OsmParser extends DefaultHandler {
             long timestamp = -1L;
             if (timestampStr != null) {
                 try {
-                    timestamp = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.US).parse(timestampStr).getTime() / 1000;
+                    timestamp = DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(timestampStr).getTime() / 1000;
                 } catch (ParseException e) {
                     Log.d(DEBUG_TAG, "Invalid timestamp " + timestampStr);
                 }
