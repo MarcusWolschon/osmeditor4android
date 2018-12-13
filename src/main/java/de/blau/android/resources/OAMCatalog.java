@@ -29,7 +29,7 @@ import okhttp3.ResponseBody;
 /**
  * Interface to the OAM API
  * 
- * THe OAM API documentation essentially has nothing to do with the current version, have a look at the fixture oam.json
+ * The OAM API documentation essentially has nothing to do with the current version, have a look at the fixture oam.json
  * for actual output
  * 
  * @author Simon Poole

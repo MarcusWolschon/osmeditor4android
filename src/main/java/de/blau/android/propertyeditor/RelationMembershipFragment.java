@@ -443,7 +443,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         }
 
         /**
-         * THe role of the member in this row
+         * The role of the member in this row
          * 
          * @return the role of this member
          */

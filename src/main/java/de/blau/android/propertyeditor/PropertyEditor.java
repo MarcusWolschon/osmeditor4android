@@ -70,7 +70,7 @@ import de.blau.android.views.ExtendedViewPager;
 /**
  * An Activity to edit OSM-Tags. Sends the edited Tags as Result to its caller-Activity (normally {@link Main}).
  * 
- * THe Editor does not directly edit the original tags or relation memberships which makes the code fairly and perhaps
+ * The Editor does not directly edit the original tags or relation memberships which makes the code fairly and perhaps
  * unnecessarily complex
  * 
  * @author mb
