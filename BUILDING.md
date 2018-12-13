@@ -58,11 +58,7 @@ You will further need the libraries listed in build.gradle for a successful buil
 
 ## JOSM Presets
 
-Reworked version:
 https://github.com/simonpoole/beautified-JOSM-preset
-
-Original:
-http://josm.openstreetmap.de/svn/trunk/data/defaultpresets.xml
 
 The gradle task ``updatePreset`` will update the icons and preset.xml file in the asset directory from the github repo.
 
