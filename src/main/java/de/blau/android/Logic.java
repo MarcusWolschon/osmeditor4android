@@ -72,6 +72,7 @@ import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
+import de.blau.android.osm.MapSplitSource;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -2327,7 +2328,7 @@ public class Logic {
                 int result = 0;
                 try {
                     Server server = prefs.getServer();
-                    if (server.hasReadOnly()) {
+                    if (server.hasReadOnly() && !server.hasMapSplitSource()) {
                         server.getReadOnlyCapabilities();
                         if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
                             return ErrorCodes.API_OFFLINE;
@@ -2341,44 +2342,51 @@ public class Logic {
                             return ErrorCodes.API_OFFLINE;
                         }
                     }
-                    final OsmParser osmParser = new OsmParser();
-                    final InputStream in = prefs.getServer().getStreamForBox(activity, mapBox);
-                    try {
-                        long startTime = System.currentTimeMillis();
-                        osmParser.start(in);
-                        Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
-                        if (arg[0]) { // incremental load
-                            if (!getDelegator().mergeData(osmParser.getStorage(), postMerge)) {
-                                result = ErrorCodes.DATA_CONFLICT;
-                            } else {
-                                if (mapBox != null) {
-                                    // if we are simply expanding the area no need keep the old bounding boxes
-                                    List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                                    List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                                    for (BoundingBox bb : bbs) {
-                                        if (mapBox.contains(bb)) {
-                                            origBbs.remove(bb);
-                                        }
-                                    }
-                                    getDelegator().addBoundingBox(mapBox);
-                                }
-                            }
-                        } else { // replace data with new download
-                            getDelegator().reset(false);
-                            getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                            if (mapBox != null) {
-                                Log.d(DEBUG_TAG, "downloadBox setting original bbox");
-                                getDelegator().setOriginalBox(mapBox);
-                            }
+
+                    Storage input = null;
+                    long startTime = System.currentTimeMillis();
+                    if (server.hasMapSplitSource()) {
+                        Log.d(DEBUG_TAG, "downloadBox reading from MapSplit tile sourse");
+                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                    } else {
+                        try (InputStream in = prefs.getServer().getStreamForBox(activity, mapBox)) {
+                            final OsmParser osmParser = new OsmParser();
+                            osmParser.start(in);
+                            input = osmParser.getStorage();
                         }
-                        Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-                        if (map != null) {
-                            // set to current or previous
-                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
-                        }
-                    } finally {
-                        SavingHelper.close(in);
                     }
+
+                    Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
+                    if (arg[0]) { // incremental load
+                        if (!getDelegator().mergeData(input, postMerge)) {
+                            result = ErrorCodes.DATA_CONFLICT;
+                        } else {
+                            if (mapBox != null) {
+                                // if we are simply expanding the area no need keep the old bounding boxes
+                                List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+                                List<BoundingBox> bbs = new ArrayList<>(origBbs);
+                                for (BoundingBox bb : bbs) {
+                                    if (mapBox.contains(bb)) {
+                                        origBbs.remove(bb);
+                                    }
+                                }
+                                getDelegator().addBoundingBox(mapBox);
+                            }
+                        }
+                    } else { // replace data with new download
+                        getDelegator().reset(false);
+                        getDelegator().setCurrentStorage(input); // this sets dirty flag
+                        if (mapBox != null) {
+                            Log.d(DEBUG_TAG, "downloadBox setting original bbox");
+                            getDelegator().setOriginalBox(mapBox);
+                        }
+                    }
+                    Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
+                    if (map != null) {
+                        // set to current or previous
+                        viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                    }
+
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     Exception ce = e.getException();
@@ -2390,7 +2398,7 @@ public class Logic {
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
@@ -2505,33 +2513,37 @@ public class Logic {
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
                 try {
-                    final OsmParser osmParser = new OsmParser();
-                    final InputStream in = server.getStreamForBox(context, mapBox);
-                    try {
-                        osmParser.start(in);
-                        if (!getDelegator().mergeData(osmParser.getStorage(), postMerge)) {
-                            result = ErrorCodes.DATA_CONFLICT;
-                        } else {
-                            if (mapBox != null) {
-                                // if we are simply expanding the area no need keep the old bounding boxes
-                                List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                                if (origBbs.size() == 1) { // replace original BB if still present
-                                    if (getDelegator().isEmpty()) {
-                                        origBbs.clear();
-                                    }
-                                }
-                                List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                                for (BoundingBox bb : bbs) {
-                                    if (mapBox.contains(bb)) {
-                                        origBbs.remove(bb);
-                                    }
-                                }
-                                getDelegator().addBoundingBox(mapBox);
-                            }
+                    Storage input;
+                    if (server.hasMapSplitSource()) {
+                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                    } else {
+                        try (InputStream in = server.getStreamForBox(context, mapBox);) {
+                            final OsmParser osmParser = new OsmParser();
+                            osmParser.start(in);
+                            input = osmParser.getStorage();
                         }
-                    } finally {
-                        SavingHelper.close(in);
                     }
+                    if (!getDelegator().mergeData(input, postMerge)) {
+                        result = ErrorCodes.DATA_CONFLICT;
+                    } else {
+                        if (mapBox != null) {
+                            // if we are simply expanding the area no need keep the old bounding boxes
+                            List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+                            if (origBbs.size() == 1) { // replace original BB if still present
+                                if (getDelegator().isEmpty()) {
+                                    origBbs.clear();
+                                }
+                            }
+                            List<BoundingBox> bbs = new ArrayList<>(origBbs);
+                            for (BoundingBox bb : bbs) {
+                                if (mapBox.contains(bb)) {
+                                    origBbs.remove(bb);
+                                }
+                            }
+                            getDelegator().addBoundingBox(mapBox);
+                        }
+                    }
+
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
                     Exception ce = e.getException();
@@ -2543,7 +2555,7 @@ public class Logic {
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got

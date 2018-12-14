@@ -30,6 +30,8 @@ import org.xmlpull.v1.XmlSerializer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -45,6 +47,7 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIOException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.prefs.API;
+import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.StreamUtils;
 import de.blau.android.tasks.Note;
 import de.blau.android.tasks.NoteComment;
@@ -98,6 +101,11 @@ public class Server {
      * Location of optional read only OSM API
      */
     private final String readonlyURL;
+
+    /**
+     * MapSplit tiled OSM data source
+     */
+    private final MBTileProviderDataBase mapSplitSource;
 
     /**
      * Location of optional notes OSM API
@@ -216,6 +224,20 @@ public class Server {
 
         // initialize list of redundant tags
         discardedTags = App.getDiscardedTags(context);
+
+        // if we have a tiled OSM data source, open
+        Uri readOnlyUri = Uri.parse(getReadOnlyUrl());
+        if ("file".equals(readOnlyUri.getScheme())) {
+            MBTileProviderDataBase tempDB = null;
+            try {
+                tempDB = new MBTileProviderDataBase(context, readOnlyUri);
+            } catch (SQLiteException sqlex) {
+                Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
+            }
+            mapSplitSource = tempDB;
+        } else {
+            mapSplitSource = null;
+        }
     }
 
     /**
@@ -1669,6 +1691,7 @@ public class Server {
      * 
      * @return a String with the url
      */
+    @NonNull
     private String getReadOnlyUrl() {
         if (readonlyURL == null || "".equals(readonlyURL)) {
             return serverURL;
@@ -2111,5 +2134,33 @@ public class Server {
     @Override
     public String toString() {
         return "server: " + serverURL + " readonly: " + readonlyURL + " notes " + notesURL;
+    }
+
+    /**
+     * Check if we have a read-only tiled data source
+     * 
+     * @return true if available
+     */
+    public boolean hasMapSplitSource() {
+        return mapSplitSource != null;
+    }
+
+    /**
+     * Get the current read-only tiled data source
+     * 
+     * @return an instance of MBTileProviderDataBase or null
+     */
+    @Nullable
+    public MBTileProviderDataBase getMapSplitSource() {
+        return mapSplitSource;
+    }
+
+    /**
+     * Close the MapSplitSource if present
+     */
+    public void closeMapSplitSource() {
+        if (mapSplitSource != null) {
+            mapSplitSource.close();
+        }
     }
 }

@@ -208,8 +208,17 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         prefs.edit().putString(PREF_SELECTED_API, id).commit();
         currentAPI = id;
         Main.prepareRedownload();
+        resetCurrentServer();
+    }
+
+    /**
+     * Rest the current Server object, closing any MapSplit source first
+     */
+    private void resetCurrentServer() {
+        if (currentServer != null) {
+            currentServer.closeMapSplitSource();
+        }
         currentServer = null; // force recreation of Server object
-        // Main.resetPreset();
     }
 
     /**
@@ -281,7 +290,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
             db.update(APIS_TABLE, values, "id = ?", new String[] { id });
         }
         db.close();
-        currentServer = null; // force recreation of Server object
+        resetCurrentServer();
     }
 
     /**
@@ -298,7 +307,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         db.update(APIS_TABLE, values, "id = ?", new String[] { currentAPI });
         Log.d("AdvancedPRefDatabase", "setAPIAccessToken " + token + " secret " + secret);
         db.close();
-        currentServer = null; // force recreation of Server object
+        resetCurrentServer();
     }
 
     /**
@@ -314,7 +323,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
         values.put("pass", pass);
         db.update(APIS_TABLE, values, "id = ?", new String[] { currentAPI });
         db.close();
-        currentServer = null; // force recreation of Server object
+        resetCurrentServer();
     }
 
     /**

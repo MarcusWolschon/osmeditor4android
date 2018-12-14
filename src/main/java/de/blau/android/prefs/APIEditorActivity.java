@@ -7,25 +7,35 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.util.DatabaseUtil;
+import de.blau.android.util.ReadFile;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 /** Provides an activity for editing the API list */
 public class APIEditorActivity extends URLListEditActivity {
+
+    private static final String DEBUG_TAG = "APIEditorActivity";
 
     private AdvancedPrefDatabase db;
 
@@ -133,6 +143,7 @@ public class APIEditorActivity extends URLListEditActivity {
         final TextView editValue_2 = (TextView) mainView.findViewById(R.id.listedit_editValue_2);
         final TextView editValue_3 = (TextView) mainView.findViewById(R.id.listedit_editValue_3);
         final CheckBox oauth = (CheckBox) mainView.findViewById(R.id.listedit_oauth);
+        final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
         if (item != null) {
             editName.setText(item.name);
@@ -182,6 +193,29 @@ public class APIEditorActivity extends URLListEditActivity {
             }
         });
 
+        fileButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                SelectFile.read(APIEditorActivity.this, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public boolean read(Uri fileUri) {
+                        try {
+                            if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
+                                throw new SQLiteException("Not a SQLite database file");
+                            }
+                            editValue_2.setText(fileUri.toString());
+                            return true;
+                        } catch (SQLiteException sqex) {
+                            Snack.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
+                            return false;
+                        }
+                    }
+                });
+            }
+        });
+
         final AlertDialog dialog = builder.create();
         dialog.setView(mainView);
         dialog.show();
@@ -207,7 +241,7 @@ public class APIEditorActivity extends URLListEditActivity {
                 // validate entries
                 validAPIURL = Patterns.WEB_URL.matcher(apiURL).matches();
                 if (!"".equals(readOnlyAPIURL)) {
-                    validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches();
+                    validReadOnlyAPIURL = Patterns.WEB_URL.matcher(readOnlyAPIURL).matches() || readOnlyAPIURL.startsWith("file:");
                 } else {
                     readOnlyAPIURL = null;
                 }
@@ -253,5 +287,14 @@ public class APIEditorActivity extends URLListEditActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        Log.d(DEBUG_TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                && resultCode == RESULT_OK) {
+            SelectFile.handleResult(requestCode, data);
+        }
     }
 }
