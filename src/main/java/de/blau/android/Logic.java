@@ -3171,6 +3171,7 @@ public class Logic {
                     }
                 } catch (UnsupportedFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                    result = ErrorCodes.INVALID_DATA_READ;
                 }
                 return result;
             }

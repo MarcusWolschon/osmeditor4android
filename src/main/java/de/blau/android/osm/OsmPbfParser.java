@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import crosby.binary.BinaryParser;
 import crosby.binary.Osmformat;
 import crosby.binary.Osmformat.DenseInfo;
 import crosby.binary.Osmformat.DenseNodes;
 import de.blau.android.exception.UnsupportedFormatException;
+import de.blau.android.util.collections.LongHashSet;
 
 /**
  * Parse OSM data in PBF format
@@ -21,7 +23,9 @@ public class OsmPbfParser extends BinaryParser {
 
     private static final String NO_VERSION_INFORMATION_AVAILABLE = "no version information available";
 
-    final Storage               storage;
+    final Storage     storage;
+    final BoundingBox box;
+    LongHashSet       nodeIsRef;
 
     /**
      * Construct a new parser
@@ -32,6 +36,23 @@ public class OsmPbfParser extends BinaryParser {
      */
     public OsmPbfParser(@NonNull Storage storage) {
         this.storage = storage;
+        box = null;
+    }
+
+    /**
+     * /** Construct a new parser
+     * 
+     * If storage already has elements with the same id they will not be overwritten
+     * 
+     * @param storage the Storage object to hold the OsmElements
+     * @param box if not null trim contents as far as possible to this bounding box (Relations are never trimmed)
+     */
+    public OsmPbfParser(@NonNull Storage storage, @Nullable BoundingBox box) {
+        this.storage = storage;
+        this.box = box;
+        if (box != null) {
+            nodeIsRef = new LongHashSet();
+        }
     }
 
     @Override
@@ -100,9 +121,6 @@ public class OsmPbfParser extends BinaryParser {
                     relation.setTags(tags);
                 }
             }
-            // if (!r.getInfo().getVisible()) {
-            // continue; // we currently don't do history files or deleted elements
-            // }
             storage.insertElementSafe(relation);
         }
         // 2nd pass for Relations that hadn't been parsed yet
@@ -206,6 +224,18 @@ public class OsmPbfParser extends BinaryParser {
                 }
                 way.addNode(nd);
             }
+            if (box != null) {
+                if (storage.contains(way)) {
+                    continue; // no point in doing anything
+                }
+                if (!way.getBounds().intersects(box)) {
+                    continue; // trim before we add tags
+                }
+                // flag the Node as referenced for the ways we keep
+                for (Node nd : way.getNodes()) {
+                    nodeIsRef.put(nd.getOsmId());
+                }
+            }
             int tagCount = w.getKeysCount();
             if (tagCount > 0) {
                 Map<String, String> tags = new HashMap<>();
@@ -230,12 +260,24 @@ public class OsmPbfParser extends BinaryParser {
             int bottom = (int) (block.getBbox().getBottom() * multiplier);
 
             BoundingBox bounds = new BoundingBox(left, bottom, right, top);
-            storage.setBoundingBox(bounds);
+            if (storage.isEmpty()) {
+                storage.setBoundingBox(bounds);
+            } else {
+                storage.addBoundingBox(bounds);
+            }
         }
     }
 
     @Override
     public void complete() {
+        if (box != null) {
+            // remove all unreferenced nodes that are not in the bounding box
+            for (Node nd : storage.getNodes()) {
+                if (!nodeIsRef.contains(nd.getOsmId()) && !box.contains(nd.getLon(), nd.getLat())) {
+                    storage.removeNode(nd);
+                }
+            }
+        }
     }
 
     /**
