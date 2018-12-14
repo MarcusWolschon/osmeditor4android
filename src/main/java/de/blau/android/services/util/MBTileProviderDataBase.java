@@ -1,7 +1,9 @@
 package de.blau.android.services.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,7 +94,7 @@ public class MBTileProviderDataBase {
      * 
      * @param aTile the tile meta data
      * @return the contents of the tile or null on failure to retrieve
-     * @throws IOException
+     * @throws IOException if we had issues reading from the database
      */
     public byte[] getTile(@NonNull final MapTile aTile) throws IOException {
         if (DEBUGMODE) {
@@ -142,6 +144,67 @@ public class MBTileProviderDataBase {
                         if (c.moveToFirst()) {
                             byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
                             return tile_data;
+                        }
+                    } finally {
+                        c.close();
+                    }
+                }
+            }
+        } catch (SQLiteException sex) { // handle these exceptions the same
+            throw new IOException(sex.getMessage());
+        }
+        if (DEBUGMODE) {
+            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
+        }
+        return null;
+    }
+
+    /**
+     * Returns requested tile as an InputStream
+     * 
+     * This avoids copying when we are going to be processing a stream in any case
+     * 
+     * @param aTile the tile meta data
+     * @return the contents of the tile as an InputStream or null on failure to retrieve
+     * @throws IOException if we had issues reading from the database
+     */
+    public InputStream getTileStream(@NonNull final MapTile aTile) throws IOException {
+        if (DEBUGMODE) {
+            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Trying to retrieve " + aTile + " from db");
+        }
+        try {
+            if (mDatabase.isOpen()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    SQLiteStatement get = null;
+                    ParcelFileDescriptor pfd = null;
+                    try {
+                        get = getStatements.acquire();
+                        if (get == null) {
+                            Log.e(DEBUG_TAG, "statement null");
+                            return null;
+                        }
+                        int ymax = 1 << aTile.zoomLevel; // TMS scheme
+                        int y = ymax - aTile.y - 1;
+                        get.bindLong(1, aTile.zoomLevel);
+                        get.bindLong(2, aTile.x);
+                        get.bindLong(3, y);
+                        pfd = get.simpleQueryForBlobFileDescriptor();
+                        return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                    } catch (SQLiteDoneException sde) {
+                        // nothing found
+                        return null;
+                    } finally {
+                        if (get != null) {
+                            getStatements.release(get);
+                        }
+                    }
+                } else { // old and slow
+                    final Cursor c = mDatabase.query(T_MBTILES, new String[] { T_MBTILES_DATA }, T_MBTILES_WHERE,
+                            new String[] { aTile.rendererID, Integer.toString(aTile.zoomLevel), Integer.toString(aTile.x), Integer.toString(aTile.y) }, null,
+                            null, null);
+                    try {
+                        if (c.moveToFirst()) {
+                            return new ByteArrayInputStream(c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA)));
                         }
                     } finally {
                         c.close();
