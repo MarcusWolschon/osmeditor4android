@@ -178,7 +178,7 @@ public class TileLayerDialog {
                                 if (!DatabaseUtil.isValidSQLite(fileUri.getPath())) {
                                     throw new SQLiteException("Not a SQLite database file");
                                 }
-                                MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri);
+                                MBTileProviderDataBase db = new MBTileProviderDataBase(activity, fileUri, 1);
                                 Map<String, String> metadata = db.getMetadata();
                                 if (metadata.isEmpty()) {
                                     throw new SQLiteException("MBTiles metadata missing");

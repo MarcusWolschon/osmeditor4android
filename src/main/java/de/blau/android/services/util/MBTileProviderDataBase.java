@@ -65,14 +65,17 @@ public class MBTileProviderDataBase {
      * 
      * @param context Android Context
      * @param mbTilesUri Uri for the mbtiles file
+     * @param maxThreads if larger than 0 this will be used for determining how many prepared statements to create 
      */
-    public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri) {
+    public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri, int maxThreads) {
         Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.getPath());
         String path = mbTilesUri.getPath();
         mDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-        Preferences prefs = new Preferences(context);
-        int maxThreads = prefs.getMaxTileDownloadThreads();
         getStatements = new Pools.SynchronizedPool<SQLiteStatement>(maxThreads);
+        if (maxThreads <= 0) {
+            Preferences prefs = new Preferences(context);
+            maxThreads = prefs.getMaxTileDownloadThreads();
+        }
         Log.i(DEBUG_TAG, "Allocating " + maxThreads + " prepared statements");
         for (int i = 0; i < maxThreads; i++) {
             getStatements.release(mDatabase.compileStatement(T_MBTILES_GET));
@@ -86,7 +89,7 @@ public class MBTileProviderDataBase {
      * @param mbTilesUri Uri for the mbtiles file as a String
      */
     public MBTileProviderDataBase(@NonNull final Context context, @NonNull String mbTilesUri) {
-        this(context, Uri.parse(mbTilesUri));
+        this(context, Uri.parse(mbTilesUri), -1);
     }
 
     /**

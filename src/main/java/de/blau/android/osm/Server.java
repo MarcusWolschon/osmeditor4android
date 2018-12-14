@@ -230,7 +230,7 @@ public class Server {
         if ("file".equals(readOnlyUri.getScheme())) {
             MBTileProviderDataBase tempDB = null;
             try {
-                tempDB = new MBTileProviderDataBase(context, readOnlyUri);
+                tempDB = new MBTileProviderDataBase(context, readOnlyUri, 1);
             } catch (SQLiteException sqlex) {
                 Log.e(DEBUG_TAG, "Unable to open db " + readOnlyUri);
             }
