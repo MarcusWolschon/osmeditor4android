@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import crosby.binary.BinaryParser;
 import crosby.binary.Osmformat;
 import crosby.binary.Osmformat.DenseInfo;
@@ -16,8 +17,10 @@ import de.blau.android.exception.UnsupportedFormatException;
  * Parse OSM data in PBF format
  */
 public class OsmPbfParser extends BinaryParser {
+    private static final String DEBUG_TAG = "OsmPbfParser";
 
     private static final String NO_VERSION_INFORMATION_AVAILABLE = "no version information available";
+
     final Storage               storage;
 
     /**
@@ -196,7 +199,11 @@ public class OsmPbfParser extends BinaryParser {
             for (long ref : w.getRefsList()) {
                 lastRef += ref;
                 Node nd = storage.getNode(lastRef);
-                // if nd == null blow up
+                if (nd == null) {
+                    // input is referentially broken, complain rather than fixing it up
+                    Log.e(DEBUG_TAG, "Way node " + lastRef + " missing, not adding way " + w.getId());
+                    throw new UnsupportedFormatException("Way node " + lastRef + " missing, not adding way " + w.getId());
+                }
                 way.addNode(nd);
             }
             int tagCount = w.getKeysCount();
