@@ -98,10 +98,16 @@ public final class IssueAlert {
             eLat = result[1];
             break;
         case Relation.NAME:
-            ViewBox box = new ViewBox(e.getBounds());
-            result = box.getCenter();
-            eLon = result[0];
-            eLat = result[1];
+            BoundingBox bbox = e.getBounds();
+            if (bbox != null) {
+                ViewBox box = new ViewBox(e.getBounds());
+                result = box.getCenter();
+                eLon = result[0];
+                eLat = result[1];
+            } else {
+                Log.e(DEBUG_TAG, "no bounding box for " + e);
+                return;
+            }
             break;
         default:
             Log.e(DEBUG_TAG, "unknown element type " + e);
