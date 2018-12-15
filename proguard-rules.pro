@@ -47,6 +47,7 @@
 -keep,includedescriptorclasses class org.acra.config.CoreConfigurationBuilder
 -keep,includedescriptorclasses class org.acra.log.ACRALog
 -keep,includedescriptorclasses class org.acra.sender.HttpSender$1
+-keep,includedescriptorclasses class de.blau.android.BuildConfig
 -keep,includedescriptorclasses class de.blau.android.osm.ViewBox
 -keep,includedescriptorclasses class de.blau.android.presets.Preset$PresetItem
 -keep,includedescriptorclasses class de.blau.android.util.StringWithDescription
