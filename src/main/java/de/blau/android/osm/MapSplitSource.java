@@ -51,6 +51,10 @@ public class MapSplitSource {
                 }
             }
         }
+        if (box != null) {
+            // remove all unreferenced nodes that are not in the bounding box
+            storage.removeUnreferencedNodes(box);
+        }
         return storage;
     }
 }

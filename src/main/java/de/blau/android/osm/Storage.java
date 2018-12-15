@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.exception.OsmException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.util.collections.LongHashSet;
 import de.blau.android.util.collections.LongOsmElementMap;
 
 /**
@@ -31,6 +32,8 @@ public class Storage implements Serializable {
     private final LongOsmElementMap<Relation> relations;
 
     private final List<BoundingBox> bboxes;
+
+    private transient LongHashSet nodeIsRef;
 
     /**
      * Default constructor
@@ -572,5 +575,36 @@ public class Storage implements Serializable {
                 out.println("\t\t" + rm.getRef() + " " + rm.getRole());
             }
         }
+    }
+
+    /**
+     * Indicate that the Node is referenced by a Way
+     * 
+     * @param id the Nodes id
+     */
+    public synchronized void addNodeRef(long id) {
+        if (nodeIsRef == null) {
+            nodeIsRef = new LongHashSet();
+        }
+        nodeIsRef.put(id);
+    }
+
+    /**
+     * Remove all unreferenced nodes that are not in the bounding box
+     * 
+     * Providing this here allows us to directly merge objects in to the same Storage instance
+     * and complete the trimming once after all data has been loaded.
+     * 
+     * @param box the BoundingBox
+     */
+    public synchronized void removeUnreferencedNodes(@NonNull BoundingBox box) {
+        if (nodeIsRef != null) {
+            for (Node nd : getNodes()) {
+                if (!nodeIsRef.contains(nd.getOsmId()) && !box.contains(nd.getLon(), nd.getLat())) {
+                    removeNode(nd);
+                }
+            }
+        }
+        nodeIsRef = null;
     }
 }

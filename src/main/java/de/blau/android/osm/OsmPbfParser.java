@@ -25,7 +25,6 @@ public class OsmPbfParser extends BinaryParser {
 
     final Storage     storage;
     final BoundingBox box;
-    LongHashSet       nodeIsRef;
 
     /**
      * Construct a new parser
@@ -50,9 +49,6 @@ public class OsmPbfParser extends BinaryParser {
     public OsmPbfParser(@NonNull Storage storage, @Nullable BoundingBox box) {
         this.storage = storage;
         this.box = box;
-        if (box != null) {
-            nodeIsRef = new LongHashSet();
-        }
     }
 
     @Override
@@ -232,8 +228,10 @@ public class OsmPbfParser extends BinaryParser {
                     continue; // trim before we add tags
                 }
                 // flag the Node as referenced for the ways we keep
+                // unreferenced nodes will be removed in a later step
+                // once all data has been loaded into the Storage object
                 for (Node nd : way.getNodes()) {
-                    nodeIsRef.put(nd.getOsmId());
+                   storage.addNodeRef(nd.getOsmId());
                 }
             }
             int tagCount = w.getKeysCount();
@@ -270,14 +268,7 @@ public class OsmPbfParser extends BinaryParser {
 
     @Override
     public void complete() {
-        if (box != null) {
-            // remove all unreferenced nodes that are not in the bounding box
-            for (Node nd : storage.getNodes()) {
-                if (!nodeIsRef.contains(nd.getOsmId()) && !box.contains(nd.getLon(), nd.getLat())) {
-                    storage.removeNode(nd);
-                }
-            }
-        }
+        // do nothing
     }
 
     /**
