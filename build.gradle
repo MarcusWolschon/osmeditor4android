@@ -256,8 +256,8 @@ android {
     buildTypes {
         debug {
             testCoverageEnabled true
-            // minifyEnabled true
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-shrink-only.txt','proguard-rules.pro'
             // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
         release {
@@ -445,6 +445,7 @@ dependencies {
     implementation 'ch.poole.android:numberpickerpreference:1.0.1'
     implementation 'de.westnordost:countryboundaries:1.2'
     implementation 'com.github.sevar83:indeterminate-checkbox:1.0.5@aar'
+    implementation 'de.ruedigermoeller:fst:2.56'
     // for temp stuff during dev
     // implementation(name:'alibrary', ext:'jar')
 

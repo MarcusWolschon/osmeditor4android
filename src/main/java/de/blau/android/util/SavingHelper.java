@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +29,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.App;
 import de.blau.android.R;
 
 /**
@@ -99,11 +103,11 @@ public class SavingHelper<T extends Serializable> {
                 Log.i(DEBUG_TAG, "saving  " + filename);
                 String tempFilename = filename + "." + System.currentTimeMillis();
                 out = context.openFileOutput(tempFilename, Context.MODE_PRIVATE);
-                if (compress) {
-                    out = new GZIPOutputStream(out);
-                }
-                objectOut = new ObjectOutputStream(out);
-                objectOut.writeObject(object);
+                FSTObjectOutput outFST = App.getFSTInstance().getObjectOutput(out);
+                outFST.writeObject(object);
+                // DON'T out.close() when using factory method;
+                outFST.flush();
+                out.close();
                 rename(context, filename, filename + ".backup"); // don't overwrite last saved state
                 rename(context, tempFilename, filename); // rename to expected name
                 Log.i(DEBUG_TAG, "saved " + filename + " successfully");
@@ -186,12 +190,11 @@ public class SavingHelper<T extends Serializable> {
                     result = null;
                     return;
                 }
-                if (compressed) {
-                    in = new GZIPInputStream(in);
-                }
-                objectIn = new ObjectInputStream(in);
+                FSTObjectInput inFST = App.getFSTInstance().getObjectInput(in);
                 @SuppressWarnings("unchecked") // casting exceptions are caught by the exception handler
-                T object = (T) objectIn.readObject();
+                T object = (T) inFST.readObject();
+                // DON'T: in.close(); here prevents reuse and will result in an exception      
+                in.close();
                 Log.d(DEBUG_TAG, "loaded " + filename + " successfully");
                 result = object;
             } catch (IOException ioex) {

@@ -7,6 +7,7 @@ import org.acra.annotation.AcraHttpSender;
 import org.acra.sender.HttpSender;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.ScriptableObject;
+import org.nustaq.serialization.FSTConfiguration;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
@@ -570,5 +571,10 @@ public class App extends android.app.Application {
      */
     public static String getUserAgent() {
         return userAgent;
+    }
+    
+    private static FSTConfiguration singletonConf = FSTConfiguration.createDefaultConfiguration();
+    public static FSTConfiguration getFSTInstance() {
+        return singletonConf;
     }
 }

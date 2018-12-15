@@ -11,6 +11,11 @@
 -dontwarn org.mozilla.javascript.tools.debugger.**
 -dontwarn com.adobe.xmp.**
 -dontnote org.apache.commons.codec.**
+-dontwarn com.sun.jdi.**
+-dontwarn java.applet.Applet
+-dontwarn sun.misc.*
+-dontwarn sun.nio.ch.FileChannelImpl
+-dontwarn sun.reflect.ReflectionFactory
 
 -keepnames class * implements java.io.Serializable
  
