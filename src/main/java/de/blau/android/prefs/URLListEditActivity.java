@@ -244,8 +244,10 @@ public abstract class URLListEditActivity extends ListActivity
      * @param textView the TextView
      * @param colorRes the color resource id
      */
-    void changeBackgroundColor(TextView textView, int colorRes) {
-        textView.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, colorRes), PorterDuff.Mode.SRC_ATOP);
+    void changeBackgroundColor(@Nullable TextView textView, int colorRes) {
+        if (textView != null) {
+            textView.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, colorRes), PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
     /**
