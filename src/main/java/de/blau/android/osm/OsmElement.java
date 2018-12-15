@@ -309,11 +309,15 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * Write the element attributes in XML format
      * 
      * @param s the Serializer
+     * @param changeSetId the current changeset id or null
      * @param josm if true use josm format
      * @throws IOException
      */
-    protected void attributesToXml(final XmlSerializer s, boolean josm) throws IOException {
+    protected void attributesToXml(final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
         s.attribute("", "id", Long.toString(osmId));
+        if (changeSetId != null) {
+            s.attribute("", "changeset", Long.toString(changeSetId));
+        }
         if (josm) {
             if (state == OsmElement.STATE_DELETED) {
                 s.attribute("", "action", "delete");

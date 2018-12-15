@@ -181,26 +181,28 @@ public class Relation extends OsmElement implements BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, false);
+        toXml(s, changeSetId, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, true);
+        toXml(s, null, true);
     }
 
     /**
      * Generate XML format OSM files
      * 
      * @param s the XML serializer
+     * @param changeSetId the current changeset id or null
      * @param josm if true use JOSM format
      * @throws IllegalArgumentException
      * @throws IllegalStateException
      * @throws IOException
      */
-    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "relation");
-        attributesToXml(s, josm);
+    private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
+            throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", NAME);
+        attributesToXml(s, changeSetId, josm);
         for (RelationMember member : members) {
             s.startTag("", "member");
             s.attribute("", "type", member.getType());
@@ -208,9 +210,8 @@ public class Relation extends OsmElement implements BoundedObject {
             s.attribute("", "role", member.getRole());
             s.endTag("", "member");
         }
-
         tagsToXml(s);
-        s.endTag("", "relation");
+        s.endTag("", NAME);
     }
 
     /**

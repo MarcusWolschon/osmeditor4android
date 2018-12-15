@@ -111,26 +111,28 @@ public class Way extends OsmElement implements BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, false);
+        toXml(s, changeSetId, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, true);
+        toXml(s, null, true);
     }
 
     /**
      * Generate XML format OSM files
      * 
      * @param s the XML serializer
+     * @param changeSetId the current changeset id
      * @param josm if true use JOSM format
      * @throws IllegalArgumentException
      * @throws IllegalStateException
      * @throws IOException
      */
-    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "way");
-        attributesToXml(s, josm);
+    private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
+            throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", NAME);
+        attributesToXml(s, changeSetId, josm);
         if (nodes != null) {
             for (Node node : nodes) {
                 s.startTag("", "nd");
@@ -142,7 +144,7 @@ public class Way extends OsmElement implements BoundedObject {
             throw new IllegalArgumentException("Way " + getOsmId() + " has no nodes");
         }
         tagsToXml(s);
-        s.endTag("", "way");
+        s.endTag("", NAME);
     }
 
     /**

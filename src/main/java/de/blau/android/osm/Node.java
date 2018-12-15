@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
@@ -86,30 +88,32 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
 
     @Override
     public void toXml(final XmlSerializer s, final Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, false);
+        toXml(s, changeSetId, false);
     }
 
     @Override
     public void toJosmXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        toXml(s, true);
+        toXml(s, null, true);
     }
 
     /**
      * Generate XML format OSM files
      * 
      * @param s the XML serializer
+     * @param changeSetId the current changeset id or null
      * @param josm if true use JOSM format
      * @throws IllegalArgumentException
      * @throws IllegalStateException
      * @throws IOException
      */
-    private void toXml(final XmlSerializer s, boolean josm) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startTag("", "node");
-        attributesToXml(s, josm);
+    private void toXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm)
+            throws IllegalArgumentException, IllegalStateException, IOException {
+        s.startTag("", NAME);
+        attributesToXml(s, changeSetId, josm);
         s.attribute("", "lat", Double.toString((lat / 1E7)));
         s.attribute("", "lon", Double.toString((lon / 1E7)));
         tagsToXml(s);
-        s.endTag("", "node");
+        s.endTag("", NAME);
     }
 
     @Override
