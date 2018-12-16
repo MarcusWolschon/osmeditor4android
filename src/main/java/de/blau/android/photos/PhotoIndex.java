@@ -251,7 +251,7 @@ public class PhotoIndex extends SQLiteOpenHelper {
      * Return all photographs in a given bounding box If necessary fill in-memory index first
      * 
      * @param box the BoundingBox we are interested in
-     * @return a BoundingBox
+     * @return a Collection of the Photos in the BoundingBox
      */
     @NonNull
     public Collection<Photo> getPhotos(@NonNull BoundingBox box) {

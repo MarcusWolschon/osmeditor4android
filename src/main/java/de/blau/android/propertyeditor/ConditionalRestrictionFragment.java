@@ -132,6 +132,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
      * @param ohTemplates opening hour templates
      * @return an instance of ConditionalRestrictionFragment
      */
+    @NonNull
     public static ConditionalRestrictionFragment newInstance(@NonNull String key, @Nullable String value, @NonNull ArrayList<String> templates,
             @NonNull ArrayList<String> ohTemplates) {
         ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
