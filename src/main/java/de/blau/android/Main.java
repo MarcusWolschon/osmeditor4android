@@ -1519,6 +1519,7 @@ public class Main extends FullScreenAppCompatActivity
         boolean gpsProviderEnabled = haveLocationProvider(locationProviders, LocationManager.GPS_PROVIDER) && locationPermissionGranted;
         boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
                 && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
+        boolean hasMapSplitSource = prefs.getServer().hasMapSplitSource();
         // just as good as any other place to check this
         if (locationProviderEnabled) {
             showFollowButton();
@@ -1530,7 +1531,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
+        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && (networkConnected || hasMapSplitSource))
                 .setChecked(prefs.getAutoDownload());
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
@@ -1564,8 +1565,8 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
         }
 
-        menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected);
-        menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected);
+        menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected || hasMapSplitSource);
+        menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected || hasMapSplitSource);
         menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
