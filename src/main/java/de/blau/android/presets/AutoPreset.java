@@ -350,16 +350,18 @@ public class AutoPreset {
         String autopresetGroupName = context.getString(R.string.preset_autopreset);
 
         try {
-            File autoIcon = new File(FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), AutoPreset.ICON);
+            File autoPresetDir = FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET);
+            File autoIcon = new File(autoPresetDir, AutoPreset.ICON);
             if (!autoIcon.exists()) {
                 for (int i = 0; i < ICONS.length; i++) {
                     try {
-                        FileUtil.copyFileFromAssets(context, "images/" + ICONS[i],
-                                FileUtil.getPublicDirectory(FileUtil.getPublicDirectory(), Paths.DIRECTORY_PATH_AUTOPRESET), ICONSDEST[i]);
+                        FileUtil.copyFileFromAssets(context, "images/" + ICONS[i], autoPresetDir, ICONSDEST[i]);
                     } catch (IOException e) {
                         Log.e(DEBUG_TAG, "Icon not found " + ICONS[i] + " " + e.getMessage());
                     }
                 }
+                // add .nomedia file to stop the directory being indexed
+                (new File(autoPresetDir, ".nomedia")).createNewFile();
             }
         } catch (IOException e) {
             // don't fail because of an exception here
