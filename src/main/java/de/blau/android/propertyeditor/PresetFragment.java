@@ -87,7 +87,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     /** The type of OSM element to which the preset will be applied (used for filtering) */
     private ElementType type;
 
-    private Preset      dummyPreset;
+    private Preset      rootPreset;
     private PresetGroup currentGroup;
     private PresetGroup rootGroup;
 
@@ -161,7 +161,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return presetPaneLayout;
         }
 
-        Preset rootPreset = App.getCurrentRootPreset(getActivity());
+        rootPreset = App.getCurrentRootPreset(getActivity());
         if (alternateRootPaths != null && !alternateRootPaths.isEmpty()) {
             PresetElement alternativeRootElement = Preset.getElementByPath(rootPreset.getRootGroup(), alternateRootPaths.get(0));
             if (alternativeRootElement instanceof PresetGroup) {
@@ -290,7 +290,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         if (type != null) {
             this.type = type;
         }
-        dummyPreset.addToRootGroup(App.getCurrentPresets(getContext()));
+        rootPreset.addToRootGroup(App.getCurrentPresets(getContext()));
         LinearLayout presetLayout = (LinearLayout) getOurView().getParent();
         if (presetLayout != null) {
             presetLayout.removeAllViews();
