@@ -1435,14 +1435,18 @@ public class TileLayerServer {
      * Clear all cached logos
      */
     public static void clearLogos() {
-        for (TileLayerServer tls : backgroundServerList.values()) {
-            if (tls != null) {
-                tls.clearLogoDrawable();
+        if (backgroundServerList != null) {
+            for (TileLayerServer tls : backgroundServerList.values()) {
+                if (tls != null) {
+                    tls.clearLogoDrawable();
+                }
             }
         }
-        for (TileLayerServer tls : overlayServerList.values()) {
-            if (tls != null) {
-                tls.clearLogoDrawable();
+        if (overlayServerList != null) {
+            for (TileLayerServer tls : overlayServerList.values()) {
+                if (tls != null) {
+                    tls.clearLogoDrawable();
+                }
             }
         }
     }
