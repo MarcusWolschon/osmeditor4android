@@ -62,7 +62,7 @@
 -keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
 }
--keep class * implements com.mapbox.geojson.GeoJSON
+
 -keep class sun.misc.Unsafe { *; }
 
 -keepattributes Signature

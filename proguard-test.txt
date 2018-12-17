@@ -1,0 +1,25 @@
+-ignorewarnings
+
+-keepattributes *Annotation*
+
+-dontnote junit.framework.**
+-dontnote junit.runner.**
+
+-dontwarn android.test.**
+-dontwarn android.support.test.**
+-dontwarn org.junit.**
+-dontwarn org.hamcrest.**
+-dontwarn com.squareup.javawriter.JavaWriter
+-dontwarn java.beans.**
+-dontwarn org.xmlpull.v1.XmlPullParser
+
+-keep class com.squareup.okhttp3.** { *; } 
+-keep class pl.droidsonroids.yaml.** { *; } 
+-keep class de.blau.android.** { *; } 
+-keep class com.orhanobut.mockwebserverplus.** { *; } 
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**

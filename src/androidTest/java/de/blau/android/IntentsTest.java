@@ -86,7 +86,6 @@ public class IntentsTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        // instrumentation.removeMonitor(mainMonitor);
         try {
             mockServer.server().shutdown();
             mockServerNotes.server().shutdown();

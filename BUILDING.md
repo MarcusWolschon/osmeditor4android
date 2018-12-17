@@ -5,6 +5,10 @@ The code has been re-factored to use the compatibility libraries from Google ins
 
 Given that Google randomly makes incompatible changes to these and regularly drops existing functionality, you are on your own if you use any other version than what is configured for gradle.
 
+## Proguard (12.0 and later)
+
+All builds now require proguard to be enabled as we have gone over the limit for the number of references in a normal APK.
+
 ## Build flavors (11.2 and later)
 
 Due to the forced upgrade policy from google from November 1st 2018 onwards we are now supporting two build flavors: _current_ that will target a recent Android SDK and support library and _legacy_ that will support old Android versions as long as practical.
@@ -78,4 +82,4 @@ Automated testing has come relatively late to Vespucci, however we have made lar
 
 Tests need to be run with the emulator set to English and with the "high precision" (aka GPS and network) location option set, currently the only OS version all tests run on successfully is 8.0 and probably later.
 
-On an Intel based emulator the tests currently take something around 25 minutes to complete.
+On an Intel based emulator the tests currently take something around 35 minutes to complete.

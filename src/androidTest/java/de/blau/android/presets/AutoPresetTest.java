@@ -101,7 +101,7 @@ public class AutoPresetTest {
         // de-duping
         Preset.removeItem(main, "amenity\tpayment_centre");
         Preset.removeItem(main, "amenity\tpayment_terminal");
-        
+
         AutoPreset autoPreset = new AutoPreset(context);
         Preset fromTaginfo = autoPreset.fromTaginfo("payment", 3);
         Assert.assertTrue(fromTaginfo.getItemByName("amenity payment_centre") != null);

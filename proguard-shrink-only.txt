@@ -1,2 +1,11 @@
 -dontobfuscate
 -dontoptimize
+# as references from testing classes are not considered when 
+# applying proguard to the build we need to explicitly keep here
+# note: we simply wholesale keep everything in these packages
+# as there is no advantage to doing it fine grained for testing
+-keep class de.blau.android.** { *; } 
+-keep class org.xmlpull.v1.** { *; } 
+-keep class okhttp3.** { *; }
+-keep class okio.** { *; }
+-keep class org.mozilla.javascript.** { *; } 

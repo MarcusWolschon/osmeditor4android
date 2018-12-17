@@ -258,6 +258,7 @@ android {
             testCoverageEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-shrink-only.txt','proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-shrink-only.txt','proguard-test.txt','proguard-rules.pro'
             // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
         }
         release {

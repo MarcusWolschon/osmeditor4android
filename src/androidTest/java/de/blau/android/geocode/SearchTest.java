@@ -45,6 +45,9 @@ public class SearchTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -79,6 +82,9 @@ public class SearchTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         try {
@@ -89,6 +95,9 @@ public class SearchTest {
         prefDB.deleteGeocoder("Nominatim2");
     }
 
+    /**
+     * Query Nominatim
+     */
     @Test
     public void nominatim() {
         // http://nominatim.openstreetmap.org/search?q=bergdietikon&viewboxlbrt=-8.6723573%2C24.892276%2C34.6636399%2C66.2221988&format=jsonv2
@@ -108,11 +117,14 @@ public class SearchTest {
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
         Assert.assertTrue(TestUtils.findText(device, false, "Bergdietikon"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Bergdietikon", true));
-        ViewBox vb = ((Main)main).getMap().getViewBox();
+        ViewBox vb = ((Main) main).getMap().getViewBox();
         Assert.assertEquals(47.3898401D, vb.getCenterLat(), 0.001D);
-        Assert.assertEquals(8.3865262D, ((vb.getRight()-vb.getLeft())/2 + vb.getLeft())/1E7D, 0.001D);
+        Assert.assertEquals(8.3865262D, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
     }
 
+    /**
+     * Query photon
+     */
     @Test
     public void photon() {
         // http://photon.komoot.de/api?q=bergdietikon&lat=49.7333397512672&lon=12.9956413&limit=10
@@ -131,8 +143,8 @@ public class SearchTest {
         Assert.assertTrue(TestUtils.clickText(device, true, "SEARCH", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Search results"));
         Assert.assertTrue(TestUtils.clickTextContains(device, false, "Bergdietikon", true));
-        ViewBox vb = ((Main)main).getMap().getViewBox();
+        ViewBox vb = ((Main) main).getMap().getViewBox();
         Assert.assertEquals(47.391823D, vb.getCenterLat(), 0.001D);
-        Assert.assertEquals(8.3717616, ((vb.getRight()-vb.getLeft())/2 + vb.getLeft())/1E7D, 0.001D);
+        Assert.assertEquals(8.3717616, ((vb.getRight() - vb.getLeft()) / 2 + vb.getLeft()) / 1E7D, 0.001D);
     }
 }
