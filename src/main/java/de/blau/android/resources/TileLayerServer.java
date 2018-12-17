@@ -1269,7 +1269,8 @@ public class TileLayerServer {
      * @param timeStamp the date string to parse
      * @return the time value or -1 if parsing failed
      */
-    private static long dateStringToTime(String timeStamp) {
+    @NonNull
+    private static long dateStringToTime(@Nullable String timeStamp) {
         long result = -1L;
         if (timeStamp != null && !"".equals(timeStamp)) {
             String[] parts = timeStamp.split("T");
@@ -1281,7 +1282,7 @@ public class TileLayerServer {
                 } else if (l < 8) {
                     f = "yyyy-MM";
                 }
-                Date d = DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).parse(parts[0]);
+                Date d = DateFormatter.getUtcFormat(f).parse(parts[0]);
                 result = d.getTime();
             } catch (ParseException e) {
                 Log.e(DEBUG_TAG, "Invalid RFC3339 value (" + f + ") " + timeStamp + " " + e.getMessage());
