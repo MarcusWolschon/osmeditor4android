@@ -143,17 +143,11 @@
 "amenity/nightclub":[
 "Club de Noapte"
 ],
-"amenity/parking":[
-" Parcare de Mașini"
-],
 "amenity/parking_entrance":[
 "Intrare/Ieșire Garaj"
 ],
 "amenity/parking_space":[
 "Loc de Parcare"
-],
-"amenity/pavilion":[
-"Pavilion"
 ],
 "amenity/pharmacy":[
 "Farmacie"
@@ -280,9 +274,6 @@
 ],
 "building":[
 "Clădire"
-],
-"building/apartments":[
-"Apartamente"
 ],
 "building/barn":[
 "Grajd"
@@ -440,15 +431,6 @@
 "entrance":[
 "Intrare/Ieșire"
 ],
-"footway/crossing":[
-"Traversare"
-],
-"footway/crosswalk":[
-"Traversare de Pietoni"
-],
-"footway/sidewalk":[
-"Drum de Pietoni"
-],
 "ford":[
 "Vad"
 ],
@@ -466,12 +448,6 @@
 ],
 "highway/corridor":[
 "Coridor Interior"
-],
-"highway/crossing":[
-"Traversare de Stradă"
-],
-"highway/crosswalk":[
-"Traversare pentru Pietoni"
 ],
 "highway/cycleway":[
 "Pistă biciclete"
@@ -692,9 +668,6 @@
 "leisure/pitch/american_football":[
 "Teren de Fotbal American"
 ],
-"leisure/pitch/baseball":[
-"Teren de Baseball"
-],
 "leisure/pitch/basketball":[
 "Teren de Basket"
 ],
@@ -761,9 +734,6 @@
 "man_made/lighthouse":[
 "Far"
 ],
-"man_made/observation":[
-"Turn de Observație"
-],
 "man_made/pier":[
 "Chei"
 ],
@@ -781,9 +751,6 @@
 ],
 "man_made/surveillance":[
 "Supraveghere"
-],
-"man_made/surveillance_camera":[
-"Cameră de Supraveghere"
 ],
 "man_made/tower":[
 "Turn"
@@ -850,9 +817,6 @@
 ],
 "natural/tree":[
 "Copac"
-],
-"natural/tree_row":[
-"Rând de Copaci"
 ],
 "natural/volcano":[
 "Vulcan"
@@ -929,9 +893,6 @@
 "office/travel_agent":[
 "Agenție de Călătorii"
 ],
-"piste":[
-"Pistă de Schi"
-],
 "place":[
 "Loc"
 ],
@@ -976,12 +937,6 @@
 ],
 "power/generator":[
 "Generator de Energie"
-],
-"power/generator/source_nuclear":[
-"Reactor Nuclear"
-],
-"power/generator/source_wind":[
-"Turbină de Vânt"
 ],
 "power/line":[
 "Linie de Alimentare"

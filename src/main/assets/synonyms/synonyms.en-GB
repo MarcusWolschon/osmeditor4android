@@ -271,17 +271,11 @@
 "amenity/nursing_home":[
 "Nursing Home"
 ],
-"amenity/parking":[
-"Car Parking"
-],
 "amenity/parking_entrance":[
 "Parking Garage Entrance/Exit"
 ],
 "amenity/parking_space":[
 "Parking Space"
-],
-"amenity/pavilion":[
-"Pavilion"
 ],
 "amenity/pharmacy":[
 "Pharmacy"
@@ -340,9 +334,6 @@
 ],
 "amenity/ranger_station":[
 "Warden Station"
-],
-"amenity/recycling":[
-"Recycling Container"
 ],
 "amenity/recycling_centre":[
 "Recycling Centre"
@@ -451,9 +442,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Newspaper Vending Machine"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Parcel Pickup/Dropoff Vending Machine"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parking Ticket Vending Machine"
@@ -572,9 +560,6 @@
 "barrier/hedge":[
 "Hedge"
 ],
-"barrier/kerb":[
-"Kerb"
-],
 "barrier/kissing_gate":[
 "Kissing Gate"
 ],
@@ -598,9 +583,6 @@
 ],
 "building":[
 "Building"
-],
-"building/apartments":[
-"Apartments"
 ],
 "building/barn":[
 "Barn"
@@ -938,25 +920,6 @@
 "entrance":[
 "Entrance/Exit"
 ],
-"footway/crossing":[
-"Street Crossing"
-],
-"footway/crossing-raised":[
-"Raised Street Crossing"
-],
-"footway/crosswalk":[
-"Zebra Crossing"
-],
-"footway/crosswalk-raised":[
-"Raised Zebra Crossing"
-],
-"footway/sidewalk":[
-"sidewalk",
-"pavement",
-"Pavement",
-"footway",
-"footpath"
-],
 "ford":[
 "Ford"
 ],
@@ -1052,18 +1015,6 @@
 ],
 "highway/corridor":[
 "Indoor Corridor"
-],
-"highway/crossing":[
-"Street Crossing"
-],
-"highway/crossing-raised":[
-"Raised Street Crossing"
-],
-"highway/crosswalk":[
-"Zebra Crossing"
-],
-"highway/crosswalk-raised":[
-"Raised Zebra Crossing"
 ],
 "highway/cycleway":[
 "Cycle Path"
@@ -1434,9 +1385,6 @@
 "leisure/pitch/american_football":[
 "American Football Field"
 ],
-"leisure/pitch/baseball":[
-"Baseball Field"
-],
 "leisure/pitch/basketball":[
 "Basketball Court"
 ],
@@ -1557,9 +1505,6 @@
 "man_made/mast":[
 "Mast"
 ],
-"man_made/observation":[
-"Observation Tower"
-],
 "man_made/petroleum_well":[
 "Oil Well"
 ],
@@ -1580,9 +1525,6 @@
 ],
 "man_made/surveillance":[
 "Surveillance"
-],
-"man_made/surveillance_camera":[
-"Surveillance Camera"
 ],
 "man_made/survey_point":[
 "Survey Point"
@@ -1682,9 +1624,6 @@
 ],
 "natural/tree":[
 "Tree"
-],
-"natural/tree_row":[
-"Tree row"
 ],
 "natural/volcano":[
 "Volcano"
@@ -1830,9 +1769,6 @@
 "office/water_utility":[
 "Water Utility Office"
 ],
-"piste":[
-"Piste/Ski Trail"
-],
 "place":[
 "Place"
 ],
@@ -1928,12 +1864,6 @@
 ],
 "power/generator":[
 "Power Generator"
-],
-"power/generator/source_nuclear":[
-"Nuclear Reactor"
-],
-"power/generator/source_wind":[
-"Wind Turbine"
 ],
 "power/line":[
 "Power Line"

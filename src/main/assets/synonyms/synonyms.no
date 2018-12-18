@@ -112,9 +112,6 @@
 "amenity/nightclub":[
 "Nattklubb"
 ],
-"amenity/parking":[
-"Bilparkering"
-],
 "amenity/parking_entrance":[
 "Innkjøring/utkjøring parkeringsgarasje"
 ],
@@ -228,9 +225,6 @@
 ],
 "building":[
 "Bygning"
-],
-"building/apartments":[
-"Leiligheter"
 ],
 "building/barn":[
 "Låve"
@@ -460,15 +454,6 @@
 "entrance":[
 "Inngang/utgang"
 ],
-"footway/crossing":[
-"Fotgjengerovergang"
-],
-"footway/crosswalk":[
-"Fotgjengerovergang"
-],
-"footway/sidewalk":[
-"Fortau"
-],
 "ford":[
 "Vadested"
 ],
@@ -495,12 +480,6 @@
 ],
 "highway/bridleway":[
 "Ridevei"
-],
-"highway/crossing":[
-"Fotgjengerovergang"
-],
-"highway/crosswalk":[
-"Fotgjengerovergang"
 ],
 "highway/cycleway":[
 "Sykkelvei"
@@ -682,9 +661,6 @@
 "leisure/pitch/american_football":[
 "Amerikansk fotballbane"
 ],
-"leisure/pitch/baseball":[
-"Baseballbane"
-],
 "leisure/pitch/basketball":[
 "Basketballbane"
 ],
@@ -756,9 +732,6 @@
 ],
 "man_made/lighthouse":[
 "Fyrtårn"
-],
-"man_made/observation":[
-"Observasjonstårn"
 ],
 "man_made/petroleum_well":[
 "Oljebrønn"
@@ -843,9 +816,6 @@
 ],
 "natural/tree":[
 "Tre"
-],
-"natural/tree_row":[
-"Trerekke"
 ],
 "natural/volcano":[
 "Vulkan"

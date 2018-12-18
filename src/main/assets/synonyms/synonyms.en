@@ -403,6 +403,89 @@
 "Fast Food",
 "takeaway"
 ],
+"amenity/fast_food/burger":[
+"lunch",
+"Burger Fast Food",
+"dine",
+"dining",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/chicken":[
+"lunch",
+"dine",
+"Chicken Fast Food",
+"dining",
+"canteen",
+"eat",
+"breakfast",
+"dinner",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/fish_and_chips":[
+"lunch",
+"dining",
+"dinner",
+"french fries",
+"café",
+"cafe",
+"dine",
+"eat",
+"breakfast",
+"Fish & Chips Fast Food",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/kebab":[
+"lunch",
+"dining",
+"dinner",
+"Kebab Fast Food",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/fast_food/pizza":[
+"thin crust",
+"lunch",
+"dine",
+"slice",
+"dining",
+"deep dish",
+"eat",
+"dinner",
+"drive-in",
+"table",
+"Pizza Fast Food"
+],
+"amenity/fast_food/sandwich":[
+"lunch",
+"cafe",
+"dine",
+"dining",
+"eat",
+"Sandwich Fast Food",
+"breakfast",
+"dinner",
+"drive-in",
+"grill",
+"table",
+"café"
+],
 "amenity/fire_station":[
 "Fire Station"
 ],
@@ -522,6 +605,19 @@
 "house of worship",
 "temple"
 ],
+"amenity/money_transfer":[
+"Money Transfer Station",
+"cash to cash",
+"person to person",
+"bill",
+"currency",
+"wire transfer",
+"exchange",
+"money order",
+"check",
+"cable",
+"finance"
+],
 "amenity/motorcycle_parking":[
 "Motorcycle Parking"
 ],
@@ -543,8 +639,12 @@
 "Parking Space"
 ],
 "amenity/parking":[
-"parking lot",
-"car",
+"car lot",
+"car parking",
+"rv parking",
+"vehicle parking",
+"automobile parking",
+"truck parking",
 "Parking Lot"
 ],
 "amenity/parking/multi-storey":[
@@ -558,6 +658,29 @@
 "parking building",
 "parking deck",
 "Multilevel Parking Garage"
+],
+"amenity/payment_centre":[
+"bill pay",
+"money",
+"tax pay",
+"currency",
+"check",
+"Payment Center",
+"cash",
+"finance"
+],
+"amenity/payment_terminal":[
+"bill pay",
+"money transfer",
+"interactive kiosk",
+"phone pay",
+"tax pay",
+"ekiosk",
+"atm",
+"cash",
+"finance",
+"card",
+"Payment Terminal"
 ],
 "amenity/pharmacy":[
 "prescription",
@@ -756,6 +879,320 @@
 "cafe",
 "dine",
 "coffee",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/american":[
+"lunch",
+"dining",
+"American Restaurant",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"coffee",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/asian":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Asian Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/chinese":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"Chinese Restaurant",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/french":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"French Restaurant",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/german":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"German Restaurant",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/greek":[
+"gyros",
+"lunch",
+"Greek Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"olives",
+"pitas",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/indian":[
+"Indian Restaurant",
+"bar",
+"lunch",
+"dine",
+"dining",
+"eat",
+"breakfast",
+"dinner",
+"curry",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/italian":[
+"Italian Restaurant",
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"pizza",
+"pasta",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/japanese":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Japanese Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/mexican":[
+"lunch",
+"quesadillas",
+"fajitas",
+"dining",
+"nachos",
+"tortillas",
+"tacos",
+"enchiladas",
+"dinner",
+"burritos",
+"salsa",
+"Mexican Restaurant",
+"bar",
+"dine",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"tamales"
+],
+"amenity/restaurant/noodle":[
+"lunch",
+"soup",
+"dining",
+"cellophane noodles",
+"Noodle Restaurant",
+"rice noodles",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"soba noodles",
+"canteen",
+"eat",
+"ramen noodles",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/pizza":[
+"thin crust",
+"bar",
+"lunch",
+"dine",
+"slice",
+"dining",
+"deep dish",
+"eat",
+"Pizza Restaurant",
+"dinner",
+"drive-in",
+"table"
+],
+"amenity/restaurant/seafood":[
+"lunch",
+"oysters",
+"shrimp",
+"crustaceans",
+"octopus",
+"dining",
+"dinner",
+"café",
+"bar",
+"shellfish",
+"cafe",
+"dine",
+"Seafood Restaurant",
+"fish",
+"molluscs",
+"eat",
+"clams",
+"squid",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"lobsters",
+"crab"
+],
+"amenity/restaurant/steakhouse":[
+"lunch",
+"dining",
+"beef",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"steak house",
+"canteen",
+"eat",
+"Steakhouse",
+"breakfast",
+"drive-in",
+"grill",
+"table",
+"chop house"
+],
+"amenity/restaurant/sushi":[
+"lunch",
+"Sushi Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/thai":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"canteen",
+"eat",
+"breakfast",
+"Thai Restaurant",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/turkish":[
+"lunch",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
+"Turkish Restaurant",
+"canteen",
+"eat",
+"breakfast",
+"drive-in",
+"grill",
+"table"
+],
+"amenity/restaurant/vietnamese":[
+"lunch",
+"Vietnamese Restaurant",
+"dining",
+"dinner",
+"café",
+"bar",
+"cafe",
+"dine",
 "canteen",
 "eat",
 "breakfast",
@@ -1215,14 +1652,35 @@
 "barrier/fence":[
 "Fence"
 ],
+"barrier/fence/railing":[
+"handrail",
+"guard rail",
+"railing",
+"Railing"
+],
 "barrier/gate":[
 "Gate"
+],
+"barrier/guard_rail":[
+"Armco barrier",
+"Guard Rail",
+"traffic barrier",
+"median barrier",
+"guardrail",
+"crash barrier",
+"roadside barrier"
 ],
 "barrier/hedge":[
 "Hedge"
 ],
 "barrier/kerb":[
 "Curb"
+],
+"barrier/kerb/flush":[
+"level curb",
+"tactile curb",
+"Flush Curb",
+"even curb"
 ],
 "barrier/kerb/lowered":[
 "kerb ramp",
@@ -1272,7 +1730,7 @@
 "Train Station"
 ],
 "building/apartments":[
-"Apartments"
+"Apartment Building"
 ],
 "building/barn":[
 "Barn"
@@ -1917,6 +2375,12 @@
 "highway/bus_guideway":[
 "Bus Guideway"
 ],
+"highway/construction":[
+"Road Closed",
+"closed",
+"construction",
+"closure"
+],
 "highway/corridor":[
 "hallway",
 "passage",
@@ -2502,6 +2966,12 @@
 "landuse/residential":[
 "Residential Area"
 ],
+"landuse/residential/apartments":[
+"tenement",
+"flat",
+"residence",
+"Apartment Complex"
+],
 "landuse/retail":[
 "Retail Area"
 ],
@@ -2789,7 +3259,15 @@
 "Sport Pitch"
 ],
 "leisure/pitch/american_football":[
-"American Football Field"
+"gridiron",
+"American Football Field",
+"football"
+],
+"leisure/pitch/australian_football":[
+"Aussie",
+"AFL",
+"football",
+"Australian Football Field"
 ],
 "leisure/pitch/badminton":[
 "Badminton Court"
@@ -2823,6 +3301,9 @@
 "horseback",
 "dressage",
 "riding"
+],
+"leisure/pitch/netball":[
+"Netball Court"
 ],
 "leisure/pitch/rugby_league":[
 "Rugby League Field"
@@ -2874,7 +3355,8 @@
 "leisure/slipway":[
 "Slipway",
 "boat launch",
-"boat ramp"
+"boat ramp",
+"boat landing"
 ],
 "leisure/sports_centre":[
 "Sports Center / Complex"
@@ -2994,6 +3476,63 @@
 "radio mast",
 "communication mast"
 ],
+"man_made/mast/communication":[
+"antenna",
+"radio tower",
+"communication tower",
+"cell phone tower",
+"Communication Mast",
+"transmission tower",
+"transmission mast",
+"broadcast tower",
+"tv tower",
+"cell tower",
+"mobile phone tower",
+"guyed tower",
+"television tower",
+"radio mast",
+"communication mast"
+],
+"man_made/mast/communication/mobile_phone":[
+"antenna",
+"cell phone mast",
+"cell tower",
+"mobile phone tower",
+"communication tower",
+"Mobile Phone Mast",
+"cell phone tower",
+"guyed tower",
+"cell mast",
+"transmission tower",
+"communication mast",
+"transmission mast"
+],
+"man_made/mast/communication/radio":[
+"antenna",
+"broadcast tower",
+"radio tower",
+"communication tower",
+"Radio Broadcast Mast",
+"guyed tower",
+"radio mast",
+"transmission tower",
+"communication mast",
+"transmission mast"
+],
+"man_made/mast/communication/television":[
+"antenna",
+"broadcast tower",
+"tv tower",
+"communication tower",
+"guyed tower",
+"television tower",
+"tv mast",
+"television mast",
+"transmission tower",
+"Television Broadcast Mast",
+"communication mast",
+"transmission mast"
+],
 "man_made/monitoring_station":[
 "Monitoring Station",
 "seismology",
@@ -3001,11 +3540,6 @@
 "earthquake",
 "air",
 "gps"
-],
-"man_made/observation":[
-"lookout tower",
-"Observation Tower",
-"fire tower"
 ],
 "man_made/observatory":[
 "meteorological",
@@ -3052,21 +3586,6 @@
 "water",
 "Storage Tank"
 ],
-"man_made/surveillance_camera":[
-"alpr",
-"anpr",
-"guard",
-"video",
-"cctv",
-"monitoring",
-"security",
-"webcam",
-"license plate recognition",
-"car plate recognition",
-"Surveillance Camera",
-"number plate recognition",
-"camera"
-],
 "man_made/surveillance":[
 "alpr",
 "anpr",
@@ -3082,6 +3601,21 @@
 "number plate recognition",
 "camera"
 ],
+"man_made/surveillance/camera":[
+"alpr",
+"anpr",
+"guard",
+"video",
+"cctv",
+"monitoring",
+"security",
+"webcam",
+"license plate recognition",
+"car plate recognition",
+"Surveillance Camera",
+"number plate recognition",
+"camera"
+],
 "man_made/survey_point":[
 "triangulation pillar",
 "Survey Point",
@@ -3090,6 +3624,28 @@
 ],
 "man_made/tower":[
 "Tower"
+],
+"man_made/tower/communication":[
+"antenna",
+"radio tower",
+"communication tower",
+"cell phone tower",
+"transmission tower",
+"transmission mast",
+"broadcast tower",
+"tv tower",
+"cell tower",
+"mobile phone tower",
+"Communication Tower",
+"guyed tower",
+"television tower",
+"radio mast",
+"communication mast"
+],
+"man_made/tower/observation":[
+"lookout tower",
+"Observation Tower",
+"fire tower"
 ],
 "man_made/wastewater_plant":[
 "sewage*",
@@ -3464,6 +4020,9 @@
 "organization",
 "organisation",
 "non government"
+],
+"office/religion":[
+"Religious Office"
 ],
 "office/research":[
 "Research Office"
@@ -4563,6 +5122,9 @@
 "rug",
 "Carpet Store"
 ],
+"shop/catalogue":[
+"Catalog Shop"
+],
 "shop/charity":[
 "nonprofit",
 "thrift",
@@ -4603,6 +5165,9 @@
 ],
 "shop/cosmetics":[
 "Cosmetics Store"
+],
+"shop/country_store":[
+"Country Store"
 ],
 "shop/craft":[
 "art*",
@@ -4718,6 +5283,12 @@
 "fruit",
 "vegetable",
 "Greengrocer"
+],
+"shop/hairdresser_supply":[
+"shampoo",
+"Hairdresser Supply Store",
+"conditioner",
+"barber"
 ],
 "shop/hairdresser":[
 "Hairdresser",
@@ -4838,6 +5409,13 @@
 ],
 "shop/paint":[
 "Paint Store"
+],
+"shop/party":[
+"Party Supply Store",
+"balloons",
+"invitations",
+"decorations",
+"costumes"
 ],
 "shop/pastry":[
 "Pastry Shop",

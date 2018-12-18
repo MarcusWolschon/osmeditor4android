@@ -185,9 +185,6 @@
 "building":[
 "建筑物"
 ],
-"building/apartments":[
-"酒店公寓"
-],
 "building/house":[
 "房屋"
 ],
@@ -355,9 +352,6 @@
 ],
 "leisure/pitch/american_football":[
 "美式足球场"
-],
-"leisure/pitch/baseball":[
-"棒球场"
 ],
 "leisure/pitch/basketball":[
 "篮球场"

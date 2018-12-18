@@ -1,4 +1,19 @@
 {
+"highway":[
+"Hekurudhë"
+],
+"highway/cycleway":[
+"Rrugë biçikletash"
+],
+"highway/elevator":[
+"Ashensor"
+],
+"highway/footway":[
+"Rrugë këmbësorësh"
+],
+"highway/secondary":[
+"Rrugë Dytësore"
+],
 "place/city":[
 "Qytet"
 ],
@@ -11,7 +26,58 @@
 "railway/abandoned":[
 "Hekurudhë E Braktisur"
 ],
+"shop":[
+"Dyqan"
+],
+"shop/bakery":[
+"Furrë buke"
+],
+"shop/clothes":[
+"Dyqan Veshjesh"
+],
+"shop/dry_cleaning":[
+"Pastrim Kimik"
+],
 "shop/jewelry":[
 "Argjendar"
+],
+"shop/kiosk":[
+"Kioskë"
+],
+"shop/kitchen":[
+"Dyqan për Aredim të Kuzhinës"
+],
+"shop/laundry":[
+"Lavanderi"
+],
+"shop/optician":[
+"Okulist"
+],
+"shop/supermarket":[
+"Supermarket"
+],
+"tourism":[
+"Turizëm"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/information":[
+"Informacion"
+],
+"tourism/information/map":[
+"Hartë"
+],
+"type/boundary/administrative":[
+"Kufi Administrativ"
+],
+"waterway/canal":[
+"Kanal"
+],
+"waterway/river":[
+"Lumë"
+],
+"waterway/waterfall":[
+"Ujëvarë"
 ]
 }

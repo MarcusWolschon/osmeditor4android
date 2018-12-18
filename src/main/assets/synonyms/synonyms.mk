@@ -200,9 +200,6 @@
 "amenity/nightclub":[
 "Ноќен клуб"
 ],
-"amenity/parking":[
-"Паркиралиште"
-],
 "amenity/parking_entrance":[
 "Влез/излез на покриено паркиралиште"
 ],
@@ -323,9 +320,6 @@
 "amenity/vending_machine/news_papers":[
 "<преведете со истозначници или сродни поими на „Автомат за весници“, одделени со запирки>"
 ],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Автомат за оставање/подигање пратки"
-],
 "amenity/vending_machine/parking_tickets":[
 "Паркинг-автомат"
 ],
@@ -412,9 +406,6 @@
 ],
 "building":[
 "Градба"
-],
-"building/apartments":[
-"Станбена зграда"
 ],
 "building/barn":[
 "Амбар"
@@ -689,15 +680,6 @@
 "entrance":[
 "Влез/излез"
 ],
-"footway/crossing":[
-"Уличен премин"
-],
-"footway/crosswalk":[
-"Пешачки премин"
-],
-"footway/sidewalk":[
-"Тротоар"
-],
 "ford":[
 "Брод"
 ],
@@ -742,12 +724,6 @@
 ],
 "highway/corridor":[
 "Покриен премин"
-],
-"highway/crossing":[
-"Уличен премин"
-],
-"highway/crosswalk":[
-"Пешачки премин"
 ],
 "highway/cycleway":[
 "Велосипедска патека"
@@ -1016,9 +992,6 @@
 "leisure/pitch/american_football":[
 "Игралиште за американски фудбал"
 ],
-"leisure/pitch/baseball":[
-"Игралиште за бејзбол"
-],
 "leisure/pitch/basketball":[
 "Кошаркарско игралиште"
 ],
@@ -1103,9 +1076,6 @@
 "man_made/lighthouse":[
 "Светилник"
 ],
-"man_made/observation":[
-"Набљудувачница"
-],
 "man_made/petroleum_well":[
 "Нафтен извор"
 ],
@@ -1126,9 +1096,6 @@
 ],
 "man_made/surveillance":[
 "Надзор"
-],
-"man_made/surveillance_camera":[
-"Видеонадзор"
 ],
 "man_made/survey_point":[
 "Надзорно место"
@@ -1208,9 +1175,6 @@
 "natural/tree":[
 "Дрво"
 ],
-"natural/tree_row":[
-"Дрворед"
-],
 "natural/volcano":[
 "Вулкан"
 ],
@@ -1279,9 +1243,6 @@
 ],
 "office/travel_agent":[
 "Туристичка агенција"
-],
-"piste":[
-"Скијачка патека"
 ],
 "place":[
 "Место"

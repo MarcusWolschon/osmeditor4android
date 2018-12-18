@@ -256,12 +256,6 @@
 "amenity/nursing_home":[
 "دار التمريض"
 ],
-"amenity/parking":[
-"موقف سيارات",
-"مركن سيارات",
-"مواقف سيارات عامة ، مصف للسيارات، مواقف مركبات عمومية",
-"جراج"
-],
 "amenity/parking_entrance":[
 "مدخل",
 "مخرج",
@@ -316,9 +310,6 @@
 ],
 "amenity/ranger_station":[
 "محطة الحراسة"
-],
-"amenity/recycling":[
-"حاوية إعادة تدوير"
 ],
 "amenity/recycling_centre":[
 "مركز إعادة تدوير"
@@ -524,11 +515,6 @@
 ],
 "building":[
 "مبنى"
-],
-"building/apartments":[
-"شقة",
-"شقق",
-"بيت"
 ],
 "building/barn":[
 "حظيرة",
@@ -794,18 +780,6 @@
 "مدخل ومخرج",
 "دخول; خروج; مدخل; مخرج"
 ],
-"footway/crossing":[
-"معبر; عبور; عبور طريق; عبور شارع; معبر شارع; معبر طريق",
-"معبر طريق"
-],
-"footway/crosswalk":[
-"ممر; معبر; مشاة; ناس; اشخاص; عبور; مرور",
-"معبر مشاة"
-],
-"footway/sidewalk":[
-"رصيف المشاة",
-"رصيف"
-],
 "ford":[
 "ممر مائي",
 "ممر مائي; ممر; مائي; ماء"
@@ -867,14 +841,6 @@
 "highway/corridor":[
 "ممر داخلي; رواق",
 "ممر داخلي"
-],
-"highway/crossing":[
-"معبر; عبور; عبور طريق; عبور شارع; معبر شارع; معبر طريق",
-"معبر طريق"
-],
-"highway/crosswalk":[
-"ممر; معبر; مشاة; ناس; اشخاص; عبور; مرور",
-"معبر مشاة"
 ],
 "highway/cycleway":[
 "طريق دراجات; مسار دراجات",
@@ -1220,9 +1186,6 @@
 "leisure/pitch/american_football":[
 "ملعب كرة قدم أمريكية"
 ],
-"leisure/pitch/baseball":[
-"ملعب بيسبول"
-],
 "leisure/pitch/basketball":[
 "ملعب كرة السلة"
 ],
@@ -1339,10 +1302,6 @@
 "man_made/monitoring_station":[
 "محطة الرصد"
 ],
-"man_made/observation":[
-"برج مراقبة",
-"برمج المراقبة، أبراج المراقبة، أبراج المشاهدة،"
-],
 "man_made/observatory":[
 "مرصد"
 ],
@@ -1368,9 +1327,6 @@
 ],
 "man_made/surveillance":[
 "مراقبة"
-],
-"man_made/surveillance_camera":[
-"كاميرا مراقبة"
 ],
 "man_made/survey_point":[
 "نقطة مسح"
@@ -1473,10 +1429,6 @@
 ],
 "natural/tree":[
 "شجرة"
-],
-"natural/tree_row":[
-"خط الأشجار; صف من الأشجار",
-"خط الأشجار"
 ],
 "natural/volcano":[
 "بركان"
@@ -1641,9 +1593,6 @@
 "office/water_utility":[
 "شركة المياه"
 ],
-"piste":[
-"منحدر تزلج"
-],
 "place":[
 "قصر"
 ],
@@ -1696,13 +1645,6 @@
 "power/generator":[
 "مولد طاقة",
 "مولد الطاقة"
-],
-"power/generator/source_nuclear":[
-"محطة طاقة نووية",
-" محطة طاقة نووية "
-],
-"power/generator/source_wind":[
-"عنفة رياح"
 ],
 "power/line":[
 "خط الكهرباء",

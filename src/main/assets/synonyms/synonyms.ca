@@ -358,21 +358,11 @@
 "amenity/nursing_home":[
 "Llar d'avis"
 ],
-"amenity/parking":[
-"parking",
-"Aparcament",
-"Pàrquing",
-"Parking",
-"Garatge"
-],
 "amenity/parking_entrance":[
 "Entrada de Garatge/Sortida"
 ],
 "amenity/parking_space":[
 "Espai d'aparcament"
-],
-"amenity/pavilion":[
-"Pabelló"
 ],
 "amenity/pharmacy":[
 "establiment de venda de medicaments",
@@ -469,9 +459,6 @@
 ],
 "amenity/ranger_station":[
 "Base d'Agents Rurals"
-],
-"amenity/recycling":[
-"Contenidor de reciclatge"
 ],
 "amenity/recycling_centre":[
 "Centre de Reciclatge"
@@ -603,9 +590,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Màquina expenedora de diaris"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Màquina de recollida/enviament de paqueteria"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Màquina de cobrament de tiquet d'aparcament"
@@ -787,12 +771,6 @@
 "Nau industrial",
 "Oficines",
 "Barraca"
-],
-"building/apartments":[
-"Bloc",
-"Pisos",
-"Apartaments",
-"Bloc de pisos"
 ],
 "building/barn":[
 "Graner"
@@ -1160,21 +1138,6 @@
 "entrance":[
 "Entrada/Sortida"
 ],
-"footway/crossing":[
-"Creuament de carrer"
-],
-"footway/crossing-raised":[
-"Pas de carrer sobre-elevat"
-],
-"footway/crosswalk":[
-"Pas de vianants"
-],
-"footway/crosswalk-raised":[
-"Pas de vianants sobre-elevat"
-],
-"footway/sidewalk":[
-"Vorera"
-],
 "ford":[
 "Ford"
 ],
@@ -1227,12 +1190,6 @@
 ],
 "highway/corridor":[
 "Corredor interior"
-],
-"highway/crossing":[
-"Creuament de carrer"
-],
-"highway/crosswalk":[
-"Pas de vianants"
 ],
 "highway/cycleway":[
 "Via verda",
@@ -1635,10 +1592,6 @@
 "Estadi de futbol americà",
 "Camp de futbol americà"
 ],
-"leisure/pitch/baseball":[
-"Pista de beisbol",
-"Camp de beisbol"
-],
 "leisure/pitch/basketball":[
 "Pavelló de bàsquet",
 "Pista de bàsquet"
@@ -1735,9 +1688,6 @@
 "man_made/lighthouse":[
 "Far"
 ],
-"man_made/observation":[
-"Torre de vigilància"
-],
 "man_made/petroleum_well":[
 "Pou petrolífer"
 ],
@@ -1763,9 +1713,6 @@
 ],
 "man_made/surveillance":[
 "Vigilància"
-],
-"man_made/surveillance_camera":[
-"Càmera de vigilància"
 ],
 "man_made/survey_point":[
 "Punt referencial",
@@ -1856,9 +1803,6 @@
 ],
 "natural/tree":[
 "Arbre"
-],
-"natural/tree_row":[
-"Fila d'arbres"
 ],
 "natural/volcano":[
 "Volcà"
@@ -1971,9 +1915,6 @@
 "office/travel_agent":[
 "Agència de viatges"
 ],
-"piste":[
-"Pista d'esquí"
-],
 "place":[
 "Lloc"
 ],
@@ -2023,9 +1964,6 @@
 ],
 "power/generator":[
 "Generador elèctric"
-],
-"power/generator/source_nuclear":[
-"Reactor nuclear"
 ],
 "power/line":[
 "Línia elèctrica"

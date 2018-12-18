@@ -228,6 +228,9 @@
 "fietsbanden",
 "Openbaar fietsgereedschap"
 ],
+"amenity/biergarten":[
+"Biergarten"
+],
 "amenity/boat_rental":[
 "boten",
 "Bootverhuur",
@@ -375,6 +378,9 @@
 "tandheelkundige",
 "mond"
 ],
+"amenity/dive_centre":[
+"Duikcentrum"
+],
 "amenity/doctors":[
 "huisarts",
 "Dokter",
@@ -494,6 +500,9 @@
 "Gebied van Crèche/Kleuterschool",
 "kinderdagverblijf"
 ],
+"amenity/language_school":[
+"Taalschool"
+],
 "amenity/library":[
 "Bibliotheek",
 "boeken",
@@ -549,13 +558,8 @@
 "Verpleeghuis"
 ],
 "amenity/parking":[
-"parkeerplaats",
-"parkeergelegenheid voor meerdere voertuigen",
-"Autoparking",
-"parkeergarage",
-"garage",
-"parkeergebouw",
-"autoparking"
+"Parkeerplaats",
+"Parkeerterrein"
 ],
 "amenity/parking_entrance":[
 "inrit",
@@ -566,10 +570,6 @@
 "Parkeerplaats binnen parkeergelegenheid",
 "individuele parkeerplaats",
 "parkeervak"
-],
-"amenity/pavilion":[
-"Paviljoen",
-"prieel"
 ],
 "amenity/pharmacy":[
 "Apotheek",
@@ -694,12 +694,6 @@
 "amenity/ranger_station":[
 "Boswachtershut"
 ],
-"amenity/recycling":[
-"glasbol",
-"Recyclagecontainer",
-"recycling",
-"milieustraat"
-],
 "amenity/recycling_centre":[
 "milieupark",
 "containerpark",
@@ -715,6 +709,51 @@
 "Restaurant",
 "pizzeria",
 "snackbar"
+],
+"amenity/restaurant/american":[
+"Amerikaans Restaurant"
+],
+"amenity/restaurant/asian":[
+"Aziatisch Restaurant"
+],
+"amenity/restaurant/chinese":[
+"Chinees Restaurant"
+],
+"amenity/restaurant/french":[
+"Frans Restaurant"
+],
+"amenity/restaurant/german":[
+"Duits Restaurant"
+],
+"amenity/restaurant/greek":[
+"Grieks Restaurant"
+],
+"amenity/restaurant/indian":[
+"Indisch Restaurant"
+],
+"amenity/restaurant/italian":[
+"Italiaans Restaurant"
+],
+"amenity/restaurant/japanese":[
+"Japans Restaurant"
+],
+"amenity/restaurant/mexican":[
+"Mexicaans Restaurant"
+],
+"amenity/restaurant/pizza":[
+"Pizza Restaurant"
+],
+"amenity/restaurant/sushi":[
+"Sushi Restaurant"
+],
+"amenity/restaurant/thai":[
+"Thais Restaurant"
+],
+"amenity/restaurant/turkish":[
+"Turks Restaurant"
+],
+"amenity/restaurant/vietnamese":[
+"Vietnamees Restaurant"
 ],
 "amenity/sanitary_dump_station":[
 "kampeerwagen",
@@ -924,12 +963,7 @@
 "Krantenautomaat"
 ],
 "amenity/vending_machine/parcel_pickup_dropoff":[
-"Pakketautomaat",
-"pakjesautomaat",
-"postautomaat",
-"leveringsautomaat",
-"automaat",
-"pakketjesautomaat"
+"Pakketautomaat"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkeerticketautomaat",
@@ -1152,12 +1186,6 @@
 "Haag",
 "haag"
 ],
-"barrier/kerb":[
-"borduur",
-"trottoirband",
-"boordsteen",
-"Stoeprand"
-],
 "barrier/kissing_gate":[
 "veehek",
 "kushek",
@@ -1200,16 +1228,6 @@
 "bouwwerk",
 "Gebouw",
 "bouwsel"
-],
-"building/apartments":[
-"flatgebouw",
-"wolkenkrabber",
-"appartementsgebouw",
-"Appartementen",
-"woongebouw",
-"apartementen",
-"flats",
-"residentie"
 ],
 "building/barn":[
 "stal",
@@ -1763,8 +1781,7 @@
 "wijnfabriek"
 ],
 "embankment":[
-"Dijk",
-"dijk"
+"Dijk"
 ],
 "emergency/ambulance_station":[
 "ambulancegarage",
@@ -1838,32 +1855,6 @@
 "Ingang/Uitgang",
 "ingang",
 "uitgang"
-],
-"footway/crossing":[
-"Zebrapad",
-"oversteekplaats"
-],
-"footway/crossing-raised":[
-"verhoogde inrichting",
-"verkeersdrempel",
-"Verhoogd zebrapad",
-"oversteekplaats op verhoogde inrichting",
-"verkeerstableau",
-"verkeerstafel",
-"drempel"
-],
-"footway/crosswalk":[
-"Brits zebrapad zonder verkeerslichten",
-"zebrapad"
-],
-"footway/crosswalk-raised":[
-"Britse oversteekplaats op verhoogde inrichting",
-"Verhoogd Brits zebrapad zonder verkeerslichten"
-],
-"footway/sidewalk":[
-"stoep",
-"voetpad",
-"Trottoir"
 ],
 "ford":[
 "trecht",
@@ -2052,27 +2043,6 @@
 "hal",
 "binnen",
 "binnenshuis"
-],
-"highway/crossing":[
-"Zebrapad",
-"oversteekplaats"
-],
-"highway/crossing-raised":[
-"verhoogde inrichting",
-"verkeersdrempel",
-"Verhoogd zebrapad",
-"oversteekplaats op verhoogde inrichting",
-"verkeerstableau",
-"verkeerstafel",
-"drempel"
-],
-"highway/crosswalk":[
-"Brits zebrapad zonder verkeerslichten",
-"zebrapad"
-],
-"highway/crosswalk-raised":[
-"Britse oversteekplaats op verhoogde inrichting",
-"Verhoogd Brits zebrapad zonder verkeerslichten"
 ],
 "highway/cycleway":[
 "Fietspad",
@@ -2284,6 +2254,9 @@
 "trappen",
 "Trap"
 ],
+"highway/steps/conveying":[
+"Roltrap"
+],
 "highway/stop":[
 "stopstreep",
 "Stopbord",
@@ -2435,6 +2408,12 @@
 "bermmonument",
 "wegkapelletje",
 "veldschrijn"
+],
+"historic/wreck":[
+"Scheepswrak"
+],
+"internet_access/wlan":[
+"Wi-Fi Hotspot"
 ],
 "junction":[
 "rotonde",
@@ -2641,6 +2620,7 @@
 "wijngaard"
 ],
 "leisure":[
+"Recreatie",
 "Vrije tijd"
 ],
 "leisure/adult_gaming_centre":[
@@ -2816,7 +2796,8 @@
 "Schaatsbaan"
 ],
 "leisure/marina":[
-"Jachthaven"
+"Jachthaven",
+"Marina"
 ],
 "leisure/miniature_golf":[
 "hole",
@@ -2854,9 +2835,11 @@
 "Americanfootball-veld",
 "Amerikaans voetbalveld"
 ],
+"leisure/pitch/badminton":[
+"badmintonveld"
+],
 "leisure/pitch/baseball":[
-"Honkbalveld",
-"baseballveld"
+"Honkbalveld"
 ],
 "leisure/pitch/basketball":[
 "Basketbalveld"
@@ -3096,6 +3079,12 @@
 "zendmast",
 "tv-mast"
 ],
+"man_made/mast/communication/radio":[
+"Radio Zendmast"
+],
+"man_made/mast/communication/television":[
+"Televisie Zendmast"
+],
 "man_made/monitoring_station":[
 "observatiestation",
 "observatieapparatuur",
@@ -3109,9 +3098,6 @@
 "luchtmeetstation",
 "Meetstation",
 "luchtkwaliteitmeetstation"
-],
-"man_made/observation":[
-"Uitkijktoren"
 ],
 "man_made/observatory":[
 "sterrenwacht",
@@ -3154,12 +3140,8 @@
 "Bewaking",
 "cctv"
 ],
-"man_made/surveillance_camera":[
-"Bewakingscamera",
-"webcam",
-"surveillance",
-"camera",
-"cctv"
+"man_made/surveillance/camera":[
+"Bewakingscamera"
 ],
 "man_made/survey_point":[
 "geodesisch referentiepunt",
@@ -3168,6 +3150,9 @@
 ],
 "man_made/tower":[
 "Toren"
+],
+"man_made/tower/communication":[
+"Communicatietoren"
 ],
 "man_made/wastewater_plant":[
 "zuiveringsstation",
@@ -3252,6 +3237,7 @@
 "afgrond"
 ],
 "natural/coastline":[
+"Kust",
 "Kustlijn"
 ],
 "natural/fell":[
@@ -3332,8 +3318,6 @@
 "Boom"
 ],
 "natural/tree_row":[
-"laan",
-"rij bomen",
 "Bomenrij"
 ],
 "natural/volcano":[
@@ -3625,9 +3609,6 @@
 "Kantoor van watermaatschappij",
 "waterleidingsmaatschappij*"
 ],
-"piste":[
-"Skipiste"
-],
 "place":[
 "Plaats"
 ],
@@ -3671,9 +3652,9 @@
 ],
 "place/quarter":[
 "wijk",
+"Wijk",
 "stadsdeel",
-"buurt",
-"Kwartier"
+"buurt"
 ],
 "place/square":[
 "open plaats",
@@ -3682,7 +3663,7 @@
 ],
 "place/suburb":[
 "kwartier",
-"Wijk",
+"Stadsdeel",
 "stadsdeel",
 "buurt"
 ],
@@ -3779,14 +3760,11 @@
 "windturbine",
 "elektriciteitscentrale"
 ],
-"power/generator/source_nuclear":[
-"Kernreactor",
-"kerncentrale",
-"kernreactor"
+"power/generator/method/photovoltaic":[
+"Zonnepaneel"
 ],
-"power/generator/source_wind":[
-"Windturbine",
-"windmolen"
+"power/generator/source/wind":[
+"Wind Turbine"
 ],
 "power/line":[
 "hoogspanningslijn",

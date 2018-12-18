@@ -503,12 +503,6 @@
 "amenity/nursing_home":[
 "Ápolóotthon"
 ],
-"amenity/parking":[
-"gépkocsi-parkoló",
-"Autóparkoló",
-"parkoló",
-"várakozóhely"
-],
 "amenity/parking_entrance":[
 "garázsbejárat",
 "parkolóház",
@@ -519,10 +513,6 @@
 "Parkolóhely",
 "várakozó hely",
 "parkolópont"
-],
-"amenity/pavilion":[
-"kiállítócsarnok",
-"Pavilon"
 ],
 "amenity/pharmacy":[
 "gyógyszer",
@@ -647,9 +637,6 @@
 "táborozás",
 "természetjárás",
 "Nemzeti park látogatóközpontja"
-],
-"amenity/recycling":[
-"Szelektív hulladékgyűjtő konténer"
 ],
 "amenity/recycling_centre":[
 "szeméttelep",
@@ -833,10 +820,6 @@
 "Újságárusító automata",
 "automata",
 "újság"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Csomagfeladó, -felvevő automata",
-"csomagautomata"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkolójegy-automata",
@@ -1085,12 +1068,6 @@
 "lakás",
 "építmény",
 "Épület"
-],
-"building/apartments":[
-"tömbház",
-"bérház",
-"Társasház",
-"Lakások"
 ],
 "building/barn":[
 "Pajta",
@@ -1532,10 +1509,7 @@
 "Borászat"
 ],
 "embankment":[
-"Töltés",
-"vasúti töltés",
-"hát",
-"kiemelkedés"
+"Töltés"
 ],
 "emergency/ambulance_station":[
 "Mentőautó állomás",
@@ -1598,34 +1572,6 @@
 ],
 "entrance":[
 "Bejárat/Kijárat"
-],
-"footway/crossing":[
-"zebra",
-"gyalogátkelő",
-"Gyalogosátkelő"
-],
-"footway/crossing-raised":[
-"lassító",
-"Kiemelt útkereszteződés",
-"bukkanó",
-"fekvő rendőr",
-"sebesség"
-],
-"footway/crosswalk":[
-"zebra",
-"gyalogátkelő",
-"Gyalogátkelőhely"
-],
-"footway/crosswalk-raised":[
-"zebra",
-"lassító",
-"átkelő",
-"Kiemelt gyalogátkelőhely",
-"bukkanó",
-"sebesség"
-],
-"footway/sidewalk":[
-"Járda"
 ],
 "ford":[
 "Gázló"
@@ -1801,31 +1747,6 @@
 "highway/corridor":[
 "Beltéri folyosó",
 "beltéri folyosó"
-],
-"highway/crossing":[
-"zebra",
-"gyalogátkelő",
-"Gyalogosátkelő"
-],
-"highway/crossing-raised":[
-"lassító",
-"Kiemelt útkereszteződés",
-"bukkanó",
-"fekvő rendőr",
-"sebesség"
-],
-"highway/crosswalk":[
-"zebra",
-"gyalogátkelő",
-"Gyalogátkelőhely"
-],
-"highway/crosswalk-raised":[
-"zebra",
-"lassító",
-"átkelő",
-"Kiemelt gyalogátkelőhely",
-"bukkanó",
-"sebesség"
 ],
 "highway/cycleway":[
 "Bicikliút",
@@ -2349,9 +2270,6 @@
 "Amerikai foci pálya",
 "Amerikaifutball-pálya"
 ],
-"leisure/pitch/baseball":[
-"Baseballpálya"
-],
 "leisure/pitch/basketball":[
 "Kosárlabdapálya"
 ],
@@ -2525,11 +2443,6 @@
 "man_made/monitoring_station":[
 "Megfigyelőállomás"
 ],
-"man_made/observation":[
-"kilátó",
-"megfigyelőtorony",
-"Kilátótorony"
-],
 "man_made/observatory":[
 "Obszervatórium"
 ],
@@ -2563,11 +2476,6 @@
 "biztonsági kamera",
 "Térfigyelő kamera",
 "CCTV"
-],
-"man_made/surveillance_camera":[
-"megfigyelő kamera",
-"biztonsági kamera",
-"Térfigyelő kamera"
 ],
 "man_made/survey_point":[
 "Megfigyelőpont",
@@ -2717,10 +2625,6 @@
 ],
 "natural/tree":[
 "Fa"
-],
-"natural/tree_row":[
-"fasor",
-"Fasor"
 ],
 "natural/volcano":[
 "vulkán",
@@ -2883,11 +2787,6 @@
 "office/travel_agent":[
 "Utazási iroda"
 ],
-"piste":[
-"sífutóút",
-"lesiklópálya",
-"Sípálya"
-],
 "place":[
 "Hely"
 ],
@@ -3023,18 +2922,6 @@
 "generátor",
 "áram",
 "Áramfejlesztő"
-],
-"power/generator/source_nuclear":[
-"reaktor",
-"atomerőmű",
-"Atomreaktor",
-"atom"
-],
-"power/generator/source_wind":[
-"turbina",
-"generátor",
-"szél",
-"Szélturbina"
 ],
 "power/line":[
 "Távvezeték",

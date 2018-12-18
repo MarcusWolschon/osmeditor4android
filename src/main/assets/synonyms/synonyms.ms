@@ -54,9 +54,6 @@
 "amenity/nightclub":[
 "Kelab Malam"
 ],
-"amenity/parking":[
-"Tempat Letak Kereta"
-],
 "amenity/parking_space":[
 "Ruang Letak Kenderaan"
 ],
@@ -114,9 +111,6 @@
 ],
 "amenity/ranger_station":[
 "Stesen Renjer"
-],
-"amenity/recycling":[
-"Bekas Kitar Semula"
 ],
 "amenity/recycling_centre":[
 "Pusat Kitar Semula"
@@ -182,9 +176,6 @@
 ],
 "building":[
 "Bangunan"
-],
-"building/apartments":[
-"Rumah-rumah Pangsa"
 ],
 "building/cabin":[
 "Kabin"
@@ -418,9 +409,6 @@
 "office/water_utility":[
 "Pejabat Pembekal Air"
 ],
-"piste":[
-"Piste/Denai Ski"
-],
 "place":[
 "Tempat"
 ],
@@ -468,12 +456,6 @@
 ],
 "power/generator":[
 "Penjana Tenaga Elektrik"
-],
-"power/generator/source_nuclear":[
-"Reaktor Nuklear"
-],
-"power/generator/source_wind":[
-"Turbin Angin"
 ],
 "power/line":[
 "Talian Elektrik"

@@ -193,6 +193,12 @@
 "維修自行車",
 "自行車維修站"
 ],
+"amenity/biergarten":[
+"戶外啤酒店",
+"露天啤酒店",
+"啤酒店",
+"啤酒花園"
+],
 "amenity/boat_rental":[
 "租艇",
 "Boat Rental",
@@ -316,6 +322,10 @@
 "齒科",
 "牙醫"
 ],
+"amenity/dive_centre":[
+"潛水中心",
+"Dive Center"
+],
 "amenity/doctors":[
 "醫師",
 "醫生"
@@ -350,6 +360,38 @@
 "快餐店",
 "速食店",
 "Fast Food"
+],
+"amenity/fast_food/burger":[
+"漢堡包快餐",
+"漢堡包",
+"漢堡麭快餐",
+"漢堡快餐"
+],
+"amenity/fast_food/chicken":[
+"雞快餐",
+"炸雞快餐",
+"炸雞"
+],
+"amenity/fast_food/fish_and_chips":[
+"炸魚及薯條快餐",
+"炸魚",
+"薯條"
+],
+"amenity/fast_food/kebab":[
+"串燒烤肉",
+"土耳其烤肉快餐",
+"土耳其串燒",
+"烤肉"
+],
+"amenity/fast_food/pizza":[
+"Pizza",
+"意式薄餅",
+"意大利薄餅",
+"薄餅快餐"
+],
+"amenity/fast_food/sandwich":[
+"三文治快餐",
+"三明治"
 ],
 "amenity/ferry_terminal":[
 "客運碼頭"
@@ -423,6 +465,11 @@
 "幼稚園用地",
 "學前照顧/幼稚園範圍"
 ],
+"amenity/language_school":[
+"外語學校",
+"外文學校",
+"語言學校"
+],
 "amenity/library":[
 "圖書館",
 "Library"
@@ -437,6 +484,18 @@
 "菜市場",
 "市場",
 "街市"
+],
+"amenity/monastery":[
+"寺院範圍",
+"廟宇",
+"道寺",
+"寺廟",
+"道觀"
+],
+"amenity/money_transfer":[
+"滙款中心",
+"匯款",
+"滙款店"
 ],
 "amenity/motorcycle_parking":[
 "摩托車停車場",
@@ -455,8 +514,17 @@
 "護養院"
 ],
 "amenity/parking":[
+"停車位",
 "Car Parking",
-"停車場"
+"泊車位",
+"停車場",
+"泊車場"
+],
+"amenity/parking/multi-storey":[
+"多層停車場",
+"多層泊車場",
+"停車場",
+"泊車場"
 ],
 "amenity/parking_entrance":[
 "停車場入口",
@@ -470,9 +538,17 @@
 "停車空間",
 "泊車處"
 ],
-"amenity/pavilion":[
-"Pavilion",
-"亭"
+"amenity/payment_centre":[
+"繳費處",
+"付款處",
+"付費處",
+"繳費中心"
+],
+"amenity/payment_terminal":[
+"收費機",
+"繳費機",
+"付款機",
+"繳費終端機"
 ],
 "amenity/pharmacy":[
 "葯房",
@@ -621,15 +697,18 @@
 "郊野公園遊客中心"
 ],
 "amenity/recycling":[
-"Recycling Container",
-"回收箱",
-"回收桶"
+"回收設施"
 ],
 "amenity/recycling_centre":[
 "資源回收中心",
 "廢物回收中心",
 "回收中心",
 "Recycling Center"
+],
+"amenity/recycling_container":[
+"三色桶",
+"回收箱",
+"回收桶"
 ],
 "amenity/register_office":[
 "人事登記處"
@@ -643,6 +722,81 @@
 "飯館",
 "餐館",
 "茶樓"
+],
+"amenity/restaurant/american":[
+"美國餐廳",
+"美式餐廳"
+],
+"amenity/restaurant/asian":[
+"亞式餐廳",
+"亞洲餐廳"
+],
+"amenity/restaurant/chinese":[
+"中國餐廳",
+"中式餐廳"
+],
+"amenity/restaurant/french":[
+"法國餐廳",
+"法式餐廳"
+],
+"amenity/restaurant/german":[
+"德式餐廳",
+"德國餐廳"
+],
+"amenity/restaurant/greek":[
+"希臘餐廳",
+"希臘式餐廳"
+],
+"amenity/restaurant/indian":[
+"印度餐廳",
+"印度式餐廳"
+],
+"amenity/restaurant/italian":[
+"意式餐廳",
+"意大利餐廳"
+],
+"amenity/restaurant/japanese":[
+"日式餐廳",
+"日本餐廳"
+],
+"amenity/restaurant/mexican":[
+"墨西哥式餐廳",
+"墨西哥餐廳"
+],
+"amenity/restaurant/noodle":[
+"麵店",
+"麵食餐廳",
+"麵食店"
+],
+"amenity/restaurant/pizza":[
+"薄餅餐廳",
+"意大利薄餅餐廳",
+"意式薄餅餐廳"
+],
+"amenity/restaurant/seafood":[
+"海鮮餐廳"
+],
+"amenity/restaurant/steakhouse":[
+"扒房",
+"鋸扒",
+"牛扒屋"
+],
+"amenity/restaurant/sushi":[
+"壽司店",
+"廻轉壽司",
+"壽司餐廳"
+],
+"amenity/restaurant/thai":[
+"泰國餐廳",
+"泰式餐廳"
+],
+"amenity/restaurant/turkish":[
+"土耳其式餐廳",
+"土耳其餐廳"
+],
+"amenity/restaurant/vietnamese":[
+"越南餐廳",
+"越式餐廳"
 ],
 "amenity/sanitary_dump_station":[
 "露營車廁所廢物收集"
@@ -791,9 +945,6 @@
 "Newspaper Vending Machine",
 "報紙售賣機",
 "報紙販賣機"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"包裹領件/投寄機"
 ],
 "amenity/vending_machine/parking_tickets":[
 "停車票售賣機",
@@ -985,13 +1136,6 @@
 "Hedge",
 "樹籬"
 ],
-"barrier/kerb":[
-"路緣",
-"Kerb",
-"路邊",
-"路緣石",
-"路邊石"
-],
 "barrier/kissing_gate":[
 "Kissing Gate",
 "單人轉門 ",
@@ -1035,11 +1179,6 @@
 "Building",
 "屋宇",
 "建築物"
-],
-"building/apartments":[
-"Apartments",
-"分層屋宇",
-"公寓"
 ],
 "building/barn":[
 "穀倉",
@@ -1414,6 +1553,10 @@
 "搭棚",
 "棚架工程"
 ],
+"craft/sculptor":[
+"雕像",
+"雕塑"
+],
 "craft/shoemaker":[
 "皮鞋匠",
 "鞋匠"
@@ -1454,12 +1597,7 @@
 "葡萄酒廠"
 ],
 "embankment":[
-"基堤",
-"堤",
-"路堤",
-"Embankment",
-"堤壩",
-"堤岸"
+"路堤"
 ],
 "emergency/ambulance_station":[
 "十字車",
@@ -1480,15 +1618,36 @@
 "emergency/destination":[
 "緊急通道目的地"
 ],
+"emergency/fire_alarm":[
+"火警召喚",
+"火警召喚箱",
+"火警鐘"
+],
+"emergency/fire_extinguisher":[
+"滅火筒",
+"滅火器"
+],
 "emergency/fire_hydrant":[
 "消防栓",
 "Fire Hydrant",
 "消防龍頭"
 ],
+"emergency/first_aid_kit":[
+"急救",
+"急救箱",
+"First Aid Kit",
+"medkit",
+"救護",
+"醫療箱",
+"繃帶"
+],
 "emergency/life_ring":[
 "救生圈",
 "救生水泡",
 "Life Ring"
+],
+"emergency/lifeguard":[
+"救生員"
 ],
 "emergency/no":[
 "非緊急通道"
@@ -1512,27 +1671,6 @@
 "入口",
 "出入口",
 "入口/出口"
-],
-"footway/crossing":[
-"行人過路處"
-],
-"footway/crossing-raised":[
-"Raised Street Crossing",
-"升高的過路處"
-],
-"footway/crosswalk":[
-"行人過路處",
-"行人過路線",
-"斑馬線"
-],
-"footway/crosswalk-raised":[
-"Raised Pedestrian Crosswalk",
-"隆起的行人過路處"
-],
-"footway/sidewalk":[
-"行人路",
-"Sidewalk",
-"行人道"
 ],
 "ford":[
 "淺灘",
@@ -1660,21 +1798,6 @@
 "highway/corridor":[
 "室內走廊",
 "室內通道"
-],
-"highway/crossing":[
-"十字路口"
-],
-"highway/crossing-raised":[
-"Raised Street Crossing",
-"隆起的過路處"
-],
-"highway/crosswalk":[
-"行人過路處",
-"行人過路線"
-],
-"highway/crosswalk-raised":[
-"Raised Pedestrian Crosswalk",
-"隆起的行人過路處"
 ],
 "highway/cycleway":[
 "自行車道",
@@ -2252,10 +2375,6 @@
 "美式足球場",
 "American Football Field"
 ],
-"leisure/pitch/baseball":[
-"棒球場",
-"Baseball Field"
-],
 "leisure/pitch/basketball":[
 "籃球場",
 "Basketball Court",
@@ -2422,11 +2541,6 @@
 "Mast",
 "天線塔"
 ],
-"man_made/observation":[
-"瞭望臺",
-"瞭望塔",
-"Observation Tower"
-],
 "man_made/petroleum_well":[
 "油井"
 ],
@@ -2466,12 +2580,6 @@
 "Surveillance",
 "監視系統",
 "保安系統"
-],
-"man_made/surveillance_camera":[
-"防盜相機",
-"Surveillance Camera",
-"監察攝像機",
-"CCTV"
 ],
 "man_made/survey_point":[
 "測量點",
@@ -2637,10 +2745,6 @@
 "Tree",
 "樹"
 ],
-"natural/tree_row":[
-"樹排",
-"樹行"
-],
 "natural/volcano":[
 "火山"
 ],
@@ -2771,11 +2875,19 @@
 "電訊公司辦公室",
 "Telecom Office"
 ],
+"office/therapist":[
+"治療師辦公室",
+"治療師",
+"醫療師",
+"Therapist"
+],
 "office/travel_agent":[
 "旅行社"
 ],
-"piste":[
-"滑雪道"
+"office/water_utility":[
+"水上設施辦公室",
+"Water Utility Office",
+"滑水"
 ],
 "place":[
 "地方"
@@ -2853,19 +2965,6 @@
 "power/generator":[
 "Power Generator",
 "發電機"
-],
-"power/generator/source_nuclear":[
-"核反應堆",
-"核子反應爐",
-"Nuclear Reactor",
-"核子反應堆",
-"核反應爐"
-],
-"power/generator/source_wind":[
-"Wind Turbine",
-"風力渦輪機",
-"風力發電機",
-"風力渦輪"
 ],
 "power/line":[
 "電纜",

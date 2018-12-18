@@ -251,9 +251,6 @@
 "amenity/nursing_home":[
 "خانه سالمندان"
 ],
-"amenity/parking":[
-"پارکینگ خودرو"
-],
 "amenity/parking_entrance":[
 "ورودی/خروجی پارکینگ"
 ],
@@ -413,10 +410,6 @@
 "amenity/vending_machine/newspapers":[
 "دستگاه فروش خودکار روزنامه"
 ],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"سرویس دریافت امانات پستی، دستگاه دریافت کننده مرسولات پستی",
-"سرویس دریافت مرسولات پستی، دستگاه دریافت مرسولات پستی"
-],
 "amenity/vending_machine/parking_tickets":[
 "دستگاه فروش خودکار کارت پارکینگ"
 ],
@@ -527,9 +520,6 @@
 ],
 "building":[
 "ساختمان"
-],
-"building/apartments":[
-"آپارتمان"
 ],
 "building/barn":[
 "انبار کاه",
@@ -839,15 +829,6 @@
 "entrance":[
 "ورود/خروج"
 ],
-"footway/crossing":[
-"تقاطع خیابانی"
-],
-"footway/crosswalk":[
-"محل عبور عابر پیاده"
-],
-"footway/sidewalk":[
-"پیاده رو"
-],
 "ford":[
 "معبر"
 ],
@@ -925,12 +906,6 @@
 ],
 "highway/corridor":[
 "راهروی داخلی"
-],
-"highway/crossing":[
-"تقاطع خیابانی"
-],
-"highway/crosswalk":[
-"محل عبور عابر پیاده"
 ],
 "highway/cycleway":[
 "مسیر دوچرخه سواری"
@@ -1245,9 +1220,6 @@
 "leisure/pitch/american_football":[
 "میدان فوتبال آمریکایی"
 ],
-"leisure/pitch/baseball":[
-"الماسی شکل بیسبال"
-],
 "leisure/pitch/basketball":[
 "محوطه بسکتبال"
 ],
@@ -1350,9 +1322,6 @@
 "man_made/mast":[
 "دکل مخابراتی"
 ],
-"man_made/observation":[
-"برج رصد"
-],
 "man_made/observatory":[
 "رصد خانه"
 ],
@@ -1376,9 +1345,6 @@
 ],
 "man_made/surveillance":[
 "تجهیزات نظارتی"
-],
-"man_made/surveillance_camera":[
-"دوربین نظارت"
 ],
 "man_made/survey_point":[
 "نقطه مطالعاتی"
@@ -1464,9 +1430,6 @@
 ],
 "natural/tree":[
 "درخت"
-],
-"natural/tree_row":[
-"ردیف درخت"
 ],
 "natural/volcano":[
 "آتشفشان"
@@ -1579,9 +1542,6 @@
 "office/travel_agent":[
 "آژانس مسافرتی"
 ],
-"piste":[
-"پیست/ مسیر اسکی"
-],
 "place":[
 "محل"
 ],
@@ -1635,12 +1595,6 @@
 ],
 "power/generator":[
 "مولد برق"
-],
-"power/generator/source_nuclear":[
-"راکتور هسته‌ای"
-],
-"power/generator/source_wind":[
-"توربین بادی"
 ],
 "power/line":[
 "خط نیرو"

@@ -29,9 +29,6 @@
 "amenity/library":[
 "ލައިބްރަރީ"
 ],
-"amenity/parking":[
-"ކާރު ޕާރކުކުރާ ސަރަޙައްދު"
-],
 "amenity/place_of_worship":[
 "އަޅުކަންކުރާ ތަންތަން"
 ],
@@ -56,9 +53,6 @@
 "building":[
 "އިމާރާތް"
 ],
-"building/apartments":[
-"އެޕާރޓްމަންޓްތައް"
-],
 "building/commercial":[
 "ވިިޔަފާރި ޢިމާރާތްތައް"
 ],
@@ -74,14 +68,8 @@
 "building/residential":[
 "މީީހުން ދިރިއުޅޭ ޢިމާރާތްތައް"
 ],
-"footway/crosswalk":[
-"ކަަފިހި ހުރަސް"
-],
 "highway":[
 "ހައިވޭ"
-],
-"highway/crosswalk":[
-"ކަަފިހި ހުރަސް"
 ],
 "highway/path":[
 "ދުވާރު"

@@ -553,13 +553,6 @@
 "amenity/nursing_home":[
 "Ošetrovateľské centum"
 ],
-"amenity/parking":[
-"Parkovisko",
-"parkovisko",
-"garaz",
-"parkovanie",
-"garáž"
-],
 "amenity/parking_entrance":[
 "vchod/vychod do garaze",
 "garaz",
@@ -573,10 +566,6 @@
 "parkovisko",
 "miesto na parkovanie",
 "Parkovacie miesto"
-],
-"amenity/pavilion":[
-"pavilon",
-"Pavilón"
 ],
 "amenity/pharmacy":[
 "lekaren",
@@ -880,6 +869,9 @@
 "divadlo",
 "predstavenie"
 ],
+"amenity/theatre/type/amphi":[
+"Amfiteáter"
+],
 "amenity/toilets":[
 "záchod",
 "toalety",
@@ -951,12 +943,6 @@
 "noviny",
 "casopisy",
 "Automat na noviny"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Automat na odosielanie/príjem balíkov",
-"balíky",
-"automat na dodsielanie/prijem balikov",
-"baliky"
 ],
 "amenity/vending_machine/parking_tickets":[
 "automat na parkovacie listky",
@@ -1176,20 +1162,6 @@
 "chatrc",
 "buda",
 "chyza"
-],
-"building/apartments":[
-"činžiak",
-"panelak",
-"panelák",
-"obytna budova",
-"Bytovka",
-"veziak",
-"cinziak",
-"apartmány",
-"vežiak",
-"barak",
-"barák",
-"apartmany"
 ],
 "building/barn":[
 "stajna",
@@ -1644,11 +1616,7 @@
 "pivnica"
 ],
 "embankment":[
-"val",
-"hrádza",
-"Násyp",
-"hradza",
-"nasyp"
+"Násyp"
 ],
 "emergency/ambulance_station":[
 "garáže",
@@ -1712,19 +1680,6 @@
 "vchodove dvere",
 "vchod/vychod"
 ],
-"footway/crossing":[
-"prechod pre chodcov",
-"Prechod"
-],
-"footway/crosswalk":[
-"zebra",
-"Prechod pre chodcov",
-"prechod"
-],
-"footway/sidewalk":[
-"Chodník",
-"chodnik"
-],
 "ford":[
 "rieka",
 "prechod cez rieku",
@@ -1780,16 +1735,6 @@
 "chodba",
 "Chodba v budove",
 "hala"
-],
-"highway/crossing":[
-"zebra",
-"prechod pre chodcov",
-"Prechod"
-],
-"highway/crosswalk":[
-"zebra",
-"Prechod pre chodcov",
-"prechod"
 ],
 "highway/cycleway":[
 "cestička",
@@ -2430,12 +2375,6 @@
 "Ihrisko americkeho futbalu",
 "americky futbal"
 ],
-"leisure/pitch/baseball":[
-"basebal",
-"basebalove ihrisko",
-"Basebalové ihrisko",
-"baseball"
-],
 "leisure/pitch/basketball":[
 "basketbalove ihrisko",
 "basket",
@@ -2598,14 +2537,6 @@
 "majak",
 "vystraha"
 ],
-"man_made/observation":[
-"vyhliadkova veza",
-"veza",
-"Výhliadková veža",
-"veža",
-"vyhliadka",
-"výhliadka"
-],
 "man_made/petroleum_well":[
 "Ropný vrt",
 "ropny vrt",
@@ -2672,6 +2603,9 @@
 "stlp",
 "stoziar",
 "Veža"
+],
+"man_made/tower/observation":[
+"Vyhliadkova veža"
 ],
 "man_made/wastewater_plant":[
 "cisticka odpadovych vod",
@@ -2838,12 +2772,6 @@
 "listnatý strom",
 "listnaty strom"
 ],
-"natural/tree_row":[
-"Rad stromov",
-"stromoradie",
-"aleja",
-"alej"
-],
 "natural/volcano":[
 "sopka",
 "vulkán",
@@ -2958,13 +2886,6 @@
 "office/travel_agent":[
 "Cestovná agentúra"
 ],
-"piste":[
-"lyziarska draha",
-"lyziarsky svah",
-"lyžiarská svah",
-"Lyžiarská dráha",
-"svah"
-],
 "place":[
 "Obec"
 ],
@@ -3052,16 +2973,6 @@
 "vodna",
 "tepelna"
 ],
-"power/generator/source_nuclear":[
-"nukleárny reaktor",
-"jadrovy reaktor",
-"nuklearny reaktor",
-"Jadrový reaktor"
-],
-"power/generator/source_wind":[
-"veterna elektraren",
-"Veterná elektráreň"
-],
 "power/line":[
 "vedenie",
 "Elektrické vedenie",
@@ -3144,6 +3055,9 @@
 "zeleznica",
 "železnica",
 "Železničná trať"
+],
+"railway/station":[
+"Vlaková stanica"
 ],
 "railway/subway":[
 "Metro",

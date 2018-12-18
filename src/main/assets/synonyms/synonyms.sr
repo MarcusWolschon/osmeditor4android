@@ -188,17 +188,11 @@
 "amenity/nursing_home":[
 "Старачки дом"
 ],
-"amenity/parking":[
-"Ауто-паркинг"
-],
 "amenity/parking_entrance":[
 "Улаз/излаз јавне гараже"
 ],
 "amenity/parking_space":[
 "Паркинг простор"
-],
-"amenity/pavilion":[
-"Павиљон"
 ],
 "amenity/pharmacy":[
 "Апотека"
@@ -330,9 +324,6 @@
 ],
 "amenity/vending_machine/news_papers":[
 "Аутомат за новине"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Аутомат за парцеле"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Аутомат за паркинг"
@@ -490,9 +481,6 @@
 ],
 "building":[
 "Зграда"
-],
-"building/apartments":[
-"Апартмани"
 ],
 "building/barn":[
 "Амбар"
@@ -783,21 +771,6 @@
 "entrance":[
 "Улаз/излаз"
 ],
-"footway/crossing":[
-"Прелаз преко улице"
-],
-"footway/crossing-raised":[
-"Надземни пешачки прелаз"
-],
-"footway/crosswalk":[
-"Пешачки прелаз"
-],
-"footway/crosswalk-raised":[
-"Надземни тротоар"
-],
-"footway/sidewalk":[
-"Тротоар"
-],
 "golf/fairway":[
 "Пловни канал"
 ],
@@ -843,12 +816,6 @@
 "коњска стаза",
 "коњичка стаза",
 "Коњичка стаза"
-],
-"highway/crossing":[
-"Прелаз преко улице"
-],
-"highway/crosswalk":[
-"Пешачки прелаз"
 ],
 "highway/cycleway":[
 "Бициклистичка стаза"
@@ -1104,9 +1071,6 @@
 "leisure/pitch/american_football":[
 "Терен за амерички фудбал"
 ],
-"leisure/pitch/baseball":[
-"Бејзбол терен"
-],
 "leisure/pitch/basketball":[
 "терен за кошарку",
 "кошаркашки терен",
@@ -1216,9 +1180,6 @@
 "јарбол",
 "Бандера"
 ],
-"man_made/observation":[
-"Посматрачки торањ"
-],
 "man_made/petroleum_well":[
 "Нафтна бушотина"
 ],
@@ -1241,12 +1202,6 @@
 "видео-надзор",
 "надзор",
 "праћење"
-],
-"man_made/surveillance_camera":[
-"сигурносна камера",
-"видео-надзор",
-"надзорна камера",
-"Надзорна камера"
 ],
 "man_made/survey_point":[
 "Извиђачница"
@@ -1350,9 +1305,6 @@
 "natural/tree":[
 "Дрво"
 ],
-"natural/tree_row":[
-"Дрворед"
-],
 "natural/volcano":[
 "Вулкан"
 ],
@@ -1439,18 +1391,6 @@
 ],
 "power/generator":[
 "Електро-генератор"
-],
-"power/generator/source_nuclear":[
-"нуклеарни реактор",
-"Нуклеарни реактор",
-"нуклеарна електрана"
-],
-"power/generator/source_wind":[
-"ветротурбина",
-"ветро-турбина",
-"Ветро-генератор",
-"ветро-генератор",
-"ветрогенератор"
 ],
 "power/line":[
 "Енергетски вод"

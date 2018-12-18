@@ -200,9 +200,6 @@
 "building":[
 "Сграда"
 ],
-"building/apartments":[
-"Жилищен блок"
-],
 "building/house":[
 "Къща"
 ],
@@ -373,9 +370,6 @@
 ],
 "leisure/pitch/american_football":[
 "Игрище за американски футбол"
-],
-"leisure/pitch/baseball":[
-"Игрище за бейзбол"
 ],
 "leisure/pitch/basketball":[
 "Баскетболно игрище"

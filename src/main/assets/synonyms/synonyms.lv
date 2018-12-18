@@ -255,11 +255,29 @@
 "Naktsklubs"
 ],
 "amenity/parking":[
-"piestātne",
-"stāvieta",
+"Auto",
+"apstāšanās",
+"stāvēšana",
 "stāvvieta",
-"Auto Stāvveita",
-"parkošanās"
+"Stāvvieta",
+"pieturvieta",
+"Mašīnas"
+],
+"amenity/parking/multi-storey":[
+"daudzstāvu",
+"Garāža",
+"ēka",
+"stāvi",
+"autostāvieta",
+"Daudzlīmeņu Stāvvieta"
+],
+"amenity/parking_entrance":[
+"izbrauktuve",
+"iebrauktuve",
+"ieeja",
+"izeja",
+"daudzstāvu stāvvieta",
+"Daudzlīmeņu Stāvvietas Ieeja/Izeja"
 ],
 "amenity/pharmacy":[
 "Aptieka",
@@ -332,14 +350,14 @@
 "amenity/public_bookcase":[
 "Publisks Grāmatplaukts"
 ],
-"amenity/recycling":[
-"Šķirošanas konteiners"
-],
 "amenity/recycling_centre":[
 "Šķirošanas centrs"
 ],
 "amenity/restaurant":[
 "Restorāns"
+],
+"amenity/school":[
+"Skolas Zeme"
 ],
 "amenity/shelter":[
 "Pajumte"
@@ -471,13 +489,6 @@
 "Avīžu Tirdzniecības automāts",
 "žurnāls",
 "laiksraksts"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"sūtīšana",
-"saņemšana",
-"Pakomāts",
-"kurjers",
-"paku"
 ],
 "amenity/vending_machine/parking_tickets":[
 "biļete",
@@ -671,10 +682,6 @@
 ],
 "building":[
 "Ēka"
-],
-"building/apartments":[
-"daudzstāvu māja",
-"Dzīvokļi"
 ],
 "building/barn":[
 "Klēts"
@@ -934,14 +941,6 @@
 "entrance":[
 "Ieeja/Izeja"
 ],
-"footway/crosswalk":[
-"zebra",
-"pāreja",
-"Gājēju Pāreja"
-],
-"footway/crosswalk-raised":[
-"Pacelta gājēju pāreja"
-],
 "golf/hole":[
 "Golfa bedrīte"
 ],
@@ -966,9 +965,6 @@
 "highway/corridor":[
 "Iekštelpu koridors"
 ],
-"highway/crosswalk":[
-"Gājēju Pāreja"
-],
 "highway/cycleway":[
 "Veloceliņš"
 ],
@@ -976,7 +972,11 @@
 "Lifts"
 ],
 "highway/footway":[
-"Taka"
+"gājēju",
+"Ietve",
+"taka",
+"kājāmgājēju",
+"celiņš"
 ],
 "highway/living_street":[
 "Dzīvojamā iela"
@@ -1153,9 +1153,6 @@
 "leisure/pitch/american_football":[
 "Amerikāņu futbola laukums"
 ],
-"leisure/pitch/baseball":[
-"Beisbola laukums"
-],
 "leisure/pitch/basketball":[
 "Basketbola laukums"
 ],
@@ -1247,9 +1244,6 @@
 "man_made/surveillance":[
 "Apsardze"
 ],
-"man_made/surveillance_camera":[
-"Apsardzes kamera"
-],
 "man_made/survey_point":[
 "Novērošanas punkts"
 ],
@@ -1330,9 +1324,6 @@
 "natural/tree":[
 "koki",
 "Koks"
-],
-"natural/tree_row":[
-"Koku rinda"
 ],
 "natural/volcano":[
 "Vulkāns"
@@ -1438,12 +1429,6 @@
 "Elektroenerģijas ģenerātors",
 "turbīna",
 "vējs"
-],
-"power/generator/source_nuclear":[
-"Atomreaktors"
-],
-"power/generator/source_wind":[
-"Vēja Turbīna"
 ],
 "power/line":[
 "Elektrolīnija"

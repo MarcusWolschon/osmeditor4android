@@ -348,19 +348,12 @@
 "amenity/nursing_home":[
 "Plejehjem"
 ],
-"amenity/parking":[
-"Parkering",
-"Bilparkering"
-],
 "amenity/parking_entrance":[
 "Parkeringskælder Indgang/Udgang",
 "Parkeringsgarage Indgang/Udgang"
 ],
 "amenity/parking_space":[
 "Parkeringsbås"
-],
-"amenity/pavilion":[
-"Pavilion"
 ],
 "amenity/pharmacy":[
 "Apotek"
@@ -439,12 +432,6 @@
 ],
 "amenity/ranger_station":[
 "Rangerstation"
-],
-"amenity/recycling":[
-"ressourcer",
-"Genbrugscontainer",
-"genbrug",
-"miljø"
 ],
 "amenity/recycling_centre":[
 "Genbrugsplads"
@@ -565,9 +552,6 @@
 "avis",
 "Avis-salgsautomat",
 "automat"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Pakkepostautomat"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkeringsbilletautomat"
@@ -734,10 +718,6 @@
 ],
 "building":[
 "Bygning"
-],
-"building/apartments":[
-"Ejerlejligheder",
-"Lejligheder"
 ],
 "building/barn":[
 "Lade",
@@ -1045,9 +1025,7 @@
 "Vingård"
 ],
 "embankment":[
-"Vold",
-"Forhøjning til tog, vej",
-"Forhøjning"
+"Forhøjning til tog, vej"
 ],
 "emergency/ambulance_station":[
 "Udrykningsstation",
@@ -1089,22 +1067,6 @@
 ],
 "entrance":[
 "Indgang/Udgang"
-],
-"footway/crossing":[
-"Vejkryds",
-"Gadekryds"
-],
-"footway/crossing-raised":[
-"Hævet fodgængerkryds"
-],
-"footway/crosswalk":[
-"Fodgængerovergang"
-],
-"footway/crosswalk-raised":[
-"Hævet fodgængerovergang"
-],
-"footway/sidewalk":[
-"Fortov"
 ],
 "ford":[
 "Vadested"
@@ -1229,18 +1191,8 @@
 "Indendørskorridor",
 "Indendørspassage"
 ],
-"highway/crossing":[
-"Vejkryds",
-"Gadekryds"
-],
-"highway/crossing-raised":[
-"Hævet gadekryds"
-],
-"highway/crosswalk":[
-"Fodgængerfelt"
-],
-"highway/crosswalk-raised":[
-"Hævet fodgængerovergang"
+"highway/crossing/unmarked":[
+"Fodgængerovergang"
 ],
 "highway/cycleway":[
 "Cykelsti"
@@ -1378,6 +1330,7 @@
 "Helleanlæg (trafikø)"
 ],
 "highway/unclassified":[
+"Mindre offentlig vej udenfor byområde",
 "Mindre/Uspecificeret vej"
 ],
 "historic":[
@@ -1611,9 +1564,6 @@
 "Amerikansk Fodboldbane",
 "Amerikansk fodboldbane"
 ],
-"leisure/pitch/baseball":[
-"Baseballbane"
-],
 "leisure/pitch/basketball":[
 "Basketballbane"
 ],
@@ -1730,6 +1680,10 @@
 "man_made/bridge":[
 "Bro"
 ],
+"man_made/bunker_silo":[
+"Køresilo",
+"Plansilo"
+],
 "man_made/chimney":[
 "Skorsten"
 ],
@@ -1765,11 +1719,6 @@
 "man_made/mast":[
 "Mast"
 ],
-"man_made/observation":[
-"udkigstårn",
-"Observationstårn",
-"observationstårn"
-],
 "man_made/observatory":[
 "astrofysik",
 "meteorologi",
@@ -1795,14 +1744,12 @@
 "Silotank"
 ],
 "man_made/storage_tank":[
-"Lagertank"
+"Lagertank",
+"Gylletank",
+"Tank"
 ],
 "man_made/surveillance":[
 "Overvågning"
-],
-"man_made/surveillance_camera":[
-"Overvågningskamera",
-"videoovervågning"
 ],
 "man_made/survey_point":[
 "Geografisk fixpunkt"
@@ -1923,9 +1870,6 @@
 "natural/tree":[
 "Træ"
 ],
-"natural/tree_row":[
-"Trærække"
-],
 "natural/volcano":[
 "Vulkan"
 ],
@@ -2039,9 +1983,6 @@
 "office/travel_agent":[
 "Rejsebureau"
 ],
-"piste":[
-"Skiløjper/Skispor"
-],
 "place":[
 "Lokalitet"
 ],
@@ -2105,18 +2046,6 @@
 ],
 "power/generator":[
 "Kraftværk"
-],
-"power/generator/source_nuclear":[
-"kernekraft",
-"nuklear",
-"Atomreaktor",
-"atom"
-],
-"power/generator/source_wind":[
-"mølle",
-"Vindmølle",
-"strøm",
-"vind"
 ],
 "power/line":[
 "Højspændingsledning",
@@ -2503,7 +2432,8 @@
 "guldsmed"
 ],
 "shop/kitchen":[
-"Køkkenudstyrsbutik"
+"Køkkenbutik",
+"Køkkenforhandler"
 ],
 "shop/laundry":[
 "Møntvaskeri",

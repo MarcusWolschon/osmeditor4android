@@ -309,9 +309,6 @@
 "baille",
 "Discoteca"
 ],
-"amenity/parking":[
-"Aparcamientu"
-],
 "amenity/parking_entrance":[
 "Entrada/Salida de garaxe"
 ],
@@ -520,9 +517,6 @@
 "máquina",
 "Máquina de venta de periódicos"
 ],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Máquina d'entrega/recoyía de paquetes"
-],
 "amenity/vending_machine/parking_tickets":[
 "Máquina de pagu d'aparcamientu",
 "aparcamientu",
@@ -668,9 +662,6 @@
 ],
 "building":[
 "Edificiu"
-],
-"building/apartments":[
-"Pisos"
 ],
 "building/barn":[
 "Graneru"
@@ -963,8 +954,7 @@
 "Viña"
 ],
 "embankment":[
-"Terremplén",
-"rellenu"
+"Terremplén"
 ],
 "emergency/ambulance_station":[
 "Parque d'ambulancies",
@@ -1010,22 +1000,6 @@
 "puerta",
 "Accesu",
 "Entrada/Salida"
-],
-"footway/crossing":[
-"pasu",
-"Cruce de cai"
-],
-"footway/crossing-raised":[
-"Cruce de cai llevantáu"
-],
-"footway/crosswalk":[
-"Pasu de peatones"
-],
-"footway/crosswalk-raised":[
-"Pasu de peatones llevantáu"
-],
-"footway/sidewalk":[
-"Cera"
 ],
 "ford":[
 "Vau"
@@ -1114,18 +1088,6 @@
 ],
 "highway/corridor":[
 "Pasiellu d'edificiu"
-],
-"highway/crossing":[
-"Cruce de cai"
-],
-"highway/crossing-raised":[
-"Cruce de cai llevantáu"
-],
-"highway/crosswalk":[
-"Pasu de peatones"
-],
-"highway/crosswalk-raised":[
-"Pasu de peatones llevantáu"
 ],
 "highway/cycleway":[
 "Camín ciclista"
@@ -1472,9 +1434,6 @@
 "leisure/pitch/american_football":[
 "Campu de fútbol americanu"
 ],
-"leisure/pitch/baseball":[
-"Campu de béisbol"
-],
 "leisure/pitch/basketball":[
 "Pista de baloncestu"
 ],
@@ -1590,11 +1549,6 @@
 "man_made/monitoring_station":[
 "Estación de control"
 ],
-"man_made/observation":[
-"Observatoriu",
-"Torre de vixilancia",
-"Torre d'observación"
-],
 "man_made/petroleum_well":[
 "Pozu petrolíferu"
 ],
@@ -1615,9 +1569,6 @@
 ],
 "man_made/surveillance":[
 "Vixilancia"
-],
-"man_made/surveillance_camera":[
-"Cámara de vixilancia"
 ],
 "man_made/survey_point":[
 "Vértiz xeodésicu"
@@ -1713,9 +1664,6 @@
 ],
 "natural/tree":[
 "Árbol"
-],
-"natural/tree_row":[
-"Filera d'árboles"
 ],
 "natural/volcano":[
 "Volcan"
@@ -1821,9 +1769,6 @@
 "office/travel_agent":[
 "Axencia de viaxes"
 ],
-"piste":[
-"Pista/Circuitu d'esquí"
-],
 "place":[
 "Llugar"
 ],
@@ -1867,12 +1812,6 @@
 "power/generator":[
 "Central eléctrica",
 "Xenerador d'enerxía"
-],
-"power/generator/source_nuclear":[
-"Reactor nuclear"
-],
-"power/generator/source_wind":[
-"Turbina de vientu"
 ],
 "power/line":[
 "Llinia eléctrica"

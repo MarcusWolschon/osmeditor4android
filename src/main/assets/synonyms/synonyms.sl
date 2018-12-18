@@ -215,6 +215,9 @@
 "menjava",
 "menjalnica"
 ],
+"amenity/bus_station":[
+"Avtobusna postaja / Terminal"
+],
 "amenity/cafe":[
 "bar",
 "Kavarna",
@@ -431,6 +434,9 @@
 "amenity/motorcycle_parking":[
 "Parkirišče za motorje"
 ],
+"amenity/music_school":[
+"Glasbena šola"
+],
 "amenity/nightclub":[
 "disko",
 "diskoteka",
@@ -440,10 +446,12 @@
 "Dom za bolniško nego"
 ],
 "amenity/parking":[
-"parkirna hiša",
+"Parkirno mesto"
+],
+"amenity/parking/multi-storey":[
+"Parkirna hiša",
 "garaža",
-"garažna hiša",
-"Parkirišče"
+"Garažna hiša"
 ],
 "amenity/parking_entrance":[
 "Uvoz/izvoz iz parkirne hiše",
@@ -455,9 +463,6 @@
 "parkirno mesto",
 "parkirni prostor",
 "parkirišče"
-],
-"amenity/pavilion":[
-"Pavilion"
 ],
 "amenity/pharmacy":[
 "Lekarna",
@@ -580,6 +585,10 @@
 "bivak",
 "Zavetišče"
 ],
+"amenity/shower":[
+"Tuš",
+"prha"
+],
 "amenity/social_facility":[
 "zdravstvo",
 "zdravstveno varstvo",
@@ -636,6 +645,9 @@
 "gledališka dvorana",
 "Gledališče"
 ],
+"amenity/theatre/type/amphi":[
+"Amfiteater"
+],
 "amenity/toilets":[
 "sanitarije",
 "toalete",
@@ -660,6 +672,10 @@
 "amenity/vending_machine/cigarettes":[
 "Avtomat za cigarete"
 ],
+"amenity/vending_machine/coffee":[
+"Kavomat",
+"Avtomat za kavo"
+],
 "amenity/vending_machine/condoms":[
 "Avtomat za kondome"
 ],
@@ -674,9 +690,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Avtomat za časopis"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Avtomat za pošiljanje/prevzem paketov"
 ],
 "amenity/vending_machine/parking_tickets":[
 "parkiranje",
@@ -830,10 +843,6 @@
 "stavba",
 "zgradba",
 "Zgradba"
-],
-"building/apartments":[
-"stanovanjski blok",
-"Stanovanja"
 ],
 "building/barn":[
 "Skedenj",
@@ -1225,10 +1234,14 @@
 "Oknarstvo"
 ],
 "craft/winery":[
-"Kletarstvo"
+"vinarstvo",
+"klet",
+"Kletarstvo",
+"kletarstvo",
+"vinarna",
+"vinska klet"
 ],
 "embankment":[
-"bran",
 "Nasip"
 ],
 "emergency/ambulance_station":[
@@ -1244,10 +1257,31 @@
 "emergency/destination":[
 "Smer dostopa v sili"
 ],
+"emergency/fire_extinguisher":[
+"Gasilnik",
+"Gasilni aparat"
+],
 "emergency/fire_hydrant":[
 "hidrant",
 "Požarni hidrant",
 "vodni hidrant"
+],
+"emergency/first_aid_kit":[
+"Prva pomoč",
+"Komplet prve pomoči"
+],
+"emergency/life_ring":[
+"plavalni obroč",
+"rešilni obroč",
+"obroč",
+"šlauh",
+"Reševalni obroč"
+],
+"emergency/lifeguard":[
+"čuvaj",
+"prva pomoč",
+"Reševalec",
+"reševalec iz vode"
 ],
 "emergency/no":[
 "Brez dostopa v sili"
@@ -1262,22 +1296,19 @@
 "emergency/private":[
 "Zasebni dostop v sili"
 ],
+"emergency/siren":[
+"preplah",
+"Sirena",
+"alarm",
+"opozorilo",
+"sirene"
+],
 "emergency/yes":[
 "Dovoljen dostop v sili"
 ],
 "entrance":[
 "Vhod/Izhod",
 "vstop/izstop"
-],
-"footway/crossing":[
-"Prehod cestišča"
-],
-"footway/crosswalk":[
-"Prehod za pešce"
-],
-"footway/sidewalk":[
-"Pločnik",
-"pločnik"
 ],
 "ford":[
 "Plitvina",
@@ -1332,8 +1363,34 @@
 "golf",
 "Vodne ovire"
 ],
+"healthcare":[
+"Zdravstvo",
+"bolezen",
+"operacija",
+"zdravilstvo",
+"zdravnik",
+"zdravljenje",
+"klinika",
+"zdravje"
+],
+"healthcare/alternative":[
+"Alternativna medicina"
+],
+"healthcare/alternative/chiropractic":[
+"Kiropraktik"
+],
 "healthcare/blood_donation":[
 "Krvodajalsko središče"
+],
+"healthcare/hospice":[
+"Hospic",
+"umirajoči"
+],
+"healthcare/speech_therapist":[
+"glas",
+"Logoped",
+"terapist",
+"govor"
 ],
 "highway":[
 "Cesta"
@@ -1343,14 +1400,11 @@
 "jahalna pot",
 "Mulatjera"
 ],
+"highway/bus_stop":[
+"Avtobusno postajališče"
+],
 "highway/corridor":[
 "Notranji hodnik"
-],
-"highway/crossing":[
-"Prehod cestišča"
-],
-"highway/crosswalk":[
-"Prehod za pešce"
 ],
 "highway/cycleway":[
 "Kolesarska steza",
@@ -1358,6 +1412,7 @@
 "steza za kolesarje"
 ],
 "highway/elevator":[
+"lift",
 "Dvigalo"
 ],
 "highway/footway":[
@@ -1391,10 +1446,16 @@
 "priključek",
 "Avtocestni priključek"
 ],
+"highway/passing_place":[
+"Izogibališče"
+],
 "highway/path":[
 "steza",
 "gaz",
 "Pot"
+],
+"highway/pedestrian_area":[
+"Cona za pešce"
 ],
 "highway/primary":[
 "Glavna cesta",
@@ -1808,8 +1869,7 @@
 "Igrišče za ameriški nogomet"
 ],
 "leisure/pitch/baseball":[
-"Igrišče za baseball",
-"izgrišče za bejzbol"
+"Igrišče za baseball"
 ],
 "leisure/pitch/basketball":[
 "igrišče za košarko",
@@ -1928,6 +1988,18 @@
 "Vodoravni rudniški rov ",
 "rudniški rov"
 ],
+"man_made/antenna":[
+"bazna postaja",
+"tv oddajnik",
+"tv",
+"televizija",
+"televizijski oddajnik",
+"radijski oddajnik",
+"oddajnik",
+"antenski stolp",
+"Antena",
+"radio"
+],
 "man_made/breakwater":[
 "lukobran",
 "zid",
@@ -1972,11 +2044,6 @@
 "antena",
 "nosilo"
 ],
-"man_made/observation":[
-"opazovalnica",
-"opazovalni stolp",
-"Razgledni stolp"
-],
 "man_made/petroleum_well":[
 "Naftna vrtina"
 ],
@@ -2001,9 +2068,6 @@
 ],
 "man_made/surveillance":[
 "Nadzor"
-],
-"man_made/surveillance_camera":[
-"Nadzorna kamera"
 ],
 "man_made/survey_point":[
 "triangulacijska točka",
@@ -2149,9 +2213,6 @@
 "drevje",
 "Drevo"
 ],
-"natural/tree_row":[
-"Drevored"
-],
 "natural/volcano":[
 "ognjenik",
 "lava",
@@ -2264,10 +2325,6 @@
 "office/travel_agent":[
 "Potovalna agencija"
 ],
-"piste":[
-"Smučarska proga",
-"smučišče"
-],
 "place":[
 "Kraj"
 ],
@@ -2332,12 +2389,6 @@
 "električni generator",
 "Elektrarna"
 ],
-"power/generator/source_nuclear":[
-"Jedrski reaktor"
-],
-"power/generator/source_wind":[
-"Vetrna turbina"
-],
 "power/line":[
 "Daljnovod (stolpi)",
 "električni vod"
@@ -2376,6 +2427,9 @@
 "pretvornik",
 "Transformator"
 ],
+"public_transport/station_bus":[
+"Avtobusna postaja / Terminal"
+],
 "railway":[
 "Železnica"
 ],
@@ -2408,11 +2462,17 @@
 "Ozkotirna železnica",
 "železnica z ozkimi tiri"
 ],
+"railway/platform":[
+"Želežniško postajališče"
+],
 "railway/rail":[
 "Železniški tir",
 "železnica",
 "železniški tir",
 "tirnica"
+],
+"railway/station":[
+"Železniška postaja"
 ],
 "railway/subway":[
 "metro",
@@ -2725,6 +2785,9 @@
 "bižuterija",
 "nakit",
 "zlatarna"
+],
+"shop/kiosk":[
+"Kiosk"
 ],
 "shop/laundry":[
 "Pralnica",
@@ -3045,6 +3108,9 @@
 "cestni",
 "grbine",
 "Cestne tresavke"
+],
+"traffic_sign":[
+"Prometni znak"
 ],
 "type/boundary":[
 "rob",

@@ -233,10 +233,6 @@
 "市場",
 "街市"
 ],
-"amenity/parking":[
-"Car Parking",
-"停車場"
-],
 "amenity/pharmacy":[
 "葯房",
 "葯局",
@@ -457,9 +453,6 @@
 "Hedge",
 "樹籬"
 ],
-"barrier/kerb":[
-"路邊石"
-],
 "barrier/kissing_gate":[
 "Kissing Gate",
 "單人轉門 ",
@@ -503,11 +496,6 @@
 "屋宇",
 "建築物"
 ],
-"building/apartments":[
-"Apartments",
-"分層屋宇",
-"公寓"
-],
 "building/commercial":[
 "Commercial Building",
 "商業樓宇",
@@ -550,11 +538,7 @@
 "造窗"
 ],
 "embankment":[
-"基堤",
-"堤",
-"Embankment",
-"堤壩",
-"堤岸"
+"基堤"
 ],
 "emergency/ambulance_station":[
 "十字車",
@@ -572,16 +556,6 @@
 "Emergency Phone",
 "求助電話",
 "緊急電話"
-],
-"footway/crosswalk":[
-"行人過路"
-],
-"footway/crosswalk-raised":[
-"升起行人過路"
-],
-"footway/sidewalk":[
-"行人路",
-"Sidewalk"
 ],
 "golf/bunker":[
 "沙坑",
@@ -616,12 +590,6 @@
 "馬道",
 "Bridle Path",
 "馬徑"
-],
-"highway/crosswalk":[
-"行人過路"
-],
-"highway/crosswalk-raised":[
-"升起行人過路"
 ],
 "highway/cycleway":[
 "自行車道",
@@ -978,10 +946,6 @@
 "美式足球場",
 "American Football Field"
 ],
-"leisure/pitch/baseball":[
-"棒球場",
-"Baseball Field"
-],
 "leisure/pitch/basketball":[
 "籃球場",
 "Basketball Court",
@@ -1057,11 +1021,6 @@
 "man_made/lighthouse":[
 "燈塔",
 "Lighthouse"
-],
-"man_made/observation":[
-"瞭望臺",
-"瞭望塔",
-"Observation Tower"
 ],
 "man_made/pier":[
 "Pier",
@@ -1155,6 +1114,9 @@
 "山頂",
 "峯"
 ],
+"natural/sand":[
+"砂"
+],
 "natural/scree":[
 "Scree",
 "碎石坡"
@@ -1176,10 +1138,6 @@
 "木",
 "Tree",
 "樹"
-],
-"natural/tree_row":[
-"Tree row",
-"排樹"
 ],
 "natural/volcano":[
 "Volcano",
@@ -1340,6 +1298,9 @@
 "村",
 "村莊",
 "Village"
+],
+"playground/sandpit":[
+"砂池"
 ],
 "point":[
 "Point",

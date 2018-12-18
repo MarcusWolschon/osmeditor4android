@@ -117,6 +117,9 @@
 "amenity/bicycle_repair_station":[
 "Hjólaviðgerðastandur"
 ],
+"amenity/biergarten":[
+"Bjórgarður"
+],
 "amenity/boat_rental":[
 "Bátaleiga"
 ],
@@ -188,6 +191,9 @@
 "amenity/dentist":[
 "Tannlæknir"
 ],
+"amenity/dive_centre":[
+"Köfunarmiðstöð"
+],
 "amenity/doctors":[
 "Læknir"
 ],
@@ -205,6 +211,24 @@
 ],
 "amenity/fast_food":[
 "Skyndibiti"
+],
+"amenity/fast_food/burger":[
+"Skyndibiti, hamborgarar"
+],
+"amenity/fast_food/chicken":[
+"Skyndibiti, kjúklingar"
+],
+"amenity/fast_food/fish_and_chips":[
+"Skyndibiti, fiskur og franskar"
+],
+"amenity/fast_food/kebab":[
+"Skyndibiti, kebab"
+],
+"amenity/fast_food/pizza":[
+"Skyndibiti, flatbökur"
+],
+"amenity/fast_food/sandwich":[
+"Skyndibiti, samlokur"
 ],
 "amenity/ferry_terminal":[
 "Ferjustöð / Umferðarmiðstöð"
@@ -242,6 +266,9 @@
 "amenity/kindergarten":[
 "Forskóla-/Leikskólalóð"
 ],
+"amenity/language_school":[
+"Tungumálaskóli"
+],
 "amenity/library":[
 "Bókasafn"
 ],
@@ -267,16 +294,16 @@
 "Hjúkrunarheimili"
 ],
 "amenity/parking":[
-"Bílastæði"
+"Bílastæðasvæði"
+],
+"amenity/parking/multi-storey":[
+"Bílastæðahús á mörgum hæðum"
 ],
 "amenity/parking_entrance":[
 "Inngangur/Útgangur bílastæðahúss"
 ],
 "amenity/parking_space":[
 "Bílastæðarými"
-],
-"amenity/pavilion":[
-"Einbýlishús"
 ],
 "amenity/pharmacy":[
 "Lyfjaverslun"
@@ -342,16 +369,73 @@
 "Landvarðastöð"
 ],
 "amenity/recycling":[
-"Endurvinnslugámur"
+"Endurvinnsla"
 ],
 "amenity/recycling_centre":[
 "Endurvinnslumiðstöð"
+],
+"amenity/recycling_container":[
+"Endurvinnslugámur"
 ],
 "amenity/register_office":[
 "Skráningarskrifstofa"
 ],
 "amenity/restaurant":[
 "Veitingahús"
+],
+"amenity/restaurant/american":[
+"Amerískt veitingahús"
+],
+"amenity/restaurant/asian":[
+"Asískt veitingahús"
+],
+"amenity/restaurant/chinese":[
+"Kínverskt veitingahús"
+],
+"amenity/restaurant/french":[
+"Franskt veitingahús"
+],
+"amenity/restaurant/german":[
+"Þýskt veitingahús"
+],
+"amenity/restaurant/greek":[
+"Grískt veitingahús"
+],
+"amenity/restaurant/indian":[
+"Indverskt veitingahús"
+],
+"amenity/restaurant/italian":[
+"Ítalskt veitingahús"
+],
+"amenity/restaurant/japanese":[
+"Japanskt veitingahús"
+],
+"amenity/restaurant/mexican":[
+"Mexíkóskt veitingahús"
+],
+"amenity/restaurant/noodle":[
+"Núðluveitingahús"
+],
+"amenity/restaurant/pizza":[
+"Flatbökuveitingahús"
+],
+"amenity/restaurant/seafood":[
+"Sjávarréttaveitingahús"
+],
+"amenity/restaurant/steakhouse":[
+"Steikhús"
+],
+"amenity/restaurant/sushi":[
+"Sushi-veitingahús"
+],
+"amenity/restaurant/thai":[
+"Tælenskt veitingahús"
+],
+"amenity/restaurant/turkish":[
+"Tyrkneskt veitingahús"
+],
+"amenity/restaurant/vietnamese":[
+"Víetnamskt veitingahús"
 ],
 "amenity/sanitary_dump_station":[
 "Salernishreinsun fyrir bíla"
@@ -364,6 +448,9 @@
 ],
 "amenity/shelter":[
 "Skýli"
+],
+"amenity/shelter/picnic_shelter":[
+"Áningarskýli"
 ],
 "amenity/shower":[
 "Steypibað"
@@ -410,6 +497,9 @@
 "amenity/university":[
 "Háskólalóð"
 ],
+"amenity/vehicle_inspection":[
+"Skoðun farartækja"
+],
 "amenity/vending_machine":[
 "Sjálfsali"
 ],
@@ -451,9 +541,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Dagblaðasjálfsali"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Sjálfsali fyrir afhendingu/hirðingu bögglapósts"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Bílastæðamiðasjálfsali"
@@ -518,6 +605,9 @@
 "attraction/drop_tower":[
 "Fallturn"
 ],
+"attraction/maze":[
+"Völundarhús"
+],
 "attraction/pirate_ship":[
 "Sjóræningjaskip"
 ],
@@ -572,6 +662,9 @@
 "barrier/kerb":[
 "Kantsteinn"
 ],
+"barrier/kerb/lowered":[
+"Lágur kantur"
+],
 "barrier/kissing_gate":[
 "Sjálflokandi hlið"
 ],
@@ -593,11 +686,14 @@
 "boundary/administrative":[
 "Stjórnsýslumörk"
 ],
+"bridge/support":[
+"Undirstaða brúar"
+],
+"bridge/support/pier":[
+"Brúarstólpi"
+],
 "building":[
 "Bygging"
-],
-"building/apartments":[
-"Íbúðir"
 ],
 "building/barn":[
 "Hlaða"
@@ -615,6 +711,9 @@
 "Sumarbústaður",
 "Kofi",
 "kofi"
+],
+"building/carport":[
+"Bílskýli"
 ],
 "building/cathedral":[
 "Dómkirkjubygging"
@@ -944,21 +1043,6 @@
 "entrance":[
 "Inngangur/Útgangur"
 ],
-"footway/crossing":[
-"Gangbraut"
-],
-"footway/crossing-raised":[
-"Upphækkuð gangbraut"
-],
-"footway/crosswalk":[
-"Gangbraut fyrir fótgangandi"
-],
-"footway/crosswalk-raised":[
-"Upphækkuð gangbraut fyrir fótgangandi"
-],
-"footway/sidewalk":[
-"Gangstétt"
-],
 "ford":[
 "Vað"
 ],
@@ -1052,17 +1136,23 @@
 "highway/corridor":[
 "Gangur innanhúss"
 ],
-"highway/crossing":[
-"Gangbraut"
+"highway/crossing/marked":[
+"Merkt gangbraut"
 ],
-"highway/crossing-raised":[
-"Upphækkuð gangbraut"
+"highway/crossing/marked-raised":[
+"Merkt gangbraut (upphækkuð)"
 ],
-"highway/crosswalk":[
-"Gangbraut fyrir fótgangandi"
+"highway/crossing/unmarked":[
+"Ómerkt gangbraut"
 ],
-"highway/crosswalk-raised":[
-"Upphækkuð gangbraut fyrir fótgangandi"
+"highway/crossing/unmarked-raised":[
+"Ómerkt gangbraut (upphækkuð)"
+],
+"highway/crossing/zebra":[
+"Merkt gangbraut"
+],
+"highway/crossing/zebra-raised":[
+"Merkt gangbraut (upphækkuð)"
 ],
 "highway/cycleway":[
 "Hjólastígur"
@@ -1073,11 +1163,35 @@
 "highway/footway":[
 "Göngustígur"
 ],
+"highway/footway/marked":[
+"Merkt gangbraut"
+],
+"highway/footway/marked-raised":[
+"Merkt gangbraut (upphækkuð)"
+],
+"highway/footway/sidewalk":[
+"Gangstétt"
+],
+"highway/footway/unmarked":[
+"Ómerkt gangbraut"
+],
+"highway/footway/unmarked-raised":[
+"Ómerkt gangbraut (upphækkuð)"
+],
+"highway/footway/zebra":[
+"Merkt gangbraut"
+],
+"highway/footway/zebra-raised":[
+"Merkt gangbraut (upphækkuð)"
+],
 "highway/give_way":[
 "Biðskyldumerki"
 ],
 "highway/living_street":[
 "Vistgata"
+],
+"highway/milestone":[
+"Vegalengdarmerki"
 ],
 "highway/mini_roundabout":[
 "Lítið hringtorg"
@@ -1155,6 +1269,9 @@
 "highway/steps":[
 "Tröppur"
 ],
+"highway/steps/conveying":[
+"Rúllustigi"
+],
 "highway/stop":[
 "Stöðvunarskyldumerki"
 ],
@@ -1220,6 +1337,12 @@
 ],
 "historic/wayside_shrine":[
 "Tilbeiðsluskrín"
+],
+"historic/wreck":[
+"Skipsflak"
+],
+"internet_access/wlan":[
+"Wi-Fi aðgangspunktur"
 ],
 "junction":[
 "Tenging"
@@ -1329,6 +1452,9 @@
 "leisure/amusement_arcade":[
 "Spilasalur"
 ],
+"leisure/bandstand":[
+"Hljómsveitapallur"
+],
 "leisure/beach_resort":[
 "Strandbær"
 ],
@@ -1352,6 +1478,9 @@
 ],
 "leisure/firepit":[
 "Eldstæði"
+],
+"leisure/fishing":[
+"Veiðistaður"
 ],
 "leisure/fitness_centre":[
 "Líkamsræktarmiðstöð"
@@ -1434,6 +1563,9 @@
 "leisure/pitch/american_football":[
 "Fótboltavöllur (amerískur)"
 ],
+"leisure/pitch/badminton":[
+"Badmintonvöllur"
+],
 "leisure/pitch/baseball":[
 "Hafnaboltavöllur"
 ],
@@ -1466,6 +1598,9 @@
 ],
 "leisure/pitch/soccer":[
 "Knattspyrnuvöllur"
+],
+"leisure/pitch/softball":[
+"Mjúkboltavöllur"
 ],
 "leisure/pitch/table_tennis":[
 "Borðtennisborð"
@@ -1557,9 +1692,6 @@
 "man_made/monitoring_station":[
 "Vöktunarstöð"
 ],
-"man_made/observation":[
-"Varðturn"
-],
 "man_made/observatory":[
 "Skoðunarstöð"
 ],
@@ -1583,9 +1715,6 @@
 ],
 "man_made/surveillance":[
 "Eftirlit"
-],
-"man_made/surveillance_camera":[
-"Eftirlitsmyndavél"
 ],
 "man_made/survey_point":[
 "Útsýnisstaður"
@@ -1664,6 +1793,9 @@
 ],
 "natural/peak":[
 "Tindur"
+],
+"natural/reef":[
+"Rif"
 ],
 "natural/ridge":[
 "Hryggur"
@@ -1833,14 +1965,38 @@
 "office/water_utility":[
 "Skrifstofa vatnsveitu"
 ],
-"piste":[
-"Skíða/gönguslóð"
+"piste/downhill":[
+"Rennslis/gönguskíðaleið"
+],
+"piste/hike":[
+"Snjóþrúgu eða vetrargönguleið"
+],
+"piste/ice_skate":[
+"Skautabraut"
+],
+"piste/nordic":[
+"Gönguskíðaleið"
+],
+"piste/piste":[
+"Vetraríþróttaleiðir"
+],
+"piste/skitour":[
+"Ferðaskíðaleið"
+],
+"piste/sled":[
+"Sleðabraut"
+],
+"piste/sleigh":[
+"Sleðabraut"
 ],
 "place":[
 "Staður"
 ],
 "place/city":[
 "Borg"
+],
+"place/city_block":[
+"Byggingareitur"
 ],
 "place/farm":[
 "Býli"
@@ -1929,13 +2085,19 @@
 "power":[
 "Orka"
 ],
+"power/cable/underground":[
+"Jarðstrengur"
+],
 "power/generator":[
 "Aflstöð"
 ],
-"power/generator/source_nuclear":[
+"power/generator/method/photovoltaic":[
+"Sólarpanell"
+],
+"power/generator/source/nuclear":[
 "Kjarnaofn"
 ],
-"power/generator/source_wind":[
+"power/generator/source/wind":[
 "Vindtúrbína"
 ],
 "power/line":[
@@ -2185,6 +2347,27 @@
 ],
 "route/ferry":[
 "Ferjuleið"
+],
+"seamark":[
+"Sjómerki"
+],
+"seamark/beacon_isolated_danger":[
+"Hættuviti"
+],
+"seamark/beacon_lateral":[
+"Stefnuviti"
+],
+"seamark/buoy_lateral":[
+"Leiðarbauja"
+],
+"seamark/buoy_lateral/green":[
+"Græn bauja"
+],
+"seamark/buoy_lateral/red":[
+"Rauð bauja"
+],
+"seamark/mooring":[
+"Skipalægi"
 ],
 "shop":[
 "Verslun"
@@ -2493,6 +2676,9 @@
 "shop/second_hand":[
 "Notað og nýtt"
 ],
+"shop/sewing":[
+"Saumavöruverslun"
+],
 "shop/shoes":[
 "Skóbúð"
 ],
@@ -2586,6 +2772,15 @@
 "tourism/artwork":[
 "Listaverk"
 ],
+"tourism/artwork/mural":[
+"Veggmynd"
+],
+"tourism/artwork/sculpture":[
+"Höggmynd"
+],
+"tourism/artwork/statue":[
+"Stytta"
+],
 "tourism/attraction":[
 "Ferðamannagildra"
 ],
@@ -2675,6 +2870,9 @@
 ],
 "traffic_calming/table":[
 "Hraðahindrunarpallur"
+],
+"traffic_sign":[
+"Umferðarmerki"
 ],
 "type/boundary":[
 "Svæðamörk"

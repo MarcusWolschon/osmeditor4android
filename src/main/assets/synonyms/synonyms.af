@@ -200,9 +200,6 @@
 "building":[
 "Gebou"
 ],
-"building/apartments":[
-"Woonstelle"
-],
 "building/house":[
 "Huis"
 ],
@@ -376,10 +373,6 @@
 "leisure/pitch/american_football":[
 "Amerikaanse Voetbal Veld",
 "Amerikaanse voetbalveld"
-],
-"leisure/pitch/baseball":[
-"Bofpalveld",
-"bofbaldiamant"
 ],
 "leisure/pitch/basketball":[
 "Korfbalbaan",

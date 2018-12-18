@@ -291,21 +291,12 @@
 "amenity/nursing_home":[
 "Bakım Evi"
 ],
-"amenity/parking":[
-"Otopark",
-"Araç Parkı"
-],
 "amenity/parking_entrance":[
 "Garaş Giriş/Çıkışı",
 "Park Yeri Giriş/Çıkışı"
 ],
 "amenity/parking_space":[
 "Park Yeri"
-],
-"amenity/pavilion":[
-"Pavyon",
-"Köşk",
-"Müzikhol"
 ],
 "amenity/pharmacy":[
 "Eczane"
@@ -370,10 +361,6 @@
 "amenity/ranger_station":[
 "Korucu İstasyonu",
 "Korucu Evi"
-],
-"amenity/recycling":[
-"Geri Dönüşüm Konteyneri",
-"Geri Dönüşüm Kutusu"
 ],
 "amenity/recycling_centre":[
 "Geri Dönüşüm Merkezi"
@@ -473,9 +460,6 @@
 "amenity/vending_machine/newspapers":[
 "Gazete Satış Makinası",
 "Gazete Otomatı"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Posta Alma-Bırakma Makinası"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Park Fişi Otomatı"
@@ -593,9 +577,6 @@
 "barrier/hedge":[
 "Koruma Duvarı"
 ],
-"barrier/kerb":[
-"Bordür"
-],
 "barrier/kissing_gate":[
 "Sadece İnsanlar İçin Giriş Kapısı"
 ],
@@ -621,9 +602,6 @@
 "building":[
 "Yapı",
 "Bina"
-],
-"building/apartments":[
-"Apartman"
 ],
 "building/barn":[
 "Samanlık"
@@ -942,7 +920,6 @@
 "Şarap Fabrikası"
 ],
 "embankment":[
-"Toprak Set",
 "Toprak Dolgu"
 ],
 "emergency/ambulance_station":[
@@ -983,21 +960,6 @@
 ],
 "entrance":[
 "Giriş/Çıkış"
-],
-"footway/crossing":[
-"Geçit"
-],
-"footway/crossing-raised":[
-"Üst Geçit"
-],
-"footway/crosswalk":[
-"Yaya Geçidi"
-],
-"footway/crosswalk-raised":[
-"Yaya Üst Geçidi"
-],
-"footway/sidewalk":[
-"Kaldırım"
 ],
 "ford":[
 "Sığ Yer",
@@ -1107,20 +1069,6 @@
 "highway/corridor":[
 "Koridor",
 "Geçit"
-],
-"highway/crossing":[
-"Yaya Geçidi",
-"Geçit"
-],
-"highway/crossing-raised":[
-"Üst Geçit"
-],
-"highway/crosswalk":[
-"Yaya Geçidi",
-"Geçit"
-],
-"highway/crosswalk-raised":[
-"Yaya Üst Geçidi"
 ],
 "highway/cycleway":[
 "Bisiklet Yolu"
@@ -1492,9 +1440,6 @@
 "leisure/pitch/american_football":[
 "Amerikan Futbol Sahası"
 ],
-"leisure/pitch/baseball":[
-"Beyzbol Sahası"
-],
 "leisure/pitch/basketball":[
 "Basketbol Sahası"
 ],
@@ -1615,9 +1560,6 @@
 "Baz İstasyonu",
 "Direk"
 ],
-"man_made/observation":[
-"Gözetleme Kulesi"
-],
 "man_made/petroleum_well":[
 "Petrol Kuyusu"
 ],
@@ -1639,9 +1581,6 @@
 ],
 "man_made/surveillance":[
 "Güvenlik Direği"
-],
-"man_made/surveillance_camera":[
-"Güvenlik Kamerası"
 ],
 "man_made/survey_point":[
 "Ölçüm Kontrol Noktası"
@@ -1753,10 +1692,6 @@
 ],
 "natural/tree":[
 "Ağaç"
-],
-"natural/tree_row":[
-"Ağaç Dizisi",
-"Ağaçlar"
 ],
 "natural/volcano":[
 "Volkan",
@@ -1945,9 +1880,6 @@
 "office/water_utility":[
 "Su Müdürlüğü",
 "Su ve Kanalizasyon Müdürlüğü"
-],
-"piste":[
-"Kayak Pisti"
 ],
 "place":[
 "Yer"

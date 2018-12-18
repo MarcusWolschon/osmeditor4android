@@ -174,12 +174,6 @@
 "Tržnica",
 "tržnica"
 ],
-"amenity/parking":[
-"parking",
-"parking za auta",
-"Parking za automobile",
-"parking za automobile"
-],
 "amenity/pharmacy":[
 "Apoteka",
 "ljekarna",
@@ -384,11 +378,6 @@
 "građevina",
 "Građevina"
 ],
-"building/apartments":[
-"stanovi",
-"Apartmani",
-"apartmani"
-],
 "building/commercial":[
 "Poslovna zgrada",
 "zgrada firme",
@@ -497,7 +486,6 @@
 "Izrada prozora"
 ],
 "embankment":[
-"nasip",
 "Nasip"
 ],
 "emergency/ambulance_station":[
@@ -515,10 +503,6 @@
 "hitna telefonska linija",
 "Telefon za hitne slučajeve",
 "telefon za hitne slučajeve"
-],
-"footway/sidewalk":[
-"trotoar",
-"Trotoar"
 ],
 "golf/bunker":[
 "pješčana klopka",
@@ -837,12 +821,6 @@
 "igralište za američki fudbal",
 "Polje za američki fudbal"
 ],
-"leisure/pitch/baseball":[
-"bejzbol teren",
-"Bejzbol teren",
-"bejzbol dijamant",
-"igralište za bejzbol"
-],
 "leisure/pitch/basketball":[
 "Košarkaški teren",
 "košarkaški teren",
@@ -923,14 +901,6 @@
 "svjetionik",
 "toranj za svjetlosnu navigaciju",
 "Svjetionik"
-],
-"man_made/observation":[
-"toranj za turiste",
-"Osmatračnica",
-"toranj za osmatranje",
-"osmatračnica",
-"protupožarni toranj",
-"platforma za osmatranje"
 ],
 "man_made/pier":[
 "pristanište",

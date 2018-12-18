@@ -278,7 +278,7 @@
 "benzinska pumpa"
 ],
 "amenity/grave_yard":[
-"Groblje",
+"Groblje uz crkvu",
 "groblje"
 ],
 "amenity/grit_bin":[
@@ -316,14 +316,6 @@
 ],
 "amenity/nightclub":[
 "Noćni klub"
-],
-"amenity/parking":[
-"parking",
-"garaža",
-"Parkiralište za automobile",
-"parkiralište",
-"parkirno mjesto",
-"podzemna garaža"
 ],
 "amenity/parking_entrance":[
 "Parking garaža Ulaz/Izlaz"
@@ -487,7 +479,7 @@
 "općinski dom"
 ],
 "amenity/university":[
-"Fakultetsko zemljište"
+"Sveučilišno zemljište"
 ],
 "amenity/vending_machine/cigarettes":[
 "Automat za cigarete"
@@ -503,9 +495,6 @@
 ],
 "amenity/vending_machine/news_papers":[
 "Automat za novine"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"Automat za slanje/primanje paketa"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Automat za parkirališne karte"
@@ -574,9 +563,6 @@
 "barrier/hedge":[
 "Živica"
 ],
-"barrier/kerb":[
-"Rubnjak"
-],
 "barrier/kissing_gate":[
 "Rotirajući prolaz za ljude"
 ],
@@ -604,11 +590,6 @@
 "kuća",
 "građevina",
 "Građevina"
-],
-"building/apartments":[
-"zgrada sa apartmanima",
-"Stambena zgrada",
-"Zgrada sa stanovima"
 ],
 "building/barn":[
 "Ambar",
@@ -714,7 +695,7 @@
 "Željeznički kolodvor"
 ],
 "building/university":[
-"Zgrada fakulteta"
+"Zgrada sveučilišta"
 ],
 "building/warehouse":[
 "Skladište"
@@ -759,7 +740,7 @@
 "Destilerija"
 ],
 "craft/dressmaker":[
-"Krojač"
+"Krojač za žene"
 ],
 "craft/electrician":[
 "Električar"
@@ -844,7 +825,7 @@
 "Zidar"
 ],
 "craft/tailor":[
-"Krojač"
+"Krojač za muškarce"
 ],
 "craft/tiler":[
 "Keramičar"
@@ -884,16 +865,6 @@
 "entrance":[
 "Ulaz/izlaz"
 ],
-"footway/crossing":[
-"zebra",
-"Pješački prijelaz"
-],
-"footway/crosswalk":[
-"Pješački prijelaz"
-],
-"footway/sidewalk":[
-"Pločnik"
-],
 "ford":[
 "Prijelaz preko potoka"
 ],
@@ -925,13 +896,6 @@
 ],
 "highway/corridor":[
 "Hodnik"
-],
-"highway/crossing":[
-"zebra",
-"Pješački prijelaz"
-],
-"highway/crosswalk":[
-"Pješački prijelaz"
 ],
 "highway/cycleway":[
 "Biciklistička staza"
@@ -972,7 +936,7 @@
 "Ulica"
 ],
 "highway/rest_area":[
-"Odmorište"
+"Odmorište bez benzinske stanice"
 ],
 "highway/road":[
 "Nepoznata cesta"
@@ -1195,10 +1159,6 @@
 "Američki nogomet",
 "igralište za američki nogomet"
 ],
-"leisure/pitch/baseball":[
-"bejzbol igralište",
-"Baseball igralište"
-],
 "leisure/pitch/basketball":[
 "Košarkaški teren",
 "košarkaško igralište"
@@ -1300,14 +1260,6 @@
 "svjetlosni signal",
 "toranj za svjetlosnu navigaciju",
 "Svjetionik"
-],
-"man_made/observation":[
-"promatrajući toranj",
-"čeka",
-"toranj vidikovac",
-"toranj za promatranje",
-"Toranj za promatranje",
-"vidikovački toranj"
 ],
 "man_made/petroleum_well":[
 "Izvor nafte"
@@ -1460,8 +1412,8 @@
 ],
 "natural/grassland":[
 "pašnjak",
+"Prirodni travnjak",
 "prirodni travnjak",
-"Travnjak",
 "travnjak",
 "livada"
 ],
@@ -1536,9 +1488,6 @@
 "Drvo",
 "stablo",
 "drvo"
-],
-"natural/tree_row":[
-"Drvored"
 ],
 "natural/volcano":[
 "Vulkan"
@@ -1618,9 +1567,6 @@
 ],
 "office/travel_agent":[
 "Putnička agencija"
-],
-"piste":[
-"Skijaška staza"
 ],
 "place":[
 "Mjesto"
@@ -2227,10 +2173,10 @@
 "shop/stationery":[
 "papirnica",
 "prodavaonica tiskanica",
+"Papirnica",
 "trgovina papirom",
 "knjižara",
-"prodavaonica papira",
-"Knjižara"
+"prodavaonica papira"
 ],
 "shop/supermarket":[
 "supermarket",
@@ -2336,7 +2282,7 @@
 "Trgovina za oružje"
 ],
 "shop/wine":[
-"Vinarija"
+"Prodavaonica vina"
 ],
 "tourism":[
 "seoski turizam",
@@ -2452,11 +2398,11 @@
 ],
 "traffic_calming/bump":[
 "ležeći policajac",
-"Uspornik"
+"Kratki uspornik u širini ceste"
 ],
 "traffic_calming/hump":[
 "ležeći policajac",
-"Uspornik"
+"Duži uspornik u širini ceste"
 ],
 "type/boundary":[
 "Granica",

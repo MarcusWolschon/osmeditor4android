@@ -14,6 +14,7 @@
 "Litfaßsäule",
 "Plakatträger",
 "Anzeigeständer",
+"Werbung",
 "Plakatsäule"
 ],
 "aerialway":[
@@ -45,6 +46,7 @@
 "aerialway/magic_carpet":[
 "Babylift",
 "Zauberteppichlift",
+"Kinderschilift",
 "Kinderskilift"
 ],
 "aerialway/mixed_lift":[
@@ -53,6 +55,7 @@
 "Kombinationseilbahn"
 ],
 "aerialway/platter":[
+"Tellerschilift",
 "Tellerlift",
 "Teller-Skilift"
 ],
@@ -63,7 +66,7 @@
 ],
 "aerialway/rope_tow":[
 "Seilschlepplift",
-"Schlepplift",
+"Schlepptaulift",
 "Übungslift"
 ],
 "aerialway/station":[
@@ -314,6 +317,10 @@
 "Dentist",
 "Stomatologe"
 ],
+"amenity/dive_centre":[
+"Tauchschule",
+"Tauchzentrum"
+],
 "amenity/doctors":[
 "Arzt",
 "Ärztin",
@@ -343,6 +350,32 @@
 "Imbiss",
 "Fast Food",
 "Schnellimbiss"
+],
+"amenity/fast_food/burger":[
+"Burgerstand",
+"Burger Fast Food",
+"Hamburgerstand"
+],
+"amenity/fast_food/chicken":[
+"Hühner Fast Food"
+],
+"amenity/fast_food/fish_and_chips":[
+"Fish & Chips Stand",
+"Fish & Chips Fast Takeaway",
+"Fish & Chips Fast Food"
+],
+"amenity/fast_food/kebab":[
+"Kebapstand",
+"Kebap Takeaway",
+"Kebab Fast Food"
+],
+"amenity/fast_food/pizza":[
+"Pizza Takeaway",
+"Pizza Fast Food"
+],
+"amenity/fast_food/sandwich":[
+"Sandwich Takeaway",
+"Sandwich Fast Food"
 ],
 "amenity/ferry_terminal":[
 "Schiffsanleger"
@@ -412,6 +445,9 @@
 "Kinderkrippengelände",
 "Kindergartengelände"
 ],
+"amenity/language_school":[
+"Sprachschule"
+],
 "amenity/library":[
 "Bibliothek",
 "Bücherei"
@@ -427,6 +463,10 @@
 ],
 "amenity/monastery":[
 "Klostergelände"
+],
+"amenity/money_transfer":[
+"Bargeldtransfer",
+"Geldtransferstation"
 ],
 "amenity/motorcycle_parking":[
 "Motorradparkplatz",
@@ -446,10 +486,13 @@
 "Pflegeheim"
 ],
 "amenity/parking":[
-"Parkgarage",
-"Garage",
-"Parkhaus",
-"Parkplatz"
+"Stellplatz",
+"Parkfläche",
+"Parkplatz",
+"Abstellplatz"
+],
+"amenity/parking/multi-storey":[
+"Mehrstöckige Parkgarage"
 ],
 "amenity/parking_entrance":[
 "Garagenzufahrt/-abfahrt",
@@ -465,9 +508,13 @@
 "Parkplatz",
 "Abstellplatz"
 ],
-"amenity/pavilion":[
-"Pavillon",
-"Gartenhäuschen"
+"amenity/payment_centre":[
+"Zahlstellen",
+"Zahlstelle",
+"Einzahlstelle"
+],
+"amenity/payment_terminal":[
+"Zahlungsterminal"
 ],
 "amenity/pharmacy":[
 "Apotheke"
@@ -597,8 +644,7 @@
 "Ranger-Station"
 ],
 "amenity/recycling":[
-"Wertstoffhof",
-"Recyclingcontainer"
+"Recycling"
 ],
 "amenity/recycling_centre":[
 "Wertstoffhof",
@@ -606,6 +652,10 @@
 "Abfallwirtschaftszentrum",
 "Abfallsammelstelle",
 "Abfallwirtschaftshof"
+],
+"amenity/recycling_container":[
+"Wertstoffhof",
+"Recyclingcontainer"
 ],
 "amenity/register_office":[
 "Standesamt"
@@ -638,6 +688,60 @@
 "Pizzeria",
 "Cafeteria"
 ],
+"amenity/restaurant/american":[
+"Amerikanisches Restaurant"
+],
+"amenity/restaurant/asian":[
+"Asiatisches Restaurant"
+],
+"amenity/restaurant/chinese":[
+"Chinesisches Restaurant"
+],
+"amenity/restaurant/french":[
+"Französisches Restaurant"
+],
+"amenity/restaurant/german":[
+"Deutsches Restaurant"
+],
+"amenity/restaurant/greek":[
+"Griechisches Restaurant"
+],
+"amenity/restaurant/indian":[
+"Indisches Restaurant"
+],
+"amenity/restaurant/italian":[
+"Italienisches Restaurant"
+],
+"amenity/restaurant/japanese":[
+"Japanisches Restaurant"
+],
+"amenity/restaurant/mexican":[
+"Mexicanisches Restaurant"
+],
+"amenity/restaurant/noodle":[
+"Nudel-Restaurant"
+],
+"amenity/restaurant/pizza":[
+"Pizza Restaurant"
+],
+"amenity/restaurant/seafood":[
+"Meeresfrüchte Restaurant"
+],
+"amenity/restaurant/steakhouse":[
+"Steakhouse"
+],
+"amenity/restaurant/sushi":[
+"Sushi Restaurant"
+],
+"amenity/restaurant/thai":[
+"Thailändisches Restaurant"
+],
+"amenity/restaurant/turkish":[
+"Türkisches Restaurant"
+],
+"amenity/restaurant/vietnamese":[
+"Vietnamesisches Restaurant"
+],
 "amenity/sanitary_dump_station":[
 "Toilettenentsorgungsanlage",
 "Campingtoiletten-Entsorgungsanlage",
@@ -662,6 +766,20 @@
 "Wetterpilz",
 "Schutzdach",
 "Wetterschutz"
+],
+"amenity/shelter/gazebo":[
+"offene Gartenlaube",
+"Salettl",
+"Aussichtspavillon"
+],
+"amenity/shelter/lean_to":[
+"offene Schutzhütte"
+],
+"amenity/shelter/picnic_shelter":[
+"Überdachte Picknikmöglichkeit"
+],
+"amenity/shelter/public_transport":[
+"Überdachter Wartebereich"
 ],
 "amenity/shower":[
 "Dusche"
@@ -715,6 +833,9 @@
 "Schauspiel",
 "Musical"
 ],
+"amenity/theatre/type/amphi":[
+"Amphitheater"
+],
 "amenity/toilets":[
 "Bad",
 "Toilette",
@@ -730,6 +851,9 @@
 "amenity/university":[
 "Universitätsgelände",
 "Universitätscampus"
+],
+"amenity/vehicle_inspection":[
+"Fahrzeuginspektion"
 ],
 "amenity/vending_machine":[
 "Automat",
@@ -782,9 +906,17 @@
 "Sonntagstasche",
 "Stummer Verkäufer"
 ],
+"amenity/vending_machine/parcel_pickup":[
+"Paketabholstation",
+"Abholschließfächer",
+"Abholstation",
+"Paketabholdstation",
+"Paketabholschließfächer"
+],
 "amenity/vending_machine/parcel_pickup_dropoff":[
-"Packstation",
-"Paketautomat"
+"Paketaufgabeabholschließfächer",
+"Paketstation",
+"Aufgabe-Abhol-Paketstation"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkscheinautomat"
@@ -881,6 +1013,9 @@
 "attraction/roller_coaster":[
 "Achterbahn"
 ],
+"attraction/summer_toboggan":[
+"Sommerrodelbahn"
+],
 "attraction/train":[
 "Touristenzug"
 ],
@@ -927,16 +1062,33 @@
 "barrier/fence":[
 "Zaun"
 ],
+"barrier/fence/railing":[
+"Geländer"
+],
 "barrier/gate":[
 "Gatter",
 "Tor"
+],
+"barrier/guard_rail":[
+"Schutzplanke",
+"Leitplanke",
+"Schutzgeländer"
 ],
 "barrier/hedge":[
 "Hecke"
 ],
 "barrier/kerb":[
-"Bordstein",
-"Randstein"
+"Bordstein"
+],
+"barrier/kerb/flush":[
+"kantenfreie abgesenkter Bordstein",
+"stufenfrei abgesenkter Bordstein",
+"voll abgesenkter Bordstein"
+],
+"barrier/kerb/lowered":[
+"Rampe",
+"abgesenkte Gehsteigkante",
+"abgesenkter Bordstein"
 ],
 "barrier/kissing_gate":[
 "Gatter",
@@ -945,6 +1097,7 @@
 ],
 "barrier/lift_gate":[
 "Schlagbaum",
+"Schranke ",
 "Schranke"
 ],
 "barrier/retaining_wall":[
@@ -967,11 +1120,17 @@
 "Administrative Grenze",
 "Verwaltungsgrenze"
 ],
+"bridge/support":[
+"Brückenaufhängung/-unterstützung"
+],
+"bridge/support/pier":[
+"Brückenständer"
+],
 "building":[
 "Gebäude"
 ],
 "building/apartments":[
-"Wohnung",
+"Großes Wohnhaus",
 "Mehrfamilienhaus"
 ],
 "building/barn":[
@@ -991,6 +1150,13 @@
 "building/cabin":[
 "Hütte",
 "Wochenendhaus"
+],
+"building/carport":[
+"überdachter Autoabstellplatz",
+"Autoeinstellplatz",
+"Carport",
+"Wagenunterstellplatz",
+"Caport"
 ],
 "building/cathedral":[
 "Dom",
@@ -1039,14 +1205,14 @@
 "Eingang/Ausgang"
 ],
 "building/farm":[
-"Landwirtschaft",
 "Bauernhaus",
-"Bauernhof",
+"Landwirtschaft",
 "Farm"
 ],
 "building/farm_auxiliary":[
-"Bauernhaus",
+"Scheune",
 "Landwirtschaftliches Gebäude",
+"Landwirtschaftliches Nutzgebäude",
 "Stall"
 ],
 "building/garage":[
@@ -1080,9 +1246,8 @@
 "Einfamilienhaus"
 ],
 "building/hut":[
-"Gartenhaus",
-"Schuppen",
-"Holzhütte (klein)"
+"kleine primitive Behausung",
+"Hütte"
 ],
 "building/industrial":[
 "Fabrikgebäude",
@@ -1096,6 +1261,11 @@
 "building/mosque":[
 "Moschee",
 "Moscheegebäude"
+],
+"building/pavilion":[
+"Nebengebäude",
+"Pavillion",
+"Nebengebäude (Pavillion)"
 ],
 "building/public":[
 "Öffentliches Gebäude"
@@ -1128,9 +1298,9 @@
 "Dienstleistungsgebäude"
 ],
 "building/shed":[
+"Gartenhaus",
 "Schuppen",
-"Baracke",
-"Hütte"
+"Baracke"
 ],
 "building/stable":[
 "Stallgebäude",
@@ -1385,10 +1555,7 @@
 "Weinkellerei"
 ],
 "embankment":[
-"Böschung",
-"Aufschüttung",
-"künstliche Böschung",
-"Damm"
+"künstliche Böschung"
 ],
 "emergency/ambulance_station":[
 "Rettungswache"
@@ -1471,31 +1638,6 @@
 "Ausfahrt",
 "Eintritt",
 "Einstieg"
-],
-"footway/crossing":[
-"Fußgängerüberweg",
-"Fußwegstraßenkreuzung",
-"Überweg"
-],
-"footway/crossing-raised":[
-"Erhöhte Kreuzung"
-],
-"footway/crosswalk":[
-"Fußgängerquerung",
-"Fußgängerüberweg",
-"Zebrastreifen",
-"Fußgängerübergang"
-],
-"footway/crosswalk-raised":[
-"Erhöhter Fußgängerübergang"
-],
-"footway/sidewalk":[
-"Gehsteig",
-"Gehweg",
-"Gangsteig",
-"Bürgersteig",
-"Fußgängerweg",
-"Trottoir"
 ],
 "ford":[
 "Furt (Gewässerquerung)"
@@ -1631,21 +1773,27 @@
 "Gang/Korridor im Innenraum",
 "Innengang"
 ],
-"highway/crossing":[
-"Straßenkreuzung",
-"Kreuzung"
+"highway/crossing/marked":[
+"Markierter Übergang",
+"Zebrastreifen"
 ],
-"highway/crossing-raised":[
-"Erhöhte Kreuzung"
+"highway/crossing/marked-raised":[
+"Zebrastreifen (erhöht)",
+"Markierter Übergang (erhöht)"
 ],
-"highway/crosswalk":[
-"Fußgängerquerung",
-"Fußgängerüberweg",
-"Zebrastreifen",
-"Fußgängerübergang"
+"highway/crossing/unmarked":[
+"Nicht markierte Kreuzung",
+"Nicht gekennzeichnete Kreuzung"
 ],
-"highway/crosswalk-raised":[
-"Erhöhter Fußgängerübergang"
+"highway/crossing/unmarked-raised":[
+"Nicht markierter Fußgängerübergang (erhöht)",
+"gekennzeichneter Übergang (erhöht)"
+],
+"highway/crossing/zebra":[
+"Zebrastreifen"
+],
+"highway/crossing/zebra-raised":[
+"Zebrastreifen (erhöht)"
 ],
 "highway/cycleway":[
 "Radfahrweg",
@@ -1664,6 +1812,45 @@
 "Fußweg",
 "Fußgängerweg"
 ],
+"highway/footway/conveying":[
+"Rollsteig",
+"Rolltreppe",
+"Laufband",
+"bewegter Bürgersteig",
+"rollender Bürgersteig",
+"Fahrsteig"
+],
+"highway/footway/marked":[
+"Zebrastreifen",
+"markierter Fußgängerübergang"
+],
+"highway/footway/marked-raised":[
+"Zebrastreifen (erhöht)",
+"markierter Fußgängerübergang (erhöht)"
+],
+"highway/footway/sidewalk":[
+"Fußweg",
+"Gehsteig",
+"Gehweg",
+"Bürgersteig",
+"Trottoir"
+],
+"highway/footway/unmarked":[
+"Nicht gekennzeichneter Übergang",
+"Ungekennzeichneter Übergang",
+"Unbezeichneter Übergang",
+"Unmarkierter Übergang"
+],
+"highway/footway/unmarked-raised":[
+"Nicht gekennzeichneter Übergang (erhöht)",
+"Nicht bezeichneter Übergang (erhöht)"
+],
+"highway/footway/zebra":[
+"Gekennzeichneter Übergang"
+],
+"highway/footway/zebra-raised":[
+"Gekennzeichneter Übergang (erhöht)"
+],
 "highway/give_way":[
 "Vorrang gewähren-Zeichen",
 "Vorfahrt gewähren-Zeichen",
@@ -1674,6 +1861,12 @@
 "Verkehrsberuhigter Bereich",
 "Wohnstraße",
 "Spielstraße"
+],
+"highway/milestone":[
+"Straßenkilometerzeichen",
+"Straßenkilometerstein",
+"Kilometerstein",
+"Stationszeichen"
 ],
 "highway/mini_roundabout":[
 "Kreisverkehr mit befahrbarer Mitte",
@@ -1840,6 +2033,9 @@
 "Treppen",
 "Stiege"
 ],
+"highway/steps/conveying":[
+"Rolltreppe"
+],
 "highway/stop":[
 "Halt",
 "Stopschild",
@@ -1868,10 +2064,10 @@
 ],
 "highway/track":[
 "Waldweg",
+"Feld-/Waldweg",
 "Forststraße",
 "Feldweg",
-"Wirtschaftsweg",
-"Wald-/Feldweg"
+"Wirtschaftsweg"
 ],
 "highway/traffic_mirror":[
 "Trixi-Spiegel",
@@ -1960,6 +2156,18 @@
 "Bildstock",
 "Marterl",
 "Betsäule"
+],
+"historic/wreck":[
+"Wrack",
+"Schiffswrack"
+],
+"internet_access/wlan":[
+"Wi-Fi-Zugangspunkt",
+"Wi-Fi-Hotspot",
+"WiFi-Zugangspunkt",
+"WLAN-Zugangspunkt",
+"WiFi-Hotspot",
+"WLAN-Hotspot"
 ],
 "junction":[
 "Straßenknotenpunkt",
@@ -2139,6 +2347,10 @@
 "Wohngebiet",
 "Wohngegend"
 ],
+"landuse/residential/apartments":[
+"Wohnkomplex",
+"Wohnsiedlung"
+],
 "landuse/retail":[
 "Einzelhandelsfläche",
 "Einzelhandel",
@@ -2165,6 +2377,10 @@
 ],
 "leisure/amusement_arcade":[
 "Spielhalle"
+],
+"leisure/bandstand":[
+"Musikpavillion",
+"Orchesterpavillon"
 ],
 "leisure/beach_resort":[
 "Badestrandresort",
@@ -2212,6 +2428,11 @@
 ],
 "leisure/firepit":[
 "Feuerstelle"
+],
+"leisure/fishing":[
+"Fischteich",
+"Fischplatz",
+"Fischgewässer"
 ],
 "leisure/fitness_centre":[
 "Fitness-Studio",
@@ -2341,9 +2562,7 @@
 "Badmintonplatz"
 ],
 "leisure/pitch/baseball":[
-"Baseball-Rautenfeld",
-"Baseball-Platz",
-"Baseball-Feld"
+"Baseballfeld"
 ],
 "leisure/pitch/basketball":[
 "Basketball-Platz",
@@ -2384,6 +2603,9 @@
 "leisure/pitch/soccer":[
 "Fußballfeld",
 "Fußballplatz"
+],
+"leisure/pitch/softball":[
+"Softballfeld"
 ],
 "leisure/pitch/table_tennis":[
 "Tischtennis-Tisch",
@@ -2468,8 +2690,14 @@
 "Antennenmast"
 ],
 "man_made/breakwater":[
-"Buhnen",
+"Riff",
+"Pier",
+"Tetrapode",
+"Doloss",
+"Ponton",
+"Damm",
 "Wellenbrecher",
+"Riffball",
 "Mole"
 ],
 "man_made/bridge":[
@@ -2502,7 +2730,8 @@
 "Lücke"
 ],
 "man_made/embankment":[
-"Böschung"
+"Böschung",
+"Abhang"
 ],
 "man_made/flagpole":[
 "Fahne",
@@ -2514,8 +2743,11 @@
 ],
 "man_made/groyne":[
 "Kribbe",
+"Schlacht",
 "Buhne",
-"Wellenbrecher"
+"Höft",
+"Schlenge",
+"Stack"
 ],
 "man_made/lighthouse":[
 "Leuchtturm"
@@ -2527,14 +2759,36 @@
 "Mobilfunkmast",
 "Sendemast"
 ],
+"man_made/mast/communication":[
+"Funkturm",
+"Mobilfunkmast",
+"Fernsehturm",
+"Funkmast",
+"Radiofunkturm",
+"Antenne",
+"Funk",
+"verankerter Mast"
+],
+"man_made/mast/communication/mobile_phone":[
+"Mobilfunkturm",
+"Mobilfunkmast",
+"Antenne",
+"verankerter Mast"
+],
+"man_made/mast/communication/radio":[
+"Radiofunkmast",
+"Radiofunkturm",
+"Antenne",
+"verankerter Mast"
+],
+"man_made/mast/communication/television":[
+"Fernsehfunkmast",
+"Fernsehfunkturm",
+"Antenne",
+"verankerter Mast"
+],
 "man_made/monitoring_station":[
 "Messstation"
-],
-"man_made/observation":[
-"Beobachtungsstand",
-"Ausblick",
-"Ausguck",
-"Aussichtsturm"
 ],
 "man_made/observatory":[
 "Sternenwarte",
@@ -2578,9 +2832,15 @@
 "Überwachungskamera",
 "Überwachungseinrichtung"
 ],
-"man_made/surveillance_camera":[
-"Alarmkamera",
-"Überwachungskamera"
+"man_made/surveillance/camera":[
+"Überwachung",
+"Kennzeichenerkennung",
+"Video",
+"Kamera",
+"Webcam",
+"Überwachungskamera",
+"CCTV",
+"Sicherheit"
 ],
 "man_made/survey_point":[
 "Trigonometrischer Punkt",
@@ -2589,6 +2849,21 @@
 ],
 "man_made/tower":[
 "Turm"
+],
+"man_made/tower/communication":[
+"Mobilfunkturm",
+"Mobilfunkmast",
+"Fernsehfunkturm",
+"Fersehfunkmast",
+"Kommunikationsturm",
+"Radiofunkmast",
+"Radiofunkturm",
+"Antenne",
+"verankerter Mast"
+],
+"man_made/tower/observation":[
+"Beobachtungsturm",
+"Feuerwehrturm"
 ],
 "man_made/wastewater_plant":[
 "Kläranlage",
@@ -2823,7 +3098,15 @@
 "Architekturbüro"
 ],
 "office/association":[
-"Nonprofit-Organisations-Büro"
+"Verein",
+"Vereinsbüro",
+"Nonprofit-Organisationsbüro",
+"NGO",
+"Vereinsheim",
+"Studentenverbindung",
+"NPO",
+"Nonprofit-Organisations-Büro",
+"e.V."
 ],
 "office/charity":[
 "Wohlfahrtseinrichtung"
@@ -2882,7 +3165,7 @@
 "Finanzamt"
 ],
 "office/guide":[
-"Reisebüro"
+"Fremdenführer"
 ],
 "office/insurance":[
 "Versicherungsbüro",
@@ -2910,7 +3193,11 @@
 ],
 "office/ngo":[
 "Nichtregierungsorganisation",
-"NRO"
+"Verein",
+"NGO-Büro – Nichtregierungsorganisation",
+"NGO",
+"NRO",
+"e.V."
 ],
 "office/notary":[
 "Notariat"
@@ -2928,6 +3215,9 @@
 ],
 "office/quango":[
 "Quasi-NGO-Büro"
+],
+"office/religion":[
+"Büro einer Glaubensgemeinschaft"
 ],
 "office/research":[
 "Forschungseinrichtung",
@@ -2954,11 +3244,63 @@
 "office/water_utility":[
 "Wasserversorgungsunternehmen"
 ],
-"piste":[
+"piste/downhill":[
+"Ski",
 "Piste",
-"Piste/Skipiste",
-"Skiwanderweg",
-"Skipiste"
+"Abfahrt",
+"Schi",
+"Alpin",
+"Snowboard",
+"Abfahrtspiste/Skirennen"
+],
+"piste/hike":[
+"Schneeschuhweg",
+"Piste",
+"Schneeschuhweg oder Winterwanderweg",
+"Winterwanderweg"
+],
+"piste/ice_skate":[
+"Eislaufplatz",
+"Eislaufen"
+],
+"piste/nordic":[
+"Langlaufloipe",
+"Nordische Loipe oder Langlaufloipe",
+"Nordische Loipe"
+],
+"piste/piste":[
+"Wintersport",
+"Winterwandern",
+"Nordisch",
+"Langlaufen",
+"Schlitten",
+"Eislaufen",
+"Snowboard",
+"Skitour",
+"Abfahrt",
+"Pferd",
+"Husky",
+"Schneeschuwandern",
+"Wintersporttrail",
+"Skating"
+],
+"piste/skitour":[
+"Skitour",
+"Touring",
+"Piste",
+"Skitourentrail",
+"Langlaufen"
+],
+"piste/sled":[
+"Schlittenpiste",
+"Schlittenweg",
+"Schlittenabfahrt"
+],
+"piste/sleigh":[
+"Pferdeschlitten/Hundeschlitten",
+"Pferdeschlitten",
+"Hundeschlitten",
+"Husky"
 ],
 "place":[
 "Ort"
@@ -2966,6 +3308,9 @@
 "place/city":[
 "Großstadt",
 "Stadt"
+],
+"place/city_block":[
+"Häuserblock"
 ],
 "place/farm":[
 "Bauernhof"
@@ -3063,7 +3408,8 @@
 "Springreiter"
 ],
 "playground/roundabout":[
-"Karussell"
+"Ringelspiel",
+"Kinderkarussell"
 ],
 "playground/sandpit":[
 "Sandkasten",
@@ -3093,14 +3439,29 @@
 "power":[
 "Energieversorgung"
 ],
+"power/cable/underground":[
+"Stromkabel unter der Erde",
+"vergrabenes Stromkabel",
+"unterirdisches Stromkabel"
+],
 "power/generator":[
 "Stromgenerator"
 ],
-"power/generator/source_nuclear":[
-"Kernreaktor"
+"power/generator/method/photovoltaic":[
+"Solar Panel"
 ],
-"power/generator/source_wind":[
-"Windrad"
+"power/generator/source/nuclear":[
+"Atomfusionskraftwerk",
+"Atomreaktor",
+"Atomspaltungskraftwerk",
+"Atomkraftwerk"
+],
+"power/generator/source/wind":[
+"Windkraftanlage",
+"Windturbine",
+"Windgenerator",
+"Windmühle",
+"Windenergieanlage"
 ],
 "power/line":[
 "Hochspannungsleitung",
@@ -3428,6 +3789,28 @@
 "Fährenroute",
 "Fährlinie"
 ],
+"seamark":[
+"Schifffahrtszeichen"
+],
+"seamark/beacon_isolated_danger":[
+"Gefahrenleuchtfeuer"
+],
+"seamark/beacon_lateral":[
+"Kanalleuchtfeuer"
+],
+"seamark/buoy_lateral":[
+"Kanalboje"
+],
+"seamark/buoy_lateral/green":[
+"Grüne Boje"
+],
+"seamark/buoy_lateral/red":[
+"Rote Boje"
+],
+"seamark/mooring":[
+"Liegeplatz",
+"Anlegeplatz"
+],
 "shop":[
 "Shop",
 "Geschäft",
@@ -3542,6 +3925,9 @@
 "Teppichgeschäft",
 "Teppichhändler"
 ],
+"shop/catalogue":[
+"Versandhandel"
+],
 "shop/charity":[
 "Gebrauchtwarenladen",
 "Sozialkaufhaus"
@@ -3590,6 +3976,9 @@
 "shop/cosmetics":[
 "Drogerie",
 "Kosmetikladen"
+],
+"shop/country_store":[
+"Ländlicher Lader"
 ],
 "shop/craft":[
 "Künstlerbedarf",
@@ -3702,6 +4091,9 @@
 "Barbier",
 "Friseur"
 ],
+"shop/hairdresser_supply":[
+"Friseurbedarf"
+],
 "shop/hardware":[
 "Baustoff-Handlung",
 "Eisenwarenhandel",
@@ -3716,7 +4108,7 @@
 "Hörgerätegeschäft"
 ],
 "shop/herbalist":[
-"Naturheilkundigearzt",
+"Naturheilkundiger Arzt",
 "Kräuterarzt",
 "Kräuterladen"
 ],
@@ -3833,6 +4225,9 @@
 "Malerbedarf",
 "Anstreicherbedarf"
 ],
+"shop/party":[
+"Partyzubehör"
+],
 "shop/pastry":[
 "Süßspeisengeschäft",
 "Bäckerei",
@@ -3889,6 +4284,10 @@
 "Trödelladen",
 "Second-Hand-Laden",
 "Trödel"
+],
+"shop/sewing":[
+"Nähzubehörgeschaft",
+"Kurzwarenladen"
 ],
 "shop/shoes":[
 "Schuhgeschäft"
@@ -4032,6 +4431,17 @@
 "tourism/artwork":[
 "Kunst",
 "Kunstwerk"
+],
+"tourism/artwork/mural":[
+"Wandmalerei",
+"Fresko"
+],
+"tourism/artwork/sculpture":[
+"Skulptur"
+],
+"tourism/artwork/statue":[
+"Statue",
+"Standbild"
 ],
 "tourism/attraction":[
 "Touristenattraktion"
@@ -4186,6 +4596,26 @@
 "Bodenwelle",
 "Verkehrsberuhigungs-Bodenwelle"
 ],
+"traffic_sign":[
+"Verkehrsschild",
+"Verkehrszeichen"
+],
+"traffic_sign/city_limit":[
+"Ortsschild"
+],
+"traffic_sign/city_limit_vertex":[
+"Ortsschild"
+],
+"traffic_sign/maxspeed":[
+"Höchstgeschwindigkeit"
+],
+"traffic_sign/maxspeed_vertex":[
+"Höchstgeschwindigkeit"
+],
+"traffic_sign_vertex":[
+"Verkehrsschild",
+"Verkehrszeichen"
+],
 "type/boundary":[
 "Grenze"
 ],
@@ -4307,6 +4737,8 @@
 "Piste",
 "Wintersportroute",
 "Schiroute",
+"Skiroute",
+"Skipiste",
 "Schipiste"
 ],
 "type/route/power":[
@@ -4391,6 +4823,11 @@
 "waterway/fuel":[
 "Bootstankstelle"
 ],
+"waterway/milestone":[
+"Fließgewässerkilometrierung",
+"Gewässerkilometrierung",
+"Gewässerkilometerstein"
+],
 "waterway/river":[
 "Fluss"
 ],
@@ -4405,14 +4842,14 @@
 "Bach"
 ],
 "waterway/stream_intermittent":[
-"periodisches Fliessgewässer",
+"periodisches Fließgewässer",
 "Periodischer Bach",
 "periodischer Bach"
 ],
 "waterway/water_point":[
 "Frischwasser",
 "Trinkwasser",
-"Marine Frischwasser"
+"Frischwasser für Bootstanks"
 ],
 "waterway/waterfall":[
 "Wasserfall"

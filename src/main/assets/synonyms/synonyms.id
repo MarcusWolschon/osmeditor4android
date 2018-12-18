@@ -164,9 +164,6 @@
 "amenity/nightclub":[
 "Kelab Malam"
 ],
-"amenity/parking":[
-"Parkir Mobil"
-],
 "amenity/parking_entrance":[
 "Pintu Masuk/Keluar Area Parkir"
 ],
@@ -309,9 +306,6 @@
 ],
 "building":[
 "Bangunan"
-],
-"building/apartments":[
-"Apartemen"
 ],
 "building/barn":[
 "Lumbung"
@@ -521,15 +515,6 @@
 "entrance":[
 "Pintu Masuk/Keluar"
 ],
-"footway/crossing":[
-"Penyeberangan Jalan"
-],
-"footway/crosswalk":[
-"Penyeberangan Pejalan Kaki"
-],
-"footway/sidewalk":[
-"Trotoar"
-],
 "ford":[
 "Ford"
 ],
@@ -544,12 +529,6 @@
 ],
 "highway/corridor":[
 "Lorong dalam"
-],
-"highway/crossing":[
-"Persimpangan jalan"
-],
-"highway/crosswalk":[
-"Trotoar"
 ],
 "highway/cycleway":[
 "Jalur Sepeda"
@@ -816,10 +795,6 @@
 "Lapangan Sepak Bola Amerika",
 "Lapangan Rugby"
 ],
-"leisure/pitch/baseball":[
-"Lapangan Bisbol",
-"Baseball"
-],
 "leisure/pitch/basketball":[
 "Lapangan Basket"
 ],
@@ -865,9 +840,6 @@
 ],
 "man_made/lighthouse":[
 "Mercusuar"
-],
-"man_made/observation":[
-"Menara Pengamatan"
 ],
 "man_made/petroleum_well":[
 "Sumur Minyak"
@@ -945,9 +917,6 @@
 ],
 "natural/tree":[
 "Pohon"
-],
-"natural/tree_row":[
-"Deretan pohon"
 ],
 "natural/volcano":[
 "Gunung Berapi",

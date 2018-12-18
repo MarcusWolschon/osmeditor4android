@@ -238,11 +238,6 @@
 "amenity/nursing_home":[
 "Hoolduskodu"
 ],
-"amenity/parking":[
-"parkimisplats",
-"Autoparkla",
-"Parkla"
-],
 "amenity/parking_entrance":[
 "Parkimismaja sisse/väljapääs"
 ],
@@ -300,14 +295,6 @@
 "amenity/ranger_station":[
 "külastuskeskus",
 "Looduskeskus"
-],
-"amenity/recycling":[
-"konteiner",
-"Jäätmekonteiner",
-"jäätmed",
-"taaskasutus",
-"prügi",
-"ohtlikud"
 ],
 "amenity/recycling_centre":[
 "Taaskasutuskeskus",
@@ -466,10 +453,6 @@
 "barrier/hedge":[
 "Hekk"
 ],
-"barrier/kerb":[
-"Kiviääris",
-"ääris"
-],
 "barrier/kissing_gate":[
 "Karjavärav"
 ],
@@ -498,9 +481,6 @@
 "building":[
 "Hoone",
 "ehitis"
-],
-"building/apartments":[
-"Korterid"
 ],
 "building/barn":[
 "laut",
@@ -829,10 +809,7 @@
 "Veinitehas"
 ],
 "embankment":[
-"muldkeha",
-"tamm",
-"Teetamm",
-"vall"
+"Teetamm"
 ],
 "emergency/ambulance_station":[
 "Kiirabipunkt"
@@ -851,24 +828,6 @@
 ],
 "entrance":[
 "Sisse- ja Väljapääs"
-],
-"footway/crossing":[
-"Ülekäik"
-],
-"footway/crossing-raised":[
-"künnis",
-"Tõstetud ülekäik",
-"lame",
-"aeglusti"
-],
-"footway/crosswalk":[
-"Ülekäigurada"
-],
-"footway/crosswalk-raised":[
-"Tõstetud ülekäigurada"
-],
-"footway/sidewalk":[
-"Kõnnitee"
 ],
 "ford":[
 "Koole",
@@ -922,20 +881,6 @@
 "highway/corridor":[
 "koridor",
 "Sisekoridor"
-],
-"highway/crossing":[
-"Ülekäigurada"
-],
-"highway/crossing-raised":[
-"Tõstetud ristmik"
-],
-"highway/crosswalk":[
-"ülekäik",
-"Ülekäigurada",
-"jalakäijate ülekäik"
-],
-"highway/crosswalk-raised":[
-"Tõstetud ülekäigurada"
 ],
 "highway/cycleway":[
 "Rattatee"
@@ -1348,9 +1293,6 @@
 "leisure/pitch/american_football":[
 "Ameerika jalgpalliväljak"
 ],
-"leisure/pitch/baseball":[
-"Pesapalliväljak"
-],
 "leisure/pitch/basketball":[
 "Korvpalliväljak"
 ],
@@ -1489,9 +1431,6 @@
 "Mobiilimast",
 "tv mast"
 ],
-"man_made/observation":[
-"Vaatlustorn"
-],
 "man_made/observatory":[
 "Observatoorium"
 ],
@@ -1511,9 +1450,6 @@
 ],
 "man_made/storage_tank":[
 "Mahuti"
-],
-"man_made/surveillance_camera":[
-"Valvekaamera"
 ],
 "man_made/tower":[
 "Torn"
@@ -1627,12 +1563,6 @@
 "natural/tree":[
 "Puu"
 ],
-"natural/tree_row":[
-"reas",
-"järjest",
-"Puude rivi",
-"rivis"
-],
 "natural/volcano":[
 "Vulkaan"
 ],
@@ -1676,9 +1606,6 @@
 ],
 "office/travel_agent":[
 "Reisibüroo"
-],
-"piste":[
-"Suusarada"
 ],
 "place":[
 "Koht"

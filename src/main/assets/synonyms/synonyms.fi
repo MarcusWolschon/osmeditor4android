@@ -717,16 +717,6 @@
 "amenity/nursing_home":[
 "Hoitokoti"
 ],
-"amenity/parking":[
-"parkkihalli",
-"parkkipaikka",
-"auto",
-"pysäköintialue",
-"parkki",
-"Autopysäköinti",
-"pysäköinti",
-"parkkialue"
-],
 "amenity/parking_entrance":[
 "sisäänajo",
 "parkki",
@@ -751,9 +741,6 @@
 "parkkeeraus",
 "Pysäköintitila",
 "pysäköinti"
-],
-"amenity/pavilion":[
-"Paviljonki"
 ],
 "amenity/pharmacy":[
 "lääkkeenmyynti",
@@ -937,9 +924,6 @@
 "amenity/ranger_station":[
 "Metsävartiosto"
 ],
-"amenity/recycling":[
-"Kierrätysastia"
-],
 "amenity/recycling_centre":[
 "Kierrätyskeskus"
 ],
@@ -959,16 +943,28 @@
 "Asuntoautojen jäteveden tyhjennyspiste"
 ],
 "amenity/school":[
+"lukio",
+"ammattioppilaitos",
 "koulu",
-"Koulualue",
+"ammatti",
 "välituntialue",
-"alue",
+"yhteislukio",
 "piha",
-"koulutus",
 "välitunti",
 "koulualue",
 "koulupiha",
-"ala-aste"
+"Koulualue (peruskoulu/lukio/ammattikoulu)",
+"yläaste",
+"oppilaitos",
+"yläkoulu",
+"yhtenäiskoulu",
+"ammattikoulu",
+"yhtenäislukio",
+"ammattiopisto",
+"alue",
+"koulutus",
+"ala-aste",
+"amis"
 ],
 "amenity/scrapyard":[
 "Autonromuttamo"
@@ -1151,19 +1147,6 @@
 ],
 "amenity/vending_machine/newspapers":[
 "Lehtiautomaatti"
-],
-"amenity/vending_machine/parcel_pickup_dropoff":[
-"automaatti",
-"piste",
-"paketointi",
-"smartpost",
-"jättö",
-"sähköinen",
-"elektroninen",
-"posti",
-"paketti",
-"nouto",
-"Pakettiautomaatti"
 ],
 "amenity/vending_machine/parking_tickets":[
 "automaatti",
@@ -1458,13 +1441,10 @@
 "Pensasaita"
 ],
 "barrier/kerb":[
-"kantti",
-"reuna",
-"kivi",
-"reunus",
-"katukivi",
-"rotvalli",
 "Reunakivi"
+],
+"barrier/kerb/lowered":[
+"Madallettu reunakivi"
 ],
 "barrier/kissing_gate":[
 "Karjarajoitin"
@@ -1496,9 +1476,6 @@
 "building":[
 "Rakennus",
 "talo"
-],
-"building/apartments":[
-"Kerrostalo"
 ],
 "building/barn":[
 "Lato"
@@ -1938,12 +1915,7 @@
 "viinipanimo"
 ],
 "embankment":[
-"valli",
-"pato",
-"rantavalli",
-"pengerrys",
-"Penger",
-"maavalli"
+"Penger"
 ],
 "emergency/ambulance_station":[
 "ambulanssit",
@@ -2018,29 +1990,6 @@
 "sisään",
 "ulos",
 "Sisään- tai uloskäynti"
-],
-"footway/crossing":[
-"Suojatieväylä"
-],
-"footway/crossing-raised":[
-"Korotettu ylityspaikka"
-],
-"footway/crosswalk":[
-"Jalankulkijoiden suojatieväylä"
-],
-"footway/crosswalk-raised":[
-"Korotettu jalankulkijoiden suojatie"
-],
-"footway/sidewalk":[
-"kadussa",
-"katuun",
-"kadunreuna",
-"katu",
-"Jalkakäytävä",
-"kävellä",
-"jalkakäytävä",
-"jalankulku",
-"jalkaisin"
 ],
 "ford":[
 "Kahlauspaikka"
@@ -2190,17 +2139,14 @@
 "katettu",
 "sisätiloissa"
 ],
-"highway/crossing":[
-"Suojatie"
+"highway/crossing/marked":[
+"Merkitty suojatie"
 ],
-"highway/crossing-raised":[
-"Korotettu ylityspaikka"
+"highway/crossing/marked-raised":[
+"Korotettu suojatiealue"
 ],
-"highway/crosswalk":[
-"Jalankulkijoiden suojatie"
-],
-"highway/crosswalk-raised":[
-"Korotettu jalankulkijoiden suojatie"
+"highway/crossing/unmarked":[
+"Merkitsemätön suojatie"
 ],
 "highway/cycleway":[
 "Pyörätie"
@@ -2211,6 +2157,9 @@
 "highway/footway":[
 "Jalankulkutie",
 "Polku"
+],
+"highway/footway/sidewalk":[
+"Jalkakäytävä"
 ],
 "highway/give_way":[
 "Väistämisvelvollisuus",
@@ -2785,9 +2734,6 @@
 "leisure/pitch/american_football":[
 "Amerikkalainen jalkapallo -kenttä"
 ],
-"leisure/pitch/baseball":[
-"Pesäpallokenttä"
-],
 "leisure/pitch/basketball":[
 "Koripallokenttä"
 ],
@@ -2999,14 +2945,6 @@
 "man_made/monitoring_station":[
 "Havaintoasema"
 ],
-"man_made/observation":[
-"maisema",
-"maisematorni",
-"näköala",
-"observatorio",
-"näköalatasanne",
-"Näkötorni"
-],
 "man_made/petroleum_well":[
 "Öljylähde"
 ],
@@ -3036,9 +2974,6 @@
 "turvallisuus",
 "tallentava",
 "nauhoittava"
-],
-"man_made/surveillance_camera":[
-"Valvontakamera"
 ],
 "man_made/survey_point":[
 "Mittauspiste"
@@ -3479,23 +3414,6 @@
 "vesihuoltolaitos",
 "toimisto"
 ],
-"piste":[
-"mäki",
-"talvi",
-"latu",
-"laskettelu",
-"laskettelumäki",
-"kuntoilu",
-"liikunta",
-"Laskettelurinne/hiihtolatu",
-"urheilu",
-"talviurheilu",
-"alamäki",
-"rinne",
-"hiihtolatu",
-"talviliikunta",
-"talvikuntoilu"
-],
 "place":[
 "Paikka"
 ],
@@ -3596,14 +3514,21 @@
 "power":[
 "Sähkö"
 ],
+"power/cable/underground":[
+"Maanalainen virtakaapeli",
+"kaapeli",
+"voima",
+"johto",
+"maan alla",
+"pinta",
+"pinnan",
+"virta",
+"alla",
+"alapuolinen",
+"sähkö"
+],
 "power/generator":[
 "Generaattori"
-],
-"power/generator/source_nuclear":[
-"Ydinreaktori"
-],
-"power/generator/source_wind":[
-"Tuulivoimala"
 ],
 "power/line":[
 "Voimalinja"
@@ -3854,6 +3779,7 @@
 "railway/crossing":[
 "jalan",
 "suojatie",
+"Jalankulun ja pyöräilyn tasoristeys",
 "polkupyörien",
 "rautatie",
 "jalankulku",
@@ -3861,7 +3787,6 @@
 "tasoristeys",
 "polkupyörän",
 "pyörän",
-"Kevyenliikenteen tasoristeys",
 "ylityspaikka",
 "pyörien",
 "pyöräily",
@@ -4676,7 +4601,18 @@
 "Pölynimuriliike"
 ],
 "shop/variety_store":[
-"Halpahalli"
+"Halpahalli",
+"säästö",
+"halpa",
+"myymälä",
+"tokmanni",
+"liike",
+"kauppa",
+"halpamyymälä",
+"hintamyymälä",
+"säästömyymälä",
+"putiikki",
+"halpatalo"
 ],
 "shop/video":[
 "Videovuokraamo"

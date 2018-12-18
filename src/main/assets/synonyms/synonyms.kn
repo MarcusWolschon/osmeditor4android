@@ -53,9 +53,6 @@
 "amenity/library":[
 "ಗ್ರಂಥಾಲಯ"
 ],
-"amenity/parking":[
-"ಬಂಡಿ ನಿಲ್ದಾಣ"
-],
 "amenity/pharmacy":[
 "ಔಷಧಾಲಯ"
 ],
@@ -240,9 +237,6 @@
 "leisure/swimming_pool":[
 "ಈಜುಕೊಳ"
 ],
-"man_made/observation":[
-"ವೀಕ್ಷಣಾ ಗೋಪುರ"
-],
 "man_made/petroleum_well":[
 "ತೈಲ ಬಾವಿ"
 ],
@@ -260,9 +254,6 @@
 ],
 "natural/tree":[
 "ಮರ"
-],
-"natural/tree_row":[
-"ಸಾಲು ಮರ"
 ],
 "natural/volcano":[
 "ಜ್ವಾಲಾಮುಖಿ"

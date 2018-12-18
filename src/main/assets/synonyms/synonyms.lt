@@ -3,6 +3,12 @@
 "Adresas",
 "adresas"
 ],
+"advertising/billboard":[
+"Reklaminis stendas"
+],
+"advertising/column":[
+"Reklaminis stovas"
+],
 "aerialway":[
 "Oro transporto kelias"
 ],
@@ -32,6 +38,9 @@
 ],
 "amenity":[
 "Paslaugos"
+],
+"amenity/animal_shelter":[
+"Gyvūnų prieglauda"
 ],
 "amenity/arts_centre":[
 "Meno centras",
@@ -126,15 +135,24 @@
 "Teismas",
 "Teismo rūmai"
 ],
+"amenity/crematorium":[
+"Krematoriumas"
+],
 "amenity/dentist":[
 "dantistas",
 "Dantistas",
 "stomatologas",
 "odontologas"
 ],
+"amenity/doctors":[
+"Daktaras"
+],
 "amenity/drinking_water":[
 "Vanduo",
 "Geriamas vanduo"
+],
+"amenity/driving_school":[
+"Vairavimo mokykla"
 ],
 "amenity/embassy":[
 "Atstovybė",
@@ -166,10 +184,22 @@
 "amenity/hospital":[
 "Ligoninės kiemas"
 ],
+"amenity/hunting_stand":[
+"Medžioklės bokštelis"
+],
+"amenity/ice_cream":[
+"Ledų parduotuvė"
+],
+"amenity/internet_cafe":[
+"Interneto kavinė"
+],
 "amenity/kindergarten":[
 "vaikų darželis",
 "Vaikų darželio plotas",
 "darželio plotas"
+],
+"amenity/language_school":[
+"Kalbų mokykla"
 ],
 "amenity/library":[
 "Biblioteka",
@@ -186,15 +216,16 @@
 "Motociklų stovėjimo aikštelė",
 "Motociklų parkavimas"
 ],
+"amenity/music_school":[
+"Muzikos mokykla"
+],
 "amenity/nightclub":[
 "Naktinis klubas",
 "naktinis klubas",
 "klubas"
 ],
-"amenity/parking":[
-"aikštelė",
-"stovėjimo aikštelė",
-"Automobilių parkavimas"
+"amenity/parking_space":[
+"Stovėjimo vieta"
 ],
 "amenity/pharmacy":[
 "Vaistinė",
@@ -213,6 +244,9 @@
 "Bažnyčia",
 "bažnyčia"
 ],
+"amenity/place_of_worship/hindu":[
+"Hindu šventykla"
+],
 "amenity/place_of_worship/jewish":[
 "Sinagoga",
 "sinagoga"
@@ -220,6 +254,18 @@
 "amenity/place_of_worship/muslim":[
 "Mečetė",
 "mečetė"
+],
+"amenity/place_of_worship/shinto":[
+"Šintoizmo šventykla"
+],
+"amenity/place_of_worship/sikh":[
+"Sikhizmo šventykla"
+],
+"amenity/place_of_worship/taoist":[
+"Taoistų šventykla"
+],
+"amenity/planetarium":[
+"Planetariumas"
 ],
 "amenity/police":[
 "policija",
@@ -240,8 +286,17 @@
 "baras",
 "Aludė"
 ],
+"amenity/public_bath":[
+"Vieša vonia"
+],
 "amenity/ranger_station":[
 "Girininkų stotis"
+],
+"amenity/recycling_centre":[
+"Rūšiavimo centras"
+],
+"amenity/register_office":[
+"Registravimo biūras"
 ],
 "amenity/restaurant":[
 "rastoranas",
@@ -250,9 +305,18 @@
 "amenity/school":[
 "Mokyklos kiemas"
 ],
+"amenity/scrapyard":[
+"Metalo laužas"
+],
 "amenity/shelter":[
 "pastogė",
 "Pastogė"
+],
+"amenity/shower":[
+"Dušas"
+],
+"amenity/smoking_area":[
+"Rūkymo vieta"
 ],
 "amenity/social_facility/food_bank":[
 "maisto bankas",
@@ -295,6 +359,9 @@
 "Universiteto kiemas",
 "universiteto teritorija"
 ],
+"amenity/vending_machine":[
+"Prekybos automatas"
+],
 "amenity/veterinary":[
 "veterinaras",
 "Veterinarija"
@@ -303,12 +370,36 @@
 "šiukšliadėžė",
 "Šiukšliadėžė"
 ],
+"amenity/waste_disposal":[
+"Šiukšlių konteineris"
+],
 "area":[
 "plotas",
 "Plotas"
 ],
 "area/highway":[
 "Kelio danga"
+],
+"attraction/animal":[
+"Gyvūnai"
+],
+"attraction/big_wheel":[
+"Didelis ratas"
+],
+"attraction/carousel":[
+"Karuselė"
+],
+"attraction/maze":[
+"Labirintas"
+],
+"attraction/pirate_ship":[
+"Piratų laivas"
+],
+"attraction/train":[
+"Turistų traukinys"
+],
+"attraction/water_slide":[
+"Vandens čiuožykla"
 ],
 "barrier":[
 "Barjeras",
@@ -320,6 +411,15 @@
 "blokas",
 "Blokas"
 ],
+"barrier/bollard":[
+"Stulpelis"
+],
+"barrier/border_control":[
+"Sienos kontrolė"
+],
+"barrier/cattle_grid":[
+"Galvijų tinklelis"
+],
 "barrier/city_wall":[
 "miesto siena",
 "siena",
@@ -328,6 +428,9 @@
 "barrier/cycle_barrier":[
 "Dviračių barjeras",
 "dviračių barjeras"
+],
+"barrier/ditch":[
+"Tranšelis"
 ],
 "barrier/entrance":[
 "Įėjimas"
@@ -344,9 +447,15 @@
 "gyvatvorė",
 "Gyvatvorė"
 ],
+"barrier/kissing_gate":[
+"Atsidarantys varteliai"
+],
 "barrier/lift_gate":[
 "pakeliami vartai",
 "Pakeliami vartai"
+],
+"barrier/retaining_wall":[
+"Laikančioji siena"
 ],
 "barrier/stile":[
 "perlipa",
@@ -371,10 +480,6 @@
 "pastatas",
 "Pastatas"
 ],
-"building/apartments":[
-"apartamentai",
-"Apartamentai"
-],
 "building/barn":[
 "Tvartas",
 "Klėtis",
@@ -382,6 +487,21 @@
 ],
 "building/bunker":[
 "Bunkeris"
+],
+"building/cabin":[
+"Kabina"
+],
+"building/cathedral":[
+"Katedros pastatas"
+],
+"building/chapel":[
+"Koplyčios pastatas"
+],
+"building/church":[
+"Bažnyčios pastatas"
+],
+"building/civic":[
+"Pilietinis pastatas"
 ],
 "building/college":[
 "Kolegijos pastatas",
@@ -398,12 +518,21 @@
 "statybos",
 "statomas pastatas"
 ],
+"building/detached":[
+"Atskirtas pastatas"
+],
 "building/dormitory":[
 "Bendrabutis",
 "bendrabutis"
 ],
 "building/entrance":[
 "Įėjimas/Išėjimas"
+],
+"building/farm":[
+"Fermos namas"
+],
+"building/farm_auxiliary":[
+"Fermos pastatas"
 ],
 "building/garage":[
 "garažas",
@@ -447,6 +576,12 @@
 "darželio pastatas",
 "Vaikų darželio pastatas"
 ],
+"building/mosque":[
+"Mečetės pastatas"
+],
+"building/pavilion":[
+"Pavilijono pastatas"
+],
 "building/public":[
 "visuomeninis pastatas",
 "Viešasis pastatas"
@@ -467,10 +602,19 @@
 "Stogas",
 "stogas"
 ],
+"building/ruins":[
+"Pastato griuvėsiai"
+],
 "building/school":[
 "mokyklos pastatas",
 "Mokyklos pastatas",
 "mokykla"
+],
+"building/semidetached_house":[
+"Pusiau atskirtas namas"
+],
+"building/service":[
+"Paslaugų pastatas"
 ],
 "building/shed":[
 "pašiūrė",
@@ -480,8 +624,14 @@
 "Arklidės",
 "arklidės"
 ],
+"building/stadium":[
+"Stadiono pastatas"
+],
 "building/static_caravan":[
 "Statiški mobilūs namai"
+],
+"building/temple":[
+"Šventyklos pastatas"
 ],
 "building/train_station":[
 "Traukinių stotis"
@@ -494,6 +644,12 @@
 "building/warehouse":[
 "Sandėlis",
 "sandėlys"
+],
+"circular":[
+"Eismo žiedas"
+],
+"club":[
+"Klubas"
 ],
 "craft/beekeeper":[
 "Bitininkas",
@@ -520,9 +676,21 @@
 "stalius",
 "Dailidė"
 ],
+"craft/caterer":[
+"Maitinimo įstaiga"
+],
+"craft/chimney_sweeper":[
+"Kaminų valytojas"
+],
 "craft/clockmaker":[
 "Laikrodininkas",
 "laikrodininkas"
+],
+"craft/confectionery":[
+"Saldainių gamintojas"
+],
+"craft/distillery":[
+"Spirito gamykla"
 ],
 "craft/dressmaker":[
 "siuvėjas",
@@ -535,6 +703,9 @@
 "craft/gardener":[
 "Sodininkas",
 "Daržininkas"
+],
+"craft/glaziery":[
+"Stiklintojas"
 ],
 "craft/handicraft":[
 "Rankdarbių meistras"
@@ -591,6 +762,9 @@
 "craft/scaffolder":[
 "Pastolių montuotojas"
 ],
+"craft/sculptor":[
+"Skulptorius"
+],
 "craft/shoemaker":[
 "Batsiuvys",
 "Kurpius"
@@ -625,21 +799,29 @@
 "emergency/fire_hydrant":[
 "Hidrantas"
 ],
+"emergency/first_aid_kit":[
+"Pirmos pagalbos rinkinys"
+],
+"emergency/life_ring":[
+"Gelbėjimo ratas"
+],
+"emergency/lifeguard":[
+"Gelbėtojas"
+],
 "emergency/phone":[
 "Pagalbos telefonas",
 "avarinis telefonas"
+],
+"emergency/siren":[
+"Sirena"
+],
+"emergency/water_tank":[
+"Skubaus atvejo vandens rezervuaras"
 ],
 "entrance":[
 "išėjimas",
 "Įėjimas/Išėjimas",
 "įėjimas"
-],
-"footway/crosswalk":[
-"Pėsčiųjų perėja"
-],
-"footway/sidewalk":[
-"šaligatvis",
-"Šaligatvis"
 ],
 "ford":[
 "brasta",
@@ -650,6 +832,12 @@
 "Golfo skylė",
 "golfo duobutė"
 ],
+"healthcare/alternative":[
+"Alternatyvi medicina"
+],
+"healthcare/birthing_center":[
+"Gimdymo namai"
+],
 "highway":[
 "Greitkelis"
 ],
@@ -658,8 +846,8 @@
 "Žirgų kelias",
 "arklių takas"
 ],
-"highway/crosswalk":[
-"Pėsčiųjų perėja"
+"highway/bus_stop":[
+"Autobuso sustojimas / platforma"
 ],
 "highway/cycleway":[
 "dviračių takas",
@@ -668,6 +856,9 @@
 "highway/footway":[
 "Pėsčiųjų takas",
 "pėsčiųjų takas"
+],
+"highway/give_way":[
+"Duoti kelią ženklas"
 ],
 "highway/living_street":[
 "gyvenamoji zona",
@@ -689,10 +880,14 @@
 "Takas"
 ],
 "highway/primary":[
-"Pagrindinis kelias"
+"pagrindinis",
+"Pirminis Kelias"
 ],
 "highway/residential":[
-"Gyvenamasis kelias"
+"kelias",
+"gatvė",
+"Gyvenamasis kelias",
+"kiemas"
 ],
 "highway/rest_area":[
 "Poilsio zona",
@@ -703,7 +898,9 @@
 "nežinomas kelias"
 ],
 "highway/secondary":[
-"Nepagrindinis kelias"
+"gatvė",
+"Antrinis Kelias",
+"nepagrindinis kelias"
 ],
 "highway/service":[
 "Aptarnaujantis kelias",
@@ -733,6 +930,9 @@
 "aptarnavimo zona",
 "aptarnavimo plotas"
 ],
+"highway/speed_camera":[
+"Greičio kamera"
+],
 "highway/steps":[
 "laiptai",
 "Laiptai"
@@ -747,15 +947,31 @@
 "Gatvė lempa",
 "žibintas"
 ],
+"highway/tertiary":[
+"kelias",
+"gatvė",
+"Tretysis Kelias"
+],
+"highway/track":[
+"šunkelis",
+"dvigubos vėžės",
+"bekelė",
+"Neprižiūrimas Kelias",
+"miško keliukas"
+],
 "highway/traffic_signals":[
 "Eismo signala",
 "šviesoforas"
 ],
 "highway/trunk":[
+"greitkelis",
 "Magistralinis kelias"
 ],
 "highway/turning_circle":[
 "Apsisukimo žiedas"
+],
+"highway/unclassified":[
+"Mažas/Neklasifikuotas Kelias"
 ],
 "historic":[
 "istorinė vieta",
@@ -788,6 +1004,9 @@
 "griuvėsiai",
 "Griuvėsiai"
 ],
+"historic/tomb":[
+"Kapas"
+],
 "historic/wayside_cross":[
 "Kryžius prie kelio",
 "pakelės kryžius"
@@ -798,10 +1017,22 @@
 "pakelės šventykla",
 "rūpintojėlis"
 ],
+"internet_access/wlan":[
+"Wi-Fi Hotspot"
+],
 "junction":[
 "jungtis",
 "sankryža",
 "Jungtis"
+],
+"landuse":[
+"Žemėnauda"
+],
+"landuse/allotments":[
+"Bendruomenės sodas"
+],
+"landuse/aquaculture":[
+"Akvakultūra"
 ],
 "landuse/basin":[
 "Vandens telkinys",
@@ -844,14 +1075,26 @@
 "miškas",
 "Miškas"
 ],
+"landuse/garages":[
+"Garažų plotas"
+],
 "landuse/grass":[
 "žolė",
 "Ganykla"
+],
+"landuse/greenfield":[
+"Žalias plotas"
+],
+"landuse/harbour":[
+"Uostas"
 ],
 "landuse/industrial":[
 "pramonė",
 "Pramoninė zona",
 "pramoninė zona"
+],
+"landuse/industrial/scrap_yard":[
+"Metalo laužas"
 ],
 "landuse/landfill":[
 "Sąvartynas",
@@ -895,6 +1138,12 @@
 "leisure/common":[
 "Bendros ganyklos"
 ],
+"leisure/dance":[
+"Šokių salė"
+],
+"leisure/dancing_school":[
+"Šokių mokykla"
+],
 "leisure/dog_park":[
 "šunparkis",
 "Šunų parkas",
@@ -916,6 +1165,9 @@
 "leisure/marina":[
 "jachtklubas",
 "Prieplauka"
+],
+"leisure/miniature_golf":[
+"Minigolfas"
 ],
 "leisure/nature_reserve":[
 "draustinis",
@@ -948,6 +1200,9 @@
 "Futbolo aikštė",
 "futbolo aikštė"
 ],
+"leisure/pitch/table_tennis":[
+"Ping Pongo stalas"
+],
 "leisure/pitch/tennis":[
 "Teniso aikštelė",
 "teniso kortai"
@@ -959,6 +1214,9 @@
 "žaidimų aikštelė",
 "Žaidimų aikštelė"
 ],
+"leisure/sauna":[
+"Sauna"
+],
 "leisure/stadium":[
 "Stadionas",
 "stadionas"
@@ -968,11 +1226,26 @@
 "maudymosi baseinas",
 "Baseinas"
 ],
+"leisure/water_park":[
+"Vandens parkas"
+],
 "line":[
 "Linija"
 ],
 "man_made":[
 "Žmogaus sukurtas"
+],
+"man_made/antenna":[
+"Antena"
+],
+"man_made/bridge":[
+"Tiltas"
+],
+"man_made/chimney":[
+"Kaminas"
+],
+"man_made/crane":[
+"Kranas"
 ],
 "man_made/cutline":[
 "Proskyna",
@@ -988,9 +1261,8 @@
 "švyturys",
 "Švyturys"
 ],
-"man_made/observation":[
-"Stebėjimo bokštas",
-"stebėjimo bokštas"
+"man_made/observatory":[
+"Observatorija"
 ],
 "man_made/petroleum_well":[
 "Naftos gręžinys"
@@ -1020,8 +1292,20 @@
 "man_made/water_well":[
 "Vandens šulinys"
 ],
+"man_made/watermill":[
+"Vandens malūnas"
+],
+"man_made/windmill":[
+"Vėjo malūnas"
+],
+"man_made/works":[
+"Gamykla"
+],
 "natural":[
 "Natūralus"
+],
+"natural/bare_rock":[
+"Plikas akmuo"
 ],
 "natural/bay":[
 "Įlanka",
@@ -1050,10 +1334,19 @@
 "natural/grassland":[
 "Pieva"
 ],
+"natural/mud":[
+"Purvas"
+],
 "natural/peak":[
 "Viršūnė",
 "viršūnė",
 "viršukalnė"
+],
+"natural/reef":[
+"Rifas"
+],
+"natural/sand":[
+"Smėlis"
 ],
 "natural/scrub":[
 "krūmai",
@@ -1095,12 +1388,30 @@
 "Miškas",
 "medžiai"
 ],
+"noexit/yes":[
+"Nėra išėjimo"
+],
 "office":[
 "Biuras",
 "kontora"
 ],
 "office/administrative":[
 "Administracinis biuras"
+],
+"office/advertising_agency":[
+"Reklamos agentūra"
+],
+"office/architect":[
+"Architekto biuras"
+],
+"office/association":[
+"Ne pelno organizacijos biuras"
+],
+"office/charity":[
+"Labdaros biuras"
+],
+"office/company":[
+"Korporacijos biuras"
 ],
 "office/educational_institution":[
 "Mokslo įstaiga",
@@ -1240,6 +1551,9 @@
 "Funikulierius",
 "Keltuvas"
 ],
+"railway/level_crossing":[
+"Geležinkelio Pervaža (Kelias)"
+],
 "railway/monorail":[
 "Vienbėgis geležinkelis"
 ],
@@ -1252,6 +1566,9 @@
 "geležinkelis",
 "Gelžkelis"
 ],
+"railway/station":[
+"Traukinių stotis"
+],
 "railway/subway":[
 "Metro",
 "metro"
@@ -1259,6 +1576,9 @@
 "railway/subway_entrance":[
 "Metro įėjimas",
 "įėjimas į metro"
+],
+"railway/train_wash":[
+"Traukinių plovykla"
 ],
 "railway/tram":[
 "Tramvajus",
@@ -1289,6 +1609,9 @@
 "shop/antiques":[
 "Atikvarų parduotuvė",
 "antikvariatas"
+],
+"shop/art":[
+"Meno parduotuvė"
 ],
 "shop/baby_goods":[
 "Vaikų prekių parduotuvė"
@@ -1354,6 +1677,9 @@
 "Sūrių parduotuvė",
 "sūrio parduotuvė"
 ],
+"shop/chemist":[
+"Vaistinė"
+],
 "shop/chocolate":[
 "Šokolado parduotuvė",
 "šokolado parduotuvė"
@@ -1361,6 +1687,9 @@
 "shop/clothes":[
 "Drabužių parduotuvė",
 "drabužių parduotuvė"
+],
+"shop/coffee":[
+"Kavos parduotuvė"
 ],
 "shop/computer":[
 "Kompiuterių parduotuvė"
@@ -1395,6 +1724,9 @@
 "shop/doityourself":[
 "Pasidaryk pats parduotuvė"
 ],
+"shop/e-cigarette":[
+"El. cigarečių parduotuvė"
+],
 "shop/electronics":[
 "Elektronikos parduotuvė"
 ],
@@ -1428,6 +1760,9 @@
 "shop/furniture":[
 "Baldų parduotuvė"
 ],
+"shop/garden_centre":[
+"Sodo centras"
+],
 "shop/gift":[
 "Dovanų parduotuvė"
 ],
@@ -1456,6 +1791,9 @@
 "shop/jewelry":[
 "Juvelyrikos parduotuvė",
 "juvelyras"
+],
+"shop/kiosk":[
+"Kioskas"
 ],
 "shop/kitchen":[
 "Virtuvės dizaino parduotuvė"
@@ -1494,6 +1832,9 @@
 "shop/motorcycle":[
 "Motociklų prekybos atstovybė"
 ],
+"shop/motorcycle_repair":[
+"Motociklų taisykla"
+],
 "shop/music":[
 "muzikos prekės",
 "muzikos prekių parduotuvė",
@@ -1518,8 +1859,14 @@
 "shop/paint":[
 "Dažų parduotuvė"
 ],
+"shop/pastry":[
+"Kepykla"
+],
 "shop/pawnbroker":[
 "Lombardas"
+],
+"shop/perfumery":[
+"Parfumerijos parduotuvė"
 ],
 "shop/pet":[
 "Augintinių parduotuvė"
@@ -1586,6 +1933,9 @@
 "shop/video_games":[
 "Video Žaidimų parduotuvė"
 ],
+"shop/watches":[
+"Laikrodžių parduotuvė"
+],
 "shop/weapons":[
 "Ginklų parduotuvė",
 "Ginklai"
@@ -1600,11 +1950,32 @@
 "tourism/alpine_hut":[
 "Kalnų namelis"
 ],
+"tourism/apartment":[
+"Svečių apartamentai / butas"
+],
+"tourism/aquarium":[
+"Akvariumas"
+],
 "tourism/artwork":[
 "Meno kūrinys"
 ],
+"tourism/artwork/mural":[
+"Muralas"
+],
+"tourism/artwork/sculpture":[
+"Skulptūra"
+],
+"tourism/artwork/statue":[
+"Statula"
+],
 "tourism/attraction":[
 "Turistų traukos vieta"
+],
+"tourism/chalet":[
+"Atostogų kotedžas"
+],
+"tourism/gallery":[
+"Meno galerija"
 ],
 "tourism/guest_house":[
 "Svečių namai"
@@ -1618,6 +1989,12 @@
 "tourism/information":[
 "Informacinis stendas",
 "Informacija"
+],
+"tourism/information/board":[
+"Informacijos lenta"
+],
+"tourism/information/map":[
+"Žemėlapis"
 ],
 "tourism/motel":[
 "Motelis"
@@ -1642,6 +2019,9 @@
 ],
 "traffic_calming/hump":[
 "Dideli greičio slopinimo kalneliai"
+],
+"traffic_calming/island":[
+"Eismo salelė"
 ],
 "type/boundary":[
 "Riba",
@@ -1703,11 +2083,17 @@
 "type/route/road":[
 "Kelio maršrutas"
 ],
+"type/route/subway":[
+"Metro maršrutas"
+],
 "type/route/train":[
 "Traukinio maršrutas"
 ],
 "type/route/tram":[
 "Tramvajaus maršrutas"
+],
+"type/waterway":[
+"Vandens kelias"
 ],
 "vertex":[
 "Kita"
@@ -1739,6 +2125,9 @@
 "waterway/stream":[
 "Upeliukas",
 "Upelis"
+],
+"waterway/waterfall":[
+"Krioklys"
 ],
 "waterway/weir":[
 "Užtvanka"
