@@ -51,8 +51,8 @@
     <string name="file_write_failed_title">Could not write to file</string>
     <string name="file_write_failed_message">Vespucci could not change or save the file.</string>
     <string name="welcome_title">Welcome</string>
-    <string name="welcome_message">Thank you for installing Vespucci.\n\nTo get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
-    <string name="welcome_message_fullscreen">\n\nYour device has \"soft keys\" that are hidden from view. Swipe from the bottom to show them again.</string>
+    <string name="welcome_message">Thank you for installing Vespucci.\n&lt;br&gt;&lt;br&gt;To get started you need to know three things:\n&lt;ul&gt;&lt;li&gt;tapping the lock icon in the upper left corner will switch between locked (no editing) and unlocked mode,&lt;/li&gt;&lt;li&gt;to edit OpenStreetMap you need to download the data for the area where you want to change something first (zoom in before attempting that),&lt;/li&gt;&lt;li&gt;to add a new object: tap the large green button and select what you want to add, then tap the position you want to locate it at.&lt;/li&gt;&lt;/ul&gt;\nYou are all set to go now. Start mapping and have fun!</string>
+    <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Your device has \"soft keys\" that are hidden from view. Swipe from the bottom to show them again.</string>
     <string name="read_introduction">Read the introduction</string>
     <string name="upgrade_title">This is a new Vespucci version</string>
     <string name="upgrade_message">New features and behaviour are detailed in the release notes.</string>
