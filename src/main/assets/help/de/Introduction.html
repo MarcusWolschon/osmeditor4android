@@ -39,16 +39,16 @@
 <h4>Einfacher Klick, Doppelklick und langer Klick</h4>
 <p>In der Standardeinstellung wird um auswählbare Punkte und Wege ein oranger Bereich angezeigt, der angibt in welchen Bereich man auf den Bildschirm tippen kann um ein Objekt anzuwählen. Die drei Möglichkeiten sind:</p>
 <ul>
-  <li>Einfacher Klick: wählt das Objekt aus.
+  <li>Single tap: Selects object.
     <ul>
-      <li>Ein freistehender Punkt oder Weg wird sofort ausgewählt.</li>
-      <li>Ist die Auswahl nicht eindeutig erscheint ein Auswahlmenü, dass dann die genaue Auswahl des Objektes erlaubt.</li>
-      <li>Ausgewählte Objekte werden mit einem gelben Rang hervorgehoben.</li>
-      <li>Für mehr Informationen siehe <a href="../en/Node%20selected.html">Knoten ausgewählt</a> , <a href="../en/Way%20selected.html">Weg ausgewählt</a> und <a href="../en/Relation%20selected.html">Relation ausgewählt</a></li>
+      <li>An isolated node/way is highlighted immediately.</li>
+      <li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select.</li>
+      <li>Selected objects are highlighted in yellow.</li>
+      <li>For further information see <a href="Node%20selected.html">Node selected</a>, <a href="Way%20selected.html">Way selected</a> and <a href="Relation%20selected.html">Relation selected</a>.</li>
     </ul>
   </li>
-  <li>Doppelklick: startet die <a href="../en/Multiselect.html">Mehfachauswahl</a></li>
-  <li>Langer Klick: zeigt ein Positionskreuz um neue Punkte zu erstellen, siehe unten und <a href="../en/Creating%20new%20objects.html">Neue Objekte erstellen</a></li>
+  <li>Double tap: Start <a href="Multiselect.html">Multiselect mode</a></li>
+  <li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.html">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>In Gebieten in denen die OSM Daten sehr dicht sind ist es sinnvoll vor dem Bearbeiten weit hineinzuzoomen.</p>
 <p>Vespucci hat eine gute Unterstützung von "Undo" und "Redo" deshalb kann man angst frei auf seinem Gerät experimentieren, bitte aber keine reinen Testdaten auf den OSM Server speichern.</p>
@@ -62,8 +62,13 @@
 <p>Hinweis: für sich überlappende Objekte, z.B. ein Punkt auf einem Weg, erscheint das Auswahlmenü ein weiteres mal. Wählt man das schon ausgewählte Objekt nochmals wird der Eigenschaftseditor gestartet, wählt man ein anderes Objekt so wird dieses ausgewählt.</p>
 <h4>Ausgewählte Objekte: Einen Knoten oder Weg verschieben</h4>
 <p>Ist ein Objekt ausgewählt kann es verschoben werden. Hinweis: Objekte können erst verschoben werden nachdem sie ausgewählt wurden. Durch ziehen in der Nähe (d.h. in der Toleranzzone) kann es dann verschoben werden. In den Einstellungen kann man für Punkte einen grösseren Bereich einschalten und anzeigen lassen mit dem der Punkt leichter verschoben werden kann als mit der Standardeinstellung. </p>
-<h4>Einen neuen Knoten oder Weg erstellen (langer Klick)</h4>
-<p>Mit einem langen Klick wird die Position gewählt wo der Weg beginnt oder ein Punkt erstellt werden soll. Ein Positionskreuzsymbol markiert die Stelle. * Soll ein neuer Knoten erstellt werden muss der nicht mit einem anderen Objekt verbunden ist, muss die Position ausserhalb der "Toleranzzone" liegen. * Soll ein bestehender Weg verlängert werden, sollte die Position innerhalb der "Toleranzzone" des Wegs oder eines Knotens auf dem Weg liegen.</p>
+<h4>Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5>Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.html">Creating new objects in simple actions mode</a> for more information.</p>
+<h5>Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. * If you want to create a new node (not connected to an object), click away from existing objects. * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Sobald das Positionskreuz erscheint, gibt es die folgenden Möglichkeiten:</p>
 <ul>
   <li>Nochmaliges Berühren an der gleichen Stelle.
@@ -75,7 +80,7 @@
   <li>Nochmaliges Berühren an einer anderen Stelle. Erstellt einen Punkt wie oben beschrieben und einen Wegabschnitt zu der neuen Position.</li>
 </ul>
 <p>Um den Weg zu verlängern tippe an den Stellen wo du weitere Wegpunkte haben willst. Um den Weg fertigzustellen, tippe nochmals auf den letzten Punkt. Falls der Endpunkt auf einem anderen Weg oder Punkt liegt wird er automatisch in diesen integriert. </p>
-<p>Um den Vorgang abzuschliessen kann auch ein entsprechender Menü-Eintrag ausgewählt werden, siehe <a href="../en/Creating%20new%20objects.html">Neue Objekte erstellen</a> für weitere Informationen.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.html">Creating new objects</a> for more information.</p>
 <h4>Flächen erstellen</h4>
 <p>Aktuell hat OpenStreetMap keinen eigenen Objekttyp für Flächen im Gegensatz zu anderen Geo-Datensysteme. Der Online-Editor "iD" versucht dem Benutzer eine solche Abstraktion anzubieten, dies funktioniert mal gut, mal schlechter. Vespucci versucht das in der vorliegenden Version nicht, deshalb hier einige Information dazu wie in OSM Flächen abgebildet werden:</p>
 <ul>
@@ -148,10 +153,10 @@
 <h4>Tests auf fehlende Tags</h4>
 <p>Fehlende Tags-Test Einträge haben die folgenden zwei Eigenschaften:</p>
 <ul>
-  <li><strong>Schlüssel</strong> - Der Schlüssel der auf dem Objekt vorhanden sein sollte nach Massgabe der am besten passende Vorlage.</li>
-  <li><strong>Optionale Tags überprüfen</strong> - Die optionalen Tags der Vorlage miteinbeziehen.</li>
+  <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+  <li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>Dieser Test funktioniert wie folgt: zuerst wird die am besten passende Vorlage bestimmt, und dann wird überprüft ob <strong>Schlüssel</strong> zu den empfohlenen Schlüssel für dieses Objekt gehört. <strong>Optionale Tags überprüfen</strong> überprüft auch noch die optionalen Tags der Vorlage.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2>Filter</h2>
 <h3>Eigenschaft basierende Filter</h3>
 <p>Der Filter kann vom Hauptmenü eingeschaltet werden, durch Tippen auf die Filter-Schaltfläche kann es dann bearbeitet werden.. Mehr Informationen kann unter <a href="../en/Tag%20filter.html">Tag-Filter</a> gefunden werden.</p>
@@ -175,6 +180,7 @@
   <li>Zeige Statistiken. Zeigt einige Werte für die Fehlerbehebung an, nicht wirklich nützlich. Standardwert: ausgeschaltet (früher: eingeschaltet).</li>
 </ul>
 <h2>Fehler melden</h2>
-<p>Falls Vespucci abstürzt oder einen inkonsistenten Zustand entdeckt wird, erscheint eine Aufforderung eine Fehlermeldung ein zuschicken. Bitte komme der Aufforderung nach, aber nur einmal per spezifischen Ereignis. Falls du mehr Input geben willst oder einen Verbesserungsvorschlag hast, erstelle bitte hier: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci Issue Tracker</a> einen neuen Eintrag. Falls du zu Vespucci eine Diskussion beginnen willst, kannst du dies entweder auf der <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> oder dem <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android Forum</a> machen.</p>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
 </body>
 </html>

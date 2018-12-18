@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.0.0-4: Use FST for serialising state, fix ELI date parsing regression, fix crash when applying auto-preset, lots of small fixes.
+
 12.0.0-3: Fix preset sorting crash, fix name suggestion issue, update name-suggestion-index, various text changes, improved ElementInfo dialog, updated DE translation.
 
 12.0.0-2: Store changes for relation members undo by deep copy.
