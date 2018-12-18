@@ -573,7 +573,13 @@ public class App extends android.app.Application {
         return userAgent;
     }
     
-    private static FSTConfiguration singletonConf = FSTConfiguration.createDefaultConfiguration();
+    private static FSTConfiguration singletonConf = FSTConfiguration.createAndroidDefaultConfiguration();
+    /**
+     * Get the current serialisation singleton
+     * 
+     * @return an instance of FSTConfiguration
+     */
+    @NonNull
     public static FSTConfiguration getFSTInstance() {
         return singletonConf;
     }
