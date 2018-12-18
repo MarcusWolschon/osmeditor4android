@@ -271,12 +271,13 @@ i-->
         <div class="container">
 <!--                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</a></li>
+        <li class="main active"><a href="#vespucci-120-beta-highlights">Vespucci 12.0 BETA Highlights</a></li>
             <li><a href="#simple-action-mode">Simple action mode</a></li>
             <li><a href="#support-for-maproulette">Support for MapRoulette</a></li>
             <li><a href="#notes-are-movable">Notes are movable</a></li>
             <li><a href="#most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</a></li>
             <li><a href="#in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</a></li>
+            <li><a href="#state-saving-changed">State saving changed</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -284,7 +285,7 @@ i-->
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</h1>
+<h1 id="vespucci-120-beta-highlights">Vespucci 12.0 BETA Highlights</h1>
 <h2 id="simple-action-mode">Simple action mode</h2>
 <p>Simple action mode replaces the long click action on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
 <p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
@@ -300,6 +301,9 @@ i-->
 <h2 id="in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</h2>
 <p>You now can, by using the "Provide feedback" function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
 <p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process. </p>
+<h2 id="state-saving-changed">State saving changed</h2>
+<p>Previous versions used standard Java serialisation to store state, starting with version 12 we are using a third party library (https://github.com/RuedigerMoeller/fast-serialization) to provide the functionality. This will be most noticeable when you have data loaded for larger areas in that starting and exiting the app should be substantially faster, and occasional issues that very large datasets could cause the state saving to run out of memory should require even sillier amounts of data to be loaded to occur.</p>
+<p>As the on device format of the files has changed, layer configurations, last installed version, the editing state and the saved data cannot be read after reinstall and it will seem as if you will have a completely new install, however all preference settings are maintained and do not need to be re-entered.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
@@ -313,7 +317,7 @@ i-->
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li>The saved task state file format has changed, please complete any edits before upgrading.</li>
+<li>As the saved task state file format has changed, please complete any edits before upgrading, see above.</li>
 </ul>
 <h1 id="known-problems">Known problems</h1>
 <ul>
@@ -323,12 +327,13 @@ i-->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</a></li>
+        <li class="main active"><a href="#vespucci-120-beta-highlights">Vespucci 12.0 BETA Highlights</a></li>
             <li><a href="#simple-action-mode">Simple action mode</a></li>
             <li><a href="#support-for-maproulette">Support for MapRoulette</a></li>
             <li><a href="#notes-are-movable">Notes are movable</a></li>
             <li><a href="#most-recently-used-support-for-osm-keys-values-and-roles">Most recently used support for OSM keys, values and roles</a></li>
             <li><a href="#in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</a></li>
+            <li><a href="#state-saving-changed">State saving changed</a></li>
             <li><a href="#miscellaneous">Miscellaneous</a></li>
         <li class="main "><a href="#upgrading-from-previous-versions">Upgrading from previous versions</a></li>
         <li class="main "><a href="#known-problems">Known problems</a></li>
@@ -336,7 +341,7 @@ i-->
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="vespucci-120-early-beta-highlights">Vespucci 12.0 EARLY BETA Highlights</h1>
+<h1 id="vespucci-120-beta-highlights">Vespucci 12.0 BETA Highlights</h1>
 <h2 id="simple-action-mode">Simple action mode</h2>
 <p>Simple action mode replaces the long click action on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
 <p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
@@ -352,6 +357,9 @@ i-->
 <h2 id="in-app-function-to-provide-developer-feedback">In-app function to provide developer feedback</h2>
 <p>You now can, by using the "Provide feedback" function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
 <p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process. </p>
+<h2 id="state-saving-changed">State saving changed</h2>
+<p>Previous versions used standard Java serialisation to store state, starting with version 12 we are using a third party library (https://github.com/RuedigerMoeller/fast-serialization) to provide the functionality. This will be most noticeable when you have data loaded for larger areas in that starting and exiting the app should be substantially faster, and occasional issues that very large datasets could cause the state saving to run out of memory should require even sillier amounts of data to be loaded to occur.</p>
+<p>As the on device format of the files has changed, layer configurations, last installed version, the editing state and the saved data cannot be read after reinstall and it will seem as if you will have a completely new install, however all preference settings are maintained and do not need to be re-entered.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
@@ -365,7 +373,7 @@ i-->
 </ul>
 <h1 id="upgrading-from-previous-versions">Upgrading from previous versions</h1>
 <ul>
-<li>The saved task state file format has changed, please complete any edits before upgrading.</li>
+<li>As the saved task state file format has changed, please complete any edits before upgrading, see above.</li>
 </ul>
 <h1 id="known-problems">Known problems</h1>
 <ul>
