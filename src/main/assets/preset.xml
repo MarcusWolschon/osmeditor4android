@@ -2,7 +2,7 @@
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
     shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version"
-    object_keys="attraction,public_transport,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground" >
+    object_keys="attraction,public_transport,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising" >
 <!--
     Icons have been derived from mainly from
   
@@ -329,16 +329,23 @@
         <reference ref="name_operator_oh_wheelchair_level" />
 		<reference ref="toilets_with_access" />
     </chunk>
+    <chunk id="brand">
+        <text key="brand" text="Brand" />
+        <optional>
+            <text key="brand:wikipedia" text="Brand wikipedia entry" value_type="wikipedia" />
+            <text key="brand:wikidata" text="Brand wikidata entry" value_type="wikidata" />
+        </optional>
+    </chunk>
     <chunk id="name_brand_operator_oh_wheelchair">
         <text key="name" text="Name" />
-        <text key="brand" text="Brand" />
+        <reference ref="brand" />
         <text key="operator" text="Operator" />
         <reference ref="oh_wheelchair" />
     </chunk>
     <chunk id="optional_name_brand_operator_oh_wheelchair">
         <optional>
             <text key="name" text="Name" />
-            <text key="brand" text="Brand" />
+            <reference ref="brand" />
             <text key="operator" text="Operator" />
         </optional>
         <reference ref="oh_wheelchair" />
@@ -359,19 +366,19 @@
     </chunk>
     <chunk id="name_brand_oh_wheelchair_level">
         <text key="name" text="Name" />
-        <text key="brand" text="Brand" />
+        <reference ref="brand" />
         <reference ref="oh_wheelchair" />
         <reference ref="level" />
     </chunk>
     <chunk id="name_brand_oh_wheelchair_toilets">
         <text key="name" text="Name" />
-        <text key="brand" text="Brand" />
+        <reference ref="brand" />
         <reference ref="oh_wheelchair" />
         <reference ref="toilets_with_access" />
     </chunk>
     <chunk id="name_brand_oh_wheelchair_toilets_level">
         <text key="name" text="Name" />
-        <text key="brand" text="Brand" />
+        <reference ref="brand" />
         <reference ref="oh_wheelchair" />
         <reference ref="toilets_with_access" />
         <reference ref="level" />
@@ -4422,7 +4429,7 @@
             <key key="amenity" value="bicycle_repair_station" />
             <optional>
             <reference ref="optional_name" />
-            <text key="brand" text="Brand" />
+            <reference ref="brand" />
             <text key="operator" text="Operator" />
             <reference ref="oh" />
             <check key="service:bicycle:pump" text="Free bicycle pump" disable_off="true" />
@@ -11712,7 +11719,7 @@
             <key key="shop" value="baby_goods" />
             <reference ref="name_oh_wheelchair_level" />
             <optional>
-               <text key="brand" text="Brand" />
+               <reference ref="brand" />
             </optional>
             <reference ref="link_contact_address_payment" />
         </item> <!-- Baby goods -->
@@ -12250,7 +12257,7 @@
               uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:amenity=atm" />
         <space />
         <key key="amenity" value="atm" />
-        <text key="brand" text="Brand" />
+        <reference ref="brand" />
         <text key="operator" text="Operator" />
         <reference ref="oh_wheelchair_level" />
     </item> <!-- Automated Teller Machine -->
