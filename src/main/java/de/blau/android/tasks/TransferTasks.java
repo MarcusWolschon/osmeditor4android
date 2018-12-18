@@ -66,6 +66,9 @@ public class TransferTasks {
     /** viewbox needs to be less wide than this for displaying bugs, just to avoid querying the whole world for bugs */
     private static final int TOLERANCE_MIN_VIEWBOX_WIDTH = 40000 * 32;
 
+    /** maximum of tasks per request */
+    private static final int MAX_PER_REQUEST = 1000;
+
     /**
      * Download tasks for a bounding box, actual requests will depend on what the current filter for tasks is set to
      * 
@@ -109,7 +112,7 @@ public class TransferTasks {
                 Collection<Note> noteResult = null;
                 Resources r = context.getResources();
                 if (bugFilter.contains(r.getString(R.string.bugfilter_notes))) {
-                    noteResult = server.getNotesForBox(box, 1000);
+                    noteResult = server.getNotesForBox(box, MAX_PER_REQUEST);
                 }
                 if (noteResult != null) {
                     result.addAll(noteResult);
@@ -117,14 +120,14 @@ public class TransferTasks {
                 Collection<OsmoseBug> osmoseResult = null;
                 if (bugFilter.contains(r.getString(R.string.bugfilter_osmose_error)) || bugFilter.contains(r.getString(R.string.bugfilter_osmose_warning))
                         || bugFilter.contains(r.getString(R.string.bugfilter_osmose_minor_issue))) {
-                    osmoseResult = OsmoseServer.getBugsForBox(context, box, 1000);
+                    osmoseResult = OsmoseServer.getBugsForBox(context, box, MAX_PER_REQUEST);
                 }
                 if (osmoseResult != null) {
                     result.addAll(osmoseResult);
                 }
                 Collection<MapRouletteTask> mapRouletteResult = null;
                 if (bugFilter.contains(r.getString(R.string.bugfilter_maproulette))) {
-                    mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, 1000);
+                    mapRouletteResult = MapRouletteServer.getTasksForBox(context, box, MAX_PER_REQUEST);
                 }
                 if (mapRouletteResult != null) {
                     result.addAll(mapRouletteResult);
@@ -329,114 +332,111 @@ public class TransferTasks {
      * @return true if upload was successful
      */
     @TargetApi(11)
-    public static boolean uploadNote(@NonNull final FragmentActivity activity, @Nullable final Server server, @NonNull final Note note, final String comment,
+    public static boolean uploadNote(@NonNull final FragmentActivity activity, @NonNull final Server server, @NonNull final Note note, final String comment,
             final boolean close, final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "uploadNote");
-        if (server != null) {
-            PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
-                @Override
-                public void onSuccess() {
-                    Preferences prefs = new Preferences(activity); // new to re-get this post authentication
-                    uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
-                }
-
-                @Override
-                public void onError() {
-                }
-            };
-            if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
-                return false;
+        PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {
+            @Override
+            public void onSuccess() {
+                Preferences prefs = new Preferences(activity); // new to re-get this post authentication
+                uploadNote(activity, prefs.getServer(), note, comment, close, quiet, postUploadHandler);
             }
 
-            CommitTask ct = new CommitTask(note, comment, close) {
-
-                /** Flag to track if the bug is new. */
-                private boolean newBug;
-
-                @Override
-                protected void onPreExecute() {
-                    Log.d(DEBUG_TAG, "onPreExecute");
-                    newBug = bug.isNew();
-                    if (!quiet) {
-                        Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
-                    }
-                }
-
-                @Override
-                protected UploadResult doInBackground(Server... args) {
-                    // execute() is called below with no arguments (args will be empty)
-                    // getDisplayName() is deferred to here in case a lengthy OSM query
-                    // is required to determine the nickname
-                    Log.d(DEBUG_TAG, "doInBackground " + server.getReadWriteUrl());
-                    return super.doInBackground(server);
-                }
-
-                @Override
-                protected void onPostExecute(UploadResult result) {
-                    Log.d(DEBUG_TAG, "onPostExecute");
-                    if (newBug && !App.getTaskStorage().contains(bug)) {
-                        App.getTaskStorage().add(bug);
-                    }
-                    if (result.getError() == ErrorCodes.OK) {
-                        // upload successful
-                        bug.setChanged(false);
-                        if (activity instanceof Main) {
-                            ((Main) activity).invalidateMap();
-                        }
-                        if (postUploadHandler != null) {
-                            postUploadHandler.onSuccess();
-                        }
-                    }
-                    if (!quiet) {
-                        Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
-                        // Toast.makeText(context, result ? R.string.openstreetbug_commit_ok :
-                        // R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
-                        if (!activity.isFinishing()) {
-                            if (result.getError() == ErrorCodes.INVALID_LOGIN) {
-                                InvalidLogin.showDialog(activity);
-                            } else if (result.getError() == ErrorCodes.FORBIDDEN) {
-                                ForbiddenLogin.showDialog(activity, result.getMessage());
-                            } else if (result.getError() != ErrorCodes.OK) {
-                                ErrorAlert.showDialog(activity, result.getError());
-                            } else { // no error
-                                Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
-                            }
-                        }
-                    }
-                }
-            };
-
-            // FIXME seems as if AsyncTask tends to run out of threads here .... not clear if executeOnExecutor actually
-            // helps
-            if (Build.VERSION.SDK_INT >= 11) {
-                ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            } else {
-                ct.execute();
+            @Override
+            public void onError() {
             }
-            try {
-                return ct.get().getError() == ErrorCodes.OK;
-            } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
-                                                                    // question
-                Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
-                ct.cancel(true);
-                return false;
-            }
+        };
+        if (!Server.checkOsmAuthentication(activity, server, restartAction)) {
+            return false;
         }
-        return false;
+
+        CommitTask ct = new CommitTask(note, comment, close) {
+
+            /** Flag to track if the bug is new. */
+            private boolean newBug;
+
+            @Override
+            protected void onPreExecute() {
+                Log.d(DEBUG_TAG, "onPreExecute");
+                newBug = bug.isNew();
+                if (!quiet) {
+                    Progress.showDialog(activity, Progress.PROGRESS_UPLOADING);
+                }
+            }
+
+            @Override
+            protected UploadResult doInBackground(Server... args) {
+                // execute() is called below with no arguments (args will be empty)
+                // getDisplayName() is deferred to here in case a lengthy OSM query
+                // is required to determine the nickname
+                Log.d(DEBUG_TAG, "doInBackground " + server.getReadWriteUrl());
+                return super.doInBackground(server);
+            }
+
+            @Override
+            protected void onPostExecute(UploadResult result) {
+                Log.d(DEBUG_TAG, "onPostExecute");
+                if (newBug && !App.getTaskStorage().contains(bug)) {
+                    App.getTaskStorage().add(bug);
+                }
+                if (result.getError() == ErrorCodes.OK) {
+                    // upload successful
+                    bug.setChanged(false);
+                    if (activity instanceof Main) {
+                        ((Main) activity).invalidateMap();
+                    }
+                    if (postUploadHandler != null) {
+                        postUploadHandler.onSuccess();
+                    }
+                }
+                if (!quiet) {
+                    Progress.dismissDialog(activity, Progress.PROGRESS_UPLOADING);
+                    // Toast.makeText(context, result ? R.string.openstreetbug_commit_ok :
+                    // R.string.openstreetbug_commit_fail, Toast.LENGTH_SHORT).show();
+                    if (!activity.isFinishing()) {
+                        if (result.getError() == ErrorCodes.INVALID_LOGIN) {
+                            InvalidLogin.showDialog(activity);
+                        } else if (result.getError() == ErrorCodes.FORBIDDEN) {
+                            ForbiddenLogin.showDialog(activity, result.getMessage());
+                        } else if (result.getError() != ErrorCodes.OK) {
+                            ErrorAlert.showDialog(activity, result.getError());
+                        } else { // no error
+                            Snack.barInfo(activity, R.string.openstreetbug_commit_ok);
+                        }
+                    }
+                }
+            }
+        };
+
+        // FIXME seems as if AsyncTask tends to run out of threads here .... not clear if executeOnExecutor actually
+        // helps
+        if (Build.VERSION.SDK_INT >= 11) {
+            ct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            ct.execute();
+        }
+        try {
+            return ct.get().getError() == ErrorCodes.OK;
+        } catch (InterruptedException | ExecutionException e) { // NOSONAR cancel does interrupt the thread in
+                                                                // question
+            Log.e(DEBUG_TAG, "uploadNote got " + e.getMessage());
+            ct.cancel(true);
+            return false;
+        }
     }
 
     /**
      * Update single bug state
      * 
      * @param activity the calling Activity
-     * @param server TODO
+     * @param server Server configuration
      * @param task MapRouletteTask to update
      * @param quiet don't display messages if true
      * @param postUploadHandler if not null run this handler after update
      * @return true if successful
      */
     @SuppressLint("InlinedApi")
-    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, Server server, @NonNull final MapRouletteTask task,
+    public static boolean updateMapRouletteTask(@NonNull final FragmentActivity activity, @NonNull Server server, @NonNull final MapRouletteTask task,
             final boolean quiet, @Nullable final PostAsyncActionHandler postUploadHandler) {
         Log.d(DEBUG_TAG, "updateMapRouletteTask");
         PostAsyncActionHandler restartAction = new PostAsyncActionHandler() {

@@ -361,7 +361,7 @@ public class AutoPreset {
                     }
                 }
                 // add .nomedia file to stop the directory being indexed
-                (new File(autoPresetDir, ".nomedia")).createNewFile();
+                (new File(autoPresetDir, ".nomedia")).createNewFile(); // NOSONAR
             }
         } catch (IOException e) {
             // don't fail because of an exception here
