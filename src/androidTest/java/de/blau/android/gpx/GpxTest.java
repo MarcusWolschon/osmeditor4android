@@ -61,7 +61,7 @@ public class GpxTest {
      */
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
-    
+
     /**
      * Pre-test setup
      */
@@ -69,13 +69,12 @@ public class GpxTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-               
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
-      
+
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 30000); // wait for main
-        
-        
+
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
 
@@ -98,7 +97,7 @@ public class GpxTest {
      * Replay a pre-recorded track and check that we record the same
      */
     @Test
-    public void recordSaveAndImportGpx() {        
+    public void recordSaveAndImportGpx() {
         Preferences prefs = new Preferences(context);
         Assert.assertNotNull(main);
         // allow downloading tiles here
@@ -108,11 +107,11 @@ public class GpxTest {
         main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.clickButton("de.blau.android:id/follow", false);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPS track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("20110513_121244-tp.gpx");
         Track track = new Track(main);
-        track.importFromGPX(is);        
+        track.importFromGPX(is);
         final CountDownLatch signal = new CountDownLatch(1);
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
@@ -123,21 +122,21 @@ public class GpxTest {
         List<TrackPoint> recordedTrack = main.getTracker().getTrack().getTrack();
         Assert.assertEquals(track.getTrack().size(), recordedTrack.size());
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPS track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         compareTrack(track, recordedTrack);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Track management", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "GPX track management", true));
         String filename = DateFormatter.getFormattedString("yyyy-MM-dd'T'HHmm"); // note this is a bit flaky
         UiObject snackbarTextView = device.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
         Assert.assertTrue(TestUtils.clickText(device, false, "Export GPX track", false));
-// Currently doesn't work
-//        Assert.assertTrue(snackbarTextView.waitForExists(5000));
-//        Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-//        Assert.assertTrue(TestUtils.clickText(device, false, "Track management", true));
-//        Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
-//        Assert.assertTrue(TestUtils.clickText(device, false, filename, true));
-//        recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
-//        compareTrack(track, recordedTrack);
+        // Currently doesn't work
+        // Assert.assertTrue(snackbarTextView.waitForExists(5000));
+        // Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
+        // Assert.assertTrue(TestUtils.clickText(device, false, "Track management", true));
+        // Assert.assertTrue(TestUtils.clickText(device, false, "Import GPX track", true));
+        // Assert.assertTrue(TestUtils.clickText(device, false, filename, true));
+        // recordedTrack = main.getTracker().getTrack().getTrack(); // has been reloaded
+        // compareTrack(track, recordedTrack);
     }
 
     /**
@@ -177,7 +176,7 @@ public class GpxTest {
         Assert.assertTrue(TestUtils.clickText(device, true, "Create osm object from", true));
         Assert.assertTrue(TestUtils.findText(device, false, "Church"));
     }
-    
+
     /**
      * Replay a track and pretend the output are network generated locations
      */
@@ -203,12 +202,12 @@ public class GpxTest {
             Assert.fail(e.getMessage());
         }
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
-        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPS track", true));
+        Assert.assertTrue(TestUtils.clickText(device, false, "Pause GPX track", true));
         // compare roughly with last location
-        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size()-1);
+        TrackPoint lastPoint = track.getTrack().get(track.getTrack().size() - 1);
         ViewBox box = main.getMap().getViewBox();
         Assert.assertEquals(lastPoint.getLatitude(), box.getCenterLat(), 0.0001);
-        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight())/2 + box.getRight())/1E7D, 0.0001);
+        Assert.assertEquals(lastPoint.getLongitude(), ((box.getLeft() - box.getRight()) / 2 + box.getRight()) / 1E7D, 0.0001);
     }
 
     /**
