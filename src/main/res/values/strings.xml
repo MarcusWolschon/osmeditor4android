@@ -748,7 +748,7 @@
     <string name="config_gps_interval_summary">The minimum time interval for GPS/GNSS location notifications, in milliseconds. Lower values drain more battery.</string>
     <string name="config_gps_interval_current">%1$d ms</string>
     <string name="config_gps_distance_title">Minimum GPS/GNSS-distance</string>
-    <string name="config_gps_distance_summary">The minimum distance between for GPS/GNSS notifications, in meters (float). Lower values drain more battery.</string>
+    <string name="config_gps_distance_summary">The minimum distance between for GPS/GNSS notifications, in meters. Lower values drain more battery.</string>
     <string name="config_gps_distance_current">%1$d meter(s)</string>
     <string name="config_leaveGpsDisabled_title">Leave GPS/GNSS turned off</string>
     <string name="config_leaveGpsDisabled_summary">Don\'t ask to turn GPS/GNSS on if off.</string>
