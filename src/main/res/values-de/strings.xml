@@ -49,8 +49,8 @@
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen</string>
-  <string name="welcome_message">Danke, dass Du Vespucci installiert hast.\n\nUm anzufangen, musst du 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen, linken Ecke schaltet man zwischen dem gesperrten (Bearbeiten nicht möglich) und dem entsperrten Status hin- und her,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren musst  du zuerst das Gebiet, das du bearbeiten willst, herunterzuladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, musst du den grossen grünen Knopf antippen, auswählen was du hinzufügen willst, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß!</string>
-  <string name="welcome_message_fullscreen">\n\nVespucci hat entdeckt, dass dein Gerät \"software\" Tasten hat und hat sie versteckt. Ein Wisch von der unteren Kante zeigt sie wieder an.</string>
+  <string name="welcome_message">Danke, dass Du Vespucci installiert hast.\n&lt;br&gt;&lt;br&gt;Um anzufangen, musst du 3 Sachen wissen:\n&lt;ul&gt;&lt;li&gt;durch Antippen des Schlosses in der oberen, linken Ecke schaltet man zwischen dem gesperrten (Bearbeiten nicht möglich) und dem entsperrten Status hin- und her,&lt;/li&gt;&lt;li&gt;um OpenStreetMap zu editieren musst  du zuerst das Gebiet, das du bearbeiten willst, herunterzuladen (es empfiehlt sich zuerst hineinzuzoomen),&lt;/li&gt;&lt;li&gt;um ein neues Objekt zu erstellen, musst du den grossen grünen Knopf antippen, auswählen was du hinzufügen willst, und dann die entsprechende Bildschirmposition berühren.&lt;/li&gt;&lt;/ul&gt;\nViel Spaß!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Vespucci hat entdeckt, dass dein Gerät \"software\" Tasten hat und hat sie versteckt. Ein Wisch von der unteren Kante zeigt sie wieder an.</string>
   <string name="read_introduction">Die Einführung lesen</string>
   <string name="upgrade_title">Dies ist eine neue Vespucci Version</string>
   <string name="upgrade_message">Neue Funktionen und Verhalten sind in den \"release notes\" beschrieben.</string>
@@ -290,6 +290,7 @@
   <string name="toast_nothing_found">Nichts gefunden</string>
   <string name="toast_statesave_failed">Speichern des aktuellen Zustandes ist fehlgeschlagen!\nDies ist ein schwerwiegender Fehler, es wird versucht eine Exportdatei für die spätere Verwendung in JOSM zu schreiben.</string>
   <string name="toast_missing_filemanager">Bitte einen \"File Manager\" installieren</string>
+  <string name="toast_outside_of_download">Lade mehr Daten herunter um diesen Bereich zu editieren.</string>
   <string name="toast_file_not_found">%1$s nicht gefunden.</string>
   <plurals name="toast_imported_track_points">
     <item quantity="one">%1$dGPX-Trackpunkte und 1 Wegpunkt importiert.</item>
@@ -348,6 +349,8 @@
   <string name="toast_move_note_warning">Nur neue Notizen können verschoben werden</string>
   <string name="toast_task_layer_disabled">Aufgabenebene abgeschaltet</string>
   <string name="toast_unable_to_create_task_layer">Aufgabenebene konnte nicht erstellt werden</string>
+  <string name="toast_merged">Vereinigt</string>
+  <string name="toast_long_press_simple_mode">Im einfachen Modus ist die \"langer Druck\" Funktion nicht verfügbar</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -708,6 +711,8 @@
   <string name="config_enableNameSuggestionsPresets_summary">Automatisch zutreffenden Preset anwenden wenn ein Namensvorschlag angewendet wird</string>
   <string name="config_generateAlerts_title">Alarme generieren</string>
   <string name="config_generateAlerts_summary">Alarme für Daten mit Problemen oder für Notes generieren.</string>
+  <string name="config_groupAlertsOnly_title">Nur Gruppenalarme.</string>
+  <string name="config_groupAlertsOnly_summary">Nur einmalige Alarme (Audio) für Gruppen oder Benachrichtigungen.</string>
   <string name="config_notificationCacheSize_title">Max. Anzahl von angezeigten Hinweisen</string>
   <string name="config_notificationCacheSize_summary">Max. Anzahl von angezeigten Hinweisen pro Typ (mind. 1)</string>
   <string name="config_notificationCacheSize_current">%1$d Benachrichtiungen</string>
