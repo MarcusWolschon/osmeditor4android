@@ -4,13 +4,15 @@ import java.net.HttpURLConnection;
 
 public class OsmServerException extends OsmException {
 
+    private static final String ELEMENT_TYPE_NONE = "none";
+
     /**
      * 
      */
     private static final long serialVersionUID = 2767654576083786633L;
 
     private final int errorCode;
-    private String    type  = "none";
+    private String    type  = ELEMENT_TYPE_NONE;
     private long      osmId = -1;
 
     public OsmServerException(final int errorCode, final String string) {
@@ -43,7 +45,7 @@ public class OsmServerException extends OsmException {
     }
 
     /**
-     * @return a string with element typi and id
+     * @return a string with element type and id
      */
     public String getElementDescription() {
         return type + " #" + osmId;
@@ -65,6 +67,15 @@ public class OsmServerException extends OsmException {
      */
     public String getElementType() {
         return type;
+    }
+
+    /**
+     * Check if we have an element
+     * 
+     * @return true if information on an element is present
+     */
+    public boolean hasElement() {
+        return !ELEMENT_TYPE_NONE.equals(type);
     }
 
     /**

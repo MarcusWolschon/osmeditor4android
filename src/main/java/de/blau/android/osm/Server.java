@@ -1414,6 +1414,8 @@ public class Server {
                     if (m.matches()) {
                         String idStr = m.group(1);
                         generateException(apiStorage, "relation", idStr, code, responseMessage, message);
+                    } else {
+
                     }
                     Log.e(DEBUG_TAG, "Unknown error message: " + message);
                 }
@@ -1422,7 +1424,19 @@ public class Server {
         }
     }
 
-    private void generateException(Storage apiStorage, String type, String idStr, int code, String responseMessage, String message) throws OsmServerException {
+    /**
+     * Build and throw and exception containign some details on the affected OsmElement
+     * 
+     * @param apiStorage the current api storage
+     * @param type the type of the OsmElement
+     * @param idStr a String containing the if of the element
+     * @param code the returned HTTP code
+     * @param responseMessage the HTTP error message
+     * @param message the API error message
+     * @throws OsmServerException nearly always
+     */
+    private void generateException(@NonNull Storage apiStorage, @Nullable String type, @Nullable String idStr, int code, @Nullable String responseMessage,
+            @Nullable String message) throws OsmServerException {
         if (type != null && idStr != null) {
             long osmId = Long.parseLong(idStr);
             OsmElement e = apiStorage.getOsmElement(type.toLowerCase(Locale.US), osmId);

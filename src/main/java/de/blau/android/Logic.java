@@ -3455,15 +3455,23 @@ public class Logic {
                     case HttpURLConnection.HTTP_GONE:
                     case HttpURLConnection.HTTP_CONFLICT:
                     case HttpURLConnection.HTTP_PRECON_FAILED:
-                        result.setError(ErrorCodes.UPLOAD_CONFLICT);
-                        result.setElementType(e.getElementType());
-                        result.setOsmId(e.getElementId());
+                        if (e.hasElement()) {
+                            result.setError(ErrorCodes.UPLOAD_CONFLICT);
+                            result.setElementType(e.getElementType());
+                            result.setOsmId(e.getElementId());
+                        } else {
+                            result.setError(ErrorCodes.UNKNOWN_ERROR);
+                            result.setMessage(e.getMessage());
+                        }
                         break;
                     case HttpURLConnection.HTTP_BAD_REQUEST:
                         result.setError(ErrorCodes.BAD_REQUEST);
                         result.setMessage(e.getMessage());
                         break;
                     case HttpURLConnection.HTTP_NOT_FOUND:
+                        result.setError(ErrorCodes.NOT_FOUND);
+                        result.setMessage(e.getMessage());
+                        break;
                     case HttpURLConnection.HTTP_INTERNAL_ERROR:
                     case HttpURLConnection.HTTP_BAD_GATEWAY:
                     case HttpURLConnection.HTTP_UNAVAILABLE:
@@ -3472,7 +3480,8 @@ public class Logic {
                     // TODO: implement other state handling
                     default:
                         Log.e(DEBUG_TAG, "", e);
-                        ACRAHelper.nocrashReport(e, e.getMessage());
+                        result.setError(ErrorCodes.UNKNOWN_ERROR);
+                        result.setMessage(e.getMessage());
                         break;
                     }
                 } catch (final IOException e) {
@@ -3507,7 +3516,8 @@ public class Logic {
                         InvalidLogin.showDialog(activity);
                     } else if (result.getError() == ErrorCodes.FORBIDDEN) {
                         ForbiddenLogin.showDialog(activity, result.getMessage());
-                    } else if (result.getError() == ErrorCodes.BAD_REQUEST) {
+                    } else if (result.getError() == ErrorCodes.BAD_REQUEST || result.getError() == ErrorCodes.NOT_FOUND
+                            || result.getError() == ErrorCodes.UNKNOWN_ERROR) {
                         ErrorAlert.showDialog(activity, result.getError(), result.getMessage());
                     } else if (result.getError() != 0) {
                         ErrorAlert.showDialog(activity, result.getError());

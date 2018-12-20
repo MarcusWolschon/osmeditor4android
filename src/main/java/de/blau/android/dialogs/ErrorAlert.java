@@ -16,6 +16,7 @@ import de.blau.android.ErrorCodes;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ThemeUtils;
+import de.blau.android.util.Util;
 
 /**
  * Simple alert dialog with an OK button that does nothing
@@ -131,6 +132,10 @@ public class ErrorAlert extends DialogFragment {
             return "bounding_box_too_large";
         case ErrorCodes.INVALID_LOGIN:
             return "invalid_login";
+        case ErrorCodes.NOT_FOUND:
+            return "not_found";
+        case ErrorCodes.UNKNOWN_ERROR:
+            return "unknown";
         }
         return null;
     }
@@ -177,6 +182,10 @@ public class ErrorAlert extends DialogFragment {
             return createNewInstance(R.string.bounding_box_too_large_title, R.string.bounding_box_too_large_message, msg);
         case ErrorCodes.INVALID_LOGIN:
             return createNewInstance(R.string.wrong_login_data_title, R.string.wrong_login_data_message, msg);
+        case ErrorCodes.NOT_FOUND:
+            return createNewInstance(R.string.not_found_title, R.string.not_found_message, msg);
+        case ErrorCodes.UNKNOWN_ERROR:
+            return createNewInstance(R.string.unknown_error_title, R.string.unknown_error_message, msg);
         }
         return null;
     }
@@ -226,7 +235,7 @@ public class ErrorAlert extends DialogFragment {
             if (originalMessage != null) {
                 message = message + originalMessage;
             }
-            builder.setMessage(message);
+            builder.setMessage(Util.fromHtml(message));
         }
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.okay, doNothingListener);

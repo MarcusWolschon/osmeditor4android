@@ -32,6 +32,10 @@
     <string name="wrong_login_data_message">If you are using OAuth, re-authenticate and try again. If you are using login and password (not recommended), please check that they are entered correctly.</string>
     <string name="wrong_login_data_re_authenticate">Re-authenticate</string>
     <string name="forbidden_login_title">Login forbidden</string>
+    <string name="not_found_title">Element not found</string>
+    <string name="not_found_message">The API couldn\'t find an existing element or changeset with the specified id.&lt;br&gt;&lt;br&gt;</string>
+    <string name="unknown_error_title">Unknown error</string>
+    <string name="unknown_error_message">The error code returned from the API or the message could not be processed.&lt;br&gt;&lt;br&gt;</string>
     <string name="go_to_openstreetmap">Go to openstreetmap.org</string>
     <string name="data_conflict_title">Version conflict</string>
     <string name="data_conflict_message">Data from the download would conflict with your edits. Please upload your data before trying again.</string>
