@@ -514,6 +514,7 @@
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File…</string>
     <string name="menu_transfer_export">Export changes to OSC file</string>
+    <string name="menu_transfer_apply_osc_file">Apply changes from OSC file</string>
     <string name="menu_transfer_read_file">Read from JOSM file…</string>
     <string name="menu_transfer_read_pbf_file">Read from PBF file</string>
     <string name="menu_transfer_save_file">Save to JOSM file…</string>
@@ -890,6 +891,7 @@
     <string name="undo_action_circulize">Arrange in circule</string>
     <string name="undo_action_fix_conflict">Conflict resolution</string>
     <string name="undo_action_extract_node">Node extraction</string>
+    <string name="undo_action_apply_osc">Apply OSC file</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your e-mail address if you want feedback.\n\nThank you.</string>

@@ -97,7 +97,7 @@ import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.TextLineDialog;
-import de.blau.android.dialogs.UndoDialogFactory;
+import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
@@ -1923,6 +1923,28 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_export:
             SavingHelper.asyncExport(this, delegator);
             return true;
+        case R.id.menu_transfer_apply_osc_file:
+            descheduleAutoLock();
+            SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    try {
+                        logic.applyOscFile(Main.this, fileUri, null);
+                    } catch (FileNotFoundException e) {
+                        try {
+                            Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+                        } catch (Exception ex) {
+                            // protect against translation errors
+                        }
+                    }
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    map.invalidate();
+                    return true;
+                }
+            });
+            return true;
 
         case R.id.menu_transfer_read_file:
         case R.id.menu_transfer_read_pbf_file:
@@ -3109,7 +3131,7 @@ public class Main extends FullScreenAppCompatActivity
             final Logic logic = App.getLogic();
             UndoStorage undo = logic.getUndo();
             if (undo.canUndo() || undo.canRedo()) {
-                UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
+                UndoDialog.showUndoDialog(Main.this, logic, undo);
             } else {
                 Snack.barInfoShort(Main.this, R.string.undo_nothing);
             }

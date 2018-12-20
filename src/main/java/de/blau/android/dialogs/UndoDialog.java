@@ -21,9 +21,16 @@ import de.blau.android.util.Density;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
-public class UndoDialogFactory {
+public class UndoDialog {
 
-    public static void showUndoDialog(final Main main, final Logic logic, final UndoStorage undo) {
+    /**
+     * Create an instance of and then show the undo/redo dialog
+     * 
+     * @param main the current instance of Main
+     * @param logic the current Logic instance
+     * @param undo current UndoStorage
+     */
+    public static void showUndoDialog(@NonNull final Main main, @NonNull final Logic logic, @NonNull final UndoStorage undo) {
         Builder dialog = new Builder(main);
         dialog.setTitle(R.string.checkpoints);
 

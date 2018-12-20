@@ -75,6 +75,7 @@ import de.blau.android.osm.GeoPoint;
 import de.blau.android.osm.MapSplitSource;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmPbfParser;
@@ -591,6 +592,17 @@ public class Logic {
      * @param stringId the resource id of the string representing the checkpoint name
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId) {
+        removeCheckpoint(activity, stringId, false);
+    }
+
+    /**
+     * Remove an empty undo checkpoint using a resource string as the name
+     * 
+     * @param activity that we were called from for access to the resources, if null we will use the resources from App
+     * @param stringId the resource id of the string representing the checkpoint name
+     * @param force if true remove even if not empty
+     */
+    public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
         Resources r = activity != null ? activity.getResources() : App.resources();
         getDelegator().getUndo().removeCheckpoint(r.getString(stringId));
     }
@@ -2966,15 +2978,7 @@ public class Logic {
     public void readOsmFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
-        final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-
-        new AsyncTask<Boolean, Void, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
-            }
-
+        new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
             protected Integer doInBackground(Boolean... arg) {
                 int result = 0;
@@ -3012,44 +3016,6 @@ public class Logic {
                 }
                 return result;
             }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                if (map != null) {
-                    try {
-                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
-                    } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, "readOsmFile got " + e.getMessage());
-                    }
-                    DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-                }
-                if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY) {
-                        if (getDelegator().isDirty()) {
-                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                        }
-                    }
-                    try {
-                        if (!activity.isFinishing()) {
-                            ErrorAlert.showDialog(activity, result);
-                        }
-                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
-                        ACRAHelper.nocrashReport(ex, ex.getMessage());
-                    }
-                    if (postLoad != null) {
-                        postLoad.onError();
-                    }
-                } else {
-                    if (postLoad != null) {
-                        postLoad.onSuccess();
-                    }
-                }
-
-                invalidateMap();
-                activity.supportInvalidateOptionsMenu();
-            }
-
         }.execute(add);
     }
 
@@ -3161,15 +3127,7 @@ public class Logic {
     public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
             @Nullable final PostAsyncActionHandler postLoad) {
 
-        final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-
-        new AsyncTask<Boolean, Void, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
-            }
-
+        new ReadAsyncClass(activity, is, add, postLoad) {
             @Override
             protected Integer doInBackground(Boolean... arg) {
                 int result = 0;
@@ -3194,45 +3152,60 @@ public class Logic {
                 }
                 return result;
             }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                if (map != null) {
-                    try {
-                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
-                    } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, "readOsmFile got " + e.getMessage());
-                    }
-                    DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-                }
-                if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY) {
-                        if (getDelegator().isDirty()) {
-                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                        }
-                    }
-                    try {
-                        if (!activity.isFinishing()) {
-                            ErrorAlert.showDialog(activity, result);
-                        }
-                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
-                        ACRAHelper.nocrashReport(ex, ex.getMessage());
-                    }
-                    if (postLoad != null) {
-                        postLoad.onError();
-                    }
-                } else {
-                    if (postLoad != null) {
-                        postLoad.onSuccess();
-                    }
-                }
-
-                invalidateMap();
-                activity.supportInvalidateOptionsMenu();
-            }
-
         }.execute(add);
+    }
+
+    /**
+     * Read an osmChange format file and then apply the contents
+     * 
+     * @param activity the calling activity
+     * @param fileUri the URI for the file
+     * @param postLoad a callback to call post load
+     * @throws FileNotFoundException if the file cound't be found
+     */
+    public void applyOscFile(@NonNull FragmentActivity activity, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad)
+            throws FileNotFoundException {
+
+        final InputStream is;
+
+        if (fileUri.getScheme().equals("file")) {
+            is = new FileInputStream(new File(fileUri.getPath()));
+        } else {
+            ContentResolver cr = activity.getContentResolver();
+            is = cr.openInputStream(fileUri);
+        }
+
+        new ReadAsyncClass(activity, is, false, postLoad) {
+            @Override
+            protected Integer doInBackground(Boolean... arg) {
+                int result = 0;
+                try {
+                    try {
+                        OsmChangeParser oscParser = new OsmChangeParser();
+                        oscParser.clearBoundingBoxes(); // this removes the default bounding box
+                        final InputStream in = new BufferedInputStream(is);
+                        oscParser.start(in);
+                        StorageDelegator sd = getDelegator();
+                        createCheckpoint(activity, R.string.undo_action_apply_osc);
+                        if (!sd.applyOsc(oscParser.getStorage(), null)) {
+                            removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
+                        }
+                        if (map != null) {
+                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        }
+                    } catch (SAXException | ParserConfigurationException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } finally {
+                        SavingHelper.close(is);
+                    }
+                } catch (UnsupportedFormatException | IOException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                    result = ErrorCodes.INVALID_DATA_READ;
+                }
+                return result;
+            }
+        }.execute();
     }
 
     /**
@@ -3746,7 +3719,6 @@ public class Logic {
                     }
                 }
             }
-
         }.execute();
     }
 
