@@ -164,7 +164,7 @@ public class APIEditorActivity extends URLListEditActivity {
             editName.setBackground(null);
             editValue.setInputType(InputType.TYPE_NULL);
             editValue.setBackground(null);
-            editValue_2.setEnabled(false);
+            editValue_2.setEnabled(true);
             editValue_3.setEnabled(false);
         }
 
