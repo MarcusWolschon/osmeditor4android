@@ -480,6 +480,7 @@ public class Server {
      * 
      * @return a Capabilities object
      */
+    @NonNull
     public Capabilities getCachedCapabilities() {
         if (capabilities == null) {
             return Capabilities.getDefault();
@@ -494,6 +495,7 @@ public class Server {
      * 
      * @return The capabilities for this server, or null if it couldn't be determined.
      */
+    @NonNull
     public Capabilities getCapabilities() {
         try {
             Capabilities result = getCapabilities(getCapabilitiesUrl());
@@ -504,7 +506,7 @@ public class Server {
         } catch (MalformedURLException e) {
             Log.e(DEBUG_TAG, "Problem with capabilities URL", e);
         }
-        return null;
+        return capabilities; // if retrieving failed return the default
     }
 
     /**
