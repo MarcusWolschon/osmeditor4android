@@ -3,6 +3,7 @@ package de.blau.android.layer.data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -33,6 +34,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -60,126 +62,129 @@ import de.blau.android.views.IMapView;
 
 public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
-    private static final String DEBUG_TAG = MapOverlay.class.getName();
+    private static final String               DEBUG_TAG           = MapOverlay.class.getName();
 
-    public static final int ICON_SIZE_DP = 20;
+    public static final int                   ICON_SIZE_DP        = 20;
 
-    private static final int HOUSE_NUMBER_RADIUS = 10;
+    private static final int                  HOUSE_NUMBER_RADIUS = 10;
 
     /**
      * zoom level from which on we display icons and house numbers
      */
-    private static final int SHOW_ICONS_LIMIT = 15;
+    private static final int                  SHOW_ICONS_LIMIT    = 15;
 
-    public static final int SHOW_LABEL_LIMIT = SHOW_ICONS_LIMIT + 5;
+    public static final int                   SHOW_LABEL_LIMIT    = SHOW_ICONS_LIMIT + 5;
 
     /** half the width/height of a node icon in px */
-    private final int iconRadius;
+    private final int                         iconRadius;
 
-    private final int iconSelectedBorder;
+    private final int                         iconSelectedBorder;
 
-    private final int houseNumberRadius;
+    private final int                         houseNumberRadius;
 
-    private final int verticalNumberOffset;
+    private final int                         verticalNumberOffset;
 
-    private Preferences prefs;
+    private Preferences                       prefs;
 
-    private final StorageDelegator delegator;
+    private final StorageDelegator            delegator;
 
     /**
      * show icons for POIs (in a wide sense of the word)
      */
-    private boolean showIcons = false;
+    private boolean                           showIcons           = false;
 
     /**
      * show icons for POIs tagged on (closed) ways
      */
-    private boolean showWayIcons = false;
+    private boolean                           showWayIcons        = false;
 
     /**
      * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<Object, Bitmap> iconCache = new WeakHashMap<>();
+    private final WeakHashMap<Object, Bitmap> iconCache           = new WeakHashMap<>();
 
     /**
-     * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags. This stores icons
-     * for areas
+     * Stores icons that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags. This stores icons for areas
      */
-    private final WeakHashMap<Object, Bitmap> areaIconCache = new WeakHashMap<>();
+    private final WeakHashMap<Object, Bitmap> areaIconCache       = new WeakHashMap<>();
 
     /**
      * Stores strings that apply to a certain "thing". This can be e.g. a node or a SortedMap of tags.
      */
-    private final WeakHashMap<Object, String> labelCache = new WeakHashMap<>();
+    private final WeakHashMap<Object, String> labelCache          = new WeakHashMap<>();
 
     /** Caches if the map is zoomed into edit range during one onDraw pass */
-    private boolean tmpDrawingInEditRange;
+    private boolean                           tmpDrawingInEditRange;
 
     /** Caches the edit mode during one onDraw pass */
-    private Mode tmpDrawingEditMode;
+    private Mode                              tmpDrawingEditMode;
 
     /** Caches the currently selected nodes during one onDraw pass */
-    private List<Node> tmpDrawingSelectedNodes;
+    private List<Node>                        tmpDrawingSelectedNodes;
 
     /** Caches the currently selected ways during one onDraw pass */
-    private List<Way> tmpDrawingSelectedWays;
+    private List<Way>                         tmpDrawingSelectedWays;
 
     /** Caches the current "clickable elements" set during one onDraw pass */
-    private Set<OsmElement> tmpClickableElements;
+    private Set<OsmElement>                   tmpClickableElements;
 
     /** used for highlighting relation members */
-    private List<Way>  tmpDrawingSelectedRelationWays;
-    private List<Node> tmpDrawingSelectedRelationNodes;
+    private List<Way>                         tmpDrawingSelectedRelationWays;
+    private List<Node>                        tmpDrawingSelectedRelationNodes;
 
     /**
      * Locked or not
      */
-    private boolean tmpLocked;
+    private boolean                           tmpLocked;
 
     /**
      * 
      */
-    private ArrayList<Way> tmpStyledWays = new ArrayList<>();
-    private ArrayList<Way> tmpHiddenWays = new ArrayList<>();
+    private ArrayList<Way>                    tmpStyledWays       = new ArrayList<>();
+    private ArrayList<Way>                    tmpHiddenWays       = new ArrayList<>();
 
     /** Caches the preset during one onDraw pass */
-    private Preset[] tmpPresets;
+    private Preset[]                          tmpPresets;
 
     /** Caches the Paint used for node tolerance */
-    private Paint nodeTolerancePaint;
-    private Paint nodeTolerancePaint2;
+    private Paint                             nodeTolerancePaint;
+    private Paint                             nodeTolerancePaint2;
 
     /** Caches the Paint used for way tolerance */
-    private Paint wayTolerancePaint;
-    private Paint wayTolerancePaint2;
+    private Paint                             wayTolerancePaint;
+    private Paint                             wayTolerancePaint2;
 
     /** cached zoom level, calculated once per onDraw pass **/
-    private int zoomLevel = 0;
+    private int                               zoomLevel           = 0;
 
     /** Cache the current filter **/
-    private Filter tmpFilter = null;
+    private Filter                            tmpFilter           = null;
 
     /** */
-    private boolean inNodeIconZoomRange = false;
+    private boolean                           inNodeIconZoomRange = false;
 
     /**
      * We just need one path object
      */
-    private Path path = new Path();
+    private Path                              path                = new Path();
 
-    private LongHashSet handles;
+    private LongHashSet                       handles;
 
-    private Context context;
+    private Context                           context;
 
-    private Validator validator;
+    private Validator                         validator;
 
-    private Paint labelBackground;
+    private Paint                             labelBackground;
 
-    private float[][] coord = null;
+    private float[][]                         coord               = null;
 
-    private FloatPrimitiveList points = new FloatPrimitiveList(); // allocate this just once
+    private FloatPrimitiveList                points              = new FloatPrimitiveList();  // allocate this just once
 
-    private final Map map;
+    private final Map                         map;
+
+    Set<Relation>                             paintRelations      = new HashSet<>();
+    List<Relation>                            paintRestrictions   = new ArrayList<>();
+    List<Relation>                            paintMultipolygons  = new ArrayList<>();
 
     @SuppressLint("NewApi")
     public MapOverlay(final Map map) {
@@ -251,13 +256,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Paints all OSM data on the given canvas.
      * 
-     * @param canvas Canvas, where the data shall be painted on.
+     * @param canvas
+     *            Canvas, where the data shall be painted on.
      */
     private void paintOsmData(final Canvas canvas) {
 
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
+        
+        paintRelations.clear(); 
+        paintRestrictions.clear();
+        paintMultipolygons.clear();
 
         // first find all nodes that we need to display
 
@@ -272,6 +282,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 if (!paintNodes.contains(n)) {
                     paintNodes.add(n);
                 }
+            }
+        }
+
+        for (Node n : paintNodes) {
+            if (n.hasParentRelations()) {
+                paintRelations.addAll(n.getParentRelations());
             }
         }
 
@@ -290,13 +306,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         List<Way> waysToDraw = ways;
         if (filterMode) {
             /*
-             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for
-             * the later
+             * Split the ways in to those that we are going to show and those that we hide, rendering is far simpler for the later
              */
             tmpHiddenWays.clear();
             tmpStyledWays.clear();
             for (Way w : ways) {
-                if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(w))) {
+                if (tmpFilter.include(w, tmpDrawingInEditRange && tmpDrawingSelectedWays != null
+                        && tmpDrawingSelectedWays.contains(w))) {
                     tmpStyledWays.add(w);
                 } else {
                     tmpHiddenWays.add(w);
@@ -309,11 +325,22 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             waysToDraw = tmpStyledWays;
         }
 
-        boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
-                && tmpDrawingEditMode.elementsGeomEditiable();
+        boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null
+                && tmpDrawingSelectedRelationNodes == null && tmpDrawingEditMode.elementsGeomEditiable();
         Collections.sort(waysToDraw, layerComparator);
         for (Way w : waysToDraw) {
             paintWay(canvas, w, displayHandles, drawTolerance);
+            if (w.hasParentRelations()) {
+                paintRelations.addAll(w.getParentRelations());
+            }
+        }
+
+        for (Relation r : paintRelations) {
+            if (r.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION)) {
+                paintRestrictions.add(r);
+            } else if (r.hasTagWithValue(Tags.KEY_TYPE, Tags.VALUE_MULTIPOLYGON)) {
+                paintMultipolygons.add(r);
+            }
         }
 
         // Paint nodes
@@ -354,8 +381,24 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                     coordSize++;
                 }
             }
-            paintNode(canvas, n, x, y, hwAccelarationWorkaround,
-                    drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lon, lat)));
+            paintNode(canvas, n, x, y, hwAccelarationWorkaround, drawTolerance && !noTolerance
+                    && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lon, lat)));
+        }
+        for (Relation restriction : paintRestrictions) {
+            List<RelationMember> vias = restriction.getMembersWithRole(Tags.ROLE_VIA);
+            for (RelationMember via : vias) {
+                OsmElement v = via.getElement();
+                if (v instanceof Node) {
+                    int lat = ((Node) v).getLat();
+                    float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
+                    int lon = ((Node) v).getLon();
+                    float x = GeoMath.lonE7ToX(screenWidth, viewBox, lon);
+                    paintNodeIcon(restriction, canvas, x, y, null);
+                } else if (v instanceof Way) {
+                    float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, (Way) v);
+                    paintNodeIcon(restriction, canvas, xy[0], xy[1], null);
+                }
+            }
         }
         paintHandles(canvas);
     }
@@ -399,15 +442,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Paints the given node on the canvas.
      * 
-     * @param canvas Canvas, where the node shall be painted on.
-     * @param node Node to be painted.
-     * @param x screen x coordinate
-     * @param y screen y coordinate
-     * @param hwAccelarationWorkaround use a workaround for operations that are not supported when HW accelation is used
-     * @param drawTolerance draw the touch halo
+     * @param canvas
+     *            Canvas, where the node shall be painted on.
+     * @param node
+     *            Node to be painted.
+     * @param x
+     *            screen x coordinate
+     * @param y
+     *            screen y coordinate
+     * @param hwAccelarationWorkaround
+     *            use a workaround for operations that are not supported when HW accelation is used
+     * @param drawTolerance
+     *            draw the touch halo
      */
-    private void paintNode(final Canvas canvas, final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
-            final boolean drawTolerance) {
+    private void paintNode(final Canvas canvas, final Node node, final float x, final float y,
+            final boolean hwAccelarationWorkaround, final boolean drawTolerance) {
 
         boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
 
@@ -445,11 +494,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             featureStyleFont = DataStyle.LABELTEXT_NORMAL_SELECTED;
             // style for small label text
             featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
-            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
+            if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea()
+                    && tmpDrawingEditMode.elementsGeomEditiable()) {
                 // don't draw large areas in multi-select mode
-                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(),
+                        DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
-        } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
+        } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node))
+                && tmpDrawingInEditRange) {
             // general node style
             featureStyle = DataStyle.SELECTED_RELATION_NODE;
             // style for house numbers
@@ -497,7 +549,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         }
 
         if (isTaggedAndInZoomLimit && showIcons) {
-            noIcon = tmpPresets == null || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
+            noIcon = tmpPresets == null
+                    || !paintNodeIcon(node, canvas, x, y, isSelected || hasProblem ? featureStyleTagged : null);
             if (noIcon) {
                 String houseNumber = node.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                 if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
@@ -528,36 +581,50 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Draw a circle with center at x,y with the house number in it
      * 
-     * @param x screen x
-     * @param y screen y
-     * @param canvas canvas we are drawing on
-     * @param featureKeyThin style to use for the housenumber circle
-     * @param featureKeyFont style to use for the housenumber number
-     * @param houseNumber the number as a string
+     * @param x
+     *            screen x
+     * @param y
+     *            screen y
+     * @param canvas
+     *            canvas we are drawing on
+     * @param featureKeyThin
+     *            style to use for the housenumber circle
+     * @param featureKeyFont
+     *            style to use for the housenumber number
+     * @param houseNumber
+     *            the number as a string
      */
-    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String featureKeyFont,
-            final String houseNumber) {
+    private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin,
+            final String featureKeyFont, final String houseNumber) {
         FeatureStyle fontStyle = DataStyle.getCurrent(featureKeyFont);
         Paint fontPaint = fontStyle.getPaint();
         Paint paint = DataStyle.getCurrent(featureKeyThin).getPaint();
         canvas.drawCircle(x, y, houseNumberRadius, paint);
         canvas.drawCircle(x, y, houseNumberRadius, labelBackground);
-        canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontStyle.getPaint());
+        canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset,
+                fontStyle.getPaint());
     }
 
     /**
      * Paint a label under the node, does not try to do collision avoidance
      * 
-     * @param x screen x
-     * @param y screen y
-     * @param canvas canvas we are drawing on
-     * @param featureKeyThin style to use for the label
-     * @param e the OsmElement
-     * @param strokeWidth current stroke scaling factor
-     * @param withIcon offset the label so that we don't overlap an icon
+     * @param x
+     *            screen x
+     * @param y
+     *            screen y
+     * @param canvas
+     *            canvas we are drawing on
+     * @param featureKeyThin
+     *            style to use for the label
+     * @param e
+     *            the OsmElement
+     * @param strokeWidth
+     *            current stroke scaling factor
+     * @param withIcon
+     *            offset the label so that we don't overlap an icon
      */
-    private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth,
-            final boolean withIcon) {
+    private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin,
+            final OsmElement e, final float strokeWidth, final boolean withIcon) {
         FeatureStyle fs = DataStyle.getCurrent(featureKeyThin);
         Paint paint = fs.getPaint();
         SortedMap<String, String> tags = e.getTags();
@@ -587,7 +654,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         float halfTextWidth = paint.measureText(label) / 2;
         FontMetrics fm = fs.getFontMetrics();
         float yOffset = y + strokeWidth + (withIcon ? 2 * iconRadius : iconRadius);
-        canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth, yOffset - paint.getTextSize() + fm.bottom, labelBackground);
+        canvas.drawRect(x - halfTextWidth, yOffset + fm.bottom, x + halfTextWidth,
+                yOffset - paint.getTextSize() + fm.bottom, labelBackground);
         canvas.drawText(label, x - halfTextWidth, yOffset, paint);
     }
 
@@ -596,7 +664,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Retrieve icon for the element, caching it if it isn't in the cache
      * 
-     * @param element element we want to find an icon for
+     * @param element
+     *            element we want to find an icon for
      * @return icon or null if none is found
      */
     private Bitmap getIcon(OsmElement element) {
@@ -655,11 +724,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Paints an icon for an element. tmpPreset needs to be available (i.e. not null).
      * 
-     * @param element the element whose icon should be painted
-     * @param canvas the canvas on which to draw
-     * @param x the x position where the center of the icon goes
-     * @param y the y position where the center of the icon goes
-     * @param featureKey style key
+     * @param element
+     *            the element whose icon should be painted
+     * @param canvas
+     *            the canvas on which to draw
+     * @param x
+     *            the x position where the center of the icon goes
+     * @param y
+     *            the y position where the center of the icon goes
+     * @param featureKey
+     *            style key
      * @return true if an icon was found and drawn
      */
     private boolean paintNodeIcon(OsmElement element, Canvas canvas, float x, float y, String featureKey) {
@@ -668,8 +742,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             float w2 = icon.getWidth() / 2f;
             float h2 = icon.getHeight() / 2f;
             if (featureKey != null) { // selected
-                RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
-                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getCurrent(featureKey).getPaint());
+                RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder,
+                        x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
+                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder,
+                        DataStyle.getCurrent(featureKey).getPaint());
             }
             // we have an icon! draw it.
             canvas.drawBitmap(icon, x - w2, y - h2, null);
@@ -681,23 +757,33 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Paint the tolerance halo for a node
      * 
-     * @param canvas the canvas we are drawing on
-     * @param isTagged true if the node has any tags
-     * @param x screen x
-     * @param y screen y
-     * @param paint the parameters to use for the colour
+     * @param canvas
+     *            the canvas we are drawing on
+     * @param isTagged
+     *            true if the node has any tags
+     * @param x
+     *            screen x
+     * @param y
+     *            screen y
+     * @param paint
+     *            the parameters to use for the colour
      */
-    private void drawNodeTolerance(final Canvas canvas, final boolean isTagged, final float x, final float y, final Paint paint) {
+    private void drawNodeTolerance(final Canvas canvas, final boolean isTagged, final float x, final float y,
+            final Paint paint) {
         canvas.drawCircle(x, y, isTagged ? paint.getStrokeWidth() : wayTolerancePaint.getStrokeWidth() / 2, paint);
     }
 
     /**
      * Paints the given way on the canvas.
      * 
-     * @param canvas Canvas, where the node shall be painted on.
-     * @param way way which shall be painted.
-     * @param displayHandles draw geometry improvement handles
-     * @param drawTolerance if true draw the halo
+     * @param canvas
+     *            Canvas, where the node shall be painted on.
+     * @param way
+     *            way which shall be painted.
+     * @param displayHandles
+     *            draw geometry improvement handles
+     * @param drawTolerance
+     *            if true draw the halo
      */
     private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
         map.pointListToLinePointsArray(points, way.getNodes());
@@ -710,7 +796,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be
                                                    // a better idea to do so
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
-        boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
+        boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null
+                && tmpDrawingSelectedRelationWays.contains(way);
 
         // draw way tolerance
         if (drawTolerance) {
@@ -736,7 +823,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
             paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
-            drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
+            drawWayArrows(canvas, linePoints, pointsSize, false, paint,
+                    displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
             labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
         } else if (isMemberOfSelectedRelation) {
@@ -792,13 +880,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 X = X / (3 * A); // NOSONAR nonZero tests for zero
                 boolean iconDrawn = false;
                 if (tmpPresets != null) {
-                    iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y, isSelected ? DataStyle.SELECTED_NODE_TAGGED : null);
+                    iconDrawn = paintNodeIcon(way, canvas, (float) X, (float) Y,
+                            isSelected ? DataStyle.SELECTED_NODE_TAGGED : null);
                     boolean doLabel = false;
                     if (!iconDrawn) {
                         String houseNumber = way.getTagWithKey(Tags.KEY_ADDR_HOUSENUMBER);
                         if (houseNumber != null && !"".equals(houseNumber)) { // draw house-numbers
-                            paintHouseNumber((float) X, (float) Y, canvas, isSelected ? DataStyle.SELECTED_NODE_THIN : DataStyle.NODE_THIN, labelFontStyleSmall,
-                                    houseNumber);
+                            paintHouseNumber((float) X, (float) Y, canvas,
+                                    isSelected ? DataStyle.SELECTED_NODE_THIN : DataStyle.NODE_THIN,
+                                    labelFontStyleSmall, houseNumber);
                         } else {
                             doLabel = way.hasTagKey(Tags.KEY_NAME);
                         }
@@ -807,7 +897,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                     }
                     if (doLabel) {
                         Paint p = DataStyle.getCurrent(DataStyle.SELECTED_NODE_TAGGED).getPaint();
-                        paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
+                        paintLabel((float) X, (float) Y, canvas, labelFontStyle, way,
+                                iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
             }
@@ -817,8 +908,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Paints the given way on the canvas with the "hidden" style.
      * 
-     * @param canvas Canvas, where the node shall be painted on.
-     * @param way way which shall be painted.
+     * @param canvas
+     *            Canvas, where the node shall be painted on.
+     * @param way
+     *            way which shall be painted.
      */
     private void paintHiddenWay(final Canvas canvas, final Way way) {
         map.pointListToLinePointsArray(points, way.getNodes());
@@ -850,7 +943,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * 
      * If the way is untagged or a style can't be determined, we return a style for any relations the way is a member of
      * 
-     * @param way way we need the style for
+     * @param way
+     *            way we need the style for
      * @return the style
      */
     private FeatureStyle matchStyle(final Way way) {
@@ -955,14 +1049,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Draws directional arrows for a way
      * 
-     * @param canvas the canvas on which to draw
-     * @param linePoints line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
-     * @param linePointsSize number of valid entries in linePoints
-     * @param reverse if true, the arrows will be painted in the reverse direction
-     * @param paint the paint to use for drawing the arrows
-     * @param addHandles if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
+     * @param canvas
+     *            the canvas on which to draw
+     * @param linePoints
+     *            line segment array in the format returned by {@link #pointListToLinePointsArray(Iterable)}.
+     * @param linePointsSize
+     *            number of valid entries in linePoints
+     * @param reverse
+     *            if true, the arrows will be painted in the reverse direction
+     * @param paint
+     *            the paint to use for drawing the arrows
+     * @param addHandles
+     *            if true draw arrows at 1/4 and 3/4 of the length and save the middle pos. for drawing a handle
      */
-    private void drawWayArrows(Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, Paint paint, boolean addHandles) {
+    private void drawWayArrows(Canvas canvas, float[] linePoints, int linePointsSize, boolean reverse, Paint paint,
+            boolean addHandles) {
         double minLen = DataStyle.getCurrent().getMinLenForHandle();
         int ptr = 0;
         while (ptr < linePointsSize) {
@@ -982,7 +1083,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                     if (handles == null) {
                         handles = new LongHashSet();
                     }
-                    handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32) + (long) Float.floatToRawIntBits(y1 + yDelta / 2));
+                    handles.put(((long) (Float.floatToRawIntBits(x1 + xDelta / 2)) << 32)
+                            + (long) Float.floatToRawIntBits(y1 + yDelta / 2));
                     xDelta = xDelta / 4;
                     yDelta = yDelta / 4;
                     secondArrow = true;
@@ -1016,7 +1118,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     }
 
     /**
-     * @param aSelectedNodes the currently selected nodes to edit.
+     * @param aSelectedNodes
+     *            the currently selected nodes to edit.
      */
     public void setSelectedNodes(final List<Node> aSelectedNodes) {
         tmpDrawingSelectedNodes = aSelectedNodes;
@@ -1024,7 +1127,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
     /**
      * 
-     * @param aSelectedWays the currently selected ways to edit.
+     * @param aSelectedWays
+     *            the currently selected ways to edit.
      */
     public void setSelectedWays(final List<Way> aSelectedWays) {
         tmpDrawingSelectedWays = aSelectedWays;
@@ -1033,8 +1137,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Set the current Preferences object for this Map and any thing that needs changing
      * 
-     * @param ctx Android Context
-     * @param prefs the new Preferences
+     * @param ctx
+     *            Android Context
+     * @param prefs
+     *            the new Preferences
      */
     public void setPrefs(Context ctx, final Preferences prefs) {
         this.prefs = prefs;

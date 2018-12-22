@@ -4688,7 +4688,7 @@ public class Logic {
      *         return the coordinates of the first node
      */
     @Nullable
-    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
+    public static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }

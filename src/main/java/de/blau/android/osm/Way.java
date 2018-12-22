@@ -17,7 +17,7 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
-public class Way extends OsmElement implements BoundedObject {
+public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     private static final String DEBUG_TAG = "Way";
 
@@ -450,20 +450,12 @@ public class Way extends OsmElement implements BoundedObject {
         super.setState(newState);
     }
 
-    /**
-     * Get the rendering style for this way
-     * 
-     * @return the style of null if not set
-     */
+    @Override
     public FeatureStyle getFeatureProfile() {
         return featureProfile;
     }
 
-    /**
-     * Set the rendering style for this way
-     * 
-     * @param fp the style to set, null to reset
-     */
+    @Override
     public void setFeatureProfile(@Nullable FeatureStyle fp) {
         featureProfile = fp;
     }

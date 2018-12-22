@@ -1281,10 +1281,10 @@ public class StorageDelegator implements Serializable, Exportable {
 
                         // attempt to handle turn restrictions correctly, if element is the via way, copying relation
                         // membership to both is ok
-                        if (Tags.VALUE_RESTRICTION.equals(type) && !rm.getRole().equals(Tags.VALUE_VIA)) {
+                        if (Tags.VALUE_RESTRICTION.equals(type) && !rm.getRole().equals(Tags.ROLE_VIA)) {
                             // check if the old way has a node in common with the via relation member, if no assume the
                             // new way has
-                            List<RelationMember> rl = r.getMembersWithRole(Tags.VALUE_VIA);
+                            List<RelationMember> rl = r.getMembersWithRole(Tags.ROLE_VIA);
                             boolean foundVia = false;
                             for (int j = 0; j < rl.size(); j++) {
                                 RelationMember viaRm = rl.get(j);
