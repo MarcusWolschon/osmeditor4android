@@ -621,6 +621,8 @@
     <string name="actionmode_restriction_restart_via">Re-select \"via\" segment</string>
     <string name="actionmode_restriction_to">Add \"to\" segment</string>
     <string name="actionmode_restriction_restart_to">Re-select \"to\" segment</string>
+    <string name="actionmode_restriction_split_from">Split \"from\" segment</string>
+    <string name="actionmode_restriction_split_via">Split \"via\" segment</string>
     <plurals name="actionmode_object_count">
         <item quantity="one">1 object</item>
         <item quantity="other">%1$d objects</item>

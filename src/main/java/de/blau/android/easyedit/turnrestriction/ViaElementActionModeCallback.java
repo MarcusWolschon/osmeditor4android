@@ -92,6 +92,10 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             Log.e(DEBUG_TAG, element.getName() + " clicked");
             return true;
         }
+        if (viaElement != null && viaElement.equals(toWay)) {
+            main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_via, toWay, fromWay));
+            return true;
+        }
         // now check if we need to split the toWay
         if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {
             Way newToWay = logic.performSplit(main, toWay, viaNode);
