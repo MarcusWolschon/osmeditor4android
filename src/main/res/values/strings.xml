@@ -664,7 +664,7 @@
     <string name="config_validatorprefs_title">Validator settings</string>
     <string name="config_validatorprefs_summary">Configure the validation rules.</string> 
     <!--  these are no longer on the prefs page, but are used as menu entries -->
-    <string name="config_licensebutton_title">Heroic authors and libre licenses</string>
+    <string name="config_licensebutton_title">Authors and licenses</string>
     <string name="config_debugbutton_title">Debug</string>
     <string name="config_category_info">About</string>
     <!-- Advanced preferences -->
