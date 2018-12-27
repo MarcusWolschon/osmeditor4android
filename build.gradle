@@ -28,11 +28,11 @@ import de.undercouch.gradle.tasks.download.Download
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
         maven { url 'https://dl.bintray.com/content/simonpoole/div' }
         maven { url 'https://dl.bintray.com/content/simonpoole/android' }
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
+        jcenter()
         //		flatDir {
         //        	dirs 'lib'
         //    	}
