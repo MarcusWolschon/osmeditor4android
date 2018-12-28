@@ -187,88 +187,92 @@ public class Map extends View implements IMapView {
      * 
      * @param ctx Android context
      */
-    public void setUpLayers(Context ctx) {
-        List<MapViewLayer> tempLayers = new ArrayList<>();
-        TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
-        if (backgroundTS == null) {
-            backgroundTS = TileLayerServer.getDefault(ctx, true);
-        }
-        if (backgroundTS != null) {
-            if (backgroundLayer != null) {
-                backgroundLayer.setRendererInfo(backgroundTS);
-                tempLayers.add(backgroundLayer);
-                backgroundLayer.setIndex(tempLayers.size() - 1);
-                ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
-            } else if (activeOverlay(backgroundTS.getId())) {
-                backgroundLayer = new MapTilesLayer(this, backgroundTS, null);
-                tempLayers.add(backgroundLayer);
-                backgroundLayer.setIndex(tempLayers.size() - 1);
-                ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
-                backgroundLayer.setContrast(prefs.getContrastValue());
+    public void setUpLayers(@NonNull Context ctx) {
+        synchronized (mLayers) {
+            List<MapViewLayer> tempLayers = new ArrayList<>();
+            TileLayerServer backgroundTS = TileLayerServer.get(ctx, prefs.backgroundLayer(), true);
+            if (backgroundTS == null) {
+                backgroundTS = TileLayerServer.getDefault(ctx, true);
             }
-        }
+            if (backgroundTS != null) {
+                if (backgroundLayer != null) {
+                    backgroundLayer.setRendererInfo(backgroundTS);
+                    tempLayers.add(backgroundLayer);
+                    backgroundLayer.setIndex(tempLayers.size() - 1);
+                    ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
+                } else if (activeOverlay(backgroundTS.getId())) {
+                    Log.e(DEBUG_TAG, "Allocating new layer");
+                    backgroundLayer = new MapTilesLayer(this, backgroundTS, null);
+                    tempLayers.add(backgroundLayer);
+                    backgroundLayer.setIndex(tempLayers.size() - 1);
+                    ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
+                    backgroundLayer.setContrast(prefs.getContrastValue());
+                }
+            }
 
-        final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
-        if (overlayTS != null) {
-            if (overlayLayer != null) {
-                if (activeOverlay(overlayTS.getId())) {
+            final TileLayerServer overlayTS = TileLayerServer.get(ctx, prefs.overlayLayer(), true);
+            if (overlayTS != null) {
+                if (overlayLayer != null) {
+                    if (activeOverlay(overlayTS.getId())) {
+                        overlayLayer.setRendererInfo(overlayTS);
+                        tempLayers.add(overlayLayer);
+                        overlayLayer.setIndex(tempLayers.size() - 1);
+                        ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
+                    } else {
+                        overlayLayer.onDestroy();
+                        overlayLayer = null; // entry removed in setUpLayers
+                    }
+                } else if (activeOverlay(overlayTS.getId())) {
+                    overlayLayer = new MapTilesOverlayLayer(this);
                     overlayLayer.setRendererInfo(overlayTS);
                     tempLayers.add(overlayLayer);
                     overlayLayer.setIndex(tempLayers.size() - 1);
                     ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
-                } else {
-                    overlayLayer = null; // entry removed in setUpLayers
                 }
-            } else if (activeOverlay(overlayTS.getId())) {
-                overlayLayer = new MapTilesOverlayLayer(this);
-                overlayLayer.setRendererInfo(overlayTS);
-                tempLayers.add(overlayLayer);
-                overlayLayer.setIndex(tempLayers.size() - 1);
-                ImageryOffsetUtils.applyImageryOffsets(ctx, overlayTS, getViewBox());
             }
-        }
-        if (prefs.isPhotoLayerEnabled()) {
-            if (photoLayer == null) {
-                photoLayer = new de.blau.android.layer.photos.MapOverlay(this);
+            if (prefs.isPhotoLayerEnabled()) {
+                if (photoLayer == null) {
+                    photoLayer = new de.blau.android.layer.photos.MapOverlay(this);
+                }
+                tempLayers.add(photoLayer);
+                photoLayer.setIndex(tempLayers.size() - 1);
+            } else if (photoLayer != null) {
+                saveLayerState(ctx, photoLayer);
+                photoLayer.onDestroy();
+                photoLayer = null;
             }
-            tempLayers.add(photoLayer);
-            photoLayer.setIndex(tempLayers.size() - 1);
-        } else {
-            saveLayerState(ctx, photoLayer);
-            photoLayer = null;
-        }
-        String[] scaleValues = ctx.getResources().getStringArray(R.array.scale_values);
-        if (scaleValues != null && scaleValues.length > 0 && !scaleValues[0].contentEquals(prefs.scaleLayer())) {
-            de.blau.android.layer.grid.MapOverlay grid = new de.blau.android.layer.grid.MapOverlay(this);
-            tempLayers.add(grid);
-            grid.setIndex(tempLayers.size() - 1);
-        }
-        if (dataLayer == null) {
-            dataLayer = new de.blau.android.layer.data.MapOverlay(this);
-        }
-        tempLayers.add(dataLayer);
-        dataLayer.setIndex(tempLayers.size() - 1);
-        if (gpxLayer == null) {
-            gpxLayer = new de.blau.android.layer.gpx.MapOverlay(this);
-        }
-        tempLayers.add(gpxLayer);
-        gpxLayer.setIndex(tempLayers.size() - 1);
-        if (prefs.areBugsEnabled()) {
-            if (taskLayer == null) {
-                taskLayer = new de.blau.android.layer.tasks.MapOverlay(this);
+            String[] scaleValues = ctx.getResources().getStringArray(R.array.scale_values);
+            if (scaleValues != null && scaleValues.length > 0 && !scaleValues[0].contentEquals(prefs.scaleLayer())) {
+                de.blau.android.layer.grid.MapOverlay grid = new de.blau.android.layer.grid.MapOverlay(this);
+                tempLayers.add(grid);
+                grid.setIndex(tempLayers.size() - 1);
             }
-            tempLayers.add(taskLayer);
-            taskLayer.setIndex(mLayers.size() - 1);
-        } else {
-            saveLayerState(ctx, taskLayer);
-            taskLayer = null;
-        }
-        if (geojsonLayer == null) {
-            geojsonLayer = new de.blau.android.layer.geojson.MapOverlay(this);
-        }
-        tempLayers.add(geojsonLayer);
-        geojsonLayer.setIndex(tempLayers.size() - 1);
-        synchronized (mLayers) {
+            if (dataLayer == null) {
+                dataLayer = new de.blau.android.layer.data.MapOverlay(this);
+            }
+            tempLayers.add(dataLayer);
+            dataLayer.setIndex(tempLayers.size() - 1);
+            if (gpxLayer == null) {
+                gpxLayer = new de.blau.android.layer.gpx.MapOverlay(this);
+            }
+            tempLayers.add(gpxLayer);
+            gpxLayer.setIndex(tempLayers.size() - 1);
+            if (prefs.areBugsEnabled()) {
+                if (taskLayer == null) {
+                    taskLayer = new de.blau.android.layer.tasks.MapOverlay(this);
+                }
+                tempLayers.add(taskLayer);
+                taskLayer.setIndex(mLayers.size() - 1);
+            } else if (taskLayer != null) {
+                saveLayerState(ctx, taskLayer);
+                taskLayer.onDestroy();
+                taskLayer = null;
+            }
+            if (geojsonLayer == null) {
+                geojsonLayer = new de.blau.android.layer.geojson.MapOverlay(this);
+            }
+            tempLayers.add(geojsonLayer);
+            geojsonLayer.setIndex(tempLayers.size() - 1);
             mLayers.clear();
             mLayers.addAll(tempLayers);
         }
@@ -280,7 +284,7 @@ public class Map extends View implements IMapView {
      * @param ctx Android context
      * @param layer the layer to save the state of
      */
-    private void saveLayerState(Context ctx, MapViewLayer layer) {
+    private void saveLayerState(@NonNull Context ctx, @Nullable MapViewLayer layer) {
         Log.d(DEBUG_TAG, "saveLayerState");
         if (layer != null) {
             try {
@@ -295,7 +299,7 @@ public class Map extends View implements IMapView {
      * 
      * @param ctx Android context
      */
-    public void saveLayerState(Context ctx) {
+    public void saveLayerState(@NonNull Context ctx) {
         Log.d(DEBUG_TAG, "saveLayerState (all)");
         for (MapViewLayer layer : getLayers()) {
             if (layer != null) {
@@ -384,6 +388,9 @@ public class Map extends View implements IMapView {
         }
     }
 
+    /**
+     * Call onDestroy on each active layer
+     */
     public void onDestroy() {
         for (MapViewLayer osmvo : getLayers()) {
             if (osmvo != null) {
@@ -392,6 +399,9 @@ public class Map extends View implements IMapView {
         }
     }
 
+    /**
+     * Call onLowMemory on each active layer
+     */
     public void onLowMemory() {
         for (MapViewLayer osmvo : getLayers()) {
             if (osmvo != null) {
