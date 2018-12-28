@@ -386,17 +386,21 @@ public class Server {
      * 
      * @param key preference key
      * @param value preference value
-     * @return true if successful
+     * @throws OsmException if something goes wrong
      */
-    public boolean setUserPreference(@NonNull String key, @Nullable String value) {
+    public void setUserPreference(@NonNull String key, @Nullable String value) throws OsmException {
         try {
             Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_PUT,
                     RequestBody.create(null, value != null ? value : ""));
             int responseCode = response.code();
-            return responseCode == HttpURLConnection.HTTP_OK;
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                String message = Server.readStream(response.body().byteStream());
+                Log.e(DEBUG_TAG, "Problem setting user preferences " + key + "=" + value + " code " + responseCode + " message " + message);
+                throw new OsmServerException(responseCode, message);
+            }
         } catch (IOException e) {
-            Log.e(DEBUG_TAG, "Problem setting user preferences " + key + "=" + value, e);
-            return false;
+            Log.e(DEBUG_TAG, "Problem setting user preferences " + key, e);
+            throw new OsmException(e.getMessage());
         }
     }
 
@@ -404,16 +408,20 @@ public class Server {
      * Delete a user preference on the API server
      * 
      * @param key preference key
-     * @return true if successful
+     * @throws OsmException if something goes wrong
      */
-    public boolean deleteUserPreference(@NonNull String key) {
+    public void deleteUserPreference(@NonNull String key) throws OsmException {
         try {
             Response response = openConnectionForAuthenicatedAccess(getSingleUserPreferencesUrl(key), HTTP_DELETE, null);
             int responseCode = response.code();
-            return responseCode == HttpURLConnection.HTTP_OK;
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                String message = Server.readStream(response.body().byteStream());
+                Log.e(DEBUG_TAG, "Problem deleting user preferences " + key + " code " + responseCode + " message " + message);
+                throw new OsmServerException(responseCode, message);
+            }
         } catch (IOException e) {
             Log.e(DEBUG_TAG, "Problem deleting user preferences " + key, e);
-            return false;
+            throw new OsmException(e.getMessage());
         }
     }
 

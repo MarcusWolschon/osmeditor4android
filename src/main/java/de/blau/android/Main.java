@@ -2156,8 +2156,21 @@ public class Main extends FullScreenAppCompatActivity
                         new AsyncTask<Void, Void, Void>() {
                             @Override
                             protected Void doInBackground(Void... params) {
-                                if (!server.setUserPreference("maproulette_apikey_v2", newApiKey)) {
-                                    Snack.toastTopError(Main.this, R.string.maproulette_task_apikey_not_set);
+                                try {
+                                    server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
+                                    Main.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Snack.toastTopInfo(Main.this, R.string.maproulette_task_apikey_set);
+                                        }
+                                    });
+                                } catch (OsmException oex) {
+                                    Main.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Snack.toastTopError(Main.this, R.string.maproulette_task_apikey_not_set);
+                                        }
+                                    });
                                 }
                                 return null;
                             }

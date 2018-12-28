@@ -46,6 +46,7 @@ import de.blau.android.dialogs.ForbiddenLogin;
 import de.blau.android.dialogs.InvalidLogin;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.TextLineDialog;
+import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
@@ -58,7 +59,7 @@ public class TransferTasks {
 
     private static final String DEBUG_TAG = TransferTasks.class.getSimpleName();
 
-    private static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
+    public static final String MAPROULETTE_APIKEY_V2 = "maproulette_apikey_v2";
 
     /** Maximum closed age to display: 7 days. */
     private static final long MAX_CLOSED_AGE = 7L * 24L * 60L * 60L * 1000L;
@@ -466,10 +467,21 @@ public class TransferTasks {
                                 new AsyncTask<Void, Void, Void>() {
                                     @Override
                                     protected Void doInBackground(Void... params) {
-                                        if (server.setUserPreference(MAPROULETTE_APIKEY_V2, newApiKey)) {
-                                            updateMapRouletteTask(activity, server, task, quiet, postUploadHandler);
-                                        } else {
-                                            Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
+                                        try {
+                                            server.setUserPreference(TransferTasks.MAPROULETTE_APIKEY_V2, newApiKey);
+                                            activity.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Snack.toastTopInfo(activity, R.string.maproulette_task_apikey_set);
+                                                }
+                                            });
+                                        } catch (OsmException oex) {
+                                            activity.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Snack.toastTopError(activity, R.string.maproulette_task_apikey_not_set);
+                                                }
+                                            });
                                         }
                                         return null;
                                     }
