@@ -53,8 +53,7 @@ import de.blau.android.views.layers.MapTilesLayer;
 import de.blau.android.views.layers.MapTilesOverlayLayer;
 
 /**
- * Paints all data provided previously by {@link Logic}.<br/>
- * As well as a number of overlays. There is a default overlay that fetches rendered tiles from an OpenStreetMap-server.
+ * Orchestrate layer drawing, configuration and associated rendering
  * 
  * @author mb
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
@@ -161,8 +160,13 @@ public class Map extends View implements IMapView {
 
     private TrackerService tracker = null;
 
+    /**
+     * Construct a new Map object that orchestrates the layer drawing and related rendering
+     * 
+     * @param context an Android Context
+     */
     @SuppressLint("NewApi")
-    public Map(final Context context) {
+    public Map(@NonNull final Context context) {
         super(context);
         this.context = context;
 
@@ -201,7 +205,6 @@ public class Map extends View implements IMapView {
                     backgroundLayer.setIndex(tempLayers.size() - 1);
                     ImageryOffsetUtils.applyImageryOffsets(ctx, backgroundTS, getViewBox());
                 } else if (activeOverlay(backgroundTS.getId())) {
-                    Log.e(DEBUG_TAG, "Allocating new layer");
                     backgroundLayer = new MapTilesLayer(this, backgroundTS, null);
                     tempLayers.add(backgroundLayer);
                     backgroundLayer.setIndex(tempLayers.size() - 1);
@@ -362,16 +365,31 @@ public class Map extends View implements IMapView {
         return overlayLayer;
     }
 
+    /**
+     * Return the current task layer
+     * 
+     * @return the current task layer or null if none is configured
+     */
     @Nullable
     public de.blau.android.layer.tasks.MapOverlay getTaskLayer() {
         return taskLayer;
     }
 
+    /**
+     * Return the current geojson layer
+     * 
+     * @return the current geojson layer or null if none is configured
+     */
     @Nullable
     public de.blau.android.layer.geojson.MapOverlay getGeojsonLayer() {
         return geojsonLayer;
     }
 
+    /**
+     * Return the current data layer
+     * 
+     * @return the current data layer or null if none is configured
+     */
     @Nullable
     public de.blau.android.layer.data.MapOverlay getDataLayer() {
         return dataLayer;
@@ -601,7 +619,7 @@ public class Map extends View implements IMapView {
      * 
      * @param canvas canvas to draw on
      */
-    private void paintGpsPos(final Canvas canvas) {
+    private void paintGpsPos(@NonNull final Canvas canvas) {
         if (displayLocation == null) {
             return;
         }
@@ -887,6 +905,9 @@ public class Map extends View implements IMapView {
         return !(TileLayerServer.LAYER_NONE.equals(layerId) || TileLayerServer.LAYER_NOOVERLAY.equals(layerId));
     }
 
+    /**
+     * Update some stylable attributes
+     */
     public void updateStyle() {
         // changes when profile changes
         labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
@@ -897,19 +918,49 @@ public class Map extends View implements IMapView {
         }
     }
 
+    /**
+     * Set the current orientation
+     * 
+     * @param orientation the orientation in degrees
+     */
     void setOrientation(final float orientation) {
         this.orientation = orientation;
     }
 
-    void setLocation(Location location) {
+    /**
+     * Set the Location to display
+     * 
+     * @param location a Location object
+     */
+    void setLocation(@NonNull Location location) {
         displayLocation = location;
     }
 
-    void setDelegator(final StorageDelegator delegator) {
+    /**
+     * Get the current Location displayed
+     * 
+     * @return a Location object or null if none set
+     */
+    @Nullable
+    public Location getLocation() {
+        return displayLocation;
+    }
+
+    /**
+     * Set the current StorageDelegator instance
+     * 
+     * @param delegator the StorageDelegator
+     */
+    void setDelegator(@NonNull final StorageDelegator delegator) {
         this.delegator = delegator;
     }
 
-    public void setViewBox(final ViewBox viewBox) {
+    /**
+     * Set the current ViewBox
+     * 
+     * @param viewBox the ViewBox the map currently displays
+     */
+    public void setViewBox(@NonNull final ViewBox viewBox) {
         myViewBox = viewBox;
         try {
             myViewBox.setRatio(this, (float) getWidth() / getHeight(), false);
@@ -918,6 +969,12 @@ public class Map extends View implements IMapView {
         }
     }
 
+    /**
+     * Show a small crosshairs marker
+     * 
+     * @param x screen x coordinate
+     * @param y screen y coordinate
+     */
     public void showCrosshairs(float x, float y) {
         showCrosshairs = true;
         // store as lat lon for redraws on translation and zooming
@@ -925,6 +982,9 @@ public class Map extends View implements IMapView {
         crosshairsLon = GeoMath.xToLonE7(getWidth(), getViewBox(), x);
     }
 
+    /**
+     * Stop showing a crosshairs marker
+     */
     public void hideCrosshairs() {
         showCrosshairs = false;
     }
@@ -989,10 +1049,6 @@ public class Map extends View implements IMapView {
         return zoom;
     }
 
-    public Location getLocation() {
-        return displayLocation;
-    }
-
     /**
      * Set the flag that determines if the arror is just an outline or not
      * 
@@ -1005,7 +1061,7 @@ public class Map extends View implements IMapView {
     /**
      * Return a list of the names of the currently used layers
      * 
-     * @return a List containg the currently in use imagery names
+     * @return a List containing the currently in use imagery names
      */
     public List<String> getImageryNames() {
         List<String> result = new ArrayList<>();
@@ -1024,10 +1080,23 @@ public class Map extends View implements IMapView {
         return iconRadius;
     }
 
-    void setTracker(TrackerService tracker) {
+    /**
+     * Set the current TrackerService
+     * 
+     * @param tracker the current TrackerService or null
+     */
+    void setTracker(@Nullable TrackerService tracker) {
         this.tracker = tracker;
     }
 
+    /**
+     * Get the current TrackerSerice
+     * 
+     * The is only used by the GPS layer
+     * 
+     * @return an instance of TrackerService or null
+     */
+    @Nullable
     public TrackerService getTracker() {
         return this.tracker;
     }
