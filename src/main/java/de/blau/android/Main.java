@@ -1565,9 +1565,15 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
         }
 
-        menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected || hasMapSplitSource);
-        menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected || hasMapSplitSource);
-        menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
+        if (hasMapSplitSource) {
+            menu.findItem(R.id.menu_transfer_download_current).setEnabled(true).setTitle(R.string.menu_transfer_load_current);
+            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(true).setTitle(R.string.menu_transfer_load_current_add);
+            menu.findItem(R.id.menu_transfer_download_other).setEnabled(true).setTitle(R.string.menu_transfer_load_other);
+        } else {
+            menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current);
+            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current_add);
+            menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_other);
+        }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty());

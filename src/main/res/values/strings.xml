@@ -510,6 +510,9 @@
     <string name="menu_transfer_download_current">Download current view</string>
     <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download at other location</string>
+    <string name="menu_transfer_load_current">Load current view</string>
+    <string name="menu_transfer_load_current_add">Add current view to data</string>
+    <string name="menu_transfer_load_other">Load at other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File…</string>
