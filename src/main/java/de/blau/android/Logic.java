@@ -4368,14 +4368,14 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
-        tags.put("restriction", restriction_type == null ? "" : restriction_type);
-        tags.put("type", "restriction");
+        tags.put(Tags.VALUE_RESTRICTION, restriction_type == null ? "" : restriction_type);
+        tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
         getDelegator().setTags(restriction, tags);
-        RelationMember from = new RelationMember("from", fromWay);
+        RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
         getDelegator().addMemberToRelation(from, restriction);
-        RelationMember via = new RelationMember("via", viaElement);
+        RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
         getDelegator().addMemberToRelation(via, restriction);
-        RelationMember to = new RelationMember("to", toWay);
+        RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
         getDelegator().addMemberToRelation(to, restriction);
 
         return restriction;

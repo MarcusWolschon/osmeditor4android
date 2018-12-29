@@ -264,8 +264,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         int screenWidth = map.getWidth();
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
-        
-        paintRelations.clear(); 
+
+        paintRelations.clear();
         paintRestrictions.clear();
         paintMultipolygons.clear();
 
@@ -390,13 +390,80 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 OsmElement v = via.getElement();
                 if (v instanceof Node) {
                     int lat = ((Node) v).getLat();
-                    float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
                     int lon = ((Node) v).getLon();
+                    float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
                     float x = GeoMath.lonE7ToX(screenWidth, viewBox, lon);
+                    List<RelationMember> froms = restriction.getMembersWithRole(Tags.ROLE_TO);
+                    RelationMember from = froms.size() > 0 ? froms.get(0) : null;
+                    if (from != null && from.getElement() != null && from.getType().equals(Way.NAME)) {
+                        Way fromWay = (Way) from.getElement();
+                        int size = fromWay.getNodes().size();
+                        if (size > 1) {
+                            String type = restriction.getTagWithKey(Tags.VALUE_RESTRICTION);
+                            int arrowDirection = 0;
+                            if (type != null) {
+                                switch (type) {
+                                case "no_right_turn":
+                                case "only_right_turn":
+                                    arrowDirection = 90;
+                                    y -= 2*ICON_SIZE_DP;
+                                    x += 2*ICON_SIZE_DP;
+                                    break;
+                                case "no_left_turn":
+                                case "only_left_turn":
+                                    arrowDirection = -90;
+                                    y += 2*ICON_SIZE_DP;
+                                    x += 2*ICON_SIZE_DP;
+                                    break;
+                                case "no_straight_on":
+                                case "only_straight_on":
+                                    arrowDirection = 180;
+                                    y -= 2*ICON_SIZE_DP;
+                                    break;
+                                }
+                            }
+                            Node prevNode = fromWay.getNodes().get(1);
+                            if (fromWay.getLastNode().equals((Node) v)) {
+                                prevNode = fromWay.getNodes().get(size - 2);
+                            }
+                            long bearing = (GeoMath.bearing(prevNode.getLon() / 1E7D, prevNode.getLat() / 1E7D,
+                                    lon / 1E7D, lat / 1E7D) + arrowDirection) % 360;
+                            canvas.save();
+                            canvas.rotate(bearing, x, y);
+                        } else {
+                            from = null;
+                        }
+                    }
                     paintNodeIcon(restriction, canvas, x, y, null);
+                    if (from != null) {
+                        canvas.restore();
+                    }
                 } else if (v instanceof Way) {
-                    float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, (Way) v);
+                    Way viaWay = (Way) v;
+                    float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
+                    List<RelationMember> froms = restriction.getMembersWithRole(Tags.ROLE_TO);
+                    RelationMember from = froms.size() > 0 ? froms.get(0) : null;
+                    if (from != null && from.getElement() != null && from.getType().equals(Way.NAME)) {
+                        Way fromWay = (Way) from.getElement();
+                        int size = viaWay.getNodes().size();
+                        if (size > 1) {
+                            int offset = 0;
+                            if (!viaWay.hasNode(fromWay.getFirstNode())) {
+                                offset = 180;
+                            }
+                            long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D,
+                                    viaWay.getFirstNode().getLat() / 1E7D, viaWay.getLastNode().getLon() / 1E7D,
+                                    viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
+                            canvas.save();
+                            canvas.rotate(bearing, xy[0], xy[1]);
+                        } else {
+                            from = null;
+                        }
+                    }
                     paintNodeIcon(restriction, canvas, xy[0], xy[1], null);
+                    if (from != null) {
+                        canvas.restore();
+                    }
                 }
             }
         }
