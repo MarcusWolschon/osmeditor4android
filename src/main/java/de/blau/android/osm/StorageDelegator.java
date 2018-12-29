@@ -1235,7 +1235,6 @@ public class StorageDelegator implements Serializable, Exportable {
                         for (int j = 0; j < rl.size(); j++) {
                             RelationMember viaRm = rl.get(j);
                             OsmElement viaE = viaRm.getElement();
-                            Log.d(DEBUG_TAG, "splitAtNode " + viaE.getOsmId());
                             if (viaE instanceof Node) {
                                 if (((Way) rm.getElement()).hasNode((Node) viaE)) {
                                     foundVia = true;
