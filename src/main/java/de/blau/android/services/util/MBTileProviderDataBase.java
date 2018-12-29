@@ -20,7 +20,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pools;
 import android.util.Log;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.resources.MBTileConstants;
 
 /**
  * @author Simon Poole
@@ -57,6 +59,8 @@ public class MBTileProviderDataBase {
 
     private static Pools.SynchronizedPool<SQLiteStatement> getStatements;
 
+    private Map<String, String> metadata = null;
+
     // ===========================================================
     // Constructors
     // ===========================================================
@@ -65,7 +69,7 @@ public class MBTileProviderDataBase {
      * 
      * @param context Android Context
      * @param mbTilesUri Uri for the mbtiles file
-     * @param maxThreads if larger than 0 this will be used for determining how many prepared statements to create 
+     * @param maxThreads if larger than 0 this will be used for determining how many prepared statements to create
      */
     public MBTileProviderDataBase(@NonNull final Context context, @NonNull Uri mbTilesUri, int maxThreads) {
         Log.i(DEBUG_TAG, "Creating database instance for " + mbTilesUri.getPath());
@@ -226,42 +230,52 @@ public class MBTileProviderDataBase {
     /**
      * Get meta data from the file
      * 
-     * @return a Map containing all key-value pairs from the meta data of null if none
+     * The result is cached and only retrieved once
+     * 
+     * @return a Map containing all key-value pairs from the meta data or null if none
      */
     @Nullable
     public Map<String, String> getMetadata() {
-        Map<String, String> result = null;
-        if (mDatabase.isOpen()) {
-            Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null);
-            if (dbresult.getCount() >= 1) {
-                result = new HashMap<>();
-                boolean haveEntry = dbresult.moveToFirst();
-                while (haveEntry) {
-                    String name = dbresult.getString(dbresult.getColumnIndex(T_METADATA_NAME));
-                    String value = dbresult.getString(dbresult.getColumnIndex(T_METADATA_VALUE));
-                    result.put(name, value);
-                    haveEntry = dbresult.moveToNext();
+        if (metadata == null) {
+            if (mDatabase.isOpen()) {
+                Cursor dbresult = mDatabase.query(T_METADATA, null, null, null, null, null, null);
+                if (dbresult.getCount() >= 1) {
+                    metadata = new HashMap<>();
+                    boolean haveEntry = dbresult.moveToFirst();
+                    while (haveEntry) {
+                        String name = dbresult.getString(dbresult.getColumnIndex(T_METADATA_NAME));
+                        String value = dbresult.getString(dbresult.getColumnIndex(T_METADATA_VALUE));
+                        metadata.put(name, value);
+                        haveEntry = dbresult.moveToNext();
+                    }
                 }
+                dbresult.close();
             }
-            dbresult.close();
-            return result;
         }
-        if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
-        }
-        return null;
+        return metadata;
     }
 
     /**
      * Get min and max zoom from the existing tiles
      * 
-     * This is likely rather expensive for a large number of tiles
+     * This tries first MBTiles 1.3 metadata snd then checks the tiles, likely rather expensive for a large number of
+     * tiles
      * 
      * @return an int array holding the min zoom in the first, max zoom in the second element or null
      */
     @Nullable
     public int[] getMinMaxZoom() {
         int[] result = null;
+        Map<String, String> meta = getMetadata();
+        try {
+            result = new int[2];
+            result[0] = Integer.parseInt(meta.get(MBTileConstants.MINZOOM));
+            result[1] = Integer.parseInt(meta.get(MBTileConstants.MAXZOOM));
+            return result;
+        } catch (NumberFormatException e) {
+            Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
+            result = null;
+        }
         if (mDatabase.isOpen()) {
             Cursor dbresult = mDatabase.rawQuery(T_MBTILES_GET_ZOOMS, null);
             if (dbresult.getCount() >= 1) {
@@ -277,7 +291,22 @@ public class MBTileProviderDataBase {
             return result;
         }
         if (DEBUGMODE) {
-            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
+            Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Min max zoom not found");
+        }
+        return null;
+    }
+
+    /**
+     * Get the MBTiles bounds meta information
+     * 
+     * @return a BoundingBox or null
+     */
+    @Nullable
+    public BoundingBox getBounds() {
+        Map<String, String> meta = getMetadata();
+        String boxString = meta.get(MBTileConstants.BOUNDS);
+        if (boxString != null) {
+            return BoundingBox.fromDoubleString(boxString);
         }
         return null;
     }

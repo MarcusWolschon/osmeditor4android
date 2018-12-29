@@ -197,7 +197,8 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
     }
 
     /**
-     * Construct a BoundingBox from a String in the format L, B, R, T possibly enclosed in square brackets
+     * Construct a BoundingBox from a String in the format L, B, R, T (WGS84 integer coordinates"1E7) possibly enclosed
+     * in square brackets
      * 
      * @param boxString the String to parse
      * @return a BoundingBox or null if it couldn't be parsed
@@ -219,6 +220,27 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
                 box.right = Integer.parseInt(corners[2]);
                 box.top = Integer.parseInt(corners[3]);
                 return box;
+            } catch (NumberFormatException e) {
+                // fall off the bottom
+            }
+        }
+        Log.e(DEBUG_TAG, "Could not convert " + boxString + " to a valid BoundingBox");
+        return null;
+    }
+
+    /**
+     * Construct a BoundingBox from a String in the format L, B, R, T (WGS84 doubles)
+     * 
+     * @param boxString the String to parse
+     * @return a BoundingBox or null if it couldn't be parsed
+     */
+    @Nullable
+    public static BoundingBox fromDoubleString(@NonNull String boxString) {
+        String[] corners = boxString.trim().split(",", 4);
+        if (corners.length == 4) {
+            try {
+                return new BoundingBox(Double.parseDouble(corners[0]), Double.parseDouble(corners[1]), Double.parseDouble(corners[2]),
+                        Double.parseDouble(corners[3]));
             } catch (NumberFormatException e) {
                 // fall off the bottom
             }

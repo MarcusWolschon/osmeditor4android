@@ -14,9 +14,8 @@ public class MapSplitSource {
     /**
      * Read data for the specified BoundingBox from a tiled OSM datasource
      * 
-     * Currently this assumes that the area is covered by tiles at the max zoom, 
-     * it would be fairly straightforward to zoom out if no data was found as we
-     * do for imagery, perhaps including skipping tiles covered by the higher zoom
+     * Currently this assumes that the area is covered by tiles at the max zoom, it would be fairly straightforward to
+     * zoom out if no data was found as we do for imagery, perhaps including skipping tiles covered by the higher zoom
      * one.
      * 
      * @param mbTiles a MBTileProviderDataBase instance
@@ -24,7 +23,7 @@ public class MapSplitSource {
      * @return a Storage instance containing the OSM objects
      * @throws IOException if reading the data caused issues
      */
-    public static Storage readBox(@NonNull MBTileProviderDataBase mbTiles, BoundingBox box) throws IOException {
+    public static Storage readBox(@NonNull MBTileProviderDataBase mbTiles, @NonNull BoundingBox box) throws IOException {
 
         final double lonLeft = box.getLeft() / 1E7d;
         final double lonRight = box.getRight() / 1E7d;
@@ -68,5 +67,17 @@ public class MapSplitSource {
             storage.removeUnreferencedNodes(box);
         }
         return storage;
+    }
+
+    /**
+     * Check if a BoundingBox overlaps with the tiles in the source
+     * 
+     * @param mbTiles a MBTileProviderDataBase instance
+     * @param box the BoundingBox
+     * @return true if there is an intersect or the BoundingBoxes were not available
+     */
+    public static boolean intersects(@NonNull MBTileProviderDataBase mbTiles, @NonNull BoundingBox box) {
+        BoundingBox mbTilesBounds = mbTiles.getBounds();
+        return mbTilesBounds == null || mbTilesBounds.intersects(box);
     }
 }

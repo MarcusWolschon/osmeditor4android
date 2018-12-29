@@ -37,5 +37,6 @@ public class ErrorCodes {
     public static final int INVALID_LOGIN   = 51;
     public static final int FORBIDDEN       = 52;
     public static final int NOT_FOUND       = 53;
-    public static final int UNKNOWN_ERROR    = 54;
+    public static final int UNKNOWN_ERROR   = 54;
+    public static final int NO_DATA         = 55;
 }

@@ -183,21 +183,7 @@ public class TileLayerDialog {
                                 if (metadata.isEmpty()) {
                                     throw new SQLiteException("MBTiles metadata missing");
                                 }
-                                int[] zooms = null;
-                                if (metadata.containsKey(MBTileConstants.MINZOOM) && metadata.containsKey(MBTileConstants.MAXZOOM)) {
-                                    // MBTiles 1.3 support
-                                    zooms = new int[2];
-                                    try {
-                                        zooms[0] = Integer.parseInt(metadata.get(MBTileConstants.MINZOOM));
-                                        zooms[1] = Integer.parseInt(metadata.get(MBTileConstants.MAXZOOM));
-                                    } catch (NumberFormatException e) {
-                                        Log.e(DEBUG_TAG, "Unparseable zoom value " + e.getMessage());
-                                        zooms = null;
-                                    }
-                                }
-                                if (zooms == null) { // extract min/max zoom from existing tiles
-                                    zooms = db.getMinMaxZoom();
-                                }
+                                int[] zooms = db.getMinMaxZoom();
                                 db.close();
 
                                 final String format = metadata.get(MBTileConstants.FORMAT);

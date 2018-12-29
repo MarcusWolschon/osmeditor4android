@@ -36,6 +36,8 @@
     <string name="not_found_message">The API couldn\'t find an existing element or changeset with the specified id.&lt;br&gt;&lt;br&gt;</string>
     <string name="unknown_error_title">Unknown error</string>
     <string name="unknown_error_message">The error code returned from the API or the message could not be processed.&lt;br&gt;&lt;br&gt;</string>
+    <string name="no_data_title">No data</string>
+    <string name="no_data_message">The configured data source has no coverage here.</string>
     <string name="go_to_openstreetmap">Go to openstreetmap.org</string>
     <string name="data_conflict_title">Version conflict</string>
     <string name="data_conflict_message">Data from the download would conflict with your edits. Please upload your data before trying again.</string>

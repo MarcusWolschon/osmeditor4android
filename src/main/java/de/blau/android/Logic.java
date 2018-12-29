@@ -2340,14 +2340,21 @@ public class Logic {
                 int result = 0;
                 try {
                     Server server = prefs.getServer();
-                    if (server.hasReadOnly() && !server.hasMapSplitSource()) {
-                        server.getReadOnlyCapabilities();
-                        if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                            return ErrorCodes.API_OFFLINE;
+                    if (server.hasReadOnly()) {
+                        if (server.hasMapSplitSource()) {
+                            if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
+                                return ErrorCodes.NO_DATA;
+                            }
+                        } else {
+                            server.getReadOnlyCapabilities();
+                            if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+                                return ErrorCodes.API_OFFLINE;
+                            }
+                            // try to get write capabilities in any case FIXME unclear what we should do if the write
+                            // server
+                            // is not available
+                            server.getCapabilities();
                         }
-                        // try to get write capabilities in any case FIXME unclear what we should do if the write server
-                        // is not available
-                        server.getCapabilities();
                     } else {
                         server.getCapabilities();
                         if (!(server.apiAvailable() && server.readableDB())) {
@@ -2555,7 +2562,6 @@ public class Logic {
                             getDelegator().addBoundingBox(mapBox);
                         }
                     }
-
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
                     Exception ce = e.getException();
