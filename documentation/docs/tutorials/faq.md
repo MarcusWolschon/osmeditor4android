@@ -172,7 +172,7 @@ Vespucci is a community developed, open source, project. While not everybody wil
 
 #### The translation for the presets is broken!
 
-The preset translations tend to be a work in progress and given that a large number (over 2'300) of terms have to be translated, many are incomplete. If you want to use an untranslated preset instead, you can install one via the help page for presets (link at the bottom of the page).
+The preset translations tend to be a work in progress and given that a large number (over 2'300) of terms have to be translated, many are incomplete. From Vespucci 12.0 on you can disable the use of translations per preset, a long-click on the respective preset entry in the preset preference screen will allow you to change the behaviour.
 
 #### Presets for military objects are missing!
 

@@ -39,11 +39,11 @@ Currently it is not possible to change the ordering or add more than one layer o
     * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
         * Change style. Show the layer styling dialog.
     * Photo, Grid and Task layers.
-        * Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.
-* "+" button: 
+        * Configure... (for the Grid and Task layers)
+        * Disable. Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
+* "+" button:
+    * for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.
     * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
-    * Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.
-    * Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.
 
 Besides the background layer you can add a "overlay" layer between the background and the OSM data, for example a layer showing buildings without an address.
 
@@ -79,16 +79,16 @@ directory, however this depends on the specific camera app.
 The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline.
 
  * **Show location** - show arrow symbol at current position
- * **Follow GPS position** - pan and center screen to follow the GPS position
- * **Goto GPS position** - go to and zoom in to the current position
- * **Start GPS track** - start recording a GPX track
- * **Pause GPS track** - pause recording the current GPX track
- * **Clear GPS track** - clear the current GPX track
- * **Track management...** - manage existing tracks
-    * **Upload GPS track** - upload the current GPX track *(requires network connectivity)*
-    * **Export GPS track** - export track to file
-    * **Import GPS track** - import track from file
- * **Goto start of track** - center the map on the first track point
+ * **Follow location** - pan and center screen to follow the current position
+ * **Go to current location** - go to and zoom in to the current position
+ * **Start GPX track** - start recording a GPX track
+ * **Pause GPX track** - pause recording the current GPX track
+ * **Clear GPX track** - clear the current GPX track
+ * **GPX track management...** - manage existing tracks
+    * **Upload GPX track** - upload the current GPX track *(requires network connectivity)*
+    * **Export GPX track** - export track to file
+    * **Import GPX track** - import track from file
+ * **Go to start of GPX track** - center the map on the first track point
  
 
 ### ![Transfer](../images/menu_transfer.png) Transfer
@@ -105,11 +105,11 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
     * **Read from JOSM file...** - read a JOSM compatible XML format file
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
- * **Note/Bugs...** - down- and uploading Notes/Bugs
-    * **Download bugs for current view** - download Notes/Bugs for the area visible on the screen
-    * **Upload all** - upload all new or modified Notes/Bugs
-    * **Clear** - remove all bugs from storage
-    * **Auto download** - download Notes/Bugs around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
+ * **Tasks...** - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)
+    * **Download tasks for current view** - download Notes/Bugs for the area visible on the screen
+    * **Upload all** - upload all new or modified tasks
+    * **Clear** - remove all tasks from storage
+    * **Auto download** - download tasks around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
     * **File...** - save Notes/Bugs data to on device storage
         * **Save all Notes...** - write a ".osn" format file containing all downloaded notes
         * **Save new and changed Notes...** - write a ".osn" format file containing all new and changed notes
@@ -128,8 +128,11 @@ Show the user preference screens. The settings are split into two sets: the firs
  * **More imagery tools**
     * **Update imagery layer configuration** - download a current version of the imagery layer configuration. *(requires network connectivity)*
     * **Flush all tile caches** - empty all on device tile caches. 
+ * **Reset address prediction** - reset the current address prediction data, will ressed from loaded data if possible.
  * **Reset OAuth** - reset the OAuth tokens, this will force reauthorisation the next time you upload.
  * **Authorise OAuth** - start authorisation process immediately. *(requires network connectivity)*
+ * **Set MapRoulette API key** - set the API key for modifying the status of MapRoulette tasks.
+ * **Clear clipboard** - remove content from the internal OSM element clipboard.
 
 ### ![Find](../images/ic_menu_search_holo_light.png) Find
 

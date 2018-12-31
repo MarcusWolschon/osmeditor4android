@@ -26,6 +26,10 @@ Start Multi-Select mode with all members of the current relation selected. The r
 
 Remove the object from the data.
 
+### Paste tags
+
+Set tags from the tag clipboard and start the property editor.
+
 ### ![Extend](../images/extend_selection.png) Extend selection
 
 Start Multi-Select mode with the current selected element.

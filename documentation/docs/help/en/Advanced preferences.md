@@ -20,7 +20,7 @@ Enable the form based tag editor. Default: on.
 
 Show a camera button on the main display (if a camera is present). Default: on.
 
-### Follow location button layout
+### Follow position button layout
 
 Change the side of the display the "follow GPS" button is located on. Default: lefthand side.
 
@@ -28,7 +28,7 @@ Change the side of the display the "follow GPS" button is located on. Default: l
 
 If on the non-downloaded areas will be dimmed when the screen is locked. Default: off.
 
-### Full screen mode
+### Fullscreen mode
 
 Configure the behaviour on devices with "soft" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.
 
@@ -40,7 +40,7 @@ Show halos indicating the size of the "touch areas" around elements. Default: on
 
 Use the back key for undo. Default: off.
 
-### Enable light theme
+### Light theme
 
 Use a theme with a light background. Default: on.
 
@@ -68,7 +68,7 @@ Maximum width lines will increase to when zooming in. Default: 16 pixels.
 
 Settings related to editing.
 
-### Always use context menu
+### Always use contextual menu
 
 Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.
 
@@ -88,6 +88,10 @@ When using name suggestions, automatically apply the best preset. Default: on.
 
 Generate notifications for validator detected issues. Default: on.
 
+### Group alerts only
+
+Generate notifications (audio) only once per notification group. Default: off.
+
 ### Max. number of displayed notifications
 
 Maximum number of notifications retained in the status bar: 5 (per type).
@@ -104,15 +108,15 @@ When auto-downloading, the radius of the area that is attempted to download arou
 
 Maximum speed up to which auto-download is attempted. Default: 6 km/h.
 
-### Filter for Notes/Bugs
+### Task filter
 
-Select OSMOSE error leval and Notes to download. Default: everything.
+Select OSMOSE error level, Notes and Maproulette tasks to download. Default: everything.
 
-### Notes/Bugs Download radius
+### Task download radius
 
 When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.
 
-### Maximum notes/bugs auto-download speed
+### Maximum task auto-download speed
 
 Maximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.
 
@@ -120,27 +124,27 @@ Maximum speed up to which auto-download of notes and bugs is attempted. Default:
 
 Close the current open changeset after uploading edits. Default: on.
 
-## Location Setting
+## Location Settings
 
 GPS and Network location settings.
 
-### GPS source
+### GPS/GNSS source
 
-Source if GPS location updates. Default: internal.
+Source of GPS/GNSS location updates. Default: internal.
 
 ### NMEA network source
 
 If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.
 
-### Minimum GPS-Interval
+### Minimum GPS/GNSS interval
 
-Minimum interval between updates for the internal GPS source. Default: 1000 ms.
+Minimum interval between updates for the internal GPS/GNSS source. Default: 1000 ms.
 
-### Minimum GPS-Distance
+### Minimum GPS/GNSS-distance
 
-Minimum distance between updates for the internal GPS source. Default: 5 meters.
+Minimum distance between updates for the internal GPS/GNSS source. Default: 5 meters.
 
-### Leave GPS disabled
+### Leave GPS/GNSS turned off
 
 If GPS has been disabled by the user, don't ask to turn it on. Default: off.
 
@@ -156,11 +160,11 @@ OpenStreetMap API and other servers configuration.
 
 Select and add custom OpenStreetMap API servers.
 
-### User Account
+### User account
 
 Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.
 
-### Offset Server
+### Offset server
 
 API server for imagery offsets.
 
@@ -186,7 +190,7 @@ Total on device size for caching imagery tiles. Default: 100MB.
 
 ## Miscellaneous
 
-### Report application crashes
+### Report app crashes
 
 Submit ACRA crash dumps to the Vespucci developers. Default: on.
 

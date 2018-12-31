@@ -16,17 +16,17 @@
 <p>Enable the form based tag editor. Default: on.</p>
 <h3>Show camera action</h3>
 <p>Show a camera button on the main display (if a camera is present). Default: on.</p>
-<h3>Follow location button layout</h3>
+<h3>Follow position button layout</h3>
 <p>Change the side of the display the "follow GPS" button is located on. Default: lefthand side.</p>
 <h3>Always dim non-downloaded areas</h3>
 <p>If on the non-downloaded areas will be dimmed when the screen is locked. Default: off.</p>
-<h3>Full screen mode</h3>
+<h3>Fullscreen mode</h3>
 <p>Configure the behaviour on devices with "soft" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.</p>
 <h3>Show tolerance</h3>
 <p>Show halos indicating the size of the "touch areas" around elements. Default: on.</p>
 <h3>Use back key for Undo</h3>
 <p>Use the back key for undo. Default: off.</p>
-<h3>Enable light theme</h3>
+<h3>Light theme</h3>
 <p>Use a theme with a light background. Default: on.</p>
 <h3>Enable split action bar</h3>
 <p>Show the menu buttons at the bottom of the screen. Default: on.</p>
@@ -40,7 +40,7 @@
 <p>Maximum width lines will increase to when zooming in. Default: 16 pixels.</p>
 <h2>Data and Editing Settings</h2>
 <p>Settings related to editing.</p>
-<h3>Always use context menu</h3>
+<h3>Always use contextual menu</h3>
 <p>Always show the element selection context menu if the selection is ambiguous. If turned off the nearest element will be selected. Default: off.</p>
 <h3>Address tags</h3>
 <p>When using address prediction only add the tags configured here.</p>
@@ -50,6 +50,8 @@
 <p>When using name suggestions, automatically apply the best preset. Default: on.</p>
 <h3>Generate notifications</h3>
 <p>Generate notifications for validator detected issues. Default: on.</p>
+<h3>Group alerts only</h3>
+<p>Generate notifications (audio) only once per notification group. Default: off.</p>
 <h3>Max. number of displayed notifications</h3>
 <p>Maximum number of notifications retained in the status bar: 5 (per type).</p>
 <h3>Max distances for notifications</h3>
@@ -58,25 +60,25 @@
 <p>When auto-downloading, the radius of the area that is attempted to download around the current position. Default: 50 meters.</p>
 <h3>Maximum auto-download speed</h3>
 <p>Maximum speed up to which auto-download is attempted. Default: 6 km/h.</p>
-<h3>Filter for Notes/Bugs</h3>
-<p>Select OSMOSE error leval and Notes to download. Default: everything.</p>
-<h3>Notes/Bugs Download radius</h3>
+<h3>Task filter</h3>
+<p>Select OSMOSE error level, Notes and Maproulette tasks to download. Default: everything.</p>
+<h3>Task download radius</h3>
 <p>When auto-downloading notes and bugs, the radius of the area that is attempted to download around the current position. Default: 200 meters.</p>
-<h3>Maximum notes/bugs auto-download speed</h3>
+<h3>Maximum task auto-download speed</h3>
 <p>Maximum speed up to which auto-download of notes and bugs is attempted. Default: 30 km/h.</p>
 <h3>Close changesets</h3>
 <p>Close the current open changeset after uploading edits. Default: on.</p>
-<h2>Location Setting</h2>
+<h2>Location Settings</h2>
 <p>GPS and Network location settings.</p>
-<h3>GPS source</h3>
-<p>Source if GPS location updates. Default: internal.</p>
+<h3>GPS/GNSS source</h3>
+<p>Source of GPS/GNSS location updates. Default: internal.</p>
 <h3>NMEA network source</h3>
 <p>If GPS source is set to one of the NMEA TCP options, configure on which IP address and port the client or server is.</p>
-<h3>Minimum GPS-Interval</h3>
-<p>Minimum interval between updates for the internal GPS source. Default: 1000 ms.</p>
-<h3>Minimum GPS-Distance</h3>
-<p>Minimum distance between updates for the internal GPS source. Default: 5 meters.</p>
-<h3>Leave GPS disabled</h3>
+<h3>Minimum GPS/GNSS interval</h3>
+<p>Minimum interval between updates for the internal GPS/GNSS source. Default: 1000 ms.</p>
+<h3>Minimum GPS/GNSS-distance</h3>
+<p>Minimum distance between updates for the internal GPS/GNSS source. Default: 5 meters.</p>
+<h3>Leave GPS/GNSS turned off</h3>
 <p>If GPS has been disabled by the user, don't ask to turn it on. Default: off.</p>
 <h3>Fallback to network location</h3>
 <p>IF the device is providing "Network" location data use it as a fallback if we haven't received a GPS location for a longer time. Default: on.</p>
@@ -84,9 +86,9 @@
 <p>OpenStreetMap API and other servers configuration.</p>
 <h3>OSM API URL</h3>
 <p>Select and add custom OpenStreetMap API servers.</p>
-<h3>User Account</h3>
+<h3>User account</h3>
 <p>Set a user and password for API authentication. This is only needed if the target API server does not support OAuth authentication, and in general should be avoided as unsafe.</p>
-<h3>Offset Server</h3>
+<h3>Offset server</h3>
 <p>API server for imagery offsets.</p>
 <h3>OSMOSE Server</h3>
 <p>OSMOSE QA API server configuration.</p>
@@ -99,7 +101,7 @@
 <h3>Tile cache size</h3>
 <p>Total on device size for caching imagery tiles. Default: 100MB.</p>
 <h2>Miscellaneous</h2>
-<h3>Report application crashes</h3>
+<h3>Report app crashes</h3>
 <p>Submit ACRA crash dumps to the Vespucci developers. Default: on.</p>
 <h3>Show stats</h3>
 <p>Show some uninteresting stats on screen. Debugging use only. Default: off.</p>

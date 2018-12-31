@@ -22,9 +22,9 @@ Configure the scale or grid displayed.
 
 The style that is used to render OpenStreetmapData. Additional style can be added by including corresponding files in the Vespucci directory.
 
-## Enable Bugs and Notes display
+## Display tasks
 
-Turn on the task layer (currently supporting OSM Notes, OSMOSE bugs and custom tasks).
+Turn on the task layer (currently supporting OSM Notes, OSMOSE bugs, Maproulette and custom tasks).
 
 ## Enable Photo layer
 
