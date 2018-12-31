@@ -97,7 +97,7 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
             return true;
         }
         // now check if we need to split the toWay
-        if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode)) {
+        if (!toWay.getFirstNode().equals(viaNode) && !toWay.getLastNode().equals(viaNode) && !toWay.isClosed()) {
             Way newToWay = logic.performSplit(main, toWay, viaNode);
             Snack.barInfo(main, R.string.toast_split_to);
             Set<OsmElement> toCandidates = new HashSet<>();

@@ -10,7 +10,6 @@ import android.view.Menu;
 import de.blau.android.R;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
-import de.blau.android.easyedit.WaySplittingActionModeCallback;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Way;
@@ -88,7 +87,7 @@ public class FromElementActionModeCallback extends NonSimpleActionModeCallback {
             // we need to split fromWay first
             main.startSupportActionMode(new RestrictionWaySplittingActionModeCallback(manager, R.string.actionmode_restriction_split_from, fromWay, null));
             return true;
-        } 
+        }
         Way newFromWay = null;
         if (!fromWay.getFirstNode().equals(viaNode) && !fromWay.getLastNode().equals(viaNode)) {
             // split from at node

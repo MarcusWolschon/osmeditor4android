@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import de.blau.android.R;
-import de.blau.android.easyedit.ClosedWaySplittingActionModeCallback;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.NonSimpleActionModeCallback;
 import de.blau.android.osm.Node;
@@ -20,15 +19,16 @@ import de.blau.android.osm.Way;
 public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionModeCallback {
     private final Way        way;
     private final Way        fromWay;
-    private List<OsmElement> nodes          = new ArrayList<>();
-    private final int    subTitle;
+    private List<OsmElement> nodes = new ArrayList<>();
+    private final int        subTitle;
 
     /**
      * Construct a WaySplittingActionModeCallback from an existing Way
      * 
      * @param manager the current EasyEditMAnager instance
+     * @param subTitle the resource id of the sub title
      * @param way the existing Way
-     * @param createPolygons create two polygons instead of unclosed ways if true and way is closed
+     * @param fromWay the current from segment or null
      */
     public RestrictionWaySplittingActionModeCallback(@NonNull EasyEditManager manager, int subTitle, @NonNull Way way, @Nullable Way fromWay) {
         super(manager);
@@ -39,7 +39,7 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
             // remove first and last node
             nodes.remove(0);
             nodes.remove(nodes.size() - 1);
-        } 
+        }
         this.subTitle = subTitle;
     }
 
@@ -63,11 +63,11 @@ public class RestrictionWaySplittingActionModeCallback extends NonSimpleActionMo
             return false;
         }
         if (way.isClosed()) {
-            // main.startSupportActionMode(new ClosedWaySplittingActionModeCallback(manager, way, (Node) element, createPolygons));
+            main.startSupportActionMode(new RestrictionClosedWaySplittingActionModeCallback(manager, way, (Node) element, fromWay));
         } else {
             Way newWay = logic.performSplit(main, way, (Node) element);
             if (fromWay == null) {
-                Set<OsmElement>candidates = new HashSet<>();  
+                Set<OsmElement> candidates = new HashSet<>();
                 candidates.add(way);
                 candidates.add(newWay);
                 main.startSupportActionMode(new RestartFromElementActionModeCallback(manager, candidates, candidates));
