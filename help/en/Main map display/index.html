@@ -318,15 +318,15 @@ i-->
 </ul>
 </li>
 <li>Photo, Grid and Task layers.<ul>
-<li>Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+<li>Configure... (for the Grid and Task layers)</li>
+<li>Disable. Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>"+" button: <ul>
+<li>"+" button:<ul>
+<li>for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.</li>
 <li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
-<li>Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.</li>
-<li>Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.</li>
 </ul>
 </li>
 </ul>
@@ -353,18 +353,18 @@ directory, however this depends on the specific camera app.</p>
 <p>The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
-<li><strong>Follow GPS position</strong> - pan and center screen to follow the GPS position</li>
-<li><strong>Goto GPS position</strong> - go to and zoom in to the current position</li>
-<li><strong>Start GPS track</strong> - start recording a GPX track</li>
-<li><strong>Pause GPS track</strong> - pause recording the current GPX track</li>
-<li><strong>Clear GPS track</strong> - clear the current GPX track</li>
-<li><strong>Track management...</strong> - manage existing tracks<ul>
-<li><strong>Upload GPS track</strong> - upload the current GPX track <em>(requires network connectivity)</em></li>
-<li><strong>Export GPS track</strong> - export track to file</li>
-<li><strong>Import GPS track</strong> - import track from file</li>
+<li><strong>Follow location</strong> - pan and center screen to follow the current position</li>
+<li><strong>Go to current location</strong> - go to and zoom in to the current position</li>
+<li><strong>Start GPX track</strong> - start recording a GPX track</li>
+<li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
+<li><strong>Clear GPX track</strong> - clear the current GPX track</li>
+<li><strong>GPX track management...</strong> - manage existing tracks<ul>
+<li><strong>Upload GPX track</strong> - upload the current GPX track <em>(requires network connectivity)</em></li>
+<li><strong>Export GPX track</strong> - export track to file</li>
+<li><strong>Import GPX track</strong> - import track from file</li>
 </ul>
 </li>
-<li><strong>Goto start of track</strong> - center the map on the first track point</li>
+<li><strong>Go to start of GPX track</strong> - center the map on the first track point</li>
 </ul>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer</h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
@@ -381,11 +381,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
 </ul>
 </li>
-<li><strong>Note/Bugs...</strong> - down- and uploading Notes/Bugs<ul>
-<li><strong>Download bugs for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
-<li><strong>Upload all</strong> - upload all new or modified Notes/Bugs</li>
-<li><strong>Clear</strong> - remove all bugs from storage</li>
-<li><strong>Auto download</strong> - download Notes/Bugs around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)<ul>
+<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
+<li><strong>Upload all</strong> - upload all new or modified tasks</li>
+<li><strong>Clear</strong> - remove all tasks from storage</li>
+<li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>File...</strong> - save Notes/Bugs data to on device storage<ul>
 <li><strong>Save all Notes...</strong> - write a ".osn" format file containing all downloaded notes</li>
 <li><strong>Save new and changed Notes...</strong> - write a ".osn" format file containing all new and changed notes</li>
@@ -408,8 +408,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Flush all tile caches</strong> - empty all on device tile caches. </li>
 </ul>
 </li>
+<li><strong>Reset address prediction</strong> - reset the current address prediction data, will ressed from loaded data if possible.</li>
 <li><strong>Reset OAuth</strong> - reset the OAuth tokens, this will force reauthorisation the next time you upload.</li>
 <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
+<li><strong>Set MapRoulette API key</strong> - set the API key for modifying the status of MapRoulette tasks.</li>
+<li><strong>Clear clipboard</strong> - remove content from the internal OSM element clipboard.</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
@@ -475,15 +478,15 @@ directory, however this depends on the specific camera app.</p>
 </ul>
 </li>
 <li>Photo, Grid and Task layers.<ul>
-<li>Disable. Turn this layer off, needs to be re-enbled via preferences. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+<li>Configure... (for the Grid and Task layers)</li>
+<li>Disable. Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>"+" button: <ul>
+<li>"+" button:<ul>
+<li>for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.</li>
 <li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
-<li>Map background. Shown if the background layer has been disabled, allows the same selection as from the preferences screen.</li>
-<li>Map overlay. Shown if the overlay layer has been disabled, allows the same selection as from the preferences screen.</li>
 </ul>
 </li>
 </ul>
@@ -510,18 +513,18 @@ directory, however this depends on the specific camera app.</p>
 <p>The "on-map" GPS button duplicates the function of the "Follow GPS position" menu entry. When this is activated the GPS arrow will be displayed as an outline.</p>
 <ul>
 <li><strong>Show location</strong> - show arrow symbol at current position</li>
-<li><strong>Follow GPS position</strong> - pan and center screen to follow the GPS position</li>
-<li><strong>Goto GPS position</strong> - go to and zoom in to the current position</li>
-<li><strong>Start GPS track</strong> - start recording a GPX track</li>
-<li><strong>Pause GPS track</strong> - pause recording the current GPX track</li>
-<li><strong>Clear GPS track</strong> - clear the current GPX track</li>
-<li><strong>Track management...</strong> - manage existing tracks<ul>
-<li><strong>Upload GPS track</strong> - upload the current GPX track <em>(requires network connectivity)</em></li>
-<li><strong>Export GPS track</strong> - export track to file</li>
-<li><strong>Import GPS track</strong> - import track from file</li>
+<li><strong>Follow location</strong> - pan and center screen to follow the current position</li>
+<li><strong>Go to current location</strong> - go to and zoom in to the current position</li>
+<li><strong>Start GPX track</strong> - start recording a GPX track</li>
+<li><strong>Pause GPX track</strong> - pause recording the current GPX track</li>
+<li><strong>Clear GPX track</strong> - clear the current GPX track</li>
+<li><strong>GPX track management...</strong> - manage existing tracks<ul>
+<li><strong>Upload GPX track</strong> - upload the current GPX track <em>(requires network connectivity)</em></li>
+<li><strong>Export GPX track</strong> - export track to file</li>
+<li><strong>Import GPX track</strong> - import track from file</li>
 </ul>
 </li>
-<li><strong>Goto start of track</strong> - center the map on the first track point</li>
+<li><strong>Go to start of GPX track</strong> - center the map on the first track point</li>
 </ul>
 <h3 id="transfer"><img alt="Transfer" src="../../images/menu_transfer.png" /> Transfer</h3>
 <p>Select either the transfer icon <img alt="Transfer" src="../../images/menu_transfer.png" /> or the "Transfer" menu item. This will display seven or eight options:</p>
@@ -538,11 +541,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
 </ul>
 </li>
-<li><strong>Note/Bugs...</strong> - down- and uploading Notes/Bugs<ul>
-<li><strong>Download bugs for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
-<li><strong>Upload all</strong> - upload all new or modified Notes/Bugs</li>
-<li><strong>Clear</strong> - remove all bugs from storage</li>
-<li><strong>Auto download</strong> - download Notes/Bugs around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
+<li><strong>Tasks...</strong> - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)<ul>
+<li><strong>Download tasks for current view</strong> - download Notes/Bugs for the area visible on the screen</li>
+<li><strong>Upload all</strong> - upload all new or modified tasks</li>
+<li><strong>Clear</strong> - remove all tasks from storage</li>
+<li><strong>Auto download</strong> - download tasks around the current geographic location automatically <em>(requires network connectivity)</em> <em>(requires GPS)</em></li>
 <li><strong>File...</strong> - save Notes/Bugs data to on device storage<ul>
 <li><strong>Save all Notes...</strong> - write a ".osn" format file containing all downloaded notes</li>
 <li><strong>Save new and changed Notes...</strong> - write a ".osn" format file containing all new and changed notes</li>
@@ -565,8 +568,11 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>Flush all tile caches</strong> - empty all on device tile caches. </li>
 </ul>
 </li>
+<li><strong>Reset address prediction</strong> - reset the current address prediction data, will ressed from loaded data if possible.</li>
 <li><strong>Reset OAuth</strong> - reset the OAuth tokens, this will force reauthorisation the next time you upload.</li>
 <li><strong>Authorise OAuth</strong> - start authorisation process immediately. <em>(requires network connectivity)</em></li>
+<li><strong>Set MapRoulette API key</strong> - set the API key for modifying the status of MapRoulette tasks.</li>
+<li><strong>Clear clipboard</strong> - remove content from the internal OSM element clipboard.</li>
 </ul>
 <h3 id="find"><img alt="Find" src="../../images/ic_menu_search_holo_light.png" /> Find</h3>
 <p>Search for a location and pan to it with the OpenStreetMap Nominatim or Photon service <em>(requires network connectivity)</em></p>
