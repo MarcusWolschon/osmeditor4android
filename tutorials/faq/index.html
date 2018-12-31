@@ -293,6 +293,7 @@ i-->
             <li><a href="#how-can-i-download-osm-data">How can I download OSM data?</a></li>
             <li><a href="#how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</a></li>
             <li><a href="#which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</a></li>
+            <li><a href="#oauth-authorization-fails">OAuth authorization fails</a></li>
             <li><a href="#how-can-i-zoom-into-an-area">How can I zoom into an area?</a></li>
             <li><a href="#conflict-resolution">Conflict resolution</a></li>
             <li><a href="#cant-enter-key-with-messageease">Can't enter key with MessageEase</a></li>
@@ -412,7 +413,9 @@ however older devices tend to have very limited memory and correspondingly the a
 (With other words: Data is not automatically uploaded!)</p>
 <h4 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</h4>
 <p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
-<p>Note: OAuth will work for both the OSMT-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
+<p>Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
+<h4 id="oauth-authorization-fails">OAuth authorization fails</h4>
+<p>If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see https://github.com/easylist/easylist/pull/906 for some background.  </p>
 <h4 id="how-can-i-zoom-into-an-area">How can I zoom into an area?</h4>
 <ul>
 <li>Use the pinch-to-zoom multi-touch gesture.</li>
@@ -477,6 +480,7 @@ however older devices tend to have very limited memory and correspondingly the a
             <li><a href="#how-can-i-download-osm-data">How can I download OSM data?</a></li>
             <li><a href="#how-can-i-upload-newchanged-data-to-the-osm-server">How can I upload new/changed data to the OSM server?</a></li>
             <li><a href="#which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</a></li>
+            <li><a href="#oauth-authorization-fails">OAuth authorization fails</a></li>
             <li><a href="#how-can-i-zoom-into-an-area">How can I zoom into an area?</a></li>
             <li><a href="#conflict-resolution">Conflict resolution</a></li>
             <li><a href="#cant-enter-key-with-messageease">Can't enter key with MessageEase</a></li>
@@ -596,7 +600,9 @@ however older devices tend to have very limited memory and correspondingly the a
 (With other words: Data is not automatically uploaded!)</p>
 <h4 id="which-user-account-is-used-when-uploading-data-to-the-osm-server">Which user account is used when uploading data to the OSM server?</h4>
 <p>Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).</p>
-<p>Note: OAuth will work for both the OSMT-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
+<p>Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.</p>
+<h4 id="oauth-authorization-fails">OAuth authorization fails</h4>
+<p>If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see https://github.com/easylist/easylist/pull/906 for some background.  </p>
 <h4 id="how-can-i-zoom-into-an-area">How can I zoom into an area?</h4>
 <ul>
 <li>Use the pinch-to-zoom multi-touch gesture.</li>
