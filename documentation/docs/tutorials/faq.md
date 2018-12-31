@@ -139,7 +139,11 @@ Choose "Upload data to  OSM server" from the transfer menu.
 
 Vespucci uses OAuth authorization by default for new installations. On your first upload you will be directed to an OSM page where you will need to grant Vespucci permission to use your OpenStreetMap account. It is not necessary nor recommended to store username/password on your device (it is however possible if OAuth causes problems for whatever reasons).
 
-Note: OAuth will work for both the OSMT-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
+Note: OAuth will work for both the OSMF-operated standard API and the development servers, if you are running your own or need to access a third party site with OAuth you need to add the corresponding secrets to the API configuration and rebuild Vespucci.
+
+#### OAuth authorization fails
+
+If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see https://github.com/easylist/easylist/pull/906 for some background.  
 
 #### How can I zoom into an area?
 
