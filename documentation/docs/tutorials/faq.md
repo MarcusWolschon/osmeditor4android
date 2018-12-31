@@ -143,7 +143,7 @@ Note: OAuth will work for both the OSMF-operated standard API and the developmen
 
 #### OAuth authorization fails
 
-If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see https://github.com/easylist/easylist/pull/906 for some background.  
+If OAuth authorization fails, for example with a blank screen, you may need to disable any ad blocker you have installed during the authorization process. For example Blockada is known to cause issues, but any blocker that uses Easylist will likely have similar problems, see https://github.com/easylist/easylist/pull/906 for some background.  
 
 #### How can I zoom into an area?
 
