@@ -932,7 +932,7 @@ public class Map extends View implements IMapView {
      * 
      * @param location a Location object
      */
-    void setLocation(@NonNull Location location) {
+    void setLocation(@Nullable Location location) {
         displayLocation = location;
     }
 
