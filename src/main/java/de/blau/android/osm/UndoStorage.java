@@ -636,6 +636,7 @@ public class UndoStorage implements Serializable {
             }
             // reset the style
             ((Way) element).setFeatureProfile(null);
+            ((Way) element).invalidateBoundingBox();
             return ok;
         }
 
