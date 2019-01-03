@@ -567,6 +567,41 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
+    
+    /**
+     * Remove way nodes one by one from a Way
+     */
+    @UiThreadTest
+    @Test
+    public void wayNodeDelete() {
+        try {
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null); // this is fairly fragile
+            logic.performAdd(main, 300.0f, 300.0f);
+            logic.performAdd(main, 300.0f, 500.0f);
+            logic.performAdd(main, 100.0f, 500.0f);
+            Way w1 = logic.getSelectedWay();
+            BoundingBox origBox = w1.getBounds();
+            List<Node>nodes = new ArrayList<>(w1.getNodes());
+            for (Node n : nodes) {               
+                logic.performEraseNode(main, n, true);
+            }
+            Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);
+            logic.undo(); // way should still be deleted
+            Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);
+            logic.undo(); 
+            Assert.assertTrue(w1.getState() == OsmElement.STATE_CREATED);
+            logic.undo();
+            Assert.assertEquals(origBox.getLeft(), w1.getBounds().getLeft());
+            Assert.assertEquals(origBox.getBottom(), w1.getBounds().getBottom());
+            Assert.assertEquals(origBox.getRight(), w1.getBounds().getRight());
+            Assert.assertEquals(origBox.getTop(), w1.getBounds().getTop());
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
 
     /**
      * Return the screen X coordinate for a node

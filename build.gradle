@@ -343,7 +343,7 @@ afterEvaluate{
         type: Exec) {
             group = 'vespucci'
             description = "Run a single test method on device (configuration needs to be edited) for the ${flavor.name} flavor"
-            def toRun = "de.blau.android.tasks.OsmoseTest#osmoseDialog"
+            def toRun = "de.blau.android.osm.GeometryTests#wayNodeDelete"
             // commandLine adb, 'shell', 'pm', 'list', 'instrumentation'
             commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  toRun, "de.blau.android${flavor.applicationIdSuffix}.test/android.support.test.runner.AndroidJUnitRunner"
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
@@ -455,9 +455,12 @@ dependencies {
 
     // Instrumentation tests
     androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestLegacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") {
+        force = true
+    }
     androidTestImplementation "com.android.support.test:rules:1.0.2"
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
+    // androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     androidTestImplementation "pl.droidsonroids.yaml:snakeyaml:1.18.2"
     androidTestImplementation ("com.orhanobut:mockwebserverplus:1.0.0") {

@@ -134,19 +134,19 @@ public class TestUtils {
      * @param resId resource id
      * @param waitForNewWindow if true wait for a new window after clicking
      * @return true if the button was found and clicked
+     * @throws UiObjectNotFoundException
      */
     public static boolean clickButton(String resId, boolean waitForNewWindow) {
-        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        UiSelector uiSelector = new UiSelector().clickable(true).resourceId(resId);
-        UiObject button = device.findObject(uiSelector);
         try {
+            UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+            UiSelector uiSelector = new UiSelector().clickable(true).resourceId(resId);
+            UiObject button = device.findObject(uiSelector);
             if (waitForNewWindow) {
                 return button.clickAndWaitForNewWindow();
             } else {
                 return button.click();
             }
         } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -438,9 +438,10 @@ public class TestUtils {
         Map map = main.getMap();
         int count = 0;
         int currentLevel = map.getZoomLevel();
-        while (level != currentLevel && count < 20) {
-            currentLevel = map.getZoomLevel();
-            Log.e(DEBUG_TAG, "Zoom level " + currentLevel);
+        int prevLevel = -1;
+        int noChange = 0;
+        while (level != currentLevel && count < 20) { 
+            Log.d(DEBUG_TAG, "Zoom level " + currentLevel);
             if (currentLevel < level) {
                 if (level - currentLevel > 3) {
                     pinchOut();
@@ -454,6 +455,17 @@ public class TestUtils {
                     clickButton("de.blau.android:id/zoom_out", false);
                 }
             }
+            currentLevel = map.getZoomLevel();
+            if (prevLevel == currentLevel) {
+                noChange++;
+                if (noChange > 3) {
+                    Log.e(DEBUG_TAG, "No zoom level change");
+                    return;
+                }
+            } else {
+                noChange = 0;
+            }
+            prevLevel = currentLevel;
             count++;
         }
     }
