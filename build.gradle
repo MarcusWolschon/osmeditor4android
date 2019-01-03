@@ -91,7 +91,7 @@ task updateImagery(type: Download) {
 updateImagery.group = 'vespucci'
 updateImagery.description = 'Update the background layer configuration from https://osmlab.github.io/editor-layer-index/'
 
-task dumpTaginfoJson(dependsOn: ["installDebug", "installDebugAndroidTest"],type: Exec) {
+task dumpTaginfoJson(dependsOn: ["installCurrentDebug", "installCurrentDebugAndroidTest"],type: Exec) {
     commandLine adb, 'shell', 'am', 'instrument', '-w', '-e', 'class',  "de.blau.android.TaginfoDump", 'de.blau.android.test/android.support.test.runner.AndroidJUnitRunner'
 }
 
