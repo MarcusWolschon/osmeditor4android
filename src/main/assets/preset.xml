@@ -2,7 +2,7 @@
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
     shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" 
     description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version"
-    object_keys="attraction,public_transport,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising" >
+    object_keys="attraction,public_transport,traffic_sign,traffic_sign:forward,traffic_sign:backward,playground,advertising,ford" >
 <!--
     Icons have been derived from mainly from
   
@@ -123,6 +123,12 @@
     <chunk id="highway_yesno_incline_oneway_lit_width_sidewalk">
         <reference ref="highway_yesno_incline_oneway_lit_width" />
         <reference ref="sidewalk" />
+    </chunk>
+    <chunk id="highway_ref">
+        <text key="ref" text="Reference" />
+        <optional>
+            <text key="unsigned_ref" text="Unsigned reference" />
+        </optional>
     </chunk>
     <chunk id="crossing_type">    
     	<multiselect key="crossing" text="Crossing type" values_context="transport" >
@@ -310,7 +316,7 @@
     </chunk>
     <chunk id="name_operator_wheelchair">
         <reference ref="name_operator" />
-        <reference ref="oh_wheelchair" />
+        <reference ref="wheelchair" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair_toilets">
         <reference ref="name_operator" />
@@ -318,7 +324,7 @@
         <reference ref="toilets_with_access" />
     </chunk>
     <chunk id="name_operator_wheelchair_level">
-        <reference ref="name_operator_oh_wheelchair" />
+        <reference ref="name_operator_wheelchair" />
         <reference ref="level" />
     </chunk>
     <chunk id="name_operator_oh_wheelchair_level">
@@ -935,6 +941,23 @@
         display_values="Afrikaans;Albanian;Amharic;Arabic;Armenian;Assamese;Azeri;Basque;Belarusian;Bengali;Bosnian;Bulgarian;Burmese;Catalan;Chinese;Croatian;Czech;Danish;Divehi;Dutch;English;Estonian;Macedonian;Faroese;Farsi;Finnish;French;Gaelic;Galician;Georgian;German;Greek;Guarani;Gujarati;Hebrew;Hindi;Hungarian;Icelandic;Indonesian;Italian;Japanese;Kannada;Kashmiri;Kazakh;Khmer;Korean;Lao;Latin;Latvian;Lithuanian;Malay;Malayalam;Maltese;Maori;Marathi;Mongolian;Nepali;Norwegian - Bokml;Norwegian - Nynorsk;Oriya;Polish;Portuguese;Punjabi;Raeto-Romance;Romanian;Russian;Sanskrit;Serbian;Setsuana;Sindhi;Sinhala;Slovak;Slovenian;Somali;Sorbian;Spanish;Swahili;Swedish;Tajik;Tamil;Tatar;Telugu;Thai;Tibetan;Tsonga;Turkish;Turkmen;Ukrainian;Urdu;Uzbek;Vietnamese;Welsh;Xhosa;Yiddish;Zulu"
         values_searchable="true" match="key" />
   </chunk>
+  <chunk id="turn_restriction_roles">
+	<roles>
+		<role key="from" text="from way" requisite="required" count="1"
+			type="way" />
+		<role key="via" text="via node or ways" requisite="required"
+			type="way,node" />
+		<role key="to" text="to way" requisite="required" count="1"
+			type="way" />
+	</roles>
+  </chunk>
+  <chunk id="turn_restriction_exceptions">  
+  	<optional>
+		<multiselect key="except" text="Exceptions"
+			values="bicycle;emergency;hgv;motorcar;psv"
+			display_values="Bicycle;Emergency;HGV;Car;PSV" />
+	</optional>
+  </chunk>
   <!--  Groups -->
   <group name="Highways" icon="icons/png/highway_highway_sp.png">
     <group name="Streets" icon="icons/png/highway_highway_sp.png">
@@ -954,7 +977,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:highway=motorway" />
             <space />
             <key key="highway" value="motorway" />
-            <text key="ref" text="Reference" />
+            <reference ref="highway_ref" />
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
@@ -1024,7 +1047,7 @@
                   vi.href="http://wiki.openstreetmap.org/wiki/Vi:Tag:highway=trunk" />
             <space />
             <key key="highway" value="trunk" />
-            <text key="ref" text="Reference" />
+            <reference ref="highway_ref" />
             <optional>
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
@@ -1056,7 +1079,7 @@
                   pl.href="https://wiki.openstreetmap.org/wiki/Pl:Highway_link" />
             <space />
             <key key="highway" value="trunk_link" />
-            <text key="ref" text="Reference" />
+            <reference ref="highway_ref" />
             <optional>
                 <reference ref="highway_base" />
                 <text key="destination" text="Destination" />
@@ -1093,7 +1116,7 @@
                   vi.href="http://wiki.openstreetmap.org/wiki/Vi:Tag:highway=primary" />
             <space />
             <key key="highway" value="primary" />
-            <text key="ref" text="Reference" />
+            <reference ref="highway_ref" />
             <text key="name" text="Name" />
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true" />
@@ -1117,7 +1140,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="primary_link" />
             <optional>
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
                 <text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <check key="motorroad" text="Motorroad" disable_off="true" />
@@ -1144,7 +1167,7 @@
                   vi.href="http://wiki.openstreetmap.org/wiki/Vi:Tag:highway=secondary" />
             <space />
             <key key="highway" value="secondary" />
-            <text key="ref" text="Reference" />
+            <reference ref="highway_ref" />
             <text key="name" text="Name" />
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true" />
@@ -1167,7 +1190,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="secondary_link" />
             <optional>
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
             	<text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -1197,7 +1220,7 @@
             <key key="highway" value="tertiary" />
             <text key="name" text="Name" />
             <optional>
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
                 <check key="noname" text="Street has no name" disable_off="true" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -1218,7 +1241,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Link_(highway)" />
             <key key="highway" value="tertiary_link" />
             <optional>
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
             	<text key="name" text="Name" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
@@ -1247,7 +1270,7 @@
             <text key="name" text="Name" />
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true" />
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
 		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
@@ -1277,7 +1300,7 @@
             <text key="name" text="Name" />
             <optional>
                 <check key="noname" text="Street has no name" disable_off="true" />
-                <text key="ref" text="Reference" />
+                <reference ref="highway_ref" />
                 <reference ref="highway_base" />
                 <reference ref="highway_yesno_incline_oneway_lit_width_sidewalk" />
 		        <check key="trolley_wire" text="Overhead trolley wires"  disable_off="true" />
@@ -3305,7 +3328,7 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:waterway=riverbank" />
             <space />
             <key key="waterway" value="riverbank" />
-            <text key="name" text="Name" />
+            <reference ref="optional_name" />
             <check key="intermittent" text="Is the water body intermittent (doesn't permanently contain water)?" disable_off="true" />
         </item> <!-- Riverbank -->
         <separator/>
@@ -7304,18 +7327,56 @@
                   uk.href="http://wiki.openstreetmap.org/wiki/Uk:Tag:emergency=fire_hydrant" />
             <space />
             <key key="emergency" value="fire_hydrant" />
-            <combo key="fire_hydrant:type" text="Type" values="underground,pillar,wall,pond" values_context="pipeline" default="pillar" />
-            <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,80,100,150,200,250,300,400" />
+            <combo key="fire_hydrant:type" text="Type" values_searchable="true" values_context="pipeline" default="pillar" >
+                <list_entry value="pillar" display_value="Pillar" short_description="A pillar type hydrant." />
+                <list_entry value="underground" display_value="Underground" short_description="A fire hydrant simple outlet located underground." />
+                <list_entry value="wall" display_value="Wall" short_description="A wall-mounted fire hydrant." />
+                <list_entry value="pipe" display_value="Pipe" short_description="A simple capped pipe, without the usual hydrant shape." />
+            </combo>
+            <combo key="fire_hydrant:diameter" text="Diameter (in mm)" values="50,70,75,80,100,110,125,150,200,250,300,400" />
             <space />
+            <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position" />
+            <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="yes,5,6,8,suction" display_values="Pressurized,5,6,8,Suction" values_context="pipeline" />
+            <text key="fire_hydrant:count" text="Count" />
             <text key="ref" text="Reference" />
             <optional>
                 <text key="name" text="Name" />
-                <text key="operator" text="Operator" />
+                <text key="operator" text="Operator" />         
+                <combo key="water_source" text="Water source">
+                    <list_entry value="main" display_value="Mains" />
+                    <list_entry value="groundwater"  display_value="Groundwater" />
+                    <list_entry value="stream" display_value="Stream" />
+                    <list_entry value="river" display_value="River" />
+                    <list_entry value="canal" display_value="Canal" />
+                    <list_entry value="drain" display_value="Drain" />
+                    <list_entry value="ditch" display_value="Ditch" />
+                    <list_entry value="pond" display_value="Pond" />
+                    <list_entry value="lake" display_value="Lake" />
+                    <list_entry value="water_tank" display_value="Water tank" />
+                    <list_entry value="swimming_pool" display_value="Swimming pool" />
+                </combo>
+                <combo key="fire_hydrant:position" text="Hydrant position" values_context="hydrant_position" >
+                    <list_entry value="lane" display_value="Lane" short_description="on the side of a road lane" />
+                    <list_entry value="parking_lot" display_value="Parking lot" short_description="in a parking lot" />
+                    <list_entry value="sidewalk" display_value="Sidewalk" short_description="on a sidewalk" />
+                    <list_entry value="green" display_value="Greem" short_description="in a grassy area" />
+                </combo>
+                <text key="flow_rate" text="Flow rate with unit of measure" />
+                <combo key="pillar:type" text="Pillar type">
+                    <list_entry value="dry_barrel" display_value="Dry barrel" short_description="A pillar hydrant where the water shutoff valve is below ground." />
+                    <list_entry value="wet_barrel" display_value="Wet barrel" short_description="A pillar hydrant where the barrel is pressurized at all times, with individual valves for each outlet." />
+                </combo>
+                <space />
+                <combo key="couplings" text="Number of couplings" values="1,2,3" />
+                <combo key="couplings:type" text="Coupling standard" values="bayonet,barcelona,guillemin,klaue,sprawny,storz,uni" display_values="Bayonet,Barcelona,Guillemin,Klaue,Sprawny,Storz,UNI" />
+                <text key="couplings:diameters" text="Coupling diameters (separated by ;)" />
+                <space />
+                <combo key="colour" text="Colour" values="blue,green,red,yellow,grey" display_values="Blue,Green,Red,Yellow,Grey" />
+                <combo key="bonnet:colour" text="Colour of the top section (bonnet)" values="blue,green,red,yellow,grey" display_values="Blue,Green,Red,Yellow,Grey" />
+                <combo key="cap:colour" text="Colour of the caps" values="blue,green,red,yellow,grey" display_values="Blue,Green,Red,Yellow,Grey"/>
+                <space />
+                <text key="manufacturer" text="Manufacturer" />
             </optional>
-            <space />
-            <combo key="fire_hydrant:position" text="Hydrant Position" values="lane,parking_lot,sidewalk,green" values_context="hydrant position" />
-            <combo key="fire_hydrant:pressure" text="Pressure (in bar)" values="5,6,8,suction" />
-            <text key="fire_hydrant:count" text="Count" />
         </item> <!-- Fire Hydrant -->
 		<item name="Water Tank" icon="icons/png/emergency_water_tank_22109.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:emergency=water_tank"
@@ -7422,7 +7483,7 @@
             <key key="amenity" value="social_facility" />
             <key key="social_facility" value="assisted_living" />
             <reference ref="social_facility_for" />
-            <reference ref="name_operator_level" />
+            <reference ref="name_operator_wheelchair_level" />
             <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Retirement Home -->
@@ -7469,7 +7530,7 @@
             <key key="amenity" value="social_facility" />
             <key key="social_facility" value="group_home" />
             <key key="social_facility:for" value="senior" />
-            <reference ref="name_operator_level" />
+            <reference ref="name_operator_wheelchair_level" />
             <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Retirement Home -->
@@ -7486,7 +7547,7 @@
             <key key="amenity" value="social_facility" />
             <key key="social_facility" value="nursing_home" />
             <reference ref="social_facility_for" />
-            <reference ref="name_operator_level" />
+            <reference ref="name_operator_wheelchair_level" />
             <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Nursing Home -->
@@ -7499,7 +7560,7 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:amenity=nursing_home" />
             <space />
             <key key="amenity" value="nursing_home" />
-            <reference ref="name_operator" />
+            <reference ref="name_operator_wheelchair_level" />
             <reference ref="link_contact_address" />
         </item> <!-- Nursing Home (deprecated) -->
         <item name="Group Home" icon="icons/png/amenity_group_home_12251.png" type="node,closedway,multipolygon" preset_name_label="true">
@@ -7515,7 +7576,7 @@
             <key key="amenity" value="social_facility" />
             <key key="social_facility" value="group_home" />
             <reference ref="social_facility_for" />
-            <reference ref="name_operator_level" />
+            <reference ref="name_operator_wheelchair_level" />
             <text key="capacity" text="Capacity" value_type="integer" />
             <reference ref="link_contact_address" />
         </item> <!-- Group Home -->
@@ -9363,7 +9424,10 @@
                   ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:man_made=crane" />
             <space />
             <key key="man_made" value="crane" />
-            <text key="name" text="Name" />
+            <optional>
+                <combo key="crane:type" text="Type" values="floor-mounted_crane,gantry_crane,portal_crane,travel_lift" display_values="Floor-mounted crane,Gantry crane,Portal crane,Travel lift" />
+                <reference ref="name_operator" />
+            </optional>
         </item> <!-- Crane -->
         <item name="Mineshaft" icon="icons/png/poi_mine.png" type="node,closedway" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:man_made=mineshaft"
@@ -11804,11 +11868,13 @@
         </item> <!-- Trade supplies -->
         <item name="Gas" icon="icons/png/shopping_gas_29070.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Tag:shop=gas"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Tag:shop=gas"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Tag:shop=gas"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Tag:shop=gas"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Tag:shop=gas"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Tag:shop=gas" />
+            	  cs.href="https://wiki.openstreetmap.org/wiki/Cs:Tag:shop=gas"
+                  de.href="https://wiki.openstreetmap.org/wiki/DE:Tag:shop=gas"
+                  es.href="https://wiki.openstreetmap.org/wiki/ES:Tag:shop=gas"
+                  ja.href="https://wiki.openstreetmap.org/wiki/JA:Tag:shop=gas"
+                  pl.href="https://wiki.openstreetmap.org/wiki/Pl:Tag:shop=gas"
+                  pt.href="https://wiki.openstreetmap.org/wiki/Pt:Tag:shop=gas"
+                  ru.href="https://wiki.openstreetmap.org/wiki/RU:Tag:shop=gas" />
             <space />
             <key key="shop" value="gas" />
             <reference ref="name_oh_wheelchair_level" />
@@ -13837,30 +13903,151 @@ tags.remove('automatic_check_date');"
             </roles>
         </item> <!-- Site -->
         <separator/>
-        <item name="Turn Restriction" icon="icons/png/no_u_turn.png" type="relation" preset_name_label="true">
-            <link href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
-            	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
-                  de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
-                  es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
-                  fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
-                  it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
-                  ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
-                  pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
-                  pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
-                  ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
-            <space />
-            <key key="type" value="restriction" />
-            <combo key="restriction" text="Restriction" values="no_left_turn,no_right_turn,no_straight_on,no_u_turn,only_right_turn,only_left_turn,only_straight_on" 
-            	display_values="No left turn,No right turn,No straight on,No u-turn,Only right turn,Only left turn,Only straight on" values_searchable="true" />
-            <optional>
-				<multiselect key="except" text="Exceptions" values="bicycle;emergency;hgv;motorcar;psv" display_values="Bicycle;Emergency;HGV;Car;PSV"/>
-            </optional>
-            <roles>
-                <role key="from" text="from way" requisite="required" count="1" type="way" />
-                <role key="via" text="via node or ways" requisite="required" type="way,node" />
-                <role key="to" text="to way" requisite="required" count="1" type="way" />
-            </roles>
-        </item> <!-- Turn Restriction -->
+		<group name="Turn Restrictions">
+			<item name="Turn Restriction"
+				icon="icons/png/no_u_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<combo key="restriction" text="Restriction"
+					values="no_left_turn,no_right_turn,no_straight_on,no_u_turn,only_right_turn,only_left_turn,only_straight_on"
+					display_values="No left turn,No right turn,No straight on,No u-turn,Only right turn,Only left turn,Only straight on"
+					values_searchable="true" />
+				<reference ref="turn_restriction_exceptions" />  
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- Turn Restriction -->
+			<item name="No left turn"
+				icon="icons/png/no_left_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="no_left_turn" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- No left turn -->
+			<item name="No right turn"
+				icon="icons/png/no_right_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="no_right_turn" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- No right turn -->			
+			<item name="No U turn"
+				icon="icons/png/no_u_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="no_u_turn" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- No U turn -->
+			<item name="Left turn only"
+				icon="icons/png/only_left_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="only_left_turn" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- Left turn only -->
+			<item name="Right turn only"
+				icon="icons/png/only_right_turn.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="only_right_turn" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- Right turn only -->
+			<item name="Straight on only"
+				icon="icons/png/only_straight_on.png" type="relation"
+				preset_name_label="true">
+				<link
+					href="http://wiki.openstreetmap.org/wiki/Relation:restriction"
+					cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:restriction"
+					de.href="http://wiki.openstreetmap.org/wiki/DE:Relation:restriction"
+					es.href="http://wiki.openstreetmap.org/wiki/ES:Relation:restriction"
+					fr.href="http://wiki.openstreetmap.org/wiki/FR:Relation:restriction"
+					it.href="http://wiki.openstreetmap.org/wiki/IT:Relation:restriction"
+					ja.href="http://wiki.openstreetmap.org/wiki/JA:Relation:restriction"
+					pl.href="http://wiki.openstreetmap.org/wiki/Pl:Relation:restriction"
+					pt.href="http://wiki.openstreetmap.org/wiki/Pt:Relation:restriction"
+					ru.href="http://wiki.openstreetmap.org/wiki/RU:Relation:restriction" />
+				<space />
+				<key key="type" value="restriction" />
+				<key key="restriction" value="only_straight_on" />
+				<reference ref="turn_restriction_exceptions" />
+				<reference ref="turn_restriction_roles" />
+			</item> <!-- Straight on only -->
+        </group> <!-- Turn Restrictions -->
         <item name="Enforcement" icon="icons/png/highway_speed_camera_18025.png" type="relation" preset_name_label="true">
             <link href="http://wiki.openstreetmap.org/wiki/Relation:enforcement"
             	  cs.href="http://wiki.openstreetmap.org/wiki/Cs:Relation:enforcement"
