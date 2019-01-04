@@ -313,11 +313,11 @@ i-->
 <li>Um nó ou linha isolados é destacado imediatamente. </li>
 <li>No entanto se tentar selecionar um objeto e o Vespucci determinar  que a seleção pode ser vários objetos, rá mostrar um menu de seleção permitindo escolher o objeto que quer selecionar. </li>
 <li>Os objetos selecionados são destacados a amarelo. </li>
-<li>Para mais informações ver <a href="Node%20selected.md">Nó selecionado</a>, <a href="Way%20selected.md">Linha selecionada</a> e <a href="Relation%20selected.md">Relação selecionada</a>.</li>
+<li>Para mais informações ver <a href="Node%20selected.md">Nó selecionado</a>, <a href="Way%20selected.md">Linha selecionada</a> and <a href="Relation%20selected.md">Relação selecionada</a>.</li>
 </ul>
 </li>
 <li>Toque duplo: ativar <a href="Multiselect.md">Modo Multi-seleção</a></li>
-<li>Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver <a href="Creating%20new%20objects.md">Criar novos objetos</a></li>
+<li>Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos(Creating%20new%20objects.md). Isto apenas é ativado se o  "Modo simples" estiver desativado.</li>
 </ul>
 <p>É uma boa ideia aproximar a visualização caso a área tenha muitos objetos.</p>
 <p>O Vespucci tem um bom sistema de "desfazer/refazer" por isso não tenha medo de fazer experiências de edição, mas por favor não envie essas experiências para o OpenStreetMap.</p>
@@ -333,10 +333,15 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de novo o menu. Selecionando de novo o mesmo objeto irá mostrar o editor de etiquetas; selecionando outro objeto simplesmente seleciona o outro objeto.</p>
 <h4 id="objetos-selecionados-mover-um-no-ou-linha">Objetos selecionados: Mover um Nó ou Linha</h4>
 <p>Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. </p>
-<h4 id="adicionar-um-novo-noponto-ou-linha-toque-longo">Adicionar um novo Nó/Ponto ou Linha (toque longo)</h4>
-<p>Faça um toque longo no local onde quer o nó ou o início da linha. Irá ver o sinal mais. 
-<em> Se quiser criar um novo nó (não ligado a nenhum objeto), toque longe dos objetos existentes.
-</em> Se quiser prolongar uma linha, toque dentro da "zona de tolerância" da linha (ou no nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou linha.</p>
+<h4 id="adicionar-um-novo-no-ou-linha">Adicionar um novo Nó ou Linha</h4>
+<p>No primeiro arranque a app começa com o "Modo simples" ativado. Isto pode ser alterado no menu principal desativando essa opção.</p>
+<h5 id="modo-simples">Modo simples</h5>
+<p>Ao tocar no botão verde grande redondo no ecrã do mapa irá mostrar um menu. Após selecionar um dos itens do menu, será perguntando onde quer criar o objeto. O deslocamento e o aumento da visualização continuam a funcionar para ajustar a vista do mapa. </p>
+<p>Para mais informações ver [Criar novos objetos no modo de ações simples (Creating%20new%20objects%20in%20simple%20actions%20mode.md).</p>
+<h5 id="modo-avancado-premir-longo">Modo avançado (premir longo)</h5>
+<p>Prima por alguns segundos onde quer que o nó seja posicionado. Irá ver um símbolo da "cruz" negra. 
+<em> Se quiser criar um novo nó (não ligado a um objeto), clique longe deos objetos existentes.
+</em> Se quiser prolongar uma linha toque na "zona de tolerância" da linha (ou num nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou uma linha.</p>
 <p>Assim que veja um sinal mais, tem as seguintes opções:</p>
 <ul>
 <li>Toque no mesmo local.<ul>
@@ -347,7 +352,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>Toque noutro local (fora da zona de tolerância do sinal mais) adiciona um novo segmento à linha da posição original para a posição atual. Se o sinal mais estiver perto de uma linha ou nó, o novo segmento será ligado a esse nó ou linha.</li>
 </ul>
 <p>Simplesmente toque no ecrã onde quer adicionar mais nós na linha. Para terminar, toque no nó final 2 vezes. Se o nó final se encontrar numa linha ou nó existente, o segmento ficará ligado automaticamente à linha ou nó. </p>
-<p>Também pode usar o menu: ver <a href="/Creating%20new%20objects.md">Criar novos objetos</a> para mais informações.</p>
+<p>Também pode usar o item do menu: para mais informações veja <a href="Creating%20new%20objects.md">Criar novos objetos</a>.</p>
 <h4 id="adicionar-uma-area">Adicionar uma Área</h4>
 <p>O OpenStreetMap neste momento não tem um tipo de objeto definido como "área" ao contrário de outros sistemas de geo-dados. O editor "iD" tenta criar uma abstração de área a partir dos elementos OpenStreetMap subjacentes, o que funciona bem em algumas circunstâncias, mas não noutras. O Vespucci neste momento não faz isso, por isso necessita de saber um pouco como é que as áreas são representadas:</p>
 <ul>
@@ -426,10 +431,10 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <h4 id="verificar-entradas">Verificar entradas</h4>
 <p>A verificação de entradas tem as seguintes duas propriedades:</p>
 <ul>
-<li><strong>Chave</strong> - Chave que deve estar presente no objeto de acordo com o modelo correspondente.</li>
-<li><strong>Verificação opcional</strong> - Verifica as etiquetas opcionais do modelo correspondente.</li>
+<li><strong>Chave</strong> - Chave que deve estar presente no objeto de acordo com o modelo de etiquetas correspondente.</li>
+<li><strong>Exigir opcional</strong> - Exigir a chave mesmo que a chave esteja nas etiquetas opcionais do modelo de etiquetas correspondente.</li>
 </ul>
-<p>Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a <strong>Chave</strong> é uma chave "recomendada" kpara esse objeto de acordo com o modelo, <strong>Verificação opcional</strong> irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.</p>
+<p>Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a <strong>Chave</strong> é uma chave "recomendada" para esse objeto de acordo com o modelo, <strong>Exigir opcional</strong> irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.</p>
 <h2 id="filtros_1">Filtros</h2>
 <h3 id="filtro-baseado-em-etiquetas">Filtro baseado em etiquetas</h3>
 <p>O filtro pode ser ativado no menu principal, pode ser então alterado tocando no ícone de filtro. Para mais informações ver <a href="Tag%20filter.md">Filtro de Etiquetas</a>.</p>
@@ -453,7 +458,8 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>Ver estatísticas. Mostra algumas informações no canto inferior esquerdo para depuração de erros do programa. Padrão: desativado (antigamente estava sempre ativado).  </li>
 </ul>
 <h2 id="reportar-problemas">Reportar Problemas</h2>
-<p>Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Repositório de erros do Vespucci</a>. Se quiser discutir algo relacionado com o Vespucci, pode abrir uma discussão no <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Grupo Google do Vespucci</a> ou no <a href="http://forum.openstreetmap.org/viewforum.php?id=56">fórum Android do OpenStreetMap</a></p></div> -->
+<p>Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Repositório de erros do Vespucci</a>. A função "Fornecer opinião" no menu principal irá abrir um novo relatório e incluir a informação relevante da app e do dispositivo sem ser necessário escrever essa informação.</p>
+<p>Se quiser discutir algo relacionado com o Vespucci, pode iniciar uma discussão no <a href="https://groups.google.com/forum/#!forum/osmeditor4android">grupo do Google Vespucci</a> ou o <a href="http://forum.openstreetmap.org/viewforum.php?id=56">fórum Android do OpenStreetMap</a></p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -509,11 +515,11 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>Um nó ou linha isolados é destacado imediatamente. </li>
 <li>No entanto se tentar selecionar um objeto e o Vespucci determinar  que a seleção pode ser vários objetos, rá mostrar um menu de seleção permitindo escolher o objeto que quer selecionar. </li>
 <li>Os objetos selecionados são destacados a amarelo. </li>
-<li>Para mais informações ver <a href="Node%20selected.md">Nó selecionado</a>, <a href="Way%20selected.md">Linha selecionada</a> e <a href="Relation%20selected.md">Relação selecionada</a>.</li>
+<li>Para mais informações ver <a href="Node%20selected.md">Nó selecionado</a>, <a href="Way%20selected.md">Linha selecionada</a> and <a href="Relation%20selected.md">Relação selecionada</a>.</li>
 </ul>
 </li>
 <li>Toque duplo: ativar <a href="Multiselect.md">Modo Multi-seleção</a></li>
-<li>Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver <a href="Creating%20new%20objects.md">Criar novos objetos</a></li>
+<li>Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos(Creating%20new%20objects.md). Isto apenas é ativado se o  "Modo simples" estiver desativado.</li>
 </ul>
 <p>É uma boa ideia aproximar a visualização caso a área tenha muitos objetos.</p>
 <p>O Vespucci tem um bom sistema de "desfazer/refazer" por isso não tenha medo de fazer experiências de edição, mas por favor não envie essas experiências para o OpenStreetMap.</p>
@@ -529,10 +535,15 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <p>Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de novo o menu. Selecionando de novo o mesmo objeto irá mostrar o editor de etiquetas; selecionando outro objeto simplesmente seleciona o outro objeto.</p>
 <h4 id="objetos-selecionados-mover-um-no-ou-linha">Objetos selecionados: Mover um Nó ou Linha</h4>
 <p>Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. </p>
-<h4 id="adicionar-um-novo-noponto-ou-linha-toque-longo">Adicionar um novo Nó/Ponto ou Linha (toque longo)</h4>
-<p>Faça um toque longo no local onde quer o nó ou o início da linha. Irá ver o sinal mais. 
-<em> Se quiser criar um novo nó (não ligado a nenhum objeto), toque longe dos objetos existentes.
-</em> Se quiser prolongar uma linha, toque dentro da "zona de tolerância" da linha (ou no nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou linha.</p>
+<h4 id="adicionar-um-novo-no-ou-linha">Adicionar um novo Nó ou Linha</h4>
+<p>No primeiro arranque a app começa com o "Modo simples" ativado. Isto pode ser alterado no menu principal desativando essa opção.</p>
+<h5 id="modo-simples">Modo simples</h5>
+<p>Ao tocar no botão verde grande redondo no ecrã do mapa irá mostrar um menu. Após selecionar um dos itens do menu, será perguntando onde quer criar o objeto. O deslocamento e o aumento da visualização continuam a funcionar para ajustar a vista do mapa. </p>
+<p>Para mais informações ver [Criar novos objetos no modo de ações simples (Creating%20new%20objects%20in%20simple%20actions%20mode.md).</p>
+<h5 id="modo-avancado-premir-longo">Modo avançado (premir longo)</h5>
+<p>Prima por alguns segundos onde quer que o nó seja posicionado. Irá ver um símbolo da "cruz" negra. 
+<em> Se quiser criar um novo nó (não ligado a um objeto), clique longe deos objetos existentes.
+</em> Se quiser prolongar uma linha toque na "zona de tolerância" da linha (ou num nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou uma linha.</p>
 <p>Assim que veja um sinal mais, tem as seguintes opções:</p>
 <ul>
 <li>Toque no mesmo local.<ul>
@@ -543,7 +554,7 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>Toque noutro local (fora da zona de tolerância do sinal mais) adiciona um novo segmento à linha da posição original para a posição atual. Se o sinal mais estiver perto de uma linha ou nó, o novo segmento será ligado a esse nó ou linha.</li>
 </ul>
 <p>Simplesmente toque no ecrã onde quer adicionar mais nós na linha. Para terminar, toque no nó final 2 vezes. Se o nó final se encontrar numa linha ou nó existente, o segmento ficará ligado automaticamente à linha ou nó. </p>
-<p>Também pode usar o menu: ver <a href="/Creating%20new%20objects.md">Criar novos objetos</a> para mais informações.</p>
+<p>Também pode usar o item do menu: para mais informações veja <a href="Creating%20new%20objects.md">Criar novos objetos</a>.</p>
 <h4 id="adicionar-uma-area">Adicionar uma Área</h4>
 <p>O OpenStreetMap neste momento não tem um tipo de objeto definido como "área" ao contrário de outros sistemas de geo-dados. O editor "iD" tenta criar uma abstração de área a partir dos elementos OpenStreetMap subjacentes, o que funciona bem em algumas circunstâncias, mas não noutras. O Vespucci neste momento não faz isso, por isso necessita de saber um pouco como é que as áreas são representadas:</p>
 <ul>
@@ -622,10 +633,10 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <h4 id="verificar-entradas">Verificar entradas</h4>
 <p>A verificação de entradas tem as seguintes duas propriedades:</p>
 <ul>
-<li><strong>Chave</strong> - Chave que deve estar presente no objeto de acordo com o modelo correspondente.</li>
-<li><strong>Verificação opcional</strong> - Verifica as etiquetas opcionais do modelo correspondente.</li>
+<li><strong>Chave</strong> - Chave que deve estar presente no objeto de acordo com o modelo de etiquetas correspondente.</li>
+<li><strong>Exigir opcional</strong> - Exigir a chave mesmo que a chave esteja nas etiquetas opcionais do modelo de etiquetas correspondente.</li>
 </ul>
-<p>Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a <strong>Chave</strong> é uma chave "recomendada" kpara esse objeto de acordo com o modelo, <strong>Verificação opcional</strong> irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.</p>
+<p>Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a <strong>Chave</strong> é uma chave "recomendada" para esse objeto de acordo com o modelo, <strong>Exigir opcional</strong> irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.</p>
 <h2 id="filtros_1">Filtros</h2>
 <h3 id="filtro-baseado-em-etiquetas">Filtro baseado em etiquetas</h3>
 <p>O filtro pode ser ativado no menu principal, pode ser então alterado tocando no ícone de filtro. Para mais informações ver <a href="Tag%20filter.md">Filtro de Etiquetas</a>.</p>
@@ -649,7 +660,8 @@ Para mais informações veja <a href="Node%20selected.md">Nó selecionado</a>, <
 <li>Ver estatísticas. Mostra algumas informações no canto inferior esquerdo para depuração de erros do programa. Padrão: desativado (antigamente estava sempre ativado).  </li>
 </ul>
 <h2 id="reportar-problemas">Reportar Problemas</h2>
-<p>Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Repositório de erros do Vespucci</a>. Se quiser discutir algo relacionado com o Vespucci, pode abrir uma discussão no <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Grupo Google do Vespucci</a> ou no <a href="http://forum.openstreetmap.org/viewforum.php?id=56">fórum Android do OpenStreetMap</a></p></div>
+<p>Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Repositório de erros do Vespucci</a>. A função "Fornecer opinião" no menu principal irá abrir um novo relatório e incluir a informação relevante da app e do dispositivo sem ser necessário escrever essa informação.</p>
+<p>Se quiser discutir algo relacionado com o Vespucci, pode iniciar uma discussão no <a href="https://groups.google.com/forum/#!forum/osmeditor4android">grupo do Google Vespucci</a> ou o <a href="http://forum.openstreetmap.org/viewforum.php?id=56">fórum Android do OpenStreetMap</a></p></div>
                 
         </div>
 

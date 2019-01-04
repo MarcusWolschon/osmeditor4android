@@ -319,7 +319,7 @@ i-->
 </ul>
 </li>
 <li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>Es una buena estrategia acercar el mapa si intenta editar un área con alta densidad.</p>
 <p>Vespucci tiene un buen sistema «deshacer/rehacer» así que no tenga miedo de experimentar en su dispositivo, sin embargo no suba ni guarde los datos de prueba.</p>
@@ -333,10 +333,15 @@ i-->
 <p>Tenga en cuenta que para superponer objetos (como un nodo en un camino) el menú de selección vuelve a subir por segunda vez. Al seleccionar el mismo objeto, aparece el editor de etiquetas; seleccionar otro objeto simplemente selecciona el otro objeto.</p>
 <h4 id="objetos-seleccionados-moviendo-un-nodo-o-via">Objetos seleccionados: Moviendo un nodo o vía</h4>
 <p>Una vez que haya seleccionado un objeto, puede moverlo. Tenga en cuenta que los objetos sólo se pueden arrastrar/mover cuando se seleccionan. Simplemente arrastre cerca (es decir, dentro de su zona de tolerancia) el objeto seleccionado para moverlo. Si selecciona el área de arrastre grande en las preferencias, obtiene un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. </p>
-<h4 id="anadiendo-un-nuevo-nodopunto-o-via-pulsacion-larga">Añadiendo un nuevo nodo/punto o vía (pulsación larga)</h4>
-<p>Mantenga presionada la tecla donde quieras que esté el nodo o la forma de comenzar. Verás un símbolo negro de «cruz». 
-<em> Si desea crear un nuevo nodo (no conectado a un objeto), haga clic fuera de los objetos existentes.
-</em> Si desea extender un camino, haga clic dentro de la «zona de tolerancia» del camino (o de un nodo en el camino). La zona de tolerancia está indicada por las áreas alrededor de un nodo o camino.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Una vez pueda ver el símbolo de la cruz, tiene estas opciones:</p>
 <ul>
 <li>Toque en el mismo lugar.<ul>
@@ -347,7 +352,7 @@ i-->
 <li>Toque otro lugar. Al tocar otra ubicación (fuera de la zona de tolerancia de la cruz) se añade un segmento de camino desde la posición original a la posición actual. Si la cruz estaba cerca de un camino o nodo, el nuevo segmento se conectará a ese nodo o camino.</li>
 </ul>
 <p>Simplemente toque la pantalla donde desea agregar más nodos del camino. Para finalizar, toque el nodo final dos veces. Si el nodo final está ubicado en una ruta o nodo, el segmento se conectará automáticamente a la ruta o al nodo. </p>
-<p>You can also use a menu item: See <a href="/Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="anadiendo-un-area">Añadiendo un Área</h4>
 <p>Actualmente OpenStreetMap no tiene un objeto tipo "área" al contrario que otros sistemas de geo-datos. El editor en línea "iD" intenta crear una abstracción de área a partir de los elementos OSM subyacentes que funciona bien en algunas circunstancia y no tanto en otras. Actualmente Vespucci no intenta hacer nada similar, así que necesitará conocer un poco sobre la forma en que se representan las áreas.</p>
 <ul>
@@ -427,9 +432,9 @@ i-->
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtros">Filtros</h2>
 <h3 id="filtro-basado-en-etiqueta">Filtro basado en etiqueta</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -453,7 +458,8 @@ i-->
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="informar-de-problemas">Informar de problemas</h2>
-<p>Si Vespucci se bloquea o detecta un estado incoherente, se le pedirá que envíe el volcado. Por favor, hágalo si eso sucede, pero sólo una vez por situación específica, por favor. Si desea dar más información o abrir un problema para una solicitud de función o similar, hágalo aquí: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Rastreador de problemas de Vespucci</a>. Si desea analizar algo relacionado con Vespucci, puede iniciar una discusión en el <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Grupo de Vespucci de Google</a> o en el <a href="http://forum.openstreetmap.org/viewforum.php?id=56">Foro de Android de OpenStreetMap</a></p></div> -->
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -515,7 +521,7 @@ i-->
 </ul>
 </li>
 <li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>Es una buena estrategia acercar el mapa si intenta editar un área con alta densidad.</p>
 <p>Vespucci tiene un buen sistema «deshacer/rehacer» así que no tenga miedo de experimentar en su dispositivo, sin embargo no suba ni guarde los datos de prueba.</p>
@@ -529,10 +535,15 @@ i-->
 <p>Tenga en cuenta que para superponer objetos (como un nodo en un camino) el menú de selección vuelve a subir por segunda vez. Al seleccionar el mismo objeto, aparece el editor de etiquetas; seleccionar otro objeto simplemente selecciona el otro objeto.</p>
 <h4 id="objetos-seleccionados-moviendo-un-nodo-o-via">Objetos seleccionados: Moviendo un nodo o vía</h4>
 <p>Una vez que haya seleccionado un objeto, puede moverlo. Tenga en cuenta que los objetos sólo se pueden arrastrar/mover cuando se seleccionan. Simplemente arrastre cerca (es decir, dentro de su zona de tolerancia) el objeto seleccionado para moverlo. Si selecciona el área de arrastre grande en las preferencias, obtiene un área grande alrededor del nodo seleccionado que facilita la colocación del objeto. </p>
-<h4 id="anadiendo-un-nuevo-nodopunto-o-via-pulsacion-larga">Añadiendo un nuevo nodo/punto o vía (pulsación larga)</h4>
-<p>Mantenga presionada la tecla donde quieras que esté el nodo o la forma de comenzar. Verás un símbolo negro de «cruz». 
-<em> Si desea crear un nuevo nodo (no conectado a un objeto), haga clic fuera de los objetos existentes.
-</em> Si desea extender un camino, haga clic dentro de la «zona de tolerancia» del camino (o de un nodo en el camino). La zona de tolerancia está indicada por las áreas alrededor de un nodo o camino.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Una vez pueda ver el símbolo de la cruz, tiene estas opciones:</p>
 <ul>
 <li>Toque en el mismo lugar.<ul>
@@ -543,7 +554,7 @@ i-->
 <li>Toque otro lugar. Al tocar otra ubicación (fuera de la zona de tolerancia de la cruz) se añade un segmento de camino desde la posición original a la posición actual. Si la cruz estaba cerca de un camino o nodo, el nuevo segmento se conectará a ese nodo o camino.</li>
 </ul>
 <p>Simplemente toque la pantalla donde desea agregar más nodos del camino. Para finalizar, toque el nodo final dos veces. Si el nodo final está ubicado en una ruta o nodo, el segmento se conectará automáticamente a la ruta o al nodo. </p>
-<p>You can also use a menu item: See <a href="/Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="anadiendo-un-area">Añadiendo un Área</h4>
 <p>Actualmente OpenStreetMap no tiene un objeto tipo "área" al contrario que otros sistemas de geo-datos. El editor en línea "iD" intenta crear una abstracción de área a partir de los elementos OSM subyacentes que funciona bien en algunas circunstancia y no tanto en otras. Actualmente Vespucci no intenta hacer nada similar, así que necesitará conocer un poco sobre la forma en que se representan las áreas.</p>
 <ul>
@@ -623,9 +634,9 @@ i-->
 <p>Check entries have the following two properties:</p>
 <ul>
 <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-<li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtros">Filtros</h2>
 <h3 id="filtro-basado-en-etiqueta">Filtro basado en etiqueta</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -649,7 +660,8 @@ i-->
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="informar-de-problemas">Informar de problemas</h2>
-<p>Si Vespucci se bloquea o detecta un estado incoherente, se le pedirá que envíe el volcado. Por favor, hágalo si eso sucede, pero sólo una vez por situación específica, por favor. Si desea dar más información o abrir un problema para una solicitud de función o similar, hágalo aquí: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Rastreador de problemas de Vespucci</a>. Si desea analizar algo relacionado con Vespucci, puede iniciar una discusión en el <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Grupo de Vespucci de Google</a> o en el <a href="http://forum.openstreetmap.org/viewforum.php?id=56">Foro de Android de OpenStreetMap</a></p></div>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div>
                 
         </div>
 

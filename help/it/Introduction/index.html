@@ -310,15 +310,15 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <h4 id="tocco-singolo-doppio-tocco-pressione-prolungata">Tocco singolo, doppio tocco, pressione prolungata</h4>
 <p>Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:</p>
 <ul>
-<li>Tocco singolo: Seleziona oggetto. <ul>
-<li>Un nodo isolato o un percorso viene evidenziato immediatamente. </li>
-<li>Tuttavia, se tenti di selezionare un oggetto e Vespucci determina che la seleziona possa comprendere oggetti multipli presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. </li>
-<li>Gli oggetti selezionati sono evidenziati in giallo. </li>
-<li>Per maggiori informazioni vedi <a href="Node%20selected.md">Nodo selezionato</a>, <a href="Way%20selected.md">Percorso selezionato</a> e <a href="Relation%20selected.md">Relazione selezionata</a>.</li>
+<li>Tocco singolo: seleziona oggetto. <ul>
+<li>Un nodo isolato viene selezionato immediatamente. </li>
+<li>Tuttavia, se selezioni un oggetto e Vespucci ritiene che la selezione può comprendere più oggetto, presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. </li>
+<li>Seleziona gli oggetti evidenziati in giallo. </li>
+<li>Per maggiori informazioni vedi <a href="Node%20selected.md">Nodo selezionato</a>, <a href="Way%20selected.md">Strada selezionata</a> e <a href="Relation%20selected.md">Relazione selezionata</a>.</li>
 </ul>
 </li>
-<li>Doppio tocco: Apre <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Pressione prolungata: Crea un "mirino", che permette di aggiungere un nodo, vedere sotto e <a href="Creating%20new%20objects.md">Creare nuovi oggetti</a></li>
+<li>Doppio tocco: Apri <a href="Multiselect.md">modalità multiselezione</a></li>
+<li>Tocco prlungato: crea un "bersagio" che ti permette di aggiungere note, vedere sotto e <a href="Creating%20new%20objects.md">Creare nuovi oggetti</a>. Questo è abilitato se "Modalità semplice" p disattivata.</li>
 </ul>
 <p>Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.</p>
 <p>Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare con il tuo dispositivo, tuttavia sei pregato di non caricare sui server dati inventati di sana pianta.</p>
@@ -332,10 +332,15 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <p>Tieni presente che per gli oggetti sovrapposti (come per esempio un nodo su un percorso) il menù di selezione comparirà una seconda volta. Se selezioni lo stesso oggetto, ti verrà mostrato l’editor delle etichette; se ne selezioni un altro, esso verrà semplicemente selezionato.</p>
 <h4 id="oggetto-selezionato-spostare-un-nodo-o-una-linea">Oggetto selezionato: spostare un nodo o una linea</h4>
 <p>Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere trascinato/spostato solo dopo essere stato selezionato. Per spostarlo devi premere sull'oggetto selezionato e trascinare fino dove si desidera spostarlo. Dal menù opzioni è possibile ingrandire l'area di selezione che compare a fianco degli oggetti selezionati. </p>
-<h4 id="aggiungere-un-nuovo-nodo-o-una-linea-pressione-prolungata">Aggiungere un nuovo nodo o una linea (pressione prolungata)</h4>
-<p>Premi a lungo dove vuoi posizionare il nodo o che cominci il percorso. Vedrai un simbolo a forma di croce.
-<em> se vuoi creare un nuovo nodo (non connesso ad un altro oggetto), clicca lontano da oggetti esistenti.
-</em> se vuoi estendere un percorso, clicca all’interno della "zona di tolleranza" del percorso (o su un nodo del percorso). La zona di tolleranza è indicata dalle aree attorno ad un nodo o percorso.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Quando è visibile il simbolo a forma di croce, hai le seguenti opzioni:</p>
 <ul>
 <li>Premere nello stesso punto.<ul>
@@ -346,7 +351,7 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <li>Premere in un’altra zona. Premendo in un altro punto (al di fuori della zona di tolleranza della croce) si crea un segmento che parte dalla posizione della croce fino alla posizione corrente. Se la croce era vicina ad un nodo o un percorso, il nuovo segmento sarà connesso a quel nodo od a quel segmento.</li>
 </ul>
 <p>Premi semplicemente sullo schermo dove vuoi aggiungere altri nodi al percorso. Per completare, premi il nodo finale due volte. Se il nodo finale è su un nodo o percorso già esistenti, il segmento verrà automaticamente collegato a quel nodo o a quel percorso. </p>
-<p>You can also use a menu item: See <a href="/Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="aggiungere-unarea">Aggiungere un'area</h4>
 <p>Attualmente OpenStreetMap, a differenza di altri sistemi di dati geografici, non è provvisto di oggetti di tipo "area". L’editor online "iD" cerca di creare un modello di area utilizzando i sottostanti elementi di OSM che però non funziona sempre bene. Vespucci al momento non fa nulla di tutto ciò, quindi è necessario che tu sappia come i percorsi di tipo area sono rappresentati:</p>
 <ul>
@@ -425,10 +430,10 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <h4 id="verifica-elementi">Verifica elementi</h4>
 <p>La verifica degli elementi ha le seguenti proprietà:</p>
 <ul>
-<li><strong>Chiave</strong> - La chiave che dovrebbe essere presente nell’oggetto secondo la predefinito corrispondente.</li>
-<li><strong>Controllo opzionale</strong> - Verifica le etichette opzionali della predefinito corrispondente.</li>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>Questo controllo funziona prima determinando un predefinito corrispondente e poi verificando se la <strong>Chiave</strong> è una chiave “raccomandata” per questo oggetto secondo il predefinito, <strong>Controllo opzionale</strong> estende il controllo sull’oggetto alle etichette marcate come “opzionali”. Nota: i predefiniti attualmente collegati non sono controllati.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtri">Filtri</h2>
 <h3 id="filtro-dei-tag">Filtro dei tag</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -452,7 +457,8 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="segnalare-un-problema">Segnalare un problema</h2>
-<p>Se Vespucci smette di funzionare oppure rileva uno stato inconsistente, ti verrà chiesto se vuoi inviare i dati della memoria al momento in cui il programma si è interrotto. Sei pregato di farlo quando accade un problema, ma se possibile fallo solamente una volta per ogni situazione specifica. Se vuoi dare qualche spiegazione in più oppure vuoi richiedere una funzionalità mancante o qualcosa di simile, vai all’indirizzo <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Se vuoi parlare di argomenti inerenti Vespucci, puoi cominciare una discussione sul <a href="https://groups.google.com/forum/#!forum/osmeditor4android">gruppo Google di Vespucci</a> oppure nel <a href="http://forum.openstreetmap.org/viewforum.php?id=56">forum OpenStreetMap di Android</a></p></div> -->
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -505,15 +511,15 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <h4 id="tocco-singolo-doppio-tocco-pressione-prolungata">Tocco singolo, doppio tocco, pressione prolungata</h4>
 <p>Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:</p>
 <ul>
-<li>Tocco singolo: Seleziona oggetto. <ul>
-<li>Un nodo isolato o un percorso viene evidenziato immediatamente. </li>
-<li>Tuttavia, se tenti di selezionare un oggetto e Vespucci determina che la seleziona possa comprendere oggetti multipli presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. </li>
-<li>Gli oggetti selezionati sono evidenziati in giallo. </li>
-<li>Per maggiori informazioni vedi <a href="Node%20selected.md">Nodo selezionato</a>, <a href="Way%20selected.md">Percorso selezionato</a> e <a href="Relation%20selected.md">Relazione selezionata</a>.</li>
+<li>Tocco singolo: seleziona oggetto. <ul>
+<li>Un nodo isolato viene selezionato immediatamente. </li>
+<li>Tuttavia, se selezioni un oggetto e Vespucci ritiene che la selezione può comprendere più oggetto, presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. </li>
+<li>Seleziona gli oggetti evidenziati in giallo. </li>
+<li>Per maggiori informazioni vedi <a href="Node%20selected.md">Nodo selezionato</a>, <a href="Way%20selected.md">Strada selezionata</a> e <a href="Relation%20selected.md">Relazione selezionata</a>.</li>
 </ul>
 </li>
-<li>Doppio tocco: Apre <a href="Multiselect.md">Multiselect mode</a></li>
-<li>Pressione prolungata: Crea un "mirino", che permette di aggiungere un nodo, vedere sotto e <a href="Creating%20new%20objects.md">Creare nuovi oggetti</a></li>
+<li>Doppio tocco: Apri <a href="Multiselect.md">modalità multiselezione</a></li>
+<li>Tocco prlungato: crea un "bersagio" che ti permette di aggiungere note, vedere sotto e <a href="Creating%20new%20objects.md">Creare nuovi oggetti</a>. Questo è abilitato se "Modalità semplice" p disattivata.</li>
 </ul>
 <p>Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.</p>
 <p>Vespucci ha un buon sistema "annulla/ripeti" quindi non temere di sperimentare con il tuo dispositivo, tuttavia sei pregato di non caricare sui server dati inventati di sana pianta.</p>
@@ -527,10 +533,15 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <p>Tieni presente che per gli oggetti sovrapposti (come per esempio un nodo su un percorso) il menù di selezione comparirà una seconda volta. Se selezioni lo stesso oggetto, ti verrà mostrato l’editor delle etichette; se ne selezioni un altro, esso verrà semplicemente selezionato.</p>
 <h4 id="oggetto-selezionato-spostare-un-nodo-o-una-linea">Oggetto selezionato: spostare un nodo o una linea</h4>
 <p>Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere trascinato/spostato solo dopo essere stato selezionato. Per spostarlo devi premere sull'oggetto selezionato e trascinare fino dove si desidera spostarlo. Dal menù opzioni è possibile ingrandire l'area di selezione che compare a fianco degli oggetti selezionati. </p>
-<h4 id="aggiungere-un-nuovo-nodo-o-una-linea-pressione-prolungata">Aggiungere un nuovo nodo o una linea (pressione prolungata)</h4>
-<p>Premi a lungo dove vuoi posizionare il nodo o che cominci il percorso. Vedrai un simbolo a forma di croce.
-<em> se vuoi creare un nuovo nodo (non connesso ad un altro oggetto), clicca lontano da oggetti esistenti.
-</em> se vuoi estendere un percorso, clicca all’interno della "zona di tolleranza" del percorso (o su un nodo del percorso). La zona di tolleranza è indicata dalle aree attorno ad un nodo o percorso.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Quando è visibile il simbolo a forma di croce, hai le seguenti opzioni:</p>
 <ul>
 <li>Premere nello stesso punto.<ul>
@@ -541,7 +552,7 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <li>Premere in un’altra zona. Premendo in un altro punto (al di fuori della zona di tolleranza della croce) si crea un segmento che parte dalla posizione della croce fino alla posizione corrente. Se la croce era vicina ad un nodo o un percorso, il nuovo segmento sarà connesso a quel nodo od a quel segmento.</li>
 </ul>
 <p>Premi semplicemente sullo schermo dove vuoi aggiungere altri nodi al percorso. Per completare, premi il nodo finale due volte. Se il nodo finale è su un nodo o percorso già esistenti, il segmento verrà automaticamente collegato a quel nodo o a quel percorso. </p>
-<p>You can also use a menu item: See <a href="/Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="aggiungere-unarea">Aggiungere un'area</h4>
 <p>Attualmente OpenStreetMap, a differenza di altri sistemi di dati geografici, non è provvisto di oggetti di tipo "area". L’editor online "iD" cerca di creare un modello di area utilizzando i sottostanti elementi di OSM che però non funziona sempre bene. Vespucci al momento non fa nulla di tutto ciò, quindi è necessario che tu sappia come i percorsi di tipo area sono rappresentati:</p>
 <ul>
@@ -620,10 +631,10 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <h4 id="verifica-elementi">Verifica elementi</h4>
 <p>La verifica degli elementi ha le seguenti proprietà:</p>
 <ul>
-<li><strong>Chiave</strong> - La chiave che dovrebbe essere presente nell’oggetto secondo la predefinito corrispondente.</li>
-<li><strong>Controllo opzionale</strong> - Verifica le etichette opzionali della predefinito corrispondente.</li>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>Questo controllo funziona prima determinando un predefinito corrispondente e poi verificando se la <strong>Chiave</strong> è una chiave “raccomandata” per questo oggetto secondo il predefinito, <strong>Controllo opzionale</strong> estende il controllo sull’oggetto alle etichette marcate come “opzionali”. Nota: i predefiniti attualmente collegati non sono controllati.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtri">Filtri</h2>
 <h3 id="filtro-dei-tag">Filtro dei tag</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -647,7 +658,8 @@ Nota: anche se i dispositivi mobile hanno raggiunto la capacità dei rivali desk
 <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  </li>
 </ul>
 <h2 id="segnalare-un-problema">Segnalare un problema</h2>
-<p>Se Vespucci smette di funzionare oppure rileva uno stato inconsistente, ti verrà chiesto se vuoi inviare i dati della memoria al momento in cui il programma si è interrotto. Sei pregato di farlo quando accade un problema, ma se possibile fallo solamente una volta per ogni situazione specifica. Se vuoi dare qualche spiegazione in più oppure vuoi richiedere una funzionalità mancante o qualcosa di simile, vai all’indirizzo <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Se vuoi parlare di argomenti inerenti Vespucci, puoi cominciare una discussione sul <a href="https://groups.google.com/forum/#!forum/osmeditor4android">gruppo Google di Vespucci</a> oppure nel <a href="http://forum.openstreetmap.org/viewforum.php?id=56">forum OpenStreetMap di Android</a></p></div>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div>
                 
         </div>
 

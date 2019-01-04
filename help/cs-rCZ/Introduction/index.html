@@ -309,15 +309,15 @@ i-->
 <h4 id="jedno-klepnuti-dve-klepnuti-a-dlouhe-stisknuti">Jedno klepnutí, dvě klepnutí a dlouhé stisknutí</h4>
 <p>Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:</p>
 <ul>
-<li>Jedno klepnutí: Vybírá objekt. <ul>
-<li>Osamocený uzel/cesta je označena ihned. </li>
-<li>Nicméně pokud se pokusíte vybrat objekt a Vespucci uzná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. </li>
-<li>Zvolené objekty jsou zvýrazněny žlutě. </li>
-<li>Více informací viz <a href="Node%20selected.md">Zvolený uzel</a>, <a href="Way%20selected.md">Zvolená cesta</a> a <a href="Relation%20selected.md">Zvolená relace</a>.</li>
+<li>Single tap: Selects object. <ul>
+<li>An isolated node/way is highlighted immediately. </li>
+<li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. </li>
+<li>Selected objects are highlighted in yellow. </li>
+<li>For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</li>
 </ul>
 </li>
-<li>Dvě klepnutí: Zahájí <a href="Multiselect.md">Režim vícenásobného výběru</a></li>
-<li>Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a <a href="Creating%20new%20objects.md">Vytváření nových objektů</a></li>
+<li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.</p>
 <p>Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experimentovat s vaším zařízením, nicméně prosíme nenahrávejte a neukládejte čistě testovací data.</p>
@@ -331,10 +331,15 @@ i-->
 <p>Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.</p>
 <h4 id="zvolene-objekty-posun-uzlu-nebo-cesty">Zvolené objekty: Posun Uzlu nebo Cesty</h4>
 <p>Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. </p>
-<h4 id="pridani-noveho-uzlubodu-nebo-cesty-dlouhe-stisknuti">Přidání nového Uzlu/Bodu nebo Cesty (dlouhé stisknutí)</h4>
-<p>Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol "zaměřovače". 
-<em> Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty.
-</em> Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:</p>
 <ul>
 <li>Dotek na stejném místě. </li>
@@ -343,7 +348,7 @@ i-->
 <li>Dotkněte se jiného místa. Dotyk jiného místa (mimo toleranční zónu nitkového kříže) přidá další segment cesty od původní pozice k aktuální pozici. Pokud je nitkový kříž blízko cesty nebo uzlu, nový segment bude připojen k tomuto uzlu nebo cestě.</li>
 </ul>
 <p>Jednoduše klepněte na místo, kam chcete přidat další uzel cesty. Pro dokončení cesty klepněte na koncový uzel podruhé. Pokud se koncový uzel nachází na cestě nebo existujícím uzlu, tak se na ni vytvářený segment automaticky napojí. </p>
-<p>Můžete také použít položku nabídky: Viz <a href="/Creating%20new%20objects.md">Vytvoření nového objektu</a> pro víc informací.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="pridani-oblasti">Přidání oblasti</h4>
 <p>OpenStreetMap momentálně nemá typ objektu "oblast" na rozdíl od jiných geo-datových systémů. Editor online "iD" se pokouší vytvořit abstrakci od základních prvků OSM, která v některých případech funguje dobře, v jiných tolik ne. Vespucci se momentálně nepokouší dělat něco podobného, takže potřebujete vědět trochu o tom, jak jsou reprezentovány oblasti:</p>
 <ul>
@@ -422,10 +427,10 @@ i-->
 <h4 id="kontrola-polozek">Kontrola položek</h4>
 <p>Kontrolní položky mají následující dvě vlastnosti:</p>
 <ul>
-<li><strong>Klíč</strong> - Klíč, který by měl být přítomen na objektu podle příslušné předvolby.</li>
-<li><strong>Kontrola volitelných</strong> - Zkontrolujte volitelná označení odpovídajících předvoleb.</li>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>Tato kontrola funguje nejdříve při určování přednastavení a následném zkontrolování, zda <strong>Klíč</strong> je pro tento objekt "doporučen" podle předvoleb, <strong>Kontrola volitelných</strong> rozšiřuje kontrolu na značky, které jsou na objektu "volitelné". Upozornění: Aktuální přednastavené položky nejsou zaškrtnuty.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtry">Filtry</h2>
 <h3 id="filtr-na-zaklade-tagu">Filtr na základě tagů</h3>
 <p>Filtr lze aktivovat z hlavního menu, poté jej lze změnit klepnutím na ikonu filtru. Další dokumentaci naleznete zde <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -449,7 +454,8 @@ i-->
 <li>Zobrazit statistiky. Zobrazí některé statistiky pro ladění, které nejsou zrovna užitečné. Výchozí nastavení: vypnuto (používá se k zapnutí).  </li>
 </ul>
 <h2 id="nahlasovani-problemu">Nahlašování problémů</h2>
-<p>Pokud dojde k selhání Vespucci, nebo zjistí nekonzistentní stav, budete požádáni o odeslání výpisu havárie. Pokud tak učiníte, postupujte prosím, ale pouze jednou za konkrétní situaci. Chcete-li zadat další informace nebo otevřít problém pro požadavek na funkci nebo podobné, proveďte to prosím zde: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Chcete-li projednat něco souvisejícího s Vespucci, můžete buď zahájit diskusi o skupině <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google</a>, nebo ve fóru <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android</a></p></div> -->
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -501,15 +507,15 @@ i-->
 <h4 id="jedno-klepnuti-dve-klepnuti-a-dlouhe-stisknuti">Jedno klepnutí, dvě klepnutí a dlouhé stisknutí</h4>
 <p>Ve výchozím nastavení mají uzly a cesty, které lze zvolit, oranžově vyznačenou oblast do které musíte přibližně klepnout pro zvolení objektu. Existují tři možnosti:</p>
 <ul>
-<li>Jedno klepnutí: Vybírá objekt. <ul>
-<li>Osamocený uzel/cesta je označena ihned. </li>
-<li>Nicméně pokud se pokusíte vybrat objekt a Vespucci uzná, že je výběr nejednoznačný, zobrazí se nabídka s výběrem umožňující vybrat objekt, který jste si přáli zvolit. </li>
-<li>Zvolené objekty jsou zvýrazněny žlutě. </li>
-<li>Více informací viz <a href="Node%20selected.md">Zvolený uzel</a>, <a href="Way%20selected.md">Zvolená cesta</a> a <a href="Relation%20selected.md">Zvolená relace</a>.</li>
+<li>Single tap: Selects object. <ul>
+<li>An isolated node/way is highlighted immediately. </li>
+<li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. </li>
+<li>Selected objects are highlighted in yellow. </li>
+<li>For further information see <a href="Node%20selected.md">Node selected</a>, <a href="Way%20selected.md">Way selected</a> and <a href="Relation%20selected.md">Relation selected</a>.</li>
 </ul>
 </li>
-<li>Dvě klepnutí: Zahájí <a href="Multiselect.md">Režim vícenásobného výběru</a></li>
-<li>Dlouhé stisknutí: Vytvoří zaměřovač "+" umožňující přidat uzly, viz níže, a <a href="Creating%20new%20objects.md">Vytváření nových objektů</a></li>
+<li>Double tap: Start <a href="Multiselect.md">Multiselect mode</a></li>
+<li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.md">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>Vyplatí se přiblížit mapu, pokud plánujete upravovat v oblasti s vysokou hustotou.</p>
 <p>Vespucci má kvalitní systém "zpět/vpřed", takže se nemusíte bát experimentovat s vaším zařízením, nicméně prosíme nenahrávejte a neukládejte čistě testovací data.</p>
@@ -523,10 +529,15 @@ i-->
 <p>Všimněte si, že pro překrývající se objekty (např. uzel na cestě) se podruhé zobrazí menu s výběrem. Zvolení stejného objektu zobrazí editor tagů; zvolení jiného objektu jednoduše zvolí daný objekt.</p>
 <h4 id="zvolene-objekty-posun-uzlu-nebo-cesty">Zvolené objekty: Posun Uzlu nebo Cesty</h4>
 <p>Zvolené objekty můžete posouvat. Všimněte si, že objekty lze přetahovat/posouvat pouze pokud jsou zvolené. Jednoduše uchopte vybraný objekt (v oblasti tolerance) a posuňte jej. V nastavení můžete zvolit Větší oblast pro výběr uzlu, díky které je snazší objekt uchopit a umístit. </p>
-<h4 id="pridani-noveho-uzlubodu-nebo-cesty-dlouhe-stisknuti">Přidání nového Uzlu/Bodu nebo Cesty (dlouhé stisknutí)</h4>
-<p>Dlouze stiskněte na místo, kde chcete vytvořit uzel nebo počátek cesty. Zobrazí se černý symbol "zaměřovače". 
-<em> Pokud chcete vytvořit nový uzel (nenapojený na objekt), klikněte mimo existující objekty.
-</em> Pokud chcete rozšířit cestu, klikněte do oblasti tolerance výběru cesty (nebo uzlu cesty). Tolerance výběru je vyznačena oranžovou oblastí okolo uzlu nebo cesty.</p>
+<h4 id="adding-a-new-nodepoint-or-way">Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5 id="simple-mode">Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.md">Creating new objects in simple actions mode</a> for more information.</p>
+<h5 id="advanced-long-press-mode">Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+<em> If you want to create a new node (not connected to an object), click away from existing objects.
+</em> If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Jakmile se zobrazí symbol zaměřovače, máte tři možnosti:</p>
 <ul>
 <li>Dotek na stejném místě. </li>
@@ -535,7 +546,7 @@ i-->
 <li>Dotkněte se jiného místa. Dotyk jiného místa (mimo toleranční zónu nitkového kříže) přidá další segment cesty od původní pozice k aktuální pozici. Pokud je nitkový kříž blízko cesty nebo uzlu, nový segment bude připojen k tomuto uzlu nebo cestě.</li>
 </ul>
 <p>Jednoduše klepněte na místo, kam chcete přidat další uzel cesty. Pro dokončení cesty klepněte na koncový uzel podruhé. Pokud se koncový uzel nachází na cestě nebo existujícím uzlu, tak se na ni vytvářený segment automaticky napojí. </p>
-<p>Můžete také použít položku nabídky: Viz <a href="/Creating%20new%20objects.md">Vytvoření nového objektu</a> pro víc informací.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.md">Creating new objects</a> for more information.</p>
 <h4 id="pridani-oblasti">Přidání oblasti</h4>
 <p>OpenStreetMap momentálně nemá typ objektu "oblast" na rozdíl od jiných geo-datových systémů. Editor online "iD" se pokouší vytvořit abstrakci od základních prvků OSM, která v některých případech funguje dobře, v jiných tolik ne. Vespucci se momentálně nepokouší dělat něco podobného, takže potřebujete vědět trochu o tom, jak jsou reprezentovány oblasti:</p>
 <ul>
@@ -614,10 +625,10 @@ i-->
 <h4 id="kontrola-polozek">Kontrola položek</h4>
 <p>Kontrolní položky mají následující dvě vlastnosti:</p>
 <ul>
-<li><strong>Klíč</strong> - Klíč, který by měl být přítomen na objektu podle příslušné předvolby.</li>
-<li><strong>Kontrola volitelných</strong> - Zkontrolujte volitelná označení odpovídajících předvoleb.</li>
+<li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+<li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>Tato kontrola funguje nejdříve při určování přednastavení a následném zkontrolování, zda <strong>Klíč</strong> je pro tento objekt "doporučen" podle předvoleb, <strong>Kontrola volitelných</strong> rozšiřuje kontrolu na značky, které jsou na objektu "volitelné". Upozornění: Aktuální přednastavené položky nejsou zaškrtnuty.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2 id="filtry">Filtry</h2>
 <h3 id="filtr-na-zaklade-tagu">Filtr na základě tagů</h3>
 <p>Filtr lze aktivovat z hlavního menu, poté jej lze změnit klepnutím na ikonu filtru. Další dokumentaci naleznete zde <a href="Tag%20filter.md">Tag filter</a>.</p>
@@ -641,7 +652,8 @@ i-->
 <li>Zobrazit statistiky. Zobrazí některé statistiky pro ladění, které nejsou zrovna užitečné. Výchozí nastavení: vypnuto (používá se k zapnutí).  </li>
 </ul>
 <h2 id="nahlasovani-problemu">Nahlašování problémů</h2>
-<p>Pokud dojde k selhání Vespucci, nebo zjistí nekonzistentní stav, budete požádáni o odeslání výpisu havárie. Pokud tak učiníte, postupujte prosím, ale pouze jednou za konkrétní situaci. Chcete-li zadat další informace nebo otevřít problém pro požadavek na funkci nebo podobné, proveďte to prosím zde: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Chcete-li projednat něco souvisejícího s Vespucci, můžete buď zahájit diskusi o skupině <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google</a>, nebo ve fóru <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android</a></p></div>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p></div>
                 
         </div>
 
