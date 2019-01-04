@@ -53,7 +53,7 @@ De xeito predeterminado, os nós e as vías seleccionábeis teñen unha área la
     * Selected objects are highlighted in yellow. 
     * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
 * Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
 
 É unha boa estratexia achega-lo mapa se tenta editar unha área con alta densidade.
 
@@ -79,11 +79,21 @@ Teña en conta que para sobreponer obxectos (coma un nó nunha vía) o menú de 
 
 Despois de seleccionar un obxecto, pode moverse. Teña en conta que os obxectos poden ser arrastrados/movidos só cando están seleccionados. Sinxelamente arrastre preto (isto é, dentro da zona de tolerancia) o obxecto seleccionado para movelo. Se escolle a área de arrastre grande nos axustes, obtén unha grande área ó redor do nó escollido que facilita a posicionamento do obxecto. 
 
-#### Engadir un novo Nó/Punto ou Vía (premido longo)
+#### Adding a new Node/Point or Way 
 
-Manteña premido onde quere que o nó sexa ou o xeito de comezar. Verás un símbolo de "cruzamento" negro. 
-*Se desexa crear un novo nó (non conectado a un obxecto), prema fóra de obxectos existentes.
-* Se desexa estender un camiño, prema dentro da "zona de tolerancia" do camiño (ou dun nó no camiño). A zona de tolerancia está indicada polas áreas ó redor dun nó ou camiño.
+On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+
+##### Simple mode
+
+Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+
+See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+
+##### Advanced (long press) mode
+ 
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Unha vez que podes ver o símbolo da mira, tes estas opcións:
 
@@ -94,7 +104,7 @@ Unha vez que podes ver o símbolo da mira, tes estas opcións:
 
 Sinxelamente prema a pantalla onde desexa engadir máis nó do camiño. Para rematar, prema no nó derradeiro dúas veces. Se o nó derradeiro está situado nunha vía ou nó, o segmento ficará conectado de xeito automático ó camiño ou ó nó. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
 #### Estase a engadir unha área
 
@@ -216,9 +226,9 @@ Re-survey entries have the following properties:
 Check entries have the following two properties:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Filtros
 
@@ -250,6 +260,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Informar de problemas
 
-Se o Vespucci falla ou detecta un estado inconsistente, pediráselle que o envíe ó garete. Faga isto se isto ocorre, pero por favor só unha vez por situación específica. Se desexa dar máis información ou abrir un problema para unha solicitude de funcións ou similar, faga isto velaquí: [Rastrexador dos problemas do Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). Se desexa analizar algo relacionado co Vespucci, pode comezar unha parola no [Grupo de Vespucci do Google](https://groups.google.com/forum/#!forum/osmeditor4android) ou no [Foro de Android do Vespucci](http://forum.openstreetmap.org/viewforum.php?id=56)
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

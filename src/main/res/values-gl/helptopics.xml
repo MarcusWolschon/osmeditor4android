@@ -32,6 +32,7 @@
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
+        <item>@string/help_simple_actions</item>
         <item>@string/help_propertyeditor</item>
         <item>@string/help_nodeselection</item>
     	<item>@string/help_wayselection</item>
@@ -48,8 +49,10 @@
     	<item>@string/help_tagfilter</item>
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
+        <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_112</item>
         <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
@@ -65,6 +68,7 @@
     <array translatable="false" name="help_files">
         <item>Introduction</item>
         <item>Main map display</item>
+        <item>Simple actions</item>
         <item>Property editor</item>
         <item>Node selected</item>
     	<item>Way selected</item>
@@ -81,7 +85,9 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>

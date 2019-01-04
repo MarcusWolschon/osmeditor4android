@@ -39,16 +39,16 @@
 <h4>シングルタップ・ダブルタップ・長押し</h4>
 <p>デフォルトで、選択可能なノードとウェイの周りにはオレンジの領域があり、オブジェクトを選択するのにタッチすべき場所をおおよそ示しています。3つの選択肢があります：</p>
 <ul>
-  <li>シングルタップ: オブジェクトを選択します。
+  <li>Single tap: Selects object.
     <ul>
-      <li>孤立したノード/ウェイが即座にハイライトされます。</li>
-      <li>しかしながら、あなたがオブジェクトをタッチした際にVespucciがその選択対象が複数あると判断した場合には、選択メニューを表示して目的のオブジェクトを選べるようにします。</li>
-      <li>選択されたオブジェクトは黄色でハイライトされます。</li>
-      <li>詳細は <a href="Node%20selected.html">Node selected</a>、 <a href="Way%20selected.html">Way selected</a> および <a href="Relation%20selected.html">Relation selected</a>を参照。</li>
+      <li>An isolated node/way is highlighted immediately.</li>
+      <li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select.</li>
+      <li>Selected objects are highlighted in yellow.</li>
+      <li>For further information see <a href="Node%20selected.html">Node selected</a>, <a href="Way%20selected.html">Way selected</a> and <a href="Relation%20selected.html">Relation selected</a>.</li>
     </ul>
   </li>
-  <li>ダブルタップ: <a href="Multiselect.html">Multiselect mode</a>が始まります。</li>
-  <li>長押し: 「十字型」が現れ、ノードを追加することができます。下記および <a href="Creating%20new%20objects.html">Creating new objects</a>を参照。</li>
+  <li>Double tap: Start <a href="Multiselect.html">Multiselect mode</a></li>
+  <li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.html">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>マッピング密度の高い領域を編集する際にはズームインしてからやると良いでしょう。</p>
 <p>Vespucciには良い「取り消し/やり直し」システムがあるので自分の端末装置上で気軽に試してください。ただしテストのためだけのデータをアップロードしたりはしないでください。</p>
@@ -62,8 +62,13 @@
 <p>オーバーラップしたオブジェクト(ウェイ上のノードなど)に対しては選択メニューは2回目に現れることに注意してください。同じオブジェクトを選択するとタグエディタが現れます；別のオブジェクトを選択すると単純に他のオブジェクトを選択します。</p>
 <h4>選択したオブジェクト: ノードやウェイを移動する</h4>
 <p>いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(反応域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 </p>
-<h4>新規ノード/ポイントやウェイを追加する(長押し)</h4>
-<p>ノードまたはウェイを描き始めたいときは長押ししてください。黒い「十字」型のシンボルが現れます。 * (オブジェクトに接続していない)新しいノードを作成する場合には、既存オブジェクトから離れたところをクリックします。 * ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「反応域ゾーン」内をクリックします。反応域ゾーンはノードまたはウェイの周りの領域に示されています。</p>
+<h4>Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5>Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.html">Creating new objects in simple actions mode</a> for more information.</p>
+<h5>Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. * If you want to create a new node (not connected to an object), click away from existing objects. * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>十字のシンボルが現れたら次のような選択肢があります：</p>
 <ul>
   <li>同じ場所でタッチ。
@@ -75,7 +80,7 @@
   <li>別の場所をタッチ。別の位置(十字の反応域外)をタッチすると元の位置から現在の位置まで、ウェイのセグメントを追加します。十字がウェイやノードの近くなら、新しいセグメントはそのノードやウェイに接続します。</li>
 </ul>
 <p>ウェイにノードをもっと追加したい場合は単純にスクリーンにタッチしてください。終える際には、最後のノードに2回タッチします。最後のノードがウェイやノード上にある場合、そのセグメントはそのウェイまたはノードに自動的に接続します。 </p>
-<p>メニュー項目を使うこともできます：詳細は<a href="/Creating%20new%20objects.html">Creating new objects</a> を参照。</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.html">Creating new objects</a> for more information.</p>
 <h4>エリアを追加する</h4>
 <p>OpenStreetMap は他の地理データのシステムとは異なり、現在「エリア」オブジェクトという種類がありません。オンライエディタの「iD」はOSMのエレメントを元にエリアの概念を持ち込もうとしていますが、環境によりうまくいく場合とそうでない場合があります。Vespucci は現在このような試みは行っていないため、あなたはエリアの表現方法について、少し知っておく必要があります：</p>
 <ul>
@@ -155,9 +160,9 @@
 <p>Check entries have the following two properties:</p>
 <ul>
   <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
-  <li><strong>Check optional</strong> - Check the optional tags of the matching preset.</li>
+  <li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>This check works be first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Check optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2>フィルター</h2>
 <h3>タグベースのフィルター</h3>
 <p>The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here <a href="Tag%20filter.html">Tag filter</a>.</p>
@@ -181,6 +186,7 @@
   <li>Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).</li>
 </ul>
 <h2>Reporting Problems</h2>
-<p>Vespucci がクラッシュしたり不整合な状態を検知した場合、クラッシュダンプを送信するかどうか尋ねられます。そのようなことが発生したらぜひそうしてほしいのですが、ある状況について一度だけにしてください。より詳細な情報を伝えたり、機能リクエストなどのイシューを上げたい場合は、こちらでお願いします： <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>。もしIf you want to discuss something related to Vespucciに関することを何か議論したければ、 <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> あるいは <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a>上で議論を始めることができます。</p>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
 </body>
 </html>

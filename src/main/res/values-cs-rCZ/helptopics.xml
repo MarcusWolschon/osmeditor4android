@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Úvod</string>
     <string name="help_main">Hlavní obrazovka s mapou</string>
+    <string name="help_simple_actions">Jednoduché akce</string>
     <string name="help_addrelationmember">Relace vybrána</string>
     <string name="help_multiselect">Vícenásobný výběr</string>
     <string name="help_longclick">Vytváření nových objektů</string>
@@ -20,8 +21,10 @@
     <string name="help_tagfilter">Filtr tagů</string>
     <string name="help_presetfilter">Předvolba filtru</string>
     <string name="help_opening_hours">Otevírací hodiny</string>
+    <string name="help_newnoteselection">Nová poznámka vybrána</string>
     <string name="help_voice_commands">Hlasové povely</string>
     <string name="help_upgrade">Poznámky k vydání</string>
+    <string name="help_upgrade_112">11.2 Poznámky k vydání</string>
     <string name="help_upgrade_111">11.1 Poznámky k vydání</string>
     <string name="help_upgrade_110">11.0 Poznámky k vydání</string>
     <string name="help_upgrade_102">10.2 Poznámky k vydání</string>
@@ -35,6 +38,7 @@
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>
+        <item>@string/help_simple_actions</item>
         <item>@string/help_propertyeditor</item>
         <item>@string/help_nodeselection</item>
     	<item>@string/help_wayselection</item>
@@ -51,8 +55,10 @@
     	<item>@string/help_tagfilter</item>
     	<item>@string/help_presetfilter</item>
     	<item>@string/help_opening_hours</item>
+        <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_112</item>
         <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
         <item>@string/help_upgrade_102</item>
@@ -68,6 +74,7 @@
     <array translatable="false" name="help_files">
         <item>Introduction</item>
         <item>Main map display</item>
+        <item>Simple actions</item>
         <item>Property editor</item>
         <item>Node selected</item>
     	<item>Way selected</item>
@@ -84,7 +91,9 @@
     	<item>Tag filter</item>
     	<item>Preset filter</item>
     	<item>Opening hours</item>
+        <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>
         <item>11.0.0 Release notes</item>

@@ -4,25 +4,12 @@
   <string name="mode_indoor">Indendørs</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Advarsel!</string>
-  <string name="transfer_download_current_dialog_message">Du har lavet ændringer. Vil du uploade dem i stedet for at afbryde?</string>
   <string name="transfer_download_current_upload">Upload</string>
   <string name="transfer_download_current_download">Afbryd &amp; download</string>
-  <string name="transfer_download_current_back">Gå tilbage (gør intet)</string>
-  <string name="upload_problem_title">Problem Med Upload</string>
   <string name="upload_conflict_title">Upload konflikt</string>
   <string name="use_local_version">Brug lokal version</string>
   <string name="use_server_version">Brug version på server</string>
-  <string name="no_connection_title">Ingen forbindelse til serveren</string>
-  <string name="no_connection_message">Kunne ikke forbinde til OSM-Serveren. Check din internet forbindelse eller prøv igen senere.</string>
   <string name="go_to_openstreetmap">Gå til openstreetmap.org</string>
-  <string name="data_conflict_title">Versions konflikt</string>
-  <string name="api_offline_title">API offline</string>
-  <string name="api_offline_message">API er i øjeblikket offline, og tillader ikke data bliver hentet eller skrevet.</string>
-  <string name="out_of_memory_title">Ikke mere hukommelse</string>
-  <string name="welcome_title">Velkommen!</string>
-  <string name="read_introduction">Læs introduktionen nu</string>
-  <string name="upgrade_title">Velkommen til en ny version af Vespucci!</string>
-  <string name="upgrade_message">Dette er en ny version af Vespucci med nye funktioner og opførsel. Det vil være bedst hurtigt at læse opgraderings oplysninger på enheden.</string>
   <string name="read_upgrade">Læs om den nye version</string>
   <string name="progress_title">Læser</string>
   <string name="progress_message">Læser ind i memory…</string>
@@ -34,20 +21,12 @@
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Synlighed</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Ny note</string>
-  <string name="openstreetbug_new_bug">Rapporter problem</string>
   <string name="openstreetbug_bug_title">Problem</string>
-  <string name="openstreetbug_new_nodeway">Opret Knude/Vej</string>
-  <string name="openstreetbug_edit_title">Ret note</string>
-  <string name="openstreetbug_commitbutton">Commit</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <string name="openstreetbug_edit_close">Luk</string>
-  <string name="openstreetbug_edit_closed">Lukket</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Bemærk!</string>
-  <string name="unsaved_data_message">Du har ugemte ændringer, som mistes, hvis du fortsætter.</string>
   <string name="unsaved_data_proceed">Kassér &amp; fortsæt</string>
-  <string name="imagery_offset_title">Billede forskydning</string>
+  <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Beskrivelse</string>
   <string name="imagery_offset_not_found">Ingen forskydninger fundet i 10 km radius!</string>
   <string name="imagery_offset_author">Forfatter</string>
@@ -55,53 +34,45 @@
   <string name="imagery_offset_date">Oprettet</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Afstand</string>
+  <!--Search/Find dialog-->
   <string name="search_results_title">Søgeresultater</string>
   <string name="find_message">Indtast søgetekst</string>
+  <!---->
   <string name="search">Søg</string>
   <!--element information dialog-->
-  <string name="id">Id</string>
   <string name="problem">Problem</string>
   <string name="members">Medlemmer</string>
   <string name="closed">Lukket</string>
   <string name="version">Version</string>
   <string name="length_m">Længde (m)</string>
-  <string name="empty_role">tom rolle</string>
-  <string name="last_updated">sidst opdateret</string>
   <string name="last_edited">Senest rettet</string>
   <!--GeoJSON feature display dialog-->
   <!---->
-  <string name="error">fejl</string>
-  <string name="warning">advarsel</string>
   <!--hidden object warning dialog-->
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
-  <string name="toast_upload_success">Upload til OSM server er afsluttet.</string>
-  <string name="toast_not_in_edit_range">Zoom ind for at rette (Volume Up/Down eller Lens/Shift)</string>
-  <string name="toast_save_done">Gemning lykkedes</string>
-  <string name="toast_not_in_bug_range">Zoom venligst ind for at tilføje en bug (Volume Op/Ned eller Lens/Shift)</string>
-  <string name="toast_export_failed">Eksport mislykkedes</string>
   <string name="toast_export_success">Eksporteret til %1$s</string>
-  <string name="toast_noname">Vej mangler navn eller ref</string>
-  <string name="toast_notype">Relation mangler type</string>
   <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
   <string name="toast_nothing_found">Intet fundet</string>
   <string name="toast_file_not_found">%1$s ikke fundet.</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
-  <string name="okay">OK</string>
   <string name="cancel">Annulér</string>
   <string name="locked">Låst</string>
   <string name="next">Næste</string>
@@ -113,6 +84,7 @@
   <string name="enable">Aktiver</string>
   <string name="clear">Nulstil</string>
   <string name="retry">Prøv igen</string>
+  <!--Read a file-->
   <string name="read">Læs</string>
   <string name="overwrite">Overskriv</string>
   <string name="share">Del</string>
@@ -125,9 +97,7 @@
   <string name="Value">Værdi</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Tilføj adresse tags</string>
-  <string name="tag_menu_repeat">Gentag tags</string>
   <string name="tag_menu_revert">Tilbagefør</string>
-  <string name="tag_menu_mapfeatures">Map Features Wiki</string>
   <string name="tag_menu_addtorelation">Tilføj til relation</string>
   <string name="tag_details">Detaljer</string>
   <string name="tag_menu_move_up">Flyt op</string>
@@ -146,25 +116,19 @@
   <string name="tag_restriction_add_simple_condition">Tilføj simpel betingelse</string>
   <string name="tag_restriction_add_expression">Tilføj udtryk</string>
   <string name="tag_restriction_add_opening_hours">Tilføj åbningstider</string>
-  <string name="tag_restriction_value_hint">betinget begrænsning</string>
   <!--Strings in Box/LocationPicker-->
-  <string name="location_headline">Indlæs område</string>
   <string name="location_choose_radius">Vælg radius:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Sidst kendte position:</string>
   <string name="location_current_text">Nuværende position:</string>
-  <string name="location_text_unknown">ukendt</string>
   <string name="location_last_text_parameterized">Sidste kendte position: %1$s</string>
   <string name="location_current_text_parameterized">Nuværende position: %1$s</string>
   <string name="location_text_metadata_accuracy">Nøjagtighed %1$2.0f meter,</string>
-  <string name="location_map_text">Fra kort:</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Søg:</string>
   <string name="location_load_dismiss">Gå til kort</string>
-  <string name="location_nan_title">Forkert Input!</string>
-  <string name="location_nan_message">Indtast koordinater med decimaler (f.eks. \"52.333572\",\"8.741185\"). Lat skal være mellem -85.0 og +85.0, og Lon skal være mellem -175.0 og +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Flyt</string>
   <string name="menu_edit">Ret</string>
@@ -179,103 +143,61 @@
   <string name="menu_edit_relation">Ret relation</string>
   <string name="menu_add_relation_member">Tilføj medlem</string>
   <string name="menu_tag">Ret tags</string>
-  <string name="menu_openstreetbug">Tilføj note</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Kamera</string>
-  <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis lokalitet</string>
-  <string name="menu_gps_start">Start GPS spor</string>
-  <string name="menu_gps_pause">Pause GPS spor</string>
-  <string name="menu_gps_goto_start">Gå til start af spor</string>
   <string name="menu_gps_autodownload">Auto download</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Download nuværende udsnit</string>
   <string name="menu_transfer_upload">Upload data til OSM server</string>
-  <string name="menu_transfer_file">Filer...</string>
   <string name="menu_transfer_export">Eksporter ændringer til OSC fil</string>
-  <string name="menu_transfer_read_file">Læs fra JOSM fil...</string>
-  <string name="menu_transfer_save_file">Gem til JOSM fil...</string>
-  <string name="menu_transfer_bugs">Noter/Fejl...</string>
   <string name="menu_transfer_bugs_upload">Upload alt</string>
-  <string name="menu_transfer_bugs_upload_long">Upload alle fejl</string>
   <string name="menu_transfer_bugs_clear">Nulstil</string>
-  <string name="menu_transfer_save_notes_all">Gem alle noter...</string>
-  <string name="menu_save">Gem til en fil</string>
   <string name="menu_join">Sammenlæg</string>
   <string name="menu_unjoin">Adskil</string>
   <string name="menu_rotate">Rotér</string>
-  <string name="menu_orthogonalize">Ortogonaliser</string>
   <string name="menu_information">Info</string>
   <!---->
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Nulstil</string>
+  <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historie</string>
   <string name="menu_merge">Sammenlæg</string>
   <string name="menu_reverse">Vend om</string>
-  <string name="deleteway_wayonly">Slet kun vej</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vej valgt</string>
   <string name="actionmode_nodeselect">Knude valgt</string>
   <string name="actionmode_relationselect">Relation valgt</string>
   <string name="actionmode_createpath">Opretter sti</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_one_object">1 objekt</string>
-  <string name="actionmode_object_count">%1$d objekter</string>
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kortbaggrund</string>
   <string name="config_advancedprefs">Avancerede indstillinger</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
-  <string name="config_licensebutton_title">Forfattere og licenser</string>
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_iconbutton_title">Vis knude-ikoner</string>
   <string name="config_showTolerance_title">Vis tolerance</string>
-  <string name="config_showTolerance_summary">Viser et område, hvor et element kan vælges.</string>
-  <string name="config_enableAntiAliasing_title">Vælg Anti-Aliasing</string>
   <string name="config_maxStrokeWidth_title">Max linjebredde</string>
-  <string name="config_maxStrokeWidth_summary">Tegn ikke en vej tykkere end dette</string>
   <!--Data and Editing Settings-->
-  <string name="config_forceContextMenu_title">Brug altid kontekst-menu</string>
   <string name="config_extTriggeredDownloadRadius_title">Download radius</string>
-  <string name="config_bugFilter_title">Filter for noter/fejl</string>
   <!--Location Settings-->
-  <string name="config_gps_source_title">GPS kilde</string>
-  <string name="config_gps_source_summary">Kilde for opdateringer af GPS placering</string>
   <string name="config_gps_source_tcp_title">NMEA netværks kilde</string>
-  <string name="config_gps_interval_title">Mindste GPS-interval</string>
-  <string name="config_gps_interval_summary">Mindste tidsinterval for GPS-målinger, i millisekunder. Lavere værdi giver kortere batteritid.</string>
-  <string name="config_gps_distance_title">Mindste GPS-afstand</string>
-  <string name="config_gps_distance_summary">Mindste afstand mellem GPS-målinger, i meter (med komma). Lavere værdi giver kortere batteritid.</string>
-  <string name="config_leaveGpsDisabled_title">Lad GPS være deaktiveret</string>
-  <string name="config_leaveGpsDisabled_summary">Spørg ikke brugeren om at tænde GPS, hvis den er deaktiveret</string>
   <!--Server Settings-->
-  <string name="config_category_server">Server Indstillinger</string>
   <string name="config_apibutton_title">OSM API URL</string>
-  <string name="config_apibutton_summary">Du kan angive en ikke-standard API URL her. Bør normalt ikke ændres!</string>
   <string name="config_loginbutton_title">Brugerkonto</string>
-  <string name="config_osmoseServer_title">OSMOSE server</string>
-  <string name="config_osmoseServer_summary">URL for osmose server</string>
   <!--Layer download and storage-->
   <string name="config_tileCacheSize_title">Tern cache størrelse</string>
-  <string name="config_tileCacheSize_summary">Total størrelse på tern cache i MB</string>
   <!--Miscellaneous-->
-  <string name="pref_enable_acra">Rapporter applikations-crash</string>
-  <string name="pref_acra_enabled">Crash-rapportering er slået til</string>
-  <string name="pref_acra_disabled">Crash-rapportering er slået fra</string>
   <string name="config_showStats_title">Vis statistik</string>
-  <string name="config_showStats_summary">Viser datastatistik og billeder/sec i nederste vensdtre hjørne.</string>
   <!--Experimental-->
   <!---->
   <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">Brug oauth</string>
-  <string name="listedit_enable_oauth">Aktiver oauth</string>
-  <string name="config_username_title">OSM Username</string>
-  <string name="config_password_title">OSM Password</string>
-  <string name="config_password_summary">Forveksel ikke dette med Wiki password\'et. Husk: Det bliver gemt og sendt som læsbar tekst!</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" slettet</string>
@@ -293,9 +215,8 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <!---->
-  <string name="api_name">API navn</string>
   <string name="api_url">API URL</string>
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
   <string name="undo">Fortryd</string>
   <string name="redo">Gentag</string>
@@ -305,48 +226,15 @@
   <string name="address_housenumber">Adresse %1$s</string>
   <string name="address_housenumber_street">Adresse %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">flyt knude</string>
-  <string name="undo_action_moveway">flyt vej</string>
-  <string name="undo_action_moveobjects">flyt objekter</string>
-  <string name="undo_action_add">indsæt</string>
-  <string name="undo_action_append">tilføj</string>
-  <string name="undo_action_deletenode">slet knude</string>
-  <string name="undo_action_deleteway">slet vej</string>
-  <string name="undo_action_delete_objects">slet objekter</string>
-  <string name="undo_action_split_ways">opdel veje</string>
-  <string name="undo_action_split_way">opdel vej</string>
-  <string name="undo_action_merge_ways">flet veje</string>
-  <string name="undo_action_reverse_way">vend vej om</string>
-  <string name="undo_action_set_tags">sæt tags</string>
-  <string name="undo_action_join">sammenlæg</string>
-  <string name="undo_action_unjoin_ways">adskil veje</string>
-  <string name="undo_action_create_relation">opret relation</string>
-  <string name="undo_action_delete_relation">slet relation</string>
-  <string name="undo_action_update_relations">updater relationer</string>
-  <string name="undo_action_cut">klip</string>
-  <string name="undo_action_paste">indsæt</string>
-  <string name="undo_action_fix_conflict">ret konflikt</string>
   <!--ACRA-->
-  <string name="crash_dialog_text">Vespucci stoppede eller fandt et alvorligt problem sidste gang det kørte.\n\nHjælp os ved at sende en fejlrapport, alt hvad du skal gøre er at klikke på \'OK\'.\n</string>
-  <string name="crash_dialog_comment_prompt">Tilføj yderligere oplysninger, som du tror kan hjælpe og (valgfrit) din e-mail-adresse, hvis du vil have tilbagemelding.\n\nTak!</string>
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="alert_distance_direction">i %1$d m %2$s</string>
-  <string name="bearing_ne">NØ</string>
-  <string name="bearing_e">Ø</string>
-  <string name="bearing_se">SØ</string>
-  <string name="bearing_s">S</string>
-  <string name="bearing_sw">SV</string>
-  <string name="bearing_w">V</string>
-  <string name="bearing_nw">NV</string>
-  <string name="bearing_n">N</string>
   <!--Misc relation related stuff-->
   <string name="role">Rolle</string>
-  <string name="role_lc">rolle</string>
   <string name="membership_relation_heading">Medlem af relation</string>
   <string name="relation">Relation</string>
   <string name="relations">Relationer</string>
-  <string name="position">Pos.</string>
   <string name="type">Type</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Slet relation</string>
@@ -358,6 +246,5 @@
   <string name="km">km</string>
   <string name="meter">meter</string>
   <!--Help system-->
-  <string name="toast_nohelp">Ingen hjælp tilgængelig her!</string>
   <!--Arrays-->
 </resources>

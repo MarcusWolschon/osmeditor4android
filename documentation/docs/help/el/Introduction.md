@@ -47,13 +47,13 @@
 
 Από προεπιλογή, οι επιλέξιμοι κόμβοι και οι διαδρομές έχουν μια πορτοκαλί περιοχή γύρω τους δείχνοντας περίπου το σημείο όπου πρέπει να αγγίξετε για να επιλέξετε ένα αντικείμενο. Έχετε τρεις επιλογές:
 
-* Απλό χτύπημα: Επιλογή αντικειμένου. 
-   * Ένας μεμονωμένος κόμβος/διαδρομή επισημαίνεται αμέσως. 
-   * Ωστόσο, αν προσπαθήσετε να επιλέξετε ένα αντικείμενο και το Vespucci καθορίζει ότι η επιλογή μπορεί να σημαίνει πολλά αντικείμενα, θα παρουσιάσει ένα μενού επιλογής, δίνοντάς σας τη δυνατότητα να διαλέξετε το αντικείμενο που θέλετε να επιλέξετε. 
-    * Τα επιλεγμένα αντικείμενα επισημαίνονται με κίτρινο χρώμα. 
-    * Για περισσότερες πληροφορίες δείτε [Επιλεγμένος Κόμβος](Node%20selected.md), [Επιλεγμένη Διαδρομή](Way%20selected.md) και [Επιλεγμένη Σχέση](Relation%20selected.md). 
-* Διπλό χτύπημα: Έναρξη [Λειτουργία πολλαπλών επιλογών](Multiselect.md) 
-* Παρατεταμένο πάτημα: Δημιουργεί ένα "σταυρόνημα", που σας επιτρέπει να προσθέσετε κόμβους, δείτε παρακάτω και [Δημιουργία νέων αντικειμένων](Creating%20new%20objects.md)
+* Single tap: Selects object. 
+    * An isolated node/way is highlighted immediately. 
+    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+    * Selected objects are highlighted in yellow. 
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
 
 Είναι καλή στρατηγική να εστιάζστε αν επιχειρείτε να επεξεργαστείτε μια περιοχή υψηλής πυκνότητας.
 
@@ -79,11 +79,21 @@
 
 Μόλις επιλέξετε ένα αντικείμενο, αυτό μπορεί να μετακινηθεί. Σημειώστε ότι τα αντικείμενα μπορούν να συρθούν/μετακινηθούν μόνο όταν είναι επιλεγμένα. Απλά σύρετε κοντά (π.χ. εντός της ζώνης ανοχής) του επιλεγμένου αντικειμένου για να το μετακινήσετε. Εάν επιλέξετε σύροντας μια μεγάλη περιοχή στις προτιμήσεις, θα έχετε μια μεγάλη περιοχή γύρω από τον επιλεγμένο κόμβο που διευκολύνει την τοποθέτηση του αντικειμένου. 
 
-#### Προσθέτοντας ένα νέο Κόμβο/Σημείο ή Διαδρομή (παρατεταμένο πάτημα)
+#### Adding a new Node/Point or Way 
 
-Πιέστε παρατεταμένα εκεί που θέλετε να είναι ο κόμβος ή να ξεκινάει η διαδρομή. Θα δείτε ένα μαύρο "σταυρόνημα". 
-* Αν θέλετε να δημιουργήσετε έναν νέο κόμβο (όχι συνδεδεμένο με κάποιο αντικείμενο), κάντε κλικ μακριά από τα υπάρχοντα αντικείμενα.
-* Εάν θέλετε να επεκτείνετε μία διαδρομή, κάντε κλικ μέσα στην "ζώνη ανοχής" της διαδρομής (ή ενός κόμβου στην διαδρομή). Η ζώνη ανοχής υποδεικνύεται από τις περιοχές γύρω από έναν κόμβο ή διαδρομή.
+On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+
+##### Simple mode
+
+Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+
+See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+
+##### Advanced (long press) mode
+ 
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Μόλις δείτε το σταυρόνημα, έχετε αυτές τις επιλογές:
 
@@ -215,10 +225,10 @@
 
 Οι έλεγχοι καταχωρίσεων έχουν τις εξής δύο ιδιότητες:
 
-* **Κλειδί** - Το Κλειδί που θα πρέπει να εμφανίζεται στο αντικείμενο σύμφωνα με την αντίστοιχη προεπιλογή
-* **Προαιρετικός έλεγχος** - Ελέγξτε τις προαιρετικές ετικέτες της αντίστοιχης προρύθμισης.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-Αυτός ο έλεγχος είναι ο πρώτος που καθορίζει την ταιριαστή ρύθμιση και στη συνέχεια ελέγχει αν το **Κλειδί** "συνιστάται" για αυτό το αντικείμενο σύμφωνα με την προεπιλογή, ο **Προαιρετικός έλεγχος** θα επεκτείνει τον έλεγχο στις ετικέτες που είναι "προαιρετικές" για το αντικείμενο. Σημείωση: οι προεπιλεγμένες συνδέσεις τώρα δεν είναι τσεκαρισμένες.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Φίλτρα
 
@@ -250,6 +260,8 @@
 
 ## Αναφορά Προβλημάτων
 
-Αν το Vespucci καταρρεύσει ή ανιχνεύσει μια ασυνεπή κατάσταση, θα σας ζητηθεί να την στείλετε στα σκουπίδια κατάρρευσης. Παρακαλούμε να το κάνετε εάν συμβεί, αλλά παρακαλώ μόνο μία φορά για συγκεκριμένη περίπτωση. Αν θέλετε να δώσετε περαιτέρω πληροφορίες ή να ανοίξετε κάποιο ζήτημα για ένα αίτημα χαρακτηριστικών ή κάτι παρόμοιο, κάντε το εδώ: [Ανίχνευση ζητημάτων του Vespucci] (https://github.com/MarcusWolschon/osmeditor4android/issues). Εάν θέλετε να συζητήσετε κάτι που σχετίζεται με το Vespucci, μπορείτε είτε να ξεκινήσετε μια συζήτηση σχετικά με την [Ομάδα Google του Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) είτε στο [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

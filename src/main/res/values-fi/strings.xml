@@ -5,50 +5,15 @@
   <string name="mode_indoor">Sisätila</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
-  <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko että ne lähetetään palvelimelle vai hylätäänkö ne?</string>
   <string name="transfer_download_current_upload">Lähetä</string>
   <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
-  <string name="transfer_download_current_back">Takaisin (Älä tee mitään)</string>
-  <string name="upload_problem_title">Lähetys ei onnistunut</string>
-  <string name="upload_problem_message">Ainakaan osaa datasta ei ole lähetetty. Yritä lähetystä myöhemmin uudestaan mikäli ongelma oli vain väliaikainen.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
-  <string name="upload_conflict_message_referential">%1$s \non poistettu paikallisesti \nmutta siihen viitataan palvelimella</string>
-  <string name="upload_conflict_message_already_deleted">%1$s \noli jo poistettu palvelimelta</string>
   <string name="use_local_version">Käytä paikallista versiota</string>
   <string name="use_server_version">Käytä palvelimen versiota</string>
-  <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
-  <string name="no_login_data_message">Jos käytät OAuthia, ohjelmassa on todennäköisesti vikaa. Pyydämme ilmoittamaan ongelmasta. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
-  <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
-  <string name="no_connection_message">OSM-palvelimeen ei saatu yhteyttä. Tarkista Internet-yhteytesi tai yritä myöhemmin uudestaan.</string>
-  <string name="ssl_handshake_failed">OSM-palvelimeen ei saatu yhteyttä, koska https-neuvottelu epäonnistui. Kokeile vaihtaa salaamattomaan yhteyteen APIn asetuksista.</string>
-  <string name="wrong_login_data_title">Kirjautuminen epäonnistui</string>
-  <string name="wrong_login_data_message">Jos käytät OAuthia, niin tee uusi todennus ja yritä kirjautumista uudestaan. Jos käytät tunnusta ja salasanaa (mitä ei suositella), niin tarkista että ne on kirjoitettu oikein.</string>
-  <string name="wrong_login_data_re_authenticate">Uusi todennus</string>
   <string name="forbidden_login_title">Kirjautuminen kielletty</string>
   <string name="go_to_openstreetmap">Mene sivulle openstreetmap.org</string>
-  <string name="data_conflict_title">Ristiriitaiset versiot</string>
-  <string name="data_conflict_message">Data jota yrität ladata on ristiriidassa muokkaustesi kanssa. Yritä lähettää muokkaukset palvelimelle ennen uutta yritystä.</string>
-  <string name="invalid_bounding_box_title">Virheellinen alue</string>
-  <string name="invalid_bounding_box_message">Valittu alue ei ole APIn rajoitteiden mukainen. Valitse jokin toinen alue.</string>
   <string name="bounding_box_too_large_title">Latausalue liian laaja</string>
-  <string name="bounding_box_too_large_message">Alue jota yrität ladata on liian laaja tai se sisältää liikaa tietoa.\n\nOle hyvä ja pienennä näkymää ja yritä uudelleen.</string>
-  <string name="api_offline_title">API suljettu</string>
-  <string name="api_offline_message">API on väliaikaisesti suljettu, eikä se hyväksy datan hakemista eikä kirjoittamista.</string>
-  <string name="out_of_memory_title">Muisti ei riitä</string>
-  <string name="out_of_memory_message">Vespuccilta loppui muisti pyydettyä dataa ladattaessa. Käynnistä sovellus uudestaan, ja kokeile pienemmän alueen lataamista.</string>
-  <string name="out_of_memory_dirty_message">Vespuccilta loppui muisti pyydettyä dataa ladattaessa. Yritä tallentaa muokkauksesi, käynnistä sovellus uudestaan, ja kokeile pienemmän alueen lataamista.</string>
-  <string name="invalid_data_received_title">Saatiin virheellistä dataa</string>
-  <string name="invalid_data_received_message">Vespucci sai virheellistä dataa palvelimelta. Ilmoita virheestä, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
-  <string name="invalid_data_read_title">Virheellistä dataa</string>
-  <string name="invalid_data_read_message">Tiedostossa oli virheellistä dataa. Raportoi virhe, jos uskot yrittäneesi tehdä asiat oikealla tavalla.</string>
-  <string name="file_write_failed_title">Tiedostoon ei voi kirjoittaa</string>
-  <string name="file_write_failed_message">Valittuun tiedostoon ei voitu kirjoittaa.</string>
-  <string name="welcome_title">Tervetuloa!</string>
-  <string name="welcome_message">Kiitos että käytät Vespuccia.\n\nPääset alkuun näillä kahdella neuvolla:\n\n* lukkokuvakkeen koskettaminen vaihtaa lukitun (ei voi muokata) ja avatun tilan välillä\n\n* uuden kohteen lisäys: pitkä kosketus – uusi kosketus samaan kohtaan lisää pisteen ja kosketus kauemmas aloittaa viivan.\n\nMuista ladata alue, jota haluat muokata.\n\nPidä hauskaa!</string>
-  <string name="read_introduction">Lue esittely nyt</string>
-  <string name="upgrade_title">Tervetuloa Vespuccin uuteen versioon!</string>
-  <string name="upgrade_message">Tämä on Vespuccin uusi versio uusine ominaisuuksineen ja toimintoineen. Sinun kannattaa lukaista laitteella olevat päivitystiedot.</string>
   <string name="read_upgrade">Tietoa uudesta versiosta</string>
   <string name="progress_title">Ladataan</string>
   <string name="progress_message">Ladataan dataa muistiin...</string>
@@ -61,7 +26,6 @@
   <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
   <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennukseen...</string>
-  <string name="progress_building_imagery_database">Kootaan kuvatietokantaa...</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
@@ -71,23 +35,13 @@
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Uusi muistiinpano</string>
-  <string name="openstreetbug_new_bug">Ilmoita ongelmasta</string>
   <string name="openstreetbug_bug_title">Ongelma</string>
-  <string name="openstreetbug_new_nodeway">Tee piste/viiva</string>
-  <string name="openstreetbug_edit_title">Muokkaa muistiinpanoa</string>
-  <string name="openstreetbug_commitbutton">Lähetä</string>
   <string name="openstreetbug_comment_label">Kommentti:</string>
-  <string name="openstreetbug_edit_close">Sulje</string>
-  <string name="openstreetbug_edit_closed">Suljettu</string>
-  <string name="openstreetbug_commit_ok">Virheen muutokset tallennettu</string>
-  <string name="openstreetbug_commit_fail">Virheen muutoksia ei voitu tallentaa</string>
   <string name="openstreetbug_not_supported">%1$s ei tueta.</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
-  <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
   <string name="unsaved_data_proceed">Hylkää &amp; jatka</string>
-  <string name="imagery_offset_title">Kuvaston siirros</string>
+  <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Kuvaus</string>
   <string name="imagery_offset_not_found">Ei siirroksia 10 km:n säteellä!</string>
   <string name="imagery_offset_author">Tekijä</string>
@@ -97,21 +51,15 @@
   <string name="imagery_offset_distance">Etäisyys</string>
   <string name="set_position_datum_label">Geodeettinen datumi</string>
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
-  <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata joidenkin tägien arvon suositummilla arvoilla.</string>
+  <!--Search/Find dialog-->
   <string name="search_results_title">Hakutulokset</string>
   <string name="find_message">Syötä hakuteksti</string>
   <string name="geocoder_prompt">lisäksi</string>
+  <!---->
   <string name="preset_search_hint">Esivalinnan hakuteksti</string>
   <string name="search">Hae</string>
   <string name="no_valid_preset">Ei sopivaa esivalintaa!</string>
-  <string name="read_file">Valitse luettava tiedosto</string>
-  <string name="save_file">Anna tallennustiedosto</string>
-  <string name="existing_track_title">Olemassaoleva jälki</string>
-  <string name="existing_track_message">Muokkaimessa on jo jälkidataa.  Saatat haluta peruuttaa ja tallentaa ensin.</string>
-  <string name="delete_tags">Poistetaanko varmasti kaikki kohteen \"%1$s\" tägit?</string>
   <!--element information dialog-->
-  <string name="element_information">Tietoa elementistä</string>
-  <string name="id">ID</string>
   <string name="nodes">Pisteet</string>
   <string name="relation_membership">Relaatiojäsenyys</string>
   <string name="problem">Ongelma</string>
@@ -120,113 +68,66 @@
   <string name="version">Versio</string>
   <string name="length_m">Pituus (m)</string>
   <string name="not_downloaded">Ei ladattu</string>
-  <string name="empty_role">tyhjä rooli</string>
-  <string name="element">elementti</string>
-  <string name="last_updated">viimeksi päivitetty</string>
   <string name="last_edited">Viimeksi muokattu</string>
   <!--GeoJSON feature display dialog-->
   <!---->
-  <string name="error">virhe</string>
-  <string name="warning">varoitus</string>
-  <string name="minor_issue">pikkujuttu</string>
-  <string name="unknown_error_level">tuntematon virhetaso</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Toiminto vaikuttaa piileviin liitettyihin kohteisiin!</string>
-  <string name="attached_object_warning_message">Muutettuun kohteeseen liittyy suodatettuja elementtejä, jotka muuttuvat myös.</string>
-  <string name="attached_object_warning_continue">Selvä, näytä tämä viesti jatkossakin</string>
-  <string name="attached_object_warning_stop">Selvä, älä näytä tätä viestiä enää</string>
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
-  <string name="send_debug_information">Lähetä tietoa virheestä</string>
   <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
   <string name="js_console_msg_debug">Testaustila!</string>
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <string name="description">Kuvaus</string>
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
-  <string name="toast_unsaved_changes">Sinulla on tallentamattomia muutoksia, lähetä ne ensin.</string>
-  <string name="toast_upload_success">Data lähetetty OSM-palvelimelle.</string>
-  <string name="toast_not_in_edit_range">Lähennä ennen muokkausta (äänenvoimakkuusnäppäimet tai Lens/Shift)</string>
   <string name="toast_unlock_to_edit">Avaa lukitus ennen muokkausta</string>
-  <string name="toast_edit_outside_downloaded_area">Et voi muokata ladatun alueen ulkopuolelta</string>
-  <string name="toast_save_done">Tallennus onnistui</string>
-  <string name="toast_save_failed">Tallennus epäonnistui</string>
-  <string name="toast_not_in_bug_range">Lähennä ennen virheen lisäystä (äänenvoimakkuusnäppäimet tai Lens/Shift)</string>
-  <string name="toast_export_failed">Vienti epäonnistui</string>
   <string name="toast_export_success">Viety tiedostoon %1$s</string>
   <string name="toast_preset_overwrote_tags">Huomio: esivalinta muutti tägejä</string>
   <string name="toast_merge_overwrote_tags">Huomio: toiminto muutti tägejä</string>
-  <string name="toast_oneway_reversed">Muutit yksisuuntaisen kadun tai suunnasta riippuvia tägejä sisältävän viivan suunnan. Tarkista tägit ja korjaa ne tarvittaessa.</string>
-  <string name="toast_merge_tag_conflict">Sulautit yhteen elementtejä, joilla on ristiriitaisia tägejä, suunnasta riippuvia merkityksiä tai eri rooleja samassa relaatiossa. Tarkista tägit ja korjaa ne tarvittaessa.</string>
-  <string name="toast_potential_merge_tag_conflict">Yrität sulauttaa yhteen elementtejä, joilla on ristiriitaisia tägejä. Tarkista tägit ja korjaa ne ennen uutta yritystä.</string>
   <string name="toast_state_file_failed">Tiedostoa ei voi lukea tai se on vioittunut</string>
   <string name="toast_too_many_nodes_for_move">Viivassa on liikaa pisteitä siirrettäväksi</string>
-  <string name="toast_unread_mail">Sinulla on %1$d lukematonta OSM-viestiä</string>
-  <string name="toast_one_unread_mail">Sinulla on lukematon OSM-viesti</string>
   <string name="toast_photo_indexing_started">Geomerkittyjen kuvien etsintä alkaa</string>
   <string name="toast_photo_indexing_finished">Geomerkittyjen kuvien etsintä päättyi</string>
   <string name="toast_download_failed">Lataus epäonnistui; virhekoodi %1$d, viesti %2$s</string>
   <string name="toast_unsurveyed_road">Tarkastamaton tie</string>
-  <string name="toast_noname">Tiellä ei ole nimeä tai viitettä</string>
-  <string name="toast_notype">Relaatiolla ei ole tyyppiä</string>
-  <string name="toast_oauth_retry">Anna OAuthille lupa päästä OSM-tilillesi, ja yritä lähetystä sitten uudestaan.</string>
   <string name="toast_oauth">Anna OAuthille lupa päästä OSM-tilillesi.</string>
   <string name="toast_no_oauth">Nykyiselle APIlle ei ole OAuth-asetuksia. Aseta tunnus ja salasana.</string>
   <string name="toast_oauth_not_enabled">OAuth ei ole käytössä nykyisessä APIssa.</string>
-  <string name="toast_oauth_timeout">Todennuskättelyn aikaraja umpeutui. Yritä uudestaan.</string>
-  <string name="toast_oauth_communication">Tiedonsiirtovirhe todennuskättelyn aikana. Yritä uudestaan.</string>
-  <string name="toast_oauth_handshake_failed">OAuth-kättely epäonnistui: %1$s</string>
-  <string name="toast_timeout">Palvelimen aikaraja umpeutui</string>
   <string name="coordinates_out_of_range">Pituuspiirin pitää olla välillä -180°/+180°, leveyspiirin -85°/85°</string>
   <string name="toast_nothing_found">Mitään ei löytynyt</string>
-  <string name="toast_statesave_failed">Nykyisen tilan tallennus epäonnistui!\nTämä on vakava virhe. Data yritetään viedä tiedostoon, josta sen voi myöhemmin palauttaa JOSMiin.</string>
-  <string name="toast_missing_filemanager">Asenna tiedostonhallintasovellus.</string>
-  <string name="toast_outside_of_download">Yrität muokata ladatun alueen ulkopuolella.</string>
   <string name="toast_file_not_found">Tiedostoa %1$s ei löytynyt.</string>
-  <string name="toast_unknown_voice_command">Komentoa \"%1$s\" ei toistaiseksi ymmärretä</string>
-  <string name="toast_inconsistent_state">Epäjohdonmukainen tila. Ilmoita virheestä, kiitos!</string>
-  <string name="toast_camera_error">Virhe kamerasovellusta avattaessa: %1$s</string>
   <string name="toast_no_voice">Puheentunnistusta ei ole saatavilla</string>
-  <string name="toast_storage_error">Vespucci ei voi kirjoittaa laitteelle %1$s.\nSyynä voivat olla käyttöoikeudet tai laitteen tekninen ongelma.</string>
   <string name="toast_no_suitable_storage">Järjestelmä ei palauttanut sopivaa paikkaa laattatietokannalle.</string>
   <string name="toast_min_one_preset">Ainakin yksi esivalinta pitää olla valittuna.</string>
   <string name="toast_min_one_geocoder">Ainakin yhden geokooderin pitää olla valittuna.</string>
-  <string name="toast_used_backup">Vioittunut tilatiedosto, käytettiin varmuuskopiota!</string>
-  <string name="toast_used_bug_backup">Vioittunut virhetilatiedosto, käytettiin varmuuskopiota!</string>
-  <string name="toast_rmpty_relation">Tyhjä relaatio, luodaan kaatumisilmoitus.</string>
   <string name="toast_split_from">From-viiva jaettiin kahtia</string>
   <string name="toast_split_via">Via-viiva jaettiin kahtia</string>
   <string name="toast_split_from_and_via">From- ja via-viivat jaettiin kahtia</string>
   <string name="toast_split_to">To-viiva jaettiin kahtia</string>
   <string name="toast_invalid_apiurl">APIn URL on virheellinen</string>
   <string name="toast_invalid_readonlyurl">APIn ReadOnly-URL on virheellinen</string>
-  <string name="toast_invalid_notesurl">APIn Notes-URL on virheellinen</string>
   <string name="toast_invalid_filter_regexp">Virheellinen säännöllinen lauseke suodattimessa, jossa key=\"%1$s\" value=\"%2$s\"</string>
-  <string name="toast_error_accessing_photo">Valokuvaa %1$s ei voida lukea</string>
-  <string name="toast_no_voice_recognition">Puheentunnistusta ei ole saatavilla</string>
   <string name="toast_no_coverage">%1$s ei kata tätä aluetta</string>
-  <string name="toast_file_exists">Tiedosto %1$s on olemassa.</string>
   <string name="toast_needs_resurvey">Kohde saattaa olla vanhentunut</string>
   <string name="toast_openinghours_invalid">Kohteella %1$s on virheellinen aukioloaika</string>
-  <string name="toast_openinghours_autocorrected">Kohteen %1$s aukioloaika korjattiin automaattisesti</string>
-  <string name="toast_exit_multiselect">Napauta kahdesti tyhjään kohtaan tai käytä paluunuolta, jos haluat poistua</string>
-  <string name="toast_exit_actionmode">Käytä paluunuolta, jos haluat tallentaa ja poistua</string>
-  <string name="toast_abort_actionmode">Käytä paluunuolta, jos haluat keskeyttää</string>
   <string name="toast_null_island">Älä lisää elementtejä paikkaan 0°/0° (Nollasaari)</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Kyllä</string>
   <string name="no">Ei</string>
-  <string name="okay">Selvä</string>
   <string name="cancel">Peruuta</string>
   <string name="dismiss">Hylkää</string>
   <string name="locked">Lukittu</string>
@@ -241,12 +142,12 @@
   <string name="enable">Ota käyttöön</string>
   <string name="clear">Nollaa</string>
   <string name="retry">Yritä uudelleen</string>
+  <!--Read a file-->
   <string name="read">Lue</string>
   <string name="overwrite">Korvaa</string>
   <string name="share">Jaa</string>
   <string name="share_position">Jaa sijainti</string>
   <!--Dialog for back button-->
-  <string name="exit_title">Vahvista poistuminen</string>
   <string name="exit_text">Haluatko varmasti poistua?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">avain</string>
@@ -258,11 +159,8 @@
   <string name="tag_menu_sourcesurvey">Tarkastettu</string>
   <string name="tag_menu_preset">Esivalinnat</string>
   <string name="tag_menu_apply_preset">Käytä parasta esivalintaa</string>
-  <string name="tag_menu_repeat">Toista tägit</string>
   <string name="tag_menu_revert">Palauta</string>
-  <string name="tag_menu_mapfeatures">Karttakohteet Wikissä</string>
   <string name="tag_menu_addtorelation">Lisää relaatioon</string>
-  <string name="tag_menu_resetMRU">Nollaa esivalinnat</string>
   <string name="tag_menu_reset_address_prediction">Nollaa osoitteen ennustus</string>
   <string name="tag_menu_exit_no_save">Poistu\ntallentamatta</string>
   <string name="tag_menu_delete_unassociated_tags">Poista liittymättömät tägit</string>
@@ -285,7 +183,6 @@
   <string name="tag_menu_move_bottom">Siirry alas</string>
   <string name="tag_menu_sort">Lajittele</string>
   <string name="tag_menu_download">Lataa</string>
-  <string name="tag_menu_js_console">JS-konsoli</string>
   <string name="menu_up">Ylempi taso</string>
   <string name="menu_top">Ylin taso</string>
   <string name="menu_preset_help">Esivalintaohje</string>
@@ -297,27 +194,21 @@
   <string name="tag_restriction_add_simple_condition">Lisää yksinkertainen ehto</string>
   <string name="tag_restriction_add_expression">Lisää lauseke</string>
   <string name="tag_restriction_add_opening_hours">Lisää aukioloaika</string>
-  <string name="tag_restriction_value_hint">ehdollinen rajoitus</string>
   <!--Strings in Box/LocationPicker-->
-  <string name="location_headline">Lataa alue</string>
   <string name="location_choose_radius">Aseta säde:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Viimeeksi tunnettu sijainti:</string>
   <string name="location_current_text">Nykyinen sijainti:</string>
-  <string name="location_text_unknown">tuntematon</string>
   <string name="location_last_text_parameterized">Viimeksi tunnettu sijainti: %1$s</string>
   <string name="location_current_text_parameterized">Nykyinen sijainti: %1$s</string>
   <string name="location_text_metadata_location">\nlev %1$4g, pit %2$4g\n%3$s %4$s sitten</string>
   <string name="location_text_metadata_accuracy">Tarkkuus %1$2.0f metriä,</string>
-  <string name="location_map_text">Kartalta (tulossa)</string>
   <string name="location_coordinates_text">Koordinaateista:</string>
   <string name="location_lat_label">Lev:</string>
   <string name="location_lon_label">Pit:</string>
   <string name="location_search_label">Etsi:</string>
   <string name="location_load_button">Lataa</string>
   <string name="location_load_dismiss">Kartalle</string>
-  <string name="location_nan_title">Virheellinen syöte!</string>
-  <string name="location_nan_message">Syötä koordinaatit desimaalimuotoisina (esim. \"52.333572\",\"8.741185\"). Leveyden pitää olla väliltä -85.0/+85.0, ja pituuden väliltä -175.0/+175.0.</string>
   <!--Menu-->
   <string name="menu_move">Siirrä</string>
   <string name="menu_edit">Muokkaa</string>
@@ -335,15 +226,9 @@
   <string name="menu_add_relation_member">Lisää jäsen</string>
   <string name="menu_select_relation_members">Valitse jäsenet</string>
   <string name="menu_tag">Muokkaa tägejä</string>
-  <string name="menu_openstreetbug">Lisää muistiinpano</string>
   <string name="menu_easyedit">Helppomuokkaus</string>
   <string name="menu_camera">Kamera</string>
-  <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Näytä sijainti</string>
-  <string name="menu_gps_start">Aloita GPS-jälki</string>
-  <string name="menu_gps_pause">Pysäytä GPS-jälki</string>
-  <string name="menu_gps_track_managment">Jälkien hallinta...</string>
-  <string name="menu_gps_goto_start">Siirry jäljen alkuun</string>
   <string name="menu_gps_autodownload">Automaattilataus</string>
   <string name="menu_transfer">Siirrä...</string>
   <string name="menu_transfer_download_current">Lataa nykyinen näkymä</string>
@@ -351,17 +236,8 @@
   <string name="menu_transfer_download_other">Lataa joku muu alue</string>
   <string name="menu_transfer_upload">Lähetä data OSM-palvelimelle</string>
   <string name="menu_transfer_close_changeset">Sulje nykyinen muutossetti</string>
-  <string name="menu_transfer_file">Tiedosto...</string>
-  <string name="menu_transfer_bugs">Muistiinpanot/Virheet...</string>
-  <string name="menu_transfer_bugs_download_current">Lataa nykyisen näkymän virheet</string>
   <string name="menu_transfer_bugs_upload">Lähetä kaikki</string>
-  <string name="menu_transfer_bugs_upload_long">Lähetä kaikki virheet</string>
   <string name="menu_transfer_bugs_clear">Nollaa</string>
-  <string name="menu_transfer_bugs_clear_long">Nollaa virheet</string>
-  <string name="menu_transfer_autodownload_long">Lataa virheet automaattisesti</string>
-  <string name="menu_transfer_save_notes_all">Tallenna kaikki muistiinpanot...</string>
-  <string name="menu_transfer_save_notes_new_and_changed">Tallenna uudet ja muuttuneet muistiinpanot...</string>
-  <string name="menu_save">Tallenna tiedostoon</string>
   <string name="menu_join">Yhdistä</string>
   <string name="menu_unjoin">Erota</string>
   <string name="menu_copy">Kopioi</string>
@@ -370,10 +246,8 @@
   <string name="menu_paste_from_clipboard">Liitä leikepöydältä</string>
   <string name="menu_zoom_to_selection">Sovita valintaan</string>
   <string name="menu_rotate">Pyöritä</string>
-  <string name="menu_orthogonalize">Suorista kulmat</string>
   <string name="menu_circulize">Järjestä ympyrälle</string>
   <string name="menu_split_polygon">Jaa monikulmioiksi</string>
-  <string name="menu_newnode_gps">Uusi piste GPS-sijaintiin</string>
   <string name="menu_extend_selection">Lisää valintaan</string>
   <string name="menu_information">Tietoa</string>
   <string name="menu_voice_commands">Äänikomennot</string>
@@ -385,11 +259,7 @@
   <string name="menu_tools_background_align">Kohdista tausta</string>
   <string name="menu_tools_background_align_reset">Palauta</string>
   <string name="menu_tools_background_align_zero">Nollaa</string>
-  <string name="menu_tools_background_align_retrieve_from_db">Tietokannasta</string>
-  <string name="menu_tools_background_align_retrieve_from_device">Laitteelta</string>
-  <string name="menu_tools_background_align_save_db">Tallenna tietokantaan</string>
-  <string name="menu_tools_background_align_save_device">Tallenna laitteelle</string>
-  <string name="menu_tools_background_align_apply2all">Toteuta (kaikille tasoille)</string>
+  <!--Menus in layers dialog-->
   <!---->
   <string name="menu_tools_background_contrast">Kontrasti</string>
   <string name="menu_tools_oauth_reset">Nollaa OAuth</string>
@@ -404,13 +274,7 @@
   <string name="menu_history">Historia</string>
   <string name="menu_merge">Yhdistä</string>
   <string name="menu_reverse">Käännä suunta</string>
-  <string name="notreversable_description">Viivassa on tägejä, jotka riippuvat suunnasta, eikä niitä voi kääntää päinvastaiseksi. Viivan kääntäminen tekee tägeistä virheellisiä.</string>
   <string name="reverse_anyway">Käännä kuitenkin</string>
-  <string name="deleteway_description">Olet poistamassa viivaa.\n\nVoit joko pitää kaikki pisteet tai poistaa tägittömät pisteet, jotka kuuluvat vain tähän viivaan.</string>
-  <string name="deleteway_relation_description">Olet poistamassa viivaa, joka on ainakin yhden relaation jäsen. Viivan poistaminen saattaa sotkea relaatiot.</string>
-  <string name="deleteway_nodesnotdownloaded_description">Osa viivan pisteistä on ladatun alueen ulkopuolella, ja sen poistaminen johtaisi epäjohdonmukaiseen tilaan. Lataa koko viiva ennen uutta yritystä.</string>
-  <string name="deleteway_wayonly">Poista pelkkä viiva</string>
-  <string name="deletenode_relation_description">Olet poistamassa pistettä, joka on ainakin yhden relaation jäsen. Pisteen poistaminen saattaa sotkea relaatiot.</string>
   <string name="deletenode">Poista piste</string>
   <string name="split_all_ways">Jaa kaikki viivat</string>
   <!--EasyEdit action mode titles-->
@@ -428,142 +292,70 @@
   <string name="actionmode_restriction_restart_via">Valitse \"via\"-viiva uudestaan</string>
   <string name="actionmode_restriction_to">Lisää \"to\"-viiva</string>
   <string name="actionmode_restriction_restart_to">Valitse \"to\"-viiva uudestaan</string>
-  <string name="actionmode_one_object">1 kohde</string>
-  <string name="actionmode_object_count">%1$d kohdetta</string>
   <string name="actionmode_rotateway">Pyöritä viivaa</string>
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Taustan kartta</string>
   <string name="config_overlayLayer_title">Peittotason kartta</string>
   <string name="config_scale_title">Mittakaava</string>
-  <string name="config_enableOpenStreetBugs_title">Näytä virheet ja muistiinpanot</string>
-  <string name="config_enableOpenStreetBugs_summary">Näytä, muokkaa ja tee muistiinpanoja ja virhemerkintöjä.</string>
-  <string name="config_enablePhotoLayer_title">Näytä valokuvataso</string>
   <string name="config_enablePhotoLayer_summary">Näytä geomerkityt kuvat.</string>
   <string name="config_enableKeepScreenOn_title">Pidä näyttö päällä</string>
-  <string name="config_enableKeepScreenOn_summary">Älä sammuta näyttöä virran säästämiseksi.</string>
   <string name="config_largeDragArea_title">Laaja vetoalue pisteille</string>
-  <string name="config_largeDragArea_summary">Mahdollistaa pisteisiin tarttumisen laajalta alueelta.</string>
   <string name="config_advancedprefs">Lisäasetukset</string>
-  <string name="config_moreprefs">Lisää asetuksia...</string>
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
-  <string name="config_licensebutton_title">Tekijät ja lisenssit</string>
   <string name="config_debugbutton_title">Vianetsintä</string>
   <string name="config_category_info">Tietoja</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
-  <string name="config_category_view">Käyttöliittymän asetukset</string>
   <string name="config_iconbutton_title">Näytä pisteikonit</string>
   <string name="config_iconbutton_summary">Näytä osuvimman esivalinnan ikoni pisteiden päällä.</string>
   <string name="config_showWayIcons_title">Näytä kohdepisteet rakennuksissa</string>
   <string name="config_showWayIcons_summary">Näytä osuvimman esivalinnan ikoni rakennusten päällä.</string>
   <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
-  <string name="config_tagFormEnabled_summary">Näytä tägit myös lomakkeena muokattaessa.</string>
   <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
-  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa</string>
-  <string name="config_followGPSbutton_title">GPS-seurantanapin sijainti</string>
-  <string name="config_followGPSbutton_summary">Valitse missä \"Seuraa GPS:ää\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">Jos asetus on päällä, lataamattomat alueet himmenetään lukitustilassa.</string>
-  <string name="config_fullscreenMode_title">Kokoruututila</string>
   <string name="config_fullscreenMode_summary">Käytös laitteilla joissa on softanappeja.</string>
   <string name="config_showTolerance_title">Näytä toleranssialue</string>
-  <string name="config_showTolerance_summary">Näyttää elementin ympärillä alueen, josta sen voi valita.</string>
-  <string name="config_use_back_for_undo_title">Peruuta paluunuolella</string>
-  <string name="config_use_back_for_undo_summary">Käytä paluunappia peruutustoimintona päämuokkausnäkymässä.</string>
-  <string name="config_enableLightTheme_title">Käytä vaaleaa teemaa</string>
-  <string name="config_enableLightTheme_summary">Vaalea teema, jossa on valkoiset taustat</string>
   <string name="config_splitActionBarEnabled_title">Käytä jaettua toimintopalkkia</string>
-  <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki, käyttö on laitekohtaista. Vaatii uudelleenkäynnistyksen ja Android-version &gt;= 4.0.</string>
   <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
-  <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
   <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
-  <string name="config_autoLockDelay_summary">Aika sekunteina ennen kuin lukitus laitetaan päälle automaattisesti, 0 poistaa käytöstä.</string>
-  <string name="config_enableAntiAliasing_title">Käytä reunanpehmennystä</string>
   <string name="config_enableAntiAliasing_summary">Tekee viivoista sileämpiä.</string>
   <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
-  <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
   <!--Data and Editing Settings-->
-  <string name="config_category_editing">Data- ja muokkausasetukset</string>
-  <string name="config_forceContextMenu_title">Näytä kontekstivalikko aina</string>
   <string name="config_address_tags">Osoitetägit</string>
-  <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
   <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
-  <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägin ehdotukset.</string>
   <string name="config_generateAlerts_title">Näytä ilmoitukset</string>
   <string name="config_generateAlerts_summary">Näytä ilmoitus, jos datassa on ongelmia tai muistiinpanoja</string>
   <string name="config_notificationCacheSize_title">Suurin määrä ilmoituksia</string>
-  <string name="config_notificationCacheSize_summary">Suurin määrä näytettäviä ilmoituksia per tyyppi (vähintään 1).</string>
   <string name="config_maxAlertDistance_title">Etäisyysraja ilmoituksille</string>
-  <string name="config_maxAlertDistance_summary">Suurin etäisyys nykyisestä sijainnista, jolta ongelmista ja muistiinpanoista vielä ilmoitetaan</string>
   <string name="config_extTriggeredDownloadRadius_title">Lataussäde</string>
-  <string name="config_extTriggeredDownloadRadius_summary">Säde (m) ulkopuolelta käynnistetyille latauksille, 0 = pelkkä kartan keskitys.</string>
   <string name="config_maxDownloadSpeed_title">Suurin nopeus automaattilataukselle</string>
-  <string name="config_maxDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä automaattilataus keskeytetään.</string>
-  <string name="config_bugFilter_title">Muistiinpano-/virhesuodatin</string>
-  <string name="config_bugFilter_summary">Valitse muistiinpano- ja virhetasolla näytettävät kohteet.</string>
-  <string name="config_bugDownloadRadius_title">Muistiinpanojen/virheiden lataussäde</string>
-  <string name="config_bugDownloadRadius_summary">Säde (m) jolta muistiinpanot ja virheet ladataan.</string>
-  <string name="config_maxBugDownloadSpeed_title">Suurin nopeus muistiinpanojen/virheiden automaattilataukselle</string>
-  <string name="config_maxBugDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä muistiinpanojen ja virheiden automaattilataus keskeytetään.</string>
   <string name="config_closeChangesetOnSave_title">Sulje muutossetit</string>
-  <string name="config_closeChangesetOnSave_summary">Sulje muutossetit oletusarvoisesti tallennettaessa.</string>
   <!--Location Settings-->
-  <string name="config_gps_source_title">GPS-lähde</string>
-  <string name="config_gps_source_summary">GPS-sijainnin päivitysten lähde</string>
   <string name="config_gps_source_tcp_title">NMEA-verkon lähde</string>
-  <string name="config_gps_source_tcp_summary">NMEA:n TCP-lähteen osoite muodossa palvelin:portti</string>
-  <string name="config_gps_interval_title">GPS:n vähimmäisaikaväli</string>
-  <string name="config_gps_interval_summary">Aikaväli millisekunteina, joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
-  <string name="config_gps_distance_title">GPS:n vähimmäisetäisyys</string>
-  <string name="config_gps_distance_summary">Välimatka metreinä (desimaaliluku), joka vaaditaan GPS-ilmoituksille. Mitä pienempi arvo, sitä suurempi akunkulutus.</string>
-  <string name="config_leaveGpsDisabled_title">Jätä GPS pois päältä</string>
-  <string name="config_leaveGpsDisabled_summary">Älä pyydä käyttäjää käynnistämään GPS:ää, jos se on pois päältä.</string>
   <!--Server Settings-->
-  <string name="config_category_server">Palvelimen asetukset</string>
   <string name="config_apibutton_title">OSM-API:n URL</string>
-  <string name="config_apibutton_summary">Tästä voit asettaa URLin epästandardille APIlle. Tavallisesti sitä ei pitäisi muuttaa!</string>
   <string name="config_loginbutton_title">Käyttäjätili</string>
-  <string name="config_username_summary">Näitä asetuksia tarvitaan OSM-datan lähettämiseen vain, jos et käytä OAuthia. Tilin voi luoda sivulla http://www.openstreetmap.org/user/new</string>
-  <string name="config_offsetServer_title">Siirrospalvelin</string>
-  <string name="config_offsetServer_summary">Kuvastosiirrospalvelimen URL</string>
-  <string name="config_osmoseServer_title">OSMOSE-palvelin</string>
-  <string name="config_osmoseServer_summary">Osmose-palvelimen URL</string>
   <string name="config_geocoderbutton_title">Määritä geokooderit</string>
-  <string name="config_geocoderbutton_summary">Lisää, muokkaa ja poista hakutoiminnon geokoodereita.</string>
   <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Suurin määrä lataussäikeitä</string>
-  <string name="config_maxTileDownloadThreads_summary">Suurin määrä laattojen lataukseen käytettäviä prosessisäikeitä.</string>
   <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
-  <string name="config_tileCacheSize_summary">Taustakuvalaattojen välimuistin koko megatavuissa</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Sekalaiset</string>
-  <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
-  <string name="pref_acra_enabled">Kaatumisilmoitukset käytössä</string>
-  <string name="pref_acra_disabled">Kaatumisilmoitukset pois käytöstä</string>
   <string name="config_showStats_title">Näytä tilastotietoa</string>
-  <string name="config_showStats_summary">Näyttää vasemmassa alakulmassa tilastoa datasta ja kuvataajuuden.</string>
   <!--Experimental-->
   <string name="config_js_console_title">Ota JS-konsoli käyttöön</string>
-  <string name="config_js_console_summary">Ota JS-konsoli käyttöön \"suorassa\" tilassa.</string>
   <string name="config_voiceCommandsEnabled_title">Ota äänikomennot käyttöön</string>
   <!---->
   <string name="manage_apis">APIen hallinta</string>
   <string name="config_api_url_title">API:n URL</string>
-  <string name="config_api_oauth_title">Käytä oauthia</string>
-  <string name="listedit_enable_oauth">Ota oauth käyttöön</string>
-  <string name="config_username_title">Käyttäjätunnus OSM:ssä</string>
-  <string name="config_password_title">Salasana OSM:ssä</string>
-  <string name="config_password_summary">Älä sekoita tätä Wiki-salasanaan. Muista: se tallennetaan ja lähetetään pelkkänä tekstinä!</string>
   <string name="manage_presets">Esivalintojen hallinta</string>
   <string name="manage_geocoders">Geokoodereiden hallinta</string>
   <!--preset downloader messages-->
   <string name="preset_update">Päivitä esivalinta</string>
-  <string name="preset_download_successful">Esivalinta ladattiin onnistuneesti.</string>
-  <string name="preset_download_failed">Esivalintatiedostoa ei voitu ladata. Esivalintaa ei voi käyttää.</string>
   <string name="preset_download_parse_failed">Esivalintatiedosto on virheellinen. Esivalintaa ei voi käyttää.</string>
-  <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Joitain kuvakkeita ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" poistettiin</string>
   <string name="changes_changed">\"%1$s\" muutettiin</string>
@@ -571,10 +363,7 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lisää esivalinta</string>
   <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
-  <string name="urldialog_preset_download_successful">Esivalinnan lataus onnistui!</string>
   <string name="urldialog_api_exists">Tässä URLissa oleva API on jo olemassa. Voit kuitenkin lisätä toisen (esim. helpottamaan tilin vaihtamista).</string>
-  <string name="urldialog_api_preset_missing">APIn käyttämä esivalinta ei ole käytettävissä. Sinun täytyy lisätä se ensin.</string>
-  <string name="urldialog_api_install_successful">APIn asennus onnistui!</string>
   <string name="urldialog_add_api">Lisää API</string>
   <string name="urldialog_nodata_text">Määritys-URLissa ei ole kelvollista dataa.</string>
   <string name="urldialog_add_geocoder">Lisää geokooderi</string>
@@ -587,12 +376,11 @@
   <string name="default_">Oletus</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
-  <string name="api_name">APIn nimi</string>
   <string name="api_url">APIn URL</string>
   <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
   <string name="notes_url">Notes-APIn URL (valinnainen)</string>
   <string name="geocoder_type">Geokooderin tyyppi</string>
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="preset">Esivalinta</string>
   <string name="api">API</string>
   <string name="undo">Peru</string>
@@ -603,34 +391,7 @@
   <string name="address_housenumber">Osoite %1$s</string>
   <string name="address_housenumber_street">Osoite %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">siirrä pistettä</string>
-  <string name="undo_action_moveway">siirrä viivaa</string>
-  <string name="undo_action_moveobjects">siirrä kohteita</string>
-  <string name="undo_action_add">lisää</string>
-  <string name="undo_action_append">jatka</string>
-  <string name="undo_action_deletenode">poista piste</string>
-  <string name="undo_action_deleteway">poista viiva</string>
-  <string name="undo_action_delete_objects">poista kohteet</string>
-  <string name="undo_action_split_ways">jaa viivat</string>
-  <string name="undo_action_split_way">jaa viiva</string>
-  <string name="undo_action_merge_ways">sulauta viivat</string>
-  <string name="undo_action_reverse_way">käännä viiva</string>
-  <string name="undo_action_set_tags">aseta tägit</string>
-  <string name="undo_action_join">yhdistä</string>
-  <string name="undo_action_unjoin_ways">erota viivat</string>
-  <string name="undo_action_create_relation">luo relaatio</string>
-  <string name="undo_action_delete_relation">poista relaatio</string>
-  <string name="undo_action_update_relations">päivitä relaatio</string>
-  <string name="undo_action_cut">leikkaa</string>
-  <string name="undo_action_paste">liitä</string>
-  <string name="undo_action_rotateway">pyöritä tietä</string>
-  <string name="undo_action_orthogonalize">suorista viiva</string>
-  <string name="undo_action_circulize">järjestä ympyrälle</string>
-  <string name="undo_action_fix_conflict">korjaa ristiriita</string>
-  <string name="undo_action_extract_node">irrota piste</string>
   <!--ACRA-->
-  <string name="crash_dialog_text">Vespucci kaatui tai törmäsi vakavaan ongelmaan edellisellä ajokerralla.\n\nAuta meitä ilmoittamalla virheestä, sinun tarvitsee vain painaa \"OK\".\n</string>
-  <string name="crash_dialog_comment_prompt">Lisää tietoja, jotka voisivat mielestäsi olla avuksi, ja (valinnaisesti) anna sähköpostiosoitteesi, jos haluat palautetta.\n\nKiitos!</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tämä toiminto tekisi viivan, jossa on liikaa pisteitä.</string>
   <!--Notifications-->
@@ -638,27 +399,15 @@
   <string name="alert_note">Havaittiin OSM-muistiinpano lähistöllä</string>
   <string name="alert_bug">Havaittiin OSM-virhe lähistöllä</string>
   <string name="alert_distance_direction">%1$d m suuntaan %2$s</string>
-  <string name="bearing_ne">Ko</string>
-  <string name="bearing_e">I</string>
-  <string name="bearing_se">Ka</string>
-  <string name="bearing_s">E</string>
-  <string name="bearing_sw">Lo</string>
-  <string name="bearing_w">L</string>
-  <string name="bearing_nw">Lu</string>
-  <string name="bearing_n">P</string>
   <!--Misc relation related stuff-->
   <string name="role">Rooli</string>
-  <string name="role_lc">rooli</string>
   <string name="membership_relation_heading">Relaation jäsen</string>
   <string name="relation">Relaatio</string>
   <string name="relations">Relaatiot</string>
-  <string name="position">Sij.</string>
   <string name="type">Tyyppi</string>
   <string name="object">Kohde</string>
-  <string name="deleterelation_relation_description">Olet poistamassa relaatiota, joka on ainakin yhden relaation jäsen. Jäsenrelaation poistaminen saattaa sotkea muut relaatiot.</string>
   <string name="deleterelation">Poista relaatio</string>
   <string name="delete_from_relation_description">Olet poistamassa tämän elementin relaatiosta.</string>
-  <string name="unset_relation_type">tuntematon relaatiotyyppi</string>
   <!--time and distance-->
   <string name="days">päivää</string>
   <string name="hours">tuntia</string>
@@ -667,7 +416,6 @@
   <string name="km">km</string>
   <string name="meter">metriä</string>
   <!--Help system-->
-  <string name="toast_nohelp">Tähän ei ole ohjetta!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>yksityinen</item>

@@ -7,53 +7,16 @@
   <string name="mode_correct">C-мод</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Внимание!</string>
-  <string name="transfer_download_current_dialog_message">Направихте някои промени. Искате ли да ги качите вместо да ги отхвърлите?</string>
   <string name="transfer_download_current_upload">Качване</string>
   <string name="transfer_download_current_download">Отхвърляне &amp; сваляне</string>
-  <string name="transfer_download_current_back">Назад (Не прави нищо)</string>
-  <string name="upload_problem_title">Проблем с качването</string>
-  <string name="upload_problem_message">Някои от данните или всички данни не бяха качени. Опитайте да ги качите отново по-късно, ако това е бил само временен проблем.</string>
   <string name="bad_request_message">API-то отговори с грешка, моля запишете данните и докладвайте проблема:\n\n</string>
   <string name="upload_conflict_title">Конфликт при качване</string>
-  <string name="upload_conflict_message_version">%1$s \nима локална версия %2$d \nи на сървъра%3$d </string>
   <string name="upload_conflict_message_deleted">%1$s \nима локална версия %2$d \nи беше изтрит от сървъра</string>
-  <string name="upload_conflict_message_referential">%1$s \nбеше изтрит локално, \nно има препратки към сървъра </string>
-  <string name="upload_conflict_message_already_deleted">%1$s \nвече беше изтрит от сървъра</string>
   <string name="use_local_version">Използвайте локална версия</string>
   <string name="use_server_version">Използвайте версията на сървъра</string>
-  <string name="no_login_data_title">Автентикацията неуспешна</string>
-  <string name="no_login_data_message">Ако използвате OAuth това най-вероятно е бъг, моля изпратете доклад за проблема. Ако използвате потребителско име и парола (не е препоръително), моля проверете дали са правилно въведени.</string>
-  <string name="no_connection_title">Няма връзка със сървъра</string>
-  <string name="no_connection_message">Няма връзка с OSM сървъра. Моля проверете Интернет връзката си или опитайте отново по-късно.</string>
-  <string name="ssl_handshake_failed">Няма връзка с OSM сървъра, защото https свързването беше неуспешно. Опитайте да превключите на некриптирана връзка в настройките на API-то.</string>
-  <string name="wrong_login_data_title">Автентикацията неуспешна</string>
-  <string name="wrong_login_data_message">Ако използвате OAuth трябва да повторите автентикацията и след това да опитате отново. Ако използвате потребителско име и парола (не е препоръително), моля проверете дали са правилно въведени.</string>
-  <string name="wrong_login_data_re_authenticate">Повторна автентикация</string>
   <string name="forbidden_login_title">Входът забранен</string>
   <string name="go_to_openstreetmap">Отидете на openstreetmap.org</string>
-  <string name="data_conflict_title">Конфликт с версията</string>
-  <string name="data_conflict_message">Данните, които се опитвате да свалите, съдържат данни, които са в конфликт с вашите редакции. Моля опитайте първо да качите редакциите си преди да опитате отново.</string>
-  <string name="invalid_bounding_box_title">Невалиден ограждащ правоъгълник</string>
-  <string name="invalid_bounding_box_message">Избраният район не е съобразен с ограниченията на API-то, моля изберете друг.</string>
   <string name="bounding_box_too_large_title">Районът за сваляне е твърде голям.</string>
-  <string name="bounding_box_too_large_message">Районът, който се опитвате да свалите е твърде голям или съдържа твърде много данни.\n\nМоля приближете още и опитайте отново.</string>
-  <string name="api_offline_title">API-то е офлайн.</string>
-  <string name="api_offline_message">API-то в момента е офлайн и не позволява достъп и запис на данни.</string>
-  <string name="out_of_memory_title">Недостатъчна памет</string>
-  <string name="out_of_memory_message">Vespucci свърши паметта докато зареждаше заявените данни. Моля рестартирайте и опитайте да заредите по-малък район.</string>
-  <string name="out_of_memory_dirty_message">Vespucci свърши паметта докато зареждаше заявените данни. Моля опитайте да запишете редакциите си, рестартирайте и опитайте да заредите по-малък район.</string>
-  <string name="invalid_data_received_title">Получените данни са невалидни</string>
-  <string name="invalid_data_received_message">Vespucci получи невалидни данни от сървъра. Ако смятате, че това което се опитвате да направите е правилно, моля попълнете доклад за бъг.</string>
-  <string name="invalid_data_read_title">Невалидни данни</string>
-  <string name="invalid_data_read_message">Файлът съдържаше невалидни данни. Ако смятате, че това което се опитвате да направите е правилно, моля попълнете доклад за бъг.</string>
-  <string name="file_write_failed_title">Записът на файл неуспешен.</string>
-  <string name="file_write_failed_message">Не може да записвате в избрания файл.</string>
-  <string name="welcome_title">Добре дошли!</string>
-  <string name="welcome_message">Благодарим ви, че използвате Vespucci.\n\nЗа да започнете, трябва да знаете две неща:\n\n* Докосването на иконата с катинара в горния ляв ъгъл ще превключи между заключен (без редакции) и отключен режим\n\n* за да добавите нов обект: натиснете продължително, докосването на същото място ще добави възел, всяко докосване по-нататък ще започне път.\n\nНе забравяйте да свалите района, който ще редактирате.\n\nЗабавлявайте се!</string>
-  <string name="welcome_message_fullscreen">\n\nVespucci откри че имате устройство с \"меки клавиши\" и ги скри. Плъзване от долния ръб ще ги покаже отново.</string>
-  <string name="read_introduction">Прочетете въведението сега</string>
-  <string name="upgrade_title">Добре дошли в новата версия на Vespucci!</string>
-  <string name="upgrade_message">Това е нова версия на Vespucci с нови възможности и поведение. Най-добре ще е да прочетете набързо информацията за ъпгрейд на устройството.</string>
   <string name="read_upgrade">Прочетете за новата версия</string>
   <string name="progress_title">Зареждане</string>
   <string name="progress_message">Зареждане на данните в паметта...</string>
@@ -66,8 +29,6 @@
   <string name="progress_preset_message">Сваляне на настройка...</string>
   <string name="progress_running_message">Стартиране...</string>
   <string name="progress_oauth">Зареждане на вашия акаунт в openstreetmap.org за OAuth автентикация...</string>
-  <string name="progress_building_imagery_database">Създаване на база данни с изображения...</string>
-  <string name="progress_query_oam">Търсене в OAM</string>
   <string name="upload_comment_label">Коментар:</string>
   <string name="upload_source_label">Източник:</string>
   <string name="upload_close_changeset_label">Затвори промяна:</string>
@@ -77,24 +38,14 @@
   <string name="upload_validation_error_empty_comment">Коментарът не трябва да е празен</string>
   <string name="upload_validation_error_empty_source">Източникът не трябва да е празен</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Нова бележка</string>
-  <string name="openstreetbug_new_bug">Докладвайте проблем</string>
   <string name="openstreetbug_bug_title">Проблем</string>
-  <string name="openstreetbug_new_nodeway">Създайте Възел/Път</string>
-  <string name="openstreetbug_edit_title">Редактирайте бележка</string>
-  <string name="openstreetbug_commitbutton">Завърши</string>
   <string name="openstreetbug_comment_label">Коментар:</string>
-  <string name="openstreetbug_edit_close">Затваряне</string>
-  <string name="openstreetbug_edit_closed">Затворен</string>
-  <string name="openstreetbug_commit_ok">Промените записани</string>
-  <string name="openstreetbug_commit_fail">Записът на промените неуспешен</string>
   <string name="openstreetbug_unknown_task_type">Неизвестен вид задача</string>
   <string name="openstreetbug_not_supported">%1$s не се поддържа.</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Внимание!</string>
-  <string name="unsaved_data_message">Имате незапазени промени, които ще бъдат отхвърлени, ако продължите.</string>
   <string name="unsaved_data_proceed">Отхвърляне &amp; продължаване</string>
-  <string name="imagery_offset_title">Отместване на изображение</string>
+  <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Описание</string>
   <string name="imagery_offset_not_found">Не са намерени отмествания в радиус 10km!</string>
   <string name="imagery_offset_author">Автор</string>
@@ -102,26 +53,18 @@
   <string name="imagery_offset_date">Създаден</string>
   <string name="imagery_offset_zoom">Приближение</string>
   <string name="imagery_offset_distance">Разстояние</string>
-  <string name="zoom_and_offset">Z %1$d Отместване %2$s/%3$s</string>
   <string name="set_position_datum_label">Изходни геодезически данни</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Предложение за име</string>
-  <string name="tag_editor_name_suggestion_overwrite_message">Това предложение може да замени някои стойности на тагове с по-популярни стойности.</string>
+  <!--Search/Find dialog-->
   <string name="search_results_title">Резултати от търсенето</string>
   <string name="find_message">Въведете низ за търсене</string>
   <string name="geocoder_prompt">с</string>
+  <!---->
   <string name="preset_search_hint">Предварително зададен низ за търсене</string>
-  <string name="preset_autopreset">Авто настройка</string>
   <string name="search">Търсене</string>
   <string name="no_valid_preset">Невалидна настройка</string>
-  <string name="read_file">Изберете файл за четене</string>
-  <string name="save_file">Изберете файл за запис</string>
-  <string name="existing_track_title">Съществуващи данни от трак</string>
-  <string name="existing_track_message">Вече имате съществуващи данни от трак. Може би искате да ги отхвърлите и първо да запишете.</string>
-  <string name="delete_tags">Наистина ли искате да изтриете всички тагове за обект \"%1$s\"?</string>
   <!--element information dialog-->
-  <string name="element_information">Информация за елемент</string>
-  <string name="id">Id</string>
   <string name="nodes">Възли</string>
   <string name="relation_membership">Членство в релация</string>
   <string name="problem">Проблем</string>
@@ -130,26 +73,16 @@
   <string name="version">Версия</string>
   <string name="length_m">Дължина (m)</string>
   <string name="not_downloaded">Не е свалено</string>
-  <string name="empty_role">празна роля</string>
-  <string name="element">елемент</string>
-  <string name="last_updated">последно обновен</string>
   <string name="last_edited">Последно обновен</string>
   <string name="original">Оригинален</string>
   <string name="current">Текущ</string>
   <!--GeoJSON feature display dialog-->
-  <string name="feature_information">Информация за GeoJSON обект</string>
   <!---->
-  <string name="error">грешка</string>
-  <string name="warning">предупреждение</string>
-  <string name="minor_issue">дребен проблем</string>
-  <string name="unknown_error_level">неизвестно ниво на грешка</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Това действие засяга филтрирани прикачени обекти!</string>
-  <string name="attached_object_warning_message">Промененият обект е свързан със скрити елементи, които ще се променят също.</string>
-  <string name="attached_object_warning_continue">ОК продължи да показваш това съобщение</string>
-  <string name="attached_object_warning_stop">ОК спри да показваш това съобщение</string>
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
-  <string name="send_debug_information">Изпрати информация за дебъг</string>
   <!--JS console dialog-->
   <string name="evaluate">Оцени</string>
   <string name="js_console_msg_live">Режим на живо!</string>
@@ -158,20 +91,14 @@
   <string name="validator_title">Правила на валидатора %1$s</string>
   <string name="max_age">Максимална вързраст</string>
   <string name="age">Възраст</string>
-  <string name="check_opt">Провери настр.</string>
-  <string name="check_optional">Проверка по избор</string>
   <!--Empty relation dialog-->
-  <string name="empty_relation_title">Празна релация</string>
-  <string name="empty_relation_message">Релацията %1$s няма членове.\n\nОставяйки я така, няма да може да се редактира във Vespucci.</string>
   <string name="add_members">Добави членове</string>
   <string name="leave_empty">Остави празно</string>
-  <!--GPX way point dialog-->
-  <string name="waypoint_title">GPX точка</string>
+  <!--GPX waypoint dialog-->
   <string name="waypoint_description">Точка: %1$s</string>
   <string name="description">Описание</string>
   <string name="created">Създаден</string>
   <string name="altitude">Надморска височина</string>
-  <string name="create_osm_object">Създайте OSM обект</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Персонализирани изображения</string>
   <string name="oam_layer_title">OAM изображения</string>
@@ -183,7 +110,6 @@
   <string name="coverage_left">Ляво</string>
   <string name="coverage_right">Дясно</string>
   <string name="coverage_bottom">Долу</string>
-  <string name="preferred">Предпочитания</string>
   <string name="toast_invalid_box">Невалиден или непълен ограждащ правоъгълник</string>
   <string name="delete_layer">Изтрий слой?</string>
   <!--Layer style dialog-->
@@ -199,12 +125,11 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Снимки</string>
   <string name="layer_tasks">Задачи</string>
-  <string name="layer_data">OSM данни</string>
   <string name="layer_flush_tile_cache">Изчистете кеша на тайлове</string>
   <string name="layer_change_style">Смяна стил</string>
   <string name="layer_select_imagery">Изберете изображение</string>
   <!--Undo - Redo dialog-->
-  <string name="undo_redo_title">Отмени - Повтори</string>
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Свалете OpenStreetMap данни</string>
   <!--NumberPiker-->
@@ -213,83 +138,49 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <!--Toaster-->
-  <string name="toast_name_empty">Името не може да е празно</string>
-  <string name="toast_url_empty">URL не може да е празно</string>
-  <string name="toast_min_zoom">Минималното приближение трябва да е по-малко от максималното</string>
   <string name="toast_no_changes">Не сте променили все още нищо...</string>
-  <string name="toast_unsaved_changes">Имате незаписани промени, моля качете ги първо.</string>
-  <string name="toast_upload_success">Качването на OSM сървъра завършено.</string>
   <string name="toast_unlock_to_edit">Отключете, за да редактирате</string>
-  <string name="toast_edit_outside_downloaded_area">Не може да редактирате извън сваления район</string>
-  <string name="toast_save_done">Записът успешен</string>
-  <string name="toast_save_failed">Записът неуспешен</string>
-  <string name="toast_export_failed">Експортът неуспешен</string>
   <string name="toast_export_success">Експортнато към %1$s</string>
   <string name="toast_too_many_nodes_for_move">Твърде много възли в път, за да бъде преместен</string>
-  <string name="toast_unread_mail">Имате  %1$d непрочетени OSM съобщения</string>
-  <string name="toast_one_unread_mail">Имате непрочетено OSM съобщение</string>
   <string name="toast_photo_indexing_started">Стартира търсене на геореферирани снимки</string>
   <string name="toast_photo_indexing_finished">Приключи търсене на геореферирани снимки</string>
   <string name="toast_download_failed">Свалянето се провали с код за грешка %1$d, съобщение %2$s</string>
   <string name="toast_unsurveyed_road">Неизмерен път</string>
-  <string name="toast_noname">Пътят няма име или номер</string>
-  <string name="toast_notype">Релацията няма вид</string>
-  <string name="toast_oauth_retry">Моля позволете OAuth достъп до вашия OSM акаунт и след това опитайте отново с качването.</string>
   <string name="toast_oauth">Моля позволете OAuth достъп до вашия OSM акаунт,</string>
   <string name="toast_no_oauth">Не е достъпна OAuth конфигурация за текущото API, моля използвайте потребител и парола.</string>
   <string name="toast_oauth_not_enabled">OAuth не е позволен за текущото API.</string>
-  <string name="toast_oauth_timeout">Времето за автентикация изтече, моля опитайте отново.</string>
-  <string name="toast_oauth_communication">Комуникационна грешка по време на автентикация, моля опитайте отново.</string>
-  <string name="toast_oauth_handshake_failed">OAuth автентикацията неуспешна: %1$s</string>
   <string name="coordinates_out_of_range">Географската дължина трябва да е между -180°/+180°, географската дължина между -85°/85°</string>
   <string name="toast_nothing_found">Нищо не е намерено</string>
-  <string name="toast_statesave_failed">Запазването на текущото състояние се провали!\nТова е сериозна грешка, прави се опит за експорт на файл за по-нататъшно възстановяване с JOSM</string>
-  <string name="toast_missing_filemanager">Моля инсталирайте Файлов Мениджър</string>
-  <string name="toast_outside_of_download">Редактирате извън района на свалените данни.</string>
   <string name="toast_file_not_found">%1$s не е намерен.</string>
-  <string name="toast_imported_track_points">Импортирани %1$d точки от трак и %2$d точки.</string>
-  <string name="toast_imported_track_points_single_way_point">Импортирани %1$d точки от трак и 1 точка.</string>
-  <string name="toast_unknown_voice_command">За съжаление в момента \"%1$s\" не се разбира</string>
-  <string name="toast_inconsistent_state">Противоречиво състояние е засечено, моля изпратете доклада за грешка!</string>
-  <string name="toast_camera_error">Грешка при стартирането на приложението камера: %1$s</string>
   <string name="toast_no_voice">Няма инструмент за разпознаване на глас</string>
-  <string name="toast_storage_error">%1$s не може да се запише от Vespucci.\nТова може да е проблем с правата или технически проблем с вашето устройство.</string>
   <string name="toast_no_suitable_storage">Системата не върна подходящо местоположение за базата данни от тайлове</string>
   <string name="toast_min_one_geocoder">Поне един геокодер трябва да бъде избран!</string>
-  <string name="toast_used_backup">Повреден файл за състоянието, изпозвано е резервно копие!</string>
-  <string name="toast_used_bug_backup">Повреден файл за състоянието бъговете, изпозвано е резервно копие!</string>
-  <string name="toast_rmpty_relation">Празна релация, създава се доклад за срив.</string>
   <string name="toast_split_from">Разделен път \"от\"</string>
   <string name="toast_split_via">Разделен път \"през\"</string>
   <string name="toast_split_from_and_via">Разделени пътища \"от\" и \"през\"</string>
   <string name="toast_split_to">Разделен път \"до\"</string>
   <string name="toast_tile_database_issue_short">Проблем с базата данни от тайлове</string>
-  <string name="toast_tile_database_issue">Сериозен проблем с базата данни от картни тайлове\n\"%1$s\"\nМоля косултирайте се с FAQ на http://vespucci.io/</string>
   <string name="toast_invalid_apiurl">Невалиден URL на API</string>
   <string name="toast_invalid_readonlyurl">Невалиден URL на ReadOnly API  </string>
-  <string name="toast_invalid_notesurl">Невалиден URL на Notes API</string>
   <string name="toast_invalid_filter_regexp">Невалиден израз във филтър с ключ=\"%1$s\" стойност=\"%2$s\"</string>
-  <string name="toast_error_accessing_photo">Няма достъп до снимка %1$s</string>
-  <string name="toast_no_voice_recognition">Няма инструмент за разпознаване на глас</string>
   <string name="toast_no_coverage">%1$s няма покритие тук</string>
-  <string name="toast_file_exists">Файлът %1$s съществува.</string>
   <string name="toast_needs_resurvey">Обектът може да е остарял</string>
-  <string name="toast_missing_key">Ключ %1$s липсва</string>
   <string name="toast_openinghours_invalid">Невалидна стойност за работно време за %1$s</string>
-  <string name="toast_openinghours_autocorrected">Данните за работно време за %1$s бяха автокоригирани</string>
-  <string name="toast_exit_multiselect">Докоснете два пъти на празно пространство или използвайте стрелка назад, за да излезете</string>
   <!--Some generic labels/buttons-->
+  <!--Read a file-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <!--Strings in Box/LocationPicker-->
   <!--Menu-->
   <!---->
   <!--Background alignment-->
+  <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <!--Advanced preferences-->
@@ -306,7 +197,7 @@
   <!--url handler activity-->
   <!--common terms-->
   <!---->
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <!--ACRA-->

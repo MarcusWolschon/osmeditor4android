@@ -7,28 +7,11 @@
   <string name="mode_correct">Modo-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Cuidado!</string>
-  <string name="transfer_download_current_dialog_message">Você fez algumas modificações. Deseja transferir ao invés de descartar?</string>
   <string name="transfer_download_current_upload">Upload</string>
   <string name="transfer_download_current_download">Descartar e baixar</string>
-  <string name="transfer_download_current_back">Voltar (não fazer nada)</string>
-  <string name="upload_problem_title">Problema com o Upload</string>
-  <string name="upload_problem_message">Alguns ou todos os dados não foram enviados. Tente fazer o upload novamente mais tarde se isso for apenas um problema temporário.</string>
   <string name="upload_conflict_title">Conflito no upload</string>
   <string name="use_local_version">Usar versão local</string>
   <string name="use_server_version">Usar versão no servidor</string>
-  <string name="no_login_data_title">Falha de autenticação</string>
-  <string name="no_connection_title">Sem conexão ao servidor</string>
-  <string name="no_connection_message">Não foi possível conectar ao servidor OSM. Por favor verifique sua conexão de internet ou tente novamente mais tarde.</string>
-  <string name="wrong_login_data_title">Falha na autenticação</string>
-  <string name="data_conflict_title">Conflito de versão</string>
-  <string name="api_offline_title">API Offline</string>
-  <string name="out_of_memory_title">Sem memória</string>
-  <string name="invalid_data_received_title">Dados inválidos recebidos</string>
-  <string name="file_write_failed_title">A gravação do arquivo falhou</string>
-  <string name="file_write_failed_message">Não foi possível gravar no arquivo selecionado.</string>
-  <string name="welcome_title">Bem Vindo!</string>
-  <string name="read_introduction">Leia as instruções agora</string>
-  <string name="upgrade_title">Bem Vindo à nova versão do Vespucci!</string>
   <string name="read_upgrade">Leia sobre a nova versão</string>
   <string name="progress_title">Carregando</string>
   <string name="progress_message">Carregando dados na memória...</string>
@@ -43,23 +26,19 @@
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Nova Nota</string>
-  <string name="openstreetbug_new_bug">Reportar problema</string>
-  <string name="openstreetbug_new_nodeway">Criar Nó/Via</string>
-  <string name="openstreetbug_edit_title">Editar Nota</string>
   <string name="openstreetbug_comment_label">Comentário:</string>
-  <string name="openstreetbug_edit_close">Fechar</string>
-  <string name="openstreetbug_edit_closed">Fechado</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Cuidado!</string>
+  <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Descrição</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_date">Criado</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distância</string>
+  <!--Search/Find dialog-->
+  <!---->
   <string name="search">Procurar</string>
   <!--element information dialog-->
-  <string name="id">Id</string>
   <string name="nodes">Nós</string>
   <string name="problem">Problema</string>
   <string name="members">Membros</string>
@@ -69,30 +48,28 @@
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
-  <string name="toast_save_done">Salvo com sucesso</string>
-  <string name="toast_save_failed">Falha ao salvar</string>
-  <string name="toast_export_failed">Falha ao exportar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
-  <string name="toast_notype">A ralação não possui um tipo</string>
   <string name="toast_nothing_found">Nada encontrado</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
-  <string name="okay">Ok</string>
   <string name="cancel">Cancelar</string>
   <string name="locked">Bloqueado</string>
   <string name="next">Próximo</string>
@@ -103,8 +80,8 @@
   <string name="back">Voltar</string>
   <string name="forward">Igual à direção da linha</string>
   <string name="keep">Manter</string>
+  <!--Read a file-->
   <!--Dialog for back button-->
-  <string name="exit_title">Deseja sair?</string>
   <string name="exit_text">Tem certeza que deseja sair?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">chave</string>
@@ -114,13 +91,11 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/wiki/Pt-br:Map_Features</string>
   <string name="tag_menu_address">Adicionar tags de endereço</string>
   <string name="tag_menu_preset">Pré-definições</string>
-  <string name="tag_menu_repeat">Repetir tags</string>
   <string name="tag_details">Detalhes</string>
   <string name="menu_up">Para cima</string>
   <string name="tag_restriction_header">Valor</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_default_radius">300m</string>
-  <string name="location_text_unknown">desconhecido</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
   <string name="location_search_label">Procurar:</string>
@@ -140,17 +115,11 @@
   <string name="menu_add_relation_member">Adicionar membro</string>
   <string name="menu_select_relation_members">Selecionar membros</string>
   <string name="menu_tag">Editar tags</string>
-  <string name="menu_openstreetbug">Adicionar nota</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Câmera</string>
-  <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Mostrar localização</string>
-  <string name="menu_gps_start">Iniciar trilha GPS</string>
-  <string name="menu_gps_pause">Pausar trilha GPS</string>
-  <string name="menu_gps_goto_start">Ir para o começo da trilha</string>
   <string name="menu_transfer">Transferir...</string>
   <string name="menu_transfer_download_current">Baixar vista atual</string>
-  <string name="menu_save">Salvar em arquivo</string>
   <string name="menu_join">Unir</string>
   <string name="menu_unjoin">Desunir</string>
   <string name="menu_copy">Copiar</string>
@@ -158,9 +127,7 @@
   <string name="menu_paste">Colar</string>
   <string name="menu_paste_from_clipboard">Colar da área de transferência</string>
   <string name="menu_rotate">Girar</string>
-  <string name="menu_orthogonalize">Ortogonalizar</string>
   <string name="menu_circulize">Arrumar em círculo</string>
-  <string name="menu_newnode_gps">Novo nó na posição GPS</string>
   <string name="menu_information">Info</string>
   <string name="menu_tools_background_properties">Propriedades das imagens de fundo</string>
   <!---->
@@ -168,10 +135,7 @@
   <string name="menu_tools_background_align">Alinhar fundo de tela</string>
   <string name="menu_tools_background_align_reset">Redefinir</string>
   <string name="menu_tools_background_align_zero">Zero</string>
-  <string name="menu_tools_background_align_retrieve_from_db">Do BD</string>
-  <string name="menu_tools_background_align_retrieve_from_device">Do dispositivo</string>
-  <string name="menu_tools_background_align_save_db">Salvar no BD</string>
-  <string name="menu_tools_background_align_save_device">Salvar no dispositivo</string>
+  <!--Menus in layers dialog-->
   <!---->
   <string name="menu_tools_background_contrast">Contraste</string>
   <!--element action mode menu-->
@@ -188,6 +152,7 @@
   <string name="actionmode_createpath">Criando caminho</string>
   <string name="actionmode_multiselect">Multi seleção</string>
   <!--EasyEdit action mode sub-titles-->
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Mapa de fundo</string>
   <string name="config_overlayLayer_title">Mapa sobreposto</string>
@@ -199,17 +164,13 @@
   <string name="config_category_info">Sobre</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
-  <string name="config_category_view">Configurações da interface de usuário</string>
   <string name="config_showTolerance_title">Mostrar tolerância</string>
-  <string name="config_enableLightTheme_title">Ativar tema claro</string>
   <string name="config_maxStrokeWidth_title">Largura máxima da linha</string>
   <!--Data and Editing Settings-->
   <string name="config_generateAlerts_title">Gerar notificações</string>
   <string name="config_generateAlerts_summary">Gerar notificações para dados com problemas ou notas</string>
   <!--Location Settings-->
-  <string name="config_gps_source_title">Fonte GPS</string>
   <!--Server Settings-->
-  <string name="config_category_server">Configurações do servidor</string>
   <string name="config_apibutton_title">URL da API OSM</string>
   <!--Layer download and storage-->
   <!--Miscellaneous-->
@@ -228,50 +189,22 @@
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
   <!---->
-  <string name="api_name">Nome da API</string>
   <string name="api_url">URL da API</string>
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
   <string name="undo">Desfazer</string>
   <string name="redo">Refazer</string>
   <string name="undo_nothing">nada para desfazer</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">mover nó</string>
-  <string name="undo_action_moveway">mover via</string>
-  <string name="undo_action_moveobjects">mover objetos</string>
-  <string name="undo_action_add">inserir</string>
-  <string name="undo_action_append">atribuir</string>
-  <string name="undo_action_deletenode">apagar nó</string>
-  <string name="undo_action_deleteway">apagar via</string>
-  <string name="undo_action_delete_objects">apagar objetos</string>
-  <string name="undo_action_split_ways">dividir vias</string>
-  <string name="undo_action_split_way">dividir via</string>
-  <string name="undo_action_merge_ways">mesclar vias</string>
-  <string name="undo_action_reverse_way">inverter sentido da via</string>
-  <string name="undo_action_set_tags">definir tags</string>
-  <string name="undo_action_join">unir</string>
-  <string name="undo_action_unjoin_ways">separar vias</string>
-  <string name="undo_action_create_relation">criar relação</string>
-  <string name="undo_action_delete_relation">apagar relação</string>
-  <string name="undo_action_update_relations">atualizar relações</string>
-  <string name="undo_action_cut">recortar</string>
-  <string name="undo_action_paste">colar</string>
-  <string name="undo_action_rotateway">girar via</string>
-  <string name="undo_action_orthogonalize">ortogonalizar via</string>
-  <string name="undo_action_circulize">arrumar em círculo</string>
-  <string name="undo_action_fix_conflict">corrigir conflito</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
-  <string name="bearing_s">S</string>
-  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
   <string name="role">Papel</string>
   <string name="membership_relation_heading">Membro da relação</string>
   <string name="relation">Relação</string>
   <string name="relations">Relações</string>
-  <string name="position">Posição</string>
   <string name="type">Tipo</string>
   <string name="object">Objeto</string>
   <string name="deleterelation">Apagar relação</string>
@@ -283,7 +216,6 @@
   <string name="km">km</string>
   <string name="meter">metro</string>
   <!--Help system-->
-  <string name="toast_nohelp">Sem ajuda disponível aqui!</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privado</item>

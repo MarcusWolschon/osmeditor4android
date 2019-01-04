@@ -39,16 +39,16 @@
 <h4>Pojedyncze dotknięcie, podwójne dotknięcie i długie dotknięcie</h4>
 <p>Standardowo, możliwe do zaznaczenia węzły oraz linie mają pomarańczową obwódkę wokół nich pokazującą gdzie - mniej więcej - należny nacisnąć by wybrać ten obiekt. Masz trzy opcje:</p>
 <ul>
-  <li>Pojedyncze dotknięcie: Wybierz obiekt.
+  <li>Single tap: Selects object.
     <ul>
-      <li>Pojedynczy węzeł/linia zostaje od razu podświetlony.</li>
-      <li>Jeżeli jednak spróbujesz wybrać obiekt, a Vespucci stwierdzi, że wybór może dotyczyć wielu obiektów, pokaże się menu wyboru, pozwalając sprecyzować, o który obiekt Ci chodzi.</li>
-      <li>Wybrane obiekty są podświetlone na żółto.</li>
-      <li>Aby dowiedzieć się więcej zobacz <a href="Node%20selected.html">Node selected</a>, <a href="Way%20selected.html">Way selected</a> and <a href="Relation%20selected.html">Relation selected</a>.</li>
+      <li>An isolated node/way is highlighted immediately.</li>
+      <li>However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select.</li>
+      <li>Selected objects are highlighted in yellow.</li>
+      <li>For further information see <a href="Node%20selected.html">Node selected</a>, <a href="Way%20selected.html">Way selected</a> and <a href="Relation%20selected.html">Relation selected</a>.</li>
     </ul>
   </li>
-  <li>Podwójne dotknięcie: Rozpocznij <a href="Multiselect.html">Multiselect mode</a></li>
-  <li>Długie dotknięcie: Pojawia się "celownik", pozwalający na dodawanie węzłów, spójrz niżej oraz <a href="Creating%20new%20objects.html">Creating new objects</a></li>
+  <li>Double tap: Start <a href="Multiselect.html">Multiselect mode</a></li>
+  <li>Long press: Creates a "crosshair", enabling you to add nodes, see below and <a href="Creating%20new%20objects.html">Creating new objects</a>. This is only enabled if "Simple mode" is deactivated.</li>
 </ul>
 <p>Dobrą praktyką jest przybliżanie widoku gdy edytujesz obszar o dużej ilości elementów.</p>
 <p>System cofania i ponawiania zmian w Vespucci jest dobrze dopracowany, więc nie bój się eksperymentować, jednakże nie wysyłaj testowych danych na serwer.</p>
@@ -62,8 +62,13 @@
 <p>Zauważ, że dla nakładających się obiektów (takich, jak węzeł na linii) menu wyboru pojawia się ponownie. Wybranie tego samego obiektu pokazuje edytor tagów; wybranie innego po prostu zaznacza go.</p>
 <h4>Zaznaczone obiekty: Przenoszenie Węzłów lub Linii</h4>
 <p>Kiedy zaznaczysz obiekt, może on zostać przesunięty. Zauważ, że obiekty mogą być przenoszone tylko gdy zostały uprzednio zaznaczone. Zwyczajnie przeciągnij obok (np. w obszarze tolerancji) zaznaczonego obiektu, aby go przesunąć. Jeśli opcja "Duży obszar przeciągania węzłów" jest włączona, wyświetlany jest duży obszar wokół zaznaczonego węzła pozwalając na bardziej precyzyjne przesuwanie. </p>
-<h4>Dodawanie nowych Węzłów/Punktów lub Linii (długie przyciśnięcie)</h4>
-<p>Przyciśnij długo w miejscu, gdzie chcesz dodać węzeł lub zacząć linię. Zobaczysz symbol czarnego "celownika". * Jeśli chcesz utworzyć węzeł (bez połączenia z obiektem), kliknij z dala od istniejących obiektów. * Jeżeli chcesz przedłużyć linię, kliknij w "granicach tolerancji" linii (lub jej węzła). Granica tolerancji jest wskazywana przez obszar wokół węzła lub linii.</p>
+<h4>Adding a new Node/Point or Way</h4>
+<p>On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.</p>
+<h5>Simple mode</h5>
+<p>Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>See <a href="Creating%20new%20objects%20in%20simple%20actions%20mode.html">Creating new objects in simple actions mode</a> for more information.</p>
+<h5>Advanced (long press) mode</h5>
+<p>Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. * If you want to create a new node (not connected to an object), click away from existing objects. * If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.</p>
 <p>Kiedy zobaczysz symbol celownika, masz następujące opcje:</p>
 <ul>
   <li>Dotknij w tym samym miejscu.
@@ -75,7 +80,7 @@
   <li>Dotknij w innym miejscu. Dotknięcie innego miejsca (poza granicą tolerancji celownika) dodaje segment linii pomiędzy miejscami pierwszego i drugiego dotknięcia. Jeżeli celownik jest w pobliżu linii lub węzła, to nowy segment będzie do nich dołączony.</li>
 </ul>
 <p>Dotykaj kolejne miejsca na ekranie by dodać dalsze węzły tworzące linie. Aby zakończyć kliknij ostatni węzeł dwa razy. Jeśli końcowy węzeł znajduje się na linii lub węźle, segment zostanie połączony z nimi automatycznie. </p>
-<p>Możesz też użyć menu: Zobacz <a href="/Creating%20new%20objects.html">Creating new objects</a>, aby uzyskać więcej informacji.</p>
+<p>You can also use a menu item: See <a href="Creating%20new%20objects.html">Creating new objects</a> for more information.</p>
 <h4>Dodawanie obszaru</h4>
 <p>W przeciwieństwie do innych systemów danych geograficznych, OpenStreetMap aktualnie nie posiada obiektu typu "obszar". Edytor "iD" próbuje tworzyć obszary z podstawowych elementów OSM, co czasami działa lepiej, czasami gorzej. Aktualnie Vespucci nie próbuje robić nic podobnego, więc musisz wiedzieć trochę więcej o tym, jak prezentowane są obszary:</p>
 <ul>
@@ -154,10 +159,10 @@
 <h4>Sprawdź wpisy</h4>
 <p>Sprawdzenie wpisów ma następujące dwie właściwości:</p>
 <ul>
-  <li><strong>Klucz</strong> - Klucz, który powinien być obecny dla obiektu zgodnie z szablonem dopasowania.</li>
-  <li><strong>Sprawdź opcjonalne</strong> - Sprawdź opcjonalne tagi szablonu dopasowania.</li>
+  <li><strong>Key</strong> - Key that should be present on the object according to the matching preset.</li>
+  <li><strong>Require optional</strong> - Require the key even if the key is in the optional tags of the matching preset .</li>
 </ul>
-<p>To sprawdzenie najpierw określa pasujący szablon a następnie sprawdza, czy <strong>Klucz</strong> jest "rekomendowanym" kluczem dla tego obiektu zgodnie z szablonem. <strong>Sprawdź opcjonalne</strong> rozwinie sprawdzenie dla tagów, które są "opcjonalne" dla obiektu. Uwaga: aktualnie połączone szablony nie są sprawdzane.</p>
+<p>This check works by first determining the matching preset and then checking if <strong>Key</strong> is a "recommended" key for this object according to the preset, <strong>Require optional</strong> will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.</p>
 <h2>Filtry</h2>
 <h3>Filtr bazujący na tagach</h3>
 <p>Filtr może być aktywowany w głównym menu, a następnie zmieniany przez dotknięcie ikony filtra. Cała dokumentacja jest dostępna tutaj <a href="Tag%20filter.html">Tag filter</a>.</p>
@@ -181,6 +186,7 @@
   <li>Pokaż statystyki. Pokazuje statystyki służące do odnajdywania błędów oprogramowania, nie są zbyt przydatne. Domyślnie: wyłączone (dawniej włączone).</li>
 </ul>
 <h2>Zgłaszanie Problemów</h2>
-<p>Jeśli nastąpi awaria Vespucci, lub plik stanu będzie wadliwy, zostaniesz zapytany czy chcesz wysłać raport o błędach. Apelujemy byś to zrobił/zrobiła, ale tylko raz na ten sam rodzaj błędu. Jeśli chcesz dodać więcej informacji lub złożyć prośbę o nową funkcjonalność lub w podobnej sprawie, zrób to tutaj: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. Jeżeli chcesz przedyskutować sprawę związaną z Vespucci, możesz to zrobić albo na <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci google group</a> albo na <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
+<p>If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">Vespucci issue tracker</a>. The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.</p>
+<p>If you want to discuss something related to Vespucci, you can either start a discussion on the <a href="https://groups.google.com/forum/#!forum/osmeditor4android">Vespucci Google group</a> or on the <a href="http://forum.openstreetmap.org/viewforum.php?id=56">OpenStreetMap Android forum</a></p>
 </body>
 </html>

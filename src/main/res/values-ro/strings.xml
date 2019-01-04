@@ -4,11 +4,8 @@
   <string name="mode_indoor">Înăuntru</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Atenţie!</string>
-  <string name="transfer_download_current_dialog_message">Ai făcut câteva modificări. Vrei sa le încarci în loc să renunţi la ele _</string>
   <string name="transfer_download_current_upload">Încarcă</string>
   <string name="transfer_download_current_download">Renunţă şi descarcă</string>
-  <string name="no_connection_title">Nu există conexiune cu Serverul</string>
-  <string name="out_of_memory_title">Fără memorie</string>
   <string name="progress_title">Încarcă</string>
   <string name="progress_message">Încarcă informaţia în memorie...</string>
   <string name="progress_download_message">Descarcă informaţia de la server…</string>
@@ -21,52 +18,47 @@
   <string name="upload_gpx_description_label">Descripție</string>
   <string name="upload_gpx_visibility_label">Vizibilitate</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">Notă nouă</string>
-  <string name="openstreetbug_new_bug">Raportează problema</string>
-  <string name="openstreetbug_edit_title">Editează nota</string>
-  <string name="openstreetbug_commitbutton">Transmite</string>
   <string name="openstreetbug_comment_label">Comentariu:</string>
-  <string name="openstreetbug_edit_close">Închide</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Atenţie!</string>
-  <string name="unsaved_data_message">Aveţi modificări nesalvate ce vor fi șterse dăcă continuaţi.</string>
   <string name="unsaved_data_proceed">Renunţă și continuă</string>
+  <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Descriere</string>
   <string name="imagery_offset_author">Autor</string>
   <string name="imagery_offset_date">Creat</string>
   <string name="imagery_offset_zoom">Zoom</string>
   <string name="imagery_offset_distance">Distanţă</string>
+  <!--Search/Find dialog-->
   <string name="search_results_title">Rezultatele căutării</string>
+  <!---->
   <string name="search">Caută</string>
   <!--element information dialog-->
   <string name="version">Versiune</string>
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
-  <string name="toast_upload_success">Încărcat către server-ul OSM. </string>
-  <string name="toast_not_in_edit_range">Vă rog măriţi pentru a edita (Volum Sus/Jos sau Lentile/Schimbă)</string>
-  <string name="toast_save_done">Salvat</string>
-  <string name="toast_export_failed">Exportarea nu a reușit</string>
   <string name="toast_export_success">Exportat la %1$s</string>
   <string name="toast_nothing_found">Nu am găsit nimic</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Nu</string>
-  <string name="okay">Ok</string>
   <string name="cancel">Renunţă</string>
   <string name="next">Următor</string>
   <string name="apply">Aplică</string>
@@ -74,6 +66,7 @@
   <string name="replace">Inlocuiește</string>
   <string name="save">Salveaza</string>
   <string name="forward">Înainte</string>
+  <!--Read a file-->
   <!--Dialog for back button-->
   <string name="exit_text">Sunteţi sigur că doriţi să ieșiţi?</string>
   <!--Strings in PorpertyEditor-->
@@ -83,12 +76,10 @@
   <string name="tag_details">Detalii</string>
   <string name="menu_up">Sus</string>
   <!--Strings in Box/LocationPicker-->
-  <string name="location_headline">Incarcă zona</string>
   <string name="location_choose_radius">Alegeţi raza:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Ultima locaţie cunoscută:</string>
   <string name="location_current_text">Locaţia curentă:</string>
-  <string name="location_text_unknown">necunoscut</string>
   <string name="location_last_text_parameterized">Ultima locaţie cunoscută: %1$s</string>
   <string name="location_current_text_parameterized">Locaţie curentă: %1$s</string>
   <string name="location_coordinates_text">De la coordonatele:</string>
@@ -107,11 +98,9 @@
   <string name="menu_split">Separă</string>
   <string name="menu_append">Lipește</string>
   <string name="menu_camera">Cameră</string>
-  <string name="menu_gps">GPS...</string>
   <string name="menu_gps_show">Arată locaţia</string>
   <string name="menu_transfer">Transfer...</string>
   <string name="menu_transfer_download_current">Descarcă conţinutul curent</string>
-  <string name="menu_save">Salvează în fișier</string>
   <string name="menu_join">Participă</string>
   <string name="menu_cut">Taie</string>
   <string name="menu_rotate">Rotește</string>
@@ -121,8 +110,7 @@
   <!--Background alignment-->
   <string name="menu_tools_background_align_reset">Resetează</string>
   <string name="menu_tools_background_align_zero">Zero</string>
-  <string name="menu_tools_background_align_save_db">Salvează în baza de date</string>
-  <string name="menu_tools_background_align_save_device">Salvează în dispozitiv</string>
+  <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
@@ -131,28 +119,24 @@
   <string name="menu_reverse">Întoarce</string>
   <!--EasyEdit action mode titles-->
   <!--EasyEdit action mode sub-titles-->
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Hartă de fundal</string>
   <string name="config_advancedprefs">Setări avansate</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
-  <string name="config_licensebutton_title">Autori și licenţe</string>
   <string name="config_category_info">Despre</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_showTolerance_title">Arată toleranţa</string>
   <!--Data and Editing Settings-->
-  <string name="config_forceContextMenu_title">Folosește întotdeauna meniu contextual</string>
   <!--Location Settings-->
   <!--Server Settings-->
-  <string name="config_category_server">Setările Serverului</string>
   <string name="config_loginbutton_title">Cont utilizator</string>
   <!--Layer download and storage-->
   <!--Miscellaneous-->
   <string name="config_showStats_title">Arată statistici</string>
   <!--Experimental-->
   <!---->
-  <string name="config_username_title">Nume utilizator OSM</string>
-  <string name="config_password_title">Parolă OSM</string>
   <!--preset downloader messages-->
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" sters</string>
@@ -166,20 +150,13 @@
   <string name="name">Nume</string>
   <string name="default_">Implicit</string>
   <!---->
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="preset">Curent</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_create_relation">crează legătura</string>
-  <string name="undo_action_delete_relation">șterge legătura</string>
-  <string name="undo_action_cut">taie
- </string>
-  <string name="undo_action_circulize">aranjează în cerc</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
-  <string name="bearing_s">S</string>
-  <string name="bearing_w">W</string>
   <!--Misc relation related stuff-->
   <string name="role">Rol</string>
   <string name="relation">Relație</string>

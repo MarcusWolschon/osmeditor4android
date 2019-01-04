@@ -53,7 +53,7 @@ Par défaut, les nœuds et les voies sélectionnables sont entourés d'une zone 
     * Les objets sélectionnés sont mis en évidence en jaune.
     * Pour de plus amples informations voir [Sélection de nœud](Node%20selected.md), [Sélection de voie](Way%20selected.md) et [Sélection de relation](Relation%20selected.md).
 * Appui double : démarrer le [mode de sélection multiple](Multiselect.md).
-* Appui long : créer une « croix » qui vous permet d'ajouter des nœuds, voir plus bas et [Créer de nouveaux objets](Creating%20new%20objects.md).
+* Appui long : créer une « croix » qui vous permet d'ajouter des nœuds, voir plus bas et [Créer de nouveaux objets](Creating%20new%20objects.md). Cela n'est possible que si le « mode simple » est désactivé.
 
 Il est conseillé de zoomer plus quand vous éditez une zone avec une grande densité de données.
 
@@ -79,11 +79,21 @@ Remarquez que pour les objets se chevauchant (tel qu'un nœud sur une voie) le m
 
 Une fois que vous avez sélectionné un objet, il peut être déplacé. Remarquez que les objets peuvent être déplacés uniquement lorsqu'ils sont sélectionnés. Glissez simplement (dans la zone interactive) l'objet sélectionné pour le déplacer Si vous sélectionnez l'option zone élargie dans les préférences vous aurez une zone plus large autour du nœud sélectionné, ce qui rendra plus facile le positionnement de l'objet 
 
-#### Ajouter un nouveau nœud, un point ou un chemin (appui long)
+#### Ajouter un nouveau nœud ou un nouveau point sur un chemin 
 
-Appuyez longuement là ou vous voulez positionner votre nœud ou que votre chemin commence. Vous verrez un symbole noir « réticule ». 
-* Si vous voulez créer un nouveau nœud (non connecté à un objet), appuyez loin d'un objet existant.
-* Si vous voulez rallonger un chemin, cliquez dans la « zone interactive » du chemin (ou un nœud sur le chemin). La zone interactive est indiquée par des zones autour du nœud ou du chemin
+Au premier démarrage, l'appli se lance en « mode simple », ce que vous pouvez changer dans le menu principal en désélectionnant la case correspondante.
+
+##### Mode simple
+
+Appuyez sur le gros bouton vert flottant sur la carte pour afficher un menu. Après avoir sélectionné l'un des éléments, on vous demandera d'appuyer sur l'écran à l'emplacement où vous voulez créer l'objet, mais le déplacement et le zoom continuent de fonctionner si vous devez ajuster la vue de la carte. 
+
+Voir [Créer de nouveaux objets dans le mode d'actions simples](Creating%20new%20objects%20in%20simple%20actions%20mode.md) pour plus d'informations.
+
+##### Mode avancé (appui long)
+ 
+Appuyez longuement là où vous voulez ajouter le nœud ou commencer le chemin. Vous verrez un réticule noir.
+* Si vous voulez créer un nouveau nœud (non connecté à un objet), cliquez à l'écart des objets existants.
+* Si vous voulez étendre un chemin, cliquez dans la zone interactive du chemin (ou d'un nœud du chemin). La zone interactive est indiquée par la zone autour du nœud ou du chemin.
 
 Une fois que vous pouvez voir le symbole « réticule », vous avez trois options :
 
@@ -94,7 +104,7 @@ Une fois que vous pouvez voir le symbole « réticule », vous avez trois option
 
 Touchez simplement l'écran aux endroits où vous voulez ajouter des nœuds au chemin. Pour finir, toucher le dernier nœud deux fois. Si le nœud final se trouve sur une voie ou un nœud, le segment sera connecté à la voie ou au nœud automatiquement. 
 
-Vous pouvez aussi utiliser un élément du menu : voir [Créer de nouveau objets](Creating%20new%20objects.md) pour plus d'information.
+Vous pouvez aussi utiliser un élément du menu : voir [Créer de nouveau objets](Creating%20new%20objects.md) pour plus d'information.
 
 #### Ajouter un polygone
 
@@ -215,10 +225,10 @@ Les entrées de demande de nouveaux relevés de terrain ont les propriétés sui
 
 Les entrées de vérification ont les deux propriétés suivantes :
 
-* **Clef** : la clef qui devrait être présente sur l'objet d'après le modèle d'attribut correspondant.
-* **Vérification des attributs facultatifs** : Vérifie aussi les attributs facultatifs du modèle correspondant.
+* **Clef** : la clef qui devrait être présente sur l'objet d'après le modèle d'attribut correspondant.
+* **Attributs facultatifs requis** : Requiert la clef même si elle fait partie des attributs facultatifs du modèle correspondant.
 
-Cette vérification fonctionne en déterminant d'abord le modèle correspondant puis en vérifiant que la **Clef** est une clef « recommandée » pour cet objet d'après l'attribut, **Vérification des attributs facultatifs » étendra la vérification aux attributs « facultatifs » de l'objet. Remarquez qu'actuellement les modèles liés ne sont pas vérifiés.
+Cette vérification fonctionne en déterminant d'abord le modèle correspondant puis en vérifiant que la **Clef** est une clef « recommandée » pour cet objet d'après l'attribut, **Attributs facultatifs requis » étendra la vérification aux attributs « facultatifs » de l'objet. Remarquez qu'actuellement les modèles liés ne sont pas vérifiés.
 
 ## Filtres
 
@@ -250,7 +260,8 @@ Autrement, les objets peuvent être filtrés suivant des modèles individuels ou
 
 ## Rapporter des problèmes
 
-Si Vespucci plante, ou qu'il détecte un état incohérent, il vous demandera d'envoyer un rapport de plantage. Faîtes-le si cela arrive, mais une seule fois par situation spécifique. Si vous voulez donner plus d'informations ou ouvrir un rapport de bug pour une demande de fonctionnalités, faîtes-le ici : [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Si vous voulez discuter d'une question spécifique à Vespucci, vous pouvez soit démarrer une discussion sur le [Google 
-group de Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) ou sur le [forum Android OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
+Si Vespucci plante, ou qu'il détecte un état incohérent, il vous demandera d'envoyer un rapport de plantage. Faîtes-le si cela arrive, mais une seule fois par situation spécifique. Si vous voulez donner plus d'informations ou ouvrir un rapport de bug pour une demande de fonctionnalités, faîtes-le ici : [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). La fonction « faire un retour » du menu principal ouvrira un nouveau ticket et inclura les informations utiles sur l'appareil et l'appli en vous évitant de les écrire vous-même.
+
+Si vous voulez discuter de quelque chose en lien avec Vespucci, vous pouvez démarrer une discussion soit sur le [Google group de Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android), soit sur le [forum Android d'OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

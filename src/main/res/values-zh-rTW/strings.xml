@@ -7,12 +7,12 @@
   <string name="mode_correct">C 模式</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">注意！</string>
-  <string name="transfer_download_current_dialog_message">您有做了一些變更。您是否想上傳它們而非放棄？</string>
+  <string name="transfer_download_current_dialog_message">您有做了變更。您是否想上傳而非放棄它們？ </string>
   <string name="transfer_download_current_upload">上傳</string>
   <string name="transfer_download_current_download">放棄與下載</string>
-  <string name="transfer_download_current_back">返回 (閒置)</string>
-  <string name="upload_problem_title">問題上傳</string>
-  <string name="upload_problem_message">有一些或全部的資料未被上傳。如果這只是一個臨時的問題，請以後再嘗試上傳。</string>
+  <string name="transfer_download_current_back">返回 (不要做任何事情) </string>
+  <string name="upload_problem_title">無法上傳</string>
+  <string name="upload_problem_message">有一些或全部的資料未被上傳，請以後再嘗試上傳。</string>
   <string name="bad_request_message">API 回傳錯誤，請儲存你的資料然後回報問題:\n\n</string>
   <string name="upload_conflict_title">上傳衝突</string>
   <string name="upload_conflict_message_version">%1$s \n擁有的本機版本 %2$d \n和在伺服器上的 %3$d</string>
@@ -21,40 +21,43 @@
   <string name="upload_conflict_message_already_deleted">%1$s \n 已經在伺服器刪除了</string>
   <string name="use_local_version">使用本地版本</string>
   <string name="use_server_version">使用伺服器上的版本</string>
-  <string name="no_login_data_title">驗證失敗</string>
-  <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一個錯誤，請發送錯誤問題報告，如果您正在使用登入和密碼(不推薦)，請檢查它們是否輸入正確。</string>
+  <string name="no_login_data_title">驗証失敗</string>
+  <string name="no_login_data_message">如果您正在使用 OAuth 這可能是一項錯誤，請發送錯誤問題報告。如果用密碼登入 (不推薦)，請檢查是否輸入正確。</string>
   <string name="no_connection_title">未連接到伺服器</string>
-  <string name="no_connection_message">無法連線到 OSM 伺服器。請檢查您的網路連線或稍後再試。</string>
-  <string name="ssl_handshake_failed">無法連到OSM伺服器，因為https交涉失敗。試著在設定中換成非加密連線</string>
-  <string name="wrong_login_data_title">驗證失敗</string>
-  <string name="wrong_login_data_message">如果您正在使用 OAuth，您應該重新進行身份驗證然後重試，如果您正在使用登入和密碼(不推薦)請檢查是否輸入正確。</string>
-  <string name="wrong_login_data_re_authenticate">重認證</string>
+  <string name="no_connection_message">現在無法連線到 OSM 伺服器。請檢查您的網路連線或稍後再試。</string>
+  <string name="ssl_handshake_failed">無法連到 OSM 伺服器，因為 HTTPS 交涉失敗。試著在設定中換成非加密連線。</string>
+  <string name="wrong_login_data_title">驗証失敗</string>
+  <string name="wrong_login_data_message">如果您正在使用 OAuth，請重新進行身份驗證然後重試，如果您用密碼登入 (不推薦)，請檢查是否輸入正確。</string>
+  <string name="wrong_login_data_re_authenticate">重新認証</string>
   <string name="forbidden_login_title">禁止登入</string>
+  <string name="not_found_title">找不到元件</string>
+  <string name="not_found_message">透過 API 無法找到既有的元件或是特定的 id 的編輯變動。&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">未知的錯誤</string>
+  <string name="unknown_error_message">無法處理從 API 或是訊息回傳的錯誤代碼。&lt;br&gt;&lt;br&gt;</string>
   <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
-  <string name="data_conflict_message">您正嘗試下載的資料中，所包含的資料與您的編輯衝突。
-請在重試之前，先試著上傳您的資料。</string>
-  <string name="invalid_bounding_box_title">無效的邊界框</string>
-  <string name="invalid_bounding_box_message">選擇的區域無法符合API限制，請選擇另一個地方。</string>
+  <string name="data_conflict_message">您下載的資料會與您的編輯衝突。請先上傳您的資料再重試。</string>
+  <string name="invalid_bounding_box_title">無效的邊框</string>
+  <string name="invalid_bounding_box_message">選擇的區域無法符合 API 限制，請選擇另一個地方。</string>
   <string name="bounding_box_too_large_title">下載的區域太大</string>
   <string name="bounding_box_too_large_message">你想下載的範圍太大，或是資料太多。\n\n請放更大然後再試一次。</string>
   <string name="api_offline_title">API 離線</string>
-  <string name="api_offline_message">該 API 目前離線，不允許恢復或寫入資料。</string>
+  <string name="api_offline_message">該 API 目前處於離線，無法存取資料。</string>
   <string name="out_of_memory_title">記憶體不足</string>
-  <string name="out_of_memory_message">Vespucci 載入所要求的資料，已耗盡記憶體。請重開程式，並嘗試載入較小的區域。</string>
-  <string name="out_of_memory_dirty_message">Vespucci 載入所要求的資料，已耗盡記憶體。請試著儲存您的編輯，重開程式，並嘗試載入較小的區域。</string>
+  <string name="out_of_memory_message">Vespucci 無法載入所要求的資料，請再試一次並嘗試載入較小的區域。</string>
+  <string name="out_of_memory_dirty_message">Vespucci 無法載入所要求的資料，請儲存你的編輯，再試一次並嘗試載入較小的區域。</string>
   <string name="invalid_data_received_title">收到的資料無效</string>
-  <string name="invalid_data_received_message">Vespucci 從伺服器收到無效的資料。如果您認為您所嘗試做的是正確的，請提交錯誤報告。</string>
-  <string name="invalid_data_read_title">無效的資料</string>
-  <string name="invalid_data_read_message">這份檔案含有不合語法的資料。如果您認為您的操作無誤，請建立一份臭蟲報告向我們反映。</string>
-  <string name="file_write_failed_title">寫入檔案失敗</string>
-  <string name="file_write_failed_message">無法寫入到所選定的檔案。</string>
-  <string name="welcome_title">歡迎！</string>
-  <string name="welcome_message">感謝您使用 Vespucci。\n\n在開始前您需要知道兩件事情：\n\n* 輕按左上角的鎖圖示將會在鎖定 (沒有編輯) 和未鎖定模式之間切換\n\n*要增加一個新的物件：長按，在同一個地方輕按，會增加一個節點，離更遠處輕按會開始一條道路。\n\n不要忘記下載您想要編輯的區域。\n\n玩得愉快！</string>
-  <string name="welcome_message_fullscreen">\n\nVespucci 偵測到你的裝置有\"虛擬鍵\"而且已經隱藏。從底部滑動會再次顯示。</string>
-  <string name="read_introduction">現在閱讀入門介紹</string>
+  <string name="invalid_data_received_message">如果不是你造成的錯誤，請提報臭蟲。</string>
+  <string name="invalid_data_read_title">傳送無效的資料</string>
+  <string name="invalid_data_read_message">如果不是你造成的錯誤，請提報臭蟲。</string>
+  <string name="file_write_failed_title">檔案寫入失敗</string>
+  <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
+  <string name="welcome_title">歡迎</string>
+  <string name="welcome_message">感謝你安裝 Vespucci.\n&lt;br&gt;&lt;br&gt;要開始使用前，你必須知道三件事情：\n&lt;ul&gt;&lt;li&gt;點左上角鎖圖示會在鎖定 (無編輯) 和解除鎖定模式之間切換，&lt;/li&gt;&lt;li&gt;，要編輯開放街圖，你必須到你想要變更的區域，先下載資料才行 (做之前先放大區域)。&lt;/li&gt;&lt;li&gt;t要加新的物件，按住大的綠色按鈕，然後選擇你想加的東西，接著點你想加的位置。&lt;/li&gt;&lt;/ul&gt;\n你已經準備好了，開始畫地圖然後找點樂子！</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;你的裝置有\"虛擬鍵\"而且已經隱藏，從底部滑動會再次顯示。</string>
+  <string name="read_introduction">閱讀介紹</string>
   <string name="upgrade_title">歡迎使用 Vespucci 的新版本！</string>
-  <string name="upgrade_message">這是新版本 Vespucci 的新功能和性能。它將會最好的快速讀取在裝置上的升級資訊。</string>
+  <string name="upgrade_message">新功能和行為會詳細記錄在發布通知。</string>
   <string name="read_upgrade">瞭解有關最新的版本</string>
   <string name="progress_title">載入</string>
   <string name="progress_message">載入資料到記憶體中…</string>
@@ -67,7 +70,7 @@
   <string name="progress_preset_message">下載預設組合</string>
   <string name="progress_running_message">運作中...</string>
   <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
-  <string name="progress_building_imagery_database">構建圖像資料庫...</string>
+  <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
@@ -78,17 +81,14 @@
   <string name="upload_validation_error_empty_comment">註解不應該留空</string>
   <string name="upload_validation_error_empty_source">來源不應該留空</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_title">新註解</string>
+  <string name="openstreetbug_new_title">新的註記</string>
   <string name="openstreetbug_new_bug">回報問題</string>
   <string name="openstreetbug_bug_title">問題</string>
   <string name="openstreetbug_new_nodeway">建立節點或路徑</string>
-  <string name="openstreetbug_edit_title">編輯註解</string>
-  <string name="openstreetbug_commitbutton">送交</string>
+  <string name="openstreetbug_edit_title">編輯註記</string>
   <string name="openstreetbug_comment_label">評論：</string>
-  <string name="openstreetbug_edit_close">關閉</string>
-  <string name="openstreetbug_edit_closed">已關閉</string>
-  <string name="openstreetbug_commit_ok">錯誤修改已存</string>
-  <string name="openstreetbug_commit_fail">無法儲存錯誤修改</string>
+  <string name="openstreetbug_commit_ok">任務變動已經儲存</string>
+  <string name="openstreetbug_commit_fail">無法儲存任務變動</string>
   <string name="openstreetbug_unknown_task_type">不知名任務類型</string>
   <string name="openstreetbug_not_supported">並不支援 %1$s</string>
   <string name="note_description">備註：%1$s - %2$s</string>
@@ -100,11 +100,18 @@
   <string name="bug_long_description_2">&lt;br&gt;last updated:&lt;br&gt;%1$s&lt;br&gt;id:%2$d</string>
   <string name="bug_element_1">%1$s(未下載) %2$d</string>
   <string name="bug_element_2">%1$s%2$s</string>
-  <!---->
+  <string name="maproulette_task_title">MapRoulette 任務</string>
+  <string name="maproulette_task_coords">緯度 %1$4g、經度 %2$4g</string>
+  <string name="maproulette_task_explanations">解釋</string>
+  <string name="maproulette_task_set_apikey">設定 MapRoulette API 鑰匙</string>
+  <string name="maproulette_task_apikey_not_set">無法儲存 MapRoulette API 鑰匙</string>
+  <string name="maproulette_task_apikey_set">MapRoulette API key 已經儲存</string>
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">注意！</string>
-  <string name="unsaved_data_message">您有未存儲的變更，如果繼續將會被放棄。</string>
+  <string name="unsaved_data_message">您有未存儲的變更，如果繼續將被丟棄。</string>
   <string name="unsaved_data_proceed">放棄和繼續</string>
-  <string name="imagery_offset_title">影像偏移量</string>
+  <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">空拍圖偏移量</string>
   <string name="imagery_offset_description">記述</string>
   <string name="imagery_offset_not_found">在半徑 10 公里的範圍未發現偏移！</string>
   <string name="imagery_offset_author">作者</string>
@@ -116,23 +123,25 @@
   <string name="set_position_datum_label">大地基準點</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">建議名稱</string>
+  <!--Search/Find dialog-->
   <string name="tag_editor_name_suggestion_overwrite_message">這個建議可以用比較流行的值替換一些標籤值。</string>
   <string name="search_results_title">搜尋結果</string>
   <string name="search_online">線上搜尋</string>
   <string name="find_message">輸入搜尋字串</string>
   <string name="geocoder_prompt">與</string>
+  <string name="geocoder_limit_label">視線內</string>
+  <!---->
   <string name="preset_search_hint">預置搜尋字串</string>
   <string name="preset_autopreset">自動預設</string>
   <string name="search">搜尋</string>
   <string name="no_valid_preset">無有效的預置！</string>
-  <string name="read_file">選擇要讀取的檔案</string>
-  <string name="save_file">輸入檔案儲存到</string>
-  <string name="existing_track_title">現有的軌跡資料</string>
-  <string name="existing_track_message">您已經有存在的軌跡資料。您可能要取消並先儲存。</string>
+  <string name="save_file">儲存至</string>
+  <string name="existing_track_title">現有的 GPX 軌跡資料</string>
+  <string name="existing_track_message">您已經有存在的 GPX 軌跡資料。您可能要取消並先儲存。</string>
   <string name="delete_tags">真的要刪除物件\"%1$s\"所有的標籤嗎？</string>
   <!--element information dialog-->
   <string name="element_information">元件資訊</string>
-  <string name="id">Id</string>
+  <string name="id">ID</string>
   <string name="nodes">節點</string>
   <string name="relation_membership">關係成員</string>
   <string name="problem">問題</string>
@@ -141,14 +150,12 @@
   <string name="version">版本</string>
   <string name="length_m">長度 (m)</string>
   <string name="not_downloaded">未下載</string>
-  <string name="empty_role">空的角色</string>
-  <string name="element">元件</string>
-  <string name="last_updated">最近更新</string>
+  <string name="empty_role">空白角色</string>
   <string name="last_edited">最近編輯</string>
   <string name="original">原來</string>
   <string name="current">目前</string>
   <!--GeoJSON feature display dialog-->
-  <string name="feature_information">GeoJSON 圖徵資訊</string>
+  <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
   <!---->
   <string name="error">錯誤</string>
@@ -157,11 +164,13 @@
   <string name="unknown_error_level">未知的錯誤級別</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">這次動作影響篩選、附著的物件！</string>
-  <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件，也會同時改變。</string>
-  <string name="attached_object_warning_continue">好，繼續顯示這個訊息。</string>
-  <string name="attached_object_warning_stop">好，停止顯示這個訊息</string>
+  <string name="attached_object_warning_message">變動的物件同時遲結到隱藏的元件會同時改變。</string>
+  <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">OK，繼續顯示</string>
+  <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">OK，放棄</string>
   <!--debug dialog-->
-  <string name="send_debug_information">傳送 debug 資訊</string>
+  <string name="send_debug_information">傳送除錯資訊</string>
   <!--JS console dialog-->
   <string name="evaluate">評估</string>
   <string name="js_console_msg_live">Live 模式！</string>
@@ -174,23 +183,23 @@
   <string name="add_check_title">新增檢查輸入值</string>
   <string name="max_age">最大年齡</string>
   <string name="age">年齡</string>
-  <string name="check_opt">檢查選擇</string>
-  <string name="check_optional">檢查其他選擇</string>
+  <string name="check_opt">必須\n選項</string>
+  <string name="check_optional">必須選項</string>
   <string name="add_resurvey_entry">新增重新踏察輸入值</string>
   <string name="add_check_entry">新增檢查輸入值</string>
   <!--Empty relation dialog-->
-  <string name="empty_relation_title">缺少關聯</string>
-  <string name="empty_relation_message">關係 %1$s 並沒有成員。\n\n如果繼續的話則無法在 Vespucci 編輯。</string>
+  <string name="empty_relation_title">空白關聯</string>
+  <string name="empty_relation_message">%1$s 關聯並沒有成員。\n\n如果繼續的話則無法在 Vespucci 編輯。</string>
   <string name="add_members">增加成員</string>
   <string name="leave_empty">留空</string>
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <string name="waypoint_title">GPX 航點</string>
   <string name="waypoint_description">WPT：%1$s</string>
   <string name="description">記述</string>
   <string name="created">已建立</string>
   <string name="altitude">海拔</string>
-  <string name="create_osm_object">新建 OSM 物件</string>
-  <string name="create_osm_object_search">從預設組合新建 OSM 物件</string>
+  <string name="create_osm_object">建立 OSM 物件</string>
+  <string name="create_osm_object_search">從預置搜尋建立 OSM物件</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">客製化影像</string>
   <string name="oam_layer_title">OAM 影像</string>
@@ -202,7 +211,6 @@
   <string name="coverage_left">左邊</string>
   <string name="coverage_right">右邊</string>
   <string name="coverage_bottom">底部</string>
-  <string name="preferred">偏好</string>
   <string name="toast_invalid_box">無效或不完整的邊界框</string>
   <string name="delete_layer">刪除圖層？</string>
   <!--Layer style dialog-->
@@ -224,10 +232,14 @@
   <string name="layer_select_imagery">選擇影像</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
-  <string name="undo_redo_title">復原 - 重複</string>
+  <string name="undo_redo_title">復原及取消復原</string>
   <string name="undo_redo_one">只有選取的檢查點 (不安全)</string>
   <string name="undo_all">取消所有後來的檢查點 (安全)</string>
   <string name="redo_all">重復所有先前的檢查點 (安全)</string>
+  <!--Feedback activity-->
+  <string name="feedback_with_displayname">傳送時附上你的開放街圖顯示名稱</string>
+  <string name="feedback_displayname_hint">還沒收到開放街圖顯示名稱 </string>
+  <string name="feedback_title">給開發者的回饋</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">下載開放街圖資料</string>
   <!--NumberPiker-->
@@ -236,68 +248,67 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci</string>
-  <string name="default_channel_description">Vespucci 預設頻道</string>
+  <string name="default_channel_description">預設 Vespucci 頻道</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Vespucci QA 警告頻道</string>
   <!--Toaster-->
-  <string name="toast_name_empty">名稱欄位不能為空白</string>
-  <string name="toast_url_empty">網址不能為空白</string>
-  <string name="toast_min_zoom">最小縮放必須比比最大值小</string>
+  <string name="toast_name_empty">選擇名稱</string>
+  <string name="toast_url_empty">輸入 URL</string>
+  <string name="toast_min_zoom">設定比最大值小的最小縮放比例</string>
   <string name="toast_no_changes">您還沒有變更什麼…</string>
-  <string name="toast_unsaved_changes">您有未存儲的變更，請先上傳它們。</string>
+  <string name="toast_unsaved_changes">請先上傳您未作存儲的變更。</string>
   <string name="clear_anyway">清除了嗎？</string>
-  <string name="toast_upload_success">上傳到 OSM 的伺服器完成了。</string>
-  <string name="toast_not_in_edit_range">請放大來編輯(音量鍵上/下)</string>
+  <string name="toast_upload_success">已上傳至 OSM。</string>
+  <string name="toast_not_in_edit_range">請放大以編輯(音量 ↑/↓  或鏡頭/移動)</string>
   <string name="toast_unlock_to_edit">解鎖以編輯</string>
-  <string name="toast_edit_outside_downloaded_area">您不能編輯所下載區域之外的</string>
-  <string name="toast_save_done">儲存成功</string>
-  <string name="toast_save_failed">儲存失敗</string>
-  <string name="toast_not_in_bug_range">請放大來增加一個錯誤(音量鍵上/下)</string>
-  <string name="toast_export_failed">匯出失敗</string>
+  <string name="toast_save_done">已儲存</string>
+  <string name="toast_save_failed">無法儲存</string>
+  <string name="toast_export_failed">無法匯出</string>
   <string name="toast_export_success">已匯出到  %1$s</string>
   <string name="toast_preset_overwrote_tags">注意 - 預設組合將覆蓋標籤(們)</string>
   <string name="toast_merge_overwrote_tags">注意 - 這動作將覆蓋標籤(們)</string>
-  <string name="toast_oneway_reversed">您已反轉了單行道或路徑方向依據的標籤。如果有必要，請檢查標籤並訂正。</string>
+  <string name="toast_oneway_reversed">您已反轉了單行道或道路方向依據的標籤。請檢查標籤並在需要時訂正。</string>
   <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據相互關係或不同的角色。請檢查標籤和角色，並在有必要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
   <string name="toast_too_many_nodes_for_move">要移動的路徑上節點過多</string>
-  <string name="toast_unread_mail">你有 %1$d 未讀 OSM 訊息</string>
-  <string name="toast_one_unread_mail">你有一封未讀 OSM 訊息</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="other">你有 %1$d 封未讀 OSM 訊息</item>
+  </plurals>
+  <string name="read_mail">讀取</string>
   <string name="toast_photo_indexing_started">開始掃描地理參考圖片</string>
   <string name="toast_photo_indexing_finished">掃描地理參考圖片完成</string>
   <string name="toast_download_failed">下載失敗，錯誤代碼是 %1$d，訊息為 %2$s</string>
   <string name="toast_unsurveyed_road">未勘測的路</string>
-  <string name="toast_noname">道路沒有名稱或參照</string>
-  <string name="toast_notype">關係沒有類型</string>
-  <string name="toast_oauth_retry">請允許 OAuth 進入您的 OSM 帳號，然後重新嘗試上傳。</string>
+  <string name="toast_noname">道路缺少名稱或編號</string>
+  <string name="toast_notype">關聯缺失類型</string>
+  <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
   <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
   <string name="toast_oauth_not_enabled">OAuth 未啟用目前的 API。</string>
   <string name="toast_oauth_timeout">握手驗証時逾時，請重試。</string>
-  <string name="toast_oauth_communication">握手驗証時發生通信錯誤，請重試。</string>
-  <string name="toast_oauth_handshake_failed">OAuth 握手失敗： %1$s</string>
-  <string name="toast_oauth_login_with_google_not_possible">目前不支援 Google 登入</string>
+  <string name="toast_oauth_communication">交握驗証時發生通信錯誤，請重試。</string>
+  <string name="toast_oauth_handshake_failed">OAuth 交握失敗： %1$s</string>
   <string name="toast_timeout">伺服器逾時</string>
   <string name="coordinates_out_of_range">經度必須在 -180°/+180° 以內，而緯度在 -85°/85° 以內</string>
   <string name="toast_nothing_found">沒找到什麼</string>
-  <string name="toast_statesave_failed">儲存目前的狀態失敗！\n這一個致命的錯誤，試著寫入一個匯出檔，用於以後 JOSM 恢復。</string>
-  <string name="toast_missing_filemanager">請安裝檔案管理。</string>
-  <string name="toast_outside_of_download">您正在編輯已下載之外的資料</string>
+  <string name="toast_statesave_failed">無法儲存目前的狀態！\n這是致命的錯誤，試著寫入一個匯出檔，用於以後 JOSM 恢復。</string>
+  <string name="toast_missing_filemanager">請安裝檔案管理器。</string>
+  <string name="toast_outside_of_download">下載更多資料以編輯此區域。</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
-  <string name="toast_imported_track_points">匯入 %1$d 路徑的點和 %2$d線段的點。</string>
-  <string name="toast_imported_track_points_single_way_point">匯入 %1$d 路徑的點和一個線段點。</string>
+  <plurals name="toast_imported_track_points">
+    <item quantity="other">匯入 %1$d GPX 軌跡點和 %2$d路徑的點。</item>
+  </plurals>
   <string name="toast_unknown_voice_command">抱歉目前的\"%1$s\"不能理解</string>
-  <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告！</string>
-  <string name="toast_camera_error">啟動相機的 app 錯誤：%1$s</string>
+  <string name="toast_inconsistent_state">檢測到不相容的狀態，請發送錯誤報告。</string>
+  <string name="toast_camera_error">無法啓動相機應用程式：%1$s</string>
   <string name="toast_no_voice">沒有語音識別設備存在</string>
-  <string name="toast_storage_error">Vespucci 無法寫入 %1$s。\n 也許這是權限或是裝置的機械因素造成。</string>
+  <string name="toast_storage_error">Vespucci 無法寫入 %1$s。\n 也許這是權限或是你的裝置機械因素造成。</string>
   <string name="toast_no_suitable_storage">系統並未回傳圖磚資料庫上適當的位置。</string>
   <string name="toast_min_one_preset">至少必須選擇一個做預設！</string>
   <string name="toast_min_one_geocoder">至少必須選擇一個 geocoder！</string>
-  <string name="toast_used_backup">已損壞情況的檔案，使用備份檔案！</string>
-  <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案！</string>
-  <string name="toast_rmpty_relation">空白關係，產生錯誤報告</string>
+  <string name="toast_used_backup">已損壞狀況檔案，使用備份檔案替代。</string>
+  <string name="toast_used_bug_backup">已損壞呈錯誤情況的檔案，使用備份檔案替代。</string>
   <string name="toast_split_from">分離\"從\"路徑</string>
   <string name="toast_split_via">分離\"經過\"路徑</string>
   <string name="toast_split_from_and_via">分離\"從\"和\"經過\"路徑</string>
@@ -307,40 +318,46 @@
   <string name="toast_invalid_apiurl">無效的 API 網址</string>
   <string name="toast_invalid_readonlyurl">無效的唯讀 API 網址</string>
   <string name="toast_invalid_notesurl">無效的註解 API 網址</string>
+  <string name="toast_invalid_preseturl">無效的預置網址</string>
   <string name="toast_invalid_filter_regexp">篩選器無效的正規表示式，key=\"%1$s\" value=\"%2$s\"</string>
-  <string name="toast_error_accessing_photo">無法存取照片 %1$s</string>
+  <string name="toast_error_accessing_photo">無法讀取照片 %1$s</string>
   <string name="toast_no_voice_recognition">沒有語音識別設備存在</string>
   <string name="toast_no_coverage">%1$s在這裡無覆蓋</string>
-  <string name="toast_file_exists">檔案 %1$s 存在。</string>
+  <string name="toast_file_exists">%1$s檔案存在。</string>
   <string name="toast_needs_resurvey">物件可能過期了</string>
-  <string name="toast_missing_key">鍵 %1$s 遺失</string>
+  <string name="toast_missing_key">%1$s鍵值遺失</string>
   <string name="toast_openinghours_invalid">%1$s 無效的營業時間</string>
-  <string name="toast_openinghours_autocorrected">%1$s 的營業時間已經被自動修正</string>
-  <string name="toast_exit_multiselect">點兩下空白處或是用返回鍵離開</string>
-  <string name="toast_exit_actionmode">使用返回鍵儲存和離開</string>
-  <string name="toast_abort_actionmode">使用返回鍵放棄</string>
+  <string name="toast_openinghours_autocorrected">自動修正開放時間數值 %1$s</string>
+  <string name="toast_exit_multiselect">點兩下空白處或是用 ← 鍵離開</string>
+  <string name="toast_exit_actionmode">用 ← 方向鍵儲存和離開</string>
+  <string name="toast_abort_actionmode">使用 ← 鍵中止動作</string>
   <string name="toast_null_island">請不要在 0°/0° (Null Island) 增加物件</string>
   <string name="toast_string_too_long">字串太長 (%1$d 文字) 被截斷了！</string>
   <string name="toast_illegal_operation">非法操作：%1$s</string>
-  <string name="toast_preset_creation_failed">創建預設組合 \"%1$s\" 失敗：%2$s</string>
+  <string name="toast_preset_creation_failed">無法建立預置 \"%1$s\"：%2$s</string>
   <string name="toast_imperial_units">移失的英制單位</string>
-  <string name="toast_server_connection_failed">連線到伺服器失敗：%1$s</string>
+  <string name="toast_server_connection_failed">無法連線到伺服器：%1$s</string>
   <string name="toast_flus_all_caches">這會更新所有圖磚暫存檔！</string>
-  <string name="toast_applied_offset">自動套用影像偏移值</string>
+  <string name="toast_applied_offset">設定影像偏移。</string>
   <string name="toast_unsupported_format">不支援的格式：%1$s</string>
   <string name="toast_returning_less_than_found">回覆 %2$d 裡 %1$d 找到的結果</string>
   <string name="toast_not_mbtiles">不是 MBTiles 格式檔案</string>
   <string name="toast_using_network_location">使用網路位置</string>
-  <string name="toast_using_gps_location">使用 GPS 位置</string>
-  <string name="toast_using_gps_disabled_tracking_stopped">GPS 已停用，記錄已中止</string>
+  <string name="toast_using_gps_location">使用 GPS/GNSS 位置</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">GPS/GNSS 已停用，GPX 記錄已中止</string>
   <string name="toast_tags_copied">標籤已複製到剪貼簿</string>
   <string name="toast_tags_cut">標籤已剪下到剪貼簿</string>
   <string name="toast_properties_copied">性質已複製到剪貼簿</string>
-  <string name="toast_task_conflict">伺服器上的 %1$s 已經改變了，先上傳然後再下載</string>
+  <string name="toast_task_conflict">伺服器上的 %1$s 已經被改變了，先上傳然後再下載</string>
+  <string name="toast_move_note_warning">只有新的註解能移動</string>
+  <string name="toast_task_layer_disabled">任務圖層已經取消</string>
+  <string name="toast_unable_to_create_task_layer">無法新建任務圖層</string>
+  <string name="toast_merged">已合併</string>
+  <string name="toast_long_press_simple_mode">簡單模式下長按無效</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
-  <string name="okay">確定</string>
+  <string name="okay">OK</string>
   <string name="cancel">取消</string>
   <string name="dismiss">解散</string>
   <string name="done">完成</string>
@@ -359,32 +376,36 @@
   <string name="clear">清除</string>
   <string name="discard">放棄</string>
   <string name="retry">重試</string>
+  <!--Read a file-->
   <string name="read">讀取</string>
   <string name="overwrite">覆寫</string>
   <string name="share">分享</string>
   <string name="share_position">分享位置</string>
+  <string name="share_on_openstreetmap">分享到開放街圖</string>
   <string name="min">最小值</string>
   <string name="max">最大值</string>
   <string name="geojson_object">%1$s(%2$s)</string>
   <string name="none">無</string>
   <!--Dialog for back button-->
-  <string name="exit_title">真要退出嗎？</string>
+  <string name="exit_title">結束 Vespucci</string>
   <string name="exit_text">您確定要退出嗎？</string>
+  <string name="pause_exit_text">你確定要暫停記錄軌跡並且離開嗎？</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">關鍵字</string>
   <string name="Key">關鍵字</string>
   <string name="value">值</string>
   <string name="Value">值</string>
+  <string name="multiselect_header_short">數值 (%1$d)</string>
+  <string name="multiselect_header_long">數值 (為了 %1$d 元件)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">增加地址標籤</string>
   <string name="tag_menu_sourcesurvey">已勘測</string>
   <string name="tag_menu_preset">預置</string>
   <string name="tag_menu_apply_preset">套用最佳預置</string>
-  <string name="tag_menu_repeat">重複的標籤</string>
   <string name="tag_menu_revert">回復</string>
-  <string name="tag_menu_mapfeatures">地圖圖徵Wiki</string>
+  <string name="tag_menu_mapfeatures">地圖圖徵 Wiki</string>
   <string name="tag_menu_addtorelation">增加到關係</string>
-  <string name="tag_menu_resetMRU">重置預置</string>
+  <string name="tag_menu_resetMRU">重設預先組合</string>
   <string name="tag_menu_reset_address_prediction">重置地址預測</string>
   <string name="tag_menu_exit_no_save">退出\n不儲存</string>
   <string name="tag_menu_delete_unassociated_tags">刪除不相干標籤</string>
@@ -409,11 +430,11 @@
   <string name="tag_menu_sort">排序整理</string>
   <string name="tag_menu_reverse_order">反轉順序</string>
   <string name="tag_menu_download">下載</string>
-  <string name="tag_menu_js_console">JS 主控台</string>
+  <string name="tag_menu_js_console">JS 主控台 </string>
   <string name="menu_up">向上</string>
   <string name="menu_top">頂點</string>
   <string name="menu_select_all">選取所有</string>
-  <string name="menu_deselect_all">取消選取所有</string>
+  <string name="menu_deselect_all">取消選取全部</string>
   <string name="menu_preset_help">預置幫助</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">為 %1$s 增加標籤</string>
@@ -424,30 +445,28 @@
   <string name="tag_restriction_add_simple_condition">增加簡單條件</string>
   <string name="tag_restriction_add_expression">增加表達式</string>
   <string name="tag_restriction_add_opening_hours">增加營業時間</string>
-  <string name="tag_restriction_value_hint">條件限制</string>
-  <string name="ugly_checkgroup_hint">%1$s，...</string>
+  <string name="tag_restriction_value_hint">修件限制</string>
+  <string name="ugly_checkgroup_hint">%1$s,...</string>
   <!--Strings in Box/LocationPicker-->
-  <string name="location_headline">載入區域</string>
   <string name="location_choose_radius">選取半徑：</string>
   <string name="location_default_radius">300m</string>
   <string name="location_radius">%1$d m</string>
   <string name="location_last_text">最後已知的位置：</string>
   <string name="location_current_text">目前位置：</string>
-  <string name="location_text_unknown">未知的</string>
+  <string name="location_text_unknown">未知</string>
   <string name="location_last_text_parameterized">最後已知的位置：%1$s</string>
   <string name="location_current_text_parameterized">目前位置：%1$s</string>
   <string name="location_text_metadata_location">
 緯度 %1$4g、經度 %2$4g\n%3$s %4$s 之前</string>
   <string name="location_text_metadata_accuracy">精確度 %1$2.0f 公尺，</string>
-  <string name="location_map_text">從地圖（即將推出）</string>
   <string name="location_coordinates_text">從坐標：</string>
   <string name="location_lat_label">緯度：</string>
   <string name="location_lon_label">經度：</string>
   <string name="location_search_label">搜尋：</string>
   <string name="location_load_button">載入</string>
   <string name="location_load_dismiss">前往地圖</string>
-  <string name="location_nan_title">輸入錯誤！</string>
-  <string name="location_nan_message">請插入十進位格式的座標 (eg.\"52.333572\",\"8.741185\")。緯度必須放置于 -85.0 和 +85.0 之間，並且經度必須放置于 -175.0 和 +175.0 之間。</string>
+  <string name="location_nan_title">相當大的輸入！</string>
+  <string name="location_nan_message">請插入十進位格式的座標 (eg. \"52.333572\",\"8.741185\")。緯度必須放置于 -85.0 和 +85.0 之間，並且經度必須放置于 -175.0 和 +175.0 之間。</string>
   <!--Menu-->
   <string name="menu_move">移動</string>
   <string name="menu_edit">編輯</string>
@@ -455,6 +474,7 @@
   <string name="menu_config">參數選項</string>
   <string name="menu_find">找尋</string>
   <string name="menu_help">幫助</string>
+  <string name="menu_view">檢視</string>
   <string name="menu_erase">抹除節點</string>
   <string name="menu_set_position">位置</string>
   <string name="menu_split">拆分</string>
@@ -468,18 +488,18 @@
   <string name="menu_openstreetbug">增加註解</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">照相機</string>
-  <string name="menu_gps">GPS…</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">顯示位置</string>
   <string name="menu_gps_follow">追隨位置</string>
   <string name="menu_gps_goto">前往目前位置</string>
-  <string name="menu_gps_start">開始 GPS 軌跡</string>
-  <string name="menu_gps_pause">暫停 GPS 軌跡</string>
+  <string name="menu_gps_start">開始 GPS 軌跡記錄</string>
+  <string name="menu_gps_pause">暫停 GPS 軌跡記錄</string>
   <string name="menu_gps_clear">清除 GPS 軌跡和航點</string>
-  <string name="menu_gps_track_managment">軌跡管理...</string>
+  <string name="menu_gps_track_managment">GPX 軌跡管理...</string>
   <string name="menu_gps_upload">上傳 GPS 軌跡</string>
   <string name="menu_gps_export">匯出 GPS 軌跡</string>
   <string name="menu_gps_import">匯入 GPS 軌跡</string>
-  <string name="menu_gps_goto_start">前往起始的軌跡</string>
+  <string name="menu_gps_goto_start">前往 GPS 軌跡的起始處</string>
   <string name="menu_gps_goto_first_waypoint">到第一個航點</string>
   <string name="menu_gps_autodownload">自動下載</string>
   <string name="menu_transfer">傳輸…</string>
@@ -492,18 +512,18 @@
   <string name="menu_transfer_export">匯出變更到 OSC 檔案</string>
   <string name="menu_transfer_read_file">從 JOSM 檔讀取...</string>
   <string name="menu_transfer_save_file">儲存到 JOSM 檔案...</string>
-  <string name="menu_transfer_bugs">註釋/錯誤...</string>
-  <string name="menu_transfer_bugs_download_current">為目前的檢視下載錯誤</string>
+  <string name="menu_transfer_bugs">任務...</string>
+  <string name="menu_transfer_bugs_download_current">下載檢視範圍內所有任務</string>
   <string name="menu_transfer_bugs_upload">全部上傳</string>
-  <string name="menu_transfer_bugs_upload_long">上傳所有錯誤</string>
+  <string name="menu_transfer_bugs_upload_long">上傳所有任務</string>
   <string name="menu_transfer_bugs_clear">清除</string>
-  <string name="menu_transfer_bugs_clear_long">清除錯誤</string>
-  <string name="menu_transfer_autodownload_long">自動下載錯誤</string>
+  <string name="menu_transfer_bugs_clear_long">清除任務</string>
+  <string name="menu_transfer_autodownload_long">自動下載任務</string>
   <string name="menu_transfer_save_notes_all">儲存所有註解...</string>
   <string name="menu_transfer_save_notes_new_and_changed">儲存新的和變更的註解...</string>
   <string name="menu_transfer_read_custom_bugs">載入客製任務...</string>
   <string name="menu_transfer_write_custom_bugs">儲存開啟的客製任務...</string>
-  <string name="menu_save">儲存到檔案</string>
+  <string name="menu_save">儲存為檔案</string>
   <string name="menu_join">加入</string>
   <string name="menu_unjoin">不加入</string>
   <string name="menu_copy">複製</string>
@@ -513,7 +533,7 @@
   <string name="menu_paste_from_clipboard">從剪貼簿貼上</string>
   <string name="menu_zoom_to_selection">縮放到選擇物件</string>
   <string name="menu_rotate">旋轉</string>
-  <string name="menu_orthogonalize">正交</string>
+  <string name="menu_orthogonalize">方角化路徑</string>
   <string name="menu_circulize">在圓週排列</string>
   <string name="menu_split_polygon">分割成多邊形</string>
   <string name="menu_newnode_gps">在 GPS 位置新增節點</string>
@@ -529,7 +549,10 @@
   <string name="menu_tools_background_properties">背景屬性</string>
   <string name="menu_tools_update_imagery_configuration">更新影像圖層設定</string>
   <string name="menu_tools_zoom_to_layer_extent">縮放到背景圖層範圍</string>
+  <string name="menu_tools_clear_clipboard">清除剪貼簿</string>
   <!---->
+  <string name="menu_simple_actions">簡易模式</string>
+  <string name="menu_feedback">提供反饋</string>
   <string name="menu_privacy">隱私</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">校直背景</string>
@@ -537,19 +560,26 @@
   <string name="menu_tools_background_align_zero">零</string>
   <string name="menu_tools_background_align_retrieve_from_db">從資料庫</string>
   <string name="menu_tools_background_align_retrieve_from_device">從裝置</string>
-  <string name="menu_tools_background_align_save_db">儲存到資料庫</string>
-  <string name="menu_tools_background_align_save_device">儲存到裝置</string>
-  <string name="menu_tools_background_align_apply2all">套用(所有縮放)</string>
+  <string name="menu_tools_background_align_save_db">儲存至資料庫</string>
+  <string name="menu_tools_background_align_save_device">儲存至裝置</string>
+  <string name="menu_tools_background_align_apply2all">套用(所有縮放層級)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f 公尺</string>
   <string name="distance_km">%1$.3f 公里</string>
+  <!--Menus in layers dialog-->
+  <string name="menu_layers">圖層...</string>
+  <string name="menu_layers_load_geojson">載入 GeoJSON 圖層</string>
+  <string name="menu_layers_add_backgroundlayer">增加背景影像圖層</string>
+  <string name="menu_layers_add_overlaylayer">增加重疊影像圖層</string>
+  <string name="menu_layers_add_tasklayer">增加任務圖層</string>
+  <string name="menu_layers_add_grid">增加網格</string>
+  <string name="menu_layers_add_photolayer">增加圖片圖層</string>
+  <string name="menu_layers_configure">設定...</string>
   <!---->
   <string name="menu_tools_apply_local_offset">套用儲存的影像偏移值</string>
   <string name="menu_tools_background_contrast">對比</string>
   <string name="menu_tools_oauth_reset">重置 OAuth</string>
   <string name="menu_tools_oauth_authorisation">授權 OAuth</string>
-  <string name="menu_layers">圖層...</string>
-  <string name="menu_layers_load_geojson">載入 GeoJSON 圖層</string>
   <string name="menu_enable_tagfilter">標籤篩選</string>
   <string name="menu_enable_presetfilter">預置篩選</string>
   <string name="preset_menu_waynodes">包括路徑節點</string>
@@ -560,7 +590,7 @@
   <string name="menu_history">歷史</string>
   <string name="menu_merge">加入</string>
   <string name="menu_reverse">反向</string>
-  <string name="notreversable_description">該路徑是有標記與屬性的，那是方向依據並且不能反向。反向路徑將會破壞標籤。</string>
+  <string name="notreversable_description">該道路是有標記與屬性的，那是方向依據並且不能反向。反向道路將會破壞標簽。</string>
   <string name="reverse_anyway">仍然反向</string>
   <string name="deleteway_description">您即將刪除一條路徑。\n\n您可以保留所有節點，或者刪除只屬於這條路徑，並且沒有任何標籤的節點。</string>
   <string name="deleteway_relation_description">您將要刪除的路徑，它是一個或多個關係中的成員。從關係中移除了路徑，可能會使得它或它們變成無效。</string>
@@ -570,12 +600,15 @@
   <string name="deletenode_relation_description">您將要刪除的節點，它是一個或多個關係中的成員。從關係中移除了節點，可能會使得它或它們變成無效。</string>
   <string name="deletenode">刪除節點</string>
   <string name="split_all_ways">分離所有路徑</string>
+  <string name="delete_note_description">刪除註解並無法復原！</string>
+  <string name="delete_note">刪除註解</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">路徑已選取</string>
   <string name="actionmode_nodeselect">節點已選取</string>
   <string name="actionmode_relationselect">已選取關係</string>
   <string name="actionmode_createpath">建立路徑</string>
   <string name="actionmode_multiselect">多重選擇</string>
+  <string name="actionmode_newnoteselect">選擇新的備註</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">第 1 節點拆分封閉路徑</string>
   <string name="actionmode_closed_way_split_2">第 2 節點拆分封閉路徑</string>
@@ -585,34 +618,48 @@
   <string name="actionmode_restriction_restart_via">重新選擇\"經過\"片段</string>
   <string name="actionmode_restriction_to">增加\"到\"片段</string>
   <string name="actionmode_restriction_restart_to">重新選擇\"到\"片段</string>
-  <string name="actionmode_one_object">1 物件</string>
-  <string name="actionmode_object_count">%1$d物件</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="other">%1$d 物件</item>
+  </plurals>
   <string name="actionmode_rotateway">旋轉路徑</string>
+  <!--Simple Action Mode-->
+  <string name="menu_add_node">增加節點</string>
+  <string name="simple_add_node">點螢幕位置</string>
+  <string name="menu_add_node_tags">增加有加標籤的節點</string>
+  <string name="menu_add_way">增加路徑</string>
+  <string name="simple_add_way">點螢幕位置</string>
+  <string name="menu_add_map_note">增加地圖註解</string>
+  <string name="simple_add_note">點螢幕位置</string>
+  <string name="menu_paste_object">貼上物件</string>
+  <string name="simple_paste">點螢幕位置</string>
+  <string name="menu_paste_multiple">貼上多次時間</string>
+  <string name="simple_paste_multiple">點螢幕位置</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">地圖背景</string>
   <string name="config_backgroundLayer_summary">圖層為基礎的地圖背景。</string>
   <string name="config_overlayLayer_title">地圖覆疊層</string>
   <string name="config_overlayLayer_summary">圖層為基礎的地圖套疊。</string>
   <string name="config_customlayers_title">客制圖層</string>
-  <string name="config_customlayers_summary">設定圖層不在預設的設定</string>
+  <string name="config_customlayers_summary">設定圖層不在預設的設定。</string>
   <string name="config_scale_title">顯示比例尺</string>
   <string name="config_scale_summary">在地圖上顯型的比例尺類型。</string>
   <string name="config_mapProfile_title">資料樣式</string>
-  <string name="config_mapProfile_summary">選擇資料圖層的樣式</string>
-  <string name="config_enableOpenStreetBugs_title">啟用錯誤和註解顯示</string>
-  <string name="config_enableOpenStreetBugs_summary">顯示、編輯與建立註解/錯誤。</string>
-  <string name="config_enablePhotoLayer_title">啟用圖層</string>
+  <string name="config_mapProfile_summary">選擇資料圖層的樣式。</string>
+  <string name="config_enableOpenStreetBugs_title">顯示任務</string>
+  <string name="config_enableOpenStreetBugs_summary">顯示、編輯與建立節點、錯誤和任務。</string>
+  <string name="config_enablePhotoLayer_title">啟用圖片圖層</string>
   <string name="config_enablePhotoLayer_summary">顯示地理參考圖片。</string>
   <string name="config_enableKeepScreenOn_title">保持螢幕開啟</string>
   <string name="config_enableKeepScreenOn_summary">不要為了省電而關閉螢幕。</string>
   <string name="config_largeDragArea_title">大的節點拖曳區域</string>
-  <string name="config_largeDragArea_summary">拖曳節點時提供大的區域</string>
+  <string name="config_largeDragArea_summary">拖曳節點時提供大的區域。</string>
   <string name="config_advancedprefs">進階參數選項</string>
-  <string name="config_moreprefs">更多的設定...</string>
+  <string name="config_moreprefs">更多設定...</string>
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
+  <string name="config_built_in_preset">內建預設</string>
   <string name="config_validatorprefs_title">驗證器設定</string>
-  <string name="config_validatorprefs_summary">設定驗證規則</string>
+  <string name="config_validatorprefs_summary">設定驗證規則。</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_debugbutton_title">除錯</string>
@@ -620,31 +667,31 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">使用者介面設定</string>
-  <string name="config_category_view_summary">樣式和顯示設定選項</string>
+  <string name="config_category_view_summary">樣式和顯示設定選項。</string>
   <string name="config_iconbutton_title">顯示節點圖示</string>
   <string name="config_iconbutton_summary">在節點上面顯示最相配的預置圖示。</string>
   <string name="config_showWayIcons_title">顯示建築物上的興趣點圖示</string>
   <string name="config_showWayIcons_summary">在建築物上顯示最符合預設組合</string>
   <string name="config_tagFormEnabled_title">顯示標籤表格</string>
-  <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯</string>
+  <string name="config_tagFormEnabled_summary">顯示標籤表格以便編輯。</string>
   <string name="config_showCameraAction_title">顯示相機的動作</string>
-  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示</string>
-  <string name="config_followGPSbutton_title">跟隨GPS按鈕設計樣式</string>
-  <string name="config_followGPSbutton_summary">\"跟隨GPS\"按鈕出現位置</string>
+  <string name="config_showCameraAction_summary">在動作列上顯示相機圖示。</string>
+  <string name="config_followGPSbutton_title">跟隨位置按鈕設計樣式</string>
+  <string name="config_followGPSbutton_summary">\"跟隨位置\"按鈕出現位置。</string>
   <string name="config_alwaysDrawBoundingBoxes_title">總是模糊無法下載的區域</string>
-  <string name="config_alwaysDrawBoundingBoxes_summary">如果啟用，非下載區域將在鎖定模式下變模糊</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">鎖定模式下模糊無法下載的區域。</string>
   <string name="config_fullscreenMode_title">全螢幕模式</string>
   <string name="config_fullscreenMode_summary">有\"soft\"鍵裝置程式行為</string>
   <string name="config_showTolerance_title">顯示選取誤差</string>
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
-  <string name="config_use_back_for_undo_title">用返回鍵作取消復原</string>
-  <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用返回鍵復原</string>
-  <string name="config_enableLightTheme_title">啟用明亮主題</string>
-  <string name="config_enableLightTheme_summary">明亮主題與白色背景</string>
+  <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
+  <string name="config_use_back_for_undo_summary">在主編輯檢視中，使用 ← 復原。</string>
+  <string name="config_enableLightTheme_title">明亮主題</string>
+  <string name="config_enableLightTheme_summary">明亮主題與白色背景。</string>
   <string name="config_splitActionBarEnabled_title">啟用拆分動作列</string>
-  <string name="config_splitActionBarEnabled_summary">允許拆分動作列，於特定裝置才有作用。需要重開程式並且 Android 版本須  &gt;= 4.0</string>
+  <string name="config_splitActionBarEnabled_summary">允許拆分動作列，於特定裝置才有作用。需要重開程式並且 Android 4.0 或之後版本。</string>
   <string name="config_maxInlineValues_title">最大內嵌數值</string>
-  <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格</string>
+  <string name="config_maxInlineValues_summary">最大內嵌數值顯示的標籤表格。</string>
   <string name="config_maxInlineValues_current">%1$d 數值</string>
   <string name="config_autoLockDelay_title">自動鎖定所需等待的時間</string>
   <string name="config_autoLockDelay_summary">自動鎖定之前所需等待的秒教，0意味關閉。</string>
@@ -652,128 +699,129 @@
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
-  <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的路徑</string>
+  <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
   <string name="config_category_editing">資料和編輯設定</string>
   <string name="config_category_editing_summary">自動下載，儲存和通知設定</string>
-  <string name="config_forceContextMenu_title">總是使用快顯選單</string>
+  <string name="config_forceContextMenu_title">總是使用快顯選單。</string>
   <string name="config_forceContextMenu_summary">如果選取是不明確的，始終顯示快顯選單。</string>
   <string name="config_address_tags">地址標簽</string>
-  <string name="config_address_tags_summary">為地址預測使用標籤</string>
+  <string name="config_address_tags_summary">為地址預測使用標籤。</string>
   <string name="config_enableNameSuggestions_title">啟用建議名稱</string>
-  <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議</string>
+  <string name="config_enableNameSuggestions_summary">為名稱標籤開啟建議。</string>
   <string name="config_enableNameSuggestionsPresets_title">啟用名稱建議預置</string>
-  <string name="config_enableNameSuggestionsPresets_summary">在名稱建議選取時自動增加預置</string>
+  <string name="config_enableNameSuggestionsPresets_summary">當選擇了名稱建議時自動加入預置。</string>
   <string name="config_generateAlerts_title">發生通知</string>
   <string name="config_generateAlerts_summary">有問題的資料或節點發生通知</string>
+  <string name="config_groupAlertsOnly_title">只有一堆通知</string>
+  <string name="config_groupAlertsOnly_summary">有一堆通知時只產生一次警告 (音響)</string>
   <string name="config_notificationCacheSize_title">最多顯示的通知數量</string>
-  <string name="config_notificationCacheSize_summary">每種類型最大顯示通知數目 (min. 1)</string>
+  <string name="config_notificationCacheSize_summary">每種類型最大顯示通知數目 (min. 1)。</string>
   <string name="config_notificationCacheSize_current">%1$d 通知</string>
   <string name="config_maxAlertDistance_title">最大距離的通知</string>
-  <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知</string>
-  <string name="config_maxAlertDistance_current">%1$d 公尺</string>
+  <string name="config_maxAlertDistance_summary">最大距離的一個問題或註釋，可以是從目前位置去產生通知。</string>
+  <string name="config_maxAlertDistance_current">%1$d公尺</string>
   <string name="config_extTriggeredDownloadRadius_title">下載半徑</string>
   <string name="config_extTriggeredDownloadRadius_summary">只有在地圖上的時候，從外部觸發下載的半徑 (m) 0 = 中心。</string>
   <string name="config_downloadRadius_current">%1$d 公尺</string>
   <string name="config_maxDownloadSpeed_title">最高自動下載速度</string>
-  <string name="config_maxDownloadSpeed_summary">高於此限制(公里/小時)，自動下載暫停</string>
+  <string name="config_maxDownloadSpeed_summary">高於此限制(公里/小時)，自動下載暫停。</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
-  <string name="config_bugFilter_title">篩選註解/錯誤</string>
-  <string name="config_bugFilter_summary">選擇哪些元件能顯示在註解/錯誤層</string>
-  <string name="config_bugDownloadRadius_title">註解/錯誤的下載半徑</string>
-  <string name="config_bugDownloadRadius_summary">註解/錯誤下載的半徑(m)</string>
-  <string name="config_maxBugDownloadSpeed_title">註解/錯誤的最高自動下載速度</string>
-  <string name="config_maxBugDownloadSpeed_summary">高於此限制(公里/小時)，註解/錯誤的自動下載暫停</string>
+  <string name="config_bugFilter_title">任務篩選器</string>
+  <string name="config_bugFilter_summary">選擇哪些元件能顯示在註解、錯誤和任務圖層。</string>
+  <string name="config_bugDownloadRadius_title">任務下載半徑</string>
+  <string name="config_bugDownloadRadius_summary">任務下載的半徑 (m)。</string>
+  <string name="config_maxBugDownloadSpeed_title">最高任務自動下載速度</string>
+  <string name="config_maxBugDownloadSpeed_summary">高於此限制(公里/小時)，註解、錯誤和任務的自動下載暫停。</string>
   <string name="config_closeChangesetOnSave_title">關閉變更組合</string>
   <string name="config_closeChangesetOnSave_summary">在預設情況下，關閉變更時儲存</string>
   <string name="config_enableAutoPresets_title">啟用自動預設產生</string>
-  <string name="config_enableAutoPresets_summary">允許從 Taginfo 產生預置</string>
+  <string name="config_enableAutoPresets_summary">允許從 taginfo 產生預置</string>
   <!--Location Settings-->
   <string name="config_category_gps">位置設定</string>
-  <string name="config_category_gps_summary">GPS 參數和其他位置提供者。</string>
-  <string name="config_gps_source_title">GPS 的來源</string>
-  <string name="config_gps_source_summary">GPS 位置的更新來源</string>
+  <string name="config_category_gps_summary">GPS/GNSS 參數和其他位置提供者。</string>
+  <string name="config_gps_source_title">GPS/GNSS 來源</string>
+  <string name="config_gps_source_summary">GPS/GNSS 位置的更新來源</string>
   <string name="config_gps_source_tcp_title">NMEA 網路來源</string>
-  <string name="config_gps_source_tcp_summary">TCP NMEA 的地址來源為主機：埠</string>
-  <string name="config_gps_interval_title">GPS 的最小時間間隔</string>
-  <string name="config_gps_interval_summary">GPS 接收通知，以毫秒為單位的最小時間間隔 。較低的值使電池更加耗電。</string>
+  <string name="config_gps_source_tcp_summary">TCP NMEA 的地址來源為主機：埠。</string>
+  <string name="config_gps_interval_title">GPS/GNSS 的最小時間間隔</string>
+  <string name="config_gps_interval_summary">GPS/GNSS 接收通知，以毫秒為單位的最小時間間隔 。較低的值使電池更加耗電。</string>
   <string name="config_gps_interval_current">%1$d ms</string>
-  <string name="config_gps_distance_title">GPS 的最小距離</string>
-  <string name="config_gps_distance_summary">GPS 接收通知，以公尺 (可以有小數) 為單位的最小距離間隔 。較低的值使電池更加耗電。</string>
-  <string name="config_gps_distance_current">%1$d 公尺</string>
-  <string name="config_leaveGpsDisabled_title">離開 GPS 停用</string>
-  <string name="config_leaveGpsDisabled_summary">如果 GPS 被停用，不再問使用者是否開啟 </string>
+  <string name="config_gps_distance_title">GPS/GNSS 的最小距離</string>
+  <string name="config_gps_distance_summary"> GPS/GNSS 接收通知，以公尺為單位的最小距離間隔 。較低的值使電池更加耗電。</string>
+  <string name="config_gps_distance_current">%1$d公尺</string>
+  <string name="config_leaveGpsDisabled_title">保留 GPS/GNSS 處於關閉狀態</string>
+  <string name="config_leaveGpsDisabled_summary">不再問 GPS/GNSS 被關閉時是否打開。</string>
   <string name="config_gps_network_title">回退到網路位置</string>
-  <string name="config_gps_network_summary">如果沒有或是開 GPS 的話，回退到網路提供者 </string>
+  <string name="config_gps_network_summary">如果沒有開或是沒有偵測 GPS/GNSS 的話，回退到網路提供者。</string>
   <!--Server Settings-->
   <string name="config_category_server">伺服器設定</string>
-  <string name="config_category_server_summary">OSM API 和其他伺服器設定</string>
+  <string name="config_category_server_summary">OSM API 和其他伺服器設定。</string>
   <string name="config_apibutton_title">OSM API URL</string>
   <string name="config_apibutton_summary">您可以在此設定非標準的 API 網址。通常不應該改變！</string>
   <string name="config_loginbutton_title">使用者帳號</string>
-  <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。
-帳號可在這申請 http://www.openstreetmap.org/user/new</string>
+  <string name="config_username_summary">如果您不使用 OAuth，才要設定上傳 OSM 資料用的帳號。帳號可在這申請 https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">偏移伺服器</string>
   <string name="config_offsetServer_summary">圖片偏移伺服器的網址</string>
   <string name="config_osmoseServer_title">OSMOSE 伺服器</string>
-  <string name="config_osmoseServer_summary">osmose 伺服器網址</string>
+  <string name="config_osmoseServer_summary">OSMOSE 伺服器網址</string>
   <string name="config_geocoderbutton_title">設定 geocoders</string>
-  <string name="config_geocoderbutton_summary">為搜尋功能增加、編輯、刪除 geocoders</string>
+  <string name="config_geocoderbutton_summary">為搜尋功能增加、編輯、刪除 geocoders。</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">圖層下載和儲存</string>
-  <string name="config_category_layers_summary">圖磚為主的背景影像下載和儲存</string>
+  <string name="config_category_layers_summary">圖磚為主的背景影像下載和儲存。</string>
   <string name="config_maxTileDownloadThreads_title">最大下載序列數</string>
   <string name="config_maxTileDownloadThreads_summary">最大圖磚下載序列數</string>
   <string name="config_downLoadThreads_current">%1$d 線程</string>
   <string name="config_tileCacheSize_title">圖磚快取大小</string>
-  <string name="config_tileCacheSize_summary">圖磚快取以 MB 為單位合計大小</string>
+  <string name="config_tileCacheSize_summary">用 MB 計算的暫存圖磚所有儲存空間。</string>
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">雜項</string>
-  <string name="pref_enable_acra">回報應用程式錯誤</string>
-  <string name="pref_acra_enabled">已啟用錯誤回報</string>
-  <string name="pref_acra_disabled">已停用錯誤回報</string>
+  <string name="pref_enable_acra">回報 app 當機</string>
+  <string name="pref_acra_enabled">啟用當機報告</string>
+  <string name="pref_acra_disabled">關閉當機報告</string>
   <string name="config_showStats_title">顯示統計</string>
-  <string name="config_showStats_summary">在左下角顯示資料的統計和畫格/秒。</string>
+  <string name="config_showStats_summary">在左下角顯示資料的統計和 FPS。</string>
   <!--Experimental-->
   <string name="config_category_experimental">實驗性</string>
   <string name="config_js_console_title">啟用 JS 主控台</string>
-  <string name="config_js_console_summary">讓 JS 主控台在 live 模式啟用</string>
+  <string name="config_js_console_summary">讓 JS 主控台在 live 模式啟用。</string>
   <string name="config_voiceCommandsEnabled_title">啟用聲控指令</string>
-  <string name="config_voiceCommandsEnabled_summary">啟用聲控指令支援</string>
+  <string name="config_voiceCommandsEnabled_summary">啟用聲控指令支援功能</string>
   <!---->
   <string name="manage_apis">管理 APIs</string>
   <string name="config_api_url_title">API URL</string>
-  <string name="config_api_oauth_title">使用 oauth</string>
-  <string name="listedit_enable_oauth">啟用 oauth</string>
+  <string name="config_api_oauth_title">使用 OAuth</string>
+  <string name="listedit_enable_oauth">啓用 OAuth</string>
   <string name="config_username_title">OSM 使用者名稱</string>
   <string name="config_password_title">OSM 密碼</string>
   <string name="config_password_summary">不要誤認為是維基密碼。請記住：它是以純文字存儲和傳輸！</string>
   <string name="manage_presets">管理預置</string>
+  <string name="listedit_use_translations">使用翻譯</string>
   <string name="manage_geocoders">管理 geocoders</string>
   <!--preset downloader messages-->
   <string name="preset_update">更新預置</string>
-  <string name="preset_download_successful">預置成功下載</string>
-  <string name="preset_download_failed">預置檔案無法下載。預置將無法工作。</string>
+  <string name="preset_download_successful">預置已下載</string>
+  <string name="preset_download_failed">無法下載預置檔案，預置將無法運作。</string>
   <string name="preset_download_parse_failed">預置檔案無效。預置將無法工作。</string>
-  <string name="preset_download_missing_images">預置檔案已成功下載。不過某些圖示無法下載，並且會遺失。</string>
+  <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
   <string name="preset_download_title">預置下載器</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" 已刪除</string>
   <string name="changes_changed">\"%1$s\" 已變更</string>
   <string name="changes_created">\"%1$s\" 已建立</string>
   <string name="confirm_upload_title">上傳變動</string>
-  <string name="confirm_one_upload_text_1">上傳以下變更嗎？</string>
-  <string name="confirm_multiple_upload_text_1">上傳以下變更%1$dchanges?</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="other">要上傳 %1$d 項變動嗎？</item>
+  </plurals>
   <string name="confirm_upload_edits_page">變動</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
-  <string name="urldialog_preset_download_successful">預置下載成功！</string>
+  <string name="urldialog_preset_download_successful">預置已下載。</string>
   <string name="urldialog_api_exists">這個 API 的網址已經存在。不過，您可以增加另一個 (例如，方便地切換帳號)。</string>
-  <string name="urldialog_api_preset_missing">所使用的 API 預置為不可使用的。您應該先增加。</string>
-  <string name="urldialog_api_install_successful">API 安裝成功！</string>
   <string name="urldialog_add_api">增加 API</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
   <string name="urldialog_add_geocoder">增加 geocoder</string>
@@ -793,7 +841,7 @@
   <string name="readonly_url">唯讀API網址 (選擇)</string>
   <string name="notes_url">註解API網址 (選擇)</string>
   <string name="geocoder_type">geocoder 類型</string>
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="preset">預置</string>
   <string name="api">API</string>
   <string name="undo">復原</string>
@@ -802,42 +850,42 @@
   <string name="tracking_active_title">Vespucci 背景服務</string>
   <string name="tracking_active_title_short">啟用背景服務</string>
   <string name="tracking_active_text">錄製 GPS 軌跡或是自動下載</string>
-  <string name="tracking_long_text">Vespucci 正錄製 GPS 軌跡，或是自動下載。要完全離開的話，請暫停已啟用的軌跡記錄，之後按退後按鈕離開程式。</string>
+  <string name="tracking_long_text">Vespucci 正錄製 GPS 軌跡，或是自動下載。要完全離開的話，請按下方的按鈕，或是按 App 裡的退後鍵。</string>
   <string name="gps_failure">啟用 GPS 失敗</string>
   <!--element description-->
   <string name="address_housenumber">地址 %1$s</string>
   <string name="address_housenumber_street">地址 %1$s%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">移動節點</string>
-  <string name="undo_action_moveway">移動路徑</string>
-  <string name="undo_action_moveobjects">移動物件</string>
+  <string name="undo_action_movenode">節點已移動</string>
+  <string name="undo_action_moveway">路徑已移動</string>
+  <string name="undo_action_moveobjects">物件已移動</string>
   <string name="undo_action_add">插入</string>
-  <string name="undo_action_append">追加</string>
-  <string name="undo_action_deletenode">刪除節點</string>
-  <string name="undo_action_deleteway">刪除路徑</string>
-  <string name="undo_action_delete_objects">刪除物件</string>
-  <string name="undo_action_split_ways">拆分路徑</string>
-  <string name="undo_action_split_way">拆分路徑</string>
+  <string name="undo_action_append">附加到路徑</string>
+  <string name="undo_action_deletenode">節點刪除</string>
+  <string name="undo_action_deleteway">路徑刪除</string>
+  <string name="undo_action_delete_objects">物件已刪除</string>
+  <string name="undo_action_split_ways">切割路徑</string>
+  <string name="undo_action_split_way">切割路徑</string>
   <string name="undo_action_merge_ways">合併路徑</string>
   <string name="undo_action_reverse_way">反轉路徑</string>
-  <string name="undo_action_set_tags">設定標籤</string>
+  <string name="undo_action_set_tags">下標籤 </string>
   <string name="undo_action_join">加入</string>
-  <string name="undo_action_unjoin_ways">不加入路徑</string>
-  <string name="undo_action_create_relation">建立關係</string>
-  <string name="undo_action_delete_relation">刪除關係</string>
-  <string name="undo_action_update_relations">更新關係</string>
+  <string name="undo_action_unjoin_ways">路徑分離</string>
+  <string name="undo_action_create_relation">建立關聯</string>
+  <string name="undo_action_delete_relation">刪除關聯</string>
+  <string name="undo_action_update_relations">更新關聯</string>
   <string name="undo_action_cut">剪下</string>
   <string name="undo_action_paste">貼上</string>
-  <string name="undo_action_rotateway">旋轉路徑</string>
+  <string name="undo_action_rotateway">路徑旋轉</string>
   <string name="undo_action_orthogonalize">直角化路徑</string>
   <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>
   <string name="undo_action_extract_node">抽出節點</string>
   <!--ACRA-->
-  <string name="crash_dialog_text">上次執行的時候，Vespucci 當機，或是發現嚴動的執行問題。\n\n請傳送錯誤報告幫助我們，你只要按\'OK\'就好。\n</string>
+  <string name="crash_dialog_text">上次 Vespucci 運行時當掉或是遇到嚴重的問題。\n\n請點 \'OK\' 來傳送錯誤報告。\n</string>
   <string name="crash_dialog_comment_prompt">增加其他你覺得可能幫上忙的的進一步資訊，如果需要回饋則附上你的電子郵件位址(選擇)。\n\n謝謝你！</string>
-  <string name="report_success">回報成功！</string>
-  <string name="report_failure">回報失敗！</string>
+  <string name="report_success">已報告。</string>
+  <string name="report_failure">無法回傳報告。</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">此操作會造成一條過多節點的路徑。</string>
   <!--Notifications-->
@@ -845,24 +893,24 @@
   <string name="alert_note">附近的 OSM 注解檢測</string>
   <string name="alert_bug">附近的 OSM 錯誤檢測</string>
   <string name="alert_distance_direction">在 %1$d 公尺 %2$s</string>
-  <string name="bearing_ne">東北</string>
-  <string name="bearing_e">東</string>
-  <string name="bearing_se">東南</string>
-  <string name="bearing_s">南</string>
-  <string name="bearing_sw">西南</string>
-  <string name="bearing_w">西</string>
-  <string name="bearing_nw">西北</string>
-  <string name="bearing_n">北</string>
+  <string name="bearing_ne">東北 ↗</string>
+  <string name="bearing_e">東 →</string>
+  <string name="bearing_se">東南 ↘</string>
+  <string name="bearing_s">南 ↓</string>
+  <string name="bearing_sw">西南 ↙</string>
+  <string name="bearing_w">西 ←</string>
+  <string name="bearing_nw">西北 ↖</string>
+  <string name="bearing_n">北 ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">作用</string>
-  <string name="role_lc">作用</string>
+  <string name="role_lc">角色</string>
   <string name="membership_relation_heading">關係成員</string>
   <string name="relation">關係</string>
   <string name="relations">關係</string>
   <string name="position">位置</string>
   <string name="type">類型</string>
   <string name="object">物件</string>
-  <string name="deleterelation_relation_description">您將要刪除的關係，它是一個或多個關係中的成員。從關係中移除此關係，可能會使得它或它們變成無效。</string>
+  <string name="deleterelation_relation_description">您將要刪除的關聯，它是一個或多個關聯中的一部分。從關聯中移除此關聯，可能會使得它或它們變成無效。</string>
   <string name="deleterelation">刪除關係</string>
   <string name="delete_from_relation_description">您即將從一個關係中刪除該元件。</string>
   <string name="unset_relation_type">未設定關係類型</string>
@@ -874,7 +922,7 @@
   <string name="km">公里</string>
   <string name="meter">公尺</string>
   <!--Help system-->
-  <string name="toast_nohelp">這裡沒有可用的幫助！</string>
+  <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>私人的</item>
@@ -896,6 +944,15 @@
   <string-array name="note_state">
     <item>開啟</item>
     <item>已關</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>待解決</item>
+    <item>已關閉</item>
+    <item>誤報</item>
+    <item>已跳過</item>
+    <item>已刪除</item>
+    <item>已修正</item>
+    <item>難度過高</item>
   </string-array>
   <string-array name="followGPSbutton_entries">
     <item>左</item>

@@ -51,9 +51,9 @@ Por defeito, os nós e linhas selecionáveis têm uma área laranja à volta del
     * Um nó ou linha isolados é destacado imediatamente. 
     * No entanto se tentar selecionar um objeto e o Vespucci determinar  que a seleção pode ser vários objetos, rá mostrar um menu de seleção permitindo escolher o objeto que quer selecionar. 
     * Os objetos selecionados são destacados a amarelo. 
-    * Para mais informações ver [Nó selecionado](Node%20selected.md), [Linha selecionada](Way%20selected.md) e [Relação selecionada](Relation%20selected.md).
+    * Para mais informações ver [Nó selecionado](Node%20selected.md), [Linha selecionada](Way%20selected.md) and [Relação selecionada](Relation%20selected.md).
 * Toque duplo: ativar [Modo Multi-seleção](Multiselect.md)
-* Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos](Creating%20new%20objects.md)
+* Toque longo: cria um "sinal mais", permitindo adicionar erros reportados. Para mais informações ver [Criar novos objetos(Creating%20new%20objects.md). Isto apenas é ativado se o  "Modo simples" estiver desativado.
 
 É uma boa ideia aproximar a visualização caso a área tenha muitos objetos.
 
@@ -81,11 +81,21 @@ Note que nos objetos que se sobrepõem (como um nó numa linha) irá aparecer de
 
 Após selecionar um objeto, este pode ser movido. Note que os objetos podem ser arrastados/movidos apenas quando estão selecionados. Simplesmente arraste perto de um objeto selecionado (dentro da zona de tolerância) para o mover. Se tiver definido nas preferências uma área grande de arrasto, obtém uma zona larga à volta do nó selecionado que torna mais fácil posicionar o objeto. 
 
-#### Adicionar um novo Nó/Ponto ou Linha (toque longo)
+#### Adicionar um novo Nó ou Linha 
 
-Faça um toque longo no local onde quer o nó ou o início da linha. Irá ver o sinal mais. 
-* Se quiser criar um novo nó (não ligado a nenhum objeto), toque longe dos objetos existentes.
-* Se quiser prolongar uma linha, toque dentro da "zona de tolerância" da linha (ou no nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou linha.
+No primeiro arranque a app começa com o "Modo simples" ativado. Isto pode ser alterado no menu principal desativando essa opção.
+
+##### Modo simples
+
+Ao tocar no botão verde grande redondo no ecrã do mapa irá mostrar um menu. Após selecionar um dos itens do menu, será perguntando onde quer criar o objeto. O deslocamento e o aumento da visualização continuam a funcionar para ajustar a vista do mapa. 
+
+Para mais informações ver [Criar novos objetos no modo de ações simples (Creating%20new%20objects%20in%20simple%20actions%20mode.md).
+
+##### Modo avançado (premir longo)
+ 
+Prima por alguns segundos onde quer que o nó seja posicionado. Irá ver um símbolo da "cruz" negra. 
+* Se quiser criar um novo nó (não ligado a um objeto), clique longe deos objetos existentes.
+* Se quiser prolongar uma linha toque na "zona de tolerância" da linha (ou num nó da linha). A zona de tolerância é indicada pelas áreas à volta de um nó ou uma linha.
 
 Assim que veja um sinal mais, tem as seguintes opções:
 
@@ -96,7 +106,7 @@ Assim que veja um sinal mais, tem as seguintes opções:
 
 Simplesmente toque no ecrã onde quer adicionar mais nós na linha. Para terminar, toque no nó final 2 vezes. Se o nó final se encontrar numa linha ou nó existente, o segmento ficará ligado automaticamente à linha ou nó. 
 
-Também pode usar o menu: ver [Criar novos objetos](/Creating%20new%20objects.md) para mais informações.
+Também pode usar o item do menu: para mais informações veja [Criar novos objetos](Creating%20new%20objects.md).
 
 #### Adicionar uma Área
 
@@ -217,10 +227,10 @@ O levantamento possui as seguintes propriedades:
 
 A verificação de entradas tem as seguintes duas propriedades:
 
-* **Chave** - Chave que deve estar presente no objeto de acordo com o modelo correspondente.
-* **Verificação opcional** - Verifica as etiquetas opcionais do modelo correspondente.
+* **Chave** - Chave que deve estar presente no objeto de acordo com o modelo de etiquetas correspondente.
+* **Exigir opcional** - Exigir a chave mesmo que a chave esteja nas etiquetas opcionais do modelo de etiquetas correspondente.
 
-Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a **Chave** é uma chave "recomendada" kpara esse objeto de acordo com o modelo, **Verificação opcional** irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.
+Esta verificação funciona determinando primeiro o modelo correspondente e então verifica se a **Chave** é uma chave "recomendada" para esse objeto de acordo com o modelo, **Exigir opcional** irá alargar a verificação a etiquetas que sejam "opcionais * no objeto. Nota: neste momento os modelos ligados não são verificados.
 
 ## Filtros
 
@@ -252,6 +262,8 @@ Uma alternativa ao descrito anteriormente, os objetos podem ser filtrados com ba
 
 ## Reportar Problemas
 
-Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o [Repositório de erros do Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). Se quiser discutir algo relacionado com o Vespucci, pode abrir uma discussão no [Grupo Google do Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) ou no [fórum Android do OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
+Se o Vespucci bloquear ou for abaixo. Ser-lhe-á perguntado se pretende enviar o relatório de erro com informações sobre este aos programadores do Vespucci. Os programadores agradecem que enviem esta informação, mas por favor envie um relatório de erro apenas para um mesmo erro/situação. Se quiser adicionar outras informações que possam ser úteis aos programadores ou requisitar outras funcionalidades novas no Vespucci use o [Repositório de erros do Vespucci](https://github.com/MarcusWolschon/osmeditor4android/issues). A função "Fornecer opinião" no menu principal irá abrir um novo relatório e incluir a informação relevante da app e do dispositivo sem ser necessário escrever essa informação.
+
+Se quiser discutir algo relacionado com o Vespucci, pode iniciar uma discussão no [grupo do Google Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) ou o [fórum Android do OpenStreetMap](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

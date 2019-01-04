@@ -3,55 +3,48 @@
   <!--Mode names-->
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Åtvaring!</string>
-  <string name="transfer_download_current_dialog_message">Du har gjort endringar. Vil du lasta dei opp i staden for å avbryta?</string>
   <string name="transfer_download_current_upload">Last opp</string>
   <string name="transfer_download_current_download">Avbryt og last ned</string>
-  <string name="transfer_download_current_back">Gå attende</string>
-  <string name="upload_problem_title">Problem med opplasting</string>
-  <string name="no_connection_title">Inkje samband med tenaren</string>
-  <string name="no_connection_message">Kunne ikkje kobla til OSM-tenaren. Sjekk internettforbindelsen din eller prøv om att seinare.</string>
   <string name="progress_title">Les</string>
   <string name="progress_message">Les inn i minne…</string>
   <string name="progress_download_message">Lastar ned data fra tenaren…</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_gpx_tags_label">Taggar</string>
   <!--task fragment-->
-  <string name="openstreetbug_new_nodeway">Lag node/veg</string>
-  <string name="openstreetbug_commitbutton">Legg inn</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
-  <!---->
+  <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Åtvaring!</string>
-  <string name="unsaved_data_message">Du har ulagra endringar som vil bli skrota om du går vidare.</string>
   <string name="unsaved_data_proceed">Skrot og gå vidare</string>
+  <!--Imagery offset dialog-->
+  <!--Search/Find dialog-->
+  <!---->
   <!--element information dialog-->
   <!--GeoJSON feature display dialog-->
   <!---->
   <!--hidden object warning dialog-->
+  <!--This concerns a shown message-->
+  <!--This concerns a shown message-->
   <!--debug dialog-->
   <!--JS console dialog-->
   <!--Validator dialogs-->
   <!--Empty relation dialog-->
-  <!--GPX way point dialog-->
+  <!--GPX waypoint dialog-->
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
   <!--Undo - Redo dialog-->
+  <!--Feedback activity-->
   <!--BoxPicker-->
   <!--NumberPiker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikkje endra noko enno…</string>
-  <string name="toast_upload_success">Opplasting til OSM er ferdig.</string>
-  <string name="toast_not_in_edit_range">Zoom inn for å endra (volum opp / ned eller lens/shift)</string>
-  <string name="toast_save_done">Lagring lukkast</string>
-  <string name="toast_not_in_bug_range">Zoom inn for å leggja til feilrapport (volum opp/ned eller lens/shift)</string>
-  <string name="toast_export_failed">Eksport feila</string>
   <string name="toast_export_success">Eksporterte til %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
-  <string name="okay">Ok</string>
   <string name="cancel">Avbryt</string>
+  <!--Read a file-->
   <!--Dialog for back button-->
   <!--Strings in PorpertyEditor-->
   <string name="key">nøkkel</string>
@@ -60,22 +53,16 @@
   <string name="tag_menu_sourcesurvey">Kartlagt</string>
   <string name="tag_menu_preset">Knappar</string>
   <string name="tag_menu_revert">Gjer om</string>
-  <string name="tag_menu_mapfeatures">Map features wiki</string>
   <!--Strings in Box/LocationPicker-->
-  <string name="location_headline">Les inn område</string>
   <string name="location_choose_radius">Velj radius:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_last_text">Siste kjente posisjon:</string>
   <string name="location_current_text">Noverande posisjon:</string>
-  <string name="location_text_unknown">ukjent</string>
   <string name="location_last_text_parameterized">Siste kjente posisjon: %1$s</string>
   <string name="location_current_text_parameterized">Noverande posisjon: %1$s</string>
-  <string name="location_map_text">Frå kart (kjem snart):</string>
   <string name="location_coordinates_text">Frå koordinat:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
-  <string name="location_nan_title">Feil inndata!</string>
-  <string name="location_nan_message">Tast inn koordinat med desimalar (f.eks. \"52.333572\",\"8.741185\"). Lat skal vere mellom -85.0 og +85.0, og Lon skal vere mellom -175.0 og +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Flytt</string>
   <string name="menu_edit">Endre</string>
@@ -86,72 +73,49 @@
   <string name="menu_split">Kløyv</string>
   <string name="menu_append">Hald fram</string>
   <string name="menu_tag">Endre tagger</string>
-  <string name="menu_gps">GPS…</string>
   <string name="menu_gps_show">Vis plassering</string>
-  <string name="menu_gps_start">Start GPS-spor</string>
-  <string name="menu_gps_pause">Sett GPS-sporing på pause</string>
   <string name="menu_transfer">Overfør…</string>
   <string name="menu_transfer_download_current">Last ned noverande utsnitt</string>
   <string name="menu_transfer_upload">Last opp til OSM</string>
-  <string name="menu_save">Lagre til fil</string>
   <string name="menu_join">Kombiner</string>
   <!---->
   <!--Background alignment-->
+  <!--Menus in layers dialog-->
   <!---->
   <!--element action mode menu-->
   <!--Text should be as short as possible-->
   <string name="menu_history">Historikk</string>
   <string name="menu_merge">Kombiner</string>
   <string name="menu_reverse">Snu</string>
-  <string name="deleteway_wayonly">Slett berre vegen</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Veg valt</string>
   <string name="actionmode_nodeselect">Node valt</string>
   <string name="actionmode_createpath">Lagar bane</string>
   <!--EasyEdit action mode sub-titles-->
+  <!--Simple Action Mode-->
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartbakgrunn</string>
   <string name="config_advancedprefs">Avanserte innstillingar</string>
   <string name="config_presetbutton_title">Knappar</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
-  <string name="config_licensebutton_title">Opphavsmenn og lisensar</string>
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_iconbutton_title">Vis node-ikon</string>
   <string name="config_iconbutton_summary">Vis ikonet for knapp som passar best på nodar.</string>
   <string name="config_showTolerance_title">Vis endringsområde</string>
-  <string name="config_showTolerance_summary">Viser område der element kan veljast.</string>
-  <string name="config_enableAntiAliasing_title">Slå på anti-aliasing</string>
   <!--Data and Editing Settings-->
-  <string name="config_forceContextMenu_title">Bruk alltid snøggmeny</string>
   <!--Location Settings-->
-  <string name="config_gps_interval_title">Minimum GPS-intervall</string>
-  <string name="config_gps_interval_summary">Kortaste tidsintervall for GPS-målingar, i millisekund. Lågare verdi gjev kortare batteritid.</string>
-  <string name="config_gps_distance_title">Minimum GPS-avstand</string>
-  <string name="config_gps_distance_summary">Kortaste avstand mellom GPS-målingar, i meter (med komma). Lågare verdi gjev kortare batteritid.</string>
   <!--Server Settings-->
-  <string name="config_category_server">Tenar-innstillingar</string>
-  <string name="config_apibutton_summary">Her kan du spesifisera ein ustandard API URL. Skal normalt ikkje endrast!</string>
   <string name="config_loginbutton_title">Brukarkonto</string>
   <!--Layer download and storage-->
   <!--Miscellaneous-->
-  <string name="pref_enable_acra">Rapporter program-krasjar</string>
-  <string name="pref_acra_enabled">Krasjrapportering slått på</string>
-  <string name="pref_acra_disabled">Krasjrapportering slått av</string>
   <string name="config_showStats_title">Vis statistikk</string>
-  <string name="config_showStats_summary">Viser datastatistikk og bilete/sek i nederste venstre hjørne.</string>
   <!--Experimental-->
   <!---->
-  <string name="config_username_title">OpenStreetMap-brukarnamn</string>
-  <string name="config_password_title">OpenStreetMap-passord</string>
-  <string name="config_password_summary">Må ikkje forvekslast med Wiki-passordet. Obs: Det blir lagra og sendt som lesbar tekst!</string>
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knappar</string>
-  <string name="preset_download_successful">Knappane vart lasta ned.</string>
-  <string name="preset_download_failed">Knappefila kunne ikkje lastast ned. Knappesettet kjem ikkje til å virka.</string>
   <string name="preset_download_parse_failed">Knappefile er ugyldig. Knappesettet kjem ikkje til å virka.</string>
-  <string name="preset_download_missing_images">Knappefila vart lasta ned, men nokre ikon kunne ikkje lastast ned og kjem til å mangla.</string>
   <!--changes-->
   <string name="changes_deleted">«%1$s» sletta</string>
   <string name="changes_changed">«%1$s» endra</string>
@@ -168,7 +132,7 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <!---->
-  <!--"default" is a reserved Java keyword...-->
+  <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
   <string name="undo">Gjer om</string>
   <string name="redo">Gjenta</string>
@@ -176,16 +140,6 @@
   <string name="gps_failure">Klarte ikkje å slå på GPS</string>
   <!--element description-->
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
-  <string name="undo_action_movenode">flytt node</string>
-  <string name="undo_action_add">sett inn</string>
-  <string name="undo_action_append">legg til</string>
-  <string name="undo_action_deletenode">slett node</string>
-  <string name="undo_action_deleteway">slett veg</string>
-  <string name="undo_action_split_ways">kløyv vegar</string>
-  <string name="undo_action_split_way">kløyv veg</string>
-  <string name="undo_action_merge_ways">slå saman vegar</string>
-  <string name="undo_action_reverse_way">snu vegar</string>
-  <string name="undo_action_set_tags">legg til taggar</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->

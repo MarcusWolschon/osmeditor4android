@@ -48,13 +48,13 @@ Una lunga pressione sull'icona di blocco farà apparire un menù con 4 opzioni:
 
 Di defualt, gli oggetti selezionabili e le linee sono bordate in arancione, con l'obiettivo di indicare dove premere per selezionarle. Ci sono 3 possibilità:
 
-* Tocco singolo: Seleziona oggetto. 
-    * Un nodo isolato o un percorso viene evidenziato immediatamente. 
-    * Tuttavia, se tenti di selezionare un oggetto e Vespucci determina che la seleziona possa comprendere oggetti multipli presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. 
-    * Gli oggetti selezionati sono evidenziati in giallo. 
-    * Per maggiori informazioni vedi [Nodo selezionato](Node%20selected.md), [Percorso selezionato](Way%20selected.md) e [Relazione selezionata](Relation%20selected.md).
-* Doppio tocco: Apre [Multiselect mode](Multiselect.md)
-* Pressione prolungata: Crea un "mirino", che permette di aggiungere un nodo, vedere sotto e [Creare nuovi oggetti](Creating%20new%20objects.md)
+* Tocco singolo: seleziona oggetto. 
+    * Un nodo isolato viene selezionato immediatamente. 
+    * Tuttavia, se selezioni un oggetto e Vespucci ritiene che la selezione può comprendere più oggetto, presenterà un menu di selezione, permettendoti di scegliere l'oggetto che vuoi selezionare. 
+    * Seleziona gli oggetti evidenziati in giallo. 
+    * Per maggiori informazioni vedi [Nodo selezionato](Node%20selected.md), [Strada selezionata](Way%20selected.md) e [Relazione selezionata](Relation%20selected.md).
+* Doppio tocco: Apri [modalità multiselezione](Multiselect.md)
+* Tocco prlungato: crea un "bersagio" che ti permette di aggiungere note, vedere sotto e [Creare nuovi oggetti](Creating%20new%20objects.md). Questo è abilitato se "Modalità semplice" p disattivata.
 
 Se si cerca di modificare un'area ad alta densità di oggetti, è buona norma ingrandire la mappa.
 
@@ -80,11 +80,21 @@ Tieni presente che per gli oggetti sovrapposti (come per esempio un nodo su un p
 
 Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere trascinato/spostato solo dopo essere stato selezionato. Per spostarlo devi premere sull'oggetto selezionato e trascinare fino dove si desidera spostarlo. Dal menù opzioni è possibile ingrandire l'area di selezione che compare a fianco degli oggetti selezionati. 
 
-#### Aggiungere un nuovo nodo o una linea (pressione prolungata)
+#### Adding a new Node/Point or Way 
 
-Premi a lungo dove vuoi posizionare il nodo o che cominci il percorso. Vedrai un simbolo a forma di croce.
-* se vuoi creare un nuovo nodo (non connesso ad un altro oggetto), clicca lontano da oggetti esistenti.
-* se vuoi estendere un percorso, clicca all’interno della "zona di tolleranza" del percorso (o su un nodo del percorso). La zona di tolleranza è indicata dalle aree attorno ad un nodo o percorso.
+On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+
+##### Simple mode
+
+Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+
+See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+
+##### Advanced (long press) mode
+ 
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 Quando è visibile il simbolo a forma di croce, hai le seguenti opzioni:
 
@@ -95,7 +105,7 @@ Quando è visibile il simbolo a forma di croce, hai le seguenti opzioni:
 
 Premi semplicemente sullo schermo dove vuoi aggiungere altri nodi al percorso. Per completare, premi il nodo finale due volte. Se il nodo finale è su un nodo o percorso già esistenti, il segmento verrà automaticamente collegato a quel nodo o a quel percorso. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
 #### Aggiungere un'area
 
@@ -216,10 +226,10 @@ Le voci da ricontrollare hanno le seguenti proprietà:
 
 La verifica degli elementi ha le seguenti proprietà:
 
-* **Chiave** - La chiave che dovrebbe essere presente nell’oggetto secondo la predefinito corrispondente.
-* **Controllo opzionale** - Verifica le etichette opzionali della predefinito corrispondente.
+* **Key** - Key that should be present on the object according to the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-Questo controllo funziona prima determinando un predefinito corrispondente e poi verificando se la **Chiave** è una chiave “raccomandata” per questo oggetto secondo il predefinito, **Controllo opzionale** estende il controllo sull’oggetto alle etichette marcate come “opzionali”. Nota: i predefiniti attualmente collegati non sono controllati.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Filtri
 
@@ -251,6 +261,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Segnalare un problema
 
-Se Vespucci smette di funzionare oppure rileva uno stato inconsistente, ti verrà chiesto se vuoi inviare i dati della memoria al momento in cui il programma si è interrotto. Sei pregato di farlo quando accade un problema, ma se possibile fallo solamente una volta per ogni situazione specifica. Se vuoi dare qualche spiegazione in più oppure vuoi richiedere una funzionalità mancante o qualcosa di simile, vai all’indirizzo [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). Se vuoi parlare di argomenti inerenti Vespucci, puoi cominciare una discussione sul [gruppo Google di Vespucci](https://groups.google.com/forum/#!forum/osmeditor4android) oppure nel [forum OpenStreetMap di Android](http://forum.openstreetmap.org/viewforum.php?id=56)
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

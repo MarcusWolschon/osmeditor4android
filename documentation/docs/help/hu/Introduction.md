@@ -1,6 +1,6 @@
 # Vespucci bevezetés
 
-A Vespucci teljes körű OpenStreetMap-szerkesztő, amely támogatja a legtöbb olyan műveletet, amelyet asztali gépen futó szerkesztőkkel el lehet végezni. Sikeresen tesztelték a Google Android 2.3–7.0 verzióin és különféle Android nyílt forráskódon alapuló változatokon. Egy kis figyelmeztetés: a mobil eszközök képességei ugyan utolérték az asztali versenytársaikéit, ám elsősorban a régebbi eszközök rendelkezésre álló memóriája korlátozott, ezért előfordulhat, hogy lassúak. A Vespucci használatánál ezt figyelembe kell venni, és – például – a szerkesztendő területet ésszerű méretek között tartani. 
+A Vespucci egy teljes körű OpenStreetMap-szerkesztő, amely támogatja a legtöbb olyan műveletet, amelyet asztali gépen futó szerkesztőkkel el lehet végezni. Sikeresen tesztelték a Google Android 2.3–7.0 verzióin és különféle AOSP változatokon. Egy kis figyelmeztetés: a mobileszközök képességei ugyan utolérték az asztali versenytársaikéit, ám elsősorban a régebbi eszközök rendelkezésre álló memóriája korlátozott, ezért előfordulhat, hogy lassúak. A Vespucci használatánál ezt figyelembe kell venni, és például célszerű a szerkesztendő területet észszerű méretek között tartani. 
 
 ## Első használat
 
@@ -16,76 +16,86 @@ A képernyő méretétől és a készülék életkorától függően a szerkeszt
 
 ### OSM adatok letöltése
 
-Jelöld ki vagy az Átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az Átvitel menüpontot. Ez hét opciót fog megjeleníteni:
+Jelölje ki vagy az átvitel ikont ![Transfer](../images/menu_transfer.png) vagy az „Átvitel” menüpontot. Ez hét lehetőséget fog megjeleníteni:
 
 * **Jelenlegi nézet letöltése** – letölti a képernyőn látható területet és felvált minden meglévő adatot *(hálózati kapcsolatot igényel)*
-* **Jelenlegi nézet hozzáadása a letöltéshez** – letölti a képernyőn látható területet és egyesíti a már meglévő adatokkal *(hálózati kapcsolatot igényel)*
-* **Más helyszín letöltése** – mutat egy űrlapot, amelybe koordinátákat írhatunk, helyet kereshetünk vagy felhasználhatjuk a jelenlegi pozíciónkat, majd letölti az így megadott hely körüli területet *(hálózati kapcsolatot igényel)*
+* **Jelenlegi nézet hozzáadása a letöltéshez** – letölti a képernyőn látható területet, és egyesíti a már meglévő adatokkal *(hálózati kapcsolatot igényel)*
+* **Más helyszín letöltése** – megjelenít egy űrlapot, amelybe koordinátákat írhat, helyet kereshet vagy felhasználhatja a jelenlegi pozícióját, majd így letöltheti az így megadott hely körüli területet *(hálózati kapcsolatot igényel)*
 * **Adatok feltöltése az OSM-kiszolgálóra** – feltölti a szerkesztéseket az OpenStreetMapre *(hitelesítést igényel)* *(hálózati kapcsolatot igényel)*
 * **Automatikus letöltés** – automatikusan letölti a jelenlegi földrajzi hely körüli területet *(hálózati kapcsolatot igényel)* *(GPS-t igényel)*
-* **Fájl…** – OSM-adatok mentése és betöltése a készüléken található fájlokba/-ból.
-* **Megjegyzések / hibák…** – (automatikusan és kézi vezérléssel) letölti az OSM megjegyzéseket és hibákat (ún. „bugok”) egyes minőségbiztosítási eszközökről (jelenleg az OSMOSE-ról) *(hálózati kapcsolatot igényel)*
+* **Fájl…** – OSM-adatok mentése fájlba, és betöltés a készüléken található fájlokból.
+* **Megjegyzések / hibák…** – (automatikusan és kézileg) letölti az OSM megjegyzéseket és hibákat egyes minőségbiztosítási eszközökről (jelenleg az OSMOSE-ról) *(hálózati kapcsolatot igényel)*
 
-The easiest way to download data to the device is to zoom and pan to the location you want to edit and then to select "Download current view". You can zoom by using gestures, the zoom buttons or the volume control buttons on the device.  Vespucci should then download data for the current view. No authentication is required for downloading data to your device.
+Az adatok eszközre töltésének legkönnyebb módja a szerkesztendő területre görgetés és nagyítás, aztán a „Jelenlegi nézet letöltése”. Gesztusokkal, a nagyítási gombokkal és a hangerőszabályzó gombokkal nagyíthat. A Vespucci aztán letölti a jelenlegi nézet adatait. Az adatok eszközre letöltéséhez nem szükséges hitelesítés.
 
 ### Szerkesztés
 
 <a id="lock"></a>
 
-#### Lock, unlock, mode switching
+#### Zárolás, feloldás, módváltás
 
-To avoid accidental edits Vespucci starts in "locked" mode, a mode that only allows zooming and moving the map. Tap the ![Locked](../images/locked.png) icon to unlock the screen. 
+A véletlen szerkesztések elkerülése miatt a Vespucci „zárolt” módban indul, olyan módban, amely csak a nagyítást és a térkép mozgatását engedélyezi. Koppintson a ![Zárolt](../images/locked.png) ikonra a képernyő feloldásához. 
 
-A long press on the lock icon will display a menu currently offering 4 options:
+A zárolás ikonra hosszan nyomva egy menü jelenik meg, amely jelenleg 4 lehetőséget kínál:
 
-* **Normal** - the default editing mode, new objects can be added, existing ones edited, moved and removed. Simple white lock icon displayed.
-* **Tag only** - selecting an existing object will start the Property Editor, a long press on the main screen will add objects, but no other geometry operations will work. White lock icon with a "T" is displayed.
-* **Indoor** - enables Indoor mode, see [Indoor mode](#indoor). White lock icon with a "I" is displayed.
-* **C-Mode** - enables C-Mode, only objects that have a warning flag set will be displayed, see [C-Mode](#c-mode). White lock icon with a "C" is displayed.
+* **Normál** - az alapértelmezett szerkesztési mód, új elemek adhatóak hozzá, a létezők szerkeszhetőek, mozgathatóak és törölhetőek. Egy egyszerű fehér zár ikon lesz megjelenítve.
+* **Csak címkézés** - egy létező objektum kiválasztása a Tulajdonságszerkesztőt jeleníti meg, a hosszú nyomás a főképernyőn objektumokat ad hozzá, de más geometriai műveletek nem működnek. Egy fehér zár ikon lesz megjelenítve, egy „T” betűvel.
+* **Beltéri** - engedélyezi a beltéri módot, lásd [Beltéri mód](#indoor). Egy fehér zár ikon lesz megjelenítve, egy „I” betűvel.
+* **C-mód** - engedélyezi a C-módot, csak a figyelmeztetés jelzővel megjelölt elemek lesznek megjelenítve, lásd [C-mód](#c-mode). Egy fehér zár ikon lesz megjelenítve, egy „C” betűvel.
 
 #### Egyszeres koppintás, dupla koppintás, hosszú nyomás
 
-By default, selectable nodes and ways have an orange area around them indicating roughly where you have to touch to select an object. You have three options:
+Alapból a kiválasztható pontok és vonalak körül egy narancssárga terület van, amely azt jelzi, hol kell megérintenie az objektumot a kiválasztásához. Három lehetősége van:
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md)
+* Egyszeres koppintás: Kiválasztja az objektumot. 
+ * Egy izolált pont/út azonnal kiemelésre kerül. 
+ * Viszont ha megpróbál kiválasztani egy objektumot, és a Vespucci úgy határoz, hogy több objektumra is gondolhatott, akkor egy választómenüt jelenít meg, így kiválaszthatja a megfelelő objektumot. 
+ * A kiválasztott objektumok sárgával lesznek kiemelve. 
+ * Tovább információkért lásd [Kiválasztott pont](Node%20selected.md), [Kiválasztott út](Way%20selected.md) and [Kiválasztott kapcsolat](Relation%20selected.md).
+* Dupla koppintás: [Többszörös kiválasztási mód](Multiselect.md) indítása
+* Hosszú nyomás: Létrehoz egy „célkeresztet”, amellyel új jegyzetetek hozhat létre, lásd lent és itt: [Új objektumok létrehozása](Creating%20new%20objects.md). Ez csak akkor engedélyezett, ha az „Egyszerű mód” ki van kapcsolva.
 
-It is a good strategy to zoom in if you attempt to edit a high density area.
+Jó stratégia ha belenagyít, ha nagy sűrűségű területet akar szerkeszteni.
 
-Vespucci has a good "undo/redo" system so don't be afraid of experimenting on your device, however please do not upload and save pure test data.
+A Vespucci jó „visszavonás/mégis” rendszerrel rendelkezik, így ne féljen kísérletezni az eszközén, viszont kérjük ne töltsön fel tesztadatokat.
 
-#### Selecting / De-selecting (single tap and "selection menu")
+### Kiválasztás / kiválasztás megszüntetése (egyetlen koppintás a „kiválasztás menüben”)
 
-Touch an object to select and highlight it. Touching the screen in an empty region will de-select. If you have selected an object and you need to select something else, simply touch the object in question, there is no need to de-select first. A double tap on an object will start [Multiselect mode](Multiselect.md).
+Érintsen meg egy objektumot és emelje ki. A képernyő egy üres területének megérintése megszünteti a kijelölést. Ha már kiválasztott egy objektumot, és valami mást kell kiválasztania, akkor érintse meg a kérdéses objektumot, nem kell előtte megszüntetnie a kijelölést. Az objektumon történő dupla koppintás elindítja a [Többszörös kiválasztás módot](Multiselect.md).
 
-Note that if you try to select an object and Vespucci determines that the selection could mean multiple objects (such as a node on a way or other overlapping objects) it will present a selection menu: Tap the object you wish to select and the object is selected. 
+Ne feledje, hogy ha megpróbál kijelölni egy objektumot, és a Vespucci úgy dönt, hogy a kijelölés több objektumot jelent (például egy pont a vonalon, vagy egy másik átfedő objektumot), akkor egy kiválasztási menüt jelenít meg: Koppintson a kiválasztandó objektumra, és az kiválasztásra kerül. 
 
-Selected objects are indicated through a thin yellow border. The yellow border may be hard to spot, depending on map background and zoom factor. Once a selection has been made, you will see a notification confirming the selection.
+A kiválasztott objektumokat egy vékony sárga keret jelzi. A sárga keret a térképháttértől és a nagyítási szinttől függően nehezen észrevehető lehet. Ha kiválasztás történt, akkor értesítést kap a kiválasztás megerősítéséről.
 
-Once the selection has completed you will see (either as buttons or as menu items) a list of supported operations for the selected object: For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+Amint a kiválasztás megtörtént, a kiválasztott objektum támogatott műveletei fognak megjelenni (gombként vagy menüelemként): További információkért lásd: [Kiválasztott pont](Node%20selected.md), [Kiválasztott vonal](Way%20selected.md) és [Kiválasztott kapcsolat](Relation%20selected.md).
 
-#### Selected objects: Editing tags
+#### Kiválasztott objektumok: Címkék szerkesztése
 
-A second touch on the selected object opens the tag editor and you can edit the tags associated with the object.
+A kiválasztott objektum másodszori megérintése megnyitja a címkeszerkesztőt, és így szerkesztheti az objektumhoz rendelt címkéket.
 
-Note that for overlapping objects (such as a node on a way) the selection menu comes back up for a second time. Selecting the same object brings up the tag editor; selecting another object simply selects the other object.
+Ne feledje, hogy az átfedő objektumok esetén (mint a vonalon lévő pontok) a kiválasztási menü még egyszer megjelenik. Az ugyanazon objektum kiválasztása előhozza a címkeszerkesztőt; egy másik objektum kiválasztása egyszerűen kiválasztja a másik objektumot.
 
 #### Kijelölt objektumok: pont vagy vonal mozgatása
 
-Once you have selected an object, it can be moved. Note that objects can be dragged/moved only when they are selected. Simply drag near (i.e. within the tolerance zone of) the selected object to move it. If you select the large drag area in the preferences, you get a large area around the selected node that makes it easier to position the object. 
+Amint kiválasztott egy objektumot, az mozgatható lesz. Ne feledje, hogy csak a kijelölt objektumok mozgathatóak. Egyszerűen húzza (a tolerancia zónán belül) a kiválasztott objektumot a mozgatáshoz. Ha nagy húzási területet választ ki a beállításokban, akkor nagy területet kap a kiválasztott pont körül, így könnyebben pozicionálhatja az objektumot. 
 
-#### Új pont vagy vonal hozzáadása (hosszas nyomás)
+#### Új pont vagy vonal hozzáadása 
 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+Az alkalmazás első indításakor „Egyszerű módban” indul, ez módosítható a főmenüben, a megfelelő jelölőmező kikapcsolásával.
 
-Once you can see the crosshair symbol, you have these options:
+##### Egyszerű mód
+
+A nagy zöld lebegő gomb a fő térképképernyőn egy menüt jelenít meg. Miután kiválasztotta az egyik elemet, arra lesz kérve, hogy koppintson a képernyő azon helyére, ahol létre akarja hozni az objektumot, a mozgás és a nagyítás továbbra is működik, ha igazítania kell a térképnézeten. 
+
+További információkért lásd: [Új objektumok létrehozása az egyszerű műveletek módban](Creating%20new%20objects%20in%20simple%20actions%20mode.md).
+
+##### Speciális (hosszú nyomás) mód
+ 
+Nyomja hosszan ott, ahová a pontot vagy a vonal kezdetét szeretné tenni. Egy fekete „célkereszt” ikont fog látni. 
+* Ha új pontot akar létrehozni (amely nem kapcsolódik objektumhoz), akkor koppintson félre a létező objektumtól.
+* Ha bővíteni akar egy vonalat, akkor kattintson a vonal „tolerancia zónájába” (egy egy pontra a vonalon). A tolerancia zónát a pont vagy vonal körüli terület jelzi.
+
+Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:
 
 * Touch in the same place.
     * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
@@ -94,7 +104,7 @@ Once you can see the crosshair symbol, you have these options:
 
 Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
 
-You can also use a menu item: See [Creating new objects](/Creating%20new%20objects.md) for more information.
+You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
 #### Terület hozzáadása
 
@@ -104,7 +114,7 @@ OpenStreetMap currently doesn't have an "area" object type unlike other geo-data
 * _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
 * _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
-#### Útgeometria javítása
+#### Vonalgeometria javítása
 
 If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
 
@@ -172,11 +182,11 @@ The OSMOSE bug display will provide a link to the affected object in blue, touch
 
 Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
 
-* Notes
-* Osmose error
-* Osmose warning
-* Osmose minor issue
-* Custom
+* Jegyzetek
+* Osmose hiba
+* Osmose figyelmeztetés
+* Osmose apró probléma
+* Egyéni
 
 <a id="indoor"></a>
 
@@ -188,19 +198,19 @@ The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mo
 
 <a id="c-mode"></a>
 
-## C-Mode
+## C-mód
 
 In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
 
 The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
 
-### Configuring checks
+### Ellenőrzések beállítása
 
 Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
 
 The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
 
-#### Re-survey entries
+#### Újra felmérési bejegyzések
 
 Re-survey entries have the following properties:
 
@@ -211,14 +221,14 @@ Re-survey entries have the following properties:
 
 **Key** and **Value** are checked against the _existing_ tags of the object in question.
 
-#### Check entries
+#### Bejegyzések ellenőrzése
 
 Check entries have the following two properties:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## Szűrők
 
@@ -232,7 +242,7 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## A Vespucci testreszabása
 
-### Beállítások, amelyeket alkalmasint módosíthat
+### Beállítások, melyeket módosíthat
 
 * Background layer
 * Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
@@ -250,6 +260,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Problémák jelentése
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

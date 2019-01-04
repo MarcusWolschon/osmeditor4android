@@ -48,13 +48,13 @@ Vespucci 起動時に、Download other location"/"Load Area"ダイアログを�
 
 デフォルトで、選択可能なノードとウェイの周りにはオレンジの領域があり、オブジェクトを選択するのにタッチすべき場所をおおよそ示しています。3つの選択肢があります：
 
-* シングルタップ: オブジェクトを選択します。 
-    * 孤立したノード/ウェイが即座にハイライトされます。 
-    * しかしながら、あなたがオブジェクトをタッチした際にVespucciがその選択対象が複数あると判断した場合には、選択メニューを表示して目的のオブジェクトを選べるようにします。 
-    * 選択されたオブジェクトは黄色でハイライトされます。 
-    * 詳細は [Node selected](Node%20selected.md)、 [Way selected](Way%20selected.md) および [Relation selected](Relation%20selected.md)を参照。
-* ダブルタップ: [Multiselect mode](Multiselect.md)が始まります。
-* 長押し: 「十字型」が現れ、ノードを追加することができます。下記および [Creating new objects](Creating%20new%20objects.md)を参照。
+* Single tap: Selects object. 
+    * An isolated node/way is highlighted immediately. 
+    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
+    * Selected objects are highlighted in yellow. 
+    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
+* Double tap: Start [Multiselect mode](Multiselect.md)
+* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
 
 マッピング密度の高い領域を編集する際にはズームインしてからやると良いでしょう。
 
@@ -80,11 +80,21 @@ Vespucciには良い「取り消し/やり直し」システムがあるので�
 
 いったんオブジェクトを選択すると、移動させることができます。オブジェクトを移動/削除できるのは選択したときだけであることに注意してください。単純に選択されたオブジェクトのあたり(反応域ゾーン内)をドラッグして移動します。独自設定で大きなドラッグ領域を選択すると、選択されたノードの周りに大きな領域が得られ、オブジェクトの位置合わせがしやすくなります。 
 
-#### 新規ノード/ポイントやウェイを追加する(長押し)
+#### Adding a new Node/Point or Way 
 
-ノードまたはウェイを描き始めたいときは長押ししてください。黒い「十字」型のシンボルが現れます。 
-* (オブジェクトに接続していない)新しいノードを作成する場合には、既存オブジェクトから離れたところをクリックします。
-* ウェイを延長する場合には、ウェイ(またはウェイ上のノード)の「反応域ゾーン」内をクリックします。反応域ゾーンはノードまたはウェイの周りの領域に示されています。
+On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+
+##### Simple mode
+
+Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+
+See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+
+##### Advanced (long press) mode
+ 
+Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
+* If you want to create a new node (not connected to an object), click away from existing objects.
+* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
 
 十字のシンボルが現れたら次のような選択肢があります：
 
@@ -95,7 +105,7 @@ Vespucciには良い「取り消し/やり直し」システムがあるので�
 
 ウェイにノードをもっと追加したい場合は単純にスクリーンにタッチしてください。終える際には、最後のノードに2回タッチします。最後のノードがウェイやノード上にある場合、そのセグメントはそのウェイまたはノードに自動的に接続します。 
 
-メニュー項目を使うこともできます：詳細は[Creating new objects](/Creating%20new%20objects.md) を参照。
+You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
 
 #### エリアを追加する
 
@@ -217,9 +227,9 @@ Cモードでは、警告フラグセットを持つオブジェクトだけが�
 Check entries have the following two properties:
 
 * **Key** - Key that should be present on the object according to the matching preset.
-* **Check optional** - Check the optional tags of the matching preset.
+* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
 
-This check works be first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Check optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
 
 ## フィルター
 
@@ -251,6 +261,8 @@ An alternative to the above, objects are filtered either on individual presets o
 
 ## Reporting Problems
 
-Vespucci がクラッシュしたり不整合な状態を検知した場合、クラッシュダンプを送信するかどうか尋ねられます。そのようなことが発生したらぜひそうしてほしいのですが、ある状況について一度だけにしてください。より詳細な情報を伝えたり、機能リクエストなどのイシューを上げたい場合は、こちらでお願いします： [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues)。もしIf you want to discuss something related to Vespucciに関することを何か議論したければ、 [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) あるいは [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)上で議論を始めることができます。
+If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+
+If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 
