@@ -1,5 +1,5 @@
 ## Vespucci Features
-_Documentation for Vespucci 11.1_
+_Documentation for Vespucci 12.0_
 
 This list is likely not really complete, but gives some idea of the supported functionality.
 
@@ -32,11 +32,13 @@ __Geometry__ |                             |
                      | Move Node to specific coordinates |
                      | Create Node at current coordinates |
                      | Orthogonalize Way(s)        |
+                     | Circulize closed Way        |
 __Tags__     |                             |
                      | Tag copy and paste          |
                      | Form and preset based editor |
                      | Conventional key - value editor |
                      | Auto-suggest for keys and values |
+                     | Change tags for multiple objects |
 __OSM Data__ |                             |
                      | Up- and Download            |
                      | Load and save in JOSM compatible .OSM format |
@@ -50,7 +52,7 @@ __Presets__  |                             |
                      | Preset search               |
                      | Autp-Preset from taginfo    |
                      | JavaScript scripting support |
-__Background and Overlays__ |              |
+__Backgrounds and Layers__ |              |
                      | Supports the editor layer index |
                      | On device tile caching      | 
                      | Custom background and overlays |
@@ -59,9 +61,11 @@ __Background and Overlays__ |              |
                      | GeoJSON layer support       |
                      | Imagery offset database support |
                      | Grid / scale layer          |
+                     | Imagery offset DB support   |
 __Tasks and bugs__ |                    |
                      | OSM Notes                   |
                      | OSMOSE                      |
+                     | MapRoulette tasks           |
                      | Custom tasks                |
                      | Auto-Download               |
                      | Save OSM Notes in OSN format files |
@@ -93,5 +97,6 @@ __Misc__     |                             |
                      | JavaScript scripting support |
                      | GeoJSON Feature display     |
                      | Start camera app            |
+                     | Display photos with location and orientation |
                      | Undo- and redo functions    |
                      
