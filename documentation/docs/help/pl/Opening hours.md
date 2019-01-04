@@ -23,7 +23,7 @@ Jeżeli są załadowane istniejące godziny otwarcia, zostaje podjęta próba au
 * __Dodaj regułę dla 24/7__: dodaje regułę dla obiektów, które są zawsze otwarte, specyfikacja godzin otwarcia nie wspiera żadnych innych wartości dla 24/7, ale można dodać selektory wyższego poziomu (na przykład zakresy lat).
 * __Wczytaj szablon__: wczytuje istniejący szablon.
 * __Zapisz do szablonu__: zapisuje aktualne wartości godzin otwarcia jako szablon do użycia w przyszłości.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Zarządzaj szablonami__: edytuje, na przykład zmienia nazwę i usuwa istniejące szablony.
 * __Wczytaj ponownie__: analizuje ponownie wartość godzin otwarcia.
 * __Usuń wszystkie__: usuwa wszystkie reguły.
 

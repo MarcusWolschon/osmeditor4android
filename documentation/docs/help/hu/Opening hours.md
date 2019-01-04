@@ -23,7 +23,7 @@ Amikor egy meglévő nyitva tartás betöltődik, akkor történik egy automatik
 * __Éjjel-nappali (24/7, non-stop) szabály hozzáadása__: Szabály hozzáadása egy objektumhoz, ami mindig nyitva van, a nyitvatartás specifikációja nem támogatja további altulajdonásgok felvételét az éjjel-nappali értékhez, de mi megengedjük magasabb szintű értékek megadását (például évtartományok).
 * __Sablon betöltése__: egy létező sablon betöltése.
 * __Mentés sablonként__: az aktuális nyitvatartási idő értékek elmentése sablonként a későbbi használathoz.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Sablonok kezelése__: szerkesztés, például név módosítása vagy meglévő sablonok törlése.
 * __Frissítés__: a nyitvatartási idő értékének újraelemzése.
 * __Összes törlése__: az összes szabály eltávolítása
 

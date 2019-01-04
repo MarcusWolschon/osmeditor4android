@@ -52,10 +52,10 @@ As regras por defecto son engadidas como regras _normais_: isto implica que ter�
     * __Data variable - data__: Desde unha data de inicio variable (actualmente a especificación só define _pascua_) a unha data de finalización.
     * __Data - data variable__: Desde unha data de inicio ata unha data variable.
     * __Data variable - data variable__: Desde unha data variable inicial ata unha data variable final.
-    * __Occurrence in month - occurrence in month__: from a start weekday occurrence in a month to the same.
+    * __Concorrencia en mes - concorrencia en mes__: dende unha concorrencia de inicio de día da semana nun mes ó mesmo.
     * __Occurrence in month - date__: from a start weekday occurrence in a month to a end date.
     * __Date - occurrence in month__: from a start date to an end weekday occurrence in a month.
-    * __Occurrence in month - variable date__: from a start weekday occurrence in a month to an end variable date.
+    * __Concorrencia en mes - data variábel__: dende unha concorrencia dun día laborábel de inicio nun mes a unha data variábel derradeira.
     * __Variable date - occurrence in month__: from a start variable date to an end weekday occurrence in a month.
     * __Date - open end__: from a start date onwards.
     * __Data variable - fin indefinido__: Dende unha data de inicio variable en diante.

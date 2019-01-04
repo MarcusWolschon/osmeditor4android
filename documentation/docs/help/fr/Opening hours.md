@@ -23,7 +23,7 @@ Si une valeur d'horaires d'ouverture existante est chargée, le logiciel tentera
 * __Ajouter une règle pour 24h/24 7j/7__ : ajouter une règle pour un objet qui est tout le temps ouvert. La spécification n'accepte pas d'autre sous-valeurs pour 24h/24 7j/7 mais nous permettons l'ajout de sélecteurs de plus haut niveau (par exemple un intervalle d'années).
 * __Charger un modèle__ : charger un modèle existant.
 * __Enregistrer dans un modèle__ : sauvegarder la valeur actuelle des horaires d'ouverture comme un modèle pour pouvoir l'utiliser plus tard.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Gérer les modèles__ : modifier, par exemple en changeant le nom, et supprimer des modèles existants.
 * __Rafraîchir__ : ré-analyser la valeur des horaires d'ouverture.
 * __Tout supprimer__ : Supprimer toutes les règles.
 

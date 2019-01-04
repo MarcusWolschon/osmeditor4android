@@ -23,7 +23,7 @@ Quando viene caricato un valore esistente per gli orari di apertura, il programm
 * __Aggiungi una regola per 24/7__: aggiunge una regola  per un oggetto che è sempre aperto, le specifiche degli orari di apertura non supportano valori secondari per 24/7 comunque noi permettiamo selezioni di periodi più grandi (per esempio periodi con una durata di anni).
 * __Carica modello__: carica un modello esistente.
 * __Salva come modello__: salva il valore attuale degli orari di apertura in un modello da usare in futuro.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Gestisci modelli__: modifica, per esempio cambia il nome, e cancella i modelli esistenti.
 * __Aggiorna__: ricontrolla il valore degli orari di apertura.
 * __Elimina tutto__: elimina tutte le regole.
 

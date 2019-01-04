@@ -23,7 +23,7 @@ Se for carregado um valor de horário de abertura existente, é feita uma tentat
 * __Adicionar regra para 24/7__: adiciona uma regra para um elemento que está sempre aberto, a especificação de horário de abertura não suporta mais nenhum sub valor para 24/7, no entanto permite-se adicionar seletores de alto nível (por exemplo, intervalos de tempo).
 * __Carregar modelo__: carrega um modelo existente.
 * __Gravar no modelo__: grava os valores do horário de abertura atual num modelo para futura reutilização.
-* __Manage templates__: edit, for example change the name, and delete existing templates.
+* __Gerir modelos__: editar, por exemplo alterar o nome e eliminar os modelos existentes.
 * __Atualizar__: torna a processar os valores das horas.
 * __Eliminar tudo__: elimina todas as regras.
 

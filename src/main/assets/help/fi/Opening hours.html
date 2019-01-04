@@ -10,20 +10,20 @@
 <p>Toisaalta määrittelystä käytetään monesti vain pientä osaa. Muokkain ottaa tämän huomioon ja yrittää piilottaa oudoimmat piirteet valikoihin, jolloin tien päällä tarvitsee useimmiten tehdä vain pieniä muutoksia valmiisiin mallipohjiin.</p>
 <p><em>Tämä dokumentaatio on alustava ja työn alla.</em></p>
 <h2>Aukioloaikamuokkaimen käyttö</h2>
-<p>In a typical workflow the object you are editing will either already have an opening hours tag (opening_hours, service_times and collection_times) or you can re-apply the preset for the object to get an empty opening hours field. If you need to add the field manually and you are using Vespucci you can enter the key on the details page and then switch back to the form based tab to edit. If you believe that the opening hours tag should have been part of the preset, please open an issue for your editor.</p>
-<p>If you have defined a default template (do this via the "Manage templates" menu item) it will be loaded automatically when the editor is started with an empty value. With the "Load template" function you can load any saved template and with the "Save template" menu you can save the current value as a template. You can define separate templates and defaults for the "opening_hours", "collection_times" and "service_times" tags. </p>
+<p>Tyypillisessä tapauksessa muokattavana olevalla kohteella joko on jo aukioloaikatägi (opening_hours, service_times ja collection_times) tai siihen voi soveltaa uudelleen esivalinnan, joka lisää tyhjän aukioloaikakentän. Jos sinun täytyy lisätä kenttä käsin Vespuccia käyttäessäsi, niin voit lisätä avaimen yksityikohtasivulta ja palata sitten takaisin muokkaamaan lomakepohjaiselle välilehdelle. Jos esivalinnassa kuuluisi mielestäsi olla aukioloaikatägi, voit lähettää muutospyynnön käyttämäsi muokkaimen kehittäjille.</p>
+<p>Jos olet määrittänyt oletusmallipohjan (valikosta "Mallipohjien hallinta"), niin se ladataan automaattisesti muokkainta avatessa, mikäli muokattava kenttä on tyhjä. Toiminnolla "Lataa mallipohja" voit ladata jonkin tallennetuista mallipohjista, ja toiminnolla "Tallenna mallipohja" voit tallentaa senhetkisen arvon mallipohjaksi. Tägeille "opening_hours", "collection_times" ja "service_times" voi kullekin määrittää erilliset mallipohjat ja oletusarvot.</p>
 <p>Voit luonnollisesti rakentaa aukioloajan (aoa) tyhjästä, mutta suosittelemme jonkin valmiin mallineen käyttämistä pohjana.</p>
 <p>Kun muokkaimeen ladataan olemassa oleva arvo, se yritetään korjata automaattisesti aukioloaikamäärittelyn mukaiseksi. Jos tämä ei ole mahdollista, virheen summittainen paikka raa'assa aoa-arvossa korostetaan, ja voit yrittää korjata sen käsin. Suurinpiirtein neljänneksessä OpenStreetMapin tietokannan aoa-arvoista on ongelmia, ja alle kymmentä prosenttia ei voi korjata. Sivulla <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHourParser</a> kerrotaan tarkemmin mitä poikkeamia määrittelystä sallitaan.</p>
 <h3>Päävalikkonappi</h3>
 <ul>
   <li><strong>Lisää sääntö</strong>: lisää uusi sääntö.</li>
-  <li><strong>Add rule for holidays</strong>: add a new rule for a holiday together with a state change.</li>
+  <li><strong>Lisää sääntö juhlapäiville</strong>: lisää uusi sääntö juhlapäiville ja sen tilamuutos.</li>
   <li><strong>Lisää sääntö 24/7</strong>: lisää sääntö kohteelle, joka on aina auki; aukioloaikamäärittely ei tue alavalitsimien käyttämistä 24/7:n rinnalla, mutta tässä sallitaan korkeamman tason valitsimien lisääminen (esimerkiksi vuosijaksot).</li>
   <li><strong>Lataa malline</strong>: lataa valmis malline.</li>
   <li><strong>Tallenna mallineeksi</strong>: tallenna nykyinen aukioloaika-arvo mallineeksi tulevaa käyttöä varten.</li>
-  <li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
+  <li><strong>Mallipohjien hallinta</strong>: muokkaa (esim. vaihda nimi) ja poista mallipohjia.</li>
   <li><strong>Päivitä</strong>: jäsennä aukioloaika-arvo uudelleen.</li>
-  <li><strong>Delete all</strong>: remove all rules.</li>
+  <li><strong>Poista kaikki</strong>: poista kaikki säännöt.</li>
 </ul>
 <h3>Säännöt</h3>
 <p>Oletussäännöt lisätään <em>tavallisina</em> sääntöinä, mikä tarkoittaa sitä, että ne syrjäyttävät aiemmat samoille päiville osuvat säännöt. Tällä voi olla merkitystä, kun määritetään laajennettuja aikoja – tyypillisesti tällöin on syytä muuttaa säännöt <em>lisääviksi</em> valikkokohdasta <em>Näytä sääntötyyppi</em>.</p>
@@ -34,7 +34,7 @@
   <li><strong>Lisää aikaväli...</strong>
     <ul>
       <li><strong>Aika–aika</strong>: alkuaika ja loppuaika samana päivänä.</li>
-      <li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
+      <li><strong>Aika–laajennettu aika</strong>: alkuaika ja loppuaika eri päivinä (esim. 26:00 on 02:00 seuraavana päivänä).</li>
       <li><strong>Vaiht. aika–aika</strong>: vaihteleva alkuaika (aamuhämärä, iltahämärä, auringonnousu, auringonlasku) ja loppuaika samana päivänä.</li>
       <li><strong>Vaiht. aika–laajennettu aika</strong>: vaihteleva alkuaika ja loppuaika peräkkäisinä päivinä.</li>
       <li><strong>Aika–vaiht. aika</strong>: alkuaika ja vaihteleva loppuaika.</li>
