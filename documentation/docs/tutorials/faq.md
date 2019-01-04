@@ -12,7 +12,7 @@ That means: it is a light-weight, easy-to-use mapping tool on mobile Android dev
   * Vespucci is not a full replacement for JOSM or other desktop editors, but nearly. It strives for maximum usability on mobile devices which are limited in many regards. 
 
 #### I am already familiar with OSM editor xyz. Why should I use Vespucci?
-If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired "on site" and uploaded to the OSM server. By entering data in your mobile device "on the road" you can save time because you do not have to upload GPS tracks to your home PC and work your way again through these.
+If you are mapping for OSM and already have an Android device (or planning for this) then Vespucci could help in your mapping work. Data is acquired "on site" and uploaded to the OSM server. By entering data in your mobile device "on the road" you can save time because you do not have to upload GPX tracks to your home PC and work your way again through these.
 Additionally, obscure OSM data can be verified easily and quickly "on site", data which is already available in OSM is not acquired again.
 
 #### What do I need to get started with Vespucci?
@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci release version is 11. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
+The current Vespucci release version is 12. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
 #### Is Vespucci available for other mobile platforms?
 
@@ -94,7 +94,7 @@ Currently, you can:
  * Add turn restrictions
  * Download area around current location from OSM server
  * Download user-specified areas from OSM server
- * Create, save, upload and import GPS tracks
+ * Create, save, upload and import GPX tracks
 
 ... and much more.
 
