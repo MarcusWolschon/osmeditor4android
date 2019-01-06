@@ -7,6 +7,7 @@
     <string name="help_relationselection">Erlazioa aukeratua</string>
     <string name="help_wayselection">Bidea aukeratua</string>
     <string name="help_presets">Aurrezarpenak</string>
+    <string name="help_gpssources">GPS iturriak</string>
     <array translatable="false" name="help_tableofcontents">
         <item>@string/help_introduction</item>
         <item>@string/help_main</item>

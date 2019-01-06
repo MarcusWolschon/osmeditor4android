@@ -102,6 +102,7 @@
   <string name="maproulette_task_coords">Š %1$4g, D %2$4g</string>
   <string name="maproulette_task_set_apikey">Nastavit klíč MapRoulette API</string>
   <string name="maproulette_task_apikey_not_set">Klíč MapRoulette API se nepodařilo uložit</string>
+  <string name="maproulette_task_apikey_set">Klíč MapRoulette API uložen</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Pozor!</string>
   <string name="unsaved_data_message">Neuložené změny budou zahozeny, pokud budete pokračovat.</string>
@@ -232,6 +233,8 @@
   <string name="undo_all">Vrátit i novější body (bezpečné)</string>
   <string name="redo_all">Obnovit i předchozí body (bezpečné)</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">Poslat s vaším OpenStreetMap zobrazovaným jménem</string>
+  <string name="feedback_displayname_hint">OpenStreetMap zobrazované jméno zatím nezjištěno</string>
   <string name="feedback_title">Zpětná vazba vývojářům</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
@@ -319,6 +322,7 @@
   <string name="toast_invalid_notesurl">Neplatné URL API poznámek</string>
   <string name="toast_invalid_preseturl">Neplatné URL předvoleb</string>
   <string name="toast_invalid_filter_regexp">Neplatný regulární výraz ve filtru s klíčem=\"%1$s\" hodnotou=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">Nelze získat přístup k fotografii %1$s</string>
   <string name="toast_no_voice_recognition">Podpora pro rozpoznávání hlasu chybí</string>
   <string name="toast_no_coverage">%1$s zde nemá pokrytí</string>
   <string name="toast_file_exists">Soubor %1$s existuje.</string>
@@ -509,14 +513,16 @@
   <string name="menu_transfer_read_file">Načíst ze souboru JOSM…</string>
   <string name="menu_transfer_save_file">Uložit do souboru JOSM…</string>
   <string name="menu_transfer_bugs">Poznámky a chyby…</string>
-  <string name="menu_transfer_bugs_download_current">Stáhnout poznámky a chyby pro aktuální pohled</string>
+  <string name="menu_transfer_bugs_download_current">Stáhnout aktuální pohled</string>
   <string name="menu_transfer_bugs_upload">Nahrát vše</string>
   <string name="menu_transfer_bugs_upload_long">Nahrát všechny poznámky a chyby</string>
   <string name="menu_transfer_bugs_clear">Smazat</string>
   <string name="menu_transfer_bugs_clear_long">Smazat poznámky a chyby</string>
   <string name="menu_transfer_autodownload_long">Stahovat poznámky a chyby automaticky</string>
   <string name="menu_transfer_save_notes_all">Uložit všechny poznámky…</string>
-  <string name="menu_transfer_write_custom_bugs">Uložit otevřené vlastní úkoly...</string>
+  <string name="menu_transfer_save_notes_new_and_changed">Uložit nové a upravené poznámky…</string>
+  <string name="menu_transfer_read_custom_bugs">Načíst vlastní poznámky a chyby…</string>
+  <string name="menu_transfer_write_custom_bugs">Uložit otevřené vlastní poznámky a chyby...</string>
   <string name="menu_save">Uložit jako soubor</string>
   <string name="menu_join">Spojit</string>
   <string name="menu_unjoin">Rozpojit</string>
@@ -527,8 +533,10 @@
   <string name="menu_paste_from_clipboard">Vložit ze schránky</string>
   <string name="menu_zoom_to_selection">Přiblížit na výběr</string>
   <string name="menu_rotate">Otočit</string>
+  <string name="menu_orthogonalize">Kolmé rohy</string>
   <string name="menu_circulize">Uspořádat do kruhu</string>
   <string name="menu_split_polygon">Rozdělit na dvě plochy</string>
+  <string name="menu_newnode_gps">Nový uzel na GPS pozici</string>
   <string name="menu_extend_selection">Rozšířit výběr</string>
   <string name="menu_information">Vlastnosti</string>
   <string name="menu_voice_commands">Hlasové příkazy</string>
@@ -541,18 +549,32 @@
   <string name="menu_tools_background_properties">Vlastnosti pozadí</string>
   <string name="menu_tools_update_imagery_configuration">Aktualizovat konfiguraci snímků</string>
   <string name="menu_tools_zoom_to_layer_extent">Přiblížit na rozsah pozadí</string>
+  <string name="menu_tools_clear_clipboard">Vyčistit schránku</string>
   <!---->
+  <string name="menu_simple_actions">Jednoduchý režim</string>
+  <string name="menu_feedback">Zpětná vazba</string>
   <string name="menu_privacy">Soukromí</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Zarovnat pozadí</string>
   <string name="menu_tools_background_align_reset">Reset</string>
   <string name="menu_tools_background_align_zero">Nula</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Z databáze</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Ze zařízení</string>
+  <string name="menu_tools_background_align_save_db">Uložit do databáze</string>
+  <string name="menu_tools_background_align_save_device">Uložit do zařízení</string>
+  <string name="menu_tools_background_align_apply2all">Použít (všechna přiblížení)</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f metrů</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
   <string name="menu_layers">Vrstvy…</string>
   <string name="menu_layers_load_geojson">Načíst GeoJSON vrstvu</string>
+  <string name="menu_layers_add_backgroundlayer">Přidat pozadí s vrstvou snímků</string>
+  <string name="menu_layers_add_overlaylayer">Přidat překryvnou vrstvu snímků</string>
+  <string name="menu_layers_add_tasklayer">Přidat vrstvu poznámek a chyb</string>
+  <string name="menu_layers_add_grid">Přidat mřížku</string>
+  <string name="menu_layers_add_photolayer">Přidat fotovrstvu</string>
+  <string name="menu_layers_configure">Nastavit…</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Použít uložený ofset na snímky</string>
   <string name="menu_tools_background_contrast">Kontrast</string>
@@ -573,12 +595,14 @@
   <string name="deleteway_wayandnodes">Smazat cestu</string>
   <string name="deletenode">Smazat uzel</string>
   <string name="split_all_ways">Rozdělit všechny cesty</string>
+  <string name="delete_note">Smazat poznámku</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Cesta vybrána</string>
   <string name="actionmode_nodeselect">Uzel vybrán</string>
   <string name="actionmode_relationselect">Relace vybrána</string>
-  <string name="actionmode_createpath">Vytváří cestu</string>
+  <string name="actionmode_createpath">Nová cesta</string>
   <string name="actionmode_multiselect">Multiselect</string>
+  <string name="actionmode_newnoteselect">Nová poznámka vybrána</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Rozdělení uzavřené cesty, 1. uzel</string>
   <string name="actionmode_closed_way_split_2">Rozdělení uzavřené cesty, 2. uzel</string>
@@ -588,8 +612,22 @@
   <string name="actionmode_restriction_restart_via">Znovu zvolte \"přes\" segment</string>
   <string name="actionmode_restriction_to">Přidat \"kam\" segment</string>
   <string name="actionmode_restriction_restart_to">Znovu zvolte \"kam\" segment</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 objekt</item>
+    <item quantity="few">%1$d objekty</item>
+    <item quantity="many">%1$d objektů</item>
+    <item quantity="other">%1$d objektů</item>
+  </plurals>
   <string name="actionmode_rotateway">Otočit cestu</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Přidat uzel</string>
+  <string name="simple_add_node">Zvolte pozici na mapě</string>
+  <string name="menu_add_node_tags">Přidat uzel s tagy</string>
+  <string name="menu_add_way">Přidat cestu</string>
+  <string name="simple_add_way">Zvolte pozici na mapě</string>
+  <string name="menu_add_map_note">Přidat poznámku</string>
+  <string name="simple_add_note">Zvolte pozici na mapě</string>
+  <string name="menu_paste_object">Vložit objekt</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
@@ -599,10 +637,14 @@
   <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_mapProfile_title">Styl dat</string>
+  <string name="config_enableOpenStreetBugs_title">Zobrazovat poznámky a chyby</string>
+  <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek a chyb.</string>
+  <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
   <string name="config_enablePhotoLayer_summary">Zobrazovat georeferencované fotografie</string>
   <string name="config_enableKeepScreenOn_title">Nezhasínat obrazovku</string>
   <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
   <string name="config_advancedprefs">Rozšířená nastavení</string>
+  <string name="config_moreprefs">Další nastavení…</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
@@ -641,23 +683,34 @@
   <string name="config_notificationCacheSize_title">Max. počet zobrazených notifikací</string>
   <string name="config_notificationCacheSize_current">%1$d notifikace</string>
   <string name="config_maxAlertDistance_title">Max. vzdálenost pro notifikace</string>
+  <string name="config_maxAlertDistance_current">%1$d m</string>
   <string name="config_extTriggeredDownloadRadius_title">Poloměr pro stahování</string>
+  <string name="config_downloadRadius_current">%1$d m</string>
   <string name="config_maxDownloadSpeed_title">Max. rychlost pro auto-stahovaní</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_bugFilter_title">Filtr poznámek/chyb</string>
+  <string name="config_bugFilter_summary">Vyberte, které prvky se zobrazí ve vrstvě poznámek, chyb a úkolů.</string>
+  <string name="config_bugDownloadRadius_title">Poloměr stahování poznámek a chyb</string>
+  <string name="config_bugDownloadRadius_summary">Poloměr [m] pro stahování poznámek a chyb.</string>
+  <string name="config_maxBugDownloadSpeed_title">Max. rychlost auto-stahování poznámek a chyb</string>
+  <string name="config_maxBugDownloadSpeed_summary">Limit (v km/h), při kterém je automatické stahování poznámek a chyb pozastaveno.</string>
   <string name="config_closeChangesetOnSave_title">Uzavřít sady změn</string>
   <string name="config_enableAutoPresets_title">Povolit vytváření automatických předvoleb</string>
   <!--Location Settings-->
   <string name="config_category_gps">Nastavení polohy</string>
   <string name="config_gps_source_tcp_title">NMEA síťový zdroj</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_current">%1$d m</string>
   <string name="config_gps_network_title">Použít polohu ze sítě</string>
   <!--Server Settings-->
   <string name="config_category_server">Nastavení serveru</string>
   <string name="config_apibutton_title">URL API OSM</string>
   <string name="config_loginbutton_title">Uživatelský účet</string>
+  <string name="config_offsetServer_summary">URL serveru s odsazením snímků.</string>
   <string name="config_geocoderbutton_title">Nastavit geokodéry</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Stahování a ukládání vrstev</string>
+  <string name="config_category_layers_summary">Stahování a ukládání pozadí z dlaždic snímků.</string>
   <string name="config_maxTileDownloadThreads_title">Max. počet vláken pro stahování</string>
   <string name="config_downLoadThreads_current">%1$d vláken</string>
   <string name="config_tileCacheSize_title">Velikost mezipaměti s dlaždicemi</string>
@@ -725,8 +778,12 @@
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_add">Vložení</string>
   <string name="undo_action_deletenode">Odstranění uzlu</string>
+  <string name="undo_action_cut">Vyjmout</string>
+  <string name="undo_action_paste">Vložit</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci během posledního spuštění havaroval nebo zaznamenal vážnou chybu.\n\nProsím pomozte nám zasláním chybového hlášení, stačí kliknout na \'OK\'.\n</string>
+  <string name="report_success">Nahlášeno.</string>
+  <string name="report_failure">Hlášení se nepodařilo odeslat.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Touto operací se vytvoří cesta s příliš velkým počtem uzlů.</string>
   <!--Notifications-->
@@ -734,11 +791,21 @@
   <string name="alert_note">Poblíž nalezena OSM poznámka</string>
   <string name="alert_bug">Poblíž nalezena OSM chyba</string>
   <string name="alert_distance_direction">%1$d m %2$s</string>
+  <string name="bearing_ne">SV ↗</string>
+  <string name="bearing_e">V →</string>
+  <string name="bearing_se">JV ↘</string>
+  <string name="bearing_s">J ↓</string>
+  <string name="bearing_sw">JZ ↙</string>
+  <string name="bearing_w">Z ←</string>
+  <string name="bearing_nw">SZ ↖</string>
+  <string name="bearing_n">S ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Role</string>
+  <string name="role_lc">Role</string>
   <string name="membership_relation_heading">Člen relace</string>
   <string name="relation">Relace</string>
   <string name="relations">Relace</string>
+  <string name="position">Pozice</string>
   <string name="type">Typ</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Smazat relaci</string>

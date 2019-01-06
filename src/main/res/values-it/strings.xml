@@ -727,6 +727,20 @@
     <item>Aperto</item>
     <item>Chiuso</item>
   </string-array>
+  <string-array name="maproulette_state">
+    <item>Aperto</item>
+    <item>Chiuso</item>
+    <item>Falso positivo</item>
+    <item>Saltato</item>
+    <item>Cancellato</item>
+    <item>Già corretto</item>
+    <item>Troppo difficile</item>
+  </string-array>
+  <string-array name="followGPSbutton_entries">
+    <item>Sinistra</item>
+    <item>Destra</item>
+    <item>Nessuno</item>
+  </string-array>
   <string-array name="full_screen_preference_entries">
     <item>Automatico</item>
     <item>Mai</item>

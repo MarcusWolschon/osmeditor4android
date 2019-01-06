@@ -30,6 +30,10 @@
   <string name="wrong_login_data_message">Si vous utilisez OAuth, ré-authentifiez-vous puis réessayez. Si vous utilisez un identifiant et mot de passe (non recommandé), vérifiez qu\'ils sont correctement renseignés.</string>
   <string name="wrong_login_data_re_authenticate">Réauthentifier</string>
   <string name="forbidden_login_title">Connexion interdite</string>
+  <string name="not_found_title">Élément introuvable</string>
+  <string name="not_found_message">L\'API n\'a pas trouvé d\'élément ou de groupe de modification existant avec l\'id spécifié.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">Erreur inconnue</string>
+  <string name="unknown_error_message">Le code d\'erreur renvoyé par l\'API ou le message n\'a pas pu être traité.&lt;br&gt;&lt;br&gt;</string>
   <string name="go_to_openstreetmap">Aller sur openstreetmap.org</string>
   <string name="data_conflict_title">Conflit de version</string>
   <string name="data_conflict_message">Les données téléchargée entraînent des conflits avec vos modifications. Envoyez vos données puis réessayez.</string>
@@ -101,6 +105,7 @@
   <string name="maproulette_task_explanations">Explications</string>
   <string name="maproulette_task_set_apikey">Indiquer la clef d\'API de MapRoulette</string>
   <string name="maproulette_task_apikey_not_set">Impossible de sauvegarder la clef d\'API de MapRoulette</string>
+  <string name="maproulette_task_apikey_set">Clef d\'API MapRoulette sauvegardée</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attention !</string>
   <string name="unsaved_data_message">Vos modifications non enregistrées seront abandonnées si vous continuez.</string>
@@ -317,6 +322,7 @@
   <string name="toast_invalid_notesurl">URL d\'API des notes invalide</string>
   <string name="toast_invalid_preseturl">URL des modèles invalide</string>
   <string name="toast_invalid_filter_regexp">Expression régulière invalide dans le filtre avec la clef « %1$s » et la valeur « %2$s »</string>
+  <string name="toast_error_accessing_photo">Impossible d\'accéder à la photo %1$s</string>
   <string name="toast_no_voice_recognition">Pas de système de reconnaissance vocale trouvé</string>
   <string name="toast_no_coverage">%1$s ne couvre pas cette zone</string>
   <string name="toast_file_exists">Le fichier %1$s existe.</string>
@@ -658,6 +664,7 @@
   <string name="config_validatorprefs_title">Paramètres du validateur</string>
   <string name="config_validatorprefs_summary">Configurer les règles de validation</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Auteurs et licences</string>
   <string name="config_debugbutton_title">Débogage</string>
   <string name="config_category_info">À propos</string>
   <!--Advanced preferences-->
