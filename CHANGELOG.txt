@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.0.1: Update OpeningHoursFragment, increase number of lines in feedback form description to 4, update translations.
+
 12.0.0: Fix rendering issue on restored Ways, documentation updates, protect against multiple tile services starting, small fixes, preset, imagery and translation updates. 
 
 12.0.0-4: Use FST for serialising state, fix ELI date parsing regression, fix crash when applying auto-preset, lots of small fixes.
