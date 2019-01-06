@@ -68,6 +68,9 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
             setGuestToken(k);
         }
 
+        // two line for the description is not enough
+        ((TextInputEditText) findViewById(R.id.air_inputDescription)).setMaxLines(4);
+
         // as as side effect this disables e-mail validation
         setGuestEmailRequired(false);
 

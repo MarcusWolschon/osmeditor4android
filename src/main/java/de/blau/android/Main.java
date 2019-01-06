@@ -3703,7 +3703,6 @@ public class Main extends FullScreenAppCompatActivity
                 case MotionEvent.ACTION_SCROLL:
                     if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f) {
                         logic.zoom(Logic.ZOOM_IN);
-
                     } else {
                         logic.zoom(Logic.ZOOM_OUT);
                     }
