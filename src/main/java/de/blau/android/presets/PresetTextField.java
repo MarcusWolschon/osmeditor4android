@@ -2,7 +2,7 @@ package de.blau.android.presets;
 
 import android.support.annotation.NonNull;
 
-public class PresetTextField extends PresetField {
+public class PresetTextField extends PresetField implements PresetFieldJavaScript {
     /**
      * Script for pre-filling text fields
      */
@@ -25,6 +25,16 @@ public class PresetTextField extends PresetField {
     public PresetTextField(PresetTextField field) {
         super(field);
         this.javascript = field.javascript;
+    }
+
+    @Override
+    public String getScript() {
+        return javascript;
+    }
+
+    @Override
+    public void setScript(String script) {
+        javascript = script;
     }
 
     @Override

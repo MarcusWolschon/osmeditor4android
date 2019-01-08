@@ -223,6 +223,25 @@ public class MRUTags {
         }
         return null;
     }
+    
+    /**
+     * Get the top MRU value for a specific PresetItem and key
+     * 
+     * @param item the PresetItem
+     * @param key the key
+     * @return the value at the top of the list or null if none found
+     */
+    @Nullable
+    public synchronized String getTopValue(@NonNull PresetItem item, @NonNull String key) {
+        Map<String, MRUList<String>> keyMap = valueStore.get(item);
+        if (keyMap != null) {
+            MRUList<String>values = keyMap.get(key);
+            if (values != null && !values.isEmpty()) {
+                return values.get(0);
+            }
+        }
+        return null;
+    }
 
     /**
      * Get MRU values for a specific PresetItem and key

@@ -74,7 +74,9 @@ import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
+import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -1732,28 +1734,44 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Add tag from preset if the tag doesn't exist, execute JS if present
      * 
-     * If evaluating the JS returns null, the key is removed
+     * If evaluating the JS returns null, the key is removed. If an entry in the MRU tags exists or a default value in
+     * the preset this will be set as the value.
      * 
      * @param item current Preset
      * @param tags map of current tags
      * @param key the key we are processing
      */
-    private void addTagFromPreset(PresetItem item, Map<String, ArrayList<String>> tags, String key) {
-        String value = item.getDefault(key) == null ? "" : item.getDefault(key);
+    private void addTagFromPreset(@NonNull PresetItem item, @NonNull Map<String, ArrayList<String>> tags, @NonNull String key) {
         if (!tags.containsKey(key)) {
-            String script = item.getJavaScript(key);
-            if (script != null) {
-                try {
-                    value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), tags, value);
-                    if (value == null) {
-                        tags.remove(key);
-                        return;
+            String value = "";
+            PresetField field = item.getField(key);
+            if (field != null && !(field instanceof PresetFixedField)) {
+                MRUTags mruTags = App.getMruTags();
+                String topValue = mruTags.getTopValue(item, key);
+                if (topValue != null) {
+                    value = topValue;
+                } else {
+                    String defaultValue = field.getDefaultValue();
+                    if (defaultValue != null) {
+                        value = defaultValue;
                     }
-                } catch (Exception ex) {
-                    Snack.barError(getActivity(), ex.getLocalizedMessage());
                 }
             }
-            tags.put(key, Util.getArrayList(value != null ? value : ""));
+            if (field instanceof PresetFieldJavaScript) {
+                String script = ((PresetFieldJavaScript) field).getScript();
+                if (script != null) {
+                    try {
+                        value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), tags, value);
+                        if (value == null) {
+                            tags.remove(key);
+                            return;
+                        }
+                    } catch (Exception ex) {
+                        Snack.barError(getActivity(), ex.getLocalizedMessage());
+                    }
+                }
+            }
+            tags.put(key, Util.getArrayList(value));
         }
     }
 

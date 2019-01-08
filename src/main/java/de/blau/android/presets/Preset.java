@@ -2395,7 +2395,7 @@ public class Preset implements Serializable {
             };
 
             if (!temp.isEmpty()) {
-                Collections.sort(temp,itemComparator);
+                Collections.sort(temp, itemComparator);
                 target.addAll(temp);
                 temp.clear();
             }
@@ -3210,10 +3210,10 @@ public class Preset implements Serializable {
          */
         public void setJavaScript(@NonNull String key, @Nullable String script) {
             PresetField field = fields.get(key);
-            if (field instanceof PresetTextField) {
-                ((PresetTextField) field).javascript = script;
+            if (field instanceof PresetFieldJavaScript) {
+                ((PresetFieldJavaScript) field).setScript(script);
             } else {
-                Log.e(DEBUG_TAG, "Trying to set javascript attribute on non-text field " + (field != null ? field.getClass().getName() : "null"));
+                Log.e(DEBUG_TAG, "Trying to set javascript attribute on field withour the interface " + (field != null ? field.getClass().getName() : "null"));
             }
         }
 
@@ -3226,8 +3226,8 @@ public class Preset implements Serializable {
         @Nullable
         public String getJavaScript(@NonNull String key) {
             PresetField field = fields.get(key);
-            if (field instanceof PresetTextField) {
-                return ((PresetTextField) field).javascript;
+            if (field instanceof PresetFieldJavaScript) {
+                return ((PresetFieldJavaScript) field).getScript();
             }
             return null;
         }
