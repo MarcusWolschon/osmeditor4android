@@ -82,6 +82,7 @@ import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -499,7 +500,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             }
             return true;
         case R.id.tag_menu_mapfeatures:
-            startActivity(Preset.getMapFeaturesIntent(getActivity(), tagListener.getBestPreset()));
+            Wiki.displayMapFeatures(getActivity(), prefs, tagListener.getBestPreset());
             return true;
         case R.id.tag_menu_resetMRU:
             for (Preset p : propertyEditorListener.getPresets()) {

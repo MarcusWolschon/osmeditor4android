@@ -62,6 +62,7 @@ import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.Wiki;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.MRUTags;
 import de.blau.android.presets.Preset;
@@ -76,7 +77,6 @@ import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
-import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -1904,7 +1904,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             doRevert();
             return true;
         case R.id.tag_menu_mapfeatures:
-            startActivity(Preset.getMapFeaturesIntent(getActivity(), getBestPreset()));
+            Wiki.displayMapFeatures(getActivity(), prefs, getBestPreset());
             return true;
         case R.id.tag_menu_resetMRU:
             for (Preset p : ((PropertyEditor) getActivity()).presets) {

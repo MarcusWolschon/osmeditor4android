@@ -1554,10 +1554,6 @@ public class Server {
         return new URL(getReadWriteUrl() + elem.getName() + "/" + elem.getOsmId());
     }
 
-    private URL getDeleteUrl(@NonNull final OsmElement elem) throws MalformedURLException {
-        return getDeleteUrl();
-    }
-
     private URL getDeleteUrl() throws MalformedURLException {
         return new URL(getReadWriteUrl() + SERVER_CHANGESET_PATH + changesetId + "/upload");
     }
@@ -2063,6 +2059,17 @@ public class Server {
             ErrorAlert.showDialog(activity, ErrorCodes.NO_LOGIN_DATA);
             return false;
         }
+    }
+
+    /**
+     * Get a new XmlParser
+     * 
+     * @return an instance of XmlPullParserFactory
+     * @throws XmlPullParserException
+     */
+    @NonNull
+    XmlPullParser getXmlParser() throws XmlPullParserException {
+        return xmlParserFactory.newPullParser();
     }
 
     /**

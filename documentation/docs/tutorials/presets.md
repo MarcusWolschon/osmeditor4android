@@ -124,6 +124,7 @@ __&lt;separator/&gt;__ |                           | supported | starts a new ro
 __&lt;item_separator/&gt;__ |                      | ignored   |
 __&lt;link&gt;__   |                               | supported |
                    | href                          | supported | including language specific variants
+                   | wiki                          | supported | this will be used with lower preference than href entries
 __&lt;roles&gt;__  |                               | ignored   | but not the included <role> elements
 __&lt;role&gt;__   |                               | supported |
                    | key                           | supported | required

@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -41,8 +42,11 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -70,12 +74,15 @@ import ch.poole.poparser.Po;
 import ch.poole.poparser.TokenMgrError;
 import de.blau.android.App;
 import de.blau.android.R;
+import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
+import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
@@ -149,6 +156,7 @@ public class Preset implements Serializable {
     private static final String CHECK_FIELD                = "check";
     private static final String CHECKGROUP                 = "checkgroup";
     private static final String HREF                       = "href";
+    private static final String WIKI                       = "wiki";
     private static final String LINK                       = "link";
     private static final String I18N                       = "i18n";
     private static final String JAVASCRIPT                 = "javascript";
@@ -774,12 +782,14 @@ public class Preset implements Serializable {
                     break;
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
-                    String href = attr.getValue(language.toLowerCase(Locale.US) + ".href");
-                    if (href == null) {
-                        href = attr.getValue(HREF);
-                    }
+                    String href = attr.getValue(language.toLowerCase(Locale.US) + "." + HREF);
                     if (href != null) {
                         currentItem.setMapFeatures(href);
+                    } else {
+                        String wiki = attr.getValue(WIKI);
+                        if (wiki != null) {
+                            currentItem.setMapFeatures(wiki);
+                        }
                     }
                     break;
                 case LABEL:
@@ -2047,7 +2057,7 @@ public class Preset implements Serializable {
          * 
          * @param url the URL to set
          */
-        void setMapFeatures(String url) {
+        public void setMapFeatures(@Nullable String url) {
             if (url != null) {
                 mapFeatures = url;
             }
@@ -2056,10 +2066,11 @@ public class Preset implements Serializable {
         /**
          * Get the documentation URL (typically from the OSM wiki) for this PresetELement
          * 
-         * @return a Uri
+         * @return a String containing the full or partial URL for the page
          */
-        public Uri getMapFeatures() {
-            return Uri.parse(mapFeatures);
+        @Nullable
+        public String getMapFeatures() {
+            return mapFeatures;
         }
 
         /**
@@ -4170,35 +4181,11 @@ public class Preset implements Serializable {
     }
 
     /**
-     * Build an intent to startup up the correct mapfeatures wiki page
-     * 
-     * @param ctx Android Context
-     * @param p the PresetItem
-     * @return an Intent
-     */
-    @NonNull
-    public static Intent getMapFeaturesIntent(Context ctx, PresetItem p) {
-        Uri uri = null;
-        if (p != null) {
-            try {
-                uri = p.getMapFeatures();
-            } catch (NullPointerException npe) {
-                //
-                Log.d(DEBUG_TAG, "Preset " + p.getName() + " has no/invalid map feature uri");
-            }
-        }
-        if (uri == null) {
-            uri = Uri.parse(ctx.getString(R.string.link_mapfeatures));
-        }
-        return new Intent(Intent.ACTION_VIEW, uri);
-    }
-
-    /**
      * Split multi select values with the preset defined delimiter character
      * 
      * @param values list of values that can potentially be split
-     * @param preset the preset that sould be used
-     * @param key the key used to determine the delimter value
+     * @param preset the preset that should be used
+     * @param key the key used to determine the delimiter value
      * @return list of split values
      */
     @Nullable
