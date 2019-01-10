@@ -126,7 +126,7 @@ public class AutoPreset {
                             } else if (wikiPage.getTitleEN() != null) {
                                 title = wikiPage.getTitleEN();
                             }
-                            item.setMapFeatures(Urls.OSM_WIKI + title);
+                            item.setMapFeatures(title);
                             if (wikiPage.isOnNode()) {
                                 item.setAppliesToNode();
                             }

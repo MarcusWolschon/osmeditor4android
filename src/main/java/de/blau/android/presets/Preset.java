@@ -13,7 +13,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,18 +41,13 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -78,11 +72,9 @@ import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.Server;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.prefs.PresetEditorActivity;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
@@ -783,12 +775,17 @@ public class Preset implements Serializable {
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
                     String href = attr.getValue(language.toLowerCase(Locale.US) + "." + HREF);
-                    if (href != null) {
+                    if (href != null) { // lang specific urls have precedence
                         currentItem.setMapFeatures(href);
                     } else {
                         String wiki = attr.getValue(WIKI);
                         if (wiki != null) {
                             currentItem.setMapFeatures(wiki);
+                        } else { // last try
+                            href = attr.getValue(HREF);
+                            if (href != null) {
+                                currentItem.setMapFeatures(href);
+                            }
                         }
                     }
                     break;
@@ -2430,6 +2427,8 @@ public class Preset implements Serializable {
     /** Represents a preset item (e.g. "footpath", "grocery store") */
     public class PresetItem extends PresetElement {
 
+        private static final String HTTP = "http";
+
         /**
          * 
          */
@@ -3870,6 +3869,18 @@ public class Preset implements Serializable {
                 builder.append(MULTIPOLYGON);
             }
             s.attribute("", TYPE, builder.toString());
+            String mapFeatures = getMapFeatures();
+            if (mapFeatures != null) {
+                s.startTag("", LINK);
+                if (mapFeatures.startsWith(Urls.OSM_WIKI) || !mapFeatures.startsWith(HTTP)) {
+                    // wiki might or might not be present;
+                    mapFeatures = mapFeatures.replace(Urls.OSM_WIKI, "").replace("wiki/", "");
+                    s.attribute("", WIKI, mapFeatures);
+                } else {
+                    s.attribute("", HREF, mapFeatures);
+                }
+                s.endTag("", LINK);
+            }
             for (Entry<String, PresetFixedField> entry : fixedTags.entrySet()) {
                 s.startTag("", KEY_ATTR);
                 s.attribute("", KEY_ATTR, entry.getKey());
