@@ -26,7 +26,7 @@ public class ShareOnOpenStreetMap extends Activity {
         Log.d(DEBUG_TAG, data.toString());
         GeoUrlData geoUrlData = GeoUrlData.parse(data.getSchemeSpecificPart());
         if (geoUrlData != null) {
-            String url = Urls.OSM + "#map=" + (geoUrlData.hasZoom() ? geoUrlData.getZoom() : 18) + "/" + geoUrlData.getLat() + "/" + geoUrlData.getLon();
+            String url = Urls.OSM + "/?mlat=" + geoUrlData.getLat() + "&mlon=" + geoUrlData.getLon() +  "#map=" + (geoUrlData.hasZoom() ? geoUrlData.getZoom() : 18) + "/" + geoUrlData.getLat() + "/" + geoUrlData.getLon();
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
