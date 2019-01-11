@@ -59,7 +59,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.http.Url;
 
 /** Provides an activity to edit the preset list. Downloads preset data when necessary. */
 public class PresetEditorActivity extends URLListEditActivity {
@@ -214,7 +213,11 @@ public class PresetEditorActivity extends URLListEditActivity {
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
         switch (menuItemId) {
         case MENU_RELOAD:
-            onItemEdited(clickedItem);
+            PresetInfo preset = db.getPreset(clickedItem.id);
+            if (preset.url != null) {
+                downloadPresetData(clickedItem);
+            }
+            App.resetPresets();
             break;
         case MENU_UP:
             int oldPos = items.indexOf(clickedItem);
