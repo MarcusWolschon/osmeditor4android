@@ -661,6 +661,7 @@
   <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
+  <string name="config_fullscreenMode_title">Celá obrazovka</string>
   <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>

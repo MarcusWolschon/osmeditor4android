@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="bugfilter_notes_entry">Huomiot</string>
+  <string name="bugfilter_osmose_error_entry">Osmosen virhe</string>
+  <string name="bugfilter_osmose_warning_entry">Osmosen varoitus</string>
+  <string name="bugfilter_osmose_minor_issue_entry">Osmosen pieni ongelma</string>
+  <string name="bugfilter_custom_entry">Muu asia</string>
+</resources>

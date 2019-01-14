@@ -47,13 +47,13 @@ Vespucci 是全功能的開放街圖編輯器，支援大部分能在桌面版�
 
 根據預設設定，可選擇的節點或是路徑周圍會出現橘色區域，粗略表示你可以從那裡選碰觸選擇物件。你有三個選擇：
 
-* Single tap: Selects object. 
-    * An isolated node/way is highlighted immediately. 
-    * However, if you try to select an object and Vespucci determines that the selection could mean multiple objects it will present a selection menu, enabling you to choose the object you wish to select. 
-    * Selected objects are highlighted in yellow. 
-    * For further information see [Node selected](Node%20selected.md), [Way selected](Way%20selected.md) and [Relation selected](Relation%20selected.md).
-* Double tap: Start [Multiselect mode](Multiselect.md)
-* Long press: Creates a "crosshair", enabling you to add nodes, see below and [Creating new objects](Creating%20new%20objects.md). This is only enabled if "Simple mode" is deactivated.
+* 單點：選取物件。
+  * 孤單的節點/路徑馬上會高亮度顯示。
+  * 然後，如果你選取物件，但 Vespucci 覺得選取方式可能意味要多重選擇的話，會顯示選取選單，讓你能決定選那個物件。
+  * 選取的物件會以黃色高亮度顯示。
+  * 要看更多資訊，請看[節點選擇](Node%20selected.md)， [路徑選擇](Way%20selected.md)和[關係選擇](../en/Relation%20selected.md)
+* 雙點：開啟[多重選擇模式](Multiselect.md) 
+* 長按：新建"十字準線"，讓你能新增節點，請見下面敘述和[新建新物件](Creating%20new%20objects.md)。這只有在"簡單模式"未啟用才能用。
 
 如果您試著編輯高密度區域時進行放大，這是一個很好的對策。
 
@@ -81,19 +81,19 @@ Vespucci 擁有一個良好的"取消/重做"系統，所以不要害怕在您�
 
 #### 增加新節點/點或是路徑 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+啟動 App 時就啟用"簡單模式"，這個設定能透過取消選取相對應的核取方塊，在主要選單中更動。
 
 ##### 簡易模式
 
-Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
+按著地圖畫面上的綠色浮動按鈕，能顯示選單。當你選擇其中一個項目時，你會被問到想在那個位置新建物件，持續平移和縮放到你想要的地圖畫面為止。 
 
-See [Creating new objects in simple actions mode](Creating%20new%20objects%20in%20simple%20actions%20mode.md) for more information.
+請見 [簡單模式下新建物件](Creating%20new%20objects%20in%20simple%20actions%20mode.md) 來得到更多資訊。
 
-##### Advanced (long press) mode
- 
-Long press where you want the node to be or the way to start. You will see a black "crosshair" symbol. 
-* If you want to create a new node (not connected to an object), click away from existing objects.
-* If you want to extend a way, click within the "tolerance zone" of the way (or a node on the way). The tolerance zone is indicated by the areas around a node or way.
+##### 進階 (長按) 模式
+
+在你創建節點或是路徑開始的地方長按，你會看到黑色"十字"圖樣。
+* 如果你想要創建新的節點 (並沒有連到其他物件)，請避開其他已有的物件。
+* 如果你想延伸路徑，點選路徑的"容許區域" (或是路徑上的節點)。容許區域會顯示在節點或是路徑周邊。
 
 一旦你看到準星圖示，你有這些選擇：
 
@@ -104,7 +104,7 @@ Long press where you want the node to be or the way to start. You will see a bla
 
 簡單在你想增加節點的路徑上碰觸螢幕，要完成操作，請在最後一個節點碰觸兩次。如果最後的節點位於路徑或是節點，則片段會自動連到路徑或是節點。 
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+你也可以使用選單項目：請見[創建新物件](Creating%20new%20objects.md) 來獲得更多資訊。
 
 #### 增加區域
 
@@ -229,10 +229,10 @@ OSMOSE臭蟲則會將受影響的物件顯示為藍色連結，碰觸連結則�
 
 檢查列表有兩個內容：
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **鍵** - 物件的鍵，應該有相對應的預置。
+* **必須的選擇性** - 即便鍵相對應的預置是選擇性的標籤，仍然需要該鍵。
 
-This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+這次檢查會先決定符合的預置，接著檢查**鍵**是否是預置推薦的"建議"鍵值。**必須的選擇性**則會擴大檢查物件標籤中的"選擇性"標籤。注意：目前連結的預置並不會檢查。
 
 ## 篩選
 
@@ -264,8 +264,8 @@ This check works by first determining the matching preset and then checking if *
 
 ## 回報問題
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+如果 Vespucci 當掉，或是偵測不一致的狀態，你會被詢問是否傳送當機報告。如果發生的話請寄送報告，但請一次描述特定狀況。如果你想提供更多資訊，或是開啟 issue 請求新功能或其他類似請求，請到這邊開：[Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues)。主選單的"提供回饋"功能會開放新的 issue，不用額外輸入就有包含相關的 app 和裝置資訊。
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+如果你想討論跟 Vespucci 相關的議題，你可以在 [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) 開討論，或是到 [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

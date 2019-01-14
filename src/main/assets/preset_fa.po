@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-04 11:01+0000\n"
+"PO-Revision-Date: 2019-01-12 21:30+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -1253,7 +1253,7 @@ msgstr ""
 
 #: master_preset.xml:7687(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "اطاقک"
 
 #: master_preset.xml:2399(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -1281,7 +1281,7 @@ msgstr ""
 
 #: master_preset.xml:12303(group:name|group:Boundaries)
 msgid "Boundaries"
-msgstr ""
+msgstr "مرزها"
 
 #: master_preset.xml:13741(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:13776(item:name|group:Relations|preset:Boundary)
@@ -2190,7 +2190,7 @@ msgstr ""
 
 #: master_preset.xml:12430(item:name|group:Places|preset:County)
 msgid "County"
-msgstr ""
+msgstr "شهرستان"
 
 #: master_preset.xml:6776(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -3055,7 +3055,7 @@ msgstr ""
 
 #: master_preset.xml:1825(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "پله برقی"
 
 #: master_preset.xml:1410(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -3246,7 +3246,7 @@ msgstr ""
 
 #: master_preset.xml:7286(item:name|group:Emergency|preset:Fire_Hydrant)
 msgid "Fire Hydrant"
-msgstr ""
+msgstr "شیر آتش نشانی"
 
 #: master_preset.xml:6832(item:name|group:Public_Building|preset:Fire_Station)
 msgid "Fire Station"
@@ -3892,7 +3892,7 @@ msgstr ""
 #: master_preset.xml:1818(checkgroup:text|group:Ways|preset:Steps)
 #: master_preset.xml:1819(check:text|group:Ways|preset:Steps|key:handrail)
 msgid "Handrail"
-msgstr ""
+msgstr "دست‌نرده"
 
 #: master_preset.xml:4872(item:name|group:Airport|preset:Hangar)
 msgid "Hangar"
@@ -5051,7 +5051,7 @@ msgstr ""
 #: master_preset.xml:3205(combo:text|group:Water|preset:Penstock|key:material)
 #: master_preset.xml:6503(combo:text|group:Culture|preset:Artwork|key:material)
 msgid "Material"
-msgstr ""
+msgstr "جنس"
 
 #: master_preset.xml:397(list_entry:short_description|value:maternity)
 msgid "Maternity"
@@ -5331,7 +5331,7 @@ msgstr ""
 
 #: master_preset.xml:1939(item:name|group:Waypoints|preset:Mini-Roundabout)
 msgid "Mini-Roundabout"
-msgstr ""
+msgstr "فلکه کوچک"
 
 #: master_preset.xml:8362(item:name|preset:Miniature_Golf)
 msgid "Miniature Golf"
@@ -5595,7 +5595,7 @@ msgstr ""
 #: master_preset.xml:13737(list_entry:display_value|group:Relations|preset:Relations|value:multipolygon)
 #: master_preset.xml:13754(item:name|group:Relations|preset:Multipolygon)
 msgid "Multipolygon"
-msgstr ""
+msgstr "چندچندضلعی"
 
 #: master_preset.xml:12457(item:name|group:Places|preset:Municipality)
 msgid "Municipality"
@@ -6063,7 +6063,7 @@ msgstr ""
 
 #: master_preset.xml:8119(text:text|group:Facilities|preset:Excrement_Bags|key:note)
 msgid "Note"
-msgstr ""
+msgstr "یادداشت"
 
 #: master_preset.xml:9859(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
@@ -6403,7 +6403,7 @@ msgstr ""
 #: master_preset.xml:9685(text:text|group:Man_Made|preset:Surveillance_Camera|key:operator)
 #: master_preset.xml:9706(text:text|group:Man_Made|preset:MDF|key:operator)
 msgid "Operator"
-msgstr ""
+msgstr "گرداننده"
 
 #: master_preset.xml:7038(combo:text|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:898(combo:text|key:operator:type)
@@ -6706,7 +6706,7 @@ msgstr ""
 
 #: master_preset.xml:1652(item:name|group:Ways|preset:Path)
 msgid "Path"
-msgstr ""
+msgstr "راهچه"
 
 #: master_preset.xml:12276(item:name|group:Money|preset:Pawnbroker)
 msgid "Pawnbroker"
@@ -6790,7 +6790,7 @@ msgstr ""
 #: master_preset.xml:7255(combo:display_values|group:Emergency|preset:First_Aid_Kit|key:access)
 #: master_preset.xml:775(combo:display_values|key:access)
 msgid "Permissive"
-msgstr ""
+msgstr "مجاز مشروط"
 
 #: master_preset.xml:775(combo:display_values|key:access)
 msgid "Permit required"
@@ -7092,7 +7092,7 @@ msgstr ""
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "آبگیر"
 
 #: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -7277,7 +7277,7 @@ msgstr ""
 
 #: master_preset.xml:1103(item:name|group:Streets|preset:Primary_Link)
 msgid "Primary Link"
-msgstr ""
+msgstr "اتصال درجه یک"
 
 #: master_preset.xml:563(combo:text|key:voltage:primary)
 msgid "Primary voltage in Volts (V)"
@@ -7783,7 +7783,7 @@ msgstr ""
 #: master_preset.xml:13727(group:name|group:Relations)
 #: master_preset.xml:13728(item:name|group:Relations|preset:Relations)
 msgid "Relations"
-msgstr ""
+msgstr "رابطه‌ها"
 
 #: master_preset.xml:10417(combo:text|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:religion)
 #: master_preset.xml:12064(item:name|group:Other|preset:Religion)
@@ -7845,7 +7845,7 @@ msgstr ""
 
 #: master_preset.xml:1868(item:name|group:Waypoints|preset:Rest_Area)
 msgid "Rest Area"
-msgstr ""
+msgstr "استراحتگاه"
 
 #: master_preset.xml:5180(item:name|group:Food+Drinks|preset:Restaurant)
 msgid "Restaurant"
@@ -8051,7 +8051,7 @@ msgstr ""
 
 #: master_preset.xml:13882(group:name|group:Routes)
 msgid "Routes"
-msgstr ""
+msgstr "مسیرها"
 
 #: master_preset.xml:5447(optional:text|group:Tourism|preset:Map)
 #: master_preset.xml:5487(optional:text|group:Tourism|preset:Guidepost)
@@ -8316,7 +8316,7 @@ msgstr ""
 
 #: master_preset.xml:1153(item:name|group:Streets|preset:Secondary_Link)
 msgid "Secondary Link"
-msgstr ""
+msgstr "اتصال درجه دو"
 
 #: master_preset.xml:564(combo:text|key:voltage:secondary)
 msgid "Secondary voltage in Volts (V)"
@@ -8981,7 +8981,7 @@ msgstr ""
 
 #: master_preset.xml:9599(item:name|group:Man_Made|preset:Street_Lamp)
 msgid "Street Lamp"
-msgstr ""
+msgstr "چراغ خیابان"
 
 #: master_preset.xml:1092(check:text|group:Streets|preset:Primary|key:noname)
 #: master_preset.xml:1143(check:text|group:Streets|preset:Secondary|key:noname)
@@ -9078,7 +9078,7 @@ msgstr ""
 
 #: master_preset.xml:10473(item:name|group:Food|preset:Supermarket)
 msgid "Supermarket"
-msgstr ""
+msgstr "فروشگاه بزرگ"
 
 #: master_preset.xml:3770(check:text|group:Railway|preset:Level_Crossing|key:supervised)
 #: master_preset.xml:495(combo:text|key:supervised)
@@ -9328,7 +9328,7 @@ msgstr ""
 
 #: master_preset.xml:1204(item:name|group:Streets|preset:Tertiary_Link)
 msgid "Tertiary Link"
-msgstr ""
+msgstr "اتصال درجه سه"
 
 #: master_preset.xml:565(combo:text|key:voltage:tertiary)
 msgid "Tertiary voltage in Volts (V)"
@@ -9595,7 +9595,7 @@ msgstr ""
 #: master_preset.xml:1982(group:name|group:Traffic_Calming)
 #: master_preset.xml:1983(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "آرام‌سازی ترافیک"
 
 #: master_preset.xml:2220(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"
@@ -9765,7 +9765,7 @@ msgstr ""
 
 #: master_preset.xml:2132(item:name|preset:Turning_Circle)
 msgid "Turning Circle"
-msgstr ""
+msgstr "دایرهٔ گردش"
 
 #: master_preset.xml:2144(item:name|preset:Turning_Loop)
 msgid "Turning Loop"
@@ -10076,7 +10076,7 @@ msgstr ""
 
 #: master_preset.xml:5397(item:name|group:Tourism|preset:Viewpoint)
 msgid "Viewpoint"
-msgstr ""
+msgstr "چشم‌انداز"
 
 #: master_preset.xml:12487(item:name|group:Places|preset:Village)
 msgid "Village"
@@ -10440,7 +10440,7 @@ msgstr ""
 #: master_preset.xml:672(text:text|key:wikipedia)
 #: master_preset.xml:696(text:text|key:wikipedia)
 msgid "Wikipedia"
-msgstr ""
+msgstr "ویکی‌پدیا"
 
 #: master_preset.xml:5716(list_entry:display_value|group:Leisure|preset:Animals|value:wildcat)
 msgid "Wildcat"
@@ -11061,7 +11061,7 @@ msgstr ""
 #: master_preset.xml:2644(combo:text|group:Barriers|preset:Stile|key:material)
 msgctxt "material"
 msgid "Material"
-msgstr ""
+msgstr "جنس"
 
 #: master_preset.xml:19(combo:display_values|key:material)
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
@@ -11308,7 +11308,7 @@ msgstr ""
 #: master_preset.xml:115(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
-msgstr ""
+msgstr "پیاده‌رو"
 
 #: master_preset.xml:128(multiselect:text|key:crossing)
 msgctxt "transport"
@@ -11729,7 +11729,7 @@ msgstr "نوع"
 #: master_preset.xml:478(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Underground"
-msgstr ""
+msgstr "زیر زمین"
 
 #: master_preset.xml:9158(combo:text|preset:Entrance|key:access)
 msgctxt "access"
@@ -11893,7 +11893,7 @@ msgstr ""
 #: master_preset.xml:506(combo:display_values|key:access)
 msgctxt "access"
 msgid "Permissive"
-msgstr ""
+msgstr "مجاز مشروط"
 
 #: master_preset.xml:2789(combo:display_values|group:Access_Restrictions|preset:All_vehicles|key:vehicle)
 #: master_preset.xml:2809(combo:display_values|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle)
@@ -12769,7 +12769,7 @@ msgstr ""
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Supermarket"
-msgstr ""
+msgstr "فروشگاه بزرگ"
 
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -12990,7 +12990,7 @@ msgstr ""
 #: master_preset.xml:1779(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "پیاده‌رو"
 
 #: master_preset.xml:1779(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -13785,7 +13785,7 @@ msgstr ""
 #: master_preset.xml:9155(combo:display_values|preset:Entrance|key:entrance)
 msgctxt "entrance"
 msgid "Exit"
-msgstr ""
+msgstr "خروجی"
 
 #: master_preset.xml:9164(combo:display_values|preset:Entrance|key:door)
 msgctxt "entrance"
@@ -14341,7 +14341,7 @@ msgstr ""
 #: master_preset.xml:13679(text:text|group:Annotation|preset:Note|key:note)
 msgctxt "the tag note=*"
 msgid "Note"
-msgstr ""
+msgstr "یادداشت"
 
 #: master_preset.xml:13677(label:text|group:Annotation|preset:Note)
 msgctxt "note=*"

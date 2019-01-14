@@ -105,6 +105,7 @@
   <string name="maproulette_task_explanations">Magyarázatok</string>
   <string name="maproulette_task_set_apikey">MapRoulette API kulcs megadása</string>
   <string name="maproulette_task_apikey_not_set">A MapRoulette API kulcs nem menthető</string>
+  <string name="maproulette_task_apikey_set">MapRoulette API kulcs mentve</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vigyázat!</string>
   <string name="unsaved_data_message">A mentetlen változtatásai elvesznek, ha folytatja.</string>
@@ -175,7 +176,7 @@
   <string name="js_console_msg_live">Éles mód!</string>
   <string name="js_console_msg_debug">Hibakereső mód!</string>
   <!--Validator dialogs-->
-  <string name="validator_title">%1$s érvényességellenőrző szabálykészlet </string>
+  <string name="validator_title">%1$s ellenőrző szabálykészlet </string>
   <string name="edit_resurvey_title">Újbóli felmérés bejegyzésének szerkesztése</string>
   <string name="add_resurvey_title">Újbóli felmérés bejegyzésének hozzáadása</string>
   <string name="edit_check_title">Ellenőrzési bejegyzés szerkesztése</string>
@@ -322,6 +323,7 @@ elemek megkövetelése</string>
   <string name="toast_invalid_notesurl">Érvénytelen jegyzet API URL</string>
   <string name="toast_invalid_preseturl">Érvénytelen előbeállítás URL</string>
   <string name="toast_invalid_filter_regexp">Érvénytelen reguláris kifejezés ezekkel: kulcs=\"%1$s\" érték=\"%2$s\"</string>
+  <string name="toast_error_accessing_photo">A(z) %1$s fénykép nem érhető el</string>
   <string name="toast_no_voice_recognition">A hangfelismerő szolgáltatás hiányzik</string>
   <string name="toast_no_coverage">Nincs lefedettség ehhez: %1$s</string>
   <string name="toast_file_exists">A(z) %1$s fájl létezik.</string>
@@ -452,11 +454,11 @@ elemek megkövetelése</string>
   <string name="location_choose_radius">Válasszon sugarat:</string>
   <string name="location_default_radius">300m</string>
   <string name="location_radius">%1$d m</string>
-  <string name="location_last_text">Legutóbbi ismert hely:</string>
-  <string name="location_current_text">Jelenlegi hely:</string>
+  <string name="location_last_text">Legutóbbi ismert pozíció:</string>
+  <string name="location_current_text">Jelenlegi pozíció:</string>
   <string name="location_text_unknown">Ismeretlen</string>
-  <string name="location_last_text_parameterized">Legutóbbi ismert hely: %1$s</string>
-  <string name="location_current_text_parameterized">Jelenlegi hely: %1$s</string>
+  <string name="location_last_text_parameterized">Legutóbbi ismert pozíció: %1$s</string>
+  <string name="location_current_text_parameterized">Jelenlegi pozíció: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s ennyivel ezelőtt: %4$s</string>
   <string name="location_text_metadata_accuracy">Pontosság: %1$2.0f méter,</string>
   <string name="location_coordinates_text">Koordinátákból:</string>
@@ -491,7 +493,7 @@ elemek megkövetelése</string>
   <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Pozíció megjelenítése</string>
   <string name="menu_gps_follow">Pozíció követése</string>
-  <string name="menu_gps_goto">Ugrás a jelenlegi helyre</string>
+  <string name="menu_gps_goto">Ugrás a jelenlegi pozícióhoz</string>
   <string name="menu_gps_start">GPX nyomvonal indítása</string>
   <string name="menu_gps_pause">GPX nyomvonal szüneteltetése</string>
   <string name="menu_gps_clear">GPX nyomvonal és útpontok törlése</string>
@@ -578,8 +580,8 @@ elemek megkövetelése</string>
   <!---->
   <string name="menu_tools_apply_local_offset">Tárolt eltolás alkalmazása a légifelvételekre</string>
   <string name="menu_tools_background_contrast">Kontraszt</string>
-  <string name="menu_tools_oauth_reset">OAuth helyreállítása</string>
-  <string name="menu_tools_oauth_authorisation">OAuth engedélyezés</string>
+  <string name="menu_tools_oauth_reset">OAuth visszaállítása</string>
+  <string name="menu_tools_oauth_authorisation">OAuth engedélyezése</string>
   <string name="menu_enable_tagfilter">Címkeszűrő</string>
   <string name="menu_enable_presetfilter">Előbeállítás szűrő</string>
   <string name="preset_menu_waynodes">Vonalpontok bevétele</string>
@@ -601,7 +603,7 @@ elemek megkövetelése</string>
   <string name="deletenode">Pont törlése</string>
   <string name="split_all_ways">Minden út felosztása</string>
   <string name="delete_note_description">A jegyzet törlése nem vonható vissza!</string>
-  <string name="delete_note">Pont törlése</string>
+  <string name="delete_note">Jegyzet törlése</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Vonal kijelölve</string>
   <string name="actionmode_nodeselect">Pont kijelölve</string>
@@ -659,8 +661,8 @@ elemek megkövetelése</string>
   <string name="config_presetbutton_title">Előbeállítások</string>
   <string name="config_presetbutton_summary">JOSM kompatibilis előbeállítások hozzáadása és engedélyezése</string>
   <string name="config_built_in_preset">Beépített előbeállítás</string>
-  <string name="config_validatorprefs_title">Érvényesítő beállításai</string>
-  <string name="config_validatorprefs_summary">Érvényesítési szabályok beállítása.</string>
+  <string name="config_validatorprefs_title">Ellenőrző beállításai</string>
+  <string name="config_validatorprefs_summary">Ellenőrzési szabályok beállítása.</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Szerzők és licencek</string>
   <string name="config_debugbutton_title">Hibakeresés</string>

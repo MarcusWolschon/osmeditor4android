@@ -2,18 +2,62 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Mode names-->
   <string name="mode_easy">Tavallinen</string>
+  <string name="mode_tag_only">Vain tägi</string>
   <string name="mode_indoor">Sisätila</string>
+  <string name="mode_correct">C-tila</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Varoitus!</string>
+  <string name="transfer_download_current_dialog_message">Olet tehnyt muutoksia. Haluatko lähettää vai hylätä ne?</string>
   <string name="transfer_download_current_upload">Lähetä</string>
   <string name="transfer_download_current_download">Hylkää &amp; lataa</string>
+  <string name="transfer_download_current_back">Takaisin (älä tee mitään)</string>
+  <string name="upload_problem_title">Lähetys epäonnistui</string>
+  <string name="upload_problem_message">Ainakin osaa muutoksista ei ole lähetetty. Yritä myöhemmin uudestaan.</string>
   <string name="bad_request_message">API palautti virheen. Tallenna muokkauksesi ja ilmoita virheestä:\n\n</string>
   <string name="upload_conflict_title">Ristiriita lähetyksessä</string>
+  <string name="upload_conflict_message_version">%1$s \npaikallinen versio %2$d \npalvelimen versio %3$d</string>
+  <string name="upload_conflict_message_deleted">%1$s \npaikallinen versio %2$d \npalvelimen versio on poistettu</string>
+  <string name="upload_conflict_message_referential">%1$s \npaikallinen versio on poistettu \nmutta siihen viitataan palvelimella</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \npalvelimen versio oli jo poistettu</string>
   <string name="use_local_version">Käytä paikallista versiota</string>
   <string name="use_server_version">Käytä palvelimen versiota</string>
+  <string name="no_login_data_title">Kirjautuminen epäonnistui</string>
+  <string name="no_login_data_message">Jos käytät OAuthia, niin tämä on varmaankin ohjelmointivirhe; lähetä vikailmoitus, kiitos. Jos käytät tunnusta ja salasanaa (ei suositella), niin tarkista että syötit ne oikein.</string>
+  <string name="no_connection_title">Ei yhteyttä palvelimeen</string>
+  <string name="no_connection_message">OSM-palvelimeen ei saatu yhteyttä. Tarkista että nettiyhteytesi on kunnossa tai yritä myöhemmin uudestaan.</string>
+  <string name="ssl_handshake_failed">OSM-palvelimeen ei saatu yhteyttä, koska HTTPS-neuvottelu epäonnistui. Kokeile vaihtaa salaamattomaan yhteyteen API:n asetuksista.</string>
+  <string name="wrong_login_data_title">Kirjautuminen epäonnistui</string>
+  <string name="wrong_login_data_message">Jos käytät OAuthia, niin yritä kirjautua uudestaan. Jos käytät tunnusta ja salasanaa (ei suositella), niin tarkista että syötit ne oikein.</string>
+  <string name="wrong_login_data_re_authenticate">Kirjaudu uudestaan</string>
   <string name="forbidden_login_title">Kirjautuminen kielletty</string>
+  <string name="not_found_title">Kohdetta ei löytynyt</string>
+  <string name="not_found_message">API ei löytänyt kohdetta tai muutossettiä, jolla olisi annettu ID.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">Tuntematon virhe</string>
+  <string name="unknown_error_message">API:n palauttamaa virhekoodia tai -ilmoitusta ei voitu käsitellä.&lt;br&gt;&lt;br&gt;</string>
   <string name="go_to_openstreetmap">Mene sivulle openstreetmap.org</string>
+  <string name="data_conflict_title">Ristiriita versioissa</string>
+  <string name="data_conflict_message">Ladattava data on ristiriidassa muokkaustesi kanssa. Lähetä muokkauksesi ennen kuin yrität ladata uudestaan.</string>
+  <string name="invalid_bounding_box_title">Virheellinen rajauslaatikko</string>
+  <string name="invalid_bounding_box_message">Valittu alue ei kelpaa API:n rajoitusten vuoksi. Valitse muunlainen alue.</string>
   <string name="bounding_box_too_large_title">Latausalue liian laaja</string>
+  <string name="bounding_box_too_large_message">Alue jota yrität ladata on liian laaja tai se sisältää liikaa dataa.\n\nPienennä näkymää ja yritä uudelleen.</string>
+  <string name="api_offline_title">API suljettu</string>
+  <string name="api_offline_message">API on väliaikaisesti suljettu, eikä se hyväksy datan hakemista eikä kirjoittamista.</string>
+  <string name="out_of_memory_title">Muisti ei riitä</string>
+  <string name="out_of_memory_message">Vespucci ei voinut ladata pyydettyä dataa. Käynnistä sovellus uudestaan, ja lataa pienempi alue.</string>
+  <string name="out_of_memory_dirty_message">Vespucci ei voinut ladata pyydettyä dataa. Tallenna muokkauksesi, käynnistä sovellus uudestaan, ja lataa pienempi alue.</string>
+  <string name="invalid_data_received_title">Saatiin virheellistä dataa</string>
+  <string name="invalid_data_received_message">Jos virhe ei ole sinun aiheuttama, niin lähetä vikailmoitus, kiitos!</string>
+  <string name="invalid_data_read_title">Virheellistä dataa</string>
+  <string name="invalid_data_read_message">Jos virhe ei ole sinun aiheuttama, niin lähetä vikailmoitus, kiitos!</string>
+  <string name="file_write_failed_title">Tiedostoon ei voi kirjoittaa</string>
+  <string name="file_write_failed_message">Vespucci ei voinut muuttaa tai tallentaa tiedostoa.</string>
+  <string name="welcome_title">Tervetuloa!</string>
+  <string name="welcome_message">Kiitos että asensit Vespuccin.\n&lt;br&gt;&lt;br&gt;Pääset alkuun näiden kolmen neuvon avulla:\n&lt;ul&gt;&lt;li&gt;vasemman yläkulman lukkokuvakkeen koskettaminen vaihtaa lukitun (ei muokkausta) ja avatun tilan välillä,&lt;/li&gt;&lt;li&gt;ennen kuin voit muokata OpenStreetMappia sinun pitää ladata alue, jota haluat muuttaa (zuumaa ensin lähemmäksi),&lt;/li&gt;&lt;li&gt;uuden kohteen lisäys: kosketa isoa vihreää nappia ja valitse mitä haluat lisätä; kosketa sitten paikkaa, johon haluat laittaa sen.&lt;/li&gt;&lt;/ul&gt;\nSiinä kaikki. Ala kartoittaa ja pidä hauskaa!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Laitteessasi on \"pehmonäppäimiä\", jotka on piilotettu. Pyyhkäise alhaalta, niin saat ne taas näkyviin.</string>
+  <string name="read_introduction">Lue esittely</string>
+  <string name="upgrade_title">Tämä on Vespuccin uusi versio</string>
+  <string name="upgrade_message">Uudet ominaisuudet ja toiminnot on lueteltu julkaisutiedoissa.</string>
   <string name="read_upgrade">Tietoa uudesta versiosta</string>
   <string name="progress_title">Ladataan</string>
   <string name="progress_message">Ladataan dataa muistiin...</string>
@@ -25,7 +69,9 @@
   <string name="progress_uploading_message">Lähetetään...</string>
   <string name="progress_preset_message">Ladataan esivalintaa...</string>
   <string name="progress_running_message">Suoritetaan...</string>
-  <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennukseen...</string>
+  <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennusta varten...</string>
+  <string name="progress_building_imagery_database">Kootaan ilmakuvatietokantaa...</string>
+  <string name="progress_query_oam">Haetaan OAM:stä...</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
@@ -35,13 +81,37 @@
   <string name="upload_validation_error_empty_comment">Kommentti ei voi olla tyhjä</string>
   <string name="upload_validation_error_empty_source">Lähde ei voi olla tyhjä</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Uusi huomio</string>
+  <string name="openstreetbug_new_bug">Raportoi ongelmasta</string>
   <string name="openstreetbug_bug_title">Ongelma</string>
+  <string name="openstreetbug_new_nodeway">Piirrä piste/viiva</string>
+  <string name="openstreetbug_edit_title">Muokkaa huomiota</string>
   <string name="openstreetbug_comment_label">Kommentti:</string>
-  <string name="openstreetbug_not_supported">%1$s ei tueta.</string>
+  <string name="openstreetbug_commit_ok">Tehtävämuutokset tallennettu</string>
+  <string name="openstreetbug_commit_fail">Tehtävämuutoksia ei voitu tallentaa</string>
+  <string name="openstreetbug_unknown_task_type">Tuntematon tehtävätyyppi</string>
+  <string name="openstreetbug_not_supported">Tehtävää %1$s ei tueta.</string>
+  <string name="note_description">Huomio: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="generic_bug">Virhe</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Muu</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;viimeksi päivitetty:&lt;br&gt;%1$s&lt;br&gt;ID: %2$d</string>
+  <string name="bug_element_1">%1$s (ei ladattu) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">MapRoulette-tehtävä</string>
+  <string name="maproulette_task_coords">Lev %1$4g, Pit %2$4g</string>
+  <string name="maproulette_task_explanations">Ohjeet</string>
+  <string name="maproulette_task_set_apikey">Aseta MapRouletten API-avain</string>
+  <string name="maproulette_task_apikey_not_set">MapRouletten API-avainta ei voitu tallentaa</string>
+  <string name="maproulette_task_apikey_set">MapRouletten API-avain tallennettu</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Varoitus!</string>
+  <string name="unsaved_data_message">Tallentamattomat muokkaukset hylätään jos jatkat.</string>
   <string name="unsaved_data_proceed">Hylkää &amp; jatka</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">Kuvaston siirros</string>
   <string name="imagery_offset_description">Kuvaus</string>
   <string name="imagery_offset_not_found">Ei siirroksia 10 km:n säteellä!</string>
   <string name="imagery_offset_author">Tekijä</string>
@@ -49,17 +119,29 @@
   <string name="imagery_offset_date">Luotu</string>
   <string name="imagery_offset_zoom">Suurennus</string>
   <string name="imagery_offset_distance">Etäisyys</string>
+  <string name="zoom_and_offset">Z %1$d siirros %2$s/%3$s</string>
   <string name="set_position_datum_label">Geodeettinen datumi</string>
+  <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Nimiehdotus</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Tämä ehdotus voi korvata jotkin tägit suositummilla tägeillä.</string>
   <string name="search_results_title">Hakutulokset</string>
+  <string name="search_online">Hae netistä</string>
   <string name="find_message">Syötä hakuteksti</string>
-  <string name="geocoder_prompt">lisäksi</string>
+  <string name="geocoder_prompt">hakemistosta</string>
+  <string name="geocoder_limit_label">näkymässä</string>
   <!---->
   <string name="preset_search_hint">Esivalinnan hakuteksti</string>
+  <string name="preset_autopreset">Autom. esivalinta</string>
   <string name="search">Hae</string>
-  <string name="no_valid_preset">Ei sopivaa esivalintaa!</string>
+  <string name="no_valid_preset">Esivalinta puuttuu!</string>
+  <string name="save_file">Tallenna</string>
+  <string name="existing_track_title">Tallentamaton GPX-jälki</string>
+  <string name="existing_track_message">Sinulla on tallentamaton GPX-jälki. Voit perua toiminnon ja tallentaa jäljen ensin.</string>
+  <string name="delete_tags">Poistetaanko kohteen \"%1$s\" kaikki tägit?</string>
   <!--element information dialog-->
+  <string name="element_information">Tietoja kohteesta</string>
+  <string name="id">ID</string>
   <string name="nodes">Pisteet</string>
   <string name="relation_membership">Relaatiojäsenyys</string>
   <string name="problem">Ongelma</string>
@@ -68,25 +150,78 @@
   <string name="version">Versio</string>
   <string name="length_m">Pituus (m)</string>
   <string name="not_downloaded">Ei ladattu</string>
+  <string name="empty_role">Tyhjä rooli</string>
   <string name="last_edited">Viimeksi muokattu</string>
+  <string name="original">Alkuperäinen</string>
+  <string name="current">Nykyinen</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Tietoja GeoJSON-kohteesta</string>
+  <string name="copy_properties">Kopioi ominaisuudet</string>
   <!---->
+  <string name="error">Virhe</string>
+  <string name="warning">Varoitus</string>
+  <string name="minor_issue">Pieni ongelma</string>
+  <string name="unknown_error_level">Tuntematon virhetaso</string>
   <!--hidden object warning dialog-->
-  <string name="attached_object_warning_title">Toiminto vaikuttaa piileviin liitettyihin kohteisiin!</string>
+  <string name="attached_object_warning_title">Toiminto vaikuttaa myös suodatettuhin kohteisiin!</string>
+  <string name="attached_object_warning_message">Muutettu kohde on yhteydessä piilotettuihin kohteisiin, jotka muuttuvat samalla.</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">OK, näytä jatkossakin</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">OK, älä näytä toiste</string>
   <!--debug dialog-->
+  <string name="send_debug_information">Lähetä tietoja virheestä</string>
   <!--JS console dialog-->
   <string name="evaluate">Suorita</string>
   <string name="js_console_msg_live">Suoramuokkaustila!</string>
   <string name="js_console_msg_debug">Testaustila!</string>
   <!--Validator dialogs-->
+  <string name="validator_title">Tarkistimen sääntöryhmä %1$s</string>
+  <string name="edit_resurvey_title">Muokkaa kontrollikäyntiä</string>
+  <string name="add_resurvey_title">Lisää kontrollikäynti</string>
+  <string name="edit_check_title">Lisää tarkistus</string>
+  <string name="add_check_title">Lisää tarkistus</string>
+  <string name="max_age">Suurin ikä</string>
+  <string name="age">Ikä</string>
+  <string name="check_opt">Vaadi myös\nvalinnaiset</string>
+  <string name="check_optional">Vaadi myös valinnaiset</string>
+  <string name="add_resurvey_entry">Lisää kontrollikäynti</string>
+  <string name="add_check_entry">Lisää tarkistus</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Tyhjä relaatio</string>
+  <string name="empty_relation_message">Relaatiolla %1$s ei ole jäseniä.\n\nJos se jää tyhjäksi, sitä ei voi muokata Vespuccissa.</string>
+  <string name="add_members">Lisää jäseniä</string>
+  <string name="leave_empty">Jätä tyhjäksi</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">GPX-välietappi</string>
+  <string name="waypoint_description">VE: %1$s</string>
   <string name="description">Kuvaus</string>
+  <string name="created">Luotu</string>
+  <string name="altitude">Korkeus</string>
+  <string name="create_osm_object">Luo OSM-kohde</string>
+  <string name="create_osm_object_search">Luo OSM-kohde esivalintahausta</string>
   <!--Custom imagery dialogs-->
+  <string name="custom_layer_title">Oma kuvasto</string>
+  <string name="oam_layer_title">OAM-kuvasto</string>
+  <string name="edit_layer_title">Muokkaa tasoa</string>
+  <string name="add_layer_title">Lisää taso</string>
+  <string name="overlay">Peittotaso</string>
+  <string name="coverage">Rajakoordinaatit</string>
+  <string name="coverage_top">Ylä</string>
+  <string name="coverage_left">Vasen</string>
+  <string name="coverage_right">Oikea</string>
+  <string name="coverage_bottom">Ala</string>
+  <string name="toast_invalid_box">Virheellinen tai puutteellinen rajaus</string>
+  <string name="delete_layer">Poistetaanko taso?</string>
   <!--Layer style dialog-->
+  <string name="layer_style_title">Tason tyyli</string>
+  <string name="layer_style_stroke_width">Viivan paksuus</string>
+  <string name="layer_style_color">Väri</string>
+  <string name="layer_style_label">Nimike</string>
+  <string name="json_object_not_displayed">JSON-kohde (ei näkyvissä)</string>
+  <string name="json_array_not_displayed">JSON-kokoelma (ei näkyvissä)</string>
   <!--Layer dialog-->
+  <string name="layer_geojson">GeoJSON</string>
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->

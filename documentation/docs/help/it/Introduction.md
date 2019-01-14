@@ -82,7 +82,7 @@ Una volta selezionato un oggetto, lo si può spostare. Un oggetto può essere tr
 
 #### Adding a new Node/Point or Way 
 
-On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
+Al primo avvio l'app parte in "Modalità semplice". Questo può essere modificato ne menu principale togliendo la spunta al box corrispondente.
 
 ##### Simple mode
 

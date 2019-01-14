@@ -97,144 +97,144 @@ Nyomja hosszan ott, ahová a pontot vagy a vonal kezdetét szeretné tenni. Egy 
 
 Ha látja a célkereszt szimbólumot, akkor ezek a lehetőségei:
 
-* Touch in the same place.
-    * If the crosshair is not near a node, touching the same location again creates a new node. If you are near a way (but not near a node), the new node will be on the way (and connected to the way).
-    * If the crosshair is near a node (i.e. within the tolerance zone of the node), touching the same location just selects the node (and the tag editor opens. No new node is created. The action is the same as the selection above.
-* Touch another place. Touching another location (outside of the tolerance zone of the crosshair) adds a way segment from the original position to the current position. If the crosshair was near a way or node, the new segment will be connected to that node or way.
+* Érintse meg ugyanazon a helyen.
+    * Ha a célkereszt nincs pont közelében, akkor az ugyanazon helyen történő érintés egy új pontot hoz létre. Ha egy vonal közelében van (de nincs a közelben pont), akkor az új pont a vonalon lesz (és hozzá lesz kapcsolva a vonalhoz).
+    * Ha a célkereszt pont közelében van (tehát a pont toleranciaterületén), akkor az ugyanazon hely kiválasztása kiválasztja a pontot (és megnyílik a címkeszerkesztő). Nem lesz új pont létrehozva. A művelet ugyanaz mint a fenti kijelölésnél.
+    * Érintsen meg egy másik helyet. Egy másik hely megérintése (a célkereszt toleranciazónáján kívül) egy új szakaszt ad hozzá az eredeti pozíciótól a jelenlegi pozícióig. Ha a célkereszt egy ponthoz vagy vonalhoz van közel, akkor az új szakasz ahhoz a ponthoz vagy vonalhoz lesz kapcsolva.
 
-Simply touch the screen where you want to add further nodes of the way. To finish, touch the final node twice. If the final node is  located on a way or node, the segment will be connected to the way or node automatically. 
+Egyszerűen érintse meg a képernyőt, ahová a további pontokat akarja hozzáadni a vonalon. A befejezéshez érintse meg kétszer az utolsó pontot. Ha az utolsó pont egy vonalon vagy ponton van, akkor a szakasz automatikusan a ponthoz vagy vonalhoz lesz kötve. 
 
-You can also use a menu item: See [Creating new objects](Creating%20new%20objects.md) for more information.
+Használhatja a menüelemet is: További információkért lásd: [Új objektumok létrehozása](Creating%20new%20objects.md).
 
 #### Terület hozzáadása
 
-OpenStreetMap currently doesn't have an "area" object type unlike other geo-data systems. The online editor "iD" tries to create an area abstraction from the underlying OSM elements which works well in some circumstances, in others not so. Vespucci currently doesn't try to do anything similar, so you need to know a bit about the way areas are represented:
+Más geoadat rendszerekkel ellentétben, az OpenStreetMap jelenleg nem rendelkezik „terület” objektumtípussal. Az „iD” online szerkesztő megpróbál egy terület absztrakciót biztosítani az alacsonyabb szintű OSM elemekből, amely egyes esetekben jól működik, máskor nem. A Vespucci jelenleg meg sem próbál hasonlót, így valamennyit tudnia kell a területek ábrázolásáról:
 
-* _closed ways (*polygons")_: the simplest and most common area variant, are ways that have a shared first and last node forming a closed "ring" (for example most buildings are of this type). These are very easy to create in Vespucci, simply connect back to the first node when you are finished with drawing the area. Note: the interpretation of the closed way depends on its tagging: for example if a closed way is tagged as a building it will be considered an area, if it is tagged as a roundabout it wont. In some situations in which both interpretations may be valid, an "area" tag can clarify the intended use.
-* _multi-ploygons_: some areas have multiple parts, holes and rings that can't be represented with just one way. OSM uses a specific type of relation (our general purpose object that can model relations between elements) to get around this, a multi-polygon. A multi-polygon can have multiple "outer" rings, and multiple "inner" rings. Each ring can either be a closed way as described above, or multiple individual ways that have common end nodes. While large multi-polygons are difficult to handle with any tool, small ones are not difficult to create in Vespucci. 
-* _coastlines_: for very large objects, continents and islands, even the multi-polygon model doesn't work in a satisfactory way. For natural=coastline ways we assume direction dependent semantics: the land is on the left side of the way, the water on the right side. A side effect of this is that, in general, you shouldn't reverse the direction of a way with coastline tagging. More information can be found on the [OSM wiki](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
+* _zárt vonalak („poligonok”)_: a legegyszerűbb és leggyakoribb területtípus, olyan vonalat jelent, amelynek a közös első és utolsó pontja zárt „gyűrűt” alkot (például a legtöbb épület ilyen típusú). Ezek nagyon könnyen létrehozhatóak a Vespuccival, egyszerűen kapcsoljon vissza az első ponthoz a terület megrajzolásakor. Megjegyzés: A zárt vonalak értelmezése a címkézésen múlik: például ha a zárt vonal épületként van címkézve, akkor területként lesz kezelve, ha körforgalomként, akkor nem. Egyes esetekben mindkét értelmezés érvényes lehet, ilyenkor egy „area” címke pontosíthatja a szándékolt használatot.
+* _multipoligonok_: egyes területek több részből is állhatnak, lyukakat és gyűrűket tartalmazhatnak, és így nem ábrázolhatóak egy vonallal. Az OSM egy konkrét kapcsolattípust használ ennek a feloldására, a multipoligont (a kapcsolat egy általános elem, amely elem közti kapcsolatokat tud leírni). Egy multipoligonnak több „külső (outer)” gyűrűje, és több „belső (inner)” gyűrűje is lehet. Ezek a gyűrűk lehetnek zártak, mint ahogy fentebb szerepel, vagy lehetnek különálló vonalak közös végpontokkal. Ugyan a nagy multipoligonok kezelése minden eszközzel bonyolult, a kisebbek létrehozása nem túl nehéz a Vespuccival.
+* _partvonalak_: nagyon nagy objektumok esetén, mint a kontinensek vagy a szigetek, még a multipoligon modell sem működik kielégítően. A natural=coastline vonalak esetén irányfüggő szemantikát alkalmazunk: a szárazföld a vonal bal oldalán van, a víz a jobb oldalán. Ennek mellékhatása, hogy általánosságban nem szabad megfordítani a partvonal címkézésű vonalakat. További információk az [OSM wikiben](http://wiki.openstreetmap.org/wiki/Tag:natural%3Dcoastline).
 
 #### Vonalgeometria javítása
 
-If you zoom in far enough on a selected way you will see a small "x" in the middle of the way segments that are long enough. Dragging the "x" will create a node in the way at that location. Note: to avoid accidentally creating nodes, the touch tolerance area for this operation is fairly small.
+Ha eléggé ránagyít a kiválasztott vonalra, akkor egy kis „x”-et fog látni az elég hosszú vonalszakaszok közepén. Az „x” húzása új pontot hoz létre azon a helyen. Megjegyzés: próbálja elkerülni a pontok véletlen létrehozását, az érintési toleranciaterület elég kicsi ennél a műveletnél.
 
 #### Kivágás, másolás és beillesztés
 
-You can copy or cut selected nodes and ways, and then paste once or multiple times to a new location. Cutting will retain the osm id and version. To paste long press the location you want to paste to (you will see a cross hair marking the location). Then select "Paste" from the menu.
+Másolhatja és kivághatja a kiválasztott pontokat és vonalakat, aztán egyszer vagy többször beillesztheti egy új helyen. A kivágás megtartja az OSM azonosítót és verziót. A beillesztéshez nyomja hosszan a területet, ahová be akarja illeszteni (egy célkereszt fogja jelölni a helyet). Aztán válassza ki a „Beillesztést” a menüből.
 
 #### Címek hatékony hozzáadása
 
-Vespucci has an "add address tags" function that tries to make surveying addresses more efficient. It can be selected:
+A Vespucci rendelkezik egy „cím címkék hozzáadása” funkcióval, amely megpróbálja hatékonyabbá tenni a felmérést. Így választható ki:
 
-* after a long press: Vespucci will add a node at the location and make a best guess at the house number and add address tags that you have been lately been using. If the node is on a building outline it will automatically add a "entrance=yes" tag to the node. The tag editor will open for the object in question and let you make any necessary further changes.
-* in the node/way selected modes: Vespucci will add address tags as above and start the tag editor.
-* in the tag editor.
+* hosszú nyomás után: a Vespucci egy pontot ad hozzá a helyen, és becslést ad a házszámra és hozzáadja a legutóbb használt cím címkéket. Ha a pont egy épület körvonalán van, akkor automatikus hozzáadja az „entrance=yes” címkét a ponthoz. A címkeszerkesztő megnyitja a kérdéses objektumot, és további változtatásokat tehet.
+* a pont/vonal kiválasztási módokban: a Vespucci hozzáadja a cím címkéket ahogy fent, és elindítja a címkeszerkesztőt.
+* a címkeszerkesztőben.
 
-House number prediction typically requires at least two house numbers on each side of the road to be entered to work, the more numbers present in the data the better.
+A házszámok becslésének működéséhez jellemzően legalább két házszám szükséges az út két oldalán, minél több szám szerepel az adatokban, annál jobb.
 
-Consider using this with the [Auto-download](#download) mode.  
+Fontolja meg, hogy ezt az [Automatikus letöltés](#download) móddal használja.  
 
 #### Kanyarodási korlátozások hozzáadása
 
-Vespucci has a fast way to add turn restrictions. if necessary it will split ways automatically and ask you to re-select elements. 
+A Vespucci rendelkezik egy gyors módszerrel a kanyarodási korlátozások hozzáadásához, ha szükséges, akkor automatikusan felosztja a vonalakat, és megkéri. hogy válassza ki újra az elemeket. 
 
-* select a way with a highway tag (turn restrictions can only be added to highways, if you need to do this for other ways, please use the generic "create relation" mode)
-* select "Add restriction" from the menu
-* select the "via" node or way (only possible "via" elements will have the touch area shown)
-* select the "to" way (it is possible to double back and set the "to" element to the "from" element, Vespucci will assume that you are adding an no_u_turn restriction)
-* set the restriction type
+* válasszon ki egy „highway” címkéjű vonalat (kanyarodási korlátozások csak ezekhez adhatóak, ha más vonalaknál akarja használni, akkor használja az általános „kapcsolat létrehozása” módot)
+* válassza ki a „Korlátozás hozzáadása” lehetőséget a menüből
+* válassza ki a „via” pontot vagy vonalat (csak a lehetséges „via” elemeknél lesz megjelenítve az érintési terület)
+* válassza ki a „to” vonalat (lehetséges visszalépni, és megadni a „to” elemet a „from” elemből, ekkor a Vespucci azt fogja feltételezni, hogy a „no_u_turn” korlátozást akarja hozzáadni)
+* állítsa be a korlátozás típusát
 
 ### Vespucci „zárolt” módban
 
-When the red lock is displayed all non-editing actions are available. Additionally a long press on or near to an object will display the detail information screen if it is an OSM object.
+Ha a piros zár látszik, akkor az összes nem szerkesztési művelet elérhető. Továbbá egy objektumon vagy a közelében történő hosszú nyomás megjeleníti a részletes információs képernyőt, ha az egy OSM objektum.
 
 ### Módosítások mentése
 
 *(hálózati kapcsolatot igényel)*
 
-Select the same button or menu item you did for the download and now select "Upload data to OSM server".
+Válassza ugyanazt a gombot vagy menüelemet, melyet a letöltésnél használt, és most válassza az „Adatok feltöltése az OSM kiszolgálóra” lehetőséget.
 
-Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
+A Vespucci támogatja az OAuth engedélyezést és a klasszikus felhasználónév és jelszó módszert. Az OAuth a javasolt, mivel így nem kell jelszót küldeni.
 
-New Vespucci installs will have OAuth enabled by default. On your first attempt to upload modified data, a page from the OSM website loads. After you have logged on (over an encrypted connection) you will be asked to authorize Vespucci to edit using your account. If you want to or need to authorize the OAuth access to your account before editing there is a corresponding item in the "Tools" menu.
+Az új Vespucci telepítésekben az OAuth automatikusan engedélyezett. Az első feltöltési kísérletkor az OSM weboldal egy lapja töltődik be. Ha bejelentkezett (titkosított kapcsolaton keresztül), akkor megkérésre kerül, hogy engedélyezze a Vespuccinak, hogy szerkessze a fiókját. Ha a szerkesztés előtt akarja engedélyezni az OAuth hozzáférést, akkor ezt megteheti az „Eszközök” menüben.
 
-If you want to save your work and do not have Internet access, you can save to a JOSM compatible .osm file and either upload later with Vespucci or with JOSM. 
+Ha menteni akarja a munkáját, és nincs internetkapcsolata, akkor elmentheti egy JOSM kompatibilis .osm fájlba, és felöltheti később a Vespuccival vagy a JOSM-mel. 
 
 #### Ütközések feloldása feltöltéskor
 
-Vespucci has a simple conflict resolver. However if you suspect that there are major issues with your edits, export your changes to a .osc file ("Export" menu item in the "Transfer" menu) and fix and upload them with JOSM. See the detailed help on [conflict resolution](Conflict%20resolution.md).  
+A Vespucci rendelkezik egy egyszerű ütközésfeloldóval. Viszont ha azt gondolja, hogy komoly problémák vannak a szerkesztéseivel, akkor exportálja a módosításokat egy .osc fájlba („Exportálás” menüelem az „Átküldés” menüben), majd javítsa ki és töltse fel a JOSM-mel. Lásd a részletes súgót az [ütközésfeloldásról](Conflict%20resolution.md).  
 
 ## GPS használata
 
-You can use Vespucci to create a GPX track and display it on your device. Further you can display the current GPS position (set "Show location" in the GPS menu) and/or have the screen center around and follow the position (set "Follow GPS Position" in the GPS menu). 
+Használhatja a Vespuccit GPX nyomvonalak létrehozására, és azok megjelenítésére az eszközén. Továbbá megjelenítheti a jelenlegi GPS pozíciót (lásd a „Pozíció megjelenítése” lehetőséget a GPS menüben). 
 
-If you have the latter set, moving the screen manually or editing will cause the "follow GPS" mode to be disabled and the blue GPS arrow will change from an outline to a filled arrow. To quickly return to the "follow" mode, simply touch GPS button or re-check the menu option.
+Ha az utóbbi van beállítva, akkor a képernyő kézi mozgatása vagy a szerkesztés letiltja „GPS követése” módot, és a kék GPS nyíl körvonal helyett kitöltött nyílra vált. A „követés” módhoz történő gyors visszatéréshez egyszerűen nyomja meg a GPS gombot, vagy kapcsolja be újra a menü lehetőséget.
 
 ## Jegyzetek és hibák
 
-Vespucci supports downloading, commenting and closing of OSM Notes (formerly OSM Bugs) and the equivalent functionality for "Bugs" produced by the [OSMOSE quality assurance tool](http://osmose.openstreetmap.fr/en/map/). Both have to either be down loaded explicitly or you can use the auto download facility to access the items in your immediate area. Once edited or closed, you can either upload the bug or Note immediately or upload all at once.
+A Vespucci támogatja az OSM jegyzetek (régebben OSM hibák) letöltését, lezárását és a megjegyzések hozzáfűzését, valamint támogatja az [OSMOSE hibaellenőrző eszköz](http://osmose.openstreetmap.fr/en/map/) „hibáit” is. Mind a kettőt vagy le kell tölteni direktben, vagy használhatja az automatikus letöltési lehetőséget, hogy elérje a közeli területen lévő elemeket. Ha már egyszer szerkesztette vagy lezárta őket, akkor egyesével vagy egyben is feltöltheti a hibákat vagy jegyzeteket.
 
-On the map the Notes and bugs are represented by a small bug icon ![Bug](../images/bug_open.png), green ones are closed/resolved, blue ones have been created or edited by you, and yellow indicates that it is still active and hasn't been changed. 
+A térképen a jegyzeteket vagy hibákat kis hiba ikonok ![Hiba](../images/bug_open.png) jelzik, a zöldek lezártak/megoldottak, a kékeket Ön hozta létre vagy szerkesztette, a sárgák pedig még mindig aktívak, és Ön nem változtatott rajtuk. 
 
-The OSMOSE bug display will provide a link to the affected object in blue, touching the link will select the object, center the screen on it and down load the area beforehand if necessary. 
+Az OSMOSE hibák kék hivatkozást jelenítenek meg az érintett objektumhoz, a hivatkozás megnyomása kiválasztja az objektumot, a képernyő közepére teszi azt, és letölti a területet, ha az szükséges. 
 
 ### Szűrés
 
-Besides globally enabling the notes and bugs display you can set a coarse grain display filter to reduce clutter. In the [Advanced preferences](Advanced%20preferences.md) you can individually select:
+A jegyzetek és hibák megjelenítésének globális engedélyezése mellett beállíthat egy durva szűrést, hogy csökkentse a zsúfoltságot. A [Speciális beállításokban](Advanced%20preferences.md) egyenként kiválaszthatja:
 
 * Jegyzetek
-* Osmose hiba
-* Osmose figyelmeztetés
-* Osmose apró probléma
+* Osmose szerinti hiba
+* Osmose szerinti figyelmeztetés
+* Osmose szerinti kisebb probléma
 * Egyéni
 
 <a id="indoor"></a>
 
 ## Beltéri mód
 
-Mapping indoors is challenging due to the high number of objects that very often will overlay each other. Vespucci has a dedicated indoor mode that allows you to filter out all objects that are not on the same level and which will automatically add the current level to new objects created there.
+A beltéri térképezés kihívásokkal teli a sok egymást fedő objektum miatt. A Vespucci rendelkezik egy dedikált beltéri móddal, amellyel kiszűrheti az objektumokat, melyek nem ugyanazon a szinten vannak, és automatikusan hozzáadhatja a jelenlegi szintet az újonnan létrehozott objektumokhoz.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: [Zárolás, feloldás, módváltás](#lock).
 
 <a id="c-mode"></a>
 
 ## C-mód
 
-In C-Mode only objects are displayed that have a warning flag set, this makes it easy to spot objects that have specific problems or match configurable checks. If an object is selected and the Property Editor started in C-Mode the best matching preset will automatically be applied.
+C-módban csak azok az objektumok jelennek meg, melyeken figyelmeztetés jelző van, így könnyen kiszúrhatja azokat az objektumokat, melyekkel konkrét probléma van, vagy egyeznek a beállítható ellenőrzésekkel. Ha egy objektum kiválasztásra kerül és elindul a tulajdonságszerkesztő C-módban, akkor a legjobban illeszkedő előbeállítás automatikusan beállításra kerül.
 
-The mode can be enabled by long pressing on the lock item, see [Lock, unlock, mode switching](#lock) and selecting the corresponding menu entry.
+A mód a zárolás gomb hosszú megnyomásával, és a megfelelő menüelem kiválasztásával engedélyezhető, lásd: [Zárolás, feloldás, módváltás](#lock).
 
 ### Ellenőrzések beállítása
 
-Currently there are two configurable checks (there is a check for FIXME tags and a test for missing type tags on relations that are currently not configurable) both can be configured by selecting "Validator preferences" in the "Preferences". 
+Jelenleg két beállítható ellenőrzés van (van egy ellenőrzés a FIXME címkékhez, és egy teszt a hiányzó kapcsolattípus címkékhez, melyek jelenleg nem konfigurálhatóak), és mind a kettő beállítható az „Ellenőrző beállításai” kiválasztásával a „Beállításokban”. 
 
-The list of entries is split in to two, the top half lists "re-survey" entries, the bottom half "check entries". Entries can be edited by clicking them, the green menu button allows adding of entries.
+A bejegyzések listája két részre van osztva, a felső része az „újbóli felmérési” bejegyzéseket tartalmazza, az alsó rész pedig az „ellenőrzési bejegyzéseket”. A bejegyzések koppintással szerkeszthetőek, és a zöld menügombbal adhatóak hozzá új bejegyzések.
 
-#### Újra felmérési bejegyzések
+#### Újbóli felmérési bejegyzések
 
-Re-survey entries have the following properties:
+Az újbóli felmérési bejegyzések a következő tulajdonságokkal rendelkeznek:
 
-* **Key** - Key of the tag of interest.
-* **Value** - Value the tag of interest should have, if empty the tag value will be ignored.
-* **Age** - how many days after the element was last changed the element should be re-surveyed, if a check_date field is present that will be the used, otherwise the date the current version was create. Setting the value to zero will lead to the check simply matching against key and value.
-* **Regular expression** - if checked **Value** is assumed to be a JAVA regular expression.
+* **Kulcs** – A kérdéses címke kulcs.
+* **Érték** – Az érték, amellyel a kérdéses címkének rendelkeznie kell, ha üres, akkor figyelmen kívül lesz hagyva.
+* **Kor** – az elem hány napi változatlansága esetén kell újra felmérni, ha a check_date mező meg van adva, akkor az lesz használva, egyébként a jelenlegi verzió létrehozási dátuma. Az érték nullára állítása esetén egy egyszerű kulcs és érték összehasonlítást eredményez.
+* **Reguláris kifejezés** – ha be van kapcsolva, akkor az **Érték** JAVA reguláris kifejezésnek lesz tekintve.
 
-**Key** and **Value** are checked against the _existing_ tags of the object in question.
+A **Kulcs** és az **Érték** a _meglévő_ címkékkel lesz összehasonlítva a kérdéses objektumon.
 
 #### Bejegyzések ellenőrzése
 
-Check entries have the following two properties:
+Az elemek ellenőrzése a következő két tulajdonsággal rendelkezik:
 
-* **Key** - Key that should be present on the object according to the matching preset.
-* **Require optional** - Require the key even if the key is in the optional tags of the matching preset .
+* **Kulcs** – Kulcs, amelynek jelen kell lennie az objektumon az előbeállítás szerint.
+* **Nem kötelező elemek megkövetelése** – A kulcs megkövetelése akkor is, ha a kulcs az előbeállítás nem kötelező címkéi között található.
 
-This check works by first determining the matching preset and then checking if **Key** is a "recommended" key for this object according to the preset, **Require optional** will expand the check to tags that are "optional* on the object. Note: currently linked presets are not checked.
+Ez az ellenőrzés úgy működik, hogy először meghatározza az illeszkedő előbeállítást, majd ellenőrzi, hogy a **Kulcs** egy „ajánlott” kulcs-e ennél az objektumnál, az előbeállítás szerint, a **Nem kötelező elemek megkövetelése** kiterjeszti az ellenőrzést azokra a címkékre is, melyek „nem kötelezőek” az objektumon. Megjegyzés: jelenleg a hivatkozott előbeállítások nem kerülnek ellenőrzésre.
 
 ## Szűrők
 
 ### Címkealapú szűrő
 
-The filter can be enabled from the main menu, it can then be changed by tapping the filter icon. More documentation can be found here [Tag filter](Tag%20filter.md).
+A szűrő a főmenüből engedélyezhető, és a szűrő ikonra koppintva módosítható. További dokumentáció található itt: [Címkeszűrő](Tag%20filter.md).
 
 ### Előbeállítás-alapú szűrő
 

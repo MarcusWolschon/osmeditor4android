@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="bugfilter_notes_entry">Megjegyzések</string>
+  <string name="bugfilter_notes_entry">Jegyzetek</string>
   <string name="bugfilter_osmose_error_entry">Osmose szerinti hiba</string>
   <string name="bugfilter_osmose_warning_entry">Osmose szerinti figyelmeztetés</string>
   <string name="bugfilter_osmose_minor_issue_entry">Osmose szerinti kisebb probléma</string>

@@ -2,13 +2,14 @@
 <resources>
     <string name="help_introduction">Johdanto</string>
     <string name="help_main">Pääkarttanäkymä</string>
-    <string name="help_addrelationmember">Relaatio valittuna</string>
+    <string name="help_simple_actions">Perustoiminnot</string>
+    <string name="help_addrelationmember">Relaatio valittu</string>
     <string name="help_multiselect">Monivalinta</string>
-    <string name="help_longclick">Uusien kohteiden luominen</string>
-    <string name="help_nodeselection">Piste valittuna</string>
-    <string name="help_pathcreation">Uusien kohteiden luominen</string>
-    <string name="help_relationselection">Relaatio valittuna</string>
-    <string name="help_wayselection">Viiva valittuna</string>
+    <string name="help_longclick">Uuden kohteen luonti</string>
+    <string name="help_nodeselection">Piste valittu</string>
+    <string name="help_pathcreation">Uuden kohteen luonti</string>
+    <string name="help_relationselection">Relaatio valittu</string>
+    <string name="help_wayselection">Viiva valittu</string>
     <string name="help_aligningbackgroundiamgery">Ilmakuvien kohdistaminen</string>
     <string name="help_propertyeditor">Ominaisuusmuokkain</string>
     <string name="help_preferences">Asetukset</string>
@@ -20,7 +21,12 @@
     <string name="help_tagfilter">Tägisuodin</string>
     <string name="help_presetfilter">Esivalintasuodin</string>
     <string name="help_opening_hours">Aukioloajat</string>
+    <string name="help_newnoteselection">Uuden huomion valinta</string>
+    <string name="help_voice_commands">Äänikomennot</string>
     <string name="help_upgrade">Julkaisutiedot</string>
+    <string name="help_upgrade_112">11.2 Julkaisutiedot</string>
+    <string name="help_upgrade_111">11.1 Julkaisutiedot</string>
+    <string name="help_upgrade_110">11.0 Julkaisutiedot</string>
     <string name="help_upgrade_102">10.2 Julkaisutiedot</string>
     <string name="help_upgrade_101">10.1 Julkaisutiedot</string>
     <string name="help_upgrade_100">10.0 Julkaisutiedot</string>
