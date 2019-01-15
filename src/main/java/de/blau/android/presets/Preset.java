@@ -1031,12 +1031,15 @@ public class Preset implements Serializable {
                 if (currentItem.isChunk()) { // only do this on the final expansion
                     return;
                 }
+                StringWithDescription dummy = new StringWithDescription("");
                 for (Entry<String, PresetField> e : fields.entrySet()) {
                     PresetField field = e.getValue();
                     String key = e.getKey();
                     if (field instanceof PresetCheckGroupField) {
                         for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                            tagItems.add(check.getKey() + "\t", currentItem);
+                            String checkKey = check.getKey();
+                            tagItems.add(checkKey + "\t", currentItem);
+                            currentItem.addToAutosuggest(checkKey, dummy);
                         }
                     } else {
                         tagItems.add(key + "\t", currentItem);
@@ -1052,6 +1055,8 @@ public class Preset implements Serializable {
                                 }
                                 currentItem.addToAutosuggest(key, values);
                             }
+                        } else {
+                            currentItem.addToAutosuggest(key, dummy);
                         }
                     }
                 }
