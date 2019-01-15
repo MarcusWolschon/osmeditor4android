@@ -59,6 +59,25 @@ public class MapSplitSource {
                 if (is != null) {
                     OsmPbfParser parser = new OsmPbfParser(storage, box);
                     new BlockInputStream(is, parser).process();
+                } else {
+                    // tile doesn't exist try ones further out
+                    // assumption there will only always be one tile that
+                    // covers an area
+                    int skipped = 2;
+                    while (mapTile.zoomLevel < minZoom) {
+                        mapTile.x >>= 1;
+                        mapTile.y >>= 1;
+                        --mapTile.zoomLevel;
+                        is = mbTiles.getTileStream(mapTile);
+                        if (is != null) {
+                            OsmPbfParser parser = new OsmPbfParser(storage, box);
+                            new BlockInputStream(is, parser).process();
+                            x += skipped;
+                            y += skipped;
+                            break;
+                        }
+                        skipped *= 2;
+                    }
                 }
             }
         }
