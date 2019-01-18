@@ -222,13 +222,44 @@
   <string name="json_array_not_displayed">JSON-kokoelma (ei näkyvissä)</string>
   <!--Layer dialog-->
   <string name="layer_geojson">GeoJSON</string>
+  <string name="layer_grid">Ruudukko</string>
+  <string name="layer_gpx">GPX</string>
+  <string name="layer_photos">Valokuvat</string>
+  <string name="layer_tasks">Tehtävät</string>
+  <string name="layer_data">OSM-data</string>
+  <string name="layer_flush_tile_cache">Tyhjennä laattamuisti</string>
+  <string name="layer_change_style">Vaihda tyyliä</string>
+  <string name="layer_select_imagery">Valitse kuvasto</string>
   <!--Undo - Redo dialog-->
+  <string name="checkpoints">Tarkastuspisteet</string>
+  <string name="undo_redo_title">Peru / palauta</string>
+  <string name="undo_redo_one">Vain valittu tarkastuspiste (riskialtis)</string>
+  <string name="undo_all">Peru kaikki myöhemmätkin (turvallinen)</string>
+  <string name="redo_all">Palauta kaikki aiemmatkin (turvallinen)</string>
   <!--Feedback activity-->
+  <string name="feedback_with_displayname">Lähetä OpenStreetMapin näyttönimellä</string>
+  <string name="feedback_displayname_hint">OpenStreetMapin näyttönimeä ei ole vielä haettu</string>
+  <string name="feedback_title">Palautetta kehittäjille</string>
   <!--BoxPicker-->
+  <string name="boxpicker_firsttimetitle">Lataa dataa OpenStreetMapistä</string>
   <!--NumberPiker-->
+  <string name="plus_sign">+</string>
+  <string name="minus_sign">-</string>
+  <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci</string>
+  <string name="default_channel_description">Vespuccin oletuskanava</string>
+  <string name="qa_channel_name">Vespucci QA</string>
+  <string name="qa_channel_description">Vespuccin laadunvarmistuksen hälytyskanava</string>
   <!--Toaster-->
+  <string name="toast_name_empty">Valitse nimi</string>
+  <string name="toast_url_empty">Syötä URL</string>
+  <string name="toast_min_zoom">Alimman tason on oltava suurinta pienempi</string>
   <string name="toast_no_changes">Et ole vielä tehnyt muutoksia...</string>
+  <string name="toast_unsaved_changes">Lähetä ensin tallentamattomat muutokset.</string>
+  <string name="clear_anyway">Nollataanko silti?</string>
+  <string name="toast_upload_success">Lähetetty OSM-palvelimelle.</string>
+  <string name="toast_not_in_edit_range">Lähennä ennen muokkausta (ääni ↑/↓ tai lens/shift)</string>
   <string name="toast_unlock_to_edit">Avaa lukitus ennen muokkausta</string>
   <string name="toast_export_success">Viety tiedostoon %1$s</string>
   <string name="toast_preset_overwrote_tags">Huomio: esivalinta muutti tägejä</string>
@@ -395,6 +426,7 @@
   <string name="menu_tools_background_align_reset">Palauta</string>
   <string name="menu_tools_background_align_zero">Nollaa</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers_add_grid">Lisää ruudukko</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrasti</string>
   <string name="menu_tools_oauth_reset">Nollaa OAuth</string>

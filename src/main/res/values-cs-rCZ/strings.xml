@@ -592,9 +592,15 @@
   <string name="menu_reverse">Obrátit cestu</string>
   <string name="notreversable_description">Cesta obsahuje tagy, které jsou směrově závislé a nemohou být obráceny. Obrácením cesty dojde k poškození tagů.</string>
   <string name="reverse_anyway">Přesto obrátit</string>
+  <string name="deleteway_description">Chystáte se smazat cestu.\n\nMůžete zachovat všechny uzly, nebo smazat ty, které patří pouze k této cestě a nemají žádné tagy.</string>
+  <string name="deleteway_relation_description">Chystáte se odstranit cestu, která je členem jedné nebo více relací. Odstranění cesty v relaci může způsobit chybné vykreslování.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Cesta obsahuje uzly mimo staženou oblast a její smazání způsobí nekonzistentní stav. Nejdříve si ji stáhněte celou a zkuste to znovu.</string>
+  <string name="deleteway_wayonly">Smazat pouze cestu</string>
   <string name="deleteway_wayandnodes">Smazat cestu</string>
+  <string name="deletenode_relation_description">Chystáte se odstranit uzel, který je členem jedné nebo více relací. Odstranění uzlu v relaci může způsobit chybné vykreslování.</string>
   <string name="deletenode">Smazat uzel</string>
   <string name="split_all_ways">Rozdělit všechny cesty</string>
+  <string name="delete_note_description">Smazaní poznámky nelze vrátit zpět!</string>
   <string name="delete_note">Smazat poznámku</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Cesta vybrána</string>
@@ -628,42 +634,61 @@
   <string name="menu_add_map_note">Přidat poznámku</string>
   <string name="simple_add_note">Zvolte pozici na mapě</string>
   <string name="menu_paste_object">Vložit objekt</string>
+  <string name="simple_paste">Zvolte pozici na mapě</string>
+  <string name="menu_paste_multiple">Vložit vícekrát</string>
+  <string name="simple_paste_multiple">Zvolte pozici na mapě</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Pozadí mapy</string>
   <string name="config_backgroundLayer_summary">Dlaždicové pozadí mapy.</string>
   <string name="config_overlayLayer_title">Překrytí mapy</string>
   <string name="config_overlayLayer_summary">Dlaždicová překryvná vrstva mapy.</string>
   <string name="config_customlayers_title">Vlastní vrstvy</string>
+  <string name="config_customlayers_summary">Nastavení vrstev, které nejsou ve výchozí konfiguraci.</string>
   <string name="config_scale_title">Zobrazení měřítka</string>
   <string name="config_scale_summary">Typ měřítka zobrazeného na mapě.</string>
   <string name="config_mapProfile_title">Styl dat</string>
+  <string name="config_mapProfile_summary">Zvolte styl vrstvy s datay</string>
   <string name="config_enableOpenStreetBugs_title">Zobrazovat poznámky a chyby</string>
   <string name="config_enableOpenStreetBugs_summary">Zobrazení, úprava a vytváření poznámek a chyb.</string>
   <string name="config_enablePhotoLayer_title">Povolit fotovrstvu</string>
   <string name="config_enablePhotoLayer_summary">Zobrazovat georeferencované fotografie</string>
   <string name="config_enableKeepScreenOn_title">Nezhasínat obrazovku</string>
+  <string name="config_enableKeepScreenOn_summary">Zabránit vypínaní obrazovky pro úsporu energie.</string>
   <string name="config_largeDragArea_title">Větší oblast pro výběr uzlu</string>
+  <string name="config_largeDragArea_summary">Poskytne větší oblast pro vybírání uzlů.</string>
   <string name="config_advancedprefs">Rozšířená nastavení</string>
   <string name="config_moreprefs">Další nastavení…</string>
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
+  <string name="config_built_in_preset">Výchozí předvolby</string>
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
+  <string name="config_validatorprefs_summary">Nastavení pravidel validátoru.</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Autoři a licence</string>
   <string name="config_debugbutton_title">Ladění</string>
   <string name="config_category_info">Informace</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_category_view">Nastavení uživatelského rozhraní</string>
+  <string name="config_category_view_summary">Nastavení rozložení a zobrazení.</string>
   <string name="config_iconbutton_title">Zobrazit ikonky uzlů</string>
   <string name="config_iconbutton_summary">Ukázat ikonku nejlépe odpovídající předvolbě uzlu.</string>
   <string name="config_showWayIcons_title">Zobrazit ikony POI budov</string>
   <string name="config_showWayIcons_summary">Ukázat ikonku nejlépe odpovídající předvolbě budovy.</string>
   <string name="config_tagFormEnabled_title">Zobrazit formulář tagů</string>
+  <string name="config_tagFormEnabled_summary">Pro úpravu tagů zobrazí formulář.</string>
   <string name="config_showCameraAction_title">Zobrazit tlačítko fotoaparátu</string>
+  <string name="config_showCameraAction_summary">Zobrazit ikonu fotoaparátu na liště nástrojů.</string>
+  <string name="config_followGPSbutton_title">Umístění tlačítka Následovat polohu</string>
+  <string name="config_followGPSbutton_summary">Kde bude tlačítko „Následovat polohu“ umístěno.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Vždy ztmavit nestažené oblasti</string>
   <string name="config_fullscreenMode_title">Celá obrazovka</string>
   <string name="config_fullscreenMode_summary">Chování v zařízeních se softwarovými tlačítky.</string>
   <string name="config_showTolerance_title">Zobrazit toleranci</string>
+  <string name="config_use_back_for_undo_title">Tlačítkem ← vracet změny</string>
+  <string name="config_use_back_for_undo_summary">Použít tlačítko ← pro vracení úprav v hlavním okně</string>
+  <string name="config_enableLightTheme_title">Světlý vzhled</string>
+  <string name="config_enableLightTheme_summary">Světlé a bílé pozadí.</string>
   <string name="config_splitActionBarEnabled_title">Povolit rozdělení lišty nástrojů</string>
   <string name="config_maxInlineValues_title">Max. počet vložených hodnot</string>
   <string name="config_maxInlineValues_current">%1$d hodnoty</string>
@@ -732,7 +757,7 @@
   <string name="manage_presets">Spravovat předvolby</string>
   <string name="manage_geocoders">Spravovat geokodéry</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Aktualizovat předvolbu</string>
+  <string name="preset_update">Aktualizovat předvolby</string>
   <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_title">Přednastavený downloader</string>
   <!--changes-->

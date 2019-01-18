@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-12 21:30+0000\n"
+"PO-Revision-Date: 2019-01-17 10:46+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -735,7 +735,7 @@ msgstr ""
 
 #: master_preset.xml:5383(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
-msgstr ""
+msgstr "جاذبه"
 
 #: master_preset.xml:6517(combo:display_values|group:Culture|preset:Studio|key:studio)
 msgid "Audio"
@@ -3181,7 +3181,7 @@ msgstr ""
 #: master_preset.xml:475(combo:text|key:fee)
 #: master_preset.xml:5937(text:text|group:Leisure|preset:Horse_Riding|key:fee)
 msgid "Fee"
-msgstr ""
+msgstr "هزینه"
 
 #: master_preset.xml:12942(item:name|group:Nature|preset:Fell)
 msgid "Fell"
@@ -4815,7 +4815,7 @@ msgstr ""
 #: master_preset.xml:964(check:text|group:Streets|preset:Motorway|key:lit)
 #: master_preset.xml:997(check:text|group:Streets|preset:Motorway_Link|key:lit)
 msgid "Lit"
-msgstr ""
+msgstr "روشنایی"
 
 #: master_preset.xml:12197(check:text|preset:Payment_Methods|key:payment:litecoin)
 msgid "Litecoin"
@@ -9029,7 +9029,7 @@ msgstr ""
 
 #: master_preset.xml:13574(text:text|group:Addresses_and_Contact|preset:Address|key:addr:subdistrict)
 msgid "Subdistrict"
-msgstr ""
+msgstr "زیرمنطقه"
 
 #: master_preset.xml:6501(text:text|group:Culture|preset:Artwork|key:artwork_subject)
 msgid "Subject"
@@ -13144,7 +13144,7 @@ msgstr ""
 #: master_preset.xml:5769(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
 msgid "Attraction"
-msgstr ""
+msgstr "جاذبه"
 
 #: master_preset.xml:6037(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgctxt "leisure"

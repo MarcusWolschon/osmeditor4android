@@ -32,6 +32,8 @@
   <string name="forbidden_login_title">Доступ запрещен</string>
   <string name="not_found_title">Элемент не найден</string>
   <string name="not_found_message">API не смог найти существующий элемент или набор изменений с заданным идентификатором.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">Неизвестная ошибка</string>
+  <string name="unknown_error_message">Код ошибки API или ее сообщение не удалось обработать.&lt;br&gt;&lt;br&gt;</string>
   <string name="go_to_openstreetmap">Перейти на openstreetmap.org</string>
   <string name="data_conflict_title">Конфликт версий</string>
   <string name="data_conflict_message">Данные, которые вы пытаетесь загрузить, содержат конфликты с вашими правками. Попробуйте сначала передать ваши изменения на сервер, а затем повторите попытку.</string>
@@ -51,6 +53,7 @@
   <string name="file_write_failed_title">Не удалось записать в файл.</string>
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
   <string name="welcome_title">Добро пожаловать</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="read_introduction">Прочесть введение</string>
   <string name="upgrade_title">Это новая версия Vespucci</string>
   <string name="upgrade_message">Новые функции и возможности описаны в примечаниях к обновлению.</string>
@@ -128,7 +131,10 @@
   <string name="save_file">Сохранить в файл</string>
   <string name="existing_track_title">Существующие данные GPS-трека</string>
   <string name="existing_track_message">Имеются несохранённые данные другого GPS-трека. Вы можете отменить команду и сначала сохранить данные.</string>
+  <string name="delete_tags">Действительно удалить все теги у объекта \"%1$s\"?</string>
   <!--element information dialog-->
+  <string name="element_information">Информация об элементе</string>
+  <string name="id">ID</string>
   <string name="nodes">Точки</string>
   <string name="relation_membership">Участники отношения</string>
   <string name="problem">Проблема</string>
@@ -137,17 +143,24 @@
   <string name="version">Версия</string>
   <string name="length_m">Длина (м)</string>
   <string name="not_downloaded">Не загружено</string>
+  <string name="empty_role">Пустая роль</string>
   <string name="last_edited">Последняя правка</string>
   <string name="original">Исходный</string>
   <string name="current">Текущий</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Скопировать свойства</string>
   <!---->
+  <string name="error">Ошибка</string>
+  <string name="warning">Предупреждение</string>
+  <string name="minor_issue">Незначительная проблема</string>
+  <string name="unknown_error_level">Неизвестная важность ошибки</string>
   <!--hidden object warning dialog-->
   <string name="attached_object_warning_title">Это действие затрагивает соединённые скрытые объекты</string>
+  <string name="attached_object_warning_message">Изменённый объект соединён с неотображаемыми элементами, которые также будут изменены.</string>
   <!--This concerns a shown message-->
   <!--This concerns a shown message-->
   <!--debug dialog-->
+  <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
   <string name="evaluate">Оценить</string>
   <string name="js_console_msg_live">\"Живой\" режим!</string>
@@ -160,9 +173,13 @@
   <string name="add_check_title">Добавить проверку по значению</string>
   <string name="max_age">Макс. возраст</string>
   <string name="age">Возраст</string>
+  <string name="check_opt">И необяз. ключи</string>
+  <string name="check_optional">Проверять значения, где этот ключ необязателен</string>
   <string name="add_resurvey_entry">Добавить проверку по дате</string>
   <string name="add_check_entry">Добавить проверку по значению</string>
   <!--Empty relation dialog-->
+  <string name="empty_relation_title">Пустое отношение</string>
+  <string name="empty_relation_message">Отношение %1$s не имеет участников.\n\nОставляя его таким, вы потеряете возможность его редактирования в Vespucci.</string>
   <string name="add_members">Добавить участников</string>
   <string name="leave_empty">Оставить пустым</string>
   <!--GPX waypoint dialog-->
@@ -170,6 +187,8 @@
   <string name="description">Описание</string>
   <string name="created">Создано</string>
   <string name="altitude">Высота</string>
+  <string name="create_osm_object">Создать объект OSM</string>
+  <string name="create_osm_object_search">Создать объект OSM из подходящей заготовки</string>
   <!--Custom imagery dialogs-->
   <string name="custom_layer_title">Пользовательские снимки</string>
   <string name="oam_layer_title">Снимки OAM</string>
@@ -196,11 +215,13 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Фотографии</string>
   <string name="layer_tasks">Задачи</string>
+  <string name="layer_data">Данные OSM</string>
   <string name="layer_flush_tile_cache">Очистить  базу для карты</string>
   <string name="layer_change_style">Изменить стиль</string>
   <string name="layer_select_imagery">Выберите источник</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Контрольные точки</string>
+  <string name="undo_redo_title">Отмена - Повтор</string>
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--Feedback activity-->

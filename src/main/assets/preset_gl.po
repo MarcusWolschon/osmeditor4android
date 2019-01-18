@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-12 23:35+0000\n"
+"PO-Revision-Date: 2019-01-18 21:44+0000\n"
 "Last-Translator: Ivan Seoane\n"
 "Language-Team: Galician (http://www.transifex.com/openstreetmap/presets/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -1254,7 +1254,7 @@ msgstr "Corredor de apostas"
 
 #: master_preset.xml:7687(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
-msgstr ""
+msgstr "Cabina"
 
 #: master_preset.xml:2399(item:name|group:Barriers|preset:Border_Control)
 msgid "Border Control"
@@ -3261,7 +3261,7 @@ msgstr "Lumeirada"
 #: master_preset.xml:6126(check:text|preset:Picnic_Site|key:fireplace)
 #: master_preset.xml:7926(check:text|group:Facilities|preset:Shelter|key:fireplace)
 msgid "Fireplace"
-msgstr ""
+msgstr "Cheminea"
 
 #: master_preset.xml:12094(item:name|group:Other|preset:Fireworks)
 msgid "Fireworks"
@@ -7093,7 +7093,7 @@ msgstr "Partido político"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "Estanque"
 
 #: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -8968,7 +8968,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "Regato"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -10421,7 +10421,7 @@ msgstr "Ancho (metros)"
 #: master_preset.xml:673(text:text|key:wikidata)
 #: master_preset.xml:697(text:text|key:wikidata)
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: master_preset.xml:10400(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikipedia)
 #: master_preset.xml:12373(text:text|group:Boundaries|preset:Protected_Area|key:wikipedia)
@@ -11715,7 +11715,7 @@ msgstr ""
 #: master_preset.xml:478(combo:display_values|key:parking)
 msgctxt "parking"
 msgid "Rooftop"
-msgstr ""
+msgstr "Teito"
 
 #: master_preset.xml:478(combo:display_values|key:parking)
 msgctxt "parking"
@@ -11982,7 +11982,7 @@ msgstr ""
 #: master_preset.xml:582(combo:display_values|key:location)
 msgctxt "power"
 msgid "Rooftop"
-msgstr ""
+msgstr "Teito"
 
 #: master_preset.xml:10128(combo:text|preset:Power_Tower|key:design)
 msgctxt "power"
@@ -12971,7 +12971,7 @@ msgstr "Horrible"
 #: master_preset.xml:1681(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermedio "
 
 #: master_preset.xml:1681(combo:display_values|group:Ways|preset:Path|key:trail_visibility)
 msgctxt "trail_visibility"
@@ -13701,7 +13701,7 @@ msgstr ""
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: master_preset.xml:8601(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
@@ -13711,27 +13711,27 @@ msgstr "Dificultade"
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Easy"
-msgstr ""
+msgstr "Doado"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Expert"
-msgstr ""
+msgstr "Experto"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Freeride"
-msgstr ""
+msgstr "Ceibe"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Intermediate"
-msgstr ""
+msgstr "Intermedio "
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Novice"
-msgstr ""
+msgstr "Novato"
 
 #: master_preset.xml:8603(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"

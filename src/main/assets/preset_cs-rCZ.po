@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-12 18:35+0000\n"
-"Last-Translator: DwynDwe <kasik.daniel@email.cz>\n"
+"PO-Revision-Date: 2019-01-17 22:01+0000\n"
+"Last-Translator: Jakub Jelen <jakuje@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1613,7 +1613,7 @@ msgstr "Kanadský fotbal"
 #: master_preset.xml:3078(item:name|group:Water|preset:Canal)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Canal"
-msgstr ""
+msgstr "Vodní kanál"
 
 #: master_preset.xml:11305(item:name|group:Home_furnishing_and_decoration|preset:Candles)
 msgid "Candles"
@@ -7095,7 +7095,7 @@ msgstr ""
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "Rybník"
 
 #: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -7835,7 +7835,7 @@ msgstr ""
 #: master_preset.xml:3222(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Přehrada"
 
 #: master_preset.xml:5799(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -7925,7 +7925,7 @@ msgstr ""
 #: master_preset.xml:3057(item:name|group:Water|preset:River)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "River"
-msgstr ""
+msgstr "Řeka"
 
 #: master_preset.xml:3288(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
@@ -8970,7 +8970,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "Potok"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -13028,7 +13028,7 @@ msgstr ""
 #: master_preset.xml:2596(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Houpaška"
 
 #: master_preset.xml:2596(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
@@ -13371,7 +13371,7 @@ msgstr ""
 #: master_preset.xml:6094(item:name|group:Playground_equipment|preset:Swing)
 msgctxt "leisure"
 msgid "Swing"
-msgstr ""
+msgstr "Houpaška"
 
 #: master_preset.xml:5784(list_entry:display_value|group:Leisure|preset:Rides|value:swing_carousel)
 msgctxt "leisure"
@@ -13753,7 +13753,7 @@ msgstr ""
 #: master_preset.xml:8603(combo:text|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Grooming"
-msgstr ""
+msgstr "Úprava"
 
 #: master_preset.xml:8603(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -13983,7 +13983,7 @@ msgstr ""
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
 msgid "Swing"
-msgstr ""
+msgstr "Houpaška"
 
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
