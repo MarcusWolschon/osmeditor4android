@@ -273,7 +273,7 @@
     <string name="toast_merge_tag_conflict">You merged elements with conflicting tag values, direction dependent semantics or different roles in the same relation. Please check the tags and roles and correct them if needed.</string>
     <string name="toast_potential_merge_tag_conflict">You are trying to merge elements with conflicting tag values.\n\nPlease check the tags and correct them before trying again.</string>
     <string name="toast_state_file_failed">Unreadable or corrupt state file</string>
-    <string name="toast_too_many_nodes_for_move">Too many nodes in way to move</string>
+    <string name="toast_way_nodes_moved">%1$d nodes in moved way</string>
     <plurals name="toast_unread_mail">
         <item quantity="one">You have an unread OSM message</item>
         <item quantity="other">You have %1$d unread OSM messages</item>

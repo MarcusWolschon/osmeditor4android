@@ -1152,7 +1152,7 @@ public class Logic {
      * @param x display-coord.
      * @param y display-coord.
      */
-    synchronized void handleTouchEventDown(Activity activity, final float x, final float y) {
+    synchronized void handleTouchEventDown(@NonNull Activity activity, final float x, final float y) {
         boolean draggingMultiselect = false;
         if (!isLocked() && isInEditZoomRange() && mode.elementsGeomEditiable()) {
             draggingNode = false;
@@ -1186,13 +1186,9 @@ public class Logic {
                         } else {
                             Way clickedWay = getClickedWay(x, y);
                             if (clickedWay != null && (clickedWay.getOsmId() == selectedWays.get(0).getOsmId())) {
-                                if (selectedWays.get(0).getNodes().size() <= MAX_NODES_FOR_MOVE) {
-                                    startLat = yToLatE7(y);
-                                    startLon = xToLonE7(x);
-                                    draggingWay = true;
-                                } else {
-                                    Snack.barError(activity, R.string.toast_too_many_nodes_for_move);
-                                }
+                                startLat = yToLatE7(y);
+                                startLon = xToLonE7(x);
+                                draggingWay = true;
                             }
                         }
                     } else {
@@ -1294,7 +1290,7 @@ public class Logic {
      * @param relativeY The difference to the last absolute display-coordinate.
      * @throws OsmIllegalOperationException
      */
-    synchronized void handleTouchEventMove(Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
+    synchronized void handleTouchEventMove(@NonNull Main main, final float absoluteX, final float absoluteY, final float relativeX, final float relativeY) {
         if (draggingNode || draggingWay || draggingHandle || draggingNote) {
             int lat;
             int lon;
@@ -1348,7 +1344,7 @@ public class Logic {
             } else { // way dragging and multi-select
                 lat = yToLatE7(absoluteY);
                 lon = xToLonE7(absoluteX);
-                ArrayList<Node> nodes = new ArrayList<>();
+                List<Node> nodes = new ArrayList<>();
                 if (selectedWays != null && !selectedWays.isEmpty()) { // shouldn't happen but might be a race condition
                     for (Way w : selectedWays) {
                         nodes.addAll(w.getNodes());
@@ -1361,6 +1357,11 @@ public class Logic {
                 displayAttachedObjectWarning(main, nodes);
 
                 getDelegator().moveNodes(nodes, lat - startLat, lon - startLon);
+
+                if (nodes.size() > MAX_NODES_FOR_MOVE && selectedWays != null && selectedWays.size() == 1
+                        && (selectedNodes == null || selectedNodes.isEmpty())) {
+                    Snack.toastTopWarning(main, main.getString(R.string.toast_way_nodes_moved, nodes.size()));
+                }
                 // update
                 startLat = lat;
                 startLon = lon;
@@ -1442,7 +1443,7 @@ public class Logic {
      * @param screenTransX Movement on the screen.
      * @param screenTransY Movement on the screen.
      */
-    private void performTranslation(Map map, final float screenTransX, final float screenTransY) {
+    private void performTranslation(@NonNull Map map, final float screenTransX, final float screenTransY) {
         int height = map.getHeight();
         int lon = xToLonE7(screenTransX);
         int lat = yToLatE7(height - screenTransY);
