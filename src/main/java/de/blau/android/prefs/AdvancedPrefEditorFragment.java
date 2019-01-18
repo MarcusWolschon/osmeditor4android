@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
 import android.util.Log;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
@@ -85,7 +87,8 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
                 public boolean onPreferenceClick(Preference preference) {
                     Log.d(DEBUG_TAG, "onPreferenceClick 2");
                     Intent intent = new Intent(getActivity(), APIEditorActivity.class);
-                    if (Main.hasChanges()) {
+                    final Logic logic = App.getLogic();
+                    if (logic != null && logic.hasChanges()) {
                         DataLossActivity.showDialog(getActivity(), intent, -1);
                     } else {
                         startActivity(intent);

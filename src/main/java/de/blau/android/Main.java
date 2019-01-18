@@ -3733,6 +3733,11 @@ public class Main extends FullScreenAppCompatActivity
         return networkStatus.isConnected();
     }
 
+    /**
+     * Check if we are network connected or in the process of connecting
+     * 
+     * @return true if either state is true
+     */
     public boolean isConnectedOrConnecting() {
         if (networkStatus == null) {
             networkStatus = new NetworkStatus(this);
@@ -3742,15 +3747,6 @@ public class Main extends FullScreenAppCompatActivity
 
     public Map getMap() {
         return map;
-    }
-
-    public static boolean hasChanges() {
-        final Logic logic = App.getLogic();
-        // noinspection SimplifiableIfStatement
-        if (logic == null) {
-            return false;
-        }
-        return logic.hasChanges();
     }
 
     /**
