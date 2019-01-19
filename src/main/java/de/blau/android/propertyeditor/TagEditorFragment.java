@@ -1762,12 +1762,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 if (script != null) {
                     try {
                         value = de.blau.android.javascript.Utils.evalString(getActivity(), " " + key, script, buildEdits(), tags, value);
-                        if (value == null) {
-                            tags.remove(key);
-                            return;
-                        }
                     } catch (Exception ex) {
                         Snack.barError(getActivity(), ex.getLocalizedMessage());
+                    }
+                    if (value == null) {
+                        tags.remove(key);
+                        return;
                     }
                 }
             }
