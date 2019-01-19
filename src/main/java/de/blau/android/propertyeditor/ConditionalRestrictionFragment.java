@@ -124,8 +124,16 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     private transient boolean loadedDefault = false;
 
     /**
+     * Create a new instance
+     * 
+     * @param key the key for the conditional restriction
+     * @param value a already present value or null
+     * @param templates templates for the restriction values
+     * @param ohTemplates opening hour templates
+     * @return an instance of ConditionalRestrictionFragment
      */
-    public static ConditionalRestrictionFragment newInstance(String key, String value, ArrayList<String> templates, ArrayList<String> ohTemplates) {
+    public static ConditionalRestrictionFragment newInstance(@NonNull String key, @Nullable String value, @NonNull ArrayList<String> templates,
+            @NonNull ArrayList<String> ohTemplates) {
         ConditionalRestrictionFragment f = new ConditionalRestrictionFragment();
 
         Bundle args = new Bundle();
@@ -134,8 +142,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         args.putSerializable(TEMPLATES_KEY, templates);
         args.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
         f.setArguments(args);
-        // f.setShowsDialog(true);
-
         return f;
     }
 
@@ -333,10 +339,10 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * Initial setup of layout
      * 
-     * @param conditionalRestrictionLayout
-     * @param conditionalRestrictionValue
+     * @param conditionalRestrictionLayout the layout that will hold our views
+     * @param conditionalRestrictionValue the current restriction value
      */
-    private void buildLayout(final LinearLayout conditionalRestrictionLayout, final String conditionalRestrictionValue) {
+    private void buildLayout(@NonNull final LinearLayout conditionalRestrictionLayout, @NonNull final String conditionalRestrictionValue) {
         text = (EditText) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_string_edit);
         sv = (ScrollView) conditionalRestrictionLayout.findViewById(R.id.conditional_restriction_view);
 
@@ -419,11 +425,11 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     }
 
     /**
-     * Remove all highlighting
+     * Remove all highlighting from an EditText
      * 
-     * @param text
+     * @param text the EditText
      */
-    private synchronized void removeHighlight(EditText text) {
+    private synchronized void removeHighlight(@NonNull EditText text) {
         int pos = text.getSelectionStart();
         int prevLen = text.length();
         if (restrictions != null) {
@@ -434,7 +440,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
     }
 
-    private synchronized void buildForm(ScrollView sv, List<Restriction> restrictions) {
+    /**
+     * Build the complete form from a List of Restrictions
+     * 
+     * @param sv the ScrollView everything is displayed in
+     * @param restrictions the List of Restrictions
+     */
+    private synchronized void buildForm(@NonNull ScrollView sv, @NonNull List<Restriction> restrictions) {
         sv.removeAllViews();
         Activity a = getActivity();
         if (a == null) {
@@ -451,7 +463,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         }
     }
 
-    private void addRestriction(LinearLayout ll, final Restriction r) {
+    /**
+     * Add one Restriction to a LinearLayout
+     * 
+     * @param ll the LinearLayout
+     * @param r the Restriction
+     */
+    private void addRestriction(@NonNull LinearLayout ll, @NonNull final Restriction r) {
         LinearLayout groupHeader = (LinearLayout) inflater.inflate(R.layout.restriction_header, null);
         TextView header = (TextView) groupHeader.findViewById(R.id.header);
         header.setText(R.string.tag_restriction_header);
@@ -646,7 +664,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         }
     }
 
-    private void setAdapterAndListeners(AutoCompleteTextView atv, ArrayAdapter<String> adapter) {
+    /**
+     * Set the ArrayAdapter for the dropdown on an AutoCompleteTextView
+     * 
+     * @param atv the AutoCompleteTextView
+     * @param adapter the ArrayAdapter
+     */
+    private void setAdapterAndListeners(@NonNull AutoCompleteTextView atv, @NonNull ArrayAdapter<String> adapter) {
         atv.setAdapter(adapter);
         atv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -666,7 +690,13 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         });
     }
 
-    private synchronized void updateRestrictionStringFromView(EditText view, Restriction r) {
+    /**
+     * Update the text display of the restriction
+     * 
+     * @param view an EditText containing ?
+     * @param r the object containing the restriction
+     */
+    private synchronized void updateRestrictionStringFromView(@Nullable EditText view, @NonNull Restriction r) {
         text.removeTextChangedListener(watcher);
         int pos = 0;
         if (view != null) {
@@ -773,6 +803,14 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         text.postDelayed(updateStringRunnable, 100);
     }
 
+    /**
+     * Conditional restrictions can contain OH fields, this add a special UI element to dispaly and start editing them
+     * 
+     * @param row an OpeningHoursDialogRow
+     * @param key the key
+     * @param r the restrictions
+     * @param c the condition
+     */
     private void addOpeningHoursDialogField(@NonNull final OpeningHoursDialogRow row, @NonNull final String key, @NonNull final Restriction r,
             @NonNull final Condition c) {
 
@@ -895,8 +933,9 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * Return the view we have our rows in and work around some android craziness
      * 
-     * @return
+     * @return the View holding the UI elements or null
      */
+    @Nullable
     public View getOurView() {
         // android.support.v4.app.NoSaveStateFrameLayout
         View v = getView();
@@ -919,6 +958,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         return null;
     }
 
+    /**
+     * Convert density independent pixels to screen pixels
+     * 
+     * @param dp the density independent pixel value
+     * @return the corresponding number of screen pixels
+     */
     private int dpToPixels(int dp) {
         Resources r = getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
@@ -941,12 +986,23 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         int                  errorTextColor = ContextCompat.getColor(getContext(),
                 ThemeUtils.getStyleAttribColorValue(getContext(), R.attr.textColorError, R.color.material_red));
 
-        public OpeningHoursDialogRow(Context context) {
+        /**
+         * Construct a new row holding an OH value
+         * 
+         * @param context an Android Context
+         */
+        public OpeningHoursDialogRow(@NonNull Context context) {
             super(context);
             inflater = LayoutInflater.from(context);
         }
 
-        public OpeningHoursDialogRow(Context context, AttributeSet attrs) {
+        /**
+         * Construct a new row holding an OH value
+         * 
+         * @param context an Android Context
+         * @param attrs an AttributeSet
+         */
+        public OpeningHoursDialogRow(@NonNull Context context, AttributeSet attrs) {
             super(context, attrs);
             inflater = LayoutInflater.from(context);
         }
@@ -972,13 +1028,24 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             }
         }
 
-        public void setValue(String value, String description) {
+        /**
+         * Set the value
+         * 
+         * @param value the value
+         * @param description the description
+         */
+        public void setValue(@NonNull String value, @NonNull String description) {
             this.value = value;
             valueView.setText(description);
             valueView.setTag(value);
         }
 
-        public void setValue(String s) {
+        /**
+         * Set the value and decription to the same String
+         * 
+         * @param s the value
+         */
+        public void setValue(@NonNull String s) {
             setValue(s, s);
         }
 

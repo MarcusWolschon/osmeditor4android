@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.acra.ACRA;
@@ -16,6 +17,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.contract.Paths;
@@ -27,7 +30,7 @@ import de.blau.android.util.rtree.RTree;
 /**
  * Scan the system for geo ref photos and store is in a DB
  * 
- * @author simon
+ * @author Simon
  *
  */
 public class PhotoIndex extends SQLiteOpenHelper {
@@ -42,7 +45,12 @@ public class PhotoIndex extends SQLiteOpenHelper {
         }
     }
 
-    public PhotoIndex(Context context) {
+    /**
+     * Provide access to the on disk Photo index
+     * 
+     * @param context an Android Context
+     */
+    public PhotoIndex(@NonNull Context context) {
         super(context, "PhotoIndex", null, DATA_VERSION);
     }
 
@@ -242,10 +250,11 @@ public class PhotoIndex extends SQLiteOpenHelper {
     /**
      * Return all photographs in a given bounding box If necessary fill in-memory index first
      * 
-     * @param box
-     * @return
+     * @param box the BoundingBox we are interested in
+     * @return a BoundingBox
      */
-    public Collection<Photo> getPhotos(BoundingBox box) {
+    @NonNull
+    public Collection<Photo> getPhotos(@NonNull BoundingBox box) {
         RTree index = App.getPhotoIndex();
         if (index == null) {
             return new ArrayList<>();
@@ -254,7 +263,12 @@ public class PhotoIndex extends SQLiteOpenHelper {
         return getPhotosFromIndex(index, box);
     }
 
-    public synchronized void fill(RTree index) {
+    /**
+     * Create the in-memory index from the on device database
+     * 
+     * @param index the current in memory index or null
+     */
+    public synchronized void fill(@Nullable RTree index) {
         if (index == null) {
             App.resetPhotoIndex(); // allocate r-tree
             index = App.getPhotoIndex();
@@ -282,11 +296,19 @@ public class PhotoIndex extends SQLiteOpenHelper {
         }
     }
 
-    private ArrayList<Photo> getPhotosFromIndex(RTree index, BoundingBox box) {
+    /**
+     * Query the in memory index for Photos
+     * 
+     * @param index the index
+     * @param box the BoundingBox we are interested in
+     * @return a List of Photos
+     */
+    @NonNull
+    private List<Photo> getPhotosFromIndex(@NonNull RTree index, @NonNull BoundingBox box) {
         Collection<BoundedObject> queryResult = new ArrayList<>();
         index.query(queryResult, box.getBounds());
         Log.d(LOGTAG, "result count " + queryResult.size());
-        ArrayList<Photo> result = new ArrayList<>();
+        List<Photo> result = new ArrayList<>();
         for (BoundedObject bo : queryResult) {
             result.add((Photo) bo);
         }
