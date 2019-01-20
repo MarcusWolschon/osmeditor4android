@@ -3257,7 +3257,7 @@ public class Logic {
      * @param activity the activity calling this method
      * @param postLoad if not null call this after loading
      */
-    void loadBugsFromFile(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
+    void loadTasksFromFile(@NonNull final Activity activity, @Nullable final PostAsyncActionHandler postLoad) {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
@@ -3267,7 +3267,7 @@ public class Logic {
 
             @Override
             protected void onPreExecute() {
-                Log.d(DEBUG_TAG, "loadBugsFromFile onPreExecute");
+                Log.d(DEBUG_TAG, "loadTasksFromFile onPreExecute");
             }
 
             @Override
@@ -3281,9 +3281,9 @@ public class Logic {
 
             @Override
             protected void onPostExecute(Integer result) {
-                Log.d(DEBUG_TAG, "loadBugsFromFile onPostExecute");
+                Log.d(DEBUG_TAG, "loadTasksFromFile onPostExecute");
                 if (result != READ_FAILED) {
-                    Log.d(DEBUG_TAG, "loadBugsfromFile: File read correctly");
+                    Log.d(DEBUG_TAG, "loadTasksfromFile: File read correctly");
 
                     // FIXME if no bbox exists from data, ty to use one from bugs
                     if (postLoad != null) {
@@ -3293,7 +3293,7 @@ public class Logic {
                         Snack.barError(activity, R.string.toast_used_bug_backup);
                     }
                 } else {
-                    Log.d(DEBUG_TAG, "loadBugsfromFile: File read failed");
+                    Log.d(DEBUG_TAG, "loadTasksfromFile: File read failed");
                     if (postLoad != null) {
                         postLoad.onError();
                     }
@@ -3664,6 +3664,7 @@ public class Logic {
      * @param y The screen Y-coordinate of the bug.
      * @return The new Note, which must have a comment added before it can be submitted to OSM.
      */
+    @NonNull
     public Note makeNewNote(final float x, final float y) {
         int lat = yToLatE7(y);
         int lon = xToLonE7(x);
