@@ -466,6 +466,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param ordinal the ordinal value
      * @return the State value corresponding to ordinal
      */
+    @NonNull
     static State pos2state(int ordinal) {
         State[] values = State.values();
         if (ordinal >= 0 && ordinal < values.length) {
@@ -481,7 +482,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
      * @param v the view containing the EditText with the text of the note
      * @param bug the Task object
      */
-    private void saveTask(View v, Task bug) {
+    private void saveTask(@NonNull View v, @NonNull Task bug) {
         if (bug.isNew() && ((Note) bug).count() == 0) {
             App.getTaskStorage().add(bug); // sets dirty
         }

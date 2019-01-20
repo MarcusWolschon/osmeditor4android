@@ -756,6 +756,7 @@ public class Main extends FullScreenAppCompatActivity
 
             @Override
             public void onSuccess() {
+                Log.d(DEBUG_TAG, "postLoadTasks onSuccess");
                 Mode mode = logic.getMode();
                 de.blau.android.layer.tasks.MapOverlay layer = map.getTaskLayer();
                 if (layer != null) {
@@ -773,6 +774,7 @@ public class Main extends FullScreenAppCompatActivity
             @Override
             public void onError() {
                 // unused
+                Log.d(DEBUG_TAG, "postLoadTasks onError");
             }
         };
         synchronized (loadOnResumeLock) {
@@ -793,18 +795,21 @@ public class Main extends FullScreenAppCompatActivity
 
                             @Override
                             public void onSuccess() {
-                                logic.loadBugsFromFile(Main.this, postLoadTasks);
+                                logic.loadTasksFromFile(Main.this, postLoadTasks);
                             }
 
                             @Override
                             public void onError() {
-                                // unused
+                                Log.d(DEBUG_TAG, "error loading layers");
+                                // always try to load taks
+                                logic.loadTasksFromFile(Main.this, postLoadTasks);
                             }
                         });
                     }
                 });
-            } else { // loadFromFile already does this
+            } else {
                 synchronized (setViewBoxLock) {
+                    // loadStateFromFile does this
                     App.getLogic().loadEditingState(this, setViewBox);
                 }
                 logic.loadLayerState(this, postLoadTasks);
