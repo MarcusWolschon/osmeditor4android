@@ -1,6 +1,6 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-12.1.0: Use most recently used tags when applying preset, support "wiki" attribute in presets, support splitting via ways in turn-restrictions, add marker to share on OSM, fix downloaded preset refresh, add non-combo keys to auto-suggest list, invert zoom in/out behaviour for mouse scroll wheels
+12.1.0: Use most recently used tags when applying preset, support "wiki" attribute in presets, support splitting via ways in turn-restrictions, add marker to share on OSM, fix downloaded preset refresh, add non-combo keys to auto-suggest list, invert zoom in/out behaviour for mouse scroll wheels, fix regression causing task loading to fail when layer restoring had issues, update translations.
 
 12.0.1: Update OpeningHoursFragment, increase number of lines in feedback form description to 4, update translations.
 
