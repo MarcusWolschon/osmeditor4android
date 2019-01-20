@@ -141,7 +141,6 @@
   <string name="toast_no_changes">Не сте променили все още нищо...</string>
   <string name="toast_unlock_to_edit">Отключете, за да редактирате</string>
   <string name="toast_export_success">Експортнато към %1$s</string>
-  <string name="toast_too_many_nodes_for_move">Твърде много възли в път, за да бъде преместен</string>
   <string name="toast_photo_indexing_started">Стартира търсене на геореферирани снимки</string>
   <string name="toast_photo_indexing_finished">Приключи търсене на геореферирани снимки</string>
   <string name="toast_download_failed">Свалянето се провали с код за грешка %1$d, съобщение %2$s</string>

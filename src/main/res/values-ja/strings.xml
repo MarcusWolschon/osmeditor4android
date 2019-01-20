@@ -155,7 +155,6 @@
   <string name="toast_preset_overwrote_tags">注意 - プリセットはタグを上書きしました</string>
   <string name="toast_merge_overwrote_tags">注意 - この操作でタグを上書きしました</string>
   <string name="toast_state_file_failed">状態ファイルが読み込めないか、壊れています</string>
-  <string name="toast_too_many_nodes_for_move">移動するにはウェイにノードが多すぎます</string>
   <string name="toast_photo_indexing_started">地理的情報が付加された写真のスキャンを開始</string>
   <string name="toast_photo_indexing_finished">地理的情報が付加された写真のスキャンが完了</string>
   <string name="toast_download_failed">ダウンロード失敗。エラーコード %1$d メッセージ %2$s</string>

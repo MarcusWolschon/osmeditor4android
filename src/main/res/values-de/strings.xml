@@ -30,6 +30,10 @@
   <string name="wrong_login_data_message">Falls OAuth verwendet wird, nochmals authentisieren und dann wiederholen, falls Login und Passwort verwendet werden (nicht empfohlen) sollte überprüft werden ob sie korrekt konfiguriert wurden.</string>
   <string name="wrong_login_data_re_authenticate">Authentisierung wiederholen</string>
   <string name="forbidden_login_title">Einloggen verboten</string>
+  <string name="not_found_title">Element nicht gefunden.</string>
+  <string name="not_found_message">Die API konnte kein bestehendes Objekt oder Changeset mit der ID finden.&lt;br&gt;&lt;br&gt;</string>
+  <string name="unknown_error_title">Unbekannter Fehler</string>
+  <string name="unknown_error_message">Der Fehlercode von der API oder die Mitteilung konnte nicht verarbeitet werden.&lt;br&gt;&lt;br&gt;</string>
   <string name="go_to_openstreetmap">openstreetmap.org besuchen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
@@ -101,6 +105,7 @@
   <string name="maproulette_task_explanations">Erklärungen</string>
   <string name="maproulette_task_set_apikey">MapRoulette API-Schlüssel setzen</string>
   <string name="maproulette_task_apikey_not_set">MapRoulette API.Schlüssel konnte nicht gespeichert werden</string>
+  <string name="maproulette_task_apikey_set">MapRoulette API-Schlüssel gespeichert</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Vorsicht!</string>
   <string name="unsaved_data_message">Wenn Sie fortfahren, werden Ihre ungespeicherten Änderungen verworfen.</string>
@@ -266,7 +271,7 @@
   <string name="toast_merge_tag_conflict">Elemente mit sich widersprechenden Tags, richtungsabhängige Semantik oder sich widersprechende Rollen in derselben Relation zusammengeführt. Tags und Rollen bitte überprüfen und, falls nötig, korrigieren,</string>
   <string name="toast_potential_merge_tag_conflict">Elemente mit sich widersprechenden Tags sollen zusammengeführt werden. Tags bitte überprüfen und vor einem neuen Versuch korrigieren.,</string>
   <string name="toast_state_file_failed">Gespeicherte Zustandsdaten sind unlesbar oder beschädigt </string>
-  <string name="toast_too_many_nodes_for_move">Der Weg hat zuviele Punkte, um ihn zu verschieben</string>
+  <string name="toast_way_nodes_moved">%1$dKnoten eines Weges verschoben.</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Im OpenStreetMap Posteingang befinden sich eine ungelesene Nachricht.</item>
     <item quantity="other">Im OpenStreetMap Posteingang befinden sich %1$d ungelesene Nachrichten.</item>
@@ -614,6 +619,8 @@
   <string name="actionmode_restriction_restart_via">\"via\" Segment nochmals auswählen</string>
   <string name="actionmode_restriction_to">\"to\" Segment hinzufügen</string>
   <string name="actionmode_restriction_restart_to">\"to\" Segment nochmals auswählen</string>
+  <string name="actionmode_restriction_split_from">\"from\" Weg trennen</string>
+  <string name="actionmode_restriction_split_via">\"via\" Weg trennen</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 Objekt</item>
     <item quantity="other">%1$d Objekte</item>
@@ -746,7 +753,7 @@
   <string name="config_gps_interval_summary">Der minimale GPS/GNSS-Intervall in Millisekunden. Kleinere Werte verbrauchen mehr Batterie.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
   <string name="config_gps_distance_title">Minimale GPS/GNSS-Distanz</string>
-  <string name="config_gps_distance_summary">Der minimale GPS/GNSS-Abstand in Metern (Fließkommazahl). Kleinere Werte verbrauchen mehr Batterie.</string>
+  <string name="config_gps_distance_summary">Der minimale GPS/GNSS-Abstand in Metern. Kleinere Werte verbrauchen mehr Batterie.</string>
   <string name="config_gps_distance_current">%1$d Meter</string>
   <string name="config_leaveGpsDisabled_title">GPS/GNSS abgeschaltet lassen</string>
   <string name="config_leaveGpsDisabled_summary">Nicht nachfragen, wenn GPS/GNSS ausgeschaltet ist</string>

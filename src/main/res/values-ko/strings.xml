@@ -94,7 +94,6 @@
   <string name="toast_preset_overwrote_tags">참고 - 프리셋 태그 덮어씀</string>
   <string name="toast_merge_overwrote_tags">참고 - 작업 태그 덮어씀</string>
   <string name="toast_state_file_failed">읽을 수 없거나 오류가 있는 상태 파일</string>
-  <string name="toast_too_many_nodes_for_move">이동할 길에 너무 많은 노드</string>
   <string name="toast_download_failed">오류 코드 %1$d, 메시지 %2$s로 다운로드를 실패했습니다</string>
   <string name="toast_unsurveyed_road">측량되지 않은 길</string>
   <string name="toast_oauth">OSM 계정에 접속하기 위해 OAuth를 허용해 주십시요.</string>

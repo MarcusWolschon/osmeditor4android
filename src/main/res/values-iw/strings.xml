@@ -226,7 +226,6 @@
   <string name="toast_preset_overwrote_tags">הערה - הערכה המוגדרת שכתבה תגית/תגיות</string>
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
   <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
-  <string name="toast_too_many_nodes_for_move">יותר מדי צמתים בדרך מכדי להזיז</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">ממתינה לך הודעה שלא נקרא ב־OSM</item>
     <item quantity="two">ממתינות לך %1$d הודעות שלא נקראו ב־OSM</item>

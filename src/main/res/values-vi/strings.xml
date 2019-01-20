@@ -156,7 +156,6 @@
   <string name="toast_preset_overwrote_tags">Chú ý: Thẻ đặt trước đã ghi đè lên thẻ</string>
   <string name="toast_merge_overwrote_tags">Chú ý: Tác vụ đã ghi đè lên các thẻ</string>
   <string name="toast_state_file_failed">Tập tin trạng thái không thể đọc hoặc hư hỏng</string>
-  <string name="toast_too_many_nodes_for_move">Lối sẽ được di chuyển có quá nhiều nốt</string>
   <string name="toast_photo_indexing_started">Đã bắt đầu tìm hình ảnh được định vị</string>
   <string name="toast_photo_indexing_finished">Đã hoàn tất tìm hình ảnh được định vị</string>
   <string name="toast_download_failed">Thất bại khi tải về với mã số lỗi %1$d, thông báo %2$s</string>

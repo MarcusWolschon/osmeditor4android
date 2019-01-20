@@ -168,7 +168,6 @@
   <string name="toast_preset_overwrote_tags">Uwaga - szablon zmienił znacznik(i)</string>
   <string name="toast_merge_overwrote_tags">Uwaga - czynność zmieniła znacznik(i)</string>
   <string name="toast_state_file_failed">Nieczytelny lub uszkodzony plik stanu</string>
-  <string name="toast_too_many_nodes_for_move">Zbyt wiele węzłów na linii do przesunięcia</string>
   <string name="toast_photo_indexing_started">Rozpoczęto skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_photo_indexing_finished">Zakończono skanowanie zdjęć georeferencyjnych.</string>
   <string name="toast_download_failed">Nie udało się pobrać. Kod błędu %1$d, wiadomość %2$s</string>

@@ -97,7 +97,6 @@
   <string name="clear_anyway">Voleu buidar-ho igualment?</string>
   <string name="toast_unlock_to_edit">Desbloqueu per a editar</string>
   <string name="toast_export_success">Exportat a %1$s</string>
-  <string name="toast_too_many_nodes_for_move">Massa nodes de la via per moure</string>
   <string name="toast_nothing_found">No s\'han trobat resultats</string>
   <string name="toast_file_not_found">No s\'ha trobat %1$s.</string>
   <string name="toast_invalid_apiurl">L\'URL de l\'API no és vàlida</string>

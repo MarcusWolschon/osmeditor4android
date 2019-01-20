@@ -148,7 +148,6 @@
   <string name="toast_preset_overwrote_tags">Oharra - aurre-ezarpenak etiketa(k) gainidatzi d(it)u</string>
   <string name="toast_merge_overwrote_tags">Oharra - eragiketak etiketa)k) gainidatzi d(it)u</string>
   <string name="toast_state_file_failed">Egoera fitxategi irakurgaitza edo hondatua</string>
-  <string name="toast_too_many_nodes_for_move">Mugitzeko bidean nodo gehiegi daude</string>
   <string name="toast_download_failed">Deskargak huts egin du %1$d errore kodearekin, mezua %2$s</string>
   <string name="toast_nothing_found">Ez da ezer aurkitu</string>
   <string name="toast_file_not_found">ez da %1$s aurkitu.</string>

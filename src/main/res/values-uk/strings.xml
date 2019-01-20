@@ -113,7 +113,6 @@
   <string name="toast_unlock_to_edit">Розблокуйте для редагування</string>
   <string name="toast_export_success">Експортовано у %1$s</string>
   <string name="toast_state_file_failed">Не читається або пошкоджений файл стану</string>
-  <string name="toast_too_many_nodes_for_move">У лінії дуже багато точок для переміщення</string>
   <string name="toast_photo_indexing_started">Розпочато пошук геоприв’язаних світлин</string>
   <string name="toast_photo_indexing_finished">Закінчено пошук геоприв’язаних світлин</string>
   <string name="toast_download_failed">Збій завантаження, код помилки %1$d, повідомлення %2$s</string>

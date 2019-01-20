@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">היכרות</string>
     <string name="help_main">תצוגת מפה ראשית</string>
+    <string name="help_simple_actions">פעולות פשוטות</string>
     <string name="help_addrelationmember">נבחר יחס</string>
     <string name="help_multiselect">בחירה במגוון</string>
     <string name="help_longclick">יצירת פריטים חדשים</string>
@@ -20,7 +21,11 @@
     <string name="help_tagfilter">מסנן תגיות</string>
     <string name="help_presetfilter">מסנן ערכות מוגדרות</string>
     <string name="help_opening_hours">שעות פתיחה</string>
+    <string name="help_newnoteselection">בחירה בהערות חדשות</string>
+    <string name="help_voice_commands">פקודות קוליות</string>
     <string name="help_upgrade">הערות הוצאה לאור</string>
+    <string name="help_upgrade_112">הערות הוצאה לאור של 11.2</string>
+    <string name="help_upgrade_111">הערות הוצאה לאור של 11.1</string>
     <string name="help_upgrade_110">הערות הוצאה לאור של 11.0</string>
     <string name="help_upgrade_102">הערות הוצאה לאור של 10.2</string>
     <string name="help_upgrade_101">הערות הוצאה לאור של 10.1</string>
@@ -53,6 +58,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
         <item>@string/help_upgrade_111</item>
         <item>@string/help_upgrade_110</item>
@@ -88,6 +94,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>
         <item>11.1.0 Release notes</item>

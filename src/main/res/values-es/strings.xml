@@ -146,7 +146,6 @@
   <string name="toast_preset_overwrote_tags">Nota - predefinido sobrescribe etiqueta(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobrescribe etiqueta(s)</string>
   <string name="toast_state_file_failed">No se puede leer el archivo de estado</string>
-  <string name="toast_too_many_nodes_for_move">Demasiados nodos en la vía para mover</string>
   <string name="toast_photo_indexing_started">Iniciada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_photo_indexing_finished">Terminada la búsqueda de fotos georreferenciadas</string>
   <string name="toast_download_failed">Fallo en la descarga con código de error %1$d, mensaje %2$s</string>

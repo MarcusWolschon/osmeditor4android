@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-03 13:08+0000\n"
+"PO-Revision-Date: 2019-01-19 10:10+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -736,7 +736,7 @@ msgstr ""
 
 #: master_preset.xml:5383(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
-msgstr ""
+msgstr "Điểm Thu hút"
 
 #: master_preset.xml:6517(combo:display_values|group:Culture|preset:Studio|key:studio)
 msgid "Audio"
@@ -1611,7 +1611,7 @@ msgstr ""
 #: master_preset.xml:3078(item:name|group:Water|preset:Canal)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Canal"
-msgstr ""
+msgstr "Kênh đào"
 
 #: master_preset.xml:11305(item:name|group:Home_furnishing_and_decoration|preset:Candles)
 msgid "Candles"
@@ -7833,7 +7833,7 @@ msgstr ""
 #: master_preset.xml:3222(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Bể nước"
 
 #: master_preset.xml:5799(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -8968,7 +8968,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "Dòng suối"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -10028,7 +10028,7 @@ msgstr ""
 
 #: master_preset.xml:4282(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "Trạm Kiểm tra Xe"
 
 #: master_preset.xml:12893(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -13145,7 +13145,7 @@ msgstr ""
 #: master_preset.xml:5769(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
 msgid "Attraction"
-msgstr ""
+msgstr "Điểm Thu hút"
 
 #: master_preset.xml:6037(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgctxt "leisure"

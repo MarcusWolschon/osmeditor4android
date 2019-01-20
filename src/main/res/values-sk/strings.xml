@@ -88,7 +88,6 @@
   <string name="toast_preset_overwrote_tags">Poznámka - predvoľba prepísala značku(-y)</string>
   <string name="toast_merge_overwrote_tags">Poznámka - operácia prepísala značku(-y)</string>
   <string name="toast_state_file_failed">Nečitateľný alebo poškodený stavový súbor</string>
-  <string name="toast_too_many_nodes_for_move">Príliš veľa uzlov v ceste na premiestnenie</string>
   <string name="toast_download_failed">Preberanie zlyhalo s chybovým kódom %1$d a správou %2$s</string>
   <string name="toast_unsurveyed_road">Nepreskúmaná cesta</string>
   <string name="toast_nothing_found">Nič sa nenašlo</string>

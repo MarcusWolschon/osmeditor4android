@@ -147,7 +147,6 @@
   <string name="toast_preset_overwrote_tags">Nota - actual sobreescritas etiqueta(s)</string>
   <string name="toast_merge_overwrote_tags">Nota - operación sobreescritas etiqueta(s)</string>
   <string name="toast_state_file_failed">Ficheiro de estado corrupto ou ilexíbel</string>
-  <string name="toast_too_many_nodes_for_move">Hai demasiados puntos na vía para mover</string>
   <string name="toast_photo_indexing_started">Iniciar dixitalización xeo referenciada de imaxes</string>
   <string name="toast_photo_indexing_finished">Dixitalización rematada para xeo referenciado de imaxes</string>
   <string name="toast_download_failed">A baixada non vai con código de erro  %1$d, mensaxe %2$s</string>

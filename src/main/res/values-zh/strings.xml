@@ -74,7 +74,6 @@
   <string name="toast_unlock_to_edit">解锁编辑</string>
   <string name="toast_export_success">已导出%1$s</string>
   <string name="toast_state_file_failed">无法读取或已损坏状态的文件</string>
-  <string name="toast_too_many_nodes_for_move">要移动路径的节点过多</string>
   <string name="toast_photo_indexing_started">开始扫描地理参考图片</string>
   <string name="toast_photo_indexing_finished">扫描地理参考图片完成</string>
   <string name="toast_download_failed">下载失败，错误代码是%1$d，信息为%2$s</string>

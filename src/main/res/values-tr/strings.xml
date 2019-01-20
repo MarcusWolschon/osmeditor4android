@@ -77,7 +77,6 @@
   <string name="toast_unlock_to_edit">Düzenleme kilidini aç</string>
   <string name="toast_export_success">%1$s aktarıldı</string>
   <string name="toast_state_file_failed">Bozuk ya da okunamaz durum dosyası</string>
-  <string name="toast_too_many_nodes_for_move">Taşımak istediğiniz yolda çok fazla düğüm var</string>
   <string name="toast_photo_indexing_started">Jeo-referanslı fotoğraf taraması başladı</string>
   <string name="toast_photo_indexing_finished">Jeo-referanslı fotoğraf taraması bitti</string>
   <string name="toast_download_failed">İndirme başarısız hata kodu %1$d, mesaj %2$s</string>
