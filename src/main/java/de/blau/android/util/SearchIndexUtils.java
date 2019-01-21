@@ -112,7 +112,10 @@ public class SearchIndexUtils {
                     for (PresetItem pi : presetItems) {
                         if (type == null || pi.appliesTo(type)) {
                             int actualWeight = weight;
-                            if (term.equals(SearchIndexUtils.normalize(pi.getName()))) { // exact name match
+                            String name = SearchIndexUtils.normalize(pi.getName());
+                            if (name.equals(term)) { // exact name match
+                                actualWeight = -2;
+                            } else if (name.indexOf(term) >= 0) {
                                 actualWeight = -1;
                             }
                             IndexSearchResult isr = new IndexSearchResult(actualWeight, pi);
@@ -123,13 +126,13 @@ public class SearchIndexUtils {
             }
         }
         Collections.sort(rawResult);
-        ArrayList<PresetElement> result = new ArrayList<>();
+        List<PresetElement> result = new ArrayList<>();
         for (IndexSearchResult i : rawResult) {
-            Log.d(DEBUG_TAG, "found " + i.item.getName());
             if (!result.contains(i.item)) {
                 result.add(i.item);
             }
         }
+        Log.d(DEBUG_TAG, "found " + result.size() + " results");
         if (!result.isEmpty()) {
             return result.subList(0, Math.min(result.size(), limit));
         }

@@ -244,6 +244,7 @@ public class PresetSearchResultsFragment extends DialogFragment {
     private View getResultsView(@NonNull final LinearLayout presetLayout, @Nullable final List<PresetElement> presets, boolean setPadding) {
         View v = null;
         PresetGroup results = Preset.dummyInstance().new PresetGroup(null, "search results", null);
+        results.setItemSort(false);
         if (presets != null) {
             for (PresetElement p : presets) {
                 if (p != null) {
