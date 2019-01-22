@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -34,6 +35,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
+import de.blau.android.util.Screen;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -259,6 +261,15 @@ public class PresetSearchResultsFragment extends DialogFragment {
             v.setPadding(padding - Preset.SPACING, Preset.SPACING, padding - Preset.SPACING, padding);
         }
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout((int) (Screen.getScreenSmallDimemsion(getActivity()) * 0.9), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     @Override
