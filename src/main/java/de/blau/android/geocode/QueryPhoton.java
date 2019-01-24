@@ -120,9 +120,11 @@ class QueryPhoton extends Query {
                 result.setLat(p.latitude());
                 result.setLon(p.longitude());
                 StringBuilder sb = new StringBuilder();
-                JsonElement name = properties.get("name");
-                if (name != null) {
-                    sb.append(name.getAsString());
+                if (properties != null) {
+                    JsonElement name = properties.get("name");
+                    if (name != null) {
+                        sb.append(name.getAsString());
+                    }
                     sb.append("<small>");
                     JsonElement osmKey = properties.get("osm_key");
                     JsonElement osmValue = properties.get("osm_value");
