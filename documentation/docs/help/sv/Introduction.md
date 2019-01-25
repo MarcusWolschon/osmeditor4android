@@ -83,7 +83,7 @@ Once you have selected an object, it can be moved. Note that objects can be drag
 
 On first start the app launches in "Simple mode", this can be changed in the main menu by un-checking the corresponding checkbox.
 
-##### Simple mode
+##### Enkelt läge
 
 Tapping the large green floating button on the map screen will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. 
 
@@ -152,7 +152,7 @@ When the red lock is displayed all non-editing actions are available. Additional
 
 *(kräver nätverksanslutning)*
 
-Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Ladda upp data till OSM-server".
+Välj samma knapp eller menyalternativ du gjorde för nedladdning och välj nu "Skicka data till OSM-servern".
 
 Vespucci supports OAuth authorization and the classical username and password method. OAuth is preferable since it avoids sending passwords in the clear.
 

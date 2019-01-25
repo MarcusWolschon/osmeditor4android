@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-16 20:28+0000\n"
-"Last-Translator: Daniele Santini <danysan95@gmail.com>\n"
+"PO-Revision-Date: 2019-01-24 17:47+0000\n"
+"Last-Translator: Manuel Tassi <manueltassi91@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openstreetmap/presets/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10032,7 +10032,7 @@ msgstr "Vegetariano"
 
 #: master_preset.xml:4282(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "Ispezione veicolo"
 
 #: master_preset.xml:12893(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"

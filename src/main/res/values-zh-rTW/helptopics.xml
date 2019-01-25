@@ -24,6 +24,7 @@
     <string name="help_newnoteselection">選擇新的備註</string>
     <string name="help_voice_commands">語音指令</string>
     <string name="help_upgrade">發布通知</string>
+    <string name="help_upgrade_120">12.0 發布通知 </string>
     <string name="help_upgrade_112">11.2 發布通知 </string>
     <string name="help_upgrade_111">11.1 發布通知 </string>
     <string name="help_upgrade_110">11.0 發佈通知</string>

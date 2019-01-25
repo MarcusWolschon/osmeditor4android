@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Introduktion</string>
     <string name="help_main">Huvudkartvisning</string>
+    <string name="help_simple_actions">Enkla åtgärder</string>
     <string name="help_addrelationmember">Relation vald</string>
     <string name="help_multiselect">Markera flera</string>
     <string name="help_longclick">Skapa nya objekt</string>
@@ -9,6 +10,8 @@
     <string name="help_pathcreation">Skapa nya objekt</string>
     <string name="help_relationselection">Relation vald</string>
     <string name="help_wayselection">Väg vald</string>
+    <string name="help_preferences">Inställningar</string>
+    <string name="help_advanced_preferences">Avancerade inställningar</string>
     <string name="help_presets">Förinställda</string>
     <string name="help_conflictresolution">Lösa konflikter</string>
     <string name="help_gpssources">GPS källa</string>
@@ -16,6 +19,7 @@
     <string name="help_tagfilter">Taggfilter</string>
     <string name="help_presetfilter">Preset filter</string>
     <string name="help_opening_hours">Öppettider</string>
+    <string name="help_voice_commands">Röstkommandon</string>
     <string name="help_upgrade_099">0.9.9 Utgivningsanmärkningar</string>
     <string name="help_upgrade_098">0.9.8 Utgivningsanmärkningar</string>
     <string name="help_upgrade_097">0.9.7 Utgivningsanmärkningar</string>

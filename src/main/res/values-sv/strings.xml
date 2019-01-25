@@ -22,9 +22,23 @@
   <string name="no_connection_title">Ingen anslutning till servern</string>
   <string name="no_connection_message">Det gick inte att ansluta till OSM-servern nu. Kontrollera att du är ansluten till Internet, eller försök igen senare.</string>
   <string name="wrong_login_data_title">Kunde inte autentisera</string>
+  <string name="wrong_login_data_message">Om du använder OAuth, autentisera om och försök igen. Om du använder inloggning och lösenord (rekommenderas inte), vänligen kontrollera att de är korrekt inmatade.</string>
+  <string name="wrong_login_data_re_authenticate">Autentisera igen</string>
   <string name="forbidden_login_title">Inloggning förbjuden</string>
+  <string name="unknown_error_title">Okänt fel</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
+  <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
+  <string name="out_of_memory_title">Slut på minne</string>
+  <string name="invalid_data_received_title">Ogiltiga data mottaget</string>
+  <string name="invalid_data_received_message">Om du inte orsakade felet, vänligen lämna in en felrapport.</string>
+  <string name="invalid_data_read_title">Ogiltiga data skickad</string>
+  <string name="file_write_failed_title">Kunde inte skriva till fil</string>
+  <string name="file_write_failed_message">Vespucci kunde inte ändra eller spara filen.</string>
+  <string name="welcome_title">Välkommen</string>
+  <string name="read_introduction">Läs introduktionen</string>
+  <string name="upgrade_title">Detta är en ny Vespucci version</string>
+  <string name="upgrade_message">Nya funktioner och beteenden är detaljerade i utgåvans noteringar.</string>
   <string name="read_upgrade">Läs om den nya versionen</string>
   <string name="progress_title">Läser in</string>
   <string name="progress_message">Läser in in data i minnet...</string>
@@ -43,11 +57,30 @@
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Ny anteckning</string>
+  <string name="openstreetbug_new_bug">Rapportera fel</string>
   <string name="openstreetbug_bug_title">Fel</string>
+  <string name="openstreetbug_new_nodeway">Skapa nod/väg</string>
+  <string name="openstreetbug_edit_title">Redigera anteckning</string>
   <string name="openstreetbug_comment_label">Kommentar:</string>
+  <string name="openstreetbug_commit_ok">Uppgift-ändringar sparade</string>
+  <string name="openstreetbug_commit_fail">Kunde inte spara uppgift-ändringar</string>
+  <string name="openstreetbug_unknown_task_type">Okänd uppgiftstyp</string>
   <string name="openstreetbug_not_supported">%1$s stöds inte.</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="generic_bug">Fel</string>
+  <string name="osmose_bug">Osmose</string>
+  <string name="custom_bug">Anpassad</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
+  <string name="bug_long_description_2">&lt;br&gt;senast uppdaterad:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (inte hämtad) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">MapRoulette-uppgift</string>
+  <string name="maproulette_task_coords">Lat %1$4g, Lon %2$4g</string>
+  <string name="maproulette_task_explanations">Förklaringar</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Försiktigt!</string>
+  <string name="unsaved_data_message">Dina osparade ändringar kommer att kasseras om du fortsätter.</string>
   <string name="unsaved_data_proceed">Kasta bort &amp; fortsätt</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Beskrivning</string>
@@ -69,7 +102,9 @@
   <string name="preset_search_hint">Förinställda söksträngar</string>
   <string name="search">Sök</string>
   <string name="no_valid_preset">Inga giltiga förinställningar</string>
+  <string name="save_file">Spara till</string>
   <!--element information dialog-->
+  <string name="id">ID</string>
   <string name="nodes">Noder</string>
   <string name="relation_membership">Relation medlemskap</string>
   <string name="problem">Problem</string>
@@ -78,16 +113,23 @@
   <string name="version">Version</string>
   <string name="length_m">Längd (m)</string>
   <string name="not_downloaded">Inte hämtad</string>
+  <string name="empty_role">Tom roll</string>
   <string name="last_edited">senast redigerad</string>
   <string name="original">Original</string>
   <string name="current">Nuvarande</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Kopiera egenskaper</string>
   <!---->
+  <string name="error">Fel</string>
+  <string name="warning">Varning</string>
+  <string name="minor_issue">Mindre problem</string>
+  <string name="unknown_error_level">Okänd felnivå</string>
   <!--hidden object warning dialog-->
   <!--This concerns a shown message-->
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">OK, kassera</string>
   <!--debug dialog-->
+  <string name="send_debug_information">Skicka felsökningsinfo</string>
   <!--JS console dialog-->
   <string name="evaluate">Utvärdera</string>
   <string name="js_console_msg_live">Live-läge!</string>
@@ -99,51 +141,85 @@
   <string name="add_members">Lägg till medlemmar</string>
   <string name="leave_empty">Lämna tom</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">GPX-vägpunkt</string>
   <string name="description">Beskrivning</string>
   <string name="created">Skapad</string>
   <string name="altitude">Höjd</string>
+  <string name="create_osm_object">Skapa OSM-föremål</string>
   <!--Custom imagery dialogs-->
   <string name="coverage">Täckning</string>
+  <string name="coverage_top">Överst</string>
   <string name="coverage_left">Vänster</string>
   <string name="coverage_right">Höger</string>
+  <string name="coverage_bottom">Nederst</string>
   <string name="delete_layer">Ta bort lagret?</string>
   <!--Layer style dialog-->
   <string name="layer_style_title">Stil på lagret</string>
   <string name="layer_style_color">Färg</string>
   <string name="layer_style_label">Etikett</string>
   <!--Layer dialog-->
+  <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Foton</string>
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_change_style">Byt stil</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrollpunkter</string>
   <!--Feedback activity-->
+  <string name="feedback_title">Återkoppling för utvecklarna</string>
   <!--BoxPicker-->
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
+  <string name="default_channel_name">Vespucci</string>
   <!--Toaster-->
+  <string name="toast_url_empty">Ange en webbadress</string>
   <string name="toast_no_changes">Du har inte ändrat på något ännu...</string>
+  <string name="toast_unsaved_changes">Skicka dina osparade ändringar först.</string>
   <string name="clear_anyway">Rensa i alla fall?</string>
+  <string name="toast_upload_success">Skickad till OSM-servern.</string>
+  <string name="toast_not_in_edit_range">Zooma in för att redigera (volym ↑ / ↓ eller lins/shift)</string>
   <string name="toast_unlock_to_edit">Lås upp för att redigera</string>
+  <string name="toast_save_done">Sparad</string>
+  <string name="toast_save_failed">Kunde inte spara</string>
+  <string name="toast_export_failed">Kunde inte exportera</string>
   <string name="toast_export_success">Exporterade till %1$s</string>
   <string name="toast_preset_overwrote_tags">Obs - förinställd skrev över tagg(ar)</string>
+  <string name="toast_potential_merge_tag_conflict">Du försöker slå samman element med motstridiga taggvärden.\n\nVänligen kontrollera taggarna och korrigera dem innan du försöker igen.</string>
   <string name="toast_state_file_failed">Icke läsbar eller korrupt statusfil</string>
+  <string name="toast_way_nodes_moved">%1$d noder i flyttad väg</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="one">Du har ett oläst OSM-meddelande</item>
+    <item quantity="other">Du har %1$d olästa OSM-meddelanden</item>
+  </plurals>
+  <string name="read_mail">Läs</string>
   <string name="toast_unsurveyed_road">Oklassificerad väg</string>
+  <string name="toast_oauth_handshake_failed">Kunde inte utföra OAuth-handslag: %1$s</string>
   <string name="coordinates_out_of_range">Longitud måste vara mellan -180°/+180°, latitud mellan -85°/85°</string>
   <string name="toast_nothing_found">Hittade inget</string>
+  <string name="toast_missing_filemanager">Vänligen installera en filhanterare.</string>
+  <string name="toast_outside_of_download">Hämta mer data för att redigera detta område.</string>
   <string name="toast_file_not_found">%1$s hittades inte.</string>
+  <string name="toast_camera_error">Kunde inte starta kamera app: %1$s</string>
   <string name="toast_min_one_preset">Minst en förinställning måste väljas!</string>
   <string name="toast_invalid_preseturl">Ogiltig förinställd webbadress</string>
   <string name="toast_no_coverage">%1$s har ingen täckning här</string>
+  <string name="toast_file_exists">%1$s fil finns.</string>
   <string name="toast_needs_resurvey">Objektet kan vara föråldrat</string>
   <string name="toast_openinghours_invalid">Felaktig öppettid med värde %1$s</string>
   <string name="toast_preset_creation_failed">Kunde inte skapa den förinställda \"%1$s\": %2$s</string>
+  <string name="toast_unsupported_format">Format som inte stöds: %1$s</string>
+  <string name="toast_using_gps_location">Använder GPS/GNSS-plats</string>
+  <string name="toast_tags_copied">Taggar kopierade till urklipp</string>
+  <string name="toast_tags_cut">Taggar klipptes ut till urklipp</string>
+  <string name="toast_properties_copied">Egenskaper kopierade till urklipp</string>
+  <string name="toast_task_conflict">%1$s har ändrats på servern, skicka först och hämta sedan</string>
+  <string name="toast_long_press_simple_mode">Lång tryckning är inte tillgänglig i enkelt läge</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
+  <string name="okay">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="dismiss">Avfärda</string>
   <string name="done">Klar</string>
@@ -157,20 +233,27 @@
   <string name="forward">Framåt</string>
   <string name="keep">Behåll</string>
   <string name="enable">Aktivera</string>
+  <string name="disable">Inaktivera</string>
   <string name="clear">Töm</string>
+  <string name="discard">Kassera</string>
   <string name="retry">Försök igen</string>
   <!--Read a file-->
   <string name="read">Läs</string>
   <string name="overwrite">Skriva över</string>
   <string name="share">Dela</string>
   <string name="share_position">Dela position</string>
+  <string name="share_on_openstreetmap">Dela på OpenStreetMap</string>
+  <string name="none">Inga</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Avsluta Vespucci</string>
   <string name="exit_text">Är du säker på att du vill avsluta?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">nyckel</string>
   <string name="Key">Nyckel</string>
   <string name="value">värde</string>
   <string name="Value">Värde</string>
+  <string name="multiselect_header_short">Värden (%1$d)</string>
+  <string name="multiselect_header_long">Värden (för %1$d element)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Lägg till adresstaggar</string>
   <string name="tag_menu_sourcesurvey">Kartlagd</string>
@@ -212,11 +295,14 @@
   <string name="tag_restriction_when">när</string>
   <string name="tag_restriction_and">och</string>
   <string name="tag_restriction_add_opening_hours">Lägg till öppettider</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">Välj radie:</string>
   <string name="location_default_radius">300 m</string>
+  <string name="location_radius">%1$dm</string>
   <string name="location_last_text">Senast kända plats:</string>
   <string name="location_current_text">Nuvarande plats:</string>
+  <string name="location_text_unknown">Okänd</string>
   <string name="location_last_text_parameterized">Senast kända plats: %1$s</string>
   <string name="location_current_text_parameterized">Nuvarande plats: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s sedan</string>
@@ -227,6 +313,8 @@
   <string name="location_search_label">Sök:</string>
   <string name="location_load_button">Läs in</string>
   <string name="location_load_dismiss">Gå till karta</string>
+  <string name="location_nan_title">Felaktig inmatning!</string>
+  <string name="location_nan_message">Vänligen infoga decimal formaterade koordinater (t.ex. \"52.333572\",\"8.741185\"). Lat. måste ligga mellan -85.0 och +85.0 och Lon. måste ligga mellan -175.0 och +175.0.</string>
   <!--Menu-->
   <string name="menu_move">Flytta</string>
   <string name="menu_edit">Redigera</string>
@@ -234,6 +322,7 @@
   <string name="menu_config">Inställningar</string>
   <string name="menu_find">Hitta</string>
   <string name="menu_help">Hjälp</string>
+  <string name="menu_view">Visa</string>
   <string name="menu_erase">Radera node</string>
   <string name="menu_set_position">Position</string>
   <string name="menu_split">Dela</string>
@@ -244,10 +333,16 @@
   <string name="menu_add_relation_member">Lägg till medlem</string>
   <string name="menu_select_relation_members">Välj medlemmar</string>
   <string name="menu_tag">Redigera taggar</string>
+  <string name="menu_openstreetbug">Lägg till anteckning</string>
   <string name="menu_easyedit">EasyEdit</string>
   <string name="menu_camera">Kamera</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">Visa plats</string>
   <string name="menu_gps_follow">Följ platsen</string>
+  <string name="menu_gps_goto">Gå till aktuell plats</string>
+  <string name="menu_gps_start">Starta GPX-spår</string>
+  <string name="menu_gps_pause">Pausa GPX-spårning</string>
+  <string name="menu_gps_clear">Rensa GPX-spår och dess vägpunkter</string>
   <string name="menu_gps_upload">Ladda upp GPX-spår</string>
   <string name="menu_gps_export">Exportera GPX-spår</string>
   <string name="menu_gps_import">Importera GPX-spår</string>
@@ -255,22 +350,34 @@
   <string name="menu_transfer">Överför...</string>
   <string name="menu_transfer_download_current">Hämta nuvarande vy</string>
   <string name="menu_transfer_download_current_add">Lägg till nuvarande vy till nedladdning</string>
-  <string name="menu_transfer_download_other">Läs in ner vid en annan plats</string>
+  <string name="menu_transfer_download_other">Hämta på en annan plats</string>
   <string name="menu_transfer_upload">Ladda upp data till OSM-servern</string>
   <string name="menu_transfer_close_changeset">Stäng nuvarande chnageset</string>
+  <string name="menu_transfer_file">Fil…</string>
   <string name="menu_transfer_export">Exportera ändringar till OSC-fil</string>
+  <string name="menu_transfer_read_file">Läs från JOSM-fil...</string>
+  <string name="menu_transfer_save_file">Spara till JOSM-fil...</string>
+  <string name="menu_transfer_bugs">Uppgifter…</string>
+  <string name="menu_transfer_bugs_download_current">Hämta uppgifter för aktuell vy</string>
   <string name="menu_transfer_bugs_upload">Ladda upp allt</string>
+  <string name="menu_transfer_bugs_upload_long">Skicka alla uppgifter</string>
   <string name="menu_transfer_bugs_clear">Töm</string>
+  <string name="menu_transfer_bugs_clear_long">Rensa uppgifter</string>
+  <string name="menu_transfer_autodownload_long">Hämta uppgifter automatiskt</string>
+  <string name="menu_transfer_save_notes_all">Spara alla anteckningar…</string>
+  <string name="menu_save">Spara som fil</string>
   <string name="menu_join">Anslut</string>
   <string name="menu_unjoin">Koppla loss</string>
   <string name="menu_copy">Kopiera</string>
   <string name="menu_cut">Klipp</string>
   <string name="menu_paste">Klistra in</string>
+  <string name="menu_paste_tags">Klistra in taggar</string>
   <string name="menu_paste_from_clipboard">Klistra in från klippbord</string>
   <string name="menu_zoom_to_selection">Zooma till markering</string>
   <string name="menu_rotate">Rotera</string>
   <string name="menu_circulize">Arrangera i cirkel</string>
   <string name="menu_split_polygon">Dela upp i polygoner</string>
+  <string name="menu_newnode_gps">Ny nod vid GPS-position</string>
   <string name="menu_extend_selection">Utöka markering</string>
   <string name="menu_information">Info</string>
   <string name="menu_voice_commands">Röstkommandon</string>
@@ -278,16 +385,24 @@
   <string name="tag_form_unknown_element">Okänt element (ingen uppsättning påträffad)</string>
   <string name="menu_tools">Verktyg...</string>
   <string name="menu_tools_background_properties">Bakgrundsinställningar</string>
+  <string name="menu_tools_clear_clipboard">Rensa urklipp</string>
   <!---->
+  <string name="menu_simple_actions">Enkelt läge</string>
+  <string name="menu_feedback">Ge återkoppling</string>
   <string name="menu_privacy">Sekretess</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Justera bakgrund</string>
   <string name="menu_tools_background_align_reset">Återställ</string>
   <string name="menu_tools_background_align_zero">Noll</string>
+  <string name="menu_tools_background_align_retrieve_from_db">Från databas</string>
+  <string name="menu_tools_background_align_retrieve_from_device">Från enhet</string>
+  <string name="menu_tools_background_align_save_db">Spara till databas</string>
+  <string name="menu_tools_background_align_save_device">Spara till enhet</string>
   <string name="min_max_zoom">%1$d - %2$d</string>
   <string name="distance_meter">%1$.2f meter</string>
   <string name="distance_km">%1$.3f km</string>
   <!--Menus in layers dialog-->
+  <string name="menu_layers_configure">Konfigurera…</string>
   <!---->
   <string name="menu_tools_background_contrast">Kontrast</string>
   <string name="menu_tools_oauth_reset">Återställ OAuth</string>
@@ -303,9 +418,11 @@
   <string name="menu_merge">Anslut</string>
   <string name="menu_reverse">Omvänd</string>
   <string name="reverse_anyway">Omvänd ändå</string>
+  <string name="deleteway_wayonly">Ta endast bort väg</string>
   <string name="deleteway_wayandnodes">Ta bort vägen</string>
   <string name="deletenode">Ta bort nod</string>
   <string name="split_all_ways">Dela alla vägar</string>
+  <string name="delete_note">Ta bort anteckning</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Väg vald</string>
   <string name="actionmode_nodeselect">Nod vald</string>
@@ -314,51 +431,92 @@
   <string name="actionmode_multiselect">Markera flera</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_restriction_to">Lägg till i segment</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 föremål</item>
+    <item quantity="other">%1$d föremål</item>
+  </plurals>
   <string name="actionmode_rotateway">Rotera vägen</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Lägg till nod</string>
+  <string name="simple_add_node">Tryck på skärmens position</string>
+  <string name="menu_add_way">Lägg till väg</string>
+  <string name="simple_add_way">Tryck på skärmens position</string>
+  <string name="simple_add_note">Tryck på skärmens position</string>
+  <string name="menu_paste_object">Klistra in föremål</string>
+  <string name="simple_paste">Tryck på skärmens position</string>
+  <string name="simple_paste_multiple">Tryck på skärmens position</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kartans bakgrund</string>
   <string name="config_overlayLayer_title">Kartöverdrag</string>
   <string name="config_scale_title">Visa skala</string>
   <string name="config_mapProfile_title">Datastil</string>
+  <string name="config_enableOpenStreetBugs_title">Visa uppgifter</string>
+  <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar, felrapporter och uppgifter.</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
   <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
   <string name="config_advancedprefs">Avancerade inställningar</string>
+  <string name="config_moreprefs">Mer inställningar...</string>
   <string name="config_presetbutton_title">Förinställda</string>
   <string name="config_presetbutton_summary">Lägg till och aktivera JOSM-kompatibla förinställningar</string>
   <string name="config_built_in_preset">Inbyggd förinställning</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Upphovsmän och licenser</string>
   <string name="config_debugbutton_title">Felsökning</string>
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
+  <string name="config_category_view">Inställningar för användargränssnitt</string>
   <string name="config_iconbutton_title">Visa nod-ikoner</string>
   <string name="config_iconbutton_summary">Visa ikonen för den bäst matchande förinställningen ovanför noderna.</string>
   <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
   <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställda över byggnader.</string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
+  <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
+  <string name="config_fullscreenMode_title">Fullskärmsläge</string>
   <string name="config_showTolerance_title">Visa tolerans</string>
+  <string name="config_showTolerance_summary">Visar område där ett element kan väljas.</string>
+  <string name="config_enableLightTheme_title">Ljust tema</string>
+  <string name="config_enableLightTheme_summary">Ljusa och vita bakgrunder.</string>
   <string name="config_maxInlineValues_current">%1$d värden</string>
   <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="config_enableAntiAliasing_title">Aktivera anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Gör linjerna jämnare.</string>
   <string name="config_maxStrokeWidth_title">Max linjebredd</string>
+  <string name="config_maxStrokeWidth_summary">Rita inte en väg tjockare än detta.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">Data och redigera inställningar</string>
+  <string name="config_forceContextMenu_title">Använd alltid kontextmeny</string>
+  <string name="config_forceContextMenu_summary">Visa alltid kontextmenyn om ett val är tvetydigt.</string>
   <string name="config_address_tags">Adresstaggar</string>
   <string name="config_enableNameSuggestions_title">Aktivera namnförslag</string>
+  <string name="config_enableNameSuggestions_summary">Slå på förslag till namntaggen.</string>
   <string name="config_generateAlerts_title">Generera aviseringar</string>
   <string name="config_generateAlerts_summary">Generera aviseringar för data med problem eller anteckningar</string>
   <string name="config_maxAlertDistance_title">Max avstånd för aviseringar</string>
+  <string name="config_maxAlertDistance_current">%1$d meter</string>
   <string name="config_extTriggeredDownloadRadius_title">Nedladdningsradie</string>
   <string name="config_maxDownloadSpeed_title">Maximal automatisk hämtningshastighet</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_closeChangesetOnSave_title">Stäng changesets</string>
   <!--Location Settings-->
   <string name="config_category_gps">Platsinställningar</string>
+  <string name="config_gps_source_title">GPS/GNSS-källa</string>
   <string name="config_gps_source_tcp_title">NMEA-nätverkskälla</string>
+  <string name="config_gps_interval_title">Minsta GPS/GNSS-intervall</string>
+  <string name="config_gps_interval_summary">Minsta tidsintervall för GPS/GNSS-platsaviseringar i millisekunder. Lägre värden dränerar mer batteri.</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Minsta GPS/GNSS-avstånd</string>
+  <string name="config_gps_distance_summary">Minsta avståndet mellan GPS/GNSS-aviseringar i meter. Lägre värden dränerar mer batteri.</string>
+  <string name="config_leaveGpsDisabled_title">Lämna GPS/GNSS avstängd</string>
+  <string name="config_leaveGpsDisabled_summary">Fråga inte om att slå på GPS/GNSS om den är avstängd.</string>
   <!--Server Settings-->
+  <string name="config_category_server">Serverinställningar</string>
   <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Du kan ställa in en icke-standard-API-webbadress här. Bör vanligtvis inte ändras!</string>
   <string name="config_loginbutton_title">Användarkonto</string>
+  <string name="config_username_summary">Du behöver endast konfiguration för att skicka OSM-data om du inte använder OAuth. Få ett konto på https://www.openstreetmap.org/user/new</string>
+  <string name="config_osmoseServer_title">OSMOSE-server</string>
   <!--Layer download and storage-->
   <string name="config_maxTileDownloadThreads_title">Maximalt antal av nedladdningstrådar</string>
   <string name="config_downLoadThreads_current">%1$d trådar</string>
@@ -366,13 +524,24 @@
   <string name="config_tileCache_current">%1$d MB</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Diverse</string>
+  <string name="pref_acra_enabled">Kraschrapportering påslagen</string>
+  <string name="pref_acra_disabled">Kraschrapportering avstängd</string>
   <string name="config_showStats_title">Visa statistik</string>
+  <string name="config_showStats_summary">Visar datastatistik och FPS i nedre vänstra hörnet.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Experimentell</string>
   <string name="config_js_console_title">Aktivera JS-konsolen</string>
   <string name="config_voiceCommandsEnabled_title">Aktivera röstkommandon</string>
+  <string name="config_voiceCommandsEnabled_summary">Aktivera röstkommando stöd.</string>
   <!---->
   <string name="config_api_url_title">API URL</string>
+  <string name="config_api_oauth_title">Använd OAuth</string>
+  <string name="listedit_enable_oauth">Aktivera OAuth</string>
+  <string name="config_username_title">OSM-användarnamn</string>
+  <string name="config_password_title">OSM-lösenord</string>
+  <string name="config_password_summary">Förväxla inte det för wiki-lösenordet. Kom ihåg: det lagras och överförs i klartext!</string>
   <string name="manage_presets">Hantera förinställningar</string>
+  <string name="listedit_use_translations">Använd översättningar</string>
   <!--preset downloader messages-->
   <string name="preset_update">Uppdatera förinställda</string>
   <string name="preset_download_successful">Förinställd hämtad</string>
@@ -384,10 +553,16 @@
   <string name="changes_changed">\"%1$s\" ändrad</string>
   <string name="changes_created">\"%1$s\" skapad</string>
   <string name="confirm_upload_title">Ladda upp ändringar</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Skicka denna ändring?</item>
+    <item quantity="other">Skicka dessa %1$d ändringar?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Ändringar</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
   <string name="urldialog_preset_download_successful">Förinställd hämtad.</string>
+  <string name="urldialog_api_exists">Ett API med denna webbadress finns redan. Du kan dock lägga till en annan (t.ex. att byta konton enkelt).</string>
   <string name="urldialog_add_api">Lägg till API</string>
   <string name="urldialog_nodata_text">Konfigurationswebbadressen innehåller inte giltiga data.</string>
   <!--common terms-->
@@ -399,6 +574,7 @@
   <string name="default_">Standard</string>
   <!---->
   <string name="empty_list">Inga poster</string>
+  <string name="api_name">API-namn</string>
   <string name="api_url">API URL</string>
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
   <string name="geocoder_type">Geocoder typ</string>
@@ -415,15 +591,35 @@
   <string name="address_housenumber">Adress %1$s</string>
   <string name="address_housenumber_street">Adress %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">Noden flyttad</string>
+  <string name="undo_action_moveway">Vägen flyttades</string>
+  <string name="undo_action_moveobjects">Föremål flyttades</string>
+  <string name="undo_action_deletenode">Noden borttagning</string>
+  <string name="undo_action_delete_objects">Föremål borttagna</string>
+  <string name="undo_action_set_tags">Taggning</string>
+  <string name="undo_action_unjoin_ways">Vägseparering</string>
+  <string name="undo_action_cut">Klipp ut</string>
+  <string name="undo_action_paste">Klistra in</string>
+  <string name="undo_action_rotateway">Vägrotation</string>
   <!--ACRA-->
   <!--Exceptions messages-->
   <!--Notifications-->
   <string name="alert_data_issue">OSM-dataproblem upptäcktes</string>
+  <string name="bearing_ne">NO ↗</string>
+  <string name="bearing_e">O →</string>
+  <string name="bearing_se">SO ↘</string>
+  <string name="bearing_s">S ↓</string>
+  <string name="bearing_sw">SV ↙</string>
+  <string name="bearing_w">V ←</string>
+  <string name="bearing_nw">NV ↖</string>
+  <string name="bearing_n">N ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Roll</string>
+  <string name="role_lc">Roll</string>
   <string name="membership_relation_heading">Medlem i relation</string>
   <string name="relation">Relation</string>
   <string name="relations">Relationer</string>
+  <string name="position">Position</string>
   <string name="type">Typ</string>
   <string name="object">Objekt</string>
   <string name="deleterelation">Ta bort relation</string>
@@ -436,6 +632,7 @@
   <string name="km">km</string>
   <string name="meter">meter</string>
   <!--Help system-->
+  <string name="toast_nohelp">Ingen hjälp här.</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>privat</item>
@@ -457,6 +654,15 @@
   <string-array name="note_state">
     <item>Öppna</item>
     <item>Stäng</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>Öppen</item>
+    <item>Stängd</item>
+    <item>Falskt positiv</item>
+    <item>Överhoppad</item>
+    <item>Borttagen</item>
+    <item>Redan rättad</item>
+    <item>För svår</item>
   </string-array>
   <string-array name="followGPSbutton_entries">
     <item>Vänster</item>

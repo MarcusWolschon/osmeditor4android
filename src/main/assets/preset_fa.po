@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-17 10:46+0000\n"
+"PO-Revision-Date: 2019-01-25 10:12+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -345,7 +345,7 @@ msgstr ""
 
 #: master_preset.xml:8082(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
-msgstr ""
+msgstr "استوانه تبلیغاتی"
 
 #: master_preset.xml:14929(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
@@ -354,7 +354,7 @@ msgstr ""
 #: master_preset.xml:3857(group:name|group:Aerialway)
 #: master_preset.xml:4540(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "راه هوایی"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Afrikaans"
@@ -621,7 +621,7 @@ msgstr ""
 
 #: master_preset.xml:4852(item:name|group:Airport|preset:Apron)
 msgid "Apron"
-msgstr ""
+msgstr "پیشگاه"
 
 #: master_preset.xml:13185(item:name|group:Land_use|preset:Aquaculture)
 #: master_preset.xml:13193(combo:text|group:Land_use|preset:Aquaculture|key:aquaculture)
@@ -1229,7 +1229,7 @@ msgstr ""
 
 #: master_preset.xml:2312(item:name|group:Barriers|preset:Bollard)
 msgid "Bollard"
-msgstr ""
+msgstr "تیرک مهار"
 
 #: master_preset.xml:2326(combo:text|group:Barriers|preset:Bollard|key:bollard)
 msgid "Bollard type"
@@ -1733,7 +1733,7 @@ msgstr ""
 
 #: master_preset.xml:14354(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "تهیه غذا"
 
 #: master_preset.xml:10420(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:548(combo:display_values|key:denomination)
@@ -1911,7 +1911,7 @@ msgstr ""
 
 #: master_preset.xml:12703(item:name|group:Geography|preset:Cliff)
 msgid "Cliff"
-msgstr ""
+msgstr "دیواره"
 
 #: master_preset.xml:8446(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
@@ -2371,7 +2371,7 @@ msgstr ""
 
 #: master_preset.xml:2333(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
-msgstr ""
+msgstr "مانع دوچرخه"
 
 #: master_preset.xml:1591(item:name|preset:Cycle_Lane/Track)
 msgid "Cycle Lane/Track"
@@ -2486,11 +2486,11 @@ msgstr ""
 
 #: master_preset.xml:7094(item:name|group:Health|preset:Dentist)
 msgid "Dentist"
-msgstr ""
+msgstr "دندانپزشکی"
 
 #: master_preset.xml:11671(item:name|group:Other|preset:Department_Store)
 msgid "Department Store"
-msgstr ""
+msgstr "فروشگاه چندمنظوره"
 
 #: master_preset.xml:9374(text:text|group:Man_Made|preset:Mineshaft|key:depth)
 msgid "Depth in meters"
@@ -2769,7 +2769,7 @@ msgstr ""
 
 #: master_preset.xml:3918(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
-msgstr ""
+msgstr "تله‌اسکی"
 
 #: master_preset.xml:3925(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -2961,7 +2961,7 @@ msgstr ""
 #: master_preset.xml:963(check:text|group:Streets|preset:Motorway|key:embankment)
 #: master_preset.xml:996(check:text|group:Streets|preset:Motorway_Link|key:embankment)
 msgid "Embankment"
-msgstr ""
+msgstr "خاکریز"
 
 #: master_preset.xml:6760(item:name|group:Public_Building|preset:Embassy)
 msgid "Embassy"
@@ -3409,7 +3409,7 @@ msgstr ""
 #: master_preset.xml:1495(item:name|group:Streets|preset:Ford)
 #: master_preset.xml:1506(combo:text|group:Streets|preset:Ford|key:ford)
 msgid "Ford"
-msgstr ""
+msgstr "گدار"
 
 #: master_preset.xml:12847(item:name|group:Nature|preset:Forest)
 msgid "Forest"
@@ -3761,7 +3761,7 @@ msgstr ""
 
 #: master_preset.xml:13311(item:name|group:Land_use|preset:Graveyard)
 msgid "Graveyard"
-msgstr ""
+msgstr "قبرستان (با مسجد یا امامزاده)"
 
 #: master_preset.xml:7882(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:round_drain)
 msgid "Gravity drain for hose"
@@ -3842,7 +3842,7 @@ msgstr ""
 #: master_preset.xml:5472(item:name|group:Tourism|preset:Guidepost)
 #: master_preset.xml:735(role:text|key:guidepost)
 msgid "Guidepost"
-msgstr ""
+msgstr "تابلوی راهنما"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Gujarati"
@@ -4542,7 +4542,7 @@ msgstr "دکه"
 
 #: master_preset.xml:2617(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
-msgstr ""
+msgstr "ورودی مخصوص انسان"
 
 #: master_preset.xml:11131(item:name|group:Home_furnishing_and_decoration|preset:Kitchen)
 msgid "Kitchen"
@@ -4592,7 +4592,7 @@ msgstr ""
 
 #: master_preset.xml:13480(item:name|group:Land_use|preset:Landfill)
 msgid "Landfill"
-msgstr ""
+msgstr "محل دفن زباله"
 
 #: master_preset.xml:1512(group:name|group:Lane_attributes)
 msgid "Lane attributes"
@@ -4646,7 +4646,7 @@ msgstr ""
 
 #: master_preset.xml:10954(item:name|group:Clothes|preset:Laundry)
 msgid "Laundry"
-msgstr ""
+msgstr "رخت‌شوی‌خانه"
 
 #: master_preset.xml:10967(check:text|group:Clothes|preset:Laundry|key:laundry_service)
 msgid "Laundry Service"
@@ -4752,7 +4752,7 @@ msgstr ""
 
 #: master_preset.xml:2576(item:name|group:Barriers|preset:Lift_Gate)
 msgid "Lift Gate"
-msgstr ""
+msgstr "راهبند بازویی"
 
 #: master_preset.xml:9754(combo:display_values|group:Bridges|preset:Bridge_Support|key:bridge:support)
 msgid "Lift pier"
@@ -5365,7 +5365,7 @@ msgstr "مخلوط"
 
 #: master_preset.xml:3906(item:name|group:Aerialway|preset:Mixed_Lift)
 msgid "Mixed Lift"
-msgstr ""
+msgstr "بالابر ترکیبی"
 
 #: master_preset.xml:8463(check:text|group:Sport|preset:Climbing|key:climbing:mixed)
 msgid "Mixed climbing"
@@ -6413,7 +6413,7 @@ msgstr ""
 #: master_preset.xml:11530(item:name|group:For_the_body|preset:Optician)
 #: master_preset.xml:14898(item:name|group:Crafts|preset:Optician)
 msgid "Optician"
-msgstr ""
+msgstr "عینک فروشی"
 
 #: master_preset.xml:1898(optional:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Optional crossing attributes:"
@@ -6634,7 +6634,7 @@ msgstr ""
 
 #: master_preset.xml:4001(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
-msgstr ""
+msgstr "پارک‌سوار"
 
 #: master_preset.xml:1381(combo:display_values|group:Streets|preset:Service|key:service)
 #: master_preset.xml:3986(item:name|group:Car|preset:Parking)
@@ -6860,7 +6860,7 @@ msgstr ""
 
 #: master_preset.xml:14824(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr ""
+msgstr "عکاسی"
 
 #: master_preset.xml:14569(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
@@ -6938,7 +6938,7 @@ msgstr ""
 
 #: master_preset.xml:6521(group:name|group:Place_of_Worship)
 msgid "Place of Worship"
-msgstr ""
+msgstr "پرستشگاه"
 
 #: master_preset.xml:10438(check:text|group:Historic_Places_&_Objects|preset:Wayside_Shrine|key:amenity)
 msgid "Place of worship"
@@ -7465,7 +7465,7 @@ msgstr ""
 
 #: master_preset.xml:13493(item:name|group:Land_use|preset:Quarry)
 msgid "Quarry"
-msgstr ""
+msgstr "معدن"
 
 #: master_preset.xml:12551(item:name|group:Places|preset:Quarter)
 msgid "Quarter"
@@ -7616,7 +7616,7 @@ msgstr ""
 
 #: master_preset.xml:7764(item:name|group:Facilities|preset:Recycling_Container)
 msgid "Recycling Container"
-msgstr ""
+msgstr "سطل بازیافت"
 
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
@@ -7832,7 +7832,7 @@ msgstr ""
 #: master_preset.xml:3222(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "دریاچه پشت سد"
 
 #: master_preset.xml:5799(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -8012,7 +8012,7 @@ msgstr ""
 
 #: master_preset.xml:1470(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "فلکه"
 
 #: master_preset.xml:8669(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -8462,7 +8462,7 @@ msgstr ""
 #: master_preset.xml:7912(item:name|group:Facilities|preset:Shelter)
 #: master_preset.xml:7948(check:text|group:Facilities|preset:Hunting_Stand|key:shelter)
 msgid "Shelter"
-msgstr ""
+msgstr "پناهگاه"
 
 #: master_preset.xml:548(combo:display_values|key:denomination)
 #: master_preset.xml:6570(combo:display_values|group:Place_of_Worship|preset:Mosque|key:denomination)
@@ -9258,7 +9258,7 @@ msgstr ""
 
 #: master_preset.xml:4813(item:name|group:Airport|preset:Taxiway)
 msgid "Taxiway"
-msgstr ""
+msgstr "خزشراه"
 
 #: master_preset.xml:532(text:text|key:taxon)
 msgid "Taxon"
@@ -9690,7 +9690,7 @@ msgstr ""
 
 #: master_preset.xml:12811(item:name|group:Nature|preset:Tree_Row)
 msgid "Tree Row"
-msgstr ""
+msgstr "ردیف درخت"
 
 #: master_preset.xml:13126(combo:text|group:Land_use|preset:Orchard|key:trees)
 msgid "Trees"
@@ -10015,7 +10015,7 @@ msgstr ""
 
 #: master_preset.xml:11951(item:name|group:Other|preset:Variety_Store)
 msgid "Variety Store"
-msgstr ""
+msgstr "فروشگاه متنوع و ارزان"
 
 #: master_preset.xml:10350(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Vault"
@@ -10226,7 +10226,7 @@ msgstr ""
 
 #: master_preset.xml:7974(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
-msgstr ""
+msgstr "نقطه تقسیم آب"
 
 #: master_preset.xml:7313(item:name|group:Emergency|preset:Water_Tank)
 msgid "Water Tank"
@@ -10420,7 +10420,7 @@ msgstr ""
 #: master_preset.xml:673(text:text|key:wikidata)
 #: master_preset.xml:697(text:text|key:wikidata)
 msgid "Wikidata"
-msgstr ""
+msgstr "ویکی‌داده"
 
 #: master_preset.xml:10400(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikipedia)
 #: master_preset.xml:12373(text:text|group:Boundaries|preset:Protected_Area|key:wikipedia)
@@ -12719,7 +12719,7 @@ msgstr ""
 #: master_preset.xml:869(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Shelter"
-msgstr ""
+msgstr "پناهگاه"
 
 #: master_preset.xml:889(list_entry:short_description|value:skillion)
 #: master_preset.xml:9134(item:name|group:Roof_type|preset:Skillion)
@@ -13566,7 +13566,7 @@ msgstr ""
 #: master_preset.xml:7531(item:name|group:Social_Facilities|preset:Shelter)
 msgctxt "social_facility"
 msgid "Shelter"
-msgstr ""
+msgstr "پناهگاه"
 
 #: master_preset.xml:7609(check:text|group:Facilities|preset:Toilets/Restrooms|key:female)
 #: master_preset.xml:7635(check:text|group:Facilities|preset:Shower|key:female)

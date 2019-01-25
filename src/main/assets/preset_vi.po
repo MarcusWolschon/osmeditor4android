@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-19 10:10+0000\n"
+"PO-Revision-Date: 2019-01-24 09:04+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -3830,7 +3830,7 @@ msgstr ""
 
 #: master_preset.xml:2446(item:name|group:Barriers|preset:Guard_Rail)
 msgid "Guard Rail"
-msgstr ""
+msgstr "Thành Lan can"
 
 #: master_preset.xml:4990(item:name|group:Accommodation|preset:Guest_House/Bed_&_Breakfast)
 msgid "Guest House/Bed & Breakfast"
@@ -11083,7 +11083,7 @@ msgstr "Cột"
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr ""
+msgstr "Hàng rào Chắn"
 
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"

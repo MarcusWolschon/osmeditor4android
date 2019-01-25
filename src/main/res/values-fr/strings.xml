@@ -271,6 +271,7 @@
   <string name="toast_merge_tag_conflict">Vous avez fusionné des éléments ayant des attributs incompatibles, dépendant du sens, ou ayant des rôles différents dans une même relation.  Vérifiez les attributs et les rôles et corrigez-les si nécessaire.</string>
   <string name="toast_potential_merge_tag_conflict">Vous essayez de fusionner des élément avec des valeurs d\'attributs incompatibles.\n\nVérifiez les attributs et corrigez-les avant de réessayer.</string>
   <string name="toast_state_file_failed">Fichier d\'état illisible ou corrompu</string>
+  <string name="toast_way_nodes_moved">%1$d nœuds dans le chemin déplacé</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Vous avez un message OSM non lu</item>
     <item quantity="other">Vous avez %1$d messages OSM non lus</item>
@@ -619,6 +620,8 @@
   <string name="actionmode_restriction_restart_via">Re-sélectioner le segment « via »</string>
   <string name="actionmode_restriction_to">Ajouter un segment « to »</string>
   <string name="actionmode_restriction_restart_to">Re-sélectionner le segment « to »</string>
+  <string name="actionmode_restriction_split_from">Séparer le segment « from »</string>
+  <string name="actionmode_restriction_split_via">Séparer le segment « via »</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">un objet</item>
     <item quantity="other">%1$d objets</item>

@@ -271,6 +271,7 @@
   <string name="toast_merge_tag_conflict">您合併的元件有相互衝突的標籤值，在相同的關係，方向是依據相互關係或不同的角色。請檢查標籤和角色，並在有必要時訂正。</string>
   <string name="toast_potential_merge_tag_conflict">您正在試圖合併的元件，它和標籤的值有衝突。請重試之前，請先檢查標籤和修正。</string>
   <string name="toast_state_file_failed">無法讀取或已損壞狀態的檔案</string>
+  <string name="toast_way_nodes_moved">%1$d節點在已移動的路徑</string>
   <plurals name="toast_unread_mail">
     <item quantity="other">你有 %1$d 封未讀 OSM 訊息</item>
   </plurals>
@@ -617,6 +618,8 @@
   <string name="actionmode_restriction_restart_via">重新選擇\"經過\"片段</string>
   <string name="actionmode_restriction_to">增加\"到\"片段</string>
   <string name="actionmode_restriction_restart_to">重新選擇\"到\"片段</string>
+  <string name="actionmode_restriction_split_from">分割 \"from\" 片段</string>
+  <string name="actionmode_restriction_split_via">分割 \"via\" 片段</string>
   <plurals name="actionmode_object_count">
     <item quantity="other">%1$d 物件</item>
   </plurals>
