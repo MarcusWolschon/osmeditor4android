@@ -330,6 +330,7 @@
     <string name="toast_file_exists">%1$s file exists.</string>
     <string name="toast_needs_resurvey">Object may be out of date</string>
     <string name="toast_missing_key">%1$s key missing</string>
+    <string name="toast_invalid_object">Invalid object</string>
     <string name="toast_openinghours_invalid">Invalid opening hours value for %1$s</string>
     <string name="toast_openinghours_autocorrected">Opening hours value for %1$s autocorrected</string>
     <string name="toast_exit_multiselect">Double tap an empty space or use the ← arrow to exit</string>

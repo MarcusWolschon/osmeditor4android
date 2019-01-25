@@ -195,6 +195,11 @@ public class BaseValidator implements Validator {
     public List<String> describeProblemElement(@NonNull Context ctx, @NonNull OsmElement e, SortedMap<String, String> tags) {
         List<String> result = new ArrayList<>();
 
+        // invalid OSM element
+        if ((e.getCachedProblems() & Validator.INVALID_OBJECT) != 0) {
+            result.add(ctx.getString(R.string.toast_invalid_object));
+        }
+
         // fixme etc.
         for (Entry<String, String> entry : tags.entrySet()) {
             // test key and value against pattern
@@ -263,6 +268,9 @@ public class BaseValidator implements Validator {
 
     @Override
     public int validate(@NonNull Way way) {
+        if (way.getNodes() == null || way.getNodes().isEmpty()) {
+            return Validator.INVALID_OBJECT;
+        }
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = way.getTags();
         // tag based checks

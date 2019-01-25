@@ -4595,7 +4595,7 @@ public class Logic {
      */
     @Nullable
     public static double[] centroidLonLat(@Nullable final Way way) {
-        if (way == null) {
+        if (way == null || way.getNodes() == null || way.getNodes().isEmpty()) {
             return null;
         }
         //

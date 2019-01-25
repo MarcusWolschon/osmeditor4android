@@ -17,6 +17,7 @@ public interface Validator {
     int HIGHWAY_ROAD   = 0x00000020;
     int NO_TYPE        = 0x00000040;
     int IMPERIAL_UNITS = 0x00000080;
+    int INVALID_OBJECT = 0x00000100;
 
     /**
      * Reset the state of the validator
