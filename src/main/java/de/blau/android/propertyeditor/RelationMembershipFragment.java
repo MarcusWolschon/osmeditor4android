@@ -591,6 +591,10 @@ public class RelationMembershipFragment extends BaseFragment implements Property
                 String role = row.roleEdit.getText().toString().trim();
                 parents.put(row.relationId, role);
                 Relation r = (Relation) App.getDelegator().getOsmElement(Relation.NAME, row.relationId);
+                if (r == null) {
+                    Log.e(DEBUG_TAG, "Inconsistent state: parent relation " + row.relationId + " not in storage");
+                    return;
+                }
                 RelationMember rm = r.getMember(propertyEditorListener.getElement());
                 PresetItem presetItem = row.getRelationPreset();
                 if (rm != null) { // can't really happen
