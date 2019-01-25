@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -152,6 +153,14 @@ public class PresetSearchResultsFragment extends DialogFragment {
                 } catch (Exception ex) {
                     Log.e(DEBUG_TAG, "dismiss dialog failed with " + ex);
                 }
+
+                // if the activity has gone away, just exit
+                Activity activity = getActivity();
+                if (activity == null || !isAdded()) {
+                    Log.e(DEBUG_TAG, "onPostExecute missing Activity");
+                    return;
+                }
+
                 if (result == null || result.isEmpty()) {
                     Snack.toastTopInfo(getContext(), R.string.toast_nothing_found);
                     return;
