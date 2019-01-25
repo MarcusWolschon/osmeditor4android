@@ -504,7 +504,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             return true;
         case R.id.tag_menu_resetMRU:
             for (Preset p : propertyEditorListener.getPresets()) {
-                p.resetRecentlyUsed();
+                if (p != null) {
+                    p.resetRecentlyUsed();
+                }
             }
             ((PropertyEditor) getActivity()).recreateRecentPresetView();
             return true;
