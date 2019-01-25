@@ -1956,6 +1956,7 @@ public class Logic {
      * @return true if the operation was successful
      * @throws OsmIllegalOperationException
      */
+    @Nullable
     public synchronized MergeResult performJoin(@Nullable FragmentActivity activity, @NonNull OsmElement element, @NonNull Node nodeToJoin)
             throws OsmIllegalOperationException {
         MergeResult result = null;
