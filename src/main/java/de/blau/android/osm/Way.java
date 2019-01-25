@@ -218,6 +218,9 @@ public class Way extends OsmElement implements BoundedObject {
      * @return true if closed
      */
     public boolean isClosed() {
+        if (nodes == null || nodes.isEmpty()) {
+            throw new IllegalStateException("Way " + getOsmId() + " has no nodes");
+        }
         return nodes.get(0).equals(nodes.get(nodes.size() - 1));
     }
 
