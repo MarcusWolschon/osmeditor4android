@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.BoundingBox;
@@ -88,7 +89,7 @@ class OsmoseServer {
      * @param bug bug with the state the server side bug should be changed to
      * @return true if successful
      */
-    public static boolean changeState(Context context, OsmoseBug bug) {
+    public static boolean changeState(@NonNull Context context, OsmoseBug bug) {
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313305479/done
         // http://osmose.openstreetmap.fr/de/api/0.2/error/3313313045/false
         if (bug.getState() == State.OPEN) {
@@ -128,7 +129,7 @@ class OsmoseServer {
      * @param context the Android context
      * @return the server URL
      */
-    private static String getServerURL(Context context) {
+    private static String getServerURL(@NonNull Context context) {
         Preferences prefs = new Preferences(context);
         String lang = Locale.getDefault().getLanguage();
         if (!supportedLanguages.contains(lang)) {

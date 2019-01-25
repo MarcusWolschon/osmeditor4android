@@ -143,7 +143,7 @@ public class Preferences {
      * @throws NotFoundException
      */
     @SuppressLint("NewApi")
-    public Preferences(Context ctx) throws IllegalArgumentException, NotFoundException {
+    public Preferences(@NonNull Context ctx) throws IllegalArgumentException, NotFoundException {
         prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         r = ctx.getResources();
         advancedPrefs = new AdvancedPrefDatabase(ctx);

@@ -154,31 +154,36 @@ public class TaskFragment extends ImmersiveDialogFragment {
             builder.setNeutralButton(R.string.transfer_download_current_upload, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     saveTask(v, task);
+                    final FragmentActivity activity = getActivity();
+                    if (activity == null || !isAdded()) {
+                        Log.e(DEBUG_TAG, "Activity vanished");
+                        return;
+                    }
                     (new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... arg0) {
                             PostAsyncActionHandler handler = new PostAsyncActionHandler() {
                                 @Override
                                 public void onSuccess() {
-                                    updateMenu(getActivity());
+                                    updateMenu(activity);
 
                                 }
 
                                 @Override
                                 public void onError() {
-                                    updateMenu(getActivity());
+                                    updateMenu(activity);
 
                                 }
                             };
                             if (task instanceof Note) {
                                 Note n = (Note) task;
                                 NoteComment nc = n.getLastComment();
-                                TransferTasks.uploadNote(getActivity(), prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
+                                TransferTasks.uploadNote(activity, prefs.getServer(), n, (nc != null && nc.isNew()) ? nc.getText() : null,
                                         n.getState() == State.CLOSED, false, handler);
                             } else if (task instanceof OsmoseBug) {
-                                TransferTasks.updateOsmoseBug(getActivity(), (OsmoseBug) task, false, handler);
+                                TransferTasks.updateOsmoseBug(activity, (OsmoseBug) task, false, handler);
                             } else if (task instanceof MapRouletteTask) {
-                                TransferTasks.updateMapRouletteTask(getActivity(), prefs.getServer(), (MapRouletteTask) task, false, handler);
+                                TransferTasks.updateMapRouletteTask(activity, prefs.getServer(), (MapRouletteTask) task, false, handler);
                             }
                             return null;
                         }
