@@ -26,7 +26,7 @@ You need:
 
 #### What is the status of Vespucci development?
 
-The current Vespucci release version is 12. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
+The current Vespucci release version is 12.1. We typically provide monthly updates to the released version (bug fixes and updated presets and imagery configurations), minor releases roughly every quarter and major release once to twice a year.
 
 #### Is Vespucci available for other mobile platforms?
 

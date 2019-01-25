@@ -6,7 +6,7 @@ theme:
   custom_dir: flatly-custom
   favicon: favicon.ico
 extra:
-  version: 12.0.0
+  version: 12.1.0
   project: Vespucci
 nav:
 - Vespucci: 'index.md'
