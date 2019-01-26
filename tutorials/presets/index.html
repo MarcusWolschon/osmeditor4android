@@ -285,13 +285,13 @@ i-->
                 <div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System</h2>
-<p><em>Documentation for Vespucci 11.1</em></p>
+<p><em>Documentation for Vespucci 12.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
 <p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
 <h3 id="supported-josm-preset-elements-and-attributes">Supported JOSM Preset Elements and Attributes</h3>
-<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.</p>
+<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.</p>
 <table>
 <thead>
 <tr>
@@ -1022,7 +1022,7 @@ i-->
 <li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
 <li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
 <li>
-<p><em>value_type</em> type of the value: </p>
+<p><em>value_type</em> type of the value. This avoids having to hardcode such properties in applications, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example. </p>
 <ul>
 <li><em>opening_hours</em> a normal opening hours syntax tag</li>
 <li><em>opening_hours_mixed</em> a tag with both text values and opening hours, examples: <em>fee</em>, <em>supervised</em> and <em>lit</em></li>
@@ -1034,9 +1034,10 @@ i-->
 <li><em>wikidata</em>  a wikidata Q ref</li>
 </ul>
 </li>
-</ul>
-<p>this avoids having to hardcode such properties in applications, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example.
-* <em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p></div> -->
+<li>
+<p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
+</li>
+</ul></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -1050,13 +1051,13 @@ i-->
                     <div class="col-md-9" role="main">
 
 <h2 id="vespucci-preset-system">Vespucci Preset System</h2>
-<p><em>Documentation for Vespucci 11.1</em></p>
+<p><em>Documentation for Vespucci 12.1</em></p>
 <p>As explained in the <a href="../../help/en/Presets/">help documentation</a> Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.</p>
 <h3 id="preset-driven-tag-editing-in-vespucci">Preset-Driven Tag-Editing in Vespucci</h3>
 <p><img alt=" " src="../images/form_editor_small.png" /></p>
 <p>For the preset based editing to work Vespucci has to match the existing tags, including incomplete, key-only ones with the available presets. This is done in an iterative fashion: the best matching preset is found (weighting presets with fixed key-value tuples higher than such with variable values), then all tags that can be found in linked presets are added (no separate header displayed) and this process is repeated until their are either no tags left or no preset match can be found.  </p>
 <h3 id="supported-josm-preset-elements-and-attributes">Supported JOSM Preset Elements and Attributes</h3>
-<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.</p>
+<p>Note: this is loosely based on what <a href="https://josm.openstreetmap.de/wiki/TaggingPresets">JOSM claims</a> that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see <a href="#Translation">Translation</a>). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.</p>
 <table>
 <thead>
 <tr>
@@ -1787,7 +1788,7 @@ i-->
 <li><em>i18n</em> the tag can have i18n variants, for example name and name:de</li>
 <li><em>object_keys</em> comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example</li>
 <li>
-<p><em>value_type</em> type of the value: </p>
+<p><em>value_type</em> type of the value. This avoids having to hardcode such properties in applications, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example. </p>
 <ul>
 <li><em>opening_hours</em> a normal opening hours syntax tag</li>
 <li><em>opening_hours_mixed</em> a tag with both text values and opening hours, examples: <em>fee</em>, <em>supervised</em> and <em>lit</em></li>
@@ -1799,9 +1800,10 @@ i-->
 <li><em>wikidata</em>  a wikidata Q ref</li>
 </ul>
 </li>
-</ul>
-<p>this avoids having to hardcode such properties in applications, see the <a href="xmas preset">https://github.com/simonpoole/xmas-preset</a> for an example.
-* <em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p></div>
+<li>
+<p><em>items_sort</em> this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.</p>
+</li>
+</ul></div>
                 
         </div>
 
