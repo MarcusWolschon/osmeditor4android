@@ -1,5 +1,5 @@
 ## Vespucci Preset System
-_Documentation for Vespucci 11.1_
+_Documentation for Vespucci 12.1_
 
 As explained in the [help documentation](../help/en/Presets.md) Vespucci uses JOSM compatible presets, currently any preset used in JOSM should simply work with Vespucci, however there can be differences. Particularly with the new preset driven tagging interface presets have become even more important and if you are writing presets yourself and want them to work well in Vespucci please keep on reading.
 
@@ -11,7 +11,7 @@ For the preset based editing to work Vespucci has to match the existing tags, in
 
 ### Supported JOSM Preset Elements and Attributes
 
-Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) to works, this may, and actually likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.
+Note: this is loosely based on what [JOSM claims](https://josm.openstreetmap.de/wiki/TaggingPresets) that works, this may, and likely is, different from the actual implementation. Language specific attributes are ignored (see [Translation](#Translation)). "supported" doesn't necessarily imply the same behaviour as JOSM, simply that Vespucci will do something useful with the value. Icons currently must be in PNG format.
 
 
 Element            | Attributes                     | Support   | Notes
@@ -149,7 +149,7 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
 * _javascript_ execute the script if the value of this tag is empty, the script has access to and can modify the current tags and use the specified default value if any
 * _i18n_ the tag can have i18n variants, for example name and name:de
 * _object\_keys_ comma separated list of top level keys, examples would be highway, amenity etc., use this if your preset is introducing new such keys, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example
-* _value\_type_ type of the value: 
+* _value\_type_ type of the value. This avoids having to hardcode such properties in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example. 
 
     * _opening_hours_ a normal opening hours syntax tag
     * _opening_hours_mixed_ a tag with both text values and opening hours, examples: _fee_, _supervised_ and _lit_
@@ -159,6 +159,5 @@ For Vespucci I've chosen a different approach based on [GNU gettext](https://www
     * _phone_ a phone number
     * _wikipedia_ a wikipedia page
     * _wikidata_  a wikidata Q ref
-  
-  this avoids having to hardcode such properties in applications, see the [https://github.com/simonpoole/xmas-preset](xmas preset) for an example.
-* _items_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
+
+* _items\_sort_ this controls sorting of items in groups, the default is "yes", any other value will disable sorting, the sorting preserves structure. Note: the preset root groups are currently not sortable.
