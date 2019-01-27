@@ -73,10 +73,12 @@ import de.blau.android.presets.Preset.PresetKeyType;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
+import de.blau.android.presets.PresetComboField;
 import de.blau.android.presets.PresetElementPath;
 import de.blau.android.presets.PresetField;
 import de.blau.android.presets.PresetFieldJavaScript;
 import de.blau.android.presets.PresetFixedField;
+import de.blau.android.presets.PresetTextField;
 import de.blau.android.presets.ValueWithCount;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.ClipboardUtils;
@@ -1704,10 +1706,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             if (!isOptional || (isOptional && addOptional)) {
                 if (field instanceof PresetCheckGroupField) {
                     for (PresetCheckField check : ((PresetCheckGroupField) field).getCheckFields()) {
-                        addTagFromPreset(item, currentValues, check.getKey());
+                        addTagFromPreset(item, field, currentValues, check.getKey());
                     }
                 } else if (!(field instanceof PresetFixedField)) {
-                    addTagFromPreset(item, currentValues, entry.getKey());
+                    addTagFromPreset(item, field, currentValues, entry.getKey());
                 }
             }
         }
@@ -1738,21 +1740,21 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * the preset this will be set as the value.
      * 
      * @param item current Preset
+     * @param field the current PresetField
      * @param tags map of current tags
      * @param key the key we are processing
      */
-    private void addTagFromPreset(@NonNull PresetItem item, @NonNull Map<String, ArrayList<String>> tags, @NonNull String key) {
+    private void addTagFromPreset(@NonNull PresetItem item, @Nullable PresetField field, @NonNull Map<String, ArrayList<String>> tags, @NonNull String key) {
         if (!tags.containsKey(key)) {
             String value = "";
-            PresetField field = item.getField(key);
-            if (field != null && !(field instanceof PresetFixedField)) {
-                MRUTags mruTags = App.getMruTags();
-                String topValue = mruTags.getTopValue(item, key);
-                if (topValue != null) {
-                    value = topValue;
-                } else {
-                    String defaultValue = field.getDefaultValue();
-                    if (defaultValue != null) {
+            if (field != null) {
+                String defaultValue = field.getDefaultValue();
+                if (field instanceof PresetComboField || field instanceof PresetCheckField || (field instanceof PresetTextField && defaultValue != null)) {
+                    MRUTags mruTags = App.getMruTags();
+                    String topValue = mruTags.getTopValue(item, key);
+                    if (topValue != null) {
+                        value = topValue;
+                    } else if (defaultValue != null) {
                         value = defaultValue;
                     }
                 }
