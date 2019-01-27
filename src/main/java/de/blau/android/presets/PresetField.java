@@ -81,6 +81,7 @@ public abstract class PresetField {
         this.textContext = field.textContext;
         this.valueContext = field.valueContext;
         this.valueType = field.valueType;
+        this.useLastAsDefault = field.useLastAsDefault;
     }
 
     /**
