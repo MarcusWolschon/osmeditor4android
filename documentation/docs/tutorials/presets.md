@@ -45,7 +45,7 @@ __&lt;reference&gt;__ |                            | supported |
                    | ref                           | supported | required
 __&lt;key&gt;__    |                               | supported |
                    | value                         | supported | required
-                   | match                         | partial | "none" is supported
+                   | match                         | partial   | "none" is supported
                    | text		                   | extension | Something to display 
                    | values_context				   | extension | Translation context
 __&lt;text&gt;__   |                               | supported |
@@ -53,7 +53,7 @@ __&lt;text&gt;__   |                               | supported |
                    | text                          | supported |
                    | match                         | partial   | only the "key", "key!" and "none" values are supported, all other values are ignored
                    | default                       | supported | 
-                   | use_last_as_default           | ignored   | 
+                   | use_last_as_default           | partial   | "force" has the same effect as "true" 
                    | auto_increment                | ignored   |
                    | length                        | ignored   |
                    | alternative_autocomplete_keys | ignored   |
@@ -73,7 +73,7 @@ __&lt;combo&gt;__  |                               | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
                    | editable                      | supported | default is "false"
-                   | use_last_as_default           | ignored   |
+                   | use_last_as_default           | partial   | "force" has the same effect as "true"
                    | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
@@ -91,7 +91,7 @@ __&lt;multiselect&gt;__ |                          | supported |
                    | short_descriptions            | partial   | will only be used if display_values is not present
                    | values_context                | supported |
                    | editable                      | supported | default is "false"
-                   | use_last_as_default           | ignored   |
+                   | use_last_as_default           | partial   | "force" has the same effect as "true"
                    | values_searchable             | supported | subtype values are added regardless of the setting
                    | length                        | ignored   |
                    | values_no_i18n                | ignored   |
@@ -115,7 +115,8 @@ __&lt;check&gt;__  |                               | supported |
                    | value_off                     | supported | 
                    | disable_off                   | supported |
                    | default                       | supported |
-                   | match                         | supported | 
+                   | match                         | supported |
+                   | use_last_as_default           | extension | "force" has the same effect as "true" 
 __&lt;label&gt;__  |                               | ignored   |
 __&lt;space/&gt;__ |                               | ignored   |
 __&lt;optional&gt;__ |                             | supported | doesn't display anything
