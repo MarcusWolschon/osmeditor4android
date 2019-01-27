@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import ch.poole.poparser.Po;
 import de.blau.android.presets.Preset.MatchType;
+import de.blau.android.presets.Preset.UseLastAsDefault;
 import de.blau.android.presets.Preset.ValueType;
 
 public abstract class PresetField {
@@ -51,6 +52,11 @@ public abstract class PresetField {
      */
     ValueType valueType = null;
 
+    /**
+     * Use last as default
+     */
+    UseLastAsDefault useLastAsDefault = UseLastAsDefault.FALSE;
+    
     /**
      * Construct a new PresetField
      * 
@@ -187,6 +193,24 @@ public abstract class PresetField {
         }
     }
 
+    /**
+     * Set if the previous value should be used as default
+     * 
+     * @param useLastAsDefault the value to set
+     */
+    public void setUseLastAsDefault(@NonNull UseLastAsDefault useLastAsDefault) {
+        this.useLastAsDefault = useLastAsDefault;
+    }
+    
+    /**
+     * Get the value of useLastAsDefault
+     * 
+     * @return and indication if we should use the last value as default for this field
+     */
+    public UseLastAsDefault getUseLastAsDefault() {
+        return useLastAsDefault;
+    }
+    
     /**
      * Method that creates a copy of the element
      * 

@@ -118,6 +118,7 @@ import de.blau.android.views.WrappingLayout;
  */
 public class Preset implements Serializable {
 
+    private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
     private static final String PO                         = ".po";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
     private static final String NO                         = "no";
@@ -257,24 +258,60 @@ public class Preset implements Serializable {
         @Nullable
         static ValueType fromString(@NonNull String typeString) {
             ValueType type = null;
-            if ("opening_hours".equals(typeString)) {
+            switch (typeString) {
+            case "opening_hours":
                 type = OPENING_HOURS;
-            } else if ("opening_hours_mixed".equals(typeString)) {
+                break;
+            case "opening_hours_mixed":
                 type = OPENING_HOURS_MIXED;
-            } else if ("conditional".equals(typeString)) {
+                break;
+            case "conditional":
                 type = CONDITIONAL;
-            } else if ("integer".equals(typeString)) {
+                break;
+            case "integer":
                 type = INTEGER;
-            } else if ("website".equals(typeString)) {
+                break;
+            case "website":
                 type = WEBSITE;
-            } else if ("phone".equals(typeString)) {
+                break;
+            case "phone":
                 type = PHONE;
-            } else if ("wikipedia".equals(typeString)) {
+                break;
+            case "wikipedia":
                 type = WIKIPEDIA;
-            } else if ("wikidata".equals(typeString)) {
+                break;
+            case "wikidata":
                 type = WIKIDATA;
+                break;
             }
             return type;
+        }
+    }
+
+    public enum UseLastAsDefault {
+        TRUE, FALSE, FORCE;
+
+        /**
+         * Get an UseLastAsDefault value from a String
+         * 
+         * @param value the input string
+         * @return the appropriate value of FALSE if is can't be determined
+         */
+        @NonNull
+        public static UseLastAsDefault fromString(@NonNull String value) {
+            UseLastAsDefault result = FALSE;
+            switch (value) {
+            case "true":
+                result = TRUE;
+                break;
+            case "false":
+                result = FALSE;
+                break;
+            case "force":
+                result = FORCE;
+                break;
+            }
+            return result;
         }
     }
 
@@ -771,6 +808,10 @@ public class Preset implements Serializable {
                     if (valueType != null) {
                         currentItem.setValueType(key, valueType);
                     }
+                    String useLastAsDefault = attr.getValue(USE_LAST_AS_DEFAULT);
+                    if (useLastAsDefault != null) {
+                        currentItem.setUseLastAsDefault(key, useLastAsDefault);
+                    }
                     break;
                 case LINK:
                     String language = Locale.getDefault().getLanguage();
@@ -832,6 +873,10 @@ public class Preset implements Serializable {
                         field.setMatchType(match);
                     }
                     field.setOptional(inOptionalSection);
+                    useLastAsDefault = attr.getValue(USE_LAST_AS_DEFAULT);
+                    if (useLastAsDefault != null) {
+                        currentItem.setUseLastAsDefault(key, useLastAsDefault);
+                    }
                     if (checkGroup != null) {
                         checkGroup.addCheckField(field);
                     } else {
@@ -899,6 +944,10 @@ public class Preset implements Serializable {
                     valueType = attr.getValue(VALUE_TYPE);
                     if (valueType != null) {
                         currentItem.setValueType(key, valueType);
+                    }
+                    useLastAsDefault = attr.getValue(USE_LAST_AS_DEFAULT);
+                    if (useLastAsDefault != null) {
+                        currentItem.setUseLastAsDefault(key, useLastAsDefault);
                     }
                     break;
                 case ROLES:
@@ -3088,6 +3137,19 @@ public class Preset implements Serializable {
                 return field.valueType;
             }
             return null;
+        }
+
+        /**
+         * Set the UseLastAsDefault for the key
+         * 
+         * @param key the key
+         * @param type a String for the ValueType
+         */
+        public void setUseLastAsDefault(@NonNull String key, @NonNull String type) {
+            PresetField field = fields.get(key);
+            if (field != null) {
+                field.setUseLastAsDefault(UseLastAsDefault.fromString(type));
+            }
         }
 
         /**

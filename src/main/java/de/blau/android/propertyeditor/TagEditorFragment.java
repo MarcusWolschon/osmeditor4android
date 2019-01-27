@@ -70,6 +70,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.Preset.PresetKeyType;
+import de.blau.android.presets.Preset.UseLastAsDefault;
 import de.blau.android.presets.Preset.ValueType;
 import de.blau.android.presets.PresetCheckField;
 import de.blau.android.presets.PresetCheckGroupField;
@@ -1736,8 +1737,10 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     /**
      * Add tag from preset if the tag doesn't exist, execute JS if present
      * 
-     * If evaluating the JS returns null, the key is removed. If an entry in the MRU tags exists or a default value in
-     * the preset this will be set as the value.
+     * If an entry in the MRU tags exists and UseLastAsDefault is TRUE or FORCE or a default value in the preset this
+     * will be set as the value.
+     * 
+     * If evaluating the JS returns null, the key is removed.
      * 
      * @param item current Preset
      * @param field the current PresetField
@@ -1749,13 +1752,15 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             String value = "";
             if (field != null) {
                 String defaultValue = field.getDefaultValue();
-                if (field instanceof PresetComboField || field instanceof PresetCheckField || (field instanceof PresetTextField && defaultValue != null)) {
+                if (defaultValue != null) {
+                    value = defaultValue;
+                }
+                UseLastAsDefault useLastAsDefault = field.getUseLastAsDefault();
+                if (useLastAsDefault == UseLastAsDefault.TRUE || useLastAsDefault == UseLastAsDefault.FORCE) {
                     MRUTags mruTags = App.getMruTags();
                     String topValue = mruTags.getTopValue(item, key);
                     if (topValue != null) {
                         value = topValue;
-                    } else if (defaultValue != null) {
-                        value = defaultValue;
                     }
                 }
             }
