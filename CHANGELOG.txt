@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.1.2: Revert automatic application of last tag values, don't sort MRU preset view, update imagery and translations.
+
 12.1.1: numerous stability improvements, improvements preset search, updated translations and preset.
 
 12.1.0: Use most recently used tags when applying preset, support "wiki" attribute in presets, support splitting via ways in turn-restrictions, add marker to share on OSM, fix downloaded preset refresh, add non-combo keys to auto-suggest list, invert zoom in/out behaviour for mouse scroll wheels, fix regression causing task loading to fail when layer restoring had issues, update translations.
