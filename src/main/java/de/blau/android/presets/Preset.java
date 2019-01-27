@@ -1428,6 +1428,7 @@ public class Preset implements Serializable {
     public static View getRecentPresetView(Context ctx, Preset[] presets, PresetClickHandler handler, ElementType type) {
         Preset dummy = new Preset();
         PresetGroup recent = dummy.new PresetGroup(null, "recent", null);
+        recent.setItemSort(false);
         for (Preset p : presets) {
             if (p != null && p.hasMRU()) {
                 int allItemsCount = p.allItems.size();
