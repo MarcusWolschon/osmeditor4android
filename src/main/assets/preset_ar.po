@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-17 11:56+0000\n"
+"PO-Revision-Date: 2019-01-26 12:52+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -346,7 +346,7 @@ msgstr ""
 
 #: master_preset.xml:8082(item:name|group:Facilities|preset:Advertising_Column)
 msgid "Advertising Column"
-msgstr ""
+msgstr "عمود إعلاني"
 
 #: master_preset.xml:14929(item:name|group:Offices|preset:Advertising_agency)
 msgid "Advertising agency"
@@ -1565,7 +1565,7 @@ msgstr ""
 
 #: master_preset.xml:3858(item:name|group:Aerialway|preset:Cable_Car)
 msgid "Cable Car"
-msgstr ""
+msgstr "تلفريك"
 
 #: master_preset.xml:574(combo:text|key:cables)
 msgid "Cable count"
@@ -2825,7 +2825,7 @@ msgstr ""
 
 #: master_preset.xml:7015(item:name|group:Education|preset:Driving_School)
 msgid "Driving School"
-msgstr ""
+msgstr "مدرسة تعليم القيادة"
 
 #: master_preset.xml:709(list_entry:display_value|value:drug_addicted)
 msgid "Drug addicted"
@@ -3097,7 +3097,7 @@ msgstr ""
 
 #: master_preset.xml:1640(list_entry:short_description|group:Ways|preset:Track|value:grade3)
 msgid "Even mixture of hard and soft materials"
-msgstr ""
+msgstr "خليط من المواد الصلبة واللينة"
 
 #: master_preset.xml:538(list_entry:display_value|value:evergreen)
 msgid "Evergreen"
@@ -10421,7 +10421,7 @@ msgstr ""
 #: master_preset.xml:673(text:text|key:wikidata)
 #: master_preset.xml:697(text:text|key:wikidata)
 msgid "Wikidata"
-msgstr ""
+msgstr "ويكي بيانات"
 
 #: master_preset.xml:10400(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikipedia)
 #: master_preset.xml:12373(text:text|group:Boundaries|preset:Protected_Area|key:wikipedia)

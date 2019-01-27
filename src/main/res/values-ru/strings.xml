@@ -243,7 +243,6 @@
   <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
-  <string name="toast_too_many_nodes_for_move">В линии слишком много точек для перемещения</string>
   <string name="toast_photo_indexing_started">Начато сканирование гео-привязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование гео-привязанных фото</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки: %1$d, сообщение: %2$s</string>
@@ -253,11 +252,15 @@
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
   <string name="coordinates_out_of_range">Долгота должна быть в пределах от -180° до +180°, широта от -85° до +85°</string>
   <string name="toast_nothing_found">Ничего не найдено</string>
+  <string name="toast_statesave_failed">Сохранение текущего состояния не удалось!\nЭто необратимая ошибка, записывается  файл экспорта для последующего восстановления в JOSM.</string>
+  <string name="toast_missing_filemanager">Пожалуйста, установите менеджер файлов.</string>
   <string name="toast_file_not_found">%1$s не найдено.</string>
   <string name="toast_no_voice">Отсутствуют средства распознавания голоса</string>
   <string name="toast_no_suitable_storage">Система не смогла определить подходящее место для хранения базы подложки карты.</string>
   <string name="toast_min_one_preset">Должна быть выбрана как минимум одна заготовка!</string>
   <string name="toast_min_one_geocoder">Должен быть выбран как минимум один геокодер!</string>
+  <string name="toast_used_backup">Файл состояния испорчен, используется предыдущий сохраненный файл.</string>
+  <string name="toast_used_bug_backup">Файл состояния ошибок/заметок испорчен, используется предыдущий сохраненный файл.</string>
   <string name="toast_split_from">Разделенный \"from\" путь</string>
   <string name="toast_split_via">Разделенный \"via\" путь</string>
   <string name="toast_split_from_and_via">Разделенные \"from\" и \"via\" пути</string>
@@ -268,8 +271,10 @@
   <string name="toast_invalid_notesurl">Неправильный API URL для заметок</string>
   <string name="toast_invalid_filter_regexp">Неправильное регулярное выражение в фильтре с ключом \"%1$s\" и значением \"%2$s\"</string>
   <string name="toast_no_coverage">%1$s не имеет здесь покрытия</string>
+  <string name="toast_file_exists">Файл %1$s уже существует.</string>
   <string name="toast_needs_resurvey">Объект может быть устаревшим</string>
   <string name="toast_openinghours_invalid">Неверное значение времени работы для %1$s</string>
+  <string name="toast_exit_actionmode">Используйте стрелку ← для сохранения и выхода</string>
   <string name="toast_null_island">Пожалуйста, не добавляйте ничего в 0°/0° (начало координат)</string>
   <string name="toast_string_too_long">Строка слишком длинная (%1$d символов), обрезана!</string>
   <string name="toast_illegal_operation">Неверная операция: %1$s</string>
@@ -313,6 +318,7 @@
   <string name="geojson_object">%1$s (%2$s)</string>
   <string name="none">Нет</string>
   <!--Dialog for back button-->
+  <string name="exit_title">Выход из Vespucci</string>
   <string name="exit_text">Вы действительно хотите выйти?</string>
   <!--Strings in PorpertyEditor-->
   <string name="key">ключ</string>
@@ -413,10 +419,14 @@
   <string name="menu_transfer_download_other">Загрузить другое место</string>
   <string name="menu_transfer_upload">Передать данные на сервер OSM</string>
   <string name="menu_transfer_close_changeset">Закрыть текущий пакет правок</string>
+  <string name="menu_transfer_file">Файл...</string>
   <string name="menu_transfer_export">Экспорт изменений в файл OSC</string>
+  <string name="menu_transfer_read_file">Прочесть из файла JOSM...</string>
+  <string name="menu_transfer_save_file">Сохранить в файл JOSM...</string>
   <string name="menu_transfer_bugs_upload">Передать всё</string>
   <string name="menu_transfer_bugs_clear">Очистить</string>
   <string name="menu_transfer_write_custom_bugs">Сохранить пакет ошибок...</string>
+  <string name="menu_save">Сохранить в файл</string>
   <string name="menu_join">Объединить</string>
   <string name="menu_unjoin">Разъединить</string>
   <string name="menu_copy">Копировать</string>
@@ -570,6 +580,7 @@
   <string name="manage_geocoders">Управление геокодерами</string>
   <!--preset downloader messages-->
   <string name="preset_update">Обновить заготовку</string>
+  <string name="preset_download_failed">Невозможно загрузить файл с заготовкой. Заготовка не будет работать.</string>
   <string name="preset_download_parse_failed">Некорректный файл заготовки. Заготовка не будет работать.</string>
   <string name="preset_download_title">Загрузка заготовки</string>
   <!--changes-->

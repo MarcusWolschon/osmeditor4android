@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-16 23:43+0000\n"
+"PO-Revision-Date: 2019-01-25 20:22+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -1578,7 +1578,7 @@ msgstr "Número de cabos"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Cadaster"
-msgstr ""
+msgstr "Cadastro predial"
 
 #: master_preset.xml:5256(item:name|group:Food+Drinks|preset:Cafe)
 msgid "Cafe"
@@ -2361,7 +2361,7 @@ msgstr "Clientes"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Customs"
-msgstr ""
+msgstr "Alfândega"
 
 #: master_preset.xml:12863(item:name|group:Nature|preset:Cutline)
 msgid "Cutline"
@@ -6724,11 +6724,11 @@ msgstr "Métodos pagamento"
 
 #: master_preset.xml:12257(item:name|group:Money|preset:Payment_centre)
 msgid "Payment centre"
-msgstr ""
+msgstr "Centro de pagamentos"
 
 #: master_preset.xml:12266(item:name|group:Money|preset:Payment_terminal)
 msgid "Payment terminal"
-msgstr ""
+msgstr "Terminal de pagamento"
 
 #: master_preset.xml:13126(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Peach trees"

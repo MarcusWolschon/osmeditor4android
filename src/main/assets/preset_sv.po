@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-24 08:49+0000\n"
+"PO-Revision-Date: 2019-01-25 22:59+0000\n"
 "Last-Translator: Magnus Österlund\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -2854,7 +2854,7 @@ msgstr ""
 
 #: master_preset.xml:8079(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Dunlop (Woods)"
-msgstr ""
+msgstr "Cykelventil (Woods-/Dunlop-/blixtventil)"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Dutch"
@@ -7752,7 +7752,7 @@ msgstr "Referenser per fil i motsatt vägriktning"
 
 #: master_preset.xml:8079(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Regina"
-msgstr ""
+msgstr "Regina"
 
 #: master_preset.xml:12422(item:name|group:Places|preset:Region)
 #: master_preset.xml:5445(combo:display_values|group:Tourism|preset:Map|key:map_size)
@@ -8229,7 +8229,7 @@ msgstr "Schuko"
 
 #: master_preset.xml:8079(multiselect:display_values|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Sclaverand (Presta)"
-msgstr ""
+msgstr "Presta-ventilen (racerventil)"
 
 #: master_preset.xml:4135(check:text|group:Car|preset:Charging_Station|key:scooter)
 msgid "Scooter"
@@ -10011,7 +10011,7 @@ msgstr "Dal"
 
 #: master_preset.xml:8079(multiselect:text|group:Facilities|preset:Compressed_Air|key:valves)
 msgid "Valves"
-msgstr ""
+msgstr "Ventiler"
 
 #: master_preset.xml:6402(list_entry:display_value|group:Culture|preset:Other_theatres|value:variety)
 msgid "Variety"

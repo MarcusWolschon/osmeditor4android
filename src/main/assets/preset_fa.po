@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-25 10:12+0000\n"
+"PO-Revision-Date: 2019-01-26 23:28+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -977,7 +977,7 @@ msgstr ""
 
 #: master_preset.xml:3370(item:name|group:Water|preset:Bay)
 msgid "Bay"
-msgstr ""
+msgstr "خلیج"
 
 #: master_preset.xml:3348(item:name|group:Water|preset:Beach)
 msgid "Beach"
@@ -2700,7 +2700,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3020(item:name|group:Water|preset:Ditch)
 msgid "Ditch"
-msgstr ""
+msgstr "جوی آب (خاکی)"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Divehi"
@@ -2782,7 +2782,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3004(item:name|group:Water|preset:Drain)
 msgid "Drain"
-msgstr ""
+msgstr "جوی"
 
 #: master_preset.xml:6355(list_entry:display_value|group:Culture|preset:Theatre|value:drama)
 msgid "Drama"
@@ -5582,7 +5582,7 @@ msgstr ""
 #: master_preset.xml:3334(item:name|group:Water|preset:Mud)
 #: master_preset.xml:54(combo:display_values|key:surface)
 msgid "Mud"
-msgstr ""
+msgstr "گل و لای"
 
 #: master_preset.xml:8375(item:name|group:Sport|preset:Multi)
 msgid "Multi"
@@ -10027,7 +10027,7 @@ msgstr ""
 
 #: master_preset.xml:4282(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "مرکز معاینه فنی خودرو"
 
 #: master_preset.xml:12893(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -10330,7 +10330,7 @@ msgstr ""
 
 #: master_preset.xml:3128(item:name|group:Water|preset:Weir)
 msgid "Weir"
-msgstr ""
+msgstr "سرریز"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Welsh"
@@ -10342,7 +10342,7 @@ msgstr ""
 
 #: master_preset.xml:3305(item:name|group:Water|preset:Wetland)
 msgid "Wetland"
-msgstr ""
+msgstr "اراضی مرطوب"
 
 #: master_preset.xml:249(text:text|key:wheelchair:description)
 msgid "Wheelchair access details"
@@ -11178,7 +11178,7 @@ msgstr ""
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Mud"
-msgstr ""
+msgstr "گل و لای"
 
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
@@ -12584,7 +12584,7 @@ msgstr ""
 #: master_preset.xml:876(combo:display_values|key:building:material)
 msgctxt "building"
 msgid "Mud"
-msgstr ""
+msgstr "گل و لای"
 
 #: master_preset.xml:869(combo:display_values|key:building:use)
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
@@ -13015,7 +13015,7 @@ msgstr ""
 #: master_preset.xml:2514(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
 msgid "Ditch"
-msgstr ""
+msgstr "جوی آب (خاکی)"
 
 #: master_preset.xml:2596(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

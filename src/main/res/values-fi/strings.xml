@@ -595,15 +595,21 @@
   <string name="reverse_anyway">Käännä kuitenkin</string>
   <string name="deleteway_description">Olet poistamassa viivaa.\n\nVoit säilyttää kaikki pisteet tai poistaa vain tähän viivaan kuuluvat tägittömät pisteet.</string>
   <string name="deleteway_relation_description">Olet poistamassa viivaa, joka on jäsenenä ainakin yhdessä relaatiossa. Tälläisten viivojen poistaminen voi sotkea relaatiot.</string>
+  <string name="deleteway_nodesnotdownloaded_description">Osa viivan pisteistä on ladatun alueen ulkopuolella, ja sen poistaminen johtaisi epäjohdonmukaiseen tilaan. Lataa koko viiva ennen uutta yritystä.</string>
+  <string name="deleteway_wayonly">Poista pelkkä viiva</string>
+  <string name="deleteway_wayandnodes">Poista viiva</string>
   <string name="deletenode_relation_description">Olet poistamassa pistettä, joka on jäsenenä ainakin yhdessä relaatiossa. Tälläisten pisteiden poistaminen voi sotkea relaatiot.</string>
   <string name="deletenode">Poista piste</string>
   <string name="split_all_ways">Jaa kaikki viivat</string>
+  <string name="delete_note_description">Huomion poistamista ei voi perua!</string>
+  <string name="delete_note">Poista huomio</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">Viiva valittu</string>
   <string name="actionmode_nodeselect">Piste valittu</string>
   <string name="actionmode_relationselect">Relaatio valittu</string>
   <string name="actionmode_createpath">Luodaan polkua</string>
   <string name="actionmode_multiselect">Monivalinta</string>
+  <string name="actionmode_newnoteselect">Uusi huomio valittu</string>
   <!--EasyEdit action mode sub-titles-->
   <string name="actionmode_closed_way_split_1">Jaa suljettu viiva, 1. piste</string>
   <string name="actionmode_closed_way_split_2">Jaa suljettu viiva, 2. piste</string>
@@ -613,19 +619,53 @@
   <string name="actionmode_restriction_restart_via">Valitse \"via\"-viiva uudestaan</string>
   <string name="actionmode_restriction_to">Lisää \"to\"-viiva</string>
   <string name="actionmode_restriction_restart_to">Valitse \"to\"-viiva uudestaan</string>
+  <string name="actionmode_restriction_split_from">Jaa \"from\"-viiva</string>
+  <string name="actionmode_restriction_split_via">Jaa \"via\"-viiva</string>
+  <plurals name="actionmode_object_count">
+    <item quantity="one">1 kohde</item>
+    <item quantity="other">%1$d kohdetta</item>
+  </plurals>
   <string name="actionmode_rotateway">Pyöritä viivaa</string>
   <!--Simple Action Mode-->
+  <string name="menu_add_node">Lisää piste</string>
+  <string name="simple_add_node">Napauta paikkaa näytöltä</string>
+  <string name="menu_add_node_tags">Lisää tägitetty piste</string>
+  <string name="menu_add_way">Lisää viiva</string>
+  <string name="simple_add_way">Napauta paikkaa näytöltä</string>
+  <string name="menu_add_map_note">Lisää karttahuomio</string>
+  <string name="simple_add_note">Napauta paikkaa näytöltä</string>
+  <string name="menu_paste_object">Liitä elementti</string>
+  <string name="simple_paste">Napauta paikkaa näytöltä</string>
+  <string name="menu_paste_multiple">Liitä useita kertoja</string>
+  <string name="simple_paste_multiple">Napauta paikkaa näytöltä</string>
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Taustan kartta</string>
+  <string name="config_backgroundLayer_summary">Laattapohjainen karttatausta.</string>
   <string name="config_overlayLayer_title">Peittotason kartta</string>
+  <string name="config_overlayLayer_summary">Laattapohjainen karttapeittotaso.</string>
+  <string name="config_customlayers_title">Räätälöidyt tasot</string>
+  <string name="config_customlayers_summary">Määritä omia tasoja oletustasojen jatkoksi.</string>
   <string name="config_scale_title">Mittakaava</string>
-  <string name="config_enablePhotoLayer_summary">Näytä geomerkityt kuvat.</string>
+  <string name="config_scale_summary">Kartalla näytettävän mittakaavan tyyppi.</string>
+  <string name="config_mapProfile_title">Datan tyyli</string>
+  <string name="config_mapProfile_summary">Valitse datatasolla käytettävä tyyli.</string>
+  <string name="config_enableOpenStreetBugs_title">Näytä tehtävät</string>
+  <string name="config_enableOpenStreetBugs_summary">Näytä, muokkaa ja luo huomioita, virheitä ja tehtäviä.</string>
+  <string name="config_enablePhotoLayer_title">Näytä valokuvataso</string>
+  <string name="config_enablePhotoLayer_summary">Näytä geomerkittyjä kuvia.</string>
   <string name="config_enableKeepScreenOn_title">Pidä näyttö päällä</string>
-  <string name="config_largeDragArea_title">Laaja vetoalue pisteille</string>
+  <string name="config_enableKeepScreenOn_summary">Estä virransäästöä sammuttamasta näyttöä.</string>
+  <string name="config_largeDragArea_title">Laaja tarttumisalue pisteille</string>
+  <string name="config_largeDragArea_summary">Näyttää ison tarttumisalueen pisteiden ympärillä.</string>
   <string name="config_advancedprefs">Lisäasetukset</string>
+  <string name="config_moreprefs">Lisää asetuksia...</string>
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
+  <string name="config_built_in_preset">Valmiit esivalinnat</string>
+  <string name="config_validatorprefs_title">Tarkistimen asetukset</string>
+  <string name="config_validatorprefs_summary">Määritä tarkistimen säännöt</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
+  <string name="config_licensebutton_title">Tekijät ja lisenssit</string>
   <string name="config_debugbutton_title">Vianetsintä</string>
   <string name="config_category_info">Tietoja</string>
   <!--Advanced preferences-->
