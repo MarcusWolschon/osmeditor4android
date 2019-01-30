@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -638,7 +639,8 @@ public class Preset implements Serializable {
      * @throws IOException
      */
     private void parseXML(InputStream input) throws ParserConfigurationException, SAXException, IOException {
-        SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+        SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        SAXParser saxParser = factory.newSAXParser();
 
         saxParser.parse(input, new DefaultHandler() {
             /** stack of group-subgroup-subsubgroup... where we currently are */
@@ -1240,7 +1242,8 @@ public class Preset implements Serializable {
             return null;
         }
         try {
-            SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
+            SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+            SAXParser saxParser = factory.newSAXParser();
 
             saxParser.parse(new File(presetDir, presetFilename), new DefaultHandler() {
                 /**

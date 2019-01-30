@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -114,7 +115,7 @@ public class OsmParser extends DefaultHandler {
      * @throws ParserConfigurationException
      */
     public void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }

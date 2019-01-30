@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -880,7 +881,7 @@ public class DataStyle extends DefaultHandler {
      * @throws ParserConfigurationException
      */
     private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }

@@ -1482,7 +1482,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     String role1 = rm1.getRole();
                     String role2 = rm2.getRole();
                     // noinspection StringEquality
-                    if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) {
+                    if ((role1 != null && role2 == null) || (role1 == null && role2 != null) || (role1 != role2 && !role1.equals(role2))) { // NOSONAR
                         Log.d(DEBUG_TAG, "role conflict between " + o1.getDescription() + " role " + role1 + " and " + o2.getDescription() + " role " + role2);
                         return true;
                     }

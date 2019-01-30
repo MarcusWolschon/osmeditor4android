@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -448,9 +449,10 @@ public class MRUTags {
      * @throws IOException
      */
     private void readXml(@NonNull Context ctx, @NonNull InputStream input) throws ParserConfigurationException, SAXException, IOException {
-        SAXParser saxParser;
-
-        saxParser = SAXParserFactory.newInstance().newSAXParser();
+        
+        SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
+        SAXParser saxParser = factory.newSAXParser();
+        
         PresetGroup rootGroup = App.getCurrentRootPreset(ctx).getRootGroup();
 
         saxParser.parse(input, new DefaultHandler() {

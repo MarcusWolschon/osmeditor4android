@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -542,7 +543,7 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      * @throws ParserConfigurationException
      */
     private void start(final InputStream in) throws SAXException, IOException, ParserConfigurationException {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
         SAXParser saxParser = factory.newSAXParser();
         saxParser.parse(in, this);
     }
