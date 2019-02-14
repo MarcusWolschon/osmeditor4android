@@ -189,6 +189,81 @@ public class GeometryEditsTest {
     }
 
     /**
+     */
+    @UiThreadTest
+    @Test
+    public void splitDupRelationWay() {
+        try {
+            // setup some stuff to test relations
+            Logic logic = App.getLogic();
+            logic.setSelectedWay(null);
+            logic.setSelectedNode(null);
+            logic.setSelectedRelation(null);
+            logic.performAdd(main, 100.0f, 100.0f);
+            Assert.assertNotNull(logic.getSelectedNode());
+            System.out.println(logic.getSelectedNode());
+            Assert.assertEquals(1, App.getDelegator().getApiNodeCount());
+            logic.performAdd(main, 150.0f, 150.0f);
+            logic.performAdd(main, 200.0f, 200.0f);
+            logic.performAdd(main, 250.0f, 250.0f);
+            Way w1 = logic.getSelectedWay();
+            Assert.assertNotNull(w1);
+            System.out.println("ApplicationTest created way " + w1.getOsmId());
+            ArrayList<Node> nList1 = (ArrayList<Node>) w1.getNodes();
+            Assert.assertEquals(4, nList1.size());
+            final Node n1 = nList1.get(0);
+            System.out.println("ApplicationTest n1 " + n1.getOsmId());
+            final Node n2 = nList1.get(1);
+            System.out.println("ApplicationTest n2 " + n2.getOsmId());
+            final Node n3 = nList1.get(2);
+            System.out.println("ApplicationTest n3 " + n3.getOsmId());
+            final Node n4 = nList1.get(3);
+            System.out.println("ApplicationTest n4 " + n4.getOsmId());
+
+            // add w1 twice to a normal relation
+            List<OsmElement> mList = new ArrayList<OsmElement>();
+            mList.add(w1);
+            mList.add(w1);
+            Relation r = logic.createRelation(main, "test", mList);
+            Assert.assertEquals(2, w1.getParentRelations().size());
+            // r should have 2 members
+            Assert.assertEquals(2, r.getMemberElements().size());
+            
+            // split at n2
+            logic.performSplit(main, n2);
+            
+            // get the the resulting ways
+            List<Way> ways = logic.getWaysForNode(n4);
+            Assert.assertEquals(1, ways.size());
+           
+            if (ways.get(0).equals(w1)) {
+                ways = logic.getWaysForNode(n1);
+                Assert.assertEquals(1, ways.size());
+            }  
+            Way w2 = ways.get(0);
+            // both should have two parents
+            Assert.assertEquals(2, w1.getParentRelations().size());
+            Assert.assertEquals(2, w2.getParentRelations().size());
+            
+            // r should have 4 members now
+            Assert.assertEquals(4, r.getMemberElements().size());
+            
+            // split at n3
+            logic.performSplit(main, n3);
+            
+            // r should have 6 members now
+            Assert.assertEquals(6, r.getMemberElements().size());
+            // w1 and w2 should be unchanged
+            Assert.assertEquals(2, w1.getParentRelations().size());
+            Assert.assertEquals(2, w2.getParentRelations().size());
+
+            System.out.println();
+        } catch (Exception igit) {
+            Assert.fail(igit.getMessage());
+        }
+    }
+
+    /**
      * Create a closed way Split it
      */
     @UiThreadTest
