@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-16 00:34+0000\n"
+"PO-Revision-Date: 2019-02-01 11:42+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -651,7 +651,7 @@ msgstr "アーチェリー"
 
 #: master_preset.xml:15101(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr ""
+msgstr "建築家"
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Architecture"
@@ -945,7 +945,7 @@ msgstr "野球"
 #: master_preset.xml:3209(item:name|group:Water|preset:Basin)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Basin"
-msgstr ""
+msgstr "遊水地"
 
 #: master_preset.xml:14246(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"

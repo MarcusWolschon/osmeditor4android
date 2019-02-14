@@ -1,14 +1,15 @@
 # 
 # Translators:
 # leschek <leschekleschek@post.cz>, 2016-2017
+# Petr Schönmann <pschonmann@gmail.com>, 2019
 # Roman Horník <roman.hornik@debian-linux.cz>, 2018
 # Vladan Kudláč <vladankudlac@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-17 22:01+0000\n"
-"Last-Translator: Jakub Jelen <jakuje@gmail.com>\n"
+"PO-Revision-Date: 2019-02-10 20:13+0000\n"
+"Last-Translator: majkaz\n"
 "Language-Team: Czech (http://www.transifex.com/openstreetmap/presets/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,7 +358,7 @@ msgstr "Reklamní agentura"
 #: master_preset.xml:3857(group:name|group:Aerialway)
 #: master_preset.xml:4540(check:text|group:Public_Transport|preset:Stop_Position|key:aerialway)
 msgid "Aerialway"
-msgstr ""
+msgstr "Lanovka/vlek"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Afrikaans"
@@ -653,7 +654,7 @@ msgstr ""
 
 #: master_preset.xml:15101(item:name|group:Offices|preset:Architect)
 msgid "Architect"
-msgstr ""
+msgstr "Architekt"
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Architecture"
@@ -1025,7 +1026,7 @@ msgstr ""
 
 #: master_preset.xml:14254(item:name|group:Crafts|preset:Beekeeper)
 msgid "Beekeeper"
-msgstr ""
+msgstr "Včelař"
 
 #: master_preset.xml:5335(item:name|group:Food+Drinks|preset:Beer_Garden)
 msgid "Beer Garden"
@@ -1418,7 +1419,7 @@ msgstr "Budova"
 
 #: master_preset.xml:13750(list_entry:display_value|group:Relations|preset:Relations|value:building)
 msgid "Building (3D)"
-msgstr ""
+msgstr "Budova (3D)"
 
 #: master_preset.xml:2695(item:name|group:Passageways|preset:Building_Passage)
 msgid "Building Passage"
@@ -1489,7 +1490,7 @@ msgstr ""
 
 #: master_preset.xml:4715(item:name|group:Public_Transport_(Legacy)|preset:Bus_Station)
 msgid "Bus Station"
-msgstr ""
+msgstr "Autobusové nádraží"
 
 #: master_preset.xml:4731(item:name|group:Public_Transport_(Legacy)|preset:Bus_Stop)
 msgid "Bus Stop"
@@ -1922,7 +1923,7 @@ msgstr "Horolezectví"
 
 #: master_preset.xml:7060(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
-msgstr ""
+msgstr "Klinika"
 
 #: master_preset.xml:7731(item:name|group:Facilities|preset:Clock)
 msgid "Clock"
@@ -1930,7 +1931,7 @@ msgstr "Hodiny"
 
 #: master_preset.xml:14378(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Hodinář"
 
 #: master_preset.xml:10845(group:name|group:Clothes)
 #: master_preset.xml:10846(item:name|group:Clothes|preset:Clothes)
@@ -2739,7 +2740,7 @@ msgstr ""
 
 #: master_preset.xml:8488(item:name|group:Sport|preset:Dog_Racing)
 msgid "Dog Racing"
-msgstr ""
+msgstr "Psí závody"
 
 #: master_preset.xml:7861(combo:display_values|group:Facilities|preset:Waste_Basket/Trash_Can|key:waste)
 msgid "Dog excrement"
@@ -4958,7 +4959,7 @@ msgstr ""
 
 #: master_preset.xml:11686(item:name|group:Other|preset:Mall)
 msgid "Mall"
-msgstr ""
+msgstr "Obchod"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Maltese"
@@ -6164,7 +6165,7 @@ msgstr ""
 
 #: master_preset.xml:6894(check:text|group:Education|preset:Childcare|key:nursery)
 msgid "Nursery"
-msgstr ""
+msgstr "Školka"
 
 #: master_preset.xml:7469(item:name|group:Social_Facilities|preset:Nursing_Home)
 msgid "Nursing Home"
@@ -6256,7 +6257,7 @@ msgstr ""
 
 #: master_preset.xml:5681(list_entry:display_value|group:Leisure|preset:Animals|value:okapi)
 msgid "Okapi"
-msgstr ""
+msgstr "Okapi"
 
 #: master_preset.xml:10420(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:548(combo:display_values|key:denomination)
@@ -6275,15 +6276,15 @@ msgstr ""
 #: master_preset.xml:959(check:text|group:Streets|preset:Motorway|key:oneway)
 #: master_preset.xml:992(check:text|group:Streets|preset:Motorway_Link|key:oneway)
 msgid "Oneway"
-msgstr ""
+msgstr "Jednosměrka"
 
 #: master_preset.xml:1613(combo:text|preset:Cycle_Lane/Track|key:oneway:bicycle)
 msgid "Oneway (bicycle)"
-msgstr ""
+msgstr "Jednosměrka (Kolo)"
 
 #: master_preset.xml:1302(check:text|group:Streets|preset:Bicycle_Road|key:oneway:bicycle)
 msgid "Oneway for bicycle"
-msgstr ""
+msgstr "Jednosměrka pro kolo"
 
 #: master_preset.xml:10778(combo:display_values|group:Food|preset:Fair_Trade|key:fair_trade)
 #: master_preset.xml:10861(combo:display_values|group:Clothes|preset:Clothes|key:second_hand)
@@ -6406,7 +6407,7 @@ msgstr ""
 #: master_preset.xml:9685(text:text|group:Man_Made|preset:Surveillance_Camera|key:operator)
 #: master_preset.xml:9706(text:text|group:Man_Made|preset:MDF|key:operator)
 msgid "Operator"
-msgstr ""
+msgstr "Provozovatel"
 
 #: master_preset.xml:7038(combo:text|group:Education|preset:Music_School|key:operator:type)
 #: master_preset.xml:898(combo:text|key:operator:type)
@@ -6416,7 +6417,7 @@ msgstr ""
 #: master_preset.xml:11530(item:name|group:For_the_body|preset:Optician)
 #: master_preset.xml:14898(item:name|group:Crafts|preset:Optician)
 msgid "Optician"
-msgstr ""
+msgstr "Optik"
 
 #: master_preset.xml:1898(optional:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Optional crossing attributes:"
@@ -6560,7 +6561,7 @@ msgstr ""
 #: master_preset.xml:7797(check:text|group:Facilities|preset:Recycling_Container|key:recycling:PET)
 #: master_preset.xml:7838(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:PET)
 msgid "PET"
-msgstr ""
+msgstr "PET"
 
 #: master_preset.xml:13849(multiselect:display_values|group:Relations|preset:Turn_Restriction|key:except)
 msgid "PSV"
@@ -6584,7 +6585,7 @@ msgstr ""
 
 #: master_preset.xml:14548(item:name|group:Crafts|preset:Painter)
 msgid "Painter"
-msgstr ""
+msgstr "Malíř"
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Painting"
@@ -6600,16 +6601,16 @@ msgstr ""
 
 #: master_preset.xml:5686(list_entry:display_value|group:Leisure|preset:Animals|value:panda)
 msgid "Panda"
-msgstr ""
+msgstr "Panda"
 
 #: master_preset.xml:5687(list_entry:display_value|group:Leisure|preset:Animals|value:panther)
 msgid "Panther"
-msgstr ""
+msgstr "Panter"
 
 #: master_preset.xml:7796(check:text|group:Facilities|preset:Recycling_Container|key:recycling:paper)
 #: master_preset.xml:7837(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:paper)
 msgid "Paper"
-msgstr ""
+msgstr "Papír"
 
 #: master_preset.xml:8265(text:text|group:Golf|preset:Hole|key:par)
 msgid "Par"
@@ -6633,18 +6634,18 @@ msgstr ""
 
 #: master_preset.xml:13269(item:name|group:Land_use|preset:Park)
 msgid "Park"
-msgstr ""
+msgstr "Park"
 
 #: master_preset.xml:4001(combo:text|group:Car|preset:Parking|key:park_ride)
 msgid "Park and Ride"
-msgstr ""
+msgstr "Záchytné parkoviště P+R"
 
 #: master_preset.xml:1381(combo:display_values|group:Streets|preset:Service|key:service)
 #: master_preset.xml:3986(item:name|group:Car|preset:Parking)
 #: master_preset.xml:4298(item:name|group:Motorcycle|preset:Parking)
 #: master_preset.xml:4345(item:name|group:Bicycle|preset:Parking)
 msgid "Parking"
-msgstr ""
+msgstr "Parkoviště"
 
 #: master_preset.xml:1390(item:name|group:Streets|preset:Parking_Aisle)
 msgid "Parking Aisle"
@@ -6672,7 +6673,7 @@ msgstr ""
 
 #: master_preset.xml:5688(list_entry:display_value|group:Leisure|preset:Animals|value:parrot)
 msgid "Parrot"
-msgstr ""
+msgstr "Papoušek"
 
 #: master_preset.xml:233(list_entry:short_description|value:limited)
 #: master_preset.xml:245(list_entry:short_description|value:limited)
@@ -6737,7 +6738,7 @@ msgstr ""
 
 #: master_preset.xml:12612(item:name|group:Geography|preset:Peak)
 msgid "Peak"
-msgstr ""
+msgstr "Vrchol"
 
 #: master_preset.xml:3366(combo:display_values|group:Water|preset:Beach|key:surface)
 msgid "Pebblestone"
@@ -6821,7 +6822,7 @@ msgstr ""
 
 #: master_preset.xml:7110(item:name|group:Health|preset:Pharmacy)
 msgid "Pharmacy"
-msgstr ""
+msgstr "Lékárna"
 
 #: master_preset.xml:633(combo:text|key:phases)
 msgid "Phases"
@@ -6833,11 +6834,11 @@ msgstr ""
 
 #: master_preset.xml:7239(text:text|group:Emergency|preset:Automated_Defibrillator|key:phone)
 msgid "Phone Number"
-msgstr ""
+msgstr "Telefonní číslo"
 
 #: master_preset.xml:6468(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 msgid "Phone booth"
-msgstr ""
+msgstr "Telefonní budka"
 
 #: master_preset.xml:4158(check:text|group:Car|preset:Charging_Station|key:authentication:phone_call)
 msgid "Phone call"
@@ -6863,7 +6864,7 @@ msgstr ""
 
 #: master_preset.xml:14824(item:name|group:Crafts|preset:Photographer)
 msgid "Photographer"
-msgstr ""
+msgstr "Fotograf"
 
 #: master_preset.xml:14569(item:name|group:Crafts|preset:Photographic_laboratory)
 msgid "Photographic laboratory"
@@ -6897,11 +6898,11 @@ msgstr ""
 #: master_preset.xml:5693(list_entry:display_value|group:Leisure|preset:Animals|value:pig)
 #: master_preset.xml:8045(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 msgid "Pig"
-msgstr ""
+msgstr "Prase"
 
 #: master_preset.xml:9425(item:name|group:Man_Made|preset:Pipeline)
 msgid "Pipeline"
-msgstr ""
+msgstr "Dálkové potrubí"
 
 #: master_preset.xml:9439(item:name|group:Man_Made|preset:Pipeline_Marker)
 msgid "Pipeline Marker"
@@ -7019,7 +7020,7 @@ msgstr ""
 #: master_preset.xml:4504(role:text|group:Public_Transport|preset:Stop_Area|key:platform)
 #: master_preset.xml:4544(item:name|group:Public_Transport|preset:Platform)
 msgid "Platform"
-msgstr ""
+msgstr "Nástupiště"
 
 #: master_preset.xml:3925(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Platter"
@@ -7998,7 +7999,7 @@ msgstr "Typ střechy"
 
 #: master_preset.xml:14619(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Pokrývač"
 
 #: master_preset.xml:4958(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4981(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -9055,12 +9056,12 @@ msgstr ""
 #: master_preset.xml:4536(check:text|group:Public_Transport|preset:Stop_Position|key:subway)
 #: master_preset.xml:4569(check:text|group:Public_Transport|preset:Platform|key:subway)
 msgid "Subway"
-msgstr ""
+msgstr "Metro"
 
 #: master_preset.xml:4505(role:text|group:Public_Transport|preset:Stop_Area|key:)
 #: master_preset.xml:4598(item:name|group:Public_Transport|preset:Subway_Entrance)
 msgid "Subway Entrance"
-msgstr ""
+msgstr "Vstup do metra"
 
 #: master_preset.xml:7881(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:pump-out)
 msgid "Suction pumpout"
@@ -9649,7 +9650,7 @@ msgstr ""
 
 #: master_preset.xml:4689(item:name|group:Public_Transport_(Legacy)|preset:Tram_Stop)
 msgid "Tram Stop"
-msgstr ""
+msgstr "Tramvajová zastávka"
 
 #: master_preset.xml:4528(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Tram stop (legacy)"
@@ -10873,7 +10874,7 @@ msgstr ""
 #: master_preset.xml:4468(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform)
 #: master_preset.xml:4658(role:text|group:Public_Transport_(Legacy)|preset:Public_transport_route_(Legacy)|key:platform)
 msgid "platform"
-msgstr ""
+msgstr "Nástupiště"
 
 #: master_preset.xml:4450(role:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:platform_entry_only)
 #: master_preset.xml:4470(role:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:platform_entry_only)
@@ -12604,7 +12605,7 @@ msgstr ""
 #: master_preset.xml:869(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Parking"
-msgstr ""
+msgstr "Parkoviště"
 
 #: master_preset.xml:852(combo:display_values|key:building:frame:material)
 #: master_preset.xml:856(combo:display_values|key:building:wall:material)

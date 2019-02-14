@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-26 12:52+0000\n"
+"PO-Revision-Date: 2019-02-14 12:56+0000\n"
 "Last-Translator: Ibrahim Saed <ibraheem5000@hotmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/openstreetmap/presets/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -1250,7 +1250,7 @@ msgstr ""
 
 #: master_preset.xml:11974(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
-msgstr ""
+msgstr "ناشر كتب"
 
 #: master_preset.xml:7687(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
@@ -1400,7 +1400,7 @@ msgstr ""
 
 #: master_preset.xml:3808(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "مصد قطارات"
 
 #: master_preset.xml:14316(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
@@ -2195,7 +2195,7 @@ msgstr ""
 
 #: master_preset.xml:6776(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
-msgstr ""
+msgstr "محكمة"
 
 #: master_preset.xml:2727(key:text|group:Passageways|preset:Arcade|key:covered)
 #: master_preset.xml:2744(key:text|group:Passageways|preset:Colonnade|key:covered)
@@ -4052,7 +4052,7 @@ msgstr ""
 
 #: master_preset.xml:6622(item:name|group:Place_of_Worship|preset:Hindu_Temple)
 msgid "Hindu Temple"
-msgstr ""
+msgstr "معبد هندوسي"
 
 #: master_preset.xml:5665(list_entry:display_value|group:Leisure|preset:Animals|value:hippopotamus)
 msgid "Hippopotamus"
@@ -6068,7 +6068,7 @@ msgstr "ملاحظة"
 
 #: master_preset.xml:9859(item:name|group:Power_Generator|preset:Nuclear_Reactor)
 msgid "Nuclear Reactor"
-msgstr ""
+msgstr "مفاعل نووي"
 
 #: master_preset.xml:1848(text:text|group:Waypoints|preset:Motorway_Junction|key:ref)
 msgid "Number"
@@ -6414,7 +6414,7 @@ msgstr ""
 #: master_preset.xml:11530(item:name|group:For_the_body|preset:Optician)
 #: master_preset.xml:14898(item:name|group:Crafts|preset:Optician)
 msgid "Optician"
-msgstr ""
+msgstr "متجر نظارات"
 
 #: master_preset.xml:1898(optional:text|group:Waypoints|preset:Traffic_Signal)
 msgid "Optional crossing attributes:"
@@ -6654,7 +6654,7 @@ msgstr ""
 
 #: master_preset.xml:4014(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr ""
+msgstr "موقف سيارات"
 
 #: master_preset.xml:1381(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking aisle"
@@ -7550,7 +7550,7 @@ msgstr "إشارة المرور ( السكك الحديدية )"
 
 #: master_preset.xml:3817(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr ""
+msgstr "مفتاح تحويل سكك حديد"
 
 #: master_preset.xml:4531(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"
@@ -8052,7 +8052,7 @@ msgstr ""
 
 #: master_preset.xml:13882(group:name|group:Routes)
 msgid "Routes"
-msgstr ""
+msgstr "المسارات"
 
 #: master_preset.xml:5447(optional:text|group:Tourism|preset:Map)
 #: master_preset.xml:5487(optional:text|group:Tourism|preset:Guidepost)
@@ -8289,7 +8289,7 @@ msgstr ""
 
 #: master_preset.xml:665(check:text|key:seasonal)
 msgid "Seasonal"
-msgstr ""
+msgstr "موسمي"
 
 #: master_preset.xml:7910(combo:text|group:Facilities|preset:Bench|key:seats)
 msgid "Seats count"
@@ -8384,7 +8384,7 @@ msgstr ""
 
 #: master_preset.xml:1850(item:name|group:Waypoints|preset:Services)
 msgid "Services"
-msgstr ""
+msgstr "الخدمات"
 
 #: master_preset.xml:4332(optional:text|group:Motorcycle|preset:Motorcycle_Dealer)
 msgid "Services:"
@@ -8485,7 +8485,7 @@ msgstr ""
 
 #: master_preset.xml:6645(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "ضريح شنتو"
 
 #: master_preset.xml:923(combo:display_values|key:playground:theme)
 msgid "Ship"
@@ -8520,7 +8520,7 @@ msgstr ""
 #: master_preset.xml:5114(check:text|group:Accommodation|preset:Wilderness_Hut|key:shower)
 #: master_preset.xml:7623(item:name|group:Facilities|preset:Shower)
 msgid "Shower"
-msgstr ""
+msgstr "دش استحمام"
 
 #: master_preset.xml:5445(combo:text|group:Tourism|preset:Map|key:map_size)
 msgid "Shown Area"
@@ -10028,7 +10028,7 @@ msgstr ""
 
 #: master_preset.xml:4282(item:name|group:Car|preset:Vehicle_Inspection)
 msgid "Vehicle Inspection"
-msgstr ""
+msgstr "فحص مركبات"
 
 #: master_preset.xml:12893(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Veld"
@@ -10457,7 +10457,7 @@ msgstr ""
 
 #: master_preset.xml:9947(item:name|group:Power_Generator|preset:Wind_Turbine)
 msgid "Wind Turbine"
-msgstr ""
+msgstr "توربينة الرياح"
 
 #: master_preset.xml:9266(item:name|group:Man_Made|preset:Windmill)
 msgid "Windmill"

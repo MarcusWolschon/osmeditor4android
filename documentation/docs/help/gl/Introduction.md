@@ -4,9 +4,9 @@ O Vespucci é un editor do OpenStreetMap con tódalas funcións que admite a mai
 
 ## Empregar por primeira vez
 
-No inicio do Vespucci amosa o cadro do diálogo "Descarregar outra localización"/"Carregar área". Se vostede ten as coordenadas que se amosan e desexa descarregar de xeito inmediato, pode escolle-la opción axeitada e inseri-lo raio ó redor da localización que desexa descarregar. Non escolla unha área ampla nos dispositivos máis lentos. 
+No inicio do Vespucci amosa o cadro do diálogo "Baixar noutra localización"/"Carregar área". Se vostede ten as coordenadas que se amosan e desexa baixar de xeito inmediato, pode escolle-la opción axeitada e inseri-lo raio ó redor da localización que desexa baixar. Non escolla unha área ampla nos dispositivos máis lentos. 
 
-De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexa editar e descarrega-los datos (ollar máis adiante: "Edición co Vespucci").
+De xeito alternativo, pode pecha-lo diálogo premendo o botón "Ir ó mapa" e afastar ou achegar cara unha localización onde desexe editar e baixa-los datos (ollar máis adiante: "Edición co Vespucci").
 
 ## Editando con Vespucci
 
@@ -14,19 +14,19 @@ Dependendo do tamaño da pantalla e da idade do seu dispositivo, as accións de 
 
 <a id="download"></a>
 
-### Estasen a descarregar datos do OSM
+### Estasen a baixar datos do OSM
 
 Selecciona a icona de transferencia! [Transfer](../images/menu_transfer.png) ou o "Transfer" artigo do menu. Isto amosará sete opcións:
 
-* **Descarrega-la vista actual**: descarregue a área visíbel na pantalla e substitúa os datos existentes *(precisa dunha conexión á rede)*
-* **Engadi-la vista actual para descarregar**: descarregue a área visíbel na pantalla e fúndea cos datos existentes *(precisa dunha conexión á rede)*
-* **Descarregar noutro lugar**: amosa un formulario que lle permite inserir coordenadas, procurar unha localización ou emprega-la ubicación actual e, deseguido, descarregar unha área arredor desa ubicación *(precisa dunha conexión á rede)*
+* **Baixa-la vista actual**: baixe a área visíbel na pantalla e substitúa os datos existentes *(precisa dunha conexión á rede)*
+* **Engadi-la vista actual para baixar**: baixe a área visíbel na pantalla e fúndea cos datos existentes *(precisa dunha conexión á rede)*
+* **Baixar noutra localización**: amosa un formulario que lle permite inserir coordenadas, procurar unha localización ou emprega-la ubicación actual e, deseguido, baixar unha área arredor desa ubicación *(precisa dunha conexión á rede)*
 * **Subir datos ó servidor do OSM**: sube edicións ó OpenStreetMap *(precisa dunha autenticación)* *(precisa dunha conexión á rede)*
-* **Auto baixada**: descarregue unha área ó redor da ubicación xeográfica actual de xeito automático *(precisa dunha conexión á rede)* *(require GPS)*
+* **Autobaixada**: baixe unha área ó redor da ubicación xeográfica actual de xeito automático *(precisa dunha conexión á rede)* *(require GPS)*
 * **Ficheiro...**: gardar e carregar información no OSM cara/dende ficheiros do dispositivo.
 * **Nota/Erros...**: baixar (de xeito automático e manual) Notas e "Erros" do OSM dende ferramentas QA ferramentas (actualmente OSMOSE) *(precisa dunha conexión á rede)*
 
-O xeito máis sinxelo de descarregar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Descarregar vista actual". Pode achegar empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que descarregar entón datos da vista actual. Non se precisa dunha autenticación para descarregar datos no seu dispositivo.
+O xeito máis sinxelo de baixar datos ó dispositivo é achegar e marca-la localización que desexa editar e despois escoller "Baixar vista actual". Pode achegar empregando xestos, coma os botóns de achegamento ou os botóns de control do volume do dispositivo. O Vespucci tería que baixar entón datos da vista actual. Non se precisa dunha autenticación para baixar datos no seu dispositivo.
 
 ### Estase a editar
 
@@ -57,7 +57,7 @@ De xeito predeterminado, os nós e as vías seleccionábeis teñen unha área la
 
 É unha boa estratexia achega-lo mapa se tenta editar unha área con alta densidade.
 
-O Vespucci ten un bo sistema "desfacer/refacer" así que non teñas medo de experimentar no teu dispositivo, pero non carregues e gardes datos de proba ó chou.
+O Vespucci ten un bo sistema "desfacer/refacer" así que non teñas medo de experimentar no teu dispositivo, pero non subas e gardes datos de proba ó chou.
 
 #### Selección / Deselección (premido único e "menú de selección")
 
@@ -152,13 +152,13 @@ Cando se amosa o bloqueo vermello, tódalas accións non editadas están dispoñ
 
 *(require conectividade na rede)*
 
-Escolla o mesmo botón ou elemento do menú que fixo para a descarrega e agora escolla "Carregar datos no servidor do OSM".
+Escolla o mesmo botón ou elemento do menú que fixo para a baixada e agora escolla "Subir datos no servidor do OSM".
 
 O Vespucci admite a autorización do OAuth e o método clásico de nome do usuario e contrasinal. O OAuth é preferíbel xa que evita o envío de contrasinais nun texto plano.
 
-As novas instalacións do Vespucci terán o OAuth activado por defecto. No primeiro intento de carregar datos modificados, carrega unha páxina do sitio web do OSM. Despois de iniciar sesión (a través dunha conexión cifrada) pediráselle que autorice ó Vespucci a editar empregando a súa conta. Se queres ou precisas autoriza-lo acceso do OAuth á súa conta antes de editar hai un elemento correspondente no menú "Ferramentas".
+As novas instalacións do Vespucci terán o OAuth activado por defecto. No primeiro intento de subir datos modificados, carrega unha páxina do sitio web do OSM. Despois de iniciar sesión (a través dunha conexión cifrada) pediráselle que autorice ó Vespucci a editar empregando a súa conta. Se queres ou precisas autoriza-lo acceso do OAuth á súa conta antes de editar hai un elemento correspondente no menú "Ferramentas".
 
-Se desexa garda-lo seu traballo e non ten acceso á Internet, pode gardar nun ficheiro .osm compatíbel co JOSM e carregar máis tarde co Vespucci ou co JOSM. 
+Se desexa garda-lo seu traballo e non ten acceso á Internet, pode gardar nun ficheiro .osm compatíbel co JOSM e subilo máis tarde co Vespucci ou co JOSM. 
 
 #### Estasen a resolver conflitos ó subir
 

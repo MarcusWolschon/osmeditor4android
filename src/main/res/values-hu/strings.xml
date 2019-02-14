@@ -272,7 +272,7 @@ elemek megkövetelése</string>
   <string name="toast_merge_tag_conflict">Olyan elemeket egyesített, melyek ütköző címke értékeket, irányfüggő jelentést, vagy különböző szerepeket tartalmaznak ugyanabban a kapcsolatban. Ellenőrizze, hogy a címkék és szerepek helyesek.</string>
   <string name="toast_potential_merge_tag_conflict">Ütköző címkeértékekkel rendelkező elemek egyesítésére készül. Ellenőrizze, hogy a címkék helyesek-e, mielőtt újrapróbálkozik.</string>
   <string name="toast_state_file_failed">Olvashatatlan vagy sérült állapotfájl</string>
-  <string name="toast_too_many_nodes_for_move">A mozgatáshoz túl sok pont van a vonalban</string>
+  <string name="toast_way_nodes_moved">%1$d pont az elmozgatott vonalon</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">Egy olvasatlan OSM üzenete van</item>
     <item quantity="other">%1$d olvasatlan OSM üzenete van</item>
@@ -590,7 +590,7 @@ elemek megkövetelése</string>
   <string name="menu_tags">Tulajdonságok</string>
   <!--Text should be as short as possible-->
   <string name="menu_history">Előzmények</string>
-  <string name="menu_merge">összekapcsolás</string>
+  <string name="menu_merge">Összekapcsolás</string>
   <string name="menu_reverse">Megfordítás</string>
   <string name="notreversable_description">Ez a vonal nem fordítható meg, mert irányfüggő tulajdonságai vannak. A megfordítása elrontaná a címkézést.</string>
   <string name="reverse_anyway">Megfordítás mindenképp</string>
@@ -620,6 +620,8 @@ elemek megkövetelése</string>
   <string name="actionmode_restriction_restart_via">„via” szakasz ismételt kijelölése</string>
   <string name="actionmode_restriction_to">„to” szakasz hozzáadása</string>
   <string name="actionmode_restriction_restart_to">„to” szakasz ismételt kijelölése</string>
+  <string name="actionmode_restriction_split_from">„from” szakasz felosztása</string>
+  <string name="actionmode_restriction_split_via">„via” szakasz felosztása</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">1 objektum</item>
     <item quantity="other">%1$d objektum</item>

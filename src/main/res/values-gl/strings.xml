@@ -8,27 +8,45 @@
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Coidado!</string>
   <string name="transfer_download_current_upload">Subir</string>
-  <string name="transfer_download_current_download">Desbotar e descarregar</string>
+  <string name="transfer_download_current_download">Desbotar e baixar</string>
+  <string name="transfer_download_current_back">Voltar (non fagas ren)</string>
+  <string name="upload_problem_title">Non se puido subir</string>
   <string name="bad_request_message">A API respostou cun erro, garde os seus datos e informe do problema:\n\n</string>
-  <string name="upload_conflict_title">Conflito de subidas</string>
+  <string name="upload_conflict_title">Conflito en subida</string>
   <string name="upload_conflict_message_deleted">%1$s \nten unha versión en local %2$d \ne foi eliminado no servidor</string>
   <string name="use_local_version">Emprega-la versión local</string>
   <string name="use_server_version">Emprega-la versión do servidor</string>
+  <string name="no_connection_title">Sen conexión ó servidor</string>
+  <string name="wrong_login_data_title">Non podes autenticarte</string>
+  <string name="wrong_login_data_re_authenticate">Voltar a autenticar</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
+  <string name="not_found_title">Elemento non atopado</string>
+  <string name="unknown_error_title">Erro descoñecido</string>
   <string name="go_to_openstreetmap">Ir ó openstreetmap.org</string>
-  <string name="bounding_box_too_large_title">Área da descarrega moi grande</string>
+  <string name="data_conflict_title">Conflito de versión</string>
+  <string name="invalid_bounding_box_title">Caixa de límite non válida</string>
+  <string name="bounding_box_too_large_title">Área da baixada moi grande</string>
+  <string name="api_offline_title">API sen conexión</string>
+  <string name="api_offline_message">A API está actualmente sen conexión, non permite que os datos sexan recuperados ou escritos.</string>
+  <string name="out_of_memory_title">Sen memoria dabondo</string>
+  <string name="out_of_memory_message">O Vespucci ficou sen memoria cargando os datos solicitados. Volva a iniciar e proba cargar unha área máis pequena.</string>
+  <string name="invalid_data_received_title">Datos recibidos non válidos</string>
+  <string name="invalid_data_read_title">Datos enviados non válidos</string>
+  <string name="file_write_failed_title">Non se puido escribir no ficheiro</string>
+  <string name="file_write_failed_message">O Vespucci non puido mudar ou gardar o ficheiro.</string>
+  <string name="welcome_title">Benvido</string>
   <string name="read_upgrade">Ler sobre a nova versión</string>
   <string name="progress_title">Estase a carregar</string>
-  <string name="progress_message">Estasen a carrega-los datos na memoria...</string>
-  <string name="progress_download_message">Estasen a descarrega-los datos dende o servidor...</string>
+  <string name="progress_message">Estasen a cargar os datos na memoria...</string>
+  <string name="progress_download_message">Estasen a baixa-los datos dende o servidor...</string>
   <string name="progress_general_title">Por favor agarda</string>
   <string name="progress_deleting_message">Estase a eliminar...</string>
   <string name="progress_searching_message">Estase a procurar…</string>
   <string name="progress_saving_message">Estase a gardar...</string>
   <string name="progress_uploading_message">Estase a subir...</string>
-  <string name="progress_preset_message">Estase a descarregar predefenido...</string>
+  <string name="progress_preset_message">Estase a baixa-lo predefenido...</string>
   <string name="progress_running_message">Estase a executar...</string>
-  <string name="progress_oauth">Estase a carrega-la túa conta no openstreetmap.org para a autorización do OAuth...</string>
+  <string name="progress_oauth">Estase a carrega-la súa conta no openstreetmap.org para a autorización do OAuth...</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Pechar conxunto de mudanzas:</string>
@@ -38,7 +56,11 @@
   <string name="upload_validation_error_empty_comment">O comentario non debe ficar baleiro</string>
   <string name="upload_validation_error_empty_source">A fonte non debe ficar baleira</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Nova nota</string>
+  <string name="openstreetbug_new_bug">Informar dun problema</string>
   <string name="openstreetbug_bug_title">Problema</string>
+  <string name="openstreetbug_new_nodeway">Crear nó/vía</string>
+  <string name="openstreetbug_edit_title">Editar nota</string>
   <string name="openstreetbug_comment_label">Comentario:</string>
   <string name="openstreetbug_unknown_task_type">Tipo de tarefa descoñecida</string>
   <string name="openstreetbug_not_supported">%1$s non está suportado.</string>
@@ -133,7 +155,7 @@
   <string name="redo_all">Refacer tódolos puntos de control anteriores (seguro)</string>
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <string name="boxpicker_firsttimetitle">Descarregar datos do OpenStreetMap</string>
+  <string name="boxpicker_firsttimetitle">Baixar datos do OpenStreetMap</string>
   <!--NumberPiker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
@@ -300,11 +322,11 @@
   <string name="menu_gps_upload">Subir pista GPX</string>
   <string name="menu_gps_export">Exportar pista GPX</string>
   <string name="menu_gps_import">Importar pista GPX</string>
-  <string name="menu_gps_autodownload">Descarrega automática</string>
+  <string name="menu_gps_autodownload">Autobaixar</string>
   <string name="menu_transfer">Transferir...</string>
-  <string name="menu_transfer_download_current">Descarregar vista actual</string>
-  <string name="menu_transfer_download_current_add">Engadir vista actual á descarrega</string>
-  <string name="menu_transfer_download_other">Descarregar noutro lugar</string>
+  <string name="menu_transfer_download_current">Baixar vista actual</string>
+  <string name="menu_transfer_download_current_add">Engadir vista actual á baixada</string>
+  <string name="menu_transfer_download_other">Baixar noutra localización</string>
   <string name="menu_transfer_upload">Subir datos ao servidor OSM</string>
   <string name="menu_transfer_close_changeset">Pecha-lo conxunto de mudanzas actual</string>
   <string name="menu_transfer_export">Exportar mudanzas cara un fichero OSC</string>
@@ -407,7 +429,7 @@
   <string name="config_showWayIcons_summary">Amosar a icona do predeterminado máis axeitado dos edificios.</string>
   <string name="config_tagFormEnabled_title">Amosar formulario da etiqueta</string>
   <string name="config_showCameraAction_title">Amosa-la acción da cámara</string>
-  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre as áreas non descarregadas</string>
+  <string name="config_alwaysDrawBoundingBoxes_title">Escurecer sempre as áreas non baixadas</string>
   <string name="config_fullscreenMode_summary">Comportamento en dispositivos con teclas \"suaves\".</string>
   <string name="config_showTolerance_title">Amosar tolerancia</string>
   <string name="config_splitActionBarEnabled_title">Activar barra acción dividir</string>
@@ -419,7 +441,7 @@
   <string name="config_maxStrokeWidth_title">Máxima anchura de liña</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
   <!--Data and Editing Settings-->
-  <string name="config_category_editing_summary">Axustes da autodescarrega, gardado e notificacións</string>
+  <string name="config_category_editing_summary">Axustes da autobaixada, gardado e notificacións</string>
   <string name="config_address_tags">Engadir etiquetas</string>
   <string name="config_enableNameSuggestions_title">Activar suxestións de nomes</string>
   <string name="config_generateAlerts_title">Xerar notificacións</string>
@@ -427,7 +449,7 @@
   <string name="config_notificationCacheSize_title">Máx. número de notificacións amosadas</string>
   <string name="config_notificationCacheSize_current">%1$d Notificacións</string>
   <string name="config_maxAlertDistance_title">Distancia máx. de notificacións</string>
-  <string name="config_extTriggeredDownloadRadius_title">Raio da descarrega</string>
+  <string name="config_extTriggeredDownloadRadius_title">Raio da baixada</string>
   <string name="config_maxDownloadSpeed_title">Velocidade máxima de auto baixada</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
   <string name="config_closeChangesetOnSave_title">Pechar conxuntos de mudanzas</string>
@@ -440,7 +462,7 @@
   <string name="config_loginbutton_title">Conta de usuario</string>
   <string name="config_geocoderbutton_title">Configurar geocoders</string>
   <!--Layer download and storage-->
-  <string name="config_category_layers">Descarrega de capas e almacenaxe</string>
+  <string name="config_category_layers">Baixada de capas e almacenaxe</string>
   <string name="config_maxTileDownloadThreads_title">Máx. número de fontes de baixadas</string>
   <string name="config_downLoadThreads_current">%1$d Fíos</string>
   <string name="config_tileCacheSize_title">Tamaño da caché de teselas</string>

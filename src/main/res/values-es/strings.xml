@@ -13,8 +13,11 @@
   <string name="use_local_version">Usar la versión local</string>
   <string name="use_server_version">Usar la versión del servidor</string>
   <string name="forbidden_login_title">Acceso prohibido</string>
+  <string name="unknown_error_title">Error desconocido</string>
   <string name="go_to_openstreetmap">Ir a openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Área de descarga demasiado grande</string>
+  <string name="out_of_memory_title">Sin memoria</string>
+  <string name="invalid_data_received_title">Datos recibidos no válidos</string>
   <string name="read_upgrade">Lea sobre la nueva versión</string>
   <string name="progress_title">Cargando</string>
   <string name="progress_message">Cargando datos en memoria…</string>

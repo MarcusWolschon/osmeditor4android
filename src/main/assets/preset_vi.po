@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-24 09:04+0000\n"
+"PO-Revision-Date: 2019-02-01 07:39+0000\n"
 "Last-Translator: Minh Nguyễn <minh@nguyen.cincinnati.oh.us>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/openstreetmap/presets/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -4733,7 +4733,7 @@ msgstr ""
 
 #: master_preset.xml:197(combo:text|key:level)
 msgid "Level"
-msgstr ""
+msgstr "Lầu"
 
 #: master_preset.xml:3754(item:name|group:Railway|preset:Level_Crossing)
 msgid "Level Crossing"
@@ -12505,7 +12505,7 @@ msgstr ""
 #: master_preset.xml:862(combo:text|key:building:levels)
 msgctxt "building"
 msgid "Levels"
-msgstr ""
+msgstr "Số Lầu"
 
 #: master_preset.xml:852(combo:display_values|key:building:frame:material)
 #: master_preset.xml:856(combo:display_values|key:building:wall:material)

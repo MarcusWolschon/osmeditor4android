@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-26 23:28+0000\n"
+"PO-Revision-Date: 2019-02-01 23:57+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -1249,7 +1249,7 @@ msgstr ""
 
 #: master_preset.xml:11974(item:name|group:Other|preset:Bookmaker)
 msgid "Bookmaker"
-msgstr ""
+msgstr "دلال شرط‌بندی"
 
 #: master_preset.xml:7687(combo:display_values|group:Facilities|preset:Telephone|key:covered)
 msgid "Booth"
@@ -12590,7 +12590,7 @@ msgstr "گل و لای"
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Office"
-msgstr ""
+msgstr "دفتر"
 
 #: master_preset.xml:885(list_entry:short_description|value:onion)
 #: master_preset.xml:9104(item:name|group:Roof_type|preset:Onion)

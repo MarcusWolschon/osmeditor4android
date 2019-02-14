@@ -670,60 +670,162 @@
   <string name="config_category_info">Tietoja</string>
   <!--Advanced preferences-->
   <!--User Interface Settings-->
-  <string name="config_iconbutton_title">Näytä pisteikonit</string>
-  <string name="config_iconbutton_summary">Näytä osuvimman esivalinnan ikoni pisteiden päällä.</string>
+  <string name="config_category_view">Käyttöliittymän asetukset</string>
+  <string name="config_category_view_summary">Näytön ja ulkoasun valinnat.</string>
+  <string name="config_iconbutton_title">Näytä pistekuvakkeet</string>
+  <string name="config_iconbutton_summary">Näytä osuvimman esivalinnan kuvake pisteiden kohdalla.</string>
   <string name="config_showWayIcons_title">Näytä kohdepisteet rakennuksissa</string>
   <string name="config_showWayIcons_summary">Näytä osuvimman esivalinnan ikoni rakennusten päällä.</string>
   <string name="config_tagFormEnabled_title">Näytä tägilomake</string>
+  <string name="config_tagFormEnabled_summary">Näytä tägilomake muokkausnäkymässä.</string>
   <string name="config_showCameraAction_title">Näytä kameratoiminto</string>
+  <string name="config_showCameraAction_summary">Näytä kamerakuvake toimintopalkissa.</string>
+  <string name="config_followGPSbutton_title">Seuraa sijaintia -napin paikka</string>
+  <string name="config_followGPSbutton_summary">Missä \"Seuraa sijaintia\" -nappi näytetään.</string>
   <string name="config_alwaysDrawBoundingBoxes_title">Himmennä aina lataamattomat alueet</string>
+  <string name="config_alwaysDrawBoundingBoxes_summary">Himmennä lataamattomat alueet lukkotilassa.</string>
+  <string name="config_fullscreenMode_title">Kokoruututila</string>
   <string name="config_fullscreenMode_summary">Käytös laitteilla joissa on softanappeja.</string>
   <string name="config_showTolerance_title">Näytä toleranssialue</string>
+  <string name="config_showTolerance_summary">Näytä elementin ympärillä alue, josta sen voi valita.</string>
+  <string name="config_use_back_for_undo_title">Peruuta ←-näppäimellä</string>
+  <string name="config_use_back_for_undo_summary">Käytä ←-nappia peruutustoimintona päämuokkausnäkymässä.</string>
+  <string name="config_enableLightTheme_title">Vaalea teema</string>
+  <string name="config_enableLightTheme_summary">Vaalea teema, jossa valkoiset taustat.</string>
   <string name="config_splitActionBarEnabled_title">Käytä jaettua toimintopalkkia</string>
+  <string name="config_splitActionBarEnabled_summary">Salli jaettu toimintopalkki; toiminta on laitekohtainen. Vaatii Vespuccin uudelleenkäynnistyksen ja vähintään Android 4.0:n.</string>
   <string name="config_maxInlineValues_title">Suurin määrä rivinsisäisiä arvoja</string>
+  <string name="config_maxInlineValues_summary">Suurin määrä arvoja, jotka näytetään yhdellä rivillä tägilomakkeessa</string>
+  <string name="config_maxInlineValues_current">%1$d arvoa</string>
   <string name="config_autoLockDelay_title">Automaattilukituksen aikaraja</string>
+  <string name="config_autoLockDelay_summary">Aika sekunteina ennen kuin lukitus laitetaan päälle automaattisesti – 0 poistaa käytöstä.</string>
+  <string name="config_autoLockDelay_current">%1$d s</string>
+  <string name="config_enableAntiAliasing_title">Käytä reunanpehmennystä</string>
   <string name="config_enableAntiAliasing_summary">Tekee viivoista sileämpiä.</string>
   <string name="config_maxStrokeWidth_title">Viivan enimmäispaksuus</string>
+  <string name="config_maxStrokeWidth_summary">Älä piirrä tätä paksumpia viivoja</string>
+  <string name="config_maxStrokeWidth_current">%1$d pikseliä</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">Data- ja muokkausasetukset</string>
+  <string name="config_category_editing_summary">Automaattilataus-, tallennus ja ilmoitusasetukset.</string>
+  <string name="config_forceContextMenu_title">Näytä aina kohdevalikko</string>
+  <string name="config_forceContextMenu_summary">Näytä kohdevalikko aina, kun valinta ei ole yksiselitteinen.</string>
   <string name="config_address_tags">Osoitetägit</string>
+  <string name="config_address_tags_summary">Osoitteen ennustuksessa käytettävät tägit</string>
   <string name="config_enableNameSuggestions_title">Käytä nimiehdotuksia</string>
+  <string name="config_enableNameSuggestions_summary">Ota käyttöön nimitägien ehdotukset.</string>
+  <string name="config_enableNameSuggestionsPresets_title">Käytä esivalintaa nimiehdotuksille</string>
+  <string name="config_enableNameSuggestionsPresets_summary">Lisää esivalinta automaattisesti, kun nimiehdotus valitaan.</string>
   <string name="config_generateAlerts_title">Näytä ilmoitukset</string>
   <string name="config_generateAlerts_summary">Näytä ilmoitus, jos datassa on ongelmia tai muistiinpanoja</string>
+  <string name="config_groupAlertsOnly_title">Vain ryhmähälytykset</string>
+  <string name="config_groupAlertsOnly_summary">Soita hälytysääni vain kerran joka ilmoitusryhmälle.</string>
   <string name="config_notificationCacheSize_title">Suurin määrä ilmoituksia</string>
+  <string name="config_notificationCacheSize_summary">Suurin määrä näytettäviä ilmoituksia per tyyppi (vähintään 1).</string>
+  <string name="config_notificationCacheSize_current">%1$d ilmoitusta</string>
   <string name="config_maxAlertDistance_title">Etäisyysraja ilmoituksille</string>
+  <string name="config_maxAlertDistance_summary">Miten kaukaa nykyisestä sijainnista ongelmista ja muistiinpanoista vielä ilmoitetaan.</string>
+  <string name="config_maxAlertDistance_current">%1$d metri(ä)</string>
   <string name="config_extTriggeredDownloadRadius_title">Lataussäde</string>
+  <string name="config_extTriggeredDownloadRadius_summary">Säde (m) ulkopuolelta käynnistetyille latauksille, 0 = pelkkä kartan keskitys.</string>
+  <string name="config_downloadRadius_current">%1$d metri(ä)</string>
   <string name="config_maxDownloadSpeed_title">Suurin nopeus automaattilataukselle</string>
+  <string name="config_maxDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä automaattilataus keskeytetään.</string>
+  <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_bugFilter_title">Tehtäväsuodatin</string>
+  <string name="config_bugFilter_summary">Valitse muistiinpano-, virhe ja tehtävätasolla näytettävät kohteet.</string>
+  <string name="config_bugDownloadRadius_title">Tehtävien lataussäde</string>
+  <string name="config_bugDownloadRadius_summary">Säde (m) tehtävien automaattiselle lataukselle.</string>
+  <string name="config_maxBugDownloadSpeed_title">Suurin nopeus tehtävien automaattilataukselle</string>
+  <string name="config_maxBugDownloadSpeed_summary">Nopeusraja (km/h) jonka ylittyessä tehtävien automaattilataus keskeytetään.</string>
   <string name="config_closeChangesetOnSave_title">Sulje muutossetit</string>
+  <string name="config_closeChangesetOnSave_summary">Sulje muutossetit oletusarvoisesti tallennettaessa.</string>
+  <string name="config_enableAutoPresets_title">Käytä esivalintojen automaattiluontia</string>
+  <string name="config_enableAutoPresets_summary">Salli esivalintojen luonti taginfosta.</string>
   <!--Location Settings-->
+  <string name="config_category_gps">Paikannusasetukset</string>
+  <string name="config_category_gps_summary">GPS/GNSS- ja muita paikannusasetuksia.</string>
+  <string name="config_gps_source_title">GPS/GNSS-lähde</string>
+  <string name="config_gps_source_summary">GPS/GNSS-sijainnin päivitysten lähde</string>
   <string name="config_gps_source_tcp_title">NMEA-verkon lähde</string>
+  <string name="config_gps_source_tcp_summary">NMEA:n TCP-lähteen osoite (palvelin:portti).</string>
+  <string name="config_gps_interval_title">GPS/GNSS:n vähimmäisaikaväli</string>
+  <string name="config_gps_interval_summary">GPS/GNSS-paikan päivitysten aikaväli millisekunteina. Pienet arvot kuluttavat akkua enemmän.</string>
+  <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">GPS/GNSS:n vähimmäisetäisyys</string>
+  <string name="config_gps_distance_summary">GPS/GNSS-päivitysten vähimmäisvälimatka metreinä. Pienet arvot kuluttavat akkua enemmän.</string>
+  <string name="config_gps_distance_current">%1$d metri(ä)</string>
+  <string name="config_leaveGpsDisabled_title">Jätä GPS/GNSS pois päältä</string>
+  <string name="config_leaveGpsDisabled_summary">Älä pyydä käynnistämään GPS/GNSS:ää, jos se on pois päältä.</string>
+  <string name="config_gps_network_title">Käytä nettipaikkaa varalla</string>
+  <string name="config_gps_network_summary">Jos GPS/GNSS-paikkaa ei saada tai se ei ole päällä, käytä nettiyhteyden sijaintitietoa.</string>
   <!--Server Settings-->
+  <string name="config_category_server">Palvelimen asetukset</string>
+  <string name="config_category_server_summary">OSM-API:n ja muiden palvelimien asetukset</string>
   <string name="config_apibutton_title">OSM-API:n URL</string>
+  <string name="config_apibutton_summary">Voit antaa vaihtoehtoisen URLin API:lle. Tavallisesti sitä ei tarvitse muuttaa!</string>
   <string name="config_loginbutton_title">Käyttäjätili</string>
-  <string name="config_geocoderbutton_title">Määritä geokooderit</string>
+  <string name="config_username_summary">Näitä asetuksia tarvitaan OSM-datan lähettämiseen vain, jos et käytä OAuthia. Tilin voi luoda sivulla http://www.openstreetmap.org/user/new</string>
+  <string name="config_offsetServer_title">Siirrospalvelin</string>
+  <string name="config_offsetServer_summary">Kuvastosiirrospalvelimen URL.</string>
+  <string name="config_osmoseServer_title">OSMOSE-palvelin</string>
+  <string name="config_osmoseServer_summary">Osmose-palvelimen URL.</string>
+  <string name="config_geocoderbutton_title">Geokooderien määritykset</string>
+  <string name="config_geocoderbutton_summary">Lisää, muokkaa ja poista geokoodereita hakutoimintoa varten.</string>
   <!--Layer download and storage-->
-  <string name="config_maxTileDownloadThreads_title">Suurin määrä lataussäikeitä</string>
+  <string name="config_category_layers">Tasojen lataus ja varastointi</string>
+  <string name="config_category_layers_summary">Laattapohjaisten taustakuvien lataus ja varastointi.</string>
+  <string name="config_maxTileDownloadThreads_title">Samanaikaisia latauksia enintään</string>
+  <string name="config_maxTileDownloadThreads_summary">Suurin määrä samanaikaisia laattojen latauksia.</string>
+  <string name="config_downLoadThreads_current">%1$d latausta</string>
   <string name="config_tileCacheSize_title">Laattavälimuistin koko</string>
+  <string name="config_tileCacheSize_summary">Kuvalaattojen välimuistin koko megatavuissa.</string>
+  <string name="config_tileCache_current">%1$d Mt</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">Sekalaiset</string>
+  <string name="pref_enable_acra">Ilmoita sovelluksen kaatumisista</string>
+  <string name="pref_acra_enabled">Kaatumisilmoitukset käytössä</string>
+  <string name="pref_acra_disabled">Kaatumisilmoitukset pois käytöstä</string>
   <string name="config_showStats_title">Näytä tilastotietoa</string>
+  <string name="config_showStats_summary">Näyttää vasemmassa alakulmassa datatilastoja ja kuvataajuuden.</string>
   <!--Experimental-->
+  <string name="config_category_experimental">Kokeellinen</string>
   <string name="config_js_console_title">Ota JS-konsoli käyttöön</string>
-  <string name="config_voiceCommandsEnabled_title">Ota äänikomennot käyttöön</string>
+  <string name="config_js_console_summary">Mahdollista JS-konsolin käyttö \"suoramuokkaustilassa\".</string>
+  <string name="config_voiceCommandsEnabled_title">Käytä äänikomentoja</string>
+  <string name="config_voiceCommandsEnabled_summary">Ota käyttöön tuki äänikomennoille.</string>
   <!---->
   <string name="manage_apis">APIen hallinta</string>
   <string name="config_api_url_title">API:n URL</string>
+  <string name="config_api_oauth_title">Käytä OAuthia</string>
+  <string name="listedit_enable_oauth">Käytä OAuthia</string>
+  <string name="config_username_title">Käyttäjätunnus OSM:ssä</string>
+  <string name="config_password_title">Salasana OSM:ssä</string>
+  <string name="config_password_summary">Älä sekoita tätä Wiki-salasanaan. Muista: se tallennetaan ja lähetetään selvänä tekstinä!</string>
   <string name="manage_presets">Esivalintojen hallinta</string>
+  <string name="listedit_use_translations">Käytä käännöksiä</string>
   <string name="manage_geocoders">Geokoodereiden hallinta</string>
   <!--preset downloader messages-->
   <string name="preset_update">Päivitä esivalinta</string>
+  <string name="preset_download_successful">Esivalinta ladattu</string>
+  <string name="preset_download_failed">Esivalintatiedostoa ei voitu ladata. Esivalintaa ei voi käyttää.</string>
   <string name="preset_download_parse_failed">Esivalintatiedosto on virheellinen. Esivalintaa ei voi käyttää.</string>
+  <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Osaa kuvakkeista ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
+  <string name="preset_download_title">Esivalintojen lataus</string>
   <!--changes-->
   <string name="changes_deleted">\"%1$s\" poistettiin</string>
   <string name="changes_changed">\"%1$s\" muutettiin</string>
   <string name="changes_created">\"%1$s\" luotiin</string>
+  <string name="confirm_upload_title">Lähetetäänkö?</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Lähetetäänkö tämä muutos?</item>
+    <item quantity="other">Lähetetäänkö nämä %1$d muutokset?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Muutokset</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lisää esivalinta</string>
   <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
+  <string name="urldialog_preset_download_successful">Esivalinta ladattu.</string>
   <string name="urldialog_api_exists">Tässä URLissa oleva API on jo olemassa. Voit kuitenkin lisätä toisen (esim. helpottamaan tilin vaihtamista).</string>
   <string name="urldialog_add_api">Lisää API</string>
   <string name="urldialog_nodata_text">Määritys-URLissa ei ole kelvollista dataa.</string>
@@ -735,8 +837,11 @@
   <string name="name">Nimi</string>
   <string name="url">URL</string>
   <string name="default_">Oletus</string>
+  <string name="regular_expression">Säännöllinen lauseke</string>
+  <string name="state">Tila</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
+  <string name="api_name">APIn nimi</string>
   <string name="api_url">APIn URL</string>
   <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
   <string name="notes_url">Notes-APIn URL (valinnainen)</string>
@@ -747,12 +852,45 @@
   <string name="undo">Peru</string>
   <string name="redo">Toista</string>
   <string name="undo_nothing">Ei mitään peruttavaa</string>
+  <string name="tracking_active_title">Vespuccin taustapalvelin</string>
+  <string name="tracking_active_title_short">Taustapalvelin käytössä</string>
+  <string name="tracking_active_text">GPX-jäljen tallennus tai automaattilataus meneillään.</string>
+  <string name="tracking_long_text">Vespucci on tallentamassa GPX-jälkeä tai lataamassa dataa automaattisesti. Ohjelma suljetaan täysin, jos painat allaolevaa nappia tai sovelluksen peruutusnappia.</string>
   <string name="gps_failure">GPS:ää ei voitu käynnistää</string>
   <!--element description-->
   <string name="address_housenumber">Osoite %1$s</string>
   <string name="address_housenumber_street">Osoite %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">Piste siirretty</string>
+  <string name="undo_action_moveway">Viiva siirretty</string>
+  <string name="undo_action_moveobjects">Kohteet siirretty</string>
+  <string name="undo_action_add">Lisäys</string>
+  <string name="undo_action_append">Viivaa jatkettu</string>
+  <string name="undo_action_deletenode">Piste poistettu</string>
+  <string name="undo_action_deleteway">Viiva poistettu</string>
+  <string name="undo_action_delete_objects">Kohteet poistettu</string>
+  <string name="undo_action_split_ways">Viivat jaettu</string>
+  <string name="undo_action_split_way">Viiva jaettu</string>
+  <string name="undo_action_merge_ways">Viivojen sulautus</string>
+  <string name="undo_action_reverse_way">Viiva käännetty</string>
+  <string name="undo_action_set_tags">Tägejä muutettu</string>
+  <string name="undo_action_join">Yhdistys</string>
+  <string name="undo_action_unjoin_ways">Viivojen erotus</string>
+  <string name="undo_action_create_relation">Relaatio luotu</string>
+  <string name="undo_action_delete_relation">Relaatio poistettu</string>
+  <string name="undo_action_update_relations">Relaatio päivitetty</string>
+  <string name="undo_action_cut">Leikkaus</string>
+  <string name="undo_action_paste">Liittäminen</string>
+  <string name="undo_action_rotateway">Viivan pyöritys</string>
+  <string name="undo_action_orthogonalize">Viivan suorakulmaistus</string>
+  <string name="undo_action_circulize">Järjestetty ympyrälle</string>
+  <string name="undo_action_fix_conflict">Ristiriidan ratkaisu</string>
+  <string name="undo_action_extract_node">Pisteen irrotus</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">Vespucci kaatui tai törmäsi vakavaan ongelmaan edellisellä ajokerralla.\n\nVoit auttaa ilmoittamalla virheestä, paina vain \"OK\"-nappia.\n</string>
+  <string name="crash_dialog_comment_prompt">Anna lisätietoja, jotka voisivat mielestäsi olla avuksi. Jos haluat palautetta, voit antaa myös sähköpostiosoitteesi.\n\nKiitos!</string>
+  <string name="report_success">Ilmoitus lähetetty.</string>
+  <string name="report_failure">Ilmoitusta ei voitu lähettää.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">Tämä toiminto tekisi viivan, jossa on liikaa pisteitä.</string>
   <!--Notifications-->
@@ -760,16 +898,27 @@
   <string name="alert_note">Havaittiin OSM-muistiinpano lähistöllä</string>
   <string name="alert_bug">Havaittiin OSM-virhe lähistöllä</string>
   <string name="alert_distance_direction">%1$d m suuntaan %2$s</string>
+  <string name="bearing_ne">Ko ↗</string>
+  <string name="bearing_e">I →</string>
+  <string name="bearing_se">Ka ↘</string>
+  <string name="bearing_s">E ↓</string>
+  <string name="bearing_sw">Lo ↙</string>
+  <string name="bearing_w">L ←</string>
+  <string name="bearing_nw">Lu ↖</string>
+  <string name="bearing_n">P ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">Rooli</string>
+  <string name="role_lc">rooli</string>
   <string name="membership_relation_heading">Relaation jäsen</string>
   <string name="relation">Relaatio</string>
   <string name="relations">Relaatiot</string>
+  <string name="position">Sijainti</string>
   <string name="type">Tyyppi</string>
   <string name="object">Kohde</string>
   <string name="deleterelation_relation_description">Olet poistamassa relaatiota, joka on jäsenenä ainakin yhdessä relaatiossa. Tälläisten relaatioiden poistaminen voi sotkea emorelaatiot.</string>
   <string name="deleterelation">Poista relaatio</string>
   <string name="delete_from_relation_description">Olet poistamassa tämän elementin relaatiosta.</string>
+  <string name="unset_relation_type">Relaation tyyppi asettamatta</string>
   <!--time and distance-->
   <string name="days">päivää</string>
   <string name="hours">tuntia</string>
@@ -778,6 +927,7 @@
   <string name="km">km</string>
   <string name="meter">metriä</string>
   <!--Help system-->
+  <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Arrays-->
   <string-array name="gpx_visibility">
     <item>yksityinen</item>
@@ -799,6 +949,15 @@
   <string-array name="note_state">
     <item>Auki</item>
     <item>Suljettu</item>
+  </string-array>
+  <string-array name="maproulette_state">
+    <item>Avoin</item>
+    <item>Suljettu</item>
+    <item>Virheellinen</item>
+    <item>Väliin jätetty</item>
+    <item>Poistettu</item>
+    <item>Jo korjattu</item>
+    <item>Liian vaikea</item>
   </string-array>
   <string-array name="followGPSbutton_entries">
     <item>Vasemmalla</item>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-07 21:18+0000\n"
-"Last-Translator: Andriy Grin <andergrin@gmail.com>\n"
+"PO-Revision-Date: 2019-01-31 11:34+0000\n"
+"Last-Translator: Vladislav Rybalka <kittyhawk3011@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openstreetmap/presets/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -738,7 +738,7 @@ msgstr ""
 
 #: master_preset.xml:5383(item:name|group:Tourism|preset:Attraction)
 msgid "Attraction"
-msgstr ""
+msgstr "Визначне місце"
 
 #: master_preset.xml:6517(combo:display_values|group:Culture|preset:Studio|key:studio)
 msgid "Audio"
@@ -7095,7 +7095,7 @@ msgstr ""
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "Ставок"
 
 #: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -7835,7 +7835,7 @@ msgstr ""
 #: master_preset.xml:3222(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Водосховище"
 
 #: master_preset.xml:5799(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -7925,7 +7925,7 @@ msgstr ""
 #: master_preset.xml:3057(item:name|group:Water|preset:River)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "River"
-msgstr ""
+msgstr "Ріка"
 
 #: master_preset.xml:3288(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
@@ -8970,7 +8970,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "Струмок"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -9099,7 +9099,7 @@ msgstr ""
 
 #: master_preset.xml:9671(item:name|group:Man_Made|preset:Surveillance_Camera)
 msgid "Surveillance Camera"
-msgstr ""
+msgstr "Камера відеоспостереження"
 
 #: master_preset.xml:9655(item:name|group:Man_Made|preset:Survey_Point)
 msgid "Survey Point"
@@ -11311,7 +11311,7 @@ msgstr ""
 #: master_preset.xml:115(combo:text|key:sidewalk)
 msgctxt "sidewalk"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Тротуар"
 
 #: master_preset.xml:128(multiselect:text|key:crossing)
 msgctxt "transport"
@@ -12993,7 +12993,7 @@ msgstr ""
 #: master_preset.xml:1779(combo:display_values|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
 msgid "Sidewalk"
-msgstr ""
+msgstr "Тротуар"
 
 #: master_preset.xml:1779(combo:text|group:Ways|preset:Dedicated_Footway|key:footway)
 msgctxt "footway"
@@ -13147,7 +13147,7 @@ msgstr ""
 #: master_preset.xml:5769(combo:text|group:Leisure|preset:Rides|key:attraction)
 msgctxt "leisure"
 msgid "Attraction"
-msgstr ""
+msgstr "Визначне місце"
 
 #: master_preset.xml:6037(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:balancebeam)
 msgctxt "leisure"

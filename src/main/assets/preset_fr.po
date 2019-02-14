@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Jérôme C, 2018-2019
-# Julien Lepiller <transifex@lepiller.eu>, 2018
+# Julien Lepiller <transifex@lepiller.eu>, 2018-2019
 # Simon Poole <sp8962@gmail.com>, 2017
 # Cybereric, 2017
 # Vincent de Phily <vincent.dephily@mobile-devices.fr>, 2015
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-21 11:29+0000\n"
-"Last-Translator: Jérôme C\n"
+"PO-Revision-Date: 2019-02-08 16:17+0000\n"
+"Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1307,7 +1307,7 @@ msgstr "Boutique de mode"
 
 #: master_preset.xml:5857(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:box)
 msgid "Box"
-msgstr ""
+msgstr "Plateforme de saut"
 
 #: master_preset.xml:571(text:text|key:branch)
 #: master_preset.xml:607(text:text|key:branch)
@@ -1375,7 +1375,7 @@ msgstr "arbres feuillus"
 
 #: master_preset.xml:6288(item:name|preset:Brothel)
 msgid "Brothel"
-msgstr ""
+msgstr "Maison close"
 
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
@@ -1565,11 +1565,11 @@ msgstr "Cabaret"
 
 #: master_preset.xml:14324(item:name|group:Crafts|preset:Cabinet_maker)
 msgid "Cabinet maker"
-msgstr ""
+msgstr "Ébéniste"
 
 #: master_preset.xml:3858(item:name|group:Aerialway|preset:Cable_Car)
 msgid "Cable Car"
-msgstr ""
+msgstr "Téléphérique"
 
 #: master_preset.xml:574(combo:text|key:cables)
 msgid "Cable count"
@@ -1694,7 +1694,7 @@ msgstr "Tapis"
 
 #: master_preset.xml:14346(item:name|group:Crafts|preset:Carpet_layer)
 msgid "Carpet layer"
-msgstr ""
+msgstr "Pose de moquette et revêtements"
 
 #: master_preset.xml:7883(check:text|group:Facilities|preset:Sanitary_Dump_Station|key:sanitary_dump_station:basin)
 msgid "Casette or Elsan Disposal"
@@ -1738,7 +1738,7 @@ msgstr ""
 
 #: master_preset.xml:14354(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "Traiteur"
 
 #: master_preset.xml:10420(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:548(combo:display_values|key:denomination)
@@ -1783,15 +1783,15 @@ msgstr "Musique de chambre"
 
 #: master_preset.xml:9264(combo:display_values|group:Man_Made|preset:Kiln|key:product)
 msgid "Charcoal"
-msgstr ""
+msgstr "Charbon"
 
 #: master_preset.xml:4113(item:name|group:Car|preset:Charging_Station)
 msgid "Charging Station"
-msgstr ""
+msgstr "Borne de recharge"
 
 #: master_preset.xml:11859(item:name|group:Other|preset:Charity)
 msgid "Charity"
-msgstr ""
+msgstr "Organisme caritatif"
 
 #: master_preset.xml:13870(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Check"
@@ -1815,7 +1815,7 @@ msgstr "Cerisiers"
 
 #: master_preset.xml:2013(item:name|group:Traffic_Calming|preset:Chicane)
 msgid "Chicane"
-msgstr ""
+msgstr "Chicane"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Chicken"
@@ -1823,11 +1823,11 @@ msgstr "Poulet"
 
 #: master_preset.xml:6882(item:name|group:Education|preset:Childcare)
 msgid "Childcare"
-msgstr ""
+msgstr "Garderie"
 
 #: master_preset.xml:6898(text:text|group:Education|preset:Childcare|key:childcare:capacity)
 msgid "Childcare capacity"
-msgstr ""
+msgstr "Capacité de la garderie"
 
 #: master_preset.xml:390(list_entry:short_description|value:children)
 #: master_preset.xml:706(list_entry:display_value|value:child)
@@ -1878,7 +1878,7 @@ msgstr "Cigarettes"
 
 #: master_preset.xml:12797(text:text|group:Nature|preset:Tree|key:circumference)
 msgid "Circumference (m)"
-msgstr ""
+msgstr "Circonférence (m)"
 
 #: master_preset.xml:6399(list_entry:display_value|group:Culture|preset:Other_theatres|value:circus)
 msgid "Circus"
@@ -1888,15 +1888,15 @@ msgstr "Cirque"
 #: master_preset.xml:12442(item:name|group:Places|preset:City)
 #: master_preset.xml:5445(combo:display_values|group:Tourism|preset:Map|key:map_size)
 msgid "City"
-msgstr ""
+msgstr "Grande ville"
 
 #: master_preset.xml:2153(item:name|preset:City_Limit)
 msgid "City Limit"
-msgstr ""
+msgstr "Limite communale"
 
 #: master_preset.xml:2477(item:name|group:Barriers|preset:City_Wall)
 msgid "City Wall"
-msgstr ""
+msgstr "Mur d'enceinte"
 
 #: master_preset.xml:10261(item:name|group:Historic_Places_&_Objects|preset:City_gate)
 msgid "City gate"
@@ -1932,7 +1932,7 @@ msgstr ""
 
 #: master_preset.xml:14378(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
-msgstr ""
+msgstr "Horloger"
 
 #: master_preset.xml:10845(group:name|group:Clothes)
 #: master_preset.xml:10846(item:name|group:Clothes|preset:Clothes)
@@ -2114,7 +2114,7 @@ msgstr "Préservatifs"
 #: master_preset.xml:10641(item:name|group:Food|preset:Confectionery)
 #: master_preset.xml:14786(item:name|group:Crafts|preset:Confectionery)
 msgid "Confectionery"
-msgstr ""
+msgstr "Confiseur"
 
 #: master_preset.xml:6750(item:name|group:Public_Building|preset:Conference_Centre)
 msgid "Conference Centre"
@@ -2795,7 +2795,7 @@ msgstr "Drame"
 
 #: master_preset.xml:14882(item:name|group:Crafts|preset:Dressmaker)
 msgid "Dressmaker"
-msgstr ""
+msgstr "Couturier"
 
 #: master_preset.xml:1883(check:text|group:Waypoints|preset:Rest_Area|key:drinking_water)
 #: master_preset.xml:3114(check:text|group:Water|preset:Spring|key:drinking_water)
@@ -3701,7 +3701,7 @@ msgstr ""
 
 #: master_preset.xml:14425(item:name|group:Crafts|preset:Glaziery)
 msgid "Glaziery"
-msgstr ""
+msgstr "Vitrerie"
 
 #: master_preset.xml:8465(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Gneiss"
@@ -3945,7 +3945,7 @@ msgstr ""
 
 #: master_preset.xml:14448(item:name|group:Crafts|preset:Heating_engineer)
 msgid "Heating engineer"
-msgstr ""
+msgstr "Chauffagiste"
 
 #: master_preset.xml:2894(item:name|group:Access_Restrictions|preset:Heavy_Goods_Vehicle)
 msgid "Heavy Goods Vehicle"
@@ -4881,7 +4881,7 @@ msgstr ""
 #: master_preset.xml:11834(item:name|group:Other|preset:Locksmith)
 #: master_preset.xml:14507(item:name|group:Crafts|preset:Locksmith)
 msgid "Locksmith"
-msgstr ""
+msgstr "Serrurier"
 
 #: master_preset.xml:923(combo:display_values|key:playground:theme)
 msgid "Locomotive"
@@ -5033,7 +5033,7 @@ msgstr ""
 
 #: master_preset.xml:14519(item:name|group:Crafts|preset:Mason)
 msgid "Mason"
-msgstr ""
+msgstr "Maçon"
 
 #: master_preset.xml:11456(item:name|group:For_the_body|preset:Massage)
 msgid "Massage"
@@ -5290,7 +5290,7 @@ msgstr ""
 
 #: master_preset.xml:14540(item:name|group:Crafts|preset:Metal_works)
 msgid "Metal works"
-msgstr ""
+msgstr "Métallurgiste"
 
 #: master_preset.xml:548(combo:display_values|key:denomination)
 msgid "Methodist"
@@ -6999,7 +6999,7 @@ msgstr ""
 
 #: master_preset.xml:14577(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Plâtrier"
 
 #: master_preset.xml:2512(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:6503(combo:display_values|group:Culture|preset:Artwork|key:material)
@@ -8000,7 +8000,7 @@ msgstr "Type de toit"
 
 #: master_preset.xml:14619(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Couvreur"
 
 #: master_preset.xml:4958(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4981(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -8136,7 +8136,7 @@ msgstr ""
 
 #: master_preset.xml:14641(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "Voilerie"
 
 #: master_preset.xml:4333(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgid "Sale"
@@ -8206,7 +8206,7 @@ msgstr "Scierie"
 
 #: master_preset.xml:14662(item:name|group:Crafts|preset:Scaffolder)
 msgid "Scaffolder"
-msgstr ""
+msgstr "Monteur d'échafaudages"
 
 #: master_preset.xml:5444(combo:display_values|group:Tourism|preset:Map|key:map_type)
 msgid "Scheme"
@@ -8942,7 +8942,7 @@ msgstr "Pierre"
 
 #: master_preset.xml:14686(item:name|group:Crafts|preset:Stonemason)
 msgid "Stonemason"
-msgstr ""
+msgstr "Tailleur de pierre"
 
 #: master_preset.xml:1913(item:name|group:Waypoints|preset:Stop)
 msgid "Stop"
@@ -9006,7 +9006,7 @@ msgstr "Nom de la rue"
 
 #: master_preset.xml:933(group:name|group:Streets)
 msgid "Streets"
-msgstr ""
+msgstr "Rues"
 
 #: master_preset.xml:3330(list_entry:short_description|group:Water|preset:Wetland|value:string_bog)
 msgid "String bog"
@@ -9437,7 +9437,7 @@ msgstr "Tigre"
 
 #: master_preset.xml:14724(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Carreleur"
 
 #: master_preset.xml:11794(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Tiles"

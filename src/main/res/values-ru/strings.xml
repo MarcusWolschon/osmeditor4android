@@ -53,6 +53,7 @@
   <string name="file_write_failed_title">Не удалось записать в файл.</string>
   <string name="file_write_failed_message">Vespucci не смог изменить или сохранить файл.</string>
   <string name="welcome_title">Добро пожаловать</string>
+  <string name="welcome_message">Спасибо за установку Vespucci.\n&lt;br&gt;&lt;br&gt;Для начала достаточно знать эти три вещи:\n&lt;ul&gt;&lt;li&gt;Нажатие на значке замка в левом верхнем углу переключает между режимами редактирования (замок открыт) и блокировки правок;&lt;/li&gt;&lt;li&gt;Для редактирования OpenStreetMap вам нужно сперва загрузить данные для области, где вы хотите что-либо изменить (выберите нужный масштаб перед этим);&lt;/li&gt;&lt;li&gt;Для добавления объекта нажмите на большую зелёную кнопку и выберите, что вы хотите добавить, а затем нажмите на место, где хотите его установить.&lt;/li&gt;&lt;/ul&gt;\nЭто все, что вам необходимо знать для начала. Успехов!</string>
   <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;Ваше устройство имеет настраиваемые кнопки (\"soft keys\"), которые пока скрыты. Пролистывание от нижнего края покажет их снова. </string>
   <string name="read_introduction">Прочесть введение</string>
   <string name="upgrade_title">Это новая версия Vespucci</string>
@@ -148,6 +149,7 @@
   <string name="original">Исходный</string>
   <string name="current">Текущий</string>
   <!--GeoJSON feature display dialog-->
+  <string name="feature_information">Информация о функциях GeoJSON</string>
   <string name="copy_properties">Скопировать свойства</string>
   <!---->
   <string name="error">Ошибка</string>
@@ -158,7 +160,9 @@
   <string name="attached_object_warning_title">Это действие затрагивает соединённые скрытые объекты</string>
   <string name="attached_object_warning_message">Изменённый объект соединён с неотображаемыми элементами, которые также будут изменены.</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">Понятно, показывать и дальше</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">Понятно, больше не показывать</string>
   <!--debug dialog-->
   <string name="send_debug_information">Отправить информацию для отладки приложения</string>
   <!--JS console dialog-->
@@ -183,6 +187,7 @@
   <string name="add_members">Добавить участников</string>
   <string name="leave_empty">Оставить пустым</string>
   <!--GPX waypoint dialog-->
+  <string name="waypoint_title">Путевая точка GPX</string>
   <string name="waypoint_description">\"%1$s\"</string>
   <string name="description">Описание</string>
   <string name="created">Создано</string>
@@ -222,6 +227,7 @@
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Контрольные точки</string>
   <string name="undo_redo_title">Отмена - Повтор</string>
+  <string name="undo_redo_one">Только выбранная контрольная точка (небезопасно)</string>
   <string name="undo_all">Отменить все предыдущие контрольные точки (безопасно)</string>
   <string name="redo_all">Повторить все предыдущие контрольные точки (безопасно)</string>
   <!--Feedback activity-->
@@ -233,20 +239,40 @@
   <string name="digit_one">1</string>
   <!--NotificationChannels-->
   <string name="default_channel_name">Vespucci</string>
+  <string name="default_channel_description">Канал Vespucci по умолчанию</string>
   <string name="qa_channel_name">Vespucci QA</string>
   <string name="qa_channel_description">Канал Vespucci для ошибок</string>
   <!--Toaster-->
+  <string name="toast_url_empty">Введите URL</string>
+  <string name="toast_min_zoom">Установите минимальный масштаб меньше максимального</string>
   <string name="toast_no_changes">Вы ничего не изменили…</string>
+  <string name="toast_unsaved_changes">Сначала передайте ваши несохранённые изменения.</string>
   <string name="clear_anyway">Очистить все равно?</string>
+  <string name="toast_upload_success">Передано на сервер OSM.</string>
   <string name="toast_unlock_to_edit">Разблокируйте для редактирования</string>
+  <string name="toast_save_done">Сохранено</string>
+  <string name="toast_save_failed">Не удалось сохранить</string>
+  <string name="toast_export_failed">Сбой экспорта</string>
   <string name="toast_export_success">Экспортировано на %1$s</string>
   <string name="toast_preset_overwrote_tags">Внимание: заготовка перезаписала тег(и)</string>
   <string name="toast_merge_overwrote_tags">Внимание: операция перезаписала тег(и)</string>
+  <string name="toast_oneway_reversed">Вы изменили направление односторонней улицы или линии с тегами, зависимыми от направления. Пожалуйста, проверьте теги и скорректируйте их, если необходимо.</string>
+  <string name="toast_merge_tag_conflict">Вы объединили элементы с несовместимыми значениями тегов, или с зависящей от направления семантикой, или с разными ролями в одном и том же отношении. Пожалуйста, проверьте теги и роли и скорректируйте их, если необходимо.</string>
+  <string name="toast_potential_merge_tag_conflict">Вы пытаетесь объединить элементы с несовместимыми значениями тегов. Пожалуйста, проверьте теги и скорректируйте их перед повторной попыткой.</string>
   <string name="toast_state_file_failed">Нечитаемый или повреждённый файл состояния</string>
+  <string name="toast_way_nodes_moved">%1$d точек в перемещённой линии</string>
+  <plurals name="toast_unread_mail">
+    <item quantity="one">У вас есть непрочитанное сообщение</item>
+    <item quantity="few">У вас %1$d непрочитанных сообщения</item>
+    <item quantity="many">У вас %1$d непрочитанных сообщений</item>
+    <item quantity="other">У вас %1$d непрочитанных сообщений</item>
+  </plurals>
+  <string name="read_mail">Прочесть</string>
   <string name="toast_photo_indexing_started">Начато сканирование гео-привязанных фото</string>
   <string name="toast_photo_indexing_finished">Завершено сканирование гео-привязанных фото</string>
   <string name="toast_download_failed">Загрузка прервана, код ошибки: %1$d, сообщение: %2$s</string>
   <string name="toast_unsurveyed_road">Необследованная дорога</string>
+  <string name="toast_noname">У дороги нет ни имени, ни индекса</string>
   <string name="toast_oauth">Разрешите OAuth-доступ к своему OSM-аккаунту.</string>
   <string name="toast_no_oauth">Нет доступной конфигурации OAuth для текущего API, пожалуйста, укажите логин и пароль.</string>
   <string name="toast_oauth_not_enabled">Для текущего API не включён OAuth.</string>
@@ -408,10 +434,12 @@
   <string name="menu_easyedit">Прост. редакт-е</string>
   <string name="menu_camera">Камера</string>
   <string name="menu_gps_show">Показывать положение</string>
-  <string name="menu_gps_follow">Следовать за местоположением</string>
+  <string name="menu_gps_follow">Следовать за положением</string>
+  <string name="menu_gps_start">Начать GPX-трек</string>
   <string name="menu_gps_upload">Передать GPS-трек</string>
   <string name="menu_gps_export">Экспорт GPS-трека</string>
   <string name="menu_gps_import">Импорт GPS-трека</string>
+  <string name="menu_gps_goto_start">Перейти к началу GPX-трека</string>
   <string name="menu_gps_autodownload">Автозагрузка</string>
   <string name="menu_transfer">Передача…</string>
   <string name="menu_transfer_download_current">Загрузить текущее место</string>
@@ -525,6 +553,8 @@
   <string name="config_showWayIcons_summary">Показывать значки наиболее соответствующих заготовок над точками</string>
   <string name="config_tagFormEnabled_title">Формы тега</string>
   <string name="config_showCameraAction_title">Камера на панели</string>
+  <string name="config_followGPSbutton_title">Кнопка следования за GPS</string>
+  <string name="config_followGPSbutton_summary">Где будет расположена кнопка «Следовать за GPS» </string>
   <string name="config_alwaysDrawBoundingBoxes_title">Затенять незагруженные области</string>
   <string name="config_fullscreenMode_summary">Поведение на устройствах с виртуальными клавишами.</string>
   <string name="config_showTolerance_title">Область выбора</string>

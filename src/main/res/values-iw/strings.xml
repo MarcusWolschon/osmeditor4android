@@ -69,19 +69,32 @@
   <string name="upload_validation_error_empty_comment">הערה לא יכולה להיות ריקה</string>
   <string name="upload_validation_error_empty_source">המקור לא אמור להיות ריק</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">הערה חדשה</string>
+  <string name="openstreetbug_new_bug">דיווח על תקלה</string>
   <string name="openstreetbug_bug_title">תקלה</string>
+  <string name="openstreetbug_new_nodeway">יצירת מפרק/דרך</string>
+  <string name="openstreetbug_edit_title">עריכת הערה</string>
   <string name="openstreetbug_comment_label">הערה:</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
+  <string name="note_description">הערה: %1$s - %2$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">התאמה אישית</string>
   <string name="bug_long_description_2">&lt;br&gt;עדכון אחרון:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
+  <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
+  <string name="maproulette_task_title">משימה של MapRoulette</string>
+  <string name="maproulette_task_coords">רוחב %1$4g, אורך %2$4g</string>
   <string name="maproulette_task_explanations">הסברים</string>
+  <string name="maproulette_task_set_apikey">הגדרת מפתח API של MapRoulette</string>
+  <string name="maproulette_task_apikey_not_set">לא ניתן לשמור את מפתח ה־API של MapRoulette</string>
+  <string name="maproulette_task_apikey_set">מפתח ה־API של MapRoulette נשמר</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">אזהרה!</string>
+  <string name="unsaved_data_message">השינויים שלא שמרת יימחקו אלמלא יישמרו.</string>
   <string name="unsaved_data_proceed">התעלמות והמשך</string>
   <!--Imagery offset dialog-->
+  <string name="imagery_offset_title">היסט תמונה</string>
   <string name="imagery_offset_description">תיאור</string>
   <string name="imagery_offset_not_found">לא נמצאו היסטים ברדיוס של 10 ק״מ!</string>
   <string name="imagery_offset_author">יוצר</string>
@@ -89,14 +102,17 @@
   <string name="imagery_offset_date">נוצר</string>
   <string name="imagery_offset_zoom">תקריב</string>
   <string name="imagery_offset_distance">מרחק</string>
+  <string name="zoom_and_offset">Z %1$d היסט %2$s/%3$s</string>
   <string name="set_position_datum_label">דאטום גאודטי</string>
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">הצעת שם</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">הצעה זו יכולה להחליף ערכי תגיות בערכים יותר נפוצים.</string>
   <string name="search_results_title">תוצאות חיפוש</string>
   <string name="search_online">חיפוש מקוון</string>
   <string name="find_message">נא להקליד מחרוזת לחיפוש</string>
   <string name="geocoder_prompt">עם</string>
+  <string name="geocoder_limit_label">בתצוגה</string>
   <!---->
   <string name="preset_search_hint">מחרוזת חיפוש ערכה מוגדרת</string>
   <string name="preset_autopreset">ערכה מוגדרת</string>
@@ -104,9 +120,12 @@
   <string name="no_valid_preset">אין ערכה מוגדרת תקפה!</string>
   <string name="save_file">שמירה אל</string>
   <string name="existing_track_title">נתוני מסלול GPX קיימים</string>
+  <string name="existing_track_message">כבר יש לך נתוני GPX קיימים. יכול להיות שעדיף לך לבטל ולשמור תחילה.</string>
   <string name="delete_tags">למחוק את כל התגיות לפריט „%1$s”?</string>
   <!--element information dialog-->
-  <string name="nodes">צמתים</string>
+  <string name="element_information">פרטי רכיב</string>
+  <string name="id">מזהה</string>
+  <string name="nodes">מפרקים</string>
   <string name="relation_membership">חברות ביחס</string>
   <string name="problem">בעיה</string>
   <string name="members">חברים</string>
@@ -130,7 +149,9 @@
   <string name="attached_object_warning_title">פעולה זו משפיעה על פריטים מצורפים מסוננים!</string>
   <string name="attached_object_warning_message">הפריט שנערך מחובר לרכיבים נסתרים שישתנו יחד אתו.</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_continue">סבבה, להמשיך להציג</string>
   <!--This concerns a shown message-->
+  <string name="attached_object_warning_stop">סבבה, להתעלם</string>
   <!--debug dialog-->
   <string name="send_debug_information">שליחת נתוני ניפוי שגיאות</string>
   <!--JS console dialog-->
@@ -284,6 +305,9 @@
   <string name="toast_tags_copied">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_tags_cut">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_properties_copied">המאפיינים הועתקו ללוח הגזירים</string>
+  <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
+  <string name="toast_merged">ממוזג</string>
+  <string name="toast_long_press_simple_mode">אין לחיצה ארוכה במצב פשוט</string>
   <!--Some generic labels/buttons-->
   <string name="yes">כן</string>
   <string name="no">לא</string>
@@ -326,13 +350,16 @@
   <string name="value">ערך</string>
   <string name="Value">ערך</string>
   <string name="multiselect_header_short">ערכים (%1$d)</string>
+  <string name="multiselect_header_long">ערכים (עבור %1$d רכיבים)</string>
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">הוספת תגיות כתובת</string>
   <string name="tag_menu_sourcesurvey">תיעוד תואם</string>
   <string name="tag_menu_preset">ערכות מוגדרות</string>
   <string name="tag_menu_apply_preset">החלת ערכות מוגדרות</string>
   <string name="tag_menu_revert">החזרה</string>
+  <string name="tag_menu_mapfeatures">ויקי תכונות מפה</string>
   <string name="tag_menu_addtorelation">הוספה ליחס</string>
+  <string name="tag_menu_resetMRU">איפוס ערכות מוגדרות</string>
   <string name="tag_menu_reset_address_prediction">איפוס חיזוי כתובת</string>
   <string name="tag_menu_exit_no_save">יציאה\nללא שמירה</string>
   <string name="tag_menu_delete_unassociated_tags">מחיקת תגיות בלתי משויכות</string>
@@ -361,6 +388,7 @@
   <string name="menu_up">למעלה</string>
   <string name="menu_top">עליון</string>
   <string name="menu_select_all">לבחור הכול</string>
+  <string name="menu_deselect_all">לבטל את הבחירה</string>
   <string name="menu_preset_help">עזרה עם ערכות מוגדרות</string>
   <string name="internationalized_hint">%1$s (%2$s)</string>
   <string name="tag_menu_i8n">הוספת תגיות עבור %1$s</string>
@@ -371,12 +399,15 @@
   <string name="tag_restriction_add_simple_condition">הוספת תנאי פשוט</string>
   <string name="tag_restriction_add_expression">הוספת ביטוי</string>
   <string name="tag_restriction_add_opening_hours">הוספת שעות פתיחה</string>
+  <string name="tag_restriction_value_hint">הגבלה מותנית</string>
+  <string name="ugly_checkgroup_hint">%1$s, …</string>
   <!--Strings in Box/LocationPicker-->
   <string name="location_choose_radius">בחירת רדיוס:</string>
   <string name="location_default_radius">300 מטר</string>
   <string name="location_radius">%1$d מ׳</string>
   <string name="location_last_text">המיקום האחרון המוכר:</string>
   <string name="location_current_text">מיקום נוכחי:</string>
+  <string name="location_text_unknown">לא ידוע</string>
   <string name="location_last_text_parameterized">המיקום האחרון הידוע: %1$s</string>
   <string name="location_current_text_parameterized">המיקום הנוכחי: %1$s</string>
   <string name="location_text_metadata_location">\nרוחב %1$4g, אורך %2$4g\nלפני %3$s %4$s</string>
@@ -396,18 +427,20 @@
   <string name="menu_find">חיפוש</string>
   <string name="menu_help">עזרה</string>
   <string name="menu_view">תצוגה</string>
-  <string name="menu_erase">מחיקת צומת</string>
+  <string name="menu_erase">מחיקת מפרק</string>
   <string name="menu_set_position">מיקום</string>
   <string name="menu_split">פיצול</string>
-  <string name="menu_extract">חילוץ צומת</string>
+  <string name="menu_extract">חילוץ מפרק</string>
   <string name="menu_append">צירוף</string>
   <string name="menu_relation">יצירת יחס</string>
   <string name="menu_edit_relation">עריכת יחס</string>
   <string name="menu_add_relation_member">הוספת חבר</string>
   <string name="menu_select_relation_members">בחירת חברים</string>
   <string name="menu_tag">עריכת תגיות</string>
+  <string name="menu_openstreetbug">הוספת הערה</string>
   <string name="menu_easyedit">עריכה פשוטה</string>
   <string name="menu_camera">מצלמה</string>
+  <string name="menu_gps">GPS/GNSS…</string>
   <string name="menu_gps_show">הצגת מיקום</string>
   <string name="menu_gps_follow">מעקב אחר מיקום</string>
   <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
@@ -445,7 +478,7 @@
   <string name="menu_rotate">הטייה</string>
   <string name="menu_circulize">סידור במעגל</string>
   <string name="menu_split_polygon">פיצול למצולעים</string>
-  <string name="menu_newnode_gps">צומת חדש במיקום ה־GPS</string>
+  <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
   <string name="menu_extend_selection">הרחבת הבחירה</string>
   <string name="menu_information">מידע</string>
   <string name="menu_voice_commands">פקודות קוליות</string>
@@ -490,7 +523,7 @@
   <string name="menu_tools_oauth_authorisation">אימות OAuth</string>
   <string name="menu_enable_tagfilter">מסנן תגיות</string>
   <string name="menu_enable_presetfilter">מסנן ערכות מוגדרות</string>
-  <string name="preset_menu_waynodes">הכללת צמתי דרך</string>
+  <string name="preset_menu_waynodes">הכללת מפרקי דרך</string>
   <string name="preset_menu_invert">היפוך מסננים</string>
   <!--element action mode menu-->
   <string name="menu_tags">מאפיינים</string>
@@ -500,26 +533,28 @@
   <string name="menu_reverse">היפוך</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
-  <string name="deletenode">מחיקת צומת</string>
+  <string name="deletenode">מחיקת מפרק</string>
   <string name="split_all_ways">פיצול כל הדרכים</string>
   <string name="delete_note_description">לא ניתן לשחזר הערה שנמחקה!</string>
   <string name="delete_note">מחיקת הערה</string>
   <!--EasyEdit action mode titles-->
   <string name="actionmode_wayselect">נבחרה דרך</string>
-  <string name="actionmode_nodeselect">נבחר צומת</string>
+  <string name="actionmode_nodeselect">נבחר מפרק</string>
   <string name="actionmode_relationselect">נבחר יחס</string>
   <string name="actionmode_createpath">נוצר נתיב</string>
   <string name="actionmode_multiselect">בחירה מרובה</string>
   <string name="actionmode_newnoteselect">נבחרה הערה חדשה</string>
   <!--EasyEdit action mode sub-titles-->
-  <string name="actionmode_closed_way_split_1">פיצול דרך סגורה, צומת ראשון</string>
-  <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, צומת שני</string>
+  <string name="actionmode_closed_way_split_1">פיצול דרך סגורה, מפרק ראשון</string>
+  <string name="actionmode_closed_way_split_2">פיצול דרך סגורה, מפרק שני</string>
   <string name="actionmode_restriction">הוספת מגבלת פנייה</string>
   <string name="actionmode_restriction_restart_from">בחירת מקטע „מוצא” מחדש</string>
   <string name="actionmode_restriction_via">הוספת מקטע/רכיב „מעבר”</string>
   <string name="actionmode_restriction_restart_via">בחירה מחודשת במקטע „מעבר”</string>
   <string name="actionmode_restriction_to">הוספת מקטע „יעד”</string>
   <string name="actionmode_restriction_restart_to">בחירת מקטע „יעד” מחדש</string>
+  <string name="actionmode_restriction_split_from">פיצול מקטע „מוצא”</string>
+  <string name="actionmode_restriction_split_via">פיצול מקטע „יעד”</string>
   <plurals name="actionmode_object_count">
     <item quantity="one">פריט אחד</item>
     <item quantity="two">%1$d פריטים</item>
@@ -528,9 +563,9 @@
   </plurals>
   <string name="actionmode_rotateway">הטיית דרך</string>
   <!--Simple Action Mode-->
-  <string name="menu_add_node">הוספת הערה</string>
+  <string name="menu_add_node">הוספת מפרק</string>
   <string name="simple_add_node">יש לגעת במיקום במסך</string>
-  <string name="menu_add_node_tags">הוספת הערה מתויגת</string>
+  <string name="menu_add_node_tags">הוספת מפרק מתויג</string>
   <string name="menu_add_way">הוספת דרך</string>
   <string name="simple_add_way">יש לגעת במיקום במסך</string>
   <string name="menu_add_map_note">הוספת הערה למפה</string>
@@ -545,6 +580,7 @@
   <string name="config_overlayLayer_title">שכבה על מפה</string>
   <string name="config_overlayLayer_summary">שכבת העל למפה מבוססת האריחים.</string>
   <string name="config_customlayers_title">שכבות בהתאמה אישית</string>
+  <string name="config_customlayers_summary">הגדרת שכבות שאינן בתצורת בררת המחדל.</string>
   <string name="config_scale_title">שינוי גודל תצוגה</string>
   <string name="config_scale_summary">סוג הסרגל שמופיע על המפה.</string>
   <string name="config_mapProfile_title">סגנון נתונים</string>
@@ -555,7 +591,8 @@
   <string name="config_enablePhotoLayer_summary">הצגת תמונות עם הפניה גאוגרפית.</string>
   <string name="config_enableKeepScreenOn_title">להשאיר את המסך דולק</string>
   <string name="config_enableKeepScreenOn_summary">למנוע את כיבוי המסך כדי לחסוך בסוללה.</string>
-  <string name="config_largeDragArea_title">אזור גרירה מוגדל לצמתים</string>
+  <string name="config_largeDragArea_title">אזור גרירה מוגדל למפרקים</string>
+  <string name="config_largeDragArea_summary">אספקת אזור מוגדל לגרירת מפרקים.</string>
   <string name="config_advancedprefs">העדפות מתקדמות</string>
   <string name="config_moreprefs">הגדרות נוספות…</string>
   <string name="config_presetbutton_title">ערכות</string>
@@ -571,8 +608,8 @@
   <!--User Interface Settings-->
   <string name="config_category_view">הגדרות מנשק משתמש</string>
   <string name="config_category_view_summary">אפשרויות הגדרת פריסה ותצוגה.</string>
-  <string name="config_iconbutton_title">הצגת סמלי צמתים</string>
-  <string name="config_iconbutton_summary">הצגת סמל הערכה המוגדרת המתאימה ביותר מעל צמתים.</string>
+  <string name="config_iconbutton_title">הצגת סמלי מפרקים</string>
+  <string name="config_iconbutton_summary">הצגת סמל הערכה המוגדרת המתאימה ביותר מעל מפרקים.</string>
   <string name="config_showWayIcons_title">הצגת סמלי נקודות עניין על בניינים</string>
   <string name="config_showWayIcons_summary">הצגת סמל הערכה המוגדרת המתאימה ביותר מעל בניינים.</string>
   <string name="config_tagFormEnabled_title">הצגת טופס תגיות</string>
@@ -601,6 +638,7 @@
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
   <!--Data and Editing Settings-->
+  <string name="config_category_editing">הגדרות נתונים ועריכה</string>
   <string name="config_category_editing_summary">הגדרות הורדה אוטומטית, שמירה והתראות.</string>
   <string name="config_forceContextMenu_title">תמיד להציג תפריט הקשר</string>
   <string name="config_forceContextMenu_summary">תמיד להציג את תפריט ההקשר אם בחירה אינה חד משמעית.</string>
@@ -641,13 +679,17 @@
   <string name="config_gps_network_title">נסיגה למיקום דרך הרשת</string>
   <!--Server Settings-->
   <string name="config_category_server">הגדרות שרת</string>
+  <string name="config_category_server_summary">ה־API של OSM והגדרות לשרתים אחרים.</string>
   <string name="config_apibutton_title">כתובת ה־API של OSM</string>
+  <string name="config_apibutton_summary">כאן ניתן להגדיר כתובת API שונה מהרגיל. בדרך כלל אין סיבה לשנות זאת!</string>
   <string name="config_loginbutton_title">חשבון משתמש</string>
+  <string name="config_username_summary">הגדרות נדרשות רק לטובת העלאת נתונים ל־OSM במקרה שלא נעשה שימוש ב־OAuth. ניתן לפתוח חשבון בכתובת https://www.openstreetmap.org/user/new</string>
   <string name="config_offsetServer_title">שרת היסט</string>
   <string name="config_offsetServer_summary">כתובת שרת היסט תמונת רקע.</string>
   <string name="config_osmoseServer_title">שרת OSMOSE</string>
   <string name="config_osmoseServer_summary">כתובת שרת ה־OSMOSE.</string>
   <string name="config_geocoderbutton_title">הגדרת מקודדים גאוגרפיים</string>
+  <string name="config_geocoderbutton_summary">הוספה, עריכה או מחיקה של מקודדים גאוגרפיים עבור תכונת החיפוש.</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">הורדה ואחסון של שכבות</string>
   <string name="config_maxTileDownloadThreads_title">מספר תהליכי ההורדה המרבי</string>
@@ -698,6 +740,7 @@
   <!--url handler activity-->
   <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
   <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
+  <string name="urldialog_preset_download_successful">הערכה המוגדרת התקבלה.</string>
   <string name="urldialog_api_exists">API עם הכתובת הזאת כבר קיים. עם זאת, יש לך אפשרות להוסיף עוד אחד (למשל: כדי להחליף חשבונות בקלות).</string>
   <string name="urldialog_add_api">הוספת API</string>
   <string name="urldialog_nodata_text">כתובת ההגדרה אינה מכילה נתונים תקפים.</string>
@@ -727,21 +770,27 @@
   <string name="tracking_active_title">שירות רקע וספוצ׳י</string>
   <string name="tracking_active_title_short">שירות הרקע פעיל</string>
   <string name="tracking_active_text">הקלטת מסלול GPS או הורדה אוטומטית</string>
+  <string name="tracking_long_text">וספוצ׳י מקליט מסלול GPX או מוריד אוטומטית. כדי לצאת לחלוטין יש ללחוץ על הכפתור שלהלן או על כפתור החזרה ביישומון.</string>
   <string name="gps_failure">הפעלת ה־GPS נכשלה</string>
   <!--element description-->
   <string name="address_housenumber">כתובת %1$s</string>
   <string name="address_housenumber_street">כתובת %1$s %2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
+  <string name="undo_action_movenode">מפרק הועבר</string>
   <string name="undo_action_add">הוספה</string>
   <string name="undo_action_append">הוספה לדרך</string>
+  <string name="undo_action_deletenode">מחיקת מפרק</string>
   <string name="undo_action_set_tags">תיוג</string>
   <string name="undo_action_cut">גזירה</string>
   <string name="undo_action_paste">הדבקה</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
+  <string name="undo_action_extract_node">חילוץ מפרק</string>
   <!--ACRA-->
+  <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
+  <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את כתובת הדוא״ל שלך אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
   <string name="report_failure">לא ניתן לשלוח דיווח.</string>
   <!--Exceptions messages-->
-  <string name="exception_too_many_nodes">פעולה זו תיצור דרך עם צמתים רבים.</string>
+  <string name="exception_too_many_nodes">פעולה זו תיצור דרך עם מפרקים רבים.</string>
   <!--Notifications-->
   <string name="alert_data_issue">התגלתה תקלת נתוני OSM</string>
   <string name="alert_note">התגלתה הערת OSM בקרבת מקום</string>
@@ -817,7 +866,7 @@
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>הכול</item>
-    <item>צמתים</item>
+    <item>מפרקים</item>
     <item>דרכים</item>
     <item>דרכים+</item>
     <item>יחסים</item>
