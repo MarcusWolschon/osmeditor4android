@@ -54,7 +54,7 @@ public class GeometryEditsTest {
         App.getDelegator().setOriginalBox(ViewBox.getMaxMercatorExtent());
         Logic logic = App.getLogic();
         Map map = logic.getMap();
-        logic.setZoom( map, 18);
+        logic.setZoom(map, 18);
         map.getViewBox().moveTo(map, 0, 0);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(context);
@@ -68,13 +68,8 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Create a way
-     * Split it
-     * Create a turn restriction on it
-     * Split one of the ways
-     * Merge the two resulting ways back in to one
-     * Add the way to a normal relation
-     * Split it again
+     * Create a way Split it Create a turn restriction on it Split one of the ways Merge the two resulting ways back in
+     * to one Add the way to a normal relation Split it again
      */
     @UiThreadTest
     @Test
@@ -131,6 +126,7 @@ public class GeometryEditsTest {
             Assert.assertEquals(r1, n2.getParentRelations().get(0));
             Assert.assertEquals(1, w2.getParentRelations().size());
             Assert.assertEquals(r1, w2.getParentRelations().get(0));
+            Assert.assertEquals(3, r1.getMemberElements().size());
 
             // split way 2
             logic.performSplit(main, n3);
@@ -141,24 +137,30 @@ public class GeometryEditsTest {
             Assert.assertEquals(wList2.get(0), w2);
             Assert.assertEquals(wList2.get(0).getParentRelations().get(0), r1);
             Assert.assertEquals(wList2.get(1).getParentRelations(), null); // special case for restrictions
+            Assert.assertEquals(3, r1.getMemberElements().size());
 
             // merge former way 2
             logic.performMerge(main, wList2.get(0), wList2.get(1));
             Assert.assertEquals(3, w2.getNodes().size());
             Assert.assertEquals(w2.getParentRelations().get(0), r1);
+            Assert.assertEquals(3, r1.getMemberElements().size());
 
             // add w2 to a normal relation
             List<OsmElement> mList2 = new ArrayList<OsmElement>();
             mList2.add(w2);
             Relation r2 = logic.createRelation(main, "test", mList2);
             Assert.assertEquals(2, w2.getParentRelations().size());
-            
+            // r2 should have 1 member
+            Assert.assertEquals(1, r2.getMemberElements().size());
+
             // add w2 to a normal relation and then w1
             mList2 = new ArrayList<OsmElement>();
             mList2.add(w2);
             mList2.add(w1);
             Relation r3 = logic.createRelation(main, "test", mList2);
             Assert.assertEquals(3, w2.getParentRelations().size());
+            // r3 should have 2 members
+            Assert.assertEquals(2, r3.getMemberElements().size());
 
             // resplit at n3
             logic.performSplit(main, n3);
@@ -172,19 +174,22 @@ public class GeometryEditsTest {
             // default ordering in r2
             Assert.assertEquals(0, r2.getPosition(r2.getMember(w3))); // first position in r2
             Assert.assertEquals(1, r2.getPosition(r2.getMember(w4))); // second position in r2
+            // r2 should have 2 members now
+            Assert.assertEquals(2, r2.getMemberElements().size());
             // since w1 has a common node with w2, w3 should be after w4 in r3
             Assert.assertEquals(1, r3.getPosition(r3.getMember(w3))); // second position in r3
             Assert.assertEquals(0, r3.getPosition(r3.getMember(w4))); // fist position in r3
             Assert.assertEquals(2, r3.getPosition(r3.getMember(w1))); // third position in r3
-            
+            // r3 should have 3 members now
+            Assert.assertEquals(3, r3.getMemberElements().size());
+
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
         }
     }
 
     /**
-     * Create a closed way
-     * Split it
+     * Create a closed way Split it
      */
     @UiThreadTest
     @Test
@@ -230,8 +235,7 @@ public class GeometryEditsTest {
     }
 
     /**
-     * Create a closed way
-     * Split it in to two polygons (closed ways)
+     * Create a closed way Split it in to two polygons (closed ways)
      */
     @UiThreadTest
     @Test
@@ -285,7 +289,7 @@ public class GeometryEditsTest {
     @Test
     public void wayBoundingBox() {
         try {
-            // setup some stuff 
+            // setup some stuff
             Logic logic = App.getLogic();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
@@ -345,7 +349,6 @@ public class GeometryEditsTest {
         }
     }
 
- 
     /**
      * This tries to test adding nodes to existing ways taking the tolerance area in to account
      */
@@ -446,7 +449,7 @@ public class GeometryEditsTest {
             double lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f) / 1E7D;
             Node n1 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(0, logic.getWaysForNode(n1).size());
-            MergeResult result =logic.performJoin(main, w1, n1);
+            MergeResult result = logic.performJoin(main, w1, n1);
             Assert.assertTrue(w1.hasNode(n1));
             Assert.assertFalse(result.hasIssue());
         } catch (Exception igit) {
@@ -478,7 +481,7 @@ public class GeometryEditsTest {
             Assert.assertFalse(result.hasIssue());
             logic.undo();
             Assert.assertEquals(2, App.getDelegator().getApiNodeCount());
-            java.util.Map<String,String> tags = new HashMap<>();
+            java.util.Map<String, String> tags = new HashMap<>();
             tags.put("highway", "residential");
             logic.setTags(main, n1, tags);
             tags.clear();
@@ -486,7 +489,7 @@ public class GeometryEditsTest {
             logic.setTags(main, n2, tags);
             result = logic.performJoin(main, n1, n2);
             Assert.assertTrue(result.hasIssue());
-            Assert.assertEquals(1,result.getIssues().size());
+            Assert.assertEquals(1, result.getIssues().size());
             Assert.assertTrue(result.getIssues().contains(Issue.MERGEDTAGS));
         } catch (Exception igit) {
             Assert.fail(igit.getMessage());
@@ -567,7 +570,7 @@ public class GeometryEditsTest {
             Assert.fail(igit.getMessage());
         }
     }
-    
+
     /**
      * Remove way nodes one by one from a Way
      */
@@ -584,14 +587,14 @@ public class GeometryEditsTest {
             logic.performAdd(main, 100.0f, 500.0f);
             Way w1 = logic.getSelectedWay();
             BoundingBox origBox = w1.getBounds();
-            List<Node>nodes = new ArrayList<>(w1.getNodes());
-            for (Node n : nodes) {               
+            List<Node> nodes = new ArrayList<>(w1.getNodes());
+            for (Node n : nodes) {
                 logic.performEraseNode(main, n, true);
             }
             Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);
             logic.undo(); // way should still be deleted
             Assert.assertTrue(w1.getState() == OsmElement.STATE_DELETED);
-            logic.undo(); 
+            logic.undo();
             Assert.assertTrue(w1.getState() == OsmElement.STATE_CREATED);
             logic.undo();
             Assert.assertEquals(origBox.getLeft(), w1.getBounds().getLeft());

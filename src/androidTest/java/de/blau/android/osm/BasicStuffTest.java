@@ -38,6 +38,9 @@ public class BasicStuffTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -52,10 +55,16 @@ public class BasicStuffTest {
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Test if setting tags work
+     */
     @Test
     public void setTags() {
         //
@@ -91,6 +100,13 @@ public class BasicStuffTest {
         // FIXME do the same for relations
     }
 
+    /**
+     * Set tags on elements
+     * 
+     * @param logic the instance of Logic
+     * @param eInStorage an OsmElement in storage
+     * @param eNotInStorage an OsmElement not in storage (settings tags should fail)
+     */
     private void setTagsElement(Logic logic, OsmElement eInStorage, OsmElement eNotInStorage) {
         String key1 = "key1";
         String value1 = "value1";
@@ -170,10 +186,10 @@ public class BasicStuffTest {
         }
     }
 
-    @Test
     /**
      * Remove an end node from a closed way
      */
+    @Test
     public void deleteEndNodeFromClosedWay() {
         try {
             final CountDownLatch signal = new CountDownLatch(1);
@@ -202,10 +218,10 @@ public class BasicStuffTest {
         }
     }
 
-    @Test
     /**
      * Remove a node from a degenerate (two node) way
      */
+    @Test
     public void deleteNodeFromDegenerateWay() {
         try {
             final CountDownLatch signal = new CountDownLatch(1);
