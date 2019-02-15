@@ -6518,11 +6518,11 @@
             <item name="Tidal Water Turbine" icon="icons/png/power_generator_tidal_26027.png" type="node,closedway,multipolygon" preset_name_label="true">
                 <key key="generator:source" value="tidal"/>
                 <reference ref="power_generator"/>
-                <combo key="generator:method" text="Method" values_context="generator method" values="barrage,stream"/>
+                <combo key="generator:method" text="Method" values_context="generator method" values="barrage,stream" display_values="Barrage,Stream" />
                 <combo key="generator:type" text="Generator Type" values_searchable="true">
-                    <list_entry value="horizontal_axis" short_description="steam"/>
-                    <list_entry value="kaplan_turbine" short_description="barrage"/>
-                    <list_entry value="vertical_axis" short_description="steam"/>
+                    <list_entry value="horizontal_axis" short_description="Horizontal axis"/>
+                    <list_entry value="kaplan_turbine" short_description="Kaplan turbine"/>
+                    <list_entry value="vertical_axis" short_description="Vertical axis"/>
                 </combo>
                 <reference ref="power_output"/>
             </item> <!-- Tidal Water Turbine -->
