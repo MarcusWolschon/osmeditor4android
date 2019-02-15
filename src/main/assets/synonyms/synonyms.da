@@ -134,7 +134,9 @@
 "Parkbænk"
 ],
 "amenity/bicycle_parking":[
-"Cykelparkering"
+"cyklist",
+"Cykelparkering",
+"parkering"
 ],
 "amenity/bicycle_rental":[
 "Rent-a-Bike",
@@ -348,15 +350,24 @@
 "amenity/nursing_home":[
 "Plejehjem"
 ],
+"amenity/parking":[
+"parkeringsplads",
+"holdeplads",
+"parkering",
+"Bilparkering"
+],
+"amenity/parking/multi-storey":[
+"parkeringskælder",
+"kælder",
+"Fleretagesparkering",
+"parkeringshus"
+],
 "amenity/parking_entrance":[
 "Parkeringskælder Indgang/Udgang",
 "Parkeringsgarage Indgang/Udgang"
 ],
 "amenity/parking_space":[
 "Parkeringsbås"
-],
-"amenity/pharmacy":[
-"Apotek"
 ],
 "amenity/place_of_worship":[
 "Tilbedelsessted",
@@ -366,22 +377,10 @@
 "Buddhisttempel",
 "Buddisttempel"
 ],
-"amenity/place_of_worship/christian":[
-"Folkekirke",
-"Kirke"
-],
 "amenity/place_of_worship/hindu":[
 "hindu",
 "Hindu-tempel",
 "tempel"
-],
-"amenity/place_of_worship/jewish":[
-"Jødisk Synagoge",
-"Synagoge"
-],
-"amenity/place_of_worship/muslim":[
-"Moske",
-"Moské"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -554,6 +553,8 @@
 "automat"
 ],
 "amenity/vending_machine/parking_tickets":[
+"P-autoautomat",
+"automat",
 "Parkeringsbilletautomat"
 ],
 "amenity/vending_machine/public_transport_tickets":[
@@ -1410,10 +1411,6 @@
 "Gårdsplads",
 "Bondegård"
 ],
-"landuse/forest":[
-"Plantageskov",
-"Skov"
-],
 "landuse/grass":[
 "Græs"
 ],
@@ -1621,9 +1618,6 @@
 ],
 "leisure/resort":[
 "Turistresort"
-],
-"leisure/running_track":[
-"Løbebane (Løb)"
 ],
 "leisure/sauna":[
 "varme",

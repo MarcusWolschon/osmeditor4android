@@ -279,11 +279,6 @@
 "daudzstāvu stāvvieta",
 "Daudzlīmeņu Stāvvietas Ieeja/Izeja"
 ],
-"amenity/pharmacy":[
-"Aptieka",
-"medicīnas",
-"recepšu"
-],
 "amenity/place_of_worship":[
 "baznīca",
 "mošeja",
@@ -297,17 +292,8 @@
 "amenity/place_of_worship/buddhist":[
 "Budistu templis"
 ],
-"amenity/place_of_worship/christian":[
-"Baznīca"
-],
 "amenity/place_of_worship/hindu":[
 "Hindu Templis"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"Mošeja"
 ],
 "amenity/place_of_worship/shinto":[
 "Sintoistu svētnīca"
@@ -1067,9 +1053,6 @@
 "landuse/farmyard":[
 "Lauku sēta"
 ],
-"landuse/forest":[
-"Mežs"
-],
 "landuse/garages":[
 "Garāžu zeme"
 ],
@@ -1304,7 +1287,11 @@
 "Neapstrādāta zeme"
 ],
 "natural/heath":[
-"Siltums"
+"koki",
+"Tīrelis",
+"virsājs",
+"tīrelis",
+"mazs"
 ],
 "natural/mud":[
 "Dubļi"

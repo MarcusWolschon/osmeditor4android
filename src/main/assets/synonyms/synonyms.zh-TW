@@ -450,8 +450,7 @@
 "繳費窗口"
 ],
 "amenity/pharmacy":[
-"藥房",
-"藥局"
+"藥房櫃臺"
 ],
 "amenity/place_of_worship":[
 "禮拜堂",
@@ -472,9 +471,8 @@
 "廟"
 ],
 "amenity/place_of_worship/christian":[
-"教堂",
-"教會",
-"聚會所"
+"基督教教會",
+"教會"
 ],
 "amenity/place_of_worship/hindu":[
 "印度寺廟",
@@ -482,12 +480,10 @@
 ],
 "amenity/place_of_worship/jewish":[
 "猶太教堂",
-"猶太會堂",
-"synagogue"
+"猶太會堂"
 ],
 "amenity/place_of_worship/muslim":[
-"清真寺",
-"回教寺"
+"清真寺"
 ],
 "amenity/place_of_worship/shinto":[
 "日本神社",
@@ -894,6 +890,9 @@
 "路面",
 "路面材質"
 ],
+"attraction":[
+"旅遊地點"
+],
 "attraction/amusement_ride":[
 "遊樂園",
 "遊樂場"
@@ -1269,6 +1268,10 @@
 "Club",
 "俱樂部"
 ],
+"club/sport":[
+"運動俱樂部",
+"運動隊伍"
+],
 "craft":[
 "工藝"
 ],
@@ -1606,6 +1609,9 @@
 "highway/bus_stop":[
 "公車站牌/公車月台"
 ],
+"highway/construction":[
+"閉路"
+],
 "highway/corridor":[
 "室內走廊",
 "室內通道"
@@ -1941,7 +1947,8 @@
 "農莊"
 ],
 "landuse/forest":[
-"森林"
+"森林",
+"受管理的森林"
 ],
 "landuse/garages":[
 "車庫",
@@ -1988,6 +1995,9 @@
 "種苗中心",
 "育苗場"
 ],
+"landuse/pond":[
+"池塘"
+],
 "landuse/quarry":[
 "礦場",
 "礦區",
@@ -2007,6 +2017,9 @@
 "廟宇用地",
 "宗教設施用地",
 "寺廟用地"
+],
+"landuse/reservoir":[
+"貯水庫"
 ],
 "landuse/residential":[
 "住宅用地",
@@ -2182,6 +2195,9 @@
 "leisure/pitch/american_football":[
 "美式足球場"
 ],
+"leisure/pitch/australian_football":[
+"澳式足球場"
+],
 "leisure/pitch/badminton":[
 "羽毛球場"
 ],
@@ -2207,6 +2223,9 @@
 ],
 "leisure/pitch/equestrian":[
 "馬場"
+],
+"leisure/pitch/netball":[
+"籃網球場"
 ],
 "leisure/pitch/rugby_league":[
 "聯盟式橄欖球"
@@ -2246,10 +2265,6 @@
 "度假勝地",
 "度假村"
 ],
-"leisure/running_track":[
-"操場(跑步)",
-"操場"
-],
 "leisure/sauna":[
 "桑拿",
 "三溫暖",
@@ -2279,6 +2294,13 @@
 "leisure/track":[
 "操場(非摩托賽道)",
 "操場"
+],
+"leisure/track/horse_racing":[
+"賽道 (賽馬)",
+"賽道 (賽馬競賽)"
+],
+"leisure/track/running":[
+"賽道 (跑步)"
 ],
 "leisure/water_park":[
 "水上公園",
@@ -2556,6 +2578,12 @@
 "水",
 "水體"
 ],
+"natural/water/basin":[
+"水池"
+],
+"natural/water/canal":[
+"運河"
+],
 "natural/water/lake":[
 "湖",
 "湖泊"
@@ -2567,6 +2595,14 @@
 "水塘",
 "水庫",
 "貯水庫"
+],
+"natural/water/river":[
+"河流",
+"河川"
+],
+"natural/water/stream":[
+"小溪",
+"溪流"
 ],
 "natural/wetland":[
 "潮間帶",
@@ -2760,6 +2796,10 @@
 "piste/downhill":[
 "下坡滑雪路線 ",
 "下坡滑雪路線"
+],
+"piste/downhill/halfpipe":[
+"U 型管",
+"半管"
 ],
 "piste/hike":[
 "雪鞋或冬季健行步道"
@@ -3365,6 +3405,9 @@
 "汽車保養店",
 "汽車維修店"
 ],
+"shop/caravan":[
+"拖車經銷商"
+],
 "shop/carpet":[
 "地毯商店",
 "地毯店"
@@ -3476,6 +3519,13 @@
 "時常衣服店",
 "時裝店"
 ],
+"shop/fireplace":[
+"壁爐店",
+"壁爐商店"
+],
+"shop/fishing":[
+"釣魚用品店"
+],
 "shop/fishmonger":[
 "魚販"
 ],
@@ -3486,6 +3536,13 @@
 "shop/frame":[
 "表框店",
 "裱框店"
+],
+"shop/frozen_food":[
+"冷凍食品"
+],
+"shop/fuel":[
+"加油站",
+"燃料店"
 ],
 "shop/funeral_directors":[
 "禮儀公司",
@@ -3543,6 +3600,9 @@
 "shop/houseware":[
 "家居用品店",
 "家庭用品店"
+],
+"shop/hunting":[
+"打獵用品店"
 ],
 "shop/interior_decoration":[
 "室內設計店"
@@ -3784,6 +3844,9 @@
 "鐘錶行",
 "手錶店"
 ],
+"shop/water":[
+"飲用水商店"
+],
 "shop/water_sports":[
 "水上活動/游泳用品店",
 "水上活動/泳具店"
@@ -3984,6 +4047,9 @@
 "行政邊界",
 "行政界線"
 ],
+"type/enforcement":[
+"強制"
+],
 "type/multipolygon":[
 "多重多邊形"
 ],
@@ -4130,7 +4196,6 @@
 "河川"
 ],
 "waterway/riverbank":[
-"河岸",
 "河床"
 ],
 "waterway/sanitary_dump_station":[

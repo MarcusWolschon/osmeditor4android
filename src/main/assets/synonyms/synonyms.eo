@@ -1336,6 +1336,9 @@
 "pavimo",
 "surfaco"
 ],
+"attraction":[
+"Amuzo"
+],
 "attraction/amusement_ride":[
 "atrakcio",
 "allogajho",
@@ -1621,6 +1624,13 @@
 "domo",
 "konstruajho",
 "konstruajxo"
+],
+"building/apartments":[
+"apartamento",
+"Apartamentaro",
+"loĝejaro",
+"plurfamilia domo",
+"multfamilia domo"
 ],
 "building/barn":[
 "bestejo",
@@ -1934,6 +1944,12 @@
 "asocio",
 "klubo",
 "kulturdomo"
+],
+"club/sport":[
+"Sporta klubejo",
+"sporta asocio",
+"sportoklubo",
+"sportklubo"
 ],
 "craft":[
 "Metiejo",
@@ -2491,6 +2507,10 @@
 "highway/bus_stop":[
 "Haltejo aŭtobusa"
 ],
+"highway/construction":[
+"Vojo fermita (dum konstruado)",
+"farmita vojo"
+],
 "highway/corridor":[
 "koridoro",
 "Koridoro endoma"
@@ -2621,7 +2641,7 @@
 "vojkruciĝo",
 "trafikcirklo",
 "rondo",
-"Eta trafikcirklo"
+"Trafikcirklo eta (traveturebla)"
 ],
 "highway/motorway":[
 "ŝoseo",
@@ -2979,13 +2999,7 @@
 "Akvokulturejo"
 ],
 "landuse/basin":[
-"rezervujo",
-"lageto",
-"Baseno (artefarita lageto)",
-"akvo",
-"akvejo",
-"akvujo",
-"lago"
+"Baseno (artefarita lageto)"
 ],
 "landuse/brownfield":[
 "kampo",
@@ -3119,6 +3133,9 @@
 "arbplantejo",
 "Arb-plantejo"
 ],
+"landuse/pond":[
+"Lageto"
+],
 "landuse/quarry":[
 "fosejo",
 "ŝtonminejo",
@@ -3142,10 +3159,19 @@
 "monaĥejo",
 "Religia tereno"
 ],
+"landuse/reservoir":[
+"Lago artefarita"
+],
 "landuse/residential":[
 "domo",
 "loĝejo",
 "Privatdoma tereno"
+],
+"landuse/residential/apartments":[
+"apartamentaro",
+"Tereno de apartamentaroj",
+"loĝloko",
+"domaro"
 ],
 "landuse/retail":[
 "Komerca tereno",
@@ -3399,6 +3425,11 @@
 "amerika futbalo",
 "futbalo usona"
 ],
+"leisure/pitch/australian_football":[
+"aŭstralia piedpilkado",
+"Aŭstrali-futbala ludkampo",
+"aŭstralia futbalo"
+],
 "leisure/pitch/badminton":[
 "badmintono",
 "volanludo",
@@ -3454,6 +3485,11 @@
 "Rajdlernejo",
 "ĉevalrajdlernejo",
 "maneĝejo"
+],
+"leisure/pitch/netball":[
+"korbopilkado",
+"netbalo",
+"Netbala ludkampo"
 ],
 "leisure/pitch/rugby_league":[
 "rugbio league",
@@ -3514,11 +3550,6 @@
 "Turisma centro",
 "turismejo"
 ],
-"leisure/running_track":[
-"Kurejo",
-"dromo",
-"kurado"
-],
 "leisure/sauna":[
 "Ŝvitbanejo",
 "baseno",
@@ -3570,6 +3601,17 @@
 "stadiono",
 "areno",
 "Kurejo/biciklejo/konkursejo (nemotora)"
+],
+"leisure/track/horse_racing":[
+"dromo",
+"Kurejo ĉevala",
+"kurado",
+"ĉevalkurado"
+],
+"leisure/track/running":[
+"Kurejo",
+"dromo",
+"kurado"
 ],
 "leisure/water_park":[
 "Akvoparko",
@@ -4006,6 +4048,19 @@
 "akvujo",
 "lago"
 ],
+"natural/water/basin":[
+"rezervujo",
+"lageto",
+"Baseno (artefarita lageto)",
+"akvo",
+"akvejo",
+"akvujo",
+"lago"
+],
+"natural/water/canal":[
+"Kanalo",
+"akvovojo"
+],
 "natural/water/lake":[
 "akvujo.akvejo",
 "laguno",
@@ -4024,6 +4079,18 @@
 "akvorezervujo",
 "Lago artefarita",
 "akvujo"
+],
+"natural/water/river":[
+"rivereto",
+"akvofluo",
+"torento",
+"Rivero"
+],
+"natural/water/stream":[
+"rivero",
+"akvofluo",
+"torento",
+"Rivereto"
 ],
 "natural/wetland":[
 "marcho",
@@ -4290,6 +4357,11 @@
 "alpa skiado",
 "Skivojo alpa (malsuprenira)",
 "skivojo"
+],
+"piste/downhill/halfpipe":[
+"neĝtabulado",
+"Duontubo",
+"neĝparko"
 ],
 "piste/hike":[
 "Skivojo marŝada",
@@ -4964,7 +5036,7 @@
 "rilato"
 ],
 "roundabout":[
-"Trafikcirklo"
+"Trafikcirklo (kun fizika insulo)"
 ],
 "route/ferry":[
 "",
@@ -5185,6 +5257,13 @@
 "mekanisto",
 "meĥanikisto"
 ],
+"shop/caravan":[
+"kampadveturiloj",
+"domveturiloj",
+"Vendejo de kampad-veturiloj",
+"kampveturiloj",
+"loĝaŭtoj"
+],
 "shop/carpet":[
 "plankoj",
 "Tapiŝa vendejo",
@@ -5360,6 +5439,17 @@
 "Mod-butiko",
 "vestaĵoj"
 ],
+"shop/fireplace":[
+"hejtiloj",
+"Kamen-vendejo",
+"kamenoj"
+],
+"shop/fishing":[
+"fiŝhokado",
+"hokfiŝado",
+"fiŝkaptado",
+"Fiŝkaptil-vendejo"
+],
 "shop/fishmonger":[
 "Fiŝa vendejo"
 ],
@@ -5374,6 +5464,21 @@
 "bildkadroj",
 "pentraĵkadroj",
 "Bild-kadra vendejo"
+],
+"shop/frozen_food":[
+"Frostigit-manĝaĵo vendejo",
+"fridigita manĝaĵo",
+"frostigita manĝaĵo"
+],
+"shop/fuel":[
+"gasboteloj",
+"gaso",
+"boteloj",
+"benzino",
+"Brulaĵ-vendejo",
+"brulaĵo",
+"gasujoj",
+"fuelo"
 ],
 "shop/funeral_directors":[
 "tombisto",
@@ -5479,6 +5584,15 @@
 "mastrumaj aparatoj",
 "mastrumado",
 "potoj"
+],
+"shop/hunting":[
+"ĉasado",
+"kaptado",
+"Ĉasil-vendejo",
+"fusiloj",
+"bestoĉasado",
+"armiloj",
+"pafiloj"
 ],
 "shop/interior_decoration":[
 "ornamaĵoj",
@@ -5643,6 +5757,7 @@
 ],
 "shop/pawnbroker":[
 "lombardo",
+"brokantejo",
 "Mon-pruntejo (kontraŭ garantiaĵo)",
 "pruntejo",
 "lombardejo",
@@ -5858,6 +5973,13 @@
 "horloghoj",
 "Horloĝa vendejo",
 "poŝhorloĝoj"
+],
+"shop/water":[
+"enboteligita akvo",
+"Trinkakv-vendejo",
+"akvo",
+"trinkebla akvo",
+"boteligita akvo"
 ],
 "shop/water_sports":[
 "akvosportiloj",
@@ -6172,6 +6294,15 @@
 "landlimo",
 "Administra limo"
 ],
+"type/enforcement":[
+"fotilo",
+"kamerao",
+"Kontrolo",
+"rapidkontrolo",
+"radaro",
+"pezkontrolo",
+"pesilo"
+],
 "type/multipolygon":[
 "Plurangularo"
 ],
@@ -6405,8 +6536,6 @@
 "Rivero"
 ],
 "waterway/riverbank":[
-"flanko de rivero",
-"bordo de rivero",
 "Riverbordo"
 ],
 "waterway/sanitary_dump_station":[

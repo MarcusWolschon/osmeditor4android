@@ -1,4 +1,10 @@
 {
+"amenity/bus_station":[
+"Stacioni i Autobusave"
+],
+"building/college":[
+"Ndërtesa e Kollegjit"
+],
 "highway":[
 "Hekurudhë"
 ],
@@ -34,6 +40,9 @@
 ],
 "shop/clothes":[
 "Dyqan Veshjesh"
+],
+"shop/copyshop":[
+"Fotokopje"
 ],
 "shop/dry_cleaning":[
 "Pastrim Kimik"

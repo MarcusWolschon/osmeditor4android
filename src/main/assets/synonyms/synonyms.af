@@ -92,23 +92,11 @@
 "amenity/marketplace":[
 "Markplein"
 ],
-"amenity/pharmacy":[
-"Apteek"
-],
 "amenity/place_of_worship":[
 "Plek van aanbidding"
 ],
 "amenity/place_of_worship/buddhist":[
 "Boeddhiste tempel"
-],
-"amenity/place_of_worship/christian":[
-"Kerk"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoge"
-],
-"amenity/place_of_worship/muslim":[
-"Moskee"
 ],
 "amenity/police":[
 "Polisie"
@@ -312,11 +300,6 @@
 "landuse/farmyard":[
 "plaaswerf",
 "Plaaswerf"
-],
-"landuse/forest":[
-"Oerwoud",
-"Bos",
-"Woud"
 ],
 "landuse/grass":[
 "Gras",

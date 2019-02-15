@@ -20,19 +20,8 @@
 "amenity/library":[
 "గ్రంథాలయం"
 ],
-"amenity/pharmacy":[
-"మందుల షాపు"
-],
 "amenity/place_of_worship/buddhist":[
 "బౌద్ధ ఆలయం"
-],
-"amenity/place_of_worship/christian":[
-"చర్చ్",
-"చర్చి"
-],
-"amenity/place_of_worship/muslim":[
-"మాస్క్",
-"మసీదు"
 ],
 "amenity/police":[
 "పోలీసు"
@@ -84,9 +73,6 @@
 ],
 "historic":[
 "చారిత్రక ప్రదేశం"
-],
-"landuse/forest":[
-"అడవి"
 ],
 "landuse/grass":[
 "పచ్చిక"

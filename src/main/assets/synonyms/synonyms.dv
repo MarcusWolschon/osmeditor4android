@@ -32,9 +32,6 @@
 "amenity/place_of_worship":[
 "އަޅުކަންކުރާ ތަންތަން"
 ],
-"amenity/place_of_worship/muslim":[
-"މިސްކިތް"
-],
 "amenity/restaurant":[
 "ރެސްޓޯރަންޓް"
 ],
@@ -106,9 +103,6 @@
 ],
 "landuse/farmland":[
 "ދަނޑުވެރި ސަރަޙައްދުތައް"
-],
-"landuse/forest":[
-"ޖަންގަލި"
 ],
 "landuse/grass":[
 "ވިނަގަނޑު"

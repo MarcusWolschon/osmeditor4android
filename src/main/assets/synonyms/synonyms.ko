@@ -122,6 +122,7 @@
 ],
 "amenity/bar":[
 "바",
+"술집",
 "주점"
 ],
 "amenity/bbq":[
@@ -242,6 +243,9 @@
 "치과 의원",
 "치과"
 ],
+"amenity/dive_centre":[
+"다이브 센터"
+],
 "amenity/doctors":[
 "의원"
 ],
@@ -346,6 +350,9 @@
 "amenity/monastery":[
 "수도원 부지"
 ],
+"amenity/money_transfer":[
+"환전소"
+],
 "amenity/motorcycle_parking":[
 "오토바이 주차장",
 "모터사이클 주차장"
@@ -384,18 +391,18 @@
 "사찰"
 ],
 "amenity/place_of_worship/christian":[
-"교회"
+"성당",
+"기독교 교회"
 ],
 "amenity/place_of_worship/hindu":[
 "힌두교 사원",
 "만디르"
 ],
 "amenity/place_of_worship/jewish":[
-"시나고그",
-"유대교 회당"
+"유대교 시너고그"
 ],
 "amenity/place_of_worship/muslim":[
-"모스크"
+"이슬람교 모스크"
 ],
 "amenity/place_of_worship/shinto":[
 "신사"
@@ -503,6 +510,9 @@
 "amenity/restaurant/seafood":[
 "해산물 음식점"
 ],
+"amenity/restaurant/steakhouse":[
+"스테이크하우스"
+],
 "amenity/restaurant/sushi":[
 "초밥 음식점"
 ],
@@ -542,6 +552,7 @@
 "흡연 구역"
 ],
 "amenity/social_facility":[
+"사회 복지 시설",
 "사회시설"
 ],
 "amenity/social_facility/food_bank":[
@@ -553,6 +564,7 @@
 ],
 "amenity/social_facility/homeless_shelter":[
 "이재민 피난소",
+"노숙인 보호 시설",
 "이재민 대피소"
 ],
 "amenity/social_facility/nursing_home":[
@@ -597,6 +609,10 @@
 "대학교 부지",
 "대학 부지"
 ],
+"amenity/vehicle_inspection":[
+"자동차 점검",
+"차량 점검"
+],
 "amenity/vending_machine":[
 "자동판매기",
 "자판기"
@@ -618,6 +634,9 @@
 ],
 "amenity/vending_machine/electronics":[
 "전자 제품 자판기"
+],
+"amenity/vending_machine/elongated_coin":[
+"기념품 동전 자판기"
 ],
 "amenity/vending_machine/excrement_bags":[
 "쓰레기 봉투 자동 판매기",
@@ -658,6 +677,9 @@
 "amenity/veterinary":[
 "동물병원",
 "수의사"
+],
+"amenity/waste/dog_excrement":[
+"개 배설물 쓰레기통"
 ],
 "amenity/waste_basket":[
 "휴지통"
@@ -759,6 +781,9 @@
 "barrier/fence":[
 "울타리"
 ],
+"barrier/fence/railing":[
+"난간"
+],
 "barrier/gate":[
 "문"
 ],
@@ -768,6 +793,15 @@
 "barrier/hedge":[
 "산 울타리",
 "산울타리"
+],
+"barrier/kerb":[
+"연석"
+],
+"barrier/kerb/flush":[
+"턱 없는 연석"
+],
+"barrier/kerb/lowered":[
+"턱 낮은 연석"
 ],
 "barrier/kissing_gate":[
 "좁게 열리는 문",
@@ -794,12 +828,20 @@
 "boundary/administrative":[
 "행정 경계"
 ],
+"bridge/support":[
+"교량 지지물"
+],
 "bridge/support/pier":[
 "교각"
 ],
 "building":[
 "빌딩",
 "건물"
+],
+"building/apartments":[
+"아파트 건물",
+"아파트",
+"아파트먼트"
 ],
 "building/barn":[
 "헛간",
@@ -971,7 +1013,8 @@
 "공예"
 ],
 "craft/basket_maker":[
-"바구니 제조기"
+"바구니 제조기",
+"바구니 세공사"
 ],
 "craft/beekeeper":[
 "양봉가"
@@ -984,12 +1027,12 @@
 ],
 "craft/bookbinder":[
 "바인더",
-"책바인더"
+"제본공"
 ],
 "craft/brewery":[
+"맥주 양조장",
 "양조공",
-"양조장",
-"주조공"
+"양조장"
 ],
 "craft/carpenter":[
 "목수"
@@ -1008,14 +1051,15 @@
 "시계 제작자"
 ],
 "craft/confectionery":[
-"사탕 제조기"
+"사탕 제조기",
+"제과 공장"
 ],
 "craft/distillery":[
 "증류소"
 ],
 "craft/dressmaker":[
 "양장점",
-"양재사"
+"여성복 재단사"
 ],
 "craft/electrician":[
 "전기공"
@@ -1042,7 +1086,7 @@
 "절연체"
 ],
 "craft/jeweler":[
-"보석 상점"
+"보석 공예"
 ],
 "craft/key_cutter":[
 "열쇠 따는 사람",
@@ -1063,20 +1107,21 @@
 ],
 "craft/photographer":[
 "사진작가",
-"사진 작가"
+"사진가"
 ],
 "craft/photographic_laboratory":[
 "현상소"
 ],
 "craft/plasterer":[
-"벽토 제조자"
+"미장공",
+"도벽사"
 ],
 "craft/plumber":[
 "배관공"
 ],
 "craft/pottery":[
-"공예가",
-"요업가"
+"도예가",
+"도자기공"
 ],
 "craft/rigger":[
 "의장자",
@@ -1095,6 +1140,7 @@
 "제재소"
 ],
 "craft/scaffolder":[
+"비계공",
 "비계 설치자"
 ],
 "craft/sculptor":[
@@ -1103,14 +1149,14 @@
 "조공"
 ],
 "craft/shoemaker":[
-"구두공",
+"제화공",
 "화공"
 ],
 "craft/stonemason":[
 "석공"
 ],
 "craft/tailor":[
-"재단사"
+"남성복 재단사"
 ],
 "craft/tiler":[
 "타일 시공자"
@@ -1324,6 +1370,9 @@
 "highway/bus_stop":[
 "버스 정류장"
 ],
+"highway/construction":[
+"폐쇄된 도로"
+],
 "highway/corridor":[
 "복도",
 "실내 복도"
@@ -1424,8 +1473,8 @@
 "1차 도로 연결로"
 ],
 "highway/raceway":[
-"경기트렉 (모터 스포츠)",
-"경주로 (모터 스포즈)"
+"경주로 (모터 스포즈)",
+"경주로(모터스포츠)"
 ],
 "highway/residential":[
 "주거 도로",
@@ -1576,8 +1625,7 @@
 "양어장"
 ],
 "landuse/basin":[
-"웅덩이",
-"분지"
+"웅덩이"
 ],
 "landuse/brownfield":[
 "재개발 부지"
@@ -1602,12 +1650,6 @@
 ],
 "landuse/farmyard":[
 "농지"
-],
-"landuse/forest":[
-"숲",
-"산림",
-"삼림",
-"나무"
 ],
 "landuse/garages":[
 "차고 부지"
@@ -1658,6 +1700,9 @@
 "식물 양식장",
 "식물 종묘장"
 ],
+"landuse/pond":[
+"연못"
+],
 "landuse/quarry":[
 "채석장"
 ],
@@ -1669,10 +1714,17 @@
 "레크리에이션 지역"
 ],
 "landuse/religious":[
-"종교 부지"
+"종교 지역"
+],
+"landuse/reservoir":[
+"저수지"
 ],
 "landuse/residential":[
 "주거 지역"
+],
+"landuse/residential/apartments":[
+"아파트먼트 단지",
+"아파트 단지"
 ],
 "landuse/retail":[
 "소매 지역",
@@ -1809,7 +1861,8 @@
 "운동장"
 ],
 "leisure/pitch/american_football":[
-"미식 축구장"
+"미식 축구장",
+"미식축구 경기장"
 ],
 "leisure/pitch/badminton":[
 "배드민턴 코트"
@@ -1839,6 +1892,9 @@
 ],
 "leisure/pitch/equestrian":[
 "승마 경기장"
+],
+"leisure/pitch/netball":[
+"네트볼 코트"
 ],
 "leisure/pitch/rugby_league":[
 "럭비 경기장",
@@ -1874,9 +1930,6 @@
 "leisure/resort":[
 "리조트"
 ],
-"leisure/running_track":[
-"육상 트랙 (달리기)"
-],
 "leisure/sauna":[
 "사우나"
 ],
@@ -1899,7 +1952,14 @@
 "수영장"
 ],
 "leisure/track":[
-"경마장 (비 자동차 스포츠)"
+"경마장 (비 자동차 스포츠)",
+"경주로(비모터스포츠)"
+],
+"leisure/track/horse_racing":[
+"경주로(경마)"
+],
+"leisure/track/running":[
+"육상 트랙(달리기)"
 ],
 "leisure/water_park":[
 "물놀이장",
@@ -1927,6 +1987,9 @@
 ],
 "man_made/chimney":[
 "굴뚝"
+],
+"man_made/clearcut":[
+"개벌지"
 ],
 "man_made/crane":[
 "기중기",
@@ -1956,6 +2019,12 @@
 "안테나 기둥",
 "기지국",
 "송신탑"
+],
+"man_made/mast/communication/radio":[
+"라디오 송신탑"
+],
+"man_made/mast/communication/television":[
+"텔레비전 송신탑"
 ],
 "man_made/monitoring_station":[
 "기상",
@@ -2006,8 +2075,15 @@
 "탑",
 "타워"
 ],
+"man_made/tower/communication":[
+"통신 탑"
+],
+"man_made/tower/observation":[
+"관측 탑"
+],
 "man_made/wastewater_plant":[
-"하수처리 시설"
+"하수처리 시설",
+"하수 처리장"
 ],
 "man_made/water_tower":[
 "급수탑"
@@ -2137,6 +2213,9 @@
 "natural/water":[
 "물"
 ],
+"natural/water/canal":[
+"운하"
+],
 "natural/water/lake":[
 "호수"
 ],
@@ -2145,6 +2224,12 @@
 ],
 "natural/water/reservoir":[
 "저수지"
+],
+"natural/water/river":[
+"강"
+],
+"natural/water/stream":[
+"개울"
 ],
 "natural/wetland":[
 "습지",
@@ -2345,6 +2430,9 @@
 "place/neighbourhood":[
 "동"
 ],
+"place/plot":[
+"필지"
+],
 "place/quarter":[
 "하위 자치구 / 지구"
 ],
@@ -2352,14 +2440,15 @@
 "광장"
 ],
 "place/suburb":[
+"자치구 / 근교",
 "자치구 / 교외"
 ],
 "place/town":[
-"마을",
-"읍"
+"읍·면·동·로동자구",
+"마을"
 ],
 "place/village":[
-"읍/면/동",
+"리·통",
 "촌"
 ],
 "playground/balance_beam":[
@@ -2917,8 +3006,8 @@
 "맥주",
 "와인",
 "포도주",
-"주류 상점",
-"알코올"
+"알코올",
+"주류상"
 ],
 "shop/anime":[
 "코스프레",
@@ -3012,6 +3101,9 @@
 "자동차 정비소",
 "자동차 수리점"
 ],
+"shop/caravan":[
+"RV 대리점"
+],
 "shop/carpet":[
 "양탄자",
 "융단",
@@ -3026,7 +3118,8 @@
 "치즈 가게"
 ],
 "shop/chemist":[
-"약국"
+"약국",
+"드러그스토어"
 ],
 "shop/chocolate":[
 "초콜릿 가게"
@@ -3035,7 +3128,8 @@
 "옷 가게"
 ],
 "shop/coffee":[
-"커피 전문점"
+"커피 전문점",
+"커피 가게"
 ],
 "shop/computer":[
 "컴퓨터 판매점",
@@ -3080,6 +3174,7 @@
 "DIY 상점"
 ],
 "shop/dry_cleaning":[
+"드라이클리닝",
 "세탁소"
 ],
 "shop/e-cigarette":[
@@ -3115,6 +3210,12 @@
 "shop/fashion":[
 "패션 가게"
 ],
+"shop/fireplace":[
+"벽난로 가게"
+],
+"shop/fishing":[
+"낚시 가게"
+],
 "shop/fishmonger":[
 "생선 가게"
 ],
@@ -3122,14 +3223,18 @@
 "꽃집"
 ],
 "shop/frame":[
-"프레이밍 가게"
+"프레이밍 가게",
+"액자 가게"
+],
+"shop/fuel":[
+"연료 가게"
 ],
 "shop/funeral_directors":[
 "장의사",
 "장례식장"
 ],
 "shop/furnace":[
-"퍼니스 스토어"
+"벽난로 가게"
 ],
 "shop/furniture":[
 "의자",
@@ -3161,6 +3266,9 @@
 "미장원",
 "미용실"
 ],
+"shop/hairdresser_supply":[
+"미용실 용품 가게"
+],
 "shop/hardware":[
 "철물점"
 ],
@@ -3179,13 +3287,16 @@
 "스테레오"
 ],
 "shop/houseware":[
-"가정 용품 매장"
+"가정용품 가게"
+],
+"shop/hunting":[
+"사냥 가게"
 ],
 "shop/interior_decoration":[
 "실내장식 가게"
 ],
 "shop/jewelry":[
-"보석 상점",
+"보석상",
 "귀금속",
 "보석",
 "다이아몬드",
@@ -3247,7 +3358,7 @@
 "신문/잡지 가게"
 ],
 "shop/nutrition_supplements":[
-"영양 보조 식품 쇼핑몰"
+"영양 보조 식품 가게"
 ],
 "shop/optician":[
 "안경점",
@@ -3268,6 +3379,9 @@
 "shop/paint":[
 "페인트 가게"
 ],
+"shop/party":[
+"파티 용품 가게"
+],
 "shop/pastry":[
 "과자 가게"
 ],
@@ -3285,6 +3399,9 @@
 "파충류",
 "개",
 "강아지"
+],
+"shop/pet_grooming":[
+"애완동물 용품 가게"
 ],
 "shop/photo":[
 "카메라",
@@ -3355,7 +3472,7 @@
 ],
 "shop/tobacco":[
 "담배 판매업소",
-"담배상점"
+"담배 가게"
 ],
 "shop/toys":[
 "완구점",
@@ -3375,7 +3492,7 @@
 "빈 가게"
 ],
 "shop/vacuum_cleaner":[
-"진공 청소기 가게"
+"진공청소기 가게"
 ],
 "shop/variety_store":[
 "잡화점"
@@ -3390,14 +3507,17 @@
 "shop/watches":[
 "손목시계 가게"
 ],
+"shop/water":[
+"식수 가게"
+],
 "shop/water_sports":[
 "수상 스포츠/수영 가게"
 ],
 "shop/weapons":[
 "탄약",
-"무기상점",
 "나이프",
 "칼",
+"무기 가게",
 "총"
 ],
 "shop/wholesale":[
@@ -3463,6 +3583,7 @@
 "조각"
 ],
 "tourism/guest_house":[
+"게스트하우스",
 "B&B",
 "민박"
 ],
@@ -3565,6 +3686,9 @@
 ],
 "type/boundary/administrative":[
 "행정 경계"
+],
+"type/enforcement":[
+"단속"
 ],
 "type/multipolygon":[
 "다중 다각형"
@@ -3707,6 +3831,7 @@
 "waterway/stream":[
 "시내",
 "개천",
+"개울",
 "하천",
 "물줄기"
 ],

@@ -197,26 +197,14 @@
 "amenity/parking_space":[
 "Aparkatzeko lekua"
 ],
-"amenity/pharmacy":[
-"Farmazia"
-],
 "amenity/place_of_worship":[
 "Gurtza gune"
 ],
 "amenity/place_of_worship/buddhist":[
 "Tenplu budista"
 ],
-"amenity/place_of_worship/christian":[
-"Eliza"
-],
 "amenity/place_of_worship/hindu":[
 "Tenplu hindua"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"Mezkita"
 ],
 "amenity/place_of_worship/shinto":[
 "Xintoismo Santutegia"

@@ -174,11 +174,6 @@
 "Tržnica",
 "tržnica"
 ],
-"amenity/pharmacy":[
-"Apoteka",
-"ljekarna",
-"apoteka"
-],
 "amenity/place_of_worship":[
 "Božja kuća",
 "mjesto za molitvu",
@@ -190,21 +185,6 @@
 "budistička bogomolja",
 "budistički hram",
 "Budistički hram"
-],
-"amenity/place_of_worship/christian":[
-"Crkva",
-"crkva",
-"kršćanska/hrišćanska bogomolja"
-],
-"amenity/place_of_worship/jewish":[
-"jevrejska bogomolja",
-"Sinagoga",
-"sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"Džamija",
-"muslimanska bogomolja",
-"džamija"
 ],
 "amenity/police":[
 "policija",
@@ -726,9 +706,7 @@
 "kapelica"
 ],
 "landuse/basin":[
-"Sliv",
-"sliv",
-"bazen"
+"Sliv"
 ],
 "landuse/cemetery":[
 "Groblje",
@@ -745,11 +723,6 @@
 "seosko dvorište",
 "dvorište imanja",
 "Seosko dvorište"
-],
-"landuse/forest":[
-"područje pod drvećem",
-"Šuma",
-"šuma"
 ],
 "landuse/grass":[
 "Travnjak",
@@ -1686,8 +1659,6 @@
 "Rijeka"
 ],
 "waterway/riverbank":[
-"riječno korito",
-"riječni tok",
 "Riječno korito"
 ],
 "waterway/stream":[

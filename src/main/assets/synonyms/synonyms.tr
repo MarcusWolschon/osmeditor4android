@@ -298,9 +298,6 @@
 "amenity/parking_space":[
 "Park Yeri"
 ],
-"amenity/pharmacy":[
-"Eczane"
-],
 "amenity/place_of_worship":[
 "İbadethane",
 "İbadet Yeri"
@@ -308,17 +305,8 @@
 "amenity/place_of_worship/buddhist":[
 "Budist Tapınağı"
 ],
-"amenity/place_of_worship/christian":[
-"Kilise"
-],
 "amenity/place_of_worship/hindu":[
 "Hindu Tapınağı"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagog"
-],
-"amenity/place_of_worship/muslim":[
-"Camii"
 ],
 "amenity/place_of_worship/shinto":[
 "Şintoizm Tapınağı"
@@ -1292,9 +1280,6 @@
 "landuse/farmyard":[
 "Çiftlik"
 ],
-"landuse/forest":[
-"Orman"
-],
 "landuse/grass":[
 "Çimenlik",
 "Yeşil Alan"
@@ -1484,10 +1469,6 @@
 ],
 "leisure/resort":[
 "Tatil Yeri"
-],
-"leisure/running_track":[
-"Koşu Pisti",
-"Yarış Pisti (motor spor hariç)"
 ],
 "leisure/sauna":[
 "Sauna"
@@ -2789,9 +2770,7 @@
 "Irmak"
 ],
 "waterway/riverbank":[
-"Akarsu Kenarı",
-"Irmak Kenarı",
-"Nehir Kenarı"
+"Akarsu Kenarı"
 ],
 "waterway/sanitary_dump_station":[
 "Deniz Tuvalet İmha İstasyonu"

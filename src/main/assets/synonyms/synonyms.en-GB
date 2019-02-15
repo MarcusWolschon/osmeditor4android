@@ -186,6 +186,9 @@
 "amenity/dentist":[
 "Dentist"
 ],
+"amenity/dive_centre":[
+"Dive Centre"
+],
 "amenity/doctors":[
 "Doctor"
 ],
@@ -271,14 +274,20 @@
 "amenity/nursing_home":[
 "Nursing Home"
 ],
+"amenity/parking":[
+"Car Park"
+],
+"amenity/parking/multi-storey":[
+"Multistory Car Park"
+],
 "amenity/parking_entrance":[
 "Parking Garage Entrance/Exit"
 ],
 "amenity/parking_space":[
 "Parking Space"
 ],
-"amenity/pharmacy":[
-"Pharmacy"
+"amenity/payment_centre":[
+"Payment Centre"
 ],
 "amenity/place_of_worship":[
 "Place of Worship"
@@ -286,17 +295,8 @@
 "amenity/place_of_worship/buddhist":[
 "Buddhist Temple"
 ],
-"amenity/place_of_worship/christian":[
-"Church"
-],
 "amenity/place_of_worship/hindu":[
 "Hindu Temple"
-],
-"amenity/place_of_worship/jewish":[
-"Synagogue"
-],
-"amenity/place_of_worship/muslim":[
-"Mosque"
 ],
 "amenity/place_of_worship/shinto":[
 "Shinto Shrine"
@@ -559,6 +559,15 @@
 ],
 "barrier/hedge":[
 "Hedge"
+],
+"barrier/kerb":[
+"Kerb"
+],
+"barrier/kerb/flush":[
+"Flush Kerb"
+],
+"barrier/kerb/lowered":[
+"Lowered Kerb"
 ],
 "barrier/kissing_gate":[
 "Kissing Gate"
@@ -1211,9 +1220,6 @@
 "landuse/farmyard":[
 "Farmyard"
 ],
-"landuse/forest":[
-"Forest"
-],
 "landuse/garages":[
 "Garage Landuse"
 ],
@@ -1429,9 +1435,6 @@
 ],
 "leisure/resort":[
 "Resort"
-],
-"leisure/running_track":[
-"Racetrack (Running)"
 ],
 "leisure/sauna":[
 "Sauna"

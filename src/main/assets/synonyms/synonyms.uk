@@ -523,6 +523,14 @@
 "Дантист",
 "лікар"
 ],
+"amenity/dive_centre":[
+"навчання",
+"акваланг",
+"скуба",
+"тренування",
+"Центр навчання підводного плавання",
+"пірнання"
+],
 "amenity/doctors":[
 "допомога",
 "медицина",
@@ -759,6 +767,9 @@
 "amenity/nursing_home":[
 "Будинок престарілих"
 ],
+"amenity/parking":[
+"Автостоянка"
+],
 "amenity/parking_entrance":[
 "стоянка",
 "паркінг",
@@ -769,14 +780,6 @@
 "місце",
 "Місце на стоянці",
 "автомобіль"
-],
-"amenity/pharmacy":[
-"фармація",
-"ліки",
-"Pharmacy",
-"fgntrf",
-"аптека",
-"Аптека"
 ],
 "amenity/place_of_worship":[
 "мечеть",
@@ -797,12 +800,7 @@
 "ellsqcmrbq hfv"
 ],
 "amenity/place_of_worship/christian":[
-"Church",
-"костьол",
-"Церква",
-"храм",
-"собор",
-"wthrdf"
+"Християнська церква"
 ],
 "amenity/place_of_worship/hindu":[
 "храм",
@@ -813,18 +811,10 @@
 "гарбагриха"
 ],
 "amenity/place_of_worship/jewish":[
-"Synagogue",
-"cbyfujuf",
-"Синагога",
-"іудаїзм",
-"синагога"
+"Єврейська синагога"
 ],
 "amenity/place_of_worship/muslim":[
-"мечеть",
-"Мечеть",
-"Mosque",
-"мусульманство",
-"vtxtnm"
+"Мусульманська мечеть"
 ],
 "amenity/place_of_worship/shinto":[
 "Синтоїстська святиня",
@@ -923,6 +913,9 @@
 "Контора лісництва",
 "Ranger Station",
 "rjynjhf kscybwndf"
+],
+"amenity/recycling":[
+"Переробка вторсировини"
 ],
 "amenity/recycling_centre":[
 "сортування",
@@ -1076,6 +1069,9 @@
 "театр",
 "Театр",
 "ntfnh"
+],
+"amenity/theatre/type/amphi":[
+"Амфітеатр"
 ],
 "amenity/toilets":[
 "туалет",
@@ -1570,6 +1566,9 @@
 "bdf jujhjf",
 "Жива огорожа"
 ],
+"barrier/kerb":[
+"Бордюр"
+],
 "barrier/kissing_gate":[
 "Kissing Gate",
 "вузка хвіртка",
@@ -1654,6 +1653,9 @@
 "халупа",
 "барліг",
 "кабіна"
+],
+"building/carport":[
+"Навіс"
 ],
 "building/cathedral":[
 "храм",
@@ -2868,6 +2870,9 @@
 "сходи",
 "Сходи"
 ],
+"highway/steps/conveying":[
+"Ескалатор"
+],
 "highway/stop":[
 "знак стоп",
 "Проїзд без зупинки заборонено",
@@ -3075,11 +3080,7 @@
 "Аквакультура"
 ],
 "landuse/basin":[
-"резервуар",
-"Водойма",
-"Basin",
-"djljqvf",
-"водойма"
+"Водойма"
 ],
 "landuse/brownfield":[
 "місце",
@@ -3132,13 +3133,6 @@
 "ферма",
 "двір ферми",
 "Farmyard"
-],
-"landuse/forest":[
-"Лісовий масив",
-"лісовий масив",
-"ліс",
-"Forest",
-"kscjdbq vfcbd"
 ],
 "landuse/garages":[
 "ділянка",
@@ -3402,6 +3396,9 @@
 "яма",
 "Очаг"
 ],
+"leisure/fishing":[
+"Місце для риболовлі"
+],
 "leisure/fitness_centre":[
 "зал",
 "спорт",
@@ -3640,6 +3637,9 @@
 "майданчик",
 "Майданчик для бадмінтону"
 ],
+"leisure/pitch/baseball":[
+"Баскетбольне поле"
+],
 "leisure/pitch/basketball":[
 "Баскетбольний майданчик",
 "баскетбольний майданчик",
@@ -3766,13 +3766,6 @@
 "дозвілля",
 "пляж",
 "готель"
-],
-"leisure/running_track":[
-"спрінт",
-"трек",
-"біг",
-"перегони",
-"Бігова доріжка (бігуни)"
 ],
 "leisure/sauna":[
 "лазня",
@@ -3961,6 +3954,18 @@
 "антена",
 "радіо"
 ],
+"man_made/mast/communication":[
+"Вежа зв'язку"
+],
+"man_made/mast/communication/mobile_phone":[
+"Щогла мобільного зв'язку"
+],
+"man_made/mast/communication/radio":[
+"Радіотрансляційна щогла"
+],
+"man_made/mast/communication/television":[
+"Телевежа"
+],
 "man_made/monitoring_station":[
 "вода",
 "сейсмологія",
@@ -4057,6 +4062,9 @@
 "dtf",
 "Tower",
 "башта"
+],
+"man_made/tower/communication":[
+"Вежа зв'язку"
 ],
 "man_made/wastewater_plant":[
 "Очисні споруди",
@@ -4284,6 +4292,9 @@
 "lthtdj",
 "Tree",
 "Дерево"
+],
+"natural/tree_row":[
+"Ряд дерев"
 ],
 "natural/volcano":[
 "mountain",
@@ -4865,11 +4876,20 @@
 "power":[
 "Енергетика"
 ],
+"power/cable/underground":[
+"Підземний силовий кабель"
+],
 "power/generator":[
 "tktrnhjcnfywsz",
 "Power Generator",
 "Електростанція",
 "електростанція"
+],
+"power/generator/source/nuclear":[
+"Ядерний реактор"
+],
+"power/generator/source/wind":[
+"Вітрова турбіна"
 ],
 "power/line":[
 "ksysz tktrnhjgthtlfxs dbcjrj yfgheub",
@@ -5968,6 +5988,9 @@
 "Hairdresser",
 "перукар"
 ],
+"shop/hairdresser_supply":[
+"Перукарські товари"
+],
 "shop/hardware":[
 "промтовари",
 "Господарські товари",
@@ -6175,6 +6198,9 @@
 "колір",
 "фарби",
 "розчинник"
+],
+"shop/party":[
+"Товари до свят"
 ],
 "shop/pastry":[
 "Кондитерські вироби",
@@ -6521,6 +6547,15 @@
 "Витвори мистецтв",
 "dbndjhb vbcntwnd"
 ],
+"tourism/artwork/mural":[
+"Мурал"
+],
+"tourism/artwork/sculpture":[
+"Скульптура"
+],
+"tourism/artwork/statue":[
+"Статуя"
+],
 "tourism/attraction":[
 "Tourist Attraction",
 "dbpyfxyt vscwt",
@@ -6754,6 +6789,9 @@
 "широкий",
 "Піднятий пішохідний перехід",
 "перехід"
+],
+"traffic_sign/maxspeed_vertex":[
+"Знак обмеження швидкості"
 ],
 "type/boundary":[
 "Кордон",
@@ -7053,10 +7091,7 @@
 "hsrf"
 ],
 "waterway/riverbank":[
-"берег ріки",
-"Берег ріки",
-"Riverbank",
-"thtu hsrb"
+"Берег ріки"
 ],
 "waterway/sanitary_dump_station":[
 "яхта",

@@ -464,12 +464,6 @@
 "parkirni prostor",
 "parkirišče"
 ],
-"amenity/pharmacy":[
-"Lekarna",
-"zdravila",
-"farmacija",
-"apoteka"
-],
 "amenity/place_of_worship":[
 "Verski hram",
 "kraj čaščenja",
@@ -480,28 +474,8 @@
 "Budistični center",
 "Budistični tempelj"
 ],
-"amenity/place_of_worship/christian":[
-"bogoslužje",
-"Cerkev",
-"stolnica",
-"katedrala"
-],
 "amenity/place_of_worship/hindu":[
 "Hindujski tempel"
-],
-"amenity/place_of_worship/jewish":[
-"judovski verski objekt",
-"judaizem",
-"židovski verski objekt",
-"Sinagoga",
-"judovska sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"đamija",
-"islamski verski center",
-"muslimanski verski center",
-"džamija",
-"Mošeja"
 ],
 "amenity/planetarium":[
 "Planetarij",
@@ -1663,7 +1637,6 @@
 "ribogojništvo"
 ],
 "landuse/basin":[
-"usedalnik",
 "Kotanja"
 ],
 "landuse/cemetery":[
@@ -1700,12 +1673,6 @@
 "Kmetija",
 "domačija",
 "dvorišče"
-],
-"landuse/forest":[
-"Gozd",
-"gozdiček",
-"gozdne površine",
-"gozdič"
 ],
 "landuse/grass":[
 "javna zelena površina",
@@ -1928,13 +1895,6 @@
 ],
 "leisure/resort":[
 "Letovišče"
-],
-"leisure/running_track":[
-"tekališče",
-"steza (tek)",
-"kros steza",
-"Tekaška steza (tek)",
-"hipodrom"
 ],
 "leisure/slipway":[
 "rampa za vodna plovila",
@@ -3270,10 +3230,7 @@
 "Reka"
 ],
 "waterway/riverbank":[
-"Rečni breg",
-"obala",
-"brežina",
-"breg"
+"Rečni breg"
 ],
 "waterway/stream":[
 "tok",

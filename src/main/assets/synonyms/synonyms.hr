@@ -323,12 +323,6 @@
 "amenity/parking_space":[
 "Parkirališno mjesto"
 ],
-"amenity/pharmacy":[
-"Ljekarna",
-"ljekarna",
-"apoteka",
-"farmacija"
-],
 "amenity/place_of_worship":[
 "kapela",
 "mjesto za molitvu",
@@ -348,29 +342,6 @@
 "budistički hram",
 "bogomolja",
 "Budistički hram"
-],
-"amenity/place_of_worship/christian":[
-"kapela",
-"Crkva",
-"župa",
-"katedrala",
-"crkva"
-],
-"amenity/place_of_worship/jewish":[
-"mjesto za molitvu",
-"Sinagoga",
-"bogomolja",
-"židovski hram",
-"sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"mjesto za molitvu",
-"Džamija",
-"bogomolja",
-"mesdžid",
-"minaret",
-"džamija",
-"džemat"
 ],
 "amenity/police":[
 "policija",
@@ -1068,13 +1039,6 @@
 ],
 "landuse/farmyard":[
 "Gospodarsko imanje"
-],
-"landuse/forest":[
-"upravljana šuma",
-"Šuma",
-"šuma",
-"održavana šuma",
-"šuma nasada"
 ],
 "landuse/grass":[
 "Travnjak"
@@ -2578,9 +2542,6 @@
 "Rijeka"
 ],
 "waterway/riverbank":[
-"obala rijeke",
-"rijeka",
-"riječna obala",
 "Riječna obala"
 ],
 "waterway/sanitary_dump_station":[

@@ -167,10 +167,6 @@
 "amenity/parking_entrance":[
 "Pintu Masuk/Keluar Area Parkir"
 ],
-"amenity/pharmacy":[
-"Farmasi",
-"Apotek"
-],
 "amenity/place_of_worship":[
 "Tempat Beribadah",
 "Rumah Ibadah"
@@ -178,19 +174,6 @@
 "amenity/place_of_worship/buddhist":[
 "Wihara",
 "Kuil Buddha"
-],
-"amenity/place_of_worship/christian":[
-"Gereja"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoga",
-"Yahudi"
-],
-"amenity/place_of_worship/muslim":[
-"Mesjid",
-"Langgar",
-"Masjid",
-"Mushola"
 ],
 "amenity/police":[
 "Polisi"
@@ -674,7 +657,6 @@
 "Guna Lahan"
 ],
 "landuse/basin":[
-"Daerah Aliran Sungai",
 "Cekungan"
 ],
 "landuse/cemetery":[
@@ -705,10 +687,6 @@
 ],
 "landuse/farmyard":[
 "Peternakan"
-],
-"landuse/forest":[
-"Hutan Produksi",
-"Hutan"
 ],
 "landuse/grass":[
 "Rerumputan",
@@ -1575,8 +1553,7 @@
 "Sungai"
 ],
 "waterway/riverbank":[
-"Tepi Sungai",
-"Pinggir Kali"
+"Tepi Sungai"
 ],
 "waterway/stream":[
 "Aliran"

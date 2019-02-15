@@ -305,9 +305,6 @@
 "amenity/parking_space":[
 "Bílastæðarými"
 ],
-"amenity/pharmacy":[
-"Lyfjaverslun"
-],
 "amenity/place_of_worship":[
 "bænahús",
 "musteri",
@@ -318,18 +315,8 @@
 "amenity/place_of_worship/buddhist":[
 "Búddistamusteri"
 ],
-"amenity/place_of_worship/christian":[
-"Kirkja"
-],
 "amenity/place_of_worship/hindu":[
 "Hindú-musteri"
-],
-"amenity/place_of_worship/jewish":[
-"Bænahús gyðinga"
-],
-"amenity/place_of_worship/muslim":[
-"Moska",
-"bænahús múslima"
 ],
 "amenity/place_of_worship/shinto":[
 "Shinto-skrín"
@@ -1383,9 +1370,6 @@
 "landuse/farmyard":[
 "Bóndabýli"
 ],
-"landuse/forest":[
-"Skógur"
-],
 "landuse/garages":[
 "Landnotkun fyrir verkstæði"
 ],
@@ -1616,9 +1600,6 @@
 ],
 "leisure/resort":[
 "Afþreyingarþorp"
-],
-"leisure/running_track":[
-"Keppnisbraut (hlaup)"
 ],
 "leisure/sauna":[
 "Gufubað"

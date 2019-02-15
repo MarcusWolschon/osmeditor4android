@@ -364,10 +364,6 @@
 "amenity/parking_space":[
 "Espai d'aparcament"
 ],
-"amenity/pharmacy":[
-"establiment de venda de medicaments",
-"Farmàcia"
-],
 "amenity/place_of_worship":[
 "temple de la fe",
 "Punt de trobada religiós",
@@ -382,25 +378,16 @@
 "Temple Budista"
 ],
 "amenity/place_of_worship/christian":[
-"església",
-"Temple",
-"Església"
+"Capella cristiana"
 ],
 "amenity/place_of_worship/hindu":[
 "Temple Hindú"
 ],
 "amenity/place_of_worship/jewish":[
-"Sinagoga",
-"jueu",
-"església jueva",
-"culte jueu",
-"temple jueu"
+"Sinagoga jueva"
 ],
 "amenity/place_of_worship/muslim":[
-"Mesquita",
-"musulmà",
-"espai musulmà",
-"temple musulmà"
+"Mesquita musulmana"
 ],
 "amenity/place_of_worship/shinto":[
 "Santuari sintoísta"
@@ -459,6 +446,9 @@
 ],
 "amenity/ranger_station":[
 "Base d'Agents Rurals"
+],
+"amenity/recycling":[
+"Reciclatge"
 ],
 "amenity/recycling_centre":[
 "Centre de Reciclatge"
@@ -771,6 +761,9 @@
 "Nau industrial",
 "Oficines",
 "Barraca"
+],
+"building/apartments":[
+"Edifici d'apartaments"
 ],
 "building/barn":[
 "Graner"
@@ -1400,7 +1393,6 @@
 "Jardí comunitari"
 ],
 "landuse/basin":[
-"Conca",
 "Bassa"
 ],
 "landuse/cemetery":[
@@ -1452,11 +1444,6 @@
 "Dipòsit",
 "Masia",
 "Mas"
-],
-"landuse/forest":[
-"Bosc",
-"Massa forestal",
-"Arbreda"
 ],
 "landuse/grass":[
 "Herba",
@@ -1591,6 +1578,9 @@
 "leisure/pitch/american_football":[
 "Estadi de futbol americà",
 "Camp de futbol americà"
+],
+"leisure/pitch/baseball":[
+"Camp de beisbol"
 ],
 "leisure/pitch/basketball":[
 "Pavelló de bàsquet",
@@ -2302,6 +2292,9 @@
 "shop/jewelry":[
 "Joieria"
 ],
+"shop/kiosk":[
+"Quiosc"
+],
 "shop/kitchen":[
 "Botiga de disseny de cuines"
 ],
@@ -2728,8 +2721,6 @@
 "Riu"
 ],
 "waterway/riverbank":[
-"Ribera",
-"Riba del riu",
 "Banc fluvial"
 ],
 "waterway/sanitary_dump_station":[

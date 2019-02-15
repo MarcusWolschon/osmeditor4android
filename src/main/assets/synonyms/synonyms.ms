@@ -57,30 +57,14 @@
 "amenity/parking_space":[
 "Ruang Letak Kenderaan"
 ],
-"amenity/pharmacy":[
-"Farmasi"
-],
 "amenity/place_of_worship":[
 "Tempat Ibadat"
 ],
 "amenity/place_of_worship/buddhist":[
 "Tokong Buddha"
 ],
-"amenity/place_of_worship/christian":[
-"Gereja"
-],
 "amenity/place_of_worship/hindu":[
 "Kuil Hindu"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoga",
-"Saumaah"
-],
-"amenity/place_of_worship/muslim":[
-"Musolla",
-"Solat",
-"Masjid",
-"Surau"
 ],
 "amenity/place_of_worship/shinto":[
 "Tokong Shinto"
@@ -651,13 +635,31 @@
 "tourism":[
 "Pelancongan"
 ],
+"tourism/aquarium":[
+"Akuarium"
+],
+"tourism/hotel":[
+"Hotel"
+],
+"tourism/picnic_site":[
+"Tapak Perkelahan"
+],
 "type/route/road":[
 "Laluan Jalan"
+],
+"waterway":[
+"Jalan Air"
+],
+"waterway/canal":[
+"Terusan"
 ],
 "waterway/river":[
 "Sungai"
 ],
 "waterway/riverbank":[
 "Tebing sungai"
+],
+"waterway/waterfall":[
+"Air Terjun"
 ]
 }

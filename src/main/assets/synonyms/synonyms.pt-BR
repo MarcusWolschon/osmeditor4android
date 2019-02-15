@@ -172,10 +172,13 @@
 "Centro Cultural"
 ],
 "amenity/atm":[
+"terminal bancário",
 "Banco",
+"caixa automático",
+"caixa eletrônico",
 "ATM",
-"Caixa Eletrônico",
-"Caixa eletrônico"
+"terminal",
+"Caixa Eletrônico"
 ],
 "amenity/bank":[
 "Banco",
@@ -536,7 +539,7 @@
 "amenity/marketplace":[
 "Feira",
 "mercado municipal",
-"Mercado ou feira",
+"Feira ou mercado público",
 "mercado",
 "feirinha"
 ],
@@ -596,10 +599,7 @@
 "Terminal de pagamento"
 ],
 "amenity/pharmacy":[
-"remédio",
-"Drogaria",
-"medicamento",
-"Farmácia de Manipulação",
+"Contador de Farmácia",
 "Farmácia"
 ],
 "amenity/place_of_worship":[
@@ -629,13 +629,9 @@
 "Templo Budista"
 ],
 "amenity/place_of_worship/christian":[
-"deus",
-"templo",
-"capela",
-"paróquia",
-"cristão",
-"catedral",
-"Igreja"
+"cristianismo",
+"Igreja Cristã",
+"Igreja cristã"
 ],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
@@ -648,22 +644,16 @@
 "hinduísmo"
 ],
 "amenity/place_of_worship/jewish":[
-"templo",
-"judeu",
-"judaico",
-"Sinagoga",
-"esnoga",
-"sinagoga",
+"Sinagoga judaica",
+"judeus",
+"Sinagoga Judaica",
 "judaísmo"
 ],
 "amenity/place_of_worship/muslim":[
-"islã",
-"templo",
-"muçulmano",
-"mesquita",
-"masjid",
-"islamismo",
-"Mesquita"
+"mosque",
+"Mesquita Muçulmana",
+"Mesquita muçulmana",
+"islamismo"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -1194,6 +1184,9 @@
 "asfalto",
 "rua"
 ],
+"attraction":[
+"Atração"
+],
 "attraction/amusement_ride":[
 "parque de diversões",
 "navio pirata",
@@ -1400,8 +1393,8 @@
 "Meio-fio"
 ],
 "barrier/kerb/flush":[
-"Meio-fio nivelada",
-"  Meio-fio nivelada"
+"Meio-fio nivelado",
+"Meio-fio nivelada"
 ],
 "barrier/kerb/lowered":[
 "Guia abaixada"
@@ -1452,6 +1445,13 @@
 "Edificação",
 "Prédio",
 "Edifício"
+],
+"building/apartments":[
+"prédio residencial",
+"Edifício de Apartamentos",
+"apartamentos",
+"prédio de apartamentos",
+"condomínio"
 ],
 "building/barn":[
 "Celeiro"
@@ -1728,6 +1728,9 @@
 "fã",
 "maçom",
 "hobby"
+],
+"club/sport":[
+"Clube de esportes"
 ],
 "craft":[
 "ofício",
@@ -2251,6 +2254,10 @@
 "highway/bus_stop":[
 "Parada de ônibus / Plataforma"
 ],
+"highway/construction":[
+"Estrada fechada",
+"Via fechada"
+],
 "highway/corridor":[
 "Corredor Interno",
 "corredor interior",
@@ -2258,22 +2265,23 @@
 "corredor coberto"
 ],
 "highway/crossing/marked":[
-"Faixa de pedestres marcada"
+"Faixa de pedestres"
 ],
 "highway/crossing/marked-raised":[
-"Faixa de pedestres marcada (levantada)"
+"Faixa de pedestres elevada",
+"travessia de pedestres elevada"
 ],
 "highway/crossing/unmarked":[
-"Cruzamento não marcado"
+"Travessia de pedestres"
 ],
 "highway/crossing/unmarked-raised":[
-"Cruzamento não marcado (levantado)"
+"Travessia de pedestres elevada"
 ],
 "highway/crossing/zebra":[
-"Faixa de pedestres marcada"
+"Faixa de pedestres"
 ],
 "highway/crossing/zebra-raised":[
-"Faixa de pedestres marcada (levantada)"
+"Faixa de pedestres elevada"
 ],
 "highway/cycleway":[
 "ciclista",
@@ -2300,10 +2308,10 @@
 "Esteira rolante"
 ],
 "highway/footway/marked":[
-"Faixa de pedestres marcada"
+"Faixa de pedestres"
 ],
 "highway/footway/marked-raised":[
-"Faixa de pedestres marcada (levantada)"
+"Faixa de pedestres elevada"
 ],
 "highway/footway/sidewalk":[
 "passeio",
@@ -2311,16 +2319,16 @@
 "calçada"
 ],
 "highway/footway/unmarked":[
-"Cruzamento não marcado"
+"Travessia de pedestres"
 ],
 "highway/footway/unmarked-raised":[
-"Cruzamento não marcado (levantado)"
+"Travessia de pedestres elevada"
 ],
 "highway/footway/zebra":[
-"Faixa de pedestres marcada"
+"Faixa de pedestres"
 ],
 "highway/footway/zebra-raised":[
-"Faixa de pedestres marcada (levantada)"
+"Faixa de pedestres elevada"
 ],
 "highway/give_way":[
 "dê a preferência",
@@ -2809,6 +2817,9 @@
 "Berçário de Plantas",
 "Viveiro de Plantas"
 ],
+"landuse/pond":[
+"Lagoa"
+],
 "landuse/quarry":[
 "Pedreira",
 "Mineração"
@@ -2840,10 +2851,18 @@
 "Área Religiosa",
 "terreiro"
 ],
+"landuse/reservoir":[
+"Reservatório"
+],
 "landuse/residential":[
 "residências",
 "Área residencial",
 "Residencial"
+],
+"landuse/residential/apartments":[
+"Condomínio de Apartamentos",
+"apartamentos",
+"condomínio"
 ],
 "landuse/retail":[
 "Área de comércio e varejo",
@@ -3111,6 +3130,9 @@
 "Campo de Futebol Americano",
 "football"
 ],
+"leisure/pitch/australian_football":[
+"Campo de futebol australiano"
+],
 "leisure/pitch/badminton":[
 "Quadra de badminton"
 ],
@@ -3163,6 +3185,9 @@
 "hipismo",
 "cavalos",
 "Pista de Hipismo"
+],
+"leisure/pitch/netball":[
+"Tribunal de Netball"
 ],
 "leisure/pitch/rugby_league":[
 "Campo de Rugby League",
@@ -3229,15 +3254,6 @@
 "Hospedagem",
 "Hotel"
 ],
-"leisure/running_track":[
-"olímpica",
-"atletismo",
-"corrida",
-"olímpico",
-"correr",
-"esportes",
-"Pista de atletismo"
-],
 "leisure/sauna":[
 "Sauna",
 "casa de vapor"
@@ -3290,6 +3306,18 @@
 "cavalos",
 "pista",
 "cães"
+],
+"leisure/track/horse_racing":[
+"Pista de Corrida (Corrida de Cavalos)"
+],
+"leisure/track/running":[
+"olímpica",
+"atletismo",
+"corrida",
+"olímpico",
+"correr",
+"esportes",
+"Pista de atletismo"
 ],
 "leisure/water_park":[
 "Piscina",
@@ -3703,6 +3731,9 @@
 "natural/water":[
 "Água"
 ],
+"natural/water/canal":[
+"Canal"
+],
 "natural/water/lake":[
 "laguna",
 "água",
@@ -3725,6 +3756,20 @@
 "Albufeira",
 "Açude",
 "lago"
+],
+"natural/water/river":[
+"Rio"
+],
+"natural/water/stream":[
+"Arroio",
+"Riacho",
+"Fio de Água",
+"Riachinho",
+"Curso de Água",
+"Córrego",
+"Ribeiro",
+"Ribeira",
+"Grota"
 ],
 "natural/wetland":[
 "zona úmida",
@@ -4000,6 +4045,15 @@
 ],
 "piste/downhill":[
 "Pista de descida/Pista de esqui"
+],
+"piste/downhill/halfpipe":[
+"esportes radicais",
+"Halfpipe ",
+"patinação",
+"pista de skate",
+"pista de downhill",
+"Halfpipe",
+"pista de snow board"
 ],
 "piste/hike":[
 "Raquete de neve ou Trilha de caminhadas de inverno"
@@ -4865,6 +4919,14 @@
 "Automóveis",
 "Oficina Mecânica"
 ],
+"shop/caravan":[
+"trailer",
+"loja de trailers",
+"Concessionária",
+"RV",
+"Concessionária de Motorhomes",
+"motorhome"
+],
 "shop/carpet":[
 "Tapeçaria",
 "Loja de Tapetes",
@@ -4932,6 +4994,7 @@
 ],
 "shop/convenience":[
 "Posto de combustíveis",
+"Mercearia",
 "Mercado",
 "Loja de Conveniência"
 ],
@@ -5023,6 +5086,12 @@
 "loja de roupas",
 "Loja de Moda"
 ],
+"shop/fireplace":[
+"Loja de Lareiras"
+],
+"shop/fishing":[
+"Loja de pesca"
+],
 "shop/fishmonger":[
 "Peixaria"
 ],
@@ -5036,6 +5105,12 @@
 "shop/frame":[
 "loja de molduras",
 "Loja de Molduras"
+],
+"shop/frozen_food":[
+"Alimento congelado"
+],
+"shop/fuel":[
+"Loja de Combustível"
 ],
 "shop/funeral_directors":[
 "Funerária"
@@ -5115,6 +5190,9 @@
 "Loja de Utensílios Domésticos",
 "Loja de acessórios para casa",
 "Loja de utensílios"
+],
+"shop/hunting":[
+"Loja de Caça"
 ],
 "shop/interior_decoration":[
 "Loja de Decoração Interior",
@@ -5419,6 +5497,9 @@
 "relógios",
 "venda de relógios"
 ],
+"shop/water":[
+"Loja de Água Potável"
+],
 "shop/water_sports":[
 "Loja de Esportes Aquáticos",
 "Loja de Equipamentos para Esportes Áquáticos",
@@ -5652,6 +5733,14 @@
 "Limite Administrativo",
 "Fronteira Administrativa"
 ],
+"type/enforcement":[
+"fiscalização",
+"vigilância",
+"Fiscalização",
+"aplicação",
+"Execução",
+"monitoramento"
+],
 "type/multipolygon":[
 "Multipolígono"
 ],
@@ -5817,10 +5906,7 @@
 "Rio"
 ],
 "waterway/riverbank":[
-"Orla Fluvial",
-"Margem do Rio",
-"Bordo",
-"Rebordo"
+"Orla Fluvial"
 ],
 "waterway/sanitary_dump_station":[
 "Banheiro",

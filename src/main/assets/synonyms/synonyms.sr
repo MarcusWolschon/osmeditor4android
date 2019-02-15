@@ -194,26 +194,14 @@
 "amenity/parking_space":[
 "Паркинг простор"
 ],
-"amenity/pharmacy":[
-"Апотека"
-],
 "amenity/place_of_worship":[
 "Место богослужења"
 ],
 "amenity/place_of_worship/buddhist":[
 "Будистички храм"
 ],
-"amenity/place_of_worship/christian":[
-"Црква"
-],
 "amenity/place_of_worship/hindu":[
 "Хиндуистички храм"
-],
-"amenity/place_of_worship/jewish":[
-"Синагога"
-],
-"amenity/place_of_worship/muslim":[
-"Џамија"
 ],
 "amenity/place_of_worship/shinto":[
 "Шинтоистичко светилиште"
@@ -630,6 +618,11 @@
 "craft/carpet_layer":[
 "Паркетар"
 ],
+"craft/chimney_sweeper":[
+"димничар",
+"оџачар",
+"Димничар"
+],
 "craft/clockmaker":[
 "Сајџија"
 ],
@@ -719,6 +712,9 @@
 ],
 "craft/scaffolder":[
 "Скелар"
+],
+"craft/sculptor":[
+"Скулптор"
 ],
 "craft/shoemaker":[
 "Обућар"
@@ -977,9 +973,6 @@
 "landuse/farmyard":[
 "Сеоско двориште"
 ],
-"landuse/forest":[
-"Шума"
-],
 "landuse/grass":[
 "Трава"
 ],
@@ -1109,14 +1102,29 @@
 "leisure/playground":[
 "Игралиште"
 ],
+"leisure/resort":[
+"Одмаралиште"
+],
+"leisure/sauna":[
+"Сауна"
+],
 "leisure/slipway":[
 "Навоз"
+],
+"leisure/sports_centre":[
+"Спортски центар / Комплекс"
 ],
 "leisure/stadium":[
 "Стадион"
 ],
 "leisure/swimming_pool":[
 "Базен"
+],
+"leisure/track/horse_racing":[
+"Тркачка стаза (за коње)"
+],
+"leisure/track/running":[
+"Тркачка стаза (за спортисте)"
 ],
 "leisure/water_park":[
 "аква-парк",
@@ -1141,6 +1149,9 @@
 "коп",
 "Јамски коп"
 ],
+"man_made/antenna":[
+"Антена"
+],
 "man_made/breakwater":[
 "Лукобран"
 ],
@@ -1150,10 +1161,16 @@
 "Мост",
 "мост"
 ],
+"man_made/bunker_silo":[
+"Подземни силос"
+],
 "man_made/chimney":[
 "димњак",
 "оџак",
 "Димњак"
+],
+"man_made/crane":[
+"Кран"
 ],
 "man_made/cutline":[
 "Усек"
@@ -1180,6 +1197,24 @@
 "јарбол",
 "Бандера"
 ],
+"man_made/mast/communication":[
+"Коминикацијски торањ"
+],
+"man_made/mast/communication/mobile_phone":[
+"Комуникацијски торањ"
+],
+"man_made/mast/communication/radio":[
+"Радијски торањ"
+],
+"man_made/mast/communication/television":[
+"Телевизијски торањ"
+],
+"man_made/monitoring_station":[
+"Надзорна станица"
+],
+"man_made/observatory":[
+"Обзерваторија"
+],
 "man_made/petroleum_well":[
 "Нафтна бушотина"
 ],
@@ -1188,6 +1223,9 @@
 ],
 "man_made/pipeline":[
 "Цевовод"
+],
+"man_made/pumping_station":[
+"Црпна станица"
 ],
 "man_made/silo":[
 "Силос"
@@ -1203,11 +1241,17 @@
 "надзор",
 "праћење"
 ],
+"man_made/surveillance/camera":[
+"Надзорна камера"
+],
 "man_made/survey_point":[
 "Извиђачница"
 ],
 "man_made/tower":[
 "Кула"
+],
+"man_made/tower/observation":[
+"Осматрачница"
 ],
 "man_made/wastewater_plant":[
 "Постројење за обраду отпадних вода"
@@ -1231,6 +1275,9 @@
 "Ветрењача",
 "ветрењача",
 "млин на ветар"
+],
+"man_made/works":[
+"Фабрика"
 ],
 "manhole":[
 "отвор за кабл",
@@ -1281,6 +1328,9 @@
 "natural/heath":[
 "Врес"
 ],
+"natural/mud":[
+"Блато"
+],
 "natural/peak":[
 "Врх"
 ],
@@ -1292,6 +1342,9 @@
 ],
 "natural/saddle":[
 "Планински превој"
+],
+"natural/sand":[
+"Песак"
 ],
 "natural/scree":[
 "Осулина"
@@ -1597,6 +1650,11 @@
 "shop/jewelry":[
 "Златар"
 ],
+"shop/kiosk":[
+"киоск",
+"штанд",
+"Киоск"
+],
 "shop/kitchen":[
 "Кухињски дизајн"
 ],
@@ -1742,11 +1800,25 @@
 "tourism/artwork":[
 "Уметничко дело"
 ],
+"tourism/artwork/mural":[
+"Мурал"
+],
+"tourism/artwork/sculpture":[
+"Скулптура"
+],
+"tourism/artwork/statue":[
+"Статуа"
+],
 "tourism/attraction":[
 "Туристичка атракција"
 ],
 "tourism/caravan_site":[
 "Камп-парк"
+],
+"tourism/chalet":[
+"викендица",
+"Викендица",
+"одмориште"
 ],
 "tourism/gallery":[
 "Галерија слика"
@@ -1765,6 +1837,9 @@
 ],
 "tourism/information/board":[
 "Огласна табла"
+],
+"tourism/information/guidepost":[
+"Путоказ"
 ],
 "tourism/information/map":[
 "Мапа"
@@ -1801,11 +1876,32 @@
 "traffic_calming/island":[
 "Саобраћајно острво"
 ],
+"traffic_sign":[
+"Саобраћајни знак"
+],
+"traffic_sign/city_limit":[
+"Знак за ограничење брзине у насељу"
+],
+"traffic_sign/city_limit_vertex":[
+"Знак за ограничење брзине у насељу"
+],
+"traffic_sign/maxspeed":[
+"Знак за ограничење брзине"
+],
+"traffic_sign/maxspeed_vertex":[
+"Знак за ограничење брзине"
+],
+"traffic_sign_vertex":[
+"Саобраћајни знак"
+],
 "type/boundary":[
 "Граница"
 ],
 "type/boundary/administrative":[
 "Административна граница"
+],
+"type/enforcement":[
+"Ојачање"
 ],
 "type/multipolygon":[
 "Мултиполигон"
@@ -1897,14 +1993,13 @@
 "Река"
 ],
 "waterway/riverbank":[
-"речна обала",
-"речно корито",
-"Речно корито",
-"обала реке",
-"корито реке"
+"Речно корито"
 ],
 "waterway/stream":[
 "Поток"
+],
+"waterway/water_point":[
+"Морска пијаћа вода"
 ],
 "waterway/waterfall":[
 "водопад",

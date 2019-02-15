@@ -206,23 +206,11 @@
 "amenity/parking_space":[
 "Паркинг-место"
 ],
-"amenity/pharmacy":[
-"Аптека"
-],
 "amenity/place_of_worship":[
 "Верски објект"
 ],
 "amenity/place_of_worship/buddhist":[
 "Будистички храм"
-],
-"amenity/place_of_worship/christian":[
-"Црква"
-],
-"amenity/place_of_worship/jewish":[
-"Синагога"
-],
-"amenity/place_of_worship/muslim":[
-"Џамија"
 ],
 "amenity/planetarium":[
 "Планетариум"
@@ -892,9 +880,6 @@
 ],
 "landuse/farmyard":[
 "Селски двор"
-],
-"landuse/forest":[
-"Шума"
 ],
 "landuse/grass":[
 "Трева"

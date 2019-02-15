@@ -229,7 +229,10 @@
 "Openbaar fietsgereedschap"
 ],
 "amenity/biergarten":[
-"Biergarten"
+"Biergarten",
+"terras",
+"bier",
+"café"
 ],
 "amenity/boat_rental":[
 "boten",
@@ -379,7 +382,9 @@
 "mond"
 ],
 "amenity/dive_centre":[
-"Duikcentrum"
+"snorkelen",
+"Duikcentrum",
+"duiken"
 ],
 "amenity/doctors":[
 "huisarts",
@@ -423,6 +428,28 @@
 "hamburgers",
 "frieten",
 "Fastfoodrestaurant"
+],
+"amenity/fast_food/burger":[
+"burgerrestaurant",
+"Burgerfastfoodzaak",
+"hamburgerfastfoodzaak",
+"hamburgerrestaurant"
+],
+"amenity/fast_food/chicken":[
+"kippenrestaurant",
+"Kippenfastfoodzaak"
+],
+"amenity/fast_food/fish_and_chips":[
+"Fish-and-chipsfastfoodzaak"
+],
+"amenity/fast_food/kebab":[
+"Kebabfastfoodzaak"
+],
+"amenity/fast_food/pizza":[
+"Pizzafastfoodzaak"
+],
+"amenity/fast_food/sandwich":[
+"Broodjesfastfoodzaak"
 ],
 "amenity/ferry_terminal":[
 "Veerbootterminal"
@@ -529,6 +556,9 @@
 "abdijgebied",
 "Kloostergebied"
 ],
+"amenity/money_transfer":[
+"Wisselkantoor"
+],
 "amenity/motorcycle_parking":[
 "motorstalling",
 "parking voor moto's",
@@ -558,8 +588,18 @@
 "Verpleeghuis"
 ],
 "amenity/parking":[
+"parkeerplaats",
+"parkeergelegenheid voor meerdere voertuigen",
 "Parkeerplaats",
-"Parkeerterrein"
+"parkeergarage",
+"garage",
+"parkeergebouw",
+"autoparking"
+],
+"amenity/parking/multi-storey":[
+"parkeertoren",
+"Parkeergarage met meerdere niveaus",
+"parking met meerdere verdiepingen"
 ],
 "amenity/parking_entrance":[
 "inrit",
@@ -571,10 +611,14 @@
 "individuele parkeerplaats",
 "parkeervak"
 ],
+"amenity/payment_centre":[
+"Betalingscentrum"
+],
+"amenity/payment_terminal":[
+"Betalingsterminal"
+],
 "amenity/pharmacy":[
-"Apotheek",
-"geneesmiddelen",
-"apoteek"
+"Apotheek"
 ],
 "amenity/place_of_worship":[
 "kerk",
@@ -596,11 +640,7 @@
 "dojo"
 ],
 "amenity/place_of_worship/christian":[
-"Kerk",
-"christendom",
-"Christus",
-"godshuis",
-"Jezus"
+"Christelijke kerk"
 ],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
@@ -612,13 +652,10 @@
 "tempel"
 ],
 "amenity/place_of_worship/jewish":[
-"sjoel",
-"jodendom",
-"Synagoge"
+"Joodse synagoge"
 ],
 "amenity/place_of_worship/muslim":[
-"islam",
-"Moskee"
+"Moslim moskee"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -694,11 +731,17 @@
 "amenity/ranger_station":[
 "Boswachtershut"
 ],
+"amenity/recycling":[
+"Recycling"
+],
 "amenity/recycling_centre":[
 "milieupark",
 "containerpark",
 "Milieupark/Containerpark",
 "milieustraat"
+],
+"amenity/recycling_container":[
+"Recyclingcontainer"
 ],
 "amenity/register_office":[
 "Burgerlijke Stand"
@@ -711,49 +754,65 @@
 "snackbar"
 ],
 "amenity/restaurant/american":[
-"Amerikaans Restaurant"
+"Amerikaans restaurant"
 ],
 "amenity/restaurant/asian":[
-"Aziatisch Restaurant"
+"Aziatisch restaurant"
 ],
 "amenity/restaurant/chinese":[
-"Chinees Restaurant"
+"Chinees restaurant"
 ],
 "amenity/restaurant/french":[
-"Frans Restaurant"
+"Frans restaurant"
 ],
 "amenity/restaurant/german":[
-"Duits Restaurant"
+"Duits restaurant"
 ],
 "amenity/restaurant/greek":[
-"Grieks Restaurant"
+"Grieks restaurant"
 ],
 "amenity/restaurant/indian":[
-"Indisch Restaurant"
+"Indisch restaurant"
 ],
 "amenity/restaurant/italian":[
-"Italiaans Restaurant"
+"Italiaans restaurant"
 ],
 "amenity/restaurant/japanese":[
-"Japans Restaurant"
+"Japans restaurant"
 ],
 "amenity/restaurant/mexican":[
-"Mexicaans Restaurant"
+"Mexicaans restaurant"
+],
+"amenity/restaurant/noodle":[
+"ramennoedelrestaurant",
+"Noedelrestaurant",
+"rijstnoedelrestaurant"
 ],
 "amenity/restaurant/pizza":[
-"Pizza Restaurant"
+"Pizzarestaurant",
+"pizzeria"
+],
+"amenity/restaurant/seafood":[
+"zeevruchtenrestaurant",
+"Visrestaurant"
+],
+"amenity/restaurant/steakhouse":[
+"biefstukrestaurant",
+"steakrestaurant",
+"Vleesrestaurant"
 ],
 "amenity/restaurant/sushi":[
-"Sushi Restaurant"
+"Sushirestaurant",
+"sushibar"
 ],
 "amenity/restaurant/thai":[
-"Thais Restaurant"
+"Thais restaurant"
 ],
 "amenity/restaurant/turkish":[
-"Turks Restaurant"
+"Turks restaurant"
 ],
 "amenity/restaurant/vietnamese":[
-"Vietnamees Restaurant"
+"Vietnamees restaurant"
 ],
 "amenity/sanitary_dump_station":[
 "kampeerwagen",
@@ -792,6 +851,27 @@
 "schuilplaats",
 "afdak"
 ],
+"amenity/shelter/gazebo":[
+"paviljoen",
+"Kiosk"
+],
+"amenity/shelter/lean_to":[
+"Halfopen hut"
+],
+"amenity/shelter/picnic_shelter":[
+"picnic-hutje",
+"paviljoentje",
+"Picnicpaviljoen",
+"kiosk"
+],
+"amenity/shelter/public_transport":[
+"tramhokje",
+"bushokje",
+"buskotje",
+"treinhokje",
+"tramkotje",
+"Schuilhuisje voor openbaar vervoer"
+],
 "amenity/shower":[
 "waterkraan",
 "stortbad",
@@ -799,6 +879,7 @@
 "kraan"
 ],
 "amenity/smoking_area":[
+"rookpaviljoen",
 "rookzone",
 "kankerzone",
 "Rookgebied"
@@ -860,6 +941,10 @@
 "opvoering",
 "toneelstuk"
 ],
+"amenity/theatre/type/amphi":[
+"Romeins theater",
+"Amfitheater"
+],
 "amenity/toilets":[
 "privaat",
 "w.c.",
@@ -883,6 +968,12 @@
 "onderwijs",
 "universiteit",
 "hoger onderwijs"
+],
+"amenity/vehicle_inspection":[
+"Voertuigkeuring",
+"autokeuring",
+"voertuiginspectie",
+"automobielkeuring"
 ],
 "amenity/vending_machine":[
 "Automaat",
@@ -962,8 +1053,15 @@
 "automaat",
 "Krantenautomaat"
 ],
+"amenity/vending_machine/parcel_pickup":[
+"Pakketafhaalkluis"
+],
 "amenity/vending_machine/parcel_pickup_dropoff":[
-"Pakketautomaat"
+"pakketafhaalautomaat",
+"pakjesafhaalautomaat",
+"Pakketautomaat",
+"pakjesautomaat",
+"postpakketjes"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Parkeerticketautomaat",
@@ -1109,6 +1207,9 @@
 "rollercoaster",
 "Achtbaan"
 ],
+"attraction/summer_toboggan":[
+"Zomerrodelbaan"
+],
 "attraction/train":[
 "treintje",
 "Toeristentrein"
@@ -1131,8 +1232,9 @@
 "Blok"
 ],
 "barrier/bollard":[
-"poller",
-"Paaltjes"
+"inzinkbare paal",
+"Paaltjes",
+"pollers"
 ],
 "barrier/border_control":[
 "douane",
@@ -1176,15 +1278,39 @@
 "heining",
 "hek"
 ],
+"barrier/fence/railing":[
+"Reling"
+],
 "barrier/gate":[
 "Poort",
 "poort",
 "hekken"
 ],
+"barrier/guard_rail":[
+"Vangrail"
+],
 "barrier/hedge":[
 "heg",
 "Haag",
 "haag"
+],
+"barrier/kerb":[
+"boordje",
+"rand van voetpad",
+"trottoirrand",
+"Stoeprand"
+],
+"barrier/kerb/flush":[
+"trottoirrand zonder hoogteverschil",
+"naadloze stoeprand",
+"naadloze trottoirrand",
+"Stoeprand zonder hoogteverschil"
+],
+"barrier/kerb/lowered":[
+"Verlaagde stoeprand",
+"verlaagde rand van voetpad",
+"verlaagde trottoirrand",
+"verlaagd boordje"
 ],
 "barrier/kissing_gate":[
 "veehek",
@@ -1222,12 +1348,27 @@
 "administratieve grens",
 "Bestuurlijke grens"
 ],
+"bridge/support":[
+"brugpijler",
+"brugtoren",
+"brugfundament",
+"Draagelement van brug"
+],
+"bridge/support/pier":[
+"brugtoren",
+"Brugpijler",
+"draagelement van brug",
+"brugfundament"
+],
 "building":[
 "constructie",
 "pand",
 "bouwwerk",
 "Gebouw",
 "bouwsel"
+],
+"building/apartments":[
+"Appartementen"
 ],
 "building/barn":[
 "stal",
@@ -1253,6 +1394,9 @@
 "boomstammen",
 "cabine",
 "blokhut"
+],
+"building/carport":[
+"Carport"
 ],
 "building/cathedral":[
 "kerkgebouw",
@@ -1374,6 +1518,9 @@
 "Moskeegebouw",
 "masjid",
 "pleinmoskee"
+],
+"building/pavilion":[
+"Paviljoen"
 ],
 "building/public":[
 "Openbaar gebouw",
@@ -1803,6 +1950,12 @@
 "emergency/destination":[
 "Toegang voor hulpdiensten: bestemmingsverkeer"
 ],
+"emergency/fire_alarm":[
+"Brandmeldknop",
+"brandmelder",
+"brandweeroproep",
+"brandalarm"
+],
 "emergency/fire_extinguisher":[
 "Brandblusser"
 ],
@@ -1822,7 +1975,7 @@
 "Reddingsboei"
 ],
 "emergency/lifeguard":[
-"Badmeester"
+"Reddingsbrigade"
 ],
 "emergency/no":[
 "Toegang voor hulpdiensten: nee"
@@ -1841,7 +1994,9 @@
 "Sirene"
 ],
 "emergency/water_tank":[
+"brandweertank",
 "noodwateropslag",
+"brandweerreservoir",
 "noodreservoir",
 "watertank",
 "wateropslag",
@@ -2038,11 +2193,37 @@
 "highway/bus_stop":[
 "Bushalte"
 ],
+"highway/construction":[
+"Weg gesloten"
+],
 "highway/corridor":[
 "Gang in gebouw",
 "hal",
 "binnen",
 "binnenshuis"
+],
+"highway/crossing/marked":[
+"Zebrapad"
+],
+"highway/crossing/marked-raised":[
+"Voetgangersoversteekplaats (op drempel)"
+],
+"highway/crossing/unmarked":[
+"Oversteekplaats",
+"zebrapad"
+],
+"highway/crossing/unmarked-raised":[
+"oversteekplaats op plateau",
+"oversteekplaats op drempel",
+"Verhoogde oversteekplaats",
+"zebrapad op drempel",
+"zebrapad op plateau"
+],
+"highway/crossing/zebra":[
+"Zebrapad"
+],
+"highway/crossing/zebra-raised":[
+"Zebrapad (op drempel)"
 ],
 "highway/cycleway":[
 "Fietspad",
@@ -2058,6 +2239,34 @@
 "voetpad",
 "Wandelpad"
 ],
+"highway/footway/conveying":[
+"rollend trottoir",
+"lopende band",
+"rolbaan",
+"Rolband",
+"loopband"
+],
+"highway/footway/marked":[
+"Voetgangersoversteekplaats"
+],
+"highway/footway/marked-raised":[
+"Voetgangersoversteekplaats (op drempel)"
+],
+"highway/footway/sidewalk":[
+"Stoep"
+],
+"highway/footway/unmarked":[
+"Ongemarkeerde oversteekplaats"
+],
+"highway/footway/unmarked-raised":[
+"Ongemarkeerde oversteekplaats (op drempel)"
+],
+"highway/footway/zebra":[
+"Zebrapad"
+],
+"highway/footway/zebra-raised":[
+"Zebrapad (op drempel)"
+],
 "highway/give_way":[
 "Voorrangsbord",
 "voorrangsteken",
@@ -2067,6 +2276,13 @@
 "woonzone",
 "Woonerf",
 "erf"
+],
+"highway/milestone":[
+"kilometerpaaltje",
+"hectometerbordje",
+"kilometerbordje",
+"hectometerpaaltje",
+"Afstandspaal"
 ],
 "highway/mini_roundabout":[
 "Rotonde zonder middeneiland",
@@ -2413,7 +2629,7 @@
 "Scheepswrak"
 ],
 "internet_access/wlan":[
-"Wi-Fi Hotspot"
+"Wi-Fi-hotspot"
 ],
 "junction":[
 "rotonde",
@@ -2444,7 +2660,6 @@
 "viskweek"
 ],
 "landuse/basin":[
-"bekken",
 "Waterbekken"
 ],
 "landuse/brownfield":[
@@ -2496,13 +2711,6 @@
 "landbouw",
 "hofstee",
 "boerderij"
-],
-"landuse/forest":[
-"woud",
-"bomen",
-"Bosbouw",
-"boom",
-"bos"
 ],
 "landuse/garages":[
 "autogarage",
@@ -2605,6 +2813,9 @@
 "huizen",
 "wonen"
 ],
+"landuse/residential/apartments":[
+"Appartementencomplex"
+],
 "landuse/retail":[
 "verkoopgebied",
 "commercieel",
@@ -2620,7 +2831,7 @@
 "wijngaard"
 ],
 "leisure":[
-"Recreatie",
+"recreatie",
 "Vrije tijd"
 ],
 "leisure/adult_gaming_centre":[
@@ -2634,6 +2845,11 @@
 "leisure/amusement_arcade":[
 "Speelhal",
 "lunapark"
+],
+"leisure/bandstand":[
+"Podium",
+"paviljoen",
+"kiosk"
 ],
 "leisure/beach_resort":[
 "strandhotel",
@@ -2681,6 +2897,11 @@
 "leisure/firepit":[
 "Kampvuur",
 "vuurplaats"
+],
+"leisure/fishing":[
+"Visstek",
+"visplaats",
+"hengelplaats"
 ],
 "leisure/fitness_centre":[
 "conditie",
@@ -2797,7 +3018,7 @@
 ],
 "leisure/marina":[
 "Jachthaven",
-"Marina"
+"marina"
 ],
 "leisure/miniature_golf":[
 "hole",
@@ -2828,21 +3049,32 @@
 "Picknicktafel"
 ],
 "leisure/pitch":[
-"Sportveld"
+"Sportveld",
+"sportterrein"
 ],
 "leisure/pitch/american_football":[
 "american football",
 "Americanfootball-veld",
 "Amerikaans voetbalveld"
 ],
+"leisure/pitch/australian_football":[
+"Aussie rules",
+"Australian rules football",
+"Australianfootballveld",
+"rugbyveld",
+"footyveld"
+],
 "leisure/pitch/badminton":[
-"badmintonveld"
+"Badmintonveld"
 ],
 "leisure/pitch/baseball":[
-"Honkbalveld"
+"Honkbalveld",
+"baseballterrein",
+"baseballveld"
 ],
 "leisure/pitch/basketball":[
-"Basketbalveld"
+"Basketbalveld",
+"basketbalterrein"
 ],
 "leisure/pitch/beachvolleyball":[
 "volleybalveld",
@@ -2874,6 +3106,9 @@
 "bak",
 "paardenbak"
 ],
+"leisure/pitch/netball":[
+"Netballveld"
+],
 "leisure/pitch/rugby_league":[
 "american football",
 "rugby",
@@ -2894,6 +3129,9 @@
 "voetbalterrein",
 "Voetbalveld"
 ],
+"leisure/pitch/softball":[
+"Softbalveld"
+],
 "leisure/pitch/table_tennis":[
 "Pingpongtafel",
 "tafeltennistafel"
@@ -2904,6 +3142,8 @@
 "tennisterrein"
 ],
 "leisure/pitch/volleyball":[
+"volleybalterrein",
+"volleyterrein",
 "Volleybalveld"
 ],
 "leisure/playground":[
@@ -2915,17 +3155,6 @@
 "vakantiepark",
 "Resort",
 "hotel"
-],
-"leisure/running_track":[
-"lopen",
-"stadion",
-"Racepiste (rennen)",
-"hordenloop",
-"looppiste",
-"stadium",
-"hardlopen",
-"renpiste",
-"atletiekbaan"
 ],
 "leisure/sauna":[
 "Sauna"
@@ -2971,6 +3200,17 @@
 "velodroom",
 "Racepiste (niet-motorsport)",
 "pisterijden"
+],
+"leisure/track/horse_racing":[
+"hippodroom",
+"Paardenrenbaan",
+"paardenrennen"
+],
+"leisure/track/running":[
+"looppiste",
+"Hardloopbaan",
+"atletiekpiste",
+"hardlooppiste"
 ],
 "leisure/water_park":[
 "Waterpretpark",
@@ -3079,11 +3319,19 @@
 "zendmast",
 "tv-mast"
 ],
+"man_made/mast/communication":[
+"communicatiemast",
+"Communicatietoren"
+],
+"man_made/mast/communication/mobile_phone":[
+"Mobieletelefoonmast",
+"GSM-mast"
+],
 "man_made/mast/communication/radio":[
-"Radio Zendmast"
+"Radiozendmast"
 ],
 "man_made/mast/communication/television":[
-"Televisie Zendmast"
+"Televisiezendmast"
 ],
 "man_made/monitoring_station":[
 "observatiestation",
@@ -3153,6 +3401,9 @@
 ],
 "man_made/tower/communication":[
 "Communicatietoren"
+],
+"man_made/tower/observation":[
+"Observatietoren"
 ],
 "man_made/wastewater_plant":[
 "zuiveringsstation",
@@ -3237,7 +3488,7 @@
 "afgrond"
 ],
 "natural/coastline":[
-"Kust",
+"waterlijn",
 "Kustlijn"
 ],
 "natural/fell":[
@@ -3563,6 +3814,9 @@
 "Kantoor van quango",
 "quasi-autonome-non-gouvernementele-organisatiekantoor"
 ],
+"office/religion":[
+"Religieus kantoor"
+],
 "office/research":[
 "researchkantoor",
 "R&D",
@@ -3609,6 +3863,45 @@
 "Kantoor van watermaatschappij",
 "waterleidingsmaatschappij*"
 ],
+"piste/downhill":[
+"Downhillpiste"
+],
+"piste/downhill/halfpipe":[
+"Halfpipe"
+],
+"piste/hike":[
+"Sneeuwschoenrennen- of winterwandelpad"
+],
+"piste/ice_skate":[
+"Schaatsring"
+],
+"piste/nordic":[
+"noords skiën",
+"Langlaufpiste",
+"noordse skipiste",
+"loipe"
+],
+"piste/piste":[
+"wintersportpiste",
+"Wintersportpad"
+],
+"piste/skitour":[
+"skilooppad",
+"ski-alpinismepad",
+"ski mountaineering",
+"langlaufpiste",
+"Toerskipad"
+],
+"piste/sled":[
+"Slee-piste",
+"sledepiste"
+],
+"piste/sleigh":[
+"sleepiste",
+"sledepiste",
+"Arrenslee-piste",
+"trekdiersleepiste"
+],
 "place":[
 "Plaats"
 ],
@@ -3616,6 +3909,9 @@
 "Stad",
 "plaats",
 "gemeente"
+],
+"place/city_block":[
+"Huizenblok"
 ],
 "place/farm":[
 "Boerderij"
@@ -3748,6 +4044,15 @@
 "power":[
 "Stroomvoorziening"
 ],
+"power/cable/underground":[
+"ondergrondse kabel",
+"Ondergrondse hoogspanningskabel",
+"grondkabel",
+"elektriciteitskabel",
+"ondergrondse elektriciteitskabel",
+"stroomkabel",
+"ondergrondse stroomkabel"
+],
 "power/generator":[
 "zonnepaneel",
 "elektriciteit",
@@ -3761,10 +4066,17 @@
 "elektriciteitscentrale"
 ],
 "power/generator/method/photovoltaic":[
-"Zonnepaneel"
+"Zonnepaneel",
+"fotovoltaïsche module"
+],
+"power/generator/source/nuclear":[
+"nucleaire reactor",
+"Kernreactor",
+"kernfusie"
 ],
 "power/generator/source/wind":[
-"Wind Turbine"
+"Windturbine",
+"windmolen"
 ],
 "power/line":[
 "hoogspanningslijn",
@@ -4097,11 +4409,12 @@
 "lichtspoor"
 ],
 "railway/milestone":[
-"kilometerpaaltje",
-"Hectometer- of kilometerpaal aan spoorweg",
-"hectometerpaaltje",
+"hectometerpaaltje aan spoorweg",
+"kilometerpaaltje aan spoorweg",
 "mijlpaal",
-"spoorwegmijlpaal"
+"spoorwegmijlpaal",
+"Afstandspaal aan spoorweg",
+"spoorwegafstandspaal"
 ],
 "railway/miniature":[
 "minispoorweg",
@@ -4177,6 +4490,27 @@
 "Veerboottraject",
 "veerponttraject",
 "ferrytraject"
+],
+"seamark":[
+"Scheepvaartobject"
+],
+"seamark/beacon_isolated_danger":[
+"Gevaarsbaken"
+],
+"seamark/beacon_lateral":[
+"Vaargeulbaken"
+],
+"seamark/buoy_lateral":[
+"Vaargeulboei"
+],
+"seamark/buoy_lateral/green":[
+"Groene boei"
+],
+"seamark/buoy_lateral/red":[
+"Rode boei"
+],
+"seamark/mooring":[
+"Aanmeerpunt"
 ],
 "shop":[
 "Winkel",
@@ -4346,6 +4680,9 @@
 "Tapijtwinkel",
 "vloerbedekkingswinkel"
 ],
+"shop/catalogue":[
+"Cataloguswinkel"
+],
 "shop/charity":[
 "vzw",
 "Winkel van goed doel",
@@ -4415,6 +4752,16 @@
 "shop/cosmetics":[
 "parfumerie",
 "Cosmeticawinkel"
+],
+"shop/country_store":[
+"tuinmachines",
+"ruiter",
+"kampeerzaak",
+"Outdoorzaak",
+"scoutingwinkel",
+"jacht",
+"paardrijden",
+"landelijk"
 ],
 "shop/craft":[
 "Schilder- en Tekengereedschapswinkel",
@@ -4489,6 +4836,18 @@
 "kledij",
 "kleding"
 ],
+"shop/fireplace":[
+"Haardwinkel",
+"kachelwinkel"
+],
+"shop/fishing":[
+"vislijnen",
+"visserswinkel",
+"visgereiwinkel",
+"Hengelsportwinkel",
+"visserijwinkel",
+"netten"
+],
 "shop/fishmonger":[
 "Visboer"
 ],
@@ -4551,6 +4910,10 @@
 "kapper",
 "Kapper"
 ],
+"shop/hairdresser_supply":[
+"Haarbenodigdhedenwinkel",
+"kapperswinkel"
+],
 "shop/hardware":[
 "Bouwmarkt",
 "bouwmaterialenspeciaalzaak",
@@ -4588,6 +4951,9 @@
 "meubilair",
 "huiswaar",
 "huishoudelijke elektronica"
+],
+"shop/hunting":[
+"Jachtwinkel"
 ],
 "shop/interior_decoration":[
 "stijl",
@@ -4722,6 +5088,13 @@
 "verfhandel",
 "verfzaak"
 ],
+"shop/party":[
+"kostuums",
+"Feestwinkel",
+"carnavalswinkel",
+"ballonnen",
+"feestartikelen"
+],
 "shop/pastry":[
 "cake",
 "patisserie",
@@ -4751,10 +5124,18 @@
 "dierenwinkel"
 ],
 "shop/pet_grooming":[
-"Huisdierenverzorgingswinkel"
+"Trimsalon",
+"kattentrimsalon",
+"hondentrimsalon",
+"kattenverzorging",
+"huisdierentrimsalon",
+"huisdierenverzorging",
+"hondenverzorging"
 ],
 "shop/photo":[
-"Fotowinkel"
+"Fotowinkel",
+"film",
+"camera"
 ],
 "shop/pyrotechnics":[
 "Vuurwerkwinkel",
@@ -4790,6 +5171,11 @@
 "Tweedehandswinkel",
 "doorverkoop"
 ],
+"shop/sewing":[
+"stofwinkel",
+"Naaiwinkel",
+"naaimachine"
+],
 "shop/shoes":[
 "Schoenenwinkel",
 "schoenenhandel",
@@ -4804,7 +5190,11 @@
 "sportkledij"
 ],
 "shop/stationery":[
-"Kantoorboekhandel"
+"Kantoorboekhandel",
+"kantoorbenodigdheden",
+"kaart",
+"papier",
+"kantoorartikelen"
 ],
 "shop/storage_rental":[
 "Verworpen tag, gebruik dit niet"
@@ -4903,6 +5293,12 @@
 "klokkenwinkel",
 "Horlogewinkel"
 ],
+"shop/water":[
+"waterflessenwinkel",
+"Drinkwaterwinkel",
+"waterwinkel",
+"flessenwaterwinkel"
+],
 "shop/water_sports":[
 "zwemwinkel",
 "Watersport-/Zwemwinkel",
@@ -4917,6 +5313,7 @@
 "Wapenwinkel"
 ],
 "shop/wholesale":[
+"groothandelszaak",
 "Groothandel"
 ],
 "shop/window_blind":[
@@ -4933,6 +5330,7 @@
 "Wijnhandel"
 ],
 "tourism":[
+"cultuur",
 "Toerisme"
 ],
 "tourism/alpine_hut":[
@@ -4964,6 +5362,19 @@
 "schilderij",
 "kunst",
 "object"
+],
+"tourism/artwork/mural":[
+"fresco",
+"Muurschildering"
+],
+"tourism/artwork/sculpture":[
+"beeldhouwwerk",
+"standbeeld",
+"Sculptuur"
+],
+"tourism/artwork/statue":[
+"beeldhouwwerk",
+"Standbeeld"
 ],
 "tourism/attraction":[
 "Toeristische attractie",
@@ -5058,7 +5469,8 @@
 "bezoekerscentrum"
 ],
 "tourism/motel":[
-"Motel"
+"Motel",
+"motorhotel"
 ],
 "tourism/museum":[
 "museum",
@@ -5111,10 +5523,14 @@
 "Kleine verkeersdrempel"
 ],
 "traffic_calming/chicane":[
-"Asverlegging"
+"Asverlegging",
+"zigzag"
 ],
 "traffic_calming/choker":[
-"Vernauwing"
+"Vernauwing",
+"versmalling",
+"wegvernauwing",
+"wegversmalling"
 ],
 "traffic_calming/cushion":[
 "Verkeerskussen"
@@ -5129,6 +5545,9 @@
 "snelheidsdrempel"
 ],
 "traffic_calming/island":[
+"rotonde",
+"langzaam",
+"cirkel",
 "Verkeerseiland"
 ],
 "traffic_calming/rumble_strip":[
@@ -5146,12 +5565,52 @@
 "drempel",
 "verhoogd zebrapad"
 ],
+"traffic_sign":[
+"Verkeersbord"
+],
+"traffic_sign/city_limit":[
+"rand",
+"Verkeersbord stadsgrens",
+"plaats",
+"dorp",
+"nederzetting",
+"bord stadsgrens",
+"grens"
+],
+"traffic_sign/city_limit_vertex":[
+"rand",
+"Verkeersbord stadsgrens",
+"plaats",
+"dorp",
+"nederzetting",
+"bord stadsgrens",
+"grens"
+],
+"traffic_sign/maxspeed":[
+"Verkeersbord maximumsnelheid",
+"maximumsnelheid",
+"maximale snelheid",
+"snelheidslimietbord"
+],
+"traffic_sign/maxspeed_vertex":[
+"Verkeersbord maximumsnelheid",
+"maximumsnelheidsbord",
+"maximale snelheid",
+"snelheidslimietbord"
+],
+"traffic_sign_vertex":[
+"bord",
+"Verkeersbord"
+],
 "type/boundary":[
 "Grens"
 ],
 "type/boundary/administrative":[
 "administratieve grens",
 "Bestuurlijke grens"
+],
+"type/enforcement":[
+"Controle"
 ],
 "type/multipolygon":[
 "Meervoudige polygoon"
@@ -5376,9 +5835,9 @@
 "Dam"
 ],
 "waterway/ditch":[
-"Greppel",
 "sloot",
-"gracht"
+"gracht",
+"Sloot"
 ],
 "waterway/dock":[
 "dok",
@@ -5386,14 +5845,22 @@
 "Havendok"
 ],
 "waterway/drain":[
+"Afvoer",
 "gracht",
-"greppel",
-"Sloot"
+"greppel"
 ],
 "waterway/fuel":[
 "Maritiem tankstation",
 "schip",
 "brandstof"
+],
+"waterway/milestone":[
+"waterwegafstandspaal",
+"Afstandspaal aan waterweg",
+"kilometerpaaltje aan waterweg",
+"waterwegmijlpaal",
+"hectometerpaaltje aan waterweg",
+"mijlpaal"
 ],
 "waterway/river":[
 "beek",
@@ -5401,7 +5868,6 @@
 "Rivier"
 ],
 "waterway/riverbank":[
-"oever",
 "Rivieroever"
 ],
 "waterway/sanitary_dump_station":[

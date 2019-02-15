@@ -245,10 +245,6 @@
 "parkla",
 "Parkimiskoht"
 ],
-"amenity/pharmacy":[
-"ravimid",
-"Apteek"
-],
 "amenity/place_of_worship":[
 "Pühakoda",
 "Pühapaik",
@@ -259,14 +255,26 @@
 "Budistlik pühakoda"
 ],
 "amenity/place_of_worship/christian":[
-"Kirik",
-"katedral"
+"kabel",
+"kirik",
+"püha",
+"luteri",
+"pühamu",
+"katedraal",
+"Kristlik kirik"
 ],
 "amenity/place_of_worship/jewish":[
-"Sünagoog"
+"judaism",
+"juudi",
+"sünagoog",
+"Juudi sünagoog",
+"juut"
 ],
 "amenity/place_of_worship/muslim":[
-"Mošee"
+"moslem",
+"muslim",
+"mosee",
+"Islami mošee"
 ],
 "amenity/planetarium":[
 "Planetaarium"
@@ -482,6 +490,9 @@
 "Hoone",
 "ehitis"
 ],
+"building/apartments":[
+"Kortermaja"
+],
 "building/barn":[
 "laut",
 "Küün",
@@ -510,7 +521,7 @@
 "Kirikuhoone"
 ],
 "building/civic":[
-"Kultuurihoone",
+"Üldkasutatav hoone",
 "rahvamaja",
 "linna",
 "keskus",
@@ -538,9 +549,9 @@
 "talumaja",
 "elamu",
 "rehi*",
-"Maamaja",
 "maja",
-"elumaja"
+"elumaja",
+"Talumaja"
 ],
 "building/farm_auxiliary":[
 "hoone",
@@ -878,6 +889,11 @@
 "highway/bridleway":[
 "Ratsutamisrada"
 ],
+"highway/construction":[
+"teesulg",
+"teeehitus",
+"Suletud tee"
+],
 "highway/corridor":[
 "koridor",
 "Sisekoridor"
@@ -1118,7 +1134,6 @@
 "Akvakultuur"
 ],
 "landuse/basin":[
-"bassein",
 "Kogumisbassein"
 ],
 "landuse/cemetery":[
@@ -1143,13 +1158,8 @@
 "Põllumaa"
 ],
 "landuse/farmyard":[
-"Põllumajandusmaa",
-"põllumaa",
-"maatulundusmaa",
-"Talumaa"
-],
-"landuse/forest":[
-"Metsamaa"
+"taluhoov",
+"Taluõu"
 ],
 "landuse/garages":[
 "garaažid",
@@ -1207,6 +1217,10 @@
 "Elurajoon",
 "Elamuala",
 "elamurajoon"
+],
+"landuse/residential/apartments":[
+"elumajad",
+"Kortermajade kompleks"
 ],
 "landuse/retail":[
 "kaubandusala",
@@ -1327,9 +1341,6 @@
 "spaa",
 "Puhkekeskus",
 "Kuurort"
-],
-"leisure/running_track":[
-"Jooksurada"
 ],
 "leisure/sauna":[
 "Saun"
@@ -1838,6 +1849,15 @@
 "autoparandus",
 "Autoremont"
 ],
+"shop/caravan":[
+"Haagissuvilate/autoelamute müügiplats",
+"autoelamu",
+"matkaauto",
+"haagiselamu",
+"karavan",
+"ratastel maja",
+"autokaravan"
+],
 "shop/carpet":[
 "Vaibapood"
 ],
@@ -1959,6 +1979,15 @@
 "Moekauplus",
 "Butiik"
 ],
+"shop/fireplace":[
+"Küttekollete pood",
+"katlad",
+"ahjud",
+"kaminad"
+],
+"shop/fishing":[
+"Kalastustarvete pood"
+],
 "shop/fishmonger":[
 "Kalakauplus"
 ],
@@ -1970,6 +1999,19 @@
 "maali raamimine",
 "Raamikauplus",
 "Piltide raamimine"
+],
+"shop/fuel":[
+"õli",
+"turbabrikett",
+"pellet",
+"briketid",
+"Küttepood",
+"küte",
+"kaminapuu",
+"kütteõli",
+"küttepuu",
+"küttegraanul",
+"puitbrikett"
 ],
 "shop/funeral_directors":[
 "kirstud",
@@ -2040,6 +2082,9 @@
 "köögitabed",
 "Kodutarvete kauplus",
 "majapidamistarbed"
+],
+"shop/hunting":[
+"Jahipood"
 ],
 "shop/interior_decoration":[
 "Sisedekoratsioonikauplus",
@@ -2289,6 +2334,9 @@
 "shop/watches":[
 "Kellapood"
 ],
+"shop/water":[
+"Joogivee pood"
+],
 "shop/water_sports":[
 "Veesporditarvete kauplus",
 "ujumistarbed"
@@ -2487,6 +2535,12 @@
 ],
 "type/boundary/administrative":[
 "Halduspiir"
+],
+"type/enforcement":[
+"politseikontroll",
+"Liiklusjärelvalve",
+"liikluskontroll",
+"järelvalve"
 ],
 "type/restriction":[
 "Piirang"

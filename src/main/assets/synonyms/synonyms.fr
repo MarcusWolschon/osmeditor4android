@@ -886,7 +886,8 @@
 "finance"
 ],
 "amenity/pharmacy":[
-"Pharmacie"
+"Pharmacie",
+"pharmacie"
 ],
 "amenity/place_of_worship":[
 "Édifice religieux",
@@ -896,18 +897,32 @@
 "Temple boudhiste"
 ],
 "amenity/place_of_worship/christian":[
-"Église",
-"Culte chrétien",
-"Église chrétienne"
+"cathédrale",
+"lieu de culte",
+"chrétien",
+"abbaye",
+"catholique",
+"chapelle",
+"église",
+"Église chrétienne",
+"basilique"
 ],
 "amenity/place_of_worship/hindu":[
 "Temple hindou"
 ],
 "amenity/place_of_worship/jewish":[
-"Synagogue"
+"lieu de culte",
+"Synagogue",
+"synagogue",
+"juif",
+"judaïsme"
 ],
 "amenity/place_of_worship/muslim":[
-"Mosquée"
+"musulman",
+"Mosquée",
+"lieu de culte",
+"islam",
+"mosquée"
 ],
 "amenity/place_of_worship/shinto":[
 "Shintoïste"
@@ -1634,6 +1649,9 @@
 "area highway",
 "Route - tracé surfacique"
 ],
+"attraction":[
+"Attraction touristique"
+],
 "attraction/amusement_ride":[
 "Manège"
 ],
@@ -2052,6 +2070,10 @@
 "résidence",
 "construction",
 "édifice"
+],
+"building/apartments":[
+"Immeuble",
+"Appartements"
 ],
 "building/barn":[
 "hangar agricole",
@@ -2492,6 +2514,12 @@
 "club":[
 "Club"
 ],
+"club/sport":[
+"Club de sport",
+"association sportive",
+"athlétisme",
+"sport"
+],
 "craft":[
 "Artisanat"
 ],
@@ -2919,6 +2947,12 @@
 "highway/bus_stop":[
 "Arrêt de bus"
 ],
+"highway/construction":[
+"route fermée",
+"fermeture",
+"construction",
+"Route fermée"
+],
 "highway/corridor":[
 "Corridor intérieur",
 "Couloir intérieur"
@@ -3288,7 +3322,11 @@
 "Cour de ferme"
 ],
 "landuse/forest":[
-"Forêt"
+"forêt",
+"arbres",
+"exploitation forestière",
+"rondins",
+"Forêt exploitée"
 ],
 "landuse/garages":[
 "Terrain pour garages"
@@ -3334,6 +3372,9 @@
 "landuse/plant_nursery":[
 "Pépinière"
 ],
+"landuse/pond":[
+"Étang"
+],
 "landuse/quarry":[
 "Carrière"
 ],
@@ -3350,9 +3391,19 @@
 "landuse/religious":[
 "Zone religieuse"
 ],
+"landuse/reservoir":[
+"Bassin de retenue"
+],
 "landuse/residential":[
 "Zone résidentielle",
 "Zone d’habitation"
+],
+"landuse/residential/apartments":[
+"complexe",
+"Immeuble",
+"Complexe d'appartements",
+"résidence",
+"appartements"
 ],
 "landuse/retail":[
 "Zone de magasins",
@@ -3513,6 +3564,11 @@
 "leisure/pitch/american_football":[
 "Terrain de football américain"
 ],
+"leisure/pitch/australian_football":[
+"terrain de football australien",
+"football australien",
+"Terrain de football australien"
+],
 "leisure/pitch/badminton":[
 "court de badminton",
 "terrain de badminton",
@@ -3545,6 +3601,12 @@
 ],
 "leisure/pitch/equestrian":[
 "Terrain d'équitation"
+],
+"leisure/pitch/netball":[
+"terrain de netball",
+"court de netball",
+"Court de netball",
+"netball"
 ],
 "leisure/pitch/rugby_league":[
 "Rugby",
@@ -3597,12 +3659,6 @@
 "Station thermale",
 "Lieu de séjour"
 ],
-"leisure/running_track":[
-"piste",
-"course",
-"athlétisme",
-"Piste de course (à pieds)"
-],
 "leisure/sauna":[
 "Sauna"
 ],
@@ -3633,6 +3689,19 @@
 "piste d'athlétisme",
 "Piste de course (hors sports mécaniques)",
 "Piste hippique"
+],
+"leisure/track/horse_racing":[
+"course hippique",
+"chevaux",
+"équitation",
+"Piste de course (chevaux)"
+],
+"leisure/track/running":[
+"piste de course à pied",
+"sprint",
+"course",
+"athlétisme",
+"Piste de course (à pieds)"
 ],
 "leisure/water_park":[
 "Parc d'attractions aquatiques",
@@ -3977,6 +4046,10 @@
 "natural/water":[
 "Eau"
 ],
+"natural/water/canal":[
+"Canal",
+"canal"
+],
 "natural/water/lake":[
 "Lac"
 ],
@@ -3987,6 +4060,19 @@
 "natural/water/reservoir":[
 "Bassin de retenue",
 "Réservoir"
+],
+"natural/water/river":[
+"rivière",
+"estuaire",
+"Rvière",
+"fleuve"
+],
+"natural/water/stream":[
+"ru",
+"Ruisseau",
+"ruisseau",
+"eau",
+"cours d'eau étroit"
 ],
 "natural/wetland":[
 "Marécage",
@@ -4171,6 +4257,12 @@
 "descente",
 "alpin",
 "snowboard"
+],
+"piste/downhill/halfpipe":[
+"Tremplin",
+"halfpipe",
+"demi-lune",
+"tremplin"
 ],
 "piste/hike":[
 "ski",
@@ -4853,6 +4945,13 @@
 "Atelier de mécanique automobile",
 "Atelier de réparation automobile"
 ],
+"shop/caravan":[
+"automobile",
+"caravane",
+"camping-car",
+"Concessionnaire de véhicules de tourisme",
+"concessionnaire"
+],
 "shop/carpet":[
 "Magasin de tapis"
 ],
@@ -4966,6 +5065,14 @@
 "shop/fashion":[
 "Boutique de mode"
 ],
+"shop/fireplace":[
+"Magasin de cheminées",
+"cheminées"
+],
+"shop/fishing":[
+"pêche",
+"Magasin de pêche"
+],
 "shop/fishmonger":[
 "Poissonnier"
 ],
@@ -4975,6 +5082,21 @@
 "shop/frame":[
 "Vente de cadres",
 "Magasin d'encadrements"
+],
+"shop/frozen_food":[
+"Surgelés",
+"surgelés",
+"nourriture surgelée"
+],
+"shop/fuel":[
+"diesel",
+"Revendeur de carburant",
+"essence",
+"station-service",
+"fuel",
+"pétrole",
+"magasin",
+"carburant"
 ],
 "shop/funeral_directors":[
 "Funérarium",
@@ -5039,6 +5161,10 @@
 "shop/houseware":[
 "Vente d'articles de cuisine",
 "Magasin d’articles ménagers"
+],
+"shop/hunting":[
+"Magasin de chasse",
+"chasse"
 ],
 "shop/interior_decoration":[
 "Magasin de décoration d'intérieur"
@@ -5261,6 +5387,10 @@
 "Magasin de montres",
 "vente de montres",
 "horloger"
+],
+"shop/water":[
+"eau potable",
+"Magasin d'eau potable"
 ],
 "shop/water_sports":[
 "Vente d'équipements et d'articles pour sports nautiques"
@@ -5501,6 +5631,12 @@
 "Frontières administratives",
 "frontière administrative",
 "Frontière administrative"
+],
+"type/enforcement":[
+"radar",
+"contrôle",
+"Contrôle",
+"controle"
 ],
 "type/multipolygon":[
 "Multipolygone"

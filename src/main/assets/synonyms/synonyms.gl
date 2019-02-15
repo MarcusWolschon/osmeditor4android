@@ -22,6 +22,9 @@
 "Vía aérea"
 ],
 "aerialway/cable_car":[
+"telecadeira",
+"teleférico",
+"telecabina",
 "Teleférico"
 ],
 "aerialway/chair_lift":[
@@ -29,34 +32,76 @@
 "telesilla"
 ],
 "aerialway/drag_lift":[
-"Ascensor de Arrastre"
+"remonta pendentes",
+"elevador",
+"Ascensor de Arrastre",
+"deslizador",
+"snowboarder",
+"telesquí",
+"esquí"
 ],
 "aerialway/gondola":[
+"telecadeira",
+"telecabina",
 "Góndola"
 ],
 "aerialway/goods":[
-"Camiño aéreo de mercadorías"
+"elevador",
+"produto",
+"material",
+"mercadería",
+"Camiño aéreo de mercadorías",
+"remonte",
+"mercadoría",
+"artigo",
+"carga"
 ],
 "aerialway/magic_carpet":[
-"Ascensor Magic Carpet"
+"alfombra máxica",
+"alfombra rodante",
+"Ascensor Magic Carpet",
+"fita transportadora"
 ],
 "aerialway/mixed_lift":[
-"Elevador Mixto"
+"híbrido",
+"telecadeira",
+"teleférico",
+"telecombi",
+"Elevador Mixto",
+"mixto",
+"chondola",
+"telemix"
 ],
 "aerialway/platter":[
-"Plataforma Elevadora"
+"ascensor de prato",
+"prato de elevación",
+"Plataforma Elevadora",
+"tele esquí",
+"telesquí"
 ],
 "aerialway/pylon":[
-"Pilón Vía Aérea"
+"columna",
+"Pilón Vía Aérea",
+"pilona",
+"poste",
+"soporte",
+"piar"
 ],
 "aerialway/rope_tow":[
+"cable de remolque",
+"corda de remolque",
+"ascensor de remolque de corda",
 "Ascensor de Corda de Remolque"
 ],
 "aerialway/station":[
 "Estación de teleférico"
 ],
 "aerialway/t-bar":[
-"Elevador en T-bar"
+"andarivel de arrastre",
+"remonta pendientes",
+"Elevador en T-bar",
+"telesquí",
+"T-bar"
 ],
 "aeroway":[
 "Vía de aviación"
@@ -69,13 +114,28 @@
 "aeroporto"
 ],
 "aeroway/apron":[
-"Diantal"
+"Diantal",
+"plataforma",
+"vía de aparcamento"
 ],
 "aeroway/gate":[
-"Porta de embarque"
+"embarque",
+"Porta de embarque",
+"saída",
+"porta",
+"aeroporto"
 ],
 "aeroway/hangar":[
-"Hangar"
+"taller de mantemento",
+"hangar",
+"aeronaves",
+"Hangar",
+"aéreo",
+"aeronáutico",
+"pendello",
+"militar",
+"aviación",
+"taller de arranxo"
 ],
 "aeroway/helipad":[
 "heliporto",
@@ -83,13 +143,25 @@
 "helicóptero"
 ],
 "aeroway/runway":[
-"Pista de aeroporto"
+"pista de aterraxe",
+"pista de engalaxe",
+"Pista de aeroporto",
+"pista"
 ],
 "aeroway/taxiway":[
-"Pista de rodaxe"
+"pista de carreteo",
+"carreteiro",
+"pista de taxeo",
+"rúa de rodaxe",
+"Pista de rodaxe",
+"pista",
+"pista de rodaxe"
 ],
 "aeroway/terminal":[
-"Terminal de aeroporto"
+"pasaxeiros",
+"Terminal de aeroporto",
+"terminal",
+"aeroporto"
 ],
 "allotments/plot":[
 "cultivo",
@@ -195,7 +267,14 @@
 "reparación"
 ],
 "amenity/biergarten":[
-"Bar-terraza alemá"
+"bar",
+"biergarten",
+"ao aire libre",
+"cervexa",
+"Bar-terraza alemá",
+"ó ar libre",
+"xardín",
+"terraza"
 ],
 "amenity/boat_rental":[
 "bote",
@@ -221,6 +300,18 @@
 "tetería",
 "Cafetaría",
 "café"
+],
+"amenity/car_pooling":[
+"carro",
+"auto",
+"coche",
+"automóbil",
+"Automóbil compartido",
+"transporte",
+"car pool",
+"vehículo",
+"car pooling",
+"compartido"
 ],
 "amenity/car_rental":[
 "coche",
@@ -286,6 +377,24 @@
 "clínica",
 "médico"
 ],
+"amenity/clinic/abortion":[
+"aborto",
+"Clínica de aborto",
+"interrupción do embarazo",
+"interrupción",
+"abotar",
+"clínica de aborto",
+"embarazo"
+],
+"amenity/clinic/fertility":[
+"clínica de fertilidade",
+"reprodución",
+"ovulación",
+"fertilidade",
+"clínica de reprodución",
+"Clínica de fertilidade",
+"esperma"
+],
 "amenity/clock":[
 "Reloxo",
 "hora",
@@ -338,6 +447,10 @@
 "odontólogo",
 "dentista"
 ],
+"amenity/dive_centre":[
+"mergullo",
+"Centro de mergullo"
+],
 "amenity/doctors":[
 "Doutor",
 "saúde",
@@ -346,7 +459,16 @@
 "médico"
 ],
 "amenity/dojo":[
-"Dojo/academia de artes marciais"
+"kung fu",
+"academia",
+"karate",
+"artes marciais",
+"judo",
+"Dojo/academia de artes marciais",
+"ninjutsu",
+"kendo",
+"dojo",
+"taekwondo"
 ],
 "amenity/drinking_water":[
 "auga",
@@ -365,10 +487,74 @@
 "autoescola"
 ],
 "amenity/embassy":[
-"Embaixada"
+"embaixada",
+"Embaixada",
+"consulado",
+"consul"
 ],
 "amenity/fast_food":[
-"Comida rápida"
+"quesadilla",
+"choripán",
+"sandwitch",
+"pancho",
+"comida na rúa",
+"hotdog",
+"Comida rápida",
+"comida rápida",
+"nachos",
+"arepa",
+"tacos",
+"comida preparada",
+"hamburguesa",
+"pratos preparados",
+"bocadillos",
+"patacas fritidas",
+"pizza",
+"burrito",
+"comida ferralla",
+"comida de paso",
+"sopaipillas",
+"polos fritidos",
+"salchipapas",
+"comida lixo"
+],
+"amenity/fast_food/burger":[
+"xantar",
+"comedor",
+"Comida rápida de hamburguesa",
+"cafe",
+"mesa",
+"almorzo",
+"churrasco",
+"comida",
+"cea",
+"grella",
+"café"
+],
+"amenity/fast_food/chicken":[
+"xantar",
+"comedor",
+"cafe",
+"mesa",
+"almorzo",
+"churrasco",
+"Comida rápida de polo",
+"comida",
+"cea",
+"grella",
+"café"
+],
+"amenity/fast_food/fish_and_chips":[
+"Comida rápida de peixe e patacas fritidas"
+],
+"amenity/fast_food/kebab":[
+"Comida rápida de kebab"
+],
+"amenity/fast_food/pizza":[
+"Comida rápida de pizza"
+],
+"amenity/fast_food/sandwich":[
+"Comida rápida de sandwich"
 ],
 "amenity/ferry_terminal":[
 "Estación de ferry"
@@ -410,7 +596,7 @@
 "urxencias",
 "sanidade",
 "saúde",
-"Hospital",
+"Zona hospitalaria",
 "hospital",
 "clínica",
 "médico"
@@ -447,6 +633,9 @@
 "biblioteca",
 "lectura"
 ],
+"amenity/love_hotel":[
+"Hotel para parellas"
+],
 "amenity/marketplace":[
 "plaza",
 "mercado",
@@ -459,6 +648,9 @@
 "mosteiro",
 "igrexa",
 "Zona de mosteiro"
+],
+"amenity/money_transfer":[
+"Estación de transferencia de diñeiro"
 ],
 "amenity/motorcycle_parking":[
 "parking",
@@ -498,17 +690,29 @@
 "aparcamento",
 "aparcadoiro"
 ],
+"amenity/parking/multi-storey":[
+"Garaxe de aparcadoiro multinivel"
+],
 "amenity/parking_entrance":[
 "Entrada/Saída a garaxe de aparcadoiro"
 ],
 "amenity/parking_space":[
 "Praza de aparcadoiro"
 ],
+"amenity/payment_centre":[
+"Centro de pagamento"
+],
+"amenity/payment_terminal":[
+"Terminal de pagamento"
+],
 "amenity/pharmacy":[
+"apoteca",
 "Farmacia",
-"farmacéutico",
-"saúde",
+"herbolario",
 "farmacia",
+"laboratorio",
+"botica",
+"remedios",
 "medicamentos"
 ],
 "amenity/place_of_worship":[
@@ -529,22 +733,16 @@
 "Templo Budista"
 ],
 "amenity/place_of_worship/christian":[
-"capela",
-"templo",
-"ermida",
-"santuario",
-"igrexa",
-"parroquia",
-"Igrexa"
+"Igrexa cristiana"
 ],
 "amenity/place_of_worship/hindu":[
 "Templo Hindú"
 ],
 "amenity/place_of_worship/jewish":[
-"Sinagoga"
+"Sinagoga xudía"
 ],
 "amenity/place_of_worship/muslim":[
-"Mesquita"
+"Mesquita musulmá"
 ],
 "amenity/place_of_worship/shinto":[
 "Santuario xintoísta"
@@ -585,8 +783,8 @@
 ],
 "amenity/prison":[
 "penitenciaría",
-"Penitenciaria",
 "prisión",
+"Zona penitenciaria",
 "cárcere"
 ],
 "amenity/pub":[
@@ -646,6 +844,60 @@
 "comida",
 "cear"
 ],
+"amenity/restaurant/american":[
+"Restaurante americano"
+],
+"amenity/restaurant/asian":[
+"Restaurante asiático"
+],
+"amenity/restaurant/chinese":[
+"Restaurante chino"
+],
+"amenity/restaurant/french":[
+"Restaurante francés"
+],
+"amenity/restaurant/german":[
+"Restaurante alemán"
+],
+"amenity/restaurant/greek":[
+"Restaurante grego"
+],
+"amenity/restaurant/indian":[
+"Restaurante indio"
+],
+"amenity/restaurant/italian":[
+"Restaurante italiano"
+],
+"amenity/restaurant/japanese":[
+"Restaurante xaponés"
+],
+"amenity/restaurant/mexican":[
+"Restaurante mexicano"
+],
+"amenity/restaurant/noodle":[
+"Restaurante de fideos"
+],
+"amenity/restaurant/pizza":[
+"Restaurante de pizza"
+],
+"amenity/restaurant/seafood":[
+"Restaurante de mariscos"
+],
+"amenity/restaurant/steakhouse":[
+"Asador ou churrascos"
+],
+"amenity/restaurant/sushi":[
+"Restaurante de sushi"
+],
+"amenity/restaurant/thai":[
+"Restaurante tailandés"
+],
+"amenity/restaurant/turkish":[
+"Restaurante turco"
+],
+"amenity/restaurant/vietnamese":[
+"Restaurante vietnamita"
+],
 "amenity/sanitary_dump_station":[
 "Eliminación de WC de caravanas"
 ],
@@ -672,6 +924,32 @@
 "pavillón",
 "cuberto"
 ],
+"amenity/shelter/gazebo":[
+"gazebo",
+"Gazebo",
+"glorieta"
+],
+"amenity/shelter/lean_to":[
+"pendello",
+"Pendello"
+],
+"amenity/shelter/picnic_shelter":[
+"Refuxio ou abeiro de Picnic",
+"refuxio",
+"abeiro",
+"pavillón",
+"picnic"
+],
+"amenity/shelter/public_transport":[
+"parada de metro",
+"espera",
+"paraxe",
+"agarde",
+"refuxio",
+"parada de autobús",
+"Refuxio ou marquesiña de transporte público",
+"marquesiña"
+],
 "amenity/shower":[
 "baño",
 "auga",
@@ -690,6 +968,7 @@
 "Axuda Social"
 ],
 "amenity/social_facility/food_bank":[
+"Banco de alimentos",
 "Banco de Alimentos"
 ],
 "amenity/social_facility/group_home":[
@@ -719,6 +998,9 @@
 "amenity/theatre":[
 "Teatro"
 ],
+"amenity/theatre/type/amphi":[
+"Anfiteatro"
+],
 "amenity/toilets":[
 "baños",
 "aseos",
@@ -735,9 +1017,12 @@
 "casa do concello"
 ],
 "amenity/university":[
+"Zona universitaria",
 "campus",
-"universidade",
-"Campus universitario"
+"universidade"
+],
+"amenity/vehicle_inspection":[
+"Inspección de vehículo"
 ],
 "amenity/vending_machine":[
 "Máquina expendedora",
@@ -760,11 +1045,23 @@
 "amenity/vending_machine/drinks":[
 "Expendedora de bebidas"
 ],
+"amenity/vending_machine/electronics":[
+"Máquina expendedora de electrónica"
+],
+"amenity/vending_machine/elongated_coin":[
+"Máquina expendedora de moedas planas"
+],
 "amenity/vending_machine/excrement_bags":[
 "Caca Can"
 ],
+"amenity/vending_machine/feminine_hygiene":[
+"Máquina expendedora de hixiene feminina"
+],
 "amenity/vending_machine/food":[
 "Expendedora de comida"
+],
+"amenity/vending_machine/fuel":[
+"Surtidor de combustíbel"
 ],
 "amenity/vending_machine/ice_cream":[
 "Expendedora de xeados"
@@ -1008,6 +1305,9 @@
 "Edificio",
 "edificio",
 "inmóbel"
+],
+"building/apartments":[
+"Edificio de apartamentos"
 ],
 "building/barn":[
 "cabaceiro",
@@ -1529,6 +1829,9 @@
 "highway/bus_stop":[
 "Parada/plataforma de autobús"
 ],
+"highway/construction":[
+"Estrada cortada"
+],
 "highway/corridor":[
 "corredor",
 "pasillo",
@@ -1603,7 +1906,7 @@
 "Ceda o paso"
 ],
 "highway/living_street":[
-"Rúa residencial ou semipeonil"
+"Rúa semipeonil"
 ],
 "highway/mini_roundabout":[
 "Mini rotonda"
@@ -1627,8 +1930,9 @@
 "autoestrada",
 "entrada",
 "acceso",
-"autopista",
 "saída",
+"autopista",
+"ligazón",
 "enlace",
 "Ligazón da autoestrada"
 ],
@@ -1660,13 +1964,13 @@
 "Pista de carreiras (Motorsport)"
 ],
 "highway/residential":[
-"Rúa urbana"
+"Estrada ou rúa residencial"
 ],
 "highway/rest_area":[
 "Área de descanso"
 ],
 "highway/road":[
-"Vía de categoría descoñecida"
+"Estrada de categoría descoñecida"
 ],
 "highway/secondary":[
 "primaria complementaria",
@@ -1676,7 +1980,7 @@
 "Ligazón da estrada secundaria"
 ],
 "highway/service":[
-"Vía de servizo"
+"Estrada de servizo"
 ],
 "highway/service/alley":[
 "Calexón"
@@ -1719,7 +2023,7 @@
 "Ligazón da estrada terciaria"
 ],
 "highway/track":[
-"Pista sen mantemento"
+"Pista ou camiño rural"
 ],
 "highway/traffic_mirror":[
 "Espello de tráfico"
@@ -1807,8 +2111,6 @@
 "Acuicultura"
 ],
 "landuse/basin":[
-"cunca",
-"auga",
 "Cunca"
 ],
 "landuse/brownfield":[
@@ -1841,9 +2143,6 @@
 ],
 "landuse/farmyard":[
 "Granxa"
-],
-"landuse/forest":[
-"Forestal"
 ],
 "landuse/garages":[
 "Uso da terra: Garaxes"
@@ -1891,6 +2190,9 @@
 "landuse/plant_nursery":[
 "Viveiro de plantas"
 ],
+"landuse/pond":[
+"Estanque"
+],
 "landuse/quarry":[
 "minerais",
 "rocha",
@@ -1908,6 +2210,9 @@
 ],
 "landuse/religious":[
 "Zona relixiosa"
+],
+"landuse/reservoir":[
+"Encoro"
 ],
 "landuse/residential":[
 "Zona residencial"
@@ -2085,12 +2390,6 @@
 "resort",
 "Complexo turístico"
 ],
-"leisure/running_track":[
-"atletismo",
-"correr",
-"carreira",
-"Pista de atletismo"
-],
 "leisure/slipway":[
 "Rampla"
 ],
@@ -2219,6 +2518,7 @@
 "man_made/pipeline":[
 "tubo",
 "Tubaxe",
+"tubaría",
 "oleoduto",
 "tubería",
 "tubaxe",
@@ -2429,6 +2729,9 @@
 "natural/water":[
 "Auga"
 ],
+"natural/water/canal":[
+"Canal"
+],
 "natural/water/lake":[
 "charca",
 "auga",
@@ -2449,6 +2752,12 @@
 "presa",
 "estanque",
 "embalse"
+],
+"natural/water/river":[
+"Río"
+],
+"natural/water/stream":[
+"Regato"
 ],
 "natural/wetland":[
 "Pantano"
@@ -2652,7 +2961,7 @@
 "Liña eléctrica de baixa tensión"
 ],
 "power/plant":[
-"Central eléctrica"
+"Zona de central eléctrica"
 ],
 "power/pole":[
 "Poste eléctrico"
@@ -2808,6 +3117,9 @@
 "route/ferry":[
 "Liña de ferri"
 ],
+"seamark":[
+"Sinal náutica"
+],
 "shop":[
 "Tenda"
 ],
@@ -2918,7 +3230,7 @@
 "Tenda de larpeiradas"
 ],
 "shop/convenience":[
-"Tenda de barrio"
+"Tenda de ultramarinos"
 ],
 "shop/copyshop":[
 "Copistaría"
@@ -2966,6 +3278,9 @@
 ],
 "shop/fashion":[
 "Tenda de moda"
+],
+"shop/fishing":[
+"Tenda de pesca"
 ],
 "shop/fishmonger":[
 "Peixaría"
@@ -3021,6 +3336,9 @@
 ],
 "shop/houseware":[
 "Tenda de artículos do fogar"
+],
+"shop/hunting":[
+"Tenda de caza"
 ],
 "shop/interior_decoration":[
 "Tenda de decoración de interiores"
@@ -3467,7 +3785,7 @@
 "Estaleiro"
 ],
 "waterway/canal":[
-"Canal"
+"Canle"
 ],
 "waterway/dam":[
 "Presa"

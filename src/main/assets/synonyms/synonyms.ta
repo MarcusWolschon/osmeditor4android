@@ -125,9 +125,6 @@
 "இரவு விடுதி",
 "ஆட்டம்"
 ],
-"amenity/pharmacy":[
-"மருந்தகம்"
-],
 "amenity/place_of_worship":[
 "பாசிலிகா",
 "சேப்பல்",
@@ -140,9 +137,6 @@
 "amenity/place_of_worship/buddhist":[
 "புத்தக் கோயில்"
 ],
-"amenity/place_of_worship/christian":[
-"தேவாலயம் "
-],
 "amenity/place_of_worship/hindu":[
 "தேவஸ்தானம்",
 "சேத்திரம்",
@@ -150,10 +144,6 @@
 "ஆலயம்",
 "இந்துக் கோயில்",
 "கோவில்"
-],
-"amenity/place_of_worship/muslim":[
-"பள்ளிவாசல்",
-"முஸ்லிம்"
 ],
 "amenity/place_of_worship/sikh":[
 "சீக்கியக் கோயில்"
@@ -413,9 +403,6 @@
 ],
 "landuse/farmyard":[
 "பண்ணை"
-],
-"landuse/forest":[
-"காடு"
 ],
 "landuse/grass":[
 "புல்வெளி"
@@ -925,7 +912,7 @@
 "ஆறு"
 ],
 "waterway/riverbank":[
-"ஆற்றாங்கரை"
+"ஆற்றங்கரை"
 ],
 "waterway/stream":[
 "ஓடை"

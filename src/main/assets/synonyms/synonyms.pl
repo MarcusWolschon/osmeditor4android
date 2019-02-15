@@ -471,8 +471,8 @@
 ],
 "amenity/parking":[
 "parking",
-"samochód",
-"Miejsce parkingowe"
+"Parking samochodowy",
+"samochód"
 ],
 "amenity/parking/multi-storey":[
 "parking wielopoziomowy",
@@ -520,11 +520,6 @@
 "ekiosk",
 "finanse"
 ],
-"amenity/pharmacy":[
-"apteka",
-"leki",
-"Apteka"
-],
 "amenity/place_of_worship":[
 "prezbiterium",
 "meczet",
@@ -555,34 +550,9 @@
 "stupa",
 "dojo"
 ],
-"amenity/place_of_worship/christian":[
-"prezbiterium",
-"dom Boży",
-"chrześcijaństwo",
-"kaplica",
-"dom modlitwy",
-"Kościół",
-"parafia",
-"bazylika",
-"opactwo",
-"świątynia",
-"tabernakulum",
-"oratorium",
-"katedra",
-"misja",
-"sanktuarium"
-],
 "amenity/place_of_worship/hindu":[
 "Świątynia hinduistyczna",
 "świątynia hinduistyczna"
-],
-"amenity/place_of_worship/jewish":[
-"Synagoga",
-"synagoga"
-],
-"amenity/place_of_worship/muslim":[
-"meczet",
-"Meczet"
 ],
 "amenity/place_of_worship/shinto":[
 "jinja",
@@ -818,8 +788,8 @@
 "wiata przystankowa",
 "przystanek autobusowy",
 "oczekiwanie",
-"stacja metra",
-"Wiata tranzytowa"
+"Wiata przystankowa",
+"stacja metra"
 ],
 "amenity/shower":[
 "Prysznic",
@@ -1249,6 +1219,11 @@
 "Budynek (ogólny)",
 "budynek"
 ],
+"building/apartments":[
+"blok",
+"Budynek mieszkalny wielorodzinny",
+"kamienica"
+],
 "building/barn":[
 "stodoła",
 "Stodoła"
@@ -1274,8 +1249,8 @@
 "building/carport":[
 "podjazd",
 "wiata",
-"Wiata",
 "samochód",
+"Wiata garażowa",
 "garaż",
 "zadaszone miejsce parkingowe"
 ],
@@ -1923,6 +1898,9 @@
 "highway/bus_stop":[
 "Przystanek autobusowy / platforma"
 ],
+"highway/construction":[
+"Droga zamknięta"
+],
 "highway/corridor":[
 "Korytarz (w budynku)",
 "korytarz",
@@ -2338,9 +2316,6 @@
 "Teren akwakultury"
 ],
 "landuse/basin":[
-"wodny",
-"retencyjny",
-"zbiornik",
 "Zbiornik wodny lub suchy"
 ],
 "landuse/brownfield":[
@@ -2381,11 +2356,6 @@
 "landuse/farmyard":[
 "Teren z zabudowaniami rolniczymi",
 "podwórze gospodarskie"
-],
-"landuse/forest":[
-"puszcza",
-"las",
-"Las"
 ],
 "landuse/garages":[
 "garażowisko",
@@ -2481,6 +2451,9 @@
 "landuse/residential":[
 "Zabudowa mieszkaniowa",
 "Teren zamieszkały"
+],
+"landuse/residential/apartments":[
+"Osiedle mieszkaniowe"
 ],
 "landuse/retail":[
 "handel detaliczny",
@@ -2702,6 +2675,9 @@
 "Boisko do futbolu amerykańskiego",
 "futbol amerykański"
 ],
+"leisure/pitch/australian_football":[
+"Boisko do gry w futbol australijski"
+],
 "leisure/pitch/badminton":[
 "boisko",
 "kort",
@@ -2736,6 +2712,9 @@
 "leisure/pitch/equestrian":[
 "ujeżdżalnia",
 "Ujeżdżalnia"
+],
+"leisure/pitch/netball":[
+"Boisko do Netball"
 ],
 "leisure/pitch/rugby_league":[
 "Boisko rugby league",
@@ -2784,12 +2763,6 @@
 "ośrodek wczasowy",
 "resort"
 ],
-"leisure/running_track":[
-"Bieżnia (Bieganie)",
-"bieżnia",
-"tor",
-"bieg"
-],
 "leisure/sauna":[
 "Sauna",
 "sauna"
@@ -2826,6 +2799,12 @@
 "konny",
 "tor",
 "Tor wyścigowy (niemotorowy)"
+],
+"leisure/track/horse_racing":[
+"Hipodrom (Wyścigi konne)"
+],
+"leisure/track/running":[
+"Bieżnia (Bieganie)"
 ],
 "leisure/water_park":[
 "aquapark",
@@ -4580,6 +4559,9 @@
 "butik",
 "moda"
 ],
+"shop/fishing":[
+"Sklep wędkarski"
+],
 "shop/fishmonger":[
 "Sklep rybny"
 ],
@@ -4667,6 +4649,9 @@
 "sztućce",
 "garnki",
 "artykuły kuchenne"
+],
+"shop/hunting":[
+"Sklep myśliwski"
 ],
 "shop/interior_decoration":[
 "Sklep z dekoracją wnętrz",
@@ -4943,6 +4928,9 @@
 "shop/watches":[
 "Zegarmistrz"
 ],
+"shop/water":[
+"Sklep z wodą pitną"
+],
 "shop/water_sports":[
 "Sklep ze sprzętem do sportów wodnych"
 ],
@@ -5215,6 +5203,9 @@
 "type/boundary/administrative":[
 "Granica administracyjna"
 ],
+"type/enforcement":[
+"Kontrola"
+],
 "type/multipolygon":[
 "Wielokąt złożony"
 ],
@@ -5399,8 +5390,7 @@
 "Rzeka"
 ],
 "waterway/riverbank":[
-"Brzeg rzeki",
-"linia brzegowa"
+"Brzeg rzeki"
 ],
 "waterway/sanitary_dump_station":[
 "Miejsce opróżniania toalety (dla łodzi)"

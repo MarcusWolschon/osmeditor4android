@@ -441,6 +441,9 @@
 "dentista",
 "odontotecnico"
 ],
+"amenity/dive_centre":[
+"Centro subacqueo"
+],
 "amenity/doctors":[
 "dottore",
 "medico",
@@ -479,6 +482,24 @@
 ],
 "amenity/fast_food":[
 "Fast Food"
+],
+"amenity/fast_food/burger":[
+"Fast Food di hamburger"
+],
+"amenity/fast_food/chicken":[
+"Fast Food di pollo"
+],
+"amenity/fast_food/fish_and_chips":[
+"Fast Food di Fish & Chips"
+],
+"amenity/fast_food/kebab":[
+"Fast Food i kebab"
+],
+"amenity/fast_food/pizza":[
+"Fast Food di pizza"
+],
+"amenity/fast_food/sandwich":[
+"Fast Food di panini"
 ],
 "amenity/ferry_terminal":[
 "Stazione / Terminal dei battelli"
@@ -614,6 +635,9 @@
 "abbazia",
 "badia"
 ],
+"amenity/money_transfer":[
+"Agenzia di Money Transfer"
+],
 "amenity/motorcycle_parking":[
 "Parcheggio moto",
 "parcheggio scooter",
@@ -653,9 +677,6 @@
 "posto auto",
 "Stallo"
 ],
-"amenity/pharmacy":[
-"Farmacia"
-],
 "amenity/place_of_worship":[
 "luogo di culto",
 "parrocchia",
@@ -688,24 +709,7 @@
 "dojo"
 ],
 "amenity/place_of_worship/christian":[
-"luogo di culto",
-"parrocchia",
-"cristiano",
-"missione",
-"sacello",
-"tempio",
-"Chiesa",
-"cappella",
-"chiesa",
-"edicola votiva",
-"basilica",
-"abbazia",
-"cattedrale",
-"oratorio",
-"presbiterio",
-"casa di Dio",
-"tabernacolo",
-"luogo di preghiera"
+"Chiesa cristiana"
 ],
 "amenity/place_of_worship/hindu":[
 "tempio induista",
@@ -715,19 +719,10 @@
 "tempio indù"
 ],
 "amenity/place_of_worship/jewish":[
-"ebreo",
-"ebraismo",
-"Sinagoga",
-"sinagoga",
-"ebrea",
-"sionismo"
+"Sinagoga ebraica"
 ],
 "amenity/place_of_worship/muslim":[
-"islam",
-"moschea",
-"islamismo",
-"musulmana",
-"Moschea"
+"Moschea musulmana"
 ],
 "amenity/place_of_worship/shinto":[
 "jinja",
@@ -840,6 +835,60 @@
 "negozio di ciambelle",
 "venditore di hamburger"
 ],
+"amenity/restaurant/american":[
+"Ristorante americano"
+],
+"amenity/restaurant/asian":[
+"Ristorante asiatico"
+],
+"amenity/restaurant/chinese":[
+"Ristorante cinese"
+],
+"amenity/restaurant/french":[
+"Ristorante francese"
+],
+"amenity/restaurant/german":[
+"Ristorante tedesco"
+],
+"amenity/restaurant/greek":[
+"Ristorante greco"
+],
+"amenity/restaurant/indian":[
+"Ristorante indiano"
+],
+"amenity/restaurant/italian":[
+"Ristorante italiano"
+],
+"amenity/restaurant/japanese":[
+"Ristorante giapponese"
+],
+"amenity/restaurant/mexican":[
+"Ristorante messicano"
+],
+"amenity/restaurant/noodle":[
+"Ristorante noodle"
+],
+"amenity/restaurant/pizza":[
+"Pizzeria"
+],
+"amenity/restaurant/seafood":[
+"Ristorante di mare"
+],
+"amenity/restaurant/steakhouse":[
+"Steakhouse"
+],
+"amenity/restaurant/sushi":[
+"Ristorante di sushi"
+],
+"amenity/restaurant/thai":[
+"Ristorante thailandese"
+],
+"amenity/restaurant/turkish":[
+"Ristorante turco"
+],
+"amenity/restaurant/vietnamese":[
+"Ristorante vietnamita"
+],
 "amenity/sanitary_dump_station":[
 "rifiuti",
 "toilet",
@@ -886,6 +935,9 @@
 "protezione",
 "tetto",
 "palco"
+],
+"amenity/shelter/lean_to":[
+"Tettoia"
 ],
 "amenity/shower":[
 "doccia calda",
@@ -990,6 +1042,9 @@
 "amenity/university":[
 "Area universitaria",
 "università"
+],
+"amenity/vehicle_inspection":[
+"Ispezione veicolo"
 ],
 "amenity/vending_machine":[
 "macchinetta",
@@ -1241,6 +1296,9 @@
 "materiale",
 "manto stradale"
 ],
+"attraction":[
+"Attrazione"
+],
 "attraction/amusement_ride":[
 "parco divertimenti",
 "ruota panoramica",
@@ -1369,14 +1427,23 @@
 "recinzione",
 "reticolato"
 ],
+"barrier/fence/railing":[
+"Ringhiera"
+],
 "barrier/gate":[
 "Cancello"
+],
+"barrier/guard_rail":[
+"Guardrail"
 ],
 "barrier/hedge":[
 "Siepe"
 ],
 "barrier/kerb":[
-"Marciapiede"
+"Cordolo"
+],
+"barrier/kerb/lowered":[
+"Cordolo ribassato"
 ],
 "barrier/kissing_gate":[
 "Kissing Gate",
@@ -1405,6 +1472,9 @@
 ],
 "building":[
 "Edificio"
+],
+"building/apartments":[
+"Appartamenti"
 ],
 "building/barn":[
 "Fienile",
@@ -1752,6 +1822,9 @@
 "centro",
 "centro culturale",
 "centro aggregazione"
+],
+"club/sport":[
+"Club sportivo"
 ],
 "craft":[
 "artigianato",
@@ -2242,6 +2315,9 @@
 "highway/bus_stop":[
 "Fermata autobus / banchina"
 ],
+"highway/construction":[
+"Strada chiusa"
+],
 "highway/corridor":[
 "corridoio",
 "Corridoio interno"
@@ -2283,6 +2359,9 @@
 "highway/living_street":[
 "Strada residenziale prevalentemente pedonale",
 "Living Street"
+],
+"highway/milestone":[
+"Pietra miliare"
 ],
 "highway/mini_roundabout":[
 "Mini rotatoria",
@@ -2635,11 +2714,6 @@
 "Fattoria",
 "Aia"
 ],
-"landuse/forest":[
-"Foresta",
-"bosco",
-"foresta"
-],
 "landuse/garages":[
 "Area garage"
 ],
@@ -2835,6 +2909,9 @@
 "fuoco",
 "griglia",
 "Focolare"
+],
+"leisure/fishing":[
+"Punto per la pesca"
 ],
 "leisure/fitness_centre":[
 "Palestra / Centro Fitness",
@@ -3070,12 +3147,6 @@
 "Resort",
 "resort"
 ],
-"leisure/running_track":[
-"Pista (Atletica)",
-"tartan",
-"atletica",
-"pista"
-],
 "leisure/sauna":[
 "Sauna"
 ],
@@ -3232,6 +3303,18 @@
 "albero",
 "radio"
 ],
+"man_made/mast/communication":[
+"Torre per telecomunicazioni"
+],
+"man_made/mast/communication/mobile_phone":[
+"Torre telefonica"
+],
+"man_made/mast/communication/radio":[
+"Torre della radio"
+],
+"man_made/mast/communication/television":[
+"Torre della televisione"
+],
 "man_made/monitoring_station":[
 "Stazione di controllo"
 ],
@@ -3283,12 +3366,21 @@
 "telecamera",
 "vigilanza"
 ],
+"man_made/surveillance/camera":[
+"Telecamera di sorveglianza"
+],
 "man_made/survey_point":[
 "Punto geodetico o altra stazione fissa",
 "Punto geodetico"
 ],
 "man_made/tower":[
 "Torre"
+],
+"man_made/tower/communication":[
+"Torre per telecomunicazioni"
+],
+"man_made/tower/observation":[
+"Torre di osservazione"
 ],
 "man_made/wastewater_plant":[
 "depuratore",
@@ -3677,6 +3769,9 @@
 "office/quango":[
 "Ufficio di una simil ONG"
 ],
+"office/religion":[
+"Ufficio religioso"
+],
 "office/research":[
 "Istituto di Ricerca",
 "Ufficio ricerca",
@@ -3701,6 +3796,24 @@
 ],
 "office/water_utility":[
 "Ufficio azienda di fornitura dell'acqua"
+],
+"piste/ice_skate":[
+"Pista per pattinaggio sul ghiaccio"
+],
+"piste/nordic":[
+"Pista per sci nordico"
+],
+"piste/piste":[
+"Pista per sport invernali"
+],
+"piste/skitour":[
+"Pista per sci alpinismo"
+],
+"piste/sled":[
+"Pista per slittini"
+],
+"piste/sleigh":[
+"Pista per slitte"
 ],
 "place":[
 "Luogo"
@@ -3817,6 +3930,9 @@
 "power":[
 "Energia"
 ],
+"power/cable/underground":[
+"Cavo elettrico sotterraneo"
+],
 "power/generator":[
 "Generatore di energia",
 "Centrale elettrica"
@@ -3845,6 +3961,9 @@
 "atomi",
 "Cernobil",
 "radioattività"
+],
+"power/generator/source/wind":[
+"Turbina eolica"
 ],
 "power/line":[
 "Linea elettrica",
@@ -4294,6 +4413,9 @@
 "Autofficina",
 "Officina"
 ],
+"shop/caravan":[
+"Concessionario caravan"
+],
 "shop/carpet":[
 "Negozio di tappeti",
 "tappeti",
@@ -4407,6 +4529,12 @@
 "Fashion store",
 "Boutique"
 ],
+"shop/fireplace":[
+"Negozio di caminetti"
+],
+"shop/fishing":[
+"Negozio di pesca"
+],
 "shop/fishmonger":[
 "Pescivendolo"
 ],
@@ -4416,6 +4544,9 @@
 "shop/frame":[
 "Corniceria",
 "Negozio di cornici"
+],
+"shop/fuel":[
+"Negozio di carburanti"
 ],
 "shop/funeral_directors":[
 "cimitero",
@@ -4457,6 +4588,9 @@
 "Parrucchiere",
 "Parrucchiere/Barbiere"
 ],
+"shop/hairdresser_supply":[
+"Negozio di prodotti per parrucchiere"
+],
 "shop/hardware":[
 "Negozio di Ferramenta",
 "Ferramenta"
@@ -4488,6 +4622,9 @@
 "negozio di casalinghi",
 "pentole",
 "casalinghi"
+],
+"shop/hunting":[
+"Negozio di caccia"
 ],
 "shop/interior_decoration":[
 "decorazioni",
@@ -4606,6 +4743,9 @@
 "shop/paint":[
 "Colorificio",
 "Negozio di vernici"
+],
+"shop/party":[
+"Negozio di articoli per le feste"
 ],
 "shop/pastry":[
 "torteria",
@@ -5358,6 +5498,9 @@
 "gasolio",
 "benzina",
 "Stazione di rifornimento marittima"
+],
+"waterway/milestone":[
+"Pietra miliare acquatica"
 ],
 "waterway/river":[
 "corso d'acqua",

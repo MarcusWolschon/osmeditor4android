@@ -234,6 +234,12 @@
 "רופא שיניים",
 "מרפאת שיניים"
 ],
+"amenity/dive_centre":[
+"צוללנים",
+"צלילה",
+"מועדון צלילה",
+"מרכז צלילה"
+],
 "amenity/doctors":[
 "רופאה",
 "רופא"
@@ -254,6 +260,50 @@
 "amenity/fast_food":[
 "פאסט פוד",
 "מזון מהיר"
+],
+"amenity/fast_food/burger":[
+"מזון מהיר המבורגר"
+],
+"amenity/fast_food/chicken":[
+"מזון מהיר עוף"
+],
+"amenity/fast_food/fish_and_chips":[
+"אוכל בריטי",
+"צ׳יפס",
+"מטוגנים",
+"תפו״ד",
+"אוכל אנגלי",
+"טוגנים",
+"מטוגן",
+"תפו"ד",
+"מזון מהיר פיש אנד צ׳יפס",
+"תפוח אדמה",
+"דגים",
+"תפוד"
+],
+"amenity/fast_food/kebab":[
+"קבב",
+"שווארמה",
+"מזון מהיר קבב",
+"בשרים",
+"שיפודים",
+"מנגל",
+"על האש"
+],
+"amenity/fast_food/pizza":[
+"קראסט",
+"פיצה",
+"עגבניות",
+"חתיכה",
+"מזון מהיר פיצה",
+"איטלקי",
+"גבינה"
+],
+"amenity/fast_food/sandwich":[
+"מזון מהיר סנדוויץ׳",
+"סנדוויץ׳",
+"סנדוויץ'",
+"כריך"
 ],
 "amenity/ferry_terminal":[
 "מסוף מעבורת"
@@ -312,6 +362,9 @@
 "גני מנזר",
 "מתחם מנזר"
 ],
+"amenity/money_transfer":[
+"תחנת העברת כספים"
+],
 "amenity/motorcycle_parking":[
 "חניית אופנועים"
 ],
@@ -341,11 +394,14 @@
 "amenity/parking_space":[
 "אזור חניה"
 ],
+"amenity/payment_centre":[
+"מרכז תשלום"
+],
+"amenity/payment_terminal":[
+"מסוף תשלום"
+],
 "amenity/pharmacy":[
-"בית מרקחת",
-"ניופארם",
-"סופר פארם",
-"פארמה"
+"דלפק בית מרקחת"
 ],
 "amenity/place_of_worship":[
 "בית תפילה"
@@ -354,17 +410,22 @@
 "מקדש בודהיסטי"
 ],
 "amenity/place_of_worship/christian":[
-"כנסייה"
+"כנסייה נוצרית"
 ],
 "amenity/place_of_worship/hindu":[
 "מקדש הינדו",
 "מקדש  הינדואיסטי"
 ],
 "amenity/place_of_worship/jewish":[
+"בית כנסת יהודי",
+"מדרש",
+"ארון קודש",
+"יהדות",
 "בית כנסת"
 ],
 "amenity/place_of_worship/muslim":[
-"מסגד"
+"מסגד מוסלמי",
+"מואזין"
 ],
 "amenity/place_of_worship/shinto":[
 "מקדש שינטו"
@@ -429,6 +490,70 @@
 ],
 "amenity/restaurant":[
 "מסעדה"
+],
+"amenity/restaurant/american":[
+"גריל",
+"פנקייק",
+"דיינר",
+"מסעדה אמריקאית"
+],
+"amenity/restaurant/asian":[
+"פאד תאי",
+"מסעדה אסייתית",
+"סושי",
+"מסעדה אסיאתית",
+"מוקפץ",
+"מסעדה אסיתית",
+"מסעדה סינית",
+"מסעדה יפנית"
+],
+"amenity/restaurant/chinese":[
+"מסעדה סינית"
+],
+"amenity/restaurant/french":[
+"מסעדה צרפתית"
+],
+"amenity/restaurant/german":[
+"מסעדה גרמנית"
+],
+"amenity/restaurant/greek":[
+"מסעדה יוונית"
+],
+"amenity/restaurant/indian":[
+"מסעדה הודית"
+],
+"amenity/restaurant/italian":[
+"מסעדה איטלקית"
+],
+"amenity/restaurant/japanese":[
+"מסעדה יפנית"
+],
+"amenity/restaurant/mexican":[
+"מסעדה מקסיקנית"
+],
+"amenity/restaurant/noodle":[
+"מסעדת אטריות"
+],
+"amenity/restaurant/pizza":[
+"מסעדת פיצה"
+],
+"amenity/restaurant/seafood":[
+"מסעדת פרות ים"
+],
+"amenity/restaurant/steakhouse":[
+"בית סטייק"
+],
+"amenity/restaurant/sushi":[
+"מסעדת סושי"
+],
+"amenity/restaurant/thai":[
+"מסעדה תאילנדית"
+],
+"amenity/restaurant/turkish":[
+"מסעדת טורקית"
+],
+"amenity/restaurant/vietnamese":[
+"מסעדה וייטנאמית"
 ],
 "amenity/sanitary_dump_station":[
 "תחנת סילוק לקרוונים",
@@ -521,6 +646,9 @@
 "אזור אוניברסיטה",
 "מתחם אוניברסיטה",
 "מרחב אוניברסיטה"
+],
+"amenity/vehicle_inspection":[
+"בדיקת כלי רכב"
 ],
 "amenity/vending_machine":[
 "אוטומט מכירות",
@@ -631,6 +759,9 @@
 "area/highway":[
 "משטח כביש"
 ],
+"attraction":[
+"אטרקציה"
+],
 "attraction/amusement_ride":[
 "מתקן שעשועים"
 ],
@@ -667,6 +798,9 @@
 ],
 "attraction/roller_coaster":[
 "רכבת הרים"
+],
+"attraction/summer_toboggan":[
+"מגלשת הרים"
 ],
 "attraction/train":[
 "רכבת תיירים"
@@ -717,8 +851,14 @@
 "barrier/fence":[
 "גדר"
 ],
+"barrier/fence/railing":[
+"מעקה"
+],
 "barrier/gate":[
 "שער"
+],
+"barrier/guard_rail":[
+"מעקה בטיחות"
 ],
 "barrier/hedge":[
 "גדר חיה"
@@ -729,6 +869,9 @@
 "מדרכה",
 "אבני שפה",
 "שפת מדרכה"
+],
+"barrier/kerb/flush":[
+"אבן שפה משופעת"
 ],
 "barrier/kerb/lowered":[
 "שפת המדרכה",
@@ -780,6 +923,9 @@
 ],
 "building":[
 "בניין"
+],
+"building/apartments":[
+"בניין דירות"
 ],
 "building/barn":[
 "אסם"
@@ -956,6 +1102,9 @@
 ],
 "club":[
 "מועדון"
+],
+"club/sport":[
+"מועדון ספורט"
 ],
 "craft":[
 "מלאכת יד",
@@ -1339,6 +1488,9 @@
 "highway/bus_stop":[
 "תחנת אוטובוס / רציף"
 ],
+"highway/construction":[
+"כביש סגור"
+],
 "highway/corridor":[
 "מסדרון"
 ],
@@ -1638,7 +1790,6 @@
 "דיג"
 ],
 "landuse/basin":[
-"מקווה",
 "מאגר"
 ],
 "landuse/brownfield":[
@@ -1671,8 +1822,7 @@
 "חצר חקלאית"
 ],
 "landuse/forest":[
-"יער",
-"יער נטוע"
+"יער מנוהל"
 ],
 "landuse/garages":[
 "אזור אחסון"
@@ -1716,6 +1866,9 @@
 "landuse/plant_nursery":[
 "משתלה"
 ],
+"landuse/pond":[
+"בריכת דגים/נוי"
+],
 "landuse/quarry":[
 "מחצבה"
 ],
@@ -1731,9 +1884,15 @@
 "שטח דתי",
 "אזור דתי"
 ],
+"landuse/reservoir":[
+"מאגר"
+],
 "landuse/residential":[
 " אזור מגורים",
 "אזור מגורים"
+],
+"landuse/residential/apartments":[
+"מתחם דירות"
 ],
 "landuse/retail":[
 "אזור מסחרי"
@@ -1810,6 +1969,9 @@
 "קומזיץ",
 "להבה",
 "שוחה למדורה"
+],
+"leisure/fishing":[
+"נקודת דיג"
 ],
 "leisure/fitness_centre":[
 "מכון כושר"
@@ -1919,6 +2081,9 @@
 "leisure/pitch/american_football":[
 "מגרש פוטבול"
 ],
+"leisure/pitch/australian_football":[
+"מגרש פוטבול אוסטרלי"
+],
 "leisure/pitch/badminton":[
 "כדור נוצה",
 "מגרש בדמינטון",
@@ -1953,6 +2118,9 @@
 "leisure/pitch/equestrian":[
 "מתחם רכיבה",
 "זירת רכיבה"
+],
+"leisure/pitch/netball":[
+"מגרש נטבול"
 ],
 "leisure/pitch/rugby_league":[
 "מגרש ליגת רוגבי",
@@ -1995,10 +2163,6 @@
 "תיירות",
 "אתר נופש"
 ],
-"leisure/running_track":[
-"מסלול ריצה",
-"מסלול תחרויות ריצה"
-],
 "leisure/sauna":[
 "סאונה"
 ],
@@ -2021,6 +2185,12 @@
 "leisure/track":[
 "מסלול מרוצים (לא מונע)",
 "מסלול מרוצים (לבלתי ממונעים)"
+],
+"leisure/track/horse_racing":[
+"מסלול מרוצים (לסוסים)"
+],
+"leisure/track/running":[
+"מסלול ריצה"
 ],
 "leisure/water_park":[
 "פארק מים"
@@ -2084,6 +2254,18 @@
 "man_made/mast":[
 "תורן"
 ],
+"man_made/mast/communication":[
+"תורן תקשורת"
+],
+"man_made/mast/communication/mobile_phone":[
+"תורן אנטנה סלולרית"
+],
+"man_made/mast/communication/radio":[
+"תורן שידורי רדיו"
+],
+"man_made/mast/communication/television":[
+"תורן שידורי טלוויזיה"
+],
 "man_made/monitoring_station":[
 "תחנת ניטור"
 ],
@@ -2116,6 +2298,9 @@
 "man_made/surveillance":[
 "מעקב"
 ],
+"man_made/surveillance/camera":[
+"מצלמת מעקב"
+],
 "man_made/survey_point":[
 "נקודת גבול",
 "נקודת מדידה",
@@ -2123,6 +2308,12 @@
 ],
 "man_made/tower":[
 "מגדל"
+],
+"man_made/tower/communication":[
+"מגדל תקשורת"
+],
+"man_made/tower/observation":[
+"מגדל תצפית"
 ],
 "man_made/wastewater_plant":[
 "מפעל טיפול בשפכים",
@@ -2234,6 +2425,9 @@
 "natural/water":[
 "מים"
 ],
+"natural/water/canal":[
+"תעלת מים"
+],
 "natural/water/lake":[
 "אגם"
 ],
@@ -2243,6 +2437,12 @@
 ],
 "natural/water/reservoir":[
 "מאגר"
+],
+"natural/water/river":[
+"נהר"
+],
+"natural/water/stream":[
+"נחל"
 ],
 "natural/wetland":[
 "ביצה"
@@ -2369,6 +2569,9 @@
 "office/quango":[
 "משרד ארגון חצי לא ממשלתי"
 ],
+"office/religion":[
+"משרד לנושאי דת"
+],
 "office/research":[
 "משרד מחקר"
 ],
@@ -2402,6 +2605,9 @@
 "דאונהיל",
 "אלפיני",
 "גלישת מורד"
+],
+"piste/downhill/halfpipe":[
+"חצי צינור"
 ],
 "piste/hike":[
 "שביל שלג",
@@ -2445,6 +2651,9 @@
 ],
 "place/city":[
 "עיר"
+],
+"place/city_block":[
+"מבנן עירוני"
 ],
 "place/farm":[
 "חווה"
@@ -2980,6 +3189,9 @@
 "shop/car_repair":[
 "מוסך"
 ],
+"shop/caravan":[
+"סוכנות קרוואנים"
+],
 "shop/carpet":[
 "חנות שטיחים"
 ],
@@ -3018,6 +3230,16 @@
 ],
 "shop/cosmetics":[
 "חנות קוסמטיקה"
+],
+"shop/country_store":[
+"חוץ",
+"חנות למטיילים",
+"ריקושט",
+"מחנאות",
+"שקי שינה",
+"ציוד טיולים",
+"אוהלים",
+"למטייל"
 ],
 "shop/craft":[
 "חנות דברי אומנות",
@@ -3064,6 +3286,12 @@
 "shop/fashion":[
 "חנות אופנה"
 ],
+"shop/fireplace":[
+"חנות חימום"
+],
+"shop/fishing":[
+"חנות דיג"
+],
 "shop/fishmonger":[
 "דוכן דגים"
 ],
@@ -3072,6 +3300,12 @@
 ],
 "shop/frame":[
 "חנות חקלאות"
+],
+"shop/frozen_food":[
+"מזון קפוא"
+],
+"shop/fuel":[
+"חנות נוחות"
 ],
 "shop/funeral_directors":[
 "קברנית",
@@ -3102,6 +3336,9 @@
 "מעצב שער",
 "מעצב שיער"
 ],
+"shop/hairdresser_supply":[
+"חנות ציוד לספרים"
+],
 "shop/hardware":[
 "חנות אספקה טכנית",
 "חנות כלי חומרה"
@@ -3122,6 +3359,9 @@
 ],
 "shop/houseware":[
 "חנות כלי בית"
+],
+"shop/hunting":[
+"חנות ציד"
 ],
 "shop/interior_decoration":[
 "חנות עיצוב פנים"
@@ -3200,6 +3440,9 @@
 ],
 "shop/paint":[
 "חנות צבע"
+],
+"shop/party":[
+"חנות ציוד למסיבות"
 ],
 "shop/pastry":[
 "בית מאפה",
@@ -3316,6 +3559,9 @@
 "shop/watches":[
 "שען",
 "שענית"
+],
+"shop/water":[
+"חנות מי שתייה"
 ],
 "shop/water_sports":[
 "חנות שחייה",
@@ -3520,6 +3766,12 @@
 ],
 "type/boundary/administrative":[
 "גבול ניהולי"
+],
+"type/enforcement":[
+"רגולציה",
+"שיטור",
+"אכיפה",
+"חוק"
 ],
 "type/multipolygon":[
 "רב־מצולעים"

@@ -227,10 +227,6 @@
 "amenity/parking_space":[
 "Stovėjimo vieta"
 ],
-"amenity/pharmacy":[
-"Vaistinė",
-"vaistinė"
-],
 "amenity/place_of_worship":[
 "Maldos namai",
 "maldos namai"
@@ -240,20 +236,8 @@
 "budistų šventykla",
 "Budistų Šventykla"
 ],
-"amenity/place_of_worship/christian":[
-"Bažnyčia",
-"bažnyčia"
-],
 "amenity/place_of_worship/hindu":[
 "Hindu šventykla"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagoga",
-"sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"Mečetė",
-"mečetė"
 ],
 "amenity/place_of_worship/shinto":[
 "Šintoizmo šventykla"
@@ -1035,10 +1019,7 @@
 "Akvakultūra"
 ],
 "landuse/basin":[
-"Vandens telkinys",
-"baseinas",
-"prūdas",
-"kūdra"
+"Vandens telkinys"
 ],
 "landuse/cemetery":[
 "kapinės",
@@ -1070,10 +1051,6 @@
 "ferma",
 "ūkis",
 "Ūkis"
-],
-"landuse/forest":[
-"miškas",
-"Miškas"
 ],
 "landuse/garages":[
 "Garažų plotas"
@@ -2118,13 +2095,14 @@
 "Upė"
 ],
 "waterway/riverbank":[
-"Upės kraštas",
-"Krantas",
-"Upės krantas"
+"Upės kraštas"
 ],
 "waterway/stream":[
 "Upeliukas",
 "Upelis"
+],
+"waterway/stream_intermittent":[
+"Nepastovus upeliukas"
 ],
 "waterway/waterfall":[
 "Krioklys"

@@ -3,8 +3,11 @@
 "عنوان",
 "العنوان"
 ],
+"advertising/column":[
+"عمود إعلاني"
+],
 "aerialway":[
-"النقل بالكابلات "
+"كابلات معلقة في الهواء"
 ],
 "aerialway/cable_car":[
 "تلفريك",
@@ -59,6 +62,12 @@
 ],
 "amenity":[
 "مرفق"
+],
+"amenity/animal_boarding":[
+"منشأة رعاية حيوانات"
+],
+"amenity/animal_breeding":[
+"منشأة تربية وبيع حيوانات"
 ],
 "amenity/animal_shelter":[
 "مأوى حيوانات",
@@ -177,6 +186,9 @@
 "amenity/dentist":[
 "طبيب أسنان"
 ],
+"amenity/dive_centre":[
+"مركز الغوص"
+],
 "amenity/doctors":[
 "طبيب"
 ],
@@ -189,7 +201,7 @@
 "مياه شرب"
 ],
 "amenity/driving_school":[
-"مدرسة تعليم السياقة"
+"مدرسة تعليم القيادة"
 ],
 "amenity/embassy":[
 "سفارة"
@@ -197,6 +209,47 @@
 "amenity/fast_food":[
 "وجبات سريعة",
 "مأكولات السريعة"
+],
+"amenity/fast_food/burger":[
+"إفطار",
+"عشاء",
+"برجر وجبات سريعة",
+"طعام"
+],
+"amenity/fast_food/chicken":[
+"إفطار",
+"مقصف",
+"عشاء",
+"طعام",
+"دجاج وجبات سريعة"
+],
+"amenity/fast_food/fish_and_chips":[
+"إفطار",
+"قهوة",
+"عشاء",
+"سمك ورقائق البطاطس وجبات سريعة",
+"طعام"
+],
+"amenity/fast_food/kebab":[
+"إفطار",
+"مقصف",
+"عشاء",
+"طعام",
+"كباب وجبات سريعة"
+],
+"amenity/fast_food/pizza":[
+"إفطار",
+"مقصف",
+"عشاء",
+"طعام",
+"بيتزا وجبات سريعة"
+],
+"amenity/fast_food/sandwich":[
+"إفطار",
+"شطيرة وجبات سريعة",
+"مقصف",
+"عشاء",
+"طعام"
 ],
 "amenity/ferry_terminal":[
 "المحطة البحرية"
@@ -206,7 +259,10 @@
 "محطة إطفاء حريق"
 ],
 "amenity/food_court":[
-"قاعة طعام"
+"قاعة طعام",
+"وجبات سريعة",
+"طعام",
+"مطعم"
 ],
 "amenity/fountain":[
 "نافورة"
@@ -256,13 +312,19 @@
 "amenity/nursing_home":[
 "دار التمريض"
 ],
+"amenity/parking":[
+"ساحة انتظار سيارات"
+],
 "amenity/parking_entrance":[
 "مدخل",
 "مخرج",
 "مدخل ومخرج جراج وقوف"
 ],
-"amenity/pharmacy":[
-"صيدلية"
+"amenity/payment_centre":[
+"مركز دفع نقود"
+],
+"amenity/payment_terminal":[
+"محطة دفع نقود"
 ],
 "amenity/place_of_worship":[
 "محل عبادة",
@@ -270,18 +332,6 @@
 ],
 "amenity/place_of_worship/buddhist":[
 "معبد بوذي"
-],
-"amenity/place_of_worship/christian":[
-"كنيسة"
-],
-"amenity/place_of_worship/jewish":[
-"كنيس يهودي",
-"معبد اليهود",
-"كنيس"
-],
-"amenity/place_of_worship/muslim":[
-"مسجد",
-"جامع"
 ],
 "amenity/planetarium":[
 "قبة فلكية، قبة سماوية، بلانتاريوم",
@@ -413,6 +463,9 @@
 "سلة القمامة",
 "سلة المهملات",
 "سلة مهملات"
+],
+"amenity/watering_place":[
+"مكان شرب للحيوانات"
 ],
 "area":[
 "منطقة",
@@ -1026,7 +1079,6 @@
 "مزرعة سمكية"
 ],
 "landuse/basin":[
-"حوض نهري",
 "حوض"
 ],
 "landuse/cemetery":[
@@ -1052,9 +1104,6 @@
 ],
 "landuse/farmyard":[
 "فناء المزرعة"
-],
-"landuse/forest":[
-"غابة"
 ],
 "landuse/grass":[
 "عشب",
@@ -1234,9 +1283,6 @@
 ],
 "leisure/resort":[
 "منتجع"
-],
-"leisure/running_track":[
-"مضمار ركض"
 ],
 "leisure/sauna":[
 "سونا"
@@ -1774,6 +1820,9 @@
 "محل. متجر",
 "دكان",
 "متجر"
+],
+"shop/agrarian":[
+"متجر مستلزمات مزارع"
 ],
 "shop/alcohol":[
 "محل خمور"
@@ -2327,7 +2376,6 @@
 "نهر"
 ],
 "waterway/riverbank":[
-"ضفة النهر",
 "ضفة نهر"
 ],
 "waterway/sanitary_dump_station":[

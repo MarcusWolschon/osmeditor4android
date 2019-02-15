@@ -7,6 +7,9 @@
 "advertising/billboard":[
 "Πινακίδα"
 ],
+"advertising/column":[
+"Κολόνα Διαφήμισης"
+],
 "aerialway":[
 "Αεροδίοδος"
 ],
@@ -50,6 +53,9 @@
 ],
 "aeroway/taxiway":[
 "Τροχιόδρομος"
+],
+"aeroway/terminal":[
+"Σταθμός Αεροναυτιλίας"
 ],
 "amenity":[
 "Υποδομή"
@@ -115,11 +121,17 @@
 "amenity/bureau_de_change":[
 "Ανταλλακτήριο Συναλλάγματος"
 ],
+"amenity/bus_station":[
+"Τερματικός Σταθμός Λεωφορείων"
+],
 "amenity/cafe":[
 "Μπιστρό",
 "Καφετέρια",
 "Καφενείο",
 "Καφέ"
+],
+"amenity/car_pooling":[
+"Συγκέντρωση αυτοκινήτων"
 ],
 "amenity/car_rental":[
 "Ενοικίαση Αυτοκινήτων",
@@ -142,6 +154,9 @@
 "amenity/charging_station":[
 "Σταθμός Φόρτισης"
 ],
+"amenity/childcare":[
+"Παιδιατρική"
+],
 "amenity/cinema":[
 "Σινεμά",
 "Κινηματογράφος"
@@ -149,12 +164,21 @@
 "amenity/clinic":[
 "Κλινική"
 ],
+"amenity/clinic/abortion":[
+"Κλινική Άμβλωσης"
+],
+"amenity/clinic/fertility":[
+"Κλινική Γονιμότητας"
+],
 "amenity/clock":[
 "ωρολόγιο",
 "Ρολόι"
 ],
 "amenity/college":[
 "Χώρος Κολλεγίου"
+],
+"amenity/community_centre":[
+"Κέντρο Κοινότητας"
 ],
 "amenity/compressed_air":[
 "Πεπιεσμένος Αέρας"
@@ -166,6 +190,9 @@
 "Κακουργοδικείο",
 "Εφετείο"
 ],
+"amenity/coworking_space":[
+"Χώρος Συνεργατών"
+],
 "amenity/crematorium":[
 "Χώρος καύσης νεκρών",
 "Κρεματόριο"
@@ -174,6 +201,9 @@
 "οδοντίατρος",
 "Οδοντιατρείο",
 "οδοντογιατρός"
+],
+"amenity/dive_centre":[
+"Κέντρο Καταδύσεων"
 ],
 "amenity/doctors":[
 "Ιατρείο",
@@ -210,10 +240,34 @@
 "Ταχυφαγείο",
 "Πρόχειρο φαγητό"
 ],
+"amenity/fast_food/burger":[
+"Ταχυφαγίο με Μπιφτέκι"
+],
+"amenity/fast_food/chicken":[
+"Ταχυφαγίο με Κοτόπουλο"
+],
+"amenity/fast_food/fish_and_chips":[
+"Ταχυφαγίο Fish & Chips"
+],
+"amenity/fast_food/kebab":[
+"Ταχυφαγίο με Κεμπάπ"
+],
+"amenity/fast_food/pizza":[
+"Ταχυφαγίο με Πίτσα"
+],
+"amenity/fast_food/sandwich":[
+"Ταχυφαγίο με Σάντουιτς"
+],
+"amenity/ferry_terminal":[
+"Πορθμείο"
+],
 "amenity/fire_station":[
 "199",
 "Πυροσβεστική",
 "Πυροσβεστικός Σταθμός"
+],
+"amenity/food_court":[
+"Χώρος Εστίασης"
 ],
 "amenity/fountain":[
 "Κρήνη",
@@ -246,14 +300,23 @@
 "Χώρος Νηπιαγωγείου/Παιδικού σταθμού",
 "Νηπιαγωγείο"
 ],
+"amenity/language_school":[
+"Φροντιστήριο Ξένων Γλωσσών"
+],
 "amenity/library":[
 "Βιβλιοθήκη"
+],
+"amenity/love_hotel":[
+"Ξενοδοχείο Ημιδιαμονής"
 ],
 "amenity/marketplace":[
 "παζάρι",
 "Λαϊκή",
 "Αγορά",
 "λαική"
+],
+"amenity/money_transfer":[
+"Ανταλλακτήρια Συναλλάγματος"
 ],
 "amenity/motorcycle_parking":[
 "Χώρος στάθμευσης μηχανών",
@@ -262,12 +325,24 @@
 "Χώρος στάθμευσης μοτοσικλετών",
 "πάρκινγκ μηχανών"
 ],
+"amenity/music_school":[
+"Ωδείο"
+],
 "amenity/nightclub":[
 "ξενυχτάδικο",
 "πίστα",
 "Νυχτερινό Κέντρο",
 "κέντρο διασκέδασης",
 "μπουζούκια"
+],
+"amenity/nursing_home":[
+"Κλινική"
+],
+"amenity/parking":[
+"Θέση Στάθμευσης"
+],
+"amenity/parking/multi-storey":[
+"Πολυόροφο Γκαράζ Στάθμευσης"
 ],
 "amenity/parking_entrance":[
 "Είσοδος/έξοδος χώρου στάθμευσης",
@@ -277,9 +352,14 @@
 "amenity/parking_space":[
 "Θέση στάθμευσης"
 ],
+"amenity/payment_centre":[
+"Κέντρο Πληρωμών"
+],
+"amenity/payment_terminal":[
+"Τερματικό Πληρωμών"
+],
 "amenity/pharmacy":[
-"Φαρμακείο",
-"φαρμακοποιός"
+"Πάγκος Φαρμακείου"
 ],
 "amenity/place_of_worship":[
 "οίκος προσευχής",
@@ -296,17 +376,13 @@
 "Βουδιστικός ναός"
 ],
 "amenity/place_of_worship/christian":[
-"εκκλησάκι",
-"ξωκλήσι",
-"Εκκλησία",
-"ναός",
-"ιερός ναός"
+"Χριστιανικός Ναός"
 ],
 "amenity/place_of_worship/hindu":[
 "Ινδουιστικός Ναός"
 ],
 "amenity/place_of_worship/jewish":[
-"Συναγωγή"
+"Εβραϊκή Συναγωγή"
 ],
 "amenity/place_of_worship/muslim":[
 "Τζαμί"
@@ -335,13 +411,22 @@
 "amenity/pub":[
 "Παμπ"
 ],
+"amenity/public_bath":[
+"Δημόσιο Λουτρό"
+],
 "amenity/public_bookcase":[
 "Δημόσια Ανταλλακτική Βιβλιοθήκη",
 "Δημόσια βιβλιοθήκη"
 ],
+"amenity/recycling":[
+"Ανακύκλωση"
+],
 "amenity/recycling_centre":[
 "Κέντρο Ανακύκλωσης",
 "Ανακύκλωση Σκουπιδιών"
+],
+"amenity/recycling_container":[
+"Κάδος Ανακύκλωσης"
 ],
 "amenity/register_office":[
 "Ληξιαρχείο"
@@ -359,6 +444,60 @@
 "φαγητό",
 "Ταβέρνα"
 ],
+"amenity/restaurant/american":[
+"Αμερικανικό Εστιατόριο"
+],
+"amenity/restaurant/asian":[
+"Ασιατικό  Εστιατόριο"
+],
+"amenity/restaurant/chinese":[
+"Κινεζικό Εστιατόριο"
+],
+"amenity/restaurant/french":[
+"Γαλλικό Εστιατόριο"
+],
+"amenity/restaurant/german":[
+"Γερμανικό Εστιατόριο"
+],
+"amenity/restaurant/greek":[
+"Ελληνικό Εστιατόριο"
+],
+"amenity/restaurant/indian":[
+"Ινδικό Εστιατόριο"
+],
+"amenity/restaurant/italian":[
+"Ιταλικό Εστιατόριο"
+],
+"amenity/restaurant/japanese":[
+"Ιαπωνικό Εστιατόριο"
+],
+"amenity/restaurant/mexican":[
+"Μεξικανικό Εστιατόριο"
+],
+"amenity/restaurant/noodle":[
+"Εστιατόριο για Noodle"
+],
+"amenity/restaurant/pizza":[
+"Πιτσαρία"
+],
+"amenity/restaurant/seafood":[
+"Ψαροταβέρνα"
+],
+"amenity/restaurant/steakhouse":[
+"Μπριζολάδικο"
+],
+"amenity/restaurant/sushi":[
+"Εστιατόριο για Sushi"
+],
+"amenity/restaurant/thai":[
+"Ταϊλανδικό Εστιατόριο"
+],
+"amenity/restaurant/turkish":[
+"Τουρκικό Εστιατόριο"
+],
+"amenity/restaurant/vietnamese":[
+"Βιετναμέζικο Εστιατόριο"
+],
 "amenity/school":[
 "λύκειο",
 "Χώρος Σχολείου",
@@ -369,8 +508,26 @@
 "amenity/shelter":[
 "Στέγαστρο"
 ],
+"amenity/shelter/gazebo":[
+"Κιόσκι"
+],
+"amenity/shelter/lean_to":[
+"Άπαχο"
+],
+"amenity/shelter/picnic_shelter":[
+"Περίπτερο για Πικνικ"
+],
+"amenity/shower":[
+"Ντουζιέρα"
+],
+"amenity/smoking_area":[
+"Καπνιστές"
+],
 "amenity/social_facility":[
 "Κοινωνική Μονάδα"
+],
+"amenity/social_facility/food_bank":[
+"Τράπεζα Τροφίμων"
 ],
 "amenity/social_facility/group_home":[
 "Κέντρο Απασχόλησης Ηλικιωμένων",
@@ -379,6 +536,9 @@
 ],
 "amenity/social_facility/homeless_shelter":[
 "Καταφύγιο Αστέγων"
+],
+"amenity/social_facility/nursing_home":[
+"Κλινική"
 ],
 "amenity/studio":[
 "Στούντιο"
@@ -399,6 +559,9 @@
 "amenity/theatre":[
 "Θέατρο"
 ],
+"amenity/theatre/type/amphi":[
+"Αμφιθέατρο"
+],
 "amenity/toilets":[
 "Τουαλέτες"
 ],
@@ -417,8 +580,17 @@
 "ΑΤΕΙ",
 "Πανεπιστήμιο"
 ],
+"amenity/vehicle_inspection":[
+"Επιθεώρηση Οχήματος"
+],
+"amenity/vending_machine":[
+"Αυτόματος Πωλητής"
+],
 "amenity/vending_machine/cigarettes":[
 "Αυτόματος πωλητής τσιγάρων"
+],
+"amenity/vending_machine/coffee":[
+"Αυτόματος Πωλητής Καφέ"
 ],
 "amenity/vending_machine/condoms":[
 "Αυτόματος πωλητής προφυλακτικών"
@@ -428,8 +600,32 @@
 "αναψυκτικά",
 "Αυτόματος πωλητής ποτών"
 ],
+"amenity/vending_machine/electronics":[
+"Αυτόματος Πωλητής Ηλεκτρονικών"
+],
+"amenity/vending_machine/elongated_coin":[
+"Αυτόματης Πωλητής με Κέρματα"
+],
+"amenity/vending_machine/excrement_bags":[
+"Αυτόματης Πωλητής Σακούλας Περιττωμάτων"
+],
+"amenity/vending_machine/feminine_hygiene":[
+"Μπιντές"
+],
+"amenity/vending_machine/food":[
+"Αυτόματος Πωλητής Τροφίμων"
+],
+"amenity/vending_machine/fuel":[
+"Αντλία Καυσίμων"
+],
+"amenity/vending_machine/ice_cream":[
+"Αυτόματος Πωλητής Παγωτού"
+],
 "amenity/vending_machine/news_papers":[
 "Αυτόματος πωλητής εφημερίδων"
+],
+"amenity/vending_machine/newspapers":[
+"Αυτόματος Πωλητής Τύπου"
 ],
 "amenity/vending_machine/parking_tickets":[
 "Αυτόματος πωλητής εισιτηρίων στάθμευσης"
@@ -441,8 +637,14 @@
 "εισιτήρια τρόλεϊ",
 "εισιτήρια μετρό"
 ],
+"amenity/vending_machine/sweets":[
+"Αυτόματος Πωλητής Σνακ"
+],
 "amenity/veterinary":[
 "Κτηνιατρείο"
+],
+"amenity/waste/dog_excrement":[
+"Κάδος για Περιττώματα Σκύλων"
 ],
 "amenity/waste_basket":[
 "Καλάθι Απορριμμάτων",
@@ -460,7 +662,31 @@
 "Περιοχή"
 ],
 "area/highway":[
-"Επιφάνεια Δρόμου"
+"Οδόστρωμα"
+],
+"attraction":[
+"Αξιοθέατο"
+],
+"attraction/animal":[
+"Ζώο"
+],
+"attraction/bumper_car":[
+"Συγκρουόμενα"
+],
+"attraction/drop_tower":[
+"Πύργος Πτώσης"
+],
+"attraction/pirate_ship":[
+"Πειρατικό Πλοίο"
+],
+"attraction/river_rafting":[
+"Κατάβαση Ποταμού με Φουσκωτή Βάρκα"
+],
+"attraction/train":[
+"Τουριστικό Τρένο"
+],
+"attraction/water_slide":[
+"Νεροτσουλήθρα"
 ],
 "barrier":[
 "Φράχτης",
@@ -509,6 +735,15 @@
 "Φράκτης από θάμνους",
 "Περίφραξη"
 ],
+"barrier/kerb":[
+"Κράσπεδο"
+],
+"barrier/kerb/flush":[
+"Ισόπεδο Κράσπεδο"
+],
+"barrier/kerb/lowered":[
+"Χαμηλωμένο Κράσπεδο"
+],
 "barrier/lift_gate":[
 "Αναρτούμενη πύλη",
 "Ανυψούμενη Πύλη",
@@ -538,10 +773,22 @@
 "Κτήριο",
 "Κτίριο"
 ],
+"building/apartments":[
+"Πολυκατοικία Διαμερισμάτων"
+],
 "building/barn":[
 "Αποθήκη αγροκτήματος",
 "Αχυρώνας",
 "Σιταποθήκη"
+],
+"building/bungalow":[
+"Μπανγκαλόου"
+],
+"building/cabin":[
+"Καμπίνα"
+],
+"building/carport":[
+"Στέγασμα για Αυτοκίνητο"
 ],
 "building/cathedral":[
 "Κτίριο Καθεδρικού Ναού",
@@ -613,6 +860,9 @@
 "building/kindergarten":[
 "Κτίριο Νηπιαγωγείου/Παιδικού Σταθμού"
 ],
+"building/mosque":[
+"Κτίριο Μιναρέ"
+],
 "building/public":[
 "Δημόσιο Κτήριο",
 "Δημόσιο Κτίριο"
@@ -644,6 +894,12 @@
 ],
 "building/warehouse":[
 "Αποθήκη"
+],
+"club":[
+"Λέσχη"
+],
+"club/sport":[
+"Αθλητική Λέσχη / Ομάδα"
 ],
 "craft":[
 "Τέχνη"
@@ -796,11 +1052,17 @@
 "emergency/defibrillator":[
 "Απινιδωτής"
 ],
+"emergency/fire_extinguisher":[
+"Πυροσβεστήρας"
+],
 "emergency/fire_hydrant":[
 "Πυροσβεστικός Κρουνός",
 "υδροστόμιο",
 "Πυροσβεστικός κρουνός",
 "υδροληψία"
+],
+"emergency/first_aid_kit":[
+"Κουτί Πρώτων Βοηθειών"
 ],
 "emergency/no":[
 "Πρόσβαση Εκτάκτου Ανάγκης Όχι"
@@ -826,15 +1088,56 @@
 "golf/hole":[
 "Τρύπα Γηπέδου Γκολφ"
 ],
+"healthcare/birthing_center":[
+"Μαιευτήριο"
+],
 "healthcare/blood_donation":[
 "Κέντρο Αιμοδοσίας"
+],
+"healthcare/optometrist":[
+"Οφθαλμίατρος"
+],
+"healthcare/physiotherapist":[
+"Φυσιοθεραπευτής"
+],
+"healthcare/psychotherapist":[
+"Ψυχίατρος"
+],
+"healthcare/speech_therapist":[
+"Λογοθεραπευτής"
 ],
 "highway":[
 "Αυτοκινητόδρομος"
 ],
 "highway/bridleway":[
-"Μονοπάτι για άλογα",
-"Μονοπάτι Αλόγων"
+"Διαδρομή Ιππασίας"
+],
+"highway/bus_stop":[
+"Στάση / Πλατφόρμα Λεωφορείου"
+],
+"highway/construction":[
+"Κλειστός Δρόμος"
+],
+"highway/corridor":[
+"Εσωτερικός Διάδρομος"
+],
+"highway/crossing/marked":[
+"Διάβαση Πεζών / Ζέβρα"
+],
+"highway/crossing/marked-raised":[
+"Διάβαση Πεζών (Υπερυψωμένη)"
+],
+"highway/crossing/unmarked":[
+"Μη Επισημασμένη Διασταύρωση"
+],
+"highway/crossing/unmarked-raised":[
+"Μη Επισημασμένη Διασταύρωση (Υπερυψωμένη)"
+],
+"highway/crossing/zebra":[
+"Διάβαση Πεζών / Ζέβρα"
+],
+"highway/crossing/zebra-raised":[
+"Διάβαση Πεζών / Ζέβρα (Υπερυψωμένη)"
 ],
 "highway/cycleway":[
 "Διαδρομή ποδηλάτων",
@@ -851,12 +1154,35 @@
 "Διαδρομή πεζού",
 "βόλτα",
 "Μονοπάτι",
+"Μονοπάτι Αποκλειστικά για Πεζοπορία",
 "πεζοδρόμιο"
 ],
+"highway/footway/marked":[
+"Διάβαση Πεζών / Ζέβρα"
+],
+"highway/footway/marked-raised":[
+"Διάβαση Πεζών (Υπερυψωμένη)"
+],
+"highway/footway/sidewalk":[
+"Πεζοδρόμιο"
+],
+"highway/footway/unmarked":[
+"Μη Επισημασμένη Διασταύρωση"
+],
+"highway/footway/unmarked-raised":[
+"Μη Επισημασμένη Διασταύρωση (Υπερυψωμένη)"
+],
+"highway/footway/zebra":[
+"Διάβαση Πεζών / Ζέβρα"
+],
+"highway/footway/zebra-raised":[
+"Διάβαση Πεζών (Υπερυψωμένη)"
+],
 "highway/living_street":[
-"Δρόμος χαμηλής κυκλοφορίας",
-"Δρόμος ήπιας κυκλοφορίας",
-"Δρόμος χαμηλής ταχύτητας"
+"Οδός Ήπιας Κυκλοφορίας"
+],
+"highway/milestone":[
+"Χιλιομετρικό Σημείο"
 ],
 "highway/mini_roundabout":[
 "Μικρός κυκλικός κόμβος",
@@ -866,10 +1192,9 @@
 "Αυτοκινητόδρομος"
 ],
 "highway/motorway_junction":[
-"Διασταύρωση Αυτοκινητόδρομου / Έξοδος"
+"Κόμβος / Έξοδος Αυτοκινητόδρομου"
 ],
 "highway/motorway_link":[
-"Σύνδεσμος Αυτοκινητόδρομου",
 "Σύνδεση Αυτοκινητόδρομου"
 ],
 "highway/path":[
@@ -877,33 +1202,38 @@
 "Διαδρομή",
 "Μονοπάτι"
 ],
+"highway/pedestrian_area":[
+"Πεζοδρομημένη Περιοχή"
+],
+"highway/pedestrian_line":[
+"Πεζοδρομημένος Δρόμος"
+],
 "highway/primary":[
-"Κύρια Οδός",
-"Πρωτεύων Δρόμος"
+"Πρωτεύων / Εθνικός Δρόμος"
 ],
 "highway/primary_link":[
-"Σύνδεσμος κύριας οδού",
-"Σύνδεση Πρωτεύοντος"
+"Σύνδεση Πρωτεύοντος / Εθνικού Δρόμου"
 ],
 "highway/residential":[
-"Οικιστική Οδός",
+"Οικιστικός Δρόμος",
 "Αστική οδός",
 "Οδός εντός αστικού ιστού",
 "Τοπική οδός"
 ],
+"highway/rest_area":[
+"Χώρος Ανάπαυσης Αυτοκινητιστών"
+],
 "highway/road":[
-"Άγνωστος Δρόμος",
-"Άγνωστη οδός"
+"Άγνωστος Δρόμος"
 ],
 "highway/secondary":[
-"Δευτερεύων Δρόμος",
-"Δευτερεύουσα Οδός"
+"Δευτερεύων / Επαρχιακός Δρόμος"
 ],
 "highway/secondary_link":[
-"Σύνδεση Δευτερεύοντος",
-"Σύνδεσμος δευτερεύουσας οδού"
+"Σύνδεση Δευτερευόντως / Επαρχιακού Δρόμου"
 ],
 "highway/service":[
+"Δρομάκι Εξυπηρέτησης",
 "Βοηθητικός δρόμος",
 "Δρόμος εξυπηρέτησης",
 "βοηθητική οδός"
@@ -913,6 +1243,9 @@
 "Δρομάκι",
 "σοκάκι",
 "στενάκι"
+],
+"highway/service/driveway":[
+"Διάδρομος"
 ],
 "highway/service/emergency_access":[
 "Πρόσβαση Εκτάκτου Ανάγκης"
@@ -938,15 +1271,14 @@
 "Φανοστάτης"
 ],
 "highway/tertiary":[
-"Τριτεύων Δρόμος"
+"Τοπικός Δρόμος"
 ],
 "highway/tertiary_link":[
-"Σύνδεση Τριτεύοντος",
-"Σύνδεσμος τριτεύουσας οδού"
+"Σύνδεσμος τριτεύουσας οδού",
+"Σύνδεση Τοπικού Δρόμου"
 ],
 "highway/track":[
-"Χωματόδρομος",
-"Καρόδρομος"
+"Αγροτική Διαδρομή"
 ],
 "highway/traffic_mirror":[
 "Οδικός Καθρέπτης"
@@ -960,13 +1292,10 @@
 "Λεωφόρος"
 ],
 "highway/trunk_link":[
-"Σύνδεση λεωφόρου"
+"Σύνδεση Λεωφόρου"
 ],
 "highway/unclassified":[
-"δρόμος χωρίς κατηγορία",
-"άγνωστη κατηγορία δρόμου",
-"Αταξινόμητος Δρόμος",
-"αταξινόμητη οδός"
+"Αταξινόμητος Δρόμος"
 ],
 "historic":[
 "Ιστορικός χώρος",
@@ -1008,6 +1337,12 @@
 "Εικόνισμα",
 "Εικονοστάσιο"
 ],
+"historic/wreck":[
+"Ναυάγιο"
+],
+"junction":[
+"Κόμβος"
+],
 "landuse":[
 "Χρήση Γης"
 ],
@@ -1019,8 +1354,7 @@
 "Ιχθυοτροφείο"
 ],
 "landuse/basin":[
-"Κανάλι Αποστράγγισης",
-"Λεκανοπέδιο"
+"Κανάλι Αποστράγγισης"
 ],
 "landuse/cemetery":[
 "Κοιμητήριο",
@@ -1049,10 +1383,6 @@
 "Χωράφι",
 "Καλλιεργήσιμη Έκταση",
 "Αγροτεμάχιο"
-],
-"landuse/forest":[
-"δασική έκταση",
-"Δάσος"
 ],
 "landuse/grass":[
 "γκαζόν",
@@ -1090,6 +1420,9 @@
 "landuse/recreation_ground":[
 "Έκταση με χώρους Αναψυχής/ Δραστηριοτήτων",
 "Χώρος Αναψυχής"
+],
+"landuse/religious":[
+"Ιερός Χώρος"
 ],
 "landuse/residential":[
 "Περιοχή κυρίως Κατοικιών",
@@ -1163,10 +1496,16 @@
 "leisure/pitch/american_football":[
 "Γήπεδο Αμερικάνικου Ποδοσφαίρου"
 ],
+"leisure/pitch/australian_football":[
+"Γήπεδο Αυστραλιανού Ποδοσφαίρου"
+],
 "leisure/pitch/basketball":[
 "Γήπεδο καλαθοσφαίρισης",
 "Γήπεδο μπάσκετ",
 "Γήπεδο Μπάσκετ"
+],
+"leisure/pitch/beachvolleyball":[
+"Γήπεδο Beach Volleyball"
 ],
 "leisure/pitch/rugby_league":[
 "Γήπεδο Ράγκπι"
@@ -1218,6 +1557,12 @@
 "Ανθρώπινες Κατασκευές",
 "Ανθρώπινη κατασκευή"
 ],
+"man_made/adit":[
+"Ενηλίκων"
+],
+"man_made/antenna":[
+"Κεραία"
+],
 "man_made/breakwater":[
 "Κυματοθραύστης"
 ],
@@ -1239,6 +1584,15 @@
 ],
 "man_made/lighthouse":[
 "Φάρος"
+],
+"man_made/mast/communication/mobile_phone":[
+"Ιστός Κινητής Τηλεφωνίας"
+],
+"man_made/mast/communication/radio":[
+"Ιστός Ραδιοφωνικής Εκπομπής"
+],
+"man_made/mast/communication/television":[
+"Ιστός Τηλεοπτικής Εκπομπής"
 ],
 "man_made/petroleum_well":[
 "Πηγή πετρελαίου",
@@ -1369,11 +1723,17 @@
 "natural/tree":[
 "Δέντρο"
 ],
+"natural/tree_row":[
+"Συστοιχία Δένδρων"
+],
 "natural/volcano":[
 "Ηφαίστειο"
 ],
 "natural/water":[
 "Νερό"
+],
+"natural/water/canal":[
+"Κανάλι"
 ],
 "natural/water/lake":[
 "Λίμνη"
@@ -1385,6 +1745,9 @@
 "natural/water/reservoir":[
 "Ταμιευτήρας",
 "Δεξαμενή"
+],
+"natural/water/river":[
+"Ποτάμι"
 ],
 "natural/wetland":[
 "Υγρότοπος",
@@ -1435,6 +1798,9 @@
 "νομικό γραφείο",
 "Δικηγορικό Γραφείο"
 ],
+"office/newspaper":[
+"Γραφεία Εφημερίδας"
+],
 "office/ngo":[
 "Γραφείο ΜΚΟ"
 ],
@@ -1455,11 +1821,17 @@
 "office/travel_agent":[
 "Ταξιδιωτικό Γραφείο"
 ],
+"office/water_utility":[
+"Γραφείο Εκμετάλλευσης Νερού"
+],
 "place":[
 "Τόπος"
 ],
 "place/city":[
 "Πόλη"
+],
+"place/farm":[
+"Φάρμα"
 ],
 "place/hamlet":[
 "Χωριουδάκι",
@@ -1467,6 +1839,9 @@
 ],
 "place/island":[
 "Νησί"
+],
+"place/islet":[
+"Νησίδα"
 ],
 "place/isolated_dwelling":[
 "Απομονωμένες Κατοικίες"
@@ -1478,6 +1853,9 @@
 ],
 "place/neighbourhood":[
 "Γειτονιά"
+],
+"place/square":[
+"Πλατεία"
 ],
 "place/town":[
 "Κωμόπολη"
@@ -1491,16 +1869,23 @@
 "power":[
 "Ενέργεια"
 ],
+"power/cable/underground":[
+"Υπόγεια Καλωδίωση Ρεύματος"
+],
 "power/generator":[
 "Γεννήτρια Ρεύματος",
 "ηλεκτρική γεννήτρια"
 ],
+"power/generator/source/nuclear":[
+"Πυρηνικός Αντιδραστήρας"
+],
 "power/line":[
 "Καλώδια ρεύματος",
-"Καλώδιο Ρεύματος",
+"Γραμμή Υψηλής Τάσης Ρεύματος",
 "ηλεκτροφόρα καλώδια"
 ],
 "power/minor_line":[
+"Γραμμή Χαμηλής Τάσης Ρεύματος",
 "Γραμμή χαμηλότερης ισχύος Ρεύματος",
 "Γραμμή παροσ΄χης Ρεύματος χαμηλότερης ισχύος"
 ],
@@ -1528,8 +1913,14 @@
 "Εγκαταλελειμμένος σιδηρόδρομος",
 "Εγκαταλελειμμένη Σιδηροδρομική Γραμμή"
 ],
+"railway/crossing":[
+"Ισόπεδη Σιδηροδρομική Διάβαση (με Μονοπάτι)"
+],
 "railway/disused":[
 "Σιδηροτροχιά εκτός Χρήσης"
+],
+"railway/level_crossing":[
+"Ισόπεδη Σιδηροδρομική Διάβαση (Οχημάτων)"
 ],
 "railway/narrow_gauge":[
 "Σιδηροτροχιά Στενού Εύρους"
@@ -1684,6 +2075,9 @@
 "shop/computer":[
 "Κατάστημα ηλεκτρονικών υπολογιστών",
 "Κατάστημα Υπολογιστών"
+],
+"shop/confectionery":[
+"Ζαχαροπλαστείο"
 ],
 "shop/convenience":[
 "μίνι μάρκετ",
@@ -2062,7 +2456,7 @@
 "Διαδρομή πορθμείου"
 ],
 "type/route/foot":[
-"Διαδρομή Πεζού"
+"Διαδρομή Πεζοπόρων"
 ],
 "type/route/hiking":[
 "Διαδρομή Ορεινής Ανάβασης"
@@ -2074,8 +2468,8 @@
 "Διαδρομή Ρεύματος"
 ],
 "type/route/road":[
+"Πορεία Δρόμου",
 "Οδική διαδρομή",
-"Διαδρομή Δρόμου",
 "Οδικό δρομολόγιο"
 ],
 "type/route/train":[
@@ -2091,6 +2485,7 @@
 "Διαδρομή νερού"
 ],
 "waterway/canal":[
+"Πλωτό Κανάλι",
 "Κανάλι"
 ],
 "waterway/dam":[
@@ -2111,7 +2506,6 @@
 "Ποταμός"
 ],
 "waterway/riverbank":[
-"Όχθη Ποταμιού",
 "Όχθη Ποταμού"
 ],
 "waterway/stream":[

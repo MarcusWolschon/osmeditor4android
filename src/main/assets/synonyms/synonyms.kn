@@ -53,15 +53,6 @@
 "amenity/library":[
 "ಗ್ರಂಥಾಲಯ"
 ],
-"amenity/pharmacy":[
-"ಔಷಧಾಲಯ"
-],
-"amenity/place_of_worship/christian":[
-"ಕ್ರೈಸ್ತ ದೇವಾಲಯ"
-],
-"amenity/place_of_worship/muslim":[
-"ಮಸೀದಿ"
-],
 "amenity/planetarium":[
 "ತಾರಾಲಯ"
 ],
@@ -209,9 +200,6 @@
 ],
 "landuse/cemetery":[
 " ಸ್ಮಶಾನ"
-],
-"landuse/forest":[
-"ಅರಣ್ಯ"
 ],
 "landuse/grass":[
 "ಹುಲ್ಲು"

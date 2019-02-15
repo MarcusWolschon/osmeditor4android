@@ -149,26 +149,14 @@
 "amenity/parking_space":[
 "Loc de Parcare"
 ],
-"amenity/pharmacy":[
-"Farmacie"
-],
 "amenity/place_of_worship":[
 "Loc de Rugăciune"
 ],
 "amenity/place_of_worship/buddhist":[
 "Templu Budist"
 ],
-"amenity/place_of_worship/christian":[
-"Biserică"
-],
 "amenity/place_of_worship/hindu":[
 "Templu Hinduist"
-],
-"amenity/place_of_worship/jewish":[
-"Sinagogă"
-],
-"amenity/place_of_worship/muslim":[
-"Moschee"
 ],
 "amenity/place_of_worship/shinto":[
 "Altar Shinto"
@@ -595,9 +583,6 @@
 ],
 "landuse/farmyard":[
 "Curte Agricolă"
-],
-"landuse/forest":[
-"Pădure"
 ],
 "landuse/grass":[
 "Iarbă"

@@ -567,15 +567,6 @@
 "miesto na parkovanie",
 "Parkovacie miesto"
 ],
-"amenity/pharmacy":[
-"lekaren",
-"farmácia",
-"lieky",
-"Lekáreň",
-"farmacia",
-"výdajňa liekov",
-"vydajna liekov"
-],
 "amenity/place_of_worship":[
 "dom",
 "fara",
@@ -616,54 +607,9 @@
 "vihara",
 "dojo"
 ],
-"amenity/place_of_worship/christian":[
-"kresťanský",
-"dom",
-"fara",
-"kostol",
-"katolicky",
-"Kostol",
-"evanielický",
-"dieceza",
-"evanielicky",
-"dom Boží",
-"diecéza",
-"bazilika",
-"oratórium",
-"oratorium",
-"misia",
-"krestansky",
-"dom bozi",
-"svätostánok",
-"svatostanok",
-"katedrala",
-"kaplnka",
-"katedrála",
-"dom modlitieb",
-"katolícky",
-"chrám",
-"chram",
-"dóm"
-],
 "amenity/place_of_worship/hindu":[
 "Hinduistický chrám",
 "hinduisticky chram"
-],
-"amenity/place_of_worship/jewish":[
-"Židovský",
-"zidovsky",
-"synagóga",
-"synagoga",
-"Synagóga"
-],
-"amenity/place_of_worship/muslim":[
-"islam",
-"moslimsky",
-"Mešita",
-"mešita",
-"minaret",
-"moslimský",
-"mesita"
 ],
 "amenity/place_of_worship/shinto":[
 "Šintoistická svätyňa ",
@@ -2105,14 +2051,7 @@
 "komunitna zahrada"
 ],
 "landuse/basin":[
-"voda",
-"nadrz",
-"nádrž",
-"Zadržiavacia nádrž",
-"zadrziavacia nadrz",
-"rybnik",
-"jazero",
-"rybník"
+"Zadržiavacia nádrž"
 ],
 "landuse/cemetery":[
 "hroby",
@@ -2166,11 +2105,6 @@
 "kravin",
 "jrd",
 "statok"
-],
-"landuse/forest":[
-"hora",
-"Les",
-"stromy"
 ],
 "landuse/grass":[
 "travnik",
@@ -4226,16 +4160,7 @@
 "potok"
 ],
 "waterway/riverbank":[
-"riečny breh",
-"Breh rieky",
-"strana",
-"riecny breh",
-"pobrežie",
-"pobrezie",
-"bok rieky",
-"rieky",
-"strana rieky",
-"bok"
+"Breh rieky"
 ],
 "waterway/sanitary_dump_station":[
 "vyprazdnovanie lodnych toaliet",

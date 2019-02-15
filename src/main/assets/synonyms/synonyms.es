@@ -977,13 +977,29 @@
 "medicamentos"
 ],
 "amenity/place_of_worship":[
-"religión",
+"abadía",
+"capilla",
+"tabernáculo",
+"mezquita",
 "templo",
-"lugar de adoración",
+"coro",
+"iglesia",
+"casa de oración",
+"iglesia de culto",
+"catedral",
+"casa de Dios",
+"misión",
+"Lugar de adoración",
+"religión",
+"santuario",
+"parroquia",
 "adoración",
-"Lugar de culto",
-"culto",
-"oración"
+"oratorio",
+"sinagoga",
+"sacellum",
+"bethel",
+"oración",
+"basílica"
 ],
 "amenity/place_of_worship/buddhist":[
 "pagoda",
@@ -997,15 +1013,22 @@
 "dojo"
 ],
 "amenity/place_of_worship/christian":[
+"abadía",
 "capilla",
+"tabernáculo",
 "templo",
-"ermita",
-"santuario",
 "Iglesia cristiana",
-"iglesia",
+"coro",
+"cristiano",
+"casa de oración",
+"catedral",
+"iglesia de adoración",
+"misión",
+"oratoria",
+"santuario",
 "parroquia",
-"oratorio",
-"la iglesia"
+"cristiana",
+"basílica"
 ],
 "amenity/place_of_worship/hindu":[
 "garbhargriha",
@@ -1023,20 +1046,18 @@
 "culto"
 ],
 "amenity/place_of_worship/jewish":[
-"templo",
-"religión",
+"judía",
+"judio",
+"Sinagoga judia",
 "judío",
-"Sinagoga",
-"sinagoga",
-"aljama"
+"judia"
 ],
 "amenity/place_of_worship/muslim":[
-"morabito",
+"musulman",
+"Mezquita musulmana",
 "musulmán",
-"mezquita",
-"religión",
-"rábida",
-"Mezquita"
+"musulmano",
+"musulmana"
 ],
 "amenity/place_of_worship/shinto":[
 "kami",
@@ -1965,6 +1986,9 @@
 "superficie",
 "revestimiento"
 ],
+"attraction":[
+"Atracción"
+],
 "attraction/amusement_ride":[
 "juego de feria",
 "atracción de feria",
@@ -2341,6 +2365,14 @@
 "edificio",
 "bloque"
 ],
+"building/apartments":[
+"vivienda",
+"piso",
+"Edificio de apartamentos",
+"residencia",
+"departamentos",
+"apartamentos"
+],
 "building/barn":[
 "Granero",
 "hórreo",
@@ -2657,11 +2689,11 @@
 "tienda",
 "campamento",
 "cancha",
-"Cancha de acampar",
-"terreno"
+"terreno",
+"Lugar de acampe"
 ],
 "circular":[
-"Glorieta / Círculo de tráfico"
+"Glorieta / Círculo de tránsito"
 ],
 "club":[
 "intercambio",
@@ -2694,6 +2726,13 @@
 "anime",
 "Clubs",
 "cocina"
+],
+"club/sport":[
+"club de atletismo",
+"Club de deportes",
+"sociedad deportiva",
+"asociación deportiva",
+"club deportivo"
 ],
 "craft":[
 "trabajo",
@@ -3393,6 +3432,15 @@
 "highway/bus_stop":[
 "Parada / Plataforma de bus"
 ],
+"highway/construction":[
+"cierre",
+"cerrada",
+"construccion",
+"cerrado",
+"Vía cerrada",
+"obras",
+"construcción"
+],
 "highway/corridor":[
 "Pasillo interior",
 "corredor",
@@ -3799,19 +3847,18 @@
 "Escalera mecánica"
 ],
 "highway/stop":[
-"señal de stop",
+"pare",
+"Señal de Alto / Pare / Stop",
 "stop",
-"detención",
+"detenerse",
 "parada",
-"señal de detención",
 "cartel",
-"señal",
-"señal de parada",
-"Señal de Alto / Stop"
+"alto",
+"señal"
 ],
 "highway/street_lamp":[
+"Farola de alumbrado público",
 "alumbrado público",
-"Farola",
 "fanal",
 "farola",
 "alumbrado",
@@ -3862,13 +3909,14 @@
 "highway/traffic_mirror":[
 "convexo",
 "curvo",
-"Espejo de tráfico",
 "espejo de visibilidad",
+"tránsito",
 "espejo",
 "cóncavo",
 "circular",
 "espejo de intersección",
 "espejo de esquina",
+"Espejo de tránsito",
 "redondo",
 "esférico"
 ],
@@ -4071,9 +4119,7 @@
 "maricultura"
 ],
 "landuse/basin":[
-"cuenca",
-"Cuenca",
-"área con agua"
+"Cuenca"
 ],
 "landuse/brownfield":[
 "industrial",
@@ -4154,16 +4200,12 @@
 "edificio agrario"
 ],
 "landuse/forest":[
-"plantación",
-"cultivo",
-"eucaliptal",
+"madera",
+"arbol",
+"tala",
 "bosque",
-"sembrado",
 "árbol",
-"explotación",
-"Plantación forestal",
-"pinar",
-"plantío"
+"Bosque gestionado"
 ],
 "landuse/garages":[
 "almacenamiento",
@@ -4271,6 +4313,9 @@
 "jardinería",
 "Vivero de plantas"
 ],
+"landuse/pond":[
+"Estanque"
+],
 "landuse/quarry":[
 "excavación",
 "rocas",
@@ -4318,6 +4363,9 @@
 "monasterio",
 "terreno"
 ],
+"landuse/reservoir":[
+"Reservorio"
+],
 "landuse/residential":[
 "zona residencial",
 "área residencial",
@@ -4326,6 +4374,14 @@
 "urbanización",
 "Área residencial",
 "mancha urbana"
+],
+"landuse/residential/apartments":[
+"vivienda",
+"piso",
+"Complejo de apartamentos",
+"residencia",
+"departamentos",
+"apartamentos"
 ],
 "landuse/retail":[
 "minorista",
@@ -4715,6 +4771,14 @@
 "americano",
 "campo"
 ],
+"leisure/pitch/australian_football":[
+"Campo de fútbol australiano",
+"AFL",
+"fútbol",
+"Australia",
+"futbol",
+"australiano"
+],
 "leisure/pitch/badminton":[
 "bádminton",
 "cancha",
@@ -4771,6 +4835,11 @@
 "Picadero",
 "arena",
 "monta"
+],
+"leisure/pitch/netball":[
+"baloncesto",
+"Cancha de netball",
+"netball"
 ],
 "leisure/pitch/rugby_league":[
 "liga",
@@ -4860,15 +4929,6 @@
 "balneario",
 "turismo"
 ],
-"leisure/running_track":[
-"atletismo",
-"circuito",
-"Pista de carrera (atletismo)",
-"caminata",
-"correr",
-"pista",
-"carrera"
-],
 "leisure/sauna":[
 "baño de vapor",
 "baño turco",
@@ -4922,6 +4982,18 @@
 "pista",
 "carrera",
 "hipódromo"
+],
+"leisure/track/horse_racing":[
+"caballo",
+"Hipódromo (Carreras de caballos)",
+"carrera",
+"pista"
+],
+"leisure/track/running":[
+"Pista de atletismo (Correr)",
+"sprint",
+"correr",
+"pista"
 ],
 "leisure/water_park":[
 "Parque acuático",
@@ -5560,6 +5632,18 @@
 "agua",
 "embalse"
 ],
+"natural/water/basin":[
+"retención",
+"detención",
+"desbordamiento",
+"Cuenca",
+"lluvia",
+"drenaje"
+],
+"natural/water/canal":[
+"Canal",
+"canal"
+],
 "natural/water/lake":[
 "laguna",
 "ibón",
@@ -5585,6 +5669,32 @@
 "presa",
 "reservorio",
 "embalse"
+],
+"natural/water/river":[
+"afluente",
+"curso de agua",
+"estuario",
+"riachuelo",
+"Río",
+"rama",
+"arroyo",
+"curso",
+"corriente",
+"cala"
+],
+"natural/water/stream":[
+"curso de agua",
+"Arroyo",
+"riachuelo",
+"inundación",
+"flujo",
+"rama",
+"arroyo",
+"curso",
+"corriente",
+"arroyuelo",
+"rápido",
+"torrente"
 ],
 "natural/wetland":[
 "Pantano",
@@ -5922,6 +6032,16 @@
 "pista",
 "esquí",
 "snowboard"
+],
+"piste/downhill/halfpipe":[
+"halfpipe",
+"cuesta abajo",
+"alpino",
+"pista",
+"esquí",
+"half pipe",
+"snowboard",
+"Halfpipe"
 ],
 "piste/hike":[
 "pistas",
@@ -7301,6 +7421,14 @@
 "vehículo",
 "taller de reparación"
 ],
+"shop/caravan":[
+"remolque",
+"autocaravana",
+"cámper",
+"Concesionario de Caravanas",
+"caravana",
+"roulotte"
+],
 "shop/carpet":[
 "tapiz",
 "alfombra",
@@ -7513,6 +7641,19 @@
 "moda",
 "fashion"
 ],
+"shop/fireplace":[
+"calentador de mampostería",
+"Tienda de chimenea",
+"Chimenea",
+"estufa"
+],
+"shop/fishing":[
+"camping",
+"pesca",
+"pescar",
+"Tienda de pesca",
+"pescador"
+],
 "shop/fishmonger":[
 "Pescadería -en desuso-"
 ],
@@ -7533,6 +7674,20 @@
 "enmarcaciones",
 "cuadro",
 "enmarcado"
+],
+"shop/frozen_food":[
+"Alimentos congelados",
+"comidas",
+"congelados",
+"alimentos",
+"congeladas"
+],
+"shop/fuel":[
+"carburante",
+"tienda",
+"Tienda de combustible",
+"gasolina",
+"combustible"
 ],
 "shop/funeral_directors":[
 "sepelio",
@@ -7663,6 +7818,11 @@
 "Tienda de artículos del hogar ",
 "enseres del hogar",
 "hogar"
+],
+"shop/hunting":[
+"Tienda de caza",
+"cacería",
+"caza"
 ],
 "shop/interior_decoration":[
 "decoración de interiores",
@@ -8129,6 +8289,12 @@
 "reparación de reloj",
 "relojero"
 ],
+"shop/water":[
+"bebible",
+"potable",
+"Tienda de agua potable",
+"agua"
+],
 "shop/water_sports":[
 "bañador",
 "natación",
@@ -8243,13 +8409,13 @@
 "acampe",
 "carpa",
 "lugar",
+"Campamento",
 "autocaravana",
 "caravana",
 "motorhome",
 "cámping",
 "tienda",
 "campamento",
-"Terreno de acampar",
 "terreno"
 ],
 "tourism/caravan_site":[
@@ -8426,13 +8592,13 @@
 "joroba",
 "calmado de tráfico",
 "chichón",
-"Pacificador de tráfico",
 "moderador de tráfico",
 "apaciguador de tráfico",
 "reductor de velocidad",
 "badén",
 "tránsito",
 "guardias tumbados",
+"Pacificador de tránsito",
 "circulación",
 "velocidad",
 "tráfico",
@@ -8453,20 +8619,22 @@
 "resalte"
 ],
 "traffic_calming/chicane":[
-"Chicana de tráfico",
 "chicana",
 "frenar",
 "reductor de velocidad",
+"tránsito",
+"Chicana de tránsito",
 "chicane",
 "curvas",
 "velocidad"
 ],
 "traffic_calming/choker":[
-"Gargantas de tráfico",
 "estrechamiento",
 "frenar",
 "reductor de velocidad",
+"tránsito",
 "estrangulamiento",
+"Estrechamiento de calzada",
 "garganta",
 "velocidad"
 ],
@@ -8505,10 +8673,11 @@
 ],
 "traffic_calming/island":[
 "frenar",
-"Isleta de tráfico",
 "rotonda",
+"Isleta de tránsito",
 "círculo",
 "reductor de velocidad",
+"tránsito",
 "velocidad"
 ],
 "traffic_calming/rumble_strip":[
@@ -8527,12 +8696,13 @@
 "velocidad"
 ],
 "traffic_sign":[
+"Señal de tránsito",
 "ruta",
 "autopista",
+"tránsito",
 "cartel",
 "señal",
 "señalización",
-"Señal de tráfico",
 "tráfico"
 ],
 "traffic_sign/city_limit":[
@@ -8570,12 +8740,13 @@
 "velocidad máxima"
 ],
 "traffic_sign_vertex":[
+"Señal de tránsito",
 "ruta",
 "autopista",
+"tránsito",
 "cartel",
 "señal",
 "señalización",
-"Señal de tráfico",
 "tráfico"
 ],
 "type/boundary":[
@@ -8595,6 +8766,14 @@
 "confín",
 "divisoria",
 "borde"
+],
+"type/enforcement":[
+"ley",
+"respetar",
+"obedecer",
+"cumplir",
+"control",
+"Control de cumplimiento"
 ],
 "type/multipolygon":[
 "Multipolígono"
@@ -8921,12 +9100,7 @@
 "Río"
 ],
 "waterway/riverbank":[
-"riba",
-"ribazo",
-"ribera",
-"orilla",
-"Ribera de río ancho",
-"borde"
+"Ribera de río ancho"
 ],
 "waterway/sanitary_dump_station":[
 "marino",

@@ -315,11 +315,6 @@
 "amenity/parking_space":[
 "Espaciu d'aparcamientu"
 ],
-"amenity/pharmacy":[
-"Botica",
-"Farmacia",
-"Parafarmacia"
-],
 "amenity/place_of_worship":[
 "Llugar de cultu",
 "Templu",
@@ -329,23 +324,8 @@
 "Templu budista",
 "Pagoda"
 ],
-"amenity/place_of_worship/christian":[
-"templu",
-"Cultu cristianu",
-"Ilesia"
-],
 "amenity/place_of_worship/hindu":[
 "Templu hindú"
-],
-"amenity/place_of_worship/jewish":[
-"Xudería",
-"xudaísmu",
-"Sinagoga"
-],
-"amenity/place_of_worship/muslim":[
-"cultu islámicu",
-"Islam",
-"Mezquita"
 ],
 "amenity/place_of_worship/shinto":[
 "Capiella sintoísta"
@@ -1316,9 +1296,6 @@
 "landuse/farmyard":[
 "Quintana"
 ],
-"landuse/forest":[
-"Forestal"
-],
 "landuse/grass":[
 "Yerba"
 ],
@@ -1473,9 +1450,6 @@
 ],
 "leisure/playground":[
 "Xuegos infantiles"
-],
-"leisure/running_track":[
-"Pista de carreres (a pie)"
 ],
 "leisure/sauna":[
 "Sauna"
@@ -2575,8 +2549,6 @@
 "Ríu"
 ],
 "waterway/riverbank":[
-"oriella",
-"ribera",
 "Ribera"
 ],
 "waterway/sanitary_dump_station":[

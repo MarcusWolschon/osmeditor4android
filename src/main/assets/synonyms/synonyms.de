@@ -305,7 +305,7 @@
 "Amtsgericht"
 ],
 "amenity/coworking_space":[
-"Co-Working-Räumlichkeiten"
+"Coworking-Räumlichkeiten"
 ],
 "amenity/crematorium":[
 "Einäscherungshalle",
@@ -554,37 +554,17 @@
 "Zendo"
 ],
 "amenity/place_of_worship/christian":[
-"Tempel",
-"geweihter Ort",
-"Kathedrale",
-"Kantorei",
-"Dom",
-"christlich",
-"Sacellum",
-"Basilika",
-"Kapelle",
-"Gotteshaus",
-"Gebetshaus",
-"Heiligtum",
-"Tabernakel",
-"Oratorium",
-"Kirchgemeinde",
-"Altarraum",
-"Schrein",
-"Kirche",
-"Abtei"
+"Christliche Kirche"
 ],
 "amenity/place_of_worship/hindu":[
 "hinduistisch",
 "Hindutempel"
 ],
 "amenity/place_of_worship/jewish":[
-"jüdisch",
-"Synagoge"
+"Jüdische Synagoge"
 ],
 "amenity/place_of_worship/muslim":[
-"muslimisch",
-"Moschee"
+"Muslimische Moschee"
 ],
 "amenity/place_of_worship/shinto":[
 "Weg der Götter",
@@ -816,7 +796,7 @@
 "Ton-/Fernsehstudio"
 ],
 "amenity/swimming_pool":[
-"Schwimmbecken"
+"Schwimmbecken (veraltet)"
 ],
 "amenity/taxi":[
 "Taxistand",
@@ -973,6 +953,9 @@
 "Straßenoberfläche",
 "Straßenbelag",
 "Straßenzustand"
+],
+"attraction":[
+"Attraktion"
 ],
 "attraction/amusement_ride":[
 "Fahrbetrieb",
@@ -1202,7 +1185,7 @@
 "Wohnheim"
 ],
 "building/entrance":[
-"Eingang/Ausgang"
+"Eingang/Ausgang (veralteter Tag)"
 ],
 "building/farm":[
 "Bauernhaus",
@@ -1247,7 +1230,8 @@
 ],
 "building/hut":[
 "kleine primitive Behausung",
-"Hütte"
+"primitive Behausung",
+"Unterstand"
 ],
 "building/industrial":[
 "Fabrikgebäude",
@@ -1268,7 +1252,7 @@
 "Nebengebäude (Pavillion)"
 ],
 "building/public":[
-"Öffentliches Gebäude"
+"Öffentliches Amtsgebäude"
 ],
 "building/residential":[
 "Wohnhaus",
@@ -1346,11 +1330,16 @@
 "Campingplatz"
 ],
 "circular":[
-"Kreisverkehr"
+"Kreisverkehr mit nicht befahrbarer Mitte"
 ],
 "club":[
 "Verein",
 "Klub"
+],
+"club/sport":[
+"Sportklub",
+"Sportverein",
+"Sportclub"
 ],
 "craft":[
 "Kunsthandwerk",
@@ -1404,7 +1393,7 @@
 "Rauchfangkehrer"
 ],
 "craft/clockmaker":[
-"Uhrmacher"
+"Uhrmacher (Standuhr)"
 ],
 "craft/confectionery":[
 "Confiserie",
@@ -1543,7 +1532,7 @@
 "Polsterer"
 ],
 "craft/watchmaker":[
-"Uhrmacher"
+"Uhrmacher (Armbanduhr)"
 ],
 "craft/window_construction":[
 "Fenstererzeuger",
@@ -1729,7 +1718,7 @@
 "Beschäftigungstherapeut"
 ],
 "healthcare/optometrist":[
-"Brillenoptiker",
+"Augenoptiker",
 "Optiker"
 ],
 "healthcare/physiotherapist":[
@@ -1769,25 +1758,33 @@
 "highway/bus_stop":[
 "Bushaltestelle (Wartebereich)"
 ],
+"highway/construction":[
+"geschlossen",
+"Straße gesperrt",
+"Bauarbeiten",
+"gesperrt"
+],
 "highway/corridor":[
 "Gang/Korridor im Innenraum",
 "Innengang"
 ],
 "highway/crossing/marked":[
-"Markierter Übergang",
+"gekennzeichneter Übergang",
 "Zebrastreifen"
 ],
 "highway/crossing/marked-raised":[
 "Zebrastreifen (erhöht)",
-"Markierter Übergang (erhöht)"
+"gekennzeichneter Übergang (erhöht)"
 ],
 "highway/crossing/unmarked":[
+"Nicht gekennzeichneter Übergang",
 "Nicht markierte Kreuzung",
 "Nicht gekennzeichnete Kreuzung"
 ],
 "highway/crossing/unmarked-raised":[
+"Nicht gekennzeichneter Fußgängerübergang (erhöht)",
 "Nicht markierter Fußgängerübergang (erhöht)",
-"gekennzeichneter Übergang (erhöht)"
+"Nicht gekennzeichneter Übergang (erhöht)"
 ],
 "highway/crossing/zebra":[
 "Zebrastreifen"
@@ -1869,6 +1866,7 @@
 "Stationszeichen"
 ],
 "highway/mini_roundabout":[
+"Kreisverkehr mit befahrbarer Mitte und Vorrang",
 "Kreisverkehr mit befahrbarer Mitte",
 "Mini-Kreisverkehr"
 ],
@@ -2195,7 +2193,6 @@
 "Wasserkultur"
 ],
 "landuse/basin":[
-"Kessel",
 "Becken"
 ],
 "landuse/brownfield":[
@@ -2236,13 +2233,9 @@
 ],
 "landuse/farmyard":[
 "landwirtschaftliche Hofstelle",
-"Bauernhof"
+"Hof eines landwirtschaftlichen Betriebes"
 ],
 "landuse/forest":[
-"Forst",
-"Forstwald",
-"Nutzwald",
-"bewirtschafteter Wald",
 "Bewirtschafteter Wald"
 ],
 "landuse/garages":[
@@ -2317,6 +2310,9 @@
 "Gärtnerei",
 "Anzucht"
 ],
+"landuse/pond":[
+"Teich"
+],
 "landuse/quarry":[
 "Tongrube",
 "Steinbruch",
@@ -2338,6 +2334,9 @@
 ],
 "landuse/religious":[
 "Gelände mit religiöser Nutzung"
+],
+"landuse/reservoir":[
+"Reservoir"
 ],
 "landuse/residential":[
 "Wohnregion",
@@ -2558,6 +2557,10 @@
 "American-Football-Platz",
 "American-Football-Feld"
 ],
+"leisure/pitch/australian_football":[
+"Australischer Football Feld",
+"Australian Football Feld"
+],
 "leisure/pitch/badminton":[
 "Badmintonplatz"
 ],
@@ -2587,6 +2590,9 @@
 "Reitbahn",
 "Reitplatz",
 "Pferdesportplatz"
+],
+"leisure/pitch/netball":[
+"Netball Platz"
 ],
 "leisure/pitch/rugby_league":[
 "Rugby-League-Feld"
@@ -2627,11 +2633,6 @@
 "Resort",
 "touristische Hotelanlage"
 ],
-"leisure/running_track":[
-"Rennbbahn (Laufen)",
-"Rennbbahn (Laufen)Laufbahn",
-"Laufstrecke"
-],
 "leisure/sauna":[
 "Sauna"
 ],
@@ -2664,6 +2665,16 @@
 "Bahn (Nicht Motorsport)",
 "Laufbahn",
 "Rennbahn (nicht Motorsport)"
+],
+"leisure/track/horse_racing":[
+"Rennstrecke (Pferderennen)",
+"Pferderennbahn",
+"Pferderennstrecke"
+],
+"leisure/track/running":[
+"Laufbahn",
+"Rennstrecke (Laufen)",
+"Laufrennbahn"
 ],
 "leisure/water_park":[
 "Badeparadies",
@@ -3039,6 +3050,13 @@
 "Gewässer",
 "Pfütze"
 ],
+"natural/water/basin":[
+"Rückhaltebecken",
+"Basin"
+],
+"natural/water/canal":[
+"Kanal"
+],
 "natural/water/lake":[
 "Bergsee",
 "See",
@@ -3055,6 +3073,12 @@
 "Reservoir",
 "Stausee",
 "Speicherbecken"
+],
+"natural/water/river":[
+"Fluss"
+],
+"natural/water/stream":[
+"Strom"
 ],
 "natural/wetland":[
 "Ried",
@@ -3115,10 +3139,10 @@
 "Firmenbüro"
 ],
 "office/coworking":[
+"Coworking-Büro",
 "Gemeinschafts-Arbeits-Platz",
-"Co-Working-Platz",
-"Coworking Space",
-"Co-Working-Räumlichkeiten"
+"Coworking-Platz",
+"Coworking Space"
 ],
 "office/educational_institution":[
 "Universitätsverwaltung",
@@ -3252,6 +3276,9 @@
 "Alpin",
 "Snowboard",
 "Abfahrtspiste/Skirennen"
+],
+"piste/downhill/halfpipe":[
+"Halfpipe"
 ],
 "piste/hike":[
 "Schneeschuhweg",
@@ -3387,7 +3414,7 @@
 "Balancierbalken"
 ],
 "playground/basket_spinner":[
-"Korbschaukel"
+"drehender Korb"
 ],
 "playground/basket_swing":[
 "Korbschaukel"
@@ -3604,8 +3631,8 @@
 "Busterminal",
 "Bushaltestelle",
 "Busbahnhof / Busterminal",
-"Bustattsion",
-"Busbahnhof"
+"Busbahnhof",
+"Bustation"
 ],
 "public_transport/station_ferry":[
 "Fähranleger",
@@ -3688,6 +3715,7 @@
 "railway/crossing":[
 "Bahnübergang (Weg)",
 "Eisenbahnübergang (Fußgänger)",
+"Eisenbahnfußgängerübergang",
 "Eisenbahnfussgängerkreuzung"
 ],
 "railway/derail":[
@@ -3712,7 +3740,7 @@
 ],
 "railway/level_crossing":[
 "Eisenbahnstraßenkreuzung",
-"Eisenbagnkreuzung (Straße)",
+"Eisenbahnkreuzung (Straße)",
 "Bahnübergang (Straße)"
 ],
 "railway/light_rail":[
@@ -3783,7 +3811,7 @@
 "Beziehung"
 ],
 "roundabout":[
-"Kreisverkehr"
+"Kreisverkehr mit nicht befahrbarer Mitte und Vorrang"
 ],
 "route/ferry":[
 "Fährenroute",
@@ -3921,6 +3949,10 @@
 "Kfz-Werkstatt",
 "Autoreparatur"
 ],
+"shop/caravan":[
+"Wohnwagengeschäft",
+"Caravangeschaft"
+],
 "shop/carpet":[
 "Teppichgeschäft",
 "Teppichhändler"
@@ -4038,6 +4070,13 @@
 "Modegeschäft",
 "Boutique"
 ],
+"shop/fireplace":[
+"Kachelofenladen",
+"Kamingeschäft"
+],
+"shop/fishing":[
+"Angelgeschäft"
+],
 "shop/fishmonger":[
 "Fischhändler"
 ],
@@ -4049,6 +4088,13 @@
 ],
 "shop/frame":[
 "Bilderrahmengeschäft"
+],
+"shop/frozen_food":[
+"Tiefkühlkost",
+"Tiefkühllebensmittel"
+],
+"shop/fuel":[
+"Treibstoffverkaufsstelle"
 ],
 "shop/funeral_directors":[
 "Beerdigungsinstitut",
@@ -4120,6 +4166,11 @@
 "Haushaltswarengeschäft",
 "Haushaltswarenladen"
 ],
+"shop/hunting":[
+"Jägereigeschäft",
+"Jägereigeschaft",
+"Geschäft für Jagdausrüstung"
+],
 "shop/interior_decoration":[
 "Innenausstattungsgeschäft",
 "Innenausstatter",
@@ -4130,6 +4181,7 @@
 ],
 "shop/jewelry":[
 "Juwelier",
+"Juweliergeschäft",
 "Schmuckgeschäft"
 ],
 "shop/kiosk":[
@@ -4165,9 +4217,9 @@
 "Masseur"
 ],
 "shop/medical_supply":[
-"Medizinbedarfgeschäft",
 "Drogerie",
-"Medizinbedarf"
+"Medizinbedarf",
+"Sanitätshaus, Medizinbedarfgeschäft"
 ],
 "shop/mobile_phone":[
 "Mobiltelefonladen",
@@ -4381,6 +4433,9 @@
 "shop/watches":[
 "Uhrengeschäft",
 "Uhrenladen"
+],
+"shop/water":[
+"Trinkwasserladen"
 ],
 "shop/water_sports":[
 "Wassersportladen",
@@ -4607,10 +4662,10 @@
 "Ortsschild"
 ],
 "traffic_sign/maxspeed":[
-"Höchstgeschwindigkeit"
+"Höchstgeschwindigkeits-Schild"
 ],
 "traffic_sign/maxspeed_vertex":[
-"Höchstgeschwindigkeit"
+"Höchstgeschwindigkeits-Schild"
 ],
 "traffic_sign_vertex":[
 "Verkehrsschild",
@@ -4622,6 +4677,10 @@
 "type/boundary/administrative":[
 "Administrative Grenze",
 "Verwaltungsgrenze"
+],
+"type/enforcement":[
+"Verkehrsverstoß-Dokumentations-Gerät",
+"Verkehrsverstöße"
 ],
 "type/multipolygon":[
 "Multipolygon"
@@ -4707,7 +4766,7 @@
 ],
 "type/route/ferry":[
 "Fährenroute",
-"Fähr-Linie"
+"Fährlinie"
 ],
 "type/route/foot":[
 "Fußweg",
@@ -4832,7 +4891,6 @@
 "Fluss"
 ],
 "waterway/riverbank":[
-"Fluss- und Uferbereiche",
 "Flussfläche"
 ],
 "waterway/sanitary_dump_station":[
