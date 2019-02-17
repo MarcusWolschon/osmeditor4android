@@ -604,10 +604,17 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
      * Invalidate myView when a new tile got downloaded.
      */
     private static class SimpleInvalidationHandler extends Handler {
-        private View v;
-        private int  viewInvalidates = 0;
+        private View        v;
+        private int         viewInvalidates = 0;
+        private Handler     handler         = new Handler();
+        private Invalidator invalidator     = new Invalidator();
 
-        public SimpleInvalidationHandler(View v) {
+        /**
+         * Handle success messages from downloaded tiles, and invalidate View v if necessary
+         * 
+         * @param v View to invalidate
+         */
+        public SimpleInvalidationHandler(@NonNull View v) {
             super(Looper.getMainLooper());
             this.v = v;
         }
@@ -624,8 +631,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
         public void handleMessage(final Message msg) {
             if (msg.what == MapTile.MAPTILE_SUCCESS_ID) {
                 if (viewInvalidates == 0) { // try to suppress inordinate number of invalidates
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Invalidator(), 100); // wait 1/10th of a second
+                    handler.postDelayed(invalidator, 100); // wait 1/10th of a second
                 }
                 viewInvalidates++;
             }
