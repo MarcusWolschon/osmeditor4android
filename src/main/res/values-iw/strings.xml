@@ -446,9 +446,12 @@
   <string name="menu_gps_goto">מעבר למיקום הנוכחי</string>
   <string name="menu_gps_start">התחלת מסלול GPX</string>
   <string name="menu_gps_pause">השהיית מעקב GPX</string>
+  <string name="menu_gps_clear">מחיקת מסלול GPX ואת נקודות הדרך שלו</string>
+  <string name="menu_gps_track_managment">ניהול מסלול GPX…</string>
   <string name="menu_gps_upload">העלאת מסלול GPX</string>
   <string name="menu_gps_export">יצוא מסלול GPX</string>
   <string name="menu_gps_import">יבוא מסלול GPX</string>
+  <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
   <string name="menu_gps_autodownload">הורדה אוטומטית</string>
   <string name="menu_transfer">העברה…</string>
   <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>

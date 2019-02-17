@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-27 15:02+0000\n"
+"PO-Revision-Date: 2019-02-16 22:06+0000\n"
 "Last-Translator: Gábor Babos <gabor.babos@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/openstreetmap/presets/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1305,7 +1305,7 @@ msgstr "Butik"
 
 #: master_preset.xml:5857(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:box)
 msgid "Box"
-msgstr ""
+msgstr "Doboz"
 
 #: master_preset.xml:571(text:text|key:branch)
 #: master_preset.xml:607(text:text|key:branch)
@@ -1732,7 +1732,7 @@ msgstr "katalán"
 
 #: master_preset.xml:10189(item:name|preset:Catenary_mast)
 msgid "Catenary mast"
-msgstr ""
+msgstr "Felsővezeték-tartó oszlop"
 
 #: master_preset.xml:14354(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
@@ -5898,7 +5898,7 @@ msgstr "Természetgyógyászat"
 
 #: master_preset.xml:4891(item:name|group:Airport|preset:Navigation_aid)
 msgid "Navigation aid"
-msgstr ""
+msgstr "Repülőtéri navigációs fény"
 
 #: master_preset.xml:10322(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Necropolis"
@@ -6617,7 +6617,7 @@ msgstr "Par-szám"
 
 #: master_preset.xml:5860(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:parallel_bars)
 msgid "Parallel bars"
-msgstr ""
+msgstr "Párhuzamos rudak"
 
 #: master_preset.xml:12129(list_entry:short_description|preset:Vending_Machine|value:parcel_mail_in)
 msgid "Parcel mail in"
@@ -6687,7 +6687,7 @@ msgstr "Alkatrész"
 
 #: master_preset.xml:11964(item:name|group:Other|preset:Party_supplies)
 msgid "Party supplies"
-msgstr ""
+msgstr "Partykellék"
 
 #: master_preset.xml:2668(group:name|group:Passageways)
 msgid "Passageways"
@@ -6721,11 +6721,11 @@ msgstr "Fizetési mód"
 
 #: master_preset.xml:12257(item:name|group:Money|preset:Payment_centre)
 msgid "Payment centre"
-msgstr ""
+msgstr "Befizetőpont"
 
 #: master_preset.xml:12266(item:name|group:Money|preset:Payment_terminal)
 msgid "Payment terminal"
-msgstr ""
+msgstr "Befizetőautomata"
 
 #: master_preset.xml:13126(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Peach trees"
@@ -6773,7 +6773,7 @@ msgstr "Pingvin"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Pension fund"
-msgstr ""
+msgstr "Nyugdíjalap"
 
 #: master_preset.xml:3193(item:name|group:Water|preset:Penstock)
 msgid "Penstock"
@@ -7032,7 +7032,7 @@ msgstr "Játszótér"
 #: master_preset.xml:6021(group:name|group:Playground_equipment)
 #: master_preset.xml:6022(item:name|group:Playground_equipment|preset:Playground_equipment)
 msgid "Playground equipment"
-msgstr ""
+msgstr "Játszótéri játékok"
 
 #: master_preset.xml:13126(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Plum trees"
@@ -7155,7 +7155,7 @@ msgstr "Fazekas"
 
 #: master_preset.xml:8045(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 msgid "Poultry"
-msgstr ""
+msgstr "Baromfi"
 
 #: master_preset.xml:9771(group:name|group:Power)
 msgid "Power"
@@ -7335,7 +7335,7 @@ msgstr "Protestáns"
 
 #: master_preset.xml:4382(checkgroup:text|group:Bicycle|preset:Bike_Dealer)
 msgid "Provided services"
-msgstr ""
+msgstr "Szolgáltatások"
 
 #: master_preset.xml:13576(text:text|group:Addresses_and_Contact|preset:Address|key:addr:province)
 msgid "Province"
@@ -7403,7 +7403,7 @@ msgstr "Nyilvános könyvespolc"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Public service"
-msgstr ""
+msgstr "Közszolgáltatás"
 
 #: master_preset.xml:13744(list_entry:display_value|group:Relations|preset:Relations|value:public_transport)
 msgid "Public transport"
@@ -7443,7 +7443,7 @@ msgstr "Cél"
 
 #: master_preset.xml:5861(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:push-up)
 msgid "Push-up"
-msgstr ""
+msgstr "Fekvőtámasz"
 
 #: master_preset.xml:12893(combo:display_values|group:Nature|preset:Grassland|key:grassland)
 msgid "Puszta"
@@ -7915,7 +7915,7 @@ msgstr "Korlát a jobb oldalon"
 
 #: master_preset.xml:5862(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:rings)
 msgid "Rings"
-msgstr ""
+msgstr "Gyűrű"
 
 #: master_preset.xml:2326(combo:display_values|group:Barriers|preset:Bollard|key:bollard)
 msgid "Rising"
@@ -7954,7 +7954,7 @@ msgstr "Sziklasír"
 
 #: master_preset.xml:923(combo:display_values|key:playground:theme)
 msgid "Rocket"
-msgstr ""
+msgstr "Rakéta"
 
 #: master_preset.xml:743(list_entry:display_value|value:rolled)
 #: master_preset.xml:749(list_entry:display_value|value:rolled)
@@ -8043,7 +8043,7 @@ msgstr "Tömegközlekedési útvonalhálózat (route master)"
 
 #: master_preset.xml:732(role:text|key:)
 msgid "Route segment"
-msgstr ""
+msgstr "Útvonalrész"
 
 #: master_preset.xml:4438(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Rail)|key:route)
 #: master_preset.xml:4458(combo:text|group:Public_Transport|preset:Public_Transport_Route_(Bus)|key:route)
@@ -8344,7 +8344,7 @@ msgstr "Szeizmikus tevékenység"
 
 #: master_preset.xml:10966(check:text|group:Clothes|preset:Laundry|key:self_service)
 msgid "Self Service"
-msgstr ""
+msgstr "Önkiszolgáló"
 
 #: master_preset.xml:4075(check:text|group:Car|preset:Fuel|key:self_service)
 #: master_preset.xml:4179(check:text|group:Car|preset:Wash|key:self_service)
@@ -8394,7 +8394,7 @@ msgstr "Szolgáltatások:"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Setsuana"
-msgstr ""
+msgstr "Tswana"
 
 #: master_preset.xml:10322(combo:display_values|group:Historic_Places_&_Objects|preset:Archaeological_Site|key:site_type)
 msgid "Settlement"
@@ -8550,7 +8550,7 @@ msgstr "Garnélatenyésztés"
 
 #: master_preset.xml:5863(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sign)
 msgid "Sign"
-msgstr ""
+msgstr "Gyakorlat leírása"
 
 #: master_preset.xml:546(combo:display_values|key:religion)
 msgid "Sikh"
@@ -8578,7 +8578,7 @@ msgstr "Sziréna"
 
 #: master_preset.xml:5864(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sit-up)
 msgid "Sit-up"
-msgstr ""
+msgstr "Felülés"
 
 #: master_preset.xml:13742(list_entry:display_value|group:Relations|preset:Relations|value:site)
 #: master_preset.xml:13820(item:name|group:Relations|preset:Site)
@@ -8717,11 +8717,11 @@ msgstr "Szociális foglalkoztató"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Social security"
-msgstr ""
+msgstr "Társadalombiztosítás"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Social services"
-msgstr ""
+msgstr "Szociális szolgáltatások"
 
 #: master_preset.xml:9884(item:name|group:Power_Generator|preset:Solar_Power_Generator)
 msgid "Solar Power Generator"
@@ -8855,7 +8855,7 @@ msgstr "Stadion"
 
 #: master_preset.xml:5865(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:stairs)
 msgid "Stairs"
-msgstr ""
+msgstr "Lépcső"
 
 #: master_preset.xml:12134(list_entry:short_description|preset:Vending_Machine|value:stamps)
 msgid "Stamps"
@@ -9372,7 +9372,7 @@ msgstr "Színház típusa"
 
 #: master_preset.xml:923(combo:text|key:playground:theme)
 msgid "Theme"
-msgstr ""
+msgstr "Téma"
 
 #: master_preset.xml:11468(list_entry:short_description|group:For_the_body|preset:Massage|value:therapeutic)
 msgid "Therapeutic"
@@ -13131,13 +13131,13 @@ msgstr "Terminál"
 #: master_preset.xml:6035(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:activitypanel)
 msgctxt "leisure"
 msgid "Activity panel"
-msgstr ""
+msgstr "Játékpanel"
 
 #: master_preset.xml:5984(check:text|group:Leisure|preset:Playground|key:playground:aerialrotator)
 #: master_preset.xml:6036(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:aerialrotator)
 msgctxt "leisure"
 msgid "Aerial rotator"
-msgstr ""
+msgstr "Függeszkedő-körhinta"
 
 #: master_preset.xml:5770(list_entry:display_value|group:Leisure|preset:Rides|value:amusement_ride)
 msgctxt "leisure"
@@ -13158,19 +13158,19 @@ msgstr "Egyensúlyozó gerenda"
 #: master_preset.xml:6039(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketrotator)
 msgctxt "leisure"
 msgid "Basket rotator"
-msgstr ""
+msgstr "Fészekkörhinta"
 
 #: master_preset.xml:5988(check:text|group:Leisure|preset:Playground|key:playground:basketswing)
 #: master_preset.xml:6040(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketswing)
 msgctxt "leisure"
 msgid "Basket swing"
-msgstr ""
+msgstr "Fészekhinta"
 
 #: master_preset.xml:5986(check:text|group:Leisure|preset:Playground|key:playground:basketball_backboard)
 #: master_preset.xml:6038(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:basketball_backboard)
 msgctxt "leisure"
 msgid "Basketball backboard"
-msgstr ""
+msgstr "Kosárlabdapalánk"
 
 #: master_preset.xml:5771(list_entry:display_value|group:Leisure|preset:Rides|value:big_wheel)
 msgctxt "leisure"
@@ -13196,7 +13196,7 @@ msgstr "Körhinta"
 #: master_preset.xml:6041(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chain_ladder)
 msgctxt "leisure"
 msgid "Chain ladder"
-msgstr ""
+msgstr "Lánclétra"
 
 #: master_preset.xml:5990(check:text|group:Leisure|preset:Playground|key:playground:chess_table)
 #: master_preset.xml:6042(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chess_table)
@@ -13208,13 +13208,13 @@ msgstr "Sakktábla"
 #: master_preset.xml:6043(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingframe)
 msgctxt "leisure"
 msgid "Climbing frame"
-msgstr ""
+msgstr "Mászókeret"
 
 #: master_preset.xml:5992(check:text|group:Leisure|preset:Playground|key:playground:climbingwall)
 #: master_preset.xml:6044(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:climbingwall)
 msgctxt "leisure"
 msgid "Climbing wall"
-msgstr ""
+msgstr "Mászófal"
 
 #: master_preset.xml:5993(check:text|group:Leisure|preset:Playground|key:playground:cushion)
 #: master_preset.xml:6045(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:cushion)
@@ -13241,13 +13241,13 @@ msgstr "Felszerelés"
 #: master_preset.xml:6046(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:exercise)
 msgctxt "leisure"
 msgid "Exercise"
-msgstr ""
+msgstr "Tornaszer"
 
 #: master_preset.xml:6005(check:text|group:Leisure|preset:Playground|key:playground:spinner)
 #: master_preset.xml:6057(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:spinner)
 msgctxt "leisure"
 msgid "Gyro twister spinner"
-msgstr ""
+msgstr "Forgó mászókaelem"
 
 #: master_preset.xml:5995(check:text|group:Leisure|preset:Playground|key:playground:hopscotch)
 #: master_preset.xml:6047(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:hopscotch)
@@ -13280,7 +13280,7 @@ msgstr "Labirintus"
 #: master_preset.xml:6049(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
 msgctxt "leisure"
 msgid "Multi play"
-msgstr ""
+msgstr "Vármászóka"
 
 #: master_preset.xml:5780(list_entry:display_value|group:Leisure|preset:Rides|value:pirate_ship)
 msgctxt "leisure"
@@ -13291,7 +13291,7 @@ msgstr "Kalózhajó"
 #: master_preset.xml:6050(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:playhouse)
 msgctxt "leisure"
 msgid "Playhouse"
-msgstr ""
+msgstr "Házikó"
 
 #: master_preset.xml:5781(list_entry:display_value|group:Leisure|preset:Rides|value:roller_coaster)
 msgctxt "leisure"
@@ -13302,7 +13302,7 @@ msgstr "Hullámvasút"
 #: master_preset.xml:6051(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:roundabout)
 msgctxt "leisure"
 msgid "Roundabout"
-msgstr "Körforgalom"
+msgstr "Körhinta"
 
 #: master_preset.xml:6000(check:text|group:Leisure|preset:Playground|key:playground:sandpit)
 #: master_preset.xml:6052(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sandpit)
@@ -13320,13 +13320,13 @@ msgstr "Mérleghinta"
 #: master_preset.xml:6054(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:skate_equipment)
 msgctxt "leisure"
 msgid "Skate equipment"
-msgstr ""
+msgstr "Gördeszkás létesítmény"
 
 #: master_preset.xml:6003(check:text|group:Leisure|preset:Playground|key:playground:sledding)
 #: master_preset.xml:6055(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:sledding)
 msgctxt "leisure"
 msgid "Sledding"
-msgstr ""
+msgstr "Szánkózódomb"
 
 #: master_preset.xml:5782(list_entry:display_value|group:Leisure|preset:Rides|value:slide)
 #: master_preset.xml:6004(check:text|group:Leisure|preset:Playground|key:playground:slide)
@@ -13340,25 +13340,25 @@ msgstr "Csúszda"
 #: master_preset.xml:6058(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:splash_pad)
 msgctxt "leisure"
 msgid "Splash pad"
-msgstr ""
+msgstr "Vizes játékelem"
 
 #: master_preset.xml:6007(check:text|group:Leisure|preset:Playground|key:playground:springy)
 #: master_preset.xml:6059(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:springy)
 msgctxt "leisure"
 msgid "Springy"
-msgstr ""
+msgstr "Rugós lovaglójáték"
 
 #: master_preset.xml:6008(check:text|group:Leisure|preset:Playground|key:playground:stepping_stones)
 #: master_preset.xml:6060(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:stepping_stones)
 msgctxt "leisure"
 msgid "Stepping stones/pads"
-msgstr ""
+msgstr "Lépőkövek"
 
 #: master_preset.xml:6009(check:text|group:Leisure|preset:Playground|key:playground:structure)
 #: master_preset.xml:6061(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:structure)
 msgctxt "leisure"
 msgid "Structure (playset)"
-msgstr ""
+msgstr "Mászóka"
 
 #: master_preset.xml:5785(list_entry:display_value|group:Leisure|preset:Rides|value:summer_toboggan)
 msgctxt "leisure"
@@ -13382,7 +13382,7 @@ msgstr "Lánckörhinta"
 #: master_preset.xml:6063(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:teenshelter)
 msgctxt "leisure"
 msgid "Teen shelter"
-msgstr ""
+msgstr "Közösségi bódé serdülőknek"
 
 #: master_preset.xml:5786(list_entry:display_value|group:Leisure|preset:Rides|value:train)
 msgctxt "leisure"
@@ -13400,19 +13400,19 @@ msgstr "Trambulin"
 #: master_preset.xml:6065(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tree_house)
 msgctxt "leisure"
 msgid "Tree house"
-msgstr ""
+msgstr "Házikó a magasban"
 
 #: master_preset.xml:6014(check:text|group:Leisure|preset:Playground|key:playground:tunnel_tube)
 #: master_preset.xml:6066(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:tunnel_tube)
 msgctxt "leisure"
 msgid "Tunnel tube"
-msgstr ""
+msgstr "Alagútcső"
 
 #: master_preset.xml:6015(check:text|group:Leisure|preset:Playground|key:playground:water)
 #: master_preset.xml:6067(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:water)
 msgctxt "leisure"
 msgid "Water"
-msgstr "Víz"
+msgstr "Arkhimédészi csavar"
 
 #: master_preset.xml:5788(list_entry:display_value|group:Leisure|preset:Rides|value:water_slide)
 msgctxt "leisure"
@@ -13423,13 +13423,13 @@ msgstr "Vízi csúszda"
 #: master_preset.xml:6068(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zigzagtwister)
 msgctxt "leisure"
 msgid "Zigzag twister"
-msgstr ""
+msgstr "Forgó rúd"
 
 #: master_preset.xml:6017(check:text|group:Leisure|preset:Playground|key:playground:zipwire)
 #: master_preset.xml:6069(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:zipwire)
 msgctxt "leisure"
 msgid "Zip wire"
-msgstr ""
+msgstr "Kötélpálya"
 
 #: master_preset.xml:6155(combo:text|preset:Public_Grill|key:fuel)
 msgctxt "grill"

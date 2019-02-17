@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-02-08 16:17+0000\n"
+"PO-Revision-Date: 2019-02-15 13:16+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1734,7 +1734,7 @@ msgstr "Catalan"
 
 #: master_preset.xml:10189(item:name|preset:Catenary_mast)
 msgid "Catenary mast"
-msgstr ""
+msgstr "Poteau de caténaire"
 
 #: master_preset.xml:14354(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
@@ -1763,7 +1763,7 @@ msgstr "Main courante centrale"
 
 #: master_preset.xml:2627(item:name|group:Barriers|preset:Chain)
 msgid "Chain"
-msgstr ""
+msgstr "Chaîne"
 
 #: master_preset.xml:4429(check:text|group:Bicycle|preset:Public_Bicycle_Repair_Station|key:service:bicycle:chain_tool)
 msgid "Chain tool"
@@ -1861,7 +1861,7 @@ msgstr "Chocolat"
 
 #: master_preset.xml:2028(item:name|group:Traffic_Calming|preset:Choker)
 msgid "Choker"
-msgstr ""
+msgstr "Rétrécissement"
 
 #: master_preset.xml:10417(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:religion)
 #: master_preset.xml:546(combo:display_values|key:religion)
@@ -1900,7 +1900,7 @@ msgstr "Mur d'enceinte"
 
 #: master_preset.xml:10261(item:name|group:Historic_Places_&_Objects|preset:City_gate)
 msgid "City gate"
-msgstr ""
+msgstr "Porte de la ville"
 
 #: master_preset.xml:13565(text:text|group:Addresses_and_Contact|preset:Address|key:addr:city)
 msgid "City name"
@@ -1916,7 +1916,7 @@ msgstr ""
 
 #: master_preset.xml:12703(item:name|group:Geography|preset:Cliff)
 msgid "Cliff"
-msgstr ""
+msgstr "Falaise"
 
 #: master_preset.xml:8446(item:name|group:Sport|preset:Climbing)
 msgid "Climbing"
@@ -1924,11 +1924,11 @@ msgstr "Escalade"
 
 #: master_preset.xml:7060(item:name|group:Health|preset:Clinic)
 msgid "Clinic"
-msgstr ""
+msgstr "Clinique"
 
 #: master_preset.xml:7731(item:name|group:Facilities|preset:Clock)
 msgid "Clock"
-msgstr ""
+msgstr "Horloge"
 
 #: master_preset.xml:14378(item:name|group:Crafts|preset:Clockmaker)
 msgid "Clockmaker"
@@ -1944,11 +1944,11 @@ msgstr "Vêtements"
 
 #: master_preset.xml:9824(item:name|group:Power_Generator|preset:Coal_Power_Generator)
 msgid "Coal Power Generator"
-msgstr ""
+msgstr "Génératrice à charbon"
 
 #: master_preset.xml:3274(item:name|group:Water|preset:Coastline)
 msgid "Coastline"
-msgstr ""
+msgstr "Ligne de côte"
 
 #: master_preset.xml:13126(combo:display_values|group:Land_use|preset:Orchard|key:trees)
 msgid "Coconut palms"
@@ -1966,7 +1966,7 @@ msgstr ""
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Coffee shop"
-msgstr ""
+msgstr "Café"
 
 #: master_preset.xml:12156(check:text|preset:Payment_Methods|key:payment:coins)
 #: master_preset.xml:7689(check:text|group:Facilities|preset:Telephone|key:payment:coins)
@@ -1983,23 +1983,23 @@ msgstr "Enseignement supérieur"
 
 #: master_preset.xml:2735(item:name|group:Passageways|preset:Colonnade)
 msgid "Colonnade"
-msgstr ""
+msgstr "Colonnade"
 
 #: master_preset.xml:14161(text:text|preset:Destination_Sign|key:colour:back)
 msgid "Colour of background"
-msgstr ""
+msgstr "Couleur de fond"
 
 #: master_preset.xml:14163(text:text|preset:Destination_Sign|key:colour:arrow)
 msgid "Colour of border/arrow"
-msgstr ""
+msgstr "Couleur du bord ou de la flêche"
 
 #: master_preset.xml:14162(text:text|preset:Destination_Sign|key:colour:text)
 msgid "Colour of text"
-msgstr ""
+msgstr "Couleur du texte"
 
 #: master_preset.xml:10350(combo:display_values|group:Historic_Places_&_Objects|preset:Tomb|key:tomb)
 msgid "Columbarium"
-msgstr ""
+msgstr "Columbarium"
 
 #: master_preset.xml:1746(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
