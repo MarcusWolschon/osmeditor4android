@@ -216,6 +216,11 @@ public class Main extends FullScreenAppCompatActivity
      */
     private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 54321;
 
+    /**
+     * Minimum change in azimut before we redraw
+     */
+    private static final int MIN_AZIMUT_CHANGE = 5;
+
     private class ConnectivityChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -291,13 +296,17 @@ public class Main extends FullScreenAppCompatActivity
             SensorManager.getOrientation(R, orientation);
             float azimut = (int) (Math.toDegrees(SensorManager.getOrientation(R, orientation)[0]) + 360) % 360;
             map.setOrientation(azimut);
-            // Repaint map only if orientation changed by at least 1
-            // degree
-            // since last
-            // repaint
-            if (Math.abs(azimut - lastAzimut) > 1) {
-                lastAzimut = azimut;
-                map.invalidate();
+            // Repaint map only if orientation changed by at least MIN_AZIMUT_CHANGE
+            // degrees since last repaint
+            if (Math.abs(azimut - lastAzimut) > MIN_AZIMUT_CHANGE) {
+                ViewBox viewBox = map.getViewBox();
+                Location current = map.getLocation();
+                // only invalidate if GPS position is or was in the ViewBox
+                if (current == null || lastLocation == null || viewBox.contains(current.getLongitude(), current.getLatitude())
+                        || viewBox.contains(lastLocation.getLongitude(), lastLocation.getLatitude())) {
+                    lastAzimut = azimut;
+                    map.invalidate();
+                }
             }
         }
     };
