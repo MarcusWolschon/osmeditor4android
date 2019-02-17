@@ -606,7 +606,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
     private static class SimpleInvalidationHandler extends Handler {
         private View        v;
         private int         viewInvalidates = 0;
-        private Handler     handler         = new Handler();
+        private Handler     handler         = new Handler(Looper.getMainLooper());
         private Invalidator invalidator     = new Invalidator();
 
         /**
