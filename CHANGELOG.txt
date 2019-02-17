@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.1.4: Small performance improvements, updated translations.
+
 12.1.3: Updated preset, imagery, synonyms and translations, fix issue with way splitting/merging and duplicate relation members
 
 12.1.2: Revert automatic application of last tag values, don't sort MRU preset view, update imagery and translations.
