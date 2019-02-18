@@ -12,6 +12,9 @@ import de.blau.android.util.Util;
 
 public class UtilTest {
 
+    /**
+     * Check that we correctly determine if a double isn't zero
+     */
     @Test
     public void notZero() {
         double d = 0D;
@@ -20,6 +23,9 @@ public class UtilTest {
         assertTrue(Util.notZero(d));
     }
     
+    /**
+     * Test conversion of a list of String values to OSM ";" list representation
+     */
     @Test
     public void toOsmList() {
         List<String> test = Arrays.asList("Alpha","Beta","Gamma");

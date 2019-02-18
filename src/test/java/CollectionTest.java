@@ -24,6 +24,9 @@ import de.blau.android.util.rtree.RTree;
 
 public class CollectionTest {
 
+    /**
+     * Test our Long to OsmElement hash map implementation
+     */
     @Test
     public void hashmap() {
         LongOsmElementMap<Node> map = new LongOsmElementMap<Node>(10000);
@@ -60,6 +63,9 @@ public class CollectionTest {
         }
     }
 
+    /**
+     * Test our OsmElement hash set implementation
+     */
     @Test
     public void hashset() {
         LongHashSet set = new LongHashSet(10000);
@@ -82,6 +88,9 @@ public class CollectionTest {
         assertTrue(set.isEmpty());
     }
 
+    /**
+     * Some minimal tests for our RTree implementation
+     */
     @Test
     public void rtree() {
         final double MAX = BoundingBox.MAX_LAT_E7;
@@ -116,6 +125,9 @@ public class CollectionTest {
         // assertEquals(0,tree.count());
     }
 
+    /**
+     * Test our MultiHashMap
+     */
     @Test
     public void multihashmap() {
         MultiHashMap<String, String> map = new MultiHashMap<String, String>();

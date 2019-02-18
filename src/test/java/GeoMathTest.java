@@ -5,6 +5,9 @@ import de.blau.android.util.GeoMath;
 
 public class GeoMathTest {
     
+    /**
+     * Silly test
+     */
     @Test
     public void constants() {
         System.out.println("Max lat " + GeoMath.MAX_LAT); 

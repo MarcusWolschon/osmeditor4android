@@ -11,6 +11,9 @@ import de.blau.android.osm.BoundingBox;
 
 public class BoundingBoxTest {
 
+    /**
+     * Tests for BoundingBox methods
+     */
     @Test
     public void boundingBox() {
         BoundingBox existingBox = new BoundingBox(-10.0, -10.0, 10.0, 10.0);
