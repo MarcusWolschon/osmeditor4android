@@ -109,9 +109,8 @@ public class ReadSaveData {
     /**
      * Compare skipping build number (roughly)
      * 
-     * @param correctContent
-     * @param testContent
-     * 
+     * @param correctContent the known good content
+     * @param testContent the generated content
      * @return true if "the same"
      */
     private boolean dataIsSame(byte[] correctContent, byte[] testContent) {
@@ -126,6 +125,7 @@ public class ReadSaveData {
             }
             return true;
         }
+        System.out.println("Files lengths differ by " + (correctContent.length - (testContent.length - offset)));
         return false;
     }
 }

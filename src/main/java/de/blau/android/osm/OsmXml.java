@@ -16,7 +16,7 @@ import android.util.Log;
 import de.blau.android.util.Util;
 
 /**
- * Provide reading and writing data files in OSM, JOSM and PBF (read-only) format
+ * Provide reading and writing data files in OSM and JOSM format
  * 
  * @author simon
  *
@@ -289,7 +289,7 @@ public final class OsmXml {
 
         if (!saveNodes.isEmpty()) {
             for (OsmElement elem : saveNodes) {
-                elem.toXml(serializer, null);
+                elem.toJosmXml(serializer);
             }
         }
         if (!saveWays.isEmpty()) {
