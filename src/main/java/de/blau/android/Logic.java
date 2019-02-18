@@ -36,6 +36,7 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +46,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -2414,18 +2414,14 @@ public class Logic {
                     } else {
                         result = ErrorCodes.INVALID_DATA_RECEIVED;
                     }
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (OsmServerException e) {
                     result = e.getErrorCode();
                     Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
@@ -2438,9 +2434,7 @@ public class Logic {
                             result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
                         }
                     }
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (IOException e) {
                     if (e instanceof SSLProtocolException) {
                         result = ErrorCodes.SSL_HANDSHAKE;
@@ -2448,9 +2442,7 @@ public class Logic {
                         result = ErrorCodes.NO_CONNECTION;
                     }
                     Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 }
                 return result;
             }
@@ -2504,6 +2496,17 @@ public class Logic {
                 activity.supportInvalidateOptionsMenu();
             }
         }.execute(add);
+    }
+
+    /**
+     * Remove a BoundingBox from the list held by the StorageDelegator
+     * 
+     * @param mapBox the BoundingBox to remove
+     */
+    private void removeBoundingBox(@Nullable final BoundingBox mapBox) {
+        if (mapBox != null && getDelegator().getBoundingBoxes().contains(mapBox)) {
+            getDelegator().deleteBoundingBox(mapBox);
+        }
     }
 
     /**
@@ -2570,30 +2573,22 @@ public class Logic {
                     } else {
                         result = ErrorCodes.INVALID_DATA_RECEIVED;
                     }
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "Problem parsing", e);
                     result = ErrorCodes.INVALID_DATA_RECEIVED;
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (OsmServerException e) {
                     result = e.getErrorCode();
                     Log.e(DEBUG_TAG, "Problem downloading", e);
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 } catch (IOException e) {
                     result = ErrorCodes.NO_CONNECTION;
                     Log.e(DEBUG_TAG, "Problem downloading", e);
-                    if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
-                        getDelegator().deleteBoundingBox(mapBox);
-                    }
+                    removeBoundingBox(mapBox);
                 }
                 return result;
             }
@@ -3186,28 +3181,23 @@ public class Logic {
             protected Integer doInBackground(Boolean... arg) {
                 int result = 0;
                 try {
-                    try {
-                        OsmChangeParser oscParser = new OsmChangeParser();
-                        oscParser.clearBoundingBoxes(); // this removes the default bounding box
-                        final InputStream in = new BufferedInputStream(is);
-                        oscParser.start(in);
-                        StorageDelegator sd = getDelegator();
-                        createCheckpoint(activity, R.string.undo_action_apply_osc);
-                        if (!sd.applyOsc(oscParser.getStorage(), null)) {
-                            removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
-                        }
-                        if (map != null) {
-                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
-                        }
-                    } catch (SAXException | ParserConfigurationException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } finally {
-                        SavingHelper.close(is);
+                    OsmChangeParser oscParser = new OsmChangeParser();
+                    oscParser.clearBoundingBoxes(); // this removes the default bounding box
+                    final InputStream in = new BufferedInputStream(is);
+                    oscParser.start(in);
+                    StorageDelegator sd = getDelegator();
+                    createCheckpoint(activity, R.string.undo_action_apply_osc);
+                    if (!sd.applyOsc(oscParser.getStorage(), null)) {
+                        removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
                     }
-                } catch (UnsupportedFormatException | IOException e) {
+                    if (map != null) {
+                        viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                    }
+                } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
                     result = ErrorCodes.INVALID_DATA_READ;
+                } finally {
+                    SavingHelper.close(is);
                 }
                 return result;
             }

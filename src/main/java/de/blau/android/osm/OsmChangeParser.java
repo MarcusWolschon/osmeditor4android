@@ -147,7 +147,8 @@ public class OsmChangeParser extends OsmParser {
      * @param atts XML attributes for the current element
      * @throws OsmParseException if parsing fails
      */
-    private void parseWayNode(final Attributes atts) throws OsmParseException {
+    @Override
+    protected void parseWayNode(final Attributes atts) throws OsmParseException {
         try {
             if (currentWay == null) {
                 Log.e(DEBUG_TAG, "No currentWay set!");

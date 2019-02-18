@@ -13,7 +13,6 @@ import crosby.binary.Osmformat;
 import crosby.binary.Osmformat.DenseInfo;
 import crosby.binary.Osmformat.DenseNodes;
 import de.blau.android.exception.UnsupportedFormatException;
-import de.blau.android.util.collections.LongHashSet;
 
 /**
  * Parse OSM data in PBF format
@@ -95,6 +94,8 @@ public class OsmPbfParser extends BinaryParser {
                 case RELATION:
                     type = Relation.NAME;
                     break;
+                default:
+                    throw new UnsupportedFormatException("Unknown relation member type " + r.getTypes(i));
                 }
                 RelationMember rm = new RelationMember(type, ref, role);
                 OsmElement element = storage.getOsmElement(type, ref);
@@ -231,7 +232,7 @@ public class OsmPbfParser extends BinaryParser {
                 // unreferenced nodes will be removed in a later step
                 // once all data has been loaded into the Storage object
                 for (Node nd : way.getNodes()) {
-                   storage.addNodeRef(nd.getOsmId());
+                    storage.addNodeRef(nd.getOsmId());
                 }
             }
             int tagCount = w.getKeysCount();
