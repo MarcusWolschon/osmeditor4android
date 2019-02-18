@@ -133,7 +133,7 @@ public class OsmPbfParser extends BinaryParser {
     @Override
     protected void parseDense(DenseNodes nodes) {
         DenseInfo denseInfo = nodes.getDenseinfo();
-        if (denseInfo == null) {
+        if (denseInfo == null || denseInfo.getVersionCount() == 0 || denseInfo.getTimestampCount() == 0) {
             // we require version so we fail here
             throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
         }
@@ -144,7 +144,6 @@ public class OsmPbfParser extends BinaryParser {
         int lastVersion = 0;
         long lastTimestamp = 0;
         int tagPointer = 0;
-
         for (int i = 0; i < nodes.getIdCount(); i++) {
             // delta encoded
             lastId += nodes.getId(i);
