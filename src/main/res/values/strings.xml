@@ -36,6 +36,8 @@
     <string name="not_found_message">The API couldn\'t find an existing element or changeset with the specified id.&lt;br&gt;&lt;br&gt;</string>
     <string name="unknown_error_title">Unknown error</string>
     <string name="unknown_error_message">The error code returned from the API or the message could not be processed.&lt;br&gt;&lt;br&gt;</string>
+    <string name="no_data_title">No data</string>
+    <string name="no_data_message">The configured data source has no coverage here.</string>
     <string name="go_to_openstreetmap">Go to openstreetmap.org</string>
     <string name="data_conflict_title">Version conflict</string>
     <string name="data_conflict_message">Data from the download would conflict with your edits. Please upload your data before trying again.</string>
@@ -510,11 +512,16 @@
     <string name="menu_transfer_download_current">Download current view</string>
     <string name="menu_transfer_download_current_add">Add current view to download</string>
     <string name="menu_transfer_download_other">Download at other location</string>
+    <string name="menu_transfer_load_current">Load current view</string>
+    <string name="menu_transfer_load_current_add">Add current view to data</string>
+    <string name="menu_transfer_load_other">Load at other location</string>
     <string name="menu_transfer_upload">Upload data to OSM server</string>
     <string name="menu_transfer_close_changeset">Close current changeset</string>
     <string name="menu_transfer_file">File…</string>
     <string name="menu_transfer_export">Export changes to OSC file</string>
+    <string name="menu_transfer_apply_osc_file">Apply changes from OSC file</string>
     <string name="menu_transfer_read_file">Read from JOSM file…</string>
+    <string name="menu_transfer_read_pbf_file">Read from PBF file</string>
     <string name="menu_transfer_save_file">Save to JOSM file…</string>
     <string name="menu_transfer_bugs">Tasks…</string>
     <string name="menu_transfer_bugs_download_current">Download tasks for current view</string>
@@ -889,6 +896,7 @@
     <string name="undo_action_circulize">Arrange in circule</string>
     <string name="undo_action_fix_conflict">Conflict resolution</string>
     <string name="undo_action_extract_node">Node extraction</string>
+    <string name="undo_action_apply_osc">Apply OSC file</string>
     <!-- ACRA -->
     <string name="crash_dialog_text">Vespucci crashed or encountered a serious issue the last time it ran.\n\nPlease help by clicking by \'OK\' to send an error report.\n</string>
     <string name="crash_dialog_comment_prompt">Add any further info you believe might help and (optionally,) your e-mail address if you want feedback.\n\nThank you.</string>

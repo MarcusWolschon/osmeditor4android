@@ -26,13 +26,26 @@ import de.blau.android.util.collections.LongOsmElementMap;
 /**
  * Parses a XML (as InputStream), provided by XmlRetriever, and pushes generated OsmElements to the given Storage.
  * 
+ * Supports API 0.6 output and JOSM OSM files, assumes Node, Ways, Relations ordering of input
+ * 
  * @author mb
+ * @author simon
  */
 public class OsmParser extends DefaultHandler {
+
+    private static final String JOSM_ACTION = "action";
 
     public static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     private static final String DEBUG_TAG = OsmParser.class.getSimpleName();
+
+    private static final String TAG = "tag";
+
+    private static final String OSM = "osm";
+
+    protected static final String OSM_CHANGE_DELETE = "delete";
+
+    protected static final String OSM_CHANGE_MODIFY = "modify";
 
     /** The storage, where the data will be stored (e.g. as JavaStorage or SqliteStorage). */
     private final Storage storage;
@@ -44,7 +57,7 @@ public class OsmParser extends DefaultHandler {
     private Node currentNode = null;
 
     /** Same as {@link currentNode}. */
-    private Way currentWay = null;
+    protected Way currentWay = null;
 
     /** Same as {@link currentNode}. */
     private Relation currentRelation = null;
@@ -74,8 +87,8 @@ public class OsmParser extends DefaultHandler {
 
     private ArrayList<MissingRelation> missingRelations = new ArrayList<>();
 
-    private LongOsmElementMap<Node> nodeIndex = null;
-    private LongOsmElementMap<Way>  wayIndex  = null;
+    protected LongOsmElementMap<Node> nodeIndex = null;
+    private LongOsmElementMap<Way>    wayIndex  = null;
 
     /**
      * Construct a new instance of the parser
@@ -112,7 +125,7 @@ public class OsmParser extends DefaultHandler {
      * @param in the InputStream
      * @throws SAXException {@see SAXException}
      * @throws IOException when the xmlRetriever could not provide any data.
-     * @throws ParserConfigurationException
+     * @throws ParserConfigurationException if a parser feature is used that is not supported
      */
     public void start(@NonNull final InputStream in) throws SAXException, IOException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance(); // NOSONAR
@@ -154,16 +167,28 @@ public class OsmParser extends DefaultHandler {
     @Override
     public void startElement(final String uri, final String name, final String qName, final Attributes atts) {
         try {
-            if (isOsmElement(name)) {
-                parseOsmElement(name, atts);
-            } else if (isWayNode(name)) {
+            switch (name) {
+            case Way.NAME:
+            case Node.NAME:
+            case Relation.NAME:
+                parseOsmElement(name, atts, OsmElement.STATE_UNCHANGED);
+                break;
+            case Way.NODE:
                 parseWayNode(atts);
-            } else if (isRelationMember(name)) {
+                break;
+            case Relation.MEMBER:
                 parseRelationMember(atts);
-            } else if (isTag(name)) {
+                break;
+            case TAG:
                 parseTag(atts);
-            } else if (isBounds(name)) {
+                break;
+            case BoundingBox.NAME:
                 parseBounds(atts);
+                break;
+            case OSM:
+                break;
+            default:
+                throw new OsmParseException("Unknown element " + name);
             }
         } catch (OsmParseException e) {
             Log.e(DEBUG_TAG, "OsmParseException", e);
@@ -177,11 +202,13 @@ public class OsmParser extends DefaultHandler {
     @Override
     public void endElement(final String uri, final String name, final String qName) throws SAXException {
         try {
-            if (isNode(name)) {
+            switch (name) {
+            case Node.NAME:
                 addTags(currentNode);
                 storage.insertNodeUnsafe(currentNode);
                 currentNode = null;
-            } else if (isWay(name)) {
+                break;
+            case Way.NAME:
                 addTags(currentWay);
                 if (currentWay.getNodes() != null && !currentWay.getNodes().isEmpty()) {
                     storage.insertWayUnsafe(currentWay);
@@ -189,10 +216,13 @@ public class OsmParser extends DefaultHandler {
                     Log.e(DEBUG_TAG, "Way " + currentWay.getOsmId() + " has no nodes! Ignored.");
                 }
                 currentWay = null;
-            } else if (isRelation(name)) {
+                break;
+            case Relation.NAME:
                 addTags(currentRelation);
                 storage.insertRelationUnsafe(currentRelation);
                 currentRelation = null;
+                break;
+            default:
             }
         } catch (StorageException sex) {
             throw new SAXException(sex);
@@ -216,15 +246,16 @@ public class OsmParser extends DefaultHandler {
      * 
      * @param name the OsmElement type ("node", "way", "relation")
      * @param atts the attributes of the current XML start tag
+     * @param status the status the element should be set too
      * @throws OsmParseException if parsing fails
      */
-    private void parseOsmElement(@NonNull final String name, @NonNull final Attributes atts) throws OsmParseException {
+    protected void parseOsmElement(@NonNull final String name, @NonNull final Attributes atts, byte status) throws OsmParseException {
         try {
             long osmId = Long.parseLong(atts.getValue("id"));
             String version = atts.getValue("version");
-            long osmVersion = version == null ? 0 : Long.parseLong(atts.getValue("version")); // hack for JOSM file
-                                                                                              // format support
-            String action = atts.getValue("action");
+            long osmVersion = version == null ? 0 : Long.parseLong(version); // hack for JOSM file
+                                                                             // format support
+            String action = atts.getValue(JOSM_ACTION);
 
             String timestampStr = atts.getValue("timestamp");
             long timestamp = -1L;
@@ -236,30 +267,30 @@ public class OsmParser extends DefaultHandler {
                 }
             }
 
-            byte status = OsmElement.STATE_UNCHANGED;
             if (action != null) {
-                if (action.equalsIgnoreCase("modify")) {
+                if (action.equalsIgnoreCase(OSM_CHANGE_MODIFY)) {
                     status = OsmElement.STATE_MODIFIED;
                     if (osmId < 0) {
                         status = OsmElement.STATE_CREATED;
                     }
-                } else if (action.equalsIgnoreCase("delete")) {
+                } else if (action.equalsIgnoreCase(OSM_CHANGE_DELETE)) {
                     status = OsmElement.STATE_DELETED;
                 }
             }
 
-            if (isNode(name)) {
+            switch (name) {
+            case Node.NAME:
                 int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
                 int lon = (int) (Double.valueOf(atts.getValue("lon")) * 1E7);
                 currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
-                // Log.d(DEBUG_TAG, "Creating node " + osmId);
-            } else if (isWay(name)) {
+                break;
+            case Way.NAME:
                 currentWay = OsmElementFactory.createWay(osmId, osmVersion, timestamp, status);
                 if (nodeIndex == null) {
                     nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
                 }
-                // Log.d(DEBUG_TAG, "Creating way " + osmId);
-            } else if (isRelation(name)) {
+                break;
+            case Relation.NAME:
                 currentRelation = OsmElementFactory.createRelation(osmId, osmVersion, timestamp, status);
                 if (nodeIndex == null) {
                     nodeIndex = storage.getNodeIndex(); // !!!!! this will fail if input is not ordered
@@ -267,7 +298,8 @@ public class OsmParser extends DefaultHandler {
                 if (wayIndex == null) {
                     wayIndex = storage.getWayIndex(); // !!!!! this will fail if input is not ordered
                 }
-            } else {
+                break;
+            default:
                 throw new OsmParseException("Unknown element " + name);
             }
         } catch (NumberFormatException e) {
@@ -321,13 +353,12 @@ public class OsmParser extends DefaultHandler {
                 Log.e(DEBUG_TAG, "No currentWay set!");
             } else {
                 long nodeOsmId = Long.parseLong(atts.getValue("ref"));
-                // Log.d("OsmParser","parseWayNode " + nodeOsmId);
-                // Node node = storage.getNode(nodeOsmId);
                 Node node = nodeIndex.get(nodeOsmId);
                 if (node == null) {
                     throw new OsmParseException("parseWayNode node " + nodeOsmId + " not in storage");
+                } else {
+                    currentWay.addNode(node);
                 }
-                currentWay.addNode(node);
             }
         } catch (NumberFormatException e) {
             throw new OsmParseException("WayNode unparsable");
@@ -349,9 +380,8 @@ public class OsmParser extends DefaultHandler {
                 String type = atts.getValue("type");
                 String role = atts.getValue("role");
                 RelationMember member = null;
-
-                if (isNode(type)) {
-                    // Node n = storage.getNode(ref);
+                switch (type) {
+                case Node.NAME:
                     Node n = nodeIndex.get(ref);
                     if (n != null) {
                         n.addParentRelation(currentRelation);
@@ -359,9 +389,8 @@ public class OsmParser extends DefaultHandler {
                     } else {
                         member = new RelationMember(type, ref, role);
                     }
-                    // Log.d(DEBUG_TAG, "Added node member");
-                } else if (isWay(type)) {
-                    // Way w = storage.getWay(ref);
+                    break;
+                case Way.NAME:
                     Way w = wayIndex.get(ref);
                     if (w != null) {
                         w.addParentRelation(currentRelation);
@@ -369,8 +398,8 @@ public class OsmParser extends DefaultHandler {
                     } else {
                         member = new RelationMember(type, ref, role);
                     }
-                    // Log.d(DEBUG_TAG, "Added way member");
-                } else if (isRelation(type)) {
+                    break;
+                case Relation.NAME:
                     Relation r = storage.getRelation(ref);
                     if (r != null) {
                         r.addParentRelation(currentRelation);
@@ -380,99 +409,16 @@ public class OsmParser extends DefaultHandler {
                         member = new RelationMember(type, ref, role);
                         MissingRelation mr = new MissingRelation(member, currentRelation);
                         missingRelations.add(mr);
-                        // Log.d(DEBUG_TAG, "Parent relation not available yet or downloaded");
                     }
-                    // Log.d(DEBUG_TAG, "Added relation member");
-                } else {
+                    break;
+                default:
                     throw new OsmParseException("Unknown OSM object type " + type);
                 }
-
                 currentRelation.addMember(member);
-                // Log.d(DEBUG_TAG, "Adding relation member " + ref + " " + type);
             }
         } catch (NumberFormatException e) {
             throw new OsmParseException("RelationMember unparsable");
         }
-    }
-
-    /**
-     * Checks if the element "name" is an OsmElement (either a node, way or relation).
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a node, way or relation, otherwise false.
-     */
-    private static boolean isOsmElement(final String name) {
-        return isNode(name) || isWay(name) || isRelation(name);
-    }
-
-    /**
-     * Checks if the element "name" is a Node
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a node, otherwise false.
-     */
-    private static boolean isNode(final String name) {
-        return Node.NAME.equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a Way
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a Way, otherwise false.
-     */
-    private static boolean isWay(final String name) {
-        return Way.NAME.equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a tag
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a tag, otherwise false.
-     */
-    private static boolean isTag(final String name) {
-        return "tag".equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a Way Node ("nd")
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a Way Node, otherwise false.
-     */
-    private static boolean isWayNode(final String name) {
-        return Way.NODE.equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a BoundingBox
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a BoundingBox, otherwise false.
-     */
-    private static boolean isBounds(final String name) {
-        return BoundingBox.NAME.equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a Relation
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a Relation, otherwise false.
-     */
-    private static boolean isRelation(final String name) {
-        return Relation.NAME.equalsIgnoreCase(name);
-    }
-
-    /**
-     * Checks if the element "name" is a Relation member
-     * 
-     * @param name the name of the XML element.
-     * @return true if element "name" is a Relation member, otherwise false.
-     */
-    private static boolean isRelationMember(final String name) {
-        return Relation.MEMBER.equalsIgnoreCase(name);
     }
 
     /**

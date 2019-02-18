@@ -50,6 +50,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import crosby.binary.file.BlockInputStream;
+import crosby.binary.file.BlockReaderAdapter;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
@@ -63,16 +65,21 @@ import de.blau.android.exception.OsmException;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.exception.OsmServerException;
 import de.blau.android.exception.StorageException;
+import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.filter.Filter;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.DiscardedTags;
 import de.blau.android.osm.GeoPoint;
+import de.blau.android.osm.MapSplitSource;
 import de.blau.android.osm.MergeResult;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmChangeParser;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.OsmPbfParser;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.PostMergeHandler;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
@@ -80,6 +87,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.osm.Server.Visibility;
+import de.blau.android.osm.Storage;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.Track;
@@ -584,6 +592,17 @@ public class Logic {
      * @param stringId the resource id of the string representing the checkpoint name
      */
     public void removeCheckpoint(@Nullable Activity activity, int stringId) {
+        removeCheckpoint(activity, stringId, false);
+    }
+
+    /**
+     * Remove an empty undo checkpoint using a resource string as the name
+     * 
+     * @param activity that we were called from for access to the resources, if null we will use the resources from App
+     * @param stringId the resource id of the string representing the checkpoint name
+     * @param force if true remove even if not empty
+     */
+    public void removeCheckpoint(@Nullable Activity activity, int stringId, boolean force) {
         Resources r = activity != null ? activity.getResources() : App.resources();
         getDelegator().getUndo().removeCheckpoint(r.getString(stringId));
     }
@@ -1489,7 +1508,7 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param x screen-coordinate
      * @param y screen-coordinate
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation coudn't be performed
      */
     public synchronized void performAdd(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAdd");
@@ -1790,7 +1809,7 @@ public class Logic {
      * @param mergeInto Way to merge the other way into. This way will be kept.
      * @param mergeFrom Way to merge into the other. This way will be deleted.
      * @return a MergeResult with the merged OsmElement and a list of issues if any
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     public synchronized MergeResult performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
             throws OsmIllegalOperationException {
@@ -1807,7 +1826,7 @@ public class Logic {
      * @param activity activity this was called from, if null no warnings will be displayed
      * @param sortedWays list of ways to be merged
      * @return false if there were tag conflicts
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @NonNull
     public synchronized MergeResult performMerge(@Nullable FragmentActivity activity, @NonNull List<OsmElement> sortedWays)
@@ -1902,7 +1921,7 @@ public class Logic {
     /**
      * If any ways are close to the node (within the tolerance), return the way.
      * 
-     * @param nodeToJoin
+     * @param nodeToJoin the Node we want to join
      * @return the closest way to the node
      */
     public OsmElement findJoinableElement(Node nodeToJoin) {
@@ -1954,7 +1973,7 @@ public class Logic {
      * @param element Node or Way that the node will be joined to.
      * @param nodeToJoin Node to be joined to the way.
      * @return true if the operation was successful
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
     public synchronized MergeResult performJoin(@Nullable FragmentActivity activity, @NonNull OsmElement element, @NonNull Node nodeToJoin)
@@ -2077,7 +2096,7 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param x screen x coordinate
      * @param y screen y coordinate
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     public synchronized void performAppendAppend(@Nullable final Activity activity, final float x, final float y) throws OsmIllegalOperationException {
         Log.d(DEBUG_TAG, "performAppendAppend");
@@ -2117,7 +2136,7 @@ public class Logic {
      * @param x the x screen coordinate
      * @param y the y screen coordinate
      * @return the selected node or the created node, if x,y lays on a way. Null if any node or way was selected.
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     private synchronized Node getClickedNodeOrCreatedWayNode(final float x, final float y) throws OsmIllegalOperationException {
         return getClickedNodeOrCreatedWayNode(null, x, y, false);
@@ -2132,7 +2151,7 @@ public class Logic {
      * @param y the y screen coordinate
      * @param forceNew do not return existing nodes in tolerance range
      * @return the selected node or the created node, if x,y lays on a way. null if any node or way was selected.
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation couldn't be performed
      */
     @Nullable
     private synchronized Node getClickedNodeOrCreatedWayNode(@Nullable List<Way> ways, final float x, final float y, boolean forceNew)
@@ -2322,57 +2341,71 @@ public class Logic {
                 try {
                     Server server = prefs.getServer();
                     if (server.hasReadOnly()) {
-                        server.getReadOnlyCapabilities();
-                        if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                            return ErrorCodes.API_OFFLINE;
+                        if (server.hasMapSplitSource()) {
+                            if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
+                                return ErrorCodes.NO_DATA;
+                            }
+                        } else {
+                            server.getReadOnlyCapabilities();
+                            if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
+                                return ErrorCodes.API_OFFLINE;
+                            }
+                            // try to get write capabilities in any case FIXME unclear what we should do if the write
+                            // server
+                            // is not available
+                            server.getCapabilities();
                         }
-                        // try to get write capabilities in any case FIXME unclear what we should do if the write server
-                        // is not available
-                        server.getCapabilities();
                     } else {
                         server.getCapabilities();
                         if (!(server.apiAvailable() && server.readableDB())) {
                             return ErrorCodes.API_OFFLINE;
                         }
                     }
-                    final OsmParser osmParser = new OsmParser();
-                    final InputStream in = prefs.getServer().getStreamForBox(activity, mapBox);
-                    try {
-                        long startTime = System.currentTimeMillis();
-                        osmParser.start(in);
-                        Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
-                        if (arg[0]) { // incremental load
-                            if (!getDelegator().mergeData(osmParser.getStorage(), postMerge)) {
-                                result = ErrorCodes.DATA_CONFLICT;
-                            } else {
-                                if (mapBox != null) {
-                                    // if we are simply expanding the area no need keep the old bounding boxes
-                                    List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                                    List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                                    for (BoundingBox bb : bbs) {
-                                        if (mapBox.contains(bb)) {
-                                            origBbs.remove(bb);
-                                        }
-                                    }
-                                    getDelegator().addBoundingBox(mapBox);
-                                }
-                            }
-                        } else { // replace data with new download
-                            getDelegator().reset(false);
-                            getDelegator().setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
-                            if (mapBox != null) {
-                                Log.d(DEBUG_TAG, "downloadBox setting original bbox");
-                                getDelegator().setOriginalBox(mapBox);
-                            }
+
+                    Storage input = null;
+                    long startTime = System.currentTimeMillis();
+                    if (server.hasMapSplitSource()) {
+                        Log.d(DEBUG_TAG, "downloadBox reading from MapSplit tile sourse");
+                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                    } else {
+                        try (InputStream in = prefs.getServer().getStreamForBox(activity, mapBox)) {
+                            final OsmParser osmParser = new OsmParser();
+                            osmParser.start(in);
+                            input = osmParser.getStorage();
                         }
-                        Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-                        if (map != null) {
-                            // set to current or previous
-                            viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
-                        }
-                    } finally {
-                        SavingHelper.close(in);
                     }
+
+                    Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
+                    if (arg[0]) { // incremental load
+                        if (!getDelegator().mergeData(input, postMerge)) {
+                            result = ErrorCodes.DATA_CONFLICT;
+                        } else {
+                            if (mapBox != null) {
+                                // if we are simply expanding the area no need keep the old bounding boxes
+                                List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+                                List<BoundingBox> bbs = new ArrayList<>(origBbs);
+                                for (BoundingBox bb : bbs) {
+                                    if (mapBox.contains(bb)) {
+                                        origBbs.remove(bb);
+                                    }
+                                }
+                                getDelegator().addBoundingBox(mapBox);
+                            }
+                        }
+                    } else { // replace data with new download
+                        getDelegator().reset(false);
+                        getDelegator().setCurrentStorage(input); // this sets dirty flag
+                        if (mapBox != null) {
+                            Log.d(DEBUG_TAG, "downloadBox setting original bbox");
+                            getDelegator().setOriginalBox(mapBox);
+                        }
+                    }
+                    Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
+                    if (map != null) {
+                        // set to current or previous
+                        viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                    }
+
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     Exception ce = e.getException();
@@ -2384,7 +2417,7 @@ public class Logic {
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
@@ -2499,32 +2532,35 @@ public class Logic {
             protected Integer doInBackground(Void... arg) {
                 int result = 0;
                 try {
-                    final OsmParser osmParser = new OsmParser();
-                    final InputStream in = server.getStreamForBox(context, mapBox);
-                    try {
-                        osmParser.start(in);
-                        if (!getDelegator().mergeData(osmParser.getStorage(), postMerge)) {
-                            result = ErrorCodes.DATA_CONFLICT;
-                        } else {
-                            if (mapBox != null) {
-                                // if we are simply expanding the area no need keep the old bounding boxes
-                                List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
-                                if (origBbs.size() == 1) { // replace original BB if still present
-                                    if (getDelegator().isEmpty()) {
-                                        origBbs.clear();
-                                    }
-                                }
-                                List<BoundingBox> bbs = new ArrayList<>(origBbs);
-                                for (BoundingBox bb : bbs) {
-                                    if (mapBox.contains(bb)) {
-                                        origBbs.remove(bb);
-                                    }
-                                }
-                                getDelegator().addBoundingBox(mapBox);
-                            }
+                    Storage input;
+                    if (server.hasMapSplitSource()) {
+                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                    } else {
+                        try (InputStream in = server.getStreamForBox(context, mapBox);) {
+                            final OsmParser osmParser = new OsmParser();
+                            osmParser.start(in);
+                            input = osmParser.getStorage();
                         }
-                    } finally {
-                        SavingHelper.close(in);
+                    }
+                    if (!getDelegator().mergeData(input, postMerge)) {
+                        result = ErrorCodes.DATA_CONFLICT;
+                    } else {
+                        if (mapBox != null) {
+                            // if we are simply expanding the area no need keep the old bounding boxes
+                            List<BoundingBox> origBbs = getDelegator().getBoundingBoxes();
+                            if (origBbs.size() == 1) { // replace original BB if still present
+                                if (getDelegator().isEmpty()) {
+                                    origBbs.clear();
+                                }
+                            }
+                            List<BoundingBox> bbs = new ArrayList<>(origBbs);
+                            for (BoundingBox bb : bbs) {
+                                if (mapBox.contains(bb)) {
+                                    origBbs.remove(bb);
+                                }
+                            }
+                            getDelegator().addBoundingBox(mapBox);
+                        }
                     }
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
@@ -2537,7 +2573,7 @@ public class Logic {
                     if (getDelegator().getBoundingBoxes().contains(mapBox)) { // remove if download failed
                         getDelegator().deleteBoundingBox(mapBox);
                     }
-                } catch (ParserConfigurationException e) {
+                } catch (ParserConfigurationException | UnsupportedFormatException e) {
                     // crash and burn
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
@@ -2760,7 +2796,14 @@ public class Logic {
         class DownLoadElementsTask extends AsyncTask<Void, Void, Integer> {
             int result = 0;
 
-            long[] toLongArray(List<Long> list) {
+            /**
+             * Convert a List<Long> to an array of long
+             * 
+             * @param list the List of Long
+             * @return an array holding the corresonding long values
+             */
+            @NonNull
+            long[] toLongArray(@NonNull List<Long> list) {
                 long[] result = new long[list.size()];
                 for (int i = 0; i < list.size(); i++) {
                     result[i] = list.get(i);
@@ -2899,7 +2942,7 @@ public class Logic {
      * @param activity activity that called this
      * @param uri uri of file to load
      * @param add unused currently
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add) throws FileNotFoundException {
         readOsmFile(activity, uri, add, null);
@@ -2912,7 +2955,7 @@ public class Logic {
      * @param uri uri of file to load
      * @param add unused currently
      * @param postLoad callback to execute once file is loaded
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
     public void readOsmFile(@NonNull final FragmentActivity activity, final Uri uri, boolean add, final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
@@ -2933,21 +2976,15 @@ public class Logic {
      * 
      * @param activity activity that called this
      * @param is input
-     * @param add unused currently
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
      * @param postLoad callback to execute once stream has been loaded
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the selected file could not be found
      */
-    public void readOsmFile(@NonNull final FragmentActivity activity, final InputStream is, boolean add, final PostAsyncActionHandler postLoad) {
+    public void readOsmFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+            @Nullable final PostAsyncActionHandler postLoad) {
 
-        final Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
-
-        new AsyncTask<Boolean, Void, Integer>() {
-
-            @Override
-            protected void onPreExecute() {
-                Progress.showDialog(activity, Progress.PROGRESS_LOADING);
-            }
-
+        new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
             protected Integer doInBackground(Boolean... arg) {
                 int result = 0;
@@ -2957,7 +2994,6 @@ public class Logic {
                     final InputStream in = new BufferedInputStream(is);
                     try {
                         osmParser.start(in);
-
                         StorageDelegator sd = getDelegator();
                         sd.reset(false);
                         sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
@@ -2986,44 +3022,6 @@ public class Logic {
                 }
                 return result;
             }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
-                if (map != null) {
-                    try {
-                        viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
-                    } catch (OsmException e) {
-                        Log.d(DEBUG_TAG, "readOsmFile got " + e.getMessage());
-                    }
-                    DataStyle.updateStrokes(strokeWidth(viewBox.getWidth()));
-                }
-                if (result != 0) {
-                    if (result == ErrorCodes.OUT_OF_MEMORY) {
-                        if (getDelegator().isDirty()) {
-                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                        }
-                    }
-                    try {
-                        if (!activity.isFinishing()) {
-                            ErrorAlert.showDialog(activity, result);
-                        }
-                    } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
-                        ACRAHelper.nocrashReport(ex, ex.getMessage());
-                    }
-                    if (postLoad != null) {
-                        postLoad.onError();
-                    }
-                } else {
-                    if (postLoad != null) {
-                        postLoad.onSuccess();
-                    }
-                }
-
-                invalidateMap();
-                activity.supportInvalidateOptionsMenu();
-            }
-
         }.execute(add);
     }
 
@@ -3055,7 +3053,7 @@ public class Logic {
                     try {
                         fout = new FileOutputStream(outfile);
                         out = new BufferedOutputStream(fout);
-                        getDelegator().save(out);
+                        OsmXml.write(getDelegator().getCurrentStorage(), getDelegator().getApiStorage(), out, App.getUserAgent());
                     } catch (IllegalArgumentException | IllegalStateException | XmlPullParserException e) {
                         result = ErrorCodes.FILE_WRITE_FAILED;
                         Log.e(DEBUG_TAG, "Problem writing", e);
@@ -3103,6 +3101,120 @@ public class Logic {
     }
 
     /**
+     * Read a stream in PBF format
+     * 
+     * @param activity activity that called this
+     * @param uri the file uri
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
+     * @throws FileNotFoundException when the selected file could not be found
+     */
+    public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull Uri uri, boolean add) throws FileNotFoundException {
+        final InputStream is;
+
+        if (uri.getScheme().equals("file")) {
+            is = new FileInputStream(new File(uri.getPath()));
+        } else {
+            ContentResolver cr = activity.getContentResolver();
+            is = cr.openInputStream(uri);
+        }
+        readPbfFile(activity, is, add, null);
+    }
+
+    /**
+     * Read a stream in PBF format
+     * 
+     * @param activity activity that called this
+     * @param is InputStream
+     * @param add unused currently (if there are new objects in the file they could potentially conflict with in memory
+     *            ones)
+     * @param postLoad callback to execute once stream has been loaded
+     */
+    public void readPbfFile(@NonNull final FragmentActivity activity, @NonNull final InputStream is, boolean add,
+            @Nullable final PostAsyncActionHandler postLoad) {
+
+        new ReadAsyncClass(activity, is, add, postLoad) {
+            @Override
+            protected Integer doInBackground(Boolean... arg) {
+                int result = 0;
+                try {
+                    Storage storage = new Storage();
+                    try {
+                        BlockReaderAdapter opp = new OsmPbfParser(storage);
+                        new BlockInputStream(is, opp).process();
+                        StorageDelegator sd = getDelegator();
+                        sd.reset(false);
+                        sd.setCurrentStorage(storage); // this sets dirty flag
+                        sd.fixupApiStorage();
+                        if (map != null) {
+                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        }
+                    } finally {
+                        SavingHelper.close(is);
+                    }
+                } catch (UnsupportedFormatException | IOException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                    result = ErrorCodes.INVALID_DATA_READ;
+                }
+                return result;
+            }
+        }.execute(add);
+    }
+
+    /**
+     * Read an osmChange format file and then apply the contents
+     * 
+     * @param activity the calling activity
+     * @param fileUri the URI for the file
+     * @param postLoad a callback to call post load
+     * @throws FileNotFoundException if the file cound't be found
+     */
+    public void applyOscFile(@NonNull FragmentActivity activity, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad)
+            throws FileNotFoundException {
+
+        final InputStream is;
+
+        if (fileUri.getScheme().equals("file")) {
+            is = new FileInputStream(new File(fileUri.getPath()));
+        } else {
+            ContentResolver cr = activity.getContentResolver();
+            is = cr.openInputStream(fileUri);
+        }
+
+        new ReadAsyncClass(activity, is, false, postLoad) {
+            @Override
+            protected Integer doInBackground(Boolean... arg) {
+                int result = 0;
+                try {
+                    try {
+                        OsmChangeParser oscParser = new OsmChangeParser();
+                        oscParser.clearBoundingBoxes(); // this removes the default bounding box
+                        final InputStream in = new BufferedInputStream(is);
+                        oscParser.start(in);
+                        StorageDelegator sd = getDelegator();
+                        createCheckpoint(activity, R.string.undo_action_apply_osc);
+                        if (!sd.applyOsc(oscParser.getStorage(), null)) {
+                            removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
+                        }
+                        if (map != null) {
+                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        }
+                    } catch (SAXException | ParserConfigurationException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } finally {
+                        SavingHelper.close(is);
+                    }
+                } catch (UnsupportedFormatException | IOException e) {
+                    Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
+                    result = ErrorCodes.INVALID_DATA_READ;
+                }
+                return result;
+            }
+        }.execute();
+    }
+
+    /**
      * Saves to a file (synchronously)
      * 
      * @param activity activity that we were called from
@@ -3140,8 +3252,10 @@ public class Logic {
 
     /**
      * Saves the current editing state (selected objects, editing mode, etc) to file.
+     * 
+     * @param main the current Main instance
      */
-    void saveEditingState(Main main) {
+    void saveEditingState(@NonNull Main main) {
         EditState editState = new EditState(main, this, main.getImageFileName(), viewBox, main.getFollowGPS());
         new SavingHelper<EditState>().save(main, EDITSTATE_FILENAME, editState, false);
     }
@@ -3166,9 +3280,11 @@ public class Logic {
     /**
      * Loads data from a file in the background.
      * 
-     * @param context
+     * @param activity the calling FragmentActivity
+     * @param postLoad a callback to call after loading
+     * 
      */
-    void loadStateFromFile(@NonNull final FragmentActivity activity, final PostAsyncActionHandler postLoad) {
+    void loadStateFromFile(@NonNull final FragmentActivity activity, @Nullable final PostAsyncActionHandler postLoad) {
 
         final int READ_FAILED = 0;
         final int READ_OK = 1;
@@ -3532,12 +3648,13 @@ public class Logic {
     /**
      * Uploads a GPS track to the server.
      * 
+     * @param activity he calling FragementActivity
      * @param track the track to upload
      * @param description a description of the track sent to the server
      * @param tags the tags to apply to the GPS track (comma delimeted)
      * @param visibility the track visibility, one of the following: private, public, trackable, identifiable
      */
-    public void uploadTrack(@NonNull final FragmentActivity activity, final Track track, final String description, final String tags,
+    public void uploadTrack(@NonNull final FragmentActivity activity, @NonNull final Track track, final String description, final String tags,
             final Visibility visibility) {
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, Integer>() {
@@ -3608,7 +3725,6 @@ public class Logic {
                     }
                 }
             }
-
         }.execute();
     }
 
@@ -4286,9 +4402,9 @@ public class Logic {
     /**
      * Set relation members to be highlighted
      * 
-     * @param r
+     * @param r the Relation holding the members
      */
-    public void selectRelation(Relation r) {
+    public void selectRelation(@Nullable Relation r) {
         if (r != null) {
             for (RelationMember rm : r.getMembers()) {
                 OsmElement e = rm.getElement();
@@ -4758,7 +4874,7 @@ public class Logic {
     /**
      * Set the list of last comments
      * 
-     * @param comments
+     * @param comments the List to set
      */
     public void setLastComments(ArrayList<String> comments) {
         lastComments = new MRUList<>(comments);
@@ -4786,7 +4902,7 @@ public class Logic {
     /**
      * Set the list of last used source strings
      * 
-     * @param sources
+     * @param sources the Lsit to set
      */
     public void setLastSources(ArrayList<String> sources) {
         lastSources = new MRUList<>(sources);
@@ -4796,6 +4912,7 @@ public class Logic {
     /**
      * @return the current object filter
      */
+    @Nullable
     public Filter getFilter() {
         return filter;
     }
@@ -4803,9 +4920,9 @@ public class Logic {
     /**
      * Set the object filter
      * 
-     * @param filter
+     * @param filter the Filter to set or null
      */
-    public void setFilter(Filter filter) {
+    public void setFilter(@Nullable Filter filter) {
         this.filter = filter;
     }
 
@@ -4844,9 +4961,10 @@ public class Logic {
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param e1 first OsmElement
      * @param e2 2nd OsmELement
-     * @param checkRelationsOnly
+     * @param checkRelationsOnly if true only check Relations
      */
-    private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, T e1, T e2, boolean checkRelationsOnly) {
+    private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, @NonNull T e1, @NonNull T e2,
+            boolean checkRelationsOnly) {
         ArrayList<T> a = new ArrayList<>();
         a.add(e1);
         a.add(e2);
@@ -4870,7 +4988,7 @@ public class Logic {
      * @param <T> the OsmElement type
      * @param activity activity this method was called from, if null no warnings will be displayed
      * @param list List of OsmElements
-     * @param checkRelationsOnly
+     * @param checkRelationsOnly if true only check Relations
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {
         if (getFilter() != null && showAttachedObjectWarning()) {

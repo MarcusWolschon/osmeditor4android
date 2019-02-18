@@ -49,6 +49,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.ActionMenuView;
@@ -96,7 +97,7 @@ import de.blau.android.dialogs.Newbie;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.SearchForm;
 import de.blau.android.dialogs.TextLineDialog;
-import de.blau.android.dialogs.UndoDialogFactory;
+import de.blau.android.dialogs.UndoDialog;
 import de.blau.android.easyedit.EasyEditManager;
 import de.blau.android.easyedit.SimpleActionModeCallback;
 import de.blau.android.exception.OsmException;
@@ -1518,6 +1519,7 @@ public class Main extends FullScreenAppCompatActivity
         boolean gpsProviderEnabled = haveLocationProvider(locationProviders, LocationManager.GPS_PROVIDER) && locationPermissionGranted;
         boolean locationProviderEnabled = gpsProviderEnabled || (haveLocationProvider(locationProviders, LocationManager.NETWORK_PROVIDER)
                 && prefs.isNetworkLocationFallbackAllowed() && locationPermissionGranted);
+        boolean hasMapSplitSource = prefs.getServer().hasMapSplitSource();
         // just as good as any other place to check this
         if (locationProviderEnabled) {
             showFollowButton();
@@ -1529,7 +1531,7 @@ public class Main extends FullScreenAppCompatActivity
         menu.findItem(R.id.menu_gps_goto).setEnabled(locationProviderEnabled);
         menu.findItem(R.id.menu_gps_start).setEnabled(getTracker() != null && !getTracker().isTracking() && gpsProviderEnabled);
         menu.findItem(R.id.menu_gps_pause).setEnabled(getTracker() != null && getTracker().isTracking() && gpsProviderEnabled);
-        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
+        menu.findItem(R.id.menu_gps_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && (networkConnected || hasMapSplitSource))
                 .setChecked(prefs.getAutoDownload());
         menu.findItem(R.id.menu_transfer_bugs_autodownload).setEnabled(getTracker() != null && locationProviderEnabled && networkConnected)
                 .setChecked(prefs.getBugAutoDownload());
@@ -1563,9 +1565,15 @@ public class Main extends FullScreenAppCompatActivity
             menu.findItem(R.id.menu_transfer_close_changeset).setVisible(false);
         }
 
-        menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected);
-        menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected);
-        menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected);
+        if (hasMapSplitSource) {
+            menu.findItem(R.id.menu_transfer_download_current).setEnabled(true).setTitle(R.string.menu_transfer_load_current);
+            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(true).setTitle(R.string.menu_transfer_load_current_add);
+            menu.findItem(R.id.menu_transfer_download_other).setEnabled(true).setTitle(R.string.menu_transfer_load_other);
+        } else {
+            menu.findItem(R.id.menu_transfer_download_current).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current);
+            menu.findItem(R.id.menu_transfer_download_current_add).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_current_add);
+            menu.findItem(R.id.menu_transfer_download_other).setEnabled(networkConnected).setTitle(R.string.menu_transfer_download_other);
+        }
         // note: isDirty is not a good indicator of if if there is really
         // something to upload
         menu.findItem(R.id.menu_transfer_upload).setEnabled(networkConnected && !App.getDelegator().getApiStorage().isEmpty());
@@ -1921,17 +1929,15 @@ public class Main extends FullScreenAppCompatActivity
         case R.id.menu_transfer_export:
             SavingHelper.asyncExport(this, delegator);
             return true;
-
-        case R.id.menu_transfer_read_file:
+        case R.id.menu_transfer_apply_osc_file:
             descheduleAutoLock();
-            // showFileChooser(READ_OSM_FILE_SELECT_CODE);
             SelectFile.read(this, R.string.config_osmPreferredDir_key, new ReadFile() {
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public boolean read(Uri fileUri) {
                     try {
-                        logic.readOsmFile(Main.this, fileUri, false);
+                        logic.applyOscFile(Main.this, fileUri, null);
                     } catch (FileNotFoundException e) {
                         try {
                             Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
@@ -1944,6 +1950,51 @@ public class Main extends FullScreenAppCompatActivity
                     return true;
                 }
             });
+            return true;
+
+        case R.id.menu_transfer_read_file:
+        case R.id.menu_transfer_read_pbf_file:
+            descheduleAutoLock();
+            // showFileChooser(READ_OSM_FILE_SELECT_CODE);
+            final ReadFile readFile = new ReadFile() {
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public boolean read(Uri fileUri) {
+                    try {
+                        if (item.getItemId() == R.id.menu_transfer_read_file) {
+                            logic.readOsmFile(Main.this, fileUri, false);
+                        } else {
+                            logic.readPbfFile(Main.this, fileUri, false);
+                        }
+                    } catch (FileNotFoundException e) {
+                        try {
+                            Snack.barError(Main.this, getResources().getString(R.string.toast_file_not_found, fileUri.toString()));
+                        } catch (Exception ex) {
+                            // protect against translation errors
+                        }
+                    }
+                    SelectFile.savePref(prefs, R.string.config_osmPreferredDir_key, fileUri);
+                    map.invalidate();
+                    return true;
+                }
+            };
+            if (logic != null && logic.hasChanges()) {
+                Builder builder = new AlertDialog.Builder(this);
+                builder.setIcon(ThemeUtils.getResIdFromAttribute(this, R.attr.alert_dialog));
+                builder.setTitle(R.string.unsaved_data_title);
+                builder.setMessage(R.string.unsaved_data_message);
+                builder.setPositiveButton(R.string.unsaved_data_proceed, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SelectFile.read(Main.this, R.string.config_osmPreferredDir_key, readFile);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, null);
+                builder.show();
+            } else {
+                SelectFile.read(this, R.string.config_osmPreferredDir_key, readFile);
+            }
             return true;
 
         case R.id.menu_transfer_save_file:
@@ -3086,7 +3137,7 @@ public class Main extends FullScreenAppCompatActivity
             final Logic logic = App.getLogic();
             UndoStorage undo = logic.getUndo();
             if (undo.canUndo() || undo.canRedo()) {
-                UndoDialogFactory.showUndoDialog(Main.this, logic, undo);
+                UndoDialog.showUndoDialog(Main.this, logic, undo);
             } else {
                 Snack.barInfoShort(Main.this, R.string.undo_nothing);
             }

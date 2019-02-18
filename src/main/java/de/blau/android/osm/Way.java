@@ -219,7 +219,8 @@ public class Way extends OsmElement implements BoundedObject {
      */
     public boolean isClosed() {
         if (nodes == null || nodes.isEmpty()) {
-            throw new IllegalStateException("Way " + getOsmId() + " has no nodes");
+            Log.e(DEBUG_TAG, "way " + getOsmId() + " has no nodes");
+            return false;
         }
         return nodes.get(0).equals(nodes.get(nodes.size() - 1));
     }
@@ -602,5 +603,19 @@ public class Way extends OsmElement implements BoundedObject {
     @Override
     protected int validate(Validator validator) {
         return validator.validate(this);
+    }
+
+    @Override
+    <T extends OsmElement> void updateFrom(T e) {
+        if (!(e instanceof Way)) {
+            throw new IllegalArgumentException("e is not a Way");
+        }
+        if (e.getOsmId() != getOsmId()) {
+            throw new IllegalArgumentException("Different ids " + e.getOsmId() + " != " + getOsmId());
+        }
+        setTags(e.getTags());
+        setState(e.getState());
+        nodes.clear();
+        nodes.addAll(((Way) e).getNodes());
     }
 }

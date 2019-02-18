@@ -46,28 +46,36 @@ public class UndoStorage implements Serializable {
     private static final String DEBUG_TAG = "UndoStorage";
 
     // Original storages for "contains" checks and restoration
-    private Storage       currentStorage;
-    private final Storage apiStorage;
+    private Storage currentStorage;
+    private Storage apiStorage;
 
     private final LinkedList<Checkpoint> undoCheckpoints = new LinkedList<>();
     private final LinkedList<Checkpoint> redoCheckpoints = new LinkedList<>();
 
-    static final Comparator<OsmElement> elementOrder = new Comparator<OsmElement>() {
+    static final Comparator<UndoElement> elementOrder = new Comparator<UndoElement>() {
         @Override
-        public int compare(OsmElement e1, OsmElement e2) {
-            if (e1 instanceof Node) {
-                return -1;
+        public int compare(UndoElement ue1, UndoElement ue2) {
+            OsmElement e1 = ue1.element;
+            OsmElement e2 = ue2.element;
+            if ((e1 instanceof Node && e2 instanceof Node) || ((e1 instanceof Way) && (e2 instanceof Way))) {
+                return 0;
             }
             if (!(e1 instanceof Node) && e2 instanceof Node) {
                 return 1;
             }
-            if (e1 instanceof Way) {
+            if ((e1 instanceof Node) && !(e2 instanceof Node)) {
                 return -1;
             }
             if (e1 instanceof Relation && e2 instanceof Way) {
                 return 1;
             }
+            if (e1 instanceof Way && e2 instanceof Relation) {
+                return -1;
+            }
             if (e1 instanceof Relation && e2 instanceof Relation) {
+                if (e1.getOsmId() == e2.getOsmId()) {
+                    return 0;
+                }
                 Relation r1 = (Relation) e1;
                 Relation r2 = (Relation) e2;
                 if (r1.hasParentRelation(r2)) {
@@ -89,7 +97,7 @@ public class UndoStorage implements Serializable {
      * @param currentStorage the currentStorage in use
      * @param apiStorage the apiStorage in use
      */
-    public UndoStorage(Storage currentStorage, Storage apiStorage) {
+    public UndoStorage(@NonNull Storage currentStorage, @NonNull Storage apiStorage) {
         this.currentStorage = currentStorage;
         this.apiStorage = apiStorage;
     }
@@ -99,8 +107,17 @@ public class UndoStorage implements Serializable {
      * 
      * @param currentStorage the current OsmElement storage
      */
-    public void setCurrentStorage(Storage currentStorage) {
+    public void setCurrentStorage(@NonNull Storage currentStorage) {
         this.currentStorage = currentStorage;
+    }
+
+    /**
+     * Set apiStorage without creating a new instance
+     * 
+     * @param apiStorage the api OsmElement storage
+     */
+    public void setApiStorage(@NonNull Storage apiStorage) {
+        this.apiStorage = apiStorage;
     }
 
     /**
@@ -111,7 +128,7 @@ public class UndoStorage implements Serializable {
      * 
      * @param name the name of the checkpoint, used for debugging and display purposes
      */
-    public void createCheckpoint(String name) {
+    public void createCheckpoint(@NonNull String name) {
         if (undoCheckpoints.isEmpty() || !undoCheckpoints.getLast().isEmpty()) {
             undoCheckpoints.add(new Checkpoint(name));
         } else {
@@ -125,7 +142,7 @@ public class UndoStorage implements Serializable {
      * 
      * @param name checkpoint name
      */
-    public void removeCheckpoint(String name) {
+    public void removeCheckpoint(@NonNull String name) {
         removeCheckpoint(name, false);
     }
 
@@ -135,7 +152,7 @@ public class UndoStorage implements Serializable {
      * @param name checkpoint name
      * @param force remove even if checkpoint is not empty
      */
-    public void removeCheckpoint(String name, boolean force) {
+    public void removeCheckpoint(@NonNull String name, boolean force) {
         if (!undoCheckpoints.isEmpty() && (undoCheckpoints.getLast().isEmpty() || force) && undoCheckpoints.getLast().getName().equals(name)) {
             undoCheckpoints.removeLast();
         }
@@ -148,7 +165,7 @@ public class UndoStorage implements Serializable {
      * 
      * @param element the element to save
      */
-    void save(OsmElement element) {
+    void save(@NonNull OsmElement element) {
         try {
             if (undoCheckpoints.isEmpty()) {
                 Log.e(DEBUG_TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
@@ -161,11 +178,32 @@ public class UndoStorage implements Serializable {
     }
 
     /**
+     * Saves the current state of the element in the checkpoint. Call before any changes to the element. A checkpoint
+     * needs to be created first using {@link #createCheckpoint(String)}, otherwise an error is logged and the function
+     * does nothing.
+     * 
+     * @param element the element to save¨
+     * @param inCurrentStorage true if the element is in the current storage
+     * @param inApiStorage true if the element is in the api storage
+     */
+    void save(@NonNull OsmElement element, boolean inCurrentStorage, boolean inApiStorage) {
+        try {
+            if (undoCheckpoints.isEmpty()) {
+                Log.e(DEBUG_TAG, "Attempted to save without valid checkpoint - forgot to call createCheckpoint()");
+                return;
+            }
+            undoCheckpoints.getLast().add(element, inCurrentStorage, inApiStorage);
+        } catch (Exception ex) {
+            ACRAHelper.nocrashReport(ex, ex.getMessage());
+        }
+    }
+
+    /**
      * Remove the saved state of this element from the last checkpoint
      * 
      * @param element element for which the state should be removed
      */
-    void remove(OsmElement element) {
+    void remove(@NonNull OsmElement element) {
         Checkpoint checkpoint = undoCheckpoints.getLast();
         if (checkpoint != null) {
             checkpoint.remove(element);
@@ -290,16 +328,29 @@ public class UndoStorage implements Serializable {
          * 
          * @param element the element to save
          */
-        public void add(OsmElement element) throws IllegalArgumentException {
+        public void add(@NonNull OsmElement element) {
+            add(element, currentStorage.contains(element), apiStorage.contains(element));
+        }
+
+        /**
+         * Store the current state of the element, unless a state is already stored. Called before any changes to the
+         * element occur via {@link UndoStorage#save(OsmElement)}.
+         * 
+         * @param element the element to save
+         * @param inCurrentStorage if true the elements should be restored to the current storage
+         * @param inApiStorage if true the elements should be restored to the api storage
+         */
+        public void add(@NonNull OsmElement element, boolean inCurrentStorage, boolean inApiStorage) {
             if (elements.containsKey(element)) {
                 return;
             }
+            OsmElement key = currentStorage.getOsmElement(element.getName(), element.getOsmId());
             if (element instanceof Node) {
-                elements.put(element, new UndoNode((Node) element));
+                elements.put(key, new UndoNode((Node) element, inCurrentStorage, inApiStorage));
             } else if (element instanceof Way) {
-                elements.put(element, new UndoWay((Way) element));
+                elements.put(key, new UndoWay((Way) element, inCurrentStorage, inApiStorage));
             } else if (element instanceof Relation) {
-                elements.put(element, new UndoRelation((Relation) element));
+                elements.put(key, new UndoRelation((Relation) element, inCurrentStorage, inApiStorage));
             } else {
                 throw new IllegalArgumentException("Unsupported element type");
             }
@@ -310,7 +361,7 @@ public class UndoStorage implements Serializable {
          * 
          * @param element the element for which remove the saved state
          */
-        public void remove(OsmElement element) throws IllegalArgumentException {
+        public void remove(@NonNull OsmElement element) {
             if (!elements.containsKey(element)) {
                 return;
             }
@@ -324,17 +375,19 @@ public class UndoStorage implements Serializable {
          *            "redo" feature possible
          * @return true if the restore was successful
          */
-        public boolean restore(Checkpoint redoCheckpoint) {
+        public boolean restore(@Nullable Checkpoint redoCheckpoint) {
             boolean ok = true;
-            List<OsmElement> list = new ArrayList<>(elements.keySet());
+            List<UndoElement> list = new ArrayList<>(elements.values());
+            if (redoCheckpoint != null) {
+                for (UndoElement ue : list) {
+                    redoCheckpoint.add(ue.element); // save current state
+                }
+            }
             // we sort according to element type and relation membership so that
             // all member elements should be restored before their parents
             Collections.sort(list, elementOrder);
-            for (OsmElement e : list) {
-                if (redoCheckpoint != null) {
-                    redoCheckpoint.add(e); // save current state
-                }
-                ok = ok && elements.get(e).restore();
+            for (UndoElement ue : list) {
+                ok = ok && ue.restore();
             }
             return ok;
         }
@@ -398,17 +451,19 @@ public class UndoStorage implements Serializable {
          * Create a new undo object
          * 
          * @param originalElement the OsmElement we want to save
+         * @param inCurrentStorage true if the element is in the current storage
+         * @param inApiStorage true if the element is in the api storage
          */
-        public UndoElement(OsmElement originalElement) {
+        public UndoElement(@NonNull OsmElement originalElement, boolean inCurrentStorage, boolean inApiStorage) {
+            this.inCurrentStorage = inCurrentStorage;
+            this.inApiStorage = inApiStorage;
+
             element = originalElement;
 
             osmId = originalElement.osmId;
             osmVersion = originalElement.osmVersion;
             state = originalElement.state;
             tags = originalElement.tags == null ? new TreeMap<>() : new TreeMap<>(originalElement.tags);
-
-            inCurrentStorage = currentStorage.contains(originalElement);
-            inApiStorage = apiStorage.contains(originalElement);
 
             if (originalElement.parentRelations != null) {
                 parentRelations = new ArrayList<>(originalElement.parentRelations);
@@ -424,6 +479,7 @@ public class UndoStorage implements Serializable {
          */
         public boolean restore() {
             // Restore element existence
+            Log.e(DEBUG_TAG, "restoring " + element.getDescription() + " current " + inCurrentStorage + " api " + inApiStorage);
             try {
                 if (inCurrentStorage) {
                     currentStorage.insertElementSafe(element);
@@ -455,7 +511,7 @@ public class UndoStorage implements Serializable {
                     if (currentStorage.contains(r)) {
                         element.parentRelations.add(r);
                     } else {
-                        Log.e(DEBUG_TAG, element.getDescription() + " is a member of " + r.getDescription() + " which is deleted");
+                        Log.e(DEBUG_TAG, element.getDescription() + " is a member of " + r.getDescription() + " which is missing");
                     }
                 }
             } else {
@@ -567,9 +623,11 @@ public class UndoStorage implements Serializable {
          * Create a new undo object
          * 
          * @param originalNode the Node we want to save
+         * @param inCurrentStorage if true the elements should be restored to the current storage
+         * @param inApiStorage if true the elements should be restored to the api storage
          */
-        public UndoNode(Node originalNode) {
-            super(originalNode);
+        public UndoNode(@NonNull Node originalNode, boolean inCurrentStorage, boolean inApiStorage) {
+            super(originalNode, inCurrentStorage, inApiStorage);
             lat = originalNode.lat;
             lon = originalNode.lon;
         }
@@ -603,16 +661,18 @@ public class UndoStorage implements Serializable {
      * @see UndoElement
      */
     public class UndoWay extends UndoElement implements Serializable {
-        private static final long serialVersionUID = 1L;
-        private ArrayList<Node>   nodes;
+        private static final long     serialVersionUID = 1L;
+        private final ArrayList<Node> nodes;
 
         /**
          * Create a new undo object
          * 
          * @param originalWay the Way we want to save
+         * @param inCurrentStorage if true the elements should be restored to the current storage
+         * @param inApiStorage if true the elements should be restored to the api storage
          */
-        public UndoWay(Way originalWay) {
-            super(originalWay);
+        public UndoWay(@NonNull Way originalWay, boolean inCurrentStorage, boolean inApiStorage) {
+            super(originalWay, inCurrentStorage, inApiStorage);
             nodes = new ArrayList<>(originalWay.nodes);
         }
 
@@ -624,7 +684,7 @@ public class UndoStorage implements Serializable {
                 if (currentStorage.contains(n)) {
                     ((Way) element).nodes.add(n); // only add undeleted way nodes
                 } else {
-                    Log.e(DEBUG_TAG, n.getDescription() + " member of " + element.getDescription() + " is deleted");
+                    Log.e(DEBUG_TAG, n.getDescription() + " member of " + element.getDescription() + " is missing");
                     ok = false;
                     element.setState(OsmElement.STATE_MODIFIED);
                     try {
@@ -679,16 +739,18 @@ public class UndoStorage implements Serializable {
      * @see UndoElement
      */
     public class UndoRelation extends UndoElement implements Serializable {
-        private static final long    serialVersionUID = 1L;
-        private List<RelationMember> members;
+        private static final long          serialVersionUID = 1L;
+        private final List<RelationMember> members;
 
         /**
          * Create a new undo object
          * 
          * @param originalRelation the Relation we want to save
+         * @param inCurrentStorage if true the elements should be restored to the current storage
+         * @param inApiStorage if true the elements should be restored to the api storage
          */
-        public UndoRelation(Relation originalRelation) {
-            super(originalRelation);
+        public UndoRelation(@NonNull Relation originalRelation, boolean inCurrentStorage, boolean inApiStorage) {
+            super(originalRelation, inCurrentStorage, inApiStorage);
             // deep copy
             members = new ArrayList<>();
             for (RelationMember member : originalRelation.members) {

@@ -453,4 +453,17 @@ public class Relation extends OsmElement implements BoundedObject {
     protected int validate(Validator validator) {
         return validator.validate(this);
     }
+
+    @Override
+    <T extends OsmElement> void updateFrom(T e) {
+        if (!(e instanceof Relation)) {
+            throw new IllegalArgumentException("e is not a Relation");
+        }
+        if (e.getOsmId() != getOsmId()) {
+            throw new IllegalArgumentException("Different ids " + e.getOsmId() + " != " + getOsmId());
+        }
+        setTags(e.getTags());
+        setState(e.getState());
+        replaceMembers(((Relation) e).getMembers());
+    }
 }

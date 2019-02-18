@@ -136,6 +136,8 @@ public class ErrorAlert extends DialogFragment {
             return "not_found";
         case ErrorCodes.UNKNOWN_ERROR:
             return "unknown";
+        case ErrorCodes.NO_DATA:
+            return "no_data";
         }
         return null;
     }
@@ -186,6 +188,8 @@ public class ErrorAlert extends DialogFragment {
             return createNewInstance(R.string.not_found_title, R.string.not_found_message, msg);
         case ErrorCodes.UNKNOWN_ERROR:
             return createNewInstance(R.string.unknown_error_title, R.string.unknown_error_message, msg);
+        case ErrorCodes.NO_DATA:
+            return createNewInstance(R.string.no_data_title, R.string.no_data_message, msg);
         }
         return null;
     }

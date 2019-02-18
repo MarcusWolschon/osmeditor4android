@@ -65,6 +65,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      */
     private int cachedProblems = Validator.NOT_VALIDATED;
 
+    /**
+     * Construct a new base osm element
+     * 
+     * @param osmId the id
+     * @param osmVersion version
+     * @param timestamp timestamp
+     * @param state state
+     */
     OsmElement(final long osmId, final long osmVersion, final long timestamp, final byte state) {
         this.osmId = osmId;
         this.osmVersion = osmVersion;
@@ -88,10 +96,20 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return osmVersion;
     }
 
-    void setOsmVersion(long osmVersion) {
+    /**
+     * Set the version for this element
+     * 
+     * @param osmVersion the version as a long
+     */
+    void setOsmVersion(final long osmVersion) {
         this.osmVersion = osmVersion;
     }
 
+    /**
+     * Set the OSM id for this element
+     * 
+     * @param osmId the id as a long
+     */
     void setOsmId(final long osmId) {
         this.osmId = osmId;
     }
@@ -260,7 +278,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param e2 second element
      * @return Map containing the merged tags
      */
-    public static Map<String, String> mergedTags(OsmElement e1, OsmElement e2) {
+    public static Map<String, String> mergedTags(@NonNull OsmElement e1, @NonNull OsmElement e2) {
         Map<String, String> merged = new TreeMap<>(e1.getTags());
         Map<String, String> fromTags = e2.getTags();
         for (Entry<String, String> entry : fromTags.entrySet()) {
@@ -294,7 +312,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @throws IllegalStateException
      * @throws IOException
      */
-    protected void tagsToXml(final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
+    protected void tagsToXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         if (tags != null) {
             for (Entry<String, String> tag : tags.entrySet()) {
                 s.startTag("", "tag");
@@ -313,7 +331,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param josm if true use josm format
      * @throws IOException
      */
-    protected void attributesToXml(final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
+    protected void attributesToXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
         s.attribute("", "id", Long.toString(osmId));
         if (changeSetId != null) {
             s.attribute("", "changeset", Long.toString(changeSetId));
@@ -346,7 +364,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * @param relation we want to add a ref to
      */
-    public void addParentRelation(Relation relation) {
+    public void addParentRelation(@NonNull Relation relation) {
         if (parentRelations == null) {
             parentRelations = new ArrayList<>();
         }
@@ -359,7 +377,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param relation relation to check for
      * @return true if the relation was found
      */
-    public boolean hasParentRelation(Relation relation) {
+    public boolean hasParentRelation(@NonNull Relation relation) {
         return (parentRelations != null && parentRelations.contains(relation));
     }
 
@@ -386,7 +404,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * @param relations List of Relations to add
      */
-    public void addParentRelations(List<Relation> relations) {
+    public void addParentRelations(@NonNull List<Relation> relations) {
         if (parentRelations == null) {
             parentRelations = new ArrayList<>();
         }
@@ -422,7 +440,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      *
      * @param relation relation from which we want to remove this element
      */
-    public void removeParentRelation(Relation relation) {
+    public void removeParentRelation(@NonNull Relation relation) {
         if (parentRelations != null) {
             parentRelations.remove(relation);
         }
@@ -569,7 +587,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param tag the key to generate the string for
      * @return a string in the form key=value or null
      */
-    private String getTagValueString(String tag) {
+    private String getTagValueString(@NonNull String tag) {
         String value = getTagWithKey(tag);
         if (value != null && value.length() > 0) {
             return tag + "=" + value;
@@ -583,7 +601,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * @param aResources Application resources.
      * @return A human readable description of the element that includes state information.
      */
-    public String getStateDescription(final Resources aResources) {
+    public String getStateDescription(@NonNull final Resources aResources) {
         int resid = getStateStringResource();
         String result = getDescription();
         if (resid != 0) {
@@ -609,6 +627,14 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
             return 0;
         }
     }
+
+    /**
+     * Update tags and anything necessary from e
+     * 
+     * @param <T> the subclass of OsmElement
+     * @param e the OsmELement to update from
+     */
+    abstract <T extends OsmElement> void updateFrom(@NonNull T e);
 
     /**
      * Validate this element
@@ -638,6 +664,11 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
         return cachedProblems;
     }
 
+    /**
+     * Get any cached problems for this element
+     * 
+     * @return and int containing the issue values as individual set bits or Validator.NOT_VALIDATED
+     */
     public int getCachedProblems() {
         return cachedProblems;
     }

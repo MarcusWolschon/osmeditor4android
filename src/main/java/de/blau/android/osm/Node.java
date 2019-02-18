@@ -42,6 +42,7 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
      * 
      * @param osmId the OSM-ID. When not yet transmitted to the API it is negative.
      * @param osmVersion the version of the element
+     * @param timestamp seconds since teh epoch
      * @param status see {@link OsmElement#state}
      * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
      * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
@@ -62,10 +63,20 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
         return lon;
     }
 
+    /**
+     * Set the latitude
+     * 
+     * @param lat latitude in WGS84*1E7
+     */
     void setLat(final int lat) {
         this.lat = lat;
     }
 
+    /**
+     * Set the longitude
+     * 
+     * @param lon longitude in WGS84*1E7
+     */
     void setLon(final int lon) {
         this.lon = lon;
     }
@@ -147,5 +158,19 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
     @Override
     protected int validate(Validator validator) {
         return validator.validate(this);
+    }
+
+    @Override
+    <T extends OsmElement> void updateFrom(T e) {
+        if (!(e instanceof Node)) {
+            throw new IllegalArgumentException("e is not a Node");
+        }
+        if (e.getOsmId() != getOsmId()) {
+            throw new IllegalArgumentException("Different ids " + e.getOsmId() + " != " + getOsmId());
+        }
+        setTags(e.getTags());
+        setState(e.getState());
+        setLon(((Node) e).getLon());
+        setLat(((Node) e).getLat());
     }
 }
