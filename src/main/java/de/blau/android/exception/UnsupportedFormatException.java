@@ -1,5 +1,8 @@
 package de.blau.android.exception;
 
+import android.support.annotation.NonNull;
+
+
 /**
  * Used file format issues
  * 
@@ -8,13 +11,14 @@ package de.blau.android.exception;
  */
 public class UnsupportedFormatException extends RuntimeException {
 
-    public UnsupportedFormatException(String message) {
-        super(message);
-    }
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Construct a new exception
+     * 
+     * @param message the exception message
+     */
+    public UnsupportedFormatException(@NonNull String message) {
+        super(message);
+    }
 }

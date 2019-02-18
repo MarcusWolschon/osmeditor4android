@@ -45,6 +45,9 @@ public class IndoorFilterTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -57,6 +60,9 @@ public class IndoorFilterTest {
         TestUtils.dismissStartUpDialogs(context);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
     }

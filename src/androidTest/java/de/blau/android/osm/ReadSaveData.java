@@ -45,6 +45,9 @@ public class ReadSaveData {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -57,10 +60,16 @@ public class ReadSaveData {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
     }
 
+    /**
+     * Read a file in OSM/JOSM XML format, then write it and check if the contents are the same 
+     */
     @Test
     public void dataReadSave() {
         final CountDownLatch signal1 = new CountDownLatch(1);
