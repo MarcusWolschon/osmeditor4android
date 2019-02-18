@@ -237,7 +237,7 @@ public class ErrorAlert extends DialogFragment {
         if (messageId != 0) {
             String message = getString(messageId);
             if (originalMessage != null) {
-                message = message + originalMessage;
+                message = message + "<p/>" + originalMessage;
             }
             builder.setMessage(Util.fromHtml(message));
         }

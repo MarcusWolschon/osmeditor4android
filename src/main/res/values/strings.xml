@@ -52,8 +52,8 @@
     <string name="out_of_memory_dirty_message">Vespucci could not load the requested data. Please save your edits, start again, and load a smaller area.</string>
     <string name="invalid_data_received_title">Invalid data received</string>
     <string name="invalid_data_received_message">If you didn\'t cause the error, please file a bug report.</string>
-    <string name="invalid_data_read_title">Invalid data sent</string>
-    <string name="invalid_data_read_message">If you didn\'t cause the error, please file a bug report.</string>
+    <string name="invalid_data_read_title">Invalid data read</string>
+    <string name="invalid_data_read_message">Please consult the documentation on supported file formats and required data fields.</string>
     <string name="file_write_failed_title">Could not write to file</string>
     <string name="file_write_failed_message">Vespucci could not change or save the file.</string>
     <string name="welcome_title">Welcome</string>

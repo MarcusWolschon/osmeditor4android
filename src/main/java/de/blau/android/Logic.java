@@ -36,7 +36,6 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,6 +45,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -2981,8 +2981,7 @@ public class Logic {
 
         new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
-            protected Integer doInBackground(Boolean... arg) {
-                int result = 0;
+            protected ReadAsyncResult doInBackground(Boolean... arg) {
                 try {
                     final OsmParser osmParser = new OsmParser();
                     osmParser.clearBoundingBoxes(); // this removes the default bounding box
@@ -3003,19 +3002,19 @@ public class Logic {
                     Log.e(DEBUG_TAG, "Problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
+                        return new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, ce.getMessage());
                     } else {
-                        result = ErrorCodes.INVALID_DATA_READ;
+                        return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, ce.getMessage());
                     }
                 } catch (ParserConfigurationException e) {
                     // crash and burn
                     Log.e(DEBUG_TAG, "Problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_READ;
+                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } catch (IOException e) {
-                    result = ErrorCodes.NO_CONNECTION;
                     Log.e(DEBUG_TAG, "Problem reading", e);
+                    return new ReadAsyncResult(ErrorCodes.NO_CONNECTION, e.getMessage());
                 }
-                return result;
+                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute(add);
     }
@@ -3130,8 +3129,7 @@ public class Logic {
 
         new ReadAsyncClass(activity, is, add, postLoad) {
             @Override
-            protected Integer doInBackground(Boolean... arg) {
-                int result = 0;
+            protected ReadAsyncResult doInBackground(Boolean... arg) {
                 try {
                     Storage storage = new Storage();
                     try {
@@ -3149,9 +3147,9 @@ public class Logic {
                     }
                 } catch (UnsupportedFormatException | IOException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                    result = ErrorCodes.INVALID_DATA_READ;
+                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 }
-                return result;
+                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute(add);
     }
@@ -3178,8 +3176,7 @@ public class Logic {
 
         new ReadAsyncClass(activity, is, false, postLoad) {
             @Override
-            protected Integer doInBackground(Boolean... arg) {
-                int result = 0;
+            protected ReadAsyncResult doInBackground(Boolean... arg) {
                 try {
                     OsmChangeParser oscParser = new OsmChangeParser();
                     oscParser.clearBoundingBoxes(); // this removes the default bounding box
@@ -3195,11 +3192,11 @@ public class Logic {
                     }
                 } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
-                    result = ErrorCodes.INVALID_DATA_READ;
+                    return new ReadAsyncResult(ErrorCodes.INVALID_DATA_READ, e.getMessage());
                 } finally {
                     SavingHelper.close(is);
                 }
-                return result;
+                return new ReadAsyncResult(ErrorCodes.OK, null);
             }
         }.execute();
     }

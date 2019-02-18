@@ -20,7 +20,7 @@ import de.blau.android.util.ACRAHelper;
  * @author simon
  *
  */
-public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, Integer> {
+public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncResult> {
 
     private static final String  DEBUG_TAG = "ReadAsyncClass";
     final FragmentActivity       activity;
@@ -54,25 +54,26 @@ public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, Integer> {
     }
 
     @Override
-    protected void onPostExecute(Integer result) {
+    protected void onPostExecute(ReadAsyncResult result) {
         Progress.dismissDialog(activity, Progress.PROGRESS_LOADING);
         if (map != null) {
             try {
                 viewBox.setRatio(map, (float) map.getWidth() / (float) map.getHeight());
             } catch (OsmException e) {
-                Log.d(DEBUG_TAG, "readOsmFile got " + e.getMessage());
+                Log.d(DEBUG_TAG, "onPostExecute got " + e.getMessage());
             }
             DataStyle.updateStrokes(App.getLogic().strokeWidth(viewBox.getWidth()));
         }
-        if (result != 0) {
-            if (result == ErrorCodes.OUT_OF_MEMORY) {
+        int code = result.getCode();
+        if (code != 0) {
+            if (code == ErrorCodes.OUT_OF_MEMORY) {
                 if (App.getDelegator().isDirty()) {
-                    result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+                    code = ErrorCodes.OUT_OF_MEMORY_DIRTY;
                 }
             }
             try {
                 if (!activity.isFinishing()) {
-                    ErrorAlert.showDialog(activity, result);
+                    ErrorAlert.showDialog(activity, code, result.getMessage());
                 }
             } catch (Exception ex) { // now and then this seems to throw a WindowManager.BadTokenException,
                 ACRAHelper.nocrashReport(ex, ex.getMessage());
