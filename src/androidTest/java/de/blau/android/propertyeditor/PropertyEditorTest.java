@@ -109,6 +109,7 @@ public class PropertyEditorTest {
      */
     @After
     public void teardown() {
+        TestUtils.stopEasyEdit(main);
         try {
             mockServer.server().shutdown();
             instrumentation.removeMonitor(monitor);

@@ -86,6 +86,7 @@ public class OsmoseTest {
      */
     @After
     public void teardown() {
+        App.getTaskStorage().reset();
         try {
             mockServer.server().shutdown();
         } catch (IOException ioex) {

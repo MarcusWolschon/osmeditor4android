@@ -65,6 +65,7 @@ public class IndoorFilterTest {
      */
     @After
     public void teardown() {
+        TestUtils.stopEasyEdit(main);
     }
 
     @Test

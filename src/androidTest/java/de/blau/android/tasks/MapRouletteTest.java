@@ -91,6 +91,7 @@ public class MapRouletteTest {
      */
     @After
     public void teardown() {
+        App.getTaskStorage().reset();
         try {
             mockServerMapRoulette.server().shutdown();
         } catch (IOException ioex) {

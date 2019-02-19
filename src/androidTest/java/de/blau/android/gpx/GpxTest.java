@@ -104,7 +104,6 @@ public class GpxTest {
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
         TestUtils.zoomToLevel(main, 19);
-        main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.clickButton("de.blau.android:id/follow", false);
         Assert.assertTrue(TestUtils.clickResource(device, true, "de.blau.android:id/menu_gps", true));
         Assert.assertTrue(TestUtils.clickText(device, false, "Start GPX track", false));
@@ -113,6 +112,7 @@ public class GpxTest {
         Track track = new Track(main);
         track.importFromGPX(is);
         final CountDownLatch signal = new CountDownLatch(1);
+        main.getTracker().getTrack().reset(); // clear out anything saved
         TestUtils.injectLocation(main, track.getTrack(), Criteria.ACCURACY_FINE, 1000, new SignalHandler(signal));
         try {
             signal.await(TIMEOUT, TimeUnit.SECONDS);
