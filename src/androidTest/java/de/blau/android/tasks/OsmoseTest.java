@@ -249,7 +249,7 @@ public class OsmoseTest {
             App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
             main.getMap().invalidate();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(2000); // NOSONAR
             } catch (InterruptedException e) {
             }
             Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));

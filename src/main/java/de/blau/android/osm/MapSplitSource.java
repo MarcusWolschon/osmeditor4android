@@ -10,6 +10,13 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
 
 public class MapSplitSource {
+    
+    /**
+     * Private contrstuctor
+     */
+    private MapSplitSource() {
+        // avoid instantiation
+    }
 
     /**
      * Read data for the specified BoundingBox from a tiled OSM datasource

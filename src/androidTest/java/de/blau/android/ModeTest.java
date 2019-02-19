@@ -35,6 +35,9 @@ public class ModeTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
@@ -46,6 +49,9 @@ public class ModeTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         main.runOnUiThread(new Runnable() {
@@ -56,17 +62,25 @@ public class ModeTest {
         });
     }
 
-    // attempt at getting reliable long clicks
+    /**
+     * An attempt at getting reliable long clicks with swiping
+     * 
+     * @param o the UiObject to long click on
+     * @throws UiObjectNotFoundException if o is not found
+     */
     void longClick(UiObject o) throws UiObjectNotFoundException {
         Rect rect = o.getBounds();
         mDevice.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
         // o.longClick();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(2000); // NOSONAR
         } catch (InterruptedException e1) {
         }
     }
 
+    /**
+     * Lock, unlock, cycle through the modes
+     */
     @Test
     public void lock() {
         logic.setLocked(true);

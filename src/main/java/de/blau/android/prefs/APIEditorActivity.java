@@ -289,6 +289,7 @@ public class APIEditorActivity extends URLListEditActivity {
         });
     }
 
+    @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);

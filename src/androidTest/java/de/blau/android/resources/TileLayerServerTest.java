@@ -103,7 +103,7 @@ public class TileLayerServerTest {
                 protected Void doInBackground(Void... params) {
                     for (int i = 0;i < 10;i++) {
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(1000); // NOSONAR
                         } catch (InterruptedException e) {
                         }
                         if (t.isMetadataLoaded()) {

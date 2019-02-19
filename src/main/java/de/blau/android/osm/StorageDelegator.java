@@ -2951,6 +2951,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
+    
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
@@ -2962,6 +2963,8 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     public synchronized boolean applyOsc(@NonNull Storage osc, @Nullable PostMergeHandler postMerge) {
         Log.d(DEBUG_TAG, "applyOsc called");
+        final String ABORTMESSAGE = "applyOsc aborting %s is unchanged/created";
+        
         // make temp copy of current storage (we may have to abort
         Storage tempCurrent = new Storage(currentStorage);
         Storage tempApi = new Storage(apiStorage);
@@ -3002,7 +3005,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             }
                             continue;
                         } else {
-                            Log.d(DEBUG_TAG, "applyOsc aborting " + n.getDescription() + " is unchanged/created");
+                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, n.getDescription()));
                             return false;
                         }
                     }
@@ -3051,7 +3054,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             }
                             continue;
                         } else {
-                            Log.d(DEBUG_TAG, "applyOsc aborting " + w.getDescription() + " is unchanged/created");
+                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, w.getDescription()));
                             return false;
                         }
                     }
@@ -3125,7 +3128,7 @@ public class StorageDelegator implements Serializable, Exportable {
                             }
                             continue;
                         } else {
-                            Log.d(DEBUG_TAG, "applyOsc aborting " + r.getDescription() + " is unchanged/created");
+                            Log.d(DEBUG_TAG, String.format(ABORTMESSAGE, r.getDescription()));
                             return false;
                         }
                     }

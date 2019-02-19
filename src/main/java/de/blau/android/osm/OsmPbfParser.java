@@ -191,7 +191,7 @@ public class OsmPbfParser extends BinaryParser {
                 for (int i = 0; i < tagCount; i++) {
                     tags.put(getStringById(n.getKeys(i)), (getStringById(n.getVals(i))));
                 }
-                if (tags != null && !tags.isEmpty()) {
+                if (!tags.isEmpty()) {
                     node.setTags(tags);
                 }
             }

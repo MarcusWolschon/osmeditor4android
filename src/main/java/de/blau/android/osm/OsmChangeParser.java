@@ -54,13 +54,6 @@ public class OsmChangeParser extends OsmParser {
     }
 
     /**
-     * Reset the parser to its initial state but with the existing Storage
-     */
-    public void reinit() {
-        super.reinit();
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override

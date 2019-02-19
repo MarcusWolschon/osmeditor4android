@@ -66,10 +66,8 @@ public abstract class ReadAsyncClass extends AsyncTask<Boolean, Void, ReadAsyncR
         }
         int code = result.getCode();
         if (code != 0) {
-            if (code == ErrorCodes.OUT_OF_MEMORY) {
-                if (App.getDelegator().isDirty()) {
-                    code = ErrorCodes.OUT_OF_MEMORY_DIRTY;
-                }
+            if (code == ErrorCodes.OUT_OF_MEMORY && App.getDelegator().isDirty()) {
+                code = ErrorCodes.OUT_OF_MEMORY_DIRTY;
             }
             try {
                 if (!activity.isFinishing()) {

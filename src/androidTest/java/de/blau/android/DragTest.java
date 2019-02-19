@@ -86,7 +86,7 @@ public class DragTest {
             App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
             main.getMap().invalidate();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000); // NOSONAR
             } catch (InterruptedException e) {
             }
         } catch (OsmException e) {

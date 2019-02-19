@@ -321,7 +321,7 @@ public class TestUtils {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click((int) x, (int) y);
         try {
-            Thread.sleep(100);
+            Thread.sleep(100); // NOSONAR
         } catch (InterruptedException e) {
         }
         device.click((int) x, (int) y);
@@ -755,7 +755,7 @@ public class TestUtils {
                     loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
                     locationManager.setTestProviderLocation(provider, loc);
                     try {
-                        Thread.sleep(interval);
+                        Thread.sleep(interval); // NOSONAR
                     } catch (InterruptedException e) {
                     }
                 }
@@ -765,7 +765,7 @@ public class TestUtils {
             @Override
             protected void onPostExecute(Void result) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000); // NOSONAR
                 } catch (InterruptedException e) {
                 }
                 if (handler != null) {

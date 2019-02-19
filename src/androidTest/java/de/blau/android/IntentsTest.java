@@ -116,7 +116,7 @@ public class IntentsTest {
         // there currently doesn't seem to be a reasonable way to wait until we have downloaded
         // reading both the data, Notes and so on takes quite long
         try {
-            Thread.sleep(10000);
+            Thread.sleep(10000); // NOSONAR
         } catch (InterruptedException e1) {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));
@@ -146,7 +146,7 @@ public class IntentsTest {
 
         // there currently doesn't seem to be a reasonable way to wait until we have downloaded
         try {
-            Thread.sleep(5000);
+            Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e1) {
         }
         Assert.assertNotNull(App.getDelegator().getOsmElement(Node.NAME, 101792984L));

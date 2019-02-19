@@ -84,7 +84,7 @@ public class ReadPbf {
             Assert.fail(e.getMessage());
         }
         try {
-            Thread.sleep(5000);
+            Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {
         }
         StorageDelegator delegator = App.getDelegator();
