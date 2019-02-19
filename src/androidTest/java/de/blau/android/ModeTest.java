@@ -63,22 +63,6 @@ public class ModeTest {
     }
 
     /**
-     * An attempt at getting reliable long clicks with swiping
-     * 
-     * @param o the UiObject to long click on
-     * @throws UiObjectNotFoundException if o is not found
-     */
-    void longClick(UiObject o) throws UiObjectNotFoundException {
-        Rect rect = o.getBounds();
-        mDevice.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
-        // o.longClick();
-        try {
-            Thread.sleep(2000); // NOSONAR
-        } catch (InterruptedException e1) {
-        }
-    }
-
-    /**
      * Lock, unlock, cycle through the modes
      */
     @Test
@@ -108,7 +92,7 @@ public class ModeTest {
 
         Assert.assertEquals(Mode.MODE_EASYEDIT, logic.getMode()); // start with this and cycle through the modes
         try {
-            longClick(lock);
+            TestUtils.longClick(mDevice, lock);
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
@@ -116,7 +100,7 @@ public class ModeTest {
         Assert.assertEquals(Mode.MODE_TAG_EDIT, logic.getMode());
 
         try {
-            longClick(lock);
+            TestUtils.longClick(mDevice, lock);
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
@@ -124,7 +108,7 @@ public class ModeTest {
         Assert.assertEquals(Mode.MODE_INDOOR, logic.getMode());
 
         try {
-            longClick(lock);
+            TestUtils.longClick(mDevice, lock);
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }
@@ -132,7 +116,7 @@ public class ModeTest {
         Assert.assertEquals(Mode.MODE_CORRECT, logic.getMode());
 
         try {
-            longClick(lock);
+            TestUtils.longClick(mDevice, lock);
         } catch (UiObjectNotFoundException e) {
             Assert.fail(e.getMessage());
         }

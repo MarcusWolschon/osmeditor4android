@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Assert;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -267,6 +268,21 @@ public class TestUtils {
     }
 
     /**
+     * An attempt at getting reliable long clicks with swiping
+     * 
+     * @param o the UiObject to long click on
+     * @throws UiObjectNotFoundException if o is not found
+     */
+    public static void longClick(UiDevice mDevice, UiObject o) throws UiObjectNotFoundException {
+        Rect rect = o.getBounds();
+        mDevice.swipe(rect.centerX(), rect.centerY(), rect.centerX(), rect.centerY(), 200);
+        try {
+            Thread.sleep(2000); // NOSONAR
+        } catch (InterruptedException e1) {
+        }
+    }
+
+    /**
      * Long click at a screen location
      * 
      * @param x screen X coordinate
@@ -440,7 +456,7 @@ public class TestUtils {
         int currentLevel = map.getZoomLevel();
         int prevLevel = -1;
         int noChange = 0;
-        while (level != currentLevel && count < 20) { 
+        while (level != currentLevel && count < 20) {
             Log.d(DEBUG_TAG, "Zoom level " + currentLevel);
             if (currentLevel < level) {
                 if (level - currentLevel > 3) {
@@ -502,6 +518,35 @@ public class TestUtils {
                     button.click();
                     Log.e(DEBUG_TAG, ".... clicked");
                 }
+                return true;
+            } catch (UiObjectNotFoundException e) {
+                Log.e(DEBUG_TAG, "Object vanished.");
+                return false;
+            }
+        } else {
+            Log.e(DEBUG_TAG, "Object not found");
+            return false;
+        }
+    }
+
+    /**
+     * Long click a text on screen (case insensitive, start of a string)
+     * 
+     * @param device UiDevice object
+     * @param text text to search (case insensitive, uses textStartsWith)
+     * @return true if successful
+     */
+    public static boolean longClickText(UiDevice device, String text) {
+        Log.w(DEBUG_TAG, "Searching for object with " + text);
+        // Note: contrary to "text", "textStartsWith" is case insensitive
+        BySelector bySelector = By.textStartsWith(text);
+        UiSelector uiSelector = new UiSelector().textStartsWith(text);
+        device.wait(Until.findObject(bySelector), 500);
+        UiObject button = device.findObject(uiSelector);
+        if (button.exists()) {
+            try {
+                longClick(device, button);
+                Log.e(DEBUG_TAG, ".... clicked");
                 return true;
             } catch (UiObjectNotFoundException e) {
                 Log.e(DEBUG_TAG, "Object vanished.");
