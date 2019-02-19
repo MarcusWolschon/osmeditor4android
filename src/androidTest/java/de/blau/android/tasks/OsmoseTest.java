@@ -31,6 +31,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import de.blau.android.App;
 import de.blau.android.Main;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
@@ -92,6 +93,7 @@ public class OsmoseTest {
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -245,11 +247,11 @@ public class OsmoseTest {
         OsmoseBug b = (OsmoseBug) t; // ugly but removes code duplication
         TestUtils.unlock();
         try {
-            BoundingBox bbox = GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D, true);
-            App.getLogic().getViewBox().setBorders(main.getMap(), bbox);
-            main.getMap().invalidate();
+            Map map = main.getMap();
+            map.getViewBox().fitToBoundingBox(map, GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D, true));
+            map.invalidate();
             try {
-                Thread.sleep(2000); // NOSONAR
+                Thread.sleep(5000); // NOSONAR
             } catch (InterruptedException e) {
             }
             Assert.assertTrue(TestUtils.clickAtCoordinatesWaitNewWindow(device, main.getMap(), b.getLon(), b.getLat()));

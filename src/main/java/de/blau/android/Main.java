@@ -2777,7 +2777,7 @@ public class Main extends FullScreenAppCompatActivity
                 if (hasBugChanges) {
                     TransferTasks.upload(this, server, null);
                 }
-                logic.checkForMail(this);
+                logic.checkForMail(this, server);
             } else {
                 Snack.barInfo(this, R.string.toast_no_changes);
             }
@@ -2800,7 +2800,7 @@ public class Main extends FullScreenAppCompatActivity
 
         if (server != null && server.isLoginSet()) {
             logic.uploadTrack(this, getTracker().getTrack(), description, tags, visibility);
-            logic.checkForMail(this);
+            logic.checkForMail(this, server);
         } else {
             ErrorAlert.showDialog(this, ErrorCodes.NO_LOGIN_DATA);
         }

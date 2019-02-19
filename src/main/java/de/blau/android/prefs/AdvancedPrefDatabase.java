@@ -214,7 +214,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     /**
      * Rest the current Server object, closing any MapSplit source first
      */
-    private void resetCurrentServer() {
+    public void resetCurrentServer() {
         if (currentServer != null) {
             currentServer.closeMapSplitSource();
         }

@@ -72,6 +72,7 @@ public class ReadSaveTasks {
         TestUtils.dismissStartUpDialogs(main);
         ts = App.getTaskStorage();
         ts.reset();
+        prefDB = new AdvancedPrefDatabase(context);
     }
 
     /**
@@ -79,6 +80,7 @@ public class ReadSaveTasks {
      */
     @After
     public void teardown() {
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -145,7 +147,6 @@ public class ReadSaveTasks {
         mockServer = new MockWebServerPlus();
         HttpUrl mockBaseUrl = mockServer.server().url("/api/0.6/");
         System.out.println("mock api url " + mockBaseUrl.toString());
-        prefDB = new AdvancedPrefDatabase(context);
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");

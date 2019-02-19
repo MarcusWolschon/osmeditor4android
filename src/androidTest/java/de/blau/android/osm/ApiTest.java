@@ -97,6 +97,7 @@ public class ApiTest {
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**
@@ -246,6 +247,9 @@ public class ApiTest {
         Assert.assertNotNull(App.getDelegator().getOsmElement(Way.NAME, 104364414L));
     }
 
+    /**
+     * Upload to changes (mock-)server
+     */
     @Test
     public void dataUpload() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -291,6 +295,9 @@ public class ApiTest {
         Assert.assertEquals(4L, r.getOsmVersion());
     }
 
+    /**
+     * Upload unchanged data (mock-)server
+     */
     @Test
     public void dataUploadUnchanged() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -330,6 +337,9 @@ public class ApiTest {
 
     }
 
+    /**
+     * Upload to changes (mock-)server with reduced number of elements per changeset
+     */
     @Test
     public void dataUploadSplit() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -398,6 +408,9 @@ public class ApiTest {
         Assert.assertEquals(4L, r.getOsmVersion());
     }
 
+    /**
+     * Upload changes (mock-)server and check behaviour when we receive an error
+     */
     @Test
     public void dataUploadErrors() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -418,6 +431,11 @@ public class ApiTest {
         uploadErrorTest(999);
     }
 
+    /**
+     * Upload changes (mock-)server and check behaviour when we receive an error
+     * 
+     * @param code error code to return
+     */
     private void uploadErrorTest(int code) {
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("" + code);
@@ -443,6 +461,9 @@ public class ApiTest {
         Assert.fail("Expected error " + code);
     }
 
+    /**
+     * Upload changes (mock-)server and check behaviour when we receive a broken response
+     */
     @Test
     public void dataUploadErrorInResult() {
         final CountDownLatch signal = new CountDownLatch(1);
@@ -514,7 +535,7 @@ public class ApiTest {
     }
 
     /**
-     * Doenload Notes for a bounding box
+     * Download Notes for a bounding box
      */
     @Test
     public void notesDownload() {
@@ -591,7 +612,8 @@ public class ApiTest {
         mockServer.enqueue("userdetails");
         Logic logic = App.getLogic();
         UiObject snackbarTextView = mDevice.findObject(new UiSelector().resourceId("de.blau.android:id/snackbar_text"));
-        logic.checkForMail(main);
+        final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
+        logic.checkForMail(main, s);
         Assert.assertTrue(snackbarTextView.waitForExists(5000));
     }
 

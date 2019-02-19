@@ -93,6 +93,7 @@ public class IntentsTest {
         } catch (IOException ioex) {
             System.out.println("Stopping mock webserver exception " + ioex);
         }
+        prefDB.selectAPI(AdvancedPrefDatabase.ID_DEFAULT);
     }
 
     /**

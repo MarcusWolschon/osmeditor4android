@@ -3719,9 +3719,9 @@ public class Logic {
      * Show a snackbar indicating how many unread mails are on the server
      * 
      * @param activity activity calling this method
+     * @param server current server configuration
      */
-    public void checkForMail(final FragmentActivity activity) {
-        final Server server = prefs.getServer();
+    public void checkForMail(@NonNull final FragmentActivity activity, @NonNull final Server server) {
         new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... params) {
