@@ -77,6 +77,7 @@ public class ReadSaveData {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream is = loader.getResourceAsStream("test2.osm");
+        Assert.assertNotNull(is);
         logic.readOsmFile(main, is, false, new SignalHandler(signal1));
         try {
             signal1.await(ApiTest.TIMEOUT, TimeUnit.SECONDS);
@@ -114,7 +115,7 @@ public class ReadSaveData {
      * @return true if "the same"
      */
     private boolean dataIsSame(byte[] correctContent, byte[] testContent) {
-        int oldVersionLength = 12;
+        int oldVersionLength = 8;
         int offset = context.getString(R.string.app_version).length() - oldVersionLength;
         if (correctContent.length == testContent.length - offset) { // this will fail if more than the build changes
             for (int i = 77 + offset; i < correctContent.length + offset; i++) {

@@ -2,6 +2,7 @@ package de.blau.android.osm;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -279,8 +280,8 @@ public class OsmParser extends DefaultHandler {
 
             switch (name) {
             case Node.NAME:
-                int lat = (int) (Double.valueOf(atts.getValue("lat")) * 1E7);
-                int lon = (int) (Double.valueOf(atts.getValue("lon")) * 1E7);
+                int lat = (new BigDecimal(atts.getValue("lat")).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
+                int lon = (new BigDecimal(atts.getValue("lon")).scaleByPowerOfTen(Node.COORDINATE_SCALE)).intValue();
                 currentNode = OsmElementFactory.createNode(osmId, osmVersion, timestamp, status, lat, lon);
                 break;
             case Way.NAME:

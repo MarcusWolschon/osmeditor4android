@@ -1,6 +1,7 @@
 package de.blau.android.osm;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -38,11 +39,16 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
     public static final String NAME = "node";
 
     /**
+     * Scaling between floating point coordinates and internal representation as an int
+     */
+    public static final int COORDINATE_SCALE = 7;
+
+    /**
      * Constructor. Call it solely in {@link OsmElementFactory}!
      * 
      * @param osmId the OSM-ID. When not yet transmitted to the API it is negative.
      * @param osmVersion the version of the element
-     * @param timestamp seconds since teh epoch
+     * @param timestamp seconds since the epoch
      * @param status see {@link OsmElement#state}
      * @param lat WGS84 decimal Latitude-Coordinate times 1E7.
      * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
@@ -121,8 +127,8 @@ public class Node extends OsmElement implements GeoPoint, BoundedObject {
             throws IllegalArgumentException, IllegalStateException, IOException {
         s.startTag("", NAME);
         attributesToXml(s, changeSetId, josm);
-        s.attribute("", "lat", Double.toString((lat / 1E7)));
-        s.attribute("", "lon", Double.toString((lon / 1E7)));
+        s.attribute("", "lat", BigDecimal.valueOf(lat).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
+        s.attribute("", "lon", BigDecimal.valueOf(lon).scaleByPowerOfTen(-COORDINATE_SCALE).stripTrailingZeros().toPlainString());
         tagsToXml(s);
         s.endTag("", NAME);
     }
