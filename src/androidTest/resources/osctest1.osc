@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osmChange version="0.6" generator="Osmosis 0.44.1">
+  <create>
+    <node id="-40533" version="0" timestamp="2013-03-14T22:33:10Z" lat="47.3901219" lon="8.3891745"/>
+    <node id="-40534" version="0" timestamp="2013-03-14T22:33:10Z" lat="47.3901275" lon="8.3894486"/>
+    <node id="-40536" version="0" timestamp="2013-03-14T22:33:10Z" lat="47.3899902" lon="8.3893445"/>
+  </create>
+  <modify>
+    <node id="416426220" version="5" timestamp="2012-10-13T19:38:23Z" uid="92387" user="SimonPoole" changeset="13483681" lat="47.3898126" lon="8.3894851"/>
+  </modify>
+  <delete>
+    <node id="2206392992" version="1" timestamp="2019-02-19T21:56:43Z" uid="92387" user="SimonPoole" changeset="15393056" lat="47.3887023" lon="8.3883698"/>
+    <node id="2206392993" version="1" timestamp="2019-02-19T21:56:43Z" uid="92387" user="SimonPoole" changeset="15393056" lat="47.388761" lon="8.3882645"/>
+    <node id="2206392994" version="1" timestamp="2019-02-19T21:56:43Z" uid="92387" user="SimonPoole" changeset="15393056" lat="47.3888224" lon="8.388516"/>
+    <node id="2206392996" version="1" timestamp="2019-02-19T21:56:43Z" uid="92387" user="SimonPoole" changeset="15393056" lat="47.3888811" lon="8.3884107"/>
+  </delete>
+  <create>
+    <way id="-40535" version="0" timestamp="2013-03-14T22:33:10Z">
+      <nd ref="-40533"/>
+      <nd ref="-40534"/>
+      <nd ref="-40536"/>
+      <nd ref="-40533"/>
+      <tag k="name" v="new"/>
+    </way>
+  </create>
+  <delete>
+    <way id="210558043" version="2" timestamp="2019-02-19T21:56:43Z" uid="92387" user="SimonPoole" changeset="18498382">
+      <nd ref="2206392996"/>
+      <nd ref="2206392994"/>
+      <nd ref="2206392992"/>
+      <nd ref="2206392993"/>
+      <nd ref="2206392996"/>
+      <tag k="addr:housenumber" v="38"/>
+      <tag k="addr:street" v="Bergstrasse"/>
+      <tag k="building" v="residential"/>
+    </way>
+  </delete>
+  <modify>
+    <way id="210558045" version="2" timestamp="2013-03-19T21:24:41Z" uid="92387" user="SimonPoole" changeset="15425463">
+      <nd ref="2206393030"/>
+      <nd ref="2206393031"/>
+      <nd ref="2206393022"/>
+      <nd ref="2206393021"/>
+      <nd ref="2206393030"/>
+      <tag k="addr:housenumber" v="444"/>
+      <tag k="addr:street" v="Kirchstrasse"/>
+      <tag k="building" v="residential"/>
+    </way>
+    <relation id="1638705" version="23" timestamp="2018-04-24T16:08:28Z" uid="92387" user="SimonPoole" changeset="58379053">
+      <member type="node" ref="990041213" role="stop"/>
+      <member type="node" ref="984784096" role="stop"/>
+      <member type="node" ref="954562015" role="stop"/>
+      <member type="node" ref="577098706" role="stop"/>
+      <member type="node" ref="577294188" role="stop"/>
+      <member type="node" ref="577098600" role="stop"/>
+      <member type="node" ref="573380243" role="stop"/>
+      <member type="node" ref="577098574" role="stop"/>
+      <member type="node" ref="577098583" role="stop"/>
+      <member type="node" ref="416083529" role="stop"/>
+      <member type="node" ref="416064528" role="stop"/>
+      <member type="way" ref="208637083" role=""/>
+      <member type="way" ref="85395583" role=""/>
+      <member type="way" ref="85395608" role=""/>
+      <member type="way" ref="85395614" role=""/>
+      <member type="way" ref="85395547" role=""/>
+      <member type="way" ref="85395572" role=""/>
+      <member type="way" ref="85395590" role=""/>
+      <member type="way" ref="149220717" role=""/>
+      <member type="way" ref="365172503" role=""/>
+      <member type="way" ref="149220702" role=""/>
+      <member type="way" ref="148800689" role=""/>
+      <member type="way" ref="148800687" role=""/>
+      <member type="way" ref="119104111" role=""/>
+      <member type="way" ref="148673903" role=""/>
+      <member type="way" ref="119104100" role=""/>
+      <member type="way" ref="154344157" role=""/>
+      <member type="way" ref="36898112" role=""/>
+      <member type="way" ref="148799186" role=""/>
+      <member type="way" ref="45179683" role=""/>
+      <member type="way" ref="45179682" role=""/>
+      <member type="way" ref="119104096" role=""/>
+      <member type="way" ref="45265074" role=""/>
+      <member type="way" ref="119104095" role=""/>
+      <member type="way" ref="437198562" role=""/>
+      <member type="way" ref="45381177" role=""/>
+      <member type="way" ref="437198561" role=""/>
+      <member type="way" ref="583292967" role=""/>
+      <member type="way" ref="45381175" role=""/>
+      <member type="way" ref="583292969" role=""/>
+      <member type="way" ref="437198560" role=""/>
+      <member type="way" ref="35542707" role=""/>
+      <member type="way" ref="119104093" role=""/>
+      <member type="way" ref="45180812" role=""/>
+      <member type="way" ref="27009604" role=""/>
+      <member type="way" ref="119104098" role=""/>
+      <member type="way" ref="496747931" role=""/>
+      <member type="way" ref="119104097" role=""/>
+      <member type="way" ref="104364414" role=""/>
+      <member type="way" ref="214323580" role=""/>
+      <member type="way" ref="35479116" role=""/>
+      <member type="way" ref="581620397" role=""/>
+      <member type="way" ref="35479120" role=""/>
+      <tag k="from" v="Dietikon Bahnhof"/>
+      <tag k="name" v="Bus 305: Dietikon, Bahnhof =&gt; Kindhausen AG"/>
+      <tag k="network" v="ZVV"/>
+      <tag k="operator" v="VBZ: Limmatbus AG"/>
+      <tag k="public_transport:version" v="2"/>
+      <tag k="ref" v="305"/>
+      <tag k="route" v="bus"/>
+      <tag k="to" v="Kindhausen AG"/>
+      <tag k="type" v="route"/>
+    </relation>
+  </modify>
+</osmChange>
