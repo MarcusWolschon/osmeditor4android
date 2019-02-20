@@ -1593,14 +1593,25 @@ public class Logic {
      * @return the created node
      */
     public synchronized Node performAddNode(@Nullable final Activity activity, Double lonD, Double latD) {
-        // A complete new Node...
-        Log.d(DEBUG_TAG, "performAddNode");
-        createCheckpoint(activity, R.string.undo_action_add);
         int lon = (int) (lonD * 1E7D);
         int lat = (int) (latD * 1E7D);
-        Node newNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+        return performAddNode(activity, lon, lat);
+    }
+
+    /**
+     * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
+     * 
+     * @param activity activity this was called from, if null no warnings will be displayed
+     * @param lonE7 WGS84*1E7 longitude 
+     * @param latE7 WGS84*1E7 latitude
+     * @return the created node
+     */
+    public Node performAddNode(final Activity activity, int lonE7, int latE7) {
+        Log.d(DEBUG_TAG, "performAddNode");
+        createCheckpoint(activity, R.string.undo_action_add);
+        Node newNode = getDelegator().getFactory().createNodeWithNewId(latE7, lonE7);
         getDelegator().insertElementSafe(newNode);
-        outsideOfDownload(activity, lon, lat);
+        outsideOfDownload(activity, lonE7, latE7);
         setSelectedNode(newNode);
         return newNode;
     }

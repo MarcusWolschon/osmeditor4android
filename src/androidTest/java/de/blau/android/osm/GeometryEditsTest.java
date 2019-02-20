@@ -520,8 +520,8 @@ public class GeometryEditsTest {
             Way w1 = logic.getSelectedWay();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
-            double lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f) / 1E7D;
-            double lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f) / 1E7D;
+            int lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
+            int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 500.0f);
             Node n1 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(0, logic.getWaysForNode(n1).size());
             MergeResult result = logic.performJoin(main, w1, n1);
@@ -547,8 +547,8 @@ public class GeometryEditsTest {
             Node n1 = logic.getSelectedNode();
             logic.setSelectedWay(null);
             logic.setSelectedNode(null);
-            double lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f) / 1E7D;
-            double lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f) / 1E7D;
+            int lon = GeoMath.xToLonE7(logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
+            int lat = GeoMath.yToLatE7(logic.getMap().getHeight(), logic.getMap().getWidth(), logic.getViewBox(), 1001.0f);
             Node n2 = logic.performAddNode(main, lon, lat);
             Assert.assertEquals(2, App.getDelegator().getApiNodeCount());
             MergeResult result = logic.performJoin(main, n1, n2);

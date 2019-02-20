@@ -352,7 +352,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         int number = Integer.parseInt(first);
                         // worked if there is a further word(s) simply add it/them
                         Snack.barInfoShort(main, +number + (words.length == 2 ? words[1] : ""));
-                        Node node = logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D);
+                        Node node = logic.performAddNode(main, startLon, startLat);
                         if (node != null) {
                             TreeMap<String, String> tags = new TreeMap<>(node.getTags());
                             tags.put(Tags.KEY_ADDR_HOUSENUMBER, Integer.toString(number) + (words.length == 3 ? words[2] : ""));
@@ -377,7 +377,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                     List<PresetElement> presetItems = SearchIndexUtils.searchInPresets(main, first, ElementType.NODE, 2, 1);
 
                     if (presetItems != null && presetItems.size() == 1) {
-                        Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), words.length == 2 ? words[1] : null,
+                        Node node = addNode(logic.performAddNode(main, startLon, startLat), words.length == 2 ? words[1] : null,
                                 (PresetItem) presetItems.get(0), logic, v);
                         if (node != null) {
                             main.startSupportActionMode(new NodeSelectionActionModeCallback(manager, node));
@@ -392,7 +392,7 @@ public class LongClickActionModeCallback extends EasyEditActionModeCallback impl
                         map.putAll(nt.getTags());
                         PresetItem pi = Preset.findBestMatch(App.getCurrentPresets(main), map);
                         if (pi != null) {
-                            Node node = addNode(logic.performAddNode(main, startLon / 1E7D, startLat / 1E7D), nt.getName(), pi, logic, v);
+                            Node node = addNode(logic.performAddNode(main, startLon, startLat), nt.getName(), pi, logic, v);
                             if (node != null) {
                                 // set tags from name suggestions
                                 Map<String, String> tags = new TreeMap<>(node.getTags());
