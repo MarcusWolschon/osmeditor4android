@@ -76,9 +76,21 @@
     <string name="progress_oauth">Loading your account on openstreetmap.org for OAuth authorisation…</string>
     <string name="progress_building_imagery_database">Building imagery database…</string>
     <string name="progress_query_oam">Querying OAM…</string>
+    <!-- Confirm upload dialog -->
+    <string name="changes_deleted">"%1$s" deleted</string>
+    <string name="changes_changed">"%1$s" changed</string>
+    <string name="changes_created">"%1$s" created</string>
+    <string name="confirm_upload_title">Upload changes</string>
+    <plurals name="confirm_upload_text">
+        <item quantity="one">Upload this change?</item>
+        <item quantity="other">Upload these %1$d changes?</item>
+    </plurals>
+    <string name="confirm_upload_edits_page">Changes</string>
     <string name="upload_comment_label">Comment:</string>
     <string name="upload_source_label">Source:</string>
     <string name="upload_close_changeset_label">Close changeset:</string>
+    <string name="upload_request_review_label">Request review:</string>
+    <!--  -->
     <string name="upload_gpx_description_label">Description</string>
     <string name="upload_gpx_tags_label">Tags</string>
     <string name="upload_gpx_visibility_label">Visibility</string>
@@ -824,16 +836,6 @@
     <string name="preset_download_parse_failed">The preset file is invalid. The preset will not work.</string>
     <string name="preset_download_missing_images">Preset file downloaded. However, some missing icons were not.</string>
     <string name="preset_download_title">Preset downloader</string>
-    <!-- changes -->
-    <string name="changes_deleted">"%1$s" deleted</string>
-    <string name="changes_changed">"%1$s" changed</string>
-    <string name="changes_created">"%1$s" created</string>
-    <string name="confirm_upload_title">Upload changes</string>
-    <plurals name="confirm_upload_text">
-        <item quantity="one">Upload this change?</item>
-        <item quantity="other">Upload these %1$d changes?</item>
-    </plurals>
-    <string name="confirm_upload_edits_page">Changes</string>
     <!-- url handler activity -->
     <string name="urldialog_add_preset">Add preset</string>
     <string name="urldialog_preset_exists">This preset already exists</string>

@@ -101,6 +101,23 @@
                         android:layout_below="@id/upload_source"
                         android:gravity="center_vertical"
                         android:text="" />
+                    <TextView
+                        android:id="@+id/upload_request_review_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_below="@id/upload_close_changeset_label"
+                        android:gravity="center_vertical"
+                        android:text="@string/upload_request_review_label" />
+                    <CheckBox
+                        android:id="@+id/upload_request_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignBottom="@id/upload_request_review_label"
+                        android:layout_alignEnd="@id/upload_close_changeset"
+                        android:layout_alignRight="@id/upload_close_changeset"
+                        android:layout_below="@id/upload_close_changeset"
+                        android:gravity="center_vertical"
+                        android:text="" />
                 </RelativeLayout>
             </ScrollView>
         </LinearLayout>

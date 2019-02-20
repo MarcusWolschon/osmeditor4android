@@ -2776,17 +2776,18 @@ public class Main extends FullScreenAppCompatActivity
      * @param comment Textual comment associated with the change set.
      * @param source Source of the change.
      * @param closeChangeset Boolean flag indicating whether the change set should be closed or kept open.
+     * @param extraTags Additional tags to add to the changeset
      */
-    public void performUpload(final String comment, final String source, final boolean closeChangeset) {
+    public void performUpload(@Nullable final String comment, @Nullable final String source, final boolean closeChangeset,
+            @Nullable java.util.Map<String, String> extraTags) {
         final Logic logic = App.getLogic();
         final Server server = prefs.getServer();
-
         if (server != null && server.isLoginSet()) {
             boolean hasDataChanges = logic.hasChanges();
             boolean hasBugChanges = !App.getTaskStorage().isEmpty() && App.getTaskStorage().hasChanges();
             if (hasDataChanges || hasBugChanges) {
                 if (hasDataChanges) {
-                    logic.upload(this, comment, source, closeChangeset);
+                    logic.upload(this, comment, source, closeChangeset, extraTags);
                 }
                 if (hasBugChanges) {
                     TransferTasks.upload(this, server, null);

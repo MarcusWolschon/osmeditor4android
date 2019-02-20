@@ -25,6 +25,9 @@ public final class OsmXml {
 
     private static final String DEBUG_TAG = "OsmXml";
 
+    public static final String TAG       = "tag";
+    public static final String CHANGESET = "changeset";
+
     /**
      * Empty private constructor to prevent instantiation
      */

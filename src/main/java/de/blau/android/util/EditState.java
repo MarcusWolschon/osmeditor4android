@@ -29,7 +29,7 @@ import de.blau.android.tasks.Task;
  *
  */
 public class EditState implements Serializable {
-    private static final long       serialVersionUID = 20L;
+    private static final long       serialVersionUID = 21L;
     private final boolean           savedLocked;
     private final Mode              savedMode;
     private final List<Node>        savedNodes;
@@ -41,6 +41,8 @@ public class EditState implements Serializable {
     private final BoundingBox       savedBox;
     private final ArrayList<String> savedLastComments;
     private final ArrayList<String> savedLastSources;
+    private final String            savedCommentDraft;
+    private final String            savedSourceCommentDraft;
     private final NotificationCache savedTaskNotifications;
     private final NotificationCache savedOsmDataNotifications;
     private final boolean           savedFollowGPS;
@@ -65,7 +67,9 @@ public class EditState implements Serializable {
         savedImageFileName = imageFileName;
         savedBox = box;
         savedLastComments = logic.getLastComments();
+        savedCommentDraft = logic.getDraftComment();
         savedLastSources = logic.getLastSources();
+        savedSourceCommentDraft = logic.getDraftSourceComment();
         savedTaskNotifications = App.getTaskNotifications(context);
         savedOsmDataNotifications = App.getOsmDataNotifications(context);
         savedFollowGPS = followGPS;
@@ -117,7 +121,9 @@ public class EditState implements Serializable {
     public void setMiscState(@NonNull Main main, @NonNull Logic logic) {
         main.setImageFileName(savedImageFileName);
         logic.setLastComments(savedLastComments);
+        logic.setDraftComment(savedCommentDraft);
         logic.setLastSources(savedLastSources);
+        logic.setDraftSourceComment(savedSourceCommentDraft);
         if (logic.getFilter() == null) { // only restore if we have to
             if (savedFilter != null) { // or else we might overwrite state
                 savedFilter.init(main); // in the filter

@@ -267,6 +267,13 @@ public final class Tags {
     public static final String KEY_CHECK_DATE    = "check_date";
     public static final String CHECK_DATE_FORMAT = "yyyy-MM-dd";
 
+    // Changeset keys
+    public static final String KEY_CREATED_BY       = "created_by";
+    public static final String KEY_COMMENT          = "comment";
+    public static final String KEY_IMAGERY_USED     = "imagery_used";
+    public static final String KEY_LOCALE           = "locale";
+    public static final String KEY_REVIEW_REQUESTED = "review_requested";
+
     /**
      * An set of tags considered 'important'. These are typically tags that define real-world objects and not properties
      * of such.

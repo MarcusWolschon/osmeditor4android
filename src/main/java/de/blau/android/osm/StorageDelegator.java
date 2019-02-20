@@ -2154,7 +2154,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     changedElements.add(r);
                     mergeInto.updateState(OsmElement.STATE_MODIFIED);
                     apiStorage.insertElementSafe(mergeInto);
-                    changedElements.add(mergeInto);                    
+                    changedElements.add(mergeInto);
                 }
             }
             onElementChanged(null, new ArrayList<>(changedElements));
@@ -2601,13 +2601,14 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param comment Changeset comment tag
      * @param source Changeset source tag
      * @param closeChangeset if true close the Changeset
+     * @param extraTags Additional tags to add
      * @throws MalformedURLException
      * @throws ProtocolException
      * @throws OsmServerException
      * @throws IOException
      */
-    public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset)
-            throws MalformedURLException, ProtocolException, OsmServerException, IOException {
+    public synchronized void uploadToServer(final Server server, final String comment, String source, boolean closeChangeset,
+            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, OsmServerException, IOException {
 
         dirty = true; // storages will get modified as data is uploaded, these changes need to be saved to file
         removeUnchanged();
@@ -2620,7 +2621,7 @@ public class StorageDelegator implements Serializable, Exportable {
             if (split) {
                 tmpSource = source + " [" + part + "]";
             }
-            server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery));
+            server.openChangeset(comment, tmpSource, Util.listToOsmList(imagery), extraTags);
             try {
                 lock();
                 server.diffUpload(this);
@@ -2951,7 +2952,6 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    
     /**
      * Merge additional data with existing, copy to a new storage because this may fail
      * 
@@ -2964,7 +2964,7 @@ public class StorageDelegator implements Serializable, Exportable {
     public synchronized boolean applyOsc(@NonNull Storage osc, @Nullable PostMergeHandler postMerge) {
         Log.d(DEBUG_TAG, "applyOsc called");
         final String ABORTMESSAGE = "applyOsc aborting %s is unchanged/created";
-        
+
         // make temp copy of current storage (we may have to abort
         Storage tempCurrent = new Storage(currentStorage);
         Storage tempApi = new Storage(apiStorage);

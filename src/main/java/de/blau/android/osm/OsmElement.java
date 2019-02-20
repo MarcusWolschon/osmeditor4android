@@ -315,10 +315,10 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     protected void tagsToXml(@NonNull final XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
         if (tags != null) {
             for (Entry<String, String> tag : tags.entrySet()) {
-                s.startTag("", "tag");
+                s.startTag("", OsmXml.TAG);
                 s.attribute("", "k", tag.getKey());
                 s.attribute("", "v", tag.getValue());
-                s.endTag("", "tag");
+                s.endTag("", OsmXml.TAG);
             }
         }
     }
@@ -334,7 +334,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     protected void attributesToXml(@NonNull final XmlSerializer s, @Nullable Long changeSetId, boolean josm) throws IOException {
         s.attribute("", "id", Long.toString(osmId));
         if (changeSetId != null) {
-            s.attribute("", "changeset", Long.toString(changeSetId));
+            s.attribute("", OsmXml.CHANGESET, Long.toString(changeSetId));
         }
         if (josm) {
             if (state == OsmElement.STATE_DELETED) {

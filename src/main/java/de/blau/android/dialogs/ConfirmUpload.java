@@ -8,6 +8,8 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -44,9 +46,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
-import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.UploadListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -153,7 +155,6 @@ public class ConfirmUpload extends DialogFragment {
         resources = getResources();
         // inflater needs to be got from a themed view or else all our custom stuff will not style correctly
         final LayoutInflater inflater = ThemeUtils.getLayoutInflater(activity);
-        DoNothingListener doNothingListener = new DoNothingListener();
 
         Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.confirm_upload_title);
@@ -192,6 +193,7 @@ public class ConfirmUpload extends DialogFragment {
         // Comment and upload page
         CheckBox closeChangeset = (CheckBox) layout.findViewById(R.id.upload_close_changeset);
         closeChangeset.setChecked(new Preferences(activity).closeChangesetOnSave());
+        CheckBox requestReview = (CheckBox) layout.findViewById(R.id.upload_request_review);
         AutoCompleteTextView comment = (AutoCompleteTextView) layout.findViewById(R.id.upload_comment);
         List<String> comments = new ArrayList<String>(App.getLogic().getLastComments());
         addEmptyEntry(comments);
@@ -227,11 +229,35 @@ public class ConfirmUpload extends DialogFragment {
         List<FormValidation> validators = Arrays.asList(commentValidator, sourceValidator);
 
         builder.setPositiveButton(R.string.transfer_download_current_upload, null);
-        builder.setNegativeButton(R.string.no, doNothingListener);
+
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveCommentAndSource(comment, source);
+            }
+        });
+        builder.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                saveCommentAndSource(comment, source);
+            }
+        });
 
         AlertDialog dialog = builder.create();
-        dialog.setOnShowListener(new UploadListener((Main) activity, comment, source, closeChangeset, validators));
+        dialog.setOnShowListener(new UploadListener((Main) activity, comment, source, closeChangeset, requestReview, validators));
         return dialog;
+    }
+
+    /**
+     * Save the comment and source contents
+     * 
+     * @param comment the comment TextView
+     * @param source the source TextView
+     */
+    private void saveCommentAndSource(@NonNull TextView comment, @NonNull AutoCompleteTextView source) {
+        Logic logic = App.getLogic();
+        logic.pushComment(comment.getText().toString(), true);
+        logic.pushSource(source.getText().toString(), true);
     }
 
     /**

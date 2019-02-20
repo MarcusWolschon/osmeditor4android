@@ -275,7 +275,7 @@ public class ApiTest {
 
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", true);
+            App.getDelegator().uploadToServer(s, "TEST", "none", true, null);
         } catch (OsmServerException e) {
             Assert.fail(e.getMessage());
         } catch (MalformedURLException e) {
@@ -324,7 +324,7 @@ public class ApiTest {
 
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", true);
+            App.getDelegator().uploadToServer(s, "TEST", "none", true, null);
         } catch (OsmServerException e) {
             Assert.fail(e.getMessage());
         } catch (MalformedURLException e) {
@@ -383,7 +383,7 @@ public class ApiTest {
 
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", false);
+            App.getDelegator().uploadToServer(s, "TEST", "none", false, null);
         } catch (OsmServerException e) {
             Assert.fail(e.getMessage());
         } catch (MalformedURLException e) {
@@ -443,7 +443,7 @@ public class ApiTest {
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         s.resetChangeset();
         try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", true);
+            App.getDelegator().uploadToServer(s, "TEST", "none", true, null);
         } catch (OsmServerException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals(code, e.getErrorCode());
@@ -492,7 +492,7 @@ public class ApiTest {
 
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
         try {
-            App.getDelegator().uploadToServer(s, "TEST", "none", true);
+            App.getDelegator().uploadToServer(s, "TEST", "none", true, null);
             Assert.fail("Expected ProtocolException");
         } catch (ProtocolException e) {
         } catch (OsmServerException e) {

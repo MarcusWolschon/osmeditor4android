@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1026,12 +1027,13 @@ public class Server {
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
+     * @param extraTags Additional tags to add
      * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
-    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
-            throws MalformedURLException, ProtocolException, IOException {
+    public void openChangeset(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
         long newChangesetId = -1;
         InputStream in = null;
 
@@ -1039,14 +1041,14 @@ public class Server {
             Changeset cs = getChangeset(changesetId);
             if (cs != null && cs.open) {
                 Log.d(DEBUG_TAG, "Changeset #" + changesetId + " still open, reusing");
-                updateChangeset(changesetId, comment, source, imagery);
+                updateChangeset(changesetId, comment, source, imagery, extraTags);
                 return;
             } else {
                 changesetId = -1;
             }
         }
         try {
-            final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
+            final XmlSerializable xmlData = changeSetTags(comment, source, imagery, extraTags);
             RequestBody body = new RequestBody() {
                 @Override
                 public MediaType contentType() {
@@ -1079,42 +1081,49 @@ public class Server {
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
+     * @param extraTags Additional tags to add
      * @return an XmlSerializable for the tags
      */
-    private XmlSerializable changeSetTags(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery) {
+    private XmlSerializable changeSetTags(@Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+            @Nullable Map<String, String> extraTags) {
         return new XmlSerializable() {
             @Override
             public void toXml(XmlSerializer serializer, Long changeSetId) throws IllegalArgumentException, IllegalStateException, IOException {
                 startXml(serializer);
-                serializer.startTag("", "changeset");
-                serializer.startTag("", "tag");
-                serializer.attribute("", "k", "created_by");
-                serializer.attribute("", "v", generator);
-                serializer.endTag("", "tag");
+                serializer.startTag("", OsmXml.CHANGESET);
+                addTag(serializer, Tags.KEY_CREATED_BY, generator);
                 if (comment != null && comment.length() > 0) {
-                    serializer.startTag("", "tag");
-                    serializer.attribute("", "k", "comment");
-                    serializer.attribute("", "v", comment);
-                    serializer.endTag("", "tag");
+                    addTag(serializer, Tags.KEY_COMMENT, comment);
                 }
                 if (source != null && source.length() > 0) {
-                    serializer.startTag("", "tag");
-                    serializer.attribute("", "k", "source");
-                    serializer.attribute("", "v", source);
-                    serializer.endTag("", "tag");
+                    addTag(serializer, Tags.KEY_SOURCE, source);
                 }
                 if (imagery != null && imagery.length() > 0) {
-                    serializer.startTag("", "tag");
-                    serializer.attribute("", "k", "imagery_used");
-                    serializer.attribute("", "v", imagery);
-                    serializer.endTag("", "tag");
+                    addTag(serializer, Tags.KEY_IMAGERY_USED, imagery);
                 }
-                serializer.startTag("", "tag");
-                serializer.attribute("", "k", "locale");
-                serializer.attribute("", "v", Locale.getDefault().toString());
-                serializer.endTag("", "tag");
-                serializer.endTag("", "changeset");
+                addTag(serializer, Tags.KEY_LOCALE, Locale.getDefault().toString());
+                if (extraTags != null) {
+                    for (Entry<String, String> tag : extraTags.entrySet()) {
+                        addTag(serializer, tag.getKey(), tag.getValue());
+                    }
+                }
+                serializer.endTag("", OsmXml.CHANGESET);
                 endXml(serializer);
+            }
+
+            /**
+             * Serialize a tag
+             * 
+             * @param serializer the serializer
+             * @param key the key
+             * @param value the value
+             * @throws IOException
+             */
+            private void addTag(@NonNull XmlSerializer serializer, @NonNull String key, @NonNull String value) throws IOException {
+                serializer.startTag("", OsmXml.TAG);
+                serializer.attribute("", "k", key);
+                serializer.attribute("", "v", value);
+                serializer.endTag("", OsmXml.TAG);
             }
         };
     }
@@ -1184,13 +1193,14 @@ public class Server {
      * @param comment value for the comment tag
      * @param source value for the source tag
      * @param imagery value for the imagery_used tag
+     * @param extraTags Additional tags to add
      * @throws MalformedURLException if the URL can't be constructed properly
      * @throws ProtocolException
      * @throws IOException
      */
-    private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery)
-            throws MalformedURLException, ProtocolException, IOException {
-        final XmlSerializable xmlData = changeSetTags(comment, source, imagery);
+    private void updateChangeset(final long changesetId, @Nullable final String comment, @Nullable final String source, @Nullable final String imagery,
+            @Nullable Map<String, String> extraTags) throws MalformedURLException, ProtocolException, IOException {
+        final XmlSerializable xmlData = changeSetTags(comment, source, imagery, extraTags);
         RequestBody body = new RequestBody() {
             @Override
             public MediaType contentType() {
@@ -1336,7 +1346,7 @@ public class Server {
                             long oldId = Long.parseLong(oldIdStr);
                             String newIdStr = parser.getAttributeValue(null, "new_id");
                             String newVersionStr = parser.getAttributeValue(null, "new_version");
-                            if ("node".equals(tagName) || "way".equals(tagName) || "relation".equals(tagName)) {
+                            if (Node.NAME.equals(tagName) || Way.NAME.equals(tagName) || Relation.NAME.equals(tagName)) {
                                 OsmElement e = apiStorage.getOsmElement(tagName, oldId);
                                 if (e != null) {
                                     if (e.getState() == OsmElement.STATE_DELETED && newIdStr == null && newVersionStr == null) {

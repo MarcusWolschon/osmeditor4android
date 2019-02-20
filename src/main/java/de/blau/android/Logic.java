@@ -230,10 +230,14 @@ public class Logic {
      */
     private MRUList<String>  lastComments = new MRUList<>(MRULIST_SIZE);
 
+    private String draftComment = null;
+
     /**
      * last changeset source
      */
     private MRUList<String> lastSources = new MRUList<>(MRULIST_SIZE);
+
+    private String draftSourceComment = null;
 
     /**
      * Are we currently dragging a node? Set by {@link #handleTouchEventDown(float, float)}
@@ -1602,7 +1606,7 @@ public class Logic {
      * Simplified version of creating a new node that takes geo coords and doesn't try to merge with existing features
      * 
      * @param activity activity this was called from, if null no warnings will be displayed
-     * @param lonE7 WGS84*1E7 longitude 
+     * @param lonE7 WGS84*1E7 longitude
      * @param latE7 WGS84*1E7 latitude
      * @return the created node
      */
@@ -3533,8 +3537,10 @@ public class Logic {
      * @param comment Changeset comment.
      * @param source The changeset source tag to add.
      * @param closeChangeset Whether to close the changeset after upload or not.
+     * @param extraTags Additional tags to add to changeset
      */
-    public void upload(@NonNull final FragmentActivity activity, final String comment, final String source, final boolean closeChangeset) {
+    public void upload(@NonNull final FragmentActivity activity, @Nullable final String comment, @Nullable final String source, final boolean closeChangeset,
+            @Nullable java.util.Map<String, String> extraTags) {
         final String PROGRESS_TAG = "data";
         final Server server = prefs.getServer();
         new AsyncTask<Void, Void, UploadResult>() {
@@ -3542,8 +3548,8 @@ public class Logic {
             @Override
             protected void onPreExecute() {
                 Progress.showDialog(activity, Progress.PROGRESS_UPLOADING, PROGRESS_TAG);
-                lastComments.push(comment);
-                lastSources.push(source);
+                pushComment(comment, false);
+                pushSource(source, false);
             }
 
             @Override
@@ -3555,7 +3561,7 @@ public class Logic {
                         result.setError(ErrorCodes.API_OFFLINE);
                         return result;
                     }
-                    getDelegator().uploadToServer(server, comment, source, closeChangeset);
+                    getDelegator().uploadToServer(server, comment, source, closeChangeset, extraTags);
                 } catch (final MalformedURLException | ProtocolException e) {
                     Log.e(DEBUG_TAG, "", e);
                     ACRAHelper.nocrashReport(e, e.getMessage());
@@ -4857,8 +4863,12 @@ public class Logic {
      * 
      * @return comment
      */
+    @Nullable
     public String getLastComment() {
-        return lastComments.last();
+        if (getDraftComment() == null) {
+            return lastComments.last();
+        }
+        return getDraftComment();
     }
 
     /**
@@ -4866,6 +4876,7 @@ public class Logic {
      * 
      * @return ArrayList of the comments
      */
+    @NonNull
     public ArrayList<String> getLastComments() {
         return lastComments;
     }
@@ -4875,9 +4886,43 @@ public class Logic {
      * 
      * @param comments the List to set
      */
-    public void setLastComments(ArrayList<String> comments) {
+    public void setLastComments(@NonNull List<String> comments) {
         lastComments = new MRUList<>(comments);
         lastComments.ensureCapacity(MRULIST_SIZE);
+    }
+
+    /**
+     * Push a comment on to the last comments MRU list
+     * 
+     * @param comment the comment to push
+     * @param draft TODO
+     */
+    public void pushComment(@Nullable String comment, boolean draft) {
+        if (comment != null && !"".equals(comment)) {
+            if (draft) {
+                setDraftComment(comment);
+            } else {
+                setDraftComment(null);
+                lastComments.push(comment);
+            }
+        }
+    }
+
+    /**
+     * @return the draft comment if any
+     */
+    @Nullable
+    public String getDraftComment() {
+        return draftComment;
+    }
+
+    /**
+     * A draft comment is not stored in the MRU
+     * 
+     * @param comment set the draft comment
+     */
+    public void setDraftComment(@Nullable String comment) {
+        this.draftComment = comment;
     }
 
     /**
@@ -4885,8 +4930,12 @@ public class Logic {
      * 
      * @return source
      */
+    @Nullable
     public String getLastSource() {
-        return lastSources.last();
+        if (getDraftSourceComment() == null) {
+            return lastSources.last();
+        }
+        return getDraftSourceComment();
     }
 
     /**
@@ -4894,6 +4943,7 @@ public class Logic {
      * 
      * @return ArrayList of the source strings
      */
+    @NonNull
     public ArrayList<String> getLastSources() {
         return lastSources;
     }
@@ -4901,11 +4951,43 @@ public class Logic {
     /**
      * Set the list of last used source strings
      * 
-     * @param sources the Lsit to set
+     * @param sources the List to set
      */
-    public void setLastSources(ArrayList<String> sources) {
+    public void setLastSources(@NonNull List<String> sources) {
         lastSources = new MRUList<>(sources);
         lastSources.ensureCapacity(MRULIST_SIZE);
+    }
+
+    /**
+     * Push a source comment on to the last source comments MRU list
+     * 
+     * @param source the source comment to push
+     * @param draft TODO
+     */
+    public void pushSource(@Nullable String source, boolean draft) {
+        if (source != null && !"".equals(source)) {
+            if (draft) {
+                setDraftSourceComment(source);
+            } else {
+                setDraftSourceComment(null);
+                lastSources.push(source);
+            }
+        }
+    }
+
+    /**
+     * @return the lastSourceDraft
+     */
+    @Nullable
+    public String getDraftSourceComment() {
+        return draftSourceComment;
+    }
+
+    /**
+     * @param source the lastSourceDraft to set
+     */
+    public void setDraftSourceComment(@Nullable String source) {
+        this.draftSourceComment = source;
     }
 
     /**
