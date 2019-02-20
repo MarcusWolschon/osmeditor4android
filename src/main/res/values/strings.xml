@@ -246,7 +246,9 @@
     <string name="feedback_title">Feedback for the developers</string>
     <!--  BoxPicker -->
     <string name="boxpicker_firsttimetitle">Download OpenStreetMap data</string>
-    <!--  NumberPiker -->
+    <!--  Clear/Reset GPX Track -->
+    <string name="clear_track_description">Stop tracking and delete any stored trackpoints. This cannot be undone.</string>
+    <!--  NumberPicker -->
     <string name="plus_sign">+</string>
     <string name="minus_sign">-</string>
     <string name="digit_one">1</string>

@@ -380,7 +380,7 @@ public class TrackerService extends Service implements Exportable {
      * 
      * @return true is we have a track or way point stored
      */
-    public boolean isEMpty() {
+    public boolean isEmpty() {
         return track == null || track.isEmpty();
     }
 

@@ -1801,10 +1801,24 @@ public class Main extends FullScreenAppCompatActivity
 
         case R.id.menu_gps_clear:
             if (getTracker() != null) {
-                getTracker().stopTracking(true);
+                if (!getTracker().isEmpty()) {
+                    new AlertDialog.Builder(this).setTitle(R.string.menu_gps_clear).setMessage(R.string.clear_track_description)
+                            .setPositiveButton(R.string.clear_anyway, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (getTracker() != null) {
+                                        getTracker().stopTracking(true);
+                                    }
+                                    triggerMenuInvalidation();
+                                    map.invalidate();
+                                }
+                            }).setNeutralButton(R.string.cancel, null).show();
+                } else {
+                    getTracker().stopTracking(true);
+                    triggerMenuInvalidation();
+                    map.invalidate();
+                }
             }
-            triggerMenuInvalidation();
-            map.invalidate();
             return true;
 
         case R.id.menu_gps_upload:
