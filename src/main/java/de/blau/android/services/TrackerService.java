@@ -332,6 +332,10 @@ public class TrackerService extends Service implements Exportable {
         stop();
     }
 
+    /**
+     * Halt the service if we are not doing anything important
+     * aka we are not recording a track or autodownloading something
+     */
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
             Log.d(DEBUG_TAG, "Stopping auto-service");
@@ -417,6 +421,12 @@ public class TrackerService extends Service implements Exportable {
     }
 
     public class TrackerBinder extends Binder {
+        
+        /**
+         * Get this instance of the TrackerService
+         * 
+         * @return this instance of the TrackerService
+         */
         public TrackerService getService() {
             return TrackerService.this;
         }
@@ -491,11 +501,22 @@ public class TrackerService extends Service implements Exportable {
     };
 
     public interface TrackerLocationListener {
-        void onLocationChanged(Location location);
+        /**
+         * Call this when the Location has been updated
+         * 
+         * @param location the update Location
+         */
+        void onLocationChanged(@NonNull Location location);
 
+        /**
+         * Call on state change
+         */
         void onStateChanged();
     }
 
+    /**
+     * If required initialize the Location sources and start updating
+     */
     @SuppressWarnings("deprecation")
     private void updateGPSState() {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
@@ -593,6 +614,11 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
+    /**
+     * If true the listener wants to receive Location updates
+     * 
+     * @param listenerNeedsGPS true if the listener wants to receive Location updates
+     */
     public void setListenerNeedsGPS(boolean listenerNeedsGPS) {
         this.listenerNeedsGPS = listenerNeedsGPS;
         updateGPSState();
@@ -601,7 +627,12 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
-    public void setListener(TrackerLocationListener listener) {
+    /**
+     * Set the listener for Location updates
+     * 
+     * @param listener the listener
+     */
+    public void setListener(@Nullable TrackerLocationListener listener) {
         if (listener == null) {
             setListenerNeedsGPS(false);
         }
@@ -614,7 +645,7 @@ public class TrackerService extends Service implements Exportable {
      * @param activity activity this was called from, if null no messages will be displayed, and menus will not be
      *            updated
      * @param uri Uri for the file to read
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if we couldn't locate the file
      */
     public void importGPXFile(@Nullable final FragmentActivity activity, final Uri uri) throws FileNotFoundException {
 
@@ -875,11 +906,11 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Convert from NMEA format to decimal (there is already a method in Location so this is not really necessary)
      * 
-     * @param nmea
-     * @return
-     * @throws NumberFormatException
+     * @param nmea longitude value
+     * @return the longitude
+     * @throws NumberFormatException if the value can't be parsed
      */
-    private Double nmeaLonToDecimal(String nmea) throws NumberFormatException {
+    private Double nmeaLonToDecimal(@NonNull String nmea) throws NumberFormatException {
         int deg = Integer.parseInt(nmea.substring(0, 3));
         Double min = Double.parseDouble(nmea.substring(3));
         return deg + min / 60d;
@@ -888,22 +919,31 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Convert from NMEA format to decimal (there is already a method in Location so this is not really necessary)
      * 
-     * @param nmea
-     * @return
-     * @throws NumberFormatException
+     * @param nmea latitude value
+     * @return the latitude
+     * @throws NumberFormatException if the value can't be parsed
      */
-    private Double nmeaLatToDecimal(String nmea) throws NumberFormatException {
+    private Double nmeaLatToDecimal(@NonNull String nmea) throws NumberFormatException {
         int deg = Integer.parseInt(nmea.substring(0, 2));
         Double min = Double.parseDouble(nmea.substring(2));
         return deg + min / 60d;
     }
 
-    private void autoDownload(@NonNull Location location, Validator validator) {
+    /**
+     * Tiled based download of OSM data
+     * 
+     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, 
+     * the origin of the tiles is where ever we started off at.
+     * 
+     * @param location the current Location
+     * @param validator a Validator to use for any new data
+     */
+    private void autoDownload(@NonNull Location location, @NonNull Validator validator) {
         // some heuristics for now to keep downloading to a minimum
         int radius = prefs.getDownloadRadius();
         if ((location.getSpeed() < prefs.getMaxDownloadSpeed() / 3.6f) && (previousLocation == null || location.distanceTo(previousLocation) > radius / 8)) {
             StorageDelegator storageDelegator = App.getDelegator();
-            ArrayList<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
+            List<BoundingBox> bbList = new ArrayList<>(storageDelegator.getBoundingBoxes());
             BoundingBox newBox = getNextBox(bbList, previousLocation, location, radius);
             if (newBox != null) {
                 if (radius != 0) { // download
@@ -927,7 +967,15 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
-    private boolean bbLoaded(List<BoundingBox> bbs, int lonE7, int latE7) {
+    /**
+     * Check if the supplied coordinates are in one of the BoundingBoxes
+     * 
+     * @param bbs a List of BoundingBox
+     * @param lonE7 longitude in WGS84*10E7 
+     * @param latE7 latitude in WGS84*10E7 
+     * @return true if one of the BoundingBoxes cover the coordinate
+     */
+    private boolean bbLoaded(@NonNull List<BoundingBox> bbs, int lonE7, int latE7) {
         for (BoundingBox b : bbs) {
             if (b.isIn(lonE7, latE7)) {
                 return true;
@@ -940,7 +988,7 @@ public class TrackerService extends Service implements Exportable {
      * Return a suitable next bounding box, simply creates a raster of the download radius size
      * 
      * @param bbs List of already used/downloaded BoundingBox
-     * @param prevLocation previous Location
+     * @param prevLocation previous Location (unused)
      * @param location current Location
      * @param radius "radius" of the BoundingBox
      * @return the next BoundingBox
@@ -994,6 +1042,14 @@ public class TrackerService extends Service implements Exportable {
         return result.isEmpty() ? null : result;
     }
 
+    /**
+     * Tiled based download of task data
+     * 
+     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, 
+     * the origin of the tiles is where ever we started off at.
+     * 
+     * @param location the current Location
+     */
     private void bugAutoDownload(@NonNull Location location) {
         // some heuristics for now to keep downloading to a minimum
         int radius = prefs.getBugDownloadRadius();
@@ -1024,6 +1080,12 @@ public class TrackerService extends Service implements Exportable {
         }
     }
 
+    /**
+     * Get the last Location we processed
+     * 
+     * @return the last Location
+     */
+    @Nullable
     public Location getLastLocation() {
         return lastLocation;
     }

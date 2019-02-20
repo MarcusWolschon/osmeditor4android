@@ -9,10 +9,10 @@ import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
 
-public class MapSplitSource {
+public final class MapSplitSource {
     
     /**
-     * Private contrstuctor
+     * Private constructor
      */
     private MapSplitSource() {
         // avoid instantiation

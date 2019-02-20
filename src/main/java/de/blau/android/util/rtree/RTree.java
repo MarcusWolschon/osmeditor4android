@@ -767,9 +767,13 @@ public class RTree implements Serializable {
     }
 
     /**
-     * Returns the amount that other will need to be expanded to fit this.
+     * Returns a measure indicating how much expansion that bounding box one will need to be expanded to fit this.
+     * 
+     * @param one BoundingBox that may need to be expanded
+     * @param two BoundingBox that we want to cover
+     * @return the measure value
      */
-    private static long expansionNeeded(BoundingBox one, BoundingBox two) {
+    private static long expansionNeeded(@NonNull BoundingBox one, @NonNull BoundingBox two) {
         long total = 0;
 
         int twoL = two.getLeft();

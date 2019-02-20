@@ -2519,7 +2519,8 @@ public class Logic {
      * @param validator the Validator to apply to downloaded data
      * @param mapBox Box defining the area to be loaded.
      */
-    public synchronized void autoDownloadBox(final Context context, final Server server, final Validator validator, final BoundingBox mapBox) {
+    public synchronized void autoDownloadBox(@NonNull final Context context, @NonNull final Server server, @NonNull final Validator validator,
+            @NonNull final BoundingBox mapBox) {
 
         mapBox.makeValidForApi();
 
@@ -3160,7 +3161,7 @@ public class Logic {
      * @param activity the calling activity
      * @param fileUri the URI for the file
      * @param postLoad a callback to call post load
-     * @throws FileNotFoundException if the file cound't be found
+     * @throws FileNotFoundException if the file coudn't be found
      */
     public void applyOscFile(@NonNull FragmentActivity activity, @NonNull Uri fileUri, @Nullable final PostAsyncActionHandler postLoad)
             throws FileNotFoundException {
