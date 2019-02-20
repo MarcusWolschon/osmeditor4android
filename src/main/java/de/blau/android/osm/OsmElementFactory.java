@@ -2,6 +2,8 @@ package de.blau.android.osm;
 
 import java.io.Serializable;
 
+import android.support.annotation.NonNull;
+
 public class OsmElementFactory implements Serializable {
 
     private static final long serialVersionUID = 2L;
@@ -23,6 +25,7 @@ public class OsmElementFactory implements Serializable {
      * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
      * @return the new Node
      */
+    @NonNull
     public static Node createNode(long osmId, long osmVersion, long timestamp, byte status, int lat, int lon) {
         return new Node(osmId, osmVersion, timestamp, status, lat, lon);
     }
@@ -34,6 +37,7 @@ public class OsmElementFactory implements Serializable {
      * @param lon WGS84 decimal Longitude-Coordinate times 1E7.
      * @return the new Node
      */
+    @NonNull
     public Node createNodeWithNewId(int lat, int lon) {
         return createNode(--nodeId, 1, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED, lat, lon);
     }
@@ -49,6 +53,7 @@ public class OsmElementFactory implements Serializable {
      * @param status status (created, modified, deleted)
      * @return the new way
      */
+    @NonNull
     public static Way createWay(long osmId, long osmVersion, long timestamp, byte status) {
         return new Way(osmId, osmVersion, timestamp, status);
     }
@@ -60,6 +65,7 @@ public class OsmElementFactory implements Serializable {
      * 
      * @return the new way
      */
+    @NonNull
     public Way createWayWithNewId() {
         return createWay(--wayId, 1, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED);
     }
@@ -73,6 +79,7 @@ public class OsmElementFactory implements Serializable {
      * @param status status (created, modified, deleted)
      * @return the new relation
      */
+    @NonNull
     public static Relation createRelation(long osmId, long osmVersion, long timestamp, byte status) {
         return new Relation(osmId, osmVersion, timestamp, status);
     }
@@ -82,6 +89,7 @@ public class OsmElementFactory implements Serializable {
      * 
      * @return the new relation
      */
+    @NonNull
     public Relation createRelationWithNewId() {
         return createRelation(--relationId, 1, System.currentTimeMillis() / 1000, OsmElement.STATE_CREATED);
     }
