@@ -413,7 +413,6 @@ public class ViewBox extends BoundingBox {
      * @param zoomFactor factor enlarge/reduce the borders.
      */
     public void zoom(float zoomFactor) {
-        // Log.d(DEBUG_TAG,"zoom " + this.toString());
         zoomFactor = Math.min(zoomInLimit(), zoomFactor);
         zoomFactor = Math.max(zoomOutLimit(), zoomFactor);
 
@@ -462,10 +461,6 @@ public class ViewBox extends BoundingBox {
         }
         setBottom(GeoMath.mercatorE7ToLatE7((int) mBottom));
         setTop(GeoMath.mercatorE7ToLatE7((int) mTop));
-        // bottom = Math.max(-MAX_LAT_E7, GeoMath.mercatorE7ToLatE7((int)(mBottom + (long)verticalChange)));
-        // top = Math.min(MAX_LAT_E7, GeoMath.mercatorE7ToLatE7((int)(mTop - (long)verticalChange)));
-
-        // setRatio(ratio, true);
 
         calcDimensions(); // need to do this or else centering will not work
         calcBottomMercator();
@@ -475,6 +470,7 @@ public class ViewBox extends BoundingBox {
      * set current zoom level to a tile zoom level equivalent, powers of 2 assuming 256x256 tiles maintain center of
      * bounding box
      * 
+     * @param map the current Map instance
      * @param tileZoomLevel The TMS zoom level to zoom to (from 0 for the whole world to about 19 for small areas).
      */
     public void setZoom(Map map, int tileZoomLevel) {

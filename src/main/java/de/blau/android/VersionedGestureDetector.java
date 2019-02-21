@@ -31,7 +31,7 @@ public abstract class VersionedGestureDetector {
 
         void onDrag(View v, float x, float y, float dx, float dy);
 
-        void onScale(View v, float scaleFactor, float prevSpan, float curSpan);
+        void onScale(View v, float scaleFactor, float prevSpan, float curSpan, float focusX, float focusY);
 
         boolean onDoubleTap(View v, float x, float y);
     }
@@ -54,7 +54,7 @@ public abstract class VersionedGestureDetector {
             mScaleDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
                 @Override
                 public boolean onScale(ScaleGestureDetector detector) {
-                    mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan());
+                    mListener.onScale(v, detector.getScaleFactor(), detector.getPreviousSpan(), detector.getCurrentSpan(), detector.getFocusX(), detector.getFocusY());
                     return true;
                 }
             });

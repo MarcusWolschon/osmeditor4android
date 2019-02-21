@@ -313,7 +313,7 @@ public class GeoMath {
      * Calculates the longitude value for the given x screen coordinate.
      *
      * @param screenWidth current screen width in screen coordinates
-     * @param viewBox the current VireBox
+     * @param viewBox the current VieeBox
      * @param x the x-coordinate from the screen
      * @return longitude representing by the given x-value, multiplied by 1E7
      */

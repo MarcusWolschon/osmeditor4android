@@ -1459,6 +1459,15 @@ public class Logic {
     }
 
     /**
+     * Check if we are rotating an object
+     * 
+     * @return true if we are in rotation mode
+     */
+    public boolean isRotationMode() {
+        return rotatingWay;
+    }
+
+    /**
      * Converts screen-coords to gps-coords and delegates translation to {@link BoundingBox#translate(int, int)}.
      * GPS-Following will be disabled.
      * 

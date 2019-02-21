@@ -3344,8 +3344,25 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         @Override
-        public void onScale(View v, float scaleFactor, float prevSpan, float curSpan) {
-            App.getLogic().zoom((curSpan - prevSpan) / prevSpan);
+        public void onScale(View v, float scaleFactor, float prevSpan, float curSpan, float focusX, float focusY) {
+            // after zooming this translates the viewbox so, that the focus location remains 
+            // at the same on screen position
+            ViewBox viewBox = map.getViewBox();
+            int focusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
+            int focusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
+            viewBox.zoom((curSpan - prevSpan) / prevSpan);
+            int newfocusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);
+            int newfocusLat = GeoMath.yToLatE7(map.getHeight(), map.getWidth(), viewBox, focusY);
+            try {
+                viewBox.translate(map, focusLon - newfocusLon, focusLat - newfocusLat);
+            } catch (OsmException e) {
+            }
+            Logic logic = App.getLogic();
+            DataStyle.updateStrokes(logic.strokeWidth(viewBox.getWidth()));
+            if (logic.isRotationMode()) {
+                logic.showCrosshairsForCentroid();
+            }
+            map.postInvalidate();
             setFollowGPS(followGPS);
             updateZoomControls();
         }
