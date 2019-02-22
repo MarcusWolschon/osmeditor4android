@@ -48,6 +48,9 @@ public class GeoContextTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-teset setup
+     */
     @Before
     public void setup() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -63,6 +66,9 @@ public class GeoContextTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Test for elements in the UK
+     */
     @Test
     public void UK() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -79,16 +85,21 @@ public class GeoContextTest {
             is.close();
         } catch (IOException e1) {
         }
-        Way w = (Way)delegator.getOsmElement(Way.NAME, 451984385L);
+        Way w = (Way) delegator.getOsmElement(Way.NAME, 451984385L);
         Assert.assertNotNull(w);
         Assert.assertTrue(App.getGeoContext(context).imperial(w));
         Assert.assertTrue(App.getGeoContext(context).driveLeft(w));
-        Node n = (Node)delegator.getOsmElement(Node.NAME, 1012733590L);
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(w).contains("GB"));
+        Node n = (Node) delegator.getOsmElement(Node.NAME, 1012733590L);
         Assert.assertNotNull(n);
         Assert.assertTrue(App.getGeoContext(context).imperial(n));
         Assert.assertTrue(App.getGeoContext(context).driveLeft(n));
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(n).contains("GB"));
     }
 
+    /**
+     * Test for elements in Washington DC
+     */
     @Test
     public void DC() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -106,16 +117,21 @@ public class GeoContextTest {
             is.close();
         } catch (IOException e1) {
         }
-        Way w = (Way)delegator.getOsmElement(Way.NAME, 485299712L);
+        Way w = (Way) delegator.getOsmElement(Way.NAME, 485299712L);
         Assert.assertNotNull(w);
         Assert.assertTrue(App.getGeoContext(context).imperial(w));
         Assert.assertFalse(App.getGeoContext(context).driveLeft(w));
-        Node n = (Node)delegator.getOsmElement(Node.NAME, 309551133L);
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(w).contains("US"));
+        Node n = (Node) delegator.getOsmElement(Node.NAME, 309551133L);
         Assert.assertNotNull(n);
         Assert.assertTrue(App.getGeoContext(context).imperial(n));
         Assert.assertFalse(App.getGeoContext(context).driveLeft(n));
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(n).contains("US"));
     }
-    
+
+    /**
+     * Test for elements in Bergdietikon, Switzerland
+     */
     @Test
     public void BD() {
         final CountDownLatch signal1 = new CountDownLatch(1);
@@ -133,13 +149,15 @@ public class GeoContextTest {
             is.close();
         } catch (IOException e1) {
         }
-        Way w = (Way)delegator.getOsmElement(Way.NAME,27009604L);
+        Way w = (Way) delegator.getOsmElement(Way.NAME, 27009604L);
         Assert.assertNotNull(w);
         Assert.assertFalse(App.getGeoContext(context).imperial(w));
         Assert.assertFalse(App.getGeoContext(context).driveLeft(w));
-        Node n = (Node)delegator.getOsmElement(Node.NAME, 101792984L);
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(w).contains("CH"));
+        Node n = (Node) delegator.getOsmElement(Node.NAME, 101792984L);
         Assert.assertNotNull(n);
         Assert.assertFalse(App.getGeoContext(context).imperial(n));
         Assert.assertFalse(App.getGeoContext(context).driveLeft(n));
+        Assert.assertTrue(App.getGeoContext(context).getIsoCodes(n).contains("CH"));
     }
 }
