@@ -24,7 +24,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294267L;
+    private static final long serialVersionUID = 1104911642016294268L;
 
     final ArrayList<Node> nodes;
 
@@ -40,7 +40,7 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     public static final String NODE = "nd";
 
-    private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
+    private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
     /**
      * Construct a new Way
@@ -440,24 +440,24 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     @Override
     void updateState(final byte newState) {
-        featureProfile = null; // force recalc of style
+        style = null; // force recalc of style
         super.updateState(newState);
     }
 
     @Override
     void setState(final byte newState) {
-        featureProfile = null; // force recalc of style
+        style = null; // force recalc of style
         super.setState(newState);
     }
 
     @Override
-    public FeatureStyle getFeatureProfile() {
-        return featureProfile;
+    public FeatureStyle getStyle() {
+        return style;
     }
 
     @Override
-    public void setFeatureProfile(@Nullable FeatureStyle fp) {
-        featureProfile = fp;
+    public void setStyle(@Nullable FeatureStyle fp) {
+        style = fp;
     }
 
     /**

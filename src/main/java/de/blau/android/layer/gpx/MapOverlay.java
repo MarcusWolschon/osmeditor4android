@@ -91,9 +91,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
             int width = map.getWidth();
             int height = map.getHeight();
             int zoomLevel = map.getZoomLevel();
-            FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+            FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
             Paint paint = fs.getPaint();
-            Paint labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+            Paint labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
             float strokeWidth = paint.getStrokeWidth();
             float yOffset = 2 * strokeWidth + iconRadius;
             for (WayPoint wp : wayPoints) {
@@ -243,8 +243,8 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        trackPaint = new Paint(DataStyle.getCurrent(DataStyle.GPS_TRACK).getPaint());
-        wayPointPaint = new Paint(DataStyle.getCurrent(DataStyle.GPS_POS_FOLLOW).getPaint());
+        trackPaint = new Paint(DataStyle.getInternal(DataStyle.GPS_TRACK).getPaint());
+        wayPointPaint = new Paint(DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint());
         color = trackPaint.getColor();
         strokeWidth = trackPaint.getStrokeWidth();
         labelKey = "";

@@ -1,6 +1,7 @@
 package de.blau.android.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
@@ -22,7 +23,7 @@ public class Version {
      * 
      * @param ctx Android Context
      */
-    public Version(Context ctx) {
+    public Version(@NonNull Context ctx) {
         this.ctx = ctx;
         savingHelperVersion = new SavingHelper<>();
         lastVersion = savingHelperVersion.load(ctx, Files.VERSION, false);
@@ -35,7 +36,7 @@ public class Version {
      * 
      * @param version the version string
      */
-    private Version(String version) {
+    public Version(@NonNull String version) {
         parse(version);
     }
 
@@ -44,7 +45,7 @@ public class Version {
      * 
      * @param v the version string
      */
-    private void parse(String v) {
+    private void parse(@NonNull String v) {
         String[] numbers = v.split("\\.", 4);
 
         if (numbers.length < 3) {

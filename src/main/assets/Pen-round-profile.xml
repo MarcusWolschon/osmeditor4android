@@ -1,168 +1,151 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Pen Round Nodes">
-<!-- Vespucci internal -->
-<feature name="gps_accuracy" internal="true" updateWidth="false" widthFactor="2.0" editable="true" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
-<feature name="problem_node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
-<feature name="problem_way" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way_direction" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
-<feature name="handle" internal="true" updateWidth="true" widthFactor="0.8" editable="true" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
-<feature name="selected_way" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
-<feature name="way_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="40bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
-<feature name="way_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
-<feature name="oneway_direction" internal="true" updateWidth="true" widthFactor="0.5" editable="true" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
-<feature name="gps_track" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="2.0" />
-<feature name="selected_node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
-<feature name="selected_node" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
-<feature name="selected_node_tagged" internal="true" updateWidth="true" widthFactor="2.0" editable="true" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
-<feature name="problem_node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffff00ff" style="FILL" cap="ROUND" join="MITER" />
-<feature name="problem_node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffff00ff" style="FILL" cap="ROUND" join="MITER" />
-<feature name="node_tolerance" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="40bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
-<feature name="node_tolerance_2" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
-<feature name="infotext" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
-<feature name="viewbox" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
-<feature name="gps_pos" internal="true" updateWidth="false" widthFactor="2.0" editable="true" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokewidth="4.0" />
-<feature name="gps_pos_follow" internal="true" updateWidth="false" widthFactor="2.0" editable="true" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="4.0"/>
-
-<!-- OSM way based features -->
-<feature name="way" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ff000000" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-boundary" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="6.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-route" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="880000AA" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="3.0" />
-		<interval length="3.0" />
-	</dash>
-</feature>
-<feature name="way-landuse" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" >
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-landuse-construction" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff996633" style="STROKE" cap="BUTT" join="MITER" >
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-landuse-residential" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" >
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-landuse-quarry" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffd8a2a2" style="STROKE" cap="BUTT" join="MITER" >
-    <dash phase="1.0">
-        <interval length="2.0" />
-        <interval length="2.0" />
-    </dash>
-</feature>
-<feature name="way-landuse-military" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffaf2626" style="STROKE" cap="BUTT" join="MITER" >
-    <dash phase="1.0">
-        <interval length="2.0" />
-        <interval length="2.0" />
-    </dash>
-</feature>
-<feature name="way-leisure-pitch" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff39AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-<feature name="way-leisure-swimming_pool" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-<feature name="way-natural" internal="false" updateWidth="true" widthFactor="0.5" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-waterway" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-natural-water" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-natural-cliff" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff555555" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_right" />
-<feature name="way-natural-coastline" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_left" />
-<feature name="way-man_made" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-man_made-embankment" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff996633" style="STROKE" cap="BUTT" join="MITER" pathPattern="triangle_right" />
-<feature name="way-building" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-building:part" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-highway-construction" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-proposed" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="88888888" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-pedestrian" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff888888" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-path" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffc69c49" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-cycleway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="fff48f42" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-footway" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-steps" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" >
-	<dash phase="1.0">
-		<interval length="1.0" />
-		<interval length="1.0" />
-	</dash>
-</feature>
-<feature name="way-highway-track" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffc69c49" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-motorway" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff809BC0" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-motorway_link" internal="false" updateWidth="true" widthFactor="2.0" editable="true" color="ff809BC0" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-trunk" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ff7FC97F" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-trunk_link" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ff7FC97F" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-primary" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffE46D71" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-primary_link" internal="false" updateWidth="true" widthFactor="1.5" editable="true" color="ffE46D71" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-secondary" internal="false" updateWidth="true" widthFactor="1.2" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-secondary_link" internal="false" updateWidth="true" widthFactor="1.2" editable="true" color="ffFDBF6F" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-tertiary" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFCFA74" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-tertiary_link" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffFCFA74" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-unclassified" internal="false" updateWidth="true" widthFactor="1.0" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-residential" internal="false" updateWidth="true" widthFactor="0.9" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-living_street" internal="false" updateWidth="true" widthFactor="0.9" editable="true" color="ffff4500" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-highway-service" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="ffCCCCCC" style="STROKE" cap="BUTT" join="MITER" />
-<feature name="way-power" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-railway" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="ff999999" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="4.0" />
-		<interval length="4.0" />
-	</dash>
-</feature>
-<feature name="way-addr:interpolation" internal="false" updateWidth="true" widthFactor="0.6" editable="true" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-amenity" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ffCCCC00" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-amenity-parking" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff99CCFF" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-amenity-bicycle_parking" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff99CCFF" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-amenity-motorcycle_parking" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="ff99CCFF" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<feature name="way-leisure-playground" internal="false" updateWidth="true" widthFactor="0.8" editable="true" color="fff4a460" style="STROKE" cap="BUTT" join="MITER">
-	<dash phase="1.0">
-		<interval length="2.0" />
-		<interval length="2.0" />
-	</dash>
-</feature>
-<!-- Indoor features -->
-<feature name="way-indoor" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="fff4a442" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-<feature name="way-indoor-corridor" internal="false" updateWidth="true" widthFactor="0.7" editable="true" color="fff2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-<!-- OSM node based features -->
-<feature name="node" internal="true" updateWidth="true" widthFactor="1.0" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
-<feature name="node_tagged" internal="true" updateWidth="true" widthFactor="1.5" editable="true" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
-<feature name="node_thin" internal="true" updateWidth="false" widthFactor="1.0" editable="true" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+<profile name="Color Round Nodes" format="0.2.0">
+    <!-- Assorted config -->
+    <config type="min_handle_length" length="100.0" />
+    <!-- Vespucci internal styles -->
+    <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
+    <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
+    <feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
+    <feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
+    <feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
+    <feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
+    <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
+    <feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="2.0" />
+    <feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
+    <feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
+    <feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
+    <feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
+    <feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokewidth="4.0" />
+    <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="4.0"/>
+    <feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" />
+    <!-- OSM node based features currently internal features -->
+    <feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
+    <feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
+    <feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
+    <feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
+    <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="problem_node" updateWidth="true" widthFactor="1.0" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+    <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+    
+    <!-- OSM way based features -->
+    <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="boundary" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="6.0" />
+    		<interval length="2.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="route" updateWidth="true" widthFactor="0.6" color="880000AA" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="3.0" />
+    		<interval length="3.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="0.8" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
+        <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
+        <feature type="way" tags="landuse=residential" color="88888888" />
+        <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
+        <feature type="way" tags="landuse=military" color="88af2626" /> 
+    </feature>
+    
+    <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="ff39AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
+        <feature type="way" tags="natural=water" widthFactor="1.0" color="ff0000ff" />
+        <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
+        <feature type="way" tags="natural=coastline" widthFactor="2.0" color="ff71BE80" pathPattern="triangle_left" />
+    </feature>
+    <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" >
+        <feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" />
+    </feature>
+    <feature type="way" tags="building" updateWidth="true" widthFactor="1.0" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="building:part" updateWidth="true" widthFactor="0.8" color="ffcc9999" style="STROKE" cap="BUTT" join="MITER" >
+    	<dash phase="1.0">
+    		<interval length="2.0" />
+    		<interval length="2.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" >
+        <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
+        <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
+        <feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" />
+        <feature type="way" tags="highway=path" widthFactor="0.6" color="ffc69c49" />
+        <feature type="way" tags="highway=cycleway" widthFactor="0.6" color="fff48f42" />
+        <feature type="way" tags="highway=footway" widthFactor="0.6" color="ffff4500" />
+        <feature type="way" tags="highway=steps"  widthFactor="0.6" color="ffff4500" >
+            <dash phase="1.0">
+    	       <interval length="1.0" />
+    	       <interval length="1.0" />
+            </dash>
+        </feature>
+        <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" />
+        <feature type="way" tags="highway=motorway" widthFactor="2.0" color="ff809BC0" />
+        <feature type="way" tags="highway=motorway_link" widthFactor="2.0" color="ff809BC0" />
+        <feature type="way" tags="highway=trunk" widthFactor="1.5" color="ff7FC97F" />
+        <feature type="way" tags="highway=trunk_link" widthFactor="1.5" color="ff7FC97F" />
+        <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" />
+        <feature type="way" tags="highway-primary_link" widthFactor="1.5" color="ffE46D71" />
+        <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" />
+        <feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" />
+        <feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" />
+        <feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" />
+        <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" />
+        <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" />
+        <feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" />
+        <feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" />
+    </feature>
+    <feature type="way" tags="power" updateWidth="true" widthFactor="0.6" color="ffaa0000" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="2.0" />
+    		<interval length="2.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="railway" updateWidth="true" widthFactor="0.7" color="ff999999" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="4.0" />
+    		<interval length="4.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="addr:interpolation" updateWidth="true" widthFactor="0.6" color="ff000000" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="2.0" />
+    		<interval length="2.0" />
+    	</dash>
+    </feature>
+    <feature type="way" tags="amenity" updateWidth="true" widthFactor="0.8" color="ffCCCC00" style="STROKE" cap="BUTT" join="MITER">
+    	<dash phase="1.0">
+    		<interval length="2.0" />
+    		<interval length="2.0" />
+    	</dash>
+        <feature type="way" tags="amenity=parking" color="ff99CCFF"  />
+        <feature type="way" tags="amenity=bicycle_parking"  color="ff99CCFF" />
+        <feature type="way" tags="amenity=motorcycle_parking" color="ff99CCFF" />
+    </feature>
+    
+    <feature type="way" tags="leisure=playground" area="true" updateWidth="true" widthFactor="0.8" color="88f4a460" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" />
+    <!-- Indoor features -->
+    <feature type="way" tags="indoor" updateWidth="true" widthFactor="0.7" color="fff4a442" style="FILL_AND_STROKE" cap="BUTT" join="MITER" >
+        <feature type="way" tags="indoor=corridor" updateWidth="true" widthFactor="0.7" color="fff2c791" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    </feature>
+    
+    <!-- relations (only multipolygons currently -->
+    <feature type="relation" updateWidth="true" widthFactor="1.0" color="ff222222" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="relation" tags="type=multipolygon" updateWidth="true" widthFactor="0.8" color="88222222" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
+        <feature type="relation" tags="building" widthFactor="1.0" color="ffcc9999"/>
+        <feature type="relation" tags="leisure=playground" widthFactor="0.8" color="88f4a460" style="FILL_AND_STROKE" />
+        <feature type="relation" tags="natural" color="88008800" >
+            <feature type="relation" tags="natural=water" color="880000ff" />
+        </feature>
+        <feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" >
+            <feature type="relation" tags="landuse=construction" color="88996633" />
+            <feature type="relation" tags="landuse=residential" color="88888888" />
+            <feature type="relation" tags="landuse=quarry" color="88d8a2a2" />
+            <feature type="relation" tags="landuse=military" color="88af2626" />
+            <feature type="relation" tags="landuse=forest" color="8800BE00" />
+        </feature>
+    </feature>
 </profile>

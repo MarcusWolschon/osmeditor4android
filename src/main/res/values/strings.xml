@@ -375,6 +375,7 @@
     <string name="toast_unable_to_create_task_layer">Unable to create task layer</string>
     <string name="toast_merged">Merged</string>
     <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
+    <string name="toast_invalid_style_file">Invalid style file format for %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -728,6 +729,8 @@
     <string name="config_autoLockDelay_current">%1$d s</string>    
     <string name="config_enableAntiAliasing_title">Enable anti-aliasing</string>
     <string name="config_enableAntiAliasing_summary">Makes the lines smoother.</string>
+    <string name="config_enableHwAcceleration_title">Enable hardware acceleration</string>
+    <string name="config_enableHwAcceleration_summary">Allows use of hardware acceleration if and where supported, may result in artifacts.</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this.</string>
     <string name="config_maxStrokeWidth_current">%1$d px</string>

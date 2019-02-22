@@ -345,7 +345,10 @@ public class Logic {
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
         // zap the cached style for all ways
         for (Way w : getDelegator().getCurrentStorage().getWays()) {
-            w.setFeatureProfile(null);
+            w.setStyle(null);
+        }
+        for (Relation r : getDelegator().getCurrentStorage().getRelations()) {
+            r.setStyle(null);
         }
         map.updateStyle();
     }

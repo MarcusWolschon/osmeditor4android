@@ -178,11 +178,7 @@ public class Map extends View implements IMapView {
         // Style me
         setBackgroundColor(ContextCompat.getColor(context, R.color.ccc_white));
         setDrawingCacheEnabled(false);
-        //
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
-
+ 
         iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
     }
 
@@ -592,9 +588,9 @@ public class Map extends View implements IMapView {
         if (showCrosshairs) {
             float x = GeoMath.lonE7ToX(getWidth(), getViewBox(), crosshairsLon);
             float y = GeoMath.latE7ToY(getHeight(), getWidth(), getViewBox(), crosshairsLat);
-            Paint paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS_HALO).getPaint();
+            Paint paint = DataStyle.getInternal(DataStyle.CROSSHAIRS_HALO).getPaint();
             drawCrosshairs(canvas, x, y, paint);
-            paint = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
+            paint = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
             drawCrosshairs(canvas, x, y, paint);
         }
     }
@@ -640,9 +636,9 @@ public class Map extends View implements IMapView {
         }
         Paint paint = null;
         if (isFollowingGPS) {
-            paint = DataStyle.getCurrent(DataStyle.GPS_POS_FOLLOW).getPaint();
+            paint = DataStyle.getInternal(DataStyle.GPS_POS_FOLLOW).getPaint();
         } else {
-            paint = DataStyle.getCurrent(DataStyle.GPS_POS).getPaint();
+            paint = DataStyle.getInternal(DataStyle.GPS_POS).getPaint();
         }
 
         if (o < 0) {
@@ -661,7 +657,7 @@ public class Map extends View implements IMapView {
             float accuracyInPixels = (float) (GeoMath.convertMetersToGeoDistance(displayLocation.getAccuracy())
                     * ((double) getWidth() / (viewBox.getWidth() / 1E7D)));
             RectF accuracyRect = new RectF(x - accuracyInPixels, y + accuracyInPixels, x + accuracyInPixels, y - accuracyInPixels);
-            canvas.drawOval(accuracyRect, DataStyle.getCurrent(DataStyle.GPS_ACCURACY).getPaint());
+            canvas.drawOval(accuracyRect, DataStyle.getInternal(DataStyle.GPS_ACCURACY).getPaint());
         }
     }
 
@@ -674,7 +670,7 @@ public class Map extends View implements IMapView {
     private void paintStats(final Canvas canvas, final int fps) {
         int pos = 1;
         String text = "";
-        Paint infotextPaint = DataStyle.getCurrent(DataStyle.INFOTEXT).getPaint();
+        Paint infotextPaint = DataStyle.getInternal(DataStyle.INFOTEXT).getPaint();
         float textSize = infotextPaint.getTextSize();
 
         BoundingBox viewBox = getViewBox();
@@ -749,7 +745,7 @@ public class Map extends View implements IMapView {
                 }
             }
 
-            Paint boxpaint = DataStyle.getCurrent(DataStyle.VIEWBOX).getPaint();
+            Paint boxpaint = DataStyle.getInternal(DataStyle.VIEWBOX).getPaint();
             c.clipPath(path, Region.Op.DIFFERENCE);
             c.drawRect(screen, boxpaint);
 
@@ -887,6 +883,9 @@ public class Map extends View implements IMapView {
      */
     public void setPrefs(Context ctx, final Preferences aPreference) {
         prefs = aPreference;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !prefs.hwAccelerationEnabled()) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
@@ -910,8 +909,8 @@ public class Map extends View implements IMapView {
      */
     public void updateStyle() {
         // changes when profile changes
-        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
-        FeatureStyle fs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        FeatureStyle fs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
         textPaint = fs.getPaint();
         if (dataLayer != null) {
             dataLayer.updateStyle();
@@ -1050,7 +1049,7 @@ public class Map extends View implements IMapView {
     }
 
     /**
-     * Set the flag that determines if the arror is just an outline or not
+     * Set the flag that determines if the arrow is just an outline or not
      * 
      * @param follow if true follow the GPS/Location position
      */

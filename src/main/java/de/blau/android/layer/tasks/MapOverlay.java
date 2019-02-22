@@ -98,7 +98,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Disable
                         // if the task can be dragged and large drag area is turned on show the large drag area
                         if (t instanceof Note && ((Note) t).isNew() && map.getPrefs().largeDragArea()) {
                             c.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(),
-                                    DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                                    DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
                         }
                     }
                     if (t.isClosed() && t.hasBeenChanged()) {

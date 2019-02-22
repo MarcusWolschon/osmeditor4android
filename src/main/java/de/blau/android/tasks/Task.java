@@ -249,7 +249,7 @@ public abstract class Task implements Serializable, BoundedObject, GeoPoint {
         if (selected) {
             RectF r = new RectF(x - cache.w2 - iconSelectedBorder, y - cache.h2 - iconSelectedBorder, x + cache.w2 + iconSelectedBorder,
                     y + cache.h2 + iconSelectedBorder);
-            c.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getCurrent(DataStyle.SELECTED_NODE).getPaint());
+            c.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(DataStyle.SELECTED_NODE).getPaint());
         }
         c.drawBitmap(cache.icon, x - cache.w2, y - cache.h2, null);
     }

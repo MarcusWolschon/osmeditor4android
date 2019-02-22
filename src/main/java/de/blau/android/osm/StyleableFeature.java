@@ -9,12 +9,12 @@ public interface StyleableFeature {
      * 
      * @return the style of null if not set
      */
-    public FeatureStyle getFeatureProfile();
+    public FeatureStyle getStyle();
 
     /**
      * Set the rendering style for this way
      * 
      * @param fp the style to set, null to reset
      */
-    public void setFeatureProfile(@Nullable FeatureStyle fp);
+    public void setStyle(@Nullable FeatureStyle fp);
 }

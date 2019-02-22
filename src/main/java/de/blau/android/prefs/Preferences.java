@@ -130,6 +130,8 @@ public class Preferences {
     private final boolean alwaysDrawBoundingBoxes;
 
     private final boolean jsConsoleEnabled;
+    
+    private final boolean hwAccelerationEnabled;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
@@ -260,6 +262,8 @@ public class Preferences {
         alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
+        
+        hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), false);
     }
 
     /**
@@ -858,6 +862,11 @@ public class Preferences {
         return jsConsoleEnabled;
     }
 
+
+    public boolean hwAccelerationEnabled() {
+        return hwAccelerationEnabled;
+    }
+    
     public void enableSimpleActions(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_simpleActions_key), on).commit();
     }
