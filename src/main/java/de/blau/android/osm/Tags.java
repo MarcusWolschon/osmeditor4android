@@ -251,6 +251,8 @@ public final class Tags {
     public static final String KEY_CRAFT      = "craft";
     public static final String KEY_EMERGENCY  = "emergency";
     public static final String KEY_TOURISM    = "tourism";
+    public static final String VALUE_HOTEL    = "hotel";
+    public static final String VALUE_MOTEL    = "motel";
     public static final String KEY_HISTORIC   = "historic";
     public static final String KEY_MILITARY   = "military";
     public static final String KEY_PIPELINE   = "pipeline";

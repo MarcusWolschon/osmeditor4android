@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,10 +57,10 @@ public class Names {
      *
      */
     public class NameAndTags implements Comparable<NameAndTags> {
-        private final String name;
-        private final int    count;
-        private final String region;
-        final TagMap         tags;
+        private final String   name;
+        private final int      count;
+        private final String[] regions;
+        final TagMap           tags;
 
         /**
          * Construct a new instance
@@ -68,13 +68,13 @@ public class Names {
          * @param name the value for the name tag
          * @param tags associated tags
          * @param count the times this establishment was found, works as a proxy for importance
-         * @param region if this is region specific, add that here
+         * @param regions if this is region specific, add that here
          */
-        public NameAndTags(@NonNull String name, @NonNull TagMap tags, @NonNull int count, @Nullable String region) {
+        public NameAndTags(@NonNull String name, @NonNull TagMap tags, @NonNull int count, @Nullable String[] regions) {
             this.name = name;
             this.tags = tags;
             this.count = count;
-            this.region = region;
+            this.regions = regions;
         }
 
         @Override
@@ -101,6 +101,25 @@ public class Names {
          */
         public int getCount() {
             return count;
+        }
+
+        /**
+         * Check if this entry is in use in a specific region
+         * 
+         * @param currentRegions the list of regions to check for, null == any region
+         * @return true if the entry is appropriate for the region
+         */
+        public boolean inUseIn(@Nullable List<String> currentRegions) {
+            if (currentRegions != null && regions != null) {
+                List<String> regionsList = Arrays.asList(regions);
+                for (String current : currentRegions) {
+                    if (regionsList.contains(current)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return true;
         }
 
         @Override
@@ -179,12 +198,12 @@ public class Names {
                                     value = reader.nextName();
                                     // name object
                                     String name = null;
-                                    int count = 0;
-                                    String region = null;
                                     reader.beginObject();
                                     while (reader.hasNext()) {
                                         name = reader.nextName(); // name of establishment
                                         reader.beginObject();
+                                        int count = 0;
+                                        List<String> regions = null;
                                         TagMap secondaryTags = null; // any extra tags store here
                                         while (reader.hasNext()) {
                                             String jsonName = reader.nextName();
@@ -192,8 +211,13 @@ public class Names {
                                             case "count":
                                                 count = reader.nextInt();
                                                 break;
-                                            case "region":
-                                                region = reader.nextString();
+                                            case "countryCodes":
+                                                reader.beginArray();
+                                                regions = new ArrayList<>();
+                                                while (reader.hasNext()) {
+                                                    regions.add(reader.nextString().toUpperCase());
+                                                }
+                                                reader.endArray();
                                                 break;
                                             case "tags":
                                                 reader.beginObject();
@@ -216,7 +240,8 @@ public class Names {
                                         if (secondaryTags != null) {
                                             tags.putAll(secondaryTags);
                                         }
-                                        NameAndTags entry = new NameAndTags(name, tags, count, region);
+                                        NameAndTags entry = new NameAndTags(name, tags, count,
+                                                regions == null ? null : regions.toArray(new String[regions.size()]));
                                         nameList.add(name, entry);
                                         tags2namesList.add(tags.toString(), entry);
                                     }
@@ -225,7 +250,7 @@ public class Names {
                                 reader.endObject(); // key
                             }
                             reader.endObject();
-                        } catch (IOException e) {
+                        } catch (IOException | IllegalStateException e) {
                             Log.e(DEBUG_TAG, "Got exception reading name-suggestions.min.json " + e.getMessage());
                         }
                     } finally {
@@ -260,10 +285,9 @@ public class Names {
                         SavingHelper.close(reader);
                         SavingHelper.close(is);
                     }
-                } catch (IOException e) {
+                } catch (IOException | IllegalStateException e) {
                     Log.d(DEBUG_TAG, "Got exception " + e.getMessage());
                 }
-
                 ready = true;
             }
         }
@@ -272,28 +296,33 @@ public class Names {
     /**
      * Given a set of tags determine the names and tags that could be appropriate
      * 
-     * @param tags a SoterdMap with the existing tags
-     * @return a collection of possibly appropriate entries
+     * @param tags a SortedMap with the existing tags
+     * @param regions country or country subdivision code
+     * @return a List of possibly appropriate entries
      */
     @NonNull
-    public List<NameAndTags> getNames(@NonNull SortedMap<String, String> tags) {
+    public List<NameAndTags> getNames(@NonNull SortedMap<String, String> tags, @Nullable List<String> regions) {
         // remove irrelevant tags, TODO refine
         TagMap tm = new TagMap();
         String v = tags.get(Tags.KEY_AMENITY);
         if (v != null) {
             tm.put(Tags.KEY_AMENITY, v);
-            // Log.d("Names","filtering for amenity="+v);
         } else {
             v = tags.get(Tags.KEY_SHOP);
             if (v != null) {
                 tm.put(Tags.KEY_SHOP, v);
-                // Log.d("Names","filtering for shop="+v);
+            } else {
+                v = tags.get(Tags.KEY_TOURISM);
+                if (Tags.VALUE_HOTEL.equals(v) || Tags.VALUE_MOTEL.equals(v)) {
+                    tm.put(Tags.KEY_TOURISM, v);
+                } else {
+                    // return the whole list
+                    return getNames(regions);
+                }
             }
         }
-        if (tm.isEmpty()) {
-            return getNames();
-        }
 
+        // filter on the tags
         List<NameAndTags> result = new ArrayList<>();
 
         String origTagKey = tm.toString();
@@ -301,7 +330,9 @@ public class Names {
         for (String key : tags2namesList.getKeys()) {
             if (key.contains(origTagKey)) {
                 for (NameAndTags nt : tags2namesList.get(key)) {
-                    result.add(nt);
+                    if (nt.inUseIn(regions)) {
+                        result.add(nt);
+                    }
                 }
             }
         }
@@ -317,7 +348,9 @@ public class Names {
                         for (String key : tags2namesList.getKeys()) {
                             if (key.contains(catTagKey)) {
                                 for (NameAndTags nt : tags2namesList.get(key)) {
-                                    result.add(nt);
+                                    if (nt.inUseIn(regions)) {
+                                        result.add(nt);
+                                    }
                                 }
                             }
                         }
@@ -326,14 +359,13 @@ public class Names {
                 }
             }
         }
-        // Log.d("Names","getNames result " + result.size());
         return result;
     }
 
     /**
      * Get all entries
      * 
-     * @return a Collection containing all NameAndTags objects
+     * @return a List containing all NameAndTags objects
      */
     @NonNull
     private List<NameAndTags> getNames() {
@@ -349,18 +381,17 @@ public class Names {
     /**
      * Get all entries valid in a specific region
      * 
-     * @param region if an entry is region specific only return it if it is in use in region
-     * @return a Collection of NameAndTags objects
+     * @param regions if an entry is region specific only return it if it is in use in region
+     * @return a List of NameAndTags objects
      */
     @NonNull
-    private Collection<NameAndTags> getNames(@Nullable String region) {
-        Collection<NameAndTags> result = new ArrayList<>();
+    private List<NameAndTags> getNames(@Nullable List<String> regions) {
+        List<NameAndTags> result = new ArrayList<>();
         for (String n : nameList.getKeys()) {
             for (NameAndTags nt : nameList.get(n)) {
-                if (region != null && nt.region != null && !nt.region.contains(region)) {
-                    continue;
+                if (nt.inUseIn(regions)) {
+                    result.add(nt);
                 }
-                result.add(nt);
             }
         }
         return result;
@@ -373,7 +404,7 @@ public class Names {
      */
     public MultiHashMap<String, NameAndTags> getSearchIndex() {
         MultiHashMap<String, NameAndTags> result = new MultiHashMap<>();
-        Collection<NameAndTags> names = getNames();
+        List<NameAndTags> names = getNames();
         for (NameAndTags nat : names) {
             result.add(SearchIndexUtils.normalize(nat.getName()), nat);
         }

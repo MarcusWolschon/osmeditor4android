@@ -923,7 +923,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
             } else if (!hasTagValues && key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                List<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true))); // FIXME
+                List<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true)), propertyEditorListener.getIsoCodes()); // FIXME
                 if (values != null && !values.isEmpty()) {
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);

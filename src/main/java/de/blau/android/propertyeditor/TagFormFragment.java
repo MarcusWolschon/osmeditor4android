@@ -344,7 +344,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 adapter = nameAdapters.getPlaceNameAdapter(values);
             } else if (key.equals(Tags.KEY_NAME) && (names != null) && TagEditorFragment.useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                List<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(allTags));
+                List<NameAndTags> suggestions = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(allTags), propertyEditorListener.getIsoCodes());
                 if (suggestions != null && !suggestions.isEmpty()) {
                     List<NameAndTags> result = suggestions;
                     Collections.sort(result);
@@ -3138,7 +3138,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                     }
                 }
             }
-
             setOnClickListener(listener);
         }
     }
@@ -3320,7 +3319,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
         if (names == null) {
             names = App.getNames(ctx);
         }
-        List<NameAndTags> suggestions = names.getNames(new TreeMap<>());
+        List<NameAndTags> suggestions = names.getNames(new TreeMap<>(), propertyEditorListener.getIsoCodes());
         ArrayAdapter<NameAndTags> adapter = null;
         if (suggestions != null && !suggestions.isEmpty()) {
             Collections.sort(suggestions);
