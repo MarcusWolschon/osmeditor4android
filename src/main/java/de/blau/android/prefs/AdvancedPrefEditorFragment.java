@@ -21,6 +21,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
     private Resources r;
     private String    KEY_PREFAPI;
     private String    KEY_PREFFULLSCREEN;
+    private String    KEY_PREFMAPORIENTATION;
     private String    KEY_PREFLOGIN;
     private String    KEY_PREFGEOCODER;
     private String    KEY_PREFGPSSOURCE;
@@ -32,6 +33,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         r = getResources();
         KEY_PREFAPI = r.getString(R.string.config_api_button_key);
         KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
+        KEY_PREFMAPORIENTATION = r.getString(R.string.config_mapOrientation_key);
         KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
         KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
         KEY_PREFGPSSOURCE = r.getString(R.string.config_gps_source_key);
@@ -70,6 +72,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             Util.setListPreferenceSummary(this, KEY_PREFFULLSCREEN);
         }
+        Util.setListPreferenceSummary(this, KEY_PREFMAPORIENTATION);
         Util.setListPreferenceSummary(this, KEY_PREFGPSSOURCE);
         setTitle();
     }

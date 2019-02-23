@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -457,6 +458,7 @@ public class Main extends FullScreenAppCompatActivity
         }
         App.initGeoContext(this);
         updatePrefs(new Preferences(this));
+
         int layout = R.layout.main;
         if (useFullScreen(prefs)) {
             Log.d(DEBUG_TAG, "using full screen layout");
@@ -477,6 +479,8 @@ public class Main extends FullScreenAppCompatActivity
         }
 
         super.onCreate(savedInstanceState);
+
+        setScreenOrientation();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
@@ -626,6 +630,27 @@ public class Main extends FullScreenAppCompatActivity
         easyEditManager = new EasyEditManager(this);
 
         haveCamera = checkForCamera(); // we recall this in onResume just to be
+    }
+
+    /**
+     * Set how we should handle screen orientation changes based of our preferences
+     */
+    private void setScreenOrientation() {
+        switch (prefs.getMapOrientation()) {
+        case "CURRENT":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            break;
+        case "PORTRAIT":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            break;
+        case "LANDSCAPE":
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            break;
+        case "AUTO":
+        default:
+            // do nothing
+            break;
+        }
     }
 
     /**
@@ -1247,9 +1272,9 @@ public class Main extends FullScreenAppCompatActivity
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        Log.d(DEBUG_TAG, "onConfigurationChanged");
         super.onConfigurationChanged(newConfig);
         App.getLogic().setMap(map);
-        Log.d(DEBUG_TAG, "onConfigurationChanged");
         if (easyEditManager != null && easyEditManager.isProcessingAction()) {
             easyEditManager.invalidate();
         }
@@ -3345,7 +3370,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onScale(View v, float scaleFactor, float prevSpan, float curSpan, float focusX, float focusY) {
-            // after zooming this translates the viewbox so, that the focus location remains 
+            // after zooming this translates the viewbox so, that the focus location remains
             // at the same on screen position
             ViewBox viewBox = map.getViewBox();
             int focusLon = GeoMath.xToLonE7(map.getWidth(), viewBox, focusX);

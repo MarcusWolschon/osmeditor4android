@@ -53,7 +53,8 @@
     <string name="config_showWayIcons_key">showWayIcons</string>
     <string name="config_tagFormEnabled_key">tagFormEnabled</string>
     <string name="config_followGPSbutton_key">followGPSbutton</string>
-    <string name="config_fullscreenMode_key">fullscreenMode</string>        
+    <string name="config_fullscreenMode_key">fullscreenMode</string>  
+    <string name="config_mapOrientation_key">mapOrientation</string>     
     <string name="config_alwaysDrawBoundingBoxes_key">alwaysDrawBoundingBoxes</string>
     <string name="config_tagFilter_key">tagFilter</string>
     <string name="config_presetFilter_key">presetFilter</string>

@@ -710,6 +710,8 @@
     <string name="config_alwaysDrawBoundingBoxes_summary">Dims non-downloaded areas in locked mode.</string>
     <string name="config_fullscreenMode_title">Fullscreen mode</string>
     <string name="config_fullscreenMode_summary">Behaviour on devices with "soft" keys.</string>   
+    <string name="config_map_orientation_title">Map screen orientation</string>
+    <string name="config_map_orientation_summary">Behaviour of the map screen on device orientation changes.</string>   
     <string name="config_showTolerance_title">Show tolerance</string>
     <string name="config_showTolerance_summary">Displays area where an element can be selected.</string>
     <string name="config_use_back_for_undo_title">Use ← key to undo</string>
@@ -1003,7 +1005,7 @@
 		<item>@string/full_screen_force</item>
 		<item>@string/full_screen_no_statusbar</item>
     </string-array>
-        <string-array name="full_screen_preference_no_auto_entries">
+    <string-array name="full_screen_preference_no_auto_entries">
 		<item>Never</item>
 		<item>Force</item>
 		<item>No statusbar</item>
@@ -1012,6 +1014,22 @@
 		<item>@string/full_screen_never</item>
 		<item>@string/full_screen_force</item>
 		<item>@string/full_screen_no_statusbar</item>
+    </string-array>
+    <string-array name="map_orientation_entries">
+        <item>Auto</item>
+        <item>Locked</item>
+        <item>Portrait</item>
+        <item>Landscape</item>
+    </string-array>
+    <string name="map_orientation_auto" translatable="false">AUTO</string>
+    <string name="map_orientation_locked" translatable="false">LOCKED</string>
+    <string name="map_orientation_portrait" translatable="false">PORTRAIT</string>
+    <string name="map_orientation_landscape" translatable="false">LANDSCAPE</string>
+    <string-array translatable="false" name="map_orientation_values">
+        <item>@string/map_orientation_auto</item>
+        <item>@string/map_orientation_locked</item>
+        <item>@string/map_orientation_portrait</item>
+        <item>@string/map_orientation_landscape</item>
     </string-array>
     <string-array translatable="false" name="tagfilter_mode_entries">
         <item>&#8211;</item>

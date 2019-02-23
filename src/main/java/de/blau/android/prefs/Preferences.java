@@ -60,6 +60,8 @@ public class Preferences {
 
     private final String fullscreenMode;
 
+    private final String mapOrientation;
+
     private int gpsInterval;
 
     private float gpsDistance;
@@ -240,10 +242,12 @@ public class Preferences {
 
         showWayIcons = prefs.getBoolean(r.getString(R.string.config_showWayIcons_key), true);
 
-        followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), "LEFT");
+        followGPSbutton = prefs.getString(r.getString(R.string.config_followGPSbutton_key), r.getString(R.string.follow_GPS_left));
 
         fullscreenMode = prefs.getString(r.getString(R.string.config_fullscreenMode_key),
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? r.getString(R.string.full_screen_auto) : r.getString(R.string.full_screen_never));
+
+        mapOrientation = prefs.getString(r.getString(R.string.config_mapOrientation_key), r.getString(R.string.map_orientation_auto));
 
         maxInlineValues = getIntPref(R.string.config_maxInlineValues_key, 4);
 
@@ -555,7 +559,9 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Check how we should handle changesets
+     * 
+     * @return true if we should close changesets on save
      */
     public boolean closeChangesetOnSave() {
         return closeChangesetOnSave;
@@ -654,18 +660,47 @@ public class Preferences {
         return voiceCommandsEnabled;
     }
 
+    /**
+     * Check if we should attempt to turn GPS on is disabled
+     * 
+     * @return true if we shouldn't try
+     */
     public boolean leaveGpsDisabled() {
         return leaveGpsDisabled;
     }
 
+    /**
+     * Get the position of the on screen follow location button
+     * 
+     * @return one of LEFT, RIGHT and NONE
+     */
     public String followGPSbuttonPosition() {
         return followGPSbutton;
     }
 
+    /**
+     * Get the fullscreen mode
+     * 
+     * @return one of AUTO, NEVER, FORCE and NOSTATUSBAR
+     */
     public String getFullscreenMode() {
         return fullscreenMode;
     }
 
+    /**
+     * Get the way the map screen should respond to orientation changes
+     * 
+     * @return one of AUTO, CURRENT, PORTRAIT and LANDSCAPE
+     */
+    public String getMapOrientation() {
+        return mapOrientation;
+    }
+
+    /**
+     * Get the max number of items that will be displayed inline in the tag form editor
+     * 
+     * @return the max number on inline values displayed
+     */
     public int getMaxInlineValues() {
         return maxInlineValues;
     }
@@ -682,6 +717,11 @@ public class Preferences {
         return notificationCacheSize;
     }
 
+    /**
+     * Get the number of seconds we should wait before locking the display
+     * 
+     * @return delay in seconds till we auto-lock
+     */
     public int getAutolockDelay() {
         return 1000 * autoLockDelay;
     }

@@ -46,6 +46,13 @@
             android:key="@string/config_fullscreenMode_key"
             android:summary="@string/config_fullscreenMode_summary"
             android:title="@string/config_fullscreenMode_title" />
+        <android.support.v7.preference.ListPreference
+            android:defaultValue="@string/map_orientation_auto"
+            android:entries="@array/map_orientation_entries"
+            android:entryValues="@array/map_orientation_values"
+            android:key="@string/config_mapOrientation_key"
+            android:summary="@string/config_map_orientation_summary"
+            android:title="@string/config_map_orientation_title" />
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/config_showTolerance_key"
