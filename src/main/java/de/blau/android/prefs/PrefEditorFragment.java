@@ -13,7 +13,6 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.TileLayerDatabaseView;
 import de.blau.android.resources.TileLayerServer;
-import de.blau.android.util.Util;
 import de.blau.android.validation.ValidatorRulesUI;
 
 /**
@@ -33,7 +32,6 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private String    KEY_PREFPRESET;
     private String    KEY_ADVPREFS;
     private String    KEY_VALIDATOR;
-    private String    KEY_SCALE;
 
     private BoundingBox viewBox = null;
 
@@ -50,7 +48,6 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
         KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
         KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
-        KEY_SCALE = r.getString(R.string.config_scale_key);
         setPreferenceListeners();
     }
 
@@ -58,7 +55,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     public void onResume() {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
-        Util.setListPreferenceSummary(this, KEY_SCALE);
+        Util.setListPreferenceSummary(this, R.string.config_scale_key);
         Log.d(DEBUG_TAG, "onResume done");
     }
 

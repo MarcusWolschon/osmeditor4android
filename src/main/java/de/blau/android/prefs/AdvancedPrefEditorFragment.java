@@ -9,22 +9,18 @@ import android.support.v7.preference.Preference;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
-import de.blau.android.util.Util;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
     private static final String DEBUG_TAG = "AdvancedPrefEditor";
 
-    private Resources r;
-    private String    KEY_PREFAPI;
-    private String    KEY_PREFFULLSCREEN;
-    private String    KEY_PREFMAPORIENTATION;
-    private String    KEY_PREFLOGIN;
-    private String    KEY_PREFGEOCODER;
-    private String    KEY_PREFGPSSOURCE;
+    private Resources    r;
+    AdvancedPrefDatabase db;
+    private String       KEY_PREFAPI;
+    private String       KEY_PREFLOGIN;
+    private String       KEY_PREFGEOCODER;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -32,13 +28,11 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setPreferencesFromResource(R.xml.advancedpreferences, rootKey);
         r = getResources();
         KEY_PREFAPI = r.getString(R.string.config_api_button_key);
-        KEY_PREFFULLSCREEN = r.getString(R.string.config_fullscreenMode_key);
-        KEY_PREFMAPORIENTATION = r.getString(R.string.config_mapOrientation_key);
         KEY_PREFLOGIN = r.getString(R.string.config_loginbutton_key);
         KEY_PREFGEOCODER = r.getString(R.string.config_geocoder_button_key);
-        KEY_PREFGPSSOURCE = r.getString(R.string.config_gps_source_key);
         setOnPreferenceClickListeners();
         setTitle();
+        db = new AdvancedPrefDatabase(getActivity());
     }
 
     /**
@@ -57,7 +51,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         super.onResume();
         Preference apipref = getPreferenceScreen().findPreference(KEY_PREFAPI);
         if (apipref != null) {
-            AdvancedPrefDatabase db = new AdvancedPrefDatabase(getActivity());
             API current = db.getCurrentAPI();
             if (current.id.equals(AdvancedPrefDatabase.ID_DEFAULT)) {
                 apipref.setSummary(R.string.config_apibutton_summary);
@@ -70,10 +63,12 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            Util.setListPreferenceSummary(this, KEY_PREFFULLSCREEN);
+            Util.setListPreferenceSummary(this, R.string.config_fullscreenMode_key);
         }
-        Util.setListPreferenceSummary(this, KEY_PREFMAPORIENTATION);
-        Util.setListPreferenceSummary(this, KEY_PREFGPSSOURCE);
+        Util.setListPreferenceSummary(this, R.string.config_mapOrientation_key);
+        Util.setListPreferenceSummary(this, R.string.config_gps_source_key);
+        Util.setEditTextPreferenceSummary(this, R.string.config_offsetServer_key);
+        Util.setEditTextPreferenceSummary(this, R.string.config_osmoseServer_key);
         setTitle();
     }
 

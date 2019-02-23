@@ -248,6 +248,7 @@
             android:dialogTitle="@string/config_gps_source_tcp_title"
             android:key="@string/config_gps_source_tcp_key"
             android:summary="@string/config_gps_source_tcp_summary"
+            android:dialogMessage="@string/config_gps_source_tcp_summary"
             android:title="@string/config_gps_source_tcp_title" />
         <ch.poole.android.numberpickerpreference.NumberPickerPreference
             android:defaultValue="1000"
@@ -302,11 +303,13 @@
             android:defaultValue="http://offsets.textual.ru/"
             android:key="@string/config_offsetServer_key"
             android:summary="@string/config_offsetServer_summary"
+            android:dialogMessage="@string/config_offsetServer_summary"
             android:title="@string/config_offsetServer_title" />
         <android.support.v7.preference.EditTextPreference
             android:defaultValue="http://osmose.openstreetmap.fr/"
             android:key="@string/config_osmoseServer_key"
             android:summary="@string/config_osmoseServer_summary"
+            android:dialogMessage="@string/config_osmoseServer_summary"
             android:title="@string/config_osmoseServer_title" />
         <android.support.v7.preference.Preference
             android:key="@string/config_geocoder_button_key"

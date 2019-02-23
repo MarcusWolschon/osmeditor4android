@@ -29,10 +29,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.Preference.OnPreferenceChangeListener;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -466,38 +462,6 @@ public final class Util {
             return Long.compare(x, y);
         }
         return Long.valueOf(x).compareTo(y);
-    }
-
-    /**
-     * Set the summary of a list preference from its current value and add an OnPreferenceChangeListener
-     * 
-     * @param prefFragment PreferenceFragmentCompat this is being called from
-     * @param key key of the ListPreference
-     */
-    public static void setListPreferenceSummary(@NonNull PreferenceFragmentCompat prefFragment, @NonNull String key) {
-        ListPreference listPref = (ListPreference) prefFragment.getPreferenceScreen().findPreference(key);
-        if (listPref != null) {
-            CharSequence currentEntry = listPref.getEntry();
-            if (currentEntry != null) {
-                listPref.setSummary(currentEntry);
-            }
-            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    try {
-                        int i = ((ListPreference) preference).findIndexOfValue((String) newValue);
-                        CharSequence currentEntry = ((ListPreference) preference).getEntries()[i];
-                        if (currentEntry != null) {
-                            preference.setSummary(currentEntry);
-                        }
-                    } catch (Exception ex) {
-                        Log.d(DEBUG_TAG, "onPreferenceChange " + ex);
-                    }
-                    return true;
-                }
-            };
-            listPref.setOnPreferenceChangeListener(p);
-        }
     }
 
     private static class UlTagHandler implements Html.TagHandler {
