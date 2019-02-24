@@ -18,7 +18,7 @@ import de.blau.android.util.DateFormatter;
 import de.blau.android.util.SavingHelper;
 
 /**
- * A bug in the OpenStreetBugs database, or a prospective new bug.
+ * A custom task/bug provided by the user, based on the OSMOSE format 
  * 
  * @author Simon Poole
  */
