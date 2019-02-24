@@ -473,7 +473,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param node the node to add
      * @param way the way to add the node to
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
+     *             constraint
      */
     public void addNodeToWay(final Node node, final Way way) throws OsmIllegalOperationException {
         dirty = true;
@@ -510,7 +511,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param nodeBefore existing way node the new node is to be added after
      * @param newNode the new way node
      * @param way the way to perform the operation on
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
+     *             constraint
      */
     public void addNodeToWayAfter(final Node nodeBefore, final Node newNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
@@ -533,7 +535,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param refNode last or first way node
      * @param nextNode the new node to add
      * @param way the way to perform the operation on
-     * @throws OsmIllegalOperationException
+     * @throws OsmIllegalOperationException if the operation would result in an object violating an OSM specific
+     *             constraint
      */
     public void appendNodeToWay(final Node refNode, final Node nextNode, final Way way) throws OsmIllegalOperationException {
         dirty = true;
@@ -707,7 +710,8 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param ways the ways to group
      * @return a list of list of ways with common nodes
      */
-    private ArrayList<ArrayList<Way>> groupWays(List<Way> ways) {
+    @NonNull 
+    private ArrayList<ArrayList<Way>> groupWays(@NonNull List<Way> ways) {
         ArrayList<ArrayList<Way>> groups = new ArrayList<>();
         int group = 0;
         int index = 0;
@@ -893,39 +897,92 @@ public class StorageDelegator implements Serializable, Exportable {
         return (lower > Math.abs(v)) || (Math.abs(v) > upper) ? v : 0.0;
     }
 
+    /**
+     * Wrapper for a screen coordinate tupel
+     * 
+     * @author simon
+     *
+     */
     private class Coordinates {
         double x;
         double y;
 
+        /**
+         * Construct a new Coordinate object
+         * 
+         * @param x screen x coordinate
+         * @param y screen y coordinate
+         */
         Coordinates(double x, double y) {
             this.x = x;
             this.y = y;
         }
 
-        Coordinates subtract(Coordinates s) {
+        /**
+         * Subtract Coordinates from this object
+         * 
+         * @param s the Coordinates to subtract
+         * @return the result of the operation
+         */
+        @NonNull
+        Coordinates subtract(@NonNull Coordinates s) {
             return new Coordinates(this.x - s.x, this.y - s.y);
         }
 
-        Coordinates add(Coordinates p) {
+        /**
+         * Add Coordinates to this object
+         * 
+         * @param p the Coordinates to add
+         * @return the result of the operation
+         */
+        @NonNull
+        Coordinates add(@NonNull Coordinates p) {
             return new Coordinates(this.x + p.x, this.y + p.y);
         }
 
+        /**
+         * Multiple this object with a scalar value
+         * 
+         * @param m the scalar value to multiply with
+         * @return the result of the operation
+         */
+        @NonNull
         Coordinates multiply(double m) {
             return new Coordinates((float) (this.x * m), (float) (this.y * m));
         }
 
+        /**
+         * Divide this object by a scalar value
+         * 
+         * @param d the scalar value to divide by
+         * @return the result of the operation
+         */
         Coordinates divide(double d) {
             return new Coordinates((float) (this.x / d), (float) (this.y / d));
         }
 
+        /**
+         * The scalar length
+         * 
+         * @return the length of this assuming it is a vector from 0,0
+         */
         double length() {
             return (float) Math.hypot(x, y);
         }
     }
 
-    private Coordinates[] nodeListToCooardinateArray(int width, int height, ViewBox box, List<Node> nodes) {
+    /**
+     * Convert the coordinates from a list of Nodes to an array of screen coordinates
+     * 
+     * @param width screen width
+     * @param height screen height
+     * @param box current ViewBox
+     * @param nodes the List of Nodes
+     * @return an array of Coordinates
+     */
+    @NonNull
+    private Coordinates[] nodeListToCooardinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
         Coordinates points[] = new Coordinates[nodes.size()];
-
         // loop over all nodes
         for (int i = 0; i < nodes.size(); i++) {
             points[i] = new Coordinates(0.0f, 0.0f);
@@ -2006,9 +2063,9 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param e current OsmElement
      * @param parents new Map of parent Relations
      */
-    public void updateParentRelations(final OsmElement e, final HashMap<Long, String> parents) {
+    public void updateParentRelations(@NonNull final OsmElement e, @NonNull final HashMap<Long, String> parents) {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
-        ArrayList<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
+        List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
 
         for (Relation o : origParents) { // find changes to existing memberships
             if (!parents.containsKey(o.getOsmId())) {
@@ -2042,12 +2099,11 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param r the relation
      * @param members new list of members
      */
-    public void updateRelation(Relation r, List<RelationMemberDescription> members) {
-
+    public void updateRelation(@NonNull Relation r, @NonNull List<RelationMemberDescription> members) {
         dirty = true;
         undo.save(r);
         boolean changed = false;
-        ArrayList<RelationMember> origMembers = new ArrayList<>(r.getMembers());
+        List<RelationMember> origMembers = new ArrayList<>(r.getMembers());
         LinkedHashMap<String, RelationMember> membersHash = new LinkedHashMap<>();
         for (RelationMember rm : r.getMembers()) {
             membersHash.put(rm.getType() + "-" + rm.getRef(), rm);
@@ -2112,7 +2168,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param relation existing relation
      * @param members list of new members
      */
-    public void addMembersToRelation(Relation relation, List<OsmElement> members) {
+    public void addMembersToRelation(@NonNull Relation relation, @NonNull List<OsmElement> members) {
         dirty = true;
         undo.save(relation);
         for (OsmElement e : members) {
@@ -2131,7 +2187,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param mergeInto OsmElement to merge the parent Relations into
      * @param mergeFrom OsmElement with potentially new parent Relations
      */
-    private void mergeElementsRelations(final OsmElement mergeInto, final OsmElement mergeFrom) {
+    private void mergeElementsRelations(@NonNull final OsmElement mergeInto, @NonNull final OsmElement mergeFrom) {
         // copy just to be safe, use Set to ensure uniqueness
         Set<Relation> fromRelations = mergeFrom.getParentRelations() != null ? new HashSet<>(mergeFrom.getParentRelations()) : new HashSet<>();
         List<Relation> toRelations = mergeInto.getParentRelations() != null ? mergeInto.getParentRelations() : new ArrayList<>();
@@ -2171,7 +2227,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void copyToClipboard(OsmElement e, int lat, int lon) {
+    public void copyToClipboard(@Nullable OsmElement e, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
         if (e instanceof Node) {
             Node newNode = factory.createNodeWithNewId(((Node) e).getLat(), ((Node) e).getLon());
@@ -2196,7 +2252,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param lat latitude where it was located
      * @param lon longitude where it was located
      */
-    public void cutToClipboard(OsmElement e, int lat, int lon) {
+    public void cutToClipboard(@Nullable OsmElement e, int lat, int lon) {
         dirty = true; // otherwise clipboard will not get saved without other changes
         if (e instanceof Node) {
             clipboard.cutTo(e, lat, lon);
@@ -2442,10 +2498,10 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Stores the current storage data to the default storage file
      * 
-     * @param ctx TODO
-     * @throws IOException
+     * @param ctx Android Context
+     * @throws IOException if saving failed
      */
-    public void writeToFile(Context ctx) throws IOException {
+    public void writeToFile(@NonNull Context ctx) throws IOException {
         if (apiStorage == null || currentStorage == null) {
             // don't write empty state files
             Log.i(DEBUG_TAG, "storage delegator empty, skipping save");

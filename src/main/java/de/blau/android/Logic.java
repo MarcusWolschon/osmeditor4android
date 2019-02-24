@@ -464,6 +464,16 @@ public class Logic {
     }
 
     /**
+     * Wrapper to ensure the dirty flag is set
+     * 
+     * Undo without creating a redo checkpoint
+     */
+    public void rollback() {
+        getDelegator().getUndo().undo(false);
+        getDelegator().dirty();
+    }
+
+    /**
      * Checks if the viewBox is close enough to the viewBox to be in the ability to edit something.
      * 
      * @return true, if viewBox' width is smaller than {@link #TOLERANCE_MIN_VIEWBOX_WIDTH}.
@@ -1529,50 +1539,55 @@ public class Logic {
         Node nextNode;
         Node lSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
         Way lSelectedWay = selectedWays != null && !selectedWays.isEmpty() ? selectedWays.get(0) : null;
-
-        if (lSelectedNode == null) {
-            // This will be the first node.
-            lSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
+        try {
             if (lSelectedNode == null) {
-                // A complete new Node...
-                int lat = yToLatE7(y);
-                int lon = xToLonE7(x);
-                lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-                getDelegator().insertElementSafe(lSelectedNode);
-                outsideOfDownload(activity, lon, lat);
-            }
-        } else {
-            // this is not the first node
-            nextNode = getClickedNodeOrCreatedWayNode(x, y);
-            if (nextNode == null) {
-                // clicked on empty space -> create a new Node
-                if (lSelectedWay == null) {
-                    // This is the second Node, so we create a new Way and add the previous selected node to this way
-                    lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
+                // This will be the first node.
+                lSelectedNode = getClickedNodeOrCreatedWayNode(x, y);
+                if (lSelectedNode == null) {
+                    // A complete new Node...
+                    int lat = yToLatE7(y);
+                    int lon = xToLonE7(x);
+                    lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+                    getDelegator().insertElementSafe(lSelectedNode);
+                    outsideOfDownload(activity, lon, lat);
                 }
-                int lat = yToLatE7(y);
-                int lon = xToLonE7(x);
-                lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-                getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
-                getDelegator().insertElementSafe(lSelectedNode);
-                outsideOfDownload(activity, lon, lat);
             } else {
-                // User clicks an existing Node
-                if (nextNode == lSelectedNode) {
-                    // User clicks the last Node -> end here with adding
-                    removeCheckpoint(activity, R.string.undo_action_add);
-                    lSelectedNode = null;
-                    lSelectedWay = null;
-                } else {
-                    // Create a new way with the existing node, which was clicked.
+                // this is not the first node
+                nextNode = getClickedNodeOrCreatedWayNode(x, y);
+                if (nextNode == null) {
+                    // clicked on empty space -> create a new Node
                     if (lSelectedWay == null) {
+                        // This is the second Node, so we create a new Way and add the previous selected node to this
+                        // way
                         lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
                     }
-                    // Add the new Node.
-                    getDelegator().addNodeToWay(nextNode, lSelectedWay);
-                    lSelectedNode = nextNode;
+                    int lat = yToLatE7(y);
+                    int lon = xToLonE7(x);
+                    lSelectedNode = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+                    getDelegator().addNodeToWay(lSelectedNode, lSelectedWay);
+                    getDelegator().insertElementSafe(lSelectedNode);
+                    outsideOfDownload(activity, lon, lat);
+                } else {
+                    // User clicks an existing Node
+                    if (nextNode == lSelectedNode) {
+                        // User clicks the last Node -> end here with adding
+                        removeCheckpoint(activity, R.string.undo_action_add);
+                        lSelectedNode = null;
+                        lSelectedWay = null;
+                    } else {
+                        // Create a new way with the existing node, which was clicked.
+                        if (lSelectedWay == null) {
+                            lSelectedWay = getDelegator().createAndInsertWay(lSelectedNode);
+                        }
+                        // Add the new Node.
+                        getDelegator().addNodeToWay(nextNode, lSelectedWay);
+                        lSelectedNode = nextNode;
+                    }
                 }
             }
+        } catch (OsmIllegalOperationException e) {
+            rollback();
+            throw new OsmIllegalOperationException(e);
         }
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
@@ -1645,16 +1660,18 @@ public class Logic {
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_add);
         Node savedSelectedNode = selectedNodes != null && !selectedNodes.isEmpty() ? selectedNodes.get(0) : null;
-
-        Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
-
-        if (newSelectedNode == null) {
-            setSelectedNode(savedSelectedNode);
-            return null;
+        try {
+            Node newSelectedNode = getClickedNodeOrCreatedWayNode(ways, x, y, forceNew);
+            if (newSelectedNode == null) {
+                setSelectedNode(savedSelectedNode);
+                return null;
+            }
+            setSelectedNode(newSelectedNode);
+            return newSelectedNode;
+        } catch (OsmIllegalOperationException e) {
+            rollback();
+            throw new OsmIllegalOperationException(e);
         }
-
-        setSelectedNode(newSelectedNode);
-        return newSelectedNode;
     }
 
     /**
@@ -1838,10 +1855,16 @@ public class Logic {
     public synchronized MergeResult performMerge(@Nullable final FragmentActivity activity, @NonNull Way mergeInto, @NonNull Way mergeFrom)
             throws OsmIllegalOperationException {
         createCheckpoint(activity, R.string.undo_action_merge_ways);
-        displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
-        MergeResult result = getDelegator().mergeWays(mergeInto, mergeFrom);
-        invalidateMap();
-        return result;
+        try {
+            displayAttachedObjectWarning(activity, mergeInto, mergeFrom, true); // needs to be done before merge
+            MergeResult result = getDelegator().mergeWays(mergeInto, mergeFrom);
+            invalidateMap();
+            return result;
+        } catch (OsmIllegalOperationException e) {
+            dismissAttachedObjectWarning(activity);
+            rollback();
+            throw new OsmIllegalOperationException(e);
+        }
     }
 
     /**
@@ -1865,23 +1888,29 @@ public class Logic {
                 throw new OsmIllegalOperationException("Only ways can be merged");
             }
         }
-        MergeResult result = new MergeResult();
-        Way previousWay = (Way) sortedWays.get(0);
-        MergeResult tempResult = new MergeResult();
-        tempResult.setElement(previousWay);
-        for (int i = 1; i < sortedWays.size(); i++) {
-            Way nextWay = (Way) sortedWays.get(i);
-            tempResult = getDelegator().mergeWays(previousWay, nextWay);
-            if (tempResult.hasIssue()) {
-                Log.d(DEBUG_TAG, "ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict");
-                result.addAllIssues(tempResult.getIssues());
+        try {
+            MergeResult result = new MergeResult();
+            Way previousWay = (Way) sortedWays.get(0);
+            MergeResult tempResult = new MergeResult();
+            tempResult.setElement(previousWay);
+            for (int i = 1; i < sortedWays.size(); i++) {
+                Way nextWay = (Way) sortedWays.get(i);
+                tempResult = getDelegator().mergeWays(previousWay, nextWay);
+                if (tempResult.hasIssue()) {
+                    Log.d(DEBUG_TAG, "ways " + previousWay.getDescription() + " and " + nextWay + " caused a merge conflict");
+                    result.addAllIssues(tempResult.getIssues());
+                }
+                if (previousWay.getState() == OsmElement.STATE_DELETED) {
+                    previousWay = nextWay;
+                }
             }
-            if (previousWay.getState() == OsmElement.STATE_DELETED) {
-                previousWay = nextWay;
-            }
+            result.setElement(tempResult.getElement());
+            return result;
+        } catch (OsmIllegalOperationException e) {
+            dismissAttachedObjectWarning(activity);
+            rollback();
+            throw new OsmIllegalOperationException(e);
         }
-        result.setElement(tempResult.getElement());
-        return result;
     }
 
     /**
@@ -2038,9 +2067,15 @@ public class Logic {
                     if (node == null) {
                         displayAttachedObjectWarning(activity, way, nodeToJoin); // needs to be done before join
                         // move the existing node onto the way and insert it into the way
-                        getDelegator().moveNode(nodeToJoin, lat, lon);
-                        getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
-                        result = new MergeResult(nodeToJoin);
+                        try {
+                            getDelegator().moveNode(nodeToJoin, lat, lon);
+                            getDelegator().addNodeToWayAfter(node1, nodeToJoin, way);
+                            result = new MergeResult(nodeToJoin);
+                        } catch (OsmIllegalOperationException e) {
+                            dismissAttachedObjectWarning(activity); // doesn't make sense to show
+                            rollback();
+                            throw new OsmIllegalOperationException(e);
+                        }
                     } else {
                         displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
                         // merge node into tgtNode
@@ -2127,26 +2162,25 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_append);
         Node lSelectedNode = getSelectedNode();
         Way lSelectedWay = getSelectedWay();
-
-        Node node = getClickedNodeOrCreatedWayNode(x, y);
-        if (node == lSelectedNode) {
-            lSelectedNode = null;
-            lSelectedWay = null;
-        } else if (lSelectedWay != null) { // may have been de-selected before we got here
-            if (node == null) {
-                int lat = yToLatE7(y);
-                int lon = xToLonE7(x);
-                node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
-                getDelegator().insertElementSafe(node);
-                outsideOfDownload(activity, lon, lat);
-            }
-            try {
+        try {
+            Node node = getClickedNodeOrCreatedWayNode(x, y);
+            if (node == lSelectedNode) {
+                lSelectedNode = null;
+                lSelectedWay = null;
+            } else if (lSelectedWay != null) { // may have been de-selected before we got here
+                if (node == null) {
+                    int lat = yToLatE7(y);
+                    int lon = xToLonE7(x);
+                    node = getDelegator().getFactory().createNodeWithNewId(lat, lon);
+                    getDelegator().insertElementSafe(node);
+                    outsideOfDownload(activity, lon, lat);
+                }
                 getDelegator().appendNodeToWay(lSelectedNode, node, lSelectedWay);
-            } catch (OsmIllegalOperationException e) {
-                getDelegator().removeNode(node);
-                throw new OsmIllegalOperationException(e);
+                lSelectedNode = node;
             }
-            lSelectedNode = node;
+        } catch (OsmIllegalOperationException e) {
+            rollback();
+            throw new OsmIllegalOperationException(e);
         }
         setSelectedNode(lSelectedNode);
         setSelectedWay(lSelectedWay);
@@ -2237,17 +2271,12 @@ public class Logic {
             node = createNodeOnWay(savedNode1, savedNode2, x, y);
             if (node != null) {
                 getDelegator().insertElementSafe(node);
-                try {
-                    for (int i = 0; i < savedWays.size(); i++) {
-                        if (savedWaysSameDirection.get(i)) {
-                            getDelegator().addNodeToWayAfter(savedNode1, node, savedWays.get(i));
-                        } else {
-                            getDelegator().addNodeToWayAfter(savedNode2, node, savedWays.get(i));
-                        }
+                for (int i = 0; i < savedWays.size(); i++) {
+                    if (savedWaysSameDirection.get(i)) {
+                        getDelegator().addNodeToWayAfter(savedNode1, node, savedWays.get(i));
+                    } else {
+                        getDelegator().addNodeToWayAfter(savedNode2, node, savedWays.get(i));
                     }
-                } catch (OsmIllegalOperationException e) {
-                    getDelegator().removeNode(node);
-                    throw new OsmIllegalOperationException(e);
                 }
             }
         }
@@ -5081,7 +5110,7 @@ public class Logic {
      * @param checkRelationsOnly if true only check Relations
      */
     private <T extends OsmElement> void displayAttachedObjectWarning(@Nullable FragmentActivity activity, Collection<T> list, boolean checkRelationsOnly) {
-        if (getFilter() != null && showAttachedObjectWarning()) {
+        if (getFilter() != null && activity != null && showAttachedObjectWarning()) {
             elementLoop: for (OsmElement e : list) {
                 if (!checkRelationsOnly) {
                     if (e instanceof Node) {
@@ -5117,6 +5146,17 @@ public class Logic {
                     }
                 }
             }
+        }
+    }
+    
+    /**
+     * Dissmiss the warning dialog
+     * 
+     * @param activity activity this method was called from
+     */
+    private void dismissAttachedObjectWarning(@Nullable FragmentActivity activity) {
+        if (activity != null) {
+            AttachedObjectWarning.showDialog(activity);
         }
     }
 }

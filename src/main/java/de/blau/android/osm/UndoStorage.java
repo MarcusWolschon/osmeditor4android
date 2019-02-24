@@ -217,14 +217,29 @@ public class UndoStorage implements Serializable {
      * @return the name of the undo checkpoint used, or null if no checkpoint was available
      */
     public String undo() {
+        return undo(true);
+    }
+    
+    /**
+     * Performs an undo operation, restoring the state at the last undo checkpoint. A redo checkpoint is automatically
+     * created. If no checkpoint is available, an error is logged and the function does nothing.
+     * 
+     * @param createRedo if true create a redo checkpoint
+     * @return the name of the undo checkpoint used, or null if no checkpoint was available
+     */
+    public String undo(boolean createRedo) {
         if (!canUndo()) {
             Log.w(DEBUG_TAG, "Attempted to undo, but no undo checkpoints available");
             return null;
         }
         String name = undoCheckpoints.getLast().getName();
-        Checkpoint redoPoint = new Checkpoint(name);
-        undoCheckpoints.removeLast().restore(redoPoint);
-        redoCheckpoints.add(redoPoint);
+        if (createRedo) {
+            Checkpoint redoPoint = new Checkpoint(name);
+            undoCheckpoints.removeLast().restore(redoPoint);
+            redoCheckpoints.add(redoPoint);
+        } else {
+            undoCheckpoints.removeLast().restore(null);
+        }
         return name;
     }
 
@@ -494,6 +509,7 @@ public class UndoStorage implements Serializable {
             } catch (StorageException e) {
                 // TODO handle OOM
                 Log.e(DEBUG_TAG, "restore got " + e.getMessage());
+                return false;
             }
 
             // restore saved values

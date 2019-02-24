@@ -8,14 +8,27 @@ package de.blau.android.exception;
  */
 public class StorageException extends RuntimeException {
 
+    /**
+     * Out of memory
+     */
     public static final int OOM = 0;
     private int             code;
 
+    /**
+     * Construct a new exception
+     * 
+     * @param code the error code
+     */
     public StorageException(int code) {
         super();
         this.code = code;
     }
 
+    /**
+     * Get the error code
+     * 
+     * @return the code
+     */
     public int getCode() {
         return code;
     }

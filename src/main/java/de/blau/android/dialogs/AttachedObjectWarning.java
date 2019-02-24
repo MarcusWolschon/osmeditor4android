@@ -54,7 +54,7 @@ public class AttachedObjectWarning extends DialogFragment {
      * 
      * @param activity the calling Activity
      */
-    private static void dismissDialog(@NonNull FragmentActivity activity) {
+    public static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
