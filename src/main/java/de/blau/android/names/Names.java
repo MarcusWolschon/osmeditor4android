@@ -258,7 +258,7 @@ public class Names {
                         SavingHelper.close(is);
                     }
                     try {
-                        is = assetManager.open("categories.json");
+                        is = assetManager.open("categories.json"); // NOSONAR
                         reader = new JsonReader(new InputStreamReader(is));
                         try {
                             String category = null;
