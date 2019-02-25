@@ -1,6 +1,8 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.Nonnull
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn javax.annotation.meta.TypeQualifierDefault
 -dontwarn org.conscrypt.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
