@@ -28,6 +28,7 @@
   <string name="unknown_error_title">Okänt fel</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
+  <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
   <string name="invalid_data_received_title">Ogiltiga data mottaget</string>
@@ -261,7 +262,7 @@
   <string name="tag_menu_apply_preset">Tillämpa bästa förinställning</string>
   <string name="tag_menu_revert">Ångra</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
-  <string name="tag_menu_resetMRU">Återställ förinställda</string>
+  <string name="tag_menu_resetMRU">Återställ förinställningar</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
   <string name="tag_menu_top">Skrolla till toppen</string>
@@ -453,10 +454,10 @@
   <string name="config_enableOpenStreetBugs_title">Visa uppgifter</string>
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar, felrapporter och uppgifter.</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
-  <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
+  <string name="config_enableKeepScreenOn_title">Behåll skärmen på</string>
   <string name="config_advancedprefs">Avancerade inställningar</string>
   <string name="config_moreprefs">Mer inställningar...</string>
-  <string name="config_presetbutton_title">Förinställda</string>
+  <string name="config_presetbutton_title">Förinställningar</string>
   <string name="config_presetbutton_summary">Lägg till och aktivera JOSM-kompatibla förinställningar</string>
   <string name="config_built_in_preset">Inbyggd förinställning</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
@@ -469,7 +470,7 @@
   <string name="config_iconbutton_title">Visa nod-ikoner</string>
   <string name="config_iconbutton_summary">Visa ikonen för den bäst matchande förinställningen ovanför noderna.</string>
   <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
-  <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställda över byggnader.</string>
+  <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställningar över byggnader.</string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
   <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
   <string name="config_fullscreenMode_title">Fullskärmsläge</string>
@@ -543,7 +544,7 @@
   <string name="manage_presets">Hantera förinställningar</string>
   <string name="listedit_use_translations">Använd översättningar</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Uppdatera förinställda</string>
+  <string name="preset_update">Uppdatera förinställningar</string>
   <string name="preset_download_successful">Förinställd hämtad</string>
   <string name="preset_download_failed">Det gick inte att hämta förinställd fil. Förinställningen fungerar inte.</string>
   <string name="preset_download_parse_failed">Den förinställda filen är ogiltig. Förinställningen fungerar inte.</string>
@@ -579,7 +580,7 @@
   <string name="readonly_url">Läs bara API URL (frivillig)</string>
   <string name="geocoder_type">Geocoder typ</string>
   <!--"default" is a reserved Java keyword…-->
-  <string name="preset">Förinställda</string>
+  <string name="preset">Förinställning</string>
   <string name="api">API</string>
   <string name="undo">Ångra</string>
   <string name="redo">Upprepa</string>

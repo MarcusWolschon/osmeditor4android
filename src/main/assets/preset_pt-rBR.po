@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-29 22:02+0000\n"
+"PO-Revision-Date: 2019-02-22 01:29+0000\n"
 "Last-Translator: Eduardo Addad de Oliveira <eduardoaddad@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/openstreetmap/presets/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -6036,7 +6036,7 @@ msgstr ""
 #: master_preset.xml:1562(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:none)
 #: master_preset.xml:4157(check:text|group:Car|preset:Charging_Station|key:authentication:none)
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Noodle"
@@ -8016,7 +8016,7 @@ msgstr ""
 
 #: master_preset.xml:1470(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "Rotatória"
 
 #: master_preset.xml:8669(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
@@ -11297,7 +11297,7 @@ msgstr ""
 #: master_preset.xml:119(list_entry:short_description|value:no)
 msgctxt "sidewalk"
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: master_preset.xml:117(list_entry:short_description|value:left)
 msgctxt "sidewalk"

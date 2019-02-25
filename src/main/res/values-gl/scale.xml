@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string-array name="scale_entries">
-    <item>Non</item>
+    <item>Ningunha</item>
     <item>Escala (métrica)</item>
     <item>Grella (métrica)</item>
     <item>Escala (imperial)</item>

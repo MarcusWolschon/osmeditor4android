@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-16 06:23+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"PO-Revision-Date: 2019-02-24 17:08+0000\n"
+"Last-Translator: Mizuho Inari <assh1857@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/openstreetmap/presets/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2193,7 +2193,7 @@ msgstr "國家代碼"
 
 #: master_preset.xml:12430(item:name|group:Places|preset:County)
 msgid "County"
-msgstr ""
+msgstr "縣"
 
 #: master_preset.xml:6776(item:name|group:Public_Building|preset:Courthouse)
 msgid "Courthouse"
@@ -2374,7 +2374,7 @@ msgstr "割挖"
 
 #: master_preset.xml:2333(item:name|group:Barriers|preset:Cycle_Barrier)
 msgid "Cycle Barrier"
-msgstr ""
+msgstr "自行車柵欄"
 
 #: master_preset.xml:1591(item:name|preset:Cycle_Lane/Track)
 msgid "Cycle Lane/Track"
@@ -2703,7 +2703,7 @@ msgstr "廢棄軌道"
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3020(item:name|group:Water|preset:Ditch)
 msgid "Ditch"
-msgstr ""
+msgstr "溝渠"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Divehi"
@@ -3149,7 +3149,7 @@ msgstr ""
 
 #: master_preset.xml:13077(item:name|group:Land_use|preset:Farmland)
 msgid "Farmland"
-msgstr ""
+msgstr "農業用地"
 
 #: master_preset.xml:13065(item:name|group:Land_use|preset:Farmyard)
 msgid "Farmyard"
@@ -3939,7 +3939,7 @@ msgstr ""
 
 #: master_preset.xml:12977(item:name|group:Nature|preset:Heath)
 msgid "Heath"
-msgstr ""
+msgstr "矮灌木叢"
 
 #: master_preset.xml:14448(item:name|group:Crafts|preset:Heating_engineer)
 msgid "Heating engineer"
@@ -4463,7 +4463,7 @@ msgstr ""
 
 #: master_preset.xml:1465(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "連接點"
 
 #: master_preset.xml:711(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -5218,7 +5218,7 @@ msgstr ""
 
 #: master_preset.xml:13098(item:name|group:Land_use|preset:Meadow)
 msgid "Meadow"
-msgstr ""
+msgstr "畜牧用地"
 
 #: master_preset.xml:13111(combo:text|group:Land_use|preset:Meadow|key:meadow)
 msgid "Meadow type"
@@ -5910,7 +5910,7 @@ msgstr "針葉樹"
 
 #: master_preset.xml:12562(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
-msgstr ""
+msgstr "鄰"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Nepali"
@@ -7941,7 +7941,7 @@ msgstr ""
 
 #: master_preset.xml:34(list_entry:short_description|value:bad)
 msgid "Robust Wheels: trekking bike, car, rickshaw"
-msgstr ""
+msgstr "強化輪胎：登山車、汽車、人力車"
 
 #: master_preset.xml:13029(item:name|group:Nature|preset:Rock)
 #: master_preset.xml:8465(combo:text|group:Sport|preset:Climbing|key:climbing:rock)
@@ -8241,11 +8241,11 @@ msgstr ""
 
 #: master_preset.xml:12909(item:name|group:Nature|preset:Scree)
 msgid "Scree"
-msgstr ""
+msgstr "崩坍地"
 
 #: master_preset.xml:12958(item:name|group:Nature|preset:Scrub)
 msgid "Scrub"
-msgstr ""
+msgstr "荒地"
 
 #: master_preset.xml:8580(item:name|group:Sport|preset:Scuba_Diving)
 msgid "Scuba Diving"
@@ -9392,7 +9392,7 @@ msgstr ""
 
 #: master_preset.xml:32(list_entry:short_description|value:good)
 msgid "Thin Wheels: racing bike"
-msgstr ""
+msgstr "窄輪：公路車"
 
 #: master_preset.xml:1525(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:through)
 #: master_preset.xml:1551(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:through)
@@ -9551,7 +9551,7 @@ msgstr ""
 
 #: master_preset.xml:12472(item:name|group:Places|preset:Town)
 msgid "Town"
-msgstr ""
+msgstr "鄉鎮市區"
 
 #: master_preset.xml:6718(item:name|group:Public_Building|preset:Town_Hall)
 msgid "Town Hall"
@@ -10083,7 +10083,7 @@ msgstr ""
 
 #: master_preset.xml:12487(item:name|group:Places|preset:Village)
 msgid "Village"
-msgstr ""
+msgstr "村里"
 
 #: master_preset.xml:13240(item:name|group:Land_use|preset:Village_Green)
 msgid "Village Green"
@@ -10365,7 +10365,7 @@ msgstr "輪椅"
 
 #: master_preset.xml:33(list_entry:short_description|value:intermediate)
 msgid "Wheels: city bike, wheelchair, scooter"
-msgstr ""
+msgstr "輪胎：通勤自行車、輪椅、速克達"
 
 #: master_preset.xml:12889(label:text|group:Nature|preset:Grassland)
 msgid ""
@@ -12476,7 +12476,7 @@ msgstr ""
 #: master_preset.xml:8977(key:text|group:Buildings|preset:House|key:building)
 msgctxt "building"
 msgid "House"
-msgstr ""
+msgstr "住宅"
 
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -13018,7 +13018,7 @@ msgstr ""
 #: master_preset.xml:2514(item:name|group:Barriers|preset:Ditch)
 msgctxt "Barrier"
 msgid "Ditch"
-msgstr ""
+msgstr "溝渠"
 
 #: master_preset.xml:2596(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"

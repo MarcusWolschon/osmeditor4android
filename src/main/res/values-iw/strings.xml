@@ -47,7 +47,9 @@
   <string name="file_write_failed_title">לא ניתן לכתוב לקובץ</string>
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
   <string name="welcome_title">ברוך בואך</string>
+  <string name="read_introduction">הצגת ההקדמה</string>
   <string name="upgrade_title">זו גרסה חדשה של וספוצ׳י</string>
+  <string name="upgrade_message">תכונות חדשות ודפוסי התנהגות מפורטים בפרטי הגרסה.</string>
   <string name="read_upgrade">מידע על הגרסה החדשה</string>
   <string name="progress_title">בטעינה</string>
   <string name="progress_message">מתבצעת טעינה לזיכרון…</string>
@@ -60,6 +62,7 @@
   <string name="progress_preset_message">הערכה מתקבלת…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
+  <string name="progress_query_oam">OAM מתושאל…</string>
   <string name="upload_comment_label">הערה:</string>
   <string name="upload_source_label">מקור:</string>
   <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
@@ -75,6 +78,8 @@
   <string name="openstreetbug_new_nodeway">יצירת מפרק/דרך</string>
   <string name="openstreetbug_edit_title">עריכת הערה</string>
   <string name="openstreetbug_comment_label">הערה:</string>
+  <string name="openstreetbug_commit_ok">שינויים במשימה נשמרו</string>
+  <string name="openstreetbug_commit_fail">לא ניתן לשמור את השינויים במשימה</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
   <string name="note_description">הערה: %1$s - %2$s</string>
@@ -170,6 +175,7 @@
   <string name="add_check_entry">הוספת רשומת בדיקה</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">יחס ריק</string>
+  <string name="empty_relation_message">ביחס %1$s אין חברים.\n\nאם יישאר ככה לא תהיה אפשרות לערוך אותו בווספוצ׳י.</string>
   <string name="add_members">הוספת חברים</string>
   <string name="leave_empty">להשאיר ריק</string>
   <!--GPX waypoint dialog-->
@@ -213,6 +219,7 @@
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
+  <string name="undo_redo_one">רק נקודת הביקורת הנבחרת (לא בטיחותי)</string>
   <string name="undo_all">ביטול כל נקודות הביקורת האחרונות (בטיחותי)</string>
   <string name="redo_all">שחזור הביטול של כל נקודות הביקורת המוקדמות (בטיחותי)</string>
   <!--Feedback activity-->
@@ -246,6 +253,9 @@
   <string name="toast_export_success">מיוצא אל %1$s</string>
   <string name="toast_preset_overwrote_tags">הערה - הערכה המוגדרת שכתבה תגית/תגיות</string>
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
+  <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיווניות. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
+  <string name="toast_merge_tag_conflict">מיזגת רכיבים שיש להם תגיות סותרות, סמנטיקה תלוית כיוון או תפקידים שונים באותו היחס. נא לבדוק את התגיות והתפקידים ולתקן אם צריך.</string>
+  <string name="toast_potential_merge_tag_conflict">בפעולה זו מתבצע ניסיון למזג רכיבים שיש להם תגיות סותרות.\n\nנא לבדוק את התגיות ולתקן תחילה בטרם ביצוע ניסיון חוזר.</string>
   <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">ממתינה לך הודעה שלא נקרא ב־OSM</item>
@@ -260,13 +270,17 @@
   <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או הפניה</string>
   <string name="toast_notype">לקשר חסר סוג</string>
+  <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
   <string name="toast_oauth_not_enabled">OAuth אינו מופעל עבור ה־API הנוכחי.</string>
+  <string name="toast_oauth_timeout">הזמן שהוקצה ללחיצת יד לאימות פג, נא לנסות שוב.</string>
+  <string name="toast_oauth_communication">אירעה שגיאת תקשורת במהלך לחיצת היד של האימות, נא לנסות שוב.</string>
   <string name="toast_oauth_handshake_failed">לא ניתן לבצע לחיצת יד של OAuth:‏ %1$s</string>
   <string name="toast_timeout">תום זמן מהשרת</string>
   <string name="coordinates_out_of_range">קו האורך חייב להיות בטווח ‎-180°/+180°, קו הרוחב בין ‎-85°/85°</string>
   <string name="toast_nothing_found">שום דבר לא נמצא</string>
+  <string name="toast_statesave_failed">לא ניתן לשמור את המצב הנוכחי!\nמדובר בתקלה קריטית, מתבצע ניסיון לכתיבה לקובץ מיוצא לשחזור מאוחר יותר עם JOSM.</string>
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">יש להוריד נתונים נוספים כדי לערוך את האזור הזה.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
@@ -305,6 +319,7 @@
   <string name="toast_tags_copied">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_tags_cut">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_properties_copied">המאפיינים הועתקו ללוח הגזירים</string>
+  <string name="toast_task_layer_disabled">שכבת המשימות הושבתה</string>
   <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
   <string name="toast_merged">ממוזג</string>
   <string name="toast_long_press_simple_mode">אין לחיצה ארוכה במצב פשוט</string>
@@ -452,6 +467,7 @@
   <string name="menu_gps_export">יצוא מסלול GPX</string>
   <string name="menu_gps_import">יבוא מסלול GPX</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
+  <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
   <string name="menu_gps_autodownload">הורדה אוטומטית</string>
   <string name="menu_transfer">העברה…</string>
   <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>
@@ -464,9 +480,14 @@
   <string name="menu_transfer_read_file">קריאה מקובץ JOSM…</string>
   <string name="menu_transfer_save_file">שמירה לקובץ JOSM…</string>
   <string name="menu_transfer_bugs">משימות…</string>
+  <string name="menu_transfer_bugs_download_current">הורדת משימות לתצוגה הנוכחית</string>
   <string name="menu_transfer_bugs_upload">להעלות הכול</string>
   <string name="menu_transfer_bugs_upload_long">העלאת כל המשימות</string>
   <string name="menu_transfer_bugs_clear">ניקוי</string>
+  <string name="menu_transfer_bugs_clear_long">פינוי משימות</string>
+  <string name="menu_transfer_autodownload_long">הורדת משימות אוטומטית</string>
+  <string name="menu_transfer_save_notes_all">שמירת כל ההערות…</string>
+  <string name="menu_transfer_save_notes_new_and_changed">שמירת הערות חדשות וכאלו שנערכו…</string>
   <string name="menu_transfer_read_custom_bugs">טעינת משימות מותאמות אישית…</string>
   <string name="menu_transfer_write_custom_bugs">שמירת משימות פתוחות מותאמות אישית…</string>
   <string name="menu_save">שמירה כקובץ</string>
@@ -494,6 +515,7 @@
   <string name="menu_tools_background_properties">מאפייני רקע</string>
   <string name="menu_tools_update_imagery_configuration">עדכון תצורת שכבת תמונות רקע</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
+  <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
   <!---->
   <string name="menu_simple_actions">מצב פשוט</string>
   <string name="menu_feedback">שליחת משוב</string>
@@ -535,7 +557,10 @@
   <string name="menu_merge">צירוף</string>
   <string name="menu_reverse">היפוך</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
+  <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל המפרקים או למחוק מפרקים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
+  <string name="deleteway_nodesnotdownloaded_description">הדרך מכילה מפרקים מחוץ לאזור שהתקבל ולא ניתן למחוק אותה ולהגיע לכדי מצב בלתי יציב. יש להוריד את כולה בטרם ביצוע ניסיון חוזר.</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
+  <string name="deletenode_relation_description">פעולה זו תמחק מפרק שחבר ביחס אחד או יותר. הסרת המפרק שנושא יחסים כאלה עשויה להסב נזק.</string>
   <string name="deletenode">מחיקת מפרק</string>
   <string name="split_all_ways">פיצול כל הדרכים</string>
   <string name="delete_note_description">לא ניתן לשחזר הערה שנמחקה!</string>
