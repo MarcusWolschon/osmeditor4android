@@ -59,6 +59,8 @@
 -keep,includedescriptorclasses class de.blau.android.views.CustomAutoCompleteTextView$Tokenizer
 -keep class de.blau.android.services.*
 
+-keep class org.mozilla.javascript.** { *; }
+
 -keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
 }
