@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.1.5: Exempt rhino from Proguard, updated translations and imagery.
+
 12.1.4: Small performance improvements, updated translations.
 
 12.1.3: Updated preset, imagery, synonyms and translations, fix issue with way splitting/merging and duplicate relation members
