@@ -1,17 +1,22 @@
 package de.blau.android.prefs;
 
-import android.preference.EditTextPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
-import de.blau.android.R;
 
 public final class Util {
 
     private static final String DEBUG_TAG = "Util";
+
+    /**
+     * Private constructor
+     */
+    private Util() {
+        // don't allow instantiating of this class
+    }
 
     /**
      * Set the summary of a list preference from its current value and add an OnPreferenceChangeListener

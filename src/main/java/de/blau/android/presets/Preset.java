@@ -70,6 +70,7 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.osm.Node;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
@@ -4349,7 +4350,7 @@ public class Preset implements Serializable {
      * @throws IOException
      */
     public void toXml(XmlSerializer s) throws IllegalArgumentException, IllegalStateException, IOException {
-        s.startDocument("UTF-8", null);
+        s.startDocument(OsmXml.UTF_8, null);
         s.startTag("", PRESETS);
         for (PresetElement e : getRootGroup().getElements()) {
             e.toXml(s);

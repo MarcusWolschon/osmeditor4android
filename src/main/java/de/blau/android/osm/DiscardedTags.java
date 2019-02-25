@@ -41,7 +41,7 @@ public class DiscardedTags {
         JsonReader reader = null;
         try {
             is = assetManager.open("discarded.json");
-            reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+            reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));
             try {
                 reader.beginArray();
                 while (reader.hasNext()) {

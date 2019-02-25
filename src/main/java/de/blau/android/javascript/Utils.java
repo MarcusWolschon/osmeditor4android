@@ -44,6 +44,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Paths;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.ProgressDialog;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.ReadFile;
@@ -397,7 +398,7 @@ public final class Utils {
                     while ((length = is.read(buffer)) != -1) {
                         result.write(buffer, 0, length);
                     }
-                    r = result.toString("UTF-8");
+                    r = result.toString(OsmXml.UTF_8);
                 } catch (IOException e) {
                     Log.e(DEBUG_TAG, "Problem reading", e);
                 } finally {

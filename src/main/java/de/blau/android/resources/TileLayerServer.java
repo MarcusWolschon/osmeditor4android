@@ -61,6 +61,7 @@ import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
@@ -796,7 +797,7 @@ public class TileLayerServer {
      */
     public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
             final boolean async) throws IOException {
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {

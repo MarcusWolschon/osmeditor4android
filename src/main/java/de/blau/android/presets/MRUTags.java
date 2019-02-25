@@ -34,6 +34,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.contract.Files;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.OsmElement.ElementType;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
@@ -331,8 +332,8 @@ public class MRUTags {
         Map<PresetItem, PresetElementPath> pathCache = new HashMap<>();
 
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-        serializer.setOutput(outputStream, "UTF-8");
-        serializer.startDocument("UTF-8", null);
+        serializer.setOutput(outputStream, OsmXml.UTF_8);
+        serializer.startDocument(OsmXml.UTF_8, null);
         serializer.startTag("", MRUTAGS_TAG);
         for (Entry<ElementType, MRUList<String>> entry : keyStore.entrySet()) {
             serializer.startTag("", KEYS_TAG);

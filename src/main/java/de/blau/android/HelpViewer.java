@@ -40,6 +40,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.ThemeUtils;
@@ -365,10 +366,10 @@ public class HelpViewer extends BugFixedAppCompatActivity {
         }
     }
 
-    private String getTopic(String url) {
+    private String getTopic(@NonNull String url) {
 
         try {
-            url = URLDecoder.decode(url, "UTF-8");
+            url = URLDecoder.decode(url, OsmXml.UTF_8);
         } catch (UnsupportedEncodingException e) {
             return "Error, got: " + url;
         }

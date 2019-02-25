@@ -22,8 +22,10 @@ import de.blau.android.util.Util;
  *
  */
 public final class OsmXml {
-
     private static final String DEBUG_TAG = "OsmXml";
+
+
+    public static final String UTF_8 = "UTF-8";
 
     public static final String TAG       = "tag";
     public static final String CHANGESET = "changeset";
@@ -54,8 +56,8 @@ public final class OsmXml {
         int count = 0;
         Log.d(DEBUG_TAG, "writing osm change with changesetid " + changeSetId);
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-        serializer.setOutput(outputStream, "UTF-8");
-        serializer.startDocument("UTF-8", null);
+        serializer.setOutput(outputStream, UTF_8);
+        serializer.startDocument(UTF_8, null);
         serializer.startTag(null, "osmChange");
         serializer.attribute(null, "generator", generator);
         serializer.attribute(null, "version", "0.6");
@@ -237,8 +239,8 @@ public final class OsmXml {
     public static void write(@NonNull Storage current, @Nullable Storage api, @NonNull OutputStream outputStream, @NonNull String generator)
             throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-        serializer.setOutput(outputStream, "UTF-8");
-        serializer.startDocument("UTF-8", null);
+        serializer.setOutput(outputStream, UTF_8);
+        serializer.startDocument(UTF_8, null);
         serializer.startTag(null, "osm");
         serializer.attribute(null, "generator", generator);
         serializer.attribute(null, "version", "0.6");

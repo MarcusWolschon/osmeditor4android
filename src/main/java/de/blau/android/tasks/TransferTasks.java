@@ -48,6 +48,7 @@ import de.blau.android.dialogs.Progress;
 import de.blau.android.dialogs.TextLineDialog;
 import de.blau.android.exception.OsmException;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.FileUtil;
@@ -576,8 +577,8 @@ public class TransferTasks {
                     final OutputStream out = new BufferedOutputStream(new FileOutputStream(outfile));
                     try {
                         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-                        serializer.setOutput(out, "UTF-8");
-                        serializer.startDocument("UTF-8", null);
+                        serializer.setOutput(out, OsmXml.UTF_8);
+                        serializer.startDocument(OsmXml.UTF_8, null);
                         serializer.startTag(null, "osm-notes");
                         for (Task t : queryResult) {
                             if (t instanceof Note) {

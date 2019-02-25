@@ -3,11 +3,13 @@ package de.blau.android;
 import java.io.InputStreamReader;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.BugFixedAppCompatActivity;
 import de.blau.android.util.SavingHelper;
@@ -63,7 +65,7 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
      * @param filename the name of the file
      * @return a String with the contents
      */
-    private String load(String filename) {
+    private String load(@NonNull String filename) {
         StringBuilder builder = new StringBuilder();
         load(filename, builder);
         return builder.toString();
@@ -75,12 +77,12 @@ public class LicenseViewer extends BugFixedAppCompatActivity {
      * @param filename the name of the file
      * @param builder the StringBuilder
      */
-    private void load(String filename, StringBuilder builder) {
+    private void load(@NonNull String filename, @NonNull StringBuilder builder) {
         builder.append("== " + filename + " ==\n");
 
         InputStreamReader reader = null;
         try {
-            reader = new InputStreamReader(getAssets().open(filename), "UTF-8");
+            reader = new InputStreamReader(getAssets().open(filename), OsmXml.UTF_8);
             int read = 0;
             do {
                 char[] buf = new char[4096];

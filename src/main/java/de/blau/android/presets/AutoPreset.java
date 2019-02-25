@@ -32,6 +32,7 @@ import de.blau.android.R;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.contract.Urls;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
@@ -318,7 +319,7 @@ public class AutoPreset {
                     s.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
                     fout = new FileOutputStream(outfile);
                     out = new BufferedOutputStream(fout);
-                    s.setOutput(out, "UTF-8");
+                    s.setOutput(out, OsmXml.UTF_8);
                     preset.toXml(s);
                     s.flush();
                 } catch (IllegalArgumentException | IllegalStateException | IOException | XmlPullParserException e) {

@@ -44,6 +44,7 @@ import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmParser;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.Tags;
@@ -636,7 +637,7 @@ public class ElementInfo extends DialogFragment {
      */
     private String encodeHttpPath(String path) {
         try {
-            return URLEncoder.encode(path, "UTF-8");
+            return URLEncoder.encode(path, OsmXml.UTF_8);
         } catch (UnsupportedEncodingException e) {
             Log.d(DEBUG_TAG, "Path " + path + " caused " + e);
             return "";

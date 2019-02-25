@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.geocode.Search.SearchResult;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -78,7 +79,7 @@ class QueryPhoton extends Query {
             }
 
             if (inputStream != null) {
-                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName(OsmXml.UTF_8)));
                 StringBuilder sb = new StringBuilder();
                 int cp;
                 while ((cp = rd.read()) != -1) {

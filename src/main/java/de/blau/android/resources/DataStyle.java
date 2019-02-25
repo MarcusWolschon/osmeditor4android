@@ -44,6 +44,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import de.blau.android.R;
 import de.blau.android.contract.Paths;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.resources.DataStyle.FeatureStyle.DashPath;
 import de.blau.android.util.Density;
 import de.blau.android.util.FileUtil;
@@ -860,8 +861,8 @@ public class DataStyle extends DefaultHandler {
             File outfile = new File(outDir, filename);
             outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
             XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-            serializer.setOutput(outputStream, "UTF-8");
-            serializer.startDocument("UTF-8", null);
+            serializer.setOutput(outputStream, OsmXml.UTF_8);
+            serializer.startDocument(OsmXml.UTF_8, null);
             this.toXml(serializer);
             serializer.endDocument();
         } catch (Exception e) {

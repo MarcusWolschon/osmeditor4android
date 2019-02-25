@@ -54,6 +54,7 @@ import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.resources.DataStyle;
 import de.blau.android.resources.DataStyle.FeatureStyle;
@@ -488,7 +489,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         boolean successful = false;
         // don't draw while we are loading
         setVisible(false);
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName(OsmXml.UTF_8)));
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {

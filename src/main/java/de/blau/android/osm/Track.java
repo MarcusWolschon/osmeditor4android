@@ -486,8 +486,8 @@ public class Track extends DefaultHandler implements GpxTimeFormater {
      */
     public void exportToGPX(@NonNull OutputStream outputStream) throws XmlPullParserException, IllegalArgumentException, IllegalStateException, IOException {
         XmlSerializer serializer = XmlPullParserFactory.newInstance().newSerializer();
-        serializer.setOutput(outputStream, "UTF-8");
-        serializer.startDocument("UTF-8", null);
+        serializer.setOutput(outputStream, OsmXml.UTF_8);
+        serializer.startDocument(OsmXml.UTF_8, null);
         serializer.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
         serializer.startTag(null, GPX_ELEMENT);
         serializer.attribute(null, "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");

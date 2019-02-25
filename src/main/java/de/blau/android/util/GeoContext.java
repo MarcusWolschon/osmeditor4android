@@ -20,6 +20,7 @@ import de.blau.android.Logic;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
+import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -118,7 +119,7 @@ public class GeoContext {
         JsonReader reader = null;
         try {
             is = assetManager.open(fileName);
-            reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
+            reader = new JsonReader(new InputStreamReader(is, OsmXml.UTF_8));
             try {
                 reader.beginObject();
                 while (reader.hasNext()) {

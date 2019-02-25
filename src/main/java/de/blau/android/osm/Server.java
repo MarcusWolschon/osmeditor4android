@@ -86,7 +86,6 @@ public class Server {
     private static final String HTTP_DELETE = "DELETE";
 
     private static final MediaType TEXTXML = MediaType.parse("text/xml");
-    private static final String    UTF_8   = "UTF-8";
 
     /**
      * Timeout for connections in milliseconds.
@@ -1534,7 +1533,7 @@ public class Server {
     }
 
     private void startXml(@NonNull XmlSerializer xmlSerializer) throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.startDocument(UTF_8, null);
+        xmlSerializer.startDocument(OsmXml.UTF_8, null);
         xmlSerializer.startTag("", "osm");
         xmlSerializer.attribute("", VERSION_KEY, API_VERSION);
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
@@ -1547,7 +1546,7 @@ public class Server {
 
     private void startChangeXml(@NonNull XmlSerializer xmlSerializer, @NonNull String action)
             throws IllegalArgumentException, IllegalStateException, IOException {
-        xmlSerializer.startDocument(UTF_8, null);
+        xmlSerializer.startDocument(OsmXml.UTF_8, null);
         xmlSerializer.startTag("", OSM_CHANGE_TAG);
         xmlSerializer.attribute("", VERSION_KEY, OSMCHANGE_VERSION);
         xmlSerializer.attribute("", GENERATOR_KEY, generator);
@@ -1843,7 +1842,7 @@ public class Server {
 
             // setting text/xml here is a hack to stop signpost (the oAuth library) from trying to sign the body
             // which will fail
-            String encodedComment = URLEncoder.encode(comment.getText(), UTF_8);
+            String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addCommentUrl = getAddCommentUrl(Long.toString(bug.getId()), encodedComment);
 
             Response response = openConnectionForAuthenicatedAccess(addCommentUrl, HTTP_POST, RequestBody.create(null, ""));
@@ -1889,7 +1888,7 @@ public class Server {
             // http://openstreetbugs.schokokeks.org/api/0.1/addPOIexec?lat=<Latitude>&lon=<Longitude>&text=<Bug
             // description with author and date>&format=<Output format>
 
-            String encodedComment = URLEncoder.encode(comment.getText(), UTF_8);
+            String encodedComment = URLEncoder.encode(comment.getText(), OsmXml.UTF_8);
             URL addNoteUrl = getAddNoteUrl((bug.getLat() / 1E7d), (bug.getLon() / 1E7d), encodedComment);
 
             Response response = openConnectionForAuthenicatedAccess(addNoteUrl, HTTP_POST, RequestBody.create(null, ""));
