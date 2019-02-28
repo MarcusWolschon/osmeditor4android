@@ -57,6 +57,7 @@
         <feature type="way" tags="natural=water" widthFactor="1.0" color="ff0000ff" />
         <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
         <feature type="way" tags="natural=coastline" widthFactor="2.0" color="ff71BE80" pathPattern="triangle_left" />
+        <feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
     </feature>
     <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" >
