@@ -2458,10 +2458,11 @@ public class Logic {
                     }
                     Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                     if (map != null) {
-                        // set to current or previous
-                        viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                        viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox()); // set to
+                                                                                                              // current
+                                                                                                              // or
+                                                                                                              // previous
                     }
-
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     Exception ce = e.getException();
@@ -3050,7 +3051,7 @@ public class Logic {
                         sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
                         sd.fixupApiStorage();
                         if (map != null) {
-                            viewBox.setBorders(map, getDelegator().getLastBox()); // set to current or previous
+                            viewBox.fitToBoundingBox(map, getDelegator().getLastBox()); // set to current or previous
                         }
                     } finally {
                         SavingHelper.close(in);
@@ -3197,7 +3198,7 @@ public class Logic {
                         sd.setCurrentStorage(storage); // this sets dirty flag
                         sd.fixupApiStorage();
                         if (map != null) {
-                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                         }
                     } finally {
                         SavingHelper.close(is);
@@ -3245,7 +3246,7 @@ public class Logic {
                         removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
                     }
                     if (map != null) {
-                        viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                     }
                 } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
@@ -3379,7 +3380,6 @@ public class Logic {
                         } catch (Exception e) {
                             // invalid dimensions or similar error
                             viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -5151,7 +5151,7 @@ public class Logic {
             }
         }
     }
-    
+
     /**
      * Dissmiss the warning dialog
      * 

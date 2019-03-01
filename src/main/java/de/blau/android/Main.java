@@ -1011,7 +1011,7 @@ public class Main extends FullScreenAppCompatActivity
                                     getMap().getViewBox().setZoom(getMap(), zoom);
                                     getMap().getViewBox().moveTo(getMap(), lonE7, latE7);
                                 } else {
-                                    logic.getViewBox().setBorders(getMap(), bbox);
+                                    logic.getViewBox().fitToBoundingBox(getMap(), bbox);
                                 }
                                 map.invalidate();
                             }
@@ -1077,7 +1077,7 @@ public class Main extends FullScreenAppCompatActivity
                             rcData = null; // zap to stop repeated downloads
                         }
                     } else { // zoom
-                        map.getViewBox().setBorders(getMap(), rcData.getBox());
+                        map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());                       
                         map.invalidate();
                         rcData = null; // zap to stop repeated/
                                        // downloads
@@ -1126,7 +1126,7 @@ public class Main extends FullScreenAppCompatActivity
     private void rcDataEdit(RemoteControlUrlData rcData) {
         BoundingBox box = rcData.getBox();
         if (box != null) {
-            map.getViewBox().setBorders(getMap(), box);
+            map.getViewBox().fitToBoundingBox(getMap(), box);
         }
         final Logic logic = App.getLogic();
         if (rcData.getSelect() != null) {
