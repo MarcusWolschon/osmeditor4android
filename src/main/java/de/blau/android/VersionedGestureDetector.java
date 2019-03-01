@@ -73,7 +73,6 @@ public abstract class VersionedGestureDetector {
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     float x = e.getX();
                     float y = e.getY();
-
                     mListener.onClick(v, x, y);
                     return true;
                 }

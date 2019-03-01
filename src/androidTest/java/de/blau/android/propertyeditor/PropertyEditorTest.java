@@ -382,6 +382,12 @@ public class PropertyEditorTest {
         path = Arrays.asList(new String[] { "Transport", "Public Transport (Legacy)", "Public transport route (Legacy)" });
         item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
         Assert.assertNotNull(item);
+        if (mruTags.getRoles(item) == null) { // hack: we matched the non-legacy version of the preset
+            path = Arrays.asList(new String[] { "Transport", "Public Transport", "Public Transport Route (Bus)" });
+            item = (PresetItem) Preset.getElementByPath(App.getCurrentRootPreset(context).getRootGroup(), new PresetElementPath(path));
+            Assert.assertNotNull(item);
+        }
+        Assert.assertNotNull(mruTags.getRoles(item));
         Assert.assertTrue(mruTags.getRoles(item).contains("platform"));
     }
 

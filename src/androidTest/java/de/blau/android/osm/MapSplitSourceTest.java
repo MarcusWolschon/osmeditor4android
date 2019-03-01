@@ -83,10 +83,10 @@ public class MapSplitSourceTest {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
             appView.scrollIntoView(new UiSelector().text("Advanced preferences"));
-            TestUtils.clickText(mDevice, false, "Advanced preferences", true);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            // if there is no scrollable then this will fail
         }
+        TestUtils.clickText(mDevice, false, "Advanced preferences", true);
         TestUtils.clickText(mDevice, false, "Server settings", true);
         TestUtils.clickText(mDevice, false, "OSM API URL", true);
         TestUtils.longClickText(mDevice, "OpenStreetMap");

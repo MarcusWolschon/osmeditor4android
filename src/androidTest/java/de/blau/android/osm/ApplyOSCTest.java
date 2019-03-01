@@ -134,10 +134,10 @@ public class ApplyOSCTest {
         UiScrollable appView = new UiScrollable(new UiSelector().scrollable(true));
         try {
             appView.scrollIntoView(new UiSelector().text(OSC_FILE));
-            TestUtils.clickText(mDevice, false, OSC_FILE, true);
         } catch (UiObjectNotFoundException e) {
-            Assert.fail(e.getMessage());
+            // if there is no scrollable then this will fail
         }
+        TestUtils.clickText(mDevice, false, OSC_FILE, true);
         try {
             Thread.sleep(5000); // NOSONAR
         } catch (InterruptedException e) {

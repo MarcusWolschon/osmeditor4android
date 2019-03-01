@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
@@ -46,13 +47,14 @@ public class TileLayerServerTest {
     Splash          splash          = null;
     ActivityMonitor monitor         = null;
     Instrumentation instrumentation = null;
+    Context         context         = null;
 
     /**
      * Manual start of activity so that we can set up the monitor for main
      */
     @Rule
     public ActivityTestRule<Splash> mActivityRule = new ActivityTestRule<>(Splash.class, false, false);
-    
+
     /**
      * Pre-test setup
      */
@@ -60,12 +62,12 @@ public class TileLayerServerTest {
     public void setup() {
         instrumentation = InstrumentationRegistry.getInstrumentation();
         monitor = instrumentation.addMonitor(Main.class.getName(), null, false);
-               
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         splash = mActivityRule.launchActivity(intent);
-      
+        context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         main = (Main) instrumentation.waitForMonitorWithTimeout(monitor, 40000); // wait for main
-        
+
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -76,13 +78,16 @@ public class TileLayerServerTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        main.finish();
+        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        try {
+            main.finish();
+        } catch (Exception e) {
+        }
         instrumentation.waitForIdleSync();
     }
 
     /**
-     * Get a tile url for bing and then for the "standard" style layer 
+     * Get a tile url for bing and then for the "standard" style layer
      */
     @Test
     public void buildurl() {
@@ -101,7 +106,7 @@ public class TileLayerServerTest {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    for (int i = 0;i < 10;i++) {
+                    for (int i = 0; i < 10; i++) {
                         try {
                             Thread.sleep(1000); // NOSONAR
                         } catch (InterruptedException e) {
@@ -112,7 +117,8 @@ public class TileLayerServerTest {
                         }
                     }
                     return null;
-                }  
+                }
+
                 @Override
                 protected void onPostExecute(Void result) {
                     handler.onSuccess();
@@ -134,7 +140,7 @@ public class TileLayerServerTest {
 
         prefs.setBackGroundLayer(TileLayerServer.LAYER_MAPNIK);
         main.getMap().setPrefs(main, prefs);
- 
+
         TileLayerServer t2 = map.getBackgroundLayer().getTileLayerConfiguration();
         System.out.println(t2.toString());
 

@@ -109,8 +109,11 @@ public class LayerDialogTest {
     @After
     public void teardown() {
         instrumentation.removeMonitor(monitor);
-        main.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
-        main.finish();
+        context.deleteDatabase(TileLayerDatabase.DATABASE_NAME);
+        try {
+            main.finish();
+        } catch (Exception e) {
+        }
         instrumentation.waitForIdleSync();
     }
 

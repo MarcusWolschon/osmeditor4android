@@ -105,6 +105,7 @@ public class OsmoseTest {
         mockServer.enqueue("osmoseDownload");
         App.getTaskStorage().reset();
         final Server s = new Server(context, prefDB.getCurrentAPI(), "vesupucci test");
+        BoundingBox downloadBox = new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D);
         try {
             SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(context);
             Resources r = context.getResources();
@@ -116,7 +117,7 @@ public class OsmoseTest {
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseErrorSelector));
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseWarningSelector));
             Assert.assertTrue(new Preferences(context).taskFilter().contains(osmoseMinorIssueSelector));
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+            TransferTasks.downloadBox(context, s, downloadBox, false, new SignalHandler(signal));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -140,7 +141,8 @@ public class OsmoseTest {
         mockServer.enqueue("osmoseDownload");
         final CountDownLatch signal2 = new CountDownLatch(1);
         try {
-            TransferTasks.downloadBox(context, s, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), true, new SignalHandler(signal2));
+            TransferTasks.downloadBox(context, s, downloadBox, true, new SignalHandler(signal2));
+            main.getMap().getViewBox().fitToBoundingBox(main.getMap(), downloadBox);
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
