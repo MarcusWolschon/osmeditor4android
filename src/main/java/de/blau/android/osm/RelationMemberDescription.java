@@ -54,11 +54,7 @@ public class RelationMemberDescription extends RelationMember {
         return description;
     }
 
-    /**
-     * Check if the OsmElement we are referring to is downloaded or not
-     * 
-     * @return true if downloaded
-     */
+    @Override
     public boolean downloaded() {
         return downloaded;
     }

@@ -44,7 +44,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
-import de.blau.android.osm.RelationMemberDescription;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
@@ -150,24 +150,25 @@ public final class Util {
      * @param list List of relation members
      * @return fully or partially sorted List of RelationMembers, if partially sorted the unsorted elements will come
      *         first
+     * @param <T> Class that extents RelationMember
      */
     @NonNull
-    public static List<RelationMemberDescription> sortRelationMembers(@NonNull List<RelationMemberDescription> list) {
-        List<RelationMemberDescription> result = new ArrayList<>();
-        List<RelationMemberDescription> unconnected = new ArrayList<>(list);
+    public static <T extends RelationMember> List<T> sortRelationMembers(@NonNull List<T> list) {
+        List<T> result = new ArrayList<>();
+        List<T> unconnected = new ArrayList<>(list);
         int nextWay = 0;
         while (true) {
             nextWay = nextWay(nextWay, unconnected);
             if (nextWay >= unconnected.size()) {
                 break;
             }
-            RelationMemberDescription currentRmd = unconnected.get(nextWay);
+            T currentRmd = unconnected.get(nextWay);
             unconnected.remove(currentRmd);
             result.add(currentRmd);
             int start = result.size() - 1;
 
             for (int i = nextWay; i < unconnected.size();) {
-                RelationMemberDescription rmd = unconnected.get(i);
+                T rmd = unconnected.get(i);
                 if (!rmd.downloaded() || !Way.NAME.equals(rmd.getType())) {
                     i++;
                     continue;
@@ -227,15 +228,16 @@ public final class Util {
      * Return the next Way index in a list of RelationMemberDescriptions
      * 
      * @param start starting index
-     * @param unconnected List of RelationMemberDescription
+     * @param unconnected List of T
+     * @param <T> Class that extents RelationMember
      * @return the index of the next Way, or that value of start
      */
-    private static int nextWay(int start, @NonNull List<RelationMemberDescription> unconnected) {
+    private static <T extends RelationMember> int nextWay(int start, @NonNull List<T> unconnected) {
         // find first way
         int firstWay = start;
         for (; firstWay < unconnected.size(); firstWay++) {
-            RelationMemberDescription rmd = unconnected.get(firstWay);
-            if (rmd.downloaded() && Way.NAME.equals(rmd.getType())) {
+            T rm = unconnected.get(firstWay);
+            if (rm.downloaded() && Way.NAME.equals(rm.getType())) {
                 break;
             }
         }

@@ -17,14 +17,14 @@ import de.blau.android.util.GeoMath;
 import de.blau.android.util.rtree.BoundedObject;
 import de.blau.android.validation.Validator;
 
-public class Way extends OsmElement implements BoundedObject {
+public class Way extends OsmElement implements BoundedObject, StyleableFeature {
 
     private static final String DEBUG_TAG = "Way";
 
     /**
      * 
      */
-    private static final long serialVersionUID = 1104911642016294267L;
+    private static final long serialVersionUID = 1104911642016294268L;
 
     final ArrayList<Node> nodes;
 
@@ -40,7 +40,7 @@ public class Way extends OsmElement implements BoundedObject {
 
     public static final String NODE = "nd";
 
-    private transient FeatureStyle featureProfile = null; // FeatureProfile is currently not serializable
+    private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
     /**
      * Construct a new Way
@@ -440,32 +440,24 @@ public class Way extends OsmElement implements BoundedObject {
 
     @Override
     void updateState(final byte newState) {
-        featureProfile = null; // force recalc of style
+        style = null; // force recalc of style
         super.updateState(newState);
     }
 
     @Override
     void setState(final byte newState) {
-        featureProfile = null; // force recalc of style
+        style = null; // force recalc of style
         super.setState(newState);
     }
 
-    /**
-     * Get the rendering style for this way
-     * 
-     * @return the style of null if not set
-     */
-    public FeatureStyle getFeatureProfile() {
-        return featureProfile;
+    @Override
+    public FeatureStyle getStyle() {
+        return style;
     }
 
-    /**
-     * Set the rendering style for this way
-     * 
-     * @param fp the style to set, null to reset
-     */
-    public void setFeatureProfile(@Nullable FeatureStyle fp) {
-        featureProfile = fp;
+    @Override
+    public void setStyle(@Nullable FeatureStyle fp) {
+        style = fp;
     }
 
     /**

@@ -274,9 +274,9 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
         int width = map.getWidth();
         int height = map.getHeight();
         int zoomLevel = map.getZoomLevel();
-        labelFs = DataStyle.getCurrent(DataStyle.LABELTEXT_NORMAL);
+        labelFs = DataStyle.getInternal(DataStyle.LABELTEXT_NORMAL);
         labelPaint = labelFs.getPaint();
-        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
         labelStrokeWidth = labelPaint.getStrokeWidth();
 
         Collection<BoundedObject> queryResult = new ArrayList<>();
@@ -795,7 +795,7 @@ public class MapOverlay extends StyleableLayer implements Serializable, ExtentIn
 
     @Override
     public void resetStyling() {
-        paint = new Paint(DataStyle.getCurrent(DataStyle.GEOJSON_DEFAULT).getPaint());
+        paint = new Paint(DataStyle.getInternal(DataStyle.GEOJSON_DEFAULT).getPaint());
         color = paint.getColor();
         strokeWidth = paint.getStrokeWidth();
         labelKey = "";

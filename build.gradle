@@ -319,7 +319,10 @@ android {
         abortOnError false
     }
 
-    dexOptions { jumboMode = true }
+    dexOptions {
+        jumboMode = true
+        javaMaxHeapSize "4g"
+    }
 }
 
 android.applicationVariants.all { variant ->
@@ -337,7 +340,7 @@ android.applicationVariants.all { variant ->
 
 afterEvaluate{
     // these tasks needs to be created after the uninstall tasks
-    
+
     // hardwired single test, this is only needed durign initial developement, once the whole test suite has been run
     // any new test will be included automatically
     // it would probably be better to somehow get the test name interactively from the user
@@ -353,7 +356,7 @@ afterEvaluate{
             finalizedBy "uninstall${flavor.name.capitalize()}DebugAndroidTest","uninstall${flavor.name.capitalize()}Debug"
         }
     }
-    
+
     // this task will generate tasks for each test that was run in the last on device test
     // it doesn't depend on it directly as that would require waiting for all the tests to execute first
     // so the best strategy seems to simply refresh the build after the on device tests have been ran
@@ -463,9 +466,7 @@ dependencies {
 
     // Instrumentation tests
     androidTestImplementation "com.android.support.test:runner:1.0.2"
-    androidTestLegacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") {
-        force = true
-    }
+    androidTestLegacyImplementation ("com.android.support:support-annotations:$legacySupportLibVersion") { force = true }
     androidTestImplementation "com.android.support.test:rules:1.0.2"
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"
     // androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"

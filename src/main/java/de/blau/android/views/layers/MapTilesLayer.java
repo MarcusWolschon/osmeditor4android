@@ -113,7 +113,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
             mTileProvider = aTileProvider;
         }
         //
-        textPaint = DataStyle.getCurrent(DataStyle.ATTRIBUTION_TEXT).getPaint();
+        textPaint = DataStyle.getInternal(DataStyle.ATTRIBUTION_TEXT).getPaint();
         // mPaint.setAlpha(aRendererInfo.getDefaultAlpha());
 
         networkStatus = new NetworkStatus(ctx);

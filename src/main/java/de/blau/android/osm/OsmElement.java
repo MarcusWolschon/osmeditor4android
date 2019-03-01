@@ -119,6 +119,7 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
      * 
      * @return an unmodifiable map containing the tags
      */
+    @NonNull
     public SortedMap<String, String> getTags() {
         if (tags == null) {
             return Collections.unmodifiableSortedMap(new TreeMap<String, String>()); // for backwards compatibility

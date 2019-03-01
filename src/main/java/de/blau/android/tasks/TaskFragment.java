@@ -332,7 +332,7 @@ public class TaskFragment extends ImmersiveDialogFragment {
                                 @Override
                                 public void onSuccess() {
                                     Logic logic = App.getLogic();
-                                    logic.getViewBox().setBorders(logic.getMap(), b);
+                                    logic.getViewBox().fitToBoundingBox(logic.getMap(), b);
                                     logic.getMap().invalidate();
                                 }
 

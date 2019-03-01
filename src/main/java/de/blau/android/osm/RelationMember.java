@@ -122,6 +122,15 @@ public class RelationMember implements Serializable {
         element = e;
     }
 
+    /**
+     * Check if the OsmElement we are referring to is downloaded or not
+     * 
+     * @return true if downloaded
+     */
+    public boolean downloaded() {
+        return element != null;
+    }
+    
     @Override
     public String toString() {
         return role + " " + type + " " + ref;

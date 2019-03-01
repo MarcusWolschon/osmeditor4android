@@ -345,7 +345,10 @@ public class Logic {
         DataStyle.setAntiAliasing(prefs.isAntiAliasingEnabled());
         // zap the cached style for all ways
         for (Way w : getDelegator().getCurrentStorage().getWays()) {
-            w.setFeatureProfile(null);
+            w.setStyle(null);
+        }
+        for (Relation r : getDelegator().getCurrentStorage().getRelations()) {
+            r.setStyle(null);
         }
         map.updateStyle();
     }
@@ -2455,10 +2458,11 @@ public class Logic {
                     }
                     Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
                     if (map != null) {
-                        // set to current or previous
-                        viewBox.setBorders(map, mapBox != null ? mapBox : getDelegator().getLastBox());
+                        viewBox.fitToBoundingBox(map, mapBox != null ? mapBox : getDelegator().getLastBox()); // set to
+                                                                                                              // current
+                                                                                                              // or
+                                                                                                              // previous
                     }
-
                 } catch (SAXException e) {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     Exception ce = e.getException();
@@ -3047,7 +3051,7 @@ public class Logic {
                         sd.setCurrentStorage(osmParser.getStorage()); // this sets dirty flag
                         sd.fixupApiStorage();
                         if (map != null) {
-                            viewBox.setBorders(map, getDelegator().getLastBox()); // set to current or previous
+                            viewBox.fitToBoundingBox(map, getDelegator().getLastBox()); // set to current or previous
                         }
                     } finally {
                         SavingHelper.close(in);
@@ -3194,7 +3198,7 @@ public class Logic {
                         sd.setCurrentStorage(storage); // this sets dirty flag
                         sd.fixupApiStorage();
                         if (map != null) {
-                            viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                            viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                         }
                     } finally {
                         SavingHelper.close(is);
@@ -3242,7 +3246,7 @@ public class Logic {
                         removeCheckpoint(activity, R.string.undo_action_apply_osc, true);
                     }
                     if (map != null) {
-                        viewBox.setBorders(map, sd.getLastBox()); // set to current or previous
+                        viewBox.fitToBoundingBox(map, sd.getLastBox()); // set to current or previous
                     }
                 } catch (UnsupportedFormatException | IOException | SAXException | ParserConfigurationException e) {
                     Log.e(DEBUG_TAG, "Problem parsing PBF ", e);
@@ -3376,7 +3380,6 @@ public class Logic {
                         } catch (Exception e) {
                             // invalid dimensions or similar error
                             viewBox.setBorders(map, new BoundingBox(-180.0, -GeoMath.MAX_LAT, 180.0, GeoMath.MAX_LAT));
-
                         }
                         DataStyle.updateStrokes(STROKE_FACTOR / viewBox.getWidth()); // safety measure if not done in
                                                                                      // loadEiditngState
@@ -4368,14 +4371,14 @@ public class Logic {
         createCheckpoint(activity, R.string.undo_action_create_relation);
         Relation restriction = getDelegator().createAndInsertRelation(null);
         SortedMap<String, String> tags = new TreeMap<>();
-        tags.put("restriction", restriction_type == null ? "" : restriction_type);
-        tags.put("type", "restriction");
+        tags.put(Tags.VALUE_RESTRICTION, restriction_type == null ? "" : restriction_type);
+        tags.put(Tags.KEY_TYPE, Tags.VALUE_RESTRICTION);
         getDelegator().setTags(restriction, tags);
-        RelationMember from = new RelationMember("from", fromWay);
+        RelationMember from = new RelationMember(Tags.ROLE_FROM, fromWay);
         getDelegator().addMemberToRelation(from, restriction);
-        RelationMember via = new RelationMember("via", viaElement);
+        RelationMember via = new RelationMember(Tags.ROLE_VIA, viaElement);
         getDelegator().addMemberToRelation(via, restriction);
-        RelationMember to = new RelationMember("to", toWay);
+        RelationMember to = new RelationMember(Tags.ROLE_TO, toWay);
         getDelegator().addMemberToRelation(to, restriction);
 
         return restriction;
@@ -4688,7 +4691,7 @@ public class Logic {
      *         return the coordinates of the first node
      */
     @Nullable
-    private static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
+    public static float[] centroidXY(int w, int h, @NonNull ViewBox v, @Nullable final Way way) {
         if (way == null || way.nodeCount() == 0) {
             return null;
         }
@@ -5148,7 +5151,7 @@ public class Logic {
             }
         }
     }
-    
+
     /**
      * Dissmiss the warning dialog
      * 

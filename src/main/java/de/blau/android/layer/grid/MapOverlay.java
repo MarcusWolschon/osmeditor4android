@@ -57,8 +57,8 @@ public class MapOverlay extends MapViewLayer implements DisableInterface, Config
      */
     public MapOverlay(final Map map) {
         this.map = map;
-        fullLine = DataStyle.getCurrent(DataStyle.CROSSHAIRS).getPaint();
-        labelH = DataStyle.getCurrent(DataStyle.LABELTEXT).getPaint();
+        fullLine = DataStyle.getInternal(DataStyle.CROSSHAIRS).getPaint();
+        labelH = DataStyle.getInternal(DataStyle.LABELTEXT).getPaint();
         labelV = new Paint(labelH);
         labelV.setTextAlign(Paint.Align.RIGHT);
         textHeight = labelV.getTextSize();

@@ -151,7 +151,7 @@ public class NodeTest {
     @Test
     public void unjoinMergeWays() {
         TestUtils.zoomToLevel(main, 21);
-        TestUtils.clickAtCoordinates(map, 8.3874926, 47.3884640, true);
+        TestUtils.clickAtCoordinates(map, 8.3874964, 47.3884769, true);
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
         Node node = App.getLogic().getSelectedNode();
         Assert.assertNotNull(node);
@@ -167,7 +167,7 @@ public class NodeTest {
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, node.getState());
         Assert.assertEquals(OsmElement.STATE_UNCHANGED, unjoinedWay.getState());
 
-        TestUtils.clickAtCoordinates(map, 8.3874926, 47.3884640, false);
+        TestUtils.clickAtCoordinates(map, 8.3874964, 47.3884769, false);
         Assert.assertTrue(TestUtils.clickText(device, false, "node", false)); // the first node in the list
         Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.menu_merge), false, true));
 

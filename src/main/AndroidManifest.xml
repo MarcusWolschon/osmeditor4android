@@ -50,7 +50,6 @@
             android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
                 <!-- harmless addition for samsung multi window support -->
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
@@ -97,10 +96,8 @@
             tools:ignore="ExportedActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="vespucci" />
             </intent-filter>
         </activity>

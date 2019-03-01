@@ -3,6 +3,7 @@ package de.blau.android.layer.data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -21,6 +22,8 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
@@ -33,6 +36,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
+import de.blau.android.osm.RelationMember;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
@@ -59,6 +63,10 @@ import de.blau.android.views.IMapView;
  */
 
 public class MapOverlay extends MapViewLayer implements ExtentInterface {
+
+    private static final String OUTER = "outer";
+
+    private static final String INNER = "inner";
 
     private static final String DEBUG_TAG = MapOverlay.class.getName();
 
@@ -181,6 +189,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
     private final Map map;
 
+    /**
+     * Stuff for multipolygon support Instantiate these objects just once
+     */
+    List<RelationMember> waysOnly       = new ArrayList<>();
+    List<List<Node>>     outerRings     = new ArrayList<List<Node>>();
+    List<List<Node>>     innerRings     = new ArrayList<List<Node>>();
+    List<List<Node>>     unknownRings   = new ArrayList<List<Node>>();
+    List<Node>           ring           = new ArrayList<>();
+    List<Node>           nodes          = new ArrayList<>();
+    Set<Relation>        paintRelations = new HashSet<>();
+
     @SuppressLint("NewApi")
     public MapOverlay(final Map map) {
         this.map = map;
@@ -259,6 +278,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         int screenHeight = map.getHeight();
         ViewBox viewBox = map.getViewBox();
 
+        paintRelations.clear();
+
         // first find all nodes that we need to display
 
         List<Node> paintNodes = delegator.getCurrentStorage().getNodes(viewBox);
@@ -275,8 +296,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             }
         }
 
+        for (Node n : paintNodes) {
+            if (n.hasParentRelations()) {
+                paintRelations.addAll(n.getParentRelations());
+            }
+        }
+
+        boolean filterMode = tmpFilter != null; // we have an active filter
+
         //
-        tmpDrawingInEditRange = App.getLogic().isInEditZoomRange(); // do this after density calc
+        tmpDrawingInEditRange = App.getLogic().isInEditZoomRange();
 
         boolean drawTolerance = tmpDrawingInEditRange // if we are not in editing range none of the further checks are
                                                       // necessary
@@ -285,7 +314,49 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         // Paint all ways
         List<Way> ways = delegator.getCurrentStorage().getWays(viewBox);
 
-        boolean filterMode = tmpFilter != null; // we have an active filter
+        // get relations for all nodes and ways
+        if (!filterMode) {
+            for (Node n : paintNodes) {
+                if (n.hasParentRelations()) {
+                    paintRelations.addAll(n.getParentRelations());
+                }
+            }
+            for (Way w : ways) {
+                if (w.hasParentRelations()) {
+                    paintRelations.addAll(w.getParentRelations());
+                }
+            }
+        } else {
+            for (Node n : paintNodes) {
+                List<Relation> rels = n.getParentRelations();
+                if (rels != null) {
+                    for (Relation rel : rels) {
+                        if (tmpFilter.include(rel, false)) {
+                            paintRelations.add(rel);
+                        }
+                    }
+                }
+            }
+            for (Way w : ways) {
+                List<Relation> rels = w.getParentRelations();
+                if (rels != null) {
+                    for (Relation rel : rels) {
+                        if (tmpFilter.include(rel, false)) {
+                            paintRelations.add(rel);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        // draw MPs first
+        for (Relation rel : paintRelations) {
+            String relType = rel.getTagWithKey(Tags.KEY_TYPE);
+            if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
+                paintMultiPolygon(canvas, screenWidth, screenHeight, viewBox, rel);
+            }
+        }
 
         List<Way> waysToDraw = ways;
         if (filterMode) {
@@ -312,6 +383,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         boolean displayHandles = tmpDrawingSelectedNodes == null && tmpDrawingSelectedRelationWays == null && tmpDrawingSelectedRelationNodes == null
                 && tmpDrawingEditMode.elementsGeomEditiable();
         Collections.sort(waysToDraw, layerComparator);
+
+        // ways now
         for (Way w : waysToDraw) {
             paintWay(canvas, w, displayHandles, drawTolerance);
         }
@@ -357,6 +430,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             paintNode(canvas, n, x, y, hwAccelarationWorkaround,
                     drawTolerance && !noTolerance && (n.getState() != OsmElement.STATE_UNCHANGED || delegator.isInDownload(lon, lat)));
         }
+        // turn restrictions
+        if (inNodeIconZoomRange && showIcons) {
+            for (Relation rel : paintRelations) {
+                if (Tags.VALUE_RESTRICTION.equals(rel.getTagWithKey(Tags.KEY_TYPE))) {
+                    paintRestriction(canvas, screenWidth, screenHeight, viewBox, rel);
+                }
+            }
+        }
         paintHandles(canvas);
     }
 
@@ -386,15 +467,250 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             }
             int result = layer2 == layer1 ? 0 : layer2 > layer1 ? +1 : -1;
             if (result == 0) {
-                FeatureStyle fs1 = matchStyle(w1);
+                FeatureStyle fs1 = DataStyle.matchStyle(w1);
                 Style style1 = fs1.getPaint().getStyle();
-                FeatureStyle fs2 = matchStyle(w2);
+                FeatureStyle fs2 = DataStyle.matchStyle(w2);
                 Style style2 = fs2.getPaint().getStyle();
                 result = style2 == style1 ? 0 : style2 == Style.STROKE ? -1 : +1;
             }
             return result;
         }
     };
+
+    /**
+     * Draw a multipolygon
+     * 
+     * @param canvas the Canvas to draw on
+     * @param screenWidth the current screen width
+     * @param screenHeight the current screen height
+     * @param viewBox the current ViewBox
+     * @param rel the Relation for the multipolygon
+     */
+    private void paintMultiPolygon(@NonNull Canvas canvas, int screenWidth, int screenHeight, @NonNull ViewBox viewBox, @NonNull Relation rel) {
+        FeatureStyle style;
+        if (rel.hasProblem(context, validator) != Validator.OK) {
+            style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
+        } else {
+            style = DataStyle.matchStyle(rel);
+        }
+
+        // remove any non-Way non-downloaded members
+        waysOnly.clear();
+        ;
+        for (RelationMember m : rel.getMembers()) {
+            if (m.downloaded() && Way.NAME.equals(m.getType())) {
+                waysOnly.add(m);
+            }
+        }
+        List<RelationMember> members = Util.sortRelationMembers(waysOnly);
+        outerRings.clear();
+        innerRings.clear();
+        unknownRings.clear();
+        ring.clear();
+
+        int ms = members.size();
+        String ringRole = "";
+        for (int i = 0; i < ms; i++) {
+            ringRole = "";
+            RelationMember current = members.get(i);
+            Way currentWay = (Way) current.getElement();
+            if (current.getRole() != null && !"".equals(current.getRole()) && !INNER.equals(ringRole) && !OUTER.equals(ringRole)) {
+                ringRole = current.getRole();
+            }
+            // a bit of a hack stop this way from being rendered as a way
+            if (!currentWay.hasTags() && !"".equals(ringRole)) { // && currentWay.getStyle() == null) {
+                currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
+            }
+            nodes.clear();
+            nodes.addAll(currentWay.getNodes());
+            int rs = ring.size();
+            int ns = nodes.size();
+            if (ring.isEmpty()) {
+                ring.addAll(nodes);
+            } else if (ring.get(rs - 1).equals(nodes.get(0))) {
+                ring.addAll(nodes.subList(1, ns));
+            } else if (ring.get(rs - 1).equals(nodes.get(ns - 1))) {
+                Collections.reverse(nodes);
+                ring.addAll(nodes.subList(1, ns));
+            }
+
+            RelationMember next = members.get((i + 1) % ms);
+            Way nextWay = (Way) next.getElement();
+            Node lastRingNode = ring.get(ring.size() - 1);
+            List<Node> nextNodes = nextWay.getNodes();
+            int ns_1 = nextNodes.size() - 1;
+            if (!nextNodes.get(0).equals(lastRingNode) && !nextNodes.get(ns_1).equals(lastRingNode)) {
+                Node firstRingNode = ring.get(0);
+                if (nextNodes.get(0).equals(firstRingNode) || nextNodes.get(ns_1).equals(firstRingNode)) {
+                    Collections.reverse(ring);
+                    continue;
+                }
+                addRing(ringRole);
+                ring = new ArrayList<>();
+            }
+        }
+        if (!ring.isEmpty()) {
+            addRing(ringRole);
+        }
+
+        path.reset();
+
+        Paint paint = style.getPaint();
+        boolean closeRings = paint.getStyle() != Paint.Style.STROKE;
+
+        outerRings.addAll(innerRings);
+        outerRings.addAll(unknownRings);
+
+        for (List<Node> r : outerRings) {
+            map.pointListToLinePointsArray(points, r);
+            float[] linePoints = points.getArray();
+            int pointsSize = points.size();
+            Log.e(DEBUG_TAG, "Ring with " + pointsSize + " points");
+            path.moveTo(linePoints[0], linePoints[1]);
+            for (int i = 0; i < pointsSize; i = i + 4) {
+                path.lineTo(linePoints[i + 2], linePoints[i + 3]);
+            }
+            if (closeRings) {
+                path.close();
+            }
+        }
+
+        path.setFillType(Path.FillType.EVEN_ODD);
+        canvas.drawPath(path, paint);
+    }
+
+    /**
+     * Add rings to the list depending on their role If the winding is wrong reverse the List
+     * 
+     * @param role the role of the the ring
+     */
+    private void addRing(@NonNull String role) {
+        switch (role) {
+        case OUTER:
+            if (!clockwise(ring)) {
+                Collections.reverse(ring);
+            }
+            outerRings.add(ring);
+            break;
+        case INNER:
+            if (clockwise(ring)) {
+                Collections.reverse(ring);
+            }
+            innerRings.add(ring);
+            break;
+        default:
+            unknownRings.add(ring);
+        }
+    }
+
+    /**
+     * Determine winding of a List of Nodes
+     * 
+     * @param nodes the List of Nodes
+     * @return true if the winding is clockwise
+     */
+    private boolean clockwise(@NonNull List<Node> nodes) {
+        long area = 0;
+        int s = nodes.size();
+        Node n1 = nodes.get(0);
+        for (int i = 0; i < nodes.size(); i++) {
+            Node n2 = nodes.get((i + 1) % s);
+            area = area + (long) (n2.getLat() - n1.getLat()) * (long) (n2.getLon() + n1.getLon());
+            n1 = n2;
+        }
+        return area < 0;
+    }
+
+    /**
+     * Draw an icon for a turn restriction
+     * 
+     * @param canvas the Canvas we are drawing on
+     * @param screenWidth screen width in pixels
+     * @param screenHeight screen height in pixels
+     * @param viewBox the current ViewBox
+     * @param restriction the Relation describing the restriction
+     */
+    private void paintRestriction(@NonNull final Canvas canvas, int screenWidth, int screenHeight, @NonNull ViewBox viewBox, @NonNull Relation restriction) {
+        List<RelationMember> vias = restriction.getMembersWithRole(Tags.ROLE_VIA);
+        for (RelationMember via : vias) {
+            OsmElement v = via.getElement();
+            if (v instanceof Node) {
+                int lat = ((Node) v).getLat();
+                int lon = ((Node) v).getLon();
+                float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
+                float x = GeoMath.lonE7ToX(screenWidth, viewBox, lon);
+                List<RelationMember> froms = restriction.getMembersWithRole(Tags.ROLE_TO);
+                RelationMember from = froms.size() > 0 ? froms.get(0) : null;
+                if (from != null && from.getElement() != null && from.getType().equals(Way.NAME)) {
+                    Way fromWay = (Way) from.getElement();
+                    int size = fromWay.getNodes().size();
+                    if (size > 1) {
+                        String type = restriction.getTagWithKey(Tags.VALUE_RESTRICTION);
+                        int arrowDirection = 0;
+                        if (type != null) {
+                            switch (type) {
+                            case "no_right_turn":
+                            case "only_right_turn":
+                                arrowDirection = 90;
+                                y -= 2 * ICON_SIZE_DP;
+                                x += 2 * ICON_SIZE_DP;
+                                break;
+                            case "no_left_turn":
+                            case "only_left_turn":
+                                arrowDirection = -90;
+                                y += 2 * ICON_SIZE_DP;
+                                x += 2 * ICON_SIZE_DP;
+                                break;
+                            case "no_straight_on":
+                            case "only_straight_on":
+                                arrowDirection = 180;
+                                y -= 2 * ICON_SIZE_DP;
+                                break;
+                            }
+                        }
+                        Node prevNode = fromWay.getNodes().get(1);
+                        if (fromWay.getLastNode().equals((Node) v)) {
+                            prevNode = fromWay.getNodes().get(size - 2);
+                        }
+                        long bearing = (GeoMath.bearing(prevNode.getLon() / 1E7D, prevNode.getLat() / 1E7D, lon / 1E7D, lat / 1E7D) + arrowDirection) % 360;
+                        canvas.save();
+                        canvas.rotate(bearing, x, y);
+                    } else {
+                        from = null;
+                    }
+                }
+                paintNodeIcon(restriction, canvas, x, y, null);
+                if (from != null) {
+                    canvas.restore();
+                }
+            } else if (v instanceof Way) {
+                Way viaWay = (Way) v;
+                float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
+                List<RelationMember> tos = restriction.getMembersWithRole(Tags.ROLE_TO);
+                RelationMember to = tos.size() > 0 ? tos.get(0) : null;
+                if (to != null && to.getElement() != null && to.getType().equals(Way.NAME)) {
+                    Way toWay = (Way) to.getElement();
+                    int size = viaWay.getNodes().size();
+                    if (size > 1) {
+                        int offset = 0;
+                        if (!viaWay.hasNode(toWay.getFirstNode())) {
+                            offset = 180;
+                        }
+                        long bearing = (GeoMath.bearing(viaWay.getFirstNode().getLon() / 1E7D, viaWay.getFirstNode().getLat() / 1E7D,
+                                viaWay.getLastNode().getLon() / 1E7D, viaWay.getLastNode().getLat() / 1E7D) + offset) % 360;
+                        canvas.save();
+                        canvas.rotate(bearing, xy[0], xy[1]);
+                    } else {
+                        to = null;
+                    }
+                }
+                paintNodeIcon(restriction, canvas, xy[0], xy[1], null);
+                if (to != null) {
+                    canvas.restore();
+                }
+            }
+        }
+    }
 
     /**
      * Paints the given node on the canvas.
@@ -406,7 +722,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * @param hwAccelarationWorkaround use a workaround for operations that are not supported when HW accelation is used
      * @param drawTolerance draw the touch halo
      */
-    private void paintNode(final Canvas canvas, final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
+    private void paintNode(@NonNull final Canvas canvas, @NonNull final Node node, final float x, final float y, final boolean hwAccelarationWorkaround,
             final boolean drawTolerance) {
 
         boolean isSelected = tmpDrawingSelectedNodes != null && tmpDrawingSelectedNodes.contains(node);
@@ -447,7 +763,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             featureStyleFontSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
             if (tmpDrawingSelectedNodes.size() == 1 && tmpDrawingSelectedWays == null && prefs.largeDragArea() && tmpDrawingEditMode.elementsGeomEditiable()) {
                 // don't draw large areas in multi-select mode
-                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getCurrent(DataStyle.NODE_DRAG_RADIUS).getPaint());
+                canvas.drawCircle(x, y, DataStyle.getCurrent().getLargDragToleranceRadius(), DataStyle.getInternal(DataStyle.NODE_DRAG_RADIUS).getPaint());
             }
         } else if ((tmpDrawingSelectedRelationNodes != null && tmpDrawingSelectedRelationNodes.contains(node)) && tmpDrawingInEditRange) {
             // general node style
@@ -505,14 +821,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                     return;
                 }
             } else if (zoomLevel > SHOW_LABEL_LIMIT && node.hasTagKey(Tags.KEY_NAME)) {
-                Paint p = DataStyle.getCurrent(DataStyle.NODE_TAGGED).getPaint();
+                Paint p = DataStyle.getInternal(DataStyle.NODE_TAGGED).getPaint();
                 paintLabel(x, y, canvas, featureStyleFont, node, p.getStrokeWidth(), true);
             }
         }
 
         if (noIcon) {
             // draw regular nodes or without icons
-            Paint p = DataStyle.getCurrent(isTagged ? featureStyleTagged : featureStyle).getPaint();
+            Paint p = DataStyle.getInternal(isTagged ? featureStyleTagged : featureStyle).getPaint();
             float strokeWidth = p.getStrokeWidth();
             if (hwAccelarationWorkaround) { // FIXME we don't actually know if this is slower than drawPoint
                 canvas.drawCircle(x, y, strokeWidth / 2, p);
@@ -537,9 +853,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      */
     private void paintHouseNumber(final float x, final float y, final Canvas canvas, final String featureKeyThin, final String featureKeyFont,
             final String houseNumber) {
-        FeatureStyle fontStyle = DataStyle.getCurrent(featureKeyFont);
+        FeatureStyle fontStyle = DataStyle.getInternal(featureKeyFont);
         Paint fontPaint = fontStyle.getPaint();
-        Paint paint = DataStyle.getCurrent(featureKeyThin).getPaint();
+        Paint paint = DataStyle.getInternal(featureKeyThin).getPaint();
         canvas.drawCircle(x, y, houseNumberRadius, paint);
         canvas.drawCircle(x, y, houseNumberRadius, labelBackground);
         canvas.drawText(houseNumber, x - fontPaint.measureText(houseNumber) / 2, y + verticalNumberOffset, fontStyle.getPaint());
@@ -558,7 +874,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      */
     private void paintLabel(final float x, final float y, final Canvas canvas, final String featureKeyThin, final OsmElement e, final float strokeWidth,
             final boolean withIcon) {
-        FeatureStyle fs = DataStyle.getCurrent(featureKeyThin);
+        FeatureStyle fs = DataStyle.getInternal(featureKeyThin);
         Paint paint = fs.getPaint();
         SortedMap<String, String> tags = e.getTags();
         String label = labelCache.get(tags); // may be null!
@@ -669,7 +985,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             float h2 = icon.getHeight() / 2f;
             if (featureKey != null) { // selected
                 RectF r = new RectF(x - w2 - iconSelectedBorder, y - h2 - iconSelectedBorder, x + w2 + iconSelectedBorder, y + h2 + iconSelectedBorder);
-                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getCurrent(featureKey).getPaint());
+                canvas.drawRoundRect(r, iconSelectedBorder, iconSelectedBorder, DataStyle.getInternal(featureKey).getPaint());
             }
             // we have an icon! draw it.
             canvas.drawBitmap(icon, x - w2, y - h2, null);
@@ -700,17 +1016,35 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * @param drawTolerance if true draw the halo
      */
     private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
-        map.pointListToLinePointsArray(points, way.getNodes());
-        float[] linePoints = points.getArray();
-        int pointsSize = points.size();
-        Paint paint;
-        String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
-        String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
+
+        FeatureStyle fp;
+        if (way.hasProblem(context, validator) != Validator.OK) {
+            fp = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
+        } else {
+            fp = DataStyle.matchStyle(way);
+        }
 
         boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be
                                                    // a better idea to do so
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
         boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
+
+        if (fp.dontRender() && !(isSelected || isMemberOfSelectedRelation)) {
+            return; // the way has already been rendered by something else
+        }
+        nodes.clear();
+        nodes.addAll(way.getNodes());
+        if (fp.isArea()) {
+            if (!clockwise(nodes)) {
+                Collections.reverse(nodes);
+            }
+        }
+        map.pointListToLinePointsArray(points, nodes);
+        float[] linePoints = points.getArray();
+        int pointsSize = points.size();
+        Paint paint;
+        String labelFontStyle = DataStyle.LABELTEXT_NORMAL;
+        String labelFontStyleSmall = DataStyle.LABELTEXT_SMALL;
 
         // draw way tolerance
         if (drawTolerance) {
@@ -721,26 +1055,18 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             }
         }
 
-        FeatureStyle fp; // no need to get the default here
-
-        if (way.hasProblem(context, validator) != Validator.OK) {
-            fp = DataStyle.getCurrent(DataStyle.PROBLEM_WAY);
-        } else {
-            fp = matchStyle(way);
-        }
-
         // draw selectedWay highlighting
         if (isSelected) {
-            FeatureStyle selectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_WAY);
+            FeatureStyle selectedStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
             paint = selectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
-            paint = DataStyle.getCurrent(DataStyle.WAY_DIRECTION).getPaint();
+            paint = DataStyle.getInternal(DataStyle.WAY_DIRECTION).getPaint();
             drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
             labelFontStyle = DataStyle.LABELTEXT_NORMAL_SELECTED;
             labelFontStyleSmall = DataStyle.LABELTEXT_SMALL_SELECTED;
         } else if (isMemberOfSelectedRelation) {
-            FeatureStyle relationSelectedStyle = DataStyle.getCurrent(DataStyle.SELECTED_RELATION_WAY);
+            FeatureStyle relationSelectedStyle = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
             paint = relationSelectedStyle.getPaint();
             paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
@@ -748,17 +1074,14 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
         int onewayCode = way.getOneway();
         if (onewayCode != 0) {
-            FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
+            FeatureStyle directionArrows = DataStyle.getInternal(DataStyle.ONEWAY_DIRECTION);
             drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), directionArrows.getPaint(), false);
         } else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
-            FeatureStyle directionArrows = DataStyle.getCurrent(DataStyle.ONEWAY_DIRECTION);
+            FeatureStyle directionArrows = DataStyle.getInternal(DataStyle.ONEWAY_DIRECTION);
             drawWayArrows(canvas, linePoints, pointsSize, false, directionArrows.getPaint(), false);
         }
 
-        //
-
         // draw the way itself
-        // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
         if (pointsSize > 2) {
             path.reset();
             path.moveTo(linePoints[0], linePoints[1]);
@@ -771,7 +1094,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         // display icons on closed ways
         if (showIcons && showWayIcons && zoomLevel > SHOW_ICONS_LIMIT && way.isClosed()) {
             int vs = pointsSize;
-            if (vs < way.nodeCount() * 2) {
+            if (vs < nodes.size() * 2) {
                 return;
             }
             double A = 0;
@@ -806,7 +1129,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                         doLabel = zoomLevel > SHOW_LABEL_LIMIT && way.hasTagKey(Tags.KEY_NAME);
                     }
                     if (doLabel) {
-                        Paint p = DataStyle.getCurrent(DataStyle.SELECTED_NODE_TAGGED).getPaint();
+                        Paint p = DataStyle.getInternal(DataStyle.SELECTED_NODE_TAGGED).getPaint();
                         paintLabel((float) X, (float) Y, canvas, labelFontStyle, way, iconDrawn ? p.getStrokeWidth() : 0, iconDrawn);
                     }
                 }
@@ -826,7 +1149,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         int pointsSize = points.size();
 
         //
-        FeatureStyle fp = DataStyle.getCurrent(DataStyle.HIDDEN_WAY);
+        FeatureStyle fp = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
@@ -838,99 +1161,6 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             }
             canvas.drawPath(path, fp.getPaint());
         }
-    }
-
-    private static final String WAY_         = "way-";
-    private static final String WAY_HIGHWAY  = "way-highway";
-    private static final String WAY_HIGHWAY_ = "way-highway-";
-    private static final String HYPHEN       = "-";
-
-    /**
-     * Determine the style to use for way and cache it in the way object
-     * 
-     * If the way is untagged or a style can't be determined, we return a style for any relations the way is a member of
-     * 
-     * @param way way we need the style for
-     * @return the style
-     */
-    private FeatureStyle matchStyle(final Way way) {
-        FeatureStyle fp;
-        FeatureStyle wayFp = way.getFeatureProfile();
-        if (wayFp == null) {
-            fp = DataStyle.getCurrent(DataStyle.WAY); // default for ways
-            // three levels of hierarchy for roads and special casing of tracks, two levels for everything else
-            String highwayType = way.getTagWithKey(Tags.KEY_HIGHWAY);
-            if (highwayType != null) {
-                FeatureStyle tempFp = DataStyle.getCurrent(WAY_HIGHWAY);
-                if (tempFp != null) {
-                    fp = tempFp;
-                }
-                tempFp = DataStyle.getCurrent(WAY_HIGHWAY_ + highwayType);
-                if (tempFp != null) {
-                    fp = tempFp;
-                }
-                String highwaySubType;
-                if (highwayType.equals(Tags.VALUE_TRACK)) { // special case
-                    highwaySubType = way.getTagWithKey(Tags.KEY_TRACKTYPE);
-                } else {
-                    highwaySubType = way.getTagWithKey(highwayType);
-                }
-                if (highwaySubType != null) {
-                    tempFp = DataStyle.getCurrent(WAY_HIGHWAY_ + highwayType + HYPHEN + highwaySubType);
-                    if (tempFp != null) {
-                        fp = tempFp;
-                    }
-                }
-            } else {
-                // order in the array defines precedence
-                FeatureStyle tempFp = null;
-                for (String tag : Tags.WAY_TAGS) {
-                    tempFp = getProfile(tag, way);
-                    if (tempFp != null) {
-                        fp = tempFp;
-                        break;
-                    }
-                }
-                if (tempFp == null) {
-                    List<Relation> relations = way.getParentRelations();
-                    // check for any relation memberships with low prio, take first one
-                    if (relations != null) {
-                        for (Relation r : relations) {
-                            for (String tag : Tags.RELATION_TAGS) {
-                                tempFp = getProfile(tag, r);
-                                if (tempFp != null) {
-                                    fp = tempFp;
-                                    break;
-                                }
-                            }
-                            if (tempFp != null) { // break out of loop over relations
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            way.setFeatureProfile(fp);
-        } else {
-            fp = wayFp;
-        }
-        return fp;
-    }
-
-    private FeatureStyle getProfile(String tag, OsmElement e) {
-        String mainType = e.getTagWithKey(tag);
-        FeatureStyle fp = null;
-        if (mainType != null) {
-            FeatureStyle tempFp = DataStyle.getCurrent(WAY_ + tag);
-            if (tempFp != null) {
-                fp = tempFp;
-            }
-            tempFp = DataStyle.getCurrent(WAY_ + tag + HYPHEN + mainType);
-            if (tempFp != null) {
-                fp = tempFp;
-            }
-        }
-        return fp;
     }
 
     private void paintHandles(Canvas canvas) {
@@ -945,7 +1175,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 canvas.translate(X - lastX, Y - lastY);
                 lastX = X;
                 lastY = Y;
-                canvas.drawPath(DataStyle.getCurrent().getXPath(), DataStyle.getCurrent(DataStyle.HANDLE).getPaint());
+                canvas.drawPath(DataStyle.getCurrent().getXPath(), DataStyle.getInternal(DataStyle.HANDLE).getPaint());
             }
             canvas.restore();
             handles.clear(); // this is hopefully faster than allocating a new set
@@ -1046,11 +1276,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
     public void updateStyle() {
         // changes when style changes
-        nodeTolerancePaint = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE).getPaint();
-        nodeTolerancePaint2 = DataStyle.getCurrent(DataStyle.NODE_TOLERANCE_2).getPaint();
-        wayTolerancePaint = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE).getPaint();
-        wayTolerancePaint2 = DataStyle.getCurrent(DataStyle.WAY_TOLERANCE_2).getPaint();
-        labelBackground = DataStyle.getCurrent(DataStyle.LABELTEXT_BACKGROUND).getPaint();
+        nodeTolerancePaint = DataStyle.getInternal(DataStyle.NODE_TOLERANCE).getPaint();
+        nodeTolerancePaint2 = DataStyle.getInternal(DataStyle.NODE_TOLERANCE_2).getPaint();
+        wayTolerancePaint = DataStyle.getInternal(DataStyle.WAY_TOLERANCE).getPaint();
+        wayTolerancePaint2 = DataStyle.getInternal(DataStyle.WAY_TOLERANCE_2).getPaint();
+        labelBackground = DataStyle.getInternal(DataStyle.LABELTEXT_BACKGROUND).getPaint();
     }
 
     /**

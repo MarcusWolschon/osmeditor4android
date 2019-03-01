@@ -185,6 +185,7 @@ public class TestUtils {
      * @param y screen y coordinate
      */
     public static void clickAt(float x, float y) {
+        System.out.println("clicking at " + x + " " + y);
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click((int) x, (int) y);
     }
@@ -263,13 +264,15 @@ public class TestUtils {
         }
         float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
         float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
-        System.out.println("clicking at " + x + " / " + y);
-        TestUtils.clickAt(Math.round(x), Math.round(y));
+        int[] outLocation = new int[2];
+        map.getLocationOnScreen(outLocation);
+        TestUtils.clickAt(Math.round(x) + outLocation[0], Math.round(y) + outLocation[1]);
     }
 
     /**
      * An attempt at getting reliable long clicks with swiping
      * 
+     * @param mDevice the current UiDevice
      * @param o the UiObject to long click on
      * @throws UiObjectNotFoundException if o is not found
      */
@@ -323,8 +326,9 @@ public class TestUtils {
         }
         float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
         float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
-        System.out.println("long clicking at " + x + " / " + y);
-        TestUtils.longClickAt(x, y);
+        int[] outLocation = new int[2];
+        map.getLocationOnScreen(outLocation);
+        TestUtils.longClickAt(x + outLocation[0], y + outLocation[1]);
     }
 
     /**
@@ -374,7 +378,9 @@ public class TestUtils {
         float x = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), lonE7);
         float y = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), latE7);
         System.out.println("double clicking at " + x + " / " + y);
-        TestUtils.doubleClickAt(x, y);
+        int[] outLocation = new int[2];
+        map.getLocationOnScreen(outLocation);
+        TestUtils.doubleClickAt(x + outLocation[0], y + outLocation[1]);
     }
 
     /**
@@ -426,7 +432,9 @@ public class TestUtils {
         float startY = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), startLatE7);
         float endX = GeoMath.lonE7ToX(map.getWidth(), map.getViewBox(), endLonE7);
         float endY = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), endLatE7);
-        TestUtils.drag(startX, startY, endX, endY);
+        int[] outLocation = new int[2];
+        map.getLocationOnScreen(outLocation);
+        TestUtils.drag(startX + outLocation[0], startY + outLocation[1], endX + outLocation[0], endY + outLocation[1]);
     }
 
     /**
