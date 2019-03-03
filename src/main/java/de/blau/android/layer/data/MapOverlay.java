@@ -193,10 +193,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * Stuff for multipolygon support Instantiate these objects just once
      */
     List<RelationMember>        waysOnly       = new ArrayList<>();
-    List<ArrayList<Node>>       outerRings     = new ArrayList<ArrayList<Node>>();
-    List<ArrayList<Node>>       innerRings     = new ArrayList<ArrayList<Node>>();
-    List<ArrayList<Node>>       unknownRings   = new ArrayList<ArrayList<Node>>();
-    SimplePool<ArrayList<Node>> ringPool       = new SimplePool<ArrayList<Node>>(10);
+    List<ArrayList<Node>>       outerRings     = new ArrayList<>();
+    List<ArrayList<Node>>       innerRings     = new ArrayList<>();
+    List<ArrayList<Node>>       unknownRings   = new ArrayList<>();
+    SimplePool<ArrayList<Node>> ringPool       = new SimplePool<>(10);
     List<Node>                  nodes          = new ArrayList<>();
     Set<Relation>               paintRelations = new HashSet<>();
 
@@ -662,7 +662,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 float y = GeoMath.latE7ToY(screenHeight, screenWidth, viewBox, lat);
                 float x = GeoMath.lonE7ToX(screenWidth, viewBox, lon);
                 List<RelationMember> froms = restriction.getMembersWithRole(Tags.ROLE_TO);
-                RelationMember from = froms.size() > 0 ? froms.get(0) : null;
+                RelationMember from = froms.isEmpty() ? null : froms.get(0);
                 if (from != null && from.getElement() != null && from.getType().equals(Way.NAME)) {
                     Way fromWay = (Way) from.getElement();
                     int size = fromWay.getNodes().size();
@@ -688,6 +688,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                                 arrowDirection = 180;
                                 y -= 2 * ICON_SIZE_DP;
                                 break;
+                            default:
+                                // ignore
                             }
                         }
                         Node prevNode = fromWay.getNodes().get(1);
@@ -709,7 +711,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 Way viaWay = (Way) v;
                 float[] xy = Logic.centroidXY(screenWidth, screenHeight, viewBox, viaWay);
                 List<RelationMember> tos = restriction.getMembersWithRole(Tags.ROLE_TO);
-                RelationMember to = tos.size() > 0 ? tos.get(0) : null;
+                RelationMember to = tos.isEmpty() ? null : tos.get(0);
                 if (to != null && to.getElement() != null && to.getType().equals(Way.NAME)) {
                     Way toWay = (Way) to.getElement();
                     int size = viaWay.getNodes().size();
@@ -1064,10 +1066,8 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         }
         nodes.clear();
         nodes.addAll(way.getNodes());
-        if (style.isArea()) {
-            if (!clockwise(nodes)) {
-                Collections.reverse(nodes);
-            }
+        if (style.isArea() && !clockwise(nodes)) {
+            Collections.reverse(nodes);
         }
         map.pointListToLinePointsArray(points, nodes);
         float[] linePoints = points.getArray();

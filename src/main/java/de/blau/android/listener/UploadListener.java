@@ -37,7 +37,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
      * @param commentField an EditText containing the comment tag value
      * @param sourceField an EditText containing the source tag value
      * @param closeChangeset close the changeset after upload if true
-     * @param requestReview
+     * @param requestReview CheckBox for the review_requested tag
      * @param validations a List of validations to perform on the form fields
      */
     public UploadListener(@NonNull final Main caller, @NonNull final EditText commentField, @NonNull final EditText sourceField,
@@ -61,7 +61,7 @@ public class UploadListener implements DialogInterface.OnShowListener, View.OnCl
         validateFields();
         if (tagsShown || ConfirmUpload.getPage(caller) == ConfirmUpload.TAGS_PAGE) {
             ConfirmUpload.dismissDialog(caller);
-            Map<String, String> extraTags = new HashMap<String, String>();
+            Map<String, String> extraTags = new HashMap<>();
             if (requestReview.isChecked()) {
                 extraTags.put(Tags.KEY_REVIEW_REQUESTED, Tags.VALUE_YES);
             }

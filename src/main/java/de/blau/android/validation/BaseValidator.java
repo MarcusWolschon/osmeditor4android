@@ -257,9 +257,7 @@ public class BaseValidator implements Validator {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = node.getTags();
         // tag based checks
-        if (tags != null) {
-            status = validateElement(status, node, tags);
-        }
+        status = validateElement(status, node, tags);
         if (status == Validator.NOT_VALIDATED) {
             status = Validator.OK;
         }
@@ -274,9 +272,7 @@ public class BaseValidator implements Validator {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = way.getTags();
         // tag based checks
-        if (tags != null) {
-            status = validateElement(status, way, tags);
-        }
+        status = validateElement(status, way, tags);
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
             status = status | validateHighway(way, highway);
@@ -292,9 +288,7 @@ public class BaseValidator implements Validator {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = relation.getTags();
         // tag based checks
-        if (tags != null) {
-            status = validateElement(status, relation, tags);
-        }
+        status = validateElement(status, relation, tags);
         if (noType(relation)) {
             status = status | Validator.NO_TYPE;
         }
@@ -319,10 +313,8 @@ public class BaseValidator implements Validator {
     @Override
     public String[] describeProblem(@NonNull Context ctx, @NonNull Node node) {
         SortedMap<String, String> tags = node.getTags();
-        ArrayList<String> result = new ArrayList<>();
-        if (tags != null) {
-            result.addAll(describeProblemElement(ctx, node, tags));
-        }
+        List<String> result = new ArrayList<>();
+        result.addAll(describeProblemElement(ctx, node, tags));
         String[] resultArray = result.toArray(new String[result.size()]);
         return resultArray;
     }
@@ -331,10 +323,8 @@ public class BaseValidator implements Validator {
     @Override
     public String[] describeProblem(@NonNull Context ctx, @NonNull Way way) {
         SortedMap<String, String> tags = way.getTags();
-        ArrayList<String> result = new ArrayList<>();
-        if (tags != null) {
-            result.addAll(describeProblemElement(ctx, way, tags));
-        }
+        List<String> result = new ArrayList<>();
+        result.addAll(describeProblemElement(ctx, way, tags));
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
             result.addAll(describeProblemHighway(ctx, way, highway));
@@ -347,10 +337,8 @@ public class BaseValidator implements Validator {
     @Override
     public String[] describeProblem(@NonNull Context ctx, @NonNull Relation relation) {
         SortedMap<String, String> tags = relation.getTags();
-        ArrayList<String> result = new ArrayList<>();
-        if (tags != null) {
-            result.addAll(describeProblemElement(ctx, relation, tags));
-        }
+        List<String> result = new ArrayList<>();
+        result.addAll(describeProblemElement(ctx, relation, tags));
         if (noType(relation)) {
             result.add(App.resources().getString(R.string.toast_notype));
         }

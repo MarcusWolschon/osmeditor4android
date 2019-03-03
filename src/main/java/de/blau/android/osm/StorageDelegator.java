@@ -2063,7 +2063,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param e current OsmElement
      * @param parents new Map of parent Relations
      */
-    public void updateParentRelations(@NonNull final OsmElement e, @NonNull final HashMap<Long, String> parents) {
+    public void updateParentRelations(@NonNull final OsmElement e, @NonNull final Map<Long, String> parents) {
         Log.d(DEBUG_TAG, "updateParentRelations new parents size " + parents.size());
         List<Relation> origParents = e.getParentRelations() != null ? new ArrayList<>(e.getParentRelations()) : new ArrayList<>();
 
