@@ -469,7 +469,6 @@ public final class DataStyle extends DefaultHandler {
 
     private float nodeToleranceValue;
     private float wayToleranceValue;
-    private float largDragCircleRadius;
     private float largDragToleranceRadius;
     private float minLenForHandle;
 
@@ -502,9 +501,8 @@ public final class DataStyle extends DefaultHandler {
      * 
      */
     private void init() {
-        nodeToleranceValue = Density.dpToPx(ctx, 40f); // TODO move to constant
+        nodeToleranceValue = Density.dpToPx(ctx, 40f);
         wayToleranceValue = Density.dpToPx(ctx, 40f);
-        largDragCircleRadius = Density.dpToPx(ctx, 70f);
         largDragToleranceRadius = Density.dpToPx(ctx, 100f);
         minLenForHandle = 5 * nodeToleranceValue;
 
@@ -846,6 +844,17 @@ public final class DataStyle extends DefaultHandler {
         fp.setDontRender(true);
         internalStyles.put(DONTRENDER_WAY, fp);
 
+        // dummy styles for ways and relations
+        fp = new FeatureStyle("", standardPath);
+        fp.setColor(Color.BLACK);
+        fp.setWidthFactor(1f);
+        wayStyles = fp;
+
+        fp = new FeatureStyle("", standardPath);
+        fp.setColor(Color.BLACK);
+        fp.setWidthFactor(1f);
+        relationStyles = fp;
+
         Log.i(DEBUG_TAG, "... done");
     }
 
@@ -970,8 +979,9 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * Get the current DataStyle
      * 
-     * @return
+     * @return the current DataStyle
      */
     public static DataStyle getCurrent() {
         return currentStyle;
@@ -980,14 +990,15 @@ public final class DataStyle extends DefaultHandler {
     /**
      * return specific named profile
      * 
-     * @param n
-     * @return
+     * @param name name of the profile
+     * @return the DataStyle object or null if it couldn't be found
      */
-    public static DataStyle getStyle(String n) {
+    @Nullable
+    public static DataStyle getStyle(@NonNull String name) {
         if (availableStyles == null) {
             return null;
         }
-        return availableStyles.get(n);
+        return availableStyles.get(name);
     }
 
     /**
@@ -1077,7 +1088,6 @@ public final class DataStyle extends DefaultHandler {
                 switch (type) {
                 case LARGE_DRAG_AREA:
                     // special handling
-                    largDragCircleRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("radius")));
                     largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("touchRadius")));
                     return;
                 case MARKER_SCALE:
