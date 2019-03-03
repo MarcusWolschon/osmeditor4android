@@ -645,8 +645,8 @@ public class Server {
      * @param context Android context
      * @param box the specified bounding box
      * @return the stream
-     * @throws OsmServerException
-     * @throws IOException
+     * @throws OsmServerException thrown for API specific errors
+     * @throws IOException thrown general IO problems
      */
     public InputStream getStreamForBox(@Nullable final Context context, final BoundingBox box) throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForBox");
@@ -662,13 +662,13 @@ public class Server {
      * @param type type (node, way, relation) of the object
      * @param id the OSM id of the object
      * @return the stream
-     * @throws OsmServerException
-     * @throws IOException
+     * @throws OsmServerException thrown for API specific errors
+     * @throws IOException thrown general IO problems
      */
     public InputStream getStreamForElement(@Nullable final Context context, @Nullable final String mode, @NonNull final String type, final long id)
             throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForElement");
-        URL url = new URL(getReadOnlyUrl() + type + "/" + id + (mode != null ? "/" + mode : ""));
+        URL url = new URL((hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl()) + type + "/" + id + (mode != null ? "/" + mode : ""));
         return openConnection(context, url);
     }
 
@@ -679,15 +679,15 @@ public class Server {
      * @param type type (node, way, relation) of the object
      * @param ids array containing the OSM ids of the objects
      * @return the stream
-     * @throws OsmServerException
-     * @throws IOException
+     * @throws OsmServerException thrown for API specific errors
+     * @throws IOException thrown general IO problems
      */
     public InputStream getStreamForElements(@Nullable final Context context, @NonNull final String type, final long[] ids)
             throws OsmServerException, IOException {
         Log.d(DEBUG_TAG, "getStreamForElements");
 
         StringBuilder urlString = new StringBuilder();
-        urlString.append(getReadOnlyUrl());
+        urlString.append(hasMapSplitSource() ? getReadWriteUrl() : getReadOnlyUrl());
         urlString.append(type);
         urlString.append("s?"); // that's a plural s
         urlString.append(type);
@@ -936,7 +936,7 @@ public class Server {
                 TimeUnit.MILLISECONDS);
         if (oauth) {
             OAuthHelper oa = new OAuthHelper();
-            OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadOnlyUrl()));
+            OkHttpOAuthConsumer consumer = oa.getOkHttpConsumer(getBaseUrl(getReadWriteUrl()));
             if (consumer != null) {
                 consumer.setTokenWithSecret(accesstoken, accesstokensecret);
                 builder.addInterceptor(new SigningInterceptor(consumer));
