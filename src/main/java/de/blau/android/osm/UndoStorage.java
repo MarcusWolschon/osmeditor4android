@@ -359,13 +359,12 @@ public class UndoStorage implements Serializable {
             if (elements.containsKey(element)) {
                 return;
             }
-            OsmElement key = currentStorage.getOsmElement(element.getName(), element.getOsmId());
             if (element instanceof Node) {
-                elements.put(key, new UndoNode((Node) element, inCurrentStorage, inApiStorage));
+                elements.put(element, new UndoNode((Node) element, inCurrentStorage, inApiStorage));
             } else if (element instanceof Way) {
-                elements.put(key, new UndoWay((Way) element, inCurrentStorage, inApiStorage));
+                elements.put(element, new UndoWay((Way) element, inCurrentStorage, inApiStorage));
             } else if (element instanceof Relation) {
-                elements.put(key, new UndoRelation((Relation) element, inCurrentStorage, inApiStorage));
+                elements.put(element, new UndoRelation((Relation) element, inCurrentStorage, inApiStorage));
             } else {
                 throw new IllegalArgumentException("Unsupported element type");
             }
