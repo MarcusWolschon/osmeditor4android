@@ -3,6 +3,7 @@ package de.blau.android.propertyeditor;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,21 @@ class SelectedRowsActionModeCallback implements Callback {
 
     public interface Row {
 
+        /**
+         * Delete the row
+         */
         void delete();
 
+        /**
+         * De-select the row
+         */
         void deselect();
 
+        /**
+         * Check if the row is selected
+         * 
+         * @return true if selected
+         */
         boolean isSelected();
     }
 
@@ -37,10 +49,16 @@ class SelectedRowsActionModeCallback implements Callback {
 
     ActionMode currentAction;
 
-    LinearLayout rows   = null;
-    Fragment     caller = null;
+    final LinearLayout rows;
+    final Fragment     caller;
 
-    public SelectedRowsActionModeCallback(Fragment caller, LinearLayout rows) {
+    /**
+     * Careate a new callback for selected rows
+     * 
+     * @param caller the calling Fragment
+     * @param rows the Layout holding the selectable rows
+     */
+    public SelectedRowsActionModeCallback(@NonNull Fragment caller, @NonNull LinearLayout rows) {
         this.rows = rows;
         this.caller = caller;
     }
@@ -122,6 +140,12 @@ class SelectedRowsActionModeCallback implements Callback {
         ((AppCompatActivity) caller.getActivity()).supportInvalidateOptionsMenu();
     }
 
+    /**
+     * Check if all rows have been de-selected
+     * 
+     * @param skipHeaderRow if true skip the header row
+     * @return true if no rows are selected
+     */
     public boolean rowsDeselected(boolean skipHeaderRow) {
         final int size = rows.getChildCount();
         int initialRowIndex = skipHeaderRow ? 1 : 0;
@@ -140,6 +164,9 @@ class SelectedRowsActionModeCallback implements Callback {
         return true;
     }
 
+    /**
+     * Invalidate the current ActionMode aka redisplay the menus
+     */
     public void invalidate() {
         if (currentAction != null) {
             currentAction.invalidate();

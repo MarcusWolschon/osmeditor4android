@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import de.blau.android.osm.RelationMemberDescription;
 import de.blau.android.osm.Way;
 import de.blau.android.propertyeditor.RelationMembersFragment.Connected;
 import de.blau.android.propertyeditor.RelationMembersFragment.RelationMemberRow;
+import de.blau.android.util.NetworkStatus;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
 
@@ -45,7 +47,13 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
     private static final int MENU_ITEM_MOVE_TOP      = 11;
     private static final int MENU_ITEM_MOVE_BOTTOM   = 12;
 
-    public RelationMemberSelectedActionModeCallback(Fragment caller, LinearLayout rows) {
+    /**
+     * Construct a new callback for selected RelationMembers
+     * 
+     * @param caller the calling Fragment
+     * @param rows the Layout holding the selectable rows
+     */
+    public RelationMemberSelectedActionModeCallback(@NonNull Fragment caller, @NonNull LinearLayout rows) {
         super(caller, rows);
     }
 
@@ -81,8 +89,10 @@ public class RelationMemberSelectedActionModeCallback extends SelectedRowsAction
             }
         }
         if (nonDownloadedSelected) {
-            menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
+            MenuItem downloadItem = menu.add(Menu.NONE, MENU_ITEM_DOWNLOAD, Menu.NONE, R.string.tag_menu_download)
                     .setIcon(ThemeUtils.getResIdFromAttribute(context, R.attr.menu_download));
+            // if we don't have network connectivity disable
+            downloadItem.setEnabled(new NetworkStatus(caller.getContext()).isConnected());
         }
 
         menu.add(Menu.NONE, MENU_ITEM_TOP, Menu.NONE, R.string.tag_menu_top);
