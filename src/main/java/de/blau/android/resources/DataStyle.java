@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.app.Activity;
@@ -190,7 +188,7 @@ public final class DataStyle extends DefaultHandler {
                 dashPath.phase = fp.dashPath.phase;
             }
             fontMetrics = fp.fontMetrics;
-            pathPattern = fp.pathPattern;
+            setPathPattern(fp.pathPattern);
             cascadedStyles = null;
         }
 
@@ -231,10 +229,21 @@ public final class DataStyle extends DefaultHandler {
             cascadedStyles.add(style);
         }
 
+        /**
+         * Get the Paint object for this style
+         * 
+         * @return a Paint object
+         */
+        @NonNull
         public Paint getPaint() {
             return paint;
         }
 
+        /**
+         * Set the colour for this style
+         * 
+         * @param c the colour to set
+         */
         public void setColor(int c) {
             paint.setColor(c);
         }
@@ -257,12 +266,40 @@ public final class DataStyle extends DefaultHandler {
             this.area = area;
         }
 
+        /**
+         * Set the relative stroke width
+         * 
+         * @param f the value to set
+         */
         public void setWidthFactor(float f) {
             widthFactor = f;
         }
 
+        /**
+         * Get the relative stroke width
+         * 
+         * @return the relative stroke width
+         */
         public float getWidthFactor() {
             return widthFactor;
+        }
+
+        /**
+         * Set the update width flag
+         * 
+         * @param update value to set it to
+         */
+        public void setUpdateWidth(boolean update) {
+            updateWidth = update;
+        }
+
+        /**
+         * Check if we should update the stroke width on zoom level changes
+         * 
+         * @return true if we should update
+         */
+        public boolean updateWidth() {
+            return updateWidth;
         }
 
         /**
@@ -271,38 +308,40 @@ public final class DataStyle extends DefaultHandler {
          * @param width the new width to set
          */
         public void setStrokeWidth(float width) {
-            if (updateWidth) {
-                float newWidth = width * widthFactor;
-                paint.setStrokeWidth(newWidth);
-                if (dashPath != null) {
-                    float[] intervals = dashPath.intervals.clone();
-                    for (int i = 0; i < intervals.length; i++) {
-                        intervals[i] = dashPath.intervals[i] * newWidth;
-                    }
-                    DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
-                    paint.setPathEffect(dp);
-                } else if (pathPattern != null) {
-                    getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), pathPattern.advance(newWidth), 0f, pathPattern.style()));
+            float newWidth = width * widthFactor;
+            paint.setStrokeWidth(newWidth);
+            if (dashPath != null) {
+                float[] intervals = dashPath.intervals.clone();
+                for (int i = 0; i < intervals.length; i++) {
+                    intervals[i] = dashPath.intervals[i] * newWidth;
                 }
+                DashPathEffect dp = new DashPathEffect(intervals, dashPath.phase);
+                paint.setPathEffect(dp);
+            } else if (pathPattern != null) {
+                getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(newWidth), pathPattern.advance(newWidth), 0f, pathPattern.style()));
             }
         }
 
-        public void dontUpdate() {
-            updateWidth = false;
-        }
-
-        public boolean updateWidth() {
-            return updateWidth;
-        }
-
+        /**
+         * Get the DashPath for this style
+         * 
+         * @return a DashPath or null if none set
+         */
+        @Nullable
         public DashPath getDashPath() {
             return dashPath;
         }
 
-        public void setDashPath(@NonNull float[] i, float p) {
+        /**
+         * Create DashPath object and set it for this style
+         * 
+         * @param intervals an array of float containing the lengths of the dashes
+         * @param phase a phase value
+         */
+        public void setDashPath(@NonNull float[] intervals, float phase) {
             dashPath = new DashPath();
-            dashPath.intervals = i;
-            dashPath.phase = p;
+            dashPath.intervals = intervals;
+            dashPath.phase = phase;
         }
 
         /**
@@ -346,7 +385,7 @@ public final class DataStyle extends DefaultHandler {
             if (pathPattern != null) {
                 this.pathPattern = pathPattern;
                 float width = getPaint().getStrokeWidth();
-                getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), width, 0f, PathDashPathEffect.Style.TRANSLATE));
+                getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), pathPattern.advance(width), 0f, pathPattern.style()));
             } else {
                 Log.e(DEBUG_TAG, "pathPattern is null");
             }
@@ -371,6 +410,20 @@ public final class DataStyle extends DefaultHandler {
                 }
             }
             return true;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            for (Entry<String, String> tag : tags.entrySet()) {
+                builder.append(tag.getKey() + "=" + tag.getValue() + "\n");
+            }
+            builder.append("area: " + area + "\n");
+            builder.append("dontrender: " + dontrender + "\n");
+            builder.append("updateWidth: " + updateWidth + "\n");
+            builder.append("strokeWidth: " + paint.getStrokeWidth() + "\n");
+            builder.append("widthFactor: " + widthFactor + "\n");
+            return builder.toString();
         }
     }
 
@@ -483,7 +536,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(VIEWBOX, standardPath);
         fp.setColor(ContextCompat.getColor(ctx, R.color.grey));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setAlpha(125);
         internalStyles.put(VIEWBOX, fp);
@@ -507,7 +560,7 @@ public final class DataStyle extends DefaultHandler {
         internalStyles.put(NODE_TAGGED, fp);
 
         fp = new FeatureStyle(NODE_THIN);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.setColor(cccRed);
         fp.getPaint().setStyle(Style.STROKE);
@@ -526,7 +579,7 @@ public final class DataStyle extends DefaultHandler {
         internalStyles.put(PROBLEM_NODE_TAGGED, fp);
 
         fp = new FeatureStyle(PROBLEM_NODE_THIN);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.setColor(problemColor);
         fp.getPaint().setStyle(Style.STROKE);
@@ -535,7 +588,7 @@ public final class DataStyle extends DefaultHandler {
         internalStyles.put(PROBLEM_NODE_THIN, fp);
 
         fp = new FeatureStyle(HIDDEN_NODE);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.setColor(ContextCompat.getColor(ctx, R.color.light_grey));
         fp.getPaint().setStyle(Style.STROKE);
@@ -551,14 +604,14 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(WAY_TOLERANCE, baseWayStyle);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setAlpha(TOLERANCE_ALPHA);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, wayToleranceValue));
         internalStyles.put(WAY_TOLERANCE, fp);
 
         fp = new FeatureStyle(WAY_TOLERANCE_2, baseWayStyle);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, wayToleranceValue));
         internalStyles.put(WAY_TOLERANCE_2, fp);
@@ -576,7 +629,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(NODE_DRAG_RADIUS);
         fp.setColor(cccBeige);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStyle(Style.STROKE);
         fp.getPaint().setAlpha(150);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 10f));
@@ -592,7 +645,7 @@ public final class DataStyle extends DefaultHandler {
         internalStyles.put(SELECTED_RELATION_NODE_TAGGED, fp);
 
         fp = new FeatureStyle(SELECTED_NODE_THIN);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.setColor(cccBeige);
         fp.getPaint().setStyle(Style.STROKE);
@@ -606,9 +659,8 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(GPS_POS, internalStyles.get(GPS_TRACK));
         fp.getPaint().setStyle(Style.FILL);
-        fp.setWidthFactor(2f);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 4.0f));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         internalStyles.put(GPS_POS, fp);
 
         fp = new FeatureStyle(GPS_POS_FOLLOW, internalStyles.get(GPS_POS));
@@ -618,7 +670,7 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(GPS_ACCURACY, internalStyles.get(GPS_POS));
         fp.getPaint().setStyle(Style.FILL_AND_STROKE);
         fp.getPaint().setAlpha(TOLERANCE_ALPHA);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         internalStyles.put(GPS_ACCURACY, fp);
 
         fp = new FeatureStyle(SELECTED_WAY, baseWayStyle);
@@ -642,7 +694,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(NODE_TOLERANCE);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setAlpha(TOLERANCE_ALPHA);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
@@ -650,7 +702,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(NODE_TOLERANCE_2);
         fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_ocher));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setAlpha(TOLERANCE_ALPHA_2);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, nodeToleranceValue));
@@ -658,14 +710,14 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(INFOTEXT);
         fp.setColor(Color.BLACK);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx, 12));
         internalStyles.put(INFOTEXT, fp);
 
         fp = new FeatureStyle(ATTRIBUTION_TEXT);
         fp.setColor(Color.WHITE);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx, 12));
         fp.getPaint().setShadowLayer(1, 0, 0, Color.BLACK);
@@ -673,7 +725,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT);
         fp.setColor(Color.BLACK);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx, 12));
         fp.getPaint().setXfermode(pixelXor);
@@ -681,7 +733,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_NORMAL);
         fp.setColor(Color.BLACK);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -691,7 +743,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_SMALL);
         fp.setColor(Color.BLACK);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -700,7 +752,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_NORMAL_SELECTED);
         fp.setColor(cccBeige);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -709,7 +761,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_SMALL_SELECTED);
         fp.setColor(cccBeige);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -718,7 +770,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_NORMAL_PROBLEM);
         fp.setColor(Color.BLACK);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -727,7 +779,7 @@ public final class DataStyle extends DefaultHandler {
 
         fp = new FeatureStyle(LABELTEXT_SMALL_PROBLEM);
         fp.setColor(problemColor);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
@@ -737,7 +789,7 @@ public final class DataStyle extends DefaultHandler {
         fp = new FeatureStyle(LABELTEXT_BACKGROUND);
         fp.setColor(Color.WHITE);
         fp.getPaint().setAlpha(64);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         fp.getPaint().setStyle(Style.FILL);
         internalStyles.put(LABELTEXT_BACKGROUND, fp);
 
@@ -769,7 +821,7 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStyle(Style.STROKE);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
         // fp.getPaint().setXfermode(pixelOp);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         internalStyles.put(CROSSHAIRS, fp);
 
         fp = new FeatureStyle(CROSSHAIRS_HALO);
@@ -777,7 +829,7 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStyle(Style.STROKE);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
         // fp.getPaint().setXfermode(pixelOp);
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         internalStyles.put(CROSSHAIRS_HALO, fp);
 
         fp = new FeatureStyle(GEOJSON_DEFAULT);
@@ -785,7 +837,7 @@ public final class DataStyle extends DefaultHandler {
         fp.setColor(0x9d00ff00);
         fp.setWidthFactor(2f);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
-        fp.dontUpdate();
+        fp.setUpdateWidth(false);
         internalStyles.put(GEOJSON_DEFAULT, fp);
 
         fp = new FeatureStyle(DONTRENDER_WAY, standardPath);
@@ -863,16 +915,17 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * Sets the stroke width of all Elements corresponding to the width of the viewbox (=zoomfactor).
+     * Sets the stroke width of all styles with update enabled corresponding to the width of the viewbox (=zoomfactor).
      * 
      * @param newStrokeWidth the new width to set
      */
     public static void updateStrokes(final float newStrokeWidth) {
-        Log.i(DEBUG_TAG, "Updating stroke widths ..");
         processCurrentStyle(new ProcessStyle() {
             @Override
             public void process(FeatureStyle style) {
-                style.setStrokeWidth(newStrokeWidth);
+                if (style.updateWidth) {
+                    style.setStrokeWidth(newStrokeWidth);
+                }
             }
         });
 
@@ -882,7 +935,6 @@ public final class DataStyle extends DefaultHandler {
         WAY_DIRECTION_PATH.moveTo(-wayDirectionPathOffset, -wayDirectionPathOffset);
         WAY_DIRECTION_PATH.lineTo(0, 0);
         WAY_DIRECTION_PATH.lineTo(-wayDirectionPathOffset, +wayDirectionPathOffset);
-        Log.i(DEBUG_TAG, "... done");
     }
 
     public float getNodeToleranceValue() {
@@ -1060,18 +1112,21 @@ public final class DataStyle extends DefaultHandler {
                 }
 
                 String areaString = atts.getValue("area");
-                if (areaString != null && Boolean.parseBoolean(areaString)) {
-                    tempFeatureStyle.setArea(true);
+                if (areaString != null) {
+                    tempFeatureStyle.setArea(Boolean.parseBoolean(areaString));
                 }
 
                 String dontrenderString = atts.getValue("dontrender");
-                if (dontrenderString != null && Boolean.parseBoolean(dontrenderString)) {
-                    tempFeatureStyle.setDontRender(true);
+                if (dontrenderString != null) {
+                    tempFeatureStyle.setDontRender(Boolean.parseBoolean(dontrenderString));
                 }
 
+                for (int i = 0; i < atts.getLength(); i++) {
+                    Log.e(DEBUG_TAG, atts.getType(i) + "=" + atts.getValue(i));
+                }
                 String updateWidthString = atts.getValue("updateWidth");
-                if (updateWidthString != null && !Boolean.parseBoolean(updateWidthString)) {
-                    tempFeatureStyle.dontUpdate();
+                if (updateWidthString != null) {
+                    tempFeatureStyle.setUpdateWidth(Boolean.parseBoolean(updateWidthString));
                 }
 
                 String widthFactorString = atts.getValue("widthFactor");
@@ -1088,10 +1143,6 @@ public final class DataStyle extends DefaultHandler {
                 if (styleString != null) {
                     Style style = Style.valueOf(styleString);
                     tempFeatureStyle.getPaint().setStyle(style);
-                    if (style != Style.STROKE && type.equals("way")) { // hack for filled
-                                                                       // polygons
-                        tempFeatureStyle.getPaint().setAlpha(125);
-                    }
                 }
 
                 String capString = atts.getValue("cap");
@@ -1105,15 +1156,19 @@ public final class DataStyle extends DefaultHandler {
                 }
 
                 if (!tempFeatureStyle.updateWidth()) {
-                    float strokeWidth = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("strokewidth")));
-                    tempFeatureStyle.getPaint().setStrokeWidth(strokeWidth);
-                    // special case if we are setting internal tolerance values
-                    if (type.equals(NODE_TOLERANCE)) {
-                        nodeToleranceValue = strokeWidth;
-                    } else if (type.equals(WAY_TOLERANCE)) {
-                        wayToleranceValue = strokeWidth;
+                    String strokeWidthString = atts.getValue("strokeWidth");
+                    if (strokeWidthString != null) {
+                        float strokeWidth = Density.dpToPx(ctx, Float.parseFloat(strokeWidthString));
+                        tempFeatureStyle.setStrokeWidth(strokeWidth);
+                        // special case if we are setting internal tolerance values
+                        if (type.equals(NODE_TOLERANCE)) {
+                            nodeToleranceValue = strokeWidth;
+                        } else if (type.equals(WAY_TOLERANCE)) {
+                            wayToleranceValue = strokeWidth;
+                        }
                     }
                 }
+
                 if (atts.getValue("typefacestyle") != null) {
                     tempFeatureStyle.getPaint().setTypeface(Typeface.defaultFromStyle(Integer.parseInt(atts.getValue("typefacestyle"))));
                     tempFeatureStyle.getPaint().setTextSize(Density.dpToPx(ctx, Float.parseFloat(atts.getValue("textsize"))));
@@ -1121,6 +1176,7 @@ public final class DataStyle extends DefaultHandler {
                         tempFeatureStyle.getPaint().setShadowLayer(Integer.parseInt(atts.getValue("shadow")), 0, 0, Color.BLACK);
                     }
                 }
+
                 if (atts.getValue("pathPattern") != null) {
                     tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue("pathPattern")));
                 }

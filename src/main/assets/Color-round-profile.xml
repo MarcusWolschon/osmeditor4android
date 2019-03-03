@@ -44,7 +44,7 @@
     		<interval length="3.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="0.8" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
+    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
         <feature type="way" tags="landuse=residential" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />

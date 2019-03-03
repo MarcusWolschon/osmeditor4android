@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<profile name="Color Round Nodes" format="0.2.0">
+<profile name="Pen Round Nodes" format="0.2.0">
     <!-- Assorted config -->
-    <config type="min_handle_length" length="100.0" />
+    <config type="min_handle_length" length="200.0" />
     <!-- Vespucci internal styles -->
     <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
     <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
@@ -44,7 +44,7 @@
     		<interval length="3.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="0.8" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
+    <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
         <feature type="way" tags="landuse=residential" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
