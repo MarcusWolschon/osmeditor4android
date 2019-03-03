@@ -1,6 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
-12.2.0-1: Support reading PBF format OSM data files, add support for MapSplit tiled OSM data as a read-only source, support applying osmChange format files
+13.0.0-1: Support reading PBF format OSM data files, add support for MapSplit tiled OSM data as a read-only source, support applying osmChange format files, add tree row rendering, re-factor styling configuration, add support for multi-polygon rendering, render turn restrictions, add preference for map screen orientation, support filtering name suggestions by country/region ,
+improve pinch/spread zoom behaviour, support draft comment and source tags and add review_requested, add confirmation modal before deleting stored GPX data, avoid floating point binary rep. issues on input and output
 
 12.1.4: Small performance improvements, updated translations.
 

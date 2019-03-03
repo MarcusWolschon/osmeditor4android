@@ -29,6 +29,7 @@
     <string name="help_newnoteselection">New Note selection</string>
     <string name="help_voice_commands">Voice commands</string>
     <string name="help_upgrade">Release notes</string>
+    <string name="help_upgrade_121">12.1 Release notes</string>
     <string name="help_upgrade_120">12.0 Release notes</string>
     <string name="help_upgrade_112">11.2 Release notes</string>
     <string name="help_upgrade_111">11.1 Release notes</string>
@@ -64,6 +65,7 @@
         <item>@string/help_newnoteselection</item>
         <item>@string/help_voice_commands</item>
     	<item>@string/help_upgrade</item>
+        <item>@string/help_upgrade_121</item>
         <item>@string/help_upgrade_120</item>
         <item>@string/help_upgrade_112</item>
         <item>@string/help_upgrade_111</item>
@@ -100,6 +102,7 @@
     	<item>Opening hours</item>
         <item>New Note selected</item>
         <item>Voice commands</item>
+        <item>13.0.0 Release notes</item>
         <item>12.1.0 Release notes</item>
         <item>12.0.0 Release notes</item>
         <item>11.2.0 Release notes</item>
