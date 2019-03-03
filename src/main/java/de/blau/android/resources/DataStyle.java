@@ -111,18 +111,22 @@ public final class DataStyle extends DefaultHandler {
     public static final String GEOJSON_DEFAULT               = "geojson_default";
     public static final String DONTRENDER_WAY                = "dontrender_way";
     public static final String MIN_HANDLE_LEN                = "min_handle_length";
+    public static final String ICON_ZOOM_LIMIT               = "icon_zoom_limit";
+
+    private static final int DEFAULT_MIN_VISIBLE_ZOOM = 15;
 
     public class FeatureStyle {
 
         final Map<String, String> tags;
-        private boolean           area        = false;
-        boolean                   dontrender  = false;
-        boolean                   updateWidth = true;
+        private int               minVisibleZoom = DEFAULT_MIN_VISIBLE_ZOOM;
+        private boolean           area           = false;
+        boolean                   dontrender     = false;
+        boolean                   updateWidth    = true;
         final Paint               paint;
         float                     widthFactor;
-        DashPath                  dashPath    = null;
-        private FontMetrics       fontMetrics = null;
-        private PathPattern       pathPattern = null;
+        DashPath                  dashPath       = null;
+        private FontMetrics       fontMetrics    = null;
+        private PathPattern       pathPattern    = null;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -178,6 +182,7 @@ public final class DataStyle extends DefaultHandler {
          */
         FeatureStyle(@NonNull String tags, @NonNull FeatureStyle fp) {
             this(tags, new Paint(fp.getPaint()));
+            minVisibleZoom = fp.minVisibleZoom;
             setArea(fp.isArea());
             dontrender = fp.dontrender;
             updateWidth = fp.updateWidth;
@@ -200,6 +205,7 @@ public final class DataStyle extends DefaultHandler {
         public FeatureStyle(@NonNull FeatureStyle fp) {
             tags = new HashMap<>(fp.tags);
             paint = new Paint(fp.getPaint());
+            minVisibleZoom = fp.minVisibleZoom;
             setArea(fp.isArea());
             dontrender = fp.dontrender;
             updateWidth = fp.updateWidth;
@@ -412,6 +418,24 @@ public final class DataStyle extends DefaultHandler {
             return true;
         }
 
+        /**
+         * Get the minimum zoom level objects with this style should be visible from on
+         * 
+         * @return the minimum zoom level
+         */
+        public int getMinVisibleZoom() {
+            return minVisibleZoom;
+        }
+
+        /**
+         * Set the minimum zoom level objects with this style should be visible from on
+         * 
+         * @param minVisibleZoom the minimum zoom level to set
+         */
+        public void setMinVisibleZoom(int minVisibleZoom) {
+            this.minVisibleZoom = minVisibleZoom;
+        }
+
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
@@ -471,6 +495,7 @@ public final class DataStyle extends DefaultHandler {
     private float wayToleranceValue;
     private float largDragToleranceRadius;
     private float minLenForHandle;
+    private int   iconZoomLimit;
 
     private final Context ctx;
 
@@ -505,6 +530,7 @@ public final class DataStyle extends DefaultHandler {
         wayToleranceValue = Density.dpToPx(ctx, 40f);
         largDragToleranceRadius = Density.dpToPx(ctx, 100f);
         minLenForHandle = 5 * nodeToleranceValue;
+        iconZoomLimit = 15;
 
         createOrientationPath(1.0f);
         createWayPointPath(1.0f);
@@ -959,6 +985,15 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
+     * Get the minimum zoom from which we show icons
+     * 
+     * @return the minimum zoom from which we show icons
+     */
+    public int getIconZoomLimit() {
+        return iconZoomLimit;
+    }
+
+    /**
      * Get the minimum length of a segment to show a geometry improvement handle on it
      * 
      * @return the minimum length
@@ -1102,6 +1137,11 @@ public final class DataStyle extends DefaultHandler {
                     if (lenStr != null) {
                         minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
                     }
+                case ICON_ZOOM_LIMIT:
+                    String zoomStr = atts.getValue("zoom");
+                    if (zoomStr != null) {
+                        iconZoomLimit = Integer.parseInt(zoomStr);
+                    }
                 }
             } else if (element.equals("feature")) {
                 type = atts.getValue("type");
@@ -1147,7 +1187,7 @@ public final class DataStyle extends DefaultHandler {
                 String colorString = atts.getValue("color");
                 if (colorString != null) {
                     tempFeatureStyle.setColor((int) Long.parseLong(colorString, 16)); // workaround highest bit
-                } // set problem
+                }
 
                 String styleString = atts.getValue("style");
                 if (styleString != null) {
@@ -1190,6 +1230,12 @@ public final class DataStyle extends DefaultHandler {
                 if (atts.getValue("pathPattern") != null) {
                     tempFeatureStyle.setPathPattern(PathPatterns.get(atts.getValue("pathPattern")));
                 }
+
+                String minVisibleZoomString = atts.getValue("minVisibleZoom");
+                if (minVisibleZoomString != null) {
+                    tempFeatureStyle.setMinVisibleZoom((int) Integer.parseInt(minVisibleZoomString));
+                }
+
             } else if (element.equals("dash")) {
                 tempPhase = Float.parseFloat(atts.getValue("phase"));
                 tempIntervals = new ArrayList<>();
@@ -1201,6 +1247,11 @@ public final class DataStyle extends DefaultHandler {
         }
     }
 
+    /**
+     * Create a path for the crosshairs
+     * 
+     * @param scale scaling factor
+     */
     private void createCrosshairsPath(float scale) {
         crosshairs_path = new Path();
         int arm = (int) Density.dpToPx(ctx, 10 * scale);
@@ -1210,6 +1261,11 @@ public final class DataStyle extends DefaultHandler {
         crosshairs_path.lineTo(-arm, 0);
     }
 
+    /**
+     * Create a path for the geometry improvement handles
+     * 
+     * @param scale scaling factor
+     */
     private void createXPath(float scale) {
         int arm;
         x_path = new Path();
@@ -1220,6 +1276,11 @@ public final class DataStyle extends DefaultHandler {
         x_path.lineTo(-arm, arm);
     }
 
+    /**
+     * Create a path for GPX waypoints
+     * 
+     * @param scale scaling factor
+     */
     private void createWayPointPath(float scale) {
         waypoint_path = new Path();
         int side = (int) Density.dpToPx(ctx, 8 * scale);
@@ -1229,6 +1290,11 @@ public final class DataStyle extends DefaultHandler {
         waypoint_path.lineTo(0, 0);
     }
 
+    /**
+     * Create a path for way orientation arrows
+     * 
+     * @param scale scaling factor
+     */
     private void createOrientationPath(float scale) {
         orientation_path = new Path();
         orientation_path.moveTo(0, Density.dpToPx(ctx, -20) * scale);

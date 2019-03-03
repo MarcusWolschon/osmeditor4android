@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pools.SimplePool;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
@@ -263,7 +262,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         tmpPresets = App.getCurrentPresets(context);
         tmpLocked = logic.isLocked();
 
-        inNodeIconZoomRange = zoomLevel > SHOW_ICONS_LIMIT;
+        inNodeIconZoomRange = zoomLevel > DataStyle.getCurrent().getIconZoomLimit();
 
         paintOsmData(canvas);
     }
@@ -495,9 +494,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             style = DataStyle.matchStyle(rel);
         }
 
+        if (zoomLevel < style.getMinVisibleZoom()) {
+            return;
+        }
+
         // remove any non-Way non-downloaded members
         waysOnly.clear();
-        ;
+
         for (RelationMember m : rel.getMembers()) {
             if (m.downloaded() && Way.NAME.equals(m.getType())) {
                 waysOnly.add(m);
@@ -847,7 +850,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
         if (noIcon) {
             // draw regular nodes or without icons
-            Paint p = DataStyle.getInternal(isTagged ? featureStyleTagged : featureStyle).getPaint();
+            FeatureStyle style = DataStyle.getInternal(isTagged ? featureStyleTagged : featureStyle);
+            if (zoomLevel < style.getMinVisibleZoom()) {
+                return;
+            }
+            Paint p = style.getPaint();
             float strokeWidth = p.getStrokeWidth();
             if (hwAccelarationWorkaround) { // FIXME we don't actually know if this is slower than drawPoint
                 canvas.drawCircle(x, y, strokeWidth / 2, p);
@@ -1036,11 +1043,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      */
     private void paintWay(final Canvas canvas, final Way way, final boolean displayHandles, boolean drawTolerance) {
 
-        FeatureStyle fp;
+        FeatureStyle style;
         if (way.hasProblem(context, validator) != Validator.OK) {
-            fp = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
+            style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);
         } else {
-            fp = DataStyle.matchStyle(way);
+            style = DataStyle.matchStyle(way);
+        }
+
+        if (zoomLevel < style.getMinVisibleZoom()) {
+            return;
         }
 
         boolean isSelected = tmpDrawingInEditRange // if we are not in editing range don't show selected way ... may be
@@ -1048,12 +1059,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
                 && tmpDrawingSelectedWays != null && tmpDrawingSelectedWays.contains(way);
         boolean isMemberOfSelectedRelation = tmpDrawingInEditRange && tmpDrawingSelectedRelationWays != null && tmpDrawingSelectedRelationWays.contains(way);
 
-        if (fp.dontRender() && !(isSelected || isMemberOfSelectedRelation)) {
+        if (style.dontRender() && !(isSelected || isMemberOfSelectedRelation)) {
             return; // the way has already been rendered by something else
         }
         nodes.clear();
         nodes.addAll(way.getNodes());
-        if (fp.isArea()) {
+        if (style.isArea()) {
             if (!clockwise(nodes)) {
                 Collections.reverse(nodes);
             }
@@ -1078,7 +1089,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         if (isSelected) {
             FeatureStyle selectedStyle = DataStyle.getInternal(DataStyle.SELECTED_WAY);
             paint = selectedStyle.getPaint();
-            paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
+            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * selectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
             paint = DataStyle.getInternal(DataStyle.WAY_DIRECTION).getPaint();
             drawWayArrows(canvas, linePoints, pointsSize, false, paint, displayHandles && tmpDrawingSelectedWays.size() == 1);
@@ -1087,7 +1098,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         } else if (isMemberOfSelectedRelation) {
             FeatureStyle relationSelectedStyle = DataStyle.getInternal(DataStyle.SELECTED_RELATION_WAY);
             paint = relationSelectedStyle.getPaint();
-            paint.setStrokeWidth(fp.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
+            paint.setStrokeWidth(style.getPaint().getStrokeWidth() * relationSelectedStyle.getWidthFactor());
             canvas.drawLines(linePoints, 0, pointsSize, paint);
         }
 
@@ -1107,7 +1118,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
-            canvas.drawPath(path, fp.getPaint());
+            canvas.drawPath(path, style.getPaint());
         }
 
         // display icons on closed ways
@@ -1162,13 +1173,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * @param canvas Canvas, where the node shall be painted on.
      * @param way way which shall be painted.
      */
-    private void paintHiddenWay(final Canvas canvas, final Way way) {
+    private void paintHiddenWay(@NonNull final Canvas canvas, @NonNull final Way way) {
         map.pointListToLinePointsArray(points, way.getNodes());
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
 
         //
-        FeatureStyle fp = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
+        FeatureStyle style = DataStyle.getInternal(DataStyle.HIDDEN_WAY);
+        if (zoomLevel < style.getMinVisibleZoom()) {
+            return;
+        }
 
         // draw the way itself
         // canvas.drawLines(linePoints, fp.getPaint()); doesn't work properly with HW acceleration
@@ -1178,11 +1192,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
             }
-            canvas.drawPath(path, fp.getPaint());
+            canvas.drawPath(path, style.getPaint());
         }
     }
 
-    private void paintHandles(Canvas canvas) {
+    /**
+     * Draw geometry improvement handles
+     * 
+     * @param canvas the Canvas we are drawing on
+     */
+    private void paintHandles(@NonNull Canvas canvas) {
         if (handles != null && handles.size() > 0) {
             canvas.save();
             float lastX = 0;
@@ -1293,6 +1312,9 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         areaIconCache.clear();
     }
 
+    /**
+     * Update cached Paint objects
+     */
     public void updateStyle() {
         // changes when style changes
         nodeTolerancePaint = DataStyle.getInternal(DataStyle.NODE_TOLERANCE).getPaint();

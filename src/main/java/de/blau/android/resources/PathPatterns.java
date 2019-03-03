@@ -80,20 +80,25 @@ class BorderLeft extends PathPattern {
     @Override
     public Path draw(float size) {
         path.rewind();
-        float half = Math.max(size / 2, 2);
+        float width = Math.max(size, 2);
         float height = Math.max(size * 2, 2);
         height = Math.min(height, 32);
-        path.moveTo(-half, 0);
-        path.lineTo(half, 0);
-        path.lineTo(half, -height);
-        path.lineTo(-half, -height);
-        path.lineTo(-half, 0);
+        path.moveTo(0, 0);
+        path.lineTo(width, 0);
+        path.lineTo(width, -height);
+        path.lineTo(0, -height);
+        path.lineTo(0, 0);
         return path;
     }
 
     @Override
     public float advance(float size) {
-        return Math.max(size / 2, 2);
+        return Math.max(size, 2);
+    }
+    
+    @Override
+    Style style() {
+        return PathDashPathEffect.Style.MORPH;
     }
 }
 
@@ -105,20 +110,25 @@ class BorderRight extends PathPattern {
     @Override
     public Path draw(float size) {
         path.rewind();
-        float half = Math.max(size / 2, 2);
+        float width = Math.max(size, 2);
         float height = Math.max(size * 2, 2);
         height = Math.min(height, 32);
-        path.moveTo(-half, 0);
-        path.lineTo(half, 0);
-        path.lineTo(half, height);
-        path.lineTo(-half, height);
-        path.lineTo(-half, 0);
+        path.moveTo(0, 0);
+        path.lineTo(width, 0);
+        path.lineTo(width, height);
+        path.lineTo(0, height);
+        path.lineTo(0, 0);
         return path;
     }
 
     @Override
     public float advance(float size) {
-        return Math.max(size / 2, 2);
+        return Math.max(size, 2);
+    }
+    
+    @Override
+    Style style() {
+        return PathDashPathEffect.Style.MORPH;
     }
 }
 

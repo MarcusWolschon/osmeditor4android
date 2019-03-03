@@ -2,6 +2,7 @@
 <profile name="Pen Round Nodes" format="0.2.0">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
+    <config type="icon_zoom_limit" length="15" />
     <!-- Vespucci internal styles -->
     <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
     <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
@@ -46,17 +47,18 @@
     </feature>
     <feature type="way" tags="landuse" area="true" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right">
         <feature type="way" tags="landuse=construction" color="88996633" style="FILL_AND_STROKE" pathPattern="" />
-        <feature type="way" tags="landuse=residential" color="88888888" />
+        <feature type="way" tags="landuse=residential" minVisibleZoom="10" color="88888888" />
         <feature type="way" tags="landuse=quarry" color="88d8a2a2" />
         <feature type="way" tags="landuse=military" color="88af2626" /> 
+        <feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" />
     </feature>
     
     <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="ff39AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
-        <feature type="way" tags="natural=water" widthFactor="1.0" color="ff0000ff" />
+        <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
         <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
-        <feature type="way" tags="natural=coastline" widthFactor="2.0" color="ff71BE80" pathPattern="triangle_left" />
+        <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
         <feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
     </feature>
     <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
@@ -84,10 +86,10 @@
             </dash>
         </feature>
         <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" />
-        <feature type="way" tags="highway=motorway" widthFactor="2.0" color="ff809BC0" />
-        <feature type="way" tags="highway=motorway_link" widthFactor="2.0" color="ff809BC0" />
-        <feature type="way" tags="highway=trunk" widthFactor="1.5" color="ff7FC97F" />
-        <feature type="way" tags="highway=trunk_link" widthFactor="1.5" color="ff7FC97F" />
+        <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" />
+        <feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" />
+        <feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
+        <feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
         <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" />
         <feature type="way" tags="highway-primary_link" widthFactor="1.5" color="ffE46D71" />
         <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" />
@@ -141,12 +143,12 @@
         <feature type="relation" tags="natural" color="88008800" >
             <feature type="relation" tags="natural=water" color="880000ff" />
         </feature>
-        <feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="MITER" pathPattern="border_right" >
+        <feature type="relation" tags="landuse" updateWidth="true" widthFactor="2.0" color="8871BE80" style="STROKE" cap="BUTT" join="BEVEL" pathPattern="border_right" >
             <feature type="relation" tags="landuse=construction" color="88996633" />
-            <feature type="relation" tags="landuse=residential" color="88888888" />
+            <feature type="relation" tags="landuse=residential" minVisibleZoom="10" color="88888888" />
             <feature type="relation" tags="landuse=quarry" color="88d8a2a2" />
             <feature type="relation" tags="landuse=military" color="88af2626" />
-            <feature type="relation" tags="landuse=forest" color="8800BE00" />
+            <feature type="relation" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" />
         </feature>
     </feature>
 </profile>
