@@ -2,32 +2,32 @@
 <profile name="Pen Round Nodes" format="0.2.0">
     <!-- Assorted config -->
     <config type="min_handle_length" length="200.0" />
-    <config type="icon_zoom_limit" length="15" />
+    <config type="icon_zoom_limit" zoom="15" />
     <!-- Vespucci internal styles -->
-    <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokewidth="0.0" />
-    <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="gps_accuracy" updateWidth="false" widthFactor="2.0" color="280000ff" style="FILL_AND_STROKE" cap="ROUND" join="ROUND" strokeWidth="0.0" />
+    <feature type="problem_node_thin" updateWidth="false" widthFactor="1.0" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
     <feature type="problem_way" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="STROKE" cap="BUTT" join="MITER" />
     <feature type="way_direction" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
     <feature type="handle" updateWidth="true" widthFactor="0.8" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" />
     <feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
-    <feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
-    <feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokewidth="20.0" />
+    <feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="20.0" />
+    <feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="20.0" />
     <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
-    <feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="2.0" />
-    <feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
-    <feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokewidth="20.0" />
-    <feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" typefacestyle="0" textsize="12.0" />
-    <feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokewidth="0.0" />
-    <feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokewidth="4.0" />
-    <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokewidth="4.0"/>
+    <feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0" />
+    <feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="20.0" />
+    <feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="20.0" />
+    <feature type="infotext" updateWidth="false" widthFactor="1.0" color="ff000000" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" typefacestyle="0" textsize="12.0" />
+    <feature type="viewbox" updateWidth="false" widthFactor="1.0" color="7d0f0f0f" style="FILL" cap="BUTT" join="MITER" strokeWidth="0.0" />
+    <feature type="gps_pos" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="FILL" cap="ROUND" join="ROUND" strokeWidth="4.0" />
+    <feature type="gps_pos_follow" updateWidth="false" widthFactor="2.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="4.0"/>
     <feature type="dontrender_way" dontrender="true" updateWidth="true" widthFactor="1.0" color="00ffffff" style="STROKE" cap="ROUND" join="ROUND" />
     <!-- OSM node based features currently internal features -->
     <feature type="node" updateWidth="true" widthFactor="1.0" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
     <feature type="node_tagged" updateWidth="true" widthFactor="1.5" color="ffb9121b" style="FILL" cap="ROUND" join="MITER" />
-    <feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="node_thin" updateWidth="false" widthFactor="1.0" color="ffb9121b" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
     <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
     <feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
-    <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokewidth="1.0" typefacestyle="0" textsize="12.0" />
+    <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
     <feature type="problem_node" updateWidth="true" widthFactor="1.0" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
     <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
     
