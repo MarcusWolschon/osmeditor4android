@@ -134,7 +134,7 @@ public class NodeTest {
         Assert.assertEquals(3465444349L, node.getOsmId());
         Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_nodeselect)));
 
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true);
+        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, true, 100);
 
         Assert.assertEquals(OsmElement.STATE_MODIFIED, node.getState());
 

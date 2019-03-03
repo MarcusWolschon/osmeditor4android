@@ -94,7 +94,7 @@ public class DragTest {
         }
 
         BoundingBox before = new BoundingBox(map.getViewBox());
-        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, false);
+        TestUtils.drag(map, 8.38782, 47.390339, 8.388, 47.391, false, 100);
         BoundingBox after = new BoundingBox(map.getViewBox());
 
         double diffLon = 8.38782 - 8.388;

@@ -143,4 +143,38 @@ public class WayTest {
             Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
         }
     }
+
+    /**
+     * Select, drag way handle, undo
+     */
+    @Test
+    public void geometryImprovement() {
+        map.getDataLayer().setVisible(true);
+        TestUtils.unlock();
+        TestUtils.zoomToLevel(main, 21);
+        TestUtils.clickAtCoordinates(map, 8.3893820, 47.3895626, true);
+        Assert.assertTrue(TestUtils.clickText(device, false, "Path", false));
+        Way way = App.getLogic().getSelectedWay();
+        List<Node> origWayNodes = new ArrayList<>(way.getNodes());
+        Assert.assertNotNull(way);
+        Assert.assertEquals(104148456L, way.getOsmId());
+        Assert.assertTrue(TestUtils.findText(device, false, context.getString(R.string.actionmode_wayselect)));
+
+        int originalNodeCount = App.getDelegator().getApiNodeCount();
+
+        // drag a handle
+        TestUtils.drag(map, 8.3893800, 47.389559, 8.38939, 47.389550, false, 10);
+        Assert.assertEquals(origWayNodes.size() + 1, way.getNodes().size());
+        Assert.assertEquals(originalNodeCount + 1, App.getDelegator().getApiNodeCount());
+
+        // undo
+        Assert.assertTrue(TestUtils.clickMenuButton(context.getString(R.string.undo), false, false));
+        Assert.assertEquals(OsmElement.STATE_UNCHANGED, way.getState());
+        List<Node> nodes = way.getNodes();
+        Assert.assertEquals(origWayNodes.size(), nodes.size());
+        for (int i = 0; i < nodes.size(); i++) {
+            Assert.assertEquals(origWayNodes.get(i), nodes.get(i));
+        }
+        Assert.assertEquals(originalNodeCount, App.getDelegator().getApiNodeCount());
+    }
 }

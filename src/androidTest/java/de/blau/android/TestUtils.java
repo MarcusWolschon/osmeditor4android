@@ -390,10 +390,11 @@ public class TestUtils {
      * @param startY start screen Y coordinate
      * @param endX end screen X coordinate
      * @param endY end screen Y coordinate
+     * @param steps number of 5ms steps
      */
-    public static void drag(float startX, float startY, float endX, float endY) {
+    public static void drag(float startX, float startY, float endX, float endY, int steps) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        device.swipe((int) startX, (int) startY, (int) endX, (int) endY, 100);
+        device.swipe((int) startX, (int) startY, (int) endX, (int) endY, steps);
     }
 
     /**
@@ -405,9 +406,10 @@ public class TestUtils {
      * @param endLon end lon WGS84 longitude
      * @param endLat end WGS84 latitude
      * @param recenter center the screen on the start location first if true
+     * @param steps number of 5ms steps
      */
-    public static void drag(Map map, double startLon, double startLat, double endLon, double endLat, boolean recenter) {
-        drag(map, (int) (startLon * 1E7), (int) (startLat * 1E7), (int) (endLon * 1E7), (int) (endLat * 1E7), recenter);
+    public static void drag(Map map, double startLon, double startLat, double endLon, double endLat, boolean recenter, int steps) {
+        drag(map, (int) (startLon * 1E7), (int) (startLat * 1E7), (int) (endLon * 1E7), (int) (endLat * 1E7), recenter, steps);
     }
 
     /**
@@ -419,8 +421,9 @@ public class TestUtils {
      * @param endLonE7 end lon WGS84*1E7 longitude
      * @param endLatE7 end WGS84*1E7 latitude
      * @param recenter center the screen on the start location first if true
+     * @param steps number of 5ms steps
      */
-    public static void drag(Map map, int startLonE7, int startLatE7, int endLonE7, int endLatE7, boolean recenter) {
+    public static void drag(Map map, int startLonE7, int startLatE7, int endLonE7, int endLatE7, boolean recenter, int steps) {
         if (recenter) {
             if (map.getZoomLevel() < 15) {
                 App.getLogic().setZoom(map, 15); // we want the coordinate to be somewhere in the middle of the screen
@@ -434,7 +437,7 @@ public class TestUtils {
         float endY = GeoMath.latE7ToY(map.getHeight(), map.getWidth(), map.getViewBox(), endLatE7);
         int[] outLocation = new int[2];
         map.getLocationOnScreen(outLocation);
-        TestUtils.drag(startX + outLocation[0], startY + outLocation[1], endX + outLocation[0], endY + outLocation[1]);
+        TestUtils.drag(startX + outLocation[0], startY + outLocation[1], endX + outLocation[0], endY + outLocation[1], steps);
     }
 
     /**
