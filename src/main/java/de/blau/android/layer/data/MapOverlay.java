@@ -23,6 +23,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pools.SimplePool;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
@@ -192,13 +193,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     /**
      * Stuff for multipolygon support Instantiate these objects just once
      */
-    List<RelationMember> waysOnly       = new ArrayList<>();
-    List<List<Node>>     outerRings     = new ArrayList<List<Node>>();
-    List<List<Node>>     innerRings     = new ArrayList<List<Node>>();
-    List<List<Node>>     unknownRings   = new ArrayList<List<Node>>();
-    List<Node>           ring           = new ArrayList<>();
-    List<Node>           nodes          = new ArrayList<>();
-    Set<Relation>        paintRelations = new HashSet<>();
+    List<RelationMember>        waysOnly       = new ArrayList<>();
+    List<ArrayList<Node>>       outerRings     = new ArrayList<ArrayList<Node>>();
+    List<ArrayList<Node>>       innerRings     = new ArrayList<ArrayList<Node>>();
+    List<ArrayList<Node>>       unknownRings   = new ArrayList<ArrayList<Node>>();
+    SimplePool<ArrayList<Node>> ringPool       = new SimplePool<ArrayList<Node>>(10);
+    List<Node>                  nodes          = new ArrayList<>();
+    Set<Relation>               paintRelations = new HashSet<>();
 
     @SuppressLint("NewApi")
     public MapOverlay(final Map map) {
@@ -506,7 +507,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         outerRings.clear();
         innerRings.clear();
         unknownRings.clear();
-        ring.clear();
+        ArrayList<Node> ring = getNewRing();
 
         int ms = members.size();
         String ringRole = "";
@@ -514,11 +515,12 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             ringRole = "";
             RelationMember current = members.get(i);
             Way currentWay = (Way) current.getElement();
-            if (current.getRole() != null && !"".equals(current.getRole()) && !INNER.equals(ringRole) && !OUTER.equals(ringRole)) {
-                ringRole = current.getRole();
+            String currentRole = current.getRole();
+            if (currentRole != null && !"".equals(currentRole) && "".equals(ringRole)) {
+                ringRole = currentRole;
             }
-            // a bit of a hack stop this way from being rendered as a way
-            if (!currentWay.hasTags() && !"".equals(ringRole)) { // && currentWay.getStyle() == null) {
+            // a bit of a hack stop this way from being rendered as a way if it doesn't have any tags
+            if (!currentWay.hasTags() && !"".equals(ringRole)) {
                 currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
             }
             nodes.clear();
@@ -538,19 +540,19 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             Way nextWay = (Way) next.getElement();
             Node lastRingNode = ring.get(ring.size() - 1);
             List<Node> nextNodes = nextWay.getNodes();
-            int ns_1 = nextNodes.size() - 1;
-            if (!nextNodes.get(0).equals(lastRingNode) && !nextNodes.get(ns_1).equals(lastRingNode)) {
+            int ns1 = nextNodes.size() - 1;
+            if (!nextNodes.get(0).equals(lastRingNode) && !nextNodes.get(ns1).equals(lastRingNode)) {
                 Node firstRingNode = ring.get(0);
-                if (nextNodes.get(0).equals(firstRingNode) || nextNodes.get(ns_1).equals(firstRingNode)) {
+                if (nextNodes.get(0).equals(firstRingNode) || nextNodes.get(ns1).equals(firstRingNode)) {
                     Collections.reverse(ring);
                     continue;
                 }
-                addRing(ringRole);
-                ring = new ArrayList<>();
+                addRing(ringRole, ring);
+                ring = getNewRing();
             }
         }
         if (!ring.isEmpty()) {
-            addRing(ringRole);
+            addRing(ringRole, ring);
         }
 
         path.reset();
@@ -561,11 +563,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         outerRings.addAll(innerRings);
         outerRings.addAll(unknownRings);
 
-        for (List<Node> r : outerRings) {
+        for (ArrayList<Node> r : outerRings) {
             map.pointListToLinePointsArray(points, r);
             float[] linePoints = points.getArray();
             int pointsSize = points.size();
-            Log.e(DEBUG_TAG, "Ring with " + pointsSize + " points");
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
@@ -573,6 +574,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             if (closeRings) {
                 path.close();
             }
+            ringPool.release(r);
         }
 
         path.setFillType(Path.FillType.EVEN_ODD);
@@ -580,11 +582,28 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
     }
 
     /**
+     * Get a new ring from the pool or instantiate one if the pool is empty
+     * 
+     * @return an ArrayList<Node>
+     */
+    @NonNull
+    private ArrayList<Node> getNewRing() {
+        ArrayList<Node> ring = ringPool.acquire();
+        if (ring == null) {
+            ring = new ArrayList<>();
+        } else {
+            ring.clear();
+        }
+        return ring;
+    }
+
+    /**
      * Add rings to the list depending on their role If the winding is wrong reverse the List
      * 
      * @param role the role of the the ring
+     * @param ring the ring
      */
-    private void addRing(@NonNull String role) {
+    private void addRing(@NonNull String role, @NonNull ArrayList<Node> ring) {
         switch (role) {
         case OUTER:
             if (!clockwise(ring)) {
