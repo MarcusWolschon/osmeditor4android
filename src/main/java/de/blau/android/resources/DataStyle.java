@@ -1120,27 +1120,33 @@ public final class DataStyle extends DefaultHandler {
                 }
             } else if (element.equals("config")) {
                 type = atts.getValue("type");
-                switch (type) {
-                case LARGE_DRAG_AREA:
-                    // special handling
-                    largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("touchRadius")));
-                    return;
-                case MARKER_SCALE:
-                    float scale = Float.parseFloat(atts.getValue("scale"));
-                    createOrientationPath(scale);
-                    createWayPointPath(scale);
-                    createCrosshairsPath(scale);
-                    createXPath(scale);
-                    return;
-                case MIN_HANDLE_LEN:
-                    String lenStr = atts.getValue("length");
-                    if (lenStr != null) {
-                        minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
-                    }
-                case ICON_ZOOM_LIMIT:
-                    String zoomStr = atts.getValue("zoom");
-                    if (zoomStr != null) {
-                        iconZoomLimit = Integer.parseInt(zoomStr);
+                if (type != null) {
+                    switch (type) {
+                    case LARGE_DRAG_AREA:
+                        // special handling
+                        largDragToleranceRadius = Density.dpToPx(ctx, Float.parseFloat(atts.getValue("touchRadius")));
+                        return;
+                    case MARKER_SCALE:
+                        float scale = Float.parseFloat(atts.getValue("scale"));
+                        createOrientationPath(scale);
+                        createWayPointPath(scale);
+                        createCrosshairsPath(scale);
+                        createXPath(scale);
+                        return;
+                    case MIN_HANDLE_LEN:
+                        String lenStr = atts.getValue("length");
+                        if (lenStr != null) {
+                            minLenForHandle = Density.dpToPx(ctx, Float.parseFloat(lenStr));
+                        }
+                        return;
+                    case ICON_ZOOM_LIMIT:
+                        String zoomStr = atts.getValue("zoom");
+                        if (zoomStr != null) {
+                            iconZoomLimit = Integer.parseInt(zoomStr);
+                        }
+                        return;
+                    default:
+                        Log.e(DEBUG_TAG, "unknown config type " + type);
                     }
                 }
             } else if (element.equals("feature")) {
