@@ -43,6 +43,7 @@ import de.blau.android.App;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.dialogs.Progress;
+import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Track;
@@ -62,8 +63,6 @@ import de.blau.android.validation.Validator;
 
 public class TrackerService extends Service implements Exportable {
 
-    private static final String TCPSERVER = "tcpserver";
-
     private static final float TRACK_LOCATION_MIN_ACCURACY = 200f;
 
     private static final String DEBUG_TAG = "TrackerService";
@@ -71,11 +70,11 @@ public class TrackerService extends Service implements Exportable {
     private static final int LOCATION_UPDATE   = 0;
     public static final int  CONNECTION_FAILED = 1;
 
-    private static final String AUTODOWNLOAD = "autodownload";
+    private static final String AUTODOWNLOAD_KEY = "autodownload";
 
-    private static final String BUGAUTODOWNLOAD = "bugautodownload";
+    private static final String BUGAUTODOWNLOAD_KEY = "bugautodownload";
 
-    private static final String TRACK = "track";
+    private static final String TRACK_KEY = "track";
 
     private final TrackerBinder mBinder = new TrackerBinder();
 
@@ -101,8 +100,6 @@ public class TrackerService extends Service implements Exportable {
 
     private Preferences prefs = null;
 
-    private Location nmeaLocation = new Location(NMEA);
-
     private Handler mHandler = null;
 
     private NmeaTcpClient tcpClient = null;
@@ -115,9 +112,12 @@ public class TrackerService extends Service implements Exportable {
 
     private GpsSource source = GpsSource.INTERNAL;
 
-    private static final String INTERNAL  = "internal";
-    private static final String NMEA      = "nmea";
-    private static final String TCPCLIENT = "tcpclient";
+    private String prefInternal;
+    private String prefNmea;
+    private String prefTcpClient;
+    private String prefTcpServer;
+
+    private Location nmeaLocation;
 
     private ConnectivityManager connectivityManager;
 
@@ -143,6 +143,11 @@ public class TrackerService extends Service implements Exportable {
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         prefs = new Preferences(this);
         validator = App.getDefaultValidator(this);
+        prefInternal = getString(R.string.gps_source_internal);
+        prefNmea = getString(R.string.gps_source_nmea);
+        prefTcpClient = getString(R.string.gps_source_tcpclient);
+        prefTcpServer = getString(R.string.gps_source_tcpserver);
+        nmeaLocation = new Location(prefNmea);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             oldNmeaListener = new OldNmeaListener();
@@ -166,11 +171,11 @@ public class TrackerService extends Service implements Exportable {
             return START_STICKY; // NOTE not clear how or if we should return an
                                  // error here
         }
-        if (intent.getBooleanExtra(TRACK, false)) {
+        if (intent.getBooleanExtra(TRACK_KEY, false)) {
             startTrackingInternal();
-        } else if (intent.getBooleanExtra(AUTODOWNLOAD, false)) {
+        } else if (intent.getBooleanExtra(AUTODOWNLOAD_KEY, false)) {
             startAutoDownloadInternal();
-        } else if (intent.getBooleanExtra(BUGAUTODOWNLOAD, false)) {
+        } else if (intent.getBooleanExtra(BUGAUTODOWNLOAD_KEY, false)) {
             startBugAutoDownloadInternal();
         } else {
             Log.d(DEBUG_TAG, "Received intent with unknown meaning");
@@ -186,7 +191,7 @@ public class TrackerService extends Service implements Exportable {
      */
     public void startTracking() {
         Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(TRACK, true);
+        intent.putExtra(TRACK_KEY, true);
         startService(intent);
     }
 
@@ -197,7 +202,7 @@ public class TrackerService extends Service implements Exportable {
      */
     public void startAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(AUTODOWNLOAD, true);
+        intent.putExtra(AUTODOWNLOAD_KEY, true);
         startService(intent);
     }
 
@@ -208,7 +213,7 @@ public class TrackerService extends Service implements Exportable {
      */
     public void startBugAutoDownload() {
         Intent intent = new Intent(this, TrackerService.class);
-        intent.putExtra(BUGAUTODOWNLOAD, true);
+        intent.putExtra(BUGAUTODOWNLOAD_KEY, true);
         startService(intent);
     }
 
@@ -333,8 +338,8 @@ public class TrackerService extends Service implements Exportable {
     }
 
     /**
-     * Halt the service if we are not doing anything important
-     * aka we are not recording a track or autodownloading something
+     * Halt the service if we are not doing anything important aka we are not recording a track or autodownloading
+     * something
      */
     private void stop() {
         if (!tracking && !downloading && !downloadingBugs) {
@@ -421,7 +426,7 @@ public class TrackerService extends Service implements Exportable {
     }
 
     public class TrackerBinder extends Binder {
-        
+
         /**
          * Get this instance of the TrackerService
          * 
@@ -433,31 +438,33 @@ public class TrackerService extends Service implements Exportable {
     }
 
     LocationListener gpsListener = new LocationListener() {
+        @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
                 return; // ignore updates from device
             }
 
             // Only use GPS provided locations for generating tracks
-            if (tracking) {
-                if (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY) {
-                    track.addTrackPoint(location);
-                }
+            if (tracking && (!location.hasAccuracy() || location.getAccuracy() <= TRACK_LOCATION_MIN_ACCURACY)) {
+                track.addTrackPoint(location);
             }
-            if (lastLocation != null) {
-                if (LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
-                    Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
-                }
+            if (lastLocation != null && LocationManager.NETWORK_PROVIDER.equals(lastLocation.getProvider())) {
+                Snack.toastTopInfo(TrackerService.this, R.string.toast_using_gps_location);
             }
             updateLocation(location);
         }
 
+        @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
+            // unused
         }
 
+        @Override
         public void onProviderEnabled(String provider) {
+            // unused
         }
 
+        @Override
         public void onProviderDisabled(String provider) {
             if (tracking) {
                 stopTracking(false);
@@ -468,6 +475,7 @@ public class TrackerService extends Service implements Exportable {
 
     @SuppressWarnings("NewApi")
     LocationListener networkListener = new LocationListener() {
+        @Override
         public void onLocationChanged(Location location) {
             if (source != GpsSource.INTERNAL) {
                 return; // ignore updates from device
@@ -490,13 +498,19 @@ public class TrackerService extends Service implements Exportable {
             updateLocation(location);
         }
 
+        @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
+            // unused
         }
 
+        @Override
         public void onProviderEnabled(String provider) {
+            // unused
         }
 
+        @Override
         public void onProviderDisabled(String provider) {
+            // unused
         }
     };
 
@@ -522,7 +536,7 @@ public class TrackerService extends Service implements Exportable {
         boolean needed = listenerNeedsGPS || tracking || downloading || downloadingBugs;
         if (needed && !gpsEnabled) {
             Log.d(DEBUG_TAG, "Enabling GPS updates");
-            Preferences prefs = new Preferences(this);
+            prefs = new Preferences(this);
             nmeaLocation.removeSpeed(); // be sure that these are not set
             nmeaLocation.removeBearing();
             try {
@@ -536,7 +550,8 @@ public class TrackerService extends Service implements Exportable {
                     gpsListener.onLocationChanged(last);
                 }
             } catch (SecurityException | IllegalArgumentException ex) {
-            } // Ignore
+                // Ignore
+            }
             try {
                 // used to pass updates to UI thread
                 mHandler = new Handler(Looper.getMainLooper()) {
@@ -550,12 +565,15 @@ public class TrackerService extends Service implements Exportable {
                         case CONNECTION_FAILED:
                             Snack.toastTopError(TrackerService.this, (String) inputMessage.obj);
                             break;
+                        default:
+                            // ignore
                         }
                     }
                 };
-                if (prefs.getGpsSource().equals(TCPCLIENT) || prefs.getGpsSource().equals(TCPSERVER)) {
+                boolean useTcpClient = prefs.getGpsSource().equals(prefTcpClient);
+                if (useTcpClient || prefs.getGpsSource().equals(prefTcpServer)) {
                     source = GpsSource.TCP;
-                    if (prefs.getGpsSource().equals(TCPCLIENT) && tcpClient == null) {
+                    if (useTcpClient && tcpClient == null) {
                         tcpClient = new NmeaTcpClient(prefs.getGpsTcpSource(), oldNmeaListener, mHandler);
                         Thread t = new Thread(null, tcpClient, "TcpClient");
                         t.start();
@@ -564,27 +582,30 @@ public class TrackerService extends Service implements Exportable {
                         Thread t = new Thread(null, tcpServer, "TcpClientServer");
                         t.start();
                     }
-                } else if (prefs.getGpsSource().equals(NMEA) || prefs.getGpsSource().equals(INTERNAL)) {
-                    source = GpsSource.INTERNAL;
-                    staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
-                    staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
-                    if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
-                        // internal NMEA resource only works if normal updates are turned on
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
-                        if (prefs.getGpsSource().equals(NMEA)) {
-                            source = GpsSource.NMEA;
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                                locationManager.addNmeaListener(oldNmeaListener);
-                            } else {
-                                locationManager.addNmeaListener(newNmeaListener);
+                } else {
+                    boolean useNema = prefs.getGpsSource().equals(prefNmea);
+                    if (useNema || prefs.getGpsSource().equals(prefInternal)) {
+                        source = GpsSource.INTERNAL;
+                        staleGPSMilli = prefs.getGpsInterval() * 20L; // 20 times the intended interval
+                        staleGPSNano = staleGPSMilli * 1000; // convert to nanoseconds
+                        if (locationManager.getProvider(LocationManager.GPS_PROVIDER) != null) { // just
+                            // internal NMEA resource only works if normal updates are turned on
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(), gpsListener);
+                            if (useNema) {
+                                source = GpsSource.NMEA;
+                                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                                    locationManager.addNmeaListener(oldNmeaListener); // NOSONAR
+                                } else {
+                                    locationManager.addNmeaListener(newNmeaListener);
+                                }
                             }
                         }
-                    }
-                    if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null && prefs.isNetworkLocationFallbackAllowed()) {
-                        // if the network provider is available listen there
-                        Log.d(DEBUG_TAG, "Listening for NETWORK_PROVIDER");
-                        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(),
-                                networkListener);
+                        if (locationManager.getProvider(LocationManager.NETWORK_PROVIDER) != null && prefs.isNetworkLocationFallbackAllowed()) {
+                            // if the network provider is available listen there
+                            Log.d(DEBUG_TAG, "Listening for NETWORK_PROVIDER");
+                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, prefs.getGpsInterval(), prefs.getGpsDistance(),
+                                    networkListener);
+                        }
                     }
                 }
                 gpsEnabled = true;
@@ -606,7 +627,7 @@ public class TrackerService extends Service implements Exportable {
                 // can be safely ignored
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                locationManager.removeNmeaListener(oldNmeaListener);
+                locationManager.removeNmeaListener(oldNmeaListener); // NOSONAR
             } else {
                 locationManager.removeNmeaListener(newNmeaListener);
             }
@@ -651,8 +672,8 @@ public class TrackerService extends Service implements Exportable {
 
         new AsyncTask<Void, Void, Integer>() {
 
-            final int FILENOTFOUND = -1;
-            final int OK           = 0;
+            static final int FILENOTFOUND = -1;
+            static final int OK           = 0;
 
             @Override
             protected void onPreExecute() {
@@ -725,7 +746,7 @@ public class TrackerService extends Service implements Exportable {
      */
     enum GnssSystem {
         NONE, // pre-fix
-        BEIDOU, GLONASS, GPS, MULTIPLE
+        BEIDOU, GLONASS, GPS, GALILEO, MULTIPLE
     }
 
     private GnssSystem system = GnssSystem.NONE;
@@ -755,12 +776,11 @@ public class TrackerService extends Service implements Exportable {
                         double lon = Double.NaN;
                         // double hdop = Double.NaN; currently unused
                         double height = Double.NaN;
-
-                        if (s.equals("GNS")) {
-                            String[] values = withoutChecksum.split(",", -12); // java
-                                                                               // magic
-                            if (values.length == 13) {
-                                try {
+                        try {
+                            if (s.equals("GNS")) {
+                                String[] values = withoutChecksum.split(",", -12); // java
+                                                                                   // magic
+                                if (values.length == 13) {
                                     String value6 = values[6].toUpperCase(Locale.US);
                                     if ((!value6.startsWith("NN") || !value6.equals("N")) && Integer.parseInt(values[7]) >= 4) {
                                         // at least one "good" system needs a
@@ -771,19 +791,13 @@ public class TrackerService extends Service implements Exportable {
                                         height = Double.parseDouble(values[9]);
                                         posUpdate = true;
                                     }
-                                } catch (NumberFormatException e) {
-                                    Log.d("TrackerService", "Invalid number format in " + sentence);
-                                    return;
+                                } else {
+                                    throw new UnsupportedFormatException(Integer.toString(values.length));
                                 }
-                            } else {
-                                Log.d("TrackerService", "Invalid number " + values.length + " of values " + sentence);
-                                return;
-                            }
-                        } else if (s.equals("GGA")) {
-                            String[] values = withoutChecksum.split(",", -14); // java
-                                                                               // magic
-                            if (values.length == 15) {
-                                try {
+                            } else if (s.equals("GGA")) {
+                                String[] values = withoutChecksum.split(",", -14); // java
+                                                                                   // magic
+                                if (values.length == 15) {
                                     // we need a fix
                                     if (!values[6].equals("0") && Integer.parseInt(values[7]) >= 4) {
                                         lat = nmeaLatToDecimal(values[2]) * (values[3].equalsIgnoreCase("N") ? 1 : -1);
@@ -792,43 +806,37 @@ public class TrackerService extends Service implements Exportable {
                                         height = Double.parseDouble(values[9]);
                                         posUpdate = true;
                                     }
-                                } catch (NumberFormatException e) {
-                                    Log.d("TrackerService", "Invalid number format in " + sentence);
-                                    return;
+                                } else {
+                                    throw new UnsupportedFormatException(Integer.toString(values.length));
                                 }
-                            } else {
-                                Log.d("TrackerService", "Invalid number " + values.length + " of values " + sentence);
-                                return;
-                            }
-                        } else if (s.equals("VTG")) {
-                            String[] values = withoutChecksum.split(",", -11); // java
-                                                                               // magic
-                            if (values.length == 12) {
-                                try {
+                            } else if (s.equals("VTG")) {
+                                String[] values = withoutChecksum.split(",", -11); // java
+                                                                                   // magic
+                                if (values.length == 12) {
                                     if (!values[9].toUpperCase(Locale.US).startsWith("N")) {
                                         double course = Double.parseDouble(values[1]);
                                         nmeaLocation.setBearing((float) course);
                                         double speed = Double.parseDouble(values[7]);
                                         nmeaLocation.setSpeed((float) (speed / 3.6D));
                                     }
-                                } catch (NumberFormatException e) {
-                                    Log.d("TrackerService", "Invalid number format in " + sentence);
-                                    return;
+                                } else {
+                                    throw new UnsupportedFormatException(Integer.toString(values.length));
                                 }
                             } else {
-                                Log.d("TrackerService", "Invalid number " + values.length + " of values " + sentence);
+                                // unsupported sentence
                                 return;
                             }
-                        } else {
-                            // unsupported sentence
+                        } catch (NumberFormatException e) {
+                            Log.d(DEBUG_TAG, "Invalid number format in " + sentence);
+                            return;
+                        } catch (UnsupportedFormatException e) {
+                            Log.d(DEBUG_TAG, "Invalid number " + e.getMessage() + " of values in " + sentence);
                             return;
                         }
-                        // Log.d("TrackerService","Got from NMEA " + lat + " " +
-                        // lon + " " + hdop + " " + height);
                         // the following assumes that the behaviour of the GPS
                         // receiver will not change
-                        // and assume multiple systems are better than GPS which
-                        // in turn is better the GLONASS ... this
+                        // and that multiple systems are better than GPS which
+                        // in turn is better than GLONASS ... this
                         // naturally may not be really true
                         if (system == GnssSystem.NONE) { // take whatever we get
                             switch (talker) {
@@ -841,6 +849,8 @@ public class TrackerService extends Service implements Exportable {
                             case "GN":
                                 system = GnssSystem.MULTIPLE;
                                 break;
+                            case "BD": // Beidou
+                            case "GA": // Galileo
                             default:
                                 // new system we don't know about? BEIDOU
                                 // probably best ignored for now
@@ -872,7 +882,6 @@ public class TrackerService extends Service implements Exportable {
                             // can't call something on the UI thread directly
                             // need to send a message
                             Message newLocation = mHandler.obtainMessage(LOCATION_UPDATE, nmeaLocation);
-                            // Log.d("TrackerService","Update " + l);
                             newLocation.sendToTarget();
                             if (tracking) {
                                 track.addTrackPoint(nmeaLocation);
@@ -889,14 +898,9 @@ public class TrackerService extends Service implements Exportable {
                             }
                             lastLocation = nmeaLocation;
                         }
-                        return;
                     }
-                    // Log.d(TAG,"Checksum failed " + sentence);
                 }
-                // Log.d(TAG,"Misformed sentence " + sentence + " star " + star
-                // + " length " + sentence.length());
             }
-            // Log.d(TAG,"Misformed sentence " + sentence);
         } catch (Exception e) {
             Log.e(DEBUG_TAG, "NMEA sentance " + sentence + " caused exception " + e);
             ACRAHelper.nocrashReport(e, e.getMessage());
@@ -932,8 +936,8 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Tiled based download of OSM data
      * 
-     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, 
-     * the origin of the tiles is where ever we started off at.
+     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, the
+     * origin of the tiles is where ever we started off at.
      * 
      * @param location the current Location
      * @param validator a Validator to use for any new data
@@ -971,8 +975,8 @@ public class TrackerService extends Service implements Exportable {
      * Check if the supplied coordinates are in one of the BoundingBoxes
      * 
      * @param bbs a List of BoundingBox
-     * @param lonE7 longitude in WGS84*10E7 
-     * @param latE7 latitude in WGS84*10E7 
+     * @param lonE7 longitude in WGS84*10E7
+     * @param latE7 latitude in WGS84*10E7
      * @return true if one of the BoundingBoxes cover the coordinate
      */
     private boolean bbLoaded(@NonNull List<BoundingBox> bbs, int lonE7, int latE7) {
@@ -1045,8 +1049,8 @@ public class TrackerService extends Service implements Exportable {
     /**
      * Tiled based download of task data
      * 
-     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, 
-     * the origin of the tiles is where ever we started off at.
+     * This downloads a tile, or the the missing bits of (2*download radius)^2 size when we are in it or near it, the
+     * origin of the tiles is where ever we started off at.
      * 
      * @param location the current Location
      */
@@ -1116,7 +1120,7 @@ public class TrackerService extends Service implements Exportable {
     }
 
     @SuppressWarnings("deprecation")
-    class OldNmeaListener implements NmeaListener {
+    class OldNmeaListener implements NmeaListener { // NOSONAR
         @Override
         public void onNmeaReceived(long timestamp, String nmea) {
             processNmeaSentance(nmea);

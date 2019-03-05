@@ -90,11 +90,15 @@
     <string name="config_gps_interval_key">intervalInt</string>  
     <string name="config_gps_network_key">gpsNetwork</string>
 
+    <string name="gps_source_internal">internal</string>
+    <string name="gps_source_nmea">nmea</string>
+    <string name="gps_source_tcpclient">tcpclient</string>
+    <string name="gps_source_tcpserver">tcpserver</string>
     <string-array name="gps_source_keys">
-	<item>internal</item>
-	<item>nmea</item>
-	<item>tcpclient</item>
-	<item>tcpserver</item>
+	   <item>@string/gps_source_internal</item>
+	   <item>@string/gps_source_nmea</item>
+	   <item>@string/gps_source_tcpclient</item>
+	   <item>@string/gps_source_tcpserver</item>
 	</string-array>
 	<string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
 </resources>
