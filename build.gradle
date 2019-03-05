@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.kordamp:markdown-gradle-plugin:1.4.0'
+        classpath 'org.kordamp:markdown-gradle-plugin:1.4.1'
         classpath 'org.jacoco:org.jacoco.core:0.8.3'
         // classpath 'com.trickyandroid:jacoco-everywhere:0.2.1'
         classpath "ch.poole:preset-utils:0.8.1"
@@ -54,7 +54,6 @@ apply plugin: 'com.getkeepsafe.dexcount'
 ext {
     adb = android.getAdbExe().toString()
 }
-
 
 eclipse.project {
     natures 'org.eclipse.buildship.core.gradleprojectnature'
