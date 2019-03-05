@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -57,6 +58,12 @@ import de.blau.android.util.GeoMath;
  * @author mb
  */
 public class BoxPicker extends BugFixedAppCompatActivity implements LocationListener, SearchItemSelectedCallback {
+
+    private static final int MINUTE_SECONDS = 60;
+
+    private static final int HOUR_SECONDS = 3600;
+
+    private static final int DAY_SECONDS = 24 * 3600;
 
     /**
      * Tag used for Android-logging.
@@ -111,6 +118,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     EditText latEdit;
     EditText lonEdit;
 
+    /**
+     * Start this activity
+     * 
+     * @param activity the calling Activity
+     * @param titleResId resources id for the title
+     * @param requestCode request code for the result
+     */
     public static void startForResult(@NonNull Activity activity, int titleResId, int requestCode) {
         Log.d(DEBUG_TAG, "startForResult");
         Intent intent = new Intent(activity, BoxPicker.class);
@@ -141,13 +155,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         setContentView(R.layout.location_picker_view);
 
         // Load Views
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
-        loadMapButton = (Button) findViewById(R.id.location_button_current);
-        Button dontLoadMapButton = ((Button) findViewById(R.id.location_button_no_location));
-        latEdit = (EditText) findViewById(R.id.location_lat_edit);
-        lonEdit = (EditText) findViewById(R.id.location_lon_edit);
-        EditText searchEdit = (EditText) findViewById(R.id.location_search_edit);
-        SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
+        RadioGroup radioGroup = findViewById(R.id.location_type_group);
+        loadMapButton = findViewById(R.id.location_button_current);
+        Button dontLoadMapButton = findViewById(R.id.location_button_no_location);
+        latEdit = findViewById(R.id.location_lat_edit);
+        lonEdit = findViewById(R.id.location_lon_edit);
+        EditText searchEdit = findViewById(R.id.location_search_edit);
+        SeekBar seeker = findViewById(R.id.location_radius_seeker);
 
         currentRadius = seeker.getProgress();
 
@@ -158,8 +172,8 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         loadMapButton.setOnClickListener(onClickListener);
         dontLoadMapButton.setOnClickListener(onClickListener);
 
-        // FIXME the following shares a lot of code with SearchForm, but is unluckily slightly different
-        final Spinner searchGeocoder = (Spinner) findViewById(R.id.location_search_geocoder);
+        // the following shares a lot of code with SearchForm, but is unluckily slightly different
+        final Spinner searchGeocoder = findViewById(R.id.location_search_geocoder);
         AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
         final Geocoder[] geocoders = db.getActiveGeocoders();
         String[] geocoderNames = new String[geocoders.length];
@@ -208,9 +222,9 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
     @Override
     public void onItemSelected(SearchResult sr) {
-        RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
+        RadioButton rb = findViewById(R.id.location_coordinates);
         rb.setChecked(true); // note potential race condition with setting the lat/lon
-        LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
+        LinearLayout coordinateView = findViewById(R.id.location_coordinates_layout);
         coordinateView.setVisibility(View.VISIBLE);
         loadMapButton.setEnabled(true);
         latEdit.setText(Double.toString(sr.getLat()));
@@ -239,8 +253,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
@@ -283,27 +296,38 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      */
     private OnCheckedChangeListener createRadioGroupListener(final Button loadMapButton, final EditText latEdit, final EditText lonEdit) {
         return new OnCheckedChangeListener() {
+
+            /**
+             * Set the EditTexts to the coordinates of a Location
+             * 
+             * @param location the Location
+             * @param latEdit latitude EditText
+             * @param lonEdit longitude EditText
+             */
+            private void setmanualCoordinates(@NonNull Location location, @NonNull final EditText latEdit, @NonNull final EditText lonEdit) {
+                latEdit.setText(String.format("%4g", location.getLatitude()));
+                lonEdit.setText(String.format("%4g", location.getLongitude()));
+            }
+
             @Override
             public void onCheckedChanged(final RadioGroup group, final int checkedId) {
-                LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
+                LinearLayout coordinateView = findViewById(R.id.location_coordinates_layout);
                 loadMapButton.setEnabled(true);
-                // dontLoadMapButton.setEnabled(true);
                 if (checkedId == R.id.location_coordinates) {
                     coordinateView.setVisibility(View.VISIBLE);
                     // don't overwrite existing values...
                     if (latEdit.getText().length() == 0 && lonEdit.getText().length() == 0) {
                         if (currentLocation != null) {
-                            latEdit.setText(Double.toString(currentLocation.getLatitude()));
-                            lonEdit.setText(Double.toString(currentLocation.getLongitude()));
+                            setmanualCoordinates(currentLocation, latEdit, lonEdit);
                         } else if (lastLocation != null) {
-                            latEdit.setText(Double.toString(lastLocation.getLatitude()));
-                            lonEdit.setText(Double.toString(lastLocation.getLongitude()));
+                            setmanualCoordinates(lastLocation, latEdit, lonEdit);
                         }
                     }
                 } else {
                     coordinateView.setVisibility(View.GONE);
                 }
             }
+
         };
     }
 
@@ -321,7 +345,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
                     progress = MIN_WIDTH;
                 }
                 currentRadius = progress;
-                TextView radiusText = (TextView) findViewById(R.id.location_radius_text);
+                TextView radiusText = findViewById(R.id.location_radius_text);
                 radiusText.setText(getString(R.string.location_radius, progress));
             }
 
@@ -340,12 +364,12 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     /**
      * Reads the manual coordinate EditTexts and registers the button listeners.
      * 
-     * @param radioGroup
+     * @param radioGroup the RadioGroup with the buttons
      * @param latEdit Manual Latitude EditText.
      * @param lonEdit Manual Longitude EditText.
      * @return the OnClickListener
      */
-    private OnClickListener createButtonListener(final RadioGroup radioGroup, final EditText latEdit, final EditText lonEdit) {
+    private OnClickListener createButtonListener(@NonNull final RadioGroup radioGroup, @NonNull final EditText latEdit, @NonNull final EditText lonEdit) {
         return new OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -369,16 +393,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     private void performClick(final int buttonId, final int checkedRadioButtonId, final String lat, final String lon) {
         BoundingBox box = null;
         int resultState = (buttonId == R.id.location_button_current) ? RESULT_OK : RESULT_CANCELED;
-        // return bbox even if cancelled
-        // if (resultState == RESULT_CANCELED)
-        // finish();
 
-        switch (checkedRadioButtonId) {
+        switch (checkedRadioButtonId) { // NOSONAR
         case R.id.location_current:
-            box = createBoxForCurrentLocation();
+            box = createBoxForLocation(currentLocation);
             break;
         case R.id.location_last:
-            box = createBoxForLastLocation();
+            box = createBoxForLocation(lastLocation);
             break;
         case R.id.location_coordinates:
             box = createBoxForManualLocation(lat, lon);
@@ -393,30 +414,16 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
     }
 
     /**
+     * Create a bounding box for a Location
+     * 
+     * @param location the Location that we want to create a BoundingBox around
      * @return {@link BoundingBox} for {@link #currentLocation} and {@link #currentRadius}
      */
-    private BoundingBox createBoxForCurrentLocation() {
+    private BoundingBox createBoxForLocation(@NonNull Location location) {
         BoundingBox box = null;
         if (currentLocation != null) {
             try {
-                box = GeoMath.createBoundingBoxForCoordinates(currentLocation.getLatitude(), currentLocation.getLongitude(), currentRadius, true);
-            } catch (OsmException e) {
-                ACRAHelper.nocrashReport(e, e.getMessage());
-            }
-        } else {
-            ACRA.getErrorReporter().handleException(null);
-        }
-        return box;
-    }
-
-    /**
-     * @return {@link BoundingBox} for {@link #lastLocation} and {@link #currentRadius}
-     */
-    private BoundingBox createBoxForLastLocation() {
-        BoundingBox box = null;
-        if (lastLocation != null) {
-            try {
-                box = GeoMath.createBoundingBoxForCoordinates(lastLocation.getLatitude(), lastLocation.getLongitude(), currentRadius, true);
+                box = GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), currentRadius, true);
             } catch (OsmException e) {
                 ACRAHelper.nocrashReport(e, e.getMessage());
             }
@@ -433,7 +440,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * @param lon manual longitude
      * @return {@link BoundingBox} for lat, lon and {@link #currentRadius}
      */
-    private BoundingBox createBoxForManualLocation(final String lat, final String lon) {
+    private BoundingBox createBoxForManualLocation(@NonNull final String lat, @NonNull final String lon) {
         BoundingBox box = null;
         try {
             float userLat = Float.parseFloat(lat);
@@ -484,45 +491,56 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * @param buttonId The resource ID of the radio button.
      * @param textId The resource ID of the button text.
      * @param location The location data to update the button text (may be null).
-     * @param lastLocation TODO
+     * @param lastLocation The last location
      */
-    private void setLocationRadioButton(final int buttonId, final int textId, final Location location, Location lastLocation) {
+    private void setLocationRadioButton(final int buttonId, final int textId, @Nullable final Location location, @Nullable Location lastLocation) {
         String locationMetaData = getString(R.string.location_text_unknown);
         if (location != null) {
-            String accuracyMetaData = "";
             double lat = location.getLatitude();
             double lon = location.getLongitude();
-            accuracyMetaData = " (";
 
+            String locationString = "";
             if (location.hasAccuracy()) {
-                accuracyMetaData += getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
+                locationString = getString(R.string.location_text_metadata_accuracy, location.getAccuracy());
             }
-            accuracyMetaData += " " + location.getProvider() + ")";
+            String accuracyMetaData = getString(R.string.location_text_metadata, locationString, location.getProvider());
+
             long fixTime = Math.max(0, (System.currentTimeMillis() - location.getTime()) / 1000);
-            // TODO slightly hackish, should be localized correctly
+            // slightly hackish
             String fixString = "";
-            if (fixTime > 24 * 3600) {
-                fixString = fixTime / (24 * 3600) + " " + getString(R.string.days);
-            } else if (fixTime > 3600) {
-                fixString = fixTime / 3600 + " " + getString(R.string.hours);
-            } else if (fixTime > 60) {
-                fixString = fixTime / 60 + " " + getString(R.string.minutes);
-            } else {
-                fixString = fixTime + " " + getString(R.string.seconds);
+            if (fixTime > DAY_SECONDS) {
+                fixString = getQuantityString(R.plurals.days, (int) (fixTime / DAY_SECONDS));
+            } else if (fixTime > HOUR_SECONDS) {
+                fixString = getQuantityString(R.plurals.hours, (int) (fixTime / HOUR_SECONDS));
+            } else if (fixTime > MINUTE_SECONDS) {
+                fixString = getQuantityString(R.plurals.minutes, (int) (fixTime / MINUTE_SECONDS));
+            } else if (fixTime >= 0) {
+                fixString = getQuantityString(R.plurals.seconds, (int) fixTime);
             }
             if (lastLocation != null && currentLocation != null) { // add distance from old location
                 int fixDistance = Math.round(lastLocation.distanceTo(currentLocation));
                 if (fixDistance > 1000) {
-                    fixString = Math.round(fixDistance / 1000.0) + " " + getString(R.string.km) + " " + fixString;
-                } else {
-                    fixString = fixDistance + " " + getString(R.string.meter) + " " + fixString;
+                    fixString = getQuantityString(R.plurals.km, (int) Math.round(fixDistance / 1000.0)) + " " + fixString;
+                } else if (fixDistance >= 0) {
+                    fixString = getQuantityString(R.plurals.meters, fixDistance) + " " + fixString;
                 }
             }
             locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData, fixString);
         }
-        RadioButton rb = (RadioButton) findViewById(buttonId);
+        RadioButton rb = findViewById(buttonId);
         rb.setEnabled(location != null);
         rb.setText(getString(textId, locationMetaData));
+    }
+
+    /**
+     * Get a quantity string from resources
+     * 
+     * @param res the plurals resources id
+     * @param number the number to display
+     * @return a String with the correct plural and placeholder replaced
+     */
+    String getQuantityString(int res, int number) {
+        return getResources().getQuantityString(res, number, number);
     }
 
     /**

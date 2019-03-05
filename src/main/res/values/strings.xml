@@ -479,7 +479,8 @@
     <string name="location_last_text_parameterized">Last known location: %1$s</string>
     <string name="location_current_text_parameterized">Current location: %1$s</string>
     <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
-    <string name="location_text_metadata_accuracy">Accuracy %1$2.0f meter,</string>
+    <string name="location_text_metadata_accuracy">Accuracy %1$2.0f meter,&#160;</string>
+    <string name="location_text_metadata">(%1$s%2$s)</string>
     <string name="location_coordinates_text">From coordinates:</string>
     <string name="location_lat_label">Lat:</string>
     <string name="location_lon_label">Lon:</string>
@@ -940,12 +941,30 @@
     <string name="delete_from_relation_description">You are about to delete this element from a relation.</string>
     <string name="unset_relation_type">Unset relation type</string>
     <!-- time and distance -->
-    <string name="days">days</string>
-    <string name="hours">hours</string>
-    <string name="minutes">minutes</string>
-    <string name="seconds">seconds</string>
-    <string name="km">km</string>
-    <string name="meter">meter</string>
+    <plurals name="days">
+        <item quantity="one">1 day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">1 hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="seconds">
+        <item quantity="one">1 second</item>
+        <item quantity="other">%1$d seconds</item>
+    </plurals>
+    <plurals name="km">
+        <item quantity="one">1 km</item>
+        <item quantity="other">%1$d km</item>
+    </plurals>
+    <plurals name="meters">
+        <item quantity="one">1 meter</item>
+        <item quantity="other">%1$d meters</item>
+    </plurals>
     <!-- Help system -->
     <string name="toast_nohelp">No help here.</string>
     <!-- Arrays -->

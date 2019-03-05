@@ -40,6 +40,9 @@ public class DragTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -69,6 +72,9 @@ public class DragTest {
         }
     }
 
+    /**
+     * Post-test teardown
+     */
     @After
     public void teardown() {
         logic.deselectAll();
@@ -100,9 +106,9 @@ public class DragTest {
         double diffLon = 8.38782 - 8.388;
         double diffLat = 47.390339 - 47.391;
 
-        Assert.assertEquals(diffLon, (after.getLeft() - before.getLeft()) / 1E7D, 0.00001);
-        Assert.assertEquals(diffLon, (after.getRight() - before.getRight()) / 1E7D, 0.00001);
-        Assert.assertEquals(diffLat, (after.getBottom() - before.getBottom()) / 1E7D, 0.00001);
-        Assert.assertEquals(diffLat, (after.getTop() - before.getTop()) / 1E7D, 0.00001);
+        Assert.assertEquals(diffLon, (after.getLeft() - before.getLeft()) / 1E7D, 0.00002);
+        Assert.assertEquals(diffLon, (after.getRight() - before.getRight()) / 1E7D, 0.00002);
+        Assert.assertEquals(diffLat, (after.getBottom() - before.getBottom()) / 1E7D, 0.00002);
+        Assert.assertEquals(diffLat, (after.getTop() - before.getTop()) / 1E7D, 0.00002);
     }
 }
