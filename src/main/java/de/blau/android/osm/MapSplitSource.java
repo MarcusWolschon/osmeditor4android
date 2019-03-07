@@ -10,7 +10,7 @@ import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
 
 public final class MapSplitSource {
-    
+
     /**
      * Private constructor
      */
@@ -71,7 +71,7 @@ public final class MapSplitSource {
                     // assumption there will only always be one tile that
                     // covers an area
                     int skipped = 2;
-                    while (mapTile.zoomLevel < minZoom) {
+                    while (mapTile.zoomLevel > minZoom) {
                         mapTile.x >>= 1;
                         mapTile.y >>= 1;
                         --mapTile.zoomLevel;
