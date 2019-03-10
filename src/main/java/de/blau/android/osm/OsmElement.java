@@ -682,11 +682,19 @@ public abstract class OsmElement implements Serializable, XmlSerializable, JosmX
     }
 
     /**
-     * Call if you want to disable validation
-     * call {@link #resetHasProblem()} to re-enable
+     * Call if you want to disable validation call {@link #resetHasProblem()} to re-enable
      */
     public void dontValidate() {
         cachedProblems = Validator.OK;
+    }
+
+    /**
+     * Set the problem value
+     * 
+     * @param problem the int to set
+     */
+    public void setProblem(int problem) {
+        cachedProblems = problem;
     }
 
     /**

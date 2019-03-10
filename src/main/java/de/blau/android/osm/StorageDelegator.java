@@ -250,7 +250,13 @@ public class StorageDelegator implements Serializable, Exportable {
             }
             if (nodeMoved) {
                 for (Way w : currentStorage.getWays()) {
-                    w.invalidateBoundingBox();
+                    for (OsmElement e : post) {
+                        if (e instanceof Node && w.hasNode((Node) e)) {
+                            w.invalidateBoundingBox();
+                            w.resetHasProblem();
+                            break; // only do this once per way
+                        }
+                    }
                 }
             }
         }

@@ -15,6 +15,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
@@ -29,17 +30,17 @@ import de.blau.android.util.collections.MultiHashMap;
 public class BaseValidator implements Validator {
     private static final String DEBUG_TAG = BaseValidator.class.getSimpleName();
 
-    Preset[] presets;
+    private Preset[] presets;
 
     /**
      * Tags for objects that should be re-surveyed regularly.
      */
-    MultiHashMap<String, PatternAndAge> resurveyTags;
+    private MultiHashMap<String, PatternAndAge> resurveyTags;
 
     /**
      * Tags that should be present on objects (need to be in the preset for the object too
      */
-    Map<String, Boolean> checkTags;
+    private Map<String, Boolean> checkTags;
 
     /**
      * Regex for general tagged issues with the object
@@ -144,6 +145,14 @@ public class BaseValidator implements Validator {
      */
     int validateHighway(Way w, String highway) {
         int result = Validator.NOT_VALIDATED;
+        Logic logic = App.getLogic();
+        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(w.getBounds());
+        for (Way nearbyWay : nearbyWays) {
+            if (nearbyWay.hasTagKey(Tags.KEY_HIGHWAY)) {
+                connectedValidation(logic, nearbyWay, w.getFirstNode());
+                connectedValidation(logic, nearbyWay, w.getLastNode());
+            }
+        }
 
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
             // unsurveyed road
@@ -163,6 +172,35 @@ public class BaseValidator implements Validator {
             }
         }
         return result;
+    }
+
+    /**
+     * Check if a Node is so near a Way that it should be connected
+     * 
+     * @param logic the current Logic instance
+     * @param way the Way
+     * @param node the Node
+     */
+    private void connectedValidation(@NonNull Logic logic, @NonNull Way way, @NonNull Node node) {
+        if (!way.hasNode(node)) {
+            float jx = logic.lonE7ToX(node.getLon());
+            float jy = logic.latE7ToY(node.getLat());
+            List<Node> wayNodes = way.getNodes();
+            Node firstNode = wayNodes.get(0);
+            float node1X = logic.lonE7ToX(firstNode.getLon());
+            float node1Y = logic.latE7ToY(firstNode.getLat());
+            for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
+                Node node2 = wayNodes.get(i);
+                float node2X = logic.lonE7ToX(node2.getLon());
+                float node2Y = logic.latE7ToY(node2.getLat());
+
+                if (Logic.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
+                    node.setProblem(Validator.UNCONNECTED_END_NODE);
+                }
+                node1X = node2X;
+                node1Y = node2Y;
+            }
+        }
     }
 
     /**
@@ -321,6 +359,9 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = node.getTags();
         List<String> result = new ArrayList<>();
         result.addAll(describeProblemElement(ctx, node, tags));
+        if ((node.getCachedProblems() & Validator.UNCONNECTED_END_NODE) != 0) {
+            result.add(ctx.getString(R.string.toast_unconnected_end_node));
+        }
         String[] resultArray = result.toArray(new String[result.size()]);
         return resultArray;
     }

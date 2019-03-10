@@ -28,7 +28,7 @@
     <feature type="selected_node" updateWidth="true" widthFactor="1.5" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
     <feature type="selected_node_tagged" updateWidth="true" widthFactor="2.0" color="fff6e497" style="FILL" cap="ROUND" join="MITER" />
     <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
-    <feature type="problem_node" updateWidth="true" widthFactor="1.0" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+    <feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" />
     <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
     
     <!-- OSM way based features -->

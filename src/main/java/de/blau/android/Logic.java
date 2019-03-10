@@ -2000,12 +2000,11 @@ public class Logic {
             for (Way way : getDelegator().getCurrentStorage().getWays()) {
                 if (!way.hasNode(nodeToJoin)) {
                     List<Node> wayNodes = way.getNodes();
+                    Node firstNode = wayNodes.get(0);
+                    float node1X = lonE7ToX(firstNode.getLon());
+                    float node1Y = latE7ToY(firstNode.getLat());
                     for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
-                        Node node1 = wayNodes.get(i - 1);
                         Node node2 = wayNodes.get(i);
-                        // TODO only project once per node
-                        float node1X = lonE7ToX(node1.getLon());
-                        float node1Y = latE7ToY(node1.getLat());
                         float node2X = lonE7ToX(node2.getLon());
                         float node2Y = latE7ToY(node2.getLat());
                         double distance = isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y);
@@ -2015,6 +2014,8 @@ public class Logic {
                                 closestElement = way;
                             }
                         }
+                        node1X = node2X;
+                        node1Y = node2Y;
                     }
                 }
             }
