@@ -447,6 +447,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 RelationMember rm = new RelationMember("", e);
                 relation.addMember(rm);
                 e.addParentRelation(relation);
+                onParentRelationChanged(e);
             }
         }
         return relation;
@@ -710,7 +711,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param ways the ways to group
      * @return a list of list of ways with common nodes
      */
-    @NonNull 
+    @NonNull
     private ArrayList<ArrayList<Way>> groupWays(@NonNull List<Way> ways) {
         ArrayList<ArrayList<Way>> groups = new ArrayList<>();
         int group = 0;
@@ -1789,7 +1790,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param relation relation to remove
      */
-    public void removeRelation(final Relation relation) {
+    public void removeRelation(@NonNull final Relation relation) {
         // undo - relation saved here, affected ways saved in removeRelationFromMembers
         dirty = true;
         undo.save(relation);
@@ -1815,12 +1816,13 @@ public class StorageDelegator implements Serializable, Exportable {
      * 
      * @param relation to remove from members
      */
-    private void removeRelationFromMembers(final Relation relation) {
+    private void removeRelationFromMembers(@NonNull final Relation relation) {
         for (RelationMember rm : relation.getMembers()) {
             OsmElement e = rm.getElement();
             if (e != null) { // if null the element wasn't downloaded
                 undo.save(e);
                 e.removeParentRelation(relation);
+                onParentRelationChanged(e);
             }
         }
     }
@@ -1851,6 +1853,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     Log.i(DEBUG_TAG, "... done");
                 }
                 onElementChanged(null, changedElements);
+                onParentRelationChanged(element);
             }
         } catch (StorageException e) {
             // TODO handle OOM
@@ -1879,6 +1882,7 @@ public class StorageDelegator implements Serializable, Exportable {
             element.removeParentRelation(r);
             Log.i(DEBUG_TAG, "... done");
             onElementChanged(null, r);
+            onParentRelationChanged(element);
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "removeElementFromRelation got " + e.getMessage());
@@ -1915,7 +1919,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param e OsmElement to add
      * @param pos position to insert the element
      * @param role role of the element
-     * @param rel relation to add theelement to
+     * @param rel relation to add the element to
      */
     private void addElementToRelation(@NonNull final OsmElement e, final int pos, final String role, @NonNull final Relation rel) {
         dirty = true;
@@ -1930,6 +1934,7 @@ public class StorageDelegator implements Serializable, Exportable {
         try {
             apiStorage.insertElementSafe(rel);
             onElementChanged(null, rel);
+            onParentRelationChanged(e);
         } catch (StorageException sex) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "addElementToRelation got " + sex.getMessage());
@@ -1943,7 +1948,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param role the role of the element
      * @param rel target relation
      */
-    public void addMemberToRelation(final OsmElement e, final String role, final Relation rel) {
+    public void addMemberToRelation(@NonNull final OsmElement e, final String role, @NonNull final Relation rel) {
 
         dirty = true;
         undo.save(rel);
@@ -1957,6 +1962,7 @@ public class StorageDelegator implements Serializable, Exportable {
         try {
             apiStorage.insertElementSafe(rel);
             onElementChanged(null, rel);
+            onParentRelationChanged(e);
         } catch (StorageException sex) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
@@ -1969,7 +1975,7 @@ public class StorageDelegator implements Serializable, Exportable {
      * @param newMember member to add
      * @param rel target relation
      */
-    public void addMemberToRelation(final RelationMember newMember, final Relation rel) {
+    public void addMemberToRelation(@NonNull final RelationMember newMember, @NonNull final Relation rel) {
         OsmElement e = newMember.getElement();
         if (e == null) {
             Log.e(DEBUG_TAG, "addElementToRelation element not found");
@@ -1988,9 +1994,22 @@ public class StorageDelegator implements Serializable, Exportable {
         try {
             apiStorage.insertElementSafe(rel);
             onElementChanged(null, rel);
+            onParentRelationChanged(e);
         } catch (StorageException sex) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "addMemberToRelation got " + sex.getMessage());
+        }
+    }
+
+    /**
+     * Stuff to do if an OsmELement Relation membership has changed
+     * 
+     * @param e the OsmElement
+     */
+    private void onParentRelationChanged(@NonNull OsmElement e) {
+        e.resetHasProblem();
+        if (e instanceof StyleableFeature) {
+            ((StyleableFeature) e).setStyle(null);
         }
     }
 
@@ -2176,6 +2195,7 @@ public class StorageDelegator implements Serializable, Exportable {
             RelationMember rm = new RelationMember("", e);
             relation.addMember(rm);
             e.addParentRelation(relation);
+            onParentRelationChanged(e);
         }
         relation.updateState(OsmElement.STATE_MODIFIED);
         insertElementSafe(relation);
