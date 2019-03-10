@@ -1304,6 +1304,11 @@ public class StorageDelegator implements Serializable, Exportable {
     @NonNull
     public MergeResult mergeNodes(@NonNull Node mergeInto, @NonNull Node mergeFrom) {
         MergeResult result = new MergeResult();
+        if (mergeInto.equals(mergeFrom)) {
+            result.addIssue(Issue.SAMEOBJECT);
+            result.setElement(mergeFrom);
+            return result;
+        }
         dirty = true;
         // first determine if one of the nodes already has a valid id, if it is not and other node has valid id swap
         // else check version numbers this helps preserve history

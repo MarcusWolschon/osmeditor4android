@@ -99,6 +99,7 @@ public class NodeSelectionActionModeCallback extends ElementSelectionActionModeC
                 try {
                     MergeResult result = logic.performJoin(main, joinableElement, (Node) element);
                     if (result != null) {
+                        manager.invalidate(); // button will remain enabled
                         if (!result.getElement().equals(element)) { // only re-select if not already selected
                             manager.editElement(result.getElement());
                         }

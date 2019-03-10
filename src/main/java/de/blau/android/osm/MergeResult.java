@@ -16,7 +16,7 @@ import android.support.annotation.Nullable;
 public class MergeResult {
 
     enum Issue {
-        ROLECONFLICT, MERGEDTAGS, NOTREVERSABLE
+        ROLECONFLICT, MERGEDTAGS, NOTREVERSABLE, SAMEOBJECT
     }
 
     private OsmElement element;
