@@ -1980,14 +1980,14 @@ public class Logic {
      * @param nodeToJoin the Node we want to join
      * @return the closest way to the node
      */
-    public OsmElement findJoinableElement(Node nodeToJoin) {
+    public OsmElement findJoinableElement(@NonNull Node nodeToJoin) {
         OsmElement closestElement = null;
         double closestDistance = Double.MAX_VALUE;
         float jx = lonE7ToX(nodeToJoin.getLon());
         float jy = latE7ToY(nodeToJoin.getLat());
         // start by looking for the closest nodes
         for (Node node : getDelegator().getCurrentStorage().getNodes()) {
-            if (node != nodeToJoin) {
+            if (!nodeToJoin.equals(node)) {
                 Double distance = clickDistance(node, jx, jy);
                 if (distance != null && distance < closestDistance && (filter == null || filter.include(node, false))) {
                     closestDistance = distance;
@@ -2036,6 +2036,9 @@ public class Logic {
             throws OsmIllegalOperationException {
         MergeResult result = null;
         if (element instanceof Node) {
+            if (element.equals(nodeToJoin)) {
+                throw new OsmIllegalOperationException("Trying to join node to itself");
+            }
             Node node = (Node) element;
             createCheckpoint(activity, R.string.undo_action_join);
             displayAttachedObjectWarning(activity, node, nodeToJoin); // needs to be done before join
@@ -2044,6 +2047,9 @@ public class Logic {
         } else if (element instanceof Way) {
             Way way = (Way) element;
             List<Node> wayNodes = way.getNodes();
+            if (wayNodes.contains(nodeToJoin)) {
+                throw new OsmIllegalOperationException("Trying to join node to itself in way");
+            }
             for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
                 Node node1 = wayNodes.get(i - 1);
                 Node node2 = wayNodes.get(i);
