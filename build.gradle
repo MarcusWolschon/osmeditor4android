@@ -434,7 +434,7 @@ dependencies {
     implementation "com.adobe.xmp:xmpcore:6.1.10"
     implementation "com.drewnoakes:metadata-extractor:2.10.1"
     implementation "com.google.code.gson:gson:2.8.2"
-    implementation 'com.faendir.rhino:rhino-android:1.4'
+    implementation 'com.faendir.rhino:rhino-android:1.5.1'
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-geojson:$mapboxVersion"
     implementation "com.mapbox.mapboxsdk:mapbox-sdk-turf:$mapboxVersion"
     implementation 'com.pavelsikun:vintage-chroma:1.5'
