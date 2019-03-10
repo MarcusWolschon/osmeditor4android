@@ -167,7 +167,7 @@
   <string name="tag_menu_top">Вгору</string>
   <string name="tag_menu_bottom">Вниз</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
-  <string name="tag_dialog_value_hint">Натсніть для вибору значень</string>
+  <string name="tag_dialog_value_hint">Натисніть для вибору значень</string>
   <string name="tag_details">Подробиці</string>
   <string name="tag_not_set">Не встановлено</string>
   <string name="tag_menu_move_up">Вгору</string>

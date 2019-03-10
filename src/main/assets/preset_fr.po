@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-02-15 13:16+0000\n"
+"PO-Revision-Date: 2019-03-07 14:07+0000\n"
 "Last-Translator: Julien Lepiller <transifex@lepiller.eu>\n"
 "Language-Team: French (http://www.transifex.com/openstreetmap/presets/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1795,7 +1795,7 @@ msgstr "Organisme caritatif"
 
 #: master_preset.xml:13870(combo:display_values|group:Relations|preset:Enforcement|key:enforcement)
 msgid "Check"
-msgstr ""
+msgstr "Halte police"
 
 #: master_preset.xml:10587(item:name|group:Food|preset:Cheese)
 msgid "Cheese"
@@ -1844,7 +1844,7 @@ msgstr "Chimpanzé"
 
 #: master_preset.xml:9872(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:CPR-1000)
 msgid "China Pressurized Reactor (CPR-1000)"
-msgstr ""
+msgstr "China Pressurized Reactor (CPR-1000)"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 #: master_preset.xml:929(multiselect:display_values|key:language)
@@ -1912,7 +1912,7 @@ msgstr "Argile"
 
 #: master_preset.xml:14370(item:name|group:Crafts|preset:Cleaning)
 msgid "Cleaning"
-msgstr ""
+msgstr "Nettoyage"
 
 #: master_preset.xml:12703(item:name|group:Geography|preset:Cliff)
 msgid "Cliff"
@@ -1962,7 +1962,7 @@ msgstr "Café"
 #: master_preset.xml:7789(check:text|group:Facilities|preset:Recycling_Container|key:recycling:coffee_capsules)
 #: master_preset.xml:7830(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:coffee_capsules)
 msgid "Coffee capsules"
-msgstr ""
+msgstr "Capsules de café"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Coffee shop"
@@ -2003,19 +2003,19 @@ msgstr "Columbarium"
 
 #: master_preset.xml:1746(item:name|group:Ways|preset:Combined_Foot-_and_Cycleway)
 msgid "Combined Foot- and Cycleway"
-msgstr ""
+msgstr "Voies cyclables et piétonnes"
 
 #: master_preset.xml:6356(list_entry:display_value|group:Culture|preset:Theatre|value:comedy)
 msgid "Comedy"
-msgstr ""
+msgstr "Comédie"
 
 #: master_preset.xml:6700(combo:display_values|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgid "Commandry"
-msgstr ""
+msgstr "Commanderie"
 
 #: master_preset.xml:13255(item:name|group:Land_use|preset:Common)
 msgid "Common"
-msgstr ""
+msgstr "Terrain communal"
 
 #: master_preset.xml:13541(text:text|group:Addresses_and_Contact|preset:Name|key:short_name)
 msgid "Common name abbreviation"
@@ -2024,7 +2024,7 @@ msgstr "Abréviation usuelle du nom"
 #: master_preset.xml:9189(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 #: master_preset.xml:9207(combo:display_values|group:Man_Made|preset:Mast|key:tower:type)
 msgid "Communication"
-msgstr ""
+msgstr "Communication"
 
 #: master_preset.xml:6734(item:name|group:Public_Building|preset:Community_Centre)
 #: master_preset.xml:6744(label:text|group:Public_Building|preset:Community_Centre)
@@ -2038,7 +2038,7 @@ msgstr "Compactée"
 
 #: master_preset.xml:15134(item:name|group:Offices|preset:Company)
 msgid "Company"
-msgstr ""
+msgstr "Entreprise"
 
 #: master_preset.xml:8065(item:name|group:Facilities|preset:Compressed_Air)
 msgid "Compressed Air"
@@ -2058,54 +2058,54 @@ msgstr "Béton"
 
 #: master_preset.xml:2959(item:name|group:Access_Restrictions|preset:Cond._&_direct._max_speed)
 msgid "Cond. & direct. max speed"
-msgstr ""
+msgstr "vitesse max cond. et max."
 
 #: master_preset.xml:2916(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:forward:conditional)
 msgid ""
 "Conditional maximum speed for heavy goods vehicles in way direction "
 "specified in km/h"
-msgstr ""
+msgstr "Vitesse maximale conditionnelle pour les véhicules de marchandises lourds dans la direction de la ligne en km/h"
 
 #: master_preset.xml:2919(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:maxspeed:hgv:backwardward:conditional)
 msgid ""
 "Conditional maximum speed for heavy goods vehicles opposite way direction "
 "specified in km/h"
-msgstr ""
+msgstr "Vitesse maximale conditionnelle pour les véhicules de marchandises lourds dans la direction opposée de la ligne en km/h"
 
 #: master_preset.xml:2971(combo:long_text|group:Access_Restrictions|preset:Cond._&_direct._max_speed|key:maxspeed:forward:conditional)
 msgid "Conditional maximum speed in way direction specified in km/h"
-msgstr ""
+msgstr "Vitesse maximale conditionnelle dans la direction de la ligne en km/h"
 
 #: master_preset.xml:2974(combo:long_text|group:Access_Restrictions|preset:Cond._&_direct._max_speed|key:maxspeed:backwardward:conditional)
 msgid "Conditional maximum speed opposite way direction specified in km/h"
-msgstr ""
+msgstr "Vitesse maximale conditionnelle dans la direction opposée de la ligne en km/h"
 
 #: master_preset.xml:2968(combo:long_text|group:Access_Restrictions|preset:Cond._&_direct._max_speed|key:maxspeed:conditional)
 msgid "Conditional maximum speed specified in km/h"
-msgstr ""
+msgstr "Vitesse maximale conditionnelle en km/h"
 
 #: master_preset.xml:2791(combo:long_text|group:Access_Restrictions|preset:All_vehicles|key:vehicle:conditional)
 msgid "Conditional restriction for all types of vehicles"
-msgstr ""
+msgstr "Restriction conditionnelle pour tous les types de véhicules"
 
 #: master_preset.xml:2910(combo:long_text|group:Access_Restrictions|preset:Heavy_Goods_Vehicle|key:hgv:conditional)
 msgid "Conditional restriction for heavy goods vehicles"
-msgstr ""
+msgstr "Restriction conditionnelle pour tous les véhicules de marchandises lourds"
 
 #: master_preset.xml:2811(combo:long_text|group:Access_Restrictions|preset:Motor_vehicle|key:motor_vehicle:conditional)
 #: master_preset.xml:2830(combo:long_text|group:Access_Restrictions|preset:Motor_vehicle_(CH)|key:motor_vehicle:conditional)
 msgid "Conditional restriction for motor vehicles"
-msgstr ""
+msgstr "Restriction conditionnelle pour tous les véhicules à moteur"
 
 #: master_preset.xml:2849(combo:long_text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcar:conditional)
 #: master_preset.xml:2872(combo:long_text|group:Access_Restrictions|preset:Motorcar|key:motorcar:conditional)
 msgid "Conditional restriction for motorcars"
-msgstr ""
+msgstr "Restriction conditionnelle pour tous les voitures"
 
 #: master_preset.xml:2853(combo:long_text|group:Access_Restrictions|preset:Motorcar_and_-cycle_(CH)|key:motorcycle:conditional)
 #: master_preset.xml:2891(combo:long_text|group:Access_Restrictions|preset:Motorcycle|key:motorcycle:conditional)
 msgid "Conditional restriction for motorcycles"
-msgstr ""
+msgstr "Restriction conditionnelle pour tous les motos"
 
 #: master_preset.xml:12119(list_entry:short_description|preset:Vending_Machine|value:condoms)
 msgid "Condoms"
@@ -2118,7 +2118,7 @@ msgstr "Confiseur"
 
 #: master_preset.xml:6750(item:name|group:Public_Building|preset:Conference_Centre)
 msgid "Conference Centre"
-msgstr ""
+msgstr "Centre de conférences"
 
 #: master_preset.xml:8465(combo:display_values|group:Sport|preset:Climbing|key:climbing:rock)
 msgid "Conglomerate"
@@ -2126,11 +2126,11 @@ msgstr ""
 
 #: master_preset.xml:15230(item:name|group:Offices|preset:Consulting)
 msgid "Consulting"
-msgstr ""
+msgstr "Conseil"
 
 #: master_preset.xml:11007(item:name|group:Electronics|preset:Consumer_electronics)
 msgid "Consumer electronics"
-msgstr ""
+msgstr "Produits électroniques grand public"
 
 #: master_preset.xml:13601(item:name|group:Addresses_and_Contact|preset:Contact)
 msgid "Contact"
@@ -2155,15 +2155,15 @@ msgstr "Couvent"
 #: master_preset.xml:7790(check:text|group:Facilities|preset:Recycling_Container|key:recycling:cooking_oil)
 #: master_preset.xml:7831(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:cooking_oil)
 msgid "Cooking oil"
-msgstr ""
+msgstr "Huile de cuisson"
 
 #: master_preset.xml:9189(combo:display_values|group:Man_Made|preset:Tower|key:tower:type)
 msgid "Cooling"
-msgstr ""
+msgstr "Refroidissement"
 
 #: master_preset.xml:15238(item:name|group:Offices|preset:Cooperative)
 msgid "Cooperative"
-msgstr ""
+msgstr "Coopérative"
 
 #: master_preset.xml:840(combo:display_values|key:roof:material)
 msgid "Copper"
@@ -2179,11 +2179,11 @@ msgstr "Cosmétiques"
 
 #: master_preset.xml:391(list_entry:short_description|value:costumes)
 msgid "Costumes"
-msgstr ""
+msgstr "Costumes"
 
 #: master_preset.xml:7311(text:text|group:Emergency|preset:Fire_Hydrant|key:fire_hydrant:count)
 msgid "Count"
-msgstr ""
+msgstr "Quantité"
 
 #: master_preset.xml:12402(item:name|group:Places|preset:Country)
 msgid "Country"
@@ -2209,30 +2209,30 @@ msgstr "Tribunal"
 #: master_preset.xml:6156(check:text|preset:Public_Grill|key:covered)
 #: master_preset.xml:7687(combo:text|group:Facilities|preset:Telephone|key:covered)
 msgid "Covered"
-msgstr ""
+msgstr "Couvert"
 
 #: master_preset.xml:4031(check:text|group:Car|preset:Parking_Space|key:covered)
 #: master_preset.xml:4049(check:text|group:Car|preset:Parking_Entrance|key:covered)
 #: master_preset.xml:4313(check:text|group:Motorcycle|preset:Parking|key:covered)
 msgid "Covered (with roof)"
-msgstr ""
+msgstr "Couvert (avec un toit)"
 
 #: master_preset.xml:3235(item:name|group:Water|preset:Covered_Reservoir)
 msgid "Covered Reservoir"
-msgstr ""
+msgstr "Bassin de retenue couvert"
 
 #: master_preset.xml:8045(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 #: master_preset.xml:923(combo:display_values|key:playground:theme)
 msgid "Cow"
-msgstr ""
+msgstr "Vache"
 
 #: master_preset.xml:7694(item:name|group:Facilities|preset:Coworking_space)
 msgid "Coworking space"
-msgstr ""
+msgstr "Espace de bureaux partagés"
 
 #: master_preset.xml:14237(group:name|group:Crafts)
 msgid "Crafts"
-msgstr ""
+msgstr "Artisanat"
 
 #: master_preset.xml:9350(item:name|group:Man_Made|preset:Crane)
 msgid "Crane"
@@ -2252,7 +2252,7 @@ msgstr "Crématorium"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Crepe"
-msgstr ""
+msgstr "Crêpe"
 
 #: master_preset.xml:8762(item:name|group:Sport_(Ball)|preset:Cricket)
 msgid "Cricket"
@@ -2272,7 +2272,7 @@ msgstr "Croquet"
 
 #: master_preset.xml:9225(item:name|group:Man_Made|preset:Cross)
 msgid "Cross"
-msgstr ""
+msgstr "Croix"
 
 #: master_preset.xml:1906(check:text|group:Waypoints|preset:Traffic_Signal|key:bicycle)
 #: master_preset.xml:1975(check:text|group:Waypoints|preset:Pedestrian_Crossing|key:bicycle)
@@ -4465,7 +4465,7 @@ msgstr "Judo"
 
 #: master_preset.xml:1465(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "Jonction routière"
 
 #: master_preset.xml:711(list_entry:display_value|value:juvenile)
 msgid "Juveniles"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-24 07:18+0000\n"
-"Last-Translator: Georgios Lin <glin76@gmail.com>\n"
+"PO-Revision-Date: 2019-02-28 08:03+0000\n"
+"Last-Translator: G. Traveller <g.traveller.76@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/openstreetmap/presets/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -472,7 +472,7 @@ msgstr ""
 
 #: master_preset.xml:5081(item:name|group:Accommodation|preset:Alpine_Hut)
 msgid "Alpine Hut"
-msgstr ""
+msgstr "Αλπική Καλύβα"
 
 #: master_preset.xml:7179(item:name|group:Health|preset:Alternative_medicine)
 msgid "Alternative medicine"
@@ -880,7 +880,7 @@ msgstr ""
 
 #: master_preset.xml:5578(item:name|group:Leisure|preset:Bandstand)
 msgid "Bandstand"
-msgstr ""
+msgstr "Εξέδρα Συναυλιών"
 
 #: master_preset.xml:12202(item:name|group:Money|preset:Bank)
 msgid "Bank"
@@ -947,7 +947,7 @@ msgstr "Μπέιζμπολ"
 #: master_preset.xml:3209(item:name|group:Water|preset:Basin)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Basin"
-msgstr ""
+msgstr "Λεκανοπέδιο"
 
 #: master_preset.xml:14246(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -988,7 +988,7 @@ msgstr "Παραλία"
 
 #: master_preset.xml:5812(item:name|group:Leisure|preset:Beach_Resort)
 msgid "Beach Resort"
-msgstr ""
+msgstr "Παραθαλάσσιο Θέρετρο"
 
 #: master_preset.xml:8719(item:name|group:Sport_(Ball)|preset:Beach_Volleyball)
 msgid "Beach Volleyball"
@@ -1142,7 +1142,7 @@ msgstr ""
 
 #: master_preset.xml:6183(item:name|preset:Bird_Hide)
 msgid "Bird Hide"
-msgstr ""
+msgstr "Κρυψώνα Κυνηγών Πτηνών"
 
 #: master_preset.xml:7171(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:birthing_center)
 msgid "Birthing center"
@@ -1200,7 +1200,7 @@ msgstr ""
 
 #: master_preset.xml:3556(item:name|group:Shipping|preset:Boatyard)
 msgid "Boatyard"
-msgstr ""
+msgstr "Ναυπηγείο"
 
 #: master_preset.xml:3323(list_entry:short_description|group:Water|preset:Wetland|value:bog)
 msgid "Bog"
@@ -1289,7 +1289,7 @@ msgstr "Όρια"
 #: master_preset.xml:13741(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:13776(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "Οριο"
 
 #: master_preset.xml:10443(item:name|group:Historic_Places_&_Objects|preset:Boundary_Stone)
 msgid "Boundary Stone"
@@ -1357,7 +1357,7 @@ msgstr "Γέφυρα"
 
 #: master_preset.xml:9746(item:name|group:Bridges|preset:Bridge_Support)
 msgid "Bridge Support"
-msgstr ""
+msgstr "Υποστύλωμα Γέφυρας"
 
 #: master_preset.xml:9756(item:name|group:Bridges|preset:Bridge_outline)
 msgid "Bridge outline"
@@ -1386,7 +1386,7 @@ msgstr ""
 
 #: master_preset.xml:13455(item:name|group:Land_use|preset:Brownfield)
 msgid "Brownfield"
-msgstr ""
+msgstr "Εγκαταλελειμμένη Έκταση"
 
 #: master_preset.xml:546(combo:display_values|key:religion)
 msgid "Buddhist"
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: master_preset.xml:3808(item:name|group:Railway|preset:Buffer_Stop)
 msgid "Buffer Stop"
-msgstr ""
+msgstr "Ταμπονιέρα"
 
 #: master_preset.xml:14316(item:name|group:Crafts|preset:Builder)
 msgid "Builder"
@@ -1464,7 +1464,7 @@ msgstr ""
 
 #: master_preset.xml:9337(item:name|group:Man_Made|preset:Bunker_Silo)
 msgid "Bunker Silo"
-msgstr ""
+msgstr "Σιλό"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Burger"
@@ -1481,7 +1481,7 @@ msgstr ""
 
 #: master_preset.xml:3704(item:name|group:Railway|preset:Bus_Guideway)
 msgid "Bus Guideway"
-msgstr ""
+msgstr "Λεωφορειόδρομος"
 
 #: master_preset.xml:4751(item:name|group:Public_Transport_(Legacy)|preset:Bus_Platform)
 msgid "Bus Platform"
@@ -1736,7 +1736,7 @@ msgstr ""
 
 #: master_preset.xml:14354(item:name|group:Crafts|preset:Caterer)
 msgid "Caterer"
-msgstr ""
+msgstr "Τροφοδότης"
 
 #: master_preset.xml:10420(combo:display_values|group:Historic_Places_&_Objects|preset:Wayside_Cross|key:denomination)
 #: master_preset.xml:548(combo:display_values|key:denomination)
@@ -1745,7 +1745,7 @@ msgstr ""
 
 #: master_preset.xml:2344(item:name|group:Barriers|preset:Cattle_Grid)
 msgid "Cattle Grid"
-msgstr ""
+msgstr "Σχάρα"
 
 #: master_preset.xml:12718(item:name|group:Geography|preset:Cave_Entrance)
 msgid "Cave Entrance"
@@ -2685,7 +2685,7 @@ msgstr "Απόσταση (χλμ.)"
 
 #: master_preset.xml:14386(item:name|group:Crafts|preset:Distillery)
 msgid "Distillery"
-msgstr ""
+msgstr "Οινοπνευματοποιείο"
 
 #: master_preset.xml:13575(text:text|group:Addresses_and_Contact|preset:Address|key:addr:district)
 msgid "District"
@@ -2768,11 +2768,11 @@ msgstr ""
 #: master_preset.xml:13986(combo:display_values|group:Routes|preset:Piste_Route|key:piste:type)
 #: master_preset.xml:8597(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgid "Downhill"
-msgstr ""
+msgstr "Κατηφορικό"
 
 #: master_preset.xml:3918(item:name|group:Aerialway|preset:Drag_Lift)
 msgid "Drag Lift"
-msgstr ""
+msgstr "Αναβατήρας"
 
 #: master_preset.xml:3925(combo:display_values|group:Aerialway|preset:Drag_Lift|key:aerialway)
 msgid "Drag lift (generic)"
@@ -3012,7 +3012,7 @@ msgstr ""
 #: master_preset.xml:13747(list_entry:display_value|group:Relations|preset:Relations|value:enforcement)
 #: master_preset.xml:13857(item:name|group:Relations|preset:Enforcement)
 msgid "Enforcement"
-msgstr ""
+msgstr "Επιβολή"
 
 #: master_preset.xml:7792(check:text|group:Facilities|preset:Recycling_Container|key:recycling:engine_oil)
 #: master_preset.xml:7833(check:text|group:Facilities|preset:Recycling_Centre|key:recycling:engine_oil)
@@ -3058,7 +3058,7 @@ msgstr "Ερωτικό"
 
 #: master_preset.xml:1825(combo:text|group:Ways|preset:Steps|key:conveying)
 msgid "Escalator"
-msgstr ""
+msgstr "Κινούμενη Σκάλα"
 
 #: master_preset.xml:1410(item:name|group:Streets|preset:Escape)
 msgid "Escape"
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: master_preset.xml:12942(item:name|group:Nature|preset:Fell)
 msgid "Fell"
-msgstr ""
+msgstr "Σώριασμα"
 
 #: master_preset.xml:11510(check:text|group:For_the_body|preset:Hairdresser/Barber|key:female)
 #: master_preset.xml:6701(combo:display_values|group:Place_of_Worship|preset:Monastery|key:community:gender)
@@ -3257,7 +3257,7 @@ msgstr "Πυροσβεστικός Σταθμός"
 
 #: master_preset.xml:6158(item:name|preset:Firepit)
 msgid "Firepit"
-msgstr ""
+msgstr "Εστία Φωτιάς"
 
 #: master_preset.xml:11295(item:name|group:Home_furnishing_and_decoration|preset:Fireplace)
 #: master_preset.xml:6126(check:text|preset:Picnic_Site|key:fireplace)
@@ -3590,7 +3590,7 @@ msgstr ""
 
 #: master_preset.xml:9280(item:name|group:Man_Made|preset:Gasometer)
 msgid "Gasometer"
-msgstr ""
+msgstr "Αεριόμετρο"
 
 #: master_preset.xml:2561(item:name|group:Barriers|preset:Gate)
 msgid "Gate"
@@ -3787,7 +3787,7 @@ msgstr ""
 
 #: master_preset.xml:13468(item:name|group:Land_use|preset:Greenfield)
 msgid "Greenfield"
-msgstr ""
+msgstr "Λιβάδι"
 
 #: master_preset.xml:10725(item:name|group:Food|preset:Greengrocer)
 msgid "Greengrocer"
@@ -3795,7 +3795,7 @@ msgstr ""
 
 #: master_preset.xml:13140(item:name|group:Land_use|preset:Greenhouse_Horticulture)
 msgid "Greenhouse Horticulture"
-msgstr ""
+msgstr "Κτίριο Θερμοκηπίου"
 
 #: master_preset.xml:836(combo:display_values|key:roof:colour)
 #: master_preset.xml:872(combo:display_values|key:building:colour)
@@ -3824,7 +3824,7 @@ msgstr ""
 
 #: master_preset.xml:3156(item:name|group:Water|preset:Groyne)
 msgid "Groyne"
-msgstr ""
+msgstr "Φράγμα"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Guarani"
@@ -3832,7 +3832,7 @@ msgstr ""
 
 #: master_preset.xml:2446(item:name|group:Barriers|preset:Guard_Rail)
 msgid "Guard Rail"
-msgstr ""
+msgstr "Σιδηροδρομικός Φράχτης"
 
 #: master_preset.xml:4990(item:name|group:Accommodation|preset:Guest_House/Bed_&_Breakfast)
 msgid "Guest House/Bed & Breakfast"
@@ -3845,7 +3845,7 @@ msgstr ""
 #: master_preset.xml:5472(item:name|group:Tourism|preset:Guidepost)
 #: master_preset.xml:735(role:text|key:guidepost)
 msgid "Guidepost"
-msgstr ""
+msgstr "Οδηγός"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Gujarati"
@@ -4005,7 +4005,7 @@ msgstr ""
 
 #: master_preset.xml:10695(item:name|group:Food|preset:Herbalist)
 msgid "Herbalist"
-msgstr ""
+msgstr "Βοτανολόγος"
 
 #: master_preset.xml:6700(combo:display_values|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgid "Hermitage"
@@ -4118,7 +4118,7 @@ msgstr ""
 
 #: master_preset.xml:7173(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:hospice)
 msgid "Hospice"
-msgstr ""
+msgstr "Ξενώνας Ασθενών"
 
 #: master_preset.xml:7043(item:name|group:Health|preset:Hospital)
 msgid "Hospital"
@@ -4166,7 +4166,7 @@ msgstr ""
 
 #: master_preset.xml:7936(item:name|group:Facilities|preset:Hunting_Stand)
 msgid "Hunting Stand"
-msgstr ""
+msgstr "Καραούλι"
 
 #: master_preset.xml:8666(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:hurling)
 msgid "Hurling"
@@ -4297,7 +4297,7 @@ msgstr ""
 
 #: master_preset.xml:5457(item:name|group:Tourism|preset:Information_Board)
 msgid "Information Board"
-msgstr ""
+msgstr "Πίνακας Πληροφοριών"
 
 #: master_preset.xml:5416(item:name|group:Tourism|preset:Information_Office)
 msgid "Information Office"
@@ -4343,7 +4343,7 @@ msgstr ""
 
 #: master_preset.xml:10200(item:name|preset:Insulator)
 msgid "Insulator"
-msgstr ""
+msgstr "Απομονωτήρας"
 
 #: master_preset.xml:14990(item:name|group:Offices|preset:Insurance)
 msgid "Insurance"
@@ -4545,7 +4545,7 @@ msgstr "Περίπτερο"
 
 #: master_preset.xml:2617(item:name|group:Barriers|preset:Kissing_Gate)
 msgid "Kissing Gate"
-msgstr ""
+msgstr "Πόρτα Παγίδευσης"
 
 #: master_preset.xml:11131(item:name|group:Home_furnishing_and_decoration|preset:Kitchen)
 msgid "Kitchen"
@@ -4972,7 +4972,7 @@ msgstr ""
 #: master_preset.xml:9174(group:name|group:Man_Made)
 #: master_preset.xml:9175(group:name|group:Man_Made)
 msgid "Man Made"
-msgstr ""
+msgstr "Ανθρώπινη Κατασκευή"
 
 #: master_preset.xml:5676(list_entry:display_value|group:Leisure|preset:Animals|value:mandrill)
 msgid "Mandrill"
@@ -5043,7 +5043,7 @@ msgstr ""
 
 #: master_preset.xml:9196(item:name|group:Man_Made|preset:Mast)
 msgid "Mast"
-msgstr ""
+msgstr "Ιστός"
 
 #: master_preset.xml:12178(check:text|preset:Payment_Methods|key:payment:mastercard)
 msgid "Mastercard"
@@ -5246,7 +5246,7 @@ msgstr ""
 
 #: master_preset.xml:10380(item:name|group:Historic_Places_&_Objects|preset:Memorial)
 msgid "Memorial"
-msgstr ""
+msgstr "Μνημείο - Άγαλμα, Ανάθημα"
 
 #: master_preset.xml:398(list_entry:short_description|value:men)
 msgid "Men"
@@ -5306,7 +5306,7 @@ msgstr ""
 
 #: master_preset.xml:7174(list_entry:short_description|group:Health|preset:Other_healthcare_facilities|value:midwife)
 msgid "Midwife"
-msgstr ""
+msgstr "Μαία"
 
 #: master_preset.xml:713(list_entry:display_value|value:migrant)
 msgid "Migrants"
@@ -5429,7 +5429,7 @@ msgstr ""
 
 #: master_preset.xml:9615(item:name|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring Station"
-msgstr ""
+msgstr "Σταθμός Παρακολούθησης"
 
 #: master_preset.xml:9629(checkgroup:text|group:Man_Made|preset:Monitoring_Station)
 msgid "Monitoring type"
@@ -5455,7 +5455,7 @@ msgstr "Μνημείο"
 
 #: master_preset.xml:3519(combo:text|group:Shipping|preset:Pier|key:mooring)
 msgid "Mooring"
-msgstr ""
+msgstr "Προσόρμιση"
 
 #: master_preset.xml:5680(list_entry:display_value|group:Leisure|preset:Animals|value:moose)
 msgid "Moose"
@@ -5606,7 +5606,7 @@ msgstr ""
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Mural"
-msgstr ""
+msgstr "Τοιχογραφία"
 
 #: master_preset.xml:6308(item:name|group:Culture|preset:Museum)
 msgid "Museum"
@@ -5906,7 +5906,7 @@ msgstr ""
 
 #: master_preset.xml:535(combo:display_values|key:leaf_type)
 msgid "Needleleaved"
-msgstr ""
+msgstr "Ποδόκαρπος"
 
 #: master_preset.xml:12562(item:name|group:Places|preset:Neighbourhood)
 msgid "Neighbourhood"
@@ -6045,7 +6045,7 @@ msgstr ""
 #: master_preset.xml:14008(combo:display_values|group:Routes|preset:Ski_Route|key:piste:type)
 #: master_preset.xml:8597(combo:display_values|group:Sport|preset:Skiing|key:piste:type)
 msgid "Nordic"
-msgstr ""
+msgstr "Σκανδιναβικό"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Norwegian - Bokml"
@@ -6656,7 +6656,7 @@ msgstr ""
 
 #: master_preset.xml:4014(item:name|group:Car|preset:Parking_Space)
 msgid "Parking Space"
-msgstr ""
+msgstr "Χώρος Στάθμευσης"
 
 #: master_preset.xml:1381(combo:display_values|group:Streets|preset:Service|key:service)
 msgid "Parking aisle"
@@ -6695,7 +6695,7 @@ msgstr ""
 
 #: master_preset.xml:2122(item:name|preset:Passing_Place)
 msgid "Passing Place"
-msgstr ""
+msgstr "Πέρασμα"
 
 #: master_preset.xml:1248(check:text|group:Streets|preset:Minor_road|key:passing_places)
 #: master_preset.xml:1385(check:text|group:Streets|preset:Service|key:passing_places)
@@ -6969,7 +6969,7 @@ msgstr ""
 
 #: master_preset.xml:13155(item:name|group:Land_use|preset:Plant_Nursery)
 msgid "Plant Nursery"
-msgstr ""
+msgstr "Ανθοκομείο "
 
 #: master_preset.xml:840(combo:display_values|key:roof:material)
 msgid "Plants"
@@ -6997,7 +6997,7 @@ msgstr ""
 
 #: master_preset.xml:14577(item:name|group:Crafts|preset:Plasterer)
 msgid "Plasterer"
-msgstr ""
+msgstr "Σοβατζής"
 
 #: master_preset.xml:2512(combo:display_values|group:Barriers|preset:Jersey_Barrier|key:material)
 #: master_preset.xml:6503(combo:display_values|group:Culture|preset:Artwork|key:material)
@@ -7095,7 +7095,7 @@ msgstr "Πολιτικό κόμμα"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Pond"
-msgstr ""
+msgstr "Λιμνούλα"
 
 #: master_preset.xml:5695(list_entry:display_value|group:Leisure|preset:Animals|value:pony)
 msgid "Pony"
@@ -7343,7 +7343,7 @@ msgstr ""
 
 #: master_preset.xml:5309(item:name|group:Food+Drinks|preset:Pub)
 msgid "Pub"
-msgstr ""
+msgstr "Καπηλειό"
 
 #: master_preset.xml:239(combo:display_values|key:toilets:access)
 #: master_preset.xml:5171(combo:display_values|group:Accommodation|preset:Campsite|key:sanitary_dump_station)
@@ -7548,11 +7548,11 @@ msgstr ""
 
 #: master_preset.xml:3827(item:name|group:Railway|preset:Railway_Signal)
 msgid "Railway Signal"
-msgstr ""
+msgstr "Σιδηροδρομικό Σήμα"
 
 #: master_preset.xml:3817(item:name|group:Railway|preset:Railway_Switch)
 msgid "Railway Switch"
-msgstr ""
+msgstr "Σιδηροδρομικό Ψαλίδι"
 
 #: master_preset.xml:4531(check:text|group:Public_Transport|preset:Stop_Position|key:railway)
 msgid "Railway halt (legacy)"
@@ -7587,7 +7587,7 @@ msgstr ""
 
 #: master_preset.xml:6822(item:name|group:Public_Building|preset:Ranger_Station)
 msgid "Ranger Station"
-msgstr ""
+msgstr "Σταθμός Δασοφυλάκων"
 
 #: master_preset.xml:9876(list_entry:display_value|group:Power_Generator|preset:Nuclear_Reactor|value:RBMK-1000)
 msgid "Reactor Bolshoy Moshchnosti Kanalniy 1000 (RBMK-1000)"
@@ -7632,7 +7632,7 @@ msgstr ""
 
 #: master_preset.xml:12762(item:name|group:Geography|preset:Reef)
 msgid "Reef"
-msgstr ""
+msgstr "Υφαλος"
 
 #: master_preset.xml:9596(text:text|group:Man_Made|preset:Dolphin|key:ref)
 msgid "Ref"
@@ -7835,7 +7835,7 @@ msgstr ""
 #: master_preset.xml:3222(item:name|group:Water|preset:Reservoir)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Reservoir"
-msgstr ""
+msgstr "Δεξαμενή"
 
 #: master_preset.xml:5799(item:name|group:Leisure|preset:Resort)
 msgid "Resort"
@@ -7882,7 +7882,7 @@ msgstr ""
 
 #: master_preset.xml:12677(item:name|group:Geography|preset:Ridge)
 msgid "Ridge"
-msgstr ""
+msgstr "Κορυφογραμμή"
 
 #: master_preset.xml:5452(check:text|group:Tourism|preset:Map|key:horse)
 #: master_preset.xml:5492(check:text|group:Tourism|preset:Guidepost|key:horse)
@@ -7891,11 +7891,11 @@ msgstr ""
 
 #: master_preset.xml:13957(item:name|group:Routes|preset:Riding_Route)
 msgid "Riding Route"
-msgstr ""
+msgstr "Διαδρομή Ιππασίας"
 
 #: master_preset.xml:14611(item:name|group:Crafts|preset:Rigger)
 msgid "Rigger"
-msgstr ""
+msgstr "Εξαρτύων"
 
 #: master_preset.xml:1529(list_entry:short_description|group:Lane_attributes|preset:Single_direction_roads|value:right)
 #: master_preset.xml:1555(list_entry:short_description|group:Lane_attributes|preset:Bi-directional_roads|value:right)
@@ -7998,7 +7998,7 @@ msgstr ""
 
 #: master_preset.xml:14619(item:name|group:Crafts|preset:Roofer)
 msgid "Roofer"
-msgstr ""
+msgstr "Στεγαστής"
 
 #: master_preset.xml:4958(text:text|group:Accommodation|preset:Hotel|key:rooms)
 #: master_preset.xml:4981(text:text|group:Accommodation|preset:Motel|key:rooms)
@@ -8118,7 +8118,7 @@ msgstr ""
 
 #: master_preset.xml:14633(item:name|group:Crafts|preset:Saddler)
 msgid "Saddler"
-msgstr ""
+msgstr "Σαμαράς"
 
 #: master_preset.xml:8852(item:name|group:Motorsport|preset:Safety_Training)
 msgid "Safety Training"
@@ -8134,7 +8134,7 @@ msgstr ""
 
 #: master_preset.xml:14641(item:name|group:Crafts|preset:Sailmaker)
 msgid "Sailmaker"
-msgstr ""
+msgstr "Επισκευαστής Πλοίων"
 
 #: master_preset.xml:4333(combo:text|group:Motorcycle|preset:Motorcycle_Dealer|key:sale)
 msgid "Sale"
@@ -8257,12 +8257,12 @@ msgstr ""
 
 #: master_preset.xml:14670(item:name|group:Crafts|preset:Sculptor)
 msgid "Sculptor"
-msgstr ""
+msgstr "Γλύπτης"
 
 #: master_preset.xml:6468(combo:display_values|group:Culture|preset:Public_bookcase|key:public_bookcase:type)
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Sculpture"
-msgstr ""
+msgstr "Γλυπτό"
 
 #: master_preset.xml:8008(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Sea animal"
@@ -8487,7 +8487,7 @@ msgstr ""
 
 #: master_preset.xml:6645(item:name|group:Place_of_Worship|preset:Shinto_Shrine)
 msgid "Shinto Shrine"
-msgstr ""
+msgstr "Σιντοϊστικό Ιερό"
 
 #: master_preset.xml:923(combo:display_values|key:playground:theme)
 msgid "Ship"
@@ -8574,7 +8574,7 @@ msgstr ""
 
 #: master_preset.xml:7348(item:name|group:Emergency|preset:Siren)
 msgid "Siren"
-msgstr ""
+msgstr "Σειρήνα"
 
 #: master_preset.xml:5864(list_entry:display_value|group:Leisure|preset:Fitness_Station|value:sit-up)
 msgid "Sit-up"
@@ -8584,7 +8584,7 @@ msgstr ""
 #: master_preset.xml:13820(item:name|group:Relations|preset:Site)
 #: master_preset.xml:5445(combo:display_values|group:Tourism|preset:Map|key:map_size)
 msgid "Site"
-msgstr ""
+msgstr "Χώρος"
 
 #: master_preset.xml:13824(text:text|group:Relations|preset:Site|key:name)
 msgid "Site name"
@@ -8774,11 +8774,11 @@ msgstr "Είδος"
 
 #: master_preset.xml:2204(item:name|preset:Speed_Camera)
 msgid "Speed Camera"
-msgstr ""
+msgstr "Κάμερα Παρακολούθησης Ταχύτητας"
 
 #: master_preset.xml:2169(item:name|preset:Speed_Limit_Sign)
 msgid "Speed Limit Sign"
-msgstr ""
+msgstr "Πινακίδα Ορίου Ταχύτητας"
 
 #: master_preset.xml:10833(item:name|group:Food|preset:Spices)
 msgid "Spices"
@@ -8895,7 +8895,7 @@ msgstr ""
 
 #: master_preset.xml:6499(combo:display_values|group:Culture|preset:Artwork|key:artwork_type)
 msgid "Statue"
-msgstr ""
+msgstr "Άγαλμα"
 
 #: master_preset.xml:385(multiselect:display_values|key:cuisine)
 msgid "Steak house"
@@ -8970,7 +8970,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "Ρέμα"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -9197,7 +9197,7 @@ msgstr ""
 #: master_preset.xml:10970(item:name|group:Clothes|preset:Tailor)
 #: master_preset.xml:14716(item:name|group:Crafts|preset:Tailor)
 msgid "Tailor"
-msgstr ""
+msgstr "Ράφτης"
 
 #: master_preset.xml:929(multiselect:display_values|key:language)
 msgid "Tajik"
@@ -9435,7 +9435,7 @@ msgstr ""
 
 #: master_preset.xml:14724(item:name|group:Crafts|preset:Tiler)
 msgid "Tiler"
-msgstr ""
+msgstr "Κεραμιδωτής"
 
 #: master_preset.xml:11794(combo:display_values|group:Other|preset:Trade_supplies|key:trade)
 msgid "Tiles"
@@ -9598,7 +9598,7 @@ msgstr "Κυκλοφορία"
 #: master_preset.xml:1982(group:name|group:Traffic_Calming)
 #: master_preset.xml:1983(item:name|group:Traffic_Calming|preset:Traffic_Calming)
 msgid "Traffic Calming"
-msgstr ""
+msgstr "Ελάφρυνση Κυκλοφορίας"
 
 #: master_preset.xml:2220(item:name|preset:Traffic_Mirror)
 msgid "Traffic Mirror"
@@ -9768,7 +9768,7 @@ msgstr ""
 
 #: master_preset.xml:2132(item:name|preset:Turning_Circle)
 msgid "Turning Circle"
-msgstr ""
+msgstr "Κυκλική Στροφή"
 
 #: master_preset.xml:2144(item:name|preset:Turning_Loop)
 msgid "Turning Loop"
@@ -9936,7 +9936,7 @@ msgstr "Επάνω"
 
 #: master_preset.xml:14753(item:name|group:Crafts|preset:Upholsterer)
 msgid "Upholsterer"
-msgstr ""
+msgstr "Ταπετσιέρης"
 
 #: master_preset.xml:905(list_entry:short_description|value:3)
 msgid "Upper secondary (3)"
@@ -10225,7 +10225,7 @@ msgstr ""
 
 #: master_preset.xml:5746(item:name|group:Leisure|preset:Water_Park)
 msgid "Water Park"
-msgstr ""
+msgstr "Νεροτσουλήθρες"
 
 #: master_preset.xml:7974(item:name|group:Facilities|preset:Water_Point)
 msgid "Water Point"
@@ -10286,7 +10286,7 @@ msgstr "Νερόμυλος"
 #: master_preset.xml:13746(list_entry:display_value|group:Relations|preset:Relations|value:waterway)
 #: master_preset.xml:14172(item:name|preset:Waterway)
 msgid "Waterway"
-msgstr ""
+msgstr "Υδάτινος Δρόμος"
 
 #: master_preset.xml:9931(item:name|group:Power_Generator|preset:Wave_Energy_Converter)
 msgid "Wave Energy Converter"
@@ -10302,7 +10302,7 @@ msgstr ""
 
 #: master_preset.xml:10404(item:name|group:Historic_Places_&_Objects|preset:Wayside_Cross)
 msgid "Wayside Cross"
-msgstr ""
+msgstr "Εικονοστάσιο"
 
 #: master_preset.xml:10424(item:name|group:Historic_Places_&_Objects|preset:Wayside_Shrine)
 msgid "Wayside Shrine"
@@ -10423,7 +10423,7 @@ msgstr ""
 #: master_preset.xml:673(text:text|key:wikidata)
 #: master_preset.xml:697(text:text|key:wikidata)
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: master_preset.xml:10400(text:text|group:Historic_Places_&_Objects|preset:Memorial|key:wikipedia)
 #: master_preset.xml:12373(text:text|group:Boundaries|preset:Protected_Area|key:wikipedia)
@@ -10451,7 +10451,7 @@ msgstr ""
 
 #: master_preset.xml:5100(item:name|group:Accommodation|preset:Wilderness_Hut)
 msgid "Wilderness Hut"
-msgstr ""
+msgstr "Ερημική Καλύβα"
 
 #: master_preset.xml:8008(multiselect:display_values|group:Facilities|preset:Animal_shelter|key:animal_shelter)
 msgid "Wildlife"
@@ -11085,7 +11085,7 @@ msgstr ""
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
 msgid "Railing"
-msgstr ""
+msgstr "Κιγκλίδωμα"
 
 #: master_preset.xml:2442(combo:display_values|group:Barriers|preset:Fence|key:fence_type)
 msgctxt "material"
@@ -12210,7 +12210,7 @@ msgstr ""
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Barn"
-msgstr ""
+msgstr "Αποθήκη Αγροκτήματος"
 
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -12420,7 +12420,7 @@ msgstr ""
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Gasometer"
-msgstr ""
+msgstr "Αεριόμετρο"
 
 #: master_preset.xml:869(combo:display_values|key:building:use)
 msgctxt "building"
@@ -12476,7 +12476,7 @@ msgstr "Ξενοδοχείο"
 #: master_preset.xml:8977(key:text|group:Buildings|preset:House|key:building)
 msgctxt "building"
 msgid "House"
-msgstr ""
+msgstr "Κατοικία"
 
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
@@ -12717,7 +12717,7 @@ msgstr "Υπηρεσία"
 #: master_preset.xml:8933(combo:display_values|group:Buildings|preset:Building|key:building)
 msgctxt "building"
 msgid "Shed"
-msgstr ""
+msgstr "Υπόστεγο"
 
 #: master_preset.xml:869(combo:display_values|key:building:use)
 msgctxt "building"
@@ -13028,7 +13028,7 @@ msgstr "Διπλή"
 #: master_preset.xml:2596(combo:display_values|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
 msgid "Swing"
-msgstr ""
+msgstr "Κούνια"
 
 #: master_preset.xml:2596(combo:text|group:Barriers|preset:Swing_Gate|key:swing_gate:type)
 msgctxt "swing_gate"
@@ -13190,7 +13190,7 @@ msgstr ""
 #: master_preset.xml:5774(list_entry:display_value|group:Leisure|preset:Rides|value:carousel)
 msgctxt "leisure"
 msgid "Carousel"
-msgstr ""
+msgstr "Carousel"
 
 #: master_preset.xml:5989(check:text|group:Leisure|preset:Playground|key:playground:chain_ladder)
 #: master_preset.xml:6041(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:chain_ladder)
@@ -13274,7 +13274,7 @@ msgstr ""
 #: master_preset.xml:5779(list_entry:display_value|group:Leisure|preset:Rides|value:maze)
 msgctxt "leisure"
 msgid "Maze"
-msgstr ""
+msgstr "Λαβύρινθος"
 
 #: master_preset.xml:5997(check:text|group:Leisure|preset:Playground|key:playground:multi_play)
 #: master_preset.xml:6049(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:multi_play)
@@ -13314,7 +13314,7 @@ msgstr ""
 #: master_preset.xml:6053(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:seesaw)
 msgctxt "leisure"
 msgid "Seesaw"
-msgstr ""
+msgstr "Τραμπάλα"
 
 #: master_preset.xml:6002(check:text|group:Leisure|preset:Playground|key:playground:skate_equipment)
 #: master_preset.xml:6054(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:skate_equipment)
@@ -13334,7 +13334,7 @@ msgstr ""
 #: master_preset.xml:6076(item:name|group:Playground_equipment|preset:Slide)
 msgctxt "leisure"
 msgid "Slide"
-msgstr ""
+msgstr "Τσουλίθρα"
 
 #: master_preset.xml:6006(check:text|group:Leisure|preset:Playground|key:playground:splash_pad)
 #: master_preset.xml:6058(list_entry:display_value|group:Playground_equipment|preset:Playground_equipment|value:splash_pad)
@@ -13371,7 +13371,7 @@ msgstr ""
 #: master_preset.xml:6094(item:name|group:Playground_equipment|preset:Swing)
 msgctxt "leisure"
 msgid "Swing"
-msgstr ""
+msgstr "Κούνια"
 
 #: master_preset.xml:5784(list_entry:display_value|group:Leisure|preset:Rides|value:swing_carousel)
 msgctxt "leisure"
@@ -13648,7 +13648,7 @@ msgstr ""
 #: master_preset.xml:8285(item:name|group:Golf|preset:Bunker)
 msgctxt "golf"
 msgid "Bunker"
-msgstr ""
+msgstr "Καταφύγιο"
 
 #: master_preset.xml:8349(item:name|group:Golf|preset:Driving_range)
 msgctxt "golf"
@@ -13658,7 +13658,7 @@ msgstr ""
 #: master_preset.xml:8330(item:name|group:Golf|preset:Fairway)
 msgctxt "golf"
 msgid "Fairway"
-msgstr ""
+msgstr "Πίστα του Golf"
 
 #: master_preset.xml:8291(item:name|group:Golf|preset:Frontal_Water_hazard)
 msgctxt "golf"
@@ -13693,7 +13693,7 @@ msgstr ""
 #: master_preset.xml:8336(item:name|group:Golf|preset:Rough)
 msgctxt "golf"
 msgid "Rough"
-msgstr ""
+msgstr "Σκληρό"
 
 #: master_preset.xml:8241(item:name|group:Golf|preset:Tee)
 msgctxt "golf"
@@ -13703,7 +13703,7 @@ msgstr ""
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Advanced"
-msgstr ""
+msgstr "Ανώτερο"
 
 #: master_preset.xml:8601(combo:text|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
@@ -13713,17 +13713,17 @@ msgstr "Δυσκολία"
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Easy"
-msgstr ""
+msgstr "Εύκολο"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Expert"
-msgstr ""
+msgstr "Έμπειρο"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
 msgid "Freeride"
-msgstr ""
+msgstr "Δωρεάν βόλτα"
 
 #: master_preset.xml:8601(combo:display_values|group:Sport|preset:Skiing|key:piste:difficulty)
 msgctxt "piste:difficulty"
@@ -13753,7 +13753,7 @@ msgstr ""
 #: master_preset.xml:8603(combo:text|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
 msgid "Grooming"
-msgstr ""
+msgstr "Καλλωπισμός της πίστας"
 
 #: master_preset.xml:8603(combo:display_values|group:Sport|preset:Skiing|key:piste:grooming)
 msgctxt "piste:grooming"
@@ -13983,7 +13983,7 @@ msgstr ""
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
 msgid "Swing"
-msgstr ""
+msgstr "Κούνια"
 
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
@@ -14048,7 +14048,7 @@ msgstr ""
 #: master_preset.xml:10395(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
 msgid "Statue"
-msgstr ""
+msgstr "Άγαλμα"
 
 #: master_preset.xml:10395(combo:display_values|group:Historic_Places_&_Objects|preset:Memorial|key:memorial)
 msgctxt "memorial"
@@ -14304,7 +14304,7 @@ msgstr ""
 #: master_preset.xml:13400(combo:display_values|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"
 msgid "Slaughterhouse"
-msgstr ""
+msgstr "Σφαγείο"
 
 #: master_preset.xml:13400(combo:text|group:Land_use|preset:Industrial_area|key:industrial)
 msgctxt "industrial"

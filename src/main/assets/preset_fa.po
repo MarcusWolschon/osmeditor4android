@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-02-01 23:57+0000\n"
+"PO-Revision-Date: 2019-03-08 12:46+0000\n"
 "Last-Translator: imni <iriman@chmail.ir>\n"
 "Language-Team: Persian (http://www.transifex.com/openstreetmap/presets/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -944,7 +944,7 @@ msgstr ""
 #: master_preset.xml:3209(item:name|group:Water|preset:Basin)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Basin"
-msgstr ""
+msgstr "حوضه"
 
 #: master_preset.xml:14246(item:name|group:Crafts|preset:Basket_maker)
 msgid "Basket maker"
@@ -1610,7 +1610,7 @@ msgstr ""
 #: master_preset.xml:3078(item:name|group:Water|preset:Canal)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Canal"
-msgstr ""
+msgstr "آبراهه"
 
 #: master_preset.xml:11305(item:name|group:Home_furnishing_and_decoration|preset:Candles)
 msgid "Candles"
@@ -3748,7 +3748,7 @@ msgstr ""
 #: master_preset.xml:54(combo:display_values|key:surface)
 #: master_preset.xml:840(combo:display_values|key:roof:material)
 msgid "Grass"
-msgstr ""
+msgstr "چمن"
 
 #: master_preset.xml:12877(item:name|group:Nature|preset:Grassland)
 msgid "Grassland"
@@ -3936,7 +3936,7 @@ msgstr ""
 
 #: master_preset.xml:12977(item:name|group:Nature|preset:Heath)
 msgid "Heath"
-msgstr ""
+msgstr "خلنگ‌زار"
 
 #: master_preset.xml:14448(item:name|group:Crafts|preset:Heating_engineer)
 msgid "Heating engineer"
@@ -4580,7 +4580,7 @@ msgstr ""
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Lake"
-msgstr ""
+msgstr "دریاچه"
 
 #: master_preset.xml:13064(group:name|group:Land_use)
 msgid "Land use"
@@ -4843,7 +4843,7 @@ msgstr ""
 
 #: master_preset.xml:12591(item:name|group:Places|preset:Locality)
 msgid "Locality"
-msgstr ""
+msgstr "محل خالی از سکنه"
 
 #: master_preset.xml:7241(check:text|group:Emergency|preset:Automated_Defibrillator|key:indoor)
 #: master_preset.xml:7256(check:text|group:Emergency|preset:First_Aid_Kit|key:indoor)
@@ -7922,11 +7922,11 @@ msgstr ""
 #: master_preset.xml:3057(item:name|group:Water|preset:River)
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "River"
-msgstr ""
+msgstr "رود"
 
 #: master_preset.xml:3288(item:name|group:Water|preset:Riverbank)
 msgid "Riverbank"
-msgstr ""
+msgstr "دامنه رودخانه"
 
 #: master_preset.xml:1427(item:name|group:Streets|preset:Road_(Unknown_Type))
 msgid "Road (Unknown Type)"
@@ -8242,7 +8242,7 @@ msgstr ""
 
 #: master_preset.xml:12958(item:name|group:Nature|preset:Scrub)
 msgid "Scrub"
-msgstr ""
+msgstr "بوته‌زار"
 
 #: master_preset.xml:8580(item:name|group:Sport|preset:Scuba_Diving)
 msgid "Scuba Diving"
@@ -8967,7 +8967,7 @@ msgstr ""
 #: master_preset.xml:14183(combo:display_values|preset:Waterway|key:waterway)
 #: master_preset.xml:3037(item:name|group:Water|preset:Stream)
 msgid "Stream"
-msgstr ""
+msgstr "جریان"
 
 #: master_preset.xml:3266(combo:display_values|group:Water|preset:Water|key:water)
 msgid "Stream pool"
@@ -11153,7 +11153,7 @@ msgstr ""
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
 msgid "Grass"
-msgstr ""
+msgstr "چمن"
 
 #: master_preset.xml:26(combo:display_values|key:surface)
 msgctxt "surface"
@@ -11509,7 +11509,7 @@ msgstr ""
 #: master_preset.xml:8224(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
 msgid "Grass"
-msgstr ""
+msgstr "چمن"
 
 #: master_preset.xml:8224(combo:display_values|group:Sport_Facilities|preset:Racetrack|key:surface)
 msgctxt "sport"
@@ -14161,7 +14161,7 @@ msgstr ""
 #: master_preset.xml:13091(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"
 msgid "Grass"
-msgstr ""
+msgstr "چمن"
 
 #: master_preset.xml:13091(combo:display_values|group:Land_use|preset:Farmland|key:crop)
 msgctxt "crop"

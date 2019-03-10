@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-02-01 11:42+0000\n"
+"PO-Revision-Date: 2019-02-27 10:57+0000\n"
 "Last-Translator: Shu Higashi <higa432@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/openstreetmap/presets/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -1287,7 +1287,7 @@ msgstr "境界"
 #: master_preset.xml:13741(list_entry:display_value|group:Relations|preset:Relations|value:boundary)
 #: master_preset.xml:13776(item:name|group:Relations|preset:Boundary)
 msgid "Boundary"
-msgstr ""
+msgstr "行政境界"
 
 #: master_preset.xml:10443(item:name|group:Historic_Places_&_Objects|preset:Boundary_Stone)
 msgid "Boundary Stone"
@@ -4461,7 +4461,7 @@ msgstr "柔道"
 
 #: master_preset.xml:1465(combo:text|group:Streets|preset:Construction|key:junction)
 msgid "Junction"
-msgstr ""
+msgstr "ジャンクション"
 
 #: master_preset.xml:711(list_entry:display_value|value:juvenile)
 msgid "Juveniles"
@@ -8013,7 +8013,7 @@ msgstr ""
 
 #: master_preset.xml:1470(item:name|group:Streets|preset:Roundabout)
 msgid "Roundabout"
-msgstr ""
+msgstr "ラウンドアバウト"
 
 #: master_preset.xml:8669(check:text|group:Sport_(Ball)|preset:Gaelic_Games|key:gaelic_games:rounders)
 msgid "Rounders"
