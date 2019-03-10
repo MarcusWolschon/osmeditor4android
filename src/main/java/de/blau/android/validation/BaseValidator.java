@@ -273,6 +273,9 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = way.getTags();
         // tag based checks
         status = validateElement(status, way, tags);
+        if (tags.isEmpty() && !way.hasParentRelations()) {
+            status = status | Validator.UNTAGGED;
+        }
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
             status = status | validateHighway(way, highway);
@@ -288,6 +291,9 @@ public class BaseValidator implements Validator {
         int status = Validator.NOT_VALIDATED;
         SortedMap<String, String> tags = relation.getTags();
         // tag based checks
+        if (tags.isEmpty()) {
+            status = status | Validator.UNTAGGED;
+        }
         status = validateElement(status, relation, tags);
         if (noType(relation)) {
             status = status | Validator.NO_TYPE;
@@ -325,6 +331,10 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = way.getTags();
         List<String> result = new ArrayList<>();
         result.addAll(describeProblemElement(ctx, way, tags));
+        // invalid OSM element
+        if ((way.getCachedProblems() & Validator.UNTAGGED) != 0) {
+            result.add(ctx.getString(R.string.toast_untagged_way));
+        }
         String highway = way.getTagWithKey(Tags.KEY_HIGHWAY);
         if (highway != null) {
             result.addAll(describeProblemHighway(ctx, way, highway));
@@ -339,6 +349,9 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = relation.getTags();
         List<String> result = new ArrayList<>();
         result.addAll(describeProblemElement(ctx, relation, tags));
+        if ((relation.getCachedProblems() & Validator.UNTAGGED) != 0) {
+            result.add(ctx.getString(R.string.toast_untagged_relation));
+        }
         if (noType(relation)) {
             result.add(App.resources().getString(R.string.toast_notype));
         }

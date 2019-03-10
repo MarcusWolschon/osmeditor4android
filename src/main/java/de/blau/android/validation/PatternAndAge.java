@@ -4,6 +4,12 @@ import java.util.regex.Pattern;
 
 import android.support.annotation.Nullable;
 
+/**
+ * Container for last edit age configuration
+ * 
+ * @author simon
+ *
+ */
 public class PatternAndAge {
     private String  value;
     private boolean isRegexp;
@@ -11,6 +17,12 @@ public class PatternAndAge {
 
     private Pattern patternCache = null;
 
+    /**
+     * Test if this matches the supplied value
+     * 
+     * @param v the value
+     * @return true if it matches
+     */
     public boolean matches(@Nullable String v) {
         if (v == null) {
             return getValue() == null;
@@ -25,11 +37,22 @@ public class PatternAndAge {
         }
     }
 
+    /**
+     * THe value we match against
+     * 
+     * @return the value or null (matches everything)
+     */
+    @Nullable
     String getValue() {
         return value;
     }
 
-    void setValue(String value) {
+    /**
+     * Set the match value
+     * 
+     * @param value the value or null
+     */
+    void setValue(@Nullable String value) {
         this.value = value;
     }
 
@@ -43,18 +66,28 @@ public class PatternAndAge {
     }
 
     /**
-     * Set the time between resurveys in seconds
+     * Set the time between re-surveys in seconds
      * 
-     * @param s time beterrn resurvey in seconds
+     * @param s time between re-survey in seconds
      */
     void setAge(long s) {
         this.s = s;
     }
 
+    /**
+     * Check if the value should be treated as a regexp
+     * 
+     * @return true if a regexp
+     */
     boolean isRegexp() {
         return isRegexp;
     }
 
+    /**
+     * Set the regexp flag
+     * 
+     * @param isRegexp the boolean value the flag should be set to
+     */
     void setIsRegexp(boolean isRegexp) {
         this.isRegexp = isRegexp;
     }

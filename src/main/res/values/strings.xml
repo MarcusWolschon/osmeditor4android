@@ -301,6 +301,8 @@
     <string name="toast_unsurveyed_road">Unsurveyed road</string>
     <string name="toast_noname">Road lacks name or ref</string>
     <string name="toast_notype">Relation lacks type</string>
+    <string name="toast_untagged_way">Untagged way</string>
+    <string name="toast_untagged_relation">Untagged relation</string>
     <string name="toast_oauth_retry">Try uploading again after allowing OAuth access to your OSM account.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>

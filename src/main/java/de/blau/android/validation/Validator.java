@@ -18,6 +18,7 @@ public interface Validator {
     int NO_TYPE        = 0x00000040;
     int IMPERIAL_UNITS = 0x00000080;
     int INVALID_OBJECT = 0x00000100;
+    int UNTAGGED       = 0x00000200;
 
     /**
      * Reset the state of the validator
@@ -43,7 +44,7 @@ public interface Validator {
     int validate(@NonNull Way way);
 
     /**
-     * Validate an OSM RElation
+     * Validate an OSM Relation
      * 
      * @param relation Relation to validate
      * @return an int with bits set according to issues found

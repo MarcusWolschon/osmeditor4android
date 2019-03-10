@@ -132,12 +132,17 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
+            if (lastSelectedWay != null) {
+                lastSelectedWay.resetHasProblem(); // remove Validator.OK
+            }
             manager.finish();
             tagApplicable(lastSelectedNode, lastSelectedWay, true, false);
         } else { // update cache for undo
             createdWay = logic.getSelectedWay();
             if (createdWay == null) {
                 createdNodes = new ArrayList<>();
+            } else {
+                createdWay.dontValidate();
             }
             createdNodes.add(logic.getSelectedNode());
         }
@@ -171,9 +176,8 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
             if (lastSelectedWay != null) {
                 dontTag = true;
                 main.startSupportActionMode(new WaySelectionActionModeCallback(manager, lastSelectedWay));
-                main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET, false); // show
-                                                                                                                      // preset
-                                                                                                                      // screen
+                // show preset screen
+                main.performTagEdit(lastSelectedWay, null, false, item.getItemId() == MENUITEM_NEWWAY_PRESET, false);
             }
             return true;
         default:
@@ -226,6 +230,9 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         super.onDestroyActionMode(mode);
         if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped,
                                                     // don't try to select because of this
+            if (lastSelectedWay != null) {
+                lastSelectedWay.resetHasProblem(); // remove Validator.OK
+            }
             tagApplicable(lastSelectedNode, lastSelectedWay, false, false);
         }
     }
