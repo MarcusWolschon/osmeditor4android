@@ -155,13 +155,13 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         setContentView(R.layout.location_picker_view);
 
         // Load Views
-        RadioGroup radioGroup = findViewById(R.id.location_type_group);
-        loadMapButton = findViewById(R.id.location_button_current);
-        Button dontLoadMapButton = findViewById(R.id.location_button_no_location);
-        latEdit = findViewById(R.id.location_lat_edit);
-        lonEdit = findViewById(R.id.location_lon_edit);
-        EditText searchEdit = findViewById(R.id.location_search_edit);
-        SeekBar seeker = findViewById(R.id.location_radius_seeker);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.location_type_group);
+        loadMapButton = (Button) findViewById(R.id.location_button_current);
+        Button dontLoadMapButton = (Button) findViewById(R.id.location_button_no_location);
+        latEdit = (EditText) findViewById(R.id.location_lat_edit);
+        lonEdit = (EditText) findViewById(R.id.location_lon_edit);
+        EditText searchEdit = (EditText) findViewById(R.id.location_search_edit);
+        SeekBar seeker = (SeekBar) findViewById(R.id.location_radius_seeker);
 
         currentRadius = seeker.getProgress();
 
@@ -173,7 +173,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
         dontLoadMapButton.setOnClickListener(onClickListener);
 
         // the following shares a lot of code with SearchForm, but is unluckily slightly different
-        final Spinner searchGeocoder = findViewById(R.id.location_search_geocoder);
+        final Spinner searchGeocoder = (Spinner) findViewById(R.id.location_search_geocoder);
         AdvancedPrefDatabase db = new AdvancedPrefDatabase(this);
         final Geocoder[] geocoders = db.getActiveGeocoders();
         String[] geocoderNames = new String[geocoders.length];
@@ -222,9 +222,9 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
     @Override
     public void onItemSelected(SearchResult sr) {
-        RadioButton rb = findViewById(R.id.location_coordinates);
+        RadioButton rb = (RadioButton) findViewById(R.id.location_coordinates);
         rb.setChecked(true); // note potential race condition with setting the lat/lon
-        LinearLayout coordinateView = findViewById(R.id.location_coordinates_layout);
+        LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
         coordinateView.setVisibility(View.VISIBLE);
         loadMapButton.setEnabled(true);
         latEdit.setText(Double.toString(sr.getLat()));
@@ -311,7 +311,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
 
             @Override
             public void onCheckedChanged(final RadioGroup group, final int checkedId) {
-                LinearLayout coordinateView = findViewById(R.id.location_coordinates_layout);
+                LinearLayout coordinateView = (LinearLayout) findViewById(R.id.location_coordinates_layout);
                 loadMapButton.setEnabled(true);
                 if (checkedId == R.id.location_coordinates) {
                     coordinateView.setVisibility(View.VISIBLE);
@@ -345,7 +345,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
                     progress = MIN_WIDTH;
                 }
                 currentRadius = progress;
-                TextView radiusText = findViewById(R.id.location_radius_text);
+                TextView radiusText = (TextView) findViewById(R.id.location_radius_text);
                 radiusText.setText(getString(R.string.location_radius, progress));
             }
 
@@ -527,7 +527,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
             }
             locationMetaData = getString(R.string.location_text_metadata_location, lat, lon, accuracyMetaData, fixString);
         }
-        RadioButton rb = findViewById(buttonId);
+        RadioButton rb = (RadioButton) findViewById(buttonId);
         rb.setEnabled(location != null);
         rb.setText(getString(textId, locationMetaData));
     }
