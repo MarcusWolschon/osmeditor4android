@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import de.blau.android.dialogs.Progress;
@@ -26,7 +27,7 @@ public class Splash extends AppCompatActivity {
     private static final String DEBUG_TAG = "Splash";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {

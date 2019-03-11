@@ -19,7 +19,7 @@ public class RemoteControlUrlActivity extends Activity {
     public static final String  RCDATA    = "de.blau.android.RemoteControlActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 

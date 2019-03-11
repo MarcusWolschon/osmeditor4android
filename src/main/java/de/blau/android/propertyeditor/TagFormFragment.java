@@ -180,7 +180,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         comparator = new StringWithDescription.LocaleComparator();

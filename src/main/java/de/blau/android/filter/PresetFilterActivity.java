@@ -52,7 +52,7 @@ public class PresetFilterActivity extends AppCompatActivity implements PresetCli
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customActionBar_Light);

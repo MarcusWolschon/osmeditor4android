@@ -158,7 +158,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
     }

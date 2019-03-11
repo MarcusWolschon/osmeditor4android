@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -94,7 +95,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
 
     @SuppressLint("NewApi")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customHelpViewer_Light);

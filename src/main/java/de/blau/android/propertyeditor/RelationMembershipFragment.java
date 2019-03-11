@@ -100,7 +100,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);

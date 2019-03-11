@@ -250,7 +250,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
     }

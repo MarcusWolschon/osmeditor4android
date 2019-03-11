@@ -110,7 +110,7 @@ public class FeatureInfo extends DialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String featureString = getArguments().getString(FEATURE_KEY);
         feature = Feature.fromJson(featureString);

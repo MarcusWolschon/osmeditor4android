@@ -115,7 +115,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         setHasOptionsMenu(true);
