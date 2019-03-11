@@ -192,7 +192,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param members
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView rowLayout = null;
 
         if (savedInstanceState == null) {

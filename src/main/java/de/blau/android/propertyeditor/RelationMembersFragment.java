@@ -130,7 +130,7 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
     @SuppressWarnings("unchecked")
     @SuppressLint("InflateParams")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         this.inflater = inflater;
         ScrollView relationMembersLayout = (ScrollView) inflater.inflate(R.layout.members_view, null);

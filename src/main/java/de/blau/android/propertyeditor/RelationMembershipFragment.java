@@ -109,7 +109,7 @@ public class RelationMembershipFragment extends BaseFragment implements Property
 
     @SuppressWarnings("unchecked")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView parentRelationsLayout = null;
         LinearLayout membershipVerticalLayout = null;
 

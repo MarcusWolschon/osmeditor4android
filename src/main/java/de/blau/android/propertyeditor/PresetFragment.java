@@ -139,7 +139,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
 
     @SuppressLint("InflateParams")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         long elementId = getArguments().getLong(ELEMENT_ID_KEY);
         String elementName = getArguments().getString(ELEMENT_NAME_KEY);

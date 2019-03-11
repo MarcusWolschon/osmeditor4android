@@ -184,7 +184,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
     @SuppressLint("InflateParams")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(DEBUG_TAG, "onCreateView");
         Context context = ThemeUtils.getThemedContext(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert, R.style.Theme_AppCompat_Dialog_Alert);
         this.inflater = ThemeUtils.getLayoutInflater(context);
