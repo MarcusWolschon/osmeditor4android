@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import de.blau.android.osm.Tags;
 
@@ -12,7 +13,12 @@ public class ValidatorRulesDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME    = "validator_rules";
     private static final int    DATABASE_VERSION = 2;
 
-    public ValidatorRulesDatabaseHelper(final Context context) {
+    /**
+     * Construct a new instance
+     * 
+     * @param context Android Context
+     */
+    public ValidatorRulesDatabaseHelper(@NonNull final Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

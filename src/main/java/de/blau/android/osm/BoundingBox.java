@@ -408,7 +408,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @param bb the bounding box
      * @return true if bb is completely inside this
      */
-    public boolean contains(BoundingBox bb) {
+    public boolean contains(@NonNull BoundingBox bb) {
         return (bb.bottom >= bottom) && (bb.top <= top) && (bb.left >= left) && (bb.right <= right);
     }
 
@@ -593,7 +593,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * 
      * @param b BoundingBox that should be covered
      */
-    public void union(BoundingBox b) {
+    public void union(@NonNull BoundingBox b) {
         if (b.left < left) {
             left = b.left;
         }
@@ -617,7 +617,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return a single BoundingBox covering all in the COlletion or null
      */
     @Nullable
-    public static BoundingBox union(Collection<BoundingBox> boxes) {
+    public static BoundingBox union(@NonNull Collection<BoundingBox> boxes) {
         BoundingBox result = null;
         for (BoundingBox b : boxes) {
             if (result == null) {
@@ -647,7 +647,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
      * @return list of missing bounding boxes
      * @throws OsmException
      */
-    public static List<BoundingBox> newBoxes(List<BoundingBox> existing, BoundingBox newBox) {
+    public static List<BoundingBox> newBoxes(@NonNull List<BoundingBox> existing, @NonNull BoundingBox newBox) {
         List<BoundingBox> result = new ArrayList<>();
         result.add(newBox);
         for (BoundingBox b : existing) {
