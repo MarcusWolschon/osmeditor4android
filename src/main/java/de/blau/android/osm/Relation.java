@@ -36,7 +36,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     private static final long serialVersionUID = 1104911642016294266L;
 
     final ArrayList<RelationMember> members;
-    
+
     private transient FeatureStyle style = null; // FeatureProfile is currently not serializable
 
     public static final String NAME = "relation";
@@ -190,7 +190,7 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
     public void setStyle(@Nullable FeatureStyle fp) {
         style = fp;
     }
-    
+
     @Override
     public String toString() {
         // String res = super.toString();
@@ -467,7 +467,10 @@ public class Relation extends OsmElement implements BoundedObject, StyleableFeat
                 if (result == null) {
                     result = e.getBounds();
                 } else {
-                    result.union(e.getBounds());
+                    BoundingBox box = e.getBounds();
+                    if (box != null) {
+                        result.union(e.getBounds());
+                    }
                 }
             }
         }
