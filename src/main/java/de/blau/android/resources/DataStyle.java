@@ -387,15 +387,11 @@ public final class DataStyle extends DefaultHandler {
          * @param pathPattern the pattern
          */
         void setPathPattern(@Nullable PathPattern pathPattern) {
-            Log.i(DEBUG_TAG, "setPathPattern");
             if (pathPattern != null) {
                 this.pathPattern = pathPattern;
                 float width = getPaint().getStrokeWidth();
                 getPaint().setPathEffect(new PathDashPathEffect(pathPattern.draw(width), pathPattern.advance(width), 0f, pathPattern.style()));
-            } else {
-                Log.e(DEBUG_TAG, "pathPattern is null");
             }
-            Log.i(DEBUG_TAG, "... done");
         }
 
         /**
@@ -1177,9 +1173,6 @@ public final class DataStyle extends DefaultHandler {
                     tempFeatureStyle.setDontRender(Boolean.parseBoolean(dontrenderString));
                 }
 
-                for (int i = 0; i < atts.getLength(); i++) {
-                    Log.e(DEBUG_TAG, atts.getType(i) + "=" + atts.getValue(i));
-                }
                 String updateWidthString = atts.getValue("updateWidth");
                 if (updateWidthString != null) {
                     tempFeatureStyle.setUpdateWidth(Boolean.parseBoolean(updateWidthString));
