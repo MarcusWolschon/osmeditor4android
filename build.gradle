@@ -55,10 +55,6 @@ ext {
     adb = android.getAdbExe().toString()
 }
 
-eclipse.project {
-    natures 'org.eclipse.buildship.core.gradleprojectnature'
-}
-
 // note this is currently processed by a slightly modified version of the
 // org.kordamp.gradle.markdown plugin with support for a html template and
 // not the original
