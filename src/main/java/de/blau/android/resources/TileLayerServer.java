@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -90,7 +91,9 @@ import okhttp3.ResponseBody;
  * @author Marcus Wolschon Marcus@Wolschon.biz
  *
  */
-public class TileLayerServer {
+public class TileLayerServer implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     static final String         EPSG_900913       = "EPSG:900913";
     static final String         EPSG_3857         = "EPSG:3857";
     static final String         EPSG_4326         = "EPSG:4326";
@@ -126,7 +129,7 @@ public class TileLayerServer {
              * Create a coverage area given XML data.
              * 
              * @param parser The XML parser.
-             * @throws IOException
+             * @throws IOException if there was an IO error
              * @throws XmlPullParserException If there was a problem parsing the XML.
              * @throws NumberFormatException If any of the numbers couldn't be parsed.
              */
@@ -414,7 +417,7 @@ public class TileLayerServer {
     // Fields
     // ===========================================================
 
-    private Context             ctx;
+    private transient Context             ctx;
     private boolean             metadataLoaded;
     private String              id;
     private String              name;
@@ -431,17 +434,19 @@ public class TileLayerServer {
     private int                 tileHeight;
     private String              proj;
     private int                 preference;
-    private long                startDate    = -1L;
-    private long                endDate      = Long.MAX_VALUE;
-    private int                 maxOverZoom  = DEFAULT_MAX_OVERZOOM; // currently hardwired
-    private String              logoUrl      = null;
-    private Bitmap              logoBitmap   = null;
-    private Drawable            logoDrawable = null;
-    private final Queue<String> subdomains   = new LinkedList<>();
+    private long                startDate        = -1L;
+    private long                endDate          = Long.MAX_VALUE;
+    private int                 maxOverZoom      = DEFAULT_MAX_OVERZOOM; // currently hardwired
+    private String              logoUrl          = null;
+    private transient Bitmap              logoBitmap       = null;
+    private transient Drawable            logoDrawable     = null;
+    private final Queue<String> subdomains       = new LinkedList<>();
     private int                 defaultAlpha;
-    private String              noTileHeader = null;
-    private String[]            noTileValues = null;
-    private List<Provider>      providers    = new ArrayList<>();
+    private String              noTileHeader     = null;
+    private String[]            noTileValues     = null;
+    private String              description      = null;
+    private String              privacyPolicyUrl = null;
+    private transient List<Provider>      providers        = new ArrayList<>();
 
     private boolean  readOnly = false;
     private String   imageryOffsetId; // cached id for offset DB
@@ -644,12 +649,15 @@ public class TileLayerServer {
      * @param endDate end date as a ms since epoch value, -1 if not available
      * @param noTileHeader header that indicates that a tile isn't valid
      * @param noTileValues values that together with the header indicated that a tile isn't valid
+     * @param description a textual description of the layer or null
+     * @param privacyPolicyUrl a link to a privacy policy or null
      * @param async run loadInfo in a AsyncTask needed for main process
      */
     TileLayerServer(final Context ctx, final String id, final String name, final String url, final String type, final boolean overlay,
             final boolean defaultLayer, final Provider provider, final String termsOfUseUrl, final String icon, String logoUrl, byte[] logoBytes,
             final int zoomLevelMin, final int zoomLevelMax, int maxOverZoom, final int tileWidth, final int tileHeight, final String proj, final int preference,
-            final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues, boolean async) {
+            final long startDate, final long endDate, @Nullable String noTileHeader, @Nullable String[] noTileValues, @Nullable String description,
+            @Nullable String privacyPolicyUrl, boolean async) {
 
         this.ctx = ctx;
         this.id = id;
@@ -666,6 +674,8 @@ public class TileLayerServer {
         this.tileHeight = tileHeight;
         this.proj = proj;
         this.touUri = termsOfUseUrl;
+        this.description = description;
+        this.privacyPolicyUrl = privacyPolicyUrl;
 
         this.offsets = new Offset[zoomLevelMax - zoomLevelMin + 1];
         this.preference = preference;
@@ -793,7 +803,7 @@ public class TileLayerServer {
      * @param writeableDb SQLiteDatabase
      * @param is InputStream to parse
      * @param async obtain meta data async (bing only)
-     * @throws IOException
+     * @throws IOException if there was an IO error
      */
     public static void parseImageryFile(@NonNull Context ctx, @NonNull SQLiteDatabase writeableDb, @NonNull String source, @NonNull InputStream is,
             final boolean async) throws IOException {
@@ -971,6 +981,9 @@ public class TileLayerServer {
                 endDate = dateStringToTime(dateString);
             }
 
+            String description = getJsonString(properties, "description");
+            String privacyPolicyUrl = getJsonString(properties, "privacy_policy_url");
+
             String noTileHeader = null;
             String[] noTileValues = null;
             JsonObject noTileHeaderObject = getJsonObject(properties, "no_tile_header");
@@ -1012,7 +1025,8 @@ public class TileLayerServer {
                 return null;
             }
             osmts = new TileLayerServer(ctx, id, name, url, type, overlay, defaultLayer, provider, termsOfUseUrl, icon, null, null, minZoom, maxZoom,
-                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, async);
+                    DEFAULT_MAX_OVERZOOM, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
+                    privacyPolicyUrl, async);
         } catch (UnsupportedOperationException uoex) {
             Log.e(DEBUG_TAG, "Got " + uoex.getMessage());
         }
@@ -1162,7 +1176,7 @@ public class TileLayerServer {
      * 
      * @param ctx Android Context
      * @param writeableDb a writable SQLiteDatabase
-     * @throws IOException
+     * @throws IOException if there was an IO error
      */
     public static void updateFromEli(@NonNull final Context ctx, @NonNull SQLiteDatabase writeableDb) throws IOException {
         Log.d(DEBUG_TAG, "Uüdating from editor-layer-index");
@@ -2424,5 +2438,21 @@ public class TileLayerServer {
      */
     public void setMaxZoom(int zoomLevelMax) {
         this.zoomLevelMax = zoomLevelMax;
+    }
+
+    /**
+     * @return the description
+     */
+    @Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the privacyPolicyUrl
+     */
+    @Nullable
+    public String getPrivacyPolicyUrl() {
+        return privacyPolicyUrl;
     }
 }

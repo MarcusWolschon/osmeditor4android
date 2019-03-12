@@ -49,6 +49,7 @@ import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.DisableInterface;
 import de.blau.android.layer.DiscardInterface;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.layer.StyleableLayer;
 import de.blau.android.osm.BoundingBox;
@@ -285,7 +286,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * @param container parent view or null
      * @return the View
      */
-    private View createView(@NonNull ViewGroup container) {
+    private View createView(@Nullable ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
@@ -540,6 +541,18 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (layer != null) {
                             LayerStyle.showDialog(activity, layer.getIndex());
+                        }
+                        return true;
+                    }
+                });
+            }
+            if (layer instanceof LayerInfoInterface) {
+                MenuItem item = popup.getMenu().add(R.string.menu_information);
+                item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (layer != null) {
+                            ((LayerInfoInterface) layer).showInfo(activity);
                         }
                         return true;
                     }

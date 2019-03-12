@@ -24,7 +24,7 @@ import de.blau.android.util.collections.MultiHashMap;
 public class TileLayerDatabase extends SQLiteOpenHelper {
     private static final String DEBUG_TAG        = "TileLayerDatabase";
     public static final String  DATABASE_NAME    = "tilelayers";
-    private static final int    DATABASE_VERSION = 3;
+    private static final int    DATABASE_VERSION = 4;
 
     public static final String SOURCE_ELI    = "eli";    // editor-layer-index
     public static final String SOURCE_CUSTOM = "custom"; // user added tile layers from file
@@ -34,28 +34,30 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
     static final String         NAME_FIELD    = "name";
     private static final String UPDATED_FIELD = "updated";
 
-    public static final String  LAYERS_TABLE         = "layers";
-    private static final String ID_FIELD             = "id";
-    private static final String TYPE_FIELD           = "server_type";
-    private static final String SOURCE_FIELD         = "source";
-    private static final String TILE_URL_FIELD       = "url";
-    private static final String TOU_URI_FIELD        = "tou_url";
-    private static final String ATTRIBUTION_FIELD    = "attribution";
-    private static final String OVERLAY_FIELD        = "overlay";
-    private static final String DEFAULTLAYER_FIELD   = "default_layer";
-    private static final String ZOOM_MIN_FIELD       = "zoom_min";
-    private static final String ZOOM_MAX_FIELD       = "zoom_max";
-    private static final String OVER_ZOOM_MAX_FIELD  = "over_zoom_max";
-    private static final String TILE_WIDTH_FIELD     = "tile_width";
-    private static final String TILE_HEIGHT_FIELD    = "tile_height";
-    private static final String PROJ_FIELD           = "proj";
-    private static final String PREFERENCE_FIELD     = "preference";
-    private static final String START_DATE_FIELD     = "start_date";
-    private static final String END_DATE_FIELD       = "end_date";
-    private static final String NO_TILE_HEADER_FIELD = "no_tile_header";
-    private static final String NO_TILE_VALUE_FIELD  = "no_tile_value";
-    private static final String LOGO_URL_FIELD       = "logo_url";
-    private static final String LOGO_FIELD           = "logo";
+    public static final String  LAYERS_TABLE             = "layers";
+    private static final String ID_FIELD                 = "id";
+    private static final String TYPE_FIELD               = "server_type";
+    private static final String SOURCE_FIELD             = "source";
+    private static final String TILE_URL_FIELD           = "url";
+    private static final String TOU_URI_FIELD            = "tou_url";
+    private static final String ATTRIBUTION_FIELD        = "attribution";
+    private static final String OVERLAY_FIELD            = "overlay";
+    private static final String DEFAULTLAYER_FIELD       = "default_layer";
+    private static final String ZOOM_MIN_FIELD           = "zoom_min";
+    private static final String ZOOM_MAX_FIELD           = "zoom_max";
+    private static final String OVER_ZOOM_MAX_FIELD      = "over_zoom_max";
+    private static final String TILE_WIDTH_FIELD         = "tile_width";
+    private static final String TILE_HEIGHT_FIELD        = "tile_height";
+    private static final String PROJ_FIELD               = "proj";
+    private static final String PREFERENCE_FIELD         = "preference";
+    private static final String START_DATE_FIELD         = "start_date";
+    private static final String END_DATE_FIELD           = "end_date";
+    private static final String NO_TILE_HEADER_FIELD     = "no_tile_header";
+    private static final String NO_TILE_VALUE_FIELD      = "no_tile_value";
+    private static final String LOGO_URL_FIELD           = "logo_url";
+    private static final String LOGO_FIELD               = "logo";
+    private static final String DESCRIPTION_FIELD        = "description";
+    private static final String PRIVACY_POLICY_URL_FIELD = "privacy_policy_url";
 
     public static final String  COVERAGES_TABLE = "coverages";
     private static final String LEFT_FIELD      = "left";
@@ -88,8 +90,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
                             + " default_layer INTEGER NOT NULL DEFAULT 0, zoom_min INTEGER NOT NULL DEFAULT 0, zoom_max INTEGER NOT NULL DEFAULT 18,"
                             + " over_zoom_max INTEGER NOT NULL DEFAULT 4, tile_width INTEGER NOT NULL DEFAULT 256, tile_height INTEGER NOT NULL DEFAULT 256,"
                             + " proj TEXT DEFAULT NULL, preference INTEGER NOT NULL DEFAULT 0, start_date INTEGER DEFAULT NULL, end_date INTEGER DEFAULT NULL,"
-                            + " no_tile_header TEXT DEFAULT NULL, no_tile_value TEXT DEFAULT NULL,"
-                            + " logo_url TEXT DEFAULT NULL, logo BLOB DEFAULT NULL, FOREIGN KEY(source) REFERENCES sources(name) ON DELETE CASCADE)");
+                            + " no_tile_header TEXT DEFAULT NULL, no_tile_value TEXT DEFAULT NULL,  logo_url TEXT DEFAULT NULL, logo BLOB DEFAULT NULL,"
+                            + " description TEXT DEFAULT NULL, privacy_policy_url TEXT DEFAULT NULL, FOREIGN KEY(source) REFERENCES sources(name) ON DELETE CASCADE)");
             db.execSQL("CREATE INDEX layers_overlay_idx ON layers(overlay)");
             db.execSQL("CREATE INDEX layers_source_idx ON layers(source)");
             db.execSQL("CREATE TABLE coverages (id TEXT NOT NULL, zoom_min INTEGER NOT NULL DEFAULT 0, zoom_max INTEGER NOT NULL DEFAULT 18,"
@@ -110,6 +112,10 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         if (oldVersion <= 2 && newVersion >= 3) {
             db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_header TEXT DEFAULT NULL");
             db.execSQL("ALTER TABLE layers ADD COLUMN no_tile_value TEXT DEFAULT NULL");
+        }
+        if (oldVersion <= 3 && newVersion >= 4) {
+            db.execSQL("ALTER TABLE layers ADD COLUMN description TEXT DEFAULT NULL");
+            db.execSQL("ALTER TABLE layers ADD COLUMN privacy_policy_url TEXT DEFAULT NULL");
         }
     }
 
@@ -271,6 +277,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
             byte[] byteArray = stream.toByteArray();
             values.put(LOGO_FIELD, byteArray);
         }
+        values.put(DESCRIPTION_FIELD, layer.getDescription());
+        values.put(PRIVACY_POLICY_URL_FIELD, layer.getPrivacyPolicyUrl());
         return values;
     }
 
@@ -495,27 +503,29 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         return layers;
     }
 
-    static int idLayerFieldIndex      = -1;
-    static int nameFieldIndex         = -1;
-    static int typeFieldIndex         = -1;
-    static int tileUrlFieldIndex      = -1;
-    static int touUrlFieldIndex       = -1;
-    static int attributionFieldIndex  = -1;
-    static int overlayFieldIndex      = -1;
-    static int defaultLayerFieldIndex = -1;
-    static int zoomMinLayerFieldIndex = -1;
-    static int zoomMaxLayerFieldIndex = -1;
-    static int tileWidthFieldIndex    = -1;
-    static int tileHeightFieldIndex   = -1;
-    static int projFieldIndex         = -1;
-    static int preferenceFieldIndex   = -1;
-    static int startDateFieldIndex    = -1;
-    static int endDateIFieldndex      = -1;
-    static int noTileHeaderIndex      = -1;
-    static int noTileValueIndex       = -1;
-    static int overZoomMaxFieldIndex  = -1;
-    static int logoUrlFieldIndex      = -1;
-    static int logoFieldIndex         = -1;
+    static int idLayerFieldIndex          = -1;
+    static int nameFieldIndex             = -1;
+    static int typeFieldIndex             = -1;
+    static int tileUrlFieldIndex          = -1;
+    static int touUrlFieldIndex           = -1;
+    static int attributionFieldIndex      = -1;
+    static int overlayFieldIndex          = -1;
+    static int defaultLayerFieldIndex     = -1;
+    static int zoomMinLayerFieldIndex     = -1;
+    static int zoomMaxLayerFieldIndex     = -1;
+    static int tileWidthFieldIndex        = -1;
+    static int tileHeightFieldIndex       = -1;
+    static int projFieldIndex             = -1;
+    static int preferenceFieldIndex       = -1;
+    static int startDateFieldIndex        = -1;
+    static int endDateIFieldndex          = -1;
+    static int noTileHeaderIndex          = -1;
+    static int noTileValueIndex           = -1;
+    static int overZoomMaxFieldIndex      = -1;
+    static int logoUrlFieldIndex          = -1;
+    static int logoFieldIndex             = -1;
+    static int descriptionFieldIndex      = -1;
+    static int privacyPolicyUrlFieldIndex = -1;
 
     /**
      * Create a TileLayerServer from a database entry
@@ -557,9 +567,12 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         int maxOverZoom = cursor.getInt(overZoomMaxFieldIndex);
         String logoUrl = cursor.getString(logoUrlFieldIndex);
         byte[] logoBytes = cursor.getBlob(logoFieldIndex);
+        String description = cursor.getString(descriptionFieldIndex);
+        String privacyPolicyUrl = cursor.getString(privacyPolicyUrlFieldIndex);
 
         return new TileLayerServer(context, id, name, tileUrl, type, overlay, defaultLayer, provider, touUri, null, logoUrl, logoBytes, zoomLevelMin,
-                zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, true);
+                zoomLevelMax, maxOverZoom, tileWidth, tileHeight, proj, preference, startDate, endDate, noTileHeader, noTileValues, description,
+                privacyPolicyUrl, true);
     }
 
     /**
@@ -589,6 +602,8 @@ public class TileLayerDatabase extends SQLiteOpenHelper {
         overZoomMaxFieldIndex = cursor.getColumnIndex(OVER_ZOOM_MAX_FIELD);
         logoUrlFieldIndex = cursor.getColumnIndex(LOGO_URL_FIELD);
         logoFieldIndex = cursor.getColumnIndex(LOGO_FIELD);
+        descriptionFieldIndex = cursor.getColumnIndex(DESCRIPTION_FIELD);
+        privacyPolicyUrlFieldIndex = cursor.getColumnIndex(PRIVACY_POLICY_URL_FIELD);
     }
 
     /**

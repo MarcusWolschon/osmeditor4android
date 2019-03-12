@@ -285,4 +285,60 @@ public class TableLayoutUtils {
         tr.addView(v);
         return tr;
     }
+
+    /**
+     * Display a longer, potential multi-line text over the full width
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param text the text
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
+    @NonNull
+    public static View createFullRowTitle(@NonNull FragmentActivity activity, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(activity);
+        TextView cell = new TextView(activity);
+        cell.setText(text);
+        cell.setSingleLine();
+        cell.setTypeface(null, Typeface.BOLD);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            cell.setTextIsSelectable(true);
+        }
+        tr.addView(cell);
+
+        TableRow.LayoutParams trlp = (LayoutParams) cell.getLayoutParams();
+        trlp.span = 3;
+        trlp.weight = 1;
+        cell.setLayoutParams(trlp);
+
+        tr.setLayoutParams(tp);
+        return tr;
+    }
+
+    /**
+     * Display a longer, potential multi-line text over the full width
+     * 
+     * @param activity the FragmentActivity the TableLayout is being displayed on
+     * @param text the text
+     * @param tp LayoutParams for the row
+     * @return a TableRow
+     */
+    @NonNull
+    public static View createFullRow(@NonNull FragmentActivity activity, @NonNull String text, @NonNull android.widget.TableLayout.LayoutParams tp) {
+        TableRow tr = new TableRow(activity);
+        TextView cell = new TextView(activity);
+        cell.setText(text);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            cell.setTextIsSelectable(true);
+        }
+        tr.addView(cell);
+
+        TableRow.LayoutParams trlp = (LayoutParams) cell.getLayoutParams();
+        trlp.span = 3;
+        trlp.weight = 1;
+        cell.setLayoutParams(trlp);
+
+        tr.setLayoutParams(tp);
+        return tr;
+    }
 }

@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -23,9 +24,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import de.blau.android.Map;
+import de.blau.android.dialogs.LayerInfo;
 import de.blau.android.dialogs.Progress;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.layer.ExtentInterface;
+import de.blau.android.layer.LayerInfoInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
@@ -51,7 +54,7 @@ import de.blau.android.views.util.MapTileProvider;
  * @author Marcus Wolschon <Marcus@Wolschon.biz>
  * @author Simon Poole
  */
-public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
+public class MapTilesLayer extends MapViewLayer implements ExtentInterface, LayerInfoInterface {
 
     private static final String DEBUG_TAG          = MapTilesLayer.class.getSimpleName();
     /** Define a minimum active area for taps on the tile attribution data. */
@@ -227,12 +230,22 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
         myRendererInfo = tileLayer;
     }
 
+    /**
+     * Get the current MapTileProvider
+     * 
+     * @return the current MapTileProvider
+     */
+    @NonNull
     public MapTileProvider getTileProvider() {
         return mTileProvider;
     }
 
+    /**
+     * Set the contrast for this layer
+     * 
+     * @param a the new value
+     */
     public void setContrast(float a) {
-        // mPaint.setAlpha(a);
         float scale = a + 1.f;
         float translate = (-.5f * scale + .5f) * 255.f;
         ColorMatrix cm = new ColorMatrix();
@@ -686,5 +699,15 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface {
             lastServers.ensureCapacity(MRU_SIZE);
         }
         return true;
+    }
+
+    @Override
+    public void showInfo(FragmentActivity activity) {
+        LayerInfo f = new ImageryLayerInfo();
+        f.setShowsDialog(true);
+        Bundle args = new Bundle();
+        args.putSerializable(ImageryLayerInfo.LAYER_KEY, myRendererInfo);
+        f.setArguments(args);
+        LayerInfo.showDialog(activity, f);
     }
 }
