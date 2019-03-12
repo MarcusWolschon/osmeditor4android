@@ -2,6 +2,7 @@ package de.blau.android.prefs;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuCompat;
 import android.support.v7.app.ActionBar;
@@ -29,7 +30,7 @@ public class AdvancedPrefEditor extends AppCompatActivity implements PreferenceF
     private static final int    MENUITEM_HELP = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d("AdvancedPrefEditor", "onCreate");
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {

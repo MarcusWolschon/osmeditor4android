@@ -94,7 +94,7 @@ public abstract class URLListEditActivity extends ListActivity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         Preferences prefs = new Preferences(this);
         if (prefs.lightThemeEnabled()) {
             setTheme(R.style.Theme_customLight);

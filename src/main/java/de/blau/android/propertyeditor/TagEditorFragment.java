@@ -250,7 +250,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
     }
@@ -261,7 +261,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param members
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView rowLayout = null;
 
         boolean applyLastAddressTags = false;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.util.GeoUrlData;
 
@@ -16,7 +17,7 @@ public class GeoUrlActivity extends Activity {
     public static final String  GEODATA   = "de.blau.android.GeoUrlActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 

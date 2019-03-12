@@ -180,7 +180,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
         comparator = new StringWithDescription.LocaleComparator();
@@ -192,7 +192,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
      * @param members
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ScrollView rowLayout = null;
 
         if (savedInstanceState == null) {

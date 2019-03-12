@@ -132,14 +132,14 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(DEBUG_TAG, "onCreate");
     }
 
     @SuppressLint("InflateParams")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         long elementId = getArguments().getLong(ELEMENT_ID_KEY);
         String elementName = getArguments().getString(ELEMENT_NAME_KEY);
