@@ -55,6 +55,7 @@ import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.resources.TileLayerServer;
+import de.blau.android.util.Density;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
 import de.blau.android.util.SizedFixedImmersiveDialogFragment;
@@ -284,7 +285,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * @param container parent view or null
      * @return the View
      */
-    private View createView(ViewGroup container) {
+    private View createView(@NonNull ViewGroup container) {
         LayoutInflater inflater;
         FragmentActivity activity = getActivity();
         inflater = ThemeUtils.getLayoutInflater(activity);
@@ -341,6 +342,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         isVisible = layer.isVisible();
         visible.setImageResource(isVisible ? visibleId : invisibleId);
         visible.setBackgroundColor(Color.TRANSPARENT);
+        visible.setPadding(0, 0, Density.dpToPx(context, 5), 0);
         visible.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -357,7 +359,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
             final ImageButton zoomToExtent = new ImageButton(context);
             zoomToExtent.setImageResource(zoomToExtentId);
             zoomToExtent.setBackgroundColor(Color.TRANSPARENT);
-            zoomToExtent.setPadding(10, 0, 5, 0);
+            zoomToExtent.setPadding(Density.dpToPx(context, 5), 0, Density.dpToPx(context, 5), 0);
             zoomToExtent.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -390,13 +392,14 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         cell.setHorizontallyScrolling(true);
         cell.setSingleLine(true);
         cell.setEllipsize(TextUtils.TruncateAt.END);
-        cell.setPadding(5, 0, 0, 0);
+        cell.setPadding(Density.dpToPx(context, 5), 0, Density.dpToPx(context, 5), 0);
         tr.addView(cell);
         if (needsMenu(layer)) {
             final ImageButton menu = new ImageButton(context);
             menu.setImageResource(menuId);
             menu.setBackgroundColor(Color.TRANSPARENT);
             menu.setOnClickListener(new LayerMenuListener(menu, layer));
+            cell.setOnClickListener(new LayerMenuListener(menu, layer));
             tr.addView(menu);
             menu.setTag(tr);
         } else {
