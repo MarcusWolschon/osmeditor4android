@@ -252,7 +252,7 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         };
         Map map = main.getMap();
         if (map != null) {
-            main.getMap().postDelayed(run,1000);
+            map.postDelayed(run,1000);
         }
     }
 }
