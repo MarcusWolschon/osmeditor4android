@@ -66,8 +66,8 @@ public class ClosedWaySplittingActionModeCallback extends NonSimpleActionModeCal
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid nodes can be
-                                                            // clicked
+    public boolean handleElementClick(OsmElement element) { // NOSONAR 
+        // due to clickableElements, only valid nodes can be clicked
         super.handleElementClick(element);
         if (element instanceof Node) {
             Way[] result = logic.performClosedWaySplit(main, way, node, (Node) element, createPolygons);

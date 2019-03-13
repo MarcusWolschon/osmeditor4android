@@ -198,6 +198,7 @@ public class MapTilesLayer extends MapViewLayer implements ExtentInterface, Laye
      * 
      * @return a TileLayerServer object
      */
+    @Nullable
     public TileLayerServer getTileLayerConfiguration() {
         return myRendererInfo;
     }

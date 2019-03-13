@@ -1002,7 +1002,7 @@ public class Map extends View implements IMapView {
      * @param canvas Canvas we are drawing on
      * @return the tile zoom level
      */
-    private int calcZoomLevel(Canvas canvas) {
+    private int calcZoomLevel(Canvas canvas) { // NOSONAR
         int tileWidth = TileLayerServer.DEFAULT_TILE_SIZE;
         int tileHeight = TileLayerServer.DEFAULT_TILE_SIZE;
         MapTilesLayer tileLayer = getBackgroundLayer();

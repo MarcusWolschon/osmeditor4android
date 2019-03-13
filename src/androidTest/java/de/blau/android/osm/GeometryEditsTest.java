@@ -136,7 +136,7 @@ public class GeometryEditsTest {
             Assert.assertEquals(2, wList2.size());
             Assert.assertEquals(wList2.get(0), w2);
             Assert.assertEquals(wList2.get(0).getParentRelations().get(0), r1);
-            Assert.assertEquals(wList2.get(1).getParentRelations(), null); // special case for restrictions
+            Assert.assertNull(wList2.get(1).getParentRelations()); // special case for restrictions
             Assert.assertEquals(3, r1.getMemberElements().size());
 
             // merge former way 2

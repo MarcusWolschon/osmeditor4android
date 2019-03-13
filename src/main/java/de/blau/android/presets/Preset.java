@@ -120,7 +120,7 @@ import de.blau.android.views.WrappingLayout;
 public class Preset implements Serializable {
 
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
-    private static final String PO                         = ".po";
+    private static final String PO_EXT                         = ".po";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
     private static final String NO                         = "no";
     private static final String VALUE_TYPE                 = "value_type";
@@ -440,9 +440,9 @@ public class Preset implements Serializable {
                     try {
                         Locale locale = Locale.getDefault();
                         String language = locale.getLanguage();
-                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + PO, true);
+                        poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + locale + PO_EXT, true);
                         if (poFileStream == null) {
-                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + PO, true);
+                            poFileStream = iconManager.openAsset(DEFAULT_PRESET_TRANSLATION + language + PO_EXT, true);
                         }
                         po = parserPoFile(poFileStream);
                     } finally {
@@ -525,9 +525,9 @@ public class Preset implements Serializable {
     @NonNull
     private FileInputStream getPoInputStream(@NonNull File directory, @NonNull String presetFilename, @NonNull Locale locale) throws FileNotFoundException {
         try {
-            return new FileInputStream(new File(directory, presetFilename + locale.toString() + PO));
+            return new FileInputStream(new File(directory, presetFilename + locale.toString() + PO_EXT));
         } catch (FileNotFoundException fnfe) {
-            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + PO));
+            return new FileInputStream(new File(directory, presetFilename + locale.getLanguage() + PO_EXT));
         }
     }
 

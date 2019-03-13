@@ -69,8 +69,8 @@ public class ViaElementActionModeCallback extends NonSimpleActionModeCallback {
     }
 
     @Override
-    public boolean handleElementClick(OsmElement element) { // due to clickableElements, only valid elements can be
-                                                            // clicked
+    public boolean handleElementClick(OsmElement element) { // NOSONAR
+        // due to clickableElements, only valid elements can be clicked
         super.handleElementClick(element);
         Node viaNode = null;
         Way toWay = (Way) element;

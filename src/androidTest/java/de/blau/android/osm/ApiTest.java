@@ -111,11 +111,11 @@ public class ApiTest {
         Capabilities result = s.getCapabilities();
 
         Assert.assertNotNull(result);
-        Assert.assertEquals(result.getMinVersion(), "0.6");
-        Assert.assertEquals(result.getGpxStatus(), Capabilities.Status.ONLINE);
-        Assert.assertEquals(result.getApiStatus(), Capabilities.Status.ONLINE);
-        Assert.assertEquals(result.getDbStatus(), Capabilities.Status.ONLINE);
-        Assert.assertEquals(result.getMaxWayNodes(), 2001);
+        Assert.assertEquals("0.6", result.getMinVersion());
+        Assert.assertEquals(Capabilities.Status.ONLINE, result.getGpxStatus());
+        Assert.assertEquals(Capabilities.Status.ONLINE, result.getApiStatus());
+        Assert.assertEquals(Capabilities.Status.ONLINE, result.getDbStatus());
+        Assert.assertEquals(2001, result.getMaxWayNodes(), 2001);
     }
 
     /**
@@ -263,10 +263,10 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(App.getDelegator().getApiElementCount(), 32);
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
-        Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+        Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
 
         mockServer.enqueue("capabilities1");
         mockServer.enqueue("changeset1");
@@ -311,10 +311,10 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(App.getDelegator().getApiElementCount(), 32);
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
-        Assert.assertEquals(n.getState(), OsmElement.STATE_MODIFIED);
+        Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
         n.setState(OsmElement.STATE_UNCHANGED);
 
         mockServer.enqueue("capabilities1");
@@ -354,7 +354,7 @@ public class ApiTest {
             Assert.fail(e.getMessage());
         }
 
-        Assert.assertEquals(App.getDelegator().getApiElementCount(), 32);
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());
@@ -477,7 +477,7 @@ public class ApiTest {
         } catch (InterruptedException e) {
             Assert.fail(e.getMessage());
         }
-        Assert.assertEquals(App.getDelegator().getApiElementCount(), 32);
+        Assert.assertEquals(32, App.getDelegator().getApiElementCount());
         Node n = (Node) App.getDelegator().getOsmElement(Node.NAME, 101792984);
         Assert.assertNotNull(n);
         Assert.assertEquals(OsmElement.STATE_MODIFIED, n.getState());

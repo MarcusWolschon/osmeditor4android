@@ -261,6 +261,7 @@ public class Main extends FullScreenAppCompatActivity
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            // unused
         }
 
         @Override

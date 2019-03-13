@@ -416,36 +416,36 @@ public class TileLayerServer implements Serializable {
     // Fields
     // ===========================================================
 
-    private transient Context             ctx;
-    private boolean             metadataLoaded;
-    private String              id;
-    private String              name;
-    private String              type;
-    private String              tileUrl;
-    private String              originalUrl;
-    private String              imageFilenameExtension;
-    private String              touUri;
-    private boolean             overlay;
-    private boolean             defaultLayer;
-    private int                 zoomLevelMin;
-    private int                 zoomLevelMax;
-    private int                 tileWidth;
-    private int                 tileHeight;
-    private String              proj;
-    private int                 preference;
-    private long                startDate        = -1L;
-    private long                endDate          = Long.MAX_VALUE;
-    private int                 maxOverZoom      = DEFAULT_MAX_OVERZOOM; // currently hardwired
-    private String              logoUrl          = null;
-    private transient Bitmap              logoBitmap       = null;
-    private transient Drawable            logoDrawable     = null;
-    private final Queue<String> subdomains       = new LinkedList<>();
-    private int                 defaultAlpha;
-    private String              noTileHeader     = null;
-    private String[]            noTileValues     = null;
-    private String              description      = null;
-    private String              privacyPolicyUrl = null;
-    private transient List<Provider>      providers        = new ArrayList<>();
+    private transient Context        ctx;
+    private boolean                  metadataLoaded;
+    private String                   id;
+    private String                   name;
+    private String                   type;
+    private String                   tileUrl;
+    private String                   originalUrl;
+    private String                   imageFilenameExtension;
+    private String                   touUri;
+    private boolean                  overlay;
+    private boolean                  defaultLayer;
+    private int                      zoomLevelMin;
+    private int                      zoomLevelMax;
+    private int                      tileWidth;
+    private int                      tileHeight;
+    private String                   proj;
+    private int                      preference;
+    private long                     startDate        = -1L;
+    private long                     endDate          = Long.MAX_VALUE;
+    private int                      maxOverZoom      = DEFAULT_MAX_OVERZOOM; // currently hardwired
+    private String                   logoUrl          = null;
+    private transient Bitmap         logoBitmap       = null;
+    private transient Drawable       logoDrawable     = null;
+    private final Queue<String>      subdomains       = new LinkedList<>();
+    private int                      defaultAlpha;
+    private String                   noTileHeader     = null;
+    private String[]                 noTileValues     = null;
+    private String                   description      = null;
+    private String                   privacyPolicyUrl = null;
+    private transient List<Provider> providers        = new ArrayList<>();
 
     private boolean  readOnly = false;
     private String   imageryOffsetId; // cached id for offset DB
@@ -1899,8 +1899,8 @@ public class TileLayerServer implements Serializable {
         return result;
     }
 
-    private static final int BASE  = 0;
-    private static final int PARAM = 1;
+    private static final int BASE_STATE  = 0;
+    private static final int PARAM_STATE = 1;
 
     /**
      * Allocate the following just once
@@ -1921,18 +1921,18 @@ public class TileLayerServer implements Serializable {
     public synchronized String getTileURLString(final MapTile aTile) {
         checkMetaData();
         builder.setLength(0);
-        int state = BASE;
+        int state = BASE_STATE;
         for (char c : tileUrl.toCharArray()) {
-            if (state == BASE) {
+            if (state == BASE_STATE) {
                 if (c == '{') {
-                    state = PARAM;
+                    state = PARAM_STATE;
                     param.setLength(0); // reset
                 } else {
                     builder.append(c);
                 }
             } else {
                 if (c == '}') {
-                    state = BASE;
+                    state = BASE_STATE;
                     String p = param.toString();
                     switch (p) {
                     case "x":
