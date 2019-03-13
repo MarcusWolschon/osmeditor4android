@@ -61,7 +61,6 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Urls;
 import de.blau.android.imageryoffset.Offset;
 import de.blau.android.osm.BoundingBox;
-import de.blau.android.osm.OsmParser;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.ViewBox;

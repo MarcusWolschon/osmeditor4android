@@ -3,8 +3,6 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;

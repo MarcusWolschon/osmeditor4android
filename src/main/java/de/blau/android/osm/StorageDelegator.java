@@ -41,7 +41,6 @@ import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
-import de.blau.android.validation.Validator;
 
 public class StorageDelegator implements Serializable, Exportable {
 

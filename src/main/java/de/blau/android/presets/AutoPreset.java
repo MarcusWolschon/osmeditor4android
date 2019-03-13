@@ -31,7 +31,6 @@ import de.blau.android.App;
 import de.blau.android.R;
 import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
-import de.blau.android.contract.Urls;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
 import de.blau.android.presets.Preset.PresetElement;
