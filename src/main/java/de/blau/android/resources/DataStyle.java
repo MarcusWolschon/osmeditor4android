@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
-import java.util.Stack;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,8 +36,6 @@ import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -57,6 +55,8 @@ import de.blau.android.util.Version;
 public final class DataStyle extends DefaultHandler {
 
     private static final String DEBUG_TAG = "DataStyle";
+
+    private static final Version CURRENT_VERSION = new Version("0.2.0");
 
     private static final String FILE_PATH_STYLE_SUFFIX = "-profile.xml";
 
@@ -195,32 +195,6 @@ public final class DataStyle extends DefaultHandler {
             fontMetrics = fp.fontMetrics;
             setPathPattern(fp.pathPattern);
             cascadedStyles = null;
-        }
-
-        /**
-         * Construct a deep copy of an existing style
-         * 
-         * @param fp the existing style
-         */
-        public FeatureStyle(@NonNull FeatureStyle fp) {
-            tags = new HashMap<>(fp.tags);
-            paint = new Paint(fp.getPaint());
-            minVisibleZoom = fp.minVisibleZoom;
-            setArea(fp.isArea());
-            dontrender = fp.dontrender;
-            updateWidth = fp.updateWidth;
-            widthFactor = fp.widthFactor;
-            if (fp.dashPath != null) {
-                dashPath = new DashPath();
-                dashPath.intervals = fp.dashPath.intervals.clone();
-                dashPath.phase = fp.dashPath.phase;
-            }
-            fontMetrics = fp.fontMetrics;
-            pathPattern = fp.pathPattern;
-            cascadedStyles = new ArrayList<>();
-            for (FeatureStyle cascaded : cascadedStyles) {
-                cascadedStyles.add(new FeatureStyle(cascaded));
-            }
         }
 
         /**
@@ -463,22 +437,22 @@ public final class DataStyle extends DefaultHandler {
     /**
      * GPS arrow
      */
-    private Path orientation_path = new Path();
+    private Path orientationPath = new Path();
 
     /**
      * GPS waypoint
      */
-    private Path waypoint_path = new Path();
+    private Path waypointPath = new Path();
 
     /**
      * Crosshairs
      */
-    private Path crosshairs_path = new Path();
+    private Path crosshairsPath = new Path();
 
     /**
      * X
      */
-    private Path x_path = new Path();
+    private Path xPath = new Path();
 
     /**
      * Arrow indicating the direction of one-way streets. Set/updated in updateStrokes
@@ -514,7 +488,11 @@ public final class DataStyle extends DefaultHandler {
     private DataStyle(@NonNull Context ctx, @NonNull InputStream is) {
         this.ctx = ctx;
         init(); // defaults for internal styles
-        read(is);
+        try {
+            read(is);
+        } catch (Exception e) { // never crash
+            Log.e(DEBUG_TAG, "Reading style configuration failed");
+        }
     }
 
     /**
@@ -532,8 +510,6 @@ public final class DataStyle extends DefaultHandler {
         createWayPointPath(1.0f);
         createCrosshairsPath(1.0f);
         createXPath(1.0f);
-
-        PorterDuffXfermode pixelXor = new PorterDuffXfermode(PorterDuff.Mode.XOR);
 
         Log.i(DEBUG_TAG, "setting up default profile elements");
         internalStyles = new HashMap<>();
@@ -748,7 +724,6 @@ public final class DataStyle extends DefaultHandler {
         fp.setUpdateWidth(false);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx, 12));
-        fp.getPaint().setXfermode(pixelXor);
         internalStyles.put(LABELTEXT, fp);
 
         fp = new FeatureStyle(LABELTEXT_NORMAL);
@@ -758,7 +733,6 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStyle(Style.FILL);
         fp.getPaint().setTypeface(Typeface.SANS_SERIF);
         fp.getPaint().setTextSize(Density.dpToPx(ctx, 16));
-        // fp.getPaint().setShadowLayer(2f, 2f, 2f, Color.WHITE);
         internalStyles.put(LABELTEXT_NORMAL, fp);
 
         fp = new FeatureStyle(LABELTEXT_SMALL);
@@ -840,7 +814,6 @@ public final class DataStyle extends DefaultHandler {
         fp.setColor(Color.BLACK);
         fp.getPaint().setStyle(Style.STROKE);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 1.0f));
-        // fp.getPaint().setXfermode(pixelOp);
         fp.setUpdateWidth(false);
         internalStyles.put(CROSSHAIRS, fp);
 
@@ -848,7 +821,6 @@ public final class DataStyle extends DefaultHandler {
         fp.setColor(Color.WHITE);
         fp.getPaint().setStyle(Style.STROKE);
         fp.getPaint().setStrokeWidth(Density.dpToPx(ctx, 3.0f));
-        // fp.getPaint().setXfermode(pixelOp);
         fp.setUpdateWidth(false);
         internalStyles.put(CROSSHAIRS_HALO, fp);
 
@@ -1092,13 +1064,13 @@ public final class DataStyle extends DefaultHandler {
     /**
      * vars for the XML parser
      */
-    private FeatureStyle        tempFeatureStyle;
-    String                      type       = null;
-    String                      tags       = null;
-    private ArrayList<Float>    tempIntervals;
-    private float               tempPhase;
-    private FeatureStyle        parent     = null;
-    private Stack<FeatureStyle> styleStack = new Stack<>();
+    private FeatureStyle             tempFeatureStyle;
+    String                           type       = null;
+    String                           tags       = null;
+    private ArrayList<Float>         tempIntervals;
+    private float                    tempPhase;
+    private FeatureStyle             parent     = null;
+    private ArrayDeque<FeatureStyle> styleStack = new ArrayDeque<>();
 
     @Override
     public void startElement(final String uri, final String element, final String qName, final Attributes atts) {
@@ -1108,12 +1080,13 @@ public final class DataStyle extends DefaultHandler {
                 String format = atts.getValue("format");
                 if (format != null) {
                     Version v = new Version(format);
-                    // test here
-                } else {
-                    Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, name));
-                    Log.e(DEBUG_TAG, "format attribute missing for " + name);
-                    throw new SAXException("format attribute missing for " + name);
+                    if (v.getMajor() == CURRENT_VERSION.getMajor() && v.getMinor() == CURRENT_VERSION.getMinor()) {
+                        return; // everything OK
+                    }
                 }
+                Snack.toastTopError(ctx, ctx.getString(R.string.toast_invalid_style_file, name));
+                Log.e(DEBUG_TAG, "format attribute missing or wrong for " + name);
+                throw new SAXException("format attribute missing or wrong for " + name);
             } else if (element.equals("config")) {
                 type = atts.getValue("type");
                 if (type != null) {
@@ -1252,12 +1225,12 @@ public final class DataStyle extends DefaultHandler {
      * @param scale scaling factor
      */
     private void createCrosshairsPath(float scale) {
-        crosshairs_path = new Path();
+        crosshairsPath = new Path();
         int arm = (int) Density.dpToPx(ctx, 10 * scale);
-        crosshairs_path.moveTo(0, -arm);
-        crosshairs_path.lineTo(0, arm);
-        crosshairs_path.moveTo(arm, 0);
-        crosshairs_path.lineTo(-arm, 0);
+        crosshairsPath.moveTo(0, -arm);
+        crosshairsPath.lineTo(0, arm);
+        crosshairsPath.moveTo(arm, 0);
+        crosshairsPath.lineTo(-arm, 0);
     }
 
     /**
@@ -1267,12 +1240,12 @@ public final class DataStyle extends DefaultHandler {
      */
     private void createXPath(float scale) {
         int arm;
-        x_path = new Path();
+        xPath = new Path();
         arm = (int) Density.dpToPx(ctx, 3 * scale);
-        x_path.moveTo(-arm, -arm);
-        x_path.lineTo(arm, arm);
-        x_path.moveTo(arm, -arm);
-        x_path.lineTo(-arm, arm);
+        xPath.moveTo(-arm, -arm);
+        xPath.lineTo(arm, arm);
+        xPath.moveTo(arm, -arm);
+        xPath.lineTo(-arm, arm);
     }
 
     /**
@@ -1281,12 +1254,12 @@ public final class DataStyle extends DefaultHandler {
      * @param scale scaling factor
      */
     private void createWayPointPath(float scale) {
-        waypoint_path = new Path();
+        waypointPath = new Path();
         int side = (int) Density.dpToPx(ctx, 8 * scale);
-        waypoint_path.moveTo(0, 0);
-        waypoint_path.lineTo(side, -side * 2f);
-        waypoint_path.lineTo(-side, -side * 2f);
-        waypoint_path.lineTo(0, 0);
+        waypointPath.moveTo(0, 0);
+        waypointPath.lineTo(side, -side * 2f);
+        waypointPath.lineTo(-side, -side * 2f);
+        waypointPath.lineTo(0, 0);
     }
 
     /**
@@ -1295,12 +1268,12 @@ public final class DataStyle extends DefaultHandler {
      * @param scale scaling factor
      */
     private void createOrientationPath(float scale) {
-        orientation_path = new Path();
-        orientation_path.moveTo(0, Density.dpToPx(ctx, -20) * scale);
-        orientation_path.lineTo(Density.dpToPx(ctx, 15) * scale, Density.dpToPx(ctx, 20) * scale);
-        orientation_path.lineTo(0, Density.dpToPx(ctx, 10) * scale);
-        orientation_path.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
-        orientation_path.lineTo(0, Density.dpToPx(ctx, -20) * scale);
+        orientationPath = new Path();
+        orientationPath.moveTo(0, Density.dpToPx(ctx, -20) * scale);
+        orientationPath.lineTo(Density.dpToPx(ctx, 15) * scale, Density.dpToPx(ctx, 20) * scale);
+        orientationPath.lineTo(0, Density.dpToPx(ctx, 10) * scale);
+        orientationPath.lineTo(Density.dpToPx(ctx, -15) * scale, Density.dpToPx(ctx, 20) * scale);
+        orientationPath.lineTo(0, Density.dpToPx(ctx, -20) * scale);
     }
 
     @Override
@@ -1309,10 +1282,7 @@ public final class DataStyle extends DefaultHandler {
             Log.i(DEBUG_TAG, "element is null");
             return;
         }
-        // noinspection StatementWithEmptyBody
-        if (element.equals("profile")) {
-        } else if (element.equals("config")) {
-        } else if (element.equals("feature")) {
+        if (element.equals("feature")) {
             if (tempFeatureStyle == null) {
                 Log.i(DEBUG_TAG, "FeatureStyle is null");
                 return;
@@ -1364,20 +1334,20 @@ public final class DataStyle extends DefaultHandler {
                 tIntervals[i] = tempIntervals.get(i);
             }
             tempFeatureStyle.setDashPath(tIntervals, tempPhase);
-        } else // noinspection StatementWithEmptyBody
-        if (element.equals("interval")) {
         }
     }
 
-    private boolean read(@NonNull InputStream is) {
-        InputStream inputStream = null;
-        try {
-            inputStream = new BufferedInputStream(is);
-            start(inputStream);
-        } catch (Exception e) {
-            Log.e(DEBUG_TAG, "Read failed " + e);
-        }
-        return true;
+    /**
+     * Read an InputStream and parse the XML
+     * 
+     * @param is the InputStream
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     */
+    private void read(@NonNull InputStream is) throws SAXException, IOException, ParserConfigurationException {
+        InputStream inputStream = new BufferedInputStream(is);
+        start(inputStream);
     }
 
     /**
@@ -1453,28 +1423,28 @@ public final class DataStyle extends DefaultHandler {
      * @return the orientation_path
      */
     public Path getOrientationPath() {
-        return orientation_path;
+        return orientationPath;
     }
 
     /**
      * @return the waypoint_path
      */
     public Path getWaypointPath() {
-        return waypoint_path;
+        return waypointPath;
     }
 
     /**
      * @return the crosshairs_path
      */
     public Path getCrosshairsPath() {
-        return crosshairs_path;
+        return crosshairsPath;
     }
 
     /**
      * @return the x_path
      */
     public Path getXPath() {
-        return x_path;
+        return xPath;
     }
 
     /**

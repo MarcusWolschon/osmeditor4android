@@ -9,10 +9,10 @@ import de.blau.android.contract.Files;
 public class Version {
 
     private static final String DEBUG_TAG = "Version";
-    int                         major     = 0;
-    int                         minor     = 0;
-    int                         patch     = 0;
-    int                         beta      = 0;
+    private int                 major     = 0;
+    private int                 minor     = 0;
+    private int                 patch     = 0;
+    private int                 beta      = 0;
 
     String               lastVersion;
     SavingHelper<String> savingHelperVersion;
@@ -91,5 +91,33 @@ public class Version {
      */
     public void save() {
         savingHelperVersion.save(ctx, Files.VERSION, ctx.getString(R.string.app_version), false);
+    }
+
+    /**
+     * @return the major version
+     */
+    public int getMajor() {
+        return major;
+    }
+
+    /**
+     * @return the minor version
+     */
+    public int getMinor() {
+        return minor;
+    }
+
+    /**
+     * @return the patch version
+     */
+    public int getPatch() {
+        return patch;
+    }
+
+    /**
+     * @return the beta version
+     */
+    public int getBeta() {
+        return beta;
     }
 }
