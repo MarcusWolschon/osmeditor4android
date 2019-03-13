@@ -3,11 +3,14 @@ package de.blau.android.easyedit;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import de.blau.android.Map;
 import de.blau.android.R;
 import de.blau.android.exception.OsmIllegalOperationException;
 import de.blau.android.osm.Node;
@@ -132,9 +135,7 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
         }
         if (logic.getSelectedNode() == null) {
             // user clicked last node again -> finish adding
-            if (lastSelectedWay != null) {
-                lastSelectedWay.resetHasProblem(); // remove Validator.OK
-            }
+            delayedResetHasProblem(lastSelectedWay);
             manager.finish();
             tagApplicable(lastSelectedNode, lastSelectedWay, true, false);
         } else { // update cache for undo
@@ -223,17 +224,37 @@ public class PathCreationActionModeCallback extends NonSimpleActionModeCallback 
      */
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-        Node lastSelectedNode = logic.getSelectedNode();
-        Way lastSelectedWay = logic.getSelectedWay();
+        final Node lastSelectedNode = logic.getSelectedNode();
+        final Way lastSelectedWay = logic.getSelectedWay();
         logic.setSelectedWay(null);
         logic.setSelectedNode(null);
         super.onDestroyActionMode(mode);
         if (appendTargetNode == null && !dontTag) { // doesn't work as intended element selected modes get zapped,
                                                     // don't try to select because of this
-            if (lastSelectedWay != null) {
-                lastSelectedWay.resetHasProblem(); // remove Validator.OK
-            }
             tagApplicable(lastSelectedNode, lastSelectedWay, false, false);
+            delayedResetHasProblem(lastSelectedWay);
+        }
+    }
+
+    /**
+     * Hackish way of suppressing unnecessary validation failures
+     * 
+     * 1 sec seems to be enough to avoid invalidations and by that redraws of the map
+     * 
+     * @param way the way that we want to enable validation on
+     */
+    private void delayedResetHasProblem(@NonNull final Way way) {
+        Runnable run = new Runnable() {
+            @Override
+            public void run() {
+                if (way != null) {
+                    way.resetHasProblem(); // remove Validator.OK
+                }                 
+            }            
+        };
+        Map map = main.getMap();
+        if (map != null) {
+            main.getMap().postDelayed(run,1000);
         }
     }
 }
