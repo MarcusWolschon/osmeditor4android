@@ -143,15 +143,22 @@ public class BaseValidator implements Validator {
      * @param highway the value of the highway tag
      * @return the status
      */
-    int validateHighway(Way w, String highway) {
+    int validateHighway(@NonNull Way w, @NonNull String highway) {
         int result = Validator.NOT_VALIDATED;
         Logic logic = App.getLogic();
         List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(w.getBounds());
+        int layer = getLayer(w);
+        boolean nothingToCheck = true;
         for (Way nearbyWay : nearbyWays) {
-            if (nearbyWay.hasTagKey(Tags.KEY_HIGHWAY)) {
+            if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
                 connectedValidation(logic, nearbyWay, w.getFirstNode());
                 connectedValidation(logic, nearbyWay, w.getLastNode());
+                nothingToCheck = false;
             }
+        }
+        if (nothingToCheck) {
+            w.getFirstNode().setProblem(Validator.OK);
+            w.getLastNode().setProblem(Validator.OK);
         }
 
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
@@ -175,6 +182,20 @@ public class BaseValidator implements Validator {
     }
 
     /**
+     * Get the value of the layer tag for a way
+     * 
+     * @param w the way
+     * @return the layer value or 0
+     */
+    private int getLayer(Way w) {
+        try {
+            return w.hasTagKey(Tags.KEY_LAYER) ? Integer.parseInt(w.getTagWithKey(Tags.KEY_LAYER)) : 0;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
      * Check if a Node is so near a Way that it should be connected
      * 
      * @param logic the current Logic instance
@@ -183,6 +204,7 @@ public class BaseValidator implements Validator {
      */
     private void connectedValidation(@NonNull Logic logic, @NonNull Way way, @NonNull Node node) {
         if (!way.hasNode(node)) {
+            node.setProblem(Validator.OK);
             float jx = logic.lonE7ToX(node.getLon());
             float jy = logic.latE7ToY(node.getLat());
             List<Node> wayNodes = way.getNodes();

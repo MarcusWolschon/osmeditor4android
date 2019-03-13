@@ -41,6 +41,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.validation.Validator;
 
 public class StorageDelegator implements Serializable, Exportable {
 
@@ -231,7 +232,8 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Called after an element has been changed
      * 
-     * As it may be fairly expensive to determine all changes pre and/or post may be null
+     * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the
+     * node positions have changed
      * 
      * @param pre list of changed elements before the operation or null
      * @param post list of changed elements after the operation or null
@@ -239,6 +241,7 @@ public class StorageDelegator implements Serializable, Exportable {
     private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
         if (post != null) {
             boolean nodeMoved = false;
+            BoundingBox changed = null;
             for (OsmElement e : post) {
                 e.stamp();
                 e.resetHasProblem();
@@ -246,10 +249,15 @@ public class StorageDelegator implements Serializable, Exportable {
                     ((Way) e).invalidateBoundingBox();
                 } else if (Node.NAME.equals(e.getName())) {
                     nodeMoved = true;
+                    if (changed == null) {
+                        changed = e.getBounds();
+                    } else {
+                        changed.union(e.getBounds());
+                    }
                 }
             }
             if (nodeMoved) {
-                for (Way w : currentStorage.getWays()) {
+                for (Way w : currentStorage.getWays(changed)) {
                     for (OsmElement e : post) {
                         if (e instanceof Node && w.hasNode((Node) e)) {
                             w.invalidateBoundingBox();
@@ -269,7 +277,8 @@ public class StorageDelegator implements Serializable, Exportable {
     /**
      * Called after an element has been changed
      * 
-     * As it may be fairly expensive to determine all changes pre and/or post may be null
+     * As it may be fairly expensive to determine all changes pre and/or post may be null Don't call this if just the
+     * node positions have changed
      * 
      * @param pre changed element before the operation or null
      * @param post changed element after the operation or null
@@ -297,7 +306,7 @@ public class StorageDelegator implements Serializable, Exportable {
     private void invalidateWayBoundingBox(@NonNull Collection<Node> nodes) {
         // this would seem to be very complicated, however
         // a trivial implementation would be very expensive
-        // even just or a single for a long way.
+        // even just for a single long way.
         // This way of doing it collects all candidate ways
         // first and then invalidates each of them max. once.
         if (!nodes.isEmpty()) {
@@ -312,16 +321,24 @@ public class StorageDelegator implements Serializable, Exportable {
                 }
             }
             List<Way> ways = currentStorage.getWays(box);
-            for (Node n : nodes) {
-                for (Way w : new ArrayList<>(ways)) {
-                    if (w.getNodes().contains(n)) {
-                        Log.d(DEBUG_TAG, "invalidate bb for " + w);
-                        w.invalidateBoundingBox();
-                        ways.remove(w);
-                    }
+            if (ways.size() == 1) { // optimize the common case
+                Way w = ways.get(0);
+                w.invalidateBoundingBox();
+                if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
+                    // we only validate way connections for highways currently
+                    w.resetHasProblem();
                 }
-                if (ways.isEmpty()) {
-                    break;
+            } else {
+                for (Way w : new HashSet<>(ways)) {
+                    for (Node n : nodes) {
+                        if (w.getNodes().contains(n)) {
+                            w.invalidateBoundingBox();
+                            if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
+                                w.resetHasProblem();
+                            }
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -649,7 +666,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 undo.save(nd);
                 updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
             }
-            onElementChanged(null, new ArrayList<>(nodes));
+            // Don't call onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "moveNodes got " + e.getMessage());
@@ -702,7 +719,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
                 i++;
             }
-            onElementChanged(null, new ArrayList<>(nodes));
+            // Don't call onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "circulizeWay got " + e.getMessage());
@@ -883,7 +900,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 }
             }
-            onElementChanged(null, new ArrayList<>(save));
+            // Don't call onElementChanged(null, new ArrayList<>(save));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "orthogonalizeWay got " + e.getMessage());
@@ -1033,7 +1050,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 int lon = GeoMath.xToLonE7(w, v, (float) newX);
                 updateLatLon(nd, lat, lon);
             }
-            onElementChanged(null, new ArrayList<>(nodes));
+            // Don't call onElementChanged(null, new ArrayList<>(nodes));
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "rotateWay got " + e.getMessage());
