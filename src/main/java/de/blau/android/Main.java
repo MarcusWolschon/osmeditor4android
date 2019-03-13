@@ -1077,7 +1077,7 @@ public class Main extends FullScreenAppCompatActivity
                             rcData = null; // zap to stop repeated downloads
                         }
                     } else { // zoom
-                        map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());                       
+                        map.getViewBox().fitToBoundingBox(getMap(), rcData.getBox());
                         map.invalidate();
                         rcData = null; // zap to stop repeated/
                                        // downloads
@@ -3213,6 +3213,12 @@ public class Main extends FullScreenAppCompatActivity
             final ClickableInterface layer;
             final Object             object;
 
+            /**
+             * Consrtuct a new container for objects that were clicked on a layer
+             * 
+             * @param layer the layer the object is on
+             * @param object the object
+             */
             ClickedObject(@NonNull ClickableInterface layer, @NonNull Object object) {
                 this.layer = layer;
                 this.object = object;
@@ -3381,6 +3387,7 @@ public class Main extends FullScreenAppCompatActivity
             try {
                 viewBox.translate(map, focusLon - newfocusLon, focusLat - newfocusLat);
             } catch (OsmException e) {
+                // ignored
             }
             Logic logic = App.getLogic();
             DataStyle.updateStrokes(logic.strokeWidth(viewBox.getWidth()));

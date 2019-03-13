@@ -354,7 +354,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
         for (Relation rel : paintRelations) {
             String relType = rel.getTagWithKey(Tags.KEY_TYPE);
             if (Tags.VALUE_MULTIPOLYGON.equals(relType) || Tags.VALUE_BOUNDARY.equals(relType)) {
-                paintMultiPolygon(canvas, screenWidth, screenHeight, viewBox, rel);
+                paintMultiPolygon(canvas, viewBox, rel);
             }
         }
 
@@ -481,12 +481,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * Draw a multipolygon
      * 
      * @param canvas the Canvas to draw on
-     * @param screenWidth the current screen width
-     * @param screenHeight the current screen height
      * @param viewBox the current ViewBox
      * @param rel the Relation for the multipolygon
      */
-    private void paintMultiPolygon(@NonNull Canvas canvas, int screenWidth, int screenHeight, @NonNull ViewBox viewBox, @NonNull Relation rel) {
+    private void paintMultiPolygon(@NonNull Canvas canvas, @NonNull ViewBox viewBox, @NonNull Relation rel) {
         FeatureStyle style;
         if (rel.hasProblem(context, validator) != Validator.OK) {
             style = DataStyle.getInternal(DataStyle.PROBLEM_WAY);

@@ -665,7 +665,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 undo.save(nd);
                 updateLatLon(nd, nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
             }
-            // Don't call onElementChanged(null, new ArrayList<>(nodes));
+            // Don't call onElementChanged
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "moveNodes got " + e.getMessage());
@@ -718,7 +718,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 updateLatLon(nd, GeoMath.yToLatE7(height, width, box, (float) coords[i].y), GeoMath.xToLonE7(width, box, (float) coords[i].x));
                 i++;
             }
-            // Don't call onElementChanged(null, new ArrayList<>(nodes));
+            // Don't call onElementChanged
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "circulizeWay got " + e.getMessage());
@@ -899,7 +899,7 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 }
             }
-            // Don't call onElementChanged(null, new ArrayList<>(save));
+            // Don't call onElementChanged
         } catch (StorageException e) {
             // TODO handle OOM
             Log.e(DEBUG_TAG, "orthogonalizeWay got " + e.getMessage());
