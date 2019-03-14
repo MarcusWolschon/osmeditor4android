@@ -3,8 +3,9 @@ package de.blau.android.osm;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
+
 import android.support.annotation.NonNull;
-import crosby.binary.file.BlockInputStream;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;

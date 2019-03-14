@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openstreetmap.osmosis.osmbinary.BinaryParser;
+import org.openstreetmap.osmosis.osmbinary.Osmformat;
+import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseInfo;
+import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseNodes;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import crosby.binary.BinaryParser;
-import crosby.binary.Osmformat;
-import crosby.binary.Osmformat.DenseInfo;
-import crosby.binary.Osmformat.DenseNodes;
 import de.blau.android.exception.UnsupportedFormatException;
 
 /**
@@ -51,7 +52,7 @@ public class OsmPbfParser extends BinaryParser {
     }
 
     @Override
-    protected void parseRelations(List<crosby.binary.Osmformat.Relation> relations) {
+    protected void parseRelations(List<Osmformat.Relation> relations) {
 
         class UnprocessedRelationMember {
             Relation       parent;
@@ -71,7 +72,7 @@ public class OsmPbfParser extends BinaryParser {
 
         int timeStampToSeconds = date_granularity / 1000; // mostly one
         List<UnprocessedRelationMember> relFor2ndPass = new ArrayList<>();
-        for (crosby.binary.Osmformat.Relation r : relations) {
+        for (Osmformat.Relation r : relations) {
             if (!r.hasInfo()) {
                 // we require version so we fail here
                 throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
@@ -176,9 +177,9 @@ public class OsmPbfParser extends BinaryParser {
     }
 
     @Override
-    protected void parseNodes(List<crosby.binary.Osmformat.Node> nodes) {
+    protected void parseNodes(List<Osmformat.Node> nodes) {
         int timeStampToSeconds = date_granularity / 1000; // mostly one
-        for (crosby.binary.Osmformat.Node n : nodes) {
+        for (Osmformat.Node n : nodes) {
             if (!n.hasInfo()) {
                 // we require version so we fail here
                 throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
@@ -200,9 +201,9 @@ public class OsmPbfParser extends BinaryParser {
     }
 
     @Override
-    protected void parseWays(List<crosby.binary.Osmformat.Way> ways) {
+    protected void parseWays(List<Osmformat.Way> ways) {
         int timeStampToSeconds = date_granularity / 1000; // mostly one
-        for (crosby.binary.Osmformat.Way w : ways) {
+        for (Osmformat.Way w : ways) {
             if (!w.hasInfo()) {
                 // we require version so we fail here
                 throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);

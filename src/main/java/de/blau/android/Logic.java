@@ -32,6 +32,8 @@ import java.util.regex.Matcher;
 import javax.net.ssl.SSLProtocolException;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
+import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -50,8 +52,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import crosby.binary.file.BlockInputStream;
-import crosby.binary.file.BlockReaderAdapter;
 import de.blau.android.contract.Urls;
 import de.blau.android.dialogs.AttachedObjectWarning;
 import de.blau.android.dialogs.ErrorAlert;
