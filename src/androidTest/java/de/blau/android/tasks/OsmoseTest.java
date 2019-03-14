@@ -36,6 +36,7 @@ import de.blau.android.R;
 import de.blau.android.SignalHandler;
 import de.blau.android.TestUtils;
 import de.blau.android.exception.OsmException;
+import de.blau.android.layer.tasks.MapOverlay;
 import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.AdvancedPrefDatabase;
@@ -67,6 +68,8 @@ public class OsmoseTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         main = mActivityRule.getActivity();
         Preferences prefs = new Preferences(context);
+        prefs.setBugsEnabled(true);
+        prefs.setTaskFilter(null);
         prefs.setBackGroundLayer(TileLayerServer.LAYER_NONE); // try to avoid downloading tiles
         prefs.setOverlayLayer(TileLayerServer.LAYER_NOOVERLAY);
         main.getMap().setPrefs(main, prefs);
@@ -250,6 +253,8 @@ public class OsmoseTest {
         TestUtils.unlock();
         try {
             Map map = main.getMap();
+            MapOverlay layer = map.getTaskLayer();
+            layer.setVisible(true);
             map.getViewBox().fitToBoundingBox(map, GeoMath.createBoundingBoxForCoordinates(b.getLat() / 1E7D, b.getLon() / 1E7D, 10D, true));
             map.invalidate();
             try {

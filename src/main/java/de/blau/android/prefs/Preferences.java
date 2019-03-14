@@ -130,7 +130,7 @@ public class Preferences {
     private final boolean alwaysDrawBoundingBoxes;
 
     private final boolean jsConsoleEnabled;
-    
+
     private final boolean hwAccelerationEnabled;
 
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
@@ -262,7 +262,7 @@ public class Preferences {
         alwaysDrawBoundingBoxes = prefs.getBoolean(r.getString(R.string.config_alwaysDrawBoundingBoxes_key), true);
 
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
-        
+
         hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), false);
     }
 
@@ -298,21 +298,27 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Check if some debugging stats should be shown on screen
+     * 
+     * @return true if turned on
      */
     public boolean isStatsVisible() {
         return isStatsVisible;
     }
 
     /**
-     * @return
+     * Check if touch tolerance areas should be shown on screen
+     * 
+     * @return true if the areas should be shown
      */
     public boolean isToleranceVisible() {
         return isToleranceVisible;
     }
 
     /**
-     * @return
+     * Check if anti-aliasing should be used
+     * 
+     * @return true if anto-aliasing should be used
      */
     public boolean isAntiAliasingEnabled() {
         return isAntiAliasingEnabled;
@@ -357,29 +363,36 @@ public class Preferences {
     }
 
     /**
-     * @return
+     * Check if the form based tag editor should be shown in the property editor
+     * 
+     * @return true if the form based editor should be used
      */
     public boolean tagFormEnabled() {
         return tagFormEnabled;
     }
 
     /**
+     * Check if we want to keep the screen on
      * 
-     * @return
+     * @return true if the screen should be kept on
      */
     public boolean isKeepScreenOnEnabled() {
         return isKeepScreenOnEnabled;
     }
 
     /**
-     * @return
+     * Check if the back key should be used for undo
+     * 
+     * @return true if the back key should be used for undo
      */
     public boolean useBackForUndo() {
         return useBackForUndo;
     }
 
     /**
-     * @return
+     * Check if we should show a large drag area around nodes
+     * 
+     * @return true if we should show a large drag area
      */
     public boolean largeDragArea() {
         return largeDragArea;
@@ -548,8 +561,28 @@ public class Preferences {
         return maxBugDownloadSpeed;
     }
 
+    /**
+     * Get the currently enabled task types
+     * 
+     * @return a set containing the task types as strings
+     */
     public Set<String> taskFilter() {
         return taskFilter;
+    }
+
+    /**
+     * Set the task filter
+     * 
+     * @param tasks the tasks to use, if null the default setting will be set (all on)
+     */
+    public void setTaskFilter(@Nullable Set<String> tasks) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (tasks == null) {
+                tasks = new HashSet<>(Arrays.asList(r.getStringArray(R.array.bug_filter_defaults)));
+            }
+            taskFilter = tasks;
+            prefs.edit().putStringSet(r.getString(R.string.config_bugFilter_key), tasks).commit();
+        }
     }
 
     /**
@@ -862,11 +895,10 @@ public class Preferences {
         return jsConsoleEnabled;
     }
 
-
     public boolean hwAccelerationEnabled() {
         return hwAccelerationEnabled;
     }
-    
+
     public void enableSimpleActions(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_simpleActions_key), on).commit();
     }

@@ -13,10 +13,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
+import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
+import org.openstreetmap.osmosis.osmbinary.file.BlockReaderAdapter;
 import org.xmlpull.v1.XmlPullParserException;
 
-import crosby.binary.file.BlockInputStream;
-import crosby.binary.file.BlockReaderAdapter;
 import de.blau.android.util.Hash;
 
 public class PbfTest {
