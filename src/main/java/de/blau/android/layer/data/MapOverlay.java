@@ -12,6 +12,7 @@ import java.util.WeakHashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -23,13 +24,17 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pools.SimplePool;
+import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.Map;
 import de.blau.android.Mode;
 import de.blau.android.R;
+import de.blau.android.dialogs.DataLossActivity;
 import de.blau.android.filter.Filter;
+import de.blau.android.layer.ConfigureInterface;
 import de.blau.android.layer.ExtentInterface;
 import de.blau.android.layer.MapViewLayer;
 import de.blau.android.osm.BoundingBox;
@@ -41,6 +46,7 @@ import de.blau.android.osm.StorageDelegator;
 import de.blau.android.osm.Tags;
 import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
+import de.blau.android.prefs.APIEditorActivity;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
@@ -62,7 +68,7 @@ import de.blau.android.views.IMapView;
  * @author Simon Poole
  */
 
-public class MapOverlay extends MapViewLayer implements ExtentInterface {
+public class MapOverlay extends MapViewLayer implements ExtentInterface, ConfigureInterface {
 
     private static final String OUTER = "outer";
 
@@ -1302,7 +1308,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
      * @param ctx Android Context
      * @param prefs the new Preferences
      */
-    public void setPrefs(Context ctx, final Preferences prefs) {
+    public void setPrefs(Context ctx, @NonNull final Preferences prefs) {
         this.prefs = prefs;
         showIcons = prefs.getShowIcons();
         showWayIcons = prefs.getShowWayIcons();
@@ -1331,13 +1337,13 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
 
     @Override
     protected void onDrawFinished(Canvas c, IMapView osmv) {
-        // TODO Auto-generated method stub
-
+        // unused
     }
 
     @Override
     public String getName() {
-        return map.getContext().getString(R.string.layer_data);
+        String apiName = prefs.getApiName();
+        return apiName != null ? map.getContext().getString(R.string.layer_data_name, apiName) : map.getContext().getString(R.string.layer_data);
     }
 
     @Override
@@ -1352,5 +1358,15 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface {
             return BoundingBox.union(new ArrayList<>(boxes));
         }
         return null;
+    }
+
+    @Override
+    public boolean enableConfiguration() {
+        return true;
+    }
+
+    @Override
+    public void configure(FragmentActivity activity) {
+        APIEditorActivity.start(activity);
     }
 }

@@ -472,6 +472,17 @@ public class Preferences {
     }
 
     /**
+     * Get the name of the current API configuration
+     * 
+     * @return the name or null if not found
+     */
+    @Nullable
+    public String getApiName() {
+        API api = advancedPrefs.getCurrentAPI();
+        return api != null ? api.name : null;
+    }
+
+    /**
      * Get the currently active Presets
      * 
      * @return an array holding the Presets
@@ -481,10 +492,20 @@ public class Preferences {
         return advancedPrefs.getCurrentPresetObject();
     }
 
+    /**
+     * Check if we should show icons on nodes
+     * 
+     * @return true if icons should be shown
+     */
     public boolean getShowIcons() {
         return showIcons;
     }
 
+    /**
+     * Check if we should show icons on closed ways
+     * 
+     * @return true if icons should be shown
+     */
     public boolean getShowWayIcons() {
         return showWayIcons;
     }

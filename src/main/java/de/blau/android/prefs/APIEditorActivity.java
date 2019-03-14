@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.util.Log;
@@ -26,7 +27,12 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import de.blau.android.App;
+import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.dialogs.DataLossActivity;
+import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
+import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
@@ -38,6 +44,8 @@ public class APIEditorActivity extends URLListEditActivity {
 
     private static final String DEBUG_TAG = "APIEditorActivity";
 
+    private static final int MENU_COPY = 1;
+
     private AdvancedPrefDatabase db;
 
     /**
@@ -45,6 +53,22 @@ public class APIEditorActivity extends URLListEditActivity {
      */
     public APIEditorActivity() {
         super();
+        addAdditionalContextMenuItem(MENU_COPY, R.string.menu_copy);
+    }
+
+    /**
+     * Start the activity showing a dialog if data has been changed
+     * 
+     * @param activity the calling FragmentActivity
+     */
+    public static void start(@NonNull FragmentActivity activity) {
+        Intent intent = new Intent(activity, APIEditorActivity.class);
+        final Logic logic = App.getLogic();
+        if (logic != null && logic.hasChanges()) {
+            DataLossActivity.showDialog(activity, intent, -1);
+        } else {
+            activity.startActivity(intent);
+        }
     }
 
     /**
@@ -96,7 +120,6 @@ public class APIEditorActivity extends URLListEditActivity {
         }
         item.active = true;
         updateAdapter();
-        // finish();
     }
 
     @Override
@@ -122,10 +145,27 @@ public class APIEditorActivity extends URLListEditActivity {
             menu.add(Menu.NONE, MENUITEM_EDIT, Menu.NONE, r.getString(R.string.edit)).setOnMenuItemClickListener(this);
             if (!selectedItem.id.equals(LISTITEM_ID_DEFAULT)) {
                 menu.add(Menu.NONE, MENUITEM_DELETE, Menu.NONE, r.getString(R.string.delete)).setOnMenuItemClickListener(this);
-                for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
-                    menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
-                }
             }
+            for (Entry<Integer, Integer> entry : additionalMenuItems.entrySet()) {
+                menu.add(Menu.NONE, entry.getKey() + MENUITEM_ADDITIONAL_OFFSET, Menu.NONE, r.getString(entry.getValue())).setOnMenuItemClickListener(this);
+            }
+        }
+    }
+
+    @Override
+    public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
+        switch (menuItemId) {
+        case MENU_COPY:
+            ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value_2, clickedItem.value_2,
+                    clickedItem.boolean_0);
+            db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", item.boolean_0);
+            items.clear();
+            onLoadList(items);
+            updateAdapter();
+            break;
+        default:
+            Log.e(DEBUG_TAG, "Unknown menu item " + menuItemId);
+            break;
         }
     }
 

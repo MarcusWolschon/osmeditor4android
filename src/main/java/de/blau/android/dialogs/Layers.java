@@ -395,30 +395,16 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         cell.setEllipsize(TextUtils.TruncateAt.END);
         cell.setPadding(Density.dpToPx(context, 5), 0, Density.dpToPx(context, 5), 0);
         tr.addView(cell);
-        if (needsMenu(layer)) {
-            final ImageButton menu = new ImageButton(context);
-            menu.setImageResource(menuId);
-            menu.setBackgroundColor(Color.TRANSPARENT);
-            menu.setOnClickListener(new LayerMenuListener(menu, layer));
-            cell.setOnClickListener(new LayerMenuListener(menu, layer));
-            tr.addView(menu);
-            menu.setTag(tr);
-        } else {
-            tr.addView(new View(context));
-        }
+        final ImageButton menu = new ImageButton(context);
+        menu.setImageResource(menuId);
+        menu.setBackgroundColor(Color.TRANSPARENT);
+        menu.setOnClickListener(new LayerMenuListener(menu, layer));
+        cell.setOnClickListener(new LayerMenuListener(menu, layer));
+        tr.addView(menu);
+        menu.setTag(tr);
         tr.setGravity(Gravity.CENTER_VERTICAL);
         tr.setLayoutParams(tp);
         return tr;
-    }
-
-    /**
-     * Check if we should show a menu for the layer
-     * 
-     * @param layer the layer to check
-     * @return true if we should show a menu button
-     */
-    private boolean needsMenu(final MapViewLayer layer) {
-        return !(layer instanceof de.blau.android.layer.data.MapOverlay);
     }
 
     /**

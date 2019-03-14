@@ -24,11 +24,13 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -111,7 +113,6 @@ public abstract class URLListEditActivity extends ListActivity
         getListView().addFooterView(v);
 
         getListView().setOnItemClickListener(this);
-        getListView().setLongClickable(true);
         getListView().setOnCreateContextMenuListener(this);
 
         ActionBar actionbar = getSupportActionBar();
@@ -490,6 +491,12 @@ public abstract class URLListEditActivity extends ListActivity
             v.setText1(getItem(position).name);
             v.setText2(getItem(position).value);
             v.setChecked(getItem(position).active);
+            v.setMenuButtonListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.showContextMenu(0, 0);
+                }
+            });
             return v;
         }
     }
@@ -516,9 +523,10 @@ public abstract class URLListEditActivity extends ListActivity
      */
     public static class ListItem extends LinearLayout {
 
-        private TextView text1;
-        private TextView text2;
-        private CheckBox checkBox;
+        private TextView    text1;
+        private TextView    text2;
+        private CheckBox    checkBox;
+        private ImageButton menuButton;
 
         /**
          * Construct a new empty instance
@@ -550,6 +558,7 @@ public abstract class URLListEditActivity extends ListActivity
             text1 = (TextView) findViewById(R.id.listItemText1);
             text2 = (TextView) findViewById(R.id.listItemText2);
             checkBox = (CheckBox) findViewById(R.id.listItemCheckBox);
+            menuButton = (ImageButton) findViewById(R.id.listItemMenu);
         }
 
         /**
@@ -586,6 +595,15 @@ public abstract class URLListEditActivity extends ListActivity
          */
         public void setText2(@Nullable String txt) {
             text2.setText(txt);
+        }
+
+        /**
+         * Set a listener for clicks on the menu button
+         * 
+         * @param listener the OnClickListener
+         */
+        public void setMenuButtonListener(@NonNull OnClickListener listener) {
+            menuButton.setOnClickListener(listener);
         }
     }
 }

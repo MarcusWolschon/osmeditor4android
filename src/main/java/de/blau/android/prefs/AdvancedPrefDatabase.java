@@ -415,7 +415,7 @@ public class AdvancedPrefDatabase extends SQLiteOpenHelper {
     @NonNull
     private synchronized API[] getAPIs(@NonNull SQLiteDatabase db, @Nullable String id) {
         Cursor dbresult = db.query(APIS_TABLE, new String[] { ID_FIELD, "name", "url", "readonlyurl", "notesurl", "user", "pass", "preset", "showicon", "oauth",
-                "accesstoken", "accesstokensecret" }, id == null ? null : "id = ?", id == null ? null : new String[] { id }, null, null, "name ASC", null);
+                "accesstoken", "accesstokensecret" }, id == null ? null : "id = ?", id == null ? null : new String[] { id }, null, null, null, null);
         API[] result = new API[dbresult.getCount()];
         dbresult.moveToFirst();
         for (int i = 0; i < result.length; i++) {

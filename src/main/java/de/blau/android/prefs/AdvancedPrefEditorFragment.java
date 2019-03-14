@@ -84,13 +84,7 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Log.d(DEBUG_TAG, "onPreferenceClick 2");
-                    Intent intent = new Intent(getActivity(), APIEditorActivity.class);
-                    final Logic logic = App.getLogic();
-                    if (logic != null && logic.hasChanges()) {
-                        DataLossActivity.showDialog(getActivity(), intent, -1);
-                    } else {
-                        startActivity(intent);
-                    }
+                    APIEditorActivity.start(getActivity());
                     return true;
                 }
             });

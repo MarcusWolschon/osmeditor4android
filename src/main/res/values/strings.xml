@@ -243,6 +243,7 @@
     <string name="layer_photos">Photos</string>
     <string name="layer_tasks">Tasks</string>
     <string name="layer_data">OSM data</string>
+    <string name="layer_data_name">%1$s data</string>
     <string name="layer_flush_tile_cache">Flush tile cache</string>
     <string name="layer_change_style">Change style</string>
     <string name="layer_select_imagery">Select imagery</string>
@@ -860,6 +861,12 @@
     <string name="urldialog_add_api">Add API</string>
     <string name="urldialog_nodata_text">The configuration URL does not contain valid data.</string>
     <string name="urldialog_add_geocoder">Add geocoder</string>
+    <!-- API configuration -->
+    <string name="api_name">API name</string>
+    <string name="api_url">API URL</string>
+    <string name="readonly_url">Read-only API URL (optional)</string>
+    <string name="notes_url">Notes API URL (optional)</string>
+    <string name="copy_of">Copy of %1$s</string>
     <!-- common terms -->
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -871,10 +878,6 @@
     <string name="state">State</string>
     <!--   -->
     <string name="empty_list">No entries</string>
-    <string name="api_name">API name</string>
-    <string name="api_url">API URL</string>
-    <string name="readonly_url">Read-only API URL (optional)</string>
-    <string name="notes_url">Notes API URL (optional)</string>
     <string name="geocoder_type">Geocoder type</string>
     <!-- "default" is a reserved Java keyword… -->
     <string name="preset">Preset</string>

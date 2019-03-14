@@ -42,6 +42,7 @@
 		<item name="snack_error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_dark</item>
+        <item name="more_small">@drawable/ic_more_vert_white_24dp</item>
 	</style>
 
 	<style name="Theme.customLight" parent="@style/Theme.AppCompat.Light">
@@ -51,6 +52,7 @@
 		<item name="snack_error">@color/material_red</item>
         <!--  icons -->
         <item name="menu_help">@drawable/ic_action_help_holo_light</item>
+        <item name="more_small">@drawable/ic_more_vert_black_24dp</item>
 	</style>
 	
 	<style name="Theme.noOverlapMenu" parent="@style/Theme.customMain">
