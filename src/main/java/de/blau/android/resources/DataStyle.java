@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -491,7 +491,7 @@ public final class DataStyle extends DefaultHandler {
         try {
             read(is);
         } catch (Exception e) { // never crash
-            Log.e(DEBUG_TAG, "Reading style configuration failed");
+            Log.e(DEBUG_TAG, "Reading style configuration failed " + e.getMessage());
         }
     }
 
@@ -1325,7 +1325,7 @@ public final class DataStyle extends DefaultHandler {
                         parent = null;
                     }
                 }
-            } catch (EmptyStackException e) {
+            } catch (NoSuchElementException e) {
                 tempFeatureStyle = null;
             }
         } else if (element.equals("dash")) {
