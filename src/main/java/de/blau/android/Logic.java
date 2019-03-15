@@ -2428,7 +2428,7 @@ public class Logic {
                     long startTime = System.currentTimeMillis();
                     if (server.hasMapSplitSource()) {
                         Log.d(DEBUG_TAG, "downloadBox reading from MapSplit tile sourse");
-                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                        input = MapSplitSource.readBox(activity, server.getMapSplitSource(), mapBox);
                     } else {
                         try (InputStream in = prefs.getServer().getStreamForBox(activity, mapBox)) {
                             final OsmParser osmParser = new OsmParser();
@@ -2602,7 +2602,7 @@ public class Logic {
                 try {
                     Storage input;
                     if (server.hasMapSplitSource()) {
-                        input = MapSplitSource.readBox(server.getMapSplitSource(), mapBox);
+                        input = MapSplitSource.readBox(context, server.getMapSplitSource(), mapBox);
                     } else {
                         try (InputStream in = server.getStreamForBox(context, mapBox);) {
                             final OsmParser osmParser = new OsmParser();

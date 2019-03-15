@@ -10,9 +10,11 @@ import org.openstreetmap.osmosis.osmbinary.Osmformat;
 import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseInfo;
 import org.openstreetmap.osmosis.osmbinary.Osmformat.DenseNodes;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 
 /**
@@ -21,8 +23,7 @@ import de.blau.android.exception.UnsupportedFormatException;
 public class OsmPbfParser extends BinaryParser {
     private static final String DEBUG_TAG = "OsmPbfParser";
 
-    private static final String NO_VERSION_INFORMATION_AVAILABLE = "no version information available";
-
+    final Context     context;
     final Storage     storage;
     final BoundingBox box;
 
@@ -34,6 +35,7 @@ public class OsmPbfParser extends BinaryParser {
      * @param storage the Storage object to hold the OsmElements
      */
     public OsmPbfParser(@NonNull Storage storage) {
+        context = null;
         this.storage = storage;
         box = null;
     }
@@ -43,10 +45,12 @@ public class OsmPbfParser extends BinaryParser {
      * 
      * If storage already has elements with the same id they will not be overwritten
      * 
+     * @param context an Android Context (or null if not available)
      * @param storage the Storage object to hold the OsmElements
      * @param box if not null trim contents as far as possible to this bounding box (Relations are never trimmed)
      */
-    public OsmPbfParser(@NonNull Storage storage, @Nullable BoundingBox box) {
+    public OsmPbfParser(@Nullable Context context, @NonNull Storage storage, @Nullable BoundingBox box) {
+        this.context = context;
         this.storage = storage;
         this.box = box;
     }
@@ -74,8 +78,7 @@ public class OsmPbfParser extends BinaryParser {
         List<UnprocessedRelationMember> relFor2ndPass = new ArrayList<>();
         for (Osmformat.Relation r : relations) {
             if (!r.hasInfo()) {
-                // we require version so we fail here
-                throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
+                versionMissing();
             }
             Relation relation = OsmElementFactory.createRelation(r.getId(), (long) r.getInfo().getVersion(), r.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED);
@@ -96,7 +99,8 @@ public class OsmPbfParser extends BinaryParser {
                     type = Relation.NAME;
                     break;
                 default:
-                    throw new UnsupportedFormatException("Unknown relation member type " + r.getTypes(i));
+                    throw new UnsupportedFormatException(
+                            context != null ? context.getString(R.string.error_pbf_unknown_relation_member_type, r.getTypes(i)) : "");
                 }
                 RelationMember rm = new RelationMember(type, ref, role);
                 OsmElement element = storage.getOsmElement(type, ref);
@@ -131,12 +135,19 @@ public class OsmPbfParser extends BinaryParser {
         }
     }
 
+    /**
+     * Throw a message pointing out that we require version attributes
+     */
+    private void versionMissing() {
+        // we require version so we fail here
+        throw new UnsupportedFormatException(context != null ? context.getString(R.string.error_pbf_no_version) : "");
+    }
+
     @Override
     protected void parseDense(DenseNodes nodes) {
         DenseInfo denseInfo = nodes.getDenseinfo();
         if (denseInfo == null || denseInfo.getVersionCount() == 0 || denseInfo.getTimestampCount() == 0) {
-            // we require version so we fail here
-            throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
+            versionMissing();
         }
         int timeStampToSeconds = date_granularity / 1000; // mostly one
         long lastId = 0;
@@ -181,8 +192,7 @@ public class OsmPbfParser extends BinaryParser {
         int timeStampToSeconds = date_granularity / 1000; // mostly one
         for (Osmformat.Node n : nodes) {
             if (!n.hasInfo()) {
-                // we require version so we fail here
-                throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
+                versionMissing();
             }
             Node node = OsmElementFactory.createNode(n.getId(), (long) n.getInfo().getVersion(), n.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED, parseToLatE7(n.getLat()), parseToLonE7(n.getLon()));
@@ -205,8 +215,7 @@ public class OsmPbfParser extends BinaryParser {
         int timeStampToSeconds = date_granularity / 1000; // mostly one
         for (Osmformat.Way w : ways) {
             if (!w.hasInfo()) {
-                // we require version so we fail here
-                throw new UnsupportedFormatException(NO_VERSION_INFORMATION_AVAILABLE);
+                versionMissing();
             }
             Way way = OsmElementFactory.createWay(w.getId(), (long) w.getInfo().getVersion(), w.getInfo().getTimestamp() / timeStampToSeconds,
                     OsmElement.STATE_UNCHANGED);

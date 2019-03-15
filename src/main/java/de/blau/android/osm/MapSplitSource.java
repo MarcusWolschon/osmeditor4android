@@ -5,7 +5,9 @@ import java.io.InputStream;
 
 import org.openstreetmap.osmosis.osmbinary.file.BlockInputStream;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
@@ -26,12 +28,13 @@ public final class MapSplitSource {
      * zoom out if no data was found as we do for imagery, perhaps including skipping tiles covered by the higher zoom
      * one.
      * 
+     * @param context an Android Context
      * @param mbTiles a MBTileProviderDataBase instance
      * @param box the BoundingBox
      * @return a Storage instance containing the OSM objects
      * @throws IOException if reading the data caused issues
      */
-    public static Storage readBox(@NonNull MBTileProviderDataBase mbTiles, @NonNull BoundingBox box) throws IOException {
+    public static Storage readBox(@NonNull Context context, @NonNull MBTileProviderDataBase mbTiles, @NonNull BoundingBox box) throws IOException {
 
         final double lonLeft = box.getLeft() / 1E7d;
         final double lonRight = box.getRight() / 1E7d;
@@ -40,7 +43,7 @@ public final class MapSplitSource {
 
         int[] minMaxZoom = mbTiles.getMinMaxZoom();
         if (minMaxZoom == null) {
-            throw new UnsupportedFormatException("MapSplit sources must have min and max zoom set");
+            throw new UnsupportedFormatException(context.getString(R.string.error_mapsplit_missing_zoom));
         }
         int minZoom = minMaxZoom[0];
         int maxZoom = minMaxZoom[1];
@@ -65,7 +68,7 @@ public final class MapSplitSource {
                 mapTile.y = y;
                 InputStream is = mbTiles.getTileStream(mapTile);
                 if (is != null) {
-                    OsmPbfParser parser = new OsmPbfParser(storage, box);
+                    OsmPbfParser parser = new OsmPbfParser(context, storage, box);
                     new BlockInputStream(is, parser).process();
                 } else {
                     // tile doesn't exist try ones further out
@@ -78,7 +81,7 @@ public final class MapSplitSource {
                         --mapTile.zoomLevel;
                         is = mbTiles.getTileStream(mapTile);
                         if (is != null) {
-                            OsmPbfParser parser = new OsmPbfParser(storage, box);
+                            OsmPbfParser parser = new OsmPbfParser(context, storage, box);
                             new BlockInputStream(is, parser).process();
                             x += skipped;
                             y += skipped;

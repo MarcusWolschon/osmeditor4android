@@ -387,6 +387,10 @@
     <string name="toast_merged">Merged</string>
     <string name="toast_long_press_simple_mode">Long press is not available in simple mode</string>
     <string name="toast_invalid_style_file">Invalid style file format for %1$s</string>
+    <!-- Error messages -->
+    <string name="error_mapsplit_missing_zoom">MapSplit sources must have min and max zoom set</string>
+    <string name="error_pbf_no_version">Version information missing in PBF file</string>
+    <string name="error_pbf_unknown_relation_member_type">Unknown relation member type %1$s</string>
     <!-- Some generic labels/buttons -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
