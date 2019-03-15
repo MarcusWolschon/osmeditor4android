@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import de.blau.android.ErrorCodes;
 import de.blau.android.R;
+import de.blau.android.ReadAsyncResult;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -46,6 +47,16 @@ public class ErrorAlert extends DialogFragment {
      */
     public static void showDialog(@NonNull FragmentActivity activity, int errorCode) {
         showDialog(activity, errorCode, null);
+    }
+
+    /**
+     * Display a simple alert dialog with an OK button that does nothing
+     * 
+     * @param activity the calling Activity
+     * @param result a ReadAsyncResult instance
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, ReadAsyncResult result) {
+        showDialog(activity, result.getCode(), result.getMessage());
     }
 
     /**

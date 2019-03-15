@@ -2391,7 +2391,7 @@ public class Logic {
             }
         };
 
-        new AsyncTask<Boolean, Void, Integer>() {
+        new AsyncTask<Boolean, Void, ReadAsyncResult>() {
 
             @Override
             protected void onPreExecute() {
@@ -2399,29 +2399,28 @@ public class Logic {
             }
 
             @Override
-            protected Integer doInBackground(Boolean... arg) {
-                int result = 0;
+            protected ReadAsyncResult doInBackground(Boolean... arg) {
+                ReadAsyncResult result = new ReadAsyncResult(ErrorCodes.OK);
                 try {
                     Server server = prefs.getServer();
                     if (server.hasReadOnly()) {
                         if (server.hasMapSplitSource()) {
                             if (!MapSplitSource.intersects(server.getMapSplitSource(), mapBox)) {
-                                return ErrorCodes.NO_DATA;
+                                return new ReadAsyncResult(ErrorCodes.NO_DATA);
                             }
                         } else {
                             server.getReadOnlyCapabilities();
                             if (!(server.readOnlyApiAvailable() && server.readOnlyReadableDB())) {
-                                return ErrorCodes.API_OFFLINE;
+                                return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
                             }
                             // try to get write capabilities in any case FIXME unclear what we should do if the write
-                            // server
-                            // is not available
+                            // server is not available
                             server.getCapabilities();
                         }
                     } else {
                         server.getCapabilities();
                         if (!(server.apiAvailable() && server.readableDB())) {
-                            return ErrorCodes.API_OFFLINE;
+                            return new ReadAsyncResult(ErrorCodes.API_OFFLINE);
                         }
                     }
 
@@ -2441,7 +2440,7 @@ public class Logic {
                     Log.d(DEBUG_TAG, "downloadBox downloaded and parsed input in " + (System.currentTimeMillis() - startTime) + "ms");
                     if (arg[0]) { // incremental load
                         if (!getDelegator().mergeData(input, postMerge)) {
-                            result = ErrorCodes.DATA_CONFLICT;
+                            result = new ReadAsyncResult(ErrorCodes.DATA_CONFLICT);
                         } else {
                             if (mapBox != null) {
                                 // if we are simply expanding the area no need keep the old bounding boxes
@@ -2474,9 +2473,9 @@ public class Logic {
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
                     Exception ce = e.getException();
                     if ((ce instanceof StorageException) && ((StorageException) ce).getCode() == StorageException.OOM) {
-                        result = ErrorCodes.OUT_OF_MEMORY;
+                        result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY, "");
                     } else {
-                        result = ErrorCodes.INVALID_DATA_RECEIVED;
+                        result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
                     }
                     removeBoundingBox(mapBox);
                 } catch (ParserConfigurationException | UnsupportedFormatException e) {
@@ -2484,26 +2483,26 @@ public class Logic {
                     // TODO this seems to happen when the API call returns text from a proxy or similar intermediate
                     // network device... need to display what we actually got
                     Log.e(DEBUG_TAG, "downloadBox problem parsing", e);
-                    result = ErrorCodes.INVALID_DATA_RECEIVED;
+                    result = new ReadAsyncResult(ErrorCodes.INVALID_DATA_RECEIVED, e.getMessage());
                     removeBoundingBox(mapBox);
                 } catch (OsmServerException e) {
-                    result = e.getErrorCode();
+                    int code = e.getErrorCode();
                     Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
-                    if (result == HttpURLConnection.HTTP_BAD_REQUEST) {
+                    if (code == HttpURLConnection.HTTP_BAD_REQUEST) {
                         // check error messages
                         Matcher m = Server.ERROR_MESSAGE_BAD_OAUTH_REQUEST.matcher(e.getMessage());
                         if (m.matches()) {
-                            result = ErrorCodes.INVALID_LOGIN;
+                            result = new ReadAsyncResult(ErrorCodes.INVALID_LOGIN);
                         } else {
-                            result = ErrorCodes.BOUNDING_BOX_TOO_LARGE;
+                            result = new ReadAsyncResult(ErrorCodes.BOUNDING_BOX_TOO_LARGE);
                         }
                     }
                     removeBoundingBox(mapBox);
                 } catch (IOException e) {
                     if (e instanceof SSLProtocolException) {
-                        result = ErrorCodes.SSL_HANDSHAKE;
+                        result = new ReadAsyncResult(ErrorCodes.SSL_HANDSHAKE);
                     } else {
-                        result = ErrorCodes.NO_CONNECTION;
+                        result = new ReadAsyncResult(ErrorCodes.NO_CONNECTION);
                     }
                     Log.e(DEBUG_TAG, "downloadBox problem downloading", e);
                     removeBoundingBox(mapBox);
@@ -2512,7 +2511,7 @@ public class Logic {
             }
 
             @Override
-            protected void onPostExecute(Integer result) {
+            protected void onPostExecute(ReadAsyncResult result) {
                 Progress.dismissDialog(activity, Progress.PROGRESS_DOWNLOAD);
 
                 Map map = activity instanceof Main ? ((Main) activity).getMap() : null;
@@ -2523,11 +2522,12 @@ public class Logic {
                         Log.d(DEBUG_TAG, "downloadBox got " + e.getMessage());
                     }
                 }
-                if (result != 0) {
-                    switch (result) {
+                int code = result.getCode();
+                if (code != 0) {
+                    switch (code) {
                     case ErrorCodes.OUT_OF_MEMORY:
                         if (getDelegator().isDirty()) {
-                            result = ErrorCodes.OUT_OF_MEMORY_DIRTY;
+                            result = new ReadAsyncResult(ErrorCodes.OUT_OF_MEMORY_DIRTY);
                         }
                         break;
                     default:

@@ -10,6 +10,15 @@ public class ReadAsyncResult {
      * Construct a new result instance
      * 
      * @param code the result code
+     */
+    ReadAsyncResult(int code) {
+        this(code, null);
+    }
+
+    /**
+     * Construct a new result instance
+     * 
+     * @param code the result code
      * @param message an optional message
      */
     ReadAsyncResult(int code, @Nullable String message) {
@@ -21,7 +30,7 @@ public class ReadAsyncResult {
      * 
      * @return the result code
      */
-    int getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -29,7 +38,7 @@ public class ReadAsyncResult {
      * @return the message or null
      */
     @Nullable
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 }
