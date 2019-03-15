@@ -31,8 +31,6 @@ import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
 import de.blau.android.dialogs.DataLossActivity;
-import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
-import de.blau.android.prefs.URLListEditActivity.ListEditItem;
 import de.blau.android.util.DatabaseUtil;
 import de.blau.android.util.ReadFile;
 import de.blau.android.util.SelectFile;
