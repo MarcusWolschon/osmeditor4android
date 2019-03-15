@@ -32,6 +32,9 @@ public class SnackbarTest {
     @Rule
     public ActivityTestRule<Main> mActivityRule = new ActivityTestRule<>(Main.class);
 
+    /**
+     * Pre-test setup
+     */
     @Before
     public void setup() {
         main = mActivityRule.getActivity();
@@ -40,6 +43,9 @@ public class SnackbarTest {
         TestUtils.dismissStartUpDialogs(main);
     }
 
+    /**
+     * Queue 3 messages and then a fourth one and test if the 1st message is removed
+     */
     @Test
     public void queue() {
 
@@ -56,7 +62,8 @@ public class SnackbarTest {
         Assert.assertTrue(Snack.infoQueue.contains(s2));
         Assert.assertTrue(Snack.infoQueue.contains(s3));
 
-        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // just to be sure that our assumptions are true
+        // just to be sure that our assumptions are true
+        Assert.assertEquals(3, Snack.QUEUE_CAPACITY); // NOSONAR 
         Snack.enqueue(Snack.infoQueue, s4);
 
         Assert.assertFalse(Snack.infoQueue.contains(s1));
@@ -65,6 +72,9 @@ public class SnackbarTest {
         Assert.assertTrue(Snack.infoQueue.contains(s4));
     }
 
+    /**
+     * Test that an info message is shown
+     */
     @Test
     public void infoQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
@@ -87,6 +97,9 @@ public class SnackbarTest {
         }
     }
 
+    /**
+     * Test that a warning message is shown
+     */
     @Test
     public void warningQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
@@ -109,6 +122,9 @@ public class SnackbarTest {
         }
     }
 
+    /**
+     * Test that an error message is shown
+     */
     @Test
     public void errorQueue() {
         Snackbar s = Snackbar.make(v, "Test", Snackbar.LENGTH_LONG);
@@ -130,5 +146,4 @@ public class SnackbarTest {
             Assert.fail(e.getMessage());
         }
     }
-
 }
