@@ -133,6 +133,8 @@ public class Preferences {
 
     private final boolean hwAccelerationEnabled;
 
+    private final int connectedNodeTolerance;
+
     private static final String DEFAULT_MAP_PROFILE = "Color Round Nodes";
 
     private final SharedPreferences prefs;
@@ -264,6 +266,8 @@ public class Preferences {
         jsConsoleEnabled = prefs.getBoolean(r.getString(R.string.config_js_console_key), false);
 
         hwAccelerationEnabled = prefs.getBoolean(r.getString(R.string.config_enableHwAcceleration_key), false);
+
+        connectedNodeTolerance = getIntPref(R.string.config_connectedNodeTolerance_key, 2);
     }
 
     /**
@@ -920,10 +924,20 @@ public class Preferences {
         return hwAccelerationEnabled;
     }
 
+    /**
+     * Enable/disable the simple actions
+     * 
+     * @param on value to set
+     */
     public void enableSimpleActions(boolean on) {
         prefs.edit().putBoolean(r.getString(R.string.config_simpleActions_key), on).commit();
     }
 
+    /**
+     * Check if the simply actions are enabled
+     * 
+     * @return true if enabled
+     */
     public boolean areSimpleActionsEnabled() {
         String key = r.getString(R.string.config_simpleActions_key);
         if (!prefs.contains(key)) {
@@ -931,6 +945,15 @@ public class Preferences {
             enableSimpleActions(true);
         }
         return prefs.getBoolean(key, true);
+    }
+
+    /**
+     * If (highway) end nodes are less than this difference away from a way they could connect to fail validation
+     * 
+     * @return the tolerance in meters
+     */
+    public int getConnectedNodeTolerance() {
+        return connectedNodeTolerance;
     }
 
     /**

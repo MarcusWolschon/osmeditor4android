@@ -1,5 +1,6 @@
 package de.blau.android.prefs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
     private String    KEY_PREFPRESET;
     private String    KEY_ADVPREFS;
     private String    KEY_VALIDATOR;
+    private String    KEY_CONNECTED;
 
     private BoundingBox viewBox = null;
 
@@ -48,7 +50,9 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         KEY_ADVPREFS = r.getString(R.string.config_advancedprefs_key);
         KEY_PREFPRESET = r.getString(R.string.config_presetbutton_key);
         KEY_VALIDATOR = r.getString(R.string.config_validatorprefs_key);
+        KEY_CONNECTED = r.getString(R.string.config_connectedNodeTolerance_key);
         setPreferenceListeners();
+        setTitle();
     }
 
     @Override
@@ -56,6 +60,7 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
         Log.d(DEBUG_TAG, "onResume");
         super.onResume();
         Util.setListPreferenceSummary(this, R.string.config_scale_key);
+        setTitle();
         Log.d(DEBUG_TAG, "onResume done");
     }
 
@@ -169,9 +174,9 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference advprefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
-        if (advprefs != null) {
-            advprefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference advPrefs = getPreferenceScreen().findPreference(KEY_ADVPREFS);
+        if (advPrefs != null) {
+            advPrefs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Log.d(DEBUG_TAG, "onPreferenceClick advanced");
@@ -181,9 +186,9 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
             });
         }
 
-        Preference validatorpref = getPreferenceScreen().findPreference(KEY_VALIDATOR);
-        if (validatorpref != null) {
-            validatorpref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference validatorPref = getPreferenceScreen().findPreference(KEY_VALIDATOR);
+        if (validatorPref != null) {
+            validatorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Log.d(DEBUG_TAG, "onPreferenceClick validator");
@@ -192,6 +197,21 @@ public class PrefEditorFragment extends ExtendedPreferenceFragment {
                     return true;
                 }
             });
+        }
+        
+        Preference connectedPref = getPreferenceScreen().findPreference(KEY_CONNECTED);
+        if (connectedPref != null) {
+            OnPreferenceChangeListener p = new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.d(DEBUG_TAG, "onPreferenceChange connected tolerance");
+                    Context context = PrefEditorFragment.this.getContext();
+                    App.getDefaultValidator(context).reset(context);
+                    App.getDelegator().resetProblems();
+                    return true;
+                }
+            };
+            connectedPref.setOnPreferenceChangeListener(p);
         }
     }
 }

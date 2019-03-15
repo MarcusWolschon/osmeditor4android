@@ -2335,7 +2335,24 @@ public class Logic {
      * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
      */
     public static double isPositionOnLine(final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
-        float tolerance = DataStyle.getCurrent().getWayToleranceValue() / 2f;
+        return isPositionOnLine(DataStyle.getCurrent().getWayToleranceValue() / 2f,  x,  y,  node1X,  node1Y,  node2X, node2Y);
+    }
+    
+    /**
+     * Checks if the x,y-position plus the tolerance is on a line between node1(x,y) and node2(x,y).
+     * 
+     * To avoid the typical two time calculation of the distance we actually return it
+     * 
+     * @param tolerance tolerance in screen pixel units
+     * @param x screen X coordinate of the position
+     * @param y screen Y coordinate of the position
+     * @param node1X screen X coordinate of node1
+     * @param node1Y screen Y coordinate of node1
+     * @param node2X screen X coordinate of node2
+     * @param node2Y screen Y coordinate of node2
+     * @return distance >= 0, when x,y plus way-tolerance lays on the line between node1 and node2.
+     */
+    public static double isPositionOnLine(final float tolerance, final float x, final float y, final float node1X, final float node1Y, final float node2X, final float node2Y) {
         // noinspection SuspiciousNameCombination
         if (GeoMath.isBetween(x, node1X, node2X, tolerance) && GeoMath.isBetween(y, node1Y, node2Y, tolerance)) {
             double distance = GeoMath.getLineDistance(x, y, node1X, node1Y, node2X, node2Y);

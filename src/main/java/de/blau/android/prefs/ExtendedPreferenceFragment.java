@@ -2,6 +2,7 @@ package de.blau.android.prefs;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import ch.poole.android.numberpickerpreference.NumberPickerPreference;
@@ -29,6 +30,16 @@ public abstract class ExtendedPreferenceFragment extends PreferenceFragmentCompa
             fragment.show(getFragmentManager(), "android.support.v7.preference.PreferenceFragment.NUMBERPICKER");
         } else {
             super.onDisplayPreferenceDialog(preference);
+        }
+    }
+    
+    /**
+     * Set the action bar title of the activity calling us to the PreferenceScreen title
+     */
+    protected void setTitle() {
+        AppCompatActivity activity = ((AppCompatActivity) getActivity());
+        if (activity != null) {
+            activity.getSupportActionBar().setTitle(getPreferenceScreen().getTitle());
         }
     }
 }

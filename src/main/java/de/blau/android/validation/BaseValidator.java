@@ -21,10 +21,12 @@ import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
 import de.blau.android.osm.Tags;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.util.GeoContext;
+import de.blau.android.util.GeoMath;
 import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
@@ -41,6 +43,14 @@ public class BaseValidator implements Validator {
      * Tags that should be present on objects (need to be in the preset for the object too
      */
     private Map<String, Boolean> checkTags;
+
+    /**
+     * The following values are cached as long as the current view box doesn't change
+     */
+    private ViewBox cachedViewBox = null;
+    private double  centerLat;
+    private double  widthInMeters;
+    private float   tolerance;
 
     /**
      * Regex for general tagged issues with the object
@@ -73,6 +83,7 @@ public class BaseValidator implements Validator {
         resurveyTags = ValidatorRulesDatabase.getDefaultResurvey(db);
         checkTags = ValidatorRulesDatabase.getDefaultCheck(db);
         db.close();
+        cachedViewBox = null;
     }
 
     /**
@@ -149,11 +160,25 @@ public class BaseValidator implements Validator {
         List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(w.getBounds());
         int layer = getLayer(w);
         boolean nothingToCheck = true;
-        for (Way nearbyWay : nearbyWays) {
-            if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
-                connectedValidation(logic, nearbyWay, w.getFirstNode());
-                connectedValidation(logic, nearbyWay, w.getLastNode());
-                nothingToCheck = false;
+        de.blau.android.Map map = logic.getMap();
+        if (map != null) {
+            // we try to cache these fairly expensive to calculate values at least as long as the ViewBox hasn't changed
+            if (!map.getViewBox().equals(cachedViewBox)) {
+                centerLat = map.getViewBox().getCenterLat();
+                widthInMeters = GeoMath.haversineDistance(map.getViewBox().getLeft() / 1E7D, centerLat, map.getViewBox().getRight() / 1E7D, centerLat);
+                tolerance = (float) (map.getPrefs().getConnectedNodeTolerance() / widthInMeters * map.getWidth());
+                if (cachedViewBox == null) {
+                    cachedViewBox = new ViewBox(map.getViewBox());
+                } else {
+                    cachedViewBox.set(map.getViewBox());
+                }
+            }
+            for (Way nearbyWay : nearbyWays) {
+                if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
+                    connectedValidation(logic, tolerance, nearbyWay, w.getFirstNode());
+                    connectedValidation(logic, tolerance, nearbyWay, w.getLastNode());
+                    nothingToCheck = false;
+                }
             }
         }
         if (nothingToCheck) {
@@ -199,10 +224,11 @@ public class BaseValidator implements Validator {
      * Check if a Node is so near a Way that it should be connected
      * 
      * @param logic the current Logic instance
+     * @param tolerance how far away the node has to be from the line in screen pixel units
      * @param way the Way
      * @param node the Node
      */
-    private void connectedValidation(@NonNull Logic logic, @NonNull Way way, @NonNull Node node) {
+    private void connectedValidation(@NonNull Logic logic, float tolerance, @NonNull Way way, @NonNull Node node) {
         if (!way.hasNode(node)) {
             node.setProblem(Validator.OK);
             float jx = logic.lonE7ToX(node.getLon());
@@ -215,8 +241,7 @@ public class BaseValidator implements Validator {
                 Node node2 = wayNodes.get(i);
                 float node2X = logic.lonE7ToX(node2.getLon());
                 float node2Y = logic.latE7ToY(node2.getLat());
-
-                if (Logic.isPositionOnLine(jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
+                if (Logic.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
                     node.setProblem(Validator.UNCONNECTED_END_NODE);
                 }
                 node1X = node2X;

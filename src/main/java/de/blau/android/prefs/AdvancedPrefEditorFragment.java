@@ -1,16 +1,11 @@
 package de.blau.android.prefs;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.Preference;
 import android.util.Log;
-import de.blau.android.App;
-import de.blau.android.Logic;
 import de.blau.android.R;
-import de.blau.android.dialogs.DataLossActivity;
 
 public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
 
@@ -33,16 +28,6 @@ public class AdvancedPrefEditorFragment extends ExtendedPreferenceFragment {
         setOnPreferenceClickListeners();
         setTitle();
         db = new AdvancedPrefDatabase(getActivity());
-    }
-
-    /**
-     * Set the action bar title of the activity calling us to the PreferenceScreen title
-     */
-    private void setTitle() {
-        AppCompatActivity activity = ((AppCompatActivity) getActivity());
-        if (activity != null) {
-            activity.getSupportActionBar().setTitle(getPreferenceScreen().getTitle());
-        }
     }
 
     @Override
