@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -651,7 +652,7 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         List<BoundingBox> result = new ArrayList<>();
         result.add(newBox);
         for (BoundingBox b : existing) {
-            ArrayList<BoundingBox> temp = new ArrayList<>();
+            List<BoundingBox> temp = new ArrayList<>();
             for (BoundingBox rb : result) {
                 if (b.intersects(rb)) {
                     // higher than b
@@ -682,5 +683,32 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
             result = temp;
         }
         return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(bottom, left, right, top);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof BoundingBox)) {
+            return false;
+        }
+        BoundingBox other = (BoundingBox) obj;
+        return bottom == other.bottom && left == other.left && right == other.right && top == other.top;
     }
 }
