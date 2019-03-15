@@ -156,7 +156,7 @@ public class APIEditorActivity extends URLListEditActivity {
     public void onAdditionalMenuItemClick(int menuItemId, ListEditItem clickedItem) {
         switch (menuItemId) {
         case MENU_COPY:
-            ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value_2, clickedItem.value_2,
+            ListEditItem item = new ListEditItem(getString(R.string.copy_of, clickedItem.name), clickedItem.value, clickedItem.value_2, clickedItem.value_3,
                     clickedItem.boolean_0);
             db.addAPI(item.id, item.name, item.value, item.value_2, item.value_3, "", "", item.boolean_0);
             items.clear();
