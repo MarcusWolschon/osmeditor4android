@@ -1629,7 +1629,7 @@ public class Logic {
             displayAttachedObjectWarning(activity, node); // needs to be done before removal
             getDelegator().removeNode(node);
             invalidateMap();
-            outsideOfDownload(activity, node.getLat(), node.getLat());
+            outsideOfDownload(activity, node.getLon(), node.getLat());
         }
     }
 
