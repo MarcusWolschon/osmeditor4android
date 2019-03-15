@@ -37,12 +37,12 @@ public class GeoMath {
 
     public static final int EARTH_RADIUS_EQUATOR = 6378137;
 
-    private static final double EARTH_RADIUS_PI    = Math.PI * EARTH_RADIUS_EQUATOR;
-    public static final int     EARTH_RADIUS_POLAR = 6356752;
+    public static final double EARTH_RADIUS_PI    = Math.PI * EARTH_RADIUS_EQUATOR;
+    public static final int    EARTH_RADIUS_POLAR = 6356752;
     /**
      * The arithmetic middle of the two WGS84 reference-ellipsoids.
      */
-    private static final int    EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
+    private static final int   EARTH_RADIUS       = (EARTH_RADIUS_EQUATOR + EARTH_RADIUS_POLAR) / 2;
 
     /**
      * Checks if x is between a and b (or equals a or b).
@@ -521,7 +521,7 @@ public class GeoMath {
      */
     public static int resolutionToZoom(double resolution, double lat) {
         if (Util.notZero(resolution)) {
-            return (int) (Math.log(2 * Math.PI * GeoMath.EARTH_RADIUS_EQUATOR * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR
+            return (int) (Math.log(2 * EARTH_RADIUS_PI * (Math.cos(Math.toRadians(lat)) / resolution)) / Math.log(2) - 8); // NOSONAR
             // nonZero tests for zero
         }
         throw new IllegalArgumentException("Resolution can't be zero");
