@@ -550,10 +550,10 @@ public class App extends android.app.Application {
     }
 
     /**
-     * Return the cache for task notifications, allocate if necessary
+     * Return a Validator instance, allocate if necessary
      * 
      * @param ctx Android Context
-     * @return the notification cache
+     * @return a Validator instance
      */
     public static Validator getDefaultValidator(Context ctx) {
         synchronized (defaultValidatorLock) {
