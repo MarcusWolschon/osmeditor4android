@@ -509,15 +509,20 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testCurrentDebugUnitTest") 
     description = "Generate Jacoco coverage reports"
 
     classDirectories = fileTree(
-            dir: 'build/intermediates/classes/debug',
+            dir: 'build/intermediates/app_classes/currentDebug/packageAppClassesCurrentDebug/',
             excludes: ['**/R.class', '**/R$*.class', '**/*$ViewInjector*.*', '**/BuildConfig.*', '**/Manifest*.*'])
 
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
-    executionData = files('build/jacoco/testCurrentDebugUnitTest.exec')
+    executionData     = fileTree(
+        dir     : "$buildDir",
+        include : [ 'jacoco/testCurrentDebugUnitTest.exec', 'outputs/code-coverage/connected/flavors/CURRENT/*coverage.ec' ]
+    )
 
     reports {
         xml.enabled = true
         html.enabled = true
     }
+    
+    sourceDirectories = files(coverageSourceDirs)
 }
