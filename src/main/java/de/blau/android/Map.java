@@ -681,7 +681,7 @@ public class Map extends View implements IMapView {
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
         text = "Ways (current/API) :" + delegator.getCurrentStorage().getWays().size() + "/" + delegator.getApiWayCount();
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
-        text = "Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/" + delegator.getCurrentStorage().getWaynodes().size()
+        text = "Nodes (current/Waynodes/API) :" + delegator.getCurrentStorage().getNodes().size() + "/" + delegator.getCurrentStorage().getWayNodes().size()
                 + "/" + delegator.getApiNodeCount();
         canvas.drawText(text, 5, getHeight() - textSize * pos++, infotextPaint);
         text = "fps: " + fps;

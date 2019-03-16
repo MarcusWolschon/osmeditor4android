@@ -378,22 +378,6 @@ public class Storage implements Serializable {
     }
 
     /**
-     * Get a the "first" way containing node
-     * 
-     * @param node node to search for
-     * @return the way or null if none was found
-     */
-    @Nullable
-    public Way getFirstWay(final Node node) {
-        for (Way way : ways) {
-            if (way.getNodes().contains(node)) {
-                return way;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Get all ways that node is a vertex of
      * 
      * This method currently does a sequential scan of all ways in storage and should be avoided
@@ -421,7 +405,7 @@ public class Storage implements Serializable {
      * 
      * @return all way nodes
      */
-    public List<Node> getWaynodes() {
+    public List<Node> getWayNodes() {
         ArrayList<Node> waynodes = new ArrayList<>();
         for (Way way : ways) {
             waynodes.addAll(way.getNodes());
@@ -545,39 +529,6 @@ public class Storage implements Serializable {
     }
 
     /**
-     * Dump the contents to a PrintStream
-     * 
-     * @param out PrintStream we are writing to
-     */
-    public void dumpStorage(@NonNull PrintStream out) {
-        //
-        for (Node n : nodes) {
-            out.println("Node " + n.getOsmId());
-            for (String k : n.getTags().keySet()) {
-                out.println(k + "=" + n.getTags().get(k));
-            }
-        }
-        for (Way w : ways) {
-            out.println("Way " + w.getOsmId());
-            for (String k : w.getTags().keySet()) {
-                out.println(k + "=" + w.getTags().get(k));
-            }
-            for (Node nd : w.getNodes()) {
-                out.println("\t" + nd.getOsmId());
-            }
-        }
-        for (Relation r : relations) {
-            out.println("Relation " + r.getOsmId());
-            for (String k : r.getTags().keySet()) {
-                out.println(k + "=" + r.getTags().get(k));
-            }
-            for (RelationMember rm : r.getMembers()) {
-                out.println("\t\t" + rm.getRef() + " " + rm.getRole());
-            }
-        }
-    }
-
-    /**
      * Indicate that the Node is referenced by a Way
      * 
      * @param id the Nodes id
@@ -592,8 +543,8 @@ public class Storage implements Serializable {
     /**
      * Remove all unreferenced nodes that are not in the bounding box
      * 
-     * Providing this here allows us to directly merge objects in to the same Storage instance
-     * and complete the trimming once after all data has been loaded.
+     * Providing this here allows us to directly merge objects in to the same Storage instance and complete the trimming
+     * once after all data has been loaded.
      * 
      * @param box the BoundingBox
      */

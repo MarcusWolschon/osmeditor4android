@@ -120,7 +120,7 @@ public class DebugInformation extends AppCompatActivity {
         builder.append("Relations (current/API): " + delegator.getCurrentStorage().getRelations().size() + "/" + delegator.getApiRelationCount() + eol);
         builder.append("Ways (current/API): " + delegator.getCurrentStorage().getWays().size() + "/" + delegator.getApiWayCount() + eol);
         builder.append("Nodes (current/Waynodes/API): " + delegator.getCurrentStorage().getNodes().size() + "/"
-                + delegator.getCurrentStorage().getWaynodes().size() + "/" + delegator.getApiNodeCount() + eol);
+                + delegator.getCurrentStorage().getWayNodes().size() + "/" + delegator.getApiNodeCount() + eol);
 
         builder.append("Available location providers\n");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
