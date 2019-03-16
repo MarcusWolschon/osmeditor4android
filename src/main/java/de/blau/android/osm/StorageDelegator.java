@@ -35,6 +35,7 @@ import de.blau.android.filter.Filter;
 import de.blau.android.osm.MergeResult.Issue;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
+import de.blau.android.util.Coordinates;
 import de.blau.android.util.GeoMath;
 import de.blau.android.util.SavingHelper;
 import de.blau.android.util.SavingHelper.Exportable;
@@ -692,7 +693,7 @@ public class StorageDelegator implements Serializable, Exportable {
             int height = map.getHeight();
             ViewBox box = map.getViewBox();
 
-            Coordinates coords[] = nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
+            Coordinates coords[] = Coordinates.nodeListToCooardinateArray(width, height, box, new ArrayList<>(nodes));
 
             // save nodes for undo
             for (Node nd : nodes) {
@@ -704,7 +705,6 @@ public class StorageDelegator implements Serializable, Exportable {
             // caclulate average radius
             double r = 0.0f;
             for (Coordinates p : coords) {
-                Log.d(DEBUG_TAG, "r=" + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y)));
                 r = r + Math.sqrt((p.x - center.x) * (p.x - center.x) + (p.y - center.y) * (p.y - center.y));
             }
             r = r / coords.length;
@@ -818,7 +818,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 ArrayList<Coordinates[]> coordsArray = new ArrayList<>();
                 int totalNodes = 0;
                 for (Way w : wayList) {
-                    coordsArray.add(nodeListToCooardinateArray(width, height, box, w.getNodes()));
+                    coordsArray.add(Coordinates.nodeListToCooardinateArray(width, height, box, w.getNodes()));
                     totalNodes += w.getNodes().size();
                 }
                 Coordinates a, b, c, p, q;
@@ -844,15 +844,15 @@ public class StorageDelegator implements Serializable, Exportable {
                             p = a.subtract(b);
                             q = c.subtract(b);
                             double scale = 2 * Math.min(Math.hypot(p.x, p.y), Math.hypot(q.x, q.y));
-                            p = normalize(p, 1.0);
-                            q = normalize(q, 1.0);
+                            p = Coordinates.normalize(p, 1.0);
+                            q = Coordinates.normalize(q, 1.0);
                             double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
 
                             // nasty hack to deal with almost-straight segments (angle is closer to 180 than to 90/270).
                             if (dotp < -0.707106781186547) {
                                 dotp += 1.0;
                             }
-                            motions[i] = normalize(p.add(q), 0.1 * dotp * scale);
+                            motions[i] = Coordinates.normalize(p.add(q), 0.1 * dotp * scale);
                         }
                         // apply position changes
                         for (int i = start; i < end; i++) {
@@ -876,8 +876,8 @@ public class StorageDelegator implements Serializable, Exportable {
                             c = coords[(i + 1) % coords.length];
                             p = a.subtract(b);
                             q = c.subtract(b);
-                            p = normalize(p, 1.0);
-                            q = normalize(q, 1.0);
+                            p = Coordinates.normalize(p, 1.0);
+                            q = Coordinates.normalize(q, 1.0);
                             double dotp = filter((p.x * q.x + p.y * q.y), lowerThreshold, upperThreshold);
 
                             score = score + 2.0 * Math.min(Math.abs(dotp - 1.0), Math.min(Math.abs(dotp), Math.abs(dotp + 1.0)));
@@ -906,113 +906,8 @@ public class StorageDelegator implements Serializable, Exportable {
         }
     }
 
-    // TODO move this and following code somewhere else and generalize
-    private Coordinates normalize(Coordinates p, double scale) {
-        Coordinates result = p;
-        double length = p.length();
-        if (length != 0) {
-            result = p.divide(length);
-        }
-        return result.multiply(scale);
-    }
-
     private double filter(double v, double lower, double upper) {
         return (lower > Math.abs(v)) || (Math.abs(v) > upper) ? v : 0.0;
-    }
-
-    /**
-     * Wrapper for a screen coordinate tupel
-     * 
-     * @author simon
-     *
-     */
-    private class Coordinates {
-        double x;
-        double y;
-
-        /**
-         * Construct a new Coordinate object
-         * 
-         * @param x screen x coordinate
-         * @param y screen y coordinate
-         */
-        Coordinates(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        /**
-         * Subtract Coordinates from this object
-         * 
-         * @param s the Coordinates to subtract
-         * @return the result of the operation
-         */
-        @NonNull
-        Coordinates subtract(@NonNull Coordinates s) {
-            return new Coordinates(this.x - s.x, this.y - s.y);
-        }
-
-        /**
-         * Add Coordinates to this object
-         * 
-         * @param p the Coordinates to add
-         * @return the result of the operation
-         */
-        @NonNull
-        Coordinates add(@NonNull Coordinates p) {
-            return new Coordinates(this.x + p.x, this.y + p.y);
-        }
-
-        /**
-         * Multiple this object with a scalar value
-         * 
-         * @param m the scalar value to multiply with
-         * @return the result of the operation
-         */
-        @NonNull
-        Coordinates multiply(double m) {
-            return new Coordinates((float) (this.x * m), (float) (this.y * m));
-        }
-
-        /**
-         * Divide this object by a scalar value
-         * 
-         * @param d the scalar value to divide by
-         * @return the result of the operation
-         */
-        Coordinates divide(double d) {
-            return new Coordinates((float) (this.x / d), (float) (this.y / d));
-        }
-
-        /**
-         * The scalar length
-         * 
-         * @return the length of this assuming it is a vector from 0,0
-         */
-        double length() {
-            return (float) Math.hypot(x, y);
-        }
-    }
-
-    /**
-     * Convert the coordinates from a list of Nodes to an array of screen coordinates
-     * 
-     * @param width screen width
-     * @param height screen height
-     * @param box current ViewBox
-     * @param nodes the List of Nodes
-     * @return an array of Coordinates
-     */
-    @NonNull
-    private Coordinates[] nodeListToCooardinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
-        Coordinates points[] = new Coordinates[nodes.size()];
-        // loop over all nodes
-        for (int i = 0; i < nodes.size(); i++) {
-            points[i] = new Coordinates(0.0f, 0.0f);
-            points[i].x = GeoMath.lonE7ToX(width, box, nodes.get(i).getLon());
-            points[i].y = GeoMath.latE7ToY(height, width, box, nodes.get(i).getLat());
-        }
-        return points;
     }
 
     /**
