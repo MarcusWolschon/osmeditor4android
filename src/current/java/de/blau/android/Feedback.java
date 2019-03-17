@@ -1,14 +1,17 @@
 package de.blau.android;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import com.heinrichreimersoftware.androidissuereporter.IssueReporterActivity;
 import com.heinrichreimersoftware.androidissuereporter.model.github.ExtraInfo;
 import com.heinrichreimersoftware.androidissuereporter.model.github.GithubTarget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -19,6 +22,7 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
+import de.blau.android.contract.Github;
 import de.blau.android.osm.Server;
 import de.blau.android.osm.Server.UserDetails;
 import de.blau.android.prefs.Preferences;
@@ -36,15 +40,45 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
 
     private static final String DEBUG_TAG = "Feedback";
 
+    private static final String REPO_USER = "repo_user";
+    private static final String REPO_NAME = "repo_name";
+
     java.util.Map<Integer, ActivityResultHandler.Listener> activityResultListeners = new HashMap<>();
 
     RadioButton anonymous;
     String      displayName = null;
     Server      server      = null;
 
+    String repoUser = Github.CODE_REPO_USER;
+    String repoName = Github.CODE_REPO_NAME;
+
+    /**
+     * Start this Activity
+     * 
+     * @param context Android Context
+     */
+    public static void start(@NonNull Context context) {
+        Intent intent = new Intent(context, Feedback.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * Start this Activity
+     * 
+     * @param context Android Context
+     * @param repoUser github repository user
+     * @param repoName githun repository name
+     */
+    public static void start(@NonNull Context context, @NonNull String repoUser, @NonNull String repoName) {
+        Intent intent = new Intent(context, Feedback.class);
+        intent.putExtra(REPO_USER, repoUser);
+        intent.putExtra(REPO_NAME, repoName);
+        context.startActivity(intent);
+    }
+
     @Override
     public GithubTarget getTarget() {
-        return new GithubTarget("MarcusWolschon", "osmeditor4android");
+        return new GithubTarget(repoUser, repoName);
     }
 
     @Override
@@ -56,6 +90,15 @@ public class Feedback extends IssueReporterActivity implements ActivityResultHan
         }
 
         super.onCreate(savedInstanceState);
+
+        Serializable s = getIntent().getSerializableExtra(REPO_USER);
+        if (s != null) {
+            repoUser = s.toString();
+        }
+        s = getIntent().getSerializableExtra(REPO_NAME);
+        if (s != null) {
+            repoName = s.toString();
+        }
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

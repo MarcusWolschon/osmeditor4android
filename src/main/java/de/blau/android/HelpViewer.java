@@ -85,7 +85,7 @@ public class HelpViewer extends BugFixedAppCompatActivity {
      * Start this Activity
      * 
      * @param context Android Context
-     * @param topic string reseource id of the help topic
+     * @param topic string resource id of the help topic
      */
     public static void start(@NonNull Context context, @StringRes int topic) {
         Intent intent = new Intent(context, HelpViewer.class);

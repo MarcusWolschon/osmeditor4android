@@ -594,7 +594,8 @@
     <string name="menu_tools_clear_clipboard">Clear clipboard</string>
     <!--  -->
     <string name="menu_simple_actions">Simple mode</string>  
-    <string name="menu_feedback">Provide feedback</string>  
+    <string name="menu_feedback">Provide feedback</string> 
+    <string name="menu_preset_feedback">Provide preset feedback</string>  
     <string name="menu_privacy">Privacy</string>
     <!-- Background alignment -->
     <string name="menu_tools_background_align">Align background</string>

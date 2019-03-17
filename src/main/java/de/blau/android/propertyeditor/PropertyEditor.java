@@ -37,9 +37,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import de.blau.android.App;
+import de.blau.android.Feedback;
 import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.contract.Github;
 import de.blau.android.exception.IllegalOperationException;
 import de.blau.android.names.Names.TagMap;
 import de.blau.android.osm.OsmElement;
@@ -412,6 +414,10 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
         Fragment fragment = ((PropertyEditorPagerAdapter) mViewPager.getAdapter()).getItem(false, mViewPager.getCurrentItem());
         if (item.getItemId() == android.R.id.home && fragment != null && fragment.getView() != null && fragment.onOptionsItemSelected(item)) {
             Log.d(DEBUG_TAG, "called fragment onOptionsItemSelected");
+            return true;
+        }
+        if (item.getItemId() == R.id.menu_preset_feedback) { // only used in pane mode
+            Feedback.start(this, Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME);
             return true;
         }
         return super.onOptionsItemSelected(item);

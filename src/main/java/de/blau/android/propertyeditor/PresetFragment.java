@@ -5,18 +5,18 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.ActionMenuView;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,9 +31,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.util.Log;
 import de.blau.android.App;
+import de.blau.android.BuildConfig;
+import de.blau.android.Feedback;
 import de.blau.android.HelpViewer;
 import de.blau.android.R;
+import de.blau.android.contract.Flavors;
+import de.blau.android.contract.Github;
 import de.blau.android.exception.UiStateException;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.OsmElement.ElementType;
@@ -43,6 +48,7 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
+import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
@@ -407,6 +413,8 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
         // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         ActionMenuView menuView = (ActionMenuView) getView().findViewById(R.id.preset_menu);
+        // the library providing the Feedback UI is not supported under SDK 15
+        boolean enablePresetFeedback = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && BuildConfig.FLAVOR.equals(Flavors.CURRENT);
         if (paneMode) {
             getActivity().getMenuInflater().inflate(R.menu.preset_nav_menu, menuView.getMenu());
             android.support.v7.widget.ActionMenuView.OnMenuItemClickListener listener = new android.support.v7.widget.ActionMenuView.OnMenuItemClickListener() {
@@ -416,18 +424,30 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                 }
             };
             menuView.setOnMenuItemClickListener(listener);
+            if (enablePresetFeedback) {
+                // this adds the item as the last one
+                menu.add(Menu.NONE, R.id.menu_preset_feedback, 20, R.string.menu_preset_feedback);
+            }
         } else {
             inflater.inflate(R.menu.preset_menu, menu);
             menuView.setVisibility(View.GONE);
+            if (enablePresetFeedback) {
+                menu.findItem(R.id.menu_preset_feedback).setVisible(false);
+            }
         }
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // FIXME this currently causes problems likely in Pane mode
-        // menu.findItem(R.id.preset_menu_top).setEnabled(currentGroup != rootGroup);
-        // menu.findItem(R.id.preset_menu_up).setEnabled(currentGroup != rootGroup);
+        MenuItem item = menu.findItem(R.id.preset_menu_top);
+        if (item != null) {
+            item.setEnabled(currentGroup != rootGroup);
+        }
+        item = menu.findItem(R.id.preset_menu_up);
+        if (item != null) {
+            item.setEnabled(currentGroup != rootGroup);
+        }
     }
 
     @Override
@@ -455,6 +475,9 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
                     return true;
                 }
             }
+            return true;
+        case R.id.menu_preset_feedback:
+            Feedback.start(getContext(), Github.PRESET_REPO_USER, Github.PRESET_REPO_NAME);
             return true;
         case R.id.preset_menu_help:
             HelpViewer.start(getActivity(), R.string.help_presets);
