@@ -90,7 +90,7 @@ public class Coordinates {
      */
     @NonNull
     public static Coordinates[] nodeListToCooardinateArray(int width, int height, @NonNull ViewBox box, @NonNull List<Node> nodes) {
-        Coordinates points[] = new Coordinates[nodes.size()];
+        Coordinates[] points = new Coordinates[nodes.size()];
         // loop over all nodes
         for (int i = 0; i < nodes.size(); i++) {
             points[i] = new Coordinates(0.0f, 0.0f);

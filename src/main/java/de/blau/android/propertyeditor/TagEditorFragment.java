@@ -229,7 +229,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         args.putSerializable(PRESETSTOAPPLY_KEY, presetsToApply);
 
         f.setArguments(args);
-        // f.setShowsDialog(true);
 
         return f;
     }
@@ -300,7 +299,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         rowLayout = (ScrollView) inflater.inflate(R.layout.taglist_view, container, false);
 
         LinearLayout editRowLayout = (LinearLayout) rowLayout.findViewById(R.id.edit_row_layout);
-        // editRowLayout.setSaveFromParentEnabled(false);
         editRowLayout.setSaveEnabled(false);
 
         elements = new OsmElement[osmIds.length];
@@ -329,10 +327,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
             tags = buildEdits();
         }
 
-        // Log.d(DEBUG_TAG,"element " + element + " tags " + tags);
-
         loaded = false;
-        // rowLayout.removeAllViews();
         for (Entry<String, ArrayList<String>> pair : tags.entrySet()) {
             insertNewEdit(editRowLayout, pair.getKey(), pair.getValue(), -1, false);
         }
@@ -527,7 +522,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private void loadEditsSingle(final Map<String, String> tags, boolean flush) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         LinkedHashMap<String, ArrayList<String>> convertedTags = flush ? new LinkedHashMap<>() : getKeyValueMap(true);
-        ;
         for (Entry<String, String> entry : tags.entrySet()) {
             ArrayList<String> v = new ArrayList<>();
             v.add(entry.getValue());
@@ -612,7 +606,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         LinkedHashMap<String, String> allTags = getKeyValueMapSingle(rowLayout, true);
 
         if (presetItem == null) {
-            primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect;
+            primaryPresetItem = Preset.findBestMatch(presets, allTags, true); // FIXME multiselect
         } else {
             primaryPresetItem = presetItem;
         }
@@ -699,7 +693,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     private void setHint(TagEditRow row) {
         String aTagKey = row.getKey();
         PresetItem preset = getPreset(aTagKey);
-        if (preset != null && aTagKey != null && !aTagKey.equals("")) { // set hints even if value isen't empty
+        if (preset != null && !aTagKey.equals("")) { // set hints even if value isen't empty
             String hint = preset.getHint(aTagKey);
             if (hint != null) {
                 row.valueEdit.setHint(hint);
@@ -856,7 +850,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
 
         if (presets != null) {
             List<String> allKeys = new ArrayList<>(Preset.getAutocompleteKeys(presets, elementType));
-            // allKeys.removeAll(keys);
             Collections.sort(allKeys);
             keys.addAll(allKeys);
         }
@@ -923,7 +916,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 adapter = nameAdapters.getPlaceNameAdapter(hasTagValues ? row.tagValues : null);
             } else if (!hasTagValues && key.equals(Tags.KEY_NAME) && (names != null) && useNameSuggestions(usedKeys)) {
                 Log.d(DEBUG_TAG, "generate suggestions for name from name suggestion index");
-                List<NameAndTags> values = (ArrayList<NameAndTags>) names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true)), propertyEditorListener.getIsoCodes()); // FIXME
+                List<NameAndTags> values = names.getNames(new TreeMap<>(getKeyValueMapSingle(rowLayout, true)), propertyEditorListener.getIsoCodes()); // FIXME
                 if (values != null && !values.isEmpty()) {
                     Collections.sort(values);
                     adapter = new ArrayAdapter<>(getActivity(), R.layout.autocomplete_row, values);
@@ -1084,7 +1077,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 Log.d(DEBUG_TAG, "onFocusChange key");
                 PresetItem preset = getPreset(aTagKey);
                 if (hasFocus) {
-                    // Log.d(DEBUG_TAG,"got focus");
                     originalKey = row.getKey();
                     row.keyEdit.setAdapter(getKeyAutocompleteAdapter(preset, rowLayout, row.keyEdit));
                     if (PropertyEditor.running && row.getKey().length() == 0) {
@@ -1135,7 +1127,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                     String newValue = row.getValue();
                     if (!newValue.equals(originalValue)) {
                         originalValue = newValue;
-                        // Log.d(DEBUG_TAG,"lost focus");
                         // potentially we should update tagValues here
                         updateAutocompletePresetItem(rowLayout, null, true);
                     }
@@ -1823,9 +1814,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param newTags the new tags to merge
      * @param replace overwrite values of existing keys
      */
-    private void mergeTags(@NonNull ArrayList<KeyValue> newTags, boolean replace) {
+    private void mergeTags(@NonNull List<KeyValue> newTags, boolean replace) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
-        HashMap<String, KeyValue> keyIndex = new HashMap<>(); // needed for de-duping
+        Map<String, KeyValue> keyIndex = new HashMap<>(); // needed for de-duping
 
         List<KeyValue> keysAndValues = new ArrayList<>();
         for (Entry<String, ArrayList<String>> entry : currentValues.entrySet()) {
@@ -1935,6 +1926,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         case R.id.tag_menu_help:
             HelpViewer.start(getActivity(), R.string.help_propertyeditor);
             return true;
+        default:
+            // do nothing
         }
         return false;
     }
@@ -2091,6 +2084,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return result;
     }
 
+    /**
+     * Add a source:key field and pre-fill it with "survey"
+     */
     private void doSourceSurvey() { // FIXME
         // determine the key (if any) that has the current focus in the key or its value
         final String[] focusedKey = new String[] { null }; // array to work around unsettable final
@@ -2156,7 +2152,12 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         return paste != null;
     }
 
-    public void copyTags(Map<String, String> tags) {
+    /**
+     * Copy tags to internal and system clipboard
+     * 
+     * @param tags the tags
+     */
+    public void copyTags(@NonNull Map<String, String> tags) {
         App.getTagClipboard(getContext()).copy(tags);
         ClipboardUtils.copyTags(getActivity(), tags);
     }
