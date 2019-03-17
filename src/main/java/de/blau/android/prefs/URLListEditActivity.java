@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -494,7 +495,11 @@ public abstract class URLListEditActivity extends ListActivity
             v.setMenuButtonListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.showContextMenu(0, 0);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        v.showContextMenu(0, 0);
+                    } else {
+                        v.getParent().showContextMenuForChild(v);
+                    }
                 }
             });
             return v;
