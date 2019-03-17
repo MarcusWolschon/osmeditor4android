@@ -88,7 +88,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * 
      * @param activity the calling Activity
      */
-    public static void showDialog(FragmentActivity activity) {
+    public static void showDialog(@NonNull FragmentActivity activity) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
@@ -104,7 +104,7 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
      * 
      * @param activity the calling Activity
      */
-    private static void dismissDialog(FragmentActivity activity) {
+    private static void dismissDialog(@NonNull FragmentActivity activity) {
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -300,6 +300,16 @@ public class Layers extends SizedFixedImmersiveDialogFragment {
         addRows(activity);
 
         return layout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // this will initially be done twice
+        // but doing it here allows to update a
+        // after configuration changes painlessly
+        tl.removeAllViews();
+        addRows(getActivity());
     }
 
     /**
