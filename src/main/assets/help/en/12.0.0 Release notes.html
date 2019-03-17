@@ -8,41 +8,42 @@
 <h1>Vespucci 12.0 Highlights</h1>
 <h2>Simple action mode</h2>
 <p>Simple action mode replaces the long click action on the screen with a menu driven way of creating new objects. Long clicks are disabled as long as the mode is active.</p>
-<p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view. </p>
+<p>Tapping the large green floating button will show a menu. After you've selected one of the items, you will be asked to tap the screen at the location where you want to create the object, pan and zoom continues to work if you need to adjust the map view.</p>
 <p>The mode can be toggled on and off via an item in the main menu.</p>
 <h2>Support for MapRoulette</h2>
-<p>MapRoulette tasks are now supported in the task overlay. </p>
-<p>To be able to change a tasks status you will need to set you API key. If you have not set it, you will be asked on first upload, preferably you should set the key before making any changes via the "Tools" menu. If you've had a previous version of Vespucci installed you will need to re-authorize (via the entry in the "Tools" menu) to be able to use this feature as we now require the permission to set the user preferences.</p>
+<p>MapRoulette tasks are now supported in the task overlay.</p>
+<p>To be able to change a tasks status you will need to set you API key. If you have not set it, you will be asked on first upload, preferably you should set the key before making any changes via the &quot;Tools&quot; menu. If you've had a previous version of Vespucci installed you will need to re-authorize (via the entry in the &quot;Tools&quot; menu) to be able to use this feature as we now require the permission to set the user preferences.</p>
 <h2>Notes are movable</h2>
-<p>Newly created OSM Notes that haven't been uploaded yet can be moved by selecting the Note and then dragging. Behaviour for downloaded Notes remains unchanged. </p>
+<p>Newly created OSM Notes that haven't been uploaded yet can be moved by selecting the Note and then dragging. Behaviour for downloaded Notes remains unchanged.</p>
 <h2>Most recently used support for OSM keys, values and roles</h2>
 <p>This adds support for storing, retrieving and prioritized selection display of keys, values and roles that have been recently used. When possible the mru values are associated with a preset.</p>
-<p>Persistent storage is provided by an XML format file ("mrutags.xml") in the publicly accessible "Vespucci" directory on device. The contents of the file can be inspected, and for example used to indicate what is missing from the presets.</p>
+<p>Persistent storage is provided by an XML format file (&quot;mrutags.xml&quot;) in the publicly accessible &quot;Vespucci&quot; directory on device. The contents of the file can be inspected, and for example used to indicate what is missing from the presets.</p>
 <h2>In-app function to provide developer feedback</h2>
-<p>You now can, by using the "Provide feedback" function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
-<p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process. </p>
+<p>You now can, by using the &quot;Provide feedback&quot; function in the main menu, directly open a new issue on our github issue tracker with the most important information about your device and app version automatically included. If you have a github account you can simply login with that, if you don't, you can submit an issue pseudo-anonymously with your OSM display name included. If you are using the later and haven't yet authorized Vespucci with the OpenStreetMap API, you will be asked to do so.</p>
+<p>The anonymous issue creation is only available in the official builds or if you are building the app yourself if you have configured a github personal access key during the build process.</p>
 <h2>State saving changed</h2>
 <p>Previous versions used standard Java serialisation to store state, starting with version 12 we are using a third party library (https://github.com/RuedigerMoeller/fast-serialization) to provide the functionality. This will be most noticeable when you have data loaded for larger areas in that starting and exiting the app should be substantially faster, and occasional issues that very large datasets could cause the state saving to run out of memory should require even sillier amounts of data to be loaded to occur.</p>
 <p>As the on device format of the files has changed, layer configurations, last installed version, the editing state and the saved data cannot be read after reinstall and it will seem as if you will have a completely new install, however all preference settings are maintained and do not need to be re-entered.</p>
 <h2>Miscellaneous</h2>
 <ul>
-  <li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
-  <li>using google login during the authentication process should work again.</li>
-  <li>alert behaviour for notification groups is now configurable.</li>
-  <li>improved UI and error behaviour when merging objects.</li>
-  <li>preset items are now alphabetically sorted by default in the displays, this can be changed in the preset itself.</li>
-  <li>Nominatim searches can now be limited to a bounding box.</li>
-  <li>in multi-select mode we now show a total element count in the header of the tag editor.</li>
-  <li>the build process now uses proguard which results in a roughly 20% smaller APK file.</li>
+<li>more layer configuration, specifically for the tasks and grid layers is now accessible from the layers dialog.</li>
+<li>using google login during the authentication process should work again.</li>
+<li>alert behaviour for notification groups is now configurable.</li>
+<li>improved UI and error behaviour when merging objects.</li>
+<li>preset items are now alphabetically sorted by default in the displays, this can be changed in the preset itself.</li>
+<li>Nominatim searches can now be limited to a bounding box.</li>
+<li>in multi-select mode we now show a total element count in the header of the tag editor.</li>
+<li>the build process now uses proguard which results in a roughly 20% smaller APK file.</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <ul>
-  <li>As the saved task state file format has changed, please complete any edits before upgrading, see above.</li>
+<li>As the saved task state file format has changed, please complete any edits before upgrading, see above.</li>
 </ul>
 <h1>Known problems</h1>
 <ul>
-  <li>the documentation is out of date.</li>
-  <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>the documentation is out of date.</li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul>
+
 </body>
 </html>

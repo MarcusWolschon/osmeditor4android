@@ -9,22 +9,23 @@
 <p>Many different background sources are available for OpenStreetMap editors. Satellite and aerial imagery often suffers from small to large offsets from reality. It is important to check and potentially adjust for this <strong>before</strong> tracing anything for inclusion in OpenStreetMap in every editor. Vespucci provides functions do this both from stored offsets and manually.</p>
 <p>All operations affect only the current background layer.</p>
 <h3>Manually adjusting the offset</h3>
-<p>To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the "Align background" screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.</p>
-<p>Exiting the screen with "Done" will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select "Apply (all Zooms)" from the menu.</p>
+<p>To adjust the offset manually you need to align it to a reference. This could be a known numeric coordinate offset, GPS traces (from the corresponding overlay) or simply the existing OpenStreetMap data. In the &quot;Align background&quot; screen you can simply drag the background to the desired position, overlays and the OpenStreetMap data will remain stationary. In the upper left hand corner you will see a display indicating current zoom level and the current offset.</p>
+<p>Exiting the screen with &quot;Done&quot; will semi-permanently store the offset for this zoom level, to apply it to all zoom levels select &quot;Apply (all Zooms)&quot; from the menu.</p>
 <h3>Retrieving an offset from the imagery offset DB</h3>
 <p><em>(requires network connectivity)</em></p>
-<p>Select "FROM DB" to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.</p>
+<p>Select &quot;FROM DB&quot; to retrieve an offset from the imagery offset DB, this searches in a radius of 10km for offsets that are applicable to the current background layer. If offsets are found they will be presented in a nearest first order, with the options to either skip to the next one, apply the offset to all zooms, or just as stored in the offset DB.</p>
 <h3>Saving an offset to the imagery offset DB</h3>
 <p><em>(requires network connectivity)</em></p>
 <p>A manually set offset can be saved to the DB. Vespucci will create separate entries for each distinct offset and set of zooms, you can then individually decide to save or not. Please state in your description clearly what you used as a reference for your offset.</p>
 <h3>All functions</h3>
 <ul>
-  <li><strong>FROM DB</strong> - retrieve offset from imagery offset DB</li>
-  <li><strong>RESET</strong> - reset the offset to what is was before the "Align background" mode was started</li>
-  <li><strong>ZERO</strong> - set the offset to zero</li>
-  <li><strong>Apply (all Zooms)</strong> - apply the current offset to all zoom levels</li>
-  <li><strong>Save to DB</strong> - save to imagery offset DB</li>
-  <li><strong>Help</strong> - start the Vespucci help browser</li>
+<li><strong>FROM DB</strong> - retrieve offset from imagery offset DB</li>
+<li><strong>RESET</strong> - reset the offset to what is was before the &quot;Align background&quot; mode was started</li>
+<li><strong>ZERO</strong> - set the offset to zero</li>
+<li><strong>Apply (all Zooms)</strong> - apply the current offset to all zoom levels</li>
+<li><strong>Save to DB</strong> - save to imagery offset DB</li>
+<li><strong>Help</strong> - start the Vespucci help browser</li>
 </ul>
+
 </body>
 </html>

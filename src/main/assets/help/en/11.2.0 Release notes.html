@@ -10,8 +10,8 @@
 <p>As announced previously this version no longer supports Android versions prior to 4.0 on googles playstore due to restrictions that google is now imposing. It is however possible to either build your own APK with support for earlier Android versions and likely we will be distributing such a version via F-Droid and our github repository.</p>
 <p>Do be able to do this we now have two build flavors:</p>
 <ul>
-  <li><em>current</em> that is built against a current Android support library and supports Android 4.0 (14) and higher.</li>
-  <li><em>legacy</em> that is built against the last support library that supported 2.3, but will naturally run on any later Android version too-</li>
+<li><em>current</em> that is built against a current Android support library and supports Android 4.0 (14) and higher.</li>
+<li><em>legacy</em> that is built against the last support library that supported 2.3, but will naturally run on any later Android version too-</li>
 </ul>
 <p>Right now the <em>current</em> build mainly profits from bug fixes to the support libraries, for example the issue with sub-menus on tablets is resolved in the version we build the <em>current</em> flavor against.</p>
 <p>This is not a commitment to supporting 2.3 indefinitely, but as we suspect that google will be increasing the minimum Android that practically can be supported in the future we expect that the legacy build will continue as a vehicle to support older versions.</p>
@@ -19,15 +19,16 @@
 <p>On devices that only supply 32MB of heap to apps memory usage of Vespucci had gotten to the point at which the app could potentially completely run out of available memory. To work around this a bit we've stopped loading the simplified country boundaries which saves roughly 4MB, this implies that any country specific features will not work. Further we recommend to, instead of the standard bundled preset, to load the untranslated one (see the on device Preset help page) which will save roughly another 3MB (mainly because we don't build a translated search index then).</p>
 <h2>Miscellaneous</h2>
 <ul>
-  <li>Internationalization support for OSM Notes and other tasks has been improved.</li>
-  <li>Note and bug status is displayed in the disambiguation menu.</li>
-  <li>Notifications are grouped when possible</li>
-  <li>Numerous bug fixes</li>
+<li>Internationalization support for OSM Notes and other tasks has been improved.</li>
+<li>Note and bug status is displayed in the disambiguation menu.</li>
+<li>Notifications are grouped when possible</li>
+<li>Numerous bug fixes</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <h1>Known problems</h1>
 <ul>
-  <li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
+<li>For known problems with this build please see <a href="https://github.com/MarcusWolschon/osmeditor4android/issues">our issue tracker</a></li>
 </ul>
+
 </body>
 </html>

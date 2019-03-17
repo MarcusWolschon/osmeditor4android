@@ -11,77 +11,78 @@
 <p><em>Esta documentación es preliminar y está en progreso</em></p>
 <h2>Uso del editor de horarios de apertura</h2>
 <p>En un flujo de trabajo típico, el objeto que está editando ya tendrá una etiqueta de horas de apertura (opening_hours, service_times y collection_times) o puede volver a aplicar el ajuste preestablecido para el objeto para obtener un campo de horario de apertura vacío. Si necesita agregar el campo manualmente y está utilizando Vespucci, puede ingresar la clave en la página de detalles y luego volver a la pestaña basada en el formulario para editar. Si cree que la etiqueta de las horas de apertura debería haber sido parte del ajuste preestablecido, abra una publicación para su editor.</p>
-<p>Si ha definido una plantilla predeterminada (haga esto mediante el artículo del menú «Administrar Plantillas») se cargará automáticamente cuando el editor se inicie con un valor vacío. Con la función «Cargar plantilla» puede cargar cualquier plantilla guardada y con el menú «Guardar plantilla» puede guardar el valor actual como una plantilla. Puede definir plantillas separadas y valores predeterminados para las etiquetas «opening_hours», «collection_times» y »service_times». </p>
+<p>Si ha definido una plantilla predeterminada (haga esto mediante el artículo del menú «Administrar Plantillas») se cargará automáticamente cuando el editor se inicie con un valor vacío. Con la función «Cargar plantilla» puede cargar cualquier plantilla guardada y con el menú «Guardar plantilla» puede guardar el valor actual como una plantilla. Puede definir plantillas separadas y valores predeterminados para las etiquetas «opening_hours», «collection_times» y »service_times».</p>
 <p>Naturalmente, puedes crear un valor de horarios de apertura desde cero, pero recomendamos usar una de las plantillas existentes para empezar.</p>
 <p>Si se carga un valor existente, se intentará autocorregir para ajustarlo a las especificaciones de horarios de apertura. Si no es posible, la ubicación aproximada del error se marcará el la pantalla del valor en texto plano de los horarios de apertura, y podrás intentar corregirlo manualmente. Aproximadamente, una cuarta parte de los valores de horarios de apertura en la base de datos de OpenStreetMap tienen problemas, pero menos del 10% no son corregibles; ver <a href="https://github.com/simonpoole/OpeningHoursParser">OpeningHoursParser</a> para más información sobre qué desviaciones sobre las especificaciones son toleradas.</p>
 <h3>Botón del menú principal</h3>
 <ul>
-  <li><strong>Añadir regla</strong>: añadir una nueva regla.</li>
-  <li><strong>Añadir regla para vacaciones</strong>: añada una nueva regla para unas vacaciones junto con un cambio de estado.</li>
-  <li><strong>Añadir regla para 24/7</strong>: añada una regla para un objeto que siempre está abierto, la especificación de horas de apertura no admite ningún otro valor secundario para 24/7 sin embargo, sí permitimos añadir selectores de mayor nivel (por ejemplo, rangos de año).</li>
-  <li><strong>Cargar plantilla</strong>: cargue una plantilla existente.</li>
-  <li><strong>Guardar a plantilla</strong>: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.</li>
-  <li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
-  <li><strong>Refrescar</strong>: volver a analizar el valor de la hora de apertura.</li>
-  <li><strong>Delete all</strong>: remove all rules.</li>
+<li><strong>Añadir regla</strong>: añadir una nueva regla.</li>
+<li><strong>Añadir regla para vacaciones</strong>: añada una nueva regla para unas vacaciones junto con un cambio de estado.</li>
+<li><strong>Añadir regla para 24/7</strong>: añada una regla para un objeto que siempre está abierto, la especificación de horas de apertura no admite ningún otro valor secundario para 24/7 sin embargo, sí permitimos añadir selectores de mayor nivel (por ejemplo, rangos de año).</li>
+<li><strong>Cargar plantilla</strong>: cargue una plantilla existente.</li>
+<li><strong>Guardar a plantilla</strong>: guarde el valor actual de las horas de apertura como una plantilla para uso futuro.</li>
+<li><strong>Manage templates</strong>: edit, for example change the name, and delete existing templates.</li>
+<li><strong>Refrescar</strong>: volver a analizar el valor de la hora de apertura.</li>
+<li><strong>Delete all</strong>: remove all rules.</li>
 </ul>
 <h3>Reglas</h3>
 <p>Se añaden reglas predeterminadas como_reglas_ normales, esto implica que anularán los valores de las reglas anteriores para los mismos días. Esto puede ser una preocupación al especificar tiempos extendidos, por lo general, querrá cambiar las reglas a través de la entrada del menú <em>Mostrar tipo de regla</em> a <em>aditivo</em>.</p>
 <h4>Menú Regla</h4>
 <ul>
-  <li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
-  <li><strong>Añadir vacaciones</strong>: añadir un selector para vacaciones públicas o escolares.</li>
-  <li><strong>Añadir período de tiempo...</strong>
-    <ul>
-      <li><strong>Hora - tiempo</strong>: una hora de inicio para una hora de finalización en el mismo día.</li>
-      <li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
-      <li><strong>Var. hora - hora</strong>: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.</li>
-      <li><strong>Var. hora - tiempo prolongado</strong>: desde una hora variable de inicio hasta una hora de finalización al día siguiente.</li>
-      <li><strong>Hora - var. tiempo</strong>: una hora de inicio a una hora variable final.</li>
-      <li><strong>Var. time - var. time</strong>: un tiempo variable de inicio a un tiempo variable final.</li>
-      <li><strong>Time</strong>: un punto en el tiempo.</li>
-      <li><strong>Time-open end</strong>: desde un punto de inicio en el tiempo en adelante.</li>
-      <li><strong>Variable time</strong>: en el tiempo variable</li>
-      <li><strong>Variable time-open end</strong>: a partir de un tiempo variable de inicio en adelante</li>
-    </ul>
-  </li>
-  <li><strong>Add week day range</strong>: añade un selector basado en el día de la semana.</li>
-  <li><strong>Añadir rango de fechas...</strong>
-    <ul>
-      <li><strong>Fecha - fecha</strong>: desde una fecha de inicio (año, mes, día) hasta una fecha final.</li>
-      <li><strong>Fecha variable - fecha</strong>: desde una fecha variable de inicio (actualmente la especificación solo define <em>Pascua</em>) hasta una fecha final.</li>
-      <li><strong>Fecha - fecha variable</strong>: desde una fecha de inicio hasta una fecha variable.</li>
-      <li><strong>Fecha variable - fecha variable</strong>: desde una fecha variable de inicio hasta una fecha variable final.</li>
-      <li><strong>Ocurrencia en mes - ocurrencia en mes</strong>: desde una ocurrencia de inicio de día de semana en un mes al mismo.</li>
-      <li><strong>Ocurrencia en mes - fecha</strong>: desde una ocurrencia de un día laborable en un mes hasta una fecha final.</li>
-      <li><strong>Fecha - ocurrencia en mes</strong>: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.</li>
-      <li><strong>Ocurrencia en mes - fecha variable</strong>: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.</li>
-      <li><strong>Fecha variable - ocurrencia en mes</strong>: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.</li>
-      <li><strong>Date - open end</strong>: from a start date onwards.</li>
-      <li><strong>Fecha variable - final abierto</strong>: desde una fecha de inicio variable en adelante.</li>
-      <li><strong>Ocurrencia en mes - final abierto</strong>: a partir de una ocurrencia de un día de la semana en un mes en adelante.</li>
-      <li><strong>Con compensaciones...</strong>: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).</li>
-    </ul>
-  </li>
-  <li><strong>Añadir rango de año</strong>: añadir un selector basado en el año.</li>
-  <li><strong>Añadir rango de semana</strong>: agregar un selector basado en el número de la semana.</li>
-  <li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
-  <li><strong>Mostrar tipo de regla</strong>: mostrar y permitir el cambio del tipo de regla <em>normal</em>, <em>additive</em> y <em>fallback</em> (no disponible en la primera regla).</li>
-  <li><strong>Ascender</strong>: subir esta regla una posición (no disponible en la primera regla).</li>
-  <li><strong>Bajar</strong>: bajar esta regla una posición.</li>
-  <li><strong>Eliminar</strong>: eliminar esta regla.</li>
+<li><strong>Añadir modificador/comentario</strong>: cambia el efecto de esta regla y añade un comentario opcional.</li>
+<li><strong>Añadir vacaciones</strong>: añadir un selector para vacaciones públicas o escolares.</li>
+<li><strong>Añadir período de tiempo...</strong>
+<ul>
+<li><strong>Hora - tiempo</strong>: una hora de inicio para una hora de finalización en el mismo día.</li>
+<li><strong>Time - extended time</strong>: a start time to an end time on the next day (example 26:00 is 02:00 (am) the next day).</li>
+<li><strong>Var. hora - hora</strong>: desde una hora variable de inicio (amanecer, atardecer, amanecer y atardecer) a una hora de finalización en el mismo día.</li>
+<li><strong>Var. hora - tiempo prolongado</strong>: desde una hora variable de inicio hasta una hora de finalización al día siguiente.</li>
+<li><strong>Hora - var. tiempo</strong>: una hora de inicio a una hora variable final.</li>
+<li><strong>Var. time - var. time</strong>: un tiempo variable de inicio a un tiempo variable final.</li>
+<li><strong>Time</strong>: un punto en el tiempo.</li>
+<li><strong>Time-open end</strong>: desde un punto de inicio en el tiempo en adelante.</li>
+<li><strong>Variable time</strong>: en el tiempo variable</li>
+<li><strong>Variable time-open end</strong>: a partir de un tiempo variable de inicio en adelante</li>
+</ul>
+</li>
+<li><strong>Add week day range</strong>: añade un selector basado en el día de la semana.</li>
+<li><strong>Añadir rango de fechas...</strong>
+<ul>
+<li><strong>Fecha - fecha</strong>: desde una fecha de inicio (año, mes, día) hasta una fecha final.</li>
+<li><strong>Fecha variable - fecha</strong>: desde una fecha variable de inicio (actualmente la especificación solo define <em>Pascua</em>) hasta una fecha final.</li>
+<li><strong>Fecha - fecha variable</strong>: desde una fecha de inicio hasta una fecha variable.</li>
+<li><strong>Fecha variable - fecha variable</strong>: desde una fecha variable de inicio hasta una fecha variable final.</li>
+<li><strong>Ocurrencia en mes - ocurrencia en mes</strong>: desde una ocurrencia de inicio de día de semana en un mes al mismo.</li>
+<li><strong>Ocurrencia en mes - fecha</strong>: desde una ocurrencia de un día laborable en un mes hasta una fecha final.</li>
+<li><strong>Fecha - ocurrencia en mes</strong>: desde una fecha de inicio hasta una ocurrencia de fin de día de la semana en un mes.</li>
+<li><strong>Ocurrencia en mes - fecha variable</strong>: desde una ocurrencia de un día laborable de inicio en un mes a una fecha variable final.</li>
+<li><strong>Fecha variable - ocurrencia en mes</strong>: desde una fecha variable de inicio hasta el final de un a ocurrencia de día de la semana en un mes.</li>
+<li><strong>Date - open end</strong>: from a start date onwards.</li>
+<li><strong>Fecha variable - final abierto</strong>: desde una fecha de inicio variable en adelante.</li>
+<li><strong>Ocurrencia en mes - final abierto</strong>: a partir de una ocurrencia de un día de la semana en un mes en adelante.</li>
+<li><strong>Con compensaciones...</strong>: las mismas entradas que arriba pero con compensaciones especificadas (esto no se utiliza a menudo).</li>
+</ul>
+</li>
+<li><strong>Añadir rango de año</strong>: añadir un selector basado en el año.</li>
+<li><strong>Añadir rango de semana</strong>: agregar un selector basado en el número de la semana.</li>
+<li><strong>Duplicate</strong>: create a copy of this rule and insert it after the current position.</li>
+<li><strong>Mostrar tipo de regla</strong>: mostrar y permitir el cambio del tipo de regla <em>normal</em>, <em>additive</em> y <em>fallback</em> (no disponible en la primera regla).</li>
+<li><strong>Ascender</strong>: subir esta regla una posición (no disponible en la primera regla).</li>
+<li><strong>Bajar</strong>: bajar esta regla una posición.</li>
+<li><strong>Eliminar</strong>: eliminar esta regla.</li>
 </ul>
 <h3>Lapsos de tiempo</h3>
 <p>Para que el tiempo de edición sea lo más fácil posible, tratamos de elegir un rango de tiempo y una granularidad óptimos para las barras de rango al cargar valores existentes. Para nuevos tiempos, las barras comienzan a las 6:00 (am) y tienen incrementos de 15 minutos, esto se puede cambiar a través del menú.</p>
 <h4>Menú de lapso de tiempo</h4>
 <ul>
-  <li><strong>Mostrar el selector de tiempo</strong>: mostrar un selector de número grande para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.</li>
-  <li><strong>Cambiar a marcas de 15 minutos</strong>: use una granularidad de 15 minutos para la barra de rango.</li>
-  <li><strong>Cambiar a ticks de 5 minutos</strong>: use una granularidad de 5 minutos para la barra de rango.</li>
-  <li><strong>Cambiar a marcas de 1 minuto</strong>: use una granularidad de 1 minuto para la barra de rango, muy difícil de usar en un teléfono.</li>
-  <li><strong>Comienzar a la medianoche</strong>: iniciar la barra de rango a la medianoche.</li>
-  <li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
-  <li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
+<li><strong>Mostrar el selector de tiempo</strong>: mostrar un selector de número grande para seleccionar la hora de inicio y finalización, en pantallas muy pequeñas esta es la forma preferida de cambiar los horarios.</li>
+<li><strong>Cambiar a marcas de 15 minutos</strong>: use una granularidad de 15 minutos para la barra de rango.</li>
+<li><strong>Cambiar a ticks de 5 minutos</strong>: use una granularidad de 5 minutos para la barra de rango.</li>
+<li><strong>Cambiar a marcas de 1 minuto</strong>: use una granularidad de 1 minuto para la barra de rango, muy difícil de usar en un teléfono.</li>
+<li><strong>Comienzar a la medianoche</strong>: iniciar la barra de rango a la medianoche.</li>
+<li><strong>Mostrar intervalo</strong>: mostrar el campo de intervalo para especificar un intervalo en minutos.</li>
+<li><strong>Eliminar</strong>: eliminar este lapso de tiempo.</li>
 </ul>
+
 </body>
 </html>
