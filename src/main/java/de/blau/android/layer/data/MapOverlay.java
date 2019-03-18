@@ -290,18 +290,11 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         // the following should guarantee that if the selected node is off screen but the handle not, the handle gets
         // drawn
         // note this isn't perfect because touch areas of other nodes just outside the screen still won't get drawn
-        // TODO check if we can't avoid searching paintNodes multiple times
         if (tmpDrawingSelectedNodes != null) {
             for (Node n : tmpDrawingSelectedNodes) {
                 if (!paintNodes.contains(n)) {
                     paintNodes.add(n);
                 }
-            }
-        }
-
-        for (Node n : paintNodes) {
-            if (n.hasParentRelations()) {
-                paintRelations.addAll(n.getParentRelations());
             }
         }
 
