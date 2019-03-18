@@ -105,6 +105,7 @@ public final class Tags {
     public static final String KEY_ONEWAY           = "oneway";
     public static final String VALUE_REVERSE        = "reverse";
     public static final String KEY_WATERWAY         = "waterway";
+    public static final String VALUE_RIVERBANK      = "riverbank";
     public static final String KEY_LANDUSE          = "landuse";
     public static final String KEY_NATURAL          = "natural";
     public static final String VALUE_CLIFF          = "cliff";

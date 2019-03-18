@@ -382,6 +382,9 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     public boolean notReversable() {
         String waterway = getTagWithKey(Tags.KEY_WATERWAY);
         if (waterway != null) {
+            if (waterway.equals(Tags.VALUE_RIVERBANK)) {
+                return false;
+            }
             return true;
         }
 
