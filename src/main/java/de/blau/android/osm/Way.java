@@ -362,11 +362,13 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      *         of the specified values)
      */
     public int getOneway() {
-        String oneway = getTagWithKey("oneway");
-        if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
-            return 1;
-        } else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
-            return -1;
+        String oneway = getTagWithKey(Tags.KEY_ONEWAY);
+        if (oneway != null) {
+            if ("yes".equalsIgnoreCase(oneway) || "true".equalsIgnoreCase(oneway) || "1".equals(oneway)) {
+                return 1;
+            } else if ("-1".equals(oneway) || "reverse".equalsIgnoreCase(oneway)) {
+                return -1;
+            }
         }
         return 0;
     }

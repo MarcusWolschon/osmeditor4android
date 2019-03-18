@@ -89,7 +89,6 @@ public final class DataStyle extends DefaultHandler {
     public static final String SELECTED_RELATION_NODE_TAGGED = "selected_relation_node_tagged";
     public static final String HIDDEN_NODE                   = "hidden_node";
     public static final String WAY_DIRECTION                 = "way_direction";
-    public static final String ONEWAY_DIRECTION              = "oneway_direction";
     public static final String LARGE_DRAG_AREA               = "large_drag_area";
     public static final String MARKER_SCALE                  = "marker_scale";
     public static final String GPS_POS                       = "gps_pos";
@@ -127,6 +126,9 @@ public final class DataStyle extends DefaultHandler {
         DashPath                  dashPath       = null;
         private FontMetrics       fontMetrics    = null;
         private PathPattern       pathPattern    = null;
+        private FeatureStyle      arrowStyle     = null;
+        private FeatureStyle      casingStyle    = null;
+        private boolean           oneway         = false;
 
         List<FeatureStyle> cascadedStyles = null;
 
@@ -194,6 +196,9 @@ public final class DataStyle extends DefaultHandler {
             }
             fontMetrics = fp.fontMetrics;
             setPathPattern(fp.pathPattern);
+            arrowStyle = fp.arrowStyle;
+            casingStyle = fp.casingStyle;
+            oneway = fp.oneway;
             cascadedStyles = null;
         }
 
@@ -418,6 +423,54 @@ public final class DataStyle extends DefaultHandler {
             builder.append("strokeWidth: " + paint.getStrokeWidth() + "\n");
             builder.append("widthFactor: " + widthFactor + "\n");
             return builder.toString();
+        }
+
+        /**
+         * @return the arrowStyle
+         */
+        @Nullable
+        public FeatureStyle getArrowStyle() {
+            return arrowStyle;
+        }
+
+        /**
+         * @param arrowStyle the arrowStyle to set
+         */
+        public void setArrowStyle(@Nullable FeatureStyle arrowStyle) {
+            this.arrowStyle = arrowStyle;
+        }
+
+        /**
+         * @return the casingStyle
+         */
+        @Nullable
+        public FeatureStyle getCasingStyle() {
+            return casingStyle;
+        }
+
+        /**
+         * @param casingStyle the casingStyle to set
+         */
+        public void setCasingStyle(@Nullable FeatureStyle casingStyle) {
+            this.casingStyle = casingStyle;
+        }
+
+        /**
+         * Check if we should check a oneway tag THis could be done cleaner by using regexps for matching values
+         * 
+         * @return if true the object may has a oneway tag that needs to be checked
+         */
+        public boolean checkOneway() {
+            return oneway;
+        }
+
+        /**
+         * Set if we should check oneway tags
+         * 
+         * @param oneway if true we should check oneway tags
+         */
+        public void setCheckOneway(boolean oneway) {
+            this.oneway = oneway;
         }
     }
 
@@ -794,11 +847,6 @@ public final class DataStyle extends DefaultHandler {
         fp.getPaint().setStrokeCap(Cap.SQUARE);
         fp.getPaint().setStrokeJoin(Join.MITER);
         internalStyles.put(WAY_DIRECTION, fp);
-
-        fp = new FeatureStyle(ONEWAY_DIRECTION, internalStyles.get(WAY_DIRECTION));
-        fp.setColor(ContextCompat.getColor(ctx, R.color.ccc_blue));
-        fp.setWidthFactor(0.5f);
-        internalStyles.put(ONEWAY_DIRECTION, fp);
 
         fp = new FeatureStyle(OPEN_NOTE);
         fp.setColor(ContextCompat.getColor(ctx, R.color.bug_open));
@@ -1207,6 +1255,18 @@ public final class DataStyle extends DefaultHandler {
                 if (minVisibleZoomString != null) {
                     tempFeatureStyle.setMinVisibleZoom((int) Integer.parseInt(minVisibleZoomString));
                 }
+
+                String arrowStyle = atts.getValue("arrowStyle");
+                if (arrowStyle != null) {
+                    tempFeatureStyle.setArrowStyle(internalStyles.get(arrowStyle));
+                }
+
+                String casingStyle = atts.getValue("casingStyle");
+                if (casingStyle != null) {
+                    tempFeatureStyle.setCasingStyle(internalStyles.get(casingStyle));
+                }
+
+                tempFeatureStyle.setCheckOneway(atts.getValue("oneway") != null);
 
             } else if (element.equals("dash")) {
                 tempPhase = Float.parseFloat(atts.getValue("phase"));

@@ -12,7 +12,6 @@
     <feature type="selected_way" updateWidth="true" widthFactor="2.0" color="fffcfa74" style="STROKE" cap="ROUND" join="ROUND" />
     <feature type="way_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="20.0" />
     <feature type="way_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="STROKE" cap="BUTT" join="MITER" strokeWidth="20.0" />
-    <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
     <feature type="gps_track" updateWidth="false" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="ROUND" join="ROUND" strokeWidth="2.0" />
     <feature type="node_tolerance" updateWidth="false" widthFactor="1.0" color="28bd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="20.0" />
     <feature type="node_tolerance_2" updateWidth="false" widthFactor="1.0" color="7fbd8d46" style="FILL" cap="BUTT" join="MITER" strokeWidth="20.0" />
@@ -30,6 +29,10 @@
     <feature type="selected_node_thin" updateWidth="false" widthFactor="1.0" color="fff6e497" style="STROKE" cap="BUTT" join="MITER" strokeWidth="1.0" typefacestyle="0" textsize="12.0" />
     <feature type="problem_node" updateWidth="true" widthFactor="2.0" color="ffff00ff" style="STROKE" cap="ROUND" join="MITER" />
     <feature type="problem_node_tagged" updateWidth="true" widthFactor="1.5" color="ffff00ff" style="FILL" cap="BUTT" join="MITER" />
+    
+    <!-- Arrow styles -->
+    <feature type="oneway_direction" updateWidth="true" widthFactor="0.5" color="ffb9121b" style="STROKE" cap="SQUARE" join="MITER" oneway="true" />
+    <feature type="waterway_direction" updateWidth="true" widthFactor="0.5" color="ff0000bb" style="STROKE" cap="SQUARE" join="MITER" />
     
     <!-- OSM way based features -->
     <feature type="way" updateWidth="true" widthFactor="1.0" color="80000000" style="STROKE" cap="BUTT" join="MITER" />
@@ -61,7 +64,9 @@
         <feature type="way" tags="natural=coastline" widthFactor="2.0" minVisibleZoom="10" color="ff71BE80" pathPattern="triangle_left" />
         <feature type="way" tags="natural=tree_row" widthFactor="2.0" color="ff4b7a54" cap="ROUND" />
     </feature>
-    <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="waterway" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="waterway_direction" >
+        <feature type="way" tags="waterway=riverbank" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="STROKE" cap="BUTT" join="MITER" arrowStyle="" />
+    </feature>
     <feature type="way" tags="man_made" color="ff585c63" style="STROKE" cap="BUTT" join="MITER" >
         <feature type="way" tags="man_made=embankment" color="ff996633" pathPattern="triangle_right" />
     </feature>
@@ -72,7 +77,13 @@
     		<interval length="2.0" />
     	</dash>
     </feature>
-    <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" >
+    <feature type="motorway_casing" updateWidth="true" widthFactor="2.4" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="primary_casing" updateWidth="true" widthFactor="1.8" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="secondary_casing" updateWidth="true" widthFactor="1.5" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="teritary_casing" updateWidth="true" widthFactor="1.3" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="unclassified_casing" updateWidth="true" widthFactor="1.2" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="residential_casing" updateWidth="true" widthFactor="1.1" color="FFFFFFFF" style="STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="highway" updateWidth="true" widthFactor="1.0" color="88888888" style="STROKE" cap="BUTT" join="MITER" arrowStyle="oneway_direction">
         <feature type="way" tags="highway=construction" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=proposed" widthFactor="1.0" color="88888888" />
         <feature type="way" tags="highway=pedestrian" widthFactor="0.8" color="ff888888" />
@@ -86,18 +97,18 @@
             </dash>
         </feature>
         <feature type="way" tags="highway=track" widthFactor="1.0" color="ffc69c49" />
-        <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" />
+        <feature type="way" tags="highway=motorway" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" casingStyle="motorway_casing" />
         <feature type="way" tags="highway=motorway_link" widthFactor="2.0" minVisibleZoom="10" color="ff809BC0" />
         <feature type="way" tags="highway=trunk" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
         <feature type="way" tags="highway=trunk_link" widthFactor="1.5" minVisibleZoom="10" color="ff7FC97F" />
-        <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" />
-        <feature type="way" tags="highway-primary_link" widthFactor="1.5" color="ffE46D71" />
-        <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" />
+        <feature type="way" tags="highway=primary" widthFactor="1.5" color="ffE46D71" casingStyle="primary_casing" />
+        <feature type="way" tags="highway=primary_link" widthFactor="1.5" color="ffE46D71" />
+        <feature type="way" tags="highway=secondary" widthFactor="1.2" color="ffFDBF6F" casingStyle="secondary_casing" />
         <feature type="way" tags="highway=secondary_link" widthFactor="1.2" color="ffFDBF6F" />
-        <feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" />
+        <feature type="way" tags="highway=tertiary" widthFactor="1.0" color="ffFCFA74" casingStyle="tertiary_casing" />
         <feature type="way" tags="highway=tertiary_link" widthFactor="1.0" color="ffFCFA74" />
-        <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" />
-        <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" />
+        <feature type="way" tags="highway=unclassified" widthFactor="1.0" color="ffCCCCCC" casingStyle="unclassified_casing" />
+        <feature type="way" tags="highway=residential" widthFactor="0.9" color="ffCCCCCC" casingStyle="residential_casing" />
         <feature type="way" tags="highway=living_street" widthFactor="0.9" color="ffff4500" />
         <feature type="way" tags="highway=service" widthFactor="0.7" color="ffCCCCCC" />
     </feature>

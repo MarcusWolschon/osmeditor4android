@@ -1103,13 +1103,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             canvas.drawLines(linePoints, 0, pointsSize, paint);
         }
 
-        int onewayCode = way.getOneway();
-        if (onewayCode != 0) {
-            FeatureStyle directionArrows = DataStyle.getInternal(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), directionArrows.getPaint(), false);
-        } else if (way.getTagWithKey(Tags.KEY_WATERWAY) != null) { // waterways flow in the way direction
-            FeatureStyle directionArrows = DataStyle.getInternal(DataStyle.ONEWAY_DIRECTION);
-            drawWayArrows(canvas, linePoints, pointsSize, false, directionArrows.getPaint(), false);
+        FeatureStyle arrowStyle = style.getArrowStyle();
+        if (arrowStyle != null) {
+            if (arrowStyle.checkOneway()) {
+                int onewayCode = way.getOneway();
+                if (onewayCode != 0) {
+                    drawWayArrows(canvas, linePoints, pointsSize, (onewayCode == -1), arrowStyle.getPaint(), false);
+                }
+            } else {
+                drawWayArrows(canvas, linePoints, pointsSize, false, arrowStyle.getPaint(), false);
+            }
         }
 
         // draw the way itself
@@ -1118,6 +1121,10 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             path.moveTo(linePoints[0], linePoints[1]);
             for (int i = 0; i < pointsSize; i = i + 4) {
                 path.lineTo(linePoints[i + 2], linePoints[i + 3]);
+            }
+            FeatureStyle casingStyle = style.getCasingStyle();
+            if (casingStyle != null) {
+                canvas.drawPath(path, casingStyle.getPaint());
             }
             canvas.drawPath(path, style.getPaint());
         }
