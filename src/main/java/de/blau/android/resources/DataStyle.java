@@ -949,10 +949,10 @@ public final class DataStyle extends DefaultHandler {
     }
 
     /**
-     * Traverse recursively all the style provided
+     * Traverse recursively all the styles provided
      * 
      * @param styles a List of FeatureStyle
-     * @param processor the processot
+     * @param processor the processor
      */
     private static void processRecursive(@NonNull List<FeatureStyle> styles, @NonNull ProcessStyle processor) {
         for (FeatureStyle style : styles) {
