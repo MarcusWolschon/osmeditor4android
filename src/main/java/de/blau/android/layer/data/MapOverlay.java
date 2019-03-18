@@ -200,7 +200,7 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
     List<ArrayList<Node>>       innerRings     = new ArrayList<>();
     List<ArrayList<Node>>       unknownRings   = new ArrayList<>();
     SimplePool<ArrayList<Node>> ringPool       = new SimplePool<>(10);
-    List<Node>                  nodes          = new ArrayList<>();
+    List<Node>                  areaNodes      = new ArrayList<>();   // temp for reversing winding and assembling MPs
     Set<Relation>               paintRelations = new HashSet<>();
 
     @SuppressLint("NewApi")
@@ -527,17 +527,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             if (!currentWay.hasTags() && !"".equals(ringRole)) {
                 currentWay.setStyle(DataStyle.getInternal(DataStyle.DONTRENDER_WAY));
             }
-            nodes.clear();
-            nodes.addAll(currentWay.getNodes());
+            areaNodes.clear();
+            areaNodes.addAll(currentWay.getNodes());
             int rs = ring.size();
-            int ns = nodes.size();
+            int ns = areaNodes.size();
             if (ring.isEmpty()) {
-                ring.addAll(nodes);
-            } else if (ring.get(rs - 1).equals(nodes.get(0))) {
-                ring.addAll(nodes.subList(1, ns));
-            } else if (ring.get(rs - 1).equals(nodes.get(ns - 1))) {
-                Collections.reverse(nodes);
-                ring.addAll(nodes.subList(1, ns));
+                ring.addAll(areaNodes);
+            } else if (ring.get(rs - 1).equals(areaNodes.get(0))) {
+                ring.addAll(areaNodes.subList(1, ns));
+            } else if (ring.get(rs - 1).equals(areaNodes.get(ns - 1))) {
+                Collections.reverse(areaNodes);
+                ring.addAll(areaNodes.subList(1, ns));
             }
 
             RelationMember next = members.get((i + 1) % ms);
@@ -636,10 +636,16 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         long area = 0;
         int s = nodes.size();
         Node n1 = nodes.get(0);
-        for (int i = 0; i < nodes.size(); i++) {
+        int lat1 = n1.getLat();
+        int lon1 = n1.getLon();
+        int size = nodes.size();
+        for (int i = 0; i < size; i++) {
             Node n2 = nodes.get((i + 1) % s);
-            area = area + (long) (n2.getLat() - n1.getLat()) * (long) (n2.getLon() + n1.getLon());
-            n1 = n2;
+            int lat2 = n2.getLat();
+            int lon2 = n2.getLon();
+            area = area + (long) (lat2 - lat1) * (long) (lon2 + lon1);
+            lat1 = lat2;
+            lon1 = lon2;
         }
         return area < 0;
     }
@@ -672,20 +678,20 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
                         int arrowDirection = 0;
                         if (type != null) {
                             switch (type) {
-                            case "no_right_turn":
-                            case "only_right_turn":
+                            case Tags.VALUE_NO_RIGHT_TURN:
+                            case Tags.VALUE_ONLY_RIGHT_TURN:
                                 arrowDirection = 90;
                                 y -= 2 * ICON_SIZE_DP;
                                 x += 2 * ICON_SIZE_DP;
                                 break;
-                            case "no_left_turn":
-                            case "only_left_turn":
+                            case Tags.VALUE_NO_LEFT_TURN:
+                            case Tags.VALUE_ONLY_LEFT_TURN:
                                 arrowDirection = -90;
                                 y += 2 * ICON_SIZE_DP;
                                 x += 2 * ICON_SIZE_DP;
                                 break;
-                            case "no_straight_on":
-                            case "only_straight_on":
+                            case Tags.VALUE_NO_STRAIGHT_ON:
+                            case Tags.VALUE_ONLY_STRAIGHT_ON:
                                 arrowDirection = 180;
                                 y -= 2 * ICON_SIZE_DP;
                                 break;
@@ -1065,12 +1071,17 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
         if (style.dontRender() && !(isSelected || isMemberOfSelectedRelation)) {
             return; // the way has already been rendered by something else
         }
-        nodes.clear();
-        nodes.addAll(way.getNodes());
+
+        List<Node> nodes = way.getNodes();
         if (style.isArea() && !clockwise(nodes)) {
-            Collections.reverse(nodes);
+            areaNodes.clear();
+            areaNodes.addAll(nodes);
+            Collections.reverse(areaNodes);
+            map.pointListToLinePointsArray(points, areaNodes);
+        } else {
+            map.pointListToLinePointsArray(points, nodes);
         }
-        map.pointListToLinePointsArray(points, nodes);
+
         float[] linePoints = points.getArray();
         int pointsSize = points.size();
         Paint paint;
@@ -1135,18 +1146,21 @@ public class MapOverlay extends MapViewLayer implements ExtentInterface, Configu
             if (vs < nodes.size() * 2) {
                 return;
             }
+            // calc centroid
             double A = 0;
             double Y = 0;
             double X = 0;
-            for (int i = 0; i < vs; i = i + 2) { // calc centroid
-                double x1 = linePoints[i];
-                double y1 = linePoints[i + 1];
+            double x1 = linePoints[0];
+            double y1 = linePoints[1];
+            for (int i = 0; i < vs; i = i + 2) {
                 double x2 = linePoints[(i + 2) % vs];
                 double y2 = linePoints[(i + 3) % vs];
                 double d = x1 * y2 - x2 * y1;
                 A = A + d;
                 X = X + (x1 + x2) * d;
                 Y = Y + (y1 + y2) * d;
+                x1 = x2;
+                y1 = y2;
             }
             if (Util.notZero(A)) {
                 Y = Y / (3 * A); // NOSONAR nonZero tests for zero
