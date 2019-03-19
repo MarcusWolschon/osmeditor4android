@@ -173,40 +173,45 @@ public class GeoMath {
      * Calculate the smallest bounding box that contains a circle of the given radius in metres centered at the given
      * lat/lon.
      * 
-     * @param lat Latitude of box centre [-90.0,+90.0].
-     * @param lon Longitude of box centre [-180.0,+180.0].
+     * @param lat Latitude of box centre (within maximum values that we can convert to mercator)
+     * @param lon Longitude of box centre
      * @param radius Radius in metres to be contained in the box.
      * @param checkSize check that boundingbox would be a legal bb for the OSM api
-     * @return The BoundingBox that contains the specified area.
-     * @throws OsmException If any of the calculated latitudes are outside [-90.0,+90.0] or longitudes are outside
-     *             [-180.0,+180.0].
+     * @return The BoundingBox that contains the specified area, values clamped to not cross the dateline)
+     * @throws OsmException if the bounding box cannot be calculated
      */
     public static BoundingBox createBoundingBoxForCoordinates(final double lat, final double lon, final double radius, boolean checkSize) throws OsmException {
-        double horizontalRadiusDegree = convertMetersToGeoDistance(radius);
-        if (checkSize && horizontalRadiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D) {
-            horizontalRadiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D;
+        double radiusDegree = convertMetersToGeoDistance(radius);
+
+        if (lat + radiusDegree > MAX_LAT || lat - radiusDegree < -MAX_LAT) {
+            throw new OsmException("Latitude outside of range that can be projected to mercator coordinates");
         }
-        double mercatorLat = latToMercator(lat);
-        double verticalRadiusDegree = horizontalRadiusDegree; //
+
+        double horizontalRadiusDegree = radiusDegree / Math.cos(Math.toRadians(lat)); //
+        if (checkSize && radiusDegree > BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D) {
+            radiusDegree = BoundingBox.API_MAX_DEGREE_DIFFERENCE / 1E7D / 2D;
+            horizontalRadiusDegree = radiusDegree / Math.cos(Math.toRadians(lat));
+        }
+
         double left = lon - horizontalRadiusDegree;
         double right = lon + horizontalRadiusDegree;
-        double bottom = mercatorToLat(mercatorLat - verticalRadiusDegree);
-        double top = mercatorToLat(mercatorLat + verticalRadiusDegree);
+        double bottom = lat - radiusDegree;
+        double top = lat + radiusDegree;
         if (left < -MAX_LON) {
             left = -MAX_LON;
-            right = left + horizontalRadiusDegree * 2d;
+            right = left + radiusDegree * 2d;
         }
         if (right > MAX_LON) {
             right = ViewBox.MAX_LON_E7;
-            left = right - horizontalRadiusDegree * 2d;
+            left = right - radiusDegree * 2d;
         }
         if (bottom < -MAX_LAT) {
             bottom = -MAX_LAT;
-            top = bottom + verticalRadiusDegree * 2d;
+            top = bottom + horizontalRadiusDegree * 2d;
         }
         if (top > MAX_LAT) {
             top = MAX_LAT;
-            bottom = top - verticalRadiusDegree * 2d;
+            bottom = top - horizontalRadiusDegree * 2d;
         }
         return new BoundingBox(left, bottom, right, top);
     }
