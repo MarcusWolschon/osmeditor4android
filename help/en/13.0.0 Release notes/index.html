@@ -296,20 +296,24 @@ i-->
 <p>Vespucci will now render multipolygons, the standard style for this and some common area types is to have a thick border on the inside of the polygons similar to other editors. In principle it is possible to use a fill style, however particularly large multipolygons will typically have some non-downloaded members which will lead to rendering artifacts.</p>
 <p>Turn-restrictions will be indicated with an icon near the via node or way.</p>
 <p>The style configuration has been substantially revamped to allow cascading styles (and by that requiring less typing) and matching on arbitrary tags or tag combinations, further some previously hard wired constants are now exposed for configuration, for example the maximum zoom level at which icons are still displayed.</p>
-<p>Further improvements:
-<em> Improve riverbank rendering by making "oneway" arrows configurable.
-</em> Add casing support for ways.</p>
+<p>Further improvements:</p>
+<ul>
+<li>Improve riverbank rendering by making "oneway" arrows configurable.</li>
+<li>Add casing support for ways.</li>
+</ul>
 <p>As previously the style format remains undocumented outside of the source code and the <a href="https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/assets/Color-round-profile.xml">configuration files themselves</a></p>
 <h3 id="support-applying-osmchange-format-files">Support applying osmChange format files</h3>
 <p>osmChange format files can now be applied to loaded data. This makes the functionality to save such files much more useful, for example potential problems can be inspected and fixed in the saved files and then re-applied without having to use JOSM.</p>
 <h3 id="add-support-for-mapsplit-tiled-osm-data">Add support for MapSplit tiled OSM data</h3>
 <p>MapSplit sources contain original OSM data in PBF format tiles. These files can be configured as read-only data sources and be used for editing on the go when there is no expectation of network coverage or there is only slow Internet connectivity available. While it was previously possible to simply load larger areas directly in to memory, this has a large impact on performance that is avoided by being able to load data for smaller areas on demand.</p>
 <p>MapSplit sources can be configured in the via the "Configuration" menu item for the data layer in the layer control, edit or add an entry, and click the folder icon on the "Read.only API URL". </p>
-<p>Notes:
-<em> edits naturally still need to be either uploaded or saved locally for later upload
-</em> currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/tree/v2">temporary MapSplit V2 repository</a> this will possibly change for release. 
-<em> currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.
-</em> offline background imagery can be used in Vespucci in MBTiles format.</p>
+<p>Notes:</p>
+<ul>
+<li>edits naturally still need to be either uploaded or saved locally for later upload</li>
+<li>currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/tree/v2">temporary MapSplit V2 repository</a> this will possibly change for release. </li>
+<li>currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.</li>
+<li>offline background imagery can be used in Vespucci in MBTiles format.</li>
+</ul>
 <h3 id="support-reading-pbf-format-osm-data-files">Support reading PBF format OSM data files</h3>
 <p>Vespucci can now read OSM data from files in PBF format, the most popular binary format for OSM data. </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
@@ -354,20 +358,24 @@ i-->
 <p>Vespucci will now render multipolygons, the standard style for this and some common area types is to have a thick border on the inside of the polygons similar to other editors. In principle it is possible to use a fill style, however particularly large multipolygons will typically have some non-downloaded members which will lead to rendering artifacts.</p>
 <p>Turn-restrictions will be indicated with an icon near the via node or way.</p>
 <p>The style configuration has been substantially revamped to allow cascading styles (and by that requiring less typing) and matching on arbitrary tags or tag combinations, further some previously hard wired constants are now exposed for configuration, for example the maximum zoom level at which icons are still displayed.</p>
-<p>Further improvements:
-<em> Improve riverbank rendering by making "oneway" arrows configurable.
-</em> Add casing support for ways.</p>
+<p>Further improvements:</p>
+<ul>
+<li>Improve riverbank rendering by making "oneway" arrows configurable.</li>
+<li>Add casing support for ways.</li>
+</ul>
 <p>As previously the style format remains undocumented outside of the source code and the <a href="https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/assets/Color-round-profile.xml">configuration files themselves</a></p>
 <h3 id="support-applying-osmchange-format-files">Support applying osmChange format files</h3>
 <p>osmChange format files can now be applied to loaded data. This makes the functionality to save such files much more useful, for example potential problems can be inspected and fixed in the saved files and then re-applied without having to use JOSM.</p>
 <h3 id="add-support-for-mapsplit-tiled-osm-data">Add support for MapSplit tiled OSM data</h3>
 <p>MapSplit sources contain original OSM data in PBF format tiles. These files can be configured as read-only data sources and be used for editing on the go when there is no expectation of network coverage or there is only slow Internet connectivity available. While it was previously possible to simply load larger areas directly in to memory, this has a large impact on performance that is avoided by being able to load data for smaller areas on demand.</p>
 <p>MapSplit sources can be configured in the via the "Configuration" menu item for the data layer in the layer control, edit or add an entry, and click the folder icon on the "Read.only API URL". </p>
-<p>Notes:
-<em> edits naturally still need to be either uploaded or saved locally for later upload
-</em> currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/tree/v2">temporary MapSplit V2 repository</a> this will possibly change for release. 
-<em> currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.
-</em> offline background imagery can be used in Vespucci in MBTiles format.</p>
+<p>Notes:</p>
+<ul>
+<li>edits naturally still need to be either uploaded or saved locally for later upload</li>
+<li>currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/tree/v2">temporary MapSplit V2 repository</a> this will possibly change for release. </li>
+<li>currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.</li>
+<li>offline background imagery can be used in Vespucci in MBTiles format.</li>
+</ul>
 <h3 id="support-reading-pbf-format-osm-data-files">Support reading PBF format OSM data files</h3>
 <p>Vespucci can now read OSM data from files in PBF format, the most popular binary format for OSM data. </p>
 <h2 id="miscellaneous">Miscellaneous</h2>
