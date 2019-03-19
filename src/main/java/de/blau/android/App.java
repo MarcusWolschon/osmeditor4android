@@ -537,6 +537,7 @@ public class App extends android.app.Application {
                     // this is a fairly hackish way of sandboxing, but it does work
                     rhinoScope = new ImporterTopLevel(c);
                     c.evaluateString(rhinoScope, "java", "lazyLoad", 0, null);
+                    // note any classes loaded here need to be kept in the ProGuard configuration
                     c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.osm.BoundingBox)", "lazyLoad", 0, null);
                     c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.util.GeoMath)", "lazyLoad", 0, null);
                     ((ScriptableObject) rhinoScope).sealObject();

@@ -62,6 +62,9 @@
 -keep class de.blau.android.services.*
 
 -keep class org.mozilla.javascript.** { *; }
+-keep class de.blau.android.util.GeoMath
+-keep class de.blau.android.osm.BoundingBox
+-keep class de.blau.android.osm.Logic
 
 -keep,includedescriptorclasses class com.mapbox.geojson.** {
   public protected private *;
