@@ -216,3 +216,7 @@ To recover from the directory containing the tile database not being writable yo
 While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. 
 
 To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.
+
+#### Can't save MapRoulette API Key
+
+If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. 

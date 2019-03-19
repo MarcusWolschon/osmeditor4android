@@ -1,6 +1,8 @@
 <!--
 When reporting issues, please use this template, if you are asking for an enhancement you can delete the text.
 
+PLEASE check existing reports, https://vespucci.io/ and in particular http://vespucci.io/tutorials/faq/ for information before opening a new issue.
+
 Please note that some components are maintained in upstream repositories and relevant issues should be reported there, these are specifically:
 
 * background and overlay layers: https://github.com/osmlab/editor-layer-index

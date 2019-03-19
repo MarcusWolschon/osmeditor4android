@@ -6,13 +6,14 @@ theme:
   custom_dir: flatly-custom
   favicon: favicon.ico
 extra:
-  version: 12.1.0
+  version: 13.0.0
   project: Vespucci
 nav:
 - Vespucci: 'index.md'
 - Introduction: 
     - 'Introduction': 'help/en/Introduction.md'
     - 'Features': 'tutorials/features.md'
+    - '13.0.0 Release notes': 'help/en/13.0.0 Release notes.md'
     - '12.1.0 Release notes': 'help/en/12.1.0 Release notes.md'
     - '12.0.0 Release notes': 'help/en/12.0.0 Release notes.md'
     - '11.2.0 Release notes': 'help/en/11.2.0 Release notes.md'
