@@ -685,6 +685,21 @@ public class BoundingBox implements Serializable, JosmXmlSerializable, BoundedOb
         return result;
     }
 
+    /**
+     * Expand the bounding box by d meters on every side Clamps the resulting coordinates to legal values
+     * 
+     * @param d distance in meters to expand the box
+     */
+    public void expand(double d) {
+        double delta = GeoMath.convertMetersToGeoDistance(d);
+        int deltaE7 = (int) (delta * 1E7);
+        top = Math.min(GeoMath.MAX_LAT_E7, top + deltaE7);
+        bottom = Math.max(-GeoMath.MAX_LAT_E7, bottom - deltaE7);
+        int deltaHE7 = (int) ((delta / Math.cos(Math.toRadians(top / 1E7D))) * 1E7D);
+        left = Math.max(-GeoMath.MAX_LON_E7, left - deltaHE7);
+        right = Math.min(GeoMath.MAX_LON_E7, right + deltaHE7);
+    }
+
     /*
      * (non-Javadoc)
      * 

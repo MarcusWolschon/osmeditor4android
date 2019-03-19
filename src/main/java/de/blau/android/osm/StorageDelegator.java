@@ -42,6 +42,7 @@ import de.blau.android.util.SavingHelper.Exportable;
 import de.blau.android.util.Snack;
 import de.blau.android.util.Util;
 import de.blau.android.util.collections.LongOsmElementMap;
+import de.blau.android.validation.BaseValidator;
 
 public class StorageDelegator implements Serializable, Exportable {
 
@@ -240,7 +241,7 @@ public class StorageDelegator implements Serializable, Exportable {
      */
     private void onElementChanged(@Nullable List<OsmElement> pre, @Nullable List<OsmElement> post) {
         if (post != null) {
-            boolean nodeMoved = false;
+            boolean nodeChanged = false;
             BoundingBox changed = null;
             for (OsmElement e : post) {
                 e.stamp();
@@ -248,7 +249,7 @@ public class StorageDelegator implements Serializable, Exportable {
                 if (Way.NAME.equals(e.getName())) {
                     ((Way) e).invalidateBoundingBox();
                 } else if (Node.NAME.equals(e.getName())) {
-                    nodeMoved = true;
+                    nodeChanged = true;
                     if (changed == null) {
                         changed = e.getBounds();
                     } else {
@@ -256,15 +257,10 @@ public class StorageDelegator implements Serializable, Exportable {
                     }
                 }
             }
-            if (nodeMoved) {
+            if (nodeChanged) {
                 for (Way w : currentStorage.getWays(changed)) {
-                    for (OsmElement e : post) {
-                        if (e instanceof Node && w.hasNode((Node) e)) {
-                            w.invalidateBoundingBox();
-                            w.resetHasProblem();
-                            break; // only do this once per way
-                        }
-                    }
+                    w.invalidateBoundingBox();
+                    w.resetHasProblem();
                 }
             }
         }
@@ -310,37 +306,40 @@ public class StorageDelegator implements Serializable, Exportable {
         // This way of doing it collects all candidate ways
         // first and then invalidates each of them max. once.
         if (!nodes.isEmpty()) {
-            BoundingBox box = null;
-            boolean first = true;
-            for (Node n : nodes) {
-                if (first) {
-                    box = new BoundingBox(n.lon, n.lat);
-                    first = false;
-                } else {
-                    box.union(n.lon, n.lat);
-                }
+            Iterator<Node> it = nodes.iterator();
+            Node n = it.next();
+            BoundingBox box = new BoundingBox(n.lon, n.lat);
+            while (it.hasNext()) {
+                n = it.next();
+                box.union(n.lon, n.lat);
             }
             List<Way> ways = currentStorage.getWays(box);
+            for (Way w : ways) {
+                box.union(w.getBounds());
+            }
+            box.expand(BaseValidator.MAX_CONNECTION_TOLERANCE);
+            ways = currentStorage.getWays(box);
             if (ways.size() == 1) { // optimize the common case
                 Way w = ways.get(0);
-                w.invalidateBoundingBox();
-                if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
-                    // we only validate way connections for highways currently
-                    w.resetHasProblem();
-                }
+                invalidateWay(w);
             } else {
                 for (Way w : new HashSet<>(ways)) {
-                    for (Node n : nodes) {
-                        if (w.getNodes().contains(n)) {
-                            w.invalidateBoundingBox();
-                            if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
-                                w.resetHasProblem();
-                            }
-                            break;
-                        }
-                    }
+                    invalidateWay(w);
                 }
             }
+        }
+    }
+
+    /**
+     * Invalidate way bounding box, and if it is a highway its problem status
+     * 
+     * @param w the way to operate on
+     */
+    private void invalidateWay(@NonNull Way w) {
+        w.invalidateBoundingBox();
+        if (w.hasTagKey(Tags.KEY_HIGHWAY)) {
+            // we only validate way connections for highways currently
+            w.resetHasProblem();
         }
     }
 
@@ -656,7 +655,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         dirty = true;
         try {
-            HashSet<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
+            Set<Node> nodes = new HashSet<>(allNodes); // Guarantee uniqueness
             // check that all coordinates are valid before moving
             for (Node nd : nodes) {
                 validateCoordinates(nd.getLat() + deltaLatE7, nd.getLon() + deltaLonE7);
@@ -687,7 +686,7 @@ public class StorageDelegator implements Serializable, Exportable {
         }
         dirty = true;
         try {
-            HashSet<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
+            Set<Node> nodes = new HashSet<>(way.getNodes()); // Guarantee uniqueness
             invalidateWayBoundingBox(nodes);
             int width = map.getWidth();
             int height = map.getHeight();

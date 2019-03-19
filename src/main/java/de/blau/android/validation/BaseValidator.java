@@ -17,6 +17,8 @@ import android.support.annotation.NonNull;
 import de.blau.android.App;
 import de.blau.android.Logic;
 import de.blau.android.R;
+import de.blau.android.exception.OsmException;
+import de.blau.android.osm.BoundingBox;
 import de.blau.android.osm.Node;
 import de.blau.android.osm.OsmElement;
 import de.blau.android.osm.Relation;
@@ -31,6 +33,8 @@ import de.blau.android.util.collections.MultiHashMap;
 
 public class BaseValidator implements Validator {
     private static final String DEBUG_TAG = BaseValidator.class.getSimpleName();
+
+    public static final int MAX_CONNECTION_TOLERANCE = 10; // maximum tolerance value for non-connected end nodes
 
     private Preset[] presets;
 
@@ -157,10 +161,10 @@ public class BaseValidator implements Validator {
     int validateHighway(@NonNull Way w, @NonNull String highway) {
         int result = Validator.NOT_VALIDATED;
         Logic logic = App.getLogic();
-        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(w.getBounds());
         int layer = getLayer(w);
-        boolean nothingToCheck = true;
         de.blau.android.Map map = logic.getMap();
+        w.getFirstNode().setProblem(Validator.OK);
+        w.getLastNode().setProblem(Validator.OK);
         if (map != null) {
             // we try to cache these fairly expensive to calculate values at least as long as the ViewBox hasn't changed
             if (!map.getViewBox().equals(cachedViewBox)) {
@@ -173,17 +177,12 @@ public class BaseValidator implements Validator {
                     cachedViewBox.set(map.getViewBox());
                 }
             }
-            for (Way nearbyWay : nearbyWays) {
-                if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
-                    connectedValidation(logic, tolerance, nearbyWay, w.getFirstNode());
-                    connectedValidation(logic, tolerance, nearbyWay, w.getLastNode());
-                    nothingToCheck = false;
-                }
+            try {
+                checkNearbyWays(w, logic, layer, w.getFirstNode());
+                checkNearbyWays(w, logic, layer, w.getLastNode());
+            } catch (Exception ex) {
+                // ignored
             }
-        }
-        if (nothingToCheck) {
-            w.getFirstNode().setProblem(Validator.OK);
-            w.getLastNode().setProblem(Validator.OK);
         }
 
         if (Tags.VALUE_ROAD.equalsIgnoreCase(highway)) {
@@ -204,6 +203,28 @@ public class BaseValidator implements Validator {
             }
         }
         return result;
+    }
+
+    /**
+     * Check if the node is too near any ways within the tolerance
+     * 
+     * @param w the Way we are validating
+     * @param logic the current Logic instance
+     * @param layer the layer of w
+     * @param n the Node we are checking for
+     * @throws OsmException if something goes wrong creating the bounding box
+     */
+    private void checkNearbyWays(@NonNull Way w, @NonNull Logic logic, int layer, @NonNull Node n) throws OsmException {
+        BoundingBox box = GeoMath.createBoundingBoxForCoordinates(n.getLat() / 1E7D, n.getLon() / 1E7D, tolerance, false);
+        List<Way> nearbyWays = App.getDelegator().getCurrentStorage().getWays(box);
+        for (Way nearbyWay : nearbyWays) {
+            if (!w.equals(nearbyWay) && nearbyWay.hasTagKey(Tags.KEY_HIGHWAY) && layer == getLayer(nearbyWay)) {
+                connectedValidation(logic, tolerance, nearbyWay, n);
+                if (n.getCachedProblems() == Validator.UNCONNECTED_END_NODE) {
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -230,22 +251,31 @@ public class BaseValidator implements Validator {
      */
     private void connectedValidation(@NonNull Logic logic, float tolerance, @NonNull Way way, @NonNull Node node) {
         if (!way.hasNode(node)) {
-            node.setProblem(Validator.OK);
             float jx = logic.lonE7ToX(node.getLon());
             float jy = logic.latE7ToY(node.getLat());
             List<Node> wayNodes = way.getNodes();
             Node firstNode = wayNodes.get(0);
             float node1X = logic.lonE7ToX(firstNode.getLon());
             float node1Y = logic.latE7ToY(firstNode.getLat());
+            double nodeDist = Math.hypot(jx - node1X, jy - node1Y); // first node
+            if (nodeDist < tolerance) {
+                node.setProblem(Validator.UNCONNECTED_END_NODE);
+                return;
+            }
             for (int i = 1, wayNodesSize = wayNodes.size(); i < wayNodesSize; ++i) {
                 Node node2 = wayNodes.get(i);
                 float node2X = logic.lonE7ToX(node2.getLon());
                 float node2Y = logic.latE7ToY(node2.getLat());
                 if (Logic.isPositionOnLine(tolerance, jx, jy, node1X, node1Y, node2X, node2Y) >= 0) {
                     node.setProblem(Validator.UNCONNECTED_END_NODE);
+                    break;
                 }
                 node1X = node2X;
                 node1Y = node2Y;
+            }
+            nodeDist = Math.hypot(jx - node1X, jy - node1Y); // last node
+            if (nodeDist < tolerance) {
+                node.setProblem(Validator.UNCONNECTED_END_NODE);
             }
         }
     }
