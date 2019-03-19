@@ -1,6 +1,5 @@
 package de.blau.android.osm;
 
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -161,8 +160,8 @@ public class Storage implements Serializable {
      * @param box bounding box to search in
      * @return a list of all ways in box
      */
-    public List<Way> getWays(BoundingBox box) {
-        ArrayList<Way> result = new ArrayList<>(ways.size());
+    public List<Way> getWays(@NonNull BoundingBox box) {
+        List<Way> result = new ArrayList<>(ways.size());
         BoundingBox newBox = new BoundingBox(); // avoid creating new instances
         List<Way> list = ways.values();
         int listSize = list.size();
@@ -387,7 +386,7 @@ public class Storage implements Serializable {
      */
     @NonNull
     public List<Way> getWays(@NonNull final Node node) {
-        ArrayList<Way> mWays = new ArrayList<>();
+        List<Way> mWays = new ArrayList<>();
         // BoundingBox box = new BoundingBox();
         for (Way way : ways) {
             // box = way.getBounds(box);
@@ -406,7 +405,7 @@ public class Storage implements Serializable {
      * @return all way nodes
      */
     public List<Node> getWayNodes() {
-        ArrayList<Node> waynodes = new ArrayList<>();
+        List<Node> waynodes = new ArrayList<>();
         for (Way way : ways) {
             waynodes.addAll(way.getNodes());
         }

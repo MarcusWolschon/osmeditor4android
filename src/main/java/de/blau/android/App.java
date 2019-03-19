@@ -535,7 +535,6 @@ public class App extends android.app.Application {
                 org.mozilla.javascript.Context c = rhinoHelper.enterContext();
                 try {
                     // this is a fairly hackish way of sandboxing, but it does work
-                    // rhinoScope = c.initStandardObjects(); // don't seal the individual objects
                     rhinoScope = new ImporterTopLevel(c);
                     c.evaluateString(rhinoScope, "java", "lazyLoad", 0, null);
                     c.evaluateString(rhinoScope, "importClass(Packages.de.blau.android.osm.BoundingBox)", "lazyLoad", 0, null);
@@ -555,7 +554,7 @@ public class App extends android.app.Application {
      * @param ctx Android Context
      * @return a Validator instance
      */
-    public static Validator getDefaultValidator(Context ctx) {
+    public static Validator getDefaultValidator(@NonNull Context ctx) {
         synchronized (defaultValidatorLock) {
             if (defaultValidator == null) {
                 defaultValidator = new BaseValidator(ctx);

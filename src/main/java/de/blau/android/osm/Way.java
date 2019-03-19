@@ -529,29 +529,6 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
     }
 
     /**
-     * Returns a bounding box covering the wayy
-     * 
-     * @return the bounding box of the way
-     */
-    public BoundingBox getBounds() {
-        BoundingBox result = null;
-        if (left != Integer.MIN_VALUE) {
-            return new BoundingBox(left, bottom, right, top);
-        }
-        boolean first = true;
-        for (Node n : getNodes()) {
-            if (first) {
-                result = new BoundingBox(n.lon, n.lat);
-                first = false;
-            } else {
-                result.union(n.lon, n.lat);
-            }
-        }
-        setBoundingBoxCache(result);
-        return result;
-    }
-
-    /**
      * Cache the calculated bounding box for this way
      * 
      * @param box the BoundingBox
@@ -571,6 +548,15 @@ public class Way extends OsmElement implements BoundedObject, StyleableFeature {
      */
     public void invalidateBoundingBox() {
         left = Integer.MIN_VALUE;
+    }
+
+    /**
+     * Returns a bounding box covering the way
+     * 
+     * @return the bounding box of the way
+     */
+    public BoundingBox getBounds() {
+        return getBounds(new BoundingBox());
     }
 
     /**
