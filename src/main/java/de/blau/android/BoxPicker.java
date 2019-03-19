@@ -390,7 +390,7 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * @param lat latitude from the EditText.
      * @param lon longitude from the EditText.
      */
-    private void performClick(final int buttonId, final int checkedRadioButtonId, final String lat, final String lon) {
+    private void performClick(final int buttonId, final int checkedRadioButtonId, @NonNull final String lat, @NonNull final String lon) {
         BoundingBox box = null;
         int resultState = (buttonId == R.id.location_button_current) ? RESULT_OK : RESULT_CANCELED;
 
@@ -419,18 +419,14 @@ public class BoxPicker extends BugFixedAppCompatActivity implements LocationList
      * @param location the Location that we want to create a BoundingBox around
      * @return {@link BoundingBox} for {@link #currentLocation} and {@link #currentRadius}
      */
+    @Nullable
     private BoundingBox createBoxForLocation(@NonNull Location location) {
-        BoundingBox box = null;
-        if (currentLocation != null) {
-            try {
-                box = GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), currentRadius, true);
-            } catch (OsmException e) {
-                ACRAHelper.nocrashReport(e, e.getMessage());
-            }
-        } else {
-            ACRA.getErrorReporter().handleException(null);
+        try {
+            return GeoMath.createBoundingBoxForCoordinates(location.getLatitude(), location.getLongitude(), currentRadius, true);
+        } catch (OsmException e) {
+            ACRAHelper.nocrashReport(e, e.getMessage());
         }
-        return box;
+        return null;
     }
 
     /**
