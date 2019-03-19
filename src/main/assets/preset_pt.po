@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-25 20:22+0000\n"
+"PO-Revision-Date: 2019-03-14 15:33+0000\n"
 "Last-Translator: Rui <xymarior@yandex.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/openstreetmap/presets/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -3889,7 +3889,7 @@ msgstr "Andebol"
 
 #: master_preset.xml:8268(combo:text|group:Golf|preset:Hole|key:handicap)
 msgid "Handicap rating"
-msgstr ""
+msgstr "Classificação do handicap"
 
 #: master_preset.xml:14433(item:name|group:Crafts|preset:Handicraft)
 msgid "Handicraft"
@@ -3930,7 +3930,7 @@ msgstr "Saúde"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Healthcare"
-msgstr ""
+msgstr "Saúde"
 
 #: master_preset.xml:11546(item:name|group:For_the_body|preset:Hearing_Aids)
 msgid "Hearing Aids"
@@ -4012,7 +4012,7 @@ msgstr "Herbalista"
 
 #: master_preset.xml:6700(combo:display_values|group:Place_of_Worship|preset:Monastery|key:monastery:type)
 msgid "Hermitage"
-msgstr ""
+msgstr "Eremitério"
 
 #: master_preset.xml:11036(item:name|group:Electronics|preset:Hifi)
 msgid "Hifi"
@@ -4531,7 +4531,7 @@ msgstr "Cambojano"
 
 #: master_preset.xml:9259(item:name|group:Man_Made|preset:Kiln)
 msgid "Kiln"
-msgstr ""
+msgstr "Kiln"
 
 #: master_preset.xml:388(multiselect:text|key:clothes)
 msgid "Kind of clothes"
@@ -5317,7 +5317,7 @@ msgstr "Migrantes"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Migration"
-msgstr ""
+msgstr "Migração"
 
 #: master_preset.xml:12125(list_entry:short_description|preset:Vending_Machine|value:milk)
 msgid "Milk"
@@ -5861,7 +5861,7 @@ msgstr "Nome do rio/lago/mar/oceano onde desagua"
 
 #: master_preset.xml:99(check:text|key:narrow)
 msgid "Narrow"
-msgstr ""
+msgstr "Estreito"
 
 #: master_preset.xml:3613(item:name|group:Railway|preset:Narrow_Gauge_Rail)
 msgid "Narrow Gauge Rail"
@@ -6175,7 +6175,7 @@ msgstr "Lar de idosos"
 
 #: master_preset.xml:7486(item:name|group:Social_Facilities|preset:Nursing_Home_(deprecated))
 msgid "Nursing Home (deprecated)"
-msgstr ""
+msgstr "Lar de idosos com cuidado médico (em desuso)"
 
 #: master_preset.xml:10824(item:name|group:Food|preset:Nutrition_supplements)
 msgid "Nutrition supplements"
@@ -7158,7 +7158,7 @@ msgstr "Oleiro"
 
 #: master_preset.xml:8045(multiselect:display_values|group:Facilities|preset:Animal_breeding|key:animal_breeding)
 msgid "Poultry"
-msgstr ""
+msgstr "Avicultura"
 
 #: master_preset.xml:9771(group:name|group:Power)
 msgid "Power"
@@ -8720,7 +8720,7 @@ msgstr ""
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Social security"
-msgstr ""
+msgstr "Segurança social"
 
 #: master_preset.xml:14986(combo:display_values|group:Offices|preset:Government|key:government)
 msgid "Social services"
@@ -11982,7 +11982,7 @@ msgstr "Plataforma"
 #: master_preset.xml:10105(combo:text|preset:Power_Portal|key:design)
 msgctxt "power"
 msgid "Portal design"
-msgstr ""
+msgstr "Design do portal"
 
 #: master_preset.xml:582(combo:display_values|key:location)
 msgctxt "power"
@@ -12428,7 +12428,7 @@ msgstr "Gasómetro (depósito)"
 #: master_preset.xml:869(combo:display_values|key:building:use)
 msgctxt "building"
 msgid "Gathering"
-msgstr ""
+msgstr "Reuniões"
 
 #: master_preset.xml:852(combo:display_values|key:building:frame:material)
 #: master_preset.xml:856(combo:display_values|key:building:wall:material)
@@ -13661,12 +13661,12 @@ msgstr "Campo de treino"
 #: master_preset.xml:8330(item:name|group:Golf|preset:Fairway)
 msgctxt "golf"
 msgid "Fairway"
-msgstr ""
+msgstr "Fairway"
 
 #: master_preset.xml:8291(item:name|group:Golf|preset:Frontal_Water_hazard)
 msgctxt "golf"
 msgid "Frontal Water hazard"
-msgstr ""
+msgstr "Obstáculo frontal de água"
 
 #: master_preset.xml:8318(item:name|group:Golf|preset:Green)
 msgctxt "golf"
@@ -13681,7 +13681,7 @@ msgstr "Buraco"
 #: master_preset.xml:8304(item:name|group:Golf|preset:Lateral_water_hazard)
 msgctxt "golf"
 msgid "Lateral water hazard"
-msgstr ""
+msgstr "Obstáculo lateral de água"
 
 #: master_preset.xml:8289(combo:text|group:Golf|preset:Bunker|key:natural)
 msgctxt "golf"
@@ -13696,7 +13696,7 @@ msgstr "Pin"
 #: master_preset.xml:8336(item:name|group:Golf|preset:Rough)
 msgctxt "golf"
 msgid "Rough"
-msgstr ""
+msgstr "Rough"
 
 #: master_preset.xml:8241(item:name|group:Golf|preset:Tee)
 msgctxt "golf"
@@ -13906,7 +13906,7 @@ msgstr "Báscula"
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Beam"
-msgstr ""
+msgstr "Viga"
 
 #: master_preset.xml:9726(combo:display_values|group:Bridges|preset:Bridge|key:bridge)
 msgctxt "bridge"
@@ -13921,12 +13921,12 @@ msgstr "Ponte"
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Cable-stayed"
-msgstr ""
+msgstr "Estaiada / atirantada"
 
 #: master_preset.xml:9726(combo:display_values|group:Bridges|preset:Bridge|key:bridge)
 msgctxt "bridge"
 msgid "Cantilever"
-msgstr ""
+msgstr "Consola"
 
 #: master_preset.xml:9726(combo:display_values|group:Bridges|preset:Bridge|key:bridge)
 msgctxt "bridge"
@@ -13946,7 +13946,7 @@ msgstr "Flutuante"
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Humpback"
-msgstr ""
+msgstr "Corcunda"
 
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
@@ -13956,7 +13956,7 @@ msgstr "Elevação vertical"
 #: master_preset.xml:9726(combo:display_values|group:Bridges|preset:Bridge|key:bridge)
 msgctxt "bridge"
 msgid "Low water crossing"
-msgstr ""
+msgstr "Atravessamento com nível de água baixo"
 
 #: master_preset.xml:9743(combo:display_values|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
@@ -13966,7 +13966,7 @@ msgstr "Retrátil"
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Simple-suspension"
-msgstr ""
+msgstr "Ponte suspensa de cordas"
 
 #: master_preset.xml:9728(combo:text|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
@@ -14001,12 +14001,12 @@ msgstr "Trasportador"
 #: master_preset.xml:9726(combo:display_values|group:Bridges|preset:Bridge|key:bridge)
 msgctxt "bridge"
 msgid "Trestle"
-msgstr ""
+msgstr "Cavalete"
 
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Truss"
-msgstr ""
+msgstr "Treliça"
 
 #: master_preset.xml:9743(combo:text|group:Bridges|preset:Movable_Bridge|key:bridge:movable)
 msgctxt "bridge"
@@ -14076,7 +14076,7 @@ msgstr "Memorial de guerra"
 #: master_preset.xml:10908(check:text|group:Clothes|preset:Shoes|key:shoes:repair)
 msgctxt "shoes"
 msgid "Repairs"
-msgstr ""
+msgstr "Reparação / conserto"
 
 #: master_preset.xml:12737(item:name|group:Geography|preset:Island)
 msgctxt "place"

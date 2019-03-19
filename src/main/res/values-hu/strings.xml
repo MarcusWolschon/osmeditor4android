@@ -535,7 +535,7 @@ elemek megkövetelése</string>
   <string name="menu_paste_from_clipboard">Beillesztés vágólapról</string>
   <string name="menu_zoom_to_selection">Nagyítás a kijelölésre</string>
   <string name="menu_rotate">Forgatás</string>
-  <string name="menu_orthogonalize">Út derékszögesítés</string>
+  <string name="menu_orthogonalize">Vonal derékszögesítése</string>
   <string name="menu_circulize">Elrendezés kör alakban</string>
   <string name="menu_split_polygon">Felosztás sokszögekre</string>
   <string name="menu_newnode_gps">Új pont a GPS pozíciónál</string>
@@ -601,7 +601,7 @@ elemek megkövetelése</string>
   <string name="deleteway_wayandnodes">Vonal törlése</string>
   <string name="deletenode_relation_description">Arra készül, hogy töröljön egy pontot, amely egy vagy több kapcsolat része. A pont eltávolítása a kapcsolatokból érvénytelenné teheti azokat.</string>
   <string name="deletenode">Pont törlése</string>
-  <string name="split_all_ways">Minden út felosztása</string>
+  <string name="split_all_ways">Minden vonal felosztása</string>
   <string name="delete_note_description">A jegyzet törlése nem vonható vissza!</string>
   <string name="delete_note">Jegyzet törlése</string>
   <!--EasyEdit action mode titles-->
@@ -863,27 +863,27 @@ elemek megkövetelése</string>
   <string name="address_housenumber_street">Cím: %1$s%2$s</string>
   <!--undo actions - give a description of the action, in infinitive, to display in strings like "Undo: actionname" or "Redo: actionname"-->
   <string name="undo_action_movenode">Pont elmozgatva</string>
-  <string name="undo_action_moveway">Út elmozgatva</string>
+  <string name="undo_action_moveway">Vonal elmozgatva</string>
   <string name="undo_action_moveobjects">Objektumok elmozgatva</string>
   <string name="undo_action_add">Beszúrás</string>
   <string name="undo_action_append">Hozzáfűzés vonalhoz</string>
   <string name="undo_action_deletenode">Pont törlés</string>
-  <string name="undo_action_deleteway">Út törlés</string>
+  <string name="undo_action_deleteway">Vonal törlése</string>
   <string name="undo_action_delete_objects">Objektumok törölve</string>
-  <string name="undo_action_split_ways">Utak felosztva</string>
-  <string name="undo_action_split_way">Út felosztva</string>
-  <string name="undo_action_merge_ways">Út egyesítés</string>
-  <string name="undo_action_reverse_way">Út megfordítás</string>
+  <string name="undo_action_split_ways">Vonal elvágása</string>
+  <string name="undo_action_split_way">Vonal elvágva</string>
+  <string name="undo_action_merge_ways">Vonalak egyesítése</string>
+  <string name="undo_action_reverse_way">Vonal megfordítása</string>
   <string name="undo_action_set_tags">Címkézés</string>
   <string name="undo_action_join">Összekapcsolás</string>
-  <string name="undo_action_unjoin_ways">Út felosztás</string>
+  <string name="undo_action_unjoin_ways">Vonalak szétválasztása</string>
   <string name="undo_action_create_relation">Kapcsolat létrehozása</string>
   <string name="undo_action_delete_relation">Kapcsolat törlése</string>
   <string name="undo_action_update_relations">Kapcsolat frissítése</string>
   <string name="undo_action_cut">Kivágás</string>
   <string name="undo_action_paste">Beillesztés</string>
-  <string name="undo_action_rotateway">Út forgatása</string>
-  <string name="undo_action_orthogonalize">Út négyszögesítése</string>
+  <string name="undo_action_rotateway">Vonal forgatása</string>
+  <string name="undo_action_orthogonalize">Vonal négyszögesítése</string>
   <string name="undo_action_circulize">Elrendezés kör mentén</string>
   <string name="undo_action_fix_conflict">Ütközés feloldása</string>
   <string name="undo_action_extract_node">Pont kiemelése</string>

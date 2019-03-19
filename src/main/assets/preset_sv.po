@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Presets\n"
 "POT-Creation-Date: 2018-11-22 22:59+0100\n"
-"PO-Revision-Date: 2019-01-25 22:59+0000\n"
+"PO-Revision-Date: 2019-03-12 21:40+0000\n"
 "Last-Translator: Magnus Österlund\n"
 "Language-Team: Swedish (http://www.transifex.com/openstreetmap/presets/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -3326,7 +3326,7 @@ msgstr "Lägenhetsnummer"
 
 #: master_preset.xml:3520(check:text|group:Shipping|preset:Pier|key:floating)
 msgid "Floating"
-msgstr ""
+msgstr "Flytande"
 
 #: master_preset.xml:2473(combo:display_values|group:Barriers|preset:Wall|key:wall)
 msgid "Flood wall"
@@ -13939,7 +13939,7 @@ msgstr ""
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
 msgid "Floating"
-msgstr ""
+msgstr "Flytande"
 
 #: master_preset.xml:9728(combo:display_values|group:Bridges|preset:Bridge|key:bridge:structure)
 msgctxt "bridge"
