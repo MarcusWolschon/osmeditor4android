@@ -65,6 +65,10 @@
 </li>
                                         
 <li >
+    <a href="../../help/en/13.0.0 Release notes/">13.0.0 Release notes</a>
+</li>
+                                        
+<li >
     <a href="../../help/en/12.1.0 Release notes/">12.1.0 Release notes</a>
 </li>
                                         
@@ -311,6 +315,7 @@ i-->
             <li><a href="#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section</a></li>
             <li><a href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</a></li>
             <li><a href="#other-tile-database-related-issues">Other tile database related issues</a></li>
+            <li><a href="#cant-save-maproulette-api-key">Can't save MapRoulette API Key</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -458,7 +463,9 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).</p>
 <h4 id="other-tile-database-related-issues">Other tile database related issues</h4>
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
-<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p></div> -->
+<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p>
+<h4 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key</h4>
+<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p></div> -->
                 
                     <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -498,6 +505,7 @@ however older devices tend to have very limited memory and correspondingly the a
             <li><a href="#why-cant-you-provide-technical-support-on-the-google-play-store-review-section">Why can't you provide technical support on the google play store review section</a></li>
             <li><a href="#on-startup-vespucci-complains-that-it-cant-write-to-a-directory">On startup Vespucci complains that it can't write to a directory</a></li>
             <li><a href="#other-tile-database-related-issues">Other tile database related issues</a></li>
+            <li><a href="#cant-save-maproulette-api-key">Can't save MapRoulette API Key</a></li>
     </ul>
 </div></div>
                     <div class="col-md-9" role="main">
@@ -645,14 +653,16 @@ however older devices tend to have very limited memory and correspondingly the a
 <p>To recover from the directory containing the tile database not being writable you do not need to re-install Vespucci, simply clearing the apps data in your application manager is enough. Alternatively you can eject the SD card and restart Vespucci, that will then create the directory on your device and you should be able to delete the directory on the SD card (typically: Android/data/de.blau.android).</p>
 <h4 id="other-tile-database-related-issues">Other tile database related issues</h4>
 <p>While rare, now and then the database holding the background tiles can become corrupted, for example by a sudden power loss. </p>
-<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p></div>
+<p>To resolve you can clear all the data for the app (upload any pending changes before that), or you can try to simply remove the database file,. The location is typically (on removable storage or on the internal "sdcard") Android/data/de.blau.android/files/databases/osmaptilefscache_db.db, remove the accompanying journal file too.</p>
+<h4 id="cant-save-maproulette-api-key">Can't save MapRoulette API Key</h4>
+<p>If you have an existing Vespucci installation you may have to re-authorize the application by going to "Tools" - "Authorize OAuth" menu. This is due to a change in the OSM API that occured after the release of the support for MapRoulette. </p></div>
                 
         </div>
 
         <footer class="col-md-12">
             <hr>
 <!--            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p> -->
-                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 12.1.0 </p>
+                <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> for Vespucci 13.0.0 </p>
         </footer>
         <script>
             var base_url = "../..",
