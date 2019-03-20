@@ -99,15 +99,29 @@ public abstract class Filter implements Serializable {
         return false;
     }
 
-    public void saveFilter(Filter filter) {
+    /**
+     * Save a Filter
+     * 
+     * @param filter the Filter to save
+     */
+    public void saveFilter(@Nullable Filter filter) {
         savedFilter = filter;
     }
 
+    /**
+     * Get any saved Filter
+     * 
+     * @return a Filter or null
+     */
+    @Nullable
     public Filter getSavedFilter() {
         return savedFilter;
     }
 
     public interface Update {
+        /**
+         * Execute whatever needs to be done for an update
+         */
         void execute();
     }
 
@@ -179,6 +193,9 @@ public abstract class Filter implements Serializable {
         return result;
     }
 
+    /**
+     * Save the state of this filter
+     */
     public void saveState() {
     }
 
@@ -194,7 +211,14 @@ public abstract class Filter implements Serializable {
         clear();
     }
 
-    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    /**
+     * De-serialize this
+     * 
+     * @param in the ObjectInputStream
+     * @throws IOException if something foes wrong while reading
+     * @throws ClassNotFoundException if a Class couldn't be found
+     */
+    private void readObject(@NonNull java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         // Normal deserialization will not initialize transient objects, need to do it here
         cachedNodes = new HashMap<>(100);

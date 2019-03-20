@@ -3,6 +3,8 @@ package de.blau.android.filter;
 import java.util.List;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.osm.Node;
@@ -32,11 +34,19 @@ public class CorrectFilter extends Filter {
     private boolean             inverted        = false;
     private transient Validator validator;
 
+    /**
+     * Construct a new filter
+     */
     public CorrectFilter() {
         this(null);
     }
 
-    public CorrectFilter(Context context) {
+    /**
+     * Construct a new filter
+     * 
+     * @param context an Android Context
+     */
+    public CorrectFilter(@Nullable Context context) {
         super();
         Log.d(DEBUG_TAG, "Constructor");
         init(context);
@@ -61,7 +71,7 @@ public class CorrectFilter extends Filter {
     /**
      * Include way nodes when ways are included
      * 
-     * @param on
+     * @param on if true include way nodes
      */
     public void setIncludeWayNodes(boolean on) {
         Log.d(DEBUG_TAG, "set include way nodes " + on);
@@ -84,7 +94,13 @@ public class CorrectFilter extends Filter {
         this.inverted = inverted;
     }
 
-    private Include filter(OsmElement e) {
+    /**
+     * Check if an OsmElement should be shown or not
+     * 
+     * @param e the OsmElement
+     * @return an indication if an element should be schown or not
+     */
+    private Include filter(@NonNull OsmElement e) {
         Include include = Include.DONT;
         if (e.hasProblem(context, validator) != Validator.OK) {
             return Include.INCLUDE;
@@ -94,18 +110,15 @@ public class CorrectFilter extends Filter {
 
     @Override
     public boolean include(Node node, boolean selected) {
-        // Log.d(DEBUG_TAG, "include Node " + node.getOsmId() + "?");
         if (!enabled || selected) {
             return true;
         }
         Include include = cachedNodes.get(node);
         if (include != null) {
-            // Log.d(DEBUG_TAG, "include Node " + include + " was in cache");
             return include != Include.DONT;
         }
 
         include = filter(node);
-        // Log.d(DEBUG_TAG, "include Node " + include);
         cachedNodes.put(node, include);
         return include != Include.DONT;
     }
