@@ -2,10 +2,8 @@ package de.blau.android;
 
 import java.io.Serializable;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import de.blau.android.osm.BoundingBox;
@@ -13,28 +11,67 @@ import de.blau.android.osm.BoundingBox;
 /**
  * Start vespucci with JOSM style remote control url
  */
-public class RemoteControlUrlActivity extends Activity {
+public class RemoteControlUrlActivity extends UrlActivity {
 
     private static final String DEBUG_TAG = "RemoteControlUrlAct...";
     public static final String  RCDATA    = "de.blau.android.RemoteControlActivity";
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static class RemoteControlUrlData implements Serializable {
+        private static final long serialVersionUID = 1L;
+        private boolean           load             = false;
+        private BoundingBox       box;
+        private String            select           = null;
+
+        /**
+         * @return the box
+         */
+        public BoundingBox getBox() {
+            return box;
+        }
+
+        /**
+         * Get the string with elements to select
+         * 
+         * @return a String in JOSM format indicating which elements should be selected
+         */
+        @Nullable
+        public String getSelect() {
+            return select;
+        }
+
+        /**
+         * Set the string indicating which elements to select
+         * 
+         * @param select a String in JOSM format indicating which elements should be selected
+         */
+        public void setSelect(@Nullable String select) {
+            this.select = select;
+        }
+
+        /**
+         * @param box the box to set
+         */
+        public void setBox(BoundingBox box) {
+            this.box = box;
+        }
+
+        /**
+         * @return the load
+         */
+        public boolean load() {
+            return load;
+        }
+
+        /**
+         * @param load the load to set
+         */
+        public void setLoad(boolean load) {
+            this.load = load;
+        }
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Uri data = getIntent().getData();
-        if (data == null) {
-            Log.d(DEBUG_TAG, "Called with null data, aborting");
-            finish();
-            return;
-        }
-        Log.d(DEBUG_TAG, data.toString());
-        Intent intent = new Intent(this, Main.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    boolean setIntentExtras(Intent intent, Uri data) {
         try {
             // extract command
             String command = data.getPath();
@@ -72,82 +109,23 @@ public class RemoteControlUrlActivity extends Activity {
                         Log.d(DEBUG_TAG, "bbox " + rcData.getBox() + " load " + rcData.load());
                     } catch (NumberFormatException e) {
                         Log.d(DEBUG_TAG, "Invalid bounding box parameter", e);
-                        intent = null;
+                        return false;
                     }
                 }
-                if (intent != null) {
-                    String select = data.getQueryParameter("select");
-                    if (rcData.load() && select != null) {
-                        rcData.setSelect(select);
-                    }
-                    intent.putExtra(RCDATA, rcData);
+                String select = data.getQueryParameter("select");
+                if (rcData.load() && select != null) {
+                    rcData.setSelect(select);
                 }
+                intent.putExtra(RCDATA, rcData);
+                return true;
             } else {
                 Log.d(DEBUG_TAG, "Unknown RC command: " + command);
-                intent = null;
+                return false;
             }
-            if (intent != null) {
-                startActivity(intent);
-            }
+
         } catch (Exception ex) { // avoid crashing on getting called with stuff that can't be parsed
             Log.d(DEBUG_TAG, "Exception: " + ex);
-            intent = null;
-        }
-        setResult(intent != null ? RESULT_OK : RESULT_CANCELED); // not clear if this actually helps with anything
-        finish();
-    }
-
-    public static class RemoteControlUrlData implements Serializable {
-        private static final long serialVersionUID = 1L;
-        private boolean           load             = false;
-        private BoundingBox       box;
-        private String            select           = null;
-
-        /**
-         * @return the box
-         */
-        public BoundingBox getBox() {
-            return box;
-        }
-
-        /**
-         * Get the string with elements to select
-         * 
-         * @return a String in JOSM format indicating which elements should be selected
-         */
-        @Nullable
-        public String getSelect() {
-            return select;
-        }
-
-        /**
-         * Set teh string indicatign which elements to select
-         * 
-         * @param select a String in JOSM format indicating which elements should be selected
-         */
-        public void setSelect(@Nullable String select) {
-            this.select = select;
-        }
-
-        /**
-         * @param box the box to set
-         */
-        public void setBox(BoundingBox box) {
-            this.box = box;
-        }
-
-        /**
-         * @return the load
-         */
-        public boolean load() {
-            return load;
-        }
-
-        /**
-         * @param load the load to set
-         */
-        public void setLoad(boolean load) {
-            this.load = load;
+            return false;
         }
     }
 }
