@@ -220,7 +220,7 @@ public class LongHashSet implements Serializable {
     /**
      * Return true if the map contains an object with the specified value
      * 
-     * @param value
+     * @param value value to check for
      * @return true if value was found
      */
     public boolean contains(long value) {
@@ -299,7 +299,7 @@ public class LongHashSet implements Serializable {
     /**
      * Provide capacity for minimumCapacity elements without need for growing the underlying array and rehashing.
      * 
-     * @param minimumCapacity
+     * @param minimumCapacity minimum capacity
      */
     public void ensureCapacity(int minimumCapacity) {
         int newCapacity = Tools.arraySize(minimumCapacity, m_fillFactor);
@@ -308,6 +308,11 @@ public class LongHashSet implements Serializable {
         }
     }
 
+    /**
+     * Recalculate the hashes for the whole set
+     * 
+     * @param newCapacity new capacity
+     */
     private void rehash(final int newCapacity) {
         m_threshold = (int) (newCapacity * m_fillFactor);
         m_mask = newCapacity - 1L;

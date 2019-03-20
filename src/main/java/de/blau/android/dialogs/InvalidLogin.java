@@ -1,6 +1,5 @@
 package de.blau.android.dialogs;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import de.blau.android.Authorize;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Server;

@@ -3,8 +3,6 @@ package de.blau.android;
 import java.io.Serializable;
 import java.util.List;
 
-import org.acra.ACRA;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

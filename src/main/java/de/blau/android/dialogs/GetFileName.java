@@ -1,7 +1,6 @@
 package de.blau.android.dialogs;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.SaveFile;

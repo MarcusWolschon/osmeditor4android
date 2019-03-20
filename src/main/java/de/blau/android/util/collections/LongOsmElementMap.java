@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import android.annotation.SuppressLint;
@@ -70,7 +71,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Create a new map with the specified size and the default fill factor
      * 
-     * @param size
+     * @param size initial size of the map
      */
     public LongOsmElementMap(final int size) {
         this(size, DEFAULT_FILLFACTOR);
@@ -79,8 +80,8 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Create a new map with the specified size and fill factor
      * 
-     * @param size
-     * @param fillFactor
+     * @param size initial size of the map
+     * @param fillFactor target fill factor
      */
     private LongOsmElementMap(final int size, final float fillFactor) {
         if (fillFactor <= 0 || fillFactor >= 1) {
@@ -118,7 +119,7 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * Return a single element with the specified key
      * 
-     * @param key
+     * @param key the key we want to return a value for
      * @return the required element or null if it cannot be found
      */
     @SuppressWarnings("unchecked")
@@ -339,6 +340,11 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         }
     }
 
+    /**
+     * Rehash the map
+     * 
+     * @param newCapacity new size
+     */
     @SuppressWarnings("unchecked")
     private void rehash(final int newCapacity) {
         synchronized (this) {
@@ -396,6 +402,9 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
         OsmElement[] m_data_temp = null;
         OsmElement   cachedNext  = null;
 
+        /**
+         * Construct a new iterator
+         */
         SafeIterator() {
             synchronized (LongOsmElementMap.this) {
                 m_size_temp = m_size;
@@ -454,10 +463,11 @@ public class LongOsmElementMap<V extends OsmElement> implements Iterable<V>, Ser
     /**
      * for stats and debugging
      * 
-     * @return
+     * @return a Map containing some statistics
      */
-    public HashMap<Integer, Integer> getChainStats() {
-        HashMap<Integer, Integer> result = new HashMap<>();
+    @NonNull
+    public Map<Integer, Integer> getChainStats() {
+        Map<Integer, Integer> result = new HashMap<>();
         for (V v : values()) {
             int len = 0;
             long key = v.getOsmId();
