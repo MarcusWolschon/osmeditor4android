@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import de.blau.android.names.Names;
 import de.blau.android.presets.Preset.PresetItem;
 
@@ -17,7 +19,7 @@ interface EditorUpdate {
      * @param key the key
      * @param value the value
      */
-    void updateSingleValue(final String key, final String value);
+    void updateSingleValue(@NonNull final String key, @NonNull final String value);
 
     /**
      * Update or add multiple keys
@@ -25,7 +27,7 @@ interface EditorUpdate {
      * @param tags map containing the new key - value pais
      * @param flush if true delete all existing tags before applying the update
      */
-    void updateTags(final Map<String, String> tags, final boolean flush);
+    void updateTags(@NonNull final Map<String, String> tags, final boolean flush);
 
     /**
      * Get tags from tag editor
@@ -33,6 +35,7 @@ interface EditorUpdate {
      * @param allowBlanks allow blank values
      * @return a LinkedHashMap of the tags
      */
+    @Nullable
     LinkedHashMap<String, String> getKeyValueMapSingle(final boolean allowBlanks);
 
     /**
@@ -45,13 +48,14 @@ interface EditorUpdate {
      * 
      * @param key the tag key
      */
-    void deleteTag(final String key);
+    void deleteTag(@Nullable final String key);
 
     /**
      * Get the best matching preset
      * 
      * @return the best matching PresetItem
      */
+    @Nullable
     PresetItem getBestPreset();
 
     /**
@@ -59,6 +63,7 @@ interface EditorUpdate {
      * 
      * @return a List of the secondary PresetItems
      */
+    @Nullable
     List<PresetItem> getSecondaryPresets();
 
     /**
@@ -66,6 +71,7 @@ interface EditorUpdate {
      * 
      * @return a Map containing a key PresetItem mapping
      */
+    @Nullable
     Map<String, PresetItem> getAllPresets();
 
     /**
@@ -86,7 +92,7 @@ interface EditorUpdate {
      * @param tags a map with the tags
      * @param afterApply run this after applying additional tags
      */
-    void applyTagSuggestions(Names.TagMap tags, Runnable afterApply);
+    void applyTagSuggestions(@NonNull Names.TagMap tags, @Nullable Runnable afterApply);
 
     /*
      * Copy/Cut/Paste related stuff
@@ -118,6 +124,6 @@ interface EditorUpdate {
      * 
      * @param addOptional add optional tags
      */
-    void applyPreset(PresetItem preset, boolean addOptional);
+    void applyPreset(@NonNull PresetItem preset, boolean addOptional);
 
 }

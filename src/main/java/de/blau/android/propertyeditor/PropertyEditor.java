@@ -1063,7 +1063,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public void updateSingleValue(String key, String value) {
+    public void updateSingleValue(@NonNull String key, @NonNull String value) {
         if (tagEditorFragment != null) {
             tagEditorFragment.updateSingleValue(key, value);
         } else {
@@ -1072,7 +1072,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public void updateTags(Map<String, String> tags, boolean flush) {
+    public void updateTags(@NonNull Map<String, String> tags, boolean flush) {
         if (tagEditorFragment != null) {
             tagEditorFragment.updateTags(tags, flush);
         } else {
@@ -1110,6 +1110,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
+    @Nullable
     public LinkedHashMap<String, String> getKeyValueMapSingle(boolean allowBlanks) {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getKeyValueMapSingle(allowBlanks);
@@ -1140,6 +1141,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
+    @Nullable
     public Map<String, PresetItem> getAllPresets() {
         if (tagEditorFragment != null) {
             return tagEditorFragment.getAllPresets();
@@ -1283,7 +1285,7 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public void applyPreset(PresetItem preset, boolean addOptional) {
+    public void applyPreset(@NonNull PresetItem preset, boolean addOptional) {
         tagEditorFragment.applyPreset(preset, true);
     }
 

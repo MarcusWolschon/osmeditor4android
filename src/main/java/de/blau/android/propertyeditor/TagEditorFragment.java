@@ -519,7 +519,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags map containing the tags
      * @param flush flush existing tags
      */
-    private void loadEditsSingle(final Map<String, String> tags, boolean flush) {
+    private void loadEditsSingle(@NonNull final Map<String, String> tags, boolean flush) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         LinkedHashMap<String, ArrayList<String>> convertedTags = flush ? new LinkedHashMap<>() : getKeyValueMap(true);
         for (Entry<String, String> entry : tags.entrySet()) {
@@ -536,7 +536,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param tags the map containing the tags
      * @param applyDefaults apply default values if true
      */
-    private void loadEdits(final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
+    private void loadEdits(@NonNull final Map<String, ArrayList<String>> tags, boolean applyDefaults) {
         LinearLayout rowLayout = (LinearLayout) getOurView();
         loadEdits(rowLayout, tags, applyDefaults);
     }
@@ -2362,7 +2362,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
      * @param replace if true replace existing key values, otherwise don't
      * @param update if true update the the best matched presets
      */
-    private void addTag(LinearLayout rowLayout, String key, String value, boolean replace, boolean update) {
+    private void addTag(LinearLayout rowLayout, @NonNull String key, @NonNull String value, boolean replace, boolean update) {
         Log.d(DEBUG_TAG, "adding tag " + key + "=" + value);
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(rowLayout, true);
         if (!currentValues.containsKey(key) || replace) {
@@ -2375,7 +2375,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public void updateSingleValue(String key, String value) {
+    public void updateSingleValue(@NonNull String key, @NonNull String value) {
         LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
         currentValues.put(key, Util.getArrayList(value));
         loadEdits(currentValues, false);
@@ -2394,7 +2394,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     @Override
-    public void deleteTag(final String key) {
+    public void deleteTag(@Nullable final String key) {
         LinearLayout l = (LinearLayout) getOurView();
         if (l != null) {
             for (int i = l.getChildCount() - 1; i >= 0; --i) {
