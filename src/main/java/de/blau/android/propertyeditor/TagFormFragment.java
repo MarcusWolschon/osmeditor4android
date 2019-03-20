@@ -1250,7 +1250,13 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 Object o = parent.getItemAtPosition(position);
                 if (o instanceof Names.NameAndTags) {
                     row.valueView.setOrReplaceText(((NameAndTags) o).getName());
-                    tagListener.applyTagSuggestions(((NameAndTags) o).getTags());
+                    tagListener.applyTagSuggestions(((NameAndTags) o).getTags(), new Runnable() {
+                        @Override
+                        public void run() {
+                            update();
+                        }
+
+                    });
                     update();
                     return;
                 } else if (o instanceof ValueWithCount) {
@@ -3348,7 +3354,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 if (o instanceof Names.NameAndTags) {
                     TagMap tags = ((NameAndTags) o).getTags();
                     tags.put(Tags.KEY_NAME, ((NameAndTags) o).getName());
-                    tagListener.applyTagSuggestions(tags);
+                    tagListener.applyTagSuggestions(tags, null);
                 } else if (o instanceof String) {
                     tagListener.updateSingleValue(Tags.KEY_NAME, (String) o);
                 } else {

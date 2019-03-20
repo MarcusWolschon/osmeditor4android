@@ -84,8 +84,9 @@ interface EditorUpdate {
      * Apply tag suggestion from name index
      * 
      * @param tags a map with the tags
+     * @param afterApply run this after applying additional tags
      */
-    void applyTagSuggestions(Names.TagMap tags);
+    void applyTagSuggestions(Names.TagMap tags, Runnable afterApply);
 
     /*
      * Copy/Cut/Paste related stuff

@@ -1191,7 +1191,7 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 Object o = parent.getItemAtPosition(position);
                 if (o instanceof Names.NameAndTags) {
                     row.valueEdit.setOrReplaceText(((NameAndTags) o).getName());
-                    applyTagSuggestions(((NameAndTags) o).getTags());
+                    applyTagSuggestions(((NameAndTags) o).getTags(), null);
                 } else if (o instanceof ValueWithCount) {
                     row.valueEdit.setOrReplaceText(((ValueWithCount) o).getValue());
                 } else if (o instanceof StringWithDescription) {
@@ -1428,12 +1428,8 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
-    /**
-     * Apply tags from name suggestion list, ask if overwriting
-     * 
-     * @param tags tags from name suggestions
-     */
-    public void applyTagSuggestions(Names.TagMap tags) {
+    @Override
+    public void applyTagSuggestions(@NonNull Names.TagMap tags, @Nullable Runnable afterApply) {
         final LinkedHashMap<String, ArrayList<String>> currentValues = getKeyValueMap(true);
         boolean replacedValue = false;
 
@@ -1452,6 +1448,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     loadEdits(currentValues, false);// FIXME
+                    if (afterApply != null) {
+                        afterApply.run();
+                    }
                 }
             });
             dialog.setNegativeButton(R.string.cancel, null);
