@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ImmersiveDialogFragment;
@@ -70,21 +68,7 @@ public class Progress extends ImmersiveDialogFragment {
     }
 
     public static void dismissDialog(FragmentActivity activity, int dialogType, String tag) {
-        FragmentManager fm = activity.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
-        Fragment fragment = fm.findFragmentByTag(tag);
-        try {
-            if (fragment != null) {
-                ft.remove(fragment);
-                ft.commit();
-            }
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "dismissDialog", isex);
-            // this is in general harmless and there is no real way of avoiding this
-            // except not to use progress dialogs at all, which however doesn't give
-            // the user any reasonable amount of feed back
-        }
+        de.blau.android.dialogs.Util.dismissDialog(activity, tag);
     }
 
     /**

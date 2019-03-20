@@ -5,11 +5,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.ActionMenuView;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -17,6 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.ActionMenuView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +30,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.util.Log;
 import de.blau.android.App;
 import de.blau.android.BuildConfig;
 import de.blau.android.Feedback;
@@ -48,7 +46,6 @@ import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
 import de.blau.android.presets.PresetElementPath;
-import de.blau.android.propertyeditor.PresetFragment.OnPresetSelectedListener;
 import de.blau.android.util.BaseFragment;
 import de.blau.android.util.SearchIndexUtils;
 import de.blau.android.util.Snack;
@@ -232,12 +229,7 @@ public class PresetFragment extends BaseFragment implements PresetUpdate, Preset
             return false;
         }
         final FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag(FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.commit();
+        de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_PRESET_SEARCH_RESULTS_TAG);
 
         AsyncTask<Void, Void, ArrayList<PresetElement>> list = new AsyncTask<Void, Void, ArrayList<PresetElement>>() {
 

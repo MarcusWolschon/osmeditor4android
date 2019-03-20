@@ -107,6 +107,10 @@ import de.blau.android.views.TriStateCheckBox;
 
 public class TagFormFragment extends BaseFragment implements FormUpdate {
 
+    private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
+
+    private static final String FRAGMENT_CONDITIONAL_RESTRICTION_TAG = "fragment_conditional_restriction";
+
     private static final String FOCUS_TAG = "focusTag";
 
     private static final String FOCUS_ON_ADDRESS = "focusOnAddress";
@@ -1439,14 +1443,9 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment prev = fm.findFragmentByTag("fragment_conditional_restriction");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.commit();
+                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
                 ConditionalRestrictionFragment conditionalRestrictionDialog = ConditionalRestrictionFragment.newInstance(key, value, templates, ohTemplates);
-                conditionalRestrictionDialog.show(fm, "fragment_conditional_restriction");
+                conditionalRestrictionDialog.show(fm, FRAGMENT_CONDITIONAL_RESTRICTION_TAG);
             }
         });
         return row;
@@ -1521,12 +1520,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment prev = fm.findFragmentByTag("fragment_opening_hours");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.commit();
+                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_OPENING_HOURS_TAG);
                 ValueWithDescription keyWithDescription = new ValueWithDescription(key, hint);
                 ArrayList<ValueWithDescription> textValues = null;
                 if (adapter != null) {
@@ -1562,7 +1556,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
                 }
                 OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstance(keyWithDescription, finalValue,
                         prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1, true, textValues);
-                openingHoursDialog.show(fm, "fragment_opening_hours");
+                openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
             }
         });
         return row;

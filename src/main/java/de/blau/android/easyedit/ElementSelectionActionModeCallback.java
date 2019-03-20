@@ -218,7 +218,7 @@ public abstract class ElementSelectionActionModeCallback extends EasyEditActionM
             // we can't rely on the element status
             UndoElement ue = App.getDelegator().getUndo().getOriginal(element);
             if (ue != null) {
-                ElementInfo.showDialog(main, ue, element);
+                ElementInfo.showDialog(main, ue, element, false);
             } else {
                 ElementInfo.showDialog(main, element);
             }

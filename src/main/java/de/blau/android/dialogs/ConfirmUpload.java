@@ -21,7 +21,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
@@ -72,7 +71,7 @@ public class ConfirmUpload extends DialogFragment {
 
     private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
 
-    private static final String TAG = "fragment_confirm_upload";
+    public static final String TAG = "fragment_confirm_upload";
 
     public static final int NO_PAGE    = -1;
     public static final int EDITS_PAGE = 0;
@@ -107,18 +106,7 @@ public class ConfirmUpload extends DialogFragment {
      * @param activity the calling FragmentActivity
      */
     public static void dismissDialog(FragmentActivity activity) {
-        FragmentManager fm = activity.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(TAG);
-        if (fragment != null) {
-            ft.remove(fragment);
-        }
-        try {
-            ft.commit();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "dismissDialog", isex);
-            ACRAHelper.nocrashReport(isex, isex.getMessage());
-        }
+        Util.dismissDialog(activity, TAG);
     }
 
     /**
@@ -182,10 +170,11 @@ public class ConfirmUpload extends DialogFragment {
                 ChangedElement clicked = changes[position];
                 OsmElement element = clicked.element;
                 byte elemenState = element.getState();
-                if (elemenState == OsmElement.STATE_MODIFIED || elemenState == OsmElement.STATE_DELETED) {
-                    ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element);
+                boolean deleted = elemenState == OsmElement.STATE_DELETED;
+                if (elemenState == OsmElement.STATE_MODIFIED || deleted) {
+                    ElementInfo.showDialog(getActivity(), App.getDelegator().getUndo().getOriginal(element), element, !deleted);
                 } else {
-                    ElementInfo.showDialog(getActivity(), element);
+                    ElementInfo.showDialog(getActivity(), element, !deleted);
                 }
             }
         });

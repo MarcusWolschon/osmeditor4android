@@ -17,9 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ActionMenuView;
@@ -70,6 +68,8 @@ import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
 public class ConditionalRestrictionFragment extends DialogFragment implements OnSaveListener {
+
+    private static final String FRAGMENT_OPENING_HOURS_TAG = "fragment_opening_hours";
 
     private static final int LINEARLAYOUT_ID = 12345;
 
@@ -409,10 +409,10 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * Highlight the position of a parse error
      * 
-     * @param text
-     * @param pex
+     * @param text the EditText
+     * @param pex the ParseException
      */
-    private synchronized void highlightParseError(EditText text, ParseException pex) {
+    private synchronized void highlightParseError(@NonNull EditText text, @NonNull ParseException pex) {
         if (text.length() > 0) {
             int c = pex.currentToken.next.beginColumn - 1; // starts at 1
             int pos = text.getSelectionStart();
@@ -870,12 +870,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                Fragment prev = fm.findFragmentByTag("fragment_opening_hours");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.commit();
+                de.blau.android.propertyeditor.Util.removeChildFragment(fm, FRAGMENT_OPENING_HOURS_TAG);
                 realOnSaveListener = new OnSaveListener() {
                     @Override
                     public void save(String key, String value) {
@@ -889,7 +884,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                 };
                 OpeningHoursFragment openingHoursDialog = OpeningHoursFragment.newInstanceForFragment(key, finalValue,
                         prefs.lightThemeEnabled() ? R.style.Theme_AppCompat_Light_Dialog_Alert : R.style.Theme_AppCompat_Dialog_Alert, -1);
-                openingHoursDialog.show(fm, "fragment_opening_hours");
+                openingHoursDialog.show(fm, FRAGMENT_OPENING_HOURS_TAG);
             }
         });
     }

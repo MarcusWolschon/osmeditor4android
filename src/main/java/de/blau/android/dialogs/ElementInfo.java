@@ -16,15 +16,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.text.SpannableString;
@@ -38,6 +37,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import de.blau.android.App;
+import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.contract.Urls;
 import de.blau.android.listener.DoNothingListener;
@@ -52,6 +52,7 @@ import de.blau.android.osm.UndoStorage.UndoElement;
 import de.blau.android.osm.UndoStorage.UndoNode;
 import de.blau.android.osm.UndoStorage.UndoRelation;
 import de.blau.android.osm.UndoStorage.UndoWay;
+import de.blau.android.osm.ViewBox;
 import de.blau.android.osm.Way;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.DateFormatter;
@@ -67,15 +68,18 @@ import de.blau.android.validation.Validator;
  */
 public class ElementInfo extends DialogFragment {
 
-    private static final int    DISPLAY_LIMIT   = 10;
-    private static final String ELEMENT_KEY     = "element";
-    private static final String UNDOELEMENT_KEY = "undoelement";
+    private static final int    DISPLAY_LIMIT    = 10;
+    private static final String ELEMENT_KEY      = "element";
+    private static final String UNDOELEMENT_KEY  = "undoelement";
+    private static final String SHOW_JUMP_TO_KEY = "showJumpTo";
 
     private static final String DEBUG_TAG = ElementInfo.class.getName();
 
     private static final String TAG = "fragment_element_info";
 
     private SpannableString emptyRole;
+
+    private OsmElement element;
 
     /**
      * Show an info dialog for the supplied OsmElement
@@ -84,7 +88,18 @@ public class ElementInfo extends DialogFragment {
      * @param e the OsmElement
      */
     public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e) {
-        showDialog(activity, null, e);
+        showDialog(activity, null, e, false);
+    }
+
+    /**
+     * Show an info dialog for the supplied OsmElement
+     * 
+     * @param activity the calling Activity
+     * @param e the OsmElement
+     * @param showJumpTo display button to jump to object
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, @NonNull OsmElement e, boolean showJumpTo) {
+        showDialog(activity, null, e, showJumpTo);
     }
 
     /**
@@ -93,12 +108,13 @@ public class ElementInfo extends DialogFragment {
      * @param activity the calling Activity
      * @param ue an UndoElement to compare with
      * @param e the OsmElement
+     * @param showJumpTo display button to jump to object
      */
-    public static void showDialog(@NonNull FragmentActivity activity, @Nullable UndoElement ue, @NonNull OsmElement e) {
+    public static void showDialog(@NonNull FragmentActivity activity, @Nullable UndoElement ue, @NonNull OsmElement e, boolean showJumpTo) {
         dismissDialog(activity);
         try {
             FragmentManager fm = activity.getSupportFragmentManager();
-            ElementInfo elementInfoFragment = newInstance(ue, e);
+            ElementInfo elementInfoFragment = newInstance(ue, e, showJumpTo);
             elementInfoFragment.show(fm, TAG);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -111,17 +127,7 @@ public class ElementInfo extends DialogFragment {
      * @param activity the calling Activity
      */
     private static void dismissDialog(@NonNull FragmentActivity activity) {
-        try {
-            FragmentManager fm = activity.getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment fragment = fm.findFragmentByTag(TAG);
-            if (fragment != null) {
-                ft.remove(fragment);
-            }
-            ft.commit();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "dismissDialog", isex);
-        }
+        de.blau.android.dialogs.Util.dismissDialog(activity, TAG);
     }
 
     /**
@@ -130,13 +136,15 @@ public class ElementInfo extends DialogFragment {
      * @param ue an UndoElement to compare with
      * @param e OSMElement to display the info on
      * @return an instance of ElementInfo
+     * @param showJumpTo display button to jump to object
      */
-    private static ElementInfo newInstance(@Nullable UndoElement ue, @NonNull OsmElement e) {
+    private static ElementInfo newInstance(@Nullable UndoElement ue, @NonNull OsmElement e, boolean showJumpTo) {
         ElementInfo f = new ElementInfo();
 
         Bundle args = new Bundle();
         args.putSerializable(UNDOELEMENT_KEY, ue);
         args.putSerializable(ELEMENT_KEY, e);
+        args.putSerializable(SHOW_JUMP_TO_KEY, showJumpTo);
 
         f.setArguments(args);
         f.setShowsDialog(true);
@@ -156,6 +164,23 @@ public class ElementInfo extends DialogFragment {
         Builder builder = new AlertDialog.Builder(getActivity());
         DoNothingListener doNothingListener = new DoNothingListener();
         builder.setPositiveButton(R.string.done, doNothingListener);
+        final FragmentActivity activity = getActivity();
+        if (getArguments().getBoolean(SHOW_JUMP_TO_KEY) && activity instanceof Main) {
+            builder.setNeutralButton(R.string.goto_element, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    de.blau.android.dialogs.Util.dismissDialog(activity, ConfirmUpload.TAG);
+                    if (element != null) {
+                        ViewBox box = new ViewBox(element.getBounds());
+                        if (box != null) {
+                            double[] center = box.getCenter();
+                            ((Main) activity).zoomToAndEdit((int) (center[0] * 1E7D), (int) (center[1] * 1E7D), element);
+                        }
+                    }
+                }
+            });
+        }
         builder.setTitle(R.string.element_information);
         builder.setView(createView(null));
         return builder.create();
@@ -191,24 +216,25 @@ public class ElementInfo extends DialogFragment {
         ScrollView sv = (ScrollView) themedInflater.inflate(R.layout.element_info_view, container, false);
         TableLayout tl = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout);
 
-        OsmElement e = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
+        element = (OsmElement) getArguments().getSerializable(ELEMENT_KEY);
         UndoElement ue = (UndoElement) getArguments().getSerializable(UNDOELEMENT_KEY);
 
         boolean compare = ue != null;
 
         TableLayout.LayoutParams tp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         tp.setMargins(10, 2, 10, 2);
-        if (e != null) {
-            boolean deleted = e.getState() == OsmElement.STATE_DELETED;
+        if (element != null) {
+            boolean deleted = element.getState() == OsmElement.STATE_DELETED;
             tl.setColumnStretchable(1, true);
             tl.setColumnStretchable(2, true);
 
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, e.getName(), tp));
-            Spanned id = e.getOsmId() > 0 ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + e.getName() + "/" + e.getOsmId() + "\">#" + e.getOsmId() + "</a>")
-                    : Util.fromHtml("#" + e.getOsmId());
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.type, element.getName(), tp));
+            Spanned id = element.getOsmId() > 0
+                    ? Util.fromHtml("<a href=\"" + Urls.OSM + "/" + element.getName() + "/" + element.getOsmId() + "\">#" + element.getOsmId() + "</a>")
+                    : Util.fromHtml("#" + element.getOsmId());
             tl.addView(TableLayoutUtils.createRow(activity, R.string.id, id, true, tp));
-            tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(e.getOsmVersion()), tp));
-            long timestamp = e.getTimestamp();
+            tl.addView(TableLayoutUtils.createRow(activity, R.string.version, Long.toString(element.getOsmVersion()), tp));
+            long timestamp = element.getTimestamp();
             if (timestamp > 0) {
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.last_edited,
                         DateFormatter.getUtcFormat(OsmParser.TIMESTAMP_FORMAT).format(timestamp * 1000L), tp));
@@ -218,19 +244,21 @@ public class ElementInfo extends DialogFragment {
             if (compare) {
                 tl.addView(TableLayoutUtils.createRow(activity, "", getString(R.string.original), deleted ? null : getString(R.string.current), tp));
             }
-            if (e.getName().equals(Node.NAME)) {
+            if (element.getName().equals(Node.NAME)) {
                 String oldLon = null;
                 String oldLat = null;
                 if (compare) {
                     oldLon = prettyPrint(((UndoNode) ue).getLon());
                     oldLat = prettyPrint(((UndoNode) ue).getLat());
                 }
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lon_label, oldLon, deleted ? null : prettyPrint(((Node) e).getLon()), tp));
-                tl.addView(TableLayoutUtils.createRow(activity, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((Node) e).getLat()), tp));
-            } else if (e.getName().equals(Way.NAME)) {
-                boolean isClosed = ((Way) e).isClosed();
-                String nodeCount = nodeCountString(((Way) e).nodeCount(), isClosed);
-                String lengthString = String.format(Locale.US, "%.2f", ((Way) e).length());
+                tl.addView(
+                        TableLayoutUtils.createRow(activity, R.string.location_lon_label, oldLon, deleted ? null : prettyPrint(((Node) element).getLon()), tp));
+                tl.addView(
+                        TableLayoutUtils.createRow(activity, R.string.location_lat_label, oldLat, deleted ? null : prettyPrint(((Node) element).getLat()), tp));
+            } else if (element.getName().equals(Way.NAME)) {
+                boolean isClosed = ((Way) element).isClosed();
+                String nodeCount = nodeCountString(((Way) element).nodeCount(), isClosed);
+                String lengthString = String.format(Locale.US, "%.2f", ((Way) element).length());
                 if (compare) {
                     tl.addView(TableLayoutUtils.createRow(activity, R.string.length_m, String.format(Locale.US, "%.2f", ((UndoWay) ue).length()),
                             deleted ? null : lengthString, tp));
@@ -248,8 +276,8 @@ public class ElementInfo extends DialogFragment {
                 // for (Node n:((Way)e).getNodes()) {
                 // tl.addView(createRow("", n.getDescription(),tp));
                 // }
-            } else if (e.getName().equals(Relation.NAME)) {
-                List<RelationMember> members = ((Relation) e).getMembers();
+            } else if (element.getName().equals(Relation.NAME)) {
+                List<RelationMember> members = ((Relation) element).getMembers();
                 String oldMembersCount = null;
                 List<RelationMember> oldMembers = null;
                 if (compare) {
@@ -267,10 +295,10 @@ public class ElementInfo extends DialogFragment {
                 }
             }
             Validator validator = App.getDefaultValidator(getActivity());
-            if (!deleted && e.hasProblem(getActivity(), validator) != Validator.OK) {
+            if (!deleted && element.hasProblem(getActivity(), validator) != Validator.OK) {
                 tl.addView(TableLayoutUtils.divider(activity));
                 boolean first = true;
-                for (String problem : validator.describeProblem(getActivity(), e)) {
+                for (String problem : validator.describeProblem(getActivity(), element)) {
                     String header = "";
                     if (first) {
                         header = getString(R.string.problem);
@@ -285,10 +313,10 @@ public class ElementInfo extends DialogFragment {
             }
 
             // tag display
-            if (e.getTags() != null && e.getTags().size() > 0) {
+            if (element.getTags() != null && element.getTags().size() > 0) {
                 tl.addView(TableLayoutUtils.divider(activity));
                 tl.addView(TableLayoutUtils.createRow(activity, R.string.menu_tags, null, null, tp));
-                Map<String, String> currentTags = e.getTags(); // the result of getTags is unmodifiable
+                Map<String, String> currentTags = element.getTags(); // the result of getTags is unmodifiable
                 Set<String> keys = new TreeSet<>(currentTags.keySet());
                 if (compare) {
                     if (deleted) {
@@ -325,7 +353,7 @@ public class ElementInfo extends DialogFragment {
                             tl.addView(TableLayoutUtils.createRow(activity, k, !oldIsEmpty ? encodeUrl(oldValue) : (compare ? "" : null),
                                     !deleted ? encodeUrl(currentValue) : null, true, tp));
                         } catch (MalformedURLException | URISyntaxException e1) {
-                            Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + e);
+                            Log.d(DEBUG_TAG, "Value " + currentValue + " caused " + element);
                             tl.addView(TableLayoutUtils.createRow(activity, k, currentValue, tp));
                         }
                     } else {
@@ -335,8 +363,8 @@ public class ElementInfo extends DialogFragment {
             }
 
             // relation member display
-            if (e.getName().equals(Relation.NAME)) {
-                List<RelationMember> members = ((Relation) e).getMembers();
+            if (element.getName().equals(Relation.NAME)) {
+                List<RelationMember> members = ((Relation) element).getMembers();
                 if (members != null) {
                     TableLayout t2 = (TableLayout) sv.findViewById(R.id.element_info_vertical_layout_2);
                     t2.addView(TableLayoutUtils.divider(activity));
@@ -409,7 +437,7 @@ public class ElementInfo extends DialogFragment {
             }
 
             // relation membership display
-            List<Relation> parentsList = e.getParentRelations();
+            List<Relation> parentsList = element.getParentRelations();
             List<Relation> origParentsList = compare ? ue.getParentRelations() : null;
 
             // complicated stuff to determine if a role changed
@@ -419,8 +447,8 @@ public class ElementInfo extends DialogFragment {
                 for (Relation parent : parentsList) {
                     UndoRelation parentUE = (UndoRelation) App.getDelegator().getUndo().getOriginal(parent);
                     if (parentUE != null) {
-                        List<RelationMember> ueMembers = parentUE.getAllMembers(e);
-                        List<RelationMember> members = parent.getAllMembers(e);
+                        List<RelationMember> ueMembers = parentUE.getAllMembers(element);
+                        List<RelationMember> members = parent.getAllMembers(element);
                         for (RelationMember ueMember : ueMembers) {
                             if (!hasRole(ueMember.getRole(), members)) {
                                 if (undoMembersMap == null) {
@@ -446,13 +474,13 @@ public class ElementInfo extends DialogFragment {
 
                 if (parents != null) {
                     for (Relation r : parents) {
-                        List<RelationMember> members = r.getAllMembers(e);
+                        List<RelationMember> members = r.getAllMembers(element);
                         Set<RelationMember> origMembers = null;
                         UndoElement origRelation = null;
                         if (compare && origParentsList != null && origParentsList.contains(r)) {
                             origRelation = App.getDelegator().getUndo().getOriginal(r);
                             if (origRelation != null) {
-                                origMembers = new LinkedHashSet<>(((UndoRelation) origRelation).getAllMembers(e));
+                                origMembers = new LinkedHashSet<>(((UndoRelation) origRelation).getAllMembers(element));
                                 origParents.remove(r);
                             }
                         }
@@ -480,7 +508,7 @@ public class ElementInfo extends DialogFragment {
                                 }
                             } else {
                                 // inconsistent state
-                                String message = "inconsistent state: " + e.getDescription() + " is not a member of " + r;
+                                String message = "inconsistent state: " + element.getDescription() + " is not a member of " + r;
                                 Log.d(DEBUG_TAG, message);
                                 ACRAHelper.nocrashReport(null, message);
                             }
@@ -500,7 +528,7 @@ public class ElementInfo extends DialogFragment {
                     for (Relation r : origParents) {
                         UndoElement origRelation = App.getDelegator().getUndo().getOriginal(r);
                         if (origRelation != null) {
-                            List<RelationMember> members = ((UndoRelation) origRelation).getAllMembers(e);
+                            List<RelationMember> members = ((UndoRelation) origRelation).getAllMembers(element);
                             if (members != null) {
                                 for (RelationMember rm : members) {
                                     t3.addView(TableLayoutUtils.createRow(activity, r.getDescription(), getPrettyRole(rm.getRole()), "", tp));

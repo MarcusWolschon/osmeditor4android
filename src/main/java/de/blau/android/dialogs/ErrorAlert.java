@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatDialog;
@@ -72,8 +70,9 @@ public class ErrorAlert extends DialogFragment {
         FragmentManager fm = activity.getSupportFragmentManager();
         ErrorAlert alertDialogFragment = newInstance(errorCode, msg);
         try {
-            if (alertDialogFragment != null) {
-                alertDialogFragment.show(fm, getTag(errorCode));
+            String tag = getTag(errorCode);
+            if (alertDialogFragment != null && tag != null) {
+                alertDialogFragment.show(fm, tag);
             } else {
                 Log.e(DEBUG_TAG, "Unable to create dialog for value " + errorCode);
             }
@@ -89,16 +88,9 @@ public class ErrorAlert extends DialogFragment {
      * @param errorCode the errorCode the dialog was for
      */
     private static void dismissDialog(@NonNull FragmentActivity activity, int errorCode) {
-        FragmentManager fm = activity.getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragment = fm.findFragmentByTag(getTag(errorCode));
-        try {
-            if (fragment != null) {
-                ft.remove(fragment);
-            }
-            ft.commit();
-        } catch (IllegalStateException isex) {
-            Log.e(DEBUG_TAG, "dismissDialog", isex);
+        String tag = getTag(errorCode);
+        if (tag != null) {
+            de.blau.android.dialogs.Util.dismissDialog(activity, tag);
         }
     }
 

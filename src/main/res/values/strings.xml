@@ -170,6 +170,7 @@
     <string name="last_edited">Last edited</string>
     <string name="original">Original</string>
     <string name="current">Current</string>
+    <string name="goto_element">Go to element</string>
     <!--  GeoJSON feature display dialog -->
     <string name="feature_information">GeoJSON feature info</string>
     <string name="copy_properties">Copy properties</string>
