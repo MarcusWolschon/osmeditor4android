@@ -1168,9 +1168,9 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
     }
 
     @Override
-    public void applyTagSuggestions(TagMap tags) {
+    public void applyTagSuggestions(TagMap tags, Runnable afterApply) {
         if (tagEditorFragment != null) {
-            tagEditorFragment.applyTagSuggestions(tags);
+            tagEditorFragment.applyTagSuggestions(tags, afterApply);
         } else {
             Log.e(DEBUG_TAG, "applyTagSuggestions tagEditorFragment is null");
         }
