@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ImmersiveDialogFragment;
 
 /**
@@ -46,35 +45,63 @@ public class Progress extends ImmersiveDialogFragment {
 
     private int dialogType;
 
-    public static void showDialog(FragmentActivity activity, int dialogType) {
+    /**
+     * Display a progress spinner
+     * 
+     * @param activity the calling FragmentActivity
+     * @param dialogType an int indicating which heading to show
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int dialogType) {
         showDialog(activity, dialogType, null);
     }
 
-    public static void showDialog(FragmentActivity activity, int dialogType, String tag) {
+    /**
+     * Display a progress spinner
+     * 
+     * @param activity the calling FragmentActivity
+     * @param dialogType an int indicating which heading to show
+     * @param tag a string to differentiate between multiple similar spinners
+     */
+    public static void showDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
+        tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
         dismissDialog(activity, dialogType, tag);
 
         FragmentManager fm = activity.getSupportFragmentManager();
         Progress progressDialogFragment = newInstance(dialogType);
         try {
-            tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
+            
             progressDialogFragment.show(fm, tag);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
         }
     }
 
-    public static void dismissDialog(FragmentActivity activity, int dialogType) {
+    /**
+     * Dismiss the progress spinner
+     * 
+     * @param activity the calling FragmentActivity
+     * @param dialogType an int indicating which heading to show
+     */
+    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType) {
         dismissDialog(activity, dialogType, null);
     }
 
-    public static void dismissDialog(FragmentActivity activity, int dialogType, String tag) {
+    /**
+     * Dismiss the progress spinner
+     * 
+     * @param activity the calling FragmentActivity
+     * @param dialogType an int indicating which heading to show
+     * tag a string to differentiate between multiple similar spinners
+     */
+    public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
+        tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
         de.blau.android.dialogs.Util.dismissDialog(activity, tag);
     }
 
     /**
      * Dismiss all possible progress dialogs to stop them being recreated
      * 
-     * @param activity
+     * @param activity the calling FragmentActivity
      */
     public static void dismissAll(FragmentActivity activity) {
         dismissDialog(activity, PROGRESS_LOADING);
@@ -90,6 +117,13 @@ public class Progress extends ImmersiveDialogFragment {
         dismissDialog(activity, PROGRESS_QUERY_OAM);
     }
 
+    /**
+     * Get the tag for a specific progress spinner version
+     * 
+     * @param dialogType an int indicating the title
+     * @return a String or null
+     */
+    @Nullable
     private static String getTag(int dialogType) {
         switch (dialogType) {
         case PROGRESS_LOADING:
@@ -118,6 +152,13 @@ public class Progress extends ImmersiveDialogFragment {
         return null;
     }
 
+    /**
+     * Get a new instance of a progress spinner
+     * 
+     * @param dialogType an int indicating the title
+     * @return a Progress instance
+     */
+    @NonNull
     private static Progress newInstance(final int dialogType) {
         Progress f = new Progress();
 
@@ -134,7 +175,6 @@ public class Progress extends ImmersiveDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        Preferences prefs = new Preferences(getActivity());
         setCancelable(true);
         dialogType = (Integer) getArguments().getSerializable(TYPE);
     }
