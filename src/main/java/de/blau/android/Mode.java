@@ -62,13 +62,7 @@ public enum Mode {
 
         @Override
         public void setup(final Main main, final Logic logic) {
-            Filter.Update updater = new Filter.Update() {
-                @Override
-                public void execute() {
-                    logic.invalidateMap();
-                    main.scheduleAutoLock();
-                }
-            };
+            StandardUpdater updater = new StandardUpdater(logic, main);
             Filter filter = logic.getFilter();
             if (filter != null) {
                 if (!(filter instanceof IndoorFilter)) {
@@ -91,14 +85,7 @@ public enum Mode {
 
         @Override
         public void teardown(final Main main, final Logic logic) {
-            Filter.Update updater = new Filter.Update() {
-                @Override
-                public void execute() {
-                    logic.invalidateMap();
-                    main.scheduleAutoLock();
-                }
-            };
-
+            StandardUpdater updater = new StandardUpdater(logic, main);
             // indoor mode is a special case of a filter
             // needs to be removed here and previous filter, if any, restored
             Filter filter = logic.getFilter();
@@ -140,13 +127,7 @@ public enum Mode {
 
         @Override
         public void setup(final Main main, final Logic logic) {
-            Filter.Update updater = new Filter.Update() {
-                @Override
-                public void execute() {
-                    logic.invalidateMap();
-                    main.scheduleAutoLock();
-                }
-            };
+            StandardUpdater updater = new StandardUpdater(logic, main);
             Filter filter = logic.getFilter();
             if (filter != null) {
                 if (!(filter instanceof CorrectFilter)) {
