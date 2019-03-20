@@ -109,11 +109,6 @@ public class TaskFragment extends ImmersiveDialogFragment {
         return f;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @SuppressLint({ "NewApi", "InflateParams" })
     @NonNull
     @Override

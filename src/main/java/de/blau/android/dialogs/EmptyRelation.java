@@ -5,7 +5,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +16,7 @@ import de.blau.android.Logic;
 import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.osm.Relation;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -24,7 +24,7 @@ import de.blau.android.util.ThemeUtils;
  * some members.
  *
  */
-public class EmptyRelation extends DialogFragment {
+public class EmptyRelation extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = EmptyRelation.class.getSimpleName();
 
@@ -82,7 +82,6 @@ public class EmptyRelation extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCancelable(false);
         relationId = getArguments().getLong(RELATION_ID_KEY);
     }
 

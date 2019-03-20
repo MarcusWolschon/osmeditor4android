@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -56,6 +55,7 @@ import de.blau.android.osm.Way;
 import de.blau.android.prefs.Preferences;
 import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.FilterlessArrayAdapter;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.validation.FormValidation;
 import de.blau.android.validation.NotEmptyValidator;
@@ -67,7 +67,7 @@ import de.blau.android.views.ExtendedViewPager;
  * 
  *
  */
-public class ConfirmUpload extends DialogFragment {
+public class ConfirmUpload extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = ConfirmUpload.class.getSimpleName();
 
@@ -127,12 +127,6 @@ public class ConfirmUpload extends DialogFragment {
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
     }
 
     @NonNull

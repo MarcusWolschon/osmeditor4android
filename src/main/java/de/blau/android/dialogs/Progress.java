@@ -69,7 +69,7 @@ public class Progress extends ImmersiveDialogFragment {
         FragmentManager fm = activity.getSupportFragmentManager();
         Progress progressDialogFragment = newInstance(dialogType);
         try {
-            
+
             progressDialogFragment.show(fm, tag);
         } catch (IllegalStateException isex) {
             Log.e(DEBUG_TAG, "showDialog", isex);
@@ -90,8 +90,8 @@ public class Progress extends ImmersiveDialogFragment {
      * Dismiss the progress spinner
      * 
      * @param activity the calling FragmentActivity
-     * @param dialogType an int indicating which heading to show
-     * tag a string to differentiate between multiple similar spinners
+     * @param dialogType an int indicating which heading to show tag a string to differentiate between multiple similar
+     *            spinners
      */
     public static void dismissDialog(@NonNull FragmentActivity activity, int dialogType, @Nullable String tag) {
         tag = getTag(dialogType) + (tag != null ? "-" + tag : "");
@@ -174,8 +174,6 @@ public class Progress extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
         dialogType = (Integer) getArguments().getSerializable(TYPE);
     }
 

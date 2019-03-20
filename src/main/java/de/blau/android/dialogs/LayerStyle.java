@@ -106,21 +106,6 @@ public class LayerStyle extends ImmersiveDialogFragment {
         map = App.getLogic().getMap();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(DEBUG_TAG, "onAttach");
-        if (!(context instanceof Main)) {
-            throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
-    }
-
     @NonNull
     @SuppressLint("InflateParams")
     @Override

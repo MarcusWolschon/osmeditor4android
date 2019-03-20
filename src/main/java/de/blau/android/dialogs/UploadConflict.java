@@ -98,7 +98,6 @@ public class UploadConflict extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCancelable(true);
         result = (UploadResult) getArguments().getSerializable(UPLOADRESULT);
     }
 

@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +18,7 @@ import android.support.v7.app.AppCompatDialog;
 import android.util.Log;
 import de.blau.android.Main;
 import de.blau.android.R;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 
@@ -26,7 +26,7 @@ import de.blau.android.util.ThemeUtils;
  * Display a dialog asking for a file name to save to
  *
  */
-public class ImportTrack extends DialogFragment {
+public class ImportTrack extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = ImportTrack.class.getSimpleName();
 
     private static final String URI_KEY = "uri";
@@ -90,7 +90,6 @@ public class ImportTrack extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCancelable(true);
         uri = getArguments().getParcelable(URI_KEY);
     }
 

@@ -3,6 +3,8 @@ package de.blau.android.util;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -67,5 +69,11 @@ public abstract class ImmersiveDialogFragment extends DialogFragment {
             // Make the dialogs window focusable again
             dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
+    }
+    
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setCancelable(true);
     }
 }

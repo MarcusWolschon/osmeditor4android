@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -19,13 +17,14 @@ import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.osm.Server;
 import de.blau.android.prefs.Preferences;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog reporting that the login credentials don't work
  *
  */
-public class InvalidLogin extends DialogFragment {
+public class InvalidLogin extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = InvalidLogin.class.getSimpleName();
 
@@ -66,21 +65,6 @@ public class InvalidLogin extends DialogFragment {
         InvalidLogin f = new InvalidLogin();
         f.setShowsDialog(true);
         return f;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(DEBUG_TAG, "onAttach");
-        if (!(context instanceof Main)) {
-            throw new ClassCastException(context.toString() + " can only be called from Main");
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
     }
 
     @NonNull

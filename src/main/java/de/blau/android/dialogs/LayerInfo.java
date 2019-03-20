@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.Screen;
 import de.blau.android.util.ThemeUtils;
 import de.blau.android.util.Util;
@@ -28,7 +28,7 @@ import de.blau.android.util.Util;
  * @author simon
  *
  */
-public abstract class LayerInfo extends DialogFragment {
+public abstract class LayerInfo extends ImmersiveDialogFragment {
 
     private static final String DEBUG_TAG = LayerInfo.class.getName();
 

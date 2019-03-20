@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -20,13 +18,14 @@ import de.blau.android.Main;
 import de.blau.android.R;
 import de.blau.android.listener.DoNothingListener;
 import de.blau.android.listener.GpxUploadListener;
+import de.blau.android.util.ImmersiveDialogFragment;
 import de.blau.android.util.ThemeUtils;
 
 /**
  * Display a dialog to select a file to upload
  *
  */
-public class GpxUpload extends DialogFragment {
+public class GpxUpload extends ImmersiveDialogFragment {
     private static final String DEBUG_TAG = GpxUpload.class.getSimpleName();
     private static final String TAG       = "fragment_gpx_upload";
 
@@ -74,12 +73,6 @@ public class GpxUpload extends DialogFragment {
         if (!(context instanceof Main)) {
             throw new ClassCastException(context.toString() + " can only be called from Main");
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(true);
     }
 
     @NonNull

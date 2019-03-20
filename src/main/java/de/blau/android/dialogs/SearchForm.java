@@ -98,8 +98,6 @@ public class SearchForm extends ImmersiveDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCancelable(true);
-
         bbox = (ViewBox) getArguments().getSerializable(BBOX_KEY);
     }
 
