@@ -2954,13 +2954,7 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void enableSimpleActionsButton() {
         if (simpleActionsButton != null) {
-            simpleActionsButton.setEnabled(true);
-            ColorStateList stateList = ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                simpleActionsButton.setBackgroundTintList(stateList);
-            } else {
-                Util.setBackgroundTintList(simpleActionsButton, stateList);
-            }
+            changeSimpleActionsButtonState(true, ContextCompat.getColorStateList(Main.this, ThemeUtils.getResIdFromAttribute(Main.this, R.attr.colorAccent)));
         }
     }
 
@@ -2969,15 +2963,24 @@ public class Main extends FullScreenAppCompatActivity
      */
     public void disableSimpleActionsButton() {
         if (simpleActionsButton != null) {
-            float elevation = simpleActionsButton.getCompatElevation();
-            simpleActionsButton.setEnabled(false);
-            simpleActionsButton.setCompatElevation(elevation);
-            ColorStateList stateList = ContextCompat.getColorStateList(Main.this, R.color.dark_grey);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                simpleActionsButton.setBackgroundTintList(stateList);
-            } else {
-                Util.setBackgroundTintList(simpleActionsButton, stateList);
-            }
+            changeSimpleActionsButtonState(false, ContextCompat.getColorStateList(Main.this, R.color.dark_grey));
+        }
+    }
+
+    /**
+     * Change the sate of the simple actions button
+     * 
+     * @param enabled the new state
+     * @param stateList the ColorStateList
+     */
+    private void changeSimpleActionsButtonState(boolean enabled, @NonNull ColorStateList stateList) {
+        float elevation = simpleActionsButton.getCompatElevation();
+        simpleActionsButton.setEnabled(enabled);
+        simpleActionsButton.setCompatElevation(elevation);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            simpleActionsButton.setBackgroundTintList(stateList);
+        } else {
+            Util.setBackgroundTintList(simpleActionsButton, stateList);
         }
     }
 
