@@ -111,21 +111,14 @@ public class MBTileProviderDataBase {
             if (mDatabase.isOpen()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     SQLiteStatement get = null;
-                    ParcelFileDescriptor pfd = null;
                     try {
                         get = getStatements.acquire();
                         if (get == null) {
                             Log.e(DEBUG_TAG, "statement null");
                             return null;
                         }
-                        int ymax = 1 << aTile.zoomLevel; // TMS scheme
-                        int y = ymax - aTile.y - 1;
-                        get.bindLong(1, aTile.zoomLevel);
-                        get.bindLong(2, aTile.x);
-                        get.bindLong(3, y);
-                        pfd = get.simpleQueryForBlobFileDescriptor();
-
-                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                        bindTile(aTile, get);
+                        ParcelFileDescriptor.AutoCloseInputStream acis = new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
                         byte[] buffer = new byte[4096];
@@ -149,8 +142,7 @@ public class MBTileProviderDataBase {
                             null, null);
                     try {
                         if (c.moveToFirst()) {
-                            byte[] tile_data = c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
-                            return tile_data;
+                            return c.getBlob(c.getColumnIndexOrThrow(T_MBTILES_DATA));
                         }
                     } finally {
                         c.close();
@@ -183,20 +175,14 @@ public class MBTileProviderDataBase {
             if (mDatabase.isOpen()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     SQLiteStatement get = null;
-                    ParcelFileDescriptor pfd = null;
                     try {
                         get = getStatements.acquire();
                         if (get == null) {
                             Log.e(DEBUG_TAG, "statement null");
                             return null;
                         }
-                        int ymax = 1 << aTile.zoomLevel; // TMS scheme
-                        int y = ymax - aTile.y - 1;
-                        get.bindLong(1, aTile.zoomLevel);
-                        get.bindLong(2, aTile.x);
-                        get.bindLong(3, y);
-                        pfd = get.simpleQueryForBlobFileDescriptor();
-                        return new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+                        bindTile(aTile, get);
+                        return new ParcelFileDescriptor.AutoCloseInputStream(get.simpleQueryForBlobFileDescriptor());
                     } catch (SQLiteDoneException sde) {
                         // nothing found
                         return null;
@@ -225,6 +211,20 @@ public class MBTileProviderDataBase {
             Log.d(MapTileFilesystemProvider.DEBUG_TAG, "Tile not found in DB");
         }
         return null;
+    }
+
+    /**
+     * Bind the tile values to the prepared statement
+     * 
+     * @param aTile the tile descriptor
+     * @param get the prepared statement
+     */
+    private void bindTile(@NonNull final MapTile aTile, @NonNull SQLiteStatement get) {
+        int ymax = 1 << aTile.zoomLevel; // TMS scheme
+        int y = ymax - aTile.y - 1;
+        get.bindLong(1, aTile.zoomLevel);
+        get.bindLong(2, aTile.x);
+        get.bindLong(3, y);
     }
 
     /**
