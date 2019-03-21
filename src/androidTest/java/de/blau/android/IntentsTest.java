@@ -111,7 +111,7 @@ public class IntentsTest {
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient(context);
+        TestUtils.selectIntentRecipient();
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
         Assert.assertNotNull(geo);
         // there currently doesn't seem to be a reasonable way to wait until we have downloaded
@@ -141,7 +141,7 @@ public class IntentsTest {
         // <bounds minlat="47.3892400" minlon="8.3844600" maxlat="47.3911300" maxlon="8.3879800"/
         Uri uri = Uri.parse("geo:47.3905,8.385?z=18");
         main.startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        TestUtils.selectIntentRecipient(context);
+        TestUtils.selectIntentRecipient();
         GeoUrlActivity geo = (GeoUrlActivity) instrumentation.waitForMonitorWithTimeout(monitor, 60000);
         Assert.assertNotNull(geo);
 

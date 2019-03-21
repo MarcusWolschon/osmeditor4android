@@ -63,7 +63,7 @@ public class TestUtils {
      * 
      * @param ctx Android context
      */
-    public static void dismissStartUpDialogs(Context ctx) {
+    public static void dismissStartUpDialogs(@NonNull Context ctx) {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         clickText(mDevice, true, ctx.getResources().getString(R.string.okay), false);
         clickText(mDevice, true, ctx.getResources().getString(R.string.location_load_dismiss), false);
@@ -73,10 +73,8 @@ public class TestUtils {
      * Select the recipient of an intent
      * 
      * Currently flaky
-     * 
-     * @param ctx Android context
      */
-    public static void selectIntentRecipient(Context ctx) {
+    public static void selectIntentRecipient() {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         mDevice.waitForWindowUpdate(null, 1000);
         clickText(mDevice, false, "Vespucci", false);
