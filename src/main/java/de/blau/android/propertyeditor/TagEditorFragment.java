@@ -1747,18 +1747,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
     }
 
     /**
-     * Update the MRU preset view
-     */
-    void recreateRecentPresetView() {
-        Log.d(DEBUG_TAG, "Updating MRU prests");
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
-        }
-    }
-
-    /**
      * Merge a set of tags in to the current ones
      * 
      * @param newTags the new tags to merge
@@ -2216,6 +2204,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
+    /**
+     * Enable the MRU list of Presets
+     */
     public void enableRecentPresets() {
         FragmentManager fm = getChildFragmentManager();
         Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
@@ -2224,6 +2215,9 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         }
     }
 
+    /**
+     * Disable the MRU list of Presets
+     */
     public void disableRecentPresets() {
         FragmentManager fm = getChildFragmentManager();
         Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);

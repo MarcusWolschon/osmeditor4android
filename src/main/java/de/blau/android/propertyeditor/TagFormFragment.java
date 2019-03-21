@@ -430,14 +430,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        // disable address tagging for stuff that won't have an address
-        // menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) ||
-        // element.hasTagKey(Tags.KEY_BUILDING));
-    }
-
-    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
         case android.R.id.home:
@@ -588,40 +580,6 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
             Log.d(DEBUG_TAG, "got null view in getView");
         }
         return null;
-    }
-
-    /**
-     * Enable the MRU list of Presets
-     */
-    public void enableRecentPresets() {
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).enable();
-        }
-    }
-
-    /**
-     * Disable the MRU list of Presets
-     */
-    public void disableRecentPresets() {
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).disable();
-        }
-    }
-
-    /**
-     * Recreate the MRU list of Presets
-     */
-    void recreateRecentPresetView() {
-        Log.d(DEBUG_TAG, "Updating MRU prests");
-        FragmentManager fm = getChildFragmentManager();
-        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
-        if (recentPresetsFragment != null) {
-            ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
-        }
     }
 
     /**

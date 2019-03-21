@@ -106,7 +106,6 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
 
     RelationMembershipFragment relationMembershipFragment;
     RelationMembersFragment    relationMembersFragment;
-    RecentPresetsFragment      recentPresetsFragment;
 
     private PropertyEditorPagerAdapter pagerAdapter;
 
@@ -751,11 +750,26 @@ public class PropertyEditor extends BugFixedAppCompatActivity implements Propert
                 ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
             }
         } else {
+            FragmentManager fm;
             if (tagFormFragment != null) {
-                tagFormFragment.recreateRecentPresetView();
+                fm = tagFormFragment.getChildFragmentManager();
             } else {
-                tagEditorFragment.recreateRecentPresetView();
+                fm = tagEditorFragment.getChildFragmentManager();
             }
+            recreateRecentPresetView(fm);
+        }
+    }
+    
+    /**
+     * Recreate the MRU list of Presets
+     * 
+     * @param fm the child fragment manager for the fragment
+     */
+    void recreateRecentPresetView(@NonNull FragmentManager fm) {
+        Log.d(DEBUG_TAG, "Updating MRU prests");
+        Fragment recentPresetsFragment = fm.findFragmentByTag(PropertyEditor.RECENTPRESETS_FRAGMENT);
+        if (recentPresetsFragment != null) {
+            ((RecentPresetsFragment) recentPresetsFragment).recreateRecentPresetView();
         }
     }
 
