@@ -86,15 +86,17 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     /**
      * For now hardwired defaults in lieu of moving this to a DB
      */
+    private static final String DESTINATION_MO_FR_19_00_31_00_SA_SU = "destination @ Mo-Fr 19:00-31:00,Sa,Su";
+
     private static final Map<String, String> DEFAULT_VALUES = new HashMap<>();
     static {
         DEFAULT_VALUES.put(Tags.KEY_MAXSPEED, "50 @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_ACCESS, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_VEHICLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_BICYCLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_MOTORCAR, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_MOTORCYCLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
-        DEFAULT_VALUES.put(Tags.KEY_MOTOR_VEHICLE, "destination @ Mo-Fr 19:00-31:00,Sa,Su");
+        DEFAULT_VALUES.put(Tags.KEY_ACCESS, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_VEHICLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_BICYCLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCAR, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTORCYCLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
+        DEFAULT_VALUES.put(Tags.KEY_MOTOR_VEHICLE, DESTINATION_MO_FR_19_00_31_00_SA_SU);
     }
 
     private LayoutInflater inflater = null;
@@ -158,12 +160,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(DEBUG_TAG, "onCreate");
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
@@ -205,11 +201,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         if (conditionalRestrictionValue == null || "".equals(conditionalRestrictionValue)) {
             String nonConditionalKey = key.replace(Tags.KEY_CONDITIONAL_SUFFIX, "");
-            // conditionalRestrictionValue = TemplateDatabase.getDefault(mDatabase, key);
             conditionalRestrictionValue = DEFAULT_VALUES.get(nonConditionalKey);
-            // if (conditionalRestrictionValue == null) { // didn't find a key specific default try general default now
-            // conditionalRestrictionValue = TemplateDatabase.getDefault(mDatabase, null);
-            // }
             loadedDefault = conditionalRestrictionValue != null;
         }
         // generate the list of possible values from the templates
@@ -283,17 +275,10 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        Log.d(DEBUG_TAG, "onOptionsItemSelected");
-        return true;
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         Log.d(DEBUG_TAG, "onResume");
         if (loadedDefault) {
-            Log.d(DEBUG_TAG, "Show toast");
             Snack.toastTopWarning(getContext(), getString(R.string.loaded_default));
         }
     }
@@ -330,10 +315,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // unused
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // unused
         }
     };
 
@@ -420,7 +407,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             spannable.setSpan(new ForegroundColorSpan(Color.RED), c, Math.max(c, Math.min(c + 1, spannable.length())), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             text.setText(spannable, TextView.BufferType.SPANNABLE);
             text.setSelection(Math.min(pos, spannable.length()));
-            // Snack.barError(getActivity(), pex.getLocalizedMessage());
             Snack.toastTopError(getActivity(), pex.getLocalizedMessage());
         }
     }
@@ -437,7 +423,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
             String t = Util.restrictionsToString(restrictions);
             text.setText(t);
         }
-        // text.setText(text.getText().toString());
         text.setSelection(prevLen < text.length() ? text.length() : Math.min(pos, text.length()));
     }
 
@@ -500,10 +485,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // unused
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // unused
             }
         };
         value.addTextChangedListener(valueWatcher);
@@ -574,6 +561,7 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
+                            // unused
                         }
                     });
                     TextWatcher expressionWatcher = new TextWatcher() {
@@ -588,10 +576,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            // unused
                         }
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            // unused
                         }
                     };
                     term1.addTextChangedListener(expressionWatcher);
@@ -651,10 +641,12 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
 
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            // unused
                         }
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            // unused
                         }
                     };
                     term.addTextChangedListener(conditionWatcher);
@@ -846,8 +838,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                 row.post(new Runnable() {
                     @Override
                     public void run() {
-                        // Snack.barWarning(row, getString(R.string.toast_openinghours_autocorrected, key),
-                        // Snackbar.LENGTH_LONG);
                         Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_autocorrected, key));
                     }
                 });
@@ -855,8 +845,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
                 row.post(new Runnable() {
                     @Override
                     public void run() {
-                        // Snack.barWarning(row, getString(R.string.toast_openinghours_invalid, key),
-                        // Snackbar.LENGTH_LONG);
                         Snack.toastTopWarning(getActivity(), getString(R.string.toast_openinghours_invalid, key));
                     }
                 });
@@ -897,33 +885,6 @@ public class ConditionalRestrictionFragment extends DialogFragment implements On
         outState.putSerializable(VALUE_KEY, text.getText().toString());
         outState.putSerializable(TEMPLATES_KEY, templates);
         outState.putSerializable(OH_TEMPLATES_KEY, ohTemplates);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(DEBUG_TAG, "onPause");
-        // savedParents = getParentRelationMap();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        // disable address tagging for stuff that won't have an address
-        // menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME)
-        // || element.hasTagKey(Tags.KEY_BUILDING));
     }
 
     /**
