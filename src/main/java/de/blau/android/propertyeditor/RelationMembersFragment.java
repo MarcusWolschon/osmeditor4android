@@ -431,38 +431,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(DEBUG_TAG, "onStart");
-        setIcons();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(DEBUG_TAG, "onPause");
-        savedMembers = getMembersList();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(DEBUG_TAG, "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
-    }
-
     /**
      * Insert a new row with a relation member
      * 
@@ -1010,14 +978,6 @@ public class RelationMembersFragment extends BaseFragment implements PropertyRow
         // final MenuInflater inflater = getSupportMenuInflater();
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.members_menu, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        // disable address tagging for stuff that won't have an address
-        // menu.findItem(R.id.tag_menu_address).setVisible(!type.equals(Way.NAME) ||
-        // element.hasTagKey(Tags.KEY_BUILDING));
     }
 
     @Override

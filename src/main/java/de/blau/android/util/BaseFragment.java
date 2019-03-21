@@ -4,7 +4,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 /**
  * Workaround deprecation of onAttach(Activity activity) See https://code.google.com/p/android/issues/detail?id=183358
@@ -12,7 +15,10 @@ import android.support.v4.app.Fragment;
  * @author simon
  *
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    private static final String DEBUG_TAG = "BaseFragment";
+
 
     @TargetApi(23)
     @Override
@@ -30,6 +36,17 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    protected void onAttachToContext(Context context) {
+    /**
+     * Replacement for the onAttach callbacks 
+     * 
+     * @param context the Android Context
+     */
+    abstract protected void onAttachToContext(@NonNull Context context);
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(DEBUG_TAG, "onSaveInstanceState");
+        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 }

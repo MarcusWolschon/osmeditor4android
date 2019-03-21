@@ -192,25 +192,6 @@ public class RelationMembershipFragment extends BaseFragment implements Property
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(DEBUG_TAG, "onPause");
-        savedParents = getParentRelationMap();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
-    }
-
     /**
      * Insert a new row with a parent relation
      * 

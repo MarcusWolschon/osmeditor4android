@@ -251,40 +251,10 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(DEBUG_TAG, "onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(DEBUG_TAG, "onResume");
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(DEBUG_TAG, "onSaveInstanceState");
         Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(DEBUG_TAG, "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
     }
 
     @Override

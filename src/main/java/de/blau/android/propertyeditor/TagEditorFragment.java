@@ -248,12 +248,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         getActivity().supportInvalidateOptionsMenu();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(DEBUG_TAG, "onCreate");
-    }
-
     /**
      * display member elements of the relation if any
      * 
@@ -491,24 +485,6 @@ public class TagEditorFragment extends BaseFragment implements PropertyRows, Edi
         super.onPause();
         Log.d(DEBUG_TAG, "onPause");
         savedTags = getKeyValueMap(true);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(DEBUG_TAG, "onDestroyView");
     }
 
     /**

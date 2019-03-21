@@ -65,12 +65,6 @@ public class RecentPresetsFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(DEBUG_TAG, "onCreate");
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout presetsLayout = (LinearLayout) inflater.inflate(R.layout.recentpresets_view, null);
 
@@ -157,37 +151,6 @@ public class RecentPresetsFragment extends BaseFragment {
         return v;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d(DEBUG_TAG, "onSaveInstanceState");
-        Log.w(DEBUG_TAG, "onSaveInstanceState bundle size " + Util.getBundleSize(outState));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(DEBUG_TAG, "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(DEBUG_TAG, "onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(DEBUG_TAG, "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(DEBUG_TAG, "onDestroy");
-    }
-
     /**
      * Removes a preset from the MRU
      * 
@@ -227,8 +190,6 @@ public class RecentPresetsFragment extends BaseFragment {
         if (v != null) {
             presetLayout.addView(v);
             presetLayout.setVisibility(View.VISIBLE);
-        } else {
-
         }
         presetLayout.invalidate();
     }
@@ -271,7 +232,7 @@ public class RecentPresetsFragment extends BaseFragment {
     }
 
     /**
-     * Diable selection of presets
+     * Disable selection of presets
      */
     void disable() {
         enabled = false;
