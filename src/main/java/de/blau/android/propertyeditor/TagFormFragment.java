@@ -979,7 +979,7 @@ public class TagFormFragment extends BaseFragment implements FormUpdate {
     /**
      * Add a row for a PresetCheckGroupField
      * 
-     * Depending on the number of etries and if a hint is set or not, different layout variants will be used
+     * Depending on the number of entries and if a hint is set or not, different layout variants will be used
      * 
      * @param rowLayout the Layout holding the rows
      * @param field the PresetField for this row

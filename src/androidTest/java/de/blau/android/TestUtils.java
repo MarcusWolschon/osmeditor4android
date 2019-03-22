@@ -146,6 +146,7 @@ public class TestUtils {
                 return button.click();
             }
         } catch (UiObjectNotFoundException e) {
+            System.out.println(e.getMessage() + " " + resId);
             return false;
         }
     }

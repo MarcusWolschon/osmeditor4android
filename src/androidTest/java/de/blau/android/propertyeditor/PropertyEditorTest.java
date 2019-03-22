@@ -99,7 +99,7 @@ public class PropertyEditorTest {
         prefDB.deleteAPI("Test");
         prefDB.addAPI("Test", "Test", mockBaseUrl.toString(), null, null, "user", "pass", false);
         prefDB.selectAPI("Test");
-        mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        mDevice = UiDevice.getInstance(instrumentation);
         TestUtils.grantPermissons();
         TestUtils.dismissStartUpDialogs(main);
     }
@@ -590,6 +590,63 @@ public class PropertyEditorTest {
         found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Motorway"), true);
         Assert.assertTrue(found);
     }
+    
+    /**
+     * Navigate to a specific preset item
+     */
+    @Test
+    public void applyOptional() {
+        final CountDownLatch signal = new CountDownLatch(1);
+        mockServer.enqueue("capabilities1");
+        mockServer.enqueue("download1");
+        Logic logic = App.getLogic();
+        logic.downloadBox(main, new BoundingBox(8.3879800D, 47.3892400D, 8.3844600D, 47.3911300D), false, new SignalHandler(signal));
+        try {
+            signal.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Assert.fail(e.getMessage());
+        }
+        Way w = (Way) App.getDelegator().getOsmElement(Way.NAME, 27009604L);
+        Assert.assertNotNull(w);
+
+        main.performTagEdit(w, null, false, false, false);
+        Activity propertyEditor = instrumentation.waitForMonitorWithTimeout(monitor, 30000);
+        Assert.assertTrue(propertyEditor instanceof PropertyEditor);
+
+        if (!((PropertyEditor) propertyEditor).paneLayout()) {
+            Assert.assertTrue(TestUtils.clickText(mDevice, true, main.getString(R.string.tag_menu_preset), false));
+        }
+        boolean found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Highways"), true);
+        Assert.assertTrue(found);
+        found = TestUtils.clickText(mDevice, true, getTranslatedPresetGroupName("Ways"), true);
+        Assert.assertTrue(found);
+        found = TestUtils.clickText(mDevice, true, getTranslatedPresetItemName("Steps"), true);
+        Assert.assertTrue(found);
+        TestUtils.clickButton("de.blau.android:id/tag_menu_apply_preset", false);
+        mDevice.waitForIdle(1000);
+        UiObject2 handrail = null;
+        try {
+            handrail = getField("Handrail", 1);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail();
+        }
+        Assert.assertNotNull(handrail);
+        handrail.click();
+        
+        UiObject2 overtaking = null;
+        try {
+            overtaking = getField("Overtaking", 1);
+        } catch (UiObjectNotFoundException e) {
+            Assert.fail();
+        }
+        Assert.assertNotNull(overtaking);
+        overtaking.click();
+        mDevice.waitForIdle(1000);
+        TestUtils.clickText(mDevice, true, "In way direction", false);
+        TestUtils.clickText(mDevice, true, "Save", true);
+        Assert.assertTrue(TestUtils.findText(mDevice, false, "In way direction"));
+    }
+
 
     /**
      * Add a conditional restriction, this is just a rough test without using the actual UI elements of the editor
