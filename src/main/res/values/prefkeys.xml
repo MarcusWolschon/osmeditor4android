@@ -63,11 +63,6 @@
     <string name="config_geocoder_button_key">geocoderButton</string>
     <string name="config_contrastValue_key">contrastFloatValue</string>
     <string name="config_js_console_key">jsConsole</string>
-    <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
-    <string name="config_osmPreferredDir_key">osmPreferredDir</string>
-    <string name="config_notesPreferredDir_key">notesPreferredDir</string>
-    <string name="config_scriptsPreferredDir_key">scriptsPreferredDir</string>
-    <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
     <string name="config_validatorprefs_key">validatorprefs</string>
     <string name="config_customlayers_key">customLayers</string>
     <string name="config_enableAutoPresets_key">enableAutoPresets</string>
@@ -102,4 +97,13 @@
 	   <item>@string/gps_source_tcpserver</item>
 	</string-array>
 	<string name="config_gps_source_tcp_key">gpsTcpSourceKey</string>
+    
+    <!-- Last directories used in the file selector -->
+    <string name="config_gpxPreferredDir_key">gpxPreferredDir</string>
+    <string name="config_osmPreferredDir_key">osmPreferredDir</string>
+    <string name="config_notesPreferredDir_key">notesPreferredDir</string>
+    <string name="config_scriptsPreferredDir_key">scriptsPreferredDir</string>
+    <string name="config_mbtilesPreferredDir_key">mbtilesPreferredDir</string>
+    <string name="config_presetsPreferredDir_key">presetsPreferredDir</string>
+    <string name="config_msfPreferredDir_key">msfPreferredDir</string>
 </resources>

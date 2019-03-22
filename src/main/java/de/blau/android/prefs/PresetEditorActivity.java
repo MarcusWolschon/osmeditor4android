@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,6 +42,7 @@ import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import de.blau.android.App;
 import de.blau.android.HelpViewer;
@@ -52,7 +54,9 @@ import de.blau.android.prefs.AdvancedPrefDatabase.PresetInfo;
 import de.blau.android.presets.Preset;
 import de.blau.android.presets.PresetIconManager;
 import de.blau.android.services.util.StreamUtils;
+import de.blau.android.util.ReadFile;
 import de.blau.android.util.SavingHelper;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.Snack;
 import de.blau.android.util.ThemeUtils;
 import okhttp3.Call;
@@ -73,6 +77,8 @@ public class PresetEditorActivity extends URLListEditActivity {
     private static final int MENU_DOWN   = 3;
 
     private static final int MENUITEM_HELP = 1;
+
+    private static final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
 
     /**
      * Construct a new instance
@@ -287,10 +293,17 @@ public class PresetEditorActivity extends URLListEditActivity {
 
             @Override
             protected Integer doInBackground(Void... args) {
-                int downloadResult = download(item.value, Preset.PRESETXML);
-                if (downloadResult == DOWNLOADED_PRESET_ERROR) {
+                int loadResult = RESULT_TOTAL_SUCCESS;
+                Uri uri = Uri.parse(item.value);
+                if ("file".equals(uri.getScheme())) {
+                    loadResult = load(uri, Preset.PRESETXML);
+                } else {
+                    loadResult = download(item.value, Preset.PRESETXML);
+                }
+
+                if (loadResult == DOWNLOADED_PRESET_ERROR) {
                     return RESULT_TOTAL_FAILURE;
-                } else if (downloadResult == DOWNLOADED_PRESET_ZIP) {
+                } else if (loadResult == DOWNLOADED_PRESET_ZIP) {
                     return RESULT_TOTAL_SUCCESS;
                 } // fall through to further processing
 
@@ -322,7 +335,7 @@ public class PresetEditorActivity extends URLListEditActivity {
              *            will be replaced with the URL hash).
              * @return code indicating result
              */
-            private int download(String url, String filename) {
+            private int download(@NonNull String url, @Nullable String filename) {
                 if (filename == null) {
                     filename = PresetIconManager.hash(url) + ".png";
                 }
@@ -330,7 +343,6 @@ public class PresetEditorActivity extends URLListEditActivity {
                 OutputStream fileStream = null;
                 try {
                     Log.d(DEBUG_TAG, "Downloading " + url + " to " + presetDir + "/" + filename);
-                    final String FILE_NAME_TEMPORARY_ARCHIVE = "temp.zip";
                     boolean zip = false;
 
                     Request request = new Request.Builder().url(url).build();
@@ -367,6 +379,36 @@ public class PresetEditorActivity extends URLListEditActivity {
                 } finally {
                     SavingHelper.close(downloadStream);
                     SavingHelper.close(fileStream);
+                }
+            }
+
+            /**
+             * Load a Preset from a local file
+             * 
+             * @param uri the file uri to load from
+             * @param filename A filename where to save the file.
+             * @return code indicating result
+             */
+            private int load(@NonNull Uri uri, @NonNull String filename) {
+                boolean zip = uri.getPath().toLowerCase(Locale.US).endsWith(".zip");
+                if (zip) {
+                    Log.d(DEBUG_TAG, "detected zip file");
+                    filename = FILE_NAME_TEMPORARY_ARCHIVE;
+                }
+                try (InputStream loadStream = new FileInputStream(new File(uri.getPath()));
+                        OutputStream fileStream = new FileOutputStream(new File(presetDir, filename));) {
+                    Log.d(DEBUG_TAG, "Loading " + uri + " to " + presetDir + "/" + filename);
+                    StreamUtils.copy(loadStream, fileStream);
+                    if (zip && unpackZip(presetDir.getPath() + "/", filename)) {
+                        if (!(new File(presetDir, FILE_NAME_TEMPORARY_ARCHIVE)).delete()) {
+                            Log.e(DEBUG_TAG, "Could not delete " + FILE_NAME_TEMPORARY_ARCHIVE);
+                        }
+                        return DOWNLOADED_PRESET_ZIP;
+                    }
+                    return DOWNLOADED_PRESET_XML;
+                } catch (Exception e) {
+                    Log.e(DEBUG_TAG, "Could not load file " + uri + " " + e.getMessage());
+                    return DOWNLOADED_PRESET_ERROR;
                 }
             }
 
@@ -509,6 +551,7 @@ public class PresetEditorActivity extends URLListEditActivity {
         final TextView editName = (TextView) mainView.findViewById(R.id.listedit_editName);
         final TextView editValue = (TextView) mainView.findViewById(R.id.listedit_editValue);
         final CheckBox useTranslations = (CheckBox) mainView.findViewById(R.id.listedit_translations);
+        final ImageButton fileButton = (ImageButton) mainView.findViewById(R.id.listedit_file_button);
 
         if (item != null) {
             editName.setText(item.name);
@@ -526,6 +569,7 @@ public class PresetEditorActivity extends URLListEditActivity {
             editName.setInputType(InputType.TYPE_NULL);
             editName.setBackground(null);
             editValue.setEnabled(false);
+            fileButton.setEnabled(false);
         }
 
         builder.setView(mainView);
@@ -550,6 +594,22 @@ public class PresetEditorActivity extends URLListEditActivity {
                     setResult(RESULT_CANCELED);
                     finish();
                 }
+            }
+        });
+
+        fileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                SelectFile.read(PresetEditorActivity.this, R.string.config_presetsPreferredDir_key, new ReadFile() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public boolean read(Uri fileUri) {
+                        editValue.setText(fileUri.toString());
+                        SelectFile.savePref(new Preferences(PresetEditorActivity.this), R.string.config_presetsPreferredDir_key, fileUri);
+                        return true;
+                    }
+                });
             }
         });
 

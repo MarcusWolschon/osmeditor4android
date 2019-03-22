@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import de.blau.android.R;
+import de.blau.android.util.SelectFile;
 import de.blau.android.util.ThemeUtils;
 
 /**
@@ -52,7 +53,8 @@ import de.blau.android.util.ThemeUtils;
  */
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
-
+    private static final String DEBUG_TAG = "URLListEditActivity";
+    
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
     static final String EXTRA_VALUE  = "value";
@@ -523,6 +525,17 @@ public abstract class URLListEditActivity extends ListActivity
         return addingViaIntent;
     }
 
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        Log.d(DEBUG_TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
+                && resultCode == RESULT_OK) {
+            SelectFile.handleResult(requestCode, data);
+        }
+    }
+    
     /**
      * The items that are displayed in the ListActivity
      */

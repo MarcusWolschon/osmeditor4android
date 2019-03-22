@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dp" >
-
+    android:padding="10dp">
     <TextView
         android:id="@+id/listedit_labelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name" />
-
     <EditText
         android:id="@+id/listedit_editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" >
-
+        android:inputType="text">
         <requestFocus />
     </EditText>
-
-    <TextView
-        android:id="@+id/listedit_labelValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/url" />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/listedit_labelValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/url" />
+        <ImageButton
+            android:id="@+id/listedit_file_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@android:color/transparent"
+            android:tint="?attr/colorAccent"
+            android:src="@drawable/baseline_sd_storage_black_18dp" />
+    </RelativeLayout>
     <EditText
         android:id="@+id/listedit_editValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textUri" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        >
-
+        android:layout_marginTop="16dp">
         <TextView
             android:id="@+id/listedit_label_use_translations"
             android:layout_width="wrap_content"
@@ -46,7 +53,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:text="@string/listedit_use_translations" />
-
         <CheckBox
             android:id="@+id/listedit_translations"
             android:layout_width="wrap_content"
@@ -54,7 +60,5 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignBaseline="@id/listedit_label_use_translations" />
-
     </RelativeLayout>
-
 </LinearLayout>

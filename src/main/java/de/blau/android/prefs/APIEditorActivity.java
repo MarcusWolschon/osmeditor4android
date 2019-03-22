@@ -235,7 +235,7 @@ public class APIEditorActivity extends URLListEditActivity {
         fileButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                SelectFile.read(APIEditorActivity.this, R.string.config_mbtilesPreferredDir_key, new ReadFile() {
+                SelectFile.read(APIEditorActivity.this, R.string.config_msfPreferredDir_key, new ReadFile() {
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -245,6 +245,7 @@ public class APIEditorActivity extends URLListEditActivity {
                                 throw new SQLiteException("Not a SQLite database file");
                             }
                             editValue_2.setText(fileUri.toString());
+                            SelectFile.savePref(new Preferences(APIEditorActivity.this), R.string.config_msfPreferredDir_key, fileUri);
                             return true;
                         } catch (SQLiteException sqex) {
                             Snack.toastTopError(APIEditorActivity.this, R.string.toast_not_mbtiles);
@@ -326,15 +327,5 @@ public class APIEditorActivity extends URLListEditActivity {
                 dialog.dismiss();
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        Log.d(DEBUG_TAG, "onActivityResult");
-        super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == SelectFile.READ_FILE || requestCode == SelectFile.READ_FILE_OLD || requestCode == SelectFile.SAVE_FILE)
-                && resultCode == RESULT_OK) {
-            SelectFile.handleResult(requestCode, data);
-        }
     }
 }
