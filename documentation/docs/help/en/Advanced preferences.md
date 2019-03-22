@@ -32,6 +32,10 @@ If on the non-downloaded areas will be dimmed when the screen is locked. Default
 
 Configure the behaviour on devices with "soft" buttons. Default: on Android 4.4 and later: automatic, 4.0 - 4.3: off, ealier versions: not available.
 
+### Map screen orientation
+
+If set to any other value than _Auto_ Vespucci will try to override your device settings for screen rotation.
+
 ### Show tolerance
 
 Show halos indicating the size of the "touch areas" around elements. Default: on.
@@ -207,3 +211,7 @@ Turn on the JavaScript console. Default: off.
 ### Enable voice commands
 
 Enable voice command support: Default: off.
+
+### Enable hardware acceleration
+
+Do not use, may cause hangs of the app and other problems.

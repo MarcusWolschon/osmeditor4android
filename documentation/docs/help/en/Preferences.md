@@ -44,6 +44,8 @@ Start preset management screen. Vespucci supports JOSM style presets that can be
 
 ## Validator settings
 
+### Validator settings
+
 Configure the standard validator.
 
 There are currently two configurable checks: a check for missing keys and an aged based one for re-surveying.
@@ -51,6 +53,10 @@ There are currently two configurable checks: a check for missing keys and an age
 The missing tag check works on the combination of the keys that should be checked and the preset for element.
 
 Example: the default configuration checks that a "name" tag is present on a object if the matching preset contains a "name" field in the non-optional tags, optionally the check can be extended to require "optional" tags.
+
+### Connected node tolerance
+
+Configure how far away from a highway a highway end node must be to not be highlighted as an error.
 
 ## Advanced preferences
 

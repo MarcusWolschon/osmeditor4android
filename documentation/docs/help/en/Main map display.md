@@ -30,18 +30,21 @@ Currently it is not possible to change the ordering or add more than one layer o
 * Zoom to extent. Zooms and pans the screen so that the whole extent of the layer is displayed, if the extent cannot be determined this will zoom out to the full web-mercator coverage. Note: on the data layer this may not be particularly useful if you have downloaded areas that are far apart.
 * Menu button.
     * Tile based layers: 
-        * Select imagery. Same contents as on the preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
-        * Flush tile cache. Moved here from main menu.
-        * Background properties. Set contrast of layer, moved here from main menu.
+        * __Select imagery__ Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the "None" entry from the list will disable the layer, and requires re-enabling it via the "+" button on the layer dialog.
+        * __Flush tile cache__ Flush the on device cache for this layer.
+        * __Background properties__ Set contrast of layer.
+        * __Info__ Display information on the currently selected imagery.
     * GeoJSON layer. 
-        * Change style. Show the layer styling dialog.
-        * Discard. Delete the layer including any saved state.
+        * __Change style__ Show the layer styling dialog.
+        * __Discard__ Delete the layer including any saved state.
     * GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
-        * Change style. Show the layer styling dialog.
+        * __Change style__ Show the layer styling dialog.
     * Photo, Grid and Task layers.
-        * Configure... (for the Grid and Task layers)
-        * Disable. Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
-* "+" button:
+        * __Configure...__ (for the Grid and Task layers)
+        * __Disable__ Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.
+    * Data layer.
+        * __Configure...__ Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.
+* __+__ button:
     * for disabled layers it will show a corresponding "Add ..." entry that will turn the layer on.
     * Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.
 
@@ -55,7 +58,9 @@ With the standard map style certain data issues will be highlighted in magenta, 
 * ways with 'highway=road'
 * ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag
 * relations with no 'type' tag
-* certain points of interest that haven't been edited of verified in the last year 
+* certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year.  
+* untagged ways that are not a member of a relation
+* unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted
 
 ### Indoor mode
    
@@ -103,7 +108,9 @@ Select either the transfer icon ![Transfer](../images/menu_transfer.png) or the 
  * **Auto download** - download an area around the current geographic location automatically *(requires network connectivity)* *(requires GPS)*
  * **File...** - saving and loading OSM data to/from on device files.
     * **Export changes to OSC file** - write a ".osc" format file containing the current edits
+    * **Apply changes from OSC file** - read a ".osc" format file and apply its contents
     * **Read from JOSM file...** - read a JOSM compatible XML format file
+    * **Read from PBF file...** - read OSM data from a PBF format file
     * **Save to JOSM file...** - save as a JOSM compatible XML format file
  * **Tasks...** - down- and uploading tasks (Notes, OSMOSE bugs, Maproulette and custom tasks)
     * **Download tasks for current view** - download Notes/Bugs for the area visible on the screen
