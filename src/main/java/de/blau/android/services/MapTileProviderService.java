@@ -20,7 +20,6 @@ import de.blau.android.resources.TileLayerServer;
 import de.blau.android.services.util.MapTile;
 import de.blau.android.services.util.MapTileFilesystemProvider;
 import de.blau.android.services.util.MapTileProviderDataBase;
-import de.blau.android.util.ACRAHelper;
 import de.blau.android.util.Snack;
 
 /**
@@ -107,7 +106,6 @@ public class MapTileProviderService extends Service {
                 return;
             } catch (SQLiteException slex) {
                 Log.d(DEBUG_TAG, "Opening DB hit " + slex);
-                ACRAHelper.nocrashReport(slex, slex.getMessage());
             }
         } else {
             Snack.toastTopError(this, R.string.toast_no_suitable_storage);
