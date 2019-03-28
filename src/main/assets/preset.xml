@@ -5102,7 +5102,7 @@
             <reference ref="link_contact_address"/>
         </item> <!-- Youth Centre -->
     </group> <!-- Social Facility -->
-    <group name="Clubs" icon="icons/png/amenity_club_35000.png">
+    <group name="Clubs" icon="icons/png/amenity_club_35000.png" items_sort="false" >
         <item name="Club" icon="icons/png/amenity_club_35000.png" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Key:club"/>
             <space/>
@@ -6948,7 +6948,7 @@
         </item> <!-- Power Cable -->
     </group> <!-- Power -->
   </group> <!-- Man Made -->
-  <group name="Historic Places &amp; Objects" icon="icons/png/tourist_historic_19021.png">
+  <group name="Historic Places &amp; Objects" icon="icons/png/tourist_historic_19021.png" items_sort="false" >
     <item name="Historic object" icon="icons/png/tourist_historic_19021.png" type="node,closedway,multipolygon" preset_name_label="true">
          <link wiki="Key:historic"/>
          <space/>
