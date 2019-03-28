@@ -1,5 +1,7 @@
 ﻿See https://github.com/MarcusWolschon/osmeditor4android/ for documentation on this version and all changes.
 
+12.1.8: Update presets, update imagery.
+
 12.1.7: Fix issue with JS in presets due to proguard, update translations.
 
 12.1.6: Avoid the potential for a loop attempting to join a Node to itself, updated imagery and translations.
