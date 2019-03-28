@@ -4920,7 +4920,7 @@
                     <list_entry value="lane" display_value="Lane" short_description="on the side of a road lane"/>
                     <list_entry value="parking_lot" display_value="Parking lot" short_description="in a parking lot"/>
                     <list_entry value="sidewalk" display_value="Sidewalk" short_description="on a sidewalk"/>
-                    <list_entry value="green" display_value="Greem" short_description="in a grassy area"/>
+                    <list_entry value="green" display_value="Green" short_description="in a grassy area"/>
                 </combo>
                 <text key="flow_rate" text="Flow rate with unit of measure"/>
                 <combo key="pillar:type" text="Pillar type">
