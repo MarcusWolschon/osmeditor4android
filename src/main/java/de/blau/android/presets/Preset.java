@@ -120,7 +120,7 @@ import de.blau.android.views.WrappingLayout;
 public class Preset implements Serializable {
 
     private static final String USE_LAST_AS_DEFAULT        = "use_last_as_default";
-    private static final String PO_EXT                         = ".po";
+    private static final String PO_EXT                     = ".po";
     private static final String DEFAULT_PRESET_TRANSLATION = "preset_";
     private static final String NO                         = "no";
     private static final String VALUE_TYPE                 = "value_type";
@@ -3819,7 +3819,8 @@ public class Preset implements Serializable {
                     }
                     jsonString.append(tagToJSON(presetName, k, null));
                 }
-                if (!isEditable(k) && field instanceof PresetComboField && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY)) {
+                if (!isEditable(k) && field instanceof PresetComboField
+                        && (match == null || match == MatchType.KEY_VALUE || match == MatchType.KEY || match == MatchType.KEY_VALUE_NEG)) {
                     for (StringWithDescription v : ((PresetComboField) entry.getValue()).getValues()) {
                         if (jsonString.length() != 0) {
                             jsonString.append(",\n");
