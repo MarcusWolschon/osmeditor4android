@@ -24,6 +24,7 @@
     <string name="help_newnoteselection">Új jegyzet kiválasztás</string>
     <string name="help_voice_commands">Hangutasítások</string>
     <string name="help_upgrade">Kiadási megjegyzések</string>
+    <string name="help_upgrade_121">12.1 kiadási megjegyzések</string>
     <string name="help_upgrade_120">12.0 kiadási megjegyzések</string>
     <string name="help_upgrade_112">11.2 kiadási megjegyzések</string>
     <string name="help_upgrade_111">11.1 kiadási megjegyzések</string>

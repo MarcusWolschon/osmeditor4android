@@ -16,9 +16,14 @@
   <string name="progress_deleting_message">删除…</string>
   <string name="progress_searching_message">搜索…</string>
   <string name="progress_saving_message">Save...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" 已删除</string>
+  <string name="changes_changed">\"%1$s\" 已修改</string>
+  <string name="changes_created">\"%1$s\" 已创建</string>
   <string name="upload_comment_label">评论:</string>
   <string name="upload_source_label">来源:</string>
   <string name="upload_close_changeset_label">关闭变更集:</string>
+  <!---->
   <string name="upload_gpx_description_label">描述</string>
   <string name="upload_gpx_tags_label">标签</string>
   <string name="upload_gpx_visibility_label">可见性</string>
@@ -64,10 +69,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">你还没有改变什么…</string>
@@ -83,6 +90,7 @@
   <string name="coordinates_out_of_range">经度必须在-180°/+180° 以内，而纬度在-85°/85° 以内</string>
   <string name="toast_nothing_found">什么都没找到</string>
   <string name="toast_file_not_found">%1$s 未找到。</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -128,7 +136,6 @@
   <string name="location_last_text_parameterized">最后的位置: %1$s</string>
   <string name="location_current_text_parameterized">当前位置:%1$s</string>
   <string name="location_text_metadata_location">\n纬度 %1$4g、经度 %2$4g\n%3$s %4$s 之前</string>
-  <string name="location_text_metadata_accuracy">精度%1$2.0f 米，</string>
   <string name="location_coordinates_text">从坐标：</string>
   <string name="location_lat_label">纬度：</string>
   <string name="location_lon_label">经度：</string>
@@ -207,6 +214,7 @@
   <string name="config_advancedprefs">高级首选项</string>
   <string name="config_presetbutton_title">预设</string>
   <string name="config_presetbutton_summary">添加并启用JOSM兼容的预设</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">关于</string>
   <!--Advanced preferences-->
@@ -240,16 +248,14 @@
   <!--preset downloader messages-->
   <string name="preset_update">更新预设</string>
   <string name="preset_download_parse_failed">预设文件是无效的。预设将无法正常工作。</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" 已删除</string>
-  <string name="changes_changed">\"%1$s\" 已修改</string>
-  <string name="changes_created">\"%1$s\" 已创建</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">添加预设</string>
   <string name="urldialog_preset_exists">这种预设已经存在</string>
   <string name="urldialog_api_exists">这个API的网址已经存在。不过，您可以增加另一个（例如，方便地切换帐号）。</string>
   <string name="urldialog_add_api">添加API</string>
   <string name="urldialog_nodata_text">配置的URL没有有效数据。</string>
+  <!--API configuration-->
+  <string name="api_url">API网址</string>
   <!--common terms-->
   <string name="add">添加</string>
   <string name="edit">编辑</string>
@@ -258,7 +264,6 @@
   <string name="url">网址</string>
   <string name="default_">默认</string>
   <!---->
-  <string name="api_url">API网址</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">预设</string>
   <string name="api">API</string>
@@ -285,12 +290,6 @@
   <string name="deleterelation">删除关系</string>
   <string name="delete_from_relation_description">您即将从一个关系中删除这个元素。</string>
   <!--time and distance-->
-  <string name="days">天</string>
-  <string name="hours">小时</string>
-  <string name="minutes">分钟</string>
-  <string name="seconds">秒</string>
-  <string name="km">千米</string>
-  <string name="meter">米</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

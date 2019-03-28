@@ -15,9 +15,14 @@
   <string name="progress_deleting_message">Brisanje...</string>
   <string name="progress_searching_message">Traženje...</string>
   <string name="progress_saving_message">Spremanje...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" obrisano</string>
+  <string name="changes_changed">\"%1$s\" promjenjeno</string>
+  <string name="changes_created">\"%1$s\" stvoreno</string>
   <string name="upload_comment_label">Komentar:</string>
   <string name="upload_source_label">Izvor:</string>
   <string name="upload_close_changeset_label">Zatvaranje changeseta:</string>
+  <!---->
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Oznake</string>
   <!--task fragment-->
@@ -51,16 +56,19 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Još niste ništa promjenili…</string>
   <string name="toast_unlock_to_edit">Otključaj za uređivanje</string>
   <string name="toast_export_success">Izvezeno u %1$s</string>
   <string name="toast_nothing_found">Ništa nije nađeno</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Ne</string>
@@ -139,6 +147,7 @@
   <string name="config_backgroundLayer_title">Karta u pozadini</string>
   <string name="config_enablePhotoLayer_summary">Prikaži geo-referencirane fotke.</string>
   <string name="config_advancedprefs">Napredne postavke</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Debug</string>
   <string name="config_category_info">Više o</string>
@@ -157,11 +166,8 @@
   <!--Experimental-->
   <!---->
   <!--preset downloader messages-->
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" obrisano</string>
-  <string name="changes_changed">\"%1$s\" promjenjeno</string>
-  <string name="changes_created">\"%1$s\" stvoreno</string>
   <!--url handler activity-->
+  <!--API configuration-->
   <!--common terms-->
   <string name="add">Dodaj</string>
   <string name="edit">Uredi</string>
@@ -187,12 +193,6 @@
   <string name="deleterelation">Obriši relaciju</string>
   <string name="delete_from_relation_description">Spremate se obrisati ovaj element iz relacije</string>
   <!--time and distance-->
-  <string name="days">dani</string>
-  <string name="hours">sati</string>
-  <string name="minutes">minute</string>
-  <string name="seconds">sekunde</string>
-  <string name="km">km</string>
-  <string name="meter">metar</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

@@ -28,11 +28,11 @@
   <string name="unknown_error_title">Okänt fel</string>
   <string name="go_to_openstreetmap">Gå till openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Hämtningsområdet för stort</string>
+  <string name="api_offline_title">API frånkopplad</string>
   <string name="api_offline_message">API:n är för närvarande frånkopplad, ingen data kan hämtas eller skrivas.</string>
   <string name="out_of_memory_title">Slut på minne</string>
   <string name="invalid_data_received_title">Ogiltiga data mottaget</string>
   <string name="invalid_data_received_message">Om du inte orsakade felet, vänligen lämna in en felrapport.</string>
-  <string name="invalid_data_read_title">Ogiltiga data skickad</string>
   <string name="file_write_failed_title">Kunde inte skriva till fil</string>
   <string name="file_write_failed_message">Vespucci kunde inte ändra eller spara filen.</string>
   <string name="welcome_title">Välkommen</string>
@@ -50,9 +50,20 @@
   <string name="progress_uploading_message">Läser in upp...</string>
   <string name="progress_preset_message">Hämta förinställning...</string>
   <string name="progress_running_message">Körs...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" raderad</string>
+  <string name="changes_changed">\"%1$s\" ändrad</string>
+  <string name="changes_created">\"%1$s\" skapad</string>
+  <string name="confirm_upload_title">Ladda upp ändringar</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Skicka denna ändring?</item>
+    <item quantity="other">Skicka dessa %1$d ändringar?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Ändringar</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Källa:</string>
   <string name="upload_close_changeset_label">Stäng changeset:</string>
+  <!---->
   <string name="upload_gpx_description_label">Beskrivning</string>
   <string name="upload_gpx_tags_label">Etiketter</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
@@ -162,12 +173,14 @@
   <string name="layer_photos">Foton</string>
   <string name="layer_tasks">Uppgifter</string>
   <string name="layer_change_style">Byt stil</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrollpunkter</string>
   <!--Feedback activity-->
   <string name="feedback_title">Återkoppling för utvecklarna</string>
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -216,6 +229,7 @@
   <string name="toast_properties_copied">Egenskaper kopierade till urklipp</string>
   <string name="toast_task_conflict">%1$s har ändrats på servern, skicka först och hämta sedan</string>
   <string name="toast_long_press_simple_mode">Lång tryckning är inte tillgänglig i enkelt läge</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -261,7 +275,7 @@
   <string name="tag_menu_apply_preset">Tillämpa bästa förinställning</string>
   <string name="tag_menu_revert">Ångra</string>
   <string name="tag_menu_addtorelation">Lägg till i relation</string>
-  <string name="tag_menu_resetMRU">Återställ förinställda</string>
+  <string name="tag_menu_resetMRU">Återställ förinställningar</string>
   <string name="tag_menu_exit_no_save">Avsluta\n utan att spara</string>
   <string name="tag_menu_delete_unassociated_tags">Radera icke-associerade taggar</string>
   <string name="tag_menu_top">Skrolla till toppen</string>
@@ -306,7 +320,6 @@
   <string name="location_last_text_parameterized">Senast kända plats: %1$s</string>
   <string name="location_current_text_parameterized">Nuvarande plats: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s sedan</string>
-  <string name="location_text_metadata_accuracy">Noggranhet %1$2.0f meter,</string>
   <string name="location_coordinates_text">Från koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -453,12 +466,13 @@
   <string name="config_enableOpenStreetBugs_title">Visa uppgifter</string>
   <string name="config_enableOpenStreetBugs_summary">Visa, redigera och skapa anteckningar, felrapporter och uppgifter.</string>
   <string name="config_enablePhotoLayer_summary">Visa geo-orienterade foton.</string>
-  <string name="config_enableKeepScreenOn_title">Behåll skärm på</string>
+  <string name="config_enableKeepScreenOn_title">Behåll skärmen på</string>
   <string name="config_advancedprefs">Avancerade inställningar</string>
   <string name="config_moreprefs">Mer inställningar...</string>
-  <string name="config_presetbutton_title">Förinställda</string>
+  <string name="config_presetbutton_title">Förinställningar</string>
   <string name="config_presetbutton_summary">Lägg till och aktivera JOSM-kompatibla förinställningar</string>
   <string name="config_built_in_preset">Inbyggd förinställning</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Upphovsmän och licenser</string>
   <string name="config_debugbutton_title">Felsökning</string>
@@ -469,7 +483,7 @@
   <string name="config_iconbutton_title">Visa nod-ikoner</string>
   <string name="config_iconbutton_summary">Visa ikonen för den bäst matchande förinställningen ovanför noderna.</string>
   <string name="config_showWayIcons_title">Visa POI-ikoner på byggnader</string>
-  <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställda över byggnader.</string>
+  <string name="config_showWayIcons_summary">Visa ikonen för bäst matchande förinställningar över byggnader.</string>
   <string name="config_showCameraAction_title">Visa kamera knapp</string>
   <string name="config_showCameraAction_summary">Visa kameraikonen i åtgärdsfältet.</string>
   <string name="config_fullscreenMode_title">Fullskärmsläge</string>
@@ -543,21 +557,11 @@
   <string name="manage_presets">Hantera förinställningar</string>
   <string name="listedit_use_translations">Använd översättningar</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Uppdatera förinställda</string>
+  <string name="preset_update">Uppdatera förinställningar</string>
   <string name="preset_download_successful">Förinställd hämtad</string>
   <string name="preset_download_failed">Det gick inte att hämta förinställd fil. Förinställningen fungerar inte.</string>
   <string name="preset_download_parse_failed">Den förinställda filen är ogiltig. Förinställningen fungerar inte.</string>
   <string name="preset_download_missing_images">Förinställd fil hämtad. Men några saknade ikoner hämtades inte.</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" raderad</string>
-  <string name="changes_changed">\"%1$s\" ändrad</string>
-  <string name="changes_created">\"%1$s\" skapad</string>
-  <string name="confirm_upload_title">Ladda upp ändringar</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="one">Skicka denna ändring?</item>
-    <item quantity="other">Skicka dessa %1$d ändringar?</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">Ändringar</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lägg till förinställd</string>
   <string name="urldialog_preset_exists">Förinställningen existerar redan</string>
@@ -565,6 +569,10 @@
   <string name="urldialog_api_exists">Ett API med denna webbadress finns redan. Du kan dock lägga till en annan (t.ex. att byta konton enkelt).</string>
   <string name="urldialog_add_api">Lägg till API</string>
   <string name="urldialog_nodata_text">Konfigurationswebbadressen innehåller inte giltiga data.</string>
+  <!--API configuration-->
+  <string name="api_name">API-namn</string>
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">Läs bara API URL (frivillig)</string>
   <!--common terms-->
   <string name="add">Lägg till</string>
   <string name="edit">Redigera</string>
@@ -574,12 +582,9 @@
   <string name="default_">Standard</string>
   <!---->
   <string name="empty_list">Inga poster</string>
-  <string name="api_name">API-namn</string>
-  <string name="api_url">API URL</string>
-  <string name="readonly_url">Läs bara API URL (frivillig)</string>
   <string name="geocoder_type">Geocoder typ</string>
   <!--"default" is a reserved Java keyword…-->
-  <string name="preset">Förinställda</string>
+  <string name="preset">Förinställning</string>
   <string name="api">API</string>
   <string name="undo">Ångra</string>
   <string name="redo">Upprepa</string>
@@ -625,12 +630,6 @@
   <string name="deleterelation">Ta bort relation</string>
   <string name="delete_from_relation_description">Du håller på att ta bort detta element från en relation.</string>
   <!--time and distance-->
-  <string name="days">dagar</string>
-  <string name="hours">timmar</string>
-  <string name="minutes">minuter</string>
-  <string name="seconds">sekunder</string>
-  <string name="km">km</string>
-  <string name="meter">meter</string>
   <!--Help system-->
   <string name="toast_nohelp">Ingen hjälp här.</string>
   <!--Arrays-->

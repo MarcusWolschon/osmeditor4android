@@ -20,8 +20,10 @@
   <string name="progress_deleting_message">Deletando...</string>
   <string name="progress_searching_message">Buscando...</string>
   <string name="progress_saving_message">Salvando...</string>
+  <!--Confirm upload dialog-->
   <string name="upload_comment_label">Comentário:</string>
   <string name="upload_source_label">Fonte:</string>
+  <!---->
   <string name="upload_gpx_description_label">Descrição</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
@@ -58,15 +60,18 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_unlock_to_edit">Desbloqueie para editar</string>
   <string name="toast_export_success">Exportado para %1$s</string>
   <string name="toast_nothing_found">Nada encontrado</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Sim</string>
   <string name="no">Não</string>
@@ -159,6 +164,7 @@
   <string name="config_enableKeepScreenOn_title">Manter a tela ligada</string>
   <string name="config_advancedprefs">Preferências avançadas</string>
   <string name="config_presetbutton_title">Pré-definições</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Debug</string>
   <string name="config_category_info">Sobre</string>
@@ -179,8 +185,9 @@
   <!---->
   <string name="config_api_url_title">URL da API</string>
   <!--preset downloader messages-->
-  <!--changes-->
   <!--url handler activity-->
+  <!--API configuration-->
+  <string name="api_url">URL da API</string>
   <!--common terms-->
   <string name="add">Adicionar</string>
   <string name="edit">Editar</string>
@@ -189,7 +196,6 @@
   <string name="url">URL</string>
   <string name="default_">Padrão</string>
   <!---->
-  <string name="api_url">URL da API</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
   <string name="undo">Desfazer</string>
@@ -209,12 +215,6 @@
   <string name="object">Objeto</string>
   <string name="deleterelation">Apagar relação</string>
   <!--time and distance-->
-  <string name="days">dias</string>
-  <string name="hours">horas</string>
-  <string name="minutes">minutos</string>
-  <string name="seconds">segundos</string>
-  <string name="km">km</string>
-  <string name="meter">metro</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

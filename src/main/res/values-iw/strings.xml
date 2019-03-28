@@ -15,26 +15,34 @@
   <string name="upload_problem_message">חלק מהנתונים או כולם לא הועלו. כדאי לנסות שוב מאוחר יותר.</string>
   <string name="bad_request_message">תגובת ה־API הייתה שגיאה, נא לשמור את הנתונים שלך ולדווח על התקלה:\n\n</string>
   <string name="upload_conflict_title">סתירת העלאה</string>
+  <string name="upload_conflict_message_version">ל־%1$s \nיש גרסה מקומית %2$d \nוהשרת %3$d </string>
   <string name="upload_conflict_message_deleted">ל־%1$s \nיש גרסה מקומית %2$d \nוהוא נמחק מהשרת</string>
   <string name="upload_conflict_message_referential">%1$s \nכבר נמחק מקומית \nאך עדיין ישנן הפניות בשרת</string>
   <string name="upload_conflict_message_already_deleted">%1$s \nכבר נמחק בשרת</string>
   <string name="use_local_version">שימוש בגרסה המקומית</string>
   <string name="use_server_version">שימוש בגרסה שבשרת</string>
   <string name="no_login_data_title">לא ניתן לאמת</string>
+  <string name="no_login_data_message">אם השתמשת ב־OAuth כנראה מדובר בתקלה, נא לשלוח דיווח על בעיה, אם השתמשת בשם כניסה וססמה (לא מומלץ) נא לבדוק שהקלדת אותם כראוי.</string>
   <string name="no_connection_title">אין חיבור לשרת</string>
+  <string name="no_connection_message">לא ניתן להתחבר לשרת ה־OSM כרגע. נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
+  <string name="ssl_handshake_failed">לא ניתן להתחבר לשרת ה־OSM כיוון שהמשא והמתן של ה־HTTPS נכשל. כדאי לנסות לעבור לחיבור בלתי מוצפן בהעדפות ה־API.</string>
   <string name="wrong_login_data_title">לא ניתן לאמת</string>
+  <string name="wrong_login_data_message">אם השתמשת ב־OAuth עליך לעבור אימות מחדש ואז לנסות שוב, אם השתמשת בשם כניסה וססמה (לא מומלץ) נא לבדוק שהקלדת אותם כראוי.</string>
   <string name="wrong_login_data_re_authenticate">אימות מחדש</string>
   <string name="forbidden_login_title">הכניסה אסורה</string>
   <string name="not_found_title">הרכיב לא נמצא</string>
   <string name="not_found_message">ה־API לא יכול למצוא רכיב קיים או ערכת שינויים עם המזהה שצוין.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">שגיאה לא ידועה</string>
   <string name="unknown_error_message">לא ניתן לעבד את קוד השגיאה שהוחזר מה־API או את ההודעה.&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">אין נתונים</string>
+  <string name="no_data_message">למקור הנתונים שהוגדר אין כאן כיסוי.</string>
   <string name="go_to_openstreetmap">מעבר ל־openstreetmap.org</string>
   <string name="data_conflict_title">סתירת גרסאות</string>
   <string name="data_conflict_message">הנתונים מההורדה יסתרו את העריכות שלך. נא לנסות להעלות קודם כל את הנתונים שלך ורק אז לנסות שוב.</string>
   <string name="invalid_bounding_box_title">תיבה תוחמת שגויה</string>
   <string name="invalid_bounding_box_message">האזור הנבחר לא תואם למגבלות ה־API, נא לבחור באזור אחר.</string>
   <string name="bounding_box_too_large_title">אזור ההורדה גדול מדי</string>
+  <string name="bounding_box_too_large_message">האזור שניסית להוריד גדול מדי או שהוא מכיל יותר מדי נתונים.\n\nנא להתקרב יותר ולנסות שוב.</string>
   <string name="api_offline_title">API בלתי מקוון</string>
   <string name="api_offline_message">ה־API אינו זמין כרגע, לא ניתן לקבל או לכתוב נתונים.</string>
   <string name="out_of_memory_title">אין מספיק זיכרון</string>
@@ -42,12 +50,16 @@
   <string name="out_of_memory_dirty_message">לווספוצ׳י לא הייתה אפשרות לטעון את הנתונים המבוקשים. נא לשמור את העריכות שלך, להתחיל מחדש ולטעון אזור קטן יותר.</string>
   <string name="invalid_data_received_title">התקבלו נתונים שגויים</string>
   <string name="invalid_data_received_message">אם לא גרמת לשגיאה, נא לדווח על תקלה.</string>
-  <string name="invalid_data_read_title">נשלחו נתונים שגויים</string>
-  <string name="invalid_data_read_message">אם לא גרמת לשגיאה, נא לדווח על תקלה.</string>
+  <string name="invalid_data_read_title">נקראו נתונים שגויים</string>
+  <string name="invalid_data_read_message">נא לפנות לתיעוד בנוגע לסוגי קבצים נתמכים ושדות נתונים נדרשים.</string>
   <string name="file_write_failed_title">לא ניתן לכתוב לקובץ</string>
   <string name="file_write_failed_message">לווספוצ׳י אין אפשרות לשנות או לשמור את הקובץ.</string>
   <string name="welcome_title">ברוך בואך</string>
+  <string name="welcome_message">תודה לך על התקנת וספוצ׳י.\n&lt;br&gt;&lt;br&gt;כדי להתחיל עליך לדעת שלושה דברים:\n&lt;ul&gt;&lt;li&gt;נגיעה בסמל המנעול בפינה השמאלית העליונה תחליף בין מצב נעול (אין עריכה) לפתוח,&lt;/li&gt;&lt;li&gt;כדי לערוך את OpenStreetMap עליך להוריד תחילה את הנתונים עבור האזור שבו ברצונך לערוך שינויים (יש להתקרב לפני ניסיון ביצוע שינויים),&lt;/li&gt;&lt;li&gt;כדי להוסיף פריט חדש: יש לגעת בכפתור הירוק הגדול, לאחר מכן לגעת במיקום בו ברצונך למקם אותו.&lt;/li&gt;&lt;/ul&gt;\nההכנות הסתיימו. אפשר להתחיל למפות וליהנות!</string>
+  <string name="welcome_message_fullscreen">\n&lt;br&gt;&lt;br&gt;למכשיר שלך יש „מקשי תכנה” שמוסתרים בתצוגה. יש להחליק מתחת המסך כדי להציג אותם שוב.</string>
+  <string name="read_introduction">הצגת ההקדמה</string>
   <string name="upgrade_title">זו גרסה חדשה של וספוצ׳י</string>
+  <string name="upgrade_message">תכונות חדשות ודפוסי התנהגות מפורטים בפרטי הגרסה.</string>
   <string name="read_upgrade">מידע על הגרסה החדשה</string>
   <string name="progress_title">בטעינה</string>
   <string name="progress_message">מתבצעת טעינה לזיכרון…</string>
@@ -60,9 +72,25 @@
   <string name="progress_preset_message">הערכה מתקבלת…</string>
   <string name="progress_running_message">מתבצעת הרצה…</string>
   <string name="progress_oauth">החשבון שלך ב־openstreetmap.org נטען לטובת אימות עם OAuth…</string>
+  <string name="progress_building_imagery_database">מסד נתוני תמונות הרקע נבנה כעת…</string>
+  <string name="progress_query_oam">OAM מתושאל…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">„%1$s” נמחקה</string>
+  <string name="changes_changed">„%1$s” נערכה</string>
+  <string name="changes_created">„%1$s” נוצרה</string>
+  <string name="confirm_upload_title">העלאת השינויים</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">להעלות את השינוי הזה?</item>
+    <item quantity="two">להעלות את %1$d השינויים האלה?</item>
+    <item quantity="many">להעלות את %1$d השינויים האלה?</item>
+    <item quantity="other">להעלות את %1$d השינויים האלה?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">שינויים</string>
   <string name="upload_comment_label">הערה:</string>
   <string name="upload_source_label">מקור:</string>
   <string name="upload_close_changeset_label">סגירת ערכת שינויים:</string>
+  <string name="upload_request_review_label">בקשת סקירה:</string>
+  <!---->
   <string name="upload_gpx_description_label">תיאור</string>
   <string name="upload_gpx_tags_label">תגיות</string>
   <string name="upload_gpx_visibility_label">מצב הצגה</string>
@@ -75,14 +103,19 @@
   <string name="openstreetbug_new_nodeway">יצירת מפרק/דרך</string>
   <string name="openstreetbug_edit_title">עריכת הערה</string>
   <string name="openstreetbug_comment_label">הערה:</string>
+  <string name="openstreetbug_commit_ok">שינויים במשימה נשמרו</string>
+  <string name="openstreetbug_commit_fail">לא ניתן לשמור את השינויים במשימה</string>
   <string name="openstreetbug_unknown_task_type">סוג המשימה אינו ידוע</string>
   <string name="openstreetbug_not_supported">אין תמיכה ב־%1$s.</string>
   <string name="note_description">הערה: %1$s - %2$s</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
   <string name="generic_bug">תקלה</string>
   <string name="osmose_bug">Osmose</string>
   <string name="custom_bug">התאמה אישית</string>
+  <string name="bug_long_description_1">%1$s: %2$s&lt;br&gt;&lt;br&gt;%3$s&lt;br&gt;</string>
   <string name="bug_long_description_2">&lt;br&gt;עדכון אחרון:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (לא התקבל) #%2$d</string>
+  <string name="bug_element_2">%1$s %2$s</string>
   <string name="maproulette_task_title">משימה של MapRoulette</string>
   <string name="maproulette_task_coords">רוחב %1$4g, אורך %2$4g</string>
   <string name="maproulette_task_explanations">הסברים</string>
@@ -137,6 +170,7 @@
   <string name="last_edited">עריכה אחרונה</string>
   <string name="original">מקורי</string>
   <string name="current">נוכחי</string>
+  <string name="goto_element">מעבר לרכיב</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">פרטי תכונת GeoJSON</string>
   <string name="copy_properties">העתקת מאפיינים</string>
@@ -166,10 +200,13 @@
   <string name="add_check_title">הוספת רשומת בדיקה</string>
   <string name="max_age">גיל מרבי</string>
   <string name="age">גיל</string>
+  <string name="check_opt">בדיקת\nרשות</string>
+  <string name="check_optional">בדיקת רשות</string>
   <string name="add_resurvey_entry">הוספת רשומת תשאול מחדש</string>
   <string name="add_check_entry">הוספת רשומת בדיקה</string>
   <!--Empty relation dialog-->
   <string name="empty_relation_title">יחס ריק</string>
+  <string name="empty_relation_message">ביחס %1$s אין חברים.\n\nאם יישאר ככה לא תהיה אפשרות לערוך אותו בווספוצ׳י.</string>
   <string name="add_members">הוספת חברים</string>
   <string name="leave_empty">להשאיר ריק</string>
   <!--GPX waypoint dialog-->
@@ -210,9 +247,17 @@
   <string name="layer_flush_tile_cache">פינוי מטמון האריחים</string>
   <string name="layer_change_style">שינוי סגנון</string>
   <string name="layer_select_imagery">בחירת תמונת רקע</string>
+  <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">תקריב מזערי</string>
+  <string name="layer_info_max_zoom">תקריב מרבי</string>
+  <string name="layer_info_start_date">מועד התחלה</string>
+  <string name="layer_info_end_date">מועד סיום</string>
+  <string name="layer_info_terms">תנאים</string>
+  <string name="layer_info_privacy_policy">מדיניות פרטיות</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">נקודות ביקורת</string>
   <string name="undo_redo_title">ביטול - שחזור</string>
+  <string name="undo_redo_one">רק נקודת הביקורת הנבחרת (לא בטיחותי)</string>
   <string name="undo_all">ביטול כל נקודות הביקורת האחרונות (בטיחותי)</string>
   <string name="redo_all">שחזור הביטול של כל נקודות הביקורת המוקדמות (בטיחותי)</string>
   <!--Feedback activity-->
@@ -221,7 +266,9 @@
   <string name="feedback_title">משוב עבור המתכנתים</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">הורדת נתוני OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">עצירת המעקב ומחיקת נקודות המסלול שנשמרו. לא ניתן להשתקם מפעולה זו.</string>
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -246,7 +293,11 @@
   <string name="toast_export_success">מיוצא אל %1$s</string>
   <string name="toast_preset_overwrote_tags">הערה - הערכה המוגדרת שכתבה תגית/תגיות</string>
   <string name="toast_merge_overwrote_tags">הערה - הפעולה שכתבה תגית/תגיות</string>
+  <string name="toast_oneway_reversed">הפכת כביש חד־סטרי או דרך עם תגיות תלויות כיווניות. נא לבדוק את התגיות ולתקן במידת הצורך.</string>
+  <string name="toast_merge_tag_conflict">מיזגת רכיבים שיש להם תגיות סותרות, סמנטיקה תלוית כיוון או תפקידים שונים באותו היחס. נא לבדוק את התגיות והתפקידים ולתקן אם צריך.</string>
+  <string name="toast_potential_merge_tag_conflict">בפעולה זו מתבצע ניסיון למזג רכיבים שיש להם תגיות סותרות.\n\nנא לבדוק את התגיות ולתקן תחילה בטרם ביצוע ניסיון חוזר.</string>
   <string name="toast_state_file_failed">קובץ מצב בלתי קריא או פגום</string>
+  <string name="toast_way_nodes_moved">%1$d מפרקים בדרך שהועברה</string>
   <plurals name="toast_unread_mail">
     <item quantity="one">ממתינה לך הודעה שלא נקרא ב־OSM</item>
     <item quantity="two">ממתינות לך %1$d הודעות שלא נקראו ב־OSM</item>
@@ -260,13 +311,20 @@
   <string name="toast_unsurveyed_road">דרך ללא תיעוד</string>
   <string name="toast_noname">לדרך אין שם או הפניה</string>
   <string name="toast_notype">לקשר חסר סוג</string>
+  <string name="toast_untagged_way">דרך בלתי מתויגת</string>
+  <string name="toast_untagged_relation">יחס בלתי מתויג</string>
+  <string name="toast_unconnected_end_node">המפרק הוא ליד רכיב שאין לו אפשרות להתחבר אליו</string>
+  <string name="toast_oauth_retry">כדאי לנסות להעלות שוב לאחר מתן גישה ל־OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_oauth">נא לאפשר גישה עם OAuth לחשבון שלך ב־OSM.</string>
   <string name="toast_no_oauth">אין תצורת OAuth זמינה עבור ה־API הנוכחי, נא להגדיר שם משתמש וססמה.</string>
   <string name="toast_oauth_not_enabled">OAuth אינו מופעל עבור ה־API הנוכחי.</string>
+  <string name="toast_oauth_timeout">הזמן שהוקצה ללחיצת יד לאימות פג, נא לנסות שוב.</string>
+  <string name="toast_oauth_communication">אירעה שגיאת תקשורת במהלך לחיצת היד של האימות, נא לנסות שוב.</string>
   <string name="toast_oauth_handshake_failed">לא ניתן לבצע לחיצת יד של OAuth:‏ %1$s</string>
   <string name="toast_timeout">תום זמן מהשרת</string>
   <string name="coordinates_out_of_range">קו האורך חייב להיות בטווח ‎-180°/+180°, קו הרוחב בין ‎-85°/85°</string>
   <string name="toast_nothing_found">שום דבר לא נמצא</string>
+  <string name="toast_statesave_failed">לא ניתן לשמור את המצב הנוכחי!\nמדובר בתקלה קריטית, מתבצע ניסיון לכתיבה לקובץ מיוצא לשחזור מאוחר יותר עם JOSM.</string>
   <string name="toast_missing_filemanager">נא להתקין מנהל קבצים.</string>
   <string name="toast_outside_of_download">יש להוריד נתונים נוספים כדי לערוך את האזור הזה.</string>
   <string name="toast_file_not_found">%1$s לא נמצא.</string>
@@ -274,6 +332,7 @@
   <string name="toast_inconsistent_state">התגלה מצב בלתי אחיד, נא לשלוח דיווח על תקלות.</string>
   <string name="toast_camera_error">לא ניתן להפעיל את יישומון המצלמה: %1$s</string>
   <string name="toast_no_voice">לא קיים אמצעי זיהוי קולי</string>
+  <string name="toast_storage_error">לווספוצ׳י אין אפשרות כתיבה אל %1$s .\nיכול להיות שמדובר בהרשאה חסרה או בתקלה טכנית במכשיר שלך.</string>
   <string name="toast_no_suitable_storage">המערכת לא החזירה מיקום  מתאים למסד נתונים האריחים.</string>
   <string name="toast_min_one_preset">יש לבחור לפחות בערכה מוגדרת אחת!</string>
   <string name="toast_min_one_geocoder">יש לבחור במקודד גאוגרפי אחת לפחות!</string>
@@ -284,30 +343,51 @@
   <string name="toast_split_from_and_via">דרכי „מוצא” ו־„מעבר” מפוצלות</string>
   <string name="toast_split_to">דרך „יעד” מפוצלת</string>
   <string name="toast_tile_database_issue_short">תקלה במסד נתוני האריחים</string>
+  <string name="toast_tile_database_issue">התרחשה תקלה מהותית במסד נתוני אריחי המפה\n”%1$s„\nנא לפנות אל השו״ת שלנו בכתובת https://vespucci.io/‎</string>
   <string name="toast_invalid_apiurl">כתובת API שגויה</string>
   <string name="toast_invalid_readonlyurl">כתובת API שגויה לקריאה בלבד</string>
+  <string name="toast_invalid_notesurl">כתובת API שגויה להערות</string>
+  <string name="toast_invalid_preseturl">כתובת שגויה לערכה מוגדרת</string>
   <string name="toast_invalid_filter_regexp">ביטוי רגולרי שגוי במסנן עם מפתח=„%1$s” ערך=„%2$s”</string>
   <string name="toast_error_accessing_photo">לא ניתן לגשת לתמונה %1$s</string>
+  <string name="toast_no_voice_recognition">אמצעי זיהוי קולי חסר</string>
   <string name="toast_no_coverage">ל־%1$s אין כאן כיסוי</string>
   <string name="toast_file_exists">הקובץ %1$s קיים.</string>
   <string name="toast_needs_resurvey">יתכן שפג תוקפו של הפריט</string>
   <string name="toast_missing_key">המפתח %1$s חסר</string>
+  <string name="toast_invalid_object">רכיב שגוי</string>
   <string name="toast_openinghours_invalid">ערך שעות פתיחה שגוי עבור %1$s</string>
+  <string name="toast_openinghours_autocorrected">ערך שעות הפתיחה עבור %1$s תוקן אוטומטית</string>
+  <string name="toast_exit_multiselect">יש לגעת נגיעה כפולה במיקום ריק או להשתמש ב־← כדי לצאת.</string>
+  <string name="toast_exit_actionmode">יש להשתמש ב־← כדי לשמור ולצאת</string>
+  <string name="toast_abort_actionmode">יש להשתמש ב־← כדי לבטל</string>
   <string name="toast_null_island">נא לא להוסיף רכיבים במיקום ‎0°/0° (אי האפס)</string>
   <string name="toast_string_too_long">המחרוזת ארוכה מדי (%1$d תווים), נחתכה!</string>
   <string name="toast_illegal_operation">פעולה בלתי חוקית: %1$s</string>
+  <string name="toast_preset_creation_failed">לא ניתן ליצור את הערכה המוגדרת „%1$s”‏: %2$s</string>
   <string name="toast_imperial_units">חסרות יחידות אימפריאליות</string>
+  <string name="toast_server_connection_failed">לא ניתן להתחבר לשרת: %1$s</string>
   <string name="toast_flus_all_caches">פעולה זו תפנה את כל מטמוני האריחים!</string>
+  <string name="toast_applied_offset">חל היסט על התמונה.</string>
   <string name="toast_unsupported_format">תבנית שאינה נתמכת: %1$s</string>
   <string name="toast_returning_less_than_found">מוחזרות %1$d מתוך %2$d רשומות שנמצאו</string>
   <string name="toast_not_mbtiles">קובץ שאינו בתבנית MBTiles</string>
   <string name="toast_using_network_location">נעשה שימוש במיקום הרשת</string>
+  <string name="toast_using_gps_location">נעשה שימוש במיקום מה־GPS/GNSS</string>
+  <string name="toast_using_gps_disabled_tracking_stopped">איתור מיקום בעזרת GPS/GNSS כבוי, מעקב GPX נעצר</string>
   <string name="toast_tags_copied">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_tags_cut">התגיות הועתקו ללוח הגזירים</string>
   <string name="toast_properties_copied">המאפיינים הועתקו ללוח הגזירים</string>
+  <string name="toast_task_conflict">%1$s השתנה בשרת, יש להעלות תחילה ואז להוריד מחדש</string>
+  <string name="toast_move_note_warning">ניתן להעביר רק הערות חדשות</string>
+  <string name="toast_task_layer_disabled">שכבת המשימות הושבתה</string>
   <string name="toast_unable_to_create_task_layer">לא ניתן ליצור שכבת משימות</string>
   <string name="toast_merged">ממוזג</string>
   <string name="toast_long_press_simple_mode">אין לחיצה ארוכה במצב פשוט</string>
+  <string name="toast_invalid_style_file">תבנית קובץ הסגנון של %1$s שגוי</string>
+  <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">למקורות MapSplit חובה להגדיר תקריב מזערי ומרבי</string>
+  <string name="error_pbf_no_version">פרטי הגרסה חסרים בקובץ PBF</string>
   <!--Some generic labels/buttons-->
   <string name="yes">כן</string>
   <string name="no">לא</string>
@@ -411,7 +491,8 @@
   <string name="location_last_text_parameterized">המיקום האחרון הידוע: %1$s</string>
   <string name="location_current_text_parameterized">המיקום הנוכחי: %1$s</string>
   <string name="location_text_metadata_location">\nרוחב %1$4g, אורך %2$4g\nלפני %3$s %4$s</string>
-  <string name="location_text_metadata_accuracy">דיוק %1$2.0f מטרים,</string>
+  <string name="location_text_metadata_accuracy">דיוק %1$2.0f מטרים, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">מנקודות ציון:</string>
   <string name="location_lat_label">רוחב:</string>
   <string name="location_lon_label">אורך:</string>
@@ -419,6 +500,7 @@
   <string name="location_load_button">טעינה</string>
   <string name="location_load_dismiss">מעבר למפה</string>
   <string name="location_nan_title">קלט שגוי!</string>
+  <string name="location_nan_message">נא להקליד נקודות ציון בציון עשרוני (למשל: „52.333572”,„8.741185”). קו הרוחב חייב להיות איפשהו בין ‎-85.0 ל־‎+85.0 וקו האורך חייב להיות איפשהו בין ‎-175.0 ל־‎+175.0.</string>
   <!--Menu-->
   <string name="menu_move">העברה</string>
   <string name="menu_edit">עריכה</string>
@@ -452,21 +534,32 @@
   <string name="menu_gps_export">יצוא מסלול GPX</string>
   <string name="menu_gps_import">יבוא מסלול GPX</string>
   <string name="menu_gps_goto_start">מעבר לתחילת מסלול ה־GPX</string>
+  <string name="menu_gps_goto_first_waypoint">קפיצה לנקודת הדרך הראשונה</string>
   <string name="menu_gps_autodownload">הורדה אוטומטית</string>
   <string name="menu_transfer">העברה…</string>
   <string name="menu_transfer_download_current">הורדת התצוגה הנוכחית</string>
   <string name="menu_transfer_download_current_add">הוספת התצוגה הנוכחית להורדה</string>
   <string name="menu_transfer_download_other">הורדה במיקום אחר</string>
+  <string name="menu_transfer_load_current">טעינת התצוגה הנוכחית</string>
+  <string name="menu_transfer_load_current_add">הוספת התצוגה הנוכחית לנתונים</string>
+  <string name="menu_transfer_load_other">טעינה במיקום אחר</string>
   <string name="menu_transfer_upload">העלאת נתונים לשרת OSM</string>
   <string name="menu_transfer_close_changeset">סגירת ערכת השינויים הנוכחית</string>
   <string name="menu_transfer_file">קובץ…</string>
   <string name="menu_transfer_export">ייצוא שינויים לקובץ OSC</string>
+  <string name="menu_transfer_apply_osc_file">החלת שינויים מקובץ OSC</string>
   <string name="menu_transfer_read_file">קריאה מקובץ JOSM…</string>
+  <string name="menu_transfer_read_pbf_file">קריאה מקובץ PBF</string>
   <string name="menu_transfer_save_file">שמירה לקובץ JOSM…</string>
   <string name="menu_transfer_bugs">משימות…</string>
+  <string name="menu_transfer_bugs_download_current">הורדת משימות לתצוגה הנוכחית</string>
   <string name="menu_transfer_bugs_upload">להעלות הכול</string>
   <string name="menu_transfer_bugs_upload_long">העלאת כל המשימות</string>
   <string name="menu_transfer_bugs_clear">ניקוי</string>
+  <string name="menu_transfer_bugs_clear_long">פינוי משימות</string>
+  <string name="menu_transfer_autodownload_long">הורדת משימות אוטומטית</string>
+  <string name="menu_transfer_save_notes_all">שמירת כל ההערות…</string>
+  <string name="menu_transfer_save_notes_new_and_changed">שמירת הערות חדשות וכאלו שנערכו…</string>
   <string name="menu_transfer_read_custom_bugs">טעינת משימות מותאמות אישית…</string>
   <string name="menu_transfer_write_custom_bugs">שמירת משימות פתוחות מותאמות אישית…</string>
   <string name="menu_save">שמירה כקובץ</string>
@@ -479,6 +572,7 @@
   <string name="menu_paste_from_clipboard">הדבקה מלוח הגזירים</string>
   <string name="menu_zoom_to_selection">התקרבות לבחירה</string>
   <string name="menu_rotate">הטייה</string>
+  <string name="menu_orthogonalize">דרך מרובעת</string>
   <string name="menu_circulize">סידור במעגל</string>
   <string name="menu_split_polygon">פיצול למצולעים</string>
   <string name="menu_newnode_gps">מפרק חדש במיקום ה־GPS</string>
@@ -494,9 +588,11 @@
   <string name="menu_tools_background_properties">מאפייני רקע</string>
   <string name="menu_tools_update_imagery_configuration">עדכון תצורת שכבת תמונות רקע</string>
   <string name="menu_tools_zoom_to_layer_extent">לשנות את רמת התקריב עד להיקף שכבת הרקע</string>
+  <string name="menu_tools_clear_clipboard">מחיקת לוח הגזירים</string>
   <!---->
   <string name="menu_simple_actions">מצב פשוט</string>
   <string name="menu_feedback">שליחת משוב</string>
+  <string name="menu_preset_feedback">הגשת משוב על ערכה מוגדרת</string>
   <string name="menu_privacy">פרטיות</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">יישור הרקע</string>
@@ -534,8 +630,14 @@
   <string name="menu_history">היסטוריה</string>
   <string name="menu_merge">צירוף</string>
   <string name="menu_reverse">היפוך</string>
+  <string name="notreversable_description">הדרך מתויגת כבלתי ניתנת להיפוך. היפוך הדרך יפגע בתיוג.</string>
   <string name="reverse_anyway">להפוך בכל זאת</string>
+  <string name="deleteway_description">פעולה זו תמחק דרך.\n\nניתן להשאיר את כל המפרקים או למחוק מפרקים ששייכים לדרך הזו בלבד ואין להם תגים.</string>
+  <string name="deleteway_relation_description">פעולה זו תמחק דרך שחברה ביחס אחד או יותר. הסרת דרך שנושאת יחסים כאלה עשויה להסב נזק.</string>
+  <string name="deleteway_nodesnotdownloaded_description">הדרך מכילה מפרקים מחוץ לאזור שהתקבל ולא ניתן למחוק אותה ולהגיע לכדי מצב בלתי יציב. יש להוריד את כולה בטרם ביצוע ניסיון חוזר.</string>
+  <string name="deleteway_wayonly">למחוק את הדרך בלבד</string>
   <string name="deleteway_wayandnodes">למחוק דרך</string>
+  <string name="deletenode_relation_description">פעולה זו תמחק מפרק שחבר ביחס אחד או יותר. הסרת המפרק שנושא יחסים כאלה עשויה להסב נזק.</string>
   <string name="deletenode">מחיקת מפרק</string>
   <string name="split_all_ways">פיצול כל הדרכים</string>
   <string name="delete_note_description">לא ניתן לשחזר הערה שנמחקה!</string>
@@ -601,8 +703,11 @@
   <string name="config_presetbutton_title">ערכות</string>
   <string name="config_presetbutton_summary">הוספה והפעלה של ערכות תואמות JOSM</string>
   <string name="config_built_in_preset">ערכה מובנית</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">הגדרות המאמת</string>
   <string name="config_validatorprefs_summary">הגדרת כללי אימות.</string>
+  <string name="config_connectedNodeTolerance_title">רגישות חיבור מפרקים</string>
+  <string name="config_connectedNodeTolerance_summary">אם מפרק של דרך מהירה הוא במרחק הזה (במטרים) מדרך מהירה הוא אמור להתחבר אליו</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">יוצרים ורישיונות</string>
   <string name="config_debugbutton_title">ניפוי שגיאות</string>
@@ -625,18 +730,26 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">עמעום של אזורים שלא התקבלו במצב נעול.</string>
   <string name="config_fullscreenMode_title">מצב מסך מלא</string>
   <string name="config_fullscreenMode_summary">התנהגות בהתקנים עם מקשים „רכים”</string>
+  <string name="config_map_orientation_title">כיוון מסך המפה</string>
+  <string name="config_map_orientation_summary">התנהגות מסך המפה עם שינויי כיוון התצוגה במכשיר.</string>
   <string name="config_showTolerance_title">הצגת סבילות</string>
   <string name="config_showTolerance_summary">מציג אזור בו ניתן לבחור פריטים.</string>
+  <string name="config_use_back_for_undo_title">יש להשתמש בכפתור ← כדי לבטל</string>
+  <string name="config_use_back_for_undo_summary">יש להשתמש בכפתור ← כדי לבטל בתצוגת עריכה ראשית.</string>
   <string name="config_enableLightTheme_title">ערכת עיצוב בהירה</string>
   <string name="config_enableLightTheme_summary">רקעים בהירים ולבנים.</string>
   <string name="config_splitActionBarEnabled_title">לאפשר סרגל פעולות מפוצל</string>
+  <string name="config_splitActionBarEnabled_summary">לאפשר סרגל פעולה מפוצל, השימוש תלוי מכשיר. דורש הפעלה של וספוצ׳י ו־Android 4.0 ומעלה.</string>
   <string name="config_maxInlineValues_title">מספר מרבי של ערכים פנימיים</string>
+  <string name="config_maxInlineValues_summary">מספר הערכים המרבי בתוך השורה שמוצגים בתצורת תגיות.</string>
   <string name="config_maxInlineValues_current">%1$d ערכים</string>
   <string name="config_autoLockDelay_title">זמן להמתנה לפני נעילה אוטומטית</string>
   <string name="config_autoLockDelay_summary">כמות שניות בטרם נעילה אוטומטית, 0 להשבתה.</string>
   <string name="config_autoLockDelay_current">%1$d שנ׳</string>
   <string name="config_enableAntiAliasing_title">הפעלת ביטול החלקה</string>
   <string name="config_enableAntiAliasing_summary">החלקת הקווים.</string>
+  <string name="config_enableHwAcceleration_title">הפעלת האצת חומרה</string>
+  <string name="config_enableHwAcceleration_summary">מאפשר שימוש בהאצת חומרה אם וכאשר נתמכת, עשוי לגרום להפתעות על המסך.</string>
   <string name="config_maxStrokeWidth_title">עובי קו מרבי</string>
   <string name="config_maxStrokeWidth_summary">לא לצייר דרכים בקו עבה יותר מההגדרה הזאת.</string>
   <string name="config_maxStrokeWidth_current">%1$d פיקסלים</string>
@@ -650,13 +763,19 @@
   <string name="config_enableNameSuggestions_title">הפעלת הצעות שמות</string>
   <string name="config_enableNameSuggestions_summary">הפעלת הצעות לתגית שם.</string>
   <string name="config_enableNameSuggestionsPresets_title">הפעלת ערכת הצעות שמות</string>
+  <string name="config_enableNameSuggestionsPresets_summary">להוסיף ערכה מוגדרת אוטומטית כאשר נבחרת הצעת שם.</string>
   <string name="config_generateAlerts_title">יצירת התרעות</string>
   <string name="config_generateAlerts_summary">יצירת התרעות לנתונים עם תקלות או הערות</string>
   <string name="config_groupAlertsOnly_title">התראות קבוצתיות בלבד</string>
+  <string name="config_groupAlertsOnly_summary">לייצר התראות (שמע) לקבוצות של התראות פעם אחת</string>
   <string name="config_notificationCacheSize_title">מספר ההתרעות המרבי שיוצגו</string>
+  <string name="config_notificationCacheSize_summary">כמות ההתראות המרבית שתוצג לפי סוג (1 לכל הפחות).</string>
   <string name="config_notificationCacheSize_current">%1$d התרעות</string>
   <string name="config_maxAlertDistance_title">מרחק מרבי להתרעות</string>
+  <string name="config_maxAlertDistance_summary">המרחק הגדול ביותר בו יכולה להיות בעיה או הערה מהמיקום הנוכחי כדי שתוקפץ התראה.</string>
+  <string name="config_maxAlertDistance_current">%1$d מטר/ים</string>
   <string name="config_extTriggeredDownloadRadius_title">רדיוס הורדה</string>
+  <string name="config_extTriggeredDownloadRadius_summary">רדיוס (במטרים) של הורדות בהקפצה חיצונית, 0 מתמקד על המפה בלבד.</string>
   <string name="config_downloadRadius_current">%1$d מטרים</string>
   <string name="config_maxDownloadSpeed_title">מהירות מרבית להורדה אוטומטית</string>
   <string name="config_maxDownloadSpeed_summary">מגבלה (בקמ״ש) שמעבר לה ההורדה האוטומטית מושהית.</string>
@@ -670,16 +789,24 @@
   <string name="config_closeChangesetOnSave_title">סגירת ערכת שינויים</string>
   <string name="config_closeChangesetOnSave_summary">לסגור ערכות שינויים כבררת מחדל עם שמירה.</string>
   <string name="config_enableAutoPresets_title">הפעלת יצירה אוטומטית של ערכות מוגדרות</string>
+  <string name="config_enableAutoPresets_summary">לאפשר יצירה ערכות מוגדרות מפרטי תגיות.</string>
   <!--Location Settings-->
   <string name="config_category_gps">הגדרות מיקום</string>
   <string name="config_category_gps_summary">משתנים ל־GPS/GNSS וספקי תוכן אחרים.</string>
   <string name="config_gps_source_title">מקור GPS/GNSS</string>
   <string name="config_gps_source_summary">מקור לעדכוני מיקום עם GPS/GNSS.</string>
   <string name="config_gps_source_tcp_title">מקור רשת NMEA</string>
+  <string name="config_gps_source_tcp_summary">כתובת מקור TCP NMEA בתצורת מארח:פתחה.</string>
+  <string name="config_gps_interval_title">הפרש תזמון מזערי בין עדכונים של GPS/GNSS</string>
+  <string name="config_gps_interval_summary">הפרש הזמן המזערי להתראות מיקום GPS/GNSS במילישניות. ככל שהערך קטן יותר כך הסוללה אוזלת מהר יותר.</string>
   <string name="config_gps_interval_current">%1$d מ״ש</string>
+  <string name="config_gps_distance_title">מרחק GPS/GNSS מזערי</string>
+  <string name="config_gps_distance_summary">הפרש המרחק המזערי להתראות GPS/GNSS במטרים. ככל שהערך קטן יותר כך הסוללה אוזלת מהר יותר.</string>
+  <string name="config_gps_distance_current">%1$d מטרים</string>
   <string name="config_leaveGpsDisabled_title">להשאיר את ה־GPS/GNSS כבוי</string>
   <string name="config_leaveGpsDisabled_summary">לא לבקש להפעיל או לכבות את ה־GPS/GNSS.</string>
   <string name="config_gps_network_title">נסיגה למיקום דרך הרשת</string>
+  <string name="config_gps_network_summary">אם לא קיים אמצעי איכון GPS/GNSS או שהוא כבוי, תתבצע נסיגה לספק רשת.</string>
   <!--Server Settings-->
   <string name="config_category_server">הגדרות שרת</string>
   <string name="config_category_server_summary">ה־API של OSM והגדרות לשרתים אחרים.</string>
@@ -695,9 +822,12 @@
   <string name="config_geocoderbutton_summary">הוספה, עריכה או מחיקה של מקודדים גאוגרפיים עבור תכונת החיפוש.</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">הורדה ואחסון של שכבות</string>
+  <string name="config_category_layers_summary">הורדה ואחסון של תמונות רקע מחולקות לאריחים.</string>
   <string name="config_maxTileDownloadThreads_title">מספר תהליכי ההורדה המרבי</string>
+  <string name="config_maxTileDownloadThreads_summary">מספר תהליכי ההורדה המרבי להורדת אריחים.</string>
   <string name="config_downLoadThreads_current">%1$d תהליכים</string>
   <string name="config_tileCacheSize_title">גודל מטמון האריחים</string>
+  <string name="config_tileCacheSize_summary">נפח האחסון הכולל שמנוצל לטובת מטמון של אריחים במ״ב.</string>
   <string name="config_tileCache_current">%1$d מ״ב</string>
   <!--Miscellaneous-->
   <string name="config_category_misc">שונות</string>
@@ -719,6 +849,7 @@
   <string name="listedit_enable_oauth">הפעלת OAuth</string>
   <string name="config_username_title">שם משתמש ב־OSM</string>
   <string name="config_password_title">ססמה ב־OSM</string>
+  <string name="config_password_summary">נא לא לבלבל בין הססמה של הוויקי. כדאי לזכור: הססמה מאוחסנת ומועברת כטקסט גלוי!</string>
   <string name="manage_presets">ניהול ערכות מוגדרות</string>
   <string name="listedit_use_translations">שימוש בתרגומים</string>
   <string name="manage_geocoders">ניהול מקודדים גאוגרפיים</string>
@@ -727,19 +858,8 @@
   <string name="preset_download_successful">הערכה המוגדרת התקבלה</string>
   <string name="preset_download_failed">לא ניתן להוריד את קובץ הערכה המוגדרת. הערכה המוגדרת לא תעבוד.</string>
   <string name="preset_download_parse_failed">הערכה המוגדרת שגויה והיא לא תפעל.</string>
+  <string name="preset_download_missing_images">התקבל קובץ ערכה מוגדרת. עם זאת, חלק מהסמלים החסרים לא התקבלו.</string>
   <string name="preset_download_title">מוריד ערכות מוגדרות</string>
-  <!--changes-->
-  <string name="changes_deleted">„%1$s” נמחקה</string>
-  <string name="changes_changed">„%1$s” נערכה</string>
-  <string name="changes_created">„%1$s” נוצרה</string>
-  <string name="confirm_upload_title">העלאת השינויים</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="one">להעלות את השינוי הזה?</item>
-    <item quantity="two">להעלות את %1$d השינויים האלה?</item>
-    <item quantity="many">להעלות את %1$d השינויים האלה?</item>
-    <item quantity="other">להעלות את %1$d השינויים האלה?</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">שינויים</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">הוספת ערכה מוגדרת</string>
   <string name="urldialog_preset_exists">ערכת מוגדרת זו כבר קיימת</string>
@@ -748,6 +868,12 @@
   <string name="urldialog_add_api">הוספת API</string>
   <string name="urldialog_nodata_text">כתובת ההגדרה אינה מכילה נתונים תקפים.</string>
   <string name="urldialog_add_geocoder">הוספת מקודד גאוגרפי</string>
+  <!--API configuration-->
+  <string name="api_name">שם API</string>
+  <string name="api_url">כתובת ה־API</string>
+  <string name="readonly_url">כתובת API לקריאה בלבד (רשות)</string>
+  <string name="notes_url">כתובת API של הערות (רשות)</string>
+  <string name="copy_of">עותק של %1$s</string>
   <!--common terms-->
   <string name="add">הוספה</string>
   <string name="edit">עריכה</string>
@@ -759,10 +885,6 @@
   <string name="state">מדינה</string>
   <!---->
   <string name="empty_list">אין רשומות</string>
-  <string name="api_name">שם API</string>
-  <string name="api_url">כתובת ה־API</string>
-  <string name="readonly_url">כתובת API לקריאה בלבד (רשות)</string>
-  <string name="notes_url">כתובת API של הערות (רשות)</string>
   <string name="geocoder_type">סוג מקודד גאוגרפי</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">ערכה מוגדרת</string>
@@ -784,13 +906,22 @@
   <string name="undo_action_append">הוספה לדרך</string>
   <string name="undo_action_deletenode">מחיקת מפרק</string>
   <string name="undo_action_set_tags">תיוג</string>
+  <string name="undo_action_unjoin_ways">הפרדת דרכים</string>
+  <string name="undo_action_create_relation">יצירת יחס</string>
+  <string name="undo_action_delete_relation">מחיקת יחס</string>
+  <string name="undo_action_update_relations">עדכון יחס</string>
   <string name="undo_action_cut">גזירה</string>
   <string name="undo_action_paste">הדבקה</string>
+  <string name="undo_action_rotateway">הטיית דרך</string>
+  <string name="undo_action_orthogonalize">ריבוע דרך</string>
+  <string name="undo_action_circulize">סידור במעגל</string>
   <string name="undo_action_fix_conflict">פתרון סתירות</string>
   <string name="undo_action_extract_node">חילוץ מפרק</string>
+  <string name="undo_action_apply_osc">החלת קובץ OSC</string>
   <!--ACRA-->
   <string name="crash_dialog_text">וספוצ׳י קרס או שנתקל בתקלות חמורות במהלך ההפעלה הקודמת.\n\nנא לסייע על ידי לחיצה על ‚אישור’ כדי לשלוח דוח שגיאה.\n</string>
   <string name="crash_dialog_comment_prompt">ניתן להוסיף מידע נוסף שלדעתך יסייע לנו (לבחירתך), את כתובת הדוא״ל שלך אם מעניין אותך לקבל משוב.\n\nתודה רבה לך.</string>
+  <string name="report_success">דווח.</string>
   <string name="report_failure">לא ניתן לשלוח דיווח.</string>
   <!--Exceptions messages-->
   <string name="exception_too_many_nodes">פעולה זו תיצור דרך עם מפרקים רבים.</string>
@@ -799,6 +930,14 @@
   <string name="alert_note">התגלתה הערת OSM בקרבת מקום</string>
   <string name="alert_bug">התגלתה תקלת OSM בקרבת מקום</string>
   <string name="alert_distance_direction">בעוד %1$d מ׳ %2$s</string>
+  <string name="bearing_ne">צפ-מז ↗</string>
+  <string name="bearing_e">מז →</string>
+  <string name="bearing_se">דר-מז ↘</string>
+  <string name="bearing_s">דר ↓</string>
+  <string name="bearing_sw">דר-מע ↙</string>
+  <string name="bearing_w">מע ←</string>
+  <string name="bearing_nw">צפ-מע ↖</string>
+  <string name="bearing_n">צפ ↑</string>
   <!--Misc relation related stuff-->
   <string name="role">תפקיד</string>
   <string name="role_lc">תפקיד</string>
@@ -811,13 +950,44 @@
   <string name="deleterelation_relation_description">פעולה זו תמחק יחס שחבר ביחס אחד או יותר. הסרת יחס שכזה מיחסים שכאלה עשוי לגרום לפגיעה בתקינות הנתונים.</string>
   <string name="deleterelation">מחיקת יחס</string>
   <string name="delete_from_relation_description">פעולה זו תמחק את הרכיב מיחס.</string>
+  <string name="unset_relation_type">ביטול הגדרת סוג יחס</string>
   <!--time and distance-->
-  <string name="days">ימים</string>
-  <string name="hours">שעות</string>
-  <string name="minutes">דקות</string>
-  <string name="seconds">שניות</string>
-  <string name="km">ק״</string>
-  <string name="meter">מטר</string>
+  <plurals name="days">
+    <item quantity="one">יום</item>
+    <item quantity="two">יומיים (%1$d)</item>
+    <item quantity="many">%1$d ימים</item>
+    <item quantity="other">%1$d ימים</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">שעה</item>
+    <item quantity="two">שעתיים (%1$d)</item>
+    <item quantity="many">%1$d שעות</item>
+    <item quantity="other">%1$d שעות</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">דקה אחת</item>
+    <item quantity="two">%1$d דקות</item>
+    <item quantity="many">%1$d דקות</item>
+    <item quantity="other">%1$d דקות</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">שנייה אחת</item>
+    <item quantity="two">%1$d שניות</item>
+    <item quantity="many">%1$d שניות</item>
+    <item quantity="other">%1$d שניות</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">ק״מ</item>
+    <item quantity="two">%1$d ק״מ</item>
+    <item quantity="many">%1$d ק״מ</item>
+    <item quantity="other">%1$d ק״מ</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">מטר</item>
+    <item quantity="two">%1$d מטרים</item>
+    <item quantity="many">%1$d מטרים</item>
+    <item quantity="other">%1$d מטרים</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">אין כאן עזרה.</string>
   <!--Arrays-->
@@ -866,6 +1036,12 @@
     <item>לעולם לא</item>
     <item>אילוץ</item>
     <item>ללא סרגל מצב</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>אוטומטי</item>
+    <item>נעול</item>
+    <item>לאורך</item>
+    <item>לרוחב</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>הכול</item>

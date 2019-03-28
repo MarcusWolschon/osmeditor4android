@@ -29,9 +29,16 @@
   <string name="progress_preset_message">Pobieranie szablonu…</string>
   <string name="progress_running_message">Wykonywanie poleceń...</string>
   <string name="progress_oauth">Wczytywanie danych konta na openstreetmap.org w celu uwierzytelnienia OAuth...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">Usunięto „%1$s”</string>
+  <string name="changes_changed">Zmieniono „%1$s”</string>
+  <string name="changes_created">Utworzono „%1$s”</string>
+  <string name="confirm_upload_title">Wyślij zmiany</string>
+  <string name="confirm_upload_edits_page">Zmiany</string>
   <string name="upload_comment_label">Komentarz:</string>
   <string name="upload_source_label">Źródło:</string>
   <string name="upload_close_changeset_label">Zamknij zestaw zmian:</string>
+  <!---->
   <string name="upload_gpx_description_label">Opis</string>
   <string name="upload_gpx_tags_label">Znaczniki</string>
   <string name="upload_gpx_visibility_label">Widoczność</string>
@@ -145,6 +152,7 @@
   <string name="layer_flush_tile_cache">Wyczyść cache kafelków</string>
   <string name="layer_change_style">Zmień styl</string>
   <string name="layer_select_imagery">Wybierz podkład</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punkty kontrolne</string>
   <string name="undo_all">Cofnij wszystkich późniejsze punkty kontrolne (bezpieczne)</string>
@@ -152,7 +160,8 @@
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Pobierz dane OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -205,6 +214,7 @@
   <string name="toast_tags_copied">Skopiowano tagi do schowka</string>
   <string name="toast_tags_cut">Wycięto tagi do schowka</string>
   <string name="toast_properties_copied">Skopiowano właściwości do schowka</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Tak</string>
   <string name="no">Nie</string>
@@ -295,7 +305,6 @@
   <string name="location_last_text_parameterized">Ostatnia znana pozycja: %1$s</string>
   <string name="location_current_text_parameterized">Obecna pozycja: %1$s</string>
   <string name="location_text_metadata_location">\nSzer. %1$4g, Dł. %2$4g\n %3$s %4$s temu</string>
-  <string name="location_text_metadata_accuracy">Dokładność %1$2.0f metrów,</string>
   <string name="location_coordinates_text">Wg współrzędnych:</string>
   <string name="location_lat_label">Szer:</string>
   <string name="location_lon_label">Dł:</string>
@@ -423,6 +432,7 @@
   <string name="config_advancedprefs">Ustawienia zaawansowane </string>
   <string name="config_presetbutton_title">Szablony</string>
   <string name="config_presetbutton_summary">Dodaje i włącza szablony kompatybilne z JOSM</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Ustawienia wykrywania błędow</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Diagnozowanie błędów</string>
@@ -492,12 +502,6 @@
   <string name="preset_update">Uaktualnij szablon</string>
   <string name="preset_download_parse_failed">Plik szablonu jest nieprawidłowy. Szablon nie będzie działać.</string>
   <string name="preset_download_title">Pobieracz szablonów</string>
-  <!--changes-->
-  <string name="changes_deleted">Usunięto „%1$s”</string>
-  <string name="changes_changed">Zmieniono „%1$s”</string>
-  <string name="changes_created">Utworzono „%1$s”</string>
-  <string name="confirm_upload_title">Wyślij zmiany</string>
-  <string name="confirm_upload_edits_page">Zmiany</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Dodaj szablon</string>
   <string name="urldialog_preset_exists">Szablon już istnieje</string>
@@ -505,6 +509,10 @@
   <string name="urldialog_add_api">Dodaj API</string>
   <string name="urldialog_nodata_text">Adres konfiguracji nie posiada poprawnych danych.</string>
   <string name="urldialog_add_geocoder">Dodaj geokoder</string>
+  <!--API configuration-->
+  <string name="api_url">Adres URL API</string>
+  <string name="readonly_url">Adres URL API tylko do odczytu (opcjonalny)</string>
+  <string name="notes_url">Adres URL API uwag (opcjonalny)</string>
   <!--common terms-->
   <string name="add">Dodaj</string>
   <string name="edit">Edytuj</string>
@@ -516,9 +524,6 @@
   <string name="state">Stan</string>
   <!---->
   <string name="empty_list">Brak wpisów</string>
-  <string name="api_url">Adres URL API</string>
-  <string name="readonly_url">Adres URL API tylko do odczytu (opcjonalny)</string>
-  <string name="notes_url">Adres URL API uwag (opcjonalny)</string>
   <string name="geocoder_type">Typ geokodera</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Szablon</string>
@@ -552,12 +557,6 @@
   <string name="deleterelation">Usuń relację</string>
   <string name="delete_from_relation_description">Zamierzasz usunąć ten element z relacji.</string>
   <!--time and distance-->
-  <string name="days">dni</string>
-  <string name="hours">godziny</string>
-  <string name="minutes">minuty</string>
-  <string name="seconds">sekundy</string>
-  <string name="km">km</string>
-  <string name="meter">metr</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

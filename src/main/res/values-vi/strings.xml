@@ -29,9 +29,16 @@
   <string name="progress_preset_message">Đang tải về thẻ đặt trước…</string>
   <string name="progress_running_message">Đang chạy…</string>
   <string name="progress_oauth">Đang tải tài khoản của bạn trên openstreetmap.org để cấp phép qua OAuth…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">Đã xóa “%1$s”</string>
+  <string name="changes_changed">Đã thay đổi “%1$s”</string>
+  <string name="changes_created">Đã tạo “%1$s”</string>
+  <string name="confirm_upload_title">Tải lên các thay đổi</string>
+  <string name="confirm_upload_edits_page">Thay đổi</string>
   <string name="upload_comment_label">Miêu tả:</string>
   <string name="upload_source_label">Nguồn:</string>
   <string name="upload_close_changeset_label">Đóng bộ thay đổi:</string>
+  <!---->
   <string name="upload_gpx_description_label">Miêu tả</string>
   <string name="upload_gpx_tags_label">Thẻ</string>
   <string name="upload_gpx_visibility_label">Mức xuất hiện</string>
@@ -136,6 +143,7 @@
   <string name="layer_flush_tile_cache">Xóa sạch bộ nhớ đệm mảnh</string>
   <string name="layer_change_style">Đổi kiểu</string>
   <string name="layer_select_imagery">Chọn hình ảnh</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Điểm Đánh dấu</string>
   <string name="undo_all">Hoàn tác tất cả các điểm đánh dấu sau (chắc chắn)</string>
@@ -143,7 +151,8 @@
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Tải về dữ liệu OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">−</string>
   <string name="digit_one">1</string>
@@ -193,6 +202,7 @@
   <string name="toast_tags_copied">Đã sao chép thẻ vào bảng tạm</string>
   <string name="toast_tags_cut">Đã cắt thẻ vào bảng tạm</string>
   <string name="toast_properties_copied">Đã sao chép thuộc tính vào bảng tạm</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Có</string>
   <string name="no">Không</string>
@@ -284,7 +294,6 @@
   <string name="location_current_text_parameterized">Vị trí hiện tại: %1$s</string>
   <string name="location_text_metadata_location">
 \nVĩ %1$4g, Kinh %2$4g\n%3$s %4$s trước đây</string>
-  <string name="location_text_metadata_accuracy">Chính xác đến %1$2.0f mét,</string>
   <string name="location_coordinates_text">Từ tọa độ:</string>
   <string name="location_lat_label">Vĩ độ:</string>
   <string name="location_lon_label">Kinh độ:</string>
@@ -412,6 +421,7 @@
   <string name="config_advancedprefs">Tùy chỉnh nâng cao</string>
   <string name="config_presetbutton_title">Thẻ đặt trước</string>
   <string name="config_presetbutton_summary">Thêm và kích hoạt các thẻ đặt trước tương thích với JOSM</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Thiết lập kiểm tra</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Gỡ lỗi</string>
@@ -481,12 +491,6 @@
   <string name="preset_update">Cập nhật thẻ đặt trước</string>
   <string name="preset_download_parse_failed">Tập tin thẻ đặt trước không hợp lệ. Thẻ đặt trước sẽ không có tác dụng.</string>
   <string name="preset_download_title">Trình tải về thẻ đặt trước</string>
-  <!--changes-->
-  <string name="changes_deleted">Đã xóa “%1$s”</string>
-  <string name="changes_changed">Đã thay đổi “%1$s”</string>
-  <string name="changes_created">Đã tạo “%1$s”</string>
-  <string name="confirm_upload_title">Tải lên các thay đổi</string>
-  <string name="confirm_upload_edits_page">Thay đổi</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Gắn thẻ đặt trước</string>
   <string name="urldialog_preset_exists">Thẻ đặt trước này đã tồn tại</string>
@@ -494,6 +498,10 @@
   <string name="urldialog_add_api">Thêm API</string>
   <string name="urldialog_nodata_text">URL cấu hình không có dữ liệu hợp lệ.</string>
   <string name="urldialog_add_geocoder">Thêm bộ mã hóa địa lý</string>
+  <!--API configuration-->
+  <string name="api_url">URL của API</string>
+  <string name="readonly_url">URL API chỉ-đọc (tùy chọn)</string>
+  <string name="notes_url">URL API Ghi chú (tùy chọn)</string>
   <!--common terms-->
   <string name="add">Thêm</string>
   <string name="edit">Sửa</string>
@@ -505,9 +513,6 @@
   <string name="state">Trạng thái</string>
   <!---->
   <string name="empty_list">Không có mục</string>
-  <string name="api_url">URL của API</string>
-  <string name="readonly_url">URL API chỉ-đọc (tùy chọn)</string>
-  <string name="notes_url">URL API Ghi chú (tùy chọn)</string>
   <string name="geocoder_type">Kiểu bộ mã hóa địa lý</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Thẻ đặt trước</string>
@@ -541,12 +546,6 @@
   <string name="deleterelation">Xóa quan hệ</string>
   <string name="delete_from_relation_description">Bạn sắp sửa xóa đối tượng này khỏi một quan hệ.</string>
   <!--time and distance-->
-  <string name="days">ngày</string>
-  <string name="hours">giờ</string>
-  <string name="minutes">phút</string>
-  <string name="seconds">giây</string>
-  <string name="km">km</string>
-  <string name="meter">mét</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

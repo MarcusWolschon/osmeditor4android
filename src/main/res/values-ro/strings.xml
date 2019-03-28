@@ -13,8 +13,13 @@
   <string name="progress_deleting_message">Se șterge….</string>
   <string name="progress_searching_message">Caută…</string>
   <string name="progress_saving_message">Salvează…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" sters</string>
+  <string name="changes_changed">\"%1$s\" modificat</string>
+  <string name="changes_created">\"%1$s\" creat</string>
   <string name="upload_comment_label">Comentariu:</string>
   <string name="upload_source_label">Sursa:</string>
+  <!---->
   <string name="upload_gpx_description_label">Descripție</string>
   <string name="upload_gpx_visibility_label">Vizibilitate</string>
   <!--task fragment-->
@@ -47,15 +52,18 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Nu aţi facut nici o modificare...</string>
   <string name="toast_export_success">Exportat la %1$s</string>
   <string name="toast_nothing_found">Nu am găsit nimic</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Da</string>
   <string name="no">Nu</string>
@@ -123,6 +131,7 @@
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Hartă de fundal</string>
   <string name="config_advancedprefs">Setări avansate</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Despre</string>
   <!--Advanced preferences-->
@@ -138,11 +147,8 @@
   <!--Experimental-->
   <!---->
   <!--preset downloader messages-->
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" sters</string>
-  <string name="changes_changed">\"%1$s\" modificat</string>
-  <string name="changes_created">\"%1$s\" creat</string>
   <!--url handler activity-->
+  <!--API configuration-->
   <!--common terms-->
   <string name="add">Adaugă</string>
   <string name="edit">Editează</string>
@@ -163,12 +169,6 @@
   <string name="type">Scrie</string>
   <string name="object">Obiect</string>
   <!--time and distance-->
-  <string name="days">zile</string>
-  <string name="hours">ore</string>
-  <string name="minutes">minute</string>
-  <string name="seconds">secunde</string>
-  <string name="km">km</string>
-  <string name="meter">metru</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

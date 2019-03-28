@@ -24,6 +24,7 @@
     <string name="help_newnoteselection">Sélection d\'une nouvelle note</string>
     <string name="help_voice_commands">Commandes vocales</string>
     <string name="help_upgrade">Notes de publication</string>
+    <string name="help_upgrade_121">Notes de publication de la version 12.1</string>
     <string name="help_upgrade_120">Notes de publication de la version 12.0</string>
     <string name="help_upgrade_112">Notes de publication de la version 11.2</string>
     <string name="help_upgrade_111">Notes de publication de la version 11.1</string>

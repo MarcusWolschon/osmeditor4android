@@ -27,31 +27,37 @@
 <ul>
 <li>Tile based layers:
 <ul>
-<li>Select imagery. Same contents as on the preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the &quot;None&quot; entry from the list will disable the layer, and requires re-enabling it via the &quot;+&quot; button on the layer dialog.</li>
-<li>Flush tile cache. Moved here from main menu.</li>
-<li>Background properties. Set contrast of layer, moved here from main menu.</li>
+<li><strong>Select imagery</strong> Same contents as the corresponding preference screen, if multiple layers have been used, a most-recently-used list will be displayed above this menu entry, allowing quick layer switching. Selecting the &quot;None&quot; entry from the list will disable the layer, and requires re-enabling it via the &quot;+&quot; button on the layer dialog.</li>
+<li><strong>Flush tile cache</strong> Flush the on device cache for this layer.</li>
+<li><strong>Background properties</strong> Set contrast of layer.</li>
+<li><strong>Info</strong> Display information on the currently selected imagery.</li>
 </ul>
 </li>
 <li>GeoJSON layer.
 <ul>
-<li>Change style. Show the layer styling dialog.</li>
-<li>Discard. Delete the layer including any saved state.</li>
+<li><strong>Change style</strong> Show the layer styling dialog.</li>
+<li><strong>Discard</strong> Delete the layer including any saved state.</li>
 </ul>
 </li>
 <li>GPX layer. The GPX layer is currently mainly controlled via the entries in the GPS menu.
 <ul>
-<li>Change style. Show the layer styling dialog.</li>
+<li><strong>Change style</strong> Show the layer styling dialog.</li>
 </ul>
 </li>
 <li>Photo, Grid and Task layers.
 <ul>
-<li>Configure... (for the Grid and Task layers)</li>
-<li>Disable. Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+<li><strong>Configure...</strong> (for the Grid and Task layers)</li>
+<li><strong>Disable</strong> Turn this layer off. For the tasks and photo layers this will free resources if the app is exited and re-started.</li>
+</ul>
+</li>
+<li>Data layer.
+<ul>
+<li><strong>Configure...</strong> Allows selection and configuration of the current OSM data sources. Same contents as the corresponding preference screen.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>&quot;+&quot; button:
+<li><strong>+</strong> button:
 <ul>
 <li>for disabled layers it will show a corresponding &quot;Add ...&quot; entry that will turn the layer on.</li>
 <li>Load GeoJSON layer. Loads a GeoJSON layer from a file, any existing one will be replaced.</li>
@@ -66,7 +72,9 @@
 <li>ways with 'highway=road'</li>
 <li>ways with 'highway' set to one of: motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, residential, unclassified, living_street and no 'name' or 'ref' tag</li>
 <li>relations with no 'type' tag</li>
-<li>certain points of interest that haven't been edited of verified in the last year</li>
+<li>certain points of interest that haven't been edited or verified lately. Default time that must have past since the last edit is 1 year.</li>
+<li>untagged ways that are not a member of a relation</li>
+<li>unconnected highway end nodes, if the end nodes a near to a highway object that they could be connected to, the node is highlighted</li>
 </ul>
 <h3>Indoor mode</h3>
 <p>In indoor mode the displayed level can be changed with the up/down buttons, tapping the level display button will show suitable objects that doesn’t have a level tag, tapping again will revert to the level selector.</p>
@@ -107,7 +115,9 @@ directory, however this depends on the specific camera app.</p>
 <li><strong>File...</strong> - saving and loading OSM data to/from on device files.
 <ul>
 <li><strong>Export changes to OSC file</strong> - write a &quot;.osc&quot; format file containing the current edits</li>
+<li><strong>Apply changes from OSC file</strong> - read a &quot;.osc&quot; format file and apply its contents</li>
 <li><strong>Read from JOSM file...</strong> - read a JOSM compatible XML format file</li>
+<li><strong>Read from PBF file...</strong> - read OSM data from a PBF format file</li>
 <li><strong>Save to JOSM file...</strong> - save as a JOSM compatible XML format file</li>
 </ul>
 </li>

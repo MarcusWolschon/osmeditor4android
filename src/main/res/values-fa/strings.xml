@@ -23,8 +23,13 @@
   <string name="progress_saving_message">ذخیره‌سازی… </string>
   <string name="progress_uploading_message">در حال آپلود...</string>
   <string name="progress_running_message">در حال اجرا...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" حذف شد</string>
+  <string name="changes_changed">\"%1$s\" تغییر کرد</string>
+  <string name="changes_created">\"%1$s\" ایجاد شد</string>
   <string name="upload_comment_label">نظر:</string>
   <string name="upload_source_label">منبع: </string>
+  <!---->
   <string name="upload_gpx_description_label">توضیح</string>
   <string name="upload_gpx_tags_label">برچسب ها</string>
   <string name="upload_gpx_visibility_label">دید</string>
@@ -66,15 +71,18 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">شما هنوز چیزی را تغییر نداده اید… </string>
   <string name="toast_unlock_to_edit">قفل گشایی برای ویرایش</string>
   <string name="toast_export_success">خارج سازی به %1$s</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">بله</string>
   <string name="no">خير</string>
@@ -101,7 +109,6 @@
   <string name="location_current_text">مکان فعلی:</string>
   <string name="location_last_text_parameterized">آخرین مکان شناخته شده: %1$s</string>
   <string name="location_current_text_parameterized">مکان فعلی: %1$s</string>
-  <string name="location_text_metadata_accuracy">دقت %1$2.0f متر،</string>
   <string name="location_coordinates_text">از مختصات:</string>
   <string name="location_lat_label">عرض:</string>
   <string name="location_lon_label">طول:</string>
@@ -146,6 +153,7 @@
   <string name="config_backgroundLayer_title">نقشه پس زمینه</string>
   <string name="config_advancedprefs">ترجیحات پیشرفته</string>
   <string name="config_presetbutton_title">پیش تنظیم</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">درباره</string>
   <!--Advanced preferences-->
@@ -168,16 +176,13 @@
   <!--preset downloader messages-->
   <string name="preset_update">بروزرسانی پیش تنظیم ها</string>
   <string name="preset_download_parse_failed">پرونده ی پیش تنظیم ها نامعتبر است. پیش تنظیم ها کار نمی کنند.</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" حذف شد</string>
-  <string name="changes_changed">\"%1$s\" تغییر کرد</string>
-  <string name="changes_created">\"%1$s\" ایجاد شد</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">افزودن پیش تنظیم</string>
   <string name="urldialog_preset_exists">این پیش تنظیم از قبل وجود دارد</string>
   <string name="urldialog_api_exists">یک ای پی آی با این آدرس از قبل وجود دارد. هرچند، میتوانید یکی دیگر اضاف کنید (مثلا : با تغییر حساب به سادگی)</string>
   <string name="urldialog_add_api">افزودن ای پی آی</string>
   <string name="urldialog_nodata_text">آدرس پیکربندی دارای داده های معتبر نیست.</string>
+  <!--API configuration-->
   <!--common terms-->
   <string name="add">افزودن</string>
   <string name="edit">ویرایش</string>
@@ -203,12 +208,6 @@
   <string name="relation">رابطه</string>
   <string name="type">نوع</string>
   <!--time and distance-->
-  <string name="days">روز</string>
-  <string name="hours">ساعت</string>
-  <string name="minutes">دقیقه</string>
-  <string name="seconds">ثانیه</string>
-  <string name="km">کیلومتر</string>
-  <string name="meter">متر</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

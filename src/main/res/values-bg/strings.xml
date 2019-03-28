@@ -29,9 +29,11 @@
   <string name="progress_preset_message">Сваляне на настройка...</string>
   <string name="progress_running_message">Стартиране...</string>
   <string name="progress_oauth">Зареждане на вашия акаунт в openstreetmap.org за OAuth автентикация...</string>
+  <!--Confirm upload dialog-->
   <string name="upload_comment_label">Коментар:</string>
   <string name="upload_source_label">Източник:</string>
   <string name="upload_close_changeset_label">Затвори промяна:</string>
+  <!---->
   <string name="upload_gpx_description_label">Описание</string>
   <string name="upload_gpx_tags_label">Тагове</string>
   <string name="upload_gpx_visibility_label">Видимост</string>
@@ -128,11 +130,13 @@
   <string name="layer_flush_tile_cache">Изчистете кеша на тайлове</string>
   <string name="layer_change_style">Смяна стил</string>
   <string name="layer_select_imagery">Изберете изображение</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Свалете OpenStreetMap данни</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -165,6 +169,7 @@
   <string name="toast_no_coverage">%1$s няма покритие тук</string>
   <string name="toast_needs_resurvey">Обектът може да е остарял</string>
   <string name="toast_openinghours_invalid">Невалидна стойност за работно време за %1$s</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <!--Read a file-->
   <!--Dialog for back button-->
@@ -181,6 +186,7 @@
   <!--EasyEdit action mode sub-titles-->
   <!--Simple Action Mode-->
   <!--Preferences-->
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <!--Advanced preferences-->
   <!--User Interface Settings-->
@@ -192,8 +198,8 @@
   <!--Experimental-->
   <!---->
   <!--preset downloader messages-->
-  <!--changes-->
   <!--url handler activity-->
+  <!--API configuration-->
   <!--common terms-->
   <!---->
   <!--"default" is a reserved Java keyword…-->

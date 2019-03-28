@@ -7,15 +7,26 @@
   <string name="mode_correct">Λειτουργία-C</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Προσοχή!</string>
+  <string name="transfer_download_current_dialog_message">Έχετε κάνει αλλαγές. Θέλετε να τις μεταφορτώσετε αντί να τις απορρίψετε;</string>
   <string name="transfer_download_current_upload">Αποστολή</string>
   <string name="transfer_download_current_download">Απόρριψη και λήψη</string>
   <string name="transfer_download_current_back">Επιστροφή (Μην κάνεις τίποτα)</string>
+  <string name="upload_problem_title">Δεν ήταν δυνατή η μεταφόρτωση</string>
+  <string name="upload_problem_message">Ορισμένα ή όλα τα δεδομένα δεν φορτώθηκαν. Δοκιμάστε ξανά αργότερα.</string>
   <string name="bad_request_message">Το API απάντησε με σφάλμα, αποθηκεύστε τα δεδομένα σας και αναφέρετε το πρόβλημα:\n\n</string>
   <string name="upload_conflict_title">Διένεξη μεταφόρτωσης</string>
   <string name="upload_conflict_message_deleted">%1$s \nέχει τοπική έκδοση %2$d \nκαι διαγράφηκε στον διακομιστή</string>
   <string name="use_local_version">Χρήση της τοπικής έκδοσης</string>
   <string name="use_server_version">Χρήση έκδοση για το διακομιστή</string>
+  <string name="no_login_data_title">Δεν ήταν δυνατή η πιστοποίηση</string>
+  <string name="no_connection_title">Δεν υπάρχει σύνδεση με το διακομιστή</string>
+  <string name="no_connection_message">Δεν ήταν δυνατή η σύνδεση στο διακομιστή OSM τώρα. Ελέγξτε ότι είστε συνδεδεμένοι στο Internet ή δοκιμάστε ξανά αργότερα.</string>
+  <string name="wrong_login_data_title">Δεν ήταν δυνατή η πιστοποίηση</string>
+  <string name="wrong_login_data_re_authenticate">Επαναπιστοποίηση</string>
   <string name="forbidden_login_title">Η σύνδεση απαγορεύεται</string>
+  <string name="not_found_title">Το στοιχείο δεν βρέθηκε</string>
+  <string name="unknown_error_title">Άγνωστο σφάλμα</string>
+  <string name="no_data_title">Χωρίς δεδομένα</string>
   <string name="go_to_openstreetmap">Πηγαίνετε στο openstreetmap.org</string>
   <string name="bounding_box_too_large_title">Η περιοχή λήψης είναι πολύ μεγάλη</string>
   <string name="read_upgrade">Διαβάστε για τη νέα έκδοση</string>
@@ -30,9 +41,16 @@
   <string name="progress_preset_message">Προεπιλεγμένη λήψη...</string>
   <string name="progress_running_message">Λειτουργία...</string>
   <string name="progress_oauth">Φόρτωση του λογαριασμού σας στο openstreetmap.org για εξουσιοδότηση του OAuth...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
+  <string name="changes_changed">\"%1$s\" άλλαξε</string>
+  <string name="changes_created">\"%1$s\" δημιουργήθηκε</string>
+  <string name="confirm_upload_title">Μεταφόρτωση αλλαγών</string>
+  <string name="confirm_upload_edits_page">Αλλαγές</string>
   <string name="upload_comment_label">Σχόλιο:</string>
   <string name="upload_source_label">Προέλευση:</string>
   <string name="upload_close_changeset_label">Κλείσιμο ομάδας αλλαγών</string>
+  <!---->
   <string name="upload_gpx_description_label">Περιγραφή</string>
   <string name="upload_gpx_tags_label">Ετικέτες</string>
   <string name="upload_gpx_visibility_label">ορατότητα</string>
@@ -146,6 +164,7 @@
   <string name="layer_flush_tile_cache">Ξέπλυμα πλακιδίων μνήμης</string>
   <string name="layer_change_style">Αλλαγή στυλ</string>
   <string name="layer_select_imagery">Επιλογή εικόνας</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Σημεία ελέγχου</string>
   <string name="undo_all">Αναίρεση όλων των επόμενων σημείων ελέγχου (ασφαλές)</string>
@@ -153,7 +172,8 @@
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Κατεβάστε τα δεδομένα του OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -204,6 +224,7 @@
   <string name="toast_tags_copied">Οι ετικέτες έχουν αντιγραφεί στο πρόχειρο</string>
   <string name="toast_tags_cut">Οι ετικέτες αποκόπηκαν στο πρόχειρο</string>
   <string name="toast_properties_copied">Οι ιδιότητες έχουν αντιγραφεί στο πρόχειρο</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ναι</string>
   <string name="no">Όχι</string>
@@ -294,7 +315,6 @@
   <string name="location_last_text_parameterized">Τελευταία γνωστή τοποθεσία: %1$s</string>
   <string name="location_current_text_parameterized">Τωρινή τοποθεσία:</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
-  <string name="location_text_metadata_accuracy">Ακρίβεια %1$2.0f μέτρο,</string>
   <string name="location_coordinates_text">Από συντεταγμένες:</string>
   <string name="location_lat_label">Γ. Πλ:</string>
   <string name="location_lon_label">Γ. Μηκ:</string>
@@ -422,6 +442,7 @@
   <string name="config_advancedprefs">Προχωρημένες προτιμήσεις</string>
   <string name="config_presetbutton_title">Προκαθορισμένες</string>
   <string name="config_presetbutton_summary">Προσθέστε και ενεργοποιήστε προκαθορισμένα συμβατά με JOSM</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Ρυθμίσεις επικύρωσης</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Αποσφαλμάτωση</string>
@@ -491,12 +512,6 @@
   <string name="preset_update">Ενημέρωση προκαθορισμένων</string>
   <string name="preset_download_parse_failed">Το προκαθορισμένο αρχείο δεν είναι έγκυρο. Το προκαθορισμένο δεν θα λειτουργήσει.</string>
   <string name="preset_download_title">Προκαθορισμένο πρόγραμμα λήψης</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" διαγράφηκε</string>
-  <string name="changes_changed">\"%1$s\" άλλαξε</string>
-  <string name="changes_created">\"%1$s\" δημιουργήθηκε</string>
-  <string name="confirm_upload_title">Μεταφόρτωση αλλαγών</string>
-  <string name="confirm_upload_edits_page">Αλλαγές</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Προσθήκη Προκαθορισμένου</string>
   <string name="urldialog_preset_exists">Αυτή η προκαθορισμένη ρύθμιση υπάρχει ήδη</string>
@@ -504,6 +519,10 @@
   <string name="urldialog_add_api">Προσθήκη API</string>
   <string name="urldialog_nodata_text">Το URL ρυθμίσεων δεν περιέχει έγκυρα δεδομένα.</string>
   <string name="urldialog_add_geocoder">Προσθήκη γεωκωδικοποιητών</string>
+  <!--API configuration-->
+  <string name="api_url">URL API</string>
+  <string name="readonly_url">Διεύθυνση API μόνο για ανάγνωση (προαιρετικά)</string>
+  <string name="notes_url">Διεύθυνση σημειώσεων API (προαιρετικό)</string>
   <!--common terms-->
   <string name="add">Προσθήκη</string>
   <string name="edit">Επεξεργασία</string>
@@ -515,9 +534,6 @@
   <string name="state">Κατάσταση</string>
   <!---->
   <string name="empty_list">Χωρίς καταχωρήσεις</string>
-  <string name="api_url">URL API</string>
-  <string name="readonly_url">Διεύθυνση API μόνο για ανάγνωση (προαιρετικά)</string>
-  <string name="notes_url">Διεύθυνση σημειώσεων API (προαιρετικό)</string>
   <string name="geocoder_type">Τύπος γεωκωδικοποιητή</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Προκαθορισμένο</string>
@@ -551,12 +567,6 @@
   <string name="deleterelation">Διαγραφή σχέσης</string>
   <string name="delete_from_relation_description">Πρόκειται να διαγράψετε αυτό το αντικείμενο από μια σχέση.</string>
   <!--time and distance-->
-  <string name="days">ημέρες</string>
-  <string name="hours">ώρες</string>
-  <string name="minutes">λεπτά</string>
-  <string name="seconds">δευτερόλεπτα</string>
-  <string name="km">χλμ</string>
-  <string name="meter">μέτρο</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

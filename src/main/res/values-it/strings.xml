@@ -27,14 +27,16 @@
   <string name="forbidden_login_title">Login proibito</string>
   <string name="not_found_title">Elemento non trovato</string>
   <string name="unknown_error_title">Errore sconosciuto</string>
+  <string name="no_data_title">Nessun dato</string>
+  <string name="no_data_message">La fonte dei dati configurata non ha copertura qui.</string>
   <string name="go_to_openstreetmap">Vai ad openstreetmap.org</string>
   <string name="data_conflict_title">Conflitto tra versioni</string>
   <string name="bounding_box_too_large_title">Area da scaricare troppo grande</string>
   <string name="out_of_memory_dirty_message">Vespucci non è riuscito a caricare i dati richiesti. Per favore, salva le tue modifiche, riapri l\'applicazione e carica un\'area più piccola.</string>
   <string name="invalid_data_received_title">I dati ricevuti non sono validi</string>
   <string name="invalid_data_received_message">Se non hai causato tu l\'errore, invia una segnalazione</string>
-  <string name="invalid_data_read_title">I dati inviati non sono validi</string>
-  <string name="invalid_data_read_message">Se non hai causato tu l\'errore, invia una segnalazione</string>
+  <string name="invalid_data_read_title">Trovati dati non validi</string>
+  <string name="invalid_data_read_message">Per favore consulta la documentazione sui formati di file supportati e i campi di dati necessari.</string>
   <string name="file_write_failed_title">Impossibile scrivere sul file</string>
   <string name="file_write_failed_message">Vespucci non è riuscito a salvare il file</string>
   <string name="welcome_title">Benvenuto</string>
@@ -52,9 +54,17 @@
   <string name="progress_preset_message">Scaricamento dei predefiniti in corso...</string>
   <string name="progress_running_message">In esecuzione...</string>
   <string name="progress_oauth">Caricamento del tuo account da openstreetmap.org per l\'autorizzazione OAuth...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" cancellato</string>
+  <string name="changes_changed">\"%1$s\" modificato</string>
+  <string name="changes_created">\"%1$s\" creato</string>
+  <string name="confirm_upload_title">Carica le modifiche sul server</string>
+  <string name="confirm_upload_edits_page">Modifiche</string>
   <string name="upload_comment_label">Commento:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Chiudi il gruppo di modifiche:</string>
+  <string name="upload_request_review_label">Richiedi revisione:</string>
+  <!---->
   <string name="upload_gpx_description_label">Descrizione</string>
   <string name="upload_gpx_tags_label">Etichette</string>
   <string name="upload_gpx_visibility_label">Visibilità</string>
@@ -67,8 +77,8 @@
   <string name="openstreetbug_new_nodeway">Crea nodo/strada</string>
   <string name="openstreetbug_edit_title">Modifica nota</string>
   <string name="openstreetbug_comment_label">Commento:</string>
-  <string name="openstreetbug_commit_ok">Modifiche del task salvate</string>
-  <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche del task</string>
+  <string name="openstreetbug_commit_ok">Modifiche del compito salvate</string>
+  <string name="openstreetbug_commit_fail">Impossibile salvare le modifiche del compito</string>
   <string name="openstreetbug_unknown_task_type">Tipo di obiettivo sconosciuto</string>
   <string name="openstreetbug_not_supported">%1$s non supportato</string>
   <string name="note_description">Nota: %1$s - %2$s</string>
@@ -80,6 +90,7 @@
   <string name="bug_long_description_2">&lt;br&gt;ultima modifica:&lt;br&gt;%1$s&lt;br&gt;id: %2$d</string>
   <string name="bug_element_1">%1$s (non scaricato) #%2$d</string>
   <string name="bug_element_2">%1$s %2$s</string>
+  <string name="maproulette_task_title">Compiti MapRoulette</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Attenzione!</string>
   <string name="unsaved_data_message">Le tuoi modifiche non salvare verranno eliminate se procedi.</string>
@@ -121,6 +132,7 @@
   <string name="last_edited">Ultima modifica</string>
   <string name="original">Originale</string>
   <string name="current">Attuale</string>
+  <string name="goto_element">Vai all\'elemento</string>
   <!--GeoJSON feature display dialog-->
   <string name="copy_properties">Copia proprietà</string>
   <!---->
@@ -187,9 +199,17 @@
   <string name="layer_photos">Foto</string>
   <string name="layer_tasks">Compiti</string>
   <string name="layer_data">Dati OSM</string>
+  <string name="layer_data_name">%1$s data</string>
   <string name="layer_flush_tile_cache">Cancella la cache delle immagini</string>
   <string name="layer_change_style">Cambia stile</string>
   <string name="layer_select_imagery">Seleziona immagini</string>
+  <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Zoom minimo</string>
+  <string name="layer_info_max_zoom">Zoom massimo</string>
+  <string name="layer_info_start_date">Data d\'inizio</string>
+  <string name="layer_info_end_date">Data di fine</string>
+  <string name="layer_info_terms">Termini</string>
+  <string name="layer_info_privacy_policy">Privacy policy</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Punti di controllo</string>
   <string name="undo_redo_title">Annulla</string>
@@ -198,7 +218,9 @@
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Scarica dati OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Smetti di tracciare e cancella tutti i punti registrati. Questa azione non può essere annullata.</string>
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -233,6 +255,9 @@
   <string name="toast_unsurveyed_road">Strada non verificata</string>
   <string name="toast_noname">Mancano i valori nome e ref per la strada</string>
   <string name="toast_notype">Manca il tag \"relation\" per questa relazione</string>
+  <string name="toast_untagged_way">Strada senza tag</string>
+  <string name="toast_untagged_relation">Relazione senza tag</string>
+  <string name="toast_unconnected_end_node">Il nodo è vicino a un elemento a cui potrebbe essere connesso</string>
   <string name="toast_oauth">Abilita l\'accesso OAuth del tuo account OSM.</string>
   <string name="toast_no_oauth">Con le API attuali non è disponibile alcuna configurazione OAuth, inserisci login e password.</string>
   <string name="toast_oauth_not_enabled">OAuth non è disponibile con le API attuali.</string>
@@ -254,6 +279,7 @@
   <string name="toast_invalid_filter_regexp">Espressione regolare non valida nel filtro con key=\"%1$s\" value=\"%2$s\"</string>
   <string name="toast_no_coverage">%1$s non ha copertura qua</string>
   <string name="toast_needs_resurvey">L\'oggetto potrebbe essere non aggiornato</string>
+  <string name="toast_invalid_object">Oggetto non valido</string>
   <string name="toast_openinghours_invalid">Il valore orari di apertura non è valido per %1$s</string>
   <string name="toast_null_island">Per favole non aggiungere elementi a 0°/0° (Null Island)</string>
   <string name="toast_string_too_long">Sequenza troppo lunga (%1$d caratteri), accorciata!</string>
@@ -267,6 +293,13 @@
   <string name="toast_tags_copied">Etichette copiate in memoria</string>
   <string name="toast_tags_cut">Etichette tagliate in memoria</string>
   <string name="toast_properties_copied">Proprietà copiate in memoria</string>
+  <string name="toast_task_layer_disabled">Livello compiti disabilitato</string>
+  <string name="toast_unable_to_create_task_layer">Impossibile creare un livello per i compiti</string>
+  <string name="toast_invalid_style_file">Formato dei file invalido per %1$s</string>
+  <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">Le sorgenti MapSplit devono avere un valore di zoom massimo e minimo</string>
+  <string name="error_pbf_no_version">Informazione sulla versione mancante nel file PBF</string>
+  <string name="error_pbf_unknown_relation_member_type">Membro della reazione di tipo %1$ssconosciuto</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Sì</string>
   <string name="no">No</string>
@@ -313,6 +346,7 @@
   <string name="tag_menu_preset">Predefiniti</string>
   <string name="tag_menu_apply_preset">Aggiungi il predefinito più adatto</string>
   <string name="tag_menu_revert">Ripristina</string>
+  <string name="tag_menu_mapfeatures">Map feature wiki</string>
   <string name="tag_menu_addtorelation">Aggiungi alla relazione</string>
   <string name="tag_menu_reset_address_prediction">Azzera la predizione degli indirizzi civici</string>
   <string name="tag_menu_exit_no_save">Esci\nsenza salvare</string>
@@ -363,7 +397,8 @@
   <string name="location_current_text_parameterized">Posizione attuale: %1$s</string>
   <string name="location_text_metadata_location">
 \nLat %1$4g, Lon %2$4g\n%3$s %4$s fa</string>
-  <string name="location_text_metadata_accuracy">Precisione di %1$2.0f metri,</string>
+  <string name="location_text_metadata_accuracy">Accuratezza %1$2.0f metri, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Dalle coordinate:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -411,16 +446,27 @@
   <string name="menu_transfer_download_current">Scarica vista corrente</string>
   <string name="menu_transfer_download_current_add">Aggiungi la vista corrente ai dati scaricati</string>
   <string name="menu_transfer_download_other"> Scarica altra posizione</string>
+  <string name="menu_transfer_load_current">Carica la vista corrente</string>
+  <string name="menu_transfer_load_current_add">Aggiungi la vista corrente ai dati</string>
+  <string name="menu_transfer_load_other">Carica in un\'altra posizione</string>
   <string name="menu_transfer_upload">Carica dati nel server OSM</string>
   <string name="menu_transfer_close_changeset">Chiudi il gruppo di modifiche corrente</string>
   <string name="menu_transfer_file">File...</string>
   <string name="menu_transfer_export">Esporta modifiche su un file OSC</string>
+  <string name="menu_transfer_apply_osc_file">Applica modifiche da un file OSC</string>
   <string name="menu_transfer_read_file">Leggi da file JOSM</string>
+  <string name="menu_transfer_read_pbf_file">Leggi da file PBF</string>
   <string name="menu_transfer_save_file">Salva in formato JOSM</string>
+  <string name="menu_transfer_bugs">Compiti...</string>
+  <string name="menu_transfer_bugs_download_current">Scarica compiti per la vista corrente</string>
   <string name="menu_transfer_bugs_upload">Carica tutto</string>
+  <string name="menu_transfer_bugs_upload_long">Carica tutti i compiti</string>
   <string name="menu_transfer_bugs_clear">Pulisci</string>
+  <string name="menu_transfer_bugs_clear_long">Pulisci compiti</string>
+  <string name="menu_transfer_autodownload_long">Scarica automaticamente i compiti</string>
   <string name="menu_transfer_save_notes_all">Salva tutte le note...</string>
   <string name="menu_transfer_save_notes_new_and_changed">Salva note nuove e modificate</string>
+  <string name="menu_transfer_read_custom_bugs">Carica compito personalizzato...</string>
   <string name="menu_transfer_write_custom_bugs">Salva compiti personalizzati aperti...</string>
   <string name="menu_save">Salva come file</string>
   <string name="menu_join">Unisci</string>
@@ -450,6 +496,7 @@
   <!---->
   <string name="menu_simple_actions">Modalità semplice</string>
   <string name="menu_feedback">Fornisci feedback</string>
+  <string name="menu_preset_feedback">Invia un commento sul preset</string>
   <string name="menu_privacy">Privacy</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Allinea lo sfondo</string>
@@ -466,6 +513,7 @@
   <!--Menus in layers dialog-->
   <string name="menu_layers">Livelli...</string>
   <string name="menu_layers_load_geojson">Carica livello GeoJSON</string>
+  <string name="menu_layers_add_tasklayer">Aggiungi un livello per i compiti</string>
   <string name="menu_layers_add_grid">Aggiungi griglia</string>
   <string name="menu_layers_configure">Configura...</string>
   <!---->
@@ -522,13 +570,18 @@
   <string name="config_scale_title">Visibilità della scala grafica</string>
   <string name="config_scale_summary">Tipo di scala mostrata sulla mappa.</string>
   <string name="config_mapProfile_title">Stile dati</string>
+  <string name="config_enableOpenStreetBugs_title">Mostra compiti</string>
+  <string name="config_enableOpenStreetBugs_summary">Mostra, modifica e crea note, segnalazioni di errori e compiti.</string>
   <string name="config_enablePhotoLayer_summary">Mostra foto geo-referenziate</string>
   <string name="config_enableKeepScreenOn_title">Mantieni lo schermo acceso</string>
   <string name="config_largeDragArea_title">Area di trascinamento dei nodi estesa</string>
   <string name="config_advancedprefs">Preferenze avanzate</string>
   <string name="config_presetbutton_title">Predefiniti</string>
   <string name="config_presetbutton_summary">Aggiungi e abilita le preimpostazioni compatibili con JOSM</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Impostazioni del validatore</string>
+  <string name="config_connectedNodeTolerance_title">Tolleranza dei nodi connessi</string>
+  <string name="config_connectedNodeTolerance_summary">Se il nodo finale di una strada è in questa distanza (in metri) da un\'altra strada, dovrebbe essere connesso</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autori e licenze</string>
   <string name="config_debugbutton_title">Debug</string>
@@ -545,6 +598,8 @@
   <string name="config_alwaysDrawBoundingBoxes_title">Offusca sempre le aree non scaricate</string>
   <string name="config_fullscreenMode_title">Modalità a schermo intero</string>
   <string name="config_fullscreenMode_summary">Comportamento con i dispositivi provvisti di tasti \"soft\"</string>
+  <string name="config_map_orientation_title">Orientamento dello schermo</string>
+  <string name="config_map_orientation_summary">Comportamento della mappa quando cambia la rotazione dello schermo.</string>
   <string name="config_showTolerance_title">Mostra tolleranza</string>
   <string name="config_showTolerance_summary">Mostra l\'area all\'interno della quale l\'elemento può essere selezionato.</string>
   <string name="config_use_back_for_undo_title">Usa ← per annullare</string>
@@ -556,6 +611,8 @@
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Abilità l\'anti-aliasing</string>
   <string name="config_enableAntiAliasing_summary">Rendi le linee più morbide.</string>
+  <string name="config_enableHwAcceleration_title">Abilita accelerazione hardware</string>
+  <string name="config_enableHwAcceleration_summary">Permette l\'uso dell\'accelerazione hardware se supportata; potrebbero risultare artefatti.</string>
   <string name="config_maxStrokeWidth_title">Massimo spessore di linea</string>
   <string name="config_maxStrokeWidth_summary">Non disegnare una strada più larga di così.</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -575,17 +632,26 @@
   <string name="config_downloadRadius_current">%1$d metro(i)</string>
   <string name="config_maxDownloadSpeed_title">Velocità di scaricamento automatico massima</string>
   <string name="config_downloadSpeed_current">%1$d km/h</string>
+  <string name="config_bugFilter_title">Filtra compiti</string>
+  <string name="config_bugFilter_summary">Seleziona quali elementi vengono mostrati nel livello di note, errori e compiti.</string>
+  <string name="config_bugDownloadRadius_title">Raggio di download dei compiti</string>
+  <string name="config_bugDownloadRadius_summary">Raggio (m) entro cui scaricare i compiti.</string>
+  <string name="config_maxBugDownloadSpeed_title">Velocità massima per lo scaricamento automatico dei compiti</string>
+  <string name="config_maxBugDownloadSpeed_summary">Limite (in km/h) sopra il quale le note, gli errori e i compiti non vengono scaricati automaticamente.</string>
   <string name="config_closeChangesetOnSave_title">Chiudi i gruppi di modifiche</string>
   <string name="config_enableAutoPresets_title">Abilita la generazione dei predefiniti automatici</string>
   <!--Location Settings-->
   <string name="config_category_gps">Impostazioni della posizione</string>
   <string name="config_gps_source_tcp_title">Dispositivo della rete NMEA</string>
   <string name="config_gps_interval_current">%1$d ms</string>
+  <string name="config_gps_distance_title">Distanza GPS/GNSS minima</string>
   <string name="config_gps_network_title">Ritorna alla localizzazione di rete</string>
   <!--Server Settings-->
   <string name="config_category_server">Impostazioni server</string>
   <string name="config_apibutton_title">OSM API URL</string>
+  <string name="config_apibutton_summary">Puoi impostare un URL delle API non standard. Non dovrebbe essere modificato generalmente!</string>
   <string name="config_loginbutton_title">Account utente</string>
+  <string name="config_username_summary">Devi creare una configurazione per caricare i dati su OSM se non usi OAuth. Crea un account al sito https://www.openstreetmap.org/user/new</string>
   <string name="config_geocoderbutton_title">Configura geo-codificatore</string>
   <!--Layer download and storage-->
   <string name="config_category_layers">Memorizzazione e download livello</string>
@@ -608,6 +674,7 @@
   <string name="listedit_enable_oauth">Abilita OAuth</string>
   <string name="config_username_title">Username OSM</string>
   <string name="config_password_title">Password OSM</string>
+  <string name="config_password_summary">Non scambiarla per la password della wiki. Ricorda: è registrata e trasmessa in testo semplice!</string>
   <string name="manage_presets">Gestisci i preset</string>
   <string name="listedit_use_translations">Usa traduzione</string>
   <string name="manage_geocoders">Gestisci geo-codificatori</string>
@@ -616,12 +683,6 @@
   <string name="preset_download_successful">Preset scaricato</string>
   <string name="preset_download_parse_failed">Il file dei predefiniti non è valido. I predefiniti non funzioneranno.</string>
   <string name="preset_download_title">Scaricatore dei predefiniti</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" cancellato</string>
-  <string name="changes_changed">\"%1$s\" modificato</string>
-  <string name="changes_created">\"%1$s\" creato</string>
-  <string name="confirm_upload_title">Carica le modifiche sul server</string>
-  <string name="confirm_upload_edits_page">Modifiche</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Aggiungi predefinito</string>
   <string name="urldialog_preset_exists">Questo predefinito esiste già</string>
@@ -630,6 +691,11 @@
   <string name="urldialog_add_api">Aggiungi API</string>
   <string name="urldialog_nodata_text">L\'URL di configurazione non contiene dati validi.</string>
   <string name="urldialog_add_geocoder">Aggiungi geo-codificatore</string>
+  <!--API configuration-->
+  <string name="api_url">URL dell\'API</string>
+  <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
+  <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
+  <string name="copy_of">Copia di %1$s</string>
   <!--common terms-->
   <string name="add">Aggiungi</string>
   <string name="edit">Modifica</string>
@@ -641,9 +707,6 @@
   <string name="state">Stato</string>
   <!---->
   <string name="empty_list">Nessuna voce inserita</string>
-  <string name="api_url">URL dell\'API</string>
-  <string name="readonly_url">Indirizzo delle API in sola lettura (facoltativo)</string>
-  <string name="notes_url">Indirizzo delle API per le note (facoltativo)</string>
   <string name="geocoder_type">Tipo di geo-codificatore</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Predefiniti</string>
@@ -680,6 +743,7 @@
   <string name="undo_action_circulize">Rendi rotondo</string>
   <string name="undo_action_fix_conflict">Risoluzione conflitti</string>
   <string name="undo_action_extract_node">Estrazione nodo</string>
+  <string name="undo_action_apply_osc">Applica file OSC</string>
   <!--ACRA-->
   <string name="report_success">Inviato</string>
   <string name="report_failure">Impossibile inviare la segnalazione</string>
@@ -711,12 +775,30 @@
   <string name="delete_from_relation_description">Stai per cancellare questo elemento da una relazione.</string>
   <string name="unset_relation_type">Tipo di relazione non selezionato</string>
   <!--time and distance-->
-  <string name="days">giorni</string>
-  <string name="hours">ore</string>
-  <string name="minutes">minuti</string>
-  <string name="seconds">secondi</string>
-  <string name="km">km</string>
-  <string name="meter">metri</string>
+  <plurals name="days">
+    <item quantity="one">1 giorno</item>
+    <item quantity="other">%1$dgiorni</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 ora</item>
+    <item quantity="other">%1$dore</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 minuto</item>
+    <item quantity="other">%1$dminuti</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 secondo</item>
+    <item quantity="other">%1$d secondi</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 metro</item>
+    <item quantity="other">%1$dmetri</item>
+  </plurals>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

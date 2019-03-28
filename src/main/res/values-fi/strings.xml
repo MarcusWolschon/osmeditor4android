@@ -48,8 +48,6 @@
   <string name="out_of_memory_dirty_message">Vespucci ei voinut ladata pyydettyä dataa. Tallenna muokkauksesi, käynnistä sovellus uudestaan, ja lataa pienempi alue.</string>
   <string name="invalid_data_received_title">Saatiin virheellistä dataa</string>
   <string name="invalid_data_received_message">Jos virhe ei ole sinun aiheuttama, niin lähetä vikailmoitus, kiitos!</string>
-  <string name="invalid_data_read_title">Virheellistä dataa</string>
-  <string name="invalid_data_read_message">Jos virhe ei ole sinun aiheuttama, niin lähetä vikailmoitus, kiitos!</string>
   <string name="file_write_failed_title">Tiedostoon ei voi kirjoittaa</string>
   <string name="file_write_failed_message">Vespucci ei voinut muuttaa tai tallentaa tiedostoa.</string>
   <string name="welcome_title">Tervetuloa!</string>
@@ -72,9 +70,20 @@
   <string name="progress_oauth">Sinun openstreetmap.org-tiliä ladataan OAuth-todennusta varten...</string>
   <string name="progress_building_imagery_database">Kootaan ilmakuvatietokantaa...</string>
   <string name="progress_query_oam">Haetaan OAM:stä...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" poistettiin</string>
+  <string name="changes_changed">\"%1$s\" muutettiin</string>
+  <string name="changes_created">\"%1$s\" luotiin</string>
+  <string name="confirm_upload_title">Lähetetäänkö?</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Lähetetäänkö tämä muutos?</item>
+    <item quantity="other">Lähetetäänkö nämä %1$d muutokset?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Muutokset</string>
   <string name="upload_comment_label">Kommentti:</string>
   <string name="upload_source_label">Lähde:</string>
   <string name="upload_close_changeset_label">Sulje muutossetti:</string>
+  <!---->
   <string name="upload_gpx_description_label">Kuvaus</string>
   <string name="upload_gpx_tags_label">Tägit</string>
   <string name="upload_gpx_visibility_label">Näkyvyys</string>
@@ -230,6 +239,7 @@
   <string name="layer_flush_tile_cache">Tyhjennä laattamuisti</string>
   <string name="layer_change_style">Vaihda tyyliä</string>
   <string name="layer_select_imagery">Valitse kuvasto</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Tarkastuspisteet</string>
   <string name="undo_redo_title">Peru / palauta</string>
@@ -242,7 +252,8 @@
   <string name="feedback_title">Palautetta kehittäjille</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Lataa dataa OpenStreetMapistä</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -356,6 +367,7 @@
   <string name="toast_unable_to_create_task_layer">Tehtävätaasoa ei voitu luoda</string>
   <string name="toast_merged">Sulautettu yhteen</string>
   <string name="toast_long_press_simple_mode">Pitkää painallusta ei voi käyttää perustilassa</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Kyllä</string>
   <string name="no">Ei</string>
@@ -459,7 +471,6 @@
   <string name="location_last_text_parameterized">Viimeksi tunnettu sijainti: %1$s</string>
   <string name="location_current_text_parameterized">Nykyinen sijainti: %1$s</string>
   <string name="location_text_metadata_location">\nlev %1$4g, pit %2$4g\n%3$s %4$s sitten</string>
-  <string name="location_text_metadata_accuracy">Tarkkuus %1$2.0f metriä,</string>
   <string name="location_coordinates_text">Koordinaateista:</string>
   <string name="location_lat_label">Lev:</string>
   <string name="location_lon_label">Pit:</string>
@@ -662,6 +673,7 @@
   <string name="config_presetbutton_title">Esivalinnat</string>
   <string name="config_presetbutton_summary">Lisää ja ota käyttöön JOSM-yhteensopivia esivalintoja</string>
   <string name="config_built_in_preset">Valmiit esivalinnat</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Tarkistimen asetukset</string>
   <string name="config_validatorprefs_summary">Määritä tarkistimen säännöt</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
@@ -812,16 +824,6 @@
   <string name="preset_download_parse_failed">Esivalintatiedosto on virheellinen. Esivalintaa ei voi käyttää.</string>
   <string name="preset_download_missing_images">Esivalintatiedosto ladattiin onnistuneesti. Osaa kuvakkeista ei kuitenkaan voitu ladata, ja ne tulevat puuttumaan.</string>
   <string name="preset_download_title">Esivalintojen lataus</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" poistettiin</string>
-  <string name="changes_changed">\"%1$s\" muutettiin</string>
-  <string name="changes_created">\"%1$s\" luotiin</string>
-  <string name="confirm_upload_title">Lähetetäänkö?</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="one">Lähetetäänkö tämä muutos?</item>
-    <item quantity="other">Lähetetäänkö nämä %1$d muutokset?</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">Muutokset</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Lisää esivalinta</string>
   <string name="urldialog_preset_exists">Tämä esivalinta on jo olemassa</string>
@@ -830,6 +832,11 @@
   <string name="urldialog_add_api">Lisää API</string>
   <string name="urldialog_nodata_text">Määritys-URLissa ei ole kelvollista dataa.</string>
   <string name="urldialog_add_geocoder">Lisää geokooderi</string>
+  <!--API configuration-->
+  <string name="api_name">APIn nimi</string>
+  <string name="api_url">APIn URL</string>
+  <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
+  <string name="notes_url">Notes-APIn URL (valinnainen)</string>
   <!--common terms-->
   <string name="add">Lisää</string>
   <string name="edit">Muokkaa</string>
@@ -841,10 +848,6 @@
   <string name="state">Tila</string>
   <!---->
   <string name="empty_list">Tyhjä lista</string>
-  <string name="api_name">APIn nimi</string>
-  <string name="api_url">APIn URL</string>
-  <string name="readonly_url">Read-Only-APIn URL (valinnainen)</string>
-  <string name="notes_url">Notes-APIn URL (valinnainen)</string>
   <string name="geocoder_type">Geokooderin tyyppi</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Esivalinta</string>
@@ -920,12 +923,6 @@
   <string name="delete_from_relation_description">Olet poistamassa tämän elementin relaatiosta.</string>
   <string name="unset_relation_type">Relaation tyyppi asettamatta</string>
   <!--time and distance-->
-  <string name="days">päivää</string>
-  <string name="hours">tuntia</string>
-  <string name="minutes">minuuttia</string>
-  <string name="seconds">sekuntia</string>
-  <string name="km">km</string>
-  <string name="meter">metriä</string>
   <!--Help system-->
   <string name="toast_nohelp">Tähän ei ole ohjetta.</string>
   <!--Arrays-->

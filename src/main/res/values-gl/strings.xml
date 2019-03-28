@@ -31,7 +31,6 @@
   <string name="out_of_memory_title">Sen memoria dabondo</string>
   <string name="out_of_memory_message">O Vespucci ficou sen memoria cargando os datos solicitados. Volva a iniciar e proba cargar unha área máis pequena.</string>
   <string name="invalid_data_received_title">Datos recibidos non válidos</string>
-  <string name="invalid_data_read_title">Datos enviados non válidos</string>
   <string name="file_write_failed_title">Non se puido escribir no ficheiro</string>
   <string name="file_write_failed_message">O Vespucci non puido mudar ou gardar o ficheiro.</string>
   <string name="welcome_title">Benvido</string>
@@ -47,9 +46,16 @@
   <string name="progress_preset_message">Estase a baixa-lo predefenido...</string>
   <string name="progress_running_message">Estase a executar...</string>
   <string name="progress_oauth">Estase a carrega-la súa conta no openstreetmap.org para a autorización do OAuth...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" eliminado</string>
+  <string name="changes_changed">\"%1$s\" modificado</string>
+  <string name="changes_created">\"%1$s\" creado</string>
+  <string name="confirm_upload_title">Subir mudanzas</string>
+  <string name="confirm_upload_edits_page">Mudanzas</string>
   <string name="upload_comment_label">Comentario:</string>
   <string name="upload_source_label">Fonte:</string>
   <string name="upload_close_changeset_label">Pechar conxunto de mudanzas:</string>
+  <!---->
   <string name="upload_gpx_description_label">Descrición</string>
   <string name="upload_gpx_tags_label">Etiquetas</string>
   <string name="upload_gpx_visibility_label">Visibilidade</string>
@@ -149,6 +155,7 @@
   <string name="layer_flush_tile_cache">Limpa-la caché das teselas</string>
   <string name="layer_change_style">Mudar estilo</string>
   <string name="layer_select_imagery">Escoller imaxes</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Puntos de control</string>
   <string name="undo_all">Desfacer tódolos puntos de control posteriores (seguro)</string>
@@ -156,7 +163,8 @@
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Baixar datos do OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -201,6 +209,7 @@
   <string name="toast_flus_all_caches">Isto limpará tódalas cachés das teselas!</string>
   <string name="toast_unsupported_format">Formato non admitido: %1$s</string>
   <string name="toast_using_network_location">Estase a emprega-la ubicación pola rede</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Si</string>
   <string name="no">Non</string>
@@ -241,7 +250,7 @@
   <string name="link_mapfeatures">http://wiki.openstreetmap.org/index.php/Map_Features</string>
   <string name="tag_menu_address">Engadir etiquetas de enderezo</string>
   <string name="tag_menu_sourcesurvey">Analizado</string>
-  <string name="tag_menu_preset">Preaxustes</string>
+  <string name="tag_menu_preset">Predefinidos</string>
   <string name="tag_menu_apply_preset">Aplicar o mellor agora</string>
   <string name="tag_menu_revert">Reverter</string>
   <string name="tag_menu_addtorelation">Engadir á relación</string>
@@ -291,7 +300,6 @@
   <string name="location_last_text_parameterized">Última posición coñecida: %1$s</string>
   <string name="location_current_text_parameterized">Posición actual: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s %4$s ago</string>
-  <string name="location_text_metadata_accuracy">Precisión %1$2.0f metros,</string>
   <string name="location_coordinates_text">Desde coordenadas:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -417,6 +425,7 @@
   <string name="config_advancedprefs">Axustes avanzados</string>
   <string name="config_presetbutton_title">Presentes</string>
   <string name="config_presetbutton_summary">Engadir e activar JOSM compatibilidade actual</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Axustes do validador</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Depurar</string>
@@ -424,7 +433,7 @@
   <!--Advanced preferences-->
   <!--User Interface Settings-->
   <string name="config_iconbutton_title">Amosar iconas dos puntos</string>
-  <string name="config_iconbutton_summary">Amosa-la icona do preaxuste máis coincidente sobre os puntos.</string>
+  <string name="config_iconbutton_summary">Amosa-la icona do predefinido máis coincidente sobre os puntos.</string>
   <string name="config_showWayIcons_title">Amosar iconas PDI nos edificios</string>
   <string name="config_showWayIcons_summary">Amosar a icona do predeterminado máis axeitado dos edificios.</string>
   <string name="config_tagFormEnabled_title">Amosar formulario da etiqueta</string>
@@ -480,21 +489,19 @@
   <string name="manage_presets">Xestionar configuracións predefinidas</string>
   <string name="manage_geocoders">Xestionar xeocodificadores</string>
   <!--preset downloader messages-->
-  <string name="preset_update">Actualizar preaxuste</string>
-  <string name="preset_download_parse_failed">O ficheiro do preaxuste é inválido. O preaxuste non funcionará.</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" eliminado</string>
-  <string name="changes_changed">\"%1$s\" modificado</string>
-  <string name="changes_created">\"%1$s\" creado</string>
-  <string name="confirm_upload_title">Subir mudanzas</string>
-  <string name="confirm_upload_edits_page">Mudanzas</string>
+  <string name="preset_update">Actualizar predefinido</string>
+  <string name="preset_download_parse_failed">O ficheiro do predefinido non é válido. O predefinido non funcionará.</string>
   <!--url handler activity-->
-  <string name="urldialog_add_preset">Engadir preaxuste</string>
-  <string name="urldialog_preset_exists">Este preaxuste xa existe</string>
+  <string name="urldialog_add_preset">Engadir predefinido</string>
+  <string name="urldialog_preset_exists">Este predefinido xa existe</string>
   <string name="urldialog_api_exists">Xa existe unha API con esta URL. Porén, pode engadir outra (p. ex. para mudae de conta sinxelamente).</string>
   <string name="urldialog_add_api">Engadir API</string>
   <string name="urldialog_nodata_text">A URL de configuración non contén ningún dato válido.</string>
   <string name="urldialog_add_geocoder">Engadir geocoder</string>
+  <!--API configuration-->
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">Ler só API URL (opcional)</string>
+  <string name="notes_url">Notas API URL (opcional)</string>
   <!--common terms-->
   <string name="add">Engadir</string>
   <string name="edit">Editar</string>
@@ -506,12 +513,9 @@
   <string name="state">Estado</string>
   <!---->
   <string name="empty_list">Sen entradas</string>
-  <string name="api_url">API URL</string>
-  <string name="readonly_url">Ler só API URL (opcional)</string>
-  <string name="notes_url">Notas API URL (opcional)</string>
   <string name="geocoder_type">Geocoder tipo</string>
   <!--"default" is a reserved Java keyword…-->
-  <string name="preset">Preaxuste</string>
+  <string name="preset">Predefinido</string>
   <string name="api">API</string>
   <string name="undo">Desfacer</string>
   <string name="redo">Refacer</string>
@@ -540,12 +544,6 @@
   <string name="deleterelation">Eliminar relación</string>
   <string name="delete_from_relation_description">Está a piques de eliminar este elemento dunha relación.</string>
   <!--time and distance-->
-  <string name="days">días</string>
-  <string name="hours">horas</string>
-  <string name="minutes">minutos</string>
-  <string name="seconds">segundos</string>
-  <string name="km">km</string>
-  <string name="meter">metro</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

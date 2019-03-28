@@ -17,9 +17,14 @@
   <string name="progress_deleting_message">Siliniyor...</string>
   <string name="progress_searching_message">Aranıyor...</string>
   <string name="progress_saving_message">Kaydediliyor...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" silindi</string>
+  <string name="changes_changed">\"%1$s\" değiştirildi</string>
+  <string name="changes_created">\"%1$s\" oluşturuldu</string>
   <string name="upload_comment_label">Yorum:</string>
   <string name="upload_source_label">Kaynak:</string>
   <string name="upload_close_changeset_label">Revizyonu kapat:</string>
+  <!---->
   <string name="upload_gpx_description_label">Açıklama</string>
   <string name="upload_gpx_tags_label">Etiketler</string>
   <string name="upload_gpx_visibility_label">Görünürlük</string>
@@ -67,10 +72,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Henüz bir değişiklik yapmadınız...</string>
@@ -88,6 +95,7 @@
   <string name="toast_file_not_found">%1$s bulunamadı.</string>
   <string name="toast_no_voice">Herhangi bir ses tanıma özelliği mevcut değil</string>
   <string name="toast_min_one_preset">En az bir tane önceden belirlenmiş seçilmelidir!</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Evet</string>
   <string name="no">Hayır</string>
@@ -135,7 +143,6 @@
   <string name="location_last_text_parameterized">Son bilinen konum: %1$s</string>
   <string name="location_current_text_parameterized">Şimdiki konum: %1$s</string>
   <string name="location_text_metadata_location">\nEnl %1$4g, Boyl %2$4g\n%3$s %4$s önce</string>
-  <string name="location_text_metadata_accuracy">Doğruluk %1$2.0f metre,</string>
   <string name="location_coordinates_text">Koordinatlardan:</string>
   <string name="location_lat_label">Enl:</string>
   <string name="location_lon_label">Boy:</string>
@@ -217,6 +224,7 @@
   <string name="config_advancedprefs">Gelişmiş özellikler</string>
   <string name="config_presetbutton_title">Öntanımlılar</string>
   <string name="config_presetbutton_summary">JOSM uyumlu öntanımlı ekle ve etkinleştir</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Hakkında</string>
   <!--Advanced preferences-->
@@ -252,16 +260,14 @@
   <!--preset downloader messages-->
   <string name="preset_update">Öntanımlıyı güncelle</string>
   <string name="preset_download_parse_failed">Öntanımlı dosya geçersiz. Öntanımlı çalışmayabilir.</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" silindi</string>
-  <string name="changes_changed">\"%1$s\" değiştirildi</string>
-  <string name="changes_created">\"%1$s\" oluşturuldu</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Öntanımlı ekle</string>
   <string name="urldialog_preset_exists">Öntanımlı zaten var</string>
   <string name="urldialog_api_exists">API URL zaten var. Fakat, başka bir tane eklemek isteyebilirsiniz (örn. hesaplar arasında kolay geçmek için)</string>
   <string name="urldialog_add_api">API ekle</string>
   <string name="urldialog_nodata_text">Yapılandırma URL si geçerli veri içermiyor.</string>
+  <!--API configuration-->
+  <string name="api_url">API URL</string>
   <!--common terms-->
   <string name="add">Ekle</string>
   <string name="edit">Düzenle</string>
@@ -270,7 +276,6 @@
   <string name="url">URL</string>
   <string name="default_">Varsayılan</string>
   <!---->
-  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Öntanımlı</string>
   <string name="api">API</string>
@@ -297,12 +302,6 @@
   <string name="deleterelation">İlişkiyi sil</string>
   <string name="delete_from_relation_description">İlişkiden bir unsur silmek üzeresiniz.</string>
   <!--time and distance-->
-  <string name="days">Gün</string>
-  <string name="hours">saat</string>
-  <string name="minutes">dakika</string>
-  <string name="seconds">saniye</string>
-  <string name="km">km</string>
-  <string name="meter">metre</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

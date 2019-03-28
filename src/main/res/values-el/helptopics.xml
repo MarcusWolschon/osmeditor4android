@@ -2,6 +2,7 @@
 <resources>
     <string name="help_introduction">Εισαγωγή</string>
     <string name="help_main">Εμφάνιση βασικού χάρτη</string>
+    <string name="help_simple_actions">Απλές ενέργειες</string>
     <string name="help_addrelationmember">Η Σχέση επιλεχθηκε</string>
     <string name="help_multiselect">Πολυεπιλογή</string>
     <string name="help_longclick">Δημιουργία νέων αντικειμένων</string>
@@ -20,8 +21,11 @@
     <string name="help_tagfilter">Φίλτρο ετικέτας</string>
     <string name="help_presetfilter">Προκαθορισμένο φίλτρο</string>
     <string name="help_opening_hours">Ωρες λειτουργίας</string>
+    <string name="help_newnoteselection">Επιλογή Νέας Σημείωσης</string>
     <string name="help_voice_commands">Φωνητικές εντολές </string>
     <string name="help_upgrade">Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_121">12.1 Σημειώσεις έκδοσης</string>
+    <string name="help_upgrade_120">12.0 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_112">11.2 Σημειώσεις έκδοσης </string>
     <string name="help_upgrade_111">11.1 Σημειώσεις έκδοσης</string>
     <string name="help_upgrade_110">11.0 Σημειώσεις έκδοσης </string>

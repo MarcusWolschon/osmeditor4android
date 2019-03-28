@@ -48,8 +48,6 @@
   <string name="out_of_memory_dirty_message">Vespucci nedokáže načíst požadovaná data. Uložte prosím vaše úpravy, znovu jej spusťte a načtěte menší plochu.</string>
   <string name="invalid_data_received_title">Přijata neplatná data</string>
   <string name="invalid_data_received_message">Pokud jste tuto chybu nezpůsobili, vyplňte prosím chybové hlášení.</string>
-  <string name="invalid_data_read_title">Odeslána neplatná data</string>
-  <string name="invalid_data_read_message">Pokud jste tuto chybu nezpůsobili, vyplňte prosím chybové hlášení.</string>
   <string name="file_write_failed_title">Soubor nelze zapsat</string>
   <string name="file_write_failed_message">Do vybraného souboru nelze zapisovat.</string>
   <string name="welcome_title">Vítejte</string>
@@ -72,9 +70,22 @@
   <string name="progress_oauth">Načítání vašeho účtu na openstreetmap.org pro OAuth autorizaci...</string>
   <string name="progress_building_imagery_database">Vytvářím databázi snímků…</string>
   <string name="progress_query_oam">Dotazování OAM…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" smazáno</string>
+  <string name="changes_changed">\"%1$s\" změněno</string>
+  <string name="changes_created">\"%1$s\" vytvořeno</string>
+  <string name="confirm_upload_title">Nahrát změny</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Nahrát 1 změnu?</item>
+    <item quantity="few">Nahrát %1$d změny?</item>
+    <item quantity="many">Nahrát %1$d změn?</item>
+    <item quantity="other">Nahrát %1$d změn?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Změny</string>
   <string name="upload_comment_label">Komentář:</string>
   <string name="upload_source_label">Zdroj:</string>
   <string name="upload_close_changeset_label">Uzavřít sadu změn:</string>
+  <!---->
   <string name="upload_gpx_description_label">Popis</string>
   <string name="upload_gpx_tags_label">Tagy</string>
   <string name="upload_gpx_visibility_label">Viditelnost</string>
@@ -230,6 +241,7 @@
   <string name="layer_flush_tile_cache">Vyčistit mezipaměť dlaždic</string>
   <string name="layer_change_style">Změnit styl</string>
   <string name="layer_select_imagery">Zvolit snímky</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Kontrolní body</string>
   <string name="undo_redo_title">Zpět - vpřed</string>
@@ -242,7 +254,8 @@
   <string name="feedback_title">Zpětná vazba vývojářům</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Stáhnout data OpenStreetMap</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -360,6 +373,7 @@
   <string name="toast_unable_to_create_task_layer">Nepodařilo se vytvořit vrstvu chyb</string>
   <string name="toast_merged">Spojeno</string>
   <string name="toast_long_press_simple_mode">Dlouhý stisk není dostupný v jednoduchém režimu.</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ano</string>
   <string name="no">Ne</string>
@@ -463,7 +477,6 @@
   <string name="location_last_text_parameterized">Poslední známá poloha: %1$s</string>
   <string name="location_current_text_parameterized">Aktuální poloha: %1$s</string>
   <string name="location_text_metadata_location">\nŠ %1$4g, D %2$4g\n%3$s %4$s zpět</string>
-  <string name="location_text_metadata_accuracy">Přesnost %1$2.0f m,</string>
   <string name="location_coordinates_text">Podle souřadnic:</string>
   <string name="location_lat_label">Zem. šířka:</string>
   <string name="location_lon_label">Zem. délka:</string>
@@ -668,6 +681,7 @@
   <string name="config_presetbutton_title">Předvolby</string>
   <string name="config_presetbutton_summary">Přidejte a povolte předvolby kompatibilní s JOSM</string>
   <string name="config_built_in_preset">Výchozí předvolby</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Nastavení validátoru</string>
   <string name="config_validatorprefs_summary">Nastavení pravidel validátoru.</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
@@ -818,18 +832,6 @@
   <string name="preset_download_parse_failed">Neplatný soubor předvoleb. Předvolby nebudou fungovat.</string>
   <string name="preset_download_missing_images">Soubor předvoleb stažen. Některé ikony nebyly staženy a chybí.</string>
   <string name="preset_download_title">Přednastavený downloader</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" smazáno</string>
-  <string name="changes_changed">\"%1$s\" změněno</string>
-  <string name="changes_created">\"%1$s\" vytvořeno</string>
-  <string name="confirm_upload_title">Nahrát změny</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="one">Nahrát 1 změnu?</item>
-    <item quantity="few">Nahrát %1$d změny?</item>
-    <item quantity="many">Nahrát %1$d změn?</item>
-    <item quantity="other">Nahrát %1$d změn?</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">Změny</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Přidat předvolbu</string>
   <string name="urldialog_preset_exists">Tato předvolba již existuje</string>
@@ -838,6 +840,11 @@
   <string name="urldialog_add_api">Přidat API</string>
   <string name="urldialog_nodata_text">Konfigurační URL neobsahuje platné ůdaje.</string>
   <string name="urldialog_add_geocoder">Přidat geokodér</string>
+  <!--API configuration-->
+  <string name="api_name">Název API</string>
+  <string name="api_url">URL API</string>
+  <string name="readonly_url">URL API Pouze ke čtení (volitelné)</string>
+  <string name="notes_url">URL API Poznámek (volitelné)</string>
   <!--common terms-->
   <string name="add">Přidat</string>
   <string name="edit">Editovat</string>
@@ -849,10 +856,6 @@
   <string name="state">Stav</string>
   <!---->
   <string name="empty_list">Žádné položky</string>
-  <string name="api_name">Název API</string>
-  <string name="api_url">URL API</string>
-  <string name="readonly_url">URL API Pouze ke čtení (volitelné)</string>
-  <string name="notes_url">URL API Poznámek (volitelné)</string>
   <string name="geocoder_type">Typ geokodéru</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Předvolba</string>
@@ -928,12 +931,6 @@
   <string name="delete_from_relation_description">Chystáte se smazat tento prvek z relace.</string>
   <string name="unset_relation_type">Relace bez typu</string>
   <!--time and distance-->
-  <string name="days">dny</string>
-  <string name="hours">hodiny</string>
-  <string name="minutes">minuty</string>
-  <string name="seconds">sekundy</string>
-  <string name="km">km</string>
-  <string name="meter">metr</string>
   <!--Help system-->
   <string name="toast_nohelp">Nápověda není k dispozici.</string>
   <!--Arrays-->

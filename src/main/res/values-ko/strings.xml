@@ -25,9 +25,14 @@
   <string name="progress_preset_message">프리셋 다운로드 중…</string>
   <string name="progress_running_message">실행 중…</string>
   <string name="progress_oauth">OAuth 인증을 위해 openstreetmap.org에서 당신의 계정을 불러오는 중…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" 삭제됨</string>
+  <string name="changes_changed">\"%1$s\" 변경됨</string>
+  <string name="changes_created">\"%1$s\" 만듦</string>
   <string name="upload_comment_label">댓글:</string>
   <string name="upload_source_label">출처:</string>
   <string name="upload_close_changeset_label">바뀜집합 닫음:</string>
+  <!---->
   <string name="upload_gpx_description_label">설명</string>
   <string name="upload_gpx_tags_label">태그</string>
   <string name="upload_gpx_visibility_label">시정</string>
@@ -82,10 +87,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">아직 아무것도 바꾸지 않았습니다…</string>
@@ -109,6 +116,7 @@
   <string name="toast_invalid_apiurl">올바르지 않는 API URL</string>
   <string name="toast_invalid_readonlyurl">올바르지 않는 읽기전용 API URL</string>
   <string name="toast_invalid_filter_regexp">key=\"%1$s\" value=\"%2$s\"로 필터에 올바르지 않는 정규 표현식</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">예</string>
   <string name="no">아니오</string>
@@ -272,6 +280,7 @@
   <string name="config_enableKeepScreenOn_title">화면 켜기 유지</string>
   <string name="config_advancedprefs">고급 환경 설정</string>
   <string name="config_presetbutton_title">프리셋</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">디버그</string>
   <string name="config_category_info">정보</string>
@@ -308,15 +317,14 @@
   <!--preset downloader messages-->
   <string name="preset_update">프리셋 업데이트</string>
   <string name="preset_download_parse_failed">프리셋 파일이 올바르지 않습니다. 프리셋이 작동되지 않을 것입니다.</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" 삭제됨</string>
-  <string name="changes_changed">\"%1$s\" 변경됨</string>
-  <string name="changes_created">\"%1$s\" 만듦</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">프리셋 추가</string>
   <string name="urldialog_preset_exists">이 프리셋은 이미 존재합니다</string>
   <string name="urldialog_add_api">API 추가</string>
   <string name="urldialog_nodata_text">환경 설정 URL이 올바른 데이터를 포함하고 있지 않습니다.</string>
+  <!--API configuration-->
+  <string name="readonly_url">읽기 전용 API URL (선택 사항)</string>
+  <string name="notes_url">참고 API URL (선택 사항)</string>
   <!--common terms-->
   <string name="add">추가</string>
   <string name="edit">편집</string>
@@ -324,8 +332,6 @@
   <string name="name">이름</string>
   <string name="default_">기본값</string>
   <!---->
-  <string name="readonly_url">읽기 전용 API URL (선택 사항)</string>
-  <string name="notes_url">참고 API URL (선택 사항)</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">프리셋</string>
   <string name="undo">실행 취소</string>
@@ -352,10 +358,6 @@
   <string name="deleterelation">관계 삭제</string>
   <string name="delete_from_relation_description">관계에서 이 요소를 삭제하려고 합니다.</string>
   <!--time and distance-->
-  <string name="days">일</string>
-  <string name="hours">시간</string>
-  <string name="minutes">분</string>
-  <string name="seconds">초</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

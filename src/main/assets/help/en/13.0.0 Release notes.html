@@ -10,16 +10,21 @@
 <p>Vespucci will now render multipolygons, the standard style for this and some common area types is to have a thick border on the inside of the polygons similar to other editors. In principle it is possible to use a fill style, however particularly large multipolygons will typically have some non-downloaded members which will lead to rendering artifacts.</p>
 <p>Turn-restrictions will be indicated with an icon near the via node or way.</p>
 <p>The style configuration has been substantially revamped to allow cascading styles (and by that requiring less typing) and matching on arbitrary tags or tag combinations, further some previously hard wired constants are now exposed for configuration, for example the maximum zoom level at which icons are still displayed.</p>
+<p>Further improvements:</p>
+<ul>
+<li>Improve riverbank rendering by making &quot;oneway&quot; arrows configurable.</li>
+<li>Add casing support for ways.</li>
+</ul>
 <p>As previously the style format remains undocumented outside of the source code and the <a href="https://raw.githubusercontent.com/MarcusWolschon/osmeditor4android/master/src/main/assets/Color-round-profile.xml">configuration files themselves</a></p>
 <h3>Support applying osmChange format files</h3>
 <p>osmChange format files can now be applied to loaded data. This makes the functionality to save such files much more useful, for example potential problems can be inspected and fixed in the saved files and then re-applied without having to use JOSM.</p>
 <h3>Add support for MapSplit tiled OSM data</h3>
 <p>MapSplit sources contain original OSM data in PBF format tiles. These files can be configured as read-only data sources and be used for editing on the go when there is no expectation of network coverage or there is only slow Internet connectivity available. While it was previously possible to simply load larger areas directly in to memory, this has a large impact on performance that is avoided by being able to load data for smaller areas on demand.</p>
-<p>Currently MapSplit sources can be configured in the &quot;Advanced preferences&quot;, &quot;Server settings&quot;, &quot;OSM API URL&quot;, edit an entry (long click for the menu), and click the folder icon on the &quot;Read.only API URL&quot;. This will potentially be made simpler for release.</p>
+<p>MapSplit sources can be configured in the via the &quot;Configuration&quot; menu item for the data layer in the layer control, edit or add an entry, and click the folder icon on the &quot;Read.only API URL&quot;.</p>
 <p>Notes:</p>
 <ul>
 <li>edits naturally still need to be either uploaded or saved locally for later upload</li>
-<li>currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/tree/v2">temporary MapSplit V2 repository</a> this will possibly change for release.</li>
+<li>currently there is no online service for obtaining data in this format, so you will need to extract and convert data for the areas that you are interested in yourself: <a href="https://github.com/simonpoole/mapsplit/">MapSplit repository</a>.</li>
 <li>currently the sources are completely static on device, so your edits will not be reflected, there is some work under way to changes this.</li>
 <li>offline background imagery can be used in Vespucci in MBTiles format.</li>
 </ul>
@@ -33,8 +38,11 @@
 <li>Improve pinch/spread zoom behaviour.</li>
 <li>Avoid floating point binary representation issues on input and output.</li>
 <li>Add confirmation modal before deleting stored GPX data.</li>
-<li>Validate and highlight unconnected highway end nodes that probably should be connected.</li>
+<li>Validate and highlight unconnected highway end nodes that probably should be connected (required distance can be configured in the validation preferences).</li>
 <li>Validate and highlight untagged ways that are not a relation member and relations.</li>
+<li>Item lists for API, Preset and Geocoder configuration now have a menu button that can be used instead of a long press, further API entries can now be copied.</li>
+<li>&quot;Go to element&quot; button in the element info dialog when started from the upload dialog.</li>
+<li>Support for reading presets from on-device files.</li>
 </ul>
 <h1>Upgrading from previous versions</h1>
 <ul>

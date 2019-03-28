@@ -34,6 +34,8 @@
   <string name="not_found_message">透過 API 無法找到既有的元件或是特定的 id 的編輯變動。&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">未知的錯誤</string>
   <string name="unknown_error_message">無法處理從 API 或是訊息回傳的錯誤代碼。&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">沒有資料</string>
+  <string name="no_data_message">這裡設定資料來源沒有覆蓋</string>
   <string name="go_to_openstreetmap">到 openstreetmap.org</string>
   <string name="data_conflict_title">版本衝突</string>
   <string name="data_conflict_message">您下載的資料會與您的編輯衝突。請先上傳您的資料再重試。</string>
@@ -48,8 +50,8 @@
   <string name="out_of_memory_dirty_message">Vespucci 無法載入所要求的資料，請儲存你的編輯，再試一次並嘗試載入較小的區域。</string>
   <string name="invalid_data_received_title">收到的資料無效</string>
   <string name="invalid_data_received_message">如果不是你造成的錯誤，請提報臭蟲。</string>
-  <string name="invalid_data_read_title">傳送無效的資料</string>
-  <string name="invalid_data_read_message">如果不是你造成的錯誤，請提報臭蟲。</string>
+  <string name="invalid_data_read_title">讀取無效資料</string>
+  <string name="invalid_data_read_message">請看說明文件察看支援的檔案格式，以及需要的資料欄位 。</string>
   <string name="file_write_failed_title">檔案寫入失敗</string>
   <string name="file_write_failed_message">Vespucci 無法變更或儲存檔案。</string>
   <string name="welcome_title">歡迎</string>
@@ -72,9 +74,20 @@
   <string name="progress_oauth">在 openstreetmap.org 載入您的帳號，為 OAuth 授權...</string>
   <string name="progress_building_imagery_database">建構圖像資料庫...</string>
   <string name="progress_query_oam">正在查詢 OAM ...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" 已刪除</string>
+  <string name="changes_changed">\"%1$s\" 已變更</string>
+  <string name="changes_created">\"%1$s\" 已建立</string>
+  <string name="confirm_upload_title">上傳變動</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="other">要上傳 %1$d 項變動嗎？</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">變動</string>
   <string name="upload_comment_label">評論：</string>
   <string name="upload_source_label">來源：</string>
   <string name="upload_close_changeset_label">關閉變更組合：</string>
+  <string name="upload_request_review_label">請求審核：</string>
+  <!---->
   <string name="upload_gpx_description_label">記述</string>
   <string name="upload_gpx_tags_label">標籤</string>
   <string name="upload_gpx_visibility_label">能見度</string>
@@ -154,6 +167,7 @@
   <string name="last_edited">最近編輯</string>
   <string name="original">原來</string>
   <string name="current">目前</string>
+  <string name="goto_element">到元素</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON 圖徵資訊 </string>
   <string name="copy_properties">複製性質</string>
@@ -227,9 +241,17 @@
   <string name="layer_photos">照片</string>
   <string name="layer_tasks">任務</string>
   <string name="layer_data">OSM 資料</string>
+  <string name="layer_data_name">%1$s資料</string>
   <string name="layer_flush_tile_cache">清理圖磚暫存檔</string>
   <string name="layer_change_style">改變樣式</string>
   <string name="layer_select_imagery">選擇影像</string>
+  <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">最小縮小</string>
+  <string name="layer_info_max_zoom">最大放大</string>
+  <string name="layer_info_start_date">開始日期</string>
+  <string name="layer_info_end_date">結束日期</string>
+  <string name="layer_info_terms">條款</string>
+  <string name="layer_info_privacy_policy">隱私政策</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">檢查點</string>
   <string name="undo_redo_title">復原及取消復原</string>
@@ -242,7 +264,9 @@
   <string name="feedback_title">給開發者的回饋</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">下載開放街圖資料</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">停止記錄並且刪除所有儲存的航點，這不能復原。</string>
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -282,6 +306,9 @@
   <string name="toast_unsurveyed_road">未勘測的路</string>
   <string name="toast_noname">道路缺少名稱或編號</string>
   <string name="toast_notype">關聯缺失類型</string>
+  <string name="toast_untagged_way">未加上標籤的路徑</string>
+  <string name="toast_untagged_relation">未加上標籤的關聯</string>
+  <string name="toast_unconnected_end_node">節點接近連接的元素</string>
   <string name="toast_oauth_retry">在允許 OAuth 存取你的 OSM 帳號後再上傳一次。</string>
   <string name="toast_oauth">請允許 OAuth 進入您的 OSM 帳號。</string>
   <string name="toast_no_oauth">沒有 OAuth 的組態可用於目前的API，請設定登入名稱和密碼。</string>
@@ -326,6 +353,7 @@
   <string name="toast_file_exists">%1$s檔案存在。</string>
   <string name="toast_needs_resurvey">物件可能過期了</string>
   <string name="toast_missing_key">%1$s鍵值遺失</string>
+  <string name="toast_invalid_object">無效的物件</string>
   <string name="toast_openinghours_invalid">%1$s 無效的營業時間</string>
   <string name="toast_openinghours_autocorrected">自動修正開放時間數值 %1$s</string>
   <string name="toast_exit_multiselect">點兩下空白處或是用 ← 鍵離開</string>
@@ -354,6 +382,11 @@
   <string name="toast_unable_to_create_task_layer">無法新建任務圖層</string>
   <string name="toast_merged">已合併</string>
   <string name="toast_long_press_simple_mode">簡單模式下長按無效</string>
+  <string name="toast_invalid_style_file">%1$s 有無效的樣式檔案格式</string>
+  <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">MapSplit 資源必須設定最小和最大</string>
+  <string name="error_pbf_no_version">PBF 檔案缺少版本資訊</string>
+  <string name="error_pbf_unknown_relation_member_type">未知的關聯成員種類 %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">是</string>
   <string name="no">否</string>
@@ -458,7 +491,8 @@
   <string name="location_current_text_parameterized">目前位置：%1$s</string>
   <string name="location_text_metadata_location">
 緯度 %1$4g、經度 %2$4g\n%3$s %4$s 之前</string>
-  <string name="location_text_metadata_accuracy">精確度 %1$2.0f 公尺，</string>
+  <string name="location_text_metadata_accuracy">準確度 %1$2.0f 公尺，...</string>
+  <string name="location_text_metadata">(%1$s %2$s)</string>
   <string name="location_coordinates_text">從坐標：</string>
   <string name="location_lat_label">緯度：</string>
   <string name="location_lon_label">經度：</string>
@@ -506,11 +540,16 @@
   <string name="menu_transfer_download_current">下載目前的檢視</string>
   <string name="menu_transfer_download_current_add">增加目前檢視的作下載</string>
   <string name="menu_transfer_download_other">在另一個地點下載</string>
+  <string name="menu_transfer_load_current">載入目前檢視</string>
+  <string name="menu_transfer_load_current_add">將目前檢視加到資料</string>
+  <string name="menu_transfer_load_other">在其他位置載入</string>
   <string name="menu_transfer_upload">上傳資料到 OSM 的伺服器</string>
   <string name="menu_transfer_close_changeset">關閉目前的變更組合</string>
   <string name="menu_transfer_file">檔案...</string>
   <string name="menu_transfer_export">匯出變更到 OSC 檔案</string>
+  <string name="menu_transfer_apply_osc_file">從 OSC 檔案套用變更</string>
   <string name="menu_transfer_read_file">從 JOSM 檔讀取...</string>
+  <string name="menu_transfer_read_pbf_file">從 PBF 檔案讀取</string>
   <string name="menu_transfer_save_file">儲存到 JOSM 檔案...</string>
   <string name="menu_transfer_bugs">任務...</string>
   <string name="menu_transfer_bugs_download_current">下載檢視範圍內所有任務</string>
@@ -553,6 +592,7 @@
   <!---->
   <string name="menu_simple_actions">簡易模式</string>
   <string name="menu_feedback">提供反饋</string>
+  <string name="menu_preset_feedback">提供預設組合回饋</string>
   <string name="menu_privacy">隱私</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">校直背景</string>
@@ -660,8 +700,11 @@
   <string name="config_presetbutton_title">預置</string>
   <string name="config_presetbutton_summary">增加並啟用 JOSM 相容的預置</string>
   <string name="config_built_in_preset">內建預設</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">驗證器設定</string>
   <string name="config_validatorprefs_summary">設定驗證規則。</string>
+  <string name="config_connectedNodeTolerance_title">連接節點的容忍值</string>
+  <string name="config_connectedNodeTolerance_summary">如果公路的結束節點接近 (公尺程度) 其他公路，應該要連接過去。</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">作者和授權</string>
   <string name="config_debugbutton_title">除錯</string>
@@ -684,6 +727,8 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">鎖定模式下模糊無法下載的區域。</string>
   <string name="config_fullscreenMode_title">全螢幕模式</string>
   <string name="config_fullscreenMode_summary">有\"soft\"鍵裝置程式行為</string>
+  <string name="config_map_orientation_title">地圖螢幕方向</string>
+  <string name="config_map_orientation_summary">裝置螢幕方向改變時的地圖行為。</string>
   <string name="config_showTolerance_title">顯示選取誤差</string>
   <string name="config_showTolerance_summary">在元件周圍顯示可以被選取的區域。</string>
   <string name="config_use_back_for_undo_title">用 ← 作取消復原</string>
@@ -700,6 +745,8 @@
   <string name="config_autoLockDelay_current">%1$d 秒</string>
   <string name="config_enableAntiAliasing_title">啟用反鋸齒</string>
   <string name="config_enableAntiAliasing_summary">使線條更滑順。</string>
+  <string name="config_enableHwAcceleration_title">啟用硬體加速</string>
+  <string name="config_enableHwAcceleration_summary">如果支援的話，允許使用硬體加速，也許會造成假像。</string>
   <string name="config_maxStrokeWidth_title">最大線寬</string>
   <string name="config_maxStrokeWidth_summary">不要畫出比這更粗的道路。</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -810,15 +857,6 @@
   <string name="preset_download_parse_failed">預置檔案無效。預置將無法工作。</string>
   <string name="preset_download_missing_images">預載檔案已經下載，然後遺失的的圖示還未下載。</string>
   <string name="preset_download_title">預置下載器</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" 已刪除</string>
-  <string name="changes_changed">\"%1$s\" 已變更</string>
-  <string name="changes_created">\"%1$s\" 已建立</string>
-  <string name="confirm_upload_title">上傳變動</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="other">要上傳 %1$d 項變動嗎？</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">變動</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">增加預置</string>
   <string name="urldialog_preset_exists">此預置已存在</string>
@@ -827,6 +865,12 @@
   <string name="urldialog_add_api">增加 API</string>
   <string name="urldialog_nodata_text">組態 URL 未包含有效的資料。</string>
   <string name="urldialog_add_geocoder">增加 geocoder</string>
+  <!--API configuration-->
+  <string name="api_name">API 名稱</string>
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">唯讀API網址 (選擇)</string>
+  <string name="notes_url">註解API網址 (選擇)</string>
+  <string name="copy_of">%1$s的複製物</string>
   <!--common terms-->
   <string name="add">增加</string>
   <string name="edit">編輯</string>
@@ -838,10 +882,6 @@
   <string name="state">狀態</string>
   <!---->
   <string name="empty_list">無輸入</string>
-  <string name="api_name">API 名稱</string>
-  <string name="api_url">API URL</string>
-  <string name="readonly_url">唯讀API網址 (選擇)</string>
-  <string name="notes_url">註解API網址 (選擇)</string>
   <string name="geocoder_type">geocoder 類型</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">預置</string>
@@ -883,6 +923,7 @@
   <string name="undo_action_circulize">在圓週排列</string>
   <string name="undo_action_fix_conflict">修正衝突</string>
   <string name="undo_action_extract_node">抽出節點</string>
+  <string name="undo_action_apply_osc">套用 OSC 檔案</string>
   <!--ACRA-->
   <string name="crash_dialog_text">上次 Vespucci 運行時當掉或是遇到嚴重的問題。\n\n請點 \'OK\' 來傳送錯誤報告。\n</string>
   <string name="crash_dialog_comment_prompt">增加其他你覺得可能幫上忙的的進一步資訊，如果需要回饋則附上你的電子郵件位址(選擇)。\n\n謝謝你！</string>
@@ -917,12 +958,24 @@
   <string name="delete_from_relation_description">您即將從一個關係中刪除該元件。</string>
   <string name="unset_relation_type">未設定關係類型</string>
   <!--time and distance-->
-  <string name="days">天</string>
-  <string name="hours">小時</string>
-  <string name="minutes">分鐘</string>
-  <string name="seconds">秒</string>
-  <string name="km">公里</string>
-  <string name="meter">公尺</string>
+  <plurals name="days">
+    <item quantity="other">%1$d天</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">%1$d小時</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">%1$d分鐘</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">%1$d秒</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="other">%1$d公里</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="other">%1$d公尺</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">這裡沒幫助。</string>
   <!--Arrays-->
@@ -971,6 +1024,12 @@
     <item>從不</item>
     <item>強制</item>
     <item>沒有狀態列</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>自動</item>
+    <item>銷定</item>
+    <item>肖像</item>
+    <item>景觀</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>所有</item>

@@ -6,16 +6,48 @@
   <string name="mode_indoor">План приміщення</string>
   <!--Dialogs-->
   <string name="transfer_download_current_dialog_title">Увага!</string>
+  <string name="transfer_download_current_dialog_message">Ви внесли зміни. Бажаєте надіслати їх замість того, щоб відкинути їх?</string>
   <string name="transfer_download_current_upload">Надіслати на сервер</string>
   <string name="transfer_download_current_download">Скасувати й звантажити</string>
+  <string name="transfer_download_current_back">Назад (нічого не робити)</string>
+  <string name="upload_problem_title">Не вдалося надіслати</string>
+  <string name="upload_problem_message">Частина або всі дані не були надіслані. Спробуйте ще раз.</string>
   <string name="bad_request_message">API відповів помилкою, будь ласка, збережіть свої дані та повідомте про проблему:\n\n</string>
   <string name="upload_conflict_title">Конфлікт надсилання</string>
+  <string name="upload_conflict_message_version">%1$s \nмає локальну версію %2$d \nта версію на сервері %3$d </string>
   <string name="upload_conflict_message_deleted">%1$s \nмає локальну версію %2$d \nта вилучено на сервері</string>
+  <string name="upload_conflict_message_referential">%1$s\nбуло вилучено локально\nале має залежності на сервері</string>
+  <string name="upload_conflict_message_already_deleted">%1$s \nвже вилучено на сервері</string>
   <string name="use_local_version">Використовувати локальну версію</string>
   <string name="use_server_version">Використовувати версію з сервера</string>
+  <string name="no_login_data_title">Не вдалося перевірити автентичність</string>
+  <string name="no_login_data_message">Якщо Ви використовуєте OAuth, то це ймовірно помилка, будь ласка, відправте звіт про помилку.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
+  <string name="no_connection_title">Немає з’єднання з сервером</string>
+  <string name="no_connection_message">Неможливо з’єднатися з сервером OpenStreetMap. Перевірте Ваше  Інтернет-з’єднання та спробуйте ще раз.</string>
+  <string name="ssl_handshake_failed">Неможливо зʼєднатись з сервером OpenStreetMap через збій в передачі даних через https. Спробуйте перемикнутися на незашифроване зʼєднання в налаштуваннях API.</string>
+  <string name="wrong_login_data_title">Помилка автентифікації</string>
+  <string name="wrong_login_data_message">Якщо Ви використовуєте OAuth, вам потрібно ре-автентифікуватись.  Якщо Ви використовуєте логін і пароль (не рекомендується), перевірте, що вони введені коректно.</string>
+  <string name="wrong_login_data_re_authenticate">Ре-автентифікуватись</string>
   <string name="forbidden_login_title">Вхід заборонено</string>
+  <string name="not_found_title">Елемент не знайдено</string>
+  <string name="unknown_error_title">Невідома помилка</string>
   <string name="go_to_openstreetmap">Перейти на openstreetmap.org</string>
+  <string name="data_conflict_title">Конфлікт версій</string>
+  <string name="data_conflict_message">Дані, які ви намагаєтесь завантажити конфліктують з вашими правками. Спочатку надішліть на сервер ваші зміни перед тим, як спробувати завантажити дані знов.</string>
   <string name="bounding_box_too_large_title">Ділянка для завантаження завелика</string>
+  <string name="bounding_box_too_large_message">Ділянка, яку ви намагаєтесь завантажити завелика або містить забагато даних.\n\n Наблизьтесь та спробуйте ще раз.</string>
+  <string name="api_offline_title">Немає з’єднання з API</string>
+  <string name="api_offline_message">Зараз немає зв’язку з API, тому, а ні отримати, а ні надіслати дані неможливо.</string>
+  <string name="out_of_memory_title">Недостатньо пам’яті</string>
+  <string name="out_of_memory_message">Веспуччі не вистачило пам’яті для завантаження даних. Перезапустіть застосунок та спробуйте завантажити меншу ділянку.</string>
+  <string name="out_of_memory_dirty_message">Веспуччі не може завантажити дані. Спробуйте зберегти ваші зміни, перезапустити застосунок та завантажити меншу ділянку.</string>
+  <string name="invalid_data_received_title">Отримано пошкоджені дані</string>
+  <string name="invalid_data_received_message">Якщо ви вважаєте, те що ви робите — правильно, будь ласка, надішліть звіт про помилку.</string>
+  <string name="file_write_failed_title">Збій запису у файл</string>
+  <string name="welcome_title">Ласкаво просимо!</string>
+  <string name="read_introduction">Прочитати вступ</string>
+  <string name="upgrade_title">Це нова версія Веспуччі</string>
+  <string name="upgrade_message">Нові функції та можливості описані в нотатках до випуску.</string>
   <string name="read_upgrade">Про нову версію.</string>
   <string name="progress_title">Звантаження</string>
   <string name="progress_message">Завантаження даних в пам’ять…</string>
@@ -28,21 +60,34 @@
   <string name="progress_preset_message">Завантаження заготовок…</string>
   <string name="progress_running_message">Запуск…</string>
   <string name="progress_oauth">Завантаження вашого облікового запису з osm.org для OAuth-авторизації…</string>
+  <string name="progress_query_oam">Отримання даних з OAM…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">„%1$s“ вилучено</string>
+  <string name="changes_changed">„%1$s“ змінено</string>
+  <string name="changes_created">„%1$s“ створено</string>
   <string name="upload_comment_label">Коментар: </string>
   <string name="upload_source_label">Джерело: </string>
   <string name="upload_close_changeset_label">Закрити набір змін: </string>
+  <!---->
   <string name="upload_gpx_description_label">Опис</string>
   <string name="upload_gpx_tags_label">Теґи</string>
   <string name="upload_gpx_visibility_label">Видимість</string>
   <string name="upload_validation_error_empty_comment">Коментар не має бути порожнім</string>
   <string name="upload_validation_error_empty_source">Джерело не має бути порожнім</string>
   <!--task fragment-->
+  <string name="openstreetbug_new_title">Нова нотатка</string>
+  <string name="openstreetbug_new_bug">Звіт про проблему</string>
   <string name="openstreetbug_bug_title">Проблема</string>
+  <string name="openstreetbug_new_nodeway">Створити точку/лінію</string>
+  <string name="openstreetbug_edit_title">Редагувати нотатку</string>
   <string name="openstreetbug_comment_label">Коментар: </string>
   <string name="openstreetbug_unknown_task_type">Невідомий тип завжання</string>
   <string name="openstreetbug_not_supported">%1$s не підтримується</string>
+  <string name="bug_description">%1$s: %2$s - %3$s</string>
+  <string name="osmose_bug">Osmose</string>
   <!--Unsaved data dialog-->
   <string name="unsaved_data_title">Увага!</string>
+  <string name="unsaved_data_message">Ваші незбережені зміни будуть втрачені якщо Ви продовжите.</string>
   <string name="unsaved_data_proceed">Скасувати й продовжити</string>
   <!--Imagery offset dialog-->
   <string name="imagery_offset_description">Опис</string>
@@ -56,6 +101,7 @@
   <string name="WGS84">WGS84</string>
   <string name="tag_editor_name_suggestion">Пропозиція назви</string>
   <!--Search/Find dialog-->
+  <string name="tag_editor_name_suggestion_overwrite_message">Пропозиції можуть замінювати значення деяких теґів на більш поширені.</string>
   <string name="search_results_title">Результати пошуку</string>
   <string name="find_message">Введіть рядок пошуку</string>
   <string name="geocoder_prompt">з</string>
@@ -63,7 +109,9 @@
   <string name="preset_search_hint">Пошук заготовок</string>
   <string name="search">Пошук</string>
   <string name="no_valid_preset">Немає відповідної заготовки! </string>
+  <string name="save_file">Зберегти в</string>
   <!--element information dialog-->
+  <string name="id">ID</string>
   <string name="nodes">Точки</string>
   <string name="relation_membership">Належність до зв’язків</string>
   <string name="problem">Проблема</string>
@@ -72,6 +120,7 @@
   <string name="version">Версія</string>
   <string name="length_m">Довжина (м)</string>
   <string name="not_downloaded">Не завантажено</string>
+  <string name="empty_role">Порожня роль</string>
   <string name="last_edited">В останнє змінено</string>
   <!--GeoJSON feature display dialog-->
   <!---->
@@ -102,10 +151,12 @@
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Фото</string>
   <string name="layer_tasks">Завдання</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Ви нічого ще не змінили…</string>
@@ -127,6 +178,7 @@
   <string name="toast_min_one_preset">Треба вибрати, принаймні, одну заготовку!</string>
   <string name="toast_needs_resurvey">Об\'єкт може бути застарілим</string>
   <string name="toast_null_island">Будь ласка, не додавайте об\'єкти в точці з координатами 0º/0º (Null Island)</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Так</string>
   <string name="no">Ні</string>
@@ -167,7 +219,7 @@
   <string name="tag_menu_top">Вгору</string>
   <string name="tag_menu_bottom">Вниз</string>
   <string name="tag_multi_value_hint">Кілька значень</string>
-  <string name="tag_dialog_value_hint">Натсніть для вибору значень</string>
+  <string name="tag_dialog_value_hint">Натисніть для вибору значень</string>
   <string name="tag_details">Подробиці</string>
   <string name="tag_not_set">Не встановлено</string>
   <string name="tag_menu_move_up">Вгору</string>
@@ -193,7 +245,6 @@
   <string name="location_last_text_parameterized">Останнє відоме розташування: %1$s</string>
   <string name="location_current_text_parameterized">Поточне розташування: %1$s</string>
   <string name="location_text_metadata_location">\nШир. %1$4g, Дов. %2$4g\n%3$s %4$s тому</string>
-  <string name="location_text_metadata_accuracy">Точність %1$2.0f метра, </string>
   <string name="location_coordinates_text">За координатами: </string>
   <string name="location_lat_label">Шир.: </string>
   <string name="location_lon_label">Довг.: </string>
@@ -284,6 +335,7 @@
   <string name="config_advancedprefs">Розширені параметри</string>
   <string name="config_presetbutton_title">Заготовки</string>
   <string name="config_presetbutton_summary">Додати та задіяти сумісні з JOSM заготовки</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Відлагодження</string>
   <string name="config_category_info">Про програму</string>
@@ -328,10 +380,6 @@
   <!--preset downloader messages-->
   <string name="preset_update">Оновити заготовку</string>
   <string name="preset_download_parse_failed">Заготовка пошкоджена. Вона не працюватиме.</string>
-  <!--changes-->
-  <string name="changes_deleted">„%1$s“ вилучено</string>
-  <string name="changes_changed">„%1$s“ змінено</string>
-  <string name="changes_created">„%1$s“ створено</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Додати заготовку</string>
   <string name="urldialog_preset_exists">Ця заготовка вже існує</string>
@@ -339,6 +387,8 @@
   <string name="urldialog_add_api">Додати API</string>
   <string name="urldialog_nodata_text">Конфігураційний URL не містить коректних даних.</string>
   <string name="urldialog_add_geocoder">Додати геокодер</string>
+  <!--API configuration-->
+  <string name="api_url">URL для API</string>
   <!--common terms-->
   <string name="add">Додати</string>
   <string name="edit">Редагувати</string>
@@ -348,7 +398,6 @@
   <string name="default_">Типово</string>
   <string name="regular_expression">Регулярні вирази</string>
   <!---->
-  <string name="api_url">URL для API</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Заготовка</string>
   <string name="api">API</string>
@@ -376,12 +425,6 @@
   <string name="deleterelation">Вилучити зв’язок</string>
   <string name="delete_from_relation_description">Ви збираєтеся вилучити цей елемент зі зв’язку.</string>
   <!--time and distance-->
-  <string name="days">днів</string>
-  <string name="hours">годин</string>
-  <string name="minutes">хвилин</string>
-  <string name="seconds">секунд</string>
-  <string name="km">км</string>
-  <string name="meter">метрів</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

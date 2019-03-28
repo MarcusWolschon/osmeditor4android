@@ -15,8 +15,13 @@
   <string name="progress_message">Læser ind i memory…</string>
   <string name="progress_download_message">Downloader data fra server…</string>
   <string name="progress_general_title">Vent</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" slettet</string>
+  <string name="changes_changed">\"%1$s\" ændret</string>
+  <string name="changes_created">\"%1$s\" oprettet</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
+  <!---->
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Synlighed</string>
@@ -59,10 +64,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Du har ikke ændret noget endnu…</string>
@@ -70,6 +77,7 @@
   <string name="coordinates_out_of_range">Længdegrad skal være mellem -180°/+180°, breddegrad mellem -85°/85°</string>
   <string name="toast_nothing_found">Intet fundet</string>
   <string name="toast_file_not_found">%1$s ikke fundet.</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nej</string>
@@ -123,7 +131,6 @@
   <string name="location_current_text">Nuværende position:</string>
   <string name="location_last_text_parameterized">Sidste kendte position: %1$s</string>
   <string name="location_current_text_parameterized">Nuværende position: %1$s</string>
-  <string name="location_text_metadata_accuracy">Nøjagtighed %1$2.0f meter,</string>
   <string name="location_coordinates_text">Fra koordinater:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -177,6 +184,7 @@
   <!--Preferences-->
   <string name="config_backgroundLayer_title">Kortbaggrund</string>
   <string name="config_advancedprefs">Avancerede indstillinger</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Om</string>
   <!--Advanced preferences-->
@@ -199,14 +207,12 @@
   <!---->
   <string name="config_api_url_title">API URL</string>
   <!--preset downloader messages-->
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" slettet</string>
-  <string name="changes_changed">\"%1$s\" ændret</string>
-  <string name="changes_created">\"%1$s\" oprettet</string>
   <!--url handler activity-->
   <string name="urldialog_api_exists">En API med denne URL eksisterer allerede. Du kan tilføje en anden (f.eks. til nemt at skifte mellem konti)</string>
   <string name="urldialog_add_api">Tilføj API</string>
   <string name="urldialog_nodata_text">Konfigurations-URL\'en indeholder ikke gyldige data</string>
+  <!--API configuration-->
+  <string name="api_url">API URL</string>
   <!--common terms-->
   <string name="add">Tilføj</string>
   <string name="edit">Rediger</string>
@@ -215,7 +221,6 @@
   <string name="url">URL</string>
   <string name="default_">Standard</string>
   <!---->
-  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="api">API</string>
   <string name="undo">Fortryd</string>
@@ -239,12 +244,6 @@
   <string name="object">Objekt</string>
   <string name="deleterelation">Slet relation</string>
   <!--time and distance-->
-  <string name="days">dage</string>
-  <string name="hours">timer</string>
-  <string name="minutes">minutter</string>
-  <string name="seconds">sekunder</string>
-  <string name="km">km</string>
-  <string name="meter">meter</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

@@ -24,9 +24,15 @@
   <string name="progress_uploading_message">Laster opp...</string>
   <string name="progress_preset_message">Laster ned mal...</string>
   <string name="progress_running_message">Kjører...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">«%1$s» slettet</string>
+  <string name="changes_changed">«%1$s» endret</string>
+  <string name="changes_created">«%1$s» opprettet</string>
+  <string name="confirm_upload_edits_page">Endringer</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Kilde:</string>
   <string name="upload_close_changeset_label">Lukk endringssett:</string>
+  <!---->
   <string name="upload_gpx_description_label">Beskrivelse</string>
   <string name="upload_gpx_tags_label">Egenskaper</string>
   <string name="upload_gpx_visibility_label">Synlighet</string>
@@ -83,11 +89,13 @@
   <string name="layer_grid">Rutenett</string>
   <string name="layer_gpx">GPX</string>
   <string name="layer_photos">Bilder</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Last ned OpenStreetMap-data</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -106,6 +114,7 @@
   <string name="toast_illegal_operation">Ulovlig operasjon: %1$s</string>
   <string name="toast_flus_all_caches">Dette vil tømme alle mellomlagrede fliser!</string>
   <string name="toast_unsupported_format">Ustøttet format: %1$s</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nei</string>
@@ -210,6 +219,7 @@
   <string name="config_advancedprefs">Avanserte innstillinger</string>
   <string name="config_presetbutton_title">Knapper</string>
   <string name="config_presetbutton_summary">Legg til og endre JOSM-kompatible maler</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Feilsøking</string>
   <string name="config_category_info">Om</string>
@@ -249,17 +259,13 @@
   <!--preset downloader messages-->
   <string name="preset_update">Oppdater knapper</string>
   <string name="preset_download_parse_failed">Knappefila er ugyldig. Knappesettet kommer ikke til å virke.</string>
-  <!--changes-->
-  <string name="changes_deleted">«%1$s» slettet</string>
-  <string name="changes_changed">«%1$s» endret</string>
-  <string name="changes_created">«%1$s» opprettet</string>
-  <string name="confirm_upload_edits_page">Endringer</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Legg til mal</string>
   <string name="urldialog_preset_exists">Denne malen eksisterer allerede</string>
   <string name="urldialog_api_exists">En API med denne URLen finst allerede, men du kan legga til en til (f. eks. for å lett skifte konto).</string>
   <string name="urldialog_add_api">Legg til API</string>
   <string name="urldialog_nodata_text">Konfigurasjons-URLen har ikke gyldig data.</string>
+  <!--API configuration-->
   <!--common terms-->
   <string name="add">Legg til</string>
   <string name="edit">Endre</string>
@@ -290,12 +296,6 @@
   <string name="object">Objekt</string>
   <string name="deleterelation">Slett relasjon</string>
   <!--time and distance-->
-  <string name="days">dager</string>
-  <string name="hours">timer</string>
-  <string name="minutes">minutter</string>
-  <string name="seconds">sekunder</string>
-  <string name="km">km</string>
-  <string name="meter">meter</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">

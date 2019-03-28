@@ -37,9 +37,16 @@
   <string name="progress_uploading_message">Igotzen...</string>
   <string name="progress_preset_message">Aurre-ezarpena  deskargatzen...</string>
   <string name="progress_running_message">Abioan...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" ezabatua</string>
+  <string name="changes_changed">\"%1$s\" aldatua</string>
+  <string name="changes_created">\"%1$s\" sortua</string>
+  <string name="confirm_upload_title">Igo aldaketak</string>
+  <string name="confirm_upload_edits_page">Aldaketak</string>
   <string name="upload_comment_label">Iruzkina:</string>
   <string name="upload_source_label">Iturria:</string>
   <string name="upload_close_changeset_label">Itxi aldaketa multzoa:</string>
+  <!---->
   <string name="upload_gpx_description_label">Deskripzioa</string>
   <string name="upload_gpx_tags_label">Etiketak</string>
   <string name="upload_gpx_visibility_label">Ikusgaitasuna</string>
@@ -129,11 +136,13 @@
   <string name="layer_photos">Argazkiak</string>
   <string name="layer_tasks">Eginkizunak</string>
   <string name="layer_select_imagery">Hautatu irudiak</string>
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">Deskargatu OpenStreetMap datuak</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -154,6 +163,7 @@
   <string name="toast_min_one_preset">Gutxienez aurre-ezarpen bat aukeratu behar da!</string>
   <string name="toast_tile_database_issue_short">Lauzen datu-basearen arazoa</string>
   <string name="toast_file_exists">%1$s fitxategia badago aurretik.</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Bai</string>
   <string name="no">Ez</string>
@@ -334,6 +344,7 @@
   <string name="config_advancedprefs">Hobespen aurreratuak</string>
   <string name="config_presetbutton_title">Aurre-ezarpenak</string>
   <string name="config_presetbutton_summary">Gehitu eta gaitu JOSM-rekin bateragarriak diren aurre-ezarpenak</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Balioztatzailearen ezarpenak</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Arazketa</string>
@@ -375,18 +386,15 @@
   <string name="preset_update">Eguneratu aurre-ezarpena</string>
   <string name="preset_download_parse_failed">Aurre-ezarpen fitxategia baliogabea da. Aurre-ezarpenak ez du funtzionatuko.</string>
   <string name="preset_download_title">Aurre-ezarpenen deskargagailua</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" ezabatua</string>
-  <string name="changes_changed">\"%1$s\" aldatua</string>
-  <string name="changes_created">\"%1$s\" sortua</string>
-  <string name="confirm_upload_title">Igo aldaketak</string>
-  <string name="confirm_upload_edits_page">Aldaketak</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Gehitu aurre-ezarpena</string>
   <string name="urldialog_preset_exists">Aurre-ezarpen hau badago aurretik</string>
   <string name="urldialog_api_exists">URL hau daukan API bat dago iada. Hala ere, beste bat gehitu dezakezu (adb. kontuak erraz aldatzeko).</string>
   <string name="urldialog_add_api">Gehitu APIa</string>
   <string name="urldialog_nodata_text">Ezarpenen URLak ez du baliozko daturik.</string>
+  <!--API configuration-->
+  <string name="api_url">APIaren URLa</string>
+  <string name="notes_url">Oharren APIaren URLa (aukerazkoa)</string>
   <!--common terms-->
   <string name="add">Gehitu</string>
   <string name="edit">Aldatu</string>
@@ -397,8 +405,6 @@
   <string name="state">Egoera</string>
   <!---->
   <string name="empty_list">Sarrerarik ez</string>
-  <string name="api_url">APIaren URLa</string>
-  <string name="notes_url">Oharren APIaren URLa (aukerazkoa)</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Aurre-ezarpena</string>
   <string name="api">APIa</string>
@@ -434,12 +440,6 @@
   <string name="deleterelation">Erlazioa ezabatu</string>
   <string name="delete_from_relation_description">Elementu hau erlazio batetatik ezabatzeko zorian zaude</string>
   <!--time and distance-->
-  <string name="days">egun</string>
-  <string name="hours">ordu</string>
-  <string name="minutes">minutu</string>
-  <string name="seconds">segundo</string>
-  <string name="km">km</string>
-  <string name="meter">metro</string>
   <!--Help system-->
   <!--Arrays-->
 </resources>

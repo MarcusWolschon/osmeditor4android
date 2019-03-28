@@ -238,30 +238,30 @@ A szűrő a főmenüből engedélyezhető, és a szűrő ikonra koppintva módos
 
 ### Előbeállítás-alapú szűrő
 
-An alternative to the above, objects are filtered either on individual presets or on preset groups. Tapping on the filter icon will display a preset selection dialog similar to that used elsewhere in Vespucci. Individual presets can be selected by a normal click, preset groups by a long click (normal click enters the group). More documentation can be found here [Preset filter](Preset%20filter.md).
+A fentiek alternatívájaként, az objektumok egyes előbeállítások vagy előbeállítás-csoportok alapján kerülnek szűrésre. A szűrő ikonra koppintva megjelenik egy előbeállítás-választó párbeszédablak, amely hasonlít a Vespucciban máshol előfordulókra. Az egyes előbeállítások normál koppintással válaszhatóak ki, az előbeállítás-csoportok pedig hosszú lenyomással (a normál koppintás belép a csoportba). További dokumentáció található itt: [Előbeállítás-szűrő](Preset%20filter.md).
 
 ## A Vespucci testreszabása
 
 ### Beállítások, melyeket módosíthat
 
-* Background layer
-* Overlay layer. Adding an overlay may cause issues with older devices and such with limited memory. Default: none.
-* Notes/Bugs display. Open Notes and bugs will be displayed as a yellow bug icon, closed ones the same in green. Default: on.
-* Photo layer. Displays geo-referenced photographs as red camera icons, if direction information is available the icon will be rotated. Default: off.
-* Keep screen on. Default: off.
-* Large node drag area. Moving nodes on a device with touch input is problematic since your fingers will obscure the current position on the display. Turning this on will provide a large area which can be used for off-center dragging (selection and other operations still use the normal touch tolerance area). Default: off.
+* Háttérréteg
+* Előtérréteg. Az előtér hozzáadása problémákat okozhat a régebbi, illetve a korlátozott memóriával rendelkező eszközökön. Alapértelmezés: nincs.
+* Jegyzetek/hibák megjelenítése. A nyitott jegyzetek és hibák sárga hiba ikonnal jelennek meg, a lezártak pedig zölddel. Alapértelmezés: be.
+* Fényképréteg. Földrajzi pozícióval ellátott fényképeket jelenít meg piros kamera ikonokkal, ha irányinformációk is elérhetőek, akkor forgatva is lesznek. Alapértelmezés: ki.
+* Képernyő bekapcsolva tartása. Alapértelmezés: ki.
+* Nagy ponthúzási terület. A pontok érintőképernyős bemenetre történő mozgatása problémás, mert az ujjai eltakarják a jelenlegi pozíciót a megjelenítőt. E funkció bekapcsolása egy nagy területet biztosít, amely a középponttól eltérő helyen vezérelt mozgatásra használható (a kiválasztás és más műveletek továbbra is normál érintési toleranciaterületet használják). Alapértelmezés: ki.
 
 #### Speciális beállítások
 
-* Node icons. Default: on.
-* Always show context menu. When turned on every selection process will show the context menu, turned off the menu is displayed only when no unambiguous selection can be determined. Default: off (used to be on).
-* Enable light theme. On modern devices this is turned on by default. While you can enable it for older Android versions the style is likely to be inconsistent.
-* Show statistics. Will show some statistics for debugging, not really useful. Default: off (used to be on).  
+* Pont ikonok. Alapértelmezés: be.
+* Környezeti menü megjelenítése mindig. Ha bekapcsolja, akkor minden kiválasztási folyamat megjelenik a környezeti menüben; kikapcsolva csak akkor jelenik meg, ha nem határozható meg egyértelműen a kiválasztási mód. Alapértelmezés: ki (régebben be volt).
+* Világos téma engedélyezése. A modern eszközökön alapból be van kapcsolva. Bár engedélyezheti régebbi Android verziókon is, a stílus valószínűleg nem lesz konzisztens.
+* Statisztikák megjelenítése. Statisztikákat jelenít meg hibakereséshez, nem igazán hasznos. Alapértelmezés: ki (régebben be volt).  
 
 ## Problémák jelentése
 
-If Vespucci crashes, or it detects an inconsistent state, you will be asked to send in the crash dump. Please do so if that happens, but please only once per specific situation. If you want to give further input or open an issue for a feature request or similar, please do so here: [Vespucci issue tracker](https://github.com/MarcusWolschon/osmeditor4android/issues). The "Provide feedback" function from the main menu will open a new issue and include the relevant app and device information without extra typing.
+Ha a Vespucci összeomlik vagy nem konzisztens állapotot észlel, akkor megkérjük, hogy küldje el az összeomlás-jelentésben. Tegyen így, ha ez történik, de helyzetenként csak egyszer. Ha további hozzáfűznivalója van, funkciókérés vagy hasonló okból akar jegyet nyitni, akkor itt tegye meg: [Vespucci hibakövető](https://github.com/MarcusWolschon/osmeditor4android/issues). A főmenüben lévő „Visszajelzés küldése” funkció egy új hibajegyet nyit, és további gépelés nélkül beleteszi a releváns alkalmazás- és eszközinformációkat.
 
-If you want to discuss something related to Vespucci, you can either start a discussion on the [Vespucci Google group](https://groups.google.com/forum/#!forum/osmeditor4android) or on the [OpenStreetMap Android forum](http://forum.openstreetmap.org/viewforum.php?id=56)
+Ha valamilyen Vespuccival kapcsolatos dolgot szeretne megbeszélni, akkor kezdjen egy beszélgetést a [Vespucci Google csoportban](https://groups.google.com/forum/#!forum/osmeditor4android) vagy az [OpenStreetMap Android fórumban](http://forum.openstreetmap.org/viewforum.php?id=56)
 
 

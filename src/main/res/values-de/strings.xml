@@ -34,6 +34,8 @@
   <string name="not_found_message">Die API konnte kein bestehendes Objekt oder Changeset mit der ID finden.&lt;br&gt;&lt;br&gt;</string>
   <string name="unknown_error_title">Unbekannter Fehler</string>
   <string name="unknown_error_message">Der Fehlercode von der API oder die Mitteilung konnte nicht verarbeitet werden.&lt;br&gt;&lt;br&gt;</string>
+  <string name="no_data_title">Keine Daten</string>
+  <string name="no_data_message">Die konfigurierte Datenquelle hat hier keine Abdeckung.</string>
   <string name="go_to_openstreetmap">openstreetmap.org besuchen</string>
   <string name="data_conflict_title">Versionskonflikt</string>
   <string name="data_conflict_message">Die Daten enthalten Daten die mit den lokalen Änderungen nicht kompatibel sind. Bitte die Änderungen vor einem neuen Versuch hochladen.</string>
@@ -48,8 +50,8 @@
   <string name="out_of_memory_dirty_message">Vespucci ist hat beim Laden des Gebiets allen verfügbaren Speicher verbraucht. Bitte die bereits gemachten Änderungen speichern, neu starten und ein kleineres Gebiet versuchen.</string>
   <string name="invalid_data_received_title">Ungültige Daten erhalten</string>
   <string name="invalid_data_received_message">Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen. </string>
-  <string name="invalid_data_read_title">Ungültige Daten</string>
-  <string name="invalid_data_read_message">Falls es keine erkennbaren Gründe für den Fehler gibt, bitte eine Fehlermeldung erstellen. </string>
+  <string name="invalid_data_read_title">Ungültige Daten gelesen</string>
+  <string name="invalid_data_read_message">Bitte die Dokumentation lesen für unterstützte Datenformate und erforderliche Datenfelder.</string>
   <string name="file_write_failed_title">Datei konnte nicht geschrieben werden</string>
   <string name="file_write_failed_message">Die gewünschte Datei konnte nicht geschrieben werden.</string>
   <string name="welcome_title">Willkommen</string>
@@ -72,9 +74,21 @@
   <string name="progress_oauth">Lade Konto auf openstreetmap.org für OAuth-Autorisierung...</string>
   <string name="progress_building_imagery_database">Hintergrundbilderdatenbank wird erstellt…</string>
   <string name="progress_query_oam">Abfrage von OAM…</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" gelöscht</string>
+  <string name="changes_changed">\"%1$s\" verändert</string>
+  <string name="changes_created">\"%1$s\" angelegt</string>
+  <string name="confirm_upload_title">Änderungen hochladen</string>
+  <plurals name="confirm_upload_text">
+    <item quantity="one">Soll die folgende Änderung hochgeladen werden?</item>
+    <item quantity="other">Sollen folgende %1$d Änderungen hochgeladen werden?</item>
+  </plurals>
+  <string name="confirm_upload_edits_page">Änderungen</string>
   <string name="upload_comment_label">Kommentar:</string>
   <string name="upload_source_label">Quelle:</string>
   <string name="upload_close_changeset_label">Changeset schließen</string>
+  <string name="upload_request_review_label">Anfrage prüfen:</string>
+  <!---->
   <string name="upload_gpx_description_label">Beschreibung</string>
   <string name="upload_gpx_tags_label">Tags</string>
   <string name="upload_gpx_visibility_label">Sichtbarkeit</string>
@@ -154,6 +168,7 @@
   <string name="last_edited">Zuletzt bearbeitet</string>
   <string name="original">Original</string>
   <string name="current">Aktuell</string>
+  <string name="goto_element">Gehe zu Element</string>
   <!--GeoJSON feature display dialog-->
   <string name="feature_information">GeoJSON Feature information</string>
   <string name="copy_properties">Tags kopieren</string>
@@ -227,9 +242,17 @@
   <string name="layer_photos">Fotos</string>
   <string name="layer_tasks">Aufgaben</string>
   <string name="layer_data">OSM Daten</string>
+  <string name="layer_data_name">%1$s Daten</string>
   <string name="layer_flush_tile_cache">Tile Cache leeren</string>
   <string name="layer_change_style">Stil ändern</string>
   <string name="layer_select_imagery">Bildmaterial auswählen</string>
+  <!--Layer info dialog-->
+  <string name="layer_info_min_zoom">Minimaler Zoom</string>
+  <string name="layer_info_max_zoom">Maximaler Zoom</string>
+  <string name="layer_info_start_date">Startdatum</string>
+  <string name="layer_info_end_date">Enddatum</string>
+  <string name="layer_info_terms">Bestimmungen</string>
+  <string name="layer_info_privacy_policy">Datenschutz</string>
   <!--Undo - Redo dialog-->
   <string name="checkpoints">Sicherungspunkt</string>
   <string name="undo_redo_title">Rückgängig &amp; Wiederherstellen</string>
@@ -242,7 +265,9 @@
   <string name="feedback_title">Rückmeldung an die Entwickler</string>
   <!--BoxPicker-->
   <string name="boxpicker_firsttimetitle">OSM Daten herunterladen</string>
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <string name="clear_track_description">Beende das Tracking und lösche alle gespeicherten Trackpunkte. Diese Aktion kann nicht rückgängig gemacht werden.</string>
+  <!--NumberPicker-->
   <string name="plus_sign">+</string>
   <string name="minus_sign">-</string>
   <string name="digit_one">1</string>
@@ -283,6 +308,9 @@
   <string name="toast_unsurveyed_road">Straße nicht überprüft</string>
   <string name="toast_noname">Straße hat keinen name- oder ref-Tag</string>
   <string name="toast_notype">Relation hat kein type Wert</string>
+  <string name="toast_untagged_way">Linie ohne Eigenschaften</string>
+  <string name="toast_untagged_relation">Relation ohne Eigenschaften</string>
+  <string name="toast_unconnected_end_node">Node ist in der Nähe eines Elements zu dem sie verbunden werden kann</string>
   <string name="toast_oauth_retry">Bitte OAuth-Zugang zum OSM Konto erlauben und dann nochmals versuchen. </string>
   <string name="toast_oauth">Bitte OAuth-Zugang zum OSM-Konto erlauben. </string>
   <string name="toast_no_oauth">Für den aktuell konfigurierten API-Server ist keine OAuth-Konfiguration verfügbar, bitte login und passwort setzen. </string>
@@ -328,6 +356,7 @@
   <string name="toast_file_exists">Datei %1$s existiert bereits.</string>
   <string name="toast_needs_resurvey">Objekt könnte veraltet sein</string>
   <string name="toast_missing_key">Schlüssel %1$s fehlt</string>
+  <string name="toast_invalid_object">Ungültiges Objekt</string>
   <string name="toast_openinghours_invalid">Ungültiger Öffnungszeitenwert für %1$s</string>
   <string name="toast_openinghours_autocorrected">Öffnungszeitenwert für %1$s wurde korrigiert</string>
   <string name="toast_exit_multiselect">An einer leeren Stelle Doppeltippen oder den Zurückpfeil verwenden, um den Modus zu verlassen</string>
@@ -356,6 +385,11 @@
   <string name="toast_unable_to_create_task_layer">Aufgabenebene konnte nicht erstellt werden</string>
   <string name="toast_merged">Vereinigt</string>
   <string name="toast_long_press_simple_mode">Im einfachen Modus ist die \"langer Druck\" Funktion nicht verfügbar</string>
+  <string name="toast_invalid_style_file">Ungültiges Style-file Format für %1$s</string>
+  <!--Error messages-->
+  <string name="error_mapsplit_missing_zoom">MapSplit Quellen müssen einen Minimal- und Maximal-Zoom haben.</string>
+  <string name="error_pbf_no_version">Versionsinformation fehlt in PBF-Datei</string>
+  <string name="error_pbf_unknown_relation_member_type">Unbekannte Relationsmitglied-Type %1$s</string>
   <!--Some generic labels/buttons-->
   <string name="yes">Ja</string>
   <string name="no">Nein</string>
@@ -459,7 +493,8 @@
   <string name="location_last_text_parameterized">Letzte bekannte Position: %1$s</string>
   <string name="location_current_text_parameterized">Aktuelle Position: %1$s</string>
   <string name="location_text_metadata_location">\nLat %1$4g, Lon %2$4g\n%3$s vor %4$s</string>
-  <string name="location_text_metadata_accuracy">Genauigkeit %1$2.0f Meter,</string>
+  <string name="location_text_metadata_accuracy">Genauigkeit %1$2.0f Meter, </string>
+  <string name="location_text_metadata">(%1$s%2$s)</string>
   <string name="location_coordinates_text">Von Koordinaten:</string>
   <string name="location_lat_label">Lat:</string>
   <string name="location_lon_label">Lon:</string>
@@ -507,11 +542,16 @@
   <string name="menu_transfer_download_current">Aktuelle Ansicht herunterladen</string>
   <string name="menu_transfer_download_current_add">Diese Ansicht zu den Daten dazu laden </string>
   <string name="menu_transfer_download_other">Daten an anderer Stelle herunterladen</string>
+  <string name="menu_transfer_load_current">Lade aktuelle Ansicht</string>
+  <string name="menu_transfer_load_current_add">Diese Ansicht zu den Daten dazu laden </string>
+  <string name="menu_transfer_load_other">An anderer Stelle herunterladen</string>
   <string name="menu_transfer_upload">Daten zum OSM-Server hochladen</string>
   <string name="menu_transfer_close_changeset">Aktuelles Changeset schließen</string>
   <string name="menu_transfer_file">Datei…</string>
   <string name="menu_transfer_export">Änderungen in eine OSC-Datei exportieren</string>
+  <string name="menu_transfer_apply_osc_file">Änderungen von OSC-Datei anwenden</string>
   <string name="menu_transfer_read_file">JOSM-Datei einlesen...</string>
+  <string name="menu_transfer_read_pbf_file">Einlesen von PDF-Datei</string>
   <string name="menu_transfer_save_file">Daten in JOSM-Datei speichern...</string>
   <string name="menu_transfer_bugs">Aufgaben…</string>
   <string name="menu_transfer_bugs_download_current">Aufgaben für die aktuelle Ansicht herunterladen</string>
@@ -554,6 +594,7 @@
   <!---->
   <string name="menu_simple_actions">Einfacher Modus</string>
   <string name="menu_feedback">Rückmeldung senden</string>
+  <string name="menu_preset_feedback">Rückmeldung zu Voreinstellungen geben</string>
   <string name="menu_privacy">Datenschutz</string>
   <!--Background alignment-->
   <string name="menu_tools_background_align">Hintergrund justieren</string>
@@ -662,8 +703,11 @@
   <string name="config_presetbutton_title">Vorlagen</string>
   <string name="config_presetbutton_summary">JOSM-kompatible Vorlagen hinzufügen und verwalten</string>
   <string name="config_built_in_preset">Eingebaute Vorlage</string>
+  <!--Validator preferences-->
   <string name="config_validatorprefs_title">Validationseinstellungen</string>
   <string name="config_validatorprefs_summary">Validierungsregeln konfigurieren</string>
+  <string name="config_connectedNodeTolerance_title">Toleranz für verbundene Knoten</string>
+  <string name="config_connectedNodeTolerance_summary">Wenn ein Wegknoten in dieser Distanz (in Meter) zu einem Wegknoten ist, sollte er mit diesem verbunden werden</string>
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_licensebutton_title">Autoren und Lizenzen</string>
   <string name="config_debugbutton_title">Debug</string>
@@ -686,6 +730,8 @@
   <string name="config_alwaysDrawBoundingBoxes_summary">Immer nicht heruntergeladene Gebiete verdunkeln</string>
   <string name="config_fullscreenMode_title">Vollbild-Modus</string>
   <string name="config_fullscreenMode_summary">Einstellungen für Geräte mit \"Bildschirmtasten\"</string>
+  <string name="config_map_orientation_title">Karte-Bildschirm Orientierung</string>
+  <string name="config_map_orientation_summary">Verhalten des Karten-Bildschirms bei Ausrichtungswechsel des Geräts.</string>
   <string name="config_showTolerance_title">Zeige Toleranz</string>
   <string name="config_showTolerance_summary">Zeigt die Fläche, mit der ein Element selektiert werden kann.</string>
   <string name="config_use_back_for_undo_title">Zurücktaste für \"Rückgängig machen\" verwenden</string>
@@ -702,6 +748,8 @@
   <string name="config_autoLockDelay_current">%1$d s</string>
   <string name="config_enableAntiAliasing_title">Anti-Aliasing</string>
   <string name="config_enableAntiAliasing_summary">Benutze Kantenglättung.</string>
+  <string name="config_enableHwAcceleration_title">Hardwarebeschleunigung aktivieren</string>
+  <string name="config_enableHwAcceleration_summary">Erlaubt die Hardwarebeschleunigung soweit unterstützt, kann Artefakte erzeugen.</string>
   <string name="config_maxStrokeWidth_title">Maximale Liniendicke</string>
   <string name="config_maxStrokeWidth_summary">Linien maximal so dick zeichnen</string>
   <string name="config_maxStrokeWidth_current">%1$d px</string>
@@ -812,16 +860,6 @@
   <string name="preset_download_parse_failed">Die Vorlagendatei ist ungültig. Die Vorlage wird nicht funktionieren.</string>
   <string name="preset_download_missing_images">Die Vorlagendatei wurde erfolgreich heruntergeladen. Einige Symbole konnten jedoch nicht heruntergeladen werden und werden fehlen.</string>
   <string name="preset_download_title">Vorlagenlader</string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" gelöscht</string>
-  <string name="changes_changed">\"%1$s\" verändert</string>
-  <string name="changes_created">\"%1$s\" angelegt</string>
-  <string name="confirm_upload_title">Änderungen hochladen</string>
-  <plurals name="confirm_upload_text">
-    <item quantity="one">Soll die folgende Änderung hochgeladen werden?</item>
-    <item quantity="other">Sollen folgende %1$d Änderungen hochgeladen werden?</item>
-  </plurals>
-  <string name="confirm_upload_edits_page">Änderungen</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Vorlage hinzufügen</string>
   <string name="urldialog_preset_exists">Diese Vorlage existiert bereits.</string>
@@ -830,6 +868,12 @@
   <string name="urldialog_add_api">API hinzufügen</string>
   <string name="urldialog_nodata_text">Die Konfigurations-URL enthält keine gültigen Daten.</string>
   <string name="urldialog_add_geocoder">Geocoder hinzufügen</string>
+  <!--API configuration-->
+  <string name="api_name">API Namen</string>
+  <string name="api_url">API URL</string>
+  <string name="readonly_url">API-Adresse mit Lesezugriff (optional)</string>
+  <string name="notes_url">API-Adresse für Notizen (optional)</string>
+  <string name="copy_of">Kopie von %1$s</string>
   <!--common terms-->
   <string name="add">Hinzufügen</string>
   <string name="edit">Bearbeiten</string>
@@ -841,10 +885,6 @@
   <string name="state">Status</string>
   <!---->
   <string name="empty_list">Keine Einträge</string>
-  <string name="api_name">API Namen</string>
-  <string name="api_url">API URL</string>
-  <string name="readonly_url">API-Adresse mit Lesezugriff (optional)</string>
-  <string name="notes_url">API-Adresse für Notizen (optional)</string>
   <string name="geocoder_type">Geocodertyp</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Vorlage</string>
@@ -886,6 +926,7 @@
   <string name="undo_action_circulize">Im Kreis anordnen</string>
   <string name="undo_action_fix_conflict">Konfliktbehebung</string>
   <string name="undo_action_extract_node">Knoten extrahieren</string>
+  <string name="undo_action_apply_osc">OSC-Datei anwenden</string>
   <!--ACRA-->
   <string name="crash_dialog_text">Vespucci ist abgestürzt oder hat ein wichtiges Problem entdeckt.\n\nUnterstütze uns mit einem Fehlerreport, einfach \'OK\' drücken.\n</string>
   <string name="crash_dialog_comment_prompt">Füge weitere Informationen, und (optional) deine E-Mail-Adresse dazu, falls du eine Rückmeldung willst.\n\nDanke!</string>
@@ -921,12 +962,30 @@ in %1$d m %2$s</string>
   <string name="delete_from_relation_description">Dieses Element wird aus der Relation gelöscht.</string>
   <string name="unset_relation_type">Kein Relationstyp</string>
   <!--time and distance-->
-  <string name="days">Tage</string>
-  <string name="hours">Stunden</string>
-  <string name="minutes">Minuten</string>
-  <string name="seconds">Sekunden</string>
-  <string name="km">KM</string>
-  <string name="meter">Meter</string>
+  <plurals name="days">
+    <item quantity="one">1 Tag</item>
+    <item quantity="other">%1$d Tage</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">1 Stunde</item>
+    <item quantity="other">%1$d Stunde</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">1 Minute</item>
+    <item quantity="other">%1$d Minuten</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">1 Sekunde</item>
+    <item quantity="other">%1$d Sekunden</item>
+  </plurals>
+  <plurals name="km">
+    <item quantity="one">1 km</item>
+    <item quantity="other">%1$d km</item>
+  </plurals>
+  <plurals name="meters">
+    <item quantity="one">1 Meter</item>
+    <item quantity="other">%1$d Meter</item>
+  </plurals>
   <!--Help system-->
   <string name="toast_nohelp">Keine Hilfe zu diesem Thema!</string>
   <!--Arrays-->
@@ -975,6 +1034,12 @@ in %1$d m %2$s</string>
     <item>Nie</item>
     <item>Erzwingen</item>
     <item>Keine Statuszeile</item>
+  </string-array>
+  <string-array name="map_orientation_entries">
+    <item>Auto</item>
+    <item>Gesperrt</item>
+    <item>Hochformat</item>
+    <item>Querformat</item>
   </string-array>
   <string-array name="tagfilter_type_entries">
     <item>Alles</item>

@@ -22,9 +22,11 @@
   <string name="progress_preset_message">Preberá sa predvoľba…</string>
   <string name="progress_running_message">Spúšťa sa…</string>
   <string name="progress_oauth">Načítava sa váš účet na službe openstreetmap.org pre autorizáciu OAuth…</string>
+  <!--Confirm upload dialog-->
   <string name="upload_comment_label">Komentár:</string>
   <string name="upload_source_label">Zdroj:</string>
   <string name="upload_close_changeset_label">Zatvorenie súboru zmien:</string>
+  <!---->
   <string name="upload_gpx_description_label">Popis</string>
   <string name="upload_gpx_tags_label">Značky</string>
   <string name="upload_gpx_visibility_label">Viditeľnosť</string>
@@ -76,10 +78,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Zatiaľ ste nič nezmenili…</string>
@@ -99,6 +103,7 @@
   <string name="toast_split_to">Rozdelená cesta so značkou „do“</string>
   <string name="toast_needs_resurvey">Objekt môže byť neaktuálny</string>
   <string name="toast_openinghours_invalid">Neplatná hodnota otváracej doby pre %1$s</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Áno</string>
   <string name="no">Nie</string>
@@ -168,7 +173,6 @@
   <string name="location_current_text">Aktuálne umiestnenie:</string>
   <string name="location_last_text_parameterized">Posledné známe umiestnenie: %1$s</string>
   <string name="location_current_text_parameterized">Aktuálne umiestnenie: %1$s</string>
-  <string name="location_text_metadata_accuracy">Presnosť na %1$2.0f metre(-ov),</string>
   <string name="location_coordinates_text">Zo súradníc:</string>
   <string name="location_load_button">Načítať</string>
   <string name="location_load_dismiss">Prejsť na mapu</string>
@@ -252,6 +256,7 @@
   <string name="config_enableKeepScreenOn_title">Ponechať obrazovku zapnutú</string>
   <string name="config_advancedprefs">Pokročilé predvoľby</string>
   <string name="config_presetbutton_title">Predvoľby</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_debugbutton_title">Ladenie</string>
   <string name="config_category_info">O aplikácii</string>
@@ -281,10 +286,10 @@
   <!--preset downloader messages-->
   <string name="preset_update">Aktualizovať predvoľbu</string>
   <string name="preset_download_parse_failed">Súbor predvoľby nie je platný. Predvoľba nebude fungovať.</string>
-  <!--changes-->
   <!--url handler activity-->
   <string name="urldialog_add_preset">Pridať predvoľbu</string>
   <string name="urldialog_preset_exists">Predvoľba už existuje</string>
+  <!--API configuration-->
   <!--common terms-->
   <string name="add">Pridať</string>
   <string name="edit">Upraviť</string>
@@ -321,12 +326,6 @@
   <string name="deleterelation">Odstrániť reláciu</string>
   <string name="delete_from_relation_description">Chystáte sa odstrániť tento prvok z relácie.</string>
   <!--time and distance-->
-  <string name="days">dni</string>
-  <string name="hours">hodiny</string>
-  <string name="minutes">minúty</string>
-  <string name="seconds">sekundy</string>
-  <string name="km">km</string>
-  <string name="meter">meter</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gps_source">

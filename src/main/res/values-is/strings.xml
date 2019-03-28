@@ -16,9 +16,14 @@
   <string name="progress_deleting_message">Eyði...</string>
   <string name="progress_searching_message">Leita...</string>
   <string name="progress_saving_message">Vista...</string>
+  <!--Confirm upload dialog-->
+  <string name="changes_deleted">\"%1$s\" eytt</string>
+  <string name="changes_changed">\"%1$s\" breytt</string>
+  <string name="changes_created">Bjó til \"%1$s\"</string>
   <string name="upload_comment_label">Athugasemd:</string>
   <string name="upload_source_label">Uppruni:</string>
   <string name="upload_close_changeset_label">Loka breytingasetti:</string>
+  <!---->
   <string name="upload_gpx_description_label">Lýsing</string>
   <string name="upload_gpx_tags_label">Tög</string>
   <string name="upload_gpx_visibility_label">Sýnileiki</string>
@@ -64,10 +69,12 @@
   <!--Custom imagery dialogs-->
   <!--Layer style dialog-->
   <!--Layer dialog-->
+  <!--Layer info dialog-->
   <!--Undo - Redo dialog-->
   <!--Feedback activity-->
   <!--BoxPicker-->
-  <!--NumberPiker-->
+  <!--Clear/Reset GPX Track-->
+  <!--NumberPicker-->
   <!--NotificationChannels-->
   <!--Toaster-->
   <string name="toast_no_changes">Þú hefur ekki gert neinar breytingar...</string>
@@ -83,6 +90,7 @@
   <string name="coordinates_out_of_range">Lengdargráða þarf að vera milli -180°/+180°, breiddargráða milli -85°/+85°</string>
   <string name="toast_nothing_found">Ekkert fannst</string>
   <string name="toast_file_not_found">%1$s fannst ekki.</string>
+  <!--Error messages-->
   <!--Some generic labels/buttons-->
   <string name="yes">Já</string>
   <string name="no">Nei</string>
@@ -126,7 +134,6 @@
   <string name="location_last_text_parameterized">Síðast þekkta staðsetning: %1$s</string>
   <string name="location_current_text_parameterized">Núverandi staðsetning: %1$s</string>
   <string name="location_text_metadata_location">\nLen %1$4g, brei %2$4g\n%3$s %4$s síðan</string>
-  <string name="location_text_metadata_accuracy">Nákvæmni %1$2.0f metrar,</string>
   <string name="location_coordinates_text">Frá hnitum:</string>
   <string name="location_lat_label">Breidd.:</string>
   <string name="location_lon_label">Lengd:</string>
@@ -203,6 +210,7 @@
   <string name="config_advancedprefs">Ítarlegri stillingar</string>
   <string name="config_presetbutton_title">Forstillingar</string>
   <string name="config_presetbutton_summary">Bæta við og virkja JOSM samhæfðar forstillingar</string>
+  <!--Validator preferences-->
   <!--these are no longer on the prefs page, but are used as menu entries-->
   <string name="config_category_info">Um</string>
   <!--Advanced preferences-->
@@ -236,16 +244,14 @@
   <!--preset downloader messages-->
   <string name="preset_update">Uppfæra forstillingar</string>
   <string name="preset_download_parse_failed">Forstilliskrá inniheldur villu. Forstillingar munu ekki virka. </string>
-  <!--changes-->
-  <string name="changes_deleted">\"%1$s\" eytt</string>
-  <string name="changes_changed">\"%1$s\" breytt</string>
-  <string name="changes_created">Bjó til \"%1$s\"</string>
   <!--url handler activity-->
   <string name="urldialog_add_preset">Bæta við forstillingu</string>
   <string name="urldialog_preset_exists">Þessi forstilling er þegar til</string>
   <string name="urldialog_api_exists">API með þessa vefslóð er þegar til. Hinsvegar geturðu bætt annari við (til dæmis til að skipta milli reikninga).</string>
   <string name="urldialog_add_api">Bæta við API</string>
   <string name="urldialog_nodata_text">Stillingaslóðin inniheldur ekki gild gögn.</string>
+  <!--API configuration-->
+  <string name="api_url">API URL</string>
   <!--common terms-->
   <string name="add">Bæta við</string>
   <string name="edit">Breyta</string>
@@ -254,7 +260,6 @@
   <string name="url">Veffang</string>
   <string name="default_">Sjálfgefið</string>
   <!---->
-  <string name="api_url">API URL</string>
   <!--"default" is a reserved Java keyword…-->
   <string name="preset">Forstilling</string>
   <string name="api">API</string>
@@ -281,12 +286,6 @@
   <string name="deleterelation">Eyða venslum</string>
   <string name="delete_from_relation_description">Þú ert að fara að eyða þessu úr venslum.</string>
   <!--time and distance-->
-  <string name="days">dagar</string>
-  <string name="hours">klukkutímar</string>
-  <string name="minutes">mínútur</string>
-  <string name="seconds">sekúndur</string>
-  <string name="km">km</string>
-  <string name="meter">metri</string>
   <!--Help system-->
   <!--Arrays-->
   <string-array name="gpx_visibility">
