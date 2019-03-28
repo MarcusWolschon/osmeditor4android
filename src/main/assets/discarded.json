@@ -1,4 +1,4 @@
-{
+[
     "created_by": true,
     
     "odbl": true,
@@ -53,4 +53,4 @@
     "yh:TYPE": true,
     "yh:WIDTH": true,
     "yh:WIDTH_RANK": true
-}
+]
