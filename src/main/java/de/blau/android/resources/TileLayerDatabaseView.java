@@ -42,11 +42,11 @@ public class TileLayerDatabaseView {
      */
     public void manageLayers(@NonNull final FragmentActivity activity) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        View rulesetView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
+        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.layer_list, null);
         alertDialog.setTitle(R.string.custom_layer_title);
-        alertDialog.setView(rulesetView);
+        alertDialog.setView(layerListView);
         final SQLiteDatabase writableDb = new TileLayerDatabase(activity).getWritableDatabase();
-        ListView layerList = (ListView) rulesetView.findViewById(R.id.listViewLayer);
+        ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
         layerCursor = TileLayerDatabase.getAllCustomLayers(writableDb);
         layerAdapter = new LayerAdapter(writableDb, activity, layerCursor);
         layerList.setAdapter(layerAdapter);
@@ -81,7 +81,7 @@ public class TileLayerDatabaseView {
                 return true;
             }
         });
-        final FloatingActionButton fab = (FloatingActionButton) rulesetView.findViewById(R.id.add);
+        final FloatingActionButton fab = (FloatingActionButton) layerListView.findViewById(R.id.add);
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

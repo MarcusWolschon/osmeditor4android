@@ -28,13 +28,12 @@ public class OAMCatalogView {
      */
     public static void displayLayers(@NonNull final FragmentActivity activity, final List<OAMCatalog.Entry> catalog, final BoundingBox box) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        View rulesetView = (View) LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
+        View layerListView = (View) LayoutInflater.from(activity).inflate(R.layout.oam_layer_list, null);
         dialogBuilder.setTitle(R.string.oam_layer_title);
-        dialogBuilder.setView(rulesetView);
-        ListView layerList = (ListView) rulesetView.findViewById(R.id.listViewLayer);
+        dialogBuilder.setView(layerListView);
+        ListView layerList = (ListView) layerListView.findViewById(R.id.listViewLayer);
 
         dialogBuilder.setNeutralButton(R.string.done, null);
-        dialogBuilder.setOnDismissListener(null);
         final TileLayerDatabase db = new TileLayerDatabase(activity);
         dialogBuilder.setOnDismissListener(new OnDismissListener() {
             @Override
