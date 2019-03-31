@@ -886,16 +886,7 @@ public class TrackerService extends Service implements Exportable {
                             if (tracking) {
                                 track.addTrackPoint(nmeaLocation);
                             }
-                            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-                            // only attempt to download if we have a network
-                            if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
-                                if (downloading) {
-                                    autoDownload(new Location(nmeaLocation), validator);
-                                }
-                                if (downloadingBugs) {
-                                    bugAutoDownload(new Location(nmeaLocation));
-                                }
-                            }
+                            autoLoadDataAndBugs(new Location(nmeaLocation));
                             lastLocation = nmeaLocation;
                         }
                     }
@@ -1103,20 +1094,32 @@ public class TrackerService extends Service implements Exportable {
         if (location == null) {
             return;
         }
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        // only attempt to download if we have a network
-        if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
-            if (downloading) {
-                autoDownload(location, validator);
-            }
-            if (downloadingBugs) {
-                bugAutoDownload(location);
-            }
-        }
+        autoLoadDataAndBugs(location);
         if (externalListener != null) {
             externalListener.onLocationChanged(location);
         }
         lastLocation = location;
+    }
+
+    /**
+     * Call the download/load methods for both data and bugs for the specified location
+     * 
+     * @param location the Location instance
+     */
+    private void autoLoadDataAndBugs(@NonNull Location location) {
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        // only attempt to download if we have a network or a mapsplit source
+        boolean activeNetwork = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+        if (prefs.getServer().hasMapSplitSource() || activeNetwork) {
+            if (downloading) {
+                autoDownload(location, validator);
+            }
+        }
+        if (activeNetwork) {
+            if (downloadingBugs) {
+                bugAutoDownload(location);
+            }
+        }
     }
 
     @SuppressWarnings("deprecation")
