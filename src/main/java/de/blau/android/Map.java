@@ -178,8 +178,12 @@ public class Map extends View implements IMapView {
         // Style me
         setBackgroundColor(ContextCompat.getColor(context, R.color.ccc_white));
         setDrawingCacheEnabled(false);
- 
+
         iconRadius = Density.dpToPx(ICON_SIZE_DP / 2);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
     }
 
     /**
@@ -883,9 +887,6 @@ public class Map extends View implements IMapView {
      */
     public void setPrefs(Context ctx, final Preferences aPreference) {
         prefs = aPreference;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && !prefs.hwAccelerationEnabled()) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
         TileLayerServer.setBlacklist(prefs.getServer().getCachedCapabilities().getImageryBlacklist());
         setUpLayers(ctx);
         alwaysDrawBoundingBoxes = prefs.getAlwaysDrawBoundingBoxes();
