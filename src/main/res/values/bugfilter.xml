@@ -33,8 +33,6 @@
 		<item>@string/bugfilter_osmose_error</item>
 		<item>@string/bugfilter_osmose_warning</item>
 		<item>@string/bugfilter_osmose_minor_issue</item>
-        <item>@string/bugfilter_maproulette</item>
-		<item>@string/bugfilter_custom</item>
     </string-array>
 </resources>
 
