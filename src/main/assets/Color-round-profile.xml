@@ -56,8 +56,8 @@
         <feature type="way" tags="landuse=forest" minVisibleZoom="10" color="8800BE00" />
     </feature>
     
-    <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="ff39AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
-    <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="ff0000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="leisure=pitch" updateWidth="true" widthFactor="1.0" color="8839AC39" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
+    <feature type="way" tags="leisure=swimming_pool" updateWidth="true" widthFactor="1.0" color="880000ff" style="FILL_AND_STROKE" cap="BUTT" join="MITER" />
     <feature type="way" tags="natural" updateWidth="true" widthFactor="0.5" color="ff71BE80" style="STROKE" cap="BUTT" join="MITER"> 
         <feature type="way" tags="natural=water" widthFactor="1.0" minVisibleZoom="10" color="ff0000ff" />
         <feature type="way" tags="natural=cliff" widthFactor="2.0" color="ff555555" pathPattern="triangle_right" />
