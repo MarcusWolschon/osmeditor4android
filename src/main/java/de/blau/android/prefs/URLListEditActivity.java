@@ -54,7 +54,7 @@ import de.blau.android.util.ThemeUtils;
 public abstract class URLListEditActivity extends ListActivity
         implements OnMenuItemClickListener, android.view.MenuItem.OnMenuItemClickListener, OnItemClickListener {
     private static final String DEBUG_TAG = "URLListEditActivity";
-    
+
     static final String ACTION_NEW   = "new";
     static final String EXTRA_NAME   = "name";
     static final String EXTRA_VALUE  = "value";
@@ -300,8 +300,10 @@ public abstract class URLListEditActivity extends ListActivity
      * @param item the new item
      */
     void finishEditItem(ListEditItem item) {
-        updateAdapter();
         onItemEdited(item);
+        items.clear();
+        onLoadList(items);
+        updateAdapter();
     }
 
     /**
@@ -311,8 +313,10 @@ public abstract class URLListEditActivity extends ListActivity
      */
     private void deleteItem(ListEditItem item) {
         if (items.remove(item)) {
-            updateAdapter();
             onItemDeleted(item);
+            items.clear();
+            onLoadList(items);
+            updateAdapter();
         }
     }
 
@@ -525,7 +529,6 @@ public abstract class URLListEditActivity extends ListActivity
         return addingViaIntent;
     }
 
-
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         Log.d(DEBUG_TAG, "onActivityResult");
@@ -535,7 +538,7 @@ public abstract class URLListEditActivity extends ListActivity
             SelectFile.handleResult(requestCode, data);
         }
     }
-    
+
     /**
      * The items that are displayed in the ListActivity
      */
