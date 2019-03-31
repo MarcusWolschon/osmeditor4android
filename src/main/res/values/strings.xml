@@ -313,6 +313,8 @@
     <string name="toast_untagged_way">Untagged way</string>
     <string name="toast_untagged_relation">Untagged relation</string>
     <string name="toast_unconnected_end_node">Node is near element it could be connected to</string>
+    <string name="toast_degenerate_way">Degenerate way</string>
+    <!--  -->
     <string name="toast_oauth_retry">Try uploading again after allowing OAuth access to your OSM account.</string>
     <string name="toast_oauth">Please allow OAuth access to your OSM account.</string>
     <string name="toast_no_oauth">No OAuth configuration available for current API, please set login and password.</string>

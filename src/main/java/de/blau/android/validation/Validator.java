@@ -20,6 +20,7 @@ public interface Validator {
     int INVALID_OBJECT       = 0x00000100;
     int UNTAGGED             = 0x00000200;
     int UNCONNECTED_END_NODE = 0x00000400;
+    int DEGENERATE_WAY       = 0x00000800;
 
     /**
      * Reset the state of the validator

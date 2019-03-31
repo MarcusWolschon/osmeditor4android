@@ -385,6 +385,9 @@ public class BaseValidator implements Validator {
             return Validator.INVALID_OBJECT;
         }
         int status = Validator.NOT_VALIDATED;
+        if (way.nodeCount() == 1) {
+            status = status | Validator.DEGENERATE_WAY;
+        }
         SortedMap<String, String> tags = way.getTags();
         // tag based checks
         status = validateElement(status, way, tags);
@@ -449,6 +452,9 @@ public class BaseValidator implements Validator {
         SortedMap<String, String> tags = way.getTags();
         List<String> result = new ArrayList<>();
         result.addAll(describeProblemElement(ctx, way, tags));
+        if ((way.getCachedProblems() & Validator.DEGENERATE_WAY) != 0) {
+            result.add(ctx.getString(R.string.toast_degenerate_way));
+        }
         // invalid OSM element
         if ((way.getCachedProblems() & Validator.UNTAGGED) != 0) {
             result.add(ctx.getString(R.string.toast_untagged_way));

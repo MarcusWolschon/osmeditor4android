@@ -641,11 +641,11 @@ public class ElementInfo extends ImmersiveDialogFragment {
      * Get a string with the number of nodes in a way
      * 
      * @param count the raw node count
-     * @param isClosed if true substract one
+     * @param isClosed if true subtract one
      * @return the count as a String
      */
     private String nodeCountString(int count, boolean isClosed) {
-        return Integer.toString(count + (isClosed ? -1 : 0));
+        return Integer.toString(count + (isClosed && count != 1 ? -1 : 0));
     }
 
     @Override

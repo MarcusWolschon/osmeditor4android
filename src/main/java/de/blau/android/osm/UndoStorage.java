@@ -219,7 +219,7 @@ public class UndoStorage implements Serializable {
     public String undo() {
         return undo(true);
     }
-    
+
     /**
      * Performs an undo operation, restoring the state at the last undo checkpoint. A redo checkpoint is automatically
      * created. If no checkpoint is available, an error is logged and the function does nothing.
@@ -506,7 +506,6 @@ public class UndoStorage implements Serializable {
                     apiStorage.removeElement(element);
                 }
             } catch (StorageException e) {
-                // TODO handle OOM
                 Log.e(DEBUG_TAG, "restore got " + e.getMessage());
                 return false;
             }
@@ -693,15 +692,27 @@ public class UndoStorage implements Serializable {
 
         @Override
         public boolean restore() {
+            // check that at least one node is available
+            int inStorage = 0;
+            for (Node n : nodes) {
+                if (currentStorage.contains(n)) {
+                    inStorage++;
+                }
+            }
+            if (inStorage == 0) {
+                Log.e(DEBUG_TAG, element.getDescription() + " is missing all nodes");
+                // note this still allows ways with 1 node to be created which might be necessary
+                return false;
+            }
+            // now we can restore with confidence
             boolean ok = super.restore();
             ((Way) element).nodes.clear();
             for (Node n : nodes) {
                 if (currentStorage.contains(n)) {
                     ((Way) element).nodes.add(n); // only add undeleted way nodes
                 } else {
-                    Log.e(DEBUG_TAG, n.getDescription() + " member of " + element.getDescription() + " is missing");
                     ok = false;
-                    element.setState(OsmElement.STATE_MODIFIED);
+                    element.updateState(OsmElement.STATE_MODIFIED);
                     try {
                         apiStorage.insertElementSafe(element);
                     } catch (StorageException e) {
@@ -786,7 +797,7 @@ public class UndoStorage implements Serializable {
                 } else {
                     Log.e(DEBUG_TAG, rmElement.getDescription() + " member of " + element.getDescription() + " is deleted");
                     ok = false;
-                    element.setState(OsmElement.STATE_MODIFIED);
+                    element.updateState(OsmElement.STATE_MODIFIED);
                     try {
                         apiStorage.insertElementSafe(element);
                     } catch (StorageException e) {
