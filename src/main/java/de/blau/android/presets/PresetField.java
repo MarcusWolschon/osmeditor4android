@@ -56,7 +56,7 @@ public abstract class PresetField {
      * Use last as default
      */
     UseLastAsDefault useLastAsDefault = UseLastAsDefault.FALSE;
-    
+
     /**
      * Construct a new PresetField
      * 
@@ -167,31 +167,27 @@ public abstract class PresetField {
      * 
      * @param match the match type
      */
-    public void setMatchType(String match) {
+    public void setMatchType(@NonNull String match) {
+        MatchType type = MatchType.fromString(match);
+    }
 
-        MatchType type = null;
-        switch (match) {
-        case "none":
-            type = MatchType.NONE;
-            break;
-        case "key":
-            type = MatchType.KEY;
-            break;
-        case "key!":
-            type = MatchType.KEY_NEG;
-            break;
-        case "keyvalue":
-            type = MatchType.KEY_VALUE;
-            break;
-        case "keyvalue!":
-            type = MatchType.KEY_VALUE_NEG;
-            break;
-        }
-        if (type != null) {
-            matchType = type;
-        } else {
-            Log.e(DEBUG_TAG, "setMatchType PresetField for key " + key + " is null");
-        }
+    /**
+     * Set the match type for this field
+     * 
+     * @param match the match type
+     */
+    public void setMatchType(@Nullable MatchType match) {
+        matchType = match;
+    }
+    
+    /**
+     * Get the match type for this field
+     * 
+     * @return the match type
+     */
+    @Nullable
+    public MatchType getMatchType() {
+        return matchType;
     }
 
     /**
@@ -202,7 +198,7 @@ public abstract class PresetField {
     public void setUseLastAsDefault(@NonNull UseLastAsDefault useLastAsDefault) {
         this.useLastAsDefault = useLastAsDefault;
     }
-    
+
     /**
      * Get the value of useLastAsDefault
      * 
@@ -211,7 +207,7 @@ public abstract class PresetField {
     public UseLastAsDefault getUseLastAsDefault() {
         return useLastAsDefault;
     }
-    
+
     /**
      * Method that creates a copy of the element
      * 

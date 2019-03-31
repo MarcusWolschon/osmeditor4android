@@ -33,6 +33,7 @@ import de.blau.android.contract.Files;
 import de.blau.android.contract.Paths;
 import de.blau.android.osm.OsmXml;
 import de.blau.android.osm.Tags;
+import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.presets.Preset.PresetElement;
 import de.blau.android.presets.Preset.PresetGroup;
 import de.blau.android.presets.Preset.PresetItem;
@@ -180,7 +181,9 @@ public class AutoPreset {
                                 String value = entry.getValue();
                                 if (value != null) {
                                     item.addTag(false, key, PresetKeyType.COMBO, value);
-                                    item.setEditable(key, true);
+                                    PresetComboField field = (PresetComboField) item.getField(key);
+                                    field.editable = true;
+                                    field.setMatchType(MatchType.NONE);
                                 } else {
                                     String[] s = key.split(":", 2);
                                     if (Tags.I18N_NAME_KEYS.contains(key) || (s.length == 2 && Tags.I18N_NAME_KEYS.contains(s[0]))) {

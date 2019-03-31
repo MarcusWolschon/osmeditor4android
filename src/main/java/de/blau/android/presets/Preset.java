@@ -77,6 +77,7 @@ import de.blau.android.osm.Tags;
 import de.blau.android.osm.Way;
 import de.blau.android.prefs.AdvancedPrefDatabase;
 import de.blau.android.prefs.PresetEditorActivity;
+import de.blau.android.presets.Preset.MatchType;
 import de.blau.android.util.FileUtil;
 import de.blau.android.util.Hash;
 import de.blau.android.util.SavingHelper;
@@ -244,7 +245,44 @@ public class Preset implements Serializable {
     }
 
     public enum MatchType {
-        NONE, KEY, KEY_NEG, KEY_VALUE, KEY_VALUE_NEG,
+        NONE, KEY, KEY_NEG, KEY_VALUE, KEY_VALUE_NEG;
+
+        /**
+         * Get a MatchType corresponding to the input String
+         * 
+         * @param matchString the MatchType as a String
+         * @return the MatchType or null if unknown
+         */
+        @Nullable
+        static MatchType fromString(@NonNull String matchString) {
+            MatchType type = null;
+            switch (matchString) {
+            case "none":
+                type = MatchType.NONE;
+                break;
+            case "key":
+                type = MatchType.KEY;
+                break;
+            case "key!":
+                type = MatchType.KEY_NEG;
+                break;
+            case "keyvalue":
+                type = MatchType.KEY_VALUE;
+                break;
+            case "keyvalue!":
+                type = MatchType.KEY_VALUE_NEG;
+                break;
+            }
+            if (type != null) {
+                return type;
+            }
+            return null;
+        }
+
+        @Override
+        public String toString() {
+            return this.name().toLowerCase(Locale.US);
+        }
     }
 
     public enum ValueType {
@@ -4002,6 +4040,10 @@ public class Preset implements Serializable {
                     } else if (field instanceof PresetComboField) {
                         s.startTag("", ((PresetComboField) field).isMultiSelect() ? MULTISELECT_FIELD : COMBO_FIELD);
                         s.attribute("", KEY_ATTR, k);
+                        MatchType matchType = field.getMatchType();
+                        if (matchType != null) {
+                            s.attribute("", MATCH, matchType.toString());
+                        }
                         for (StringWithDescription v : ((PresetComboField) field).getValues()) {
                             s.startTag("", LIST_ENTRY);
                             s.attribute("", VALUE, v.getValue());
