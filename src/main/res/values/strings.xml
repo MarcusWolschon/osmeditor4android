@@ -751,7 +751,7 @@
     <string name="config_enableAntiAliasing_title">Enable anti-aliasing</string>
     <string name="config_enableAntiAliasing_summary">Makes the lines smoother.</string>
     <string name="config_enableHwAcceleration_title">Enable hardware acceleration</string>
-    <string name="config_enableHwAcceleration_summary">Allows use of hardware acceleration if and where supported, may result in artifacts.</string>
+    <string name="config_enableHwAcceleration_summary">Allows use of hardware acceleration if and where supported, currently setting this has no effect.</string>
     <string name="config_maxStrokeWidth_title">Max line width</string>
     <string name="config_maxStrokeWidth_summary">Do not draw a way thicker than this.</string>
     <string name="config_maxStrokeWidth_current">%1$d px</string>
