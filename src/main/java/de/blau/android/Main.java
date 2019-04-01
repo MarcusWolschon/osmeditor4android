@@ -1098,25 +1098,27 @@ public class Main extends FullScreenAppCompatActivity
      * @param bbox the BoundingBox
      */
     public void downLoadBugs(BoundingBox bbox) {
-        Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
-        TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
-            private static final long serialVersionUID = 1L;
+        if (isConnected()) { // don't try if we are not connected
+            Progress.showDialog(this, Progress.PROGRESS_DOWNLOAD);
+            TransferTasks.downloadBox(this, prefs.getServer(), bbox, true, new PostAsyncActionHandler() {
+                private static final long serialVersionUID = 1L;
 
-            @Override
-            public void onSuccess() {
-                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-                de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
-                if (taskLayer != null) {
-                    taskLayer.setVisible(true);
+                @Override
+                public void onSuccess() {
+                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                    de.blau.android.layer.tasks.MapOverlay taskLayer = map.getTaskLayer();
+                    if (taskLayer != null) {
+                        taskLayer.setVisible(true);
+                    }
+                    getMap().invalidate();
                 }
-                getMap().invalidate();
-            }
 
-            @Override
-            public void onError() {
-                Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
-            }
-        });
+                @Override
+                public void onError() {
+                    Progress.dismissDialog(Main.this, Progress.PROGRESS_DOWNLOAD);
+                }
+            });
+        }
     }
 
     /**

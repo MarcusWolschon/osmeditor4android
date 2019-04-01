@@ -11,6 +11,7 @@ import de.blau.android.R;
 import de.blau.android.exception.UnsupportedFormatException;
 import de.blau.android.services.util.MBTileProviderDataBase;
 import de.blau.android.services.util.MapTile;
+import de.blau.android.util.collections.UnsignedSparseBitSet;
 
 public final class MapSplitSource {
 
@@ -58,11 +59,14 @@ public final class MapSplitSource {
         final int tileNeededRight = Math.max(xTileLeft, xTileRight);
         final int tileNeededTop = Math.min(yTileTop, yTileBottom);
         final int tileNeededBottom = Math.max(yTileTop, yTileBottom);
-
+        UnsignedSparseBitSet seen = new UnsignedSparseBitSet(); // track tiles that we have seen
         Storage storage = new Storage();
         MapTile mapTile = new MapTile(null, maxZoom, 0, 0);
         for (int x = tileNeededLeft; x <= tileNeededRight; x++) {
             for (int y = tileNeededBottom; y >= tileNeededTop; y--) {
+                if (seen.get(x << maxZoom | y)) {
+                    continue;
+                }
                 mapTile.zoomLevel = maxZoom;
                 mapTile.x = x;
                 mapTile.y = y;
@@ -83,11 +87,18 @@ public final class MapSplitSource {
                         if (is != null) {
                             OsmPbfParser parser = new OsmPbfParser(context, storage, box);
                             new BlockInputStream(is, parser).process();
-                            x += skipped;
-                            y += skipped;
+                            // mark smaller tiles as seen
+                            int zoomDiff = maxZoom - mapTile.zoomLevel;
+                            int originX = mapTile.x << zoomDiff;
+                            int originY = mapTile.y << zoomDiff;
+                            for (int xSeen = 0; xSeen < skipped; xSeen++) {
+                                for (int ySeen = 0; ySeen < skipped; ySeen++) {
+                                    seen.set((originX + xSeen) << maxZoom | (originY + ySeen));
+                                }
+                            }
                             break;
                         }
-                        skipped *= 2;
+                        skipped = skipped << 1;
                     }
                 }
             }
